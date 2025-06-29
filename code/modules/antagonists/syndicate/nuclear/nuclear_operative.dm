@@ -7,6 +7,8 @@
 	antag_hud_type = ANTAG_HUD_OPS
 	antag_hud_name = "hudoperative"
 	russian_wiki_name = "Ядерный_оперативник"
+	show_in_roundend = FALSE
+	show_in_orbit = FALSE
 	var/old_real_name
 	var/datum/team/nuclear_team/nuclear_team
 	var/operative_index
@@ -122,6 +124,8 @@
 /datum/antagonist/nuclear_operative/loneop
 	name = "Ядерный Оперативник - Одиночка"
 	antag_menu_name = "Ядерный Оперативник - Одиночка"
+	show_in_roundend = TRUE
+	show_in_orbit = TRUE
 	race_equipment = list(
 		SPECIES_OTHER = /datum/outfit/admin/syndicate/operative/loneop
 	)
