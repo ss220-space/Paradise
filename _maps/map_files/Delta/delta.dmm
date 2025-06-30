@@ -61925,6 +61925,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/item/clothing/suit/straight_jacket,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
