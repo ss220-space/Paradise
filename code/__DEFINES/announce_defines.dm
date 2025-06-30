@@ -8,12 +8,12 @@
 #define ANNOUNCE_KIND_AI		"A.I. Announcement"
 
 /// Security code
-#define SECURITY_CODE_GREEN		"зелёный"
-#define SECURITY_CODE_BLUE		"синий"
-#define SECURITY_CODE_RED		"красный"
-#define SECURITY_CODE_GAMMA		"гамма"
-#define SECURITY_CODE_EPSILON	"эпсилон"
-#define SECURITY_CODE_DELTA		"дельта"
+#define SECURITY_CODE_GREEN		"green"
+#define SECURITY_CODE_BLUE		"blue"
+#define SECURITY_CODE_RED		"red"
+#define SECURITY_CODE_GAMMA		"gamma"
+#define SECURITY_CODE_EPSILON	"epsilon"
+#define SECURITY_CODE_DELTA		"delta"
 
 // We separate the title define from logging.
 #define ANNOUNCE_DEFAULT_RU		"Объявление"

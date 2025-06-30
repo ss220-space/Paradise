@@ -46,11 +46,12 @@ GLOBAL_LIST_EMPTY(firealarms)
 	if(istype(get_area(src), /area))
 		LAZYADD(GLOB.station_fire_alarms["[z]"], src)
 
+	myArea = get_area(src)
+	LAZYADD(myArea.firealarms, src)
+
 	if(is_station_contact(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
-	myArea = get_area(src)
-	LAZYADD(myArea.firealarms, src)
 	update_fire_light()
 	update_icon()
 
