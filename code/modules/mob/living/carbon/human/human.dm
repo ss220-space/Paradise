@@ -1,4 +1,3 @@
-#define COMSIG_CARBON_NUTRITION_UPDATE "carbon_nutrition_update"
 /mob/living/carbon/human
     var/toolspeedmod = 0
 
