@@ -124,8 +124,8 @@
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
 			visible_message(
-				span_notice("[src] makes a hard landing on [impacted_turf] but remains unharmed from the fall."),
-				span_notice("You brace for the fall. You make a hard landing on [impacted_turf], but remain unharmed."),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[pluralize_ru(src.gender,"ётся","ются")] невредим[genderize_ru(src.gender,"","а","о","ы")] после падения."),
+				span_notice("Вы жёство приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётесь невредимы."),
 			)
 			AdjustWeakened((levels * 4 SECONDS))
 			return . | ZIMPACT_NO_MESSAGE
@@ -144,14 +144,14 @@
 		skip_weaken = TRUE
 		if(cat || HAS_TRAIT(src, TRAIT_DWARF)) // lil' bounce kittens
 			visible_message(
-				span_notice("[src] makes a hard landing on [impacted_turf], but lands safely on [p_their()] feet!"),
-				span_notice("You make a hard landing on [impacted_turf], but land safely on your feet!"),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[pluralize_ru(src.gender,"ет","ют")] на ноги!"),
+				span_notice("Вы жёстко приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакиваете на ноги!"),
 			)
 			return .
 		incoming_damage *= 1.2 // at least no stuns
 		visible_message(
-			span_danger("[src] makes a hard landing on [impacted_turf], landing on [p_their()] feet painfully!"),
-			span_userdanger("You make a hard landing on [impacted_turf], and instinctively land on your feet - still painfully!"),
+			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[pluralize_ru(src.gender,"ёт","ют")] на ноги!"),
+			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)]] и рефлекторно встаёте на ноги — это больно!"),
 		)
 
 	if(body_position != LYING_DOWN)
@@ -198,8 +198,8 @@
 		bumped_mob.Weaken(1 SECONDS)
 		bumped_mob.take_organ_damage(rand(5, 10))
 		visible_message(
-			span_danger("[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [bumped_mob.name], сбивая друг друга с ног!"),
-			span_userdanger("Вы жестко врезаетесь в [bumped_mob.name]!"),
+			span_danger("[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [bumped_mob.declent_ru(ACCUSATIVE)], сбивая друг друга с ног!"),
+			span_userdanger("Вы жестко врезаетесь в [bumped_mob.declent_ru(ACCUSATIVE)]!"),
 		)
 		playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
 		return TRUE
@@ -219,12 +219,12 @@
 
 	if(bumped_mob.pulledby && bumped_mob.pulledby != src && HAS_TRAIT(bumped_mob, TRAIT_RESTRAINED))
 		if(!(world.time % 5))
-			to_chat(src, span_warning("[bumped_mob] is restrained, you cannot push past!"))
+			to_chat(src, span_warning("[bumped_mob.declent_ru(NOMINATIVE)] сопротивляется, вы не можете пройти!"))
 		return TRUE
 
 	if(isliving(bumped_mob.pulling) && HAS_TRAIT(bumped_mob.pulling, TRAIT_RESTRAINED))
 		if(!(world.time % 5))
-			to_chat(src, span_warning("[bumped_mob] is restrained, you cannot push past!"))
+			to_chat(src, span_warning("[bumped_mob.declent_ru(NOMINATIVE)] сопротивляется, вы не можете пройти!"))
 		return TRUE
 
 	if(moving_diagonally) //no mob swap during diagonal moves.
@@ -305,8 +305,8 @@
 		Weaken(1 SECONDS)
 		take_organ_damage(rand(5, 10))
 		visible_message(
-			span_danger("[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [object.name]!"),
-			span_userdanger("Вы жестко врезаетесь в [object.name]!"),
+			span_danger("[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [object.declent_ru(ACCUSATIVE)]!"),
+			span_userdanger("Вы жестко врезаетесь в [object.declent_ru(ACCUSATIVE)]!"),
 		)
 		playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
 
@@ -424,7 +424,7 @@
 		CRASH("Missing target arg for can_perform_action")
 
 	if(stat != CONSCIOUS)
-		to_chat(src, span_warning("You are not conscious enough for this action!"))
+		to_chat(src, span_warning("Вы ещё не совсем осознаёте происходящее!"))
 		return FALSE
 
 	if(!(action_bitflags & BYPASS_INCAPACITATED)) // should be interaction_flags_atom, but we haven't implemented yet and won't
@@ -435,56 +435,56 @@
 			ignore_flags |= INC_IGNORE_GRABBED
 
 		if(incapacitated(ignore_flags))
-			to_chat(src, span_warning("You are incapacitated at the moment!"))
+			to_chat(src, span_warning("Вы сейчас недееспособны!"))
 			return FALSE
 
 	// If the MOBILITY_UI bitflag is not set it indicates the mob's hands are cutoff, blocked, or handcuffed
 	// Note - AI's and borgs have the MOBILITY_UI bitflag set even though they don't have hands
 	// Also if it is not set, the mob could be incapcitated, knocked out, unconscious, asleep, EMP'd, etc.
 	if(!(mobility_flags & MOBILITY_UI) && !(action_bitflags & ALLOW_RESTING))
-		to_chat(src, span_warning("You don't have the mobility for this!"))
+		to_chat(src, span_warning("Вы недостаточно подвижны для этого!"))
 		return FALSE
 
 	// NEED_HANDS is already checked by MOBILITY_UI for humans so this is for silicons
 	if((action_bitflags & NEED_HANDS))
 		if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-			to_chat(src, span_warning("You hands are blocked for this action!"))
+			to_chat(src, span_warning("Ваши руки заблокированы для этого действия!"))
 			return FALSE
 		if(!usable_hands) // almost redundant if it weren't for mobs
-			to_chat(src, span_warning("You don't have the hands for this action!"))
+			to_chat(src, span_warning("У вас нет рук для этого действия!"))
 			return FALSE
 
 	if(!(action_bitflags & ALLOW_PAI) && ispAI(src))
-		to_chat(src, span_warning("Your holochasis does not allow you to do this!"))
+		to_chat(src, span_warning("Ваш голокорпус не позволяет это сделать!"))
 		return FALSE
 
 	if(!(action_bitflags & BYPASS_ADJACENCY) && ((action_bitflags & NOT_INSIDE_TARGET) || !Adjacent(target)))
 		if(has_unlimited_silicon_privilege && !ispAI(src))
 			if(!(action_bitflags & ALLOW_SILICON_REACH)) // silicons can ignore range checks (except pAIs)
 				if(!(action_bitflags & SILENT_ADJACENCY))
-					to_chat(src, span_warning("You are too far away!"))
+					to_chat(src, span_warning("Вы слишком далеко!"))
 				return FALSE
 		else // just a normal carbon mob
 			if((action_bitflags & FORBID_TELEKINESIS_REACH))
 				if(!(action_bitflags & SILENT_ADJACENCY))
-					to_chat(src, span_warning("You are too far away!"))
+					to_chat(src, span_warning("Вы слишком далеко!"))
 				return FALSE
 
 			if(!HAS_TRAIT(src, TRAIT_TELEKINESIS))
 				if(!(action_bitflags & SILENT_ADJACENCY))
-					to_chat(src, span_warning("You are too far away!"))
+					to_chat(src, span_warning("Вы слишком далеко!"))
 				return FALSE
 
 	if((action_bitflags & NEED_VENTCRAWL) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS))
-		to_chat(src, span_warning("You wouldn't fit!"))
+		to_chat(src, span_warning("Вы не поместитесь!"))
 		return FALSE
 
 	if((action_bitflags & NEED_DEXTERITY) && !IsAdvancedToolUser(src))
-		to_chat(src, span_warning("You don't have the dexterity to do this!"))
+		to_chat(src, span_warning("У вас недостаточно ловкости для этого!"))
 		return FALSE
 
 	if((action_bitflags & NEED_LITERACY) && !is_literate())
-		to_chat(src, span_warning("You can't comprehend any of this!"))
+		to_chat(src, span_warning("Вы не можете это осознать!"))
 		return FALSE
 
 	return TRUE
@@ -1188,7 +1188,7 @@
 *///////////////////////
 
 /mob/living/proc/Exhaust()
-	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
+	to_chat(src, span_notice("Вы слишком истощены, чтобы продолжать..."))
 	Weaken(10 SECONDS)
 
 
@@ -1469,7 +1469,7 @@
 	if(user.a_intent != INTENT_HARM || stat != DEAD || !is_sharp(I) || (!butcher_results && !is_monkeybasic(src))) //can we butcher it?
 		return FALSE
 	. = TRUE
-	to_chat(user, span_notice("You begin to butcher [src]..."))
+	to_chat(user, span_notice("Вы начинаете разделывать [declent_ru(ACCUSATIVE)]..."))
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 	if(!do_after(user, I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size), src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
 		return .
@@ -1483,13 +1483,13 @@
 		for(var/i in 1 to butcher_results[path])
 			new path(loc)
 		butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
-	visible_message(span_notice("[user] butchers [src]."))
+	visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] разделывает [declent_ru(ACCUSATIVE)]."))
 	gib()
 
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(src, span_warning("У вас недостаточно ловкости для этого!"))
 		return 0
 	return 1
 
@@ -1890,7 +1890,7 @@
 	forced_look = track ? A.UID() : get_cardinal_dir(src, A)
 	setDir()
 	add_movespeed_modifier(/datum/movespeed_modifier/forced_look)
-	to_chat(src, span_userdanger("You are now facing [track ? A : dir2text(forced_look)]. To cancel this, shift-middleclick yourself."))
+	to_chat(src, span_userdanger("Вы теперь смотрите в направлении [track ? A : dir2text(forced_look)]. Чтобы отменить, Shift+СКМ по себе."))
 	throw_alert(ALERT_DIRECTION_LOCK, /atom/movable/screen/alert/direction_lock)
 
 
@@ -1906,7 +1906,7 @@
 	forced_look = null
 	remove_movespeed_modifier(/datum/movespeed_modifier/forced_look)
 	if(!quiet)
-		to_chat(src, span_notice("Cancelled direction lock."))
+		to_chat(src, span_notice("Блокировка направления отменена."))
 	clear_alert(ALERT_DIRECTION_LOCK)
 
 
@@ -2099,24 +2099,24 @@
 	if(new_resting)
 		if(body_position == LYING_DOWN)
 			if(!silent)
-				to_chat(src, span_notice("You will now try to stay lying down on the floor."))
+				to_chat(src, span_notice("Теперь вы будете стараться оставаться в положении лёжа."))
 		else if(HAS_TRAIT(src, TRAIT_FORCED_STANDING) || (buckled && buckled.buckle_lying != NO_BUCKLE_LYING))
 			if(!silent)
-				to_chat(src, span_notice("You will now lay down as soon as you are able to."))
+				to_chat(src, span_notice("Вы ляжете при первой возможности."))
 		else
 			if(!silent)
-				to_chat(src, span_notice("You lay down."))
+				to_chat(src, span_notice("Вы ложитесь."))
 			set_lying_on_rest(instant)
 	else
 		if(body_position == STANDING_UP)
 			if(!silent)
-				to_chat(src, span_notice("You will now try to remain standing up."))
+				to_chat(src, span_notice("Теперь вы будете стараться оставаться в положении стоя."))
 		else if(HAS_TRAIT(src, TRAIT_FLOORED) || (buckled && buckled.buckle_lying != NO_BUCKLE_LYING))
 			if(!silent)
-				to_chat(src, span_notice("You will now stand up as soon as you are able to."))
+				to_chat(src, span_notice("Вы встанете при первой возможности."))
 		else
 			if(!silent)
-				to_chat(src, span_notice("You stand up."))
+				to_chat(src, span_notice("Вы встаёте."))
 			get_up(instant)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, new_resting, silent, instant)
@@ -2299,24 +2299,24 @@
 
 /mob/living/proc/do_succumb(cancel_on_no_words)
 	if(stat == DEAD)
-		to_chat(src, span_notice("It's too late, you're already dead!"))
+		to_chat(src, span_notice("Слишком поздно, вы уже мертвы!"))
 		return
 	if(health >= HEALTH_THRESHOLD_CRIT)
-		to_chat(src, span_warning("You are unable to succumb to death! This life continues!"))
+		to_chat(src, span_warning("Вы не можете сдаться смерти! Эта жизнь продолжается!"))
 		return
 
 	last_words = null // In case we kept some from last time
-	var/final_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
+	var/final_words = tgui_input_text(src, "Каковы ваши последние слова?", "Goodnight, Sweet Prince", encode = FALSE)
 
 	if(isnull(final_words) && cancel_on_no_words)
-		to_chat(src, span_notice("You decide you aren't quite ready to die."))
+		to_chat(src, span_notice("Вы решаете, что ещё не готовы умирать."))
 		return
 
 	if(stat == DEAD)
 		return
 
 	if(health >= HEALTH_THRESHOLD_CRIT)
-		to_chat(src, span_warning("You are unable to succumb to death! This life continues!"))
+		to_chat(src, span_warning("Вы не можете сдаться смерти! Эта жизнь продолжается!"))
 		return
 
 	if(!isnull(final_words))
@@ -2336,7 +2336,7 @@
 		addtimer(CALLBACK(src, PROC_REF(death)), 1 SECONDS)
 	else
 		death()
-	to_chat(src, span_notice("You have given up life and succumbed to death."))
+	to_chat(src, span_notice("Вы сдаётесь и принимаете смерть."))
 	apply_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)
 
 /// Updates damage slowdown accordingly to the current health
@@ -2361,7 +2361,7 @@
 			spell.revert_cast()
 			. |= RECHARGE_SUCCESSFUL
 
-	to_chat(src, span_notice("You feel [(. & RECHARGE_SUCCESSFUL) ? "raw magical energy flowing through you, it feels good!" : "very strange for a moment, but then it passes."]"))
+	to_chat(src, span_notice("Вы чувствуете [(. & RECHARGE_SUCCESSFUL) ? "поток магической энергии, это приятно!" : "себя очень странно на мгновение, но это проходит."]"))
 
 /mob/living/proc/set_name()
 	if(numba == 0)

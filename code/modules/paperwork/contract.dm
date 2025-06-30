@@ -45,6 +45,7 @@
 	var/datum/mind/owner
 	icon_state = "evil_contract"
 	joinable = FALSE
+	var/close_button
 	var/static/soulless_text = "Бездушные существа не могут видеть условия данного договора.<br>\
 	Данный контракт гарантирует, что обещанное в нём благо будет получено подписавшим его существом."
 
@@ -55,6 +56,7 @@
 	target = nTarget
 	src.contract = contract
 	name = "адский контракт [contract.contract_subject]"
+	close_button = "<a href='byond://?src=[UID()];close_contract=1' class='close-button'>✖</a>"
 	ru_names = list(
 		NOMINATIVE = "адский контракт [contract.contract_subject]",
 		GENITIVE = "адского контракта [contract.contract_subject]",
@@ -79,8 +81,8 @@
 
 /obj/item/paper/contract/infernal/update_text()
 	var/datum/asset/simple/namespaced/contracts/contracts_asset = get_asset_datum(/datum/asset/simple/namespaced/contracts)
-	info = "\
-	<a href='byond://?src=[UID()];close_contract=1' class='close-button'>✖</a>\
+	info = close_button
+	info +="\
 	<link rel='stylesheet' type='text/css' href='[contracts_asset.get_url_mappings()["contract_styles.css"]]'>\
 	<div class='contract-container'>\
 	<div class='contract-title'>Контракт [contract.contract_subject]</div>\
@@ -104,7 +106,7 @@
 /obj/item/paper/contract/infernal/show_content(mob/user, forceshow, forcestars, infolinks, view)
 	var/datum/asset/simple/namespaced/contracts/contracts_asset = get_asset_datum(/datum/asset/simple/namespaced/contracts)
 	contracts_asset.send(user)
-	. = ..(user, forceshow, forcestars, infolinks, view, "can_minimize=0;auto_format=0;titlebar=0;can_resize=0;", ((user.mind.hasSoul)? null : soulless_text))
+	. = ..(user, forceshow, forcestars, infolinks, view, "can_minimize=0;auto_format=0;titlebar=0;can_resize=0;", ((user.mind.hasSoul)? null : close_button + soulless_text))
 	if(!signed)
 		balloon_alert(owner.current, "контракт не подписан!")
 

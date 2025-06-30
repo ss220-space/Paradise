@@ -67,13 +67,13 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 /datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return
-	var/message = tgui_input_text(owner, "Resonate a message to all nearby golems.", "Resonate")
+	var/message = tgui_input_text(owner, "Отправить резонирующее сообщение всем ближайшим големам.", "Резонанс")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
 	owner.say(".~[message]")
 
 /obj/item/organ/internal/vocal_cords/adamantine/handle_speech(list/message_pieces)
-	var/msg = span_resonate("[span_name(owner.real_name)] <span class='message'>resonates, \"[capitalize(multilingual_to_message(message_pieces))]\"</span>")
+	var/msg = span_resonate(span_name(owner.real_name) [span_message("резонирует: \"[capitalize(multilingual_to_message(message_pieces))]\"")])
 	for(var/m in GLOB.player_list)
 		if(iscarbon(m))
 			var/mob/living/carbon/C = m
@@ -117,9 +117,9 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	. = ..()
 	if(!IsAvailable())
 		if(world.time < cords.next_command)
-			to_chat(owner, span_notice("You must wait [(cords.next_command - world.time)/10] seconds before Speaking again."))
+			to_chat(owner, span_notice("Вы должны подождать ещё [(cords.next_command - world.time)/10] сек. перед следующим Словом."))
 		return
-	var/command = tgui_input_text(owner, "Speak with the Voice of God", "Command")
+	var/command = tgui_input_text(owner, "Изречь Глас Божий", "Команда")
 	if(!command)
 		return
 	owner.say(".~[command]")
@@ -129,12 +129,12 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 /obj/item/organ/internal/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
-		to_chat(owner, span_notice("You must wait [(next_command - world.time)/10] seconds before Speaking again."))
+		to_chat(owner, span_notice("Вы должны подождать [(next_command - world.time)/10] секунд перед следующим Словом."))
 		return FALSE
 	if(!owner)
 		return FALSE
 	if(!owner.can_speak())
-		to_chat(owner, span_warning("You are unable to speak!"))
+		to_chat(owner, span_warning("Вы не можете говорить!"))
 		return FALSE
 	if(owner.stat)
 		return FALSE
