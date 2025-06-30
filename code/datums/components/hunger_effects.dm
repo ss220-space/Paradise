@@ -1,5 +1,3 @@
-#define COMSIG_CARBON_NUTRITION_UPDATE "carbon_nutrition_update"
-#define COMSIG_LIVING_LIFE "living_life"
 /datum/component/hunger_effects
 	var/datum/hunger_level/current_level
 
