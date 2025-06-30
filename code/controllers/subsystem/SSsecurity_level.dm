@@ -109,14 +109,13 @@ SUBSYSTEM_DEF(security_level)
 			new_sound = selected_level.elevating_to_sound,
 			new_sound2 = selected_level.ai_announcement_sound
 		)
-		return
-
-	GLOB.security_announcement.Announce(
-		selected_level.lowering_to_announcement_text,
-		selected_level.lowering_to_announcement_title,
-		new_sound = selected_level.lowering_to_sound,
-		new_sound2 = selected_level.ai_announcement_sound
-	)
+	else
+		GLOB.security_announcement.Announce(
+			selected_level.lowering_to_announcement_text,
+			selected_level.lowering_to_announcement_title,
+			new_sound = selected_level.lowering_to_sound,
+			new_sound2 = selected_level.ai_announcement_sound
+		)
 /**
  * Returns the current security level as a number
  * In case the subsystem hasn't finished initializing yet, returns default security level
