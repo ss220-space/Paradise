@@ -188,6 +188,12 @@
 		return
 	toggle_breaker(user)
 
+/obj/machinery/power/apc/AIShiftClick(mob/living/user) // Bolt all Airlocks in APC room.
+	if(!can_use(user))
+		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		return
+	for(var/obj/machinery/door/airlock/A in area.machinery_cache)
+		A.AICtrlClick(user)
 
 // TURRETCONTROL
 
