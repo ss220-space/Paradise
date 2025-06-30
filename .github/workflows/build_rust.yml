@@ -5,6 +5,8 @@ on:
 
 jobs:
   build-rust:
+    permissions:
+      contents: write 
     if: |
       github.event.issue.pull_request &&
       github.event.comment.body == '!build_rust' &&
