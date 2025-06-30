@@ -65,7 +65,7 @@
 		return
 
 	if(!ishuman(user))
-		balloon_alert(user, "не подходящее телосложение!")
+		balloon_alert(user, "неподходящее телосложение!")
 		return
 
 	if(in_use)
