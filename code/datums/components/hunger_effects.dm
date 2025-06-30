@@ -37,11 +37,11 @@
 			multiplicative_slowdown = current_level.move_mod
 		)
 	var/base_toolspeed = target.dna.species.toolspeedmod
-	target.toolspeedmod = base_toolspeed + (current_level?.tool_mod || 0)
-	if(target.toolspeedmod != base_toolspeed)
+	var/new_toolspeed = base_toolspeed + (current_level?.tool_mod || 0)
+	if(new_toolspeed != base_toolspeed)
 		target.add_or_update_variable_actionspeed_modifier(
 			/datum/actionspeed_modifier/species_tool_mod,
-			multiplicative_slowdown = target.toolspeedmod
+			multiplicative_slowdown = new_toolspeed
 		)
 	else
 		target.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
