@@ -623,3 +623,12 @@ GLOBAL_LIST_EMPTY(closets)
 	if(loc)
 		UpdateTransparency()
 
+/obj/structure/closet/bullet_act(obj/projectile/P)
+	. = ..()
+	var/list/carbons = list()
+	for(var/mob/living/carbon/C in contents)
+		if (istype(C))
+			carbons += C
+	if (length(carbons) > 0)
+		var/mob/living/carbon/randomCarbon = pick(carbons)
+		randomCarbon.bullet_act(P)
