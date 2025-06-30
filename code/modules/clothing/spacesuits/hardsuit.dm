@@ -850,20 +850,6 @@
 			return TRUE
 	return ..()
 
-/obj/effect/anomaly/attack_hand(mob/user, list/modifiers)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = H.head
-		var/obj/item/clothing/suit/space/hardsuit/anom/suit = H.wear_suit
-		if(istype(helmet) && istype(suit) && helmet.scanner_active)
-			if(H.incapacitated() || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
-				return TRUE
-			if(H.l_hand || H.r_hand)
-				return TRUE
-			helmet.integrated_scanner.scan(src)
-			helmet.integrated_scanner.show(H)
-			return TRUE
-	return ..()
 
 /mob/living/carbon/ClickOn(atom/A, params)
 	if(!istype(A, /obj/effect/anomaly))
