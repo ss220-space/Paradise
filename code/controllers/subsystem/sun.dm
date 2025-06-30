@@ -6,51 +6,35 @@ SUBSYSTEM_DEF(sun)
 	offline_implications = "Solar panels will no longer rotate. No immediate action is needed."
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "sun"
-	var/angle
-	var/dx
-	var/dy
-	var/rate
-	var/list/solars	= list()
 	var/solar_gen_rate = 1500
 
 
 /datum/controller/subsystem/sun/Initialize()
-	// Lets work out an angle for the "sun" to rotate around the station
-	angle = rand (0,360)			// the station position to the sun is randomised at round start
-	rate = rand(50,200)/100			// 50% - 200% of standard rotation
-	if(prob(50))					// same chance to rotate clockwise than counter-clockwise
-		rate = -rate
-
-	// Solar consoles need to load after machines init, so this handles that
-	for(var/obj/machinery/power/solar_control/SC in solars)
-		SC.setup()
+	RUSTLIB_CALL(sun_subsystem_initialize)
 	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/sun/get_stat_details()
-	return "P:[length(solars)]"
+	return "P:[get_solars_length()]"
 
 
 /datum/controller/subsystem/sun/fire()
-	angle = (360 + angle + rate * 6) % 360	 // increase/decrease the angle to the sun, adjusted by the rate
+	RUSTLIB_CALL(sun_subsystem_fire)
 
-	// now calculate and cache the (dx,dy) increments for line drawing
-	var/s = sin(angle)
-	var/c = cos(angle)
+/datum/controller/subsystem/sun/proc/get_angle()
+	return RUSTLIB_CALL(get_sun_angle)
 
-	// Either "abs(s) < abs(c)" or "abs(s) >= abs(c)"
-	// In both cases, the greater is greater than 0, so, no "if 0" check is needed for the divisions
+/datum/controller/subsystem/sun/proc/add_solar(obj/machinery/power/solar_control/solar)
+	return RUSTLIB_CALL(add_solar, solar, solar.get_num_uid())
 
-	if(abs(s) < abs(c))
-		dx = s / abs(c)
-		dy = c / abs(c)
-	else
-		dx = s / abs(s)
-		dy = c / abs(s)
+/datum/controller/subsystem/sun/proc/remove_solar(obj/machinery/power/solar_control/solar)
+	return RUSTLIB_CALL(remove_solar, solar.get_num_uid())
 
-	//now tell the solar control computers to update their status and linked devices
-	for(var/obj/machinery/power/solar_control/SC in solars)
-		if(!SC.powernet)
-			solars.Remove(SC)
-			continue
-		SC.update()
+/datum/controller/subsystem/sun/proc/get_solars_length()
+	return RUSTLIB_CALL(get_solars_length)
+
+/datum/controller/subsystem/sun/proc/get_dy()
+	return RUSTLIB_CALL(get_sun_dy)
+
+/datum/controller/subsystem/sun/proc/get_dx()
+	return RUSTLIB_CALL(get_sun_dx)
