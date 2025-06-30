@@ -185,7 +185,7 @@
 	if(plr)
 		M.ckey = plr.ckey
 		if(flavour)
-			to_chat(M, "[flavour_text]")
+			to_chat(M, chat_box_notice(flavour_text))
 		var/datum/mind/MM = M.mind
 		if(objectives)
 			for(var/objective in objectives)
@@ -658,7 +658,7 @@
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
 	description = "Застряв на Лаваленде, вы можете попытаться вернуться к цивилизации... или подавать напитки тем, кто забредёт к вам."
-	flavour_text = "Вы космический бармен! Время смешивать напитки и менять жизни. Погодите, куда это ваш бар только что переместился?"
+	flavour_text = "Вы космический бармен!\nВремя смешивать напитки и менять жизни. Погодите, куда это ваш бар только что переместился?"
 	assignedrole = "Space Bartender"
 
 /obj/effect/mob_spawn/human/bartender/special(mob/living/carbon/human/H)
@@ -666,7 +666,7 @@
 	return ..()
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
-	flavour_text = "Вы бодрый спасатель! Ваша задача — следить, чтобы никто не утонул и не стал обедом для акул. Но внезапно весь ваш пляж перенёсся в этот странный ад. Вы не готовы к такому, но всё равно будете защищать своих гостей!"
+	flavour_text = "Вы бодрый спасатель!\nВаша задача — следить, чтобы никто не утонул и не стал обедом для акул.\nНо внезапно весь ваш пляж перенёсся в этот странный ад. Вы не готовы к такому, но всё равно будете защищать своих гостей!"
 	description = "Попытайтесь выжить на Лаваленде с жалким снаряжением спасателя. Или спрячьтесь в своём биодоме."
 	mob_gender = FEMALE
 	name = "lifeguard sleeper"
@@ -698,7 +698,7 @@
 	name = "beach bum sleeper"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "Вы просто обожаете пляж! Случилось что-то странное, но вы слишком расслаблены, чтобы беспокоиться."
+	flavour_text = "Вы просто обожаете пляж!\nСлучилось что-то странное, но вы слишком расслаблены, чтобы беспокоиться."
 	description = "Попытайтесь выжить на Лаваленде или просто наслаждайтесь пляжем, ожидая посетителей."
 	assignedrole = "Beach Bum"
 

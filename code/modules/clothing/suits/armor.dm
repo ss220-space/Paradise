@@ -668,7 +668,15 @@
 	name = "drake armour"
 	icon_state = "dragon"
 	item_state = "dragon"
-	desc = "A suit of armour fashioned from the remains of an ash drake."
+	desc = "Доспехи, созданные из останков пепельного дракона."
+	ru_names = list(
+		NOMINATIVE = "доспех из дрейка",
+		GENITIVE = "доспеха из дрейка",
+		DATIVE = "доспеху из дрейка",
+		ACCUSATIVE = "доспех из дрейка",
+		INSTRUMENTAL = "доспехом из дрейка",
+		PREPOSITIONAL = "доспехе из дрейка"
+	)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 40, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
 	hoodtype = /obj/item/clothing/head/hooded/drake
@@ -690,7 +698,15 @@
 	name = "drake helmet"
 	icon_state = "dragon"
 	item_state = "dragon"
-	desc = "The skull of a dragon."
+	desc = "Череп дрейка."
+	ru_names = list(
+		NOMINATIVE = "шлем из дрейка",
+		GENITIVE = "шлема из дрейка",
+		DATIVE = "шлему из дрейка",
+		ACCUSATIVE = "шлем из дрейка",
+		INSTRUMENTAL = "шлемом из дрейка",
+		PREPOSITIONAL = "шлеме из дрейка"
+	)
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 40, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -702,7 +718,15 @@
 	name = "goliath cloak"
 	icon_state = "goliath_cloak"
 	item_state = "goliath_cloak"
-	desc = "A staunch, practical cape made out of numerous monster materials, it is coveted amongst exiles & hermits."
+	desc = "Прочный и практичный плащ, созданный из различных материалов, добытых из монстров. Он пользуется большим спросом у тех, кто ведёт жизнь отшельника или изгнанника."
+	ru_names = list(
+		NOMINATIVE = "накидка из голиафа",
+		GENITIVE = "накидки из голиафа",
+		DATIVE = "накидке из голиафа",
+		ACCUSATIVE = "накидку из голиафа",
+		INSTRUMENTAL = "накидкой из голиафа",
+		PREPOSITIONAL = "накидке из голиафа"
+	)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
@@ -712,7 +736,15 @@
 	name = "goliath cloak hood"
 	icon_state = "golhood"
 	item_state = "golhood"
-	desc = "A protective & concealing hood."
+	desc = "Защитный и скрывающий капюшон."
+	ru_names = list(
+		NOMINATIVE = "капюшон накидки из голиафа",
+		GENITIVE = "капюшона накидки из голиафа",
+		DATIVE = "капюшону накидки из голиафа",
+		ACCUSATIVE = "капюшон накидки из голиафа",
+		INSTRUMENTAL = "капюшоном накидки из голиафа",
+		PREPOSITIONAL = "капюшоне накидки из голиафа"
+	)
 	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
@@ -726,7 +758,15 @@
 	name = "shaman skull"
 	icon_state = "shamskull"
 	item_state = "shamskull"
-	desc = "The skull of a long dead animal bolted to the front of a repurposed pan."
+	desc = "К передней части переделанного шлема прикрутили череп какого-то дохлого зверя."
+	ru_names = list(
+		NOMINATIVE = "череп шамана",
+		GENITIVE = "черепа шамана",
+		DATIVE = "черепу шамана",
+		ACCUSATIVE = "череп шамана",
+		INSTRUMENTAL = "черепом шамана",
+		PREPOSITIONAL = "черепе шамана"
+	)
 	armor = list("melee" = 60, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 60)
 	magical = TRUE
 
@@ -743,7 +783,15 @@
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
-	desc = "A tribal armor plate, crafted from animal bone."
+	desc = "Племенной доспех, созданный из костей животных."
+	ru_names = list(
+		NOMINATIVE = "костяная броня",
+		GENITIVE = "костяной брони",
+		DATIVE = "костяной броне",
+		ACCUSATIVE = "костяную броню",
+		INSTRUMENTAL = "костяной броней",
+		PREPOSITIONAL = "костяной броне"
+	)
 	icon_state = "bonearmor"
 	item_state = "bonearmor"
 	blood_overlay_type = "armor"

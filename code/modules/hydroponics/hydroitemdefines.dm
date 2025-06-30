@@ -71,7 +71,7 @@
 
 /obj/item/cultivator
 	name = "cultivator"
-	desc = "It's used for removing weeds or scratching your back."
+	desc = "Их используют, чтобы удалить сорняки или почесать спину."
 	icon_state = "cultivator"
 	item_state = "cultivator"
 	belt_icon = "cultivator"
@@ -87,6 +87,14 @@
 
 /obj/item/cultivator/rake
 	name = "rake"
+	ru_names = list(
+		NOMINATIVE = "грабли",
+		GENITIVE = "граблей",
+		DATIVE = "граблям",
+		ACCUSATIVE = "грабли",
+		INSTRUMENTAL = "граблями",
+		PREPOSITIONAL = "граблях"
+	)
 	icon_state = "rake"
 	toolspeed = 1
 	belt_icon = null
