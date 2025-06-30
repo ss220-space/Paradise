@@ -73,7 +73,7 @@
 		return
 
 	if(IS_HORIZONTAL(user))
-		balloon_alert(user, "сначала встаньте")
+		balloon_alert(user, "сначала встаньте!")
 		return
 
 	if(get_dist(user, src) > 1 || user.z != src.z)
