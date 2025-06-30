@@ -108,7 +108,7 @@
 
 
 
-/datum/species/monkey/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+/datum/species/monkey/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, STRENGTH_LEVEL_WEAK, STRENGTH_LEVEL_STRONG, can_become_stronger)
 
 

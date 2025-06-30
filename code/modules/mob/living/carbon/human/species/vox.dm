@@ -121,7 +121,7 @@
 	add_verb(H, /mob/living/carbon/human/proc/emote_quill)
 
 
-/datum/species/vox/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+/datum/species/vox/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, STRENGTH_LEVEL_STRONG, can_become_stronger)
 
 

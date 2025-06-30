@@ -106,7 +106,7 @@
 	add_verb(human, /mob/living/carbon/human/proc/emote_hum)
 
 
-/datum/species/drask/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+/datum/species/drask/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, STRENGTH_LEVEL_IDEAL, STRENGTH_LEVEL_SUPERHUMAN)
 
 

@@ -1,5 +1,5 @@
-/datum/component/musculs
-	/// Max level of strength for this musculs owner.
+/datum/component/muscles
+	/// Max level of strength for this muscles owner.
 	var/max_species_strength = STRENGTH_LEVEL_IDEAL
 	/// If FALSE, strength of body can't be changed.
 	var/can_become_stronger = TRUE
@@ -9,7 +9,7 @@
 	var/strength_points = 0
 
 
-/datum/component/musculs/Initialize(max_species_strength = STRENGTH_LEVEL_MAXDEFAULT, default_strength = STRENGTH_LEVEL_DEFAULT, can_become_stronger = TRUE)
+/datum/component/muscles/Initialize(max_species_strength = STRENGTH_LEVEL_MAXDEFAULT, default_strength = STRENGTH_LEVEL_DEFAULT, can_become_stronger = TRUE)
 	..()
 	var/datum/physiology/physiology = parent
 	if(!ishuman(physiology.owner))
@@ -20,7 +20,7 @@
 	src.can_become_stronger = can_become_stronger
 
 
-/datum/component/musculs/RegisterWithParent()
+/datum/component/muscles/RegisterWithParent()
 	var/datum/physiology/physiology = parent
 	var/mob/living/owner = physiology.owner
 	RegisterSignal(owner, COMSIG_GET_GRAB_SPEED_MODIFIERS, PROC_REF(get_strength_grab_speed_modifier))
@@ -32,7 +32,7 @@
 	RegisterSignal(owner, COMSIG_STRENGTH_BORDER_UPDATE, PROC_REF(on_strength_border_update))
 
 
-/datum/component/musculs/UnregisterFromParent()
+/datum/component/muscles/UnregisterFromParent()
 	var/datum/physiology/physiology = parent
 	var/mob/living/owner = physiology.owner
 	UnregisterSignal(owner, list(
@@ -46,7 +46,7 @@
 	))
 
 
-/datum/component/musculs/proc/on_strength_border_update(user)
+/datum/component/muscles/proc/on_strength_border_update(user)
 	SIGNAL_HANDLER
 	strength = min(strength, get_max_strength_level())
 
@@ -55,7 +55,7 @@
 #define REQ_NUTRITION_FOR_STRENGTH_POINT 	25
 #define MIN_NUTRITION_FOR_STRENGTH_CHANGE	NUTRITION_LEVEL_STARVING
 
-/datum/component/musculs/proc/try_add_strength_points(mob/living/user, delta)
+/datum/component/muscles/proc/try_add_strength_points(mob/living/user, delta)
 	SIGNAL_HANDLER
 	if(user.nutrition < MIN_NUTRITION_FOR_STRENGTH_CHANGE)
 		to_chat(user, span_warning("Вы слишком голодны!"))
@@ -86,7 +86,7 @@
 	return TRUE
 
 
-/datum/component/musculs/proc/try_upgrade_strength(mob/living/carbon/human/user)
+/datum/component/muscles/proc/try_upgrade_strength(mob/living/carbon/human/user)
 	if(strength >= get_max_strength_level())
 		return
 
@@ -98,7 +98,7 @@
 	user.update_body(TRUE)
 
 
-/datum/component/musculs/proc/get_max_strength_level()
+/datum/component/muscles/proc/get_max_strength_level()
 	if(HAS_TRAIT(src, TRAIT_GENE_STRONG))
 		return STRENGTH_LEVEL_SUPERHUMAN
 
@@ -108,12 +108,12 @@
 	return max_species_strength
 
 
-/datum/component/musculs/proc/get_icon_render_key_info(mob/living/user, list/info)
+/datum/component/muscles/proc/get_icon_render_key_info(mob/living/user, list/info)
 	SIGNAL_HANDLER
 	info.Add(get_strength(user))
 
 
-/datum/component/musculs/proc/get_organ_icon_state(mob/living/carbon/human/user, obj/item/organ/external/organ, list/icon_state_additions)
+/datum/component/muscles/proc/get_organ_icon_state(mob/living/carbon/human/user, obj/item/organ/external/organ, list/icon_state_additions)
 	SIGNAL_HANDLER
 	if(!istype(user.dna.species, /datum/species/human) || !ischest(organ) && !isgroin(organ))
 		return
@@ -121,7 +121,7 @@
 	icon_state_additions.Add("_[min(4, get_strength(user))]")
 
 
-/datum/component/musculs/proc/get_strength(mob/living/user)
+/datum/component/muscles/proc/get_strength(mob/living/user)
 	var/result = strength
 	if(HAS_TRAIT(user, TRAIT_GENE_STRONG))
 		result = max(result, 4)
@@ -132,7 +132,7 @@
 	return result
 
 
-/datum/component/musculs/proc/get_strength_level_part(mob/living/user)
+/datum/component/muscles/proc/get_strength_level_part(mob/living/user)
 	var/level = get_strength(user)
 	if(level == STRENGTH_LEVEL_SUPERHUMAN)
 		return 0
@@ -140,7 +140,7 @@
 	return strength_points / GLOB.strength_req_to_upgrade[level]
 
 
-/datum/component/musculs/proc/get_strength_grab_speed_modifier(mob/living/user, list/modifiers)
+/datum/component/muscles/proc/get_strength_grab_speed_modifier(mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
 	var/strength_level_part = get_strength_level_part(user)
 	var/level = get_strength(user)
@@ -152,7 +152,7 @@
 		(GLOB.strength_grab_speed_modifiers[level + 1] - GLOB.strength_grab_speed_modifiers[level]) * strength_level_part)
 
 
-/datum/component/musculs/proc/get_strength_pull_slowdown_modifier(mob/living/user, list/modifiers)
+/datum/component/muscles/proc/get_strength_pull_slowdown_modifier(mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
 	var/strength_level_part = get_strength_level_part(user)
 	var/level = get_strength(user)
@@ -164,7 +164,7 @@
 		(GLOB.strength_pull_slowdown_modifiers[level + 1] - GLOB.strength_pull_slowdown_modifiers[level]) * strength_level_part)
 
 
-/datum/component/musculs/proc/get_strength_melee_damage_delta(mob/living/user, list/deltas, obj/item/weapon)
+/datum/component/muscles/proc/get_strength_melee_damage_delta(mob/living/user, list/deltas, obj/item/weapon)
 	SIGNAL_HANDLER
 
 	if(weapon && weapon.damtype != BRUTE)

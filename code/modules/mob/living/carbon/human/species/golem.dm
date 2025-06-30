@@ -171,7 +171,7 @@
 	to_chat(H, info_text)
 
 
-/datum/species/golem/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+/datum/species/golem/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, max_level, FALSE)
 
 

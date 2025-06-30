@@ -72,7 +72,7 @@
 	H.meatleft = 5
 
 
-/datum/species/monkey/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+/datum/species/monkey/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, STRENGTH_LEVEL_WEAK, max_level, can_become_stronger)
 
 

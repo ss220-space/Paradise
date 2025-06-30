@@ -61,7 +61,7 @@
 	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 
 
-/datum/species/skeleton/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+/datum/species/skeleton/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, max_level, FALSE)
 
 

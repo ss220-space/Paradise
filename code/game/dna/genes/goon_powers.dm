@@ -616,7 +616,7 @@
 	if(!ishuman(mutant) || HAS_TRAIT(mutant, TRAIT_GENE_WEAK))
 		return FALSE
 
-	if(!mutant.GetComponent(/datum/component/musculs))
+	if(!mutant.GetComponent(/datum/component/muscles))
 		return FALSE
 
 	return ..()

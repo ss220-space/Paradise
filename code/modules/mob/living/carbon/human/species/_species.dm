@@ -414,19 +414,19 @@
 		target.drop_item_ground(target.s_store, force = TRUE)
 
 	target.hud_used?.update_locked_slots()
-	gain_musculs(target, STRENGTH_LEVEL_DEFAULT, STRENGTH_LEVEL_MAXDEFAULT, TRUE)
+	gain_muscles(target, STRENGTH_LEVEL_DEFAULT, STRENGTH_LEVEL_MAXDEFAULT, TRUE)
 	target.update_body(TRUE)
 
 
-/datum/species/proc/gain_musculs(mob/living/carbon/human/target, default, max_level, can_become_stronger = TRUE)
-	var/datum/component/musculs/musculs = target.GetComponent(/datum/component/musculs)
-	if(!musculs)
-		target.physiology.AddComponent(/datum/component/musculs, max_level, default, can_become_stronger)
+/datum/species/proc/gain_muscles(mob/living/carbon/human/target, default, max_level, can_become_stronger = TRUE)
+	var/datum/component/muscles/muscles = target.GetComponent(/datum/component/muscles)
+	if(!muscles)
+		target.physiology.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
 		return
 
-	musculs.max_species_strength = max_level
-	musculs.can_become_stronger = can_become_stronger
-	musculs.strength = min(musculs.strength, musculs.get_max_strength_level())
+	muscles.max_species_strength = max_level
+	muscles.can_become_stronger = can_become_stronger
+	muscles.strength = min(muscles.strength, muscles.get_max_strength_level())
 
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
