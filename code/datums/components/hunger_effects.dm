@@ -1,3 +1,4 @@
+#define COMSIG_CARBON_NUTRITION_UPDATE "carbon_nutrition_update"
 /datum/component/hunger_effects
 	var/datum/hunger_level/current_level
 
