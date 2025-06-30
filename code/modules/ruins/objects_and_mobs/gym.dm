@@ -173,7 +173,7 @@
 		INSTRUMENTAL = "турником",
 		PREPOSITIONAL = "турнике",
 	)
-	desc = "Простенький турник. На большенстве планет с развитой разумной жизнью, его аналоги используются в качестве вешалки."
+	desc = "Простенький турник. На большинстве планет с развитой разумной жизнью его аналоги используются в качестве вешалки."
 	icon = 'icons/goonstation/objects/fitness.dmi'
 	icon_state = "horizontalbar"
 	icon_state_inuse = "horizontalbar"
