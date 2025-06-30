@@ -1,3 +1,4 @@
+#define COMSIG_CARBON_NUTRITION_UPDATE "carbon_nutrition_update"
 /mob/living/carbon/human
     var/toolspeedmod = 0
 
@@ -21,6 +22,8 @@
 	med_hud_set_status()	// a human does not have a heart, the hud status is displayed incorrectly.
 
 	create_reagents(330)
+
+	AddComponent(/datum/component/hunger_effects)
 
 	handcrafting = new()
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/human)
@@ -1764,32 +1767,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/proc/update_hunger_slowdown()
-	var/base_toolspeedmod = dna.species.toolspeedmod
-	if(nutrition <= NUTRITION_LEVEL_HYPOGLYCEMIA)
-		setStaminaMax(110)
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = 2)
-		toolspeedmod = base_toolspeedmod + 0.5
-		sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
-	else if(nutrition <= NUTRITION_LEVEL_HUNGRY)
-		setStaminaMax(115)
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = 1)
-		sound_environment_override = SOUND_ENVIRONMENT_NONE
-		toolspeedmod = base_toolspeedmod + 0.25
-	else if(nutrition <= NUTRITION_LEVEL_FED)
-		toolspeedmod = base_toolspeedmod
-	else if(nutrition <= NUTRITION_LEVEL_WELL_FED)
-		setStaminaMax(125)
-		toolspeedmod = base_toolspeedmod
-		sound_environment_override = SOUND_ENVIRONMENT_NONE
-	else if(nutrition <= NUTRITION_LEVEL_FULL)
-		setStaminaMax(130)
-		blood_volume = min(blood_volume + 0.2, BLOOD_VOLUME_NORMAL)
-		toolspeedmod = base_toolspeedmod
-		sound_environment_override = SOUND_ENVIRONMENT_NONE
-		if(getStaminaLoss() > 0)
-			adjustStaminaLoss(-0.5, TRUE)
-	if(toolspeedmod != base_toolspeedmod)
-		add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = toolspeedmod)
+	SEND_SIGNAL(src, COMSIG_CARBON_NUTRITION_UPDATE)
 
 
 /mob/living/carbon/human/proc/special_post_clone_handling()
