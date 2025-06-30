@@ -86,7 +86,7 @@ LINEN BINS
 	nightmare_messages = list("Grey blood")
 
 /obj/item/bedsheet/patriot
-	name = "Zaza ambasador"
+	name = "Zaza ambassador"
 	ru_names = list(
 		NOMINATIVE = "заза амбасадор",
 		GENITIVE = "заза амбасадора",
