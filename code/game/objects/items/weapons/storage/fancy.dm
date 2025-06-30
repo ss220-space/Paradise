@@ -21,11 +21,11 @@
 	if(in_range(user, src))
 		var/len = LAZYLEN(contents)
 		if(len <= 0)
-			. += "<span class='notice'>There are no [src.icon_type]s left in the box.</span>"
+			. += "<span class='notice'>There are <b>no</b> [src.icon_type]s left in the box.</span>"
 		else if(len == 1)
-			. += "<span class='notice'>There is one [src.icon_type] left in the box.</span>"
+			. += "<span class='notice'>There is <b>1</b> [src.icon_type] left in the box.</span>"
 		else
-			. += "<span class='notice'>There are [src.contents.len] [src.icon_type]s in the box.</span>"
+			. += "<span class='notice'>There are <b>[src.contents.len]</b> [src.icon_type]s in the box.</span>"
 /*
  * Donut Box
  */
@@ -630,6 +630,7 @@
 	gender = MALE
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "coffee_condi_display"
+	icon_type = "condiment pack"
 	storage_slots = 14
 	can_hold = list(/obj/item/reagent_containers/food/condiment/pack/sugar,
 					/obj/item/reagent_containers/food/condiment/pack/creamer,
@@ -695,6 +696,7 @@
 	gender = FEMALE
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "coffee_cartrack0"
+	icon_type = "coffee cartridge"
 	storage_slots = 4
 	can_hold = list(/obj/item/coffee_cartridge,
 					/obj/item/blank_coffee_cartridge)
