@@ -5,13 +5,13 @@
 	if(is_type_in_list(I, food_type))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
-			to_chat(user, span_warning("[src] has problems with health."))
+			to_chat(user, span_warning("У [declent_ru(NOMINATIVE)] есть проблемы со здоровьем."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		user.visible_message(
-			span_notice("[user] hand-feeds [I] to [src]."),
-			span_notice("You hand-feed [I] to [src]."),
+			span_notice("[capitalize(user.declent_ru(NOMINATIVE))] с кормит [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."),
+			span_notice("Вы кормите [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."),
 		)
 		qdel(I)
 		if(tame)
@@ -27,13 +27,13 @@
 		if(istype(I, /obj/item/clothing/accessory/petcollar))
 			add_fingerprint(user)
 			if(stat != CONSCIOUS)
-				to_chat(user, span_warning("[src] has problems with health."))
+				to_chat(user, span_warning("У [declent_ru(NOMINATIVE)] есть проблемы со здоровьем."))
 				return ATTACK_CHAIN_PROCEED
 			if(!can_collar)
-				to_chat(user, span_warning("You cannot use [I] on [src]."))
+				to_chat(user, span_warning("Вы не можете использовать [I.declent_ru(ACCUSATIVE)] на [declent_ru(PREPOSITIONAL)]."))
 				return ATTACK_CHAIN_PROCEED
 			if(pcollar)
-				to_chat(user, span_warning("Looks like [src] already has a collar."))
+				to_chat(user, span_warning("Похоже, на [declent_ru(PREPOSITIONAL)] уже есть ошейник."))
 				return ATTACK_CHAIN_PROCEED
 			add_collar(I, user)
 			return ATTACK_CHAIN_BLOCKED_ALL
@@ -42,7 +42,7 @@
 			add_fingerprint(user)
 			var/obj/item/pet_carrier/carrier = I
 			if(stat != CONSCIOUS)
-				to_chat(user, span_warning("[src] has problems with health."))
+				to_chat(user, span_warning("У [declent_ru(NOMINATIVE)] есть проблемы со здоровьем."))
 				return ATTACK_CHAIN_PROCEED
 			if(carrier.put_in_carrier(src, user))
 				return ATTACK_CHAIN_BLOCKED_ALL
@@ -57,7 +57,10 @@
 
 		if(INTENT_HELP)
 			if(health > 0)
-				visible_message("<span class='notice'>[M] [response_help] [src].</span>", "<span class='notice'>[M] [response_help] you.</span>")
+				visible_message(
+					span_notice("[capitalize(M.declent_ru(NOMINATIVE))] [response_help] [declent_ru(ACCUSATIVE)]."),
+					span_notice("[capitalize(M.declent_ru(NOMINATIVE))] [response_help] вас.")
+				)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if(INTENT_GRAB)
@@ -67,10 +70,13 @@
 				grabbedby(M)
 		if(INTENT_HARM, INTENT_DISARM)
 			if(HAS_TRAIT(M, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-				to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")
+				to_chat(M, span_warning("Вы не хотите причинять вред [declent_ru(DATIVE)]!"))
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>", "<span class='userdanger'>[M] [response_harm] you!</span>")
+			visible_message(
+				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [response_harm] [src]!"),
+				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [response_harm] тебя!")
+			)
 			playsound(loc, attacked_sound, 25, 1, -1)
 			attack_threshold_check(harm_intent_damage)
 			add_attack_logs(M, src, "Melee attacked with fists")
@@ -80,12 +86,17 @@
 	if(..()) //if harm or disarm intent.
 		if(M.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
-			visible_message("<span class='danger'>[M] [response_disarm] [name]!</span>", "<span class='userdanger'>[M] [response_disarm] you!</span>")
+			visible_message(
+				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [response_disarm] [name]!"),
+				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [response_disarm] тебя!")
+			)
 			add_attack_logs(M, src, "Alien disarmed")
 		else
 			var/damage = M.attack_damage
-			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
-					"<span class='userdanger'>[M] has slashed at [src]!</span>")
+			visible_message(
+				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] делает резкий выпад в сторону [src]!"),
+				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] делает резкий выпад в твою сторону!")
+			)
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 			add_attack_logs(M, src, "Alien attacked")
 			attack_threshold_check(damage)
@@ -119,7 +130,7 @@
 		temp_damage *= damage_coeff[damagetype]
 
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
-		visible_message("<span class='warning'>[src] looks unharmed.</span>")
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выглядит невредимым."))
 		return FALSE
 	else
 		apply_damage(damage, damagetype, null, getarmor(attack_flag = armorcheck))

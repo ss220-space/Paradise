@@ -10,9 +10,9 @@
 	. = ..()
 	if(key_type)
 		if(!inserted_key)
-			. += span_notice("Put a key inside it by clicking it with the key.")
+			. += span_notice("Поместите ключ внутрь, кликнув по нему с ключом.")
 		else
-			. += span_notice("Alt-click [src] to remove the key.")
+			. += span_notice("Alt+ЛКМ по [src.declent_ru(DATIVE)] чтобы извлечь ключ.")
 
 /obj/vehicle/ridden/generate_action_type(actiontype)
 	var/datum/action/vehicle/ridden/A = ..()
@@ -32,9 +32,9 @@
 	if(!key_type || is_key(inserted_key) || !is_key(I))
 		return ..()
 	if(!user.transfer_item_to_loc(I, src))
-		to_chat(user, span_warning("[I] seems to be stuck to your hand!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] будто прилип к вашей руке!"))
 		return
-	to_chat(user, span_notice("You insert \the [I] into \the [src]."))
+	to_chat(user, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [src.declent_ru(ACCUSATIVE)]."))
 	if(inserted_key) //just in case there's an invalid key
 		inserted_key.forceMove(drop_location())
 	inserted_key = I
@@ -44,9 +44,9 @@
 	if(!inserted_key)
 		return NONE
 	if(!is_occupant(user))
-		to_chat(user, span_warning("You must be riding the [src] to remove [src]'s key!"))
+		to_chat(user, span_warning("Вы должны находиться на [src.declent_ru(PREPOSITIONAL)], чтобы извлечь его ключ!"))
 		return CLICK_ACTION_BLOCKING
-	to_chat(user, span_notice("You remove \the [inserted_key] from \the [src]."))
+	to_chat(user, span_notice("Вы извлекаете [inserted_key.declent_ru(ACCUSATIVE)] из [src.declent_ru(GENITIVE)]."))
 	inserted_key.forceMove_turf()
 	user.put_in_hands(inserted_key)
 	inserted_key = null

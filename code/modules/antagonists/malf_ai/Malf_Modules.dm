@@ -267,7 +267,7 @@
 	desc = "A weapon which disintegrates all organic life in a large area."
 	anchored = TRUE
 	density = TRUE
-	atom_say_verb = "blares"
+	atom_say_verb = "гудит"
 	speed_process = TRUE // Disgusting fix. Please remove once #12952 is merged
 	var/timing = 0
 	var/default_timer = 4500
@@ -314,7 +314,7 @@
 	for(var/mob/M in GLOB.player_list)
 		M << 'sound/machines/alarm.ogg'
 	sleep(100)
-	SSticker.station_explosion_cinematic(null, "AI malfunction")
+	SSticker.station_explosion_cinematic(null, MALF_AI)
 	to_chat(world, "<b>The AI cleansed the station of life with the doomsday device!</b>")
 	SSticker.mode.station_was_nuked = TRUE
 

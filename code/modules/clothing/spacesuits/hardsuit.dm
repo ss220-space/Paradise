@@ -471,6 +471,10 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 
+/obj/item/clothing/suit/space/hardsuit/syndi/on/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/head/helmet/space/hardsuit/syndi/our_helmet = helmet
+	our_helmet?.adjust_headgear(toggle = TRUE)
 
 /obj/item/clothing/suit/space/hardsuit/syndi/Initialize(mapload)
 	. = ..()

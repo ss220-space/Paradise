@@ -94,17 +94,17 @@
 
 /proc/get_syndicate_access(job)
 	switch(job)
-		if("Syndicate Operative")
+		if(SYNDICATE_OPERATIVE)
 			return list(ACCESS_SYNDICATE)
-		if("Syndicate Operative Leader")
+		if(SYNDICATE_OPERATIVE_LEADER)
 			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
-		if("Syndicate Agent")
+		if(SYNDICATE_AGENT)
 			return list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS)
-		if("Vox Raider")
+		if(VOX_RAIDER)
 			return list(ACCESS_VOX)
-		if("Vox Trader")
+		if(VOX_TRADER)
 			return list(ACCESS_VOX)
-		if("Syndicate Commando")
+		if(SYNDICATE_COMMANDO)
 			return list(	ACCESS_SYNDICATE,
 							ACCESS_SYNDICATE_LEADER,
 							ACCESS_SYNDICATE_COMMS_OFFICER,

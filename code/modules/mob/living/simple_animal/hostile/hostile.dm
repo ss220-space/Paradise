@@ -556,7 +556,7 @@
 		return
 	if(CheckFriendlyFire(A))
 		return
-	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
+	visible_message(span_danger("<b>[capitalize(declent_ru(NOMINATIVE))]</b> [ranged_message] на [A.declent_ru(ACCUSATIVE)]!"))
 
 
 	if(rapid > 1)
