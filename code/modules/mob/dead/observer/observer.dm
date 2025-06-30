@@ -330,7 +330,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return TRUE
 
 
-/mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source)
+/mob/dead/observer/proc/notify_cloning(message, sound, atom/source)
 	if(message)
 		to_chat(src, span_ghostalert("[message]"))
 		if(source)
@@ -346,9 +346,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.add_overlay(source)
 				source.layer = old_layer
 				source.plane = old_plane
-	to_chat(src, span_ghostalert("<a href=?src=[UID()];reenter=1>(Нажмите, чтобы вернуться)</a>"))
+	to_chat(src, span_ghostalert("<a href='byond://?src=[UID()];reenter=1>(Нажмите, чтобы вернуться)</a>"))
 	if(sound)
-		src << sound(sound)
+		SEND_SOUND(src, sound(sound))
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
