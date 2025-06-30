@@ -11,57 +11,49 @@
 	return ..()
 
 /datum/component/hunger_effects/proc/update_hunger_effects()
-	var/mob/living/carbon/human/H = parent
-	if(!istype(H))
+	var/mob/living/carbon/human/target = parent
+	if(!istype(target))
 		return
-
-	if(!LAZYLEN(GLOB.hunger_levels))
-		InitHungerLevels()
-
-	var/nutrition = H.nutrition
-	var/datum/hunger_level/new_level
-	var/found = FALSE
-
-	for(var/datum/hunger_level/HL in GLOB.hunger_levels)
-		if(nutrition >= HL.min_nutrition)
-			new_level = HL
-			found = TRUE
+	if(!length(GLOB.hunger_levels))
+		var/list/levels = list()
+		for(var/htype in subtypesof(/datum/hunger_level))
+			levels += new htype
+		GLOB.hunger_levels = sortTim(levels, GLOBAL_PROC_REF(hunger_levels_update))
+	var/current_nutrition = target.nutrition
+	var/datum/hunger_level/selected_level
+	for(var/datum/hunger_level/level as anything in GLOB.hunger_levels)
+		if(current_nutrition >= level.min_nutrition)
+			selected_level = level
 		else
 			break
-
-	if(!found)
-		new_level = null
-
-	if(new_level == current_level)
+	if(selected_level == current_level)
 		return
-
-	current_level = new_level
-	H.remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
-	H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
-
+	current_level = selected_level
+	target.remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
+	target.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
 	if(!isnull(current_level?.move_mod))
-		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = current_level.move_mod)
-
-	var/base_toolspeedmod = H.dna.species.toolspeedmod
-	H.toolspeedmod = base_toolspeedmod + (current_level?.tool_mod || 0)
-
-	if(H.toolspeedmod != base_toolspeedmod)
-		H.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = H.toolspeedmod)
+		target.add_or_update_variable_movespeed_modifier(
+			/datum/movespeed_modifier/hunger,
+			multiplicative_slowdown = current_level.move_mod
+		)
+	var/base_toolspeed = target.dna.species.toolspeedmod
+	target.toolspeedmod = base_toolspeed + (current_level?.tool_mod || 0)
+	if(target.toolspeedmod != base_toolspeed)
+		target.add_or_update_variable_actionspeed_modifier(
+			/datum/actionspeed_modifier/species_tool_mod,
+			multiplicative_slowdown = target.toolspeedmod
+		)
 	else
-		H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
-
-	H.sound_environment_override = current_level?.sound_env || SOUND_ENVIRONMENT_NONE
-
+		target.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
+	target.sound_environment_override = current_level?.sound_env || SOUND_ENVIRONMENT_NONE
 	if(!isnull(current_level?.stamina_max))
-		H.setStaminaMax(current_level.stamina_max)
+		target.setStaminaMax(current_level.stamina_max)
 
 /datum/component/hunger_effects/proc/on_life()
-	var/mob/living/carbon/human/H = parent
-	if(!istype(H) || !current_level)
+	var/mob/living/carbon/human/target = parent
+	if(!istype(target) || !current_level)
 		return
-
-	if(current_level.regen_stamina && H.getStaminaLoss() > 0)
-		H.adjustStaminaLoss(-0.5, TRUE)
-
+	if(current_level.regen_stamina && target.getStaminaLoss() > 0)
+		target.adjustStaminaLoss(-0.5, TRUE)
 	if(current_level.regen_blood)
-		H.blood_volume = min(H.blood_volume + 0.2, BLOOD_VOLUME_NORMAL)
+		target.blood_volume = min(target.blood_volume + 0.2, BLOOD_VOLUME_NORMAL)
