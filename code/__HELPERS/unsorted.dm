@@ -833,7 +833,6 @@ GLOBAL_LIST_INIT(body_zone, list(
 		else
 			stack_trace("Wrong zone input.")
 
-
 /*
 
  Gets the turf this atom's *ICON* appears to inhabit

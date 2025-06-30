@@ -289,7 +289,7 @@
 	needs_permit = FALSE
 	active = FALSE
 	force = 0
-	attack_verb = list("hit", "poked")
+	attack_verb = "ткнул"
 	clumsy_knockdown_time = 15 SECONDS
 	/// The sound effecte played when our baton is extended.
 	var/extend_sound = 'sound/weapons/batonextend.ogg'
@@ -309,7 +309,7 @@
 		w_class_on = WEIGHT_CLASS_NORMAL, \
 		item_state_on = src.extend_item_state, \
 		clumsy_check_prob = 0, \
-		attack_verb_on = list("smacked", "struck", "cracked", "beaten"), \
+		attack_verb_on = list("ударил", "вмазал", "врезал"), \
 	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 

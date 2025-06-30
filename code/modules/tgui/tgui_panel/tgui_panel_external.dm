@@ -17,8 +17,8 @@
 	nuke_chat()
 
 	// Failed to fix
-	action = alert(src, "Did that work?", "", "Yes", "No, switch to old ui")
-	if(action == "No, switch to old ui")
+	action = alert(src, "Сработало?", "", "Да", "Нет, переключить на старый интерфейс")
+	if(action == "Нет, переключить на старый интерфейс")
 		winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
 		log_tgui(src, "Failed to fix.")
 
@@ -38,10 +38,13 @@
 	set category = STATPANEL_SPECIALVERBS
 
 	var/choice = alert(usr,
-		"Use it ONLY if you have trouble with TGUI window.\
-		That's UI's with EYE on top-left corner.\
-		Otherwise, you can get a white window that will only close when you restart the game!", "Refresh TGUI", "Refresh", "Cancel")
-	if(choice != "Refresh")
+		"Используйте ЭТО ТОЛЬКО если у вас проблемы с окнами TGUI.\n\
+		Это те интерфейсы, у которых в верхнем левом углу.\n\
+		Иначе вы можете получить белое окно, которое закроется только после перезапуска игры!",
+		"Обновить TGUI",
+		"Обновить",
+		"Отмена")
+	if(choice != "Обновить")
 		return
 	var/refreshed_count = 0
 	for(var/window_id in tgui_windows)
@@ -51,5 +54,5 @@
 			continue
 		window.reinitialize()
 		refreshed_count++
-	to_chat(usr, "<span class='notice'>TGUI windows refreshed - [refreshed_count].<br>If you have blank window - restart the game, or open previous TGUI window.</span>")
+	to_chat(usr, span_notice("Окон TGUI обновлено - [refreshed_count].<br>Если появилось пустое окно - перезапустите игру или откройте предыдущее окно TGUI."))
 

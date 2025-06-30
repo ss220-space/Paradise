@@ -34,9 +34,9 @@
 	var/stop_automated_movement_when_pulled = 1 //When set to 1 this stops the animal from moving when someone is pulling it.
 
 	//Interaction
-	var/response_help   = "pokes"
-	var/response_disarm = "shoves"
-	var/response_harm   = "hits"
+	var/response_help   = "тычет"
+	var/response_disarm = "толкает"
+	var/response_harm   = "бъёт"
 	var/harm_intent_damage = 3
 	var/force_threshold = 0 //Minimum force required to deal any damage
 
@@ -192,10 +192,10 @@
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		. += span_deadsay("При ближайшем рассмотрении, [genderize_ru(user.gender,"он","она","оно","они")] выгляд[pluralize_ru(user.gender,"ит","ят")] мёртв[genderize_ru(user.gender,"ым","ой","ым","ыми")].")
 		return
 	if(IsSleeping())
-		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
+		. += span_notice("При ближайшем рассмотрении, [genderize_ru(user.gender,"он","она","оно","они")] выгляд[pluralize_ru(user.gender,"ит","ят")] спящ[genderize_ru(user.gender,"им","ей","им","ими")].")
 
 
 /mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
@@ -397,7 +397,7 @@
 /mob/living/simple_animal/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Health:", "[round((health / maxHealth) * 100)]%")
+	status_tab_data[++status_tab_data.len] = list("Здоровье:", "[round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/proc/drop_loot()
 	if(loot.len)
@@ -666,7 +666,10 @@
 	pcollar = P
 	regenerate_icons()
 	if(user)
-		to_chat(user, span_notice("You put [P] around [src]'s neck."))
+		visible_message(
+			span_warning(span_notice("Вы надеваете [P.declent_ru(ACCUSATIVE)] на шею [src.declent_ru(GENITIVE)].")),
+			span_warning(span_notice("[user.declent_ru(NOMINATIVE)] надева[pluralize_ru(user.gender,"ет","ют")] [P.declent_ru(ACCUSATIVE)] вам на шею [src.declent_ru(GENITIVE)]."))
+		)
 	if(P.tagname && !unique_pet)
 		name = P.tagname
 		real_name = P.tagname
@@ -718,11 +721,11 @@
 /mob/living/simple_animal/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	if(I.force && (I.force < force_threshold || I.damtype == STAMINA))
 		visible_message(
-			span_warning("[user] tries to hit [src] with [I], but it bounces harmlessly!"),
-			span_warning("[user] tries to hit you with [I], but it bounces harmlessly!"),
+			span_warning("[user.declent_ru(NOMINATIVE)] пытается ударить [src.declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)], но удар безвредно отскакивает!"),
+			span_warning("[user.declent_ru(NOMINATIVE)] пытается ударить вас [I.declent_ru(INSTRUMENTAL)], но удар безвредно отскакивает!"),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_danger("This weapon is ineffective, it does no damage!"))
+		to_chat(user, span_danger("Это оружие неэффективно - оно не наносит урона!"))
 		return ATTACK_CHAIN_BLOCKED
 
 	. = ..()

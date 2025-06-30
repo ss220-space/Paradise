@@ -73,7 +73,7 @@
 	if(emp_proof)
 		return
 	if(prob(15/severity) && owner)
-		to_chat(owner, span_warning("[src] is hit by EMP!"))
+		to_chat(owner, span_warning("[src.declent_ru(NOMINATIVE)] поражён ЭМИ импульсом!"))
 		// give the owner an idea about why his implant is glitching
 		Retract()
 	..()

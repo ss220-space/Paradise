@@ -87,7 +87,7 @@
 
 		if("toggle")
 			if(init_no_random_drop)
-				to_chat(usr, span_warning("You can't change random drop flag on this item."))
+				to_chat(usr, span_warning("Вы не можете изменить флажок случайного выпадения для этого элемента."))
 				return
 
 			if(random_drop_on)
