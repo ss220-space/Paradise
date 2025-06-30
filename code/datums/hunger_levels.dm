@@ -18,7 +18,7 @@ GLOBAL_LIST(hunger_levels)
 		min_nutrition = 0
 		move_mod = 2
 		tool_mod = 0.5
-		stamina_max = 110
+		stamina_max = MAX_STAMINA_LOSS - 10
 		sound_env = SOUND_ENVIRONMENT_DRUGGED
 	}
 
@@ -26,7 +26,7 @@ GLOBAL_LIST(hunger_levels)
 		min_nutrition = NUTRITION_LEVEL_HYPOGLYCEMIA + 1
 		move_mod = 1
 		tool_mod = 0.25
-		stamina_max = 115
+		stamina_max = MAX_STAMINA_LOSS - 5
 		sound_env = SOUND_ENVIRONMENT_NONE
 	}
 
@@ -42,7 +42,7 @@ GLOBAL_LIST(hunger_levels)
 		min_nutrition = NUTRITION_LEVEL_FED + 1
 		move_mod = 0
 		tool_mod = 0
-		stamina_max = 125
+		stamina_max = MAX_STAMINA_LOSS + 5
 		sound_env = SOUND_ENVIRONMENT_NONE
 	}
 
@@ -50,7 +50,7 @@ GLOBAL_LIST(hunger_levels)
 		min_nutrition = NUTRITION_LEVEL_WELL_FED + 1
 		move_mod = 0
 		tool_mod = 0
-		stamina_max = 130
+		stamina_max = MAX_STAMINA_LOSS + 10
 		sound_env = SOUND_ENVIRONMENT_NONE
 		regen_stamina = TRUE
 		regen_blood = TRUE
