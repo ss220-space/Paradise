@@ -983,17 +983,7 @@
 	switch(buildstage)
 		if(AIR_ALARM_READY)
 			if(I.GetID() || is_pda(I)) // trying to unlock the interface
-				add_fingerprint(user)
-				if(stat & (NOPOWER|BROKEN))
-					to_chat(user, span_warning("It does nothing!"))
-					return ATTACK_CHAIN_PROCEED
-
-				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
-					locked = !locked
-					to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
-					SStgui.update_uis(src)
-					return ATTACK_CHAIN_PROCEED
-				to_chat(user, span_warning("Access denied."))
+				togglelock(user)
 				return ATTACK_CHAIN_PROCEED
 
 		if(AIR_ALARM_BUILDING)
@@ -1118,6 +1108,27 @@
 		if(AIR_ALARM_READY)
 			if(wiresexposed)
 				. += span_notice("The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.")
+
+/obj/machinery/alarm/proc/togglelock(mob/living/user)
+	add_fingerprint(user)
+	if(stat & (NOPOWER|BROKEN))
+		to_chat(user, span_warning("It does nothing!"))
+		return
+	if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
+		locked = !locked
+		to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
+		SStgui.update_uis(src)
+		return
+	to_chat(user, span_warning("Access denied."))
+
+/obj/machinery/alarm/click_alt(mob/living/carbon/human/user)
+	if(!istype(user))
+		return NONE
+	var/obj/item/card/id/card = user.get_id_card()
+	if(!istype(card))
+		return NONE
+	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/alarm/proc/unshort_callback()

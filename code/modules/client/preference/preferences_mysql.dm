@@ -62,7 +62,7 @@
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
-	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight", "Plasmafire", "Retro", "Slimecore", "Operative"), initial(UI_style))
+	UI_style		= sanitize_inlist(UI_style, list(UI_THEME_WHITE, UI_THEME_MIDNIGHT, UI_THEME_PLASMAFIRE, UI_THEME_RETRO, UI_THEME_SLIMECORE, UI_THEME_OPERATIVE), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
 	toggles2		= sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
@@ -339,7 +339,7 @@
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name, 1)
 	if(isnull(species)) species = SPECIES_HUMAN
-	if(isnull(language)) language = "None"
+	if(isnull(language)) language = LANGUAGE_NONE
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(isnull(speciesprefs)) speciesprefs = initial(speciesprefs)
 	if(!real_name) real_name = random_name(gender,species)

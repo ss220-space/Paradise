@@ -45,7 +45,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	sync_limit()
 	W.update_icon()
 	if(user)
-		to_chat(user, span_notice("Вы установили [src] в [W]. Установка доступных режимов в соответствии с уровнем опасности ([get_security_level_ru()])."))
+		to_chat(user, span_notice("Вы установили [src.declent_ru(ACCUSATIVE)] в [W.declent_ru(ACCUSATIVE)]. Установка доступных режимов в соответствии с уровнем опасности ([get_security_level_ru()])."))
 		if(!auth_id)
 			to_chat(user, span_notice("Требуется авторизация! Приложите ID-карту."))
 
@@ -90,7 +90,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	auth_id = null
 	weapon.update_icon()
 	if(!silent && user)
-		to_chat(user, span_notice("Блокировка [weapon] включена."))
+		to_chat(user, span_notice("Блокировка [weapon.declent_ru(GENITIVE)] включена."))
 	return TRUE
 
 /obj/item/sibyl_system_mod/proc/unlock(mob/user, obj/item/card/id/ID)
@@ -102,25 +102,25 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		auth_id = TRUE
 	weapon.update_icon()
 	if(user)
-		to_chat(user, span_notice("Блокировка [weapon] отключена."))
+		to_chat(user, span_notice("Блокировка [weapon.declent_ru(GENITIVE)] отключена."))
 	return TRUE
 
 /obj/item/sibyl_system_mod/proc/toggleAuthorization(obj/item/card/id/ID, mob/user)
 	if(state != SIBSYS_STATE_INSTALLED)
 		return FALSE
 	if(emagged)
-		to_chat(user, span_danger("As you try to swipe [ID], sparks flying out of it!"))
+		to_chat(user, span_danger("ОШИБКА АУТЕНТИФИКАЦИИ: [ID] вызывает короткое замыкание при сканировании!"))
 		return
 	if(!auth_id)
 		unlock(user, ID)
-		to_chat(user, span_notice("Вы авторизировали [weapon] в системе Sibyl System под именем [auth_id.registered_name]."))
+		to_chat(user, span_notice("Вы авторизировали [weapon.declent_ru(ACCUSATIVE)] в системе Sibyl System под именем [auth_id.registered_name]."))
 		sibyl_sound(user, 'sound/voice/dominator/user.ogg', 10 SECONDS)
 	else if(auth_id == ID)
 		lock(user)
-		to_chat(user, span_notice("Вы деавторизировали [weapon] в системе Sibyl System."))
+		to_chat(user, span_notice("Вы деавторизировали [weapon.declent_ru(ACCUSATIVE)] в системе Sibyl System."))
 	else if(ACCESS_ARMORY in ID.GetAccess())
 		lock(user)
-		to_chat(user, span_notice("Вы принудительно деавторизировали [weapon] в системе Sibyl System."))
+		to_chat(user, span_notice("Вы принудительно деавторизировали [weapon.declent_ru(ACCUSATIVE)] в системе Sibyl System."))
 	weapon.update_icon()
 	return TRUE
 
@@ -165,7 +165,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		if(SIBYL_DESTRUCTIVE)
 			available = nonlethal_names + lethal_names + destructive_names
 
-	var/message = "Для [weapon] теперь доступны только данные режимы: [get_available_text()]!"
+	var/message = "Для [weapon.declent_ru(GENITIVE)] теперь доступны только данные режимы: [get_available_text()]!"
 	weapon.update_icon()
 	if(ismob(weapon.loc))
 		to_chat(weapon.loc, span_notice("[message]"))

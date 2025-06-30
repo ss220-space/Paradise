@@ -6,7 +6,15 @@
 //the nuke core, base item
 /obj/item/nuke_core
 	name = "plutonium core"
-	desc = "Extremely radioactive. Wear goggles."
+	desc = "Чрезвычайно радиоактивно. Надевайте защитные очки."
+	ru_names = list(
+		NOMINATIVE = "плутониевое ядро",
+		GENITIVE = "плутониевого ядра",
+		DATIVE = "плутониевому ядру",
+		ACCUSATIVE = "плутониевое ядро",
+		INSTRUMENTAL = "плутониевым ядром",
+		PREPOSITIONAL = "плутониевом ядре"
+	)
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "plutonium_core"
 	item_state = "plutoniumcore"
@@ -38,7 +46,7 @@
 		flick(pulseicon, src)
 
 /obj/item/nuke_core/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message(span_suicide("[user] натирает себя [src.declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пытается покончить с собой!"))
 	return TOXLOSS
 
 //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
@@ -49,7 +57,15 @@
 //nuke core box, for carrying the core
 /obj/item/nuke_core_container
 	name = "nuke core container"
-	desc = "A solid container for radioactive objects."
+	desc = "Прочный контейнер для радиоактивных объектов."
+	ru_names = list(
+		NOMINATIVE = "контейнер для ядерного ядра",
+		GENITIVE = "контейнера для ядерного ядра",
+		DATIVE = "контейнеру для ядерного ядра",
+		ACCUSATIVE = "контейнер для ядерного ядра",
+		INSTRUMENTAL = "контейнером для ядерного ядра",
+		PREPOSITIONAL = "контейнере для ядерного ядра"
+	)
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "core_container_empty"
 	item_state = "metal"
@@ -80,11 +96,11 @@
 /obj/item/nuke_core_container/examine(mob/user)
 	. = ..()
 	if(cracked) // Cracked open.
-		. += span_warning("It is broken, and can no longer store objects safely.")
+		. += span_warning("Контейнер повреждён и больше не может безопасно удерживать объекты.")
 	else if(dented) // Not cracked, but dented.
-		. += span_notice("[src] looks dented. Perhaps a bigger explosion may break it.")
+		. += span_notice("[capitalize(src.declent_ru(NOMINATIVE))] выглядит помятым. Возможно, более мощный взрыв сможет его разрушить.")
 	else // Not cracked or dented.
-		. += "Fine print on the box reads \"Cybersun Industries secure container, guaranteed thermite proof, assistant proof, and explosive resistant.\""
+		. += "Мелким шрифтом на коробке написано: \"Защищённый контейнер Cybersun Industries - гарантированная устойчивость к термиту, ассистентам и взрывам!\""
 
 
 /obj/item/nuke_core_container/update_icon_state()
@@ -114,7 +130,7 @@
 		new_core.forceMove(src)
 	core = new_core
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, span_warning("Container is sealing..."))
+	to_chat(user, span_warning("Контейнер герметизируется..."))
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 	return TRUE
 
@@ -133,7 +149,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
-			to_chat(loc, span_warning("[src] is permanently sealed, [core]'s radiation is contained."))
+			to_chat(loc, span_warning("[capitalize(src.declent_ru(NOMINATIVE))] наглухо запечатан, радиация от [core.declent_ru(GENITIVE)] теперь изолирована."))
 
 
 /obj/item/nuke_core_container/attackby(obj/item/I, mob/user, params)
@@ -144,7 +160,7 @@
 
 
 /obj/item/nuke_core_container/proc/crack_open()
-	visible_message(span_boldnotice("[src] bursts open!"))
+	visible_message(span_boldnotice("[capitalize(src.declent_ru(NOMINATIVE))] распахивается!"))
 	if(core)
 		START_PROCESSING(SSobj, core)
 		REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
@@ -181,7 +197,15 @@
 
 /obj/item/nuke_core/supermatter_sliver
 	name = "supermatter sliver"
-	desc = "A tiny, highly volatile sliver of a supermatter crystal. Do not handle without protection!"
+	desc = "Крошечный, крайне нестабильный осколок кристалла суперматерии. Не трогать без защиты!"
+	ru_names = list(
+		NOMINATIVE = "осколок суперматерии",
+		GENITIVE = "осколка суперматерии",
+		DATIVE = "осколку суперматерии",
+		ACCUSATIVE = "осколок суперматерии",
+		INSTRUMENTAL = "осколком суперматерии",
+		PREPOSITIONAL = "осколке суперматерии"
+	)
 	icon_state = "supermatter_sliver"
 	pulseicon = "supermatter_sliver_pulse"
 
@@ -203,7 +227,7 @@
 	if(istype(I, /obj/item/retractor/supermatter))
 		var/obj/item/retractor/supermatter/tongs = I
 		if(tongs.sliver)
-			to_chat(user, span_warning("The [tongs.name] are already holding a supermatter sliver!"))
+			to_chat(user, span_warning("[capitalize(tongs.declent_ru(NOMINATIVE))] уже удерживают осколок суперматерии!"))
 			return .
 		if(ismob(loc))
 			var/mob/holder = loc
@@ -212,13 +236,13 @@
 		forceMove(tongs)
 		tongs.sliver = src
 		tongs.update_icon(UPDATE_ICON_STATE)
-		to_chat(user, span_notice("You carefully pick up [src] with [tongs]."))
+		to_chat(user, span_notice("Вы осторожно поднимаете [src.declent_ru(ACCUSATIVE)] с помощью [tongs.declent_ru(GENITIVE)]."))
 		return .
 
 	if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
 		return .
 
-	to_chat(user, span_danger("As it touches [src], both [src] and [I] bursts into flames!"))
+	to_chat(user, span_danger("При контакте с [src.declent_ru(INSTRUMENTAL)] и [I.declent_ru(NOMINATIVE)] мгновенно вспыхивают!"))
 	for(var/mob/living/victim in view(5, get_turf(src)))
 		victim.apply_effect(80, IRRADIATE)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -241,9 +265,9 @@
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)] via throw impact.")
 		investigate_log("has consumed [key_name(victim)] via throw impact.", "supermatter")
 	victim.visible_message(
-		span_danger("As [victim] is hit by [src], both burst into flames and silence fills the room..."),
-		span_userdanger("You're hit by [src] and everything suddenly goes silent.\n[src] bursts into flames, and soon as you can register this, you do as well."),
-		span_hear("Everything suddenly goes silent.")
+		span_danger("[capitalize(victim.declent_ru(NOMINATIVE))], поражённый [src.declent_ru(INSTRUMENTAL)], вспыхивает пламенем, в комнате воцаряется тишина..."),
+		span_userdanger("Вас поражает [src.declent_ru(NOMINATIVE)], и всё вокруг замирает.\n[src.declent_ru(NOMINATIVE)] вспыхивает, и прежде чем вы осознаёте это, вы тоже горите."),
+		span_hear("Внезапно наступает тишина.")
 	)
 	victim.gib()
 	for(var/mob/living/L in view(5, src))
@@ -256,9 +280,9 @@
 	if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
 	user.visible_message(
-		span_danger("[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before bursting into flames!"),
-		span_userdanger("You reach for [src] with your hands. That was dumb."),
-		span_italics("Everything suddenly goes silent."),
+		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [src.declent_ru(DATIVE)]. [genderize_ru(user.gender,"его","её","его","их")] тело начинает светиться и мгновенно вспыхивает!"),
+		span_userdanger("Вы попытались взять [src.declent_ru(NOMINATIVE)] голыми руками. Это было глупо."),
+		span_italics("Внезапно наступает тишина.")
 	)
 	for(var/mob/living/L in view(5, src))
 		L.apply_effect(80, IRRADIATE)
@@ -269,7 +293,15 @@
 
 /obj/item/nuke_core_container/supermatter
 	name = "supermatter bin"
-	desc = "A tiny receptacle that releases an inert hyper-noblium mix upon sealing, allowing a sliver of a supermatter crystal to be safely stored."
+	desc = "Небольшая ёмкость, выделяющая инертную смесь гипер-ноблия при герметизации, позволяя безопасно хранить осколки суперматерии."
+	ru_names = list(
+		NOMINATIVE = "контейнер для суперматерии",
+		GENITIVE = "контейнера для суперматерии",
+		DATIVE = "контейнеру для суперматерии",
+		ACCUSATIVE = "контейнер для суперматерии",
+		INSTRUMENTAL = "контейнером для суперматерии",
+		PREPOSITIONAL = "контейнере для суперматерии"
+	)
 	var/obj/item/nuke_core/supermatter_sliver/sliver
 
 /obj/item/nuke_core_container/supermatter/Destroy()
@@ -280,6 +312,15 @@
 /obj/item/nuke_core_container/supermatter/update_name(updates = ALL)
 	. = ..()
 	name = cracked ? "broken supermatter bin" : initial(name)
+	if (cracked)
+		ru_names = list(
+			NOMINATIVE = "разбитый контейнер для суперматерии",
+			GENITIVE = "разбитого контейнера для суперматерии",
+			DATIVE = "разбитому контейнеру для суперматерии",
+			ACCUSATIVE = "разбитый контейнер для суперматерии",
+			INSTRUMENTAL = "разбитым контейнером для суперматерии",
+			PREPOSITIONAL = "разбитом контейнере для суперматерии"
+		)
 
 
 /obj/item/nuke_core_container/supermatter/update_icon_state()
@@ -300,7 +341,7 @@
 	I.sliver = null
 	I.update_icon(UPDATE_ICON_STATE)
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, span_warning("Container is sealing..."))
+	to_chat(user, span_warning("Контейнер герметизируется..."))
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
 /obj/item/nuke_core_container/supermatter/seal()
@@ -311,7 +352,7 @@
 		sealed = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		if(ismob(loc))
-			to_chat(loc, span_warning("[src] is permanently sealed, [sliver] is safely contained."))
+			to_chat(loc, span_warning("[capitalize(src.declent_ru(NOMINATIVE))] наглухо запечатан, [sliver.declent_ru(NOMINATIVE)] теперь в безопасности."))
 
 /obj/item/nuke_core_container/supermatter/unload(obj/item/retractor/supermatter/I, mob/user)
 	if(!istype(I) || I.sliver)
@@ -321,7 +362,7 @@
 	sliver = null
 	I.update_icon(UPDATE_ICON_STATE)
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, span_notice("You carefully pick up [I.sliver] with [I]."))
+	to_chat(user, span_notice("Вы осторожно поднимаете [I.sliver.declent_ru(ACCUSATIVE)] с помощью [I.declent_ru(INSTRUMENTAL)]."))
 
 
 /obj/item/nuke_core_container/supermatter/attackby(obj/item/retractor/supermatter/tongs, mob/user, params)
@@ -343,9 +384,9 @@
 		if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE))
 			return FALSE
 		user.visible_message(
-				span_danger("[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames!"),
-				span_userdanger("You reach for [sliver] with your hands. That was dumb."),
-				span_italics("Everything suddenly goes silent.")
+			span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [sliver.declent_ru(DATIVE)]. [genderize_ru(user.gender,"Его","Её","Его","Их")] тело начинает светиться и вспыхивает!"),
+			span_userdanger("Вы попытались взять [sliver.declent_ru(ACCUSATIVE)] голыми руками. Это было глупо."),
+			span_italics("Внезапно наступает тишина.")
 		)
 		for(var/mob/living/L in view(5, src))
 			L.apply_effect(80, IRRADIATE)
@@ -360,7 +401,7 @@
 
 
 /obj/item/nuke_core_container/supermatter/crack_open()
-	visible_message(span_boldnotice("[src] bursts open!"))
+	visible_message(span_boldnotice("[src] распахивается!"))
 	if(sliver)
 		START_PROCESSING(SSobj, sliver)
 		REMOVE_TRAIT(sliver, TRAIT_BLOCK_RADIATION, src)
@@ -369,7 +410,15 @@
 
 /obj/item/scalpel/supermatter
 	name = "supermatter scalpel"
-	desc = "A scalpel with a fragile tip of condensed hyper-noblium gas, searingly cold to the touch, that can safely shave a sliver off a supermatter crystal."
+	desc = "Скальпель с хрупким наконечником из конденсированного газа гипер-ноблия, леденяще холодным на ощупь, способный безопасно откалывать осколки от кристалла суперматерии."
+	ru_names = list(
+		NOMINATIVE = "скальпель для суперматерии",
+		GENITIVE = "скальпеля для суперматерии",
+		DATIVE = "скальпелю для суперматерии",
+		ACCUSATIVE = "скальпель для суперматерии",
+		INSTRUMENTAL = "скальпелем для суперматерии",
+		PREPOSITIONAL = "скальпеле для суперматерии"
+	)
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_scalpel"
 	toolspeed = 0.5
@@ -383,7 +432,15 @@
 
 /obj/item/retractor/supermatter
 	name = "supermatter extraction tongs"
-	desc = "A pair of tongs made from condensed hyper-noblium gas, searingly cold to the touch, that can safely grip a supermatter sliver."
+	desc = "Щипцы из конденсированного газа гипер-ноблия, леденяще холодные на ощупь, способные безопасно удерживать осколки суперматерии."
+	ru_names = list(
+		NOMINATIVE = "щипцы для суперматерии",
+		GENITIVE = "щипцов для суперматерии",
+		DATIVE = "щипцам для суперматерии",
+		ACCUSATIVE = "щипцы для суперматерии",
+		INSTRUMENTAL = "щипцами для суперматерии",
+		PREPOSITIONAL = "щипцах для суперматерии"
+	)
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_tongs"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -414,7 +471,7 @@
 /obj/item/retractor/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
 	if(sliver)
 		sliver.forceMove(loc)
-		visible_message(span_notice("[sliver] falls out of [src] as it hits the ground."))
+		visible_message(span_notice("[capitalize(sliver.declent_ru(NOMINATIVE))] выпадает из [src.declent_ru(GENITIVE)] при ударе о землю."))
 		sliver = null
 		update_icon(UPDATE_ICON_STATE)
 	return ..()
@@ -440,9 +497,11 @@
 		qdel(AM)
 	if(user)
 		add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user]")
-		user.visible_message(span_danger("As [user] touches [AM] with [src], both bursts into flames and silence fills the room..."),
-			span_userdanger("You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] bursts into flames, and soon as you can register this, you do as well."),
-			span_hear("Everything suddenly goes silent."))
+		user.visible_message(
+			span_danger("Когда [user.declent_ru(NOMINATIVE)] касается [AM.declent_ru(GENITIVE)] с помощью [src.declent_ru(GENITIVE)], оба мгновенно вспыхивают, и в комнате воцаряется тишина..."),
+			span_userdanger("Вы касаетесь [AM.declent_ru(GENITIVE)] с помощью [src.declent_ru(GENITIVE)], и всё вокруг замирает.\n[capitalize(AM.declent_ru(NOMINATIVE))] и [sliver.declent_ru(NOMINATIVE)] вспыхивают, как и вы."),
+			span_hear("Внезапно наступает тишина.")
+		)
 		user.gib()
 	for(var/mob/living/L in view(5, src))
 		L.apply_effect(60, IRRADIATE)

@@ -69,7 +69,7 @@
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1
 	)
 
-	var/id_access = "Syndicate Operative"
+	var/id_access = SYNDICATE_AGENT
 	var/uplink_uses = 100
 
 /datum/outfit/admin/syndicate/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -84,12 +84,13 @@
 	var/obj/item/radio/uplink/U = H.r_store
 	if(istype(U))
 		U.hidden_uplink.uplink_owner = "[H.key]"
-		U.hidden_uplink.uses = uplink_uses
+		if(!isnull(uplink_uses))
+			U.hidden_uplink.uses = uplink_uses
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
 		R.set_frequency(SYND_FREQ)
-	H.faction += "syndicate"
+	H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate_infiltrator
 	name = "Syndicate Infiltrator"
@@ -98,12 +99,12 @@
 	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
 	H.sec_hud_set_ID()
 	if(!visualsOnly)
-		H.faction += "syndicate"
+		H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate/operative
-	name = "Syndicate Nuclear Operative"
+	name = "Syndicate Nuclear Operative (hardsuit)"
 	toggle_helmet = TRUE
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+	suit = /obj/item/clothing/suit/space/hardsuit/syndi/on
 	belt = /obj/item/storage/belt/military
 	mask = /obj/item/clothing/mask/gas/syndicate
 	l_ear = /obj/item/radio/headset/syndicate/alt
@@ -112,6 +113,13 @@
 	r_pocket = /obj/item/radio/uplink/nuclear
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_hand = /obj/item/tank/jetpack/oxygen/harness
+	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
+	suit_store = /obj/item/tank/internals/emergency_oxygen/engi/syndi
+	pda = /obj/item/pinpointer/nukeop
+	implants = list(/obj/item/implant/explosive)
+	internals_slot = ITEM_SLOT_SUITSTORE
+
+	id_access = SYNDICATE_OPERATIVE
 
 	backpack_contents = list(
 		/obj/item/storage/box/survival_syndi = 1,
@@ -124,14 +132,81 @@
 		/obj/item/clothing/shoes/combat = 1
 	)
 
-/datum/outfit/admin/syndicate/operative/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
+/datum/outfit/admin/syndicate/operative/loneop
+	name = "Syndicate Nuclear Operative (Loneop)"
+	r_pocket = /obj/item/radio/uplink/nuclear/loneop
+	uplink_uses = null
 
-	var/obj/item/implant/explosive/E = new(H)
-	E.implant(H)
+/datum/outfit/admin/syndicate/operative/nuclear
+	name = "Syndicate Nuclear Operative"
+	toggle_helmet = FALSE
+	suit = null
+	belt = /obj/item/gun/projectile/automatic/pistol
+	mask = /obj/item/clothing/mask/gas/syndicate
+	shoes = /obj/item/clothing/shoes/combat
+	l_pocket = null
+	l_hand = null
 
+	backpack_contents = list(
+		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/ammo_box/magazine/m10mm = 1,
+		/obj/item/crowbar/red = 1,
+		/obj/item/grenade/plastic/c4 = 1,
+		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
+		/obj/item/flashlight = 1,
+		/obj/item/clothing/shoes/combat = 1
+	)
+
+/datum/outfit/admin/syndicate/operative/nuclear/reinf
+	uplink_uses = 0
+
+/datum/outfit/admin/syndicate/operative/nuclear/leader
+	l_hand = /obj/item/nuclear_challenge
+	id_access = SYNDICATE_OPERATIVE_LEADER
+
+/datum/outfit/admin/syndicate/operative/nuclear/vox
+	mask = /obj/item/clothing/mask/gas/syndicate
+	l_hand = /obj/item/tank/internals/emergency_oxygen/double/vox
+	internals_slot = ITEM_SLOT_HAND_LEFT
+
+/datum/outfit/admin/syndicate/operative/nuclear/leader/vox
+	mask = /obj/item/clothing/mask/gas/syndicate
+	l_hand = /obj/item/tank/internals/emergency_oxygen/double/vox
+	internals_slot = ITEM_SLOT_HAND_LEFT
+
+/datum/outfit/admin/syndicate/operative/nuclear/plasmaman
+	mask = /obj/item/clothing/mask/gas/syndicate
+	uniform = /obj/item/clothing/under/plasmaman/syndicate
+	head = /obj/item/clothing/head/helmet/space/plasmaman/syndie
+	suit_store = /obj/item/tank/internals/plasmaman
+	internals_slot = ITEM_SLOT_SUITSTORE
+	backpack_contents = list(
+		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/ammo_box/magazine/m10mm = 1,
+		/obj/item/crowbar/red = 1,
+		/obj/item/grenade/plastic/c4 = 1,
+		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
+		/obj/item/flashlight = 1,
+		/obj/item/clothing/shoes/combat = 1,
+		/obj/item/extinguisher_refill = 2
+	)
+
+/datum/outfit/admin/syndicate/operative/nuclear/leader/plasmaman
+	mask = /obj/item/clothing/mask/gas/syndicate
+	uniform = /obj/item/clothing/under/plasmaman/syndicate
+	head = /obj/item/clothing/head/helmet/space/plasmaman/syndie
+	suit_store = /obj/item/tank/internals/plasmaman
+	internals_slot = ITEM_SLOT_SUITSTORE
+	backpack_contents = list(
+		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/ammo_box/magazine/m10mm = 1,
+		/obj/item/crowbar/red = 1,
+		/obj/item/grenade/plastic/c4 = 1,
+		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
+		/obj/item/flashlight = 1,
+		/obj/item/clothing/shoes/combat = 1,
+		/obj/item/extinguisher_refill = 2
+	)
 
 /datum/outfit/admin/syndicate/operative/freedom
 	name = "Syndicate Freedom Operative"
@@ -203,7 +278,7 @@
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	uplink_uses = 200
-	id_access = "Syndicate Agent"
+	id_access = SYNDICATE_AGENT
 
 	implants = list(
 		/obj/item/implant/dust
