@@ -612,7 +612,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/mob/living/silicon/ai/A = target
 		. = "<a href='byond://?src=[ghost.UID()];follow=[A.UID()]'>ядро</a>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|<a href='byond://?src=[ghost.UID()];follow=[A.eyeobj.UID()]'>глаз</a>"
+			. += "|<a href='byond://?src=[ghost.UID()];follow=[A.eyeobj.UID()]'>око</a>"
 		return
 	else if(istype(target, /mob/dead/observer))
 		var/mob/dead/observer/O = target

@@ -49,7 +49,7 @@
 	item_color = "bops"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
-/obj/item/clothing/under/plasmaman/syndicate
+/obj/item/clothing/under/plasmaman/syndie
 	name = "tacticool envirosuit"
 	desc = "Зловещий на вид защитный костюм для самых костлявых оперативников."
 	ru_names = list(
@@ -61,6 +61,6 @@
 		PREPOSITIONAL = "тактическом защитном костюме плазмолюда"
 	)
 	icon_state = "syndie_envirosuit"
-	item_state = null
+	item_color = "syndie_envirosuit"
 	has_sensor = 0
 	resistance_flags = FIRE_PROOF
