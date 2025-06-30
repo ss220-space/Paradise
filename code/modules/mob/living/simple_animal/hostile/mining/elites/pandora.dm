@@ -19,27 +19,34 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora
 	name = "pandora"
-	desc = "A large magic box with similar power and design to the Hierophant.  Once it opens, it's not easy to close it."
+	desc = "Огромный магический ларец, чьи сила и дизайн схожи с Иерофантом. Если он откроется, закрыть его будет нелегко."
+	ru_names = list(
+		NOMINATIVE = "пандора",
+		GENITIVE = "пандоры",
+		DATIVE = "пандоре",
+		ACCUSATIVE = "пандору",
+		INSTRUMENTAL = "пандорой",
+		PREPOSITIONAL = "пандоре"
+	)
 	icon_state = "pandora"
 	icon_living = "pandora"
 	icon_aggro = "pandora"
 	icon_dead = "pandora_dead"
 	icon_gib = "syndicate_gib"
-
 	maxHealth = 1000
 	health = 1000
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	armour_penetration = 70
-	attacktext = "smashes into the side of"
+	attacktext = "врезается в"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
-	throw_message = "merely dinks off of the"
+	throw_message = "просто отскакивает от"
 	ranged_cooldown_time = 20
 	speed = 2
 	move_to_delay = 10
 	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/magic/repulse.ogg'
-	deathmessage = "'s lights flicker, before its top part falls down."
+	deathmessage = "мерцает, после чего его верхняя часть с грохотом обрушивается."
 	loot_drop = /obj/item/clothing/accessory/necklace/pandora_hope
 	tts_seed = "Zyra"
 
@@ -54,27 +61,27 @@
 	var/recalculation_speed = 4 //How many times chasers moves before recalculating
 
 /datum/action/innate/elite_attack/chaser_burst
-	name = "Chaser Burst"
+	name = "Преследователь"
 	button_icon_state = "singular_shot"
-	chosen_message = "<span class='boldwarning'>You fire a chaser after all mobs in view.</span>"
+	chosen_message = span_boldwarning("Вы выпускаете преследующий снаряд за всеми мобами в поле зрения.")
 	chosen_attack_num = CHASER_BURST
 
 /datum/action/innate/elite_attack/magic_box
-	name = "Magic Box"
+	name = "Волшебная клетка"
 	button_icon_state = "magic_box"
-	chosen_message = "<span class='boldwarning'>You are now attacking with a box of magic squares.</span>"
+	chosen_message = span_boldwarning("Теперь вы атакуете магическими квадратами.")
 	chosen_attack_num = MAGIC_BOX
 
 /datum/action/innate/elite_attack/pandora_teleport
-	name = "Line Teleport"
+	name = "Телепорт"
 	button_icon_state = "pandora_teleport"
-	chosen_message = "<span class='boldwarning'>You will now teleport to your target.</span>"
+	chosen_message = span_boldwarning("Теперь вы будете телепортироваться к цели.")
 	chosen_attack_num = PANDORA_TELEPORT
 
 /datum/action/innate/elite_attack/aoe_squares
-	name = "AOE Blast"
+	name = "Взрыв по площади"
 	button_icon_state = "aoe_squares"
-	chosen_message = "<span class='boldwarning'>Your attacks will spawn an AOE blast at your target location.</span>"
+	chosen_message = span_boldwarning("Ваши атаки будут создавать взрыв по области в месте попадания.")
 	chosen_attack_num = AOE_SQUARES
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/OpenFire()
@@ -172,7 +179,7 @@
 	for(var/t in RANGE_TURFS(1, source))
 		spawn_blast(t)
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
-	visible_message("<span class='hierophant'>[src] fades out!</span>")
+	visible_message(span_hierophant("[capitalize(declent_ru(NOMINATIVE))] растворяется в воздухе!"))
 	ADD_TRAIT(src, TRAIT_UNDENSE, PANDORA_TEPELORT_TRAIT)
 	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_3), T), 2)
 
@@ -180,7 +187,7 @@
 	forceMove(T)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, PANDORA_TEPELORT_TRAIT)
-	visible_message("<span class='hierophant'>[src] fades in!</span>")
+	visible_message(span_hierophant("[capitalize(declent_ru(NOMINATIVE))] материализуется!"))
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares(target)
 	ranged_cooldown = world.time + cooldown_time * 2
@@ -207,7 +214,15 @@
 //Pandora's loot: Hope //Hope I know what to make it do
 /obj/item/clothing/accessory/necklace/pandora_hope
 	name = "Hope"
-	desc = "Found at the bottom of Pandora. After all the evil was released, this was the only thing left inside."
+	desc = "Находится на дне Пандоры. Когда всё зло было выпущено, это единственное, что осталось внутри."
+	ru_names = list(
+		NOMINATIVE = "надежда",
+		GENITIVE = "надежды",
+		DATIVE = "надежде",
+		ACCUSATIVE = "надежду",
+		INSTRUMENTAL = "надеждой",
+		PREPOSITIONAL = "надежде"
+	)
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "hope"
 	item_state = "hope"

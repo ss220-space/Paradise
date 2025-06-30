@@ -389,7 +389,7 @@
 	if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel/steel) || prob(80))
 		return ..()
 	chamber_round(TRUE)
-	user.visible_message(span_dangerbigger("*CRACK*"))
+	user.visible_message(span_biggerdanger("*CRACK*"))
 	playsound(user, 'sound/weapons/jammed.ogg', 140, TRUE)
 
 /obj/item/gun/projectile/revolver/improvised/proc/radial_menu(mob/user)

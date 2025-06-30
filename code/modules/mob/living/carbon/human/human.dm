@@ -478,7 +478,7 @@
 			forcesay()
 		if(undergoing_cardiac_arrest() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			if(set_heartattack(FALSE) && stat == CONSCIOUS)
-				to_chat(src, span_notice("You feel your heart beating again!"))
+				to_chat(src, span_notice("Вы чувствуете, как ваше сердце вновь бьется!"))
 
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 
@@ -495,8 +495,8 @@
 				return
 			var/time_taken = thing.embedded_unsafe_removal_time * thing.w_class
 			usr.visible_message(
-				span_warning("[usr] attempts to remove [thing] from [usr.p_their()] [bodypart.name]."),
-				span_notice("You attempt to remove [thing] from your [bodypart.name]... (It will take [time_taken/10] seconds.)"),
+				span_warning("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
+				span_notice("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]... (Это займет [time_taken/10] секунд.)"),
 			)
 			if(do_after(usr, time_taken, src))
 				if(QDELETED(thing) || QDELETED(bodypart) || thing.loc != bodypart || !LAZYIN(bodypart.embedded_objects, thing))
@@ -509,8 +509,8 @@
 					if(h_user.has_pain())
 						h_user.emote("scream")
 				usr.visible_message(
-					span_warning("[usr] successfully rips [thing] out of [usr.p_their()] [bodypart.name]!"),
-					span_notice("You successfully remove [thing] from your [bodypart.name]."),
+					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]!"),
+					span_notice("Вы успешно извлекли [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
 				)
 			return
 

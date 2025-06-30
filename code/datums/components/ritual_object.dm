@@ -192,7 +192,7 @@
 	if(del_things)
 		ritual.del_things(used_things)
 
-	if(remove_charge)
+	if(remove_charge && ritual.charges != -1)
 		ritual.charges--
 
 	if(failed)

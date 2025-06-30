@@ -304,6 +304,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_BEING_OFFERED "offered"
 
+#define TRAIT_TOXIC_FUEL_PROTECTED "toxic_fuel_protected"
+
 
 /// Ignore Crew monitor Z levels
 #define TRAIT_MULTIZ_SUIT_SENSORS "multiz_suit_sensors"

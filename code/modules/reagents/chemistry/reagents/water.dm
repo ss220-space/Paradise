@@ -302,7 +302,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 			holder.remove_reagent(id, volume)
-			M.visible_message(span_dangerbigger("[M] отшатыва[pluralize_ru(M.gender, "ет", "ют")]ся, [genderize_ru(M.gender, "его", "её", "его", "их")] кожа окрашивается в яркий цвет, [genderize_ru(M.gender, "он", "она", "оно", "они")] вновь обрета[pluralize_ru(M.gender, "ет", "ют")] чувство контроля над собой!"))
+			M.visible_message(span_biggerdanger("[M] отшатыва[pluralize_ru(M.gender, "ет", "ют")]ся, [genderize_ru(M.gender, "его", "её", "его", "их")] кожа окрашивается в яркий цвет, [genderize_ru(M.gender, "он", "она", "оно", "они")] вновь обрета[pluralize_ru(M.gender, "ет", "ют")] чувство контроля над собой!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)

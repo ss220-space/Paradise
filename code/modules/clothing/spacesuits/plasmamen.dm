@@ -762,3 +762,19 @@
 	item_state = "mining_medic_envirohelm"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = EXAMINE_HUD_MEDICAL
+
+
+/obj/item/clothing/head/helmet/space/plasmaman/syndie
+	name = "tacticool envirosuit helmet"
+	ru_names = list(
+		NOMINATIVE = "тактический защитный шлем",
+		GENITIVE = "тактического защитного шлема",
+		DATIVE = "тактическому защитному шлему",
+		ACCUSATIVE = "тактический защитный шлем",
+		INSTRUMENTAL = "тактическим защитным шлемом",
+		PREPOSITIONAL = "тактическом защитном шлеме"
+	)
+	desc = "Нет никаких сомнений, этот шлем ставит тебя выше ВСЕХ других плазмаменов. Если ты видишь другого плазмамена в таком шлеме, это либо потому, что он такой же крутой парень, \
+		либо он убил одного из твоих крутых друзей и забрал его у него как трофей. В любом случае, любой, кто носит это, заслуживает уважения."
+	icon_state = "syndie_envirohelm"
+	item_state = null

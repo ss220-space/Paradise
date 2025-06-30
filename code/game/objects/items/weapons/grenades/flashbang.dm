@@ -51,7 +51,7 @@
 		if(flash)
 			if(M.weakeyes)
 				M.visible_message(span_disarm("<b>[M]</b> screams and collapses!"))
-				to_chat(M, span_userdanger("<font size=3>AAAAGH!</font>"))
+				to_chat(M, span_userdanger(span_fontsize3("AAAAGH!")))
 				M.Weaken(10 SECONDS) //hella stunned
 				if(ishuman(M))
 					M.emote("scream")

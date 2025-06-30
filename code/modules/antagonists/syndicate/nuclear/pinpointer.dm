@@ -384,7 +384,7 @@
 		return
 	var/mob/living/carbon/human/holder = get(loc, /mob/living/carbon/human)
 	for(var/mob/living/carbon/human/operative as anything in (GLOB.human_list - holder))
-		if(operative.mind && (operative.mind in SSticker.mode.syndicates))
+		if(operative.mind && (operative.mind.has_antag_datum(/datum/antagonist/nuclear_operative)))
 			target_turf = get_turf(operative)
 			if(!target_turf)
 				continue

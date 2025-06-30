@@ -208,7 +208,7 @@
 			return
 
 		mob.playsound_local(null, 'sound/magic/lightningbolt.ogg', 15, TRUE)
-		to_chat(mob, span_energeticanomaly("Вы слышите тихое потрескивание в воздухе. Подозрительно похоже на статическое электричество."))
+		to_chat(mob, span_energetic_anomaly("Вы слышите тихое потрескивание в воздухе. Подозрительно похоже на статическое электричество."))
 
 
 /obj/effect/energy_ball
@@ -348,7 +348,7 @@
 			continue
 
 		mob.playsound_local(null, 'sound/magic/lightningbolt.ogg', 25, TRUE)
-		to_chat(mob, span_energeticanomaly("Вы слышите черезвычайно громкий электрический треск!"))
+		to_chat(mob, span_energetic_anomaly("Вы слышите черезвычайно громкий электрический треск!"))
 
 /obj/effect/anomaly/energetic/tier4/do_move(dir)
 	. = ..()
