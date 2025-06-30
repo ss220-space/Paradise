@@ -86,12 +86,20 @@ LINEN BINS
 	nightmare_messages = list("Grey blood")
 
 /obj/item/bedsheet/patriot
-	name = "patriotic bedsheet"
-	desc = "You've never felt more free than when sleeping on this."
-	icon_state = "sheetUSA"
-	item_color = "sheetUSA"
-	dream_messages = list("America", "freedom", "fireworks", "bald eagles")
-	nightmare_messages = list("communism")
+	name = "Zaza ambasador"
+	ru_names = list(
+		NOMINATIVE = "заза амбасадор",
+		GENITIVE = "заза амбасадора",
+		DATIVE = "зазе амбасадору",
+		ACCUSATIVE = "зазу амбасадора",
+		INSTRUMENTAL = "зазой амбасадором",
+		PREPOSITIONAL = "зазе амбасадоре"
+	)
+	desc = "Вы явно владеете зазой."
+	icon_state = "sheetzaza"
+	item_color = "sheetzaza"
+	dream_messages = list("зазе", "качалке", "свободе", "крилье который выпрыгивает из воды забрасывая трехочковый в баскетбольную корзину на фоне акул")
+	nightmare_messages = list("тюрьме", "наручниках")
 
 /obj/item/bedsheet/rainbow
 	name = "rainbow bedsheet"

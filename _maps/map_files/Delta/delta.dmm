@@ -47791,10 +47791,6 @@
 	},
 /area/maintenance/kitchen)
 "fRj" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Temporary Holding Cell";
-	req_access = list(63)
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -47803,6 +47799,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/security/glass{
+	id = "visiting room";
+	id_tag = "visiting room";
+	name = "Visiting Room";
+	req_access = list(63)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -65463,9 +65465,10 @@
 /area/crew_quarters/courtroom)
 "kaO" = (
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/melee/bigiron,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/shoes/orange,
 /obj/structure/table,
+/obj/item/melee/bigiron,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -92513,19 +92516,12 @@
 	},
 /area/hallway/primary/central/sw)
 "qoN" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -112709,21 +112705,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/genetics)
-"uRW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
-	},
-/area/security/processing)
 "uSt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -118452,21 +118433,6 @@
 	icon_state = "wood-broken5"
 	},
 /area/maintenance/engineering)
-"wla" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/security/processing)
 "wlk" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -179833,7 +179799,7 @@ bub
 dQk
 bgt
 qDn
-wla
+vmj
 ubg
 dsj
 jXk
@@ -180090,7 +180056,7 @@ iCk
 tmw
 iLT
 vuq
-uRW
+paO
 iPH
 oar
 jZY
