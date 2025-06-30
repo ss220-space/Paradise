@@ -11,7 +11,7 @@
 	show_in_orbit = FALSE
 	var/old_real_name
 	var/datum/team/nuclear_team/nuclear_team
-	var/operative_index
+	var/greet_name = "Ядерный Оперативник"
 	var/list/race_equipment = list(
 		SPECIES_PLASMAMAN = /datum/outfit/admin/syndicate/operative/nuclear/plasmaman,
 		SPECIES_VOX = /datum/outfit/admin/syndicate/operative/nuclear/vox,
@@ -53,11 +53,25 @@
 /datum/antagonist/nuclear_operative/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, 'sound/ambience/antag/ops.ogg')
-	messages.Add(span_notice("Вы Ядерный Оперативник!"))
+	messages.Add(span_notice("Вы [greet_name]!"))
+	messages.Add(additional_messages())
+	messages.Add(code_message())
+	messages.Add(footer_messages())
+	return messages
+
+/datum/antagonist/nuclear_operative/proc/additional_messages()
+	var/list/messages = list()
 	messages.Add(span_notice("Название вашего отряда: [nuclear_team.syndicate_name]"))
-	messages.Add(span_notice("Код от боеголовки Синдиката: <b>[nuclear_team.nuke_code]</b>"))
+	return messages
+
+/datum/antagonist/nuclear_operative/proc/code_message()
+	return span_notice("Код от боеголовки Синдиката: <b>[nuclear_team.nuke_code]</b>")
+
+/datum/antagonist/nuclear_operative/proc/footer_messages()
+	var/list/messages = list()
 	messages.Add(span_notice("Слушайтесь вашего командира и выполните поставленную задачу."))
 	return messages
+
 
 /datum/antagonist/nuclear_operative/proc/equip()
 	var/mob/living/carbon/human/human = owner.current
@@ -67,6 +81,10 @@
 	var/outfit = (race in race_equipment)? race_equipment[race] : race_equipment[SPECIES_OTHER]
 	if(!outfit)
 		return
+
+	for (var/obj/item/item in human.get_equipped_items(TRUE, TRUE))
+		qdel(item)
+
 	human.equipOutfit(outfit)
 	var/obj/item/radio/uplink/nuclear/uplink = locate(/obj/item/radio/uplink/nuclear) in human.contents
 	if(!uplink)
@@ -76,6 +94,7 @@
 /datum/antagonist/nuclear_operative/leader
 	name = "Командир Ядерных Оперативников"
 	antag_menu_name = "Командир Ядерных Оперативников"
+	greet_name = "командир Ядерных Оперативников"
 	race_equipment = list(
 		SPECIES_PLASMAMAN = /datum/outfit/admin/syndicate/operative/nuclear/leader/plasmaman,
 		SPECIES_VOX = /datum/outfit/admin/syndicate/operative/nuclear/leader/vox,
@@ -85,14 +104,14 @@
 /datum/antagonist/nuclear_operative/leader/rename()
 	owner.current.real_name = "[nuclear_team.syndicate_name] Team [nuclear_team.leader_prefix]"
 
-/datum/antagonist/nuclear_operative/leader/greet()
-	var/list/messages = list()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/ops.ogg')
-	messages.Add(span_notice("Вы командир Ядерных Оперативников!"))
-	messages.Add(span_notice("Название вашего отряда: [nuclear_team.syndicate_name]"))
+/datum/antagonist/nuclear_operative/leader/additional_messages()
+	var/list/messages = ..()
 	messages.Add(span_notice( "<b>Вы лидер отряда. Вы ответственны за проведение операции и составление плана атаки и только ваша карта может открыть шлюз в док с шаттлом.</b>"))
 	messages.Add(span_notice( "<b>Если вы чувствуете, что не готовы быть командиром отряда, попросите администрацию поменять вас телами с другим оперативником или призраком.</b>"))
-	messages.Add(span_notice("Код от боеголовки Синдиката: <b>[nuclear_team.nuke_code]</b>"))
+	return messages
+
+/datum/antagonist/nuclear_operative/leader/footer_messages()
+	var/list/messages = list()
 	messages.Add(span_notice( "<b>В вашей руке вы найдете особый предмет, необходимый для открытого объявления войны станции. Внимательно осмотрите его и проконсультируйтесь с командой, прежде чем активировать его.</b>"))
 	return messages
 
@@ -105,6 +124,7 @@
 	name = "Борг Ядерных Оперативников"
 	antag_menu_name = "Борг Ядерных Оперативников"
 	race_equipment = null
+	greet_name = "борг Ядерных Оперативников"
 
 /datum/antagonist/nuclear_operative/cyborg/rename()
 	return
@@ -112,18 +132,15 @@
 /datum/antagonist/nuclear_operative/cyborg/equip()
 	return
 
-/datum/antagonist/nuclear_operative/cyborg/greet()
+/datum/antagonist/nuclear_operative/cyborg/footer_messages()
 	var/list/messages = list()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/ops.ogg')
-	messages.Add(span_notice("Вы Борг Ядерных оперативников!"))
-	messages.Add(span_notice("Название вашего отряда: [nuclear_team.syndicate_name]"))
-	messages.Add(span_notice("Код от боеголовки Синдиката: <b>[nuclear_team.nuke_code]</b>"))
 	messages.Add(span_notice("Слушайтесь членов отряда и помогите им выполнить миссию."))
 	return messages
 
 /datum/antagonist/nuclear_operative/loneop
 	name = "Ядерный Оперативник - Одиночка"
 	antag_menu_name = "Ядерный Оперативник - Одиночка"
+	greet_name = "Ядерный Оперативник - Одиночка"
 	show_in_roundend = TRUE
 	show_in_orbit = TRUE
 	race_equipment = list(
@@ -139,10 +156,14 @@
 /datum/antagonist/nuclear_operative/loneop/give_objectives()
 	add_objective(/datum/objective/nuclear)
 
-/datum/antagonist/nuclear_operative/loneop/greet()
+
+/datum/antagonist/nuclear_operative/loneop/additional_messages()
 	var/list/messages = list()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/ops.ogg')
-	messages.Add(span_notice("Вы Ядерный Оперативник - Одиночка!"))
-	messages.Add(span_notice("Вам поручена миссия, которую многие сочтут невыполнимой. Вам необходимо заполучить диск ядерной аутентификации и взвести станционное устройство самоуничтожения"))
-	messages.Add(span_notice("Код от боеголовки станции [station_name()]: <b>[GLOB.nuke_codes[/obj/machinery/nuclearbomb]]</b>"))
+	messages.Add(span_notice("Вам поручена миссия, которую многие сочтут невыполнимой. Вам необходимо заполучить диск ядерной аутентификации и взвести станционное устройство самоуничтожения."))
 	return messages
+
+/datum/antagonist/nuclear_operative/loneop/code_message()
+	return span_notice("Код от боеголовки станции [station_name()]: <b>[GLOB.nuke_codes[/obj/machinery/nuclearbomb]]</b>")
+
+/datum/antagonist/nuclear_operative/loneop/footer_messages()
+	return ""
