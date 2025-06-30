@@ -485,7 +485,7 @@ SUBSYSTEM_DEF(shuttle)
 	if(!ishuman(occupant) || !occupant.mind)
 		return
 
-	if(GLOB.security_level < SEC_LEVEL_GAMMA)
+	if(SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_GAMMA)
 		return
 
 	if(!is_station_level(pod.z) && !istype(get_area(pod), /area/mine))

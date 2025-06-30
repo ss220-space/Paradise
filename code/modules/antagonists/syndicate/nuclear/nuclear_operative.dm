@@ -52,7 +52,7 @@
 
 /datum/antagonist/nuclear_operative/greet()
 	var/list/messages = list()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/ops.ogg')
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/ops.ogg'))
 	messages.Add(span_notice("Вы Ядерный Оперативник!"))
 	messages.Add(span_notice("Название вашего отряда: [nuclear_team.syndicate_name]"))
 	messages.Add(span_notice("Код от боеголовки Синдиката: <b>[nuclear_team.nuke_code]</b>"))
@@ -87,7 +87,7 @@
 
 /datum/antagonist/nuclear_operative/leader/greet()
 	var/list/messages = list()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/ops.ogg')
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/ops.ogg'))
 	messages.Add(span_notice("Вы командир Ядерных Оперативников!"))
 	messages.Add(span_notice("Название вашего отряда: [nuclear_team.syndicate_name]"))
 	messages.Add(span_notice( "<b>Вы лидер отряда. Вы ответственны за проведение операции и составление плана атаки и только ваша карта может открыть шлюз в док с шаттлом.</b>"))
@@ -114,7 +114,7 @@
 
 /datum/antagonist/nuclear_operative/cyborg/greet()
 	var/list/messages = list()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/ops.ogg')
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/ops.ogg'))
 	messages.Add(span_notice("Вы Борг Ядерных оперативников!"))
 	messages.Add(span_notice("Название вашего отряда: [nuclear_team.syndicate_name]"))
 	messages.Add(span_notice("Код от боеголовки Синдиката: <b>[nuclear_team.nuke_code]</b>"))
@@ -141,7 +141,7 @@
 
 /datum/antagonist/nuclear_operative/loneop/greet()
 	var/list/messages = list()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/ops.ogg')
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/ops.ogg'))
 	messages.Add(span_notice("Вы Ядерный Оперативник - Одиночка!"))
 	messages.Add(span_notice("Вам поручена миссия, которую многие сочтут невыполнимой. Вам необходимо заполучить диск ядерной аутентификации и взвести станционное устройство самоуничтожения"))
 	messages.Add(span_notice("Код от боеголовки станции [station_name()]: <b>[GLOB.nuke_codes[/obj/machinery/nuclearbomb]]</b>"))
