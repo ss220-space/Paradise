@@ -71,8 +71,14 @@ SUBSYSTEM_DEF(shuttle)
 		supply_packs["[P.type]"] = P
 	initial_move()
 
+	RegisterSignal(src, COMSIG_CRYOPOD_DESPAWN, PROC_REF(on_cryopod_despawn))
+
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 	return SS_INIT_SUCCESS
+
+/datum/controller/subsystem/shuttle/Destroy()
+	UnregisterSignal(src, COMSIG_CRYOPOD_DESPAWN)
+	. = ..()
 
 
 /datum/controller/subsystem/shuttle/get_stat_details()
@@ -466,6 +472,30 @@ SUBSYSTEM_DEF(shuttle)
 
 	QDEL_LIST(remove_images)
 
+#define CRYOPOD_POINTS 50
+
+/datum/controller/subsystem/shuttle/proc/on_cryopod_despawn(datum/source, obj/machinery/cryopod/pod, mob/living/occupant)
+	SIGNAL_HANDLER
+	if(!istype(pod))
+		return
+
+	if(pod.syndicate)
+		return
+
+	if(!ishuman(occupant) || !occupant.mind)
+		return
+
+	if(GLOB.security_level < SEC_LEVEL_GAMMA)
+		return
+
+	if(!is_station_level(pod.z) && !istype(get_area(pod), /area/mine))
+		return
+
+	points += CRYOPOD_POINTS
+	centcom_message += "<center>---[station_time_timestamp()]---</center><br>"
+	centcom_message += "[span_good("+50")]: Компенсация за уход члена экипажа в крио при критической угрозе объекту.<hr>"
+
+#undef CRYOPOD_POINTS
 
 // Allow admins to fix shuttles ports list.
 /client/proc/reregister_docks()

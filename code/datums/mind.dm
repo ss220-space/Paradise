@@ -453,16 +453,12 @@
 
 /datum/mind/proc/memory_edit_nuclear(mob/living/carbon/human/H)
 	. = _memory_edit_header("nuclear")
-	if(src in SSticker.mode.syndicates)
-		. += "<b><font color='red'>OPERATIVE</b></font>|<a href='byond://?src=[UID()];nuclear=clear'>no</a>"
+	if(has_antag_datum(/datum/antagonist/nuclear_operative))
+		. += "<b>[span_red("OPERATIVE")]|<a href='byond://?src=[UID()];nuclear=clear'>no</a>"
 		. += "<br><a href='byond://?src=[UID()];nuclear=lair'>To shuttle</a>, <a href='byond://?src=[UID()];common=undress'>undress</a>, <a href='byond://?src=[UID()];nuclear=dressup'>dress up</a>."
-		var/code
-		for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
-			if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
-				code = bombue.r_code
-				break
+		var/code = GLOB.nuke_codes[/obj/machinery/nuclearbomb/syndicate]
 		if(code)
-			. += " Code is [code]. <a href='byond://?src=[UID()];nuclear=tellcode'>tell the code.</a>"
+			. += "Syndicate Code is [code]."
 	else
 		. += "<a href='byond://?src=[UID()];nuclear=nuclear'>operative</a>|<b>NO</b>"
 
@@ -695,7 +691,7 @@
 	. = ""
 	if(ishuman(current) && ((src in SSticker.mode.head_revolutionaries) || \
 		(has_antag_datum(/datum/antagonist/traitor)) || \
-		(src in SSticker.mode.syndicates)))
+		(has_antag_datum(/datum/antagonist/nuclear_operative))))
 		. = "Uplink: <a href='byond://?src=[UID()];common=uplink'>give</a>"
 		var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
 		var/crystals
@@ -1831,7 +1827,6 @@
 					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
 
 	else if(href_list["nuclear"])
-		var/mob/living/carbon/human/H = current
 
 		switch(href_list["nuclear"])
 			if("clear")
@@ -1839,57 +1834,24 @@
 				to_chat(current, span_warning(span_fontsize3("<b>You have been brainwashed! You are no longer a syndicate operative!</b>")))
 				log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
+
 			if("nuclear")
-				if(!(src in SSticker.mode.syndicates))
-					SSticker.mode.syndicates += src
-					SSticker.mode.update_synd_icons_added(src)
-					if(SSticker.mode.syndicates.len==1)
-						SSticker.mode.prepare_syndicate_leader(src)
-					else
-						current.real_name = "[syndicate_name()] Operative #[SSticker.mode.syndicates.len-1]"
-					special_role = SPECIAL_ROLE_NUKEOPS
-					to_chat(current, span_notice("You are a [syndicate_name()] agent!"))
-					SSticker.mode.forge_syndicate_objectives(src)
-					SSticker.mode.greet_syndicate(src)
-					log_admin("[key_name(usr)] has nuke op'd [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has nuke op'd [key_name_admin(current)]")
+				var/datum/team/nuclear_team/team = (GLOB.antagonist_teams[/datum/team/nuclear_team])? GLOB.antagonist_teams[/datum/team/nuclear_team] : new /datum/team/nuclear_team
+				team.add_member(src)
+				log_admin("[key_name(usr)] has nuke op'd [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has nuke op'd [key_name_admin(current)]")
+
 			if("lair")
-				current.forceMove(get_turf(locate("landmark*Syndicate-Spawn")))
+				current.forceMove(get_turf(safepick(GLOB.nukespawn)))
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the nuclear operative spawn")
 				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to the nuclear operative spawn")
-			if("dressup")
-				qdel(H.belt)
-				qdel(H.back)
-				qdel(H.l_ear)
-				qdel(H.r_ear)
-				qdel(H.gloves)
-				qdel(H.head)
-				qdel(H.shoes)
-				qdel(H.wear_id)
-				qdel(H.wear_pda)
-				qdel(H.wear_suit)
-				qdel(H.w_uniform)
 
-				if(!SSticker.mode.equip_syndicate(current))
-					to_chat(usr, span_warning("Equipping a syndicate failed!"))
-					return
-				SSticker.mode.update_syndicate_id(current.mind, SSticker.mode.syndicates.len == 1)
+			if("dressup")
+				var/datum/antagonist/nuclear_operative/datum = has_antag_datum(/datum/antagonist/nuclear_operative)
+				datum.equip()
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a nuclear operative")
 
-			if("tellcode")
-				var/code
-				for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
-					if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
-						code = bombue.r_code
-						break
-				if(code)
-					store_memory("<b>Syndicate Nuclear Bomb Code</b>: [code]", 0, 0)
-					to_chat(current, "The nuclear authorization code is: <b>[code]</b>")
-					log_admin("[key_name(usr)] has given [key_name(current)] the nuclear authorization code")
-					message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] the nuclear authorization code")
-				else
-					to_chat(usr, span_warning("No valid nuke found!"))
 
 	else if(href_list["space_dragon"])
 		switch(href_list["space_dragon"])
@@ -2727,13 +2689,7 @@
 
 
 /datum/mind/proc/remove_syndicate_role()
-	if(src in SSticker.mode.syndicates)
-		SSticker.mode.syndicates -= src
-		SSticker.mode.update_synd_icons_removed(src)
-		special_role = null
-		for(var/datum/objective/nuclear/O in objectives)
-			objectives-=O
-			qdel(O)
+	remove_antag_datum(/datum/antagonist/nuclear_operative)
 
 /datum/mind/proc/remove_event_role()
 	if(src in SSticker.mode.eventmiscs)
@@ -2848,6 +2804,10 @@
 	if(traitor_datum)
 		return traitor_datum.hidden_uplink
 
+	var/datum/antagonist/nuclear_operative/nuclear_datum = has_antag_datum(/datum/antagonist/nuclear_operative)
+	if(nuclear_datum)
+		return nuclear_datum.uplink
+
 	// We will return first found uplink in mob contents if its not a traitor
 	var/list/uplinks = current?.collect_all_atoms_of_type(/obj/item/uplink/hidden)
 	return length(uplinks) ? uplinks[1] : null
@@ -2864,6 +2824,10 @@
 	var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
 	if(traitor_datum?.hidden_uplink == uplink)
 		traitor_datum.hidden_uplink = null
+
+	var/datum/antagonist/nuclear_operative/nuclear_datum = has_antag_datum(/datum/antagonist/nuclear_operative)
+	if(nuclear_datum)
+		return nuclear_datum.uplink = null
 
 	qdel(uplink)
 
@@ -2882,37 +2846,6 @@
 	if(!isvampire(src))
 		add_antag_datum(/datum/antagonist/vampire/new_vampire)
 
-
-/datum/mind/proc/make_Nuke()
-	if(!(src in SSticker.mode.syndicates))
-		SSticker.mode.syndicates += src
-		SSticker.mode.update_synd_icons_added(src)
-		if(SSticker.mode.syndicates.len==1)
-			SSticker.mode.prepare_syndicate_leader(src)
-		else
-			current.real_name = "[syndicate_name()] Operative #[SSticker.mode.syndicates.len-1]"
-		special_role = SPECIAL_ROLE_NUKEOPS
-		assigned_role = SPECIAL_ROLE_NUKEOPS
-		to_chat(current, span_notice("You are a [syndicate_name()] agent!"))
-		SSticker.mode.forge_syndicate_objectives(src)
-		SSticker.mode.greet_syndicate(src)
-
-		current.forceMove(get_turf(locate("landmark*Syndicate-Spawn")))
-
-		var/mob/living/carbon/human/H = current
-		qdel(H.belt)
-		qdel(H.back)
-		qdel(H.l_ear)
-		qdel(H.r_ear)
-		qdel(H.gloves)
-		qdel(H.head)
-		qdel(H.shoes)
-		qdel(H.wear_id)
-		qdel(H.wear_pda)
-		qdel(H.wear_suit)
-		qdel(H.w_uniform)
-
-		SSticker.mode.equip_syndicate(current)
 
 
 /datum/mind/proc/make_Wizard()

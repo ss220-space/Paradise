@@ -85,7 +85,7 @@
 		SPECIES_DRACONOID = "драконид",
 		SPECIES_VOX = "вокс",
 		SPECIES_VOX_ARMALIS = "вокс армалис",
-		SPECIES_VULPKANIN = "вульпакин",
+		SPECIES_VULPKANIN = "вульпканин",
 		SPECIES_WRYN = "врин"
 	)
 	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list

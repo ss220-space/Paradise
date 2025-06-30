@@ -410,11 +410,7 @@
 	P.info += span_fontsize1("<br><hr>Несоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального командования.")
 
 /proc/directive_7_12()
-	var/nukecode = rand(10000, 99999)
-	for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
-		if(bomb && bomb.r_code)
-			if(is_station_level(bomb.z))
-				bomb.r_code = nukecode
+	var/nukecode = GLOB.nuke_codes[/obj/machinery/nuclearbomb]
 	var/intercepttext
 	var/interceptname
 	interceptname = "Секретное постановление [command_name()]"

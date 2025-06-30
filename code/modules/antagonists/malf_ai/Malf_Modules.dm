@@ -324,7 +324,7 @@
 	for(var/explodee in GLOB.player_list)
 		SEND_SOUND(explodee, doomsday_alarm)
 	sleep(100)
-	SSticker.station_explosion_cinematic(null, "AI malfunction")
+	SSticker.station_explosion_cinematic(null, MALF_AI)
 	to_chat(world, "<b>The AI cleansed the station of life with the doomsday device!</b>")
 	SSticker.mode.station_was_nuked = TRUE
 

@@ -749,7 +749,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Revolutionary"
 	if(M.mind in SSticker.mode.cult)
 		antag_list += "Cultist"
-	if(M.mind in SSticker.mode.syndicates)
+	if(M.mind.has_antag_datum(/datum/antagonist/nuclear_operative))
 		antag_list += "Nuclear Operative"
 	if(M.mind in SSticker.mode.wizards)
 		antag_list += "Wizard"

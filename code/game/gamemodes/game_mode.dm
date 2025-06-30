@@ -276,13 +276,6 @@
 
 
 /**
- * Universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
- */
-/datum/game_mode/proc/check_win()
-	return FALSE
-
-
-/**
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
  * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
  */
@@ -293,7 +286,7 @@
 	// Assemble a list of active players without jobbans and role enabled
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(!player.client || !player.ready || !player.has_valid_preferences() \
-			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
+			|| jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, role) \
 			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
@@ -329,7 +322,7 @@
 	// Assemble a list of active players without jobbans and role enabled
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
 		if(!player.client \
-			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
+			|| jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, role) \
 			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special) || !is_player_station_relevant(player))
 			continue
@@ -363,7 +356,7 @@
 	. = list()
 	for(var/mob/living/silicon/ai/AI in GLOB.alive_mob_list)
 		if(!AI.client || !AI.mind \
-			|| jobban_isbanned(AI, "Syndicate") || jobban_isbanned(AI, role) \
+			|| jobban_isbanned(AI, ROLE_SYNDICATE) || jobban_isbanned(AI, role) \
 			|| !player_old_enough_antag(AI.client, role, JOB_TITLE_AI) || AI.client.prefs?.skip_antag \
 			|| !(role in AI.client.prefs.be_special) || AI.stat == DEAD || AI.control_disabled \
 			|| AI.mind.offstation_role || AI.mind.special_role)
@@ -577,11 +570,7 @@
 
 
 /proc/get_nuke_code()
-	var/nukecode = "ERROR"
-	for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
-		if(bomb?.r_code && is_station_level(bomb.z))
-			nukecode = bomb.r_code
-	return nukecode
+	return GLOB.nuke_codes[/obj/machinery/nuclearbomb]
 
 
 /proc/get_nuke_status()
@@ -660,9 +649,9 @@
 	var/count = 1
 	for(var/datum/objective/objective in player.get_all_objectives())
 		if(objective.check_completion())
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_greentext("Success!")]"
 		else
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_redtext("Fail")]"
 		count++
 
 	return objective_parts.Join("<br>")
@@ -730,7 +719,6 @@
 	. += auto_declare_completion_vampire()
 	. += auto_declare_completion_enthralled()
 	. += auto_declare_completion_changeling()
-	. += auto_declare_completion_nuclear()
 	. += auto_declare_completion_wizard()
 	. += auto_declare_completion_revolution()
 	. += auto_declare_completion_abduction()

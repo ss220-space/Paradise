@@ -469,7 +469,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			var/obj/effect/landmark/synd_spawn = locate("landmark*Syndicate-Spawn")
 			if(synd_spawn)
 				new_character.forceMove(get_turf(synd_spawn))
-			call(/datum/game_mode/proc/equip_syndicate)(new_character)
+			var/datum/antagonist/nuclear_operative/datum = new_character.mind.has_antag_datum(/datum/antagonist/nuclear_operative)
+			if(!datum)
+				datum = new_character.mind.add_antag_datum(/datum/antagonist/nuclear_operative, /datum/team/nuclear_team)
+			datum.equip()
 
 		if("Death Commando")//Leaves them at late-join spawn.
 			new_character.equipOutfit(/datum/outfit/admin/death_commando)
