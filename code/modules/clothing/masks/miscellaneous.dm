@@ -54,11 +54,11 @@
 
 /obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
 	if(istype(user.get_inactive_hand(), /obj/item/card/emag))
-		balloon_alert(user, "замок дымится и открывается")
+		balloon_alert(user, "замок открылся")
 		do_break()
 		return TRUE
 	else if(ACCESS_BRIG in user.get_access())
-		balloon_alert(user, "намордник открылся с характерным щелчком")
+		balloon_alert(user, "намордник открылся")
 		locked = FALSE
 		REMOVE_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
 		return TRUE

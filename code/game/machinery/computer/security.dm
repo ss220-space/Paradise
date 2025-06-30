@@ -50,7 +50,7 @@
 			"fingerprint" = "Введите новый хэш отпечатков пальцев:",
 			// Security
 			"criminal" = "Выберите новый статус:",
-			"mi_crim" = "Введите новые малозначительные преступления:",
+			"mi_crim" = "Введите новые незначительные преступления:",
 			"mi_crim_d" = "Введите детали мелких преступлений:",
 			"ma_crim" = "Введите новые тяжкие преступления:",
 			"ma_crim_d" = "Введите детали тяжких преступлений:",
@@ -84,7 +84,7 @@
 	if(..())
 		return
 	if(is_away_level(z))
-		balloon_alert(user, "вы слишком далеко от станции!")
+		balloon_alert(user, "нет связи!")
 		return
 	add_fingerprint(user)
 	ui_interact(user)
@@ -154,7 +154,7 @@
 					var/list/sec_fields = record_security.fields
 					security["fields"] = list(
 						SEC_FIELD("Статус", 	sec_fields["criminal"], 	"criminal", 	TRUE),
-						SEC_FIELD("Малозначительные преступления", 		sec_fields["mi_crim"], 		"mi_crim", 		FALSE),
+						SEC_FIELD("Незначительные преступления", 		sec_fields["mi_crim"], 		"mi_crim", 		FALSE),
 						SEC_FIELD("Детали", 			sec_fields["mi_crim_d"], 	"mi_crim_d", 	TRUE),
 						SEC_FIELD("Тяжкие преступления", 		sec_fields["ma_crim"], 		"ma_crim", 		FALSE),
 						SEC_FIELD("Детали", 			sec_fields["ma_crim_d"], 	"ma_crim_d", 	TRUE),
@@ -235,7 +235,7 @@
 			S.name = "Запись безопасности #[S.fields["id"]]"
 			S.fields["criminal"] = SEC_RECORD_STATUS_NONE
 			S.fields["mi_crim"] = "Нет"
-			S.fields["mi_crim_d"] = "Отсутствие судимостей за малозначительные преступления."
+			S.fields["mi_crim_d"] = "Отсутствие судимостей за незначительные преступления."
 			S.fields["ma_crim"] = "Нет"
 			S.fields["ma_crim_d"] = "Отсутствие судимостей за тяжкие преступления."
 			S.fields["notes"] = "Нет примечаний."
@@ -257,7 +257,7 @@
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			current_page = SEC_DATA_R_LIST
-			set_temp("ВСЕ записи удалены.")
+			set_temp("Все записи удалены.")
 		if("delete_security") // Delete Security Record
 			if(!logged_in)
 				return
@@ -462,7 +462,7 @@
 	if(record_security && GLOB.data_core.security.Find(record_security))
 		P.info += {"<br>\n<center><b>Данные службы безопасности</b></center>
 		<br>\nСтатус: [record_security.fields["criminal"]]<br>\n
-		<br>\nМалозначительные преступления: [record_security.fields["mi_crim"]]
+		<br>\nНезначительные преступления: [record_security.fields["mi_crim"]]
 		<br>\nДетали: [record_security.fields["mi_crim_d"]]<br>\n
 		<br>\nТяжкие преступления: [record_security.fields["ma_crim"]]
 		<br>\nДетали: [record_security.fields["ma_crim_d"]]<br>\n

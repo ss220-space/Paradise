@@ -528,12 +528,12 @@
 						for(var/datum/data/record/R in GLOB.data_core.security)
 							if(R.fields["id"] == E.fields["id"])
 
-								var/setcriminal = tgui_input_list(usr, "Установите криминальный статус:", "Security HUD", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
+								var/setcriminal = tgui_input_list(usr, "Установите криминальный статус:", "Охранный ИЛС", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
 								if(!setcriminal)
 									return
-								var/t1 = copytext(trim(sanitize(input("Введите причину:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
+								var/t1 = tgui_input_text(usr, "Введите причину:", "Охранный ИЛС", "", max_length = MAX_MESSAGE_LEN)
 								if(!t1)
-									t1 = "(none)"
+									t1 = "(не указана)"
 
 								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE) && setcriminal != "Cancel")
 									found_record = 1
@@ -570,7 +570,7 @@
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 								to_chat(usr, "<b>Имя:</b> [R.fields["name"]]	<b>Статус:</b> [R.fields["criminal"]]")
-								to_chat(usr, "<b>Малозначительные преступления:</b> [R.fields["mi_crim"]]")
+								to_chat(usr, "<b>Незначительные преступления:</b> [R.fields["mi_crim"]]")
 								to_chat(usr, "<b>Детали:</b> [R.fields["mi_crim_d"]]")
 								to_chat(usr, "<b>Тяжкие преступления:</b> [R.fields["ma_crim"]]")
 								to_chat(usr, "<b>Детали:</b> [R.fields["ma_crim_d"]]")
@@ -625,7 +625,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.general)
 						if(R.fields["id"] == E.fields["id"])
-							var/setmedical = input(usr, "Укажите новый медицинский статус для этого субъекта.", "Medical HUD", R.fields["p_stat"]) in list("*КРС*", "*Мёртв*", "Физически непригоден", "Активен", "Disabled", "Отменить")
+							var/setmedical = input(usr, "Укажите новый медицинский статус для этого субъекта.", "Медицинский ИЛС", R.fields["p_stat"]) in list("*КРС*", "*Мёртв*", "Физически непригоден", "Активен", "Недееспособен", "Отменить")
 
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 								if(setmedical != "Cancel")
@@ -1315,7 +1315,7 @@
 			message += "-"
 			balloon_alert(src, "чтобы продолжить писать нужно больше крови!")
 		else
-			to_chat(src, span_notice("Вы пишете '[message]' на [T] блестящими красными буквами."))
+			to_chat(src, span_notice("Вы пишете '[message]' на [T.declent_ru(PREPOSITIONAL)] блестящими красными буквами."))
 		var/obj/effect/decal/cleanable/blood/writing/W = new(T)
 		W.message = message
 		W.add_fingerprint(src)

@@ -118,7 +118,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 			<i>Начальный баланс:</i> $[M.money]<br>
 			<i>Дата и время:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
 			<i>Терминал создания аккаунта:</i> [source_db.machine_id]<br>
-			<i>Уполномоченный сотрудник NT, курирующий создание аккаунта:</i> [overseer]<br>"}
+			<i>Уполномоченный сотрудник НТ, курирующий создание аккаунта:</i> [overseer]<br>"}
 
 		//stamp the paper
 		R.stamp(/obj/item/stamp, TRUE, "<i>На этой бумаге стоит печать базы данных аккаунтов.</i>", "stamp-cent")

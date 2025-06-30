@@ -197,7 +197,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		S.fields["name"]		= H.real_name
 		S.fields["criminal"]	= "Отсутствует"
 		S.fields["mi_crim"]		= "Нет"
-		S.fields["mi_crim_d"]	= "Отсутствие судимостей за малозначительные преступления."
+		S.fields["mi_crim_d"]	= "Отсутствие судимостей за незначительные преступления."
 		S.fields["ma_crim"]		= "Нет"
 		S.fields["ma_crim_d"]	= "Отсутствие судимостей за тяжкие преступления."
 		S.fields["notes"]		= "Дополнительная информация отсутствует"

@@ -50,8 +50,8 @@
 		timer["occupant"] = T.occupant
 		timer["crimes"] = T.crimes
 		timer["brigged_by"] = T.officer
-		timer["time_set_seconds"] = round(T.timetoset / 10)
-		timer["time_left_seconds"] = round(T.timeleft())
+		timer["time_set_seconds"] = round(T.timetoset / 10, 1)
+		timer["time_left_seconds"] = round(T.timeleft(), 1)
 		timer["ref"] = "\ref[T]"
 		timers[++timers.len] += timer
 	timers = sortByKey(timers, "cell_id")

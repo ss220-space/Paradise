@@ -7,6 +7,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 #define IDCOMPUTER_SCREEN_ACCESS 2
 #define IDCOMPUTER_SCREEN_RECORDS 3
 #define IDCOMPUTER_SCREEN_DEPT 4
+#define JOB_DEMOTED "Понижен"
+#define JOB_TERMINATED "Уволен"
 
 /obj/machinery/computer/card
 	name = "identification computer"
@@ -133,21 +135,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return
 
 	if(scan)
-		balloon_alert(usr, "ID-карта извлечена")
+		to_chat(usr, "Вы вытаскиваете [scan.declent_ru(ACCUSATIVE)] из [src.declent_ru(GENITIVE)].")
 		scan.forceMove(get_turf(src))
 		if(Adjacent(usr))
 			usr.put_in_hands(scan, ignore_anim = FALSE)
 		scan = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else if(modify)
-		balloon_alert(usr, "ID-карта извлечена")
+		to_chat(usr, "Вы вытаскиваете [modify.declent_ru(ACCUSATIVE)] из [src.declent_ru(GENITIVE)].")
 		modify.forceMove(get_turf(src))
 		if(Adjacent(usr))
 			usr.put_in_hands(modify, ignore_anim = FALSE)
 		modify = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else
-		balloon_alert(usr, "нечего вытаскивать")
+		to_chat(usr, "Нечего вытаскивать из этой консоли.")
 
 
 /obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
@@ -385,7 +387,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/proc/regenerate_id_name()
 	if(modify)
-		modify.name = "[modify.registered_name] ID card ([modify.assignment])"
+		modify.name = "[modify.registered_name] ID-карта ([modify.assignment])"
 
 /obj/machinery/computer/card/ui_act(action, params)
 	if(..())
@@ -457,26 +459,28 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/t1 = params["assign_target"]
 			var/assignment = t1 // для имени профессии
 			if(target_dept)
-				if(modify.assignment == "Понижен" || modify.assignment == "Уволен")
+				if(modify.assignment == JOB_DEMOTED || modify.assignment == JOB_TERMINATED)
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-					atom_say("Для повторного назначения пониженного или уволенного сотрудника требуется ID компьютер.")
+					visible_message(span_warning("[src.declent_ru(NOMINATIVE)]: Для повторного назначения пониженного или уволенного сотрудника требуется ID компьютер."))
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(modify.rank), CONFIG_GET(flag/allow_head_of_departaments_assign_civilian)))
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-					atom_say("Для повторного назначения сотрудника за пределами вашего отдела требуется ID компьютер.")
+					visible_message(span_warning("[src.declent_ru(NOMINATIVE)]: Для повторного назначения сотрудника за пределами вашего отдела требуется ID компьютер."))
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(t1)))
 					return FALSE
 			if(t1 == "Custom")
-				var/temp_t = sanitize(reject_bad_name(copytext_char(input("Введите индивидуальное название должности.", "Название"), 1, MAX_MESSAGE_LEN), TRUE))
+				var/temp_t = tgui_input_text(usr, "Введите индивидуальное название должности.", "Название", "", max_length = MAX_MESSAGE_LEN)
+				if(!temp_t)
+					return FALSE
 				//let custom jobs function as an impromptu alt title, mainly for sechuds
 				if(temp_t && scan && modify)
 					var/oldrank = modify.getRankAndAssignment()
 					SSjobs.log_job_transfer(modify.registered_name, oldrank, temp_t, scan.registered_name, null)
-					modify.lastlog = "[station_time_timestamp()]: \"[scan.registered_name]\" переведён с \"[oldrank]\" на \"[temp_t]\"."
+					modify.lastlog = "[station_time_timestamp()]: Reassigned by \"[scan.registered_name]\" from \"[oldrank]\" to \"[temp_t]\"."
 					modify.assignment = temp_t
-					add_game_logs("([scan.assignment]) \"[modify.registered_name]\" изменил должность с \"[oldrank]\" на \"[temp_t]\".", usr)
-					investigate_log("[key_name_log(usr)] ([scan.assignment]) изменил должность \"[modify.registered_name]\" с \"[oldrank]\" на \"[temp_t]\"." , INVESTIGATE_ACCESSCHANGES)
+					add_game_logs("([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\".", usr)
+					investigate_log("[key_name_log(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\"." , INVESTIGATE_ACCESSCHANGES)
 					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] перевёл \"[modify.registered_name]\" с \"[oldrank]\" на \"[temp_t]\".")
 			else
 				var/list/access = list()
@@ -490,13 +494,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							jobdatum = J
 							break
 					if(!jobdatum)
-						to_chat(usr, span_warning("No log exists for this job: [t1]"))
+						to_chat(usr, span_warning("Нет записей для этой должности: [t1]"))
 						return
 					if(length(jobdatum.alt_titles))
 						var/list/AT = jobdatum.alt_titles
 						var/standart_Assignment = assignment
 						AT += assignment
-						assignment = input("Select a title", "Job title selection") as null|anything in AT
+						assignment = tgui_input_text(usr, "Выберите название.", "Выбор названия должности", "", max_length = MAX_MESSAGE_LEN)
 						if(!assignment)
 							assignment = standart_Assignment
 						if(!modify)
@@ -506,7 +510,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 				var/jobnamedata = modify.getRankAndAssignment()
 				add_game_logs("([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", usr)
-				investigate_log("[key_name_log(usr)] ([scan.assignment]) изменил должность \"[modify.registered_name]\" с \"[jobnamedata]\" на \"[assignment]\".", INVESTIGATE_ACCESSCHANGES)
+				investigate_log("[key_name_log(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", INVESTIGATE_ACCESSCHANGES)
 				if(t1 == JOB_TITLE_CIVILIAN)
 					message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".")
 
@@ -533,15 +537,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			regenerate_id_name()
 			return
 		if("demote")
-			if(modify.assignment == "Demoted")
+			if(modify.assignment == JOB_DEMOTED)
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				atom_say("Член экипажа уже понижен.")
+				visible_message(span_warning("[src.declent_ru(NOMINATIVE)]: Член экипажа уже понижен."))
 				return FALSE
 			if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				atom_say("Руководитель может понижать только сотрудников своего отдела.")
+				visible_message(span_warning("[src.declent_ru(NOMINATIVE)]: Руководитель может понижать только сотрудников своего отдела."))
 				return FALSE
-			var/reason = sanitize(copytext(input("Введите причину понижения. Оставьте пустым для отмены.","Понижение"), 1, MAX_MESSAGE_LEN))
+			var/reason = tgui_input_text(usr, "Введите причину понижения.", "Понижение", "", max_length = MAX_MESSAGE_LEN)
 			if(!reason || !is_authenticated(usr) || !modify)
 				return FALSE
 			var/list/access = list()
@@ -558,7 +562,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has demoted \"[modify.registered_name]\" ([jobnamedata]) for \"[reason]\".")
 			SSjobs.slot_job_transfer(modify.rank, JOB_TITLE_CIVILIAN)
 			modify.access = access
-			modify.assignment = "Demoted"
+			modify.assignment = JOB_DEMOTED
 			modify.icon_state = "id"
 
 			SSjobs.account_job_transfer(modify.registered_name, JOB_TITLE_CIVILIAN)
@@ -570,7 +574,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				atom_say("Только Капитан или Глава Персонала могут полностью уволить члена экипажа.")
 				return FALSE
 			var/jobnamedata = modify.getRankAndAssignment()
-			var/reason = sanitize(copytext(input("Введите причину увольнения. Оставьте пустым для отмены.", "Увольнение"), 1, MAX_MESSAGE_LEN))
+			var/reason = tgui_input_text(usr, "Введите причину увольнения. Оставьте пустым для отмены.", "Увольнение", "", max_length = MAX_MESSAGE_LEN)
 			if(!reason || !has_idchange_access() || !modify)
 				return FALSE
 			var/m_ckey = modify.getPlayerCkey()
@@ -580,11 +584,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			message_admins("[key_name_admin(usr)] has terminated \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
-			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
+			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) уволил \"[modify.registered_name]\" с работы \"[jobnamedata]\" за \"[reason]\".")
 			var/datum/job/job = SSjobs.GetJob(modify.rank)
-			if(modify.assignment != "Demoted" && !(job.title in GLOB.command_positions))
+			if(modify.assignment != JOB_DEMOTED && !(job.title in GLOB.command_positions))
 				job.current_positions--
-			modify.assignment = "Terminated"
+			modify.assignment = JOB_TERMINATED
 			modify.access = list()
 
 			SSjobs.account_job_transfer(modify.registered_name, modify.rank, FALSE)
@@ -666,7 +670,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	switch(action)
 		// Changing basic card info
 		if("reg") // registered name on card
-			var/temp_name = reject_bad_name(input(usr, "Указанное имя на ID-карте", "Имя на ID-карте", modify.registered_name), TRUE)
+			var/temp_name = tgui_input_text(usr, "Указанное имя на ID-карте", "Имя на ID-карте", modify.registered_name, max_length = MAX_MESSAGE_LEN)
 			if(!modify || !temp_name)
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 				return FALSE

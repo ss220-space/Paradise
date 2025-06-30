@@ -82,7 +82,7 @@
 	if(is_type_in_typecache(I, allowed_to_store))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		balloon_alert(user, "вы положили [I] в [src]")
+		balloon_alert(user, "предмет положен")
 		opened = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		sleep(0.5 SECONDS)
@@ -91,7 +91,7 @@
 		updateUsrDialog()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	balloon_alert(user, "вы не можете положить [I] в [src]!")
+	balloon_alert(user, "невозможно положить!")
 	return ATTACK_CHAIN_PROCEED
 
 
@@ -175,7 +175,7 @@
 			var/obj/item/paper/P = new /obj/item/paper(src)
 			P.info = "<center><b>Запись Службы Безопасности</b></center><br>"
 			P.info += "Имя: [G.fields["name"]] ID: [G.fields["id"]]<br>\nПол: [G.fields["sex"]]<br>\nВозраст: [G.fields["age"]]<br>\nХэш отпечатков пальцев: [G.fields["fingerprint"]]<br>\nФизическое состояние: [G.fields["p_stat"]]<br>\nПсихологическое состояние: [G.fields["m_stat"]]<br>"
-			P.info += "<br>\n<center><b>Данные Службы Безопасности</b></center><br>\nСтатус: [S.fields["criminal"]]<br>\n<br>\nМалозначительные преступления: [S.fields["mi_crim"]]<br>\nДетали: [S.fields["mi_crim_d"]]<br>\n<br>\nТяжкие преступления: [S.fields["ma_crim"]]<br>\nДетали: [S.fields["ma_crim_d"]]<br>\n<br>\nВажные примечания:<br>\n\t[S.fields["notes"]]<br>\n<br>\n<center><b>Комментарии/Log</b></center><br>"
+			P.info += "<br>\n<center><b>Данные Службы Безопасности</b></center><br>\nСтатус: [S.fields["criminal"]]<br>\n<br>\nНезначительные преступления: [S.fields["mi_crim"]]<br>\nДетали: [S.fields["mi_crim_d"]]<br>\n<br>\nТяжкие преступления: [S.fields["ma_crim"]]<br>\nДетали: [S.fields["ma_crim_d"]]<br>\n<br>\nВажные примечания:<br>\n\t[S.fields["notes"]]<br>\n<br>\n<center><b>Комментарии/Log</b></center><br>"
 			for(var/c in S.fields["comments"])
 				P.info += "[c]<br>"
 			P.name = "paper - '[G.fields["name"]]'"

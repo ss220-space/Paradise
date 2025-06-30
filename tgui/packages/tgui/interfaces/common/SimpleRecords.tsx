@@ -192,7 +192,7 @@ const RecordView = (props: RecordViewProps) => {
               <LabeledList.Item label="Статус">
                 {security.criminal}
               </LabeledList.Item>
-              <LabeledList.Item label="Малозначительные преступления">
+              <LabeledList.Item label="Незначительные преступления">
                 {security.mi_crim}
               </LabeledList.Item>
               <LabeledList.Item label="Детали">

@@ -2,7 +2,9 @@
 
 /obj/machinery/computer/prisoner
 	name = "labor camp points manager"
-	desc = "Консоль, используемая для управления очками, имплантами и отслеживания заключённых."
+	desc = "Консоль управления отслеживанием заключённых, имплантами и очками добычи."
+
+
 	ru_names = list(
 		NOMINATIVE = "консоль управления заключёнными на каторге",
 		GENITIVE = "консоли управления заключёнными на каторге",
@@ -200,7 +202,7 @@
 					if(implant.imp_in)
 						var/mob/living/carbon/implantee = implant.imp_in
 						var/warning = copytext_char(sanitize(answer), 1, MAX_MESSAGE_LEN)
-						to_chat(implantee, "[span_boldnotice("Ваш череп начинает вибрировать и вы слышите сообщение: ")][span_userdanger("'[warning]'")]")
+						to_chat(implantee, "[span_boldnotice("Ваш череп начинает вибрировать и вы слышите сообщение: ")][span_userdanger("\"[warning]\"")]")
 
 				if("set_points")
 					if(isnull(text2num(answer)))

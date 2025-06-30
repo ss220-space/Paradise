@@ -4,7 +4,7 @@
 	var/icon/front = new(get_id_photo(dummy), dir = SOUTH)
 	var/icon/side = new(get_id_photo(dummy), dir = WEST)
 	var/datum/data/record/G = new /datum/data/record()
-	G.fields["name"] = "Новая Запись"
+	G.fields["name"] = "Новая запись"
 	G.fields["id"] = text("[]", add_zero(num2hex(rand(1, 1.6777215E7), 2), 6))
 	G.fields["rank"] = "Не присвоено"
 	G.fields["real_rank"] = "Не присвоено"
@@ -32,10 +32,10 @@
 	R.name = text("Security Record #[id]")
 	R.fields["criminal"] = "Нет"
 	R.fields["mi_crim"] = "Нет"
-	R.fields["mi_crim_d"] = "Отсутствие судимостей за малозначительные преступления."
+	R.fields["mi_crim_d"] = "Отсутствие судимостей за незначительные преступления"
 	R.fields["ma_crim"] = "Нет"
-	R.fields["ma_crim_d"] = "Отсутствие судимостей за тяжкие преступления."
-	R.fields["notes"] = "Нет примечаний."
+	R.fields["ma_crim_d"] = "Отсутствие судимостей за тяжкие преступления"
+	R.fields["notes"] = "Нет примечаний"
 	GLOB.data_core.security += R
 	return R
 

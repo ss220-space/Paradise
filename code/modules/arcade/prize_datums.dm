@@ -92,12 +92,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Colored Wallet"
 	desc = "Стильный цветной кошелек для хранения вашей ID-карты."
 	ru_names = list(
-		NOMINATIVE     = "цветной кошелёк",
-		GENITIVE       = "цветного кошелька",
-		DATIVE         = "цветному кошельку",
-		ACCUSATIVE     = "цветной кошелёк",
-		INSTRUMENTAL   = "цветным кошельком",
-		PREPOSITIONAL  = "цветном кошельке"
+		NOMINATIVE = "цветной кошелёк",
+		GENITIVE = "цветного кошелька",
+		DATIVE = "цветному кошельку",
+		ACCUSATIVE = "цветной кошелёк",
+		INSTRUMENTAL = "цветным кошельком",
+		PREPOSITIONAL = "цветном кошельке"
 	)
 	typepath = /obj/item/storage/wallet/color
 	cost = 50
@@ -106,12 +106,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Prisoner ID Sticker"
 	desc = "Наклейка, которая сделает любую ID-карту похожей на ID-карту заключенного."
 	ru_names = list(
-		NOMINATIVE     = "наклейка ID-карты заключённого",
-		GENITIVE       = "наклейки ID-карты заключённого",
-		DATIVE         = "наклейке ID-карты заключённого",
-		ACCUSATIVE     = "наклейку ID-карты заключённого",
-		INSTRUMENTAL   = "наклейкой ID-карты заключённого",
-		PREPOSITIONAL  = "наклейке ID-карты заключённого"
+		NOMINATIVE = "наклейка ID-карты заключённого",
+		GENITIVE = "наклейки ID-карты заключённого",
+		DATIVE = "наклейке ID-карты заключённого",
+		ACCUSATIVE = "наклейку ID-карты заключённого",
+		INSTRUMENTAL = "наклейкой ID-карты заключённого",
+		PREPOSITIONAL = "наклейке ID-карты заключённого"
 	)
 	typepath = /obj/item/id_decal/prisoner
 	cost = 50
@@ -120,12 +120,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Silver ID Sticker"
 	desc = "Наклейка, которая сделает любую ID-карту серебряной."
 	ru_names = list(
-		NOMINATIVE     = "наклейка серебряной ID-карты",
-		GENITIVE       = "наклейки серебряной ID-карты",
-		DATIVE         = "наклейке серебряной ID-карты",
-		ACCUSATIVE     = "наклейку серебряной ID-карты",
-		INSTRUMENTAL   = "наклейкой серебряной ID-карты",
-		PREPOSITIONAL  = "наклейке серебряной ID-карты"
+		NOMINATIVE = "наклейка серебряной ID-карты",
+		GENITIVE = "наклейки серебряной ID-карты",
+		DATIVE = "наклейке серебряной ID-карты",
+		ACCUSATIVE = "наклейку серебряной ID-карты",
+		INSTRUMENTAL = "наклейкой серебряной ID-карты",
+		PREPOSITIONAL = "наклейке серебряной ID-карты"
 	)
 	typepath = /obj/item/id_decal/silver
 
@@ -133,12 +133,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Gold ID Sticker"
 	desc = "Наклейка, которая сделает любую ID-карту золотой."
 	ru_names = list(
-		NOMINATIVE     = "наклейка золотой ID-карты",
-		GENITIVE       = "наклейки золотой ID-карты",
-		DATIVE         = "наклейке золотой ID-карты",
-		ACCUSATIVE     = "наклейку золотой ID-карты",
-		INSTRUMENTAL   = "наклейкой золотой ID-карты",
-		PREPOSITIONAL  = "наклейке золотой ID-карты"
+		NOMINATIVE = "наклейка золотой ID-карты",
+		GENITIVE = "наклейки золотой ID-карты",
+		DATIVE = "наклейке золотой ID-карты",
+		ACCUSATIVE = "наклейку золотой ID-карты",
+		INSTRUMENTAL = "наклейкой золотой ID-карты",
+		PREPOSITIONAL = "наклейке золотой ID-карты"
 	)
 	typepath = /obj/item/id_decal/gold
 
@@ -146,12 +146,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Centcomm ID Sticker"
 	desc = "Наклейка, которая сделает любую ID-карту похожей на ID-карту Центрального командования."
 	ru_names = list(
-		NOMINATIVE     = "наклейка ID-карты Центрального Командования",
-		GENITIVE       = "наклейки ID-карты Центрального Командования",
-		DATIVE         = "наклейке ID-карты Центрального Командования",
-		ACCUSATIVE     = "наклейку ID-карты Центрального Командования",
-		INSTRUMENTAL   = "наклейкой ID-карты Центрального Командования",
-		PREPOSITIONAL  = "наклейке ID-карты Центрального Командования"
+		NOMINATIVE = "наклейка ID-карты Центрального Командования",
+		GENITIVE = "наклейки ID-карты Центрального Командования",
+		DATIVE = "наклейке ID-карты Центрального Командования",
+		ACCUSATIVE = "наклейку ID-карты Центрального Командования",
+		INSTRUMENTAL = "наклейкой ID-карты Центрального Командования",
+		PREPOSITIONAL = "наклейке ID-карты Центрального Командования"
 	)
 	typepath = /obj/item/id_decal/centcom
 
@@ -159,12 +159,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Suspicious ID Sticker"
 	desc = "Наклейка, которая заставляет выглядеть вашу ID-карту подозрительно..."
 	ru_names = list(
-		NOMINATIVE     = "подозрительно выглядящая наклейка на ID-карту",
-		GENITIVE       = "подозрительно выглядящей наклейки на ID-карту",
-		DATIVE         = "подозрительно выглядящей наклейке на ID-карту",
-		ACCUSATIVE     = "подозрительно выглядящую наклейку на ID-карту",
-		INSTRUMENTAL   = "подозрительно выглядящей наклейкой на ID-карту",
-		PREPOSITIONAL  = "подозрительно выглядящей наклейке на ID-карту"
+		NOMINATIVE = "подозрительно выглядящая наклейка на ID-карту",
+		GENITIVE = "подозрительно выглядящей наклейки на ID-карту",
+		DATIVE = "подозрительно выглядящей наклейке на ID-карту",
+		ACCUSATIVE = "подозрительно выглядящую наклейку на ID-карту",
+		INSTRUMENTAL = "подозрительно выглядящей наклейкой на ID-карту",
+		PREPOSITIONAL = "подозрительно выглядящей наклейке на ID-карту"
 	)
 	typepath = /obj/item/id_decal/emag
 

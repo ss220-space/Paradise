@@ -157,7 +157,7 @@ GLOBAL_VAR(current_date_string)
 		if("print_records")
 			// Anti spam measures
 			if(next_print > world.time)
-				to_chat(usr, "<span class='warning'>Принтер ещё не готов к использованию. Подождите [(next_print - world.time) / 10] секунд.")
+				to_chat(usr, span_warning("Принтер ещё не готов к использованию. Подождите [(next_print - world.time) / 10] секунд."))
 				return
 			var/text
 			playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
@@ -195,13 +195,13 @@ GLOBAL_VAR(current_date_string)
 			"}
 
 			P.info = text
-			visible_message("<span class='notice'>[src] распечатывает отчет.</span>")
+			visible_message(span_notice("[src] распечатывает отчет."))
 			next_print = world.time + 30 SECONDS
 
 		if("print_account_details")
 			// Anti spam measures
 			if(next_print > world.time)
-				to_chat(usr, "<span class='warning'>Принтер ещё не готов к использованию. Подождите [(next_print - world.time) / 10] секунд.")
+				to_chat(usr, span_warning("Принтер ещё не готов к использованию. Подождите [(next_print - world.time) / 10] секунд."))
 				return
 			var/text
 			playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
@@ -244,7 +244,7 @@ GLOBAL_VAR(current_date_string)
 				"}
 
 			P.info = text
-			visible_message("<span class='notice'>[src] печетает отчёт.</span>")
+			visible_message(span_notice("[src] печетает отчёт."))
 			next_print = world.time + 30 SECONDS
 
 #undef AUT_ACCLST

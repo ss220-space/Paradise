@@ -262,8 +262,8 @@
 		if("execute", SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
-				message_admins("[ADMIN_FULLMONTY(usr)] установил статус <span class='warning'>КАЗНЬ</span> [their_rank] [their_name], комментарий: [comment]")
-				usr.investigate_log("[key_name_log(usr)] разрешил <span class='warning'>КАЗНЬ</span> [their_rank] [their_name], комментарий: [comment]", INVESTIGATE_RECORDS)
+				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
+				usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			else
 				return 0
 		if("search", SEC_RECORD_STATUS_SEARCH)
@@ -271,8 +271,8 @@
 		if("monitor", SEC_RECORD_STATUS_MONITOR)
 			status = SEC_RECORD_STATUS_MONITOR
 		if("demote", SEC_RECORD_STATUS_DEMOTE)
-			message_admins("[ADMIN_FULLMONTY(usr)] установил статус <span class='warning'>ПОНИЖЕНИЕ</span> [their_rank] [their_name], комментарий: [comment]")
-			usr.investigate_log("[key_name_log(usr)] разрешил <span class='warning'>ПОНИЗИТЬ</span> [their_rank] [their_name], комментарий: [comment]", INVESTIGATE_RECORDS)
+			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
+			usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			status = SEC_RECORD_STATUS_DEMOTE
 		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
@@ -281,8 +281,8 @@
 		if("released", SEC_RECORD_STATUS_RELEASED)
 			status = SEC_RECORD_STATUS_RELEASED
 	target_records.fields["criminal"] = status
-	log_admin("[key_name_admin(user)]  установил статус [status] [their_rank] [their_name], комментарий: [comment]")
-	target_records.fields["comments"] += "Установлен статус [status]. Установивший: [user_name || user.name] ([user_rank]) [GLOB.current_date_string] [station_time_timestamp()], комментарий: [comment]"
+	log_admin("[key_name_admin(user)] set secstatus of [their_rank] [their_name] to [status], comment: [comment]")
+	target_records.fields["comments"] += "Set to [status] by [user_name || user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
 	update_all_mob_security_hud()
 	return 1
 

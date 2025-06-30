@@ -199,7 +199,7 @@
 	popup.open()
 
 /obj/item/card/id/attack_self(mob/user as mob)
-	name = "[src.registered_name] ID Card ([src.assignment])"
+	name = "[src.registered_name] ID-карта ([src.assignment])"
 	user.visible_message("[user] показыва[pluralize_ru(user.gender, "ет", "ют")] вам: [bicon(src)] [declent_ru(ACCUSATIVE)]. Указанная должность: [src.assignment].",\
 		"Вы показываете свою ID-карту: [bicon(src)] [declent_ru(ACCUSATIVE)]. Указанная должность: [src.assignment].")
 	if(mining_points)
@@ -208,7 +208,7 @@
 	return
 
 /obj/item/card/id/proc/UpdateName()
-	name = "[src.registered_name] ID card ([src.assignment])"
+	name = "[src.registered_name] ID-карта ([src.assignment])"
 	ru_names = list(
 		NOMINATIVE = "ID-карта",
 		GENITIVE = "ID-карты",
@@ -291,10 +291,10 @@
 
 /obj/item/card/id/proc/update_label(newname, newjob)
 	if(newname || newjob)
-		name = "[(!newname)	? "identification card"	: "[newname] ID card"][(!newjob) ? "" : " ([newjob])"]"
+		name = "[(!newname)	? "identification card"	: "[newname] ID-карта"][(!newjob) ? "" : " ([newjob])"]"
 		return
 
-	name = "[(!registered_name)	? "identification card"	: "[registered_name] ID card"][(!assignment) ? "" : " ([assignment])"]"
+	name = "[(!registered_name)	? "identification card"	: "[registered_name] ID-карта"][(!assignment) ? "" : " ([assignment])"]"
 
 /obj/item/card/id/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/id_decal))
@@ -562,7 +562,7 @@
 		var/obj/item/card/id/I = O.GetID()
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
-				balloon_alert(usr, "Микросканеры карты активируются, когда вы проводите её над [I], копируя доступ.")
+				balloon_alert(usr, "доступ скопирован")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/card/id/syndicate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -1286,7 +1286,7 @@
 	name = "prisoner ID card decal"
 	icon_state = "id_decal_prisoner"
 	desc = "У всех крутых ребят ID-карта этого цвета. Можно применить к любой ID-карте."
-	decal_desc = "Вы не свободны. Вы - просто номер."
+	decal_desc = "Вы не свободны. Вы – просто номер."
 	decal_icon_state = "prisoner"
 	decal_item_state = "orange-id"
 

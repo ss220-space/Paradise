@@ -1,10 +1,10 @@
 //criminal status defines
 #define SEC_RECORD_STATUS_NONE "Отсутствует"
-#define SEC_RECORD_STATUS_ARREST "Арест"
+#define SEC_RECORD_STATUS_ARREST "*Арест*"
 #define SEC_RECORD_STATUS_EXECUTE "*Казнь*"
 #define SEC_RECORD_STATUS_INCARCERATED "Заключён"
 #define SEC_RECORD_STATUS_RELEASED "Освобождён"
-#define SEC_RECORD_STATUS_PAROLLED "Условно-досрочно освобождён"
-#define SEC_RECORD_STATUS_DEMOTE "Понижение"
+#define SEC_RECORD_STATUS_PAROLLED "УДО"
+#define SEC_RECORD_STATUS_DEMOTE "Увольнение"
 #define SEC_RECORD_STATUS_SEARCH "Обыскать"
 #define SEC_RECORD_STATUS_MONITOR "Под наблюдением"
