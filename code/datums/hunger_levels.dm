@@ -47,5 +47,3 @@ GLOBAL_LIST_EMPTY(hunger_levels)
 
 /proc/hunger_levels_update(datum/hunger_level/A, datum/hunger_level/B)
 	return A.min_nutrition - B.min_nutrition
-
-GLOBAL_PROC_REF(hunger_levels_update)

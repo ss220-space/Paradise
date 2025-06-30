@@ -18,7 +18,7 @@
 		var/list/levels = list()
 		for(var/htype in subtypesof(/datum/hunger_level))
 			levels += new htype
-		GLOB.hunger_levels = sortTim(levels, GLOBAL_PROC_REF(hunger_levels_update))
+		GLOB.hunger_levels = sortTim(levels, /proc/hunger_levels_update)
 	var/current_nutrition = target.nutrition
 	var/datum/hunger_level/selected_level
 	for(var/datum/hunger_level/level as anything in GLOB.hunger_levels)
