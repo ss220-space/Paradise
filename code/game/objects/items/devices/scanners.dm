@@ -1781,3 +1781,66 @@ BODY SCANNERS
 		dat += "<font color='red'>Retinal misalignment detected.</font><br>"
 
 	return dat
+
+
+
+
+
+
+/obj/item/lifeform_scaner
+	name = "lifeform scanner"
+	desc = "Сканнер живых существ рядом."
+	ru_names = list(
+		NOMINATIVE = "сканнер",
+		GENITIVE = "сканнера",
+		DATIVE = "сканнеру",
+		ACCUSATIVE = "сканнер",
+		INSTRUMENTAL = "сканнером",
+		PREPOSITIONAL = "сканнере"
+	)
+	gender = MALE
+	icon = 'icons/obj/device.dmi'
+	icon_state	= "gps"
+	slot_flags = ITEM_SLOT_BELT
+	throwforce = 3
+	w_class		= WEIGHT_CLASS_TINY
+	item_state	= "gps"
+	throw_speed	= 3
+	throw_range	= 20
+	materials = list(MAT_METAL=300)
+	origin_tech = "syndicate=1;engineering=2"
+	health = 100
+	color = "red"
+
+/obj/item/lifeform_scaner/attack_self(mob/user as mob)
+	add_fingerprint(user)
+	SStgui.update_uis(src)
+	ui_interact(user)
+
+/obj/item/lifeform_scaner/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/lifeform_scaner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = default_state)
+	//ui = SStgui.try_update_ui(user, src, ui)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		// ui = new(user, src, "LifeformScanner")
+		ui = new(user, src, ui_key, "LifeformScanner", name, 300, 300, master_ui, state)
+		ui.open()
+
+/obj/item/lifeform_scaner/ui_data(mob/user)
+	var/list/data = list()
+	data["health"] = health
+	data["color"] = color
+	return data
+
+/obj/item/lifeform_scaner/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+	if(action == "test")
+		// var/new_color = params["color"]
+		// if(!(color in allowed_coors))
+		// 	return FALSE
+		// color = new_color
+		to_chat(usr, span_notice("Тестирование..."))
+		. = TRUE
+	update_icon()
