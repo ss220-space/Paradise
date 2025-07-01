@@ -1904,6 +1904,7 @@
 #include "code\modules\antagonists\syndicate\nuclear\nuclear_operative.dm"
 #include "code\modules\antagonists\syndicate\nuclear\nuclear_team.dm"
 #include "code\modules\antagonists\syndicate\nuclear\nuclearbomb.dm"
+#include "code\modules\antagonists\syndicate\nuclear\outfit.dm"
 #include "code\modules\antagonists\syndicate\nuclear\pinpointer.dm"
 #include "code\modules\antagonists\terror_spiders\_terror_spider.dm"
 #include "code\modules\antagonists\terror_spiders\spider_team.dm"
