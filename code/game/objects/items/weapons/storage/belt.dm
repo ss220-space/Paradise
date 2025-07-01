@@ -34,8 +34,9 @@
 	if(!check_menu(user))
 		return
 	var/list/choices = list()
-	for(var/obj/I in contents)
-		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
+	for(var/i = contents.len; i >= 1; i--) // Reverse order
+		var/obj/item = contents[i]
+		choices["[item.name]"] = image(icon = item.icon, icon_state = item.icon_state)
 	if (length(choices) == 0)
 		to_chat(user, "<span class='notice'>Ваш пояс пуст.</span>")
 		return
@@ -43,7 +44,7 @@
 		var/obj/item/selected = contents[1]
 		try_fast_equip_item_from_belt(selected)
 		return
-	var/choice = show_radial_menu(user, src, reverselist(choices), custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	var/obj/item/selected
