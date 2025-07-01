@@ -39,7 +39,7 @@
 	var/coffee_amount = 0
 	var/max_coffee_amount = 10
 	/// List of coffee bean objects are stored
-coffee	var/list/coffee = list()
+	var/list/coffee = list()
 
 /obj/machinery/coffeemaker/Destroy()
 	QDEL_NULL(coffeepot)
@@ -288,16 +288,15 @@ coffee	var/list/coffee = list()
 
 /obj/machinery/coffeemaker/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
-		if(coffeepot)
-			coffeepot.forceMove(loc)
-		if(cartridge)
-			cartridge.forceMove(loc)
 		return TRUE
 
 /obj/machinery/coffeemaker/screwdriver_act(mob/user, obj/item/I)
 	if(coffeepot)
 		balloon_alert(user, "уберите кофейник!")
-		return TRUE
+		return FALSE
+	if(cartridge)
+		balloon_alert(user, "уберите картридж!")
+		return FALSE
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
 		return TRUE
 

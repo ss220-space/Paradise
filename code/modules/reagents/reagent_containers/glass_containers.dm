@@ -685,7 +685,7 @@
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
-			if(1 to 30)
+			if(0 to 30)
 				filling.icon_state = "[icon_state]30"
 			if(30 to 60)
 				filling.icon_state = "[icon_state]60"
