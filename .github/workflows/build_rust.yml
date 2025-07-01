@@ -1,12 +1,14 @@
-name: Build Rust library
+name: Build and verify Rust library
+
 on:
   issue_comment:
-    types: created
+    types: [created]
 
 jobs:
-  build-rust:
+  build-and-check:
     permissions:
-      contents: write 
+      contents: write
+
     if: |
       github.event.issue.pull_request &&
       github.event.comment.body == '!build_rust' &&
@@ -16,71 +18,161 @@ jobs:
        github.event.comment.author_association == 'OWNER')
 
     runs-on: ubuntu-latest
+
     steps:
-      - id: create_token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
+    - name: Install jq
+      run: sudo apt-get update && sudo apt-get install -y jq
 
-      - run: echo "GH_TOKEN=${{ steps.create_token.outputs.token }}" >> "$GITHUB_ENV"
+    - name: Extract PR info
+      id: pr_info
+      run: |
+        PR_API_URL="${{ github.event.issue.pull_request.url }}"
+        PR_JSON=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$PR_API_URL")
+        echo "repo=$(echo "$PR_JSON" | jq -r '.head.repo.full_name')" >> $GITHUB_OUTPUT
+        echo "ref=$(echo "$PR_JSON"  | jq -r '.head.ref')"           >> $GITHUB_OUTPUT
 
-      - name: Like the comment
-        env:
-          BASE_REPOSITORY: ${{ github.repository }}
-        run: |
-          gh api \
-            --method POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/$BASE_REPOSITORY/issues/comments/${{ github.event.comment.id }}/reactions \
-            -f content='+1'
+    - name: Checkout PR branch
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ steps.pr_info.outputs.repo }}
+        ref:          ${{ steps.pr_info.outputs.ref }}
+        token:        ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 1
 
-      - name: Check PR Permissions
-        run: |
-          pr_json=$(curl -L -s --fail-with-body -H "Authorization: token ${{ github.token }}" ${{ github.event.issue.pull_request.url }})
-          if [ `jq -r '.maintainer_can_modify' <<<$pr_json` == "false" ]; then
-            gh pr comment ${{ github.event.issue.html_url }} --body 'GitHub Actions cannot push to the repository without "Allow edits and access to secrets by maintainers" checked.'
-            exit 1
+    - name: Check for user-supplied files
+      id: user_files_check
+      run: |
+        if [ -f "./rustlibs.dll" ]; then
+          echo "dll_exists=true"  >> $GITHUB_OUTPUT
+        else
+          echo "dll_exists=false" >> $GITHUB_OUTPUT
+        fi
+        if [ -f "./librustlibs.so" ]; then
+          echo "so_exists=true"   >> $GITHUB_OUTPUT
+        else
+          echo "so_exists=false"  >> $GITHUB_OUTPUT
+        fi
+
+    - name: Setup Rust targets
+      run: |
+        rustup target add i686-unknown-linux-gnu
+        rustup target add i686-pc-windows-gnu
+
+    - name: Install cross-toolchain deps
+      run: |
+        sudo dpkg --add-architecture i386
+        sudo apt-get update
+        sudo apt-get install -y \
+          zlib1g-dev:i386 lib32gcc-11-dev \
+          mingw-w64 mingw-w64-i686-dev
+
+    - name: Build Rust libraries
+      env:
+        SOURCE_DATE_EPOCH: "1577836800"
+        RUSTFLAGS: "-C link-arg=-Wl,--build-id=none"
+        TZ: UTC
+      run: |
+        cd rust
+
+        cargo build --release --target i686-unknown-linux-gnu
+        cargo build --release --target i686-pc-windows-gnu
+
+        cd ..
+
+        cp rust/target/i686-unknown-linux-gnu/release/librustlibs.so librustlibs.so
+        cp rust/target/i686-pc-windows-gnu/release/rustlibs.dll rustlibs.dll
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: rustlibs-built
+        path: |
+          librustlibs.so
+          rustlibs.dll
+
+    - name: Compute built DLL hash
+      id: built_dll_hash
+      run: |
+        sha256sum rustlibs.dll > built_dll_hash.txt
+        cat built_dll_hash.txt
+        echo "value=$(cut -d ' ' -f1 built_dll_hash.txt)" >> $GITHUB_OUTPUT
+
+    - name: Compute built SO hash
+      id: built_so_hash
+      run: |
+        sha256sum librustlibs.so > built_so_hash.txt
+        cat built_so_hash.txt
+        echo "value=$(cut -d ' ' -f1 built_so_hash.txt)" >> $GITHUB_OUTPUT
+
+    - name: Compute user-supplied DLL hash
+      if: steps.user_files_check.outputs.dll_exists == 'true'
+      id: user_dll_hash
+      run: |
+        sha256sum rustlibs.dll > user_dll_hash.txt
+        cat user_dll_hash.txt
+        echo "value=$(cut -d ' ' -f1 user_dll_hash.txt)" >> $GITHUB_OUTPUT
+
+    - name: Compute user-supplied SO hash
+      if: steps.user_files_check.outputs.so_exists == 'true'
+      id: user_so_hash
+      run: |
+        sha256sum librustlibs.so > user_so_hash.txt
+        cat user_so_hash.txt
+        echo "value=$(cut -d ' ' -f1 user_so_hash.txt)" >> $GITHUB_OUTPUT
+
+    - name: Comment result
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        PR_NUMBER=${{ github.event.issue.number }}
+        REPO=${{ github.repository }}
+        RUN_ID=${{ github.run_id }}
+        ARTIFACTS_URL="https://github.com/$REPO/actions/runs/$RUN_ID"
+
+        BUILT_DLL_HASH=${{ steps.built_dll_hash.outputs.value }}
+        BUILT_SO_HASH=${{ steps.built_so_hash.outputs.value }}
+
+        DLL_EXISTS=${{ steps.user_files_check.outputs.dll_exists }}
+        SO_EXISTS=${{ steps.user_files_check.outputs.so_exists }}
+
+        BODY="### Rustlibs Build and Verification Results:\n\n"
+
+        # --- Results for rustlibs.dll ---
+        BODY+="#### rustlibs.dll (Windows)\n"
+        BODY+="* Built: \`$BUILT_DLL_HASH\`\n"
+        if [ "$DLL_EXISTS" = "true" ]; then
+          USER_DLL_HASH=${{ steps.user_dll_hash.outputs.value }}
+          BODY+="* Provided in PR: \`$USER_DLL_HASH\`\n"
+          if [ "$BUILT_DLL_HASH" = "$USER_DLL_HASH" ]; then
+            BODY+="* **Status:** ✅ Hashes match!\n"
+          else
+            BODY+="* **Status:** ❌ Hash mismatch!\n"
           fi
-          echo "PR_REPO=`jq -r '.head.repo.full_name' <<<$pr_json`" >> $GITHUB_ENV
-          echo "PR_BRANCH=`jq -r '.head.ref' <<<$pr_json`" >> $GITHUB_ENV
+        else
+          BODY+="* **Status:** ⚠️ User-supplied file not found in PR.\n"
+        fi
+        BODY+="\n"
 
-      - uses: actions/checkout@v4
-        with:
-          repository: ${{ env.PR_REPO }}
-          ref: ${{ env.PR_BRANCH }}
-          token: ${{ env.GH_TOKEN }}
-          fetch-depth: 1
+        # --- Results for librustlibs.so ---
+        BODY+="#### librustlibs.so (Linux)\n"
+        BODY+="* Built: \`$BUILT_SO_HASH\`\n"
+        if [ "$SO_EXISTS" = "true" ]; then
+          USER_SO_HASH=${{ steps.user_so_hash.outputs.value }}
+          BODY+="* Provided in PR: \`$USER_SO_HASH\`\n"
+          if [ "$BUILT_SO_HASH" = "$USER_SO_HASH" ]; then
+            BODY+="* **Status:** ✅ Hashes match!\n"
+          else
+            BODY+="* **Status:** ❌ Hash mismatch!\n"
+          fi
+        else
+          BODY+="* **Status:** ⚠️ User-supplied file not found in PR.\n"
+        fi
+        BODY+="\n"
 
-      - name: Build rustlibs
-        env:
-          GH_TOKEN: ${{ env.GH_TOKEN }}
-        run: |
-          # Configure git for committing
-          git config --local user.email "action@github.com"
-          git config --local user.name "Rust builder"
+        # --- General instructions ---
+        if [ "$DLL_EXISTS" = "false" ] || [ "$SO_EXISTS" = "false" ]; then
+          BODY+="If any files were not provided or hashes do not match, please commit the newly built files to your branch and comment \`!build_rust\` again for re-verification.\n\n"
+        fi
+        BODY+="**Download built artifacts:** $ARTIFACTS_URL"
 
-          # Install dependencies
-          rustup target add i686-unknown-linux-gnu i686-pc-windows-gnu
-          sudo dpkg --add-architecture i386
-          sudo apt-get update && sudo apt-get install -y zlib1g-dev:i386 lib32gcc-11-dev mingw-w64 mingw-w64-i686-dev
-
-          # Build Rust libraries
-          cd rust
-          cargo build --release --target i686-unknown-linux-gnu
-          cargo build --release --target i686-pc-windows-gnu
-
-          # Copy artifacts
-          cp target/i686-unknown-linux-gnu/release/librustlibs.so ../tools/ci/librustlibs_ci.so
-          cp target/i686-unknown-linux-gnu/release/librustlibs.so ../librustlibs.so
-          cp target/i686-pc-windows-gnu/release/rustlibs.dll ../rustlibs.dll
-
-          # Commit and push
-          git commit -a -m "Build Rust library" --allow-empty
-          git push origin
-
-      - name: Notify Failure
-        if: failure()
-        run: |
-          gh pr comment ${{ github.event.issue.html_url }} -b 'Building Rust library failed, see the action run log for details: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        gh pr comment "$PR_NUMBER" --body "$BODY"
