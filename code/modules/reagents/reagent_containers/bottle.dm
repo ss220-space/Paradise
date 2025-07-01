@@ -20,6 +20,7 @@
 	possible_transfer_amounts = list(5,10,15,25,30)
 	container_type = OPENCONTAINER
 	volume = 30
+	materials = list(MAT_GLASS = 1000)
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)

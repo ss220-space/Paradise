@@ -368,6 +368,14 @@
 	build_path = /obj/item/reagent_containers/glass/coffeepot
 	category = list("initial","Dinnerware")
 
+/datum/design/syrup_bottle
+	name = "Бутылка сиропа"
+	id = "syrup_bottle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 150, MAT_GLASS = 500)
+	build_path = /obj/item/reagent_containers/glass/bottle/syrup_bottle
+	category = list("initial","Dinnerware")
+
 /datum/design/cultivator
 	name = "Cultivator"
 	id = "cultivator"
@@ -406,6 +414,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 15000)
 	build_path = /obj/item/hatchet
+	category = list("initial","Miscellaneous")
+
+/datum/design/coffee_cartridge
+	name = "Пустой кофе-картридж"
+	id = "coffee_cartridge"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/blank_coffee_cartridge
 	category = list("initial","Miscellaneous")
 
 /datum/design/scalpel
