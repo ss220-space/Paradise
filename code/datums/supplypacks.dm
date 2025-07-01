@@ -57,8 +57,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/hidden = 0
 	var/contraband = 0
 	var/group = SUPPLY_MISC
-	var/list/announce_beacons = list() // Particular beacons that we'll notify the relevant department when we reach
-	var/special = FALSE //Event/Station Goals/Admin enabled packs
+	// Particular beacons that we'll notify the relevant department when we reach
+	var/list/announce_beacons = list()
+	//Event/Station Goals/Admin enabled packs
+	var/special = FALSE
 	var/special_enabled = FALSE
 
 	/// The number of times one can order a cargo crate, before it becomes restricted. -1 for infinite
@@ -316,7 +318,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/shoes/reflector,
 		/obj/item/clothing/head/helmet/reflector,
 	)
-	required_tech = list("combat" = 8, "materials" = 7) 
+	required_tech = list("combat" = 8, "materials" = 7)
 
 /datum/supply_packs/emergency/highrisk/capt_jet
 	name = "Deluxe Jetpack Crate"
@@ -1945,6 +1947,43 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
+
+/datum/supply_packs/organic/coffee_syrups
+	name = "Ящик кофейных сиропов"
+	contains = list(/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel,
+					/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel,
+					/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur,
+					/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur)
+	cost = 20
+	containername = "кофейные сиропы"
+
+/datum/supply_packs/organic/standard_coffeemachine
+	name = "Плата кофемашины \"Моделло 3\""
+	contains = list(/obj/item/circuitboard/coffeemaker/standard)
+	cost = 35
+	containername = "кофемашина \"Моделло 3\""
+
+/datum/supply_packs/organic/impressa_coffeemachine
+	name = "Плата кофемашины \"Импресса Моделло 5\""
+	contains = list(/obj/item/circuitboard/coffeemaker/impressa)
+	cost = 60
+	containername = "кофемашина \"Импресса Моделло 5\""
+
+/datum/supply_packs/organic/coffee_cartridges
+	name = "Набор кофейных картриджей"
+	contains = list(/obj/item/coffee_cartridge,
+					/obj/item/coffee_cartridge,
+					/obj/item/coffee_cartridge)
+	cost = 25
+	containername = "кофейные картриджи"
+
+/datum/supply_packs/organic/coffee_cartridges_premiuim
+	name = "Набор премиальных кофейных картриджей"
+	contains = list(/obj/item/coffee_cartridge/fancy,
+					/obj/item/coffee_cartridge/fancy,
+					/obj/item/coffee_cartridge/fancy)
+	cost = 35
+	containername = "премиальные кофейные картриджи"
 
 //////// livestock
 /datum/supply_packs/organic/cow
