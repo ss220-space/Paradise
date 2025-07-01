@@ -52722,9 +52722,7 @@
 	},
 /area/security/nuke_storage)
 "lll" = (
-/obj/machinery/nuclearbomb{
-	r_code = "LOLNO"
-	},
+/obj/machinery/nuclearbomb,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},

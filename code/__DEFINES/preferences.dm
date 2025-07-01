@@ -171,8 +171,8 @@
 // Categories
 #define PREF_CATEGORY_GENERAL 		"Основные настройки"
 #define PREF_CATEGORY_LIVING 		"Настройки в раунде"
-#define PREF_CATEGORY_GHOST 		"Основные настройки"
-#define PREF_CATEGORY_ADMIN 		"Настройки в раунде"
+#define PREF_CATEGORY_GHOST 		"Настройки призраков"
+#define PREF_CATEGORY_ADMIN 		"Настройки администрации"
 
 // Uplink location
 #define PREF_UPLINK_PDA 			"КПК"
