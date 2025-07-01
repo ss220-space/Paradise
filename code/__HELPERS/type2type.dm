@@ -217,17 +217,17 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
-		if("Retro")
+		if(UI_THEME_RETRO)
 			return 'icons/mob/screen_retro.dmi'
-		if("Plasmafire")
+		if(UI_THEME_PLASMAFIRE)
 			return 'icons/mob/screen_plasmafire.dmi'
-		if("Slimecore")
+		if(UI_THEME_SLIMECORE)
 			return 'icons/mob/screen_slimecore.dmi'
-		if("Operative")
+		if(UI_THEME_OPERATIVE)
 			return 'icons/mob/screen_operative.dmi'
-		if("White")
+		if(UI_THEME_WHITE)
 			return 'icons/mob/screen_white.dmi'
-		if("Midnight")
+		if(UI_THEME_MIDNIGHT)
 			return 'icons/mob/screen_midnight.dmi'
 		else
 			return 'icons/mob/screen_midnight.dmi'

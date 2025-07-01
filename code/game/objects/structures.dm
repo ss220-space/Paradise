@@ -108,14 +108,14 @@
 		return FALSE
 	var/blocking_object = density_check(user)
 	if(blocking_object)
-		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
+		to_chat(user, span_warning("Вы не можете забраться на [declent_ru(ACCUSATIVE)] - путь блокирует [blocking_object]!"))
 		return FALSE
 
 	var/turf/T = src.loc
 	if(!T || !istype(T))
 		return FALSE
 
-	user.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] забираться на [declent_ru(ACCUSATIVE)]!"))
 	climber = user
 	if(!do_after(user, 5 SECONDS, src))
 		climber = null
@@ -127,7 +127,7 @@
 
 	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		user.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[pluralize_ru(user.gender,"ет","ют")]ся на [declent_ru(ACCUSATIVE)]!"))
 
 	clumse_stuff(climber)
 
@@ -184,14 +184,14 @@
 			return //No spamming this on people.
 
 		M.Weaken(10 SECONDS)
-		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
+		to_chat(M, span_warning("Вы теряете равновесие, когда [declent_ru(NOMINATIVE)] двигается под вами!"))
 
 		if(prob(25))
 
 			var/damage = rand(15,30)
 			var/mob/living/carbon/human/H = M
 			if(!istype(H))
-				to_chat(H, "<span class='warning'>You land heavily!</span>")
+				to_chat(H, span_warning("Вы тяжело приземляетесь!"))
 				M.adjustBruteLoss(damage)
 				return
 
@@ -199,23 +199,23 @@
 
 			switch(pick(list("ankle","wrist","head","knee","elbow")))
 				if("ankle")
-					affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
+					affecting = GLOB.body_zone[pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)][ACCUSATIVE]
 				if("knee")
-					affecting = H.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+					affecting = GLOB.body_zone[pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)][ACCUSATIVE]
 				if("wrist")
-					affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
+					affecting = GLOB.body_zone[pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)][ACCUSATIVE]
 				if("elbow")
-					affecting = H.get_organ(pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+					affecting = GLOB.body_zone[pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)][ACCUSATIVE]
 				if("head")
-					affecting = H.get_organ(BODY_ZONE_HEAD)
+					affecting = GLOB.body_zone[BODY_ZONE_HEAD][ACCUSATIVE]
 
 			if(affecting)
-				to_chat(M, "<span class='warning'>You land heavily on your [affecting.name]!</span>")
+				to_chat(M, span_warning("Вы тяжело приземляетесь на [affecting]!"))
 				H.apply_damage(damage, def_zone = affecting)
 				if(affecting?.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
 			else
-				to_chat(H, "<span class='warning'>You land heavily!</span>")
+				to_chat(H, span_warning("Вы тяжело приземляетесь!"))
 				H.adjustBruteLoss(damage)
 
 			H.UpdateDamageIcon()
@@ -227,12 +227,12 @@
 	if(!Adjacent(user))
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.buckled)
-		to_chat(user, span_notice("You need your hands and legs free for this."))
+		to_chat(user, span_notice("Для этого нужны свободные руки и ноги."))
 		return FALSE
 	if(user.incapacitated())
 		return FALSE
 	if(issilicon(user))
-		to_chat(user, span_notice("You need hands for this."))
+		to_chat(user, span_notice("Для этого нужны свободные руки."))
 		return FALSE
 	return TRUE
 
@@ -240,25 +240,25 @@
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
-			. += "<span class='warning'>It's on fire!</span>"
+			. += span_warning("Оно горит!")
 		if(broken)
-			. += "<span class='notice'>It appears to be broken.</span>"
+			. += span_notice("Кажется, оно сломанно.")
 		var/examine_status = examine_status(user)
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on the table after a short delay.</span>"
+		. += span_info("Можно <b>перетащить</b> кого-то на [declent_ru(GENITIVE)], чтобы через короткое время поместить на стол.")
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
 	switch(healthpercent)
 		if(50 to 99)
-			. += "It looks slightly damaged."
+			. += "Выглядит слегка повреждённым."
 		if(25 to 50)
-			. += "It appears heavily damaged."
+			. += "Кажется сильно повреждённым."
 		if(0 to 25)
 			if(!broken)
-				. += "<span class='warning'>It's falling apart!</span>"
+				. += span_warning("Оно разваливается на части!")
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE

@@ -1,13 +1,21 @@
 /obj/machinery/computer/telescience
 	name = "telepad control console"
 	desc = "Используется для телепортации объектов на телепад и обратно."
+	ru_names = list(
+		NOMINATIVE = "консоль управления телепадом",
+		GENITIVE = "консоли управления телепадом",
+		DATIVE = "консоли управления телепадом",
+		ACCUSATIVE = "консоль управления телепадом",
+		INSTRUMENTAL = "консолью управления телепадом",
+		PREPOSITIONAL = "консоли управления телепадом"
+	)
 	icon_keyboard = "telesci_key"
 	icon_screen = "telesci"
 	circuit = /obj/item/circuitboard/telesci_console
 	req_access = list(ACCESS_RESEARCH)
 	var/sending = 1
 	var/obj/machinery/telepad/telepad = null
-	var/temp_msg = "Telescience control console initialized.<br>Welcome."
+	var/temp_msg = "Консоль управления теле-наукой инициализирована.<br>Добро пожаловать."
 
 	// VARIABLES //
 	var/teles_left	// How many teleports left until it becomes uncalibrated
@@ -43,7 +51,7 @@
 
 /obj/machinery/computer/telescience/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots.</span>"
+	. += span_notice("В слотах для кристаллов [crystals ? "[crystals] кристалл[declension_ru(crystals,"","а","ов")]" : "нет кристаллов"] блюспейса.")
 
 
 /obj/machinery/computer/telescience/attackby(obj/item/I, mob/user, params)
@@ -54,31 +62,31 @@
 		add_fingerprint(user)
 		var/obj/item/stack/ore/bluespace_crystal/crystal = I
 		if(crystals >= max_crystals)
-			to_chat(user, span_warning("There are not enough crystal slots."))
+			to_chat(user, span_warning("Недостаточно слотов для кристаллов."))
 			return ATTACK_CHAIN_PROCEED
 		if(!crystal.use(1))
-			to_chat(user, span_warning("You need at least one [crystal.singular_name] to proceed."))
+			to_chat(user, span_warning("Требуется хотя бы один [crystal.singular_name] для продолжения."))
 			return ATTACK_CHAIN_PROCEED
 		crystals++
 		updateUsrDialog()
 		user.visible_message(
-			span_notice("[user] has inserted a [crystal.singular_name] into [src]'s crystal slot."),
-			span_notice("You have inserted a [crystal.singular_name] into [src]'s crystal slot."),
+			span_notice("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [crystal.singular_name] в слот для кристаллов [src]."),
+			span_notice("Вы вставляете [crystal.singular_name] в слот для кристаллов [src].")
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/gps))
 		add_fingerprint(user)
 		if(inserted_gps)
-			to_chat(user, span_warning("The GPS device slot is already occupied."))
+			to_chat(user, span_warning("Слот для GPS устройства уже занят."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		inserted_gps = I
 		updateUsrDialog()
 		user.visible_message(
-			span_notice("[user] has inserted [I] into [src]'s GPS device slot."),
-			span_notice("You have inserted [I] into [src]'s GPS device slot."),
+			span_notice("[user] вставляет [I.declent_ru(ACCUSATIVE)] в слот для GPS устройства [src.declent_ru(GENITIVE)]."),
+			span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в слот для GPS устройства [src.declent_ru(GENITIVE)].")
 		)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -92,30 +100,30 @@
 	var/obj/item/multitool/multitool = I
 	if(!istype(multitool.buffer, /obj/machinery/telepad))
 		add_fingerprint(user)
-		to_chat(user, span_warning("The [multitool.name]'s buffer has no valid information."))
+		to_chat(user, span_warning("Буфер [multitool.declent_ru(GENITIVE)] не содержит валидных данных."))
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	telepad = multitool.buffer
 	multitool.buffer = null
 	updateUsrDialog()
-	to_chat(user, span_notice("You have uploaded the data from [multitool]'s buffer."))
+	to_chat(user, span_notice("Вы загрузили данные из буфера [multitool.declent_ru(GENITIVE)]."))
 
 
 /obj/machinery/computer/telescience/emag_act(mob/user)
 	if(!emagged)
 		if(user)
-			to_chat(user, "<span class='notice'>You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!</span>")
+			to_chat(user, span_notice("Вы шифруете ключ аутентификации телепортации с неизвестным сигналом. Теперь у вас есть возможность перемещаться в ещё больше мест!"))
 		emagged = 1
 	else if(user)
-		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")
+		to_chat(user, span_warning("Машина никак не реагирует на проведение картой..."))
 
 /obj/machinery/computer/telescience/attack_ai(mob/user)
 	src.attack_hand(user)
 
 /obj/machinery/computer/telescience/attack_hand(mob/user)
 	if(isgolem(user)) //this is why we can't have nice things free golems
-		to_chat(user, "<span class='warning'>You can't make sense of the console or how to use it.</span>")
+		to_chat(user, span_warning("Вы не можете разобраться, как использовать эту консоль."))
 		return
 	if(..())
 		return
@@ -182,17 +190,17 @@
 
 /obj/machinery/computer/telescience/proc/telefail()
 	sparks()
-	visible_message("<span class='warning'>The telepad weakly fizzles.</span>")
+	visible_message(span_warning("Телепад слабо потрескивает."))
 	return
 
 /obj/machinery/computer/telescience/proc/doteleport(mob/user)
 
 	if(teleport_cooldown > world.time)
-		temp_msg = "Telepad is recharging power.<br>Please wait [round((teleport_cooldown - world.time) / 10)] seconds."
+		temp_msg = "Телепад перезаряжается.<br>Подождите [round((teleport_cooldown - world.time) / 10)] сек."
 		return
 
 	if(teleporting)
-		temp_msg = "Telepad is in use.<br>Please wait."
+		temp_msg = "Телепад используется.<br>Подождите."
 		return
 
 	if(telepad)
@@ -217,7 +225,7 @@
 			playsound(telepad.loc, 'sound/weapons/flash.ogg', 25, 1)
 			// Wait depending on the time the projectile took to get there
 			teleporting = 1
-			temp_msg = "Powering up bluespace crystals.<br>Please wait."
+			temp_msg = "Зарядка кристаллов блюспейса.<br>Подождите."
 
 
 		spawn(round(proj_data.time) * 10) // in seconds
@@ -234,11 +242,11 @@
 
 			do_sparks(5, 1, get_turf(telepad))
 
-			temp_msg = "Teleport successful.<br>"
+			temp_msg = "Телепортация успешна.<br>"
 			if(teles_left < 10)
-				temp_msg += "<br>Calibration required soon."
+				temp_msg += "<br>Требуется калибровка."
 			else
-				temp_msg += "Data printed below."
+				temp_msg += "Данные напечатаны ниже."
 
 			var/sparks = get_turf(target)
 			do_sparks(5, 1, sparks)
@@ -246,7 +254,7 @@
 			var/turf/source = target
 			var/turf/dest = get_turf(telepad)
 			var/log_msg = ""
-			log_msg += ": [key_name(user)] has teleported "
+			log_msg += ": [key_name(user)] телепортировал "
 
 			if(sending)
 				source = dest
@@ -264,7 +272,7 @@
 							if(L.buckled.anchored)
 								continue
 
-							log_msg += "[key_name(L)] (on a chair), "
+							log_msg += "[key_name(L)] (на стуле), "
 						else
 							continue
 					else if(!isobserver(ROI))
@@ -283,7 +291,7 @@
 							else
 								log_msg += "[Q.name], "
 						if(dd_hassuffix(log_msg, "("))
-							log_msg += "empty)"
+							log_msg += "пусто)"
 						else
 							log_msg = dd_limittext(log_msg, length(log_msg) - 2)
 							log_msg += ")"
@@ -293,28 +301,28 @@
 			if(dd_hassuffix(log_msg, ", "))
 				log_msg = dd_limittext(log_msg, length(log_msg) - 2)
 			else
-				log_msg += "nothing"
-			log_msg += " [sending ? "to" : "from"] [trueX], [trueY], [z_co] ([A ? A.name : "null area"])"
+				log_msg += "ничего"
+			log_msg += " [sending ? "в" : "из"] [trueX], [trueY], [z_co] ([A ? A.name : "null area"])"
 			updateUsrDialog()
 
 /obj/machinery/computer/telescience/proc/teleport(mob/user)
 	if(rotation == null || angle == null || z_co == null)
-		temp_msg = "ERROR!<br>Set a angle, rotation and sector."
+		temp_msg = "ОШИБКА!<br>Установите угол, поворот и сектор."
 		return
 	if(power <= 0)
 		telefail()
-		temp_msg = "ERROR!<br>No power selected!"
+		temp_msg = "ОШИБКА!<br>Не выбрана мощность!"
 		return
 	if(angle < 1 || angle > 90)
 		telefail()
-		temp_msg = "ERROR!<br>Elevation is less than 1 or greater than 90."
+		temp_msg = "ОШИБКА!<br>Угол меньше 1 или больше 90."
 		return
 	if(z_co == 2 || z_co < 1 || z_co > 6)
 		if(z_co == 7 & emagged == 1)
 		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
 		else
 			telefail()
-			temp_msg = "ERROR! Sector is less than 1, <br>greater than [src.emagged ? "7" : "6"], or equal to 2."
+			temp_msg = "ОШИБКА! Сектор меньше 1, <br>больше [src.emagged ? "7" : "6"], или равен 2."
 			return
 
 
@@ -328,17 +336,17 @@
 
 	if(A.tele_proof == 1)
 		telefail()
-		temp_msg = "ERROR! Target destination unreachable due to interference."
+		temp_msg = "ОШИБКА! Цель недостижима из-за помех."
 		return
 
 	if(teles_left > 0)
 		if(!doteleport(user))
 			telefail()
-			temp_msg = "ERROR! Target destination unreachable due to interference."
+			temp_msg = "ОШИБКА! Цель недостижима из-за помех."
 			return
 	else
 		telefail()
-		temp_msg = "ERROR!<br>Calibration required."
+		temp_msg = "ОШИБКА!<br>Требуется калибровка."
 		return
 	return
 
@@ -357,17 +365,17 @@
 		updateUsrDialog()
 		return
 	if(telepad.panel_open)
-		temp_msg = "Telepad undergoing physical maintenance operations."
+		temp_msg = "Телепад проходит обслуживание."
 
 	if(href_list["setrotation"])
-		var/new_rot = input("Please input desired bearing in degrees.", name, rotation) as num
+		var/new_rot = input("Введите желаемый азимут в градусах.", name, rotation) as num
 		if(..()) // Check after we input a value, as they could've moved after they entered something
 			return
 		rotation = clamp(new_rot, -900, 900)
 		rotation = round(rotation, 0.01)
 
 	if(href_list["setangle"])
-		var/new_angle = input("Please input desired elevation in degrees.", name, angle) as num
+		var/new_angle = input("Введите желаемый угол возвышения в градусах.", name, angle) as num
 		if(..())
 			return
 		angle = clamp(round(new_angle, 0.1), 1, 9999)
@@ -380,7 +388,7 @@
 				power = power_options[index]
 
 	if(href_list["setz"])
-		var/new_z = input("Please input desired sector.", name, z_co) as num
+		var/new_z = input("Введите желаемый сектор.", name, z_co) as num
 		if(..())
 			return
 		z_co = clamp(round(new_z), 1, 10)
@@ -394,9 +402,9 @@
 	if(href_list["setMemory"])
 		if(last_target && inserted_gps)
 			inserted_gps.locked_location = last_target
-			temp_msg = "Location saved."
+			temp_msg = "Локация сохранена."
 		else
-			temp_msg = "ERROR!<br>No data was stored."
+			temp_msg = "ОШИБКА!<br>Данные не сохранены."
 
 	if(href_list["send"])
 		sending = 1
@@ -409,11 +417,11 @@
 	if(href_list["recal"])
 		recalibrate()
 		sparks()
-		temp_msg = "NOTICE:<br>Calibration successful."
+		temp_msg = "УВЕДОМЛЕНИЕ:<br>Калибровка успешна."
 
 	if(href_list["eject"])
 		eject()
-		temp_msg = "NOTICE:<br>Bluespace crystals ejected."
+		temp_msg = "УВЕДОМЛЕНИЕ:<br>Кристаллы блюспейса извлечены."
 
 	updateUsrDialog()
 
