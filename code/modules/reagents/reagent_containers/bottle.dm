@@ -1217,11 +1217,3 @@
         PREPOSITIONAL = "бутылке для сиропа (Калуа)"
 	)
 	list_reagents = list("kahlua" = 50)
-
-// We don't have Korta plant yet, maybe will be added later
-/*
-/obj/item/reagent_containers/glass/bottle/syrup_bottl/korta_nectar
-	name = "bottle of korta syrup"
-	desc = "A pump bottle containing korta syrup. A sweet, sugary substance made from crushed sweet korta nuts."
-	list_reagents = list(/datum/reagent/consumable/korta_nectar = 50)
-*/

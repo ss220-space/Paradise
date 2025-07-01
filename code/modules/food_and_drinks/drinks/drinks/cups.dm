@@ -115,5 +115,5 @@
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee
-	icon_state = "coffee_cup"
+	icon_state = "coffeecup_small"
 	list_reagents = list("coffee" = 30)
