@@ -60,6 +60,18 @@
 				return
 
 	var/list/modifiers = params2list(params)
+
+	if(modifiers["middle"] && modifiers["shift"] && modifiers["alt"])
+		MiddleShiftAltClickOn(A)
+	if(modifiers["middle"] && modifiers["ctrl"])
+		MiddleControlClickOn(A)
+		return
+	if(modifiers["middle"] && modifiers["shift"])
+		MiddleShiftClickOn(A)
+		return
+	if(modifiers["middle"] && modifiers["alt"])
+		MiddleAltClickOn(A)
+		return
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
 		return
@@ -128,16 +140,6 @@
 	A.AICtrlClick(src)
 /mob/living/silicon/ai/MiddleClickOn(atom/A)
     A.AIMiddleClick(src)
-/mob/living/silicon/ai/MiddleShiftClickOn(atom/A)
-	A.AIMiddleShiftClick(src)
-/mob/living/silicon/ai/MiddleControlClickOn(atom/A)
-	A.AIMiddleControlClick(src)
-/mob/living/silicon/ai/MiddleShiftControlClickOn(atom/A)
-	A.AIMiddleShiftControlClick(src)
-/mob/living/silicon/ai/MiddleAltClickOn(atom/A)
-	A.AIMiddleAltClick(src)
-/mob/living/silicon/ai/MiddleAltShiftClickOn(atom/A)
-	A.AIMiddleAltShiftClick(src)
 
 // DEFAULT PROCS TO OVERRIDE
 
@@ -179,9 +181,6 @@
 
 
 /atom/proc/AIMiddleClick(mob/living/user)
-	return
-
-/atom/proc/AIMiddleShiftClick()
 	return
 
 /atom/proc/AIMiddleControlClick()
@@ -271,4 +270,43 @@
 	return CLICK_ACTION_SUCCESS
 
 // AREAS
-/turf/
+
+/mob/living/silicon/ai/proc/MiddleControlClickOn(atom/A)
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.AICtrlClick(src)
+
+/mob/living/silicon/ai/MiddleShiftClickOn(atom/A)
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.AIShiftClick(src)
+
+/mob/living/silicon/ai/proc/MiddleAltClickOn(atom/A)
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.ai_click_alt(src)
+
+/mob/living/silicon/ai/proc/MiddleShiftAltClickOn(atom/A)
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.AIAltShiftClick(src)

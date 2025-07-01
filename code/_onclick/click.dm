@@ -82,15 +82,6 @@
 	if(modifiers["middle"] && modifiers["shift"])
 		MiddleShiftClickOn(A)
 		return
-	if(modifiers["middle"] && modifiers["ctrl"])
-		MiddleControlClickOn(A)
-		return
-	if(modifiers["middle"] && modifiers["shift"] && modifiers["alt"])
-		MiddleAltShiftClickOn(A)
-		return
-	if(modifiers["middle"] && modifiers["alt"])
-		MiddleAltClickOn(A)
-		return
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
 		return
@@ -325,24 +316,6 @@
 		clear_forced_look()
 		return
 	set_forced_look(A, TRUE)
-
-/*
-	Middle control-click
-*/
-/mob/proc/MiddleControlClickOn(atom/A)
-	return
-
-/*
-	Middle shift-alt-click
-*/
-/mob/proc/MiddleAltShiftClickOn(atom/A)
-	return
-
-/*
-	Middle alt-click
-*/
-/mob/proc/MiddleAltClickOn(atom/A)
-	return
 
 /*
 	Shift click
