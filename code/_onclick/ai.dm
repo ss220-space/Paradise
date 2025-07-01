@@ -130,6 +130,14 @@
     A.AIMiddleClick(src)
 /mob/living/silicon/ai/MiddleShiftClickOn(atom/A)
 	A.AIMiddleShiftClick(src)
+/mob/living/silicon/ai/MiddleControlClickOn(atom/A)
+	A.AIMiddleControlClick(src)
+/mob/living/silicon/ai/MiddleShiftControlClickOn(atom/A)
+	A.AIMiddleShiftControlClick(src)
+/mob/living/silicon/ai/MiddleAltClickOn(atom/A)
+	A.AIMiddleAltClick(src)
+/mob/living/silicon/ai/MiddleAltShiftClickOn(atom/A)
+	A.AIMiddleAltShiftClick(src)
 
 // DEFAULT PROCS TO OVERRIDE
 
@@ -174,6 +182,18 @@
 	return
 
 /atom/proc/AIMiddleShiftClick()
+	return
+
+/atom/proc/AIMiddleControlClick()
+	return
+
+/atom/proc/AIMiddleShiftControlClick()
+	return
+
+/atom/proc/AIMiddleAltClick()
+	return
+
+/atom/proc/AIMiddleAltShiftClick()
 	return
 
 /mob/living/silicon/ai/TurfAdjacent(turf/T)
@@ -249,3 +269,6 @@
 /obj/machinery/ai_slipper/ai_click_alt(mob/living/silicon/ai/user) //Dispenses liquid if on
 	Activate()
 	return CLICK_ACTION_SUCCESS
+
+// AREAS
+/turf/
