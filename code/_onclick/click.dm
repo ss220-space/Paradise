@@ -82,6 +82,15 @@
 	if(modifiers["middle"] && modifiers["shift"])
 		MiddleShiftClickOn(A)
 		return
+	if(modifiers["middle"] && modifiers["ctrl"])
+		MiddleControlClickOn(A)
+		return
+	if(modifiers["middle"] && modifiers["shift"] && modifiers["alt"])
+		MiddleAltShiftClickOn(A)
+		return
+	if(modifiers["middle"] && modifiers["alt"])
+		MiddleAltClickOn(A)
+		return
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
 		return
@@ -272,7 +281,7 @@
 
 /*
 	Middle click
-	Only used for swapping hands
+	Only used for pointing
 */
 /mob/proc/MiddleClickOn(atom/A)
 	pointed(A)
@@ -317,11 +326,23 @@
 		return
 	set_forced_look(A, TRUE)
 
-// In case of use break glass
 /*
-/atom/proc/MiddleClick(var/mob/M as mob)
-	return
+	Middle control-click
 */
+/mob/proc/MiddleControlClickOn(atom/A)
+	return
+
+/*
+	Middle shift-alt-click
+*/
+/mob/proc/MiddleAltShiftClickOn(atom/A)
+	return
+
+/*
+	Middle alt-click
+*/
+/mob/proc/MiddleAltClickOn(atom/A)
+	return
 
 /*
 	Shift click
