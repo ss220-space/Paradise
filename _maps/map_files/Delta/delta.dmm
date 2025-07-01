@@ -224,11 +224,7 @@
 /area/crew_quarters/heads/hop)
 "aay" = (
 /obj/machinery/hologram/holopad,
-/mob/living/simple_animal/crab/Coffee{
-	desc = "Master of the GYM";
-	name = "Billy Crabington";
-	real_name = "Billy Crabington"
-	},
+/mob/living/simple_animal/crab/billy,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

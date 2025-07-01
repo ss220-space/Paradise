@@ -55302,11 +55302,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
 "hOp" = (
-/mob/living/simple_animal/crab/Coffee{
-	desc = "Master of the GYM";
-	name = "Billy Crabington";
-	real_name = "Billy Crabington"
-	},
+/mob/living/simple_animal/crab/billy,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

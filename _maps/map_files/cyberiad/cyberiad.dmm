@@ -11949,11 +11949,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aPk" = (
-/mob/living/simple_animal/crab/Coffee{
-	desc = "Master of the GYM";
-	name = "Billy Crabington";
-	real_name = "Billy Crabington"
-	},
+/mob/living/simple_animal/crab/billy,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aPn" = (
