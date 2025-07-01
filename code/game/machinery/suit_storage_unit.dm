@@ -171,6 +171,15 @@
 
 /obj/machinery/suit_storage_unit/anom
 	name = "anomalist's suit storage unit"
+	desc = "Устройство, предназначенное для хранения и обеззараживания оборудования. Оснащено встроенным механизмом УФ-каутеризации. Небольшая предупреждающая этикетка гласит, что в устройство нельзя помещать органиков."
+	ru_names = list(
+		NOMINATIVE = "хранилище снаряжения аномалиста",
+		GENITIVE = "хранилища снаряжения аномалиста",
+		DATIVE = "хранилищу снаряжения аномалиста",
+		ACCUSATIVE = "хранилище снаряжения аномалиста",
+		INSTRUMENTAL = "хранилищем снаряжения аномалиста",
+		PREPOSITIONAL = "хранилище снаряжения аномалиста"
+	)
 	suit_type = /obj/item/clothing/suit/space/hardsuit/anom
 	storage_type = /obj/item/tank/internals/oxygen
 	mask_type = /obj/item/clothing/mask/gas
