@@ -56970,6 +56970,8 @@
 /obj/item/caution,
 /obj/item/reagent_containers/glass/bucket,
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/item/mop,
+/obj/item/mop,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -93291,6 +93293,7 @@
 "quY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/can,
+/obj/item/storage/bag/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -103189,8 +103192,8 @@
 /area/engineering/gravitygenerator)
 "sLe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/library,
 /obj/structure/table,
+/obj/machinery/computer/library/checkout,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -110894,6 +110897,11 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/cheesewedge,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	layer = 5;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/food/condiment/sugar,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -119804,11 +119812,12 @@
 "wAI" = (
 /obj/structure/table,
 /obj/item/plant_analyzer,
-/obj/item/cultivator,
 /obj/item/reagent_containers/spray/plantbgone,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/shovel/spade/wooden,
+/obj/item/cultivator/wooden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
