@@ -532,7 +532,7 @@
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
-		to_chat(user, span_danger("Invalid emote."))
+		to_chat(user, span_danger("Недопустимая эмоция."))
 		return TRUE
 	return FALSE
 
@@ -544,19 +544,19 @@
 	if(QDELETED(user))
 		return FALSE
 	else if(user.client && check_mute(user.client.ckey, MUTE_IC))
-		to_chat(user, span_boldwarning("You cannot send IC messages (muted)."))
+		to_chat(user, span_boldwarning("Вы не можете отправлять IC сообщения (мут)."))
 		return FALSE
 	else if(!params)
-		custom_emote = tgui_input_text(user, "Choose an emote to display.", "Custom Emote")
+		custom_emote = tgui_input_text(user, "Выберите эмоцию для отображения", "Настройка эмоции")
 		if(custom_emote && !check_invalid(user, custom_emote))
-			var/type = tgui_alert(user, "Is this a visible or hearable emote?", "Custom Emote", list("Visible", "Hearable"))
+			var/type = tgui_alert(user, "Эта эмоция видимая или слышимая?", "Тип эмоции", list("Видимая", "Слышимая"))
 			switch(type)
-				if("Visible")
+				if("Видимая")
 					custom_emote_type = EMOTE_VISIBLE
-				if("Hearable")
+				if("Слышимая")
 					custom_emote_type = EMOTE_AUDIBLE
 				else
-					to_chat(user, span_warning("Unable to use this emote, must be either hearable or visible."))
+					to_chat(user, span_warning("Невозможно использовать эту эмоцию - она должна быть либо слышимой, либо видимой."))
 					return
 	else
 		custom_emote = params
