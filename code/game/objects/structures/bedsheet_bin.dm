@@ -95,7 +95,7 @@ LINEN BINS
 		INSTRUMENTAL = "зазой амбасадором",
 		PREPOSITIONAL = "зазе амбасадоре"
 	)
-	desc = "Вы явно владеете зазой."
+	desc = "Вы явно владеете Зазой."
 	icon_state = "sheetzaza"
 	item_color = "sheetzaza"
 	dream_messages = list("Зазе", "качалке", "свободе")
