@@ -742,7 +742,8 @@
 	id = "chocolate_sprinkle"
 	description = "Измельчённый шоколад. Такой часто добавляют в выпечку или кофе."
 	reagent_state = SOLID
-	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as chocolate
+	nutriment_factor = 5 * REAGENTS_METABOLISM	//same as chocolate
+	color = "#2E2418"
 	taste_description = "измельчённого шоколада"
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
