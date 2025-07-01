@@ -44,6 +44,12 @@
 	death_sound = 'sound/misc/demon_dies.ogg'
 	tts_seed = "demon"
 
+/mob/living/simple_animal/imp/ritual
+	melee_damage_lower = 15
+	melee_damage_upper = 20
+	maxHealth = 300
+	health = 300
+
 /mob/living/simple_animal/imp/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \

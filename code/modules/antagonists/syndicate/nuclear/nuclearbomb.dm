@@ -23,7 +23,6 @@ GLOBAL_VAR(bomb_set)
 	var/timeleft = 120
 	var/timing = FALSE
 	var/exploded = FALSE
-	var/r_code = "ADMIN"
 	var/code
 	var/yes_code = FALSE
 	var/safety = TRUE
@@ -41,15 +40,16 @@ GLOBAL_VAR(bomb_set)
 	var/core_stage = NUKE_CORE_EVERYTHING_FINE
 	///How many sheets of various metals we need to fix it
 	var/sheets_to_fix = 5
+	var/cinematic_type = STATION_NUKE
 
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
+	cinematic_type = SYNDICATE_NUKE
 
 
 /obj/machinery/nuclearbomb/Initialize()
 	. = ..()
-	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = get_security_level()
 	GLOB.poi_list |= src
@@ -70,6 +70,8 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/examine(mob/user)
 	. = ..()
+	if(check_rights(R_ADMIN, FALSE))
+		. += span_notice("Код от боеголовки [GLOB.nuke_codes[type]].")
 	if(!panel_open)
 		. += span_notice("The outer panel is <b>screwed shut</b>.")
 	switch(removal_stage)
@@ -438,7 +440,7 @@ GLOBAL_VAR(bomb_set)
 			if(isnull(tempcode))
 				return
 			code = tempcode
-			if(code == r_code)
+			if(code == GLOB.nuke_codes[type])
 				yes_code = TRUE
 				code = null
 			else
@@ -535,7 +537,7 @@ GLOBAL_VAR(bomb_set)
 	yes_code = FALSE
 	safety = TRUE
 	update_icon()
-	playsound(src,'sound/machines/alarm.ogg',100,0,5)
+	playsound(src,'sound/machines/alarm.ogg', 100, 0, 5)
 	if(SSticker && SSticker.mode)
 		SSticker.mode.explosion_in_progress = 1
 	sleep(100)
@@ -551,24 +553,21 @@ GLOBAL_VAR(bomb_set)
 		off_station = 2
 
 	if(SSticker)
-		if(SSticker.mode && SSticker.mode.name == "nuclear emergency")
-			var/obj/docking_port/mobile/syndie_shuttle = SSshuttle.getShuttle("syndicate")
-			if(syndie_shuttle)
-				SSticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
-			SSticker.mode:nuke_off_station = off_station
-		SSticker.station_explosion_cinematic(off_station,null)
+		var/obj/docking_port/mobile/syndie_shuttle = SSshuttle.getShuttle("syndicate")
+		if(syndie_shuttle)
+			SSticker.mode.syndies_didnt_escape = is_station_level(syndie_shuttle.z)
+		SSticker.mode.nuke_off_station = off_station
+		SSticker.station_explosion_cinematic(off_station, cinematic_type)
 		if(SSticker.mode)
 			SSticker.mode.explosion_in_progress = 0
-			if(SSticker.mode.name == "nuclear emergency")
-				SSticker.mode:nukes_left --
-			else if(off_station == 1)
+			if(off_station == 1)
 				to_chat(world, "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>")
 			else if(off_station == 2)
 				to_chat(world, "<b>A nuclear device was set off, but the device was not on the station!</b>")
 			else
 				to_chat(world, "<b>The station was destroyed by the nuclear blast!</b>")
 
-			SSticker.mode.station_was_nuked = (off_station<2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
+			SSticker.mode.station_was_nuked = (off_station < 2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
 															//kinda shit but I couldn't  get permission to do what I wanted to do.
 
 			if(!SSticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
