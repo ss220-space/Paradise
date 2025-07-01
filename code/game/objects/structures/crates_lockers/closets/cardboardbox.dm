@@ -185,5 +185,16 @@
 	animate(alpha = 0, time = 0.3 SECONDS)
 
 
+/obj/structure/closet/cardboard/bullet_act(obj/projectile/P)
+	. = ..()
+	var/list/carbons = list()
+	for(var/mob/living/carbon/C in contents)
+		if (istype(C))
+			carbons += C
+	if (length(carbons) > 0)
+		var/mob/living/carbon/randomCarbon = pick(carbons)
+		randomCarbon.bullet_act(P)
+
+
 #undef SNAKE_ALERT_COOLDOWN
 
