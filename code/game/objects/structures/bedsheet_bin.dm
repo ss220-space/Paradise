@@ -88,12 +88,12 @@ LINEN BINS
 /obj/item/bedsheet/patriot
 	name = "Zaza ambasador"
 	ru_names = list(
-		NOMINATIVE = "заза амбасадор",
-		GENITIVE = "заза амбасадора",
-		DATIVE = "зазе амбасадору",
-		ACCUSATIVE = "зазу амбасадора",
-		INSTRUMENTAL = "зазой амбасадором",
-		PREPOSITIONAL = "зазе амбасадоре"
+		NOMINATIVE = "амбасадор Заза",
+		GENITIVE = "амбасадора Заза",
+		DATIVE = "амбасадору Зазе",
+		ACCUSATIVE = "амбасадора Зазу",
+		INSTRUMENTAL = "амбасадором Зазой",
+		PREPOSITIONAL = "амбасадоре Зазе"
 	)
 	desc = "Вы явно владеете зазой."
 	icon_state = "sheetzaza"
