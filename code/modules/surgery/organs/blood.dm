@@ -14,7 +14,7 @@
 /mob/living/carbon/human/proc/resume_bleeding()
 	bleedsuppress = FALSE
 	if(stat != DEAD && bleed_rate)
-		to_chat(src, span_warning("The blood soaks through your bandage."))
+		to_chat(src, span_warning("Кровь просачивается через вашу повязку."))
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
@@ -26,24 +26,32 @@
 		if(!HAS_TRAIT(src, TRAIT_NO_BLOOD_RESTORE) && blood_volume < BLOOD_VOLUME_NORMAL)
 			AdjustBlood(0.1) // regenerate blood VERY slowly
 
-
-		//Effects of bloodloss
-		var/word = pick("dizzy","woozy","faint")
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
-					to_chat(src, span_warning("You feel [word]."))
+					var/symptom = pick("слабость",
+						"лёгкое головокружение",
+						"небольшую тошноту")
+					to_chat(src, span_warning("Вы чувствуете [symptom]."))
 				apply_damage(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.014, 1), dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				apply_damage(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.028, 1), dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
 				if(prob(5))
 					EyeBlurry(12 SECONDS)
-					to_chat(src, span_warning("You feel very [word]."))
+					var/symptom = pick("сильную слабость",
+						"сильное головокружение",
+						"нарастающую тошноту",
+						"спутанность сознания")
+					to_chat(src, span_warning("Вы чувствуете [symptom]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				apply_damage(5, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
 				if(prob(15))
 					Paralyse(rand(2 SECONDS, 6 SECONDS))
-					to_chat(src, span_warning("You feel extremely [word]."))
+					var/symptom = pick("крайнюю слабость",
+						"очень сильное головокружение",
+						"невыносимую тошноту",
+						"полную дезориентацию")
+					to_chat(src, span_warning("Вы чувствуете [symptom]."))
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				death()
 

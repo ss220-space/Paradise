@@ -351,7 +351,7 @@
 	for(var/mob/living/L in loc)
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] захватывает [L]!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] захватывает [L.declent_ru(ACCUSATIVE)]!"))
 		if(!L.IsStunned())
 			L.Stun(10 SECONDS)
 			L.adjustBruteLoss(rand(10, 15))

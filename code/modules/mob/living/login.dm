@@ -15,10 +15,10 @@
 	set_SSD(FALSE)
 	//Vents
 	if(is_ventcrawler(src))
-		to_chat(src, span_notice("You can ventcrawl! Use <b>Alt+Click</b> on vents to quickly travel about the station."))
+		to_chat(src, span_notice("Вы можете ползать по вентиляции! Используйте <b>Alt+ЛКМ</b> на вентиляционных решётках для быстрого перемещения по станции."))
 
 	if(ranged_ability)
-		ranged_ability.add_ranged_ability(src, "<span class='notice'>You currently have <b>[ranged_ability]</b> active!</span>")
+		ranged_ability.add_ranged_ability(src, span_notice("У вас сейчас активно умение: <b>[ranged_ability]</b>!"))
 
 	SStitle.hide_title_screen_from(client)
 
