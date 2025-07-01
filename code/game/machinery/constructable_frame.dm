@@ -574,9 +574,9 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stack/cable_coil = 5)
 
-/obj/item/circuitboard/coffeemaker
-	board_name = "Кофемашина \"Piccionaia Modello 3\""
-	build_path = /obj/machinery/coffeemaker
+/obj/item/circuitboard/coffeemaker/standard
+	board_name = "Кофемашина \"Моделло 3\""
+	build_path = /obj/machinery/coffeemaker/standard
 	board_type = "machine"
 	origin_tech = "programming=2;magnets=2"
 	req_components = list(
@@ -586,7 +586,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 1)
 
 /obj/item/circuitboard/coffeemaker/impressa
-	board_name = "Кофемашина \"Impressa Modello 5\""
+	board_name = "Кофемашина \"Импресса Моделло 5\""
 	build_path = /obj/machinery/coffeemaker/impressa
 	board_type = "machine"
 	origin_tech = "programming=3;magnets=3"

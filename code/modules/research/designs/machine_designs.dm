@@ -482,6 +482,16 @@
 	build_path = /obj/item/circuitboard/deepfryer
 	category = list("Misc. Machinery")
 
+/datum/design/standard_coffeemachine
+	name = "Машинная плата (Кофемашина Моделло 3)"
+	desc = "Печатная плата для кофемашины \"Моделло 3\"."
+	id = "coffeemachine_standard"
+	req_tech = list("programming" = 2, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/coffeemaker/standard
+	category = list("Misc. Machinery")
+
 /datum/design/orion_trail
 	name = "Machine Board (Orion Trail Arcade Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new Orion Trail machine."

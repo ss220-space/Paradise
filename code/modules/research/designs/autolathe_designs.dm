@@ -360,6 +360,14 @@
 	build_path = /obj/item/reagent_containers/food/drinks/shaker
 	category = list("initial","Dinnerware")
 
+/datum/design/coffeepot
+	name = "Кофейник"
+	id = "coffeepot"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
+	build_path = /obj/item/reagent_containers/glass/coffeepot
+	category = list("initial","Dinnerware")
+
 /datum/design/cultivator
 	name = "Cultivator"
 	id = "cultivator"
