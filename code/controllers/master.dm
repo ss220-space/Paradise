@@ -281,10 +281,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		SS.OnMasterLoad()
 		CHECK_TICK
 
-	for(var/datum/controller/subsystem/SS in subsystems)
-		SS.LateInitialize()
-		CHECK_TICK
-
 	if(CONFIG_GET(flag/developer_express_start))
 		SSticker.force_start = TRUE
 

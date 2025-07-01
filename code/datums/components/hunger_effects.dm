@@ -14,24 +14,29 @@
 	var/mob/living/carbon/human/target = parent
 	if(!istype(target))
 		return
-	if(!length(GLOB.hunger_levels))
-		var/list/levels = list()
-		for(var/htype in subtypesof(/datum/hunger_level))
-			levels += new htype
-		GLOB.hunger_levels = sortTim(levels, /proc/hunger_levels_update)
 	var/current_nutrition = target.nutrition
-	var/datum/hunger_level/selected_level
-	for(var/datum/hunger_level/level as anything in GLOB.hunger_levels)
-		if(current_nutrition >= level.min_nutrition)
-			selected_level = level
-		else
-			break
-	if(selected_level == current_level)
-		return
-	current_level = selected_level
+	var/datum/hunger_level/new_level = find_hunger_level(current_nutrition)
+	current_level = new_level
+	apply_hunger_effects(target)
+
+/datum/component/hunger_effects/proc/find_hunger_level(nutrition)
+	var/list/valid_levels = list()
+	for(var/level_type in GLOB.hunger_levels)
+		var/datum/hunger_level/level = GLOB.hunger_levels[level_type]
+		valid_levels += level
+	sortTim(valid_levels, /proc/hunger_levels_update)
+	for(var/datum/hunger_level/level in valid_levels)
+		if(nutrition >= level.min_nutrition)
+			return level
+	return GLOB.hunger_levels[/datum/hunger_level/starving]
+
+/proc/hunger_levels_update(datum/hunger_level/A, datum/hunger_level/B)
+	return B.min_nutrition - A.min_nutrition
+
+/datum/component/hunger_effects/proc/apply_hunger_effects(mob/living/carbon/human/target)
 	target.remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 	target.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
-	if(!isnull(current_level?.move_mod))
+	if(!isnull(current_level?.move_mod) && current_level.move_mod != 0)
 		target.add_or_update_variable_movespeed_modifier(
 			/datum/movespeed_modifier/hunger,
 			multiplicative_slowdown = current_level.move_mod
@@ -47,7 +52,7 @@
 		target.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
 	target.sound_environment_override = current_level?.sound_env || SOUND_ENVIRONMENT_NONE
 	if(!isnull(current_level?.stamina_max))
-		target.setStaminaMax(current_level.stamina_max)
+		target.set_stamina_max(current_level.stamina_max)
 
 /datum/component/hunger_effects/proc/on_life()
 	var/mob/living/carbon/human/target = parent

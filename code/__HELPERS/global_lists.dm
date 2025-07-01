@@ -184,6 +184,8 @@
 				GLOB.chemical_reactions_list[reagent] = list()
 			GLOB.chemical_reactions_list[reagent] += reaction_datum
 
+	init_datum_subtypes(/datum/hunger_level, GLOB.hunger_levels, null, "type")
+
 	// Init disease archive
 	GLOB.archive_diseases += list(
 		"sneeze" = new /datum/disease/virus/advance/preset/sneezing(),

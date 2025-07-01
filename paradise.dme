@@ -359,7 +359,6 @@
 #include "code\controllers\subsystem\garbage.dm"
 #include "code\controllers\subsystem\ghost_spawns.dm"
 #include "code\controllers\subsystem\http.dm"
-#include "code\controllers\subsystem\hunger.dm"
 #include "code\controllers\subsystem\icon_smooth.dm"
 #include "code\controllers\subsystem\idlenpcpool.dm"
 #include "code\controllers\subsystem\input.dm"

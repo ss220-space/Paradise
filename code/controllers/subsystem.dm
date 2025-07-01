@@ -127,11 +127,6 @@
 	return SS_INIT_NONE
 
 
-/datum/controller/subsystem/proc/LateInitialize()
-	set waitfor = FALSE
-	return
-
-
 /datum/controller/subsystem/Destroy()
 	dequeue()
 	can_fire = FALSE

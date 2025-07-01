@@ -795,7 +795,7 @@
 	if(updating_health)
 		updatehealth("setStaminaLoss")
 
-/mob/living/proc/setStaminaMax(amount)
+/mob/living/proc/set_stamina_max(amount)
 	max_stamina_loss = max(0, min(amount, MAX_STAMINA_LOSS))
 	if(staminaloss > (max_stamina_loss || MAX_STAMINA_LOSS))
 		setStaminaLoss(max_stamina_loss)
