@@ -111307,12 +111307,10 @@
 	},
 /area/engineering/engine/smes)
 "uab" = (
-/obj/structure/table,
-/obj/item/book/manual/experimentor,
-/obj/item/healthanalyzer,
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
+/obj/machinery/suit_storage_unit/anom,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -121410,14 +121408,13 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/lobby)
 "vYn" = (
-/obj/item/stack/cable_coil,
-/obj/structure/table,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
+/obj/machinery/suit_storage_unit/anom,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -124285,6 +124282,9 @@
 /obj/machinery/alarm{
 	pixel_y = 26
 	},
+/obj/item/book/manual/experimentor,
+/obj/item/healthanalyzer,
+/obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"

@@ -58797,6 +58797,12 @@
 	icon_state = "grimy"
 	},
 /area/civilian/vacantoffice)
+"fHL" = (
+/obj/machinery/suit_storage_unit/anom,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/explab)
 "fHS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -73964,6 +73970,7 @@
 	name = "south station intercom (General)";
 	pixel_y = -28
 	},
+/obj/machinery/suit_storage_unit/anom,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -130562,7 +130569,7 @@ vWo
 pPf
 ghF
 teF
-ghF
+fHL
 vWo
 cxI
 mBN

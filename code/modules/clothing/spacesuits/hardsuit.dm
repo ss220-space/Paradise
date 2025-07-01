@@ -805,11 +805,19 @@
 //Anomalist hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/anom
 	name = "Anomalist Hardsuit Helmet"
-	desc = "A prototype helmet designed for research in a hazardous, low pressure environment. Scientific data flashes across the visor."
-	icon_state = "hardsuit0-engineering" //"hardsuit0-anom"
-	item_state = "hardsuit" //"anom"
+	desc = "Шлем, разработанный для исследований в опасной среде с низким давлением. На его забрале мелькают научные данные."
+	ru_names = list(
+	NOMINATIVE = "шлем ИКС аномалиста",
+	GENITIVE = "шлема ИКС аномалиста",
+	DATIVE = "шлему ИКС аномалиста",
+	ACCUSATIVE = "шлем ИКС аномалиста",
+	INSTRUMENTAL = "шлемом ИКС аномалиста",
+	PREPOSITIONAL = "шлеме ИКС аномалиста"
+	)
+	icon_state = "hardsuit0-anom"
+	item_state = "anom"
 	armor = list("melee" = 40, "bullet" = 0, "laser" = 0, "energy" = 50, "bomb" = 50, "bio" = 30, "rad" = 50, "fire" = 100, "acid" = 40)
-	item_color = "engineering" //"anom"
+	item_color = "anom"
 	examine_extensions = EXAMINE_HUD_SCIENCE
 	var/explosion_detection_dist = 30
 	var/obj/item/anomaly_analyzer/integrated_scanner
@@ -889,13 +897,21 @@
 		distance = dy
 	if(distance > explosion_detection_dist)
 		return
-	display_visor_message("Explosion detected! Epicenter radius: [devastation_range], Outer radius: [heavy_impact_range], Shockwave radius: [light_impact_range]")
+	display_visor_message("Обнаружен взрыв! Радиус эпицентра: [devastation_range], Внешний радиус: [heavy_impact_range], Радиус ударной волны: [light_impact_range]")
 
 /obj/item/clothing/suit/space/hardsuit/anom
 	name = "Anomalist Hardsuit"
-	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for working with anomalies and hazardous research."
-	icon_state = "hardsuit-engineering" // "hardsuit-anom"
-	item_state = "eng_hardsuit" // "hardsuit-anom"
+	desc = "Костюм, защищающий от среды с низким давлением. Оснащен покрытием для работы с аномалиями и опасными исследованиями."
+	ru_names = list(
+	NOMINATIVE = "ИКС аномалиста",
+	GENITIVE = "ИКС аномалиста",
+	DATIVE = "ИКС аномалиста",
+	ACCUSATIVE = "ИКС аномалиста",
+	INSTRUMENTAL = "ИКС аномалиста",
+	PREPOSITIONAL = "ИКС аномалиста"
+	)
+	icon_state = "hardsuit-anom"
+	item_state = "hardsuit-anom"
 	armor = list("melee" = 40, "bullet" = 0, "laser" = 0, "energy" = 50, "bomb" = 50, "bio" = 30, "rad" = 50, "fire" = 100, "acid" = 40)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
 	/obj/item/gun/energy/anomaly_stabilizer)
