@@ -130,6 +130,14 @@
 #define JOB_TITLE_CCSUPREME "Supreme Commander"
 #define JOB_TITLE_CCSOLGOV "Solar Federation General"
 
+///Other
+#define SYNDICATE_OPERATIVE "Syndicate Operative"
+#define SYNDICATE_OPERATIVE_LEADER "Syndicate Operative Leader"
+#define SYNDICATE_AGENT "Syndicate Agent"
+#define SYNDICATE_COMMANDO "Syndicate Commando"
+#define VOX_RAIDER "Vox Raider"
+#define VOX_TRADER "Vox Trader"
+
 ///Taipan (ghost role) related stuff
 
 #define TAIPAN_SCIENTIST	"Space Base Syndicate Scientist"

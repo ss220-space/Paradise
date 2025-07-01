@@ -24,7 +24,7 @@
 	power_channel = EQUIP
 	max_integrity = 300
 	integrity_failure = 100
-	atom_say_verb = "bleeps"
+	atom_say_verb = "пищит"
 
 	COOLDOWN_DECLARE(copying_cooldown)
 

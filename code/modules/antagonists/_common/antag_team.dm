@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	SHOULD_CALL_PARENT(TRUE)
 	var/datum/antagonist/team_antag = get_antag_datum_from_member(new_member)
 	members |= new_member
-	if(add_objectives)
+	if(add_objectives && team_antag)
 		team_antag.objectives |= objectives
 
 /**
@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 	// If no matching antag datum was found, give them one.
 	if(antag_datum_type)
-		member.add_antag_datum(antag_datum_type, src)
+		return member.add_antag_datum(antag_datum_type, src)
 
 
 /**
@@ -186,6 +186,13 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	message_admins("[key_name_admin(user)] removed [key_name_admin(member)] from the team '[name]'.")
 	log_admin("[key_name(user)] removed [key_name(member)] from the team '[name]'.")
 	remove_member(member)
+
+
+/datum/team/proc/set_scoreboard_vars()
+	return
+
+/datum/team/proc/get_scoreboard_stats()
+	return ""
 
 
 /**

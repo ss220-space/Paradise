@@ -203,7 +203,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(client)
 		client.check_say_flood(5)
 		if(check_mute(client.ckey, MUTE_IC))
-			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
+			to_chat(src, span_boldwarning("Вы не можете отправлять IC сообщения (мут)."))
 			return FALSE
 
 	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_TRY_SPEECH, message)
@@ -292,7 +292,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
 		if(G.mute == MUZZLE_MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
-			to_chat(src, span_danger("You're muzzled and cannot speak!"))
+			to_chat(src, span_danger("На вас надет намордник, и вы не можете говорить."))
 			return FALSE
 		else if(G.mute == MUZZLE_MUTE_MUFFLE)
 			muffledspeech_all(message_pieces)
@@ -338,7 +338,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 		var/msg
 		if((!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG)) && client)
-			msg = span_notice("[src] talks into [used_radios[1]]")
+			msg = span_notice("[src] говор[pluralize_ru(src.gender,"ит","ят")] в [used_radios[1]]")
 			var/static/list/special_radio_channels = list(SYND_FREQ_NAME, SYNDTEAM_FREQ_NAME, SEC_FREQ_NAME, PROC_FREQ_NAME, COMM_FREQ_NAME, ERT_FREQ_NAME, DTH_FREQ_NAME, NINJA_FREQ_NAME, SYND_TAIPAN_FREQ_NAME, SOV_FREQ_NAME)
 			if(message_mode in special_radio_channels)
 				SEND_SOUND(src, sound('sound/items/radio_security.ogg', volume = rand(4, 16) * 5 * client.prefs.get_channel_volume(CHANNEL_RADIO_NOISE), channel = CHANNEL_RADIO_NOISE))
@@ -463,7 +463,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/whisper_say(list/message_pieces, verb = "шепч%(ет,ут)%")
 	if(client && check_mute(client.ckey, MUTE_IC))
-		to_chat(src, span_danger("You cannot speak in IC (Muted)."))
+		to_chat(src, span_boldwarning("Вы не можете отправлять IC сообщения (мут)."))
 		return
 
 	if(stat)
@@ -472,13 +472,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
 	if(is_muzzled() && !translator?.active)
 		if(istype(wear_mask, /obj/item/clothing/mask/muzzle/tapegag)) //just for tape
-			to_chat(src, span_danger("Your mouth is taped and you cannot speak!"))
+			to_chat(src, span_danger("Ваш рот заклеен скотчем, и вы не можете говорить!"))
 		else
-			to_chat(src, span_danger("You're muzzled and cannot speak!"))
+			to_chat(src, span_danger("На вас надет намордник, и вы не можете говорить."))
 		return
 
 	if(is_facehugged())
-		to_chat(src, span_danger("You can't get a word out with this horrible creature on your face!"))
+		to_chat(src, span_danger("Вы не можете вымолвить ни слова с этим ужасным существом на лице!"))
 		return
 
 	var/message = multilingual_to_message(message_pieces)
