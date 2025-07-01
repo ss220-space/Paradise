@@ -5,11 +5,11 @@ use std::cell::RefCell;
 use std::collections::HashMap;
 
 pub struct Sun {
+    pub solars: RefCell<HashMap<u32, ByondValue>>,
     pub rate: Cell<f32>,
     pub dx: Cell<f32>,
     pub dy: Cell<f32>,
     pub angle: Cell<f32>,
-    pub solars: RefCell<HashMap<u32, ByondValue>>,
 }
 
 impl Sun {
@@ -71,8 +71,8 @@ impl Sun {
     }
 
     #[inline]
-    pub fn add_solar(&self, solar: &ByondValue, solar_uid: u32) -> eyre::Result<ByondValue> {
-        self.solars.borrow_mut().insert(solar_uid, *solar);
+    pub fn add_solar(&self, solar: ByondValue, solar_uid: u32) -> eyre::Result<ByondValue> {
+        self.solars.borrow_mut().insert(solar_uid, solar);
         Ok(ByondValue::null())
     }
 

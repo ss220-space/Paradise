@@ -13,7 +13,7 @@ pub fn sun_subsystem_fire() -> eyre::Result<ByondValue> {
 
 #[byondapi::bind]
 pub fn add_solar(solar: ByondValue, solar_uid: ByondValue) -> eyre::Result<ByondValue> {
-    SUN.with(|sun| sun.add_solar(&solar, solar_uid.get_number()?.to_bits()))
+    SUN.with(|sun| sun.add_solar(solar, solar_uid.get_number()?.to_bits()))
 }
 
 #[byondapi::bind]

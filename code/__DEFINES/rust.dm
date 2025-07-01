@@ -8,11 +8,6 @@
 
 /proc/__detect_rustlib()
 	if(world.system_type == UNIX)
-#ifdef CIBUILDING
-		// CI override, use librustlibs_ci.so if possible.
-		if(fexists("./tools/ci/librustlibs_ci.so"))
-			return __rustlib = "tools/ci/librustlibs_ci.so"
-#endif
 		// First check if it's built in the usual place.
 		if(fexists("./rust/target/i686-unknown-linux-gnu/release/librustlibs.so"))
 			return __rustlib = "./rust/target/i686-unknown-linux-gnu/release/librustlibs.so"
