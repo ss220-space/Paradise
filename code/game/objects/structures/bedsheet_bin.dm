@@ -86,7 +86,7 @@ LINEN BINS
 	nightmare_messages = list("Grey blood")
 
 /obj/item/bedsheet/patriot
-	name = "Zaza ambasador"
+	name = "Zaza ambassador"
 	ru_names = list(
 		NOMINATIVE = "амбассадор Заза",
 		GENITIVE = "амбассадора Заза",
@@ -95,10 +95,10 @@ LINEN BINS
 		INSTRUMENTAL = "амбассадором Зазой",
 		PREPOSITIONAL = "амбассадоре Зазе"
 	)
-	desc = "Вы явно владеете зазой."
+	desc = "Вы явно владеете Зазой."
 	icon_state = "sheetzaza"
 	item_color = "sheetzaza"
-	dream_messages = list("зазе", "качалке", "свободе", "крилье который выпрыгивает из воды забрасывая трехочковый в баскетбольную корзину на фоне акул")
+	dream_messages = list("Зазе", "качалке", "свободе")
 	nightmare_messages = list("тюрьме", "наручниках")
 
 /obj/item/bedsheet/rainbow
