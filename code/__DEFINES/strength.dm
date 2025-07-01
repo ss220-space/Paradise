@@ -13,6 +13,8 @@ GLOBAL_LIST_INIT(strength_melee_damage_deltas, list(-2, 0, 2, 4, 6))
 
 GLOBAL_LIST_INIT(strength_req_to_upgrade, list(10, 20, 30, 35))
 
+GLOBAL_LIST_INIT(strength_examines, list("слаб", "нормальн", "сильн", "очень сильн", "необыкновенно сильн"))
+
 
 #define STRENGTH_LEVEL_MAXDEFAULT	4
 #define STRENGTH_LEVEL_DEFAULT		2

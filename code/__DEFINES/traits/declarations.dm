@@ -221,8 +221,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WINGDINGS "wingdings"
 #define TRAIT_NO_FINGERPRINTS "no_fingerprints"
 #define TRAIT_DWARF "dwarf"
-#define TRAIT_GENE_STRONG "gene_strong"
-#define TRAIT_GENE_WEAK "gene_weak"
+#define TRAIT_STRONG_MUSCLES "gene_strong"
+#define TRAIT_WEAK_MUSCULS "gene_weak"
 #define TRAIT_SOBER "sober"
 #define TRAIT_PSY_RESIST "psy_resist"	// block remoteview
 #define TRAIT_OPEN_MIND "open_mind"	// allows to remote view this mob

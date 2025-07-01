@@ -306,7 +306,6 @@
 	activation_message = list("Вы чувствуете внезапную слабость в мышцах.")
 	deactivation_message = list("Вы снова ощущаете силу в мышцах.")
 	instability = -GENE_INSTABILITY_MINOR
-	traits_to_add = list(TRAIT_GENE_WEAK)
 
 
 /datum/dna/gene/disability/weak/New()
@@ -314,11 +313,18 @@
 	block = GLOB.weakblock
 
 
-/datum/dna/gene/disability/weak/can_activate(mob/living/mutant, flags)
-	if(!HAS_TRAIT(mutant, TRAIT_GENE_STRONG))
+/datum/dna/gene/disability/weak/can_activate(mob/living/carbon/human/mutant, flags)
+	if(!ishuman(mutant))
 		return FALSE
 
-	if(!mutant.GetComponent(/datum/component/muscles))
+	if(HAS_TRAIT_FROM(mutant.physiology, TRAIT_STRONG_MUSCLES, DNA_TRAIT))
+		return FALSE
+
+	var/datum/component/muscles/muscles = mutant.physiology.GetComponent(/datum/component/muscles)
+	if(!muscles)
+		return FALSE
+
+	if(!muscles.can_become_stronger)
 		return FALSE
 
 	return ..()
@@ -326,6 +332,15 @@
 
 /datum/dna/gene/disability/weak/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
+	ADD_TRAIT(mutant.physiology, TRAIT_WEAK_MUSCULS, DNA_TRAIT)
+	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
+	mutant.update_body(TRUE)
+
+
+/datum/dna/gene/disability/weak/deactivate(mob/living/carbon/human/mutant, flags)
+	. = ..()
+	REMOVE_TRAIT(mutant.physiology, TRAIT_WEAK_MUSCULS, DNA_TRAIT)
+	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
 	mutant.update_body(TRUE)
 
 

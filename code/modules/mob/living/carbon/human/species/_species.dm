@@ -419,7 +419,7 @@
 
 
 /datum/species/proc/gain_muscles(mob/living/carbon/human/target, default, max_level, can_become_stronger = TRUE)
-	var/datum/component/muscles/muscles = target.GetComponent(/datum/component/muscles)
+	var/datum/component/muscles/muscles = target.physiology.GetComponent(/datum/component/muscles)
 	if(!muscles)
 		target.physiology.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
 		return

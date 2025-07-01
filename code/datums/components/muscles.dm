@@ -99,10 +99,10 @@
 
 
 /datum/component/muscles/proc/get_max_strength_level()
-	if(HAS_TRAIT(src, TRAIT_GENE_STRONG))
+	if(HAS_TRAIT(parent, TRAIT_STRONG_MUSCLES))
 		return STRENGTH_LEVEL_SUPERHUMAN
 
-	if(HAS_TRAIT(src, TRAIT_GENE_WEAK))
+	if(HAS_TRAIT(parent, TRAIT_WEAK_MUSCULS))
 		return STRENGTH_LEVEL_WEAK
 
 	return max_species_strength
@@ -121,15 +121,14 @@
 	icon_state_additions.Add("_[min(4, get_strength(user))]")
 
 
-/datum/component/muscles/proc/get_strength(mob/living/user)
-	var/result = strength
-	if(HAS_TRAIT(user, TRAIT_GENE_STRONG))
-		result = max(result, 4)
+/datum/component/muscles/proc/get_strength()
+	if(HAS_TRAIT(parent, TRAIT_STRONG_MUSCLES))
+		strength = max(strength, STRENGTH_LEVEL_MAXDEFAULT)
 
-	if(HAS_TRAIT(user, TRAIT_GENE_WEAK))
-		result = min(result, 1)
+	if(HAS_TRAIT(parent, TRAIT_WEAK_MUSCULS))
+		strength = min(strength, STRENGTH_LEVEL_WEAK)
 
-	return result
+	return strength
 
 
 /datum/component/muscles/proc/get_strength_level_part(mob/living/user)
