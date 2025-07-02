@@ -8,6 +8,7 @@ jobs:
   build-and-check:
     permissions:
       contents: write
+      pull-requests: write
 
     if: |
       github.event.issue.pull_request &&
