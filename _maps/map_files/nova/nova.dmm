@@ -57633,7 +57633,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/table,
-/obj/machinery/coffeemaker,
+/obj/machinery/coffeemaker/standard,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
