@@ -74,10 +74,17 @@ jobs:
 
     - name: Build Rust libraries
       env:
+        BASE_BRANCH: ${{ github.event.repository.default_branch }}
+        BASE_REPOSITORY: ${{ github.repository }}
         SOURCE_DATE_EPOCH: "1577836800"
         RUSTFLAGS: "-C link-arg=-Wl,--build-id=none"
         TZ: UTC
       run: |
+        git config user.name ss1984rustbuild[bot]
+        git config user.email "165046124+ss1984rustbuild[bot]@users.noreply.github.com"
+        git pull origin "$PR_BRANCH" --depth=$((ahead_by + 1))
+        git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
+        git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
         cd rust
 
         cargo build --release --target i686-unknown-linux-gnu
@@ -85,8 +92,8 @@ jobs:
 
         cd ..
 
-        cp rust/target/i686-unknown-linux-gnu/release/librustlibs.so librustlibs.so
-        cp rust/target/i686-pc-windows-gnu/release/rustlibs.dll rustlibs.dll
+        cp rust/target/i686-unknown-linux-gnu/release/librustlibs.so ../librustlibs.so
+        cp rust/target/i686-pc-windows-gnu/release/rustlibs.dll ../rustlibs.dll
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
@@ -152,6 +159,7 @@ jobs:
             BODY+="* **Status:** ✅ Hashes match!\n"
           else
             BODY+="* **Status:** ❌ Hash mismatch!\n"
+            fail()
           fi
         else
           BODY+="* **Status:** ⚠️ User-supplied file not found in PR.\n"
@@ -167,6 +175,7 @@ jobs:
             BODY+="* **Status:** ✅ Hashes match!\n"
           else
             BODY+="* **Status:** ❌ Hash mismatch!\n"
+            fail()
           fi
         else
           BODY+="* **Status:** ⚠️ User-supplied file not found in PR.\n"
@@ -179,3 +188,11 @@ jobs:
         BODY+="**Download built artifacts:** $ARTIFACTS_URL"
 
         gh pr comment "$PR_NUMBER" --repo "$BASE_REPO" --body "$BODY"
+
+    - name: Commit and push changes
+      if: success()
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        git commit -a -m "Build Rust library" --allow-empty
+        git push origin
