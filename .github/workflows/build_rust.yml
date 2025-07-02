@@ -63,7 +63,11 @@ jobs:
         sudo dpkg --add-architecture i386
         sudo apt-get update
         sudo apt-get install -y \
-          zlib1g-dev:i386 lib32gcc-11-dev \
+          zlib1g-dev:i386 \
+          lib32gcc-11-dev \
+          gcc-multilib g++-multilib \
+          libc6-dev-i386 \
+          libgcc-11-dev:i386 \
           mingw-w64 mingw-w64-i686-dev
 
     - name: Build Rust libraries
