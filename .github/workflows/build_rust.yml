@@ -29,15 +29,15 @@ jobs:
       run: |
         PR_API_URL="${{ github.event.issue.pull_request.url }}"
         PR_JSON=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$PR_API_URL")
-        echo "repo=$(echo "$PR_JSON" | jq -r '.head.repo.full_name')" >> $GITHUB_OUTPUT
-        echo "ref=$(echo "$PR_JSON"  | jq -r '.head.ref')"           >> $GITHUB_OUTPUT
+        echo "PR_REPO=$(echo "$PR_JSON" | jq -r '.head.repo.full_name')" >> $GITHUB_ENV
+        echo "PR_BRANCH=$(echo "$PR_JSON"  | jq -r '.head.ref')"           >> $GITHUB_ENV
         echo "base_repo=$(echo "$PR_JSON" | jq -r '.base.repo.full_name')" >> $GITHUB_OUTPUT
 
     - name: Checkout PR branch
       uses: actions/checkout@v4
       with:
-        repository: ${{ steps.pr_info.outputs.repo }}
-        ref:          ${{ steps.pr_info.outputs.ref }}
+        repository: ${{ env.PR_REPO }}
+        ref:          ${{ env.PR_BRANCH }}
         token:        ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 1
 
