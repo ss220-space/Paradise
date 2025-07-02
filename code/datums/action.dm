@@ -700,10 +700,6 @@
 /datum/action/item_action/accessory/storage
 	name = "Просмотр хранилища"
 
-
-/datum/action/item_action/accessory/storage/belt
-	name = "Достать с пояса"
-
 /datum/action/item_action/accessory/petcollar
 	name = "Извлечь ID"
 

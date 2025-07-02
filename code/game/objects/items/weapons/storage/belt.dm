@@ -1,6 +1,3 @@
-
-
-
 /obj/item/storage/belt
 	name = "belt"
 	desc = "Can hold various things."
