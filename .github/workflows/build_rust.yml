@@ -126,6 +126,8 @@ jobs:
         git push origin
 
     - name: Notify Failure
+      env:
+        GH_TOKEN: ${{ github.token }}
       if: failure() && env.FAIL_NOTIFIED != 'true'
       run: |
         gh pr comment ${{ github.event.issue.html_url }} -b 'Building Rust library failed, see the action run log for details: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
