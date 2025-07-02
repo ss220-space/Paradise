@@ -147,6 +147,7 @@ jobs:
         SO_EXISTS=${{ steps.user_files_check.outputs.so_exists }}
 
         BODY="### Rustlibs Build and Verification Results:\n\n"
+        fail="false"
 
         BODY+="#### rustlibs.dll (Windows)\n"
         BODY+="* Built: \`$BUILT_DLL_HASH\`\n"
@@ -157,6 +158,8 @@ jobs:
             BODY+="* **Status:** ✅ Hashes match!\n"
           else
             BODY+="* **Status:** ❌ Hash mismatch!\n"
+            
+            fail="true"
 
           fi
         else
@@ -174,6 +177,8 @@ jobs:
           else
             BODY+="* **Status:** ❌ Hash mismatch!\n"
 
+            fail="true"
+
           fi
         else
           BODY+="* **Status:** ⚠️ User-supplied file not found in PR.\n"
@@ -186,3 +191,15 @@ jobs:
         BODY+="**Download built artifacts:** $ARTIFACTS_URL"
 
         gh pr comment "$PR_NUMBER" --repo "$BASE_REPO" --body "$BODY"
+
+        if [ "$fail" = "true" ]; then
+          exit 1
+        fi
+
+    - name: Commit and push changes
+      if: success()
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        git commit -a -m "Build Rust library" --allow-empty
+        git push origin
