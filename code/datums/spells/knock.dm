@@ -68,7 +68,7 @@
 				A.req_access = list()
 		GLOB.major_announcement.Announce(
 			message = "Мы убрали все доступы с шлюзов на вашей станции. Вы сможете поблагодарить нас позже!",
-			new_title = "Послание Федерации Космических Волшебников",
+			new_title = "Послание Федерации Космических Волшебников.",
 			new_subtitle = "Приветствуем!",
 			new_sound = 'sound/misc/notice2.ogg'
 		)

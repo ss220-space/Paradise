@@ -4,7 +4,7 @@
 
 /datum/event/wallrot/announce()
 	GLOB.minor_announcement.Announce("На станции обнаружен вредоносный грибок. Возможно загрязнение некоторых структур станции.",
-									"Биологическая угроза"
+									ANNOUNCE_BIOHAZARD_RU
 	)
 
 /datum/event/wallrot/start()

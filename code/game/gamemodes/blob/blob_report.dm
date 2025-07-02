@@ -65,7 +65,7 @@
 
 	special_directive(intercepttext, interceptname)
 	GLOB.minor_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.",
-									"Входящее засекреченное сообщение",
+									ANNOUNCE_SECRETMSG_RU,
 									'sound/AI/commandreport.ogg'
 	)
 

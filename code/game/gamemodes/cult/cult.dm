@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
 			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
 		GLOB.major_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
-										"Отдел Центрального командования по делам высших измерений",
+										ANNOUNCE_CCPARANORMAL_RU,
 										'sound/AI/commandreport.ogg'
 		)
 		log_game("Blood cult reveal. Powergame allowed.")

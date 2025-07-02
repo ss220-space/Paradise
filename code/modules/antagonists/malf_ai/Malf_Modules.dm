@@ -249,7 +249,7 @@
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, span_notice("Nuclear device armed."))
 	GLOB.major_announcement.Announce("Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
-									"Аномалия",
+									ANNOUNCE_ANOMALY_RU,
 									'sound/AI/aimalf.ogg'
 	)
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
@@ -296,7 +296,7 @@
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
 		GLOB.major_announcement.Announce("УСТРОЙСТВО СУДНОГО ДНЯ ВНЕ ЗОНЫ ДЕЙСТВИЯ СТАНЦИИ, ОСТАНОВКА.",
-										"ОШИБКА ОШИБКА $0ШБК$!А41.%%!!(%$^^__+ @#Ш0E4",
+										ANNOUNCE_MALF_RU,
 										'sound/misc/notice1.ogg'
 		)
 		SSshuttle.remove_hostile_environment(src, 'sound/AI/eshuttle_dock.ogg')
@@ -313,7 +313,7 @@
 		if(!(sec_left % 60) && !announced)
 			var/message = "[sec_left] СЕКУНД ДО АКТИВАЦИИ УСТРОЙСТВА СУДНОГО ДНЯ!"
 			GLOB.major_announcement.Announce(message,
-											"ОШИБКА ОШИБКА $0ШБК$!А41.%%!!(%$^^__+ @#F0E4",
+											ANNOUNCE_MALF_RU,
 											'sound/misc/notice1.ogg'
 			)
 			announced = 10

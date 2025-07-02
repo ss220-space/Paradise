@@ -41,7 +41,7 @@
 		log_debug("Failed to find a valid area when trying to make a false alarm anomaly!")
 		return
 	GLOB.minor_announcement.Announce("[prefix_message] Предполагаемая локация: [target.name]",
-									"Аномалия"
+									ANNOUNCE_ANOMALY_RU
 	)
 
 /datum/event/anomaly/start()

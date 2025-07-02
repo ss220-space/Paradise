@@ -156,7 +156,7 @@
 	if(main_objective)
 		main_objective.completed = TRUE
 	GLOB.major_announcement.Announce("Огромное число неопознанных форм жизни направляется к [station_name()] с высокой скоростью. Оставшемуся экипажу рекомендуется эвакуироваться как можно скорее...",
-									"Отдел Изучения Дикой Природы",
+									ANNOUNCE_WILDNATURE_RU,
 									'sound/AI/commandreport.ogg'
 	)
 	sound_to_playing_players('sound/creatures/space_dragon_roar.ogg')

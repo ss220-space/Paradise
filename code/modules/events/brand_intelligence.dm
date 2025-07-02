@@ -15,7 +15,7 @@
 
 /datum/event/brand_intelligence/announce()
 	GLOB.minor_announcement.Announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].",
-									"Цифровой вирус",
+									"Цифровой вирус.",
 									'sound/AI/brand_intelligence.ogg'
 	)
 

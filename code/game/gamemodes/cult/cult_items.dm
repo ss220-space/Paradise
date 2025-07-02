@@ -348,7 +348,7 @@
 		var/message = pick(CULT_CURSES)
 		var/curse_delay = cursetime / 600
 		GLOB.major_announcement.Announce("[message] Шаттл задерживается на [curse_delay] минут[declension_ru(curse_delay, "у", "ы", "")].",
-										"Системный сбой",
+										ANNOUNCE_SYSERROR_RU,
 										'sound/misc/notice1.ogg'
 		)
 		qdel(src)

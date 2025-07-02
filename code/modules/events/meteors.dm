@@ -10,12 +10,12 @@
 /datum/event/meteor_wave/announce(false_alarm)
 	if(severity == EVENT_LEVEL_MAJOR || (false_alarm && prob(30)))
 		GLOB.minor_announcement.Announce("Зафиксировано движение астероидов на встречном со станцией курсе.",
-										"Метеориты",
+										ANNOUNCE_METEOR_RU,
 										'sound/AI/meteors.ogg'
 		)
 	else
 		GLOB.minor_announcement.Announce("Станция проходит через скопление астероидов.",
-										"Метеориты"
+										ANNOUNCE_METEOR_RU
 		)
 
 //meteor showers are lighter and more common,
@@ -30,11 +30,11 @@
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
 			GLOB.minor_announcement.Announce("Станция прошла через астероидный пояс",
-											"Метеориты"
+											ANNOUNCE_METEOR_RU
 			)
 		else
 			GLOB.minor_announcement.Announce("Станция прошла через скопление астероидов",
-											"Метеориты"
+											ANNOUNCE_METEOR_RU
 			)
 
 /datum/event/meteor_wave/proc/get_meteors()

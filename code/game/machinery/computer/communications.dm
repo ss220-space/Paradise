@@ -268,7 +268,7 @@
 				to_chat(ui.user, span_notice("Запрос отправлен."))
 				add_game_logs("has requested the nuclear codes from Centcomm: [input]", usr)
 				GLOB.major_announcement.Announce("Коды активации ядерной боеголовки на станции были запрошены [usr]. Решение о подтверждении или отклонении данного запроса будет отправлено в ближайшее время.",
-												"Запрошены коды активации ядерной боеголовки.",
+												ANNOUNCE_NUCLEARCODES_RU,
 												'sound/AI/nuke_codes.ogg'
 				)
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
@@ -381,7 +381,7 @@
 			if(!params["classified"])
 				GLOB.major_announcement.Announce(
 					params["text"],\
-					new_title = "Сообщение Центрального командования",\
+					new_title = ANNOUNCE_CCMSG_RU,\
 					new_subtitle = params["subtitle"],\
 					new_sound = 'sound/AI/commandreport.ogg'
 				)
@@ -433,7 +433,7 @@
 			to_chat(aiPlayer, span_warning("Законы обновлены: [law]"))
 	print_command_report(intercepttext, interceptname, FALSE)
 	GLOB.minor_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.",
-									"Входящее засекреченное сообщение",
+									ANNOUNCE_SECRETMSG_RU,
 									'sound/AI/commandreport.ogg'
 	)
 

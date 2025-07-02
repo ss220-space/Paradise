@@ -67,7 +67,7 @@
 /proc/power_restore(announce=TRUE)
 	if(announce)
 		GLOB.minor_announcement.Announce("Питание на станции [station_name()] было восстановлено. Приносим извинения за неудобства.",
-										"Система питания посстановлена",
+										ANNOUNCE_APC_REPAIR_RU,
 										'sound/AI/power_restore.ogg'
 		)
 	// recharge the APCs
@@ -82,7 +82,7 @@
 /proc/power_restore_quick(announce=TRUE)
 	if(announce)
 		GLOB.minor_announcement.Announce("Все СКАНы на станции [station_name()] были перезаряжены. Приносим извинения за неудобства.",
-										"Система питания посстановлена",
+										ANNOUNCE_APC_REPAIR_RU,
 										'sound/AI/power_restore.ogg'
 		)
 	// fix all of the SMESs

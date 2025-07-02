@@ -271,14 +271,14 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		message_admins("A silent response team failed to spawn. Likely, no one signed up.")
 		return
 	GLOB.major_announcement.Announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.",
-									"ОБР недоступен"
+									ANNOUNCE_ERT_UNAVAIL_RU
 	)
 
 /datum/response_team/proc/announce_team()
 	if(silent)
 		return
 	GLOB.major_announcement.Announce("Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи вам. Ожидайте.",
-									"ОБР в пути"
+									ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /// MARK: AMBER TEAM
@@ -295,7 +295,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(silent)
 		return
 	GLOB.major_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ЭМБЕР\". Ожидайте.",
-									"ОБР в пути"
+									ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /// MARK: RED TEAM
@@ -313,7 +313,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(silent)
 		return
 	GLOB.major_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"РЭД\". Ожидайте.",
-									"ОБР в пути"
+									ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /// MARK: GAMMA TEAM
@@ -331,7 +331,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(silent)
 		return
 	GLOB.major_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ГАММА\". Ожидайте.",
-									"ОБР в пути"
+									ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /datum/outfit/job/centcom/response_team

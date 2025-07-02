@@ -21,7 +21,7 @@
 	else
 		msg = "Неопознанные хакеры взломали систему контроля боевых дронов, оперируемых с борта ИКН \"Икар\". В случае контакта с дронами проявляйте осторожность."
 	GLOB.minor_announcement.Announce(msg,
-									"Сбойные дроны"
+									ANNOUNCE_ROGUE_DRONE_RU
 	)
 
 /datum/event/rogue_drone/tick()
@@ -36,9 +36,9 @@
 
 	if(num_recovered > length(drones_list) * 0.75)
 		GLOB.minor_announcement.Announce("Система контроля боевых дронов сообщает, что все единицы успешно вернулись на борт ИКН \"Икар\".",
-										"Сбойные дроны"
+										ANNOUNCE_ROGUE_DRONE_RU
 		)
 	else
 		GLOB.minor_announcement.Announce("Система контроля боевых дронов сообщает о потере всех боевых единиц, однако жертв не зарегистрировано.",
-										"Сбойные дроны"
+										ANNOUNCE_ROGUE_DRONE_RU
 		)

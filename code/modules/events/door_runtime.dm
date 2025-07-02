@@ -2,7 +2,7 @@
 
 /datum/event/door_runtime/announce()
 	GLOB.minor_announcement.Announce("Вредоносное программное обеспечение обнаружено в системе контроля шл+юзов. Задействованы протоколы изоляции. Пожалуйста, сохраняйте спокойствие.",
-									"Уязвимость сети",
+									"Уязвимость сети.",
 									'sound/AI/door_runtimes.ogg'
 	)
 
@@ -17,6 +17,6 @@
 
 /datum/event/door_runtime/proc/reboot()
 	GLOB.minor_announcement.Announce("Автоматическая перезагрузка системы завершена. Хорошего вам дня.",
-									"Перезагрузка сети",
+									"Перезагрузка сети.",
 									'sound/AI/door_runtimes_fix.ogg'
 	)

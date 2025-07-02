@@ -151,7 +151,7 @@
 		charge_state = CHARGE_COMPLETED
 		var/area/A = get_area(src)
 		GLOB.major_announcement.Announce("Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.",
-										"Отдел Центрального командования по изучению дикой природы",
+										ANNOUNCE_WILDNATURE_RU,
 										'sound/AI/commandreport.ogg'
 		)
 		max_integrity = INFINITY
@@ -178,7 +178,7 @@
 		var/area/A = get_area(src)
 
 		GLOB.major_announcement.Announce("Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!",
-										"Отдел Центрального командования по изучению дикой природы",
+										ANNOUNCE_WILDNATURE_RU,
 										'sound/AI/commandreport.ogg'
 		)
 

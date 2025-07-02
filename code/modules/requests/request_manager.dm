@@ -153,7 +153,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 
 				if(announce_to_crew)
 					GLOB.major_announcement.Announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
-												"ОБР недоступен"
+												ANNOUNCE_ERT_UNAVAIL_RU
 					)
 					return
 

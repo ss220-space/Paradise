@@ -192,7 +192,7 @@ Made by Xhuis
 		if(!victory_warning_announced && (length(shadowling_thralls) >= warning_threshold))//are the slings very close to winning?
 			victory_warning_announced = TRUE	//then let's give the station a warning
 			GLOB.major_announcement.Announce("Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Вероятность вознесения тенеморфов высока, всему экипажу следует предотвратить вознесение любой ценой!",
-											"Отдел Центрального командования по делам высших измерений",
+											ANNOUNCE_CCPARANORMAL_RU,
 											'sound/AI/commandreport.ogg'
 			)
 			log_game("Shadowling reveal. Powergame and validhunt allowed.")

@@ -17,7 +17,7 @@
 	else
 		announcement = "Неизвестные биологические объекты были зафиксированы вблизи станции [station_name()], будьте наготове."
 	GLOB.minor_announcement.Announce(announcement,
-									"Неопознанные формы жизни"
+									ANNOUNCE_UNID_LIFEFORMS_RU
 	)
 
 /datum/event/carp_migration/start()

@@ -22,7 +22,7 @@
 
 /datum/event/apc_overload/announce()
 	GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
-									"Критический сбой системы питания",
+									ANNOUNCE_APC_CRIT_RU,
 									'sound/AI/power_overload.ogg'
 	)
 
@@ -38,7 +38,7 @@
 
 	if(announce)
 		GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
-										"Критический сбой системы питания",
+										ANNOUNCE_APC_CRIT_RU,
 										'sound/AI/power_overload.ogg'
 		)
 

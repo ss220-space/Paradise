@@ -31,7 +31,7 @@
 
 /datum/event/wormholes/announce()
 	GLOB.minor_announcement.Announce("Зафиксированы пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.",
-									"Аномалия",
+									ANNOUNCE_ANOMALY_RU,
 									'sound/AI/spanomalies.ogg'
 	)
 
@@ -105,6 +105,6 @@
 
 /datum/event/wormholes/anomaly/announce()
 	GLOB.minor_announcement.Announce("Дистабилизация крупной блюспейс аномалии вызвала пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.",
-									"Аномалия",
+									ANNOUNCE_ANOMALY_RU,
 									'sound/AI/spanomalies.ogg'
 	)

@@ -750,12 +750,12 @@
 /datum/game_mode/proc/apocalypse()
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	GLOB.major_announcement.Announce("Обнаружена угроза класса \"Разрушитель миров\". Моделирование пути противостояния угрозе начато, ожидайте.",
-									"Отдел Центрального командования по делам высших измерений",
+									ANNOUNCE_CCPARANORMAL_RU,
 									'sound/AI/commandreport.ogg'
 	)
 	sleep(50 SECONDS)
 	GLOB.major_announcement.Announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.",
-									"Отдел Центрального командования по делам высших измерений",
+									ANNOUNCE_CCPARANORMAL_RU,
 									'sound/AI/commandreport.ogg'
 	)
 	sleep(30 SECONDS)
@@ -764,7 +764,7 @@
 
 	if(!god)
 		GLOB.minor_announcement.Announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.",
-										"Отдел Центрального командования по делам высших измерений",
+										ANNOUNCE_CCPARANORMAL_RU,
 										'sound/AI/commandreport.ogg'
 		)
 		SSshuttle.emergency.request(null, 0.3)

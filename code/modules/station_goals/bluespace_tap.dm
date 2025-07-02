@@ -356,7 +356,7 @@
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
 		GLOB.major_announcement.Announce("Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]",
-										"Сбой Блюспейс-сборщика",
+										ANNOUNCE_BLUESPACETAP_RU,
 										'sound/AI/harvester.ogg'
 		)
 		if(!emagged)

@@ -24,7 +24,7 @@
 /datum/event/ion_storm/announce(false_alarm)
 	if(announceEvent == ION_SYNDICATE)
 		GLOB.minor_announcement.Announce("Неестественная ионная активность была замечена на станции. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок. Дополнительная информация была загружена и распечатана на всех консолях связи.",
-										"Аномалия",
+										ANNOUNCE_ANOMALY_RU,
 										'sound/AI/ions.ogg'
 		)
 		var/message = "Malicious Interference with standard AI-Subsystems detected. Investigation recommended.<br><br>"
@@ -33,7 +33,7 @@
 
 	else if(false_alarm || announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
 		GLOB.minor_announcement.Announce("Вблизи станции обнаружена ионная буря. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок.",
-										"Аномалия",
+										ANNOUNCE_ANOMALY_RU,
 										'sound/AI/ions.ogg'
 		)
 

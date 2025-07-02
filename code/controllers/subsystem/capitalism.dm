@@ -69,12 +69,12 @@ SUBSYSTEM_DEF(capitalism)
 	if(default_status)
 		/* Both announcements are Minor because it happens all the time, because the system of capitalism is shit. */
 		GLOB.minor_announcement.Announce("На счёте станции зафиксировано отсутствие финансовых средств. В связи с этим выплаты заработной платы были приостановлены. Руководству станции необходимо незамедлительно принять меры для разрешения сложившейся ситуации.",
-										"Дефолт станции",
+										ANNOUNCE_CAPITAL_DEFOLT_RU,
 										'sound/AI/commandreport.ogg'
 		)
 	else
 		GLOB.minor_announcement.Announce("На счёте станции имеется достаточное количество средств для осуществления выплат. Заработная плата сотрудникам выплачивается в полном объёме.",
-										"Возобновление выплат",
+										ANNOUNCE_CAPITAL_REPAY_RU,
 										'sound/AI/commandreport.ogg'
 		)
 

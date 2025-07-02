@@ -14,7 +14,7 @@
 			kill()
 			return
 	GLOB.minor_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].",
-									"Аномалия",
+									ANNOUNCE_ANOMALY_RU,
 									'sound/AI/anomaly.ogg'
 	)
 

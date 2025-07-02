@@ -938,7 +938,7 @@
 			H.makeCluwne()
 	else if(myeffect == "Demote")
 		GLOB.major_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
-										"Приказ ЦК об увольнение",
+										ANNOUNCE_CCDEMOTE_RU,
 										'sound/AI/commandreport.ogg'
 		)
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
@@ -948,7 +948,7 @@
 		update_all_mob_security_hud()
 	else if(myeffect == "Demote with Bot")
 		GLOB.major_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
-										"Приказ ЦК об увольнение",
+										ANNOUNCE_CCDEMOTE_RU,
 										'sound/AI/commandreport.ogg'
 		)
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))

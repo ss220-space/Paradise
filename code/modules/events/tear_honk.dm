@@ -3,7 +3,7 @@
 
 /datum/event/tear/honk/announce()
 	GLOB.minor_announcement.Announce("На борту станции зафиксирована Хонканомалия. Предполагаемая локация: [impact_area.name].",
-									"Хонканомалия",
+									"Хонканомалия.",
 									'sound/items/airhorn.ogg'
 	)
 

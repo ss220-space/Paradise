@@ -5,7 +5,7 @@
 
 /datum/event/radiation_storm/announce()
 	GLOB.major_announcement.Announce("Вблизи станции обнаружено радиационное поле высокой интенсивности. Всему персоналу надлежит проследовать в технические тоннели.",
-									"Аномалия",
+									ANNOUNCE_ANOMALY_RU,
 									'sound/AI/radiation.ogg'
 	)
 	//sound not longer matches the text, but an audible warning is probably good

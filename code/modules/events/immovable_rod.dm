@@ -12,7 +12,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /datum/event/immovable_rod/announce()
 	GLOB.minor_announcement.Announce("Что это за хуйня?!",
-									"Общая тревога"
+									"Общая тревога!"
 	)
 
 /datum/event/immovable_rod/start()

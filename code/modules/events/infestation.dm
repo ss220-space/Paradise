@@ -113,7 +113,7 @@
 			kill()
 
 	GLOB.minor_announcement.Announce("Биосканеры фиксируют размножение [vermin_chosen] в [initial(spawn_area_type.name)]. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции.",
-									"Неопознанные формы жизни"
+									ANNOUNCE_UNID_LIFEFORMS_RU
 	)
 	spawn_area_type = null
 

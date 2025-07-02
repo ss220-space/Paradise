@@ -5,7 +5,7 @@
 
 /datum/event/solar_flare/announce()
 	GLOB.minor_announcement.Announce("Солнечная вспышка зафиксирована на встречном со станцией курсе.",
-									"Солнечная вспышка",
+									ANNOUNCE_SOLAR_FLARE_RU,
 									'sound/AI/flare.ogg'
 	)
 

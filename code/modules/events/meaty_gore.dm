@@ -1,6 +1,6 @@
 /datum/event/meteor_wave/gore/announce()
 	GLOB.minor_announcement.Announce("Неизвестный биологический мусор был обнаружен рядом с [station_name()], пожалуйста, будьте наготове.",
-									"Обломки"
+									"Обломки."
 	)
 
 /datum/event/meteor_wave/gore/setup()
@@ -17,5 +17,5 @@
 
 /datum/event/meteor_wave/gore/end()
 	GLOB.minor_announcement.Announce("Станция прошла через обломки.",
-									"Обломки"
+									"Обломки."
 	)

@@ -31,7 +31,7 @@
 	. = ..()
 	status_alarm(TRUE)
 	GLOB.major_announcement.Announce("Зафиксирована сигнатура Императрицы Ужаса на борту станции [station_name()]. Запущено глубокое сканирование.",
-									"Биологическая угроза",
+									ANNOUNCE_BIOHAZARD_RU,
 									'sound/effects/siren-spooky.ogg'
 	)
 

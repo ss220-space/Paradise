@@ -17,7 +17,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	. = TRUE
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		GLOB.minor_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].",
-										"Запрос на стыковку шаттла торговцев отклонен",
+										"Запрос на стыковку шаттла торговцев отклонен.",
 										'sound/AI/traderdeny.ogg'
 		)
 		return
@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	if(station_name() == "NSS Cyberiad")
 		map_trader_port = 4
 	GLOB.minor_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",
-									"Запрос на стыковку шаттла торговцев принят",
+									"Запрос на стыковку шаттла торговцев принят.",
 									'sound/AI/tradergranted.ogg'
 	)
 
@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		return
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		GLOB.minor_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].",
-										"Запрос на стыковку шаттла торговцев отклонен",
+										"Запрос на стыковку шаттла торговцев отклонен.",
 										'sound/AI/traderdeny.ogg'
 		)
 		// if the docking request was refused, fire another moderate event in 60 seconds
@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			if(station_name() == "NSS Cyberiad")
 				map_trader_port = 4
 			GLOB.minor_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",
-											"Запрос на стыковку шаттла торговцев принят",
+											"Запрос на стыковку шаттла торговцев принят.",
 											'sound/AI/tradergranted.ogg'
 			)
 		else

@@ -100,7 +100,7 @@
 			log_and_message_admins("dispatched a [params["silent"] ? "silent " : ""][ert_type] ERT. Slots: [slot_text]")
 			if(!params["silent"])
 				GLOB.major_announcement.Announce("Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования. Ожидайте.",
-												"Активирован протокол ОБР"
+												ANNOUNCE_ERT_ACTIVATE_RU
 				)
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
@@ -113,7 +113,7 @@
 			if(params["reason"])
 				message += " Ваш запрос ОБР был отклонен по следующим причинам:\n[params["reason"]]"
 			GLOB.major_announcement.Announce(message,
-											"ОБР недоступен"
+											ANNOUNCE_ERT_UNAVAIL_RU
 			)
 		else
 			return FALSE

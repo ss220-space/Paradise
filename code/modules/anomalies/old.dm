@@ -276,7 +276,7 @@
 
 			playsound(turf_to, 'sound/effects/phasein.ogg', 100, TRUE)
 			GLOB.minor_announcement.Announce("Обнаружено перемещение крупной блюспейс-аномалии.",
-											"Аномалия"
+											ANNOUNCE_ANOMALY_RU
 			)
 
 			var/list/flashers = list()

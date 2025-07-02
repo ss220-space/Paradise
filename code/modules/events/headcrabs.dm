@@ -56,7 +56,7 @@
 
 /datum/event/headcrabs/announce()
 	GLOB.minor_announcement.Announce("Биосканеры фиксируют размножение хедкрабов на борту станции. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции",
-									"Неопознанные формы жизни"
+									ANNOUNCE_UNID_LIFEFORMS_RU
 	)
 
 #undef HEADCRAB_NORMAL

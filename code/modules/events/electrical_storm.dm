@@ -4,7 +4,7 @@
 
 /datum/event/electrical_storm/announce()
 	GLOB.minor_announcement.Announce("На борту станции зафиксирован электрический шторм. Пожалуйста, устраните потенциальные перегрузки электросетей.",
-									"Электрический шторм",
+									"Электрический шторм.",
 									'sound/AI/elec_storm.ogg'
 	)
 
