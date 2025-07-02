@@ -270,6 +270,9 @@ GLOBAL_LIST_EMPTY(preferences_info)
 /datum/preference_info/take_out_of_the_round_without_obj/get_examine_text()
     return "\n<div class='examine'>[span_info("Вы можете вывести этого игрока из игры не имея соответствующей цели.")]</div>"
 
+/datum/preference_info/pain_blurb/get_preference_toggle()
+    return GLOB.preference_toggles[/datum/preference_toggle/pain_blurb]
+
 /datum/preference_info/auto_dnr/activate(mob/target)
     RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(set_dnr_status))
 

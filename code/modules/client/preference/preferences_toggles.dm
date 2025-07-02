@@ -667,3 +667,14 @@
 		user.acquire_dpi()
 	INVOKE_ASYNC(user, TYPE_VERB_REF(/client, refresh_tgui))
 	user.tgui_say?.load()
+
+
+/datum/preference_toggle/pain_blurb
+	name = "Переключить вывод боли на экран"
+	description = "Переключает перенос сообщений о боли из чата на основной экран."
+	preftoggle_bitflag = PREFTOGGLE_3_PAIN_BLURB
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь сообщения о боли будут выводиться на основной экран."
+	disable_message = "Теперь сообщения о боли будут писаться в чат."
+	blackbox_message = "Toggle painblurb"
