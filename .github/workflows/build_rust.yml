@@ -30,6 +30,7 @@ jobs:
         PR_JSON=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$PR_API_URL")
         echo "repo=$(echo "$PR_JSON" | jq -r '.head.repo.full_name')" >> $GITHUB_OUTPUT
         echo "ref=$(echo "$PR_JSON"  | jq -r '.head.ref')"           >> $GITHUB_OUTPUT
+        echo "base_repo=$(echo "$PR_JSON" | jq -r '.base.repo.full_name')" >> $GITHUB_OUTPUT
 
     - name: Checkout PR branch
       uses: actions/checkout@v4
@@ -129,9 +130,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         PR_NUMBER=${{ github.event.issue.number }}
-        REPO=${{ github.repository }}
+        BASE_REPO=${{ steps.pr_info.outputs.base_repo }}
         RUN_ID=${{ github.run_id }}
-        ARTIFACTS_URL="https://github.com/$REPO/actions/runs/$RUN_ID"
+        ARTIFACTS_URL="https://github.com/$BASE_REPO/actions/runs/$RUN_ID"
 
         BUILT_DLL_HASH=${{ steps.built_dll_hash.outputs.value }}
         BUILT_SO_HASH=${{ steps.built_so_hash.outputs.value }}
@@ -141,7 +142,6 @@ jobs:
 
         BODY="### Rustlibs Build and Verification Results:\n\n"
 
-        # --- Results for rustlibs.dll ---
         BODY+="#### rustlibs.dll (Windows)\n"
         BODY+="* Built: \`$BUILT_DLL_HASH\`\n"
         if [ "$DLL_EXISTS" = "true" ]; then
@@ -157,7 +157,6 @@ jobs:
         fi
         BODY+="\n"
 
-        # --- Results for librustlibs.so ---
         BODY+="#### librustlibs.so (Linux)\n"
         BODY+="* Built: \`$BUILT_SO_HASH\`\n"
         if [ "$SO_EXISTS" = "true" ]; then
@@ -173,10 +172,9 @@ jobs:
         fi
         BODY+="\n"
 
-        # --- General instructions ---
         if [ "$DLL_EXISTS" = "false" ] || [ "$SO_EXISTS" = "false" ]; then
           BODY+="If any files were not provided or hashes do not match, please commit the newly built files to your branch and comment \`!build_rust\` again for re-verification.\n\n"
         fi
         BODY+="**Download built artifacts:** $ARTIFACTS_URL"
 
-        gh pr comment "$PR_NUMBER" --body "$BODY"
+        gh pr comment "$PR_NUMBER" --repo "$BASE_REPO" --body "$BODY"
