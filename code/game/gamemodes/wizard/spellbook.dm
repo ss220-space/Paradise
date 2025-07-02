@@ -1113,7 +1113,7 @@
 	..()
 	if(isliving(user))
 		var/mob/living/L = user
-		to_chat(span_warning("Вы слепните!"))
+		to_chat(user, span_warning("Вы слепните!"))
 		L.EyeBlind(20 SECONDS)
 
 /obj/item/spellbook/oneuse/mindswap
