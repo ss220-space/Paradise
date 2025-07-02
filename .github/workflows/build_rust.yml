@@ -94,6 +94,8 @@ jobs:
         RUSTFLAGS: "-C link-arg=-Wl,--build-id=none"
         TZ: UTC
       run: |
+        git config user.name ss1984rustbuild[bot]
+        git config user.email "ss1984rustbuild[bot]@users.noreply.github.com"
         git pull origin "$PR_BRANCH" --depth=$((ahead_by + 1))
         git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
         git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
