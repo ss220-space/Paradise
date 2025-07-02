@@ -224,11 +224,7 @@
 /area/crew_quarters/heads/hop)
 "aay" = (
 /obj/machinery/hologram/holopad,
-/mob/living/simple_animal/crab/Coffee{
-	desc = "Master of the GYM";
-	name = "Billy Crabington";
-	real_name = "Billy Crabington"
-	},
+/mob/living/simple_animal/crab/billy,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47793,10 +47789,6 @@
 	},
 /area/maintenance/kitchen)
 "fRj" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Temporary Holding Cell";
-	req_access = list(63)
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -47805,6 +47797,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/security/glass{
+	id = "visiting room";
+	id_tag = "visiting room";
+	name = "Visiting Room";
+	req_access = list(63)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -56970,6 +56968,8 @@
 /obj/item/caution,
 /obj/item/reagent_containers/glass/bucket,
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/item/mop,
+/obj/item/mop,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -61925,6 +61925,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/item/clothing/suit/straight_jacket,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -65465,9 +65466,10 @@
 /area/crew_quarters/courtroom)
 "kaO" = (
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/melee/bigiron,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/shoes/orange,
 /obj/structure/table,
+/obj/item/melee/bigiron,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -92517,19 +92519,12 @@
 	},
 /area/hallway/primary/central/sw)
 "qoN" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -93298,6 +93293,7 @@
 "quY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/can,
+/obj/item/storage/bag/trash,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -103196,8 +103192,8 @@
 /area/engineering/gravitygenerator)
 "sLe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/library,
 /obj/structure/table,
+/obj/machinery/computer/library/checkout,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -110901,6 +110897,11 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/cheesewedge,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	layer = 5;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/food/condiment/sugar,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -112713,21 +112714,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/genetics)
-"uRW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
-	},
-/area/security/processing)
 "uSt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -118456,21 +118442,6 @@
 	icon_state = "wood-broken5"
 	},
 /area/maintenance/engineering)
-"wla" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/security/processing)
 "wlk" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -119841,11 +119812,12 @@
 "wAI" = (
 /obj/structure/table,
 /obj/item/plant_analyzer,
-/obj/item/cultivator,
 /obj/item/reagent_containers/spray/plantbgone,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/shovel/spade/wooden,
+/obj/item/cultivator/wooden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -179839,7 +179811,7 @@ bub
 dQk
 bgt
 qDn
-wla
+vmj
 ubg
 dsj
 jXk
@@ -180096,7 +180068,7 @@ iCk
 tmw
 iLT
 vuq
-uRW
+paO
 iPH
 oar
 jZY
