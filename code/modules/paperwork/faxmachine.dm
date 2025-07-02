@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(allfaxes)
-GLOBAL_LIST_INIT(admin_departments, list("Центральное Командование"))
-GLOBAL_LIST_INIT(hidden_admin_departments, list("Синдикат"))
-GLOBAL_LIST_INIT(hidden_ussp, list("Центральный Комитет СССП"))
+GLOBAL_LIST_INIT(admin_departments, list("Central Command"))
+GLOBAL_LIST_INIT(hidden_admin_departments, list("Syndicate"))
+GLOBAL_LIST_INIT(hidden_ussp, list("USSP Central Committee"))
 GLOBAL_LIST_EMPTY(alldepartments)
 GLOBAL_LIST_EMPTY(hidden_departments)
 GLOBAL_LIST_EMPTY(fax_blacklist)
@@ -359,7 +359,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		F.sent_by = sender
 		F.sent_at = world.time
 
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] пищит, \"Сообщение успешно отправлено.\"")
+		atom_say("Сообщение успешно отправлено.")
+		playsound(src, 'sound/machines/ping.ogg', 50)
 	else
 		visible_message("[capitalize(declent_ru(NOMINATIVE))] пищит, \"При отправке сообщения произошла ошибка.\"")
 
@@ -406,16 +407,17 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	//message badmins that a fax has arrived
 	switch(destination)
-		if("Центральное Командование")
+		if("Central Command")
 			message_admins(sender, "CENTCOM FAX", destination, copyitem, "#006100")
-		if("Синдикат")
+		if("Syndicate")
 			message_admins(sender, "SYNDICATE FAX", destination, copyitem, "#DC143C")
-		if("Центральный Коммитет СССП")
+		if("USSP Central Committee")
 			message_admins(sender, "USSP FAX", destination, copyitem, "#b60226")
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
 			F.receivefax(copyitem)
-	visible_message("[capitalize(declent_ru(NOMINATIVE))] пищит, \"Сообщение успешно отправлено.\"")
+	atom_say("Сообщение успешно отправлено.")
+	playsound(src, 'sound/machines/ping.ogg', 50)
 
 /obj/machinery/photocopier/faxmachine/proc/cooldown_seconds()
 	if(sendcooldown < world.time)
