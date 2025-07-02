@@ -29,8 +29,10 @@ jobs:
       run: |
         PR_API_URL="${{ github.event.issue.pull_request.url }}"
         PR_JSON=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$PR_API_URL")
+
         echo "repo=$(echo "$PR_JSON" | jq -r '.head.repo.full_name')" >> $GITHUB_OUTPUT
         echo "ref=$(echo "$PR_JSON"  | jq -r '.head.ref')"           >> $GITHUB_OUTPUT
+
         echo "base_repo=$(echo "$PR_JSON" | jq -r '.base.repo.full_name')" >> $GITHUB_OUTPUT
 
     - name: Checkout PR branch
@@ -38,6 +40,7 @@ jobs:
       with:
         repository: ${{ steps.pr_info.outputs.repo }}
         ref:          ${{ steps.pr_info.outputs.ref }}
+
         token:        ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 1
 
@@ -74,10 +77,12 @@ jobs:
 
     - name: Build Rust libraries
       env:
+
         SOURCE_DATE_EPOCH: "1577836800"
         RUSTFLAGS: "-C link-arg=-Wl,--build-id=none"
         TZ: UTC
       run: |
+
         cd rust
 
         cargo build --release --target i686-unknown-linux-gnu
@@ -152,6 +157,7 @@ jobs:
             BODY+="* **Status:** ✅ Hashes match!\n"
           else
             BODY+="* **Status:** ❌ Hash mismatch!\n"
+
           fi
         else
           BODY+="* **Status:** ⚠️ User-supplied file not found in PR.\n"
@@ -167,6 +173,7 @@ jobs:
             BODY+="* **Status:** ✅ Hashes match!\n"
           else
             BODY+="* **Status:** ❌ Hash mismatch!\n"
+
           fi
         else
           BODY+="* **Status:** ⚠️ User-supplied file not found in PR.\n"
