@@ -345,7 +345,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		F.sent_by = sender
 		F.sent_at = world.time
 
-		visible_message("[src] beeps, \"Message transmitted successfully.\"")
+		atom_say("Сообщение успешно отправлено.")
+		playsound(src, 'sound/machines/ping.ogg', 50)
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 
@@ -402,7 +403,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
 			F.receivefax(copyitem)
-	visible_message("[src] beeps, \"Message transmitted successfully.\"")
+	atom_say("Сообщение успешно отправлено.")
+	playsound(src, 'sound/machines/ping.ogg', 50)
 
 /obj/machinery/photocopier/faxmachine/proc/cooldown_seconds()
 	if(sendcooldown < world.time)
