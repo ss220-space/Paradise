@@ -73,11 +73,30 @@
 	return prizes[index]
 
 
-/obj/machinery/slot_machine/proc/give_custom_prize(mob/living/carbon/human/user, obj/item/prize)
-	if(!istype(user))
+/obj/machinery/slot_machine/proc/give_custom_prize(mob/user, obj/item/prize)
+	var/item = new prize(get_turf(src)) // Create item on slot machine turf
+	var/mob/living/carbon/human/carbon_user = user
+	if(istype(carbon_user)) // If living carbon - put in hands
+		carbon_user.put_in_any_hand_if_possible(item)
+
+/obj/machinery/slot_machine/proc/apply_emagged_lose_effect(mob/user)
+	var/mob/living/carbon/human/carbon_user = user
+	if (istype(carbon_user))
+		if (prob(10))
+			to_chat(carbon_user, "<span class='userdanger'>No... just one more try...</span>")
+			carbon_user.gib()
+		else
+			carbon_user.visible_message("<span class='warning'>[carbon_user] pulls [src]'s lever with a glint in [carbon_user.p_their()] eyes!</span>", "<span class='warning'>You feel a draining as you pull the lever, but you know it'll be worth it.</span>")
+			carbon_user.adjustCloneLoss(5)
 		return
-	var/item = new prize(get_turf(user))
-	user.put_in_any_hand_if_possible(item)
+	var/mob/living/silicon/silicon_user = user
+	if (istype(silicon_user))
+		if (prob(10))
+			to_chat(silicon_user, "<span class='userdanger'>No... just one more try...</span>")
+			silicon_user.gib()
+		else
+			silicon_user.visible_message("<span class='warning'>You feel a draining as you pull the lever, but you know it'll be worth it.</span>")
+			silicon_user.adjustBruteLoss(10)
 
 /obj/machinery/slot_machine/proc/spin_slots(mob/user)
 	if(!istype(user))
@@ -125,14 +144,7 @@
 			result = "No luck!"
 			resultlvl = "orange"
 			if (emagged)
-				var/mob/living/carbon/human/carbon_user = user
-				if (istype(carbon_user))
-					if (probe(10))
-						to_chat(user, "<span class='userdanger'>No... just one more try...</span>")
-						user.gib()
-					else
-						user.visible_message("<span class='warning'>[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!</span>", "<span class='warning'>You feel a draining as you pull the lever, but you know it'll be worth it.</span>")
-						user.adjustCloneLoss(5)
+				apply_emagged_lose_effect(user)
 	working = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src) // Push a UI update
