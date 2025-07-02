@@ -141,41 +141,45 @@ jobs:
         DLL_EXISTS=${{ steps.user_files_check.outputs.dll_exists }}
         SO_EXISTS=${{ steps.user_files_check.outputs.so_exists }}
 
-        BODY="### Rustlibs Build and Verification Results:\n\n"
-
-        BODY+="#### rustlibs.dll (Windows)\n"
-        BODY+="* Built: \`$BUILT_DLL_HASH\`\n"
+        COMMENT_BODY="### Rustlibs Build and Verification Results:\n\n"
+        COMMENT_BODY+="#### rustlibs.dll (Windows)\n"
+        COMMENT_BODY+="* Built: \`$BUILT_DLL_HASH\`\n"
+        
         if [ "$DLL_EXISTS" = "true" ]; then
           USER_DLL_HASH=${{ steps.user_dll_hash.outputs.value }}
-          BODY+="* Provided in PR: \`$USER_DLL_HASH\`\n"
+          COMMENT_BODY+="* Provided in PR: \`$USER_DLL_HASH\`\n"
           if [ "$BUILT_DLL_HASH" = "$USER_DLL_HASH" ]; then
-            BODY+="* **Status:** ✅ Hashes match!\n"
+            COMMENT_BODY+="* **Status:** ✅ Hashes match!\n"
           else
-            BODY+="* **Status:** ❌ Hash mismatch!\n"
+            COMMENT_BODY+="* **Status:** ❌ Hash mismatch!\n"
           fi
         else
-          BODY+="* **Status:** ⚠️ User-supplied file not found in PR.\n"
+          COMMENT_BODY+="* **Status:** ⚠️ User-supplied file not found in PR.\n"
         fi
-        BODY+="\n"
+        COMMENT_BODY+="\n"
 
-        BODY+="#### librustlibs.so (Linux)\n"
-        BODY+="* Built: \`$BUILT_SO_HASH\`\n"
+        COMMENT_BODY+="#### librustlibs.so (Linux)\n"
+        COMMENT_BODY+="* Built: \`$BUILT_SO_HASH\`\n"
+
         if [ "$SO_EXISTS" = "true" ]; then
           USER_SO_HASH=${{ steps.user_so_hash.outputs.value }}
-          BODY+="* Provided in PR: \`$USER_SO_HASH\`\n"
+          COMMENT_BODY+="* Provided in PR: \`$USER_SO_HASH\`\n"
           if [ "$BUILT_SO_HASH" = "$USER_SO_HASH" ]; then
-            BODY+="* **Status:** ✅ Hashes match!\n"
+            COMMENT_BODY+="* **Status:** ✅ Hashes match!\n"
           else
-            BODY+="* **Status:** ❌ Hash mismatch!\n"
+            COMMENT_BODY+="* **Status:** ❌ Hash mismatch!\n"
           fi
         else
-          BODY+="* **Status:** ⚠️ User-supplied file not found in PR.\n"
+          COMMENT_BODY+="* **Status:** ⚠️ User-supplied file not found in PR.\n"
         fi
-        BODY+="\n"
+        COMMENT_BODY+="\n"
 
         if [ "$DLL_EXISTS" = "false" ] || [ "$SO_EXISTS" = "false" ]; then
-          BODY+="If any files were not provided or hashes do not match, please commit the newly built files to your branch and comment \`!build_rust\` again for re-verification.\n\n"
+          COMMENT_BODY+="If any files were not provided or hashes do not match, please commit the newly built files to your branch and comment \`!build_rust\` again for re-verification.\n\n"
         fi
-        BODY+="**Download built artifacts:** $ARTIFACTS_URL"
 
-        gh pr comment "$PR_NUMBER" --repo "$BASE_REPO" --body "$BODY"
+        COMMENT_BODY+="**Download built artifacts:** $ARTIFACTS_URL"
+
+        echo -e "$COMMENT_BODY" > github_comment_body.md
+
+        gh pr comment "$PR_NUMBER" --repo "$BASE_REPO" --body-file github_comment_body.md
