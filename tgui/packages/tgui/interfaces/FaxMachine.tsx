@@ -28,7 +28,7 @@ export const FaxMachine = (props: unknown) => {
                 {data.scan_name ? data.scan_name : '-----'}
               </Button>
             </LabeledList.Item>
-            <LabeledList.Item label="Войти:">
+            <LabeledList.Item label="Войти">
               <Button
                 icon={data.authenticated ? 'sign-out-alt' : 'id-card'}
                 selected={data.authenticated}
@@ -42,8 +42,8 @@ export const FaxMachine = (props: unknown) => {
         </Section>
         <Section title="Меню факса">
           <LabeledList>
-            <LabeledList.Item label="Network">{data.network}</LabeledList.Item>
-            <LabeledList.Item label="Document">
+            <LabeledList.Item label="">{data.network}</LabeledList.Item>
+            <LabeledList.Item label="Документ">
               <Button
                 icon={data.paper ? 'eject' : 'paperclip'}
                 disabled={!data.authenticated && !data.paper}

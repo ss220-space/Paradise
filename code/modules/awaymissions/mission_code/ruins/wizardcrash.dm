@@ -7,8 +7,9 @@
 /obj/item/spellbook/oneuse/emp
 	spell = /obj/effect/proc_holder/spell/emplosion/disable_tech
 	spellname = "Disable Technology"
+	spellname_ru = "отключения технологий"
 	icon_state = "bookcharge"	//it's a lightning bolt, seems appropriate enough
-	desc = "For the tech-hating wizard on the go."
+	desc = "Гримуар на радость волшебникам-технофобам."
 
 /obj/item/spellbook/oneuse/emp/used
 	used = TRUE	//spawns used

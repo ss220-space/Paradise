@@ -3,11 +3,11 @@
 	var/is_ragin_restricted = FALSE // FALSE if this is buyable on ragin mages, TRUE if it's not.
 	var/spell_type = null
 	var/desc = ""
-	var/category = "Offensive"
+	var/category = "Атакующие"
 	var/cost = 2
 	var/refundable = TRUE
 	var/obj/effect/proc_holder/spell/S = null //Since spellbooks can be used by only one person anyway we can track the actual spell
-	var/buy_word = "Learn"
+	var/buy_word = "Выучить"
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book) // Specific circumstances
@@ -728,7 +728,15 @@
 
 /obj/item/spellbook
 	name = "spell book"
-	desc = "The legendary book of spells of the wizard."
+	desc = "Легендарная книга заклинаний магов."
+	ru_names = list(
+		NOMINATIVE = "книга заклинаний",
+		GENITIVE = "книги заклинаний",
+		DATIVE = "книге заклинаний",
+		ACCUSATIVE = "книгу заклинаний",
+		INSTRUMENTAL = "книгой заклинаний",
+		PREPOSITIONAL = "книге заклинаний"
+	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "spellbook"
 	throw_speed = 2
@@ -999,11 +1007,20 @@
 /obj/item/spellbook/oneuse
 	var/spell = /obj/effect/proc_holder/spell/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
 	var/spellname = "sandbox"
+	var/spellname_ru = "всякого"
 	var/used = 0
 	skip_refunds = TRUE
 	name = "spellbook of "
+	ru_names = list(
+		NOMINATIVE = "гримуар ",
+		GENITIVE = "гримуара ",
+		DATIVE = "гримуару ",
+		ACCUSATIVE = "гримуар ",
+		INSTRUMENTAL = "гримуаром ",
+		PREPOSITIONAL = "гримуаре "
+	)
 	uses = 1
-	desc = "This template spellbook was never meant for the eyes of man..."
+	desc = "Эту шаблонную книгу заклинаний не должен был видеть ни одно живое существо..."
 
 
 /obj/item/spellbook/oneuse/magic_charge_act(mob/user)
@@ -1016,7 +1033,7 @@
 	. |= RECHARGE_SUCCESSFUL
 
 	if(prob(80))
-		visible_message(span_warning("[src] catches fire!"))
+		visible_message(span_warning("[declent_ru(NOMINATIVE)] загорается!"))
 		user.temporarily_remove_item_from_inventory(src)
 		qdel(src)
 		. |= RECHARGE_BURNOUT
@@ -1025,6 +1042,13 @@
 /obj/item/spellbook/oneuse/New()
 	..()
 	name += spellname
+	if(ru_names)
+		ru_names[NOMINATIVE] += spellname_ru
+		ru_names[GENITIVE] += spellname_ru
+		ru_names[DATIVE] += spellname_ru
+		ru_names[ACCUSATIVE] += spellname_ru
+		ru_names[INSTRUMENTAL] += spellname_ru
+		ru_names[PREPOSITIONAL] += spellname_ru
 
 /obj/item/spellbook/oneuse/initialize() //No need to init
 	return
@@ -1035,31 +1059,31 @@
 		if(knownspell.type == S.type)
 			if(user.mind)
 				if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE || user.mind.special_role == SPECIAL_ROLE_WIZARD)
-					to_chat(user, "<span class='notice'>You're already far more versed in this spell than this flimsy how-to book can provide.</span>")
+					to_chat(user, span_notice("В вашем разуме находится намного больше информации об этом заклинании, чем написано в этой хлипкой инструкции."))
 				else
-					to_chat(user, "<span class='notice'>You've already read this one.</span>")
+					user.balloon_alert(user, "уже прочитано!")
 			return
 	if(used)
 		recoil(user)
 	else
 		user.mind.AddSpell(S)
-		to_chat(user, "<span class='notice'>you rapidly read through the arcane book. Suddenly you realize you understand [spellname]!</span>")
+		to_chat(user, span_notice("Вы пробегаетесь взглядом по страницам таинственной книги. Внезапно вы осознаёте, что изучили заклинание [spellname_ru]!"))
 		add_misc_logs(user, "learned the spell [spellname] ([S])")
 		onlearned(user)
 
 /obj/item/spellbook/oneuse/proc/recoil(mob/user)
-	user.visible_message("<span class='warning'>[src] glows in a black light!</span>")
+	user.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] загорается чёрным светом!"))
 
 /obj/item/spellbook/oneuse/proc/onlearned(mob/user)
 	used = 1
-	user.visible_message("<span class='caution'>[src] glows dark for a second!</span>")
-
+	user.visible_message(span_caution("[capitalize(declent_ru(NOMINATIVE))] на мнгновение загорается чёрным светом!"))
 
 /obj/item/spellbook/oneuse/fireball
 	spell = /obj/effect/proc_holder/spell/fireball
 	spellname = "fireball"
+	spellname_ru = "огненного шара"
 	icon_state = "bookfireball"
-	desc = "This book feels warm to the touch."
+	desc = "На ощупь эта книга достаточно тёплая."
 
 /obj/item/spellbook/oneuse/fireball/recoil(mob/user as mob)
 	..()
@@ -1069,38 +1093,49 @@
 /obj/item/spellbook/oneuse/smoke
 	spell = /obj/effect/proc_holder/spell/smoke
 	spellname = "smoke"
+	spellname_ru = "дыма"
 	icon_state = "booksmoke"
-	desc = "This book is overflowing with the dank arts."
+	desc = "Эта книга переполнена тёмными исскуствами."
 
 /obj/item/spellbook/oneuse/smoke/recoil(mob/user as mob)
 	..()
-	to_chat(user, "<span class='caution'>Your stomach rumbles...</span>")
+	to_chat(user, span_caution("Ваш живот начинает урчать..."))
 	user.adjust_nutrition(-200)
 
 /obj/item/spellbook/oneuse/blind
 	spell = /obj/effect/proc_holder/spell/trigger/blind
 	spellname = "blind"
+	spellname_ru = "слепоты"
 	icon_state = "bookblind"
-	desc = "This book looks blurry, no matter how you look at it."
+	desc = "Как ни посмотри, эта книга остаётся размытой в ваших глазах."
 
 /obj/item/spellbook/oneuse/blind/recoil(mob/user)
 	..()
 	if(isliving(user))
 		var/mob/living/L = user
-		to_chat(user, "<span class='warning'>You go blind!</span>")
+		to_chat(span_warning("Вы слепните!"))
 		L.EyeBlind(20 SECONDS)
 
 /obj/item/spellbook/oneuse/mindswap
 	spell = /obj/effect/proc_holder/spell/mind_transfer
 	spellname = "mindswap"
+	spellname_ru = "перемещения разума"
 	icon_state = "bookmindswap"
-	desc = "This book's cover is pristine, though its pages look ragged and torn."
+	desc = "Обложка этой книги выглядит нетронутой, хотя ее страницы выглядят изношенными и порванными."
 	var/mob/stored_swap = null //Used in used book recoils to store an identity for mindswaps
 
 /obj/item/spellbook/oneuse/mindswap/onlearned()
 	spellname = pick("fireball","smoke","blind","forcewall","knock","horses","charge")
+	spellname_ru = pick("огненного шара", "слепоты", "окаменения", "ударной волны", "лошадиной силы", "заряда")
 	icon_state = "book[spellname]"
 	name = "spellbook of [spellname]" //Note, desc doesn't change by design
+	if(ru_names)
+		ru_names[NOMINATIVE] = "гримуар " + spellname_ru
+		ru_names[GENITIVE] = "гримуара " + spellname_ru
+		ru_names[DATIVE] = "гримуару" + spellname_ru
+		ru_names[ACCUSATIVE] = "гримуар " + spellname_ru
+		ru_names[INSTRUMENTAL] = "гримуаром " + spellname_ru
+		ru_names[PREPOSITIONAL] = "гримуаре " + spellname_ru
 	..()
 
 /obj/item/spellbook/oneuse/mindswap/recoil(mob/user)
@@ -1109,28 +1144,29 @@
 		stored_swap = null
 	if(!stored_swap)
 		stored_swap = user
-		to_chat(user, "<span class='warning'>For a moment you feel like you don't even know who you are anymore.</span>")
+		to_chat(user, span_warning("На секунду вы поймали чувство, будто больше не знаете, кто вы такой."))
 		return
 	if(stored_swap == user)
-		to_chat(user, "<span class='notice'>You stare at the book some more, but there doesn't seem to be anything else to learn...</span>")
+		to_chat(user, span_notice("Вы пялитесь на страницы книги ещё некоторое время, но в ней кончилась всякая полезная для изучания информация..."))
 		return
 
 	var/obj/effect/proc_holder/spell/mind_transfer/swapper = new
 	swapper.cast(user, stored_swap)
 
-	to_chat(stored_swap, "<span class='warning'>You're suddenly somewhere else... and someone else?!</span>")
-	to_chat(user, "<span class='warning'>Suddenly you're staring at [src] again... where are you, who are you?!</span>")
+	to_chat(stored_swap, span_warning("Внезапно вы оказались где-то... и кем-то?!"))
+	to_chat(user, span_warning("Внезапно вы вновь ловите себя смотрящим на страницы [declent_ru(GENITIVE)]... Где вы, и кто вы?!"))
 	stored_swap = null
 
 /obj/item/spellbook/oneuse/forcewall
 	spell = /obj/effect/proc_holder/spell/forcewall
 	spellname = "forcewall"
+	spellname_ru = "окаменения"
 	icon_state = "bookforcewall"
-	desc = "This book has a dedication to mimes everywhere inside the front cover."
+	desc = "На обложке этой книги всё кричит о любви к мимам."
 
 /obj/item/spellbook/oneuse/forcewall/recoil(mob/user as mob)
 	..()
-	to_chat(user, "<span class='warning'>You suddenly feel very solid!</span>")
+	to_chat(user, span_warning("Внезапно вы ощущаете твёрдость своего тела!"))
 	var/obj/structure/closet/statue/S = new /obj/structure/closet/statue(user.loc, user)
 	S.timer = 30
 	user.drop_from_active_hand()
@@ -1138,23 +1174,25 @@
 /obj/item/spellbook/oneuse/knock
 	spell = /obj/effect/proc_holder/spell/aoe/knock
 	spellname = "knock"
+	spellname = "ударной волны"
 	icon_state = "bookknock"
-	desc = "This book is hard to hold closed properly."
+	desc = "Эту книгу тяжело держать закрытой."
 
 /obj/item/spellbook/oneuse/knock/recoil(mob/living/user)
 	..()
-	to_chat(user, "<span class='warning'>You're knocked down!</span>")
+	to_chat(user, span_warning("Вы сбиты с ног!"))
 	user.Weaken(40 SECONDS)
 
 /obj/item/spellbook/oneuse/horsemask
 	spell = /obj/effect/proc_holder/spell/horsemask
 	spellname = "horses"
+	spellname_ru = "лошадиной силы"
 	icon_state = "bookhorses"
-	desc = "This book is more horse than your mind has room for."
+	desc = "В этой книге больше лошадиных сил, чем во всех челноках в обозримой вселенной."
 
 /obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user)
 	if(ishuman(user))
-		to_chat(user, span_fontsize7("<span style='color: red'><b>HOR-SIE HAS RISEN</b></span>"))
+		to_chat(user, span_fontsize7(span_fontcolor_red("ЛОШ'АДЬ ПРОБУДИЛАСЬ!")))
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
 		ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
 		magichead.item_flags |= DROPDEL	//curses!
@@ -1165,53 +1203,58 @@
 		user.equip_to_slot_or_del(magichead, ITEM_SLOT_MASK)
 		qdel(src)
 	else
-		to_chat(user, "<span class='notice'>I say thee neigh</span>")
+		to_chat(user, span_notice("АЗЪ глаголати​ ​ИГО​-​ГО​!"))
 
 /obj/item/spellbook/oneuse/charge
 	spell = /obj/effect/proc_holder/spell/charge
 	spellname = "charging"
+	spellname_ru = "заряда"
 	icon_state = "bookcharge"
-	desc = "This book is made of 100% post-consumer wizard."
+	desc = "Эта книга на 100% состоит из постпотребительской магии."
 
 /obj/item/spellbook/oneuse/charge/recoil(mob/user)
 	..()
-	to_chat(user, "<span class='warning'>[src] suddenly feels very warm!</span>")
+	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает нагреваться!"))
 	empulse(src, 1, 1)
 
 /obj/item/spellbook/oneuse/summonitem
 	spell = /obj/effect/proc_holder/spell/summonitem
 	spellname = "instant summons"
+	spellname_ru = "мгновенного вызова"
 	icon_state = "booksummons"
-	desc = "This book is bright and garish, very hard to miss."
+	desc = "Эта книга яркая и броская, ее очень трудно не заметить."
 
 /obj/item/spellbook/oneuse/summonitem/recoil(mob/user)
 	..()
-	to_chat(user, "<span class='warning'>[src] suddenly vanishes!</span>")
+	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно исчезает!"))
 	qdel(src)
 
 /obj/item/spellbook/oneuse/fake_gib
 	spell = /obj/effect/proc_holder/spell/touch/fake_disintegrate
 	spellname = "disintegrate"
+	spellname_ru = "дезинтеграции"
 	icon_state = "bookfireball"
-	desc = "This book feels like it will rip stuff apart."
+	desc = "Прикасаясь к этой книге у вас складывается чувство, будто она способна разорвать что угодно на кусочки."
 
 /obj/item/spellbook/oneuse/sacredflame
 	spell = /obj/effect/proc_holder/spell/sacred_flame
 	spellname = "sacred flame"
+	spellname_ru = "священного пламени"
 	icon_state = "booksacredflame"
-	desc = "Become one with the flames that burn within... and invite others to do so as well."
+	desc = "Эта книга призывает вас стать единным с пламенем, сжигающим изнутри... И позвать остальных присоединиться к вам."
 
 /obj/item/spellbook/oneuse/goliath_dash
 	spell = /obj/effect/proc_holder/spell/goliath_dash
 	spellname = "goliath dash"
+	spellname = "рывка голиафа"
 	icon_state = "bookgoliathdash"
-	desc = "Dash like a goliath!"
+	desc = "Эта книга достаточно горяча, а щупальца, что лезут из неё, извиваются и держат ваши руки."
 
 /obj/item/spellbook/oneuse/watchers_look
 	spell = /obj/effect/proc_holder/spell/watchers_look
 	spellname = "watcher's look"
 	icon_state = "bookwatcherlook"
-	desc = "Shoot with your eyes like a watcher!"
+	desc = "Глаз на обложке следит за вашим взглядом..."
 
 /obj/item/spellbook/oneuse/random
 	icon_state = "random_book"

@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	icon_state = "fax"
 	insert_anim = "faxsend"
 	pass_flags = PASSTABLE
-	var/fax_network = "Local Fax Network"
+	var/fax_network = "Локальная Факсимальная Сеть"
 	/// If true, prevents fax machine from sending messages to NT machines
 	var/syndie_restricted = FALSE
 	var/ussp_restricted = FALSE
@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
-	fax_network = "Central Command Quantum Entanglement Network"
+	fax_network = "Сеть Квантовой Запутанности Центрального Командования"
 	long_range_enabled = TRUE
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie
@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange/ussp
 	name = "USSP long range fax machine"
-	fax_network = "USSP Quantum Entanglement Network"
+	fax_network = "Сеть Квантовой Запутанности СССП"
 	ussp_restricted = TRUE
 	req_access = list(ACCESS_USSP_MARINE_CAPTAIN)
 	idle_power_usage = 60
@@ -115,6 +115,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
+		playsound(loc, 'sound/machines/fax_send.ogg', 50, 0)
 		. = ..()
 		SStgui.update_uis(src)
 		return .
@@ -151,27 +152,27 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	data["authenticated"] = is_authenticated(user)
 	data["scan_name"] = scan ? scan.name : FALSE
 	if(!data["authenticated"])
-		data["network"] = "Disconnected"
+		data["network"] = "Отключено"
 	else if(!emagged)
 		data["network"] = fax_network
 	else
-		data["network"] = "ERR*?*%!*"
+		data["network"] = "ОШN?%:!?"
 	data["paper"] = copyitem ? copyitem.name : FALSE
 	data["paperinserted"] = copyitem ? TRUE : FALSE
 	data["destination"] = destination ? destination : FALSE
 	data["sendError"] = FALSE
 	if(stat & (BROKEN|NOPOWER))
-		data["sendError"] = "No Power"
+		data["sendError"] = "Нет питания"
 	else if(!data["authenticated"])
-		data["sendError"] = "Not Logged In"
+		data["sendError"] = "Вход не Выполнен"
 	else if(!data["paper"])
-		data["sendError"] = "Nothing Inserted"
+		data["sendError"] = "Ничего не Вставлено"
 	else if(!data["destination"])
-		data["sendError"] = "Destination Not Set"
+		data["sendError"] = "Точка Отправки не Задана"
 	else
 		var/cooldown_seconds = cooldown_seconds()
 		if(cooldown_seconds)
-			data["sendError"] = "Re-aligning in [cooldown_seconds] seconds..."
+			data["sendError"] = "Повторное Подключение через [cooldown_seconds] секунд[numeric_ending(cooldown_seconds, "", "а", "ы")]..."
 	return data
 
 
@@ -217,8 +218,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 					usr.drop_transfer_item_to_loc(I, src)
 					copyitem = I
+					to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 					playsound(loc, 'sound/machines/fax_send.ogg', 50, 0)
-					to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]."))
 					flick(insert_anim, src)
 				else
 					to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] может принять только бумагу, фото и их стопки."))
@@ -231,7 +232,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				if((copyitem && copyitem.loc == src && usr.stat == 0))
 					if(istype(copyitem, /obj/item/paper))
 						copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
-						copyitem.desc = "Бумага, подписанная как '" + copyitem.name + "'."
+						copyitem.desc = "Бумага, подписанная как \"" + copyitem.name + "\"."
 					else if(istype(copyitem, /obj/item/photo))
 						copyitem.name = "[(n_name ? text("[n_name]") : "photo")]"
 					else if(istype(copyitem, /obj/item/paper_bundle))
