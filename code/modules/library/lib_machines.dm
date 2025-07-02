@@ -191,7 +191,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 		dat += "[span_fontcolor_darkgreen("Данные помещены в память.")]"
 	else
 		dat += "В памяти отсутствуют данные."
-	dat += "<a href='byond://?src=[UID()];scan=1'>\[scan\]</a>"
+	dat += "<a href='byond://?src=[UID()];scan=1'>\[сканировать\]</a>"
 	if(cache)
 		dat += "       <a href='byond://?src=[UID()];clear=1'>\[Очистить память\]</a><br><br><a href='byond://?src=[UID()];eject=1'>\[Убрать книгу\]</a>"
 	else
