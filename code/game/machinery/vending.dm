@@ -5150,6 +5150,69 @@
 
 	refill_canister = /obj/item/vending_refill/plasma
 
+
+/obj/machinery/vending/protein
+	name = "Автомат спортивного питания"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат спортивного питания",
+		GENITIVE = "торгового автомата спортивного питания",
+		DATIVE = "торговому автомату спортивного питания",
+		ACCUSATIVE = "торговый автомат спортивного питания",
+		INSTRUMENTAL = "торговым автоматом спортивного питания",
+		PREPOSITIONAL = "торговом автомате спортивного питания"
+	)
+	desc = "Автомат самообслуживания, любезно предоставленный корпорацией Donk Co."
+
+	slogan_list = list(
+		"Попробуйте наш новый протеиновый батончик!",
+		"Накачаться никогда не поздно!"
+		"В чем сила? В количестве купленных батончиков!",
+		"Самый сильный!",
+		"Если не накачаешься, она на тебя даже не посмотрит!",
+		"Ммм! Так вкусно!", //
+		"О боже, это так вкусно!",
+		"Перекусите.",
+		"Закуски - это здорово!",
+		"Возьми немного, и ещё немного!",
+		"Закуски высшего качества прямо с Марса.",
+		"Мы любим шоколад!",
+		"Попробуйте наше новое вяленое мясо!"
+	)
+
+	icon_state = "snack_off"
+	panel_overlay = "snack_panel"
+	screen_overlay = "snack"
+	lightmask_overlay = "snack_lightmask"
+	broken_overlay = "snack_broken"
+	broken_lightmask_overlay = "snack_broken_lightmask"
+
+	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6,
+					/obj/item/reagent_containers/food/drinks/dry_ramen = 6,
+					/obj/item/reagent_containers/food/snacks/doshik = 6,
+					/obj/item/reagent_containers/food/snacks/doshik_spicy = 6,
+					/obj/item/reagent_containers/food/snacks/chips =6,
+					/obj/item/reagent_containers/food/snacks/sosjerky = 6,
+					/obj/item/reagent_containers/food/snacks/no_raisin = 6,
+					/obj/item/reagent_containers/food/snacks/pistachios =6,
+					/obj/item/reagent_containers/food/snacks/spacetwinkie = 6,
+					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 6,
+					/obj/item/reagent_containers/food/snacks/tastybread = 6
+					)
+	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 6)
+	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 20,
+					/obj/item/reagent_containers/food/drinks/dry_ramen = 30,
+					/obj/item/reagent_containers/food/snacks/doshik = 30,
+					/obj/item/reagent_containers/food/snacks/doshik_spicy = 150,
+					/obj/item/reagent_containers/food/snacks/chips =25,
+					/obj/item/reagent_containers/food/snacks/sosjerky = 30,
+					/obj/item/reagent_containers/food/snacks/no_raisin = 20,
+					/obj/item/reagent_containers/food/snacks/pistachios = 35,
+					/obj/item/reagent_containers/food/snacks/spacetwinkie = 30,
+					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 25,
+					/obj/item/reagent_containers/food/snacks/tastybread = 30,
+					/obj/item/reagent_containers/food/snacks/syndicake = 50)
+	refill_canister = /obj/item/vending_refill/snack
+
 #undef FLICK_NONE
 #undef FLICK_VEND
 #undef FLICK_DENY
