@@ -25,7 +25,8 @@
 
 /obj/item/storage/belt/proc/try_fast_equip_item_from_belt(obj/item/item)
 	if (usr.put_in_any_hand_if_possible(item))
-		to_chat(usr, "<span class='notice'>Вы достаете [item.name] с пояса.</span>")
+		to_chat(usr, span_notice("Вы достаете [item.name] с пояса."))
+		balloon_alert(usr, "снято с пояса")
 
 /obj/item/storage/belt/proc/radial_menu(mob/user)
 	if(!check_menu(user))
@@ -33,9 +34,10 @@
 	var/list/choices = list()
 	for(var/i = contents.len; i >= 1; i--) // Reverse order
 		var/obj/item = contents[i]
-		choices["[item.name]"] = image(icon = item.icon, icon_state = item.icon_state)
+		choices["[item.declent_ru(NOMINATIVE)]"] = image(icon = item.icon, icon_state = item.icon_state)
 	if (length(choices) == 0)
-		to_chat(user, "<span class='notice'>Ваш пояс пуст.</span>")
+		to_chat(user, span_notice("Ваш пояс пуст."))
+		balloon_alert(user, "пояс пуст!")
 		return
 	if (length(choices) == 1) // Auto extract for single item without radial menu
 		var/obj/item/selected = contents[1]
@@ -46,7 +48,7 @@
 		return
 	var/obj/item/selected
 	for(var/obj/item in contents)
-		if(item.name == choice)
+		if(item.declent_ru(NOMINATIVE) == choice)
 			selected = item
 			break
 	if (selected == null)
