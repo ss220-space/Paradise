@@ -50,3 +50,9 @@ pub fn test_test() -> eyre::Result<ByondValue> {
 pub fn test_test2() -> eyre::Result<ByondValue> {
     SUN.with(|sun| Ok(ByondValue::from(sun.solars.borrow().len() as f32)))
 }
+
+#[byondapi::bind]
+pub fn test_test2() -> eyre::Result<ByondValue> {
+    SUN.with(|sun| Ok(ByondValue::from(sun.solars.borrow().len() as f32)))
+}
+
