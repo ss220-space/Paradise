@@ -40,3 +40,8 @@ pub fn get_sun_angle() -> eyre::Result<ByondValue> {
 pub fn get_solars_length() -> eyre::Result<ByondValue> {
     SUN.with(|sun| Ok(ByondValue::from(sun.solars.borrow().len() as f32)))
 }
+
+#[byondapi::bind]
+pub fn test_test() -> eyre::Result<ByondValue> {
+    SUN.with(|sun| Ok(ByondValue::from(sun.solars.borrow().len() as f32)))
+}
