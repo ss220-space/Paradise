@@ -84,14 +84,17 @@
 /obj/machinery/power/solar/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
-			var/obj/item/solar_assembly/S = locate() in src
-			if(S)
-				S.forceMove(loc)
-				S.give_glass(stat & BROKEN)
+			var/obj/item/solar_assembly/assembly = locate() in src
+			
+			if(assembly)
+				assembly.forceMove(loc)
+				assembly.give_glass(stat & BROKEN)
+
 		else
 			playsound(src, "shatter", 70, TRUE)
 			new /obj/item/shard(src.loc)
 			new /obj/item/shard(src.loc)
+
 	qdel(src)
 
 /obj/machinery/power/solar/update_overlays()
@@ -108,8 +111,9 @@
 		sunfrac = 0
 		return
 
-	//find the smaller angle between the direction the panel is facing and the direction of the sun (the sign is not important here)
-	var/p_angle = min(abs(adir - SSsun.angle), 360 - abs(adir - SSsun.angle))
+	// find the smaller angle between the direction the panel is facing and the direction of the sun (the sign is not important here)
+	var/sun_angle = SSsun.get_angle()
+	var/p_angle = min(abs(adir - sun_angle), 360 - abs(adir - sun_angle))
 
 	if(p_angle > 90)			// if facing more than 90deg from sun, zero output
 		sunfrac = 0
@@ -149,12 +153,12 @@
 
 //trace towards sun to see if we're in shadow
 /obj/machinery/power/solar/proc/occlusion()
-
 	var/ax = x		// start at the solar panel
 	var/ay = y
 	var/turf/T = null
-	var/dx = SSsun.dx
-	var/dy = SSsun.dy
+
+	var/dx = SSsun.get_dx()
+	var/dy = SSsun.get_dy()
 
 	for(var/i = 1 to 20)		// 20 steps is enough
 		ax += dx	// do step
@@ -338,36 +342,45 @@
 	autostart = TRUE // Automatically search for connected devices
 
 /obj/machinery/power/solar_control/Initialize(mapload, obj/structure/computerframe)
-	SSsun.solars |= src
+	connect_to_network()
 	setup()
+
 	. = ..()
+
 	if(computerframe)
 		qdel(computerframe)
 
 /obj/machinery/power/solar_control/proc/setup()
-	connect_to_network()
 	set_panels(cdir)
+	
 	if(autostart)
 		search_for_connected()
+
 		if(connected_tracker && track == TRACKER_AUTO)
-			connected_tracker.modify_angle(SSsun.angle)
+			connected_tracker.modify_angle(SSsun.get_angle())
+
 		set_panels(cdir)
 
 /obj/machinery/power/solar_control/Destroy()
-	for(var/obj/machinery/power/solar/M in connected_panels)
-		M.unset_control()
+	for(var/obj/machinery/power/solar/solar in connected_panels)
+		solar.unset_control()
+
 	if(connected_tracker)
 		connected_tracker.unset_control()
+
+	SSsun.remove_solar(src)
 	return ..()
 
 /obj/machinery/power/solar_control/disconnect_from_network()
 	..()
-	SSsun.solars.Remove(src)
+	SSsun.remove_solar(src)
 
 /obj/machinery/power/solar_control/connect_to_network()
 	var/to_return = ..()
-	if(powernet) //if connected and not already in solar list...
-		SSsun.solars |= src //... add it
+
+	if(powernet) // if connected and not already in solar list...
+		SSsun.add_solar(src) //... add it
+
 	return to_return
 
 //search for unconnected panels and trackers in the computer powernet and connect them
@@ -386,14 +399,11 @@
 
 //called by the sun controller, update the facing angle (either manually or via tracking) and rotates the panels accordingly
 /obj/machinery/power/solar_control/proc/update()
-	if(stat & (NOPOWER | BROKEN))
-		return
-
 	if(track == TRACKER_AUTO && connected_tracker) // auto-tracking
-		connected_tracker.modify_angle(SSsun.angle)
+		connected_tracker.modify_angle(SSsun.get_angle())
 		set_panels(cdir)
-	updateDialog()
 
+	updateDialog()
 
 /obj/machinery/power/solar_control/update_overlays()
 	. = ..()
@@ -464,7 +474,7 @@
 			track = text2num(params["track"])
 			if(track == TRACKER_AUTO)
 				if(connected_tracker)
-					connected_tracker.modify_angle(SSsun.angle)
+					connected_tracker.modify_angle(SSsun.get_angle())
 					set_panels(cdir)
 			else if(track == TRACKER_TIMED)
 				targetdir = cdir
@@ -474,7 +484,7 @@
 		if("refresh")
 			search_for_connected()
 			if(connected_tracker && track == TRACKER_AUTO)
-				connected_tracker.modify_angle(SSsun.angle)
+				connected_tracker.modify_angle(SSsun.get_angle())
 			set_panels(cdir)
 
 /obj/machinery/power/solar_control/screwdriver_act(mob/user, obj/item/I)
@@ -519,6 +529,7 @@
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		stat |= BROKEN
 		update_icon(UPDATE_OVERLAYS)
+		SSsun.remove_solar(src)
 
 /obj/machinery/power/solar_control/process()
 	lastgen = gen
