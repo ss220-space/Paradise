@@ -40,6 +40,7 @@
 
 /datum/dna/gene/disability/hallucinate
 	name = "Hallucinate"
+	ru_names = list(NOMINATIVE = "Галлюцинации")
 	activation_message = list("Ваш разум говорит: «Привет!».")
 	deactivation_message = list("Здравомыслие возвращается. Или нет?")
 	instability = -GENE_INSTABILITY_MODERATE
@@ -58,6 +59,7 @@
 
 /datum/dna/gene/disability/epilepsy
 	name = "Epilepsy"
+	ru_names = list(NOMINATIVE = "Эпилепсия")
 	activation_message = list("У вас разболелась голова.")
 	deactivation_message = list("Ваша голова перестала болеть. Наконец-то!")
 	instability = -GENE_INSTABILITY_MODERATE
@@ -77,6 +79,7 @@
 
 /datum/dna/gene/disability/cough
 	name = "Coughing"
+	ru_names = list(NOMINATIVE = "Кашель")
 	activation_message = list("Вы начинаете кашлять.")
 	deactivation_message = list("Ваше горло перестало болеть.")
 	instability = -GENE_INSTABILITY_MINOR
@@ -95,6 +98,7 @@
 
 /datum/dna/gene/disability/clumsy
 	name = "Clumsiness"
+	ru_names = list(NOMINATIVE = "Неуклюжесть")
 	activation_message = list("Вы чувствуете лёгкое головокружение.")
 	deactivation_message = list("Вы вновь обретаете контроль над своими движениями.")
 	instability = -GENE_INSTABILITY_MINOR
@@ -108,6 +112,7 @@
 
 /datum/dna/gene/disability/tourettes
 	name = "Tourettes"
+	ru_names = list(NOMINATIVE = "Синдром Туретта")
 	activation_message = list("Нахлынула какая-то непонятная дрожь...")
 	deactivation_message = list("Вы чувствуете вкус мыла во рту.")
 	instability = -GENE_INSTABILITY_MODERATE
@@ -136,6 +141,7 @@
 
 /datum/dna/gene/disability/nervousness
 	name = "Nervousness"
+	ru_names = list(NOMINATIVE = "Нервозность")
 	activation_message = list("Вы начинаете нервничать.")
 	deactivation_message = list("Вы чувствуете себя гораздо спокойнее.")
 
@@ -152,6 +158,7 @@
 
 /datum/dna/gene/disability/blindness
 	name = "Blindness"
+	ru_names = list(NOMINATIVE = "Слепота")
 	activation_message = list("Видимо, вы больше ничего не видите.")
 	deactivation_message = list("Теперь вы можете видеть, если вдруг не заметили...")
 	instability = -GENE_INSTABILITY_MAJOR
@@ -175,6 +182,7 @@
 
 /datum/dna/gene/disability/colourblindness
 	name = "Colourblindness"
+	ru_names = list(NOMINATIVE = "Дальтонизм")
 	activation_message = list("Вы чувствуете странное покалывание в глазах. Ваше восприятие цвета меняется.")
 	deactivation_message = list("Вы чувствуете неприятное покалывание в глазах, но все вокруг вновь обрело краски.")
 	instability = -GENE_INSTABILITY_MODERATE
@@ -200,6 +208,7 @@
 
 /datum/dna/gene/disability/deaf
 	name = "Deafness"
+	ru_names = list(NOMINATIVE = "Глухота")
 	activation_message = list("Здесь как-то тихо...")
 	deactivation_message = list("Вы снова можете слышать!")
 	instability = -GENE_INSTABILITY_MAJOR
@@ -213,6 +222,7 @@
 
 /datum/dna/gene/disability/nearsighted
 	name = "Nearsightedness"
+	ru_names = list(NOMINATIVE = "Близорукость")
 	activation_message = list("Всё вокруг начинает размываться...")
 	deactivation_message = list("Теперь вы можете ясно видеть.")
 	instability = -GENE_INSTABILITY_MODERATE
@@ -236,6 +246,7 @@
 
 /datum/dna/gene/disability/lisp
 	name = "Lisp"
+	ru_names = list(NOMINATIVE = "Шепелявость")
 	desc = "Интерефно, фто это делает."
 	activation_message = list("Фто-то тошно не тах.")
 	deactivation_message = list("Теперь вы можете произносить согласные.")
@@ -252,6 +263,7 @@
 
 /datum/dna/gene/disability/comic
 	name = "Comic"
+	ru_names = list(NOMINATIVE = "Комик")
 	desc = "Это принесет только смерть и разрушение."
 	activation_message = list(span_sans("Ой-йо!"))
 	deactivation_message = list("Слава Святой Хонкоматери, с этим покончено.")
@@ -265,6 +277,7 @@
 
 /datum/dna/gene/disability/wingdings
 	name = "Alien Voice"
+	ru_names = list(NOMINATIVE = "Голос инопланетян")
 	desc = "Искажает голос субъекта, превращая его в непонятную речь."
 	activation_message = list(span_wingdings("Vashi golosovyye svyazki kazhutsya chuzhimi."))
 	deactivation_message = list("Ваши голосовые связки больше не кажутся инородными.")
@@ -302,6 +315,7 @@
 
 /datum/dna/gene/disability/weak
 	name = "Weak"
+	ru_names = list(NOMINATIVE = "Слабость")
 	desc = "Делает мышцы субъекта более слабыми."
 	activation_message = list("Вы чувствуете внезапную слабость в мышцах.")
 	deactivation_message = list("Вы снова ощущаете силу в мышцах.")
@@ -377,6 +391,7 @@
 
 /datum/dna/gene/disability/paraplegia
 	name = "Paraplegia"
+	ru_names = list(NOMINATIVE = "Параплегия")
 	desc = "Парализует мышцы ног."
 	activation_message = list("Вы не чувствуете своих ног.")
 	deactivation_message = list("Вы возвращаете контроль над ногами.")
@@ -389,6 +404,7 @@
 
 /datum/dna/gene/disability/aphasia
 	name = "Aphasia"
+	ru_names = list(NOMINATIVE = "Афазия")
 	desc = "Субъект теряет возможность говорить на своём основном языке."
 	activation_message = list("Вам становится труднее выражать свои мысли. Meh nahbleh blahmeh?")
 	deactivation_message = list("Ваша речь возвращается в норму.")
