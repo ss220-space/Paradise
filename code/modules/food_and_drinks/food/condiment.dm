@@ -316,7 +316,7 @@
 		return
 
 	//You can tear the bag open above food to put the condiments on it, obviously.
-	if(istype(target, /obj/item/reagent_containers/food/snacks))
+	if(istype(target, /obj/item/reagent_containers/food))
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>You tear open [src], but there's nothing in it.</span>")
 			qdel(src)

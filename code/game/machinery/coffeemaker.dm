@@ -8,12 +8,12 @@
 #define RADIAL_MENU_TAKE_CREAMER 		"Взять сливки"
 
 /obj/machinery/coffeemaker
-	name = "coffeemaker \"Modello 3\""
+	name = "coffeemaker"
 	desc = "Нет, эту кофемашину вы ТОЧНО не должны были увидеть. Пожалуйста, сообщите о баге."
 	gender = FEMALE
 	icon = 'icons/obj/machines/coffee_maker.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	pixel_y = 4 //needed to make it sit nicely on tables
+	pixel_y = 8 //needed to make it sit nicely on tables
 	density = TRUE
 	pass_flags = PASSTABLE
 	anchored = TRUE
@@ -21,6 +21,7 @@
 	var/brewing = FALSE
 	var/brew_time = 20 SECONDS
 	var/speed = 1
+	var/uses_cartridges = FALSE
 	/// The coffee cartridge to make coffee from. In the future, coffee grounds are like printer ink.
 	var/obj/item/coffee_cartridge/cartridge = null
 	/// The number of cups left
@@ -112,10 +113,11 @@
 		. += span_notice("Отсек для сливок содержит <b>[creamer_packs]</b> пакетик[declension_ru(creamer_packs, "", "а", "ов")].")
 	else
 		. += span_notice("Отсек для сливок <b>пуст</b>.")
-	if(coffee)
-		. += span_notice("Отсек для зёрен содержит <b>[length(coffee)]</b> порци[declension_ru(length(coffee), "ю", "и", "й")] кофе.")
-	else
-		. += span_notice("Отсек для зёрен <b>пуст</b>.")
+	if(!uses_cartridges)
+		if(coffee)
+			. += span_notice("Отсек для зёрен содержит <b>[length(coffee)]</b> порци[declension_ru(length(coffee), "ю", "и", "й")] кофе.")
+		else
+			. += span_notice("Отсек для зёрен <b>пуст</b>.")
 
 
 /obj/machinery/coffeemaker/update_overlays()
@@ -320,6 +322,7 @@
 	icon_state = "coffeemaker_nopot_nocart"
 	base_icon_state = "coffeemaker"
 	coffee = null
+	uses_cartridges = TRUE
 
 /obj/machinery/coffeemaker/standard/Initialize(mapload)
 	. = ..()

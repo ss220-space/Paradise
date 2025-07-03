@@ -1985,6 +1985,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 35
 	containername = "премиальные кофейные картриджи"
 
+/datum/supply_packs/organic/coffee_packs
+	name = "Набор пакетов кофе"
+	contains = list(/obj/item/storage/box/coffeepack,
+					/obj/item/storage/box/coffeepack,
+					/obj/item/storage/box/coffeepack/robusta,
+					/obj/item/storage/box/coffeepack/robusta)
+	cost = 30
+	containername = "пакеты кофейных зёрен"
+
 //////// livestock
 /datum/supply_packs/organic/cow
 	name = "Cow Crate"
