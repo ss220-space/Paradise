@@ -5165,53 +5165,38 @@
 
 	slogan_list = list(
 		"Попробуйте наш новый протеиновый батончик!",
-		"Накачаться никогда не поздно!"
-		"В чем сила? В количестве купленных батончиков!",
+		"Накачаться никогда не поздно!",
+		"В чем сила? В количестве съеденных батончиков!",
 		"Самый сильный!",
 		"Если не накачаешься, она на тебя даже не посмотрит!",
-		"Ммм! Так вкусно!", //
-		"О боже, это так вкусно!",
-		"Перекусите.",
-		"Закуски - это здорово!",
-		"Возьми немного, и ещё немного!",
-		"Закуски высшего качества прямо с Марса.",
-		"Мы любим шоколад!",
-		"Попробуйте наше новое вяленое мясо!"
+		"Почувствуй СИЛУ!",
+		"Даже моя бабушка сильнее тебя! Подкачайся!",
+		"Чем ты сильнее, тем меньше у тебя волос.",
+		"Предел есть у всего, кроме человека!", // Onepunchman
+		"Настоящая сила человека в способности измениться по своей воле!", // Onepunchman
+		"Кто сильнее тот и прав!",
+		"Отобрал у офицера станбатон? Молодец! А теперь иди сюда и купи батончик!"
 	)
 
-	icon_state = "snack_off"
-	panel_overlay = "snack_panel"
-	screen_overlay = "snack"
-	lightmask_overlay = "snack_lightmask"
-	broken_overlay = "snack_broken"
-	broken_lightmask_overlay = "snack_broken_lightmask"
+	icon_state = "protein_off"
+	panel_overlay = "cola-machine_panel"
+	screen_overlay = "protein_overlay"
 
-	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6,
-					/obj/item/reagent_containers/food/drinks/dry_ramen = 6,
-					/obj/item/reagent_containers/food/snacks/doshik = 6,
-					/obj/item/reagent_containers/food/snacks/doshik_spicy = 6,
-					/obj/item/reagent_containers/food/snacks/chips =6,
-					/obj/item/reagent_containers/food/snacks/sosjerky = 6,
-					/obj/item/reagent_containers/food/snacks/no_raisin = 6,
-					/obj/item/reagent_containers/food/snacks/pistachios =6,
-					/obj/item/reagent_containers/food/snacks/spacetwinkie = 6,
-					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 6,
-					/obj/item/reagent_containers/food/snacks/tastybread = 6
-					)
-	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 6)
-	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 20,
-					/obj/item/reagent_containers/food/drinks/dry_ramen = 30,
-					/obj/item/reagent_containers/food/snacks/doshik = 30,
-					/obj/item/reagent_containers/food/snacks/doshik_spicy = 150,
-					/obj/item/reagent_containers/food/snacks/chips =25,
-					/obj/item/reagent_containers/food/snacks/sosjerky = 30,
-					/obj/item/reagent_containers/food/snacks/no_raisin = 20,
-					/obj/item/reagent_containers/food/snacks/pistachios = 35,
-					/obj/item/reagent_containers/food/snacks/spacetwinkie = 30,
-					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 25,
-					/obj/item/reagent_containers/food/snacks/tastybread = 30,
-					/obj/item/reagent_containers/food/snacks/syndicake = 50)
-	refill_canister = /obj/item/vending_refill/snack
+	products = list(
+		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 5,
+		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 5,
+		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 5,
+	)
+	contraband = list(
+		/obj/item/reagent_containers/syringe/steroids = 4,
+	)
+	prices = list(
+		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 300,
+		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 300,
+		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 300,
+		/obj/item/reagent_containers/syringe/steroids = 150,
+	)
+	refill_canister = /obj/item/vending_refill/protein
 
 #undef FLICK_NONE
 #undef FLICK_VEND
