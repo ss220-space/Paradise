@@ -163,7 +163,7 @@
 /datum/species/moth/proc/check_burn_wings(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
 	SIGNAL_HANDLER
 	if(H.on_fire && !H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) && H.bodytemperature >= 400 && H.fire_stacks > 0)
-		to_chat(H, "<span class='warning'>Your precious wings burn to a crisp!</span>")
+		to_chat(H, span_warning("Ваши драгоценные крылья сгорят дотла!"))
 		H.apply_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
 /datum/species/moth/proc/on_aheal(mob/living/carbon/human/H)
@@ -181,8 +181,8 @@
 		return COMSIG_HUMAN_NO_CHANGE_APPEARANCE
 
 /datum/action/innate/cocoon
-	name = "Cocoon"
-	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
+	name = "Кокон"
+	desc = "Восстанавливает крылья и усики, а также лечит повреждения. Если кокон будет разрушен извне, вы получите серьёзные травмы!"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_TURF
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon1"
@@ -190,21 +190,21 @@
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/human/moth/H = owner
 	if(H.nutrition < COCOON_NUTRITION_AMOUNT)
-		to_chat(H, "<span class='warning'>You are too hungry to cocoon!</span>")
+		to_chat(H, span_warning("Вы слишком голодны для создания кокона!"))
 		return
-	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
+	H.visible_message(span_notice("[H] замирает, начиная плести кокон..."), span_notice("Вы концентрируетесь на создании кокона... (Это займёт [COCOON_WEAVE_DELAY / 10] секунд, вы должны оставаться неподвижным.)"))
 	if(do_after(H, COCOON_WEAVE_DELAY, H, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		if(H.incapacitated())
-			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
+			to_chat(H, span_warning("Вы не можете создать кокон в текущем состоянии."))
 			return
-		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
+		H.visible_message(span_notice("[H] заканчивает плести кокон!"), span_notice("Вы заканчиваете плести свой кокон."))
 		add_game_logs("weaved [src] at [AREACOORD(H)].", H)
 		var/obj/structure/moth/cocoon/C = new(get_turf(H))
 		ADD_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
 		H.forceMove(C)
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
-		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
+		to_chat(H, span_warning("Для создания кокона необходимо оставаться неподвижным!"))
 
 /**
  * Removes moth from cocoon, restores burnt wings */
@@ -214,8 +214,8 @@
 	qdel(C)
 
 /obj/structure/moth/cocoon
-	name = "\improper Nian cocoon"
-	desc = "Someone wrapped in a Nian cocoon."
+	name = "Кокон Ниан"
+	desc = "Кто-то завернулся в кокон."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cocoon1"
 	color = COLOR_PALE_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
@@ -228,7 +228,7 @@
 
 /obj/structure/moth/cocoon/Destroy()
 	if(preparing_to_emerge)
-		visible_message("<span class='danger'>[src] is smashed open, harming the Nian within!</span>")
+		visible_message(span_danger("[src] разбивается, нанося вред Ниан внутри!"))
 		for(var/mob/living/carbon/human/H in contents)
 			H.forceMove(loc)
 			REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
@@ -236,7 +236,7 @@
 			H.AdjustWeakened(10 SECONDS)
 		return ..()
 
-	visible_message("<span class='danger'>[src] splits open from within!</span>")
+	visible_message(span_danger("[src] раскрывается изнутри!"))
 	for(var/mob/living/carbon/human/H in contents)
 		H.forceMove(loc)
 		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)

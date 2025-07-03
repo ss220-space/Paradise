@@ -26,7 +26,7 @@
 	. = ..()
 
 /obj/effect/proc_holder/spell/borer_infest/valid_target(mob/living/carbon/human/target, user)
-	return istype(target) && target.stat != DEAD && !ismachineperson(target)
+	return istype(target) && target.stat != DEAD && !ismachineperson(target) && !isdevilantag(target)
 
 /obj/effect/proc_holder/spell/borer_infest/cast(list/targets, mob/living/simple_animal/borer/user)
 	var/mob/living/carbon/human/target = targets[1]

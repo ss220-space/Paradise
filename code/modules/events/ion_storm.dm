@@ -38,7 +38,7 @@
 		if(ai_player.stat != DEAD && ai_player.nightvision != FALSE)
 			var/message = generate_ion_law(ionMessage)
 			if(message)
-				ai_player.add_ion_law(message)
+				add_law(ai_player, message)
 				SSticker?.score?.save_silicon_laws(ai_player, additional_info = "ion storm event, new ion law was added '[message]'")
 				to_chat(ai_player, "<br>")
 				to_chat(ai_player, span_danger("[message] ...ЗАКОНЫ ОБНОВЛЕНЫ."))
@@ -52,6 +52,15 @@
 				continue
 			bot.emag_act()
 
+/datum/event/ion_storm/proc/add_law(mob/living/silicon/ai/ai_player, message)
+	ai_player.add_ion_law(message)
+
+/datum/event/ion_storm/devil
+	botEmagChance = 0
+	ionAnnounceChance = 0
+
+/datum/event/ion_storm/devil/add_law(mob/living/silicon/ai/ai_player, message)
+	ai_player.add_devil_law(message)
 
 /proc/generate_ion_law(ionMessage)
 	if(ionMessage)

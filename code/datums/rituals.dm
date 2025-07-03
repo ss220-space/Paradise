@@ -74,7 +74,7 @@
 		things[item.name] = required_things[item]
 	return things
 
-/datum/ritual/proc/is_valid_invoker(mob/living/carbon/human/human)
+/datum/ritual/proc/is_valid_invoker(mob/living/carbon/human)
 	if(!istype(human))
 		return FALSE
 
@@ -107,16 +107,16 @@
 /datum/ritual/proc/del_things(list/used_things)
 	return
 
-/datum/ritual/proc/check_invokers(mob/living/carbon/human/invoker, list/invokers)
+/datum/ritual/proc/check_invokers(mob/living/carbon/invoker, list/invokers)
 	return TRUE
 
-/datum/ritual/proc/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/proc/check_contents(mob/living/carbon/invoker, list/used_things)
 	return TRUE
 
-/datum/ritual/proc/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things) // Do ritual stuff.
+/datum/ritual/proc/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things) // Do ritual stuff.
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/proc/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/proc/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	return
 
 /datum/ritual/ashwalker
@@ -199,7 +199,7 @@
 		/mob/living/simple_animal/hostile/asteroid/goldgrub = 1
 	)
 
-/datum/ritual/ashwalker/summon_ashstorm/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/ashwalker/summon_ashstorm/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
@@ -220,13 +220,13 @@
 
 	return
 
-/datum/ritual/ashwalker/summon_ashstorm/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/summon_ashstorm/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	SSweather.run_weather(/datum/weather/ash_storm)
 	message_admins("[key_name(invoker)] accomplished ashstorm ritual and summoned ashstorm")
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/summon_ashstorm/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/summon_ashstorm/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/list/targets = list()
 
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
@@ -261,7 +261,7 @@
 		/mob/living/carbon/human = 1
 	)
 
-/datum/ritual/ashwalker/transformation/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/transformation/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/mob/living/carbon/human/human = locate() in used_things
 
 	if(!human || !human.mind || !human.ckey)
@@ -272,7 +272,7 @@
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/transformation/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/transformation/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	invoker.adjustBrainLoss(15)
 	invoker.SetKnockdown(5 SECONDS)
 
@@ -305,7 +305,7 @@
 	cast_time = 30 SECONDS
 	extra_invokers = 1
 
-/datum/ritual/ashwalker/summon/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/summon/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/list/ready_for_summoning = list()
 
 	for(var/mob/living/carbon/human/human in GLOB.mob_list)
@@ -344,7 +344,7 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/summon/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/summon/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	if(!prob(70))
 		return
 
@@ -395,7 +395,7 @@
 
 	return
 
-/datum/ritual/ashwalker/curse/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/ashwalker/curse/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
@@ -408,7 +408,7 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/curse/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/curse/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/list/humans = list()
 
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
@@ -426,7 +426,7 @@
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/curse/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/curse/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/list/targets = list()
 
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
@@ -467,7 +467,7 @@
 
 	return
 
-/datum/ritual/ashwalker/power/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/ashwalker/power/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
@@ -480,7 +480,7 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/power/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/power/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	LAZYADD(invokers, invoker)
 
 	for(var/mob/living/carbon/human/human in invokers)
@@ -492,7 +492,7 @@
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/power/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/power/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/list/targets = list()
 
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
@@ -532,7 +532,7 @@
 		/mob/living/carbon/human = 1,
 	)
 
-/datum/ritual/ashwalker/resurrection/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/ashwalker/resurrection/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
@@ -553,14 +553,14 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/resurrection/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/resurrection/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/mob/living/carbon/human/human = locate() in used_things
 	human.revive()
 	human.adjustBrainLoss(20)
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/resurrection/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/resurrection/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	for(var/mob/living/carbon/human/human in range(10, ritual_object))
 		if(!isashwalker(human) || human.stat == DEAD)
 			continue
@@ -595,7 +595,7 @@
 
 	return
 
-/datum/ritual/ashwalker/recharge/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/ashwalker/recharge/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
@@ -608,7 +608,7 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/recharge/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/recharge/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/datum/component/ritual_object/component = ritual_object.GetComponent(/datum/component/ritual_object)
 
 	if(!component)
@@ -625,7 +625,7 @@
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/recharge/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/recharge/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/list/targets = list()
 
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
@@ -660,7 +660,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf = 1,
 	)
 
-/datum/ritual/ashwalker/population/check_invokers(mob/living/carbon/human/invoker, list/invokers)
+/datum/ritual/ashwalker/population/check_invokers(mob/living/carbon/invoker, list/invokers)
 	. = ..()
 
 	if(!.)
@@ -678,7 +678,7 @@
 
 	return
 
-/datum/ritual/ashwalker/population/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/ashwalker/population/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
@@ -691,12 +691,12 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/population/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/population/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	new /obj/effect/mob_spawn/human/ash_walker/shaman(ritual_object.loc)
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/population/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/population/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(!isashwalker(human) || !prob(disaster_prob))
 			continue
@@ -748,10 +748,13 @@
 		/obj/item/stack/sheet/animalhide/ashdrake = 1
 	)
 
-/datum/ritual/ashwalker/soul/check_invokers(mob/living/carbon/human/invoker, list/invokers)
+/datum/ritual/ashwalker/soul/check_invokers(mob/living/carbon/invoker, list/invokers)
 	. = ..()
 
 	if(!.)
+		return FALSE
+
+	if(!ishuman(invoker))
 		return FALSE
 
 	if(!isashwalkershaman(invoker))
@@ -769,7 +772,7 @@
 
 	return
 
-/datum/ritual/ashwalker/soul/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/ashwalker/soul/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
@@ -790,7 +793,7 @@
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/soul/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/soul/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(!isashwalker(human) || !prob(disaster_prob))
 			continue
@@ -815,7 +818,7 @@
 		/obj/item/stack/ore = 10
 	)
 
-/datum/ritual/ashwalker/transmutation/check_invokers(mob/living/carbon/human/invoker, list/invokers)
+/datum/ritual/ashwalker/transmutation/check_invokers(mob/living/carbon/invoker, list/invokers)
 	. = ..()
 
 	if(!.)
@@ -827,7 +830,7 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/transmutation/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/transmutation/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/ore_type = pick(subtypesof(/obj/item/stack/ore))
 
 	var/obj/item/stack/ore/ore = new ore_type(get_turf(ritual_object))
@@ -835,7 +838,7 @@
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/transmutation/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/transmutation/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(!isashwalker(human) || !prob(disaster_prob))
 			continue
@@ -861,7 +864,7 @@
 		/mob/living/carbon/human = 1
 	)
 
-/datum/ritual/ashwalker/interrogation/check_invokers(mob/living/carbon/human/invoker, list/invokers)
+/datum/ritual/ashwalker/interrogation/check_invokers(mob/living/carbon/invoker, list/invokers)
 	. = ..()
 
 	if(!.)
@@ -873,7 +876,7 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/interrogation/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/ashwalker/interrogation/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
@@ -889,14 +892,14 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/interrogation/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/interrogation/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/obj/effect/proc_holder/spell/empath/empath = new
 	if(!empath.cast(used_things, invoker))
 		return RITUAL_FAILED_ON_PROCEED
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/interrogation/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/interrogation/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(!isashwalker(human))
 			continue
@@ -927,7 +930,7 @@
 	needed_dye = "Indigo Dyes"
 	totem_dye = "indigo"
 
-/datum/ritual/ashwalker/creation/check_invokers(mob/living/carbon/human/invoker, list/invokers)
+/datum/ritual/ashwalker/creation/check_invokers(mob/living/carbon/invoker, list/invokers)
 	. = ..()
 
 	if(!.)
@@ -940,14 +943,14 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/creation/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/creation/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	for(var/mob/living/mob as anything in subtypesof(/mob/living/simple_animal/hostile/asteroid))
 		if(prob(30))
 			mob = new(get_turf(ritual_object))
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/creation/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/creation/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(!isashwalker(human) || !prob(disaster_prob))
 			continue
@@ -978,7 +981,7 @@
 		/mob/living/simple_animal = 1,
 	)
 
-/datum/ritual/ashwalker/command/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/ashwalker/command/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
@@ -999,7 +1002,7 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/command/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/command/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/mob/living/simple_animal/animal = locate() in used_things
 
 	if(QDELETED(animal))
@@ -1027,7 +1030,7 @@
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/command/disaster(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/command/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(!isashwalker(human) || !prob(disaster_prob))
 			continue

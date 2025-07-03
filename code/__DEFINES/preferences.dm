@@ -38,7 +38,7 @@
 #define PREFTOGGLE_CHAT_GHOSTPDA 			(1<<22)
 // #define PREFTOGGLE_NUMPAD_TARGET 			8388608 // Made obsolete with key bindings
 
-#define TOGGLES_TOTAL 						16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_TOTAL 						3014591 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_DEFAULT (PREFTOGGLE_CHAT_OOC|PREFTOGGLE_CHAT_DEAD|PREFTOGGLE_CHAT_GHOSTEARS|PREFTOGGLE_CHAT_GHOSTSIGHT|PREFTOGGLE_CHAT_PRAYER|PREFTOGGLE_CHAT_RADIO|PREFTOGGLE_CHAT_LOOC|PREFTOGGLE_MEMBER_PUBLIC|PREFTOGGLE_DONATOR_PUBLIC|PREFTOGGLE_AMBIENT_OCCLUSION|PREFTOGGLE_CHAT_GHOSTPDA)
 
@@ -85,8 +85,9 @@
 #define PREFTOGGLE_3_DNR_AFTER_DEATH         	(1<<0) // 1
 #define PREFTOGGLE_3_UI_SCALE         			(1<<1) // 2
 #define PREFTOGGLE_3_FACING_TO_MOUSE			(1<<2) // 4
+#define PREFTOGGLE_3_PAIN_BLURB	 				(1<<3) // 8
 
-#define TOGGLES_3_TOTAL                       	7 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_3_TOTAL                       	15 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_3_DEFAULT (PREFTOGGLE_3_FACING_TO_MOUSE)
 
@@ -166,3 +167,63 @@
 #define MULTIZ_DETAIL_HIGH 2
 #define MULTIZ_DETAIL_MEDIUM 1
 #define MULTIZ_DETAIL_LOW 0
+
+
+// Categories
+#define PREF_CATEGORY_GENERAL 		"Основные настройки"
+#define PREF_CATEGORY_LIVING 		"Настройки в раунде"
+#define PREF_CATEGORY_GHOST 		"Настройки призраков"
+#define PREF_CATEGORY_ADMIN 		"Настройки администрации"
+
+// Uplink location
+#define PREF_UPLINK_PDA 			"КПК"
+#define PREF_UPLINK_HEADSET 		"Гарнитура"
+
+// NanoTrasen relationship
+#define PREF_NTRELATION_LOYAL 		"Преданное"
+#define PREF_NTRELATION_SUPPORTIVE 	"Поддерживающее"
+#define PREF_NTRELATION_NEUTRAL 	"Нейтральное"
+#define PREF_NTRELATION_SCEPTICAL 	"Скептичное"
+#define PREF_NTRELATION_OPPOSED 	"Враждебное"
+
+// Bodyparts names
+#define PREF_ORGANNAME_CHEST 		"Грудь"
+#define PREF_ORGANNAME_GROIN 		"Живот"
+#define PREF_ORGANNAME_HEAD 		"Голова"
+#define PREF_ORGANNAME_L_ARM 		"Левая рука"
+#define PREF_ORGANNAME_R_ARM 		"Правая рука"
+#define PREF_ORGANNAME_L_HAND 		"Левая ладонь"
+#define PREF_ORGANNAME_R_HAND 		"Правая ладонь"
+#define PREF_ORGANNAME_L_LEG 		"Левая нога"
+#define PREF_ORGANNAME_R_LEG 		"Правая нога"
+#define PREF_ORGANNAME_L_FOOT 		"Левая ступня"
+#define PREF_ORGANNAME_R_FOOT 		"Правая ступня"
+
+// Organ names
+#define PREF_ORGANNAME_EYES 		"Глаза"
+#define PREF_ORGANNAME_EARS 		"Уши"
+#define PREF_ORGANNAME_HEART 		"Сердце"
+#define PREF_ORGANNAME_LUNGS 		"Лёгкие"
+#define PREF_ORGANNAME_LIVER 		"Печень"
+#define PREF_ORGANNAME_KIDNEYS 		"Почки"
+
+// Organ statuses (English)
+#define PREF_ORGANSTATUS_CYBORG_ENG 	"cyborg"
+#define PREF_ORGANSTATUS_AMPUTATED_ENG 	"amputated"
+#define PREF_ORGANSTATUS_CYBERNETIC_ENG "cybernetic"
+
+// Organ statuses (Russian)
+#define PREF_ORGANSTATUS_ORGANIC_RUS 	"Органика"
+#define PREF_ORGANSTATUS_AMPUTATED_RUS 	"Ампутировано"
+#define PREF_ORGANSTATUS_CYBERNETIC_RUS "Кибернетика"
+
+// Auto-hiss choices
+#define PREF_AUTOHISS_OFF 		"Нет"
+#define PREF_AUTOHISS_BASIC 	"Базовый"
+#define PREF_AUTOHISS_FULL 		"Полный"
+
+// Genders
+#define PREF_GENDER_MALE 		"Мужской"
+#define PREF_GENDER_FEMALE 		"Женский"
+#define PREF_GENDER_PLURAL 		"Бесполый"
+

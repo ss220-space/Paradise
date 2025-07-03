@@ -1,6 +1,7 @@
 /datum/ui_module/law_manager
 	name = "Law manager"
 	var/ion_law	= "IonLaw"
+	var/devil_law = "DevilLaw"
 	var/zeroth_law = "ZerothLaw"
 	var/inherent_law = "InherentLaw"
 	var/supplied_law = "SuppliedLaw"
@@ -57,6 +58,11 @@
 				owner.set_zeroth_law(zeroth_law)
 				SSticker?.score?.save_silicon_laws(owner, usr, "admin used law manager, new zero law was added '[zeroth_law]'")
 
+		if("add_devil_law")
+			if(devil_law && is_malf(usr))
+				owner.add_devil_law(devil_law)
+				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new devil law was added '[devil_law]'")
+
 		if("add_ion_law")
 			if(ion_law && is_malf(usr))
 				owner.add_ion_law(ion_law)
@@ -82,6 +88,11 @@
 			if(new_law && new_law != ion_law && (!..()))
 				ion_law = new_law
 
+		if("change_devil_law")
+			var/new_law = tgui_input_text(usr, "Enter new devil law. Leaving the field blank will cancel the edit.", "Edit Law", devil_law, encode = FALSE)
+			if(new_law && new_law != devil_law && (!..()))
+				devil_law = new_law
+
 		if("change_inherent_law")
 			var/new_law = tgui_input_text(usr, "Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law, encode = FALSE)
 			if(new_law && new_law != inherent_law && (!..()))
@@ -102,10 +113,10 @@
 				var/datum/ai_law/AL = locate(params["edit_law"]) in owner.laws.all_laws()
 				// Dont allow non-admins to edit their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
-					to_chat(usr, "<span class='warning'>You cant edit that law.</span>")
+					to_chat(usr, span_warning("Вы не можете изменить этот закон."))
 					return
 				if(AL)
-					var/new_law = tgui_input_text(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law, encode = FALSE)
+					var/new_law = tgui_input_text(usr, "Введите новый закон. Оставьте поле пустым для отмены.", "Редактирование закона", AL.law, encode = FALSE)
 					if(new_law && new_law != AL.law && is_malf(usr) && (!..()))
 						log_and_message_admins("has changed a law of [owner] from '[AL.law]' to '[new_law]'")
 						var/old_law = AL.law
@@ -117,7 +128,7 @@
 				var/datum/ai_law/AL = locate(params["delete_law"]) in owner.laws.all_laws()
 				// Dont allow non-admins to delete their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
-					to_chat(usr, "<span class='warning'>You cant delete that law.</span>")
+					to_chat(usr, span_warning("Вы не можете удалить этот закон."))
 					return
 				if(AL && is_malf(usr))
 					var/old_law = AL.law
@@ -142,15 +153,15 @@
 					SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, '[ALs.name]' laws set was loaded", log_all_laws = TRUE)
 
 		if("notify_laws")
-			to_chat(owner, "<span class='danger'>Law Notice</span>")
+			to_chat(owner, span_danger("УВЕДОМЛЕНИЕ О ЗАКОНЕ"))
 			owner.laws.show_laws(owner)
 			if(isAI(owner))
 				var/mob/living/silicon/ai/AI = owner
 				for(var/mob/living/silicon/robot/R in AI.connected_robots)
-					to_chat(R, "<span class='danger'>Law Notice</span>")
+					to_chat(R, span_danger("УВЕДОМЛЕНИЕ О ЗАКОНЕ"))
 					R.laws.show_laws(R)
 			if(usr != owner)
-				to_chat(usr, "<span class='notice'>Laws displayed.</span>")
+				to_chat(usr, span_notice("Законы отображены."))
 
 /datum/ui_module/law_manager/ui_state(mob/user)
 	if(check_rights(R_ADMIN, FALSE))
@@ -171,12 +182,14 @@
 
 	data["ion_law_nr"] = ionnum()
 	data["ion_law"] = ion_law
+	data["devil_law"] = devil_law
 	data["zeroth_law"] = zeroth_law
 	data["inherent_law"] = inherent_law
 	data["supplied_law"] = supplied_law
 	data["supplied_law_position"] = supplied_law_position
 
 	package_laws(data, "zeroth_laws", list(owner.laws.zeroth_law))
+	package_laws(data, "devil_laws", owner.laws.devil_laws)
 	package_laws(data, "ion_laws", owner.laws.ion_laws)
 	package_laws(data, "inherent_laws", owner.laws.inherent_laws)
 	package_laws(data, "supplied_laws", owner.laws.supplied_laws)
@@ -208,6 +221,7 @@
 	for(var/datum/ai_laws/ALs in laws)
 		var/list/packaged_laws = list()
 		package_laws(packaged_laws, "zeroth_laws", list(ALs.zeroth_law, ALs.zeroth_law_borg))
+		package_laws(packaged_laws, "devil_laws", ALs.devil_laws)
 		package_laws(packaged_laws, "ion_laws", ALs.ion_laws)
 		package_laws(packaged_laws, "inherent_laws", ALs.inherent_laws)
 		package_laws(packaged_laws, "supplied_laws", ALs.supplied_laws)

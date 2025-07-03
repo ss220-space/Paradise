@@ -295,22 +295,15 @@
 					if((survivor.mind in head_revolutionaries) || (survivor.mind in revolutionaries))
 						num_revs++
 		if(num_survivors)
-			to_chat(world, "[TAB]Command's Approval Rating: <b>[100 - round((num_revs/num_survivors)*100, 0.1)]%</b>") // % of loyal crew
-		var/text = "<br><font size=3><b>The head revolutionaries were:</b></font>"
+			to_chat(world, "[TAB]Command's Approval Rating: [span_bold("[100 - round((num_revs/num_survivors)*100, 0.1)]%")]") // % of loyal crew
+		var/list/text = list(span_bold(span_fontsize3("<br>The head revolutionaries were:</font>")))
 		for(var/datum/mind/headrev in head_revolutionaries)
 			text += printplayer(headrev, 1)
 		text += "<br>"
-		to_chat(world, text)
 
-	if(revolutionaries.len || GAMEMODE_IS_REVOLUTION)
-		var/text = "<br><font size=3><b>The revolutionaries were:</b></font>"
-		for(var/datum/mind/rev in revolutionaries)
-			text += printplayer(rev, 1)
-		text += "<br>"
-		to_chat(world, text)
+		// we dont show the revolutionaries because there are a LOT of them
 
-	if( head_revolutionaries.len || revolutionaries.len || GAMEMODE_IS_REVOLUTION )
-		var/text = "<br><font size=3><b>The heads of staff were:</b></font>"
+		text = list(span_bold(span_fontsize3("<br>The heads of staff were:")))
 		var/list/heads = get_all_heads()
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
@@ -318,7 +311,7 @@
 				text += span_boldannounceooc("Target")
 			text += printplayer(head, 1)
 		text += "<br>"
-		to_chat(world, text)
+		return text.Join("")
 
 
 /datum/game_mode/revolution/set_scoreboard_vars()

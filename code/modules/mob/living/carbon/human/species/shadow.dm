@@ -43,7 +43,7 @@
 	disliked_food = NONE
 
 /datum/action/innate/shadow/darkvision //Darkvision toggle so shadowpeople can actually see where darkness is
-	name = "Toggle Darkvision"
+	name = "Переключить ночное зрение"
 	check_flags = AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_default"
 	button_icon_state = "blind"
@@ -52,10 +52,10 @@
 	var/mob/living/carbon/human/human = owner
 	if(!human.vision_type)
 		human.set_vision_override(/datum/vision_override/nightvision)
-		to_chat(human, "<span class='notice'>Вы изменяете свой взор, чтобы видеть сквозь тьму.</span>")
+		to_chat(human, span_notice("Вы изменяете свой взор, чтобы видеть сквозь тьму."))
 	else
 		human.set_vision_override(null)
-		to_chat(human, "<span class='notice'>Вы изменяете свой взор, чтобы вновь различать свет и тени.</span>")
+		to_chat(human, span_notice("Вы изменяете свой взор, чтобы вновь различать свет и тени."))
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/human/human)
 	. = ..()

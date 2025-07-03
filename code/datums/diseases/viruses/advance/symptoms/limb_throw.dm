@@ -8,7 +8,7 @@ Limb Rejection
 
 /datum/symptom/limb_throw
 
-	name = "Limb Rejection"
+	name = "Отстреливание конечностей"
 	id = "limb_throw"
 	stealth = -4
 	resistance = -5
@@ -30,16 +30,16 @@ Limb Rejection
 	return
 
 /obj/effect/proc_holder/spell/limb_throw
-	name = "Limb Rejection"
-	desc = "Throws the selected limb as a projectile"
+	name = "Отстреливание конечностей"
+	desc = "Метните выбранную конечность как снаряд."
 
 	base_cooldown = 0 SECONDS
 	clothes_req = FALSE
 	need_active_overlay = TRUE
 	invocation = ""
 
-	selection_activated_message		= span_notice("Your prepare to throw a limb!! <b>Left-click to cast at a target!</b>")
-	selection_deactivated_message	= span_notice("You decided not to throw a limb...for now.")
+	selection_activated_message		= span_notice("Вы готовитесь бросить конечность!! <b>ЛКМ, чтобы бросить в цель!</b>")
+	selection_deactivated_message	= span_notice("Вы решили не бросать конечность... пока что.")
 
 	action_icon_state = "limb_throw"
 	action_background_icon_state = "bg_changeling"
@@ -62,16 +62,16 @@ Limb Rejection
 
 	var/obj/item/organ/external/limb = H.bodyparts_by_name[H.zone_selected]
 	if(!istype(limb))
-		to_chat(H, span_alert("You don't have the selected body part!"))
+		to_chat(H, span_alert("У вас нет выбранной части тела!"))
 		return FALSE
 
 	if(limb.vital)
-		to_chat(H, span_alert("You still need [limb]!"))
+		to_chat(H, span_alert("Вам всё ещё нужна [limb.declent_ru(NOMINATIVE)]!"))
 		return FALSE
 
 	for(var/obj/item/organ/internal/organ as anything in limb.internal_organs)
 		if(organ.vital)
-			to_chat(H, span_alert("You still need [organ]!"))
+			to_chat(H, span_alert("Вам всё ещё нужен [organ.declent_ru(NOMINATIVE)]!"))
 			return FALSE
 
 	var/obj/projectile/limb/limb_projectile = new(user.loc, limb)

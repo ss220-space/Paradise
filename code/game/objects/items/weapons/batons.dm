@@ -41,6 +41,24 @@
 	COOLDOWN_DECLARE(stun_cooldown)
 
 
+/obj/item/melee/baton/New()
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND, PROC_REF(try_take_baton))
+
+
+/obj/item/melee/baton/Destroy()
+	UnregisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND)
+	. = ..()
+
+
+/obj/item/melee/baton/proc/try_take_baton(baton, mob/living/carbon/user)
+	SIGNAL_HANDLER
+	if(!user.mind?.martial_art?.no_baton || !user.mind?.martial_art?.can_use(user))
+		return
+
+	to_chat(user, user.mind.martial_art.no_baton_reason)
+	return COMPONENT_ITEM_CANT_PUT_IN_HAND
+
 /**
  * Ok, think of baton attacks like a melee attack chain:
  *
@@ -271,7 +289,7 @@
 	needs_permit = FALSE
 	active = FALSE
 	force = 0
-	attack_verb = list("hit", "poked")
+	attack_verb = "ткнул"
 	clumsy_knockdown_time = 15 SECONDS
 	/// The sound effecte played when our baton is extended.
 	var/extend_sound = 'sound/weapons/batonextend.ogg'
@@ -291,7 +309,7 @@
 		w_class_on = WEIGHT_CLASS_NORMAL, \
 		item_state_on = src.extend_item_state, \
 		clumsy_check_prob = 0, \
-		attack_verb_on = list("smacked", "struck", "cracked", "beaten"), \
+		attack_verb_on = list("ударил", "вмазал", "врезал"), \
 	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 

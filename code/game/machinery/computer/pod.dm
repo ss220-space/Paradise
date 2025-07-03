@@ -23,7 +23,6 @@
 
 /obj/machinery/computer/pod/proc/driver_sync()
 	initial_set = TRUE
-	id_tags = list()
 	door_only_tags = list()
 	synced = list()
 	timings = list()
@@ -32,7 +31,7 @@
 	powers = list()
 	loopings = list()
 	deathsquad_teles = list()
-	for(var/obj/machinery/mass_driver/driver in GLOB.machines)
+	for(var/obj/machinery/mass_driver/driver in SSmachines.get_by_type(/obj/machinery/mass_driver))
 		if(driver.z != src.z)
 			continue
 
@@ -61,7 +60,7 @@
 
 
 /obj/machinery/computer/pod/proc/solo_sync(ident_tag)
-	for(var/obj/machinery/mass_driver/driver in GLOB.machines)
+	for(var/obj/machinery/mass_driver/driver in SSmachines.get_by_type(/obj/machinery/mass_driver))
 		if(driver.z != src.z)
 			continue
 		if((driver.id_tag == ident_tag) && !(ident_tag in synced))
@@ -92,7 +91,7 @@
 		return
 
 	var/anydriver = FALSE
-	for(var/obj/machinery/mass_driver/M in GLOB.machines)
+	for(var/obj/machinery/mass_driver/M in SSmachines.get_by_type(/obj/machinery/mass_driver))
 		if(M.z != src.z)
 			continue
 		if(M.id_tag == ident_tag)
@@ -109,7 +108,7 @@
 			INVOKE_ASYNC(poddoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
 	sleep(2 SECONDS)
-	for(var/obj/machinery/mass_driver/driver in GLOB.machines)
+	for(var/obj/machinery/mass_driver/driver in SSmachines.get_by_type(/obj/machinery/mass_driver))
 		if(driver.z != src.z)
 			continue
 		if(driver.id_tag == ident_tag)
@@ -233,7 +232,7 @@
 			var/ident_tag = href_list["driver"]
 			var/t = text2num(href_list["power"])
 			t = min(max(0.25, t), 16)
-			for(var/obj/machinery/mass_driver/M in GLOB.machines)
+			for(var/obj/machinery/mass_driver/M in SSmachines.get_by_type(/obj/machinery/mass_driver))
 				if(M.id_tag == ident_tag)
 					M.power = t
 			powers[ident_tag] = t
@@ -311,7 +310,7 @@
 		return
 
 	var/anydriver = FALSE
-	for(var/obj/machinery/mass_driver/M in GLOB.machines)
+	for(var/obj/machinery/mass_driver/M in SSmachines.get_by_type(/obj/machinery/mass_driver))
 		if(M.z != src.z)
 			continue
 		if(M.id_tag == ident_tag)
@@ -341,7 +340,7 @@
 			INVOKE_ASYNC(poddoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
 	sleep(2 SECONDS)
-	for(var/obj/machinery/mass_driver/driver in GLOB.machines)
+	for(var/obj/machinery/mass_driver/driver in SSmachines.get_by_type(/obj/machinery/mass_driver))
 		if(driver.z != src.z)
 			continue
 		if(driver.id_tag == ident_tag)

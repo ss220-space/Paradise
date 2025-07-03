@@ -117,7 +117,7 @@
 
 // Backup files to CentComm to help admins recover data after griefer attacks
 /obj/machinery/r_n_d/server/proc/griefProtection()
-	for(var/obj/machinery/r_n_d/server/centcom/C in GLOB.machines)
+	for(var/obj/machinery/r_n_d/server/centcom/C in SSmachines.get_by_type(/obj/machinery/r_n_d/server/centcom))
 		files.push_data(C.files)
 
 /obj/machinery/r_n_d/server/proc/produce_heat(heat_amt)
@@ -228,7 +228,7 @@
 	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 		switch(S.server_id)
 			if(-1)
 				continue
@@ -287,13 +287,13 @@
 		temp_server = null
 		consoles = list()
 		servers = list()
-		for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+		for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 			if(S.server_id == text2num(href_list["access"]) || S.server_id == text2num(href_list["data"]) || S.server_id == text2num(href_list["logs"]) || S.server_id == text2num(href_list["transfer"]))
 				temp_server = S
 				break
 		if(href_list["access"])
 			screen = 1
-			for(var/obj/machinery/computer/rdconsole/C in GLOB.machines)
+			for(var/obj/machinery/computer/rdconsole/C in SSmachines.get_by_type(/obj/machinery/computer/rdconsole))
 				if(C.sync)
 					consoles += C
 		else if(href_list["data"])
@@ -305,7 +305,7 @@
 			screen = 3
 		else if(href_list["transfer"])
 			screen = 4
-			for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+			for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 				if(S == src)
 					continue
 				servers += S
@@ -363,7 +363,7 @@
 		if(0) //Main Menu
 			dat += "Connected Servers:<br><br>"
 
-			for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+			for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 				if(istype(S, /obj/machinery/r_n_d/server/centcom) && !badmin)
 					continue
 				if(S.syndicate != syndicate) // Флаг в действии

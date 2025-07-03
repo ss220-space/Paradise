@@ -1,0 +1,81 @@
+body{
+	margin: 0;
+}
+
+/* Общие стили для .contract-container */
+.contract-container {
+	font-family: 'Old English Text MT', serif;
+	background: url("contract_background.png") no-repeat center center;
+	background-size: cover;
+	color: #600A0A;
+	padding: 20px;
+	text-align: center;
+	width: 100%;
+	height: 43.75em;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+/* Remove condotion with 516 */
+@supports (display: flex) {
+	.contract-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+}
+
+/* Remove with 516 */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	.contract-container {
+		display: -ms-flexbox;
+		align-items: center;
+		justify-content: center;
+		-ms-flex-direction: column;
+	}
+}
+
+.close-button {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    text-decoration: none;
+    font-size: 24px;
+    color: black;
+    padding: 5px 10px;
+  }
+
+  .close-button:hover {
+    color: red;
+  }
+
+.contract-title {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.contract-text {
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+.contract-signature {
+	font-family: 'Old English Text MT', cursive;
+	font-size: 22px;
+	color: #960f0f;
+	font-style: italic;
+	text-decoration: underline;
+}
+
+.sign-button {
+	font-size: 18px;
+	color: #fff;
+	background: #600A0A;
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}

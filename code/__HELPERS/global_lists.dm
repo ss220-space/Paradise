@@ -47,6 +47,8 @@
 	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")
 	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "name")
 
+	init_datum_subtypes(/datum/devil_contract, GLOB.devil_contracts, list(/datum/devil_contract), "contract_type")
+
 	// Setup languages
 	for(var/language_name in GLOB.all_languages)
 		var/datum/language/language = GLOB.all_languages[language_name]
@@ -63,6 +65,9 @@
 		var/datum/species/S = new spath()
 		S.race_key = ++rkey //Used in mob icon caching.
 		GLOB.all_species[S.name] = S
+
+	for(var/spath in typesof(/obj/machinery/nuclearbomb))
+		GLOB.nuke_codes[spath] = rand(10000, 99999)
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 
