@@ -603,8 +603,7 @@
 	desc = "Повышает способность субъекта наращивать и удерживать тяжелую мускулатуру."
 	activation_messages = list("Вы чувствуете, что ваши мышцы в тонусе!")
 	deactivation_messages = list("Вы чувствуете себя хилым и слабым.")
-	instability = GENE_INSTABILITY_MAJOR
-	traits_to_add = list(TRAIT_GENE_STRONG)
+	instability = GENE_INSTABILITY_MINOR
 
 
 /datum/dna/gene/basic/strong/New()
@@ -612,64 +611,30 @@
 	block = GLOB.strongblock
 
 
-/datum/dna/gene/basic/strong/can_activate(mob/living/mutant, flags)
-	if(!ishuman(mutant) || HAS_TRAIT(mutant, TRAIT_GENE_WEAK))
+/datum/dna/gene/basic/strong/can_activate(mob/living/carbon/human/mutant, flags)
+	if(!ishuman(mutant))
 		return FALSE
-	return ..()
 
+	if(HAS_TRAIT_FROM(mutant.physiology, TRAIT_WEAK_MUSCULS, DNA_TRAIT))
+		return FALSE
+
+	var/datum/component/muscles/muscles = mutant.physiology.GetComponent(/datum/component/muscles)
+	if(!muscles)
+		return FALSE
+
+	if(!muscles.can_become_stronger)
+		return FALSE
+
+	return ..()
 
 /datum/dna/gene/basic/strong/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	RegisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED, PROC_REF(on_species_change))
-	add_strong_modifiers(mutant)
-
+	ADD_TRAIT(mutant.physiology, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
+	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
+	mutant.update_body(TRUE)
 
 /datum/dna/gene/basic/strong/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	UnregisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED)
-	remove_strong_modifiers(mutant)
-
-
-/datum/dna/gene/basic/strong/proc/on_species_change(mob/living/carbon/human/mutant, datum/species/old_species)
-	SIGNAL_HANDLER
-
-	if(old_species.name != mutant.dna.species.name)
-		remove_strong_modifiers(mutant, old_species)
-		add_strong_modifiers(mutant)
-
-
-/datum/dna/gene/basic/strong/proc/add_strong_modifiers(mob/living/carbon/human/mutant)
-	mutant.physiology.tail_strength_mod *= 1.25
-	switch(mutant.dna.species.name)
-		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
-			mutant.physiology.grab_resist_mod *= 1.1
-			mutant.physiology.punch_damage_low += 1
-			mutant.physiology.punch_damage_high += 2
-		if(SPECIES_HUMAN)
-			mutant.physiology.grab_resist_mod *= 1.25
-			mutant.physiology.punch_damage_low += 3
-			mutant.physiology.punch_damage_high += 4
-		else
-			mutant.physiology.grab_resist_mod *= 1.15
-			mutant.physiology.punch_damage_low += 2
-			mutant.physiology.punch_damage_high += 3
-
-
-/datum/dna/gene/basic/strong/proc/remove_strong_modifiers(mob/living/carbon/human/mutant, datum/species/species)
-	if(!species)
-		species = mutant.dna.species
-	mutant.physiology.tail_strength_mod /= 1.25
-	switch(species.name)
-		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
-			mutant.physiology.grab_resist_mod /= 1.1
-			mutant.physiology.punch_damage_low -= 1
-			mutant.physiology.punch_damage_high -= 2
-		if(SPECIES_HUMAN)
-			mutant.physiology.grab_resist_mod /= 1.25
-			mutant.physiology.punch_damage_low -= 3
-			mutant.physiology.punch_damage_high -= 4
-		else
-			mutant.physiology.grab_resist_mod /= 1.15
-			mutant.physiology.punch_damage_low -= 2
-			mutant.physiology.punch_damage_high -= 3
-
+	REMOVE_TRAIT(mutant.physiology, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
+	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
+	mutant.update_body(TRUE)

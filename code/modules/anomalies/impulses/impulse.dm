@@ -22,10 +22,10 @@
 	if(QDELETED(owner))
 		return FALSE
 
-	if(scale_by_strenght(period_high, period_low) <= 0)
+	if(scale_by_strength(period_high, period_low) <= 0)
 		return
 
-	addtimer(CALLBACK(src, PROC_REF(impulse_cycle)), scale_by_strenght(period_high, period_low))
+	addtimer(CALLBACK(src, PROC_REF(impulse_cycle)), scale_by_strength(period_high, period_low))
 	if(world.time < owner.move_impulse_moment && istype(src, /datum/anomaly_impulse/move))
 		return
 
@@ -36,5 +36,5 @@
 	if(do_shake)
 		animate_shake(src)
 
-/datum/anomaly_impulse/proc/scale_by_strenght(l_val, r_val)
-	return round(l_val + (r_val - l_val) * owner.get_strenght() / 100)
+/datum/anomaly_impulse/proc/scale_by_strength(l_val, r_val)
+	return round(l_val + (r_val - l_val) * owner.get_strength() / 100)
