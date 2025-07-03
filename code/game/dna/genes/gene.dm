@@ -13,6 +13,10 @@
 	/// Display name
 	var/name = "BASE GENE"
 
+	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
+	/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+	var/list/ru_names
+
 	/// Probably won't get used but why the fuck not
 	var/desc="Oh god who knows what this does."
 
@@ -36,6 +40,11 @@
 	// put your hands off the gene GC!
 	return QDEL_HINT_LETMELIVE
 
+/datum/dna/gene/proc/declent_ru(case_id, list/ru_names_override)
+	var/list/list_to_use = ru_names_override || ru_names
+	if(length(list_to_use))
+		return list_to_use[case_id] || name
+	return name
 
 /*
 * Is the gene active in this mob's DNA?
