@@ -14,7 +14,6 @@
 	var/num_results = 0
 	var/datum/library_query/query = new()
 
-
 /obj/machinery/computer/library/proc/interact_check(var/mob/user)
 	if(stat & (BROKEN | NOPOWER))
 		return 1

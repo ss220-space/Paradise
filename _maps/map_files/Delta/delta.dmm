@@ -54560,7 +54560,6 @@
 	},
 /area/toxins/xenobiology)
 "htF" = (
-/mob/living/simple_animal/pet/dog/bullterrier/Genn,
 /obj/structure/bed/dogbed/pet,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
@@ -54568,6 +54567,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/mob/living/simple_animal/pet/library_owl,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
