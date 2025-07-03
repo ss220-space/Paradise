@@ -14,6 +14,12 @@
 	var/num_results = 0
 	var/datum/library_query/query = new()
 
+/obj/machinery/computer/library/attack_animal(mob/living/simple_animal/M)
+	if(istype(M, /mob/living/simple_animal/pet/library_owl))
+		interact(M)
+	else
+		. = ..()
+
 /obj/machinery/computer/library/proc/interact_check(var/mob/user)
 	if(stat & (BROKEN | NOPOWER))
 		return 1

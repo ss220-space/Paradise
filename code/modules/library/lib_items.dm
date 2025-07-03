@@ -53,6 +53,8 @@
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/MouseDrop_T(atom/movable/thing, mob/user, params)
+	if(!istype(user, /mob/living/simple_animal/pet/library_owl))
+		return
 	if(is_type_in_typecache(thing, allowed_books))
 		if(!user.drop_transfer_item_to_loc(thing, src))
 			return ..()
