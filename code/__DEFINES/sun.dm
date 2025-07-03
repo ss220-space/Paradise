@@ -7,3 +7,5 @@
 
 #define GET_SUN_DY                      RUSTLIB_CALL(get_sun_dy)
 #define GET_SUN_DX                      RUSTLIB_CALL(get_sun_dx)
+
+#define FIRE_SUN_SUBSYSTEM              RUSTLIB_CALL(sun_subsystem_fire)

@@ -159,6 +159,7 @@
 #include "code\__DEFINES\strength.dm"
 #include "code\__DEFINES\strippable_defines.dm"
 #include "code\__DEFINES\subsystems.dm"
+#include "code\__DEFINES\sun.dm"
 #include "code\__DEFINES\surgery_defines.dm"
 #include "code\__DEFINES\terror_spiders.dm"
 #include "code\__DEFINES\text.dm"
