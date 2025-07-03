@@ -90,17 +90,13 @@ jobs:
       if: steps.user_files_check.outputs.dll_exists == 'true'
       id: user_dll_hash
       run: |
-        sha256sum rustlibs.dll > user_dll_hash.txt
-        cat user_dll_hash.txt
-        echo "USER_DLL_HASH=$(cut -d ' ' -f1 user_dll_hash.txt)" >> $GITHUB_ENV
+        echo "USER_DLL_HASH=$(sha256sum rustlibs.dll | cut -d ' ' -f1)" >> $GITHUB_ENV
 
     - name: Compute user-supplied SO hash
       if: steps.user_files_check.outputs.so_exists == 'true'
       id: user_so_hash
       run: |
-        sha256sum librustlibs.so > user_so_hash.txt
-        cat user_so_hash.txt
-        echo "USER_SO_HASH=$(cut -d ' ' -f1 user_so_hash.txt)" >> $GITHUB_ENV
+        echo "USER_SO_HASH=$(sha256sum librustlibs.so | cut -d ' ' -f1)" >> $GITHUB_ENV
 
     - name: Build Rust libraries
       env:
@@ -122,22 +118,18 @@ jobs:
 
         cd ..
 
-        cp rust/target/i686-unknown-linux-gnu/release/librustlibs.so ../librustlibs.so
-        cp rust/target/i686-pc-windows-gnu/release/rustlibs.dll ../rustlibs.dll
+        cp rust/target/i686-unknown-linux-gnu/release/librustlibs.so librustlibs.so
+        cp rust/target/i686-pc-windows-gnu/release/rustlibs.dll rustlibs.dll
 
     - name: Compute built DLL hash
       id: built_dll_hash
       run: |
-        sha256sum rustlibs.dll > built_dll_hash.txt
-        cat built_dll_hash.txt
-        echo "BUILD_DLL_HASH=$(cut -d ' ' -f1 built_dll_hash.txt)" >> $GITHUB_ENV
+        echo "BUILD_DLL_HASH=$(sha256sum rustlibs.dll | cut -d ' ' -f1)" >> $GITHUB_ENV
 
     - name: Compute built SO hash
       id: built_so_hash
       run: |
-        sha256sum librustlibs.so > built_so_hash.txt
-        cat built_so_hash.txt
-        echo "BUILD_SO_HASH=$(cut -d ' ' -f1 built_so_hash.txt)" >> $GITHUB_ENV
+        echo "BUILD_SO_HASH=$(sha256sum librustlibs.so | cut -d ' ' -f1)" >> $GITHUB_ENV
 
 
     - name: Commit and push changes
