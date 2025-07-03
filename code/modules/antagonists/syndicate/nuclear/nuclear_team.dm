@@ -29,7 +29,6 @@
 	if(!nuke_spawn)
 		return
 	new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
-	scale_telecrystals()
 
 
 /datum/team/nuclear_team/proc/scale_telecrystals()
