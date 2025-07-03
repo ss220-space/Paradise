@@ -644,6 +644,7 @@
 		PREPOSITIONAL = "кофемашине \"Импресса Моделло 5\""
 	)
 	icon_state = "coffeemaker_impressa"
+	pixel_x = 2 //needed to make it sit nicely on tables
 
 /obj/machinery/coffeemaker/impressa/Initialize(mapload)
 	. = ..()
