@@ -365,7 +365,10 @@
 /obj/item/barcodescanner
 	name = "barcode scanner"
 	icon = 'icons/obj/library.dmi'
-	icon_state ="scanner"
+	icon_state = "scanner"
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
+	item_state = "scanner"
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
