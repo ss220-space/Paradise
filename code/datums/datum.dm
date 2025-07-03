@@ -26,6 +26,7 @@
 	var/list/list/signal_procs
 
 	var/tmp/unique_datum_id = null
+	var/tmp/numeric_datum_id = null
 	/// Datum level flags
 	var/datum_flags = NONE
 
