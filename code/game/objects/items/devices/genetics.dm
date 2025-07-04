@@ -223,16 +223,16 @@
 	balloon_alert(user, "Данные загружены")
 
 /obj/item/dna_notepad/attack_obj(obj/object, mob/living/user, params)
-	var/obj/machinery/computer/scan_consolenew/dna_console = object
-	if(istype(dna_console))
-		var answer = tgui_alert(user, "Загрузить с консоли блоки выше 802 как неизвестные болезни?", "Загрузка данных с консоли", list("Загрузить", "Отмена"))
-		if(answer == "Загрузить")
-			if(!do_after(user, 2 SECONDS, user))
-				return ATTACK_CHAIN_PROCEED_SUCCESS
-			load_unknown_disabilities_from_console(dna_console, user)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
 	. = ..()
-	return
+	if(!istype(dna_console, var/obj/machinery/computer/scan_consolenew))
+		return
+	var/obj/machinery/computer/scan_consolenew/dna_console = object
+	var answer = tgui_alert(user, "Загрузить с консоли блоки выше 802 как неизвестные болезни?", "Загрузка данных с консоли", list("Загрузить", "Отмена"))
+	if(answer != "Загрузить")
+		return
+	if(!do_after(user, 2 SECONDS, user))
+		return
+	load_unknown_disabilities_from_console(dna_console, user)
 
 /obj/item/dna_notepad/proc/sync_data_from_other_notepad(obj/item/dna_notepad/dna_notepad, mob/living/user)
 	add_fingerprint(user)
@@ -250,13 +250,13 @@
 	balloon_alert(user, "Данные загружены")
 
 /obj/item/dna_notepad/attackby(obj/item/item, mob/living/user, params)
-	var/obj/item/dna_notepad/dna_notepad = item
-	if(istype(dna_notepad))
-		if(!do_after(user, 2 SECONDS, user))
-			return ATTACK_CHAIN_PROCEED_SUCCESS
-		dna_notepad.sync_data_from_other_notepad(src, user)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
 	. = ..()
+	if(!istype(dna_notepad, var/obj/item/dna_notepad))
+		return
+	if(!do_after(user, 2 SECONDS, user))
+		return
+	var/obj/item/dna_notepad/dna_notepad = item
+	dna_notepad.sync_data_from_other_notepad(src, user)
 
 /obj/item/dna_notepad/full
 
@@ -266,17 +266,17 @@
 
 /obj/item/dna_notepad/full/proc/fill_genes_data()
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
-		if (gene.block >= 1 && gene.block <= DNA_COUNT)
-			if (gene.name == "Ordinary Gene")
-				write_dna_data(gene.block, DNA_EMPTY_DATA, DNA_COLOR_UNKNOWN)
-			else
-				var/color = DNA_COLOR_UNKNOWN
-				if(istype(gene, /datum/dna/gene/disability))
-					color = DNA_COLOR_DISABILITY
-				if(istype(gene, /datum/dna/gene/basic))
-					color = DNA_COLOR_POWER
-				write_dna_data(gene.block, gene.name, color)
-
+		if (gene.block < 1 || gene.block > DNA_COUNT)
+			continue
+		if (gene.name == "Ordinary Gene")
+			write_dna_data(gene.block, DNA_EMPTY_DATA, DNA_COLOR_UNKNOWN)
+		else
+			var/color = DNA_COLOR_UNKNOWN
+			if(istype(gene, /datum/dna/gene/disability))
+				color = DNA_COLOR_DISABILITY
+			if(istype(gene, /datum/dna/gene/basic))
+				color = DNA_COLOR_POWER
+			write_dna_data(gene.block, gene.name, color)
 
 
 #undef DNA_COUNT
