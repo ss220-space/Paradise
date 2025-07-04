@@ -1,4 +1,5 @@
 #define EMAGGED_SLOT_MACHINE_PRIZE_MOD 5
+#define EMAGGED_SLOT_MACHINE_GIB_CHANCE 10
 
 /obj/machinery/slot_machine
 	name = "slot machine"
@@ -12,7 +13,7 @@
 	var/datum/money_account/account = null
 	var/result = null
 	var/resultlvl = null
-	var/list/prizes = list(10000, 1000, 500, 200, 50, 0)
+	var/list/prizes = list("jackpot"=10000, "big"=1000, "medium"=500, "small"=200, "minimal"=50, "none"=0)
 
 /obj/machinery/slot_machine/attack_hand(mob/user as mob)
 	add_fingerprint(user)
@@ -67,11 +68,10 @@
 		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr), 25)
 
-/obj/machinery/slot_machine/proc/get_prize_credits(index)
+/obj/machinery/slot_machine/proc/get_prize_coefficient()
 	if (emagged)
-		return prizes[index] * EMAGGED_SLOT_MACHINE_PRIZE_MOD
-	return prizes[index]
-
+		return EMAGGED_SLOT_MACHINE_PRIZE_MOD
+	return 1
 
 /obj/machinery/slot_machine/proc/give_custom_prize(mob/user, obj/item/prize)
 	var/item = new prize(get_turf(src)) // Create item on slot machine turf
@@ -80,23 +80,26 @@
 		carbon_user.put_in_any_hand_if_possible(item)
 
 /obj/machinery/slot_machine/proc/apply_emagged_lose_effect(mob/user)
-	var/mob/living/carbon/human/carbon_user = user
-	if (istype(carbon_user))
-		if (prob(10))
-			to_chat(carbon_user, "<span class='userdanger'>No... just one more try...</span>")
-			carbon_user.gib()
-		else
-			carbon_user.visible_message("<span class='warning'>[carbon_user] pulls [src]'s lever with a glint in [carbon_user.p_their()] eyes!</span>", "<span class='warning'>You feel a draining as you pull the lever, but you know it'll be worth it.</span>")
-			carbon_user.adjustCloneLoss(5)
+	if (ishuman(user))
+		var/mob/living/carbon/human/human = user
+		if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
+			to_chat(human, span_warningbig("Критическая неудача!<br>Неизвестная сила разрывает ваше тело изнутри."))
+			human.gib()
+			return
+		to_chat(human, span_warning("Неудача! Вы ощущаете слабость, потянув за рычаг, надеюсь оно того стоило."))
+		human.adjustCloneLoss(rand(5, 10))
 		return
-	var/mob/living/silicon/silicon_user = user
-	if (istype(silicon_user))
-		if (prob(10))
-			to_chat(silicon_user, "<span class='userdanger'>No... just one more try...</span>")
-			silicon_user.gib()
-		else
-			silicon_user.visible_message("<span class='warning'>You feel a draining as you pull the lever, but you know it'll be worth it.</span>")
-			silicon_user.adjustBruteLoss(10)
+	if (issilicon(user))
+		var/mob/living/silicon/silicon = user
+		if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
+			to_chat(silicon, span_warningbig("Критическая неудача!<br>Неизвестная сила заставляет вас отключиться."))
+			if(isAI(user))
+				silicon.death() // AI gib cause no body ghost error
+				return
+			silicon.gib()
+			return
+		to_chat(silicon, span_warning("Неудача! [silicon.name] получает видимые повреждения."))
+		silicon.adjustBruteLoss(rand(10, 15))
 
 /obj/machinery/slot_machine/proc/spin_slots(mob/user)
 	if(!istype(user))
@@ -104,16 +107,16 @@
 	var/userName = user.name
 	switch(rand(1,5000))
 		if(1)
-			var/credits = get_prize_credits(1)
+			var/credits = prizes["jackpot"] * get_prize_coefficient()
 			atom_say("ДЖЕКПОТ! Игрок [userName] выиграл [credits] кредитов!")
 			GLOB.event_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в [credits] кредитов!", "Обладатель джекпота!")
-			result = "JACKPOT! You win ten thousand credits!"
+			result = "JACKPOT! You win [credits] credits!"
 			resultlvl = "teal"
 			win_money(credits, 'sound/goonstation/misc/airraid_loop.ogg')
 			if (emagged)
 				give_custom_prize(user, /obj/item/uplink)
 		if(2 to 20)
-			var/credits = get_prize_credits(2)
+			var/credits = prizes["big"] * get_prize_coefficient()
 			atom_say("Большой победитель! Игрок [userName] выиграл [credits] кредитов!")
 			result = "You win [credits] credits!"
 			resultlvl = "green"
@@ -121,7 +124,7 @@
 			if (emagged)
 				give_custom_prize(user, /obj/item/stack/telecrystal/twenty_five)
 		if(21 to 100)
-			var/credits = get_prize_credits(3)
+			var/credits = prizes["medium"] * get_prize_coefficient()
 			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
 			result = "You win [credits] credits!"
 			resultlvl = "green"
@@ -129,13 +132,13 @@
 			if (emagged)
 				give_custom_prize(user, /obj/item/stack/telecrystal/five)
 		if(101 to 500)
-			var/credits = get_prize_credits(4)
+			var/credits = prizes["small"] * get_prize_coefficient()
 			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
 			result = "You win [credits] credits!"
 			resultlvl = "green"
 			win_money(credits)
 		if(501 to 1000)
-			var/credits = get_prize_credits(5)
+			var/credits = prizes["minimal"] * get_prize_coefficient()
 			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
 			result = "You win [credits] credits!"
 			resultlvl = "green"
@@ -163,3 +166,4 @@
 	default_unfasten_wrench(user, I)
 
 #undef EMAGGED_SLOT_MACHINE_PRIZE_MOD
+#undef EMAGGED_SLOT_MACHINE_GIB_CHANCE
