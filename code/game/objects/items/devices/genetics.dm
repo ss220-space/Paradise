@@ -1,0 +1,234 @@
+#define DNA_COUNT 54
+#define DNA_COLOR_UNKNOWN "gray"
+#define DNA_COLOR_DISABILITY "red"
+#define DNA_COLOR_POWER "green"
+#define DNA_NO_DATA "???"
+#define DNA_EMPTY_DATA "Пустой"
+#define DNA_UNKNOWN_DISABILITY_DATA "Неизвестная болезнь"
+
+
+/obj/item/dna_notepad
+	name = "Genetic notepad"
+	desc = "Планшет генетика, способный хранить данные блоков генов в удобном виде."
+	ru_names = list(
+		NOMINATIVE = "планшет генетика",
+		GENITIVE = "планшета генетика",
+		DATIVE = "планшету генетика",
+		ACCUSATIVE = "планшет генетика",
+		INSTRUMENTAL = "планшетом генетика",
+		PREPOSITIONAL = "планшете генетика"
+	)
+	gender = MALE
+	icon = 'icons/obj/device.dmi'
+	icon_state	= "gps"
+	slot_flags = ITEM_SLOT_BELT
+	throwforce = 3
+	w_class		= WEIGHT_CLASS_TINY
+	item_state	= "gps"
+	throw_speed	= 3
+	throw_range	= 7
+	materials = list(MAT_METAL=200)
+	origin_tech = "biotech=1;engineering=1"
+	var/dna_data = list()
+	var/isPrinting = FALSE
+
+/obj/item/dna_notepad/Initialize(mapload)
+	. = ..()
+	create_empty_data()
+
+/obj/item/dna_notepad/proc/write_dna_data(block, name, color)
+	var/list/current_dna_detail_data = null
+	for(var/list/dna_detail_data in dna_data)
+		if (dna_detail_data["num"] == "[block]")
+			current_dna_detail_data = dna_detail_data
+			break
+	if (!current_dna_detail_data)
+		current_dna_detail_data = list(
+			num = "[block]",
+			name = "[name]",
+			color = "[color]"
+		)
+		dna_data += list(current_dna_detail_data)
+	current_dna_detail_data["name"] = "[name]"
+	current_dna_detail_data["color"] = "[color]"
+
+/obj/item/dna_notepad/proc/create_empty_data()
+	for(var/i = 1; i <= DNA_COUNT; i++)
+		write_dna_data(i, DNA_NO_DATA, DNA_COLOR_UNKNOWN)
+
+/obj/item/dna_notepad/proc/print_report(var/mob/living/user)
+	if(isPrinting)
+		return
+	isPrinting = TRUE
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	sleep(3 SECONDS)
+	var/obj/item/paper/paper = new(drop_location())
+	paper.name = "Блоки генов"
+	paper.header += "<center><b>Блоки генов</b></center><br>"
+	paper.header += "<b>Время печати:</b> [station_time_timestamp()]<br><br>"
+	paper.header += "<hr>"
+	for(var/list/block in dna_data)
+		paper.header += "[block["num"]]: <font color='[block["color"]]'>[block["name"]]</font><br>"
+	paper.header += "<hr>"
+	if(in_range(user, src))
+		user.put_in_hands(paper, ignore_anim = FALSE)
+		user.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
+	isPrinting = FALSE
+
+/obj/item/dna_notepad/proc/all_dna_names()
+	var/list/arr = list()
+	arr += DNA_NO_DATA
+	arr += DNA_EMPTY_DATA
+	arr += DNA_UNKNOWN_DISABILITY_DATA
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
+		arr += "[gene.declent_ru(NOMINATIVE)]"
+	arr -= "Monkey"  // Remove other genomes
+	arr -= "Ordinary Gene"
+	arr -= "Ordinary Gene"
+	arr -= "Ordinary Gene"
+	return arr
+
+/obj/item/dna_notepad/proc/find_gene_by_name(name)
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
+		if (gene.declent_ru(NOMINATIVE) == name)
+			return gene
+	return null
+
+/obj/item/dna_notepad/attack_self(mob/user as mob)
+	add_fingerprint(user)
+	SStgui.update_uis(src)
+	ui_interact(user)
+
+/obj/item/dna_notepad/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || istype(user, /mob/dead/observer))
+		SStgui.update_uis(src)
+		ui_interact(user)
+		return
+	. += span_notice("Нужно подойти ближе, чтобы посмотреть содержмое.")
+	balloon_alert("Ты слишком далеко")
+
+/obj/item/dna_notepad/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "DnaNotepad")
+		ui.open()
+
+/obj/item/dna_notepad/ui_data(mob/user)
+	var/list/data = list()
+	data["dna_data"] = dna_data
+	// Transfer modal information if there is one
+	data["modal"] = ui_modal_data(src)
+	return data
+
+/obj/item/dna_notepad/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return FALSE
+	add_fingerprint(usr)
+	playsound(loc, "terminal_type", 25, TRUE)
+	if(ui_act_modal(action, params))
+		return TRUE
+	. = TRUE
+	switch(action)
+		if("clear")
+			to_chat(usr, "Экран [declent_ru(GENITIVE)] моргает и все данные пропадают.")
+			create_empty_data()
+		if("print")
+			print_report(usr)
+		if("edit_dna_block")
+			var/block_num = text2num(params["id"])
+			if(block_num < 1 || block_num > DNA_COUNT)
+				to_chat(usr, "[declent_ru(NOMINATIVE)] недовольно вибрирует.")
+				return
+			var/list/choices = all_dna_names()
+			ui_modal_choice(src, "edit_dna_block_name", "Выберите эффект блока [block_num]:", null, list("id" = block_num), null, choices)
+
+/obj/item/dna_notepad/proc/ui_act_modal(action, params)
+	. = TRUE
+	var/id = params["id"] // The modal's ID
+	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_ANSWER)
+			var/answer = params["answer"]
+			switch(id)
+				if("edit_dna_block_name")
+					var/block_num = text2num(arguments["id"])
+					if(block_num < 1 || block_num > DNA_COUNT)
+						to_chat(usr, "[declent_ru(NOMINATIVE)] недовольно вибрирует.")
+						return
+					var/gene = find_gene_by_name(answer)
+					if (!gene)
+						if (answer == DNA_UNKNOWN_DISABILITY_DATA)
+							write_dna_data(block_num, answer, DNA_COLOR_DISABILITY)
+						else
+							write_dna_data(block_num, answer, DNA_COLOR_UNKNOWN)
+						return
+					var/color = DNA_COLOR_UNKNOWN
+					if(istype(gene, /datum/dna/gene/disability))
+						color = DNA_COLOR_DISABILITY
+					if(istype(gene, /datum/dna/gene/basic))
+						color = DNA_COLOR_POWER
+					write_dna_data(block_num, answer, color)
+				else
+					return FALSE
+		else
+			return FALSE
+
+/obj/item/dna_notepad/proc/print_report_verb()
+	set name = "Печать отчёта"
+	set category = STATPANEL_OBJECT
+	set src = usr
+	var/mob/user = usr
+	if(!istype(user))
+		return
+	if(user.incapacitated())
+		return
+	print_report(user)
+
+/obj/item/dna_notepad/attack_obj(obj/object, mob/living/user, params)
+	var/obj/machinery/computer/scan_consolenew/dna_console = object
+	if (!istype(dna_console))
+		. = ..()
+		return
+	var answer = tgui_alert(user, "Загрузить с консоли блоки выше 802 как неизвестные болезни?", "Загрузка данных с консоли", list("Загрузить", "Отмена"))
+	if (answer == "Загрузить")
+		if(!do_after(user, 2 SECONDS, user))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		load_unknown_disabilities_from_console(dna_console, user)
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
+/obj/item/dna_notepad/proc/load_unknown_disabilities_from_console(obj/machinery/computer/scan_consolenew/dna_console, mob/living/user)
+	add_fingerprint(user)
+	var/obj/machinery/dna_scannernew/connected = dna_console.connected
+	if (!connected)
+		to_chat(user, span_warning("[dna_console.declent_ru(NOMINATIVE)] не подключен."))
+		balloon_alert(user, "Ошибка загрузки")
+		return
+	if(!connected.occupant)
+		to_chat(user, span_warning("[connected.declent_ru(NOMINATIVE)] пуст."))
+		balloon_alert(user, "Ошибка загрузки")
+	if(!connected.occupant.dna)
+		to_chat(user, span_warning("Внутри [connected.declent_ru(GENITIVE)] некорректные гены."))
+		balloon_alert(user, "Ошибка загрузки")
+		return
+	for(var/i = 1; i <= DNA_COUNT; i++)
+		var/block_value = connected.occupant.dna.SE[i]
+		if (block_value >= 2050) // HEX=802 DEC=2050
+			write_dna_data(i, DNA_UNKNOWN_DISABILITY_DATA, DNA_COLOR_DISABILITY)
+	playsound(loc, "terminal_type", 25, TRUE)
+	to_chat(user, "Данные из [dna_console.declent_ru(GENITIVE)] успешно загружены в [declent_ru(NOMINATIVE)].")
+	balloon_alert(user, "Данные загружены")
+
+
+/obj/item/dna_notepad/syndicate
+	materials = list(MAT_METAL=400)
+	origin_tech = "biotech=2;syndicate=2"
+
+
+#undef DNA_COUNT
+#undef DNA_COLOR_UNKNOWN
+#undef DNA_COLOR_DISABILITY
+#undef DNA_COLOR_POWER
+#undef DNA_NO_DATA
+#undef DNA_EMPTY_DATA
+#undef DNA_UNKNOWN_DISABILITY_DATA
