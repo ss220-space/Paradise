@@ -366,7 +366,7 @@
 /obj/item/clothing/head/shapka_pepega
 	name = "frog hat"
 	desc = "Милая шапочка в виде головы лягушки, окутывающая голову. Мило, мягко и приятно!"
-	tier_ru_names = list(
+	ru_names = list(
 		NOMINATIVE = "Лягушачья шапка",
 		GENITIVE = "Лягушачей шапки",
 		DATIVE = "Лягушачей шапке",
