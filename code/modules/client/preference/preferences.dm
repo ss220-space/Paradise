@@ -2535,7 +2535,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					load_character(user)
 
 				if("clear")
-					if(!saved || real_name != input("Это действие полностью очистит текущий слот. Для подтверждения введите полное имя."))
+					if(!saved || real_name != tgui_input_text(usr, "Это действие полностью очистит текущий слот. Для подтверждения введите полное имя."))
 						return FALSE
 					clear_character_slot(user)
 

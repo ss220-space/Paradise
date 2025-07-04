@@ -138,7 +138,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		to_chat(usr, span_warning("There's no-one to spend your karma on."))
 		return
 
-	var/pickedmob = input("Who would you like to award Karma to?", "Award Karma", "Cancel") as null|mob in karma_list
+	var/pickedmob = tgui_input_list(usr, "Who would you like to award Karma to?", "Award Karma", karma_list, "Cancel")
 
 	if(isnull(pickedmob))
 		return

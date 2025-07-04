@@ -827,3 +827,6 @@
 
 /mob/living/simple_animal/proc/end_dchat_plays()
 	stop_automated_movement = FALSE
+
+/mob/living/simple_animal/can_use_machinery(obj/machinery/mach)
+	return

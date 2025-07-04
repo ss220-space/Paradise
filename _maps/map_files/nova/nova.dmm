@@ -154544,7 +154544,7 @@
 	pixel_y = 25
 	},
 /obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/pet/dog/bullterrier/Genn,
+/mob/living/simple_animal/pet/library_owl,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

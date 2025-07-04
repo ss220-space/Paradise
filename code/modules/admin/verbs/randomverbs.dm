@@ -530,7 +530,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			to_chat(usr, "<span style='color: red;'>Error: create_xeno(): no suitable candidates.</span>", confidential=TRUE)
 	if(!istext(ckey))	return 0
 
-	var/alien_caste = input(usr, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Hunter","Sentinel","Drone","Larva")
+	var/alien_caste = tgui_input_list(usr, "Please choose which caste to spawn.", "Pick a caste", list("Queen", "Hunter", "Sentinel", "Drone", "Larva"), null)
 	var/obj/effect/landmark/spawn_here = GLOB.xeno_spawn.len ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
 	var/mob/living/carbon/alien/new_xeno
 	switch(alien_caste)

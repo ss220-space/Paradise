@@ -15,6 +15,14 @@
 /obj/machinery/mineral/processing_unit_console
 	name = "production machine console"
 	icon = 'icons/obj/machines/mining_machines.dmi'
+	ru_names = list(
+		NOMINATIVE = "консоль производственного аппарата",
+		GENITIVE = "консоли производственного аппарата",
+		DATIVE = "консоли производственного аппарата",
+		ACCUSATIVE = "консоль производственного аппарата",
+		INSTRUMENTAL = "консолью производственного аппарата",
+		PREPOSITIONAL = "консоли производственного аппарата"
+	)
 	icon_state = "console"
 	density = TRUE
 	anchored = TRUE
@@ -45,7 +53,7 @@
 
 	var/dat = machine.get_machine_data()
 
-	var/datum/browser/popup = new(user, "processing", "Smelting Console", 300, 500)
+	var/datum/browser/popup = new(user, "processing", "Плавильная консоль", 300, 500)
 	popup.set_content(dat)
 	popup.open()
 
@@ -78,6 +86,14 @@
 
 /obj/machinery/mineral/processing_unit
 	name = "furnace"
+	ru_names = list(
+		NOMINATIVE = "плавильная печь",
+		GENITIVE = "плавильной печи",
+		DATIVE = "плавильной печи",
+		ACCUSATIVE = "плавильную печь",
+		INSTRUMENTAL = "плавильной печью",
+		PREPOSITIONAL = "плавильной печи"
+	)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "furnace"
 	density = TRUE
@@ -130,36 +146,36 @@
 			CONSOLE.updateUsrDialog()
 
 /obj/machinery/mineral/processing_unit/proc/get_machine_data()
-	var/dat = "<b>Smelter control console</b><br><br>"
+	var/dat = "<b>Консоль управления плавильней</b><br><br>"
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
-		dat += "<span class=\"res_name\">[M.name]: </span>[M.amount] cm&sup3;"
+		dat += "<span class=\"res_name\">[M.name]: </span>[M.amount] см&sup3;"
 		if(selected_material == mat_id)
-			dat += " <i>Smelting</i>"
+			dat += " <i>Плавка</i>"
 		else
-			dat += " <a href='byond://?src=[CONSOLE.UID()];material=[mat_id]'><b>Not Smelting</b></a> "
+			dat += " <a href='byond://?src=[CONSOLE.UID()];material=[mat_id]'><b>Не плавить</b></a> "
 		dat += "<br>"
 
 	dat += "<br><br>"
-	dat += "<b>Smelt Alloys</b><br>"
+	dat += "<b>Плавить сплавы</b><br>"
 
 	for(var/v in files.known_designs)
 		var/datum/design/D = files.known_designs[v]
-		dat += "<span class=\"res_name\">[D.name] "
+		dat += "<span class=\"res_name\">[D]"
 		if(selected_alloy == D.id)
-			dat += " <i>Smelting</i>"
+			dat += " <i>Плавка</i>"
 		else
-			dat += " <a href='byond://?src=[CONSOLE.UID()];alloy=[D.id]'><b>Not Smelting</b></a> "
+			dat += " <a href='byond://?src=[CONSOLE.UID()];alloy=[D.id]'><b>Не плавить</b></a> "
 		dat += "<br>"
 
 	dat += "<br><br>"
 	//On or off
-	dat += "Machine is currently "
+	dat += "Текущий статус: "
 	if(on)
-		dat += "<a href='byond://?src=[CONSOLE.UID()];set_on=off'>On</a> "
+		dat += "<a href='byond://?src=[CONSOLE.UID()];set_on=off'>Вкл</a> "
 	else
-		dat += "<a href='byond://?src=[CONSOLE.UID()];set_on=on'>Off</a> "
+		dat += "<a href='byond://?src=[CONSOLE.UID()];set_on=on'>Выкл</a> "
 
 	return dat
 
