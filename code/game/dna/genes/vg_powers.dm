@@ -1,8 +1,7 @@
 ///////////////////Vanilla Morph////////////////////////////////////
 
 /datum/dna/gene/basic/grant_spell/morph
-	name = "Morphism"
-	ru_names = list(NOMINATIVE = "Морфизм")
+	name = "Морфизм"
 	desc = "Позволяет субъекту изменить свою внешность на внешность любого человека."
 	spelltype = /obj/effect/proc_holder/spell/morph
 	activation_messages = list("Вы чувствуете, что можете изменить свой внешний вид.")
@@ -185,8 +184,7 @@
 
 
 /datum/dna/gene/basic/grant_spell/remotetalk
-	name = "Telepathy"
-	ru_names = list(NOMINATIVE = "Телепатия")
+	name = "Телепатия"
 	activation_messages = list("Вы чувствуете, что можете проецировать свои мысли.")
 	deactivation_messages = list("Вы больше не чувствуете, что можете проецировать свои мысли.")
 	instability = GENE_INSTABILITY_MINOR
@@ -347,8 +345,7 @@
 
 
 /datum/dna/gene/basic/grant_spell/remoteview
-	name = "Remote Viewing"
-	ru_names = list(NOMINATIVE = "Удаленное наблюдение")
+	name = "Удаленное наблюдение"
 	activation_messages = list("Ваш разум может видеть на расстоянии.")
 	deactivation_messages = list("Ваш разум больше не может видеть издалека.")
 	instability = GENE_INSTABILITY_MINOR

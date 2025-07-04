@@ -3,8 +3,7 @@
 ///////////////////////////////////
 
 /datum/dna/gene/basic/nobreath
-	name = "No Breathing"
-	ru_names = list(NOMINATIVE = "Нет дыхания")
+	name = "Нет дыхания"
 	activation_messages = list("Вы не чувствуете необходимости дышать.")
 	deactivation_messages = list("Вы чувствуете необходимость дышать, снова.")
 	instability = GENE_INSTABILITY_MODERATE
@@ -18,8 +17,7 @@
 
 
 /datum/dna/gene/basic/regenerate
-	name = "Regenerate"
-	ru_names = list(NOMINATIVE = "Регенерация")
+	name = "Регенерация"
 	activation_messages = list("Ваши раны начинают заживать.")
 	deactivation_messages = list("Ваши регенеративные способности как будто испарились.")
 	instability = GENE_INSTABILITY_MODERATE
@@ -35,8 +33,7 @@
 
 
 /datum/dna/gene/basic/increaserun
-	name = "Super Speed"
-	ru_names = list(NOMINATIVE = "Повышение скорости")
+	name = "Повышение скорости"
 	activation_messages = list("Вы чувствуете себя быстрым и свободным.")
 	deactivation_messages = list("Вы чувствуете себя медленным.")
 	instability = GENE_INSTABILITY_MAJOR
@@ -68,8 +65,7 @@
 
 
 /datum/dna/gene/basic/heat_resist
-	name = "Heat Resistance"
-	ru_names = list(NOMINATIVE = "Термостойкость")
+	name = "Термостойкость"
 	activation_messages = list("От вашей кожи веет холодом.")
 	deactivation_messages = list("Ваша кожа возвращается к привычной температуре.")
 	instability = GENE_INSTABILITY_MODERATE
@@ -86,8 +82,7 @@
 
 
 /datum/dna/gene/basic/cold_resist
-	name = "Cold Resistance"
-	ru_names = list(NOMINATIVE = "Хладостойкость")
+	name = "Хладостойкость"
 	activation_messages = list("От вашей кожи веет жаром.")
 	deactivation_messages = list("Ваша кожа возвращается к привычной температуре.")
 	instability = GENE_INSTABILITY_MODERATE
@@ -104,8 +99,7 @@
 
 
 /datum/dna/gene/basic/noprints
-	name = "No Prints"
-	ru_names = list(NOMINATIVE = "Нет отпечатков")
+	name = "Нет отпечатков"
 	activation_messages = list("Ваши пальцы словно онемели.")
 	deactivation_messages = list("Ваши пальцы больше не чувствуют онемения.")
 	instability = GENE_INSTABILITY_MINOR
@@ -118,8 +112,7 @@
 
 
 /datum/dna/gene/basic/noshock
-	name = "Shock Immunity"
-	ru_names = list(NOMINATIVE = "Шоковый иммунитет")
+	name = "Шоковый иммунитет"
 	activation_messages = list("Ваша кожа кажется сухой и нечувствительной.")
 	deactivation_messages = list("Ваша кожа больше не кажется сухой и нечувствительной.")
 	instability = GENE_INSTABILITY_MODERATE
@@ -132,8 +125,7 @@
 
 
 /datum/dna/gene/basic/midget
-	name = "Midget"
-	ru_names = list(NOMINATIVE = "Карлик")
+	name = "Карлик"
 	activation_messages = list("Теперь все вокруг кажется больше...")
 	deactivation_messages = list("Кажется, что все вокруг уменьшается...")
 	instability = GENE_INSTABILITY_MINOR
@@ -159,8 +151,7 @@
 
 // OLD HULK BEHAVIOR
 /datum/dna/gene/basic/hulk
-	name = "Hulk"
-	ru_names = list(NOMINATIVE = "Халк")
+	name = "Халк"
 	activation_messages = list("Ваши мышцы увеличиваются.")
 	deactivation_messages = list("Ваши мышцы уменьшаются.")
 	instability = GENE_INSTABILITY_MAJOR
@@ -190,8 +181,7 @@
 
 
 /datum/dna/gene/basic/xray
-	name = "X-Ray Vision"
-	ru_names = list(NOMINATIVE = "Рентгеновское зрение")
+	name = "Рентгеновское зрение"
 	activation_messages = list("Стены внезапно исчезают.")
 	deactivation_messages = list("Стены вокруг вас появляются вновь.")
 	instability = GENE_INSTABILITY_MAJOR
@@ -217,8 +207,7 @@
 
 
 /datum/dna/gene/basic/tk
-	name = "Telekenesis"
-	ru_names = list(NOMINATIVE = "Телекинез")
+	name = "Телекинез"
 	activation_messages = list("Вы чувствуете себя умнее.")
 	deactivation_messages = list("Вы чувствуете себя глупее.")
 	instability = GENE_INSTABILITY_MAJOR
@@ -236,8 +225,7 @@
 
 
 /datum/dna/gene/basic/farvision
-	name = "Far vision"
-	ru_names = list(NOMINATIVE = "Дальний взор")
+	name = "Дальний взор"
 	activation_messages = list("Теперь вы можете видеть дальше, чем раньше.")
 	deactivation_messages = list("Дальность вашего взора вернулась к нормальному состоянию.")
 	instability = GENE_INSTABILITY_MODERATE
