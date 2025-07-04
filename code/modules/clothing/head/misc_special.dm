@@ -366,6 +366,14 @@
 /obj/item/clothing/head/shapka_pepega
 	name = "frog hat"
 	desc = "Милая шапочка в виде головы лягушки, окутывающая голову. Мило, мягко и приятно!"
+	tier_ru_names = list(
+		NOMINATIVE = "Лягушачья шапка",
+		GENITIVE = "Лягушачей шапки",
+		DATIVE = "Лягушачей шапке",
+		ACCUSATIVE = "Лягушачью шапку",
+		INSTRUMENTAL = "Лягушачьей шапкой",
+		PREPOSITIONAL = "Лягушачей шапке"
+	)
 	icon_state = "shapka_pepega"
 	item_state = "shapka_pepega"
 	sprite_sheets = list(
