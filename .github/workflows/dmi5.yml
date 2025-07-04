@@ -1,6 +1,10 @@
 name: Check for DMI5
 
-on: pull_request_target
+on:
+  pull_request_target:
+  workflow_run:
+    workflows: ["Build and verify Rust library"]
+    types: [completed]
 
 jobs:
   check-dmi5:

@@ -419,11 +419,11 @@
 			timer_start()
 		if("add_timer")
 			if(timing)
-				var/add_reason = sanitize(copytext(input(usr, "Reason:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
+				var/add_reason = tgui_input_text(usr, "Reason:", name, "", max_length = MAX_MESSAGE_LEN)
 				if(!add_reason)
 					to_chat(usr, span_warning("Must specify the reason!"))
 					return FALSE
-				prisoner_time_add = input(usr, "Minutes to add:", name, prisoner_time_add) as num|null
+				prisoner_time_add = tgui_input_number(usr, "Minutes to add:", name, prisoner_time_add)
 				prisoner_time_add = min(max(round(prisoner_time_add), 0), PERMABRIG_TIME)
 				if(!prisoner_time_add)
 					to_chat(usr, span_warning("Must specify the number!"))

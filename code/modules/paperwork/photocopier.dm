@@ -516,7 +516,8 @@
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/text = clean_input("Напшите то, что хотите:", "писать")
+	var/text = tgui_input_text("Напшите то, что хотите:", "писать")
+
 	if(!text)
 		return
 	if(toner < 1 || !user)

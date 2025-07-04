@@ -93,7 +93,7 @@ export const SettingsStatPanel = (props: unknown) => {
                       <Input
                         width={'100%'}
                         value={statFontFamily}
-                        onChange={(e, value) =>
+                        onChange={(value) =>
                           dispatch(
                             updateSettings({
                               statFontFamily: value,

@@ -87,7 +87,7 @@
 	if(nadeassembly)
 		nadeassembly.attack_self(user)
 		return
-	var/newtime = input(usr, "Please set the timer (in seconds).", "Timer", det_time/10) as null|num
+	var/newtime = tgui_input_number(usr, "Please set the timer (in seconds).", "Timer", det_time/10)
 	if(isnull(newtime) || !user.is_in_active_hand(src))
 		return
 	newtime = newtime SECONDS

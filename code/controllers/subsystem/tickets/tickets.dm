@@ -256,7 +256,7 @@ SUBSYSTEM_DEF(tickets)
 	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list so we can send this as the input instead of the full paragraphs to the admin choosing which autoresponse
 		sorted_responses += key
 
-	var/message_key = input("Выберите авто-ответ. Это заменит тикет на решённый.", "Autoresponse") as null|anything in sortTim(sorted_responses, cmp = /proc/cmp_text_asc) //use sortTim and cmp_text_asc to sort alphabetically
+	var/message_key = tgui_input_list(usr, "Выберите авто-ответ. Это заменит тикет на решённый.", "Autoresponse", sortTim(sorted_responses, cmp = /proc/cmp_text_asc))//use sortTim and cmp_text_asc to sort alphabetically
 	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
 	if(!ticket_owner)
 		to_chat(C, "<span class='notice'>Can't respond to the ticket of a disconnected user.")

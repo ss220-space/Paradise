@@ -120,15 +120,15 @@
 	if(href_list["choice"])
 		switch(href_list["choice"])
 			if("giv_name")
-				var/nam = strip_html_simple(input("Person pass is issued to", "Name", giv_name) as text|null)
+				var/nam = strip_html_simple(tgui_input_text(usr, "Person pass is issued to", "Name", giv_name))
 				if(nam)
 					giv_name = nam
 			if("reason")
-				var/reas = strip_html_simple(input("Reason why pass is issued", "Reason", reason) as text|null)
+				var/reas = strip_html_simple(tgui_input_text(usr, "Reason why pass is issued", "Reason", reason))
 				if(reas)
 					reason = reas
 			if("duration")
-				var/dur = input("Duration (in minutes) during which pass is valid (up to 30 minutes).", "Duration") as num|null
+				var/dur = tgui_input_number(usr, "Duration (in minutes) during which pass is valid (up to 30 minutes).", "Duration")
 				if(dur)
 					if(dur > 0 && dur <= 30)
 						duration = dur

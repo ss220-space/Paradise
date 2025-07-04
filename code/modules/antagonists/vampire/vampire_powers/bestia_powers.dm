@@ -364,7 +364,7 @@
 		all_organs -= organ
 		all_organs[organ.slot] = organ
 
-	var/obj/item/organ/internal/organ_to_dissect = input("Выберите орган для извлечения:", "Извлечения органа", null, null) as null|anything in all_organs
+	var/obj/item/organ/internal/organ_to_dissect = tgui_input_list(usr, "Выберите орган для извлечения:", "Извлечения органа", all_organs, null)
 	if(!organ_to_dissect || !special_check(user, TRUE))
 		return
 
