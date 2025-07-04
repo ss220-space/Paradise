@@ -33,7 +33,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	/// Typecache of the things allowed in the bookcase. Populated in [/proc/generate_allowed_books()] on Initialize.
 	var/list/allowed_books
-	var/desc_text
 
 
 /obj/structure/bookcase/Initialize(mapload)
@@ -43,10 +42,10 @@
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 
 /obj/structure/bookcase/examine(mob/user)
-	if(icon_state = "book-0")
-		desc += "Его полки давно не протирали..."
+	if(icon_state != "book-0")
+		desc = "Большой книжный шкаф. На его полках стоят книги."
 	else
-		desc += "На его полках стоят книги."
+		desc = "Большой книжный шкаф. Его полки давно не протирали..."
 
 	. = ..()
 
@@ -77,7 +76,7 @@
 		return
 	if(!user.drop_transfer_item_to_loc(thing, src))
 		return ..()
-	to_chat(user, span_notice("Вы положили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	to_chat(user, span_notice("Вы положили [thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -168,6 +167,7 @@
 /obj/structure/bookcase/manuals
 	var/manual_name = ""
 	var/manual_name_ru = ""
+	var/desc_text
 
 /obj/structure/bookcase/manuals/Initialize(mapload)
 	. = ..()
@@ -179,7 +179,6 @@
 		ru_names[ACCUSATIVE] += manual_name_ru
 		ru_names[INSTRUMENTAL] += manual_name_ru
 		ru_names[PREPOSITIONAL] += manual_name_ru
-
 
 /obj/structure/bookcase/manuals/medical
 	manual_name = "Medical Manuals "
@@ -239,6 +238,9 @@
 	)
 	gender = FEMALE
 	icon = 'icons/obj/library.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
+	item_state = "book"
 	icon_state ="book"
 	throw_speed = 1
 	throw_range = 5

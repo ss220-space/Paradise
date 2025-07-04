@@ -276,6 +276,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 		PREPOSITIONAL = "печатном издании #[rand(100, 999)]"
 	)
 	new_book.icon_state = "book[rand(1,16)]"
+	new_book = new_book.icon_state
 	atom_say("Новая книга была напечатана.")
 	qdel(paper)
 

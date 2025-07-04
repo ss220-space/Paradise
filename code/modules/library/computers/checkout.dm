@@ -478,5 +478,6 @@
 		B.author = newbook.author
 		B.dat = newbook.content
 		B.icon_state = "book[rand(1,16)]"
+		B.item_state = B.icon_state
 		B.has_drm = TRUE
 	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
