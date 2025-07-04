@@ -66,6 +66,9 @@
 		S.race_key = ++rkey //Used in mob icon caching.
 		GLOB.all_species[S.name] = S
 
+	for(var/spath in typesof(/obj/machinery/nuclearbomb))
+		GLOB.nuke_codes[spath] = rand(10000, 99999)
+
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 
 	//Pipe list building

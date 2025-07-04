@@ -29,7 +29,7 @@ Holotool. All instruments in one object
 	. += span_notice("It is currently set to [current_tool ? current_tool.name : "'off'"] mode.")
 
 /obj/item/holotool/ui_action_click(mob/user, datum/action/action)
-	var/C = input(user, "Select Color", "Select color", "#48D1CC") as null|color
+	var/C = tgui_input_color(user, "Select Color", "Select color", "#48D1CC")
 	if(!C || QDELETED(src))
 		return
 	item_state_color = C

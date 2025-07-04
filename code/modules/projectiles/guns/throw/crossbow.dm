@@ -155,7 +155,7 @@
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
-	var/choice = input("Select tension to draw to:", "[src]", XBOW_TENSION_FULL) as null|anything in possible_tensions
+	var/choice = tgui_input_list(usr, "Select tension to draw to:", "[src]", possible_tensions, XBOW_TENSION_FULL)
 	if(!choice || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 

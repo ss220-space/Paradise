@@ -291,8 +291,9 @@
 	if(!cores.len)
 		to_chat(src, "No deactivated AI cores were found.")
 
-	var/id = input("Which core?", "Toggle AI Core Latejoin", null) as null|anything in cores
-	if(!id) return
+	var/id = tgui_input_list(usr, "Which core?", "Toggle AI Core Latejoin", cores, null)
+	if(!id)
+		return
 
 	var/obj/structure/AIcore/deactivated/D = cores[id]
 	if(!D) return

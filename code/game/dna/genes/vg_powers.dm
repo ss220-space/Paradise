@@ -47,7 +47,7 @@
 			M.change_gender(FEMALE)
 
 	if(eyes_organ)
-		var/new_eyes = input("Пожалуйста, выберите цвет глаз.", "Создание персонажа", eyes_organ.eye_colour) as null|color
+		var/new_eyes = tgui_input_color(usr, "Пожалуйста, выберите цвет глаз.", "Создание персонажа", eyes_organ.eye_colour)
 		if(new_eyes)
 			M.change_eye_color(new_eyes)
 
@@ -55,53 +55,53 @@
 		//Alt heads.
 		if(head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
 			var/list/valid_alt_heads = M.generate_valid_alt_heads()
-			var/new_alt_head = input("Пожалуйста, выберите другую форму головы.", "Создание персонажа", head_organ.alt_head) as null|anything in valid_alt_heads
+			var/new_alt_head = tgui_input_list(usr, "Пожалуйста, выберите другую форму головы.", "Создание персонажа", valid_alt_heads, head_organ.alt_head)
 			if(new_alt_head)
 				M.change_alt_head(new_alt_head)
 
 		// hair
 		var/list/valid_hairstyles = M.generate_valid_hairstyles()
-		var/new_style = input("Пожалуйста, выберите стиль прически.", "Создание персонажа", head_organ.h_style) as null|anything in valid_hairstyles
+		var/new_style = tgui_input_list(usr, "Пожалуйста, выберите стиль прически.", "Создание персонажа", valid_hairstyles, head_organ.h_style)
 
 		// if new style selected (not cancel)
 		if(new_style)
 			M.change_hair(new_style)
 
-		var/new_hair = input("Пожалуйста, выберите цвет волос.", "Создание персонажа", head_organ.hair_colour) as null|color
+		var/new_hair = tgui_input_color(usr, "Пожалуйста, выберите цвет волос.", "Создание персонажа", head_organ.hair_colour)
 		if(new_hair)
 			M.change_hair_color(new_hair)
 
 		var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[head_organ.h_style]
 		if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-			new_hair = input("Пожалуйста, выберите дополнительный цвет волос.", "Создание персонажа", head_organ.sec_hair_colour) as null|color
+			new_hair = tgui_input_color(usr, "Пожалуйста, выберите дополнительный цвет волос.", "Создание персонажа", head_organ.sec_hair_colour)
 			if(new_hair)
 				M.change_hair_color(new_hair, TRUE)
 
 		// facial hair
 		var/list/valid_facial_hairstyles = M.generate_valid_facial_hairstyles()
-		new_style = input("Пожалуйста, выберите тип лицевой растительности.", "Создание персонажа", head_organ.f_style) as null|anything in valid_facial_hairstyles
+		new_style = tgui_input_list(usr, "Пожалуйста, выберите тип лицевой растительности.", "Создание персонажа", valid_facial_hairstyles, head_organ.f_style)
 
 		if(new_style)
 			M.change_facial_hair(new_style)
 
-		var/new_facial = input("Пожалуйста, выберите цвет лицевой растительности.", "Создание персонажа", head_organ.facial_colour) as null|color
+		var/new_facial = tgui_input_color(usr, "Пожалуйста, выберите цвет лицевой растительности.", "Создание персонажа", head_organ.facial_colour)
 		if(new_facial)
 			M.change_facial_hair_color(new_facial)
 
 		var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
-			new_facial = input("Пожалуйста, выберите дополнительный цвет лицевой растительности.", "Создание персонажа", head_organ.sec_facial_colour) as null|color
+			new_facial = tgui_input_color(usr, "Пожалуйста, выберите дополнительный цвет лицевой растительности.", "Создание персонажа", head_organ.sec_facial_colour)
 			if(new_facial)
 				M.change_facial_hair_color(new_facial, TRUE)
 
 		//Head accessory.
 		if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 			var/list/valid_head_accessories = M.generate_valid_head_accessories()
-			var/new_head_accessory = input("Пожалуйста, выберите стиль аксессуаров для головы.", "Создание персонажа", head_organ.ha_style) as null|anything in valid_head_accessories
+			var/new_head_accessory = tgui_input_list(usr, "Пожалуйста, выберите стиль аксессуаров для головы.", "Создание персонажа", valid_head_accessories, head_organ.ha_style)
 			if(new_head_accessory)
 				M.change_head_accessory(new_head_accessory)
 
-			var/new_head_accessory_colour = input("Пожалуйста, выберите цвет аксессуаров для головы.", "Создание персонажа", head_organ.headacc_colour) as null|color
+			var/new_head_accessory_colour = tgui_input_color(usr, "Пожалуйста, выберите цвет аксессуаров для головы.", "Создание персонажа", head_organ.headacc_colour)
 			if(new_head_accessory_colour)
 				M.change_head_accessory_color(new_head_accessory_colour)
 
@@ -109,7 +109,7 @@
 	if((M.dna.species.tail && M.dna.species.bodyflags & (HAS_TAIL)) || (M.dna.species.wing && M.dna.species.bodyflags & (HAS_WING)))
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
 		if(valid_body_accessories.len > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
-			var/new_body_accessory = input("Пожалуйста, выберите стиль аксессуаров для тела.", "Создание персонажа", M.body_accessory) as null|anything in valid_body_accessories
+			var/new_body_accessory = tgui_input_list(usr, "Пожалуйста, выберите стиль аксессуаров для тела.", "Создание персонажа", valid_body_accessories, M.body_accessory)
 			if(new_body_accessory)
 				M.change_body_accessory(new_body_accessory)
 
@@ -117,38 +117,38 @@
 		//Head markings.
 		if(M.dna.species.bodyflags & HAS_HEAD_MARKINGS)
 			var/list/valid_head_markings = M.generate_valid_markings("head")
-			var/new_marking = input("Пожалуйста, выберите стиль маркировки головы.", "Создание персонажа", M.m_styles["head"]) as null|anything in valid_head_markings
+			var/new_marking = tgui_input_list(usr, "Пожалуйста, выберите стиль маркировки головы.", "Создание персонажа", valid_head_markings, M.m_styles["head"])
 			if(new_marking)
 				M.change_markings(new_marking, "head")
 
-			var/new_marking_colour = input("Пожалуйста, выберите цвет маркировки головы.", "Создание персонажа", M.m_colours["head"]) as null|color
+			var/new_marking_colour = tgui_input_color(usr, "Пожалуйста, выберите цвет маркировки головы.", "Создание персонажа", M.m_colours["head"])
 			if(new_marking_colour)
 				M.change_marking_color(new_marking_colour, "head")
 
 	//Body markings.
 	if(M.dna.species.bodyflags & HAS_BODY_MARKINGS)
 		var/list/valid_body_markings = M.generate_valid_markings("body")
-		var/new_marking = input("Пожалуйста, выберите стиль маркировки тела.", "Создание персонажа", M.m_styles["body"]) as null|anything in valid_body_markings
+		var/new_marking = tgui_input_list(usr, "Пожалуйста, выберите стиль маркировки тела.", "Создание персонажа", valid_body_markings, M.m_styles["body"])
 		if(new_marking)
 			M.change_markings(new_marking, "body")
 
-		var/new_marking_colour = input("Пожалуйста, выберите цвет маркировки тела.", "Создание персонажа", M.m_colours["body"]) as null|color
+		var/new_marking_colour = tgui_input_color(usr, "Пожалуйста, выберите цвет маркировки тела.", "Создание персонажа", M.m_colours["body"])
 		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "body")
 	//Tail markings.
 	if(M.dna.species.bodyflags & HAS_TAIL_MARKINGS)
 		var/list/valid_tail_markings = M.generate_valid_markings("tail")
-		var/new_marking = input("Пожалуйста, выберите стиль маркировки хвоста.", "Создание персонажа", M.m_styles["tail"]) as null|anything in valid_tail_markings
+		var/new_marking = tgui_input_list(usr, "Пожалуйста, выберите стиль маркировки хвоста.", "Создание персонажа", valid_tail_markings, M.m_styles["tail"])
 		if(new_marking)
 			M.change_markings(new_marking, "tail")
 
-		var/new_marking_colour = input("Пожалуйста, выберите цвет маркировки хвоста.", "Создание персонажа", M.m_colours["tail"]) as null|color
+		var/new_marking_colour = tgui_input_color(usr, "Пожалуйста, выберите цвет маркировки хвоста.", "Создание персонажа", M.m_colours["tail"])
 		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "tail")
 
 	//Skin tone.
 	if(M.dna.species.bodyflags & HAS_SKIN_TONE)
-		var/new_tone = input("Пожалуйста, выберите уровень тона кожи: 1-220 (1=альбинос, 35=белый, 150=тёмный, 220=чёрный)", "Создание персонажа", M.s_tone) as null|text
+		var/new_tone = tgui_input_number(usr, "Пожалуйста, выберите уровень тона кожи: 1-220 (1=альбинос, 35=белый, 150=тёмный, 220=чёрный)", "Создание персонажа", M.s_tone, min_value = 1, max_value = 220)
 		if(!new_tone)
 			new_tone = 35
 		else
@@ -163,7 +163,7 @@
 				prompt += ", "
 		prompt += ")"
 
-		var/new_tone = input(prompt, "Создание персонажа", M.s_tone) as null|text
+		var/new_tone = tgui_input_number(usr, prompt, "Создание персонажа", M.s_tone, min_value = 1, max_value = 220)
 		if(!new_tone)
 			new_tone = 0
 		else
@@ -172,7 +172,7 @@
 
 	//Skin colour.
 	if(M.dna.species.bodyflags & HAS_SKIN_COLOR)
-		var/new_body_colour = input("Пожалуйста, выберите цвет тела.", "Создание персонажа", M.skin_colour) as null|color
+		var/new_body_colour = tgui_input_color(usr, "Пожалуйста, выберите цвет тела.", "Создание персонажа", M.skin_colour)
 		if(new_body_colour)
 			M.change_skin_color(new_body_colour)
 

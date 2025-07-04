@@ -331,6 +331,11 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	if(SSticker.mode)
 		dat += SSticker.mode.get_scoreboard_stats()
 
+	for(var/team_type in GLOB.antagonist_teams)
+		var/datum/team/team = GLOB.antagonist_teams[team_type]
+		team.set_scoreboard_vars()
+		dat += team.get_scoreboard_stats()
+
 	dat += {"
 	<b><u>Общая статистика</u></b><br>
 	<u>Хорошее</u><br>
@@ -354,7 +359,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	<u>Прочее</u><br>
 	<b>Съедено еды:</b> [score_food_eaten] [declension_ru(score_food_eaten, "укус", "укуса", "укусов")]/[declension_ru(score_food_eaten, "глоток", "глотка", "глотков")].<br>
 	<b>Клоуна избили:</b> [score_clown_abuse] [declension_ru(score_clown_abuse, "раз", "раза", "раз")]<br><br>
-	
+
 	<u>Финансовая статистка</u><br>
 	<b>Выплачено персоналу зарплат на сумму: </b> [SScapitalism.total_salary_payment].<br>
 	<b>Поступило денег с выполнения заказов карго на счет станции: </b> [SScapitalism.total_station_bounty].<br>
