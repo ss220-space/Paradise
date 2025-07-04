@@ -13489,12 +13489,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
-"bOh" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/n2,
-/area/atmos)
 "bOj" = (
 /turf/simulated/mineral/ancient,
 /area/engineering/mechanic_workshop/hangar)
@@ -14317,12 +14311,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"bSm" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/o2,
-/area/atmos)
 "bSo" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -15002,12 +14990,6 @@
 "bUN" = (
 /turf/simulated/wall,
 /area/chapel/main)
-"bUQ" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/air,
-/area/atmos)
 "bUR" = (
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 1
@@ -15767,22 +15749,6 @@
 	icon_state = "dark"
 	},
 /area/hydroponics)
-"bYc" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine/co2,
-/area/atmos)
-"bYd" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine/plasma,
-/area/atmos)
-"bYe" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine/n20,
-/area/atmos)
-"bYf" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine/insulated/vacuum,
-/area/atmos)
 "bYj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -125323,15 +125289,15 @@ vFg
 mXi
 bDR
 bNl
-bOh
+bNl
 bNl
 bDR
 bRq
-bSm
+bRq
 bRq
 bDR
 bUj
-bUQ
+bUj
 bUj
 bDR
 nIF
@@ -127650,7 +127616,7 @@ bVW
 vsE
 jjg
 oqz
-bYc
+bXv
 bDR
 nIF
 cuZ
@@ -128678,7 +128644,7 @@ bVW
 vsE
 nAi
 vpX
-bYd
+bXx
 bDR
 nIF
 ozT
@@ -129706,7 +129672,7 @@ bVW
 vsE
 gfJ
 dOS
-bYe
+bXz
 bDR
 kgL
 ccS
@@ -130734,7 +130700,7 @@ bWc
 dAk
 kdK
 bXB
-bYf
+bXB
 cIg
 nVW
 mJM

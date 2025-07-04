@@ -13063,12 +13063,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/arcade)
-"bOh" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/n2,
-/area/atmos)
 "bOk" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel,
@@ -13768,12 +13762,6 @@
 "bSa" = (
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-"bSm" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/o2,
-/area/atmos)
 "bSp" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/light,
@@ -14958,10 +14946,6 @@
 	icon_state = "redcorner"
 	},
 /area/security/permahallway)
-"bXx" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine/co2,
-/area/atmos)
 "bXy" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "Magistrate"
@@ -69747,10 +69731,6 @@
 	icon_state = "dark"
 	},
 /area/atmos)
-"maC" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine/n20,
-/area/atmos)
 "maK" = (
 /obj/item/twohanded/required/kirbyplants/dead,
 /turf/simulated/floor/plasteel{
@@ -79452,12 +79432,6 @@
 	icon_state = "blue"
 	},
 /area/hallway/primary/fore)
-"nVQ" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/air,
-/area/atmos)
 "nVW" = (
 /obj/machinery/alarm{
 	pixel_y = 26
@@ -108808,10 +108782,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/bar/atrium)
-"tCg" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine/plasma,
-/area/atmos)
 "tCk" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -130590,10 +130560,6 @@
 /obj/item/flag/command,
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
-"xJa" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine/insulated/vacuum,
-/area/atmos)
 "xJl" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -226437,15 +226403,15 @@ bMk
 wla
 wPH
 bNl
-bOh
+bNl
 bNl
 wPH
 bRq
-bSm
+bRq
 bRq
 wPH
 cUI
-nVQ
+cUI
 cUI
 wPH
 vFt
@@ -228764,7 +228730,7 @@ bJF
 oyz
 ghX
 izo
-bXx
+xZB
 wPH
 rrM
 xtC
@@ -229792,7 +229758,7 @@ gIv
 waW
 bQL
 irM
-tCg
+ijc
 wPH
 amX
 vvT
@@ -230820,7 +230786,7 @@ bJF
 oyz
 tpf
 ayp
-maC
+uIs
 wPH
 rrM
 vvT
@@ -231848,7 +231814,7 @@ cbc
 oyz
 jFZ
 xcj
-xJa
+xcj
 wLj
 bnZ
 vvT

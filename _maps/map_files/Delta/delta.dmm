@@ -31551,12 +31551,6 @@
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
-"doB" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/air,
-/area/atmos)
 "doJ" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -34884,12 +34878,6 @@
 	icon_state = "whiteyellow"
 	},
 /area/medical/chemistry)
-"dEq" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/o2,
-/area/atmos)
 "dEt" = (
 /turf/simulated/wall,
 /area/maintenance/banya)
@@ -37868,12 +37856,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/atmos)
-"dRE" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/n2,
 /area/atmos)
 "dRG" = (
 /obj/machinery/status_display/supply_display,
@@ -47237,12 +47219,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
-"fIS" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/co2,
-/area/atmos)
 "fJh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -57549,12 +57525,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/biostorage)
-"igL" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/plasma,
-/area/atmos)
 "igP" = (
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
@@ -70088,12 +70058,6 @@
 	icon_state = "whitered"
 	},
 /area/security/medbay)
-"lmV" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/n20,
-/area/atmos)
 "lnn" = (
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/east,
@@ -81457,12 +81421,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/range)
-"nRt" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/vacuum,
-/area/atmos)
 "nRC" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -147169,19 +147127,19 @@ aWR
 djg
 uYk
 fmO
-fIS
+fmO
 fmO
 uYk
 hwu
-igL
+hwu
 hwu
 uYk
 klw
-lmV
+klw
 klw
 uYk
 mHd
-nRt
+mHd
 mHd
 uYk
 coE
@@ -155134,15 +155092,15 @@ oJx
 coE
 uYk
 cuq
-doB
+cuq
 cuq
 uYk
 dHQ
-dEq
+dHQ
 dHQ
 uYk
 cge
-dRE
+cge
 cge
 uYk
 qfp
