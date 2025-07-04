@@ -13,6 +13,16 @@
 
 /obj/structure/bookcase
 	name = "bookcase"
+	desc = "Большой книжный шкаф."
+	ru_names = list(
+		NOMINATIVE = "книжный шкаф",
+		GENITIVE = "книжного шкафа",
+		DATIVE = "книжному шкафу",
+		ACCUSATIVE = "книжный шкаф",
+		INSTRUMENTAL = "книжным шкафом",
+		PREPOSITIONAL = "книжном шкафе"
+	)
+	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book-0"
 	anchored = TRUE
@@ -23,6 +33,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	/// Typecache of the things allowed in the bookcase. Populated in [/proc/generate_allowed_books()] on Initialize.
 	var/list/allowed_books
+	var/desc_text
 
 
 /obj/structure/bookcase/Initialize(mapload)
@@ -31,6 +42,13 @@
 	if(mapload)
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 
+/obj/structure/bookcase/examine(mob/user)
+	if(icon_state = "book-0")
+		desc += "Его полки давно не протирали..."
+	else
+		desc += "На его полках стоят книги."
+
+	. = ..()
 
 /// Populates typecache with the things allowed to store
 /obj/structure/bookcase/proc/generate_allowed_books()
@@ -59,7 +77,7 @@
 		return
 	if(!user.drop_transfer_item_to_loc(thing, src))
 		return ..()
-	to_chat(user, span_notice("You have added [thing] into [src]."))
+	to_chat(user, span_notice("Вы положили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -83,16 +101,16 @@
 				book.add_fingerprint(user)
 				bag.remove_from_storage(book, src)
 		if(!loaded)
-			to_chat(user, span_warning("There are no books in [bag]."))
+			user.balloon_alert(user, "сумка пуста!")
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("You have emptied [bag] into [src]."))
+		src.balloon_alert(user, "опустошено")
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(is_type_in_typecache(I, allowed_books))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You have added [I] into [src]."))
+		to_chat(user, span_notice("Вы положили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		add_fingerprint(user)
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -121,7 +139,7 @@
 	if(!length(contents))
 		return
 
-	var/obj/item/book/choice = tgui_input_list(user, "Which book would you like to remove from [src]?", "Bookcase", contents)
+	var/obj/item/book/choice = tgui_input_list(user, "Какую книгу вы хотели бы достать из книжного шкафа?", "Книжный шкаф", contents)
 	if(!choice || user.incapacitated() || !Adjacent(user))
 		return
 	add_fingerprint(user)
@@ -147,10 +165,26 @@
 /obj/structure/bookcase/update_icon_state()
 	icon_state = "book-[min(length(contents), 5)]"
 
+/obj/structure/bookcase/manuals
+	var/manual_name = ""
+	var/manual_name_ru = ""
+
+/obj/structure/bookcase/manuals/Initialize(mapload)
+	. = ..()
+	name = manual_name + name
+	if(ru_names)
+		ru_names[NOMINATIVE] += manual_name_ru
+		ru_names[GENITIVE] += manual_name_ru
+		ru_names[DATIVE] += manual_name_ru
+		ru_names[ACCUSATIVE] += manual_name_ru
+		ru_names[INSTRUMENTAL] += manual_name_ru
+		ru_names[PREPOSITIONAL] += manual_name_ru
+
 
 /obj/structure/bookcase/manuals/medical
-	name = "Medical Manuals bookcase"
-
+	manual_name = "Medical Manuals "
+	manual_name_ru = " с учебниками по медицине"
+	desc_text = "На его полках стоит различная медицинская литература."
 
 /obj/structure/bookcase/manuals/medical/Initialize()
 	. = ..()
@@ -159,7 +193,10 @@
 
 
 /obj/structure/bookcase/manuals/engineering
-	name = "Engineering Manuals bookcase"
+	manual_name = "Engineering Manuals "
+	manual_name_ru = " с руководствами по инженерному делу"
+	desc_text = "На его полках стоят различные руководства по инженерному делу."
+
 
 
 /obj/structure/bookcase/manuals/engineering/Initialize()
@@ -174,7 +211,10 @@
 
 
 /obj/structure/bookcase/manuals/research_and_development
-	name = "R&D Manuals bookcase"
+	manual_name = "R&D Manuals "
+	manual_name_ru = " с учебниками по научной деятельности"
+	desc_text = "На его полках стоят различные учебники по научной деятельности."
+
 
 
 /obj/structure/bookcase/manuals/research_and_development/Initialize()
@@ -197,6 +237,7 @@
 		INSTRUMENTAL = "книгой",
 		PREPOSITIONAL = "книге"
 	)
+	gender = FEMALE
 	icon = 'icons/obj/library.dmi'
 	icon_state ="book"
 	throw_speed = 1
@@ -237,45 +278,45 @@
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			attack_self(user)
 		else
-			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
+			. += span_notice("Вам стоит одойдти ближе, чтобы её прочесть.")
 	else
-		. += "<span class='notice'>You don't know how to read.</span>"
+		. += span_notice("Вы не умеете читать.")
 
 /obj/item/book/attack_self(mob/user)
 	if(carved)
 		if(store)
-			to_chat(user, "<span class='notice'>[store] falls out of [title]!</span>")
+			to_chat(user, span_notice("[capitalize(store.declent_ru(NOMINATIVE))] выпадает из [title]!"))
 			store.forceMove(get_turf(loc))
 			store = null
 			return
 		else
-			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
+			to_chat(user, span_notice("Кто-то вырезал страницы [title]!"))
 			return
 	if(src.dat)
 		var/datum/browser/popup = new(user, "book", title)
 		popup.include_default_stylesheet = FALSE
-		popup.set_content("<tt><i>Penned by [author].</i></tt><br>" + "[dat]")
+		popup.set_content("<tt><i>За авторством [author].</i></tt><br>" + "[dat]")
 		popup.open(TRUE)
 		if(!isobserver(user))
-			user.visible_message("[user] opens a book titled \"[title]\" and begins reading intently.")
+			user.visible_message("[user] открывает книгу под заголовком \"[title]\" и начина[pluralize_ru(user.gender, "ет", "ют")] внимательно её читать.")
 		onclose(user, "book")
 	else
-		to_chat(user, "This book is completely blank!")
+		to_chat(user, "Эта книга полностью пуста!")
 
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
 	if(carved)
 		add_fingerprint(user)
 		if(store)
-			to_chat(user, span_warning("There's already something in [title]!"))
+			src.balloon_alert(user, "занято!")
 			return ATTACK_CHAIN_PROCEED
 		if(I.w_class >= WEIGHT_CLASS_NORMAL)
-			to_chat(user, span_warning("The [I.name] won't fit in [title]!"))
+			src.balloon_alert(user, "слишком большое!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		store = I
-		to_chat(user, span_notice("You have put [I] into [title]."))
+		to_chat(user, span_notice("Вы кладёте [I.declent_ru(ACCUSATIVE)] в [title]."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(is_sharp(I))
@@ -289,7 +330,7 @@
 		if(unique)
 			to_chat(user, span_warning("These pages don't seem to take the ink well. Looks like you can't modify it."))
 			return ATTACK_CHAIN_PROCEED
-		var/choice = tgui_input_list(user, "What would you like to change?", "Book Edit", list("Title", "Contents", "Author", "Cancel"))
+		var/choice = tgui_input_list(user, "Что вы хотели бы изменить?", "Редактура", list("Заголовок", "Содержание", "Автор", "Отмена"))
 		switch(choice)
 			if("Title")
 				var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title:", "Title", title))

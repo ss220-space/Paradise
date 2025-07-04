@@ -1081,7 +1081,7 @@
 /obj/item/spellbook/oneuse/fireball
 	spell = /obj/effect/proc_holder/spell/fireball
 	spellname = "fireball"
-	spellname_ru = "огненного шара"
+	spellname_ru = "Огненного Шара"
 	icon_state = "bookfireball"
 	desc = "На ощупь эта книга достаточно тёплая."
 
@@ -1093,7 +1093,7 @@
 /obj/item/spellbook/oneuse/smoke
 	spell = /obj/effect/proc_holder/spell/smoke
 	spellname = "smoke"
-	spellname_ru = "дыма"
+	spellname_ru = "Дыма"
 	icon_state = "booksmoke"
 	desc = "Эта книга переполнена тёмными исскуствами."
 
@@ -1105,7 +1105,7 @@
 /obj/item/spellbook/oneuse/blind
 	spell = /obj/effect/proc_holder/spell/trigger/blind
 	spellname = "blind"
-	spellname_ru = "слепоты"
+	spellname_ru = "Слепоты"
 	icon_state = "bookblind"
 	desc = "Как ни посмотри, эта книга остаётся размытой в ваших глазах."
 
@@ -1119,14 +1119,30 @@
 /obj/item/spellbook/oneuse/mindswap
 	spell = /obj/effect/proc_holder/spell/mind_transfer
 	spellname = "mindswap"
-	spellname_ru = "перемещения разума"
+	spellname_ru = "Перемещения Разума"
 	icon_state = "bookmindswap"
 	desc = "Обложка этой книги выглядит нетронутой, хотя ее страницы выглядят изношенными и порванными."
 	var/mob/stored_swap = null //Used in used book recoils to store an identity for mindswaps
 
 /obj/item/spellbook/oneuse/mindswap/onlearned()
 	spellname = pick("fireball","smoke","blind","forcewall","knock","horses","charge")
-	spellname_ru = pick("огненного шара", "слепоты", "окаменения", "ударной волны", "лошадиной силы", "заряда")
+
+	switch(spellname)
+		if("fireball")
+			spellname_ru = "Огненного Шара"
+		if("smoke")
+			spellname_ru = "Дыма"
+		if("blind")
+			spellname_ru = "Слепоты"
+		if("forcewall")
+			spellname_ru = "Силовой Стены"
+		if("knock")
+			spellname_ru = "Открывания"
+		if("horses")
+			spellname_ru = "Лошадиной Силы"
+		if("charge")
+			spellname_ru = "Заряда"
+
 	icon_state = "book[spellname]"
 	name = "spellbook of [spellname]" //Note, desc doesn't change by design
 	if(ru_names)
@@ -1160,7 +1176,7 @@
 /obj/item/spellbook/oneuse/forcewall
 	spell = /obj/effect/proc_holder/spell/forcewall
 	spellname = "forcewall"
-	spellname_ru = "окаменения"
+	spellname_ru = "Силовой Стены"
 	icon_state = "bookforcewall"
 	desc = "На обложке этой книги всё кричит о любви к мимам."
 
@@ -1174,7 +1190,7 @@
 /obj/item/spellbook/oneuse/knock
 	spell = /obj/effect/proc_holder/spell/aoe/knock
 	spellname = "knock"
-	spellname = "ударной волны"
+	spellname = "Открывания"
 	icon_state = "bookknock"
 	desc = "Эту книгу тяжело держать закрытой."
 
@@ -1186,7 +1202,7 @@
 /obj/item/spellbook/oneuse/horsemask
 	spell = /obj/effect/proc_holder/spell/horsemask
 	spellname = "horses"
-	spellname_ru = "лошадиной силы"
+	spellname_ru = "Лошадиной Силы"
 	icon_state = "bookhorses"
 	desc = "В этой книге больше лошадиных сил, чем во всех челноках в обозримой вселенной."
 
@@ -1208,7 +1224,7 @@
 /obj/item/spellbook/oneuse/charge
 	spell = /obj/effect/proc_holder/spell/charge
 	spellname = "charging"
-	spellname_ru = "заряда"
+	spellname_ru = "Заряда"
 	icon_state = "bookcharge"
 	desc = "Эта книга на 100% состоит из постпотребительской магии."
 
@@ -1220,7 +1236,7 @@
 /obj/item/spellbook/oneuse/summonitem
 	spell = /obj/effect/proc_holder/spell/summonitem
 	spellname = "instant summons"
-	spellname_ru = "мгновенного вызова"
+	spellname_ru = "Мгновенного Вызова"
 	icon_state = "booksummons"
 	desc = "Эта книга яркая и броская, ее очень трудно не заметить."
 
@@ -1232,27 +1248,28 @@
 /obj/item/spellbook/oneuse/fake_gib
 	spell = /obj/effect/proc_holder/spell/touch/fake_disintegrate
 	spellname = "disintegrate"
-	spellname_ru = "дезинтеграции"
+	spellname_ru = "Распада"
 	icon_state = "bookfireball"
 	desc = "Прикасаясь к этой книге у вас складывается чувство, будто она способна разорвать что угодно на кусочки."
 
 /obj/item/spellbook/oneuse/sacredflame
 	spell = /obj/effect/proc_holder/spell/sacred_flame
 	spellname = "sacred flame"
-	spellname_ru = "священного пламени"
+	spellname_ru = "Священного Пламени"
 	icon_state = "booksacredflame"
 	desc = "Эта книга призывает вас стать единным с пламенем, сжигающим изнутри... И позвать остальных присоединиться к вам."
 
 /obj/item/spellbook/oneuse/goliath_dash
 	spell = /obj/effect/proc_holder/spell/goliath_dash
 	spellname = "goliath dash"
-	spellname = "рывка голиафа"
+	spellname = "Рывка Голиафа"
 	icon_state = "bookgoliathdash"
 	desc = "Эта книга достаточно горяча, а щупальца, что лезут из неё, извиваются и держат ваши руки."
 
 /obj/item/spellbook/oneuse/watchers_look
 	spell = /obj/effect/proc_holder/spell/watchers_look
 	spellname = "watcher's look"
+	spellname_ru = "Взгляда Наблюдателя"
 	icon_state = "bookwatcherlook"
 	desc = "Глаз на обложке следит за вашим взглядом..."
 
