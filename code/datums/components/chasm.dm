@@ -125,10 +125,16 @@
 	// avoid an infinite loop, but allow falling a large distance
 	if(falling_atoms[falling_ref] && falling_atoms[falling_ref] > 30)
 		return CHASM_NOT_DROPPING
+
 	if(is_type_in_typecache(dropped_thing, forbidden_types) || (!isliving(dropped_thing) && !isobj(dropped_thing)))
 		return CHASM_NOT_DROPPING
+
+	if(HAS_TRAIT(dropped_thing, TRAIT_CHASM_IGNORED))
+		return CHASM_NOT_DROPPING
+
 	if(dropped_thing.throwing || (dropped_thing.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		return CHASM_REGISTER_SIGNALS
+
 	for(var/atom/thing_to_check as anything in atom_parent)
 		if(HAS_TRAIT(thing_to_check, TRAIT_CHASM_STOPPER))
 			return CHASM_NOT_DROPPING
