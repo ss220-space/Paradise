@@ -173,7 +173,8 @@ const LoadoutGears = (props) => {
                 width={20}
                 placeholder="Поиск..."
                 value={searchText}
-                onInput={(e, value) => setSearchText(value)}
+                expensive
+                onChange={setSearchText}
               />
             </Stack.Item>
           )}

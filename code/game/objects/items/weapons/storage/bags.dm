@@ -597,7 +597,7 @@
 	set category = STATPANEL_OBJECT
 	set src in usr
 
-	var/new_radius = input(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12) as num
+	var/new_radius = tgui_input_number(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12)
 	new_radius = clamp(new_radius, 0, 16)
 	placement_radius = new_radius
 

@@ -585,7 +585,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 		names = sortList(names)
 
-		variable = input("Which var?","Var") as null|anything in names
+		variable = tgui_input_list(usr, "Which var?", "Var", names)
 		if(!variable)
 			return
 

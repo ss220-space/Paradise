@@ -704,7 +704,7 @@ const manageChannelModalBodyOverride = (
               disabled={!isAdmin}
               width="100%"
               value={author}
-              onChange={(_e, v) => setAuthor(v)}
+              onChange={setAuthor}
             />
           </LabeledList.Item>
         </Stack.Item>
@@ -715,7 +715,7 @@ const manageChannelModalBodyOverride = (
               placeholder="Макс. 50 символов"
               maxLength={50}
               value={name}
-              onChange={(_e, v) => setName(v)}
+              onChange={setName}
             />
           </LabeledList.Item>
         </Stack.Item>
@@ -730,7 +730,7 @@ const manageChannelModalBodyOverride = (
               maxLength={128}
               height={10}
               value={description}
-              onChange={(_e, v) => setDescription(v)}
+              onChange={setDescription}
             />
           </Stack.Item>
         </Stack.Item>
@@ -741,7 +741,7 @@ const manageChannelModalBodyOverride = (
               disabled={!isAdmin}
               value={icon}
               mr="0.5rem"
-              onChange={(_e, v) => setIcon(v)}
+              onChange={setIcon}
             />
             <Icon name={icon} size={2} verticalAlign="middle" mr="0.5rem" />
           </LabeledList.Item>
@@ -841,7 +841,7 @@ const createStoryModalBodyOverride = (
               disabled={!isAdmin}
               width="100%"
               value={author}
-              onChange={(_e, v) => setAuthor(v)}
+              onChange={setAuthor}
             />
           </LabeledList.Item>
         </Stack.Item>
@@ -866,7 +866,7 @@ const createStoryModalBodyOverride = (
               placeholder="Макс. 128 символов"
               maxLength={128}
               value={title}
-              onChange={(_e, v) => setTitle(v)}
+              onChange={setTitle}
             />
           </LabeledList.Item>
         </Stack.Item>
@@ -882,7 +882,7 @@ const createStoryModalBodyOverride = (
               width="100%"
               height={10}
               value={body}
-              onChange={(_e, v) => setBody(v)}
+              onChange={setBody}
             />
           </Stack.Item>
         </Stack.Item>
@@ -1000,7 +1000,7 @@ const wantedNoticeModalBodyOverride = (
               disabled={!isAdmin}
               width="100%"
               value={author}
-              onChange={(_e, v) => setAuthor(v)}
+              onChange={setAuthor}
             />
           </LabeledList.Item>
         </Stack.Item>
@@ -1010,7 +1010,7 @@ const wantedNoticeModalBodyOverride = (
               width="100%"
               value={name}
               maxLength={128}
-              onChange={(_e, v) => setName(v)}
+              onChange={setName}
             />
           </LabeledList.Item>
         </Stack.Item>
@@ -1021,7 +1021,7 @@ const wantedNoticeModalBodyOverride = (
             value={description}
             height={10}
             maxLength={512}
-            onChange={(_e, v) => setDescription(v)}
+            onChange={setDescription}
           />
         </Stack.Item>
         <Stack.Item>

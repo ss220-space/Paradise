@@ -531,7 +531,7 @@
 								var/setcriminal = tgui_input_list(usr, "Specify a new criminal status for this person.", "Security HUD", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
 								if(!setcriminal)
 									return
-								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
+								var/t1 = tgui_input_text(usr, "Enter Reason:", "Security HUD", null, max_length = MAX_MESSAGE_LEN)
 								if(!t1)
 									t1 = "(none)"
 
@@ -625,7 +625,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.general)
 						if(R.fields["id"] == E.fields["id"])
-							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
+							var/setmedical = tgui_input_list(usr, "Specify a new medical status for this person.", "Medical HUD", list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel"), R.fields["p_stat"])
 
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 								if(setmedical != "Cancel")
@@ -1287,7 +1287,7 @@
 		return
 
 	var/turf/origin = T
-	var/direction = input(src,"Which way?","Tile selection") as anything in list("Here","North","South","East","West")
+	var/direction = tgui_input_list(src, "Which way?", "Tile selection", list("Here", "North", "South", "East", "West"))
 	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
 	if(!istype(T))

@@ -168,8 +168,9 @@ export const Orbit = (_props: unknown) => {
                 autoFocus
                 fluid
                 value={searchText}
-                onInput={(_, value) => setSearchText(value)}
-                onEnter={(_, value) => orbitMostRelevant(value)}
+                expensive
+                onChange={setSearchText}
+                onEnter={orbitMostRelevant}
               />
             </Flex.Item>
             <Flex.Item>

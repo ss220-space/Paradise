@@ -155,7 +155,7 @@
 /obj/structure/closet/crate/secure/loot/attack_hand(mob/user)
 	if(locked)
 		to_chat(user, "<span class='notice'>The crate is locked with a Deca-code lock.</span>")
-		var/input = clean_input("Enter [codelen] digits.", "Deca-Code Lock", "")
+		var/input = tgui_input_text(usr, "Enter [codelen] digits.", "Deca-Code Lock", "")
 		if(in_range(src, user))
 			if(input == code)
 				add_fingerprint(user)
