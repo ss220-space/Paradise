@@ -575,7 +575,7 @@
 		for(var/datum/playingcard/card in cards)
 			to_discard[card.name] = card
 
-		var/discarding = input("Какую карту вы хотите положить?") as null|anything in to_discard
+		var/discarding = tgui_input_list(usr, "Какую карту вы хотите положить?", , to_discard)
 		if(!discarding)
 			continue
 

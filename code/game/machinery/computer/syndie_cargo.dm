@@ -606,7 +606,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	. = TRUE
 	switch(action)
 		if("withdraw")
-			var/cash_sum = input(usr, "Amount", "How much money do you wish to withdraw") as null|num
+			var/cash_sum = tgui_input_number(usr, "Amount", "How much money do you wish to withdraw")
 			if(cash_sum <= 0 || (!is_public && !is_authorized(usr)) || ..())
 				return
 			if(in_range(usr, src)) //эта проверка нужна чтобы деньги не могли снять при этом отойдя далеко от консоли
@@ -715,7 +715,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			bmmsg_browser.set_content(data_storage.blackmarket_message)
 			bmmsg_browser.open()
 		if("add_money") //Admin button. Used to reward or tax cargo with the money.
-			var/money2add = round(input("Введите сколько кредитов вы хотите добавить") as null|num)
+			var/money2add = round(tgui_input_number(usr, "Введите сколько кредитов вы хотите добавить"))
 			message_admins("[key_name_admin(usr)] added [money2add] credits to the cargo console at [data_storage.cargoarea.name]")
 			log_admin("[key_name_admin(usr)] added [money2add] credits to the cargo console at [data_storage.cargoarea.name]")
 			usr.investigate_log("added [money2add] credits to the cargo console at [data_storage.cargoarea.name]", INVESTIGATE_SYNDIE_CARGO)

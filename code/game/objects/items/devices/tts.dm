@@ -14,7 +14,7 @@
 /obj/item/ttsdevice/attack_self(mob/user)
 	visible_message("[user] starts typing on [src].", "You begin typing on [src].", "You hear faint, continuous mechanical clicking noises.")
 	playsound(src, "terminal_type", 50, TRUE)
-	var/input = stripped_input(user,"What would you like the device to say?", ,"", 500)
+	var/input = tgui_input_text(user, "What would you like the device to say?", , "", max_length = 500)
 	if(!src.Adjacent(user) || QDELETED(src))
 		return
 
@@ -26,7 +26,7 @@
 	add_say_logs(user, input, language = "TTS")
 
 /obj/item/ttsdevice/click_alt(mob/living/user)
-	var/noisechoice = input(user, "What noise would you like to make?", "Robot Noises") as null|anything in list("Beep","Buzz","Ping")
+	var/noisechoice = tgui_input_list(user, "What noise would you like to make?", "Robot Noises", list("Beep", "Buzz", "Ping"))
 	if(!noisechoice || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return CLICK_ACTION_BLOCKING
 	switch(noisechoice)
@@ -44,7 +44,7 @@
 /obj/item/ttsdevice/CtrlClick(mob/living/user)
 	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	var/new_name = input(user, "Name your Text-to-Speech device: \nThis matters for displaying it in the chat bar:", "TTS Device")  as text|null
+	var/new_name = tgui_input_text(user, "Name your Text-to-Speech device: \nThis matters for displaying it in the chat bar:", "TTS Device")
 	if(!new_name || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	new_name = reject_bad_name(new_name)

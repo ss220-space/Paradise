@@ -64,36 +64,35 @@
 
 
 /obj/effect/proc_holder/spell/mimic/proc/remember_form(atom/movable/A, mob/user)
-	if(A.name in available_forms)
-		to_chat(user, span_warning("[capitalize(A.declent_ru(NOMINATIVE))] уже доступна как форма."))
-		balloon_alert(user, "эта форма уже изучена!")
+	if(A.declent_ru(NOMINATIVE) in available_forms)
+		user.balloon_alert(user, "эта форма уже изучена!")
 		revert_cast(user)
 		return
 
 	if(length(available_forms) >= max_forms)
-		to_chat(user, span_warning("Вы начинаете забывать форму [available_forms[next_override_index]], чтобы изучить новую."))
+		to_chat(user, span_warning("Вы начинаете забывать форму \"[available_forms[next_override_index]]\", чтобы изучить новую."))
 
 	to_chat(user, span_sinister("Вы начинаете запоминать форму [A.declent_ru(GENITIVE)]."))
 	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-		balloon_alert(user, "не двигайтесь!")
+		user.balloon_alert(user, "не двигайтесь!")
 		return
 
 	// Forget the old form if needed
 	if(length(available_forms) >= max_forms)
 		qdel(available_forms[available_forms[next_override_index]]) // Delete the value using the key
-		available_forms[next_override_index++] = A.name
+		available_forms[next_override_index++] = A.declent_ru(NOMINATIVE)
 		// Reset if needed
 		if(next_override_index > max_forms)
 			next_override_index = 1
 
-	available_forms[A.name] = new /datum/mimic_form(A, user)
-	balloon_alert("форма изучена")
+	available_forms[A.declent_ru(NOMINATIVE)] = new /datum/mimic_form(A, user)
+	user.balloon_alert(user, "форма изучена")
 
 
 /obj/effect/proc_holder/spell/mimic/proc/pick_form(mob/user)
 	if(!length(available_forms) && !selected_form)
 		to_chat(user, span_warning("Нет доступных форм. Используйте способность на других существах или предметах для изучения новых форм."))
-		balloon_alert("нет доступных форм!")
+		user.balloon_alert(user, "нет доступных форм!")
 		revert_cast(user)
 		return
 
@@ -166,7 +165,7 @@
 
 	playsound(user, "bonebreak", 150, TRUE)
 	if(show_message)
-		show_restore_form_message(user, old_name, "[user]")
+		show_restore_form_message(user, old_name, "[user.declent_ru(GENITIVE)]")
 
 	UnregisterSignal(user, list(COMSIG_PARENT_EXAMINE, COMSIG_MOB_DEATH))
 

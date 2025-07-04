@@ -108,7 +108,7 @@
 		balloon_alert(user, "нельзя перекрасить!")
 		return
 
-	var/part = input(user, "Выберите элемент", null) as null|anything in list("Фары","Окантовка","Основной цвет","Стекла")
+	var/part = tgui_input_list(user, "Выберите элемент", null, list("Фары", "Окантовка", "Основной цвет", "Стекла"))
 	switch(part)
 		if("Фары")
 			part_type = POD_LIGHT

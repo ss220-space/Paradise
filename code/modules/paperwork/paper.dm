@@ -419,7 +419,7 @@
 		if(usr.dna?.species)
 			menu_list.Add(species_text)	//current
 
-		var/input_element = input("Выберите текст который хотите добавить:", "Выбор пункта") as null|anything in menu_list
+		var/input_element = tgui_input_list(usr, "Выберите текст который хотите добавить:", "Выбор пункта", menu_list)
 		if(!input_element)
 			return
 

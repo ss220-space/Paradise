@@ -52,6 +52,8 @@
 	var/no_baton_reason = span_warning("Из-за занятий по боевым искусствам вы не можете крепко схватиться за станбатон!")
 	/// Whether or not you can grab someone while horizontal with this Martial Art
 	var/can_horizontally_grab = TRUE
+	/// If falce, doesn't change strength and strength limit.
+	var/change_musculs = TRUE
 
 
 /datum/martial_art/New()
@@ -70,8 +72,8 @@
 /datum/martial_art/proc/help_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	return act(MARTIAL_COMBO_STEP_HELP, A, D)
 
-/datum/martial_art/proc/can_use(mob/living/carbon/human/H)
-	return !HAS_TRAIT(H, TRAIT_PACIFISM)
+/datum/martial_art/proc/can_use(mob/living/carbon/human/human)
+	return !HAS_TRAIT(human, TRAIT_PACIFISM)
 
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo = TRUE)
 	if(!can_use(user))
@@ -92,12 +94,12 @@
 			return check_combos(step, user, target, could_start_new_combo)
 	return FALSE
 
-/datum/martial_art/proc/reset_combos(mob/living/carbon/human/H)
+/datum/martial_art/proc/reset_combos(mob/living/carbon/human/human)
 	current_combos.Cut()
 	streak = ""
 	var/mob/living/carbon/human/owner
-	if(H)
-		owner = H
+	if(human)
+		owner = human
 	else
 		owner = locateUID(owner_UID)
 	if(istype(owner) && !QDELETED(owner))
@@ -169,7 +171,7 @@
 	if((D.stat != DEAD) && damage >= (A.dna.species.punchstunthreshold + A.physiology.punch_stun_threshold))
 		D.visible_message(span_danger("[A] has weakened [D]!!"), \
 								span_userdanger("[A] has weakened [D]!"))
-		D.apply_effect(4 SECONDS, WEAKEN, armor_block)
+		D.apply_effect(4 SECONDS, KNOCKDOWN, armor_block)
 		D.forcesay(GLOB.hit_appends)
 	else if(D.body_position == LYING_DOWN)
 		D.forcesay(GLOB.hit_appends)
@@ -184,7 +186,7 @@
 				defender.visible_message(span_warning("[defender] blocks [I]!"))
 			return TRUE
 
-/datum/martial_art/proc/user_hit_by(atom/movable/AM, mob/living/carbon/human/H)
+/datum/martial_art/proc/user_hit_by(atom/movable/AM, mob/living/carbon/human/human)
 	return FALSE
 
 /datum/martial_art/proc/objective_damage(mob/living/user, mob/living/target, damage, damage_type)
@@ -197,6 +199,11 @@
 /datum/martial_art/proc/teach(mob/living/carbon/human/human, make_temporary = FALSE)
 	if(!human.mind)
 		return FALSE
+
+	var/datum/component/muscles/muscles = human.physiology.GetComponent(/datum/component/muscles)
+	if(change_musculs && muscles?.can_become_stronger)
+		ADD_TRAIT(human.physiology, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
+		human.update_body(TRUE)
 
 	for(var/datum/martial_art/art in human.mind.known_martial_arts)
 		if(!istype(art, src))
@@ -224,16 +231,20 @@
 	owner_UID = human.UID()
 	return TRUE
 
-/datum/martial_art/proc/remove(mob/living/carbon/human/H)
+/datum/martial_art/proc/remove(mob/living/carbon/human/human)
 	var/datum/martial_art/MA = src
-	if(!H.mind)
+	if(!human.mind)
 		return FALSE
-	if(H.hud_used)
+
+	if(human.hud_used)
 		reset_combos()
+
 	deltimer(combo_timer)
-	H.mind.known_martial_arts.Remove(MA)
-	H.mind.martial_art = get_highest_weight(H)
-	remove_martial_art_verbs(H)
+	human.mind.known_martial_arts.Remove(MA)
+	human.mind.martial_art = get_highest_weight(human)
+	remove_martial_art_verbs(human)
+	REMOVE_TRAIT(human.physiology, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
+	human.update_body(TRUE)
 	return TRUE
 
 /datum/martial_art/proc/remove_martial_art_verbs(mob/living/carbon/human/old_human)
@@ -243,9 +254,9 @@
 	return TRUE
 
 ///	Returns the martial art with the highest weight from all the ones someone knows.
-/datum/martial_art/proc/get_highest_weight(mob/living/carbon/human/H)
+/datum/martial_art/proc/get_highest_weight(mob/living/carbon/human/human)
 	var/datum/martial_art/highest_weight = null
-	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
+	for(var/datum/martial_art/MA in human.mind.known_martial_arts)
 		if(!highest_weight || MA.weight > highest_weight.weight)
 			highest_weight = MA
 	return highest_weight
@@ -254,11 +265,11 @@
 	set name = "Информацию о БИ"
 	set desc = "Gives information about the martial arts you know."
 	set category = STATPANEL_MARTIALARTS
-	var/mob/living/carbon/human/H = usr
-	if(!istype(H))
+	var/mob/living/carbon/human/human = usr
+	if(!istype(human))
 		to_chat(usr, span_warning("You shouldn't have access to this verb. Report this as a bug to the github please."))
 		return
-	H.mind.martial_art.give_explaination(H)
+	human.mind.martial_art.give_explaination(human)
 
 /mob/living/carbon/human/proc/dirslash_enabling()
 	set name = "Атака по направлению"
@@ -304,7 +315,7 @@
 		if(MARTIAL_COMBO_STEP_GRAB)
 			return "G"
 		if(MARTIAL_COMBO_STEP_HELP)
-			return "H"
+			return "human"
 
 
 /// Returns martial art grab resist chance for passed grab state.
@@ -398,10 +409,10 @@
 		return
 
 	if(!used)
-		var/mob/living/carbon/human/H = user
+		var/mob/living/carbon/human/human = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
-		F.teach(H)
-		to_chat(H, span_boldannounceic("You have learned the ancient martial art of Plasma Fist."))
+		F.teach(human)
+		to_chat(human, span_boldannounceic("You have learned the ancient martial art of Plasma Fist."))
 		used = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 

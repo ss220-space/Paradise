@@ -157,6 +157,15 @@
 	required_reagents = list("plasma" = 2, "ethanol" = 1, "sodium" = 1)
 	result_amount = 3
 
+
+/datum/chemical_reaction/steroids
+	name = "Стероиды"
+	id = "steroids"
+	result = "steroids"
+	required_reagents = list("protein" = 2, "oil" = 1, "ethanol" = 1)
+	result_amount = 3
+
+
 /datum/chemical_reaction/saltpetre
 	name = "saltpetre"
 	id = "saltpetre"

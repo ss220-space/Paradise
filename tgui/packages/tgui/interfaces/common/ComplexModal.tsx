@@ -127,12 +127,12 @@ export const ComplexModal = (props: ModalProps) => {
     modalOnEnter = (e) => modalAnswer(id, curValue);
     modalBody = (
       <Input
-        value={data.modal.value}
+        value={data.modal.value.toString()}
         placeholder="ENTER для подтверждения"
         width="100%"
         my="0.5rem"
         autoFocus
-        onChange={(_e, val) => {
+        onChange={(val) => {
           curValue = val;
         }}
       />

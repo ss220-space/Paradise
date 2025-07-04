@@ -168,6 +168,7 @@
 
 	var/obj/item/reagent_containers/food/snacks/organ/S = new
 	S.name = name
+	S.ru_names = ru_names
 	S.desc = desc
 	S.icon = icon
 	S.icon_state = icon_state
@@ -204,6 +205,8 @@
 	icon = 'icons/obj/surgery.dmi'
 	list_reagents = list("nutriment" = 5)
 
+/obj/item/reagent_containers/food/snacks/organ/update_icon_state()
+	return
 
 /obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target != user || !ishuman(target) || !user.can_unEquip(src))

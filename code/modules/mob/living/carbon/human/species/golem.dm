@@ -171,6 +171,10 @@
 	to_chat(H, info_text)
 
 
+/datum/species/golem/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default, max_level, FALSE)
+
+
 /datum/species/golem/get_vision_organ(mob/living/carbon/human/user)
 	return NO_VISION_ORGAN
 

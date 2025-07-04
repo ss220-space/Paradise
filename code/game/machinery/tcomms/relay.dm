@@ -224,7 +224,7 @@
 				return
 			var/obj/machinery/tcomms/core/C = locate(params["addr"])
 			if(istype(C, /obj/machinery/tcomms/core))
-				var/user_pass = input(usr, "Введите пароль для привязки к ядру","Ввод пароля")
+				var/user_pass = tgui_input_text(usr, "Введите пароль для привязки к ядру", "Ввод пароля")
 				// Check the password
 				if(user_pass == C.link_password)
 					AddLink(C)
