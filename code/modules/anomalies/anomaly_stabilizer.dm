@@ -65,7 +65,7 @@
 
 	var/obj/projectile/beam/anomaly/shot = chambered.BB
 	shot.stability_delta = stability_delta
-	shot.pull_strenght = choosen_pull_dist
+	shot.pull_strength = choosen_pull_dist
 	shot.move_block = block_move_time
 	shot.move_impulces_block = block_move_impulses_time
 	shot.anom_weaken = weaken_val
@@ -113,40 +113,40 @@
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/gun/energy/anomaly_stabilizer/proc/update_cores()
-	var/strenght_energetic = 0
-	var/strenght_atmospheric = 0
-	var/strenght_bluespace = 0
-	var/strenght_vortex = 0
-	var/strenght_gravitation = 0
+	var/strength_energetic = 0
+	var/strength_atmospheric = 0
+	var/strength_bluespace = 0
+	var/strength_vortex = 0
+	var/strength_gravitation = 0
 	for(var/obj/item/assembly/signaler/core/core in cores)
-		var/strenght = core.get_strenght()
+		var/strength = core.get_strength()
 		if(iscoreflux(core))
-			strenght_energetic += strenght
+			strength_energetic += strength
 
 		if(iscoreatmos(core))
-			strenght_atmospheric += strenght
+			strength_atmospheric += strength
 
 		if(iscorebluespace(core))
-			strenght_bluespace += strenght
+			strength_bluespace += strength
 
 		if(iscorevortex(core))
-			strenght_vortex += strenght
+			strength_vortex += strength
 
 		if(iscoregrav(core))
-			strenght_gravitation += strenght
+			strength_gravitation += strength
 
-	stability_range = 1 + round(strenght_energetic / 50 + 0.5)
+	stability_range = 1 + round(strength_energetic / 50 + 0.5)
 	update_stability_delta(stability_delta)
 
-	pull_range = round(strenght_gravitation / 50 + 0.5)
+	pull_range = round(strength_gravitation / 50 + 0.5)
 	choosen_pull_dist = clamp(choosen_pull_dist, -pull_range, pull_range)
 
-	block_move_time = (strenght_vortex / 100) SECONDS
+	block_move_time = (strength_vortex / 100) SECONDS
 
-	block_move_impulses_time = (strenght_bluespace / 100) SECONDS
+	block_move_impulses_time = (strength_bluespace / 100) SECONDS
 
-	weaken_val = strenght_atmospheric / 3
-	weaken_time = (strenght_atmospheric / 50) SECONDS
+	weaken_val = strength_atmospheric / 3
+	weaken_time = (strength_atmospheric / 50) SECONDS
 
 	newshot()
 

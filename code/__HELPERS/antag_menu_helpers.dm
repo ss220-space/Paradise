@@ -39,7 +39,6 @@
 	prepare_antag_list(mode.wizards, cached_data, "Маг", antagonist_cache)
 	prepare_antag_list(mode.apprentices, cached_data, "Ученик мага", antagonist_cache)
 	prepare_antag_list(mode.space_ninjas, cached_data, "Клан Паука", antagonist_cache)
-	prepare_antag_list(mode.syndicates, cached_data, "Ядерный оперативник", antagonist_cache)
 	prepare_antag_list(mode.shadows, cached_data, "Тень", antagonist_cache)
 	prepare_antag_list(mode.shadowling_thralls, cached_data, "Раб теней", antagonist_cache)
 	prepare_antag_list(mode.raiders, cached_data, "Вокс рейдер", antagonist_cache)

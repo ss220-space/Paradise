@@ -299,7 +299,7 @@
 		else if(href_list["data"])
 			screen = 2
 		else if(href_list["logs"])
-			var/awaiting_input = input(usr, "Please input access key", "Security check") as text|null
+			var/awaiting_input = tgui_input_text(usr, "Please input access key", "Security check")
 			if(awaiting_input != temp_server.logs_decryption_key)
 				return
 			screen = 3

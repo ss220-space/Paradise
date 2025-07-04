@@ -124,38 +124,38 @@
  * Called on an object being hit by an item
  *
  * Arguments:
- * * obj/item/I - The item hitting this atom
+ * * obj/item/item - The item hitting this atom
  * * mob/user - The wielder of this item
  * * params - click params such as alt/shift etc
  *
  * See: [/obj/item/proc/melee_attack_chain]
  */
-/atom/proc/attackby(obj/item/I, mob/user, params)
+/atom/proc/attackby(obj/item/item, mob/user, params)
 	. = ATTACK_CHAIN_PROCEED
-	var/signal_out = SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, I, user, params)
+	var/signal_out = SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, item, user, params)
 	if(signal_out & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. |= ATTACK_CHAIN_BLOCKED
 	if(signal_out & COMPONENT_NO_AFTERATTACK)
 		. |= ATTACK_CHAIN_NO_AFTERATTACK
 
 
-/obj/attackby(obj/item/I, mob/living/user, params)
+/obj/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 	if(obj_flags & IGNORE_HITS)
 		return .
-	. |= I.attack_obj(src, user, params)
+	. |= item.attack_obj(src, user, params)
 
 
-/mob/living/attackby(obj/item/I, mob/living/user, params)
+/mob/living/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
-	if(attempt_harvest(I, user))
+	if(attempt_harvest(item, user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-	user.changeNext_move(I.attack_speed)
-	. |= I.attack(src, user, params, user.zone_selected)
+	user.changeNext_move(item.attack_speed)
+	. |= item.attack(src, user, params, user.zone_selected)
 
 
 /**
@@ -236,43 +236,43 @@
  * Called from [/obj/item/proc/attack] and [/obj/item/proc/attack_obj]
  *
  * Arguments:
- * * obj/item/I - The item hitting this atom
+ * * obj/item/item - The item hitting this atom
  * * mob/living/user - The wielder of this item
  * * params - Click params of this attack
  * * def_zone - Bodypart zone, targeted by the wielder of this item
  */
-/atom/movable/proc/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+/atom/movable/proc/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 
-/obj/proceed_attack_results(obj/item/I, mob/living/user, params)
+/obj/proceed_attack_results(obj/item/item, mob/living/user, params)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
-	if(!I.force)
+	if(!item.force)
 		user.visible_message(
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."),
-			span_warning("Вы аккуратно тыкнули [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
+			span_warning("Вы аккуратно тыкнули [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
 		)
 		return .
 	user.visible_message(
-		span_danger("[user] ударил[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]!"),
-		span_danger("Вы ударили [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] ударил[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("Вы ударили [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
 	)
-	take_damage(I.force, I.damtype, MELEE, TRUE, get_dir(user, src), I.armour_penetration)
+	take_damage(item.get_final_force(user), item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)
 	if(QDELETED(src))	// thats a pretty common behavior with objects, when they take damage
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 
-/mob/living/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+/mob/living/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
-	send_item_attack_message(I, user, def_zone)
-	if(!I.force)
+	send_item_attack_message(item, user, def_zone)
+	if(!item.force)
 		return .
 
-	var/apply_damage_result = apply_damage(I.force, I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
+	var/apply_damage_result = apply_damage(item.get_final_force(user), item.damtype, def_zone, sharp = is_sharp(item), used_weapon = item)
 	// if we are hitting source with real weapon and any brute damage was done, we apply victim's blood everywhere
-	if(apply_damage_result && I.damtype == BRUTE && prob(33))
-		I.add_mob_blood(src)
+	if(apply_damage_result && item.damtype == BRUTE && prob(33))
+		item.add_mob_blood(src)
 		add_splatter_floor()
 		if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
 			user.add_mob_blood(src)
@@ -293,34 +293,34 @@
 
 
 /// Sends a default message feedback about being attacked by other mob
-/mob/living/proc/send_item_attack_message(obj/item/I, mob/living/user, def_zone)
-	if(I.item_flags & SKIP_ATTACK_MESSAGE)
+/mob/living/proc/send_item_attack_message(obj/item/item, mob/living/user, def_zone)
+	if(item.item_flags & SKIP_ATTACK_MESSAGE)
 		return
 
-	if(!I.force)
+	if(!item.force)
 		visible_message(
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."),
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] вас [item.declent_ru(INSTRUMENTAL)]."),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_warning("Вы аккуратно тыкнули [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."))
+		to_chat(user, span_warning("Вы аккуратно тыкнули [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."))
 		return
 
 	var/message_verb = "атаковал"
-	if(length(I.attack_verb))
-		message_verb = "[pick(I.attack_verb)]"
+	if(length(item.attack_verb))
+		message_verb = "[pick(item.attack_verb)]"
 
 	visible_message(
-		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] вас [item.declent_ru(INSTRUMENTAL)]!"),
 		ignored_mobs = user,
 	)
-	to_chat(user, span_danger("Вы [message_verb]и [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]!"))
+	to_chat(user, span_danger("Вы [message_verb]и [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"))
 
 /*
-/mob/living/basic/attackby(obj/item/I, mob/living/user)
-	if(!attack_threshold_check(I.force, I.damtype, MELEE, FALSE))
-		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), TRUE, -1)
+/mob/living/basic/attackby(obj/item/item, mob/living/user)
+	if(!attack_threshold_check(item.force, item.damtype, MELEE, FALSE))
+		playsound(loc, 'sound/weapons/tap.ogg', item.get_clamped_volume(), TRUE, -1)
 	else
 		return ..()
 */

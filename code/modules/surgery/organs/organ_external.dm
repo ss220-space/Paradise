@@ -944,9 +944,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	if(owner && !silent)
+		owner.custom_pain("Вы чувствуете, как что-то сломалось внутри ваш[genderize_ru(gender, "его", "ей", "его", "их")] [declent_ru(GENITIVE)]!")
 		owner.visible_message(
 			span_warning("Вы слышите громкий хруст, исходящий от [owner]."),
-			span_danger("Вы чувствуете, как что-то сломалось внутри ваш[genderize_ru(gender, "его", "ей", "его", "их")] [declent_ru(GENITIVE)]!"),
+			null,
 			span_italics("Вы слышите громкий хруст."),
 		)
 

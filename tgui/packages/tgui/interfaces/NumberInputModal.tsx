@@ -19,7 +19,7 @@ type Data = {
   title: string;
 };
 
-export const NumberInputModal = (props) => {
+export const NumberInputModal = (_props) => {
   const { act, data } = useBackend<Data>();
   const {
     init_value,
@@ -83,10 +83,12 @@ export const NumberInputModal = (props) => {
                     autoFocus
                     autoSelect
                     fluid
+                    width={8.7}
                     allowFloats={!round_value}
                     minValue={min_value}
                     maxValue={max_value}
-                    onChange={(e, value) => setValue(value)}
+                    onChange={setValue}
+                    onValidationChange={setIsValid}
                     value={value}
                   />
                 </Stack.Item>

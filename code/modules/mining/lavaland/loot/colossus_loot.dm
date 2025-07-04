@@ -1,6 +1,14 @@
 //Colossus
 /obj/structure/closet/crate/necropolis/colossus
 	name = "colossus chest"
+	ru_names = list(
+		NOMINATIVE = "сундук колосса",
+		GENITIVE = "сундука колосса",
+		DATIVE = "сундуку колосса",
+		ACCUSATIVE = "сундук колосса",
+		INSTRUMENTAL = "сундуком колосса",
+		PREPOSITIONAL = "сундуке колосса"
+	)
 
 /obj/structure/closet/crate/necropolis/colossus/populate_contents()
 	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
@@ -11,6 +19,14 @@
 
 /obj/structure/closet/crate/necropolis/colossus/crusher
 	name = "angelic colossus chest"
+	ru_names = list(
+		NOMINATIVE = "ангельский сундук колосса",
+		GENITIVE = "ангельского сундука колосса",
+		DATIVE = "ангельскому сундуку колосса",
+		ACCUSATIVE = "ангельский сундук колосса",
+		INSTRUMENTAL = "ангельским сундуком колосса",
+		PREPOSITIONAL = "ангельском сундуке колосса"
+	)
 
 /obj/structure/closet/crate/necropolis/colossus/crusher/populate_contents()
 	. = ..()
@@ -21,7 +37,15 @@
 
 /obj/machinery/anomalous_crystal
 	name = "anomalous crystal"
-	desc = "A strange chunk of crystal, being in the presence of it fills you with equal parts excitement and dread."
+	desc = "Странный осколок кристалла. Нахождение рядом с ним наполняет вас смесью восторга и ужаса."
+	ru_names = list(
+		NOMINATIVE = "аномальный кристалл",
+		GENITIVE = "аномального кристалла",
+		DATIVE = "аномальному кристаллу",
+		ACCUSATIVE = "аномальный кристалл",
+		INSTRUMENTAL = "аномальным кристаллом",
+		PREPOSITIONAL = "аномальном кристалле"
+	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
 	light_range = 8
@@ -239,13 +263,13 @@
 /obj/machinery/anomalous_crystal/helpers/ActivationReaction(mob/user, method)
 	if(..() && !ready_to_deploy)
 		ready_to_deploy = 1
-		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=?src=\ref[src];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
+		notify_ghosts("Аномальный кристалл активирован в [get_area(src)]! Теперь призраки могут использовать его в любое время.", enter_link = "<a href='byond://?src=\ref[src];ghostjoin=1'>(Нажмите для входа)</a>", source = src, action = NOTIFY_ATTACK)
 
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
 	..()
 	if(ready_to_deploy)
-		var/be_helper = tgui_alert(user, "Become a Lightgeist? (Warning, You can no longer be cloned!)", "Respawn", list("Yes","No"))
-		if(be_helper != "Yes")
+		var/be_helper = tgui_alert(user, "Стать духом света? (Внимание: после этого вас нельзя будет клонировать!)", "Возрождение", list("Да","Нет"))
+		if(be_helper != "Да")
 			return
 		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
 		W.key = user.key
@@ -258,26 +282,33 @@
 
 /mob/living/simple_animal/hostile/lightgeist
 	name = "lightgeist"
-	desc = "This small floating creature is a completely unknown form of life... being near it fills you with a sense of tranquility."
+	desc = "Это маленькое парящее создание – абсолютно неизвестная форма жизни... Его присутствие наполняет вас чувством умиротворения."
+	ru_names = list(
+		NOMINATIVE = "дух света",
+		GENITIVE = "духа света",
+		DATIVE = "духу света",
+		ACCUSATIVE = "духа света",
+		INSTRUMENTAL = "духом света",
+		PREPOSITIONAL = "духе света"
+	)
 	icon_state = "lightgeist"
 	icon_living = "lightgeist"
 	icon_dead = "butterfly_dead"
 	turns_per_move = 1
-	response_help = "waves away"
-	response_disarm = "brushes aside"
-	response_harm = "disrupts"
-	speak_emote = list("oscillates")
+	response_help = "отмахивается"
+	response_disarm = "отталкивает"
+	response_harm = "разрушает"
+	speak_emote = list("пульсирует")
 	maxHealth = 2
 	health = 2
 	harm_intent_damage = 1
-	friendly = "mends"
+	friendly = "восстанавливает"
 	density = FALSE
 	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = HOSTILE_SPAWN
-	speak_emote = list("warps")
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	luminosity = 4
 	faction = list("neutral")
@@ -363,7 +394,15 @@
 
 /obj/structure/closet/stasis
 	name = "quantum entanglement stasis warp field"
-	desc = "You can hardly comprehend this thing... which is why you can't see it."
+	desc = "Вы едва можете осознать эту вещь... поэтому и не видите её."
+	ru_names = list(
+		NOMINATIVE = "квантовое стазисное поле",
+		GENITIVE = "квантового стазисного поля",
+		DATIVE = "квантовому стазисному полю",
+		ACCUSATIVE = "квантовое стазисное поле",
+		INSTRUMENTAL = "квантовым стазисным полем",
+		PREPOSITIONAL = "квантовом стазисном поле"
+	)
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
 	density = TRUE
 	anchored = TRUE
@@ -413,7 +452,7 @@
 
 /obj/effect/proc_holder/spell/exit_possession
 	name = "Exit Possession"
-	desc = "Exits the body you are possessing"
+	desc = "Покинуть тело, которым вы овладели"
 	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE

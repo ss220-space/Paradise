@@ -386,3 +386,25 @@
 		return .
 	user.mob.move_down()
 
+
+
+/datum/keybinding/mob/fast_equip_from_belt
+	name = "Достать с пояса"
+	keys = list("CtrlE")
+
+/datum/keybinding/mob/fast_equip_from_belt/can_use(client/user)
+	return ishuman(user.mob)   //only humans can equip belts
+
+/datum/keybinding/mob/fast_equip_from_belt/down(client/user)
+	. = ..()
+	if(.)
+		return .
+	var/mob/living/carbon/human/human = user.mob
+	if (!istype(human))
+		return .
+	var/obj/item/storage/belt/belt = human.get_item_by_slot(ITEM_SLOT_BELT)
+	if (!belt)
+		return .
+	if (!istype(belt))
+		return .
+	belt.radial_menu(human)

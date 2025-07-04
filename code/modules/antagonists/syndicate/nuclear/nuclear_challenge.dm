@@ -1,10 +1,6 @@
-#define CHALLENGE_TELECRYSTALS 1400
 #define CHALLENGE_TIME_LIMIT 6000
-#define CHALLENGE_SCALE_PLAYER 1 // How many player per scaling bonus
-#define CHALLENGE_SCALE_BONUS 10 // How many TC per scaling bonus
-#define CHALLENGE_MIN_PLAYERS 50
 #define CHALLENGE_SHUTTLE_DELAY 18000 //30 minutes, so the ops have at least 10 minutes before the shuttle is callable. Gives the nuke ops at least 15 minutes before shuttle arrive.
-
+#define CHALLENGE_MIN_PLAYERS 50
 /obj/item/nuclear_challenge
 	name = "Declaration of War (Challenge Mode)"
 	icon = 'icons/obj/device.dmi'
@@ -15,6 +11,11 @@
 	Must be used within five minutes, or your benefactors will lose interest."
 	var/declaring_war = FALSE
 	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
+	var/creation_time
+
+/obj/item/nuclear_challenge/Initialize(mapload)
+	. = ..()
+	creation_time = world.time
 
 /obj/item/nuclear_challenge/attack_self(mob/living/user)
 	if(!check_allowed(user))
@@ -56,28 +57,14 @@
 
 	for(var/obj/machinery/computer/shuttle/syndicate/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle/syndicate))
 		S.challenge = TRUE
+		S.challenge_start_time = creation_time
 
-	 // No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
-	total_tc = CHALLENGE_TELECRYSTALS + round((((GLOB.player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS))
-	share_telecrystals()
+	// No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
+	var/datum/team/nuclear_team/team = GLOB.antagonist_teams[/datum/team/nuclear_team]
+	team.scale_challange()
+	team.share_telecrystals()
 	CONFIG_SET(number/shuttle_refuel_delay, CHALLENGE_SHUTTLE_DELAY)
 	qdel(src)
-
-/obj/item/nuclear_challenge/proc/share_telecrystals()
-	var/player_tc
-	var/remainder
-
-	player_tc = round(total_tc / GLOB.nuclear_uplink_list.len) //round to get an integer and not floating point
-	remainder = total_tc % GLOB.nuclear_uplink_list.len
-
-	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
-		U.hidden_uplink.uses += player_tc
-	while(remainder > 0)
-		for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
-			if(remainder <= 0)
-				break
-			U.hidden_uplink.uses++
-			remainder--
 
 /obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)
 	if(declaring_war)
@@ -89,7 +76,7 @@
 	if(!is_admin_level(user.z))
 		to_chat(user, "You have to be at your base to use this.")
 		return FALSE
-	if((world.time - SSticker.round_start_time) > CHALLENGE_TIME_LIMIT) // Only count after the round started
+	if((world.time - creation_time) > CHALLENGE_TIME_LIMIT) // Only count after the round started
 		to_chat(user, "It's too late to declare hostilities. Your benefactors are already busy with other schemes. You'll have to make do with what you have on hand.")
 		return FALSE
 	for(var/obj/machinery/computer/shuttle/syndicate/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle/syndicate))
@@ -99,8 +86,5 @@
 	return TRUE
 
 #undef CHALLENGE_TIME_LIMIT
-#undef CHALLENGE_MIN_PLAYERS
 #undef CHALLENGE_SHUTTLE_DELAY
-#undef CHALLENGE_TELECRYSTALS
-#undef CHALLENGE_SCALE_PLAYER
-#undef CHALLENGE_SCALE_BONUS
+#undef CHALLENGE_MIN_PLAYERS

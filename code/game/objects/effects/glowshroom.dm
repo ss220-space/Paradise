@@ -244,38 +244,38 @@
 	qdel(src)
 
 
-/obj/structure/glowshroom/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+/obj/structure/glowshroom/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
-	if(!I.force)
+	if(!item.force)
 		user.visible_message(
-			span_warning("[user] gently pokes [src] with [I]."),
-			span_warning("You gently poke [src] with [I]."),
+			span_warning("[user] gently pokes [src] with [item]."),
+			span_warning("You gently poke [src] with [item]."),
 		)
 		return .
 	user.visible_message(
-		span_danger("[user] has hit [src] with [I]!"),
-		span_danger("You have hit [src] with [I]!"),
+		span_danger("[user] has hit [src] with [item]!"),
+		span_danger("You have hit [src] with [item]!"),
 	)
-	var/damage_dealt = I.force
-	var/obj/item/scythe/scythe = I
+	var/damage_dealt = item.get_final_force(user)
+	var/obj/item/scythe/scythe = item
 	//so folded telescythes won't get damage boosts / insta-clears (they instead will be treated like non-scythes)
-	if(istype(I, /obj/item/scythe) && scythe.extend)
+	if(istype(item, /obj/item/scythe) && scythe.extend)
 		damage_dealt *= 10
 		for(var/obj/structure/glowshroom/shroom in (view(1, src) - src))
-			shroom.take_damage(damage_dealt, I.damtype, MELEE, TRUE, get_dir(user, shroom), I.armour_penetration)
-	else if(is_sharp(I) || I.damtype == BURN)
+			shroom.take_damage(damage_dealt, item.damtype, MELEE, TRUE, get_dir(user, shroom), item.armour_penetration)
+	else if(is_sharp(item) || item.damtype == BURN)
 		damage_dealt *= 4
 
-	take_damage(damage_dealt, I.damtype, MELEE, TRUE, get_dir(user, src), I.armour_penetration)
+	take_damage(damage_dealt, item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)
 	if(QDELETED(src))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 
 //Way to check glowshroom stats using plant analyzer
-/obj/structure/glowshroom/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/plant_analyzer))
-		// Hacky I guess
-		I.melee_attack_chain(user, myseed, params)
+/obj/structure/glowshroom/attackby(obj/item/item, mob/living/user, params)
+	if(istype(item, /obj/item/plant_analyzer))
+		// Hacky item guess
+		item.melee_attack_chain(user, myseed, params)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()

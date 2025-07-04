@@ -111,6 +111,7 @@
 		JOB_MIN_AGE_COMMAND = 10,
 	)
 
+
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
@@ -119,6 +120,11 @@
 	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_quill)
+
+
+/datum/species/vox/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default, STRENGTH_LEVEL_STRONG, can_become_stronger)
+
 
 /datum/species/vox/on_species_loss(mob/living/carbon/human/H)
 	. = ..()

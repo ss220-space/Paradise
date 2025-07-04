@@ -188,9 +188,9 @@
 
 	if(istype(spawned, /obj/item/storage/box) && length(spawned.contents))
 		for(var/atom/box_item in spawned)
-			target_uplink.purchase_log += "<BIG>[bicon(box_item)]</BIG>"
+			target_uplink.purchase_log += span_fontsize4(bicon(box_item))
 	else
-		target_uplink.purchase_log += "<BIG>[bicon(spawned)]</BIG>"
+		target_uplink.purchase_log += span_fontsize4(bicon(spawned))
 
 	return spawned
 

@@ -157,7 +157,7 @@ export const PresetsPage = (props: unknown) => {
           <Stack.Item>
             <Input
               autoFocus
-              onChange={(e, value) => setName(value)}
+              onChange={setName}
               value={name}
               placeholder="Имя пресета"
             />
