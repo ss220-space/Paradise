@@ -42,7 +42,7 @@
 			areaindex[tmpname] = 1
 		L[tmpname] = R
 
-	var/desc = input("Please select a location to lock in.", "Telegun Target Interface") in L
+	var/desc = tgui_input_list(usr, "Please select a location to lock in.", "Telegun Target Interface", L)
 	teleport_target = L[desc]
 
 /obj/item/gun/energy/telegun/newshot()

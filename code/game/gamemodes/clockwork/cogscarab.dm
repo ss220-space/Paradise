@@ -251,7 +251,7 @@
 	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/cogscarab/toggle_sensor_mode()
-	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Medical","Diagnostic", "Multisensor","Disable")
+	var/sensor_type = tgui_input_list(usr, "Please select sensor type.", "Sensor Integration", list("Medical","Diagnostic", "Multisensor","Disable"), null)
 	remove_med_sec_hud()
 	switch(sensor_type)
 		if("Medical")

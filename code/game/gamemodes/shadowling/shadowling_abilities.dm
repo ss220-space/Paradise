@@ -1060,7 +1060,7 @@
 
 
 /obj/effect/proc_holder/spell/ascendant_transmit/cast(list/targets, mob/living/simple_animal/ascendant_shadowling/user = usr)
-	var/text = stripped_input(user, "Что ты хочешь сказать всем находящимся рядом и на [station_name()]?.", "Озвучить всем", "")
+	var/text = tgui_input_text(user, "Что ты хочешь сказать всем находящимся рядом и на [station_name()]?.", "Озвучить всем", "")
 
 	if(!text)
 		revert_cast(user)

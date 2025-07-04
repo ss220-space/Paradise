@@ -202,7 +202,7 @@
 		var/new_style = tgui_input_list(H, "Выберите изображение", "Изменить монитор", hair, head_organ.h_style)
 		if(!new_style)
 			return
-		var/new_color = input("Выберите цвет", "Цвет монитора", head_organ.hair_colour) as null|color
+		var/new_color = tgui_input_color(usr, "Выберите цвет", "Цвет монитора", head_organ.hair_colour)
 
 		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 			to_chat(H, span_warning("Ваша попытка сменить изображения на дисплее была прервана."))

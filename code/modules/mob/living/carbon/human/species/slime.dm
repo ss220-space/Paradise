@@ -298,7 +298,7 @@
 	var/mob/living/carbon/human/H = owner
 	var/list/valid_hairstyles = H.generate_valid_hairstyles()
 	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
-	var/new_style = input("Пожалуйста, выберите стиль прически", "Изменить стиль", head_organ.h_style) as null|anything in valid_hairstyles
+	var/new_style = tgui_input_list(usr, "Пожалуйста, выберите стиль прически", "Изменить стиль", valid_hairstyles, head_organ.h_style)
 	if(new_style)
 		H.visible_message(span_notice("Волосы на голове [H] начинают шевелиться!"), span_notice("Вы концентрируетесь на своей прическе."))
 		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, H))
@@ -321,7 +321,7 @@
 	if(H.gender == FEMALE)
 		to_chat(H, span_warning("Вы не можете изменить бороду."))
 		return
-	var/new_style = input("Выберите стиль бороны", "Изменить стиль", head_organ.f_style) as null|anything in valid_facial_hairstyles
+	var/new_style = tgui_input_list(usr, "Выберите стиль бороны", "Изменить стиль", valid_facial_hairstyles, head_organ.f_style)
 	if(new_style)
 		H.visible_message(span_notice("Волосы на лице [H] начинают шевелиться!"), span_notice("Вы концентрируетесь на своей бороде."))
 		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, H))

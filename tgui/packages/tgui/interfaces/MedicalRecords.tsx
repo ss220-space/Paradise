@@ -183,7 +183,8 @@ const MedicalRecordsList = (_properties) => {
             <Input
               fluid
               placeholder="Введите Имя, ID, Физическое или Психологическое состояние"
-              onInput={(e, value) => setSearchText(value)}
+              expensive
+              onChange={setSearchText}
             />
           </Stack.Item>
         </Stack>
@@ -562,7 +563,8 @@ const MedicalRecordsViruses = (_properties) => {
           ml="0.25rem"
           fluid
           placeholder="Введите Название, Количество Стадий или Тяжесть"
-          onInput={(e, value) => setSearchText(value)}
+          expensive
+          onChange={setSearchText}
         />
       </Stack.Item>
       <Stack fill vertical mt={0.5}>

@@ -368,14 +368,14 @@
 		temp_msg = "Телепад проходит обслуживание."
 
 	if(href_list["setrotation"])
-		var/new_rot = input("Введите желаемый азимут в градусах.", name, rotation) as num
+		var/new_rot = tgui_input_number(usr, "Введите желаемый азимут в градусах.", name, rotation)
 		if(..()) // Check after we input a value, as they could've moved after they entered something
 			return
 		rotation = clamp(new_rot, -900, 900)
 		rotation = round(rotation, 0.01)
 
 	if(href_list["setangle"])
-		var/new_angle = input("Введите желаемый угол возвышения в градусах.", name, angle) as num
+		var/new_angle = tgui_input_number(usr, "Введите желаемый угол возвышения в градусах.", name, angle)
 		if(..())
 			return
 		angle = clamp(round(new_angle, 0.1), 1, 9999)
@@ -388,7 +388,7 @@
 				power = power_options[index]
 
 	if(href_list["setz"])
-		var/new_z = input("Введите желаемый сектор.", name, z_co) as num
+		var/new_z = tgui_input_number(usr, "Введите желаемый сектор.", name, z_co)
 		if(..())
 			return
 		z_co = clamp(round(new_z), 1, 10)

@@ -16,7 +16,7 @@
 	if(attached_hand)
 		return ..()
 
-	var/amount = input("Amount:", "How much plasma to transfer?") as num
+	var/amount = tgui_input_number(usr, "Amount:", "How much plasma to transfer?")
 	if(!amount)
 		return
 

@@ -93,7 +93,7 @@ export const PollManagement = (_props: unknown) => {
                     width={40}
                     placeholder="Question goes here"
                     value={question}
-                    onChange={(_, value) => set_question(value)}
+                    onChange={set_question}
                   />
                 </Stack.Item>
               </Stack>
@@ -194,7 +194,7 @@ export const PollManagement = (_props: unknown) => {
                           value={
                             end_datetime ? end_datetime : '1970-01-01 00:00:01'
                           }
-                          onChange={(_, value) => set_end_datetime(value)}
+                          onChange={set_end_datetime}
                         />
                       </Stack.Item>
                     </Stack>
@@ -215,7 +215,7 @@ export const PollManagement = (_props: unknown) => {
                     value={
                       start_datetime ? start_datetime : '1970-01-01 00:00:01'
                     }
-                    onChange={(_, value) => set_start_datetime(value)}
+                    onChange={set_start_datetime}
                   />
                 )}
               </Stack>
@@ -229,7 +229,7 @@ export const PollManagement = (_props: unknown) => {
                 height={10}
                 width={20}
                 value={subtitle}
-                onChange={(_, value) => set_subtitle(value)}
+                onChange={set_subtitle}
               />
             </Stack.Item>
             <Stack.Item>

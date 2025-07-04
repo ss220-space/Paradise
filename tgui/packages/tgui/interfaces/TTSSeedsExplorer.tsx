@@ -151,11 +151,7 @@ export const TTSSeedsExplorerContent = (_props: unknown) => {
   );
 
   let searchBar = (
-    <Input
-      placeholder="Название..."
-      fluid
-      onInput={(e, value) => setSearchtext(value)}
-    />
+    <Input placeholder="Название..." fluid expensive onChange={setSearchtext} />
   );
 
   const availableSeeds = seeds
