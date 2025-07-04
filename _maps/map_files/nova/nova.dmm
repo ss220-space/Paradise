@@ -6862,12 +6862,6 @@
 	icon_state = "darkyellow"
 	},
 /area/engineering/mechanic_workshop/hangar)
-"aZq" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/air,
-/area/atmos)
 "aZA" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
@@ -14911,12 +14905,6 @@
 	icon_state = "cult"
 	},
 /area/maintenance/chapel)
-"cfq" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/insulated/vacuum,
-/area/atmos)
 "cft" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -26754,12 +26742,6 @@
 	dir = 8
 	},
 /area/medical/cryo)
-"dSL" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/n20,
-/area/atmos)
 "dSM" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -129211,12 +129193,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/assembly/showroom)
-"sXd" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/n2,
-/area/atmos)
 "sXg" = (
 /turf/simulated/wall,
 /area/maintenance/electrical)
@@ -154045,12 +154021,6 @@
 	icon_state = "dark"
 	},
 /area/aisat/maintenance)
-"wBV" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/co2,
-/area/atmos)
 "wBY" = (
 /obj/machinery/light,
 /turf/simulated/openspace,
@@ -154854,12 +154824,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"wJR" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/o2,
-/area/atmos)
 "wJT" = (
 /obj/machinery/light{
 	dir = 8
@@ -155899,12 +155863,6 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
-"wRm" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/plasma,
-/area/atmos)
 "wRn" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/light,
@@ -209250,19 +209208,19 @@ eIe
 eIe
 syE
 ake
-cfq
+ake
 ake
 syE
 jBM
-wBV
+jBM
 jBM
 syE
 vce
-wRm
+vce
 vce
 syE
 cVE
-dSL
+cVE
 cVE
 syE
 eIe
@@ -216446,15 +216404,15 @@ dnj
 eIe
 syE
 xEw
-aZq
+xEw
 xEw
 syE
 avC
-wJR
+avC
 avC
 syE
 ndf
-sXd
+ndf
 ndf
 syE
 eIe
