@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			continue
 		valid_minds[player.real_name] = player.mind
 
-	var/name = input(user, "Choose a player to add to this team", "Add Team Member") as null|anything in valid_minds
+	var/name = tgui_input_list(user, "Choose a player to add to this team", "Add Team Member", valid_minds)
 	if(!name)
 		to_chat(user, span_warning("No suitable humanoid targets found!"))
 		return
@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  * Allows admins to send a message to all members of this team.
  */
 /datum/team/proc/admin_communicate(mob/user)
-	var/message = input(user, "Enter a message to send to the team:", "Team Message") as text|null
+	var/message = tgui_input_text(user, "Enter a message to send to the team:", "Team Message")
 	if(!message)
 		return
 
@@ -143,7 +143,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  * Allows admins to add a team objective.
  */
 /datum/team/proc/admin_add_objective(mob/user)
-	var/selected = input("Select an objective type:", "Objective Type") as null|anything in GLOB.admin_objective_list
+	var/selected = tgui_input_list(usr, "Select an objective type:", "Objective Type", GLOB.admin_objective_list)
 	if(!selected)
 		return
 
@@ -170,7 +170,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  * Allows admins to rename the team.
  */
 /datum/team/proc/admin_rename_team(mob/user)
-	var/team_name = stripped_input(user, "Enter a new name for the team:", "Rename Team")
+	var/team_name = tgui_input_text(user, "Enter a new name for the team:", "Rename Team")
 	if(!team_name)
 		return
 

@@ -455,7 +455,7 @@
 			if(empty_slots < 1)
 				to_chat(owner, span_notice("You have no available slots."))
 				return
-			var/voice_name = input(owner, "Choose a name for slot.", "Mimicking") as text|null
+			var/voice_name = tgui_input_text(owner, "Choose a name for slot.", "Mimicking")
 			if(!voice_name)
 				return
 			var/voice_seed = tgui_input_list(owner, "Choose a voice for slot", "Mimicking", available_voices, owner.tts_seed)

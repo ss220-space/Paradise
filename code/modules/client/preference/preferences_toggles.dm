@@ -435,7 +435,7 @@
 // 		to_chat(usr, "You have no admins with muted sounds.")
 // 		return
 
-// 	var/choice = input(usr, "Select an admin to unmute sounds from.", "Pick an admin") as null|anything in user.prefs.admin_sound_ckey_ignore
+// 	var/choice = tgui_input_list(usr, "Select an admin to unmute sounds from.", "Pick an admin", user.prefs.admin_sound_ckey_ignore)
 // 	if(!choice)
 // 		return
 

@@ -9,7 +9,7 @@
 		return
 
 	if(!new_type)
-		new_type = clean_input("Mob type path:", "Mob type")
+		new_type = tgui_input_text(usr, "Mob type path:", "Mob type")
 
 	if(istext(new_type))
 		new_type = text2path(new_type)

@@ -50,7 +50,7 @@
 			validtargets += M
 	if(!validtargets.len)
 		to_chat(usr, span_warning("There are no valid targets!"))
-	var/mob/living/carbon/human/target = input("Choose a target for recruitment.", "Targeting") as null|mob in validtargets
+	var/mob/living/carbon/human/target = tgui_input_list(usr, "Choose a target for recruitment.", "Targeting", validtargets)
 	return target
 
 /datum/action/innate/revolution_recruitment/Activate()

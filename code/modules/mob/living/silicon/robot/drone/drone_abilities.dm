@@ -4,8 +4,7 @@
 	set desc = "Tag yourself for delivery through the disposals system."
 	set category = STATPANEL_DRONE
 
-	var/tag = input("Выберите желаемое место назначения.", "Установка почтового адреса", null) as null|anything in GLOB.TAGGERLOCATIONS
-
+	var/tag = tgui_input_list(usr, "Выберите желаемое место назначения.", "Установка почтового адреса", GLOB.TAGGERLOCATIONS, null)
 	if(!tag || GLOB.TAGGERLOCATIONS[tag])
 		mail_destination = 0
 		return

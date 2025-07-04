@@ -120,7 +120,7 @@
 /proc/typing_input(mob/user, message = "", title = "", default = "")
 	var/client/C = user.client // Save it in a var in case the client disconnects from the mob
 	C.typing = TRUE
-	var/msg = input(user, message, title, default) as text|null
+	var/msg = tgui_input_text(user, message, title, default)
 	if(!C)
 		return null
 	C.typing = FALSE

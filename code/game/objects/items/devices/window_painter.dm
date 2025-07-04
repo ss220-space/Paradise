@@ -19,7 +19,7 @@
 
 
 /obj/item/pipe_painter/window_painter/attack_self(mob/user)
-	var/choice = input(user,"Painter options") in list("Pipette","Choose Color","Color Presets")
+	var/choice = tgui_input_list(user, "Painter options", , list("Pipette", "Choose Color", "Color Presets"))
 	switch(choice)
 		if("Pipette")
 			mode = "pipette"
@@ -32,7 +32,7 @@
 			update_icon(UPDATE_OVERLAYS)
 		if("Color Presets")
 			mode = "paint"
-			colour = input("Which color do you want to use?", name, colour) in GLOB.pipe_colors
+			colour = tgui_input_list(usr, "Which color do you want to use?", name, GLOB.pipe_colors, colour)
 			update_icon(UPDATE_OVERLAYS)
 
 

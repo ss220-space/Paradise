@@ -83,7 +83,7 @@
 	if(href_list["setarea"])
 
 		//Probably should consider using another list, but this one will do.
-		var/t_area = input("Выберите зону для отправки пинга.", "Установить целевую зону", null) as null|anything in GLOB.TAGGERLOCATIONS
+		var/t_area = tgui_input_list(usr, "Выберите зону для отправки пинга.", "Установить целевую зону", GLOB.TAGGERLOCATIONS, null)
 
 		if(!t_area || GLOB.TAGGERLOCATIONS[t_area])
 			return

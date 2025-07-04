@@ -78,7 +78,7 @@ export const ImplantPad = (props: unknown) => {
                       width="5.5rem"
                       value={tag}
                       onEnter={() => act('tag', { newtag: newTag })}
-                      onChange={(e, value) => setNewTag(value)}
+                      onChange={setNewTag}
                     />
                     <Button
                       disabled={tag === newTag}
