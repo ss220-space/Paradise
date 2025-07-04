@@ -186,7 +186,7 @@
 		else
 			return FALSE
 
-/obj/item/dna_notepad/proc/print_report_verb()
+/obj/item/dna_notepad/verb/print_report_verb()
 	set name = "Печать отчёта"
 	set category = STATPANEL_OBJECT
 	set src = usr
@@ -249,7 +249,7 @@
 	to_chat(user, "Данные из другого [dna_notepad.declent_ru(GENITIVE)] успешно загружены в ваш [declent_ru(NOMINATIVE)].")
 	balloon_alert(user, "Данные загружены")
 
-/obj/attackby(obj/item/item, mob/living/user, params)
+/obj/item/dna_notepad/attackby(obj/item/item, mob/living/user, params)
 	var/obj/item/dna_notepad/dna_notepad = item
 	if(istype(dna_notepad))
 		if(!do_after(user, 2 SECONDS, user))
@@ -258,9 +258,25 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	. = ..()
 
-/obj/item/dna_notepad/syndicate
-	materials = list(MAT_METAL=400)
-	origin_tech = "biotech=2;syndicate=2"
+/obj/item/dna_notepad/full
+
+/obj/item/dna_notepad/full/Initialize(mapload)
+	. = ..()
+	fill_genes_data()
+
+/obj/item/dna_notepad/full/proc/fill_genes_data()
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
+		if (gene.block >= 1 && gene.block <= DNA_COUNT)
+			if (gene.declent_ru(NOMINATIVE) == "Ordinary Gene")
+				write_dna_data(gene.block, DNA_EMPTY_DATA, DNA_COLOR_UNKNOWN)
+			else
+				var/color = DNA_COLOR_UNKNOWN
+				if(istype(gene, /datum/dna/gene/disability))
+					color = DNA_COLOR_DISABILITY
+				if(istype(gene, /datum/dna/gene/basic))
+					color = DNA_COLOR_POWER
+				write_dna_data(gene.block, gene.declent_ru(NOMINATIVE), color)
+
 
 
 #undef DNA_COUNT
