@@ -141,12 +141,12 @@
 	else if(!disk_rescued && station_was_nuked && syndies_didnt_escape)
 		SSticker.mode_result = "nuclear halfwin - syndicate nuke - did not evacuate in time"
 		text += span_fontsize3("<br><br><b>Полное уничтожение</b>")
-		text += "<br><b>Отряд оперативников [syndicate_name] уничтожил [station_name()] но не успел покинуть сектор станции и попал под взрыв.</b> В следующий раз не теряйте диск!"
+		text += "<br><b>Отряд оперативников [syndicate_name] уничтожил [station_name()], но не успел покинуть сектор станции и попал под взрыв.</b> В следующий раз не теряйте диск!"
 
 	else if(!disk_rescued && !station_was_nuked && nuke_off_station && !syndies_didnt_escape)
 		SSticker.mode_result = "nuclear halfwin - blew wrong station"
 		text += span_fontsize3("<br><br><b>Частичная победа экипажа</b>")
-		text += "<br><b>Отряд оперативников [syndicate_name] зазватил диск ядерной аутентификации, но взорвал что-то, что не было [station_name()].</b> В следующий раз не теряйте диск!"
+		text += "<br><b>Отряд оперативников [syndicate_name] захватил диск ядерной аутентификации, но взорвал что-то, что не было [station_name()].</b> В следующий раз не теряйте диск!"
 
 	else if(!disk_rescued && !station_was_nuked && nuke_off_station && syndies_didnt_escape)
 		SSticker.mode_result = "nuclear halfwin - blew wrong station - did not evacuate in time"
@@ -156,22 +156,22 @@
 	else if(disk_rescued && is_operatives_are_dead())
 		SSticker.mode_result = "nuclear loss - evacuation - disk secured - syndi team dead"
 		text += span_fontsize3("<br><br><b>Полная победа экипажа!</b>")
-		text += "<br><b>Персонал станции созранил диск и убил отряд оперативников [syndicate_name]</b>"
+		text += "<br><b>Персонал станции сохранил диск и уничтожил отряд оперативников [syndicate_name]</b>"
 
 	else if(disk_rescued)
 		SSticker.mode_result = "nuclear loss - evacuation - disk secured"
 		text += span_fontsize3("<br><br><b>Полная победа экипажа</b>")
-		text += "<br><b>Персонал станции созранил диск и остановил отряд оперативников [syndicate_name]!</b>"
+		text += "<br><b>Персонал станции сохранил диск и остановил отряд оперативников [syndicate_name]!</b>"
 
 	else if(!disk_rescued && is_operatives_are_dead())
 		SSticker.mode_result = "nuclear loss - evacuation - disk not secured"
 		text += span_fontsize3("<br><br><b>Частичная победа Синдиката!</b>")
-		text += "<br><b>Персонал станции не смог созранить диск ядерной аутентификации но убил весь отряд оперативников [syndicate_name]!</b>"
+		text += "<br><b>Персонал станции не смог сохранить диск ядерной аутентификации, но уничтожил весь отряд оперативников [syndicate_name]!</b>"
 
 	else if(!disk_rescued && crew_evacuated)
 		SSticker.mode_result = "nuclear halfwin - detonation averted"
 		text += span_fontsize3("<br><br><b>Частичная победа Синдиката!</b>")
-		text += "<br><b>Отряд оперативников [syndicate_name] заполучили диск ядерной аутентификации но взрыва [station_name()] не случилось.</b> В следующий раз не теряйте диск!"
+		text += "<br><b>Отряд оперативников [syndicate_name] заполучил диск ядерной аутентификации, но взрыва [station_name()] не произошло.</b> В следующий раз не теряйте диск!"
 
 	else if(!disk_rescued && !crew_evacuated)
 		SSticker.mode_result = "nuclear halfwin - interrupted"
