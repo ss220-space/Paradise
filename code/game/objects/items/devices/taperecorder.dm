@@ -145,11 +145,11 @@
 /obj/item/taperecorder/proc/recorder_say(message, datum/tape_piece/record_datum)
 	if(record_datum)
 		tts_seed = record_datum.tts_seed
-		atom_say_verb = record_datum.message_verb || "says"
+		atom_say_verb = record_datum.message_verb || "говорит"
 		atom_say("[record_datum.message]")
 	else
 		tts_seed = initial(tts_seed)
-		atom_say_verb = "says"
+		atom_say_verb = "говорит"
 		atom_say("[message]")
 
 

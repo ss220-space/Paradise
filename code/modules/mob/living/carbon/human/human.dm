@@ -8,7 +8,7 @@
 		tts_seed = SStts.get_random_seed(src)
 
 	// Physiology needs to be created before species, as some species modify physiology
-	physiology = new()
+	physiology = new(src)
 
 	setup_dna(new_species)
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]

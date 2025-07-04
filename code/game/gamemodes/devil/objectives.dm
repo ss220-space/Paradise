@@ -40,7 +40,7 @@
 		else
 			LAZYADD(other_targets, possible_target)
 
-	if(!LAZYLEN(prof_targets) && !LAZYLEN(prof_targets))
+	if(!LAZYLEN(prof_targets) && !LAZYLEN(other_targets))
 		return
 
 	target = LAZYLEN(prof_targets)? pick_n_take(prof_targets) : pick_n_take(other_targets)
