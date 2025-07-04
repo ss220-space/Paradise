@@ -88,7 +88,7 @@
 
 			if(query_memofind.NextRow())
 				var/old_memo = query_memofind.item[1]
-				var/new_memo = tgui_input_text(usr, "Input new memo", "New Memo", "[old_memo]", null, multiline = TRUE) as message
+				var/new_memo = tgui_input_text(usr, "Input new memo", "New Memo", "[old_memo]", null, multiline = TRUE)
 				if(!new_memo)
 					qdel(query_memofind)
 					return

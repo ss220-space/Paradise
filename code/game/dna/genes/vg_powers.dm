@@ -133,6 +133,7 @@
 			M.change_markings(new_marking, "body")
 
 		var/new_marking_colour = tgui_input_color(usr, "Пожалуйста, выберите цвет маркировки тела.", "Создание персонажа", M.m_colours["body"])
+		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "body")
 	//Tail markings.
 	if(M.dna.species.bodyflags & HAS_TAIL_MARKINGS)
