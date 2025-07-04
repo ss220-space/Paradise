@@ -364,7 +364,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	symptoms += GLOB.list_symptoms.Copy()
 	do
 		if(user)
-			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in symptoms
+			var/symptom = tgui_input_list(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom", symptoms)
 			if(isnull(symptom))
 				return
 			else if(istext(symptom))
@@ -378,7 +378,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 	if(D.symptoms.len > 0)
 
-		var/new_name = stripped_input(user, "Name your new disease.", "New Name")
+		var/new_name = tgui_input_text(user, "Name your new disease.", "New Name")
 		if(!new_name)
 			return
 		D.AssignName(new_name)

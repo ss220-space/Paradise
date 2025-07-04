@@ -273,7 +273,7 @@
 		return
 	if(href_list["change_name"])
 		if(usr != occupant)	return
-		var/newname = strip_html_simple(input(occupant,"Choose new exosuit name","Rename exosuit",initial(name)) as text, MAX_NAME_LEN)
+		var/newname = strip_html_simple(tgui_input_text(occupant, "Choose new exosuit name", "Rename exosuit", initial(name)), MAX_NAME_LEN)
 		if(newname && trim(newname))
 			name = newname
 			add_misc_logs(occupant, "has renamed an exosuit [newname]")
@@ -317,7 +317,7 @@
 		if(!in_range(src, usr))	return
 		var/mob/user = afilter.getMob("user")
 		if(user)
-			var/new_pressure = input(user,"Input new output pressure","Pressure setting",internal_tank_valve) as num
+			var/new_pressure = tgui_input_number(user, "Input new output pressure", "Pressure setting", internal_tank_valve)
 			if(new_pressure)
 				internal_tank_valve = new_pressure
 				to_chat(user, "The internal pressure valve has been set to [internal_tank_valve]kPa.")

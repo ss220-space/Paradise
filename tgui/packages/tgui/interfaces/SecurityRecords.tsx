@@ -277,7 +277,8 @@ const SecurityRecordsActions = (properties: SearchTextProps) => {
         <Input
           placeholder="Search by Name, ID, Assignment, Fingerprint, Status"
           fluid
-          onInput={(e, value) => setSearchText(value)}
+          expensive
+          onChange={setSearchText}
         />
       </Stack.Item>
     </Stack>

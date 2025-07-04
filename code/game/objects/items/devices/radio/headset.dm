@@ -1134,7 +1134,7 @@
 		return
 	if(!proximity)
 		return
-	var/headset_name = input("Выберите тип гарнитуры", "Тактическая гарнитура", null, null) as null|anything in valid_headset_types
+	var/headset_name = tgui_input_list(usr, "Выберите тип гарнитуры", "Тактическая гарнитура", valid_headset_types, null)
 	if(!headset_name)
 		user.balloon_alert(user, "модификация прервана!")
 		return

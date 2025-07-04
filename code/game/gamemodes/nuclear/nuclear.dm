@@ -44,7 +44,7 @@
 	return TRUE
 
 /datum/game_mode/nuclear/pre_setup()
-	for(var/datum/mind/synd_mind in syndicates)
+	for(var/datum/mind/synd_mind as anything in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
 	return TRUE
@@ -55,7 +55,7 @@
 
 	var/datum/team/nuclear_team/team = new /datum/team/nuclear_team
 
-	for(var/datum/mind/synd_mind in syndicates)
+	for(var/datum/mind/synd_mind as anything in syndicates)
 		if(spawnpos > GLOB.nukespawn.len)
 			spawnpos = 2
 		synd_mind.current.loc = GLOB.nukespawn[spawnpos]

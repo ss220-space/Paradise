@@ -1,6 +1,14 @@
 /obj/structure/world_anvil
 	name = "World Anvil"
-	desc = "An anvil that is connected through lava reservoirs to the core of lavaland. Whoever was using this last was creating something powerful."
+	desc = "Кузня, соединённая лавовыми резервуарами с ядром Лазиса. Последний, кто ей пользовался, создавал нечто могущественное."
+	ru_names = list(
+		NOMINATIVE = "Мировая Кузня",
+		GENITIVE = "Мировой Кузни",
+		DATIVE = "Мировой Кузне",
+		ACCUSATIVE = "Мировую Кузню",
+		INSTRUMENTAL = "Мировой Кузней",
+		PREPOSITIONAL = "Мировой Кузне"
+	)
 	icon = 'icons/obj/lavaland/anvil.dmi'
 	icon_state = "anvil"
 	density = TRUE
@@ -48,7 +56,7 @@
 
 /obj/structure/world_anvil/examine(mob/user)
 	. = ..()
-	. += span_info("It currently has [forge_charges] forge[forge_charges != 1 ? "s" : ""] remaining.")
+	. += span_info("Доступно [forge_charges] ковочн[declension_ru(forge_charges,"ый заряд","ых заряда","ых заряда")].")
 
 
 /obj/structure/world_anvil/attackby(obj/item/I, mob/living/user, params)
@@ -59,12 +67,12 @@
 	if(istype(I, /obj/item/twohanded/required/gibtonite))
 		var/obj/item/twohanded/required/gibtonite/gibtonite = I
 		if(forging)
-			to_chat(user, span_warning("Someone is already using the World Anvil!"))
+			to_chat(user, span_warning("Кто-то уже использует Мировую Кузню!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(gibtonite, src))
 			return ..()
 		forge_charges = forge_charges + gibtonite.quality
-		to_chat(user, span_notice("You have placed the gibtonite on the World Anvil, and watch as the gibtonite melts into it. The World Anvil is now heated enough for <b>[forge_charges]</b> forge[forge_charges > 1 ? "s" : ""]."))
+		to_chat(user, span_notice("Вы помещаете гибтонит на Мировую Кузню, наблюдая как он плавится. Теперь наковальня достаточно нагрета для <b>[forge_charges]</b> ковочн[declension_ru(forge_charges,"ого заряда","ых зарядов","ых зарядов")]."))
 		qdel(gibtonite)
 		update_state()
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -72,23 +80,23 @@
 	if(istype(I, /obj/item/gem/amber))
 		var/obj/item/gem/amber/gem = I
 		if(forging)
-			to_chat(user, span_warning("Someone is already using the World Anvil!"))
+			to_chat(user, span_warning("Кто-то уже использует Мировую Кузню!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(gem, src))
 			return ..()
 		forge_charges += 3
-		to_chat(user, span_notice("You have placed the draconic amber on the World Anvil, and watch as amber melts into it. The World Anvil is now heated enough for [forge_charges] forge[forge_charges > 1 ? "s" : ""]."))
+		to_chat(user, span_notice("Вы помещаете драконий янтарь на Мировую Наковальню, наблюдая как он плавится. Теперь наковальня достаточно нагрета для <b>[forge_charges]</b> ковочн[declension_ru(forge_charges,"ого заряда","ых зарядов","ых зарядов")]."))
 		qdel(gem)
 		update_state()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(forge_charges <= 0)
-		to_chat(user, span_warning("The World Anvil is not hot enough to be usable!"))
+		to_chat(user, span_warning("Мировая Кузня недостаточно нагрета для использования!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(istype(I, /obj/item/magmite))
 		if(forging)
-			to_chat(user, span_warning("Someone is already using the World Anvil!"))
+			to_chat(user, span_warning("Кто-то уже использует Мировую Кузню!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -102,7 +110,7 @@
 			update_icon(UPDATE_OVERLAYS)
 			return ATTACK_CHAIN_PROCEED
 		forging = null
-		to_chat(user, span_notice("You have carefully forged the rough plasma magmite into plasma magmite upgrade parts."))
+		to_chat(user, span_notice("Вы искусно выковали из грубого плазменного магмита комплект улучшений."))
 		playsound(loc, 'sound/effects/anvil_end.ogg', 50)
 		var/obj/item/magmite_parts/parts = new(drop_loc)
 		parts.add_fingerprint(user)
@@ -110,16 +118,16 @@
 		forge_charges--
 		update_state()
 		if(forge_charges <= 0)
-			visible_message(span_info("The World Anvil cools down."))
+			visible_message(span_info("Мировая Кузня остывает."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/magmite_parts))
 		var/obj/item/magmite_parts/parts = I
 		if(!parts.inert)
-			to_chat(user, span_warning("The magmite upgrade parts are already glowing and usable!"))
+			to_chat(user, span_warning("Детали из магмита уже раскалены и готовы к использованию!"))
 			return ATTACK_CHAIN_PROCEED
 		if(forging)
-			to_chat(user, span_warning("Someone is already using the World Anvil!"))
+			to_chat(user, span_warning("Кто-то уже использует Мировую Кузню!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(parts, src))
 			return ..()
@@ -133,13 +141,13 @@
 			update_icon(UPDATE_OVERLAYS)
 			return ATTACK_CHAIN_PROCEED
 		forging = null
-		to_chat(user, span_notice("You have successfully reheat the magmite upgrade parts. They are now glowing and usable again."))
+		to_chat(user, span_notice("Вы успешно переплавили детали улучшений. Теперь они снова раскалены и готовы к использованию."))
 		playsound(loc, 'sound/effects/anvil_end.ogg', 50)
 		parts.forceMove(drop_loc)
 		parts.restore()
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	to_chat(user, span_warning("You have no idea what to forge with [I]!"))
+	to_chat(user, span_warning("Вы не знаете, что можно выковать из [I.declent_ru(GENITIVE)]!"))
 	return ATTACK_CHAIN_PROCEED
 

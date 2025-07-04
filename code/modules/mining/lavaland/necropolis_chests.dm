@@ -2,14 +2,22 @@
 
 /obj/structure/closet/crate/necropolis
 	name = "necropolis chest"
-	desc = "It's watching you closely."
+	desc = "Он внимательно наблюдает за тобой."
+	ru_names = list(
+		NOMINATIVE = "сундук некрополя",
+		GENITIVE = "сундука некрополя",
+		DATIVE = "сундуку некрополя",
+		ACCUSATIVE = "сундук некрополя",
+		INSTRUMENTAL = "сундуком некрополя",
+		PREPOSITIONAL = "сундуке некрополя"
+	)
 	icon_state = "necrocrate"
 	icon_opened = "necrocrateopen"
 	icon_closed = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/structure/closet/crate/necropolis/tendril
-	desc = "It's watching you suspiciously."
+	desc = "Он подозрительно наблюдает за тобой."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
 	switch(rand(1, 32))
@@ -113,6 +121,14 @@
 
 /obj/structure/closet/crate/necropolis/puzzle
 	name = "puzzling chest"
+	ru_names = list(
+		NOMINATIVE = "загадочный сундук",
+		GENITIVE = "загадочного сундука",
+		DATIVE = "загадочному сундуку",
+		ACCUSATIVE = "загадочный сундук",
+		INSTRUMENTAL = "загадочным сундуком",
+		PREPOSITIONAL = "загадочном сундуке"
+	)
 
 /obj/structure/closet/crate/necropolis/puzzle/populate_contents()
 	var/loot = rand(1,3)
@@ -194,7 +210,15 @@
 //Rod of Asclepius
 /obj/item/rod_of_asclepius
 	name = "\improper Rod of Asclepius"
-	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
+	desc = "Деревянный посох, размером с вашу руку. На нём змея вырезана. От него прям веет ответственностью и желанием помогать другим."
+	ru_names = list(
+		NOMINATIVE = "посох асклепия",
+		GENITIVE = "посоха асклепия",
+		DATIVE = "посоху асклепия",
+		ACCUSATIVE = "посох асклепия",
+		INSTRUMENTAL = "посохом асклепия",
+		PREPOSITIONAL = "посохе асклепия"
+	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "asclepius_dormant"
 	item_state = "asclepius_dormant"
@@ -205,7 +229,7 @@
 	if(activated)
 		return
 	if(!iscarbon(user))
-		to_chat(user, "<span class='warning'>The snake carving seems to come alive, if only for a moment, before returning to its dormant state, almost as if it finds you incapable of holding its oath.</span>")
+		to_chat(user, span_warning("Резьба змеи, кажется, оживает на мгновение, прежде чем вернуться в свое спящее состояние, словно она находит вас недостойным её клятвы."))
 		return
 	var/mob/living/carbon/itemUser = user
 	if(itemUser.l_hand == src)
@@ -213,10 +237,10 @@
 	if(itemUser.r_hand == src)
 		usedHand = 0
 	if(itemUser.has_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH))
-		to_chat(user, "<span class='warning'>You can't possibly handle the responsibility of more than one rod!</span>")
+		to_chat(user, span_warning("Вы не сможете нести ответственность более чем за один посох!"))
 		return
-	var/failText = "<span class='warning'>The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!</span>"
-	to_chat(itemUser, "<span class='notice'>The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong...</span>")
+	var/failText = span_warning("Змея недовольна вашей неполной клятвой и возвращается на жезл, застывая в деревянном обличье. Вы должны стоять неподвижно, принося клятву!")
+	to_chat(itemUser, span_notice("Деревянная змея на жезле внезапно оживает и начинает сползать по вашей руке! Желание помогать другим становится невыносимо сильным..."))
 	if(do_after(itemUser, 4 SECONDS, itemUser, max_interact_count = 1))
 		itemUser.say("Клянусь Аполлоном врачом, Асклепием, всеми богами и богинями, беря их в свидетели, исполнять честно, соответственно моим силам и здравому смыслу, следующую клятву:")
 	else
@@ -252,7 +276,7 @@
 	else
 		to_chat(itemUser, failText)
 		return
-	to_chat(itemUser, "<span class='notice'>The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory...</span>")
+	to_chat(itemUser, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред - всего лишь смутное, греховное воспоминание..."))
 	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
 	effect.hand = usedHand
 	activated()
@@ -260,7 +284,7 @@
 /obj/item/rod_of_asclepius/proc/activated()
 	item_flags |= DROPDEL
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type))
-	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
+	desc = "Короткий деревянный посох с мистической змеёй, намертво приросшей к вашему предплечью. Он излучает целительную энергию, распространяющуюся на вас и окружающих."
 	icon_state = "asclepius_active"
 	item_state = "asclepius_active"
 	activated = TRUE
@@ -271,23 +295,31 @@
 
 /obj/item/eflowers
 	name ="enchanted flowers"
-	desc ="A charming bunch of flowers, most animals seem to find the bearer amicable after momentary contact with it. Squeeze the bouquet to summon tamed creatures. Megafauna cannot be summoned. <b>Megafauna need to be exposed 35 times to become friendly.</b>"
+	desc = "Очаровательный букет, делающий носителя дружелюбным в глазах фауны. Сожмите букет, чтобы призвать приручённых существ. Не призывает мегафауну. <b>Для приручения мегафауны требуется 35 контактов.</b>"
+	ru_names = list(
+		NOMINATIVE = "зачарованные цветы",
+		GENITIVE = "зачарованных цветов",
+		DATIVE = "зачарованным цветам",
+		ACCUSATIVE = "зачарованные цветы",
+		INSTRUMENTAL = "зачарованными цветами",
+		PREPOSITIONAL = "зачарованных цветах"
+	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "eflower"
 	var/next_summon = 0
 	var/list/summons = list()
-	attack_verb = list("ударил", "шлифанул", "стукнул")
+	attack_verb = list("коснулся", "погладил", "провёл")
 
 /obj/item/eflowers/attack_self(mob/user)
 	var/turf/T = get_turf(user)
 	var/area/A = get_area(user)
 	if(next_summon > world.time)
-		to_chat(user, span_warning("You can't do that yet!"))
+		to_chat(user, span_warning("Вы пока не можете этого сделать!"))
 		return
 	if(is_station_level(T.z) && !A.outdoors)
-		to_chat(user, span_warning("You feel like calling a bunch of animals indoors is a bad idea."))
+		to_chat(user, span_warning("Кажется, призывать фауну в помещении – плохая идея."))
 		return
-	user.visible_message(span_warning("[user] holds the bouquet out, summoning their allies!"))
+	user.visible_message(span_warning("[user] протягивает букет, призывая союзников!"))
 	for(var/mob/m in summons)
 		m.forceMove(T)
 	playsound(T, 'sound/effects/splat.ogg', 80, 5, -1)
@@ -299,13 +331,13 @@
 	var/mob/living/simple_animal/M = target
 	if(istype(M))
 		if(M.client)
-			to_chat(user, span_warning("[M] is too intelligent to tame!"))
+			to_chat(user, span_warning("[capitalize(M.declent_ru(NOMINATIVE))] слишком умён для приручения!"))
 			return
 		if(M.stat)
-			to_chat(user, span_warning("[M] is dead!"))
+			to_chat(user, span_warning("[capitalize(M.declent_ru(NOMINATIVE))] мёртв!"))
 			return
 		if(M.faction == user.faction)
-			to_chat(user, span_warning("[M] is already on your side!"))
+			to_chat(user, span_warning("[capitalize(M.declent_ru(NOMINATIVE))] уже на вашей стороне!"))
 			return
 		if(M.sentience_type == SENTIENCE_BOSS)
 			var/datum/status_effect/taming/G = M.has_status_effect(STATUS_EFFECT_TAMING)
@@ -314,14 +346,14 @@
 			else
 				G.add_tame(G.tame_buildup)
 				if(ISMULTIPLE(G.tame_crit-G.tame_amount, 5))
-					to_chat(user, span_notice("[M] has to be exposed [G.tame_crit-G.tame_amount] more times to accept your gift!"))
+					to_chat(user, span_notice("Требуется ещё [G.tame_crit-G.tame_amount] контактов, чтобы [M.declent_ru(NOMINATIVE)] принял вашу доброту!"))
 			return
 		if(M.sentience_type != SENTIENCE_ORGANIC)
-			to_chat(user, span_warning("[M] cannot be tamed!"))
+			to_chat(user, span_warning("[capitalize(M.declent_ru(ACCUSATIVE))] невозможно приручить!"))
 			return
 		if(!do_after(user, 1.5 SECONDS, M))
 			return
-		M.visible_message(span_notice("[M] seems happy with you after exposure to the bouquet!"))
+		M.visible_message(span_notice("[capitalize(M.declent_ru(NOMINATIVE))] выглядит умиротворённым после контакта с букетом!"))
 		M.add_atom_colour("#11c42f", FIXED_COLOUR_PRIORITY)
 		M.drop_loot()
 		M.loot = list()
@@ -332,7 +364,15 @@
 //Runite Scimitar. Some weird runescape reference
 /obj/item/rune_scimmy
 	name = "rune scimitar"
-	desc = "A curved sword smelted from an unknown metal. Looking at it gives you the otherworldly urge to pawn it off for '30k', whatever that means."
+	desc = "Изогнутый меч из неизвестного металла. При взгляде на него возникает потустороннее желание продать его за \"30k\", что бы это ни значило."
+	ru_names = list(
+		NOMINATIVE = "рунический ятаган",
+		GENITIVE = "рунического ятагана",
+		DATIVE = "руническому ятагану",
+		ACCUSATIVE = "рунический ятаган",
+		INSTRUMENTAL = "руническим ятаганом",
+		PREPOSITIONAL = "руническом ятагане"
+	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "rune_scimmy"
 	force = 28
@@ -344,7 +384,15 @@
 
 /obj/item/organ/internal/cyberimp/arm/katana
 	name = "dark shard"
-	desc = "An eerie metal shard surrounded by dark energies."
+	desc = "Зловещий металлический осколок, окутанный тёмной энергией."
+	ru_names = list(
+		NOMINATIVE = "тёмный осколок",
+		GENITIVE = "тёмного осколка",
+		DATIVE = "тёмному осколку",
+		ACCUSATIVE = "тёмный осколок",
+		INSTRUMENTAL = "тёмным осколком",
+		PREPOSITIONAL = "тёмном осколке"
+	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana_organ"
 	status = NONE
@@ -356,7 +404,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
 	. = ..()
-	to_chat(user, span_warning("The mass goes up your arm and inside it!"))
+	to_chat(user, span_warning("Масса поднимается по вашей руке и проникает внутрь!"))
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(user_death))
 
@@ -371,7 +419,7 @@
 	if(!katana || katana.shattered)
 		return FALSE
 	if(!katana.drew_blood)
-		to_chat(owner, span_userdanger("[katana] lashes out at you in hunger!"))
+		to_chat(owner, span_userdanger("[capitalize(katana.declent_ru(NOMINATIVE))] жадно атакует вас!"))
 		playsound(owner, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		owner.apply_damage(25, BRUTE, parent_organ_zone, TRUE)
 	katana.drew_blood = FALSE
@@ -381,7 +429,7 @@
 /obj/item/organ/internal/cyberimp/arm/katana/Extend()
 	for(var/obj/item/cursed_katana/katana in contents)
 		if(katana.shattered)
-			to_chat(owner,  span_warning("Your cursed katana has not reformed yet!"))
+			to_chat(owner, span_warning("Ваша проклятая катана ещё не восстановилась!"))
 			return FALSE
 	return ..()
 
@@ -391,7 +439,10 @@
 
 /obj/item/organ/internal/cyberimp/arm/katana/proc/user_death_async(mob/user)
 	remove(user)
-	user.visible_message(span_warning("[user] begins to turn to dust, his soul being contained within [src]!"), span_userdanger("You feel your body begin to turn to dust, your soul being drawn into [src]!"))
+	user.visible_message(
+		span_warning("[user] обращается в прах, его душа затягивается в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("Вы чувствуете, как ваше тело рассыпается в прах, а душа втягивается в [declent_ru(ACCUSATIVE)]!")
+	)
 	forceMove(get_turf(user))
 	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob, dust)), 1 SECONDS)
 
@@ -399,17 +450,24 @@
 	UnregisterSignal(M, COMSIG_MOB_DEATH)
 	. = ..()
 
-#define ATTACK_STRIKE "Hilt Strike"
-#define ATTACK_SLICE "Wide Slice"
-#define ATTACK_DASH "Dash Attack"
-#define ATTACK_CUT "Tendon Cut"
-#define ATTACK_HEAL "Dark Heal"
-#define ATTACK_SHATTER "Shatter"
+#define ATTACK_STRIKE "Удар рукоятью"
+#define ATTACK_SLICE "Широкий взмах"
+#define ATTACK_DASH "Рывок"
+#define ATTACK_CUT "Подрез сухожилий"
+#define ATTACK_HEAL "Тёмное исцеление"
+#define ATTACK_SHATTER "Разрушение"
 
 /obj/item/cursed_katana
 	name = "cursed katana"
-	desc = "A katana used to seal something vile away long ago. \
-	Even with the weapon destroyed, all the pieces containing the creature have coagulated back together to find a new host."
+	desc = "Катана, некогда сдерживавшая ужасное существо, была разрушена. Однако даже после этого её фрагменты, в которых заключена сущность, вновь объединились, чтобы найти нового хозяина."
+	ru_names = list(
+		NOMINATIVE = "проклятая катана",
+		GENITIVE = "проклятой катаны",
+		DATIVE = "проклятой катане",
+		ACCUSATIVE = "проклятую катану",
+		INSTRUMENTAL = "проклятой катаной",
+		PREPOSITIONAL = "проклятой катане"
+	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -420,7 +478,7 @@
 	block_type = MELEE_ATTACKS
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb = list("атаковал", "ударил", "порезал", "покромсал", "порвал", "поцарапал", "рубанул")
+	attack_verb = list("атаковал", "ударил", "порезал", "покромсал", "разрезал", "рубанул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/shattered = FALSE
 	var/drew_blood = FALSE
@@ -446,7 +504,7 @@
 
 /obj/item/cursed_katana/examine(mob/user)
 	. = ..()
-	. += drew_blood ? ("<span class='notice'>It's sated... for now.</span>") : ("<span class='danger'>It will not be sated until it tastes blood.</span>")
+	. += drew_blood ? ("[span_notice("Она насытилось... пока что.")]") : (span_danger("Она не успокоится, пока не отведает крови."))
 
 
 /obj/item/cursed_katana/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -460,15 +518,17 @@
 	return target.stat != DEAD && target != user
 
 /obj/item/cursed_katana/proc/strike(mob/living/target, mob/user)
-	user.visible_message(span_warning("[user] strikes [target] with [src]'s hilt!"),
-		span_notice("You hilt strike [target]!"))
-	to_chat(target, span_userdanger("You've been struck by [user]!"))
+	user.visible_message(
+		span_warning("[user] бь[pluralize_ru(user.gender,"ёт","ют")] [target.declent_ru(ACCUSATIVE)] рукоятью [declent_ru(GENITIVE)]!"),
+		span_notice("Вы бьёте рукоятью по [target.declent_ru(DATIVE)]!")
+	)
+	to_chat(target, span_userdanger("[user] ударил вас рукоятью!"))
 	playsound(src, 'sound/weapons/genhit3.ogg', 50, TRUE)
 	RegisterSignal(target, COMSIG_MOVABLE_IMPACT, PROC_REF(strike_throw_impact))
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, 5, 3, user, FALSE, callback = CALLBACK(target, TYPE_PROC_REF(/datum, UnregisterSignal), target, COMSIG_MOVABLE_IMPACT))
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST)
-	to_chat(target,  span_userdanger("You've been struck by [user]!"))
+	to_chat(target, span_userdanger("[user] ударил[pluralize_ru(user.gender,"","и")] вас рукоятью!"))
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
 /obj/item/cursed_katana/proc/strike_throw_impact(mob/living/source, atom/hit_atom, datum/thrownthing/thrownthing)
@@ -485,8 +545,10 @@
 	return NONE
 
 /obj/item/cursed_katana/proc/slice(mob/living/target, mob/user)
-	user.visible_message(span_warning("[user] does a wide slice!"),
-		span_notice("You do a wide slice!"))
+	user.visible_message(
+		span_warning("[user] соверша[pluralize_ru(user.gender,"ет","ют")] широкий взмах!"),
+		span_notice("Вы совершаете широкий взмах!")
+	)
 	playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
 	var/turf/user_turf = get_turf(user)
 	var/dir_to_target = get_dir(user_turf, get_turf(target))
@@ -497,19 +559,23 @@
 		for(var/mob/living/additional_target in T)
 			if(user.Adjacent(additional_target) && additional_target.density)
 				additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
-				to_chat(additional_target, span_userdanger("You've been sliced by [user]!"))
+				to_chat(additional_target, span_userdanger("[user] поразил[pluralize_ru(user.gender,"","и")] вас взмахом!"))
 	target.apply_damage(5, BRUTE, BODY_ZONE_CHEST, TRUE)
 
 /obj/item/cursed_katana/proc/heal(mob/living/target, mob/living/user)
-	user.visible_message(span_warning("[user] lets [src] feast on [target]'s blood!"),
-		span_warning("You let [src] feast on [target], and it heals you, at a price!"))
+	user.visible_message(
+		span_warning("[user] позволя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(DATIVE)] насытиться кровью [target.declent_ru(GENITIVE)]!"),
+		span_warning("Вы позволяете [declent_ru(DATIVE)] насытиться кровью [target.declent_ru(GENITIVE)], исцеляя себя ценой его жизни!")
+	)
 	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 	user.apply_status_effect(STATUS_EFFECT_SHADOW_MEND)
 
 /obj/item/cursed_katana/proc/cut(mob/living/target, mob/user)
-	user.visible_message(span_warning("[user] cuts [target]'s tendons!"),
-		span_notice("You tendon cut [target]!"))
-	to_chat(target, span_userdanger("Your tendons have been cut by [user]!"))
+	user.visible_message(
+		span_warning("[user] подреза[pluralize_ru(user.gender,"ет","ют")] сухожилия [target.declent_ru(GENITIVE)]!"),
+		span_notice("Вы подрезаете сухожилия [target.declent_ru(GENITIVE)]!")
+	)
+	to_chat(target, span_userdanger("[user] подрезал[pluralize_ru(user.gender,"","и")] ваши сухожилия!"))
 	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(src, 'sound/weapons/rapierhit.ogg', 50, TRUE)
@@ -524,11 +590,13 @@
 	var/turf/dash_target = get_turf(target)
 	var/turf/user_turf = get_turf(user)
 	if(!is_teleport_allowed(dash_target.z)) //No teleporting at CC
-		to_chat(user, span_userdanger("You can not dash here!"))
+		to_chat(user, span_userdanger("Сюда невозможно совершить рывок!"))
 		return
-	user.visible_message(span_warning("[user] dashes through [target]!"),
-		span_notice("You dash through [target]!"))
-	to_chat(target, span_userdanger("[user] dashes through you!"))
+	user.visible_message(
+		span_warning("[user] стремительно пронза[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!"),
+		span_notice("Вы стремительно пронзаете [target.declent_ru(ACCUSATIVE)]!")
+	)
+	to_chat(target, span_userdanger("[user] пронза[pluralize_ru(user.gender,"ет","ют")] вас!"))
 	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
 	for(var/distance in 1 to 9)
@@ -539,14 +607,16 @@
 		dash_target = current_dash_target
 		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
 			additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
-			to_chat(additional_target, span_userdanger("You've been sliced by [user]!"))
+			to_chat(additional_target, span_userdanger("[user] порезал[pluralize_ru(user.gender,"","и")] вас!"))
 	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY)
 	user.forceMove(dash_target)
 
 /obj/item/cursed_katana/proc/shatter(mob/living/target, mob/user)
-	user.visible_message(span_warning("[user] shatters [src] over [target]!"),
-		span_notice("You shatter [src] over [target]!"))
-	to_chat(target, span_userdanger("[user] shatters [src] over you!"))
+	user.visible_message(
+		span_warning("[user] разбивает [declent_ru(ACCUSATIVE)] о [target.declent_ru(GENITIVE)]!"),
+		span_notice("Вы разбиваете [declent_ru(ACCUSATIVE)] о [target.declent_ru(GENITIVE)]!")
+	)
+	to_chat(target, span_userdanger("[user] разбивает [declent_ru(ACCUSATIVE)] о вас!"))
 	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, BODY_ZONE_CHEST, TRUE)
 	target.Weaken(3 SECONDS)
 	target.apply_damage(60, STAMINA) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
@@ -563,7 +633,7 @@
 /obj/item/cursed_katana/proc/coagulate(mob/user)
 	if(QDELETED(user))
 		return
-	to_chat(user, span_notice("[src] reforms!"))
+	to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] восстанавливается!"))
 	shattered = FALSE
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 

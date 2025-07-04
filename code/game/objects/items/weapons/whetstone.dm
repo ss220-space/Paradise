@@ -1,6 +1,14 @@
 /obj/item/whetstone
 	name = "whetstone"
-	desc = "A block of stone used to sharpen things."
+	desc = "Каменный брусок для заточки инструментов."
+	ru_names = list(
+		NOMINATIVE = "точильный камень",
+		GENITIVE = "точильного камня",
+		DATIVE = "точильному камню",
+		ACCUSATIVE = "точильный камень",
+		INSTRUMENTAL = "точильным камнем",
+		PREPOSITIONAL = "точильном камне"
+	)
 	gender = MALE
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "whetstone"
@@ -23,36 +31,36 @@
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	if(!uses)
-		to_chat(user, span_warning("The sharpening block is too worn to use again!"))
+		to_chat(user, span_warning("Точильный камень слишком изношен для дальнейшего использования!"))
 		return .
 	if(I.item_flags & NOSHARPENING)
-		to_chat(user, span_warning("You don't think [I] will be the thing getting modified if you use it on [src]!"))
+		to_chat(user, span_warning("Сомневаюсь, что [I.declent_ru(NOMINATIVE)] станет острее."))
 		return .
 	if(I.force >= max || I.throwforce >= max) //So the whetstone never reduces force or throw_force
-		to_chat(user, span_warning("[I] is much too powerful to sharpen further!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] и так уже предельно остр[genderize_ru(I.gender,"ый","ая","ое","ые")]!"))
 		return .
 	if(requires_sharpness && !I.sharp)
-		to_chat(user, span_warning("You can only sharpen items that are already sharp, such as knives!"))
+		to_chat(user, span_warning("Можно заточить только режущие предметы, например ножи!"))
 		return .
 
 	//This block is used to check more things if the item has a relevant component.
 	var/signal_out = SEND_SIGNAL(I, COMSIG_ITEM_SHARPEN_ACT, increment, max) //Stores the bitflags returned by SEND_SIGNAL
 	if(signal_out & COMPONENT_BLOCK_SHARPEN_MAXED) //If the item's components enforce more limits on maximum power from sharpening,  we fail
-		to_chat(user, span_warning("[I] is much too powerful to sharpen further!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] и так уже предельно остр[genderize_ru(I.gender,"ый","ая","ое","ые")]!"))
 		return .
 	if(signal_out & COMPONENT_BLOCK_SHARPEN_BLOCKED)
-		to_chat(user, span_warning("[I] is not able to be sharpened!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] нельзя заточить!"))
 		return .
 	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY) || (!signal_out && I.force > initial(I.force))) //No sharpening stuff twice
-		to_chat(user, span_warning("[I] has already been refined before. It cannot be sharpened further!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] уже было заточено ранее. Дальнейшая заточка невозможна!"))
 		return .
 	//If component returns nothing and sharpen_act() returns FALSE we are out
 	if(!(signal_out & COMPONENT_BLOCK_SHARPEN_APPLIED) && !I.sharpen_act(src, user))
 		return .
 
 	user.visible_message(
-		span_notice("[user] sharpens [I] with [src]!"),
-		span_notice("You sharpen [I], making it much more deadly than before."),
+		span_notice("[user] затачива[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] при помощи [declent_ru(GENITIVE)]!"),
+		span_notice("Вы затачиваете [I.declent_ru(ACCUSATIVE)], делая его гораздо опаснее."),
 	)
 	playsound(src, usesound, 50, TRUE)
 	uses--
@@ -66,7 +74,7 @@
 
 /obj/item/whetstone/update_desc(updates = ALL)
 	. = ..()
-	desc = "[initial(desc)][!uses ? " At least, it used to." : ""]"
+	desc = "[initial(desc)][!uses ? " По крайней мере, раньше мог." : ""]"
 
 
 /obj/item/whetstone/attack_self(mob/living/carbon/human/user)
@@ -74,17 +82,17 @@
 	if(!ishuman(user) || !istype(user.dna.species.unarmed, /datum/unarmed_attack/claws))
 		return .
 	if(!uses)
-		to_chat(user, span_warning("The sharpening block is too worn to use again!"))
+		to_chat(user, span_warning("Точильный брусок слишком изношен, чтобы его можно было использовать повторно!"))
 		return .
 	var/datum/unarmed_attack/claws/claws = user.dna.species.unarmed
 	if(claws.damage > initial(claws.damage))
-		to_chat(user, span_warning("You cannot sharpen your claws any further!"))
+		to_chat(user, span_warning("Вы больше не можете точить свои когти!"))
 		return .
 
 	claws.damage = clamp(claws.damage + claws_increment, 0, max)
 	user.visible_message(
-		span_notice("[user] sharpens [user.p_their()] claws on [src]!"),
-		span_notice("You sharpen your claws on [src]."),
+		span_notice("[user] точ[pluralize_ru(user.gender,"ит","ят")] свои когти о [declent_ru(ACCUSATIVE)]!"),
+		span_notice("Вы точите свои когти о [declent_ru(ACCUSATIVE)]."),
 	)
 	playsound(src, usesound, 50, TRUE)
 	uses--
@@ -93,7 +101,15 @@
 
 /obj/item/whetstone/super
 	name = "super whetstone block"
-	desc = "A block of stone that will make your weapon sharper than Einstein on adderall."
+	desc = "Каменный блок, который заточит ваше оружие острее, чем Эйнштейн на аддералле."
+	ru_names = list(
+		NOMINATIVE = "суперточильный блок",
+		GENITIVE = "суперточильного блока",
+		DATIVE = "суперточильному блоку",
+		ACCUSATIVE = "суперточильный блок",
+		INSTRUMENTAL = "суперточильным блоком",
+		PREPOSITIONAL = "суперточильном блоке"
+	)
 	increment = 200
 	max = 200
 	prefix = "super-sharpened"

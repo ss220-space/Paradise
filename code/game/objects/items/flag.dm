@@ -255,7 +255,7 @@
 
 	var/list/show_flag = list("EXIT" = null) + sortList(flag)
 
-	var/input_flag = input(user, "Choose a flag to disguise as.", "Choose a flag.") in show_flag
+	var/input_flag = tgui_input_list(user, "Choose a flag to disguise as.", "Choose a flag.", show_flag)
 
 	if(user && (src in user.contents))
 

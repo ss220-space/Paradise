@@ -147,8 +147,11 @@
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if((M.a_intent == INTENT_HELP && M.ckey) || (!M.melee_damage_upper && !M.obj_damage))
-		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src].")
-		return FALSE
+		if(!M.can_use_machinery(src))
+			M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src].")
+			return FALSE
+
+		interact(M)
 
 	if(GLOB.pacifism_after_gt || HAS_TRAIT(M, TRAIT_PACIFISM))
 		to_chat(M, span_notice("Немного подумав, Вы решаете не трогать [declent_ru(ACCUSATIVE)]."))

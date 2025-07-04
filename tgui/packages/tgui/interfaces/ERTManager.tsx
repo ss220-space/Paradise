@@ -335,7 +335,7 @@ const DenyERT = (props: unknown) => {
         fluid
         height={'50%'}
         value={text}
-        onChange={(e, value) => setText(value)}
+        onChange={setText}
       />
       <Button.Confirm
         fluid
