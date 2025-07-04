@@ -120,6 +120,10 @@
 		lash.Grant(H)
 
 
+/datum/species/unathi/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default + (target.gender == FEMALE), max_level, can_become_stronger)
+
+
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	remove_verb(H, list(
@@ -361,7 +365,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 		var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "Точки интереса", list_of_points)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, owner, \
 							span_warning("Я чувствую, что [selected_poi] [get_direction(selected_poi)]")), 2 SECONDS)
-              
+
 	if(!LAZYLEN(GLOB.lavaland_points_of_interest))
 		to_chat(owner, "Все церемониальные тотемы уничтожены.")
 		return

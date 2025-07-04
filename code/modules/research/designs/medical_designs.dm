@@ -857,3 +857,84 @@
 	materials = list(MAT_METAL = 1200, MAT_GLASS = 1000, MAT_SILVER = 800, MAT_GOLD = 800, MAT_DIAMOND = 1000, MAT_BLUESPACE = 600)
 	build_path = /obj/item/clothing/gloves/color/latex/inugami
 	category = list("Medical")
+
+/datum/design/scalpel
+	name = "Scalpel"
+	id = "scalpel"
+	req_tech = list("materials" = 1, "biotech" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000)
+	build_path = /obj/item/scalpel
+	category = list("Medical")
+
+/datum/design/circular_saw
+	name = "Circular Saw"
+	id = "circular_saw"
+	req_tech = list("materials" = 1, "biotech" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000)
+	build_path = /obj/item/circular_saw
+	category = list("Medical")
+
+/datum/design/surgicaldrill
+	name = "Surgical Drill"
+	id = "surgicaldrill"
+	req_tech = list("materials" = 1, "biotech" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000)
+	build_path = /obj/item/surgicaldrill
+	category = list("Medical")
+
+/datum/design/retractor
+	name = "Retractor"
+	id = "retractor"
+	req_tech = list("materials" = 1, "biotech" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000)
+	build_path = /obj/item/retractor
+	category = list("Medical")
+
+/datum/design/cautery
+	name = "Cautery"
+	id = "cautery"
+	req_tech = list("materials" = 1, "biotech" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 750)
+	build_path = /obj/item/cautery
+	category = list("Medical")
+
+/datum/design/hemostat
+	name = "Hemostat"
+	id = "hemostat"
+	req_tech = list("materials" = 1, "biotech" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
+	build_path = /obj/item/hemostat
+	category = list("Medical")
+
+/datum/design/bonesetter
+	name = "Bone Setter"
+	id = "bonesetter"
+	req_tech = list("materials" = 1, "biotech" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/bonesetter
+	category = list("Medical")
+
+/datum/design/fixovein
+	name = "FixOVein"
+	id = "fixovein"
+	req_tech = list("materials" = 1, "biotech" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
+	build_path = /obj/item/FixOVein
+	category = list("Medical")
+
+/datum/design/bonegel
+	name = "Bone Gel"
+	id = "bonegel"
+	req_tech = list("materials" = 1, "biotech" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 6000)
+	build_path = /obj/item/bonegel
+	category = list("Medical")

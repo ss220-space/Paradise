@@ -1502,7 +1502,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!prompt)
 		prompt = "Что вы хотите написать на этикетке [declent_ru(GENITIVE)]?"
 
-	var/t = input(user, prompt, "Переименование [declent_ru(GENITIVE)]", default_value)  as text | null
+	var/t = tgui_input_text(user, prompt, "Переименование [declent_ru(GENITIVE)]", default_value)
 	if(isnull(t))
 		// user pressed Cancel
 		return null

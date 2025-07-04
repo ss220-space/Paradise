@@ -84,7 +84,7 @@
 		to_chat(user, span_notice("Сначала откройте панель техобслуживания."))
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-	var/selected = input(user,"Выберите направление соединения.", "Направление соединения") in choices
+	var/selected = tgui_input_list(user,"Выберите направление соединения.", "Направление соединения", choices)
 	dir = choices[selected]
 	var/node_connect = dir
 	initialize_directions = dir
@@ -261,7 +261,7 @@
 		to_chat(user, span_notice("Сначала откройте панель техобслуживания."))
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-	var/selected = input(user,"Выберите направление соединения.", "Направление соединения") in choices
+	var/selected =  tgui_input_list(user,"Выберите направление соединения.", "Направление соединения", choices)
 	dir = choices[selected]
 	var/node_connect = dir
 	initialize_directions = dir

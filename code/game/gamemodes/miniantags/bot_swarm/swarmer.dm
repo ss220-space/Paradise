@@ -758,7 +758,7 @@
 	set_light_on(!light_on)
 
 /mob/living/simple_animal/hostile/swarmer/proc/ContactSwarmers()
-	var/message = input(src, "Announce to other swarmers", "Swarmer contact")
+	var/message = tgui_input_text(src, "Announce to other swarmers", "Swarmer contact")
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
 			if(isswarmer(M) || (M in GLOB.dead_mob_list))

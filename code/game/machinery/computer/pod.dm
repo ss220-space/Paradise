@@ -201,7 +201,7 @@
 	else
 		usr.set_machine(src)
 		if(href_list["add"])
-			var/new_id_tag = input("Enter a new id_tag", "Mass Driver Controls", "id_tag")
+			var/new_id_tag = tgui_input_text(usr, "Enter a new id_tag", "Mass Driver Controls", "id_tag")
 			if(!(new_id_tag in id_tags))
 				id_tags += new_id_tag
 				solo_sync(new_id_tag)
@@ -222,7 +222,7 @@
 			for(var/z in reachable_levels)
 				choices += z
 			var/obj/machinery/computer/pod/deathsquad/D = src
-			var/input = input("Enter the destination Z-Level. The mechs will arrive from the East. Leave 0 if you don't want to set a specific ZLevel", "Mass Driver Controls", 0) in choices
+			var/input = tgui_input_list(usr, "Enter the destination Z-Level. The mechs will arrive from the East. Leave 0 if you don't want to set a specific ZLevel", "Mass Driver Controls", choices, 0) 
 			D.teleporter_dest = input
 
 		if(href_list["massfire"])
@@ -262,7 +262,7 @@
 					else
 						INVOKE_ASYNC(poddoor, TYPE_PROC_REF(/obj/machinery/door, close))
 		if(href_list["rename"])
-			var/new_title = input("Enter a new title", "[name]", "[name]")
+			var/new_title = tgui_input_text(usr, "Enter a new title", "[name]", "[name]")
 			if(new_title)
 				name = new_title
 		updateUsrDialog()

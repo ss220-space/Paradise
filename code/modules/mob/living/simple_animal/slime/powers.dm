@@ -38,7 +38,7 @@
 		if(C!=src && Adjacent(C))
 			choices += C
 
-	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|choices
+	var/mob/living/M = tgui_input_list(src, "Who do you wish to feed on?", , choices)
 	if(!M)
 		return 0
 	if(CanFeedon(M))

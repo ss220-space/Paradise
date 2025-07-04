@@ -154,7 +154,8 @@ export const Autolathe = (props: unknown) => {
               <Input
                 fluid
                 placeholder="Search for..."
-                onInput={(e, v) => setSearchText(v)}
+                expensive
+                onChange={setSearchText}
                 mb={1}
               />
               {recipesToShow.map((recipe) => (

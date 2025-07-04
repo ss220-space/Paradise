@@ -355,38 +355,39 @@
 	return FALSE
 
 
-/datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
+/datum/species/proc/on_species_gain(mob/living/carbon/human/target) //Handles anything not already covered by basic species assignment.
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(speed_mod)
-		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
+		target.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 
 	if(toolspeedmod)
-		H.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = toolspeedmod)
+		target.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = toolspeedmod)
 
 	if(surgeryspeedmod)
-		H.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = surgeryspeedmod)
+		target.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = surgeryspeedmod)
 
 	if(length(inherent_traits))
-		H.add_traits(inherent_traits, SPECIES_TRAIT)
+		target.add_traits(inherent_traits, SPECIES_TRAIT)
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
-			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
+			target.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
-	for(var/obj/item/item as anything in H.get_equipped_items())
-		if(QDELETED(item) || item.loc != H)	// was deleted or dropped already
+	for(var/obj/item/item as anything in target.get_equipped_items())
+		if(QDELETED(item) || item.loc != target)	// was deleted or dropped already
 			continue
-		var/item_slot = H.get_slot_by_item(item)
+
+		var/item_slot = target.get_slot_by_item(item)
 		if(item_slot in no_equip)
-			H.drop_item_ground(item, force = TRUE)
+			target.drop_item_ground(item, force = TRUE)
 			continue
 
-		if(isclothing(item) && !H.is_general_slot(item_slot))
+		if(isclothing(item) && !target.is_general_slot(item_slot))
 			var/obj/item/clothing/cloth_item = item
 			// faction based cloth
-			if(cloth_item.faction_restricted && faction_check(cloth_item.faction_restricted, H.faction))
-				H.drop_item_ground(cloth_item, force = TRUE)
+			if(cloth_item.faction_restricted && faction_check(cloth_item.faction_restricted, target.faction))
+				target.drop_item_ground(cloth_item, force = TRUE)
 				continue
 
 			// species restricted cloth
@@ -400,19 +401,32 @@
 				wearable = FALSE
 
 			if(!wearable)
-				H.drop_item_ground(cloth_item, force = TRUE)
+				target.drop_item_ground(cloth_item, force = TRUE)
 
-	if(!H.w_uniform)
-		H.drop_item_ground(H.r_store, force = TRUE)
-		H.drop_item_ground(H.l_store, force = TRUE)
-		H.drop_item_ground(H.wear_id, force = TRUE)
-		H.drop_item_ground(H.belt, force = TRUE)
-		H.drop_item_ground(H.wear_pda, force = TRUE)
+	if(!target.w_uniform)
+		target.drop_item_ground(target.r_store, force = TRUE)
+		target.drop_item_ground(target.l_store, force = TRUE)
+		target.drop_item_ground(target.wear_id, force = TRUE)
+		target.drop_item_ground(target.belt, force = TRUE)
+		target.drop_item_ground(target.wear_pda, force = TRUE)
 
-	if(!H.wear_suit)
-		H.drop_item_ground(H.s_store, force = TRUE)
+	if(!target.wear_suit)
+		target.drop_item_ground(target.s_store, force = TRUE)
 
-	H.hud_used?.update_locked_slots()
+	target.hud_used?.update_locked_slots()
+	gain_muscles(target, STRENGTH_LEVEL_DEFAULT, STRENGTH_LEVEL_MAXDEFAULT, TRUE)
+	target.update_body(TRUE)
+
+
+/datum/species/proc/gain_muscles(mob/living/carbon/human/target, default, max_level, can_become_stronger = TRUE)
+	var/datum/component/muscles/muscles = target.physiology.GetComponent(/datum/component/muscles)
+	if(!muscles)
+		target.physiology.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
+		return
+
+	muscles.max_species_strength = max_level
+	muscles.can_become_stronger = can_become_stronger
+	muscles.strength = min(muscles.strength, muscles.get_max_strength_level())
 
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
@@ -562,7 +576,13 @@
 		target.lastattackerckey = user.ckey
 
 		var/damage_type = BRUTE
-		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
+		var/delta = 0
+		var/list/deltas = list()
+		SEND_SIGNAL(user, COMSIG_GET_MELEE_DAMAGE_DELTAS, deltas, null)
+		for(var/addition in deltas)
+			delta += addition
+
+		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + delta
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)
@@ -607,7 +627,7 @@
 				span_danger("[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!")
 			)
-			target.apply_effect(4 SECONDS, WEAKEN, armor_block)
+			target.apply_effect(4 SECONDS, KNOCKDOWN, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.body_position == LYING_DOWN)
 			target.forcesay(GLOB.hit_appends)

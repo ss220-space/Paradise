@@ -108,6 +108,11 @@
 		/mob/living/carbon/human/verb/emote_frown,
 		/mob/living/carbon/human/verb/emote_snuffle))
 
+
+/datum/species/skrell/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default - (target.gender == FEMALE), max_level, can_become_stronger)
+
+
 /datum/species/skrell/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	remove_verb(H, list(

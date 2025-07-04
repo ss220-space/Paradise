@@ -469,7 +469,7 @@
 	cost = 1
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
-	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
+	var/cablecolor = tgui_input_list(user, "Pick a cable color.", "Cable Color", list("red", "yellow", "green", "blue", "pink", "orange", "cyan", "white"))
 	color = cablecolor
 	update_icon()
 
