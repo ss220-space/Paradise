@@ -36,6 +36,18 @@
 	. = ..()
 	create_empty_data()
 
+/obj/item/dna_notepad/proc/read_dna_data(block)
+	for(var/list/dna_detail_data in dna_data)
+		if (dna_detail_data["num"] == "[block]")
+			return dna_detail_data
+	var/list/current_dna_detail_data = list(
+		num = "[block]",
+		name = DNA_NO_DATA,
+		color = DNA_COLOR_UNKNOWN
+	)
+	dna_data += list(current_dna_detail_data)
+	return current_dna_detail_data
+
 /obj/item/dna_notepad/proc/write_dna_data(block, name, color)
 	var/list/current_dna_detail_data = null
 	for(var/list/dna_detail_data in dna_data)
@@ -185,18 +197,6 @@
 		return
 	print_report(user)
 
-/obj/item/dna_notepad/attack_obj(obj/object, mob/living/user, params)
-	var/obj/machinery/computer/scan_consolenew/dna_console = object
-	if (!istype(dna_console))
-		. = ..()
-		return
-	var answer = tgui_alert(user, "Загрузить с консоли блоки выше 802 как неизвестные болезни?", "Загрузка данных с консоли", list("Загрузить", "Отмена"))
-	if (answer == "Загрузить")
-		if(!do_after(user, 2 SECONDS, user))
-			return ATTACK_CHAIN_PROCEED_SUCCESS
-		load_unknown_disabilities_from_console(dna_console, user)
-	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 /obj/item/dna_notepad/proc/load_unknown_disabilities_from_console(obj/machinery/computer/scan_consolenew/dna_console, mob/living/user)
 	add_fingerprint(user)
 	var/obj/machinery/dna_scannernew/connected = dna_console.connected
@@ -207,18 +207,56 @@
 	if(!connected.occupant)
 		to_chat(user, span_warning("[connected.declent_ru(NOMINATIVE)] пуст."))
 		balloon_alert(user, "Ошибка загрузки")
+		return
 	if(!connected.occupant.dna)
 		to_chat(user, span_warning("Внутри [connected.declent_ru(GENITIVE)] некорректные гены."))
 		balloon_alert(user, "Ошибка загрузки")
 		return
 	for(var/i = 1; i <= DNA_COUNT; i++)
-		var/block_value = connected.occupant.dna.SE[i]
-		if (block_value >= 2050) // HEX=802 DEC=2050
-			write_dna_data(i, DNA_UNKNOWN_DISABILITY_DATA, DNA_COLOR_DISABILITY)
+		var/save_block_data = read_dna_data(i)
+		if (save_block_data["name"] == DNA_NO_DATA)
+			var/block_value = connected.occupant.dna.SE[i]
+			if (block_value >= 2050) // HEX=802 DEC=2050
+				write_dna_data(i, DNA_UNKNOWN_DISABILITY_DATA, DNA_COLOR_DISABILITY)
 	playsound(loc, "terminal_type", 25, TRUE)
 	to_chat(user, "Данные из [dna_console.declent_ru(GENITIVE)] успешно загружены в [declent_ru(NOMINATIVE)].")
 	balloon_alert(user, "Данные загружены")
 
+/obj/item/dna_notepad/attack_obj(obj/object, mob/living/user, params)
+	var/obj/machinery/computer/scan_consolenew/dna_console = object
+	if(istype(dna_console))
+		var answer = tgui_alert(user, "Загрузить с консоли блоки выше 802 как неизвестные болезни?", "Загрузка данных с консоли", list("Загрузить", "Отмена"))
+		if(answer == "Загрузить")
+			if(!do_after(user, 2 SECONDS, user))
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+			load_unknown_disabilities_from_console(dna_console, user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	. = ..()
+	return
+
+/obj/item/dna_notepad/proc/sync_data_from_other_notepad(obj/item/dna_notepad/dna_notepad, mob/living/user)
+	add_fingerprint(user)
+	for(var/i = 1; i <= DNA_COUNT; i++)
+		var/self_block = read_dna_data(i)
+		var/other_block = dna_notepad.read_dna_data(i)
+		if (self_block["name"] == DNA_NO_DATA)
+			self_block["name"] = other_block["name"]
+			self_block["color"] = other_block["color"]
+		if (self_block["name"] == DNA_UNKNOWN_DISABILITY_DATA && other_block["color"] == DNA_COLOR_DISABILITY)
+			self_block["name"] = other_block["name"]
+			self_block["color"] = other_block["color"]
+	playsound(loc, "terminal_type", 25, TRUE)
+	to_chat(user, "Данные из другого [dna_notepad.declent_ru(GENITIVE)] успешно загружены в ваш [declent_ru(NOMINATIVE)].")
+	balloon_alert(user, "Данные загружены")
+
+/obj/attackby(obj/item/item, mob/living/user, params)
+	var/obj/item/dna_notepad/dna_notepad = item
+	if(istype(dna_notepad))
+		if(!do_after(user, 2 SECONDS, user))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		dna_notepad.sync_data_from_other_notepad(src, user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	. = ..()
 
 /obj/item/dna_notepad/syndicate
 	materials = list(MAT_METAL=400)
