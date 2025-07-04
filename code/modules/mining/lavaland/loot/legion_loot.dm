@@ -1,6 +1,14 @@
 /obj/item/storm_staff
 	name = "staff of storms"
-	desc = "An ancient staff retrieved from the remains of Legion. The wind stirs as you move it."
+	desc = "Древний посох, извлечённый из останков Легиона. Ветер колышется, когда вы двигаете им."
+	ru_names = list(
+		NOMINATIVE = "посох бурь",
+		GENITIVE = "посоха бурь",
+		DATIVE = "посоху бурь",
+		ACCUSATIVE = "посох бурь",
+		INSTRUMENTAL = "посохом бурь",
+		PREPOSITIONAL = "посохе бурь"
+	)
 	icon_state = "staffofstorms"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -25,16 +33,16 @@
 
 /obj/item/storm_staff/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It has [thunder_charges] charges remaining.</span>"
-	. += "<span class='notice'>Use it in hand to dispel storms.</span>"
-	. += "<span class='notice'>Use it on targets to summon thunderbolts from the sky.</span>"
-	. += "<span class='notice'>The thunderbolts are boosted if in an area with weather effects.</span>"
+	. += span_notice("Осталось зарядов: [thunder_charges].")
+	. += span_notice("Используйте в руке, чтобы рассеять бурю.")
+	. += span_notice("Используйте на цели, чтобы призвать молнии с небес.")
+	. += span_notice("Молнии усиливаются в зоне погодных аномалий.")
 
 /obj/item/storm_staff/attack_self(mob/user)
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)
 	if(!user_area || !user_turf)
-		to_chat(user, "<span class='warning'>Something is preventing you from using the staff here.</span>")
+		to_chat(user, span_warning("Что-то мешает вам использовать посох здесь."))
 		return
 	var/datum/weather/A
 	for(var/V in SSweather.processing)
@@ -46,10 +54,12 @@
 	if(A)
 		if(A.stage != END_STAGE)
 			if(A.stage == WIND_DOWN_STAGE)
-				to_chat(user, "<span class='warning'>The storm is already ending! It would be a waste to use the staff now.</span>")
+				to_chat(user, span_warning("Буря уже стихает! Использовать посох сейчас было бы расточительством."))
 				return
-			user.visible_message("<span class='warning'>[user] holds [src] skywards as an orange beam travels into the sky!</span>", \
-			"<span class='notice'>You hold [src] skyward, dispelling the storm!</span>")
+			user.visible_message(
+				span_warning("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] к небу, и оранжевый луч устремляется ввысь!"),
+				span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)] к небу, рассеивая бурю!")
+			)
 			playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
 			A.wind_down()
 			var/old_color = user.color
@@ -61,19 +71,19 @@
 /obj/item/storm_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!thunder_charges)
-		to_chat(user, "<span class='warning'>The staff needs to recharge.</span>")
+		to_chat(user, span_warning("Посох должен перезарядиться."))
 		return
 	var/turf/target_turf = get_turf(target)
 	var/area/target_area = get_area(target)
 	var/area/user_area = get_area(user)
 	if(!target_turf || !target_area || (is_type_in_list(target_area, excluded_areas)) || !user_area || (is_type_in_list(user_area, excluded_areas)))
-		to_chat(user, "<span class='warning'>The staff will not work here.</span>")
+		to_chat(user, span_warning("Посох не будет работать здесь."))
 		return
 	if(target_turf in targeted_turfs)
-		to_chat(user, "<span class='warning'>That SPOT is already being shocked!</span>")
+		to_chat(user, span_warning("Это место УЖЕ под ударом!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
+		to_chat(user, span_warning("Вы не хотите никому вредить!"))
 		return
 	var/power_boosted = FALSE
 	for(var/V in SSweather.processing)
@@ -83,7 +93,7 @@
 			break
 	playsound(src, 'sound/magic/lightningshock.ogg', 10, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	targeted_turfs += target_turf
-	to_chat(user, "<span class='warning'>You aim at [target_turf]!</span>")
+	to_chat(user, span_warning("Вы целитесь в [target_turf.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/thunderbolt_targeting(target_turf)
 	addtimer(CALLBACK(src, PROC_REF(throw_thunderbolt), target_turf, power_boosted), 1.5 SECONDS)
 	thunder_charges--
@@ -106,13 +116,13 @@
 	for(var/turf/T as anything in affected_turfs)
 		new /obj/effect/temp_visual/electricity(T)
 		for(var/mob/living/hit_mob in T)
-			to_chat(hit_mob, "<span class='userdanger'>You've been struck by lightning!</span>")
+			to_chat(hit_mob, span_userdanger("Вас поразила молния!"))
 			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), "штормового посоха", flags = SHOCK_NOGLOVES)
 
 		for(var/obj/hit_thing in T)
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
-	target.visible_message("<span class='danger'>A thunderbolt strikes [target]!</span>")
+	target.visible_message(span_danger("Молния ударяет в [target.declent_ru(ACCUSATIVE)]!"))
 	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
 
 

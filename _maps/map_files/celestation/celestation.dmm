@@ -116057,8 +116057,8 @@
 	},
 /area/quartermaster/storage)
 "uVC" = (
-/mob/living/simple_animal/pet/dog/bullterrier/Genn,
 /obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/pet/library_owl,
 /turf/simulated/floor/wood/fancy/light,
 /area/library)
 "uVK" = (

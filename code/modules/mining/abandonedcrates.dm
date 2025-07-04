@@ -2,7 +2,15 @@
 
 /obj/structure/closet/crate/secure/loot
 	name = "abandoned crate"
-	desc = "What could be inside?"
+	desc = "Что может быть внутри?"
+	ru_names = list(
+		NOMINATIVE = "заброшенный ящик",
+		GENITIVE = "заброшенного ящика",
+		DATIVE = "заброшенному ящику",
+		ACCUSATIVE = "заброшенный ящик",
+		INSTRUMENTAL = "заброшенным ящиком",
+		PREPOSITIONAL = "заброшенном ящике"
+	)
 	icon_state = "securecrate"
 	var/code = null
 	var/lastattempt = null
@@ -154,12 +162,12 @@
 
 /obj/structure/closet/crate/secure/loot/attack_hand(mob/user)
 	if(locked)
-		to_chat(user, "<span class='notice'>The crate is locked with a Deca-code lock.</span>")
-		var/input = tgui_input_text(usr, "Enter [codelen] digits.", "Deca-Code Lock", "")
+		to_chat(user, span_notice("Ящик закрыт цифровым замком Deca-Code."))
+		var/input = tgui_input_text(usr, "Введите [codelen] цифр.", "Цифровой замок Deca-Code", "")
 		if(in_range(src, user))
 			if(input == code)
 				add_fingerprint(user)
-				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
+				to_chat(user, span_notice("Ящик открывается!"))
 				locked = 0
 				cut_overlays()
 				add_overlay("securecrateg")
@@ -167,9 +175,9 @@
 					add_overlay(get_emissive_block())
 			else if(input == null || length(input) != codelen)
 				add_fingerprint(user)
-				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
+				to_chat(user, span_notice("Вы оставляете ящик в покое."))
 			else
-				to_chat(user, "<span class='warning'>A red light flashes.</span>")
+				to_chat(user, span_warning("Мигает красный индикатор."))
 				lastattempt = input
 				attempts--
 				if(attempts == 0)
@@ -194,11 +202,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
-	to_chat(user, span_notice("DECA-CODE LOCK REPORT:"))
+	to_chat(user, span_notice("ОТЧЕТ ЗАМКА DECA-CODE:"))
 	if(attempts == 1)
-		to_chat(user, span_warning("* Anti-Tamper Bomb will activate on next failed access attempt."))
+		to_chat(user, span_warning("* Противовзломная бомба активируется при следующей неудачной попытке."))
 	else
-		to_chat(user, span_notice("* Anti-Tamper Bomb will activate after [attempts] failed access attempts."))
+		to_chat(user, span_notice("* Противовзломная бомба активируется после [attempts] [declension_ru(attempts,"неудачной попытки","неудачных попыток","неудачных попыток")]."))
 	if(isnull(lastattempt))
 		return .
 	var/bulls = 0
@@ -215,7 +223,7 @@
 				++bulls
 			else
 				++cows
-	to_chat(user, span_notice("Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions."))
+	to_chat(user, span_notice("В последней попытке [bulls] [declension_ru(bulls,"цифра","цирфы","цифр")] на правильных позициях и [cows] [declension_ru(cows,"правильная цифра","правильные цирфы","правильных цифр")] на неправильных позициях."))
 
 
 
