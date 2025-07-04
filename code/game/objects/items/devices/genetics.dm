@@ -93,7 +93,7 @@
 	arr += DNA_EMPTY_DATA
 	arr += DNA_UNKNOWN_DISABILITY_DATA
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
-		arr += "[gene.declent_ru(NOMINATIVE)]"
+		arr += "[gene.name]"
 	arr -= "Monkey"  // Remove other genomes
 	arr -= "Ordinary Gene"
 	arr -= "Ordinary Gene"
@@ -102,7 +102,7 @@
 
 /obj/item/dna_notepad/proc/find_gene_by_name(name)
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
-		if (gene.declent_ru(NOMINATIVE) == name)
+		if (gene.name == name)
 			return gene
 	return null
 
@@ -267,7 +267,7 @@
 /obj/item/dna_notepad/full/proc/fill_genes_data()
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if (gene.block >= 1 && gene.block <= DNA_COUNT)
-			if (gene.declent_ru(NOMINATIVE) == "Ordinary Gene")
+			if (gene.name == "Ordinary Gene")
 				write_dna_data(gene.block, DNA_EMPTY_DATA, DNA_COLOR_UNKNOWN)
 			else
 				var/color = DNA_COLOR_UNKNOWN
@@ -275,7 +275,7 @@
 					color = DNA_COLOR_DISABILITY
 				if(istype(gene, /datum/dna/gene/basic))
 					color = DNA_COLOR_POWER
-				write_dna_data(gene.block, gene.declent_ru(NOMINATIVE), color)
+				write_dna_data(gene.block, gene.name, color)
 
 
 

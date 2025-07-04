@@ -2,8 +2,7 @@
 
 // WAS: /datum/bioEffect/alcres
 /datum/dna/gene/basic/sober
-	name = "Sober"
-	ru_names = list(NOMINATIVE = "Трезвость")
+	name = "Трезвость"
 	activation_messages = list("Вы чувствуете себя необычайно трезвым.")
 	deactivation_messages = list("Вы чувствуете, что вам не помешает крепкий напиток.")
 	traits_to_add = list(TRAIT_SOBER)
@@ -16,8 +15,7 @@
 
 //WAS: /datum/bioEffect/psychic_resist
 /datum/dna/gene/basic/psychic_resist
-	name = "Psy-Resist"
-	ru_names = list(NOMINATIVE = "Пси-защита")
+	name = "Пси-защита"
 	desc = "Повышает эффективность работы секторов мозга, обычно связанных с мета-психическими энергиями."
 	activation_messages = list("Ваш разум кажется закрытым.")
 	deactivation_messages = list("Вы чувствуете себя незащищенным.")
@@ -35,8 +33,7 @@
 
 // WAS: /datum/bioEffect/darkcloak
 /datum/dna/gene/basic/darkcloak
-	name = "Cloak of Darkness"
-	ru_names = list(NOMINATIVE = "Плащ тьмы")
+	name = "Плащ тьмы"
 	desc = "Позволяет субъекту излучать вокруг себя слабое свечение, создавая эффект маскировки."
 	activation_messages = list("Вы начинаете исчезать в тени.")
 	deactivation_messages = list("Вы становитесь полностью видимым.")
@@ -65,8 +62,7 @@
 
 //WAS: /datum/bioEffect/chameleon
 /datum/dna/gene/basic/chameleon
-	name = "Chameleon"
-	ru_names = list(NOMINATIVE = "Хамелеон")
+	name = "Хамелеон"
 	desc = "Субъект обретает способность тонко изменять структуру света, чтобы оставаться невидимым до тех пор, пока он остается неподвижным."
 	activation_messages = list("Вы чувствуете себя единым целым с окружающим миром.")
 	deactivation_messages = list("Вы чувствуете себя необычайно заметным.")
@@ -124,8 +120,7 @@
 
 // WAS: /datum/bioEffect/cryokinesis
 /datum/dna/gene/basic/grant_spell/cryo
-	name = "Cryokinesis"
-	ru_names = list(NOMINATIVE = "Криокинез")
+	name = "Криокинез"
 	desc = "Позволяет субъекту понижать температуру тела окружающих."
 	activation_messages = list("Ваши кончики пальцев слегка покалывает от холода.")
 	deactivation_messages = list("Ваши пальцы становятся теплее.")
@@ -215,8 +210,7 @@
 
 // WAS: /datum/bioEffect/mattereater
 /datum/dna/gene/basic/grant_spell/mattereater
-	name = "Matter Eater"
-	ru_names = list(NOMINATIVE = "Пожиратель материи")
+	name = "Пожиратель материи"
 	desc = "Позволяет без вреда для здоровья есть практически что-угодно."
 	activation_messages = list("Вы чувствуете голод.")
 	deactivation_messages = list("Вы больше не чувствуете себя таким голодным.")
@@ -332,8 +326,7 @@
 
 //WAS: /datum/bioEffect/jumpy
 /datum/dna/gene/basic/grant_spell/jumpy
-	name = "Jumpy"
-	ru_names = list(NOMINATIVE = "Прыгучесть")
+	name = "Прыгучесть"
 	desc = "Позволяет субъекту совершать прыжки на большие расстояния."
 	//cooldown = 30
 	activation_messages = list("Вы чувствуете силу в своих ногах.")
@@ -434,8 +427,7 @@
 // WAS: /datum/bioEffect/polymorphism
 
 /datum/dna/gene/basic/grant_spell/polymorph
-	name = "Polymorphism"
-	ru_names = list(NOMINATIVE = "Полиморфизм")
+	name = "Полиморфизм"
 	desc = "Позволяет субъекту изменять свою внешность, чтобы подражать другим."
 
 	spelltype = /obj/effect/proc_holder/spell/polymorph
@@ -491,8 +483,7 @@
 
 // WAS: /datum/bioEffect/empath
 /datum/dna/gene/basic/grant_spell/empath
-	name = "Empathic Thought"
-	ru_names = list(NOMINATIVE = "Эмпатические мысли")
+	name = "Эмпатические мысли"
 	desc = "Субъект получает возможность читать мысли других людей, чтобы получить определённую информацию."
 
 	spelltype = /obj/effect/proc_holder/spell/empath
@@ -608,8 +599,7 @@
 
 // WAS: /datum/bioEffect/strong
 /datum/dna/gene/basic/strong
-	name = "Strong"
-	ru_names = list(NOMINATIVE = "Сила")
+	name = "Сила"
 	desc = "Повышает способность субъекта наращивать и удерживать тяжелую мускулатуру."
 	activation_messages = list("Вы чувствуете, что ваши мышцы в тонусе!")
 	deactivation_messages = list("Вы чувствуете себя хилым и слабым.")

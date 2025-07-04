@@ -1,7 +1,6 @@
 
 /datum/dna/gene/disability/speech/loud
-	name = "Loud"
-	ru_names = list(NOMINATIVE = "Громкость")
+	name = "Громкость"
 	desc = "Заставляет речевой центр мозга субъекта выкрикивать каждое предложение."
 	activation_message = list("ВАМ ХОЧЕТСЯ КРИЧАТЬ!")
 	deactivation_message = list("Вам хочется побыть в тишине...")
@@ -20,8 +19,7 @@
 
 
 /datum/dna/gene/disability/dizzy
-	name = "Dizzy"
-	ru_names = list(NOMINATIVE = "Ошеломленный")
+	name = "Ошеломленный"
 	desc = "Вызывает отключение мозжечка время от времени."
 	activation_message = list("У вас очень сильно кружится голова...")
 	deactivation_message = list("Вы вновь обретаете равновесие.")
