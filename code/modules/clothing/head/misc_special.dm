@@ -367,7 +367,7 @@
 	name = "frog hat"
 	desc = "Милая шапочка в виде головы лягушки, окутывающая голову. Мило, мягко и приятно!"
 	icon_state = "shapka_pepega"
-	item_state = ""
+	item_state = "shapka_pepega"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
