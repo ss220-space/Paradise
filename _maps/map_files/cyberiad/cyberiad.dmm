@@ -15929,10 +15929,6 @@
 	icon_state = "dark"
 	},
 /area/storage/eva)
-"bbM" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine/o2,
-/area/atmos)
 "bbN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -15941,10 +15937,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"bbO" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine/air,
-/area/atmos)
 "bbP" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -47829,12 +47821,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
-"cUV" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/insulated/vacuum,
-/area/atmos)
 "cUX" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/welding,
@@ -50852,12 +50838,6 @@
 	id_tag = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
-/area/atmos)
-"del" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "dem" = (
 /obj/structure/table,
@@ -64830,12 +64810,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
-"jID" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/n20,
-/area/atmos)
 "jJj" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -67224,12 +67198,6 @@
 	icon_state = "white"
 	},
 /area/toxins/explab)
-"lqG" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/co2,
-/area/atmos)
 "lrl" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
@@ -87581,10 +87549,6 @@
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"xWY" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine/n2,
-/area/atmos)
 "xXc" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -120062,7 +120026,7 @@ lTl
 dej
 hva
 hgn
-xWY
+jxi
 cQZ
 dcq
 deW
@@ -121090,7 +121054,7 @@ lTl
 dej
 cTo
 dkh
-bbM
+dkO
 cQZ
 doE
 lTl
@@ -122118,7 +122082,7 @@ cWL
 dej
 khx
 dkp
-bbO
+dkT
 cQZ
 doE
 lTl
@@ -123895,19 +123859,19 @@ cBP
 cBK
 cQZ
 cVR
-cUV
+cVR
 cVR
 cQZ
 dhI
-jID
+dhI
 dhI
 cQZ
 dbI
-del
+dbI
 dbI
 cQZ
 wDq
-lqG
+wDq
 wDq
 cQZ
 cTP
