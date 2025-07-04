@@ -11,9 +11,9 @@ type DnaNotepadData = {
 };
 
 type DnaDetailData = {
-  block: number;
+  num: number;
   name: string;
-  marker: string;
+  color: string;
 };
 
 export const DnaNotepad = (props: unknown) => {
@@ -71,13 +71,13 @@ const DnaEntriesBlock = (props: DnaEntriesBlockProps) => {
     let dnaBlock = dna_data[i]
     let stackItem = <Stack.Item mb="1rem" mr="1rem" width="30%">
         <Box inline mr="0.5rem">
-          <span style={{ color: '#FFFFFF' }}>{dnaBlock.block}</span>{': '}
-          <span style={{ color: dnaBlock.marker }}>{dnaBlock.name}</span>{' '}
+          <span style={{ color: '#FFFFFF' }}>{dnaBlock.num}</span>{': '}
+          <span style={{ color: dnaBlock.color }}>{dnaBlock.name}</span>{' '}
           <Button
               icon="pen"
               onClick={() =>
-                act('editDnaBlock', {
-                  id: dnaBlock.block,
+                act('edit_dna_block', {
+                  id: dnaBlock.num,
                 })
               }/>
         </Box>
