@@ -27,8 +27,8 @@
 	item_state	= "gps"
 	throw_speed	= 3
 	throw_range	= 7
-	materials = list(MAT_METAL=200)
-	origin_tech = "biotech=1;engineering=1"
+	materials = list(MAT_METAL=2000, MAT_GLASS = 1000)
+	origin_tech = "biotech=2;engineering=2"
 	var/dna_data = list()
 	var/isPrinting = FALSE
 
@@ -224,7 +224,7 @@
 
 /obj/item/dna_notepad/attack_obj(obj/object, mob/living/user, params)
 	. = ..()
-	if(!istype(dna_console, var/obj/machinery/computer/scan_consolenew))
+	if(!istype(object, /obj/machinery/computer/scan_consolenew))
 		return
 	var/obj/machinery/computer/scan_consolenew/dna_console = object
 	var answer = tgui_alert(user, "Загрузить с консоли блоки выше 802 как неизвестные болезни?", "Загрузка данных с консоли", list("Загрузить", "Отмена"))
@@ -251,7 +251,7 @@
 
 /obj/item/dna_notepad/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
-	if(!istype(dna_notepad, var/obj/item/dna_notepad))
+	if(!istype(item, /obj/item/dna_notepad))
 		return
 	if(!do_after(user, 2 SECONDS, user))
 		return
