@@ -5150,6 +5150,54 @@
 
 	refill_canister = /obj/item/vending_refill/plasma
 
+
+/obj/machinery/vending/protein
+	name = "Автомат спортивного питания"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат спортивного питания",
+		GENITIVE = "торгового автомата спортивного питания",
+		DATIVE = "торговому автомату спортивного питания",
+		ACCUSATIVE = "торговый автомат спортивного питания",
+		INSTRUMENTAL = "торговым автоматом спортивного питания",
+		PREPOSITIONAL = "торговом автомате спортивного питания"
+	)
+	desc = "Автомат самообслуживания, любезно предоставленный корпорацией Donk Co."
+
+	slogan_list = list(
+		"Попробуйте наш новый протеиновый батончик!",
+		"Накачаться никогда не поздно!",
+		"В чем сила? В количестве съеденных батончиков!",
+		"Самый сильный!",
+		"Если не накачаешься, она на тебя даже не посмотрит!",
+		"Почувствуй СИЛУ!",
+		"Даже моя бабушка сильнее тебя! Подкачайся!",
+		"Чем ты сильнее, тем меньше у тебя волос.",
+		"Предел есть у всего, кроме человека!", // Onepunchman
+		"Настоящая сила человека в способности измениться по своей воле!", // Onepunchman
+		"Кто сильнее тот и прав!",
+		"Отобрал у офицера станбатон? Молодец! А теперь иди сюда и купи батончик!"
+	)
+
+	icon_state = "protein_off"
+	panel_overlay = "cola-machine_panel"
+	screen_overlay = "protein_overlay"
+
+	products = list(
+		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 5,
+		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 5,
+		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 5,
+	)
+	contraband = list(
+		/obj/item/reagent_containers/syringe/steroids = 4,
+	)
+	prices = list(
+		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 300,
+		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 300,
+		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 300,
+		/obj/item/reagent_containers/syringe/steroids = 150,
+	)
+	refill_canister = /obj/item/vending_refill/protein
+
 #undef FLICK_NONE
 #undef FLICK_VEND
 #undef FLICK_DENY
