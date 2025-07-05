@@ -3815,6 +3815,10 @@
 						SSnightshift.can_fire = FALSE
 						SSnightshift.update_nightshift(FALSE, FALSE)
 						to_chat(usr, span_notice("Night shift forced off."), confidential=TRUE)
+
+			if("lavatype")
+				change_lava_type()
+
 			else
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")
@@ -4196,3 +4200,38 @@
 	log_admin(msg)
 	message_admins(span_darkmblue(msg))
 	return TRUE
+
+#define LAVA	/turf/simulated/floor/lava/lava_land_surface
+#define PLASMA  /turf/simulated/floor/lava/lava_land_surface/plasma
+#define CHASM	/turf/simulated/floor/chasm/straight_down/lava_land_surface
+
+/datum/admins/proc/change_lava_type()
+	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+		to_chat(usr, span_warning("Генерация ещё не завершена. Пожалуйста, подождите."))
+		return
+
+	var/val = tgui_alert(usr, "Выберите тип Лазиса, который вы хотите установить.", "Выбор типа Лазиса", list("Лава", "Плазма", "Пропасти"))
+	var/turf_type
+	switch(val)
+		if("Лава")
+			turf_type = LAVA
+
+		if("Плазма")
+			turf_type = PLASMA
+
+		if("Пропасти")
+			turf_type = CHASM
+
+	var/lavaland_z = level_name_to_num(MINING)
+	for(var/i = 1; i < world.maxx; ++i)
+		for(var/j = 1; j < world.maxy; ++j)
+			var/turf/turf = get_turf(locate(i, j, lavaland_z))
+			if(!istype(turf, LAVA) && !istype(turf, CHASM))
+				continue
+
+			turf.ChangeTurf(turf_type)
+
+
+#undef LAVA
+#undef PLASMA
+#undef CHASM
