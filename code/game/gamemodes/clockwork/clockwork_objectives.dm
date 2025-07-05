@@ -5,6 +5,7 @@
 	var/power_goal = 1
 	var/beacon_goal = 1
 	var/clocker_goal = 1
+	var/checktimer
 
 /datum/clockwork_objectives/proc/setup()
 	if(clock_status != RATVAR_IS_ASLEEP)
@@ -42,9 +43,21 @@
 				to_chat(M, span_clock("The beacons will mark the soft spots of the Veil. Beacons needed: [length(GLOB.clockwork_beacons)]/[beacon_goal]"))
 			if(!obj_demand.clockers_get)
 				to_chat(M, span_clock("Let the power from our clockers assemble the path for our Ratvar! Clockers needed: [SSticker.mode.get_clockers()]/[clocker_goal]"))
+		if(RATVAR_NEED_HEART)
+			to_chat(M, span_clock("Завеса ослаблена! Однако, на сердце Ратвара все еще наложены печати, сковывающие нашего Повелителя. Нам необходимо призвать его сердце в наш мир и починить его!"))
+			to_chat(M, span_clock("Текущая цель: [obj_summon.explanation_text]"))
+		if(RATVAR_BREAK_SEALS)
+			to_chat(M, span_clock("Необходимо починить сердце, сломав наложенные на него печати. Для этого необходимо найти детали и прикрепить их к сердцу!"))
+			switch(curse_dial+curse_upper+curse_lower)
+				if(3)
+					to_chat(M, span_clock("Осталось еще три печати!"))
+				if(2)
+					to_chat(M, span_clock("Осталось еще две печати!"))
+				if(1)
+					to_chat(M, span_clock("Осталось еще одна печать!"))
 		if(RATVAR_NEEDS_SUMMONING)
-			to_chat(M, span_clock("Ratvar is strong enough! It's time to point his power on weak point of the Veil!"))
-			to_chat(M, span_clock("Current goal: [obj_summon.explanation_text]"))
+			to_chat(M, span_clock("Печати сломлены! Время вернуть сердце Ратвару, дабы он смог пройти сквозь Завесу!"))
+			to_chat(M, span_clock("Текущая цель: Пронзите сердце осколком, чтобы вернуть его Ратвару, так он сможет прорвать барьер"))
 		if(RATVAR_HAS_RISEN)
 			to_chat(M, span_clocklarge("\"I am here.\""))
 			to_chat(M, "[span_clock("Current goal:")] [span_clocklarge("\"Bring me unclocked ones.\"")]")
@@ -90,8 +103,25 @@
 				if(!obj_demand.check_completion())
 					to_chat(clock_mind.current, span_clock("But there's still more tasks to do."))
 				else
-					ratvar_is_ready()
+					need_heart()
 
+/datum/clockwork_objectives/proc/need_heart()
+	clock_status = RATVAR_NEED_HEART
+	checktimer = addtimer(CALLBACK(src, PROC_REF(check_heart)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
+
+/datum/clockwork_objectives/proc/check_heart()
+	if(!isnull(Heart))
+		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+			if(clock_mind && clock_mind.current)
+				to_chat(clock_mind.current, span_clocklarge("Отлично, теперь вам необходимо снять печати..."))
+				clock_status = RATVAR_BREAK_SEALS
+				deltimer(checktimer)
+				checktimer = addtimer(CALLBACK(src, PROC_REF(update_seals)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
+
+/datum/clockwork_objectives/proc/update_seals()
+	if(!curse_dial && !curse_upper && !curse_lower)
+		ratvar_is_ready()
+		deltimer(checktimer)
 
 // After all goals 've completed check this proc for start summoning
 /datum/clockwork_objectives/proc/ratvar_is_ready()
@@ -101,7 +131,6 @@
 	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 		if(clock_mind && clock_mind.current)
 			to_chat(clock_mind.current, span_clock("You and your acolytes have succeeded in preparing the station for the ultimate ritual!"))
-			to_chat(clock_mind.current, span_clock("Current goal: [obj_summon.explanation_text]"))
 
 /datum/clockwork_objectives/proc/succesful_summon()
 	clock_status = RATVAR_HAS_RISEN
@@ -169,7 +198,7 @@
 		if(valid_spot)
 			ritual_spots += summon
 		sanity++
-	explanation_text = "Призовите Ратвара установив свою веру и укрепив ее.\
+	explanation_text = "Призовите Сердце Ратвара, установив свою веру и укрепив ее.\
 	\nПризыв может быть осуществлен только в [english_list(ritual_spots)] - где завеса достаточно слаба, чтобы начать ритуал."
 
 /datum/objective/clockgod/check_completion()

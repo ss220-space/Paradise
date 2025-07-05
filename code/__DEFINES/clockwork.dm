@@ -44,6 +44,10 @@
 #define EMP_GUN_SPELL 1
 #define GUN_HEAL_SPELL 2
 #define GUN_STUN_SPELL 3
+//heart
+#define EMP_HEART_PULSE 1
+#define HEAL_HEART_PULSE 2
+#define STUN_HEART_PULSE 3
 
 // spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), action needs)
 GLOBAL_LIST_INIT(clockslab_spells, list(
@@ -93,6 +97,11 @@ GLOBAL_LIST_INIT(gun_spells, list(
 	new /datum/spell_enchant("EMP Shot", EMP_GUN_SPELL, time = 1),
 	new /datum/spell_enchant("Healing Shot", GUN_HEAL_SPELL, time = 1),
 	new /datum/spell_enchant("Stunning Shot", GUN_STUN_SPELL, time = 1)
+))
+GLOBAL_LIST_INIT(heart_pulses, list(
+	new /datum/spell_enchant("EMP Pulse", EMP_HEART_PULSE, time = 1),
+	new /datum/spell_enchant("Healing Pulse", HEAL_HEART_PULSE, time = 1),
+	new /datum/spell_enchant("Stunning Pulse", STUN_HEART_PULSE, time = 1)
 ))
 
 /// Power gains permanent
@@ -149,8 +158,10 @@ GLOBAL_LIST_INIT(gun_spells, list(
 // Clockwork objective status
 #define RATVAR_IS_ASLEEP 0
 #define RATVAR_DEMANDS_POWER 1
-#define RATVAR_NEEDS_SUMMONING 2
-#define RATVAR_HAS_RISEN 3
+#define RATVAR_NEED_HEART 2
+#define RATVAR_BREAK_SEALS 3
+#define RATVAR_NEEDS_SUMMONING 4
+#define RATVAR_HAS_RISEN 5
 #define RATVAR_HAS_FALLEN -1
 
 #define RATVAR_SUMMON_POSSIBILITIES 3

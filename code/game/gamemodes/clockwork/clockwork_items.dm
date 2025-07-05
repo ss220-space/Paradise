@@ -701,6 +701,7 @@
 
 /obj/item/gun/energy/clockwork/Initialize(mapload)
 	addtimer(CALLBACK(src, PROC_REF(charge)), charge_speed, TIMER_LOOP | TIMER_DELETE_ME)
+	enchants = GLOB.gun_spells
 	. = ..()
 
 /obj/item/gun/energy/clockwork/update_overlays()
@@ -726,10 +727,6 @@
 			chambered.BB = null
 		chambered = null
 	newshot()
-
-/obj/item/gun/energy/clockwork/Initialize(mapload)
-	. = ..()
-	enchants = GLOB.gun_spells
 
 /obj/item/gun/energy/clockwork/update_icon_state()
 	return
@@ -1592,6 +1589,17 @@
 	duration = 40
 	pixel_x = -32
 	pixel_y = -32
+	var/Visual_Only = FALSE
+	var/anim_time = 2 SECONDS
+	var/sleep_time = 20
+	var/Can_adv_heal = TRUE
+	var/robo_affect_heal = TRUE
+	var/radius = 4
+	var/heal = 60
+	var/is_rat_act = TRUE
+	var/heal_marauders = FALSE
+	var/do_emp = FALSE
+	var/do_stun = FALSE
 
 /obj/effect/temp_visual/ratvar/reconstruct/Initialize(mapload)
 	. = ..()
@@ -1600,20 +1608,67 @@
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/reconstruct()
 	playsound(src, 'sound/magic/clockwork/reconstruct.ogg', 50, TRUE)
-	animate(src, transform = matrix() * 1, time = 2 SECONDS)
-	sleep(20)
-	for(var/atom/affected in range(4, get_turf(src)))
-		if(isliving(affected))
-			var/mob/living/living = affected
-			living.ratvar_act(TRUE)
-			if(!isclocker(living) || !ishuman(living))
-				continue
-			living.heal_overall_damage(60, 60, affect_robotic = TRUE)
-			living.reagents?.add_reagent("epinephrine", 5)
-			var/mob/living/carbon/human/H = living
-			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-				bodypart.stop_internal_bleeding()
-				bodypart.mend_fracture()
-		else
-			affected.ratvar_act()
-	animate(src, transform = matrix() * 0.1, time = 2 SECONDS)
+	animate(src, transform = matrix() * 1, time = anim_time)
+	sleep(sleep_time)
+	if(!Visual_Only)
+		for(var/atom/affected in range(radius, get_turf(src)))
+			if(isliving(affected))
+				var/mob/living/living = affected
+				living.ratvar_act(TRUE)
+				if(!ishuman(living))
+					continue
+				if(!isclocker(living))
+					if(do_emp)
+						living.emp_act(EMP_HEAVY)
+					if(do_stun)
+						if(isrobot(living))
+							living.ex_act(EMP_HEAVY)
+						else
+							living.Weaken(8 SECONDS)
+							living.Silence(10 SECONDS)
+							living.clockslur(20 SECONDS)
+				if(istype(living, /mob/living/simple_animal/hostile/clockwork/marauder) && heal_marauders)
+					living.heal_overall_damage(100)
+				else
+					living.heal_overall_damage(heal, heal, affect_robotic = robo_affect_heal)
+				if(Can_adv_heal)
+					living.reagents?.add_reagent("epinephrine", 5)
+					var/mob/living/carbon/human/H = living
+					for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+						bodypart.stop_internal_bleeding()
+						bodypart.mend_fracture()
+			else
+				if(is_rat_act)
+					affected.ratvar_act()
+		animate(src, transform = matrix() * 0.1, time = anim_time)
+	icon_state = null
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart
+	Visual_Only = TRUE
+	alpha = 255
+	anim_time = 1 SECONDS
+	sleep_time = 10
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse
+	icon_state = null
+	heal = 30
+	Can_adv_heal = FALSE
+	radius = 3
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/New(var/rad = 3)
+	radius = rad
+	. = ..()
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/heal
+	heal = 80
+	Can_adv_heal = TRUE
+	robo_affect_heal = FALSE
+	heal_marauders = TRUE
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/stun
+	do_stun = TRUE
+	heal = 0
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/emp
+	do_emp = TRUE
+	heal = 0
