@@ -332,25 +332,25 @@
 		if(unique)
 			to_chat(user, span_warning("These pages don't seem to take the ink well. Looks like you can't modify it."))
 			return ATTACK_CHAIN_PROCEED
-		var/choice = tgui_input_list(user, "Что вы хотели бы изменить?", "Редактура", list("Заголовок", "Содержание", "Автор", "Отмена"))
+		var/choice = tgui_input_list(user, "Что вы хотели бы изменить?", "Редактура", list("Заголовок", "Содержание", "Авторство", "Отмена"))
 		switch(choice)
-			if("Title")
-				var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title:", "Title", title))
+			if("Заголовок")
+				var/newtitle = reject_bad_text(tgui_input_text(user, "Напишите новый заголовок:", "Заголовок", title))
 				if(isnull(newtitle))
-					to_chat(user, span_warning("The title is invalid."))
+					to_chat(user, span_warning("Недопустимый формат заголовка."))
 					return ATTACK_CHAIN_PROCEED
 				name = newtitle
 				title = newtitle
-			if("Contents")
-				var/content = tgui_input_text(user, "Write your book's contents (HTML NOT allowed):", "Summary", max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE)
+			if("Содержание")
+				var/content = tgui_input_text(user, "Напишите содержание книги (HTML ЗАПРЕЩЁН):", "Сводка", max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE)
 				if(isnull(content))
-					to_chat(user, span_warning("The contents is invalid."))
+					to_chat(user, span_warning("Недопустимый формат содержания."))
 					return ATTACK_CHAIN_PROCEED
 				dat += content
-			if("Author")
-				var/newauthor = tgui_input_text(user, "Write the author's name:", "Author", author, MAX_NAME_LEN)
+			if("Авторство")
+				var/newauthor = tgui_input_text(user, "Напишите имя автора:", "Авторство", author, MAX_NAME_LEN)
 				if(isnull(newauthor))
-					to_chat(user, span_warning("The name is invalid."))
+					to_chat(user, span_warning("Недопустимое Имя."))
 					return ATTACK_CHAIN_PROCEED
 				author = newauthor
 		return ATTACK_CHAIN_PROCEED_SUCCESS

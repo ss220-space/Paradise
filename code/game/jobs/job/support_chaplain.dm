@@ -49,39 +49,123 @@
 	B.customisable = TRUE // Only the initial bible is customisable
 	user.put_in_l_hand(B)
 
-	var/religion_name = "Christianity"
-	var/new_religion = tgui_input_text(usr, "You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name, user, max_length = MAX_NAME_LEN)
+	var/religion_name = "Христианство"
+	var/book_name
+	var/new_religion = tgui_input_text(usr, "Вы - Священник. Как вы хотите назвать свою веру? По умолчанию - Христианство.", "Смена названия", religion_name, user, max_length = MAX_NAME_LEN)
+
 
 	if(!new_religion)
 		new_religion = religion_name
 
 	switch(lowertext(new_religion))
-		if("christianity")
+		if("христианство", "православие", "христьянство")
 			B.name = "The Holy Bible"
-		if("satanism")
+			B.ru_names = list(
+				NOMINATIVE = "Святая Библия",
+				GENITIVE = "Святой Библии",
+				DATIVE = "Святой Библии",
+				ACCUSATIVE = "Святую Библию",
+				INSTRUMENTAL = "Святой Библией",
+				PREPOSITIONAL = "Святой Библии"
+			)
+		if("сатанизм")
 			B.name = "The Unholy Bible"
-		if("cthulu")
+			B.ru_names = list(
+				NOMINATIVE = "Сатанинская библия",
+				GENITIVE = "Сатанинской библии",
+				DATIVE = "Сатанинской библии",
+				ACCUSATIVE = "Сатанинскую библию",
+				INSTRUMENTAL = "Сатанинской библией",
+				PREPOSITIONAL = "Сатанинской библии"
+			)
+		if("ктулху", "культ ктулху")
 			B.name = "The Necronomicon"
-		if("islam")
+			B.ru_names = list(
+				NOMINATIVE = "Некрономикон",
+				GENITIVE = "Некрономикона",
+				DATIVE = "Некрономикону",
+				ACCUSATIVE = "Некрономикон",
+				INSTRUMENTAL = "Некрономиконом",
+				PREPOSITIONAL = "Некрономиконе"
+			)
+		if("ислам")
 			B.name = "Quran"
-		if("scientology")
+			B.ru_names = list(
+				NOMINATIVE = "Коран",
+				GENITIVE = "Корана",
+				DATIVE = "Корану",
+				ACCUSATIVE = "Коран",
+				INSTRUMENTAL = "Кораном",
+				PREPOSITIONAL = "Коране"
+			)
+		if("саентология")
+			book_name = pick("Биография Л. Рона Хаббарда", "Дианетика")
 			B.name = pick("The Biography of L. Ron Hubbard", "Dianetics")
-		if("chaos")
+			B.ru_names = list(
+				NOMINATIVE = book_name,
+				GENITIVE = book_name,
+				DATIVE = book_name,
+				ACCUSATIVE = book_name,
+				INSTRUMENTAL = book_name,
+				PREPOSITIONAL = book_name
+			)
+		if("хаос")
 			B.name = "The Book of Lorgar"
-		if("imperium")
+			B.ru_names = list(
+				NOMINATIVE = "Книга Лоргара",
+				GENITIVE = "Книги Лоргара",
+				DATIVE = "Книге Лоргара",
+				ACCUSATIVE = "Книгу Лоргара",
+				INSTRUMENTAL = "Книгой Лоргара",
+				PREPOSITIONAL = "Книге Лоргара"
+			)
+		if("империум")
 			B.name = "Uplifting Primer"
+			B.ru_names = list(
+				NOMINATIVE = "Воодушевляющая памятка Имперского пехотинца",
+				GENITIVE = "Воодушевляющей памятки Имперского пехотинца",
+				DATIVE = "Воодушевляющей памятке Имперского пехотинца",
+				ACCUSATIVE = "Воодушевляющую памятку Имперского пехотинца",
+				INSTRUMENTAL = "Воодушевляющей памяткой Имперского пехотинца",
+				PREPOSITIONAL = "Воодушевляющей памятке Имперского пехотинца"
+			)
 		if("toolboxia")
 			B.name = "Toolbox Manifesto Robusto"
-		if("science")
-			B.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
+			B.ru_names = list(
+				NOMINATIVE = "Манифест Робаста",
+				GENITIVE = "Манифеста Робаста",
+				DATIVE = "Манифесту Робаста",
+				ACCUSATIVE = "Манифест Робаста",
+				INSTRUMENTAL = "Манифестом Робаста",
+				PREPOSITIONAL = "Манифесте Робаста"
+			)
+		if("наука")
+			book_name = pick("Принцип Относительности ", "Квантовая Загадка: Встреча Физики с Сознанием", "Программируя Вселенную", "Квантовая Физика и Теология", "Теория Струн для Чайников", "Оч.умелые Ручки. Варп-Двигатель и Машина Времени", "Загадки Блюспейса", "Играя в Бога: Коллекционное издание")
+			B.name = pick("Principle of Relativity", "	", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
+			B.ru_names = list(
+				NOMINATIVE = "Книга" + "\"[book_name]\"",
+				GENITIVE = "Книги" + "\"[book_name]\"",
+				DATIVE = "Книге" + "\"[book_name]\"",
+				ACCUSATIVE = "Книгу" + "\"[book_name]\"",
+				INSTRUMENTAL = "Книгой" + "\"[book_name]\"",
+				PREPOSITIONAL = "Книга" + "\"[book_name]\"",
+			)
 		else
-			B.name = "The Holy Book of [new_religion]"
+			B.name = "The Holy Book of \"[new_religion]\""
+			B.ru_names = list(
+				NOMINATIVE = "Священная книга религии \"[new_religion]\"",
+				GENITIVE = "Священной книги религии \"[new_religion]\"",
+				DATIVE = "Священной книге религии \"[new_religion]\"",
+				ACCUSATIVE = "Священную книгу религии \"[new_religion]\"",
+				INSTRUMENTAL = "Священной книгой религии \"[new_religion]\"",
+				PREPOSITIONAL = "Священной книге религии \"[new_religion]\""
+			)
 	SSblackbox.record_feedback("text", "religion_name", 1, "[new_religion]", 1)
 
-	var/deity_name = "Space Jesus"
-	var/new_deity = tgui_input_text(usr, "Who or what do you worship? Default is Space Jesus.", "Name change", deity_name, user, max_length = MAX_NAME_LEN)
+	var/deity_name = "Иисус Космос"
+	var/new_deity = tgui_input_text(usr, "Кому вы поклоняетесь? По умолчанию - Иисус, Космо-Христос.", "", deity_name, user, max_length = MAX_NAME_LEN)
 
-	if(!length(new_deity) || (new_deity == "Space Jesus"))
+	if(!length(new_deity) || (new_deity == "Иисус, Космо-Христос"))
 		new_deity = deity_name
 	B.deity_name = new_deity
 	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)

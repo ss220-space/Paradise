@@ -255,6 +255,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 			span_notice("Вы загружаете немного бумаги в [src.declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
 		)
 		atom_say("Проходит печать новой книги...")
+		playsound(src, 'sound/machines/binder_work.ogg', 25, FALSE)
 		addtimer(CALLBACK(src, PROC_REF(finalize_printing), paper), rand(20 SECONDS, 40 SECONDS))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -264,6 +265,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 /obj/machinery/bookbinder/proc/finalize_printing(obj/item/paper/paper)
 	if(QDELETED(paper) || paper.loc != src)
 		return
+	playsound(null, 0, 0, 0, 0, 0, 0, 1)
 	var/obj/item/book/new_book = new(loc)
 	new_book.dat = paper.info
 	new_book.name = "Print Job #[rand(100, 999)]"
@@ -276,8 +278,9 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 		PREPOSITIONAL = "печатном издании #[rand(100, 999)]"
 	)
 	new_book.icon_state = "book[rand(1,16)]"
-	new_book = new_book.icon_state
+	new_book.item_state = new_book.icon_state
 	atom_say("Новая книга была напечатана.")
+	playsound(loc, 'sound/machines/ping.ogg', 20, 1)
 	qdel(paper)
 
 
