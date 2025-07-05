@@ -1,8 +1,9 @@
 use byondapi::value::ByondValue;
+use std::cell::Cell;
 use std::cell::RefCell;
 use std::collections::HashMap;
-use uuid::Uuid;
 
 thread_local! {
-    pub static UUID_STORAGE: RefCell<HashMap<Uuid, ByondValue>> = RefCell::new(HashMap::new())
+    pub static UUID_COUNTER: Cell<u32> = Cell::new(0);
+    pub static UUID_STORAGE: RefCell<HashMap<u32, ByondValue>> = RefCell::new(HashMap::new());
 }

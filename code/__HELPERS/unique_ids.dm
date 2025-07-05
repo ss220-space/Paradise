@@ -14,8 +14,6 @@
 //   var/myUID = mydatum.UID()
 //   var/datum/D = locateUID(myUID)
 
-/// The next UID to be used (Increments by 1 for each UID)
-GLOBAL_VAR_INIT(next_unique_datum_id, 1)
 /// Log of all UIDs created in the round. Assoc list with type as key and amount as value
 GLOBAL_LIST_EMPTY(uid_log)
 
@@ -31,17 +29,6 @@ GLOBAL_LIST_EMPTY(uid_log)
 		GLOB.uid_log[type]++
 
 	return unique_datum_id
-
-/datum/proc/get_num_uid()
-	if(numeric_datum_id)
-		return numeric_datum_id
-
-	numeric_datum_id = GLOB.next_unique_datum_id
-
-	GLOB.next_unique_datum_id++
-	GLOB.uid_log[type]++
-
-	return numeric_datum_id
 
 /proc/UID_of(datum/target)
 	if(!isdatum(target))
@@ -90,7 +77,7 @@ GLOBAL_LIST_EMPTY(uid_log)
 		return
 
 	var/list/sorted = sortTim(GLOB.uid_log, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
-	var/list/text = list("<h1>UID Log</h1>", "<p>Current UID: [GLOB.next_unique_datum_id]</p>", "<ul>")
+	var/list/text = list("<h1>UID Log</h1>", "<p>Current UID: [RUSTLIB_CALL(get_uuid_counter_value)]</p>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"
 
