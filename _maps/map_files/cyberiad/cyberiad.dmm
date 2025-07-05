@@ -15221,7 +15221,7 @@
 	},
 /area/security/permabrig)
 "aZV" = (
-/obj/machinery/vending/dinnerware,
+/obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -41334,15 +41334,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cEa" = (
-/obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/light,
+/obj/structure/flora/junglebush/large{
+	pixel_y = -8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/turf/simulated/floor/plasteel{
+	icon_state = "purple"
 	},
-/turf/simulated/floor/wood/fancy/light,
-/area/crew_quarters/bar/atrium)
+/area/hallway/primary/starboard/east)
 "cEc" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -42248,7 +42247,6 @@
 	},
 /area/gateway)
 "cGT" = (
-/obj/structure/closet/chefcloset,
 /obj/machinery/camera{
 	c_tag = "Kitchen Freezer";
 	dir = 4
@@ -42256,6 +42254,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -49463,7 +49462,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/bar/atrium)
@@ -51947,7 +51945,6 @@
 	name = "north station intercom (General)";
 	pixel_y = 28
 	},
-/obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -65031,6 +65028,10 @@
 	icon_state = "white"
 	},
 /area/medical/research)
+"kgh" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/maintenance/fsmaint2)
 "kgx" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -67102,6 +67103,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"lzc" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/crew_quarters/bar/atrium)
 "lzq" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/cleanable/cobweb2,
@@ -70804,6 +70811,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/garden)
+"nOu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/crew_quarters/bar/atrium)
 "nOw" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -82693,11 +82709,11 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "vla" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar/atrium)
@@ -83738,6 +83754,14 @@
 	},
 /turf/simulated/floor/wood/dark,
 /area/crew_quarters/bar/atrium)
+"vQU" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/wood/fancy/light,
+/area/crew_quarters/bar/atrium)
 "vRd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -84673,10 +84697,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/chiefs_office)
-"wnQ" = (
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/maintenance/fsmaint2)
 "won" = (
 /obj/structure/table,
 /obj/machinery/alarm{
@@ -87141,15 +87161,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/aisat)
-"xKq" = (
-/obj/machinery/light,
-/obj/structure/flora/junglebush/large{
-	pixel_y = -8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
-/area/hallway/primary/starboard/east)
 "xKr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -121462,9 +121473,9 @@ fyG
 fyG
 djh
 cUS
-vve
-vve
-cEa
+dqq
+boV
+boM
 bdL
 qJd
 dpV
@@ -121719,9 +121730,9 @@ bpH
 cMJ
 fyP
 dkE
-dqq
-boV
-boM
+ivK
+jeA
+dPm
 ukj
 qJd
 dlj
@@ -121978,7 +121989,7 @@ fyP
 dkE
 ivK
 jeA
-dPm
+dae
 vve
 qJd
 bqs
@@ -122231,11 +122242,11 @@ fyG
 uie
 xAD
 bpA
-fyP
-dkE
-ivK
-jeA
-dae
+nOu
+vQU
+vQu
+eoP
+dfv
 vve
 dlg
 tTH
@@ -122490,9 +122501,9 @@ cMJ
 bxG
 vla
 daZ
-vQu
-eoP
-dfv
+dkR
+jeA
+uHn
 vve
 brf
 tTH
@@ -122747,9 +122758,9 @@ cKa
 fHb
 mpg
 dkE
-dkR
-jeA
-uHn
+cMD
+djk
+dnu
 vve
 brf
 tTH
@@ -123004,9 +123015,9 @@ cKa
 cVi
 mpg
 cKg
-cMD
-djk
-dnu
+lzc
+cUS
+vve
 vve
 brf
 tTH
@@ -128394,7 +128405,7 @@ aGX
 xoJ
 cxK
 aGX
-wnQ
+kgh
 cHo
 beb
 bvM
@@ -133554,7 +133565,7 @@ uuV
 bwv
 bFw
 bwv
-xKq
+cEa
 bUQ
 bUQ
 bUQ
