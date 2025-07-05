@@ -20534,10 +20534,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -51957,10 +51953,6 @@
 	},
 /area/crew_quarters/kitchen)
 "dju" = (
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	location = "Kitchen"
@@ -59809,10 +59801,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"gCR" = (
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/maintenance/fsmaint2)
 "gDs" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -81526,6 +81514,10 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
+"uqC" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/maintenance/fsmaint2)
 "urb" = (
 /obj/machinery/vending/coffee/free,
 /obj/effect/decal/cleanable/dust,
@@ -128393,7 +128385,7 @@ aGX
 xoJ
 cxK
 aGX
-gCR
+uqC
 cHo
 beb
 bvM
