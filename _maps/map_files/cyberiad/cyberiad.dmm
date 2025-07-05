@@ -81514,10 +81514,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
-"uqC" = (
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/maintenance/fsmaint2)
 "urb" = (
 /obj/machinery/vending/coffee/free,
 /obj/effect/decal/cleanable/dust,
@@ -84677,6 +84673,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/chiefs_office)
+"wnQ" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/maintenance/fsmaint2)
 "won" = (
 /obj/structure/table,
 /obj/machinery/alarm{
@@ -87141,6 +87141,15 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/aisat)
+"xKq" = (
+/obj/machinery/light,
+/obj/structure/flora/junglebush/large{
+	pixel_y = -8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "purple"
+	},
+/area/hallway/primary/starboard/east)
 "xKr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -128385,7 +128394,7 @@ aGX
 xoJ
 cxK
 aGX
-uqC
+wnQ
 cHo
 beb
 bvM
@@ -133545,7 +133554,7 @@ uuV
 bwv
 bFw
 bwv
-bJp
+xKq
 bUQ
 bUQ
 bUQ
