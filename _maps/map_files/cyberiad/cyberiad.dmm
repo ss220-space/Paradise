@@ -9418,6 +9418,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar)
 "aGL" = (
@@ -15892,6 +15897,9 @@
 	req_access = list(35)
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bbJ" = (
@@ -18674,6 +18682,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bjz" = (
@@ -18726,9 +18737,7 @@
 	opacity = 0;
 	density = 0
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
 "bjL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -21758,9 +21767,7 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "scene"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
 "bus" = (
 /obj/effect/turf_decal/siding/green{
@@ -27080,6 +27087,10 @@
 	name = "Витамин"
 	},
 /obj/structure/bed/dogbed/pet,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreencorners"
 	},
@@ -41297,6 +41308,9 @@
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "cDT" = (
@@ -42297,6 +42311,9 @@
 	name = "Botany Junction";
 	sortType = 21
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "cHa" = (
@@ -42446,7 +42463,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/space)
+/area/maintenance/fsmaint2)
 "cHp" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -43539,6 +43556,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar)
 "cKs" = (
@@ -43548,6 +43568,9 @@
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
 "cKt" = (
@@ -44349,7 +44372,7 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "scene"
 	},
-/turf/simulated/floor/wood/fancy/oak,
+/turf/simulated/floor/plating,
 /area/crew_quarters/bar)
 "cML" = (
 /obj/effect/landmark/start/engineer,
@@ -44479,6 +44502,9 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45073,6 +45099,9 @@
 	},
 /obj/effect/decal/cleanable/spiderling_remains,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
@@ -46249,6 +46278,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -46294,6 +46327,9 @@
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
@@ -46465,14 +46501,17 @@
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cSs" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Hydroponics";
-	req_access = list(35)
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "scene"
 	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	icon_state = "open";
+	id_tag = "HydroHallway";
+	name = "Hydroponics Shutters";
+	opacity = 0
 	},
+/turf/simulated/floor/plating,
 /area/hydroponics)
 "cSv" = (
 /obj/machinery/power/grounding_rod{
@@ -51516,6 +51555,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -52499,6 +52541,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -52580,6 +52625,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -53600,6 +53648,12 @@
 "doq" = (
 /mob/living/simple_animal/mouse/rat/irish/Remi,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -55854,6 +55908,10 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar)
 "egE" = (
@@ -57149,6 +57207,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -57183,12 +57244,12 @@
 /area/hallway/primary/starboard/west)
 "eVW" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/public/glass{
 	name = "Hydroponics";
 	req_access = list(35)
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -59748,6 +59809,10 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"gCR" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/maintenance/fsmaint2)
 "gDs" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -60251,6 +60316,9 @@
 	real_name = "Pete"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -60751,6 +60819,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -62240,6 +62311,11 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreencorners";
 	dir = 8
@@ -65850,6 +65926,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "kGz" = (
@@ -66211,6 +66290,9 @@
 /area/turret_protected/ai_upload)
 "kTh" = (
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "kTi" = (
@@ -66800,6 +66882,9 @@
 	},
 /mob/living/simple_animal/chicken/Wife,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
@@ -69836,6 +69921,9 @@
 /mob/living/simple_animal/mouse/rat/Ratatui,
 /obj/structure/disposalpipe/segment{
 	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -72907,6 +72995,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -77879,6 +77970,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -80888,6 +80984,9 @@
 /area/maintenance/server)
 "ubh" = (
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -85646,9 +85745,7 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "scene"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/hydroponics)
 "wSK" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -128296,7 +128393,7 @@ aGX
 xoJ
 cxK
 aGX
-doE
+gCR
 cHo
 beb
 bvM
