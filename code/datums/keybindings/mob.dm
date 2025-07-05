@@ -407,4 +407,4 @@
 		return .
 	if (!istype(belt))
 		return .
-	belt.radial_menu(human)
+	belt.attack_self(human)

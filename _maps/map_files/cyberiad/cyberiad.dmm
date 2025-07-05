@@ -27773,7 +27773,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "bOg" = (
-/obj/machinery/vending/cola,
+/obj/machinery/vending/protein,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
