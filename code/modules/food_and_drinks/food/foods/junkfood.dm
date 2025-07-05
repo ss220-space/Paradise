@@ -202,7 +202,7 @@
 	icon_state = "proteinbar_beef"
 	filling_color = "#d1a62f"
 	junkiness = 5
-	list_reagents = list("protein" = 10, "sugar" = 3)
+	list_reagents = list("protein" = 12)
 	tastes = list("говядину" = 1, "удовольствие" = 1)
 	foodtype = JUNKFOOD
 	opened = FALSE

@@ -3611,6 +3611,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dust,
+/obj/item/reagent_containers/syringe/steroids,
 /turf/simulated/floor/wood,
 /area/maintenance/casino)
 "aEn" = (
@@ -6457,12 +6458,11 @@
 /turf/simulated/wall/r_wall/coated,
 /area/maintenance/turbine)
 "aWS" = (
-/obj/structure/window/reinforced{
-	dir = 1
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "rampbottom"
+	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
 "aWY" = (
@@ -13616,15 +13616,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
-"bJy" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
-/area/crew_quarters/fitness)
 "bJF" = (
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
@@ -14647,10 +14638,10 @@
 	},
 /area/hallway/primary/central/ne)
 "bOZ" = (
-/obj/structure/window/reinforced{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/effect/turf_decal/stripes/white/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -20759,15 +20750,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "cuM" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/machinery/door/window,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/crew_quarters/fitness)
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "cuO" = (
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars,
 /obj/structure/chair/sofa/left,
@@ -21795,8 +21782,12 @@
 	},
 /area/crew_quarters/sleep)
 "cza" = (
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
 "czb" = (
@@ -23339,14 +23330,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
-"cFv" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/crew_quarters/fitness)
 "cFw" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -39754,15 +39737,12 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "dYX" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /mob/living/simple_animal/turtle,
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
 "dYY" = (
@@ -40321,12 +40301,10 @@
 	},
 /area/engineering/hardsuitstorage)
 "ecK" = (
-/mob/living/simple_animal/hostile/carp/koi{
-	desc = "Прелестный карп.";
-	name = "Джереми"
-	},
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
+/obj/structure/punching_bag,
+/obj/effect/decal/warning_stripes/blue/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
 "ecO" = (
@@ -45136,18 +45114,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"fhY" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/crew_quarters/fitness)
 "fif" = (
 /obj/structure/dresser,
 /turf/simulated/floor/wood,
@@ -46834,7 +46800,7 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "fEP" = (
-/obj/structure/window/reinforced{
+/obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -53211,11 +53177,9 @@
 	},
 /area/security/customs)
 "hcu" = (
-/obj/structure/chair{
-	dir = 1
-	},
+/obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutral"
+	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
 "hcW" = (
@@ -56219,7 +56183,7 @@
 	},
 /area/medical/cmostore)
 "hPg" = (
-/obj/structure/window/reinforced,
+/obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -59906,9 +59870,8 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab)
 "iJZ" = (
-/obj/structure/window/reinforced,
-/obj/machinery/door/window{
-	dir = 8
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -68612,11 +68575,13 @@
 	},
 /area/security/lobby)
 "kSt" = (
-/obj/structure/window/reinforced,
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
-/area/crew_quarters/fitness)
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/cardboard,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "kSH" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -76604,9 +76569,7 @@
 /area/aisat/maintenance)
 "mMD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/sheet/cardboard,
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/structure/weightmachine/horizontalbar/high,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "mME" = (
@@ -78149,11 +78112,10 @@
 /turf/simulated/floor/engine,
 /area/toxins/sm_test_chamber)
 "nft" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
+/obj/structure/table,
+/obj/item/storage/box/cups,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
 "nfN" = (
@@ -78868,15 +78830,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/south)
-"nol" = (
-/obj/machinery/light,
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/crew_quarters/fitness)
 "nom" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/recharge_station,
@@ -79680,14 +79633,6 @@
 	icon_state = "wood-broken7"
 	},
 /area/maintenance/library)
-"nwh" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
-/area/crew_quarters/fitness)
 "nwj" = (
 /turf/simulated/wall/r_wall,
 /area/security/visiting_room)
@@ -81168,10 +81113,8 @@
 /turf/simulated/floor/plasteel,
 /area/security/securehallway)
 "nNN" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
+/obj/machinery/vending/protein,
+/obj/effect/decal/warning_stripes/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -85005,10 +84948,9 @@
 /turf/simulated/floor/plasteel,
 /area/security/securehallway)
 "oId" = (
-/obj/structure/chair,
+/obj/structure/weightmachine/horizontalbar/high,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
 "oIk" = (
@@ -88818,10 +88760,11 @@
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "pBj" = (
-/obj/structure/window/reinforced,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "ramptop"
+	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
 "pBl" = (
@@ -96660,6 +96603,8 @@
 	pixel_x = 7;
 	pixel_y = 6
 	},
+/obj/item/reagent_containers/syringe/steroids,
+/obj/item/reagent_containers/food/snacks/proteinbar_banana,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "rjK" = (
@@ -97236,13 +97181,9 @@
 /turf/simulated/wall,
 /area/storage/primary)
 "rqh" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/chair,
+/obj/structure/weightmachine/horizontalbar,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
 "rqk" = (
@@ -104889,11 +104830,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "tge" = (
-/obj/structure/window/reinforced{
+/obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
 "tgf" = (
@@ -112757,9 +112698,8 @@
 	},
 /area/engineering/hardsuitstorage)
 "uTr" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -119488,11 +119428,11 @@
 	},
 /area/maintenance/starboard)
 "wwK" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -122997,18 +122937,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/carpet/arcade,
-/area/crew_quarters/fitness)
-"xoP" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/crew_quarters/fitness)
 "xpj" = (
 /obj/structure/disposalpipe/segment,
@@ -127425,11 +127353,7 @@
 /area/toxins/launch)
 "ygq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/structure/weightmachine/horizontalbar,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "ygt" = (
@@ -127550,6 +127474,7 @@
 	anchored = 1
 	},
 /mob/living/simple_animal/frog,
+/obj/item/reagent_containers/syringe/steroids,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
@@ -158160,7 +158085,7 @@ kDB
 bvG
 bLS
 bvG
-cbs
+kSt
 iTZ
 iTZ
 iTZ
@@ -158417,7 +158342,7 @@ kbF
 aVS
 aPj
 cbs
-cgR
+cuM
 iTZ
 doO
 cED
@@ -180064,12 +179989,12 @@ xqu
 nze
 tNl
 aWS
-nft
-nft
-bJy
-xyi
-wkE
-xoP
+fEP
+fEP
+fEP
+fEP
+fEP
+fEP
 fEP
 wwK
 fEP
@@ -180321,17 +180246,17 @@ xqu
 ttY
 tNl
 tge
-cza
-cza
-kSt
-xyi
+lAy
+lAy
+hng
+lAy
 hcu
 nNN
-oCP
+nft
 fXZ
-hng
-hPg
 oId
+hPg
+nNy
 xyi
 fVK
 cQj
@@ -180579,16 +180504,16 @@ pTS
 ufU
 tge
 ecK
-cza
-kSt
-xyi
-nol
-nNN
+lAy
+lAy
 lAy
 aay
 lAy
-hPg
+lAy
+lAy
 rqh
+hPg
+nNy
 xyi
 cQj
 cQj
@@ -180835,17 +180760,17 @@ xqu
 xun
 tNl
 tge
-cza
-cza
-kSt
-xyi
-hcu
-nNN
+lAy
+lAy
 hng
-psy
+lAy
 oCP
+lAy
+oCP
+psy
+rqh
 hPg
-oId
+nNy
 xyi
 fIE
 cQj
@@ -181092,15 +181017,15 @@ xqu
 lNV
 tNl
 dYX
-nwh
-nwh
 pBj
-xyi
-wkE
-cuM
-cFv
+pBj
+pBj
+pBj
+pBj
+pBj
+pBj
 bOZ
-cFv
+pBj
 uTr
 nNy
 xyi
@@ -181606,12 +181531,12 @@ csj
 udZ
 udZ
 udZ
-udZ
-fhY
+cza
 tUH
 tUH
 tUH
-udZ
+tUH
+cza
 hnQ
 uDH
 uDH
