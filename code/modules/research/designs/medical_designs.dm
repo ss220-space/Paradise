@@ -56,7 +56,7 @@
 	name = "Genetic notepad"
 	desc = "Планшет генетика, способный хранить данные блоков генов в удобном виде."
 	id = "dna_notepad"
-	req_tech = list("engineering" = 2, "biotech" = 2)
+	req_tech = list("programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 	build_path = /obj/item/dna_notepad

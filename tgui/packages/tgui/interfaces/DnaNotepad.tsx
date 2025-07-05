@@ -1,13 +1,10 @@
 import { useBackend } from '../backend';
-import {
-  Box, Section, Button, LabeledList,
-  Flex, Stack
-} from '../components';
+import { Box, Section, Button, LabeledList, Flex, Stack } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
 type DnaNotepadData = {
-  dna_data: DnaDetailData[]
+  dna_data: DnaDetailData[];
 };
 
 type DnaDetailData = {
@@ -21,10 +18,7 @@ export const DnaNotepad = (props: unknown) => {
   const { dna_data } = data;
 
   return (
-    <Window
-      width={900} height={700}
-      title='Планшет генетика'
-    >
+    <Window width={900} height={700} title="Планшет генетика">
       <ComplexModal />
       <Window.Content scrollable>
         {(() => {
@@ -35,21 +29,16 @@ export const DnaNotepad = (props: unknown) => {
               mb="15px"
               buttons={
                 <>
-                  <Button
-                    icon="trash"
-                    onClick={() => act('clear')}
-                  >
+                  <Button icon="trash" onClick={() => act('clear')}>
                     Очистить данные
                   </Button>
-                  <Button
-                    icon="print"
-                    onClick={() => act('print')}
-                  >
+                  <Button icon="print" onClick={() => act('print')}>
                     Напечатать данные
                   </Button>
                 </>
-              }>
-              <DnaEntriesBlock dna_data={dna_data}/>
+              }
+            >
+              <DnaEntriesBlock dna_data={dna_data} />
             </Section>
           );
         })()}
@@ -59,8 +48,8 @@ export const DnaNotepad = (props: unknown) => {
 };
 
 type DnaEntriesBlockProps = {
-  dna_data: DnaDetailData[]
-}
+  dna_data: DnaDetailData[];
+};
 
 const DnaEntriesBlock = (props: DnaEntriesBlockProps) => {
   const { act } = useBackend<DnaNotepadData>();
@@ -68,21 +57,25 @@ const DnaEntriesBlock = (props: DnaEntriesBlockProps) => {
 
   let dnaBlocks = [];
   for (let i = 0; i < dna_data.length; i++) {
-    let dnaBlock = dna_data[i]
-    let stackItem = <Stack.Item mb="1rem" mr="1rem" width="30%">
+    let dnaBlock = dna_data[i];
+    let stackItem = (
+      <Stack.Item mb="1rem" mr="1rem" width="30%">
         <Box inline mr="0.5rem">
-          <span style={{ color: '#FFFFFF' }}>{dnaBlock.num}</span>{': '}
+          <span style={{ color: '#FFFFFF' }}>{dnaBlock.num}</span>
+          {': '}
           <span style={{ color: dnaBlock.color }}>{dnaBlock.name}</span>{' '}
           <Button
-              icon="pen"
-              onClick={() =>
-                act('edit_dna_block', {
-                  id: dnaBlock.num,
-                })
-              }/>
+            icon="pen"
+            onClick={() =>
+              act('edit_dna_block', {
+                id: dnaBlock.num,
+              })
+            }
+          />
         </Box>
       </Stack.Item>
+    );
     dnaBlocks.push(stackItem);
   }
   return <Flex wrap="wrap">{dnaBlocks}</Flex>;
-}
+};
