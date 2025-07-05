@@ -328,7 +328,7 @@
 	if(is_pen(I))
 		add_fingerprint(user)
 		if(unique)
-			to_chat(user, span_warning("These pages don't seem to take the ink well. Looks like you can't modify it."))
+			to_chat(user, span_warning("На страницы этой книги плохо ложатся чернила. По всей видимости, вы ничего не сможете с ней сделать."))
 			return ATTACK_CHAIN_PROCEED
 		var/choice = tgui_input_list(user, "Что вы хотели бы изменить?", "Редактура", list("Заголовок", "Содержание", "Автор", "Отмена"))
 		switch(choice)
@@ -365,19 +365,19 @@
 			if(0)
 				playsound(src, 'sound/machines/ping.ogg', 20)
 				scanner.book = src
-				to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer.'"))
+				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище.\""))
 			if(1)
 				playsound(src, 'sound/machines/ping.ogg', 20)
 				scanner.book = src
 				scanner.computer.buffer_book = name
-				to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. Book title stored in associated computer buffer.'"))
+				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Ккнига была занесена в буфер привязанного компьютера.\""))
 			if(2)
 				scanner.book = src
 				for(var/datum/borrowbook/borrowbook as anything in scanner.computer.checkouts)
 					if(borrowbook.bookname == name)
 						playsound(src, 'sound/machines/ping.ogg', 20)
 						scanner.computer.checkouts.Remove(borrowbook)
-						to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. Book has been checked in.'"))
+						to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Бронирование книги было зарегистрированно.\""))
 						return ATTACK_CHAIN_PROCEED_SUCCESS
 				playsound(src, 'sound/machines/boop.ogg', 20)
 				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Для данной книги ещё не было офорлено бронирование.\""))
@@ -411,16 +411,18 @@
 
 
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
-	if(!is_sharp(I) && I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
-		to_chat(user, span_warning("You can't carve [title] using that!"))
+	if(I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
+		return FALSE
+	if(!is_sharp(I))
+		user.balloon_alert(user, "Сначала заточите!")
 		return FALSE
 	if(carved)
-		to_chat(user, span_warning("The [title] is already carved!"))
+		user.balloon_alert(user, "уже изрезано!")
 		return FALSE
-	to_chat(user, span_notice("You start to carve out [title]..."))
+	to_chat(user, span_notice("Вы начинаете резать страницы [title]..."))
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || carved)
 		return FALSE
-	to_chat(user, span_notice("You have carved out the pages from [title]! You didn't want to read it anyway."))
+	to_chat(user, span_notice("Вы вырезали несколько страниц из [title]! Всё равно никто бы её не стал читать."))
 	carved = TRUE
 	return TRUE
 
@@ -430,6 +432,15 @@
  */
 /obj/item/barcodescanner
 	name = "barcode scanner"
+	desc = "Небольшое устройство для считывания штрих-кода с книг."
+	ru_names = list(
+		NOMINATIVE = "сканнер штрих-кодов",
+		GENITIVE = "сканнера штрих-кодов",
+		DATIVE = "сканнеру штрих-кодов",
+		ACCUSATIVE = "сканнер штрих-кодов",
+		INSTRUMENTAL = "сканнером штрих-кодов",
+		PREPOSITIONAL = "сканнере штрих-кодов"
+	)
 	icon = 'icons/obj/library.dmi'
 	icon_state ="scanner"
 	throw_speed = 1
@@ -443,22 +454,21 @@
 	mode += 1
 	if(mode > 3)
 		mode = 0
-	to_chat(user, "[src] Status Display:")
+	to_chat(user, "отображение состояния [declent_ru(GENITIVE)]:")
 	var/modedesc
 	switch(mode)
 		if(0)
-			modedesc = "Scan book to local buffer."
+			modedesc = "Сканирование книг в локальное хранилище."
 		if(1)
-			modedesc = "Scan book to local buffer and set associated computer buffer to match."
+			modedesc = "Сканирование книг в локальное хранилище с добалением в буфер привязанного компьютера."
 		if(2)
-			modedesc = "Scan book to local buffer, attempt to check in scanned book."
+			modedesc = "Сканирование книг в локальное хранилище с оформлением их брони."
 		if(3)
-			modedesc = "Scan book to local buffer, attempt to add book to general inventory."
-		else
-			modedesc = "ERROR"
-	to_chat(user, " - Mode [mode] : [modedesc]")
+			modedesc = "Сканирование книг в локальное хранилище с попыткой добавление в базу данных."
+			modedesc = "ОШИБКА"
+	to_chat(user, " - Режим [mode] : [modedesc]")
 	if(src.computer)
-		to_chat(user, "<font color=green>Computer has been associated with this unit.</font>")
+		to_chat(user, span_greentext("Устройство было привязано к компьютеру."))
 	else
-		to_chat(user, "<font color=red>No associated computer found. Only local scans will function properly.</font>")
+		to_chat(user, span_redtext("Привязанный к устройству компьютер не найден. Доступно только локальное сканирование."))
 	to_chat(user, "\n")
