@@ -30,7 +30,7 @@
 	throw_speed	= 3
 	throw_range	= 7
 	materials = list(MAT_METAL=2000, MAT_GLASS = 1000)
-	origin_tech = "biotech=2;engineering=2"
+	origin_tech = "data=2"
 	var/dna_data = list()
 	var/isPrinting = FALSE
 
