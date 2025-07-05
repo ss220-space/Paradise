@@ -20,11 +20,13 @@
 	)
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
-	icon_state	= "gps"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	icon_state	= "genetic_tablet_on"
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class		= WEIGHT_CLASS_TINY
-	item_state	= "gps"
+	item_state	= "genetic_tablet_on"
 	throw_speed	= 3
 	throw_range	= 7
 	materials = list(MAT_METAL=2000, MAT_GLASS = 1000)
@@ -73,6 +75,7 @@
 		return
 	isPrinting = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	flick("genetic_tablet_print", src)
 	sleep(3 SECONDS)
 	var/obj/item/paper/paper = new(drop_location())
 	paper.name = "Блоки генов"
