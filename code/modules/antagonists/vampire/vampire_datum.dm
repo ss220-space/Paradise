@@ -508,8 +508,8 @@
 	var/ay = owner.current.y
 
 	for(var/i = 1 to 20)
-		ax += GET_SUN_DY
-		ay += GET_SUN_DX
+		ax += SSsun.dy
+		ay += SSsun.dx
 
 		var/turf/T = locate(round(ax, 0.5), round(ay, 0.5), owner.current.z)
 
