@@ -111,3 +111,15 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 25, "omnizine" = 25)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/random_alco
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/random_alco/Initialize(mapload)
+	list_reagents += list("[pick(subtypesof(/datum/reagent/consumable/ethanol)).id]" = 50)
+	. = ..()
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/random_nonalco
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/random_nonalco/Initialize(mapload)
+	list_reagents += list("[pick(subtypesof(/datum/reagent/consumable/drink)).id]" = 50)
+	. = ..()

@@ -510,11 +510,23 @@
 	icon_state = "bushc"
 
 /obj/structure/flora/junglebush/large
-	icon_state = "bush"
+	icon_state = "bush1"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
 	pixel_x = -16
 	pixel_y = -12
 	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/flora/junglebush/large/b
+	icon_state = "bush2"
+
+/obj/structure/flora/junglebush/large/c
+	icon_state = "bush3"
+
+/obj/structure/flora/junglebush/large/random
+	icon_state = "bush"
+
+/obj/structure/flora/junglebush/large/random/Initialize(mapload)
+	icon_state = "[initial(icon_state)][rand(1,3)]"
 
 /obj/structure/flora/rock/pile/largejungle
 	name = "rocks"
