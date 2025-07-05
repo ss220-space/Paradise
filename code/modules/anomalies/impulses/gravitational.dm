@@ -8,7 +8,7 @@
 
 /datum/anomaly_impulse/change_grav/impulse()
 	var/obj/effect/anomaly/gravitational/anomaly = owner
-	for(var/atom/movable/atom in view(scale_by_strenght(effect_radius_low, effect_radius_high), owner))
+	for(var/atom/movable/atom in view(scale_by_strength(effect_radius_low, effect_radius_high), owner))
 		if(!iseffect(atom))
 			anomaly.random_gravity_change(atom)
 
@@ -55,11 +55,11 @@
 /datum/anomaly_impulse/random_throws/impulse()
 	var/obj/effect/anomaly/anomaly = owner
 	var/ost_atoms = 100
-	for(var/atom/movable/atom in view(scale_by_strenght(effect_radius_low, effect_radius_high), owner))
+	for(var/atom/movable/atom in view(scale_by_strength(effect_radius_low, effect_radius_high), owner))
 		if(!anomaly.can_move_sth(atom))
 			continue
 
-		atom.random_throw(throw_range_low, throw_range_high, scale_by_strenght(throw_speed_low, throw_speed_high))
+		atom.random_throw(throw_range_low, throw_range_high, scale_by_strength(throw_speed_low, throw_speed_high))
 		ost_atoms--
 
 		if(!ost_atoms)
@@ -120,7 +120,7 @@
 
 /datum/anomaly_impulse/grav_fastmove/impulse()
 	var/dir = pick(GLOB.alldirs)
-	for(var/i = 1 to scale_by_strenght(range_low, range_high))
+	for(var/i = 1 to scale_by_strength(range_low, range_high))
 		owner.do_move(dir)
 		var/ost_atoms = 100
 		for(var/atom/movable/atom in view(3, owner))

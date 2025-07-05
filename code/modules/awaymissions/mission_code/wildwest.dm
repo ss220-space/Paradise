@@ -71,7 +71,7 @@
 	else
 		chargesa--
 		insistinga = 0
-		var/wish = input("You want...","Wish") as null|anything in list("Power","Wealth","Immortality","Peace")
+		var/wish = tgui_input_list(usr, "You want...", "Wish", list("Power", "Wealth", "Immortality", "Peace"))
 		switch(wish)
 			if("Power")
 				to_chat(user, "<b>Your wish is granted, but at a terrible cost...</b>")

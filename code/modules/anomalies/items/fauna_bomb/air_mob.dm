@@ -45,7 +45,7 @@
 	environment_smash = data.environment_smash
 	speed = data.speed
 	leash = spawner
-	leash_radius = round(spawner.core.get_strenght() / 15 + 0.5)
+	leash_radius = round(spawner.core.get_strength() / 15 + 0.5)
 	mob_size = data.mob_size
 	rapid_melee = data.rapid_melee
 	if(data.appearance)

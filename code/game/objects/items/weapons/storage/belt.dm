@@ -15,7 +15,63 @@
 	equip_sound = 'sound/items/handling/backpack_equip.ogg'
 	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
+	actions_types = list(/datum/action/item_action/belt_fast_equip)
 
+/obj/item/storage/belt/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
+
+/obj/item/storage/belt/proc/collect_radial_menu_choices()
+	var/list/choices = list()
+	for(var/i = contents.len; i >= 1; i--) // Reverse order
+		var/obj/item = contents[i]
+		choices["[item.declent_ru(NOMINATIVE)]"] = image(icon = item.icon, icon_state = item.icon_state)
+	return choices
+
+/obj/item/storage/belt/proc/try_fast_equip_item_from_belt(obj/item/item)
+	if (item == null)
+		return
+	if (!usr.put_in_any_hand_if_possible(item))
+		return
+	to_chat(usr, span_notice("Вы достаете [item.name] с пояса."))
+	balloon_alert(usr, "снято с пояса")
+
+/obj/item/storage/belt/proc/find_content_by_name(choice)
+	for(var/obj/item in contents)
+		if(item.declent_ru(NOMINATIVE) == choice)
+			return item
+	return null
+
+/obj/item/storage/belt/proc/select_item_by_radial_menu(mob/user, list/choices)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	if(!check_menu(user))
+		return null
+	return find_content_by_name(choice)
+
+/obj/item/storage/belt/proc/radial_menu(mob/user)
+	if(!check_menu(user))
+		return
+	var/list/choices = collect_radial_menu_choices()
+	if (length(choices) == 0)
+		to_chat(user, span_notice("Ваш пояс пуст."))
+		balloon_alert(user, "пояс пуст!")
+		return
+	if (length(choices) == 1) // Auto extract for single item without radial menu
+		var/obj/item/selected = contents[1]
+		try_fast_equip_item_from_belt(selected)
+		return
+	var/obj/item/selected = select_item_by_radial_menu(user, choices)
+	try_fast_equip_item_from_belt(selected)
+
+/obj/item/storage/belt/attack_self(mob/user = usr)
+	radial_menu(user)
+
+/obj/item/storage/belt/item_action_slot_check(slot, mob/user, datum/action/action)
+	if(slot & ITEM_SLOT_BELT)
+		return TRUE
 
 /obj/item/storage/belt/update_overlays()
 	. = ..()

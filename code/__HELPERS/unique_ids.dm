@@ -35,6 +35,16 @@ GLOBAL_LIST_EMPTY(uid_log)
 		GLOB.uid_log[type]++
 	return unique_datum_id
 
+/datum/proc/get_num_uid()
+	if(numeric_datum_id)
+		return numeric_datum_id
+
+	numeric_datum_id = GLOB.next_unique_datum_id
+
+	GLOB.next_unique_datum_id++
+	GLOB.uid_log[type]++
+
+	return numeric_datum_id
 
 /proc/UID_of(datum/target)
 	if(!isdatum(target))

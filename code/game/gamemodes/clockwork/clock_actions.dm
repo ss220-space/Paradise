@@ -17,7 +17,7 @@
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
 /datum/action/innate/clockwork/comm/Activate()
-	var/input = stripped_input(usr, "Please choose a message to tell to the other workmates.", "Voice of Clockwork", "")
+	var/input = tgui_input_text(usr, "Please choose a message to tell to the other workmates.", "Voice of Clockwork", "")
 	if(!input || !IsAvailable())
 		return
 	clockwork_commune(usr, input)

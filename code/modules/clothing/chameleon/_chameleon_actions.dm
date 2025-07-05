@@ -100,7 +100,7 @@
 			to_chat(owner, span_warning("Outfit with the same positions is already saved!"))
 			return FALSE
 
-	var/new_outfit_name = sanitize(copytext_char(input(user, "Specify custom outfit name", "Saving Outfit", "") as null|text, 1, MAX_OUTFIT_NAME_LEN))
+	var/new_outfit_name = tgui_input_text(user, "Specify custom outfit name", "Saving Outfit", "", max_length = MAX_OUTFIT_NAME_LEN)
 	if(!new_outfit_name || QDELETED(src) || QDELETED(user) || QDELETED(owner) || !IsAvailable())
 		return FALSE
 

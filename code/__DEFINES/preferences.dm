@@ -85,8 +85,9 @@
 #define PREFTOGGLE_3_DNR_AFTER_DEATH         	(1<<0) // 1
 #define PREFTOGGLE_3_UI_SCALE         			(1<<1) // 2
 #define PREFTOGGLE_3_FACING_TO_MOUSE			(1<<2) // 4
+#define PREFTOGGLE_3_PAIN_BLURB	 				(1<<3) // 8
 
-#define TOGGLES_3_TOTAL                       	7 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_3_TOTAL                       	15 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_3_DEFAULT (PREFTOGGLE_3_FACING_TO_MOUSE)
 

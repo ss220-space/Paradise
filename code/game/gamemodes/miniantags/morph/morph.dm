@@ -395,10 +395,10 @@
 	messages.Add(span_specialnotice("Кроме того, любой, кто находится в радиусе трёх тайлов, заметит нечто странное, если осмотрит вас."))
 	messages.Add(span_specialnotice("В этой форме вы можете \"Подготовить засаду\", используя свою способность."))
 	messages.Add(span_specialnotice("Это позволит вам нанести огромный урон при первом ударе."))
-	messages.Add(span_specialnotice("ЭтоА если они коснутся вас, то ещё больше."))
+	messages.Add(span_specialnotice("Если они коснутся вас, то ещё больше."))
 	messages.Add(span_specialnotice("Наконец, вы можете атаковать любой предмет или мёртвое существо, чтобы поглотить его — это 1/3 вашего максимального здоровья и добавят к вашему запасу пищи."))
-	messages.Add(span_specialnotice("Поедание предметов уменьшит ваш запас пищи."))
-	messages.Add(span_motd("<b>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Morph\">Морф</a></b>"))
+	messages.Add(span_specialnotice("Поедание предметов уменьшит ваш запас пищи.\n"))
+	messages.Add(span_motd("<b>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Morph\">Морф</a></b>\n"))
 
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 	if(give_default_objectives)
