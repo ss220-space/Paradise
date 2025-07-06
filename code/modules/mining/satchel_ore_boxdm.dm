@@ -39,7 +39,7 @@
 			storage.remove_from_storage(ore, src) //This will move the item to this item's contents
 			CHECK_TICK
 		if(!loaded)
-			to_chat(user, span_warning("[capitalize(storage.declent_ru(NOMINATIVE))] пуст - здесь нет руды."))
+			to_chat(user, span_warning("[capitalize(storage.declent_ru(NOMINATIVE))] пуста – здесь нет руды."))
 			return ATTACK_CHAIN_PROCEED
 		storage.update_appearance()	// just in case
 		to_chat(user, span_notice("Вы пересыпали руду из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
@@ -78,8 +78,8 @@
 		var/obj/item/stack/ore/O = type
 		dat += "[initial(O.name)] - [assembled[type]]<br>"
 
-	dat += "<br><br><a href='byond://?src=[UID()];removeall=1'>Очистить ящик</a>"
-	var/datum/browser/popup = new(user, "orebox", name, 400, 400)
+	dat += "<br><br><a href='byond://?src=[UID()];removeall=1'>Выгрузить руду</a>"
+	var/datum/browser/popup = new(user, "orebox", capitalize(declent_ru(NOMINATIVE)), 400, 400)
 	popup.set_content(dat)
 	popup.open(FALSE)
 

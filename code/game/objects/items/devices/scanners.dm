@@ -352,7 +352,7 @@ BODY SCANNERS
 
 	P.name = scan_title
 	P.header += "<center><b>[scan_title]</b></center><br>"
-	P.header += "<b>Время сканирования:</b> [station_time_timestamp()]<br><br>"
+	P.header += "<b>Время сканирования:</b> [station_time_timestamp()]"
 	P.header += "<hr>"
 
 	if(scan_data["status"] == 2)
@@ -390,15 +390,20 @@ BODY SCANNERS
 			"Skrell" = "Скрелл",
 			"Nian" = "Ниан",
 			"Unathi" = "Унатх",
+			"Kidan" = "Кидан",
 			"Vox" = "Вокс",
 			"Wryn" = "Врин",
 		)
+		var/blood_species_text = ""
+		if(ru_blood_species[blood_species])
+			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
+
 		if(blood_volume <= BLOOD_VOLUME_SAFE && blood_percent > BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_red("НИЗКИЙ")] - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]].<br>"
+			P.header += "Уровень крови: [span_red("НИЗКИЙ")] - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type][blood_species_text].<br>"
 		else if(blood_volume <= BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_red("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]].<br>"
+			P.header += "Уровень крови: [span_red("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type][blood_species_text].<br>"
 		else
-			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]]."
+			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text]."
 
 	if(scan_data["timeofdeath"])
 		P.header += "Время смерти: [scan_data["timeofdeath"]]<br>"
@@ -433,7 +438,7 @@ BODY SCANNERS
 		for(var/reagent in scan_data["reagentList"])
 			P.header += "&emsp;[reagent["volume"]]u [reagent["name"]] [reagent["overdosed"] == "1" ? " - <b>ПЕРЕДОЗИРОВКА</b>" : "."]<br>"
 	else
-		P.header += "Реагенты не обнаружены.<br>"
+		P.header += "<br>Реагенты не обнаружены.<br>"
 
 	if(scan_data["addictionList"])
 		P.header += "<b>Обнаружены зависимости от реагентов:</b><br>"
@@ -442,9 +447,8 @@ BODY SCANNERS
 	else
 		P.header += "Зависимости от реагентов не обнаружены.<br>"
 
-	P.header += "<hr>"
-
 	if(scan_data["diseases"])
+		P.header += "<hr>"
 		for(var/disease in scan_data["diseases"])
 			P.header += "<font color='red'><b>Внимание: [disease["form"]]</b></font><br>"
 			P.header += "&emsp;Название: [disease["name"]]<br>"
@@ -936,9 +940,14 @@ BODY SCANNERS
 			"Skrell" = "Скрелл",
 			"Nian" = "Ниан",
 			"Unathi" = "Унатх",
+			"Kidan" = "Кидан",
 			"Vox" = "Вокс",
 			"Wryn" = "Врин",
 		)
+		var/blood_species_text = ""
+		if(ru_blood_species[blood_species])
+			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
+
 		if(blood_id != "blood")//special blood substance
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)
@@ -946,11 +955,11 @@ BODY SCANNERS
 			else
 				blood_type = blood_id
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: [span_danger("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [span_danger("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 		else
-			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
+			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
 
 	scan_data += "Пульс: <font color='[H.pulse == PULSE_NORM ? "#0080ff" : "red"]'>[H.get_pulse(GETPULSE_TOOL)] уд/мин.</font>"
 	var/list/implant_detect = list()

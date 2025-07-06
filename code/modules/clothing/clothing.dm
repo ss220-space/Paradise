@@ -337,6 +337,14 @@ BLIND     // can't see anything
 //Gloves
 /obj/item/clothing/gloves
 	name = "gloves"
+	ru_names = list(
+		NOMINATIVE = "перчатки",
+		GENITIVE = "перчаток",
+		DATIVE = "перчаткам",
+		ACCUSATIVE = "перчатки",
+		INSTRUMENTAL = "перчатками",
+		PREPOSITIONAL = "перчатках"
+	)
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
@@ -345,7 +353,7 @@ BLIND     // can't see anything
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
-	attack_verb = list("на дуэль вызвал")
+	attack_verb = list("вызвал на дуэль")
 	clothing_flags = FINGERS_COVERED
 	var/transfer_prints = FALSE
 	var/pickpocket = FALSE //Master pickpocket?
@@ -418,16 +426,16 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(clipped)
-		to_chat(user, span_warning("The [name] have already been clipped!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже были обрезаны!"))
 		return .
 	if(loc == user)
-		to_chat(user, span_warning("You cannot clip [src] while wearing it!"))
+		to_chat(user, span_warning("Вы не можете обрезать [declent_ru(ACCUSATIVE)], пока носите их!"))
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	user.visible_message(
-		span_warning("[user] snips the fingertips off [src]."),
-		span_warning("You snip the fingertips off [src]."),
+		span_warning("[user] отреза[pluralize_ru(user.gender,"ет","ют")] кончики пальцев на [declent_ru(PREPOSITIONAL)]."),
+		span_warning("Вы отрезаете кончики пальцев на [declent_ru(PREPOSITIONAL)]."),
 	)
 	clipped = TRUE
 	update_appearance()
@@ -440,7 +448,19 @@ BLIND     // can't see anything
 
 /obj/item/clothing/gloves/update_desc(updates = ALL)
 	. = ..()
-	desc = clipped ? "[initial(desc)] They have had the fingertips cut off of them." : initial(desc)
+	if(clipped)
+		desc = "[initial(desc)] Кончики пальцев были аккуратно отрезаны."
+		ru_names = list(
+			NOMINATIVE = "[initial(ru_names[NOMINATIVE])] без пальцев",
+			GENITIVE = "[initial(ru_names[GENITIVE])] без пальцев",
+			DATIVE = "[initial(ru_names[DATIVE])] без пальцев",
+			ACCUSATIVE = "[initial(ru_names[ACCUSATIVE])] без пальцев",
+			INSTRUMENTAL = "[initial(ru_names[INSTRUMENTAL])] без пальцев",
+			PREPOSITIONAL = "[initial(ru_names[PREPOSITIONAL])] без пальцев"
+		)
+	else
+		desc = initial(desc)
+		ru_names = initial(ru_names)
 
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)

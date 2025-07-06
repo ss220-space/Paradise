@@ -140,7 +140,15 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 /obj/machinery/washing_machine
 	name = "washing machine"
-	desc = "Gets rid of those pesky bloodstains, or your money back!"
+	desc = "Избавьтесь от этих раздражающих пятен крови, или мы вернём ваши деньги!"
+	ru_names = list(
+		NOMINATIVE = "стиральная машина",
+		GENITIVE = "стиральной машины",
+		DATIVE = "стиральной машине",
+		ACCUSATIVE = "стиральную машину",
+		INSTRUMENTAL = "стиральной машиной",
+		PREPOSITIONAL = "стиральной машине"
+	)
 	icon = 'icons/obj/machines/washing_machine.dmi'
 	icon_state = "machine"
 	density = TRUE
@@ -152,10 +160,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	var/obj/item/color_source
 	/// Our sweet wires
 	var/datum/wires/washing_machine/wires
-
-/obj/machinery/washing_machine/examine(mob/user)
-	. = ..()
-	. += span_notice("<b>Alt-click</b> to start washing.")
 
 /obj/machinery/washing_machine/Initialize(mapload)
 	. = ..()
@@ -195,13 +199,13 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
 	if(state & STATE_PANEL)
-		. += span_notice("Its wires are exposed.")
+		. += span_notice("Провода оголены.")
 	if(state & STATE_BLOODY)
-		. += span_notice("Cleaning is highly advised.")
+		. += span_notice("Настоятельно рекомендуется очистка.")
 	if(state & (STATE_DISABLED|STATE_HACKED))
-		. += span_warning("The red light on the panel is blinking...")
+		. += span_warning("На панели мигает красная лампочка...")
 	if(!(state & (STATE_OPENED|STATE_WORKING)) && (state & STATE_FULL))
-		. += span_notice("<b>Alt-click</b> to start the washing cycle.")
+		. += span_info("<b>Alt-ЛКМ</b> чтобы запустить цикл стирки.")
 
 
 /obj/machinery/washing_machine/process(seconds_per_tick)
@@ -312,26 +316,26 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /obj/machinery/washing_machine/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(state & STATE_WORKING)
-		to_chat(user, span_warning("[src] is working!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже работает!"))
 		return .
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return .
 	toggle_state(STATE_PANEL)
 	if(state & STATE_PANEL)
 		panel_open = TRUE
-		to_chat(user, span_notice("You open the maintenance panel of [src]."))
+		to_chat(user, span_notice("Вы открываете сервисную панель [declent_ru(GENITIVE)]."))
 	else
 		panel_open = FALSE
-		to_chat(user, span_notice("You close the maintenance panel of [src]."))
+		to_chat(user, span_notice("Вы закрываете сервисную панель [declent_ru(GENITIVE)]."))
 
 
 /obj/machinery/washing_machine/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(state & STATE_WORKING)
-		to_chat(user, span_warning("[src] is working!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже работает!"))
 		return .
 	if(state & STATE_PANEL)
-		to_chat(user, span_warning("Close the maintenance panel first!"))
+		to_chat(user, span_warning("Сначала закройте сервисную панель!"))
 		return .
 	default_unfasten_wrench(user, I, 5 SECONDS)
 
@@ -339,10 +343,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /obj/machinery/washing_machine/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(state & STATE_WORKING)
-		to_chat(user, span_warning("[src] is working!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже работает!"))
 		return .
 	if(!(state & STATE_PANEL))
-		to_chat(user, span_warning("Open the maintenance panel first!"))
+		to_chat(user, span_warning("Сначала откройте сервисную панель!"))
 		return .
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return .
@@ -352,10 +356,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /obj/machinery/washing_machine/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(state & STATE_WORKING)
-		to_chat(user, span_warning("[src] is working!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже работает!"))
 		return .
 	if(!(state & STATE_PANEL))
-		to_chat(user, span_warning("Open the maintenance panel first!"))
+		to_chat(user, span_warning("Сначала откройте сервисную панель!"))
 		return .
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return .
@@ -394,7 +398,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 	if(state & STATE_OPENED)
 		if(state & STATE_BLOODY)
-			to_chat(user, span_warning("[src] needs to be cleaned first!"))
+			to_chat(user, span_warning("[capitalize(declent_ru(ACCUSATIVE))] нужно сначала очистить!"))
 			return .
 		toggle_state(STATE_OPENED)
 		return .
@@ -408,11 +412,11 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		return .
 	if(state & STATE_OPENED)
 		if(usr)
-			to_chat(usr, span_notice("You have completely cleaned [src]."))
+			to_chat(usr, span_notice("Вы полностью очистили [declent_ru(ACCUSATIVE)]."))
 		toggle_state(STATE_BLOODY)
 	else
 		if(usr)
-			to_chat(usr, span_warning("Open [src]'s hatch first!"))
+			to_chat(usr, span_warning("Сначала откройте люк [declent_ru(GENITIVE)]!"))
 
 
 /obj/machinery/washing_machine/attackby(obj/item/I, mob/user, params)
@@ -422,12 +426,12 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 	add_fingerprint(user)
 	if(state & STATE_BLOODY)
-		to_chat(user, span_warning("[src] needs to be cleaned first!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(ACCUSATIVE))] нужно сначала очистить!"))
 		return ATTACK_CHAIN_PROCEED
 
 	var/contents_len = length(contents)
 	if((contents_len + (is_mob_holder ? length(I.contents) : 0)) >= MAX_WASH_CAPACITY)
-		to_chat(user, span_warning("[src] is full!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] переполнена!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(I, src))
@@ -461,25 +465,25 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /// All generic checks with feedback for the user
 /obj/machinery/washing_machine/proc/generic_check(mob/living/user, states_to_ignore)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You cannot do that right now!"))
+		to_chat(user, span_warning("Сейчас это невозможно!"))
 		return FALSE
 	if(!(states_to_ignore & STATE_WORKING) && (state & STATE_WORKING))
-		to_chat(user, span_warning("[src] is working!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже работает!"))
 		return FALSE
 	if(!(states_to_ignore & STATE_OPENED) && (state & STATE_OPENED))
-		to_chat(user, span_warning("Close the hatch first!"))
+		to_chat(user, span_warning("Сначала закройте дверцу!"))
 		return FALSE
 	if(!(states_to_ignore & STATE_FULL) && !(state & STATE_FULL))
-		to_chat(user, span_warning("[src] has no items to wash!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] не содержит вещей для стирки!"))
 		return FALSE
 	if(!(states_to_ignore & STATE_PANEL) && (state & STATE_PANEL))
-		to_chat(user, span_warning("Close the maintenance panel first!"))
+		to_chat(user, span_warning("Сначала закройте сервисную панель!"))
 		return FALSE
 	if(!(states_to_ignore & STATE_BLOODY) && (state & STATE_BLOODY))
-		to_chat(user, span_warning("[src] needs to be cleaned first!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(ACCUSATIVE))] нужно сначала очистить!"))
 		return FALSE
 	if(!(states_to_ignore & STATE_DISABLED) && (state & STATE_DISABLED))
-		to_chat(user, span_warning("[src] is malfunctioning!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] неисправна!"))
 		return FALSE
 	return TRUE
 
@@ -568,25 +572,28 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(!target_type)
 		return FALSE
 
-	name = initial(target_type.name)
-	desc = "[initial(target_type.desc)] The colors are a bit dodgy."
+	var/obj/item/temp = new target_type(null)
 
-	icon = initial(target_type.icon)
-	icon_state = initial(target_type.icon_state)
-	item_state = initial(target_type.item_state)
-	item_color = initial(target_type.item_color)
+	name = temp.name
+	ru_names = temp.ru_names
+	desc = "[temp.desc] Только цвет какой-то блеклый."
+	to_chat(world, "name: [name]; temp.name: [temp.name]")
 
-	lefthand_file = initial(target_type.lefthand_file)
-	righthand_file = initial(target_type.righthand_file)
+	icon = temp.icon
+	icon_state = temp.icon_state
+	item_state = temp.item_state
+	item_color = temp.item_color
 
-	if(initial(target_type.sprite_sheets) || initial(target_type.onmob_sheets))
-		// Sprites-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the target_type.
-		var/obj/item/dummy = new target_type(null)
-		sprite_sheets = dummy.sprite_sheets
-		onmob_sheets = dummy.onmob_sheets
-		qdel(dummy)
+	lefthand_file = temp.lefthand_file
+	righthand_file = temp.righthand_file
 
-	update_appearance()
+	if(temp.sprite_sheets || temp.onmob_sheets)
+		sprite_sheets = temp.sprite_sheets
+		onmob_sheets = temp.onmob_sheets
+
+	qdel(temp)
+
+	// update_appearance(updates = ALL)
 	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
 
 

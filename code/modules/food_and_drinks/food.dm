@@ -2,9 +2,9 @@
 /// Food.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define HATE_MESSAGES list("Что это было?! Я ненавижу <b>$TYPE</b>, я же $ASPECIES!", "Это было ужасно! Как уважающий себя $ASPECIES, я не могу есть <b>$TYPE</b>.", "Боже, это было опасно! <b>$CAPITALTYPE</b> $IS вредно для $PLURALSPECIES!")
-#define DISLIKE_MESSAGES list("Не очень вкусно. Мне, как $ASPECIES, лучше избегать <b>$TYPE</b>.", "<b>$CAPITALTYPE</b> $IS не лучшая еда для $PLURALSPECIES. Больше не буду это есть.", "Фу. <b>$CAPITALTYPE</b> $IS не то, что должен есть $ASPECIES.")
-#define LOVE_MESSAGES list("Восхитительно! Обожаю <b>$TYPE</b>!", "Ням. Я создан, чтобы есть <b>$TYPE</b>.", "Обожаю этот вкус. <b>$CAPITALTYPE</b> $IS прекрасно.", "<b>$CAPITALTYPE</b> $IS потрясающе. Надо есть это чаще.")
+#define HATE_MESSAGES list("Что это было?! Я ненавижу <b>$TYPE</b>, я же $ASPECIES!", "Это было ужасно! Как уважающий себя $ASPECIES, я не могу есть <b>$TYPE</b>.", "Боже, это было опасно! <b>$CAPITALTYPE</b> вредно для $PLURALSPECIES!")
+#define DISLIKE_MESSAGES list("Не очень вкусно. Мне, как $ASPECIES, лучше избегать <b>$TYPE</b>.", "<b>$CAPITALTYPE</b> не лучшая еда для $PLURALSPECIES. Больше не буду это есть.", "Фу. <b>$CAPITALTYPE</b> не то, что должен есть $ASPECIES.")
+#define LOVE_MESSAGES list("Восхитительно! Обожаю <b>$TYPE</b>!", "Ням. Я создан, чтобы есть <b>$TYPE</b>.", "Обожаю этот вкус. <b>$CAPITALTYPE</b> это прекрасно.", "<b>$CAPITALTYPE</b> это потрясающе. Надо есть это чаще.")
 
 /obj/item/reagent_containers/food
 	possible_transfer_amounts = null
@@ -72,7 +72,7 @@
 				if(!locate(/obj/effect/decal/ants) in T)
 					new /obj/effect/decal/ants(T)
 					antable = FALSE
-					desc += " It appears to be infested with space ants. Yuck!"
+					desc += " Похоже, он кишит космическими муравьями. Фу!"
 					reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
 		else
 			ant_location = T
@@ -115,60 +115,60 @@
 
 /obj/item/reagent_containers/food/proc/matched_food_type(var/matching_flags)
 	if(matching_flags & MEAT)
-		return pick("meat", "flesh", "dead animals")
+		return pick("мясо", "плоть", "трупы животных")
 	if(matching_flags & VEGETABLES)
-		return pick("vegetables", "veggies")
+		return pick("овощи", "зелень")
 	if(matching_flags & RAW)
-		return pick("raw food", "uncooked food", "tartare")
+		return pick("сырая пища", "неприготовленная еда", "тартар")
 	if(matching_flags & FRUIT)
-		return "fruit"
+		return "фрукты"
 	if(matching_flags & DAIRY)
-		return "dairy"
+		return "молочка"
 	if(matching_flags & FRIED)
-		return pick("fried food", "deep fried stuff")
+		return pick("жареное", "фритюр")
 	if(matching_flags & ALCOHOL)
-		return pick("alcohol", "booze")
+		return pick("алкоголь", "бухло")
 	if(matching_flags & SUGAR)
-		return pick("sugary food", "sweets")
+		return pick("сладкое")
 	if(matching_flags & GRAIN)
-		return pick("grain products", "carbs")
+		return pick("злаки", "углеводы")
 	if(matching_flags & EGG)
-		return pick("eggs")
+		return pick("яйца")
 	if(matching_flags & GROSS)
-		return pick("gross stuff", "garbage")
+		return pick("гадость", "мусор")
 	if(matching_flags & TOXIC)
-		return pick("toxic garbage", "toxins", "literally poison")
+		return pick("токсичный мусор", "отрава", "буквально яд")
 	if(matching_flags & JUNKFOOD)
-		return "junk food"
+		return pick("фастфуд", "вредную пищу")
 
 /obj/item/reagent_containers/food/examine(mob/user)
 	. = ..()
 	if(foodtype & MEAT)
-		. += "<span class='notice'>It contains meat.</span>"
+		. += span_notice("Содержит мясо.")
 	if(foodtype & VEGETABLES)
-		. += "<span class='notice'>It contains vegetables.</span>"
+		. += span_notice("Содержит овощи.")
 	if(foodtype & RAW)
-		. += "<span class='notice'>It is not properly cooked.</span>"
+		. += span_notice("Недостаточно приготовлено.")
 	if(foodtype & JUNKFOOD)
-		. += "<span class='notice'>It is junkfood.</span>"
+		. += span_notice("Это фастфуд.")
 	if(foodtype & GRAIN)
-		. += "<span class='notice'>It is made of grain.</span>"
+		. += span_notice("Содержит злаки.")
 	if(foodtype & FRUIT)
-		. += "<span class='notice'>It contains fruits.</span>"
+		. += span_notice("Содержит фрукты.")
 	if(foodtype & DAIRY)
-		. += "<span class='notice'>It contains dairy.</span>"
+		. += span_notice("Содержит молочные продукты.")
 	if(foodtype & FRIED)
-		. += "<span class='notice'>It is fried.</span>"
+		. += span_notice("Жареное.")
 	if(foodtype & SUGAR)
-		. += "<span class='notice'>It is sugary.</span>"
+		. += span_notice("Содержит сахар.")
 	if(foodtype & EGG)
-		. += "<span class='notice'>It contains eggs.</span>"
+		. += span_notice("Содержит яйца.")
 	if(foodtype & GROSS)
-		. += "<span class='notice'>This is pure garbage.</span>"
+		. += span_notice("Это полная гадость.")
 	if(foodtype & TOXIC)
-		. += "<span class='notice'>This is straight up poisonous.</span>"
+		. += span_notice("Это просто яд.")
 	if(user.can_see_food()) //Show each individual reagent
-		. += "<span class='notice'>It contains:</span>"
+		. += span_notice("Содержит:")
 		for(var/I in reagents.reagent_list)
 			var/datum/reagent/R = I
-			. += "<span class='notice'>[R.volume] units of [R.name]</span>"
+			. += span_notice("[R.volume] единиц [R]")

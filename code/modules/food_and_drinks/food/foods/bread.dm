@@ -5,20 +5,34 @@
 
 /obj/item/reagent_containers/food/snacks/sliceable/bread/meat
 	name = "meatbread loaf"
-	desc = "The culinary base of every self-respecting eloquen/tg/entleman."
-	w_class = WEIGHT_CLASS_NORMAL
+	desc = "Кулинарная основа каждой уважающей себя джентьмен_ессы."
+	ru_names = list(
+		NOMINATIVE = "мясной батон",
+		GENITIVE = "мясного батона",
+		DATIVE = "мясному батону",
+		ACCUSATIVE = "мясной батон",
+		INSTRUMENTAL = "мясным батоном",
+		PREPOSITIONAL = "мясном батоне"
+	)
 	icon_state = "meatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/meatbreadslice
 	slices_num = 5
 	filling_color = "#FF7575"
 	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
-	tastes = list("bread" = 10, "meat" = 10)
+	tastes = list("хлеба" = 10, "мяса" = 10)
 	foodtype = GRAIN | MEAT
 
 /obj/item/reagent_containers/food/snacks/meatbreadslice
 	name = "meatbread slice"
-	desc = "A slice of delicious meatbread."
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Ломтик вкуснейшего мясного хлеба."
+	ru_names = list(
+		NOMINATIVE = "ломтик мясного батона",
+		GENITIVE = "ломтика мясного батона",
+		DATIVE = "ломтику мясного батона",
+		ACCUSATIVE = "ломтик мясного батона",
+		INSTRUMENTAL = "ломтиком мясного батона",
+		PREPOSITIONAL = "ломтике мясного батона"
+	)
 	icon_state = "meatbreadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FF7575"
@@ -26,20 +40,34 @@
 
 /obj/item/reagent_containers/food/snacks/sliceable/bread/xeno
 	name = "xenomeatbread loaf"
-	desc = "The culinary base of every self-respecting eloquent gentleman. Extra Heretical."
-	w_class = WEIGHT_CLASS_NORMAL
+	desc = "Кулинарная основа каждого уважающего себя джентльмена. Особенно еретичная."
+	ru_names = list(
+		NOMINATIVE = "батон с ксеномясом",
+		GENITIVE = "батона с ксеномясом",
+		DATIVE = "батону с ксеномясом",
+		ACCUSATIVE = "батон с ксеномясом",
+		INSTRUMENTAL = "батоном с ксеномясом",
+		PREPOSITIONAL = "батоне с ксеномясом"
+	)
 	icon_state = "xenomeatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/xenomeatbreadslice
 	slices_num = 5
 	filling_color = "#8AFF75"
 	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
-	tastes = list("bread" = 10, "acid" = 10)
+	tastes = list("хлеба" = 10, "кислоты" = 10)
 	foodtype = GRAIN | MEAT
 
 /obj/item/reagent_containers/food/snacks/xenomeatbreadslice
 	name = "xenomeatbread slice"
-	desc = "A slice of delicious meatbread. Extra Heretical."
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Ломтик вкуснейшего мясного хлеба. Особенно еретичный."
+	ru_names = list(
+		NOMINATIVE = "ломтик батона с ксеномясом",
+		GENITIVE = "ломтика батона с ксеномясом",
+		DATIVE = "ломтику батона с ксеномясом",
+		ACCUSATIVE = "ломтик батона с ксеномясом",
+		INSTRUMENTAL = "ломтиком батона с ксеномясом",
+		PREPOSITIONAL = "ломтике батона с ксеномясом"
+	)
 	icon_state = "xenobreadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#8AFF75"
@@ -47,19 +75,33 @@
 
 /obj/item/reagent_containers/food/snacks/sliceable/bread/spider
 	name = "spider meat loaf"
-	desc = "Reassuringly green meatloaf made from spider meat."
-	w_class = WEIGHT_CLASS_NORMAL
+	desc = "Успокаивающе зелёный мясной батон из паучьего мяса."
+	ru_names = list(
+		NOMINATIVE = "паучий мясной батон",
+		GENITIVE = "паучьего мясного батона",
+		DATIVE = "паучьему мясному батону",
+		ACCUSATIVE = "паучий мясной батон",
+		INSTRUMENTAL = "паучьим мясным батоном",
+		PREPOSITIONAL = "паучьем мясном батоне"
+	)
 	icon_state = "spidermeatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/spidermeatbreadslice
 	slices_num = 5
 	list_reagents = list("protein" = 20, "nutriment" = 10, "toxin" = 15, "vitamin" = 5)
-	tastes = list("bread" = 10, "cobwebs" = 5)
+	tastes = list("хлеба" = 10, "паутины" = 5)
 	foodtype = GRAIN | MEAT | TOXIC
 
 /obj/item/reagent_containers/food/snacks/spidermeatbreadslice
 	name = "spider meat bread slice"
-	desc = "A slice of meatloaf made from an animal that most likely still wants you dead."
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Ломтик мясного батона из существа, которое, скорее всего, всё ещё хочет вас убить."
+	ru_names = list(
+		NOMINATIVE = "ломтик паучьего батона",
+		GENITIVE = "ломтика паучьего батона",
+		DATIVE = "ломтику паучьего батона",
+		ACCUSATIVE = "ломтик паучьего батона",
+		INSTRUMENTAL = "ломтиком паучьего батона",
+		PREPOSITIONAL = "ломтике паучьего батона"
+	)
 	icon_state = "xenobreadslice"
 	trash = /obj/item/trash/plate
 	list_reagents = list("toxin" = 2)
@@ -67,42 +109,71 @@
 
 /obj/item/reagent_containers/food/snacks/sliceable/bread/banana
 	name = "banana-nut bread"
-	desc = "A heavenly and filling treat."
-	w_class = WEIGHT_CLASS_NORMAL
+	desc = "Небесное и сытное угощение."
+	ru_names = list(
+		NOMINATIVE = "банановый хлеб с орехами",
+		GENITIVE = "бананового хлеба с орехами",
+		DATIVE = "банановому хлебу с орехами",
+		ACCUSATIVE = "банановый хлеб с орехами",
+		INSTRUMENTAL = "банановым хлебом с орехами",
+		PREPOSITIONAL = "банановом хлебе с орехами"
+	)
 	icon_state = "bananabread"
 	slice_path = /obj/item/reagent_containers/food/snacks/bananabreadslice
 	slices_num = 5
 	filling_color = "#EDE5AD"
 	list_reagents = list("banana" = 20, "nutriment" = 20)
-	tastes = list("bread" = 10)
+	tastes = list("хлеба" = 10)
 	foodtype = GRAIN | FRUIT
 
 /obj/item/reagent_containers/food/snacks/bananabreadslice
 	name = "banana-nut bread slice"
-	desc = "A slice of delicious banana bread."
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Ломтик вкуснейшего бананового хлеба."
+	ru_names = list(
+		NOMINATIVE = "ломтик бананового хлеба",
+		GENITIVE = "ломтика бананового хлеба",
+		DATIVE = "ломтику бананового хлеба",
+		ACCUSATIVE = "ломтик бананового хлеба",
+		INSTRUMENTAL = "ломтиком бананового хлеба",
+		PREPOSITIONAL = "ломтике бананового хлеба"
+	)
 	icon_state = "bananabreadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#EDE5AD"
-	tastes = list("bread" = 10)
+	tastes = list("хлеба" = 10)
 	foodtype = GRAIN | FRUIT
 
 /obj/item/reagent_containers/food/snacks/sliceable/bread/tofu
 	name = "tofubread"
-	icon_state = "Like meatbread but for vegetarians. Not guaranteed to give superpowers."
-	w_class = WEIGHT_CLASS_NORMAL
+	desc = "Как мясной батон, но для вегетарианцев. Не гарантирует суперспособностей."
+	ru_names = list(
+		NOMINATIVE = "тофу-батон",
+		GENITIVE = "тофу-батона",
+		DATIVE = "тофу-батону",
+		ACCUSATIVE = "тофу-батон",
+		INSTRUMENTAL = "тофу-батоном",
+		PREPOSITIONAL = "тофу-батоне"
+	)
+	icon_state = "Like meatbread but for vegetarians. Not guaranteed to give superpowers." // lmao
 	icon_state = "tofubread"
 	slice_path = /obj/item/reagent_containers/food/snacks/tofubreadslice
 	slices_num = 5
 	filling_color = "#F7FFE0"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
-	tastes = list("bread" = 10, "tofu" = 10)
+	tastes = list("хлеба" = 10, "тофу" = 10)
 	foodtype = GRAIN | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/tofubreadslice
 	name = "tofubread slice"
-	desc = "A slice of delicious tofubread."
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Ломтик вкуснейшего тофу-хлеба."
+	ru_names = list(
+		NOMINATIVE = "ломтик тофу-батона",
+		GENITIVE = "ломтика тофу-батона",
+		DATIVE = "ломтику тофу-батона",
+		ACCUSATIVE = "ломтик тофу-батона",
+		INSTRUMENTAL = "ломтиком тофу-батона",
+		PREPOSITIONAL = "ломтике тофу-батона"
+	)
 	icon_state = "tofubreadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#F7FFE0"
@@ -110,14 +181,21 @@
 
 /obj/item/reagent_containers/food/snacks/sliceable/bread
 	name = "bread"
-	desc =  "Some plain old Earthen bread."
-	w_class = WEIGHT_CLASS_NORMAL
+	desc = "Обычный земной хлеб."
+	ru_names = list(
+		NOMINATIVE = "хлеб",
+		GENITIVE = "хлеба",
+		DATIVE = "хлебу",
+		ACCUSATIVE = "хлеб",
+		INSTRUMENTAL = "хлебом",
+		PREPOSITIONAL = "хлебе"
+	)
 	icon_state = "bread"
 	slice_path = /obj/item/reagent_containers/food/snacks/breadslice
 	slices_num = 6
 	filling_color = "#FFE396"
 	list_reagents = list("nutriment" = 10)
-	tastes = list("bread" = 10)
+	tastes = list("хлеба" = 10)
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/sliceable/bread/on_teleported()
@@ -128,47 +206,75 @@
 
 /obj/item/reagent_containers/food/snacks/breadslice
 	name = "bread slice"
-	desc = "A slice of home."
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Ломтик домашнего хлеба."
+	ru_names = list(
+		NOMINATIVE = "ломтик хлеба",
+		GENITIVE = "ломтика хлеба",
+		DATIVE = "ломтику хлеба",
+		ACCUSATIVE = "ломтик хлеба",
+		INSTRUMENTAL = "ломтиком хлеба",
+		PREPOSITIONAL = "ломтике хлеба"
+	)
 	icon_state = "breadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#D27332"
 	list_reagents = list("nutriment" = 2, "bread" = 5)
-	tastes = list("bread" = 10)
+	tastes = list("хлеба" = 10)
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/breadslice/burned
 	name = "burned bread slice"
-	desc = "A slice of slightly burned bread. Probably it's not the best idea to eat this..."
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Ломтик слегка подгоревшего хлеба. Возможно, не лучшая идея это есть..."
+	ru_names = list(
+		NOMINATIVE = "подгоревший ломтик хлеба",
+		GENITIVE = "подгоревшего ломтика хлеба",
+		DATIVE = "подгоревшему ломтику хлеба",
+		ACCUSATIVE = "подгоревший ломтик хлеба",
+		INSTRUMENTAL = "подгоревшим ломтиком хлеба",
+		PREPOSITIONAL = "подгоревшем ломтике хлеба"
+	)
 	icon_state = "breadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#D27332"
 	list_reagents = list("nutriment" = 2, "bread" = 5, "????" = 2)
-	tastes = list("bread" = 10)
+	tastes = list("хлеба" = 10)
 	foodtype = GRAIN | TOXIC
 
 /obj/item/reagent_containers/food/snacks/sliceable/creamcheesebread
 	name = "cream cheese bread"
-	desc = "Yum yum yum!"
-	w_class = WEIGHT_CLASS_NORMAL
+	desc = "Ням-ням-ням!"
+	ru_names = list(
+		NOMINATIVE = "хлеб с творожным сыром",
+		GENITIVE = "хлеба с творожным сыром",
+		DATIVE = "хлебу с творожным сыром",
+		ACCUSATIVE = "хлеб с творожным сыром",
+		INSTRUMENTAL = "хлебом с творожным сыром",
+		PREPOSITIONAL = "хлебе с творожным сыром"
+	)
 	icon_state = "creamcheesebread"
 	slice_path = /obj/item/reagent_containers/food/snacks/creamcheesebreadslice
 	slices_num = 5
 	filling_color = "#FFF896"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
-	tastes = list("bread" = 10, "cheese" = 10)
+	tastes = list("хлеба" = 10, "сыра" = 10)
 	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/creamcheesebreadslice
 	name = "cream cheese bread slice"
-	desc = "A slice of yum!"
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Ломтик ням-няма!"
+	ru_names = list(
+		NOMINATIVE = "ломтик хлеба с творожным сыром",
+		GENITIVE = "ломтика хлеба с творожным сыром",
+		DATIVE = "ломтику хлеба с творожным сыром",
+		ACCUSATIVE = "ломтик хлеба с творожным сыром",
+		INSTRUMENTAL = "ломтиком хлеба с творожным сыром",
+		PREPOSITIONAL = "ломтике хлеба с творожным сыром"
+	)
 	icon_state = "creamcheesebreadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FFF896"
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
-	tastes = list("bread" = 10, "cheese" = 10)
+	tastes = list("хлеба" = 10, "сыра" = 10)
 	foodtype = GRAIN | DAIRY
 
 
@@ -178,7 +284,15 @@
 
 /obj/item/reagent_containers/food/snacks/bun
 	name = "bun"
-	desc = "The base for any self-respecting burger."
+	desc = "Основа для любого уважающего себя бургера."
+	ru_names = list(
+		NOMINATIVE = "булочка для бургера",
+		GENITIVE = "булочки для бургера",
+		DATIVE = "булочке для бургера",
+		ACCUSATIVE = "булочку для бургера",
+		INSTRUMENTAL = "булочкой для бургера",
+		PREPOSITIONAL = "булочке для бургера"
+	)
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "bun"
 	list_reagents = list("nutriment" = 1)
@@ -186,28 +300,42 @@
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/bunbun
-	name = "Bun Bun"
-	desc = "A small bread monkey fashioned from two burger buns."
+	name = "\improper Bun Bun"
+	desc = "Маленькая хлебная обезьянка, сделанная из двух булочек для бургера."
+	ru_names = list(
+		NOMINATIVE = "Бун-Бун",
+		GENITIVE = "Бун-Буа",
+		DATIVE = "Бун-Буну",
+		ACCUSATIVE = "Бун-Буна",
+		INSTRUMENTAL = "Бун-Буном",
+		PREPOSITIONAL = "Бун-Буну"
+	)
 	icon_state = "bunbun"
 	list_reagents = list("nutriment" = 2)
-	tastes = list("bun" = 2)
+	tastes = list("булочки" = 2)
 	bitesize = 2
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/flatbread
 	name = "flatbread"
-	desc = "Bland but filling."
-	w_class = WEIGHT_CLASS_NORMAL
+	desc = "Пресно, но сытно."
+	ru_names = list(
+		NOMINATIVE = "лаваш",
+		GENITIVE = "лаваша",
+		DATIVE = "лавашу",
+		ACCUSATIVE = "лаваш",
+		INSTRUMENTAL = "лавашом",
+		PREPOSITIONAL = "лаваше"
+	)
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "flatbread"
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bread" = 2)
+	tastes = list("хлеба" = 2)
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/baguette
 	name = "baguette"
 	desc = "Bon appetit!"
-	w_class = WEIGHT_CLASS_NORMAL
 	ru_names = list(
 		NOMINATIVE = "багет",
 		GENITIVE = "багета",
@@ -221,7 +349,7 @@
 	filling_color = "#E3D796"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bread" = 2)
+	tastes = list("хлеба" = 2)
 	foodtype = GRAIN
 	slot_flags = ITEM_SLOT_BELT
 
@@ -232,35 +360,56 @@
 
 /obj/item/reagent_containers/food/snacks/twobread
 	name = "two bread"
-	desc = "It is very bitter and winy."
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Очень горький, как слёзы."
+	ru_names = list(
+		NOMINATIVE = "два хлеба",
+		GENITIVE = "двух хлебов",
+		DATIVE = "двум хлебам",
+		ACCUSATIVE = "два хлеба",
+		INSTRUMENTAL = "двумя хлебами",
+		PREPOSITIONAL = "двух хлебах"
+	)
 	icon_state = "twobread"
 	filling_color = "#DBCC9A"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "vitamin" = 2)
-	tastes = list("bread" = 2)
+	tastes = list("хлеба" = 2)
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/toast
 	name = "toast"
-	desc = "Yeah! Toast!"
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Да! Тосты!"
+	ru_names = list(
+		NOMINATIVE = "тост",
+		GENITIVE = "тоста",
+		DATIVE = "тосту",
+		ACCUSATIVE = "тост",
+		INSTRUMENTAL = "тостом",
+		PREPOSITIONAL = "тосте"
+	)
 	icon_state = "toast"
 	filling_color = "#B2580E"
 	bitesize = 3
 	list_reagents = list("nutriment" = 3)
-	tastes = list("toast" = 2)
+	tastes = list("тостов" = 2)
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/jelliedtoast
 	name = "jellied toast"
-	desc = "A slice of bread covered with delicious jam."
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Ломтик хлеба, покрытый вкуснейшим джемом."
+	ru_names = list(
+		NOMINATIVE = "тост с джемом",
+		GENITIVE = "тоста с джемом",
+		DATIVE = "тосту с джемом",
+		ACCUSATIVE = "тост с джемом",
+		INSTRUMENTAL = "тостом с джемом",
+		PREPOSITIONAL = "тосте с джемом"
+	)
 	icon_state = "jellytoast"
 	trash = /obj/item/trash/plate
 	filling_color = "#B572AB"
 	bitesize = 3
-	tastes = list("toast" = 1, "jelly" = 1)
+	tastes = list("тостов" = 1, "желе" = 1)
 	foodtype = GRAIN | FRUIT | SUGAR
 
 /obj/item/reagent_containers/food/snacks/jelliedtoast/cherry
@@ -271,20 +420,34 @@
 
 /obj/item/reagent_containers/food/snacks/rofflewaffles
 	name = "roffle waffles"
-	desc = "Waffles from Roffle. Co."
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Вафли от компании Роффл."
+	ru_names = list(
+		NOMINATIVE = "вафли от Роффл Ко.",
+		GENITIVE = "вафель от Роффл Ко.",
+		DATIVE = "вафлям от Роффл Ко.",
+		ACCUSATIVE = "вафли от Роффл Ко.",
+		INSTRUMENTAL = "вафлями от Роффл Ко.",
+		PREPOSITIONAL = "вафлях от Роффл Ко."
+	)
 	icon_state = "rofflewaffles"
 	trash = /obj/item/trash/waffles
 	filling_color = "#FF00F7"
 	bitesize = 4
 	list_reagents = list("nutriment" = 8, "psilocybin" = 2, "vitamin" = 2)
-	tastes = list("waffle" = 1, "mushrooms" = 1)
+	tastes = list("вафлей" = 1, "грибов" = 1)
 	foodtype = GRAIN | SUGAR | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/waffles
 	name = "waffles"
-	desc = "Mmm, waffles."
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Ммм, вафли."
+	ru_names = list(
+		NOMINATIVE = "вафли",
+		GENITIVE = "вафель",
+		DATIVE = "вафлям",
+		ACCUSATIVE = "вафли",
+		INSTRUMENTAL = "вафлями",
+		PREPOSITIONAL = "вафлях"
+	)
 	icon_state = "waffles"
 	trash = /obj/item/trash/waffles
 	filling_color = "#E6DEB5"

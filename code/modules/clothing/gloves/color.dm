@@ -3,7 +3,7 @@
 
 /obj/item/clothing/gloves/color/yellow
 	name = "insulated gloves"
-	desc = "These gloves will protect the wearer from electric shock."
+	desc = "Защищают владельца от удара током."
 	ru_names = list(
 		NOMINATIVE = "изоляционные перчатки",
 		GENITIVE = "изоляционных перчаток",
@@ -21,7 +21,7 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/yellow/power
-	description_antag = "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
+	description_antag = "Это перчатки с усилением, способные выпускать электрические разряды при контакте с кабелями под напряжением"
 	var/old_mclick_override
 	var/datum/middleClickOverride/power_gloves/mclick_override = new /datum/middleClickOverride/power_gloves
 	var/last_shocked = 0
@@ -39,9 +39,9 @@
 		old_mclick_override = user.middleClickOverride
 	user.middleClickOverride = mclick_override
 	if(!unlimited_power)
-		to_chat(user, span_notice("You feel electricity begin to build up in [src]."))
+		to_chat(user, span_notice("Вы чувствуете, как в [declent_ru(PREPOSITIONAL)] накапливается электричество."))
 	else
-		to_chat(user, span_biggerdanger("You feel like you have UNLIMITED POWER!!!"))
+		to_chat(user, span_biggerdanger("Вы чувствуете, что обладаете БЕСКОНЕЧНОЙ СИЛОЙ!!!"))
 
 
 /obj/item/clothing/gloves/color/yellow/power/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
@@ -59,7 +59,16 @@
 
 /obj/item/clothing/gloves/color/yellow/power/unlimited
 	name = "UNLIMITED POWER gloves"
-	desc = "These gloves possess UNLIMITED POWER."
+	desc = "Эти перчатки обладают БЕСКОНЕЧНОЙ СИЛОЙ."
+	ru_names = list(
+		NOMINATIVE = "перчатки БЕСКОНЕЧНОЙ СИЛЫ",
+		GENITIVE = "перчаток БЕСКОНЕЧНОЙ СИЛЫ",
+		DATIVE = "перчаткам БЕСКОНЕЧНОЙ СИЛЫ",
+		ACCUSATIVE = "перчатки БЕСКОНЕЧНОЙ СИЛЫ",
+		INSTRUMENTAL = "перчатками БЕСКОНЕЧНОЙ СИЛЫ",
+		PREPOSITIONAL = "перчатках БЕСКОНЕЧНОЙ СИЛЫ"
+	)
+
 	shock_delay = 0
 	unlimited_power = TRUE
 
@@ -69,12 +78,20 @@
 /obj/item/clothing/gloves/color/yellow/fake/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += span_notice("They don't feel like rubber...")
+		. += span_notice("На ощупь они не похожи на резину...")
 
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
-	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	name = "budget insulated gloves"
+	desc = "Эти перчатки – дешевые копии желанных перчаток, и это ни в коем случае не может плохо закончиться."
+	ru_names = list(
+		NOMINATIVE = "бюджетные изоляционные перчатки",
+		GENITIVE = "бюджетных изоляционных перчаток",
+		DATIVE = "бюджетным изоляционным перчаткам",
+		ACCUSATIVE = "бюджетные изоляционные перчатки",
+		INSTRUMENTAL = "бюджетными изоляционными перчатками",
+		PREPOSITIONAL = "бюджетных изоляционных перчатках"
+	)
 	icon_state = "fyellow"
 	item_state = "ygloves"
 	siemens_coefficient = 0			//Set to a default of 0
@@ -87,16 +104,33 @@
 
 
 /obj/item/clothing/gloves/color/fyellow/old
-	desc = "Old and worn out insulated gloves, hopefully they still work."
 	name = "worn out insulated gloves"
+	desc = "Старые потрёпанные перчатки. Будем надеяться, что ещё работают."
+	ru_names = list(
+		NOMINATIVE = "изношенные изоляционные перчатки",
+		GENITIVE = "изношенных изоляционных перчаток",
+		DATIVE = "изношенным изоляционным перчаткам",
+		ACCUSATIVE = "изношенные изоляционные перчатки",
+		INSTRUMENTAL = "изношенными изоляционными перчатками",
+		PREPOSITIONAL = "изношенных изоляционных перчатках"
+	)
+
 
 /obj/item/clothing/gloves/color/fyellow/old/New()
 	..()
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
 
 /obj/item/clothing/gloves/color/black
-	desc = "These gloves are fire-resistant."
 	name = "black gloves"
+	desc = "Эти перчатки огнеупорны."
+	ru_names = list(
+		NOMINATIVE = "чёрные перчатки",
+		GENITIVE = "чёрных перчаток",
+		DATIVE = "чёрным перчаткам",
+		ACCUSATIVE = "чёрные перчатки",
+		INSTRUMENTAL = "чёрными перчатками",
+		PREPOSITIONAL = "чёрных перчатках"
+	)
 	icon_state = "black"
 	item_state = "bgloves"
 	item_color="black"
@@ -121,17 +155,17 @@
 /obj/item/clothing/gloves/color/black/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!can_be_cut || icon_state != initial(icon_state))	// only if not dyed
-		to_chat(user, span_warning("You cannot cut off [src]!"))
+		to_chat(user, span_warning("Вы не можете обрезать [declent_ru(ACCUSATIVE)]!"))
 		return .
 	if(loc == user)
-		to_chat(user, span_warning("You cut off [src]'s fingertips while wearing it!"))
+		to_chat(user, span_warning("Вы  не можете обрезать [declent_ru(PREPOSITIONAL)] не снимая их с рук!"))
 		return .
-	var/confirm = tgui_alert(user, "Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.", "Cut tips?", list("Yes", "No"))
-	if(confirm != "Yes" || icon_state != initial(icon_state) || !Adjacent(user) || user.incapacitated())
+	var/confirm = tgui_alert(user, "Обрезать кончики перчаток? Предупреждение: это может нарушить их функциональность.", "Обрезка кончиков?", list("Да", "Нет"))
+	if(confirm != "Да" || icon_state != initial(icon_state) || !Adjacent(user) || user.incapacitated())
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
-	to_chat(user, span_notice("You snip the fingertips off of [src]."))
+	to_chat(user, span_notice("Вы обрезали кончики на [declent_ru(PREPOSITIONAL)]."))
 	var/obj/item/clothing/gloves/fingerless/new_gloves = new(loc)
 	transfer_fingerprints_to(new_gloves)
 	new_gloves.add_fingerprint(user)
@@ -158,7 +192,15 @@
 
 /obj/item/clothing/gloves/color/black/ballistic
 	name = "armored gloves"
-	desc = "Pair of gloves with some protection"
+	desc = "Перчатки с дополнительной защитой."
+	ru_names = list(
+		NOMINATIVE = "бронированные перчатки",
+		GENITIVE = "бронированных перчаток",
+		DATIVE = "бронированным перчаткам",
+		ACCUSATIVE = "бронированные перчатки",
+		INSTRUMENTAL = "бронированными перчатками",
+		PREPOSITIONAL = "бронированных перчатках"
+	)
 	icon_state = "armored_gloves"
 	item_state = "armored_gloves"
 	armor = list("melee" = 5, "bullet" = 25, "laser" = 10, "energy" = 5, "bomb" = 5, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 75)
@@ -175,28 +217,60 @@
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
-	desc = "A pair of gloves, they don't look special in any way."
+	desc = "Пара перчаток, в которых, кажется, нет ничего особенного."
+	ru_names = list(
+		NOMINATIVE = "оранжевые перчатки",
+		GENITIVE = "оранжевых перчаток",
+		DATIVE = "оранжевым перчаткам",
+		ACCUSATIVE = "оранжевые перчатки",
+		INSTRUMENTAL = "оранжевыми перчатками",
+		PREPOSITIONAL = "оранжевых перчатках"
+	)
 	icon_state = "orange"
 	item_state = "orangegloves"
 	item_color="orange"
 
 /obj/item/clothing/gloves/color/red
 	name = "red gloves"
-	desc = "A pair of gloves, they don't look special in any way."
+	desc = "Пара перчаток, в которых, кажется, нет ничего особенного."
+	ru_names = list(
+		NOMINATIVE = "красные перчатки",
+		GENITIVE = "красных перчаток",
+		DATIVE = "красным перчаткам",
+		ACCUSATIVE = "красные перчатки",
+		INSTRUMENTAL = "красными перчатками",
+		PREPOSITIONAL = "красных перчатках"
+	)
 	icon_state = "red"
 	item_state = "redgloves"
 	item_color = "red"
 
 /obj/item/clothing/gloves/color/red/insulated
 	name = "insulated gloves"
-	desc = "These gloves will protect the wearer from electric shock."
+	desc = "Защищают владельца от удара током."
+	ru_names = list(
+		NOMINATIVE = "изоляционные перчатки",
+		GENITIVE = "изоляционных перчаток",
+		DATIVE = "изоляционным перчаткам",
+		ACCUSATIVE = "изоляционные перчатки",
+		INSTRUMENTAL = "изоляционными перчатками",
+		PREPOSITIONAL = "изоляционных перчатках"
+	)
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/rainbow
 	name = "rainbow gloves"
-	desc = "A pair of gloves, they don't look special in any way."
+	desc = "Пара перчаток, в которых, кажется, нет ничего особенного."
+	ru_names = list(
+		NOMINATIVE = "радужные перчатки",
+		GENITIVE = "радужных перчаток",
+		DATIVE = "радужным перчаткам",
+		ACCUSATIVE = "радужные перчатки",
+		INSTRUMENTAL = "радужными перчатками",
+		PREPOSITIONAL = "радужных перчатках"
+	)
 	icon_state = "rainbow"
 	item_state = "rainbowgloves"
 	item_color = "rainbow"
@@ -206,28 +280,60 @@
 
 /obj/item/clothing/gloves/color/blue
 	name = "blue gloves"
-	desc = "A pair of gloves, they don't look special in any way."
+	desc = "Пара перчаток, в которых, кажется, нет ничего особенного."
+	ru_names = list(
+		NOMINATIVE = "синие перчатки",
+		GENITIVE = "синих перчаток",
+		DATIVE = "синим перчаткам",
+		ACCUSATIVE = "синие перчатки",
+		INSTRUMENTAL = "синими перчатками",
+		PREPOSITIONAL = "синих перчатках"
+	)
 	icon_state = "blue"
 	item_state = "bluegloves"
 	item_color="blue"
 
 /obj/item/clothing/gloves/color/purple
 	name = "purple gloves"
-	desc = "A pair of gloves, they don't look special in any way."
+	desc = "Пара перчаток, в которых, кажется, нет ничего особенного."
+	ru_names = list(
+		NOMINATIVE = "фиолетовые перчатки",
+		GENITIVE = "фиолетовых перчаток",
+		DATIVE = "фиолетовым перчаткам",
+		ACCUSATIVE = "фиолетовые перчатки",
+		INSTRUMENTAL = "фиолетовыми перчатками",
+		PREPOSITIONAL = "фиолетовых перчатках"
+	)
 	icon_state = "purple"
 	item_state = "purplegloves"
 	item_color="purple"
 
 /obj/item/clothing/gloves/color/green
 	name = "green gloves"
-	desc = "A pair of gloves, they don't look special in any way."
+	desc = "Пара перчаток, в которых, кажется, нет ничего особенного."
+	ru_names = list(
+		NOMINATIVE = "зелёные перчатки",
+		GENITIVE = "зелёных перчаток",
+		DATIVE = "зелёным перчаткам",
+		ACCUSATIVE = "зелёные перчатки",
+		INSTRUMENTAL = "зелёными перчатками",
+		PREPOSITIONAL = "зелёных перчатках"
+	)
 	icon_state = "green"
 	item_state = "greengloves"
 	item_color="green"
 
 /obj/item/clothing/gloves/color/grey
 	name = "grey gloves"
-	desc = "A pair of gloves, they don't look special in any way."
+	desc = "Пара перчаток, в которых, кажется, нет ничего особенного."
+	ru_names = list(
+		NOMINATIVE = "серые перчатки",
+		GENITIVE = "серых перчаток",
+		DATIVE = "серым перчаткам",
+		ACCUSATIVE = "серые перчатки",
+		INSTRUMENTAL = "серыми перчатками",
+		PREPOSITIONAL = "серых перчатках"
+	)
 	icon_state = "gray"
 	item_state = "graygloves"
 	item_color="grey"
@@ -240,20 +346,44 @@
 
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
-	desc = "A pair of gloves, they don't look special in any way."
+	desc = "Пара перчаток, в которых, кажется, нет ничего особенного."
+	ru_names = list(
+		NOMINATIVE = "светло-коричневые перчатки",
+		GENITIVE = "светло-коричневых перчаток",
+		DATIVE = "светло-коричневым перчаткам",
+		ACCUSATIVE = "светло-коричневые перчатки",
+		INSTRUMENTAL = "светло-коричневыми перчатками",
+		PREPOSITIONAL = "светло-коричневых перчатках"
+	)
 	icon_state = "lightbrown"
 	item_state = "lightbrowngloves"
 	item_color="light brown"
 
 /obj/item/clothing/gloves/color/brown
 	name = "brown gloves"
-	desc = "A pair of gloves, they don't look special in any way."
+	desc = "Пара перчаток, в которых, кажется, нет ничего особенного."
+	ru_names = list(
+		NOMINATIVE = "коричневые перчатки",
+		GENITIVE = "коричневых перчаток",
+		DATIVE = "коричневым перчаткам",
+		ACCUSATIVE = "коричневые перчатки",
+		INSTRUMENTAL = "коричневыми перчатками",
+		PREPOSITIONAL = "коричневых перчатках"
+	)
 	icon_state = "brown"
 	item_state = "browngloves"
 	item_color="brown"
 
 /obj/item/clothing/gloves/color/brown/cargo
 	name = "cargo gloves"
+	ru_names = list(
+		NOMINATIVE = "перчатки грузчика",
+		GENITIVE = "перчаток грузчика",
+		DATIVE = "перчаткам грузчика",
+		ACCUSATIVE = "перчатки грузчика",
+		INSTRUMENTAL = "перчатками грузчика",
+		PREPOSITIONAL = "перчатках грузчика"
+	)
 	item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
 
 /obj/item/clothing/gloves/color/latex
@@ -303,12 +433,12 @@
 			Обеспечивают защиту от биологических загрязнений и практически не пропускают вредные вещества. \
 			Обеспечивают удобство и повышенную точность при проведении хирургических операций."
 	ru_names = list(
-		NOMINATIVE = "модифицированные медицинские перчатки",
-		GENITIVE = "модифицированных медицинских перчаток",
-		DATIVE = "модифицированным медицинским перчаткам",
-		ACCUSATIVE = "модифицированные медицинские перчатки",
-		INSTRUMENTAL = "модифицированными медицинскими перчатками",
-		PREPOSITIONAL = "модифицированных медицинских перчатках"
+		NOMINATIVE = "модифицированные медперчатки",
+		GENITIVE = "модифицированных медперчаток",
+		DATIVE = "модифицированным медперчаткам",
+		ACCUSATIVE = "модифицированные медперчатки",
+		INSTRUMENTAL = "модифицированными медперчатками",
+		PREPOSITIONAL = "модифицированных медперчатках"
 	)
 	icon_state = "modified"
 	item_state = "modified"
@@ -355,7 +485,15 @@
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
-	desc = "These look pretty fancy."
+	desc = "Выглядят довольно элегантно."
+	ru_names = list(
+		NOMINATIVE = "белые перчатки",
+		GENITIVE = "белых перчаток",
+		DATIVE = "белым перчаткам",
+		ACCUSATIVE = "белые перчатки",
+		INSTRUMENTAL = "белыми перчатками",
+		PREPOSITIONAL = "белых перчатках"
+	)
 	icon_state = "white"
 	item_state = "wgloves"
 	item_color="mime"
@@ -365,8 +503,16 @@
 
 
 /obj/item/clothing/gloves/color/captain
-	desc = "Regal blue gloves, with a nice gold trim. Swanky."
+	desc = "Роскошные синие перчатки с красивой золотой отделкой. Шикарно."
 	name = "captain's gloves"
+	ru_names = list(
+		NOMINATIVE = "капитанские перчатки",
+		GENITIVE = "капитанских перчаток",
+		DATIVE = "капитанским перчаткам",
+		ACCUSATIVE = "капитанские перчатки",
+		INSTRUMENTAL = "капитанскими перчатками",
+		PREPOSITIONAL = "капитанских перчатках"
+	)
 	icon_state = "captain"
 	item_state = "egloves"
 	item_color = "captain"

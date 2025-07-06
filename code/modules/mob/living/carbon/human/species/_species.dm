@@ -708,7 +708,7 @@
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
 	if(!moved) //they got pushed into a dense object
 		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-		target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] толкает [target.declent_ru(ACCUSATIVE)]"), \
+		target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] толка[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]"), \
 								span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
 								"Раздаётся глухой удар.")
 		if(!HAS_TRAIT(target, TRAIT_FLOORED))
@@ -723,7 +723,7 @@
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		else
 			if(I)
-				to_chat(target, span_warning("Ваша хватка дна [I.declent_ru(NOMINATIVE)] ослабевает!"))
+				to_chat(target, span_warning("Ваша хватка на [I.declent_ru(NOMINATIVE)] ослабевает!"))
 			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
 	target.stop_pulling()
 

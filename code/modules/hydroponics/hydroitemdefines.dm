@@ -340,14 +340,14 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
-	desc = "Пластиковая канистра для различных жидкостей. В ней содержится И-ЗИ-Нутриент."
+	desc = "Содержит удобрение, вызывающее лёгкие мутации при каждом сборе урожая."
 	ru_names = list(
-        NOMINATIVE = "канистра (И-ЗИ-Нутриент)",
-        GENITIVE = "канистры (И-ЗИ-Нутриент)",
-        DATIVE = "канистре (И-ЗИ-Нутриент)",
-        ACCUSATIVE = "канистру (И-ЗИ-Нутриент)",
-        INSTRUMENTAL = "канистрой (И-ЗИ-Нутриент)",
-        PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)"
+		NOMINATIVE = "канистра (И-ЗИ-Нутриент)",
+		GENITIVE = "канистры (И-ЗИ-Нутриент)",
+		DATIVE = "канистре (И-ЗИ-Нутриент)",
+		ACCUSATIVE = "канистру (И-ЗИ-Нутриент)",
+		INSTRUMENTAL = "канистрой (И-ЗИ-Нутриент)",
+		PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)"
 	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
@@ -355,14 +355,14 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
-	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Лефт-Фо-Зед."
+	desc = "Содержит удобрение, ограничивающее урожайность одним плодом и вызывающее сильные мутации растений."
 	ru_names = list(
-        NOMINATIVE = "канистра (Лефт-Фо-Зед)",
-        GENITIVE = "канистры (Лефт-Фо-Зед)",
-        DATIVE = "канистре (Лефт-Фо-Зед)",
-        ACCUSATIVE = "канистру (Лефт-Фо-Зед)",
-        INSTRUMENTAL = "канистрой (Лефт-Фо-Зед)",
-        PREPOSITIONAL = "канистре (Лефт-Фо-Зед)"
+		NOMINATIVE = "канистра (Left 4 Zed)",
+		GENITIVE = "канистры (Left 4 Zed)",
+		DATIVE = "канистре (Left 4 Zed)",
+		ACCUSATIVE = "канистру (Left 4 Zed)",
+		INSTRUMENTAL = "канистрой (Left 4 Zed)",
+		PREPOSITIONAL = "канистре (Left 4 Zed)"
 	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
@@ -370,14 +370,14 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
-	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Робаст-Харвест."
+	desc = "Содержит удобрение, увеличивающее урожайность на 30% без побочных мутаций."
 	ru_names = list(
-        NOMINATIVE = "канистра (Робаст-Харвест)",
-        GENITIVE = "канистры (Робаст-Харвест)",
-        DATIVE = "канистре (Робаст-Харвест)",
-        ACCUSATIVE = "канистру (Робаст-Харвест)",
-        INSTRUMENTAL = "канистрой (Робаст-Харвест)",
-        PREPOSITIONAL = "канистре (Робаст-Харвест)"
+		NOMINATIVE = "канистра (Робаст-Харвест)",
+		GENITIVE = "канистры (Робаст-Харвест)",
+		DATIVE = "канистре (Робаст-Харвест)",
+		ACCUSATIVE = "канистру (Робаст-Харвест)",
+		INSTRUMENTAL = "канистрой (Робаст-Харвест)",
+		PREPOSITIONAL = "канистре (Робаст-Харвест)"
 	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_rh"

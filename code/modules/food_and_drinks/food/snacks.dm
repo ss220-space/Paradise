@@ -2,7 +2,15 @@
 //Food items that are eaten normally and don't leave anything behind.
 /obj/item/reagent_containers/food/snacks
 	name = "snack"
-	desc = "yummy"
+	desc = "вкусняшка"
+	ru_names = list(
+		NOMINATIVE = "снэк",
+		GENITIVE = "снэка",
+		DATIVE = "снэку",
+		ACCUSATIVE = "снэк",
+		INSTRUMENTAL = "снэком",
+		PREPOSITIONAL = "снэке"
+	)
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = null
 	var/bitecount = 0
@@ -58,7 +66,7 @@
 /obj/item/reagent_containers/food/snacks/attack_self(mob/user)
 	if(!opened)
 		opened = TRUE
-		to_chat(user, "<span class='notice'>You open the [src].</span>")
+		to_chat(user, span_notice("Вы открываете [declent_ru(ACCUSATIVE)]."))
 		update_icon(UPDATE_ICON_STATE)
 		return ..()
 	else
@@ -72,19 +80,19 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!opened)
-		to_chat(user, span_warning("You need to open the [src]!"))
+		to_chat(user, span_warning("Сначала вам нужно открыть [declent_ru(ACCUSATIVE)]!"))
 		return .
 
 	if(reagents && !reagents.total_volume)	//Shouldn't be needed but it checks to see if it has anything left in it.
-		to_chat(user, span_warning("None of [src] left, oh no!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] закончил[genderize_ru(gender,"ся","ась","ось","лись")], вот чёрт!"))
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
 		if(target == user)
-			to_chat(user, span_warning("Your face is obscured."))
+			to_chat(user, span_warning("Ваше лицо закрыто."))
 		else
-			to_chat(user, span_warning("[target]'s face is obscured."))
+			to_chat(user, span_warning("Лицо [target] скрыто."))
 		return .
 
 	if(!target.eat(src, user))
@@ -103,16 +111,16 @@
 	if(in_range(user, src))
 		if(bitecount > 0)
 			if(bitecount==1)
-				. += "<span class='notice'>[src] was bitten by someone!</span>"
+				. += span_notice("Кто-то откусил от [declent_ru(GENITIVE)]!")
 			else if(bitecount<=3)
-				. += "<span class='notice'>[src] was bitten [bitecount] times!</span>"
+				. += span_notice("От [declent_ru(GENITIVE)] откусили [bitecount] [declension_ru(bitecount, "раз", "раза", "раз")]!")
 			else
-				. += "<span class='notice'>[src] was bitten multiple times!</span>"
+				. += span_notice("От [declent_ru(GENITIVE)] откусили несколько раз!")
 
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
-		rename_interactive(user, I, use_prefix = FALSE, prompt = "What would you like to name this dish?")
+		rename_interactive(user, I, use_prefix = FALSE, prompt = "Как назовёте это блюдо?")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(isstorage(I))
@@ -121,11 +129,11 @@
 	if(istype(I, /obj/item/kitchen/utensil))
 		var/obj/item/kitchen/utensil/utensil = I
 		if(length(utensil.contents) >= utensil.max_contents)
-			to_chat(user, span_warning("You cannot fit anything else on your [utensil.name]."))
+			to_chat(user, span_warning("На [utensil.declent_ru(PREPOSITIONAL)] больше ничего не поместится."))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] scoops up some [name] with [utensil]."),
-			span_notice("You scoop up some [name] with [utensil]!"),
+			span_notice("[user] зачёрпыва[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] при помощи [utensil.declent_ru(GENITIVE)]."),
+			span_notice("Вы зачерпнули немного [declent_ru(ACCUSATIVE)] при помощи [utensil.declent_ru(GENITIVE)]!"),
 		)
 		bitecount++
 		var/obj/item/reagent_containers/food/snacks/collected = new type(utensil)
@@ -171,48 +179,54 @@
 		if(isdog(M))
 			var/mob/living/simple_animal/pet/dog/D = M
 			if(world.time < (D.last_eaten + 300))
-				to_chat(D, "<span class='notice'>You are too full to try eating [src] right now.</span>")
+				to_chat(D, span_notice("Вы слишком сыты, чтобы есть [declent_ru(ACCUSATIVE)] прямо сейчас."))
 			else if(bitecount >= 4)
-				D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
+				D.visible_message(
+					"[capitalize(D.declent_ru(NOMINATIVE))] [pick("с довольным урчанием отрыгивает", "требует добавки", "лает дважды", "осматривает место, где был[genderize_ru(D.gender,"","а","о","и")] [declent_ru(NOMINATIVE)]")].",
+					span_notice("Вы проглатываете последний [declent_ru(ACCUSATIVE)].")
+				)
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				D.adjustHealth(-10)
 				D.last_eaten = world.time
 				D.taste(reagents)
 				qdel(src)
 			else
-				D.visible_message("[D] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
+				D.visible_message(
+					"[capitalize(D.declent_ru(NOMINATIVE))] откусывает [declent_ru(ACCUSATIVE)].",
+					span_notice("Вы откусываете [declent_ru(ACCUSATIVE)].")
+				)
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				bitecount++
 				D.last_eaten = world.time
 				D.taste(reagents)
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
-			to_chat(N, text("<span class='notice'>You nibble away at [src].</span>"))
+			to_chat(N, span_notice("Вы грызёте [declent_ru(ACCUSATIVE)]."))
 			if(prob(50))
-				N.visible_message("[N] nibbles away at [src].", "")
+				N.visible_message("[capitalize(N.declent_ru(NOMINATIVE))] грызёт [declent_ru(ACCUSATIVE)].", "")
 			N.adjustHealth(-2)
 			N.taste(reagents)
 
 /obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
 	. = ..()
-	. += span_notice("<b>Alt-click</b> to put something small inside.")
+	. += span_info("<b>Alt-ЛКМ</b> чтобы положить что-то маленькое внутрь.")
 
 /obj/item/reagent_containers/food/snacks/sliceable/click_alt(mob/living/user)
 	var/obj/item/I = user.get_active_hand()
 	if(!I)
 		return NONE
 	if(I.w_class > WEIGHT_CLASS_SMALL)
-		to_chat(user, span_warning("You cannot fit [I] in [src]!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] не помещается в [declent_ru(ACCUSATIVE)]!"))
 		return CLICK_ACTION_BLOCKING
 	var/newweight = GetTotalContentsWeight() + I.GetTotalContentsWeight() + I.w_class
 	if(newweight > MAX_WEIGHT_CLASS)
 		// Nope, no bluespace slice food
-		to_chat(user, span_warning("You cannot fit [I] in [src]!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] не помещается в [declent_ru(ACCUSATIVE)]!"))
 		return CLICK_ACTION_BLOCKING
 	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, span_warning("You cannot slip [I] inside [src]!"))
+		to_chat(user, span_warning("Не получается просунуть [I.declent_ru(ACCUSATIVE)] внутрь [declent_ru(GENITIVE)]!"))
 		return CLICK_ACTION_BLOCKING
-	to_chat(user, span_warning("You slip [I] inside [src]."))
+	to_chat(user, span_warning("Вы кладёте [I.declent_ru(ACCUSATIVE)] внутрь [declent_ru(GENITIVE)]."))
 	total_w_class += I.w_class
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
@@ -225,7 +239,7 @@
 		return .
 
 	if(!isturf(loc))
-		to_chat(user, span_warning("You cannot slice [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		to_chat(user, span_warning("Нельзя нарезать [declent_ru(ACCUSATIVE)] [ismob(loc) ? "в инвентаре" : "в [loc]"]."))
 		return .
 
 	var/static/list/acceptable_surfaces = typecacheof(list(
@@ -239,21 +253,21 @@
 			acceptable = TRUE
 			break
 	if(!acceptable)
-		to_chat(user, span_warning("You cannot slice [src] here! You need a table or at least a tray to do it."))
+		to_chat(user, span_warning("Здесь нельзя нарезать [declent_ru(ACCUSATIVE)]! Нужен стол или хотя бы поднос."))
 		return .
 
 	. |= ATTACK_CHAIN_BLOCKED_ALL
 	var/slices_lost = 0
 	if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
 		user.visible_message(
-			span_notice("[user] slices [src] with [I]."),
-			span_notice("You have sliced [src]."),
+			span_notice("[user] нареза[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("Вы нарезали [declent_ru(ACCUSATIVE)]."),
 		)
 	else
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
 		user.visible_message(
-			span_notice("[user] crudely slices [src] with [I]."),
-			span_notice("You have crudely sliced [src]."),
+			span_notice("[user] кое-как нареза[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] с помощью [I.declent_ru(GENITIVE)]."),
+			span_notice("Вы кое-как нарезали [declent_ru(ACCUSATIVE)]."),
 		)
 	var/reagents_per_slice = reagents.total_volume / slices_num
 	for(var/i = 1 to (slices_num - slices_lost))
@@ -305,7 +319,15 @@
 
 /obj/item/reagent_containers/food/snacks/badrecipe
 	name = "burned mess"
-	desc = "Someone should be demoted from chef for this."
+	desc = "Судя по всему, кто-то птыался приготовить гречку... За такое нужно понизить в должности!"
+	ru_names = list(
+		NOMINATIVE = "сгоревшая масса",
+		GENITIVE = "сгоревшей массы",
+		DATIVE = "сгоревшей массе",
+		ACCUSATIVE = "сгоревшую массу",
+		INSTRUMENTAL = "сгоревшей массой",
+		PREPOSITIONAL = "сгоревшей массе"
+	)
 	icon_state = "badrecipe"
 	filling_color = "#211F02"
 	list_reagents = list("????" = 30)
@@ -320,7 +342,15 @@
 
 /obj/item/reagent_containers/food/snacks/cereal
 	name = "box of cereal"
-	desc = "A box of cereal."
+	desc = "Обычная коробка хлопьев."
+	ru_names = list(
+		NOMINATIVE = "коробка хлопьев",
+		GENITIVE = "коробки хлопьев",
+		DATIVE = "коробке хлопьев",
+		ACCUSATIVE = "коробку хлопьев",
+		INSTRUMENTAL = "коробкой хлопьев",
+		PREPOSITIONAL = "коробке хлопьев"
+	)
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "cereal_box"
 	list_reagents = list("nutriment" = 3)

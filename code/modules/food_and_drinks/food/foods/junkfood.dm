@@ -5,7 +5,15 @@
 
 /obj/item/reagent_containers/food/snacks/chips
 	name = "chips"
-	desc = "Commander Riker's What-The-Crisps."
+	desc = "\"Что за хрустяшки\" команданта Райкера."
+	ru_names = list(
+		NOMINATIVE = "чипсы",
+		GENITIVE = "чипсов",
+		DATIVE = "чипсам",
+		ACCUSATIVE = "чипсы",
+		INSTRUMENTAL = "чипсами",
+		PREPOSITIONAL = "чипсах"
+	)
 	icon_state = "chips"
 	bitesize = 1
 	trash = /obj/item/trash/chips
@@ -13,49 +21,81 @@
 	junkiness = 20
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 2)
-	tastes = list("crisps" = 1)
+	tastes = list("чипсов" = 1)
 	foodtype = JUNKFOOD | FRIED
 
 /obj/item/reagent_containers/food/snacks/sosjerky
 	name = "Scaredy's Private Reserve Beef Jerky"
+	desc = "Вяленое мясо премиум-класса. Взято из личных запасов Джона Трейзена!"
+	ru_names = list(
+		NOMINATIVE = "вяленое мясо \"Стратегический Запас\"",
+		GENITIVE = "вяленого мяса \"Стратегический Запас\"",
+		DATIVE = "вяленому мясу \"Стратегический Запас\"",
+		ACCUSATIVE = "вяленое мясо \"Стратегический Запас\"",
+		INSTRUMENTAL = "вяленым мясом \"Стратегический Запас\"",
+		PREPOSITIONAL = "вяленом мясе \"Стратегический Запас\""
+	)
 	icon_state = "sosjerky"
-	desc = "Beef jerky made from the finest space cows."
 	trash = /obj/item/trash/sosjerky
 	filling_color = "#631212"
 	junkiness = 25
 	antable = FALSE
 	list_reagents = list("protein" = 1, "sugar" = 3)
-	tastes = list("chewy beef" = 1)
+	tastes = list("вяленой говядины" = 1)
 	foodtype = JUNKFOOD | MEAT
 
 /obj/item/reagent_containers/food/snacks/pistachios
 	name = "pistachios"
+	desc = "Восхитительно солёные фисташки. Вполне достойный выбор..."
+	ru_names = list(
+		NOMINATIVE = "фисташки",
+		GENITIVE = "фисташек",
+		DATIVE = "фисташкам",
+		ACCUSATIVE = "фисташки",
+		INSTRUMENTAL = "фисташками",
+		PREPOSITIONAL = "фисташках"
+	)
 	icon_state = "pistachios"
-	desc = "Deliciously salted pistachios. A perfectly valid choice..."
 	trash = /obj/item/trash/pistachios
 	filling_color = "#BAD145"
 	junkiness = 20
 	antable = FALSE
 	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 2)
-	tastes = list("pistachios" = 1)
+	tastes = list("фисташек" = 1)
 	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/snacks/no_raisin
 	name = "4no Raisins"
+	desc = "Лучший изюм во времени и пространстве. Непонятно, почему."
+	ru_names = list(
+		NOMINATIVE = "изюм \"1984\"",
+		GENITIVE = "изюма \"1984\"",
+		DATIVE = "изюму \"1984\"",
+		ACCUSATIVE = "изюм \"1984\"",
+		INSTRUMENTAL = "изюмом \"1984\"",
+		PREPOSITIONAL = "изюме \"1984\""
+	)
 	icon_state = "4no_raisins"
-	desc = "Best raisins in the universe. Not sure why."
 	trash = /obj/item/trash/raisins
 	filling_color = "#343834"
 	junkiness = 25
 	antable = FALSE
 	list_reagents = list("plantmatter" = 2, "sugar" = 2)
-	tastes = list("dried raisins" = 1)
+	tastes = list("сушеного изюма" = 1)
 	foodtype = JUNKFOOD | FRUIT
 
 /obj/item/reagent_containers/food/snacks/spacetwinkie
 	name = "Space Twinkie"
+	desc = "Гарантированно переживёт своего владельца."
+	ru_names = list(
+		NOMINATIVE = "космический Твинки",
+		GENITIVE = "космического Твинки",
+		DATIVE = "космическому Твинки",
+		ACCUSATIVE = "космический Твинки",
+		INSTRUMENTAL = "космическим Твинки",
+		PREPOSITIONAL = "космическом Твинки"
+	)
 	icon_state = "space_twinkie"
-	desc = "Guaranteed to survive longer then you will."
 	trash = /obj/item/trash/spacetwinkie
 	filling_color = "#FFE591"
 	junkiness = 25
@@ -65,61 +105,85 @@
 
 /obj/item/reagent_containers/food/snacks/cheesiehonkers
 	name = "Cheesie Honkers"
+	desc = "Сырные закуски на один укус, которые устроят хонкинг во рту."
+	ru_names = list(
+		NOMINATIVE = "сырные хонкерсы",
+		GENITIVE = "сырных хонкерсов",
+		DATIVE = "сырным хонкерсам",
+		ACCUSATIVE = "сырные хонкерсы",
+		INSTRUMENTAL = "сырными хонкерсами",
+		PREPOSITIONAL = "сырных хонкерсах"
+	)
 	icon_state = "cheesie_honkers"
-	desc = "Bite sized cheesie snacks that will honk all over your mouth."
 	trash = /obj/item/trash/cheesie
 	filling_color = "#FFA305"
 	junkiness = 25
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "fake_cheese" = 2, "sugar" = 3)
-	tastes = list("cheese" = 1, "crisps" = 2)
+	tastes = list("сыра" = 1, "чипсов" = 2)
 	foodtype = JUNKFOOD | DAIRY
 
 /obj/item/reagent_containers/food/snacks/syndicake
 	name = "Syndi-Cakes"
+	desc = "Невероятно сочные пирожные, которые так же вкусны после ядерного взрыва."
+	ru_names = list(
+		NOMINATIVE = "синдикейк",
+		GENITIVE = "синдикейка",
+		DATIVE = "синдикейку",
+		ACCUSATIVE = "синдикейк",
+		INSTRUMENTAL = "синдикейком",
+		PREPOSITIONAL = "синдикейке"
+	)
 	icon_state = "syndi_cakes"
-	desc = "An extremely moist snack cake that tastes just as good after being nuked."
 	filling_color = "#FF5D05"
 	trash = /obj/item/trash/syndi_cakes
 	bitesize = 3
 	antable = FALSE
 	list_reagents = list("nutriment" = 4, "salglu_solution" = 5)
-	tastes = list("sweetness" = 3, "cake" = 1)
+	tastes = list("сладостей" = 3, "пирога" = 1)
 	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/snacks/tastybread
 	name = "bread tube"
-	desc = "Bread in a tube. Chewy and surprisingly tasty."
+	desc = "Хлеб в хлебной трубочке. Жевательный и на удивление вкусный."
+	ru_names = list(
+		NOMINATIVE = "хлебная трубочка",
+		GENITIVE = "хлебной трубочки",
+		DATIVE = "хлебной трубочке",
+		ACCUSATIVE = "хлебную трубочку",
+		INSTRUMENTAL = "хлебной трубочкой",
+		PREPOSITIONAL = "хлебной трубочке"
+	)
 	icon_state = "tastybread"
 	trash = /obj/item/trash/tastybread
 	filling_color = "#A66829"
 	junkiness = 20
 	antable = FALSE
 	list_reagents = list("protein" = 2, "sugar" = 2)
-	tastes = list("bread" = 1)
+	tastes = list("хлеба" = 1)
 	foodtype = JUNKFOOD | GRAIN
 
 /obj/item/reagent_containers/food/snacks/doshik
-	name = "Doshi Co"
-	desc = "Very famous instant noodles. When opened, it brewes immediantly. Wow."
+	name = "Доши Ко"
+	desc = "Легендарная лапша быстрого приготовления. Заваривается мгновенно после вскрытия. Вау!"
 	icon_state = "doshik"
 	trash = /obj/item/trash/doshik
 	filling_color = "#d1a62f"
 	junkiness = 20
 	list_reagents = list("protein" = 3)
-	tastes = list("doshi co" = 1, "pleasure" = 1)
+	tastes = list("Доши Ко" = 1, "удовольствия" = 1)
 	foodtype = JUNKFOOD | MEAT
 	opened = FALSE
 
 /obj/item/reagent_containers/food/snacks/doshik_spicy
-	name = "Doshi Co Special"
-	desc = "Very famous instant noodles. When opened, it brewes immediantly. Wow. It seems to have hot spices in it."
+	name = "Доши Ко Спешл"
+	desc = "Легендарная лапша быстрого приготовления. Заваривается мгновенно после вскрытия. Вау! Судя по всему, тут острые специи!"
 	icon_state = "doshikspicy"
 	trash = /obj/item/trash/doshik
 	filling_color = "#d16a2f"
 	junkiness = 20
 	list_reagents = list("protein" = 3, "capsaicin" = 5)
-	tastes = list("doshi co" = 1, "pain" = 1, "pleasure" = 1)
+	tastes = list("Доши Ко" = 1, "боли" = 1, "удовольствия" = 1)
 	foodtype = JUNKFOOD | MEAT
 	opened = FALSE
 
@@ -129,14 +193,30 @@
 
 /obj/item/reagent_containers/food/snacks/sosjerky/healthy
 	name = "homemade beef jerky"
-	desc = "Homemade beef jerky made from the finest space cows."
+	desc = "Домашнее вяленое мясо из лучших космических коров."
+	ru_names = list(
+		NOMINATIVE = "домашняя говядина",
+		GENITIVE = "домашней говядины",
+		DATIVE = "домашней говядине",
+		ACCUSATIVE = "домашнюю говядину",
+		INSTRUMENTAL = "домашней говядиной",
+		PREPOSITIONAL = "домашней говядине"
+	)
 	list_reagents = list("nutriment" = 3, "vitamin" = 1)
 	junkiness = 0
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/no_raisin/healthy
 	name = "homemade raisins"
-	desc = "homemade raisins, the best in all of spess."
+	desc = "Домашний изюм, лучший во всём космосе."
+	ru_names = list(
+		NOMINATIVE = "домашний изюм",
+		GENITIVE = "домашнего изюма",
+		DATIVE = "домашнему изюму",
+		ACCUSATIVE = "домашний изюм",
+		INSTRUMENTAL = "домашним изюмом",
+		PREPOSITIONAL = "домашнем изюме"
+	)
 	list_reagents = list("nutriment" = 3, "vitamin" = 2)
 	junkiness = 0
 	foodtype = FRUIT

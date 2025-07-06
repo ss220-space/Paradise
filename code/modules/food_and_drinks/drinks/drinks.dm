@@ -4,6 +4,14 @@
 /obj/item/reagent_containers/food/drinks
 	name = "drink"
 	desc = "Вкусняшка."
+	ru_names = list(
+		NOMINATIVE = "напиток",
+		GENITIVE = "напитка",
+		DATIVE = "напитку",
+		ACCUSATIVE = "напиток",
+		INSTRUMENTAL = "напитком",
+		PREPOSITIONAL = "напитке"
+	)
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = null
 	container_type = OPENCONTAINER
@@ -159,7 +167,7 @@
 		else if(reagents.total_volume <= volume/4)
 			. += span_notice("Почти пусто.")
 		else if(reagents.total_volume <= volume*0.66)
-			. += span_notice("Наполовину заполнено.")// We're all optimistic, right?!
+			. += span_notice(pick("Наполовину полное.", "Наполовину пустое."))// We're all optimistic, right?! Maybe
 
 		else if(reagents.total_volume <= volume*0.90)
 			. += span_notice("Почти заполнено.")
@@ -172,7 +180,15 @@
 
 /obj/item/reagent_containers/food/drinks/trophy
 	name = "pewter cup"
-	desc = "Everyone gets a trophy."
+	desc = "Трофей получает каждый."
+	ru_names = list(
+		NOMINATIVE = "оловянный кубок",
+		GENITIVE = "оловянного кубка",
+		DATIVE = "оловянному кубку",
+		ACCUSATIVE = "оловянный кубок",
+		INSTRUMENTAL = "оловянным кубком",
+		PREPOSITIONAL = "оловянном кубке"
+	)
 	icon_state = "pewter_cup"
 	w_class = WEIGHT_CLASS_TINY
 	force = 1
@@ -187,7 +203,15 @@
 
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup
 	name = "gold cup"
-	desc = "You're winner!"
+	desc = "Ты победитель!"
+	ru_names = list(
+		NOMINATIVE = "золотой кубок",
+		GENITIVE = "золотого кубка",
+		DATIVE = "золотому кубку",
+		ACCUSATIVE = "золотой кубок",
+		INSTRUMENTAL = "золотым кубком",
+		PREPOSITIONAL = "золотом кубке"
+	)
 	icon_state = "golden_cup"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 14
@@ -198,7 +222,15 @@
 
 /obj/item/reagent_containers/food/drinks/trophy/silver_cup
 	name = "silver cup"
-	desc = "Best loser!"
+	desc = "Лучший среди лузеров!"
+	ru_names = list(
+		NOMINATIVE = "серебряный кубок",
+		GENITIVE = "серебряного кубка",
+		DATIVE = "серебряному кубку",
+		ACCUSATIVE = "серебряный кубок",
+		INSTRUMENTAL = "серебряным кубком",
+		PREPOSITIONAL = "серебряном кубке"
+	)
 	icon_state = "silver_cup"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 10
@@ -209,7 +241,15 @@
 
 /obj/item/reagent_containers/food/drinks/trophy/bronze_cup
 	name = "bronze cup"
-	desc = "At least you ranked!"
+	desc = "Хотя бы попал в рейтинг!"
+	ru_names = list(
+		NOMINATIVE = "бронзовый кубок",
+		GENITIVE = "бронзового кубка",
+		DATIVE = "бронзовому кубку",
+		ACCUSATIVE = "бронзовый кубок",
+		INSTRUMENTAL = "бронзовым кубком",
+		PREPOSITIONAL = "бронзовом кубке"
+	)
 	icon_state = "bronze_cup"
 	w_class = WEIGHT_CLASS_SMALL
 	force = 5
@@ -227,7 +267,15 @@
 
 /obj/item/reagent_containers/food/drinks/coffee
 	name = "Robust Coffee"
-	desc = "Careful, the beverage you're about to enjoy is extremely hot."
+	desc = "Осторожно, напиток, который вы собираетесь употребить, очень горяч."
+	ru_names = list(
+		NOMINATIVE = "робаст кофе",
+		GENITIVE = "робаст кофе",
+		DATIVE = "робаст кофе",
+		ACCUSATIVE = "робаст кофе",
+		INSTRUMENTAL = "робаст кофе",
+		PREPOSITIONAL = "робаст кофе"
+	)
 	icon_state = "coffee"
 	list_reagents = list("coffee" = 30)
 	resistance_flags = FREEZE_PROOF
@@ -248,7 +296,15 @@
 
 /obj/item/reagent_containers/food/drinks/tea
 	name = "Duke Purple tea"
-	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
+	desc = "Оскорбление этого чая – оскорбление самой Космической Королевы! Любой джентльмен вызовет вас на дуэль за порочение его чести."
+	ru_names = list(
+		NOMINATIVE = "чай 'Герцог Пурпурный'",
+		GENITIVE = "чая 'Герцог Пурпурный'",
+		DATIVE = "чаю 'Герцог Пурпурный'",
+		ACCUSATIVE = "чай 'Герцог Пурпурный'",
+		INSTRUMENTAL = "чаем 'Герцог Пурпурный'",
+		PREPOSITIONAL = "чае 'Герцог Пурпурный'"
+	)
 	icon_state = "teacup"
 	item_state = "coffee"
 	list_reagents = list("tea" = 30)
@@ -260,14 +316,30 @@
 
 /obj/item/reagent_containers/food/drinks/mugwort
 	name = "mugwort tea"
-	desc = "A bitter herbal tea."
+	desc = "Горький травяной чай."
+	ru_names = list(
+		NOMINATIVE = "чай из полыни",
+		GENITIVE = "чая из полыни",
+		DATIVE = "чаю из полыни",
+		ACCUSATIVE = "чай из полыни",
+		INSTRUMENTAL = "чаем из полыни",
+		PREPOSITIONAL = "чае из полыни"
+	)
 	icon_state = "manlydorfglass"
 	item_state = "coffee"
 	list_reagents = list("mugwort" = 30)
 
 /obj/item/reagent_containers/food/drinks/h_chocolate
 	name = "Dutch hot coco"
-	desc = "Made in Space South America."
+	desc = "Sdelano v Kosmicheskoy Yuzhnoy Amerike."
+	ru_names = list(
+		NOMINATIVE = "голландский горячий какао",
+		GENITIVE = "голландского горячего какао",
+		DATIVE = "голландскому горячему какао",
+		ACCUSATIVE = "голландский горячий какао",
+		INSTRUMENTAL = "голландским горячим какао",
+		PREPOSITIONAL = "голландском горячем какао"
+	)
 	icon_state = "hot_coco"
 	item_state = "coffee"
 	list_reagents = list("hot_coco" = 30, "sugar" = 5)
@@ -275,7 +347,15 @@
 
 /obj/item/reagent_containers/food/drinks/chocolate
 	name = "hot chocolate"
-	desc = "Made in Space Switzerland."
+	desc = "Tillverkad i rymden Schweiz"
+	ru_names = list(
+		NOMINATIVE = "горячий шоколад",
+		GENITIVE = "горячего шоколада",
+		DATIVE = "горячему шоколаду",
+		ACCUSATIVE = "горячий шоколад",
+		INSTRUMENTAL = "горячим шоколадом",
+		PREPOSITIONAL = "горячем шоколаде"
+	)
 	icon_state = "hot_coco"
 	item_state = "coffee"
 	list_reagents = list("hot_coco" = 15, "chocolate" = 6, "water" = 9)
@@ -283,14 +363,30 @@
 
 /obj/item/reagent_containers/food/drinks/weightloss
 	name = "weight-loss shake"
-	desc = "A shake designed to cause weight loss.  The package proudly proclaims that it is 'tapeworm free.'"
+	desc = "Коктейль, предназначенный для похудения. На упаковке с гордостью указано: Нет ленточных червей!"
+	ru_names = list(
+		NOMINATIVE = "коктейль для похудения",
+		GENITIVE = "коктейля для похудения",
+		DATIVE = "коктейлю для похудения",
+		ACCUSATIVE = "коктейль для похудения",
+		INSTRUMENTAL = "коктейлем для похудения",
+		PREPOSITIONAL = "коктейле для похудения"
+	)
 	icon_state = "weightshake"
 	list_reagents = list("lipolicide" = 30, "chocolate" = 5)
 	foodtype = GROSS
 
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"
-	desc = "Just add 10ml of water, self heats! A taste that reminds you of your school years."
+	desc = "Просто добавь 10 мл воды. Чашка с автонагревом! Вкус, напоминающий школьные годы..."
+	ru_names = list(
+		NOMINATIVE = "чашка рамена",
+		GENITIVE = "чашки рамена",
+		DATIVE = "чашке рамена",
+		ACCUSATIVE = "чашку рамена",
+		INSTRUMENTAL = "чашкой рамена",
+		PREPOSITIONAL = "чашке рамена"
+	)
 	icon_state = "ramen"
 	item_state = "ramen"
 	list_reagents = list("dry_ramen" = 30)
@@ -302,7 +398,15 @@
 
 /obj/item/reagent_containers/food/drinks/chicken_soup
 	name = "canned chicken soup"
-	desc = "A delicious and soothing can of chicken noodle soup; just like spessmom used to microwave it."
+	desc = "Вкуснейший и сытный куриный суп с лапшой в банке. По маминому рецепту \"Суп в микроволновке\"."
+	ru_names = list(
+		NOMINATIVE = "консервированный куриный суп",
+		GENITIVE = "консервированного куриного супа",
+		DATIVE = "консервированному куриному супу",
+		ACCUSATIVE = "консервированный куриный суп",
+		INSTRUMENTAL = "консервированным куриным супом",
+		PREPOSITIONAL = "консервированном курином супе"
+	)
 	icon_state = "soupcan"
 	item_state = "soupcan"
 	list_reagents = list("chicken_soup" = 30)
@@ -310,7 +414,15 @@
 
 /obj/item/reagent_containers/food/drinks/sillycup
 	name = "paper cup"
-	desc = "A paper water cup."
+	desc = "Бумажный стакан для воды."
+	ru_names = list(
+		NOMINATIVE = "бумажный стакан",
+		GENITIVE = "бумажного стакана",
+		DATIVE = "бумажному стакану",
+		ACCUSATIVE = "бумажный стакан",
+		INSTRUMENTAL = "бумажным стаканом",
+		PREPOSITIONAL = "бумажном стакане"
+	)
 	icon_state = "water_cup_e"
 	item_state = "coffee"
 	possible_transfer_amounts = null
@@ -332,7 +444,15 @@
 
 /obj/item/reagent_containers/food/drinks/shaker
 	name = "shaker"
-	desc = "A metal shaker to mix drinks in."
+	desc = "Металлический шейкер для смешивания напитков."
+	ru_names = list(
+		NOMINATIVE = "шейкер",
+		GENITIVE = "шейкера",
+		DATIVE = "шейкеру",
+		ACCUSATIVE = "шейкер",
+		INSTRUMENTAL = "шейкером",
+		PREPOSITIONAL = "шейкере"
+	)
 	icon_state = "shaker"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -342,50 +462,98 @@
 
 /obj/item/reagent_containers/food/drinks/flask
 	name = "flask"
-	desc = "Every good spaceman knows it's a good idea to bring along a couple of pints of whiskey wherever they go."
+	desc = "Каждый уважающий себя космический бродяга знает, что в космос без пары бутылок виски лучше не соваться."
+	ru_names = list(
+		NOMINATIVE = "фляга",
+		GENITIVE = "фляги",
+		DATIVE = "фляге",
+		ACCUSATIVE = "флягу",
+		INSTRUMENTAL = "флягой",
+		PREPOSITIONAL = "фляге"
+	)
 	icon_state = "flask"
 	materials = list(MAT_METAL=250)
 	volume = 60
 
 /obj/item/reagent_containers/food/drinks/flask/barflask
 	name = "flask"
-	desc = "For those who can't be bothered to hang out at the bar to drink."
+	desc = "Для тех, кому лень пить в баре."
+	ru_names = list(
+		NOMINATIVE = "фляга",
+		GENITIVE = "фляги",
+		DATIVE = "фляге",
+		ACCUSATIVE = "флягу",
+		INSTRUMENTAL = "флягой",
+		PREPOSITIONAL = "фляге"
+	)
 	icon_state = "barflask"
 
 /obj/item/reagent_containers/food/drinks/flask/gold
 	name = "captain's flask"
-	desc = "A gold flask belonging to the captain."
+	desc = "Золотая фляга, принадлежащая капитану."
 	icon_state = "flask_gold"
 	materials = list(MAT_GOLD=500)
 
 /obj/item/reagent_containers/food/drinks/flask/detflask
 	name = "detective's flask"
-	desc = "The detective's only true friend."
+	desc = "Единственный настоящий друг детектива."
 	icon_state = "detflask"
 	list_reagents = list("whiskey" = 30)
 
 /obj/item/reagent_containers/food/drinks/flask/hand_made
 	name = "handmade flask"
-	desc = "A wooden flask with a silver lid and bottom. It has a matte, dark blue paint on it with the initials \"W.H.\" etched in black."
+	desc = "Деревянная фляга с серебряными крышкой и дном. Покрыта матовой темно-синей краской с инициалами \"Дж.Т.\""
+	ru_names = list(
+		NOMINATIVE = "самодельная фляга",
+		GENITIVE = "самодельной фляги",
+		DATIVE = "самодельной фляге",
+		ACCUSATIVE = "самодельную флягу",
+		INSTRUMENTAL = "самодельной флягой",
+		PREPOSITIONAL = "самодельной фляге"
+	)
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "williamhackett"
 	materials = list()
 
 /obj/item/reagent_containers/food/drinks/flask/thermos
 	name = "vintage thermos"
-	desc = "An older thermos with a faint shine."
+	desc = "Старый термос с потускневшим блеском."
+	ru_names = list(
+		NOMINATIVE = "винтажный термос",
+		GENITIVE = "винтажного термоса",
+		DATIVE = "винтажному термосу",
+		ACCUSATIVE = "винтажный термос",
+		INSTRUMENTAL = "винтажным термосом",
+		PREPOSITIONAL = "винтажном термосе"
+	)
 	icon_state = "thermos"
 	volume = 50
 
 /obj/item/reagent_containers/food/drinks/flask/shiny
 	name = "shiny flask"
-	desc = "A shiny metal flask. It appears to have a Greek symbol inscribed on it."
+	desc = "Сияющая металлическая фляга. На ней выгравирован греческий символ."
+	ru_names = list(
+		NOMINATIVE = "блестящая фляга",
+		GENITIVE = "блестящей фляги",
+		DATIVE = "блестящей фляге",
+		ACCUSATIVE = "блестящую флягу",
+		INSTRUMENTAL = "блестящей флягой",
+		PREPOSITIONAL = "блестящей фляге"
+	)
 	icon_state = "shinyflask"
 	volume = 50
 
 /obj/item/reagent_containers/food/drinks/flask/lithium
 	name = "lithium flask"
-	desc = "A flask with a Lithium Atom symbol on it."
+	desc = "Фляга с изображением атома лития."
+	ru_names = list(
+		NOMINATIVE = "литиевая фляга",
+		GENITIVE = "литиевой фляги",
+		DATIVE = "литиевой фляге",
+		ACCUSATIVE = "литиевую флягу",
+		INSTRUMENTAL = "литиевой флягой",
+		PREPOSITIONAL = "литиевой фляге"
+	)
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "lithiumflask"
 	volume = 50
@@ -393,13 +561,29 @@
 
 /obj/item/reagent_containers/food/drinks/britcup
 	name = "cup"
-	desc = "A cup with the british flag emblazoned on it."
+	desc = "Чашка с изображением британского флага."
+	ru_names = list(
+		NOMINATIVE = "чашка",
+		GENITIVE = "чашки",
+		DATIVE = "чашке",
+		ACCUSATIVE = "чашку",
+		INSTRUMENTAL = "чашкой",
+		PREPOSITIONAL = "чашке"
+	)
 	icon_state = "britcup"
 	volume = 30
 
 /obj/item/reagent_containers/food/drinks/oilcan
 	name = "oil can"
-	desc = "Contains oil intended for use on cyborgs, robots, and other synthetics."
+	desc = "Содержит масло для киборгов, роботов и других синтетиков."
+	ru_names = list(
+		NOMINATIVE = "канистра масла",
+		GENITIVE = "канистры масла",
+		DATIVE = "канистре масла",
+		ACCUSATIVE = "канистру масла",
+		INSTRUMENTAL = "канистрой масла",
+		PREPOSITIONAL = "канистре масла"
+	)
 	icon = 'icons/goonstation/objects/oil.dmi'
 	icon_state = "oilcan"
 	volume = 100
@@ -410,7 +594,15 @@
 
 /obj/item/reagent_containers/food/drinks/zaza
 	name = "Cherry Zaza"
-	desc = "I possess Zaza!"
+	desc = "У меня есть Заза!"
+	ru_names = list(
+		NOMINATIVE = "вишнёвая Zaza",
+		GENITIVE = "вишнёвой Zaza",
+		DATIVE = "вишнёвой Zaza",
+		ACCUSATIVE = "вишнёвую Zaza",
+		INSTRUMENTAL = "вишнёвой Zaza",
+		PREPOSITIONAL = "вишнёвой Zaza"
+	)
 	icon_state = "zaza_can"
 	item_state = "zaza_can"
 	volume = 80
@@ -452,8 +644,8 @@
 /obj/item/reagent_containers/food/drinks/zaza/attack_self(mob/user)
 	if(!is_open_container())
 		container_type |= OPENCONTAINER
-		to_chat(user, span_notice("You put the lid on [src]."))
+		to_chat(user, span_notice("Вы закрываете крышку [declent_ru(GENITIVE)]."))
 	else
-		to_chat(user, span_notice("You take the lid off [src]."))
+		to_chat(user, span_notice("Вы снимаете крышку с [declent_ru(GENITIVE)]."))
 		container_type &= ~OPENCONTAINER
 	update_icon(UPDATE_OVERLAYS)

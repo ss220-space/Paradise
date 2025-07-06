@@ -1,6 +1,14 @@
 /obj/item/clothing/gloves/fingerless
 	name = "fingerless gloves"
-	desc = "Plain black gloves without fingertips for the hard working."
+	desc = "Обычные чёрные перчатки с обрезанными кончиками для тех, кто работает руками."
+	ru_names = list(
+		NOMINATIVE = "перчатки без пальцев",
+		GENITIVE = "перчаток без пальцев",
+		DATIVE = "перчаткам без пальцев",
+		ACCUSATIVE = "перчатки без пальцев",
+		INSTRUMENTAL = "перчатками без пальцев",
+		PREPOSITIONAL = "перчатках без пальцев"
+	)
 	icon_state = "fingerless"
 	item_state = "fingerless"
 	item_color = null	//So they don't wash.
@@ -66,14 +74,30 @@
 
 /obj/item/clothing/gloves/color/black/forensics
 	name = "forensics gloves"
-	desc = "These high-tech gloves don't leave any material traces on objects they touch. Perfect for leaving crime scenes undisturbed...both before and after the crime."
+	desc = "Высокотехнологичные перчатки, не оставляющие следов на объектах. Идеальны для работы с местом преступления... до и после самого преступления."
+	ru_names = list(
+		NOMINATIVE = "перчатки криминалиста",
+		GENITIVE = "перчаток криминалиста",
+		DATIVE = "перчаткам криминалиста",
+		ACCUSATIVE = "перчатки криминалиста",
+		INSTRUMENTAL = "перчатками криминалиста",
+		PREPOSITIONAL = "перчатках криминалиста"
+	)
 	icon_state = "forensics"
 	can_leave_fibers = FALSE
 	transfer_prints = FALSE
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
-	desc = "These tactical gloves are both insulated and offer melee protection."
+	desc = "Эти тактические перчатки обеспечивают защиту от электрического тока и надежно защищают руки в ближнем бою."
+	ru_names = list(
+		NOMINATIVE = "тактические перчатки",
+		GENITIVE = "тактических перчаток",
+		DATIVE = "тактическим перчаткам",
+		ACCUSATIVE = "тактические перчатки",
+		INSTRUMENTAL = "тактическими перчатками",
+		PREPOSITIONAL = "тактических перчатках"
+	)
 	icon_state = "combat"
 	item_state = "swat_gl"
 	siemens_coefficient = 0
@@ -88,7 +112,15 @@
 
 /obj/item/clothing/gloves/combat/riot
 	name = "riot gloves"
-	desc = "These riot gloves are both insulated and offer melee protection."
+	desc = "Усиленные перчатки с защитой от ударов и электричества."
+	ru_names = list(
+		NOMINATIVE = "штурмовые перчатки",
+		GENITIVE = "штурмовых перчаток",
+		DATIVE = "штурмовым перчаткам",
+		ACCUSATIVE = "штурмовые перчатки",
+		INSTRUMENTAL = "штурмовыми перчатками",
+		PREPOSITIONAL = "штурмовых перчатках"
+	)
 	icon_state = "riotgloves"
 	item_state = "riotgloves"
 	sprite_sheets = list(
@@ -125,8 +157,16 @@
 	armor = list("melee" = 25, "bullet" = 30, "laser" = 20, "energy" = 25, "bomb" = 35, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
 
 /obj/item/clothing/gloves/botanic_leather
-	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
 	name = "botanist's leather gloves"
+	desc = "Эти кожаные перчатки обеспечивают надежную защиту от шипов, зазубрин, колючек и других острых предметов растительного происхождения."
+	ru_names = list(
+		NOMINATIVE = "кожаные перчатки ботаника",
+		GENITIVE = "кожаных перчаток ботаника",
+		DATIVE = "кожаным перчаткам ботаника",
+		ACCUSATIVE = "кожаные перчатки ботаника",
+		INSTRUMENTAL = "кожаными перчатками ботаника",
+		PREPOSITIONAL = "кожаных перчатках ботаника"
+	)
 	icon_state = "leather"
 	item_state = "ggloves"
 	permeability_coefficient = 0.9
@@ -138,15 +178,31 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 30)
 
 /obj/item/clothing/gloves/batmangloves
-	desc = "Used for handling all things bat related."
 	name = "batgloves"
+	desc = "Используются для работы с предметами, связанными с летучими мышами."
+	ru_names = list(
+		NOMINATIVE = "бэт-перчатки",
+		GENITIVE = "бэт-перчаток",
+		DATIVE = "бэт-перчаткам",
+		ACCUSATIVE = "бэт-перчатки",
+		INSTRUMENTAL = "бэт-перчатками",
+		PREPOSITIONAL = "бэт-перчатках"
+	)
 	icon_state = "bmgloves"
 	item_state = "bmgloves"
 	item_color="bmgloves"
 
 /obj/item/clothing/gloves/cursedclown
 	name = "cursed white gloves"
-	desc = "These things smell terrible, and they're all lumpy. Gross."
+	desc = "Пахнут отвратительно и покрыты странными бугорками. Мерзость."
+	ru_names = list(
+		NOMINATIVE = "проклятые белые перчатки",
+		GENITIVE = "проклятых белых перчаток",
+		DATIVE = "проклятым белым перчаткам",
+		ACCUSATIVE = "проклятые белые перчатки",
+		INSTRUMENTAL = "проклятыми белыми перчатками",
+		PREPOSITIONAL = "проклятых белых перчатках"
+)
 	icon_state = "latex"
 	item_state = "lgloves"
 
@@ -274,7 +330,7 @@
 	set category = STATPANEL_OBJECT
 	var/mob/living/L = usr
 	L.dirslash_enabled = !L.dirslash_enabled
-	to_chat(src, span_notice("Directrion slash is [L.dirslash_enabled? "enabled" : "disabled"] now."))
+	to_chat(src, span_notice("Атака по направлению: [L.dirslash_enabled? "Включено" : "Выключено"]."))
 
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
@@ -296,12 +352,28 @@
 
 /obj/item/clothing/gloves/fingerless/rapid/headpat
 	name = "Gloves of Headpats"
-	desc = "You feel the irresistable urge to give headpats by merely glimpsing these."
+	desc = "Одно лишь созерцание этих перчаток вызывает непреодолимое желание гладить всех по голове."
+	ru_names = list(
+		NOMINATIVE = "перчатки Гладилок",
+		GENITIVE = "перчаток Гладилок",
+		DATIVE = "перчаткам Гладилок",
+		ACCUSATIVE = "перчатки Гладилок",
+		INSTRUMENTAL = "перчатками Гладилок",
+		PREPOSITIONAL = "перчатках Гладилок"
+	)
 	accepted_intents = list(INTENT_HELP)
 
 /obj/item/clothing/gloves/color/black/razorgloves
 	name = "Razor gloves"
-	desc = "These are razorgloves! You gotta show these tajarans who are the real deal on this station!"
+	desc = "Это настоящие бритвы! Покажи этим таярам, кто здесь главный!"
+	ru_names = list(
+		NOMINATIVE = "бритвенные перчатки",
+		GENITIVE = "бритвенных перчаток",
+		DATIVE = "бритвенным перчаткам",
+		ACCUSATIVE = "бритвенные перчатки",
+		INSTRUMENTAL = "бритвенными перчатками",
+		PREPOSITIONAL = "бритвенных перчатках"
+	)
 	icon_state = "razor"
 	item_state = "razorgloves"
 	can_be_cut = FALSE
@@ -314,7 +386,7 @@
 
 /obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	if(razor_damage_low > initial(razor_damage_low))
-		to_chat(user, span_warning("[src] has already been refined before. It cannot be sharpened further!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже были заточены ранее. Дальнейшая заточка невозможна!"))
 		return FALSE
 	razor_damage_low = clamp(razor_damage_low + whetstone.increment, 0, whetstone.max)
 	razor_damage_high = clamp(razor_damage_high + whetstone.increment, 0, whetstone.max)
@@ -342,7 +414,7 @@
 		var/armor_block = target.run_armor_check(affecting, "melee")
 		playsound(target.loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 
-		target.visible_message("<span class='danger'>[user] cuts [target] with razor gloves!</span>")
+		target.visible_message(span_danger("[user] реж[pluralize_ru(user.gender,"ет","уж")] [target.declent_ru(ACCUSATIVE)] бритвенными перчатками!"))
 
 		var/all_objectives = user?.mind?.get_all_objectives()
 		if(target.mind && all_objectives)
@@ -356,8 +428,8 @@
 	if(isliving(A))
 		user.do_attack_animation(A, "claw")
 		var/mob/living/living = A
-		playsound(living.loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
-		living.visible_message("<span class='danger'>[user] cuts [living] with razor gloves!</span>")
+		playsound(living.loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+		living.visible_message(span_danger("[user] режет [living.declent_ru(ACCUSATIVE)] бритвенными перчатками!"))
 		living.apply_damage(damage, BRUTE)
 		return TRUE
 
@@ -365,13 +437,24 @@
 		var/obj/obj = A
 		user.do_attack_animation(A, "claw")
 		user.changeNext_move(CLICK_CD_MELEE)
-		user.visible_message("<span class='danger'>[user] has hit [obj] with razor gloves!</span>", "<span class='danger'>You hit [obj] with razor gloves!</span>")
+		user.visible_message(
+			span_danger("[user] бь[pluralize_ru(user.gender,"ёь","ют")] [obj.declent_ru(ACCUSATIVE)] бритвенными перчатками!"),
+			span_danger("Вы бьёте [obj.declent_ru(ACCUSATIVE)] бритвенными перчатками!")
+		)
 		obj.take_damage(damage, BRUTE, "melee", 1, get_dir(src, user))
 		return TRUE
 
 /obj/item/clothing/gloves/knuckles
 	name = "knuckles"
-	desc = "The choice of the professional to beat the shit out of some jerk!"
+	desc = "Выбор профессионалов для выбивания дури из кого угодно!"
+	ru_names = list(
+		NOMINATIVE = "кастеты",
+		GENITIVE = "кастетов",
+		DATIVE = "кастетам",
+		ACCUSATIVE = "кастеты",
+		INSTRUMENTAL = "кастетами",
+		PREPOSITIONAL = "кастетах"
+	)
 	icon_state = "knuckles"
 	item_state = "knuckles"
 	sharp = FALSE
@@ -406,7 +489,7 @@
 		add_attack_logs(user, target, "Melee attacked with knuckles")
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 
-		target.visible_message("<span class='danger'>[user] smash [target] with knuckles!</span>")
+		target.visible_message(span_danger("[user] луп[pluralize_ru(user.gender,"ит","ят")] [target.declent_ru(ACCUSATIVE)] кастетами!"))
 
 		var/all_objectives = user?.mind?.get_all_objectives()
 		if(target.mind && all_objectives)
@@ -421,8 +504,8 @@
 	if(isliving(A))
 		var/mob/living/living = A
 		user.do_attack_animation(A, "kick")
-		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		living.visible_message("<span class='danger'>[user] smash [living] with knuckles!</span>")
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		living.visible_message(span_danger("[user] луп[pluralize_ru(user.gender,"ит","ят")] [living.declent_ru(ACCUSATIVE)] кастетами!"))
 		living.apply_damage(damage, BRUTE)
 		return TRUE
 
@@ -430,13 +513,24 @@
 		var/obj/obj = A
 		user.do_attack_animation(A, "kick")
 		user.changeNext_move(CLICK_CD_MELEE)
-		user.visible_message("<span class='danger'>[user] has hit [obj] with knuckles!</span>", "<span class='danger'>You hit [obj] with knuckles!</span>")
+		user.visible_message(
+			span_danger("[user] бь[pluralize_ru(user.gender,"ёт","ют")] [obj.declent_ru(ACCUSATIVE)] кастетами!"),
+			span_danger("Вы бьёте [obj.declent_ru(ACCUSATIVE)] кастетами!")
+		)
 		obj.take_damage(knobj_damage, BRUTE, "melee", 1, get_dir(src, user))
 		return TRUE
 
 /obj/item/clothing/gloves/brown_short_gloves
 	name = "short leather gloves"
 	desc = "Короткие облегающие перчатки из кожи."
+	ru_names = list(
+		NOMINATIVE = "короткие кожаные перчатки",
+		GENITIVE = "коротких кожаных перчаток",
+		DATIVE = "коротким кожаным перчаткам",
+		ACCUSATIVE = "короткие кожаные перчатки",
+		INSTRUMENTAL = "короткими кожаными перчатками",
+		PREPOSITIONAL = "коротких кожаных перчатках"
+	)
 	icon_state = "brown_short_gloves"
 	item_state = "brown_short_gloves"
 	sprite_sheets = list(
@@ -451,8 +545,16 @@
 		)
 
 /obj/item/clothing/gloves/combat/swat
-	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Such gloves cost a fortune, you can say that wearing them, you literally have golden hands!"
 	name = "SWAT gloves"
+	desc = "Пара перчаток, изготовленная из лучших армированных материалов, обеспечит вам надежную защиту от электрических разрядов, а также от некоторых видов кислот и огня. Цена таких перчаток может показаться высокой, но они того стоят. Надев их, вы сможете с уверенностью сказать, что ваши руки поистине бесценны!"
+	ru_names = list(
+		NOMINATIVE = "SWAT перчатки",
+		GENITIVE = "SWAT перчаток",
+		DATIVE = "SWAT перчаткам",
+		ACCUSATIVE = "SWAT перчатки",
+		INSTRUMENTAL = "SWAT перчатками",
+		PREPOSITIONAL = "SWAT перчатках"
+	)
 	icon_state = "swat_gloves"
 	item_state = "nt_swat_gl"
 	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 75)
@@ -469,8 +571,16 @@
 
 
 /obj/item/clothing/gloves/combat/swat/syndicate
-	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Show these NT pigs on your fingers who's the boss here!"
 	name = "syndicate armored gloves"
+	desc = "Пара перчаток, созданных из лучших армированных материалов. Обеспечивают надёжную защиту от электрических разрядов, а также от воздействия кислоты и огня. Покажите этим свиньям из НТ, кто здесь главный!"
+	ru_names = list(
+		NOMINATIVE = "бронированные перчатки Синдиката",
+		GENITIVE = "бронированных перчаток Синдиката",
+		DATIVE = "бронированным перчаткам Синдиката",
+		ACCUSATIVE = "бронированные перчатки Синдиката",
+		INSTRUMENTAL = "бронированными перчатками Синдиката",
+		PREPOSITIONAL = "бронированных перчатках Синдиката"
+	)
 	icon_state = "syndicate_swat"
 	item_state = "syndicate_swat_gl"
 

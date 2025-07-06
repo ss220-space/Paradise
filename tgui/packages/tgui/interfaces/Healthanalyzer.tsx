@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Box, Section, Button, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-const damageLang = new Map([
+const DAMAGE_LOCALIZATION_MAP = new Map([
   ['upper body', 'Грудь'],
   ['lower body', 'Живот'],
   ['head', 'Голова'],
@@ -24,6 +24,21 @@ const damageLang = new Map([
   ['luam wings', 'Крылья луам'],
 ]);
 
+const BLOOD_TYPE_MAP = new Map([
+  ['Diona', 'Диона'],
+  ['Human', 'Человек'],
+  ['Drask', 'Драск'],
+  ['Grey', 'Грей'],
+  ['Vulpkanin', 'Вульпакин'],
+  ['Tajaran', 'Таяран'],
+  ['Skrell', 'Скрелл'],
+  ['Nian', 'Ниан'],
+  ['Unathi', 'Унатх'],
+  ['Kidan', 'Кидан'],
+  ['Wryn', 'Врин'],
+  ['Vox', 'Вокс'],
+]);
+
 type HealthanalyzerData = {
   scan_data: ScanData;
   scan_title: string;
@@ -41,6 +56,7 @@ type ScanData = {
   bodyTemperatureC: number;
   bodyTemperatureF: number;
   pulse: number;
+  pulse_status: number;
   bloodData: BloodData;
   genes: number;
   timetodefib: number;
@@ -105,388 +121,463 @@ type Addiction = {
   addiction_stage: number;
 };
 
+const DEAD_STATUS = 2;
+
 export const Healthanalyzer = (props: unknown) => {
   const { data } = useBackend<HealthanalyzerData>();
-
   const { scan_data } = data;
 
   return (
     <Window
       width={500}
       height={450}
-      theme={data.theme ? data.theme : ''}
-      title={data.scan_title ? data.scan_title : 'Анализатор здоровья'}
+      theme={data.theme || ''}
+      title={data.scan_title || 'Анализатор здоровья'}
     >
       <Window.Content scrollable>
-        {(() => {
-          if (!scan_data) {
-            return (
-              <Box textAlign="center" bold>
-                Память анализатора здоровья успешно очищена
-              </Box>
-            );
-          }
-          if (scan_data.status === 'ERROR' || scan_data.status === 'FLOOR') {
-            return (
-              <Box>
-                <Section title="Повреждения">
-                  <LabeledList>
-                    <LabeledList.Item label="Тип повреждений">
-                      <Box>
-                        <span style={{ color: '#0080ff' }}>Удушье</span> /{' '}
-                        <span style={{ color: 'green' }}>Отравление</span> /{' '}
-                        <span style={{ color: '#FF8000' }}>Терм.</span> /{' '}
-                        <span style={{ color: 'red' }}>Мех.</span>
-                      </Box>
-                    </LabeledList.Item>
-                    <LabeledList.Item label="Степень повреждений">
-                      <Box>
-                        <span style={{ color: '#0080ff' }}>?</span> -{' '}
-                        <span style={{ color: 'green' }}>?</span> -{' '}
-                        <span style={{ color: '#FF8000' }}>?</span> -{' '}
-                        <span style={{ color: 'red' }}>?</span>
-                      </Box>
-                    </LabeledList.Item>
-                  </LabeledList>
-                </Section>
-                <Section title="Общее состояние">
-                  <LabeledList>
-                    <LabeledList.Item label="Оценка здоровья">
-                      <Box color="#c51e1e" bold>
-                        ОШИБКА
-                      </Box>
-                    </LabeledList.Item>
-
-                    <LabeledList.Item label="Температура тела">
-                      --- °C --- °F
-                    </LabeledList.Item>
-
-                    <LabeledList.Item label="Уровень крови">
-                      --- %, --- u, тип: ---, кровь расы: ---
-                    </LabeledList.Item>
-
-                    <LabeledList.Item label="Пульс">
-                      --- уд/мин
-                    </LabeledList.Item>
-
-                    <LabeledList.Item label="Гены">
-                      Генная структура не обнаружена
-                    </LabeledList.Item>
-                  </LabeledList>
-                </Section>
-              </Box>
-            );
-          } else {
-            return (
-              <Box>
-                <TopButtons />
-
-                <Section title="Повреждения">
-                  <LabeledList>
-                    <LabeledList.Item label="Тип повреждений">
-                      <Box>
-                        <span style={{ color: '#0080ff' }}>Удушье</span> /{' '}
-                        <span style={{ color: 'green' }}>Отравление</span> /{' '}
-                        <span style={{ color: '#FF8000' }}>Терм.</span> /{' '}
-                        <span style={{ color: 'red' }}>Мех.</span>
-                      </Box>
-                    </LabeledList.Item>
-                    <LabeledList.Item label="Степень повреждений">
-                      <Box>
-                        {scan_data.damageLevels.oxy > 0 ? (
-                          <span
-                            style={{ color: '#0080ff', fontWeight: 'bold' }}
-                          >
-                            {scan_data.damageLevels.oxy}
-                          </span>
-                        ) : (
-                          <span style={{ color: '#0080ff' }}>
-                            {scan_data.damageLevels.oxy}
-                          </span>
-                        )}{' '}
-                        -{' '}
-                        {scan_data.damageLevels.tox > 0 ? (
-                          <span style={{ color: 'green', fontWeight: 'bold' }}>
-                            {scan_data.damageLevels.tox}
-                          </span>
-                        ) : (
-                          <span style={{ color: 'green' }}>
-                            {scan_data.damageLevels.tox}
-                          </span>
-                        )}{' '}
-                        -{' '}
-                        {scan_data.damageLevels.burn > 0 ? (
-                          <span
-                            style={{ color: '#FF8000', fontWeight: 'bold' }}
-                          >
-                            {scan_data.damageLevels.burn}
-                          </span>
-                        ) : (
-                          <span style={{ color: '#FF8000' }}>
-                            {scan_data.damageLevels.burn}
-                          </span>
-                        )}{' '}
-                        -{' '}
-                        {scan_data.damageLevels.brute > 0 ? (
-                          <span style={{ color: 'red', fontWeight: 'bold' }}>
-                            {scan_data.damageLevels.brute}
-                          </span>
-                        ) : (
-                          <span style={{ color: 'red' }}>
-                            {scan_data.damageLevels.brute}
-                          </span>
-                        )}
-                      </Box>
-                    </LabeledList.Item>
-                  </LabeledList>
-                </Section>
-
-                <Section title="Состояние">
-                  <LabeledList>
-                    <LabeledList.Item label="Статус">
-                      {scan_data.status === 2 ? (
-                        <Box color="red" bold>
-                          Смерть{' '}
-                          {!!scan_data.DRN && (
-                            <span style={{ fontWeight: 'bold' }}>[НР]</span>
-                          )}
-                        </Box>
-                      ) : scan_data.health > 0 ? (
-                        <Box>{scan_data.health}% </Box>
-                      ) : (
-                        <Box color="red" bold>
-                          {scan_data.health}%{' '}
-                        </Box>
-                      )}
-                    </LabeledList.Item>
-
-                    {scan_data.status === 2 && (
-                      <LabeledList.Item label="Время смерти">
-                        {scan_data.timeofdeath}
-                      </LabeledList.Item>
-                    )}
-
-                    <LabeledList.Item label="Температура тела">
-                      {scan_data.bodyTemperatureC} °C (
-                      {scan_data.bodyTemperatureF} °F)
-                    </LabeledList.Item>
-
-                    {scan_data.bloodData && (
-                      <LabeledList.Item label="Уровень крови">
-                        {scan_data.bloodData.blood_volume <= 501 &&
-                          scan_data.bloodData.blood_volume > 346 && (
-                            <span style={{ color: 'red', fontWeight: 'bold' }}>
-                              НИЗКИЙ{' '}
-                            </span>
-                          )}
-                        {scan_data.bloodData.blood_volume < 346 && (
-                          <span style={{ color: 'red', fontWeight: 'bold' }}>
-                            КРИТИЧЕСКИЙ{' '}
-                          </span>
-                        )}
-                        {scan_data.bloodData.blood_percent} %,{' '}
-                        {scan_data.bloodData.blood_volume} u, тип:{' '}
-                        {scan_data.bloodData.blood_type}, кровь расы:{' '}
-                        {scan_data.bloodData.blood_species}.
-                      </LabeledList.Item>
-                    )}
-
-                    <LabeledList.Item label="Пульс">
-                      <span style={!!scan_data.pulse && { color: 'red' }}>
-                        {scan_data.pulse} уд/мин
-                      </span>
-                    </LabeledList.Item>
-
-                    <LabeledList.Item label="Гены">
-                      {scan_data.genes < 40 ? (
-                        <Box color="red" bold>
-                          Критическая генная нестабильность.
-                        </Box>
-                      ) : scan_data.genes < 70 ? (
-                        <Box color="red" bold>
-                          Тяжёлая генная нестабильность.
-                        </Box>
-                      ) : scan_data.genes < 85 ? (
-                        <Box color="red">
-                          Незначительная генная нестабильность.
-                        </Box>
-                      ) : (
-                        scan_data.genes > 40 && (
-                          <Box>Генная структура стабильна.</Box>
-                        )
-                      )}
-                    </LabeledList.Item>
-                  </LabeledList>
-
-                  <StatusInfo />
-                </Section>
-
-                {scan_data.status === 2 && (
-                  <Section>
-                    <Box>
-                      <Box textAlign="center" bold color="red">
-                        Субъект умер {scan_data.timetodefib} назад
-                      </Box>
-                      <Box textAlign="center" bold color="red">
-                        {scan_data.timetodefibText}
-                      </Box>
-                    </Box>
-                  </Section>
-                )}
-
-                {scan_data.heartCondition === 'CRIT' && (
-                  <Section
-                    title="Внимание: Критическое состояние!"
-                    mt={2}
-                    mb={2}
-                    color="red"
-                  >
-                    <LabeledList>
-                      <LabeledList.Item label="Название">
-                        <Box bold>Остановка сердца</Box>
-                      </LabeledList.Item>
-                      <LabeledList.Item label="Тип">
-                        <Box bold>Сердце пациента остановилось</Box>
-                      </LabeledList.Item>
-                      <LabeledList.Item label="Стадия">
-                        <Box bold>1/1</Box>
-                      </LabeledList.Item>
-                      <LabeledList.Item label="Лечение">
-                        <Box bold>Электрический шок</Box>
-                      </LabeledList.Item>
-                    </LabeledList>
-                  </Section>
-                )}
-
-                {!!data['localize'] &&
-                (!!scan_data.damageLocalization ||
-                  !!scan_data.fractureList[0] ||
-                  scan_data.infectedList[0] ||
-                  !!scan_data.extraFacture) ? (
-                  <Section title="Локализация повреждений">
-                    {!!scan_data.damageLocalization && (
-                      <Box>
-                        <LabeledList>
-                          {scan_data.damageLocalization.map((local, index) => (
-                            <LabeledList.Item
-                              key={index}
-                              label={damageLang.get(local.name)}
-                            >
-                              <Box>
-                                <span style={{ color: '#FF8000' }}>
-                                  {local.burn}
-                                </span>{' '}
-                                -{' '}
-                                <span style={{ color: 'red' }}>
-                                  {local.brute}
-                                </span>
-                              </Box>
-                            </LabeledList.Item>
-                          ))}
-                        </LabeledList>
-                      </Box>
-                    )}
-                    {!!scan_data.fractureList[0] && (
-                      <Box>
-                        {scan_data.fractureList.map((local, index) => (
-                          <Box key={index} color="#c51e1e" mt={1}>
-                            Обнаружен перелом в {local}.
-                          </Box>
-                        ))}
-                      </Box>
-                    )}
-                    {!!scan_data.infectedList[0] && (
-                      <Box>
-                        {scan_data.infectedList.map((local, index) => (
-                          <Box key={index} color="#c51e1e" mt={1}>
-                            Обнаружено заражение в {local}.
-                          </Box>
-                        ))}
-                      </Box>
-                    )}
-                    {!!scan_data.extraFacture && (
-                      <Box color="#c51e1e" mt={1}>
-                        Обнаружены переломы. Локализация невозможна.
-                      </Box>
-                    )}
-                    {!!scan_data.extraBleeding && (
-                      <Box color="#c51e1e" mt={1}>
-                        Обнаружено внутреннее кровотечение. Локализация
-                        невозможна.
-                      </Box>
-                    )}
-                  </Section>
-                ) : (
-                  !data['localize'] &&
-                  (!!scan_data.fractureList[0] ||
-                    scan_data.infectedList[0] ||
-                    !!scan_data.extraFacture ||
-                    !!scan_data.extraBleeding) && (
-                    <Section title="Дополнительная информация">
-                      {!!scan_data.fractureList[0] && (
-                        <Box>
-                          {scan_data.fractureList.map((local, index) => (
-                            <Box key={index} color="#c51e1e" mt={1}>
-                              Обнаружен перелом в {local}.
-                            </Box>
-                          ))}
-                        </Box>
-                      )}
-                      {!!scan_data.infectedList[0] && (
-                        <Box>
-                          {scan_data.infectedList.map((local, index) => (
-                            <Box key={index} color="#c51e1e" mt={1}>
-                              Обнаружено заражение в {local}.
-                            </Box>
-                          ))}
-                        </Box>
-                      )}
-                      {!!scan_data.extraFacture && (
-                        <Box color="#c51e1e" mt={1}>
-                          Обнаружены переломы. Требуется подробное сканирование.
-                        </Box>
-                      )}
-                      {!!scan_data.extraBleeding && (
-                        <Box color="#c51e1e" mt={1}>
-                          Обнаружено внутреннее кровотечение. Локализация
-                          невозможна.
-                        </Box>
-                      )}
-                    </Section>
-                  )
-                )}
-
-                {!!scan_data.reagentList && <ReagentList />}
-
-                {!!scan_data.diseases[0] && <DiseasesList />}
-
-                {!!scan_data.addictionList && <AddictionList />}
-
-                {!!scan_data.implantDetect && <ImplantList />}
-
-                <Section title="Страховка">
-                  <LabeledList>
-                    <LabeledList.Item label="Тип страховки ">
-                      {scan_data.insuranceType}
-                    </LabeledList.Item>
-                    <LabeledList.Item label="Требуемое количество очков страховки">
-                      {scan_data.reqInsurance}
-                    </LabeledList.Item>
-                    {!!scan_data.insurance && (
-                      <LabeledList.Item label="Текущее количество очков страховки">
-                        {scan_data.insurance}
-                      </LabeledList.Item>
-                    )}
-                  </LabeledList>
-                </Section>
-              </Box>
-            );
-          }
-        })()}
+        {renderContent(data, scan_data)}
       </Window.Content>
     </Window>
   );
 };
+
+const renderContent = (data: HealthanalyzerData, scan_data?: ScanData) => {
+  if (!scan_data) {
+    return (
+      <Box textAlign="center" bold>
+        Память анализатора здоровья успешно очищена
+      </Box>
+    );
+  }
+
+  if (scan_data.status === 'ERROR' || scan_data.status === 'FLOOR') {
+    return <ScanErrorView />;
+  }
+
+  return <ScanResultView data={data} scan_data={scan_data} />;
+};
+
+const ScanErrorView = () => (
+  <Box>
+    <Section title="Повреждения">
+      <LabeledList>
+        <DamageTypeDisplay />
+        <DamageLevelDisplay values={null} />
+      </LabeledList>
+    </Section>
+
+    <Section title="Общее состояние">
+      <LabeledList>
+        <LabeledList.Item label="Оценка здоровья">
+          <Box color="#c51e1e" bold>
+            ОШИБКА
+          </Box>
+        </LabeledList.Item>
+        <LabeledList.Item label="Температура тела">
+          --- °C --- °F
+        </LabeledList.Item>
+        <LabeledList.Item label="Уровень крови">
+          --- %, --- u, тип: ---, кровь расы: ---
+        </LabeledList.Item>
+        <LabeledList.Item label="Пульс">--- уд/мин</LabeledList.Item>
+        <LabeledList.Item label="Гены">
+          Генная структура не обнаружена
+        </LabeledList.Item>
+      </LabeledList>
+    </Section>
+  </Box>
+);
+
+const ScanResultView = ({
+  data,
+  scan_data,
+}: {
+  data: HealthanalyzerData;
+  scan_data: ScanData;
+}) => (
+  <Box>
+    <TopButtons />
+
+    <Section title="Повреждения">
+      <LabeledList>
+        <DamageTypeDisplay />
+        <DamageLevelDisplay values={scan_data.damageLevels} />
+      </LabeledList>
+    </Section>
+
+    <StatusSection scan_data={scan_data} />
+
+    {scan_data.status === DEAD_STATUS && (
+      <DeathInfoSection scan_data={scan_data} />
+    )}
+
+    {scan_data.heartCondition === 'CRIT' && <HeartCriticalSection />}
+
+    <DamageLocalizationSection scan_data={scan_data} localize={data.localize} />
+
+    {scan_data.reagentList?.length > 0 && (
+      <ReagentList reagents={scan_data.reagentList} />
+    )}
+    {scan_data.diseases?.length > 0 && (
+      <DiseasesList diseases={scan_data.diseases} />
+    )}
+    {scan_data.addictionList?.length > 0 && (
+      <AddictionList addictions={scan_data.addictionList} />
+    )}
+    {scan_data.implantDetect?.length > 0 && (
+      <ImplantList implants={scan_data.implantDetect} />
+    )}
+
+    <InsuranceSection scan_data={scan_data} />
+  </Box>
+);
+
+const DamageTypeDisplay = () => (
+  <LabeledList.Item label="Тип повреждений">
+    <Box>
+      <span style={{ color: '#0080ff' }}>Удушье</span> /{' '}
+      <span style={{ color: 'green' }}>Отравление</span> /{' '}
+      <span style={{ color: '#FF8000' }}>Терм.</span> /{' '}
+      <span style={{ color: 'red' }}>Мех.</span>
+    </Box>
+  </LabeledList.Item>
+);
+
+const DamageLevelDisplay = ({ values }: { values: DamageLevels | null }) => {
+  const renderDamageValue = (type: keyof DamageLevels, color: string) => {
+    if (!values) return <span style={{ color }}>?</span>;
+
+    const value = values[type];
+    if (value === 0) return null;
+
+    return value > 0 ? (
+      <span style={{ color, fontWeight: 'bold' }}>{value}</span>
+    ) : (
+      <span style={{ color }}>{value}</span>
+    );
+  };
+
+  const hasOxy = values && values.oxy !== 0;
+  const hasTox = values && values.tox !== 0;
+  const hasBurn = values && values.burn !== 0;
+  const hasBrute = values && values.brute !== 0;
+
+  const elements = [];
+  if (hasOxy) elements.push(renderDamageValue('oxy', '#0080ff'));
+  if (hasTox) {
+    if (elements.length > 0) elements.push(' - ');
+    elements.push(renderDamageValue('tox', 'green'));
+  }
+  if (hasBurn) {
+    if (elements.length > 0) elements.push(' - ');
+    elements.push(renderDamageValue('burn', '#FF8000'));
+  }
+  if (hasBrute) {
+    if (elements.length > 0) elements.push(' - ');
+    elements.push(renderDamageValue('brute', 'red'));
+  }
+
+  if (elements.length === 0 && values) {
+    return (
+      <LabeledList.Item label="Степень повреждений">
+        <Box color="green">Нет повреждений</Box>
+      </LabeledList.Item>
+    );
+  }
+
+  return (
+    <LabeledList.Item label="Степень повреждений">
+      <Box>{elements}</Box>
+    </LabeledList.Item>
+  );
+};
+
+const StatusSection = ({ scan_data }: { scan_data: ScanData }) => (
+  <Section title="Состояние">
+    <LabeledList>
+      <HealthStatusItem scan_data={scan_data} />
+
+      {scan_data.status === DEAD_STATUS && (
+        <LabeledList.Item label="Время смерти">
+          {scan_data.timeofdeath}
+        </LabeledList.Item>
+      )}
+
+      <LabeledList.Item label="Температура тела">
+        {scan_data.bodyTemperatureC} °C ({scan_data.bodyTemperatureF} °F)
+      </LabeledList.Item>
+
+      {scan_data.bloodData && <BloodDataItem bloodData={scan_data.bloodData} />}
+
+      <PulseItem pulse={scan_data.pulse} status={scan_data.pulse_status} />
+      <GenesItem genes={scan_data.genes} />
+    </LabeledList>
+
+    <StatusInfo scan_data={scan_data} />
+  </Section>
+);
+
+const HealthStatusItem = ({ scan_data }: { scan_data: ScanData }) => {
+  if (scan_data.status === DEAD_STATUS) {
+    return (
+      <LabeledList.Item label="Статус">
+        <Box color="red" bold>
+          Смерть{' '}
+          {!!scan_data.DRN && <span style={{ fontWeight: 'bold' }}>[НР]</span>}
+        </Box>
+      </LabeledList.Item>
+    );
+  }
+
+  return (
+    <LabeledList.Item label="Статус">
+      {scan_data.health > 0 ? (
+        <Box>{scan_data.health}%</Box>
+      ) : (
+        <Box color="red" bold>
+          {scan_data.health}%
+        </Box>
+      )}
+    </LabeledList.Item>
+  );
+};
+
+const BloodDataItem = ({ bloodData }: { bloodData: BloodData }) => {
+  let bloodStatus = null;
+  if (bloodData.blood_volume <= 501 && bloodData.blood_volume > 346) {
+    bloodStatus = (
+      <Box as="span" style={{ color: 'red', fontWeight: 'bold' }}>
+        НИЗКИЙ{' '}
+      </Box>
+    );
+  } else if (bloodData.blood_volume <= 346) {
+    bloodStatus = (
+      <Box as="span" style={{ color: 'red', fontWeight: 'bold' }}>
+        КРИТИЧЕСКИЙ{' '}
+      </Box>
+    );
+  }
+
+  const parts = [
+    `${bloodData.blood_percent} %`,
+    `${bloodData.blood_volume} u`,
+    `тип: ${bloodData.blood_type}`,
+  ];
+
+  if (bloodData.blood_species && bloodData.blood_species.trim() !== '') {
+    const speciesName =
+      BLOOD_TYPE_MAP.get(bloodData.blood_species) || bloodData.blood_species;
+    parts.push(`кровь расы: ${speciesName}`);
+  }
+
+  return (
+    <LabeledList.Item label="Уровень крови">
+      {bloodStatus}
+      {parts.join(', ')}.
+    </LabeledList.Item>
+  );
+};
+
+const PulseItem = ({ pulse, status }: { pulse: number; status: number }) => (
+  <LabeledList.Item label="Пульс">
+    <Box as="span" style={{ color: status === 2 ? '#0080ff' : 'red' }}>
+      {pulse} уд/мин
+    </Box>
+  </LabeledList.Item>
+);
+
+const GenesItem = ({ genes }: { genes: number }) => {
+  if (genes < 40) {
+    return (
+      <LabeledList.Item label="Гены">
+        <Box color="red" bold>
+          Критическая генная нестабильность.
+        </Box>
+      </LabeledList.Item>
+    );
+  }
+  if (genes < 70) {
+    return (
+      <LabeledList.Item label="Гены">
+        <Box color="red" bold>
+          Тяжёлая генная нестабильность.
+        </Box>
+      </LabeledList.Item>
+    );
+  }
+  if (genes < 85) {
+    return (
+      <LabeledList.Item label="Гены">
+        <Box color="red">Незначительная генная нестабильность.</Box>
+      </LabeledList.Item>
+    );
+  }
+  return (
+    <LabeledList.Item label="Гены">
+      <Box>Генная структура стабильна.</Box>
+    </LabeledList.Item>
+  );
+};
+
+const DeathInfoSection = ({ scan_data }: { scan_data: ScanData }) => (
+  <Section>
+    <Box textAlign="center" bold color="red">
+      Субъект умер {scan_data.timetodefib} назад
+    </Box>
+    <Box textAlign="center" bold color="red">
+      {scan_data.timetodefibText}
+    </Box>
+  </Section>
+);
+
+const HeartCriticalSection = () => (
+  <Section title="Внимание: Критическое состояние!" mt={2} mb={2} color="red">
+    <LabeledList>
+      <LabeledList.Item label="Название">
+        <Box bold>Остановка сердца</Box>
+      </LabeledList.Item>
+      <LabeledList.Item label="Тип">
+        <Box bold>Сердце пациента остановилось</Box>
+      </LabeledList.Item>
+      <LabeledList.Item label="Стадия">
+        <Box bold>1/1</Box>
+      </LabeledList.Item>
+      <LabeledList.Item label="Лечение">
+        <Box bold>Электрический шок</Box>
+      </LabeledList.Item>
+    </LabeledList>
+  </Section>
+);
+
+const DamageLocalizationSection = ({
+  scan_data,
+  localize,
+}: {
+  scan_data: ScanData;
+  localize: boolean;
+}) => {
+  const hasDamageInfo =
+    (scan_data.damageLocalization?.length ?? 0) > 0 ||
+    (scan_data.fractureList?.length ?? 0) > 0 ||
+    (scan_data.infectedList?.length ?? 0) > 0 ||
+    scan_data.extraFacture ||
+    scan_data.extraBleeding;
+
+  if (!hasDamageInfo) return null;
+
+  if (localize) {
+    return (
+      <Section title="Локализация повреждений">
+        {(scan_data.damageLocalization?.length ?? 0) > 0 && (
+          <LocalizedDamageList
+            damageList={scan_data.damageLocalization || []}
+          />
+        )}
+        <FractureList fractures={scan_data.fractureList || []} />
+        <InfectionList infections={scan_data.infectedList || []} />
+        {scan_data.extraFacture && (
+          <Box color="#c51e1e" mt={1}>
+            Обнаружены переломы. Локализация невозможна.
+          </Box>
+        )}
+        {scan_data.extraBleeding && (
+          <Box color="#c51e1e" mt={1}>
+            Обнаружено внутреннее кровотечение. Локализация невозможна.
+          </Box>
+        )}
+      </Section>
+    );
+  }
+
+  return (
+    <Section title="Дополнительная информация">
+      <FractureList fractures={scan_data.fractureList || []} />
+      <InfectionList infections={scan_data.infectedList || []} />
+      {scan_data.extraFacture && (
+        <Box color="#c51e1e" mt={1}>
+          Обнаружены переломы. Требуется подробное сканирование.
+        </Box>
+      )}
+      {scan_data.extraBleeding && (
+        <Box color="#c51e1e" mt={1}>
+          Обнаружено внутреннее кровотечение. Локализация невозможна.
+        </Box>
+      )}
+    </Section>
+  );
+};
+
+const LocalizedDamageList = ({
+  damageList,
+}: {
+  damageList: DamageLocalization[];
+}) => (
+  <LabeledList>
+    {damageList.map((local, index) => (
+      <LabeledList.Item
+        key={index}
+        label={DAMAGE_LOCALIZATION_MAP.get(local.name) || local.name}
+      >
+        <Box>
+          <Box as="span" style={{ color: '#FF8000' }}>
+            {local.burn}
+          </Box>
+          {' - '}
+          <Box as="span" style={{ color: 'red' }}>
+            {local.brute}
+          </Box>
+        </Box>
+      </LabeledList.Item>
+    ))}
+  </LabeledList>
+);
+
+const FractureList = ({ fractures }: { fractures: string[] }) => {
+  if (fractures.length === 0) return null;
+
+  return (
+    <Box>
+      {fractures.map((fracture, index) => (
+        <Box key={index} color="#c51e1e" mt={1}>
+          {DAMAGE_LOCALIZATION_MAP.get(fracture) || fracture} – обнаружен
+          перелом!
+        </Box>
+      ))}
+    </Box>
+  );
+};
+
+const InfectionList = ({ infections }: { infections: string[] }) => {
+  if (infections.length === 0) return null;
+
+  return (
+    <Box>
+      {infections.map((infection, index) => (
+        <Box key={index} color="#c51e1e" mt={1}>
+          Обнаружено заражение в {infection}.
+        </Box>
+      ))}
+    </Box>
+  );
+};
+
+const InsuranceSection = ({ scan_data }: { scan_data: ScanData }) => (
+  <Section title="Страховка">
+    <LabeledList>
+      <LabeledList.Item label="Тип страховки">
+        {scan_data.insuranceType}
+      </LabeledList.Item>
+      <LabeledList.Item label="Требуемое количество очков страховки">
+        {scan_data.reqInsurance}
+      </LabeledList.Item>
+      {scan_data.insurance !== undefined && (
+        <LabeledList.Item label="Текущее количество очков страховки">
+          {scan_data.insurance}
+        </LabeledList.Item>
+      )}
+    </LabeledList>
+  </Section>
+);
 
 const TopButtons = (props: unknown) => {
   const { act, data } = useBackend<HealthanalyzerData>();
@@ -494,32 +585,33 @@ const TopButtons = (props: unknown) => {
   return (
     <Section textAlign="center">
       <Box nowrap>
-        <Button icon="trash" content="Очистить" onClick={() => act('clear')} />
+        <Button icon="trash" onClick={() => act('clear')}>
+          Очистить
+        </Button>
         <Button
           icon="map-marker-alt"
           onClick={() => act('localize')}
-          color={data.localize ? '' : 'red'}
+          selected={data.localize}
         >
           Локализация
         </Button>
-        {!!data.advanced && (
-          <Button icon="print" onClick={() => act('print')}>
-            Печать отчёта
-          </Button>
-        )}
-        {!!data.advanced && (
-          <Button icon="file-invoice-dollar" onClick={() => act('insurance')}>
-            Списать страховку
-          </Button>
+        {data.advanced && (
+          <>
+            <Button icon="print" onClick={() => act('print')}>
+              Печать отчёта
+            </Button>
+            <Button icon="file-invoice-dollar" onClick={() => act('insurance')}>
+              Списать страховку
+            </Button>
+          </>
         )}
       </Box>
     </Section>
   );
 };
 
-const StatusInfo = (props: unknown) => {
-  const { data } = useBackend<HealthanalyzerData>();
-
+/** Компонент с дополнительной информацией о состоянии */
+const StatusInfo = ({ scan_data }: { scan_data: ScanData }) => {
   const {
     heartCondition,
     brainDamage,
@@ -527,48 +619,54 @@ const StatusInfo = (props: unknown) => {
     staminaStatus,
     cloneStatus,
     brainWorms,
-  } = data.scan_data;
+  } = scan_data;
 
   return (
     <Box>
-      {heartCondition === 'LESS' ? (
+      {heartCondition === 'LESS' && (
         <Box color="#d82020" mt={1} bold>
           Сердце не обнаружено.
         </Box>
+      )}
+      {heartCondition === 'NECROSIS' && (
+        <Box color="#d82020" mt={1} bold>
+          Обнаружен некроз сердца.
+        </Box>
+      )}
+
+      {brainDamage === 'LESS' ? (
+        <Box color="#c51e1e" mt={1} bold>
+          Мозг не обнаружен.
+        </Box>
       ) : (
-        heartCondition === 'NECROSIS' && (
-          <Box color="#d82020" mt={1} bold>
-            Обнаружен некроз сердца.
-          </Box>
+        typeof brainDamage === 'number' && (
+          <>
+            {brainDamage > 100 && (
+              <Box color="#c51e1e" mt={1} bold>
+                Мозг мёртв
+              </Box>
+            )}
+            {brainDamage > 60 && brainDamage <= 100 && (
+              <Box color="#c51e1e" mt={1} bold>
+                Обнаружено серьёзное повреждение мозга.
+              </Box>
+            )}
+            {brainDamage > 10 && brainDamage <= 60 && (
+              <Box color="#c51e1e" mt={1}>
+                Обнаружено значительное повреждение мозга.
+              </Box>
+            )}
+          </>
         )
       )}
 
-      {(brainDamage as number) > 100 ? (
-        <Box color="#c51e1e" mt={1} bold>
-          Мозг мёртв
-        </Box>
-      ) : (brainDamage as number) > 60 ? (
-        <Box color="#c51e1e" mt={1} bold>
-          Обнаружено серьёзное повреждение мозга.
-        </Box>
-      ) : (brainDamage as number) > 10 ? (
-        <Box color="#c51e1e" mt={1}>
-          Обнаружено значительное повреждение мозга.
-        </Box>
-      ) : (
-        brainDamage === 'LESS' && (
-          <Box color="#c51e1e" mt={1} bold>
-            Мозг не обнаружен.
-          </Box>
-        )
-      )}
-      {!!bleed && (
+      {bleed && (
         <Box color="#c51e1e" mt={1} bold>
           Обнаружено кровотечение!
         </Box>
       )}
 
-      {!!staminaStatus && (
+      {staminaStatus && (
         <Box color="#0080ff" mt={1} bold>
           Обнаружено истощение.
         </Box>
@@ -586,7 +684,7 @@ const StatusInfo = (props: unknown) => {
         )
       )}
 
-      {!!brainWorms && (
+      {brainWorms && (
         <Box color="#c51e1e" mt={1} bold>
           Обнаружены отклонения в работе мозга.
         </Box>
@@ -595,100 +693,79 @@ const StatusInfo = (props: unknown) => {
   );
 };
 
-const DiseasesList = (props: unknown) => {
-  const { data } = useBackend<HealthanalyzerData>();
-
-  const { diseases } = data.scan_data;
-
-  return (
-    <Box>
-      {diseases.map((disease, index) => (
-        <Section
-          title={'Внимание: ' + disease.form}
-          mt={2}
-          mb={2}
-          color="red"
-          key={index}
-        >
-          <LabeledList>
-            <LabeledList.Item label="Название">
-              <Box bold>{disease.name}</Box>
-            </LabeledList.Item>
-            <LabeledList.Item label="Тип">
-              <Box bold>{disease.additional_info}</Box>
-            </LabeledList.Item>
-            <LabeledList.Item label="Стадия">
-              <Box bold>
-                {disease.stage}/{disease.max_stages}
-              </Box>
-            </LabeledList.Item>
-            <LabeledList.Item label="Лечение">
-              <Box bold>{disease.cure_text}</Box>
-            </LabeledList.Item>
-          </LabeledList>
-        </Section>
-      ))}
-    </Box>
-  );
-};
-
-const ReagentList = (props: unknown) => {
-  const { data } = useBackend<HealthanalyzerData>();
-
-  const { reagentList } = data.scan_data;
-
-  return (
-    <Section title="Обнаружены вещества">
-      <LabeledList>
-        {reagentList.map((reagent, index) => (
-          <LabeledList.Item label={reagent.name} key={index}>
-            <Box>
-              {reagent.volume} ед.{' '}
-              {!!reagent.overdosed && (
-                <Box as="span" color="red" bold>
-                  - ПЕРЕДОЗИРОВКА!
-                </Box>
-              )}
+/** Список болезней */
+const DiseasesList = ({ diseases }: { diseases: Disease[] }) => (
+  <Box>
+    {diseases.map((disease, index) => (
+      <Section
+        key={index}
+        title={'Внимание: ' + disease.form}
+        mt={2}
+        mb={2}
+        color="red"
+      >
+        <LabeledList>
+          <LabeledList.Item label="Название">
+            <Box bold>{disease.name}</Box>
+          </LabeledList.Item>
+          <LabeledList.Item label="Тип">
+            <Box bold>{disease.additional_info}</Box>
+          </LabeledList.Item>
+          <LabeledList.Item label="Стадия">
+            <Box bold>
+              {disease.stage}/{disease.max_stages}
             </Box>
           </LabeledList.Item>
-        ))}
-      </LabeledList>
-    </Section>
-  );
-};
-
-const AddictionList = (props: unknown) => {
-  const { data } = useBackend<HealthanalyzerData>();
-
-  const { addictionList } = data.scan_data;
-
-  return (
-    <Section title="Обнаружены зависимости">
-      <LabeledList>
-        {addictionList.map((addiction, index) => (
-          <LabeledList.Item label={addiction.name} key={index}>
-            <Box>Стадия: {addiction.addiction_stage}/5</Box>
+          <LabeledList.Item label="Лечение">
+            <Box bold>{disease.cure_text}</Box>
           </LabeledList.Item>
-        ))}
-      </LabeledList>
-    </Section>
-  );
-};
+        </LabeledList>
+      </Section>
+    ))}
+  </Box>
+);
 
-const ImplantList = (props: unknown) => {
-  const { data } = useBackend<HealthanalyzerData>();
-
-  const { implantDetect } = data.scan_data;
-
-  return (
-    <Section title="Обнаружены кибернетические модификации:">
-      <LabeledList>
-        {implantDetect.map((implant, index) => (
-          <Box key={index} ml={1} bold>
-            {implant}
+/** Список реагентов */
+const ReagentList = ({ reagents }: { reagents: Reagent[] }) => (
+  <Section title="Обнаружены вещества">
+    <LabeledList>
+      {reagents.map((reagent, index) => (
+        <LabeledList.Item key={index} label={reagent.name}>
+          <Box>
+            {reagent.volume} ед.
+            {reagent.overdosed && (
+              <Box as="span" color="red" bold>
+                {' '}
+                - ПЕРЕДОЗИРОВКА!
+              </Box>
+            )}
           </Box>
-        ))}
-      </LabeledList>
-    </Section>
-  );
-};
+        </LabeledList.Item>
+      ))}
+    </LabeledList>
+  </Section>
+);
+
+/** Список зависимостей */
+const AddictionList = ({ addictions }: { addictions: Addiction[] }) => (
+  <Section title="Обнаружены зависимости">
+    <LabeledList>
+      {addictions.map((addiction, index) => (
+        <LabeledList.Item key={index} label={addiction.name}>
+          Стадия: {addiction.addiction_stage}/5
+        </LabeledList.Item>
+      ))}
+    </LabeledList>
+  </Section>
+);
+
+/** Список имплантов */
+const ImplantList = ({ implants }: { implants: string[] }) => (
+  <Section title="Обнаружены кибернетические модификации:">
+    {implants.map((implant, index) => (
+      <Box key={index} ml={1} bold>
+        {implant}
+      </Box>
+    ))}
+  </Section>
+);
