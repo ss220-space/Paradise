@@ -359,13 +359,17 @@
 		add_fingerprint(user)
 		var/obj/item/barcodescanner/scanner = I
 		if(!scanner.computer)
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 20)
 			to_chat(user, span_warning("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Привязанный компьютер не найден!\""))
 			return ATTACK_CHAIN_PROCEED
+
 		switch(scanner.mode)
 			if(0)
+				playsound(src, 'sound/machines/ping.ogg', 20)
 				scanner.book = src
 				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище.\""))
 			if(1)
+				playsound(src, 'sound/machines/ping.ogg', 20)
 				scanner.book = src
 				scanner.computer.buffer_book = name
 				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Ккнига была занесена в буфер привязанного компьютера.\""))
@@ -373,17 +377,21 @@
 				scanner.book = src
 				for(var/datum/borrowbook/borrowbook as anything in scanner.computer.checkouts)
 					if(borrowbook.bookname == name)
+						playsound(src, 'sound/machines/ping.ogg', 20)
 						scanner.computer.checkouts.Remove(borrowbook)
 						to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Бронирование книги было зарегистрированно.\""))
 						return ATTACK_CHAIN_PROCEED_SUCCESS
+				playsound(src, 'sound/machines/boop.ogg', 20)
 				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Для данной книги ещё не было офорлено бронирование.\""))
 			if(3)
 				scanner.book = src
 				for(var/obj/item/book as anything in scanner.computer.inventory)
 					if(book == src)
+						playsound(src, 'sound/machines/boop.ogg', 20)
 						to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Книга уже была добавлена в базу данных. Действие отменено во избежание дублирования.\""))
 						return ATTACK_CHAIN_PROCEED_SUCCESS
 				scanner.computer.inventory.Add(src)
+				playsound(src, 'sound/machines/ping.ogg', 20)
 				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Книга была занесена в базу данных.\""))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
