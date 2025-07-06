@@ -99,6 +99,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOB_ALLY "blob_ally"
 /// Objects with this trait are deleted if they fall into chasms, rather than entering abstract storage
 #define TRAIT_CHASM_DESTROYED "chasm_destroyed"
+/// Objects with this trait can cross chasm safe/
+#define TRAIT_CHASM_IGNORED "chasm_ignored"
 
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
