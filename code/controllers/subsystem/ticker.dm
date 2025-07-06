@@ -720,10 +720,10 @@ SUBSYSTEM_DEF(ticker)
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
 
-	for(var/mob/M in GLOB.player_list)
-		if(M.client.prefs.sound & SOUND_MUTE_END_OF_ROUND)
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.client.prefs.sound & SOUND_MUTE_END_OF_ROUND)
 			continue
-		SEND_SOUND(M, round_end_sound)
+		SEND_SOUND(mob, round_end_sound)
 
 	sleep(sound_length)
 

@@ -302,11 +302,13 @@
 	if(status != LIGHT_OK)
 		return
 
-	if(new_level_number == SEC_LEVEL_EPSILON)
-		fire_mode = FALSE
-		emergency_mode = TRUE
-		on = FALSE
-		INVOKE_ASYNC(src, PROC_REF(update), FALSE)
+	if(new_level_number != SEC_LEVEL_EPSILON)
+		return
+		
+	fire_mode = FALSE
+	emergency_mode = TRUE
+	on = FALSE
+	INVOKE_ASYNC(src, PROC_REF(update), FALSE)
 
 /obj/machinery/light/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER

@@ -39,12 +39,13 @@
 			if(!destination)
 				continue
 			for(var/turf/simulated/floor/floor in destination.contents)
-				if(!floor.is_blocked_turf())
-					turfs += floor
-			if(length(turfs))
-				spawn_area_type = area_type
-				spawn_on_turfs(turfs)
-				return
+				if(floor.is_blocked_turf())
+					continue
+				turfs += floor
+			if(!length(turfs))
+				continue
+			spawn_area_type = area_type
+			spawn_on_turfs(turfs)
 
 	log_debug("Failed to locate area for infestation event!")
 	kill()
