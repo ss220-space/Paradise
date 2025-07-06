@@ -47,7 +47,12 @@ GLOBAL_LIST_EMPTY(uid_log)
 	if(!uid)
 		return
 
-	return RUSTLIB_CALL(get_by_uuid, uid)
+	var/datum/datum = RUSTLIB_CALL(get_by_uuid, uid)
+
+	if(!datum || datum.unique_datum_id != uid)
+		return null
+
+	return datum
 
 
 /**
