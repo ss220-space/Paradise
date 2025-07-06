@@ -181,7 +181,7 @@
 	icon_state = "proteinbar_cherry"
 	filling_color = "#d1a62f"
 	junkiness = 5
-	list_reagents = list("protein" = 10, "cherry" = 5, "sugar" = 3, "slimejelly" = 1)
+	list_reagents = list("protein" = 10, "cherryjelly" = 5, "sugar" = 3, "slimejelly" = 1)
 	tastes = list("вишню" = 1, "удовольствие" = 1)
 	foodtype = JUNKFOOD
 	opened = FALSE
