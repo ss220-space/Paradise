@@ -42,6 +42,7 @@
 /obj/item/book/manual/engineering_construction
 	name = "Руководство по Ремонту и Строительству"
 	icon_state ="bookEngineering"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	title = "Руководство по Ремонту и Строительству"
 	wiki_title = "Руководство_по_строительству"
@@ -49,6 +50,7 @@
 /obj/item/book/manual/engineering_particle_accelerator
 	name = "Тесла Двигатель: Руководство Пользователя"
 	icon_state ="bookParticleAccelerator"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	title = "Тесла Двигатель: Руководство Пользователя"
 	wiki_title = "Тесла-двигатель"
@@ -56,6 +58,7 @@
 /obj/item/book/manual/supermatter_engine
 	name = "Двигатель на Суперматерии: Руководство Пользователя"
 	icon_state = "bookSupermatter"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	title = "Двигатель на Суперматерии: Руководство Пользователя"
 	wiki_title = "Двигатель_Суперматерии"
@@ -63,6 +66,7 @@
 /obj/item/book/manual/engineering_hacking
 	name = "Взлом"
 	icon_state ="bookHacking"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	title = "Взлом"
 	wiki_title = "Руководство_по_взлому"
@@ -70,6 +74,7 @@
 /obj/item/book/manual/engineering_singularity_safety
 	name = "Сингулярный Двигатель: Руководство Пользователя"
 	icon_state ="bookEngineeringSingularitySafety"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	title = "Сингулярный Двигатель: Руководство Пользователя"
 	wiki_title = "Сингулярный_двигатель"
@@ -77,6 +82,7 @@
 /obj/item/book/manual/hydroponics_pod_people
 	name = "The Human Harvest - From seed to market"
 	icon_state ="bookHydroponicsPodPeople"
+	item_state = "bookHydroponicsPodPeople"
 	author = "Джон Фермер"
 	title = "От семян до урожая: полное руководство по выращиванию людей на грядках."
 	dat = {"<html>
@@ -112,6 +118,7 @@
 
 /obj/item/book/manual/medical_cloning
 	name = "Cloning techniques of the 26th century"
+	icon_state ="bookCloning"
 	icon_state ="bookCloning"
 	author = "Медицинский журнал, выпуск №3."
 	title = "Технология Клонирования 26 века."
@@ -191,7 +198,8 @@
 
 /obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
-	icon_state ="book"
+	icon_state = "book"
+	item_state = "book"
 	author = "Weyland-Yutani Corp"
 	title = "APLU \"Ripley\" Construction and Operation Manual"
 //big pile of shit below.
@@ -269,6 +277,7 @@
 /obj/item/book/manual/experimentor
 	name = "Mentoring your Experiments"
 	icon_state = "rdbook"
+	item_state = "rdbook"
 	author = "Dr. H.P. Kritz"
 	title = "Mentoring your Experiments"
 	dat = {"<html>
@@ -402,6 +411,7 @@
 /obj/item/book/manual/research_and_development
 	name = "Research and Development 101"
 	icon_state = "rdbook"
+	item_state = "rdbook"
 	author = "Dr. L. Ight"
 	title = "Research and Development 101"
 	dat = {"
@@ -454,6 +464,7 @@
 /obj/item/book/manual/robotics_cyborgs
 	name = "Cyborgs for Dummies"
 	icon_state = "borgbook"
+	item_state = "borgbook"
 	author = "XISC"
 	title = "Cyborgs for Dummies"
 	dat = {"<html>
@@ -658,6 +669,7 @@
 	name = "Космический Закон"
 	desc = "Свод корпоративных правил Nanotrasen для поддержания закона и порядка на своих космических станциях."
 	icon_state = "bookSpaceLaw"
+	item_state = "bookSpaceLaw"
 	force = 4 //advanced magistrate tactics
 	author = "Nanotrasen"
 	title = "Космический Закон"
@@ -667,11 +679,13 @@
 	name = "Космический Закон - Ограниченное Издание"
 	desc = "Кожаный переплет и безукоризненное качество исполнения - превосходня копия ПРАВОСУДИЯ."
 	icon_state = "bookSpaceLawblack"
+	item_state = "bookSpaceLawblack"
 	title = "Космический Закон - Ограниченное Издание"
 
 /obj/item/book/manual/engineering_guide
 	name = "Руководство по Инженерии"
 	icon_state ="bookEngineering2"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	title = "Руководство по Инженерии"
 	wiki_title = "Руководство_по_инженерии"
@@ -680,6 +694,7 @@
 	name = "Рецепты от шеф-повара: Введение"
 	desc = "Одна из частей сборника рецептов шеф-повара."
 	icon_state = "cooked_book"
+	item_state = "cooked_book"
 	author = "NanoTrasen"
 	title = "Рецепты от шеф-повара: Введение"
 	wiki_title = "Руководство_по_еде"
@@ -738,6 +753,7 @@
 	name = "Рецепты Бармена: Введение"
 	desc = "Одна из частей сборника рецептов бармена."
 	icon_state = "barbook"
+	item_state = "barbook"
 	author = "Сэр Джон Роуз"
 	title = "Рецепты Бармена: Введение"
 	wiki_title = "Руководство_по_напиткам"
@@ -784,7 +800,8 @@
 
 /obj/item/book/manual/detective
 	name = "The Film Noir: Proper Procedures for Investigations"
-	icon_state ="bookDetective"
+	icon_state = "bookDetective"
+	item_state = "bookDetective"
 	author = "Nanotrasen"
 	title = "The Film Noir: Proper Procedures for Investigations"
 	dat = {"<html>
@@ -827,6 +844,7 @@
 /obj/item/book/manual/nuclear
 	name = "Fission Mailed: Nuclear Sabotage 101"
 	icon_state ="bookNuclear"
+	item_state ="bookNuclear"
 	author = "Syndicate"
 	title = "Fission Mailed: Nuclear Sabotage 101"
 	dat = {"<html>
@@ -863,6 +881,7 @@
 /obj/item/book/manual/atmospipes
 	name = "Pipes and You: Getting To Know Your Scary Tools"
 	icon_state = "pipingbook"
+	icon_state = "bookEng"
 	author = "Maria Crash, Senior Atmospherics Technician"
 	title = "Pipes and You: Getting To Know Your Scary Tools"
 	dat = {"<html>
@@ -961,6 +980,7 @@
 /obj/item/book/manual/evaguide
 	name = "EVA Gear and You: Not Spending All Day Inside"
 	icon_state = "evabook"
+	item_state = "evabook"
 	author = "Maria Crash, Senior Atmospherics Technician"
 	title = "EVA Gear and You: Not Spending All Day Inside"
 	dat = {"<html>
@@ -1032,6 +1052,7 @@
 	name = "A Guide to Faxes"
 	desc = "A Nanotrasen-approved guide to writing faxes"
 	icon_state = "book6"
+	item_state = "book6"
 	author = "Nanotrasen"
 	title = "A Guide to Faxes"
 	dat = {"
@@ -1092,6 +1113,7 @@
 	name = "Стандартные Рабочие Процедуры Научного Отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой научной деятельности."
 	icon_state = "sop_science"
+	item_state = "sop_science"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Научного Отдела"
 	wiki_title = "Стандартные_рабочие_процедуры_(Исследование)"
@@ -1100,6 +1122,7 @@
 	name = "Стандартные Рабочие Процедуры Медицинского Отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой медицинской деятельности."
 	icon_state = "sop_medical"
+	item_state = "sop_medical"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Медицинского Отдела"
 	wiki_title = "Стандартные_рабочие_процедуры_(Медицина)"
@@ -1108,6 +1131,7 @@
 	name = "Стандартные Рабочие Процедуры Инженерного Отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой инженерной деятельности."
 	icon_state = "sop_engineering"
+	item_state = "sop_engineering"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Инженерного Отдела"
 	wiki_title = "Стандартные_рабочие_процедуры_(Инженерия)"
@@ -1116,6 +1140,7 @@
 	name = "Стандартные Рабочие Процедуры Отдела Обслуживания"
 	desc = "Свод правил, направленных на безопасное ведение любой обслуживающей деятельности."
 	icon_state = "sop_service"
+	item_state = "sop_service"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Отдела Обслуживания"
 	wiki_title = "Стандартные_рабочие_процедуры_(Сервис)"
@@ -1124,6 +1149,7 @@
 	name = "Стандартные Рабочие Процедуры Отдела Снабжения"
 	desc = "Свод правил, направленных на безопасное ведение любой снабженческой деятельности."
 	icon_state = "sop_cargo"
+	item_state = "sop_cargo"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Отдела Снабжения"
 	wiki_title = "Стандартные_рабочие_процедуры_(Снабжение)"
@@ -1132,6 +1158,7 @@
 	name = "Стандартные Рабочие Процедуры Службы Безопасности"
 	desc = "Свод правил, направленных на безопасное ведение любой охранной деятельности."
 	icon_state = "sop_security"
+	item_state = "sop_security"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Службы Безопасности"
 	wiki_title = "Стандартные_рабочие_процедуры_(Охрана)"
@@ -1140,6 +1167,7 @@
 	name = "Правовые Стандартные Рабочие Процедуры"
 	desc = "Свод правил, направленных на безопасное ведение любой правовой деятельности."
 	icon_state = "sop_legal"
+	item_state = "sop_legal"
 	author = "Nanotrasen"
 	title = "Правовые Стандартные Рабочие Процедуры"
 	wiki_title = "Стандартные_рабочие_процедуры_(Закон)"
@@ -1148,6 +1176,7 @@
 	name = "Стандартные Рабочие Процедуры"
 	desc = "Свод правил, направленных на безопасное ведение любой станционной деятельности."
 	icon_state = "sop"
+	item_state = "sop"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры"
 	wiki_title = "Стандартные_Рабочие_Процедуры"
@@ -1156,6 +1185,7 @@
 	name = "Стандартные Рабочие Процедуры Коммандования"
 	desc = "Свод правил, направленных на безопасное ведение любой Коммандной деятельности."
 	icon_state = "sop_command"
+	item_state = "sop_command"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Коммандования"
 	wiki_title = "Стандартные_рабочие_процедуры_(Командование)"

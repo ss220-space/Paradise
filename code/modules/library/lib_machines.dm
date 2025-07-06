@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
  */
 /obj/machinery/bookbinder
 	name = "Book Binder"
-	desc = "Крупное устройство для объединения листов в книгу."
+	desc = "Крупное устройство для скрепления листов бумаги в книжный переплёт."
 	ru_names = list(
 		NOMINATIVE = "брошюратор",
 		GENITIVE = "брошюратора",
