@@ -354,12 +354,12 @@
 	if(can_hold.len)
 		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				usr.balloon_alert(usr, "неподходящий контейнер!")
+				to_chat(usr, span_warning("[capitalize.declent_ru(NOMINATIVE)] не подход[pluralize_ru(gender, "ит", "ят")] для [W.declent_ru(GENITIVE)]!"))
 			return FALSE
 
 	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			usr.balloon_alert(usr, "неподходящий контейнер!")
+			to_chat(usr, span_warning("[capitalize.declent_ru(NOMINATIVE)] не подход[pluralize_ru(gender, "ит", "ят")] для [W.declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	if(W.w_class > max_w_class)

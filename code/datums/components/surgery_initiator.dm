@@ -52,8 +52,8 @@
 /// This component gets added in atoms when they're made sharp as well.
 /datum/component/surgery_initiator/proc/on_parent_sharpness_change()
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
-	var/obj/item/P = parent
-	if(!P.sharp)
+	var/obj/item/tool = parent
+	if(!tool.sharp)
 		ClearFromParent()
 		qdel(src)
 
@@ -156,20 +156,20 @@
 /datum/component/surgery_initiator/proc/attempt_cancel_surgery(datum/surgery/the_surgery, mob/living/patient, mob/user)
 	var/selected_zone = user.zone_selected
 	var/obj/item/organ/external/affected_organ = patient.get_organ(user.zone_selected)
-	var/obj/item/P = parent
+	var/obj/item/tool = parent
 
 	/// We haven't even started yet. Any surgery can be cancelled at this point.
 	if(the_surgery.step_number == 1)
 		patient.surgeries -= the_surgery
 		if(affected_organ)
 			user.visible_message(
-				span_notice("[user] прерыва[pluralize_ru(user.gender, "ет", "ют")] операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [P.declent_ru(ACCUSATIVE)]."),
-				span_notice("Вы прерываете операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [P.declent_ru(ACCUSATIVE)].")
+				span_notice("[user] прерыва[pluralize_ru(user.gender, "ет", "ют")] операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы прерываете операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [tool.declent_ru(ACCUSATIVE)].")
 			)
 		else
 			user.visible_message(
-				span_notice("[user] прерыва[pluralize_ru(user.gender, "ет", "ют")] операцию на [parse_zone(selected_zone)] [patient], используя [P.declent_ru(ACCUSATIVE)]."),
-				span_notice("Вы прерываете операцию на [parse_zone(selected_zone)] [patient], используя [P.declent_ru(ACCUSATIVE)].")
+				span_notice("[user] прерыва[pluralize_ru(user.gender, "ет", "ют")] операцию на [parse_zone(selected_zone)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы прерываете операцию на [parse_zone(selected_zone)] [patient], используя [tool.declent_ru(ACCUSATIVE)].")
 			)
 
 		qdel(the_surgery)
@@ -312,17 +312,17 @@
 /datum/component/surgery_initiator/proc/show_starting_message(mob/user, mob/living/target, datum/surgery/procedure)
 	var/selected_zone = user.zone_selected
 	var/obj/item/organ/external/affected_organ = target.get_organ(user.zone_selected)
-	var/obj/item/P = parent
+	var/obj/item/tool = parent
 
 	if(affected_organ)
 		user.visible_message(
-			span_notice("[user] готов[pluralize_ru(user.gender, "ит", "ят")]ся начать операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [target], удерживая [P.declent_ru(ACCUSATIVE)] в руке."),
-			span_notice("Вы готовитесь начать операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [target], удерживая [P.declent_ru(ACCUSATIVE)] в руке."),
+			span_notice("[user] готов[pluralize_ru(user.gender, "ит", "ят")]ся начать операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
+			span_notice("Вы готовитесь начать операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
 		)
 	else
 		user.visible_message(
-			span_notice("[user] готов[pluralize_ru(user.gender, "ит", "ят")]ся начать операцию на [parse_zone(selected_zone)] [target], удерживая [P.declent_ru(ACCUSATIVE)] в руке."),
-			span_notice("Вы готовитесь начать операцию на [parse_zone(selected_zone)] [target], удерживая [P.declent_ru(ACCUSATIVE)] в руке."),
+			span_notice("[user] готов[pluralize_ru(user.gender, "ит", "ят")]ся начать операцию на [parse_zone(selected_zone)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
+			span_notice("Вы готовитесь начать операцию на [parse_zone(selected_zone)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
 		)
 
 /datum/component/surgery_initiator/limb

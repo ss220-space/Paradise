@@ -206,7 +206,6 @@
 	use_to_pickup = 1 //Allow medical belt to pick up medicine
 
 /obj/item/storage/belt/medical/surgery
-
 	name = "surgical belt"
 	desc = "Универсальный хирургический пояс, предназначенный для размещения и переноски хирургических инструментов. \
 			Оборудован нескользящими вставками для удержания инструментов. Используется хирургическим персоналом."
@@ -222,6 +221,7 @@
 	item_state = "surgical"
 	max_combined_w_class = 17
 	storage_slots = 11
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,

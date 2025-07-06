@@ -614,9 +614,8 @@
 			span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] извлекать [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы начинаете извлекать [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		)
-		var/mob/living/carbon/human/H = target
-		if(H && affected)
-			H.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+		if(target && affected)
+			target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	else
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -661,9 +660,8 @@
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/manipulate_organs/extract/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/mob/living/carbon/human/H = target
 	var/obj/item/organ/external/body_zone = target.get_organ(target_zone)
-	var/obj/item/organ/internal/affected = H.get_organ(user.zone_selected)
+	var/obj/item/organ/internal/affected = target.get_organ(user.zone_selected)
 	if(extracting && extracting.owner == target)
 		if(affected)
 			user.visible_message(
@@ -737,8 +735,7 @@
 			span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] трансплантировать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 			span_notice("Вы начинаете трансплантировать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 		)
-		var/mob/living/carbon/human/H = target
-		H.custom_pain("Кто-то копается в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)]!")
+		target.custom_pain("Кто-то копается в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)]!")
 	else
 		user.visible_message(
 			span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] трансплантировать [tool.declent_ru(ACCUSATIVE)] в [parse_zone(target_zone)] [target]."),
@@ -944,7 +941,6 @@
 	)
 
 /datum/surgery_step/internal/manipulate_organs/finish/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/mob/living/carbon/human/H = target
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/msg
 	var/self_msg
@@ -960,8 +956,8 @@
 
 	user.visible_message(span_notice(msg), span_notice(self_msg))
 
-	if(H && affected)
-		H.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+	if(target && affected)
+		target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 
 	return ..()
 
