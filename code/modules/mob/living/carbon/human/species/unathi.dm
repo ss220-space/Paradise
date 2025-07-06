@@ -120,6 +120,10 @@
 		lash.Grant(H)
 
 
+/datum/species/unathi/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default + (target.gender == FEMALE), max_level, can_become_stronger)
+
+
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	remove_verb(H, list(
@@ -157,8 +161,8 @@
 	name_plural = "Ash Walkers"
 	inherent_factions = list("ashwalker")
 
-	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
-	Они бродят по пустошам Лаваленда, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
+	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
+	Они бродят по пустошам Лазиса, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
 
 	language = LANGUAGE_UNATHI
 	default_language = LANGUAGE_UNATHI
@@ -361,7 +365,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 		var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "Точки интереса", list_of_points)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, owner, \
 							span_warning("Я чувствую, что [selected_poi] [get_direction(selected_poi)]")), 2 SECONDS)
-              
+
 	if(!LAZYLEN(GLOB.lavaland_points_of_interest))
 		to_chat(owner, "Все церемониальные тотемы уничтожены.")
 		return
@@ -379,10 +383,10 @@ They're basically just lizards with all-around marginally better stats and fire 
 		return "уничтожен."
 
 	var/turf/turf = get_turf(selected_poi)
-	
+
 	if(owner.z != turf.z)
 		return "находится где-то далеко отсюда."
-	
+
 	. = "находится где-то на "
 	. += dir2rustext(get_dir(owner.loc, selected_poi.loc))
 	. += "e."

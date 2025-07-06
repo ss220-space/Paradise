@@ -99,6 +99,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOB_ALLY "blob_ally"
 /// Objects with this trait are deleted if they fall into chasms, rather than entering abstract storage
 #define TRAIT_CHASM_DESTROYED "chasm_destroyed"
+/// Objects with this trait can cross chasm safe/
+#define TRAIT_CHASM_IGNORED "chasm_ignored"
 
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
@@ -107,6 +109,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HEALS_FROM_ASH_TENDRIL "heals_from_ash_tendril"
 /// This mob heals from carp rifts.
 #define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
+/// This mob heals from hell rifts.
+#define TRAIT_HEALS_FROM_HELL_RIFTS "heals_from_hell_rifts"
 /// This mob heals from cult pylons.
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 /// This mob heals from holy pylons.
@@ -219,8 +223,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WINGDINGS "wingdings"
 #define TRAIT_NO_FINGERPRINTS "no_fingerprints"
 #define TRAIT_DWARF "dwarf"
-#define TRAIT_GENE_STRONG "gene_strong"
-#define TRAIT_GENE_WEAK "gene_weak"
+#define TRAIT_STRONG_MUSCLES "gene_strong"
+#define TRAIT_WEAK_MUSCULS "gene_weak"
 #define TRAIT_SOBER "sober"
 #define TRAIT_PSY_RESIST "psy_resist"	// block remoteview
 #define TRAIT_OPEN_MIND "open_mind"	// allows to remote view this mob
@@ -260,6 +264,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RADIMMUNE "rad_immunity"
 /// This mob is completely immune to viruses and diseases, unless they ignore us
 #define TRAIT_VIRUSIMMUNE "virus_immunity"
+/// This mob is completely immune to viruses and diseases
+#define TRAIT_ABSOLUTE_VIRUSIMMUNE "absolute_virus_immunity"
 /// This human mob will not show its species on examine
 #define TRAIT_NO_SPECIES_EXAMINE "no_examine"
 /// This human mob will never become fat, does not affect genetic obesity
@@ -300,11 +306,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_BEING_OFFERED "offered"
 
+#define TRAIT_TOXIC_FUEL_PROTECTED "toxic_fuel_protected"
+
 
 /// Ignore Crew monitor Z levels
 #define TRAIT_MULTIZ_SUIT_SENSORS "multiz_suit_sensors"
 /// This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
 #define TRAIT_AI_BAGATTACK "bagattack"
+
+#define TRAIT_SPACEWALK "spacewalk"
 
 /// A trait gained by leaning against a wall
 #define TRAIT_LEANING "leaning"
@@ -317,3 +327,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TEMPERATURE_MOVEMENT "temperature_movement"
 /// when pulling you keep your speed same
 #define TRAIT_STRONG_PULLING "strong_pulling"
+
+#define TRAIT_FAKE_FIRE "fake_fire"
+
+#define TRAIT_CAN_SEE_WIRES "can_see_wires"
+
+#define TRAIT_DECOY_BRAIN "decoy_brain"
+
+#define TRAIT_BAD_SOUL "bad_soul"
+
+#define TRAIT_NOT_TURRET_GUN "not_turret_gun"
+
+#define TRAIT_BALD "bald"

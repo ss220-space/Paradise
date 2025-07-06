@@ -1,5 +1,5 @@
 /datum/surgery/plastic_surgery
-	name = "Plastic Surgery"
+	name = "Пластическая хирургия"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -12,7 +12,7 @@
 
 
 /datum/surgery_step/reshape_face
-	name = "reshape face"
+	name = "изменение черт лица"
 	begin_sound = 'sound/surgery/scalpel1.ogg'
 	end_sound = 'sound/surgery/scalpel2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -21,10 +21,10 @@
 
 /datum/surgery_step/reshape_face/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		"[user] begins to alter [target]'s appearance.",
-		span_notice("You begin to alter [target]'s appearance..."),
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] изменять внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете изменять внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
-		)
+	)
 	return ..()
 
 /datum/surgery_step/reshape_face/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -32,8 +32,8 @@
 	var/species_names = target.dna.species.name
 	if(head.undisfigure())
 		user.visible_message(
-			"[user] successfully restores [target]'s appearance!",
-			span_notice("You successfully restore [target]'s appearance."),
+			span_notice("[user] восстанавлива[pluralize_ru(user.gender, "ет", "ют")] внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы восстанавливаете внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 	else
@@ -66,19 +66,19 @@
 		else //Abductors get to pick fancy names
 			list_size-- //One less cause they get a normal name too
 			for(var/i in 1 to list_size)
-				names += "Subject [target.gender == MALE ? "I" : "O"]-[pick("A", "B", "C", "D", "E")]-[rand(10000, 99999)]"
+				names += "Субъект [target.gender == MALE ? "I" : "O"]-[pick("A", "B", "C", "D", "E")]-[rand(10000, 99999)]"
 			names += random_name(target.gender, species_names) //give one normal name in case they want to do regular plastic surgery
-		var/chosen_name = tgui_input_list(user, "Choose a new name to assign.", "Plastic Surgery", names)
+		var/chosen_name = tgui_input_list(user, "Выберите новое имя для субъекта.", "Смена имени", names)
 		if(!chosen_name)
 			return
 		var/oldname = target.real_name
 		target.real_name = chosen_name
 		var/newname = target.real_name	//something about how the code handles names required that I use this instead of target.real_name
 		user.visible_message(
-			"[user] alters [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [newname]!",
-			span_notice("You alter [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [newname]."),
+			span_notice("[user] изменя[pluralize_ru(user.gender, "ет", "ют")] внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [genderize_ru(target.gender, "его", "её", "его", "их")] зовут [newname]."),
+			span_notice("Вы изменяете внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [genderize_ru(target.gender, "его", "её", "его", "их")] зовут [newname]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
-			)
+		)
 	target.sec_hud_set_ID()
 	return SURGERY_STEP_CONTINUE
 
@@ -86,8 +86,8 @@
 /datum/surgery_step/reshape_face/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user]'s hand slips, tearing skin on [target]'s face with [tool]!"),
-		span_warning("Your hand slips, tearing skin on [target]'s face with [tool]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [tool.declent_ru(ACCUSATIVE)] кожу лица [target]!"),
+		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(ACCUSATIVE)] кожу лица [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(10, BRUTE, head, sharp = TRUE)

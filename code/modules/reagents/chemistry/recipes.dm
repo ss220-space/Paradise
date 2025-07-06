@@ -31,7 +31,7 @@
 	if(!T)
 		return
 
-	T.visible_message(span_warning("The solution generates a strong vapor!"))
+	T.visible_message(span_warning("Раствор образует сильный пар!"))
 
 	var/datum/reagents/reagents_list = new (amount * reagents.len)
 	for(var/reagent in reagents)

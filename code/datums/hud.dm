@@ -23,6 +23,8 @@ GLOBAL_LIST_INIT(huds, list( \
 	ANTAG_HUD_ABDUCTOR = new/datum/atom_hud/antag/hidden(),\
 	DATA_HUD_ABDUCTOR = new/datum/atom_hud/abductor(),\
 	ANTAG_HUD_DEVIL = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_SINTOUCHED = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_SOULLESS = new/datum/atom_hud/antag/hidden(),\
 	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden(),\
 	ANTAG_HUD_BLOB = new/datum/atom_hud/antag(),\
 	TAIPAN_HUD = new/datum/atom_hud/antag(),\
@@ -131,26 +133,26 @@ GLOBAL_LIST_INIT(huds, list( \
 
 	for(var/datum/atom_hud/hud in (GLOB.all_huds|serv_huds))//|gang_huds))
 		if(src in hud.hudusers)
-			hud.add_hud_to(src, only_once=TRUE)
+			hud?.add_hud_to(src, only_once=TRUE)
 
 	for(var/obj/item/check in contents)
 		if(istype(check, /obj/item/clothing/glasses/hud))
 			var/obj/item/clothing/glasses/hud/glasses = check
 			if(glasses.HUDType && get_slot_by_item(glasses) == ITEM_SLOT_EYES)
 				var/datum/atom_hud/my_hud = GLOB.huds[glasses.HUDType]
-				my_hud.add_hud_to(src, only_once=TRUE)
+				my_hud?.add_hud_to(src, only_once=TRUE)
 
 		if(istype(check, /obj/item/clothing/head))
 			var/obj/item/clothing/head/helmet = check
 			if(helmet.HUDType && get_slot_by_item(helmet) == ITEM_SLOT_HEAD)
 				var/datum/atom_hud/my_hud = GLOB.huds[helmet.HUDType]
-				my_hud.add_hud_to(src, only_once=TRUE)
+				my_hud?.add_hud_to(src, only_once=TRUE)
 
 		if(istype(check, /obj/item/organ/internal/cyberimp/eyes/hud))
 			var/obj/item/organ/internal/cyberimp/eyes/hud/implant = check
 			if(implant.HUDType && !implant.is_equipped(TRUE, TRUE))
 				var/datum/atom_hud/my_hud = GLOB.huds[implant.HUDType]
-				my_hud.add_hud_to(src, only_once=TRUE)
+				my_hud?.add_hud_to(src, only_once=TRUE)
 
 
 /mob/new_player/reload_huds()

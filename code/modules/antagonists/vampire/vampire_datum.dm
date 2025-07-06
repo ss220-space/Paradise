@@ -508,8 +508,8 @@
 	var/ay = owner.current.y
 
 	for(var/i = 1 to 20)
-		ax += SSsun.dx
-		ay += SSsun.dy
+		ax += SSsun.get_dy()
+		ay += SSsun.get_dx()
 
 		var/turf/T = locate(round(ax, 0.5), round(ay, 0.5), owner.current.z)
 
@@ -711,7 +711,7 @@
 
 /datum/antagonist/mindslave/thrall/greet()
 	var/greet_text = "<b>Вы были очарованы [master.current.real_name]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.</b>"
-	return span_dangerbigger(greet_text)
+	return span_biggerdanger(greet_text)
 
 /datum/antagonist/mindslave/thrall/farewell()
 	if(issilicon(owner.current))

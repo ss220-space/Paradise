@@ -298,11 +298,11 @@
 	if(!mapload)
 
 	//Shuttle Init
-		for(var/obj/machinery/computer/shuttle/ninja/shuttle in GLOB.machines)
+		for(var/obj/machinery/computer/shuttle/ninja/shuttle in SSmachines.get_by_type(/obj/machinery/computer/shuttle/ninja))
 			shuttle_controller = shuttle
 
 	//Cloning Init
-		for(var/obj/machinery/ninja_clonepod/clonepod in GLOB.machines)
+		for(var/obj/machinery/ninja_clonepod/clonepod in SSmachines.get_by_type(/obj/machinery/ninja_clonepod))
 			cloning_ref = clonepod
 
 		if(!cloning_ref)

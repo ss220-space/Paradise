@@ -90,9 +90,11 @@
 	//If the computer is being hacked or is emagged, display the reboot message.
 	if(hacking || emag)
 		message = rebootmsg
-	var/dat = ""
+	var/dat = "<title>Message Monitor Console</title>"
+	dat += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
+	dat += "<body>"
 	dat += "<center><h2>Message Monitor Console</h2></center><hr>"
-	dat += "<center><h4><span style='color: blue;'> [message]</span></h4></center>"
+	dat += "<center><h4><span style='color: blue;'>[message]</span></h4></center>"
 
 	if(auth)
 		dat += "<h4><a href='byond://?src=[UID()];auth=1'><span style='color: green;'>\[Authenticated\]</span></a>/"
@@ -280,7 +282,7 @@
 				auth = 0
 				screen = 0
 			else
-				var/dkey = trim(clean_input("Please enter the decryption key."))
+				var/dkey = tgui_input_text(usr, "Please enter the decryption key.")
 				if(dkey && dkey != "")
 					if(src.linkedServer.decryptkey == dkey)
 						auth = 1
@@ -293,7 +295,7 @@
 		//Find a server
 		if(href_list["find"])
 			if(GLOB.message_servers && GLOB.message_servers.len > 1)
-				src.linkedServer = input(usr,"Please select a server.", "Select a server.", null) as null|anything in GLOB.message_servers
+				src.linkedServer = tgui_input_list(usr, "Please select a server.", "Select a server.", GLOB.message_servers, null)
 				message = span_alert("NOTICE: Server selected.")
 			else if(GLOB.message_servers && GLOB.message_servers.len > 0)
 				linkedServer = GLOB.message_servers[1]
@@ -331,10 +333,10 @@
 				message = noserver
 			else
 				if(auth)
-					var/dkey = trim(clean_input("Please enter the decryption key."))
+					var/dkey = tgui_input_text(usr, "Please enter the decryption key.")
 					if(dkey && dkey != "")
 						if(src.linkedServer.decryptkey == dkey)
-							var/newkey = trim(input(usr,"Please enter the new key (3 - 16 characters max):"))
+							var/newkey = tgui_input_text(usr, "Please enter the new key (3 - 16 characters max):", max_length = 16)
 							if(length(newkey) <= 3)
 								message = span_notice("NOTICE: Decryption key too short!")
 							else if(length(newkey) > 16)
@@ -394,7 +396,7 @@
 
 					//Select Your Name
 					if("Sender")
-						customsender 	= clean_input("Please enter the sender's name.")
+						customsender 	= tgui_input_text(usr, "Please enter the sender's name.")
 
 					//Select Receiver
 					if("Recepient")
@@ -413,11 +415,11 @@
 
 					//Enter custom job
 					if("RecJob")
-						customjob	 	= clean_input("Please enter the sender's job.")
+						customjob	 	= tgui_input_text(usr, "Please enter the sender's job.")
 
 					//Enter message
 					if("Message")
-						custommessage	= clean_input("Please enter your message.")
+						custommessage	= tgui_input_text(usr, "Please enter your message.")
 						custommessage	= sanitize(copytext_char(custommessage, 1, MAX_MESSAGE_LEN))
 
 					//Send message
@@ -516,7 +518,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/item/paper/rnd_logs_key/LateInitialize()
-	var/obj/machinery/r_n_d/server/located_server = locate() in GLOB.machines
+	var/obj/machinery/r_n_d/server/located_server = locate() in SSmachines.get_by_type(/obj/machinery/r_n_d/server)
 	if(!located_server)
 		return
 	var/decryption_key = located_server.logs_decryption_key

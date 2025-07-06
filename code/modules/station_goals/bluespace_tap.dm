@@ -1,6 +1,4 @@
 //Station goal stuff goes here
-GLOBAL_LIST_EMPTY(bluespace_taps)
-
 /datum/station_goal/bluespace_tap
 	name = "Bluespace Harvester"
 	var/goal = 25000
@@ -27,7 +25,7 @@ GLOBAL_LIST_EMPTY(bluespace_taps)
 /datum/station_goal/bluespace_tap/proc/get_highscore()
 	. = 0
 
-	for(var/obj/machinery/power/bluespace_tap/harvester in GLOB.bluespace_taps)
+	for(var/obj/machinery/power/bluespace_tap/harvester in SSmachines.get_by_type(/obj/machinery/power/bluespace_tap))
 		. = max(., harvester.total_points)
 
 
@@ -207,6 +205,14 @@ GLOBAL_LIST_EMPTY(bluespace_taps)
   */
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
+	ru_names = list(
+		NOMINATIVE = "блюспейс сборщик",
+		GENITIVE = "блюспейс сборщика",
+		DATIVE = "блюспейс сборщику",
+		ACCUSATIVE = "блюспейс сборщик",
+		INSTRUMENTAL = "блюспейс сборщиком",
+		PREPOSITIONAL = "блюспейс сборщике"
+	)
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
 	icon_state = "bluespace_tap"	//sprites by Ionward
 	max_integrity = 300
@@ -257,7 +263,6 @@ GLOBAL_LIST_EMPTY(bluespace_taps)
 
 /obj/machinery/power/bluespace_tap/New()
 	..()
-	GLOB.bluespace_taps += src
 	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
@@ -279,7 +284,6 @@ GLOBAL_LIST_EMPTY(bluespace_taps)
 		connect_to_network()
 
 /obj/machinery/power/bluespace_tap/Destroy()
-	GLOB.bluespace_taps -= src
 	QDEL_LIST(fillers)
 	return ..()
 
@@ -450,7 +454,7 @@ GLOBAL_LIST_EMPTY(bluespace_taps)
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+		user.visible_message(span_warning("[user] переписыва[pluralize_ru(user.gender,"ет","ют")] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

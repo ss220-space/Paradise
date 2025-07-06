@@ -186,7 +186,7 @@
 
 	log_admin("[key_name(src)] replied to [key_name(H)]'s [sender] message with the message [input].")
 	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input]\"")
-	to_chat(H, "<span class = 'specialnoticebold'>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span><span class = 'specialnotice'> [input]</span>")
+	to_chat(H, "<span class = specialnotice>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span><span class = 'specialnotice'> [input]</span>")
 
 
 
@@ -469,7 +469,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			var/obj/effect/landmark/synd_spawn = locate("landmark*Syndicate-Spawn")
 			if(synd_spawn)
 				new_character.forceMove(get_turf(synd_spawn))
-			call(/datum/game_mode/proc/equip_syndicate)(new_character)
+			var/datum/antagonist/nuclear_operative/datum = new_character.mind.has_antag_datum(/datum/antagonist/nuclear_operative)
+			if(!datum)
+				datum = new_character.mind.add_antag_datum(/datum/antagonist/nuclear_operative, /datum/team/nuclear_team)
+			datum.equip()
 
 		if("Death Commando")//Leaves them at late-join spawn.
 			new_character.equipOutfit(/datum/outfit/admin/death_commando)
@@ -527,7 +530,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			to_chat(usr, "<span style='color: red;'>Error: create_xeno(): no suitable candidates.</span>", confidential=TRUE)
 	if(!istext(ckey))	return 0
 
-	var/alien_caste = input(usr, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Hunter","Sentinel","Drone","Larva")
+	var/alien_caste = tgui_input_list(usr, "Please choose which caste to spawn.", "Pick a caste", list("Queen", "Hunter", "Sentinel", "Drone", "Larva"), null)
 	var/obj/effect/landmark/spawn_here = GLOB.xeno_spawn.len ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
 	var/mob/living/carbon/alien/new_xeno
 	switch(alien_caste)

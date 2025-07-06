@@ -138,7 +138,7 @@
 		vest.flip_mode()
 
 /obj/machinery/abductor/console/proc/SelectDisguise(remote = 0)
-	var/entry_name = input( "Choose Disguise", "Disguise") as null|anything in disguises
+	var/entry_name = tgui_input_list(usr, "Choose Disguise", "Disguise", disguises)
 	var/datum/icon_snapshot/chosen = disguises[entry_name]
 	if(chosen && (remote || in_range(usr,src)))
 		vest.SetDisguise(chosen)
@@ -197,7 +197,7 @@
 	if(vest == V)
 		return FALSE
 
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.vest == V)
 			C.vest = null
 			break

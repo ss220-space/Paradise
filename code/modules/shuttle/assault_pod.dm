@@ -38,7 +38,7 @@
 
 /obj/item/assault_pod/attack_self(mob/living/user)
 	var/target_area
-	target_area = input("Area to land", "Select a Landing Zone", target_area) in GLOB.teleportlocs
+	target_area = tgui_input_list(usr, "Area to land", "Select a Landing Zone", GLOB.teleportlocs, target_area)
 	var/area/picked_area = GLOB.teleportlocs[target_area]
 	if(!src || QDELETED(src))
 		return
@@ -56,7 +56,7 @@
 	landing_zone.dir = lz_dir
 	landing_zone.register() //new docking ports must be registered
 
-	for(var/obj/machinery/computer/shuttle/S in GLOB.machines)
+	for(var/obj/machinery/computer/shuttle/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle))
 		if(S.shuttleId == shuttle_id)
 			S.possible_destinations = "[landing_zone.id]"
 

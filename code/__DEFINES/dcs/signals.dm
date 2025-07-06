@@ -788,6 +788,12 @@
 ///Called when someone attempts to cuff a carbon
 #define COMSIG_CARBON_CUFF_ATTEMPTED "carbon_attempt_cuff"
 
+///Called when checking the rituals of the devil's sacrifice
+#define COMSIG_DEVIL_SACRIFICE_CHECK "devil_sacrifice_check"
+	#define COMPONENT_SACRIFICE_VALID (1<<0)
+///Called after successfully performing the Devil Sacrifice Ritual
+#define COMSIG_DEVIL_SACRIFICE "devil_sacrifice"
+
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
 	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
@@ -1381,5 +1387,15 @@
 
 /// Window is fully visible and we can make fragile calls
 #define COMSIG_TGUI_WINDOW_VISIBLE "tgui_window_visible"
+
 /// /obj/item/card/id/proc/freeze_linked_account(datum/source)
 #define COMSIG_FREEZE_LINKED_ACCOUNT "nigga_freeze"
+
+#define COMSIG_GET_PULL_SLOWDOWN_MODIFIERS "get_pull_slowdown_modifiers"
+#define COMSIG_GET_GRAB_SPEED_MODIFIERS "get_grab_speed_modifiers"
+#define COMSIG_GET_MELEE_DAMAGE_DELTAS "get_melee_damage_deltas"
+#define COMSIG_GET_ICON_RENDER_KEY_INFO "get_icon_render_key_info"
+#define COMSIG_MOB_EXERCISED "mob_exercised"
+#define COMSIG_GET_ORGAN_ICON_STATE "get_organ_icon_state"
+#define COMSIG_STRENGTH_BORDER_UPDATE "strength_border_update"
+#define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"

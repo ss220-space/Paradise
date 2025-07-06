@@ -14,7 +14,15 @@
 
 /obj/machinery/disposal
 	name = "disposal unit"
-	desc = "A pneumatic waste disposal unit."
+	desc = "Пневматическая система утилизации отходов."
+	ru_names = list(
+		NOMINATIVE = "мусоропровод",
+		GENITIVE = "мусоропровода",
+		DATIVE = "мусоропроводу",
+		ACCUSATIVE = "мусоропровод",
+		INSTRUMENTAL = "мусоропроводом",
+		PREPOSITIONAL = "мусоропроводе"
+	)
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 	icon_state = "disposal"
 	base_icon_state = "disposal"
@@ -87,8 +95,8 @@
 	if(isfloorturf(floor) && floor.intact)
 		floor.remove_tile(null, TRUE, TRUE)
 		floor.visible_message(
-			span_warning("The floortile is ripped from the floor!"),
-			span_warning("You hear a loud bang!"),
+			span_warning("Плитка вырывается из пола!"),
+			span_warning("Слышен громкий хлопок!")
 		)
 	var/obj/structure/disposalconstruct/construct = new(loc, null, null, src)
 	transfer_fingerprints_to(construct)
@@ -119,7 +127,7 @@
 		return FALSE //Means the item is already in the storage item
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
+			to_chat(usr, span_warning("[capitalize(W.declent_ru(NOMINATIVE))] не помещается в [declent_ru(ACCUSATIVE)], освободите место!"))
 		return FALSE //Storage item is full
 
 	var/sum_w_class = W.w_class
@@ -128,11 +136,11 @@
 
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[src] is full, make some space.</span>")
+			to_chat(usr, span_notice("[capitalize(declent_ru(NOMINATIVE))] переполнен, освободите место."))
 		return FALSE
 
 	if(HAS_TRAIT(W, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
-		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
+		to_chat(usr, span_notice("[capitalize(W.declent_ru(NOMINATIVE))] прилип к вашей руке, вы не можете выкинуть его в [declent_ru(ACCUSATIVE)]."))
 		return FALSE
 
 	return TRUE
@@ -144,7 +152,7 @@
 
 	add_fingerprint(user)
 	if(istype(I, /obj/item/melee/energy/blade))	// why???
-		to_chat(user, span_warning("You cannot place that item inside the disposal unit."))
+		to_chat(user, span_warning("Вы не можете поместить этот предмет в мусоропровод."))
 		return ATTACK_CHAIN_PROCEED
 
 	if(isstorage(I))
@@ -158,13 +166,13 @@
 				item.add_fingerprint(user)
 			if(length(storage))
 				user.visible_message(
-					span_notice("[user] has dumped some items from [storage] into [src]."),
-					span_notice("You have dumped some items from [storage] into [src]."),
+					span_notice("[capitalize(user.declent_ru(NOMINATIVE))] выгружа[pluralize_ru(user.gender,"ет","ют")] предметы из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+					span_notice("Вы выгружаете предметы из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)].")
 				)
 			else
 				user.visible_message(
-					span_notice("[user] has emptied [storage] into [src]."),
-					span_notice("You have emptied [storage] into [src]."),
+					span_notice("[capitalize(user.declent_ru(NOMINATIVE))] опустоша[pluralize_ru(user.gender,"ет","ют")] [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+					span_notice("Вы опустошаете [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)].")
 				)
 			update()
 			return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -175,8 +183,8 @@
 	SEND_SIGNAL(I, COMSIG_DISPOSAL_INJECT, src)
 
 	user.visible_message(
-		span_notice("[user] has placed [I] into [src]."),
-		span_notice("You have placed [I] into [src]."),
+		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] помеща[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
 	)
 	update()
 	return ATTACK_CHAIN_BLOCKED_ALL
@@ -187,13 +195,13 @@
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
 		return .
 
-	grabber.visible_message(span_notice("[grabber] starts putting [grabbed_thing.name] into the disposal."), ignored_mobs = grabber)
+	grabber.visible_message(span_notice("[capitalize(grabber.declent_ru(NOMINATIVE))] начинает помещать [grabbed_thing.declent_ru(ACCUSATIVE)] в мусоропровод."), ignored_mobs = grabber)
 	if(!do_after(grabber, 2 SECONDS, src, NONE) || !grabbed_thing || grabber.pulling != grabbed_thing)
 		return .
 
 	add_fingerprint(grabber)
 	grabbed_thing.forceMove(src)
-	grabber.visible_message(span_warning("[grabbed_thing.name] has been placed in [src] by [grabber]."))
+	grabber.visible_message(span_warning("[capitalize(grabber.declent_ru(NOMINATIVE))] поместил [grabbed_thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 	add_attack_logs(grabber, grabbed_thing, "Disposal'ed")
 	update()
 
@@ -205,13 +213,13 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(contents.len > 0)
-		to_chat(user, "Eject the items first!")
+		to_chat(user, "Сначала извлеките предметы!")
 		return
 	if(mode == OFF) // It's off but still not unscrewed
 		mode = UNSCREWED // Set it to doubleoff l0l
 	else if(mode == UNSCREWED)
 		mode = OFF
-	to_chat(user, "You [mode ? "unfasten": "fasten"] the screws around the power connection.")
+	to_chat(user, "Вы [mode ? "ослабляете" : "затягиваете"] винты питания.")
 	update()
 
 
@@ -220,7 +228,7 @@
 	if(mode != UNSCREWED)
 		return .
 	if(length(contents))
-		to_chat(user, "Eject the items first!")
+		to_chat(user, "Сначала извлеките предметы!")
 		return .
 	if(!I.tool_use_check(user, 0))
 		return .
@@ -236,9 +244,9 @@
 
 /obj/machinery/disposal/shove_impact(mob/living/target, mob/living/attacker)
 	target.visible_message(
-		span_warning("[attacker] shoves [target] inside of [src]!"),
-		span_userdanger("[attacker] shoves you inside of [src]!"),
-		span_warning("You hear the sound of something being thrown in the trash.")
+		span_warning("[capitalize(attacker.declent_ru(NOMINATIVE))] заталкива[pluralize_ru(attacker.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[capitalize(attacker.declent_ru(NOMINATIVE))] заталкива[pluralize_ru(attacker.gender,"ет","ют")] вас в [declent_ru(ACCUSATIVE)]!"),
+		span_warning("Слышен звук чего-то, брошенного в мусорку.")
 	)
 	target.forceMove(src)
 	add_attack_logs(attacker, target, "Shoved into disposals")
@@ -261,9 +269,9 @@
 	add_fingerprint(user)
 	for(var/mob/viewer in viewers(user))
 		if(target == user)
-			viewer.show_message("[user] starts climbing into the disposal.", 3)
+			viewer.show_message("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] залезать в мусоропровод.", 3)
 		else
-			viewer.show_message("[user] starts stuffing [target.name] into the disposal.", 3)
+			viewer.show_message("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] заталкивать [target.declent_ru(ACCUSATIVE)] в мусоропровод.", 3)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disposal, put_in), target, user)
 	return TRUE
 
@@ -277,11 +285,11 @@
 		return
 	if(target == user && !user.incapacitated())	// if drop self, then climbed in
 											// must be awake, not stunned or whatever
-		msg = "[user.name] climbs into [src]."
-		to_chat(user, "You climb into [src].")
+		msg = "[capitalize(user.declent_ru(NOMINATIVE))] залеза[pluralize_ru(user.gender,"ет","ют")] в [declent_ru(ACCUSATIVE)]."
+		to_chat(user, "Вы залезаете в [declent_ru(ACCUSATIVE)].")
 	else if(target != user && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		msg = "[user.name] stuffs [target.name] into [src]!"
-		to_chat(user, "You stuff [target.name] into [src]!")
+		msg = "[capitalize(user.declent_ru(NOMINATIVE))] заталкива[pluralize_ru(user.gender,"ет","ют")] [target.name] в [declent_ru(ACCUSATIVE)]!"
+		to_chat(user, "Вы заталкиваете [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!")
 		if(!iscarbon(user))
 			target.LAssailant = null
 		else
@@ -309,22 +317,22 @@
 	if(target.buckled || target.has_buckled_mobs())
 		return
 	if(target.mob_size > MOB_SIZE_HUMAN)
-		to_chat(user, span_warning("[target] не помещается в [src]!"))
+		to_chat(user, span_warning("[capitalize(target.declent_ru(NOMINATIVE))] не помещается в [declent_ru(ACCUSATIVE)]!"))
 		return
 	add_fingerprint(user)
 	if(user == target)
-		user.visible_message(span_warning("[user] начинает забираться в [src]."), span_notice("вы начинаете забираться в [src]..."))
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] забираться в [declent_ru(ACCUSATIVE)]."), span_notice("Вы начинаете забираться в [declent_ru(ACCUSATIVE)]..."))
 	else
-		target.visible_message(span_danger("[user] начинает запихивать [target] в [src]."), span_userdanger("[user] начинает запихивать вас в [src]!"))
+		target.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] запихивать [target] в [declent_ru(ACCUSATIVE)]."), span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] начинает запихивать вас в [declent_ru(ACCUSATIVE)]!"))
 	if(do_after(user, 2 SECONDS, target))
 		if(!loc)
 			return
 		target.forceMove(src)
 	if(user == target)
-		user.visible_message(span_warning("[user] забирается в [src]."), span_notice("вы забираетесь [src]."))
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[pluralize_ru(user.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]."), span_notice("Вы забираетесь [declent_ru(ACCUSATIVE)]."))
 		. = TRUE
 	else
-		target.visible_message(span_danger("[user] запихивает [target] в [src]."), span_userdanger("[user] запихивает вас в [src]."))
+		target.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] запихива[pluralize_ru(user.gender,"ет","ют")] [target] в [declent_ru(ACCUSATIVE)]."), span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] запихивает вас в [declent_ru(ACCUSATIVE)]."))
 		add_attack_logs(user, target, "Disposal'ed")
 		. = TRUE
 	update()
@@ -360,7 +368,7 @@
 		return
 
 	if(user && user.loc == src)
-		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
+		to_chat(usr, span_warning("Вы не можете дотянуться до управления изнутри."))
 		return
 
 	// Clumsy folks can only flush it.
@@ -392,11 +400,11 @@
 	if(..())
 		return
 	if(usr.loc == src)
-		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
+		to_chat(usr, span_warning("Вы не можете дотянуться до управления изнутри."))
 		return
 
 	if(mode == UNSCREWED && action != "eject") // If the mode is -1, only allow ejection
-		to_chat(usr, "<span class='warning'>The disposal units power is disabled.</span>")
+		to_chat(usr, span_warning("Питание мусоропровода отключено."))
 		return
 
 	if(stat & BROKEN)
@@ -436,15 +444,15 @@
 
 /obj/machinery/disposal/click_alt(mob/user)
 	user.visible_message(
-		span_notice("[user] tries to eject the contents of [src] manually."),
-		span_notice("You operate the manual ejection lever on [src].")
+		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] пыта[pluralize_ru(user.gender,"ет","ют")]ся вручную извлечь содержимое [declent_ru(GENITIVE)]."),
+		span_notice("Вы активируете ручной рычаг извлечения [src].")
 	)
 	if(!do_after(user, 5 SECONDS, src))
 		return CLICK_ACTION_BLOCKING
 
 	user.visible_message(
-		span_notice("[user] ejects the contents of [src]."),
-		span_notice("You eject the contents of [src]."),
+		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] извлека[pluralize_ru(user.gender,"ет","ют")] содержимое [declent_ru(GENITIVE)]."),
+		span_notice("Вы извлекаете содержимое [src].")
 	)
 	eject()
 	return CLICK_ACTION_SUCCESS
@@ -606,10 +614,10 @@
 		if((prob(75)  || mover.throwing.thrower && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)) && can_be_inserted(mover, TRUE))
 			mover.forceMove(src)
 			SEND_SIGNAL(mover, COMSIG_DISPOSAL_INJECT, src)
-			visible_message("[mover] lands in [src].")
+			visible_message("[capitalize(mover.declent_ru(NOMINATIVE))] приземляется в [declent_ru(ACCUSATIVE)].")
 			update()
 		else
-			visible_message("[mover] bounces off of [src]'s rim!")
+			visible_message("[capitalize(mover.declent_ru(NOMINATIVE))] отскакивает от края [declent_ru(GENITIVE)]!")
 		return FALSE
 
 
@@ -624,7 +632,15 @@
 
 /obj/machinery/disposal/deliveryChute
 	name = "Delivery chute"
-	desc = "A chute for big and small packages alike!"
+	desc = "Люк для транспортировки как больших, так и маленьких грузов!"
+	ru_names = list(
+		NOMINATIVE = "грузовой люк",
+		GENITIVE = "грузового люка",
+		DATIVE = "грузовому люку",
+		ACCUSATIVE = "грузовой люк",
+		INSTRUMENTAL = "грузовым люком",
+		PREPOSITIONAL = "грузовом люке"
+	)
 	density = TRUE
 	icon_state = "intake"
 	base_icon_state = "intake"
@@ -639,7 +655,7 @@
 	if(istype(I, /obj/item/destTagger))
 		add_fingerprint(user)
 		to_waste = !to_waste
-		to_chat(user, span_notice("The chute is now set to [to_waste ? "waste" : "cargo"] disposals."))
+		to_chat(user, span_notice("Люк переключен на [to_waste ? "мусорную" : "грузовую"] систему."))
 		if(COOLDOWN_FINISHED(src, eject_effects_cd))
 			COOLDOWN_START(src, eject_effects_cd, DISPOSAL_SOUND_COOLDOWN)
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, TRUE)
@@ -650,8 +666,8 @@
 
 /obj/machinery/disposal/deliveryChute/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The chute is set to [to_waste ? "waste" : "cargo"] disposals.</span>"
-	. += "<span class='info'>Use a destination tagger to change the disposal destination.</span>"
+	. += span_notice("Люк настроен на [to_waste ? "мусорную" : "грузовую"] систему.")
+	. += span_info("Используйте маркировщик для изменения пункта назначения.")
 
 
 /obj/machinery/disposal/deliveryChute/interact()

@@ -23,7 +23,7 @@
 	var/mimic_option = alert(user, "What voice do you want to mimic?", "Mimic Voice", "Real Voice", "Custom Voice", "Cancel")
 	switch(mimic_option)
 		if("Real Voice")
-			var/mob/living/carbon/human/human = input(user, "Select a voice to copy from.", "Mimic Voice") in GLOB.human_list
+			var/mob/living/carbon/human/human = tgui_input_list(user, "Select a voice to copy from.", "Mimic Voice", GLOB.human_list)
 			mimic_voice = human.real_name
 			mimic_voice_tts = human.dna.tts_seed_dna
 

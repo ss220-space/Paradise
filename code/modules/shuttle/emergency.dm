@@ -94,6 +94,7 @@
 
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
 	var/forceHijacked = FALSE // forced change of arrival at the syndicate base
+	var/devil_on_shuttle = FALSE
 
 
 /obj/docking_port/mobile/emergency/register()
@@ -157,6 +158,9 @@
 		if(issilicon(player)) //Borgs are technically dead anyways
 			continue
 		if(isanimal(player)) //Poly does not own the shuttle
+			continue
+		if(isascendeddevil(player))
+			devil_on_shuttle = TRUE
 			continue
 		if(isbrain(player))
 			continue
@@ -276,7 +280,10 @@
 					destination_dock = "emergency_syndicate"
 					GLOB.priority_announcement.Announce("Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.")
 
-				dock_id(destination_dock)
+				if(devil_on_shuttle)
+					GLOB.priority_announcement.Announce("Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута и движется в неизвестном направлении.")
+				else
+					dock_id(destination_dock)
 
 				mode = SHUTTLE_ENDGAME
 				timer = 0

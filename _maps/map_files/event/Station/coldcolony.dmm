@@ -11790,7 +11790,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/sorting)
 "emC" = (
-/obj/structure/table,
+/obj/machinery/vending/protein,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "emD" = (

@@ -278,6 +278,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	drink_name = "Стакан воды"
 	drink_desc = "Обычный стакан обычной воды."
 	taste_description = "воды"
+	devil_regen_ignored = TRUE
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -301,7 +302,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 			holder.remove_reagent(id, volume)
-			M.visible_message(span_dangerbigger("[M] отшатыва[pluralize_ru(M.gender, "ет", "ют")]ся, [genderize_ru(M.gender, "его", "её", "его", "их")] кожа окрашивается в яркий цвет, [genderize_ru(M.gender, "он", "она", "оно", "они")] вновь обрета[pluralize_ru(M.gender, "ет", "ют")] чувство контроля над собой!"))
+			M.visible_message(span_biggerdanger("[M] отшатыва[pluralize_ru(M.gender, "ет", "ют")]ся, [genderize_ru(M.gender, "его", "её", "его", "их")] кожа окрашивается в яркий цвет, [genderize_ru(M.gender, "он", "она", "оно", "они")] вновь обрета[pluralize_ru(M.gender, "ет", "ют")] чувство контроля над собой!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -496,3 +497,37 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		var/t_loc = get_turf(O)
 		qdel(O)
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
+
+
+/datum/reagent/steroids
+	name = "Стероиды"
+	id = "steroids"
+	description = "Используется для ускоренного развития мышц. \
+					Не рекомендуется употреблять обладающим хвостом, беременным, перенесшим тяжелую травму, переболевшим ветрянкой, состоящим из слизи и бесхвостым."
+	reagent_state = LIQUID
+	color = "#c2ff34"
+	taste_description = "силы"
+
+
+/datum/reagent/steroids/on_mob_life(mob/living/target)
+	..()
+	if(!ishuman(target))
+		return
+
+	if(!prob(3))
+		return
+
+	var/mob/living/carbon/human/human = target
+	var/obj/item/organ/external/head/head_organ = human.get_organ(BODY_ZONE_HEAD)
+	if(!head_organ)
+		return
+
+	if(head_organ.f_style != "Shaved" || head_organ.h_style != "Bald")
+		target.visible_message(span_warning("Волосы [target] внезапно осыпаются!"), \
+								span_userdanger("Ваши волосы внезапно осыпаются!"))
+
+	head_organ.f_style = "Shaved"
+	head_organ.h_style = "Bald"
+	human.update_hair()
+	human.update_fhair()
+	ADD_TRAIT(human, TRAIT_BALD, id)

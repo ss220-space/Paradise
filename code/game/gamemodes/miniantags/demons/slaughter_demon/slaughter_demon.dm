@@ -36,6 +36,7 @@
 	. = ..()
 	remove_from_all_data_huds()
 	ADD_TRAIT(src, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
 	AddSpell(bloodspell)
 	if(istype(loc, /obj/effect/dummy/slaughter))

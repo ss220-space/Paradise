@@ -26,10 +26,10 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	return ..()
 
 /datum/controller/subsystem/tickets/mentor_tickets/message_staff(msg, prefix_type = NONE, important = FALSE)
-	message_mentorTicket(msg, important)
+	message_mentorTicket(chat_box_mhelp(msg), important)
 
 /datum/controller/subsystem/tickets/mentor_tickets/create_other_system_ticket(datum/ticket/T)
-	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.content, T.raw_title)
+	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.content, T.title)
 
 /datum/controller/subsystem/tickets/mentor_tickets/autoRespond(N)
 	return

@@ -147,7 +147,8 @@ const WorkshopSearch = (properties: WorkshopState) => {
           <Input
             placeholder="Search by item name.."
             width="100%"
-            onInput={(_e, value) => setSearchText(value)}
+            expensive
+            onChange={setSearchText}
           />
         </Stack.Item>
         <Stack.Item>

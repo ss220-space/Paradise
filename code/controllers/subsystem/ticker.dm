@@ -448,7 +448,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(!station_missed)	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
-			if(M.stat != DEAD && !(issilicon(M) && override == "AI malfunction"))
+			if(M.stat != DEAD && !(issilicon(M) && override == MALF_AI))
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 					M.ghostize()
@@ -463,14 +463,12 @@ SUBSYSTEM_DEF(ticker)
 	//Now animate the cinematic
 	switch(station_missed)
 		if(1)	//nuke was nearby but (mostly) missed
-			if(mode && !override)
-				override = mode.name
 
 			switch(override)
-				if("nuclear emergency") //Nuke wasn't on station when it blew up
+				if(SYNDICATE_NUKE) //Nuke wasn't on station when it blew up
 					play_cinematic(/datum/cinematic/nuke/ops_miss, world)
 
-				if("fake") //The round isn't over, we're just freaking people out for fun
+				if(FAKE_NUKE) //The round isn't over, we're just freaking people out for fun
 					play_cinematic(/datum/cinematic/nuke/fake, world)
 
 				else
@@ -483,14 +481,11 @@ SUBSYSTEM_DEF(ticker)
 			if(mode && !override)
 				override = mode.name
 			switch(override)
-				if("nuclear emergency") //Nuke Ops successfully bombed the station
+				if(SYNDICATE_NUKE) //Nuke Ops successfully bombed the station
 					play_cinematic(/datum/cinematic/nuke/ops_victory, world)
 
-				if("AI malfunction") //Malf (screen,explosion,summary)
+				if(MALF_AI) //Malf (screen,explosion,summary)
 					play_cinematic(/datum/cinematic/malf, world)
-
-				if("blob") //Station nuked (nuke,explosion,summary)
-					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
 
 				else //Station nuked (nuke,explosion,summary)
 					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
@@ -542,7 +537,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, span_purple(chat_box_purple("<b>Совет раунда: </b>[html_encode(m)]")))
+		to_chat(world, chat_box_purple(span_purple("<b>Совет раунда: </b>[html_encode(m)]")))
 
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
@@ -554,26 +549,33 @@ SUBSYSTEM_DEF(ticker)
 	ending_station_state.count()
 	var/station_integrity = min(round( 100.0 *  GLOB.start_state.score(ending_station_state), 0.1), 100.0)
 
-	to_chat(world, "<br>[TAB]Shift Duration: <b>[SHIFT_TIME_TEXT()]</b>")
-	to_chat(world, "<br>[TAB]Station Integrity: <b>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</b>")
-	to_chat(world, "<br>")
+	var/list/end_of_round_info = list()
+	end_of_round_info += "<br>[TAB]Shift Duration: <b>[SHIFT_TIME_TEXT()]</b>"
+	end_of_round_info += "<br>[TAB]Station Integrity: <b>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</b>"
+	end_of_round_info += "<br>"
 
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
 		var/ai_ckey = safe_get_ckey(aiPlayer)
 
-		if(aiPlayer.stat != 2)
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws at the end of the game were:</b>")
+		if(aiPlayer.stat != DEAD)
+			end_of_round_info += "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws at the end of the game were:</b>"
 		else
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws when it was deactivated were:</b>")
-		aiPlayer.show_laws(TRUE)
+			end_of_round_info += "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws when it was deactivated were:</b>"
 
-		if(aiPlayer.connected_robots.len)
-			var/robolist = "<b>The AI's loyal minions were:</b> "
+		aiPlayer.laws_sanity_check()
+
+		for(var/datum/ai_law/law as anything in aiPlayer.laws.sorted_laws)
+			if(law == aiPlayer.laws.zeroth_law)
+				end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+			else
+				end_of_round_info += "[law.get_index()]. [law.law]"
+
+		if(length(aiPlayer.connected_robots))
+			end_of_round_info += "<b>The AI's loyal minions were:</b> "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				var/robo_ckey = safe_get_ckey(robo)
-				robolist += "[robo.name][robo.stat ? " (Deactivated)" : ""] (Played by: [robo_ckey])"
-			to_chat(world, "[robolist]")
+				end_of_round_info += "[robo.name][robo.stat ? " (Deactivated)" : ""] (Played by: [robo_ckey])"
 
 	var/dronecount = 0
 
@@ -586,43 +588,43 @@ SUBSYSTEM_DEF(ticker)
 		var/robo_ckey = safe_get_ckey(robo)
 
 		if(!robo.connected_ai)
-			if(robo.stat != 2)
-				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) survived as an AI-less borg! Its laws were:</b>")
+			if(robo.stat != DEAD)
+				end_of_round_info += "<b>[robo.name] (Played by: [robo_ckey]) survived as an AI-less borg! Its laws were:</b>"
 			else
-				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")
+				end_of_round_info += "<b>[robo.name] (Played by: [robo_ckey]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>"
 
-			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
-				robo.laws.show_laws(world)
+			robo.laws_sanity_check()
+			for(var/datum/ai_law/law as anything in robo.laws.sorted_laws)
+				if(law == robo.laws.zeroth_law)
+					end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+				else
+					end_of_round_info += "[law.get_index()]. [law.law]"
 
 	if(dronecount)
-		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
+		end_of_round_info += "<b>There [dronecount > 1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount > 1 ? "drones" : "drone"] this round.</b>"
 
-	if(mode.eventmiscs.len)
-		var/emobtext = ""
+	if(length(mode.eventmiscs))
 		for(var/datum/mind/eventmind in mode.eventmiscs)
-			emobtext += printeventplayer(eventmind)
-			emobtext += "<br>"
-			emobtext += printobjectives(eventmind)
-			emobtext += "<br>"
-		emobtext += "<br>"
-		to_chat(world, emobtext)
+			end_of_round_info += printeventplayer(eventmind)
+			end_of_round_info += printobjectives(eventmind)
+		end_of_round_info += "<br>"
 
 	for(var/team_type in GLOB.antagonist_teams)
 		var/datum/team/team = GLOB.antagonist_teams[team_type]
-		team.declare_completion()
+		end_of_round_info += team.declare_completion()
 
 	mode.declare_completion()//To declare normal completion.
 
-	//calls auto_declare_completion_* for all modes
-	for(var/handler in typesof(/datum/game_mode/proc))
-		if(findtext("[handler]","auto_declare_completion_"))
-			call(mode, handler)()
+	end_of_round_info += mode.get_end_of_round_antagonist_statistics()
 
 	// Display the scoreboard window
 	score.scoreboard()
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()
+
+	SSpersistent_data.save()
+	to_chat(world, end_of_round_info.Join("<br>"))
 
 	if(toggle_pacifism)
 		GLOB.pacifism_after_gt = TRUE

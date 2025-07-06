@@ -804,39 +804,39 @@
 
 
 /datum/keybinding/custom/one
-	name = "Custom Emote 1"
+	name = "Пользовательская эмоция №1"
 
 /datum/keybinding/custom/two
-	name = "Custom Emote 2"
+	name = "Пользовательская эмоция №2"
 
 /datum/keybinding/custom/three
-	name = "Custom Emote 3"
+	name = "Пользовательская эмоция №3"
 
 /datum/keybinding/custom/four
-	name = "Custom Emote 4"
+	name = "Пользовательская эмоция №4"
 	donor_exclusive = TRUE
 
 /datum/keybinding/custom/five
-	name = "Custom Emote 5"
+	name = "Пользовательская эмоция №5"
 	donor_exclusive = TRUE
 
 /datum/keybinding/custom/six
-	name = "Custom Emote 6"
+	name = "Пользовательская эмоция №6"
 	donor_exclusive = TRUE
 
 /datum/keybinding/custom/seven
-	name = "Custom Emote 7"
+	name = "Пользовательская эмоция №7"
 	donor_exclusive = TRUE
 
 /datum/keybinding/custom/eight
-	name = "Custom Emote 8"
+	name = "Пользовательская эмоция №8"
 	donor_exclusive = TRUE
 
 /datum/keybinding/custom/nine
-	name = "Custom Emote 9"
+	name = "Пользовательская эмоция №9"
 	donor_exclusive = TRUE
 
 /datum/keybinding/custom/ten
-	name = "Custom Emote 10"
+	name = "Пользовательская эмоция №10"
 	donor_exclusive = TRUE
 

@@ -3,8 +3,6 @@
 // Requires high amount of power
 // Requires high level stock parts
 
-GLOBAL_LIST_EMPTY(bluespace_cannons)
-
 /datum/station_goal/bluespace_cannon
 	name = "Bluespace Artillery"
 
@@ -25,7 +23,7 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/bsa/full/B in GLOB.bluespace_cannons)
+	for(var/obj/machinery/bsa/full/B in SSmachines.get_by_type(/obj/machinery/bsa/full))
 		if(B && !B.stat && is_station_contact(B.z))
 			return TRUE
 	return FALSE
@@ -37,7 +35,15 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 
 /obj/machinery/bsa/back
 	name = "Bluespace Artillery Generator"
-	desc = "Generates cannon pulse. Needs to be linked with a fusor. "
+	desc = "Генерирует импульс для орудия. Требуется соединение с фузором."
+	ru_names = list(
+		NOMINATIVE = "генератор блюспейс-артиллерии",
+		GENITIVE = "генератора блюспейс-артиллерии",
+		DATIVE = "генератору блюспейс-артиллерии",
+		ACCUSATIVE = "генератор блюспейс-артиллерии",
+		INSTRUMENTAL = "генератором блюспейс-артиллерии",
+		PREPOSITIONAL = "генераторе блюспейс-артиллерии"
+	)
 	icon_state = "power_box"
 
 
@@ -53,12 +59,20 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 		return .
 	var/obj/item/multitool/multitool = I
 	multitool.buffer = src
-	to_chat(user, span_notice("You have stored the linkage information in [multitool]'s buffer."))
+	to_chat(user, span_notice("Вы сохранили информацию о соединении в буфере [multitool.declent_ru(GENITIVE)]."))
 
 
 /obj/machinery/bsa/front
 	name = "Bluespace Artillery Bore"
-	desc = "Do not stand in front of cannon during operation. Needs to be linked with a fusor."
+	desc = "Не стойте перед орудием во время работы. Требуется соединение с фузором."
+	ru_names = list(
+		NOMINATIVE = "ускоритель блюспейс-артиллерии",
+		GENITIVE = "ускорителя блюспейс-артиллерии",
+		DATIVE = "ускорителю блюспейс-артиллерии",
+		ACCUSATIVE = "ускоритель блюспейс-артиллерии",
+		INSTRUMENTAL = "ускорителем блюспейс-артиллерии",
+		PREPOSITIONAL = "ускорителе блюспейс-артиллерии"
+	)
 	icon_state = "emitter_center"
 
 
@@ -74,12 +88,20 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 		return .
 	var/obj/item/multitool/multitool = I
 	multitool.buffer = src
-	to_chat(user, span_notice("You have stored the linkage information in [multitool]'s buffer."))
+	to_chat(user, span_notice("Вы сохранили информацию о соединении в буфере [multitool.declent_ru(GENITIVE)]."))
 
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
-	desc = "Contents classifed by Nanotrasen Naval Command. Needs to be linked with the other BSA parts using multitool."
+	desc = "Содержимое засекречено военно-космическим командованием НаноТрейзен. Требуется соединение с другими компонентами БСА с помощью мультитула."
+	ru_names = list(
+		NOMINATIVE = "фузор блюспейс-артиллерии",
+		GENITIVE = "фузора блюспейс-артиллерии",
+		DATIVE = "фузору блюспейс-артиллерии",
+		ACCUSATIVE = "фузор блюспейс-артиллерии",
+		INSTRUMENTAL = "фузором блюспейс-артиллерии",
+		PREPOSITIONAL = "фузоре блюспейс-артиллерии"
+	)
 	icon_state = "fuel_chamber"
 	var/obj/machinery/bsa/back/back
 	var/obj/machinery/bsa/front/front
@@ -96,29 +118,29 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 	var/obj/item/multitool/multitool = I
 	if(!multitool.buffer)
 		add_fingerprint(user)
-		to_chat(user, span_warning("The [multitool.name]'s buffer has no stored information."))
+		to_chat(user, span_warning("Буфер [multitool.declent_ru(GENITIVE)] не содержит сохраненной информации."))
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	if(istype(multitool.buffer, /obj/machinery/bsa/back))
 		back = multitool.buffer
 		multitool.buffer = null
-		to_chat(user, span_notice("You have linked [src] with [back]."))
+		to_chat(user, span_notice("Вы соединили [src.declent_ru(ACCUSATIVE)] с [back.declent_ru(INSTRUMENTAL)]."))
 	else if(istype(multitool.buffer, /obj/machinery/bsa/front))
 		front = multitool.buffer
 		multitool.buffer = null
-		to_chat(user, span_notice("You have linked [src] with [front]."))
+		to_chat(user, span_notice("Вы соединили [src.declent_ru(ACCUSATIVE)] с [front.declent_ru(INSTRUMENTAL)]."))
 
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)
-		return "No multitool-linked parts detected!"
+		return "Не обнаружено соединенных компонентов!"
 	if(!front.anchored || !back.anchored || !anchored)
-		return "Linked parts unwrenched!"
+		return "Компоненты не закреплены!"
 	if(front.y != y || back.y != y || !(front.x > x && back.x < x || front.x < x && back.x > x) || front.z != z || back.z != z)
-		return "Parts misaligned!"
+		return "Компоненты не выровнены!"
 	if(!has_space())
-		return "Not enough free space!"
+		return "Недостаточно свободного места!"
 
 /obj/machinery/bsa/middle/proc/has_space()
 	var/cannon_dir = get_cannon_direction()
@@ -145,7 +167,15 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 
 /obj/machinery/bsa/full
 	name = "Bluespace Artillery"
-	desc = "Long range bluespace artillery."
+	desc = "Дальнобойная блюспейс-артиллерия."
+	ru_names = list(
+		NOMINATIVE = "блюспейс-артиллерия",
+		GENITIVE = "блюспейс-артиллерии",
+		DATIVE = "блюспейс-артиллерии",
+		ACCUSATIVE = "блюспейс-артиллерию",
+		INSTRUMENTAL = "блюспейс-артиллерией",
+		PREPOSITIONAL = "блюспейс-артиллерии"
+	)
 	icon = 'icons/obj/lavaland/cannon.dmi'
 	icon_state = "cannon_west"
 
@@ -162,12 +192,7 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 	bound_width = 352
 	bound_x = -192
 
-/obj/machinery/bsa/full/New()
-	. = ..()
-	GLOB.bluespace_cannons += src
-
 /obj/machinery/bsa/full/Destroy()
-	GLOB.bluespace_cannons -= src
 	if(controller && controller.cannon == src)
 		controller.cannon = null
 		controller = null
@@ -281,6 +306,14 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 
 /obj/machinery/computer/bsa_control
 	name = "Bluespace Artillery Control"
+	ru_names = list(
+		NOMINATIVE = "консоль управления БСА",
+		GENITIVE = "консоли управления БСА",
+		DATIVE = "консоли управления БСА",
+		ACCUSATIVE = "консоль управления БСА",
+		INSTRUMENTAL = "консолью управления БСА",
+		PREPOSITIONAL = "консоли управления БСА"
+	)
 	var/obj/machinery/bsa/full/cannon
 	var/notice
 	var/target
@@ -379,7 +412,7 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 	var/list/options = gps_locators
 	if(area_aim)
 		options += target_all_areas ? GLOB.ghostteleportlocs : GLOB.teleportlocs
-	var/choose = tgui_input_list(user, "Select target", "Target",  options)
+	var/choose = tgui_input_list(user, "Выберите цель", "Наведение", options)
 	if(!choose)
 		return
 	target = options[choose]
@@ -402,7 +435,7 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 	if(!cannon || !target)
 		return
 	if(cannon.stat)
-		notice = "Cannon unpowered!"
+		notice = "Орудие не подключено к питанию!"
 		return
 	notice = null
 	cannon.fire(user, get_impact_turf())
@@ -415,7 +448,7 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 
 	var/obj/machinery/bsa/middle/centerpiece = locate() in range(7, src)
 	if(!centerpiece)
-		notice = "No BSA parts detected nearby."
+		notice = "Компоненты БСА не обнаружены поблизости."
 		return null
 	notice = centerpiece.check_completion()
 	if(notice)

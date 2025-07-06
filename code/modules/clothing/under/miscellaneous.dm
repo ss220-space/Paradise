@@ -987,7 +987,19 @@
 
 /obj/item/clothing/under/medigown
 	name = "medical gown"
-	desc = "a flimsy examination gown, the back ties never close."
+	desc = "Халат, предназначенный для использования медицинским персоналом. \
+			Изготовлен из лёгкой ткани с минимальной защитой от биологических загрязнений. \
+			Застёжки на спине слабые и не застёгиваются должным образом, \
+			что делает этот халат не самым популярным выбором среди остальной униформы."
+	ru_names = list(
+		NOMINATIVE = "медицинский халат",
+		GENITIVE = "медицинского халата",
+		DATIVE = "медицинскому халату",
+		ACCUSATIVE = "медицинский халат",
+		INSTRUMENTAL = "медицинским халатом",
+		PREPOSITIONAL = "медицинском халате"
+	)
+	gender = MALE
 	icon_state = "medicalgown"
 	item_state = "medicalgown"
 	item_color = "medicalgown"

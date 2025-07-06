@@ -455,3 +455,9 @@
 	desc = "Honk honk"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "clowngoblin"
+
+/obj/item/holder/library_owl
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "library_owl"

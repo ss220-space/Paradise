@@ -54,6 +54,16 @@
 		current_turf_slowdown = 0
 
 
+/mob/living/proc/get_strength_pull_slowdown_modifier()
+	var/mod = 1
+	var/list/mods = list()
+	SEND_SIGNAL(src, COMSIG_GET_PULL_SLOWDOWN_MODIFIERS, mods)
+	for(var/modifier in mods)
+		mod *= modifier
+
+	return mod
+
+
 /mob/living/proc/update_pull_movespeed()
 	SEND_SIGNAL(src, COMSIG_LIVING_UPDATING_PULL_MOVESPEED)
 
@@ -66,9 +76,11 @@
 		if(!slowed_by_pull_and_push || pulling_mob.body_position == STANDING_UP || grab_state > GRAB_PASSIVE || HAS_TRAIT(src, TRAIT_STRONG_PULLING))
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 			return
+
 		if(!pulling_mob.buckled)
-			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = PULL_LYING_MOB_SLOWDOWN)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = PULL_LYING_MOB_SLOWDOWN * get_strength_pull_slowdown_modifier())
 			return
+
 		var/slowdown_value = 0
 		if(isobj(pulling_mob.buckled))
 			var/obj/pulling_buckled_obj = pulling_mob.buckled
@@ -77,9 +89,10 @@
 		else if(isliving(pulling_mob.buckled))
 			var/mob/living/pulling_buckled_mob = pulling_mob.buckled
 			if(pulling_buckled_mob.body_position == LYING_DOWN)
-				slowdown_value = PULL_LYING_MOB_SLOWDOWN
+				slowdown_value = PULL_LYING_MOB_SLOWDOWN * get_strength_pull_slowdown_modifier()
+
 		if(slowdown_value)
-			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = slowdown_value)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = slowdown_value * get_strength_pull_slowdown_modifier())
 		else
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 
@@ -88,7 +101,7 @@
 		if(!slowed_by_pull_and_push || !pulling_obj.pull_push_slowdown)
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 			return
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = pulling_obj.pull_push_slowdown)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = pulling_obj.pull_push_slowdown * get_strength_pull_slowdown_modifier())
 
 
 /mob/living/proc/update_push_movespeed()
@@ -103,14 +116,15 @@
 		if(!slowed_by_pull_and_push || pushing_mob.body_position == LYING_DOWN)
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
 			return
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = PUSH_STANDING_MOB_SLOWDOWN)
+
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = PUSH_STANDING_MOB_SLOWDOWN * get_strength_pull_slowdown_modifier())
 
 	else if(isobj(now_pushing))
 		var/obj/pushing_obj = now_pushing
 		if(!slowed_by_pull_and_push || !pushing_obj.pull_push_slowdown)
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
 			return
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = pushing_obj.pull_push_slowdown)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = pushing_obj.pull_push_slowdown * get_strength_pull_slowdown_modifier())
 
 
 /mob/living/proc/can_change_move_intent(silent = FALSE)
@@ -209,7 +223,7 @@
 /mob/living/can_z_move(direction, turf/start, turf/destination, z_move_flags = ZMOVE_FLIGHT_FLAGS, mob/living/rider)
 	if(z_move_flags & ZMOVE_INCAPACITATED_CHECKS && incapacitated())
 		if(z_move_flags & ZMOVE_FEEDBACK)
-			to_chat(rider || src, "<span class='warning'>[rider ? src : "You"] can't do that right now!</span>")
+			to_chat(rider || src, span_warning("[rider ? src : "Ты"] не можешь сделать это прямо сейчас"))
 		return FALSE
 	if(!buckled || !(z_move_flags & ZMOVE_ALLOW_BUCKLED))
 		if(!(z_move_flags & ZMOVE_FALL_CHECKS) && incorporeal_move && (!rider || rider.incorporeal_move))
@@ -221,7 +235,7 @@
 	if(!(z_move_flags & ZMOVE_CAN_FLY_CHECKS) && !buckled.anchored) // may be issues with vehicles...
 		return buckled.can_z_move(direction, start, destination, z_move_flags, src)
 	if(z_move_flags & ZMOVE_FEEDBACK)
-		to_chat(src, "<span class='notice'>Unbuckle from [buckled] first.<span>")
+		to_chat(src, span_notice("Сначала отстегнись от [buckled.declent_ru(GENITIVE)]!"))
 	return FALSE
 
 /mob/set_currently_z_moving(value)
@@ -255,9 +269,9 @@
 	if(!ceiling) //We are at the highest z-level.
 		end_look_up() // Why would you look from highest? cancel trying.
 		if (prob(0.1))
-			to_chat(src, span_warning("You gaze out into the infinite vastness of deep space, for a moment, you have the impulse to continue travelling, out there, out into the deep beyond, before your conciousness reasserts itself and you decide to stay within travelling distance of the station."))
+			to_chat(src, span_warning("Вы смотрите в бескрайнюю пустоту глубокого космоса. На мгновение вас охватывает импульс продолжить путь - туда, в бесконечную даль, прежде чем сознание берёт верх, и вы решаете остаться в пределах досягаемости станции."))
 			return
-		to_chat(src, span_warning("There's nothing interesting up there."))
+		to_chat(src, span_warning("Там нет ничего интересного."))
 		return
 	else if(!ceiling.transparent_floor) //There is no turf we can look through above us
 		var/turf/front_hole = get_step(ceiling, dir)
@@ -269,7 +283,7 @@
 					ceiling = checkhole
 					break
 		if(!ceiling.transparent_floor)
-			to_chat(src, span_warning("You can't see through the floor above you."))
+			to_chat(src, span_warning("Вы не можете разглядеть, что находится над вами."))
 			return
 
 	reset_perspective(ceiling)
@@ -304,7 +318,7 @@
 	var/turf/floor = get_turf(src)
 	var/turf/lower_level = get_step_multiz(floor, DOWN)
 	if(!lower_level) //We are at the lowest z-level.
-		to_chat(src, span_warning("You can't see through the floor below you."))
+		to_chat(src, span_warning("Вы не можете разглядеть, что находится под вами."))
 		end_look_down() // Looking to the bottom, no need to try.
 		return
 	else if(!floor.transparent_floor) //There is no turf we can look through below us
@@ -320,7 +334,7 @@
 					lower_level = get_step_multiz(checkhole, DOWN)
 					break
 		if(!floor.transparent_floor)
-			to_chat(src, span_warning("You can't see through the floor below you."))
+			to_chat(src, span_warning("Вы не можете разглядеть, что находится под вами."))
 			return
 
 	reset_perspective(lower_level)

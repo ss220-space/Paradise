@@ -18,7 +18,7 @@
 	if(new_dir)
 		reflect_turf = get_step(reflect_turf, new_dir)
 	else
-		visible_message(span_notice("[src] is hit by [P]!"), projectile_message = TRUE)
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] поражён[genderize_ru(gender,"","а","о","ы")] [P.declent_ru(INSTRUMENTAL)]!"), projectile_message = TRUE)
 		new_dir = 0
 		return ..() //Hits as normal, explodes or emps or whatever
 
