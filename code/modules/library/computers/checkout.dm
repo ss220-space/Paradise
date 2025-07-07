@@ -2,12 +2,21 @@
  * Library Computer
  */
 /obj/machinery/computer/library/checkout
-	name = "Check-In/Out Computer"
+	name = "Library Computer"
+	desc = "Старый библиотечный компьютер, хранящий в своей памяти сотни, если не тысячи, книг."
+	ru_names = list(
+		NOMINATIVE = "библиотечный компьютер",
+		GENITIVE = "библиотечного компьютера",
+		DATIVE = "библиотечному компьютеру",
+		ACCUSATIVE = "библиотечный компьютер",
+		INSTRUMENTAL = "библиотечным компьютером",
+		PREPOSITIONAL = "библиотечном компьютере"
+	)
 	var/arcanecheckout = 0
 	//var/screenstate = 0 // 0 - Main Menu, 1 - Inventory, 2 - Checked Out, 3 - Check Out a Book
 	var/buffer_book
 	var/buffer_mob
-	var/upload_category = "Fiction"
+	var/upload_category = "Художественная"
 	var/list/checkouts = list()
 	var/list/inventory = list()
 	var/checkoutperiod = 5 // In minutes
@@ -31,15 +40,15 @@
 			// Main Menu
 
 			dat += {"<ol>
-				<li><a href='byond://?src=[UID()];switchscreen=1'>View General Inventory</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=2'>View Checked Out Inventory</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=3'>Check out a Book</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=4'>Connect to External Archive</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=5'>Upload New Title to Archive</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=6'>Print a Bible</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=7'>Print a Manual</a></li>"}
+				<li><a href='byond://?src=[UID()];switchscreen=1'Просмотр общего инвентаря</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=2'>Просмотр зарегистрированного инвентаря</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=3'>Напечатать книгу</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=4'>Подключиться к внешнему архиву</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=5'>Опубликовать новое Произведение в Архив</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=6'>Напечатать библию</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=7'>Напечатать руководство</a></li>"}
 			if(src.emagged)
-				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</a></li>"
+				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</a></li>" Допуск к засекреченн
 			dat += "</ol>"
 
 			if(src.arcanecheckout)
