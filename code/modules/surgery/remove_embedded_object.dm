@@ -1,5 +1,5 @@
 /datum/surgery/embedded_removal
-	name = "Removal of Embedded Objects"
+	name = "Извлечение инородных объектов"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -42,7 +42,7 @@
 		return FALSE
 
 /datum/surgery_step/remove_object
-	name = "Remove Embedded Objects"
+	name = "извлечение объекта из тела"
 	begin_sound = 'sound/surgery/organ1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
 
@@ -53,35 +53,44 @@
 
 
 /datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	L = surgery.organ_to_manipulate
 	if(L)
 		user.visible_message(
-			"[user] looks for objects embedded in [target]'s [parse_zone(user.zone_selected)].",
-			span_notice("You look for objects embedded in [target]'s [parse_zone(user.zone_selected)]..."),
+			span_notice("[user] ищ[pluralize_ru(user.gender, "ет", "ут")] инородные объекты в [affected.declent_ru(PREPOSITIONAL)] [target]."),
+			span_notice("Вы ищете инородные объекты в [affected.declent_ru(PREPOSITIONAL)] [target]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 			)
 	else
 		user.visible_message(
-			"[user] looks for [target]'s [parse_zone(user.zone_selected)].",
-			span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."),
+			span_notice("[user] ищ[pluralize_ru(user.gender, "ет", "ут")] [affected.declent_ru(ACCUSATIVE)] у [target]."),
+			span_notice("Вы ищете [affected.declent_ru(ACCUSATIVE)] у [target]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 			)
 	return ..()
 
 
 /datum/surgery_step/remove_object/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(L)
 		var/objects_removed = L.remove_all_embedded_objects()
 		if(objects_removed)
 			user.visible_message(
-				"[user] sucessfully removes [objects_removed] embedded objects from [target]'s [L.name]!",
-				span_notice("You successfully remove [objects_removed] embedded objects from [target]'s [L.name]."),
+				span_notice("[user] извлека[pluralize_ru(user.gender, "ет", "ют")] [objects_removed] [declension_ru(objects_removed, "инородный объект", "инородных объекта", "инородных объектов")] из [affected.declent_ru(GENITIVE)] [target]."),
+				span_notice("Вы извлекаете [objects_removed] [declension_ru(objects_removed, "инородный объект", "инородных объекта", "инородных объектов")] из [affected.declent_ru(GENITIVE)] [target]."),
 				chat_message_type = MESSAGE_TYPE_COMBAT)
 		else
-			to_chat(user, span_warning("You find no objects embedded in [target]'s [L.name]!"))
-
+			user.visible_message(
+				span_notice("[user] не наход[pluralize_ru(user.gender, "ит", "ят")] никаких инородных объектов в [affected.declent_ru(PREPOSITIONAL)] [target]."),
+				span_notice("Вы не находите никаких инородных объектов в [affected.declent_ru(PREPOSITIONAL)] [target]."),
+				chat_message_type = MESSAGE_TYPE_COMBAT
+			)
 	else
-		to_chat(user, span_warning("You can't find [target]'s [parse_zone(user.zone_selected)], let alone any objects embedded in it!"))
+		user.visible_message(
+			span_notice("[user] не наход[pluralize_ru(user.gender, "ит", "ят")] [affected.declent_ru(ACCUSATIVE)] у [target]."),
+			span_notice("Вы не находите [affected.declent_ru(ACCUSATIVE)] у [target]."),
+			chat_message_type = MESSAGE_TYPE_COMBAT
+		)
 
 	return SURGERY_STEP_CONTINUE
 

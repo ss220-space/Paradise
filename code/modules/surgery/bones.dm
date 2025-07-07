@@ -5,7 +5,7 @@
 ///Surgery Datums
 
 /datum/surgery/bone_repair
-	name = "Bone Repair"
+	name = "Восстановление повреждённых костей"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -31,7 +31,7 @@
 	restricted_speciestypes = list(/datum/species/plasmaman)
 
 /datum/surgery/bone_repair/non_hitin
-	name = "Bone Repair"
+	name = "Восстановление повреждённых костей"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -49,7 +49,7 @@
 	restricted_speciestypes = list(/datum/species/plasmaman, /datum/species/wryn, /datum/species/kidan)
 
 /datum/surgery/bone_repair/plasmaman
-	name = "Plasmaman Bone Repair"
+	name = "Восстановление повреждённых костей (Плазмолюд)"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -76,7 +76,7 @@
 	restricted_speciestypes = null
 
 /datum/surgery/bone_repair/insect
-	name = "Insectoid Bone Repair"
+	name = "Восстановление повреждённых костей (Инсектоид)"
 	steps = list(
 		/datum/surgery_step/open_encased/saw,
 		/datum/surgery_step/generic/retract_skin,
@@ -97,7 +97,7 @@
 	restricted_speciestypes = null
 
 /datum/surgery/bone_repair/skull
-	name = "Skull Repair"
+	name = "Восстановление повреждённых костей черепа"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -112,7 +112,7 @@
 	restricted_speciestypes = list(/datum/species/plasmaman)
 
 /datum/surgery/bone_repair/plasmaman/skull
-	name = "Plasmaman Skull Repair"
+	name = "Восстановление повреждённых костей черепа (Плазмолюд)"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -137,7 +137,7 @@
 
 //surgery steps
 /datum/surgery_step/glue_bone
-	name = "mend bone"
+	name = "сращивание костей"
 	begin_sound = 'sound/surgery/bonegel.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -151,7 +151,7 @@
 	time = 2.4 SECONDS
 
 /datum/surgery_step/glue_bone/plasma
-	name = "mend bone"
+	name = "сращивание костей (Плазмолюд)"
 
 	allowed_tools = list(
 	/obj/item/stack/sheet/mineral/plasma = 100
@@ -164,18 +164,18 @@
 /datum/surgery_step/glue_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] starts applying medication to the damaged bones in [target]'s [affected.name] with \the [tool].",
-		"You start applying medication to the damaged bones in [target]'s [affected.name] with \the [tool].",
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] сращивать повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете сращивать повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
+	target.custom_pain("Вы чувствуете острую боль в [affected.declent_ru(PREPOSITIONAL)]!")
 	return ..()
 
 /datum/surgery_step/glue_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] applies some [tool] to [target]'s bone in [affected.name]"),
-		span_notice("You apply some [tool] to [target]'s bone in [affected.name] with \the [tool]."),
+		span_notice("[user] сращива[pluralize_ru(user.gender, "ет", "ют")] повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы сращиваете повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_CONTINUE
@@ -183,8 +183,8 @@
 /datum/surgery_step/glue_bone/plasma/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] applies some [tool] to [target]'s bone in [affected.name]. You see the plasma flowing through the bones, reattaching them!"), \
-		span_notice("You apply some [tool] to [target]'s bone in [affected.name] with \the [tool]. You see the plasma flowing through the bones, reattaching them!"),
+		span_notice("[user] сращива[pluralize_ru(user.gender, "ет", "ют")] повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя кусок твёрдой плазмы."), \
+		span_notice("Вы сращиваете повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя кусок твёрдой плазмы."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.mend_fracture()
@@ -194,15 +194,15 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_warning("[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
-		span_warning("Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("Вы дёргаете рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(3, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/set_bone
-	name = "set bone"
+	name = "закрепление костей"
 	begin_sound = 'sound/surgery/bonesetter.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -216,18 +216,18 @@
 /datum/surgery_step/set_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] is beginning to set the bone in [target]'s [affected.name] in place with \the [tool].",
-		"You are beginning to set the bone in [target]'s [affected.name] in place with \the [tool].",
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] закреплять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете закреплять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("The pain in your [affected.name] is going to make you pass out!")
+	target.custom_pain("Вы едва не теряете сознание от невыносимой боли в [affected.declent_ru(PREPOSITIONAL)]!")
 	return ..()
 
 /datum/surgery_step/set_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] sets the bone in [target]'s [affected.name] in place with \the [tool]."),
-		span_notice("You set the bone in [target]'s [affected.name] in place with \the [tool]."),
+		span_notice("[user] закрепля[pluralize_ru(user.gender, "ет", "ют")] кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы закрепляете кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_CONTINUE
@@ -235,29 +235,28 @@
 /datum/surgery_step/set_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user]'s hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!"),
-		span_warning("Your hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] кость в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] кость в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(5, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/set_bone/mend_skull
-	name = "mend skull"
+	name = "закрепление костей черепа"
 
 /datum/surgery_step/set_bone/mend_skull/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message(
-		"[user] is beginning piece together [target]'s skull with \the [tool].",
-		"You are beginning piece together [target]'s skull with \the [tool].",
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] закреплять кости черепа [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете закреплять кости черепа [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
 /datum/surgery_step/set_bone/mend_skull/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] sets [target]'s [affected.encased] with \the [tool]."),
-		span_notice("You set [target]'s [affected.encased] with \the [tool]."),
+		span_notice("[user] закрепля[pluralize_ru(user.gender, "ет", "ют")] кости черепа [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы закрепляете кости черепа [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -266,8 +265,8 @@
 /datum/surgery_step/set_bone/mend_skull/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/head/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user]'s hand slips, damaging [target]'s face with \the [tool]!"),
-		span_warning(">Your hand slips, damaging [target]'s face with \the [tool]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] череп [target]!"),
+		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] череп [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(10, def_zone = affected)
@@ -275,7 +274,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/finish_bone
-	name = "medicate bones"
+	name = "заживление костей"
 	begin_sound = 'sound/surgery/bonegel.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -291,16 +290,16 @@
 /datum/surgery_step/finish_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] starts to finish mending the damaged bones in [target]'s [affected.name] with \the [tool].",
-		"You start to finish mending the damaged bones in [target]'s [affected.name] with \the [tool]."
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] заживлять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете заживлять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	return ..()
 
 /datum/surgery_step/finish_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] has mended the damaged bones in [target]'s [affected.name] with \the [tool]."),
-		span_notice("You have mended the damaged bones in [target]'s [affected.name] with \the [tool].")
+		span_notice("[user] восстанавлива[pluralize_ru(user.gender, "ет", "ют")] кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы восстанавливаете кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	affected.mend_fracture()
 	return SURGERY_STEP_CONTINUE
@@ -308,8 +307,8 @@
 /datum/surgery_step/finish_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
-		span_warning("Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!")
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("Вы дёргаете рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 	)
 	target.apply_damage(3, def_zone = affected)
 	return SURGERY_STEP_RETRY

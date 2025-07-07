@@ -1,6 +1,7 @@
 /obj/item/storage/belt
 	name = "belt"
 	desc = "Can hold various things."
+	gender = MALE
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
 	item_state = "utility"
@@ -35,8 +36,17 @@
 		return
 	if (!usr.put_in_any_hand_if_possible(item))
 		return
-	to_chat(usr, span_notice("Вы достаете [item.name] с пояса."))
+	to_chat(usr, span_notice("Вы достаете [item.declent_ru(ACCUSATIVE)] с пояса."))
 	balloon_alert(usr, "снято с пояса")
+
+/obj/item/storage/belt/proc/try_fast_unequip_item_to_belt(obj/item/item)
+	if (item == null)
+		return
+	if (!can_be_inserted(item)) // Detail stop message in check proc
+		balloon_alert(usr, "не помещается в пояс")
+		return
+	if (handle_item_insertion(item))
+		balloon_alert(usr, "повесил на пояс")
 
 /obj/item/storage/belt/proc/find_content_by_name(choice)
 	for(var/obj/item in contents)
@@ -66,6 +76,10 @@
 	try_fast_equip_item_from_belt(selected)
 
 /obj/item/storage/belt/attack_self(mob/user = usr)
+	var/obj/item/hand_item = user.get_active_hand()
+	if (hand_item)
+		try_fast_unequip_item_to_belt(hand_item)
+		return
 	radial_menu(user)
 
 /obj/item/storage/belt/item_action_slot_check(slot, mob/user, datum/action/action)
@@ -163,9 +177,17 @@
 	//much roomier now that we've managed to remove two tools
 
 /obj/item/storage/belt/medical
-	use_to_pickup = 1 //Allow medical belt to pick up medicine
 	name = "medical belt"
-	desc = "Can hold various medical equipment."
+	desc = "Универсальный медицинский пояс, предназначенный для размещения и переноски медицинских приспособлений и лекарственных средств. \
+			Оборудован рядом карманов и креплений для мелких предметов. Используется медицинским персоналом."
+	ru_names = list(
+		NOMINATIVE = "медицинский пояс",
+		GENITIVE = "медицинского пояса",
+		DATIVE = "медицинскому поясу",
+		ACCUSATIVE = "медицинский пояс",
+		INSTRUMENTAL = "медицинским поясом",
+		PREPOSITIONAL = "медицинском поясе"
+	)
 	icon_state = "medicalbelt"
 	item_state = "medical"
 	use_item_overlays = TRUE
@@ -194,15 +216,23 @@
 		/obj/item/handheld_defibrillator,
 		/obj/item/reagent_containers/applicator,
 		/obj/item/radio)
+	use_to_pickup = 1 //Allow medical belt to pick up medicine
 
 /obj/item/storage/belt/medical/surgery
-	max_w_class = WEIGHT_CLASS_NORMAL
-	max_combined_w_class = 17
-	use_to_pickup = 1
 	name = "surgical belt"
+	desc = "Универсальный хирургический пояс, предназначенный для размещения и переноски хирургических инструментов. \
+			Оборудован нескользящими вставками для удержания инструментов. Используется хирургическим персоналом."
+	ru_names = list(
+		NOMINATIVE = "хирургический пояс",
+		GENITIVE = "хирургического пояса",
+		DATIVE = "хирургическому поясу",
+		ACCUSATIVE = "хирургический пояс",
+		INSTRUMENTAL = "хирургическим поясом",
+		PREPOSITIONAL = "хирургическом поясе"
+	)
 	icon_state = "surgicalbelt"
 	item_state = "surgical"
-	desc = "Can hold various surgical tools."
+	max_combined_w_class = 17
 	storage_slots = 11
 	use_item_overlays = TRUE
 	can_hold = list(

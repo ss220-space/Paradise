@@ -12,7 +12,6 @@
 		INSTRUMENTAL = "изоляционными перчатками",
 		PREPOSITIONAL = "изоляционных перчатках"
 	)
-	gender = PLURAL
 	icon_state = "yellow"
 	item_state = "ygloves"
 	belt_icon = "ygloves"
@@ -251,20 +250,39 @@
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
-	desc = "Cheap sterile gloves made from latex."
+	desc = "Дешёвые стерильные перчатки белого цвета, изготовленные из латекса. \
+			Обеспечивают защиту от биологических загрязнений и практически не пропускают вредные вещества."
+	ru_names = list(
+		NOMINATIVE = "латексные перчатки",
+		GENITIVE = "латексных перчаток",
+		DATIVE = "латексным перчаткам",
+		ACCUSATIVE = "латексные перчатки",
+		INSTRUMENTAL = "латексными перчатками",
+		PREPOSITIONAL = "латексных перчатках"
+	)
 	icon_state = "latex"
 	item_state = "lgloves"
 	belt_icon = "latex_gloves"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
-	item_color="white"
+	item_color= "white"
 	transfer_prints = TRUE
 	resistance_flags = NONE
 	clothing_traits = list(TRAIT_QUICK_CARRY)
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
-	desc = "Pricy sterile gloves that are stronger than latex."
+	desc = "Высокопрочные стерильные перчатки, изготовленные из синтетического нитрила. \
+			Обеспечивают защиту от биологических загрязнений и практически не пропускают вредные вещества. \
+			Обычно используются врачами и криминалистами."
+	ru_names = list(
+		NOMINATIVE = "нитриловые перчатки",
+		GENITIVE = "нитриловых перчаток",
+		DATIVE = "нитриловым перчаткам",
+		ACCUSATIVE = "нитриловые перчатки",
+		INSTRUMENTAL = "нитриловыми перчатками",
+		PREPOSITIONAL = "нитриловых перчатках"
+	)
 	icon_state = "nitrile"
 	item_state = "nitrile"
 	transfer_prints = FALSE
@@ -273,7 +291,17 @@
 
 /obj/item/clothing/gloves/color/latex/modified
 	name = "modified medical gloves"
-	desc = "They are very soft and light to the touch and do not hinder movement at all."
+	desc = "Передовые медицинские перчатки, созданные из сверхтонкого гибридного полимера, сочетающего эластичность латекса и прочность нитрила. \
+			Обеспечивают защиту от биологических загрязнений и практически не пропускают вредные вещества. \
+			Обеспечивают удобство и повышенную точность при проведении хирургических операций."
+	ru_names = list(
+		NOMINATIVE = "модифицированные медицинские перчатки",
+		GENITIVE = "модифицированных медицинских перчаток",
+		DATIVE = "модифицированным медицинским перчаткам",
+		ACCUSATIVE = "модифицированные медицинские перчатки",
+		INSTRUMENTAL = "модифицированными медицинскими перчатками",
+		PREPOSITIONAL = "модифицированных медицинских перчатках"
+	)
 	icon_state = "modified"
 	item_state = "modified"
 	item_color = "modified"
@@ -281,7 +309,9 @@
 
 /obj/item/clothing/gloves/color/latex/inugami
 	name = "medical gloves Inugami"
-	desc = "Прототип медицинских перчаток, оснащённых наночипами, что значительно повышают эффективность работы носителя во время проведения хирургических операций."
+	desc = "Перчатки медицинского назначения серии Inugami — прототип, разработанный для использования хирургами. \
+			Изготовлены из полимерного материала, обеспечивающего защиту от биологических загрязнений и практически не пропускающего вредные вещества. \
+			Оснащены встроенными наночипами, существенно повышающими скорость выполнения хирургических операций."
 	ru_names = list(
 		NOMINATIVE = "медицинские перчатки Inugami",
 		GENITIVE = "медицинских перчаток Inugami",
