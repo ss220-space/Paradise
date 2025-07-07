@@ -52,8 +52,8 @@
 /// This component gets added in atoms when they're made sharp as well.
 /datum/component/surgery_initiator/proc/on_parent_sharpness_change()
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
-	var/obj/item/P = parent
-	if(!P.sharp)
+	var/obj/item/tool = parent
+	if(!tool.sharp)
 		ClearFromParent()
 		qdel(src)
 
@@ -79,7 +79,7 @@
 				return
 
 	if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-		to_chat(user, span_notice("You realise that a ghost probably doesn't have any useful organs."))
+		user.balloon_alert(user, "неподходящая цель!")
 		return //no cult ghost surgery please
 	INVOKE_ASYNC(src, PROC_REF(do_initiate_surgery_moment), target, user)
 	// This signal is actually part of the attack chain, so it needs to return COMPONENT_CANCEL_ATTACK_CHAIN to stop it
@@ -114,9 +114,9 @@
 
 	if(!length(available_surgeries))
 		if(target.body_position == LYING_DOWN)
-			to_chat(user, span_notice("There aren't any surgeries you can perform there right now."))
+			user.balloon_alert(user, "нет доступных операций!")
 		else
-			to_chat(user, span_notice("You can't perform any surgeries there while [target] is standing."))
+			user.balloon_alert(user, "цель не лежит!")
 		return
 
 	// if we have a surgery that should be performed regardless with this item,
@@ -127,7 +127,7 @@
 				procedure = S
 				break
 	else
-		procedure = tgui_input_list(user, "Begin which procedure?", "Surgery", available_surgeries)
+		procedure = tgui_input_list(user, "Выберите операцию", "Начало операции", available_surgeries)
 
 	if(!procedure)
 		return
@@ -155,13 +155,22 @@
 /// Does the surgery de-initiation.
 /datum/component/surgery_initiator/proc/attempt_cancel_surgery(datum/surgery/the_surgery, mob/living/patient, mob/user)
 	var/selected_zone = user.zone_selected
+	var/obj/item/organ/external/affected_organ = patient.get_organ(user.zone_selected)
+	var/obj/item/tool = parent
+
 	/// We haven't even started yet. Any surgery can be cancelled at this point.
 	if(the_surgery.step_number == 1)
 		patient.surgeries -= the_surgery
-		user.visible_message(
-			span_notice("[user] stops the surgery on [patient]'s [parse_zone(selected_zone)] with [parent]."),
-			span_notice("You stop the surgery on [patient]'s [parse_zone(selected_zone)] with [parent]."),
-		)
+		if(affected_organ)
+			user.visible_message(
+				span_notice("[user] прерыва[pluralize_ru(user.gender, "ет", "ют")] операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы прерываете операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [tool.declent_ru(ACCUSATIVE)].")
+			)
+		else
+			user.visible_message(
+				span_notice("[user] прерыва[pluralize_ru(user.gender, "ет", "ют")] операцию на [parse_zone(selected_zone)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы прерываете операцию на [parse_zone(selected_zone)] [patient], используя [tool.declent_ru(ACCUSATIVE)].")
+			)
 
 		qdel(the_surgery)
 		return TRUE
@@ -208,7 +217,8 @@
 		else
 			close_tool = locate(/obj/item/crowbar) in user.get_all_slots()
 			if(!close_tool)
-				to_chat(user, span_warning("You need a prying tool in an inactive slot to stop the surgery!"))
+				user.balloon_alert(user, "операция не завершена!")
+				to_chat(user, span_warning("Для завершения операции нужно держать поддевающий инструмент в неактивной руке!"))
 				return TRUE
 
 	else if(other_hand)
@@ -218,7 +228,8 @@
 				break
 
 	if(!close_tool)
-		to_chat(user, span_warning("You need a [is_robotic ? "prying": "cauterizing"] tool in your inactive hand to stop the surgery!"))
+		user.balloon_alert(user, "операция не завершена!")
+		to_chat(user, span_warning("Для завершения операции нужно держать [is_robotic ? "поддевающий": "прижигающий"] инструмент в неактивной руке!"))
 		return TRUE
 
 	if(skip_surgery || chosen_close_step.try_op(user, patient, selected_zone, close_tool, the_surgery) == SURGERY_INITIATE_SUCCESS)
@@ -237,13 +248,13 @@
 
 	// The item was moved somewhere else
 	if(!(parent in user))
-		to_chat(user, span_warning("You cannot start an operation if you aren't holding the tool anymore."))
+		user.balloon_alert(user, "инструмент не в активной руке!")
 		return FALSE
 
 	// While we were choosing, another surgery was started at the same location
 	for(var/datum/surgery/surgery in target.surgeries)
 		if(surgery.location == user.zone_selected)
-			to_chat(user, span_warning("There's already another surgery in progress on their [parse_zone(surgery.location)]."))
+			user.balloon_alert(user, "выполняется другая операция!")
 			return FALSE
 
 	return TRUE
@@ -262,30 +273,30 @@
 
 	if(surgery.requires_bodypart == isnull(affecting_limb))
 		if(surgery.requires_bodypart)
-			to_chat(user, span_warning("The patient has no [parse_zone(selected_zone)]!"))
+			user.balloon_alert(user, "часть тела отсутствует!")
 		else
-			to_chat(user, span_warning("The patient has \a [parse_zone(selected_zone)]!"))
+			user.balloon_alert(user, "часть тела присутствует!")
 
 		return
 
 	if(!isnull(affecting_limb) && (surgery.is_organ_noncompatible(affecting_limb)))
-		to_chat(user, span_warning("That's not the right type of limb for this operation!"))
+		user.balloon_alert(user, "неподходящая часть тела!")
 		return
 
 	if(surgery.lying_required && !on_operable_surface(target))
-		to_chat(user, span_notice("Patient must be lying down for this operation."))
+		user.balloon_alert(user, "цель не лежит!")
 		return
 
 	if(target == user && !surgery.self_operable)
-		to_chat(user, span_notice("You can't perform that operation on yourself!"))
+		user.balloon_alert(user, "самооперация невозможна!")
 		return
 
 	if(!surgery.can_start(user, target))
-		to_chat(user, span_warning("Can't start the surgery!"))
+		user.balloon_alert(user, "невозможно начать операцию!")
 		return
 
 	if(surgery_needs_exposure(surgery, target, selected_zone))
-		to_chat(user, span_warning("You have to expose [target.p_their()] [parse_zone(selected_zone)] first!"))
+		user.balloon_alert(user, "часть тела закрыта одеждой!")
 		return
 
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)
@@ -299,10 +310,20 @@
 
 /// Handle to allow for easily overriding the message shown
 /datum/component/surgery_initiator/proc/show_starting_message(mob/user, mob/living/target, datum/surgery/procedure)
-	user.visible_message(
-		span_notice("[user] holds [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for surgery."),
-		span_notice("You hold [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for \an [procedure.name]."),
-	)
+	var/selected_zone = user.zone_selected
+	var/obj/item/organ/external/affected_organ = target.get_organ(user.zone_selected)
+	var/obj/item/tool = parent
+
+	if(affected_organ)
+		user.visible_message(
+			span_notice("[user] готов[pluralize_ru(user.gender, "ит", "ят")]ся начать операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
+			span_notice("Вы готовитесь начать операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
+		)
+	else
+		user.visible_message(
+			span_notice("[user] готов[pluralize_ru(user.gender, "ит", "ят")]ся начать операцию на [parse_zone(selected_zone)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
+			span_notice("Вы готовитесь начать операцию на [parse_zone(selected_zone)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
+		)
 
 /datum/component/surgery_initiator/limb
 	can_cancel = FALSE  // don't let a leg cancel a surgery
