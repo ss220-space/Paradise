@@ -684,14 +684,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 					owner.visible_message(
 						span_danger("[capitalize(declent_ru(NOMINATIVE))] [owner] отрыва[pluralize_ru(gender, "ет", "ют")]ся!"),
 						span_userdanger("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] отрыва[pluralize_ru(gender, "ет", "ют")]ся!"),
-						span_italics("Вы слышите ужасный звук [gore_sound]."),
+						span_italics("Вы слышите звук [gore_sound]!"),
 					)
 			if(DROPLIMB_BURN)
-				var/gore = "[is_robotic() ? "" : "горящей плоти"]"
+				var/gore_sound = "[is_robotic() ? "бульканья расплавленного металла" : "шипения горящей плоти"]"
 				owner.visible_message(
 					span_danger("[capitalize(declent_ru(NOMINATIVE))] [owner] испепеля[pluralize_ru(gender, "ет", "ют")]ся!"),
 					span_userdanger("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] испепеля[pluralize_ru(gender, "ет", "ют")]ся!"),
-					span_italics("Вы слышите ужасный звук [gore]."),
+					span_italics("Вы слышите звук [gore_sound]!"),
 				)
 			if(DROPLIMB_BLUNT)
 				var/gore = "[is_robotic() ? "брызги масла и куски скомканного металла": "брызги крови и ошмётки плоти"]"
@@ -772,8 +772,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 				thing.forceMove(drop_location())
 
 	if(organ_spilled && !silent)
-		organ_owner.visible_message(span_danger("Внутренности [organ_owner] выпадают на землю!"), \
-									span_userdanger("Ваши внутренности выпадают на землю!"))
+		organ_owner.visible_message(
+			span_danger("Внутренности [organ_owner] выпадают на землю со шлёпающим звуком!"),
+			span_userdanger("Ваши внутренности выпадают на землю со шлёпающим звуком!")
+		)
 
 	open = ORGAN_ORGANIC_OPEN
 	return TRUE
@@ -884,15 +886,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(holder.handcuffed && (limb_zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)))
 		if(!silent)
 			holder.visible_message(
-				span_warning("[capitalize(holder.handcuffed.declent_ru(NOMINATIVE))] спадыва[pluralize_ru(holder.handcuffed.gender, "ет", "ют")] с [holder.name]."), \
-				span_warning("[capitalize(holder.handcuffed.declent_ru(NOMINATIVE))] спадыва[pluralize_ru(holder.handcuffed.gender, "ет", "ют")] с вас."))
+				span_warning("[capitalize(holder.handcuffed.declent_ru(NOMINATIVE))] спадыва[pluralize_ru(holder.handcuffed.gender, "ет", "ют")] с [holder.name]."),
+				span_warning("[capitalize(holder.handcuffed.declent_ru(NOMINATIVE))] спадыва[pluralize_ru(holder.handcuffed.gender, "ет", "ют")] с вас.")
+			)
 		holder.drop_item_ground(holder.handcuffed)
 
 	if(holder.legcuffed && (limb_zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)))
 		if(!silent)
 			holder.visible_message(
-				span_warning("[capitalize(holder.legcuffed.declent_ru(NOMINATIVE))] спадыва[pluralize_ru(holder.legcuffed.gender, "ет", "ют")] с [holder.name]."), \
-				span_warning("[capitalize(holder.legcuffed.declent_ru(NOMINATIVE))] спадыва[pluralize_ru(holder.legcuffed.gender, "ет", "ют")] с вас."))
+				span_warning("[capitalize(holder.legcuffed.declent_ru(NOMINATIVE))] спадыва[pluralize_ru(holder.legcuffed.gender, "ет", "ют")] с [holder.name]."),
+				span_warning("[capitalize(holder.legcuffed.declent_ru(NOMINATIVE))] спадыва[pluralize_ru(holder.legcuffed.gender, "ет", "ют")] с вас.")
+			)
 		holder.drop_item_ground(holder.legcuffed)
 
 
@@ -1016,9 +1020,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if(owner.has_pain() && !silent)
 				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 				owner.visible_message(
-					span_danger("[owner] крич[pluralize_ru(owner.gender, "ит", "ят")] от боли из-за того, что с [genderize_ru(gender, "его", "её", "его", "их")] [declent_ru(GENITIVE)] спадает шина!"),
-					span_userdanger("Вы кричите от боли из-за того, что с ваш[genderize_ru(gender, "его", "ей", "его", "их")] [declent_ru(GENITIVE)] спадает шина!"),
-					span_italics("Вы слышите громкий крик!")
+					span_danger("Шина спадает с [declent_ru(GENITIVE)] [owner], заставляя [genderize_ru(owner.gender, "его", "её", "его", "их")] кричать от боли!"),
+					span_userdanger("Шина спадает с ваш[genderize_ru(gender, "его", "ей", "его", "их")] [declent_ru(GENITIVE)], заставляя вас кричать от боли!"),
+					span_italics("Вы слышите глухой звук падения чего-то, сопровождающийся громким криком!")
 				)
 			else if(!silent)
 				owner.visible_message(
