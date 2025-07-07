@@ -37,8 +37,9 @@
 
 /datum/orbit_menu/proc/handle_orbit_action(list/params)
 	var/ref = params["ref"]
-	var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
-	if(!poi)
+	var/atom/movable/poi = locateUID(ref)
+
+	if(!poi || !(poi in GLOB.mob_list) || !(poi in GLOB.poi_list))
 		return
 
 	var/atom/movable/cached_target = owner.orbiting
