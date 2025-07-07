@@ -127,7 +127,7 @@
 			resultlvl = "teal"
 			win_money(credits, 'sound/goonstation/misc/airraid_loop.ogg')
 			if (emagged)
-				give_custom_prize(user, /obj/item/uplink)
+				give_custom_prize(user, /obj/item/stack/telecrystal/hundred)
 		if(2 to 20)
 			var/credits = prizes["big"] * get_prize_coefficient()
 			atom_say("Большой победитель! Игрок [userName] выиграл [credits] кредитов!")
