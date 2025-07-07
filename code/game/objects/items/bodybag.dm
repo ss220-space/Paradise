@@ -278,13 +278,3 @@
 		max_weight_of_contents = A_is_item.w_class
 	folding_bodybag.w_class = max_weight_of_contents
 	the_folder.put_in_hands(folding_bodybag)
-
-/obj/structure/closet/body_bag/bullet_act(obj/projectile/P)
-	. = ..()
-	var/list/carbons = list()
-	for(var/mob/living/carbon/C in contents)
-		if (istype(C))
-			carbons += C
-	if (length(carbons) > 0)
-		var/mob/living/carbon/randomCarbon = pick(carbons)
-		randomCarbon.bullet_act(P)
