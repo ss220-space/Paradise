@@ -98,11 +98,11 @@
 			return
 		if (prob(EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE))
 			to_chat(robot, span_warning("Неудача! Из корпуса [robot.name] вылетают искры."))
-			do_sparks(3, TRUE, src)
+			do_sparks(3, TRUE, robot)
 			robot.destroy_random_component()
 			return
 		to_chat(robot, span_warning("Неудача! [robot.name] получает видимые повреждения."))
-		do_sparks(3, TRUE, src)
+		do_sparks(3, TRUE, robot)
 		robot.adjustBruteLoss(rand(15, 20))
 		return
 	if (isAI(user))
