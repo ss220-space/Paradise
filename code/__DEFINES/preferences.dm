@@ -175,9 +175,13 @@
 #define PREF_CATEGORY_GHOST 		"Настройки призраков"
 #define PREF_CATEGORY_ADMIN 		"Настройки администрации"
 
-// Uplink location
-#define PREF_UPLINK_PDA 			"КПК"
-#define PREF_UPLINK_HEADSET 		"Гарнитура"
+// Uplink location (English)
+#define PREF_UPLINK_PDA_ENG 			"pda"
+#define PREF_UPLINK_HEADSET_ENG 		"headset"
+
+// Uplink location (Russian)
+#define PREF_UPLINK_PDA_RUS 			"КПК"
+#define PREF_UPLINK_HEADSET_RUS 		"Гарнитура"
 
 // NanoTrasen relationship
 #define PREF_NTRELATION_LOYAL 		"Преданное"

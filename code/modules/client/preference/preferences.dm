@@ -186,7 +186,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/job_karma_low = 0
 
 	//Special role pref
-	var/uplink_pref = PREF_UPLINK_PDA
+	var/uplink_pref = PREF_UPLINK_PDA_ENG
 
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 2
@@ -447,7 +447,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Записи о персонаже</a><br>"
 
 			dat += "<h2>Специальные роли</h2>"
-			dat += "<b>Местоположение аплинка:</b> <a href='byond://?_src_=prefs;preference=uplink_pref;task=input'>[uplink_pref]</a><br>"
+			dat += "<b>Местоположение аплинка:</b> <a href='byond://?_src_=prefs;preference=uplink_pref;task=input'>[uplink_loc_to_russian(uplink_pref)]</a><br>"
 
 			if(CONFIG_GET(flag/tts_enabled))
 				dat += "<h2>Text-to-Speech</h2>"
@@ -2162,9 +2162,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						organ_data[limb] = PREF_ORGANSTATUS_CYBORG_ENG
 
 				if("uplink_pref")
-					var/new_uplink_pref = tgui_input_list(user, "Выберите желаемое местонахождение аплинка", "Местонахождение аплинка", list(PREF_UPLINK_PDA, PREF_UPLINK_HEADSET))
-					if(new_uplink_pref)
-						uplink_pref = new_uplink_pref
+					var/new_uplink_pref = tgui_input_list(user, "Выберите желаемое местонахождение аплинка", "Местонахождение аплинка", list(PREF_UPLINK_PDA_RUS, PREF_UPLINK_HEADSET_RUS))
+					switch(new_uplink_pref)
+						if(PREF_UPLINK_PDA_RUS)
+							uplink_pref = PREF_UPLINK_PDA_ENG
+						if(PREF_UPLINK_HEADSET_RUS)
+							uplink_pref = PREF_UPLINK_HEADSET_ENG
 
 				if("tts_seed")
 					var/static/list/explorer_users = list()
@@ -3008,3 +3011,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			return UI_THEME_OPERATIVE_RUS
 		if(UI_THEME_WHITE)
 			return UI_THEME_WHITE_RUS
+
+// Used to display uplink_pref in Russian
+/datum/preferences/proc/uplink_loc_to_russian(uplink_pref)
+	switch(uplink_pref)
+		if(PREF_UPLINK_PDA_ENG)
+			return PREF_UPLINK_PDA_RUS
+		if(PREF_UPLINK_HEADSET_ENG)
+			return PREF_UPLINK_HEADSET_RUS
