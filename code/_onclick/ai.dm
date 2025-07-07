@@ -63,6 +63,7 @@
 
 	if(modifiers["middle"] && modifiers["shift"] && modifiers["alt"])
 		MiddleShiftAltClickOn(A)
+		return
 	if(modifiers["middle"] && modifiers["ctrl"])
 		MiddleControlClickOn(A)
 		return
