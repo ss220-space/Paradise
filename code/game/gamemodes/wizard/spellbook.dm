@@ -738,7 +738,10 @@
 		PREPOSITIONAL = "книге заклинаний"
 	)
 	icon = 'icons/obj/library.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "spellbook"
+	item_state = "spellbook"
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
@@ -1020,7 +1023,7 @@
 		PREPOSITIONAL = "гримуаре "
 	)
 	uses = 1
-	desc = "Эту шаблонную книгу заклинаний не должен был видеть ни одно живое существо..."
+	desc = "Эту шаблонную книгу заклинаний не должно было видеть ни одно живое существо..."
 
 
 /obj/item/spellbook/oneuse/magic_charge_act(mob/user)
@@ -1083,6 +1086,7 @@
 	spellname = "fireball"
 	spellname_ru = "Огненного Шара"
 	icon_state = "bookfireball"
+	item_state = "bookfireball"
 	desc = "На ощупь эта книга достаточно тёплая."
 
 /obj/item/spellbook/oneuse/fireball/recoil(mob/user as mob)
@@ -1095,6 +1099,7 @@
 	spellname = "smoke"
 	spellname_ru = "Дыма"
 	icon_state = "booksmoke"
+	item_state = "booksmoke"
 	desc = "Эта книга переполнена тёмными исскуствами."
 
 /obj/item/spellbook/oneuse/smoke/recoil(mob/user as mob)
@@ -1107,6 +1112,7 @@
 	spellname = "blind"
 	spellname_ru = "Слепоты"
 	icon_state = "bookblind"
+	item_state = "bookblind"
 	desc = "Как ни посмотри, эта книга остаётся размытой в ваших глазах."
 
 /obj/item/spellbook/oneuse/blind/recoil(mob/user)
@@ -1121,6 +1127,7 @@
 	spellname = "mindswap"
 	spellname_ru = "Перемещения Разума"
 	icon_state = "bookmindswap"
+	item_state = "bookmindswap"
 	desc = "Обложка этой книги выглядит нетронутой, хотя ее страницы выглядят изношенными и порванными."
 	var/mob/stored_swap = null //Used in used book recoils to store an identity for mindswaps
 
@@ -1144,6 +1151,7 @@
 			spellname_ru = "Заряда"
 
 	icon_state = "book[spellname]"
+	item_state = "book[spellname]"
 	name = "spellbook of [spellname]" //Note, desc doesn't change by design
 	if(ru_names)
 		ru_names[NOMINATIVE] = "гримуар " + spellname_ru
@@ -1178,6 +1186,7 @@
 	spellname = "forcewall"
 	spellname_ru = "Силовой Стены"
 	icon_state = "bookforcewall"
+	item_state = "bookforcewall"
 	desc = "На обложке этой книги всё кричит о любви к мимам."
 
 /obj/item/spellbook/oneuse/forcewall/recoil(mob/user as mob)
@@ -1192,6 +1201,7 @@
 	spellname = "knock"
 	spellname = "Открывания"
 	icon_state = "bookknock"
+	item_state = "bookknock"
 	desc = "Эту книгу тяжело держать закрытой."
 
 /obj/item/spellbook/oneuse/knock/recoil(mob/living/user)
@@ -1204,6 +1214,7 @@
 	spellname = "horses"
 	spellname_ru = "Лошадиной Силы"
 	icon_state = "bookhorses"
+	item_state = "bookhorses"
 	desc = "В этой книге больше лошадиных сил, чем во всех челноках в обозримой вселенной."
 
 /obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user)
@@ -1226,6 +1237,7 @@
 	spellname = "charging"
 	spellname_ru = "Заряда"
 	icon_state = "bookcharge"
+	item_state = "bookcharge"
 	desc = "Эта книга на 100% состоит из постпотребительской магии."
 
 /obj/item/spellbook/oneuse/charge/recoil(mob/user)
@@ -1238,6 +1250,7 @@
 	spellname = "instant summons"
 	spellname_ru = "Мгновенного Вызова"
 	icon_state = "booksummons"
+	item_state = "booksummons"
 	desc = "Эта книга яркая и броская, ее очень трудно не заметить."
 
 /obj/item/spellbook/oneuse/summonitem/recoil(mob/user)
@@ -1250,6 +1263,7 @@
 	spellname = "disintegrate"
 	spellname_ru = "Распада"
 	icon_state = "bookfireball"
+	item_state = "bookfireball"
 	desc = "Прикасаясь к этой книге у вас складывается чувство, будто она способна разорвать что угодно на кусочки."
 
 /obj/item/spellbook/oneuse/sacredflame
@@ -1257,6 +1271,7 @@
 	spellname = "sacred flame"
 	spellname_ru = "Священного Пламени"
 	icon_state = "booksacredflame"
+	item_state = "booksacredflame"
 	desc = "Эта книга призывает вас стать единным с пламенем, сжигающим изнутри... И позвать остальных присоединиться к вам."
 
 /obj/item/spellbook/oneuse/goliath_dash
@@ -1264,6 +1279,7 @@
 	spellname = "goliath dash"
 	spellname = "Рывка Голиафа"
 	icon_state = "bookgoliathdash"
+	item_state = "bookgoliathdash"
 	desc = "Эта книга достаточно горяча, а щупальца, что лезут из неё, извиваются и держат ваши руки."
 
 /obj/item/spellbook/oneuse/watchers_look
@@ -1271,6 +1287,7 @@
 	spellname = "watcher's look"
 	spellname_ru = "Взгляда Наблюдателя"
 	icon_state = "bookwatcherlook"
+	item_state = "bookwatcherlook"
 	desc = "Глаз на обложке следит за вашим взглядом..."
 
 /obj/item/spellbook/oneuse/random

@@ -28,20 +28,20 @@
 
 	/// Associative list of accociative lists of bible variants, used for the radial menu
 	var/static/list/bible_variants = list(
-		"Библия" =				list("state" = "bible",		  "inhand" = "bible"),
-		"Коран" =				list("state" = "koran",		  "inhand" = "koran"),
-		"Скрапбук" =			list("state" = "scrapbook",	  "inhand" = "scrapbook"),
-		"Крипер" =				list("state" = "creeper",	  "inhand" = "somebiblebook"),
-		"Белая Библия" =		list("state" = "white",		  "inhand" = "somebiblebook"),
-		"Благодатный огонь" =	list("state" = "holylight",	  "inhand" = "somebiblebook"),
-		"Красная обложка" =		list("state" = "athiest",	  "inhand" = "somebiblebook"),
-		"Том" =					list("state" = "tome",		  "inhand" = "somebiblebook"),
-		"Король в Жёлтом" = 	list("state" = "kingyellow",	  "inhand" = "kingyellow"),
-		"Итакуа" =				list("state" = "ithaqua",	  "inhand" = "ithaqua"),
-		"Саентология" =			list("state" = "scientology",  "inhand" = "scientology"),
-		"Плавленная Библия" =	list("state" = "melted",		  "inhand" = "melted"),
-		"Necronomicon" =	 	list("state" = "necronomicon", "inhand" = "necronomicon"),
-		"Грин текст" =			list("state" = "greentext",	  "inhand" = "greentext"),
+		"Библия" =				list("state" = "bible",		 	"inhand" = "bible"),
+		"Коран" =				list("state" = "koran",		 	"inhand" = "koran"),
+		"Скрапбук" =			list("state" = "scrapbook",	 	"inhand" = "scrapbook"),
+		"Крипер" =				list("state" = "creeper",	 	"inhand" = "creeper"),
+		"Белая Библия" =		list("state" = "white",		 	"inhand" = "white"),
+		"Благодатный огонь" =	list("state" = "holylight",	 	"inhand" = "somebiblebook"),
+		"Красная обложка" =		list("state" = "athiest",	  	"inhand" = "atheist"),
+		"Том" =					list("state" = "tome",		  	"inhand" = "somebiblebook"),
+		"Король в Жёлтом" = 	list("state" = "kingyellow",  	"inhand" = "kingyellow"),
+		"Итакуа" =				list("state" = "ithaqua",	  	"inhand" = "ithaqua"),
+		"Саентология" =			list("state" = "scientology", 	"inhand" = "scientology"),
+		"Плавленная Библия" =	list("state" = "melted",	  	"inhand" = "melted"),
+		"Некрономикон" =	 	list("state" = "necronomicon",	"inhand" = "necronomicon"),
+		"Грин текст" =			list("state" = "greentext",	  	"inhand" = "greentext"),
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
@@ -158,7 +158,7 @@
 			)
 		else
 			target.visible_message(
-				span_danger("[user] излечивает [target] с силой бога [deity_name]!"),
+				span_danger("[user] излечива[pluralize_ru(user.gender, "ет", "ют")] [target] с силой бога [deity_name]!"),
 				span_danger("Да поможет вам бог [deity_name], да побудит он вас к исцелению!"),
 			)
 		playsound(loc, "punch", 25, TRUE, -1)
@@ -173,7 +173,7 @@
 			)
 		else
 			target.visible_message(
-				span_danger("[user] огревает [target] [declent_ru(INSTRUMENTAL)] по голове!"),
+				span_danger("[user] огрева[pluralize_ru(user.gender, "ет", "ют")] [target] [declent_ru(INSTRUMENTAL)] по голове!"),
 				span_danger("Вы огреваете [target] [declent_ru(INSTRUMENTAL)] по голове!"),
 			)
 		playsound(src.loc, "punch", 25, TRUE, -1)
