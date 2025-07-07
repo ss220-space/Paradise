@@ -48,7 +48,7 @@
 				<li><a href='byond://?src=[UID()];switchscreen=6'>Напечатать библию</a></li>
 				<li><a href='byond://?src=[UID()];switchscreen=7'>Напечатать руководство</a></li>"}
 			if(src.emagged)
-				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</a></li>" Допуск к засекреченн
+				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</a></li>"
 			dat += "</ol>"
 
 			if(src.arcanecheckout)
