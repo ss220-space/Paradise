@@ -1,5 +1,6 @@
 #define EMAGGED_SLOT_MACHINE_PRIZE_MOD 5
 #define EMAGGED_SLOT_MACHINE_GIB_CHANCE 10
+#define EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE 20
 
 /obj/machinery/slot_machine
 	name = "slot machine"
@@ -87,19 +88,31 @@
 			human.gib()
 			return
 		to_chat(human, span_warning("Неудача! Вы ощущаете слабость, потянув за рычаг, надеюсь оно того стоило."))
-		human.adjustCloneLoss(rand(5, 10))
+		human.adjustCloneLoss(5)
 		return
-	if (issilicon(user))
-		var/mob/living/silicon/silicon = user
+	if (isrobot(user))
+		var/mob/living/silicon/robot/robot = user
 		if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
-			to_chat(silicon, span_warningbig("Критическая неудача!<br>Неизвестная сила заставляет вас отключиться."))
-			if(isAI(user))
-				silicon.death() // AI gib cause no body ghost error
-				return
-			silicon.gib()
+			to_chat(robot, span_warningbig("Критическая неудача!<br>Неизвестная сила разрушает ваш корпус."))
+			robot.gib()
 			return
-		to_chat(silicon, span_warning("Неудача! [silicon.name] получает видимые повреждения."))
-		silicon.adjustBruteLoss(rand(10, 15))
+		if (prob(EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE))
+			to_chat(robot, span_warning("Неудача! Из корпуса [robot.name] вылетают искры."))
+			do_sparks(3, TRUE, src)
+			robot.destroy_random_component()
+			return
+		to_chat(robot, span_warning("Неудача! [robot.name] получает видимые повреждения."))
+		do_sparks(3, TRUE, src)
+		robot.adjustBruteLoss(rand(15, 20))
+		return
+	if (isAI(user))
+		var/mob/living/silicon/ai/ai = user
+		if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
+			to_chat(ai, span_warningbig("Критическая неудача!<br>Неизвестная сила заставляет вас отключиться."))
+			ai.death() // AI gib cause no body ghost error
+			return
+		to_chat(ai, span_warning("Неудача! [ai.name] получает видимые повреждения."))
+		ai.adjustBruteLoss(rand(15, 20))
 
 /obj/machinery/slot_machine/proc/spin_slots(mob/user)
 	if(!istype(user))

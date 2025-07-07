@@ -155,6 +155,14 @@
 	var/datum/robot_component/component = pick(components)
 	component.take_damage(brute, burn, sharp, updating_health)
 
+/mob/living/silicon/robot/proc/destroy_random_component()
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		return
+	var/list/components = get_damageable_components()
+	if(!LAZYLEN(components))
+		return
+	var/datum/robot_component/component = pick(components)
+	component.destroy()
 
 /mob/living/silicon/robot/heal_overall_damage(
 	brute = 0,
