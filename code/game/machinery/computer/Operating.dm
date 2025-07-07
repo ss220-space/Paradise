@@ -67,7 +67,7 @@
 /obj/machinery/computer/operating/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "OperatingComputer", "Patient Monitor")
+		ui = new(user, src, "OperatingComputer", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/machinery/computer/operating/ui_data(mob/user)
@@ -137,13 +137,13 @@
 				if(surgery_step.repeatable)
 					var/datum/surgery_step/next = procedure.get_surgery_next_step()
 					if(next)
-						surgery_desc += " or [capitalize(next.get_step_information(procedure))]"
+						surgery_desc += " или [capitalize(next.get_step_information(procedure))]"
 				var/obj/item/organ/organ
 				if(ishuman(occupant))
 					var/mob/living/carbon/human/H = occupant
 					organ = H.bodyparts_by_name[procedure.location]
 				occupantData["surgeries"] += list(list(
-					"bodypartName" = capitalize(organ?.name || procedure.location),
+					"bodypartName" = capitalize(organ?.declent_ru(NOMINATIVE) || procedure.location),
 					"surgeryName" = capitalize(procedure.name),
 					"stepName" = surgery_desc.Join("")
 				))
