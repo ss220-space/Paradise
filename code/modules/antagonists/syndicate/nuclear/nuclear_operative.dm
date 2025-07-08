@@ -160,6 +160,7 @@
 /datum/antagonist/nuclear_operative/loneop/additional_messages()
 	var/list/messages = list()
 	messages.Add(span_notice("Вам поручена миссия, которую многие сочтут невыполнимой. Вам необходимо заполучить диск ядерной аутентификации и взвести станционное устройство самоуничтожения."))
+	messages.Add(span_notice("В случае, если ядро боеголовки украдено, вам необходимо заполучить его любыми средствами и вернуть в боеголовку для последущей активации. Доступ на вашей карте позволяет вам открывать контейнер, в котором може находится ядро."))
 	return messages
 
 /datum/antagonist/nuclear_operative/loneop/code_message()
