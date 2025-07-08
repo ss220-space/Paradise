@@ -412,8 +412,10 @@
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
+
 		if(istype(src, /obj/machinery/cryopod/syndie))
 			free_taipan_role(job)
+
 		SSjobs.FreeRole(job)
 
 		if(occupant.mind.objectives.len)
@@ -423,7 +425,7 @@
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	if(GLOB.PDA_Manifest.len)
+	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
 	for(var/datum/data/record/R in GLOB.data_core.medical)
 		if((R.fields["name"] == occupant.real_name))
@@ -456,23 +458,24 @@
 			ailist += AI
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
-			if (announce_rank)
-				announcer.say("; [issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] ([announce_rank]) [on_store_message]")
+			if(announce_rank)
+				announcer.say(";[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] ([announce_rank]) [on_store_message]")
 			else
-				announcer.say("; [issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]")
+				announcer.say(";[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]")
 		else
-			if (announce_rank)
+			if(announce_rank)
 				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
 			else
 				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]", "[on_store_name]")
-		visible_message(span_notice("\The [src] hums and hisses as it moves [occupant.real_name] into storage."))
+		visible_message(span_notice("[src] hums and hisses as it moves [occupant.real_name] into storage."))
 
 	// Ghost and delete the mob.
-	if(!occupant.get_ghost(1))
+	if(!occupant.get_ghost(TRUE))
 		if(TOO_EARLY_TO_GHOST)
-			occupant.ghostize(0) // Players despawned too early may not re-enter the game
+			occupant.ghostize(FALSE) // Players despawned too early may not re-enter the game
 		else
-			occupant.ghostize(1)
+			occupant.ghostize(TRUE)
+
 	QDEL_NULL(occupant)
 	update_icon(UPDATE_ICON_STATE)
 	name = initial(name)

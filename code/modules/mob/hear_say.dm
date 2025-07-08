@@ -182,12 +182,11 @@
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)
 
-/mob/proc/colorize_name(atom/movable/speaker = null, speaker_name)
-	var/mob/speaker_mob = speaker
-	if(!speaker_mob.real_name)
+/mob/proc/colorize_name(mob/speaker = null, speaker_name)
+	if(!speaker.ckey)
 		return speaker_name
 
-	if (!speaker_mob.chat_color || speaker_mob.chat_color_name != speaker_mob.name)
+	if(!speaker.chat_color || speaker.chat_color_name != speaker.name)
 
 		var/step = round(length_char(speaker_name)/3)
 		var/rgb[3]
@@ -200,13 +199,13 @@
 			if(rgb[i] > 31) rgb[i] -= 32
 			rgb[i] = rgb[i]*4 + 63 // base brightness
 
-		speaker_mob.chat_color = rgb(rgb[1],rgb[2],rgb[3])
-		speaker_mob.chat_color_darkened = rgb(rgb[1]-23,rgb[2]-23,rgb[3]-23)
-		speaker_mob.chat_color_name = speaker_name
+		speaker.chat_color = rgb(rgb[1],rgb[2],rgb[3])
+		speaker.chat_color_darkened = rgb(rgb[1]-23,rgb[2]-23,rgb[3]-23)
+		speaker.chat_color_name = speaker_name
 
 		return "<span style='color:[rgb(rgb[1],rgb[2],rgb[3])];'>[speaker_name]</span>"
 	else
-		return "<span style='color:[speaker_mob.chat_color];'>[speaker_name]</span>"
+		return "<span style='color:[speaker.chat_color];'>[speaker_name]</span>"
 
 /mob/proc/hear_radio(list/message_pieces, verb = "говор%(ит,ят)%", part_a, part_b, atom/movable/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, check_name_against)
 	if(!client)
@@ -222,7 +221,7 @@
 	if(message_clean == "")
 		return
 
-	var/message = verb_message(message_pieces, message_clean, genderize_decode(speaker, genderize_decode(speaker, verb)))
+	var/message = verb_message(message_pieces, message_clean, genderize_decode(speaker, verb))
 	var/message_tts = combine_message_tts(message_pieces, speaker, always_stars = hard_to_hear)
 
 	var/track = null

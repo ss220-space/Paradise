@@ -8,7 +8,7 @@
 */
 
 #define JOB_STYLE_1 "Имя (Должность)"
-#define JOB_STYLE_2 "Имя - Должность"
+#define JOB_STYLE_2 "Имя – Должность"
 #define JOB_STYLE_3 "\[Должность\] Имя"
 #define JOB_STYLE_4 "(Должность) Имя"
 
@@ -18,6 +18,7 @@
 	/// Associative list of all jobs and their department color classes
 	var/all_jobs = list(
 		// AI
+		"Automated Announcement" = "airadio",
 		JOB_TITLE_AI = "airadio",
 		"Android" = "airadio",
 		JOB_TITLE_CYBORG = "airadio",
@@ -220,7 +221,7 @@
 
 	tcm.pre_modify_name = tcm.sender_name
 	if(toggle_name_color)
-		var/new_name = "<span class=\"[job_class]\">" + tcm.sender_name + "</span>"
+		var/new_name = "<span class=\"[job_class]\">[tcm.sender_name]</span>"
 		tcm.sender_name = new_name
 		tcm.vname = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
 
@@ -231,25 +232,24 @@
 			job = "ERT"
 		if(toggle_job_color)
 			switch(job_indicator_type)
-				// These must have trailing spaces. No exceptions.
 				if(JOB_STYLE_1)
-					new_name = "[tcm.sender_name] <span class=\"[job_class]\">([job])</span> "
+					new_name = "[tcm.sender_name] <span class=\"[job_class]\">([job])</span>"
 				if(JOB_STYLE_2)
-					new_name = "[tcm.sender_name] - <span class=\"[job_class]\">[job]</span> "
+					new_name = "[tcm.sender_name] - <span class=\"[job_class]\">[job]</span>"
 				if(JOB_STYLE_3)
-					new_name = "<span class=\"[job_class]\"><small>\[[job]\]</small></span> [tcm.sender_name] "
+					new_name = "<span class=\"[job_class]\"><small>\[[job]\]</small></span> [tcm.sender_name]"
 				if(JOB_STYLE_4)
-					new_name = "<span class=[job_class]>([job])</span> [tcm.sender_name] "
+					new_name = "<span class=[job_class]>([job])</span> [tcm.sender_name]"
 		else
 			switch(job_indicator_type)
 				if(JOB_STYLE_1)
-					new_name = "[tcm.sender_name] ([job]) "
+					new_name = "[tcm.sender_name] ([job])"
 				if(JOB_STYLE_2)
-					new_name = "[tcm.sender_name] - [job] "
+					new_name = "[tcm.sender_name] - [job]"
 				if(JOB_STYLE_3)
-					new_name = "<small>\[[job]\]</small> [tcm.sender_name] "
+					new_name = "<small>\[[job]\]</small> [tcm.sender_name]"
 				if(JOB_STYLE_4)
-					new_name = "([job]) [tcm.sender_name] "
+					new_name = "([job]) [tcm.sender_name]"
 
 		// Only change the name if they have a job tag set, otherwise everyone becomes unknown, and thats bad
 		if(new_name != "")

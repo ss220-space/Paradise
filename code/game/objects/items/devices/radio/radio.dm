@@ -307,8 +307,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
-	tcm.sender_job = "Автоматическое оповещение"
-	tcm.sender_rank = "Автоматическое оповещение"
+	tcm.sender_job = "Automated Announcement"
 	tcm.vname = "синтезированный голос"
 	tcm.data = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
@@ -424,25 +423,21 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// --- Carbon Nonhuman ---
 	else if(iscarbon(M)) // Nonhuman carbon mob
 		jobname = "Без ID"
-		rankname = "Без ID"
 
 	// --- AI ---
 	else if(isAI(M))
 		jobname = JOB_TITLE_AI
-		rankname = JOB_TITLE_AI
 
 	// --- Cyborg ---
 	else if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG
-		rankname = JOB_TITLE_CYBORG
 
 	// --- Personal AI (pAI) ---
 	else if(ispAI(M))
 		var/mob/living/silicon/pai/pai = M
 		displayname = pai.radio_name
 		jobname = pai.radio_rank
-		rankname = pai.radio_rank
 
 	// --- Cogscarab ---
 	else if(iscogscarab(M))
@@ -451,7 +446,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// --- Unidentifiable mob ---
 	else
 		jobname = "Неизвестный"
-		rankname = "Неизвестный"
 
 	// --- Modifications to the mob's identity ---
 
