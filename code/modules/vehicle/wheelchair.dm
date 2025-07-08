@@ -20,8 +20,10 @@
 	var/decon_speed = 3
 	var/kit_applied = FALSE
 	var/exists_bell = FALSE
+	var/obj/item/grenade/bomb = null
 	//Actions
-	var/datum/action/innate/wheelchair/bell_action = new
+	var/datum/action/innate/wheelchair/bell/bell_action = new
+	var/datum/action/innate/wheelchair/detonate/detonate_action = new
 
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
 	. = ..()
@@ -79,37 +81,82 @@
 	desc = applied_skin ? initial(applied_skin.new_desc) : initial(desc)
 	if (exists_bell)
 		desc += " К подлокотнику зачем-то прикреплен звонок."
+	if (bomb)
+		desc += " Под сиденьем что-то есть."
+
+
+//Modify logic
 
 /obj/vehicle/ridden/wheelchair/attackby(obj/item/item, mob/user, params)
-	if(!istype(item, /obj/item/desk_bell))
-		. = ..()
-		return
-	if(exists_bell)
+	if(istype(item, /obj/item/desk_bell))
+		desk_bell_act(item, user, params)
 		return ATTACK_CHAIN_PROCEED
+	if(istype(item, /obj/item/grenade))
+		grenade_act(item, user, params)
+		return ATTACK_CHAIN_BLOCKED | ATTACK_CHAIN_NO_AFTERATTACK
+	. = ..()
+	return
+
+/obj/vehicle/ridden/wheelchair/proc/desk_bell_act(obj/item/item, mob/user, params)
+	if(exists_bell)
+		return
 	to_chat(user, span_notice("Вы начинаете прикреплять [item.declent_ru(ACCUSATIVE)] к [declent_ru(PREPOSITIONAL)]..."))
 	if (!do_after(user, 2 SECONDS, src))
-		return ATTACK_CHAIN_PROCEED
+		return
 	user.balloon_alert(user, "прикреплено")
 	exists_bell = TRUE
 	update_desc()
 	qdel(item)
-	return ATTACK_CHAIN_PROCEED
 
-/obj/vehicle/ridden/wheelchair/post_unbuckle_mob(mob/living/user)
-	if (exists_bell)
-		bell_action.Remove(user)
-	return ..()
+/obj/vehicle/ridden/wheelchair/proc/grenade_act(obj/item/item, mob/user, params)
+	if(bomb)
+		return
+	to_chat(user, span_notice("Вы начинаете прикреплять [item.declent_ru(ACCUSATIVE)] к [declent_ru(PREPOSITIONAL)]..."))
+	if (!do_after(user, 2 SECONDS, src))
+		return
+	if (!user.drop_item_ground(item))
+		return
+	bomb = item
+	item.do_pickup_animation(src)
+	item.forceMove(src)
+	item.item_flags |= IN_STORAGE
+	if (clown_check(user))
+		user.balloon_alert(user, "прикреплено")
+	update_desc()
+
+/obj/vehicle/ridden/wheelchair/proc/clown_check(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		to_chat(user, span_warning("А какой провод надо прикрепить к звонку?"))
+		playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+		addtimer(CALLBACK(src, PROC_REF(delayed_boom)), 0.5 SECONDS)
+		return FALSE
+	return TRUE
+
+/obj/vehicle/ridden/wheelchair/proc/delayed_boom()
+	bomb.prime()
+
+
+//Buckle logic
 
 /obj/vehicle/ridden/wheelchair/post_buckle_mob(mob/living/user)
 	if (exists_bell)
 		bell_action.Grant(user, src)
+	if (exists_bell && bomb)
+		detonate_action.Grant(user, src)
 	return ..()
+
+/obj/vehicle/ridden/wheelchair/post_unbuckle_mob(mob/living/user)
+	if (exists_bell)
+		bell_action.Remove(user)
+	if (exists_bell && bomb)
+		detonate_action.Remove(user)
+	return ..()
+
+
+//Actions
 
 /datum/action/innate/wheelchair
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	icon_icon = 'icons/obj/bureaucracy.dmi'
-	button_icon_state = "desk_bell"
-	name = "Звонок"
 	var/obj/vehicle/ridden/wheelchair/wheelchair
 
 /datum/action/innate/wheelchair/Grant(mob/living/L, obj/vehicle/ridden/wheelchair/W)
@@ -121,5 +168,30 @@
 	wheelchair = null
 	return ..()
 
-/datum/action/innate/wheelchair/Activate()
+
+/datum/action/innate/wheelchair/bell
+	icon_icon = 'icons/obj/bureaucracy.dmi'
+	button_icon_state = "desk_bell"
+	name = "Звонок"
+
+/datum/action/innate/wheelchair/bell/Activate()
 	playsound(wheelchair, "sound/machines/bell.ogg", 70, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+
+
+/datum/action/innate/wheelchair/detonate
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "explosion"
+	name = "Активация бомбы"
+
+/datum/action/innate/wheelchair/detonate/Activate()
+	if (!wheelchair.bomb)
+		return
+	wheelchair.detonate_action.Remove(usr)
+	playsound(wheelchair, "sound/machines/bell.ogg", 70, extrarange = SOUND_RANGE)
+	sleep(0.2 SECONDS)
+	playsound(wheelchair, "sound/machines/bell.ogg", 70, extrarange = SOUND_RANGE)
+	sleep(0.2 SECONDS)
+	playsound(wheelchair, "sound/machines/bell.ogg", 70, extrarange = SOUND_RANGE)
+	sleep(0.6 SECONDS)
+	wheelchair.bomb.prime()
+	wheelchair.bomb = null
