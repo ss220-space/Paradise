@@ -123,7 +123,7 @@
 			var/credits = prizes["jackpot"] * get_prize_coefficient()
 			atom_say("ДЖЕКПОТ! Игрок [userName] выиграл [credits] кредитов!")
 			GLOB.event_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в [credits] кредитов!", "Обладатель джекпота!")
-			result = "JACKPOT! You win [credits] credits!"
+			result = "ДЖЕКПОТ! Вы выиграли [credits] кредитов!"
 			resultlvl = "teal"
 			win_money(credits, 'sound/goonstation/misc/airraid_loop.ogg')
 			if (emagged)
@@ -131,7 +131,7 @@
 		if(2 to 20)
 			var/credits = prizes["big"] * get_prize_coefficient()
 			atom_say("Большой победитель! Игрок [userName] выиграл [credits] кредитов!")
-			result = "You win [credits] credits!"
+			result = "Вы выиграли [credits] кредитов!"
 			resultlvl = "green"
 			win_money(credits, 'sound/goonstation/misc/klaxon.ogg')
 			if (emagged)
@@ -139,7 +139,7 @@
 		if(21 to 100)
 			var/credits = prizes["medium"] * get_prize_coefficient()
 			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
-			result = "You win [credits] credits!"
+			result = "Вы выиграли [credits] кредитов!"
 			resultlvl = "green"
 			win_money(credits, 'sound/goonstation/misc/bell.ogg')
 			if (emagged)
@@ -147,17 +147,17 @@
 		if(101 to 500)
 			var/credits = prizes["small"] * get_prize_coefficient()
 			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
-			result = "You win [credits] credits!"
+			result = "Вы выиграли [credits] кредитов!"
 			resultlvl = "green"
 			win_money(credits)
 		if(501 to 1000)
 			var/credits = prizes["minimal"] * get_prize_coefficient()
 			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
-			result = "You win [credits] credits!"
+			result = "Вы выиграли [credits] кредитов!"
 			resultlvl = "green"
 			win_money(credits)
 		else
-			result = "No luck!"
+			result = "Неудача!"
 			resultlvl = "orange"
 			if (emagged)
 				apply_emagged_lose_effect(user)
