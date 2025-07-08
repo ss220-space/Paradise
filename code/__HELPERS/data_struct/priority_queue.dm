@@ -5,6 +5,10 @@
 	var/item
 	var/priority
 
+/priority_node/Destroy(force)
+	..()
+	return QDEL_HINT_IWILLGC
+
 /priority_node/New(item, priority)
 	. = ..()
 	src.item = item
@@ -67,3 +71,8 @@
     var/list/temp = heap[a]
     heap[a] = heap[b]
     heap[b] = temp
+
+
+/priority_queue/Destroy(force)
+	..()
+	return QDEL_HINT_IWILLGC

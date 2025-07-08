@@ -80,6 +80,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 		// NOTE! We do not clear ourselves from client screens
 		// We relay on whoever qdel'd us to reset our hud, and properly purge us
 		home.plane_masters -= "[plane]"
+		home.our_hud?.mymob?.client?.screen -= src
 		home = null
 	. = ..()
 	QDEL_LIST(relays)
