@@ -185,7 +185,8 @@
 	var/ex_power = 3
 	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
 	var/last_fire_time = 0 // The time at which the gun was last fired
-	var/reload_cooldown = 600 // The gun's cooldown
+	//var/reload_cooldown = 600 // The gun's cooldown
+	var/reload_cooldown = 10 //TEST ONLY
 
 	pixel_y = -32
 	pixel_x = -192
@@ -331,9 +332,11 @@
 	var/target_all_areas = FALSE //allows all areas (including admin areas) to be targeted
 
 	// Stuff needed to render the map
+	var/camera_view_range = 9
+	var/camera_xray = FALSE
 	var/atom/movable/screen/map_view/camera/cam_screen
 	var/last_camera_turf = null
-	var/camera_view_range = 9
+	var/turf/aim_turf = null
 
 /obj/machinery/computer/bsa_control/Initialize()
 	. = ..()
@@ -349,6 +352,8 @@
 /obj/machinery/computer/bsa_control/admin
 	area_aim = TRUE
 	target_all_areas = TRUE
+	camera_xray = TRUE
+	camera_view_range = 11
 
 /obj/machinery/computer/bsa_control/admin/Initialize()
 	. = ..()
@@ -435,6 +440,17 @@
 			fire(usr)
 		if("recalibrate")
 			calibrate(usr)
+		if("aim")
+			var/direction = params["direction"]
+			switch(direction)
+				if("north")
+					aim_move(usr, NORTH_OF_TURF(aim_turf))
+				if("east")
+					aim_move(usr, EAST_OF_TURF(aim_turf))
+				if("south")
+					aim_move(usr, SOUTH_OF_TURF(aim_turf))
+				if("west")
+					aim_move(usr, WEST_OF_TURF(aim_turf))
 	update_icon()
 	return TRUE
 
@@ -454,6 +470,7 @@
 	if(!choose)
 		return
 	target = options[choose]
+	aim_turf = detect_target_turf()
 	update_active_camera_screen()
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
@@ -465,6 +482,9 @@
 		return G.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_target_turf()
+	return aim_turf
+
+/obj/machinery/computer/bsa_control/proc/detect_target_turf()
 	if(istype(target,/area))
 		var/area/A = target
 		var/turf/center = A.get_center_turf()
@@ -474,10 +494,12 @@
 		return get_turf(target)
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
-	if(istype(target,/area))
-		return pick(get_area_turfs(target))
-	else if(istype(target,/obj/item/gps))
-		return get_turf(target)
+	// if(istype(target,/area))
+	// 	return pick(get_area_turfs(target))
+	// else if(istype(target,/obj/item/gps))
+	// 	return get_turf(target)
+	//TODO randomize here
+	return aim_turf
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
 	if(!cannon || !target)
@@ -512,6 +534,11 @@
 	qdel(centerpiece)
 	return cannon
 
+/obj/machinery/computer/bsa_control/proc/aim_move(mob/user, turf/new_aim_turf)
+	to_chat(user, "aim move")
+	aim_turf = new_aim_turf
+	update_active_camera_screen()
+
 /obj/machinery/computer/bsa_control/proc/update_active_camera_screen()
 	// Get the target turf to correctly gather what's visible from its turf, in case it's located in a moving object (borgs / mechs)
 	var/new_cam_turf = get_target_turf()
@@ -528,7 +555,7 @@
 	// Cameras that get here are moving, and are likely attached to some moving atom such as cyborgs.
 	last_camera_turf = new_cam_turf
 	//Here we gather what's visible from the camera's POV based on its view_range and xray modifier if present
-	var/list/visible_things = range(camera_view_range, new_cam_turf)
+	var/list/visible_things = camera_xray ? range(camera_view_range, new_cam_turf) : view(camera_view_range, new_cam_turf)
 	var/list/visible_turfs = list()
 	for(var/turf/visible_turf in visible_things)
 		visible_turfs += visible_turf

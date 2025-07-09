@@ -57,14 +57,50 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
                   </LabeledList.Item>
                 )}
                 {alertStatus}
-                <LabeledList.Item label="Target">
+                <LabeledList.Item label="Calibrate">
                   <Button icon="crosshairs" onClick={() => act('recalibrate')}>
                     {data.target ? data.target : 'None'}
                   </Button>
                 </LabeledList.Item>
-                <LabeledList.Item label="Target coordinate:">
-                    {data.target ? data.target_coord : 'None'}
-                </LabeledList.Item>
+                {data.connected && (
+                  <LabeledList.Item label="Aim coordinate:">
+                      {data.target ? data.target_coord : 'None'}
+                  </LabeledList.Item>
+                )}
+                {data.connected && (
+                  <LabeledList>
+                    <LabeledList.Item label="Aim control">
+                      <Button
+                        onClick={() => act('aim', {
+                          direction: 'north'
+                        })}
+                      >
+                        North
+                      </Button>
+                      <Button
+                        onClick={() => act('aim', {
+                          direction: 'west'
+                        })}
+                      >
+                        West
+                      </Button>
+                      <Button
+                        onClick={() => act('aim', {
+                          direction: 'east'
+                        })}
+                      >
+                        East
+                      </Button>
+                      <Button
+                        onClick={() => act('aim', {
+                          direction: 'south'
+                        })}
+                      >
+                        South
+                      </Button>
+                    </LabeledList.Item>
+                  </LabeledList>
+                )}
                 {!!data.ready && !!data.target && (
                   <LabeledList.Item label="Firing">
                     <Button
