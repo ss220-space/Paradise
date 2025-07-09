@@ -155,7 +155,7 @@
 										'sound/AI/commandreport.ogg'
 		)
 		max_integrity = INFINITY
-		obj_integrity = INFINITY
+		update_integrity(INFINITY)
 		update_icon(UPDATE_ICON_STATE)
 		light_color = LIGHT_COLOR_YELLOW
 		update_light()

@@ -737,7 +737,7 @@
 			span_notice("You have replaced the damaged APC frame with a new one."),
 		)
 		stat &= ~BROKEN
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		if(opened == APC_COVER_OFF)
 			opened = APC_OPENED
 		update_icon()

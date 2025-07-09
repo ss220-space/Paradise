@@ -355,7 +355,7 @@
 	if(holder.energy)
 		holder.set_density(TRUE)
 	holder.max_integrity = 100
-	holder.obj_integrity = holder.max_integrity
+	holder.update_integrity(holder.max_integrity)
 
 /datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
 	if(!is_sharp(item))

@@ -262,7 +262,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 		if(!(stat & BROKEN))
 			var/obj/item/I = new /obj/item/firealarm_electronics(loc)
 			if(!disassembled)
-				I.obj_integrity = I.max_integrity * 0.5
+				I.update_integrity(I.max_integrity * 0.5)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 

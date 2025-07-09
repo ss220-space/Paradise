@@ -22,10 +22,10 @@
 
 /datum/component/obj_regenerate/process()
 	if(current.obj_integrity > current.max_integrity-5)
-		current.obj_integrity = current.max_integrity
+		current.update_integrity(current.max_integrity)
 		current.update_icon()
 	else if(current.obj_integrity < current.max_integrity)
-		current.obj_integrity += 5
+		current.repair_damage(5)
 		current.update_icon()
 
 

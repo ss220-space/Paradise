@@ -1054,7 +1054,7 @@
 			user.visible_message(span_notice("[user] repairs the damaged gas tank."), span_notice("You repair the damaged gas tank."))
 		else if(obj_integrity < max_integrity)
 			user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [name]."))
-			obj_integrity += min(10, max_integrity - obj_integrity)
+			repair_damage(min(10, max_integrity - obj_integrity))
 		else
 			to_chat(user, span_notice("[src] is at full integrity!"))
 	repairing = FALSE

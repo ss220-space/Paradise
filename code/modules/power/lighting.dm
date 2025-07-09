@@ -577,7 +577,7 @@
 		newlight.setDir(dir)
 		newlight.stage = cur_stage
 		if(!disassembled)
-			newlight.obj_integrity = newlight.max_integrity * 0.5
+			newlight.update_integrity(newlight.max_integrity * 0.5)
 			if(status != LIGHT_BROKEN)
 				break_light_tube()
 			if(status != LIGHT_EMPTY)
