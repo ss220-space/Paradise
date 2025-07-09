@@ -516,6 +516,9 @@ SUBSYSTEM_DEF(tts)
 
 
 /proc/tts_cast(atom/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
+	if(listener.get_preference(PREFTOGGLE_3_BAD_WORDS))
+		message = make_text_twitchable(message)
+
 	SStts.get_tts(speaker, listener, message, seed_name, is_local, effect, traits, preSFX, postSFX)
 
 
