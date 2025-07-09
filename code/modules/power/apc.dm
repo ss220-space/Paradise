@@ -287,6 +287,7 @@
 	terminal.master = src
 
 /obj/machinery/power/apc/Initialize(mapload)
+	var/area/A = get_area(src)
 	//if area isn't specified use current
 	if(keep_preset_name)
 		if(isarea(A))
@@ -298,7 +299,6 @@
 	else
 		name = "\improper [get_area_name(area, TRUE)] APC"
 	area.apc |= src
-
 	. = ..()
 	if(!mapload)
 		return
@@ -310,7 +310,6 @@
 		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
 
 	cog = null // Or you can't put it in
-	var/area/A = get_area(src)
 
 
 	update_icon()
