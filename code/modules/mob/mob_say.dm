@@ -2,7 +2,7 @@
 #define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", \
 	"\[" = "", "]" = "", "{" = "", "}" = "")
 
-/mob/proc/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/proc/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	return
 
 /mob/verb/whisper(message as text)

@@ -2,7 +2,7 @@
  * MARK: AI Saycode
  */
 
-/mob/living/silicon/ai/handle_track(message, verb = "says", atom/movable/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
+/mob/living/silicon/ai/handle_track(message, verb = "говор%(ит,ят)%", atom/movable/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	if(hard_to_hear)
 		return
 
