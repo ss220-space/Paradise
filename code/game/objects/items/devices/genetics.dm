@@ -83,7 +83,7 @@
 	paper.header += "<b>Время печати:</b> [station_time_timestamp()]<br><br>"
 	paper.header += "<hr>"
 	for(var/list/block in dna_data)
-		paper.header += "[block["num"]]: <span color='[block["color"]]'>[block["name"]]</font><br>"
+		paper.header += "[block["num"]]: <span style='color: [block["color"]];'>[block["name"]]</span><br>"
 	paper.header += "<hr>"
 	if(in_range(user, src))
 		user.put_in_hands(paper, ignore_anim = FALSE)
@@ -202,7 +202,6 @@
 	add_fingerprint(user)
 	var/obj/machinery/dna_scannernew/connected = dna_console.connected
 	if (!connected)
-		capitalize
 		to_chat(user, span_warning("[capitalize(dna_console.declent_ru(NOMINATIVE))] не подключен."))
 		balloon_alert(user, "ошибка загрузки")
 		return
