@@ -94,11 +94,6 @@ SUBSYSTEM_DEF(security_level)
 	SSnightshift.check_nightshift()
 	SSblackbox.record_feedback("tally", "security_level_changes", 1, selected_level.name)
 
-	// Sybil synchronization from the old code
-	if(GLOB.sibsys_automode && !isnull(GLOB.sybsis_registry))
-		for(var/obj/item/sibyl_system_mod/mod as anything in GLOB.sybsis_registry)
-			mod.sync_limit()
-
 	SEND_SIGNAL(src, COMSIG_SECURITY_LEVEL_CHANGED, previous_security_level.number_level, selected_level.number_level)
 
 /**
