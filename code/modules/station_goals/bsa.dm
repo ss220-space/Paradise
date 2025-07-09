@@ -3,6 +3,29 @@
 // Requires high amount of power
 // Requires high level stock parts
 
+//Single powerful shot
+#define BSA_MODE_POWER_SHOT 1
+//Single low-damage shot
+#define BSA_MODE_PULSE_SHOT 2
+//Burst of low-damage shots
+#define BSA_MODE_PULSE_BURST 3
+//Burst of powerful shots (emagged console only)
+#define BSA_MODE_POWER_BURST 4
+
+//How many shots in burst
+#define BSA_BURST_COUNT 5
+
+//Spread by every axis (x, y) for signal calibration
+#define BSA_CALIBRATION_ACCURACY 15
+//Spread by every axis (x, y) for single shot mode
+#define BSA_SHOT_SPREAD 2
+//Spread by every axis (x, y) for burst fire mode
+#define BSA_BURST_SPREAD 5
+//Max correction by every axis (x, y), use absolute value
+#define BSA_MAX_AXIS_CORRECTION 10
+
+
+
 /datum/station_goal/bluespace_cannon
 	name = "Bluespace Artillery"
 
@@ -187,6 +210,7 @@
 	var/last_fire_time = 0 // The time at which the gun was last fired
 	//var/reload_cooldown = 600 // The gun's cooldown
 	var/reload_cooldown = 10 //TEST ONLY
+	var/mode = BSA_MODE_POWER_SHOT
 
 	pixel_y = -32
 	pixel_x = -192
@@ -257,20 +281,47 @@
 	reload()
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)
+	destroy_all_on_fire_beam(user, bullseye)
+	switch(mode)
+		if(BSA_MODE_POWER_SHOT)
+			fire_power_shot(user, spread(bullseye, BSA_SHOT_SPREAD))
+		if(BSA_MODE_PULSE_SHOT)
+			fire_pulse_shot(user, spread(bullseye, BSA_SHOT_SPREAD))
+		if(BSA_MODE_PULSE_BURST)
+			for(var/i = 1; i <= BSA_BURST_COUNT; i++)
+				addtimer(CALLBACK(src, PROC_REF(fire_pulse_shot), user, spread(bullseye, BSA_BURST_SPREAD)), i * 0.5 SECONDS)
+		if(BSA_MODE_POWER_BURST)
+			for(var/i = 1; i <= BSA_BURST_COUNT; i++)
+				addtimer(CALLBACK(src, PROC_REF(fire_power_shot), user, spread(bullseye, BSA_BURST_SPREAD)), i * 0.5 SECONDS)
+		else
+			to_chat(user, span_info("Click! Looks like the cannon is broken...<br>Maybe we should try a different firing mode?"))
+	reload()
+
+
+/obj/machinery/bsa/full/proc/destroy_all_on_fire_beam(mob/user, turf/bullseye)
 	var/turf/point = get_front_turf()
 	for(var/turf/T as anything in get_line(get_step(point,dir),get_target_turf()))
 		T.ex_act(1)
 		for(var/atom/A in T)
 			A.ex_act(1)
-
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/reacting/deadly) //ZZZAP
-	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 
-	message_admins("[key_name_admin(user)] has launched an artillery strike into [ADMIN_COORDJMP(bullseye)].")
-	log_admin("[key_name_log(user)] has launched an artillery strike into [COORD(bullseye)].") // Line below handles logging the explosion to disk
+/obj/machinery/bsa/full/proc/fire_power_shot(mob/user, turf/bullseye)
+	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
+	message_admins("[key_name_admin(user)] has launched an artillery strike with power shot mode into [ADMIN_COORDJMP(bullseye)].")
+	log_admin("[key_name_log(user)] has launched an artillery strike with power shot mode into [COORD(bullseye)].") // Line below handles logging the explosion to disk
 	explosion(bullseye,ex_power,ex_power*2+1,ex_power*4+2, cause = "Bluespace artillery strike") // 3 7 14 at ex_power = 3
 
-	reload()
+/obj/machinery/bsa/full/proc/fire_pulse_shot(mob/user, turf/bullseye)
+	playsound(src, 'sound/machines/bsa_fire.ogg', 50, 1)
+	message_admins("[key_name_admin(user)] has launched an artillery strike with pulse shot mode into [ADMIN_COORDJMP(bullseye)].")
+	log_admin("[key_name_log(user)] has launched an artillery strike with pulse shot mode into [COORD(bullseye)].") // Line below handles logging the explosion to disk
+	explosion(bullseye, 0, 1, 7, cause = "Bluespace artillery light strike")
+
+/obj/machinery/bsa/full/proc/spread(turf/target, axis_spread)
+	var/x = target.x + rand(-axis_spread, axis_spread)
+	var/y = target.y + rand(-axis_spread, axis_spread)
+	return locate(x, y, target.z)
 
 /obj/machinery/bsa/full/proc/reload()
 	use_power(power_used_per_shot)
@@ -332,8 +383,8 @@
 	var/target_all_areas = FALSE //allows all areas (including admin areas) to be targeted
 
 	// Stuff needed to render the map
-	var/camera_view_range = 9
-	var/camera_xray = FALSE
+	var/camera_view_range = 11
+	var/camera_xray = TRUE
 	var/atom/movable/screen/map_view/camera/cam_screen
 	var/last_camera_turf = null
 	var/turf/aim_turf = null
@@ -420,10 +471,34 @@
 		var/seconds = max(0, time_to_wait - (60 * minutes))
 		var/seconds2 = (seconds < 10) ? "0[seconds]" : seconds
 		data["reloadtime_text"] = "[minutes]:[seconds2]"
-		data["ready"] = minutes == 0 && seconds == 0
+		data["ready"] = is_ready_to_shot()
+		switch(cannon.mode)
+			if(BSA_MODE_POWER_SHOT)
+				data["mode"] = "Power shot"
+			if(BSA_MODE_PULSE_SHOT)
+				data["mode"] = "Pulse shot"
+			if(BSA_MODE_PULSE_BURST)
+				data["mode"] = "Pulse burst"
+			if(BSA_MODE_POWER_BURST)
+				data["mode"] = "Power burst"
+			else
+				data["mode"] = "Unknown"
 	else
 		data["ready"] = FALSE
 	return data
+
+/obj/machinery/computer/bsa_control/proc/is_ready_to_shot()
+	if(!cannon)
+		return FALSE
+	if(!target)
+		return FALSE
+	var/reload_cooldown = cannon.reload_cooldown
+	var/last_fire_time = cannon.last_fire_time
+	var/time_to_wait = max(0, round(reload_cooldown - ((world.time / 10) - last_fire_time)))
+	var/minutes = max(0, round(time_to_wait / 60))
+	var/seconds = max(0, time_to_wait - (60 * minutes))
+	return minutes == 0 && seconds == 0
+
 
 /obj/machinery/computer/bsa_control/ui_static_data()
 	var/list/data = list()
@@ -437,9 +512,12 @@
 		if("build")
 			cannon = deploy()
 		if("fire")
-			fire(usr)
+			if(is_ready_to_shot())
+				fire(usr)
 		if("recalibrate")
 			calibrate(usr)
+		if("select_mode")
+			switch_mode(usr)
 		if("aim")
 			var/direction = params["direction"]
 			switch(direction)
@@ -471,7 +549,34 @@
 		return
 	target = options[choose]
 	aim_turf = detect_target_turf()
+	if (aim_turf)
+		aim_turf = cannon.spread(aim_turf, BSA_CALIBRATION_ACCURACY)
 	update_active_camera_screen()
+
+/obj/machinery/computer/bsa_control/proc/switch_mode(mob/user)
+	var/list/modes = list("Power shot", "Pulse shot", "Pulse burst")
+	if (emagged)
+		modes += "Power burst"
+	var/choose = tgui_input_list(user, "Выберите режим стрельбы", "Режим стрельбы", modes)
+	switch(choose)
+		if("Power shot")
+			cannon.mode = BSA_MODE_POWER_SHOT
+		if("Pulse shot")
+			cannon.mode = BSA_MODE_PULSE_SHOT
+		if("Pulse burst")
+			cannon.mode = BSA_MODE_PULSE_BURST
+		if("Power burst")
+			cannon.mode = BSA_MODE_POWER_BURST
+		else
+			cannon.mode = BSA_MODE_POWER_SHOT
+
+/obj/machinery/computer/bsa_control/emag_act(mob/user)
+	if(emagged)
+		return FALSE
+	emagged = TRUE
+	if(user)
+		to_chat(user, span_warning("You hack the [name], stripping away its protective protocols..."))
+	return TRUE
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
 	if(istype(target,/area))

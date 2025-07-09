@@ -17,6 +17,7 @@ type BSAData = {
   target: string;
   target_coord: string;
   connected: boolean;
+  mode: string;
   mapRef: string;
 };
 
@@ -45,7 +46,7 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
     );
   }
   return (
-    <Window width={550} height={500}>
+    <Window width={750} height={750}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item minHeight="100px">
@@ -63,6 +64,13 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
                   </Button>
                 </LabeledList.Item>
                 {data.connected && (
+                  <LabeledList.Item label="Mode">
+                    <Button icon="cog" onClick={() => act('select_mode')}>
+                      {data.mode}
+                    </Button>
+                  </LabeledList.Item>
+                )}
+                {data.connected && (
                   <LabeledList.Item label="Aim coordinate">
                       {data.target ? data.target_coord : 'None'}
                   </LabeledList.Item>
@@ -70,28 +78,28 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
                 {data.connected && (
                   <LabeledList.Item label="Aim control">
                     <Button
-                      onClick={() => act('aim', {
+                      icon="arrow-circle-up" onClick={() => act('aim', {
                         direction: 'north'
                       })}
                     >
                       North
                     </Button>
                     <Button
-                      onClick={() => act('aim', {
+                      icon="arrow-circle-left" onClick={() => act('aim', {
                         direction: 'west'
                       })}
                     >
                       West
                     </Button>
                     <Button
-                      onClick={() => act('aim', {
+                      icon="arrow-circle-right" onClick={() => act('aim', {
                         direction: 'east'
                       })}
                     >
                       East
                     </Button>
                     <Button
-                      onClick={() => act('aim', {
+                      icon="arrow-circle-down" onClick={() => act('aim', {
                         direction: 'south'
                       })}
                     >
@@ -99,11 +107,11 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
                     </Button>
                   </LabeledList.Item>
                 )}
-                {!!data.ready && !!data.target && (
+                {data.connected && (
                   <LabeledList.Item label="Firing">
                     <Button
                       icon="skull"
-                      color="red"
+                      color={(data.ready && data.target) ? "red" : "gray"}
                       onClick={() => act('fire')}
                     >
                       FIRE!
