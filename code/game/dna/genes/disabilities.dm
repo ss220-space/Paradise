@@ -40,7 +40,7 @@
 
 /datum/dna/gene/disability/hallucinate
 	name = "Галлюцинации"
-	activation_message = list("Ваш разум говорит: «Привет!».")
+	activation_message = list("Ваш разум говорит: \"Привет!\".")
 	deactivation_message = list("Здравомыслие возвращается. Или нет?")
 	instability = -GENE_INSTABILITY_MODERATE
 

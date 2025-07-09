@@ -8,7 +8,7 @@
 
 
 /obj/item/dna_notepad
-	name = "Genetic notepad"
+	name = "genetic notepad"
 	desc = "Планшет генетика, способный хранить данные блоков генов в удобном виде."
 	ru_names = list(
 		NOMINATIVE = "планшет генетика",
@@ -22,13 +22,13 @@
 	icon = 'icons/obj/device.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	icon_state	= "genetic_tablet_on"
+	icon_state = "genetic_tablet_on"
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
-	w_class		= WEIGHT_CLASS_TINY
-	item_state	= "genetic_tablet_on"
-	throw_speed	= 3
-	throw_range	= 7
+	w_class = WEIGHT_CLASS_TINY
+	item_state = "genetic_tablet_on"
+	throw_speed = 3
+	throw_range = 7
 	materials = list(MAT_METAL=2000, MAT_GLASS = 1000)
 	origin_tech = "programming=2"
 	var/dna_data = list()
@@ -83,7 +83,7 @@
 	paper.header += "<b>Время печати:</b> [station_time_timestamp()]<br><br>"
 	paper.header += "<hr>"
 	for(var/list/block in dna_data)
-		paper.header += "[block["num"]]: <font color='[block["color"]]'>[block["name"]]</font><br>"
+		paper.header += "[block["num"]]: <span color='[block["color"]]'>[block["name"]]</font><br>"
 	paper.header += "<hr>"
 	if(in_range(user, src))
 		user.put_in_hands(paper, ignore_anim = FALSE)
@@ -121,7 +121,7 @@
 		ui_interact(user)
 		return
 	. += span_notice("Нужно подойти ближе, чтобы посмотреть содержмое.")
-	balloon_alert("Ты слишком далеко")
+	balloon_alert("слишком далеко")
 
 /obj/item/dna_notepad/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -153,7 +153,6 @@
 		if("edit_dna_block")
 			var/block_num = text2num(params["id"])
 			if(block_num < 1 || block_num > DNA_COUNT)
-				to_chat(usr, "[declent_ru(NOMINATIVE)] недовольно вибрирует.")
 				return
 			var/list/choices = all_dna_names()
 			ui_modal_choice(src, "edit_dna_block_name", "Выберите эффект блока [block_num]:", null, list("id" = block_num), null, choices)
@@ -169,7 +168,6 @@
 				if("edit_dna_block_name")
 					var/block_num = text2num(arguments["id"])
 					if(block_num < 1 || block_num > DNA_COUNT)
-						to_chat(usr, "[declent_ru(NOMINATIVE)] недовольно вибрирует.")
 						return
 					var/gene = find_gene_by_name(answer)
 					if (!gene)
@@ -204,16 +202,17 @@
 	add_fingerprint(user)
 	var/obj/machinery/dna_scannernew/connected = dna_console.connected
 	if (!connected)
-		to_chat(user, span_warning("[dna_console.declent_ru(NOMINATIVE)] не подключен."))
-		balloon_alert(user, "Ошибка загрузки")
+		capitalize
+		to_chat(user, span_warning("[capitalize(dna_console.declent_ru(NOMINATIVE))] не подключен."))
+		balloon_alert(user, "ошибка загрузки")
 		return
 	if(!connected.occupant)
-		to_chat(user, span_warning("[connected.declent_ru(NOMINATIVE)] пуст."))
-		balloon_alert(user, "Ошибка загрузки")
+		to_chat(user, span_warning("[capitalize(connected.declent_ru(NOMINATIVE))] пуст."))
+		balloon_alert(user, "ошибка загрузки")
 		return
 	if(!connected.occupant.dna)
 		to_chat(user, span_warning("Внутри [connected.declent_ru(GENITIVE)] некорректные гены."))
-		balloon_alert(user, "Ошибка загрузки")
+		balloon_alert(user, "ошибка загрузки")
 		return
 	for(var/i = 1; i <= DNA_COUNT; i++)
 		var/save_block_data = read_dna_data(i)
@@ -223,7 +222,7 @@
 				write_dna_data(i, DNA_UNKNOWN_DISABILITY_DATA, DNA_COLOR_DISABILITY)
 	playsound(loc, "terminal_type", 25, TRUE)
 	to_chat(user, "Данные из [dna_console.declent_ru(GENITIVE)] успешно загружены в [declent_ru(NOMINATIVE)].")
-	balloon_alert(user, "Данные загружены")
+	balloon_alert(user, "данные загружены")
 
 /obj/item/dna_notepad/attack_obj(obj/object, mob/living/user, params)
 	. = ..()
@@ -250,7 +249,7 @@
 			self_block["color"] = other_block["color"]
 	playsound(loc, "terminal_type", 25, TRUE)
 	to_chat(user, "Данные из другого [dna_notepad.declent_ru(GENITIVE)] успешно загружены в ваш [declent_ru(NOMINATIVE)].")
-	balloon_alert(user, "Данные загружены")
+	balloon_alert(user, "данные загружены")
 
 /obj/item/dna_notepad/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
