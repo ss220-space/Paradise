@@ -906,9 +906,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 					pdelay = tgui_input_number(src, "Input pump delay.")
 					oxy_dmg = tgui_input_number(src, "Input oxy damage.")
 				else
-					var/list/strenght = text2numlist(effect_strength, " - ")
-					pdelay = strenght[1]
-					oxy_dmg = strenght[2]
+					var/list/strength = text2numlist(effect_strength, " - ")
+					pdelay = strength[1]
+					oxy_dmg = strength[2]
 				H.curse_high_rp(pdelay*10, oxy_dmg)
 				LAZYADD(H.mind.curses, "high_rp")
 				logmsg = "high rp([pdelay] - [oxy_dmg])"

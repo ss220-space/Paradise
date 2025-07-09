@@ -19,6 +19,7 @@
 	RegisterSignal(human, COMSIG_LIVING_STATUS_PARALYZE, PROC_REF(on_sleep))
 
 	ADD_TRAIT(human, TRAIT_DECOY_BRAIN, DEVIL_TRAIT)
+	ADD_TRAIT(human, TRAIT_CHASM_IGNORED, DEVIL_TRAIT)
 	human.grant_actions_by_list(list(/datum/action/innate/remove_hand))
 
 /datum/element/devil_regeneration/Detach(datum/target)
@@ -34,6 +35,7 @@
 
 	var/mob/living/carbon/carbon = target
 	REMOVE_TRAIT(carbon, TRAIT_DECOY_BRAIN, DEVIL_TRAIT)
+	REMOVE_TRAIT(carbon, TRAIT_CHASM_IGNORED, DEVIL_TRAIT)
 	var/datum/action/action = locate(/datum/action/innate/remove_hand) in carbon.actions
 	if(!action)
 		return

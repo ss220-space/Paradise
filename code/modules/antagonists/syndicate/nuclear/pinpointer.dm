@@ -239,10 +239,10 @@
 		if("Location")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(user, "Enter X coordinate to search.", "Location X Define" , "") as null|num
+			var/locationx = tgui_input_number(user, "Enter X coordinate to search.", "Location X Define")
 			if(isnull(locationx) || !(user in view(1,src)))
 				return
-			var/locationy = input(user, "Enter Y coordinate to search.", "Location Y Define" , "") as null|num
+			var/locationy = tgui_input_number(user, "Enter Y coordinate to search.", "Location Y Define")
 			if(isnull(locationy) || !(user in view(1,src)))
 				return
 
@@ -283,7 +283,7 @@
 						to_chat(user, span_warning("Could not find [targetitem] signature!"))
 
 				if("DNA")
-					var/DNAstring = input("Input DNA string to search for." , "Please Enter String" , "")
+					var/DNAstring = tgui_input_text(usr, "Input DNA string to search for." , "Please Enter String" , "")
 					if(!DNAstring)
 						return
 
@@ -606,10 +606,10 @@
 		if("Локация")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(user, "Введите X координату для поиска.", "Локация?" , "") as null|num
+			var/locationx = tgui_input_number(user, "Введите X координату для поиска.", "Локация?")
 			if(isnull(locationx) || !(user in view(1,src)))
 				return
-			var/locationy = input(user, "Введите Y координату для поиска.", "Локация?" , "") as null|num
+			var/locationy = tgui_input_number(user, "Введите Y координату для поиска.", "Локация?")
 			if(isnull(locationy) || !(user in view(1,src)))
 				return
 

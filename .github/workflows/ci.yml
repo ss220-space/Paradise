@@ -14,6 +14,9 @@ on:
       - tutorial
   merge_group:
   workflow_call:
+  workflow_run:
+    workflows: ["Build and verify Rust library"]
+    types: [completed]
 
 jobs:
   run_linters:

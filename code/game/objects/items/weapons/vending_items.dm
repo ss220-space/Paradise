@@ -192,6 +192,13 @@
 	machine_name = "PlasmaMate"
 	icon_state = "refill_plasma"
 
+/obj/item/vending_refill/snack
+	machine_name = "Getmore Chocolate Corp"
+
+/obj/item/vending_refill/protein
+	machine_name = "Автомат спортивного питания"
+
+
 /obj/item/vending_refill/custom
 	machine_name = "Customat"
 	icon = 'icons/obj/machines/customat.dmi'

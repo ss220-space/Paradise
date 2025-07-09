@@ -1,3 +1,7 @@
+#define EMAGGED_SLOT_MACHINE_PRIZE_MOD 5
+#define EMAGGED_SLOT_MACHINE_GIB_CHANCE 10
+#define EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE 20
+
 /obj/machinery/slot_machine
 	name = "slot machine"
 	desc = "Gambling for the antisocial."
@@ -10,11 +14,19 @@
 	var/datum/money_account/account = null
 	var/result = null
 	var/resultlvl = null
+	var/list/prizes = list("jackpot"=10000, "big"=1000, "medium"=500, "small"=200, "minimal"=50, "none"=0)
 
 /obj/machinery/slot_machine/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 	ui_interact(user)
 
+/obj/machinery/slot_machine/emag_act(mob/user)
+	. = ..()
+	if(emagged)
+		return
+	do_sparks(3, TRUE, src)
+	to_chat(user, span_warning("Smells like something burnt"))
+	emagged = TRUE
 
 /obj/machinery/slot_machine/update_icon_state()
 	icon_state = "slots-[working ? "on" : "off"]"
@@ -55,39 +67,72 @@
 		working = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
-		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr.name), 25)
+		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr), 25)
 
-/obj/machinery/slot_machine/proc/spin_slots(userName)
+/obj/machinery/slot_machine/proc/get_prize_coefficient()
+	if (emagged)
+		return EMAGGED_SLOT_MACHINE_PRIZE_MOD
+	return 1
+
+/obj/machinery/slot_machine/proc/give_custom_prize(mob/user, obj/item/prize)
+	var/item = new prize(get_turf(src)) // Create item on slot machine turf
+	var/mob/living/carbon/human/carbon_user = user
+	if(istype(carbon_user)) // If living carbon - put in hands
+		carbon_user.put_in_any_hand_if_possible(item)
+
+/obj/machinery/slot_machine/proc/apply_emagged_lose_effect(mob/user)
+	if(!isliving(user))
+		return
+	var/mob/living/target = user
+	target.adjust_slot_machine_lose_effect()
+
+/obj/machinery/slot_machine/proc/spin_slots(mob/user)
+	if(!istype(user))
+		return
+	var/userName = user.name
 	switch(rand(1,5000))
 		if(1)
-			atom_say("ДЖЕКПОТ! Игрок [userName] выиграл 10000 кредитов!")
-			GLOB.event_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в 10000 кредитов!", "Обладатель джекпота!")
-			result = "JACKPOT! You win ten thousand credits!"
+			var/credits = prizes["jackpot"] * get_prize_coefficient()
+			atom_say("ДЖЕКПОТ! Игрок [userName] выиграл [credits] кредитов!")
+			GLOB.event_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в [credits] кредитов!", "Обладатель джекпота!")
+			result = "ДЖЕКПОТ! Вы выиграли [credits] кредитов!"
 			resultlvl = "teal"
-			win_money(10000, 'sound/goonstation/misc/airraid_loop.ogg')
+			win_money(credits, 'sound/goonstation/misc/airraid_loop.ogg')
+			if (emagged)
+				give_custom_prize(user, /obj/item/stack/telecrystal/hundred)
 		if(2 to 20)
-			atom_say("Большой победитель! Игрок [userName] выиграл 1000 кредитов!")
-			result = "You win a thousand credits!"
+			var/credits = prizes["big"] * get_prize_coefficient()
+			atom_say("Большой победитель! Игрок [userName] выиграл [credits] кредитов!")
+			result = "Вы выиграли [credits] кредитов!"
 			resultlvl = "green"
-			win_money(1000, 'sound/goonstation/misc/klaxon.ogg')
+			win_money(credits, 'sound/goonstation/misc/klaxon.ogg')
+			if (emagged)
+				give_custom_prize(user, /obj/item/stack/telecrystal/twenty_five)
 		if(21 to 100)
-			atom_say("Победитель! Игрок [userName] выиграл 500 кредитов!")
-			result = "You win five hundred credits!"
+			var/credits = prizes["medium"] * get_prize_coefficient()
+			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
+			result = "Вы выиграли [credits] кредитов!"
 			resultlvl = "green"
-			win_money(500, 'sound/goonstation/misc/bell.ogg')
+			win_money(credits, 'sound/goonstation/misc/bell.ogg')
+			if (emagged)
+				give_custom_prize(user, /obj/item/stack/telecrystal/five)
 		if(101 to 500)
-			atom_say("Победитель! Игрок [userName] выиграл 200 кредитов!")
-			result = "You win two hundred credits!"
+			var/credits = prizes["small"] * get_prize_coefficient()
+			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
+			result = "Вы выиграли [credits] кредитов!"
 			resultlvl = "green"
-			win_money(200)
+			win_money(credits)
 		if(501 to 1000)
-			atom_say("Победитель! Игрок [userName] выиграл 50 кредитов!")
-			result = "You win fifty credits!"
+			var/credits = prizes["minimal"] * get_prize_coefficient()
+			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
+			result = "Вы выиграли [credits] кредитов!"
 			resultlvl = "green"
-			win_money(50)
+			win_money(credits)
 		else
-			result = "No luck!"
+			result = "Неудача!"
 			resultlvl = "orange"
+			if (emagged)
+				apply_emagged_lose_effect(user)
 	working = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src) // Push a UI update

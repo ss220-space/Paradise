@@ -3,6 +3,14 @@
 
 /obj/machinery/mineral/unloading_machine
 	name = "unloading machine"
+	ru_names = list(
+		NOMINATIVE = "разгрузочная машина",
+		GENITIVE = "разгрузочной машины",
+		DATIVE = "разгрузочной машине",
+		ACCUSATIVE = "разгрузочную машину",
+		INSTRUMENTAL = "разгрузочной машиной",
+		PREPOSITIONAL = "разгрузочной машине"
+	)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "unloader"
 	density = TRUE

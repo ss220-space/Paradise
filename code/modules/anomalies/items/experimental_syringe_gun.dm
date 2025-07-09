@@ -48,7 +48,7 @@
 		synth_speed = 0
 		return
 
-	synth_speed = core.get_strenght() / 30
+	synth_speed = core.get_strength() / 30
 
 /obj/item/gun/syringe/rapidsyringe/experimental/attackby(obj/item/item, mob/user)
 	if(iscorevortex(item))
@@ -128,7 +128,7 @@
 	if(!core)
 		return
 
-	if(syringes.len < max_syringes && prob(core.get_strenght() / 5))
+	if(syringes.len < max_syringes && prob(core.get_strength() / 5))
 		syringes.Add(new /obj/item/reagent_containers/syringe)
 		process_chamber()
 

@@ -622,4 +622,3 @@ GLOBAL_LIST_EMPTY(closets)
 	. = ..()
 	if(loc)
 		UpdateTransparency()
-

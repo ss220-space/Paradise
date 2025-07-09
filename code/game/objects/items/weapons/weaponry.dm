@@ -104,7 +104,15 @@
 
 /obj/item/melee/katana/basalt
 	name = "basalt katana"
-	desc = "a katana made out of hardened basalt. Particularly damaging to lavaland fauna."
+	desc = "Катана, изготовленная из закалённого базальта, представляет особую опасность для обитателей Лазиса."
+	ru_names = list(
+		NOMINATIVE = "базальтовая катана",
+		GENITIVE = "базальтовой катаны",
+		DATIVE = "базальтовой катане",
+		ACCUSATIVE = "базальтовую катану",
+		INSTRUMENTAL = "базальтовой катаной",
+		PREPOSITIONAL = "базальтовой катане"
+	)
 	icon_state = "basalt_katana"
 	item_state = "basalt_katana"
 	force = 30

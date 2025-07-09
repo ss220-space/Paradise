@@ -362,7 +362,7 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 	choice += "--CANCEL--"
 
-	var/selected = input("What holiday would you like to force?","Holiday Forcing","--CANCEL--") in choice
+	var/selected = tgui_input_list(usr, "What holiday would you like to force?", "Holiday Forcing", choice, "--CANCEL--")
 
 	if(selected == "--CANCEL--")
 		return

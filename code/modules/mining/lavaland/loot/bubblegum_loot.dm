@@ -1,5 +1,13 @@
 /obj/structure/closet/crate/necropolis/bubblegum
 	name = "bubblegum chest"
+	ru_names = list(
+		NOMINATIVE = "сундук Бубльгума",
+		GENITIVE = "сундука Бубльгума",
+		DATIVE = "сундуку Бубльгума",
+		ACCUSATIVE = "сундук Бубльгума",
+		INSTRUMENTAL = "сундуком Бубльгума",
+		PREPOSITIONAL = "сундуке Бубльгума"
+	)
 
 /obj/structure/closet/crate/necropolis/bubblegum/populate_contents()
 	new /obj/item/clothing/suit/space/hostile_environment(src)
@@ -9,6 +17,14 @@
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher
 	name = "bloody bubblegum chest"
+	ru_names = list(
+		NOMINATIVE = "кровавый сундук Бубльгума",
+		GENITIVE = "кровавого сундука Бубльгума",
+		DATIVE = "кровавому сундуку Бубльгума",
+		ACCUSATIVE = "кровавый сундук Бубльгума",
+		INSTRUMENTAL = "кровавым сундуком Бубльгума",
+		PREPOSITIONAL = "кровавом сундуке Бубльгума"
+	)
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher/populate_contents()
 	. = ..()
@@ -18,7 +34,15 @@
 
 /obj/item/mayhem
 	name = "mayhem in a bottle"
-	desc = "A magically infused bottle of blood, the scent of which will drive anyone nearby into a murderous frenzy."
+	desc = "Зачарованная бутыль с кровью, чей аромат повергает всех вокруг в убийственное безумие."
+	ru_names = list(
+		NOMINATIVE = "бутылка хаоса",
+		GENITIVE = "бутылки хаоса",
+		DATIVE = "бутылке хаоса",
+		ACCUSATIVE = "бутылку хаоса",
+		INSTRUMENTAL = "бутылкой хаоса",
+		PREPOSITIONAL = "бутылке хаоса"
+	)
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
 
@@ -27,7 +51,7 @@
 		spawn()
 			var/obj/effect/mine/pickup/bloodbath/B = new(H)
 			B.mineEffect(H)
-	to_chat(user, "<span class='notice'>You shatter the bottle!</span>")
+	to_chat(user, span_notice("Вы разбиваете бутылку!"))
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 	qdel(src)
 
@@ -38,7 +62,15 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 	color = "#FF0000"
-	desc = "Mark your target for death."
+	desc = "Отметьте цель для смертной казни."
+	ru_names = list(
+		NOMINATIVE = "кровавый контракт",
+		GENITIVE = "кровавого контракта",
+		DATIVE = "кровавому контракту",
+		ACCUSATIVE = "кровавый контракт",
+		INSTRUMENTAL = "кровавым контрактом",
+		PREPOSITIONAL = "кровавом контракте"
+	)
 	var/used = FALSE
 
 /obj/item/blood_contract/attack_self(mob/user)
@@ -46,17 +78,17 @@
 		return
 
 	used = TRUE
-	var/choice = tgui_input_list(user,"Who do you want dead?","Choose Your Victim", GLOB.player_list)
+	var/choice = tgui_input_list(user, "Кого вы желаете уничтожить?", "Выбор жертвы", GLOB.player_list)
 
 	if(!choice)
 		used = FALSE
 		return
 	else if(!isliving(choice))
-		to_chat(user, "[choice] is already dead!")
+		to_chat(user, "[choice] уже мертв!")
 		used = FALSE
 		return
 	else if(choice == user)
-		to_chat(user, "You feel like writing your own name into a cursed death warrant would be unwise.")
+		to_chat(user, "Писать собственное имя в проклятый смертный приказ было бы неразумно.")
 		used = FALSE
 		return
 	else
@@ -68,7 +100,7 @@
 		var/datum/objective/survive/survive = new
 		survive.owner = L.mind
 		L.mind.objectives += survive
-		to_chat(L, "<span class='userdanger'>You've been marked for death! Don't let the demons get you!</span>")
+		to_chat(L, span_userdanger("Вы обречены на смерть! Не дайте демонам добраться до вас!"))
 		L.color = "#FF0000"
 		spawn()
 			var/obj/effect/mine/pickup/bloodbath/B = new(L)
@@ -77,7 +109,7 @@
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
 			if(H.stat == DEAD || H == L)
 				continue
-			to_chat(H, "<span class='userdanger'>You have an overwhelming desire to kill [L]. [L.p_they(TRUE)] [L.p_have()] been marked red! Go kill [L.p_them()]!</span>")
+			to_chat(H, span_userdanger("Вы испытываете непреодолимое желание убить [L]. [genderize_ru(L.gender,"Он","Она","Оно","Они")] помечен[genderize_ru(L.gender,"","а","о","ы")] красным! УБЕЙТЕ [genderize_ru(L.gender,"ЕГО","ЕЁ","ЕГО","ИХ")]!"))
 			H.put_in_hands(new /obj/item/kitchen/knife/butcher(H))
 
 	qdel(src)
@@ -130,7 +162,7 @@
 	for(var/mob/living/M in probably_bubblearena)
 		var/turf/T = get_turf(M)
 		M.Immobilize(1 SECONDS)
-		to_chat(M, "<span class='colossus'><b>Now... get out of my home.</b></span>")
+		to_chat(M, span_colossus("<b>А теперь... убирайся из моего дома.</b>"))
 		new /obj/effect/temp_visual/bubblegum_hands/leftpaw(T)
 		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(T)
 		sleep(8)
@@ -397,7 +429,7 @@
 	projectile.firer = soul
 	projectile.firer_source_atom = src
 	projectile.fire(null, attacked_atom)
-	visible_message(span_danger("[declent_ru(NOMINATIVE)] стреляет в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Ты стреляешь в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] стреля[pluralize_ru(gender,"ет","ют")] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 	playsound(src, 'sound/magic/fireball.ogg', 50, TRUE)
 
 /obj/item/soulscythe/proc/slash_target(atom/attacked_atom)
@@ -406,13 +438,13 @@
 		if(attacked_mob.stat != DEAD)
 			give_blood(15)
 		attacked_mob.apply_damage(damage = force * (faction_check(attacked_mob.faction, MINING_FACTIONS) ? 2 : 1), sharp = TRUE)
-		to_chat(attacked_mob, span_userdanger("Тебя разрубает [declent_ru(NOMINATIVE)]!"))
-		visible_message(span_danger("[declent_ru(NOMINATIVE)] разрубает [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Ты разрубаешь [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+		to_chat(attacked_mob, span_userdanger("Вас разруба[pluralize_ru(gender,"ет","ют")] [declent_ru(NOMINATIVE)]!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] разруба[pluralize_ru(gender,"ет","ют")] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы разрубаете [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
 	else if((ismachinery(attacked_atom) || isstructure(attacked_atom)) && use_blood(5))
 		var/obj/attacked_obj = attacked_atom
 		attacked_obj.take_damage(force, BRUTE, MELEE, FALSE)
-		visible_message(span_danger("[declent_ru(NOMINATIVE)] бьёт [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Ты бьешь [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] бь[pluralize_ru(gender,"ёт","ют")] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы бьёте [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, 'sound/effects/meteorimpact.ogg', 50, TRUE)
 	else
 		return
@@ -430,12 +462,12 @@
 	COOLDOWN_START(src, attack_cooldown, 5 SECONDS)
 	animate(src)
 	charging = TRUE
-	visible_message(span_danger("[declent_ru(NOMINATIVE)] начинает заряжаться..."))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает заряжаться..."))
 	balloon_alert(soul, "ты начинаешь заряжаться...")
 	if(!do_after(soul, 2 SECONDS, target = src, timed_action_flags = DA_IGNORE_TARGET_LOC_CHANGE))
 		balloon_alert(soul, "прервано!")
 		return
-	visible_message(span_danger("[declent_ru(NOMINATIVE)] бросается на [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Ты бросаешься на [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] бросается на [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Ты бросаешься на [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/mook_dust(get_turf(src))
 	playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 	SpinAnimation(1)

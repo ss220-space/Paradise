@@ -454,7 +454,10 @@
 
 /obj/projectile/Destroy()
 	STOP_PROCESSING(SSprojectiles, src)
-	ammo_casing = null
+	if(ammo_casing)
+		if(ammo_casing.BB == src)
+			ammo_casing.BB = null
+		ammo_casing =  null
 	firer_source_atom = null
 	firer = null
 	return ..()

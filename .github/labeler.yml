@@ -22,3 +22,8 @@ MAP:
 TGUI:
 - changed-files:
   - any-glob-to-any-file: ['tgui/**', 'tgui-next/**']
+
+# Rust changes
+RUST:
+- changed-files:
+  - any-glob-to-any-file: 'rust/**'

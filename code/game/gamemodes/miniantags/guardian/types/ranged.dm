@@ -111,7 +111,7 @@
 	set name = "Удалить ловушку"
 	set category = STATPANEL_GUARDIAN
 	set desc = "Обезвреживание нежелательных ловушек слежения."
-	var/picked_snare = input(src, "Выберите ловушку для обезвреживания", "Уничтожить ловушку") as null|anything in snares
+	var/picked_snare = tgui_input_list(src, "Выберите ловушку для обезвреживания", "Уничтожить ловушку", snares)
 	if(picked_snare)
 		snares -= picked_snare
 		qdel(picked_snare)

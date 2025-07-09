@@ -4,7 +4,7 @@
 //////////////////////////////////////////////////////////////////
 
 /datum/surgery/infection
-	name = "External Infection Treatment"
+	name = "Санация"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/cauterize)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -23,7 +23,7 @@
 	)
 
 /datum/surgery/bleeding
-	name = "Internal Bleeding"
+	name = "Восстановление повреждённых сосудов"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -46,7 +46,7 @@
 	restricted_speciestypes = list(/datum/species/plasmaman)
 
 /datum/surgery/bleeding/special
-	name = "Internal Bleeding"
+	name = "Восстановление повреждённых сосудов"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -62,7 +62,7 @@
 	restricted_speciestypes = list(/datum/species/wryn, /datum/species/kidan, /datum/species/plasmaman)
 
 /datum/surgery/bleeding/plasmaman
-	name = "Plasmaman Internal Bleeding"
+	name = "Восстановление повреждённых сосудов (Плазмолюд)"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -89,7 +89,7 @@
 	restricted_speciestypes = null
 
 /datum/surgery/bleeding/insect
-	name = "Insectoid Internal Bleeding"
+	name = "Восстановление повреждённых сосудов (Инсектоид)"
 	steps = list(
 		/datum/surgery_step/open_encased/saw,
 		/datum/surgery_step/generic/retract_skin,
@@ -112,7 +112,7 @@
 	restricted_speciestypes = null
 
 /datum/surgery/debridement
-	name = "Debridement"
+	name = "Восстановление мёртвых тканей"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -160,7 +160,7 @@
 
 
 /datum/surgery_step/fix_vein
-	name = "mend internal bleeding"
+	name = "заживление кровеносных сосудов"
 	begin_sound = 'sound/surgery/fixovein1.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -177,23 +177,23 @@
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected.has_internal_bleeding())
-		to_chat(user, span_notice("The veins in [affected] seem to be in perfect shape!"))
+		user.balloon_alert(user, "сосуды в норме!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		"[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool].",
-		"You start patching the damaged vein in [target]'s [affected.name] with \the [tool].",
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] заживлять повреждённые сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете заживлять повреждённые сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("The pain in your [affected.name] is unbearable!")
+	target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	return ..()
 
 
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] has patched the damaged vein in [target]'s [affected.name] with \the [tool]."),
-		span_notice("You have patched the damaged vein in [target]'s [affected.name] with \the [tool]."),
+		span_notice("[user] заживля[pluralize_ru(user.gender, "ет", "ют")] повреждённые сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы заживляете повреждённые сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -207,15 +207,15 @@
 /datum/surgery_step/fix_vein/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
-		span_warning("Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("Вы дёргаете рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(5, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/fix_dead_tissue		//Debridement
-	name = "remove dead tissue"
+	name = "удаление мёртвой плоти"
 	begin_sound = 'sound/surgery/scalpel1.ogg'
 	end_sound = 'sound/surgery/scalpel2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -233,18 +233,18 @@
 /datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] starts cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].",
-		"You start cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].",
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] срезать и удалять мёртвую плоть в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете срезать и удалять мёртвую плоть в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("The pain in [affected.name] is unbearable!")
+	target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	return ..()
 
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool]."),
-		span_notice("You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool]."),
+		span_notice("[user] среза[pluralize_ru(user.gender, "ет", "ют")] и удаля[pluralize_ru(user.gender, "ет", "ют")] мёртвую плоть в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы срезаете и удаляете мёртвую плоть в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_OPEN
@@ -254,15 +254,15 @@
 /datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!"),
-		span_warning("Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, прорезая [tool.declent_ru(INSTRUMENTAL)] ткань в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("Вы дёргаете рукой, прорезая [tool.declent_ru(INSTRUMENTAL)] ткань в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(20, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/treat_necrosis
-	name = "treat necrosis"
+	name = "обработка омертвелых тканей"
 	allowed_tools = list(
 		/obj/item/reagent_containers/dropper = 100,
 		/obj/item/reagent_containers/glass/bottle = 90,
@@ -286,8 +286,8 @@
 	var/obj/item/reagent_containers/container = tool
 	if(!container.reagents.has_reagent("mitocholide"))
 		user.visible_message(
-			"[user] looks at \the [tool] and ponders.",
-			"You are not sure if \the [tool] contains the mitocholide necessary to treat the necrosis.",
+			span_notice("[user] нерешительно смотр[pluralize_ru(user.gender, "ит", "ят")] на [tool.declent_ru(ACCUSATIVE)], ничего не предпринимая."),
+			span_notice("Вы нерешительно смотрите на [tool.declent_ru(ACCUSATIVE)]. Кажется, что [genderize_ru(tool.gender, "он", "она", "оно", "они")] не содержат митоколида."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 			)
 		return FALSE
@@ -297,15 +297,15 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!(affected.is_dead()))
-		to_chat(user, span_warning("The [affected] seems to already be in fine condition!"))
+		user.balloon_alert("обработка не требуется!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		"[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].",
-		"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].",
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] обрабатывать митоколидом омертвелые ткани в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете обрабатывать митоколидом омертвелые ткани в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
+	target.custom_pain("Вы чувствуете острую боль в [affected.declent_ru(PREPOSITIONAL)]!")
 	return ..()
 
 /datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -325,8 +325,8 @@
 			affected.unnecrotize()
 
 		user.visible_message(
-			span_notice("[user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]"),
-			span_notice("You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool]."),
+			span_notice("[user] вылива[pluralize_ru(user.gender, "ет", "ют")] [trans] единиц[declension_ru(trans, "у", "ы", "")] вещества из [tool.declent_ru(GENITIVE)] на омертвелые ткани в [affected.declent_ru(PREPOSITIONAL)] [target]."),
+			span_notice("Вы выливаете [trans] единиц[declension_ru(trans, "у", "ы", "")] вещества из [tool.declent_ru(GENITIVE)] на омертвелые ткани в [affected.declent_ru(PREPOSITIONAL)] [target]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 
@@ -344,8 +344,8 @@
 	container.reagents.reaction(target, REAGENT_INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
 	user.visible_message(
-		span_warning("[user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!"),
-		span_warning("Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, проливая [trans] единиц[declension_ru(trans, "у", "ы", "")] вещества из [tool.declent_ru(GENITIVE)] мимо раны на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("Вы дёргаете рукой, проливая [trans] единиц[declension_ru(trans, "у", "ы", "")] вещества из [tool.declent_ru(GENITIVE)] мимо раны на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -356,7 +356,7 @@
 //					Dethrall Shadowling 						//
 //////////////////////////////////////////////////////////////////
 /datum/surgery/remove_thrall
-	name = "Remove Shadow Tumor"
+	name = "Удаление теневой опухоли"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -372,7 +372,7 @@
 	requires_organic_bodypart = TRUE
 
 /datum/surgery/remove_thrall/synth
-	name = "Debug Shadow Tumor"
+	name = "Отладка теневой опухоли"
 	steps = list(
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
@@ -403,28 +403,36 @@
 
 
 /datum/surgery_step/internal/dethrall
-	name = "cleanse contamination"
+	name = "удаление опухоли"
 	begin_sound = 'sound/items/lighter/light.ogg'
 	allowed_tools = list(/obj/item/flash = 100, /obj/item/flashlight/pen = 80, /obj/item/flashlight = 40)
 	blood_level = SURGERY_BLOODSPREAD_NONE
 	time = 3 SECONDS
 
 /datum/surgery_step/internal/dethrall/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/internal/brain = target.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
 	user.visible_message(
-		"[user] reaches into [target]'s head with [tool].",
-		span_notice("You begin aligning [tool]'s light to the tumor on [target]'s brain..."),
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] подносить [tool.declent_ru(ACCUSATIVE)] к ране на [affected.declent_ru(PREPOSITIONAL)] [target]."),
+		span_notice("Вы начинаете подносить [tool.declent_ru(ACCUSATIVE)] к ране на [affected.declent_ru(PREPOSITIONAL)] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	to_chat(target, span_boldannounceic("A small part of your [brain.parent_organ_zone] pulses with agony as the light impacts it."))
+
+	to_chat(target, span_boldannounceic("Ваше сознание заливает волна агонизирующей боли от обжигающего света, направленного прямо на ваш[genderize_ru(affected.gender, "", "у", "е", "и")] [affected.declent_ru(ACCUSATIVE)]!"))
 	return ..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
 	if(isshadowlinglesser(target)) //Empowered thralls cannot be deconverted
-		to_chat(target, span_shadowling("<b><i>NOT LIKE THIS!</i></b>"))
-		user.visible_message(span_warning("[target] suddenly slams upward and knocks down [user]!"), \
-							 span_userdanger("[target] suddenly bolts up and slams you with tremendous force!"),
-							 chat_message_type = MESSAGE_TYPE_COMBAT)
+		to_chat(target, span_shadowling("<b><i>ВОТ ТАК ПРОСТО?! НУ УЖ НЕТ!</i></b>"))
+
+		user.visible_message(
+			span_warning("[target] резко выгиба[pluralize_ru(target.gender, "ет", "ют")]ся, сбивая с ног [user]!"), \
+			span_userdanger("[target] резко выгиба[pluralize_ru(target.gender, "ет", "ют")]ся, сбивая вас с ног!"),
+			chat_message_type = MESSAGE_TYPE_COMBAT
+		)
+
 		user.SetSleeping(0)
 		user.SetStunned(0)
 		user.SetWeakened(0)
@@ -442,14 +450,18 @@
 			S.apply_damage(20, BRUTE)
 			playsound(S, 'sound/effects/bang.ogg', 50, 1)
 		return SURGERY_STEP_INCOMPLETE
-	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
-	var/obj/item/organ/external/E = target.get_organ(check_zone(B.parent_organ_zone))
-	user.visible_message("[user] shines light onto the tumor in [target]'s [E]!", span_notice("You cleanse the contamination from [target]'s brain!"), chat_message_type = MESSAGE_TYPE_COMBAT)
+
+	user.visible_message(
+		span_warning("[user] свет[pluralize_ru(user.gender, "ит", "ят")] [tool.declent_ru(INSTRUMENTAL)] прямо на опухоль в [affected.declent_ru(PREPOSITIONAL)] [target]."),
+		span_warning("Вы светите [tool.declent_ru(INSTRUMENTAL)] прямо на опухоль в [affected.declent_ru(PREPOSITIONAL)] [target]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+
 	if(target.vision_type) //Turns off their darksight if it's still active.
-		to_chat(target, span_boldannounceic("Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!"))
+		to_chat(target, span_boldannounceic("Ваши глаза заливает пелена боли, вы теряете возможность видеть в темноте!"))
 		target.set_vision_override(null)
 	SSticker.mode.remove_thrall(target.mind, 0)
-	target.visible_message(span_warning("A strange black mass falls from [target]'s [E]!"))
+	target.visible_message(span_warning("Кусок чёрной сочащейся плоти выпадает из [affected.declent_ru(GENITIVE)] [target]!"))
 	var/obj/item/organ/thing = new /obj/item/organ/internal/shadowtumor(get_turf(target))
 	thing.update_DNA(target.dna)
 	user.put_in_hands(thing, ignore_anim = FALSE)

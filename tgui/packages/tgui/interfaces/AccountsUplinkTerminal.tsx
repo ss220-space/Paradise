@@ -229,7 +229,8 @@ const AccountsActions = (properties: AccountsActionsProps) => {
         <Input
           placeholder="Search by account holder, number, status"
           width="100%"
-          onInput={(e, value) => setSearchText(value)}
+          expensive
+          onChange={setSearchText}
         />
       </Stack.Item>
     </Stack>
@@ -315,16 +316,10 @@ const CreateAccount = (properties) => {
     >
       <LabeledList>
         <LabeledList.Item label="Account Holder">
-          <Input
-            placeholder="Name Here"
-            onChange={(e, value) => setAccName(value)}
-          />
+          <Input placeholder="Name Here" onChange={setAccName} />
         </LabeledList.Item>
         <LabeledList.Item label="Initial Deposit">
-          <Input
-            placeholder="0"
-            onChange={(e, value) => setAccDeposit(value)}
-          />
+          <Input placeholder="0" onChange={setAccDeposit} />
         </LabeledList.Item>
       </LabeledList>
       <Button

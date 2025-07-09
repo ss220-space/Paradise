@@ -15,7 +15,7 @@
 
 	sleep(0.5 SECONDS)
 	var/obj/effect/anomaly/bluespace/anomaly = owner
-	anomaly.teleport(owner, scale_by_strenght(tp_range_low, tp_range_high))
+	anomaly.teleport(owner, scale_by_strength(tp_range_low, tp_range_high))
 
 	owner.matr.Scale(10, 10)
 	animate(owner, transform = owner.matr, time = 0.5 SECONDS, alpha = 255)
@@ -55,7 +55,7 @@
 
 /datum/anomaly_impulse/bs_tp_other/impulse()
 	var/obj/effect/anomaly/bluespace/anomaly = owner
-	var/tp_range = scale_by_strenght(tp_range_low, tp_range_high)
+	var/tp_range = scale_by_strength(tp_range_low, tp_range_high)
 	for(var/atom/movable/atom in view(tp_range, owner))
 		if(atom != owner)
 			anomaly.teleport(atom, tp_range)
@@ -94,18 +94,18 @@
 	var/list/wormholes = list()
 
 /datum/anomaly_impulse/wormholes/impulse()
-	var/radius = scale_by_strenght(effect_range_low, effect_range_high)
+	var/radius = scale_by_strength(effect_range_low, effect_range_high)
 	var/list/possible_turfs = list()
 	for(var/turf/turf in range(radius, owner))
 		possible_turfs.Add(turf)
 
-	var/number_of_wormholes = scale_by_strenght(wormholes_num_low, wormholes_num_high)
+	var/number_of_wormholes = scale_by_strength(wormholes_num_low, wormholes_num_high)
 	for(var/i in 1 to number_of_wormholes)
 		var/turf/anomaly_turf = pick_n_take(possible_turfs)
 		if(anomaly_turf)
 			wormholes.Add(new /obj/effect/portal/wormhole/anomaly(anomaly_turf, null, null, -1, null, TRUE, wormholes))
 
-	addtimer(CALLBACK(src, PROC_REF(end)), scale_by_strenght(wormholes_time_low, wormholes_time_high))
+	addtimer(CALLBACK(src, PROC_REF(end)), scale_by_strength(wormholes_time_low, wormholes_time_high))
 
 /datum/anomaly_impulse/wormholes/proc/end()
 	QDEL_LIST(wormholes)
@@ -153,7 +153,7 @@
 
 /datum/anomaly_impulse/bs_tp_other_t4/impulse()
 	var/list/turf/turfs = list()
-	var/tp_range = scale_by_strenght(5, 10)
+	var/tp_range = scale_by_strength(5, 10)
 	for(var/turf/simulated/turf in range(tp_range, owner))
 		turfs.Add(turf)
 

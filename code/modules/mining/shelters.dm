@@ -29,12 +29,9 @@
 	return SHELTER_DEPLOY_ALLOWED
 
 /datum/map_template/shelter/alpha
-	name = "Shelter Alpha"
+	name = "Убежище Альфа"
 	shelter_id = "shelter_alpha"
-	description = "A cosy self-contained pressurized shelter, with \
-		built-in navigation, entertainment, medical facilities and a \
-		sleeping area! Order now, and we'll throw in a TINY FAN, \
-		absolutely free!"
+	description = "Уютное автономное герметичное убежище со встроенной навигацией, развлечениями, медицинским оборудованием и спальной зоной! Закажите сейчас – и получите МАЛЕНЬКИЙ ВЕНТИЛЯТОР абсолютно бесплатно!"
 	mappath = "_maps/map_files/templates/shelter_1.dmm"
 
 /datum/map_template/shelter/alpha/New()
@@ -42,13 +39,9 @@
 	whitelisted_turfs = typecacheof(/turf/simulated/mineral)
 
 /datum/map_template/shelter/beta
-	name = "Shelter Beta"
+	name = "Убежище Бета"
 	shelter_id = "shelter_beta"
-	description = "An extremly luxurious shelter, containing all \
-		the amenities of home, including carpeted floors, hot and cold \
-		running water, a gourmet three course meal, cooking facilities, \
-		and a deluxe companion to keep you from getting lonely during \
-		an ash storm."
+	description = "Невероятно роскошное убежище со всеми удобствами: ковровые покрытия, горячая и холодная вода, изысканный трехразовый рацион, кухонное оборудование и элитный компаньон, чтобы вам не было одиноко во время пепельной бури."
 	mappath = "_maps/map_files/templates/shelter_2.dmm"
 
 /datum/map_template/shelter/beta/New()
@@ -56,13 +49,9 @@
 	whitelisted_turfs = typecacheof(/turf/simulated/mineral)
 
 /datum/map_template/shelter/charlie
-	name = "Shelter Charlie"
+	name = "Убежище Чарли"
 	shelter_id = "shelter_charlie"
-	description = "A luxury elite shelter which holds an entire bar \
-		along with two vending machines, tables, and a restroom that \
-		also has a sink. This isn't a survival capsule and so you can \
-		expect that this won't save you if you're bleeding out to \
-		death."
+	description = "Элитное убежище класса люкс с полноценным баром, двумя торговыми автоматами, столиками и санузлом с раковиной. Это не аварийная капсула, поэтому не рассчитывайте, что она спасет вас в случае смертельного ранения."
 	mappath = "_maps/map_files/templates/shelter_3.dmm"
 
 /datum/map_template/shelter/charlie/New()
