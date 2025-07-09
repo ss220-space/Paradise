@@ -35,6 +35,8 @@ SUBSYSTEM_DEF(terraforming)
 		var/turf/turf = data[1]
 		turf.ChangeTurf(text2path(data[2]))
 		queue.dequeue()
+		if(MC_TICK_CHECK)
+			return
 
 #undef CHANGES_PER_FIRE
 
