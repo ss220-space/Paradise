@@ -39,7 +39,7 @@
 	create_empty_data()
 
 /obj/item/dna_notepad/proc/read_dna_data(block)
-	for(var/list/dna_detail_data in dna_data)
+	for(var/list/dna_detail_data as anything in dna_data)
 		if(dna_detail_data["num"] == "[block]")
 			return dna_detail_data
 	var/list/current_dna_detail_data = list(
@@ -52,7 +52,7 @@
 
 /obj/item/dna_notepad/proc/write_dna_data(block, name, color)
 	var/list/current_dna_detail_data = null
-	for(var/list/dna_detail_data in dna_data)
+	for(var/list/dna_detail_data as anything in dna_data)
 		if(dna_detail_data["num"] == "[block]")
 			current_dna_detail_data = dna_detail_data
 			break
@@ -76,20 +76,20 @@
 	printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	flick("genetic_tablet_print", src)
-	addtimer(CALLBACK(src, PROC_REF(create_report_paper), user), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(create_report_paper)), 3 SECONDS)
 
-/obj/item/dna_notepad/proc/create_report_paper(var/mob/living/user)
+/obj/item/dna_notepad/proc/create_report_paper()
 	var/obj/item/paper/paper = new(drop_location())
 	paper.name = "Блоки генов"
 	paper.header += "<center><b>Блоки генов</b></center><br>"
 	paper.header += "<b>Время печати:</b> [station_time_timestamp()]<br><br>"
 	paper.header += "<hr>"
-	for(var/list/block in dna_data)
+	for(var/list/block as anything in dna_data)
 		paper.header += "[block["num"]]: <span style='color: [block["color"]];'>[block["name"]]</span><br>"
 	paper.header += "<hr>"
-	if(in_range(user, src))
-		user.put_in_hands(paper, ignore_anim = FALSE)
-		user.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
+	if(in_range(usr, src))
+		usr.put_in_hands(paper, ignore_anim = FALSE)
+		usr.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
 	printing = FALSE
 
 /obj/item/dna_notepad/proc/all_dna_names()
@@ -118,7 +118,7 @@
 
 /obj/item/dna_notepad/examine(mob/user)
 	. = ..()
-	if(in_range(user, src) || istype(user, /mob/dead/observer))
+	if(in_range(user, src) || isobserver(user))
 		SStgui.update_uis(src)
 		ui_interact(user)
 		return
@@ -160,34 +160,32 @@
 			ui_modal_choice(src, "edit_dna_block_name", "Выберите эффект блока [block_num]:", null, list("id" = block_num), null, choices)
 
 /obj/item/dna_notepad/proc/ui_act_modal(action, params)
-	. = TRUE
+	. = FALSE
 	var/id = params["id"] // The modal's ID
 	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
-	switch(ui_modal_act(src, action, params))
-		if(UI_MODAL_ANSWER)
-			var/answer = params["answer"]
-			switch(id)
-				if("edit_dna_block_name")
-					var/block_num = text2num(arguments["id"])
-					if(block_num < 1 || block_num > DNA_COUNT)
-						return
-					var/gene = find_gene_by_name(answer)
-					if(!gene)
-						if(answer == DNA_UNKNOWN_DISABILITY_DATA)
-							write_dna_data(block_num, answer, DNA_COLOR_DISABILITY)
-						else
-							write_dna_data(block_num, answer, DNA_COLOR_UNKNOWN)
-						return
-					var/color = DNA_COLOR_UNKNOWN
-					if(istype(gene, /datum/dna/gene/disability))
-						color = DNA_COLOR_DISABILITY
-					if(istype(gene, /datum/dna/gene/basic))
-						color = DNA_COLOR_POWER
-					write_dna_data(block_num, answer, color)
-				else
-					return FALSE
+	var/choice = ui_modal_act(src, action, params)
+	if(choice != UI_MODAL_ANSWER)
+		return
+	var/answer = params["answer"]
+	if(id != "edit_dna_block_name")
+		return //other modals are ignored
+	var/block_num = text2num(arguments["id"])
+	if(block_num < 1 || block_num > DNA_COUNT)
+		return TRUE
+	var/gene = find_gene_by_name(answer)
+	if(!gene)
+		if(answer == DNA_UNKNOWN_DISABILITY_DATA)
+			write_dna_data(block_num, answer, DNA_COLOR_DISABILITY)
 		else
-			return FALSE
+			write_dna_data(block_num, answer, DNA_COLOR_UNKNOWN)
+		return TRUE
+	var/color = DNA_COLOR_UNKNOWN
+	if(istype(gene, /datum/dna/gene/disability))
+		color = DNA_COLOR_DISABILITY
+	if(istype(gene, /datum/dna/gene/basic))
+		color = DNA_COLOR_POWER
+	write_dna_data(block_num, answer, color)
+	return TRUE
 
 /obj/item/dna_notepad/verb/print_report_verb()
 	set name = "Печать отчёта"
@@ -216,10 +214,12 @@
 		return
 	for(var/i = 1; i <= DNA_COUNT; i++)
 		var/save_block_data = read_dna_data(i)
-		if(save_block_data["name"] == DNA_NO_DATA)
-			var/block_value = connected.occupant.dna.SE[i]
-			if(block_value >= 2050) // HEX=802 DEC=2050
-				write_dna_data(i, DNA_UNKNOWN_DISABILITY_DATA, DNA_COLOR_DISABILITY)
+		if(save_block_data["name"] != DNA_NO_DATA)
+			continue
+		var/block_value = connected.occupant.dna.SE[i]
+		if(block_value < 2050) // HEX=802 DEC=2050
+			continue
+		write_dna_data(i, DNA_UNKNOWN_DISABILITY_DATA, DNA_COLOR_DISABILITY)
 	playsound(loc, "terminal_type", 25, TRUE)
 	to_chat(user, "Данные из [dna_console.declent_ru(GENITIVE)] успешно загружены в [declent_ru(NOMINATIVE)].")
 	balloon_alert(user, "данные загружены")
@@ -244,9 +244,10 @@
 		if(self_block["name"] == DNA_NO_DATA)
 			self_block["name"] = other_block["name"]
 			self_block["color"] = other_block["color"]
-		if(self_block["name"] == DNA_UNKNOWN_DISABILITY_DATA && other_block["color"] == DNA_COLOR_DISABILITY)
-			self_block["name"] = other_block["name"]
-			self_block["color"] = other_block["color"]
+		if(self_block["name"] != DNA_UNKNOWN_DISABILITY_DATA || other_block["color"] != DNA_COLOR_DISABILITY)
+			continue
+		self_block["name"] = other_block["name"]
+		self_block["color"] = other_block["color"]
 	playsound(loc, "terminal_type", 25, TRUE)
 	to_chat(user, "Данные из другого [dna_notepad.declent_ru(GENITIVE)] успешно загружены в ваш [declent_ru(NOMINATIVE)].")
 	balloon_alert(user, "данные загружены")
@@ -272,13 +273,13 @@
 			continue
 		if(gene.name == "Ordinary Gene")
 			write_dna_data(gene.block, DNA_EMPTY_DATA, DNA_COLOR_UNKNOWN)
-		else
-			var/color = DNA_COLOR_UNKNOWN
-			if(istype(gene, /datum/dna/gene/disability))
-				color = DNA_COLOR_DISABILITY
-			if(istype(gene, /datum/dna/gene/basic))
-				color = DNA_COLOR_POWER
-			write_dna_data(gene.block, gene.name, color)
+			continue
+		var/color = DNA_COLOR_UNKNOWN
+		if(istype(gene, /datum/dna/gene/disability))
+			color = DNA_COLOR_DISABILITY
+		if(istype(gene, /datum/dna/gene/basic))
+			color = DNA_COLOR_POWER
+		write_dna_data(gene.block, gene.name, color)
 
 
 #undef DNA_COUNT
