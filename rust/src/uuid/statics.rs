@@ -1,9 +1,7 @@
 use byondapi::value::ByondValue;
-use std::cell::Cell;
+use slotmap::{DefaultKey, SlotMap};
 use std::cell::RefCell;
-use std::collections::HashMap;
 
 thread_local! {
-    pub static UUID_COUNTER: Cell<u32> = Cell::new(0);
-    pub static UUID_STORAGE: RefCell<HashMap<u32, ByondValue>> = RefCell::new(HashMap::new());
+    pub static UUID_STORAGE: RefCell<SlotMap<DefaultKey, ByondValue>> = RefCell::new(SlotMap::with_capacity(100_000));
 }
