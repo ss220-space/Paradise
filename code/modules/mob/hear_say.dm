@@ -85,7 +85,7 @@
 		msg += (piece + " ")
 	return trim(msg)
 
-/mob/proc/verb_message(list/message_pieces, message, verb)
+/mob/proc/verb_message(list/message_pieces, message, atom/movable/speaker, verb)
 	if(!verb)
 		return message
 	if(message == "")
@@ -164,7 +164,7 @@
 		else
 			to_chat(src, "[span_name(speaker.name)] что-то говор[pluralize_ru(speaker.gender, "ит", "ят")], но вы ничего не слышите!")
 	else
-		to_chat(src, span_gamesay("[span_name(speaker_name)][speaker.GetAltName()] [track][verb_message(message_pieces, message, genderize_decode(speaker, verb))]"))
+		to_chat(src, span_gamesay("[span_name(speaker_name)][speaker.GetAltName()] [track][verb_message(message_pieces, message, speaker, genderize_decode(speaker, verb))]"))
 
 		// Create map text message
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
@@ -182,8 +182,8 @@
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)
 
-/mob/proc/colorize_name(mob/speaker = null, speaker_name)
-	if(!speaker.ckey)
+/mob/proc/colorize_name(atom/movable/speaker = null, speaker_name)
+	if(!client)
 		return speaker_name
 
 	if(!speaker.chat_color || speaker.chat_color_name != speaker.name)
@@ -221,7 +221,7 @@
 	if(message_clean == "")
 		return
 
-	var/message = verb_message(message_pieces, message_clean, genderize_decode(speaker, verb))
+	var/message = verb_message(message_pieces, message_clean, speaker, genderize_decode(speaker, verb))
 	var/message_tts = combine_message_tts(message_pieces, speaker, always_stars = hard_to_hear)
 
 	var/track = null
@@ -296,7 +296,7 @@
 	if(message_clean == "")
 		return
 
-	var/message = verb_message(message_pieces, message_clean, genderize_decode(speaker, verb))
+	var/message = verb_message(message_pieces, message_clean, speaker, genderize_decode(speaker, verb))
 	var/message_tts = combine_message_tts(message_pieces, speaker)
 
 	var/name = speaker.name

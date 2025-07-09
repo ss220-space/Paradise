@@ -307,7 +307,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
-	tcm.sender_job = "Automated Announcement"
+	tcm.sender_job = "Автоматическое оповещение"
 	tcm.vname = "синтезированный голос"
 	tcm.data = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
@@ -509,10 +509,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return FALSE
 
 
-/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, var/verb = "говор%(ит,ят)%")
+/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, verb = "говор%(ит,ят)%")
 	if(broadcasting)
 		if(get_dist(src, M) <= canhear_range)
-			talk_into(M, message_pieces, null, verb)
+			talk_into(M, message_pieces, null, genderize_decode(M, verb))
 
 // To the person who asks "Why is this in a callback?"
 // You see, if you use QDEL_IN on the tcm and on broadcast_message()

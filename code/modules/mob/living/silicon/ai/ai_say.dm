@@ -37,7 +37,7 @@
 	else if(ispAI(speaker))
 		jobname = "Personal AI"
 	else if(isradio(speaker))
-		jobname = "Automated Announcement"
+		jobname = "Автоматическое оповещение"
 	else
 		jobname = "Unknown"
 

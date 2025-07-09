@@ -18,7 +18,7 @@
 	/// Associative list of all jobs and their department color classes
 	var/all_jobs = list(
 		// AI
-		"Automated Announcement" = "airadio",
+		"Автоматическое оповещение" = "airadio",
 		JOB_TITLE_AI = "airadio",
 		"Android" = "airadio",
 		JOB_TITLE_CYBORG = "airadio",
