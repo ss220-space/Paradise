@@ -11,11 +11,10 @@ SUBSYSTEM_DEF(terraforming)
 
 
 /datum/controller/subsystem/terraforming/proc/terraform(list/z_levels, list/transformations)
-	var/lavaland_z = level_name_to_num(MINING)
 	for(var/z in z_levels)
 		for(var/x = 1; x <= world.maxx; ++x)
 			for(var/y = 1; y <= world.maxy; ++y)
-				var/turf/turf = get_turf(locate(x, y, lavaland_z))
+				var/turf/turf = get_turf(locate(x, y, z))
 
 				for(var/type in transformations)
 					if(!istype(turf, type))
