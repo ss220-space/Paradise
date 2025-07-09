@@ -184,6 +184,20 @@
 	animate(image, pixel_z = 32, alpha = 255, time = 0.5 SECONDS, easing = ELASTIC_EASING)
 	animate(alpha = 0, time = 0.3 SECONDS)
 
+/obj/structure/closet/cardboard/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
+	. = ..()
+	if (damage_flag == MELEE)
+		return
+	var/list/humans = list()
+	for(var/mob/living/carbon/human/human in contents)
+		if (istype(human))
+			humans += human
+	if (length(humans) <= 0)
+		return
+	var/mob/living/carbon/human/target = pick(humans)
+	var/armor = target.run_armor_check(BODY_ZONE_CHEST, damage_flag, armour_penetration)
+	target.apply_damage(damage_amount, damage_type, BODY_ZONE_CHEST, armor)
+
 
 #undef SNAKE_ALERT_COOLDOWN
 

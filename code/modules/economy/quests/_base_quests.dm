@@ -39,6 +39,11 @@
 	/// How many times we add time for order
 	var/time_add_count = -1
 
+/datum/cargo_quests_storage/Destroy(force)
+	QDEL_LIST(current_quests)
+	customer = null
+	. = ..()
+
 /datum/cargo_quests_storage/proc/generate(easy_mode)
 	if(!quest_difficulty)
 		quest_difficulty = customer.get_difficulty()
@@ -163,6 +168,11 @@
 		q_storage = storage
 		add_goal(difficultly = q_storage.quest_difficulty.diff_flag)
 		update_interface_icon()
+
+/datum/cargo_quest/Destroy(force)
+	q_storage = null
+	interface_images.Cut()
+	. = ..()
 
 /datum/cargo_quest/proc/generate_goal_list(difficultly)
 	return

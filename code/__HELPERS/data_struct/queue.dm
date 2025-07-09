@@ -6,6 +6,10 @@
 	var/prev
 	var/next
 
+/node/Destroy(force)
+	..()
+	return QDEL_HINT_IWILLGC
+
 /*
 * Defining a queue based on a double linked list
 */
@@ -71,3 +75,8 @@
 */
 /queue/proc/size()
 	return count
+
+
+/queue/Destroy(force)
+	..()
+	return QDEL_HINT_IWILLGC

@@ -18,7 +18,7 @@
 #ifdef REFERENCE_TRACKING
 #warn Reference tracking is enabled
 ///Run a lookup on things hard deleting by default.
-//#define GC_FAILURE_HARD_LOOKUP
+#define GC_FAILURE_HARD_LOOKUP
 #ifdef GC_FAILURE_HARD_LOOKUP
 //Ensures all early assets can actually load early
 #define DO_NOT_DEFER_ASSETS

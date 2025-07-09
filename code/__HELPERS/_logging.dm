@@ -420,3 +420,10 @@ GLOBAL_PROTECT(log_end)
 		return "([AREACOORD(T)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
+
+#if defined(REFERENCE_TRACKING) // Doing it locally
+#define log_reftracker(msg) log_world("## REF SEARCH [msg]")
+
+#else //Not tracking at all
+#define log_reftracker(msg)
+#endif

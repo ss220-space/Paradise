@@ -150,7 +150,7 @@
 
 		return
 
-	to_chat(user, "Вы упоённо пролистываете страницы книги, вбирая в себя знания всех существующих языков во Вселенной. К сожалению, [declent_ru(NOMINATIVE)] не выдерживает такого напора и рассыпается в прах. Ой...")
+	to_chat(user, "Вы упоённо пролистываете страницы книги, впитывая в себя знания всех существующих языков во Вселенной. К сожалению, [declent_ru(NOMINATIVE)] не выдерживает такого напора и рассыпается в прах. Ой...")
 	user.grant_all_babel_languages()
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	user.temporarily_remove_item_from_inventory(src)
@@ -447,6 +447,14 @@
 
 /obj/projectile/hook
 	name = "hook"
+	ru_names = list(
+		NOMINATIVE = "крюк",
+		GENITIVE = "крюка",
+		DATIVE = "крюку",
+		ACCUSATIVE = "крюк",
+		INSTRUMENTAL = "крюком",
+		PREPOSITIONAL = "крюке"
+	)
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	pass_flags = PASSTABLE
@@ -468,7 +476,7 @@
 		var/turf/firer_turf = get_turf(firer)
 		var/mob/living/L = target
 		if(!L.anchored && L.loc)
-			L.visible_message(span_danger("[firer] зацепля[pluralize_ru(firer, "ет", "ют")] [L] [declent_ru(INSTRUMENTAL)]!"))
+			L.visible_message(span_danger("[firer] зацепля[pluralize_ru(firer, "ет", "ют")] [L.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
 			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src)) // Ensures the hook does not hit the target multiple times
 			L.forceMove(firer_turf)
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
@@ -483,12 +491,12 @@
 	name = "Immortality Talisman"
 	desc = "Таинственный талисман, способный даровать неуязвимость."
 	ru_names = list(
-		NOMINATIVE = "Талисман Бессмертия",
-		GENITIVE = "Талисмана Бессмертия",
-		DATIVE = "Талисману Бессмертия",
-		ACCUSATIVE = "Талисман Бессмертия",
-		INSTRUMENTAL = "Талисманом Бессмертия",
-		PREPOSITIONAL = "Талисмане Бессмертия"
+		NOMINATIVE = "талисман бессмертия",
+		GENITIVE = "талисмана бессмертия",
+		DATIVE = "талисману бессмертия",
+		ACCUSATIVE = "талисман бессмертия",
+		INSTRUMENTAL = "талисманом бессмертия",
+		PREPOSITIONAL = "талисмане бессмертия"
 	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "talisman"
@@ -498,7 +506,7 @@
 
 
 /datum/action/item_action/immortality
-	name = "Immortality"
+	name = "Бессмертие"
 
 
 /obj/item/immortality_talisman/Destroy(force)
@@ -522,7 +530,7 @@
 	user.visible_message(span_danger("[user] исчеза[pluralize_ru(user, "ет", "ют")] из реальности, оставляя после себя дыру в пространстве!"))
 
 	var/obj/effect/immortality_talisman/effect = new(source_turf)
-	effect.name = "hole in reality"
+	effect.name = "дыра в пространстве"
 	effect.desc = "Подозрительно походит на силуэт [user.name]."
 	effect.setDir(user.dir)
 	user.forceMove(effect)

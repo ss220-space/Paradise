@@ -1098,6 +1098,13 @@
 	item_state = "mining_medic-id"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
 
+/obj/item/card/id/library_owl
+	name = "Slavka ID"
+	registered_name = "Сыч Вячеслав"
+	icon_state = "id"
+	item_state = "card-id"
+	access = list(ACCESS_LIBRARY)
+
 /obj/item/card/id/rainbow
 	name = "Rainbow ID"
 	icon_state = "rainbow"

@@ -209,4 +209,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/sibyl_system_mod/Destroy()
 	if(registered)
 		UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
+    
+	weapon = null
+	auth_id = null
 	return ..()
