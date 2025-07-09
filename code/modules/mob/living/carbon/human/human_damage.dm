@@ -561,6 +561,7 @@ This function restores all organs.
 		var/random_zone = def_zone || ran_zone(def_zone)
 		def_zone = get_organ(random_zone) || get_organ(BODY_ZONE_CHEST)
 		if(!def_zone)
+			del(src) // It caused too many runtimes.
 			CRASH("Human somehow has no chest bodypart.")
 
 	return ..()

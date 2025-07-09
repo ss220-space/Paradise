@@ -4201,37 +4201,21 @@
 	message_admins(span_darkmblue(msg))
 	return TRUE
 
-#define LAVA	/turf/simulated/floor/lava/lava_land_surface
-#define PLASMA  /turf/simulated/floor/lava/lava_land_surface/plasma
-#define CHASM	/turf/simulated/floor/chasm/straight_down/lava_land_surface
 
 /datum/admins/proc/change_lava_type()
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 		to_chat(usr, span_warning("Генерация ещё не завершена. Пожалуйста, подождите."))
 		return
 
-	var/val = tgui_alert(usr, "Выберите тип Лазиса, который вы хотите установить.", "Выбор типа Лазиса", list("Лава", "Плазма", "Пропасти"))
-	var/turf_type
-	switch(val)
-		if("Лава")
-			turf_type = LAVA
+	var/list/themes = list()
+	var/list/only_names = list() // Req for tgui_alert
+	for(var/lava_theme in subtypesof(/datum/lavaland_theme))
+		var/datum/lavaland_theme/lavaland_theme_type = lava_theme
+		only_names.Add(lavaland_theme_type.name)
+		themes[lavaland_theme_type.name] = lavaland_theme_type
 
-		if("Плазма")
-			turf_type = PLASMA
+	var/choosen = tgui_alert(usr, "Выберите тип Лазиса, который вы хотите установить.", "Выбор типа Лазиса", only_names)
+	if(!choosen)
+		return
 
-		if("Пропасти")
-			turf_type = CHASM
-
-	var/lavaland_z = level_name_to_num(MINING)
-	for(var/i = 1; i < world.maxx; ++i)
-		for(var/j = 1; j < world.maxy; ++j)
-			var/turf/turf = get_turf(locate(i, j, lavaland_z))
-			if(!istype(turf, LAVA) && !istype(turf, CHASM))
-				continue
-
-			turf.ChangeTurf(turf_type)
-
-
-#undef LAVA
-#undef PLASMA
-#undef CHASM
+	set_lazis_type(themes[choosen])

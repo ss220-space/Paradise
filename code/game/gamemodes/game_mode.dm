@@ -665,6 +665,9 @@
 		if(config_tag in goal.gamemode_blacklist)
 			continue
 
+		if(!goal.can_gain())
+			continue
+
 		possible += goal
 
 	var/goal_weights = 0
