@@ -272,6 +272,7 @@
 	id = /obj/item/card/id/genetics
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/geneticist
+	l_pocket = /obj/item/dna_notepad
 
 	backpack = /obj/item/storage/backpack/genetics
 	satchel = /obj/item/storage/backpack/satchel_gen

@@ -6,7 +6,7 @@
 			return
 		if(BLOB_FIRST_REPORT)
 			interceptname = "Процедуры реагирования на биологическую угрозу уровня 5-6"
-			intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Предупреждение о биологической угрозе.<hr>")
+			intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Биологическая угроза.<hr>")
 			intercepttext += "Отчеты указывают на возможное проникновение биологически опасного организма на [station_name()] во время последнего цикла ротации экипажа.<br>"
 			intercepttext += "Предварительный анализ организма классифицирует его как биологическую угрозу 5-го уровня. Его происхождение неизвестно.<br>"
 			intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<br>"
@@ -21,7 +21,7 @@
 			var/nukecode = GLOB.nuke_codes[/obj/machinery/nuclearbomb]
 
 			interceptname = "Секретное постановление [command_name()]"
-			intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Предупреждение о биологической угрозе.<hr>")
+			intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Биологическая угроза.<hr>")
 			intercepttext += "Для [station_name()] была издана директива 7-12.<br>"
 			intercepttext += "Биологическая угроза вышла из-под контроля и скоро достигнет критической массы.<br>"
 			intercepttext += "Вам приказано следующее:<br>"
@@ -64,7 +64,10 @@
 						to_chat(aiPlayer, span_warning("Законы обновлены"))
 
 	special_directive(intercepttext, interceptname)
-	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
+	GLOB.minor_announcement.announce("Отчёт был загружен и распечатан на всех консолях связи.",
+									ANNOUNCE_SECRETMSG_RU,
+									'sound/AI/commandreport.ogg'
+	)
 
 /datum/station_state
 	var/floor = 0

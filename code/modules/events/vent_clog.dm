@@ -6,7 +6,10 @@
 	var/list/vents  = list()
 
 /datum/event/vent_clog/announce()
-	GLOB.event_announcement.Announce("Зафиксирован скачок обратного давления в системе вытяжных труб. Возможен выброс содержимого.", "ВНИМАНИЕ: АТМОСФЕРНАЯ ТРЕВОГА.")
+	GLOB.minor_announcement.announce("Зафиксирован скачок обратного давления в системе вытяжных труб. Возможен выброс содержимого.",
+									"Атмосферная тревога.",
+									'sound/AI/scrubbers.ogg'
+	)
 
 /datum/event/vent_clog/setup()
 	endWhen = rand(25, 100)
@@ -30,7 +33,7 @@
 
 		var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 		smoke.set_up(range = 3, location = vent, carry = R, silent = TRUE)
-		playsound(vent.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+		playsound(vent.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 		smoke.start()
 		add_game_logs("Smoke at [COORD(vent)] spread including [R.reagent_list]")
 		qdel(R)

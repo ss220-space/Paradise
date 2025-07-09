@@ -417,7 +417,7 @@
 			if(!istype(FC))
 				return
 			if(FC.admin_locked && !usr.can_admin_interact())
-				set_temp("Этот канал был заблокирован Центральным Командованием и не может быть разблокирован.", "danger")
+				set_temp("Этот канал был заблокирован Центральным командованием и не может быть разблокирован.", "danger")
 				return
 			FC.censored = !FC.censored
 		if("censor_author", "censor_story")
@@ -428,7 +428,7 @@
 			if(!istype(FM))
 				return
 			if(FM.admin_locked && !usr.can_admin_interact())
-				set_temp("Эта статья была заблокирована Центральным Командованием и не может быть разблокирована.", "danger")
+				set_temp("Эта статья была заблокирована Центральным командованием и не может быть разблокирована.", "danger")
 				return
 			if(action == "censor_author")
 				FM.censor_flags = (FM.censor_flags & CENSOR_AUTHOR) ? (FM.censor_flags & ~CENSOR_AUTHOR) : (FM.censor_flags|CENSOR_AUTHOR)
@@ -444,7 +444,7 @@
 			if(!WN)
 				return
 			if(WN.admin_locked && !usr.can_admin_interact())
-				set_temp("Это уведомление о розыске было заблокировано Центральным Командованием и не может быть изменено.", "danger")
+				set_temp("Это уведомление о розыске было заблокировано Центральным командованием и не может быть изменено.", "danger")
 				return
 			GLOB.news_network.wanted_issue = null
 			set_temp("Уведомление о розыске снято.", update_now = TRUE)
@@ -583,7 +583,7 @@
 					var/datum/feed_message/WN = GLOB.news_network.wanted_issue
 					if(WN)
 						if(WN.admin_locked && !usr.can_admin_interact())
-							set_temp("Это уведомление о розыске было заблокировано Центральным Командованием и не может быть изменено.", "danger")
+							set_temp("Это уведомление о розыске было заблокировано Центральным командованием и не может быть изменено.", "danger")
 							return
 					else
 						WN = new

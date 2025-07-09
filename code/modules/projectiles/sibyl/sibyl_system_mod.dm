@@ -1,4 +1,3 @@
-GLOBAL_LIST_EMPTY(sybsis_registry)
 GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 /obj/item/sibyl_system_mod
@@ -15,6 +14,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	var/state = SIBSYS_STATE_UNINSTALLED
 	var/limit = SIBYL_NONLETHAL
 	var/emagged = FALSE
+
+	/// Flag for registering SSsecurity_level
+	var/registered = FALSE
 
 	var/voice_is_enabled = TRUE
 	var/voice_cd = null
@@ -40,27 +42,24 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	weapon.sibyl_mod = src
 	weapon.verbs += /obj/item/gun/energy/proc/toggle_voice
 	state = SIBSYS_STATE_INSTALLED
-	register(user)
+
+	if(GLOB.sibsys_automode)
+		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(sync_limit))
+		registered = TRUE
+	sibyl_sound(user, 'sound/voice/dominator/link.ogg', 10 SECONDS)
+
 	check_unknown_names()
 	sync_limit()
 	W.update_icon()
 	if(user)
-		to_chat(user, span_notice("Вы установили [src.declent_ru(ACCUSATIVE)] в [W.declent_ru(ACCUSATIVE)]. Установка доступных режимов в соответствии с уровнем опасности ([get_security_level_ru()])."))
+		to_chat(user, span_notice("Вы установили [src.declent_ru(ACCUSATIVE)] в [W.declent_ru(ACCUSATIVE)]. Установка доступных режимов в соответствии с уровнем опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
 		if(!auth_id)
 			to_chat(user, span_notice("Требуется авторизация! Приложите ID-карту."))
 
-
-/obj/item/sibyl_system_mod/proc/register(mob/user)
-	GLOB.sybsis_registry += src
-
-	if(!auth_id)
-		sibyl_sound(user, 'sound/voice/dominator/link.ogg', 10 SECONDS)
-
-	return TRUE
-
-
 /obj/item/sibyl_system_mod/proc/uninstall(obj/item/gun/energy/W)
-	GLOB.sybsis_registry -= src
+	if(registered)
+		UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
+		registered = FALSE
 	forceMove(get_turf(src))
 	W.verbs -= /obj/item/gun/energy/proc/toggle_voice
 
@@ -72,17 +71,14 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	W.update_icon()
 	return state
 
-
 /obj/item/sibyl_system_mod/attack_self(mob/user)
 	..()
 	toggle_voice(user)
-
 
 /obj/item/sibyl_system_mod/proc/toggle_voice(mob/user)
 	voice_is_enabled = !voice_is_enabled
 	if(user)
 		to_chat(user, span_notice("Голосовая подсистема [voice_is_enabled ? "включена" : "отключена"]."))
-
 
 /obj/item/sibyl_system_mod/proc/lock(mob/user, silent = FALSE)
 	if(emagged)
@@ -124,7 +120,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	weapon.update_icon()
 	return TRUE
 
-// Возвращает FALSE если следующий ammo_type[select] ещё пока недоступен, иначе TRUE
+// Returns FALSE if the next ammo_type[select] is not yet available, otherwise TRUE
 /obj/item/sibyl_system_mod/proc/check_select(var/select)
 	var/obj/item/ammo_casing/energy/ammo = weapon.ammo_type[select]
 	if(lowertext(ammo.select_name) in available)
@@ -144,7 +140,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 			to_chat(user, span_warning("Ваша ID-карта не совпадает с авторизованной."))
 			return FALSE
 	return TRUE
-
 
 /obj/item/sibyl_system_mod/proc/find_and_compare_id_cards(mob/user)
 	for(var/obj/item/card/id/found_id in user.get_all_id_cards())
@@ -171,8 +166,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		to_chat(weapon.loc, span_notice("[message]"))
 	return TRUE
 
-/obj/item/sibyl_system_mod/proc/sync_limit()
-	switch(GLOB.security_level)
+/obj/item/sibyl_system_mod/proc/sync_limit(datum/source, old_level, new_level)
+	SIGNAL_HANDLER
+	switch(SSsecurity_level.get_current_level_as_number())
 		if(SEC_LEVEL_GREEN)
 			set_limit(SIBYL_NONLETHAL)
 		if(SEC_LEVEL_BLUE)
@@ -211,9 +207,10 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		user.playsound_local(get_turf(user), sound, 50, FALSE)
 		voice_cd = addtimer(VARSET_CALLBACK(src, voice_cd, null), time)
 
-
 /obj/item/sibyl_system_mod/Destroy()
-	GLOB.sybsis_registry -= src
+	if(registered)
+		UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
+    
 	weapon = null
 	auth_id = null
 	return ..()

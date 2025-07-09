@@ -589,6 +589,8 @@ SUBSYSTEM_DEF(tts)
 			"кз" = "Кэ Зэ",
 			"днк" = "дэ эн ка",
 			"бсх" = "бэ эс ха",
+			"исн" = "И Эс Эн",
+			"акн" = "А Кэ Эн",
 		)
 	var/match = tts_replacement_list[lowertext(word)]
 	if(match)

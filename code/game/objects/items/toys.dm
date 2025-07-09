@@ -1994,7 +1994,7 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] действительно выглядел довольно сомнительно!"))
-	SEND_SOUND(user, 'sound/misc/sadtrombone.ogg') //HONK
+	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
 /*
  * Rubber Chainsaw
  */

@@ -52,7 +52,7 @@
 
 /datum/antagonist/nuclear_operative/greet()
 	var/list/messages = list()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/ops.ogg')
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/ops.ogg'))
 	messages.Add(span_notice("Вы [greet_name]!"))
 	messages.Add(additional_messages())
 	messages.Add(code_message())
@@ -71,7 +71,6 @@
 	var/list/messages = list()
 	messages.Add(span_notice("Слушайтесь вашего командира и выполните поставленную задачу."))
 	return messages
-
 
 /datum/antagonist/nuclear_operative/proc/equip()
 	var/mob/living/carbon/human/human = owner.current

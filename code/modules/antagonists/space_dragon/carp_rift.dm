@@ -150,7 +150,10 @@
 	if(time_charged >= max_charge)
 		charge_state = CHARGE_COMPLETED
 		var/area/A = get_area(src)
-		GLOB.command_announcement.Announce("Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.", "Отдел Изучения Дикой Природы")
+		GLOB.major_announcement.announce("Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.",
+										ANNOUNCE_WILDNATURE_RU,
+										'sound/AI/commandreport.ogg'
+		)
 		max_integrity = INFINITY
 		obj_integrity = INFINITY
 		update_icon(UPDATE_ICON_STATE)
@@ -174,7 +177,10 @@
 		charge_state = CHARGE_FINALWARNING
 		var/area/A = get_area(src)
 
-		GLOB.command_announcement.Announce("Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!", "Отдел Изучения Дикой Природы", 'sound/AI/spanomalies.ogg')
+		GLOB.major_announcement.announce("Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!",
+										ANNOUNCE_WILDNATURE_RU,
+										'sound/AI/commandreport.ogg'
+		)
 
 
 /**

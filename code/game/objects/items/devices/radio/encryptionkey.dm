@@ -402,12 +402,12 @@
 /obj/item/encryptionkey/centcom
 	name = "Centcom Radio Encryption Key"
 	ru_names = list(
-		NOMINATIVE = "ключ-шифратор Центрального Командования",
-		GENITIVE = "ключа-шифратора Центрального Командования",
-		DATIVE = "ключу-шифратору Центрального Командования",
-		ACCUSATIVE = "ключ-шифратор Центрального Командования",
-		INSTRUMENTAL = "ключом-шифратором Центрального Командования",
-		PREPOSITIONAL = "ключе-шифраторе Центрального Командования"
+		NOMINATIVE = "ключ-шифратор Центрального командования",
+		GENITIVE = "ключа-шифратора Центрального командования",
+		DATIVE = "ключу-шифратору Центрального командования",
+		ACCUSATIVE = "ключ-шифратор Центрального командования",
+		INSTRUMENTAL = "ключом-шифратором Центрального командования",
+		PREPOSITIONAL = "ключе-шифраторе Центрального командования"
 	)
 	channels = list(ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
 

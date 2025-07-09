@@ -21,15 +21,15 @@
 	var/A
 
 	if(!randomise_selection)
-		A = tgui_input_list(user, "Area to teleport to", "Teleport", GLOB.teleportlocs)
+		A = tgui_input_list(user, "Area to teleport to", "Teleport", SSmapping.teleportlocs)
 	else
-		A = pick(GLOB.teleportlocs)
+		A = pick(SSmapping.teleportlocs)
 
 	if(!A)
 		smoke_type = SMOKE_NONE
 		return
 
-	var/area/thearea = GLOB.teleportlocs[A]
+	var/area/thearea = SSmapping.teleportlocs[A]
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
 		to_chat(user, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
