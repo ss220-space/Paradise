@@ -50,6 +50,9 @@
 	dir = pick(GLOB.alldirs)
 	update_appearance(UPDATE_ICON|UPDATE_DESC)
 
+/obj/item/ammo_casing/Destroy()
+	QDEL_NULL(BB)
+	. = ..()
 
 /obj/item/ammo_casing/update_icon_state()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"

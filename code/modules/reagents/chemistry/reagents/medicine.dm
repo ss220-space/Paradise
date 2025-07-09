@@ -870,22 +870,27 @@
 					if(update)
 						M.updatehealth()
 					if(ishuman(M))
-						var/mob/living/carbon/human/H = M
 						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
-						for(var/obj/item/organ/organ as anything in (H.bodyparts|H.internal_organs))
-							// Per non-vital body part:
-							// 0% chance of necrosis within 1 minute of death
-							// 40% chance of necrosis after 20 minutes of death
-							if(!organ.vital && prob(necrosis_prob))
-								// side effects may include: Organ failure
-								if(organ.necrotize())
-									organ.germ_level = INFECTION_LEVEL_THREE
-						H.update_body()
+						// Per non-vital body part:
+						// 0% chance of necrosis within 1 minute of death
+						// 40% chance of necrosis after 20 minutes of death
+						necrotize_body(M, necrosis_prob)
 
 					M.update_revive(TRUE, TRUE)
 					M.grab_ghost()
 					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
+/proc/necrotize_body(mob/living/carbon/human/human, necrosis_prob)
+	for(var/obj/item/organ/organ as anything in (human.bodyparts|human.internal_organs))
+		if(organ.vital || !prob(necrosis_prob))
+			continue
+
+		// side effects may include: Organ failure
+		if(!organ.necrotize())
+			continue
+
+		organ.germ_level = INFECTION_LEVEL_THREE
+	human.update_body()
 
 /datum/reagent/medicine/mannitol
 	name = "Маннитол"
