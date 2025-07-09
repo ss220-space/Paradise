@@ -319,7 +319,7 @@
 ///Called by the drop pods that return captured crewmembers from the ninja den.
 /obj/structure/closet/supplypod/proc/return_from_capture(mob/living/victim, turf/destination = get_safe_random_station_turf())
 	if(isnull(destination)) //Uuuuh, something went wrong. This is gonna hurt.
-		to_chat(victim, span_holoparasite("Миллион голосов эхом звучит в твоей голове... «Похоже, там, куда тебя отправили, не могут справиться с нашей капсулой...\
+		to_chat(victim, span_holoparasite("Миллион голосов эхом звучит в вашей голове... «Похоже, там, куда вас отправили, не могут справиться с нашей капсулой...\
 		как будто мы хотели, чтобы пассажир выжил. Держись, корпоративная собака»"))
 		explosionSize = list(0,1,1,1)
 		destination = get_random_station_turf()
