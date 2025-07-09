@@ -2658,11 +2658,11 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "bLQ" = (
-/mob/living/simple_animal/pet/dog/bullterrier/Genn,
 /obj/structure/bed/dogbed/pet,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
+/mob/living/simple_animal/pet/library_owl,
 /turf/simulated/floor/carpet,
 /area/library)
 "bMa" = (

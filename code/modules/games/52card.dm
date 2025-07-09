@@ -113,6 +113,14 @@
 	card_throw_speed = 3
 	card_attack_verb = list("атаковал", "полоснул", "порезал")
 	card_resistance_flags = NONE
+	sharp = TRUE
+
+/obj/item/deck/cards/syndicate/sharpen_act(obj/item/whetstone/whetstone, mob/user)
+	name = "[whetstone.prefix] [name]"
+	card_force = clamp(card_force + whetstone.increment, 0, whetstone.max)
+	card_throwforce = clamp(card_throwforce + whetstone.increment, 0, whetstone.max)
+	set_sharpness(TRUE)
+	return TRUE
 
 
 /obj/item/deck/cards/black

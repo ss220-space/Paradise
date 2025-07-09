@@ -7,7 +7,15 @@
 	name = "mining weather radio"
 	icon = 'icons/obj/miningradio.dmi'
 	icon_state = "miningradio"
-	desc = "A weather radio designed for use in inhospitable environments. Gives audible warnings when storms approach. Has access to cargo channel."
+	desc = "Метеорологическое радио, предназначенное для использования в неблагоприятных условиях. Подает звуковые предупреждения о приближении шторма. Имеет доступ к каналу карго."
+	ru_names = list(
+		NOMINATIVE = "метеорологическое радио",
+		GENITIVE = "метеорологического радио",
+		DATIVE = "метеорологическому радио",
+		ACCUSATIVE = "метеорологическое радио",
+		INSTRUMENTAL = "метеорологическим радио",
+		PREPOSITIONAL = "метеорологическом радио"
+	)
 	freqlock = TRUE
 	luminosity = 1
 	light_power = 1

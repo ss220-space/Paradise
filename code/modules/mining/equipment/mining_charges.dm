@@ -27,9 +27,9 @@
 /obj/item/grenade/plastic/miningcharge/examine(mob/user)
 	. = ..()
 	if(hacked)
-		. += span_warning("Its wiring is haphazardly changed.")
+		. += span_warning("Его проводка была небрежно изменена.")
 	if(timer_off)
-		. += span_notice("The mining charge is connected to a detonator.")
+		. += span_notice("Шахтёрский заряд подключён к детонатору.")
 
 /obj/item/grenade/plastic/miningcharge/Initialize()
 	. = ..()
@@ -42,7 +42,7 @@
 /obj/item/grenade/plastic/miningcharge/afterattack(atom/movable/AM, mob/user, flag, params)
 	if(ismineralturf(AM) || hacked)
 		if(isancientturf(AM) && !hacked)
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(span_notice("Эта порода, кажется, устойчива ко всем инструментам, кроме кирок!"))
 			return
 		if(timer_off) //override original proc for plastic explosions
 			if(!flag)
@@ -111,7 +111,7 @@
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
 				ears.internal_receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
-			to_chat(C, span_warning("<font size='2'><b>You are knocked down by the power of the mining charge!</font></b>"))
+			to_chat(C, span_userdanger("Вас сбивает с ног мощь горнодобывающего заряда!"))
 	qdel(src)
 
 /obj/item/grenade/plastic/miningcharge/proc/explode() //c4 code
@@ -147,7 +147,15 @@
 
 /obj/item/grenade/plastic/miningcharge/lesser
 	name = "mining charge"
-	desc = "A mining charge. This one seems less powerful than industrial. Only works on rocks!"
+	desc = "Заряд для шахтёрских работ. Этот кажется менее мощным, чем промышленный. Работает только на породе!"
+	ru_names = list(
+		NOMINATIVE = "шахтёрский заряд",
+		GENITIVE = "шахтёрского заряда",
+		DATIVE = "шахтёрскому заряду",
+		ACCUSATIVE = "шахтёрский заряд",
+		INSTRUMENTAL = "шахтёрским зарядом",
+		PREPOSITIONAL = "шахтёрском заряде"
+	)
 	icon_state = "mining-charge-1"
 	item_state = "charge_lesser"
 	smoke_amount = 1
@@ -155,7 +163,15 @@
 
 /obj/item/grenade/plastic/miningcharge/mega
 	name = "experimental mining charge"
-	desc = "A mining charge. This one seems much more powerful than normal!"
+	desc = "Заряд для шахтёрских работ. Этот кажется значительно мощнее обычного!"
+	ru_names = list(
+		NOMINATIVE = "экспериментальный шахтёрский заряд",
+		GENITIVE = "экспериментального шахтёрского заряда",
+		DATIVE = "экспериментальному шахтёрскому заряду",
+		ACCUSATIVE = "экспериментальный шахтёрский заряд",
+		INSTRUMENTAL = "экспериментальным шахтёрским зарядом",
+		PREPOSITIONAL = "экспериментальном шахтёрском заряде"
+	)
 	icon_state = "mining-charge-3"
 	item_state = "charge_mega"
 	smoke_amount = 5
@@ -194,7 +210,15 @@
 
 /obj/item/detonator
 	name = "mining charge detonator"
-	desc = "A specialized mining device designed for controlled demolition operations using mining explosives."
+	desc = "Специализированное устройство для контролируемых подрывных работ с использованием шахтёрских зарядов."
+	ru_names = list(
+		NOMINATIVE = "детонатор шахтёрских зарядов",
+		GENITIVE = "детонатора шахтёрских зарядов",
+		DATIVE = "детонатору шахтёрских зарядов",
+		ACCUSATIVE = "детонатор шахтёрских зарядов",
+		INSTRUMENTAL = "детонатором шахтёрских зарядов",
+		PREPOSITIONAL = "детонаторе шахтёрских зарядов"
+	)
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Detonator-0"
@@ -204,9 +228,9 @@
 /obj/item/detonator/examine(mob/user)
 	. = ..()
 	if(bombs.len)
-		. += "<span class='notice'>List of synched bombs:</span>"
+		. += span_notice("Список синхронизированных зарядов:")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			. += "<span class='notice'>[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"]."
+			. += span_notice("[bicon(charge)] [capitalize(charge.declent_ru(NOMINATIVE))]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
 
 
 /obj/item/detonator/update_icon_state()
@@ -222,7 +246,7 @@
 		balloon_alert(user, "активация взрывчатки...")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
 			if(QDELETED(charge))
-				to_chat(user, span_notice("Can't reach [charge]. Deleting from the list..."))
+				to_chat(user, span_notice("Не удаётся найти [charge.declent_ru(ACCUSATIVE)]. Удаление из списка..."))
 				bombs -= charge
 				return
 			if(charge.installed)

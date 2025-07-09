@@ -449,7 +449,7 @@
 	limb_zone = BODY_ZONE_PRECISE_R_HAND
 	limb_body_flag = HAND_RIGHT
 	parent_organ_zone = BODY_ZONE_R_ARM
-	amputation_point = "right wrist"
+	amputation_point = "правое запястье"
 
 /obj/item/organ/external/head
 	name = "head"
