@@ -81,38 +81,10 @@
 		carbon_user.put_in_any_hand_if_possible(item)
 
 /obj/machinery/slot_machine/proc/apply_emagged_lose_effect(mob/user)
-	if (ishuman(user))
-		var/mob/living/carbon/human/human = user
-		if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
-			to_chat(human, span_warningbig("Критическая неудача!<br>Неизвестная сила разрывает ваше тело изнутри."))
-			human.gib()
-			return
-		to_chat(human, span_warning("Неудача! Вы ощущаете слабость, потянув за рычаг, надеюсь оно того стоило."))
-		human.adjustCloneLoss(5)
+	if(!isliving(user))
 		return
-	if (isrobot(user))
-		var/mob/living/silicon/robot/robot = user
-		if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
-			to_chat(robot, span_warningbig("Критическая неудача!<br>Неизвестная сила разрушает ваш корпус."))
-			robot.gib()
-			return
-		if (prob(EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE))
-			to_chat(robot, span_warning("Неудача! Из корпуса [robot.name] вылетают искры."))
-			do_sparks(3, TRUE, robot)
-			robot.destroy_random_component()
-			return
-		to_chat(robot, span_warning("Неудача! [robot.name] получает видимые повреждения."))
-		do_sparks(3, TRUE, robot)
-		robot.adjustBruteLoss(rand(15, 20))
-		return
-	if (isAI(user))
-		var/mob/living/silicon/ai/ai = user
-		if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
-			to_chat(ai, span_warningbig("Критическая неудача!<br>Неизвестная сила заставляет вас отключиться."))
-			ai.death() // AI gib cause no body ghost error
-			return
-		to_chat(ai, span_warning("Неудача! [ai.name] получает видимые повреждения."))
-		ai.adjustBruteLoss(rand(15, 20))
+	var/mob/living/target = user
+	target.adjust_slot_machine_lose_effect()
 
 /obj/machinery/slot_machine/proc/spin_slots(mob/user)
 	if(!istype(user))
@@ -177,7 +149,3 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	default_unfasten_wrench(user, I)
-
-#undef EMAGGED_SLOT_MACHINE_PRIZE_MOD
-#undef EMAGGED_SLOT_MACHINE_GIB_CHANCE
-#undef EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE
