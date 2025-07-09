@@ -5,7 +5,7 @@
 /obj/item/trash
 	icon = 'icons/obj/trash.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	desc = "This is rubbish."
+	desc = "Это просто мусор."
 	resistance_flags = FLAMMABLE
 
 /obj/item/trash/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -16,7 +16,15 @@
 	return TRUE
 
 /obj/item/trash/raisins
-	name = "4no raisins"
+	name = "1984 raisins"
+	ru_names = list(
+		NOMINATIVE = "изюм \"1984\"",
+		GENITIVE = "изюма \"1984\"",
+		DATIVE = "изюму \"1984\"",
+		ACCUSATIVE = "изюм \"1984\"",
+		INSTRUMENTAL = "изюмом \"1984\"",
+		PREPOSITIONAL = "изюме \"1984\""
+	)
 	icon_state= "4no_raisins"
 
 /obj/item/trash/candy

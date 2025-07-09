@@ -1,6 +1,14 @@
 /obj/machinery/cooker/cerealmaker
 	name = "cereal maker"
-	desc = "Now with Dann O's available!"
+	desc = "Теперь с Dann O's в ассортименте!"
+	ru_names = list(
+		NOMINATIVE = "аппарат для хлопьев",
+		GENITIVE = "аппарата для хлопьев",
+		DATIVE = "аппарату для хлопьев",
+		ACCUSATIVE = "аппарат для хлопьев",
+		INSTRUMENTAL = "аппаратом для хлопьев",
+		PREPOSITIONAL = "аппарате для хлопьев"
+	)
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "cereal_off"
 	thiscooktype = "cerealized"

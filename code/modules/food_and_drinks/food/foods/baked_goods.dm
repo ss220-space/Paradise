@@ -428,7 +428,7 @@
 	bitesize = 3
 	filling_color = "#00d9ff"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
-	tastes = list("slime" = 5, "сахара" = 1, "желе" = 1)
+	tastes = list("слизи" = 5, "сахара" = 1, "желе" = 1)
 	foodtype = SUGAR | MEAT | FRUIT
 
 /obj/item/reagent_containers/food/snacks/slimepieslice
@@ -445,7 +445,7 @@
 	icon_state = "slimepieslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#00d9ff"
-	tastes = list("slime" = 5, "сахара" = 1, "желе" = 1)
+	tastes = list("слизи" = 5, "сахара" = 1, "желе" = 1)
 	foodtype = SUGAR | MEAT | FRUIT
 
 /obj/item/reagent_containers/food/snacks/sliceable/choccherrycake
@@ -664,74 +664,74 @@
 
 /obj/item/reagent_containers/food/snacks/meatpie/human
 	list_reagents = list("nutriment" = 9, "protein" = 3)
-	tastes = list("пирога" = 2, "солёного мяса" = 1, "запахом человеческого мяса" = 1)
+	tastes = list("пирога" = 2, "солёного мяса" = 1, "человеческого мяса" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/vulpkanin
 	list_reagents = list("nutriment" = 7, "protein" = 5)
-	tastes = list("пирога" = 2, "солёного мяса" = 2, "запахом мяса вульпы" = 1)
+	tastes = list("пирога" = 2, "солёного мяса" = 2, "мяса вульпы" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/tajaran
 	list_reagents = list("nutriment" = 9, "protein" = 3)
-	tastes = list("пирога" = 2, "солёного мяса" = 1, "запахом мяса таяры" = 1)
+	tastes = list("пирога" = 2, "солёного мяса" = 1, "мяса таяры" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/unathi
 	list_reagents = list("nutriment" = 8, "protein" = 3, "zessulblood" = 1)
-	tastes = list("пирога" = 2, "chiken meat" = 1, "запахом мяса унатха" = 1)
+	tastes = list("пирога" = 2, "куриного мяса" = 1, "мяса унатха" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/drask
 	list_reagents = list("nutriment" = 7, "protein" = 3, "ice" = 2)
-	tastes = list("пирога" = 2, "солёного мяса" = 1, "запахом мяса драска" = 1, "льда" = 2)
+	tastes = list("пирога" = 2, "солёного мяса" = 1, "мяса драска" = 1, "льда" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatpie/grey
 	list_reagents = list("nutriment" = 9, "protein" = 2, "mannitol" = 1)
-	tastes = list("пирога" = 2, "солёного мяса" = 1, "запахом мяса грея" = 1)
+	tastes = list("пирога" = 2, "солёного мяса" = 1, "мяса грея" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/skrell
 	list_reagents = list("nutriment" = 9, "protein" = 2, "water" = 1)
-	tastes = list("пирога" = 2, "watery meat" = 1, "запахом мяса скрелла" = 1)
+	tastes = list("пирога" = 2, "водянистого мяса" = 1, "мяса скрелла" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/vox
 	list_reagents = list("nutriment" = 8, "protein" = 3, "toxin" = 1)
-	tastes = list("пирога" = 2, "chiken meat" = 1, "запахом мяса вокса" = 1)
+	tastes = list("пирога" = 2, "куриного мяса" = 1, "мяса вокса" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/slime
 	list_reagents = list("sugar" = 4, "slimejelly" = 8)
-	tastes = list("пирога" = 2, "sweet jelly" = 1, "slime meat odor" = 1)
+	tastes = list("пирога" = 2, "сладкого желе" = 1, "slime meat odor" = 1)
 	foodtype = GRAIN | MEAT | SUGAR
 
 /obj/item/reagent_containers/food/snacks/meatpie/wryn
 	list_reagents = list("nutriment" = 8, "protein" = 1, "sugar" = 3)
-	tastes = list("пирога" = 2, "sweet meat" = 1, "запахом мяса врина" = 1)
+	tastes = list("пирога" = 2, "сладкого мяса" = 1, "мяса врина" = 1)
 	foodtype = GRAIN | MEAT | SUGAR
 
 /obj/item/reagent_containers/food/snacks/meatpie/kidan
 	list_reagents = list("nutriment" = 8, "protein" = 3, "blood" = 1)
-	tastes = list("пирога" = 2, "bug meat odor" = 1, "запахом мяса кидана" = 1)
+	tastes = list("пирога" = 2, "мяса насекомого" = 1, "мяса кидана" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/nian
 	list_reagents = list("nutriment" = 8, "protein" = 1, "phosphorus" = 3)
-	tastes = list("пирога" = 2, "bug meat odor" = 1, "запахом мяса ниан" = 1)
+	tastes = list("пирога" = 2, "мяса насекомого" = 1, "мяса ниан" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/diona
 	list_reagents = list("plantmatter" = 5, "protein" = 3)
-	tastes = list("пирога" = 2, "vegetables" = 1, "stik" = 1, "запахом дионы" = 1)
+	tastes = list("пирога" = 2, "овощей" = 1, "веток" = 1, "дионы" = 1)
 	foodtype = GRAIN | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/meatpie/monkey
 	list_reagents = list("nutriment" = 5, "protein" = 3)
-	tastes = list("пирога" = 2, "солёного мяса" = 1, "запахом мяса обезьяны" = 1)
+	tastes = list("пирога" = 2, "солёного мяса" = 1, "мяса обезьяны" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/farwa
 	list_reagents = list("nutriment" = 5, "protein" = 1)
-	tastes = list("пирога" = 2, "солёного мяса" = 1, "запахом мяса фарвы" = 1)
+	tastes = list("пирога" = 2, "солёного мяса" = 1, "мяса фарвы" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/wolpin
 	list_reagents = list("nutriment" = 5, "protein" = 3)
-	tastes = list("пирога" = 2, "солёного мяса" = 1, "запахом мяса вульпина" = 1)
+	tastes = list("пирога" = 2, "солёного мяса" = 1, "мяса вульпина" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/neara
 	list_reagents = list("nutriment" = 5, "protein" = 1, "water" = 2)
-	tastes = list("пирога" = 2, "watery meat" = 1, "запахом мяса неары" = 1)
+	tastes = list("пирога" = 2, "водянистого мяса" = 1, "мяса неары" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/stok
 	list_reagents = list("nutriment" = 5, "protein" = 2, "zessulblood" = 1)
@@ -1408,7 +1408,7 @@
 	bitesize = 1
 	filling_color = "#F5DEB8"
 	list_reagents = list("nutriment" = 1)
-	tastes = list("cracker" = 1)
+	tastes = list("крекера" = 1)
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/sundae

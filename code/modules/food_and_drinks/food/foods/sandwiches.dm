@@ -11,7 +11,7 @@
 	filling_color = "#F2B6EA"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "prions" = 10, "vitamin" = 1)
-	tastes = list("bun" = 4, "brains" = 2)
+	tastes = list("булочки" = 4, "мозгов" = 2)
 	foodtype = GRAIN | MEAT
 	log_eating = TRUE
 
@@ -23,7 +23,7 @@
 	filling_color = "#FFF2FF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4, "ectoplasm" = 2)
+	tastes = list("булочки" = 4, "эктоплазмы" = 2)
 	foodtype = GRAIN | GROSS
 
 /obj/item/reagent_containers/food/snacks/human_burger
@@ -34,7 +34,7 @@
 	filling_color = "#D63C3C"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4, "tender meat" = 2)
+	tastes = list("булочки" = 4, "нужного мяса" = 2)
 	foodtype = GRAIN | MEAT
 
 /obj/item/reagent_containers/food/snacks/cheeseburger
@@ -44,7 +44,7 @@
 	icon_state = "cheeseburger"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4, "meat" = 1, "cheese" = 1)
+	tastes = list("булочки" = 4, "мяса" = 1, "сыра" = 1)
 	foodtype = GRAIN | MEAT | DAIRY
 
 /obj/item/reagent_containers/food/snacks/monkeyburger
@@ -55,7 +55,7 @@
 	filling_color = "#D63C3C"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4, "meat" = 1, "the jungle" = 1)
+	tastes = list("булочки" = 4, "мяса" = 1, "джунглей" = 1)
 	foodtype = GRAIN | MEAT
 
 /obj/item/reagent_containers/food/snacks/tofuburger
@@ -66,7 +66,7 @@
 	filling_color = "#FFFEE0"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4, "tofu" = 4)
+	tastes = list("булочки" = 4, "тофу" = 4)
 	foodtype = GRAIN | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/roburger
@@ -77,7 +77,7 @@
 	filling_color = "#CCCCCC"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
-	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
+	tastes = list("булочки" = 4, "салата" = 2, "sludge" = 1)
 	foodtype = GRAIN | GROSS
 	log_eating = TRUE
 
@@ -90,7 +90,7 @@
 	volume = 120
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "nanomachines" = 70, "vitamin" = 5)
-	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 2)
+	tastes = list("булочки" = 4, "салата" = 2, "sludge" = 2)
 	foodtype = GRAIN | GROSS
 	log_eating = TRUE
 
@@ -102,7 +102,7 @@
 	filling_color = "#43DE18"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1, "xenomicrobes" = 10)
-	tastes = list("bun" = 4, "acid" = 4)
+	tastes = list("булочки" = 4, "кислоты" = 4)
 	foodtype = GRAIN | MEAT | GROSS
 
 /obj/item/reagent_containers/food/snacks/clownburger
@@ -113,7 +113,7 @@
 	filling_color = "#FF00FF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4, "banana" = 1, "magic" = 2)
+	tastes = list("булочки" = 4, "бананов" = 1, "магии" = 2)
 	foodtype = GRAIN | FRUIT
 
 /obj/item/reagent_containers/food/snacks/mimeburger
@@ -124,7 +124,7 @@
 	filling_color = "#FFFFFF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4, "silence" = 2)
+	tastes = list("булочки" = 4, "тишины" = 2)
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/baseballburger
@@ -135,7 +135,7 @@
 	filling_color = "#CD853F"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4)
+	tastes = list("булочки" = 4)
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/spellburger
@@ -146,7 +146,7 @@
 	filling_color = "#D505FF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4, "magic" = 2)
+	tastes = list("булочки" = 4, "магии" = 2)
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/bigbiteburger
@@ -157,7 +157,7 @@
 	filling_color = "#E3D681"
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
-	tastes = list("bun" = 4, "meat" = 2, "cheese" = 2, "type two diabetes" = 10)
+	tastes = list("булочки" = 4, "мяса" = 2, "сыра" = 2, "диабета второго типа" = 10)
 	foodtype = GRAIN | MEAT | DAIRY
 
 /obj/item/reagent_containers/food/snacks/superbiteburger
@@ -168,7 +168,7 @@
 	filling_color = "#CCA26A"
 	bitesize = 7
 	list_reagents = list("nutriment" = 40, "vitamin" = 5)
-	tastes = list("bun" = 4, "meat" = 2, "cheese" = 2, "type two diabetes" = 10)
+	tastes = list("булочки" = 4, "мяса" = 2, "сыра" = 2, "диабета второго типа" = 10)
 	foodtype = GRAIN | MEAT | DAIRY
 
 /obj/item/reagent_containers/food/snacks/jellyburger
@@ -178,7 +178,7 @@
 	icon_state = "jellyburger"
 	filling_color = "#B572AB"
 	bitesize = 3
-	tastes = list("bun" = 4, "jelly" = 2)
+	tastes = list("булочки" = 4, "желе" = 2)
 	foodtype = GRAIN | FRUIT
 
 /obj/item/reagent_containers/food/snacks/jellyburger/slime
@@ -201,7 +201,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("meat" = 2, "cheese" = 1, "bread" = 2, "lettuce" = 1)
+	tastes = list("мяса" = 2, "сыра" = 1, "хлеба" = 2, "салата" = 1)
 	foodtype = GRAIN | MEAT | DAIRY
 
 /obj/item/reagent_containers/food/snacks/toastedsandwich
@@ -212,7 +212,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 6, "carbon" = 2)
-	tastes = list("toast" = 1)
+	tastes = list("тостов" = 1)
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/grilledcheese
@@ -223,7 +223,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 7, "vitamin" = 1) //why make a regualr sandwhich when you can make grilled cheese, with this nutriment value?
-	tastes = list("toast" = 1, "grilled cheese" = 1)
+	tastes = list("тосов" = 1, "жареного сыра" = 1)
 	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/jellysandwich
@@ -234,7 +234,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#9E3A78"
 	bitesize = 3
-	tastes = list("toast" = 1, "jelly" = 1)
+	tastes = list("тостов" = 1, "желе" = 1)
 	foodtype = GRAIN | FRUIT
 
 /obj/item/reagent_containers/food/snacks/jellysandwich/slime
@@ -250,7 +250,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "notasandwich"
 	list_reagents = list("nutriment" = 6, "vitamin" = 6)
-	tastes = list("nothing suspicious" = 1)
+	tastes = list("ничего подозрительного" = 1)
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/wrap
@@ -259,5 +259,5 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "wrap"
 	list_reagents = list("nutriment" = 5)
-	tastes = list("egg" = 1)
+	tastes = list("яйца" = 1)
 	foodtype = GRAIN | MEAT

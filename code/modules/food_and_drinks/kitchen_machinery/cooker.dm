@@ -1,6 +1,14 @@
 /obj/machinery/cooker
 	name = "cooker"
-	desc = "You shouldn't be seeing this!"
+	desc = "Вы не должны этого видеть!"
+	ru_names = list(
+		NOMINATIVE = "кухонный аппарат",
+		GENITIVE = "кухонного аппарата",
+		DATIVE = "кухонному аппарату",
+		ACCUSATIVE = "кухонный аппарат",
+		INSTRUMENTAL = "кухонным аппаратом",
+		PREPOSITIONAL = "кухонном аппарате"
+	)
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
@@ -37,14 +45,14 @@
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is still active!</span>")
-		return FALSE
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] всё ещё работает!"))
+		return 0
 	if(istype(check, /obj/item/reagent_containers/food/snacks))
 		return TRUE
 	if(has_specials && checkSpecials(check))
 		return TRUE
-	to_chat(user, "<span class ='notice'>You can only process food!</span>")
-	return FALSE
+	to_chat(user, span_notice("Можно обрабатывать только продукты!"))
+	return 0
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
 	copyto.color = foodcolor
@@ -67,7 +75,7 @@
 	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(drop_turf)
 	setRegents(props, burnt)
 	if(user && (user in viewers(5, src)))
-		to_chat(user, span_warning("You smell burning coming from the [src]!"))
+		to_chat(user, span_warning("Вы чувствуете запах гари из [declent_ru(GENITIVE)]!"))
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new // burning things makes smoke!
 	smoke.set_up(amount = 5, location = src)
 	smoke.start()
@@ -75,13 +83,21 @@
 	if(prob(firechance))
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(drop_turf)
 		oil.name = "fat"
-		oil.desc = "uh oh, looks like some fat from [src]"
+		oil.desc = "Ой-ой, похоже это жир из [declent_ru(GENITIVE)]"
 		drop_turf.hotspot_expose(700, 50, 1)
 		//TODO have a chance of setting the tile on fire
 
 /obj/machinery/cooker/proc/changename(obj/item/name, obj/item/setme)
 	setme.name = "[thiscooktype] [name.name]"
-	setme.desc = "[name.desc]. It has been [thiscooktype]"
+	setme.ru_names = list(
+		NOMINATIVE = "[name.declent_ru(NOMINATIVE)] ([thiscooktype])",
+		GENITIVE = "[name.declent_ru(GENITIVE)] ([thiscooktype])",
+		DATIVE = "[name.declent_ru(DATIVE)] ([thiscooktype])",
+		ACCUSATIVE = "[name.declent_ru(ACCUSATIVE)] ([thiscooktype])",
+		INSTRUMENTAL = "[name.declent_ru(INSTRUMENTAL)] ([thiscooktype])",
+		PREPOSITIONAL = "[name.declent_ru(PREPOSITIONAL)] ([thiscooktype])"
+	)
+	setme.desc = "[name.desc]. Это было [thiscooktype]."
 
 
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
@@ -89,7 +105,7 @@
 		return FALSE
 	. = TRUE
 	icon_state = onicon
-	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
+	to_chat(chef, span_notice("Вы положили [tocook.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]."))
 	on = 1
 
 
@@ -126,14 +142,14 @@
 
 	add_fingerprint(user)
 	if(panel_open)
-		to_chat(user, span_warning("Close the panel first!"))
+		to_chat(user, span_warning("Сначала закройте панель!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!checkValid(I, user))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!burns && istype(I, /obj/item/reagent_containers/food/snacks) && checkCooked(I))
-		to_chat(user, span_warning("That is already [thiscooktype], it would do nothing!"))
+		to_chat(user, span_warning("Оно уже [thiscooktype], это ничего бы не дало!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(!putIn(I, user))

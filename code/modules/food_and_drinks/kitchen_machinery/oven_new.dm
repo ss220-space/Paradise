@@ -1,10 +1,18 @@
 
 /obj/machinery/kitchen_machine/oven
 	name = "oven"
-	desc = "Cookies are ready, dear."
+	desc = "Печенье готово, дорогой."
+	ru_names = list(
+		NOMINATIVE = "духовка",
+		GENITIVE = "духовки",
+		DATIVE = "духовке",
+		ACCUSATIVE = "духовку",
+		INSTRUMENTAL = "духовкой",
+		PREPOSITIONAL = "духовке"
+	)
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "oven_off"
-	cook_verbs = list("Baking", "Roasting", "Broiling")
+	cook_verbs = list("Запекается", "Жарится")
 	recipe_type = RECIPE_OVEN
 	off_icon = "oven_off"
 	on_icon = "oven_on"
@@ -51,12 +59,12 @@
 	var/mob/living/carbon/human/victim = grabbed_thing
 	var/obj/item/organ/external/head/head = victim.get_organ(BODY_ZONE_HEAD)
 	if(!head)
-		to_chat(grabber, span_warning("This person doesn't have a head!"))
+		to_chat(grabber, span_warning("У этого человека нет головы!"))
 		return
 	add_fingerprint(grabber)
 	victim.visible_message(
-		span_danger("[grabber] bashes [victim]'s head in [src]'s door!"),
-		span_userdanger("[grabber] bashes your head in [src]'s door! It feels rather hot in the oven!"),
+		span_danger("[grabber] ударя[pluralize_ru(grabber.gender,"ет","ют")] головой [victim] о дверцу [declent_ru(GENITIVE)]!"),
+		span_userdanger("[grabber] бь[pluralize_ru(grabber.gender,"ёт","ют")] вашей головой о дверцу [declent_ru(GENITIVE)]! В духовке довольно жарко!"),
 	)
 	if(victim.has_pain())
 		victim.emote("scream")

@@ -1,6 +1,14 @@
 /obj/machinery/cooker/foodgrill
 	name = "grill"
-	desc = "Backyard grilling, IN SPACE."
+	desc = "Гриль как во дворе, ТОЛЬКО В КОСМОСЕ."
+	ru_names = list(
+		NOMINATIVE = "гриль",
+		GENITIVE = "гриля",
+		DATIVE = "грилю",
+		ACCUSATIVE = "гриль",
+		INSTRUMENTAL = "грилем",
+		PREPOSITIONAL = "гриле"
+	)
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "grill_off"
 	thiscooktype = "grilled"

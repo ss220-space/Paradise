@@ -1,10 +1,18 @@
 
 /obj/machinery/kitchen_machine/microwave
 	name = "microwave"
-	desc = "A microwave, perfect for reheating things with radiation."
+	desc = "Микроволновая печь, идеально подходящая для разогрева еды с помощью радиации."
+	ru_names = list(
+		NOMINATIVE = "микроволновка",
+		GENITIVE = "микроволновки",
+		DATIVE = "микроволновке",
+		ACCUSATIVE = "микроволновку",
+		INSTRUMENTAL = "микроволновкой",
+		PREPOSITIONAL = "микроволновке"
+	)
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mw"
-	cook_verbs = list("Microwaving", "Reheating", "Heating")
+	cook_verbs = list("Нагревается", "Греется")
 	recipe_type = RECIPE_MICROWAVE
 	off_icon = "mw"
 	on_icon = "mw1"

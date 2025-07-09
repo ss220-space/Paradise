@@ -1,7 +1,15 @@
 
 /obj/machinery/kitchen_machine/candy_maker
 	name = "candy machine"
-	desc = "The stuff of nightmares for a dentist."
+	desc = "Настоящий кошмар для стоматологов."
+	ru_names = list(
+		NOMINATIVE = "конфетный автомат",
+		GENITIVE = "конфетного автомата",
+		DATIVE = "конфетному автомату",
+		ACCUSATIVE = "конфетный автомат",
+		INSTRUMENTAL = "конфетным автоматом",
+		PREPOSITIONAL = "конфетном автомате"
+	)
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "candymaker_off"
 	cook_verbs = list("Wonderizing", "Scrumpdiddlyumptiousification", "Miracle-coating", "Flavorifaction")

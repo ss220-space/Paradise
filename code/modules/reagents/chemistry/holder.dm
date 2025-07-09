@@ -885,9 +885,9 @@
 		var/percent = (reagent_tastes[taste_desc] / total_taste) * 100
 		if(percent < minimum_percent) //the lower the minimum percent, the more sensitive the message is
 			continue
-		var/intensity_desc = "едва заметный привкус"
+		var/intensity_desc = pick("едва заметный привкус", "лёгкие нотки", "намёк на", "что-то, напоминающее вкус", "слабый аромат")
 		if(percent > minimum_percent * 3 && percent != 100)
-			intensity_desc = "привкус"
+			intensity_desc = pick("привкус", "оттенок", "интенсивный вкус", "насыщенный привкус")
 		else if(percent > minimum_percent * 2 || percent == 100)
 			intensity_desc = ""
 

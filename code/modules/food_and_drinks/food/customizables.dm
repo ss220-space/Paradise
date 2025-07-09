@@ -40,7 +40,15 @@
 
 /obj/item/trash/bowl
 	name = "bowl"
-	desc = "An empty bowl. Put some food in it to start making a soup."
+	desc = "Пустая миска. Положите в неё еду, чтобы приготовить суп."
+	ru_names = list(
+		NOMINATIVE = "миска",
+		GENITIVE = "миски",
+		DATIVE = "миске",
+		ACCUSATIVE = "миску",
+		INSTRUMENTAL = "миской",
+		PREPOSITIONAL = "миске"
+	)
 	icon = 'icons/obj/food/custom.dmi'
 	icon_state = "soup"
 
@@ -53,7 +61,15 @@
 
 /obj/item/reagent_containers/food/snacks/customizable
 	name = "sandwich"
-	desc = "A sandwich! A timeless classic."
+	desc = "Сэндвич! Он же бутерброд. Вечная классика."
+	ru_names = list(
+		NOMINATIVE = "сэндвич",
+		GENITIVE = "сэндвича",
+		DATIVE = "сэндвичу",
+		ACCUSATIVE = "сэндвич",
+		INSTRUMENTAL = "сэндвичем",
+		PREPOSITIONAL = "сэндвиче"
+	)
 	icon = 'icons/obj/food/custom.dmi'
 	icon_state = "sandwichcustom"
 	var/baseicon = "sandwichcustom"
@@ -80,7 +96,15 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/sandwich
 	name = "sandwich"
-	desc = "A sandwich! A timeless classic."
+	desc = "Сэндвич! Он же бутерброд. Вечная классика."
+	ru_names = list(
+		NOMINATIVE = "сэндвич",
+		GENITIVE = "сэндвича",
+		DATIVE = "сэндвичу",
+		ACCUSATIVE = "сэндвич",
+		INSTRUMENTAL = "сэндвичем",
+		PREPOSITIONAL = "сэндвиче"
+	)
 	icon_state = "breadslice"
 	baseicon = "sandwichcustom"
 	basename = "sandwich"
@@ -88,91 +112,188 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/pizza
 	name = "personal pizza"
-	desc = "A personalized pan pizza meant for only one person."
+	desc = "Пицца на сковороде, предназначенная только для одного человека."
+	ru_names = list(
+		NOMINATIVE = "персональная пицца",
+		GENITIVE = "персональной пиццы",
+		DATIVE = "персональной пицце",
+		ACCUSATIVE = "персональную пиццу",
+		INSTRUMENTAL = "персональной пиццей",
+		PREPOSITIONAL = "персональной пицце"
+	)
 	icon_state = "personal_pizza"
 	baseicon = "personal_pizza"
 	basename = "personal pizza"
-	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
+	tastes = list("корочки" = 1, "томатов" = 1, "сыра" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/pasta
 	name = "spaghetti"
-	desc = "Noodles. With stuff. Delicious."
+	desc = "Макароны. С чем-то. Вкусно."
+	ru_names = list(
+		NOMINATIVE = "спагетти",
+		GENITIVE = "спагетти",
+		DATIVE = "спагетти",
+		ACCUSATIVE = "спагетти",
+		INSTRUMENTAL = "спагетти",
+		PREPOSITIONAL = "спагетти"
+	)
 	icon_state = "pasta_bot"
 	baseicon = "pasta_bot"
 	basename = "pasta"
+
 /obj/item/reagent_containers/food/snacks/customizable/cook/bread
 	name = "bread"
-	desc = "Tasty bread."
+	desc = "Вкусный хлеб."
+	ru_names = list(
+		NOMINATIVE = "хлеб",
+		GENITIVE = "хлеба",
+		DATIVE = "хлебу",
+		ACCUSATIVE = "хлеб",
+		INSTRUMENTAL = "хлебом",
+		PREPOSITIONAL = "хлебе"
+	)
 	icon_state = "breadcustom"
 	baseicon = "breadcustom"
 	basename = "bread"
-	tastes = list("bread" = 10)
+	tastes = list("хлеба" = 10)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/pie
 	name = "pie"
-	desc = "Tasty pie."
+	desc = "Вкусный пирог."
+	ru_names = list(
+		NOMINATIVE = "пирог",
+		GENITIVE = "пирога",
+		DATIVE = "пирогу",
+		ACCUSATIVE = "пирог",
+		INSTRUMENTAL = "пирогом",
+		PREPOSITIONAL = "пироге"
+	)
 	icon_state = "piecustom"
 	baseicon = "piecustom"
 	basename = "pie"
-	tastes = list("pie" = 1)
+	tastes = list("пирога" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/cake
 	name = "cake"
-	desc = "A popular band."
+	desc = "Вкусный торт."
+	ru_names = list(
+		NOMINATIVE = "торт",
+		GENITIVE = "торта",
+		DATIVE = "торту",
+		ACCUSATIVE = "торт",
+		INSTRUMENTAL = "тортом",
+		PREPOSITIONAL = "торте"
+	)
 	icon_state = "cakecustom"
 	baseicon = "cakecustom"
 	basename = "cake"
-	tastes = list("cake" = 1)
+	tastes = list("тортика" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/jelly
 	name = "jelly"
-	desc = "Totally jelly."
+	desc = "Полностью желеобразно."
+	ru_names = list(
+		NOMINATIVE = "желе",
+		GENITIVE = "желе",
+		DATIVE = "желе",
+		ACCUSATIVE = "желе",
+		INSTRUMENTAL = "желе",
+		PREPOSITIONAL = "желе"
+	)
 	icon_state = "jellycustom"
 	baseicon = "jellycustom"
 	basename = "jelly"
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/donkpocket
 	name = "donk pocket"
-	desc = "You wanna put a bangin-Oh nevermind."
+	desc = "Хочешь положить круто... Ой, неважно."
+	ru_names = list(
+		NOMINATIVE = "донк-покет",
+		GENITIVE = "донк-покета",
+		DATIVE = "донк-покету",
+		ACCUSATIVE = "донк-покет",
+		INSTRUMENTAL = "донк-покетом",
+		PREPOSITIONAL = "донк-покете"
+	)
 	icon_state = "donkcustom"
 	baseicon = "donkcustom"
 	basename = "donk pocket"
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/kebab
 	name = "kebab"
-	desc = "Kebab or Kabab?"
+	desc = "Кебаб или шашлык?"
+	ru_names = list(
+		NOMINATIVE = "кебаб",
+		GENITIVE = "кебаба",
+		DATIVE = "кебабу",
+		ACCUSATIVE = "кебаб",
+		INSTRUMENTAL = "кебабом",
+		PREPOSITIONAL = "кебабе"
+	)
 	icon_state = "kababcustom"
 	baseicon = "kababcustom"
 	basename = "kebab"
-	tastes = list("meat" = 3, "metal" = 1)
+	tastes = list("мяса" = 3, "металла" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/salad
 	name = "salad"
-	desc = "Very tasty."
+	desc = "Очень вкусно."
+	ru_names = list(
+		NOMINATIVE = "салат",
+		GENITIVE = "салата",
+		DATIVE = "салату",
+		ACCUSATIVE = "салат",
+		INSTRUMENTAL = "салатом",
+		PREPOSITIONAL = "салате"
+	)
 	icon_state = "saladcustom"
 	baseicon = "saladcustom"
 	basename = "salad"
-	tastes = list("leaves" = 1)
+	tastes = list("листьев" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/waffles
 	name = "waffles"
-	desc = "Made with love."
+	desc = "Сделано с любовью."
+	ru_names = list(
+		NOMINATIVE = "вафли",
+		GENITIVE = "вафель",
+		DATIVE = "вафлям",
+		ACCUSATIVE = "вафли",
+		INSTRUMENTAL = "вафлями",
+		PREPOSITIONAL = "вафлях"
+	)
 	icon_state = "wafflecustom"
 	baseicon = "wafflecustom"
 	basename = "waffles"
-	tastes = list("waffles" = 1)
+	tastes = list("вафлей" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/cookie
 	name = "cookie"
-	desc = "COOKIE!!1!"
+	desc = "ПЕЧЕНЬЕ!!1!"
+	ru_names = list(
+		NOMINATIVE = "печенье",
+		GENITIVE = "печенья",
+		DATIVE = "печенью",
+		ACCUSATIVE = "печенье",
+		INSTRUMENTAL = "печеньем",
+		PREPOSITIONAL = "печенье"
+	)
 	icon_state = "cookiecustom"
 	baseicon = "cookiecustom"
 	basename = "cookie"
-	tastes = list("cookie" = 1)
+	tastes = list("печенья" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/cotton
 	name = "flavored cotton candy"
 	desc = "Who can take a sunrise, sprinkle it with dew,"
+	ru_names = list(
+		NOMINATIVE = "ароматизированная сахарная вата",
+		GENITIVE = "ароматизированной сахарной ваты",
+		DATIVE = "ароматизированной сахарной вате",
+		ACCUSATIVE = "ароматизированную сахарную вату",
+		INSTRUMENTAL = "ароматизированной сахарной ватой",
+		PREPOSITIONAL = "ароматизированной сахарной вате"
+	)
 	icon_state = "cottoncandycustom"
 	baseicon = "cottoncandycustom"
 	basename = "flavored cotton candy"
@@ -180,6 +301,14 @@
 /obj/item/reagent_containers/food/snacks/customizable/candy/gummybear
 	name = "flavored giant gummy bear"
 	desc = "Cover it in chocolate and a miracle or two,"
+	ru_names = list(
+		NOMINATIVE = "ароматизированный гигантский мармеладный мишка",
+		GENITIVE = "ароматизированного гигантского мармеладного мишки",
+		DATIVE = "ароматизированному гигантскому мармеладному мишке",
+		ACCUSATIVE = "ароматизированный гигантский мармеладный мишка",
+		INSTRUMENTAL = "ароматизированным гигантским мармеладным мишкой",
+		PREPOSITIONAL = "ароматизированном гигантском мармеладном мишке"
+	)
 	icon_state = "gummybearcustom"
 	baseicon = "gummybearcustom"
 	basename = "flavored giant gummy bear"
@@ -187,6 +316,14 @@
 /obj/item/reagent_containers/food/snacks/customizable/candy/gummyworm
 	name = "flavored giant gummy worm"
 	desc = "The Candy Man can 'cause he mixes it with love,"
+	ru_names = list(
+		NOMINATIVE = "ароматизированный гигантский мармеладный червяк",
+		GENITIVE = "ароматизированного гигантского мармеладного червяка",
+		DATIVE = "ароматизированному гигантскому мармеладному червяку",
+		ACCUSATIVE = "ароматизированный гигантский мармеладный червяк",
+		INSTRUMENTAL = "ароматизированным гигантским мармеладным червяком",
+		PREPOSITIONAL = "ароматизированном гигантском мармеладном червяке"
+	)
 	icon_state = "gummywormcustom"
 	baseicon = "gummywormcustom"
 	basename = "flavored giant gummy worm"
@@ -194,6 +331,14 @@
 /obj/item/reagent_containers/food/snacks/customizable/candy/jellybean
 	name = "flavored giant jelly bean"
 	desc = "And makes the world taste good."
+	ru_names = list(
+		NOMINATIVE = "ароматизированный гигантский мармеладный боб",
+		GENITIVE = "ароматизированного гигантского мармеладного боба",
+		DATIVE = "ароматизированному гигантскому мармеладному бобу",
+		ACCUSATIVE = "ароматизированный гигантский мармеладный боб",
+		INSTRUMENTAL = "ароматизированным гигантским мармеладным бобом",
+		PREPOSITIONAL = "ароматизированном гигантском мармеладном бобе"
+	)
 	icon_state = "jellybeancustom"
 	baseicon = "jellybeancustom"
 	basename = "flavored giant jelly bean"
@@ -201,6 +346,14 @@
 /obj/item/reagent_containers/food/snacks/customizable/candy/jawbreaker
 	name = "flavored jawbreaker"
 	desc = "Who can take a rainbow, Wrap it in a sigh,"
+	ru_names = list(
+		NOMINATIVE = "ароматизированный гигантский чупа-чупс",
+		GENITIVE = "ароматизированного гигантского чупа-чупса",
+		DATIVE = "ароматизированному гигантскому чупа-чупсу",
+		ACCUSATIVE = "ароматизированный гигантский чупа-чупс",
+		INSTRUMENTAL = "ароматизированным гигантским чупа-чупсом",
+		PREPOSITIONAL = "ароматизированном гигантском чупа-чупсе"
+	)
 	icon_state = "jawbreakercustom"
 	baseicon = "jawbreakercustom"
 	basename = "flavored jawbreaker"
@@ -208,6 +361,14 @@
 /obj/item/reagent_containers/food/snacks/customizable/candy/candycane
 	name = "flavored candy cane"
 	desc = "Soak it in the sun and make strawberry-lemon pie,"
+	ru_names = list(
+		NOMINATIVE = "ароматизированная леденцовая трость",
+		GENITIVE = "ароматизированной леденцовой трости",
+		DATIVE = "ароматизированной леденцовой трости",
+		ACCUSATIVE = "ароматизированную леденцовую трость",
+		INSTRUMENTAL = "ароматизированной леденцовой тростью",
+		PREPOSITIONAL = "ароматизированной леденцовой трости"
+	)
 	icon_state = "candycanecustom"
 	baseicon = "candycanecustom"
 	basename = "flavored candy cane"
@@ -215,48 +376,104 @@
 /obj/item/reagent_containers/food/snacks/customizable/candy/gum
 	name = "flavored gum"
 	desc = "The Candy Man can 'cause he mixes it with love and makes the world taste good. And the world tastes good 'cause the Candy Man thinks it should..."
+	ru_names = list(
+		NOMINATIVE = "ароматизированная жвачка",
+		GENITIVE = "ароматизированной жвачки",
+		DATIVE = "ароматизированной жвачке",
+		ACCUSATIVE = "ароматизированную жвачку",
+		INSTRUMENTAL = "ароматизированной жвачкой",
+		PREPOSITIONAL = "ароматизированной жвачке"
+	)
 	icon_state = "gumcustom"
 	baseicon = "gumcustom"
 	basename = "flavored gum"
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/donut
 	name = "filled donut"
-	desc = "Donut eat this!" // kill me
+	desc = "Не пончись на этом!" // kill me
+	ru_names = list(
+		NOMINATIVE = "пончик с начинкой",
+		GENITIVE = "пончика с начинкой",
+		DATIVE = "пончику с начинкой",
+		ACCUSATIVE = "пончик с начинкой",
+		INSTRUMENTAL = "пончиком с начинкой",
+		PREPOSITIONAL = "пончике с начинкой"
+	)
 	icon_state = "donutcustom"
 	baseicon = "donutcustom"
 	basename = "filled donut"
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/bar
 	name = "flavored chocolate bar"
-	desc = "Made in a factory downtown."
+	desc = "Сделано на фабрике в центре города."
+	ru_names = list(
+		NOMINATIVE = "ароматизированная шоколадная плитка",
+		GENITIVE = "ароматизированной шоколадной плитки",
+		DATIVE = "ароматизированной шоколадной плитке",
+		ACCUSATIVE = "ароматизированную шоколадную плитку",
+		INSTRUMENTAL = "ароматизированной шоколадной плиткой",
+		PREPOSITIONAL = "ароматизированной шоколадной плитке"
+	)
 	icon_state = "barcustom"
 	baseicon = "barcustom"
 	basename = "flavored chocolate bar"
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/sucker
 	name = "flavored sucker"
-	desc = "Suck suck suck."
+	desc = "Пососи."
+	ru_names = list(
+		NOMINATIVE = "ароматизированный леденец",
+		GENITIVE = "ароматизированного леденца",
+		DATIVE = "ароматизированному леденцу",
+		ACCUSATIVE = "ароматизированный леденец",
+		INSTRUMENTAL = "ароматизированным леденцом",
+		PREPOSITIONAL = "ароматизированном леденце"
+	)
 	icon_state = "suckercustom"
 	baseicon = "suckercustom"
 	basename = "flavored sucker"
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/cash
 	name = "flavored chocolate cash"
-	desc = "I got piles!"
+	desc = "У меня их куча!"
+	ru_names = list(
+		NOMINATIVE = "ароматизированные шоколадные деньги",
+		GENITIVE = "ароматизированных шоколадных денег",
+		DATIVE = "ароматизированным шоколадным деньгам",
+		ACCUSATIVE = "ароматизированные шоколадные деньги",
+		INSTRUMENTAL = "ароматизированными шоколадными деньгами",
+		PREPOSITIONAL = "ароматизированных шоколадных деньгах"
+	)
 	icon_state = "cashcustom"
 	baseicon = "cashcustom"
 	basename = "flavored cash"
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/coin
 	name = "flavored chocolate coin"
-	desc = "Clink, clink, clink."
+	desc = "Дзынь, дзынь, дзынь."
+	ru_names = list(
+		NOMINATIVE = "ароматизированная шоколадная монета",
+		GENITIVE = "ароматизированной шоколадной монеты",
+		DATIVE = "ароматизированной шоколадной монете",
+		ACCUSATIVE = "ароматизированную шоколадную монету",
+		INSTRUMENTAL = "ароматизированной шоколадной монетой",
+		PREPOSITIONAL = "ароматизированной шоколадной монете"
+	)
 	icon_state = "coincustom"
 	baseicon = "coincustom"
 	basename = "flavored coin"
 
 /obj/item/reagent_containers/food/snacks/customizable/fullycustom // In the event you fuckers find something I forgot to add a customizable food for.
 	name = "on a plate"
-	desc = "A unique dish."
+	desc = "Уникальное блюдо."
+	ru_names = list(
+		NOMINATIVE = "на тарелке",
+		GENITIVE = "на тарелке",
+		DATIVE = "на тарелке",
+		ACCUSATIVE = "на тарелке",
+		INSTRUMENTAL = "на тарелке",
+		PREPOSITIONAL = "на тарелке"
+	)
 	icon_state = "fullycustom"
 	baseicon = "fullycustom"
 	basename = "on a plate"
@@ -265,22 +482,38 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/soup
 	name = "soup"
-	desc = "A bowl with liquid and... stuff in it."
+	desc = "Миска с жидкостью и... чем-то ещё."
+	ru_names = list(
+		NOMINATIVE = "суп",
+		GENITIVE = "супа",
+		DATIVE = "супу",
+		ACCUSATIVE = "суп",
+		INSTRUMENTAL = "супом",
+		PREPOSITIONAL = "супе"
+	)
 	icon_state = "soup"
 	baseicon = "soup"
 	basename = "soup"
 	trash = /obj/item/trash/bowl
-	tastes = list("soup" = 1)
+	tastes = list("супа" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/burger
 	name = "burger bun"
-	desc = "A bun for a burger. Delicious."
+	desc = "Булочка для бургера. Вкусно."
+	ru_names = list(
+		NOMINATIVE = "булочка для бургера",
+		GENITIVE = "булочки для бургера",
+		DATIVE = "булочке для бургера",
+		ACCUSATIVE = "булочку для бургера",
+		INSTRUMENTAL = "булочкой для бургера",
+		PREPOSITIONAL = "булочке для бургера"
+	)
 	icon_state = "burger"
 	baseicon = "burgercustom"
 	basename = "burger"
 	top = TRUE
 	snack_overlays = TRUE
-	tastes = list("bun" = 4)
+	tastes = list("булочки" = 4)
 
 
 /obj/item/reagent_containers/food/snacks/customizable/Destroy()
@@ -292,12 +525,12 @@
 	. = ..()
 	if(LAZYLEN(ingredients))
 		var/whatsinside = pick(ingredients)
-		. += span_notice("You think you can see [whatsinside] in there.")
+		. += span_notice("Кажется, вы различаете [whatsinside] внутри.")
 
 
 /obj/item/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/reagent_containers/food/snacks))
-		to_chat(user, span_warning("[I] isn't exactly something that you would want to eat."))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] — не совсем то, что можно съесть."))
 		return ..()
 
 	if(!user.can_unEquip(I))
@@ -321,7 +554,7 @@
 
 	add_fingerprint(user)
 	if(length(ingredients) > ingredient_limit)
-		to_chat(user, span_warning("If you put anything else in or on [src] it's going to make a mess."))
+		to_chat(user, span_warning("Если вы добавите что-то ещё в [declent_ru(ACCUSATIVE)], получится беспорядок."))
 		return .
 
 	// Fully custom snacks don't add the ingredients. So no need to check
@@ -329,12 +562,12 @@
 	if(fullycustom_check)
 		var/obj/item/reagent_containers/food/snacks/customizable/origin = snack
 		if(length(ingredients) + length(origin.ingredients) > ingredient_limit)
-			to_chat(user, span_warning("Merging [snack] and [src] together is going to make a mess."))
+			to_chat(user, span_warning("Соединение [snack.declent_ru(GENITIVE)] и [declent_ru(GENITIVE)] создаст беспорядок."))
 			return .
 
 	. = TRUE
 
-	to_chat(user, span_notice("You add [snack] to [src]."))
+	to_chat(user, span_notice("Вы добавляете [snack.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 	user.drop_transfer_item_to_loc(snack, src)
 	snack.reagents.trans_to(src, snack.reagents.total_volume)
 
@@ -394,7 +627,7 @@
 	var/ct = 0
 	var/seperator = ""
 	var/sendback = ""
-	var/list/levels = list("", "double", "triple", "quad", "huge")
+	var/list/levels = list("", "двойной", "тройной", "квадро", "огромный")
 
 	for(var/obj/item/ing in ingredients)
 		if(istype(ing, /obj/item/shard))
@@ -427,7 +660,7 @@
 	for(var/ings in sorteditems)			   //add the non-basename items to the name, sorting out the , and the and
 		c++
 		if(c == sorteditems.len - 1)
-			seperator = " and "
+			seperator = " и "
 		else if(c == sorteditems.len)
 			seperator = " "
 		else
@@ -460,7 +693,7 @@
 		sendback += basename
 
 	if(length(sendback) > 80)
-		sendback = "[pick(list("absurd","colossal","enormous","ridiculous","massive","oversized","cardiac-arresting","pipe-clogging","edible but sickening","sickening","gargantuan","mega","belly-burster","chest-burster"))] [basename]"
+		sendback = "[pick(list("абсурдный","колоссальный","огромный","нелепый","массивный","гигантский","вызывающий инфаркт","забивающий артерии","съедобный но тошнотворный","тошнотворный","громадный","мега","разрывающий живот","разрывающий грудь"))] [basename]"
 	return sendback
 
 

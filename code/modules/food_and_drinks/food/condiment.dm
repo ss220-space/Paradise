@@ -7,7 +7,7 @@
 //Food items that aren't eaten normally and leave an empty container behind.
 /obj/item/reagent_containers/food/condiment
 	name = "condiment container"
-	desc = "Just your average condiment container."
+	desc = "Обычная ёмкость для приправ."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -18,17 +18,17 @@
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
-	 "ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
-	 "capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
-	 "enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
-	 "soysauce" = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring"),
-	 "frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
-	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
-	 "blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
-	 "cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
-	 "oliveoil" = list("oliveoil", "olive oil bottle", "A delicious oil used in cooking. Made from olives"),
-	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
-	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
+	 "ketchup" = list("ketchup", "ketchup bottle", "Вы уже ощущаете себя как настоящий американец."),
+	 "capsaicin" = list("hotsauce", "hotsauce bottle", "Теперь вы почти ЧУВСТВУЕТЕ, что такое язва желудка!"),
+	 "enzyme" = list("enzyme", "universal enzyme bottle", "Используется для приготовления разнообразных блюд."),
+	 "soysauce" = list("soysauce", "soy sauce bottle", "Солёная приправа на основе сои."),
+	 "frostoil" = list("coldsauce", "coldsauce bottle", "Из-за этого язык немеет."),
+	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Соль. Предположительно, из космических океанов."),
+	 "blackpepper" = list("peppermillsmall", "pepper mill", "Часто используется для придания аромата пище или для того, чтобы заставить людей чихать."),
+	 "cornoil" = list("oliveoil", "corn oil bottle", "Вкусное масло, используемое в кулинарии. Готовится из кукурузы."),
+	 "oliveoil" = list("oliveoil", "olive oil bottle", "Вкусное масло, используемое в кулинарии. Готовится из оливок.s"),
+	 "sugar" = list("emptycondiment", "sugar bottle", "Вкусный космический сахар!"))
+	var/originalname = "приправа" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
 	return
@@ -49,28 +49,28 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, span_warning("None of [src] left, oh no!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пуст, вот незадача!"))
 		return .
 
 	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
 		if(target == user)
-			to_chat(user, span_warning("Your face is obscured."))
+			to_chat(user, span_warning("Ваше лицо закрыто."))
 		else
-			to_chat(user, span_warning("[target]'s face is obscured."))
+			to_chat(user, span_warning("Лицо [target] закрыто."))
 		return .
 
 	if(target == user)
-		to_chat(target, span_notice("You swallow some of [src] contents."))
+		to_chat(target, span_notice("Вы проглатываете часть содержимого [declent_ru(GENITIVE)]."))
 	else
 		user.visible_message(
-			span_warning("[user] attempts to feed [target] from [src]."),
-			span_notice("You attempt to feed [target] from [src]..."),
+			span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся накормить [target] из [declent_ru(GENITIVE)]."),
+			span_notice("Вы пытаетесь накормить [target] из [declent_ru(GENITIVE)]..."),
 		)
 		if(!do_after(user, 3 SECONDS, target, NONE) || !get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH) || !reagents || !reagents.total_volume)
 			return .
 		user.visible_message(
-			span_warning("[user] feeds [target] from [src]."),
-			span_notice("You have fed [target] from [src]."),
+			span_warning("[user] корм[pluralize_ru(user.gender,"ит","ят")] [target] из [declent_ru(GENITIVE)]."),
+			span_notice("Вы накормили [target] из [declent_ru(GENITIVE)]."),
 		)
 		add_attack_logs(user, target, "Fed [src] containing [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
@@ -87,26 +87,26 @@
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
 		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty!</span>")
+			to_chat(user, span_warning("[capitalize(target.declent_ru(NOMINATIVE))] пуст!"))
 			return
 
 		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>[src] is full!</span>")
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] заполнен!"))
 			return
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
+		to_chat(user, span_notice("Вы наполняете [declent_ru(NOMINATIVE)] [trans] единиц[declension_ru(trans,"ей","ами","ами")] содержимого из [target.declent_ru(GENITIVE)]."))
 
 	//Something like a glass or a food item. Player probably wants to transfer TO it.
 	else if(target.is_drainable() || istype(target, /obj/item/reagent_containers/food/snacks))
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>[src] is empty!</span>")
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пуст!"))
 			return
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>you can't add anymore to [target]!</span>")
+			to_chat(user, span_warning("Вы не можете добавить больше в [target.declent_ru(GENITIVE)]!"))
 			return
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You transfer [trans] units of the condiment to [target].</span>")
+		to_chat(user, span_notice("Вы переливаете [trans] единиц[declension_ru(trans,"У","ы","")] приправы в [target.declent_ru(GENITIVE)]."))
 
 /obj/item/reagent_containers/food/condiment/on_reagent_change()
 	if(!possible_states.len)
@@ -123,29 +123,61 @@
 			name = "[originalname] bottle"
 			main_reagent = reagents.get_master_reagent_name()
 			if(reagents.reagent_list.len==1)
-				desc = "Looks like it is [lowertext(main_reagent)], but you are not sure."
+				desc = "Похоже, это [lowertext(main_reagent)], но вы не уверены."
 			else
-				desc = "A mixture of various condiments. [lowertext(main_reagent)] is one of them."
+				desc = "Смесь различных приправ. [capitalize(main_reagent)] — одна из них."
 			icon_state = "mixedcondiments"
 	else
 		icon_state = "emptycondiment"
 		name = "condiment bottle"
-		desc = "An empty condiment bottle."
+		desc = "Пустая бутылка для приправ."
+		ru_names = list(
+			NOMINATIVE = "бутылка для приправ",
+			GENITIVE = "бутылки для приправ",
+			DATIVE = "бутылке для приправ",
+			ACCUSATIVE = "бутылку для приправ",
+			INSTRUMENTAL = "бутылкой для приправ",
+			PREPOSITIONAL = "бутылке для приправ"
+		)
 
 /obj/item/reagent_containers/food/condiment/enzyme
 	name = "universal enzyme"
-	desc = "Used in cooking various dishes."
+	desc = "Используется для приготовления разнообразных блюд."
+	ru_names = list(
+		NOMINATIVE = "универсальный фермент",
+		GENITIVE = "универсального фермента",
+		DATIVE = "универсальному ферменту",
+		ACCUSATIVE = "универсальный фермент",
+		INSTRUMENTAL = "универсальным ферментом",
+		PREPOSITIONAL = "универсальном ферменте"
+	)
 	icon_state = "enzyme"
 	list_reagents = list("enzyme" = 50)
 
 /obj/item/reagent_containers/food/condiment/sugar
 	name = "sugar bottle"
-	desc = "Tasty spacey sugar!"
+	desc = "Вкусный космический сахар!"
+	ru_names = list(
+		NOMINATIVE = "сахарница",
+		GENITIVE = "сахарницы",
+		DATIVE = "сахарнице",
+		ACCUSATIVE = "сахарницу",
+		INSTRUMENTAL = "сахарницей",
+		PREPOSITIONAL = "сахарнице"
+	)
 	list_reagents = list("sugar" = 50)
 
 /obj/item/reagent_containers/food/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
 	name = "salt shaker"											//	a large one.
-	desc = "Salt. From space oceans, presumably."
+	desc = "Соль. Предположительно, из космических океанов."
+	ru_names = list(
+		NOMINATIVE = "солонка",
+		GENITIVE = "солонки",
+		DATIVE = "солонке",
+		ACCUSATIVE = "солонку",
+		INSTRUMENTAL = "солонкой",
+		PREPOSITIONAL = "солонке"
+	)
 	icon_state = "saltshakersmall"
 	possible_transfer_amounts = list(1,5,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
@@ -154,17 +186,25 @@
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/saltshaker/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] начина[pluralize_ru(user.gender,"ет","ют")] меняться местами с солонкой! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой."))
 	var/newname = "[name]"
 	name = "[user.name]"
 	user.name = newname
 	user.real_name = newname
-	desc = "Salt. From dead crew, presumably."
+	desc = "Соль. Вероятно, из мёртвыго членов экипажа."
 	return BRUTELOSS
 
 /obj/item/reagent_containers/food/condiment/peppermill
 	name = "pepper mill"
-	desc = "Often used to flavor food or make people sneeze."
+	desc = "Часто используется для придания аромата пище или для того, чтобы заставить людей чихать."
+	ru_names = list(
+		NOMINATIVE = "перечница",
+		GENITIVE = "перечницы",
+		DATIVE = "перечнице",
+		ACCUSATIVE = "перечницу",
+		INSTRUMENTAL = "перечницей",
+		PREPOSITIONAL = "перечнице"
+	)
 	icon_state = "peppermillsmall"
 	possible_transfer_amounts = list(1,5,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
@@ -174,7 +214,15 @@
 
 /obj/item/reagent_containers/food/condiment/milk
 	name = "space milk"
-	desc = "It's milk. White and nutritious goodness!"
+	desc = "Это молоко. Белая и питательная полезность!"
+	ru_names = list(
+		NOMINATIVE = "космическое молоко",
+		GENITIVE = "космического молока",
+		DATIVE = "космическому молоку",
+		ACCUSATIVE = "космическое молоко",
+		INSTRUMENTAL = "космическим молоком",
+		PREPOSITIONAL = "космическом молоке"
+	)
 	icon_state = "milk"
 	item_state = "carton"
 	list_reagents = list("milk" = 50)
@@ -182,7 +230,15 @@
 
 /obj/item/reagent_containers/food/condiment/flour
 	name = "flour sack"
-	desc = "A big bag of flour. Good for baking!"
+	desc = "Большая упаковка муки. Отлично подходит для выпечки!"
+	ru_names = list(
+		NOMINATIVE = "упаковка муки",
+		GENITIVE = "упаковки муки",
+		DATIVE = "упаковке муки",
+		ACCUSATIVE = "упаковку муки",
+		INSTRUMENTAL = "упаковкой муки",
+		PREPOSITIONAL = "упаковке муки"
+	)
 	icon_state = "flour"
 	item_state = "flour"
 	list_reagents = list("flour" = 30)
@@ -190,7 +246,15 @@
 
 /obj/item/reagent_containers/food/condiment/soymilk
 	name = "soy milk"
-	desc = "It's soy milk. White and nutritious goodness!"
+	desc = "Это соевое молоко. Белая и питательная полезность!"
+	ru_names = list(
+		NOMINATIVE = "соевое молоко",
+		GENITIVE = "соевого молока",
+		DATIVE = "соевому молоку",
+		ACCUSATIVE = "соевое молоко",
+		INSTRUMENTAL = "соевым молоком",
+		PREPOSITIONAL = "соевом молоке"
+	)
 	icon_state = "soymilk"
 	item_state = "carton"
 	list_reagents = list("soymilk" = 50)
@@ -198,7 +262,15 @@
 
 /obj/item/reagent_containers/food/condiment/rice
 	name = "rice sack"
-	desc = "A big bag of rice. Good for cooking!"
+	desc = "Большой упаковка риса. Отлично подходит для готовки!"
+	ru_names = list(
+		NOMINATIVE = "упаковка риса",
+		GENITIVE = "упаковки риса",
+		DATIVE = "упаковке риса",
+		ACCUSATIVE = "упаковку риса",
+		INSTRUMENTAL = "упаковкой риса",
+		PREPOSITIONAL = "упаковке риса"
+	)
 	icon_state = "rice"
 	item_state = "flour"
 	list_reagents = list("rice" = 30)
@@ -206,7 +278,15 @@
 
 /obj/item/reagent_containers/food/condiment/soysauce
 	name = "soy sauce"
-	desc = "A salty soy-based flavoring."
+	desc = "Солёная приправа на основе сои."
+	ru_names = list(
+		NOMINATIVE = "соевый соус",
+		GENITIVE = "соевого соуса",
+		DATIVE = "соевому соусу",
+		ACCUSATIVE = "соевый соус",
+		INSTRUMENTAL = "соевым соусом",
+		PREPOSITIONAL = "соевом соусе"
+	)
 	icon_state = "soysauce"
 	list_reagents = list("soysauce" = 50)
 	possible_states = list()
@@ -229,7 +309,15 @@
 //Tomato sauce
 /obj/item/reagent_containers/food/condiment/tomatosauce
 	name = "tomato sauce"
-	desc = "The father of all sauces. Tomatoes, a little spice and nothing extra."
+	desc = "Отец всех соусов. Томаты, немного специй и ничего лишнего."
+	ru_names = list(
+		NOMINATIVE = "томатный соус",
+		GENITIVE = "томатного соуса",
+		DATIVE = "томатному соусу",
+		ACCUSATIVE = "томатный соус",
+		INSTRUMENTAL = "томатным соусом",
+		PREPOSITIONAL = "томатном соусе"
+	)
 	icon_state = "tomatosauce"
 	list_reagents = list("tsauce" = 50)
 	possible_states = list()
@@ -237,7 +325,15 @@
 //Diablo sauce
 /obj/item/reagent_containers/food/condiment/diablosauce
 	name = "diablo sauce"
-	desc = "An ancient burning sauce, its recipe has hardly changed since its creation."
+	desc = "Древний обжигающий соус, его рецепт почти не изменился со времён создания."
+	ru_names = list(
+		NOMINATIVE = "соус диабло",
+		GENITIVE = "соуса диабло",
+		DATIVE = "соусу диабло",
+		ACCUSATIVE = "соус диабло",
+		INSTRUMENTAL = "соусом диабло",
+		PREPOSITIONAL = "соусе диабло"
+	)
 	icon_state = "diablosauce"
 	list_reagents = list("dsauce" = 50)
 	possible_states = list()
@@ -245,7 +341,15 @@
 //Cheese sauce
 /obj/item/reagent_containers/food/condiment/cheesesauce
 	name = "cheese sauce"
-	desc = "Cheese, cream and milk... maximum protein concentration!"
+	desc = "Сыр, сливки и молоко... максимальная концентрация белка!"
+	ru_names = list(
+		NOMINATIVE = "сырный соус",
+		GENITIVE = "сырного соуса",
+		DATIVE = "сырному соусу",
+		ACCUSATIVE = "сырный соус",
+		INSTRUMENTAL = "сырным соусом",
+		PREPOSITIONAL = "сырном соусе"
+	)
 	icon_state = "cheesesauce"
 	list_reagents = list("csauce" = 50)
 	possible_states = list()
@@ -253,7 +357,15 @@
 //Mushroom sauce
 /obj/item/reagent_containers/food/condiment/mushroomsauce
 	name = "mushroom sauce"
-	desc = "Creamy sauce with mushrooms, has a rather pungent smell."
+	desc = "Сливочный соус с грибами, имеет довольно резкий запах."
+	ru_names = list(
+		NOMINATIVE = "грибной соус",
+		GENITIVE = "грибного соуса",
+		DATIVE = "грибному соусу",
+		ACCUSATIVE = "грибной соус",
+		INSTRUMENTAL = "грибным соусом",
+		PREPOSITIONAL = "грибном соусе"
+	)
 	icon_state = "mushroomsauce"
 	list_reagents = list("msauce" = 50)
 	possible_states = list()
@@ -261,7 +373,15 @@
 //Garlic sauce
 /obj/item/reagent_containers/food/condiment/garlicsauce
 	name = "garlic sauce"
-	desc = "A strong sauce with garlic, its smell punches the nose. Some crewmembers will probably hiss at you and walk away."
+	desc = "Крепкий соус с чесноком, его запах бьёт в нос. Некоторые члены экипажа, вероятно, будут шипеть на вас и уходить."
+	ru_names = list(
+		NOMINATIVE = "чесночный соус",
+		GENITIVE = "чесночного соуса",
+		DATIVE = "чесночному соусу",
+		ACCUSATIVE = "чесночный соус",
+		INSTRUMENTAL = "чесночным соусом",
+		PREPOSITIONAL = "чесночном соусе"
+	)
 	icon_state = "garlicsauce"
 	list_reagents = list("gsauce" = 50)
 	possible_states = list()
@@ -269,7 +389,15 @@
 //Custard
 /obj/item/reagent_containers/food/condiment/custard
 	name = "Custard"
-	desc = "Soft and sweet cream, used in confectionery."
+	desc = "Мягкая и сладкая масса, используется в кондитерских изделиях."
+	ru_names = list(
+		NOMINATIVE = "заварной крем",
+		GENITIVE = "заварного крема",
+		DATIVE = "заварному крему",
+		ACCUSATIVE = "заварной крем",
+		INSTRUMENTAL = "заварным кремом",
+		PREPOSITIONAL = "заварном креме"
+	)
 	icon_state = "custard"
 	list_reagents = list("custard" = 50)
 	possible_states = list()
@@ -277,7 +405,15 @@
 //Herbs
 /obj/item/reagent_containers/food/condiment/herbs
 	name = "Herbs mix"
-	desc = "A mix of variouse herbs. Perfect for pizza!"
+	desc = "Смесь различных трав. Идеально для пиццы!"
+	ru_names = list(
+		NOMINATIVE = "смесь трав",
+		GENITIVE = "смеси трав",
+		DATIVE = "смеси трав",
+		ACCUSATIVE = "смесь трав",
+		INSTRUMENTAL = "смесью трав",
+		PREPOSITIONAL = "смеси трав"
+	)
 	icon_state = "herbs"
 	list_reagents = list("herbsmix" = 50)
 	possible_states = list()
@@ -286,21 +422,29 @@
 
 /obj/item/reagent_containers/food/condiment/pack
 	name = "condiment pack"
-	desc = "A small plastic pack with condiments to put on your food."
+	desc = "Небольшой пластиковый пакетик с приправами для вашей еды."
+	ru_names = list(
+		NOMINATIVE = "пакет с приправой",
+		GENITIVE = "пакета с приправой",
+		DATIVE = "пакету с приправой",
+		ACCUSATIVE = "пакет с приправой",
+		INSTRUMENTAL = "пакетом с приправой",
+		PREPOSITIONAL = "пакете с приправой"
+	)
 	icon_state = "condi_empty"
 	volume = 10
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 	possible_states = list(
-	 "ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."),
-	 "capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"),
-	 "soysauce" = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"),
-	 "frostoil" = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"),
-	 "sodiumchloride" = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"),
-	 "blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"),
-	 "cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"),
-	 "oliveoil" = list("condi_oliveoil", "Olive Oil", "A delicious oil used in cooking. Made from olives"),
-	 "sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!")
+	 "ketchup" = list("condi_ketchup", "Ketchup", "Вы уже ощущаете себя как настоящий американец."),
+	 "capsaicin" = list("condi_hotsauce", "Hotsauce", "Теперь вы почти ЧУВСТВУЕТЕ, что такое язва желудка!"),
+	 "soysauce" = list("condi_soysauce", "Soy Sauce", "Солёная приправа на основе сои."),
+	 "frostoil" = list("condi_frostoil", "Coldsauce", "Из-за этого язык немеет"),
+	 "sodiumchloride" = list("condi_salt", "Salt Shaker", "Соль. Предположительно, из космических океанов."),
+	 "blackpepper" = list("condi_pepper", "Pepper Mill", "Часто используется для придания аромата пище или для того, чтобы заставить людей чихать"),
+	 "cornoil" = list("condi_cornoil", "Corn Oil", "Вкусное масло, используемое в кулинарии. Готовится из кукурузы."),
+	 "oliveoil" = list("condi_oliveoil", "Olive Oil", "Вкусное масло, используемое в кулинарии. Готовится из оливок.s"),
+	 "sugar" = list("condi_sugar", "Sugar", "Вкусный космический сахар!")
 	)
 
 
@@ -315,15 +459,15 @@
 	//You can tear the bag open above food to put the condiments on it, obviously.
 	if(istype(target, /obj/item/reagent_containers/food/snacks))
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>You tear open [src], but there's nothing in it.</span>")
+			to_chat(user, span_warning("Вы разрываете [declent_ru(ACCUSATIVE)], но внутри ничего нет."))
 			qdel(src)
 			return
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>You tear open [src], but [target] is stacked so high that it just drips off!</span>") //Not sure if food can ever be full, but better safe than sorry.
+			to_chat(user, span_warning("Вы разрываете [declent_ru(ACCUSATIVE)], но [target.declent_ru(NOMINATIVE)] настолько переполнен, что содержимое просто стекает!")) //Not sure if food can ever be full, but better safe than sorry.
 			qdel(src)
 			return
 		else
-			to_chat(user, "<span class='notice'>You tear open [src] above [target] and the condiments drip onto it.</span>")
+			to_chat(user, span_notice("Вы разрываете [declent_ru(ACCUSATIVE)] над [target.declent_ru(INSTRUMENTAL)], и приправы капают на него."))
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			qdel(src)
 
@@ -336,9 +480,9 @@
 			var/list/temp_list = possible_states[main_reagent]
 			desc = temp_list[3]
 		else
-			desc = "A small condiment pack. The label says it contains [originalname]."
+			desc = "Небольшой пакетик с приправой. На этикетке указано, что внутри [originalname]."
 	else
-		desc = "A small condiment pack. It is empty."
+		desc = "Небольшой пакетик с приправой. Он пуст."
 
 
 /obj/item/reagent_containers/food/condiment/pack/update_icon_state()
@@ -361,18 +505,42 @@
 //Ketchup
 /obj/item/reagent_containers/food/condiment/pack/ketchup
 	name = "ketchup pack"
-	originalname = "ketchup"
+	ru_names = list(
+		NOMINATIVE = "пакет кетчупа",
+		GENITIVE = "пакета кетчупа",
+		DATIVE = "пакету кетчупа",
+		ACCUSATIVE = "пакет кетчупа",
+		INSTRUMENTAL = "пакетом кетчупа",
+		PREPOSITIONAL = "пакете кетчупа"
+	)
+	originalname = "кетчуп"
 	list_reagents = list("ketchup" = 10)
 
 //Hot sauce
 /obj/item/reagent_containers/food/condiment/pack/hotsauce
 	name = "hotsauce pack"
-	originalname = "hotsauce"
+	ru_names = list(
+		NOMINATIVE = "пакет острого соуса",
+		GENITIVE = "пакета острого соуса",
+		DATIVE = "пакету острого соуса",
+		ACCUSATIVE = "пакет острого соуса",
+		INSTRUMENTAL = "пакетом острого соуса",
+		PREPOSITIONAL = "пакете острого соуса"
+	)
+	originalname = "острый соус"
 	list_reagents = list("capsaicin" = 10)
 
 /obj/item/reagent_containers/food/condiment/animalfeed
 	name = "pet food package"
 	desc = "Корм для домашних животных. Вы же точно не хотите это пробовать?.."
+	ru_names = list(
+		NOMINATIVE = "упаковка корма для питомцев",
+		GENITIVE = "упаковки корма для питомцев",
+		DATIVE = "упаковке корма для питомцев",
+		ACCUSATIVE = "упаковку корма для питомцев",
+		INSTRUMENTAL = "упаковкой корма для питомцев",
+		PREPOSITIONAL = "упаковке корма для питомцев"
+	)
 	icon = 'icons/obj/pet_bowl.dmi'
 	icon_state = "pet_food"
 	volume = 80

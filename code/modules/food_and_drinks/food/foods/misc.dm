@@ -36,7 +36,7 @@
 	trash = /obj/item/trash/waffles
 	filling_color = "#B8E6B5"
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
-	tastes = list("желатина" = 7, "людей" = 1)
+	tastes = list("холодца" = 7, "людей" = 1)
 	foodtype = GROSS
 
 /obj/item/reagent_containers/food/snacks/soylentviridians
@@ -54,7 +54,7 @@
 	trash = /obj/item/trash/waffles
 	filling_color = "#E6FA61"
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
-	tastes = list("вафель" = 10)
+	tastes = list("холодца" = 10)
 	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/monkeysdelight

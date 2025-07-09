@@ -4,7 +4,7 @@
 
 #define HATE_MESSAGES list("Что это было?! Я ненавижу <b>$TYPE</b>, я же $ASPECIES!", "Это было ужасно! Как уважающий себя $ASPECIES, я не могу есть <b>$TYPE</b>.", "Боже, это было опасно! <b>$CAPITALTYPE</b> вредно для $PLURALSPECIES!")
 #define DISLIKE_MESSAGES list("Не очень вкусно. Мне, как $ASPECIES, лучше избегать <b>$TYPE</b>.", "<b>$CAPITALTYPE</b> не лучшая еда для $PLURALSPECIES. Больше не буду это есть.", "Фу. <b>$CAPITALTYPE</b> не то, что должен есть $ASPECIES.")
-#define LOVE_MESSAGES list("Восхитительно! Обожаю <b>$TYPE</b>!", "Ням. Я создан, чтобы есть <b>$TYPE</b>.", "Обожаю этот вкус. <b>$CAPITALTYPE</b> это прекрасно.", "<b>$CAPITALTYPE</b> это потрясающе. Надо есть это чаще.")
+#define LOVE_MESSAGES list("Восхитительно! Обожаю <b>$TYPE</b>!", "Ням-ням. Я создан, чтобы есть <b>$TYPE</b>.", "Обожаю этот вкус. <b>$CAPITALTYPE</b> – это прекрасно.", "<b>$CAPITALTYPE</b> – это потрясающе. Надо есть это чаще.")
 
 /obj/item/reagent_containers/food
 	possible_transfer_amounts = null
@@ -115,7 +115,7 @@
 
 /obj/item/reagent_containers/food/proc/matched_food_type(var/matching_flags)
 	if(matching_flags & MEAT)
-		return pick("мясо", "плоть", "трупы животных")
+		return pick("мясо", "плоть")
 	if(matching_flags & VEGETABLES)
 		return pick("овощи", "зелень")
 	if(matching_flags & RAW)
@@ -123,13 +123,13 @@
 	if(matching_flags & FRUIT)
 		return "фрукты"
 	if(matching_flags & DAIRY)
-		return "молочка"
+		return pick("молочка", "молочные продукты")
 	if(matching_flags & FRIED)
 		return pick("жареное", "фритюр")
 	if(matching_flags & ALCOHOL)
 		return pick("алкоголь", "бухло")
 	if(matching_flags & SUGAR)
-		return pick("сладкое")
+		return pick("сладкое", "сладенькое")
 	if(matching_flags & GRAIN)
 		return pick("злаки", "углеводы")
 	if(matching_flags & EGG)
@@ -139,7 +139,7 @@
 	if(matching_flags & TOXIC)
 		return pick("токсичный мусор", "отрава", "буквально яд")
 	if(matching_flags & JUNKFOOD)
-		return pick("фастфуд", "вредную пищу")
+		return pick("фастфуд")
 
 /obj/item/reagent_containers/food/examine(mob/user)
 	. = ..()

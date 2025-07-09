@@ -65,7 +65,7 @@
 	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/snacks/no_raisin
-	name = "4no Raisins"
+	name = "1984 Raisins"
 	desc = "Лучший изюм во времени и пространстве. Непонятно, почему."
 	ru_names = list(
 		NOMINATIVE = "изюм \"1984\"",
@@ -75,7 +75,7 @@
 		INSTRUMENTAL = "изюмом \"1984\"",
 		PREPOSITIONAL = "изюме \"1984\""
 	)
-	icon_state = "4no_raisins"
+	icon_state = "1984_raisins"
 	trash = /obj/item/trash/raisins
 	filling_color = "#343834"
 	junkiness = 25
@@ -164,8 +164,16 @@
 	foodtype = JUNKFOOD | GRAIN
 
 /obj/item/reagent_containers/food/snacks/doshik
-	name = "Доши Ко"
+	name = "Doshi Co"
 	desc = "Легендарная лапша быстрого приготовления. Заваривается мгновенно после вскрытия. Вау!"
+	ru_names = list(
+		NOMINATIVE = "Доши Ко",
+		GENITIVE = "Доши Ко",
+		DATIVE = "Доши Ко",
+		ACCUSATIVE = "Доши Ко",
+		INSTRUMENTAL = "Доши Ко",
+		PREPOSITIONAL = "Доши Ко"
+	)
 	icon_state = "doshik"
 	trash = /obj/item/trash/doshik
 	filling_color = "#d1a62f"
@@ -176,8 +184,16 @@
 	opened = FALSE
 
 /obj/item/reagent_containers/food/snacks/doshik_spicy
-	name = "Доши Ко Спешл"
+	name = "Doshi Co Special"
 	desc = "Легендарная лапша быстрого приготовления. Заваривается мгновенно после вскрытия. Вау! Судя по всему, тут острые специи!"
+	ru_names = list(
+		NOMINATIVE = "Доши Ко Спешла",
+		GENITIVE = "Доши Ко Спешл",
+		DATIVE = "Доши Ко Спешл",
+		ACCUSATIVE = "Доши Ко Спешл",
+		INSTRUMENTAL = "Доши Ко Спешл",
+		PREPOSITIONAL = "Доши Ко Спешл"
+	)
 	icon_state = "doshikspicy"
 	trash = /obj/item/trash/doshik
 	filling_color = "#d16a2f"

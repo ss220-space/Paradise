@@ -253,20 +253,20 @@
 			acceptable = TRUE
 			break
 	if(!acceptable)
-		to_chat(user, span_warning("Здесь нельзя нарезать [declent_ru(ACCUSATIVE)]! Нужен стол или хотя бы поднос."))
+		to_chat(user, span_warning("Здесь нельзя нарезать [declent_ru(ACCUSATIVE)]! Нужен стол или хотя-бы поднос."))
 		return .
 
 	. |= ATTACK_CHAIN_BLOCKED_ALL
 	var/slices_lost = 0
 	if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
 		user.visible_message(
-			span_notice("[user] нареза[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("[user] нареза[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] [I.declent_ru(PREPOSITIONAL)]."),
 			span_notice("Вы нарезали [declent_ru(ACCUSATIVE)]."),
 		)
 	else
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
 		user.visible_message(
-			span_notice("[user] кое-как нареза[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] с помощью [I.declent_ru(GENITIVE)]."),
+			span_notice("[user] кое-как нареза[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] [I.declent_ru(PREPOSITIONAL)]."),
 			span_notice("Вы кое-как нарезали [declent_ru(ACCUSATIVE)]."),
 		)
 	var/reagents_per_slice = reagents.total_volume / slices_num
