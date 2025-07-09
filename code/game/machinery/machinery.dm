@@ -123,7 +123,7 @@ Class Procs:
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
 	var/list/use_log // Init this list if you wish to add logging to your machine - currently only viewable in VV
-	atom_say_verb = "beeps"
+	atom_say_verb = list("бипает", "бупает", "заявляет", "гудит")
 	var/siemens_strength = 0.7 // how badly will it shock you?
 	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
 	var/frequency = NONE

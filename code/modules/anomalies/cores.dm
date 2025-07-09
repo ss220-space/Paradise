@@ -32,7 +32,7 @@
 /obj/item/assembly/signaler/core/examine(mob/user)
 	. = ..()
 	. += span_info("Текущий заряд: [charge].")
-	. += span_info("Текущая сила: [get_strenght()].")
+	. += span_info("Текущая сила: [get_strength()].")
 
 /obj/item/assembly/signaler/core/New(spawnloc, charge)
 	. = ..()
@@ -57,7 +57,7 @@
 100 of tier 1 == 50 of tier 2 == 25 of tier 3
 100 of tier 3 == 200 of tier 2 == 400 of tier 1
 */
-/obj/item/assembly/signaler/core/proc/get_strenght()
+/obj/item/assembly/signaler/core/proc/get_strength()
 	return round(charge * (1 << (tier - 1)) * (tier != 4 ? 1 : 1.5))
 
 // ============================ Tier 1 ===================================
@@ -314,7 +314,7 @@
 
 	if(H.bodytemperature < T0C - 50)
 		visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с холодным объектом, испуская языки пламени!")
-		H.adjust_fire_stacks(round(get_strenght() / 30 + 0.5))
+		H.adjust_fire_stacks(round(get_strength() / 30 + 0.5))
 		H.IgniteMob()
 		return
 
@@ -324,7 +324,7 @@
 	visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с горячим объектом, значительно охлаждая окружающую среду!")
 	H.apply_status_effect(/datum/status_effect/freon)
 	H.ExtinguishMob()
-	H.adjust_bodytemperature(-get_strenght())
+	H.adjust_bodytemperature(-get_strength())
 
 
 /obj/item/assembly/signaler/core/gravitational/tier3

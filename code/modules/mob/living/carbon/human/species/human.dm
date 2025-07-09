@@ -24,3 +24,7 @@
 
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
+
+
+/datum/species/human/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default - (target.gender == FEMALE), max_level, can_become_stronger)

@@ -260,7 +260,7 @@
 				return
 
 			// Encode the message
-			var/message_to_encode = input(H, "Какое сообщение вы хотите закодировать? (макс. [maximum_message_length] символов). Оставьте пустым, чтобы отменить.", "Создать феромоны")
+			var/message_to_encode = tgui_input_text(H, "Какое сообщение вы хотите закодировать? (макс. [maximum_message_length] символов). Оставьте пустым, чтобы отменить.", "Создать феромоны")
 			if(!message_to_encode)
 				H.balloon_alert(H, "отменено.")
 				return

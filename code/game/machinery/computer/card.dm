@@ -468,7 +468,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(!job_in_department(SSjobs.GetJob(t1)))
 					return FALSE
 			if(t1 == "Custom")
-				var/temp_t = sanitize(reject_bad_name(copytext_char(input("Enter a custom job assignment.", "Assignment"), 1, MAX_MESSAGE_LEN), TRUE))
+				var/temp_t = sanitize(reject_bad_name(tgui_input_text(usr, "Enter a custom job assignment.", "Assignment", max_length = MAX_MESSAGE_LEN), TRUE))
 				//let custom jobs function as an impromptu alt title, mainly for sechuds
 				if(temp_t && scan && modify)
 					var/oldrank = modify.getRankAndAssignment()
@@ -496,7 +496,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						var/list/AT = jobdatum.alt_titles
 						var/standart_Assignment = assignment
 						AT += assignment
-						assignment = input("Select a title", "Job title selection") as null|anything in AT
+						assignment = tgui_input_list(usr, "Select a title", "Job title selection", AT)
 						if(!assignment)
 							assignment = standart_Assignment
 						if(!modify)
@@ -541,7 +541,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 				visible_message(span_warning("[src]: Heads may only demote members of their own department."))
 				return FALSE
-			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
+			var/reason = tgui_input_text(usr, "Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion", max_length = MAX_MESSAGE_LEN)
 			if(!reason || !is_authenticated(usr) || !modify)
 				return FALSE
 			var/list/access = list()
@@ -570,7 +570,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				visible_message(span_warning("[src]: Only the Captain or HOP may completely terminate the employment of a crew member."))
 				return FALSE
 			var/jobnamedata = modify.getRankAndAssignment()
-			var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
+			var/reason = tgui_input_text(usr, "Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination", max_length = MAX_MESSAGE_LEN)
 			if(!reason || !has_idchange_access() || !modify)
 				return FALSE
 			var/m_ckey = modify.getPlayerCkey()
@@ -626,7 +626,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
 			return
 		if("remote_demote")
-			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
+			var/reason = tgui_input_text(usr, "Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion", max_length = MAX_MESSAGE_LEN)
 			if(!reason || !is_authenticated(usr) || !scan)
 				return FALSE
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -666,7 +666,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	switch(action)
 		// Changing basic card info
 		if("reg") // registered name on card
-			var/temp_name = reject_bad_name(input(usr, "Who is this ID for?", "ID Card Renaming", modify.registered_name), TRUE)
+			var/temp_name = reject_bad_name(tgui_input_text(usr, "Who is this ID for?", "ID Card Renaming", modify.registered_name), TRUE)
 			if(!modify || !temp_name)
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 				visible_message(span_warning("[src] buzzes rudely."))

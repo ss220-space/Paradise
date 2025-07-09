@@ -15,7 +15,7 @@
 	var/last_bumped = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
-	var/atom_say_verb = "says"
+	var/atom_say_verb = "говорит"
 	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
 	var/bubble_emote_icon = "emote" ///what icon the mob uses for emotebubbles
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
@@ -415,10 +415,11 @@
 /atom/proc/examine(mob/user, infix = "", suffix = "")
 	var/f_name = "."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
+		f_name = ", "
 		if(blood_color != "#030303")
-			f_name = span_danger(", в кровавых следах.")
+			f_name += span_danger("в кровавых следах.")
 		else
-			f_name = ", в масляных следах."
+			f_name += "в масляных следах."
 	. = list("[bicon(src)] Это [declent_ru(NOMINATIVE)][f_name] [suffix]")
 	if(desc)
 		. += desc
@@ -1228,7 +1229,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	var/list/speech_bubble_hearers = list()
 	for(var/mob/M in get_mobs_in_view(7, src))
-		M.show_message(span_gamesay(span_name("[src]") + " [atom_say_verb], \"[message]\""), 2, null, 1)
+		M.show_message(span_gamesay(span_name("[capitalize(declent_ru(NOMINATIVE))]") + " [pick(atom_say_verb)], \"[message]\""), 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
@@ -1502,7 +1503,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!prompt)
 		prompt = "Что вы хотите написать на этикетке [declent_ru(GENITIVE)]?"
 
-	var/t = input(user, prompt, "Переименование [declent_ru(GENITIVE)]", default_value)  as text | null
+	var/t = tgui_input_text(user, prompt, "Переименование [declent_ru(GENITIVE)]", default_value)
 	if(isnull(t))
 		// user pressed Cancel
 		return null

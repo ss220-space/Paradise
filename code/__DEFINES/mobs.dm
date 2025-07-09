@@ -291,6 +291,9 @@
 #define SPECIES_VULPKANIN "Vulpkanin"
 #define SPECIES_WRYN "Wryn"
 
+// not race
+#define SPECIES_OTHER "Other"
+
 #define isanimal(A)		(istype((A), /mob/living/simple_animal) || istype(A, /mob/living/basic))
 #define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))

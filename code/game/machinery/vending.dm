@@ -2609,7 +2609,8 @@
 					/obj/item/clothing/suit/hooded/ghostfacesuit = 10,
 					/obj/item/clothing/suit/hooded/ghostfacesuit/devil = 10,
 					/obj/item/clothing/mask/gas/ghostface = 10,
-					/obj/item/clothing/mask/gas/ghostface/devil = 10)
+					/obj/item/clothing/mask/gas/ghostface/devil = 10,
+					/obj/item/clothing/head/shapka_pepega = 5)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					/obj/item/clothing/head/powdered_wig = 1,
 					/obj/item/gun/magic/wand = 1,
@@ -2758,7 +2759,9 @@
 					/obj/item/clothing/suit/hooded/ghostfacesuit = 100,
 					/obj/item/clothing/suit/hooded/ghostfacesuit/devil = 100,
 					/obj/item/clothing/mask/gas/ghostface = 50,
-					/obj/item/clothing/mask/gas/ghostface/devil = 50)
+					/obj/item/clothing/mask/gas/ghostface/devil = 50,
+					/obj/item/clothing/head/shapka_pepega = 50)
+
 	refill_canister = /obj/item/vending_refill/autodrobe
 
 /obj/machinery/vending/dinnerware
@@ -5149,6 +5152,54 @@
 	)
 
 	refill_canister = /obj/item/vending_refill/plasma
+
+
+/obj/machinery/vending/protein
+	name = "Автомат спортивного питания"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат спортивного питания",
+		GENITIVE = "торгового автомата спортивного питания",
+		DATIVE = "торговому автомату спортивного питания",
+		ACCUSATIVE = "торговый автомат спортивного питания",
+		INSTRUMENTAL = "торговым автоматом спортивного питания",
+		PREPOSITIONAL = "торговом автомате спортивного питания"
+	)
+	desc = "Автомат самообслуживания, любезно предоставленный корпорацией Donk Co."
+
+	slogan_list = list(
+		"Попробуйте наш новый протеиновый батончик!",
+		"Накачаться никогда не поздно!",
+		"В чем сила брат? В количестве съеденных батончиков!", //Брат 2
+		"Самый сильный!",
+		"Если не накачаешься, она на тебя даже не посмотрит!",
+		"Почувствуй СИЛУ!",
+		"Даже моя бабушка сильнее тебя! Подкачайся!",
+		"Чем ты сильнее, тем меньше у тебя волос.",
+		"Предел есть у всего, кроме человека!", // Onepunchman
+		"Настоящая сила человека в способности измениться по своей воле!", // Onepunchman
+		"Кто сильнее тот и прав!",
+		"Отобрал у офицера станбатон? Молодец! А теперь иди сюда и купи батончик!"
+	)
+
+	icon_state = "protein_off"
+	panel_overlay = "cola-machine_panel"
+	screen_overlay = "protein_overlay"
+
+	products = list(
+		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 10,
+		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 10,
+		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 10,
+	)
+	contraband = list(
+		/obj/item/reagent_containers/syringe/steroids = 5,
+	)
+	prices = list(
+		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 199,
+		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 199,
+		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 249,
+		/obj/item/reagent_containers/syringe/steroids = 149,
+	)
+	refill_canister = /obj/item/vending_refill/protein
 
 #undef FLICK_NONE
 #undef FLICK_VEND

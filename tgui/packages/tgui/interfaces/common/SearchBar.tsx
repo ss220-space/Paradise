@@ -1,11 +1,11 @@
-import { CSSProperties, SyntheticEvent } from 'react';
+import { CSSProperties } from 'react';
 import { Icon, Input, Stack } from 'tgui/components';
 
 type RequiredProps = {
   /** The state variable. */
   query: string;
   /** The function to call when the user searches. */
-  onSearch: (e: SyntheticEvent<HTMLInputElement>, query: string) => void;
+  onSearch: (query: string) => void;
 };
 
 type OptionalProps = Partial<{
@@ -45,7 +45,7 @@ export const SearchBar = (props: Props) => {
           autoFocus={autoFocus}
           expensive
           fluid
-          onInput={onSearch}
+          onChange={onSearch}
           placeholder={placeholder}
           value={query}
         />

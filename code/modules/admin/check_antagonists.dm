@@ -71,28 +71,6 @@
 		dat +="<br><b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>"
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
-		if(SSticker.mode.syndicates.len)
-			dat += "<br><table cellspacing=5><tr><td><b>Syndicates</b></td><td></td></tr>"
-			for(var/datum/mind/N in SSticker.mode.syndicates)
-				var/mob/M = N.current
-				if(M)
-					dat += check_antagonists_line(M)
-				else
-					dat += "<tr><td><i>Nuclear Operative not found!</i></td></tr>"
-			dat += "</table><br><table><tr><td><b>Nuclear Disk(s)</b></td></tr>"
-			for(var/obj/item/disk/nuclear/N in GLOB.poi_list)
-				dat += "<tr><td>[N.name], "
-				var/atom/disk_loc = N.loc
-				while(!istype(disk_loc, /turf))
-					if(istype(disk_loc, /mob))
-						var/mob/M = disk_loc
-						dat += "carried by <a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[M.real_name]</a> "
-					if(isobj(disk_loc))
-						var/obj/O = disk_loc
-						dat += "in \a [O.name] "
-					disk_loc = disk_loc.loc
-				dat += "in [disk_loc.loc] at ([disk_loc.x], [disk_loc.y], [disk_loc.z])</td></tr>"
-			dat += "</table>"
 
 		if(SSticker.mode.head_revolutionaries.len || SSticker.mode.revolutionaries.len)
 			dat += "<br><table cellspacing=5><tr><td><b>Revolutionaries</b></td><td></td></tr>"

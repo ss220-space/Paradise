@@ -3,6 +3,14 @@
 
 /turf/simulated/floor/plating/asteroid
 	name = "asteroid sand"
+	ru_names = list(
+		NOMINATIVE = "астероидный песок",
+		GENITIVE = "астероидного песка",
+		DATIVE = "астероидному песку",
+		ACCUSATIVE = "астероидный песок",
+		INSTRUMENTAL = "астероидным песком",
+		PREPOSITIONAL = "астероидном песке"
+	)
 	gender = PLURAL
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
@@ -35,7 +43,7 @@
 	if(!dug)
 		return TRUE
 	if(user)
-		to_chat(user, span_notice("Looks like someone has dug here already."))
+		to_chat(user, span_notice("Похоже, здесь уже копали."))
 
 ///Refills the previously dug tile
 /turf/simulated/floor/plating/asteroid/proc/refill_dug()
@@ -103,11 +111,11 @@
 		if(!can_dig(user))
 			return .
 		I.play_tool_sound()
-		to_chat(user, span_notice("You start digging..."))
+		to_chat(user, span_notice("Вы начинаете копать..."))
 		if(!do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !istype(src, /turf/simulated/floor/plating/asteroid) || !can_dig(user))
 			return .
 		I.play_tool_sound()
-		to_chat(user, span_notice("You have dug a hole."))
+		to_chat(user, span_notice("Вы выкопали яму."))
 		if(user.a_intent == INTENT_DISARM)
 			new /obj/structure/pit(src)
 			dug = TRUE
@@ -132,6 +140,15 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
+	desc = "Выглядит горячим."
+	ru_names = list(
+		NOMINATIVE = "вулканический пол",
+		GENITIVE = "вулканического пола",
+		DATIVE = "вулканическому полу",
+		ACCUSATIVE = "вулканический пол",
+		INSTRUMENTAL = "вулканическим полом",
+		PREPOSITIONAL = "вулканическом поле"
+	)
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 	icon_state = "basalt"
 	icon_plating = "basalt"
@@ -212,7 +229,15 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/snow
 	gender = PLURAL
 	name = "snow"
-	desc = "Looks cold."
+	ru_names = list(
+		NOMINATIVE = "снег",
+		GENITIVE = "снега",
+		DATIVE = "снегу",
+		ACCUSATIVE = "снег",
+		INSTRUMENTAL = "снегом",
+		PREPOSITIONAL = "снеге"
+	)
+	desc = "Выглядит холодным."
 	icon = 'icons/turf/snow.dmi'
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
 	icon_state = "snow"
@@ -228,7 +253,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 
 /turf/simulated/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)
-		visible_message(span_danger("[src] melts away!."))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] расплавляется!"))
 		slowdown = 0
 		burnt = TRUE
 		icon_state = "snow_dug"

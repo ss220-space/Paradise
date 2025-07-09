@@ -52,12 +52,7 @@ const Story = (props: unknown) => {
           </Button>
         }
       >
-        <TextArea
-          width="100%"
-          height="10em"
-          value={code}
-          onChange={(e, value) => setCode(value)}
-        />
+        <TextArea width="100%" height="10em" value={code} onChange={setCode} />
       </Section>
     </>
   );

@@ -216,9 +216,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 
 /proc/get_exp_format(var/expnum)
 	if(expnum > 60)
-		return num2text(round(expnum / 60)) + "h"
+		return num2text(round(expnum / 60)) + "ч"
 	else if(expnum > 0)
-		return num2text(expnum) + "m"
+		return num2text(expnum) + "м"
 	else
-		return "none"
+		return "нет"
 

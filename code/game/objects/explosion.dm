@@ -25,7 +25,7 @@
 	var/heavy = 0
 	var/light = 0
 	var/list/choices = list("Small Bomb","Medium Bomb","Big Bomb","Custom Bomb")
-	var/choice = input("Bomb Size?") in choices
+	var/choice = tgui_input_list(usr, "Bomb Size?", , choices)
 	switch(choice)
 		if(null)
 			return 0
@@ -42,9 +42,9 @@
 			heavy = 5
 			light = 7
 		if("Custom Bomb")
-			dev = input("Devestation range (Tiles):") as num
-			heavy = input("Heavy impact range (Tiles):") as num
-			light = input("Light impact range (Tiles):") as num
+			dev = tgui_input_number(usr, "Devestation range (Tiles):")
+			heavy = tgui_input_number(usr, "Heavy impact range (Tiles):")
+			light = tgui_input_number(usr, "Light impact range (Tiles):")
 
 	var/max_range = max(dev, heavy, light)
 	var/x0 = epicenter.x

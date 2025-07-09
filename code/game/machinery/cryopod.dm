@@ -469,6 +469,8 @@
 				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]", "[on_store_name]")
 		visible_message(span_notice("[src] hums and hisses as it moves [occupant.real_name] into storage."))
 
+	SEND_SIGNAL(SSshuttle, COMSIG_CRYOPOD_DESPAWN, src, occupant)
+
 	// Ghost and delete the mob.
 	if(!occupant.get_ghost(TRUE))
 		if(TOO_EARLY_TO_GHOST)

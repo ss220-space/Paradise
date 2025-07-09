@@ -150,6 +150,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //BASE MOB SPRITE
 /mob/living/carbon/human/proc/update_body(rebuild_base = FALSE)
+	var/datum/component/muscles/muscles = physiology.GetComponent(/datum/component/muscles)
+	muscles?.get_strength() // To update
 	remove_overlay(LIMBS_LAYER) // So we don't get the old species' sprite splatted on top of the new one's
 	remove_overlay(UNDERWEAR_LAYER)
 
@@ -357,6 +359,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!head_organ || !head_organ.dna || !head_organ.h_style)
 		return
 
+	if(HAS_TRAIT(src, TRAIT_BALD))
+		head_organ.f_style = "Shaved"
+		head_organ.h_style = "Bald"
+
 	//masks and helmets can obscure our hair, unless we're a synthetic
 	if((head && (head.flags_inv & (HIDEHAIR|HIDEHEADHAIR))) || (wear_mask && (wear_mask.flags_inv & (HIDEHAIR|HIDEHEADHAIR))))
 		return
@@ -412,6 +418,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(!head_organ || !head_organ.dna || !head_organ.f_style)
 		return
+
+	if(HAS_TRAIT(src, TRAIT_BALD))
+		head_organ.f_style = "Shaved"
+		head_organ.h_style = "Bald"
 
 	//masks and helmets can obscure our facial hair, unless we're a synthetic
 	if((head && (head.flags_inv & (HIDEHAIR|HIDEFACIALHAIR))) || (wear_mask && (wear_mask.flags_inv & (HIDEHAIR|HIDEFACIALHAIR))))
@@ -1302,6 +1312,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				. += "[part.s_col]"
 			if(part.s_tone)
 				. += "[part.s_tone]"
+
+	var/list/bonus_info = list()
+	SEND_SIGNAL(src, COMSIG_GET_ICON_RENDER_KEY_INFO, bonus_info)
+	for(var/info in bonus_info)
+		. += "[info]"
 
 	. = "[.][!!husk][!!hulk][!!skeleton]"
 

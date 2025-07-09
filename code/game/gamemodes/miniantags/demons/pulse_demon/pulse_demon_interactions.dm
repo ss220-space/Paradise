@@ -62,10 +62,6 @@
 	return FALSE
 
 // check area for all of these, then do AI actions
-/mob/living/simple_animal/demon/pulse_demon/MiddleShiftClickOn(atom/A)
-	if(get_area(A) == controlling_area)
-		A.AIMiddleShiftClick(src)
-
 /mob/living/simple_animal/demon/pulse_demon/ShiftClickOn(atom/A)
 	if(get_area(A) == controlling_area)
 		A.AIShiftClick(src)

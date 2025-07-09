@@ -93,7 +93,7 @@
 		S.sharerDies(gibbed, src)
 
 	if(mind)
-		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
+		mind.store_memory("Время смерти: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 		GLOB.respawnable_list += src
 		if(mind.name && !isbrain(src)) // !isbrain() is to stop it from being called twice
 			var/turf/T = get_turf(src)
@@ -103,8 +103,6 @@
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
 					to_chat(M, span_deadsay("<b>[mind.name]</b> умер в <b>[area_name]</b>. (<a href='byond://?src=[M.UID()];jump=[gibbed ? "\ref[T]" : "\ref[src]"]'>JMP</a>)"))
 
-	if(SSticker && SSticker.mode)
-		SSticker.mode.check_win()
 
 	if(xenobiology_spawned)
 		SSmobs.xenobiology_mobs--
@@ -115,7 +113,7 @@
 	return TRUE
 
 /mob/living/proc/delayed_gib()
-	visible_message(span_danger("<b>[src]</b> starts convulsing violently!"), "You feel as if your body is tearing itself apart!")
+	visible_message(span_danger("<b>[capitalize(declent_ru(NOMINATIVE))]</b> дико сотрясается в мучительных спазмах!"), span_userdanger("Каждая клетка вашего тела кричит от невыносимой боли!"))
 	Weaken(30 SECONDS)
 	do_jitter_animation(1000, -1) // jitter until they are gibbed
 	addtimer(CALLBACK(src, PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))

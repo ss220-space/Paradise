@@ -51,7 +51,7 @@
 	var/mob/living/carbon/human/target = user.pulling
 	cling.is_linking = TRUE
 
-	var/time = input(user, "На сколько минут вы хотите предоставить жертве связь? Учтите, что связь не продержится больше двух часов.", "Hivemind", FALSE) as num|null
+	var/time = tgui_input_number(user, "На сколько минут вы хотите предоставить жертве связь? Учтите, что связь не продержится больше двух часов.", "Hivemind", FALSE)
 
 	if(isnull(time) || time == 0)
 		to_chat(user, span_danger("Вы отказались от идеи связать ваши разумы."))

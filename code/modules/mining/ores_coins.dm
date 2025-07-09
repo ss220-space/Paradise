@@ -7,6 +7,14 @@
 
 /obj/item/stack/ore
 	name = "rock"
+	ru_names = list(
+		NOMINATIVE = "камень",
+		GENITIVE = "камня",
+		DATIVE = "камню",
+		ACCUSATIVE = "камень",
+		INSTRUMENTAL = "камнем",
+		PREPOSITIONAL = "камне"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "ore"
 	max_amount = 50
@@ -92,6 +100,14 @@
 
 /obj/item/stack/ore/uranium
 	name = "uranium ore"
+	ru_names = list(
+		NOMINATIVE = "урановая руда",
+		GENITIVE = "урановой руды",
+		DATIVE = "урановой руде",
+		ACCUSATIVE = "урановую руду",
+		INSTRUMENTAL = "урановой рудой",
+		PREPOSITIONAL = "урановой руде"
+	)
 	icon_state = "Uranium ore"
 	origin_tech = "materials=5"
 	singular_name = "uranium ore chunk"
@@ -101,6 +117,14 @@
 
 /obj/item/stack/ore/iron
 	name = "iron ore"
+	ru_names = list(
+		NOMINATIVE = "железная руда",
+		GENITIVE = "железной руды",
+		DATIVE = "железной руде",
+		ACCUSATIVE = "железную руду",
+		INSTRUMENTAL = "железной рудой",
+		PREPOSITIONAL = "железной руде"
+	)
 	icon_state = "Iron ore"
 	origin_tech = "materials=1"
 	singular_name = "iron ore chunk"
@@ -110,6 +134,14 @@
 
 /obj/item/stack/ore/glass
 	name = "sand pile"
+	ru_names = list(
+		NOMINATIVE = "песок",
+		GENITIVE = "песка",
+		DATIVE = "песку",
+		ACCUSATIVE = "песок",
+		INSTRUMENTAL = "песком",
+		PREPOSITIONAL = "песке"
+	)
 	icon_state = "Glass ore"
 	origin_tech = "materials=1"
 	singular_name = "sand pile"
@@ -132,18 +164,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 	var/mob/living/carbon/human/C = hit_atom
 	if(C.head && C.head.flags_cover & HEADCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s headgear blocks the sand!</span>")
+		visible_message(span_danger("Экипировка защитила [C.declent_ru(ACCUSATIVE)] от песка!"))
 		return
 	if(C.wear_mask && C.wear_mask.flags_cover & MASKCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s mask blocks the sand!</span>")
+		visible_message(span_danger("Маска защитила [C.declent_ru(ACCUSATIVE)] от песка!"))
 		return
 	if(C.glasses && C.glasses.flags_cover & GLASSESCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s glasses block the sand!</span>")
+		visible_message(span_danger("Очки [C.declent_ru(ACCUSATIVE)] защитили от песка!"))
 		return
 	C.EyeBlurry(12 SECONDS)
 	C.apply_damage(15, STAMINA)//the pain from your eyes burning does stamina damage
 	C.AdjustConfused(10 SECONDS)
-	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
+	to_chat(C, span_userdanger("Песок попал в глаза! Боль невыносима!"))
 	qdel(src)
 
 /obj/item/stack/ore/glass/ex_act(severity)
@@ -156,16 +188,40 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "volcanic_sand"
 	icon_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
-	desc = "Looks like you could shove some on a girder to make a false rock wall"
+	desc = "Можно нанести на балку, чтобы создать ложную каменную стену"
+	ru_names = list(
+		NOMINATIVE = "вулканический пепел",
+		GENITIVE = "вулканического пепла",
+		DATIVE = "вулканическому пеплу",
+		ACCUSATIVE = "вулканический пепел",
+		INSTRUMENTAL = "вулканическим пеплом",
+		PREPOSITIONAL = "вулканическом пепле"
+	)
 
 /obj/item/stack/ore/glass/basalt/ancient
 	name = "ancient sand"
+	ru_names = list(
+		NOMINATIVE = "древний песок",
+		GENITIVE = "древнего песка",
+		DATIVE = "древнему песку",
+		ACCUSATIVE = "древний песок",
+		INSTRUMENTAL = "древним песком",
+		PREPOSITIONAL = "древнем песке"
+	)
 	icon_state = "volcanic_sand"
 	item_state = "volcanic_sand"
 	singular_name = "ancient sand pile"
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
+	ru_names = list(
+		NOMINATIVE = "плазменная руда",
+		GENITIVE = "плазменной руды",
+		DATIVE = "плазменной руде",
+		ACCUSATIVE = "плазменную руду",
+		INSTRUMENTAL = "плазменной рудой",
+		PREPOSITIONAL = "плазменной руде"
+	)
 	icon_state = "Plasma ore"
 	origin_tech = "plasmatech=2;materials=2"
 	singular_name = "plasma ore chunk"
@@ -175,6 +231,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/silver
 	name = "silver ore"
+	ru_names = list(
+		NOMINATIVE = "серебряная руда",
+		GENITIVE = "серебряной руды",
+		DATIVE = "серебряной руде",
+		ACCUSATIVE = "серебряную руду",
+		INSTRUMENTAL = "серебряной рудой",
+		PREPOSITIONAL = "серебряной руде"
+	)
 	icon_state = "Silver ore"
 	origin_tech = "materials=3"
 	singular_name = "silver ore chunk"
@@ -184,6 +248,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/gold
 	name = "gold ore"
+	ru_names = list(
+		NOMINATIVE = "золотая руда",
+		GENITIVE = "золотой руды",
+		DATIVE = "золотой руде",
+		ACCUSATIVE = "золотую руду",
+		INSTRUMENTAL = "золотой рудой",
+		PREPOSITIONAL = "золотой руде"
+	)
 	icon_state = "Gold ore"
 	origin_tech = "materials=4"
 	singular_name = "gold ore chunk"
@@ -193,6 +265,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/diamond
 	name = "diamond ore"
+	ru_names = list(
+		NOMINATIVE = "алмазная руда",
+		GENITIVE = "алмазной руды",
+		DATIVE = "алмазной руде",
+		ACCUSATIVE = "алмазную руду",
+		INSTRUMENTAL = "алмазной рудой",
+		PREPOSITIONAL = "алмазной руде"
+	)
 	icon_state = "Diamond ore"
 	origin_tech = "materials=6"
 	singular_name = "diamond ore chunk"
@@ -202,6 +282,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/bananium
 	name = "bananium ore"
+	ru_names = list(
+		NOMINATIVE = "бананиумная руда",
+		GENITIVE = "бананиумной руды",
+		DATIVE = "бананиумной руде",
+		ACCUSATIVE = "бананиумную руду",
+		INSTRUMENTAL = "бананиумной рудой",
+		PREPOSITIONAL = "бананиумной руде"
+	)
 	icon_state = "Clown ore"
 	origin_tech = "materials=4"
 	singular_name = "bananium ore chunk"
@@ -211,6 +299,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/tranquillite
 	name = "tranquillite ore"
+	ru_names = list(
+		NOMINATIVE = "транквиллитовая руда",
+		GENITIVE = "транквиллитовой руды",
+		DATIVE = "транквиллитовой руде",
+		ACCUSATIVE = "транквиллитовую руду",
+		INSTRUMENTAL = "транквиллитовой рудой",
+		PREPOSITIONAL = "транквиллитовой руде"
+	)
 	icon_state = "Mime ore"
 	origin_tech = "materials=4"
 	singular_name = "transquillite ore chunk"
@@ -220,6 +316,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/titanium
 	name = "titanium ore"
+	ru_names = list(
+		NOMINATIVE = "титановая руда",
+		GENITIVE = "титановой руды",
+		DATIVE = "титановой руде",
+		ACCUSATIVE = "титановую руду",
+		INSTRUMENTAL = "титановой рудой",
+		PREPOSITIONAL = "титановой руде"
+	)
 	icon_state = "Titanium ore"
 	singular_name = "titanium ore chunk"
 	points = 50
@@ -228,13 +332,29 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/slag
 	name = "slag"
-	desc = "Completely useless"
+	desc = "Совершенно бесполезный."
+	ru_names = list(
+		NOMINATIVE = "шлак",
+		GENITIVE = "шлака",
+		DATIVE = "шлаку",
+		ACCUSATIVE = "шлак",
+		INSTRUMENTAL = "шлаком",
+		PREPOSITIONAL = "шлаке"
+	)
 	icon_state = "slag"
 	singular_name = "slag chunk"
 
 /obj/item/twohanded/required/gibtonite
 	name = "gibtonite ore"
-	desc = "Extremely explosive if struck with mining equipment, Gibtonite is often used by miners to speed up their work by using it as a mining charge. This material is illegal to possess by unauthorized personnel under space law."
+	desc = "Чрезвычайно взрывоопасна при ударе шахтёрским оборудованием. Шахтёры используют гибтонит как взрывчатку для ускорения работ. Хранение запрещено космическим законодательством для неуполномоченного персонала."
+	ru_names = list(
+		NOMINATIVE = "гибтонит",
+		GENITIVE = "гибтонита",
+		DATIVE = "гибтониту",
+		ACCUSATIVE = "гибтонит",
+		INSTRUMENTAL = "гибтонитом",
+		PREPOSITIONAL = "гибтоните"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Gibtonite ore"
 	item_state = "gibtonite"
@@ -280,13 +400,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(isigniter(I))
 		add_fingerprint(user)
 		if(wires)
-			to_chat(user, span_warning("Already installed."))
+			to_chat(user, span_warning("Уже установлено."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		user.visible_message(
-			span_warning("[user] has attached [I] to [src]."),
-			span_notice("You have attached [I] to [src]."),
+			span_warning("[user] прикрепил [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."),
+			span_notice("Вы прикрепили [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."),
 		)
 		wires = new(src)
 		attacher = key_name(user)
@@ -304,8 +424,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			add_fingerprint(user)
 			primed = FALSE
 			user.visible_message(
-				span_notice("The chain reaction has been stopped! ...The ore's quality looks diminished though."),
-				span_notice("You have stopped the chain reaction. ...The ore's quality looks diminished though."),
+				span_notice("Цепная реакция остановлена! ...Но и качество руды снизилось."),
+				span_notice("Вы остановили цепную реакцию. Но и качество руды снизилось."),
 			)
 			quality = GIBTONITE_QUALITY_LOW
 			update_icon(UPDATE_ICON_STATE)
@@ -338,8 +458,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			return .
 		primed = FALSE
 		user.visible_message(
-			span_notice("The chain reaction has been stopped! ...The ore's quality looks diminished though."),
-			span_notice("You have stopped the chain reaction. ...The ore's quality looks diminished though."),
+			span_notice("Цепная реакция остановлена! ...Но и качество руды снизилось."),
+			span_notice("Вы остановили цепную реакцию. Но и качество руды снизилось."),
 		)
 		quality = GIBTONITE_QUALITY_LOW
 		update_icon(UPDATE_ICON_STATE)
@@ -416,6 +536,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/coin
 	icon = 'icons/obj/economy.dmi'
 	name = "coin"
+	ru_names = list(
+		NOMINATIVE = "монета",
+		GENITIVE = "монеты",
+		DATIVE = "монете",
+		ACCUSATIVE = "монету",
+		INSTRUMENTAL = "монетой",
+		PREPOSITIONAL = "монете"
+	)
 	icon_state = "coin__heads"
 	flags = CONDUCT
 	force = 1
@@ -500,7 +628,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/coin/twoheaded
 	cmineral = "iron"
 	icon_state = "coin_iron_heads"
-	desc = "Hey, this coin's the same on both sides!"
+	desc = "Эй, у этой монеты обе стороны одинаковые!"
 	sideslist = list("heads")
 	credits = 20
 
@@ -509,19 +637,43 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "coin_thief_heads"
 	cmineral = "thief"
 	desc = "Монета Гильдии Воров, которую выдают каждому уважающему себя члену гильдии для взаимной идентификации. Странный сплав с изображением бюстов черной и белой кошки, стоящих спиной к спине. Ценится коллекционерами, и как правило у них же и возвращают."
+	ru_names = list(
+		NOMINATIVE = "монета Гильдии Воров",
+		GENITIVE = "монеты Гильдии Воров",
+		DATIVE = "монете Гильдии Воров",
+		ACCUSATIVE = "монету Гильдии Воров",
+		INSTRUMENTAL = "монетой Гильдии Воров",
+		PREPOSITIONAL = "монете Гильдии Воров"
+	)
 	credits = 600
 
 /obj/item/coin/antagtoken
 	name = "antag token"
 	icon_state = "coin_valid_valid"
 	cmineral = "valid"
-	desc = "A novelty coin that helps the heart know what hard evidence cannot prove."
+	desc = "Сувенирная монета, помогающая сердцу понять то, что не докажешь фактами."
+	ru_names = list(
+		NOMINATIVE = "антаг токен",
+		GENITIVE = "антаг токена",
+		DATIVE = "антаг токену",
+		ACCUSATIVE = "антаг токен",
+		INSTRUMENTAL = "антаг токеном",
+		PREPOSITIONAL = "антаг токене"
+	)
 	sideslist = list("valid", "salad")
 	credits = 20
 	name_by_cmineral = FALSE
 
 /obj/item/coin/antagtoken/syndicate
 	name = "syndicate coin"
+	ru_names = list(
+		NOMINATIVE = "монета Синдиката",
+		GENITIVE = "монеты Синдиката",
+		DATIVE = "монете Синдиката",
+		ACCUSATIVE = "монету Синдиката",
+		INSTRUMENTAL = "монетой Синдиката",
+		PREPOSITIONAL = "монете Синдиката"
+	)
 	credits = 160
 
 
@@ -574,7 +726,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 						"uranium" = /obj/item/clothing/gloves/ring/uranium)
 	var/typekey = typelist[cmineral]
 	if(ispath(typekey))
-		to_chat(user, "<span class='notice'>You make [src] into a ring.</span>")
+		to_chat(user, span_notice("Вы делаете из [declent_ru(GENITIVE)] кольцо."))
 		new typekey(get_turf(loc))
 		qdel(src)
 
@@ -587,9 +739,17 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		icon_state = "coin_[cmineral]_[coinflip]"
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
 		if(do_after(user, 1.5 SECONDS, src))
-			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
-								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
-								 "<span class='notice'>You hear the clattering of loose change.</span>")
+			var/ru_coinflip = list(
+				"heads" = "Орёл",
+				"tails" = "Решка",
+				"valid" = "Ребро",
+				"salad" = "ERROR"
+			)
+			user.visible_message(
+				span_notice("[user] подбрасыва[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
+				span_notice("Вы подбросили [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
+				span_notice("Слышен звон монеты.")
+			)
 
 /obj/item/coin/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(istype(throwingdatum?.thrower?.mind?.martial_art, /datum/martial_art/mr_chang))

@@ -8,7 +8,7 @@
 		tts_seed = SStts.get_random_seed(src)
 
 	// Physiology needs to be created before species, as some species modify physiology
-	physiology = new()
+	physiology = new(src)
 
 	setup_dna(new_species)
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
@@ -478,7 +478,7 @@
 			forcesay()
 		if(undergoing_cardiac_arrest() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			if(set_heartattack(FALSE) && stat == CONSCIOUS)
-				to_chat(src, span_notice("You feel your heart beating again!"))
+				to_chat(src, span_notice("Вы чувствуете, как ваше сердце вновь бьется!"))
 
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 
@@ -495,8 +495,8 @@
 				return
 			var/time_taken = thing.embedded_unsafe_removal_time * thing.w_class
 			usr.visible_message(
-				span_warning("[usr] attempts to remove [thing] from [usr.p_their()] [bodypart.name]."),
-				span_notice("You attempt to remove [thing] from your [bodypart.name]... (It will take [time_taken/10] seconds.)"),
+				span_warning("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
+				span_notice("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]... (Это займет [time_taken/10] секунд.)"),
 			)
 			if(do_after(usr, time_taken, src))
 				if(QDELETED(thing) || QDELETED(bodypart) || thing.loc != bodypart || !LAZYIN(bodypart.embedded_objects, thing))
@@ -509,8 +509,8 @@
 					if(h_user.has_pain())
 						h_user.emote("scream")
 				usr.visible_message(
-					span_warning("[usr] successfully rips [thing] out of [usr.p_their()] [bodypart.name]!"),
-					span_notice("You successfully remove [thing] from your [bodypart.name]."),
+					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]!"),
+					span_notice("Вы успешно извлекли [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
 				)
 			return
 
@@ -531,7 +531,7 @@
 								var/setcriminal = tgui_input_list(usr, "Specify a new criminal status for this person.", "Security HUD", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
 								if(!setcriminal)
 									return
-								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
+								var/t1 = tgui_input_text(usr, "Enter Reason:", "Security HUD", null, max_length = MAX_MESSAGE_LEN)
 								if(!t1)
 									t1 = "(none)"
 
@@ -625,7 +625,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.general)
 						if(R.fields["id"] == E.fields["id"])
-							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
+							var/setmedical = tgui_input_list(usr, "Specify a new medical status for this person.", "Medical HUD", list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel"), R.fields["p_stat"])
 
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 								if(setmedical != "Cancel")
@@ -1287,7 +1287,7 @@
 		return
 
 	var/turf/origin = T
-	var/direction = input(src,"Which way?","Tile selection") as anything in list("Here","North","South","East","West")
+	var/direction = tgui_input_list(src, "Which way?", "Tile selection", list("Here", "North", "South", "East", "West"))
 	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
 	if(!istype(T))

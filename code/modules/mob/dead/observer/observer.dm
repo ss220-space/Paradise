@@ -109,6 +109,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
+	remove_the_hud(THOUGHTS_HUD)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
@@ -117,6 +118,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
+	GLOB.respawnable_list -= src
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -381,6 +383,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
  * Toggles off all HUDs for the ghost player.
  */
 /mob/dead/observer/proc/toggle_all_huds_off()
+	remove_the_hud(DATA_HUD_DIAGNOSTIC)
 	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
@@ -612,7 +615,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/mob/living/silicon/ai/A = target
 		. = "<a href='byond://?src=[ghost.UID()];follow=[A.UID()]'>ядро</a>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|<a href='byond://?src=[ghost.UID()];follow=[A.eyeobj.UID()]'>глаз</a>"
+			. += "|<a href='byond://?src=[ghost.UID()];follow=[A.eyeobj.UID()]'>око</a>"
 		return
 	else if(istype(target, /mob/dead/observer))
 		var/mob/dead/observer/O = target

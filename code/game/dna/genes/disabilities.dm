@@ -305,8 +305,7 @@
 	desc = "Делает мышцы субъекта более слабыми."
 	activation_message = list("Вы чувствуете внезапную слабость в мышцах.")
 	deactivation_message = list("Вы снова ощущаете силу в мышцах.")
-	instability = -GENE_INSTABILITY_MODERATE
-	traits_to_add = list(TRAIT_GENE_WEAK)
+	instability = -GENE_INSTABILITY_MINOR
 
 
 /datum/dna/gene/disability/weak/New()
@@ -314,66 +313,36 @@
 	block = GLOB.weakblock
 
 
-/datum/dna/gene/disability/weak/can_activate(mob/living/mutant, flags)
-	if(!ishuman(mutant) || HAS_TRAIT(mutant, TRAIT_GENE_STRONG))
+/datum/dna/gene/disability/weak/can_activate(mob/living/carbon/human/mutant, flags)
+	if(!ishuman(mutant))
 		return FALSE
+
+	if(HAS_TRAIT_FROM(mutant.physiology, TRAIT_STRONG_MUSCLES, DNA_TRAIT))
+		return FALSE
+
+	var/datum/component/muscles/muscles = mutant.physiology.GetComponent(/datum/component/muscles)
+	if(!muscles)
+		return FALSE
+
+	if(!muscles.can_become_stronger)
+		return FALSE
+
 	return ..()
 
 
 /datum/dna/gene/disability/weak/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	RegisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED, PROC_REF(on_species_change))
-	add_weak_modifiers(mutant)
+	ADD_TRAIT(mutant.physiology, TRAIT_WEAK_MUSCULS, DNA_TRAIT)
+	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
+	mutant.update_body(TRUE)
 
 
 /datum/dna/gene/disability/weak/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	UnregisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED)
-	remove_weak_modifiers(mutant)
+	REMOVE_TRAIT(mutant.physiology, TRAIT_WEAK_MUSCULS, DNA_TRAIT)
+	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
+	mutant.update_body(TRUE)
 
-
-/datum/dna/gene/disability/weak/proc/on_species_change(mob/living/carbon/human/mutant, datum/species/old_species)
-	SIGNAL_HANDLER
-
-	if(old_species.name != mutant.dna.species.name)
-		remove_weak_modifiers(mutant, old_species)
-		add_weak_modifiers(mutant)
-
-
-/datum/dna/gene/disability/weak/proc/add_weak_modifiers(mob/living/carbon/human/mutant)
-	mutant.physiology.tail_strength_mod *= 0.75
-	switch(mutant.dna.species.name)
-		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
-			mutant.physiology.grab_resist_mod *= 0.75
-			mutant.physiology.punch_damage_low -= 3
-			mutant.physiology.punch_damage_high -= 4
-		if(SPECIES_HUMAN)
-			mutant.physiology.grab_resist_mod *= 0.9
-			mutant.physiology.punch_damage_low -= 1
-			mutant.physiology.punch_damage_high -= 2
-		else
-			mutant.physiology.grab_resist_mod *= 0.85
-			mutant.physiology.punch_damage_low -= 2
-			mutant.physiology.punch_damage_high -= 3
-
-
-/datum/dna/gene/disability/weak/proc/remove_weak_modifiers(mob/living/carbon/human/mutant, datum/species/species)
-	if(!species)
-		species = mutant.dna.species
-	mutant.physiology.tail_strength_mod /= 0.75
-	switch(species.name)
-		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
-			mutant.physiology.grab_resist_mod /= 0.75
-			mutant.physiology.punch_damage_low += 3
-			mutant.physiology.punch_damage_high += 4
-		if(SPECIES_HUMAN)
-			mutant.physiology.grab_resist_mod /= 0.9
-			mutant.physiology.punch_damage_low += 1
-			mutant.physiology.punch_damage_high += 2
-		else
-			mutant.physiology.grab_resist_mod /= 0.85
-			mutant.physiology.punch_damage_low += 2
-			mutant.physiology.punch_damage_high += 3
 
 /datum/dna/gene/disability/paraplegia
 	name = "Paraplegia"

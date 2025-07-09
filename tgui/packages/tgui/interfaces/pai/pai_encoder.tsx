@@ -18,12 +18,14 @@ export const pai_encoder = (props: unknown) => {
         </LabeledList.Item>
         <LabeledList.Item label="Set new name">
           <Input
-            onChange={(e, value) => act('set_newname', { newname: value })}
+            expensive
+            onChange={(value) => act('set_newname', { newname: value })}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Set new rank">
           <Input
-            onChange={(e, value) => act('set_newrank', { newrank: value })}
+            expensive
+            onChange={(value) => act('set_newrank', { newrank: value })}
           />
         </LabeledList.Item>
       </LabeledList>

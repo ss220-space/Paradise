@@ -46,7 +46,7 @@
 				if(message_cooldown)
 					to_chat(usr, "Arrays recycling.  Please stand by.")
 					return
-				var/input = stripped_input(usr, "Please choose a message to transmit to your HONKbrothers on the homeworld. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
+				var/input = tgui_input_text(usr, "Please choose a message to transmit to your HONKbrothers on the homeworld. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || !(usr in view(1,src)))
 					return
 				HONK_announce(input, usr)

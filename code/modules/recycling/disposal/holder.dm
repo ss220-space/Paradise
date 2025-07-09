@@ -120,7 +120,7 @@
 	last_pipe = null
 	active = FALSE
 	for(var/mob/living/piperider in contents)
-		to_chat(piperider, span_notice("Your movement has slowed to a stop. If you tried, you could probably <b>struggle</b> free."))
+		to_chat(piperider, span_notice("Ваше движение замедлилось до полной остановки. Если постараться, вы могли-бы <b>вырваться</b>."))
 
 
 /**
@@ -149,12 +149,12 @@
 		return //Somehow we're not in a pipe, shits probably fucked
 	var/obj/structure/disposalpipe/transport_cylinder = loc
 	if(active)
-		to_chat(escapee, span_danger("You slide past [loc] and are unable to keep your grip!"))
+		to_chat(escapee, span_danger("Вы проскальзываете мимо [loc.declent_ru(GENITIVE)] и не можете удержаться!"))
 		return
 	var/turf/our_turf = get_turf(src)
 	if(our_turf in escapee.do_afters)
 		return //already trying to escape
-	to_chat(escapee, span_warning("You push against the thin pipe walls..."))
+	to_chat(escapee, span_warning("Вы упираетесь в тонкие стенки трубы..."))
 	playsound(our_turf, 'sound/machines/airlock_alien_prying.ogg', 30, FALSE, 3) //yeah I know but at least it sounds like metal being bent.
 	if(!do_after(escapee, 20 SECONDS, our_turf))
 		return
@@ -224,7 +224,7 @@
 		return
 	user.last_special = world.time + 10 SECONDS
 	for(var/mob/hearer in range(5, get_turf(src)))
-		hearer.show_message("<span size=[max(0, 5 - get_dist(src, hearer))]>CLONG, clong!</span>", EMOTE_AUDIBLE)
+		hearer.show_message("<span size=[max(0, 5 - get_dist(src, hearer))]>БДЫНЬ, бдынь!</span>", EMOTE_AUDIBLE)
 	playsound(loc, 'sound/effects/clang.ogg', 50, FALSE)
 
 

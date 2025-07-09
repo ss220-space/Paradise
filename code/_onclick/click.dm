@@ -272,7 +272,7 @@
 
 /*
 	Middle click
-	Only used for swapping hands
+	Only used for pointing
 */
 /mob/proc/MiddleClickOn(atom/A)
 	pointed(A)
@@ -316,12 +316,6 @@
 		clear_forced_look()
 		return
 	set_forced_look(A, TRUE)
-
-// In case of use break glass
-/*
-/atom/proc/MiddleClick(var/mob/M as mob)
-	return
-*/
 
 /*
 	Shift click
