@@ -53,7 +53,7 @@
 	category = list("Medical")
 
 /datum/design/dna_notepad
-	name = "Genetic notepad"
+	name = "genetic notepad"
 	desc = "Планшет генетика, способный хранить данные блоков генов в удобном виде."
 	id = "dna_notepad"
 	req_tech = list("programming" = 2)
