@@ -5,10 +5,6 @@
 	var/item
 	var/priority
 
-/priority_node/Destroy(force)
-	..()
-	return QDEL_HINT_IWILLGC
-
 /priority_node/New(item, priority)
 	. = ..()
 	src.item = item
@@ -27,11 +23,9 @@
 	var/item = top.item
 	heap -= bottom
 	if(!heap.len)
-		qdel(top)
 		return item
 	heap[1] = bottom
 	bubble_down(1)
-	qdel(top)
 	return item
 
 /priority_queue/proc/peek()
