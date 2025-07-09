@@ -24,12 +24,11 @@
 		JOB_TITLE_CYBORG = "airadio",
 		"Personal AI" = "airadio",
 		"Robot" = "airadio",
-		// Civilian
+		// Assistant
 		JOB_TITLE_CIVILIAN = "radio",
 		// Command (Solo command, not department heads)
 		JOB_TITLE_BLUESHIELD = "comradio",
 		JOB_TITLE_CAPTAIN = "comradio",
-		JOB_TITLE_HOP = "comradio",
 		JOB_TITLE_REPRESENTATIVE = "comradio",
 		// Engineeering
 		JOB_TITLE_CHIEF = "engradio",
@@ -38,17 +37,21 @@
 		JOB_TITLE_ENGINEER = "engradio",
 		JOB_TITLE_ENGINEER_TRAINEE = "engradio",
 		// Central Command
-		"Custodian" = "dsquadradio",
-		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
+		"Custodian" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
+		"Deathsquad Commando" = "dsquadradio",
+		"Emergency Response Team Engineer" = "dsquadradio",
 		"Emergency Response Team Leader" = "dsquadradio",
 		"Emergency Response Team Medic" = "dsquadradio",
 		"Emergency Response Team Member" = "dsquadradio",
 		"Emergency Response Team Officer" = "dsquadradio",
+		"Emergency Response Team Inquisitor" = "dsquadradio",
+		"Emergency Response Team Janitor" = "dsquadradio",
 		JOB_TITLE_CCOFFICER = "dsquadradio",
 		JOB_TITLE_CCFIELD = "dsquadradio",
 		JOB_TITLE_CCSPECOPS = "dsquadradio",
-		JOB_TITLE_SYNDICATE = "syndiecom",
 		JOB_TITLE_CCSUPREME = "dsquadradio",
+		JOB_TITLE_CCSOLGOV = "dsquadradio",
+		"VIP Guest" = "dsquadradio",
 		// Medical
 		JOB_TITLE_CHEMIST = "medradio",
 		JOB_TITLE_CMO = "medradio",
@@ -79,6 +82,7 @@
 		JOB_TITLE_MINER = "supradio",
 		JOB_TITLE_MINING_MEDIC = "supradio",
 		// Service
+		JOB_TITLE_HOP = "comradio",
 		JOB_TITLE_BARTENDER = "srvradio",
 		JOB_TITLE_BOTANIST = "srvradio",
 		JOB_TITLE_CHAPLAIN = "srvradio",
@@ -87,6 +91,8 @@
 		JOB_TITLE_JANITOR = "srvradio",
 		JOB_TITLE_LIBRARIAN = "srvradio",
 		JOB_TITLE_MIME = "srvradio",
+		// Syndicate
+		JOB_TITLE_SYNDICATE = "syndiecom",
 	)
 	/// List of Command jobs
 	var/list/heads = list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_CHIEF, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_JUDGE, JOB_TITLE_AI, "Syndicate Research Director", "Syndicate Comms Officer")
@@ -235,7 +241,7 @@
 				if(JOB_STYLE_1)
 					new_name = "[tcm.sender_name] <span class=\"[job_class]\">([job])</span>"
 				if(JOB_STYLE_2)
-					new_name = "[tcm.sender_name] - <span class=\"[job_class]\">[job]</span>"
+					new_name = "[tcm.sender_name] – <span class=\"[job_class]\">[job]</span>"
 				if(JOB_STYLE_3)
 					new_name = "<span class=\"[job_class]\"><small>\[[job]\]</small></span> [tcm.sender_name]"
 				if(JOB_STYLE_4)
@@ -245,7 +251,7 @@
 				if(JOB_STYLE_1)
 					new_name = "[tcm.sender_name] ([job])"
 				if(JOB_STYLE_2)
-					new_name = "[tcm.sender_name] - [job]"
+					new_name = "[tcm.sender_name] – [job]"
 				if(JOB_STYLE_3)
 					new_name = "<small>\[[job]\]</small> [tcm.sender_name]"
 				if(JOB_STYLE_4)
