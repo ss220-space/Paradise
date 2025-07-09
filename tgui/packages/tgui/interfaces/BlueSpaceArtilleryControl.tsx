@@ -48,7 +48,7 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
     <Window width={550} height={500}>
       <Window.Content>
         <Stack fill vertical>
-          <Stack.Item>
+          <Stack.Item minHeight="100px">
             <Section>
               <LabeledList>
                 {!!data.notice && (
@@ -63,43 +63,41 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
                   </Button>
                 </LabeledList.Item>
                 {data.connected && (
-                  <LabeledList.Item label="Aim coordinate:">
+                  <LabeledList.Item label="Aim coordinate">
                       {data.target ? data.target_coord : 'None'}
                   </LabeledList.Item>
                 )}
                 {data.connected && (
-                  <LabeledList>
-                    <LabeledList.Item label="Aim control">
-                      <Button
-                        onClick={() => act('aim', {
-                          direction: 'north'
-                        })}
-                      >
-                        North
-                      </Button>
-                      <Button
-                        onClick={() => act('aim', {
-                          direction: 'west'
-                        })}
-                      >
-                        West
-                      </Button>
-                      <Button
-                        onClick={() => act('aim', {
-                          direction: 'east'
-                        })}
-                      >
-                        East
-                      </Button>
-                      <Button
-                        onClick={() => act('aim', {
-                          direction: 'south'
-                        })}
-                      >
-                        South
-                      </Button>
-                    </LabeledList.Item>
-                  </LabeledList>
+                  <LabeledList.Item label="Aim control">
+                    <Button
+                      onClick={() => act('aim', {
+                        direction: 'north'
+                      })}
+                    >
+                      North
+                    </Button>
+                    <Button
+                      onClick={() => act('aim', {
+                        direction: 'west'
+                      })}
+                    >
+                      West
+                    </Button>
+                    <Button
+                      onClick={() => act('aim', {
+                        direction: 'east'
+                      })}
+                    >
+                      East
+                    </Button>
+                    <Button
+                      onClick={() => act('aim', {
+                        direction: 'south'
+                      })}
+                    >
+                      South
+                    </Button>
+                  </LabeledList.Item>
                 )}
                 {!!data.ready && !!data.target && (
                   <LabeledList.Item label="Firing">
