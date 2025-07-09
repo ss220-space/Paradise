@@ -35,14 +35,14 @@
 
 /obj/New()
 	..()
-	if(obj_integrity == null)
-		update_integrity(max_integrity)
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
 		T.add_blueprints_preround(src)
 
 /obj/Initialize(mapload)
 	. = ..()
+	if(obj_integrity == null)
+		update_integrity(max_integrity)
 	if(islist(armor))
 		armor = getArmor(arglist(armor))
 	else if(!armor)

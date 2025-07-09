@@ -1145,8 +1145,6 @@
 
 
 /obj/machinery/power/apc/proc/update()
-	if(!area)
-		return
 	if(operating && !shorted)
 		area.power_light = (lighting_channel > CHANNEL_SETTING_AUTO_OFF)
 		area.power_equip = (equipment_channel > CHANNEL_SETTING_AUTO_OFF)
