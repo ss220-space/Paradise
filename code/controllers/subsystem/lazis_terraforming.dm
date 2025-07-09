@@ -20,9 +20,6 @@ SUBSYSTEM_DEF(terraforming)
 					if(!istype(turf, type))
 						continue
 
-					if(istype(turf, /turf/simulated/floor/lava/lava_land_surface/lava_only))
-						continue
-
 					queue.enqueue(list(turf, "[transformations[type]]")) // As type it was null after all.
 
 
@@ -44,16 +41,24 @@ SUBSYSTEM_DEF(terraforming)
 	if(istype(SSmapping.lavaland_theme, lavaland_theme))
 		return
 
-	var/list/transformations = list()
-	for(var/datum/lavaland_theme/lava_theme as anything in subtypesof(/datum/lavaland_theme))
-		transformations[lava_theme.primary_turf_type] = lavaland_theme.primary_turf_type
-
 	SSmapping.lavaland_theme = new lavaland_theme
 	for(var/client/client as anything in GLOB.clients)
 		for(var/atom/movable/screen/parallax_layer/planet/planet in client.parallax_layers_cached)
 			planet.icon_state = SSmapping.lavaland_theme.planet_icon_state
 
+	/*
+	var/list/transformations = list()
+	for(var/datum/lavaland_theme/lava_theme as anything in subtypesof(/datum/lavaland_theme))
+		transformations[lava_theme.primary_turf_type] = lavaland_theme.primary_turf_type
+
 	SSterraforming.terraform(\
 		list(level_name_to_num(MINING)), \
 		transformations
 	)
+	*/
+
+	for(var/turf in GLOB.lazis_primary_turfs)
+		if(istype(turf, /turf/simulated/floor/lava/lava_land_surface/lava_only))
+			continue
+
+		SSterraforming.queue.enqueue(list(turf, "[lavaland_theme.primary_turf_type]"))

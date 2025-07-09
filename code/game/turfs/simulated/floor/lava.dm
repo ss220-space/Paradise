@@ -235,10 +235,18 @@
 	/// Check for plasma river, subtype of lava, prevents simple fishing
 	var/can_be_fished_on = TRUE
 
+
 /turf/simulated/floor/lava/lava_land_surface/Initialize(mapload)
 	. = ..()
+	GLOB.lazis_primary_turfs |= src
 	if(can_be_fished_on)
 		calculate_deep()
+
+
+/turf/simulated/floor/lava/lava_land_surface/Destroy()
+	GLOB.lazis_primary_turfs -= src
+	. = ..()
+
 
 /turf/simulated/floor/lava/lava_land_surface/proc/calculate_deep()
 	if(locate(/turf/simulated/floor/plating/asteroid/basalt) in range(3, src))
