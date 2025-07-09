@@ -273,6 +273,9 @@ GLOBAL_LIST_EMPTY(preferences_info)
 /datum/preference_info/pain_blurb/get_preference_toggle()
     return GLOB.preference_toggles[/datum/preference_toggle/pain_blurb]
 
+/datum/preference_info/bad_words/get_preference_toggle()
+    return GLOB.preference_toggles[/datum/preference_toggle/bad_words]
+
 /datum/preference_info/auto_dnr/activate(mob/target)
     RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(set_dnr_status))
 

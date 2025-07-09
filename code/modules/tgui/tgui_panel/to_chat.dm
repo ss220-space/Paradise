@@ -53,7 +53,32 @@
  * AVOID_HIGHLIGHTING: Unused
  * trailing_newline, confidential, and handle_whitespace currently have no effect, please fix this in the future or remove the arguments to lower cache!
  */
-/proc/to_chat(target, html, type, text, avoid_highlighting, handle_whitespace = TRUE, trailing_newline = TRUE, confidential = FALSE, ticket_id = -1)
+/proc/to_chat(target, html, type, text, avoid_highlighting, handle_whitespace = TRUE, trailing_newline = TRUE, confidential = FALSE, ticket_id = -1, twitched = FALSE)
+	if(!target)
+		return
+
+	if(!html && !text)
+		CRASH("Empty or null string in to_chat proc call.")
+
+	if(target == world)
+		target = GLOB.clients
+
+	if(!twitched)
+		var/list/twitch_targets = list()
+		if(!islist(target))
+			twitch_targets = list(target)
+
+		for(var/mob/cur_target in target)
+			if(!cur_target.get_preference(PREFTOGGLE_3_BAD_WORDS))
+				continue
+
+			twitch_targets.Add(cur_target)
+
+		target -= twitch_targets
+		if(twitch_targets)
+			to_chat(twitch_targets, make_text_twitchable(html), type, make_text_twitchable(text), avoid_highlighting, handle_whitespace, trailing_newline, confidential, ticket_id, TRUE)
+
+
 	html = replacetext(html, "\n", "<br>")
 	if(isnull(Master) || !SSchat?.initialized || !MC_RUNNING(SSchat.init_stage))
 		to_chat_immediate(target, html, type, text)
@@ -62,13 +87,6 @@
 	// Useful where the integer 0 is the entire message. Use case is enabling to_chat(target, some_boolean) while preventing to_chat(target, "")
 	html = "[html]"
 	text = "[text]"
-
-	if(!target)
-		return
-	if(!html && !text)
-		CRASH("Empty or null string in to_chat proc call.")
-	if(target == world)
-		target = GLOB.clients
 
 	// Build a message
 	var/message = list()
@@ -83,3 +101,11 @@
 	if(ticket_id != -1)
 		message["ticket_id"] = ticket_id
 	SSchat.queue(target, message, confidential)
+
+
+/proc/make_text_twitchable(text)
+	for(var/list/bad_words in GLOB.twitch_bad_words)
+		for(var/bad_word in bad_words)
+			text = replacetext(text, bad_word, GLOB.twitch_bad_words[bad_words])
+
+	return text
