@@ -63,21 +63,11 @@
 	if(target == world)
 		target = GLOB.clients
 
+	if(!islist(target))
+		target = list(target)
+
 	if(should_filter_content)
-		var/list/twitch_targets = list()
-		if(!islist(target))
-			target = list(target)
-
-		for(var/mob/cur_target in target)
-			if(!cur_target.get_preference(PREFTOGGLE_3_BAD_WORDS))
-				continue
-
-			twitch_targets.Add(cur_target)
-
-		target -= twitch_targets
-		if(twitch_targets)
-			to_chat(twitch_targets, make_text_twitchable(html), type, make_text_twitchable(text), avoid_highlighting, handle_whitespace, trailing_newline, confidential, ticket_id, FALSE)
-
+		to_chat_twitch_targets(target, html, type, text, avoid_highlighting, handle_whitespace, trailing_newline, confidential, ticket_id)
 
 	html = replacetext(html, "\n", "<br>")
 	if(isnull(Master) || !SSchat?.initialized || !MC_RUNNING(SSchat.init_stage))
@@ -103,11 +93,24 @@
 	SSchat.queue(target, message, confidential)
 
 
+/proc/to_chat_twitch_targets(targets, html, type, text, avoid_highlighting, handle_whitespace = TRUE, trailing_newline = TRUE, confidential = FALSE, ticket_id = -1)
+	var/list/twitch_targets = list()
+	for(var/mob/cur_target in targets)
+		if(!cur_target.get_preference(PREFTOGGLE_3_BAD_WORDS))
+			continue
+
+		twitch_targets.Add(cur_target)
+
+	targets -= twitch_targets
+	if(twitch_targets)
+		to_chat(twitch_targets, make_text_twitchable(html), type, make_text_twitchable(text), avoid_highlighting, handle_whitespace, trailing_newline, confidential, ticket_id, FALSE)
+
+
 /proc/make_text_twitchable(text)
 	if(!text)
 		return
 
-	for(var/list/bad_words in GLOB.twitch_bad_words)
+	for(var/list/bad_words as anything in GLOB.twitch_bad_words)
 		for(var/bad_word in bad_words)
 			text = replacetext(text, bad_word, GLOB.twitch_bad_words[bad_words])
 
