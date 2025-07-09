@@ -52,6 +52,12 @@
 
 /obj/item/ammo_casing/Destroy()
 	QDEL_NULL(BB)
+	if(!isgun(loc))
+		return ..()
+	var/obj/item/gun/gun = loc
+	if(gun.chambered != src)
+		return ..()
+	gun.chambered = null
 	. = ..()
 
 /obj/item/ammo_casing/update_icon_state()

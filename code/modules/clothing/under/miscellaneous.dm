@@ -124,7 +124,7 @@
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom/officer
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Officer Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
@@ -133,7 +133,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/officer/skirt
-	desc = "Gold trim on space-black cloth, this skirt displays the rank of \"Lieutenant-Commander\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this skirt displays the rank of \"Lieutenant-Commander\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Officer Skirt"
 	icon_state = "navy_goldf"
 	item_state = "navy_goldf"
@@ -151,7 +151,7 @@
 		)
 
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Captain Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"

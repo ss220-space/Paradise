@@ -269,6 +269,11 @@
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
 	. = ..()
+
+	if(is_station_level(z))
+		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, PROC_REF(on_security_level_change_planned))
+		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
+
 	var/area/A = get_area(src)
 	if(A && !A.requires_power)
 		on = TRUE
@@ -290,6 +295,37 @@
 				break_light_tube(TRUE)
 	update(FALSE, mapload ? FALSE : TRUE)
 
+
+/obj/machinery/light/proc/on_security_level_change_planned(datum/source, previous_level_number, new_level_number)
+	SIGNAL_HANDLER
+
+	if(status != LIGHT_OK)
+		return
+
+	if(new_level_number != SEC_LEVEL_EPSILON)
+		return
+		
+	fire_mode = FALSE
+	emergency_mode = TRUE
+	on = FALSE
+	INVOKE_ASYNC(src, PROC_REF(update), FALSE)
+
+/obj/machinery/light/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
+	SIGNAL_HANDLER
+
+	if(status != LIGHT_OK || !has_power())
+		return
+
+	if(new_level_number >= SEC_LEVEL_EPSILON)
+		fire_mode = TRUE
+		emergency_mode = TRUE
+		on = FALSE
+	else
+		fire_mode = FALSE
+		emergency_mode = FALSE
+		on = TRUE
+
+	INVOKE_ASYNC(src, PROC_REF(update), FALSE)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)

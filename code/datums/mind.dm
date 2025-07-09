@@ -1532,7 +1532,7 @@
 					special_role = SPECIAL_ROLE_WIZARD
 					//ticker.mode.learn_basic_spells(current)
 					SSticker.mode.update_wiz_icons_added(src)
-					SEND_SOUND(current, 'sound/ambience/antag/ragesmages.ogg')
+					SEND_SOUND(current, sound('sound/ambience/antag/ragesmages.ogg'))
 					to_chat(current, span_danger("You are a Space Wizard!"))
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
@@ -1542,7 +1542,7 @@
 					SSticker.mode.apprentices += src
 					special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 					SSticker.mode.update_wiz_icons_added(src)
-					SEND_SOUND(current, 'sound/ambience/antag/ragesmages.ogg')
+					SEND_SOUND(current, sound('sound/ambience/antag/ragesmages.ogg'))
 					to_chat(current, span_danger("You are a Apprentice of Space Wizard!"))
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has apprentice-wizarded [key_name(current)]")

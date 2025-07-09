@@ -351,7 +351,7 @@
 		paper.info += "<li> [i["name"]]</li><br>"
 	paper.info += "<br><b> Initial reward:</b> [quest.maximum_cash] credits"
 	paper.info += "<p><b>Mecha request accepted by:</b> [currentID.registered_name] - [currentID.rank] at [station_time_timestamp()].</p></ul>"
-	paper.info += "<hr><center><small><i>The request has been approved and certified by NAS Trurl.</i></small></center>"
+	paper.info += "<hr><center><small><i>The request has been approved and certified by [command_name()].</i></small></center>"
 	var/obj/item/stamp/centcom/stamp = new()
 	paper.stamp(stamp)
 	paper.update_icon()

@@ -63,6 +63,10 @@
 
 		if(1)
 			if(check_rights((R_EVENT|R_SERVER),0))
+				var/security_levels_data = ""
+				for (var/level_name in SSsecurity_level.available_levels)
+					var/datum/security_level/this_level = SSsecurity_level.available_levels[level_name]
+					security_levels_data += "<a href='byond://?src=[UID()];secretsfun=securitylevel;number=[this_level.number_level]'>[this_level.name]</a>"
 				dat += {"
 					<center>
 					<h2><b>IC Events</b></h2>
@@ -73,12 +77,7 @@
 					<a href='byond://?src=[UID()];secretsfun=honksquad'>Send in a HONKsquad</a><br>
 					<a href='byond://?src=[UID()];secretsfun=gimmickteam'>Send in a Gimmick Team</a><br>
 					<b>Change Security Level</b><br>
-					<a href='byond://?src=[UID()];secretsfun=securitylevel0'>Security Level - Green</a>&nbsp;&nbsp;
-					<a href='byond://?src=[UID()];secretsfun=securitylevel1'>Security Level - Blue</a>&nbsp;&nbsp;
-					<a href='byond://?src=[UID()];secretsfun=securitylevel2'>Security Level - Red</a><br>
-					<a href='byond://?src=[UID()];secretsfun=securitylevel3'>Security Level - Gamma</a>&nbsp;&nbsp;
-					<a href='byond://?src=[UID()];secretsfun=securitylevel4'>Security Level - Epsilon</a>&nbsp;&nbsp;
-					<a href='byond://?src=[UID()];secretsfun=securitylevel5'>Security Level - Delta</a><br>
+					[security_levels_data]<br>
 					<b>Create Weather</b><br>
 					<a href='byond://?src=[UID()];secretsfun=weatherashstorm'>Weather - Ash Storm</a>&nbsp;&nbsp;
 					<br>

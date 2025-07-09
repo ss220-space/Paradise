@@ -26,9 +26,11 @@
 /datum/weather/rad_storm/telegraph()
 	..()
 	status_alarm(TRUE)
-	pre_maint_all_access = GLOB.maint_all_access
-	if(!GLOB.maint_all_access)
-		make_maint_all_access()
+	pre_maint_all_access = SSmapping.maint_all_access
+	if(SSmapping.maint_all_access)
+		return
+
+	SSmapping.make_maint_all_access()
 
 
 /datum/weather/rad_storm/can_weather_act(mob/living/mob_to_check)
@@ -56,14 +58,21 @@
 			randmutg(target)
 	target.check_genes(MUTCHK_FORCED)
 
-
 /datum/weather/rad_storm/end()
 	if(..())
 		return
-	GLOB.priority_announcement.Announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
+
 	status_alarm(FALSE)
-	if(!pre_maint_all_access)
-		revoke_maint_all_access()
+	if(pre_maint_all_access)
+		GLOB.minor_announcement.announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места. Доступ к дверям будет немедленно восстановлен.",
+										ANNOUNCE_ANOMALY_RU
+		)
+		return
+
+	GLOB.minor_announcement.announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.",
+									ANNOUNCE_ANOMALY_RU
+	)
+	addtimer(CALLBACK(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, revoke_maint_all_access)), 10 SECONDS) // Bit of time to get out / break into somewhere.
 
 /datum/weather/rad_storm/proc/status_alarm(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
 	if(active)
