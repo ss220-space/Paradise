@@ -660,7 +660,7 @@
 			// Public consoles cant view messages
 			if(is_public)
 				return
-			var/datum/browser/ccmsg_browser = new(usr, "ccmsg", "Central Command Cargo Message Log", 800, 600)
-			ccmsg_browser.set_content(SSshuttle.centcom_message)
+			var/datum/browser/ccmsg_browser = new(usr, "ccmsg", "Журнал сообщений снабжения Центрального Командования.", 800, 600)
+			ccmsg_browser.set_content(SSshuttle.centcom_message)в
 			ccmsg_browser.open()
 
