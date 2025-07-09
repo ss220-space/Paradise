@@ -1,6 +1,13 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Stack } from '../components';
+import {
+  Button,
+  LabeledList,
+  Section,
+  Stack,
+  ByondUi
+} from '../components';
+import { classes } from 'common/react';
 import { Window } from '../layouts';
 
 type BSAData = {
@@ -8,11 +15,15 @@ type BSAData = {
   reloadtime_text: string;
   notice: string;
   target: string;
+  target_coord: string;
   connected: boolean;
+  mapRef: string;
 };
 
 export const BlueSpaceArtilleryControl = (props: unknown) => {
   const { act, data } = useBackend<BSAData>();
+  const { mapRef } = data;
+
   let alertStatus: ReactNode;
   if (data.ready) {
     alertStatus = (
@@ -34,11 +45,11 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
     );
   }
   return (
-    <Window width={400} height={150}>
+    <Window width={550} height={500}>
       <Window.Content>
         <Stack fill vertical>
-          <Stack.Item grow>
-            <Section fill scrollable>
+          <Stack.Item>
+            <Section>
               <LabeledList>
                 {!!data.notice && (
                   <LabeledList.Item label="Alert" color="red">
@@ -50,6 +61,9 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
                   <Button icon="crosshairs" onClick={() => act('recalibrate')}>
                     {data.target ? data.target : 'None'}
                   </Button>
+                </LabeledList.Item>
+                <LabeledList.Item label="Target coordinate:">
+                    {data.target ? data.target_coord : 'None'}
                 </LabeledList.Item>
                 {!!data.ready && !!data.target && (
                   <LabeledList.Item label="Firing">
@@ -72,6 +86,18 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
               </LabeledList>
             </Section>
           </Stack.Item>
+          {data.connected && (
+            <Stack.Item grow>
+              <ByondUi
+                height="100%" mb="30px"
+                width="100%"
+                params={{
+                  id: mapRef,
+                  type: 'map',
+                }}
+              />
+            </Stack.Item>
+          )}
         </Stack>
       </Window.Content>
     </Window>

@@ -330,6 +330,22 @@
 	var/area_aim = FALSE //should also show areas for targeting
 	var/target_all_areas = FALSE //allows all areas (including admin areas) to be targeted
 
+	// Stuff needed to render the map
+	var/atom/movable/screen/map_view/camera/cam_screen
+	var/last_camera_turf = null
+	var/camera_view_range = 9
+
+/obj/machinery/computer/bsa_control/Initialize()
+	. = ..()
+	var/map_name = "camera_console_[src.UID()]_map"
+	// Initialize map objects
+	cam_screen = new
+	cam_screen.generate_view(map_name)
+
+/obj/machinery/computer/bsa_control/Destroy()
+	QDEL_NULL(cam_screen)
+	. = ..()
+
 /obj/machinery/computer/bsa_control/admin
 	area_aim = TRUE
 	target_all_areas = TRUE
@@ -368,9 +384,17 @@
 
 /obj/machinery/computer/bsa_control/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
+	update_active_camera_screen()
 	if(!ui)
 		ui = new(user, src, "BlueSpaceArtilleryControl", name)
 		ui.open()
+		cam_screen.display_to(user, ui.window)
+
+/obj/machinery/computer/bsa_control/ui_status(mob/user, datum/ui_state/state)
+	. = ..()
+	if(. == UI_DISABLED)
+		return UI_CLOSE
+	return .
 
 /obj/machinery/computer/bsa_control/ui_data(mob/user)
 	var/list/data = list()
@@ -378,6 +402,11 @@
 	data["notice"] = notice
 	if(target)
 		data["target"] = get_target_name()
+		var/turf/target_turf = get_target_turf()
+		if (target_turf)
+			data["target_coord"] = "[target_turf.x], [target_turf.y], [target_turf.z]"
+		else
+			data["target_coord"] = "???"
 	if(cannon)
 		var/reload_cooldown = cannon.reload_cooldown
 		var/last_fire_time = cannon.last_fire_time
@@ -389,6 +418,11 @@
 		data["ready"] = minutes == 0 && seconds == 0
 	else
 		data["ready"] = FALSE
+	return data
+
+/obj/machinery/computer/bsa_control/ui_static_data()
+	var/list/data = list()
+	data["mapRef"] = cam_screen.assigned_map
 	return data
 
 /obj/machinery/computer/bsa_control/ui_act(action, params)
@@ -404,6 +438,10 @@
 	update_icon()
 	return TRUE
 
+
+/obj/machinery/computer/bsa_control/ui_close(mob/user)
+	cam_screen?.hide_from(user)
+
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
 	var/list/gps_locators = list()
 	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
@@ -416,6 +454,7 @@
 	if(!choose)
 		return
 	target = options[choose]
+	update_active_camera_screen()
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
 	if(istype(target,/area))
@@ -424,6 +463,15 @@
 	else if(istype(target,/obj/item/gps))
 		var/obj/item/gps/G = target
 		return G.gpstag
+
+/obj/machinery/computer/bsa_control/proc/get_target_turf()
+	if(istype(target,/area))
+		var/area/A = target
+		var/turf/center = A.get_center_turf()
+		if (center)
+			return locate(center.x, center.y, center.z)
+	else if(istype(target,/obj/item/gps))
+		return get_turf(target)
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
 	if(istype(target,/area))
@@ -463,3 +511,30 @@
 	qdel(centerpiece.back)
 	qdel(centerpiece)
 	return cannon
+
+/obj/machinery/computer/bsa_control/proc/update_active_camera_screen()
+	// Get the target turf to correctly gather what's visible from its turf, in case it's located in a moving object (borgs / mechs)
+	var/new_cam_turf = get_target_turf()
+	if (!new_cam_turf)
+		to_chat(usr, "new cam turf not found")
+		cam_screen.show_camera_static()
+		return
+	// If we're not forcing an update for some reason and the cameras are in the same location,
+	// we don't need to update anything.
+	// Most security cameras will end here as they're not moving.
+	if(last_camera_turf == new_cam_turf)
+		to_chat(usr, "cam turf not moved")
+		return
+	// Cameras that get here are moving, and are likely attached to some moving atom such as cyborgs.
+	last_camera_turf = new_cam_turf
+	//Here we gather what's visible from the camera's POV based on its view_range and xray modifier if present
+	var/list/visible_things = range(camera_view_range, new_cam_turf)
+	var/list/visible_turfs = list()
+	for(var/turf/visible_turf in visible_things)
+		visible_turfs += visible_turf
+	//Get coordinates for a rectangle area that contains the turfs we see so we can then clear away the static in the resulting rectangle area
+	var/list/bbox = get_bbox_of_atoms(visible_turfs)
+	var/size_x = bbox[3] - bbox[1] + 1
+	var/size_y = bbox[4] - bbox[2] + 1
+	cam_screen.show_camera(visible_turfs, size_x, size_y)
+	to_chat(usr, "update_active_camera_screen success")
