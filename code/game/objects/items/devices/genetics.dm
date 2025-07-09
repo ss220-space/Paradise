@@ -32,7 +32,7 @@
 	materials = list(MAT_METAL=2000, MAT_GLASS = 1000)
 	origin_tech = "programming=2"
 	var/dna_data = list()
-	var/isPrinting = FALSE
+	var/printing = FALSE
 
 /obj/item/dna_notepad/Initialize(mapload)
 	. = ..()
@@ -40,7 +40,7 @@
 
 /obj/item/dna_notepad/proc/read_dna_data(block)
 	for(var/list/dna_detail_data in dna_data)
-		if (dna_detail_data["num"] == "[block]")
+		if(dna_detail_data["num"] == "[block]")
 			return dna_detail_data
 	var/list/current_dna_detail_data = list(
 		num = "[block]",
@@ -53,10 +53,10 @@
 /obj/item/dna_notepad/proc/write_dna_data(block, name, color)
 	var/list/current_dna_detail_data = null
 	for(var/list/dna_detail_data in dna_data)
-		if (dna_detail_data["num"] == "[block]")
+		if(dna_detail_data["num"] == "[block]")
 			current_dna_detail_data = dna_detail_data
 			break
-	if (!current_dna_detail_data)
+	if(!current_dna_detail_data)
 		current_dna_detail_data = list(
 			num = "[block]",
 			name = "[name]",
@@ -71,12 +71,14 @@
 		write_dna_data(i, DNA_NO_DATA, DNA_COLOR_UNKNOWN)
 
 /obj/item/dna_notepad/proc/print_report(var/mob/living/user)
-	if(isPrinting)
+	if(printing)
 		return
-	isPrinting = TRUE
+	printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	flick("genetic_tablet_print", src)
-	sleep(3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(create_report_paper), user), 3 SECONDS)
+
+/obj/item/dna_notepad/proc/create_report_paper(var/mob/living/user)
 	var/obj/item/paper/paper = new(drop_location())
 	paper.name = "Блоки генов"
 	paper.header += "<center><b>Блоки генов</b></center><br>"
@@ -88,7 +90,7 @@
 	if(in_range(user, src))
 		user.put_in_hands(paper, ignore_anim = FALSE)
 		user.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
-	isPrinting = FALSE
+	printing = FALSE
 
 /obj/item/dna_notepad/proc/all_dna_names()
 	var/list/arr = list()
@@ -105,7 +107,7 @@
 
 /obj/item/dna_notepad/proc/find_gene_by_name(name)
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
-		if (gene.name == name)
+		if(gene.name == name)
 			return gene
 	return null
 
@@ -170,8 +172,8 @@
 					if(block_num < 1 || block_num > DNA_COUNT)
 						return
 					var/gene = find_gene_by_name(answer)
-					if (!gene)
-						if (answer == DNA_UNKNOWN_DISABILITY_DATA)
+					if(!gene)
+						if(answer == DNA_UNKNOWN_DISABILITY_DATA)
 							write_dna_data(block_num, answer, DNA_COLOR_DISABILITY)
 						else
 							write_dna_data(block_num, answer, DNA_COLOR_UNKNOWN)
@@ -190,7 +192,6 @@
 /obj/item/dna_notepad/verb/print_report_verb()
 	set name = "Печать отчёта"
 	set category = STATPANEL_OBJECT
-	set src = usr
 	var/mob/user = usr
 	if(!istype(user))
 		return
@@ -201,7 +202,7 @@
 /obj/item/dna_notepad/proc/load_unknown_disabilities_from_console(obj/machinery/computer/scan_consolenew/dna_console, mob/living/user)
 	add_fingerprint(user)
 	var/obj/machinery/dna_scannernew/connected = dna_console.connected
-	if (!connected)
+	if(!connected)
 		to_chat(user, span_warning("[capitalize(dna_console.declent_ru(NOMINATIVE))] не подключен."))
 		balloon_alert(user, "ошибка загрузки")
 		return
@@ -215,9 +216,9 @@
 		return
 	for(var/i = 1; i <= DNA_COUNT; i++)
 		var/save_block_data = read_dna_data(i)
-		if (save_block_data["name"] == DNA_NO_DATA)
+		if(save_block_data["name"] == DNA_NO_DATA)
 			var/block_value = connected.occupant.dna.SE[i]
-			if (block_value >= 2050) // HEX=802 DEC=2050
+			if(block_value >= 2050) // HEX=802 DEC=2050
 				write_dna_data(i, DNA_UNKNOWN_DISABILITY_DATA, DNA_COLOR_DISABILITY)
 	playsound(loc, "terminal_type", 25, TRUE)
 	to_chat(user, "Данные из [dna_console.declent_ru(GENITIVE)] успешно загружены в [declent_ru(NOMINATIVE)].")
@@ -240,10 +241,10 @@
 	for(var/i = 1; i <= DNA_COUNT; i++)
 		var/self_block = read_dna_data(i)
 		var/other_block = dna_notepad.read_dna_data(i)
-		if (self_block["name"] == DNA_NO_DATA)
+		if(self_block["name"] == DNA_NO_DATA)
 			self_block["name"] = other_block["name"]
 			self_block["color"] = other_block["color"]
-		if (self_block["name"] == DNA_UNKNOWN_DISABILITY_DATA && other_block["color"] == DNA_COLOR_DISABILITY)
+		if(self_block["name"] == DNA_UNKNOWN_DISABILITY_DATA && other_block["color"] == DNA_COLOR_DISABILITY)
 			self_block["name"] = other_block["name"]
 			self_block["color"] = other_block["color"]
 	playsound(loc, "terminal_type", 25, TRUE)
@@ -267,9 +268,9 @@
 
 /obj/item/dna_notepad/full/proc/fill_genes_data()
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
-		if (gene.block < 1 || gene.block > DNA_COUNT)
+		if(gene.block < 1 || gene.block > DNA_COUNT)
 			continue
-		if (gene.name == "Ordinary Gene")
+		if(gene.name == "Ordinary Gene")
 			write_dna_data(gene.block, DNA_EMPTY_DATA, DNA_COLOR_UNKNOWN)
 		else
 			var/color = DNA_COLOR_UNKNOWN
