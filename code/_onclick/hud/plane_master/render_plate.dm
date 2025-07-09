@@ -21,13 +21,17 @@
 	SIGNAL_HANDLER
 	if(!istype(source))
 		return
-	screen -= source
+	screen.RemoveAll(source)
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /client/proc/register_render_plane_relay(atom/movable/render_plane_relay/relay)
 	if(!istype(relay))
 		return
+	var/exist_check = (relay in screen)
 	screen += relay
-	RegisterSignal(relay, COMSIG_QDELETING, PROC_REF(on_render_plane_relay_qdeleted))
+	if(exist_check)
+		return
+	RegisterSignal(relay, COMSIG_QDELETING, PROC_REF(on_render_plane_relay_qdeleted), override = TRUE)
 
 /**
  * ## Rendering plate

@@ -12,8 +12,8 @@
 #endif
 
 ///Used to find the sources of harddels, quite laggy, don't be surpised if it freezes your client for a good while
-//#define REFERENCE_TRACKING
-//#define REFERENCE_TRACKING_DEBUG
+#define REFERENCE_TRACKING
+#define REFERENCE_TRACKING_DEBUG
 
 #ifdef REFERENCE_TRACKING
 #warn Reference tracking is enabled

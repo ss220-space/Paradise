@@ -311,7 +311,10 @@ SUBSYSTEM_DEF(garbage)
 /datum/controller/subsystem/garbage/Recover()
 	if(istype(SSgarbage.queues))
 		for(var/i in 1 to SSgarbage.queues.len)
-			queues[i] |= SSgarbage.queues[i]
+			var/queue/queue = SSgarbage.queues[i]
+			var/queue/new_queue = queues[i]
+			while(!queue.is_empty())
+				new_queue.enqueue(queue.dequeue())
 #endif
 
 
@@ -468,29 +471,29 @@ SUBSYSTEM_DEF(garbage)
 
 	for(var/datum/thing in world) //atoms (don't beleive it's lies)
 		DoSearchVar(thing, "World -> [thing.type]", starting_time)
-		if(src.references_to_clear == 0)
+		if(references_to_clear == 0)
 			break
 
 	log_gc("Finished searching atoms")
-	if(src.references_to_clear == 0)
+	if(references_to_clear == 0)
 		return
 
 	for(var/datum/thing) //datums
 		DoSearchVar(thing, "Datums -> [thing.type]", starting_time)
-		if(src.references_to_clear == 0)
+		if(references_to_clear == 0)
 			break
 
 	log_gc("Finished searching datums")
-	if(src.references_to_clear == 0)
+	if(references_to_clear == 0)
 		return
 
 	for(var/client/thing) //clients
 		DoSearchVar(thing, "Clients -> [thing.type]", starting_time)
-		if(src.references_to_clear == 0)
+		if(references_to_clear == 0)
 			break
 
 	log_gc("Finished searching clients")
-	if(src.references_to_clear == 0)
+	if(references_to_clear == 0)
 		return
 
 	log_gc("Completed search for references to a [type].")

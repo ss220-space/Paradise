@@ -39,6 +39,11 @@
 	/// How many times we add time for order
 	var/time_add_count = -1
 
+/datum/cargo_quests_storage/Destroy(force)
+	QDEL_LIST(current_quests)
+	customer = null
+	. = ..()
+
 /datum/cargo_quests_storage/proc/generate(easy_mode)
 	if(!quest_difficulty)
 		quest_difficulty = customer.get_difficulty()
@@ -152,8 +157,8 @@
 	var/list/req_items = list()
 	///possible difficultly
 	var/difficultly_flags
-	
-	
+
+
 	var/cargo_quest_reward = 0 			//The reward for the quest, consider the debut of the roflcat
 	var/list/bounty_jobs = list() 		//Positions that will be paid. (Noooo I won't do part of this in new)
 	var/linked_departament = "Cargo" 	//The department key is specified to take it from the global list, no, I will not upload to new, I'm afraid to break even
@@ -163,6 +168,11 @@
 		q_storage = storage
 		add_goal(difficultly = q_storage.quest_difficulty.diff_flag)
 		update_interface_icon()
+
+/datum/cargo_quest/Destroy(force)
+	q_storage = null
+	interface_images.Cut()
+	. = ..()
 
 /datum/cargo_quest/proc/generate_goal_list(difficultly)
 	return

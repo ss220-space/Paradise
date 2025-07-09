@@ -214,4 +214,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 /obj/item/sibyl_system_mod/Destroy()
 	GLOB.sybsis_registry -= src
+	weapon = null
+	auth_id = null
 	return ..()
