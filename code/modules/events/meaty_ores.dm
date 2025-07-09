@@ -7,11 +7,11 @@
 
 /datum/event/dust/meaty/announce()
 	if(prob(16))
-		GLOB.minor_announcement.Announce("Неизвестные биологические объекты были обнаружены рядом с [station_name()], пожалуйста, будьте наготове.",
+		GLOB.minor_announcement.announce("Неизвестные биологические объекты были обнаружены рядом с [station_name()], пожалуйста, будьте наготове.",
 										ANNOUNCE_UNID_LIFEFORMS_RU
 		)
 	else
-		GLOB.minor_announcement.Announce("На пути станции были обнаружены мясориты.",
+		GLOB.minor_announcement.announce("На пути станции были обнаружены мясориты.",
 										"Мясориты.",
 										'sound/AI/meteors.ogg'
 		)

@@ -13,7 +13,7 @@
 
 /datum/event/headslug_infestation/announce(false_alarm)
 	if(successSpawn || false_alarm)
-		GLOB.major_announcement.Announce("Обнаружены неопознанные формы жизни на борту [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.",
+		GLOB.major_announcement.announce("Обнаружены неопознанные формы жизни на борту [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.",
 										ANNOUNCE_UNID_LIFEFORMS_RU,
 										'sound/AI/aliens.ogg'
 		)

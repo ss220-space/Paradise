@@ -156,8 +156,8 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 
 /mob/living/silicon/ai/proc/ai_voice_announcement_to_text(words)
 	var/words_string = jointext(words, " ")
-	// Don't go through .Announce because we need to filter by clients which have TTS enabled
-	var/formatted_message = announcer.Format(words_string, "Объявление ИИ")
+	// Don't go through .announce because we need to filter by clients which have TTS enabled
+	var/formatted_message = announcer.format(words_string, "Объявление ИИ")
 
 	var/announce_sound = sound('sound/misc/notice2.ogg')
 	for(var/player in GLOB.player_list)

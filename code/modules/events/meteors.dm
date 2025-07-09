@@ -9,12 +9,12 @@
 
 /datum/event/meteor_wave/announce(false_alarm)
 	if(severity == EVENT_LEVEL_MAJOR || (false_alarm && prob(30)))
-		GLOB.minor_announcement.Announce("Зафиксировано движение астероидов на встречном со станцией курсе.",
+		GLOB.minor_announcement.announce("Зафиксировано движение астероидов на встречном со станцией курсе.",
 										ANNOUNCE_METEOR_RU,
 										'sound/AI/meteors.ogg'
 		)
 	else
-		GLOB.minor_announcement.Announce("Станция проходит через скопление астероидов.",
+		GLOB.minor_announcement.announce("Станция проходит через скопление астероидов.",
 										ANNOUNCE_METEOR_RU
 		)
 
@@ -29,11 +29,11 @@
 /datum/event/meteor_wave/end()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.minor_announcement.Announce("Станция прошла через астероидный пояс",
+			GLOB.minor_announcement.announce("Станция прошла через астероидный пояс",
 											ANNOUNCE_METEOR_RU
 			)
 		else
-			GLOB.minor_announcement.Announce("Станция прошла через скопление астероидов",
+			GLOB.minor_announcement.announce("Станция прошла через скопление астероидов",
 											ANNOUNCE_METEOR_RU
 			)
 

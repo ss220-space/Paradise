@@ -1,6 +1,6 @@
 /datum/event/meteor_wave/goreop/announce()
 	var/meteor_declaration = "Метеоритные оперативники заявили о своем намерении полностью уничтожить [station_name()] своими собственными телами. Осмелится ли экипаж остановить их?"
-	GLOB.major_announcement.Announce(meteor_declaration,
+	GLOB.major_announcement.announce(meteor_declaration,
 									ANNOUNCE_DECLAREWAR_RU,
 									'sound/effects/siren.ogg'
 	)
@@ -19,6 +19,6 @@
 
 
 /datum/event/meteor_wave/goreop/end()
-	GLOB.minor_announcement.Announce("Все метеориты мертвы. Безоговорочная победа станции.",
+	GLOB.minor_announcement.announce("Все метеориты мертвы. Безоговорочная победа станции.",
 									ANNOUNCE_METEOR_RU
 	)

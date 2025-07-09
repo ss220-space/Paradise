@@ -40,7 +40,7 @@
 	if(false_alarm && !target)
 		log_debug("Failed to find a valid area when trying to make a false alarm anomaly!")
 		return
-	GLOB.minor_announcement.Announce("[prefix_message] Предполагаемая локация: [target.name]",
+	GLOB.minor_announcement.announce("[prefix_message] Предполагаемая локация: [target.name]",
 									ANNOUNCE_ANOMALY_RU
 	)
 

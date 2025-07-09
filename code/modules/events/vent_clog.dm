@@ -6,7 +6,7 @@
 	var/list/vents  = list()
 
 /datum/event/vent_clog/announce()
-	GLOB.minor_announcement.Announce("Зафиксирован скачок обратного давления в системе вытяжных труб. Возможен выброс содержимого.",
+	GLOB.minor_announcement.announce("Зафиксирован скачок обратного давления в системе вытяжных труб. Возможен выброс содержимого.",
 									"Атмосферная тревога.",
 									'sound/AI/scrubbers.ogg'
 	)

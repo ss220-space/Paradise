@@ -167,6 +167,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	return TRUE
 
 /obj/item/sibyl_system_mod/proc/sync_limit(datum/source, old_level, new_level)
+	SIGNAL_HANDLER
 	switch(SSsecurity_level.get_current_level_as_number())
 		if(SEC_LEVEL_GREEN)
 			set_limit(SIBYL_NONLETHAL)

@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(capitalism)
 /datum/controller/subsystem/capitalism/fire()
 
 	//if(default_counter > 300)
-	//	GLOB.major_announcement.Announce("Станция признана убыточным объектом. Хорошего дня.", "Расторжение контрактов.", 'sound/AI/commandreport.ogg')
+	//	GLOB.major_announcement.announce("Станция признана убыточным объектом. Хорошего дня.", "Расторжение контрактов.", 'sound/AI/commandreport.ogg')
 	//	SSsecurity_level.set_level(SEC_LEVEL_EPSILON)
 
 	//If there is enough money to pay salaries at least twice before the default is lifted
@@ -68,12 +68,12 @@ SUBSYSTEM_DEF(capitalism)
 /datum/controller/subsystem/capitalism/proc/default_annonce()
 	if(default_status)
 		/* Both announcements are Minor because it happens all the time, because the system of capitalism is shit. */
-		GLOB.minor_announcement.Announce("На счёте станции зафиксировано отсутствие финансовых средств. В связи с этим выплаты заработной платы были приостановлены. Руководству станции необходимо незамедлительно принять меры для разрешения сложившейся ситуации.",
+		GLOB.minor_announcement.announce("На счёте станции зафиксировано отсутствие финансовых средств. В связи с этим выплаты заработной платы были приостановлены. Руководству станции необходимо незамедлительно принять меры для разрешения сложившейся ситуации.",
 										ANNOUNCE_CAPITAL_DEFOLT_RU,
 										'sound/AI/commandreport.ogg'
 		)
 	else
-		GLOB.minor_announcement.Announce("На счёте станции имеется достаточное количество средств для осуществления выплат. Заработная плата сотрудникам выплачивается в полном объёме.",
+		GLOB.minor_announcement.announce("На счёте станции имеется достаточное количество средств для осуществления выплат. Заработная плата сотрудникам выплачивается в полном объёме.",
 										ANNOUNCE_CAPITAL_REPAY_RU,
 										'sound/AI/commandreport.ogg'
 		)

@@ -20,7 +20,7 @@
 		msg = "Потеряна связь с группой боевых дронов, оперируемых с борта ИКН \"Икар\". В случае контакта с дронами проявляйте осторожность."
 	else
 		msg = "Неопознанные хакеры взломали систему контроля боевых дронов, оперируемых с борта ИКН \"Икар\". В случае контакта с дронами проявляйте осторожность."
-	GLOB.minor_announcement.Announce(msg,
+	GLOB.minor_announcement.announce(msg,
 									ANNOUNCE_ROGUE_DRONE_RU
 	)
 
@@ -35,10 +35,10 @@
 		num_recovered++
 
 	if(num_recovered > length(drones_list) * 0.75)
-		GLOB.minor_announcement.Announce("Система контроля боевых дронов сообщает, что все единицы успешно вернулись на борт ИКН \"Икар\".",
+		GLOB.minor_announcement.announce("Система контроля боевых дронов сообщает, что все единицы успешно вернулись на борт ИКН \"Икар\".",
 										ANNOUNCE_ROGUE_DRONE_RU
 		)
 	else
-		GLOB.minor_announcement.Announce("Система контроля боевых дронов сообщает о потере всех боевых единиц, однако жертв не зарегистрировано.",
+		GLOB.minor_announcement.announce("Система контроля боевых дронов сообщает о потере всех боевых единиц, однако жертв не зарегистрировано.",
 										ANNOUNCE_ROGUE_DRONE_RU
 		)

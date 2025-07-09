@@ -656,7 +656,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Да")
 			var/beepsound = tgui_input_list(usr, "Какой звук должен издавать анонс?", "Звук анонса", MsgSound)
 
-			GLOB.major_announcement.Announce(
+			GLOB.major_announcement.announce(
 				message,
 				new_title = type,
 				new_subtitle = subtitle,

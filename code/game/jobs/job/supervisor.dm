@@ -30,7 +30,7 @@
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
 	// Why the hell are captain announcements minor
-	GLOB.minor_announcement.Announce("Всему экипажу! Капитан [H.real_name] взош[genderize_ru(H.gender, "ёл", "ла", "ло", "ли")] на борт!")
+	GLOB.minor_announcement.announce("Всему экипажу! Капитан [H.real_name] взош[genderize_ru(H.gender, "ёл", "ла", "ло", "ли")] на борт!")
 
 /datum/outfit/job/captain
 	name = "Captain"

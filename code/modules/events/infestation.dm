@@ -113,7 +113,7 @@
 			log_debug("Infestation Event didn't provide an area to announce(), something is likely broken.")
 			kill()
 
-	GLOB.minor_announcement.Announce("Биосканеры фиксируют размножение [vermin_chosen] в [initial(spawn_area_type.name)]. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции.",
+	GLOB.minor_announcement.announce("Биосканеры фиксируют размножение [vermin_chosen] в [initial(spawn_area_type.name)]. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции.",
 									ANNOUNCE_UNID_LIFEFORMS_RU
 	)
 	spawn_area_type = null

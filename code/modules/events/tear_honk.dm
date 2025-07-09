@@ -2,7 +2,7 @@
 	var/obj/effect/tear/honk/HE //i could just inherit but its being finicky.
 
 /datum/event/tear/honk/announce()
-	GLOB.minor_announcement.Announce("На борту станции зафиксирована Хонканомалия. Предполагаемая локация: [impact_area.name].",
+	GLOB.minor_announcement.announce("На борту станции зафиксирована Хонканомалия. Предполагаемая локация: [impact_area.name].",
 									"Хонканомалия.",
 									'sound/items/airhorn.ogg'
 	)

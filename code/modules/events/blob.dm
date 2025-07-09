@@ -4,7 +4,7 @@
 
 /datum/event/blob/announce(false_alarm)
 	if(false_alarm)
-		GLOB.major_announcement.Announce("Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
+		GLOB.major_announcement.announce("Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
 										ANNOUNCE_BIOHAZARD_RU,
 										'sound/effects/siren-spooky.ogg',
 										new_sound2 = 'sound/AI/outbreak_blob.ogg'

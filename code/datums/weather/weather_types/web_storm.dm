@@ -30,7 +30,7 @@
 /datum/weather/web_storm/telegraph()
 	. = ..()
 	status_alarm(TRUE)
-	GLOB.major_announcement.Announce("Зафиксирована сигнатура Императрицы Ужаса на борту станции [station_name()]. Запущено глубокое сканирование.",
+	GLOB.major_announcement.announce("Зафиксирована сигнатура Императрицы Ужаса на борту станции [station_name()]. Запущено глубокое сканирование.",
 									ANNOUNCE_BIOHAZARD_RU,
 									'sound/effects/siren-spooky.ogg'
 	)

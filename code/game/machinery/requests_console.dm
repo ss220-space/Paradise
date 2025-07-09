@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	Radio.follow_target = src
 	. = ..()
 
-	announcer.config.default_title = "[department] объявление"
+	announcer.config.default_title = "[department] объявление."
 	announcer.config.add_log = TRUE
 
 	name = "[department] Requests Console"
@@ -186,7 +186,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				return
 			if(!announceAuth) // No you don't
 				return
-			announcer.Announce(message)
+			announcer.announce(message)
 			reset_message(TRUE)
 
 		if("department")

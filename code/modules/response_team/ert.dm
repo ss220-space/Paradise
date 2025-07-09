@@ -270,14 +270,14 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(silent)
 		message_admins("A silent response team failed to spawn. Likely, no one signed up.")
 		return
-	GLOB.major_announcement.Announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.",
+	GLOB.major_announcement.announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.",
 									ANNOUNCE_ERT_UNAVAIL_RU
 	)
 
 /datum/response_team/proc/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.Announce("Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи вам. Ожидайте.",
+	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи вам. Ожидайте.",
 									ANNOUNCE_ERT_ONWAY_RU
 	)
 
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/amber/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ЭМБЕР\". Ожидайте.",
+	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ЭМБЕР\". Ожидайте.",
 									ANNOUNCE_ERT_ONWAY_RU
 	)
 
@@ -312,7 +312,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/red/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"РЭД\". Ожидайте.",
+	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"РЭД\". Ожидайте.",
 									ANNOUNCE_ERT_ONWAY_RU
 	)
 
@@ -330,7 +330,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/gamma/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ГАММА\". Ожидайте.",
+	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ГАММА\". Ожидайте.",
 									ANNOUNCE_ERT_ONWAY_RU
 	)
 

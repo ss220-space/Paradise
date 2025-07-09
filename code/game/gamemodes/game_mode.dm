@@ -749,12 +749,12 @@
 
 /datum/game_mode/proc/apocalypse()
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
-	GLOB.major_announcement.Announce("Обнаружена угроза класса \"Разрушитель миров\". Моделирование пути противостояния угрозе начато, ожидайте.",
+	GLOB.major_announcement.announce("Обнаружена угроза класса \"Разрушитель миров\". Моделирование пути противостояния угрозе начато, ожидайте.",
 									ANNOUNCE_CCPARANORMAL_RU,
 									'sound/AI/commandreport.ogg'
 	)
 	sleep(50 SECONDS)
-	GLOB.major_announcement.Announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.",
+	GLOB.major_announcement.announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.",
 									ANNOUNCE_CCPARANORMAL_RU,
 									'sound/AI/commandreport.ogg'
 	)
@@ -763,7 +763,7 @@
 	var/obj/singularity/god/god = locate(/obj/singularity/god) in GLOB.poi_list
 
 	if(!god)
-		GLOB.minor_announcement.Announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.",
+		GLOB.minor_announcement.announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.",
 										ANNOUNCE_CCPARANORMAL_RU,
 										'sound/AI/commandreport.ogg'
 		)

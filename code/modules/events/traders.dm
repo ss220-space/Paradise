@@ -16,7 +16,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 /datum/event/traders/fake_announce()
 	. = TRUE
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
-		GLOB.minor_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].",
+		GLOB.minor_announcement.announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].",
 										"Запрос на стыковку шаттла торговцев отклонен.",
 										'sound/AI/traderdeny.ogg'
 		)
@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	var/map_trader_port = 5
 	if(station_name() == "NSS Cyberiad")
 		map_trader_port = 4
-	GLOB.minor_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",
+	GLOB.minor_announcement.announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",
 									"Запрос на стыковку шаттла торговцев принят.",
 									'sound/AI/tradergranted.ogg'
 	)
@@ -33,7 +33,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	if(!station) // If there are no unused stations, just no.
 		return
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
-		GLOB.minor_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].",
+		GLOB.minor_announcement.announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].",
 										"Запрос на стыковку шаттла торговцев отклонен.",
 										'sound/AI/traderdeny.ogg'
 		)
@@ -77,7 +77,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			var/map_trader_port = 5
 			if(station_name() == "NSS Cyberiad")
 				map_trader_port = 4
-			GLOB.minor_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",
+			GLOB.minor_announcement.announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",
 											"Запрос на стыковку шаттла торговцев принят.",
 											'sound/AI/tradergranted.ogg'
 			)

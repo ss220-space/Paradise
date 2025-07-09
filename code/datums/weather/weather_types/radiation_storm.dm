@@ -64,12 +64,12 @@
 
 	status_alarm(FALSE)
 	if(pre_maint_all_access)
-		GLOB.minor_announcement.Announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места. Доступ к дверям будет немедленно восстановлен.",
+		GLOB.minor_announcement.announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места. Доступ к дверям будет немедленно восстановлен.",
 										ANNOUNCE_ANOMALY_RU
 		)
 		return
 
-	GLOB.minor_announcement.Announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.",
+	GLOB.minor_announcement.announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.",
 									ANNOUNCE_ANOMALY_RU
 	)
 	addtimer(CALLBACK(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, revoke_maint_all_access)), 10 SECONDS) // Bit of time to get out / break into somewhere.

@@ -14,7 +14,7 @@
 									 "Не хочешь платить? Я твоей мамке тоже платить не хотел.")
 
 /datum/event/brand_intelligence/announce()
-	GLOB.minor_announcement.Announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].",
+	GLOB.minor_announcement.announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].",
 									"Цифровой вирус.",
 									'sound/AI/brand_intelligence.ogg'
 	)

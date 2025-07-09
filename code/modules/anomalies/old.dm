@@ -275,7 +275,7 @@
 			var/turf/turf_to = get_turf(chosen) // the turf of origin we're travelling TO
 
 			playsound(turf_to, 'sound/effects/phasein.ogg', 100, TRUE)
-			GLOB.minor_announcement.Announce("Обнаружено перемещение крупной блюспейс-аномалии.",
+			GLOB.minor_announcement.announce("Обнаружено перемещение крупной блюспейс-аномалии.",
 											ANNOUNCE_ANOMALY_RU
 			)
 

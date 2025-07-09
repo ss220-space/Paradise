@@ -12,7 +12,7 @@ GLOBAL_VAR_INIT(sent_spiders_to_station, 0)
 
 /datum/event/spider_infestation/announce(false_alarm)
 	if(successSpawn || false_alarm)
-		GLOB.minor_announcement.Announce("Обнаружены неопознанные формы жизни на борту станции [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.",
+		GLOB.minor_announcement.announce("Обнаружены неопознанные формы жизни на борту станции [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.",
 										ANNOUNCE_UNID_LIFEFORMS_RU,
 										'sound/AI/aliens.ogg'
 		)

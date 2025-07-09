@@ -21,7 +21,7 @@
 		SEND_SOUND(M, S)
 
 /datum/event/apc_overload/announce()
-	GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
+	GLOB.minor_announcement.announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
 									ANNOUNCE_APC_CRIT_RU,
 									'sound/AI/power_overload.ogg'
 	)
@@ -37,7 +37,7 @@
 	))
 
 	if(announce)
-		GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
+		GLOB.minor_announcement.announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
 										ANNOUNCE_APC_CRIT_RU,
 										'sound/AI/power_overload.ogg'
 		)

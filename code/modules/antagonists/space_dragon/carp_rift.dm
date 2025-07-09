@@ -150,7 +150,7 @@
 	if(time_charged >= max_charge)
 		charge_state = CHARGE_COMPLETED
 		var/area/A = get_area(src)
-		GLOB.major_announcement.Announce("Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.",
+		GLOB.major_announcement.announce("Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.",
 										ANNOUNCE_WILDNATURE_RU,
 										'sound/AI/commandreport.ogg'
 		)
@@ -177,7 +177,7 @@
 		charge_state = CHARGE_FINALWARNING
 		var/area/A = get_area(src)
 
-		GLOB.major_announcement.Announce("Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!",
+		GLOB.major_announcement.announce("Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!",
 										ANNOUNCE_WILDNATURE_RU,
 										'sound/AI/commandreport.ogg'
 		)

@@ -28,7 +28,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	config = config_type ? new config_type : new
 
 // TODO: Make new_sound+new_sound2 a list to clean things up more
-/datum/announcer/proc/Announce(
+/datum/announcer/proc/announce(
 		message,
 		new_title = null,
 		new_sound = null,
@@ -57,21 +57,21 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/list/receivers = combined_receivers[1]
 	var/list/garbled_receivers = combined_receivers[2]
 
-	var/formatted_message = Format(message, title, subtitle)
-	var/garbled_formatted_message = Format(
+	var/formatted_message = format(message, title, subtitle)
+	var/garbled_formatted_message = format(
 		message_language.scramble(message),
 		message_language.scramble(title),
 		message_language.scramble(subtitle)
 	)
 
-	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers, message_sound)
+	announce_message(formatted_message, garbled_formatted_message, receivers, garbled_receivers, message_sound)
 
-	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
+	announce_sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	if(message_sound2)
-		Sound(message_sound2, combined_receivers[1] + combined_receivers[2])
+		announce_sound(message_sound2, combined_receivers[1] + combined_receivers[2])
 
 	if(config.add_log)
-		Log(message, title)
+		announce_log(message, title)
 
 /datum/announcer/proc/get_receivers(datum/language/message_language)
 	var/list/receivers = list()
@@ -100,7 +100,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 	return list(receivers, garbled_receivers)
 
-/datum/announcer/proc/Message(message, garbled_message, receivers, garbled_receivers, message_sound)
+/datum/announcer/proc/announce_message(message, garbled_message, receivers, garbled_receivers, message_sound)
 	var/tts_seed = "Glados"
 	if(GLOB.ai_list.len)
 		var/mob/living/silicon/ai/AI = pick(GLOB.ai_list)
@@ -116,7 +116,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		to_chat(mob, garbled_message, MESSAGE_TYPE_WARNING)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, mob, garbled_message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
 
-/datum/announcer/proc/Format(message, title, subtitle = null)
+/datum/announcer/proc/format(message, title, subtitle = null)
 	var/formatted_message
 	var/style = config.style ? "announcement [config.style]" : "announcement"
 
@@ -135,7 +135,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 	return formatted_message
 
-/datum/announcer/proc/Sound(message_sound, receivers)
+/datum/announcer/proc/announce_sound(message_sound, receivers)
 	if(!message_sound)
 		return
 	for(var/mob/mob in receivers)
@@ -145,13 +145,13 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 				continue
 		SEND_SOUND(mob, message_sound)
 
-/datum/announcer/proc/Log(message, message_title)
+/datum/announcer/proc/announce_log(message, message_title)
 	add_game_logs("has made \a [config.log_name]: [message_title] – [message] – [author]", usr)
 	message_admins("[key_name_admin(usr)] has made \a [config.log_name].")
 
-/proc/GetNameAndAssignmentFromId(var/obj/item/card/id/I)
+/proc/get_name_and_assignment_from_id(var/obj/item/card/id/id)
 	// Format currently matches that of newscaster feeds: Registered Name (Assigned Rank)
-	return I.assignment ? "[I.registered_name] ([I.assignment])" : I.registered_name
+	return id.assignment ? "[id.registered_name] ([id.assignment])" : id.registered_name
 
 /datum/announcement_configuration/event
 	default_title = ANNOUNCE_EVENT_RU
@@ -190,3 +190,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	log_name = ANNOUNCE_KIND_AI
 	sound = sound('sound/misc/notice2.ogg')
 	style = "major"
+
+/datum/announcer/Destroy()
+	QDEL_NULL(config)
+	return ..()

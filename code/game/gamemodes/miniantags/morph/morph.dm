@@ -76,7 +76,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/check_morphs()
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
-		GLOB.major_announcement.Announce("Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
+		GLOB.major_announcement.announce("Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
 										ANNOUNCE_BIOHAZARD_RU,
 										'sound/AI/commandreport.ogg',
 										new_sound2 = 'sound/effects/siren-spooky.ogg'

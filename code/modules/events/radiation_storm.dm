@@ -4,7 +4,7 @@
 	announceWhen = 1
 
 /datum/event/radiation_storm/announce()
-	GLOB.major_announcement.Announce("Вблизи станции обнаружено радиационное поле высокой интенсивности. Всему персоналу надлежит проследовать в технические тоннели.",
+	GLOB.major_announcement.announce("Вблизи станции обнаружено радиационное поле высокой интенсивности. Всему персоналу надлежит проследовать в технические тоннели.",
 									ANNOUNCE_ANOMALY_RU,
 									'sound/AI/radiation.ogg'
 	)

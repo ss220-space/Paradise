@@ -13,7 +13,7 @@
 
 /datum/game_mode/meteor/post_setup()
 	spawn(rand(waittime_l, waittime_h))
-		GLOB.major_announcement.Announce("Станция находится на пути надвигающегося потока метеоров. Укрепите обшивку и подготовьте группы по устранению повреждений.",
+		GLOB.major_announcement.announce("Станция находится на пути надвигающегося потока метеоров. Укрепите обшивку и подготовьте группы по устранению повреждений.",
 										ANNOUNCE_METEOR_RU,
 										'sound/effects/siren.ogg'
 		)

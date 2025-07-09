@@ -4,7 +4,7 @@
 	announceWhen = 1
 
 /datum/event/solar_flare/announce()
-	GLOB.minor_announcement.Announce("Солнечная вспышка зафиксирована на встречном со станцией курсе.",
+	GLOB.minor_announcement.announce("Солнечная вспышка зафиксирована на встречном со станцией курсе.",
 									ANNOUNCE_SOLAR_FLARE_RU,
 									'sound/AI/flare.ogg'
 	)

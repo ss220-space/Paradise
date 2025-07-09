@@ -49,7 +49,7 @@
 	if(!check_allowed(user) || !war_declaration)
 		return
 
-	GLOB.major_announcement.Announce(war_declaration,
+	GLOB.major_announcement.announce(war_declaration,
 									ANNOUNCE_DECLAREWAR_RU,
 									'sound/effects/siren.ogg',
 									msg_sanitized = TRUE

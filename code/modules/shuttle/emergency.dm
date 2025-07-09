@@ -45,20 +45,20 @@
 					if(auth_need - length(authorized) > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 						add_game_logs("has authorized early shuttle launch in [COORD(src)]", user)
-						GLOB.minor_announcement.Announce("Осталось получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")] для досрочного запуска шаттла.")
+						GLOB.minor_announcement.announce("Осталось получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")] для досрочного запуска шаттла.")
 					else
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds_left] seconds before launch.")
 						add_game_logs("has launched the emergency shuttle in [COORD(src)] [seconds_left] seconds before launch.", user)
-						GLOB.minor_announcement.Announce("До запуска эвакуационного шаттла осталось 10 секунд.")
+						GLOB.minor_announcement.announce("До запуска эвакуационного шаттла осталось 10 секунд.")
 						SSshuttle.emergency.setTimer(100)
 
 			if("Repeal")
 				if(authorized.Remove(id_card.registered_name))
-					GLOB.minor_announcement.Announce("Для досрочного запуска шаттла необходимо получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")].")
+					GLOB.minor_announcement.announce("Для досрочного запуска шаттла необходимо получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")].")
 
 			if("Abort")
 				if(authorized.len)
-					GLOB.minor_announcement.Announce("Все авторизации на досрочный запуск шаттла были отозваны.")
+					GLOB.minor_announcement.announce("Все авторизации на досрочный запуск шаттла были отозваны.")
 					authorized.Cut()
 
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -72,7 +72,7 @@
 		add_attack_logs(user, src, "emagged")
 		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
 		add_game_logs("has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
-		GLOB.minor_announcement.Announce("Запуск эвакуационного шаттла через 10 секунд",
+		GLOB.minor_announcement.announce("Запуск эвакуационного шаттла через 10 секунд",
 										"СИСТЕМНАЯ ОШИБКА:"
 		)
 		SSshuttle.emergency.setTimer(100)
@@ -128,14 +128,14 @@
 	else
 		SSshuttle.emergencyLastCallLoc = null
 	if(canRecall)
-		GLOB.major_announcement.Announce(
+		GLOB.major_announcement.announce(
 			"Был вызван эвакуационный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nВызов шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
 			new_title = ANNOUNCE_PRIORITY_RU,
 			new_sound = sound('sound/AI/eshuttle_call.ogg')
 		)
 	else
-		GLOB.major_announcement.Announce(
-			"Был вызван транспортный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason]",
+		GLOB.major_announcement.announce(
+			"Был вызван тра+нспортный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason]",
 			new_title = ANNOUNCE_PRIORITY_RU,
 			new_sound = sound('sound/AI/cshuttle.ogg')
 		)
@@ -154,7 +154,7 @@
 		SSshuttle.emergencyLastCallLoc = signalOrigin
 	else
 		SSshuttle.emergencyLastCallLoc = null
-	GLOB.major_announcement.Announce(
+	GLOB.major_announcement.announce(
 		"Эвакуационный шаттл был отозван.[SSshuttle.emergencyLastCallLoc ? " Отзыв шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
 		new_title = ANNOUNCE_PRIORITY_RU,
 		new_sound = sound('sound/AI/eshuttle_recall.ogg')
@@ -230,13 +230,13 @@
 				mode = SHUTTLE_DOCKED
 				setTimer(SSshuttle.emergencyDockTime)
 				if(canRecall)
-					GLOB.major_announcement.Announce(
+					GLOB.major_announcement.announce(
 						"Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.",
 						new_title = ANNOUNCE_PRIORITY_RU,
 						new_sound = sound('sound/AI/eshuttle_dock.ogg')
 					)
 				else
-					GLOB.major_announcement.Announce(
+					GLOB.major_announcement.announce(
 						"Транспортный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт транспортного шаттла.",
 						new_title = ANNOUNCE_PRIORITY_RU,
 						new_sound = sound('sound/AI/cshuttle_dock.ogg')
@@ -244,7 +244,7 @@
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && SSshuttle.hostile_environment.len)
-				GLOB.major_announcement.Announce(
+				GLOB.major_announcement.announce(
 					"Обнаружена угроза. Отлёт отложен на неопределённый срок до разрешения конфликта.",
 					new_title = ANNOUNCE_PRIORITY_RU
 				)
@@ -252,7 +252,7 @@
 				mode = SHUTTLE_STRANDED
 
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape && mode != SHUTTLE_STRANDED)
-				GLOB.major_announcement.Announce(
+				GLOB.major_announcement.announce(
 					"Шаттл заблокирован. Свяжитесь с Центральным командованием для уточнения причин и снятия блокировки.",
 					new_title = ANNOUNCE_PRIORITY_RU
 				)
@@ -282,7 +282,7 @@
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				setTimer(SSshuttle.emergencyEscapeTime)
-				GLOB.major_announcement.Announce(
+				GLOB.major_announcement.announce(
 					"Эвакуационный шаттл покинул станцию. До прибытия в доки ЦК осталось [timeLeft(600)] минуты.",
 					new_title = ANNOUNCE_PRIORITY_RU
 				)
@@ -305,13 +305,13 @@
 				var/destination_dock = "emergency_away"
 				if(is_hijacked() || forceHijacked)
 					destination_dock = "emergency_syndicate"
-					GLOB.major_announcement.Announce(
+					GLOB.major_announcement.announce(
 						"Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.",
 						new_title = ANNOUNCE_PRIORITY_RU
 					)
 
 				if(devil_on_shuttle)
-					GLOB.major_announcement.Announce("Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута и движется в неизвестном направлении.",
+					GLOB.major_announcement.announce("Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута и движется в неизвестном направлении.",
 													new_title = ANNOUNCE_PRIORITY_RU
 					)
 				else

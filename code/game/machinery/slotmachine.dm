@@ -61,7 +61,7 @@
 	switch(rand(1, 5000))
 		if(1)
 			atom_say("ДЖЕКПОТ! Игрок [userName] выиграл 10000 кредитов!")
-			GLOB.minor_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в 10000 кредитов!",
+			GLOB.minor_announcement.announce("Поздравляем [userName] с выигрышем джекпота в 10000 кредитов!",
 											"Обладатель джекпота!"
 			)
 			result = "ДЖЕКПОТ! Вы выиграли 10000 кредитов!"

@@ -152,7 +152,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				log_admin("[usr] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
 
 				if(announce_to_crew)
-					GLOB.major_announcement.Announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
+					GLOB.major_announcement.announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
 												ANNOUNCE_ERT_UNAVAIL_RU
 					)
 					return

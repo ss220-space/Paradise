@@ -16,7 +16,7 @@
 		announcement = "Массовая миграция неизвестных биологических объектов была зафиксирована вблизи станции [station_name()], будьте наготове."
 	else
 		announcement = "Неизвестные биологические объекты были зафиксированы вблизи станции [station_name()], будьте наготове."
-	GLOB.minor_announcement.Announce(announcement,
+	GLOB.minor_announcement.announce(announcement,
 									ANNOUNCE_UNID_LIFEFORMS_RU
 	)
 

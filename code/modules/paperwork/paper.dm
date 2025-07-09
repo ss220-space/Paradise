@@ -937,7 +937,7 @@
 			to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
 			H.makeCluwne()
 	else if(myeffect == "Demote")
-		GLOB.major_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
+		GLOB.major_announcement.announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
 										ANNOUNCE_CCDEMOTE_RU,
 										'sound/AI/commandreport.ogg'
 		)
@@ -947,7 +947,7 @@
 				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 		update_all_mob_security_hud()
 	else if(myeffect == "Demote with Bot")
-		GLOB.major_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
+		GLOB.major_announcement.announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
 										ANNOUNCE_CCDEMOTE_RU,
 										'sound/AI/commandreport.ogg'
 		)

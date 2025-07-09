@@ -8,7 +8,7 @@
 
 /datum/event/space_dragon/announce(false_alarm)
 	if(successSpawn || false_alarm)
-		GLOB.major_announcement.Announce("Зафиксирован большой поток органической энергии вблизи станции [station_name()]. Пожалуйста, ожидайте.",
+		GLOB.major_announcement.announce("Зафиксирован большой поток органической энергии вблизи станции [station_name()]. Пожалуйста, ожидайте.",
 										ANNOUNCE_CCPARANORMAL_RU,
 										'sound/AI/commandreport.ogg'
 		)

@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(nightshift)
 
 
 /datum/controller/subsystem/nightshift/proc/announce(message)
-	GLOB.minor_announcement.Announce(message,
+	GLOB.minor_announcement.announce(message,
 									new_title = ANNOUNCE_NIGHTSHIFT_RU,
 									new_sound = 'sound/misc/notice2.ogg'
 	)

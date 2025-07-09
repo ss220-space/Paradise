@@ -25,7 +25,7 @@
 /datum/weather/xeno_storm/telegraph()
 	. = ..()
 	status_alarm(TRUE)
-	GLOB.major_announcement.Announce("Зафиксирована сигнатура Императрицы Ксеноморфов на борту станции [station_name()]. Запущено глубокое сканирование.",
+	GLOB.major_announcement.announce("Зафиксирована сигнатура Императрицы Ксеноморфов на борту станции [station_name()]. Запущено глубокое сканирование.",
 									ANNOUNCE_BIOHAZARD_RU,
 									'sound/effects/siren-spooky.ogg'
 	)

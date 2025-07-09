@@ -13,7 +13,7 @@
 			log_debug("Tried to announce a tear without a valid area!")
 			kill()
 			return
-	GLOB.minor_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].",
+	GLOB.minor_announcement.announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].",
 									ANNOUNCE_ANOMALY_RU,
 									'sound/AI/anomaly.ogg'
 	)

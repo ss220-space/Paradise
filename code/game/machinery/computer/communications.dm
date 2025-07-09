@@ -115,7 +115,7 @@
 			var/mob/living/carbon/human/H = ui.user
 			var/obj/item/card/id = H.get_id_card()
 			if(istype(id))
-				announcer.author = GetNameAndAssignmentFromId(id)
+				announcer.author = get_name_and_assignment_from_id(id)
 
 		if(ACCESS_CENT_COMMANDER in access)
 			if(!check_rights(R_ADMIN, FALSE, ui.user))
@@ -180,7 +180,7 @@
 				if(length(input) < COMM_MSGLEN_MINIMUM)
 					to_chat(ui.user, span_warning("Сообщение '[input]' слишком короткое. Минимальное число символов - [COMM_MSGLEN_MINIMUM]."))
 					return
-				announcer.Announce(input)
+				announcer.announce(input)
 				message_cooldown = world.time + 600 //One minute
 
 		if("callshuttle")
@@ -267,7 +267,7 @@
 				Nuke_request(input, ui.user)
 				to_chat(ui.user, span_notice("Запрос отправлен."))
 				add_game_logs("has requested the nuclear codes from Centcomm: [input]", usr)
-				GLOB.major_announcement.Announce("Коды активации ядерной боеголовки на станции были запрошены [usr]. Решение о подтверждении или отклонении данного запроса будет отправлено в ближайшее время.",
+				GLOB.major_announcement.announce("Коды активации ядерной боеголовки на станции были запрошены [usr]. Решение о подтверждении или отклонении данного запроса будет отправлено в ближайшее время.",
 												ANNOUNCE_NUCLEARCODES_RU,
 												'sound/AI/nuke_codes.ogg'
 				)
@@ -379,7 +379,7 @@
 				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
 			if(!params["classified"])
-				GLOB.major_announcement.Announce(
+				GLOB.major_announcement.announce(
 					params["text"],\
 					new_title = ANNOUNCE_CCMSG_RU,\
 					new_subtitle = params["subtitle"],\
@@ -432,7 +432,7 @@
 			SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "вспышка биоугрозы, добавлен новый нулевой закон'[law]'")
 			to_chat(aiPlayer, span_warning("Законы обновлены: [law]"))
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.minor_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.",
+	GLOB.minor_announcement.announce("Отчёт был загружен и распечатан на всех консолях связи.",
 									ANNOUNCE_SECRETMSG_RU,
 									'sound/AI/commandreport.ogg'
 	)
