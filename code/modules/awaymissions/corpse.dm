@@ -183,7 +183,7 @@
 		return
 
 	if(death)
-		mob.death() //Kills the new mob
+		mob.death() // Kills the new mob
 
 	mob.color = mob_color
 	if(plr && prefs)
