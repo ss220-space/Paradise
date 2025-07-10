@@ -250,7 +250,7 @@
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += get_climb_text() // span_info("Можно <b>перетащить</b> кого-то на [declent_ru(GENITIVE)], чтобы через короткое время поместить на стол.")
+		. += get_climb_text()
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
