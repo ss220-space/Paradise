@@ -18,9 +18,9 @@
 //Spread by every axis (x, y) for signal calibration
 #define BSA_CALIBRATION_ACCURACY 7
 //Spread by every axis (x, y) for single shot mode
-#define BSA_SHOT_SPREAD 2
+#define BSA_SHOT_SPREAD 1
 //Spread by every axis (x, y) for burst fire mode
-#define BSA_BURST_SPREAD 5
+#define BSA_BURST_SPREAD 4
 //Max correction by every axis (x, y), use absolute value
 #define BSA_MAX_AXIS_CORRECTION 15
 
@@ -39,6 +39,8 @@
 #define BSA_PULSE_BURST_RELOAD_TIME 300
 //How longer reload after power burst (20 min) - only for emagged console
 #define BSA_POWER_BURST_RELOAD_TIME 1200
+//Set 0.01 for test, remove after test
+#define BSA_RELOAD_TIME_MOD 0.01
 
 
 /datum/station_goal/bluespace_cannon
@@ -221,7 +223,7 @@
 	var/cannon_direction = WEST
 	var/static/image/top_layer = null
 	var/last_fire_time = 0 // The time at which the gun was last fired
-	var/reload_cooldown = BSA_INITIAL_RELOAD_TIME
+	var/reload_cooldown = BSA_INITIAL_RELOAD_TIME * BSA_RELOAD_TIME_MOD
 	var/mode = BSA_MODE_POWER_SHOT
 
 	pixel_y = -32
@@ -339,18 +341,18 @@
 	switch(mode)
 		if(BSA_MODE_POWER_SHOT)
 			use_power(BSA_POWER_SHOT_POWER_USE)
-			reload_cooldown = BSA_POWER_SHOT_RELOAD_TIME
+			reload_cooldown = BSA_POWER_SHOT_RELOAD_TIME * BSA_RELOAD_TIME_MOD
 		if(BSA_MODE_PULSE_SHOT)
 			use_power(BSA_PULSE_SHOT_POWER_USE)
-			reload_cooldown = BSA_PULSE_SHOT_RELOAD_TIME
+			reload_cooldown = BSA_PULSE_SHOT_RELOAD_TIME * BSA_RELOAD_TIME_MOD
 		if(BSA_MODE_PULSE_BURST)
 			use_power(BSA_PULSE_SHOT_POWER_USE * BSA_BURST_COUNT)
-			reload_cooldown = BSA_PULSE_BURST_RELOAD_TIME
+			reload_cooldown = BSA_PULSE_BURST_RELOAD_TIME * BSA_RELOAD_TIME_MOD
 		if(BSA_MODE_POWER_BURST)
 			use_power(BSA_PULSE_SHOT_POWER_USE * BSA_BURST_COUNT)
-			reload_cooldown = BSA_POWER_BURST_RELOAD_TIME
+			reload_cooldown = BSA_POWER_BURST_RELOAD_TIME * BSA_RELOAD_TIME_MOD
 		else
-			reload_cooldown = BSA_INITIAL_RELOAD_TIME
+			reload_cooldown = BSA_INITIAL_RELOAD_TIME * BSA_RELOAD_TIME_MOD
 
 /obj/machinery/bsa/full/admin/reload()
 	last_fire_time = world.time / 10
@@ -421,6 +423,7 @@
 	var/camera_xray = TRUE
 	var/atom/movable/screen/map_view/camera/cam_screen
 	var/last_camera_turf = null
+	var/image/crosshair
 
 /obj/machinery/computer/bsa_control/Initialize()
 	. = ..()
@@ -428,9 +431,15 @@
 	// Initialize map objects
 	cam_screen = new
 	cam_screen.generate_view(map_name)
+	crosshair = image('icons/obj/supplypods_32x32.dmi', "LZ", get_turf(src))
+	crosshair.layer = CAMERA_STATIC_LAYER
+	crosshair.plane = MASSIVE_OBJ_PLANE
+	crosshair.appearance_flags = PIXEL_SCALE
+	crosshair.transform = matrix(4, 4, MATRIX_SCALE)
 
 /obj/machinery/computer/bsa_control/Destroy()
 	QDEL_NULL(cam_screen)
+	qdel(crosshair)
 	. = ..()
 
 /obj/machinery/computer/bsa_control/admin
@@ -478,6 +487,7 @@
 		ui = new(user, src, "BlueSpaceArtilleryControl", name)
 		ui.open()
 		cam_screen.display_to(user, ui.window)
+		user.client.images += crosshair
 
 /obj/machinery/computer/bsa_control/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
@@ -490,6 +500,8 @@
 	data["connected"] = cannon
 	data["notice"] = notice
 	data["correction"] = "x: [x_correction] y: [y_correction]"
+	data["correction_x"] = x_correction
+	data["correction_y"] = y_correction
 	if(target)
 		data["target"] = get_target_name()
 		var/turf/target_turf = get_target_turf()
@@ -560,6 +572,7 @@
 
 /obj/machinery/computer/bsa_control/ui_close(mob/user)
 	cam_screen?.hide_from(user)
+	user.client.images -= crosshair
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
 	var/list/gps_locators = list()
@@ -580,6 +593,7 @@
 	x_correction = 0
 	y_correction = 0
 	aim_turf = caibrated_turf
+	crosshair.loc = aim_turf
 	update_active_camera_screen()
 
 /obj/machinery/computer/bsa_control/proc/switch_mode(mob/user)
@@ -596,8 +610,6 @@
 			cannon.mode = BSA_MODE_PULSE_BURST
 		if("Power burst")
 			cannon.mode = BSA_MODE_POWER_BURST
-		else
-			cannon.mode = BSA_MODE_POWER_SHOT
 
 /obj/machinery/computer/bsa_control/emag_act(mob/user)
 	if(emagged)
@@ -666,16 +678,19 @@
 
 /obj/machinery/computer/bsa_control/proc/coord_aim(mob/user, params)
 	var/axis = params["axis"]
+	var/value = text2num(params["value"])
+	value = clamp(value, -BSA_MAX_AXIS_CORRECTION, BSA_MAX_AXIS_CORRECTION)
 	if (axis == "x")
-		x_correction = tgui_input_number(user, "Введите корректировку по оси x:", "Корректировка по оси x", x_correction, max_value=BSA_MAX_AXIS_CORRECTION, min_value=-BSA_MAX_AXIS_CORRECTION)
+		x_correction = value
 	else
-		y_correction = tgui_input_number(user, "Введите корректировку по оси y:", "Корректировка по оси y", y_correction, max_value=BSA_MAX_AXIS_CORRECTION, min_value=-BSA_MAX_AXIS_CORRECTION)
+		y_correction = value
 	aim_turf = locate(caibrated_turf.x + x_correction, caibrated_turf.y + y_correction, caibrated_turf.z)
+	crosshair.loc = aim_turf
 	update_active_camera_screen()
 
 /obj/machinery/computer/bsa_control/proc/update_active_camera_screen()
 	// Get the target turf to correctly gather what's visible from its turf, in case it's located in a moving object (borgs / mechs)
-	var/new_cam_turf = get_target_turf()
+	var/turf/new_cam_turf = get_target_turf()
 	if (!new_cam_turf)
 		cam_screen.show_camera_static()
 		return
@@ -693,6 +708,27 @@
 		visible_turfs += visible_turf
 	//Get coordinates for a rectangle area that contains the turfs we see so we can then clear away the static in the resulting rectangle area
 	var/list/bbox = get_bbox_of_atoms(visible_turfs)
+	//TODO add crosshair object
 	var/size_x = bbox[3] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
 	cam_screen.show_camera(visible_turfs, size_x, size_y)
+
+
+
+/obj/effect/bsa_crosshair //This is the object that forceMoves the supplypod to its location
+	name = "Landing Zone Indicator"
+	desc = "Голографическая проекция, обозначающая зону приземления чего-либо. Наверное, лучше стоять в стороне."
+	icon = 'icons/obj/supplypods_32x32.dmi'
+	icon_state = "LZ"
+	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	light_range = 2
+	anchored = TRUE
+	alpha = 255
+	ru_names = list(
+		NOMINATIVE = "индикатор зоны приземления",
+		GENITIVE = "индикатора зоны приземления",
+		DATIVE = "индикатору зоны приземления",
+		ACCUSATIVE = "индикатор зоны приземления",
+		INSTRUMENTAL = "индикатором зоны приземления",
+		PREPOSITIONAL = "индикаторе зоны приземления"
+	)

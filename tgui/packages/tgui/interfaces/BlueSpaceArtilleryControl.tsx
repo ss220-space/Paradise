@@ -5,6 +5,7 @@ import {
   LabeledList,
   Section,
   Stack,
+  NumberInput,
   ByondUi
 } from '../components';
 import { classes } from 'common/react';
@@ -19,6 +20,8 @@ type BSAData = {
   connected: boolean;
   casual_aim: boolean
   correction: string;
+  correction_x: number;
+  correction_y: number;
   mode: string;
   mapRef: string;
 };
@@ -67,37 +70,54 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
                     </Button>
                   </LabeledList.Item>
                 )}
-                <LabeledList.Item label="Калибровка">
-                  <Button icon="crosshairs" onClick={() => act('recalibrate')}>
-                    {data.target ? data.target : 'None'}
-                  </Button>
-                </LabeledList.Item>
+                {data.connected &&(
+                  <LabeledList.Item label="Калибровка">
+                    <Button icon="crosshairs" onClick={() => act('recalibrate')}>
+                      {data.target ? data.target : 'None'}
+                    </Button>
+                  </LabeledList.Item>
+                )}
                 {data.connected && (
                   <LabeledList.Item label="Координаты">
-                      {data.target ? data.target_coord : 'None'}
+                      {data.target ? data.target_coord : '???'}
                   </LabeledList.Item>
                 )}
                 {data.connected && (
-                  <LabeledList.Item label="Коррекция">
-                      {data.correction}
+                  <LabeledList.Item label="Корректировка по оси x">
+                    <Button
+                      icon="angle-left"
+                      onClick={() => act('aim', { axis: 'x', value: data.correction_x - 1 })}/>
+                    <NumberInput
+                      animated
+                      width="4em"
+                      step={1}
+                      minValue={-15}
+                      maxValue={15}
+                      value={data.correction_x}
+                      onChange={(x) => act('aim', { axis: 'x', value: x })}
+                    />
+                    <Button
+                      icon="angle-right"
+                      onClick={() => act('aim', { axis: 'x', value: data.correction_x + 1 })}/>
                   </LabeledList.Item>
                 )}
                 {data.connected && (
-                  <LabeledList.Item label="Корректировка">
+                  <LabeledList.Item label="Корректировка по оси y">
                     <Button
-                      onClick={() => act('aim', {
-                        axis: 'x'
-                      })}
-                    >
-                      По оси x
-                    </Button>
+                      icon="angle-left"
+                      onClick={() => act('aim', { axis: 'y', value: data.correction_y - 1 })}/>
+                    <NumberInput
+                      animated
+                      width="4em"
+                      step={1}
+                      minValue={-15}
+                      maxValue={15}
+                      value={data.correction_y}
+                      onChange={(y) => act('aim', { axis: 'y', value: y })}
+                    />
                     <Button
-                      onClick={() => act('aim', {
-                        axis: 'y'
-                      })}
-                    >
-                      По оси y
-                    </Button>
+                      icon="angle-right"
+                      onClick={() => act('aim', { axis: 'y', value: data.correction_y + 1 })}/>
                   </LabeledList.Item>
                 )}
                 {data.connected && (
