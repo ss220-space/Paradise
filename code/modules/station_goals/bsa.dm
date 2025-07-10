@@ -16,14 +16,29 @@
 #define BSA_BURST_COUNT 5
 
 //Spread by every axis (x, y) for signal calibration
-#define BSA_CALIBRATION_ACCURACY 15
+#define BSA_CALIBRATION_ACCURACY 7
 //Spread by every axis (x, y) for single shot mode
 #define BSA_SHOT_SPREAD 2
 //Spread by every axis (x, y) for burst fire mode
 #define BSA_BURST_SPREAD 5
 //Max correction by every axis (x, y), use absolute value
-#define BSA_MAX_AXIS_CORRECTION 10
+#define BSA_MAX_AXIS_CORRECTION 15
 
+//How many power consume power shot
+#define BSA_POWER_SHOT_POWER_USE 2000000
+//How many power consume pulse shot
+#define BSA_PULSE_SHOT_POWER_USE 200000
+
+//How longer reload after construction (10 min - default)
+#define BSA_INITIAL_RELOAD_TIME 600
+//How longer reload after power shot (10 min - default)
+#define BSA_POWER_SHOT_RELOAD_TIME 600
+//How longer reload after pulse shot (1.5 min)
+#define BSA_PULSE_SHOT_RELOAD_TIME 90
+//How longer reload after pulse burst (5 min)
+#define BSA_PULSE_BURST_RELOAD_TIME 300
+//How longer reload after power burst (20 min) - only for emagged console
+#define BSA_POWER_BURST_RELOAD_TIME 1200
 
 
 /datum/station_goal/bluespace_cannon
@@ -205,11 +220,8 @@
 	var/obj/machinery/computer/bsa_control/controller
 	var/cannon_direction = WEST
 	var/static/image/top_layer = null
-	var/ex_power = 3
-	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
 	var/last_fire_time = 0 // The time at which the gun was last fired
-	//var/reload_cooldown = 600 // The gun's cooldown
-	var/reload_cooldown = 10 //TEST ONLY
+	var/reload_cooldown = BSA_INITIAL_RELOAD_TIME
 	var/mode = BSA_MODE_POWER_SHOT
 
 	pixel_y = -32
@@ -228,8 +240,6 @@
 	cannon_direction = EAST
 
 /obj/machinery/bsa/full/admin
-	power_used_per_shot = 0
-	reload_cooldown = 100
 
 /obj/machinery/bsa/full/admin/east
 	icon_state = "cannon_east"
@@ -278,7 +288,7 @@
 			top_layer.layer = 4.1
 			icon_state = "cannon_east"
 	add_overlay(top_layer)
-	reload()
+	last_fire_time = world.time / 10
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)
 	destroy_all_on_fire_beam(user, bullseye)
@@ -310,13 +320,14 @@
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 	message_admins("[key_name_admin(user)] has launched an artillery strike with power shot mode into [ADMIN_COORDJMP(bullseye)].")
 	log_admin("[key_name_log(user)] has launched an artillery strike with power shot mode into [COORD(bullseye)].") // Line below handles logging the explosion to disk
+	var/ex_power = 3 //Remove from object variable, maybe inline?
 	explosion(bullseye,ex_power,ex_power*2+1,ex_power*4+2, cause = "Bluespace artillery strike") // 3 7 14 at ex_power = 3
 
 /obj/machinery/bsa/full/proc/fire_pulse_shot(mob/user, turf/bullseye)
 	playsound(src, 'sound/machines/bsa_fire.ogg', 50, 1)
 	message_admins("[key_name_admin(user)] has launched an artillery strike with pulse shot mode into [ADMIN_COORDJMP(bullseye)].")
 	log_admin("[key_name_log(user)] has launched an artillery strike with pulse shot mode into [COORD(bullseye)].") // Line below handles logging the explosion to disk
-	explosion(bullseye, 0, 1, 7, cause = "Bluespace artillery light strike")
+	explosion(bullseye, 0, 1, 5, cause = "Bluespace artillery light strike")
 
 /obj/machinery/bsa/full/proc/spread(turf/target, axis_spread)
 	var/x = target.x + rand(-axis_spread, axis_spread)
@@ -324,8 +335,26 @@
 	return locate(x, y, target.z)
 
 /obj/machinery/bsa/full/proc/reload()
-	use_power(power_used_per_shot)
 	last_fire_time = world.time / 10
+	switch(mode)
+		if(BSA_MODE_POWER_SHOT)
+			use_power(BSA_POWER_SHOT_POWER_USE)
+			reload_cooldown = BSA_POWER_SHOT_RELOAD_TIME
+		if(BSA_MODE_PULSE_SHOT)
+			use_power(BSA_PULSE_SHOT_POWER_USE)
+			reload_cooldown = BSA_PULSE_SHOT_RELOAD_TIME
+		if(BSA_MODE_PULSE_BURST)
+			use_power(BSA_PULSE_SHOT_POWER_USE * BSA_BURST_COUNT)
+			reload_cooldown = BSA_PULSE_BURST_RELOAD_TIME
+		if(BSA_MODE_POWER_BURST)
+			use_power(BSA_PULSE_SHOT_POWER_USE * BSA_BURST_COUNT)
+			reload_cooldown = BSA_POWER_BURST_RELOAD_TIME
+		else
+			reload_cooldown = BSA_INITIAL_RELOAD_TIME
+
+/obj/machinery/bsa/full/admin/reload()
+	last_fire_time = world.time / 10
+	reload_cooldown = 100
 
 /obj/item/circuitboard/machine/bsa/back
 	board_name = "Bluespace Artillery Generator"
@@ -382,12 +411,16 @@
 	var/area_aim = FALSE //should also show areas for targeting
 	var/target_all_areas = FALSE //allows all areas (including admin areas) to be targeted
 
-	// Stuff needed to render the map
+	var/turf/caibrated_turf = null
+	var/x_correction = 0
+	var/y_correction = 0
+	var/turf/aim_turf = null
+
+	// Stuff needed for camera
 	var/camera_view_range = 11
 	var/camera_xray = TRUE
 	var/atom/movable/screen/map_view/camera/cam_screen
 	var/last_camera_turf = null
-	var/turf/aim_turf = null
 
 /obj/machinery/computer/bsa_control/Initialize()
 	. = ..()
@@ -404,7 +437,7 @@
 	area_aim = TRUE
 	target_all_areas = TRUE
 	camera_xray = TRUE
-	camera_view_range = 11
+	emagged = TRUE //Unlock power burst mode for admin
 
 /obj/machinery/computer/bsa_control/admin/Initialize()
 	. = ..()
@@ -456,6 +489,7 @@
 	var/list/data = list()
 	data["connected"] = cannon
 	data["notice"] = notice
+	data["correction"] = "x: [x_correction] y: [y_correction]"
 	if(target)
 		data["target"] = get_target_name()
 		var/turf/target_turf = get_target_turf()
@@ -519,16 +553,7 @@
 		if("select_mode")
 			switch_mode(usr)
 		if("aim")
-			var/direction = params["direction"]
-			switch(direction)
-				if("north")
-					aim_move(usr, NORTH_OF_TURF(aim_turf))
-				if("east")
-					aim_move(usr, EAST_OF_TURF(aim_turf))
-				if("south")
-					aim_move(usr, SOUTH_OF_TURF(aim_turf))
-				if("west")
-					aim_move(usr, WEST_OF_TURF(aim_turf))
+			coord_aim(usr, params)
 	update_icon()
 	return TRUE
 
@@ -548,9 +573,13 @@
 	if(!choose)
 		return
 	target = options[choose]
-	aim_turf = detect_target_turf()
-	if (aim_turf)
-		aim_turf = cannon.spread(aim_turf, BSA_CALIBRATION_ACCURACY)
+	caibrated_turf = detect_target_turf()
+	if (caibrated_turf)
+		caibrated_turf = cannon.spread(caibrated_turf, BSA_CALIBRATION_ACCURACY)
+	// Reset correction
+	x_correction = 0
+	y_correction = 0
+	aim_turf = caibrated_turf
 	update_active_camera_screen()
 
 /obj/machinery/computer/bsa_control/proc/switch_mode(mob/user)
@@ -599,11 +628,6 @@
 		return get_turf(target)
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
-	// if(istype(target,/area))
-	// 	return pick(get_area_turfs(target))
-	// else if(istype(target,/obj/item/gps))
-	// 	return get_turf(target)
-	//TODO randomize here
 	return aim_turf
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
@@ -639,9 +663,14 @@
 	qdel(centerpiece)
 	return cannon
 
-/obj/machinery/computer/bsa_control/proc/aim_move(mob/user, turf/new_aim_turf)
-	to_chat(user, "aim move")
-	aim_turf = new_aim_turf
+
+/obj/machinery/computer/bsa_control/proc/coord_aim(mob/user, params)
+	var/axis = params["axis"]
+	if (axis == "x")
+		x_correction = tgui_input_number(user, "Введите корректировку по оси x:", "Корректировка по оси x", x_correction, max_value=BSA_MAX_AXIS_CORRECTION, min_value=-BSA_MAX_AXIS_CORRECTION)
+	else
+		y_correction = tgui_input_number(user, "Введите корректировку по оси y:", "Корректировка по оси y", y_correction, max_value=BSA_MAX_AXIS_CORRECTION, min_value=-BSA_MAX_AXIS_CORRECTION)
+	aim_turf = locate(caibrated_turf.x + x_correction, caibrated_turf.y + y_correction, caibrated_turf.z)
 	update_active_camera_screen()
 
 /obj/machinery/computer/bsa_control/proc/update_active_camera_screen()

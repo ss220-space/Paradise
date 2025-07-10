@@ -17,6 +17,8 @@ type BSAData = {
   target: string;
   target_coord: string;
   connected: boolean;
+  casual_aim: boolean
+  correction: string;
   mode: string;
   mapRef: string;
 };
@@ -58,11 +60,6 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
                   </LabeledList.Item>
                 )}
                 {alertStatus}
-                <LabeledList.Item label="Calibrate">
-                  <Button icon="crosshairs" onClick={() => act('recalibrate')}>
-                    {data.target ? data.target : 'None'}
-                  </Button>
-                </LabeledList.Item>
                 {data.connected && (
                   <LabeledList.Item label="Mode">
                     <Button icon="cog" onClick={() => act('select_mode')}>
@@ -70,40 +67,36 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
                     </Button>
                   </LabeledList.Item>
                 )}
+                <LabeledList.Item label="Calibrate">
+                  <Button icon="crosshairs" onClick={() => act('recalibrate')}>
+                    {data.target ? data.target : 'None'}
+                  </Button>
+                </LabeledList.Item>
                 {data.connected && (
-                  <LabeledList.Item label="Aim coordinate">
+                  <LabeledList.Item label="Strike coordinate">
                       {data.target ? data.target_coord : 'None'}
                   </LabeledList.Item>
                 )}
                 {data.connected && (
-                  <LabeledList.Item label="Aim control">
+                  <LabeledList.Item label="Correction:">
+                      {data.correction}
+                  </LabeledList.Item>
+                )}
+                {data.connected && (
+                  <LabeledList.Item label="Change correction">
                     <Button
-                      icon="arrow-circle-up" onClick={() => act('aim', {
-                        direction: 'north'
+                      onClick={() => act('aim', {
+                        axis: 'x'
                       })}
                     >
-                      North
+                      Correct axis X
                     </Button>
                     <Button
-                      icon="arrow-circle-left" onClick={() => act('aim', {
-                        direction: 'west'
+                      onClick={() => act('aim', {
+                        axis: 'y'
                       })}
                     >
-                      West
-                    </Button>
-                    <Button
-                      icon="arrow-circle-right" onClick={() => act('aim', {
-                        direction: 'east'
-                      })}
-                    >
-                      East
-                    </Button>
-                    <Button
-                      icon="arrow-circle-down" onClick={() => act('aim', {
-                        direction: 'south'
-                      })}
-                    >
-                      South
+                      Correct axis Y
                     </Button>
                   </LabeledList.Item>
                 )}
