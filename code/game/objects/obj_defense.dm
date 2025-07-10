@@ -11,13 +11,7 @@
 	if(damage_amount < DAMAGE_PRECISION)
 		return
 	. = damage_amount
-	obj_integrity = max(obj_integrity - damage_amount, 0)
-	//BREAKING FIRST
-	if(integrity_failure && obj_integrity <= integrity_failure)
-		obj_break(damage_flag)
-	//DESTROYING SECOND
-	if(obj_integrity <= 0)
-		obj_destruction(damage_flag)
+	update_integrity(obj_integrity - damage_amount, damage_flag)
 
 ///returns the damage value of the attack after processing the obj's various armor protections
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
@@ -47,13 +41,19 @@
 
 
 /// Handles the integrity of an obj changing. This must be called instead of changing integrity directly.
-/obj/proc/update_integrity(new_value)
+/obj/proc/update_integrity(new_value, damage_flag = MELEE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	var/old_value = obj_integrity
 	new_value = max(0, new_value)
 	if(obj_integrity == new_value)
 		return
 	obj_integrity = new_value
+	//BREAKING FIRST
+	if(integrity_failure && obj_integrity <= integrity_failure)
+		obj_break(damage_flag)
+	//DESTROYING SECOND
+	if(obj_integrity <= 0)
+		obj_destruction(damage_flag)
 	on_update_integrity(old_value, new_value)
 	return new_value
 
@@ -295,9 +295,9 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 ///what happens when the obj's integrity reaches zero.
 /obj/proc/obj_destruction(damage_flag)
-	if(damage_flag == "acid")
+	if(damage_flag == ACID)
 		acid_melt()
-	else if(damage_flag == "fire")
+	else if(damage_flag == FIRE)
 		burn()
 	else
 		deconstruct(FALSE)
@@ -306,13 +306,14 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/modify_max_integrity(new_max, can_break = TRUE, damage_type = BRUTE, new_failure_integrity = null)
 	var/current_integrity = obj_integrity
 	var/current_max = max_integrity
-
+	
+	max_integrity = new_max
+	
 	if(current_integrity != 0 && current_max != 0)
 		var/percentage = current_integrity / current_max
 		current_integrity = max(1, round(percentage * new_max))	//don't destroy it as a result
-		obj_integrity = current_integrity
+		update_integrity(current_integrity)
 
-	max_integrity = new_max
 
 	if(new_failure_integrity != null)
 		integrity_failure = new_failure_integrity

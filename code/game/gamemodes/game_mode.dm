@@ -748,16 +748,25 @@
 	return FALSE
 
 /datum/game_mode/proc/apocalypse()
-	set_security_level(SEC_LEVEL_DELTA)
-	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Моделирование пути противостояния угрозе начато, ожидайте.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+	GLOB.major_announcement.announce("Обнаружена угроза класса \"Разрушитель миров\". Моделирование пути противостояния угрозе начато, ожидайте.",
+									ANNOUNCE_CCPARANORMAL_RU,
+									'sound/AI/commandreport.ogg'
+	)
 	sleep(50 SECONDS)
-	GLOB.priority_announcement.Announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	GLOB.major_announcement.announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.",
+									ANNOUNCE_CCPARANORMAL_RU,
+									'sound/AI/commandreport.ogg'
+	)
 	sleep(30 SECONDS)
 
 	var/obj/singularity/god/god = locate(/obj/singularity/god) in GLOB.poi_list
 
 	if(!god)
-		GLOB.priority_announcement.Announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+		GLOB.minor_announcement.announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.",
+										ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/commandreport.ogg'
+		)
 		SSshuttle.emergency.request(null, 0.3)
 		SSshuttle.emergency.canRecall = FALSE
 		return

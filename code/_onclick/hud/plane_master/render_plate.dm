@@ -17,6 +17,22 @@
 	/// If we render into a critical plane master, or not
 	var/critical_target = FALSE
 
+/client/proc/on_render_plane_relay_qdeleted(atom/movable/render_plane_relay/source)
+	SIGNAL_HANDLER
+	if(!istype(source))
+		return
+	screen.RemoveAll(source)
+	UnregisterSignal(source, COMSIG_QDELETING)
+
+/client/proc/register_render_plane_relay(atom/movable/render_plane_relay/relay)
+	if(!istype(relay))
+		return
+	var/exist_check = (relay in screen)
+	screen += relay
+	if(exist_check)
+		return
+	RegisterSignal(relay, COMSIG_QDELETING, PROC_REF(on_render_plane_relay_qdeleted), override = TRUE)
+
 /**
  * ## Rendering plate
  *
@@ -285,7 +301,7 @@
 	// Relays are sometimes generated early, before huds have a mob to display stuff to
 	// That's what this is for
 	if(show_to)
-		show_to.screen += relay
+		show_to.register_render_plane_relay(relay)
 	if(offsetting_flags & OFFSET_RELAYS_MATCH_HIGHEST && home.our_hud)
 		offset_relay(relay, home.our_hud.current_plane_offset)
 	return relay

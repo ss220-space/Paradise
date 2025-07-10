@@ -760,7 +760,7 @@
 
 
 /obj/structure/table/reinforced/brass/ratvar_act()
-	obj_integrity = max_integrity
+	update_integrity(max_integrity)
 
 
 /obj/structure/table/reinforced/brass/fake/ratvar_act()

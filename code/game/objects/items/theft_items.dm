@@ -2,7 +2,7 @@
 
 
 // STEALING THE NUKE
-
+#define SEAL_TIME 10 SECONDS
 //the nuke core, base item
 /obj/item/nuke_core
 	name = "plutonium core"
@@ -131,7 +131,7 @@
 	core = new_core
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_warning("Контейнер герметизируется..."))
-	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(seal)), SEAL_TIME)
 	return TRUE
 
 
@@ -151,10 +151,27 @@
 		if(ismob(loc))
 			to_chat(loc, span_warning("[capitalize(src.declent_ru(NOMINATIVE))] наглухо запечатан, радиация от [core.declent_ru(GENITIVE)] теперь изолирована."))
 
+/obj/item/nuke_core_container/proc/start_unseal(mob/user)
+	if(!core || cracked)
+		return FALSE
+	to_chat(user, span_warning("Контейнер разрегметизируется..."))
+	addtimer(CALLBACK(src, PROC_REF(unseal), user), SEAL_TIME)
+
+/obj/item/nuke_core_container/proc/unseal(mob/user)
+	START_PROCESSING(SSobj, core)
+	REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+	sealed = FALSE
+	playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
+	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] распечатан, радиация от [core.declent_ru(GENITIVE)] больше не изолирована."))
+	unload(user)
 
 /obj/item/nuke_core_container/attackby(obj/item/I, mob/user, params)
 	if(load(I, user))
 		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	if((ACCESS_SYNDICATE_CONTAINER) in I.GetAccess())
+		add_fingerprint(user)
+		start_unseal(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
@@ -332,6 +349,8 @@
 	else
 		icon_state = "core_container_cracked_empty"
 
+/obj/item/nuke_core_container/supermatter/start_unseal(mob/user)
+	return FALSE
 
 /obj/item/nuke_core_container/supermatter/load(obj/item/retractor/supermatter/I, mob/user)
 	if(!istype(I) || !I.sliver || sliver)
@@ -342,7 +361,7 @@
 	I.update_icon(UPDATE_ICON_STATE)
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_warning("Контейнер герметизируется..."))
-	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(seal)), SEAL_TIME)
 
 /obj/item/nuke_core_container/supermatter/seal()
 	if(!QDELETED(sliver))
@@ -509,3 +528,4 @@
 	QDEL_NULL(sliver)
 	update_icon(UPDATE_ICON_STATE)
 
+#undef SEAL_TIME

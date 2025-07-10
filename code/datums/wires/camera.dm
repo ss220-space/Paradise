@@ -33,7 +33,7 @@
 		if(WIRE_MAIN_POWER1)
 			if(C.status && !mend || !C.status && mend)
 				C.toggle_cam(usr, TRUE)
-				C.obj_integrity = C.max_integrity //this is a pretty simplistic way to heal the camera, but there's no reason for this to be complex.
+				C.update_integrity(C.max_integrity) //this is a pretty simplistic way to heal the camera, but there's no reason for this to be complex.
 	..()
 
 /datum/wires/camera/on_pulse(wire)

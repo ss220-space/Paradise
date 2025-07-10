@@ -248,8 +248,11 @@
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, span_notice("Nuclear device armed."))
-	GLOB.event_announcement.Announce("Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", new_sound = 'sound/AI/aimalf.ogg')
-	set_security_level("delta")
+	GLOB.major_announcement.announce("Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
+									ANNOUNCE_ANOMALY_RU,
+									'sound/AI/aimalf.ogg'
+	)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	owner_AI.nuking = TRUE
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)
 	owner_AI.doomsday_device = DOOM
@@ -277,7 +280,7 @@
 /obj/machinery/doomsday_device/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
 
-	SSshuttle.remove_hostile_environment(src, 'sound/AI/shuttledock.ogg')
+	SSshuttle.remove_hostile_environment(src, 'sound/AI/eshuttle_dock.ogg')
 	return ..()
 
 /obj/machinery/doomsday_device/proc/start()
@@ -292,8 +295,11 @@
 /obj/machinery/doomsday_device/process()
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
-		GLOB.minor_announcement.Announce("УСТРОЙСТВО СУДНОГО ДНЯ ВНЕ ЗОНЫ ДЕЙСТВИЯ СТАНЦИИ, ОСТАНОВКА.", "ОШИБКА ОШИБКА $0ШБК$!А41.%%!!(%$^^__+ @#Ш0E4", 'sound/misc/notice1.ogg')
-		SSshuttle.remove_hostile_environment(src, 'sound/AI/shuttledock.ogg')
+		GLOB.major_announcement.announce("УСТРОЙСТВО СУДНОГО ДНЯ ВНЕ ЗОНЫ ДЕЙСТВИЯ СТАНЦИИ, ОСТАНОВКА.",
+										ANNOUNCE_MALF_RU,
+										'sound/misc/notice1.ogg'
+		)
+		SSshuttle.remove_hostile_environment(src, 'sound/AI/eshuttle_dock.ogg')
 		qdel(src)
 	if(!timing)
 		STOP_PROCESSING(SSfastprocess, src)
@@ -306,13 +312,17 @@
 	else
 		if(!(sec_left % 60) && !announced)
 			var/message = "[sec_left] СЕКУНД ДО АКТИВАЦИИ УСТРОЙСТВА СУДНОГО ДНЯ!"
-			GLOB.minor_announcement.Announce(message, "ОШИБКА ОШИБКА $0ШБК$!А41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+			GLOB.major_announcement.announce(message,
+											ANNOUNCE_MALF_RU,
+											'sound/misc/notice1.ogg'
+			)
 			announced = 10
 		announced = max(0, announced-1)
 
 /obj/machinery/doomsday_device/proc/detonate(z_level = 1)
-	for(var/mob/M in GLOB.player_list)
-		M << 'sound/machines/alarm.ogg'
+	var/doomsday_alarm = sound('sound/machines/alarm.ogg')
+	for(var/explodee in GLOB.player_list)
+		SEND_SOUND(explodee, doomsday_alarm)
 	sleep(100)
 	SSticker.station_explosion_cinematic(null, MALF_AI)
 	to_chat(world, "<b>The AI cleansed the station of life with the doomsday device!</b>")
@@ -414,7 +424,7 @@
 	uses = 1
 
 /datum/action/innate/ai/break_fire_alarms/Activate()
-	for(var/obj/machinery/firealarm/alarm as anything in GLOB.firealarms)
+	for(var/obj/machinery/firealarm/alarm in SSmachines.get_by_type(/obj/machinery/firealarm))
 		if(!is_station_level(alarm.z))
 			continue
 		alarm.emagged = TRUE

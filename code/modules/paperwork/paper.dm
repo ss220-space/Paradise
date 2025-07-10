@@ -1,5 +1,5 @@
 /*
- * Paper
+ * MARK: Paper
  * also scraps of paper
  */
 
@@ -595,10 +595,8 @@
 	LAZYADD(stamp_overlays, stampoverlay)
 	update_icon(UPDATE_OVERLAYS)
 
+// MARK: Premade paper
 
-/*
- * Premade paper
- */
 /obj/item/paper/Court
 	name = "Judgement"
 	info = "For crimes against the station, the offender is sentenced to:<br>\n<br>\n"
@@ -664,9 +662,9 @@
 /obj/item/paper/fortune/update_icon_state()
 	icon_state = initial(icon_state)
 
-/*
- * Premade paper
- */
+
+// MARK: Premade paper
+
 /obj/item/paper/Court
 	name = "Judgement"
 	info = "For crimes against the station, the offender is sentenced to:<br>\n<br>\n"
@@ -780,7 +778,7 @@
 	language = LANGUAGE_SOL_COMMON
 
 /obj/item/paper/central_command
-	name = "Директива Центрального Командования"
+	name = "Директива Центрального командования"
 	info = ""
 
 /obj/item/paper/central_command/Initialize(mapload)
@@ -788,8 +786,8 @@
 	time = "Время: [station_time_timestamp()]"
 	if(!(GLOB.genname))
 		GLOB.genname = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
-	header ="<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">Форма NT-CC-DRV</font></td><tr><td><font size=\"1\">[command_name()]</font></td><tr><td><font size=\"1\">[time]</font></td><tr><td></td><tr><td></td><tr><td><b>Директива Центрального Командования</b></td></tr></table></td></tr></table><br><hr><br></font>"
-	footer = "<br /><br /><font face=\"Verdana\" size = \"1\"><i>Подпись&#58;</font> <font face=\"[signfont]\" size = \"1\">[GLOB.genname]</font></i><font face=\"Verdana\" size = \"1\">, в должности <i>Nanotrasen Navy Officer</i></font><hr /><p style='font-family:Verdana;'><font size = \"1\"><em>*Содержимое данного документа следует считать конфиденциальным. Если не указано иное, распространение содержащейся в данном документе информации среди третьих лиц и сторонних организаций строго запрещено. </em> <br /> <em>*Невыполнение директив, содержащихся в данном документе, считается нарушением политики корпорации и может привести к наложению различных дисциплинарных взысканий. </em> <br /> <em> *Данный документ считается действительным только при наличии подписи и печати офицера Центрального Командования.</em></font></p>"
+	header ="<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">Форма NT-CC-DRV</font></td><tr><td><font size=\"1\">[command_name()]</font></td><tr><td><font size=\"1\">[time]</font></td><tr><td></td><tr><td></td><tr><td><b>Директива Центрального командования</b></td></tr></table></td></tr></table><br><hr><br></font>"
+	footer = "<br /><br /><font face=\"Verdana\" size = \"1\"><i>Подпись&#58;</font> <font face=\"[signfont]\" size = \"1\">[GLOB.genname]</font></i><font face=\"Verdana\" size = \"1\">, в должности <i>Nanotrasen Navy Officer</i></font><hr /><p style='font-family:Verdana;'><font size = \"1\"><em>*Содержимое данного документа следует считать конфиденциальным. Если не указано иное, распространение содержащейся в данном документе информации среди третьих лиц и сторонних организаций строго запрещено. </em> <br /> <em>*Невыполнение директив, содержащихся в данном документе, считается нарушением политики корпорации и может привести к наложению различных дисциплинарных взысканий. </em> <br /> <em> *Данный документ считается действительным только при наличии подписи и печати офицера Центрального командования.</em></font></p>"
 	populatefields()
 
 
@@ -939,14 +937,20 @@
 			to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
 			H.makeCluwne()
 	else if(myeffect == "Demote")
-		GLOB.event_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.","ВНИМАНИЕ: Приказ ЦК о понижении в должности.")
+		GLOB.major_announcement.announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
+										ANNOUNCE_CCDEMOTE_RU,
+										'sound/AI/commandreport.ogg'
+		)
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
 				R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
 				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 		update_all_mob_security_hud()
 	else if(myeffect == "Demote with Bot")
-		GLOB.event_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.","ВНИМАНИЕ: Приказ ЦК о понижении в должности.")
+		GLOB.major_announcement.announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
+										ANNOUNCE_CCDEMOTE_RU,
+										'sound/AI/commandreport.ogg'
+		)
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
 				R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
@@ -1011,19 +1015,20 @@
 	var/is_header_needed = TRUE
 	var/const/footer_signstampfax = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Подписи глав являются доказательством их согласия.<br>Данный документ является недействительным при отсутствии релевантной печати.<br>Пожалуйста, отправьте обратно подписанную/проштампованную копию факсом.</font></center></font>"
 	var/const/footer_signstamp = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Подписи глав являются доказательством их согласия.<br>Данный документ является недействительным при отсутствии релевантной печати.</font></center></font>"
-	var/const/footer_confidential = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Данный документ является недействительным при отсутствии печати.<br>Отказ от ответственности: Данный факс является конфиденциальным и не может быть прочтен сотрудниками не имеющего доступа. Если вы получили данный факс по ошибке, просим вас сообщить отправителю и удалить его из вашего почтового ящика или любого другого носителя. И Nanotrasen, и любой её агент не несёт ответственность за любые сделанные заявления, они являются исключительно заявлениями отправителя, за исключением если отправителем является Nanotrasen или один из её агентов. Отмечаем, что ни Nanotrasen, ни один из агентов корпорации не несёт ответственности за наличие вирусов, который могут содержаться в данном факсе или его приложения, и это только ваша прерогатива просканировать факс и приложения на них. Никакие контракты не могут быть заключены посредством факсимильной связи.</font></center></font>"
+	var/const/footer_confidential = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Данный документ является недействительным при отсутствии печати.<br>Отказ от ответственности: Данный факс является конфиденциальным и не может быть прочтен сотрудниками не имеющего доступа. Если вы получили данный факс по ошибке, просим вас сообщить отправителю и удалить его из вашего почтового ящика или любого другого носителя. И НаноТрейзен, и любой её агент не несёт ответственность за любые сделанные заявления, они являются исключительно заявлениями отправителя, за исключением если отправителем является НаноТрейзен или один из её агентов. Отмечаем, что ни НаноТрейзен, ни один из агентов корпорации не несёт ответственности за наличие вирусов, который могут содержаться в данном факсе или его приложения, и это только ваша прерогатива просканировать факс и приложения на них. Никакие контракты не могут быть заключены посредством факсимильной связи.</font></center></font>"
 	footer = footer_signstampfax
 
 
 /obj/item/paper/form/Initialize(mapload)
 	. = ..()
-	from = "Научная станция Nanotrasen &#34;[SSmapping.map_datum.station_name]&#34;"
+	from = "Научная станция НаноТрейзен &#34;[SSmapping.map_datum.station_name]&#34;"
 	if(is_header_needed)
 		header = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">[name][confidential ? " \[КОНФИДЕНЦИАЛЬНО\]" : ""]</font></td><tr><td></td><tr><td><b><font size=\"4\">[altername]</font></b></td><tr><td><table></td><tr><td>[from]<td>[category]</td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\">[notice]</font></center><br><hr><br></font>"
 	populatefields()
 
 
-//главы станции
+// MARK: Главы станции
+
 /obj/item/paper/form/NT_COM_ORDER
 	name = "Форма NT-COM-ORDER"
 	id = "NT-COM-ORDER"
@@ -1070,9 +1075,9 @@
 	id = "NT-COM-OS"
 	altername = "Отчёт о выполнении цели"
 	category = "Главы станции"
-	info = "<font face=\"Verdana\" color=black><br>Цель станции: <span class=\"paper_field\"></span><br>Статус цели: <span class=\"paper_field\"></span><br>Общее состояние станции: <span class=\"paper_field\"></span><br>Активные угрозы: <span class=\"paper_field\"></span><br>Оценка работы экипажа: <span class=\"paper_field\"></span><br>Дополнительные замечания: <span class=\"paper_field\"></span><br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center>Должность уполномоченного лица: <span class=\"paper_field\"></span><br>Подпись уполномоченного лица: <span class=\"paper_field\"></span><hr><font size = \"1\"><i>*Данное сообщение должно сообщить вам о состоянии цели, установленной Центральным командованием Nanotrasen для ИСН &#34;Керберос&#34;. Убедительная просьба внимательно прочитать данное сообщение для вынесения наиболее эффективных указаний для последующей деятельности станции.<br>*Данный документ считается официальным только при наличии подписи уполномоченного лица и соответствующего его должности штампа. В случае отсутствия любого из указанных элементов данный документ не является официальным и рекомендуется его удалить с любого информационного носителя. <br>ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ: Корпорация Nanotrasen не несёт ответственности, если данный документ не попал в руки первоначального предполагаемого получателя. Однако, корпорация Nanotrasen запрещает использование любой имеющейся в данном документе информации третьими лицами и сообщает, что это преследуется по закону, даже если информация в данном документе не является достоверной. <center></font>"
+	info = "<font face=\"Verdana\" color=black><br>Цель станции: <span class=\"paper_field\"></span><br>Статус цели: <span class=\"paper_field\"></span><br>Общее состояние станции: <span class=\"paper_field\"></span><br>Активные угрозы: <span class=\"paper_field\"></span><br>Оценка работы экипажа: <span class=\"paper_field\"></span><br>Дополнительные замечания: <span class=\"paper_field\"></span><br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center>Должность уполномоченного лица: <span class=\"paper_field\"></span><br>Подпись уполномоченного лица: <span class=\"paper_field\"></span><hr><font size = \"1\"><i>*Данное сообщение должно сообщить вам о состоянии цели, установленной Центральным командованием НаноТрейзен для ИСН &#34;Керберос&#34;. Убедительная просьба внимательно прочитать данное сообщение для вынесения наиболее эффективных указаний для последующей деятельности станции.<br>*Данный документ считается официальным только при наличии подписи уполномоченного лица и соответствующего его должности штампа. В случае отсутствия любого из указанных элементов данный документ не является официальным и рекомендуется его удалить с любого информационного носителя. <br>ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ: Корпорация НаноТрейзен не несёт ответственности, если данный документ не попал в руки первоначального предполагаемого получателя. Однако, корпорация Nanotrasen запрещает использование любой имеющейся в данном документе информации третьими лицами и сообщает, что это преследуется по закону, даже если информация в данном документе не является достоверной. <center></font>"
 
-//Медицинский Отдел
+// MARK: Медицинский отдел
 
 /obj/item/paper/form/NT_MD_01
 	name = "Форма NT-MD-01"
@@ -1114,7 +1119,6 @@
 	info = "<font face=\"Verdana\" color=black><br>Пациент: <span class=\"paper_field\"></span><br>Раздражители: <span class=\"paper_field\"></span><br>Симптомы и побочные действия: <span class=\"paper_field\"></span><br>Дополнительная информация: <span class=\"paper_field\"></span><br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br>Подпись психолога: <span class=\"paper_field\"></span><br>Время обследования: <span class=\"paper_field\"></span><br><hr><i><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и выдаче пациенту</i></font></font>"
 	footer = footer_signstamp
 
-//Мед-без нумерации
 /obj/item/paper/form/NT_MD_VRR
 	name = "Форма NT-MD-VRR"
 	id = "NT-MD-VRR"
@@ -1123,7 +1127,8 @@
 	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><b>Основная информация</b></font></center><br>Я, <span class=\"paper_field\"></span>, в должности – <span class=\"paper_field\"></span>, запрашиваю право на распространение вируса среди экипажа станции.<br><table></td><tr><td>Название вируса:<td><span class=\"paper_field\"></span><br></td><tr><td>Задачи вируса:<td><span class=\"paper_field\"></span><br></td><tr><td>Лечение:<td><span class=\"paper_field\"></span><br></td><tr><td>Вакцина была произведена<br> и в данный момент находится:<td><span class=\"paper_field\"></span><br></td></tr></table><br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br><table></td><tr><td>Подпись вирусолога:<td><span class=\"paper_field\"></span><br></td><tr><td>Подпись глав. Врача:<td><span class=\"paper_field\"></span><br></td></tr></td><tr><td>Подпись капитана:<td><span class=\"paper_field\"></span><br></td></tr></table><hr><small>*Производитель вируса несет полную ответственность за его распространение, изолирование и лечение<br>*При возникновении опасных или смертельных побочных эффектов у членов экипажа, производитель должен незамедлительно предоставить вакцину, от данного вируса.</small></font>"
 	footer = footer_signstamp
 
-//Исследовательский отдел
+// MARK: Исследовательский отдел
+
 /obj/item/paper/form/NT_RND_01
 	name = "Форма NT-RND-01"
 	id = "NT-RND-01"
@@ -1145,7 +1150,8 @@
 	category = "Исследовательский отдел"
 	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><b>Заявление</b></font></center><br><table></td><tr><td>Имя заявителя:<br><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><br></td><tr><td>Номер аккаунта заявителя:<br><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><br></td><tr><td>Текущая должность:<br><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><br></td><tr><td>Требуемый имплантат:<br><font size = \"1\">Может требовать дополнительного согласования</font><td><span class=\"paper_field\"></span><br></td><tr><td>Причина:<br><font size = \"1\">Объясните свои намерения</font><br><span class=\"paper_field\"></span><br><br></td></tr></table><br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br><table></td><tr><td>Дата и время:<td><span class=\"paper_field\"></span><br></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><br></td><tr><td>Подпись Руководителя Исследований:<td><span class=\"paper_field\"></span><br></td><tr><td>Подпись выполняющего установку имплантата:<td><span class=\"paper_field\"></span><br></td></tr></table></font>"
 
-//Общие формы
+// MARK: Общие формы
+
 /obj/item/paper/form/NT_BLANK
 	name = "Форма NT"
 	id = "NT-BLANK"
@@ -1163,7 +1169,8 @@
 	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><b>Основная информация</b></font></center><br><table></td><tr><td>Имя заявителя:<br><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><br></td><tr><td>Номер аккаунта заявителя:<br><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><br></td><tr><td>Текущая должность:<br><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><br></td></tr></table><br><hr><br><center><font size=\"4\"><b>Отчёт о ситуации</b></font></center><br><span class=\"paper_field\"></span><br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><br></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><br></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><br></td></tr></table></font>"
 	footer = footer_signstamp
 
-//Отдел кадров
+// MARK: Отдел кадров
+
 /obj/item/paper/form/NT_HR_00
 	name = "Форма NT-HR-00"
 	id = "NT-HR-00"
@@ -1249,7 +1256,8 @@
 	category = "Отдел кадров"
 	info = "<font face=\"Verdana\" color=black>⠀⠀⠀Я, <span class=\"paper_field\"></span>, в должности – <span class=\"paper_field\"></span> произвожу передачу транспортного средства на платной основе члену экипажа <span class=\"paper_field\"></span>, в должности – <span class=\"paper_field\"></span>. Продаваемый под имеет модификации: <span class=\"paper_field\"></span>. Стоимость пода: <b><span class=\"paper_field\"></span></b>.<br>⠀⠀⠀Я, <span class=\"paper_field\"></span>, как покупатель, становлюсь ответственным за его повреждение, уничтожение, похищение, или попадание в руки людей, относящимся к врагам Nanotrasen.<br>⠀⠀⠀Так же я, обязуюсь соблюдать все правила, законы и предупреждения, а также соглашаюсь выполнять все устные или письменные инструкции, или приказы со стороны командования, представителей или агентов Nanotrasen, и Центрального командования.<br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br>Подпись продавца: <span class=\"paper_field\"></span><br>Подпись покупателя: <span class=\"paper_field\"></span><br>Время сделки: <span class=\"paper_field\"></span><br><hr><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и выдаче покупателю.</font></font>"
 
-//Отдел сервиса
+// MARK: Отдел сервиса
+
 /obj/item/paper/form/NT_MR
 	name = "Форма NT-MR"
 	id = "NT-MR"
@@ -1264,7 +1272,8 @@
 	category = "Отдел сервиса"
 	info = "<font face=\"Verdana\" color=black>⠀⠀⠀Просим произвести регистрацию расторжения брака, подтверждаем взаимное согласие на расторжение брака.<br><br></center><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br>Подпись супруга: <span class=\"paper_field\"></span><br>Подпись супруги: <span class=\"paper_field\"></span><br><br>Подпись уполномоченного: <span class=\"paper_field\"></span><br><br><hr><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и выдаче каждому, из супругов.</font></font>"
 
-//Отдел снабжения
+// MARK: Отдел снабжения
+
 /obj/item/paper/form/NT_REQ_01
 	name = "Форма NT-REQ-01"
 	id = "NT-REQ-01"
@@ -1281,7 +1290,8 @@
 	info = "<font face=\"Verdana\" color=black><center><h3>Отдел снабжения</h3></center><center><b>Регистрационная форма для подтверждения заказа</b></center><br>Имя заявителя: <span class=\"paper_field\"></span><br>Должность заявителя: <span class=\"paper_field\"></span><br>Подробное объяснение о необходимости заказа: <span class=\"paper_field\"></span><br><br>Время: <span class=\"paper_field\"></span><br>Подпись заявителя: <span class=\"paper_field\"></span><br>Подпись руководителя: <span class=\"paper_field\"></span><br>Подпись сотрудника снабжения: <span class=\"paper_field\"></span><br><hr><center><font size = \"1\"><i>Данная форма является приложением для оригинального автоматического документа, полученного с рук заявителя. Для подтверждения заказа заявителя необходимы указанные подписи и соответствующие печати отдела по заказу.<br></font>"
 	footer = null
 
-//Служба безопасности
+// MARK: Служба безопасности
+
 /obj/item/paper/form/NT_SEC_01
 	name = "Форма NT-SEC-01"
 	id = "NT-SEC-01"
@@ -1362,7 +1372,8 @@
 	info = "<font face=\"Verdana\" color=black><center><i><font size=\"4\"><b>Лицензия</b></font></i></center><br><br>Имя обладателя лицензии: <span class=\"paper_field\"></span><br>Должность обладателя лицензии: <span class=\"paper_field\"></span><br>Перечень зарегистрированного вооружения: <span class=\"paper_field\"></span><br>Перечень зарегистрированной экипировки: <span class=\"paper_field\"></span><br><br><hr><br><center><i><font size=\"4\"><b>Подписи и штампы</b></font></i></center><br><br>Время: <span class=\"paper_field\"></span><br>Подпись обладателя  лицензии: <span class=\"paper_field\"></span><br>Подпись главы службы безопасности: <span class=\"paper_field\"></span><br><br><hr><font size = \"1\"><i> *Данная форма документа, обязательно должна подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, лицензия будет является недействительной. Обязательно провести копирование документа для службы безопасности, оригинал документа должен быть выдан обладателю лицензии. В случае несоответствия должности обладателя лицензии, можно приступить к процедуре аннулирования лицензии и изъятию вооружения, экипировки.<br></font>"
 	footer = footer_confidential
 
-//Юридический отдел
+// MARK: Юридический отдел
+
 /obj/item/paper/form/NT_LD_00
 	name = "Форма NT-LD-00"
 	id = "NT-LD-00"
@@ -1429,13 +1440,14 @@
 	info = "<font face=\"Verdana\" color=black>Я, <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>, сообщаю о постановлении запрета на реанимацию в отношении: <span class=\"paper_field\"></span><br><font size=\"1\">Указать имя члена экипажа.</font><br><br>Исходя из того, что вышеупомянутый член экипажа попал под действие особых случаев применения летальной силы, а именно: <span class=\"paper_field\"></span><br><font size=\"1\">Описать особый случай применения летальной силы указанный в СРП СБ.</font><br><br>Тело члена экипажа должно быть помещено в морг, ксерокопия данного документа должна находиться в картотеке патологоанатома, либо приложена к мешку с трупом подсудимого. Служебное оборудование данного члена экипажа должно быть передано вышестоящему главе отдела. Личные вещи не нарушающий Космический Закон должны оставаться вместе с членом экипажа, либо в ячейке морга.<br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br><table></td><tr><td>Дата и время:<td><span class=\"paper_field\"></span><br></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><br></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><br></td></tr></table><br><hr><br><font size =\"1\">Данный документ является недействительным при отсутствии подписи и печати уполномоченного лица.<br>Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и хранения одного экземпляра в картотеке патологоанатома, либо в мешке для трупов с вышеуказанным членом экипажа.</font></font>"
 	footer = null
 
-//Центральное командование
+// MARK: Центральное командование
+
 /obj/item/paper/form/NT_COM_01
 	name = "Форма NT-COM-01"
 	id = "NT-COM-01"
 	altername = "Запрос отчёта общего состояния станции"
 	category = "Центральное командование"
-	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль НаноТрейзен АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1447,7 +1459,7 @@
 	id = "NT-COM-02"
 	altername = "Запрос отчёта состояния трудовых активов станции"
 	category = "Центральное командование"
-	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль НаноТрейзен АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1459,7 +1471,7 @@
 	id = "NT-COM-03"
 	altername = "Запрос отчёта криминального статуса станции"
 	category = "Центральное командование"
-	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль НаноТрейзен АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1474,7 +1486,7 @@
 	id = "NT-COM-04"
 	altername = "Запрос отчёта здравоохранения станции"
 	category = "Центральное командование"
-	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль НаноТрейзен АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1486,7 +1498,7 @@
 	id = "NT-COM-05"
 	altername = "Запрос отчёта научно-технического прогресса станции"
 	category = "Центральное командование"
-	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль НаноТрейзен АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1498,7 +1510,7 @@
 	id = "NT-COM-06"
 	altername = "Запрос отчёта инженерного обеспечения станции"
 	category = "Центральное командование"
-	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль НаноТрейзен АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1510,14 +1522,14 @@
 	id = "NT-COM-07"
 	altername = "Запрос отчёта статуса снабжения станции "
 	category = "Центральное командование"
-	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль НаноТрейзен АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
 	info = ""
 	footer = footer_confidential
 
-//Синдикатские формы
+// MARK: Синдикатские формы
 
 /obj/item/paper/form/syndieform
 	name = "ALERT A CODER SYND FORM"
@@ -1660,7 +1672,8 @@
 			В случае его отсутствия требуется подпись Офицера Телекоммуникаций или заменяющего его лица с указанием должности.\
 			<br>***Заполняется Директором Исследований. В случае его отсутствия, заполняется Офицером Телекоммуникаций или заменяющим его лицом</font>"
 
-//======
+// MARK: Буклеты
+
 /obj/item/paper/deltainfo
 	name = "Информационный буклет НСС Керберос"
 	info = "<font face=\"Verdana\" color=black><center><h1>Буклет нового сотрудника \
@@ -1701,7 +1714,7 @@
 			посещать эти части станции не рекомендуется, однако неиспользуемые площади \
 			могут быть использованы для строительства новых отсеков.\
 			<br><hr><br><center><h2>Особенности станции</h2></center>\
-			<br>В отличие от большинства других научно-исследовательских станций Nanotrasen, \
+			<br>В отличие от большинства других научно-исследовательских станций НаноТрейзен, \
 			таких как &#34;Кибериада&#34;, <b>НСС &#34;Керберос&#34;</b> имеет менее \
 			жёсткую систему контроля за личными вещами экипажа. В частности, в отсеках \
 			были построены <b>дополнительные автолаты</b>, в том числе <b>публичные</b> \

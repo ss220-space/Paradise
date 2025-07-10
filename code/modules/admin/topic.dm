@@ -400,7 +400,7 @@
 		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
-		GLOB.minor_announcement.Announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination,"минуту","минуты","минут")].")
+		GLOB.minor_announcement.announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")].")
 		message_admins(span_adminnotice("[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds"))
 		href_list["check_antagonist"] = TRUE
 
@@ -2558,21 +2558,21 @@
 		P.name = "Центральное командование - paper"
 		var/stypes = list("Разберитесь с этим сами!","Неразборчивый факс","Факс не подписан","Не сейчас","Вы напрасно тратите наше время", "Продолжайте в том же духе", "Инструкции ОБР")
 		var/stype = tgui_input_list(src.owner, "Какой тип заготовленного письма вы хотите отправить [H]?", "Выберите этот документ", stypes)
-		var/tmsg = "<span style='font-face: \"Verdana\"; color: black;'><center><img src = 'ntlogo.png'><br><br><br><span style='font-size: 18px;'><b>Научная станция NanoTrasen [SSmapping.map_datum.station_short]</b></span><br><br><br><span style='font-size: 4;'>Отчет отдела коммуникаций АКН 'Трурль'</span></center><br><br>"
+		var/tmsg = "<span style='font-face: \"Verdana\"; color: black;'><center><img src = 'ntlogo.png'><br><br><br><span style='font-size: 18px;'><b>Научная станция NanoTrasen [SSmapping.map_datum.station_short]</b></span><br><br><br><span style='font-size: 4;'>Отчет отдела коммуникаций [command_name()]</span></center><br><br>"
 		if(stype == "Разберитесь с этим сами!")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Пожалуйста, действуйте в соответствии со Стандартными Рабочими Процедурами и/или Космическим Законом. Вы полностью обучены справляться с данной ситуацией без вмешательства Центрального Командования.<br><br><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>Пожалуйста, действуйте в соответствии со Стандартными Рабочими Процедурами и/или Космическим Законом. Вы полностью обучены справляться с данной ситуацией без вмешательства Центрального командования.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Неразборчивый факс")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Грамматика, синтаксис и/или типография вашего факса находятся на низком уровне и не позволяют нам понять содержание сообщения.<br><br>Пожалуйста, обратитесь к ближайшему словарю и/или тезаурусу и повторите попытку.<br><br><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>Грамматика, синтаксис и/или типография вашего факса находятся на низком уровне и не позволяют нам понять содержание сообщения.<br><br>Пожалуйста, обратитесь к ближайшему словарю и/или тезаурусу и повторите попытку.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Факс не подписан")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Ваш факс был неправильно подписан, и поэтому мы не можем подтвердить вашу личность.<br><br>Пожалуйста, подпишите свои факсы перед их отправкой, чтобы мы могли вас идентифицировать.<br><br><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>Ваш факс был неправильно подписан, и поэтому мы не можем подтвердить вашу личность.<br><br>Пожалуйста, подпишите свои факсы перед их отправкой, чтобы мы могли вас идентифицировать.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Не сейчас")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Из-за неотложных проблем, связанных с вопросом, превышающим ваш текущий уровень оплаты, мы не можем оказать помощь по любому вопросу, на который ссылается ваш факс.<br><br>Это может быть связано с отключением электроэнергии, бюрократическим аудитом, распространением вредителей, 'Восхождением', быстрым ростом популяции корги или любой другой ситуацией, которая может повлиять на надлежащее функционирование АКН 'Трурль'.<br><br>Пожалуйста, повторите попытку позднее.<br><br><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>Из-за неотложных проблем, связанных с вопросом, превышающим ваш текущий уровень оплаты, мы не можем оказать помощь по любому вопросу, на который ссылается ваш факс.<br><br>Это может быть связано с отключением электроэнергии, бюрократическим аудитом, распространением вредителей, 'Восхождением', быстрым ростом популяции корги или любой другой ситуацией, которая может повлиять на надлежащее функционирование [command_name()].<br><br>Пожалуйста, повторите попытку позднее.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Вы напрасно тратите наше время")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>В интересах предотвращения дальнейшего нерационального использования ресурсов компании, пожалуйста, не тратьте наше время на такую мелкую чушь.<br><br>Пожалуйста, помните, что мы ожидаем, что наши сотрудники будут поддерживать, по крайней мере, полу-достойный уровень профессионализма. Не испытывайте наше терпение.<br><br><i><small>Это автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>В интересах предотвращения дальнейшего нерационального использования ресурсов компании, пожалуйста, не тратьте наше время на такую мелкую чушь.<br><br>Пожалуйста, помните, что мы ожидаем, что наши сотрудники будут поддерживать, по крайней мере, полу-достойный уровень профессионализма. Не испытывайте наше терпение.<br><br><i><small>Это автоматическое сообщение.</i></small>"
 		else if(stype == "Продолжайте в том же духе")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был успешно получено службой регистрации факсов АКН 'Трурль'.<br><br>Мы в АКН 'Трурль' искренне ценим хорошую работу, которую вы здесь проделали, и искренне рекомендуем вам продолжать демонстрировать такую преданность компании.<br><br><i><small>Это точно не автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был успешно получено службой регистрации факсов [command_name()].<br><br>Мы в [command_name()] искренне ценим хорошую работу, которую вы здесь проделали, и искренне рекомендуем вам продолжать демонстрировать такую преданность компании.<br><br><i><small>Это точно не автоматическое сообщение.</i></small>"
 		else if(stype == "Инструкции ОБР")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Пожалуйста, используйте карту, если вы хотите вызвать ОБР.<br><br><i><small>Это автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>Пожалуйста, используйте карту, если вы хотите вызвать ОБР.<br><br><i><small>Это автоматическое сообщение.</i></small>"
 		else
 			return
 		tmsg += "</span>"
@@ -2606,26 +2606,35 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(tgui_alert(src.owner, "Accept or Deny ERT request?", "CentComm Response", list("Accept", "Deny")) == "Deny")
+		if(tgui_alert(owner, "Accept or Deny ERT request?", "CentComm Response", list("Accept", "Deny")) == "No")
 			var/mob/living/carbon/human/H = locateUID(href_list["ErtReply"])
 			if(!istype(H))
-				to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon/human"), confidential=TRUE)
-				return
-			if(H.stat != 0)
-				to_chat(usr, span_warning("The person you are trying to contact is not conscious."), confidential=TRUE)
-				return
-			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-				to_chat(usr, span_warning("The person you are trying to contact is not wearing a headset"), confidential=TRUE)
+				to_chat(owner, span_warning("This can only be used on instances of type /mob/living/carbon/human"))
 				return
 
-			var/input = tgui_input_text(src.owner, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "", encode = FALSE)
-			if(!input)	return
+			var/reason = tgui_input_text(owner, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm", multiline = TRUE, encode = FALSE)
+			if(!reason)
+				return
+			var/announce_to_crew = tgui_alert(owner, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"
 			GLOB.ert_request_answered = TRUE
-			to_chat(src.owner, "You sent [input] to [H] via a secure channel.", confidential=TRUE)
-			log_admin("[src.owner] denied [key_name(H)]'s ERT request with the message [input].")
-			to_chat(H, "[span_specialnotice("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Your ERT request has been denied for the following reasons: [input].")]")
+			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
+
+			if(announce_to_crew)
+				GLOB.major_announcement.announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
+												ANNOUNCE_ERT_UNAVAIL_RU
+				)
+				return
+
+			if(H.stat != CONSCIOUS)
+				to_chat(owner, span_warning("The person you are trying to contact is not conscious. ERT denied but no message has been sent."))
+				return
+			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
+				to_chat(owner, span_warning("The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent."))
+				return
+			to_chat(owner, span_notice("You sent [reason] to [H] via a secure channel."))
+			to_chat(H, "[span_specialnotice("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]")
 		else
-			src.owner.response_team()
+			owner.response_team()
 
 
 	else if(href_list["AdminFaxView"])
@@ -3208,7 +3217,7 @@
 					return
 				change_station_name(new_name)
 				log_and_message_admins("renamed the station to: [new_name].")
-				GLOB.event_announcement.Announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
 
 			if("set_centcomm_name")
 				if(!check_rights(R_ADMIN | R_EVENT))
@@ -3225,7 +3234,7 @@
 				var/new_name = new_station_name()
 				change_station_name(new_name)
 				log_and_message_admins("reset the station name.")
-				GLOB.event_announcement.Announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
 
 			if("gravity")
 				if(!(SSticker && SSticker.mode))
@@ -3243,7 +3252,7 @@
 
 				var/gravity_announce = tgui_input_text(usr, "Do you wish to make any global announcement?", "Announcement Text", encode = FALSE)
 				if(gravity_announce)
-					GLOB.event_announcement.Announce("[gravity_announce]")
+					GLOB.minor_announcement.announce("[gravity_announce]")
 
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
 
@@ -3492,7 +3501,7 @@
 					human.name = newname
 					human.real_name = newname
 
-			if("eagles")//
+			if("eagles")
 				if(!you_realy_want_do_this())
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
@@ -3500,7 +3509,9 @@
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				GLOB.event_announcement.Announce("Активирована блокировка управления шл+юзами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.", new_sound = 'sound/AI/commandreport.ogg')
+				GLOB.minor_announcement.announce("Активирована блокировка управления шлю+зами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.",
+												new_sound = 'sound/AI/commandreport.ogg'
+				)
 			if("onlyone")
 				if(!you_realy_want_do_this())
 					return
@@ -3640,37 +3651,11 @@
 				else
 					log_and_message_admins(span_adminnotice("tried starting a Thunderdome match, but no ghosts signed up."))
 
-			if("securitylevel0")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_GREEN)
-				log_and_message_admins(span_notice("change security level to Green."))
+			if("securitylevel")
+				var/level_number = text2num(href_list["number"])
+				SSsecurity_level.set_level(level_number)
+				message_admins(span_notice("[key_name_admin(usr)] change security level to [SSsecurity_level.number_level_to_text(level_number)]."))
 
-			if("securitylevel1")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_BLUE)
-				log_and_message_admins(span_notice("change security level to Blue."))
-			if("securitylevel2")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_RED)
-				log_and_message_admins(span_notice("change security level to Red."))
-			if("securitylevel3")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_GAMMA)
-				log_and_message_admins(span_notice("change security level to Gamma."))
-			if("securitylevel4")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_EPSILON)
-				log_and_message_admins(span_notice("change security level to Epsilon."))
-			if("securitylevel5")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_DELTA)
-				log_and_message_admins(span_notice("change security level to Delta."))
 			if("moveminingshuttle")
 				if(!you_realy_want_do_this())
 					return
@@ -4153,7 +4138,7 @@
 	if (playlightning)
 		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
 		sleep(80)
-	GLOB.priority_announcement.Announce(replacetext(announcement, "%STATION%", station_name()))
+	GLOB.major_announcement.announce(replacetext(announcement, "%STATION%", station_name()))
 	if (playlightning)
 		sleep(20)
 		sound_to_playing_players('sound/magic/lightningbolt.ogg')

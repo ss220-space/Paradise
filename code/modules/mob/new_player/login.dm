@@ -34,7 +34,7 @@
 			return FALSE
 
 	add_sight(SEE_TURFS)
-	GLOB.player_list |= src
+	add_to_player_list()
 	GLOB.new_player_mobs |= src
 
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))

@@ -50,7 +50,7 @@
 	S.loc = src
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
 		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 	update_icon(UPDATE_OVERLAYS)
 
 

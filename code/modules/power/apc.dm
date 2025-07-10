@@ -287,20 +287,7 @@
 	terminal.master = src
 
 /obj/machinery/power/apc/Initialize(mapload)
-	. = ..()
-	if(!mapload)
-		return
-	electronics_state = APC_ELECTRONICS_SECURED
-	// is starting with a power cell installed, create it and set its charge level
-	if(cell_type)
-		cell = new/obj/item/stock_parts/cell/upgraded(src)
-		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
-		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
-
-	cog = null // Or you can't put it in
 	var/area/A = get_area(src)
-
-
 	//if area isn't specified use current
 	if(keep_preset_name)
 		if(isarea(A))
@@ -312,6 +299,18 @@
 	else
 		name = "\improper [get_area_name(area, TRUE)] APC"
 	area.apc |= src
+	. = ..()
+	if(!mapload)
+		return
+	electronics_state = APC_ELECTRONICS_SECURED
+	// is starting with a power cell installed, create it and set its charge level
+	if(cell_type)
+		cell = new/obj/item/stock_parts/cell/upgraded(src)
+		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
+		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
+
+	cog = null // Or you can't put it in
+
 
 	update_icon()
 
@@ -737,7 +736,7 @@
 			span_notice("You have replaced the damaged APC frame with a new one."),
 		)
 		stat &= ~BROKEN
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		if(opened == APC_COVER_OFF)
 			opened = APC_OPENED
 		update_icon()
@@ -1331,7 +1330,7 @@
 	var/datum/action/innate/ai/return_to_core/R = new
 	R.Grant(occupier)
 	occupier.cancel_camera()
-	if((seclevel2num(get_security_level()) == SEC_LEVEL_DELTA) && malf.nuking)
+	if((SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA) && malf.nuking)
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = src //the pinpointer will detect the shunted AI
 
@@ -1344,7 +1343,7 @@
 		occupier.parent.adjustOxyLoss(occupier.getOxyLoss())
 		occupier.parent.cancel_camera()
 		qdel(occupier)
-		if(seclevel2num(get_security_level()) == SEC_LEVEL_DELTA)
+		if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 					if((A.stat != DEAD) && A.nuking)

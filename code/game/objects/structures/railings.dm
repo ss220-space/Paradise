@@ -43,7 +43,7 @@
 		return
 	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 	if(I.use_tool(src, user, 40, volume = 50))
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		to_chat(user, "<span class='notice'>You repair [src].</span>")
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)

@@ -49,7 +49,6 @@
 		tail = null
 	old_head.value = null
 	old_head.next = null
-	qdel(old_head)
 	count--
 	return value
 /*
@@ -71,3 +70,4 @@
 */
 /queue/proc/size()
 	return count
+
