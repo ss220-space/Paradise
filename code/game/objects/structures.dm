@@ -236,6 +236,9 @@
 		return FALSE
 	return TRUE
 
+/obj/structure/proc/get_climb_text()
+	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на [genderize_ru(gender, "него", "неё", "него", "них")].")
+
 /obj/structure/examine(mob/user)
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
@@ -247,7 +250,7 @@
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += span_info("Можно <b>перетащить</b> кого-то на [declent_ru(GENITIVE)], чтобы через короткое время поместить на стол.")
+		. += get_climb_text() // span_info("Можно <b>перетащить</b> кого-то на [declent_ru(GENITIVE)], чтобы через короткое время поместить на стол.")
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -263,6 +266,11 @@
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE
 
+/obj/structure/zap_act(power, zap_flags)
+	if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power / 8000, BURN, ENERGY)
+	power -= power / 2000 //walls take a lot out of ya
+	. = ..()
 
 /obj/structure/extinguish_light(force = FALSE)
 	if(light_on)

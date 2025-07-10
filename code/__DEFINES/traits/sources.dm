@@ -21,7 +21,7 @@
 #define EYE_DAMAGE "eye_damage"
 
 /// Trait sorce for "was recently shocked by something"
-#define WAS_SHOCKED "was_shocked"
+#define WAS_SHOCKED "was_shocked" // Zwei has done some kind of bullshit, now sit down and rake this shit. Watch SHOCKED_2.
 
 /// cannot be removed without admin intervention
 #define ROUNDSTART_TRAIT "roundstart"

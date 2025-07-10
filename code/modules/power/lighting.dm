@@ -304,7 +304,7 @@
 
 	if(new_level_number != SEC_LEVEL_EPSILON)
 		return
-		
+
 	fire_mode = FALSE
 	emergency_mode = TRUE
 	on = FALSE
@@ -812,10 +812,13 @@
 	on = TRUE
 	update()
 
-/obj/machinery/light/tesla_act(power, explosive = FALSE)
+/obj/machinery/light/zap_act(power, zap_flags)
+	var/explosive = zap_flags & ZAP_MACHINE_EXPLOSIVE
+	zap_flags &= ~(ZAP_MACHINE_EXPLOSIVE | ZAP_OBJ_DAMAGE)
+	. = ..()
 	if(explosive)
-		explosion(loc,0,0,0,flame_range = 5, adminlog = 0)
-	qdel(src)
+		explosion(src, 0, 0, 0, flame_range = 5, cause = "Exploding light")
+		qdel(src)
 
 // timed process
 // use power

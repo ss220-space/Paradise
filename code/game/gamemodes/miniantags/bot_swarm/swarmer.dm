@@ -675,7 +675,7 @@
 		return
 
 	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE, -1)
-	arrived.electrocute_act(5, "электрической ловушки", flags = SHOCK_NOGLOVES)
+	arrived.electrocute_act(100, "электрической ловушки", flags = SHOCK_NOGLOVES | SHOCK_ILLUSION) // Remove the Swarmer mode pls
 	if(isrobot(arrived) || ismachineperson(arrived))
 		arrived.Weaken(10 SECONDS)
 	qdel(src)

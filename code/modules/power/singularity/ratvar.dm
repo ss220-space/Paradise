@@ -7,7 +7,6 @@
 	pixel_y = -248
 	current_size = 12
 	move_self = TRUE
-	contained = FALSE
 	dissipate = FALSE
 	move_self = TRUE
 	grav_pull = 10

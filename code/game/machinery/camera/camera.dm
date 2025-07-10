@@ -102,12 +102,6 @@
 
 	cancelCameraAlarm()
 
-/obj/machinery/camera/tesla_act(power)//EMP proof upgrade also makes it tesla immune
-	if(isEmpProof())
-		return
-	..()
-	qdel(src)//to prevent bomb testing camera from exploding over and over forever
-
 /obj/machinery/camera/ex_act(severity)
 	if(invuln)
 		return
@@ -495,6 +489,6 @@
 
 /obj/machinery/camera/mortar/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
 	return
-	
+
 /obj/machinery/camera/mortar/flamer_fire_act(damage)
 	return
