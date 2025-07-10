@@ -484,8 +484,6 @@ SUBSYSTEM_DEF(jobs)
 		return null
 
 	var/datum/job/job = GetJob(rank)
-	to_chat(world, span_notice("Негра забыть спросили"))
-
 	H.job = rank
 
 	if(!joined_late)
