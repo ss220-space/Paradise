@@ -156,7 +156,7 @@
 	return
 
 /obj/effect/mob_spawn/proc/create(mob/plr, flavour = TRUE, name, prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
-	var/mob/living/mob = new mob_type(get_turf(src)) //living mobs only
+	var/mob/living/mob = new mob_type(get_turf(src)) // Living mobs only
 	if(!random)
 		mob.real_name = mob_name ? mob_name : mob.name
 		mob.tts_seed = SStts.get_random_seed(mob)
