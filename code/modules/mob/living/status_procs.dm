@@ -908,22 +908,6 @@
 /mob/living/proc/IsFrozen()
 	return has_status_effect(/datum/status_effect/freon)
 
-/*
- * Below are the flags with OffParadise. Zwei replaced them with traits to make it harder to port.
- * For understanding, I give examples of using and replacing flags with traits. Maybe he did better.
- *
- * closest_mob.set_shocked() --> ADD_TRAIT(closest_mob, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
- * addtimer(CALLBACK(closest_mob, /mob/living/proc/reset_shocked), 10) --> addtimer(TRAIT_CALLBACK_REMOVE(closest_mob, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
- */
-
-/*
-/mob/living/proc/set_shocked()
-	flags_2 |= SHOCKED_2
-
-/mob/living/proc/reset_shocked()
-	flags_2 &= ~ SHOCKED_2
-*/
-
 #undef RETURN_STATUS_EFFECT_STRENGTH
 #undef SET_STATUS_EFFECT_STRENGTH
 

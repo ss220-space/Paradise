@@ -8,7 +8,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait used to prevent an atom from component radiation emission (see radioactivity.dm)
 #define TRAIT_BLOCK_RADIATION "block_radiation"
 /// Is this atom being actively shocked? Used to prevent repeated shocks.
-#define TRAIT_BEING_SHOCKED "being_shocked" // Zwei has done some kind of bullshit, now sit down and rake this shit. Watch SHOCKED_2.
+#define TRAIT_BEING_SHOCKED "being_shocked" // Zwei has done some kind of bullshit. Watch SHOCKED_2.
 
 /// Weather immunities, also protect mobs inside them.
 #define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.

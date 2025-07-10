@@ -467,9 +467,9 @@
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
 
-// Instead of the TRAIT_BEING_SHOCKED and WAS_SHOCKED traits, which Zwei introduced for some reason, instead of the normal port.
+// See TRAIT_BEING_SHOCKED and WAS_SHOCKED traits.
 /// Prevents mobs from getting chainshocked by teslas and the supermatter
-//#define SHOCKED_2 (1<<8)
+// #define SHOCKED_2 (1<<8)
 
 // tesla_zap
 #define ZAP_MACHINE_EXPLOSIVE		(1<<0)
