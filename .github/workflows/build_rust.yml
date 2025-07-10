@@ -103,7 +103,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: |
         git add --force librustlibs.so rustlibs.dll
-        git commit -m --allow-empty "Build Rust library"
+        git commit -m "Build Rust library"
         git push origin
 
     - name: Notify Failure
