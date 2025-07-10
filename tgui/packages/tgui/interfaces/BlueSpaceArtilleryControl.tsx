@@ -30,20 +30,20 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
   let alertStatus: ReactNode;
   if (data.ready) {
     alertStatus = (
-      <LabeledList.Item label="Status" color="green">
-        Ready
+      <LabeledList.Item label="Статус" color="green">
+        Готов к выстрелу
       </LabeledList.Item>
     );
   } else if (data.reloadtime_text) {
     alertStatus = (
-      <LabeledList.Item label="Reloading In" color="red">
+      <LabeledList.Item label="Перезарядка" color="red">
         {data.reloadtime_text}
       </LabeledList.Item>
     );
   } else {
     alertStatus = (
-      <LabeledList.Item label="Status" color="red">
-        No cannon connected!
+      <LabeledList.Item label="Статус" color="red">
+        Орудие не обнаружено!
       </LabeledList.Item>
     );
   }
@@ -55,66 +55,66 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
             <Section>
               <LabeledList>
                 {!!data.notice && (
-                  <LabeledList.Item label="Alert" color="red">
+                  <LabeledList.Item label="Ошибка" color="red">
                     {data.notice}
                   </LabeledList.Item>
                 )}
                 {alertStatus}
                 {data.connected && (
-                  <LabeledList.Item label="Mode">
+                  <LabeledList.Item label="Режим стрельбы">
                     <Button icon="cog" onClick={() => act('select_mode')}>
                       {data.mode}
                     </Button>
                   </LabeledList.Item>
                 )}
-                <LabeledList.Item label="Calibrate">
+                <LabeledList.Item label="Калибровка">
                   <Button icon="crosshairs" onClick={() => act('recalibrate')}>
                     {data.target ? data.target : 'None'}
                   </Button>
                 </LabeledList.Item>
                 {data.connected && (
-                  <LabeledList.Item label="Strike coordinate">
+                  <LabeledList.Item label="Координаты">
                       {data.target ? data.target_coord : 'None'}
                   </LabeledList.Item>
                 )}
                 {data.connected && (
-                  <LabeledList.Item label="Correction:">
+                  <LabeledList.Item label="Коррекция">
                       {data.correction}
                   </LabeledList.Item>
                 )}
                 {data.connected && (
-                  <LabeledList.Item label="Change correction">
+                  <LabeledList.Item label="Корректировка">
                     <Button
                       onClick={() => act('aim', {
                         axis: 'x'
                       })}
                     >
-                      Correct axis X
+                      По оси x
                     </Button>
                     <Button
                       onClick={() => act('aim', {
                         axis: 'y'
                       })}
                     >
-                      Correct axis Y
+                      По оси y
                     </Button>
                   </LabeledList.Item>
                 )}
                 {data.connected && (
-                  <LabeledList.Item label="Firing">
+                  <LabeledList.Item label="Стрельба">
                     <Button
                       icon="skull"
                       color={(data.ready && data.target) ? "red" : "gray"}
                       onClick={() => act('fire')}
                     >
-                      FIRE!
+                      ОГОНЬ!
                     </Button>
                   </LabeledList.Item>
                 )}
                 {!data.connected && (
-                  <LabeledList.Item label="Maintenance">
+                  <LabeledList.Item label="Строительство">
                     <Button icon="wrench" onClick={() => act('build')}>
-                      Complete Deployment
+                      Завершить установку
                     </Button>
                   </LabeledList.Item>
                 )}

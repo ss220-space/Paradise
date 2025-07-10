@@ -304,7 +304,7 @@
 			for(var/i = 1; i <= BSA_BURST_COUNT; i++)
 				addtimer(CALLBACK(src, PROC_REF(fire_power_shot), user, spread(bullseye, BSA_BURST_SPREAD)), i * 0.5 SECONDS)
 		else
-			to_chat(user, span_info("Click! Looks like the cannon is broken...<br>Maybe we should try a different firing mode?"))
+			to_chat(user, span_info("Клик! Осечка?!<br>Может стоит поставить другой режим стрельбы?"))
 	reload()
 
 
@@ -604,7 +604,7 @@
 		return FALSE
 	emagged = TRUE
 	if(user)
-		to_chat(user, span_warning("You hack the [name], stripping away its protective protocols..."))
+		to_chat(user, span_warning("Вы взламываете [src.declent_ru(ACCUSATIVE)], протоколы безопасности отключены!"))
 	return TRUE
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
@@ -677,14 +677,12 @@
 	// Get the target turf to correctly gather what's visible from its turf, in case it's located in a moving object (borgs / mechs)
 	var/new_cam_turf = get_target_turf()
 	if (!new_cam_turf)
-		to_chat(usr, "new cam turf not found")
 		cam_screen.show_camera_static()
 		return
 	// If we're not forcing an update for some reason and the cameras are in the same location,
 	// we don't need to update anything.
 	// Most security cameras will end here as they're not moving.
 	if(last_camera_turf == new_cam_turf)
-		to_chat(usr, "cam turf not moved")
 		return
 	// Cameras that get here are moving, and are likely attached to some moving atom such as cyborgs.
 	last_camera_turf = new_cam_turf
@@ -698,4 +696,3 @@
 	var/size_x = bbox[3] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
 	cam_screen.show_camera(visible_turfs, size_x, size_y)
-	to_chat(usr, "update_active_camera_screen success")
