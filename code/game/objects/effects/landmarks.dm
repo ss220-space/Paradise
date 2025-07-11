@@ -728,7 +728,7 @@
 	. = ..()
 	var/list/paths = subtypesof(/datum/outfit)
 	for(var/datum/outfit/outfit as anything in paths)
-		if(!initial(outfit.can_be_admin_equipped))
+		if(!outfit.can_be_admin_equipped)
 			return
 
 		paths[initial(outfit.name)] = outfit
