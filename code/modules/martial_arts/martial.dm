@@ -200,7 +200,7 @@
 	if(!human.mind)
 		return FALSE
 
-	if(change_musculs && SEND_SIGNAL(human, COMSIG_CAN_CHANGE_STRENGTH))
+	if(change_musculs && HASBIT(SEND_SIGNAL(mutant, COMSIG_CAN_CHANGE_STRENGTH) & CAN_CHANGE_STRENGTH))
 		ADD_TRAIT(human.physiology, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
 		human.update_body(TRUE)
 

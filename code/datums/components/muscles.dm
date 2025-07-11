@@ -64,7 +64,7 @@
 
 /datum/component/muscles/proc/can_activate_strength_gene(user)
 	SIGNAL_HANDLER
-	return can_become_stronger
+	return CAN_CHANGE_STRENGTH
 
 
 /datum/component/muscles/proc/on_strength_border_update(user)
