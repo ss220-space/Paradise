@@ -632,6 +632,20 @@
 	. = ..()
 	force_adjust_mask()
 
+
+/obj/item/clothing/mask/gas/sechailer/check_access(mob/user)
+	if(!user)
+		return FALSE
+	for(var/obj/item/I in user.get_all_contents())
+		var/access_list = I.GetAccess()
+		if(!access_list)
+			continue
+		if(ACCESS_SECURITY in access_list)
+			return TRUE
+	balloon_alert(user, "нет доступа!")
+	return FALSE
+
+
 /obj/item/clothing/mask/gas/sechailer/tactical
 	name = "\improper Security gas mask FCO-26"
 	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией N&R специально для сотрудников станционной службы безопасности НаноТрейзен. Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
@@ -741,12 +755,14 @@
 
 /obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/halt))
-		req_access = list(ACCESS_SECURITY)
+		if(!check_access(user))
+			return
 		halt()
 	else if(istype(action, /datum/action/item_action/adjust))
 		adjustmask(user)
 	else if(istype(action, /datum/action/item_action/dispatch))
-		req_access = list(ACCESS_SECURITY) // не работает
+		if(!check_access(user))
+			return
 		dispatch(user)
 	else if(istype(action, /datum/action/item_action/selectphrase))
 		var/key = phrase_list[phrase]
