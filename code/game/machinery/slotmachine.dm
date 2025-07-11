@@ -10,6 +10,11 @@
 	var/custom_result
 	var/say_phrase
 	var/sound = 'sound/machines/ping.ogg'
+	var/static/list/allowed_uplink_items
+	var/list/available_prizes = list()
+
+/datum/slotmachine_prize/New(list/allowed_uplink_items)
+	..()
 
 /datum/slotmachine_prize/proc/get_credits(emagged)
 	if(emagged)
@@ -19,9 +24,12 @@
 /datum/slotmachine_prize/proc/apply_effect(obj/machinery/slot_machine/slotmachine, mob/user, prize_credits)
 	//Do nothing by default
 
-datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
-	//Do nothing by default
-
+/datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+	if(!length(available_prizes))
+		to_chat(user, "Кажется ваш приз затерялся в блюспейс аномалии!")
+		return
+	var/item_path = pick(available_prizes)
+	slotmachine.give_custom_prize(user, item_path)
 
 /datum/slotmachine_prize/lose
 	resultlvl = "orange"
@@ -39,9 +47,12 @@ datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slo
 	resultlvl = "green"
 	say_phrase = "Победитель!"
 
-/datum/slotmachine_prize/minimal/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
-	//TODO implement
-	to_chat(user, "Вы получаете случайный предмет на 5 TK")
+
+/datum/slotmachine_prize/minimal/New(list/allowed_uplink_items)
+	..(allowed_uplink_items)
+	for(var/datum/uplink_item/uplink_item as anything in allowed_uplink_items)
+		if(uplink_item.cost <= 5)
+			available_prizes += uplink_item.item
 
 
 /datum/slotmachine_prize/small
@@ -49,9 +60,11 @@ datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slo
 	resultlvl = "green"
 	say_phrase = "Победитель!"
 
-/datum/slotmachine_prize/small/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
-	//TODO implement
-	to_chat(user, "Вы получаете случайный предмет до 20 TK")
+/datum/slotmachine_prize/small/New(list/allowed_uplink_items)
+	..(allowed_uplink_items)
+	for(var/datum/uplink_item/uplink_item as anything in allowed_uplink_items)
+		if(uplink_item.cost > 5 && uplink_item.cost <= 20)
+			available_prizes += uplink_item.item
 
 
 /datum/slotmachine_prize/medium
@@ -61,8 +74,7 @@ datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slo
 	sound = 'sound/goonstation/misc/bell.ogg'
 
 /datum/slotmachine_prize/medium/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
-	//TODO implement
-	to_chat(user, "Вы получаете сюрплус крейт на 3 предмета за 20 TK")
+	slotmachine.give_custom_prize(user, /obj/item/storage/box/random_syndi)
 
 
 /datum/slotmachine_prize/big
@@ -71,9 +83,11 @@ datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slo
 	say_phrase = "Большой победитель!"
 	sound = 'sound/goonstation/misc/klaxon.ogg'
 
-/datum/slotmachine_prize/big/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
-	//TODO implement
-	to_chat(user, "Вы получаете случайный предмет за 30-60 TK")
+/datum/slotmachine_prize/big/New(list/allowed_uplink_items)
+	..(allowed_uplink_items)
+	for(var/datum/uplink_item/uplink_item as anything in allowed_uplink_items)
+		if(uplink_item.cost >= 30 && uplink_item.cost <= 60)
+			available_prizes += uplink_item.item
 
 
 /datum/slotmachine_prize/jackpot
@@ -87,8 +101,7 @@ datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slo
 	GLOB.minor_announcement.announce("Поздравляем [user.name] с выигрышем джекпота в [prize_credits] кредитов!", "Обладатель джекпота!")
 
 /datum/slotmachine_prize/jackpot/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
-	to_chat(user, "Вы получаете аплинк на 100 TK")
-	slotmachine.give_custom_prize(user, /obj/item/uplink)
+	slotmachine.give_custom_prize(user, /obj/item/radio/uplink)
 
 /obj/machinery/slot_machine
 	name = "slot machine"
@@ -106,12 +119,17 @@ datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slo
 
 /obj/machinery/slot_machine/Initialize(mapload)
 	. = ..()
-	prizes["jackpot"] = new /datum/slotmachine_prize/jackpot()
-	prizes["big"] = new /datum/slotmachine_prize/big()
-	prizes["medium"] = new /datum/slotmachine_prize/medium()
-	prizes["small"] = new /datum/slotmachine_prize/small()
-	prizes["minimal"] = new /datum/slotmachine_prize/minimal()
-	prizes["lose"] = new /datum/slotmachine_prize/lose()
+	var/list/allowed_uplink_items = list()
+	for(var/datum/uplink_item/uplink_item as anything in GLOB.uplink_items)
+		if(istype(uplink_item, /datum/uplink_item/racial) || uplink_item.hijack_only)
+			continue //Exclude racial and hijack
+		allowed_uplink_items += uplink_item
+	prizes["jackpot"] = new /datum/slotmachine_prize/jackpot(allowed_uplink_items)
+	prizes["big"] = new /datum/slotmachine_prize/big(allowed_uplink_items)
+	prizes["medium"] = new /datum/slotmachine_prize/medium(allowed_uplink_items)
+	prizes["small"] = new /datum/slotmachine_prize/small(allowed_uplink_items)
+	prizes["minimal"] = new /datum/slotmachine_prize/minimal(allowed_uplink_items)
+	prizes["lose"] = new /datum/slotmachine_prize/lose(allowed_uplink_items)
 
 /obj/machinery/slot_machine/attack_hand(mob/user as mob)
 	add_fingerprint(user)
@@ -180,8 +198,14 @@ datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slo
 /obj/machinery/slot_machine/proc/spin_slots(mob/user)
 	if(!istype(user))
 		return
-	var/resultId = detect_result()
-	var/datum/slotmachine_prize/prizedatum = prizes[resultId]
+	var/result_id = detect_result()
+	apply_spin_result(user, result_id)
+	working = FALSE
+	update_icon(UPDATE_ICON_STATE)
+	SStgui.update_uis(src) // Push a UI update
+
+/obj/machinery/slot_machine/proc/apply_spin_result(mob/user, result_id)
+	var/datum/slotmachine_prize/prizedatum = prizes[result_id]
 	var/credits = prizedatum.get_credits(emagged)
 	if (prizedatum.custom_result)
 		result = prizedatum.custom_result
@@ -195,9 +219,6 @@ datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slo
 	prizedatum.apply_effect(src, user, credits)
 	if(emagged)
 		prizedatum.apply_emagged_effect(src, user)
-	working = FALSE
-	update_icon(UPDATE_ICON_STATE)
-	SStgui.update_uis(src) // Push a UI update
 
 /obj/machinery/slot_machine/proc/detect_result()
 	switch(rand(1,5000))
@@ -214,6 +235,36 @@ datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slo
 		else
 			return "lose"
 
+/obj/machinery/slot_machine/verb/test_lose()
+	set name = "Проверить lose"
+	set category = STATPANEL_OBJECT
+	apply_spin_result(usr, "lose")
+
+/obj/machinery/slot_machine/verb/test_minimal()
+	set name = "Проверить minimal"
+	set category = STATPANEL_OBJECT
+	apply_spin_result(usr, "minimal")
+
+/obj/machinery/slot_machine/verb/test_small()
+	set name = "Проверить small"
+	set category = STATPANEL_OBJECT
+	apply_spin_result(usr, "small")
+
+/obj/machinery/slot_machine/verb/test_medium()
+	set name = "Проверить medium"
+	set category = STATPANEL_OBJECT
+	apply_spin_result(usr, "medium")
+
+/obj/machinery/slot_machine/verb/test_big()
+	set name = "Проверить big"
+	set category = STATPANEL_OBJECT
+	apply_spin_result(usr, "big")
+
+/obj/machinery/slot_machine/verb/test_jackpot()
+	set name = "Проверить jackpot"
+	set category = STATPANEL_OBJECT
+	apply_spin_result(usr, "jackpot")
+
 /obj/machinery/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
 	if(sound)
 		playsound(loc, sound, 55, 1)
@@ -221,30 +272,14 @@ datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slo
 		return
 	account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)
 
-/obj/machinery/slot_machine/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	default_unfasten_wrench(user, I)
-
-/obj/machinery/slot_machine/proc/cusom_minimal_prize(mob/user)
-	to_chat(user, "Вы получаете случайный предмет на 5 TK")
-
-/obj/machinery/slot_machine/proc/cusom_small_prize(mob/user)
-	to_chat(user, "Вы получаете случайный предмет до 20 TK")
-
-/obj/machinery/slot_machine/proc/cusom_medium_prize(mob/user)
-	to_chat(user, "Вы получаете сюрплус крейт на 3 предмета за 20 TK")
-
-/obj/machinery/slot_machine/proc/cusom_big_prize(mob/user)
-	to_chat(user, "Вы получаете случайный предмет за 30-60 TK")
-
-/obj/machinery/slot_machine/proc/cusom_jackpot_prize(mob/user)
-	to_chat(user, "Вы получаете аплинк на 100 TK")
-	give_custom_prize(user, /obj/item/uplink)
-
 /obj/machinery/slot_machine/proc/give_custom_prize(mob/user, obj/item/prize)
 	var/item = new prize(get_turf(src)) // Create item on slot machine turf
 	var/mob/living/carbon/human/carbon_user = user
 	if(istype(carbon_user)) // If living carbon - put in hands
 		carbon_user.put_in_any_hand_if_possible(item)
+
+/obj/machinery/slot_machine/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I)
