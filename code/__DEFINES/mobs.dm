@@ -467,10 +467,6 @@
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
 
-// See TRAIT_BEING_SHOCKED and WAS_SHOCKED traits.
-/// Prevents mobs from getting chainshocked by teslas and the supermatter
-// #define SHOCKED_2 (1<<8)
-
 // tesla_zap
 #define ZAP_MACHINE_EXPLOSIVE		(1<<0)
 #define ZAP_ALLOW_DUPLICATES		(1<<1)
