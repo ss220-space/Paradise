@@ -2,6 +2,94 @@
 #define EMAGGED_SLOT_MACHINE_GIB_CHANCE 10
 #define EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE 20
 
+
+/datum/slotmachine_prize
+	var/credits = 0
+	var/resultlvl = "red"
+	var/custom_result_prefix = ""
+	var/custom_result
+	var/say_phrase
+	var/sound = 'sound/machines/ping.ogg'
+
+/datum/slotmachine_prize/proc/get_credits(emagged)
+	if(emagged)
+		return credits * EMAGGED_SLOT_MACHINE_PRIZE_MOD
+	return credits
+
+/datum/slotmachine_prize/proc/apply_effect(obj/machinery/slot_machine/slotmachine, mob/user, prize_credits)
+	//Do nothing by default
+
+datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+	//Do nothing by default
+
+
+/datum/slotmachine_prize/lose
+	resultlvl = "orange"
+	custom_result = "Неудача!"
+
+/datum/slotmachine_prize/lose/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+	if(!isliving(user))
+		return
+	var/mob/living/target = user
+	target.adjust_slot_machine_lose_effect()
+
+
+/datum/slotmachine_prize/minimal
+	credits = 50
+	resultlvl = "green"
+	say_phrase = "Победитель!"
+
+/datum/slotmachine_prize/minimal/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+	//TODO implement
+	to_chat(user, "Вы получаете случайный предмет на 5 TK")
+
+
+/datum/slotmachine_prize/small
+	credits = 200
+	resultlvl = "green"
+	say_phrase = "Победитель!"
+
+/datum/slotmachine_prize/small/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+	//TODO implement
+	to_chat(user, "Вы получаете случайный предмет до 20 TK")
+
+
+/datum/slotmachine_prize/medium
+	credits = 500
+	resultlvl = "green"
+	say_phrase = "Победитель!"
+	sound = 'sound/goonstation/misc/bell.ogg'
+
+/datum/slotmachine_prize/medium/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+	//TODO implement
+	to_chat(user, "Вы получаете сюрплус крейт на 3 предмета за 20 TK")
+
+
+/datum/slotmachine_prize/big
+	credits = 1000
+	resultlvl = "green"
+	say_phrase = "Большой победитель!"
+	sound = 'sound/goonstation/misc/klaxon.ogg'
+
+/datum/slotmachine_prize/big/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+	//TODO implement
+	to_chat(user, "Вы получаете случайный предмет за 30-60 TK")
+
+
+/datum/slotmachine_prize/jackpot
+	credits = 10000
+	resultlvl = "teal"
+	custom_result_prefix = "ДЖЕКПОТ! "
+	say_phrase = "ДЖЕКПОТ!"
+	sound = 'sound/goonstation/misc/airraid_loop.ogg'
+
+/datum/slotmachine_prize/jackpot/apply_effect(obj/machinery/slot_machine/slotmachine, mob/user, prize_credits)
+	GLOB.minor_announcement.announce("Поздравляем [user.name] с выигрышем джекпота в [prize_credits] кредитов!", "Обладатель джекпота!")
+
+/datum/slotmachine_prize/jackpot/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+	to_chat(user, "Вы получаете аплинк на 100 TK")
+	slotmachine.give_custom_prize(user, /obj/item/uplink)
+
 /obj/machinery/slot_machine
 	name = "slot machine"
 	desc = "Gambling for the antisocial."
@@ -14,7 +102,16 @@
 	var/datum/money_account/account = null
 	var/result = null
 	var/resultlvl = null
-	var/list/prizes = list("jackpot"=10000, "big"=1000, "medium"=500, "small"=200, "minimal"=50, "none"=0)
+	var/list/prizes = list()
+
+/obj/machinery/slot_machine/Initialize(mapload)
+	. = ..()
+	prizes["jackpot"] = new /datum/slotmachine_prize/jackpot()
+	prizes["big"] = new /datum/slotmachine_prize/big()
+	prizes["medium"] = new /datum/slotmachine_prize/medium()
+	prizes["small"] = new /datum/slotmachine_prize/small()
+	prizes["minimal"] = new /datum/slotmachine_prize/minimal()
+	prizes["lose"] = new /datum/slotmachine_prize/lose()
 
 /obj/machinery/slot_machine/attack_hand(mob/user as mob)
 	add_fingerprint(user)
@@ -74,12 +171,6 @@
 		return EMAGGED_SLOT_MACHINE_PRIZE_MOD
 	return 1
 
-/obj/machinery/slot_machine/proc/give_custom_prize(mob/user, obj/item/prize)
-	var/item = new prize(get_turf(src)) // Create item on slot machine turf
-	var/mob/living/carbon/human/carbon_user = user
-	if(istype(carbon_user)) // If living carbon - put in hands
-		carbon_user.put_in_any_hand_if_possible(item)
-
 /obj/machinery/slot_machine/proc/apply_emagged_lose_effect(mob/user)
 	if(!isliving(user))
 		return
@@ -89,53 +180,39 @@
 /obj/machinery/slot_machine/proc/spin_slots(mob/user)
 	if(!istype(user))
 		return
-	var/userName = user.name
-	switch(rand(1,5000))
-		if(1)
-			var/credits = prizes["jackpot"] * get_prize_coefficient()
-			atom_say("ДЖЕКПОТ! Игрок [userName] выиграл [credits] кредитов!")
-			GLOB.minor_announcement.announce("Поздравляем [userName] с выигрышем джекпота в [credits] кредитов!", "Обладатель джекпота!")
-			result = "ДЖЕКПОТ! Вы выиграли [credits] кредитов!"
-			resultlvl = "teal"
-			win_money(credits, 'sound/goonstation/misc/airraid_loop.ogg')
-			if (emagged)
-				give_custom_prize(user, /obj/item/stack/telecrystal/hundred)
-		if(2 to 20)
-			var/credits = prizes["big"] * get_prize_coefficient()
-			atom_say("Большой победитель! Игрок [userName] выиграл [credits] кредитов!")
-			result = "Вы выиграли [credits] кредитов!"
-			resultlvl = "green"
-			win_money(credits, 'sound/goonstation/misc/klaxon.ogg')
-			if (emagged)
-				give_custom_prize(user, /obj/item/stack/telecrystal/twenty_five)
-		if(21 to 100)
-			var/credits = prizes["medium"] * get_prize_coefficient()
-			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
-			result = "Вы выиграли [credits] кредитов!"
-			resultlvl = "green"
-			win_money(credits, 'sound/goonstation/misc/bell.ogg')
-			if (emagged)
-				give_custom_prize(user, /obj/item/stack/telecrystal/five)
-		if(101 to 500)
-			var/credits = prizes["small"] * get_prize_coefficient()
-			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
-			result = "Вы выиграли [credits] кредитов!"
-			resultlvl = "green"
-			win_money(credits)
-		if(501 to 1000)
-			var/credits = prizes["minimal"] * get_prize_coefficient()
-			atom_say("Победитель! Игрок [userName] выиграл [credits] кредитов!")
-			result = "Вы выиграли [credits] кредитов!"
-			resultlvl = "green"
-			win_money(credits)
-		else
-			result = "Неудача!"
-			resultlvl = "orange"
-			if (emagged)
-				apply_emagged_lose_effect(user)
+	var/resultId = detect_result()
+	var/datum/slotmachine_prize/prizedatum = prizes[resultId]
+	var/credits = prizedatum.get_credits(emagged)
+	if (prizedatum.custom_result)
+		result = prizedatum.custom_result
+	else
+		result = "[prizedatum.custom_result_prefix] Вы выиграли [credits] кредитов!"
+	resultlvl = prizedatum.resultlvl
+	if (prizedatum.say_phrase)
+		atom_say("[prizedatum.say_phrase] Игрок [user.name] выиграл [credits] кредитов!")
+	if(credits > 0)
+		win_money(credits, prizedatum.sound)
+	prizedatum.apply_effect(src, user, credits)
+	if(emagged)
+		prizedatum.apply_emagged_effect(src, user)
 	working = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src) // Push a UI update
+
+/obj/machinery/slot_machine/proc/detect_result()
+	switch(rand(1,5000))
+		if(1)
+			return "jackpot"
+		if(2 to 20)
+			return "big"
+		if(21 to 100)
+			return "medium"
+		if(101 to 500)
+			return "small"
+		if(501 to 1000)
+			return "minimal"
+		else
+			return "lose"
 
 /obj/machinery/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
 	if(sound)
@@ -149,3 +226,25 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	default_unfasten_wrench(user, I)
+
+/obj/machinery/slot_machine/proc/cusom_minimal_prize(mob/user)
+	to_chat(user, "Вы получаете случайный предмет на 5 TK")
+
+/obj/machinery/slot_machine/proc/cusom_small_prize(mob/user)
+	to_chat(user, "Вы получаете случайный предмет до 20 TK")
+
+/obj/machinery/slot_machine/proc/cusom_medium_prize(mob/user)
+	to_chat(user, "Вы получаете сюрплус крейт на 3 предмета за 20 TK")
+
+/obj/machinery/slot_machine/proc/cusom_big_prize(mob/user)
+	to_chat(user, "Вы получаете случайный предмет за 30-60 TK")
+
+/obj/machinery/slot_machine/proc/cusom_jackpot_prize(mob/user)
+	to_chat(user, "Вы получаете аплинк на 100 TK")
+	give_custom_prize(user, /obj/item/uplink)
+
+/obj/machinery/slot_machine/proc/give_custom_prize(mob/user, obj/item/prize)
+	var/item = new prize(get_turf(src)) // Create item on slot machine turf
+	var/mob/living/carbon/human/carbon_user = user
+	if(istype(carbon_user)) // If living carbon - put in hands
+		carbon_user.put_in_any_hand_if_possible(item)
