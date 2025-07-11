@@ -419,9 +419,9 @@
 
 
 /datum/species/proc/gain_muscles(mob/living/carbon/human/target, default, max_level, can_become_stronger = TRUE)
-	var/datum/component/muscles/muscles = target.physiology.GetComponent(/datum/component/muscles)
+	var/datum/component/muscles/muscles = target.GetComponent(/datum/component/muscles)
 	if(!muscles)
-		target.physiology.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
+		target.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
 		return
 
 	muscles.max_species_strength = max_level
@@ -452,7 +452,7 @@
 		for(var/i in inherent_factions)
 			human.faction -= i
 
-	qdel(human?.physiology?.GetComponent(/datum/component/muscles))
+	qdel(human?.GetComponent(/datum/component/muscles))
 
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.

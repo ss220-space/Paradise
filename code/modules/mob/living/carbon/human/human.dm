@@ -27,6 +27,7 @@
 
 
 /mob/living/carbon/human/Destroy()
+	qdel(GetComponent(/datum/component/muscles))
 	QDEL_NULL(physiology)
 	QDEL_LIST(bodyparts)
 	SSmobs.cubemonkeys -= src
