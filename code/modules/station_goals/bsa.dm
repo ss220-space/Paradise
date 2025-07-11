@@ -39,8 +39,9 @@
 #define BSA_PULSE_BURST_RELOAD_TIME 300
 //How longer reload after power burst (20 min) - only for emagged console
 #define BSA_POWER_BURST_RELOAD_TIME 1200
-//Set 0.01 for test, remove after test
-#define BSA_RELOAD_TIME_MOD 0.01
+
+//How longer reload after construction (10 sec)
+#define BSA_CALIBRATE_TIME 10
 
 
 /datum/station_goal/bluespace_cannon
@@ -223,7 +224,8 @@
 	var/cannon_direction = WEST
 	var/static/image/top_layer = null
 	var/last_fire_time = 0 // The time at which the gun was last fired
-	var/reload_cooldown = BSA_INITIAL_RELOAD_TIME * BSA_RELOAD_TIME_MOD
+	var/last_calibrate_time = 0 // The time at which the gun was last fired
+	var/reload_cooldown = BSA_INITIAL_RELOAD_TIME
 	var/mode = BSA_MODE_POWER_SHOT
 
 	pixel_y = -32
@@ -291,6 +293,7 @@
 			icon_state = "cannon_east"
 	add_overlay(top_layer)
 	last_fire_time = world.time / 10
+	last_calibrate_time = world.time / 10
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)
 	destroy_all_on_fire_beam(user, bullseye)
@@ -341,18 +344,21 @@
 	switch(mode)
 		if(BSA_MODE_POWER_SHOT)
 			use_power(BSA_POWER_SHOT_POWER_USE)
-			reload_cooldown = BSA_POWER_SHOT_RELOAD_TIME * BSA_RELOAD_TIME_MOD
+			reload_cooldown = BSA_POWER_SHOT_RELOAD_TIME
 		if(BSA_MODE_PULSE_SHOT)
 			use_power(BSA_PULSE_SHOT_POWER_USE)
-			reload_cooldown = BSA_PULSE_SHOT_RELOAD_TIME * BSA_RELOAD_TIME_MOD
+			reload_cooldown = BSA_PULSE_SHOT_RELOAD_TIME
 		if(BSA_MODE_PULSE_BURST)
 			use_power(BSA_PULSE_SHOT_POWER_USE * BSA_BURST_COUNT)
-			reload_cooldown = BSA_PULSE_BURST_RELOAD_TIME * BSA_RELOAD_TIME_MOD
+			reload_cooldown = BSA_PULSE_BURST_RELOAD_TIME
 		if(BSA_MODE_POWER_BURST)
 			use_power(BSA_PULSE_SHOT_POWER_USE * BSA_BURST_COUNT)
-			reload_cooldown = BSA_POWER_BURST_RELOAD_TIME * BSA_RELOAD_TIME_MOD
+			reload_cooldown = BSA_POWER_BURST_RELOAD_TIME
 		else
-			reload_cooldown = BSA_INITIAL_RELOAD_TIME * BSA_RELOAD_TIME_MOD
+			reload_cooldown = BSA_INITIAL_RELOAD_TIME
+
+/obj/machinery/bsa/full/proc/calibrate()
+	last_calibrate_time = world.time / 10
 
 /obj/machinery/bsa/full/admin/reload()
 	last_fire_time = world.time / 10
@@ -468,7 +474,7 @@
 		icon_state = icon_state_broken
 	else if(stat & NOPOWER)
 		icon_state = icon_state_nopower
-	else if(cannon && (cannon.last_fire_time + cannon.reload_cooldown) > (world.time / 10))
+	else if(cannon && (!is_reload_ready() || !target || !is_calibrate_ready()))
 		icon_state = icon_state_reloading
 	else if(cannon)
 		icon_state = icon_state_active
@@ -497,54 +503,71 @@
 
 /obj/machinery/computer/bsa_control/ui_data(mob/user)
 	var/list/data = list()
+	data["modal"] = ui_modal_data(src)
 	data["connected"] = cannon
 	data["notice"] = notice
-	data["correction"] = "x: [x_correction] y: [y_correction]"
+	if(!cannon)
+		return data
+	data["power"] = !cannon.stat
+	data["reload_ready"] = is_reload_ready()
+	data["reloadtime_text"] = get_reloading_time()
+	data["calibrate_ready"] = is_calibrate_ready()
+	data["calibrate_duration"] = get_calibrating_duration()
 	data["correction_x"] = x_correction
 	data["correction_y"] = y_correction
-	if(target)
-		data["target"] = get_target_name()
-		var/turf/target_turf = get_target_turf()
-		if (target_turf)
-			data["target_coord"] = "[target_turf.x], [target_turf.y], [target_turf.z]"
+	data["ready"] = is_ready_to_shot()
+	switch(cannon.mode)
+		if(BSA_MODE_POWER_SHOT)
+			data["mode"] = "Power shot"
+		if(BSA_MODE_PULSE_SHOT)
+			data["mode"] = "Pulse shot"
+		if(BSA_MODE_PULSE_BURST)
+			data["mode"] = "Pulse burst"
+		if(BSA_MODE_POWER_BURST)
+			data["mode"] = "Power burst"
 		else
-			data["target_coord"] = "???"
-	if(cannon)
-		var/reload_cooldown = cannon.reload_cooldown
-		var/last_fire_time = cannon.last_fire_time
-		var/time_to_wait = max(0, round(reload_cooldown - ((world.time / 10) - last_fire_time)))
-		var/minutes = max(0, round(time_to_wait / 60))
-		var/seconds = max(0, time_to_wait - (60 * minutes))
-		var/seconds2 = (seconds < 10) ? "0[seconds]" : seconds
-		data["reloadtime_text"] = "[minutes]:[seconds2]"
-		data["ready"] = is_ready_to_shot()
-		switch(cannon.mode)
-			if(BSA_MODE_POWER_SHOT)
-				data["mode"] = "Power shot"
-			if(BSA_MODE_PULSE_SHOT)
-				data["mode"] = "Pulse shot"
-			if(BSA_MODE_PULSE_BURST)
-				data["mode"] = "Pulse burst"
-			if(BSA_MODE_POWER_BURST)
-				data["mode"] = "Power burst"
-			else
-				data["mode"] = "Unknown"
+			data["mode"] = "Unknown"
+	if(!target)
+		return data
+	data["calibrated"] = TRUE
+	data["target"] = get_target_name()
+	var/turf/target_turf = get_target_turf()
+	if(target_turf)
+		data["target_coord"] = "[target_turf.x], [target_turf.y], [target_turf.z]"
 	else
-		data["ready"] = FALSE
+		data["target_coord"] = "???"
 	return data
 
-/obj/machinery/computer/bsa_control/proc/is_ready_to_shot()
+/obj/machinery/computer/bsa_control/proc/is_reload_ready()
 	if(!cannon)
 		return FALSE
-	if(!target)
+	return (cannon.last_fire_time + cannon.reload_cooldown) <= (world.time / 10)
+
+/obj/machinery/computer/bsa_control/proc/is_calibrate_ready()
+	if(!cannon)
 		return FALSE
+	return (cannon.last_calibrate_time + BSA_CALIBRATE_TIME) <= (world.time / 10)
+
+/obj/machinery/computer/bsa_control/proc/is_ready_to_shot()
+	return is_reload_ready() && target && is_calibrate_ready() && !cannon.stat
+
+/obj/machinery/computer/bsa_control/proc/get_reloading_time()
+	if(!cannon)
+		return "???"
 	var/reload_cooldown = cannon.reload_cooldown
 	var/last_fire_time = cannon.last_fire_time
 	var/time_to_wait = max(0, round(reload_cooldown - ((world.time / 10) - last_fire_time)))
 	var/minutes = max(0, round(time_to_wait / 60))
 	var/seconds = max(0, time_to_wait - (60 * minutes))
-	return minutes == 0 && seconds == 0
+	var/seconds2 = (seconds < 10) ? "0[seconds]" : seconds
+	return "[minutes]:[seconds2]"
 
+/obj/machinery/computer/bsa_control/proc/get_calibrating_duration()
+	if(!cannon)
+		return 0
+	var/last_calibrate_time = cannon.last_calibrate_time
+	var/time_to_wait = max(0, round(BSA_CALIBRATE_TIME - ((world.time / 10) - last_calibrate_time)))
+	return max(0, time_to_wait)
 
 /obj/machinery/computer/bsa_control/ui_static_data()
 	var/list/data = list()
@@ -575,10 +598,11 @@
 	user.client.images -= crosshair
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
+	if(!cannon)
+		return
 	var/list/gps_locators = list()
 	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
 		gps_locators[G.gpstag] = G
-
 	var/list/options = gps_locators
 	if(area_aim)
 		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
@@ -587,18 +611,19 @@
 		return
 	target = options[choose]
 	caibrated_turf = detect_target_turf()
-	if (caibrated_turf)
+	if(caibrated_turf)
 		caibrated_turf = cannon.spread(caibrated_turf, BSA_CALIBRATION_ACCURACY)
 	// Reset correction
 	x_correction = 0
 	y_correction = 0
 	aim_turf = caibrated_turf
 	crosshair.loc = aim_turf
+	cannon.calibrate()
 	update_active_camera_screen()
 
 /obj/machinery/computer/bsa_control/proc/switch_mode(mob/user)
 	var/list/modes = list("Power shot", "Pulse shot", "Pulse burst")
-	if (emagged)
+	if(emagged)
 		modes += "Power burst"
 	var/choose = tgui_input_list(user, "Выберите режим стрельбы", "Режим стрельбы", modes)
 	switch(choose)
@@ -634,7 +659,7 @@
 	if(istype(target,/area))
 		var/area/A = target
 		var/turf/center = A.get_center_turf()
-		if (center)
+		if(center)
 			return locate(center.x, center.y, center.z)
 	else if(istype(target,/obj/item/gps))
 		return get_turf(target)
@@ -646,7 +671,7 @@
 	if(!cannon || !target)
 		return
 	if(cannon.stat)
-		notice = "Орудие не подключено к питанию!"
+		//notice = "Орудие не подключено к питанию!"
 		return
 	notice = null
 	cannon.fire(user, get_impact_turf())
@@ -680,7 +705,7 @@
 	var/axis = params["axis"]
 	var/value = text2num(params["value"])
 	value = clamp(value, -BSA_MAX_AXIS_CORRECTION, BSA_MAX_AXIS_CORRECTION)
-	if (axis == "x")
+	if(axis == "x")
 		x_correction = value
 	else
 		y_correction = value
@@ -691,7 +716,7 @@
 /obj/machinery/computer/bsa_control/proc/update_active_camera_screen()
 	// Get the target turf to correctly gather what's visible from its turf, in case it's located in a moving object (borgs / mechs)
 	var/turf/new_cam_turf = get_target_turf()
-	if (!new_cam_turf)
+	if(!new_cam_turf)
 		cam_screen.show_camera_static()
 		return
 	// If we're not forcing an update for some reason and the cameras are in the same location,
