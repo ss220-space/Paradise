@@ -20,7 +20,7 @@
 	var/decon_speed = 3
 	var/kit_applied = FALSE
 	var/exists_bell = FALSE
-	//Actions
+	///Actions
 	var/datum/action/innate/wheelchair/bell_action = new
 
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
@@ -78,7 +78,7 @@
 	. = ..()
 	desc = applied_skin ? initial(applied_skin.new_desc) : initial(desc)
 	if (exists_bell)
-		desc += " К подлокотнику зачем-то прикреплен звонок."
+		desc += " К подлокотнику зачем-то прикреплён звонок."
 
 /obj/vehicle/ridden/wheelchair/attackby(obj/item/item, mob/user, params)
 	if(!istype(item, /obj/item/desk_bell))
@@ -106,10 +106,10 @@
 	return ..()
 
 /datum/action/innate/wheelchair
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
+	name = "Звонок"
 	icon_icon = 'icons/obj/bureaucracy.dmi'
 	button_icon_state = "desk_bell"
-	name = "Звонок"
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	var/obj/vehicle/ridden/wheelchair/wheelchair
 
 /datum/action/innate/wheelchair/Grant(mob/living/L, obj/vehicle/ridden/wheelchair/W)
