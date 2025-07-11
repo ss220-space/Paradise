@@ -293,7 +293,6 @@
 			icon_state = "cannon_east"
 	add_overlay(top_layer)
 	last_fire_time = world.time / 10
-	last_calibrate_time = world.time / 10
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)
 	destroy_all_on_fire_beam(user, bullseye)
