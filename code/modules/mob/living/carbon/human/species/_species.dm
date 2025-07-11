@@ -419,14 +419,7 @@
 
 
 /datum/species/proc/gain_muscles(mob/living/carbon/human/target, default, max_level, can_become_stronger = TRUE)
-	var/datum/component/muscles/muscles = target.GetComponent(/datum/component/muscles)
-	if(!muscles)
-		target.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
-		return
-
-	muscles.max_species_strength = max_level
-	muscles.can_become_stronger = can_become_stronger
-	muscles.strength = min(muscles.strength, muscles.get_max_strength_level())
+	target.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
 
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/human)
