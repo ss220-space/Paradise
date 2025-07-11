@@ -487,10 +487,10 @@ SUBSYSTEM_DEF(jobs)
 
 	human.job = rank
 
+	var/datum/outfit/outfit_override
 	if(!joined_late)
 		var/turf/turf_spawn = null
 		var/obj/mark_spawn = null
-		var/datum/outfit_override
 		if(length(GLOB.start_override))
 			mark_spawn = pick(GLOB.start_override)
 			outfit_override = GLOB.start_override_outfit

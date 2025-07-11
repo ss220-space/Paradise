@@ -710,7 +710,19 @@
 /obj/effect/landmark/start_override
 	name = "start_override"
 	icon_state = "start_override"
+	var/datum/outfit/connected_outfit = null
 
+
+/obj/effect/landmark/start_override/New()
+	. = ..()
+	if(!connected_outfit)
+		return
+
+	GLOB.start_override_outfit = connected_outfit
+
+/obj/effect/landmark/start_override/Destroy()
+	connected_outfit = null
+	. = ..()
 
 /obj/effect/landmark/start_override/Click(location, control, params)
 	. = ..()
@@ -720,12 +732,12 @@
 		if(!initial(O.can_be_admin_equipped))
 			return
 
-		outfits[initial(O.name)] = path
+		paths[initial(O.name)] = path
 
-	outfits["Одежда выбранной профессии"] = null
-	var/selected_outfit = tgui_input_list(usr, "Выберите набор вещей, с которым будут появляться все новые игроки.", "Выбор одежды", outfits)
+	paths["Одежда выбранной игроком профессии"] = null
+	var/selected_outfit = tgui_input_list(usr, "Выберите набор вещей, с которым будут появляться все новые игроки.", "Выбор одежды", paths)
 	if(isnull(selected_outfit))
 		return
 
 	to_chat(usr, span_boldmessage("Набор вещей, с которым будут появляться все новые игроки обновлен."))
-	start_override_outfit = outfits[selected_outfit]
+	GLOB.start_override_outfit = new paths[selected_outfit]
