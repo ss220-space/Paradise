@@ -429,28 +429,30 @@
 	muscles.strength = min(muscles.strength, muscles.get_max_strength_level())
 
 
-/datum/species/proc/on_species_loss(mob/living/carbon/human/H)
+/datum/species/proc/on_species_loss(mob/living/carbon/human/human)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(speed_mod)
-		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
+		human.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
 
 	if(toolspeedmod)
-		H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
+		human.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
 
 	if(surgeryspeedmod)
-		H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod)
+		human.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod)
 
 	if(length(inherent_traits))
-		H.remove_traits(inherent_traits, SPECIES_TRAIT)
+		human.remove_traits(inherent_traits, SPECIES_TRAIT)
 
-	H.meatleft = initial(H.meatleft)
+	human.meatleft = initial(human.meatleft)
 
-	H.hud_used?.update_locked_slots()
+	human.hud_used?.update_locked_slots()
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
-			H.faction -= i
+			human.faction -= i
+
+	qdel(human?.physiology?.GetComponent(/datum/component/muscles))
 
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.

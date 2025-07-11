@@ -77,5 +77,6 @@
 	src.owner = owner
 
 /datum/physiology/Destroy(force)
+	qdel(GetComponent(/datum/component/muscles))
 	owner = null
 	return ..()
