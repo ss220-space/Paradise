@@ -156,16 +156,16 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 
 /mob/living/silicon/ai/proc/ai_voice_announcement_to_text(words)
 	var/words_string = jointext(words, " ")
-	var/formatted_message = "<h1 class='alert'>A.I. Announcement</h1>"
-	formatted_message += "<br><span class='alert'>[words_string]</span>"
-	formatted_message += "<br><span class='alert'> -[src]</span>"
+	// Don't go through .announce because we need to filter by clients which have TTS enabled
+	var/formatted_message = announcer.format(words_string, "Объявление ИИ")
 
+	var/announce_sound = sound('sound/misc/notice2.ogg')
 	for(var/player in GLOB.player_list)
 		var/mob/M = player
 		if(M.client && !(M.client.prefs.sound & SOUND_AI_VOICE))
 			var/turf/T = get_turf(M)
 			if(T && T.z == z && M.can_hear())
-				SEND_SOUND(M, 'sound/misc/announce_dig.ogg')
+				SEND_SOUND(M, announce_sound)
 				to_chat(M, formatted_message)
 
 

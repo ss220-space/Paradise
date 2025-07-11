@@ -53,10 +53,12 @@
 		sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, sound = sound('sound/magic/clockwork/clockcult_gateway_disrupted.ogg'))
 		update_icon(UPDATE_ICON_STATE)
 		resistance_flags |= INDESTRUCTIBLE
-		sleep(2.7 SECONDS)
-		explosion(src, 1, 3, 8, 8)
-		sound_to_playing_players('sound/effects/explosionfar.ogg', volume = 50)
+		addtimer(CALLBACK(src, PROC_REF(end_deconstruct)), 2.7 SECONDS)
 	qdel(src)
+
+/obj/structure/clockwork/functional/celestial_gateway/proc/end_deconstruct()
+	explosion(src, 1, 3, 8, 8)
+	sound_to_playing_players('sound/effects/explosionfar.ogg', volume = 50)
 
 
 /obj/structure/clockwork/functional/celestial_gateway/update_icon_state()

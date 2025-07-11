@@ -374,7 +374,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		update_icon(UPDATE_OVERLAYS)
 
@@ -1119,7 +1119,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	return ..()
 
 /obj/structure/window/reinforced/clockwork/ratvar_act()
-	obj_integrity = max_integrity
+	update_integrity(max_integrity)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/window/reinforced/clockwork/narsie_act()

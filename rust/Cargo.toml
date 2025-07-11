@@ -1,0 +1,12 @@
+[package]
+name = "rustlibs"
+version = "1.0.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+byondapi = "0.4.7"
+eyre = "0.6.12"
+rand = "0.8.5"

@@ -197,8 +197,8 @@ if(!result || result.ckey != __ckey){\
 
 /datum/log_viewer/Topic(href, href_list)
 	if(href_list["start_time"])
-		var/input = input(usr, "hh:mm:ss", "Start time", "00:00:00") as text|null
-		if(!input)
+		var/input = tgui_input_text(usr, "hh:mm:ss", "Start time", "00:00:00")
+		if(isnull(input))
 			return
 		var/res = timeStampToNum(input)
 		if(res < 0)
@@ -208,8 +208,8 @@ if(!result || result.ckey != __ckey){\
 		show_ui(usr)
 		return
 	if(href_list["end_time"])
-		var/input = input(usr, "hh:mm:ss", "End time", "04:00:00") as text|null
-		if(!input)
+		var/input = tgui_input_text(usr, "hh:mm:ss", "End time", "04:00:00")
+		if(isnull(input))
 			return
 		var/res = timeStampToNum(input)
 		if(res < 0)

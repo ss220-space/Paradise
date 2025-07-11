@@ -97,5 +97,13 @@
 
 /obj/structure/fluff/grave/empty
 	name = "empty grave"
-	desc = "A former grave."
+	ru_names = list(
+		NOMINATIVE = "пустая могила",
+		GENITIVE = "пустой могилы",
+		DATIVE = "пустой могиле",
+		ACCUSATIVE = "пустую могилу",
+		INSTRUMENTAL = "пустой могилой",
+		PREPOSITIONAL = "пустой могиле"
+	)
+	desc = "Разграбленная могила."
 	icon_state = "grave_empty"

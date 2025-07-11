@@ -1,4 +1,5 @@
 #define REVIVE_SPELL_TIME 5 MINUTES
+#define REVIVE_SPELL_NECROSIS_PROB 30
 
 /obj/effect/proc_holder/spell/summon_wealth
 	name = "Призвать богатство"
@@ -173,12 +174,10 @@
 /proc/late_death(mob/living/mob)
 	mob.death()
 
-	if(!iscarbon(mob))
+	if(!ishuman(mob))
 		return
 
-	var/mob/living/carbon/carbon = mob
-	for(var/obj/item/organ/organ as anything in carbon.internal_organs)
-		organ.necrotize(TRUE)
+	necrotize_body(mob, REVIVE_SPELL_NECROSIS_PROB)
 
 #undef REVIVE_SPELL_TIME
 

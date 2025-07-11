@@ -2,7 +2,15 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/item/extraction_pack
 	name = "fulton extraction pack"
-	desc = "A balloon that can be used to extract equipment or personnel to a Fulton Recovery Beacon. Anything not bolted down can be moved. Link the pack to a beacon by using the pack in hand."
+	desc = "Cистема подъема и доставки людей и предметов воздушным путем. Можно переместить всё, что не прикручено намертво. Свяжите комплект с маяком, активировав его в руке."
+	ru_names = list(
+		NOMINATIVE = "фултон",
+		GENITIVE = "фултона",
+		DATIVE = "фултону",
+		ACCUSATIVE = "фултон",
+		INSTRUMENTAL = "фултоном",
+		PREPOSITIONAL = "фултоне"
+	)
 	gender = MALE
 	icon = 'icons/obj/fulton.dmi'
 	icon_state = "extraction_pack"
@@ -16,7 +24,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/item/extraction_pack/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It has [uses_left] use\s remaining.</span>"
+	. += span_notice("Осталось использований: [uses_left].")
 
 /obj/item/extraction_pack/attack_self(mob/user)
 	var/list/possible_beacons = list()
@@ -32,7 +40,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	else
 		var/A
 
-		A = tgui_input_list(user, "Select a beacon to connect to", "Balloon Extraction Pack", possible_beacons)
+		A = tgui_input_list(user, "Выберите маяк для подключения", "Фултон", possible_beacons)
 
 		if(!A)
 			return
@@ -66,7 +74,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		return
 	else
 		if(!safe_for_living_creatures && check_for_living_mobs(A))
-			to_chat(user, "<span class='warning'>[src] is not safe for use with living creatures, they wouldn't survive the trip back!</span>")
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] небезопасен для живых существ – они не переживут транспортировку!"))
 			return
 		if(!isturf(A.loc)) // no extracting stuff inside other stuff
 			return
@@ -131,7 +139,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 					continue
 				flooring_near_beacon += floor
 			if(!length(flooring_near_beacon))
-				to_chat(user, "<span class='notice'>It is impossible to find a connected beacon. Your fulton pack brings you back.</span>")
+				to_chat(user, span_notice("Не удаётся найти подключённый маяк. Фултон возвращается к вам."))
 				flooring_near_beacon = get_turf(user)
 			holder_obj.forceMove(pick(flooring_near_beacon))
 			animate(holder_obj, pixel_z = 10, time = 50)
@@ -159,7 +167,15 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/item/fulton_core
 	name = "extraction beacon signaller"
-	desc = "Emits a signal which fulton recovery devices can lock onto. Activate in hand to create a beacon."
+	desc = "Излучает сигнал, на который могут ориентироваться устройства фултон. Активируйте в руке, чтобы создать маяк."
+	ru_names = list(
+		NOMINATIVE = "маяк фултона",
+		GENITIVE = "маяка фултона",
+		DATIVE = "маяку фултона",
+		ACCUSATIVE = "маяк фултона",
+		INSTRUMENTAL = "маяком фултона",
+		PREPOSITIONAL = "маяке фултона"
+	)
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "subspace_amplifier"
 
@@ -171,7 +187,15 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/structure/extraction_point
 	name = "fulton recovery beacon"
-	desc = "A beacon for the fulton recovery system. Activate a pack in your hand to link it to a beacon."
+	desc = "Излучает сигнал, на который могут ориентироваться устройства фултон."
+	ru_names = list(
+		NOMINATIVE = "маяк фултона",
+		GENITIVE = "маяка фултона",
+		DATIVE = "маяку фултона",
+		ACCUSATIVE = "маяк фултона",
+		INSTRUMENTAL = "маяком фултона",
+		PREPOSITIONAL = "маяке фултона"
+	)
 	icon = 'icons/obj/fulton.dmi'
 	icon_state = "extraction_point"
 	anchored = TRUE
@@ -181,6 +205,14 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 /obj/structure/extraction_point/Initialize(mapload)
 	. = ..()
 	name += " ([rand(100,999)]) ([get_location_name(src)])"
+	ru_names = list(
+		NOMINATIVE = "маяк фултона ([rand(100,999)]) ([get_location_name(src)])",
+		GENITIVE = "маяка фултона",
+		DATIVE = "маяку фултона",
+		ACCUSATIVE = "маяк фултона",
+		INSTRUMENTAL = "маяком фултона",
+		PREPOSITIONAL = "маяке фултона"
+	)
 	GLOB.total_extraction_beacons += src
 
 /obj/structure/extraction_point/Destroy()

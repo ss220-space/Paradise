@@ -121,11 +121,11 @@
 		use_charge(0) // Stop charging.
 		return
 
-	max_charge = core.get_strenght()
+	max_charge = core.get_strength()
 	charge_speed = max_charge / 75
 	var/req_charge = 0
 	for(var/mob/living/simple_animal/hostile/airmob/airmob as anything in created_mobs)
-		airmob.leash_radius = round(core.get_strenght() / 15 + 0.5)
+		airmob.leash_radius = round(core.get_strength() / 15 + 0.5)
 		if (get_dist(src, airmob) > airmob.leash_radius)
 			airmob.dust()
 			continue

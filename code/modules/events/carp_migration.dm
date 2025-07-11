@@ -16,7 +16,9 @@
 		announcement = "Массовая миграция неизвестных биологических объектов была зафиксирована вблизи станции [station_name()], будьте наготове."
 	else
 		announcement = "Неизвестные биологические объекты были зафиксированы вблизи станции [station_name()], будьте наготове."
-	GLOB.event_announcement.Announce(announcement, "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.")
+	GLOB.minor_announcement.announce(announcement,
+									ANNOUNCE_UNID_LIFEFORMS_RU
+	)
 
 /datum/event/carp_migration/start()
 

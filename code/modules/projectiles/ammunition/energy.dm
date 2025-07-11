@@ -292,8 +292,8 @@
 	weaken  = 8 SECONDS //This is going to knock you off your feet
 	eyeblur = 20 SECONDS
 	speed   = 2
-	/// The strenght of the core of the fired Б.С.Г.
-	var/core_strenght = 0
+	/// The strength of the core of the fired Б.С.Г.
+	var/core_strength = 0
 
 /obj/item/ammo_casing/energy/bsg/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
@@ -314,7 +314,7 @@
 	..()
 
 /obj/projectile/energy/bsg/proc/kaboom()
-	var/effects_mult = core_strenght / 170
+	var/effects_mult = core_strength / 170
 	playsound(src, 'sound/weapons/bsg_explode.ogg', 75 * effects_mult, TRUE)
 	for(var/mob/living/M in hearers(7 * effects_mult, src)) //No stuning people with thermals through a wall.
 		var/floored = FALSE

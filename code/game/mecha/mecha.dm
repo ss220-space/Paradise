@@ -1054,7 +1054,7 @@
 			user.visible_message(span_notice("[user] repairs the damaged gas tank."), span_notice("You repair the damaged gas tank."))
 		else if(obj_integrity < max_integrity)
 			user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [name]."))
-			obj_integrity += min(10, max_integrity - obj_integrity)
+			repair_damage(min(10, max_integrity - obj_integrity))
 		else
 			to_chat(user, span_notice("[src] is at full integrity!"))
 	repairing = FALSE
@@ -1174,7 +1174,7 @@
 	AI.controlled_mech = src
 	AI.remote_control = src
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
-	to_chat(AI, "[AI.can_dominate_mechs ? span_announce("Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!") \
+	to_chat(AI, "[AI.can_dominate_mechs ? span_boldnotice("Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!") \
 	: span_notice("You have been uploaded to a mech's onboard computer.")]")
 	to_chat(AI, span_boldnotice("Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions."))
 	if(interaction == AI_TRANS_FROM_CARD)

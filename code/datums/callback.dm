@@ -43,7 +43,8 @@
 	var/datum/object = GLOBAL_PROC
 	var/delegate
 	var/list/arguments
-	var/usr_uid
+	///A weak reference to the user who triggered this callback
+	var/datum/weakref/user
 
 /datum/callback/New(thingtocall, proctocall, ...)
 	if(thingtocall)
@@ -52,11 +53,11 @@
 	if(length(args) > 2)
 		arguments = args.Copy(3)
 	if(usr)
-		usr_uid = usr.UID()
+		user = WEAKREF(usr)
 
 /datum/callback/proc/Invoke(...)
-	if(!usr && usr_uid)
-		var/mob/M = locateUID(usr_uid)
+	if(!usr && user)
+		var/mob/M = user.resolve()
 		if(M)
 			if(length(args))
 				return world.invoke_callback_with_usr(arglist(list(M, src) + args))
@@ -77,8 +78,8 @@
 /datum/callback/proc/InvokeAsync(...)
 	set waitfor = FALSE
 
-	if(!usr && usr_uid)
-		var/mob/M = locateUID(usr_uid)
+	if(!usr && user)
+		var/mob/M = user.resolve()
 		if(M)
 			if(length(args))
 				return world.invoke_callback_with_usr(arglist(list(M, src) + args))

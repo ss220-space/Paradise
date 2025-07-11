@@ -146,7 +146,7 @@
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You repair the fence."))
 		hole_size = NO_HOLE
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		update_cut_status()
 		return ATTACK_CHAIN_PROCEED
 

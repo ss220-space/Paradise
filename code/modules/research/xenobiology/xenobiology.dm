@@ -253,7 +253,7 @@
 			after_success(user, SM)
 			qdel(src)
 
-			var/new_name = sanitize(copytext_char(input(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name) as null|text,1,MAX_NAME_LEN))
+			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name, max_length = MAX_NAME_LEN)
 			if(new_name)
 				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
 				to_chat(SM, "<span class='notice'>Ваше новое имя - <b>\"[new_name]\"</b>!</span>")
@@ -303,7 +303,7 @@
 			after_success(user, SM)
 			qdel(src)
 
-			var/new_name = sanitize(copytext_char(input(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name) as null|text,1,MAX_NAME_LEN))
+			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name, max_length = MAX_NAME_LEN)
 			if(new_name)
 				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
 				to_chat(SM, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")
@@ -352,7 +352,7 @@
 			to_chat(user, "<span class='notice'>[M] бер[pluralize_ru(LF.gender,"ет","ут")] зелье и дела[pluralize_ru(LF.gender,"ет","ют")] глоток. Он[genderize_ru(LF.gender, "", "а", "о", "и")] смотр[pluralize_ru(LF.gender,"ит","ят")] на вас грустными и понимающими глазами. Сработало!</span>")
 			qdel(src)
 
-			var/new_name = sanitize(copytext_char(input(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", LF.name) as null|text,1,MAX_NAME_LEN))
+			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", LF.name, max_length = MAX_NAME_LEN)
 			if(new_name)
 				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
 				to_chat(LF, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")

@@ -237,7 +237,7 @@
 		return
 
 	if(!sended_message) //If we use "say", it won't ask us to write the message twice.
-		sended_message = stripped_input(src, "Введите сообщение для носителя.", "Borer", "")
+		sended_message = tgui_input_text(src, "Введите сообщение для носителя.", "Borer", "")
 
 	if(!sended_message)
 		return
@@ -278,7 +278,7 @@
 	if(!B)
 		return
 
-	var/input = stripped_input(src, "Введите сообщение для мозгового червя.", "Сообщение", "")
+	var/input = tgui_input_text(src, "Введите сообщение для мозгового червя.", "Сообщение", "")
 	if(!input)
 		return
 
@@ -302,7 +302,7 @@
 		return
 
 	var/mob/living/captive_brain/CB = B.host_brain
-	var/input = stripped_input(src, "Введите сообщение для пленённого разума.", "Сообщение", "")
+	var/input = tgui_input_text(src, "Введите сообщение для пленённого разума.", "Сообщение", "")
 
 	if(!input)
 		return

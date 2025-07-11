@@ -508,7 +508,7 @@
 
 	var/dat = {"<html><meta charset="UTF-8"><body><center>"}
 	dat += "Продолжительность раунда: [round(hours)]h [round(mins)]m<br>"
-	dat += "<b>Уровень угрозы на станции: [get_security_level_ru_colors()]</b><br>"
+	dat += "<b>Уровень угрозы на станции: [SSsecurity_level.get_colored_current_security_level_name()]</b><br>"
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		dat += "<span style='color: red;'><b>Станция была эвакуирована.</b></span><br>"

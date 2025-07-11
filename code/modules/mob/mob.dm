@@ -30,6 +30,9 @@
 	LAssailant = null
 	GLOB.left_player_list -= src
 
+	if(mind?.current == src)
+		mind.current = null
+
 	return ..()
 
 /mob/Initialize(mapload)
@@ -362,6 +365,9 @@
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
 	set name = "Осмотреть"
 	set category = STATPANEL_IC
+
+	if(!client)
+		return
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 

@@ -87,7 +87,7 @@ type HighValueItem = {
   person: string;
 };
 
-export const AdminAntagMenu = (properties) => {
+export const AdminAntagMenu = (_properties) => {
   const { act } = useBackend();
   const [tabIndex, setTabIndex] = useState(0);
   const [searchText, setSearchText] = useState('');
@@ -149,7 +149,8 @@ export const AdminAntagMenu = (properties) => {
                   <Input
                     placeholder="Искать..."
                     width="300px"
-                    onInput={(e, value) => setSearchText(value)}
+                    expensive
+                    onChange={setSearchText}
                   />
                   <Button icon="sync" onClick={() => act('refresh')}>
                     Обновить

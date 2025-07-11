@@ -99,6 +99,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOB_ALLY "blob_ally"
 /// Objects with this trait are deleted if they fall into chasms, rather than entering abstract storage
 #define TRAIT_CHASM_DESTROYED "chasm_destroyed"
+/// Objects with this trait can cross chasm safe/
+#define TRAIT_CHASM_IGNORED "chasm_ignored"
 
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
@@ -221,8 +223,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WINGDINGS "wingdings"
 #define TRAIT_NO_FINGERPRINTS "no_fingerprints"
 #define TRAIT_DWARF "dwarf"
-#define TRAIT_GENE_STRONG "gene_strong"
-#define TRAIT_GENE_WEAK "gene_weak"
+#define TRAIT_STRONG_MUSCLES "gene_strong"
+#define TRAIT_WEAK_MUSCULS "gene_weak"
 #define TRAIT_SOBER "sober"
 #define TRAIT_PSY_RESIST "psy_resist"	// block remoteview
 #define TRAIT_OPEN_MIND "open_mind"	// allows to remote view this mob
@@ -326,7 +328,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// when pulling you keep your speed same
 #define TRAIT_STRONG_PULLING "strong_pulling"
 
-
 #define TRAIT_FAKE_FIRE "fake_fire"
 
 #define TRAIT_CAN_SEE_WIRES "can_see_wires"
@@ -336,3 +337,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BAD_SOUL "bad_soul"
 
 #define TRAIT_NOT_TURRET_GUN "not_turret_gun"
+
+#define TRAIT_BALD "bald"

@@ -153,11 +153,11 @@ About the new airlock wires panel:
 		airlock_material = "glass"
 
 	if(security_level > AIRLOCK_SECURITY_METAL)
-		obj_integrity = normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER
 		max_integrity = normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER
+		update_integrity(normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER)
 	else
-		obj_integrity = normal_integrity
 		max_integrity = normal_integrity
+		update_integrity(normal_integrity)
 
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
@@ -1229,7 +1229,7 @@ About the new airlock wires panel:
 				span_notice("You begin repairing the airlock..."), \
 				span_italics("You hear welding."))
 			if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
-				obj_integrity = max_integrity
+				update_integrity(max_integrity)
 				stat &= ~BROKEN
 				user.visible_message(span_notice("[user.name] has repaired [src]."), \
 					span_notice("You finish repairing the airlock."))
@@ -1571,7 +1571,7 @@ About the new airlock wires panel:
 
 		if(!disassembled)
 			if(DA)
-				DA.obj_integrity = DA.max_integrity * 0.5
+				DA.update_integrity(DA.max_integrity * 0.5)
 		if(user)
 			to_chat(user, span_notice("You remove the airlock electronics."))
 

@@ -32,8 +32,8 @@ export const PollOptionPanel = (_props: unknown) => {
     option.default_percentage_calc
   );
 
-  const [min_val, set_min_val] = useState(option.min_val);
-  const [max_val, set_max_val] = useState(option.max_val);
+  const [min_val, _set_min_val] = useState(option.min_val);
+  const [max_val, _set_max_val] = useState(option.max_val);
 
   const [desc_min_check, set_desc_min_check] = useState(option.desc_min_check);
   const [desc_mid_check, set_desc_mid_check] = useState(option.desc_mid_check);
@@ -51,19 +51,15 @@ export const PollOptionPanel = (_props: unknown) => {
       <Window.Content>
         <Section title={poll_question}>
           <Box>
-            <Input
-              width="100%"
-              value={text}
-              onChange={(_, value) => set_text(value)}
-            />
+            <Input width="100%" value={text} onChange={set_text} />
           </Box>
           <br />
           {is_rating ? (
             <Box>
               Minimum value
-              <Input value={min_val} />
+              <Input value={min_val.toString()} />
               Maximum Value
-              <Input value={max_val} />
+              <Input value={min_val.toString()} />
               <Table>
                 <Table.Row header>
                   <Table.Cell>
@@ -76,37 +72,30 @@ export const PollOptionPanel = (_props: unknown) => {
                   </Table.Cell>
                   <Table.Cell>
                     <Button.Checkbox
-                      content="Middle description"
                       checked={desc_mid_check}
                       onClick={() => set_desc_mid_check(!desc_mid_check)}
-                    />
+                    >
+                      Middle description
+                    </Button.Checkbox>
                   </Table.Cell>
                   <Table.Cell>
                     <Button.Checkbox
-                      content="Maximum description"
                       checked={desc_max_check}
                       onClick={() => set_desc_max_check(!desc_max_check)}
-                    />
+                    >
+                      Maximum description
+                    </Button.Checkbox>
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>
-                    <Input
-                      value={desc_min_text}
-                      onEnter={(_, value) => set_desc_min_text(value)}
-                    />
+                    <Input value={desc_min_text} onEnter={set_desc_min_text} />
                   </Table.Cell>
                   <Table.Cell>
-                    <Input
-                      value={desc_mid_text}
-                      onEnter={(_, value) => set_desc_mid_text(value)}
-                    />
+                    <Input value={desc_mid_text} onEnter={set_desc_mid_text} />
                   </Table.Cell>
                   <Table.Cell>
-                    <Input
-                      value={desc_max_text}
-                      onEnter={(_, value) => set_desc_max_text(value)}
-                    />
+                    <Input value={desc_max_text} onEnter={set_desc_max_text} />
                   </Table.Cell>
                 </Table.Row>
               </Table>
@@ -115,14 +104,14 @@ export const PollOptionPanel = (_props: unknown) => {
           ) : null}
           <Button.Checkbox
             checked={default_percentage_calc}
-            content="Включить опцию в расчет процента результатов опроса"
             onClick={() =>
               set_default_percentage_calc(!default_percentage_calc)
             }
-          />
+          >
+            Включить опцию в расчет процента результатов опроса
+          </Button.Checkbox>
           <br />
           <Button
-            content="Sumbit"
             onClick={() =>
               act('submit_option', {
                 text: text,
@@ -137,7 +126,9 @@ export const PollOptionPanel = (_props: unknown) => {
                 desc_max_text: desc_max_text,
               })
             }
-          />
+          >
+            Sumbit
+          </Button>
         </Section>
       </Window.Content>
     </Window>
