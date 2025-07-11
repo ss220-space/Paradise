@@ -593,7 +593,7 @@
 	var/aggressiveness = 1
 	var/safety = 1
 	can_toggle = TRUE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/dispatch, /datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
 	var/phrase_list = list(
 
 								"halt" 			= "HALT! HALT! HALT! HALT!",
@@ -648,7 +648,7 @@
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/dispatch, /datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
@@ -666,7 +666,7 @@
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/dispatch, /datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/warden
 	name = "\improper Warden SWAT mask"
@@ -684,7 +684,7 @@
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/dispatch, /datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
@@ -737,19 +737,23 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/dispatch, /datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/halt))
+		req_access = list(ACCESS_SECURITY)
 		halt()
 	else if(istype(action, /datum/action/item_action/adjust))
 		adjustmask(user)
+	else if(istype(action, /datum/action/item_action/dispatch))
+		req_access = list(ACCESS_SECURITY) // не работает
+		dispatch(user)
 	else if(istype(action, /datum/action/item_action/selectphrase))
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
 
 		if (!safety)
-			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
+			to_chat(user, span_notice("You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."))
 			return
 
 		switch(aggressiveness)
@@ -757,24 +761,24 @@
 				phrase = (phrase < 6) ? (phrase + 1) : 1
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(2)
 				phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(3)
 				phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(4)
 				phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			else
-				to_chat(user, "<span class='notice'>It's broken.</span>")
+				to_chat(user, span_notice("It's broken."))
 
 		var/datum/action/item_action/halt/halt_action = locate() in actions
 		if(halt_action)
@@ -837,6 +841,7 @@
 
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
 		if(!safety)
+			req_access = list()
 			message = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
 			usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
 			playsound(src.loc, 'sound/voice/binsult.ogg', 100, 0, 4)
