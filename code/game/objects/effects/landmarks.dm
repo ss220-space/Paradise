@@ -727,7 +727,7 @@
 /obj/effect/landmark/start_override/Click(location, control, params)
 	. = ..()
 	var/list/paths = subtypesof(/datum/outfit)
-	for(var/path in paths)
+	for(var/path as anything in paths)
 		var/datum/outfit/O = path
 		if(!initial(O.can_be_admin_equipped))
 			return
