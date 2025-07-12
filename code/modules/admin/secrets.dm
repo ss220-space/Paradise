@@ -23,6 +23,7 @@
 						<a href='byond://?src=[UID()];secretsadmin=manifest'>Show Crew Manifest</a><br>
 						<a href='byond://?src=[UID()];secretsadmin=view_codewords'>Show code phrases and responses</a><br>
 						<a href='byond://?src=[UID()];secretsadmin=night_shift_set'>Set Night Shift Mode</a><br>
+						<a href='byond://?src=[UID()];secretsadmin=lavatype'>Изменить тип Лазиса</a><br>
 						<b>Bombs</b><br>
 						[check_rights(R_SERVER, 0) ? "&nbsp;&nbsp;<a href='byond://?src=[UID()];secretsfun=togglebombcap'>Toggle bomb cap</a><br>" : "<br>"]
 						<b>Lists</b><br>

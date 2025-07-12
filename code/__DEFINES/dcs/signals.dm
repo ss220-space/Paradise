@@ -1403,4 +1403,8 @@
 #define COMSIG_MOB_EXERCISED "mob_exercised"
 #define COMSIG_GET_ORGAN_ICON_STATE "get_organ_icon_state"
 #define COMSIG_STRENGTH_BORDER_UPDATE "strength_border_update"
+#define COMSIG_CAN_CHANGE_STRENGTH	"can_change_strength"
+	#define COMPONENT_CAN_CHANGE_STRENGTH (1<<0)
+#define COMSIG_GET_STRENGTH	"get_strength"
+#define COMSIG_UPDATE_STRENGTH	"update_strength"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"

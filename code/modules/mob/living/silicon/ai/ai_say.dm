@@ -1,9 +1,8 @@
 /*
- * AI Saycode
+ * MARK: AI Saycode
  */
 
-
-/mob/living/silicon/ai/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
+/mob/living/silicon/ai/handle_track(message, verb = "говор%(ит,ят)%", atom/movable/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	if(hard_to_hear)
 		return
 
@@ -37,9 +36,8 @@
 		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG
 	else if(ispAI(speaker))
 		jobname = "Personal AI"
-	else if(isAutoAnnouncer(speaker))
-		var/mob/living/automatedannouncer/AA = speaker
-		jobname = AA.role
+	else if(isradio(speaker))
+		jobname = "Автоматическое оповещение"
 	else
 		jobname = "Unknown"
 
@@ -62,9 +60,8 @@
 
 	return track
 
-
 /*
- * AI VOX Announcements
+ * MARK: AI VOX Announcements
  */
 
 GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
@@ -96,14 +93,12 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	popup.set_content(string_dat)
 	popup.open()
 
-
 /mob/living/silicon/ai/proc/help_format(word_list)
 	var/list/localdat = list()
 	var/uid_cache = UID() // Saves proc jumping
 	for(var/word in word_list)
 		localdat += "<a href='byond://?src=[uid_cache];say_word=[word]'>[word]</a>"
 	return localdat.Join(" / ")
-
 
 /mob/living/silicon/ai/proc/ai_announcement()
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
@@ -153,7 +148,6 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 
 	ai_voice_announcement_to_text(words)
 
-
 /mob/living/silicon/ai/proc/ai_voice_announcement_to_text(words)
 	var/words_string = jointext(words, " ")
 	// Don't go through .announce because we need to filter by clients which have TTS enabled
@@ -167,7 +161,6 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 			if(T && T.z == z && M.can_hear())
 				SEND_SOUND(M, announce_sound)
 				to_chat(M, formatted_message)
-
 
 /proc/play_vox_word(word, z_level, mob/only_listener)
 
@@ -193,3 +186,5 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		return TRUE
 	return FALSE
 
+#undef VOX_DELAY
+#undef VOX_PATH

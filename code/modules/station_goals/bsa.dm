@@ -50,18 +50,26 @@
 #define BSA_IMPACT_LASER_NOTIFY_BEFORE 1
 //Radius of notification about bsa strike
 #define BSA_IMPACT_NOTIFY_RADIUS 10
+//Delay between last strike and check goal complete
+#define BSA_AFTER_STRIKE_GOACL_CHECK_DELAY 3
 
 
 /datum/station_goal/bluespace_cannon
-	name = "Bluespace Artillery"
+	name = "Блюспейс Артиллерия"
 
 /datum/station_goal/bluespace_cannon/get_report()
-	return {"<b>Bluespace Artillery position construction</b><br>
-	Our military presence is inadequate in your sector. We need you to construct a BSA-[rand(1,99)] Artillery position aboard your station.
-	<br><br>
-	Its base parts should be available for shipping by your cargo shuttle.
-	<br>
-	-Nanotrasen Naval Command"}
+	return {"<b>Смена цикла Лазиса</b><br>
+		Вам необходимо построить Блюспейс Артиллерию №[rand(1,99)]. \
+		После постройки необходимо выстрелить по огромному месторождению плазмы на Лазисе, отмеченному как \"[/obj/item/gps/internal/bfl_crack::gpstag]\"".
+		<br><br>
+		Основные части артиллерии должны быть доступны для заказа в отделе снабжения.
+		<br>
+		– Центральное Командование Nanotrasen"}
+
+
+/datum/station_goal/bluespace_cannon/can_gain()
+	return SSmapping.lavaland_theme.lavaland_type != LAVALAND_TYPE_PLASMA
+
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
@@ -72,9 +80,10 @@
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/bsa/full/B in SSmachines.get_by_type(/obj/machinery/bsa/full))
-		if(B && !B.stat && is_station_contact(B.z))
-			return TRUE
+
+	if(SSmapping.lavaland_theme.lavaland_type == LAVALAND_TYPE_PLASMA)
+		return TRUE
+
 	return FALSE
 
 /obj/machinery/bsa
@@ -302,7 +311,7 @@
 	add_overlay(top_layer)
 	last_fire_time = world.time / 10
 
-/obj/machinery/bsa/full/proc/fire(mob/user, turf/target)
+/obj/machinery/bsa/full/proc/fire(mob/user, turf/target, target_signal)
 	destroy_all_on_fire_beam(user, target)
 	incoming_shot_notify(target)
 	switch(mode)
@@ -310,6 +319,7 @@
 			var/turf/impact_turf = spread(target, BSA_SHOT_SPREAD)
 			addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (BSA_IMPACT_DELAY - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(fire_power_shot), user, impact_turf), BSA_IMPACT_DELAY SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(check_goal_complete), target_signal), (BSA_IMPACT_DELAY + BSA_AFTER_STRIKE_GOACL_CHECK_DELAY) SECONDS)
 		if(BSA_MODE_PULSE_SHOT)
 			var/turf/impact_turf = spread(target, BSA_SHOT_SPREAD)
 			addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (BSA_IMPACT_DELAY - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
@@ -321,11 +331,13 @@
 				addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (delay - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
 				addtimer(CALLBACK(src, PROC_REF(fire_pulse_shot), user, impact_turf), delay SECONDS)
 		if(BSA_MODE_POWER_BURST)
-			for(var/i = 1; i <= BSA_BURST_COUNT; i++)
+			for(var/i = 0; i < BSA_BURST_COUNT; i++)
 				var/turf/impact_turf = spread(target, BSA_BURST_SPREAD)
 				var/delay = BSA_IMPACT_DELAY + i * BSA_BURST_SHOT_DELAY
 				addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (delay - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
 				addtimer(CALLBACK(src, PROC_REF(fire_power_shot), user, impact_turf), delay SECONDS)
+			var/check_goal_delay = BSA_IMPACT_DELAY + (BSA_BURST_COUNT - 1) * BSA_BURST_SHOT_DELAY + BSA_AFTER_STRIKE_GOACL_CHECK_DELAY
+			addtimer(CALLBACK(src, PROC_REF(check_goal_complete), target_signal), check_goal_delay SECONDS)
 		else
 			to_chat(user, span_info("Клик! Осечка?!<br>Может стоит поставить другой режим стрельбы?"))
 	reload()
@@ -362,6 +374,12 @@
 
 /obj/machinery/bsa/full/proc/incoming_shot_aim(turf/target)
 	new /obj/effect/overlay/temp/blinking_laser(target)
+
+/obj/machinery/bsa/full/proc/check_goal_complete(target_signal)
+	if(!istype(target_signal, /obj/item/gps/internal/bfl_crack))
+		return
+	to_chat(usr, span_big("Вы замечаете как планета начинается трястись!"))
+	set_lazis_type(/datum/lavaland_theme/plasma)
 
 /obj/machinery/bsa/full/proc/spread(turf/target, axis_spread)
 	var/x = target.x + rand(-axis_spread, axis_spread)
@@ -611,7 +629,7 @@
 			cannon = deploy()
 		if("fire")
 			if(is_ready_to_shot())
-				fire(usr)
+				fire(usr, target)
 		if("recalibrate")
 			calibrate(usr)
 		if("select_mode")
@@ -696,14 +714,13 @@
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
 	return aim_turf
 
-/obj/machinery/computer/bsa_control/proc/fire(mob/user)
+/obj/machinery/computer/bsa_control/proc/fire(mob/user, target)
 	if(!cannon || !target)
 		return
 	if(cannon.stat)
-		//notice = "Орудие не подключено к питанию!"
 		return
 	notice = null
-	cannon.fire(user, get_impact_turf())
+	cannon.fire(user, get_impact_turf(), target)
 
 /obj/machinery/computer/bsa_control/proc/deploy()
 	var/obj/machinery/bsa/full/prebuilt = locate() in range(7, src) //In case of adminspawn
