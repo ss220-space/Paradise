@@ -58,7 +58,4 @@ SUBSYSTEM_DEF(terraforming)
 	*/
 
 	for(var/turf in GLOB.lazis_primary_turfs)
-		if(istype(turf, /turf/simulated/floor/lava/lava_land_surface/lava_only))
-			continue
-
 		SSterraforming.queue.enqueue(list(turf, "[lavaland_theme.primary_turf_type]"))
