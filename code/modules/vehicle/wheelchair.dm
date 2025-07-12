@@ -34,6 +34,7 @@
 /obj/vehicle/ridden/wheelchair/Destroy()
 	chair_overlay = null
 	applied_skin = null
+	QDEL_NULL(bell_action)
 	return ..()
 
 /obj/vehicle/ridden/wheelchair/proc/on_skin_apply(obj/item/fluff/rapid_wheelchair_kit/kit, mob/user)
@@ -80,7 +81,7 @@
 	. = ..()
 	desc = applied_skin ? initial(applied_skin.new_desc) : initial(desc)
 	if (exists_bell)
-		desc += " К подлокотнику зачем-то прикреплен звонок."
+		desc += " К подлокотнику зачем-то прикреплён звонок."
 	if (bomb)
 		desc += " Под сиденьем что-то есть."
 

@@ -52,6 +52,16 @@
 	build_path = /obj/item/healthupgrade
 	category = list("Medical")
 
+/datum/design/dna_notepad
+	name = "genetic notepad"
+	desc = "Планшет генетика, способный хранить данные блоков генов в удобном виде."
+	id = "dna_notepad"
+	req_tech = list("programming" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+	build_path = /obj/item/dna_notepad
+	category = list("Medical")
+
 /datum/design/bodyanalyzer
 	name = "handheld body analyzer"
 	desc = "A handheld scanner capable of deep-scanning an entire body."

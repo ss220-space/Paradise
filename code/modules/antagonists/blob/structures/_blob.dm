@@ -127,7 +127,7 @@
 
 
 /obj/structure/blob/proc/RegenHealth()
-	obj_integrity = min(max_integrity, obj_integrity + health_regen)
+	repair_damage(health_regen)
 	update_blob()
 
 

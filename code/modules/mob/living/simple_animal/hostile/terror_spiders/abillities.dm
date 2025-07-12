@@ -312,7 +312,7 @@
 
 		if(issilicon(target))
 			to_chat(target, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! СЕНСОРНАЯ ПЕРЕГРУЗКА \[$(!@#</b>"))
-			target << 'sound/misc/interference.ogg'
+			SEND_SOUND(target, sound('sound/misc/interference.ogg'))
 			playsound(target, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
 			do_sparks(5, 1, target)
 			target.Weaken(12 SECONDS)
@@ -352,7 +352,7 @@
 
 		if(issilicon(target))
 			to_chat(target, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! СЕНСОРНАЯ ПЕРЕГРУЗКА \[$(!@#</b>"))
-			target << 'sound/misc/interference.ogg'
+			SEND_SOUND(target, sound('sound/misc/interference.ogg'))
 			playsound(target, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
 			do_sparks(5, 1, target)
 			target.Weaken(12 SECONDS)
@@ -450,7 +450,7 @@
 
 			if(issilicon(target))
 				to_chat(target, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! СЕНСОРНАЯ ПЕРЕГРУЗКА \[$(!@#</b>"))
-				target << 'sound/misc/interference.ogg'
+				SEND_SOUND(target, sound('sound/misc/interference.ogg'))
 				playsound(target, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, target)
 				target.Weaken(16 SECONDS)

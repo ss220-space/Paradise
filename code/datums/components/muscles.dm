@@ -11,8 +11,7 @@
 
 /datum/component/muscles/Initialize(max_species_strength = STRENGTH_LEVEL_MAXDEFAULT, default_strength = STRENGTH_LEVEL_DEFAULT, can_become_stronger = TRUE)
 	..()
-	var/datum/physiology/physiology = parent
-	if(!ishuman(physiology.owner))
+	if(!ishuman(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.max_species_strength = max_species_strength
@@ -21,29 +20,51 @@
 
 
 /datum/component/muscles/RegisterWithParent()
-	var/datum/physiology/physiology = parent
-	var/mob/living/owner = physiology.owner
-	RegisterSignal(owner, COMSIG_GET_GRAB_SPEED_MODIFIERS, PROC_REF(get_strength_grab_speed_modifier))
-	RegisterSignal(owner, COMSIG_GET_PULL_SLOWDOWN_MODIFIERS, PROC_REF(get_strength_pull_slowdown_modifier))
-	RegisterSignal(owner, COMSIG_GET_MELEE_DAMAGE_DELTAS, PROC_REF(get_strength_melee_damage_delta))
-	RegisterSignal(owner, COMSIG_MOB_EXERCISED, PROC_REF(try_add_strength_points))
-	RegisterSignal(owner, COMSIG_GET_ICON_RENDER_KEY_INFO, PROC_REF(get_icon_render_key_info))
-	RegisterSignal(owner, COMSIG_GET_ORGAN_ICON_STATE, PROC_REF(get_organ_icon_state))
-	RegisterSignal(owner, COMSIG_STRENGTH_BORDER_UPDATE, PROC_REF(on_strength_border_update))
+	RegisterSignal(parent, COMSIG_GET_GRAB_SPEED_MODIFIERS, PROC_REF(get_strength_grab_speed_modifier))
+	RegisterSignal(parent, COMSIG_GET_PULL_SLOWDOWN_MODIFIERS, PROC_REF(get_strength_pull_slowdown_modifier))
+	RegisterSignal(parent, COMSIG_GET_MELEE_DAMAGE_DELTAS, PROC_REF(get_strength_melee_damage_delta))
+	RegisterSignal(parent, COMSIG_MOB_EXERCISED, PROC_REF(try_add_strength_points))
+	RegisterSignal(parent, COMSIG_GET_ICON_RENDER_KEY_INFO, PROC_REF(get_icon_render_key_info))
+	RegisterSignal(parent, COMSIG_GET_ORGAN_ICON_STATE, PROC_REF(get_organ_icon_state))
+	RegisterSignal(parent, COMSIG_STRENGTH_BORDER_UPDATE, PROC_REF(on_strength_border_update))
+	RegisterSignal(parent, COMSIG_CAN_CHANGE_STRENGTH, PROC_REF(can_activate_strength_gene))
+	RegisterSignal(parent, COMSIG_GET_STRENGTH, PROC_REF(get_strength_list))
+	RegisterSignal(parent, COMSIG_UPDATE_STRENGTH, PROC_REF(update_strength))
 
 
 /datum/component/muscles/UnregisterFromParent()
-	var/datum/physiology/physiology = parent
-	var/mob/living/owner = physiology.owner
-	UnregisterSignal(owner, list(
+	UnregisterSignal(parent, list(
 		COMSIG_GET_GRAB_SPEED_MODIFIERS,
 		COMSIG_GET_PULL_SLOWDOWN_MODIFIERS,
 		COMSIG_GET_MELEE_DAMAGE_DELTAS,
 		COMSIG_MOB_EXERCISED,
 		COMSIG_GET_ICON_RENDER_KEY_INFO,
 		COMSIG_GET_ORGAN_ICON_STATE,
-		COMSIG_STRENGTH_BORDER_UPDATE
+		COMSIG_STRENGTH_BORDER_UPDATE,
+		COMSIG_CAN_CHANGE_STRENGTH,
+		COMSIG_GET_STRENGTH,
+		COMSIG_UPDATE_STRENGTH
 	))
+
+
+/datum/component/muscles/proc/update_strength(user)
+	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(parent, TRAIT_STRONG_MUSCLES))
+		strength = max(strength, STRENGTH_LEVEL_MAXDEFAULT)
+
+	if(HAS_TRAIT(parent, TRAIT_WEAK_MUSCULS))
+		strength = min(strength, STRENGTH_LEVEL_WEAK)
+
+
+/datum/component/muscles/proc/get_strength_list(user, list/strength_list)
+	SIGNAL_HANDLER
+	strength_list.Add(strength)
+
+
+/datum/component/muscles/proc/can_activate_strength_gene(user)
+	SIGNAL_HANDLER
+	return COMPONENT_CAN_CHANGE_STRENGTH
 
 
 /datum/component/muscles/proc/on_strength_border_update(user)
@@ -122,12 +143,7 @@
 
 
 /datum/component/muscles/proc/get_strength()
-	if(HAS_TRAIT(parent, TRAIT_STRONG_MUSCLES))
-		strength = max(strength, STRENGTH_LEVEL_MAXDEFAULT)
-
-	if(HAS_TRAIT(parent, TRAIT_WEAK_MUSCULS))
-		strength = min(strength, STRENGTH_LEVEL_WEAK)
-
+	update_strength()
 	return strength
 
 

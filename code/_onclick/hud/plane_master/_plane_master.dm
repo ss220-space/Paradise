@@ -80,6 +80,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 		// NOTE! We do not clear ourselves from client screens
 		// We relay on whoever qdel'd us to reset our hud, and properly purge us
 		home.plane_masters -= "[plane]"
+		home.our_hud?.mymob?.client?.screen -= src
 		home = null
 	. = ..()
 	QDEL_LIST(relays)
@@ -140,18 +141,20 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 		our_client.screen += src
 
 		if(!(critical & PLANE_CRITICAL_NO_EMPTY_RELAY))
-			our_client.screen += relays
+			for(var/atom/movable/render_plane_relay/relay as anything in relays)
+				our_client.register_render_plane_relay(relay)
 			return TRUE
 		for(var/atom/movable/render_plane_relay/relay as anything in relays)
 			if(relay.critical_target)
-				our_client.screen += relay
+				our_client.register_render_plane_relay(relay)
 		return TRUE
 
 	if(!our_client)
 		return TRUE
 
 	our_client.screen += src
-	our_client.screen += relays
+	for(var/atom/movable/render_plane_relay/relay as anything in relays)
+		our_client.register_render_plane_relay(relay)
 	return TRUE
 
 /// Hook to allow planes to work around is_outside_bounds

@@ -13,8 +13,7 @@ jobs:
     if: |
       github.event.issue.pull_request &&
       github.event.comment.body == '!build_rust' &&
-      (github.event.sender.id == github.event.issue.user.id ||
-       github.event.comment.author_association == 'COLLABORATOR' ||
+       (github.event.comment.author_association == 'COLLABORATOR' ||
        github.event.comment.author_association == 'MEMBER' ||
        github.event.comment.author_association == 'OWNER')
 
@@ -55,20 +54,6 @@ jobs:
         token:        ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 1
 
-    - name: Check for user-supplied files
-      id: user_files_check
-      run: |
-        if [ -f "./rustlibs.dll" ]; then
-          echo "dll_exists=true"  >> $GITHUB_OUTPUT
-        else
-          echo "dll_exists=false" >> $GITHUB_OUTPUT
-        fi
-        if [ -f "./librustlibs.so" ]; then
-          echo "so_exists=true"   >> $GITHUB_OUTPUT
-        else
-          echo "so_exists=false"  >> $GITHUB_OUTPUT
-        fi
-
     - name: Setup Rust targets
       run: |
         rustup target add i686-unknown-linux-gnu
@@ -86,18 +71,6 @@ jobs:
           libgcc-11-dev:i386 \
           mingw-w64 mingw-w64-i686-dev
 
-    - name: Compute user-supplied DLL hash
-      if: steps.user_files_check.outputs.dll_exists == 'true'
-      id: user_dll_hash
-      run: |
-        echo "USER_DLL_HASH=$(sha256sum rustlibs.dll | cut -d ' ' -f1)" >> $GITHUB_ENV
-
-    - name: Compute user-supplied SO hash
-      if: steps.user_files_check.outputs.so_exists == 'true'
-      id: user_so_hash
-      run: |
-        echo "USER_SO_HASH=$(sha256sum librustlibs.so | cut -d ' ' -f1)" >> $GITHUB_ENV
-
     - name: Build Rust libraries
       env:
         BASE_BRANCH: ${{ github.event.repository.default_branch }}
@@ -108,11 +81,13 @@ jobs:
         RUSTFLAGS: "-C link-arg=-Wl,--build-id=none"
         TZ: UTC
       run: |
-        git config user.name "$USER_USER"
-        git config user.email "$USER_EMAIL"
+        git config --local user.name "Rust Builder"
+        git config --local user.email "action@github.com"
+
         git pull origin "$PR_BRANCH" --depth=$((ahead_by + 1))
         git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
         git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
+        
         cd rust
 
         cargo build --release --target i686-unknown-linux-gnu
@@ -123,31 +98,13 @@ jobs:
         cp rust/target/i686-unknown-linux-gnu/release/librustlibs.so librustlibs.so
         cp rust/target/i686-pc-windows-gnu/release/rustlibs.dll rustlibs.dll
 
-    - name: Compute built DLL hash
-      id: built_dll_hash
-      run: |
-        echo "BUILD_DLL_HASH=$(sha256sum rustlibs.dll | cut -d ' ' -f1)" >> $GITHUB_ENV
-
-    - name: Compute built SO hash
-      id: built_so_hash
-      run: |
-        echo "BUILD_SO_HASH=$(sha256sum librustlibs.so | cut -d ' ' -f1)" >> $GITHUB_ENV
-
-
     - name: Commit and push changes
-      if: env.USER_DLL_HASH != env.BUILD_DLL_HASH || env.USER_SO_HASH != env.BUILD_SO_HASH
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        git commit -a -m "Build Rust library" --allow-empty
+        git add --force librustlibs.so rustlibs.dll
+        git commit -m "Build Rust library"
         git push origin
-
-    - name: Notify No Changes
-      if: env.USER_DLL_HASH == env.BUILD_DLL_HASH && env.USER_SO_HASH == env.BUILD_SO_HASH
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        gh pr comment ${{ github.event.issue.html_url }} -b 'No build result changes'
 
     - name: Notify Failure
       env:

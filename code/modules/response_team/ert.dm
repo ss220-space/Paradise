@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		return
 
 	if(GLOB.send_emergency_team)
-		to_chat(usr, span_warning("Центральное Командование уже направило Отряд Быстрого Реагирования!"))
+		to_chat(usr, span_warning("Центральное командование уже направило Отряд Быстрого Реагирования!"))
 		return
 
 	var/datum/ui_module/ert_manager/E = new()
@@ -270,14 +270,18 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(silent)
 		message_admins("A silent response team failed to spawn. Likely, no one signed up.")
 		return
-	GLOB.event_announcement.Announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.", "Оповещение: ОБР недоступен.")
+	GLOB.major_announcement.announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.",
+									ANNOUNCE_ERT_UNAVAIL_RU
+	)
 
 /datum/response_team/proc/announce_team()
 	if(silent)
 		return
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи(?) вам. Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи вам. Ожидайте.",
+									ANNOUNCE_ERT_ONWAY_RU
+	)
 
-// -- AMBER TEAM --
+/// MARK: AMBER TEAM
 
 /datum/response_team/amber
 	engineering_outfit = /datum/outfit/job/centcom/response_team/engineer/amber
@@ -290,9 +294,11 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/amber/announce_team()
 	if(silent)
 		return
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ЭМБЕР». Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ЭМБЕР\". Ожидайте.",
+									ANNOUNCE_ERT_ONWAY_RU
+	)
 
-// -- RED TEAM --
+/// MARK: RED TEAM
 
 /datum/response_team/red
 	engineering_outfit = /datum/outfit/job/centcom/response_team/engineer/red
@@ -306,9 +312,11 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/red/announce_team()
 	if(silent)
 		return
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «РЭД». Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"РЭД\". Ожидайте.",
+									ANNOUNCE_ERT_ONWAY_RU
+	)
 
-// -- GAMMA TEAM --
+/// MARK: GAMMA TEAM
 
 /datum/response_team/gamma
 	engineering_outfit = /datum/outfit/job/centcom/response_team/engineer/gamma
@@ -322,7 +330,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/gamma/announce_team()
 	if(silent)
 		return
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ГАММА». Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ГАММА\". Ожидайте.",
+									ANNOUNCE_ERT_ONWAY_RU
+	)
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"

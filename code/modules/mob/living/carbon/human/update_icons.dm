@@ -150,8 +150,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //BASE MOB SPRITE
 /mob/living/carbon/human/proc/update_body(rebuild_base = FALSE)
-	var/datum/component/muscles/muscles = physiology.GetComponent(/datum/component/muscles)
-	muscles?.get_strength() // To update
+	SEND_SIGNAL(src, COMSIG_UPDATE_STRENGTH)
 	remove_overlay(LIMBS_LAYER) // So we don't get the old species' sprite splatted on top of the new one's
 	remove_overlay(UNDERWEAR_LAYER)
 

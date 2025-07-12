@@ -51,7 +51,7 @@
 
 		if(WIRE_BOMB_TIMING)
 			if(!N.is_syndicate)
-				set_security_level(N.previous_level)
+				SSsecurity_level.set_level(N.previous_level)
 			N.timing = FALSE
 			N.update_icon()
 			GLOB.bomb_set = FALSE

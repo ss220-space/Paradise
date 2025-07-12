@@ -178,6 +178,9 @@
 /obj/item/gun/energy/Destroy()
 	if(selfcharge)
 		STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(cell)
+	QDEL_NULL(sibyl_mod)
+	QDEL_LIST(ammo_type)
 	return ..()
 
 /obj/item/gun/energy/process()
