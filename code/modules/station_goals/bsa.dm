@@ -32,15 +32,15 @@
 #define BSA_PULSE_SHOT_POWER_USE 200000
 
 //How longer reload after construction (10 min - default)
-#define BSA_INITIAL_RELOAD_TIME 10
+#define BSA_INITIAL_RELOAD_TIME 600
 //How longer reload after power shot (10 min - default)
-#define BSA_POWER_SHOT_RELOAD_TIME 10
+#define BSA_POWER_SHOT_RELOAD_TIME 600
 //How longer reload after pulse shot (1.5 min)
-#define BSA_PULSE_SHOT_RELOAD_TIME 1.5
+#define BSA_PULSE_SHOT_RELOAD_TIME 90
 //How longer reload after pulse burst (5 min)
-#define BSA_PULSE_BURST_RELOAD_TIME 5
+#define BSA_PULSE_BURST_RELOAD_TIME 300
 //How longer reload after power burst (20 min) - only for emagged console
-#define BSA_POWER_BURST_RELOAD_TIME 20
+#define BSA_POWER_BURST_RELOAD_TIME 1200
 
 //How longer reload after construction (10 sec)
 #define BSA_CALIBRATE_TIME 10
