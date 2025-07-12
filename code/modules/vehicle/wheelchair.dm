@@ -32,6 +32,7 @@
 /obj/vehicle/ridden/wheelchair/Destroy()
 	chair_overlay = null
 	applied_skin = null
+	QDEL_NULL(bell_action)
 	return ..()
 
 /obj/vehicle/ridden/wheelchair/proc/on_skin_apply(obj/item/fluff/rapid_wheelchair_kit/kit, mob/user)
