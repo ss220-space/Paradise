@@ -20,10 +20,9 @@
 	var/decon_speed = 3
 	var/kit_applied = FALSE
 	var/exists_bell = FALSE
+	var/detonation_delay = FALSE
 	var/obj/item/grenade/bomb = null
-	//Actions
 	var/datum/action/innate/wheelchair/bell/bell_action = new
-	var/datum/action/innate/wheelchair/detonate/detonate_action = new
 
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
 	. = ..()
@@ -51,6 +50,17 @@
 	update_appearance()
 	qdel(kit)
 
+/obj/vehicle/ridden/wheelchair/screwdriver_act(mob/user, obj/item/I)
+	if(!bomb)
+		return
+	if(decon_speed)
+		user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] откручивать [bomb.declent_ru(ACCUSATIVE)] при помощи [I]..."), span_notice("Вы начинаете откреплять [bomb] при помощи [I]..."), span_warning("Слышны звуки работы с инструментом."))
+	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume))
+		return
+	user.put_in_any_hand_if_possible(bomb)
+	bomb = null
+	user.balloon_alert(user, "успешно разобрано")
+
 /obj/vehicle/ridden/wheelchair/wrench_act(mob/user, obj/item/I)
 	if(decon_speed)
 		TOOL_ATTEMPT_DISMANTLE_MESSAGE
@@ -59,6 +69,8 @@
 
 	var/obj/item/stack/sheet/G = new material_type(loc, decon_amount)
 	G.add_fingerprint(user)
+	if(bomb)
+		bomb.forceMove(loc)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 	user.balloon_alert(user, "успешно разобрано")
 	deconstruct()
@@ -86,7 +98,7 @@
 		desc += " Под сиденьем что-то есть."
 
 
-//Modify logic
+///Modify logic
 
 /obj/vehicle/ridden/wheelchair/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/desk_bell))
@@ -137,24 +149,20 @@
 	bomb.prime()
 
 
-//Buckle logic
+///Buckle logic
 
 /obj/vehicle/ridden/wheelchair/post_buckle_mob(mob/living/user)
 	if (exists_bell)
 		bell_action.Grant(user, src)
-	if (exists_bell && bomb)
-		detonate_action.Grant(user, src)
 	return ..()
 
 /obj/vehicle/ridden/wheelchair/post_unbuckle_mob(mob/living/user)
 	if (exists_bell)
 		bell_action.Remove(user)
-	if (exists_bell && bomb)
-		detonate_action.Remove(user)
 	return ..()
 
 
-//Actions
+///Actions
 
 /datum/action/innate/wheelchair
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
@@ -176,23 +184,24 @@
 	name = "Звонок"
 
 /datum/action/innate/wheelchair/bell/Activate()
-	playsound(wheelchair, "sound/machines/bell.ogg", 70, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
-
-
-/datum/action/innate/wheelchair/detonate
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "explosion"
-	name = "Активация бомбы"
-
-/datum/action/innate/wheelchair/detonate/Activate()
-	if (!wheelchair.bomb)
+	if(!wheelchair.bomb)
+		bell_sound()
 		return
-	wheelchair.detonate_action.Remove(usr)
-	playsound(wheelchair, "sound/machines/bell.ogg", 70, extrarange = SOUND_RANGE)
-	sleep(0.2 SECONDS)
-	playsound(wheelchair, "sound/machines/bell.ogg", 70, extrarange = SOUND_RANGE)
-	sleep(0.2 SECONDS)
-	playsound(wheelchair, "sound/machines/bell.ogg", 70, extrarange = SOUND_RANGE)
-	sleep(0.6 SECONDS)
+	if(wheelchair.detonation_delay)
+		bell_sound()
+		return
+	wheelchair.detonation_delay = TRUE
+	for(var/i = 0; i < 5; i++)
+		addtimer(CALLBACK(src, PROC_REF(bell_sound)), (0.25 * i) SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(detonate_bomb)), 2 SECONDS)
+
+
+/datum/action/innate/wheelchair/bell/proc/bell_sound()
+		playsound(wheelchair, "sound/machines/bell.ogg", 70, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+
+/datum/action/innate/wheelchair/bell/proc/detonate_bomb()
 	wheelchair.bomb.prime()
-	wheelchair.bomb = null
+	if(QDELETED(wheelchair.bomb)) //If bomb deleted after detonation
+		wheelchair.bomb = null
+	//Else multiple time detonation bomb, safe it
+	wheelchair.detonation_delay = FALSE
