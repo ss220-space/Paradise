@@ -14,6 +14,8 @@
 
 //How many shots in burst
 #define BSA_BURST_COUNT 5
+//Delay between shots in burst mode
+#define BSA_BURST_SHOT_DELAY 0.5
 
 //Spread by every axis (x, y) for signal calibration
 #define BSA_CALIBRATION_ACCURACY 7
@@ -30,18 +32,24 @@
 #define BSA_PULSE_SHOT_POWER_USE 200000
 
 //How longer reload after construction (10 min - default)
-#define BSA_INITIAL_RELOAD_TIME 600
+#define BSA_INITIAL_RELOAD_TIME 10
 //How longer reload after power shot (10 min - default)
-#define BSA_POWER_SHOT_RELOAD_TIME 600
+#define BSA_POWER_SHOT_RELOAD_TIME 10
 //How longer reload after pulse shot (1.5 min)
-#define BSA_PULSE_SHOT_RELOAD_TIME 90
+#define BSA_PULSE_SHOT_RELOAD_TIME 1.5
 //How longer reload after pulse burst (5 min)
-#define BSA_PULSE_BURST_RELOAD_TIME 300
+#define BSA_PULSE_BURST_RELOAD_TIME 5
 //How longer reload after power burst (20 min) - only for emagged console
-#define BSA_POWER_BURST_RELOAD_TIME 1200
+#define BSA_POWER_BURST_RELOAD_TIME 20
 
 //How longer reload after construction (10 sec)
 #define BSA_CALIBRATE_TIME 10
+//Delay between firing and impact on the target
+#define BSA_IMPACT_DELAY 3
+//Laser notification duration before bsa strike (must be less than BSA_IMPACT_DELAY)
+#define BSA_IMPACT_LASER_NOTIFY_BEFORE 1
+//Radius of notification about bsa strike
+#define BSA_IMPACT_NOTIFY_RADIUS 10
 
 
 /datum/station_goal/bluespace_cannon
@@ -294,19 +302,30 @@
 	add_overlay(top_layer)
 	last_fire_time = world.time / 10
 
-/obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)
-	destroy_all_on_fire_beam(user, bullseye)
+/obj/machinery/bsa/full/proc/fire(mob/user, turf/target)
+	destroy_all_on_fire_beam(user, target)
+	incoming_shot_notify(target)
 	switch(mode)
 		if(BSA_MODE_POWER_SHOT)
-			fire_power_shot(user, spread(bullseye, BSA_SHOT_SPREAD))
+			var/turf/impact_turf = spread(target, BSA_SHOT_SPREAD)
+			addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (BSA_IMPACT_DELAY - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(fire_power_shot), user, impact_turf), BSA_IMPACT_DELAY SECONDS)
 		if(BSA_MODE_PULSE_SHOT)
-			fire_pulse_shot(user, spread(bullseye, BSA_SHOT_SPREAD))
+			var/turf/impact_turf = spread(target, BSA_SHOT_SPREAD)
+			addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (BSA_IMPACT_DELAY - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(fire_pulse_shot), user, impact_turf), BSA_IMPACT_DELAY SECONDS)
 		if(BSA_MODE_PULSE_BURST)
-			for(var/i = 1; i <= BSA_BURST_COUNT; i++)
-				addtimer(CALLBACK(src, PROC_REF(fire_pulse_shot), user, spread(bullseye, BSA_BURST_SPREAD)), i * 0.5 SECONDS)
+			for(var/i = 0; i < BSA_BURST_COUNT; i++)
+				var/turf/impact_turf = spread(target, BSA_BURST_SPREAD)
+				var/delay = BSA_IMPACT_DELAY + i * BSA_BURST_SHOT_DELAY
+				addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (delay - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(fire_pulse_shot), user, impact_turf), delay SECONDS)
 		if(BSA_MODE_POWER_BURST)
 			for(var/i = 1; i <= BSA_BURST_COUNT; i++)
-				addtimer(CALLBACK(src, PROC_REF(fire_power_shot), user, spread(bullseye, BSA_BURST_SPREAD)), i * 0.5 SECONDS)
+				var/turf/impact_turf = spread(target, BSA_BURST_SPREAD)
+				var/delay = BSA_IMPACT_DELAY + i * BSA_BURST_SHOT_DELAY
+				addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (delay - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(fire_power_shot), user, impact_turf), delay SECONDS)
 		else
 			to_chat(user, span_info("Клик! Осечка?!<br>Может стоит поставить другой режим стрельбы?"))
 	reload()
@@ -332,6 +351,17 @@
 	message_admins("[key_name_admin(user)] has launched an artillery strike with pulse shot mode into [ADMIN_COORDJMP(bullseye)].")
 	log_admin("[key_name_log(user)] has launched an artillery strike with pulse shot mode into [COORD(bullseye)].") // Line below handles logging the explosion to disk
 	explosion(bullseye, 0, 1, 5, cause = "Bluespace artillery light strike")
+
+/obj/machinery/bsa/full/proc/incoming_shot_notify(turf/target)
+	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 75, 1)
+	for(var/mob/mob in range(BSA_IMPACT_NOTIFY_RADIUS, target))
+		mob.show_message( \
+			span_danger("Что-то приближается к вам сверху!"), EMOTE_VISIBLE, \
+			span_danger("Вы слышите приближающийся гул!"), EMOTE_AUDIBLE \
+		)
+
+/obj/machinery/bsa/full/proc/incoming_shot_aim(turf/target)
+	new /obj/effect/overlay/temp/blinking_laser(target)
 
 /obj/machinery/bsa/full/proc/spread(turf/target, axis_spread)
 	var/x = target.x + rand(-axis_spread, axis_spread)
