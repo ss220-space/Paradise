@@ -30,6 +30,11 @@
 	RegisterSignal(parent, COMSIG_CAN_CHANGE_STRENGTH, PROC_REF(can_activate_strength_gene))
 	RegisterSignal(parent, COMSIG_GET_STRENGTH, PROC_REF(get_strength_list))
 	RegisterSignal(parent, COMSIG_UPDATE_STRENGTH, PROC_REF(update_strength))
+	RegisterSignal(parent, COMSIG_GET_BREAKOUTTIME_MODIFIERS, PROC_REF(get_breakouttime_modifiers))
+	RegisterSignal(parent, COMSIG_GET_THROW_SPEED_MODIFIERS, PROC_REF(get_throw_speed_modifier))
+	RegisterSignal(parent, COMSIG_GET_THROW_RANGE_DELTAS, PROC_REF(get_throw_range_deltas))
+	RegisterSignal(parent, COMSIG_GET_BOLA_MODIFIERS, PROC_REF(get_bola_modifier))
+	RegisterSignal(parent, COMSIG_GET_HUNGER_MODS, PROC_REF(get_hunger_mod))
 
 
 /datum/component/muscles/UnregisterFromParent()
@@ -43,8 +48,40 @@
 		COMSIG_STRENGTH_BORDER_UPDATE,
 		COMSIG_CAN_CHANGE_STRENGTH,
 		COMSIG_GET_STRENGTH,
-		COMSIG_UPDATE_STRENGTH
+		COMSIG_UPDATE_STRENGTH,
+		COMSIG_GET_BREAKOUTTIME_MODIFIERS,
+		COMSIG_GET_THROW_SPEED_MODIFIERS,
+		COMSIG_GET_THROW_RANGE_DELTAS,
+		COMSIG_GET_BOLA_MODIFIERS,
+		COMSIG_GET_HUNGER_MODS
 	))
+
+
+/datum/component/muscles/proc/get_hunger_mod(user, list/modifiers)
+	SIGNAL_HANDLER
+	if(isvampire(user))
+		return
+
+	modifiers.Add(GLOB.strength_hunger_modifiers[get_strength()])
+
+/datum/component/muscles/proc/get_bola_modifier(user, list/modifiers)
+	SIGNAL_HANDLER
+	modifiers.Add(GLOB.strength_bolas_time_modifiers[get_strength()])
+
+
+/datum/component/muscles/proc/get_throw_range_deltas(user, list/modifiers)
+	SIGNAL_HANDLER
+	modifiers.Add(GLOB.strength_throw_range_deltas[get_strength()])
+
+
+/datum/component/muscles/proc/get_throw_speed_modifier(user, list/modifiers)
+	SIGNAL_HANDLER
+	modifiers.Add(GLOB.strength_throw_speed_modifiers[get_strength()])
+
+
+/datum/component/muscles/proc/get_breakouttime_modifiers(user, list/modifiers)
+	SIGNAL_HANDLER
+	modifiers.Add(1 / GLOB.strength_break_ties_speed_modifiers[get_strength()])
 
 
 /datum/component/muscles/proc/update_strength(user)

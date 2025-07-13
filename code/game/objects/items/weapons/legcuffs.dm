@@ -218,6 +218,16 @@
 		INVOKE_ASYNC(src, PROC_REF(spin_up))
 
 
+/obj/item/restraints/legcuffs/bola/proc/get_spin_time(mob/owner)
+	var/time = 1 SECONDS
+	var/list/bola_modifiers = list()
+	SEND_SIGNAL(owner, COMSIG_GET_BOLA_MODIFIERS, bola_modifiers)
+	for(var/modifier in bola_modifiers)
+		time *= modifier
+
+	return time
+
+
 /obj/item/restraints/legcuffs/bola/proc/spin_up()
 	if(spinning)
 		return
@@ -225,7 +235,7 @@
 	spinning = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	playsound(owner, spin_sound, 30, list(38000, 48000), SHORT_RANGE_SOUND_EXTRARANGE)
-	spin_timer_id = addtimer(CALLBACK(src, PROC_REF(spin_loop), owner), 1 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE|TIMER_DELETE_ME)
+	spin_timer_id = addtimer(CALLBACK(src, PROC_REF(spin_loop), owner), get_spin_time(owner), TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE|TIMER_DELETE_ME)
 	do_spin_cycle(owner)
 
 
@@ -241,8 +251,7 @@
 
 
 /obj/item/restraints/legcuffs/bola/proc/do_spin_cycle(mob/living/user)
-
-	if(do_after(user, 1 SECONDS, user, ALL, extra_checks = CALLBACK(src, PROC_REF(can_spin_check), user)))
+	if(do_after(user, get_spin_time(user), user, ALL, extra_checks = CALLBACK(src, PROC_REF(can_spin_check), user)))
 		throw_range += round(max_range / max_spins)
 		throw_speed += round(max_speed / max_spins)
 		spin_cycle++

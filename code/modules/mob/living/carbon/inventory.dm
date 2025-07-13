@@ -95,9 +95,13 @@
 /// General proc to resist passed item.
 /mob/living/carbon/proc/cuff_resist(obj/item/I, cuff_break = FALSE)
 	. = FALSE
-	var/breakouttime = I.breakouttime
+	var/breakouttime = cuff_break ? 5 SECONDS : I.breakouttime
+	var/list/breakouttime_modifiers = list()
+	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
+	for(var/mod in breakouttime_modifiers)
+		breakouttime *= mod
+
 	if(cuff_break)
-		breakouttime = 5 SECONDS	// very fast!
 		visible_message(
 			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся сломать [I.declent_ru(ACCUSATIVE)]!"),
 			span_notice("Вы пытаетесь сломать [I.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
