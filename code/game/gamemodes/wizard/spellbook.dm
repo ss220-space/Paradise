@@ -1215,11 +1215,11 @@
 	spellname_ru = "Лошадиной Силы"
 	icon_state = "bookhorses"
 	item_state = "bookhorses"
-	desc = "В этой книге больше лошадиных сил, чем во всех челноках в обозримой вселенной."
+	desc = "В этой книге больше лошадиных сил, чем во всём транспорте в обозримой вселенной."
 
 /obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user)
 	if(ishuman(user))
-		to_chat(user, span_fontsize7(span_fontcolor_red("ЛОШ'АДЬ ПРОБУДИЛАСЬ!")))
+		to_chat(user, span_cultlarge("ЛОШ'АДЬ ПРОБУДИЛАСЬ!"))
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
 		ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
 		magichead.item_flags |= DROPDEL	//curses!

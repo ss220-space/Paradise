@@ -28,9 +28,28 @@
 /obj/machinery/computer/library/checkout/attack_hand(var/mob/user as mob)
 	if(..())
 		return
-	interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/library/checkout/interact(var/mob/user)
+/obj/machinery/computer/library/checkout/attack_ghost(mob/user)
+	ui_interact(user)
+
+/* /obj/machinery/computer/library/checkout/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "FaxMachine", name)
+		ui.open()
+
+/obj/machinery/computer/library/checkout/ui_data(mob/user)
+	var/list/data = list()
+
+
+/obj/machinery/computer/library/checkout/ui_act(action, params)
+	if(..())
+		return
+*/
+
+
+/* /obj/machinery/computer/library/checkout/interact(var/mob/user)
 	if(interact_check(user))
 		return
 
@@ -198,7 +217,8 @@
 	var/datum/browser/B = new /datum/browser(user, "library", "Book Inventory Management")
 	B.set_content(dat)
 	B.add_stylesheet("dark_inputs", "html/dark_inputs.css")
-	B.open()
+	B.open()  */
+
 
 /obj/machinery/computer/library/checkout/emag_act(mob/user)
 	if(density && !emagged)
@@ -214,10 +234,14 @@
 	if(istype(I, /obj/item/barcodescanner))
 		add_fingerprint(user)
 		var/obj/item/barcodescanner/scanner = I
-		scanner.computer = src
-		to_chat(user, span_notice("The [scanner.name]'s associated machine has been set to [src]."))
-		audible_message("The [name] lets out a low, short blip.", hearing_distance = 2)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(scanner.computer == src)
+			user.balloon_alert(user, "уже привязано!")
+		else
+			scanner.computer = src
+			to_chat(user, span_notice(""))
+			atom_say("Устройство было привязано.")
+			playsound(src, 'sound/machines/ping.ogg', 20)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
 

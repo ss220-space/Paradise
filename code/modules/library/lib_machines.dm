@@ -154,9 +154,17 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 	icon_state = "bigscanner"
 	anchored = TRUE
 	density = TRUE
+	// Default theme
+	var/ui_theme = "nanotrasen"
+	// Book inside scanner
+	var/obj/item/book/inserted
 	/// Last scanned book
 	var/obj/item/book/cache
-
+	var/obj/item/book/cached_book
+	/// for kostyl method of sending message to TGUI
+	var/erased = FALSE
+	var/tried_to_scan = FALSE
+	var/scanned = FALSE
 
 /obj/machinery/libraryscanner/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -166,12 +174,16 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 		add_fingerprint(user)
 		// NT with those pesky DRM schemes
 		var/obj/item/book/book = I
+		if(inserted != null)
+			src.balloon_alert(user, "занято!")
+			return ATTACK_CHAIN_PROCEED
 		if(book.has_drm)
-			atom_say("Обнаружен материал, защищенный авторским правом. Сканер не способен поместить книгу в память.")
+			atom_say("Обнаружен материал, защищенный авторским правом. Сканер не способен поместить эту книгу в память.")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(book, src))
 			return ..()
-		return ATTACK_CHAIN_BLOCKED_ALL
+		add_fingerprint(user)
+		inserted = book
 
 	return ..()
 
@@ -181,6 +193,82 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 
 
 /obj/machinery/libraryscanner/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
+	add_fingerprint(user)
+	ui_interact(user)
+
+/obj/machinery/libraryscanner/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/libraryscanner/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "LibraryScanner")
+		ui.open()
+
+/obj/machinery/libraryscanner/ui_data(mob/user)
+	var/list/data = list()
+	data["ui_theme"] = ui_theme
+	data["book"] = inserted
+	data["cache"] = cache
+	data["title"] = cache ? cache.title : FALSE
+	data["icon"] = cache ? cache.icon : FALSE
+	data["icon_state"] = cache ? cache.icon_state : FALSE
+	data["Message"] = FALSE
+
+	data["author"] = cache ? cache.author : FALSE
+	return data
+
+/obj/machinery/libraryscanner/ui_act(action, params)
+	if(..())
+		return
+
+	// Do not let click buttons if you're ghost unless you're an admin.
+	if (isobserver(usr) && !is_admin(usr))
+		return FALSE
+
+	. = TRUE
+	switch(action)
+		if("scan") // Сканирование
+			if(cache != null)
+				to_chat(usr, span_notice("Кэш занят!"))
+			else
+				cache = new cached_book(contents)
+				cached_book.title = inserted.title
+				cached_book.author = inserted.title
+				cached_book.dat = inserted.dat
+				cached_book.name = inserted.name
+				cached_book.ru_names = inserted.ru_names
+
+				to_chat(usr, span_notice("Книга отсканированна."))
+			return TRUE
+		if("book") // Вставить / вытащить книгу
+			if(inserted)
+				inserted.loc = src.loc
+				to_chat(usr, "Вы вытащили [inserted.declent_ru(ACCUSATIVE)] из сканера.")
+				inserted = null
+				. = FALSE
+			else
+				var/obj/item/I = usr.get_active_hand()
+				if(istype(I, /obj/item/book))
+					usr.drop_transfer_item_to_loc(I, src)
+					inserted = I
+					to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+				else
+					to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] может принять только книги."))
+					. = FALSE
+		if("erase") // удаление кэша
+			if(cache == null)
+				to_chat(usr, span_warning("Кэш уже пуст!"))
+			else
+				cache = null
+				to_chat(usr, span_notice("Кэш был очищен"))
+	if(.)
+		add_fingerprint(usr)
+
+/*
 	if(istype(user,/mob/dead))
 		to_chat(user, span_danger("Фигу видишь?"))
 		return
@@ -188,7 +276,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 	usr.set_machine(src)
 	var/dat = ""
 	if(cache)
-		dat += "[span_fontcolor_darkgreen("Данные помещены в память.")]"
+		dat += "[span_green("Данные помещены в память.")]"
 	else
 		dat += "В памяти отсутствуют данные."
 	dat += "<a href='byond://?src=[UID()];scan=1'>\[сканировать\]</a>"
@@ -219,7 +307,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()
 	return
-
+*/
 
 /*
  * Book binder
@@ -255,7 +343,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 			span_notice("Вы загружаете немного бумаги в [src.declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
 		)
 		atom_say("Проходит печать новой книги...")
-		playsound(src, 'sound/machines/binder_work.ogg', 25, FALSE)
+		playsound(src, 'sound/machines/binder_work.ogg', 25, FALSE, channel = 2)
 		addtimer(CALLBACK(src, PROC_REF(finalize_printing), paper), rand(20 SECONDS, 40 SECONDS))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -265,7 +353,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 /obj/machinery/bookbinder/proc/finalize_printing(obj/item/paper/paper)
 	if(QDELETED(paper) || paper.loc != src)
 		return
-	playsound(null, 0, 0, 0, 0, 0, 0, 1)
+	playsound(null, channel = 2)
 	var/obj/item/book/new_book = new(loc)
 	new_book.dat = paper.info
 	new_book.name = "Print Job #[rand(100, 999)]"

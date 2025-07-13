@@ -280,9 +280,9 @@
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			attack_self(user)
 		else
-			. += span_notice("Вам стоит одойдти ближе, чтобы её прочесть.")
+			. += span_notice("Вам стоит подойдти ближе, чтобы её прочесть.")
 	else
-		. += span_notice("Вы не умеете читать.")
+		. += span_notice("Кажется, вы не умеете читать.")
 
 /obj/item/book/attack_self(mob/user)
 	if(carved)
@@ -365,15 +365,28 @@
 
 		switch(scanner.mode)
 			if(0)
+				scanner.book = src
+				for(var/obj/item/book as anything in scanner.computer.inventory)
+					if(book == src)
+						playsound(src, 'sound/machines/boop.ogg', 20)
+						to_chat(user, span_notice("\nЭкран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Книга уже была добавлена в базу данных. Действие отменено во избежание дублирования.\""))
+						return ATTACK_CHAIN_PROCEED_SUCCESS
+				scanner.computer.inventory.Add(src)
+				playsound(src, 'sound/machines/ping.ogg', 20)
+				to_chat(user, span_notice("\nЭкран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Книга была занесена в базу данных.\""))
+			if(1)
+				return ..()
+			if(2)
 				playsound(src, 'sound/machines/ping.ogg', 20)
 				scanner.book = src
-				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище.\""))
-			if(1)
+				to_chat(user, span_notice("\nЭкран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище.\""))
+			if(3)
 				playsound(src, 'sound/machines/ping.ogg', 20)
 				scanner.book = src
 				scanner.computer.buffer_book = name
-				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Ккнига была занесена в буфер привязанного компьютера.\""))
-			if(2)
+				to_chat(user, span_notice("\nЭкран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Ккнига была занесена в буфер привязанного компьютера.\""))
+
+			if(4)
 				scanner.book = src
 				for(var/datum/borrowbook/borrowbook as anything in scanner.computer.checkouts)
 					if(borrowbook.bookname == name)
@@ -383,16 +396,7 @@
 						return ATTACK_CHAIN_PROCEED_SUCCESS
 				playsound(src, 'sound/machines/boop.ogg', 20)
 				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Для данной книги ещё не было офорлено бронирование.\""))
-			if(3)
-				scanner.book = src
-				for(var/obj/item/book as anything in scanner.computer.inventory)
-					if(book == src)
-						playsound(src, 'sound/machines/boop.ogg', 20)
-						to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Книга уже была добавлена в базу данных. Действие отменено во избежание дублирования.\""))
-						return ATTACK_CHAIN_PROCEED_SUCCESS
-				scanner.computer.inventory.Add(src)
-				playsound(src, 'sound/machines/ping.ogg', 20)
-				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Книга была занесена в базу данных.\""))
+
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -451,29 +455,42 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
-	var/obj/machinery/computer/library/checkout/computer // Associated computer - Modes 1 to 3 use this
+	var/obj/machinery/computer/library/checkout/computer // Associated computer - Modes 0, 3 and 4 use this
 	var/obj/item/book/book	 //  Currently scanned book
-	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
+	/* 0 - Scan and Attempt to Add to Inventory,
+	1 - Computer Connection Check,
+	2 - Scan Only,
+	3 - Scan and Set Buffer,
+	4 - Scan and Attempt to Check In */
+	var/mode = 0
+
 
 /obj/item/barcodescanner/attack_self(mob/user)
 	mode += 1
-	if(mode > 3)
+	if(mode > 4)
 		mode = 0
-	to_chat(user, "отображение состояния [declent_ru(GENITIVE)]:")
-	var/modedesc
 	switch(mode)
 		if(0)
-			modedesc = "Сканирование книг в локальное хранилище."
+			if(src.computer)
+				to_chat(user, span_notice("[bicon(src)] Сканирование книг в локальное хранилище с попыткой добавление в базу данных."))
+			else
+				mode +=1
 		if(1)
-			modedesc = "Сканирование книг в локальное хранилище с добалением в буфер привязанного компьютера."
+			if(src.computer)
+				to_chat(user, span_green("[bicon(src)] Устройство привязанно к компьютеру."))
+			else
+				to_chat(user, span_red("[bicon(src)] Привязанный к устройству компьютер не найден. Доступно только локальное сканирование."))
 		if(2)
-			modedesc = "Сканирование книг в локальное хранилище с оформлением их брони."
+			to_chat(user, span_notice("[bicon(src)] Сканирование книг в локальное хранилище."))
 		if(3)
-			modedesc = "Сканирование книг в локальное хранилище с попыткой добавление в базу данных."
-			modedesc = "ОШИБКА"
-	to_chat(user, " - Режим [mode] : [modedesc]")
-	if(src.computer)
-		to_chat(user, span_greentext("Устройство было привязано к компьютеру."))
-	else
-		to_chat(user, span_redtext("Привязанный к устройству компьютер не найден. Доступно только локальное сканирование."))
-	to_chat(user, "\n")
+			if(src.computer)
+				to_chat(user, span_notice("[bicon(src)] Сканирование книг в локальное хранилище с добалением в буфер привязанного компьютера."))
+			else
+				mode +=1
+		if(4)
+			if(src.computer)
+				to_chat(user, span_notice("[bicon(src)] Сканирование книг в локальное хранилище с оформлением их брони."))
+			else
+				mode +=1
+		else
+			to_chat(user, span_notice("[bicon(src)] ОШИБКА."))
