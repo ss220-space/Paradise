@@ -195,9 +195,9 @@
 		mob.ckey = plr.ckey
 		if(flavour)
 
-			to_chat(mob, chat_box_notice(flavour_text))
+			to_chat(mob, chat_box_green(flavour_text))
 		var/datum/mind/MM = mob.mind
-    
+
 		if(objectives)
 			for(var/objective in objectives)
 				MM.objectives += new/datum/objective(objective)

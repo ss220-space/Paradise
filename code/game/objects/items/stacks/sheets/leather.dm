@@ -269,7 +269,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 					H.update_inv_head()
 					H.update_inv_wear_suit()
 
-			to_chat(user, span_info("Вы укрепляете [target.declent_ru(ACCUSATIVE)], повышая его устойчивость к ближним атакам."))
+			to_chat(user, span_notice("Вы укрепляете [target.declent_ru(ACCUSATIVE)], повышая его устойчивость к ближним атакам."))
 			use(1)
 		else
 			to_chat(user, span_warning("Вы не можете улучшить [C.declent_ru(ACCUSATIVE)] еще сильнее!"))
@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
-			to_chat(user, span_info("Вы укрепляете [target.declent_ru(ACCUSATIVE)], повышая его устойчивость к ближним атакам."))
+			to_chat(user, span_notice("Вы укрепляете [target.declent_ru(ACCUSATIVE)], повышая его устойчивость к ближним атакам."))
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
@@ -365,7 +365,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		if(loc == user && !user.can_unEquip(src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] начинает очищать бронированные сегменты [declent_ru(GENITIVE)]."),
+			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] очищать бронированные сегменты [declent_ru(GENITIVE)]."),
 			span_notice("Вы начинаете очищать бронированные сегменты [declent_ru(GENITIVE)]..."),
 			span_italics("Слышен звук трения ножа о плоть."),
 		)
