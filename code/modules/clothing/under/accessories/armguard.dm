@@ -13,6 +13,7 @@
 	var/blade_ready = TRUE
 	var/blade_exists = FALSE
 	var/reload_duration = 5
+	var/create_new_blade_duration = 10
 
 /obj/item/clothing/accessory/armguard/syndicate/Destroy()
 	QDEL_NULL(blade_action)
@@ -72,34 +73,22 @@
 	playsound(user, "sound/items/unsheath.ogg", 50, 1)
 
 
-/datum/action/armguard_hidden_blade
-	icon_icon = 'icons/obj/items.dmi'
-	button_icon_state = "katana"
-	name = "Скрытый клинок"
+/obj/item/clothing/accessory/armguard/syndicate/proc/start_create_new_blade()
+	var/mob/user = src.loc
+	if (istype(user))
+		user.balloon_alert(user, "клинок отрелян")
+	addtimer(CALLBACK(src, PROC_REF(create_new_blade)), create_new_blade_duration SECONDS)
 
-/datum/action/armguard_hidden_blade/Trigger(left_click)
-	if(!..())
-		return FALSE
-	var/mob/user = usr
-	var/suit = user.get_item_by_slot(ITEM_SLOT_CLOTH_INNER)
-	if(!suit)
-		return FALSE
-	var/obj/item/clothing/accessory/armguard/syndicate/armguard
-	if(istype(suit, /obj/item/clothing/under))
-		var/obj/item/clothing/under/uniform = suit
-		if(LAZYLEN(uniform.accessories))
-			armguard = locate() in uniform.accessories
-	if(!armguard)
-		return FALSE
-	var/item_in_hands = user.get_active_hand()
-	if(istype(item_in_hands, /obj/item/kitchen/knife/hidden_blade))
-		armguard.hide_blade(user, item_in_hands)
-		return TRUE
-	if(!item_in_hands)
-		armguard.appear_blade(user)
-		return TRUE
-	return FALSE
+/obj/item/clothing/accessory/armguard/syndicate/proc/create_new_blade()
+	blade_exists = FALSE
+	blade_ready = TRUE
+	var/mob/user = src.loc
+	if(!istype(user))
+		return
+	user.balloon_alert(user, "наручи перезаряжены")
 
+
+///Hidden blade
 
 /obj/item/kitchen/knife/hidden_blade
 	name = "hidden blade"
@@ -112,16 +101,16 @@
 		PREPOSITIONAL = "скрытом клинке"
 	)
 	desc = "Короткий клинок из наручей, профессиональное устройство убийц. Выглядит острым и опасным."
-	icon = 'icons/obj/items.dmi'
-	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
-	icon_state = "katana"
-	item_state = "katana"
-	item_flags = DROPDEL|NOSHARPENING|ABSTRACT|CONDUCT
+	icon_state = "knife"
+	item_state = "knife"
+	item_flags = DROPDEL|NOSHARPENING|CONDUCT|IGNORE_SLOWDOWN
 	slot_flags = NONE
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_TINY
 	force = 15
-	hitsound = 'sound/items/unsheath.ogg'
+	throwforce = 50
+	throw_range = 15
+	throw_speed = 3
+	var/throw_armour_penetration = -30
 	gender = FEMALE
 	sharp = FALSE
 	var/obj/item/clothing/accessory/armguard/syndicate/armguard
@@ -134,12 +123,17 @@
 /obj/item/kitchen/knife/hidden_blade/Initialize(mapload, obj/item/clothing/accessory/armguard/syndicate/parent_armguard)
 	. = ..()
 	armguard = parent_armguard
+	var/mob/user = armguard.loc
+	if(!istype(user))
+		return
 
 /obj/item/kitchen/knife/hidden_blade/Destroy()
 	var/mob/user = loc
 	if(!silence && istype(user))
 		armguard.blade_exists = FALSE
+		to_chat(user, "destroy blade")
 		user.balloon_alert(user, "клинок скрыт")
+	armguard = null
 	. = ..()
 
 /obj/item/kitchen/knife/hidden_blade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -165,4 +159,61 @@
 	target.Weaken(2 SECONDS)
 	//target.apply_damage(40, STAMINA)
 	add_attack_logs(user, target, "Backstabbed with [src]", ATKLOG_ALL)
-	target.visible_message(span_userdanger("[user] наносит вам удар [declent_ru(INSTRUMENTAL)] в спину!"))
+	target.visible_message(span_userdanger("[user] наносит удар [declent_ru(INSTRUMENTAL)] в спину [target]!"))
+
+/obj/item/kitchen/knife/hidden_blade/on_thrown(mob/living/carbon/user, atom/target)
+	to_chat(user, "on thrown [target]")
+	item_flags &= ~DROPDEL
+	armour_penetration = throw_armour_penetration
+	armguard.start_create_new_blade()
+	. = ..()
+	item_flags |= DROPDEL
+
+/obj/item/kitchen/knife/hidden_blade/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+	to_chat(usr, "throw_at throw")
+	. = ..()
+
+/obj/item/kitchen/knife/hidden_blade/end_throw()
+	to_chat(usr, "end throw")
+	. = ..()
+
+/obj/item/kitchen/knife/hidden_blade/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	to_chat(throwingdatum.thrower, "throw impact at [hit_atom] destroy blade")
+	if (!QDELETED(src))
+		silence = TRUE
+		qdel(src)
+
+/obj/item/kitchen/knife/hidden_blade/after_throw(datum/callback/callback)
+	to_chat(usr, "after throw")
+	. = ..()
+
+///Actions
+
+/datum/action/armguard_hidden_blade
+	icon_icon = 'icons/obj/clothing/ties.dmi'
+	button_icon_state = "med"
+	name = "Скрытый клинок"
+
+/datum/action/armguard_hidden_blade/Trigger(left_click)
+	if(!..())
+		return FALSE
+	var/mob/user = usr
+	var/suit = user.get_item_by_slot(ITEM_SLOT_CLOTH_INNER)
+	if(!suit)
+		return FALSE
+	var/obj/item/clothing/accessory/armguard/syndicate/armguard
+	if(istype(suit, /obj/item/clothing/under))
+		var/obj/item/clothing/under/uniform = suit
+		if(LAZYLEN(uniform.accessories))
+			armguard = locate() in uniform.accessories
+	if(!armguard)
+		return FALSE
+	var/item_in_hands = user.get_active_hand()
+	if(istype(item_in_hands, /obj/item/kitchen/knife/hidden_blade))
+		armguard.hide_blade(user, item_in_hands)
+		return TRUE
+	if(!item_in_hands)
+		armguard.appear_blade(user)
+		return TRUE
+	return FALSE
