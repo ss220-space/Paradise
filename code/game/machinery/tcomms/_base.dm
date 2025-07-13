@@ -186,7 +186,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/sender_name = "Ошибка"
 	/// What job are they
 	var/sender_job = "Ошибка"
-	/// What rank are they
+	/// What rank are they (this is used for formatting)
 	var/sender_rank = "Ошибка"
 	/// Pieces of the message
 	var/list/message_pieces = list()
@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	/// Origin of the signal
 	var/datum/radio_frequency/connection
 	/// Who sent it
-	var/mob/sender
+	var/atom/movable/sender
 	/// The radio it was sent from
 	var/obj/item/radio/radio
 	/// The signal data (See defines/radio.dm)
@@ -214,7 +214,9 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/reject = FALSE
 	/// Voice name if the person doesnt have a name (diona, alien, etc)
 	var/vname
-	/// List of all channels this can be sent or recieved on
+	/// sender_name before modify_message modifies it, because it introduces html tags.
+	var/pre_modify_name
+	/// List of all channels this can be sent or received on
 	var/list/zlevels = list()
 	/// Should this signal be re-broadcasted (Can be modified by NTTC, defaults to TRUE)
 	var/pass = TRUE
@@ -392,21 +394,21 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		if(length(heard_masked))
 			for(var/M in heard_masked)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.sender_name, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard the voice normally (understood) --- */
 
 		if(length(heard_normal))
 			for(var/M in heard_normal)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.sender_name, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard the voice normally (did not understand) --- */
 
 		if(length(heard_voice))
 			for(var/M in heard_voice)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender,0, tcm.vname, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.vname, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard a garbled voice (did not understand) --- */
 			// Displays garbled message (ie "f*c* **u, **i*er!")
@@ -414,7 +416,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		if(length(heard_garbled))
 			for(var/M in heard_garbled)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, tcm.vname, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, tcm.vname, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 
 		/* --- Complete gibberish. Usually happens when there's a compressed message --- */
@@ -422,7 +424,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		if(length(heard_gibberish))
 			for(var/M in heard_gibberish)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 	return TRUE
 

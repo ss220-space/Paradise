@@ -41,7 +41,7 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     };
   }
 
-  handleSearchChange = (e, value: string) => {
+  handleSearchChange = (value: string) => {
     this.setState({ searchText: value });
   };
 
@@ -101,7 +101,8 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
                     <Input
                       fluid
                       value={searchText}
-                      onInput={this.handleSearchChange}
+                      expensive
+                      onChange={this.handleSearchChange}
                     />
                   </Stack.Item>
                   <Stack.Item>

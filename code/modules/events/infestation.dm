@@ -29,21 +29,28 @@
 
 /datum/event/infestation/start()
 	var/list/turf/simulated/floor/turfs = list()
-	spawn_area_type = pick(spawn_areas)
+	// shuffle in place so we don't have do that dance where we make a copy of
+	// the list, then pick and take, then do some conditional logic to make sure
+	// there's still areas to choose from, etc etc, it's a small list, it's cheap
+	shuffle_inplace(spawn_areas)
+	for(var/spawn_area in spawn_areas)
+		for(var/area_type in typesof(spawn_area))
+			var/area/destination = locate(area_type)
+			if(!destination)
+				continue
+			for(var/turf/simulated/floor/floor in destination.contents)
+				if(floor.is_blocked_turf())
+					continue
+				turfs += floor
+			if(!length(turfs))
+				continue
+			spawn_area_type = area_type
+			spawn_on_turfs(turfs)
 
-	for(var/areapath in typesof(spawn_area_type))
-		var/area/A = locate(areapath) in GLOB.areas
-		if(isnull(A))
-			continue
-		for(var/turf/simulated/floor/F in A.contents)
-			if(!F.is_blocked_turf(exclude_mobs = TRUE))
-				turfs += F
+	log_debug("Failed to locate area for infestation event!")
+	kill()
 
-	if(!length(turfs))
-		stack_trace("Failed to locate areas ([spawn_area_type]) for infestation event!")
-		kill()
-		return
-
+/datum/event/infestation/proc/spawn_on_turfs(list/turfs)
 	var/list/spawn_types = list()
 	var/max_number
 	vermin = rand(0, 4)
@@ -106,7 +113,10 @@
 			log_debug("Infestation Event didn't provide an area to announce(), something is likely broken.")
 			kill()
 
-	GLOB.event_announcement.Announce("Биосканеры фиксируют размножение [vermin_chosen] в [initial(spawn_area_type.name)]. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.")
+	GLOB.minor_announcement.announce("Биосканеры фиксируют размножение [vermin_chosen] в [initial(spawn_area_type.name)]. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции.",
+									ANNOUNCE_UNID_LIFEFORMS_RU
+	)
+	spawn_area_type = null
 
 #undef VERM_MICE
 #undef VERM_LIZARDS

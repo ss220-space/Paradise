@@ -169,7 +169,8 @@ const CrewMonitorTable = ({ crewData }: CrewMonitorTableProps) => {
       <Input
         placeholder="Введите Имя, Должность или Локацию..."
         width="100%"
-        onInput={(_e, value) => setSearch(value)}
+        expensive
+        onChange={setSearch}
       />
       <Table
         m="0.5rem"

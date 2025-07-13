@@ -282,7 +282,15 @@
 	name = "survival knife"
 	icon_state = "survivalknife"
 	belt_icon = "survival_knife"
-	desc = "A hunting grade survival knife."
+	desc = "Охотничий нож повышенной прочности."
+	ru_names = list(
+		NOMINATIVE = "нож для выживания",
+		GENITIVE = "ножа для выживания",
+		DATIVE = "ножу для выживания",
+		ACCUSATIVE = "нож для выживания",
+		INSTRUMENTAL = "ножом для выживания",
+		PREPOSITIONAL = "ноже для выживания"
+	)
 	force = 15
 	throwforce = 15
 

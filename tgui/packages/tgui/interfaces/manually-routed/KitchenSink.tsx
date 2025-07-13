@@ -265,10 +265,7 @@ const KitchenSinkInput = (props: unknown) => {
     <Box>
       <LabeledList>
         <LabeledList.Item label="Input (onChange)">
-          <Input value={text} onChange={(e, value) => setText(value)} />
-        </LabeledList.Item>
-        <LabeledList.Item label="Input (onInput)">
-          <Input value={text} onInput={(e, value) => setText(value)} />
+          <Input value={text} onChange={setText} />
         </LabeledList.Item>
         <LabeledList.Item label="NumberInput (onChange)">
           <NumberInput
@@ -414,7 +411,8 @@ const KitchenSinkThemes = (props: unknown) => {
           <Input
             placeholder="theme_name"
             value={theme}
-            onInput={(e, value) => setTheme(value)}
+            expensive
+            onChange={setTheme}
           />
         </LabeledList.Item>
       </LabeledList>

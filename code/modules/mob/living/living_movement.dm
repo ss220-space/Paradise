@@ -54,6 +54,16 @@
 		current_turf_slowdown = 0
 
 
+/mob/living/proc/get_strength_pull_slowdown_modifier()
+	var/mod = 1
+	var/list/mods = list()
+	SEND_SIGNAL(src, COMSIG_GET_PULL_SLOWDOWN_MODIFIERS, mods)
+	for(var/modifier in mods)
+		mod *= modifier
+
+	return mod
+
+
 /mob/living/proc/update_pull_movespeed()
 	SEND_SIGNAL(src, COMSIG_LIVING_UPDATING_PULL_MOVESPEED)
 
@@ -66,9 +76,11 @@
 		if(!slowed_by_pull_and_push || pulling_mob.body_position == STANDING_UP || grab_state > GRAB_PASSIVE || HAS_TRAIT(src, TRAIT_STRONG_PULLING))
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 			return
+
 		if(!pulling_mob.buckled)
-			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = PULL_LYING_MOB_SLOWDOWN)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = PULL_LYING_MOB_SLOWDOWN * get_strength_pull_slowdown_modifier())
 			return
+
 		var/slowdown_value = 0
 		if(isobj(pulling_mob.buckled))
 			var/obj/pulling_buckled_obj = pulling_mob.buckled
@@ -77,9 +89,10 @@
 		else if(isliving(pulling_mob.buckled))
 			var/mob/living/pulling_buckled_mob = pulling_mob.buckled
 			if(pulling_buckled_mob.body_position == LYING_DOWN)
-				slowdown_value = PULL_LYING_MOB_SLOWDOWN
+				slowdown_value = PULL_LYING_MOB_SLOWDOWN * get_strength_pull_slowdown_modifier()
+
 		if(slowdown_value)
-			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = slowdown_value)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = slowdown_value * get_strength_pull_slowdown_modifier())
 		else
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 
@@ -88,7 +101,7 @@
 		if(!slowed_by_pull_and_push || !pulling_obj.pull_push_slowdown)
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 			return
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = pulling_obj.pull_push_slowdown)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = pulling_obj.pull_push_slowdown * get_strength_pull_slowdown_modifier())
 
 
 /mob/living/proc/update_push_movespeed()
@@ -103,14 +116,15 @@
 		if(!slowed_by_pull_and_push || pushing_mob.body_position == LYING_DOWN)
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
 			return
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = PUSH_STANDING_MOB_SLOWDOWN)
+
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = PUSH_STANDING_MOB_SLOWDOWN * get_strength_pull_slowdown_modifier())
 
 	else if(isobj(now_pushing))
 		var/obj/pushing_obj = now_pushing
 		if(!slowed_by_pull_and_push || !pushing_obj.pull_push_slowdown)
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
 			return
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = pushing_obj.pull_push_slowdown)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = pushing_obj.pull_push_slowdown * get_strength_pull_slowdown_modifier())
 
 
 /mob/living/proc/can_change_move_intent(silent = FALSE)

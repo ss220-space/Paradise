@@ -190,7 +190,7 @@
 	list_reagents = list()
 	list_reagents[pick_list("chemistry_tools.json", "traitor_poison_bottle")] = volume
 	. = ..()
-	
+
 
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
@@ -351,3 +351,17 @@
 	amount_per_transfer_from_this = 50
 	volume = 50
 	list_reagents = list("toxin" = 15, "pancuronium" = 10, "cyanide" = 5, "facid" = 10, "fluorine" = 10)
+
+
+/obj/item/reagent_containers/syringe/steroids
+	name = "Syringe (Стероиды)"
+	desc = "Шприц с опасным для здоровья веществом, которое способствует быстрому увеличению мышечной массы."
+	ru_names = list(
+        NOMINATIVE = "шприц (Стероиды)",
+        GENITIVE = "шприца (Стероиды)",
+        DATIVE = "шприцу (Стероиды)",
+        ACCUSATIVE = "шприц (Стероиды)",
+        INSTRUMENTAL = "шприцем (Стероиды)",
+        PREPOSITIONAL = "шприце (Стероиды)"
+	)
+	list_reagents = list("steroids" = 15)

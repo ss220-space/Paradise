@@ -14,7 +14,10 @@
 									 "Не хочешь платить? Я твоей мамке тоже платить не хотел.")
 
 /datum/event/brand_intelligence/announce()
-	GLOB.event_announcement.Announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].", "ВНИМАНИЕ: ЦИФРОВОЙ ВИРУС.")
+	GLOB.minor_announcement.announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].",
+									"Цифровой вирус.",
+									'sound/AI/brand_intelligence.ogg'
+	)
 
 /datum/event/brand_intelligence/start()
 	var/list/obj/machinery/vending/leaderables = list()

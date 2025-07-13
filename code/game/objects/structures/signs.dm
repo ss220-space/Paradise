@@ -75,7 +75,7 @@
 	if(!isturf(loc))
 		return
 
-	var/direction = input("В каком направлении?", "Выбор направления") in list("Север", "Восток", "Юг", "Запад", "Отмена")
+	var/direction = tgui_input_list(usr, "В каком направлении?", "Выбор направления", list("Север", "Восток", "Юг", "Запад", "Отмена"))
 	if(direction == "Отмена")
 		return TRUE // These gotta be true or we stab the sign
 	if(QDELETED(src))

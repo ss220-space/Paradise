@@ -1098,6 +1098,8 @@ BLIND     // can't see anything
 	var/list/accessories
 	/// Whether we can roll down this uniform.
 	var/can_adjust = TRUE
+	/// If true, it's rolled down.
+	var/rolled_down = FALSE
 
 
 /obj/item/clothing/under/rank
@@ -1273,7 +1275,13 @@ BLIND     // can't see anything
 		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
 		return
 
-	item_color = findtext(item_color, "_d") ? initial_state : "[initial_state]_d"
+	rolled_down = findtext(item_color, "_d")
+	if(rolled_down)
+		item_color = initial_state
+	else
+		item_color = "[initial_state]_d"
+
+	rolled_down = !rolled_down
 	update_equipped_item(update_speedmods = FALSE)
 
 

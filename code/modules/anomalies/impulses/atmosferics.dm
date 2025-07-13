@@ -12,7 +12,7 @@
 
 /datum/anomaly_impulse/random_temp/impulse()
 	. = ..()
-	for(var/turf/simulated/turf in view(scale_by_strenght(range_low, range_high), owner))
+	for(var/turf/simulated/turf in view(scale_by_strength(range_low, range_high), owner))
 		turf?.air?.temperature += max(0, rand(temp_delta_low, temp_delta_high))
 
 /datum/anomaly_impulse/random_temp/tier1
@@ -49,7 +49,7 @@
 
 /datum/anomaly_impulse/random_temp/tier4/impulse()
 	. = ..()
-	for(var/mob/living/mob in view(scale_by_strenght(range_low, range_high), owner))
+	for(var/mob/living/mob in view(scale_by_strength(range_low, range_high), owner))
 		mob.IgniteMob()
 
 /datum/anomaly_impulse/freese
@@ -62,11 +62,11 @@
 
 /datum/anomaly_impulse/freese/impulse()
 	. = ..()
-	for(var/turf/simulated/turf in view(scale_by_strenght(range_low, range_high) * 2, owner))
+	for(var/turf/simulated/turf in view(scale_by_strength(range_low, range_high) * 2, owner))
 		if(turf.air)
 			turf.air.temperature = rand(0, 50)
 
-	for(var/turf/simulated/floor/turf in range(scale_by_strenght(range_low, range_high), owner))
+	for(var/turf/simulated/floor/turf in range(scale_by_strength(range_low, range_high), owner))
 		if(prob(100 - get_dist(turf, owner) * 5))
 			turf.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
 
@@ -118,8 +118,8 @@
 
 /datum/anomaly_impulse/fire/impulse()
 	. = ..()
-	for(var/turf/simulated/turf in view(scale_by_strenght(range_low, range_high), owner))
-		var/gases_amount = scale_by_strenght(gases_low, gases_high)
+	for(var/turf/simulated/turf in view(scale_by_strength(range_low, range_high), owner))
+		var/gases_amount = scale_by_strength(gases_low, gases_high)
 		turf.atmos_spawn_air(LINDA_SPAWN_OXYGEN, gases_amount * 2/7)
 		turf.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, gases_amount * 5/7)
 
@@ -177,10 +177,10 @@
 
 /datum/anomaly_impulse/dist_fire/impulse()
 	. = ..()
-	var/radius = scale_by_strenght(range_low, range_high)
+	var/radius = scale_by_strength(range_low, range_high)
 	var/turf/start = get_turf(owner)
-	var/gases_amount = scale_by_strenght(gases_low, gases_high)
-	for(var/i = 0 to scale_by_strenght(count_low, count_high))
+	var/gases_amount = scale_by_strength(gases_low, gases_high)
+	for(var/i = 0 to scale_by_strength(count_low, count_high))
 		var/try_x = start.x + rand(-radius, radius)
 		var/try_y = start.y + rand(-radius, radius)
 		try_x = clamp(try_x, 1, world.maxx)
@@ -208,8 +208,8 @@
 /datum/anomaly_impulse/atmosfastmove/impulse()
 	. = ..()
 	var/dir = pick(GLOB.alldirs)
-	var/gases_amount = scale_by_strenght(gases_low, gases_high)
-	for(var/i = 0 to scale_by_strenght(range_low, range_high))
+	var/gases_amount = scale_by_strength(gases_low, gases_high)
+	for(var/i = 0 to scale_by_strength(range_low, range_high))
 		owner.do_move(dir)
 		var/turf/simulated/spawn_pos = get_turf(owner)
 		spawn_pos?.atmos_spawn_air(LINDA_SPAWN_OXYGEN, gases_amount * 2/7)

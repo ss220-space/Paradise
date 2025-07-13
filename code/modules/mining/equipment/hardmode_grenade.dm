@@ -1,6 +1,14 @@
 /obj/item/grenade/megafauna_hardmode
 	name = "\improper HRD-MDE Scanning Grenade"
-	desc = "An advanced grenade that releases nanomachines, which enter nearby megafauna. This will enrage them greatly, but allows nanotrasen to fully research their abilities."
+	desc = "Передовая граната, выпускающая наномашины, которые проникают в ближайшую мегафауну. Это сильно разъярит её, но позволит НаноТрейзен полностью изучить её способности."
+	ru_names = list(
+		NOMINATIVE = "сканирующая граната HRD-MDE",
+		GENITIVE = "сканирующей гранаты HRD-MDE",
+		DATIVE = "сканирующей гранате HRD-MDE",
+		ACCUSATIVE = "сканирующую гранату HRD-MDE",
+		INSTRUMENTAL = "сканирующей гранатой HRD-MDE",
+		PREPOSITIONAL = "сканирующей гранате HRD-MDE"
+	)
 	icon_state = "enrager"
 	item_state = "grenade"
 
@@ -9,7 +17,7 @@
 	playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
 	for(var/mob/living/simple_animal/hostile/megafauna/M in range(7, src))
 		M.enrage()
-		visible_message("<span class='userdanger'>[M] begins to wake up as the nanomachines enter them, it looks pissed!</span>")
+		visible_message(span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] начинает пробуждаться, когда наномашины проникают в него, он выглядит разъярённым!"))
 	qdel(src)
 
 /obj/item/paper/hardmode
@@ -32,7 +40,15 @@
 
 /obj/item/disk/fauna_research
 	name = "empty HRD-MDE project disk"
-	desc = "A disk used by the HRD-MDE project. Seems empty?"
+	desc = "Диск, используемый проектом HRD-MDE. Кажется, пуст?"
+	ru_names = list(
+		NOMINATIVE = "пустой диск проекта HRD-MDE",
+		GENITIVE = "пустого диска проекта HRD-MDE",
+		DATIVE = "пустому диску проекта HRD-MDE",
+		ACCUSATIVE = "пустой диск проекта HRD-MDE",
+		INSTRUMENTAL = "пустым диском проекта HRD-MDE",
+		PREPOSITIONAL = "пустом диске проекта HRD-MDE"
+	)
 	icon_state = "holodisk"
 	var/obj/item/clothing/accessory/medal/output
 
@@ -44,35 +60,91 @@
 
 /obj/item/disk/fauna_research/blood_drunk_miner
 	name = "blood drunk HRD-MDE project disk"
-	desc = "A disk used by the HRD-MDE project. Contains data on the dash and resistance of the blood drunk miner."
+	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о рывке и сопротивлении Кровожадного Шахтёра."
+	ru_names = list(
+		NOMINATIVE = "диск проекта HRD-MDE \"Кровожадный Шахтёр\"",
+		GENITIVE = "диска проекта HRD-MDE \"Кровожадный Шахтёр\"",
+		DATIVE = "диску проекта HRD-MDE \"Кровожадный Шахтёр\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Кровожадный Шахтёр\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Кровожадный Шахтёр\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Кровожадный Шахтёр\""
+	)
 	output = /obj/item/clothing/accessory/medal/blood_drunk
 
 /obj/item/disk/fauna_research/hierophant
 	name = "\improper Hierophant HRD-MDE project disk"
-	desc = "A disk used by the HRD-MDE project. Contains data on the energy manipulation and material composition of the Hierophant."
+	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о манипуляции энергией и материальном составе Иерофанта."
+	ru_names = list(
+		NOMINATIVE = "диск проекта HRD-MDE \"Иерофант\"",
+		GENITIVE = "диска проекта HRD-MDE \"Иерофант\"",
+		DATIVE = "диску проекта HRD-MDE \"Иерофант\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Иерофант\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Иерофант\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Иерофант\""
+	)
 	output = /obj/item/clothing/accessory/medal/plasma/hierophant
 
 /obj/item/disk/fauna_research/ash_drake
 	name = "ash drake HRD-MDE project disk"
-	desc = "A disk used by the HRD-MDE project. Contains data on the fire production methods and rapid regeneration of the ash drakes."
+	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о методах создания огня и быстрой регенерации Пепельных Дрейков."
+	ru_names = list(
+		NOMINATIVE = "диск проекта HRD-MDE \"Пепельный Дрейк\"",
+		GENITIVE = "диска проекта HRD-MDE \"Пепельный Дрейк\"",
+		DATIVE = "диску проекта HRD-MDE \"Пепельный Дрейк\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Пепельный Дрейк\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Пепельный Дрейк\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Пепельный Дрейк\""
+	)
 	output = /obj/item/clothing/accessory/medal/plasma/ash_drake
 
 /obj/item/disk/fauna_research/vetus
 	name = "\improper Vetus Speculator HRD-MDE project disk"
-	desc = "A disk used by the HRD-MDE project. Contains data on the anomaly manipulation and computing processes of the Vetus Speculator."
+	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о манипуляции аномалиями и вычислительных процессах Ветус Спекулятора."
+	ru_names = list(
+		NOMINATIVE = "диск проекта HRD-MDE \"Ветус Спекулятор\"",
+		GENITIVE = "диска проекта HRD-MDE \"Ветус Спекулятор\"",
+		DATIVE = "диску проекта HRD-MDE \"Ветус Спекулятор\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Ветус Спекулятор\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Ветус Спекулятор\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Ветус Спекулятор\""
+	)
 	output = /obj/item/clothing/accessory/medal/alloy/vetus
 
 /obj/item/disk/fauna_research/colossus
 	name = "colossus HRD-MDE project disk"
-	desc = "A disk used by the HRD-MDE project. Contains data on the powerful voice and A-T field of the colossi."
+	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о мощном голосе и А-поле Колоссов."
+	ru_names = list(
+		NOMINATIVE = "диск проекта HRD-MDE \"Колосс\"",
+		GENITIVE = "диска проекта HRD-MDE \"Колосс\"",
+		DATIVE = "диску проекта HRD-MDE \"Колосс\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Колосс\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Колосс\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Колосс\""
+	)
 	output = /obj/item/clothing/accessory/medal/silver/colossus
 
 /obj/item/disk/fauna_research/legion
 	name = "\improper Legion HRD-MDE project disk"
-	desc = "A disk used by the HRD-MDE project. Contains data on the endless regeneration and disintegration laser of the Legion."
+	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о бесконечной регенерации и дезинтегрирующем лазере Легиона."
+	ru_names = list(
+		NOMINATIVE = "диск проекта HRD-MDE \"Легион\"",
+		GENITIVE = "диска проекта HRD-MDE \"Легион\"",
+		DATIVE = "диску проекта HRD-MDE \"Легион\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Легион\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Легион\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Легион\""
+	)
 	output = /obj/item/clothing/accessory/medal/silver/legion
 
 /obj/item/disk/fauna_research/bubblegum
 	name = "\improper Bubblegum HRD-MDE project disk"
-	desc = "A disk used by the HRD-MDE project. Contains data on the bloodcrawling and \[REDACTED\] of Bubblegum." //I hate this so much
+	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о ████████████ и \[ЗАСЕКРЕЧЕНО\] Бубльгума."
+	ru_names = list(
+		NOMINATIVE = "диск проекта HRD-MDE \"Бубльгум\"",
+		GENITIVE = "диска проекта HRD-MDE \"Бубльгум\"",
+		DATIVE = "диску проекта HRD-MDE \"Бубльгум\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Бубльгум\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Бубльгум\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Бубльгум\""
+	) //I hate this so much
 	output = /obj/item/clothing/accessory/medal/gold/bubblegum

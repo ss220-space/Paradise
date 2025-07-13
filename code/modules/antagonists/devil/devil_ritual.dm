@@ -6,13 +6,14 @@
 
 /datum/ritual/devil/imp
 	name = "Ритуал призыва беса"
-	description = "Призывает беса, который будет обязан вам подчиняться"
+	description = "Призывает беса, который захочет получить"
 	required_things = list(
 		/obj/item/wirecutters = 3,
 		/obj/item/organ/internal/kidneys = 2,
 		/obj/item/organ/internal/heart = 1,
 		/obj/effect/decal/cleanable/vomit = 2
 	)
+	var/ritual_lock = FALSE
 
 /datum/ritual/devil/imp/del_things(list/used_things)
 	for(var/obj/obj in used_things) // no type ignore for future.
@@ -21,13 +22,19 @@
 	return
 
 /datum/ritual/devil/imp/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за беса?", SPECIAL_ROLE_DEVIL_PAWN, TRUE)
+	if(ritual_lock)
+		ritual_object.balloon_alert(invoker, "ритуал временно недоступен")
+		return RITUAL_FAILED_ON_PROCEED
 
+	ritual_lock = TRUE
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за беса?", ROLE_DEVIL, TRUE, role_cleanname = "беса")
+	ritual_lock = FALSE
 	if(!LAZYLEN(candidates))
+		ritual_object.balloon_alert(invoker, "призыв проигнорирован")
 		return RITUAL_FAILED_ON_PROCEED
 
 	var/mob/mob = pick(candidates)
-	var/mob/living/simple_animal/imp/imp = new(get_turf(ritual_object))
+	var/mob/living/simple_animal/imp/ritual/imp = new(get_turf(ritual_object))
 
 	imp.key = mob.key
 	imp.master_commander = invoker
@@ -199,7 +206,10 @@
 		if(DEVIL_ASCEND_START_STAGE)
 			invoker.RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
 			to_chat(invoker, span_warning("Вы чувствуете, будто вот-вот возвыситесь."))
-			GLOB.command_announcement.Announce("Тёмная сушность, известная как [devil.info.truename], из изменерния, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать любые проявления ада на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+			GLOB.major_announcement.announce("Тёмная сушность, известная как [devil.info.truename], из изменерния, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать любые проявления ада на месте.",
+											ANNOUNCE_CCPARANORMAL_RU,
+											'sound/AI/commandreport.ogg'
+			)
 			stage = FIRST_DEVIL_ASCEND_STAGE
 
 		if(FIRST_DEVIL_ASCEND_STAGE)
@@ -239,7 +249,10 @@
 
 		if(SEVENTH_DEVIL_ASCEND_STAGE)
 			devil.try_update_rank(TRUE)
-			GLOB.command_announcement.Announce("Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение тёмных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+			GLOB.major_announcement.announce("Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение тёмных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.",
+											ANNOUNCE_CCPARANORMAL_RU,
+											'sound/AI/commandreport.ogg'
+			)
 			var/area/area = get_area(invoker)
 			if(area)
 				notify_ghosts("Архидьявол вознёсся в [area.name].", source = invoker)

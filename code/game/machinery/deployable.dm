@@ -42,7 +42,7 @@
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
-		obj_integrity = clamp(obj_integrity + 20, 0, max_integrity)
+		update_integrity(clamp(obj_integrity + 20, 0, max_integrity))
 		update_icon()
 	return TRUE
 
