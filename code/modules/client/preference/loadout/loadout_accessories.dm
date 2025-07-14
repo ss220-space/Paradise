@@ -68,6 +68,11 @@
 	path = /obj/item/clothing/accessory/stethoscope
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_MINING_MEDIC, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
+/datum/gear/accessory/armguard
+	index_name = "armguard"
+	display_name = "Наручи"
+	path = /obj/item/clothing/accessory/armguard
+
 /datum/gear/accessory/ntrjacket
 	index_name = "jacket, nt rep"
 	path = /obj/item/clothing/accessory/ntrjacket
