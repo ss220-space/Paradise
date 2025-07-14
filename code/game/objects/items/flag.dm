@@ -3,6 +3,7 @@
 	desc = "It's a flag."
 	icon = 'icons/obj/flag.dmi'
 	icon_state = "ntflag"
+	slot_flags = ITEM_SLOT_NECK
 	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/flags_righthand.dmi'
 	item_flags = NO_PIXEL_RANDOM_DROP

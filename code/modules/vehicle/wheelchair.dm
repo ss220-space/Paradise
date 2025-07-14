@@ -11,6 +11,7 @@
 	)
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "wheelchair"
+	base_icon_state = "wheelchair"
 	/// Overlay used to overlap buckled mob.
 	var/mutable_appearance/chair_overlay
 	/// Currently applied skin, it contains path, not an instance.
