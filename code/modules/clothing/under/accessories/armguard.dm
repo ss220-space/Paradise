@@ -1,8 +1,16 @@
 
 /obj/item/clothing/accessory/armguard
 	name = "armguard"
+	ru_names = list(
+		NOMINATIVE = "наручи",
+		GENITIVE = "наручей",
+		DATIVE = "наручам",
+		ACCUSATIVE = "наручи",
+		INSTRUMENTAL = "наручами",
+		PREPOSITIONAL = "наручах"
+	)
 	desc = "Красивые наручи, только для красоты."
-	icon_state = "med"
+	icon_state = "armguard"
 	slot = ACCESSORY_SLOT_ARMBAND
 
 
@@ -13,7 +21,8 @@
 	var/blade_ready = TRUE
 	var/blade_exists = FALSE
 	var/reload_duration = 5
-	var/create_new_blade_duration = 10
+	var/create_new_blade_duration = 120
+	var/fire_aim_duration = 1
 
 /obj/item/clothing/accessory/armguard/syndicate/Destroy()
 	QDEL_NULL(blade_action)
@@ -54,6 +63,7 @@
 		return
 	user.balloon_alert(user, "клинок заряжен")
 	blade_ready = TRUE
+	blade_action.set_activate_mode()
 
 /obj/item/clothing/accessory/armguard/syndicate/proc/hide_blade(mob/user, obj/item/kitchen/knife/hidden_blade/blade)
 	blade.silence = TRUE
@@ -65,24 +75,27 @@
 	if(!blade_ready)
 		reload(user)
 		return
+	if(blade_exists)
+		user.balloon_alert(user, "нет клинка")
+		return
 	blade_ready = FALSE
 	blade_exists = TRUE
 	user.balloon_alert(user, "клинок появился")
 	var/obj/item/weapon = new weapon_type(user, src)
 	user.put_in_hands(weapon)
 	playsound(user, "sound/items/unsheath.ogg", 50, 1)
+	blade_action.set_reload_mode()
 
 
-/obj/item/clothing/accessory/armguard/syndicate/proc/start_create_new_blade()
-	var/mob/user = src.loc
+/obj/item/clothing/accessory/armguard/syndicate/proc/start_create_new_blade(mob/user)
 	if (istype(user))
 		user.balloon_alert(user, "клинок отрелян")
-	addtimer(CALLBACK(src, PROC_REF(create_new_blade)), create_new_blade_duration SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(create_new_blade), user), create_new_blade_duration SECONDS)
 
-/obj/item/clothing/accessory/armguard/syndicate/proc/create_new_blade()
+/obj/item/clothing/accessory/armguard/syndicate/proc/create_new_blade(mob/user)
 	blade_exists = FALSE
 	blade_ready = TRUE
-	var/mob/user = src.loc
+	blade_action.set_activate_mode()
 	if(!istype(user))
 		return
 	user.balloon_alert(user, "наручи перезаряжены")
@@ -101,7 +114,8 @@
 		PREPOSITIONAL = "скрытом клинке"
 	)
 	desc = "Короткий клинок из наручей, профессиональное устройство убийц. Выглядит острым и опасным."
-	icon_state = "knife"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "armguard_hidden_blade"
 	item_state = "knife"
 	item_flags = DROPDEL|NOSHARPENING|CONDUCT|IGNORE_SLOWDOWN
 	slot_flags = NONE
@@ -109,7 +123,7 @@
 	force = 15
 	throwforce = 50
 	throw_range = 15
-	throw_speed = 3
+	throw_speed = 5
 	var/throw_armour_penetration = -30
 	gender = FEMALE
 	sharp = FALSE
@@ -131,7 +145,6 @@
 	var/mob/user = loc
 	if(!silence && istype(user))
 		armguard.blade_exists = FALSE
-		to_chat(user, "destroy blade")
 		user.balloon_alert(user, "клинок скрыт")
 	armguard = null
 	. = ..()
@@ -162,37 +175,28 @@
 	target.visible_message(span_userdanger("[user] наносит удар [declent_ru(INSTRUMENTAL)] в спину [target]!"))
 
 /obj/item/kitchen/knife/hidden_blade/on_thrown(mob/living/carbon/user, atom/target)
-	to_chat(user, "on thrown [target]")
+	user.balloon_alert(user, "прицеливание")
+	if(!do_after(user, armguard.fire_aim_duration SECONDS))
+		return
+	playsound(loc, 'sound/items/unsheath.ogg', 100, TRUE)
 	item_flags &= ~DROPDEL
 	armour_penetration = throw_armour_penetration
-	armguard.start_create_new_blade()
+	armguard.start_create_new_blade(user)
 	. = ..()
 	item_flags |= DROPDEL
 
-/obj/item/kitchen/knife/hidden_blade/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
-	to_chat(usr, "throw_at throw")
-	. = ..()
-
-/obj/item/kitchen/knife/hidden_blade/end_throw()
-	to_chat(usr, "end throw")
-	. = ..()
-
 /obj/item/kitchen/knife/hidden_blade/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	to_chat(throwingdatum.thrower, "throw impact at [hit_atom] destroy blade")
 	if (!QDELETED(src))
 		silence = TRUE
 		qdel(src)
 
-/obj/item/kitchen/knife/hidden_blade/after_throw(datum/callback/callback)
-	to_chat(usr, "after throw")
-	. = ..()
-
 ///Actions
 
 /datum/action/armguard_hidden_blade
-	icon_icon = 'icons/obj/clothing/ties.dmi'
-	button_icon_state = "med"
+	button_icon_state = "armguard_activate"
+	var/activate_icon = "armguard_activate"
+	var/reload_icon = "armguard_reload"
 	name = "Скрытый клинок"
 
 /datum/action/armguard_hidden_blade/Trigger(left_click)
@@ -217,3 +221,12 @@
 		armguard.appear_blade(user)
 		return TRUE
 	return FALSE
+
+/datum/action/armguard_hidden_blade/proc/set_activate_mode()
+	button_icon_state = activate_icon
+	UpdateButtonIcon()
+
+
+/datum/action/armguard_hidden_blade/proc/set_reload_mode()
+	button_icon_state = reload_icon
+	UpdateButtonIcon()
