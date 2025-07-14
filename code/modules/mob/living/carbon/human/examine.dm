@@ -68,7 +68,7 @@
 		SPECIES_FARWA = "фарва",
 		SPECIES_WOLPIN = "вульпин",
 		SPECIES_NEARA = "неара",
-		SPECIES_STOK ="сток",
+		SPECIES_STOK = "сток",
 		SPECIES_MOTH = "ниан",
 		SPECIES_NUCLEATION = "нуклеация",
 		SPECIES_PLASMAMAN = "плазмамен",

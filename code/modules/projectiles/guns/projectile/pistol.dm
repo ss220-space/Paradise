@@ -135,7 +135,15 @@
 //СБшный инфорсер//
 /obj/item/gun/projectile/automatic/pistol/enforcer/security
 	name = "Enforcer"
-	desc = "Стандартный дешевый пистолет для сотрудников службы безопасности."
+	desc = "Стандартный пистолет для сотрудников службы безопасности."
+	ru_names = list(
+		NOMINATIVE = "Блюститель",
+		GENITIVE = "Блюстителя",
+		DATIVE = "Блюстителю",
+		ACCUSATIVE = "Блюститель",
+		INSTRUMENTAL = "Блюстителем",
+		PREPOSITIONAL = "Блюстителе"
+	)
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
 	can_suppress = TRUE

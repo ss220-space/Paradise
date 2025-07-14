@@ -1288,7 +1288,16 @@
 	animate(src, transform = to_turn, 0.2 SECONDS)
 
 /obj/machinery/vending/assist
-
+	name = "\improper Assistomate"
+	desc = "Торговый автомат, предлагающий ассортимент различных деталей и компонентов."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Assistomate",
+		GENITIVE = "торгового автомата Assistomate",
+		DATIVE = "торговому автомату Assistomate",
+		ACCUSATIVE = "торговый автомат Assistomate",
+		INSTRUMENTAL = "торговым автоматом Assistomate",
+		PREPOSITIONAL = "торговом автомате Assistomate"
+	)
 	icon_state = "generic_off"
 	panel_overlay = "generic_panel"
 	screen_overlay = "generic"
@@ -1296,9 +1305,16 @@
 	broken_overlay = "generic_broken"
 	broken_lightmask_overlay = "generic_broken_lightmask"
 
-	products = list(	/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
-						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
-	contraband = list(/obj/item/flashlight = 5,/obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
+	products = list(/obj/item/assembly/prox_sensor = 5,
+					/obj/item/assembly/igniter = 3,
+					/obj/item/assembly/signaler = 4,
+					/obj/item/wirecutters = 1,
+					/obj/item/cartridge/signal = 4)
+
+	contraband = list(/obj/item/flashlight = 5,
+					  /obj/item/assembly/timer = 2,
+					  /obj/item/assembly/voice = 2,
+					  /obj/item/assembly/health = 2)
 
 	slogan_list = list(
 		"Т+олько с+амое л+учшее!",
@@ -1764,12 +1780,12 @@
 /obj/machinery/vending/toyliberationstation
 	name = "Syndicate Donksoft Toy Vendor"
 	ru_names = list(
-		NOMINATIVE = "торговый автомат Syndicate Donksoft Toy Vendor",
-		GENITIVE = "торгового автомата Syndicate Donksoft Toy Vendor",
-		DATIVE = "торговому автомату Syndicate Donksoft Toy Vendor",
-		ACCUSATIVE = "торговый автомат Syndicate Donksoft Toy Vendor",
-		INSTRUMENTAL = "торговым автоматом Syndicate Donksoft Toy Vendor",
-		PREPOSITIONAL = "торговом автомате Syndicate Donksoft Toy Vendor"
+		NOMINATIVE = "торговый автомат Syndicate Donksoft Toy",
+		GENITIVE = "торгового автомата Syndicate Donksoft Toy",
+		DATIVE = "торговому автомату Syndicate Donksoft Toy",
+		ACCUSATIVE = "торговый автомат Syndicate Donksoft Toy",
+		INSTRUMENTAL = "торговым автоматом Syndicate Donksoft Toy",
+		PREPOSITIONAL = "торговом автомате Syndicate Donksoft Toy"
 	)
 	desc = "Одобренный автомат игрушек для детей от 8 лет и старше."
 
@@ -1930,12 +1946,12 @@
 /obj/machinery/vending/medical
 	name = "NanoMed Plus"
 	ru_names = list(
-		NOMINATIVE = "торговый автомат NanoMed Plus",
-		GENITIVE = "торгового автомата NanoMed Plus",
-		DATIVE = "торговому автомату NanoMed Plus",
-		ACCUSATIVE = "торговый автомат NanoMed Plus",
-		INSTRUMENTAL = "торговым автоматом NanoMed Plus",
-		PREPOSITIONAL = "торговом автомате NanoMed Plus"
+		NOMINATIVE = "торговый автомат NanoMed+",
+		GENITIVE = "торгового автомата NanoMed+",
+		DATIVE = "торговому автомату NanoMed+",
+		ACCUSATIVE = "торговый автомат NanoMed+",
+		INSTRUMENTAL = "торговым автоматом NanoMed+",
+		PREPOSITIONAL = "торговом автомате NanoMed+"
 	)
 	desc = "Медицинский раздатчик веществ."
 
@@ -2773,12 +2789,12 @@
 /obj/machinery/vending/dinnerware
 	name = "Plasteel Chef's Dinnerware Vendor"
 	ru_names = list(
-		NOMINATIVE = "торговый автомат Plasteel Chef's Dinnerware Vendor",
-		GENITIVE = "торгового автомата Plasteel Chef's Dinnerware Vendor",
-		DATIVE = "торговому автомату Plasteel Chef's Dinnerware Vendor",
-		ACCUSATIVE = "торговый автомат Plasteel Chef's Dinnerware Vendor",
-		INSTRUMENTAL = "торговым автоматом Plasteel Chef's Dinnerware Vendor",
-		PREPOSITIONAL = "торговом автомате Plasteel Chef's Dinnerware Vendor"
+		NOMINATIVE = "торговый автомат Plasteel Chef's Dinnerware",
+		GENITIVE = "торгового автомата Plasteel Chef's Dinnerware",
+		DATIVE = "торговому автомату Plasteel Chef's Dinnerware",
+		ACCUSATIVE = "торговый автомат Plasteel Chef's Dinnerware",
+		INSTRUMENTAL = "торговым автоматом Plasteel Chef's Dinnerware",
+		PREPOSITIONAL = "торговом автомате Plasteel Chef's Dinnerware"
 	)
 	desc = "Поставщик кухонного и ресторанного оборудования."
 
@@ -3017,12 +3033,12 @@
 /obj/machinery/vending/sustenance
 	name = "Sustenance Vendor"
 	ru_names = list(
-		NOMINATIVE = "торговый автомат Sustenance Vendor",
-		GENITIVE = "торгового автомата Sustenance Vendor",
-		DATIVE = "торговому автомату Sustenance Vendor",
-		ACCUSATIVE = "торговый автомат Sustenance Vendor",
-		INSTRUMENTAL = "торговым автоматом Sustenance Vendor",
-		PREPOSITIONAL = "торговом автомате Sustenance Vendor"
+		NOMINATIVE = "торговый автомат Sustenance",
+		GENITIVE = "торгового автомата Sustenance",
+		DATIVE = "торговому автомату Sustenance",
+		ACCUSATIVE = "торговый автомат Sustenance",
+		INSTRUMENTAL = "торговым автоматом Sustenance",
+		PREPOSITIONAL = "торговом автомате Sustenance"
 	)
 	desc = "Торговый автомат, в котором продаются продукты питания, в соответствии с разделом 47-С Соглашения об этическом обращении с заключёнными Нанотрейзен."
 
@@ -4951,14 +4967,14 @@
 		/obj/item/storage/box/responseteam/red/janitor = 100)
 
 /obj/machinery/vending/ntc_resources
-	name = "NT Matter Сompression Vendor"
+	name = "NT Matter Сompression"
 	ru_names = list(
-		NOMINATIVE = "торговый автомат NT Matter Сompression Vendor",
-		GENITIVE = "торгового автомата NT Matter Сompression Vendor",
-		DATIVE = "торговому автомату NT Matter Сompression Vendor",
-		ACCUSATIVE = "торговый автомат NT Matter Сompression Vendor",
-		INSTRUMENTAL = "торговым автоматом NT Matter Сompression Vendor",
-		PREPOSITIONAL = "торговом автомате NT Matter Сompression Vendor"
+		NOMINATIVE = "торговый автомат NT Matter Сompression",
+		GENITIVE = "торгового автомата NT Matter Сompression",
+		DATIVE = "торговому автомату NT Matter Сompression",
+		ACCUSATIVE = "торговый автомат NT Matter Сompression",
+		INSTRUMENTAL = "торговым автоматом NT Matter Сompression",
+		PREPOSITIONAL = "торговом автомате NT Matter Сompression"
 	)
 	desc = "Этот автомат использует передовую технологию сжатия и может хранить в себе большой объем ресурсов."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
