@@ -49,7 +49,6 @@
 	prepare_antag_list(mode.eventmiscs, cached_data, "Ивентроль", antagonist_cache)
 	prepare_antag_list(mode.traders, cached_data, "Торговец", antagonist_cache)
 	prepare_antag_list(mode.morphs, cached_data, "Морф", antagonist_cache)
-	prepare_antag_list(mode.swarmers, cached_data, "Свармер", antagonist_cache)
 	prepare_antag_list(mode.guardians, cached_data, "Голопаразит", antagonist_cache)
 	prepare_antag_list(mode.revenants, cached_data, "Ревенант", antagonist_cache)
 	prepare_antag_list(mode.headslugs, cached_data, "Личинка генокрада", antagonist_cache)

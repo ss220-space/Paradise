@@ -175,7 +175,6 @@
 							"Ученики магов — ([length(SSticker.mode.apprentices)])" = (mind in SSticker.mode.apprentices),
 							"Торговцы — ([length(SSticker.mode.traders)])" = (mind in SSticker.mode.traders),
 							"Морфы — ([length(SSticker.mode.morphs)])" = (mind in SSticker.mode.morphs),
-							"Свармеры — ([length(SSticker.mode.swarmers)])" = (mind in SSticker.mode.swarmers),
 							"Голопаразиты — ([length(SSticker.mode.guardians)])" = (mind in SSticker.mode.guardians),
 							"Ревенанты — ([length(SSticker.mode.revenants)])" = (mind in SSticker.mode.revenants),
 							"Воксы рейдеры — ([length(SSticker.mode.raiders)])" = (mind in SSticker.mode.raiders),

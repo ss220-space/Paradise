@@ -73,10 +73,6 @@
 	return FALSE
 
 
-/mob/living/simple_animal/hostile/swarmer/can_be_blob()
-	return FALSE
-
-
 /mob/living/simple_animal/hostile/guardian/can_be_blob()
 	return FALSE
 
@@ -138,8 +134,4 @@
 
 
 /mob/living/simple_animal/hostile/megafauna/legion/can_be_blob()
-	return FALSE
-
-
-/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/can_be_blob()
 	return FALSE

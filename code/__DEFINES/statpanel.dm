@@ -27,7 +27,6 @@
 #define STATPANEL_GUARDIAN "Страж"
 #define STATPANEL_COGSCARAB "Заводной скарабей"
 #define STATPANEL_BORER "Мозговой червь"
-#define STATPANEL_SWARMER "Свармер"
 #define STATPANEL_DOG "Пёс"
 #define STATPANEL_ANIMAL "Животное"
 

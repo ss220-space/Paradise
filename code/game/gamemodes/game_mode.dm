@@ -46,7 +46,6 @@
 	var/list/datum/mind/eventmiscs = list()
 	var/list/datum/mind/traders = list()
 	var/list/datum/mind/morphs = list()
-	var/list/datum/mind/swarmers = list()
 	var/list/datum/mind/guardians = list()
 	var/list/datum/mind/revenants = list()
 	var/list/datum/mind/headslugs = list()

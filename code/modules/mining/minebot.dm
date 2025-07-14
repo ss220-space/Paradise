@@ -40,7 +40,6 @@
 						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
 						  /obj/item/stack/ore/titanium)
 	healable = 0
-	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
 	light_system = MOVABLE_LIGHT
 	light_range = 6

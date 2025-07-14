@@ -187,7 +187,7 @@
 		return FALSE
 	if(blood_required && ishuman(victim) && (HAS_TRAIT(victim, TRAIT_NO_BLOOD) || HAS_TRAIT(victim, TRAIT_EXOTIC_BLOOD)))
 		return FALSE
-	if(issilicon(victim) || isbot(victim) || isswarmer(victim) || isguardian(victim))
+	if(issilicon(victim) || isbot(victim) || isguardian(victim))
 		return FALSE
 	return TRUE
 

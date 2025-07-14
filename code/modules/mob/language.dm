@@ -798,17 +798,6 @@
 	follow = TRUE
 	syllables = list ("beep", "boop")
 
-/datum/language/swarmer
-	name = LANGUAGE_HIVE_SWARMER
-	desc = "Сильно закодированный инопланетный бинарный паттерн."
-	speech_verbs = list("сообща%(ет,ют)%", "констатиру%(ет,ют)%")
-	ask_verbs = list("запрашива%(ет,ют)%", "дела%(ет,ют)% запрос")
-	exclaim_verbs = list("восклица%(ет,ют)%")
-	colour = "say_quote"
-	key = "as"//Zwarmer...Or Zerg!
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
-
 /datum/language/human/monkey
 	name = LANGUAGE_MONKEY_HUMAN
 	desc = "Уаа-Ааа-Аа!"
