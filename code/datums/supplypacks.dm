@@ -1845,14 +1845,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/dna_probe,
 					/obj/item/dna_probe,
 					/obj/item/dna_probe)
-	containername = "ящик сэмлеров ДНК"
+	containername = "ящик сэмплеров ДНК"
 	container_ru_names = list(
-		NOMINATIVE = "ящик сэмлеров ДНК",
-		GENITIVE = "ящика сэмлеров ДНК",
-		DATIVE = "ящику сэмлеров ДНК",
-		ACCUSATIVE = "ящик сэмлеров ДНК",
-		INSTRUMENTAL = "ящиком сэмлеров ДНК",
-		PREPOSITIONAL = "ящике сэмлеров ДНК"
+		NOMINATIVE = "ящик сэмплеров ДНК",
+		GENITIVE = "ящика сэмплеров ДНК",
+		DATIVE = "ящику сэмплеров ДНК",
+		ACCUSATIVE = "ящик сэмплеров ДНК",
+		INSTRUMENTAL = "ящиком сэмплеров ДНК",
+		PREPOSITIONAL = "ящике сэмплеров ДНК"
 	)
 	required_tech = list("biotech" = 6, "programming" = 5)
 
