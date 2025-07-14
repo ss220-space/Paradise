@@ -12,6 +12,7 @@ import {
   Box,
   Modal,
   ByondUi,
+  Dropdown,
 } from '../components';
 import { classes } from 'common/react';
 import { Window } from '../layouts';
@@ -32,6 +33,7 @@ type BSAData = {
   correction_y: number;
   ready: boolean;
   mode: string;
+  mode_options: string[];
   mapRef: string;
 };
 
@@ -69,11 +71,11 @@ export const ControlBSAPanel = (props: unknown) => {
   }
   let status = getStatus(data);
   return (
-    <Window width={750} height={750}>
+    <Window width={600} height={800}>
       <Window.Content>
         <ComplexModal />
         <Stack fill vertical>
-          <Stack.Item height="80%">
+          <Stack.Item grow>
             <ByondUi
               height="100%"
               mb="30px"
@@ -84,7 +86,7 @@ export const ControlBSAPanel = (props: unknown) => {
               }}
             />
           </Stack.Item>
-          <Stack.Item height="20%">
+          <Stack.Item height="162px">
             <Box position="relative" height="100%">
               {calibratingModal}
               <Section title="Управление">
@@ -95,20 +97,19 @@ export const ControlBSAPanel = (props: unknown) => {
                         {status.text}
                       </LabeledList.Item>
                       <LabeledList.Item label="Режим стрельбы">
-                        <Button
-                          icon="cog"
-                          width="175px"
-                          align="center"
-                          onClick={() => act('select_mode')}
-                        >
-                          {data.mode}
-                        </Button>
+                        <Dropdown
+                          options={data.mode_options}
+                          selected={data.mode}
+                          onSelected={(selected_mode) =>
+                            act('select_mode', { mode: selected_mode })
+                          }
+                        />
                       </LabeledList.Item>
                       <LabeledList.Item label="Стрельба">
                         <Button
                           icon="skull"
-                          color={data.ready ? 'red' : 'gray'}
-                          width="175px"
+                          color={data.ready ? 'red' : 'grey'}
+                          width="180px"
                           align="center"
                           onClick={() => act('fire')}
                         >
@@ -180,6 +181,7 @@ export const ControlBSAPanel = (props: unknown) => {
                         />
                         <Button
                           icon="angle-right"
+                          mb="100px"
                           onClick={() =>
                             act('aim', {
                               axis: 'y',

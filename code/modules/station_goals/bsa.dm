@@ -622,7 +622,14 @@
 /obj/machinery/computer/bsa_control/ui_static_data()
 	var/list/data = list()
 	data["mapRef"] = cam_screen.assigned_map
+	data["mode_options"] = get_available_modes()
 	return data
+
+/obj/machinery/computer/bsa_control/proc/get_available_modes()
+	var/list/modes = list(BSA_MODE_PULSE_SHOT_NAME, BSA_MODE_PULSE_BURST_NAME, BSA_MODE_POWER_SHOT_NAME)
+	if(emagged)
+		modes += BSA_MODE_POWER_BURST_NAME
+	return modes
 
 /obj/machinery/computer/bsa_control/ui_act(action, params)
 	if(..())
@@ -636,7 +643,7 @@
 		if("recalibrate")
 			calibrate(usr)
 		if("select_mode")
-			switch_mode(usr)
+			switch_mode(usr, params)
 		if("aim")
 			coord_aim(usr, params)
 	update_icon()
@@ -671,12 +678,9 @@
 	cannon.calibrate()
 	update_active_camera_screen()
 
-/obj/machinery/computer/bsa_control/proc/switch_mode(mob/user)
-	var/list/modes = list(BSA_MODE_PULSE_SHOT_NAME, BSA_MODE_PULSE_BURST_NAME, BSA_MODE_POWER_SHOT_NAME)
-	if(emagged)
-		modes += BSA_MODE_POWER_BURST_NAME
-	var/choose = tgui_input_list(user, "Выберите режим стрельбы", "Режим стрельбы", modes)
-	switch(choose)
+/obj/machinery/computer/bsa_control/proc/switch_mode(mob/user, var/params)
+	var/mode = params["mode"]
+	switch(mode)
 		if(BSA_MODE_POWER_SHOT_NAME)
 			cannon.mode = BSA_MODE_POWER_SHOT
 		if(BSA_MODE_PULSE_SHOT_NAME)
@@ -692,6 +696,9 @@
 	emagged = TRUE
 	if(user)
 		to_chat(user, span_warning("Вы взламываете [declent_ru(ACCUSATIVE)], протоколы безопасности отключены!"))
+	var/datum/tgui/active_ui = SStgui.get_open_ui(user, src)
+	if(active_ui) // Force close for update ui_static_data["mode_options"] value
+		active_ui.close()
 	return TRUE
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
