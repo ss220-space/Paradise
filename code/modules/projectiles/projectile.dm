@@ -309,7 +309,7 @@
 	prehit(bumped_atom)
 
 	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
-	if(permutation == -1 || forcedodge >= 1)// the bullet passes through a dense object!
+	if(permutation == -1 || forcedodge >= 1) // the bullet passes through a dense object!
 		if(forcedodge >= 1)
 			forcedodge -= 1
 		loc = bumped_turf
