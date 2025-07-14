@@ -13,7 +13,7 @@
 	/// How strong are we?
 	var/energy = 100
 	/// Do we lose energy over time?
-	var/dissipate = 1
+	var/dissipate = TRUE
 	var/dissipate_delay = 10
 	var/dissipate_track = 0
 	/// How much energy do we lose?
@@ -22,13 +22,13 @@
 	var/move_self = TRUE
 	/// How many tiles out do we pull?
 	var/grav_pull = 4
-	/// no, you don't get to push the singulo. Not even you OP wizard gateway statues
+	/// No, you don't get to push the singulo. Not even you OP wizard gateway statues
 	move_resist = INFINITY
 	/// How many tiles out do we eat
 	var/consume_range = 0
 	/// Prob for event each tick
 	var/event_chance = 15
-	/// its target. moves towards the target if it has one
+	/// Its target. moves towards the target if it has one
 	var/target = null
 	/// Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
 	var/last_failed_movement = 0

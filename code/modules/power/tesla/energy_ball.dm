@@ -192,7 +192,7 @@
 	if(QDELETED(source))
 		return
 	if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
-		LAZYSET(shocked_targets, source, TRUE) //I don't want no null refs in my list yeah?
+		LAZYSET(shocked_targets, source, TRUE) // I don't want no null refs in my list yeah?
 	. = source.dir
 	if(power < 1000)
 		return
@@ -315,7 +315,7 @@
 		ADD_TRAIT(closest_mob, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
 		addtimer(TRAIT_CALLBACK_REMOVE(closest_mob, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
 		var/shock_damage = (zap_flags & ZAP_MOB_DAMAGE) ? (min(round(power / 600), 90) + rand(-5, 5)) : 0
-		closest_mob.electrocute_act(shock_damage, "шара тесла", 1, SHOCK_TESLA | ((zap_flags & ZAP_MOB_STUN) ? NONE : SHOCK_NOSTUN))
+		closest_mob.electrocute_act(shock_damage, "тесла шар", 1, SHOCK_TESLA | ((zap_flags & ZAP_MOB_STUN) ? NONE : SHOCK_NOSTUN))
 		if(issilicon(closest_mob))
 			var/mob/living/silicon/S = closest_mob
 			if((zap_flags & ZAP_MOB_STUN) && (zap_flags & ZAP_MOB_DAMAGE))

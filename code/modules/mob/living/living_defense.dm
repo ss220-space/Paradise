@@ -74,17 +74,17 @@
 		apply_damage(shock_damage, BURN, spread_damage = TRUE)
 		if(shock_damage > 200)
 			visible_message(
-				span_danger("[source] поразил электрической дугой [name]!"),
+				span_danger("[capitalize(source)] поразил электрической дугой [name]!"),
 				span_userdanger("Электрическая дуга от [source] вспыхивает и убивает вас!"),
 				span_italics("Вы слышите треск, похожий на молнию!")
 			)
-			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
+			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
 			explosion(loc, -1, 0, 2, 2, cause = "[name] over electrocuted by [source]")
 	else
 		apply_damage(shock_damage, STAMINA)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
-			span_danger("[source] ударил током [name]!"),
+			span_danger("[capitalize(source)] ударил током [name]!"),
 			span_userdanger("Вы чувствуете как через ваше тело проходит электрический разряд!"),
 			span_hear("Вы слышите громкий электрический треск."),
 		)
