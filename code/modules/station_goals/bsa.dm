@@ -3,58 +3,58 @@
 // Requires high amount of power
 // Requires high level stock parts
 
-// Single powerful shot
+/// Single powerful shot
 #define BSA_MODE_POWER_SHOT 1
 #define BSA_MODE_POWER_SHOT_NAME "Мощный выстрел"
-// Single low-damage shot
+/// Single low-damage shot
 #define BSA_MODE_PULSE_SHOT 2
 #define BSA_MODE_PULSE_SHOT_NAME "Слабый выстрел"
-// Burst of low-damage shots
+/// Burst of low-damage shots
 #define BSA_MODE_PULSE_BURST 3
 #define BSA_MODE_PULSE_BURST_NAME "Слабая очередь"
-// Burst of powerful shots (emagged console only)
+/// Burst of powerful shots (emagged console only)
 #define BSA_MODE_POWER_BURST 4
 #define BSA_MODE_POWER_BURST_NAME "Мощная очередь"
 
-// How many shots in burst
+/// How many shots in burst
 #define BSA_BURST_COUNT 5
-// Delay between shots in burst mode
+/// Delay between shots in burst mode
 #define BSA_BURST_SHOT_DELAY 0.5
 
-// Spread by every axis (x, y) for signal calibration
+/// Spread by every axis (x, y) for signal calibration
 #define BSA_CALIBRATION_ACCURACY 7
-// Spread by every axis (x, y) for single shot mode
+/// Spread by every axis (x, y) for single shot mode
 #define BSA_SHOT_SPREAD 1
-// Spread by every axis (x, y) for burst fire mode
+/// Spread by every axis (x, y) for burst fire mode
 #define BSA_BURST_SPREAD 4
-// Max correction by every axis (x, y), use absolute value
+/// Max correction by every axis (x, y), use absolute value
 #define BSA_MAX_AXIS_CORRECTION 15
 
-// How many power consume power shot
+/// How many power consume power shot
 #define BSA_POWER_SHOT_POWER_USE 2000000
-// How many power consume pulse shot
+/// How many power consume pulse shot
 #define BSA_PULSE_SHOT_POWER_USE 200000
 
-// How longer reload after construction (10 min - default)
+/// How longer reload after construction (10 min - default)
 #define BSA_INITIAL_RELOAD_TIME 600
-// How longer reload after power shot (10 min - default)
+/// How longer reload after power shot (10 min - default)
 #define BSA_POWER_SHOT_RELOAD_TIME 600
-// How longer reload after pulse shot (1.5 min)
+/// How longer reload after pulse shot (1.5 min)
 #define BSA_PULSE_SHOT_RELOAD_TIME 90
-// How longer reload after pulse burst (5 min)
+/// How longer reload after pulse burst (5 min)
 #define BSA_PULSE_BURST_RELOAD_TIME 300
-// How longer reload after power burst (20 min) - only for emagged console
+/// How longer reload after power burst (20 min) - only for emagged console
 #define BSA_POWER_BURST_RELOAD_TIME 1200
 
-// How longer reload after construction (10 sec)
+/// How longer reload after construction (10 sec)
 #define BSA_CALIBRATE_TIME 10
-// Delay between firing and impact on the target
+/// Delay between firing and impact on the target
 #define BSA_IMPACT_DELAY 3
-// Laser notification duration before bsa strike (must be less than BSA_IMPACT_DELAY)
+/// Laser notification duration before bsa strike (must be less than BSA_IMPACT_DELAY)
 #define BSA_IMPACT_LASER_NOTIFY_BEFORE 1
-// Radius of notification about bsa strike
+/// Radius of notification about bsa strike
 #define BSA_IMPACT_NOTIFY_RADIUS 10
-// Delay between last strike and check goal complete
+/// Delay between last strike and check goal complete
 #define BSA_AFTER_STRIKE_GOACL_CHECK_DELAY 3
 
 /datum/station_goal/bluespace_cannon
