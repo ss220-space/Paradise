@@ -4,12 +4,12 @@
 	map_path = "_maps/map_files/event/Station/yourstation.dmm"
 	Lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
 
-	station_name = "Ingame Station name"
-	station_short = "Ingame Station name short"
-	dock_name = "NAV Trurl"
-	company_name = "Nanotrasen"
-	company_short = "NT"
-	starsys_name = "Epsilon Lucusta"
+	station_name  = "Ingame Station name (in Russian)"
+	station_short = "Ingame Station name short (in Russian)"
+	dock_name     = "АКН Трурль"
+	company_name  = "НаноТрейзен"
+	company_short = "НТ"
+	starsys_name  = "Эпсилон Лукуста"
 	webmap_url = "Optional"
 	admin_only = TRUE
 */
@@ -32,12 +32,12 @@
 	)
 	space_ruins_levels = 0
 
-	station_name  = "NSS Turrim"
-	station_short = "Turrim"
-	dock_name     = "NAV Trurl"
-	company_name  = "Nanotrasen"
-	company_short = "NT"
-	starsys_name  = "Epsilon Lucusta"
+	station_name  = "ИСН Туррим"
+	station_short = "Туррим"
+	dock_name     = "АКН Трурль"
+	company_name  = "НаноТрейзен"
+	company_short = "НТ"
+	starsys_name  = "Эпсилон Лукуста"
 	admin_only = TRUE
 
 /datum/map/delta_old
@@ -45,12 +45,12 @@
 	map_path = "_maps/map_files/event/Station/delta_old.dmm"
 	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
 
-	station_name  = "NSS Kerberos"
-	station_short = "Kerberos"
-	dock_name     = "NAV Trurl"
-	company_name  = "Nanotrasen"
-	company_short = "NT"
-	starsys_name  = "Epsilon Lucusta"
+	station_name  = "ИСН Керберос"
+	station_short = "Керберос"
+	dock_name     = "АКН Трурль"
+	company_name  = "НаноТрейзен"
+	company_short = "НТ"
+	starsys_name  = "Эпсилон Лукуста"
 	admin_only = TRUE
 
 /datum/map/coldcolony
@@ -59,10 +59,10 @@
 	lavaland_path = "_maps/map_files/coldcolony/Lavaland.dmm"
 	traits = list(MAIN_STATION, STATION_CONTACT, STATION_LEVEL = "Surface", REACHABLE, AI_OK, ZTRAIT_BASETURF = /turf/simulated/floor/plating/asteroid/snow/planet)
 
-	station_name = "NMC Malta"
-	station_short = "Malta"
-	dock_name = "NAV Trurl"
-	company_name = "Nanotrasen"
-	company_short = "NT"
-	starsys_name = "Epsilon Lucusta"
+	station_name  = "ШОН Мальта"
+	station_short = "Мальта"
+	dock_name     = "АКН Трурль"
+	company_name  = "НаноТрейзен"
+	company_short = "НТ"
+	starsys_name  = "Эпсилон Лукуста"
 	admin_only = TRUE

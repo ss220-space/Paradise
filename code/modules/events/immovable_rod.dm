@@ -11,7 +11,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.event_announcement.Announce("Что это за хуйня?!", "ВНИМАНИЕ: ОБЩАЯ ТРЕВОГА.")
+	GLOB.minor_announcement.announce("Что это за хуйня?!",
+									"Общая тревога!"
+	)
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
@@ -74,7 +76,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		update_appearance(UPDATE_NAME)
 
 	if(notify)
-		notify_ghosts("Приближается [name]!", enter_link="<a href=?src=[UID()];follow=1>(Click to follow)</a>", source = src, action = NOTIFY_FOLLOW)
+		notify_ghosts("Приближается [name]!", enter_link="<a href=?src=[UID()];follow=1>(Следовать)</a>", source = src, action = NOTIFY_FOLLOW)
 
 	if(SSaugury)
 		SSaugury.register_doom(src, 2000)

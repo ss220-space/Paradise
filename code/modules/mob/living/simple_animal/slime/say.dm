@@ -1,4 +1,4 @@
-/mob/living/simple_animal/slime/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
+/mob/living/simple_animal/slime/hear_say(list/message_pieces, verb = "говор%(ит,ят)%", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
 	if(speaker != src && !stat)
 		if(speaker in Friends)
 			speech_buffer = list()

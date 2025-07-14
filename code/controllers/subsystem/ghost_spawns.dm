@@ -61,7 +61,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	var/category = "[P.hash]_notify_action"
 
-	var/notice_sound = sound('sound/misc/notice2.ogg')
+	var/notice_sound = sound('sound/effects/ghost_ping.ogg')
 	for(var/mob/dead/observer/M in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
 		if(!is_eligible(M, role, antag_age_check, role, min_hours, check_antaghud))
 			continue
@@ -134,7 +134,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 		if(isatom(source))
 			act_jump = "<a href='byond://?src=[M.UID()];jump=\ref[source]'>\[Teleport]</a>"
 		var/act_signup = "<a href='byond://?src=[A.UID()];signup=1'>\[Sign Up]</a>"
-		to_chat(M, span_boldnotice("<big>Now looking for candidates [role ? "to play as \an [role_cleanname || role]" : "\"[question]\""]. [act_jump] [act_signup] [reason?"<i>\nReason: [reason]</i>":""]</big>"))
+		to_chat(M, span_boldnotice(span_big("Now looking for candidates [role ? "to play as \an [role_cleanname || role]" : "\"[question]\""]. [act_jump] [act_signup] [reason?"<i>\nReason: [reason]</i>":""]")))
 
 		// Start processing it so it updates visually the timer
 		START_PROCESSING(SSprocessing, A)

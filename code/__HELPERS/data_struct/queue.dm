@@ -6,10 +6,6 @@
 	var/prev
 	var/next
 
-/node/Destroy(force)
-	..()
-	return QDEL_HINT_IWILLGC
-
 /*
 * Defining a queue based on a double linked list
 */
@@ -53,7 +49,6 @@
 		tail = null
 	old_head.value = null
 	old_head.next = null
-	qdel(old_head)
 	count--
 	return value
 /*
@@ -76,7 +71,3 @@
 /queue/proc/size()
 	return count
 
-
-/queue/Destroy(force)
-	..()
-	return QDEL_HINT_IWILLGC

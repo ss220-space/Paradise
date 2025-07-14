@@ -144,17 +144,18 @@ SUBSYSTEM_DEF(garbage)
 	//We do this rather then for(var/list/ref_info in queue) because that sort of for loop copies the whole list.
 	//Normally this isn't expensive, but the gc queue can grow to 40k items, and that gets costly/causes overrun.
 	while (!queue.is_empty())
+		if (MC_TICK_CHECK)
+			return
 		var/list/L = queue.peek()
 		if (length(L) < GC_QUEUE_ITEM_INDEX_COUNT)
 			queue.dequeue()
+			Queue(L[GC_QUEUE_ITEM_REF], level)
 			if (MC_TICK_CHECK)
 				return
 			continue
 
 		var/queued_at_time = L[GC_QUEUE_ITEM_QUEUE_TIME]
 		if(queued_at_time > cut_off_time)
-			queue.dequeue()
-			Queue(L[GC_QUEUE_ITEM_REF], level)
 			break // Everything else is newer, skip them
 
 		var/datum/D = L[GC_QUEUE_ITEM_REF]
@@ -222,6 +223,8 @@ SUBSYSTEM_DEF(garbage)
 					#endif
 					queue.dequeue()
 					Queue(D, level)
+					if (MC_TICK_CHECK)
+						return
 					continue
 			if (GC_QUEUE_HARDDELETE)
 				queue.dequeue()

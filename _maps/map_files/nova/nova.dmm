@@ -10715,6 +10715,10 @@
 	icon_state = "darkbluecorners"
 	},
 /area/maintenance/detectives_office)
+"bAZ" = (
+/obj/effect/landmark/start/mining_medic,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/miningdock)
 "bBd" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -132002,7 +132006,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/mining_medic,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "tro" = (
@@ -271692,7 +271696,7 @@ gfP
 gfP
 rDM
 caF
-pTX
+bAZ
 kbZ
 kbZ
 rAo

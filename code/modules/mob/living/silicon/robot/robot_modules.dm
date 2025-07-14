@@ -447,7 +447,7 @@
 				count_secborgs++
 
 		var/max_secborgs = 2
-		if(GLOB.security_level == SEC_LEVEL_GREEN)
+		if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_GREEN)
 			max_secborgs = 1
 
 		if(count_secborgs >= max_secborgs)

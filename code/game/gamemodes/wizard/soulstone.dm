@@ -135,7 +135,7 @@
 			player_mob = ghost
 		var/client/player_client = player_mob.client
 		to_chat(player_mob, span_warning("[user] is trying to capture your soul into [src]! Click the button in the top right of the game window to respond."))
-		player_client << 'sound/misc/announce_dig.ogg'
+		SEND_SOUND(player_client, sound('sound/misc/notice2.ogg'))
 		window_flash(player_client)
 
 		var/atom/movable/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /atom/movable/screen/alert/notify_soulstone)

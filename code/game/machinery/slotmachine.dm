@@ -70,7 +70,7 @@
 		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr), 25)
 
 /obj/machinery/slot_machine/proc/get_prize_coefficient()
-	if (emagged)
+	if(emagged)
 		return EMAGGED_SLOT_MACHINE_PRIZE_MOD
 	return 1
 
@@ -94,7 +94,7 @@
 		if(1)
 			var/credits = prizes["jackpot"] * get_prize_coefficient()
 			atom_say("ДЖЕКПОТ! Игрок [userName] выиграл [credits] кредитов!")
-			GLOB.event_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в [credits] кредитов!", "Обладатель джекпота!")
+			GLOB.minor_announcement.announce("Поздравляем [userName] с выигрышем джекпота в [credits] кредитов!", "Обладатель джекпота!")
 			result = "ДЖЕКПОТ! Вы выиграли [credits] кредитов!"
 			resultlvl = "teal"
 			win_money(credits, 'sound/goonstation/misc/airraid_loop.ogg')

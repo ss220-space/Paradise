@@ -55,7 +55,7 @@
 		if(cargo_quest)
 			current_quests += cargo_quest
 
-	if(GLOB.security_level > SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() > SEC_LEVEL_RED)
 		reward *= 2
 	customer.change_reward(src)
 	customer.special(src)

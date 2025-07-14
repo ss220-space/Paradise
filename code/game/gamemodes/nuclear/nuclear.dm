@@ -64,7 +64,7 @@
 		var/datum/antagonist/nuclear_operative/datum = synd_mind.has_antag_datum(/datum/antagonist/nuclear_operative)
 		datum.equip()
 		spawnpos++
-	team.scale_challange()
+	team.scale_telecrystals()
 	team.share_telecrystals()
 
 	return ..()

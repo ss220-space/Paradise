@@ -26,6 +26,7 @@
 /obj/machinery/mineral/labor_claim_console/Initialize()
 	. = ..()
 	announcer = new /obj/item/radio/intercom(null)
+	announcer.follow_target = src
 	announcer.config(list(SEC_FREQ_NAME = 0))
 
 	if(!sheet_values)

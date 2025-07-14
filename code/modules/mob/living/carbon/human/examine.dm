@@ -225,14 +225,16 @@
 	if(wear_id)
 		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] нос[pluralize_ru(gender, "ит", "ят")] [bicon(wear_id)] [wear_id.declent_ru(ACCUSATIVE)].\n"
 
-	var/datum/component/muscles/muscles = physiology.GetComponent(/datum/component/muscles)
 	var/rolled_down = FALSE
 	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/jumpsuit = w_uniform
 		rolled_down = jumpsuit.rolled_down
 
-	if((rolled_down || !w_uniform || (w_uniform.item_flags & ABSTRACT)) && (!wear_suit || (wear_suit.item_flags & ABSTRACT)) && muscles && muscles.strength != STRENGTH_LEVEL_DEFAULT)
-		msg += span_notice("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[pluralize_ru(gender, "ит", "ят")] [GLOB.strength_examines[muscles.strength]][genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
+	var/list/strength_list = list()
+	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
+	var/strength = !strength_list.len ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
+	if((rolled_down || !w_uniform || (w_uniform.item_flags & ABSTRACT)) && (!wear_suit || (wear_suit.item_flags & ABSTRACT)) && strength != STRENGTH_LEVEL_DEFAULT)
+		msg += span_notice("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[pluralize_ru(gender, "ит", "ят")] [GLOB.strength_examines[strength]][genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
 
 	//Status effects
 	var/status_examines = get_status_effect_examinations()
