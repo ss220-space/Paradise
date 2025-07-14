@@ -5,16 +5,16 @@
 
 // Single powerful shot
 #define BSA_MODE_POWER_SHOT 1
-#define BSA_MODE_POWER_SHOT_NAME "Power shot"
+#define BSA_MODE_POWER_SHOT_NAME "Мощный выстрел"
 // Single low-damage shot
 #define BSA_MODE_PULSE_SHOT 2
-#define BSA_MODE_PULSE_SHOT_NAME "Pulse shot"
+#define BSA_MODE_PULSE_SHOT_NAME "Слабый выстрел"
 // Burst of low-damage shots
 #define BSA_MODE_PULSE_BURST 3
-#define BSA_MODE_PULSE_BURST_NAME "Pulse burst"
+#define BSA_MODE_PULSE_BURST_NAME "Слабая очередь"
 // Burst of powerful shots (emagged console only)
 #define BSA_MODE_POWER_BURST 4
-#define BSA_MODE_POWER_BURST_NAME "Power shot"
+#define BSA_MODE_POWER_BURST_NAME "Мощная очередь"
 
 // How many shots in burst
 #define BSA_BURST_COUNT 5

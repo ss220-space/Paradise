@@ -97,7 +97,7 @@ export const ControlBSAPanel = (props: unknown) => {
                       <LabeledList.Item label="Режим стрельбы">
                         <Button
                           icon="cog"
-                          width="125px"
+                          width="175px"
                           align="center"
                           onClick={() => act('select_mode')}
                         >
@@ -108,7 +108,7 @@ export const ControlBSAPanel = (props: unknown) => {
                         <Button
                           icon="skull"
                           color={data.ready ? 'red' : 'gray'}
-                          width="125px"
+                          width="175px"
                           align="center"
                           onClick={() => act('fire')}
                         >
