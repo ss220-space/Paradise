@@ -3,56 +3,59 @@
 // Requires high amount of power
 // Requires high level stock parts
 
-//Single powerful shot
+// Single powerful shot
 #define BSA_MODE_POWER_SHOT 1
-//Single low-damage shot
+#define BSA_MODE_POWER_SHOT_NAME "Power shot"
+// Single low-damage shot
 #define BSA_MODE_PULSE_SHOT 2
-//Burst of low-damage shots
+#define BSA_MODE_PULSE_SHOT_NAME "Pulse shot"
+// Burst of low-damage shots
 #define BSA_MODE_PULSE_BURST 3
-//Burst of powerful shots (emagged console only)
+#define BSA_MODE_PULSE_BURST_NAME "Pulse burst"
+// Burst of powerful shots (emagged console only)
 #define BSA_MODE_POWER_BURST 4
+#define BSA_MODE_POWER_BURST_NAME "Power shot"
 
-//How many shots in burst
+// How many shots in burst
 #define BSA_BURST_COUNT 5
-//Delay between shots in burst mode
+// Delay between shots in burst mode
 #define BSA_BURST_SHOT_DELAY 0.5
 
-//Spread by every axis (x, y) for signal calibration
+// Spread by every axis (x, y) for signal calibration
 #define BSA_CALIBRATION_ACCURACY 7
-//Spread by every axis (x, y) for single shot mode
+// Spread by every axis (x, y) for single shot mode
 #define BSA_SHOT_SPREAD 1
-//Spread by every axis (x, y) for burst fire mode
+// Spread by every axis (x, y) for burst fire mode
 #define BSA_BURST_SPREAD 4
-//Max correction by every axis (x, y), use absolute value
+// Max correction by every axis (x, y), use absolute value
 #define BSA_MAX_AXIS_CORRECTION 15
 
-//How many power consume power shot
+// How many power consume power shot
 #define BSA_POWER_SHOT_POWER_USE 2000000
-//How many power consume pulse shot
+// How many power consume pulse shot
 #define BSA_PULSE_SHOT_POWER_USE 200000
 
-//How longer reload after construction (10 min - default)
+// How longer reload after construction (10 min - default)
 #define BSA_INITIAL_RELOAD_TIME 600
-//How longer reload after power shot (10 min - default)
+// How longer reload after power shot (10 min - default)
 #define BSA_POWER_SHOT_RELOAD_TIME 600
-//How longer reload after pulse shot (1.5 min)
+// How longer reload after pulse shot (1.5 min)
 #define BSA_PULSE_SHOT_RELOAD_TIME 90
-//How longer reload after pulse burst (5 min)
+// How longer reload after pulse burst (5 min)
 #define BSA_PULSE_BURST_RELOAD_TIME 300
-//How longer reload after power burst (20 min) - only for emagged console
+// How longer reload after power burst (20 min) - only for emagged console
 #define BSA_POWER_BURST_RELOAD_TIME 1200
 
-//How longer reload after construction (10 sec)
+// How longer reload after construction (10 sec)
 #define BSA_CALIBRATE_TIME 10
-//Delay between firing and impact on the target
+// Delay between firing and impact on the target
 #define BSA_IMPACT_DELAY 3
-//Laser notification duration before bsa strike (must be less than BSA_IMPACT_DELAY)
+// Laser notification duration before bsa strike (must be less than BSA_IMPACT_DELAY)
 #define BSA_IMPACT_LASER_NOTIFY_BEFORE 1
-//Radius of notification about bsa strike
+// Radius of notification about bsa strike
 #define BSA_IMPACT_NOTIFY_RADIUS 10
-//Delay between last strike and check goal complete
+// Delay between last strike and check goal complete
 #define BSA_AFTER_STRIKE_GOACL_CHECK_DELAY 3
-
 
 /datum/station_goal/bluespace_cannon
 	name = "Блюспейс Артиллерия"
@@ -355,7 +358,7 @@
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 	message_admins("[key_name_admin(user)] has launched an artillery strike with power shot mode into [ADMIN_COORDJMP(bullseye)].")
 	log_admin("[key_name_log(user)] has launched an artillery strike with power shot mode into [COORD(bullseye)].") // Line below handles logging the explosion to disk
-	var/ex_power = 3 //Remove from object variable, maybe inline?
+	var/ex_power = 3 // Remove from object variable, maybe inline?
 	explosion(bullseye,ex_power,ex_power*2+1,ex_power*4+2, cause = "Bluespace artillery strike") // 3 7 14 at ex_power = 3
 
 /obj/machinery/bsa/full/proc/fire_pulse_shot(mob/user, turf/bullseye)
@@ -499,7 +502,7 @@
 	area_aim = TRUE
 	target_all_areas = TRUE
 	camera_xray = TRUE
-	emagged = TRUE //Unlock power burst mode for admin
+	emagged = TRUE // Unlock power burst mode for admin
 
 /obj/machinery/computer/bsa_control/admin/Initialize()
 	. = ..()
@@ -537,7 +540,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	update_active_camera_screen()
 	if(!ui)
-		ui = new(user, src, "BlueSpaceArtilleryControl", name)
+		ui = new(user, src, "BlueSpaceArtilleryControl", "Консоль управления БСА")
 		ui.open()
 		cam_screen.display_to(user, ui.window)
 		user.client.images += crosshair
@@ -565,15 +568,15 @@
 	data["ready"] = is_ready_to_shot()
 	switch(cannon.mode)
 		if(BSA_MODE_POWER_SHOT)
-			data["mode"] = "Power shot"
+			data["mode"] = BSA_MODE_POWER_SHOT_NAME
 		if(BSA_MODE_PULSE_SHOT)
-			data["mode"] = "Pulse shot"
+			data["mode"] = BSA_MODE_PULSE_SHOT_NAME
 		if(BSA_MODE_PULSE_BURST)
-			data["mode"] = "Pulse burst"
+			data["mode"] = BSA_MODE_PULSE_BURST_NAME
 		if(BSA_MODE_POWER_BURST)
-			data["mode"] = "Power burst"
+			data["mode"] = BSA_MODE_POWER_BURST_NAME
 		else
-			data["mode"] = "Unknown"
+			data["mode"] = "Ошибка"
 	if(!target)
 		return data
 	data["calibrated"] = TRUE
@@ -669,18 +672,18 @@
 	update_active_camera_screen()
 
 /obj/machinery/computer/bsa_control/proc/switch_mode(mob/user)
-	var/list/modes = list("Power shot", "Pulse shot", "Pulse burst")
+	var/list/modes = list(BSA_MODE_PULSE_SHOT_NAME, BSA_MODE_PULSE_BURST_NAME, BSA_MODE_POWER_SHOT_NAME)
 	if(emagged)
-		modes += "Power burst"
+		modes += BSA_MODE_POWER_BURST_NAME
 	var/choose = tgui_input_list(user, "Выберите режим стрельбы", "Режим стрельбы", modes)
 	switch(choose)
-		if("Power shot")
+		if(BSA_MODE_POWER_SHOT_NAME)
 			cannon.mode = BSA_MODE_POWER_SHOT
-		if("Pulse shot")
+		if(BSA_MODE_PULSE_SHOT_NAME)
 			cannon.mode = BSA_MODE_PULSE_SHOT
-		if("Pulse burst")
+		if(BSA_MODE_PULSE_BURST_NAME)
 			cannon.mode = BSA_MODE_PULSE_BURST
-		if("Power burst")
+		if(BSA_MODE_POWER_BURST_NAME)
 			cannon.mode = BSA_MODE_POWER_BURST
 
 /obj/machinery/computer/bsa_control/emag_act(mob/user)
@@ -688,7 +691,7 @@
 		return FALSE
 	emagged = TRUE
 	if(user)
-		to_chat(user, span_warning("Вы взламываете [src.declent_ru(ACCUSATIVE)], протоколы безопасности отключены!"))
+		to_chat(user, span_warning("Вы взламываете [declent_ru(ACCUSATIVE)], протоколы безопасности отключены!"))
 	return TRUE
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
@@ -760,46 +763,19 @@
 	update_active_camera_screen()
 
 /obj/machinery/computer/bsa_control/proc/update_active_camera_screen()
-	// Get the target turf to correctly gather what's visible from its turf, in case it's located in a moving object (borgs / mechs)
+	// Code from /obj/machinery/computer/security/update_active_camera_screen
 	var/turf/new_cam_turf = get_target_turf()
 	if(!new_cam_turf)
 		cam_screen.show_camera_static()
 		return
-	// If we're not forcing an update for some reason and the cameras are in the same location,
-	// we don't need to update anything.
-	// Most security cameras will end here as they're not moving.
 	if(last_camera_turf == new_cam_turf)
-		return
-	// Cameras that get here are moving, and are likely attached to some moving atom such as cyborgs.
+		return // Update only if camera change position
 	last_camera_turf = new_cam_turf
-	//Here we gather what's visible from the camera's POV based on its view_range and xray modifier if present
 	var/list/visible_things = camera_xray ? range(camera_view_range, new_cam_turf) : view(camera_view_range, new_cam_turf)
 	var/list/visible_turfs = list()
 	for(var/turf/visible_turf in visible_things)
 		visible_turfs += visible_turf
-	//Get coordinates for a rectangle area that contains the turfs we see so we can then clear away the static in the resulting rectangle area
 	var/list/bbox = get_bbox_of_atoms(visible_turfs)
-	//TODO add crosshair object
 	var/size_x = bbox[3] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
 	cam_screen.show_camera(visible_turfs, size_x, size_y)
-
-
-
-/obj/effect/bsa_crosshair //This is the object that forceMoves the supplypod to its location
-	name = "Landing Zone Indicator"
-	desc = "Голографическая проекция, обозначающая зону приземления чего-либо. Наверное, лучше стоять в стороне."
-	icon = 'icons/obj/supplypods_32x32.dmi'
-	icon_state = "LZ"
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
-	light_range = 2
-	anchored = TRUE
-	alpha = 255
-	ru_names = list(
-		NOMINATIVE = "индикатор зоны приземления",
-		GENITIVE = "индикатора зоны приземления",
-		DATIVE = "индикатору зоны приземления",
-		ACCUSATIVE = "индикатор зоны приземления",
-		INSTRUMENTAL = "индикатором зоны приземления",
-		PREPOSITIONAL = "индикаторе зоны приземления"
-	)
