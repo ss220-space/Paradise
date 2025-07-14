@@ -138,7 +138,7 @@
 	if(armour_penetration && tile_dropoff_penetration)
 		armour_penetration = max(0, armour_penetration - tile_dropoff_penetration) // as above, but with armour penetration
 	if(forcedodge && tile_dropoff_forcedodge)
-		forcedodge = max(0, forcedodge - tile_dropoff_forcedodge) //as above, but with forcedodge
+		forcedodge = max(0, forcedodge - tile_dropoff_forcedodge) // as above, but with forcedodge
 	if(range <= 0 && loc)
 		on_range()
 	if(!damage && !stamina && (tile_dropoff || tile_dropoff_s))
