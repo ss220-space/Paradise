@@ -33,7 +33,7 @@
 	RegisterSignal(parent, COMSIG_GET_BREAKOUTTIME_MODIFIERS, PROC_REF(get_breakouttime_modifiers))
 	RegisterSignal(parent, COMSIG_GET_THROW_SPEED_MODIFIERS, PROC_REF(get_throw_speed_modifier))
 	RegisterSignal(parent, COMSIG_GET_THROW_RANGE_DELTAS, PROC_REF(get_throw_range_deltas))
-	RegisterSignal(parent, COMSIG_GET_BOLA_MODIFIERS, PROC_REF(get_bola_modifier))
+	RegisterSignal(parent, COMSIG_GET_BOLA_MODIFIERS, PROC_REF(get_bolas_time_modifier))
 	RegisterSignal(parent, COMSIG_GET_HUNGER_MODS, PROC_REF(get_hunger_mod))
 
 
@@ -55,34 +55,6 @@
 		COMSIG_GET_BOLA_MODIFIERS,
 		COMSIG_GET_HUNGER_MODS
 	))
-
-
-/datum/component/muscles/proc/get_hunger_mod(user, list/modifiers)
-	SIGNAL_HANDLER
-	if(isvampire(user))
-		return
-
-	modifiers.Add(GLOB.strength_hunger_modifiers[get_strength()])
-
-/datum/component/muscles/proc/get_bola_modifier(user, list/modifiers)
-	SIGNAL_HANDLER
-	modifiers.Add(GLOB.strength_bolas_time_modifiers[get_strength()])
-
-
-/datum/component/muscles/proc/get_throw_range_deltas(user, list/modifiers)
-	SIGNAL_HANDLER
-	modifiers.Add(GLOB.strength_throw_range_deltas[get_strength()])
-
-
-/datum/component/muscles/proc/get_throw_speed_modifier(user, list/modifiers)
-	SIGNAL_HANDLER
-	modifiers.Add(GLOB.strength_throw_speed_modifiers[get_strength()])
-
-
-/datum/component/muscles/proc/get_breakouttime_modifiers(user, list/modifiers)
-	SIGNAL_HANDLER
-	modifiers.Add(1 / GLOB.strength_break_ties_speed_modifiers[get_strength()])
-
 
 /datum/component/muscles/proc/update_strength(user)
 	SIGNAL_HANDLER
@@ -148,10 +120,11 @@
 	if(strength >= get_max_strength_level())
 		return
 
-	if(strength_points < GLOB.strength_req_to_upgrade[strength])
+	var/datum/strength_level/strength_level = GLOB.strength_levels[get_strength()]
+	if(strength_points < strength_level.strength_req_to_upgrade)
 		return
 
-	strength_points -= GLOB.strength_req_to_upgrade[strength]
+	strength_points -= strength_level.strength_req_to_upgrade
 	strength++
 	user.update_body(TRUE)
 
@@ -189,31 +162,34 @@
 	if(level == STRENGTH_LEVEL_SUPERHUMAN)
 		return 0
 
-	return strength_points / GLOB.strength_req_to_upgrade[level]
+	var/datum/strength_level/strength_level = GLOB.strength_levels[get_strength()]
+	return strength_points / strength_level.strength_req_to_upgrade
 
 
 /datum/component/muscles/proc/get_strength_grab_speed_modifier(mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
+	var/datum/strength_level/strength_level = GLOB.strength_levels[get_strength()]
 	var/strength_level_part = get_strength_level_part(user)
-	var/level = get_strength(user)
 	if(strength_level_part == 0)
-		modifiers.Add(GLOB.strength_grab_speed_modifiers[level])
+		modifiers.Add(strength_level.grab_speed_modifier)
 		return
 
-	modifiers.Add(GLOB.strength_grab_speed_modifiers[level] + \
-		(GLOB.strength_grab_speed_modifiers[level + 1] - GLOB.strength_grab_speed_modifiers[level]) * strength_level_part)
+	var/datum/strength_level/next_strength_level  = GLOB.strength_levels[get_strength() + 1]
+	modifiers.Add(strength_level.grab_speed_modifier + \
+		(next_strength_level.grab_speed_modifier - strength_level.grab_speed_modifier) * strength_level_part)
 
 
 /datum/component/muscles/proc/get_strength_pull_slowdown_modifier(mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
+	var/datum/strength_level/strength_level = GLOB.strength_levels[get_strength()]
 	var/strength_level_part = get_strength_level_part(user)
-	var/level = get_strength(user)
 	if(strength_level_part == 0)
-		modifiers.Add(GLOB.strength_pull_slowdown_modifiers[level])
+		modifiers.Add(strength_level.pull_slowdown_modifier)
 		return
 
-	modifiers.Add(GLOB.strength_pull_slowdown_modifiers[level] + \
-		(GLOB.strength_pull_slowdown_modifiers[level + 1] - GLOB.strength_pull_slowdown_modifiers[level]) * strength_level_part)
+	var/datum/strength_level/next_strength_level  = GLOB.strength_levels[get_strength() + 1]
+	modifiers.Add(strength_level.pull_slowdown_modifier + \
+		(next_strength_level.pull_slowdown_modifier - strength_level.pull_slowdown_modifier) * strength_level_part)
 
 
 /datum/component/muscles/proc/get_strength_melee_damage_delta(mob/living/user, list/deltas, obj/item/weapon)
@@ -222,16 +198,165 @@
 	if(weapon && weapon.damtype != BRUTE)
 		return
 
+	var/datum/strength_level/strength_level = GLOB.strength_levels[get_strength()]
 	var/strength_level_part = get_strength_level_part(user)
-	var/level = get_strength(user)
 	if(strength_level_part == 0)
-		deltas.Add(GLOB.strength_melee_damage_deltas[level])
+		deltas.Add(strength_level.melee_damage_delta)
 		return
 
-	deltas.Add(GLOB.strength_melee_damage_deltas[level] + \
-		(GLOB.strength_melee_damage_deltas[level + 1] - GLOB.strength_melee_damage_deltas[level]) * strength_level_part)
+	var/datum/strength_level/next_strength_level  = GLOB.strength_levels[get_strength() + 1]
+	deltas.Add(strength_level.melee_damage_delta + \
+		(next_strength_level.melee_damage_delta - strength_level.melee_damage_delta) * strength_level_part)
+
+
+
+/datum/component/muscles/proc/get_hunger_mod(user, list/modifiers)
+	SIGNAL_HANDLER
+	if(isvampire(user))
+		return
+
+	var/datum/strength_level/strength_level = GLOB.strength_levels[get_strength()]
+	var/strength_level_part = get_strength_level_part(user)
+	if(strength_level_part == 0)
+		modifiers.Add(strength_level.hunger_modifier)
+		return
+
+	var/datum/strength_level/next_strength_level  = GLOB.strength_levels[get_strength() + 1]
+	modifiers.Add(strength_level.hunger_modifier + \
+		(next_strength_level.hunger_modifier - strength_level.hunger_modifier) * strength_level_part)
+
+
+/datum/component/muscles/proc/get_bolas_time_modifier(user, list/modifiers)
+	SIGNAL_HANDLER
+	var/datum/strength_level/strength_level = GLOB.strength_levels[get_strength()]
+	var/strength_level_part = get_strength_level_part(user)
+	if(strength_level_part == 0)
+		modifiers.Add(strength_level.bolas_time_modifier)
+		return
+
+	var/datum/strength_level/next_strength_level  = GLOB.strength_levels[get_strength() + 1]
+	modifiers.Add(strength_level.bolas_time_modifier + \
+		(next_strength_level.bolas_time_modifier - strength_level.bolas_time_modifier) * strength_level_part)
+
+
+/datum/component/muscles/proc/get_throw_range_deltas(user, list/deltas)
+	SIGNAL_HANDLER
+	var/datum/strength_level/strength_level = GLOB.strength_levels[get_strength()]
+	var/strength_level_part = get_strength_level_part(user)
+	if(strength_level_part == 0)
+		deltas.Add(strength_level.throw_range_delta)
+		return
+
+	var/datum/strength_level/next_strength_level  = GLOB.strength_levels[get_strength() + 1]
+	deltas.Add(strength_level.throw_range_delta + \
+		(next_strength_level.throw_range_delta - strength_level.throw_range_delta) * strength_level_part)
+
+
+/datum/component/muscles/proc/get_throw_speed_modifier(user, list/modifiers)
+	SIGNAL_HANDLER
+	var/datum/strength_level/strength_level = GLOB.strength_levels[get_strength()]
+	var/strength_level_part = get_strength_level_part(user)
+	if(strength_level_part == 0)
+		modifiers.Add(strength_level.throw_speed_modifier)
+		return
+
+	var/datum/strength_level/next_strength_level  = GLOB.strength_levels[get_strength() + 1]
+	modifiers.Add(strength_level.throw_speed_modifier + \
+		(next_strength_level.throw_speed_modifier - strength_level.throw_speed_modifier) * strength_level_part)
+
+
+/datum/component/muscles/proc/get_breakouttime_modifiers(user, list/modifiers)
+	SIGNAL_HANDLER
+
+	var/datum/strength_level/strength_level = GLOB.strength_levels[get_strength()]
+	var/strength_level_part = get_strength_level_part(user)
+	if(strength_level_part == 0)
+		modifiers.Add(1 / strength_level.break_ties_speed_modifier)
+		return
+
+	var/datum/strength_level/next_strength_level  = GLOB.strength_levels[get_strength() + 1]
+	modifiers.Add(1 / (strength_level.break_ties_speed_modifier + \
+		(next_strength_level.break_ties_speed_modifier - strength_level.break_ties_speed_modifier) * strength_level_part))
 
 
 #undef REQ_STAMINA_FOR_STRENGTH_POINT
 #undef REQ_NUTRITION_FOR_STRENGTH_POINT
 #undef MIN_NUTRITION_FOR_STRENGTH_CHANGE
+
+
+/datum/strength_level
+	var/grab_speed_modifier
+	var/pull_slowdown_modifier
+	var/melee_damage_delta
+	var/break_ties_speed_modifier
+	var/throw_speed_modifier
+	var/throw_range_delta
+	var/bolas_time_modifier
+	var/hunger_modifier
+	var/strength_req_to_upgrade
+	var/strength_examine
+
+
+/datum/strength_level/weak
+	grab_speed_modifier = 0.8
+	pull_slowdown_modifier = 1.2
+	melee_damage_delta = -2
+	break_ties_speed_modifier = 0.8
+	throw_speed_modifier = 0.5
+	throw_range_delta = -2
+	bolas_time_modifier = 1.2
+	hunger_modifier = 0.9
+	strength_req_to_upgrade = 10
+	strength_examine = "слаб"
+
+
+/datum/strength_level/normal
+	grab_speed_modifier = 1
+	pull_slowdown_modifier = 1
+	melee_damage_delta = 0
+	break_ties_speed_modifier = 1
+	throw_speed_modifier = 0.6
+	throw_range_delta = -1
+	bolas_time_modifier = 1
+	hunger_modifier = 1
+	strength_req_to_upgrade = 20
+	strength_examine = "нормальн"
+
+
+/datum/strength_level/strong
+	grab_speed_modifier = 1.15
+	pull_slowdown_modifier = 0.75
+	melee_damage_delta = 2
+	break_ties_speed_modifier = 1.3
+	throw_speed_modifier = 0.7
+	throw_range_delta = 0
+	bolas_time_modifier = 0.8
+	hunger_modifier = 1.1
+	strength_req_to_upgrade = 30
+	strength_examine = "сильн"
+
+
+/datum/strength_level/ideal
+	grab_speed_modifier = 1.3
+	pull_slowdown_modifier = 0.5
+	melee_damage_delta = 4
+	break_ties_speed_modifier = 1.5
+	throw_speed_modifier = 0.8
+	throw_range_delta = 1
+	bolas_time_modifier = 0.5
+	hunger_modifier = 1.2
+	strength_req_to_upgrade = 35
+	strength_examine = "очень сильн"
+
+
+/datum/strength_level/superhuman
+	grab_speed_modifier = 1.5
+	pull_slowdown_modifier = 0
+	melee_damage_delta = 6
+	break_ties_speed_modifier = 2
+	throw_speed_modifier = 1
+	throw_range_delta = 2
+	bolas_time_modifier = 0.3
+	hunger_modifier = 1.3
+	strength_req_to_upgrade = -1
+	strength_examine = "необыкновенно сильн"
