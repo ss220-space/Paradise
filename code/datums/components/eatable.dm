@@ -156,7 +156,7 @@
 		stack.use(stack_use)
 	else
 		current_bites++
-		item.obj_integrity = max(item.obj_integrity - integrity_bite, 0)
+		item.update_integrity(item.obj_integrity - integrity_bite)
 		item.add_atom_colour(get_colour(), FIXED_COLOUR_PRIORITY)
 		if(current_bites >= max_bites)
 			target.visible_message(span_notice("[target] доел [item.name]."))

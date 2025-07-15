@@ -7,7 +7,11 @@
 
 /datum/event/alien_infestation/announce(false_alarm)
 	if(false_alarm)
-		GLOB.event_announcement.Announce("Вспышка биологической угрозы 4-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение, пока ситуация не вышла из под контроля!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
+		GLOB.major_announcement.announce("Вспышка биологической угрозы 4-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение, пока ситуация не вышла из под контроля!",
+										ANNOUNCE_BIOHAZARD_RU,
+										'sound/effects/siren-spooky.ogg',
+										new_sound2 = 'sound/AI/outbreak_xeno.ogg'
+		)
 
 /datum/event/alien_infestation/start()
 	INVOKE_ASYNC(src, PROC_REF(wrappedstart))

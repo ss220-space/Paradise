@@ -204,7 +204,7 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	if(mode != STATUS_DISPLAY_BLANK && mode != STATUS_DISPLAY_ALERT)
 		. += span_notice("На дисплее написано: <br>\t[sanitize(message1)]<br>\t[sanitize(message2)].")
 	if(mode == STATUS_DISPLAY_ALERT)
-		. += span_notice("Текущий уровень угрозы: [get_security_level_ru()]. ")
+		. += span_notice("Текущий уровень угрозы: [capitalize(SSsecurity_level.get_current_level_as_text())]. ")
 
 
 /obj/machinery/status_display/proc/set_message(m1, m2)

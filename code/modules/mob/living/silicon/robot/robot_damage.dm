@@ -69,6 +69,20 @@
 
 	return STATUS_UPDATE_HEALTH
 
+/mob/living/silicon/robot/adjust_slot_machine_lose_effect()
+	if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
+		to_chat(src, span_warningbig("Критическая неудача!<br>Неизвестная сила разрушает ваш корпус."))
+		src.gib()
+		return
+	if (prob(EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE))
+		to_chat(src, span_warning("Неудача! Из корпуса [src.name] вылетают искры."))
+		do_sparks(3, TRUE, src)
+		src.destroy_random_component()
+		return
+	to_chat(src, span_warning("Неудача! [src.name] получает видимые повреждения."))
+	do_sparks(3, TRUE, src)
+	src.adjustBruteLoss(rand(15, 20))
+
 
 /mob/living/silicon/robot/proc/get_damaged_components(get_brute, get_burn, get_borked = FALSE, get_missing = FALSE)
 	var/list/datum/robot_component/parts = list()
@@ -155,6 +169,14 @@
 	var/datum/robot_component/component = pick(components)
 	component.take_damage(brute, burn, sharp, updating_health)
 
+/mob/living/silicon/robot/proc/destroy_random_component()
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		return
+	var/list/components = get_damageable_components()
+	if(!LAZYLEN(components))
+		return
+	var/datum/robot_component/component = pick(components)
+	component.destroy()
 
 /mob/living/silicon/robot/heal_overall_damage(
 	brute = 0,

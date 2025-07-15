@@ -597,6 +597,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Проигрывать админ-MIDI:</b> <a href='byond://?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Да" : "Нет"]</b></a><br>"
 			dat += "<b>Проигрывать музыку в лобби:</b> <a href='byond://?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Да" : "Нет"]</b></a><br>"
 			dat += "<b>Рандомизация слота персонажа:</b> <a href='byond://?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Да" : "Нет"]</b></a><br>"
+			dat += "<b>Mute End Of Round Sounds:</b> <a href='byond://?_src_=prefs;preference=mute_end_of_round'><b>[(sound & SOUND_MUTE_END_OF_ROUND) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Диапазон обзора:</b> <a href='byond://?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Мигающие окна:</b> <a href='byond://?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Да" : "Нет"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
@@ -2499,6 +2500,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("hear_midis")
 					sound ^= SOUND_MIDI
+
+				if("mute_end_of_round")
+					sound ^= SOUND_MUTE_END_OF_ROUND
 
 				if("lobby_music")
 					sound ^= SOUND_LOBBY

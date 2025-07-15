@@ -32,12 +32,15 @@
 			var/obj/item/pipe_meter/PM = new (T)
 			meter.transfer_fingerprints_to(PM)
 			qdel(meter)
+	parent?.members.RemoveAll(src)
 	. = ..()
-
 	// if we're somehow by ourself
-	if(parent && !QDELETED(parent) && parent.members.len == 1 && parent.members[1] == src)
+	if(!QDELETED(parent) && parent?.members.len == 0)
 		qdel(parent)
 	parent = null
+
+/obj/machinery/atmospherics/pipe/proc/clear_parent()
+	parent?.members.RemoveAll(src)
 
 /obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
 	return parent

@@ -138,7 +138,7 @@
 
 // Cannot talk
 
-/mob/living/simple_animal/hostile/statue/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/hostile/statue/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	return
 
 // Turn to dust when gibbed

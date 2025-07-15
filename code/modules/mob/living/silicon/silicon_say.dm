@@ -59,10 +59,10 @@
 
 /mob/living/silicon/say_understands(mob/other, datum/language/speaking = null)
 	//These only pertain to common. Languages are handled by mob/say_understands()
-	if(..())
-		return TRUE
-	else
-		return iscarbon(other) || issilicon(other) || isbot(other) || isbrain(other)
+	if(!speaking && ismob(other))
+		if(iscarbon(other) || issilicon(other) || isbot(other) || isbrain(other))
+			return TRUE
+	return ..()
 
 
 //For holopads only. Usable by AI.
@@ -75,7 +75,7 @@
 		var/message_clean = combine_message(message_pieces, src)
 		message_clean = replace_characters(message_clean, list("+"))
 
-		var/message = verb_message(message_pieces, message_clean, verb)
+		var/message = verb_message(message_pieces, message_clean, src, genderize_decode(src, verb))
 		var/message_tts = combine_message_tts(message_pieces, src)
 
 		if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
@@ -83,7 +83,7 @@
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE)
 		log_debug("holopad_talk(): [message_clean]")
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
-			M.hear_holopad_talk(message_pieces, verb, src, H)
+			M.hear_holopad_talk(message_pieces, genderize_decode(src, verb), src, H)
 		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [message]</span></i>")
 	else
 		to_chat(src, "No holopad connected.")

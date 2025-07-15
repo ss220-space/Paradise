@@ -527,7 +527,7 @@
 			to_chat(user, span_warning("The [name] is completely intact."))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You patch some of the damage on [src] with [I]."))
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

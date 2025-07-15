@@ -1638,7 +1638,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/list/owners = get_owners()
 	for(var/datum/mind/user in owners)
 		to_chat(owner.current, span_userdanger("<br>Вы чувствуете, что ваша цель больше не находится в пределах досягаемости. Время для плана [pick("A","B","C","D","X","Y","Z")]. Цели обновлены!"))
-		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
+		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 
 	if(!completed)
 		target = null
@@ -1796,7 +1796,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/blob_critical_mass/check_completion()
 	if(!completed)
-		completed = needed_critical_mass <= critical_mass && GLOB.security_level < SEC_LEVEL_DELTA
+		completed = needed_critical_mass <= critical_mass && SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_DELTA
 	return ..()
 
 

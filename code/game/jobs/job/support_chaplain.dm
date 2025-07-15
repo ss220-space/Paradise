@@ -53,7 +53,6 @@
 	var/book_name
 	var/new_religion = tgui_input_text(usr, "Вы - Священник. Как вы хотите назвать свою веру? По умолчанию - Христианство.", "Смена названия", religion_name, user, max_length = MAX_NAME_LEN)
 
-
 	if(!new_religion)
 		new_religion = religion_name
 

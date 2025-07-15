@@ -629,43 +629,48 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 //the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Сообщение Центрального Командования" = "Обновление НаноТрейзен",
-		"Официальное сообщение Синдиката" = "Сообщение Синдиката",
-		"Сообщение Федерации Космических Волшебников" = "Заколдованное сообщение",
-		"Официальное сообщение Клана Паука" = "Сообщение Клана Паука",
-		"Вражеское Сообщение" = "Неизвестное сообщение",
-		"Свой тип" = "Загадочное сообщение")
+	var/list/MsgType = list("Сообщение Центрального командования" = "Обновление НаноТрейзен.",
+		"Официальное сообщение Синдиката" = "Сообщение Синдиката.",
+		"Сообщение Федерации Космических Волшебников" = "Заколдованное сообщение.",
+		"Официальное сообщение Клана Паука" = "Сообщение Клана Паука.",
+		"Вражеское Сообщение" = "Неизвестное сообщение.",
+		"Свой тип" = "Загадочное сообщение.")
 
-	var/list/MsgSound = list("Beep" = 'sound/misc/announce_dig.ogg',
-		"Enemy Communications Intercepted" = 'sound/AI/intercept2.ogg',
-		"New Command Report Created" = 'sound/AI/commandreport.ogg')
+	var/list/MsgSound = list("Уведомление *бип*" = 'sound/misc/notice2.ogg',
+		"Перехвачены вражеские сообщения" = 'sound/AI/intercept.ogg',
+		"Составлен отчёт о новой команде" = 'sound/AI/commandreport.ogg')
 
 	var/type = tgui_input_list(usr, "Выберите тип сообщения для отправки.", "Тип сообщения", MsgType, "")
 
 	if(type == "Свой тип")
 		type = tgui_input_text(usr, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача", encode = FALSE)
 
-	var/customname = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type], encode = FALSE)
-	if(!customname)
+	var/subtitle = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type], encode = FALSE)
+	if(!subtitle)
 		return
-	var/input = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
-	if(!input)
+	var/message = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
+	if(!message)
 		return
 
-	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?",, list("Да","Нет", "Отмена")))
+	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?", null, list("Да","Нет", "Отмена")))
 		if("Да")
 			var/beepsound = tgui_input_list(usr, "Какой звук должен издавать анонс?", "Звук анонса", MsgSound)
 
-			GLOB.command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
-			print_command_report(input, customname)
+			GLOB.major_announcement.announce(
+				message,
+				new_title = type,
+				new_subtitle = subtitle,
+				new_sound = MsgSound[beepsound]
+			)
+			print_command_report(message, subtitle)
 		if("Нет")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
-			print_command_report(input, "Секретно: [customname]")
+			GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.")
+			print_command_report(message, "Секретно: [subtitle]")
 		else
 			return
 
-	log_admin("[key_name(src)] has created a communications report: [input]")
+	log_admin("[key_name(src)] has created a communications report: [message]")
 	message_admins("[key_name_admin(src)] has created a communications report")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Create Comms Report") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
@@ -891,7 +896,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		SSshuttle.emergency.canRecall = FALSE
 
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		SSshuttle.emergency.request(coefficient = 0.5, redAlert = TRUE)
 	else
 		SSshuttle.emergency.request()
@@ -1262,7 +1267,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN | R_EVENT))
 		return
 
-	var/input = tgui_input_text(usr, "Введите имя для Центрального Командования.", "Что?", "", encode = FALSE)
+	var/input = tgui_input_text(usr, "Введите имя для Центрального командования.", "Что?", "", encode = FALSE)
 	if(!input)
 		return
 	change_command_name(input)
