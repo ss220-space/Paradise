@@ -3,24 +3,9 @@
 // Requires high amount of power
 // Requires high level stock parts
 
-/// Single powerful shot
-#define BSA_MODE_POWER_SHOT 1
-#define BSA_MODE_POWER_SHOT_NAME "Мощный выстрел"
-/// Single low-damage shot
-#define BSA_MODE_PULSE_SHOT 2
-#define BSA_MODE_PULSE_SHOT_NAME "Слабый выстрел"
-/// Burst of low-damage shots
-#define BSA_MODE_PULSE_BURST 3
-#define BSA_MODE_PULSE_BURST_NAME "Слабая очередь"
-/// Burst of powerful shots (emagged console only)
-#define BSA_MODE_POWER_BURST 4
-#define BSA_MODE_POWER_BURST_NAME "Мощная очередь"
 
-/// How many shots in burst
-#define BSA_BURST_COUNT 5
 /// Delay between shots in burst mode
 #define BSA_BURST_SHOT_DELAY 0.5
-
 /// Spread by every axis (x, y) for signal calibration
 #define BSA_CALIBRATION_ACCURACY 7
 /// Spread by every axis (x, y) for single shot mode
@@ -29,23 +14,6 @@
 #define BSA_BURST_SPREAD 4
 /// Max correction by every axis (x, y), use absolute value
 #define BSA_MAX_AXIS_CORRECTION 15
-
-/// How many power consume power shot
-#define BSA_POWER_SHOT_POWER_USE 2000000
-/// How many power consume pulse shot
-#define BSA_PULSE_SHOT_POWER_USE 200000
-
-/// How longer reload after construction (10 min - default)
-#define BSA_INITIAL_RELOAD_TIME 600
-/// How longer reload after power shot (10 min - default)
-#define BSA_POWER_SHOT_RELOAD_TIME 600
-/// How longer reload after pulse shot (1.5 min)
-#define BSA_PULSE_SHOT_RELOAD_TIME 90
-/// How longer reload after pulse burst (5 min)
-#define BSA_PULSE_BURST_RELOAD_TIME 300
-/// How longer reload after power burst (20 min) - only for emagged console
-#define BSA_POWER_BURST_RELOAD_TIME 1200
-
 /// How longer reload after construction (10 sec)
 #define BSA_CALIBRATE_TIME 10
 /// Delay between firing and impact on the target
@@ -57,6 +25,84 @@
 /// Delay between last strike and check goal complete
 #define BSA_AFTER_STRIKE_GOACL_CHECK_DELAY 3
 
+
+/// BSA fire mode
+/datum/bluespace_cannon_fire_mode
+	var/name
+	var/spread
+	var/power_use
+	var/reload_duration
+	var/list/power
+	var/need_emag = FALSE
+
+/datum/bluespace_cannon_fire_mode/burst
+	var/shots_count
+	var/delay_between_shots = BSA_BURST_SHOT_DELAY
+
+
+/datum/bluespace_cannon_fire_mode/proc/fire(obj/machinery/bsa/full/cannon, mob/user, turf/target, target_signal)
+	var/turf/impact_turf = cannon.spread(target, spread)
+	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
+	addtimer(CALLBACK(cannon, TYPE_PROC_REF(/obj/machinery/bsa/full, incoming_shot_aim), impact_turf), (BSA_IMPACT_DELAY - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(create_explosion), user, impact_turf), BSA_IMPACT_DELAY SECONDS)
+	addtimer(CALLBACK(cannon, TYPE_PROC_REF(/obj/machinery/bsa/full, check_goal_complete), target_signal), (BSA_IMPACT_DELAY + BSA_AFTER_STRIKE_GOACL_CHECK_DELAY) SECONDS)
+
+/datum/bluespace_cannon_fire_mode/burst/fire(obj/machinery/bsa/full/cannon, mob/user, turf/target, target_signal)
+	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
+	for(var/i = 0; i < shots_count; i++)
+		var/turf/impact_turf = cannon.spread(target, spread)
+		var/delay = BSA_IMPACT_DELAY + i * delay_between_shots
+		addtimer(CALLBACK(cannon, TYPE_PROC_REF(/obj/machinery/bsa/full, incoming_shot_aim), impact_turf), (delay - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(create_explosion), user, impact_turf), delay SECONDS)
+	var/check_goal_delay = BSA_IMPACT_DELAY + (shots_count - 1) * delay_between_shots + BSA_AFTER_STRIKE_GOACL_CHECK_DELAY
+	addtimer(CALLBACK(cannon, TYPE_PROC_REF(/obj/machinery/bsa/full, check_goal_complete), target_signal), check_goal_delay SECONDS)
+
+/datum/bluespace_cannon_fire_mode/proc/create_explosion(mob/user, turf/impact_turf)
+	message_admins("[key_name_admin(user)] has launched an artillery strike with power=([power[1]],[power[2]],[power[3]]) into [ADMIN_COORDJMP(impact_turf)].")
+	log_admin("[key_name_log(user)] has launched an artillery strike with power=([power[1]],[power[2]],[power[3]]) mode into [COORD(impact_turf)].") // Line below handles logging the explosion to disk
+	explosion(impact_turf, power[1], power[2], power[3], cause = "Bluespace artillery strike")
+
+
+/datum/bluespace_cannon_fire_mode/power
+	name = "Мощный выстрел"
+	spread = BSA_SHOT_SPREAD
+	power_use = 2000000
+	reload_duration = 600
+	power = list(3, 7, 14)
+
+/datum/bluespace_cannon_fire_mode/burst/power
+	name = "Мощная очередь"
+	spread = BSA_BURST_SPREAD
+	power_use = 6000000
+	reload_duration = 1200
+	power = list(3, 7, 14)
+	need_emag = TRUE
+	shots_count = 3
+
+/datum/bluespace_cannon_fire_mode/pulse
+	name = "Слабый выстрел"
+	spread = BSA_SHOT_SPREAD
+	power_use = 200000
+	reload_duration = 90
+	power = list(0, 1, 5)
+
+/datum/bluespace_cannon_fire_mode/burst/pulse
+	name = "Слабая очередь"
+	spread = BSA_BURST_SPREAD
+	power_use = 1000000
+	reload_duration = 300
+	power = list(0, 1, 5)
+	shots_count = 5
+
+GLOBAL_LIST_INIT(BSA_modes_list, list(
+	new /datum/bluespace_cannon_fire_mode/power(),
+	new /datum/bluespace_cannon_fire_mode/burst/power(),
+	new /datum/bluespace_cannon_fire_mode/pulse(),
+	new /datum/bluespace_cannon_fire_mode/burst/pulse()
+))
+
+
+/// BSA Cannon
 /datum/station_goal/bluespace_cannon
 	name = "Блюспейс Артиллерия"
 
@@ -245,13 +291,18 @@
 	var/static/image/top_layer = null
 	var/last_fire_time = 0 // The time at which the gun was last fired
 	var/last_calibrate_time = 0 // The time at which the gun was last fired
-	var/reload_cooldown = BSA_INITIAL_RELOAD_TIME
-	var/mode = BSA_MODE_POWER_SHOT
+	var/reload_cooldown
+	var/datum/bluespace_cannon_fire_mode/mode
 
 	pixel_y = -32
 	pixel_x = -192
 	bound_width = 352
 	bound_x = -192
+
+/obj/machinery/bsa/full/Initialize(mapload)
+	. = ..()
+	mode = GLOB.BSA_modes_list[1]
+	reload_cooldown = mode.reload_duration
 
 /obj/machinery/bsa/full/Destroy()
 	if(controller && controller.cannon == src)
@@ -317,34 +368,8 @@
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/target, target_signal)
 	destroy_all_on_fire_beam(user, target)
 	incoming_shot_notify(target)
-	switch(mode)
-		if(BSA_MODE_POWER_SHOT)
-			var/turf/impact_turf = spread(target, BSA_SHOT_SPREAD)
-			addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (BSA_IMPACT_DELAY - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
-			addtimer(CALLBACK(src, PROC_REF(fire_power_shot), user, impact_turf), BSA_IMPACT_DELAY SECONDS)
-			addtimer(CALLBACK(src, PROC_REF(check_goal_complete), target_signal), (BSA_IMPACT_DELAY + BSA_AFTER_STRIKE_GOACL_CHECK_DELAY) SECONDS)
-		if(BSA_MODE_PULSE_SHOT)
-			var/turf/impact_turf = spread(target, BSA_SHOT_SPREAD)
-			addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (BSA_IMPACT_DELAY - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
-			addtimer(CALLBACK(src, PROC_REF(fire_pulse_shot), user, impact_turf), BSA_IMPACT_DELAY SECONDS)
-		if(BSA_MODE_PULSE_BURST)
-			for(var/i = 0; i < BSA_BURST_COUNT; i++)
-				var/turf/impact_turf = spread(target, BSA_BURST_SPREAD)
-				var/delay = BSA_IMPACT_DELAY + i * BSA_BURST_SHOT_DELAY
-				addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (delay - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
-				addtimer(CALLBACK(src, PROC_REF(fire_pulse_shot), user, impact_turf), delay SECONDS)
-		if(BSA_MODE_POWER_BURST)
-			for(var/i = 0; i < BSA_BURST_COUNT; i++)
-				var/turf/impact_turf = spread(target, BSA_BURST_SPREAD)
-				var/delay = BSA_IMPACT_DELAY + i * BSA_BURST_SHOT_DELAY
-				addtimer(CALLBACK(src, PROC_REF(incoming_shot_aim), impact_turf), (delay - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
-				addtimer(CALLBACK(src, PROC_REF(fire_power_shot), user, impact_turf), delay SECONDS)
-			var/check_goal_delay = BSA_IMPACT_DELAY + (BSA_BURST_COUNT - 1) * BSA_BURST_SHOT_DELAY + BSA_AFTER_STRIKE_GOACL_CHECK_DELAY
-			addtimer(CALLBACK(src, PROC_REF(check_goal_complete), target_signal), check_goal_delay SECONDS)
-		else
-			to_chat(user, span_info("Клик! Осечка?!<br>Может стоит поставить другой режим стрельбы?"))
+	mode.fire(src, user, target, target_signal)
 	reload()
-
 
 /obj/machinery/bsa/full/proc/destroy_all_on_fire_beam(mob/user, turf/bullseye)
 	var/turf/point = get_front_turf()
@@ -353,19 +378,6 @@
 		for(var/atom/A in T)
 			A.ex_act(1)
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/reacting/deadly) //ZZZAP
-
-/obj/machinery/bsa/full/proc/fire_power_shot(mob/user, turf/bullseye)
-	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
-	message_admins("[key_name_admin(user)] has launched an artillery strike with power shot mode into [ADMIN_COORDJMP(bullseye)].")
-	log_admin("[key_name_log(user)] has launched an artillery strike with power shot mode into [COORD(bullseye)].") // Line below handles logging the explosion to disk
-	var/ex_power = 3 // Remove from object variable, maybe inline?
-	explosion(bullseye,ex_power,ex_power*2+1,ex_power*4+2, cause = "Bluespace artillery strike") // 3 7 14 at ex_power = 3
-
-/obj/machinery/bsa/full/proc/fire_pulse_shot(mob/user, turf/bullseye)
-	playsound(src, 'sound/machines/bsa_fire.ogg', 50, 1)
-	message_admins("[key_name_admin(user)] has launched an artillery strike with pulse shot mode into [ADMIN_COORDJMP(bullseye)].")
-	log_admin("[key_name_log(user)] has launched an artillery strike with pulse shot mode into [COORD(bullseye)].") // Line below handles logging the explosion to disk
-	explosion(bullseye, 0, 1, 5, cause = "Bluespace artillery light strike")
 
 /obj/machinery/bsa/full/proc/incoming_shot_notify(turf/target)
 	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 75, 1)
@@ -391,21 +403,8 @@
 
 /obj/machinery/bsa/full/proc/reload()
 	last_fire_time = world.time / 10
-	switch(mode)
-		if(BSA_MODE_POWER_SHOT)
-			use_power(BSA_POWER_SHOT_POWER_USE)
-			reload_cooldown = BSA_POWER_SHOT_RELOAD_TIME
-		if(BSA_MODE_PULSE_SHOT)
-			use_power(BSA_PULSE_SHOT_POWER_USE)
-			reload_cooldown = BSA_PULSE_SHOT_RELOAD_TIME
-		if(BSA_MODE_PULSE_BURST)
-			use_power(BSA_PULSE_SHOT_POWER_USE * BSA_BURST_COUNT)
-			reload_cooldown = BSA_PULSE_BURST_RELOAD_TIME
-		if(BSA_MODE_POWER_BURST)
-			use_power(BSA_PULSE_SHOT_POWER_USE * BSA_BURST_COUNT)
-			reload_cooldown = BSA_POWER_BURST_RELOAD_TIME
-		else
-			reload_cooldown = BSA_INITIAL_RELOAD_TIME
+	use_power(mode.power_use)
+	reload_cooldown = mode.reload_duration
 
 /obj/machinery/bsa/full/proc/calibrate()
 	last_calibrate_time = world.time / 10
@@ -566,17 +565,7 @@
 	data["correction_x"] = x_correction
 	data["correction_y"] = y_correction
 	data["ready"] = is_ready_to_shot()
-	switch(cannon.mode)
-		if(BSA_MODE_POWER_SHOT)
-			data["mode"] = BSA_MODE_POWER_SHOT_NAME
-		if(BSA_MODE_PULSE_SHOT)
-			data["mode"] = BSA_MODE_PULSE_SHOT_NAME
-		if(BSA_MODE_PULSE_BURST)
-			data["mode"] = BSA_MODE_PULSE_BURST_NAME
-		if(BSA_MODE_POWER_BURST)
-			data["mode"] = BSA_MODE_POWER_BURST_NAME
-		else
-			data["mode"] = "Ошибка"
+	data["mode"] = cannon.mode.name
 	if(!target)
 		return data
 	data["calibrated"] = TRUE
@@ -626,10 +615,18 @@
 	return data
 
 /obj/machinery/computer/bsa_control/proc/get_available_modes()
-	var/list/modes = list(BSA_MODE_PULSE_SHOT_NAME, BSA_MODE_PULSE_BURST_NAME, BSA_MODE_POWER_SHOT_NAME)
-	if(emagged)
-		modes += BSA_MODE_POWER_BURST_NAME
+	var/list/modes = list()
+	for(var/datum/bluespace_cannon_fire_mode/mode as anything in GLOB.BSA_modes_list)
+		if(mode.need_emag && !emagged)
+			continue
+		modes += mode.name
 	return modes
+
+/obj/machinery/computer/bsa_control/proc/get_mode_by_name(mode_name)
+	for(var/datum/bluespace_cannon_fire_mode/mode as anything in GLOB.BSA_modes_list)
+		if(mode.name == mode_name)
+			return mode
+	return null
 
 /obj/machinery/computer/bsa_control/ui_act(action, params)
 	if(..())
@@ -679,16 +676,11 @@
 	update_active_camera_screen()
 
 /obj/machinery/computer/bsa_control/proc/switch_mode(mob/user, var/params)
-	var/mode = params["mode"]
-	switch(mode)
-		if(BSA_MODE_POWER_SHOT_NAME)
-			cannon.mode = BSA_MODE_POWER_SHOT
-		if(BSA_MODE_PULSE_SHOT_NAME)
-			cannon.mode = BSA_MODE_PULSE_SHOT
-		if(BSA_MODE_PULSE_BURST_NAME)
-			cannon.mode = BSA_MODE_PULSE_BURST
-		if(BSA_MODE_POWER_BURST_NAME)
-			cannon.mode = BSA_MODE_POWER_BURST
+	var/mode_name = params["mode"]
+	var/new_mode = get_mode_by_name(mode_name)
+	if(!new_mode)
+		return
+	cannon.mode = new_mode
 
 /obj/machinery/computer/bsa_control/emag_act(mob/user)
 	if(emagged)
