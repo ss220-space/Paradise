@@ -116,9 +116,10 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
-		deconstruct(TRUE)
-		TOOL_DISMANTLE_SUCCESS_MESSAGE
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+		return
+	deconstruct(TRUE)
+	TOOL_DISMANTLE_SUCCESS_MESSAGE
 
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
