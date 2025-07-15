@@ -4,6 +4,11 @@
 // Requires high level stock parts
 
 
+#define BSA_MODE_POWER_SHOT "power shot"
+#define BSA_MODE_POWER_BURST "power burst"
+#define BSA_MODE_PULSE_SHOT "pulse shot"
+#define BSA_MODE_PULSE_BURST "pulse burst"
+
 /// Delay between shots in burst mode
 #define BSA_BURST_SHOT_DELAY 0.5
 /// Spread by every axis (x, y) for signal calibration
@@ -24,7 +29,10 @@
 #define BSA_IMPACT_NOTIFY_RADIUS 10
 /// Delay between last strike and check goal complete
 #define BSA_AFTER_STRIKE_GOACL_CHECK_DELAY 3
+/// Cooldown after bsa building
+#define BSA_INITIAL_COOLDOWN 600
 
+GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /// BSA fire mode
 /datum/bluespace_cannon_fire_mode
@@ -93,13 +101,6 @@
 	reload_duration = 300
 	power = list(0, 1, 5)
 	shots_count = 5
-
-GLOBAL_LIST_INIT(BSA_modes_list, list(
-	new /datum/bluespace_cannon_fire_mode/power(),
-	new /datum/bluespace_cannon_fire_mode/burst/power(),
-	new /datum/bluespace_cannon_fire_mode/pulse(),
-	new /datum/bluespace_cannon_fire_mode/burst/pulse()
-))
 
 
 /// BSA Cannon
@@ -291,7 +292,7 @@ GLOBAL_LIST_INIT(BSA_modes_list, list(
 	var/static/image/top_layer = null
 	var/last_fire_time = 0 // The time at which the gun was last fired
 	var/last_calibrate_time = 0 // The time at which the gun was last fired
-	var/reload_cooldown
+	var/reload_cooldown = BSA_INITIAL_COOLDOWN
 	var/datum/bluespace_cannon_fire_mode/mode
 
 	pixel_y = -32
@@ -301,8 +302,7 @@ GLOBAL_LIST_INIT(BSA_modes_list, list(
 
 /obj/machinery/bsa/full/Initialize(mapload)
 	. = ..()
-	mode = GLOB.BSA_modes_list[1]
-	reload_cooldown = mode.reload_duration
+	mode = GLOB.BSA_modes_list["power shot"]
 
 /obj/machinery/bsa/full/Destroy()
 	if(controller && controller.cannon == src)
@@ -616,14 +616,16 @@ GLOBAL_LIST_INIT(BSA_modes_list, list(
 
 /obj/machinery/computer/bsa_control/proc/get_available_modes()
 	var/list/modes = list()
-	for(var/datum/bluespace_cannon_fire_mode/mode as anything in GLOB.BSA_modes_list)
-		if(mode.need_emag && !emagged)
+	for (var/mode_id in GLOB.BSA_modes_list)
+		var/datum/bluespace_cannon_fire_mode/mode = GLOB.BSA_modes_list[mode_id]
+		if (mode.need_emag && !emagged)
 			continue
 		modes += mode.name
 	return modes
 
 /obj/machinery/computer/bsa_control/proc/get_mode_by_name(mode_name)
-	for(var/datum/bluespace_cannon_fire_mode/mode as anything in GLOB.BSA_modes_list)
+	for (var/mode_id in GLOB.BSA_modes_list)
+		var/datum/bluespace_cannon_fire_mode/mode = GLOB.BSA_modes_list[mode_id]
 		if(mode.name == mode_name)
 			return mode
 	return null
