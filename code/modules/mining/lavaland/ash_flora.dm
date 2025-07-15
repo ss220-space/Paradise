@@ -519,7 +519,15 @@
 
 /obj/item/reagent_containers/food/drinks/mushroom_bowl
 	name = "mushroom bowl"
-	desc = "A bowl made out of mushrooms. Not food, though it might have contained some at some point."
+	desc = "Мисковая чаша. Не еда, хотя когда-то могла содержать её."
+	ru_names = list(
+		NOMINATIVE = "грибная чаша",
+		GENITIVE = "грибной чаши",
+		DATIVE = "грибной чаше",
+		ACCUSATIVE = "грибную чашу",
+		INSTRUMENTAL = "грибной чашей",
+		PREPOSITIONAL = "грибной чаше"
+	)
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
 	w_class = WEIGHT_CLASS_SMALL

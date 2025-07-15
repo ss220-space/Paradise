@@ -340,7 +340,15 @@
 
 /obj/item/restraints/legcuffs/bola/sinew
 	name = "skull bola"
-	desc = "A primitive bola made from the remains of your enemies. It doesn't look very reliable."
+	desc = "Это примитивное метательное оружие, созданное из останков врагов, может показаться ненадёжным, но оно демонстрирует поразительную эффективность."
+	ru_names = list(
+		NOMINATIVE = "бола из черепов",
+		GENITIVE = "болы из черепов",
+		DATIVE = "боле из черепов",
+		ACCUSATIVE = "болу из черепов",
+		INSTRUMENTAL = "болой из черепов",
+		PREPOSITIONAL = "боле из черепов"
+	)
 	icon_state = "bola_watcher"
 	item_state = "bola_watcher"
 	reusable = FALSE

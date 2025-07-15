@@ -1,6 +1,14 @@
 /obj/vehicle/ridden/lavaboat
 	name = "lava boat"
-	desc = "A boat used for traversing lava."
+	desc = "Лодка, предназначенная для передвижения по лаве."
+	ru_names = list(
+		NOMINATIVE = "лавовая лодка",
+		GENITIVE = "лавой лодки",
+		DATIVE = "лавовой лодке",
+		ACCUSATIVE = "лавовую лодку",
+		INSTRUMENTAL = "лавовой лодкой",
+		PREPOSITIONAL = "лавовой лодке"
+	)
 	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	layer = ABOVE_MOB_LAYER
@@ -15,7 +23,15 @@
 
 /obj/item/ship_in_a_bottle
 	name = "ship in a bottle"
-	desc = "A tiny ship inside a bottle."
+	desc = "Крошечный корабль в бутылке."
+	ru_names = list(
+		NOMINATIVE = "корабль в бутылке",
+		GENITIVE = "корабля в бутылке",
+		DATIVE = "кораблю в бутылке",
+		ACCUSATIVE = "корабль в бутылке",
+		INSTRUMENTAL = "кораблём в бутылке",
+		PREPOSITIONAL = "корабле в бутылке"
+	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
 
@@ -27,7 +43,15 @@
 
 /obj/vehicle/ridden/lavaboat/dragon
 	name = "mysterious boat"
-	desc = "This boat moves where you will it, without the need for an oar."
+	desc = "Эта лодка может плыть туда, куда вы захотите, без помощи вёсел!"
+	ru_names = list(
+		NOMINATIVE = "таинственная лодка",
+		GENITIVE = "таинственной лодки",
+		DATIVE = "таинственной лодке",
+		ACCUSATIVE = "таинственную лодку",
+		INSTRUMENTAL = "таинственной лодкой",
+		PREPOSITIONAL = "таинственной лодке"
+	)
 	key_type = null
 
 /obj/vehicle/ridden/lavaboat/dragon/Initialize(mapload)
@@ -42,7 +66,16 @@
 	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "oar"
 	item_state = "rods"
-	desc = "Not to be confused with the kind Research hassles you for."
+	desc = "Гидроприводной ручной двигатель. Не требует топлива. Cертифицировано для рек, луж и лавовых озёр." // Oh no, we've lost ore-oar joke
+	ru_names = list(
+		NOMINATIVE = "весло",
+		GENITIVE = "весла",
+		DATIVE = "веслу",
+		ACCUSATIVE = "весло",
+		INSTRUMENTAL = "веслом",
+		PREPOSITIONAL = "весле"
+	)
+	attack_verb = list("ударил", "огрел", "вмазал", "стукнул", "шлёпнул", "врезал")
 	force = 12
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF

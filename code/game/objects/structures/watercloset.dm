@@ -704,6 +704,15 @@
 
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
+	desc = "Неглубокий водоём с мутноватой водой. Идеален для мытья рук, полива грядок и философских размышлений о том, кто в нём купался до вас."
+	ru_names = list(
+		NOMINATIVE = "пруд",
+		GENITIVE = "пруда",
+		DATIVE = "пруду",
+		ACCUSATIVE = "пруд",
+		INSTRUMENTAL = "прудом",
+		PREPOSITIONAL = "пруде"
+	)
 	icon_state = "puddle"
 	can_move = 0
 	can_rotate = 0
@@ -729,8 +738,8 @@
 
 	if(istype(I, /obj/item/shovel))
 		user.visible_message(
-			span_notice("[user] starts to remove [src] with [I]."),
-			span_notice("You start to remove [src]..."),
+			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] закапывать [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("Вы начинаете закапывать [declent_ru(ACCUSATIVE)]..."),
 		)
 		I.play_tool_sound(src, 100)
 		flick("puddle-splash", src)
@@ -738,8 +747,8 @@
 			return ATTACK_CHAIN_PROCEED
 		I.play_tool_sound(src, 100)
 		user.visible_message(
-			span_notice("[user] removed [src] with [I]."),
-			span_notice("You removed [src]."),
+			span_notice("[user] закопал[genderize_ru(user.gender,"","а","о","и")] [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("Вы закопали [declent_ru(ACCUSATIVE)]."),
 		)
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL

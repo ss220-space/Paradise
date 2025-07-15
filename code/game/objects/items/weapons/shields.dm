@@ -84,7 +84,15 @@
 
 /obj/item/shield/riot/goliath
 	name = "goliath shield"
-	desc = "A shield made from interwoven plates of goliath hide."
+	desc = "Щит, сплетённый из пластин шкуры голиафа."
+	ru_names = list(
+		NOMINATIVE = "щит из пластин голиафа",
+		GENITIVE = "щита из пластин голиафа",
+		DATIVE = "щиту из пластин голиафа",
+		ACCUSATIVE = "щит из пластин голиафа",
+		INSTRUMENTAL = "щитом из пластин голиафа",
+		PREPOSITIONAL = "щите из пластин голиафа"
+	)
 	icon_state = "goliath_shield"
 	item_state = "goliath_shield"
 	materials = list()
