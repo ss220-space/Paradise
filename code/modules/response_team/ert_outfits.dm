@@ -267,7 +267,7 @@
 	gloves = /obj/item/clothing/gloves/combat/swat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
-	glasses = /obj/item/clothing/glasses/meson/night
+	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	r_pocket = /obj/item/melee/baton/telescopic
 
@@ -292,7 +292,7 @@
 	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
-	glasses = /obj/item/clothing/glasses/meson/night
+	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	l_pocket = /obj/item/t_scanner/extended_range
 	r_pocket = /obj/item/melee/baton/telescopic
@@ -328,7 +328,7 @@
 	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/engineer
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
-	glasses = /obj/item/clothing/glasses/meson/night
+	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/t_scanner/extended_range
 	r_pocket = /obj/item/melee/baton/telescopic

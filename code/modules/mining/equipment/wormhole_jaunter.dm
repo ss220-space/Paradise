@@ -19,8 +19,6 @@
 	throw_range = 5
 	origin_tech = "bluespace=2"
 	slot_flags = ITEM_SLOT_BELT
-	var/emagged = FALSE
-
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
 	user.visible_message(span_notice("[user.name] активиру[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"))
@@ -103,8 +101,6 @@
 		PREPOSITIONAL = "стабильной червоточине"
 	)
 	failchance = 0
-	var/emagged = FALSE
-
 
 /obj/effect/portal/jaunt_tunnel/update_overlays()
 	. = list()	// we need no mask here

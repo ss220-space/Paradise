@@ -35,29 +35,20 @@
 	deactivation_message = list("Вы больше не чувствуете себя ужасно больным.")
 	instability = -GENE_INSTABILITY_MAJOR
 
-
 /datum/dna/gene/disability/radioactive/New()
 	..()
 	block = GLOB.radblock
-
 
 /datum/dna/gene/disability/radioactive/can_activate(mob/living/mutant, flags)
 	if(HAS_TRAIT(mutant, TRAIT_RADIMMUNE) && !(flags & MUTCHK_FORCED))
 		return FALSE
 	return TRUE
 
-
 /datum/dna/gene/disability/radioactive/OnMobLife(mob/living/mutant)
-	var/radiation_amount = abs(min(mutant.radiation - 20, 0))
-	mutant.apply_effect(radiation_amount, IRRADIATE)
-	for(var/mob/living/victim in (view(1, get_turf(src)) - src))
-		to_chat(victim, span_danger("Вас окутывает мягкое зелёное свечение, исходящее от [mutant]."))
-		victim.apply_effect(5, IRRADIATE)
-
+	radiation_pulse(mutant, 20)
 
 /datum/dna/gene/disability/radioactive/OnDrawUnderlays(mob/M, g)
 	return "rads_s"
-
 
 ////////////////////////////////////////
 // Other disabilities

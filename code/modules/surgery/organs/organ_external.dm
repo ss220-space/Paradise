@@ -19,6 +19,7 @@
 	max_damage = 0
 	dir = SOUTH
 	blocks_emissive = FALSE
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 // On Para, external organs have a loc, ergo they need this.
 	/// External body part zone
 	var/limb_zone
 	/// Used to calculate protection from armor

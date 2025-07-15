@@ -10,6 +10,9 @@
 	var/list/fingerprints_time
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
+	///For handling persistent filters
+	//var/list/filter_data
+
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
@@ -69,6 +72,9 @@
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
+
+	/// Radiation insulation types
+	var/rad_insulation = RAD_NO_INSULATION
 
 	///Light systems, both shouldn't be active at the same time.
 	var/light_system = STATIC_LIGHT
@@ -366,6 +372,12 @@
 /atom/proc/HasProximity(atom/movable/AM)
 	return
 
+/**
+ * Proc which will make the atom act accordingly to an EMP.
+ * This proc can sleep depending on the implementation. So assume it sleeps!
+ *
+ * severity - The severity of the EMP. Either EMP_HEAVY, EMP_LIGHT, or EMP_WEAKENED
+ */
 /atom/proc/emp_act(severity)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
 
@@ -711,6 +723,13 @@
 /atom/proc/cmag_act(mob/user)
 	return
 
+/**
+ * Respond to a radioactive wave hitting this atom
+ *
+ * Default behaviour is to send [COMSIG_ATOM_RAD_ACT] and return
+ */
+/atom/proc/rad_act(amount)
+	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
 
 /**
  * Special treatment of [/datum/emote/living/carbon/human/fart].
@@ -1075,28 +1094,34 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		add_filter("blood_splatter", 1, params)
 
 
-/atom/proc/clean_blood()
+/atom/proc/clean_blood(radiation_clean = FALSE)
 	germ_level = 0
+	if(radiation_clean)
+		var/datum/component/radioactive/healthy_green_glow = GetComponent(/datum/component/radioactive)
+		if(!QDELETED(healthy_green_glow))
+			healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * 2)))
+			if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
+				qdel(healthy_green_glow)
 	if(islist(blood_DNA))
 		blood_DNA = null
 		return TRUE
 
-/obj/effect/decal/cleanable/blood/clean_blood()
+/obj/effect/decal/cleanable/blood/clean_blood(radiation_clean = FALSE)
 	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
 
 
-/obj/item/clean_blood()
+/obj/item/clean_blood(radiation_clean = FALSE)
 	. = ..()
 	if(.)
 		if(initial(icon) && initial(icon_state))
 			remove_filter("blood_splatter")
 
-/obj/item/clothing/gloves/clean_blood()
+/obj/item/clothing/gloves/clean_blood(radiation_clean = FALSE)
 	. = ..()
 	if(.)
 		transfer_blood = 0
 
-/obj/item/clothing/shoes/clean_blood()
+/obj/item/clothing/shoes/clean_blood(radiation_clean = FALSE)
 	..()
 	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 	blood_state = BLOOD_STATE_NOT_BLOODY
@@ -1104,39 +1129,39 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/mob/M = loc
 		M.update_inv_shoes()
 
-/mob/living/carbon/human/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+/mob/living/carbon/human/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
 		if(w_uniform.clean_blood())
 			update_inv_w_uniform()
 	if(gloves && !(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
-		if(gloves.clean_blood())
+		if(gloves.clean_blood(radiation_clean = FALSE, ))
 			update_inv_gloves()
 			gloves.germ_level = 0
 			clean_hands = FALSE
 	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
-		if(shoes.clean_blood())
+		if(shoes.clean_blood(radiation_clean = FALSE, ))
 			update_inv_shoes()
 			clean_feet = FALSE
 	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
-		if(s_store.clean_blood())
+		if(s_store.clean_blood(radiation_clean = FALSE, ))
 			update_inv_s_store()
 	if(lip_style && !(head && head.flags_inv & HIDEMASK))
 		lip_style = null
 		update_body()
 	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEGLASSES))
-		if(glasses.clean_blood())
+		if(glasses.clean_blood(radiation_clean = FALSE, ))
 			update_inv_glasses()
 	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
-		if(l_ear.clean_blood())
+		if(l_ear.clean_blood(radiation_clean = FALSE, ))
 			update_inv_ears()
 	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
-		if(r_ear.clean_blood())
+		if(r_ear.clean_blood(radiation_clean = FALSE, ))
 			update_inv_ears()
 	if(belt)
-		if(belt.clean_blood())
+		if(belt.clean_blood(radiation_clean = FALSE, ))
 			update_inv_belt()
 	if(neck)
-		if(neck.clean_blood())
+		if(neck.clean_blood(radiation_clean = FALSE, ))
 			update_inv_neck()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob

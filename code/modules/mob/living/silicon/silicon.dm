@@ -4,6 +4,7 @@
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = TRUE
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	var/syndicate = 0
 	var/obj/item/gps/cyborg/gps
 	var/const/MAIN_CHANNEL = "Main Frequency"
@@ -229,6 +230,8 @@
 
 	return 2
 
+/mob/living/silicon/apply_effect(effect = 0, effecttype = STUN, blocked = 0)
+	return FALSE //The only effect that can hit them atm is flashes and they still directly edit so this works for now
 
 /proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))

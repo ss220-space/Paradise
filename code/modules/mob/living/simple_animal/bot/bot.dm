@@ -43,7 +43,7 @@
 
 	var/disabling_timer_id = null
 	var/list/player_access = list()
-	var/emagged = 0
+	var/emagged = FALSE
 	/// The ID card that the bot "holds".
 	var/obj/item/card/id/access_card
 	/// All access ID holder

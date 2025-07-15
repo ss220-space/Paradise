@@ -125,6 +125,7 @@
 		/obj/item/stack/cable_coil,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
+		/obj/item/geiger_counter,
 		/obj/item/extinguisher/mini,
 		/obj/item/holosign_creator,
 		/obj/item/radio,
@@ -192,6 +193,7 @@
 	item_state = "medical"
 	use_item_overlays = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
+	use_to_pickup = TRUE // Allow medical belt to pick up medicine
 	can_hold = list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
@@ -215,8 +217,8 @@
 		/obj/item/wrench/medical,
 		/obj/item/handheld_defibrillator,
 		/obj/item/reagent_containers/applicator,
+		/obj/item/geiger_counter,
 		/obj/item/radio)
-	use_to_pickup = 1 //Allow medical belt to pick up medicine
 
 /obj/item/storage/belt/medical/surgery
 	name = "surgical belt"

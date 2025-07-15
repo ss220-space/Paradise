@@ -488,6 +488,7 @@
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
 	. = list(msg)
+	
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 

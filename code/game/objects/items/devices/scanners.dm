@@ -1,16 +1,14 @@
-/*
-CONTAINS:
-T-RAY
-HEALTH ANALYZER
-GAS ANALYZER
-REAGENT SCANNER
-SLIME SCANNER
-BODY SCANNERS
-*/
+/**
+ ** CONTAINS:
+ *		T-RAY
+ *		HEALTH ANALYZER
+ *		GAS ANALYZER
+ *		REAGENT SCANNER
+ *		SLIME SCANNER
+ *		BODY SCANNERS
+ */
 
-////////////////////////////////////////
-// MARK:	T-ray scanners
-////////////////////////////////////////
+// MARK: T-ray scanners
 /obj/item/t_scanner
 	name = "T-ray scanner"
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
@@ -22,7 +20,7 @@ BODY SCANNERS
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
-	materials = list(MAT_METAL=150)
+	materials = list(MAT_METAL = 150)
 	origin_tech = "magnets=1;engineering=1"
 	var/scan_range = 1
 	var/pulse_duration = 1 SECONDS
@@ -35,7 +33,7 @@ BODY SCANNERS
 	base_icon_state = "t-ray-range"
 	scan_range = 3
 	origin_tech = "magnets=2;engineering=3"
-	materials = list(MAT_METAL=300)
+	materials = list(MAT_METAL = 300)
 
 /obj/item/t_scanner/longer_pulse
 	name = "T-ray сканер с продолжительным импульсом"
@@ -45,7 +43,7 @@ BODY SCANNERS
 	base_icon_state = "t-ray-pulse"
 	pulse_duration = 5 SECONDS
 	origin_tech = "magnets=2;engineering=3"
-	materials = list(MAT_METAL=300)
+	materials = list(MAT_METAL = 300)
 
 /obj/item/t_scanner/advanced
 	name = "Продвинутый T-ray сканер"
@@ -56,7 +54,7 @@ BODY SCANNERS
 	scan_range = 3
 	pulse_duration = 5 SECONDS
 	origin_tech = "magnets=3;engineering=3"
-	materials = list(MAT_METAL=300)
+	materials = list(MAT_METAL = 300)
 
 /obj/item/t_scanner/science
 	name = "Научный T-ray сканер"
@@ -67,7 +65,7 @@ BODY SCANNERS
 	scan_range = 5
 	pulse_duration = 10 SECONDS
 	origin_tech = "magnets=4;engineering=5"
-	materials = list(MAT_METAL=500)
+	materials = list(MAT_METAL = 500)
 
 /obj/item/t_scanner/experimental	//a high-risk that cannot be disassembled, since this garbage was invented by, well, you know who.
 	name = "Экспериментальный T-ray сканер"

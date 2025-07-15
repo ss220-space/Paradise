@@ -557,12 +557,7 @@
 	special_name_chance = 60
 
 /datum/species/golem/uranium/handle_life(mob/living/carbon/human/user)
-	for(var/mob/living/victim in range(2, user))
-		if(HAS_TRAIT(victim, TRAIT_RADIMMUNE))
-			continue
-		victim.apply_effect(10, IRRADIATE)
-		if(prob(25)) //reduce spam
-			to_chat(victim, span_danger("Вас окутывает мягкое зелёное свечение, исходящее от [user]."))
+	radiation_pulse(user, 20)
 	..()
 
 //Ventcrawler

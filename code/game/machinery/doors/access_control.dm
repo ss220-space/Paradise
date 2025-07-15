@@ -20,11 +20,8 @@
 	var/static/list/door_accesses_list = list()
 	var/list/current_door_accesses_list = list()
 
-
 	/// Which direction has unrestricted access to the airlock (e.g. medbay doors from the inside)
 	var/unres_access_from = null
-
-	var/emagged
 
 	var/region_min = REGION_GENERAL
 	var/region_max = REGION_COMMAND

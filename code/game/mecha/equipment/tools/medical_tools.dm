@@ -261,7 +261,6 @@
 	var/synth_speed = 5 //[num] reagent units per cycle
 	energy_drain = 10
 	var/analyze_mode = FALSE //Toggler for alternative "analyze reagents" mode.
-	var/emagged = FALSE
 	range = MECHA_MELEE | MECHA_RANGED
 	equip_cooldown = 1 SECONDS
 	origin_tech = "materials=3;biotech=4;magnets=4"

@@ -13,6 +13,8 @@
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall-0"
 	base_icon_state = "wall"
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
 
 	var/mineral = /obj/item/stack/sheet/metal
 	var/mineral_amount = 2
@@ -265,14 +267,19 @@
 	canSmoothWith = SMOOTH_GROUP_URANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_URANIUM_WALLS
 
-/obj/structure/falsewall/uranium/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_interaction = 12, \
-				rad_interaction_radius = 3, \
-				rad_interaction_cooldown = 1.5 SECONDS \
-	)
+/obj/structure/falsewall/uranium/attack_hand(mob/user as mob)
+	radiate()
+	..()
 
+/obj/structure/falsewall/uranium/proc/radiate()
+	if(!active)
+		if(world.time > last_event + 1.5 SECONDS)
+			active = TRUE
+			radiation_pulse(src, 150)
+			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
+				T.radiate()
+			last_event = world.time
+			active = FALSE
 
 /*
  * Other misc falsewall types

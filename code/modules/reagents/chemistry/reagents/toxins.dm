@@ -236,7 +236,7 @@
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
 	if(M.radiation < 80)
-		M.apply_effect(4, IRRADIATE, negate_armor = 1)
+		M.apply_effect(4, IRRADIATE)
 	return ..()
 
 /datum/reagent/radium/reaction_turf(turf/T, volume)
@@ -265,7 +265,7 @@
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
 	if(!M.dna)
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	M.apply_effect(1, IRRADIATE, negate_armor = 1)
+	M.apply_effect(1, IRRADIATE)
 	if(prob(4))
 		randmutb(M)
 		M.check_genes()
@@ -323,7 +323,7 @@
 	taste_description = "атомной энергии"
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
-	M.apply_effect(2, IRRADIATE, negate_armor = 1)
+	M.apply_effect(2, IRRADIATE)
 	return ..()
 
 /datum/reagent/uranium/reaction_turf(turf/T, volume)
@@ -632,7 +632,7 @@
 	taste_mult = 0
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
-	M.apply_effect(8, IRRADIATE, negate_armor = 1)
+	M.apply_effect(8, IRRADIATE)
 	return ..()
 
 /datum/reagent/histamine
@@ -1338,7 +1338,7 @@
 		M.check_genes()
 
 /datum/reagent/glowing_slurry/on_mob_life(mob/living/M)
-	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
+	M.apply_effect(2, IRRADIATE)
 	if(!M.dna)
 		return
 	var/did_mutation = FALSE

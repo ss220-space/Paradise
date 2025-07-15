@@ -13,6 +13,7 @@
 	layer = DISPOSAL_PIPE_LAYER // slightly lower than wires and other pipes
 	level = 1	// underfloor only
 	damage_deflection = 10
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	set_dir_on_move = FALSE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
 	/// Hardness points, used in explosion interactions

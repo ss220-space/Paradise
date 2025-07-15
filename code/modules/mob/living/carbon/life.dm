@@ -219,25 +219,9 @@
 
 
 /mob/living/carbon/handle_mutations_and_radiation()
-	if(radiation)
-
-		switch(radiation)
-			if(0 to 50)
-				radiation--
-				if(prob(25))
-					apply_damage(1, TOX, spread_damage = TRUE)
-
-			if(50 to 75)
-				radiation -= 2
-				apply_damage(1, TOX, spread_damage = TRUE)
-				if(prob(5))
-					radiation -= 5
-
-			if(75 to 100)
-				radiation -= 3
-				apply_damage(3, TOX, spread_damage = TRUE)
-
-		radiation = clamp(radiation, 0, 100)
+	radiation -= min(radiation, RAD_LOSS_PER_TICK)
+	if(radiation > RAD_MOB_SAFE)
+		adjustToxLoss(log(radiation - RAD_MOB_SAFE) * RAD_TOX_COEFFICIENT)
 
 
 /mob/living/carbon/handle_chemicals_in_body()

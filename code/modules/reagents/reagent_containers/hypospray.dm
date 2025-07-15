@@ -24,7 +24,6 @@
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = FALSE
-	var/emagged = FALSE
 	var/safety_hypo = FALSE
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

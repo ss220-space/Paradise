@@ -19,7 +19,6 @@
 	var/change_delay = 100
 	var/duty_mode = FALSE
 	var/during_paid = FALSE
-	var/emagged = FALSE
 
 /obj/item/eftpos/sec
 	name = "Security EFTPOS"

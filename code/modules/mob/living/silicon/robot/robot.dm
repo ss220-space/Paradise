@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	maxHealth = 100
 	health = 100
 	bubble_icon = "robot"
-	universal_understand = 1
+	universal_understand = TRUE
 	deathgasp_on_death = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	light_system = MOVABLE_LIGHT
@@ -54,17 +54,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/datum/wires/robot/wires = null
 
+	/// Is the robot's maintenance panel open?
 	var/opened = FALSE
+	/// Has the robot been emagged?
 	var/emagged = FALSE
+	/// Can the robot be emagged?
 	var/is_emaggable = TRUE
+	/// Is the robot protected from the visual portion of flashbangs and flashes?
 	var/eye_protection = FLASH_PROTECTION_NONE
+	/// Is the robot protected from the audio component of flashbangs? Prevents inflicting confusion.
 	var/ear_protection = HEARING_PROTECTION_NONE
+	/// All incoming damage has this number subtracted from it.
 	var/damage_protection = 0
+	/// Is the robot immune to EMPs?
 	var/emp_protection = FALSE
 	var/has_transform_animation = FALSE
- 	/// Value incoming brute damage to borgs is mutiplied by.
+	/// Incoming brute damage is multiplied by this number.
 	var/brute_mod = 1
-	/// Value incoming burn damage to borgs is multiplied by.
+	/// Incoming burn damage is multiplied by this number.
 	var/burn_mod = 1
 
 	var/list/limited_modules = list() //A limited pickable modules goes into this list. If empty all modules will be available(default ones)

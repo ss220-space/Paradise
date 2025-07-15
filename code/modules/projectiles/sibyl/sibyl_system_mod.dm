@@ -13,7 +13,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	var/obj/item/card/id/auth_id = null
 	var/state = SIBSYS_STATE_UNINSTALLED
 	var/limit = SIBYL_NONLETHAL
-	var/emagged = FALSE
 
 	/// Flag for registering SSsecurity_level
 	var/registered = FALSE
@@ -210,7 +209,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/sibyl_system_mod/Destroy()
 	if(registered)
 		UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
-    
+
 	weapon = null
 	auth_id = null
 	return ..()

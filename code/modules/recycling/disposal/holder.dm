@@ -6,6 +6,7 @@
 /obj/structure/disposalholder
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	dir = NONE
 	/// Last pipe location, used in holder movement
 	var/obj/structure/disposalpipe/last_pipe

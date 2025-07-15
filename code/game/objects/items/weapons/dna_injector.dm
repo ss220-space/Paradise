@@ -122,7 +122,7 @@
 	else
 		to_chat(user, span_notice("You inject yourself with [src]."))
 
-	target.apply_effect(rand(20 / (damage_coeff  ** 2), 50 / (damage_coeff  ** 2)), IRRADIATE, 0, 1)
+	target.apply_effect(rand(20 / (damage_coeff ** 2), 50 / (damage_coeff ** 2)), IRRADIATE)
 
 	add_attack_logs(user, target, attack_log, ATKLOG_ALL)
 	used = TRUE

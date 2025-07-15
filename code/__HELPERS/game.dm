@@ -355,7 +355,7 @@
 			for(var/client/C in group)
 				C.screen -= O
 
-
+// remove_images_from_clients from OffParadise
 /// Adds an image to a client's `.images`. Useful as a callback.
 /proc/add_image_to_client(image/image_to_remove, client/add_to)
 	add_to?.images += image_to_remove

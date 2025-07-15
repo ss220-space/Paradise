@@ -7,6 +7,9 @@
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
 	var/force = 0
+	// You can define armor as a list in datum definition (e.g. `armor = list("fire" = 80, "brute" = 10)`),
+	// which would be converted to armor datum during initialization.
+	// Setting `armor` to a list on an *existing* object would inevitably runtime. Use `getArmor()` instead.
 	var/datum/armor/armor
 	var/obj_integrity	//defaults to max_integrity
 	var/max_integrity = 500
@@ -25,6 +28,8 @@
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
+	/// Is it emagged or not?
+	var/emagged = FALSE
 
 	var/multitool_menu_type = null // Typepath of a datum/multitool_menu subtype or null.
 	var/datum/multitool_menu/multitool_menu

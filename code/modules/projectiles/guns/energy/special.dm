@@ -68,7 +68,6 @@
 	ammo_x_offset = 1
 	can_charge = FALSE
 	selfcharge = TRUE
-	var/emagged = FALSE
 
 /obj/item/gun/energy/floragun/emag_act(mob/user)
 	. = ..()
@@ -479,7 +478,6 @@
 	var/powercost = ""
 	var/powercostcolor = ""
 
-	var/emagged = FALSE			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)

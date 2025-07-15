@@ -24,6 +24,10 @@
 /// Whether /atom/Initialize() has already run for the object
 #define INITIALIZED (1<<7)
 
+/// Should the contents of this atom be acted upon
+#define RAD_PROTECT_CONTENTS_2	(1<<0)
+/// Should this object be allowed to be contaminated
+#define RAD_NO_CONTAMINATE_2	(1<<1)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -37,6 +41,7 @@
 /// Update the atom's icon
 #define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
+// /atom ricochet flags
 /// If the thing can reflect light (lasers/energy)
 #define RICOCHET_SHINY (1<<0)
 /// If the thing can reflect matter (bullets/bomb shrapnel)

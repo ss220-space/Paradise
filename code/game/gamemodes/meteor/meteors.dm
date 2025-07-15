@@ -406,8 +406,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	. = ..()
 	explosion(loc, 0, 0, 4, 3, adminlog = FALSE, cause = src)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(40, IRRADIATE)
+	radiation_pulse(src, 500)
 
 
 //Station buster Tunguska

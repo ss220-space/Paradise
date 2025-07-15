@@ -514,12 +514,12 @@
 		user.physiology.punch_damage_high -= 5
 
 
-/datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+/datum/reagent/bath_salts/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
-		to_chat(M, span_danger("<font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>КАК ЖЕ ЭТО ОХУЕННО!!!</font>"))
-		M << 'sound/effects/singlebeat.ogg'
+		to_chat(M, span_danger("<font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4, 6)]'>КАК ЖЕ ЭТО ОХУЕННО!!!</font>"))
+		SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 		M.emote("faint")
-		M.apply_effect(volume, IRRADIATE, negate_armor = 1)
+		M.apply_effect(volume, IRRADIATE)
 		M.adjustToxLoss(volume)
 		M.adjustBrainLoss(volume * 2)
 	else

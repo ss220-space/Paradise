@@ -773,7 +773,7 @@
 	storage_slots=21
 	can_hold = list(/obj/item/light/tube, /obj/item/light/bulb)
 	max_combined_w_class = 21
-	use_to_pickup = 1 // for picking up broken bulbs, not that most people will try
+	use_to_pickup = TRUE // for picking up broken bulbs, not that most people will try
 
 /obj/item/storage/box/lights/bulbs/populate_contents()
 	for(var/I in 1 to 21)

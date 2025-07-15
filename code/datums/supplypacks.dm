@@ -316,7 +316,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/shoes/reflector,
 		/obj/item/clothing/head/helmet/reflector,
 	)
-	required_tech = list("combat" = 8, "materials" = 7) 
+	required_tech = list("combat" = 8, "materials" = 7)
 
 /datum/supply_packs/emergency/highrisk/capt_jet
 	name = "Deluxe Jetpack Crate"
@@ -940,7 +940,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/head/welding,
 					/obj/item/clothing/head/hardhat,
 					/obj/item/clothing/head/hardhat,
-					/obj/item/clothing/head/hardhat)
+					/obj/item/clothing/head/hardhat,
+					/obj/item/clothing/glasses/meson/engine,
+					/obj/item/clothing/glasses/meson/engine)
 	cost = 10
 	containername = "engineering gear crate"
 
@@ -1042,6 +1044,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "particle accelerator crate"
 	access = ACCESS_CE
 	required_tech = list("powerstorage" = 4, "magnets" = 4, "materials" = 3)
+
+/datum/supply_packs/engineering/radiation
+	name = "Radiation Protection Crate"
+	cost = 20
+	contains = list(/obj/item/clothing/head/radiation,
+					/obj/item/clothing/head/radiation,
+					/obj/item/clothing/suit/radiation,
+					/obj/item/clothing/suit/radiation,
+					/obj/item/geiger_counter,
+					/obj/item/geiger_counter)
+	containername = "radiation protection crate"
+	containertype = /obj/structure/closet/crate/radiation
 
 /datum/supply_packs/engineering/inflatable
 	name = "Inflatable Barriers Crate"

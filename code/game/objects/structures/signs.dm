@@ -9,7 +9,7 @@
 	var/does_emissive = FALSE
 	var/random_number = FALSE
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 
 /obj/structure/sign/Initialize(mapload)
 	. = ..()

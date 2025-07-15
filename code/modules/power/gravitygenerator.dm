@@ -427,6 +427,10 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			center_part.add_overlay(overlay_state)
 		current_overlay = overlay_state
 
+/obj/machinery/gravity_generator/main/proc/pulse_radiation()
+	radiation_pulse(src, 600, 2)
+	for(var/mob/living/L in view(7, src)) //Windows kinda make it a non threat, no matter how much I amp it up, so let us cheat a little
+		radiation_pulse(get_turf(L), 600, 2)
 
 // Shake everyone on the z level to let them know that gravity was enagaged/disenagaged.
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
@@ -435,7 +439,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/mob/shaked as anything in GLOB.mob_list)
 		var/turf/mob_turf = get_turf(shaked)
-    
+
 		if(!istype(mob_turf))
 			continue
 

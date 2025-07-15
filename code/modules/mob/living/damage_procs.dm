@@ -259,7 +259,7 @@
 /mob/living/proc/apply_effect(effect = 0, effecttype = STUN, blocked = 0, negate_armor = FALSE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
-	blocked = (100-blocked)/100
+	blocked = (100 - blocked) / 100
 	if(!effect || (blocked <= 0))
 		return FALSE
 	switch(effecttype)
@@ -271,11 +271,7 @@
 			Paralyse(effect * blocked)
 		if(IRRADIATE)
 			if(HAS_TRAIT(src, TRAIT_RADIMMUNE))
-				return FALSE
-			var/rad_damage = effect
-			if(!negate_armor) // Setting negate_armor overrides radiation armor checks, which are automatic otherwise
-				rad_damage = max(effect * ((100-run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm."))/100),0)
-			radiation += rad_damage
+				radiation += max(effect * blocked, 0)
 		if(SLUR)
 			Slur(effect * blocked)
 		if(STUTTER)

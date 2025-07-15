@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	can_hold = list(/obj/item/stock_parts)
 	storage_slots = 50
-	use_to_pickup = 1
+	use_to_pickup = TRUE
 	allow_quick_gather = 1
 	allow_quick_empty = 1
 	pickup_all_on_tile = TRUE

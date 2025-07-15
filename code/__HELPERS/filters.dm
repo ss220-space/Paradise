@@ -1,6 +1,6 @@
 #define ICON_NOT_SET "Not Set"
 
-//This is stored as a nested list instead of datums or whatever because it json encodes nicely for usage in tgui
+// This is stored as a nested list instead of datums or whatever because it json encodes nicely for usage in tgui
 GLOBAL_LIST_INIT(master_filter_info, list(
 	"alpha" = list(
 		"defaults" = list(
@@ -22,10 +22,7 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 			"size" = 1
 		)
 	),
-	// Not implemented, but if this isn't uncommented some windows will just error
-	// Needs either a proper matrix editor, or just a hook to our existing one
-	// Issue is filterrific assumes variables will have the same value type if they share the same name, which this violates
-	// Gotta refactor this sometime
+	// According to TG, this is not implimented. Anyway, let's use this!
 	"color" = list(
 		"defaults" = list(
 			"color" = matrix(),
@@ -139,8 +136,10 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 
 #undef ICON_NOT_SET
 
-//Helpers to generate lists for filter helpers
-//This is the only practical way of writing these that actually produces sane lists
+/*
+ * Helpers to generate lists for filter helpers
+ * This is the only practical way of writing these that actually produces sane lists
+ */
 /proc/alpha_mask_filter(x, y, icon/icon, render_source, flags)
 	. = list("type" = "alpha")
 	if(!isnull(x))

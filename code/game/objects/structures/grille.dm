@@ -7,7 +7,8 @@
 	density = TRUE
 	anchored = TRUE
 	flags = CONDUCT
-	pressure_resistance = 5*ONE_ATMOSPHERE
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	pressure_resistance = 5 * ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	level = 3
 	armor = list("melee" = 50, "bullet" = 70, "laser" = 70, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0)

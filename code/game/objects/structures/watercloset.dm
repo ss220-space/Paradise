@@ -311,13 +311,12 @@
 	density = FALSE
 	anchored = TRUE
 	use_power = NO_POWER_USE
-	///Is the shower on or off?
+	/// Is the shower on or off?
 	var/on = FALSE
-	///What temperature the shower reagents are set to.
+	/// What temperature the shower reagents are set to.
 	var/current_temperature = SHOWER_NORMAL
-	///What sound will be played on loop when the shower is on and pouring water.
+	/// What sound will be played on loop when the shower is on and pouring water.
 	var/datum/looping_sound/showering/soundloop
-
 
 /obj/machinery/shower/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
@@ -337,15 +336,12 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
 	var/obj/effect/mist/mist = locate() in loc
 	if(!QDELETED(mist))
 		QDEL_IN(mist, 25 SECONDS)
 	return ..()
-
-//add heat controls? when emagged, you can freeze to death in it?
 
 /obj/effect/mist
 	name = "mist"
@@ -355,12 +351,13 @@
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-
 /obj/machinery/shower/attack_hand(mob/user)
 	on = !on
 	update_icon()
 	handle_mist()
 	add_fingerprint(user)
+	user.visible_message("<span_class='notice'>[user] turns [src] [on ? "on" : "off"].</span>",
+					"<span_class='notice'>You turn [src] [on ? "on" : "off"].</span>")
 	if(on)
 		START_PROCESSING(SSmachines, src)
 		process()
@@ -371,7 +368,6 @@
 		if(istype(source_turf) && !source_turf.density)
 			source_turf.MakeSlippery(TURF_WET_WATER, min_wet_time = 5 SECONDS, wet_time_to_add = 1 SECONDS)
 
-
 /obj/machinery/shower/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/analyzer))
 		add_fingerprint(user)
@@ -379,8 +375,8 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/machinery/shower/wrench_act(mob/user, obj/item/I)
+	..()
 	to_chat(user, span_notice("You begin to adjust the temperature valve with [I]."))
 	if(I.use_tool(src, user, 5 SECONDS))
 		switch(current_temperature)
@@ -397,7 +393,6 @@
 		add_hiddenprint(user)
 	handle_mist()
 	return TRUE
-
 
 /obj/machinery/shower/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -420,12 +415,10 @@
 		transfer_prints_to(shower, TRUE)
 		qdel(src)
 
-
 /obj/machinery/shower/update_overlays()
 	. = ..()
 	if(on)
 		. += image(icon, icon_state = "water", layer = ABOVE_MOB_LAYER, dir = src.dir)
-
 
 /obj/machinery/shower/proc/handle_mist()
 	// If there is no mist, and the shower was turned on (on a non-freezing temp): make mist in 5 seconds
@@ -437,25 +430,20 @@
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
 		addtimer(CALLBACK(src, PROC_REF(clear_mist)), 25 SECONDS)
 
-
 /obj/machinery/shower/proc/make_mist()
 	var/obj/effect/mist/mist = locate() in loc
 	if(!mist && on && current_temperature != SHOWER_FREEZING)
 		new /obj/effect/mist(loc)
-
 
 /obj/machinery/shower/proc/clear_mist()
 	var/obj/effect/mist/mist = locate() in loc
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
 		qdel(mist)
 
-
 /obj/machinery/shower/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
-
 	if(on)
 		wash(arrived)
-
 
 /obj/machinery/shower/proc/convertHeat()
 	switch(current_temperature)
@@ -465,7 +453,6 @@
 			return 310.15
 		if(SHOWER_FREEZING)
 			return 230.15
-
 
 //Yes, showers are super powerful as far as washing goes.
 /obj/machinery/shower/proc/wash(atom/target)
@@ -480,19 +467,19 @@
 
 	if(isliving(target))
 		var/mob/living/l_target = target
+		check_heat(l_target)
 		l_target.ExtinguishMob()
 		l_target.adjust_fire_stacks(-20) //Douse ourselves with water to avoid fire more easily
 		to_chat(l_target, span_warning("Вы насквозь промокли!"))
 
-	target.clean_blood()
-
+	target.clean_blood(radiation_clean = TRUE)
 
 /obj/machinery/shower/process()
 	if(on)
 		if(isturf(loc))
 			var/turf/tile = loc
 			tile.water_act(100, convertHeat(), src)
-			tile.clean_blood()
+			tile.clean_blood(radiation_clean = TRUE)
 			for(var/obj/effect/effect in tile)
 				if(effect.is_cleanable())
 					qdel(effect)
@@ -503,7 +490,6 @@
 		soundloop.stop()
 		handle_mist()
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/shower/proc/check_heat(mob/M)
 	if(current_temperature == SHOWER_NORMAL)
@@ -523,7 +509,6 @@
 #undef SHOWER_FREEZING
 #undef SHOWER_NORMAL
 #undef SHOWER_BOILING
-
 
 /obj/item/bikehorn/rubberducky
 	name = "rubber ducky"

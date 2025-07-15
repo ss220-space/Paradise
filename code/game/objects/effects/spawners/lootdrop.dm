@@ -93,6 +93,7 @@
 				/obj/item/book/manual/engineering_construction = 10,
 				/obj/item/book/manual/engineering_hacking = 10,
 				/obj/item/clothing/head/cone = 10,
+				/obj/item/geiger_counter = 30,
 				/obj/item/coin/silver = 10,
 				/obj/item/coin/twoheaded = 10,
 				/obj/item/poster/random_contraband = 10,
@@ -379,7 +380,7 @@
 	/obj/item/grenade/clusterbuster/metalfoam = 50,
 	/obj/item/crowbar/power = 50,
 	/obj/item/screwdriver/power = 50,
-	/obj/item/t_scanner/advanced = 50,
+	/obj/item/t_scanner = 50,
 	/obj/item/borg/upgrade/abductor_engi = 50)
 
 /obj/effect/spawner/lootdrop/trade_sol/largeitem

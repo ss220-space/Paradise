@@ -6,9 +6,8 @@
  */
 
 /*
- * Fire protection
+ * MARK: Fire protection
  */
-
 /obj/item/clothing/suit/fire
 	name = "emergency firesuit"
 	desc = "A suit that protects against fire and heat."
@@ -80,7 +79,7 @@
 		)
 
 /*
- * Bomb protection
+ * MARK: Bomb protection
  */
 /obj/item/clothing/head/bomb_hood
 	name = "bomb hood"
@@ -164,7 +163,7 @@
 
 
 /*
- * Radiation protection
+ * MARK: Radiation protection
  */
 /obj/item/clothing/head/radiation
 	name = "Radiation Hood"
@@ -178,7 +177,7 @@
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = NONE
-
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
@@ -200,14 +199,14 @@
 	permeability_coefficient = 0.50
 	clothing_flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
-	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen, /obj/item/geiger_counter)
 	slowdown = 1.5
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 60, "rad" = 100, "fire" = 30, "acid" = 30)
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = NONE
-
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',

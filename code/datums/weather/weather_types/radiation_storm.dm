@@ -44,7 +44,7 @@
 		return
 
 	var/resist = target.getarmor(attack_flag = RAD)
-	target.apply_effect(20, IRRADIATE, resist)
+	target.rad_act(20)
 
 	if(!ishuman(target) || !prob(max(0, 100 - resist)))
 		return

@@ -16,7 +16,6 @@
 	var/region_access = list()
 	var/additional_access = list()
 	var/obj/item/card/id/ID
-	var/emagged = FALSE
 	var/z_cross = TRUE //Allows using remoters cross-sectory
 
 /obj/item/door_remote/New()

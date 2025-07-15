@@ -141,7 +141,7 @@ effective or pretty fucking useless.
 		return
 	if(intensity >= 5)
 		target.Paralyse((intensity * 40 / 3) SECONDS)
-		target.apply_effect(intensity * 10, IRRADIATE)
+		target.rad_act(intensity * 10)
 
 
 /obj/item/rad_laser/attack_self(mob/user)

@@ -2,7 +2,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-    //alt_desc =
 	icon_state = "hardsuit0-engineering"
 	base_icon_state = "hardsuit"
 	item_state = "eng_helm"
@@ -15,6 +14,11 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+
+	var/current_tick_amount = 0
+	var/radiation_count = 0
+	var/grace = RAD_GEIGER_GRACE_PERIOD
+	var/datum/looping_sound/geiger/soundloop
 
 	//Species-specific stuff.
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -33,10 +37,18 @@
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload, obj/item/clothing/suit/space/hardsuit/parent)
+
 	. = ..()
+	soundloop = new(list(), FALSE, TRUE)
+	soundloop.volume = 5
+	START_PROCESSING(SSobj, src)
 	if(!istype(parent))
 		stack_trace("Investigate hardsuit helmet ([type]). Initialized without proper suit.")
 
+/obj/item/clothing/head/helmet/space/hardsuit/Destroy()
+	soundloop.stop()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/update_icon_state()
 	icon_state = "[base_icon_state][light_on]-[item_color]"
@@ -62,6 +74,26 @@
 	if(msg && ishuman(wearer))
 		wearer.show_message(span_robot("<b>[msg]</b>"), 1)
 
+/obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
+	. = ..()
+	if(amount <= RAD_BACKGROUND_RADIATION)
+		return
+	current_tick_amount += amount
+
+/obj/item/clothing/head/helmet/space/hardsuit/process()
+	radiation_count -= radiation_count / RAD_GEIGER_MEASURE_SMOOTHING
+	radiation_count += current_tick_amount / RAD_GEIGER_MEASURE_SMOOTHING
+
+	if(current_tick_amount)
+		grace = RAD_GEIGER_GRACE_PERIOD
+
+	grace--
+	if(grace <= 0)
+		radiation_count = 0
+
+	current_tick_amount = 0
+
+	soundloop.last_radiation = radiation_count
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	..()
@@ -236,6 +268,7 @@
 			return FALSE
 	if(!wearer.equip_to_slot_if_possible(helmet, ITEM_SLOT_HEAD, initial = TRUE))
 		return FALSE
+	helmet.soundloop.start(wearer)
 	. = TRUE
 	suit_adjusted = TRUE
 	playsound(wearer, 'sound/items/rig_deploy.ogg', 110, TRUE)
@@ -247,6 +280,8 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/proc/RemoveHelmet()
+	if(helmet && istype(helmet.loc, /mob))
+		helmet.soundloop.stop(helmet.loc)
 	unequip_helmet()
 	if(!suit_adjusted)
 		return FALSE

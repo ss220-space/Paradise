@@ -10,7 +10,7 @@
  */
 
 /*
- * Emergency Closet
+ * MARK: Emergency Closet
  */
 /obj/structure/closet/emcloset
 	name = "emergency closet"
@@ -59,7 +59,7 @@
 	new /obj/item/clothing/mask/gas(src)
 
 /*
- * Fire Closet
+ * MARK: Fire Closet
  */
 /obj/structure/closet/firecloset
 	name = "fire-safety closet"
@@ -83,7 +83,7 @@
 
 
 /*
- * Tool Closet
+ * MARK: Tool Closet
  */
 /obj/structure/closet/toolcloset
 	name = "tool closet"
@@ -124,7 +124,7 @@
 
 
 /*
- * Radiation Closet
+ * MARK: Radiation Closet
  */
 /obj/structure/closet/radiation
 	name = "radiation suit closet"
@@ -133,11 +133,12 @@
 	custom_door_overlay = "radsuit"
 
 /obj/structure/closet/radiation/populate_contents()
+	new /obj/item/geiger_counter(src)
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
 
 /*
- * Bombsuit closet
+ * MARK: Bombsuit closet
  */
 /obj/structure/closet/bombcloset
 	name = "\improper EOD closet"
@@ -163,7 +164,7 @@
 	new /obj/item/clothing/head/bomb_hood/security( src )
 
 /*
- * Hydrant
+ * MARK: Hydrant
  */
 /obj/structure/closet/hydrant //wall mounted fire closet
 	name = "fire-safety closet"
@@ -182,7 +183,7 @@
 	new /obj/item/clothing/head/hardhat/red(src)
 
 /*
- * First Aid
+ * MARK: First Aid
  */
 /obj/structure/closet/medical_wall //wall mounted medical closet
 	name = "first-aid closet"

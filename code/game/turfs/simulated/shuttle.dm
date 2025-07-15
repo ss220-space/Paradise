@@ -11,6 +11,8 @@
 	canSmoothWith = SMOOTH_GROUP_SHUTTLE_PARTS + SMOOTH_GROUP_AIRLOCK + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_FILLER + SMOOTH_GROUP_TITANIUM_WALLS + SMOOTH_GROUP_PLASTITANIUM_WALLS + SMOOTH_GROUP_TRANSPARENT_FLOOR
 	thermal_conductivity = 0.05
 	heat_capacity = 0
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
 
 /turf/simulated/wall/shuttle/dismantle_wall(devastated = 0, explode = 0)
 	return

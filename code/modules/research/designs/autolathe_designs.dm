@@ -946,6 +946,14 @@
 	build_path = /obj/item/toy/crayon/spraycan
 	category = list("initial", "Tools")
 
+/datum/design/geiger
+	name = "Geiger Counter"
+	id = "geigercounter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 210, MAT_GLASS = 150)
+	build_path = /obj/item/geiger_counter
+	category = list("initial", "Tools")
+
 /datum/design/Spray
 	name = "Spray"
 	id = "Spray"

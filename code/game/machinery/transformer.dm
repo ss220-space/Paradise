@@ -235,7 +235,7 @@
 	flick("separator-AO0", src)
 	playsound(loc, 'sound/effects/alert.ogg', 50, FALSE)
 	sleep(0.5 SECONDS)
-	victim.apply_effect((rand(150,200)), IRRADIATE, 0)
+	victim.rad_act(rand(150, 200))
 	if(prob(5))
 		if(prob(75))
 			randmutb(victim) // Applies bad mutation
@@ -247,7 +247,7 @@
 /obj/machinery/transformer/xray/proc/scan(obj/item/I)
 	if(scan_rec(I))
 		playsound(src, 'sound/effects/alert.ogg', 50, FALSE)
-		flick("separator-AO0",src)
+		flick("separator-AO0", src)
 	else
 		playsound(src, 'sound/machines/ping.ogg', 50, FALSE)
 		sleep(30)

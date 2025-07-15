@@ -45,8 +45,7 @@
 	if(prob(50))
 		empulse(src, 4, 10, TRUE, "[user] screwed with [name]")
 	else
-		for(var/mob/living/M in range(10, loc))
-			M.apply_effect(rand(5, 25), IRRADIATE)
+		radiation_pulse(get_turf(src), 500, 2)
 
 /obj/structure/fusionreactor/wrench_act(mob/user, obj/item/I)
 	. = TRUE

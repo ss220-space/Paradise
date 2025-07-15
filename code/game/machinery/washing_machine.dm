@@ -402,7 +402,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	dump_contents()
 
 
-/obj/machinery/washing_machine/clean_blood()
+/obj/machinery/washing_machine/clean_blood(radiation_clean = FALSE)
 	. = ..()
 	if(!(state & STATE_BLOODY))
 		return .

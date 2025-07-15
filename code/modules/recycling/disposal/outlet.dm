@@ -7,6 +7,7 @@
 	icon_state = "outlet"
 	density = TRUE
 	anchored = TRUE
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	/// This will be where the output objects are 'thrown' to.
 	var/turf/target
 	/// Direct ref to the trunk pipe underneath us
