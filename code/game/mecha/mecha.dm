@@ -1813,5 +1813,8 @@
 	phasing_action.button_icon_state = "mech_phasing_off"
 	phasing_action.UpdateButtonIcon()
 
+/obj/mecha/ratvar_act()
+
+	. = ..()
 
 #undef OCCUPANT_LOGGING

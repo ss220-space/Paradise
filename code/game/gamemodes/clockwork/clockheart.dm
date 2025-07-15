@@ -1,7 +1,7 @@
-var/global/curse_dial = TRUE
-var/global/curse_upper = TRUE
-var/global/curse_lower = TRUE
-var/global/obj/structure/clockwork/functional/heart/Heart = null
+GLOBAL_VAR_INIT(curse_dial, TRUE)
+GLOBAL_VAR_INIT(curse_upper, TRUE)
+GLOBAL_VAR_INIT(curse_lower, TRUE)
+GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart
 	name = "The heart of Ratvar"
@@ -18,22 +18,23 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 	icon_state = "heart"
 	pixel_x = -32
 	pixel_y = -32
-	plane = WALL_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
 	var/list/obj/structure/fillers = list()
 	var/pulse_range = 3
 	mouse_drag_pointer = MOUSE_DROP_POINTER
 	var/cur_enchant = null
 	var/list/enchants
+	var/list/blessings = list(/obj/item/gun/energy/clockwork, /obj/item/gun/energy/clockwork/sniper)
 
 /obj/structure/clockwork/functional/heart/Initialize(mapload)
+	if(!GLOB.Heart)
+		GLOB.Heart = src
 	enchants = GLOB.heart_pulses
-	if(isnull(Heart))
-		Heart = src
 	alpha = 0
 	new /obj/effect/temp_visual/ratvar/reconstruct/heart(loc)
 	update_icon(UPDATE_OVERLAYS)
 	alpha = 255
-	bound_width = world.icon_size
+	throw_everything_back()
 	var/list/occupied = list()
 	for(var/direct in list(NORTHWEST,NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,SOUTHWEST,WEST))
 		occupied += get_step(src,direct)
@@ -42,30 +43,31 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 		var/obj/structure/heart_filler/F = new(T)
 		F.parent = src
 		fillers += F
-	addtimer(CALLBACK(src, PROC_REF(heart_pulse)), 30 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	. = ..()
 
 /obj/structure/clockwork/functional/heart/update_overlays()
 	.=..()
-	if(curse_dial)
+	if(GLOB.curse_dial)
 		. += "[icon_state]_dialcurse"
 	else
 		. -= "[icon_state]_dialcurse"
-	if(curse_upper)
+	if(GLOB.curse_upper)
 		. += "[icon_state]_curse_upper"
 	else
 		. -= "[icon_state]_curse_upper"
 
-	if(curse_lower)
+	if(GLOB.curse_lower)
 		. += "[icon_state]_curse_lower"
 	else
 		. -= "[icon_state]_curse_lower"
 	if(cur_enchant)
 		.+= "heart_overlay_[cur_enchant]"
+	else
+		if("heart_overlay_[cur_enchant]" in overlays && !cur_enchant)
+			remove_persistent_overlay("heart_overlay_[cur_enchant]")
 
 /obj/structure/clockwork/functional/heart/proc/heart_pulse()
-	update_icon(UPDATE_OVERLAYS)
-	if(!curse_dial)
+	if(!GLOB.curse_dial)
 		switch(cur_enchant)
 			if(EMP_HEART_PULSE)
 				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/emp(loc, pulse_range)
@@ -75,6 +77,10 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/stun(loc, pulse_range)
 			else
 				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse(loc, pulse_range)
+		new /obj/effect/warp_effect/bsg(loc)
+		cur_enchant = null
+		pulse_range += 2
+	update_icon(UPDATE_OVERLAYS)
 	return
 
 
@@ -89,97 +95,107 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 	if(!isclocker(user))
 		return
 	if(istype(dropping, /obj/structure/part1))
-		if(curse_dial)
+		if(GLOB.curse_dial)
 			if(do_after(user, 5 SECONDS, src))
-				curse_dial = FALSE
+				GLOB.curse_dial = FALSE
+				addtimer(CALLBACK(src, PROC_REF(heart_pulse)), 30 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 				qdel(dropping)
+				give_blessing(user)
 				update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/part2))
-		if(curse_upper)
+		if(GLOB.curse_upper)
 			if(do_after(user, 5 SECONDS, src))
-				curse_upper = FALSE
+				GLOB.curse_upper = FALSE
 				qdel(I)
 				update_icon(UPDATE_OVERLAYS)
+				give_blessing(user)
 				return
 	if(istype(I, /obj/item/part3))
-		if(curse_lower)
+		if(GLOB.curse_lower)
 			if(do_after(user, 5 SECONDS, src))
-				curse_lower = FALSE
+				GLOB.curse_lower = FALSE
 				qdel(I)
 				update_icon(UPDATE_OVERLAYS)
+				give_blessing(user)
 				return
-	. = ..()
-
-/obj/structure/clockwork/functional/heart/Destroy(force)
-	for(var/turf/tile in orange(1, src))
-		new /obj/effect/gibspawner/clock(tile)
-	playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
-	QDEL_LIST(fillers)
-	. = ..()
-
-/obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
-	if(!isclocker(user))
+	if(istype(I, /obj/item/clockwork/shard))
+		var/datum/game_mode/gamemode = SSticker.mode
+		if(GLOB.curse_dial || GLOB.curse_lower || GLOB.curse_lower)
+			to_chat(user, span_clocklarge("Сердце слишком слабо! Сначало снимите печати!"))
+			return
+		if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
+			to_chat(user, span_clocklarge("Еще слишком рано, Сын мой..."))
+			return
+		if(!adjust_clockwork_power(-250))
+			to_chat(user, span_clocklarge("Вам не хватает энергии!"))
+			return
+		visible_message(span_danger("[capitalize(src)] исчезает, и на его месте появляется Великий Ковчег!"))
+		var/area/A = get_area(src)
+		GLOB.command_announcement.Announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+		new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
+		qdel(src)
 		return
-	if(istype(dropping, /obj/structure/part1))
-		if(curse_dial)
-			if(do_after(user, 5 SECONDS, src))
-				curse_dial = FALSE
-				qdel(dropping)
-				update_icon(UPDATE_OVERLAYS)
-
-/obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/part2))
-		if(curse_upper)
-			if(do_after(user, 5 SECONDS, src))
-				curse_upper = FALSE
-				qdel(I)
-				update_icon(UPDATE_OVERLAYS)
-				return
-	if(istype(I, /obj/item/part3))
-		if(curse_lower)
-			if(do_after(user, 5 SECONDS, src))
-				curse_lower = FALSE
-				qdel(I)
-				update_icon(UPDATE_OVERLAYS)
-				return
 	. = ..()
 
-/obj/structure/clockwork/functional/heart/Destroy(force)
-	for(var/turf/tile in orange(1, src))
-		new /obj/effect/gibspawner/clock(tile)
-	playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
-	QDEL_LIST(fillers)
-	. = ..()
+/obj/structure/clockwork/functional/heart/proc/throw_everything_back()
+	//just like in survival_pod.dm
+	var/width = 3
+	var/height = 3
+	var/base_x_throw_distance = ceil(width / 2)
+	var/base_y_throw_distance = ceil(height / 2)
+	for(var/mob/living/did_not_stand_back in range(loc, "[width]x[height]"))
+		var/dir_to_center = get_dir(src.loc, did_not_stand_back) || pick(GLOB.alldirs)
+		var/throw_dist = 0
+		var/x_component = abs(did_not_stand_back.x - src.loc.x)
+		var/y_component = abs(did_not_stand_back.y - src.loc.y)
+		if(ISDIAGONALDIR(dir_to_center))
+			throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
+			did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, throw_dist))
+		else if(dir_to_center & (NORTH|SOUTH))
+			throw_dist = base_y_throw_distance - y_component + 1
+			did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_y_throw_distance))
+		else if(dir_to_center & (EAST|WEST))
+			throw_dist = base_x_throw_distance - x_component + 1
+			did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_x_throw_distance))
+		did_not_stand_back.Knockdown(6 SECONDS)
+		did_not_stand_back.throw_at(
+			target = get_edge_target_turf(did_not_stand_back, dir_to_center),
+			range = throw_dist,
+			speed = 3,
+			force = MOVE_FORCE_VERY_STRONG,
+		)
+	for(var/obj/item/item_in_range in range(loc, "[width]x[height]"))
+		var/dir_to_center = get_dir(src.loc, item_in_range) || pick(GLOB.alldirs)
+		var/throw_dist = 0
+		var/x_component = abs(item_in_range.x - src.loc.x)
+		var/y_component = abs(item_in_range.y - src.loc.y)
+		if(ISDIAGONALDIR(dir_to_center))
+			throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
+			item_in_range.forceMove(get_ranged_target_turf(src.loc, dir_to_center, throw_dist))
+		else if(dir_to_center & (NORTH|SOUTH))
+			throw_dist = base_y_throw_distance - y_component + 1
+			item_in_range.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_y_throw_distance))
+		else if(dir_to_center & (EAST|WEST))
+			throw_dist = base_x_throw_distance - x_component + 1
+			item_in_range.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_x_throw_distance))
+		item_in_range.throw_at(
+			target = get_edge_target_turf(item_in_range, dir_to_center),
+			range = throw_dist,
+			speed = 3,
+			force = MOVE_FORCE_VERY_STRONG,
+		)
 
-/obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
-	if(!isclocker(user))
+/obj/structure/clockwork/functional/heart/proc/give_blessing(mob/living/user)
+	if(isnull(blessings))
 		return
-	if(istype(dropping, /obj/structure/part1))
-		if(curse_dial)
-			if(do_after(user, 5 SECONDS, src))
-				curse_dial = FALSE
-				qdel(dropping)
-				update_icon(UPDATE_OVERLAYS)
-
-/obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/part2))
-		if(curse_upper)
-			if(do_after(user, 5 SECONDS, src))
-				curse_upper = FALSE
-				qdel(I)
-				update_icon(UPDATE_OVERLAYS)
-				return
-	if(istype(I, /obj/item/part3))
-		if(curse_lower)
-			if(do_after(user, 5 SECONDS, src))
-				curse_lower = FALSE
-				qdel(I)
-				update_icon(UPDATE_OVERLAYS)
-				return
-	. = ..()
-
+	var/chosen_blessing = pick(blessings)
+	var/bless_to_give = new chosen_blessing(user.loc)
+	user.put_in_hands(bless_to_give)
+	LAZYREMOVE(blessings, chosen_blessing)
+	chosen_blessing = null
+	bless_to_give = null
 
 /obj/structure/heart_filler
 	name = "The heart of Ratvar"
@@ -200,6 +216,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 	icon_state =  "thisisfuckingstupid"
 	alpha = 1
 	mouse_drag_pointer = MOUSE_DROP_POINTER
+	plane = ABOVE_GAME_PLANE
 
 /obj/structure/heart_filler/Destroy()
 	parent = null
@@ -259,7 +276,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			to_chat(user, span_userdanger("Вы попытались потянуть циферблат, но ваша рука обратилась в пепел!"))
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(loc)
+			new /obj/effect/decal/cleanable/ash(user.loc)
 		else
 			to_chat(user, span_clockitalic("Вы пытаетесь схватить циферблат, но он слишком тяжелый!"))
 	return
@@ -293,7 +310,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(loc)
+			new /obj/effect/decal/cleanable/ash(user.loc)
 		else
 			to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
 	return
@@ -307,7 +324,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			to_chat(user, span_userdanger("Вы попытались поднять деталь, но ваша рука обратилась в пепел!"))
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(loc)
+			new /obj/effect/decal/cleanable/ash(user.loc)
 	return
 
 /obj/item/part3
@@ -339,7 +356,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(loc)
+			new /obj/effect/decal/cleanable/ash(user.loc)
 		else
 			to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
 	return
@@ -353,5 +370,5 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			to_chat(user, span_userdanger("Вы попытались поднять деталь, но ваша рука обратилась в пепел!"))
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(loc)
+			new /obj/effect/decal/cleanable/ash(user.loc)
 	return

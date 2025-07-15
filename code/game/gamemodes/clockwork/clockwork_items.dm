@@ -1604,6 +1604,7 @@
 	var/heal_marauders = FALSE
 	var/do_emp = FALSE
 	var/do_stun = FALSE
+	var/sound = 'sound/magic/clockwork/reconstruct.ogg'
 
 /obj/effect/temp_visual/ratvar/reconstruct/Initialize(mapload)
 	. = ..()
@@ -1611,8 +1612,8 @@
 	reconstruct()
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/reconstruct()
-	playsound(src, 'sound/magic/clockwork/reconstruct.ogg', 50, TRUE)
-	animate(src, transform = matrix() * 1, time = anim_time)
+	playsound(src, sound, 50, TRUE)
+	if(!isnull(icon_state)) animate(src, transform = matrix() * 1, time = anim_time)
 	sleep(sleep_time)
 	if(!Visual_Only)
 		for(var/atom/affected in range(radius, get_turf(src)))
@@ -1626,7 +1627,7 @@
 						living.emp_act(EMP_HEAVY)
 					if(do_stun)
 						if(isrobot(living))
-							living.ex_act(EMP_HEAVY)
+							living.emp_act(EMP_HEAVY)
 						else
 							living.Weaken(8 SECONDS)
 							living.Silence(10 SECONDS)
@@ -1644,7 +1645,7 @@
 			else
 				if(is_rat_act)
 					affected.ratvar_act()
-		animate(src, transform = matrix() * 0.1, time = anim_time)
+	animate(src, transform = matrix() * 0.1, time = anim_time)
 	icon_state = null
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart
@@ -1658,9 +1659,14 @@
 	heal = 30
 	Can_adv_heal = FALSE
 	radius = 3
+	sound = null
 
-/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/New(var/rad = 3)
-	radius = rad
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/reconstruct()
+	. = ..()
+	playsound(src, 'sound/magic/clockwork/heart_beat.ogg', 50, TRUE)
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/New()
+	radius = GLOB.Heart.pulse_range
 	. = ..()
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/heal
@@ -1668,11 +1674,14 @@
 	Can_adv_heal = TRUE
 	robo_affect_heal = FALSE
 	heal_marauders = TRUE
+	is_rat_act = FALSE
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/stun
 	do_stun = TRUE
 	heal = 0
+	is_rat_act = FALSE
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/emp
 	do_emp = TRUE
 	heal = 0
+	is_rat_act = FALSE
