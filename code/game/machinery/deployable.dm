@@ -112,6 +112,7 @@
 	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
+
 	if(!I.tool_use_check(user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
