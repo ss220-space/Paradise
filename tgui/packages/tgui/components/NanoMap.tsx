@@ -254,6 +254,52 @@ const NanoMapMarkerIcon = (props: NanoMapMarkerIconProps) => {
 
 NanoMap.MarkerIcon = NanoMapMarkerIcon;
 
+const NanoMapMarkerCircle = (
+  props: NanoMakerProps & { radius: number; color: string }
+) => {
+  const {
+    x,
+    y,
+    z,
+    z_current,
+    zoom = 1,
+    radius,
+    color,
+    tooltip,
+    tooltipPosition,
+  } = props;
+
+  if (z_current !== z) {
+    return null;
+  }
+
+  const pixelsPerTurfAtZoom = PIXELS_PER_TURF * zoom;
+  const rx = (x - 1) * pixelsPerTurfAtZoom;
+  const ry = (y - 1) * pixelsPerTurfAtZoom;
+  const diameter = radius * 2 * pixelsPerTurfAtZoom;
+
+  const circleStyle: CSSProperties = {
+    position: 'absolute',
+    bottom: `${ry}px`,
+    left: `${rx}px`,
+    width: `${diameter}px`,
+    height: `${diameter}px`,
+    borderRadius: '50%',
+    backgroundColor: color,
+    opacity: 0.5,
+    transform: 'translate(-50%, 50%)',
+    pointerEvents: 'none',
+  };
+
+  return (
+    <Tooltip content={tooltip} position={tooltipPosition}>
+      <div style={circleStyle} />
+    </Tooltip>
+  );
+};
+
+NanoMap.MarkerCircle = NanoMapMarkerCircle;
+
 type ZoomerProps = Partial<{
   zoom: number;
   onZoom: (e: Event, n: number) => void;

@@ -212,7 +212,7 @@
 	status_tab_data[++status_tab_data.len] = list("Evolution points", antag_datum.evo_points)
 
 
-/mob/living/simple_animal/borer/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/borer/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	var/list/message_pieces = parse_languages(message)
 
 	for(var/datum/multilingual_say_piece/S in message_pieces)

@@ -463,7 +463,7 @@
 			if(character.mind)
 				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
 					var/arrivalmessage = create_announce_message(character, rank, join_message, GLOB.global_announcer_base_text)
-					GLOB.global_announcer.autosay(arrivalmessage, "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay(arrivalmessage, "Arrivals Announcement Computer", follow_target_override = character)
 
 /mob/new_player/proc/create_announce_message(mob/living/carbon/human/arrived, rank, join_message, message)
 	if(arrived.mind.role_alt_title)
@@ -483,22 +483,22 @@
 			if(employmentCabinet.populated)
 				employmentCabinet.addFile(employee)
 
-/mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
+/mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 			ailist += A
-		if(ailist.len)
+		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "прибыл на станцию"]."
-					announcer.say(";[arrivalmessage]")
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "прибыл на станцию"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "прибыл на станцию"].", "Arrivals Announcement Computer", follow_target_override = character)
 
 /mob/new_player/proc/LateChoices()
 	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
