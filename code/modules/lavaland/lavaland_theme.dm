@@ -24,7 +24,7 @@
 	return
 
 /datum/lavaland_theme/lava
-	name = "lava"
+	name = "лава"
 	primary_turf_type = /turf/simulated/floor/lava/lava_land_surface
 	planet_icon_state = "planet"
 	lavaland_type = LAVALAND_TYPE_LAVA
@@ -34,7 +34,7 @@
 	lava_spawner.generate()
 
 /datum/lavaland_theme/plasma
-	name = "plasma"
+	name = "плазма"
 	primary_turf_type = /turf/simulated/floor/lava/lava_land_surface/plasma
 	planet_icon_state = "planet_plasma"
 	lavaland_type = LAVALAND_TYPE_PLASMA
@@ -45,7 +45,7 @@
 	spawner.generate(nodes = 2) // twice
 
 /datum/lavaland_theme/chasm
-	name = "chasm"
+	name = "пропасть"
 	primary_turf_type = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	planet_icon_state = "planet_canyon"
 	lavaland_type = LAVALAND_TYPE_CHASM

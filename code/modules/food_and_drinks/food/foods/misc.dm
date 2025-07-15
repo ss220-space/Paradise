@@ -72,6 +72,7 @@
 /obj/item/reagent_containers/food/snacks/aesirsalad
 	name = "aesir salad"
 	desc = "Probably too incredible for mortal men to fully enjoy."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "aesirsalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
@@ -83,6 +84,7 @@
 /obj/item/reagent_containers/food/snacks/herbsalad
 	name = "herb salad"
 	desc = "A tasty salad with apples on top."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "herbsalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#76B87F"
@@ -95,6 +97,7 @@
 	name = "valid salad"
 	desc = "It's just an herb salad with meatballs and fried potato slices. Nothing suspicious about it."
 	icon_state = "validsalad"
+	w_class = WEIGHT_CLASS_SMALL
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#76B87F"
 	bitesize = 3
@@ -105,6 +108,7 @@
 /obj/item/reagent_containers/food/snacks/oliviersalad
 	name = "olivier salad"
 	desc = "Don't touch this, its for the New Year!"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "oliviersalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#C2CFAB"
@@ -115,6 +119,7 @@
 /obj/item/reagent_containers/food/snacks/vegisalad
 	name = "vegetable salad"
 	desc = "A perfect combination of tomatoes and cucumbers."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "validsalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#C2CFAB"
@@ -126,6 +131,7 @@
 /obj/item/reagent_containers/food/snacks/weirdoliviersalad
 	name = "weird olivier salad"
 	desc = "What have you done to this salad, you monster?"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "oliviersalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#C2CFAB"
@@ -137,6 +143,7 @@
 /obj/item/reagent_containers/food/snacks/fruitcup
 	name = "Dina's fruit cup"
 	desc = "Single salad with edible plate"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "fruitcup"
 	filling_color = "#C2CFAB"
 	list_reagents = list("nutriment" = 3, "watermelonjuice" = 5, "orangejuice" = 5, "vitamin" = 4)
@@ -147,6 +154,7 @@
 /obj/item/reagent_containers/food/snacks/junglesalad
 	name = "Jungle salad"
 	desc = "From the depths of the jungle."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "junglesalad"
 	filling_color = "#C2CFAB"
 	list_reagents = list("nutriment" = 6, "watermelonjuice" = 3, "vitamin" = 4)
@@ -156,6 +164,7 @@
 /obj/item/reagent_containers/food/snacks/delightsalad
 	name = "Delight salad"
 	desc = "Truly citrus delight."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "delightsalad"
 	filling_color = "#C2CFAB"
 	trash = /obj/item/trash/snack_bowl
@@ -218,9 +227,10 @@
 //  Buckwheat       //
 //////////////////////
 
-/obj/item/reagent_containers/food/snacks/boiledbuckwheat
+/obj/item/reagent_containers/food/snacks/boiledbuckwheat 
 	name = "boiled buckwheat"
 	desc = "'Grechka', or boiled buckwheat. Motherland would be proud of you."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "boiledbuckwheat"
 	trash = /obj/item/trash/plate
 	filling_color = "#8E633C"
@@ -231,6 +241,7 @@
 /obj/item/reagent_containers/food/snacks/buckwheat_merchant
 	name = "merchant's buckwheat porridge"
 	desc = "Hot and steamy, soviet spies are involved. No doubt."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "buckwheat_merchant"
 	trash = /obj/item/trash/plate
 	filling_color = "#8E633C"

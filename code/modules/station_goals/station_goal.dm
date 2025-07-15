@@ -23,6 +23,9 @@
 		JOB_TITLE_CHIEF = 1500
 	)
 
+/datum/station_goal/proc/can_gain()
+	return TRUE
+
 /datum/station_goal/proc/send_report()
 	on_report()
 	var/directive = "Nanotrasen Directive [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]"

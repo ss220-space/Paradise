@@ -290,20 +290,6 @@
 	var/list/z_transitions = SSholomaps.holomap_z_transitions["[current_z_level]"]
 	if(length(z_transitions))
 		legend += z_transitions
-
-	if(length(GLOB.meteor_shielded_turfs))
-		var/icon/canvas = icon(HOLOMAP_ICON, "blank")
-		var/z_has_coverage = FALSE
-		for(var/turf/shielded_turf as anything in GLOB.meteor_shielded_turfs)
-			if(shielded_turf?.z != current_z_level)
-				continue
-			var/offset_x = HOLOMAP_CENTER_X + shielded_turf.x
-			var/offset_y = HOLOMAP_CENTER_Y + shielded_turf.y
-			var/color = ((offset_x ^ offset_y) % 2 == 0) ? HOLOMAP_AREACOLOR_SHIELD_1 : HOLOMAP_AREACOLOR_SHIELD_2
-			canvas.DrawBox(color, offset_x, offset_y)
-			z_has_coverage = TRUE
-		if(z_has_coverage)
-			legend["Метеор щиты"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "meteor_shield"), "markers" = list(image(canvas)))
 	return legend
 
 /obj/machinery/station_map/engineering

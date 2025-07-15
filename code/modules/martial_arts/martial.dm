@@ -200,8 +200,7 @@
 	if(!human.mind)
 		return FALSE
 
-	var/datum/component/muscles/muscles = human.physiology.GetComponent(/datum/component/muscles)
-	if(change_musculs && muscles?.can_become_stronger)
+	if(change_musculs && HASBIT(SEND_SIGNAL(human, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
 		ADD_TRAIT(human.physiology, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
 		human.update_body(TRUE)
 

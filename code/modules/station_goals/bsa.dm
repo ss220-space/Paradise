@@ -4,15 +4,21 @@
 // Requires high level stock parts
 
 /datum/station_goal/bluespace_cannon
-	name = "Bluespace Artillery"
+	name = "Блюспейс Артиллерия"
 
 /datum/station_goal/bluespace_cannon/get_report()
-	return {"<b>Bluespace Artillery position construction</b><br>
-	Our military presence is inadequate in your sector. We need you to construct a BSA-[rand(1,99)] Artillery position aboard your station.
-	<br><br>
-	Its base parts should be available for shipping by your cargo shuttle.
-	<br>
-	-Nanotrasen Naval Command"}
+	return {"<b>Смена цикла Лазиса</b><br>
+		Вам необходимо построить Блюспейс Артиллерию №[rand(1,99)]. \
+		После постройки необходимо выстрелить по огромному месторождению плазмы на Лазисе, отмеченному как \"[/obj/item/gps/internal/bfl_crack::gpstag]\"".
+		<br><br>
+		Основные части артиллерии должны быть доступны для заказа в отделе снабжения.
+		<br>
+		– Центральное Командование Nanotrasen"}
+
+
+/datum/station_goal/bluespace_cannon/can_gain()
+	return SSmapping.lavaland_theme.lavaland_type != LAVALAND_TYPE_PLASMA
+
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
@@ -23,9 +29,10 @@
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/bsa/full/B in SSmachines.get_by_type(/obj/machinery/bsa/full))
-		if(B && !B.stat && is_station_contact(B.z))
-			return TRUE
+
+	if(SSmapping.lavaland_theme.lavaland_type == LAVALAND_TYPE_PLASMA)
+		return TRUE
+
 	return FALSE
 
 /obj/machinery/bsa
@@ -255,7 +262,7 @@
 	add_overlay(top_layer)
 	reload()
 
-/obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)
+/obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
 	var/turf/point = get_front_turf()
 	for(var/turf/T as anything in get_line(get_step(point,dir),get_target_turf()))
 		T.ex_act(1)
@@ -267,8 +274,7 @@
 
 	message_admins("[key_name_admin(user)] has launched an artillery strike into [ADMIN_COORDJMP(bullseye)].")
 	log_admin("[key_name_log(user)] has launched an artillery strike into [COORD(bullseye)].") // Line below handles logging the explosion to disk
-	explosion(bullseye,ex_power,ex_power*2+1,ex_power*4+2, cause = "Bluespace artillery strike") // 3 7 14 at ex_power = 3
-
+	impact_effect(bullseye, target)
 	reload()
 
 /obj/machinery/bsa/full/proc/reload()
@@ -431,6 +437,13 @@
 	else if(istype(target,/obj/item/gps))
 		return get_turf(target)
 
+/obj/machinery/bsa/full/proc/impact_effect(turf/bullseye, target)
+	explosion(bullseye, ex_power, ex_power * 2 + 1, ex_power * 4 + 2, cause = "Bluespace artillery strike") // 3 7 14 at ex_power = 3
+	if(!istype(target, /obj/item/gps/internal/bfl_crack))
+		return
+
+	set_lazis_type(/datum/lavaland_theme/plasma)
+
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
 	if(!cannon || !target)
 		return
@@ -438,7 +451,7 @@
 		notice = "Орудие не подключено к питанию!"
 		return
 	notice = null
-	cannon.fire(user, get_impact_turf())
+	cannon.fire(user, get_impact_turf(), target)
 
 /obj/machinery/computer/bsa_control/proc/deploy()
 	var/obj/machinery/bsa/full/prebuilt = locate() in range(7, src) //In case of adminspawn
