@@ -36,6 +36,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /// BSA fire mode
 /datum/bluespace_cannon_fire_mode
+	var/id
 	var/name
 	var/spread
 	var/power_use
@@ -72,6 +73,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 
 /datum/bluespace_cannon_fire_mode/power
+	id = "power shot"
 	name = "Мощный выстрел"
 	spread = BSA_SHOT_SPREAD
 	power_use = 2000000
@@ -79,6 +81,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	power = list(3, 7, 14)
 
 /datum/bluespace_cannon_fire_mode/burst/power
+	id = "power burst"
 	name = "Мощная очередь"
 	spread = BSA_BURST_SPREAD
 	power_use = 6000000
@@ -88,6 +91,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	shots_count = 3
 
 /datum/bluespace_cannon_fire_mode/pulse
+	id = "pulse shot"
 	name = "Слабый выстрел"
 	spread = BSA_SHOT_SPREAD
 	power_use = 200000
@@ -95,6 +99,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	power = list(0, 1, 5)
 
 /datum/bluespace_cannon_fire_mode/burst/pulse
+	id = "pulse burst"
 	name = "Слабая очередь"
 	spread = BSA_BURST_SPREAD
 	power_use = 1000000

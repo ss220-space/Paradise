@@ -208,12 +208,7 @@
 	)
 
 	//Init BSA fire modes list
-	GLOB.BSA_modes_list = list(
-		"power shot" = new /datum/bluespace_cannon_fire_mode/power(),
-		"power burst" = new /datum/bluespace_cannon_fire_mode/burst/power(),
-		"pulse shot" = new /datum/bluespace_cannon_fire_mode/pulse(),
-		"pulse burst" = new /datum/bluespace_cannon_fire_mode/burst/pulse()
-	)
+	init_datum_subtypes(/datum/bluespace_cannon_fire_mode, GLOB.BSA_modes_list, null, "id")
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.
