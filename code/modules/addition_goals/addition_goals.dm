@@ -5,6 +5,9 @@
 
 #define SHUTTLE_CENTCOM_DOCK "addition_goal_dock"
 #define SHUTTLE_STATION_DOCK "graveyard_church"
+#define ACCEPT_GOAL_SHUTTLE_SEND_DELAY 10
+#define GOAL_CHECK_DELAY 10
+
 
 ////////////////////////////////////////
 // MARK:	Sybsystem
@@ -21,6 +24,7 @@ SUBSYSTEM_DEF(addition_goals)
 	var/list/goal_types = list()
 	var/list/available_goals = list()
 	var/datum/addition_goal/current_goal = null
+	var/goals_id_counter = 1
 
 		//shuttle stuff
 	var/obj/docking_port/mobile/shuttle
@@ -44,6 +48,8 @@ SUBSYSTEM_DEF(addition_goals)
 	for(var/i = 0; i < AVAILABLE_GOALS_COUNT; i++)
 		var/goal_type = pick(goal_types)
 		var/datum/addition_goal/goal = new goal_type()
+		goal.id = "goal_[goals_id_counter]"
+		goals_id_counter += 1
 		goal.setup()
 		available_goals += goal
 
@@ -51,30 +57,63 @@ SUBSYSTEM_DEF(addition_goals)
 /datum/controller/subsystem/addition_goals/fire(resumed = FALSE)
 	//TODO need?
 
+/datum/controller/subsystem/addition_goals/proc/accept_goal_by_id(mob/user, goal_id)
+	. = FALSE
+	for(var/datum/addition_goal/goal as anything in available_goals)
+		if(goal.id == goal_id)
+			on_apply_goal(user, goal)
+			return TRUE
 
-/datum/controller/subsystem/addition_goals/proc/apply_goal(datum/addition_goal/goal)
+/datum/controller/subsystem/addition_goals/proc/on_apply_goal(mob/user, datum/addition_goal/goal)
 	current_goal = goal
 	available_goals -= goal
 	goal.spawn_shuttle_contain(get_shuttle_turfs())
-	send_shuttle_to_station()
+	addtimer(CALLBACK(src, PROC_REF(send_shuttle_to_station), user), ACCEPT_GOAL_SHUTTLE_SEND_DELAY SECONDS)
+
+/datum/controller/subsystem/addition_goals/proc/complete_current_goal(mob/user)
+	send_shuttle_to_centcom(user)
+	addtimer(CALLBACK(src, PROC_REF(on_complete_goal), user), GOAL_CHECK_DELAY SECONDS)
+
+/datum/controller/subsystem/addition_goals/proc/on_complete_goal(mob/user)
+	var/progress = current_goal.check_completion()
+	clear_shuttle_turfs()
 
 /datum/controller/subsystem/addition_goals/proc/get_shuttle_turfs()
 	. = list()
-	if(shuttle)
-		var/area/shuttle_area = shuttle.areaInstance
-		for(var/turf/T in shuttle_area.contained_turfs)
-			. += T
+	if(!shuttle)
 		return
-	. += locate(128, 128, 3)
-	. += locate(127, 128, 3)
-	. += locate(128, 127, 3)
-	. += locate(127, 127, 3)
+	var/turf/shuttle_anchor = shuttle.loc
+	for(var/x = 1; x <= 5; x++)
+		for(var/y=-5; y <= 1; y++)
+			var/turf/shuttle_turf = locate(shuttle_anchor.x + x, shuttle_anchor.y + y, shuttle_anchor.z)
+			. += shuttle_turf
 
-/datum/controller/subsystem/addition_goals/proc/send_shuttle_to_station()
-	//TODO implement
+/datum/controller/subsystem/addition_goals/proc/clear_shuttle_turfs()
+	if(!shuttle)
+		return
+	for(var/turf/turf in get_shuttle_turfs())
+		for(var/atom/movable/obstacle in turf.contents)
+			qdel(obstacle)
 
-/datum/controller/subsystem/addition_goals/proc/send_shuttle_to_centcom()
-	//TODO implement
+
+/datum/controller/subsystem/addition_goals/proc/send_shuttle_to_station(mob/user)
+	SSshuttle.moveShuttle(shuttle.id, SHUTTLE_STATION_DOCK, TRUE, user)
+
+/datum/controller/subsystem/addition_goals/proc/send_shuttle_to_centcom(mob/user)
+	SSshuttle.moveShuttle(shuttle.id, SHUTTLE_CENTCOM_DOCK, TRUE, user)
+
+/datum/controller/subsystem/addition_goals/proc/toggle_shuttle(mob/user)
+	. = FALSE
+	if(!shuttle)
+		return
+	var/dock_id = shuttle.getDockedId()
+	switch(dock_id)
+		if(SHUTTLE_CENTCOM_DOCK)
+			send_shuttle_to_station(user)
+			return TRUE
+		if(SHUTTLE_STATION_DOCK)
+			send_shuttle_to_centcom(user)
+			return TRUE
 
 /datum/controller/subsystem/addition_goals/proc/get_shuttle_location()
 	if(!shuttle)
@@ -88,18 +127,9 @@ SUBSYSTEM_DEF(addition_goals)
 		else
 			return shuttle.getStatusText()
 
-/datum/controller/subsystem/addition_goals/proc/toggle_shuttle(mob/user)
-	. = FALSE
-	if(!shuttle)
-		return
-	var/dock_id = shuttle.getDockedId()
-	switch(dock_id)
-		if(SHUTTLE_CENTCOM_DOCK)
-			SSshuttle.moveShuttle(shuttle.id, SHUTTLE_STATION_DOCK, TRUE, user)
-			return TRUE
-		if(SHUTTLE_STATION_DOCK)
-			SSshuttle.moveShuttle(shuttle.id, SHUTTLE_CENTCOM_DOCK, TRUE, user)
-			return TRUE
+
+
+
 
 
 
@@ -156,6 +186,7 @@ SUBSYSTEM_DEF(addition_goals)
 		data["online"] = TRUE
 	else
 		data["online"] = FALSE
+	data["goal"] = SSaddition_goals.available_goals[1].id
 	data["shuttle_loc"] = SSaddition_goals.get_shuttle_location()
 	return data
 
@@ -166,10 +197,18 @@ SUBSYSTEM_DEF(addition_goals)
 		if("refresh_available_goals")
 			to_chat(usr, "Пока не реализовано!")
 		if("accept_goal")
-			to_chat(usr, "Пока не реализовано!")
+			var/goal_id = params["goal"]
+			to_chat(usr, "[usr.name] взял дополнительную цель смены [goal_id]")
+			SSaddition_goals.accept_goal_by_id(usr, goal_id)
+		if("complete_goal")
+			SSaddition_goals.complete_current_goal(usr)
 		if("call_shuttle")
 			to_chat(usr, "Тестовая реализация!")
 			SSaddition_goals.toggle_shuttle(usr)
+
+
+
+
 
 
 
@@ -178,6 +217,8 @@ SUBSYSTEM_DEF(addition_goals)
 ////////////////////////////////////////
 
 /datum/addition_goal
+	/// Unique identifier
+	var id
 	/// Unique goal name
 	var/name
 
@@ -192,6 +233,7 @@ SUBSYSTEM_DEF(addition_goals)
 
 
 /datum/addition_goal/funeral
+	id = "funeral"
 	name = "Шаттл с трупами"
 	var/corpse_count
 	var/list/corpses = list()
@@ -200,11 +242,13 @@ SUBSYSTEM_DEF(addition_goals)
 	corpse_count = rand(3, 5)
 
 /datum/addition_goal/funeral/spawn_shuttle_contain(list/turf/shuttle_turfs)
+	message_admins("funeral addition goal: id=[id] begin spawn shuttle contain corpses=[corpse_count].")
 	for(var/i = 0; i < corpse_count; i++)
 		var/turf/random_turf = pick(shuttle_turfs)
 		var/obj/effect/mob_spawn/spawner = new /obj/effect/mob_spawn/human/corpse/addition_goal/funeral(random_turf)
 		var/mob/living/corpse = spawner.create(prefs = TRUE)
 		corpses += corpse
+		message_admins("funeral addition goal: created corpse [corpse.name] [ADMIN_COORDJMP(random_turf)].")
 
 /obj/effect/mob_spawn/human/corpse/addition_goal/funeral
 	random = TRUE
@@ -213,6 +257,8 @@ SUBSYSTEM_DEF(addition_goals)
 /datum/addition_goal/funeral/check_completion(list/turf/shuttle_turfs)
 	var/exists_corpses_count = 0
 	for(var/mob/living/corpse in corpses)
-		if(corpse)
+		if(corpse && locate(corpse))
 			exists_corpses_count += 1
-	return exists_corpses_count / corpse_count * 100
+	var/progress = exists_corpses_count / corpse_count * 100
+	message_admins("funeral addition goal: check completition exists [exists_corpses_count] of [length(corpses)] progress=[progress].")
+	return progress

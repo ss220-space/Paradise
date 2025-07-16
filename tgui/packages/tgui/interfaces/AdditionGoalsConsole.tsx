@@ -22,6 +22,7 @@ import { ComplexModal } from './common/ComplexModal';
 type AdditionGoalsConsoleData = {
   online: boolean;
   shuttle_loc: string;
+  goal: string;
 };
 
 
@@ -57,6 +58,28 @@ export const AdditionGoalsConsole = (props: unknown) => {
                   onClick={() => act('call_shuttle')}
                 >
                   Вызвать
+                </Button>
+              </LabeledList.Item>
+              <LabeledList.Item label="Шаттл с трупами">
+                <Button
+                  icon="check"
+                  color='green'
+                  width="180px"
+                  align="center"
+                  onClick={() => act('accept_goal', { goal: data.goal })}
+                >
+                  Взять в работу
+                </Button>
+              </LabeledList.Item>
+              <LabeledList.Item label="Завершить текущую цель">
+                <Button
+                  icon="check"
+                  color='green'
+                  width="180px"
+                  align="center"
+                  onClick={() => act('complete_goal')}
+                >
+                  Завершить
                 </Button>
               </LabeledList.Item>
             </LabeledList>
