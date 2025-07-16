@@ -6,12 +6,13 @@ type GhostHudPanelData = {
   security: boolean;
   medical: boolean;
   diagnostic: boolean;
+  radioactivity: boolean;
   ahud: boolean;
 };
 
 export const GhostHudPanel = (props: unknown) => {
   const { data } = useBackend<GhostHudPanelData>();
-  const { security, medical, diagnostic, ahud } = data;
+  const { security, medical, diagnostic, radioactivity, ahud } = data;
   return (
     <Window width={250} height={207} theme="nologo">
       <Window.Content>
@@ -24,6 +25,13 @@ export const GhostHudPanel = (props: unknown) => {
             is_active={diagnostic}
           />
           <Divider />
+          <HudEntry
+            label="Radioactivity"
+            type="radioactivity"
+            is_active={radioactivity}
+            act_on={'rads_on'}
+            act_off={'rads_off'}
+          />
           <HudEntry
             label="Antag HUD"
             is_active={ahud}

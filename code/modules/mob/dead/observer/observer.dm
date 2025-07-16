@@ -31,6 +31,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = TRUE //is the ghost able to see things humans can't?
 	var/seedarkness = TRUE
+	var/seerads = FALSE     // can the ghost see radiation?
 	var/sightchanged = FALSE
 	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
 	var/list/data_hud_seen = list()
@@ -118,6 +119,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
+	if(seerads)
+		STOP_PROCESSING(SSobj, src)
 	GLOB.respawnable_list -= src
 	return ..()
 
@@ -125,6 +128,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	. = ..()
 	if(!invisibility)
 		. += span_notice("Это кажется крайне очевидным.")
+
+/mob/dead/observer/process()
+	if(seerads)
+		show_rads(5)
 
 /mob/dead/observer/proc/set_ghost_darkness_level()
 	if(!client)
@@ -391,6 +398,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.remove_hud_from(src)
 
+/mob/dead/observer/proc/set_radiation_view(enabled)
+	if (enabled)
+		seerads = TRUE
+		START_PROCESSING(SSobj, src)
+	else
+		seerads = FALSE
+		STOP_PROCESSING(SSobj, src)
+
 /mob/dead/observer/verb/set_dnr()
 	set name = "Запретить реанимацию"
 	set category = STATPANEL_GHOST
@@ -400,22 +415,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(!can_reenter_corpse)
-		to_chat(src, span_warning("У вас уже стоит DNR!"))
+		to_chat(src, span_warning("Вы уже запретили реанимировать себя!"))
 		return
 
 	if(!mind || QDELETED(mind.current))
-		to_chat(src, span_warning("У вас нету тела."))
+		to_chat(src, span_warning("У вас нет тела!"))
 		return
 
 	if(mind.current.stat != DEAD)
-		to_chat(src, span_warning("Твое тело все ещё живо!"))
+		to_chat(src, span_warning("Ваше тело все ещё живо!"))
 		return
 
-	if(tgui_alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", list("Да", "Нет")) != "Да")
+	if(tgui_alert(src, "Если вы включите это, ваше тело более не смогут оживить в этом раунде.", "Вы уверены?", list("Да", "Нет")) != "Да")
 		return
 
 	apply_dnr()
-	to_chat(src, span_boldnotice("Do Not Revive статус включён."))
+	to_chat(src, span_boldnotice("Вы запретили реанимировать себя."))
 
 /mob/dead/observer/proc/apply_dnr()
 	can_reenter_corpse = FALSE

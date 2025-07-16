@@ -1157,6 +1157,8 @@
 		var/rads = SSradiation.get_turf_radiation(place)
 		if (rads < RAD_BACKGROUND_RADIATION)
 			continue
+
+
 		var/strength = round(rads / 1000, 0.1)
 		var/image/pic = image(loc = place)
 		var/mutable_appearance/MA = new()
