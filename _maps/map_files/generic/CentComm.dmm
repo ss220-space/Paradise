@@ -2863,6 +2863,9 @@
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
+"bjX" = (
+/turf/space,
+/area/shuttle/funeral)
 "bkk" = (
 /obj/structure/flora/tree/jungle,
 /obj/structure/flora/ausbushes/reedbush,
@@ -3508,6 +3511,15 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"bBV" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/addition_goals)
 "bBY" = (
 /obj/machinery/door/airlock/survival_pod{
 	drain_act_protected = 1
@@ -6465,6 +6477,11 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
+"cXQ" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/addition_goals)
 "cYf" = (
 /obj/structure/closet/crate/freezer{
 	desc = "A crate.";
@@ -6907,6 +6924,11 @@
 	icon_state = "darkyellowfull"
 	},
 /area/syndicate_mothership/cargo)
+"dkG" = (
+/obj/structure/window/full/shuttle/gray,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/shuttle/addition_goals)
 "dkR" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/razor,
@@ -8261,6 +8283,13 @@
 	},
 /turf/simulated/floor/mineral/bananium,
 /area/centcom/specops)
+"dSV" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	tag = "icon-propulsion (NORTH)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
 "dTg" = (
 /turf/simulated/floor/plating/airless,
 /area/centcom/specops)
@@ -14635,6 +14664,11 @@
 	icon_state = "asteroid"
 	},
 /area/centcom/evac)
+"gYH" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/addition_goals)
 "gYQ" = (
 /obj/item/book/manual/sop_command,
 /obj/item/book/manual/sop_engineering,
@@ -15194,6 +15228,14 @@
 /obj/machinery/computer/library/public,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
+"hrY" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_r";
+	tag = "icon-propulsion_r (NORTH)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
 "hsz" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -16571,6 +16613,12 @@
 /obj/structure/flora/tree/jungle/small,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
+"igs" = (
+/obj/machinery/computer/shuttle/addition_goals,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/addition_goals)
 "igz" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/turf_decal/tile/neutral{
@@ -17001,6 +17049,9 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone3)
+"irP" = (
+/turf/space,
+/area/shuttle/mining)
 "irS" = (
 /obj/effect/turf_decal/arrows{
 	dir = 8
@@ -17473,6 +17524,11 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"iBc" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/addition_goals)
 "iBl" = (
 /obj/machinery/light{
 	dir = 1
@@ -30430,6 +30486,15 @@
 	icon_state = "neutral"
 	},
 /area/centcom/evac)
+"ogh" = (
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/addition_goals)
 "ogm" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -32534,6 +32599,16 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/elite_squad)
+"pdY" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/reinforced{
+	color = "black"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
 "pej" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -43125,6 +43200,17 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
+"tNa" = (
+/obj/docking_port/stationary{
+	id = "addition_goal_dock";
+	name = "Addition Goal Shuttle dock";
+	dwidth = 2;
+	width = 10;
+	height = 7;
+	dir = 4
+	},
+/turf/space,
+/area/space)
 "tNp" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
@@ -45373,6 +45459,11 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/cargo)
+"uMP" = (
+/obj/structure/window/full/shuttle/gray,
+/obj/structure/grille,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/addition_goals)
 "uMQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -48278,6 +48369,14 @@
 	icon_state = "darkbluealt"
 	},
 /area/centcom/zone2)
+"wdu" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (NORTH)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
 "wdH" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -50489,6 +50588,11 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
+"xgw" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/addition_goals)
 "xgF" = (
 /obj/structure/sign/poster/contraband/syndicate_pistol{
 	pixel_y = 32
@@ -51865,6 +51969,23 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/syndicate_mothership/control)
+"xJT" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/obj/docking_port/mobile{
+	alone_shuttle = 1;
+	dir = 8;
+	dwidth = 2;
+	height = 7;
+	id = "addition_goal";
+	name = "Addition Goals Shuttle";
+	port_direction = 8;
+	preferred_direction = 2;
+	roundstart_move = "addition_goal_dock";
+	width = 10
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/addition_goals)
 "xJZ" = (
 /obj/structure/railing{
 	dir = 8;
@@ -74718,7 +74839,7 @@ mVX
 mVX
 mVX
 mVX
-mVX
+tNa
 mVX
 mVX
 mVX
@@ -75216,16 +75337,16 @@ rRS
 rRS
 "}
 (88,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+gYH
+gYH
+gYH
+dkG
+dkG
+dkG
+cXQ
+iBc
+gYH
+gYH
 mVX
 mVX
 mVX
@@ -75473,16 +75594,16 @@ rRS
 rRS
 "}
 (89,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+hrY
+pdY
+bBV
+xgw
+xgw
+xgw
+bBV
+xgw
+xgw
+gYH
 mVX
 mVX
 mVX
@@ -75730,16 +75851,16 @@ rRS
 rRS
 "}
 (90,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+dSV
+pdY
+xgw
+xgw
+xgw
+xgw
+xgw
+xgw
+xgw
+uMP
 mVX
 mVX
 mVX
@@ -75987,16 +76108,16 @@ rRS
 rRS
 "}
 (91,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+dSV
+pdY
+xgw
+xgw
+xgw
+xgw
+xgw
+xgw
+igs
+uMP
 mVX
 mVX
 mVX
@@ -76244,16 +76365,16 @@ rRS
 rRS
 "}
 (92,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+dSV
+pdY
+xgw
+xgw
+xgw
+xgw
+xgw
+xgw
+xgw
+uMP
 mVX
 mVX
 mVX
@@ -76501,16 +76622,16 @@ rRS
 rRS
 "}
 (93,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+wdu
+pdY
+ogh
+xgw
+xgw
+xgw
+ogh
+xgw
+xgw
+gYH
 mVX
 mVX
 mVX
@@ -76758,16 +76879,16 @@ rRS
 rRS
 "}
 (94,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+gYH
+gYH
+gYH
+dkG
+dkG
+dkG
+cXQ
+xJT
+gYH
+gYH
 mVX
 mVX
 mVX
@@ -79600,7 +79721,7 @@ oQV
 dDb
 jNQ
 dDb
-oQV
+irP
 piE
 mVX
 mVX
@@ -80616,7 +80737,7 @@ rRS
 hIf
 qqE
 sHH
-ted
+bjX
 ted
 ted
 uPJ
