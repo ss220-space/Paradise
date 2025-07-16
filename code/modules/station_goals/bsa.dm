@@ -4,11 +4,6 @@
 // Requires high level stock parts
 
 
-#define BSA_MODE_POWER_SHOT "power shot"
-#define BSA_MODE_POWER_BURST "power burst"
-#define BSA_MODE_PULSE_SHOT "pulse shot"
-#define BSA_MODE_PULSE_BURST "pulse burst"
-
 /// Delay between shots in burst mode
 #define BSA_BURST_SHOT_DELAY 0.5
 /// Spread by every axis (x, y) for signal calibration
@@ -36,7 +31,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /// BSA fire mode
 /datum/bluespace_cannon_fire_mode
-	var/id
 	var/name
 	var/spread
 	var/power_use
@@ -73,7 +67,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 
 /datum/bluespace_cannon_fire_mode/power
-	id = "power shot"
 	name = "Мощный выстрел"
 	spread = BSA_SHOT_SPREAD
 	power_use = 2000000
@@ -81,7 +74,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	power = list(3, 7, 14)
 
 /datum/bluespace_cannon_fire_mode/burst/power
-	id = "power burst"
 	name = "Мощная очередь"
 	spread = BSA_BURST_SPREAD
 	power_use = 6000000
@@ -91,7 +83,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	shots_count = 3
 
 /datum/bluespace_cannon_fire_mode/pulse
-	id = "pulse shot"
 	name = "Слабый выстрел"
 	spread = BSA_SHOT_SPREAD
 	power_use = 200000
@@ -99,7 +90,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	power = list(0, 1, 5)
 
 /datum/bluespace_cannon_fire_mode/burst/pulse
-	id = "pulse burst"
 	name = "Слабая очередь"
 	spread = BSA_BURST_SPREAD
 	power_use = 1000000
@@ -305,10 +295,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	bound_width = 352
 	bound_x = -192
 
-/obj/machinery/bsa/full/Initialize(mapload)
-	. = ..()
-	mode = GLOB.BSA_modes_list["power shot"]
-
 /obj/machinery/bsa/full/Destroy()
 	if(controller && controller.cannon == src)
 		controller.cannon = null
@@ -371,6 +357,9 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	last_fire_time = world.time / 10
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/target, target_signal)
+	if(!mode)
+		to_chat(user, span_warning("Клик! Осечка?!<br>Может стоит поставить другой режим стрельбы?"))
+		return
 	destroy_all_on_fire_beam(user, target)
 	incoming_shot_notify(target)
 	mode.fire(src, user, target, target_signal)
@@ -408,6 +397,8 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /obj/machinery/bsa/full/proc/reload()
 	last_fire_time = world.time / 10
+	if(!mode)
+		return
 	use_power(mode.power_use)
 	reload_cooldown = mode.reload_duration
 
@@ -570,7 +561,10 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	data["correction_x"] = x_correction
 	data["correction_y"] = y_correction
 	data["ready"] = is_ready_to_shot()
-	data["mode"] = cannon.mode.name
+	if(cannon.mode)
+		data["mode"] = cannon.mode.name
+	else
+		data["mode"] = "Не выбран"
 	if(!target)
 		return data
 	data["calibrated"] = TRUE
@@ -593,7 +587,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	return (cannon.last_calibrate_time + BSA_CALIBRATE_TIME) <= (world.time / 10)
 
 /obj/machinery/computer/bsa_control/proc/is_ready_to_shot()
-	return is_reload_ready() && target && is_calibrate_ready() && !cannon.stat
+	return is_reload_ready() && target && is_calibrate_ready() && !cannon.stat && cannon.mode
 
 /obj/machinery/computer/bsa_control/proc/get_reloading_time()
 	if(!cannon)
@@ -684,7 +678,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /obj/machinery/computer/bsa_control/proc/switch_mode(mob/user, var/params)
 	var/mode_name = params["mode"]
-	var/new_mode = get_mode_by_name(mode_name)
+	var/new_mode = GLOB.BSA_modes_list[mode_name]
 	if(!new_mode)
 		return
 	cannon.mode = new_mode
