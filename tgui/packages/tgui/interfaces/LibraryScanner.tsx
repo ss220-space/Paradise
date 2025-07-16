@@ -7,6 +7,7 @@ import {
   Box,
   Stack,
   ImageButton,
+  Tabs,
 } from '../components';
 import { Window } from '../layouts';
 import { string } from 'prop-types';
@@ -24,6 +25,47 @@ type LibraryScannerData = {
 
 export const LibraryScanner = (props: unknown) => {
   const { act, data } = useBackend<LibraryScannerData>();
+
+let menuBlock = (
+    <Tabs>
+      <Tabs.Tab
+        icon="id-card"
+        //selected={data.mode === 0}
+        onClick={() => act('mode', { mode: 0 })}
+      >
+        Job Transfers
+      </Tabs.Tab>
+        <Tabs.Tab
+          icon="id-card"
+          //selected={data.mode === 2}
+          onClick={() => act('mode', { mode: 2 })}
+        >
+          Access Modification
+        </Tabs.Tab>
+      <Tabs.Tab
+        icon="folder-open"
+        //selected={data.mode === 1}
+        onClick={() => act('mode', { mode: 1 })}
+      >
+        Job Management
+      </Tabs.Tab>
+      <Tabs.Tab
+        icon="scroll"
+        //selected={data.mode === 3}
+        onClick={() => act('mode', { mode: 3 })}
+      >
+        Records
+      </Tabs.Tab>
+      <Tabs.Tab
+        icon="users"
+        //selected={data.mode === 4}
+        onClick={() => act('mode', { mode: 4 })}
+      >
+        Department
+      </Tabs.Tab>
+    </Tabs>
+  );
+
   return (
     <Window
       width={700}
@@ -36,7 +78,7 @@ export const LibraryScanner = (props: unknown) => {
           <Stack.Item basis="45%">
             <Stack fill vertical>
               <Section title="Меню">
-                <Stack fill vertical mt={2} mb={30}>
+                <Stack fill vertical mt={2} mb={23}>
                   <Stack.Item mb={1}>
                     <Button
                       fluid

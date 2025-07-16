@@ -1,6 +1,13 @@
 /*
  * Library Computer
  */
+
+#define LIBCOMP_SCREEN_MAIN 0
+#define LIBCOMP_SCREEN_INVENTORY 1
+#define LIBCOMP_SCREEN_CHEKEDOUT 2
+#define LIBCOMP_SCREEN_CHECKOUT 3
+#define LIBCOMP_SCREEN_EDIT 4
+
 /obj/machinery/computer/library/checkout
 	name = "Library Computer"
 	desc = "Старый библиотечный компьютер, хранящий в своей памяти сотни, если не тысячи, книг."
@@ -13,7 +20,10 @@
 		PREPOSITIONAL = "библиотечном компьютере"
 	)
 	var/arcanecheckout = 0
-	//var/screenstate = 0 // 0 - Main Menu, 1 - Inventory, 2 - Checked Out, 3 - Check Out a Book
+	var/mode = 0 // 0 - Main Menu, 1 - Inventory, 2 - Checked Out, 3 - Check Out a Book
+	var/obj/machinery/libraryscanner/linked_scanner
+	///Range to search for scanner in proximity to computer
+	var/range = 3
 	var/buffer_book
 	var/buffer_mob
 	var/upload_category = "Художественная"
@@ -33,21 +43,44 @@
 /obj/machinery/computer/library/checkout/attack_ghost(mob/user)
 	ui_interact(user)
 
-/* /obj/machinery/computer/library/checkout/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/computer/library/checkout/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "FaxMachine", name)
+		ui = new(user, src, "LibraryComputer", name)
 		ui.open()
 
 /obj/machinery/computer/library/checkout/ui_data(mob/user)
 	var/list/data = list()
+	data["scanner"] = linked_scanner
+	if(linked_scanner)
+		data["cache"] = linked_scanner.cache
+		if(linked_scanner.cache)
+			data["cache_title"] = linked_scanner.cache.title
+			data["cache_author"] = linked_scanner.cache.author
+			data["cache_dat"] = linked_scanner.cache.dat
+			data["cache_icon"] = linked_scanner.cache.icon
+			data["cache_icon_state"] = linked_scanner.cache.icon_state
+	data[mode] = mode
 
+
+
+	return data
 
 /obj/machinery/computer/library/checkout/ui_act(action, params)
 	if(..())
 		return
-*/
+	switch(action)
+		if("link_scanner")
+			for(var/obj/machinery/libraryscanner/S in range(range, src))
+				if(!isnull(S.linked_comp) || S.panel_open)
+					atom_say("Сканер уже привязан.")
 
+				if(istype(S, /obj/machinery/libraryscanner))
+					if(linked_scanner == null)
+						linked_scanner = S
+						S.linked_comp = src
+						playsound(src, 'sound/machines/ping.ogg', 20)
+						atom_say("Сканер успешно привязан.")
 
 /* /obj/machinery/computer/library/checkout/interact(var/mob/user)
 	if(interact_check(user))

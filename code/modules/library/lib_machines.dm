@@ -160,11 +160,12 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 	var/obj/item/book/inserted
 	/// Last scanned book
 	var/obj/item/book/cache
-	var/obj/item/book/cached_book
 	/// for kostyl method of sending message to TGUI
 	var/erased = FALSE
 	var/tried_to_scan = FALSE
 	var/scanned = FALSE
+	/// linked library computer
+	var/linked_comp
 
 /obj/machinery/libraryscanner/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -182,8 +183,9 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(book, src))
 			return ..()
-		add_fingerprint(user)
-		inserted = book
+		else
+			inserted = book
+
 
 	return ..()
 
@@ -235,13 +237,15 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 			if(cache != null)
 				to_chat(usr, span_notice("Кэш занят!"))
 			else
-				cache = new cached_book(contents)
-				cached_book.title = inserted.title
-				cached_book.author = inserted.title
-				cached_book.dat = inserted.dat
-				cached_book.name = inserted.name
-				cached_book.ru_names = inserted.ru_names
-
+				var/new_title = inserted.title
+				var/new_author = inserted.author
+				var/new_dat = inserted.dat
+				var/new_icon_state = inserted.icon_state
+				cache = new /obj/item/book(src)
+				cache.title = new_title
+				cache.author = new_author
+				cache.dat = new_dat
+				cache.icon_state = new_icon_state
 				to_chat(usr, span_notice("Книга отсканированна."))
 			return TRUE
 		if("book") // Вставить / вытащить книгу
@@ -255,7 +259,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Все", "Художественн
 				if(istype(I, /obj/item/book))
 					usr.drop_transfer_item_to_loc(I, src)
 					inserted = I
-					to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+					to_chat(usr, span_notice("Вы кладёте [I.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
 				else
 					to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] может принять только книги."))
 					. = FALSE
