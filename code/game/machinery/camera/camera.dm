@@ -102,6 +102,13 @@
 
 	cancelCameraAlarm()
 
+/obj/machinery/camera/zap_act(power, zap_flags)
+	. = ..()
+	if(isEmpProof())
+		return
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
+		qdel(src)//to prevent bomb testing camera from exploding over and over forever
+
 /obj/machinery/camera/ex_act(severity)
 	if(invuln)
 		return
