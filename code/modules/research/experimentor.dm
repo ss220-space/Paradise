@@ -349,9 +349,8 @@
 
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message(span_danger("[src] malfunctions, melting [exp_on] and leaking radiation!"))
-			for(var/mob/living/m in oview(1, src))
-				m.radiation_pulse(src, 500) // This requires a balance due to our experimentor's rework.
-				investigate_log("Experimentor has irradiated [key_name_log(m)]", INVESTIGATE_EXPERIMENTOR) //One entry per person so we know what was irradiated.
+			radiation_pulse(src, 500)
+			investigate_log("Experimentor made a radiation pulse.", INVESTIGATE_EXPERIMENTOR) // I thought that some kind of logging in this shit mechanics is needed (No).
 			ejectItem(TRUE)
 
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
