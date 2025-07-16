@@ -668,7 +668,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	caibrated_turf = detect_target_turf()
 	if(caibrated_turf)
 		caibrated_turf = cannon.spread(caibrated_turf, BSA_CALIBRATION_ACCURACY)
-	// Reset correction
 	x_correction = 0
 	y_correction = 0
 	aim_turf = caibrated_turf
@@ -689,9 +688,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	emagged = TRUE
 	if(user)
 		to_chat(user, span_warning("Вы взламываете [declent_ru(ACCUSATIVE)], протоколы безопасности отключены!"))
-	var/datum/tgui/active_ui = SStgui.get_open_ui(user, src)
-	if(active_ui) // Force close for update ui_static_data["mode_options"] value
-		active_ui.close()
 	return TRUE
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
@@ -779,3 +775,16 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/size_x = bbox[3] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
 	cam_screen.show_camera(visible_turfs, size_x, size_y)
+
+
+#undef BSA_BURST_SHOT_DELAY
+#undef BSA_CALIBRATION_ACCURACY
+#undef BSA_SHOT_SPREAD
+#undef BSA_BURST_SPREAD
+#undef BSA_MAX_AXIS_CORRECTION
+#undef BSA_CALIBRATE_TIME
+#undef BSA_IMPACT_DELAY
+#undef BSA_IMPACT_LASER_NOTIFY_BEFORE
+#undef BSA_IMPACT_NOTIFY_RADIUS
+#undef BSA_AFTER_STRIKE_GOACL_CHECK_DELAY
+#undef BSA_INITIAL_COOLDOWN
