@@ -615,26 +615,22 @@
 	if(!ishuman(mutant))
 		return FALSE
 
-	if(HAS_TRAIT_FROM(mutant.physiology, TRAIT_WEAK_MUSCULS, DNA_TRAIT))
+	if(HAS_TRAIT_FROM(mutant, TRAIT_WEAK_MUSCULS, DNA_TRAIT))
 		return FALSE
 
-	var/datum/component/muscles/muscles = mutant.physiology.GetComponent(/datum/component/muscles)
-	if(!muscles)
-		return FALSE
-
-	if(!muscles.can_become_stronger)
+	if(!HASBIT(SEND_SIGNAL(mutant, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
 		return FALSE
 
 	return ..()
 
 /datum/dna/gene/basic/strong/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	ADD_TRAIT(mutant.physiology, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
+	ADD_TRAIT(mutant, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
 	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
 	mutant.update_body(TRUE)
 
 /datum/dna/gene/basic/strong/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	REMOVE_TRAIT(mutant.physiology, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
+	REMOVE_TRAIT(mutant, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
 	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
 	mutant.update_body(TRUE)

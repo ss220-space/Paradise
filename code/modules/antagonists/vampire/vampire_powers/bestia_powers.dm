@@ -1008,7 +1008,7 @@
 		restraints += user.handcuffed
 	if(user.legcuffed)
 		restraints += user.legcuffed
-	if(user.wear_suit?.breakouttime)
+	if(user.wear_suit?.breakout_time)
 		restraints += user.wear_suit
 
 	for(var/obj/item/thing as anything in restraints)

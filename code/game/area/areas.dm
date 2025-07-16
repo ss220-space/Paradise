@@ -592,3 +592,26 @@
 /area/drop_location()
 	CRASH("Bad op: area/drop_location() called")
 
+// Calculate area center turf, center = (x=minx+(maxx - minx), y=miny+(maxy-miny), z = firstz)
+// Warning: for multi-z area can be return random z
+/area/proc/get_center_turf()
+	var/list/area_turfs = get_area_turfs(src)
+	var/min_x = 1000
+	var/max_x = -1
+	var/min_y = 1000
+	var/max_y = -1
+	var/center_z = -1
+	for(var/turf/area_turf in area_turfs)
+		if (center_z == -1)
+			center_z = area_turf.z
+		if (area_turf.x < min_x)
+			min_x = area_turf.x
+		if (area_turf.y < min_y)
+			min_y = area_turf.y
+		if (area_turf.x > max_x)
+			max_x = area_turf.x
+		if (area_turf.y > max_y)
+			max_y = area_turf.y
+	var/center_x = min_x + round((max_x - min_x) / 2)
+	var/center_y = min_y + round((max_y - min_y) / 2)
+	return locate(center_x, center_y, center_z)

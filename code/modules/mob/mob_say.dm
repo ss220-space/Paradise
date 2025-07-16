@@ -2,7 +2,7 @@
 #define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", \
 	"\[" = "", "]" = "", "{" = "", "}" = "")
 
-/mob/proc/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/proc/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	return
 
 /mob/verb/whisper(message as text)
@@ -85,8 +85,12 @@
 	say_dead_direct("[pick("жалуется", "стонет", "хнычет", "причитает", "рыдает", "ноет")], \"[span_message(message)]\"", src)
 	add_deadchat_logs(src, message)
 
-
-/mob/proc/say_understands(mob/other, datum/language/speaking = null)
+/**
+ * Checks if the mob can understand the other speaker
+ *
+ * If it return FALSE, then the message will have some letters replaced with stars from the heard message
+*/
+/mob/proc/say_understands(atom/movable/other, datum/language/speaking = null)
 	if(stat == DEAD)
 		return TRUE
 
@@ -95,18 +99,19 @@
 		return TRUE
 
 	var/mob/living/simple_animal/hostile/gorilla/gorilla = other
-	if(istype(gorilla) && gorilla.check_enlighten())	// BANANA POWER
+	if(istype(gorilla) && gorilla.check_enlighten()) // BANANA POWER
 		return TRUE
 
 	//Languages are handled after.
 	if(!speaking)
-		if(!other)
+		if(!other || !ismob(other))
 			return TRUE
-		if(other.universal_speak)
+		var/mob/other_mob = other
+		if(other_mob.universal_speak)
 			return TRUE
-		if(isAI(src) && ispAI(other))
+		if(isAI(src) && ispAI(other_mob))
 			return TRUE
-		if(istype(other, src.type) || istype(src, other.type))
+		if(istype(other_mob, src.type) || istype(src, other_mob.type))
 			return TRUE
 		return FALSE
 

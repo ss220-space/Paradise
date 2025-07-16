@@ -256,9 +256,9 @@
 	var/healthpercent = (obj_integrity/max_integrity) * 100
 	switch(healthpercent)
 		if(50 to 99)
-			. += "Выглядит слегка повреждённым."
+			. += span_notice("Выглядит слегка повреждённым.")
 		if(25 to 50)
-			. += "Кажется сильно повреждённым."
+			. += span_notice("Кажется сильно повреждённым.")
 		if(0 to 25)
 			if(!broken)
 				. += span_warning("Оно разваливается на части!")

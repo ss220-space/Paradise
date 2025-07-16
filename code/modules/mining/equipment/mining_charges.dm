@@ -133,6 +133,9 @@
 		M.gib()
 	qdel(src)
 
+/obj/item/grenade/plastic/update_icon_state()
+	return //Remove plastic icon_state change logic override
+
 
 /obj/item/grenade/plastic/miningcharge/proc/override_safety()
 	hacked = TRUE

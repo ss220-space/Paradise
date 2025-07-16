@@ -330,8 +330,6 @@
 #define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 
-#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
-
 #define isAIEye(A)		(istype((A), /mob/camera/aiEye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 

@@ -6,6 +6,7 @@
 /obj/item/reagent_containers/food/snacks/brainburger
 	name = "brainburger"
 	desc = "A strange looking burger. It appears almost sentient."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "brainburger"
 	filling_color = "#F2B6EA"
 	bitesize = 3
@@ -17,6 +18,7 @@
 /obj/item/reagent_containers/food/snacks/ghostburger
 	name = "ghost burger"
 	desc = "Spooky! It doesn't look very filling."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "ghostburger"
 	filling_color = "#FFF2FF"
 	bitesize = 3
@@ -27,6 +29,7 @@
 /obj/item/reagent_containers/food/snacks/human_burger
 	name = "-burger"
 	desc = "A bloody burger."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "hburger"
 	filling_color = "#D63C3C"
 	bitesize = 3
@@ -37,6 +40,7 @@
 /obj/item/reagent_containers/food/snacks/cheeseburger
 	name = "cheeseburger"
 	desc = "The cheese adds a good flavor."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "cheeseburger"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
@@ -46,6 +50,7 @@
 /obj/item/reagent_containers/food/snacks/monkeyburger
 	name = "burger"
 	desc = "The cornerstone of every nutritious breakfast."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "hburger"
 	filling_color = "#D63C3C"
 	bitesize = 3
@@ -56,6 +61,7 @@
 /obj/item/reagent_containers/food/snacks/tofuburger
 	name = "tofu burger"
 	desc = "Making this should probably be a criminal offense."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "tofuburger"
 	filling_color = "#FFFEE0"
 	bitesize = 3
@@ -66,6 +72,7 @@
 /obj/item/reagent_containers/food/snacks/roburger
 	name = "roburger"
 	desc = "The lettuce is the only organic component. Beep."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "roburger"
 	filling_color = "#CCCCCC"
 	bitesize = 3
@@ -77,6 +84,7 @@
 /obj/item/reagent_containers/food/snacks/roburgerbig
 	name = "roburger"
 	desc = "This massive patty looks like poison. Beep."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "roburger"
 	filling_color = "#CCCCCC"
 	volume = 120
@@ -89,6 +97,7 @@
 /obj/item/reagent_containers/food/snacks/xenoburger
 	name = "xenoburger"
 	desc = "Smells caustic and tastes like heresy."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "xburger"
 	filling_color = "#43DE18"
 	bitesize = 3
@@ -99,6 +108,7 @@
 /obj/item/reagent_containers/food/snacks/clownburger
 	name = "clown burger"
 	desc = "This tastes funny..."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "clownburger"
 	filling_color = "#FF00FF"
 	bitesize = 3
@@ -109,6 +119,7 @@
 /obj/item/reagent_containers/food/snacks/mimeburger
 	name = "mime burger"
 	desc = "Its taste defies language."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "mimeburger"
 	filling_color = "#FFFFFF"
 	bitesize = 3
@@ -119,6 +130,7 @@
 /obj/item/reagent_containers/food/snacks/baseballburger
 	name = "home run baseball burger"
 	desc = "It's still warm. Batter up!"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "baseball"
 	filling_color = "#CD853F"
 	bitesize = 3
@@ -129,6 +141,7 @@
 /obj/item/reagent_containers/food/snacks/spellburger
 	name = "spell burger"
 	desc = "This is absolutely Ei Nath."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "spellburger"
 	filling_color = "#D505FF"
 	bitesize = 3
@@ -139,6 +152,7 @@
 /obj/item/reagent_containers/food/snacks/bigbiteburger
 	name = "BigBite burger"
 	desc = "Forget the Big Mac, THIS is the future!"
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bigbiteburger"
 	filling_color = "#E3D681"
 	bitesize = 3
@@ -149,6 +163,7 @@
 /obj/item/reagent_containers/food/snacks/superbiteburger
 	name = "SuperBite burger"
 	desc = "This is a mountain of a burger. FOOD!"
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "superbiteburger"
 	filling_color = "#CCA26A"
 	bitesize = 7
@@ -159,6 +174,7 @@
 /obj/item/reagent_containers/food/snacks/jellyburger
 	name = "jelly burger"
 	desc = "Culinary delight...?"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "jellyburger"
 	filling_color = "#B572AB"
 	bitesize = 3
@@ -181,6 +197,7 @@
 	name = "sandwich"
 	desc = "A grand creation of meat, cheese, bread, and several leaves of lettuce! Arthur Dent would be proud."
 	icon_state = "sandwich"
+	w_class = WEIGHT_CLASS_SMALL
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
@@ -190,6 +207,7 @@
 /obj/item/reagent_containers/food/snacks/toastedsandwich
 	name = "toasted sandwich"
 	desc = "Now if you only had a pepper bar."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "toastedsandwich"
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
@@ -200,6 +218,7 @@
 /obj/item/reagent_containers/food/snacks/grilledcheese
 	name = "grilled cheese sandwich"
 	desc = "Goes great with tomato soup!"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "toastedsandwich"
 	trash = /obj/item/trash/plate
 	filling_color = "#D9BE29"
@@ -210,6 +229,7 @@
 /obj/item/reagent_containers/food/snacks/jellysandwich
 	name = "jelly sandwich"
 	desc = "You wish you had some peanut butter to go with this..."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "jellysandwich"
 	trash = /obj/item/trash/plate
 	filling_color = "#9E3A78"
@@ -227,6 +247,7 @@
 /obj/item/reagent_containers/food/snacks/notasandwich
 	name = "not-a-sandwich"
 	desc = "Something seems to be wrong with this, you can't quite figure what. Maybe it's his moustache."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "notasandwich"
 	list_reagents = list("nutriment" = 6, "vitamin" = 6)
 	tastes = list("nothing suspicious" = 1)
@@ -235,6 +256,7 @@
 /obj/item/reagent_containers/food/snacks/wrap
 	name = "egg wrap"
 	desc = "The precursor to Pigs in a Blanket."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "wrap"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("egg" = 1)
