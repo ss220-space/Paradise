@@ -1,6 +1,6 @@
 /datum/component/muscles
 	/// Max level of strength for this muscles owner.
-	var/max_species_strength = STRENGTH_LEVEL_IDEAL
+	var/datum/strength_level/max_species_strength = STRENGTH_LEVEL_IDEAL
 	/// If FALSE, strength of body can't be changed.
 	var/can_become_stronger = TRUE
 	var/datum/strength_level/strength_level
@@ -15,7 +15,7 @@
 
 	src.max_species_strength = max_species_strength
 	src.can_become_stronger = can_become_stronger
-	strength_level = GLOB.strength_levels[default_strength]
+	strength_level = default_strength
 
 
 /datum/component/muscles/RegisterWithParent()
@@ -67,7 +67,7 @@
 
 /datum/component/muscles/proc/get_strength_list(user, list/strength_list)
 	SIGNAL_HANDLER
-	strength_list.Add(strength_level.level_num)
+	strength_list.Add(strength_level)
 
 
 /datum/component/muscles/proc/can_activate_strength_gene(user)
@@ -129,13 +129,15 @@
 
 
 /datum/component/muscles/proc/get_max_strength_level()
-	if(HAS_TRAIT(parent, TRAIT_STRONG_MUSCLES))
-		return STRENGTH_LEVEL_SUPERHUMAN
-
 	if(HAS_TRAIT(parent, TRAIT_WEAK_MUSCULS))
-		return STRENGTH_LEVEL_WEAK
+		var/datum/strength_level/weak = STRENGTH_LEVEL_WEAK
+		return weak.level_num
 
-	return max_species_strength
+	if(HAS_TRAIT(parent, TRAIT_STRONG_MUSCLES))
+		var/datum/strength_level/super = STRENGTH_LEVEL_SUPERHUMAN
+		return super.level_num
+
+	return max_species_strength.level_num
 
 
 /datum/component/muscles/proc/get_icon_render_key_info(mob/living/user, list/info)
