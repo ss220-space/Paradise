@@ -3,14 +3,27 @@
 #define EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE 20
 
 
+GLOBAL_LIST_EMPTY(slotmachine_prizes)
+
+
 /datum/slotmachine_prize
+	/// Unique prize identifier
+	var/id
+	/// Drop chance, must be in range 0-100
+	var/chance
+	/// Basic credits prize (emagged credits multiply to EMAGGED_SLOT_MACHINE_PRIZE_MOD)
 	var/credits = 0
+	/// Color of prize text in ui
 	var/resultlvl = "red"
+	/// Prefix for prize text in ui (not use if custom_result not null)
 	var/custom_result_prefix = ""
+	/// Custom prize text in ui
 	var/custom_result
+	/// Machine say phrase (null if not need say)
 	var/say_phrase
+	/// Machine sound
 	var/sound = 'sound/machines/ping.ogg'
-	var/static/list/allowed_uplink_items
+	/// List of available prizes, only for emagged slotmachine
 	var/list/available_prizes = list()
 
 /datum/slotmachine_prize/New(list/allowed_uplink_items)
@@ -32,6 +45,8 @@
 	slotmachine.give_custom_prize(user, item_path)
 
 /datum/slotmachine_prize/lose
+	id = "lose"
+	chance = 80
 	resultlvl = "orange"
 	custom_result = "Неудача!"
 
@@ -43,6 +58,8 @@
 
 
 /datum/slotmachine_prize/minimal
+	id = "minimal"
+	chance = 10
 	credits = 50
 	resultlvl = "green"
 	say_phrase = "Победитель!"
@@ -56,6 +73,8 @@
 
 
 /datum/slotmachine_prize/small
+	id = "small"
+	chance = 8
 	credits = 200
 	resultlvl = "green"
 	say_phrase = "Победитель!"
@@ -68,6 +87,8 @@
 
 
 /datum/slotmachine_prize/medium
+	id = "medium"
+	chance = 1.6
 	credits = 500
 	resultlvl = "green"
 	say_phrase = "Победитель!"
@@ -78,6 +99,8 @@
 
 
 /datum/slotmachine_prize/big
+	id = "big"
+	chance = 0.38
 	credits = 1000
 	resultlvl = "green"
 	say_phrase = "Большой победитель!"
@@ -91,6 +114,8 @@
 
 
 /datum/slotmachine_prize/jackpot
+	id = "jackpot"
+	chance = 0.02
 	credits = 10000
 	resultlvl = "teal"
 	custom_result_prefix = "ДЖЕКПОТ! "
@@ -102,6 +127,8 @@
 
 /datum/slotmachine_prize/jackpot/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
 	slotmachine.give_custom_prize(user, /obj/item/radio/uplink)
+
+
 
 /obj/machinery/slot_machine
 	name = "slot machine"
@@ -115,21 +142,6 @@
 	var/datum/money_account/account = null
 	var/result = null
 	var/resultlvl = null
-	var/list/prizes = list()
-
-/obj/machinery/slot_machine/Initialize(mapload)
-	. = ..()
-	var/list/allowed_uplink_items = list()
-	for(var/datum/uplink_item/uplink_item as anything in GLOB.uplink_items)
-		if(istype(uplink_item, /datum/uplink_item/racial) || uplink_item.hijack_only)
-			continue //Exclude racial and hijack
-		allowed_uplink_items += uplink_item
-	prizes["jackpot"] = new /datum/slotmachine_prize/jackpot(allowed_uplink_items)
-	prizes["big"] = new /datum/slotmachine_prize/big(allowed_uplink_items)
-	prizes["medium"] = new /datum/slotmachine_prize/medium(allowed_uplink_items)
-	prizes["small"] = new /datum/slotmachine_prize/small(allowed_uplink_items)
-	prizes["minimal"] = new /datum/slotmachine_prize/minimal(allowed_uplink_items)
-	prizes["lose"] = new /datum/slotmachine_prize/lose(allowed_uplink_items)
 
 /obj/machinery/slot_machine/attack_hand(mob/user as mob)
 	add_fingerprint(user)
@@ -198,14 +210,17 @@
 /obj/machinery/slot_machine/proc/spin_slots(mob/user)
 	if(!istype(user))
 		return
-	var/result_id = detect_result()
-	apply_spin_result(user, result_id)
+	var/prize = detect_result()
+	apply_spin_result(user, prize)
 	working = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src) // Push a UI update
 
-/obj/machinery/slot_machine/proc/apply_spin_result(mob/user, result_id)
-	var/datum/slotmachine_prize/prizedatum = prizes[result_id]
+/obj/machinery/slot_machine/proc/apply_spin_result(mob/user, datum/slotmachine_prize/prizedatum)
+	if(!prizedatum || !istype(prizedatum))
+		do_sparks(1, TRUE, src)
+		atom_say("Ошибка!")
+		return
 	var/credits = prizedatum.get_credits(emagged)
 	if (prizedatum.custom_result)
 		result = prizedatum.custom_result
@@ -221,19 +236,20 @@
 		prizedatum.apply_emagged_effect(src, user)
 
 /obj/machinery/slot_machine/proc/detect_result()
-	switch(rand(1,5000))
-		if(1)
-			return "jackpot"
-		if(2 to 20)
-			return "big"
-		if(21 to 100)
-			return "medium"
-		if(101 to 500)
-			return "small"
-		if(501 to 1000)
-			return "minimal"
-		else
-			return "lose"
+	// Convert prize chance to weigth logic
+	var/total = 0
+	for(var/prize_id in GLOB.slotmachine_prizes)
+		var/datum/slotmachine_prize/prize = GLOB.slotmachine_prizes[prize_id]
+		total += prize.chance
+	var/roll = rand(1,5000) / 5000 * total  // roll = [0, total]
+	var/current = 0
+	for(var/prize_id in GLOB.slotmachine_prizes)
+		var/datum/slotmachine_prize/prize = GLOB.slotmachine_prizes[prize_id]
+		current += prize.chance
+		if (roll <= current)
+			return prize
+	// if any other cases
+	return GLOB.slotmachine_prizes["lose"]
 
 /obj/machinery/slot_machine/verb/test_lose()
 	set name = "Проверить lose"
