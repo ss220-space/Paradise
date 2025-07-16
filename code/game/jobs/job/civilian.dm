@@ -27,4 +27,34 @@
 	uniform = /obj/item/clothing/under/color/random
 	shoes = /obj/item/clothing/shoes/black
 
+
+
+/datum/job/civilian/prisoner
+	title = "Prisoner"
+	flag = JOB_FLAG_PRISONER
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 3
+	spawn_positions = 3
+	supervisors = "the head of security"
+	department_head = list(JOB_TITLE_HOS)
+	selection_color = "#e6e6e6"
+	access = list()
+	minimal_access = list()
+	alt_titles = list("Arrestee")
+	outfit = /datum/outfit/prisoner
+	insurance_type = INSURANCE_TYPE_NONE
+
+	salary = 0
+	min_start_money = 10
+	max_start_money = 50
+
+
+/datum/outfit/job/assistant/prisoner
+	name = "Prisoner"
+	jobtype = /datum/job/civilian/prisoner
+
+	id = /obj/item/card/id/prisoner/random
+	uniform = /obj/item/clothing/under/color/orange
+	shoes = /obj/item/clothing/shoes/orange
+
 #undef SALARY_FOR_NISHEBROD

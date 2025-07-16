@@ -26,6 +26,7 @@
 		"Robot" = "airadio",
 		// Assistant
 		JOB_TITLE_CIVILIAN = "radio",
+		JOB_TITLE_PRISONER = "radio",
 		// Command (Solo command, not department heads)
 		JOB_TITLE_BLUESHIELD = "comradio",
 		JOB_TITLE_CAPTAIN = "comradio",
