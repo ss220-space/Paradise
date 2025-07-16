@@ -622,13 +622,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		modes += mode.name
 	return modes
 
-/obj/machinery/computer/bsa_control/proc/get_mode_by_name(mode_name)
-	for (var/mode_id in GLOB.BSA_modes_list)
-		var/datum/bluespace_cannon_fire_mode/mode = GLOB.BSA_modes_list[mode_id]
-		if(mode.name == mode_name)
-			return mode
-	return null
-
 /obj/machinery/computer/bsa_control/ui_act(action, params)
 	if(..())
 		return
