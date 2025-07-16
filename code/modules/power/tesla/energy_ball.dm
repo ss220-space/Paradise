@@ -219,6 +219,7 @@
 										// /obj/machinery/disposal/delivery_chute,
 										/obj/machinery/camera,
 										/obj/structure/sign,
+										/obj/machinery/gateway,
 										/obj/structure/lattice,
 										/obj/structure/grille,
 										/obj/structure/cable,
