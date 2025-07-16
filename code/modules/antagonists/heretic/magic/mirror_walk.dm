@@ -3,10 +3,10 @@
 	desc = "Allows you to traverse invisibly and freely across the station within the realm of the mirror. \
 		You can only enter and exit the realm of mirrors when nearby reflective surfaces and items, \
 		such as windows, mirrors, and reflective walls or equipment."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_minor_antag.dmi'
-	button_icon_state = "ninja_cloak"
+	action_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	action_icon_state = "ninja_cloak"
 
 	base_cooldown = 6 SECONDS
 	jaunt_type = /obj/effect/dummy/phased_mob/mirror_walk
@@ -32,21 +32,21 @@
 	. = ..()
 	UnregisterSignal(remove_from, COMSIG_MOVABLE_MOVED)
 
-/obj/effect/proc_holder/spell/jaunt/mirror_walk/can_cast_spell(feedback = TRUE)
+/obj/effect/proc_holder/spell/jaunt/mirror_walk/can_cast(feedback = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/we_are_phasing = is_jaunting(owner)
-	var/turf/owner_turf = get_turf(owner)
+	var/we_are_phasing = is_jaunting(action.owner)
+	var/turf/owner_turf = get_turf(action.owner)
 	if(!is_reflection_nearby(get_turf(owner_turf)))
 		if(feedback)
-			to_chat(owner, span_warning("There are no reflective surfaces nearby to [we_are_phasing ? "exit":"enter"] the mirror's realm here!"))
+			to_chat(action.owner, span_warning("There are no reflective surfaces nearby to [we_are_phasing ? "exit":"enter"] the mirror's realm here!"))
 		return FALSE
 
 	if(owner_turf.is_blocked_turf(exclude_mobs = TRUE))
 		if(feedback)
-			to_chat(owner, span_warning("Something is blocking you from [we_are_phasing ? "exiting":"entering"] the mirror's realm here!"))
+			to_chat(action.owner, span_warning("Something is blocking you from [we_are_phasing ? "exiting":"entering"] the mirror's realm here!"))
 		return FALSE
 
 	return TRUE

@@ -168,10 +168,10 @@
 	/// A static list of all traits we apply on ascension.
 	var/static/list/traits_to_apply = list(
 		TRAIT_BOMBIMMUNE,
-		TRAIT_NOBREATH,
+		TRAIT_NO_BREATH,
 		TRAIT_NOFIRE,
-		TRAIT_RESISTCOLD,
-		TRAIT_RESISTHEAT,
+		TRAIT_RESIST_COLD,
+		TRAIT_RESIST_HEAT,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 	)
@@ -189,7 +189,7 @@
 
 /datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	var/datum/action/innate/fire_sworn/circle_spell = new(user.mind)
+	var/obj/effect/proc_holder/spell/fire_sworn/circle_spell = new(user.mind)
 	circle_spell.Grant(user)
 
 	var/datum/action/innate/fire_cascade/big/screen_wide_fire_spell = new(user.mind)

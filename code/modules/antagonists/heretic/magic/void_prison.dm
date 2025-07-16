@@ -1,12 +1,12 @@
-/datum/action/innate/pointed/void_prison
+/obj/effect/proc_holder/spell/pointed/void_prison
 	name = "Void Prison"
 	desc = "Sends a heathen into the void for 10 seconds. \
 		They will be unable to perform any actions for the duration. \
 		Afterwards, they will be chilled and returned to the mortal plane."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "voidball"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "voidball"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 	sound = 'sound/effects/magic/voidblink.ogg'
 
@@ -19,14 +19,14 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-/datum/action/innate/pointed/void_prison/before_cast(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/void_prison/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 	if(!ismob(cast_on))
 		return SPELL_CANCEL_CAST
 
-/datum/action/innate/pointed/void_prison/cast(mob/living/carbon/human/cast_on)
+/obj/effect/proc_holder/spell/pointed/void_prison/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
 		cast_on.visible_message(
@@ -52,14 +52,14 @@
 	addtimer(CALLBACK(src, PROC_REF(enter_prison), new_owner), 1 SECONDS)
 
 /datum/status_effect/void_prison/on_remove()
-	if(!isheretic(owner))
-		owner.apply_status_effect(/datum/status_effect/void_chill, 3)
+	if(!isheretic(action.owner))
+		action.owner.apply_status_effect(/datum/status_effect/void_chill, 3)
 	if(stasis_overlay)
 		//Free our prisoner
-		owner.remove_traits(list(TRAIT_GODMODE, TRAIT_NO_TRANSFORM, TRAIT_SOFTSPOKEN), TRAIT_STATUS_EFFECT(id))
-		owner.forceMove(get_turf(stasis_overlay))
-		stasis_overlay.forceMove(owner)
-		owner.vis_contents += stasis_overlay
+		action.owner.remove_traits(list(TRAIT_GODMODE, TRAIT_NO_TRANSFORM, TRAIT_SOFTSPOKEN), TRAIT_STATUS_EFFECT(id))
+		action.owner.forceMove(get_turf(stasis_overlay))
+		stasis_overlay.forceMove(action.owner)
+		action.owner.vis_contents += stasis_overlay
 		//Animate closing the ball
 		stasis_overlay.animate_closing()
 		stasis_overlay.icon_state = "voidball_closed"

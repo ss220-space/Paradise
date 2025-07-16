@@ -42,7 +42,7 @@
 	ADD_TRAIT(our_mob, TRAIT_MADNESS_IMMUNE, REF(src))
 
 	var/obj/effect/proc_holder/spell/lunatic_track/moon_track = new /obj/effect/proc_holder/spell/lunatic_track()
-	var/datum/action/innate/touch/mansus_grasp/mad_touch = new /datum/action/innate/touch/mansus_grasp()
+	var/obj/effect/proc_holder/spell/touch/mansus_grasp/mad_touch = new /obj/effect/proc_holder/spell/touch/mansus_grasp()
 	our_mob.mind.AddSpell(mad_touch)
 	our_mob.mind.AddSpell(moon_track)
 

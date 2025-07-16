@@ -57,7 +57,7 @@
 	gain_text = "At first I didn't understand these instruments of war, but the Priest \
 		told me to use them regardless. Soon, he said, I would know them well."
 
-	action_to_add = /datum/action/innate/pointed/cleave
+	action_to_add = /obj/effect/proc_holder/spell/pointed/cleave
 	cost = 1
 
 

@@ -1,10 +1,10 @@
-/datum/action/innate/pointed/projectile/star_blast
+/obj/effect/proc_holder/spell/pointed/projectile/star_blast
 	name = "Star Blast"
 	desc = "This spell fires a disk with cosmic energies at a target, spreading the star mark."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "star_blast"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "star_blast"
 
 	sound = 'sound/effects/magic/cosmic_energy.ogg'
 	school = SCHOOL_FORBIDDEN

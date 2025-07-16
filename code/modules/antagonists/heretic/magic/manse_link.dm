@@ -2,10 +2,10 @@
 	name = "Manse Link"
 	desc = "This spell allows you to pierce through reality and connect minds to one another \
 		via your Mansus Link. All minds connected to your Mansus Link will be able to communicate discreetly across great distances."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "mansus_link"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "mansus_link"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	school = SCHOOL_FORBIDDEN
@@ -49,22 +49,22 @@
 /obj/effect/proc_holder/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
 	var/datum/component/mind_linker/linker = target
 	if(linkee.stat == DEAD)
-		to_chat(owner, span_warning("They're dead!"))
+		to_chat(action.owner, span_warning("They're dead!"))
 		return FALSE
 
-	to_chat(owner, span_notice("You begin linking [linkee]'s mind to yours..."))
+	to_chat(action.owner, span_notice("You begin linking [linkee]'s mind to yours..."))
 	to_chat(linkee, span_warning("You feel your mind being pulled somewhere... connected... intertwined with the very fabric of reality..."))
 
-	if(!do_after(owner, link_time, linkee))
-		to_chat(owner, span_warning("You fail to link to [linkee]'s mind."))
+	if(!do_after(action.owner, link_time, linkee))
+		to_chat(action.owner, span_warning("You fail to link to [linkee]'s mind."))
 		to_chat(linkee, span_warning("The foreign presence leaves your mind."))
 		return FALSE
 
-	if(QDELETED(src) || QDELETED(owner) || QDELETED(linkee))
+	if(QDELETED(src) || QDELETED(action.owner) || QDELETED(linkee))
 		return FALSE
 
 	if(!linker.link_mob(linkee))
-		to_chat(owner, span_warning("You can't seem to link to [linkee]'s mind."))
+		to_chat(action.owner, span_warning("You can't seem to link to [linkee]'s mind."))
 		to_chat(linkee, span_warning("The foreign presence leaves your mind."))
 		return FALSE
 

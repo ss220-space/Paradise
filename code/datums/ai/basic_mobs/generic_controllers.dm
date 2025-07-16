@@ -1,3 +1,4 @@
+/*
 /// Basetype with normal parameters
 /datum/ai_controller/basic_controller/simple
 	blackboard = list(
@@ -13,6 +14,7 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
+*/
 
 /// Find a target, walk at target, attack intervening obstacles
 /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
@@ -22,6 +24,7 @@
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
 
+/*
 /// Find a target, walk at target, attack intervening obstacles
 /datum/ai_controller/basic_controller/simple/simple_ranged
 	planning_subtrees = list(
@@ -129,3 +132,4 @@
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/blackboard,
 	)
+*/

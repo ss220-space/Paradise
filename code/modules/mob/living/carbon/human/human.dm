@@ -263,12 +263,14 @@
 #define ex_armor_reduction(value, armor) (clamp(value * (1 - (armor / 100)), 0, INFINITY))
 
 /mob/living/carbon/human/ex_act(severity, turf/epicenter)
-	var/bruteloss = 0
-	var/burnloss = 0
+	if(HAS_TRAIT(src, TRAIT_BOMBIMMUNE))
+		return FALSE
 
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 
+	var/bruteloss = 0
+	var/burnloss = 0
 	var/armor = getarmor(attack_flag = BOMB)	//Average bomb protection
 	var/limb_loss_reduction = FLOOR(armor / 25, 1) //It's guaranteed that every 25th armor point will protect from one delimb
 	var/limbs_affected = 0

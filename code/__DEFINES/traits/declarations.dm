@@ -64,6 +64,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_XENO_HOST "xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_LEGION_TUMOUR "legion_tumour" //used in huds for special icon
 #define TRAIT_NO_SPELLS "no_spells"	// Used to prevent cast or use any spells
+#define TRAIT_SLEEPIMMUNE "sleep_immunity"
 /// Are we immune to shocks?
 #define TRAIT_SHOCKIMMUNE "shock_immunity"
 /// Are we immune to specifically tesla / SM shocks?
@@ -85,6 +86,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EMOTE_MUTE "emote_mute"
 #define TRAIT_IGNORESLOWDOWN "ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
+/// This human is immune to the effects of being exploded. (ex_act)
+#define TRAIT_BOMBIMMUNE "bomb_immunity"
+/// This mob is immune to stun causing status effects and stamcrit.
+/// Prefer to use [/mob/living/proc/check_incapacitating_immunity] over checking for this trait exactly.
+#define TRAIT_STUNIMMUNE "stun_immunity"
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_PUSHIMMUNE "push_immunity"
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
@@ -117,6 +123,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
 /// Trait given to anything linked to, not necessarily allied to, the mansus
 #define TRAIT_MANSUS_TOUCHED "mansus_touched"
+/// Trait given to all participants in a heretic arena
+#define TRAIT_ELDRITCH_ARENA_PARTICIPANT "eldritch_arena_participant"
 #define TRAIT_LASEREYES "laser_eyes"	//traits that should be properly converted to genetic mutations one day
 /// Forces the user to stay unconscious.
 #define TRAIT_KNOCKEDOUT "knockedout"

@@ -221,6 +221,10 @@
 	proximity_checkers += P
 	return P
 
+
+/datum/component/proximity_monitor/proc/cheker_initialized(obj/effect/abstract/proximity_checker/cheker, turf/location, atom/created, init_flags)
+	return
+
 /**
  * Called in Initialize(). Generates a set of [proximity checker][/obj/effect/abstract/proximity_checker] objects around the parent.
  */
@@ -253,6 +257,7 @@
 		var/obj/checker = proximity_checkers[index++]
 		checker.loc = T
 
+
 /**
  * # Basic Proximity Checker
  *
@@ -277,6 +282,7 @@
 	if(monitor)
 		var/static/list/loc_connections = list(
 			COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+			COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON = PROC_REF(on_cheker_initialized),
 		)
 		AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -285,6 +291,11 @@
 	monitor.proximity_checkers -= src
 	monitor = null
 	return ..()
+
+
+/obj/effect/abstract/proximity_checker/proc/on_cheker_initialized(...)
+	SIGNAL_HANDLER
+	monitor.cheker_initialized(arglist(list(src) + args))
 
 
 /obj/effect/abstract/proximity_checker/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)

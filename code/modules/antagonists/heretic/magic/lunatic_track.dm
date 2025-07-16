@@ -2,10 +2,10 @@
 	name = "Moonlight Echo"
 	desc = "Track your ringleader."
 	stat_allowed = CONSCIOUS
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "moon_smile"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "moon_smile"
 	base_cooldown = 4 SECONDS
 
 /obj/effect/proc_holder/spell/lunatic_track/Grant(mob/granted)
@@ -14,17 +14,17 @@
 	return ..()
 
 /obj/effect/proc_holder/spell/lunatic_track/Activate(atom/target)
-	var/datum/antagonist/lunatic/lunatic_datum = IS_LUNATIC(owner)
+	var/datum/antagonist/lunatic/lunatic_datum = IS_LUNATIC(action.owner)
 	var/mob/living/carbon/human/ascended_heretic = lunatic_datum.ascended_body
 	if(!(ascended_heretic))
-		owner.balloon_alert(owner, "what cruel fate, your master is gone...")
+		action.owner.balloon_alert(action.owner, "what cruel fate, your master is gone...")
 		StartCooldown(1 SECONDS)
 		return FALSE
-	playsound(owner, 'sound/effects/singlebeat.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-	owner.balloon_alert(owner, get_balloon_message(ascended_heretic))
+	playsound(action.owner, 'sound/effects/singlebeat.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
+	action.owner.balloon_alert(action.owner, get_balloon_message(ascended_heretic))
 
 	if(ascended_heretic.stat == DEAD)
-		to_chat(owner, span_hierophant("[ascended_heretic] is dead. Weep for the lie has struck out."))
+		to_chat(action.owner, span_hierophant("[ascended_heretic] is dead. Weep for the lie has struck out."))
 
 	StartCooldown()
 	return TRUE
@@ -42,7 +42,7 @@
 /obj/effect/proc_holder/spell/lunatic_track/proc/generate_balloon_message(mob/living/carbon/human/tracked_mob)
 	var/balloon_message = "error text!"
 	var/turf/their_turf = get_turf(tracked_mob)
-	var/turf/our_turf = get_turf(owner)
+	var/turf/our_turf = get_turf(action.owner)
 	var/their_z = their_turf?.z
 	var/our_z = our_turf?.z
 

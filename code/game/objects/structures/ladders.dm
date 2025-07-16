@@ -78,9 +78,14 @@
 
 /obj/structure/ladder/proc/travel(going_up, mob/user, is_ghost, obj/structure/ladder/ladder)
 	if(!is_ghost)
+		var/response = SEND_SIGNAL(user, COMSIG_LADDER_TRAVEL, src, ladder, going_up)
+		if(response & LADDER_TRAVEL_BLOCK)
+			return
+
 		ladder.add_fingerprint(user)
 		if(!do_after(user, travel_time, src))
 			return
+
 		show_fluff_message(going_up, user)
 
 	var/turf/target = get_turf(ladder)

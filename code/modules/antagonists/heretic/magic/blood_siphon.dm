@@ -1,11 +1,11 @@
-/datum/action/innate/pointed/blood_siphon
+/obj/effect/proc_holder/spell/pointed/blood_siphon
 	name = "Blood Siphon"
 	desc = "A targeted spell that heals your wounds while damaging the enemy. \
 		It has a chance to transfer wounds between you and your enemy."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "blood_siphon"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "blood_siphon"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	school = SCHOOL_FORBIDDEN
@@ -17,17 +17,17 @@
 
 	cast_range = 6
 
-/datum/action/innate/pointed/blood_siphon/can_cast_spell(feedback = TRUE)
-	return ..() && isliving(owner)
+/obj/effect/proc_holder/spell/pointed/blood_siphon/can_cast(feedback = TRUE)
+	return ..() && isliving(action.owner)
 
-/datum/action/innate/pointed/blood_siphon/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/blood_siphon/is_valid_target(atom/cast_on)
 	return ..() && isliving(cast_on)
 
-/datum/action/innate/pointed/blood_siphon/cast(mob/living/cast_on)
+/obj/effect/proc_holder/spell/pointed/blood_siphon/cast(mob/living/cast_on)
 	. = ..()
-	playsound(owner, 'sound/effects/magic/demon_attack1.ogg', 75, TRUE)
+	playsound(action.owner, 'sound/effects/magic/demon_attack1.ogg', 75, TRUE)
 	if(cast_on.can_block_magic())
-		owner.balloon_alert(owner, "spell blocked!")
+		action.owner.balloon_alert(action.owner, "spell blocked!")
 		cast_on.visible_message(
 			span_danger("The spell bounces off of [cast_on]!"),
 			span_danger("The spell bounces off of you!"),
@@ -39,7 +39,7 @@
 		span_danger("You pale as a red glow enevelops you!"),
 	)
 
-	var/mob/living/living_owner = owner
+	var/mob/living/living_owner = action.owner
 	cast_on.adjustBruteLoss(20)
 	living_owner.adjustBruteLoss(-20)
 
@@ -50,11 +50,11 @@
 	if(living_owner.blood_volume < BLOOD_VOLUME_MAXIMUM) // we dont want to explode from casting
 		living_owner.blood_volume += 20
 
-	if(!iscarbon(cast_on) || !iscarbon(owner))
+	if(!iscarbon(cast_on) || !iscarbon(action.owner))
 		return TRUE
 
 	var/mob/living/carbon/carbon_target = cast_on
-	var/mob/living/carbon/carbon_user = owner
+	var/mob/living/carbon/carbon_user = action.owner
 	for(var/obj/item/organ/external/bodypart as anything in carbon_user.bodyparts)
 		for(var/datum/wound/iter_wound as anything in bodypart.wounds)
 			if(prob(50))

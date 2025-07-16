@@ -1,10 +1,10 @@
-/datum/action/innate/pointed/projectile/moon_parade
+/obj/effect/proc_holder/spell/pointed/projectile/moon_parade
 	name = "Lunar parade"
 	desc = "This unleashes the parade, making everyone in its way join it and suffer hallucinations."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "moon_parade"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "moon_parade"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/moon_target.dmi'
 
 	sound = 'sound/effects/magic/cosmic_energy.ogg'

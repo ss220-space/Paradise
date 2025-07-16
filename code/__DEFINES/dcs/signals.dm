@@ -670,6 +670,15 @@
 	#define COMPONENT_NO_EFFECT (1<<0) //For all of them
 /// Sent to the mob when their mind is slaved
 #define COMSIG_MOB_ENSLAVED_TO "mob_enslaved_to"
+/// from /atom/movable/can_z_move(): (turf/start, turf/destination)
+#define COMSIG_CAN_Z_MOVE "movable_can_z_move"
+	/// Return to block z movement
+	#define COMPONENT_CANT_Z_MOVE (1<<0)
+/// Called on a mob attempting to use a ladder to go in either direction.  (entrance_ladder, exit_ladder, going_up)
+#define COMSIG_LADDER_TRAVEL "ladder-travel"
+	#define LADDER_TRAVEL_BLOCK (1<<0)
+///Called after a movable is teleported from `do_teleport()`: ()
+#define COMSIG_MOVABLE_POST_TELEPORT "movable_post_teleport"
 
 /// Sent to a mob grabbing another mob: (mob/living/grabbing)
 #define COMSIG_LIVING_GRAB "living_grab"

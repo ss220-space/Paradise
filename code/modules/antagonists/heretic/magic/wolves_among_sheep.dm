@@ -3,15 +3,15 @@
  * Handles the creation of the "arena", in terms of visuals. Banishes windows/airlocks and puts down the floors
  * For the functionality of the spell itself see [/obj/effect/abstract/heretic_arena] which is created during [/proc/create_arena()]
  */
-/datum/action/innate/wolves_among_sheep
+/obj/effect/proc_holder/spell/wolves_among_sheep
 	name = "Wolves among Sheep"
 	desc = "Alters the fabric of reality, conjuring a magical arena unpassable to outsiders, \
 		all participants are trapped and immune to any form of crowd control or enviromental hazards; \
 		trapped participants are granted a Blade and are unable to leave or jaunt until they score a critical hit."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = null
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "among_sheep"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "among_sheep"
 
 	school = SCHOOL_FORBIDDEN
 	base_cooldown = 5 MINUTES
@@ -34,9 +34,10 @@
 	/// Reference to the arena so we can clear it if we need to
 	var/ongoing_arena
 
-/datum/action/innate/wolves_among_sheep/cast(atom/cast_on)
+
+/obj/effect/proc_holder/spell/wolves_among_sheep/cast(atom/cast_on)
 	. = ..()
-	center_turf = get_turf(owner)
+	center_turf = get_turf(action.owner)
 	playsound(center_turf,'sound/machines/airlock/airlockopen.ogg', 750, TRUE)
 	to_transform = list()
 	new /obj/effect/heretic_rune/big(center_turf)
@@ -50,9 +51,12 @@
 			greatest_dist = turf_distance
 			if(greatest_dist > max_range)
 				stack_trace("greatest_dist ([greatest_dist]) has somehow exceeded the expected maximum range ([max_range])")
+
 		if(!to_transform["[turf_distance]"])
 			to_transform["[turf_distance]"] = list()
+
 		to_transform["[turf_distance]"] += transform_turf
+
 	for(var/iterator in 1 to greatest_dist)
 		if(!to_transform["[iterator]"])
 			continue
@@ -61,22 +65,29 @@
 	// Loop doesnt catch src.loc so we have to handle it manually
 	apply_visual(list(center_turf))
 
-/datum/action/innate/wolves_among_sheep/can_cast_spell(feedback)
+
+/obj/effect/proc_holder/spell/wolves_among_sheep/can_cast(feedback)
 	. = ..()
 	for(var/obj/nearby_arena in GLOB.heretic_arenas)
 		// We can't allow arenas to overlap because they break each other during cleanup.
 		// If any future coder wants to allow arenas to merge or fight like domains, feel free to implement it.
-		if(get_dist(owner, nearby_arena) <= 25)
-			if(feedback)
-				owner.balloon_alert(owner, "another arena nearby!")
+		if(get_dist(action.owner, nearby_arena) > 25)
+			continue
+
+		if(!feedback)
 			return FALSE
 
+		action.owner.balloon_alert(action.owner, "another arena nearby!")
+		return FALSE
+
+
 /// Applies a visual to each turf
-/datum/action/innate/wolves_among_sheep/proc/apply_visual(list/turfs)
+/obj/effect/proc_holder/spell/wolves_among_sheep/proc/apply_visual(list/turfs)
 	for(var/turf/target as anything in turfs)
 		if(is_space_or_openspace(target))
 			var/turf_icon = "rose_stone_" + "[pick(1, 2, 3, 4, 5, 6, 7, 8)]"
 			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena", image('icons/turf/floors/rose_stone_turf.dmi', target, turf_icon, layer = ABOVE_OPEN_TURF_LAYER))
+
 		else if(iswallturf(target))
 			var/wall_icon = "rose_stone_" + "[pick(1, 2, 3, 4, 5, 6, 7, 8)]"
 			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena", image('icons/turf/walls/rose_stone_wall.dmi', target, wall_icon, layer = ABOVE_OPEN_TURF_LAYER))
@@ -88,34 +99,39 @@
 			banished_airlocks += to_banish
 			banished_airlocks[to_banish] = to_banish.loc
 			to_banish.moveToNullspace()
+
 		// Windows will also get an alt appearance
 		for(var/obj/structure/window/to_change in target)
 			to_change.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena", image('icons/obj/structures.dmi', to_change, "stone_window_pane", layer = ABOVE_OPEN_TURF_LAYER))
 
+
 /// Sets up the proximity monitor which handles things that are within the area and leave once they get someone to crit
-/datum/action/innate/wolves_among_sheep/proc/create_arena(turf/target)
-	RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION)), PROC_REF(on_caster_crit))
+/obj/effect/proc_holder/spell/wolves_among_sheep/proc/create_arena(turf/target)
+	RegisterSignal(action.owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED)), PROC_REF(on_caster_crit))
 
 	// This is where most of the funcionality of the spell is
-	ongoing_arena = new /obj/effect/abstract/heretic_arena(target, max_range, 60 SECONDS, owner)
+	ongoing_arena = new /obj/effect/abstract/heretic_arena(target, max_range, 60 SECONDS, action.owner)
 	RegisterSignal(ongoing_arena, COMSIG_QDELETING, PROC_REF(on_arena_delete))
 
+
 /// Clears the timer if the arena is deleted
-/datum/action/innate/wolves_among_sheep/proc/on_arena_delete()
+/obj/effect/proc_holder/spell/wolves_among_sheep/proc/on_arena_delete()
 	SIGNAL_HANDLER
 	deltimer(revert_timer)
 	ongoing_arena = null
 	revert_effects()
 
+
 /// If the caster goes into crit, the arena falls apart right away
-/datum/action/innate/wolves_among_sheep/proc/on_caster_crit()
+/obj/effect/proc_holder/spell/wolves_among_sheep/proc/on_caster_crit()
 	SIGNAL_HANDLER
 	deltimer(revert_timer)
 	revert_effects()
 
+
 /// Undoes our changes
-/datum/action/innate/wolves_among_sheep/proc/revert_effects()
-	UnregisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION)))
+/obj/effect/proc_holder/spell/wolves_among_sheep/proc/revert_effects()
+	UnregisterSignal(action.owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED)))
 	for(var/iterator in 1 to greatest_dist)
 		var/backwards_iterator = greatest_dist - iterator + 1 //We go backwards
 		if(!to_transform["[backwards_iterator]"])
@@ -125,8 +141,9 @@
 	if(ongoing_arena)
 		QDEL_NULL(ongoing_arena)
 
+
 /// Transforms all the turfs and restores the airlocks
-/datum/action/innate/wolves_among_sheep/proc/revert_terrain(list/turfs)
+/obj/effect/proc_holder/spell/wolves_among_sheep/proc/revert_terrain(list/turfs)
 	for(var/turf/target as anything in turfs)
 		target.remove_alt_appearance("heretic_arena")
 		target.turf_flags = initial(target.turf_flags) // Restore flags to what they were

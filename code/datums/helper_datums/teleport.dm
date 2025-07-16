@@ -1,8 +1,10 @@
 //wrapper
-/proc/do_teleport(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null, bypass_area_flag=FALSE)
+/proc/do_teleport(atom/ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null, bypass_area_flag=FALSE)
 	var/datum/teleport/instant/science/D = new
 	if(D.start(arglist(args)))
+		SEND_SIGNAL(ateleatom, COMSIG_MOVABLE_POST_TELEPORT, adestination)
 		return 1
+
 	return 0
 
 /datum/teleport

@@ -9,15 +9,15 @@
 	base_cooldown = 45 SECONDS
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/Activate(atom/target_atom)
-	var/turf/spacestart_turf = get_turf(owner)
+	var/turf/spacestart_turf = get_turf(action.owner)
 	if(!istype(start_turf) || !HAS_TRAIT(start_turf, TRAIT_RUSTY))
 		return FALSE
 	StartCooldown(135 SECONDS, 135 SECONDS)
-	charge_sequence(owner, target_atom, charge_delay, charge_past)
+	charge_sequence(action.owner, target_atom, charge_delay, charge_past)
 	StartCooldown()
 	return TRUE
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/on_move(atom/source, atom/new_loc, atom/target)
-	var/turf/victim = get_turf(owner)
+	var/turf/victim = get_turf(action.owner)
 	if(!actively_moving)
 		return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 	new /obj/effect/temp_visual/decoy/fading(source.loc, source)
@@ -32,14 +32,14 @@
 	if(!destroy_objects)
 		return
 	for(var/dir in GLOB.cardinals)
-		var/turf/source = get_turf(owner)
+		var/turf/source = get_turf(action.owner)
 		var/turf/simulated/wall/next_turf = get_step(charger, dir)
 		if(!istype(source) || !istype(next_turf) || !HAS_TRAIT(source, TRAIT_RUSTY) || !HAS_TRAIT(next_turf, TRAIT_RUSTY))
 			continue
 		SSexplosions.medturf += next_turf
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/on_bump(atom/movable/source, atom/target)
-	if(owner == target)
+	if(action.owner == target)
 		return
 	if(destroy_objects)
 		if(isturf(target))

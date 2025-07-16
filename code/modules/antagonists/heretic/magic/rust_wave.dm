@@ -1,13 +1,13 @@
 // Shoots out in a wave-like, what rust heretics themselves get
-/datum/action/innate/cone/staggered/entropic_plume
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume
 	name = "Entropic Plume"
 	desc = "Spews forth a disorienting plume that causes enemies to strike each other, \
 		briefly blinds them (increasing with range) and poisons them (decreasing with range). \
 		Also spreads rust in the path of the plume."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "entropic_plume"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "entropic_plume"
 	sound = 'sound/effects/magic/forcewall.ogg'
 
 	school = SCHOOL_FORBIDDEN
@@ -20,24 +20,24 @@
 	cone_levels = 5
 	respect_density = TRUE
 
-/datum/action/innate/cone/staggered/entropic_plume/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/cast(atom/cast_on)
 	. = ..()
 	new /obj/effect/temp_visual/dir_setting/entropic(get_step(cast_on, cast_on.dir), cast_on.dir)
 
-/datum/action/innate/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, mob/living/caster, level)
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, mob/living/caster, level)
 	if(ismob(caster))
 		caster.do_rust_heretic_act(target_turf)
 	else
 		target_turf.rust_heretic_act()
 
-/datum/action/innate/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
 	if(victim.can_block_magic(antimagic_flags) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
 		return
 	victim.apply_status_effect(/datum/status_effect/amok)
 	victim.apply_status_effect(/datum/status_effect/cloudstruck, level * 1 SECONDS)
 	victim.adjust_disgust(100)
 
-/datum/action/innate/cone/staggered/entropic_plume/calculate_cone_shape(current_level)
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/calculate_cone_shape(current_level)
 	// At the first level (that isn't level 1) we will be small
 	if(current_level == 2)
 		return 3
@@ -70,10 +70,10 @@
 /obj/effect/proc_holder/spell/fireball/rust_wave
 	name = "Patron's Reach"
 	desc = "Channels energy into your hands to release a wave of rust."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "rust_wave"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "rust_wave"
 
 	school = SCHOOL_FORBIDDEN
 	base_cooldown = 35 SECONDS

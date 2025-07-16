@@ -86,7 +86,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_sleep
 	//show_duration = TRUE
 	/// List of traits our drinker gets while they are asleep
-	var/list/sleeping_traits = list(TRAIT_NOBREATH, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD, TRAIT_RESISTHEAT)
+	var/list/sleeping_traits = list(TRAIT_NO_BREATH, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESIST_COLD, TRAIT_RESIST_HEAT)
 
 /datum/status_effect/eldritch_sleep/on_apply()
 	. = ..()

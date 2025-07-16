@@ -1,12 +1,12 @@
-/datum/action/innate/charged/beam/fire_blast
+/obj/effect/proc_holder/spell/charged/beam/fire_blast
 	name = "Volcano Blast"
 	desc = "Charge up a blast of fire that chains between nearby targets, setting them ablaze. \
 		Targets already on fire will take priority. If the target fails to catch ablaze, or \
 		extinguishes themselves before it bounces, the chain will stop."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "flames"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "flames"
 	sound = 'sound/effects/magic/fireball.ogg'
 
 	school = SCHOOL_FORBIDDEN
@@ -22,14 +22,14 @@
 	/// How long the beam visual lasts, also used to determine time between jumps
 	var/beam_duration = 2 SECONDS
 
-/datum/action/innate/charged/beam/fire_blast/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/charged/beam/fire_blast/cast(atom/cast_on)
 	var/mob/living/caster = get_caster_from_target(cast_on)
 	if(istype(caster))
 		// Caster becomes fireblasted, but in a good way - heals damage over time
 		caster.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration, -2)
 	return ..()
 
-/datum/action/innate/charged/beam/fire_blast/send_beam(atom/origin, mob/living/carbon/to_beam, bounces = 4)
+/obj/effect/proc_holder/spell/charged/beam/fire_blast/send_beam(atom/origin, mob/living/carbon/to_beam, bounces = 4)
 	// Send a beam from the origin to the hit mob
 	origin.Beam(to_beam, icon_state = "solar_beam", time = beam_duration, beam_type = /obj/effect/ebeam/reacting/fire)
 
@@ -62,7 +62,7 @@
 		// We hit the maximum chain length, apply a bonus for managing it
 		new /obj/effect/temp_visual/fire_blast_bonus(to_beam.loc)
 		for(var/mob/living/nearby_living in range(1, to_beam))
-			if(IS_HERETIC_OR_MONSTER(nearby_living) || nearby_living == owner)
+			if(IS_HERETIC_OR_MONSTER(nearby_living) || nearby_living == action.owner)
 				continue
 			nearby_living.Knockdown(0.8 SECONDS)
 			nearby_living.apply_damage(15, BURN/*, wound_bonus = 5*/)
@@ -70,7 +70,7 @@
 			nearby_living.ignite_mob()
 
 /// Timer callback to continue the chain, calling send_fire_bream recursively.
-/datum/action/innate/charged/beam/fire_blast/proc/continue_beam(mob/living/carbon/beamed, bounces)
+/obj/effect/proc_holder/spell/charged/beam/fire_blast/proc/continue_beam(mob/living/carbon/beamed, bounces)
 	// We will only continue the chain if we exist, are still on fire, and still have the status effect
 	if(QDELETED(beamed) || !beamed.on_fire || !beamed.has_status_effect(/datum/status_effect/fire_blasted))
 		return
@@ -85,11 +85,11 @@
 /// Pick a carbon mob in a radius around us that we can reach.
 /// Mobs on fire will have priority and be targeted over others.
 /// Returns null or a carbon mob.
-/datum/action/innate/charged/beam/fire_blast/get_target(atom/center)
+/obj/effect/proc_holder/spell/charged/beam/fire_blast/get_target(atom/center)
 	var/list/possibles = list()
 	var/list/priority_possibles = list()
 	for(var/mob/living/carbon/to_check in view(target_radius, center))
-		if(to_check == center || to_check == owner)
+		if(to_check == center || to_check == action.owner)
 			continue
 		if(to_check.has_status_effect(/datum/status_effect/fire_blasted)) // Already blasted
 			continue
@@ -128,17 +128,17 @@
 	return ..()
 
 /datum/status_effect/fire_blasted/on_apply()
-	if(owner.on_fire && animate_duration > 0 SECONDS)
+	if(action.owner.on_fire && animate_duration > 0 SECONDS)
 		var/mutable_appearance/warning_sign = mutable_appearance('icons/effects/effects.dmi', "blessed", BELOW_MOB_LAYER)
-		var/atom/movable/flick_visual/warning = owner.flick_overlay_view(warning_sign, initial(duration))
+		var/atom/movable/flick_visual/warning = action.owner.flick_overlay_view(warning_sign, initial(duration))
 		warning.alpha = 50
 		animate(warning, alpha = 255, time = animate_duration)
 
 	return TRUE
 
 /datum/status_effect/fire_blasted/tick(seconds_between_ticks)
-	owner.adjustFireLoss(tick_damage * seconds_between_ticks)
-	owner.adjustStaminaLoss(2 * tick_damage * seconds_between_ticks)
+	action.owner.adjustFireLoss(tick_damage * seconds_between_ticks)
+	action.owner.adjustStaminaLoss(2 * tick_damage * seconds_between_ticks)
 
 // The beam fireblast spits out, causes people to walk through it to be on fire
 /obj/effect/ebeam/reacting/fire

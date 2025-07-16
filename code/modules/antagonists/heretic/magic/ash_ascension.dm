@@ -1,11 +1,11 @@
 /// Creates a constant Ring of Fire around the caster for a set duration of time, which follows them.
-/datum/action/innate/fire_sworn
+/obj/effect/proc_holder/spell/fire_sworn
 	name = "Oath of Flame"
 	desc = "For a minute, you will passively create a ring of fire around you."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "fire_ring"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "fire_ring"
 
 	school = SCHOOL_FORBIDDEN
 	base_cooldown = 70 SECONDS
@@ -19,14 +19,14 @@
 	/// How long it the ring lasts
 	var/duration = 1 MINUTES
 
-/datum/action/innate/fire_sworn/Remove(mob/living/remove_from)
+/obj/effect/proc_holder/spell/fire_sworn/Remove(mob/living/remove_from)
 	remove_from.remove_status_effect(/datum/status_effect/fire_ring)
 	return ..()
 
-/datum/action/innate/fire_sworn/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/fire_sworn/is_valid_target(atom/cast_on)
 	return isliving(cast_on)
 
-/datum/action/innate/fire_sworn/cast(mob/living/cast_on)
+/obj/effect/proc_holder/spell/fire_sworn/cast(mob/living/cast_on)
 	. = ..()
 	cast_on.apply_status_effect(/datum/status_effect/fire_ring, duration, fire_radius)
 
@@ -45,28 +45,28 @@
 	return ..()
 
 /datum/status_effect/fire_ring/tick(seconds_between_ticks)
-	if(QDELETED(owner) || owner.stat == DEAD)
+	if(QDELETED(action.owner) || action.owner.stat == DEAD)
 		qdel(src)
 		return
 
-	if(!isturf(owner.loc))
+	if(!isturf(action.owner.loc))
 		return
 
-	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, owner))
+	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, action.owner))
 		var/obj/effect/hotspot/flame_tile = (locate() in nearby_turf) || new(nearby_turf)
 		flame_tile.alpha = 125
 		nearby_turf.hotspot_expose(750, 25 * seconds_between_ticks, 1)
-		for(var/mob/living/fried_living in nearby_turf.contents - owner)
+		for(var/mob/living/fried_living in nearby_turf.contents - action.owner)
 			fried_living.apply_damage(2.5 * seconds_between_ticks, BURN)
 
 /// Creates one, large, expanding ring of fire around the caster, which does not follow them.
-/datum/action/innate/fire_cascade
+/obj/effect/proc_holder/spell/fire_cascade
 	name = "Lesser Fire Cascade"
 	desc = "Heats the air around you."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "fire_ring"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "fire_ring"
 	sound = 'sound/items/tools/welder.ogg'
 
 	school = SCHOOL_FORBIDDEN
@@ -79,34 +79,34 @@
 	/// The radius the flames will go around the caster.
 	var/flame_radius = 4
 
-/datum/action/innate/fire_cascade/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/fire_cascade/cast(atom/cast_on)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(fire_cascade), get_turf(cast_on), flame_radius)
 
 /// Spreads a huge wave of fire in a radius around us, staggered between levels
-/datum/action/innate/fire_cascade/proc/fire_cascade(atom/centre, flame_radius = 1)
+/obj/effect/proc_holder/spell/fire_cascade/proc/fire_cascade(atom/centre, flame_radius = 1)
 	for(var/i in 0 to flame_radius)
 		for(var/turf/nearby_turf as anything in spiral_range_turfs(i + 1, centre))
 			var/obj/effect/hotspot/flame_tile = (locate() in nearby_turf) || new(nearby_turf)
 			flame_tile.alpha = 125
 			nearby_turf.hotspot_expose(750, 50, 1)
-			for(var/mob/living/fried_living in nearby_turf.contents - owner)
+			for(var/mob/living/fried_living in nearby_turf.contents - action.owner)
 				fried_living.apply_damage(5, BURN)
 
 		stoplag(0.3 SECONDS)
 
-/datum/action/innate/fire_cascade/big
+/obj/effect/proc_holder/spell/fire_cascade/big
 	name = "Greater Fire Cascade"
 	flame_radius = 6
 
 // Currently unused - releases streams of fire around the caster.
-/datum/action/innate/pointed/ash_beams
+/obj/effect/proc_holder/spell/pointed/ash_beams
 	name = "Nightwatcher's Rite"
 	desc = "A powerful spell that releases five streams of eldritch fire towards the target."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "flames"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "flames"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	school = SCHOOL_FORBIDDEN
@@ -119,16 +119,16 @@
 	/// The length of the flame line spit out.
 	var/flame_line_length = 15
 
-/datum/action/innate/pointed/ash_beams/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/ash_beams/is_valid_target(atom/cast_on)
 	return TRUE
 
-/datum/action/innate/pointed/ash_beams/cast(atom/target)
+/obj/effect/proc_holder/spell/pointed/ash_beams/cast(atom/target)
 	. = ..()
 	var/static/list/offsets = list(-25, -10, 0, 10, 25)
 	for(var/offset in offsets)
-		INVOKE_ASYNC(src, PROC_REF(fire_line), owner, line_target(offset, flame_line_length, target, owner))
+		INVOKE_ASYNC(src, PROC_REF(fire_line), action.owner, line_target(offset, flame_line_length, target, action.owner))
 
-/datum/action/innate/pointed/ash_beams/proc/line_target(offset, range, atom/at, atom/user)
+/obj/effect/proc_holder/spell/pointed/ash_beams/proc/line_target(offset, range, atom/at, atom/user)
 	var/turf/user_loc = get_turf(user)
 	if(!at)
 		return
@@ -141,7 +141,7 @@
 		T = check
 	return (get_line(user_loc, T) - user_loc)
 
-/datum/action/innate/pointed/ash_beams/proc/fire_line(atom/source, list/turfs)
+/obj/effect/proc_holder/spell/pointed/ash_beams/proc/fire_line(atom/source, list/turfs)
 	var/list/hit_list = list()
 	for(var/turf/T in turfs)
 		if(iswallturf(T))

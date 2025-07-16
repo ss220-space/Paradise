@@ -1,10 +1,10 @@
 /obj/effect/proc_holder/spell/ethereal_jaunt/ash
 	name = "Ashen Passage"
 	desc = "A short range spell that allows you to pass unimpeded through walls."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "ash_shift"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "ash_shift"
 	sound = null
 
 	school = SCHOOL_FORBIDDEN

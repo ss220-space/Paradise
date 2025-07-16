@@ -744,6 +744,11 @@
 	needs_update_stat = TRUE
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_KNOCKEDOUT)
 
+/datum/status_effect/incapacitating/sleeping/on_apply()
+	if(HAS_TRAIT(owner, TRAIT_SLEEPIMMUNE))
+		return FALSE
+
+	. = ..()
 
 /datum/status_effect/incapacitating/sleeping/update_duration(mob/living/carbon/human/new_owner, set_duration)
 	return set_duration

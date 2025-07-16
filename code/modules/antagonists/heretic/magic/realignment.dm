@@ -1,12 +1,12 @@
 // Realignment. It's like Fleshmend but solely for stamina damage and stuns. Sec meta
-/datum/action/innate/realignment
+/obj/effect/proc_holder/spell/realignment
 	name = "Realignment"
 	desc = "Realign yourself, rapidly regenerating stamina and reducing any stuns or knockdowns. \
 		You cannot attack while realigning. Can be casted multiple times in short succession, but each cast lengthens the cooldown."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/hud/implants.dmi'
-	button_icon_state = "adrenal"
+	action_icon = 'icons/hud/implants.dmi'
+	action_icon_state = "adrenal"
 	// sound = 'sound/effects/magic/whistlereset.ogg' I have no idea why this was commented out
 
 	school = SCHOOL_FORBIDDEN
@@ -18,15 +18,15 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-/datum/action/innate/realignment/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/realignment/is_valid_target(atom/cast_on)
 	return isliving(cast_on)
 
-/datum/action/innate/realignment/cast(mob/living/cast_on)
+/obj/effect/proc_holder/spell/realignment/cast(mob/living/cast_on)
 	. = ..()
 	cast_on.apply_status_effect(/datum/status_effect/realignment)
 	to_chat(cast_on, span_notice("We begin to realign ourselves."))
 
-/datum/action/innate/realignment/after_cast(atom/cast_on)
+/obj/effect/proc_holder/spell/realignment/after_cast(atom/cast_on)
 	. = ..()
 	// With every cast, our spell level increases for a short time, which goes back down after a period
 	// and with every spell level, the cooldown duration of the spell goes up
@@ -34,7 +34,7 @@
 		var/reduction_timer = max(base_cooldown * spell_max_level * 0.5, 1.5 MINUTES)
 		addtimer(CALLBACK(src, PROC_REF(delevel_spell)), reduction_timer)
 
-/datum/action/innate/realignment/get_spell_title()
+/obj/effect/proc_holder/spell/realignment/get_spell_title()
 	switch(spell_level)
 		if(1, 2)
 			return "Hasty " // Hasty Realignment
@@ -58,23 +58,23 @@
 	var/list/realignment_traits = list(TRAIT_BATON_RESISTANCE, TRAIT_PACIFISM)
 
 /datum/status_effect/realignment/get_examine_text()
-	return span_notice("[owner.p_Theyre()] glowing a soft white.")
+	return span_notice("[action.owner.p_Theyre()] glowing a soft white.")
 
 /datum/status_effect/realignment/on_apply()
-	owner.add_traits(realignment_traits, TRAIT_STATUS_EFFECT(id))
-	owner.add_filter(id, 2, list("type" = "outline", "color" = "#d6e3e7", "size" = 2))
-	var/filter = owner.get_filter(id)
+	action.owner.add_traits(realignment_traits, TRAIT_STATUS_EFFECT(id))
+	action.owner.add_filter(id, 2, list("type" = "outline", "color" = "#d6e3e7", "size" = 2))
+	var/filter = action.owner.get_filter(id)
 	animate(filter, alpha = 127, time = 1 SECONDS, loop = -1)
 	animate(alpha = 63, time = 2 SECONDS)
 	return TRUE
 
 /datum/status_effect/realignment/on_remove()
-	owner.remove_traits(realignment_traits, TRAIT_STATUS_EFFECT(id))
-	owner.remove_filter(id)
+	action.owner.remove_traits(realignment_traits, TRAIT_STATUS_EFFECT(id))
+	action.owner.remove_filter(id)
 
 /datum/status_effect/realignment/tick(seconds_between_ticks)
-	owner.adjustStaminaLoss(-10)
-	owner.AdjustAllImmobility(-1 SECONDS)
+	action.owner.adjustStaminaLoss(-10)
+	action.owner.AdjustAllImmobility(-1 SECONDS)
 
 /atom/movable/screen/alert/status_effect/realignment
 	name = "Realignment"

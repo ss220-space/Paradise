@@ -1,10 +1,10 @@
-/datum/action/innate/touch/mansus_grasp
+/obj/effect/proc_holder/spell/touch/mansus_grasp
 	name = "Восприятие Мансуса"
 	desc = "A touch spell that lets you channel the power of the Old Gods through your grip."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "mansus_grasp"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "mansus_grasp"
 	sound = 'sound/items/tools/welder.ogg'
 
 	school = SCHOOL_EVOCATION
@@ -17,19 +17,19 @@
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 
-/datum/action/innate/touch/mansus_grasp/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/touch/mansus_grasp/is_valid_target(atom/cast_on)
 	return TRUE // This baby can hit anything
 
-/datum/action/innate/touch/mansus_grasp/can_cast_spell(feedback = TRUE)
-	return ..() && (!!isheretic(owner) || !!IS_LUNATIC(owner))
+/obj/effect/proc_holder/spell/touch/mansus_grasp/can_cast(feedback = TRUE)
+	return ..() && (!!isheretic(action.owner) || !!IS_LUNATIC(action.owner))
 
-/datum/action/innate/touch/mansus_grasp/on_antimagic_triggered(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/obj/effect/proc_holder/spell/touch/mansus_grasp/on_antimagic_triggered(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	victim.visible_message(
 		span_danger("The spell bounces off of [victim]!"),
 		span_danger("The spell bounces off of you!"),
 	)
 
-/datum/action/innate/touch/mansus_grasp/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/obj/effect/proc_holder/spell/touch/mansus_grasp/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	if(!isliving(victim))
 		return FALSE
 
@@ -69,7 +69,7 @@
 
 	return TRUE
 
-/datum/action/innate/touch/mansus_grasp/cast_on_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/obj/effect/proc_holder/spell/touch/mansus_grasp/cast_on_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	if(isliving(victim)) // if it's a living mob, go with our normal afterattack
 		return SECONDARY_ATTACK_CALL_NORMAL
 
@@ -100,7 +100,7 @@
  */
 /obj/item/melee/touch_attack/mansus_fist/proc/after_clear_rune(obj/effect/target, mob/living/user)
 	new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc, target.greyscale_colors)
-	var/datum/action/innate/touch/mansus_grasp/grasp = spell_which_made_us?.resolve()
+	var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = spell_which_made_us?.resolve()
 	grasp?.spell_feedback(user)
 
 	remove_hand_with_no_refund(user)
@@ -112,7 +112,7 @@
 /obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!"))
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
-	var/datum/action/innate/touch/mansus_grasp/source = spell_which_made_us?.resolve()
+	var/obj/effect/proc_holder/spell/touch/mansus_grasp/source = spell_which_made_us?.resolve()
 	if(QDELETED(source) || !isheretic(user))
 		return SHAME
 

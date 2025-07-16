@@ -1,11 +1,11 @@
-/datum/action/innate/pointed/moon_smile
+/obj/effect/proc_holder/spell/pointed/moon_smile
 	name = "Smile of the moon"
 	desc = "Lets you turn the gaze of the moon on someone \
 			temporarily blinding, muting, deafening and knocking down a single target if their sanity is low enough."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "moon_smile"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "moon_smile"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/moon_target.dmi'
 
 	sound = 'sound/effects/magic/blind.ogg'
@@ -19,20 +19,20 @@
 
 	active_msg = "You prepare to let them see the true face..."
 
-/datum/action/innate/pointed/moon_smile/can_cast_spell(feedback = TRUE)
-	return ..() && isliving(owner)
+/obj/effect/proc_holder/spell/pointed/moon_smile/can_cast(feedback = TRUE)
+	return ..() && isliving(action.owner)
 
-/datum/action/innate/pointed/moon_smile/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/moon_smile/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
 
-/datum/action/innate/pointed/moon_smile/cast(mob/living/carbon/human/cast_on)
+/obj/effect/proc_holder/spell/pointed/moon_smile/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	/// The duration of these effects are based on sanity, mainly for flavor but also to make it a weaker alpha strike
 	var/maximum_duration = 15 SECONDS
 	var/moon_smile_duration = ((SANITY_MAXIMUM) / (SANITY_MAXIMUM - SANITY_INSANE)) * maximum_duration
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, span_notice("The moon turns, its smile no longer set on you."))
-		to_chat(owner, span_warning("The moon does not smile upon them."))
+		to_chat(action.owner, span_warning("The moon does not smile upon them."))
 		return FALSE
 
 	playsound(cast_on, 'sound/effects/hallucinations/i_see_you1.ogg', 50, 1)

@@ -104,6 +104,9 @@
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return TRUE
 
+	if(HAS_TRAIT(src, TRAIT_STUNIMMUNE))
+		return TRUE
+
 	if(force_apply) // Does not take priority over god mode? I guess
 		return FALSE
 

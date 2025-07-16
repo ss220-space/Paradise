@@ -57,6 +57,8 @@
 #define AUGMENT_TRAIT "augment"
 #define ANTIDROP_TRAIT "antidrop"
 #define HOLO_CIGAR_TRAIT "holo_cigar"
+/// Traits given by the heretic arena spell
+#define HERETIC_ARENA_TRAIT "heretic_arena"
 
 #define WISHGRANTER_TRAIT "wishgranter"
 #define THUNDERDOME_TRAIT "thunderdome"

@@ -80,11 +80,11 @@
 	var/static/list/gain_traits = list(TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_SLIDE)
 
 /datum/heretic_knowledge/cold_snap/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	user.add_traits(list(TRAIT_NOBREATH, TRAIT_RESISTCOLD), type)
+	user.add_traits(list(TRAIT_NO_BREATH, TRAIT_RESIST_COLD), type)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(check_environment))
 
 /datum/heretic_knowledge/cold_snap/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	user.remove_traits(list(TRAIT_RESISTCOLD, TRAIT_NOBREATH), type)
+	user.remove_traits(list(TRAIT_RESIST_COLD, TRAIT_NO_BREATH), type)
 	UnregisterSignal(user, COMSIG_LIVING_LIFE)
 
 ///Checks if our traits should be active
@@ -187,7 +187,7 @@
 	///Reference to the ongoing voidstrom that surrounds the heretic
 	var/datum/weather/void_storm/storm
 	///The storm where there are actual effects
-	var/datum/proximity_monitor/advanced/void_storm/heavy_storm
+	var/datum/component/proximity_monitor/advanced/void_storm/heavy_storm
 
 /datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!is_space_or_openspace(loc))

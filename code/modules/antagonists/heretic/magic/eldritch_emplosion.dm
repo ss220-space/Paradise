@@ -2,7 +2,7 @@
 /obj/effect/proc_holder/spell/emplosion/eldritch
 	name = "Energetic Pulse"
 	desc = "A spell that causes a large EMP around you, disabling electronics."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 
 	school = SCHOOL_FORBIDDEN

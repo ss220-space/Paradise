@@ -2,7 +2,7 @@
 	icon_icon = 'icons/mob/actions/actions_cult.dmi'
 	background_icon_state = "bg_cult"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_TRANSFER_MIND
-	buttontooltipstyle = "cult"
+	//buttontooltipstyle = "cult"
 
 /datum/action/innate/cult/IsAvailable()
 	if(!iscultist(owner))

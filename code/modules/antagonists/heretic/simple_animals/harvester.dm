@@ -14,7 +14,7 @@
 	icon_living = "harvester"
 	construct_spells = list(
 		/obj/effect/proc_holder/spell/aoe/rust_conversion,
-		/datum/action/innate/pointed/rust_construction,
+		/obj/effect/proc_holder/spell/pointed/rust_construction,
 	)
 	can_repair = FALSE
 	faction = list(FACTION_HERETIC)
@@ -65,28 +65,25 @@
 	human_target.Paralyse(6 SECONDS)
 	visible_message(span_danger("[declent_ru(NOMINATIVE)] сбивает [human_target.declent_ru(ACCUSATIVE)] с ног!"))
 
-/datum/action/innate/seek_master
+/obj/effect/proc_holder/spell/seek_master
 	name = "Найти своего хозяина"
 	desc = "Используйте прямую связь с Мансусом, чтобы чувствовать определить местонахождение вашего хозяина."
-	buttontooltipstyle = "cult"
-	button_icon_state = "cult_mark"
-	button_icon = 'icons/mob/actions/actions_cult.dmi'
-	background_icon_state = "bg_heretic"
+	//buttontooltipstyle = "cult"
+	action_icon_state = "cult_mark"
+	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_background_icon_state = "bg_heretic"
 	//overlay_icon_state = "bg_heretic_border"
 	var/tracking = TRUE
 	var/mob/living/simple_animal/hostile/construct/the_construct
 
-/datum/action/innate/seek_master/New(Target)
+/obj/effect/proc_holder/spell/seek_master/New(Target)
 	. = ..()
 	the_construct = Target
 	the_construct.seeking = TRUE
 
-/datum/action/innate/seek_master/Grant(mob/living/player)
+/obj/effect/proc_holder/spell/seek_master/on_spell_gain(mob/living/player)
 	the_construct = player
 	..()
-
-/datum/action/innate/seek_master/Activate()
-	return
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/proc/link_master(mob/self, mob/master)
 	construct_master = master
@@ -127,9 +124,8 @@
 		message_probability = 7,\
 		current_owner = src,\
 	)
-	var/datum/action/innate/seek_master/seek = new(src)
-	seek.Grant(src)
-	seek.Activate()
+	var/obj/effect/proc_holder/spell/seek_master/seek = new(src)
+	mind.AddSpell(seek)
 
 // These aren't friends they're assholes
 // Don't let them be near you!

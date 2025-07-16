@@ -1,10 +1,10 @@
-/datum/action/innate/pointed/cleave
+/obj/effect/proc_holder/spell/pointed/cleave
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and several targets around them."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "cleave"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "cleave"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	school = SCHOOL_FORBIDDEN
@@ -21,13 +21,13 @@
 	/// What type of wound we apply
 	var/wound_type = /datum/wound/slash/flesh/critical/cleave
 
-/datum/action/innate/pointed/cleave/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/cleave/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
 
-/datum/action/innate/pointed/cleave/cast(mob/living/carbon/human/cast_on)
+/obj/effect/proc_holder/spell/pointed/cleave/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	for(var/mob/living/carbon/human/victim in range(cleave_radius, cast_on))
-		if(victim == owner || IS_HERETIC_OR_MONSTER(victim))
+		if(victim == action.owner || IS_HERETIC_OR_MONSTER(victim))
 			continue
 		if(victim.can_block_magic(antimagic_flags))
 			victim.visible_message(
@@ -53,7 +53,7 @@
 
 	return TRUE
 
-/datum/action/innate/pointed/cleave/long
+/obj/effect/proc_holder/spell/pointed/cleave/long
 	name = "Lesser Cleave"
 	base_cooldown = 60 SECONDS
 	wound_type = /datum/wound/slash/flesh/severe

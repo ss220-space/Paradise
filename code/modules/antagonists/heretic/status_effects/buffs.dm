@@ -324,7 +324,7 @@
 
 /datum/status_effect/caretaker_refuge/proc/prevent_spell_usage(datum/source, datum/spell)
 	SIGNAL_HANDLER
-	if(istype(spell, /datum/action/innate/caretaker))
+	if(istype(spell, /obj/effect/proc_holder/spell/caretaker))
 		return
 
 	owner.balloon_alert(owner, "нельзя колдовать!")

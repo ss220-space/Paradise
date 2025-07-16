@@ -1,12 +1,12 @@
-/datum/action/innate/conjure/void_conduit
+/obj/effect/proc_holder/spell/conjure/void_conduit
 	name = "Void Conduit"
 	desc = "Opens a gate to the Void; it releases an intermittent pulse that damages windows and airlocks, \
 		while afflicting Heathens with void chill. \
 		Affected Heretics instead receive low pressure resistance."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "void_rift"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "void_rift"
 
 	base_cooldown = 1 MINUTES
 
@@ -122,8 +122,8 @@
 	alert_type = null
 
 /datum/status_effect/void_conduit/on_apply()
-	ADD_TRAIT(owner, TRAIT_RESISTLOWPRESSURE, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(action.owner, TRAIT_RESISTLOWPRESSURE, TRAIT_STATUS_EFFECT(id))
 	return TRUE
 
 /datum/status_effect/void_conduit/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_RESISTLOWPRESSURE, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(action.owner, TRAIT_RESISTLOWPRESSURE, TRAIT_STATUS_EFFECT(id))

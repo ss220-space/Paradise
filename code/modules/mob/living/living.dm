@@ -623,7 +623,10 @@
 
 
 /mob/living/ex_act(severity)
-	..()
+	if(HAS_TRAIT(src, TRAIT_BOMBIMMUNE))
+		return FALSE
+
+	. = ..()
 	flash_eyes()
 
 /mob/living/acid_act(acidpwr, acid_volume)

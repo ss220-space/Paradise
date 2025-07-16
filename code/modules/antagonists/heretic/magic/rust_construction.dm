@@ -1,9 +1,9 @@
-/datum/action/innate/pointed/rust_construction
+/obj/effect/proc_holder/spell/pointed/rust_construction
 	name = "Rust Formation"
 	desc = "Transforms a rusted floor into a full wall of rust. Creating a wall underneath a mob will harm it."
-	background_icon_state = "bg_heretic"
+	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	button_icon_state = "shield"
+	action_icon_state = "shield"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
 
@@ -24,38 +24,38 @@
 /**
  * Overrides 'aim assist' because we always want to hit just the turf we clicked on.
  */
-/datum/action/innate/pointed/rust_construction/aim_assist(mob/living/clicker, atom/target)
+/obj/effect/proc_holder/spell/pointed/rust_construction/aim_assist(mob/living/clicker, atom/target)
 	return get_turf(target)
 
-/datum/action/innate/pointed/rust_construction/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/rust_construction/is_valid_target(atom/cast_on)
 	if(!isturf(cast_on))
-		cast_on.balloon_alert(owner, "not a wall or floor!")
+		cast_on.balloon_alert(action.owner, "not a wall or floor!")
 		return FALSE
 
 	if(!HAS_TRAIT(cast_on, TRAIT_RUSTY))
-		if(owner)
-			cast_on.balloon_alert(owner, "not rusted!")
+		if(action.owner)
+			cast_on.balloon_alert(action.owner, "not rusted!")
 		return FALSE
 
 	return TRUE
 
-/datum/action/innate/pointed/rust_construction/before_cast(turf/spacecast_on)
+/obj/effect/proc_holder/spell/pointed/rust_construction/before_cast(turf/spacecast_on)
 	. = ..()
-	if(!isliving(owner))
+	if(!isliving(action.owner))
 		return
 
-	var/mob/living/living_owner = owner
-	invocation = span_danger("<b>[owner]</b> drags [owner.p_their()] hand[living_owner.usable_hands == 1 ? "":"s"] upwards as a wall of rust rises out of [cast_on]!")
+	var/mob/living/living_owner = action.owner
+	invocation = span_danger("<b>[action.owner]</b> drags [action.owner.p_their()] hand[living_owner.usable_hands == 1 ? "":"s"] upwards as a wall of rust rises out of [cast_on]!")
 	invocation_self_message = span_notice("You drag [living_owner.usable_hands == 1 ? "a hand":"your hands"] upwards as a wall of rust rises out of [cast_on].")
 
-/datum/action/innate/pointed/rust_construction/cast(turf/cast_on)
+/obj/effect/proc_holder/spell/pointed/rust_construction/cast(turf/cast_on)
 	. = ..()
 	var/rises_message = "rises out of [cast_on]"
 
 	// If we casted at a wall we'll try to rust it. In the case of an enchanted wall it'll deconstruct it
 	if(iswallturf(cast_on))
 		cast_on.visible_message(span_warning("\The [cast_on] quakes as the rust causes it to crumble!"))
-		var/mob/living/living_owner = owner
+		var/mob/living/living_owner = action.owner
 		living_owner?.do_rust_heretic_act(cast_on)
 		// ref transfers to floor
 		cast_on.Shake(shake_interval = 0.1 SECONDS, duration = 0.5 SECONDS)
@@ -86,7 +86,7 @@
 	var/message_shown = FALSE
 	for(var/mob/living/living_mob in cast_on)
 		message_shown = TRUE
-		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == owner)
+		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == action.owner)
 			living_mob.visible_message(
 				span_warning("\A [new_wall] [rises_message] and pushes along [living_mob]!"),
 				span_notice("\A [new_wall] [rises_message] beneath your feet and pushes you along!"),
@@ -114,12 +114,12 @@
 			continue
 
 		// If there's an open turf throw them to the side
-		living_mob.throw_at(pick(turfs_by_us), 1, 3, thrower = owner, spin = FALSE)
+		living_mob.throw_at(pick(turfs_by_us), 1, 3, thrower = action.owner, spin = FALSE)
 
 	if(!message_shown)
 		new_wall.visible_message(span_warning("\A [new_wall] [rises_message]!"))
 
-/datum/action/innate/pointed/rust_construction/proc/fade_wall_filter(turf/simulated/wall/wall)
+/obj/effect/proc_holder/spell/pointed/rust_construction/proc/fade_wall_filter(turf/simulated/wall/wall)
 	if(QDELETED(wall))
 		return
 
@@ -129,7 +129,7 @@
 
 	animate(rust_filter, alpha = 0, time = filter_duration * (9/20))
 
-/datum/action/innate/pointed/rust_construction/proc/remove_wall_filter(turf/simulated/wall/wall)
+/obj/effect/proc_holder/spell/pointed/rust_construction/proc/remove_wall_filter(turf/simulated/wall/wall)
 	if(QDELETED(wall))
 		return
 
