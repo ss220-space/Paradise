@@ -11,7 +11,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
-	breakouttime = 30 SECONDS
+	breakout_time = 30 SECONDS
 
 
 /obj/item/restraints/legcuffs/beartrap
@@ -175,7 +175,7 @@
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
 	icon_state = "bola"
 	item_state = "bola"
-	breakouttime = 6 SECONDS	//easy to apply, easy to break out of
+	breakout_time = 6 SECONDS	//easy to apply, easy to break out of
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
@@ -332,7 +332,7 @@
 	icon_state = "bola_r"
 	item_state = "bola_r"
 	origin_tech = "engineering=4;combat=3"
-	breakouttime = 10 SECONDS
+	breakout_time = 10 SECONDS
 	weaken_amt = 2 SECONDS
 
 
@@ -343,7 +343,7 @@
 	item_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	breakouttime = 4 SECONDS
+	breakout_time = 4 SECONDS
 	reusable = FALSE
 
 

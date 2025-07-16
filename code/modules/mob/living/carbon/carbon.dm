@@ -666,24 +666,24 @@
 		buckled.user_unbuckle_mob(src, src)
 		return
 
-	var/breakouttime = 60 SECONDS
+	var/breakout_time = 60 SECONDS
 	var/obj/item/restraints = handcuffed
-	if(wear_suit?.breakouttime)
+	if(wear_suit?.breakout_time)
 		restraints = wear_suit
 
 	if(restraints)
-		breakouttime = restraints.breakouttime
+		breakout_time = restraints.breakout_time
 
 	var/list/breakouttime_modifiers = list()
 	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
 	for(var/mod in breakouttime_modifiers)
-		breakouttime *= mod
+		breakout_time *= mod
 
 	visible_message(
 		span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
-		span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakouttime * 0.1] секунд[declension_ru(breakouttime * 0.1, "у", "ы", "")]."),
+		span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[declension_ru(breakout_time * 0.1, "у", "ы", "")]."),
 	)
-	if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		if(!buckled)
 			return
 
