@@ -25,6 +25,10 @@
 			GLOB.latejoin += loc
 			qdel(src)
 
+		if("JoinLatePrisoner")
+			GLOB.latejoin_prisoner += loc
+			qdel(src)
+
 		if("JoinLateGateway")
 			GLOB.latejoin_gateway += loc
 			qdel(src)
@@ -137,6 +141,10 @@
 
 /obj/effect/landmark/join_late
 	name = "JoinLate"
+	icon_state = "Late"
+
+/obj/effect/landmark/join_late_prisoner
+	name = "JoinLatePrisoner"
 	icon_state = "Late"
 
 /obj/effect/landmark/join_late_cryo
@@ -305,6 +313,10 @@
 
 /obj/effect/landmark/start/civilian
 	name = JOB_TITLE_CIVILIAN
+	icon_state = "Assistant"
+
+/obj/effect/landmark/start/prisoner
+	name = JOB_TITLE_PRISONER
 	icon_state = "Assistant"
 
 /obj/effect/landmark/start/chief_engineer

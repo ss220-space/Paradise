@@ -589,6 +589,7 @@
 /area/security/permabrig)
 "afs" = (
 /obj/structure/chair/stool,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "afz" = (
@@ -664,6 +665,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "agf" = (
@@ -1125,6 +1127,7 @@
 "ajO" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -1566,6 +1569,7 @@
 	network = list("Prison","SS13")
 	},
 /obj/item/bedsheet/patriot,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "amj" = (
@@ -8590,6 +8594,7 @@
 	dir = 1;
 	initialize_directions = 11
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "bne" = (
@@ -33298,6 +33303,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "fHT" = (
@@ -39245,6 +39251,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
+"hvB" = (
+/obj/effect/landmark/join_late_prisoner,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/security/permabrig)
 "hvH" = (
 /obj/machinery/autolathe,
 /obj/machinery/door/firedoor,
@@ -39470,6 +39482,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
 "hyJ" = (
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -61764,6 +61777,10 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
+"nMU" = (
+/obj/effect/landmark/join_late_prisoner,
+/turf/simulated/floor/plating,
+/area/security/permabrig)
 "nNd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -73492,6 +73509,13 @@
 	icon_state = "asteroidplating"
 	},
 /area/crew_quarters/theatre)
+"raz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/security/permabrig)
 "raH" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel{
@@ -74820,6 +74844,12 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/cmostore)
+"rwm" = (
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/security/permabrig)
 "rwo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -78435,6 +78465,7 @@
 	network = list("Prison","SS13")
 	},
 /obj/item/bedsheet/purple,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "swq" = (
@@ -89318,6 +89349,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -91313,6 +91345,10 @@
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
+"woT" = (
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "woU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/bluespace_beacon,
@@ -116446,7 +116482,7 @@ abO
 xvE
 aQL
 rHj
-vdq
+woT
 vdq
 adD
 bna
@@ -116455,7 +116491,7 @@ bEW
 dJs
 ajN
 akf
-vNP
+nMU
 alp
 afd
 htk
@@ -116713,7 +116749,7 @@ oQy
 ajO
 adc
 vdq
-rHj
+hvB
 afd
 cIY
 iMa
@@ -116960,7 +116996,7 @@ abO
 dmK
 vNP
 aQL
-adc
+raz
 rHj
 vNP
 aQL
@@ -117742,7 +117778,7 @@ dpl
 dpl
 vNC
 vNP
-rHj
+rwm
 vdq
 afd
 sPV

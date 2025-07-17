@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 
 /datum/job/civilian/department = "Civilian"
 
-/datum/job/prisoner/department = "Civilian"
+/datum/job/civilian/prisoner/department = "Civilian"
 
 /datum/job/bartender/department = "Support"
 
