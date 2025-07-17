@@ -525,7 +525,7 @@
 /datum/action/item_action/toggle_geiger_counter
 	name = "Переключить счётчик Гейгера"
 
-/datum/action/item_action/toggle_geiger_counter/Trigger()
+/datum/action/item_action/toggle_geiger_counter/Trigger(left_click)
 	var/obj/item/clothing/head/helmet/space/hardsuit/H = target
 	if(istype(H))
 		H.toggle_geiger_counter()

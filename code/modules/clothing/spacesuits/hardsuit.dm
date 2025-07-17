@@ -49,7 +49,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(soundloop)
-	suit = null
 	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/update_icon_state()
@@ -286,8 +285,7 @@
 	if(!wearer.equip_to_slot_if_possible(helmet, ITEM_SLOT_HEAD, initial = TRUE))
 		return FALSE
 	. = TRUE
-	if(scanning)
-		helmet.soundloop.start(wearer)
+	helmet.soundloop.start(wearer)
 	suit_adjusted = TRUE
 	playsound(wearer, 'sound/items/rig_deploy.ogg', 110, TRUE)
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
