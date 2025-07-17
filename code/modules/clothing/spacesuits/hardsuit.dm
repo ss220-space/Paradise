@@ -852,17 +852,18 @@
 
 /obj/effect/anomaly/attack_hand(mob/user, list/modifiers)
 	if(ishuman(user))
-		var/mob/living/carbon/human/wearer = user
-		var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = wearer.head
-		var/obj/item/clothing/suit/space/hardsuit/anom/suit = wearer.wear_suit
-		if(istype(helmet) && istype(suit) && helmet.scanner_active)
-			if(wearer.incapacitated() || HAS_TRAIT(wearer, TRAIT_HANDS_BLOCKED))
-				return TRUE
-			if(wearer.l_hand || wearer.r_hand)
-				return TRUE
-			helmet.integrated_scanner.scan(src)
-			helmet.integrated_scanner.show(wearer)
-			return TRUE
+		return
+	var/mob/living/carbon/human/wearer = user
+	var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = wearer.head
+	var/obj/item/clothing/suit/space/hardsuit/anom/suit = wearer.wear_suit
+	if(!istype(helmet) || !istype(suit) || !helmet.scanner_active)
+		return
+	if(wearer.incapacitated() || HAS_TRAIT(wearer, TRAIT_HANDS_BLOCKED))
+		return TRUE
+	if(wearer.l_hand || wearer.r_hand)
+		return TRUE
+	helmet.integrated_scanner.scan(src)
+	helmet.integrated_scanner.show(wearer)
 	return ..()
 
 
@@ -877,14 +878,14 @@
 			var/obj/item/clothing/suit/space/hardsuit/anom/suit = wearer.wear_suit
 			if(istype(helmet) && istype(suit) && helmet.scanner_active)
 				return
-				if(wearer.incapacitated() || HAS_TRAIT(wearer, TRAIT_HANDS_BLOCKED))
-					return
-				if(wearer.l_hand || wearer.r_hand)
-					return
-				if(!Adjacent(A))
-					helmet.integrated_scanner.scan(A)
-					helmet.integrated_scanner.show(wearer)
-					return
+			if(wearer.incapacitated() || HAS_TRAIT(wearer, TRAIT_HANDS_BLOCKED))
+				return
+			if(wearer.l_hand || wearer.r_hand)
+				return
+			if(!Adjacent(A))
+				helmet.integrated_scanner.scan(A)
+				helmet.integrated_scanner.show(wearer)
+				return
 	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/anom/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
