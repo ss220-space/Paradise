@@ -1161,7 +1161,7 @@
 		var/image/pic = image(loc = place)
 		var/mutable_appearance/MA = new()
 		MA.maptext = MAPTEXT("[strength]k")
-		MA.color = "#00cc00"
+		MA.color = "#04e604"
 		MA.layer = RAD_TEXT_LAYER
 		MA.plane = GAME_PLANE
 		pic.appearance = MA

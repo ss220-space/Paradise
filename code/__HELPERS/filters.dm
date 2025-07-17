@@ -320,8 +320,8 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 			in_atom.remove_filter("wibbly-[i]")
 			continue
 		animate(filter, x = 0, y = 0, size = 0, offset = 0, time = remove_duration)
-		addtimer(CALLBACK(in_atom, TYPE_PROC_REF(/datum, remove_filter), "wibbly-[i]"), remove_duration)
+		addtimer(CALLBACK(in_atom, TYPE_PROC_REF(/atom, remove_filter), "wibbly-[i]"), remove_duration)
 
-/// Used to create rays on an item. Make sure to "remove_filter("rays")" when done with it
+/// Used to create rays on an item. Make sure to removefilter("rays") when done with it
 /atom/proc/ray_filter_helper(_priority = 1, _size = 40, _color = "#FFFFFF", _factor = 6, _density = 20, _y = 0)
 	add_filter(name = "ray", priority = _priority, params = list(type = "rays", size = _size, color = _color , factor = _factor, density = _density, y = _y))
