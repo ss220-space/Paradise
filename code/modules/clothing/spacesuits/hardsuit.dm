@@ -856,7 +856,6 @@
 		var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = wearer.head
 		var/obj/item/clothing/suit/space/hardsuit/anom/suit = wearer.wear_suit
 		if(istype(helmet) && istype(suit) && helmet.scanner_active)
-			return
 			if(wearer.incapacitated() || HAS_TRAIT(wearer, TRAIT_HANDS_BLOCKED))
 				return TRUE
 			if(wearer.l_hand || wearer.r_hand)
