@@ -363,6 +363,17 @@
 	icon_state = "browncorner"
 	},
 /area/mine/laborcamp)
+"bm" = (
+/obj/machinery/seed_extractor,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/mine/laborcamp)
 "bn" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -880,6 +891,17 @@
 "dq" = (
 /turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
+"dt" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/lavaland/polypore,
+/obj/item/seeds/lavaland/polypore,
+/obj/item/seeds/lavaland/polypore,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/mine/laborcamp)
 "dx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -950,7 +972,6 @@
 	},
 /area/mine/storage)
 "dP" = (
-/obj/item/trash/syndi_cakes,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -960,7 +981,7 @@
 	network = list("Labor Camp")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkred"
+	icon_state = "green"
 	},
 /area/mine/laborcamp)
 "dR" = (
@@ -987,6 +1008,21 @@
 	icon_state = "bar"
 	},
 /area/mine/living_quarters)
+"dZ" = (
+/obj/machinery/biogenerator,
+/obj/item/reagent_containers/glass/bucket,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "green"
+	},
+/area/mine/laborcamp)
+"eb" = (
+/obj/structure/table/wood,
+/obj/item/twohanded/fishing_rod/tribal,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "ec" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -1177,6 +1213,36 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"eW" = (
+/obj/structure/table,
+/obj/item/clothing/gloves/botanic_leather,
+/obj/item/reagent_containers/spray/pestspray,
+/obj/item/seeds/reishi,
+/obj/item/seeds/reishi,
+/obj/item/seeds/reishi,
+/obj/item/seeds/wheat{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/seeds/wheat{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/seeds/wheat{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/seeds/aloe,
+/obj/item/seeds/aloe,
+/obj/item/seeds/aloe,
+/obj/item/seeds/comfrey,
+/obj/item/seeds/comfrey,
+/obj/item/seeds/comfrey,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "green"
+	},
+/area/mine/laborcamp)
 "eX" = (
 /obj/machinery/atmospherics/pipe/simple/visible/supply,
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
@@ -1588,8 +1654,15 @@
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "gK" = (
-/obj/effect/decal/cleanable/vomit,
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/lavaland/porcini,
+/obj/item/seeds/lavaland/porcini,
+/obj/item/seeds/lavaland/porcini,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
 /area/mine/laborcamp)
 "gM" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
@@ -2362,11 +2435,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkred"
+	dir = 10;
+	icon_state = "green"
 	},
 /area/mine/laborcamp)
 "lk" = (
@@ -2926,6 +2997,10 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"nm" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "nn" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
@@ -2940,6 +3015,13 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"nG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/mine/laborcamp)
 "nK" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/cracked{
@@ -3025,6 +3107,15 @@
 	icon_state = "bar"
 	},
 /area/mine/living_quarters)
+"oq" = (
+/obj/structure/table/wood,
+/obj/item/shovel/spade/wooden{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "ox" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -3268,6 +3359,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/storage)
+"qq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/weightmachine/horizontalbar/high,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/mine/laborcamp)
 "qt" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/rust,
@@ -3675,6 +3780,16 @@
 /obj/structure/stone_tile/surrounding/cracked,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"tF" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/mine/laborcamp)
 "tR" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile{
@@ -3839,6 +3954,16 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"va" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "vk" = (
 /obj/structure/toilet{
 	dir = 8
@@ -3849,6 +3974,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
+"vo" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "vs" = (
 /obj/structure/closet/secure_closet/personal/mining,
 /obj/structure/cable{
@@ -4407,6 +4542,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/vending/cola/free,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -4683,7 +4819,7 @@
 /area/mine/storage)
 "BX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/cigbutt,
+/obj/machinery/vending/sustenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -4807,10 +4943,9 @@
 /area/mine/living_quarters)
 "CY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair{
-	dir = 1
+/turf/simulated/floor/plasteel{
+	dir = 9
 	},
-/turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "Dd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4971,7 +5106,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkred"
+	icon_state = "green"
 	},
 /area/mine/laborcamp)
 "EF" = (
@@ -5512,6 +5647,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"Iy" = (
+/obj/structure/flora/firebush,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Iz" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6109,9 +6249,14 @@
 /turf/simulated/floor/plating,
 /area/mine/maintenance)
 "NG" = (
-/obj/machinery/vending/sustenance,
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/lavaland/coaltree,
+/obj/item/seeds/lavaland/coaltree,
+/obj/item/seeds/lavaland/coaltree,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkred"
+	dir = 6;
+	icon_state = "green"
 	},
 /area/mine/laborcamp)
 "NJ" = (
@@ -6134,6 +6279,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"NS" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "NV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6458,6 +6608,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/maintenance)
+"RT" = (
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "RU" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
@@ -6503,6 +6658,20 @@
 "Sj" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/mine/production)
+"Sn" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/lavaland/inocybe,
+/obj/item/seeds/lavaland/inocybe,
+/obj/item/seeds/lavaland/inocybe,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/mine/laborcamp)
 "Ss" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -6685,12 +6854,15 @@
 	},
 /area/mine/laborcamp)
 "TG" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/lavaland/cactus,
+/obj/item/seeds/lavaland/cactus,
+/obj/item/seeds/lavaland/cactus,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cola/free,
-/obj/structure/sign/poster/contraband/clown{
-	pixel_x = 32
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
 	},
-/turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "TH" = (
 /turf/simulated/wall,
@@ -6764,10 +6936,10 @@
 /area/mine/production)
 "UE" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes/cigpack_random,
 /obj/item/lighter/random{
 	pixel_x = 2
 	},
+/obj/item/storage/fancy/cigarettes/cigpack_uplift,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -7275,6 +7447,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"YE" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "YF" = (
 /obj/structure/window/reinforced/clockwork{
 	dir = 8;
@@ -7338,6 +7520,26 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
+	},
+/area/mine/laborcamp)
+"YW" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/shovel/spade/wooden,
+/obj/item/cultivator/wooden,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/plant_analyzer,
+/obj/item/seeds/lavaland/fireblossom,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
 	},
 /area/mine/laborcamp)
 "YX" = (
@@ -45993,11 +46195,11 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
+Iy
+Vn
+Vn
+Vn
+Vn
 an
 an
 an
@@ -46247,15 +46449,15 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
-an
-an
+Vn
+Vn
+Vn
+Vn
+Vn
+oq
+Vn
+Vn
+Vn
 an
 an
 an
@@ -46503,16 +46705,16 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
-an
-an
-an
+Vn
+Vn
+nm
+nm
+va
+nm
+nm
+eb
+Vn
+Vn
 an
 an
 an
@@ -46760,16 +46962,16 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
-an
-an
-an
+Vn
+vo
+nm
+nm
+nm
+nm
+nm
+nm
+Vn
+Vn
 an
 an
 an
@@ -47017,16 +47219,16 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
-an
-an
-an
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+Vn
+Vn
 an
 an
 an
@@ -47274,15 +47476,15 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
-an
-an
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+Vn
 an
 an
 an
@@ -47532,14 +47734,14 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
-an
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+RT
 an
 an
 an
@@ -47789,13 +47991,13 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
+nm
+nm
+nm
+nm
+nm
+nm
+YE
 an
 an
 an
@@ -48046,13 +48248,13 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
+Vn
+nm
+nm
+nm
+nm
+NS
+Vn
 an
 an
 an
@@ -48303,13 +48505,13 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
+RT
+Vn
+nm
+nm
+nm
+Vn
+Vn
 an
 an
 an
@@ -55765,7 +55967,7 @@ Ts
 JQ
 oR
 aq
-zI
+qq
 bl
 ML
 aq
@@ -56014,8 +56216,8 @@ Vn
 Vn
 aj
 aj
-aj
-aj
+ap
+ap
 aq
 qT
 qt
@@ -56271,10 +56473,10 @@ Vn
 Vn
 aj
 aj
-aj
-aj
-aj
 ap
+dZ
+nG
+Sn
 gK
 lh
 na
@@ -56528,10 +56730,10 @@ Vn
 Vn
 aj
 aj
-aj
-aj
-aj
 ap
+bm
+JZ
+CY
 CY
 Et
 aq
@@ -56785,10 +56987,10 @@ Vn
 Vn
 aj
 aj
-aj
-aj
-aj
 ap
+dt
+JZ
+CY
 CY
 dP
 hK
@@ -57042,10 +57244,10 @@ Vn
 aj
 aj
 aj
-aj
-aj
-aj
 ap
+eW
+tF
+YW
 TG
 NG
 qT
@@ -57299,7 +57501,7 @@ Vn
 aj
 aj
 aj
-aj
+qT
 qT
 qt
 aq
