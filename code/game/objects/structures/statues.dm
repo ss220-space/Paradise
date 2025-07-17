@@ -99,6 +99,7 @@
 				rad_interaction_radius = 3, \
 				rad_interaction_cooldown = 1.5 SECONDS \
 	)
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/statue/plasma
 	max_integrity = 200

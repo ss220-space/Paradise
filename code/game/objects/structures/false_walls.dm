@@ -274,6 +274,7 @@
 				rad_interaction_radius = 3, \
 				rad_interaction_cooldown = 1.5 SECONDS \
 	)
+	START_PROCESSING(SSobj, src)
 
 /*
  * Other misc falsewall types

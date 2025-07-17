@@ -116,6 +116,7 @@
 			rad_cycle_radius = 5 \
 	)
 	ADD_TRAIT(src, TRAIT_BLOCK_RADIATION, INNATE_TRAIT)
+	START_PROCESSING(SSobj, src)
 
 
 /obj/item/gem/rupee/examine(mob/user)

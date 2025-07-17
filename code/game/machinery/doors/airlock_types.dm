@@ -160,6 +160,7 @@
 				rad_cycle = 2 SECONDS, \
 				rad_cycle_radius = 3 \
 	)
+	START_PROCESSING(SSobj, src)
 
 /obj/machinery/door/airlock/uranium/attack_hand(mob/user)
 	. = ..()

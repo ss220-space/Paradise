@@ -301,10 +301,10 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 		var/Y
 		var/rsq
 		do
-			X = 60*rand() - 30
-			Y = 60*rand() - 30
-			rsq = X*X + Y*Y
-		while(rsq<100 || rsq>900) // Yeah let's just loop infinitely due to bad luck what's the worst that could happen?
+			X = 60 * rand() - 30
+			Y = 60 * rand() - 30
+			rsq = X * X + Y * Y
+		while(rsq < 100 || rsq > 900) // Yeah let's just loop infinitely due to bad luck what's the worst that could happen?
 		var/random_roll = rand()
 		in_atom.add_filter("wibbly-[i]", 5, wave_filter(x = X, y = Y, size = rand() * 2.5 + 0.5, offset = random_roll))
 		var/filter = in_atom.get_filter("wibbly-[i]")

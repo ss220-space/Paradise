@@ -87,6 +87,7 @@
 				rad_interaction_radius = 3, \
 				rad_interaction_cooldown = 1.5 SECONDS \
 	)
+	START_PROCESSING(SSobj, src)
 
 /turf/simulated/wall/mineral/plasma
 	name = "plasma wall"

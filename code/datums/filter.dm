@@ -1,3 +1,4 @@
+/*
 /datum
 	/// List for handling persistent filters.
 	var/list/filter_data
@@ -108,3 +109,4 @@
 	var/atom/atom_cast = src // filters only work with images or atoms.
 	filter_data = null
 	atom_cast.filters = null
+*/

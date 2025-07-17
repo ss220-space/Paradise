@@ -204,6 +204,7 @@
 
 	component_radiate(0, 0, rad_per_cycle, rad_cycle_radius, negate_armor)
 	cycle_callback?.Invoke(src)
+	SSradiation.update_rad_cache(src)
 
 
 // Irradiation main proc
@@ -237,5 +238,5 @@
 			continue
 
 		var/resist = target.getarmor(attack_flag = RAD)
-		target.apply_effect(rad_damage, IRRADIATE, resist, negate_armor)
+		target.rad_act(rad_damage, IRRADIATE, resist, negate_armor)
 
