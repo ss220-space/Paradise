@@ -54,7 +54,10 @@
 	if(!bomb)
 		return
 	if(decon_speed)
-		user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] откручивать [bomb.declent_ru(ACCUSATIVE)] при помощи [I]..."), span_notice("Вы начинаете откреплять [bomb] при помощи [I]..."), span_warning("Слышны звуки работы с инструментом."))
+		var/message = span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] откручивать [bomb.declent_ru(ACCUSATIVE)] при помощи [I]...")
+		var/self_message = span_notice("Вы начинаете откреплять [bomb.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(INSTRUMENTAL)]...")
+		var/blind_message = span_warning("Слышны звуки работы с инструментом.")
+		user.visible_message(message, self_message, blind_message)
 	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume))
 		return
 	user.put_in_any_hand_if_possible(bomb)
