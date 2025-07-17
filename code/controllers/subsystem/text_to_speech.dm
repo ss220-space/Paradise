@@ -144,7 +144,7 @@ SUBSYSTEM_DEF(tts)
 		"botanist" = "Ботаник",
 		"hydroponicist" = "Гидропонист",
 		"botanical researcher" = "Ботаник-исследователь",
-		"quartermaster" = "Квартирмейстер",
+		"quartermaster" = "Завхоз",
 		"chief supply manager" = "Главный менеджер по снабжению",
 		"cargo technician" = "Карго техник",
 		"loader" = "Грузчик",
