@@ -625,12 +625,12 @@
 
 /datum/dna/gene/basic/strong/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	ADD_TRAIT(mutant.physiology, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
+	ADD_TRAIT(mutant, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
 	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
 	mutant.update_body(TRUE)
 
 /datum/dna/gene/basic/strong/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	REMOVE_TRAIT(mutant.physiology, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
+	REMOVE_TRAIT(mutant, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
 	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
 	mutant.update_body(TRUE)

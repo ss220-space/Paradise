@@ -1407,4 +1407,9 @@
 	#define COMPONENT_CAN_CHANGE_STRENGTH (1<<0)
 #define COMSIG_GET_STRENGTH	"get_strength"
 #define COMSIG_UPDATE_STRENGTH	"update_strength"
+#define COMSIG_GET_BREAKOUTTIME_MODIFIERS "get_breakouttime_modifiers"
+#define COMSIG_GET_THROW_SPEED_MODIFIERS "get_throw_speed_modifiers"
+#define COMSIG_GET_THROW_RANGE_DELTAS "get_throw_range_deltas"
+#define COMSIG_GET_BOLA_MODIFIERS "get_bola_modifiers"
+#define COMSIG_GET_HUNGER_MODS "get_hunger_mods"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"

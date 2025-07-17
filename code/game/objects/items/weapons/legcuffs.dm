@@ -11,7 +11,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
-	breakouttime = 30 SECONDS
+	breakout_time = 30 SECONDS
 
 
 /obj/item/restraints/legcuffs/beartrap
@@ -175,7 +175,7 @@
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
 	icon_state = "bola"
 	item_state = "bola"
-	breakouttime = 6 SECONDS	//easy to apply, easy to break out of
+	breakout_time = 6 SECONDS	//easy to apply, easy to break out of
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
@@ -218,6 +218,16 @@
 		INVOKE_ASYNC(src, PROC_REF(spin_up))
 
 
+/obj/item/restraints/legcuffs/bola/proc/get_spin_time(mob/owner)
+	var/time = 1 SECONDS
+	var/list/bola_modifiers = list()
+	SEND_SIGNAL(owner, COMSIG_GET_BOLA_MODIFIERS, bola_modifiers)
+	for(var/modifier in bola_modifiers)
+		time *= modifier
+
+	return time
+
+
 /obj/item/restraints/legcuffs/bola/proc/spin_up()
 	if(spinning)
 		return
@@ -225,7 +235,7 @@
 	spinning = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	playsound(owner, spin_sound, 30, list(38000, 48000), SHORT_RANGE_SOUND_EXTRARANGE)
-	spin_timer_id = addtimer(CALLBACK(src, PROC_REF(spin_loop), owner), 1 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE|TIMER_DELETE_ME)
+	spin_timer_id = addtimer(CALLBACK(src, PROC_REF(spin_loop), owner), get_spin_time(owner), TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE|TIMER_DELETE_ME)
 	do_spin_cycle(owner)
 
 
@@ -241,8 +251,7 @@
 
 
 /obj/item/restraints/legcuffs/bola/proc/do_spin_cycle(mob/living/user)
-
-	if(do_after(user, 1 SECONDS, user, ALL, extra_checks = CALLBACK(src, PROC_REF(can_spin_check), user)))
+	if(do_after(user, get_spin_time(user), user, ALL, extra_checks = CALLBACK(src, PROC_REF(can_spin_check), user)))
 		throw_range += round(max_range / max_spins)
 		throw_speed += round(max_speed / max_spins)
 		spin_cycle++
@@ -323,7 +332,7 @@
 	icon_state = "bola_r"
 	item_state = "bola_r"
 	origin_tech = "engineering=4;combat=3"
-	breakouttime = 10 SECONDS
+	breakout_time = 10 SECONDS
 	weaken_amt = 2 SECONDS
 
 
@@ -334,7 +343,7 @@
 	item_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	breakouttime = 4 SECONDS
+	breakout_time = 4 SECONDS
 	reusable = FALSE
 
 

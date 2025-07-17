@@ -15580,9 +15580,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "ckZ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/radiation,
-/obj/item/clothing/glasses/meson,
 /obj/item/radio/intercom{
 	dir = 8;
 	pixel_y = 24
@@ -15591,7 +15588,15 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/shower{
+	dir = 4;
+	pixel_y = 4;
+	tag = "icon-shower (EAST)"
+	},
+/obj/effect/turf_decal/siding/white/end{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
 /area/engineering/controlroom)
 "clc" = (
 /obj/effect/decal/cleanable/dust,
@@ -163422,10 +163427,13 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/radiation,
-/obj/item/clothing/glasses/meson,
-/turf/simulated/floor/plasteel,
+/obj/machinery/shower{
+	dir = 4;
+	pixel_y = 4;
+	tag = "icon-shower (EAST)"
+	},
+/obj/effect/turf_decal/siding/white/end,
+/turf/simulated/floor/plasteel/freezer,
 /area/engineering/controlroom)
 "xWx" = (
 /obj/item/flag/nt,

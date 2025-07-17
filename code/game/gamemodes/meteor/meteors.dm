@@ -311,11 +311,11 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	/// Did we crash into something? Used to avoid falsely reporting success when qdeleted.
 	var/failed = FALSE
 
-/obj/effect/meteor/fake/Initialize(mapload)
+/obj/effect/meteor/fake/Initialize(mapload, turf/target)
 	. = ..()
 	goal = locate() in SSticker.mode?.station_goals
 
-/obj/effect/meteor/fake/Destroy()
+/obj/effect/meteor/fake/Destroy(force)
 	if(!failed)
 		succeed()
 	goal = null
