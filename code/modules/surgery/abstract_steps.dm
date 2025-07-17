@@ -29,7 +29,7 @@
  * by adding new steps to the current surgery.
  */
 /datum/surgery_step/proxy
-	name = "Intermediate Operation"
+	name = "Промежуточная операция"
 	/// Optional surgery TYPES that we can branch out to
 	/// Note that these must not share any starting tools.
 	var/list/branches = list()
@@ -73,7 +73,7 @@
 		step_names += surg.get_surgery_step()
 	step_names += cur  // put this one on the end
 
-	return english_list(step_names, "Nothing...? If you see this, tell a coder.", ", or ")
+	return russian_list(step_names, "Ничего...? Если вы это видите, сообщите в #баг-репорты-v2.")
 
 /datum/surgery_step/proxy/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
@@ -251,8 +251,8 @@
 // Some intermediate surgeries
 /datum/surgery/intermediate/bleeding
 	// don't worry about these names, they won't appear anywhere.
-	name = "Internal Bleeding (abstract)"
-	desc = "An intermediate surgery to fix internal bleeding while a patient is undergoing another procedure."
+	name = "Внутреннее кровотечение – абстрактное"
+	desc = "Промежуточная операция для лечения внутреннего кровотечения, пока над пациентом проводится другая операция."
 	steps = list(/datum/surgery_step/fix_vein)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -280,12 +280,12 @@
 		return TRUE
 	// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
 	// It's alright for intermediate surgeries, though, since they never get called like that.
-	to_chat(user, span_warning("The veins in [target]'s [affected] seem to be in perfect condition, they don't need mending."))
+	user.balloon_alert(user, "сосуды в норме!")
 	return FALSE
 
 /datum/surgery/intermediate/mendbone
-	name = "Mend Bone (abstract)"
-	desc = "An intermediate surgery to mend bones while a patient is undergoing another procedure."
+	name = "Сращивание костей – абстрактное"
+	desc = "Промежуточная операция для восстановления повреждённых костей, пока над пациентом проводится другая операция."
 	steps = list(/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone, /datum/surgery_step/finish_bone)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -304,8 +304,7 @@
 	)
 
 /datum/surgery/intermediate/mendbone/plasma
-	name = "Plasma Mend Bone (abstract)"
-	desc = "An intermediate surgery to mend bones while a patient is undergoing another procedure."
+	name = "Сращивание костей (Плазмолюд) – абстрактное"
 	steps = list(/datum/surgery_step/glue_bone/plasma)
 
 
@@ -322,20 +321,20 @@
 	if(affected.has_fracture())
 		return TRUE
 	else
-		to_chat(user, span_warning("The bones in [target]'s [affected] look fully intact, they don't need mending."))
+		user.balloon_alert(user, "кости в норме!")
 	return FALSE
 
 /// Proxy surgery step to allow healing bleeding and mending bones.
 /// Should be added into surgeries just after the first three standard steps.
 /datum/surgery_step/proxy/open_organ
-	name = "mend internal bleeding or mend bone (proxy)"
+	name = "заживление повреждённых костей или сосудов – прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/mendbone
 	)
 
 /datum/surgery_step/proxy/open_organ/plasma
-	name = "mend internal bleeding or mend plasma bone (proxy)"
+	name = "заживление повреждённых костей (Плазмолюд) или сосудов – прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/mendbone/plasma
@@ -343,14 +342,14 @@
 
 /// Mend IB without healing bones
 /datum/surgery_step/proxy/ib
-	name = "mend internal bleeding (proxy)"
+	name = "заживление повреждённых сосудов – прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding
 	)
 
 /// The robotic equivalent
 /datum/surgery_step/proxy/robotics/repair_limb
-	name = "Repair Limb (proxy)"
+	name = "ремонт конечности – прокси"
 	branches = list(
 		/datum/surgery/intermediate/robotics/repair/burn,
 		/datum/surgery/intermediate/robotics/repair/brute

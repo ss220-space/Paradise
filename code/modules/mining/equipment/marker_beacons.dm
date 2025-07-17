@@ -17,7 +17,15 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 /obj/item/stack/marker_beacon
 	name = "marker beacon"
 	singular_name = "marker beacon"
-	desc = "Prism-brand path illumination devices. Used by miners to mark paths and warn of danger."
+	desc = "Устройства освещения пути. Используются шахтёрами для разметки маршрутов и обозначения опасностей."
+	ru_names = list(
+		NOMINATIVE = "маркерный маячок",
+		GENITIVE = "маркерного маячка",
+		DATIVE = "маркерному маячку",
+		ACCUSATIVE = "маркерный маячок",
+		INSTRUMENTAL = "маркерным маячком",
+		PREPOSITIONAL = "маркерном маячке"
+	)
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "marker"
 	armor = list("melee" = 50, "bullet" = 75, "laser" = 75, "energy" = 75, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 25, "acid" = 0)
@@ -38,27 +46,27 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/item/stack/marker_beacon/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use in-hand to place a [singular_name].</span>"
-	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
+	. += span_notice("Используйте в руке, чтобы установить [declent_ru(ACCUSATIVE)].")
+	. += span_notice("Alt-ЛКМ для выбора цвета. Текущий цвет: [picked_color].")
 
 /obj/item/stack/marker_beacon/update_icon_state()
 	icon_state = "[initial(icon_state)][lowertext(picked_color)]"
 
 /obj/item/stack/marker_beacon/attack_self(mob/user)
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need more space to place a [singular_name] here.</span>")
+		to_chat(user, span_warning("Здесь недостаточно места для установки [declent_ru(GENITIVE)]."))
 		return
 	if(locate(/obj/structure/marker_beacon) in user.loc)
-		to_chat(user, "<span class='warning'>There is already a [singular_name] here.</span>")
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже установлен здесь."))
 		return
 	if(use(1))
-		to_chat(user, "<span class='notice'>You activate and anchor [amount ? "a":"the"] [singular_name] in place.</span>")
+		to_chat(user, span_notice("Вы активируете и закрепляете [declent_ru(ACCUSATIVE)] на месте."))
 		playsound(user, 'sound/machines/click.ogg', 50, 1)
 		var/obj/structure/marker_beacon/M = new(user.loc, picked_color)
 		transfer_fingerprints_to(M)
 
 /obj/item/stack/marker_beacon/click_alt(mob/living/user)
-	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
+	var/input_color = tgui_input_list(user, "Выберите цвет", "Цвет маячка", GLOB.marker_beacon_colors)
 	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return CLICK_ACTION_BLOCKING
 	if(!input_color)
@@ -69,7 +77,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/structure/marker_beacon
 	name = "marker beacon"
-	desc = "A Prism-brand path illumination device. It is anchored in place and glowing steadily."
+	desc = "Устройство освещения пути. Надёжно закреплено и светится ровным светом."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "marker"
 	layer = BELOW_OPEN_DOOR_LAYER
@@ -96,7 +104,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/structure/marker_beacon/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
+	. += span_notice("Alt-ЛКМ для выбора цвета. Текущий цвет: [picked_color].")
 
 
 /obj/structure/marker_beacon/update_icon_state()
@@ -115,9 +123,9 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	if(.)
 		return
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("Сейчас это невозможно!"))
 		return
-	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
+	to_chat(user, span_notice("Вы начинаете подбирать [declent_ru(ACCUSATIVE)]..."))
 	if(do_after(user, remove_speed, src))
 		var/obj/item/stack/marker_beacon/M = new(drop_location())
 		M.picked_color = picked_color
@@ -136,9 +144,9 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		add_fingerprint(user)
 		var/obj/item/stack/marker_beacon/beacon = I
 		if(beacon.amount >= beacon.max_amount)
-			to_chat(user, span_warning("The [name] is full."))
+			to_chat(user, span_warning("Нет места."))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("You start picking [src] up..."))
+		to_chat(user, span_notice("Вы начинаете подбирать [declent_ru(ACCUSATIVE)]..."))
 		if(!do_after(user, remove_speed, src) || beacon.amount >= beacon.max_amount)
 			return ATTACK_CHAIN_PROCEED
 		beacon.add(1)
@@ -150,7 +158,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 
 /obj/structure/marker_beacon/click_alt(mob/living/user)
-	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
+	var/input_color = tgui_input_list(user, "Выберите цвет", "Цвет маячка", GLOB.marker_beacon_colors)
 	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return CLICK_ACTION_BLOCKING
 	if(!input_color)

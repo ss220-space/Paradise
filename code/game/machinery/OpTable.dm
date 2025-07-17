@@ -1,6 +1,17 @@
 /obj/machinery/optable
 	name = "operating table"
-	desc = "Используется для проведения сложных медицинских процедур."
+	desc = "Многофункциональный операционный стол, предназначенный для выполнения хирургических операций. \
+			Оснащён системой датчиков, подключаемых к хирургическому компьютеру для отслеживания жизненных показателей пациента в реальном времени. \
+			Встроенные анатомические фиксаторы исключают непроизвольные движения пациента и обеспечивают удобство для оперирующего хирурга."
+	ru_names = list(
+		NOMINATIVE = "операционный стол",
+		GENITIVE = "операционного стола",
+		DATIVE = "операционному столу",
+		ACCUSATIVE = "операционный стол",
+		INSTRUMENTAL = "операционным столом",
+		PREPOSITIONAL = "операционном столе"
+	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "table2-idle"
 	density = TRUE
@@ -75,9 +86,15 @@
 		return FALSE
 
 	if(new_patient == user)
-		user.visible_message("[capitalize(user.declent_ru(NOMINATIVE))] забира[pluralize_ru(user.gender,"ет","ют")]ся на операционный стол.", "Вы забираетесь на операционный стол.")
+		user.visible_message(
+			"[user] забира[pluralize_ru(user.gender, "ет", "ют")]ся на [declent_ru(ACCUSATIVE)].",
+			"Вы забираетесь на на [declent_ru(ACCUSATIVE)]."
+		)
 	else
-		visible_message(span_alert("[capitalize(user.declent_ru(NOMINATIVE))] укладывает [new_patient.declent_ru(ACCUSATIVE)] на операционный стол."))
+		visible_message(
+			span_alert("[user] укладыва[pluralize_ru(user.gender, "ет", "ют")] [new_patient] на [declent_ru(ACCUSATIVE)]."),
+			span_alert("Вы укладываете [new_patient] на [declent_ru(ACCUSATIVE)].")
+		)
 	if(user.pulling == new_patient)
 		user.stop_pulling()
 	new_patient.forceMove(loc)

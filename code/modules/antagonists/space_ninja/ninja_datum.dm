@@ -165,7 +165,7 @@
 	var/ninja_name_second = pick(GLOB.ninja_names)
 	var/newname = "[ninja_name_first] [ninja_name_second]"
 	if(allow_rename)
-		newname = sanitize(copytext_char(input(human_ninja, "Вы космический Ниндзя, гордый член клана Паука. Как вы хотите себя называть?", "Смена имени", newname) as null|text, 1, MAX_NAME_LEN))
+		newname = tgui_input_text(human_ninja, "Вы космический Ниндзя, гордый член клана Паука. Как вы хотите себя называть?", "Смена имени", newname, max_length = MAX_NAME_LEN)
 
 	human_ninja.real_name = newname
 	human_ninja.name = newname

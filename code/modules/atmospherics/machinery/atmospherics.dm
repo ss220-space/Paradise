@@ -280,7 +280,7 @@ Pipelines + Other Objects -> Pipe network
 	if(can_unwrench && !(obj_flags & NODECONSTRUCT))
 		var/obj/item/pipe/stored = new(loc, null, null, src)
 		if(!disassembled)
-			stored.obj_integrity = stored.max_integrity * 0.5
+			stored.update_integrity(stored.max_integrity * 0.5)
 		transfer_fingerprints_to(stored)
 	..()
 

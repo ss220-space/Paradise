@@ -159,6 +159,8 @@
 	GLOB.uplink_items = init_uplink_items_list()
 	GLOB.mining_vendor_items = init_mining_vendor_items_list()
 
+	GLOB.slotmachine_prizes = init_slotmachine_prizes(GLOB.uplink_items)
+
 	init_keybindings()
 
 	// Preference toggles
@@ -206,6 +208,9 @@
 		"infection" = new /datum/disease/virus/advance/preset/infection(),
 		"hallucigen:laugh:moan" = new /datum/disease/virus/advance/preset/pre_loyalty()
 	)
+
+	//Init BSA fire modes list
+	init_datum_subtypes(/datum/bluespace_cannon_fire_mode, GLOB.BSA_modes_list, null, "name")
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.
@@ -404,3 +409,17 @@
 /proc/update_mob_config_movespeeds()
 	for(var/mob/M as anything in GLOB.mob_list)
 		M.update_config_movespeed()
+
+/proc/init_slotmachine_prizes(list/uplink_items)
+	var/list/allowed_uplink_items = list()
+	for(var/datum/uplink_item/uplink_item as anything in uplink_items)
+		if(istype(uplink_item, /datum/uplink_item/racial) || uplink_item.hijack_only)
+			continue //Exclude racial and hijack
+		allowed_uplink_items += uplink_item
+	var/prizes = list()
+	for(var/datum/slotmachine_prize/prize_path as anything in subtypesof(/datum/slotmachine_prize))
+		var/datum/slotmachine_prize/item = new prize_path(allowed_uplink_items)
+		if(!item.id)
+			continue
+		prizes[item.id] = item
+	return prizes

@@ -661,11 +661,19 @@
 			var/hunger_rate = is_vamp ? HUNGER_FACTOR_VAMPIRE : HUNGER_FACTOR * dna.species.hunger_drain_mod * physiology.hunger_mod
 			if(satiety > 0)
 				satiety--
+
 			if(satiety < 0)
 				satiety++
 				if(prob(round(-satiety/40)))
 					Jitter(10 SECONDS)
+
 				hunger_rate *= 3
+
+			var/list/hunger_mods = list()
+			SEND_SIGNAL(src, COMSIG_GET_HUNGER_MODS, hunger_mods)
+			for(var/mod as anything in hunger_mods)
+				hunger_rate *= mod
+
 			adjust_nutrition(-hunger_rate)
 
 		if(nutrition > NUTRITION_LEVEL_FULL)

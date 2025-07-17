@@ -75,7 +75,7 @@
 	alpha = 60
 	armed = TRUE
 	anchored = TRUE
-	breakouttime = 5 SECONDS
+	breakout_time = 5 SECONDS
 	item_flags = DROPDEL
 
 
@@ -93,7 +93,7 @@
 	var/turf/T = get_turf(src)
 	var/lighting_count = T.get_lumcount() * 10
 	if(lighting_count > 2)
-		obj_integrity -= 50
+		update_integrity(obj_integrity - 50)
 
 	if(obj_integrity <= 0)
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] исчезает."))

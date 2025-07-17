@@ -10,6 +10,7 @@
 #define SOUND_DISCO			(1<<9)
 #define SOUND_AI_VOICE		(1<<10)
 #define SOUND_PRAYERNOTIFY	(1<<11)
+#define SOUND_MUTE_END_OF_ROUND  (1<<12)
 
 #define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_HEARTBEAT|SOUND_BUZZ|SOUND_INSTRUMENTS|SOUND_MENTORHELP|SOUND_DISCO|SOUND_AI_VOICE|SOUND_PRAYERNOTIFY)
 
@@ -85,8 +86,9 @@
 #define PREFTOGGLE_3_DNR_AFTER_DEATH         	(1<<0) // 1
 #define PREFTOGGLE_3_UI_SCALE         			(1<<1) // 2
 #define PREFTOGGLE_3_FACING_TO_MOUSE			(1<<2) // 4
+#define PREFTOGGLE_3_PAIN_BLURB	 				(1<<3) // 8
 
-#define TOGGLES_3_TOTAL                       	7 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_3_TOTAL                       	15 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_3_DEFAULT (PREFTOGGLE_3_FACING_TO_MOUSE)
 

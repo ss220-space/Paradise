@@ -278,9 +278,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, role = "Неизвестный") //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
-	if(channel && channels && channels.len)
+	if(channel && channels && length(channels) > 0)
 		if(channel == DEPARTMENT_FREQ_NAME)
 			channel = channels[1]
 		connection = secure_radio_connections[channel]
@@ -291,10 +291,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return
 	if(!connection)
 		return
-	var/mob/living/automatedannouncer/A = new /mob/living/automatedannouncer(src)
-	A.name = from
-	A.role = role
-	A.message = message
 	var/jammed = FALSE
 	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
 		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
@@ -307,12 +303,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		// Make us a message datum!
 	var/datum/tcomms_message/tcm = new
 	tcm.connection = connection
-	tcm.sender = A
+	tcm.sender = src
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
-	tcm.sender_job = "Автоматическое Оповещение"
-	tcm.sender_rank = "Автоматическое Оповещение"
+	tcm.sender_job = "Автоматическое оповещение"
 	tcm.vname = "синтезированный голос"
 	tcm.data = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
@@ -321,13 +316,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	else
 		tcm.source_level = levels_by_trait(MAIN_STATION)[1] // Assume main station level if we dont have an actual Z level available to us.
 	tcm.freq = connection.frequency
-	tcm.follow_target = follow_target
+	if(follow_target_override)
+		tcm.follow_target = follow_target_override
+	else
+		tcm.follow_target = follow_target
 
 	// Now put that through the stuff
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		C.handle_message(tcm)
 	qdel(tcm) // Delete the message datum
-	qdel(A)
 
 /obj/item/radio/sec
 	name = "security shortwave radio"
@@ -343,28 +340,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	icon_state = "walkietalkie_sec"
 	item_state = "walkietalkie_sec"
 	frequency = SEC_FREQ
-
-// Just a dummy mob used for making announcements, so we don't create AIs to do this
-// I'm not sure who thought that was a good idea. -- Crazylemon
-/mob/living/automatedannouncer
-	var/role = ""
-	var/lifetime_timer
-	var/message = ""
-	universal_speak = 1
-
-/mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, PROC_REF(autocleanup)), 10 SECONDS, TIMER_STOPPABLE)
-	..()
-
-/mob/living/automatedannouncer/Destroy()
-	if(lifetime_timer)
-		deltimer(lifetime_timer)
-		lifetime_timer = null
-	return ..()
-
-/mob/living/automatedannouncer/proc/autocleanup()
-	log_runtime(EXCEPTION("An announcer somehow managed to outlive the radio! Deleting!"), src, list("Message: '[message]'"))
-	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/radio/proc/handle_message_mode(mob/living/M as mob, list/message_pieces, message_mode)
@@ -434,7 +409,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/displayname = M.name	// grab the display name (name you get when you hover over someone's icon)
 	var/voicemask = 0 // the speaker is wearing a voice mask
 	var/jobname // the mob's "job"
-	var/rank // the mob's "rank"
+	var/rankname // the formatting to be used for the mob's job
 
 	if(jammed)
 		Gibberish_all(message_pieces, 100)
@@ -443,30 +418,26 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		jobname = H.get_assignment()
-		rank = H.get_authentification_rank()
+		rankname = H.get_authentification_rank()
 
 	// --- Carbon Nonhuman ---
 	else if(iscarbon(M)) // Nonhuman carbon mob
 		jobname = "Без ID"
-		rank = "Без ID"
 
 	// --- AI ---
 	else if(isAI(M))
 		jobname = JOB_TITLE_AI
-		rank = JOB_TITLE_AI
 
 	// --- Cyborg ---
 	else if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG
-		rank = JOB_TITLE_CYBORG
 
 	// --- Personal AI (pAI) ---
 	else if(ispAI(M))
 		var/mob/living/silicon/pai/pai = M
 		displayname = pai.radio_name
 		jobname = pai.radio_rank
-		rank = pai.radio_rank
 
 	// --- Cogscarab ---
 	else if(iscogscarab(M))
@@ -475,7 +446,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// --- Unidentifiable mob ---
 	else
 		jobname = "Неизвестный"
-		rank = "Неизвестный"
 
 	// --- Modifications to the mob's identity ---
 
@@ -489,7 +459,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
 		displayname = syndiekey.fake_name
 		jobname = "Неизвестный"
-		rank = "Неизвестный"
+		rankname = "Неизвестный"
 		voicemask = TRUE
 
 	// Copy the message pieces so we can safely edit comms line without affecting the actual line
@@ -501,7 +471,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/datum/tcomms_message/tcm = new
 	tcm.sender_name = displayname
 	tcm.sender_job = jobname
-	tcm.sender_rank = rank
+	tcm.sender_rank = rankname
 	tcm.message_pieces = message_pieces_copy
 	tcm.source_level = position.z
 	tcm.freq = connection.frequency
@@ -539,10 +509,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return FALSE
 
 
-/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, var/verb = "говор%(ит,ят)%")
+/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, verb = "говор%(ит,ят)%")
 	if(broadcasting)
 		if(get_dist(src, M) <= canhear_range)
-			talk_into(M, message_pieces, null, verb)
+			talk_into(M, message_pieces, null, genderize_decode(M, verb))
 
 // To the person who asks "Why is this in a callback?"
 // You see, if you use QDEL_IN on the tcm and on broadcast_message()

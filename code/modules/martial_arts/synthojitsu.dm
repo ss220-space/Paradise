@@ -1,6 +1,7 @@
 /datum/martial_art/synthojitsu
 	name = "Synthojitsu"
 	weight = 4
+	change_musculs = FALSE
 	block_chance = 0
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/synthojitsu/lock, /datum/martial_combo/synthojitsu/overload, /datum/martial_combo/synthojitsu/reanimate)

@@ -244,9 +244,8 @@ export const MessengerList = (props: MessengerListProps) => {
                 <Input
                   mt={0.5}
                   value={searchTerm}
-                  onInput={(e, value) => {
-                    setSearchTerm(value);
-                  }}
+                  expensive
+                  onChange={setSearchTerm}
                 />
               </Box>
             )}

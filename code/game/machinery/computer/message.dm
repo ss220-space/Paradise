@@ -290,7 +290,7 @@
 				auth = 0
 				screen = 0
 			else
-				var/dkey = trim(clean_input("Введите ключ дешифрования."))
+				var/dkey = tgui_input_text(usr, "Введите ключ дешифрования.")
 				if(dkey && dkey != "")
 					if(src.linkedServer.decryptkey == dkey)
 						auth = 1
@@ -303,11 +303,11 @@
 		//Find a server
 		if(href_list["find"])
 			if(GLOB.message_servers && GLOB.message_servers.len > 1)
-				src.linkedServer = input(usr,"Выберите сервер.", "Выбор сервера.", null) as null|anything in GLOB.message_servers
+				src.linkedServer = tgui_input_list(usr,"Выберите сервер.", "Выбор сервера.", GLOB.message_servers, null)
 				message = span_alert("УВЕДОМЛЕНИЕ: Сервер выбран.")
 			else if(GLOB.message_servers && GLOB.message_servers.len > 0)
 				linkedServer = GLOB.message_servers[1]
-				message = span_notice("УВЕДОМЛЕНИЕ: Выбор только из одного сервера. Сервер выбран.")
+				message = span_notice("УВЕДОМЛЕНИЕ: Выбор возможен только из одного сервера. Сервер выбран.")
 			else
 				message = noserver
 
@@ -341,10 +341,10 @@
 				message = noserver
 			else
 				if(auth)
-					var/dkey = trim(clean_input("Введите ключ дешифрования."))
+					var/dkey = tgui_input_text(usr, "Введите ключ дешифрования.")
 					if(dkey && dkey != "")
 						if(src.linkedServer.decryptkey == dkey)
-							var/newkey = trim(input(usr,"Введите новый ключ (от 3 до 16 символов):"))
+							var/newkey = tgui_input_text(usr, "Введите новый ключ (от 3 до 16 символов):", max_length = 16)
 							if(length(newkey) <= 3)
 								message = span_notice("УВЕДОМЛЕНИЕ: Ключ дешифрования слишком короткий!")
 							else if(length(newkey) > 16)
@@ -404,7 +404,7 @@
 
 					//Select Your Name
 					if("Sender")
-						customsender 	= clean_input("Введите имя отправителя.")
+						customsender 	= tgui_input_text(usr, "Введите имя отправителя.")
 
 					//Select Receiver
 					if("Recepient")
@@ -423,11 +423,11 @@
 
 					//Enter custom job
 					if("RecJob")
-						customjob	 	= clean_input("Укажите должность отправителя.")
+						customjob	 	= tgui_input_text(usr, "Укажите должность отправителя.")
 
 					//Enter message
 					if("Message")
-						custommessage	= clean_input("Введите ваше сообщение.")
+						custommessage	= tgui_input_text(usr, "Введите ваше сообщение.")
 						custommessage	= sanitize(copytext_char(custommessage, 1, MAX_MESSAGE_LEN))
 
 					//Send message

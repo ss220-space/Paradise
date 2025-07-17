@@ -452,11 +452,20 @@
 /mob/living/proc/get_grab_upgrade_time(mob/living/grabber)
 	if(!grabber.mind)
 		return GRAB_UPGRADE_TIME
+
 	var/datum/antagonist/vampire/vampire = grabber.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/datum/vampire_passive/upgraded_grab/vampire_grab = vampire?.get_ability(/datum/vampire_passive/upgraded_grab)
 	if(vampire_grab)
 		return vampire_grab.grab_speed
-	return isnull(grabber.mind?.martial_art?.grab_speed) ? GRAB_UPGRADE_TIME : grabber.mind.martial_art.grab_speed
+
+	var/mod = 1
+	var/list/mods = list()
+	SEND_SIGNAL(src, COMSIG_GET_GRAB_SPEED_MODIFIERS, mods)
+	for(var/modifier in mods)
+		mod *= modifier
+
+	var/normal_grab_update_time = GRAB_UPGRADE_TIME * mod
+	return isnull(grabber.mind?.martial_art?.grab_speed) ? normal_grab_update_time / mod : grabber.mind.martial_art.grab_speed
 
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)

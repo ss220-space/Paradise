@@ -33,8 +33,8 @@ SUBSYSTEM_DEF(capitalism)
 /datum/controller/subsystem/capitalism/fire()
 
 	//if(default_counter > 300)
-	//	GLOB.priority_announcement.Announce("Станция признана убыточным объектом. Хорошего дня.", "Расторжение контрактов.", 'sound/AI/commandreport.ogg')
-	//	set_security_level(SEC_LEVEL_EPSILON)
+	//	GLOB.major_announcement.announce("Станция признана убыточным объектом. Хорошего дня.", "Расторжение контрактов.", 'sound/AI/commandreport.ogg')
+	//	SSsecurity_level.set_level(SEC_LEVEL_EPSILON)
 
 	//If there is enough money to pay salaries at least twice before the default is lifted
 	if(default_status && (payment_account.money > (potential_salary_payments() + EXTRA_MONEY)))
@@ -67,9 +67,16 @@ SUBSYSTEM_DEF(capitalism)
 //status - TRUE/FALSE
 /datum/controller/subsystem/capitalism/proc/default_annonce()
 	if(default_status)
-		GLOB.priority_announcement.Announce("Внимание на счёте станции зафиксировано отсутствие финансов. Выплаты заработных плат заморожены. Командному составу необходимо немедленно решить возникший кризис", "Дефолт станции", 'sound/AI/commandreport.ogg')
+		/* Both announcements are Minor because it happens all the time, because the system of capitalism is shit. */
+		GLOB.minor_announcement.announce("На счёте станции зафиксировано отсутствие финансовых средств. В связи с этим выплаты заработной платы были приостановлены. Руководству станции необходимо незамедлительно принять меры для разрешения сложившейся ситуации.",
+										ANNOUNCE_CAPITAL_DEFOLT_RU,
+										'sound/AI/commandreport.ogg'
+		)
 	else
-		GLOB.priority_announcement.Announce("Внимание на счёте станции достаточно средств для выплат. Выплаты заработных плат возобновлены.", "Возобновление выплат", 'sound/AI/commandreport.ogg')
+		GLOB.minor_announcement.announce("На счёте станции имеется достаточное количество средств для осуществления выплат. Заработная плата сотрудникам выплачивается в полном объёме.",
+										ANNOUNCE_CAPITAL_REPAY_RU,
+										'sound/AI/commandreport.ogg'
+		)
 
 /datum/controller/subsystem/capitalism/proc/potential_salary_payments()
 	var/total_salary = 0

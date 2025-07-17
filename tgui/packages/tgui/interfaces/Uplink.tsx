@@ -263,9 +263,8 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
             <Input
               fluid
               placeholder="Поиск..."
-              onInput={(e, value) => {
-                handleSearch(value);
-              }}
+              expensive
+              onChange={handleSearch}
               value={searchText}
             />
           </Section>
@@ -586,7 +585,8 @@ const ExploitableInfoPage = (_properties) => {
               fluid
               mb={1}
               placeholder="Поиск..."
-              onInput={(e, value) => setSearchText(value)}
+              expensive
+              onChange={setSearchText}
             />
             <Tabs vertical>
               {crew.map((r) => (

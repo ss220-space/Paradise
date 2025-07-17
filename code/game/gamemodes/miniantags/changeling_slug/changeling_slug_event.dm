@@ -13,7 +13,10 @@
 
 /datum/event/headslug_infestation/announce(false_alarm)
 	if(successSpawn || false_alarm)
-		GLOB.command_announcement.Announce("Обнаружены неопознанные формы жизни на борту [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.", new_sound = 'sound/AI/aliens.ogg')
+		GLOB.major_announcement.announce("Обнаружены неопознанные формы жизни на борту [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.",
+										ANNOUNCE_UNID_LIFEFORMS_RU,
+										'sound/AI/aliens.ogg'
+		)
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Headslug Infestation")
 

@@ -9,9 +9,14 @@
 
 /datum/event/meteor_wave/announce(false_alarm)
 	if(severity == EVENT_LEVEL_MAJOR || (false_alarm && prob(30)))
-		GLOB.event_announcement.Announce("Зафиксировано движение астероидов на встречном со станцией курсе.", "ВНИМАНИЕ: АСТЕРОИДЫ.", new_sound = 'sound/AI/meteors.ogg')
+		GLOB.minor_announcement.announce("Зафиксировано движение астероидов на встречном со станцией курсе.",
+										ANNOUNCE_METEOR_RU,
+										'sound/AI/meteors.ogg'
+		)
 	else
-		GLOB.event_announcement.Announce("Станция проходит через скопление астероидов.", "ВНИМАНИЕ: АСТЕРОИДЫ.")
+		GLOB.minor_announcement.announce("Станция проходит через скопление астероидов.",
+										ANNOUNCE_METEOR_RU
+		)
 
 //meteor showers are lighter and more common,
 /datum/event/meteor_wave/tick()
@@ -24,9 +29,13 @@
 /datum/event/meteor_wave/end()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.event_announcement.Announce("Станция прошла через астероидный пояс", "ВНИМАНИЕ: АСТЕРОИДЫ.")
+			GLOB.minor_announcement.announce("Станция прошла через астероидный пояс",
+											ANNOUNCE_METEOR_RU
+			)
 		else
-			GLOB.event_announcement.Announce("Станция прошла через скопление астероидов", "ВНИМАНИЕ: АСТЕРОИДЫ.")
+			GLOB.minor_announcement.announce("Станция прошла через скопление астероидов",
+											ANNOUNCE_METEOR_RU
+			)
 
 /datum/event/meteor_wave/proc/get_meteors()
 	switch(severity)

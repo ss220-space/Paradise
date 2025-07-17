@@ -157,7 +157,7 @@
 			set_anchored(!anchored)
 
 		if("bridgemode")
-			var/setdir = input("Выберите направление строительства:") as null|anything in list("север","юг","запад","восток","отключить")
+			var/setdir = tgui_input_list(usr, "Выберите направление строительства:", , list("север","юг","запад","восток","отключить"))
 			switch(setdir)
 				if("север")
 					targetdirection = 1
