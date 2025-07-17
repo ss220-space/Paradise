@@ -66129,6 +66129,13 @@
 	icon_state = "darkyellow"
 	},
 /area/engineering/engine)
+"oXj" = (
+/obj/machinery/suit_storage_unit/anom,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplefull"
+	},
+/area/toxins/misc_lab)
 "oXn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -87774,7 +87781,6 @@
 	},
 /area/hydroponics)
 "voE" = (
-/obj/machinery/suit_storage_unit/anom,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -119739,7 +119745,7 @@ cuW
 cvR
 czH
 cxv
-crx
+oXj
 czd
 czH
 idU

@@ -808,12 +808,12 @@
 	desc = "Прототип шлема, предназначенного для исследований в опасных условиях с низким давлением. На визоре мелькают научные данные."
 
 	ru_names = list(
-		NOMINATIVE = "шлем ИКС аномалиста",
-		GENITIVE = "шлема ИКСа аномалиста",
-		DATIVE = "шлему ИКСу аномалиста",
-		ACCUSATIVE = "шлем ИКС аномалиста",
-		INSTRUMENTAL = "шлемом ИКСом аномалиста",
-		PREPOSITIONAL = "шлеме ИКСе аномалиста"
+		NOMINATIVE = "шлем аномалиста",
+		GENITIVE = "шлема аномалиста",
+		DATIVE = "шлему аномалиста",
+		ACCUSATIVE = "шлем аномалиста",
+		INSTRUMENTAL = "шлемом аномалиста",
+		PREPOSITIONAL = "шлеме аномалиста"
 	)
 	icon_state = "hardsuit0-anom"
 	item_state = "anom"
@@ -837,6 +837,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/anom/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
+		return
 		GLOB.doppler_arrays += src
 		scanner_active = TRUE
 
@@ -844,22 +845,24 @@
 /obj/item/clothing/head/helmet/space/hardsuit/anom/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
+		return
 		GLOB.doppler_arrays -= src
 		scanner_active = FALSE
 
 
 /obj/effect/anomaly/attack_hand(mob/user, list/modifiers)
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
+		var/mob/living/carbon/human/user = user
 		var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = H.head
 		var/obj/item/clothing/suit/space/hardsuit/anom/suit = H.wear_suit
 		if(istype(helmet) && istype(suit) && helmet.scanner_active)
-			if(H.incapacitated() || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+			return
+			if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return TRUE
-			if(H.l_hand || H.r_hand)
+			if(user.l_hand || user.r_hand)
 				return TRUE
 			helmet.integrated_scanner.scan(src)
-			helmet.integrated_scanner.show(H)
+			helmet.integrated_scanner.show(user)
 			return TRUE
 	return ..()
 
@@ -874,6 +877,7 @@
 			var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = H.head
 			var/obj/item/clothing/suit/space/hardsuit/anom/suit = H.wear_suit
 			if(istype(helmet) && istype(suit) && helmet.scanner_active)
+				return
 				if(H.incapacitated() || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
 					return
 				if(H.l_hand || H.r_hand)
@@ -898,13 +902,14 @@
 		distance = dy
 	if(distance > explosion_detection_dist)
 		return
-	display_visor_message("Обнаружен взрыв! Радиус эпицентра: [devastation_range]")
-	display_visor_message("Внешний радиус: [heavy_impact_range]")
-	display_visor_message("Радиус ударной волны: [light_impact_range]")
+	var/message = "Обнаружен взрыв! Радиус эпицентра: [devastation_range]\n"
+	message += "Внешний радиус: [heavy_impact_range]\n"
+	message += "Радиус ударной волны: [light_impact_range]"
+	display_visor_message(message)
 
 /obj/item/clothing/suit/space/hardsuit/anom
 	name = "Anomalist Hardsuit"
-	desc = "Прототип костюма, защищающего от воздействия опасных сред с низким давлением. Оснащен широким защитным покрытием для работы с аномалиями и проведения исследований в опасных условиях."
+	desc = "Прототип костюма, предназначенного для исследований и работы в опасных условиях с пониженным давлением. Оснащён защитным покрытием для защиты от воздействия аномалий."
 	ru_names = list(
 		NOMINATIVE = "ИКС аномалиста",
 		GENITIVE = "ИКСа аномалиста",
