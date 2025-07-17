@@ -853,8 +853,8 @@
 /obj/effect/anomaly/attack_hand(mob/user, list/modifiers)
 	if(ishuman(user))
 		var/mob/living/carbon/human/user = user
-		var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = H.head
-		var/obj/item/clothing/suit/space/hardsuit/anom/suit = H.wear_suit
+		var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = user.head
+		var/obj/item/clothing/suit/space/hardsuit/anom/suit = user.wear_suit
 		if(istype(helmet) && istype(suit) && helmet.scanner_active)
 			return
 			if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
