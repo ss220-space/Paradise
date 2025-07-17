@@ -1408,3 +1408,6 @@
 #define COMSIG_GET_STRENGTH	"get_strength"
 #define COMSIG_UPDATE_STRENGTH	"update_strength"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
+
+/// Used by admin-tooling to remove radiation
+#define COMSIG_ADMIN_DECONTAMINATE "admin_decontaminate"

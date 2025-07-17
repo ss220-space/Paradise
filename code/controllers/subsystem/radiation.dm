@@ -14,6 +14,9 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	var/list/turf_rad_cache = list()
 	var/list/prev_rad_cache = list()
 
+	/// Lazy list of all radioactive components
+	var/list/all_radiations
+
 /datum/controller/subsystem/processing/radiation/proc/warn(datum/component/radioactive/contamination)
 	if(!contamination || QDELETED(contamination))
 		return
