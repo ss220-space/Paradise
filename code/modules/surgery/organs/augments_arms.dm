@@ -100,9 +100,9 @@
 	if(!active_item || (active_item in src))
 		return FALSE
 
-	owner.visible_message(span_notice("[owner] retracts [active_item] back into [owner.p_their()] [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
-		span_notice("[active_item] snaps back into your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
-		span_italics("You hear a short mechanical noise."))
+	owner.visible_message(span_notice("[owner] убира[pluralize_ru(owner.gender,"ет","ют")] [active_item.declent_ru(ACCUSATIVE)] обратно в [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
+		span_notice("[capitalize(active_item.declent_ru(NOMINATIVE))] втягивается в вашу [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
+		span_italics("Слышен короткий механический щелчок."))
 
 	owner.drop_item_ground(active_item, force = TRUE, silent = TRUE)
 	active_item.forceMove(src)

@@ -19,7 +19,7 @@
 /mob/living/carbon/resist_restraints()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
 	var/obj/item/restraints
-	if(wear_suit?.breakouttime)
+	if(wear_suit?.breakout_time)
 		restraints = wear_suit
 	else if(handcuffed)
 		restraints = handcuffed
@@ -95,23 +95,27 @@
 /// General proc to resist passed item.
 /mob/living/carbon/proc/cuff_resist(obj/item/I, cuff_break = FALSE)
 	. = FALSE
-	var/breakouttime = I.breakouttime
+	var/breakout_time = cuff_break ? 5 SECONDS : I.breakout_time
+	var/list/breakouttime_modifiers = list()
+	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
+	for(var/mod in breakouttime_modifiers)
+		breakout_time *= mod
+
 	if(cuff_break)
-		breakouttime = 5 SECONDS	// very fast!
 		visible_message(
 			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся сломать [I.declent_ru(ACCUSATIVE)]!"),
 			span_notice("Вы пытаетесь сломать [I.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
 		)
-		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+		if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			. = clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, span_warning("Вам не удалось сломать [I.declent_ru(ACCUSATIVE)]!"))
 	else
 		visible_message(
 			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся снять [I.declent_ru(ACCUSATIVE)]!"),
-			span_notice("Вы пытаетесь снять [I.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakouttime / 10] секунд[declension_ru(breakouttime / 10, "у", "ы", "")]."),
+			span_notice("Вы пытаетесь снять [I.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakout_time / 10] секунд[declension_ru(breakout_time / 10, "у", "ы", "")]."),
 		)
-		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+		if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			. = clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, span_warning("Вам не удалось снять [I.declent_ru(ACCUSATIVE)]!"))

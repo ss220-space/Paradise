@@ -434,7 +434,15 @@
 
 /obj/item/clothing/shoes/footwraps/goliath
 	name = "goliath hide footwraps"
-	desc = "These wraps, made from goliath hide, make your feet feel snug and secure, while still being breathable and light."
+	desc = "Эти обмотки, изготовленные из шкуры голиафа, подарят вашим ступням ощущение уюта и безопасности, оставаясь при этом дышащими и лёгкими."
+	ru_names = list(
+		NOMINATIVE = "обмотки из шкуры голиафа",
+		GENITIVE = "обмоток из шкуры голиафа",
+		DATIVE = "обмоткам из шкуры голиафа",
+		ACCUSATIVE = "обмотки из шкуры голиафа",
+		INSTRUMENTAL = "обмотками из шкуры голиафа",
+		PREPOSITIONAL = "обмотках из шкуры голиафа"
+	)
 	icon_state = "footwraps_goliath"
 	item_state = "footwraps_goliath"
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 10, "acid" = 0)
@@ -443,7 +451,15 @@
 
 /obj/item/clothing/shoes/footwraps/dragon
 	name = "ash drake hide footwraps"
-	desc = "These wraps, made from ash drake hide, make your feet feel snug and secure, while still being breathable and light."
+	desc = "Эти обмотки, изготовленные из шкуры пепельного дракона, обеспечат вам комфорт и безопасность ваших ног, оставаясь при этом лёгкими и дышащими."
+	ru_names = list(
+		NOMINATIVE = "обмотки из шкуры пепельного дракона",
+		GENITIVE = "обмоток из шкуры пепельного дракона",
+		DATIVE = "обмоткам из шкуры пепельного дракона",
+		ACCUSATIVE = "обмотки из шкуры пепельного дракона",
+		INSTRUMENTAL = "обмотками из шкуры пепельного дракона",
+		PREPOSITIONAL = "обмотках из шкуры пепельного дракона"
+	)
 	icon_state = "footwraps_dragon"
 	item_state = "footwraps_dragon"
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 15, "energy" = 10, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 15, "acid" = 0)

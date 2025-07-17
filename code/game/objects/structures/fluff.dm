@@ -60,7 +60,15 @@
 
 /obj/structure/fluff/drake_statue //Ash drake status spawn on either side of the necropolis gate in lavaland.
 	name = "drake statue"
-	desc = "A towering basalt sculpture of a proud and regal drake. Its eyes are six glowing gemstones."
+	desc = "Величественная базальтовая скульптура гордого дрейка. Его глаза — шесть светящихся самоцветов."
+	ru_names = list(
+		NOMINATIVE = "статуя дрейка",
+		GENITIVE = "статуи дрейка",
+		DATIVE = "статуе дрейка",
+		ACCUSATIVE = "статую дрейка",
+		INSTRUMENTAL = "статуей дрейка",
+		PREPOSITIONAL = "статуе дрейка"
+	)
 	icon = 'icons/effects/64x64.dmi'
 	icon_state = "drake_statue"
 	pixel_x = -16

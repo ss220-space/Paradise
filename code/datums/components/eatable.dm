@@ -111,19 +111,19 @@
 /datum/component/eatable/proc/try_eat_item(mob/living/carbon/human/target, mob/user)
 	var/obj/item/item = parent
 	var/chat_message_to_user = "Вы кормите [target] [item.name]."
-	var/chat_message_to_target = "[user] покормил вас [item.name]."
+	var/chat_message_to_target = "[user] покормил[genderize_ru(user.gender,"","а","о","и")] вас [item.declent_ru(INSTRUMENTAL)]."
 
 	switch(user.a_intent)
 		if(INTENT_HELP, INTENT_GRAB)
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
-				chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет [item.name]. [target == user ? "Вы" : target] наел[target == user ? "ись" : genderize_ru(target.gender,"ся","ась","ось","ись")]!"
+				chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет [item.declent_ru(NOMINATIVE)]. [target == user ? "Вы" : target] наел[target == user ? "ись" : genderize_ru(target.gender,"ся","ась","ось","ись")]!"
 				return FALSE
 			else if (target == user)
-				chat_message_to_user = "Вы откусили от [item.name]. Вкуснятина!"
+				chat_message_to_user = "Вы откусили от [item.declent_ru(ACCUSATIVE)]. Вкуснятина!"
 		if(INTENT_HARM)
-			chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет. Но [target == user ? "вы" : user] насильно запихива[target == user ? "ете" : pluralize_ru(user.gender,"ет","ют")] [item.name] в рот!"
+			chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет. Но [target == user ? "вы" : user] насильно запихива[target == user ? "ете" : pluralize_ru(user.gender,"ет","ют")] [item.declent_ru(ACCUSATIVE)] в рот!"
 			if (target != user)
-				chat_message_to_target = "В ваш рот насильно запихивают [item.name]!"
+				chat_message_to_target = "В ваш рот насильно запихивают [item.declent_ru(ACCUSATIVE)]!"
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
 				target.vomit(nutritional_value + 20)
 				target.adjustStaminaLoss(15)
@@ -152,14 +152,14 @@
 
 	if(isstack(item))
 		var/obj/item/stack/stack = item
-		target.visible_message(span_notice("[target] съел [stack.name]."))
+		target.visible_message(span_notice("[target] съел[genderize_ru(target.gender, "", "а", "о", "и")] [stack.declent_ru(ACCUSATIVE)]."))
 		stack.use(stack_use)
 	else
 		current_bites++
 		item.update_integrity(item.obj_integrity - integrity_bite)
 		item.add_atom_colour(get_colour(), FIXED_COLOUR_PRIORITY)
 		if(current_bites >= max_bites)
-			target.visible_message(span_notice("[target] доел [item.name]."))
+			target.visible_message(span_notice("[target] доел[genderize_ru(target.gender, "", "а", "о", "и")] [item.declent_ru(ACCUSATIVE)]."))
 			qdel(item)
 	return
 
@@ -167,7 +167,7 @@
 	var/obj/item/item = parent
 
 	if(!instant_application)
-		item.visible_message(span_warning("[user] пытается накормить [target], запихивая в рот [item.name]."))
+		item.visible_message(span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся накормить [target], запихивая в рот [item.declent_ru(ACCUSATIVE)]."))
 		if(!do_after(user, target, 2 SECONDS, NONE))
 			return FALSE
 

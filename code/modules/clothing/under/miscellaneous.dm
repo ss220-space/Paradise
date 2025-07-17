@@ -493,7 +493,15 @@
 
 /obj/item/clothing/under/ash_walker
 	name = "ash-walker uniform"
-	desc = ""
+	desc = "Простая, но надежная одежда из ткани, пропитанная пеплом. Швы украшены символами племени, а потертые края выглядят так, будто они видели не одно извержение вулкана."
+	ru_names = list(
+		NOMINATIVE = "одеяние пеплоходца",
+		GENITIVE = "одеяния пеплоходца",
+		DATIVE = "одеянию пеплоходца",
+		ACCUSATIVE = "одеяние пеплоходца",
+		INSTRUMENTAL = "одеянием пеплоходца",
+		PREPOSITIONAL = "одеянии пеплоходца"
+	)
 	icon_state = "ash"
 	item_state = "ash"
 	item_color = "ash"
@@ -501,7 +509,15 @@
 
 /obj/item/clothing/under/ash_walker_shaman
 	name = "shaman tribal rags"
-	desc = "Rags from Lavaland, drenched with ash, it has fine jewel coated bones sewn around the neck. This one seems to be for the shaman of a tribe."
+	desc = "Пропитанные пеплом лохмотья с Лазиса, с костяными украшениями, усыпанными грубыми самоцветами на шее. Кажется, это одеяние предназначено для шамана племени."
+	ru_names = list(
+		NOMINATIVE = "лохмотья шамана",
+		GENITIVE = "лохмотьев шамана",
+		DATIVE = "лохмотьям шамана",
+		ACCUSATIVE = "лохмотья шамана",
+		INSTRUMENTAL = "лохмотьями шамана",
+		PREPOSITIONAL = "лохмотьях шамана"
+	)
 	icon_state = "shamanrags"
 	item_state = "shamanrags"
 	item_color = "shamanrags"
