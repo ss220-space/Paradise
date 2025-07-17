@@ -816,7 +816,7 @@
 	..()
 	computer.abductor = TRUE
 	computer.max_integrity = 400
-	computer.obj_integrity = 400
+	computer.update_integrity(400)
 
 
 /obj/structure/computerframe/abductor/drop_computer_materials(location)

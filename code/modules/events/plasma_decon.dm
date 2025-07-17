@@ -2,7 +2,10 @@
 	name = "Дезакцивация плазмы"
 
 /datum/event/plasma_decon/announce()
-	GLOB.priority_announcement.Announce("Активирована экспериментальная система дезакцивации плазмы. Пожалуйста, стойте подальше от вентиляционных отверстий и не вдыхайте выходящий дым.", "ВНИМАНИЕ: ПРОТОКОЛ DECON!")
+	GLOB.major_announcement.announce("Активирована экспериментальная система дезакцивации плазмы. Пожалуйста, стойте подальше от вентиляционных отверстий и не вдыхайте выходящий дым.",
+									"Активирован протокол дезактивации плазмы",
+									'sound/AI/commandreport.ogg'
+	)
 
 /datum/event/plasma_decon/start()// This only contains vent_pumps so don't bother with type checking
 	for(var/obj/machinery/atmospherics/unary/vent_pump/vent as anything in GLOB.all_vent_pumps)

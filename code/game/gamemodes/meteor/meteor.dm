@@ -1,4 +1,4 @@
-/datum/game_mode/meteor
+/datum/game_mode/meteor // Where is the hero that will remove this shit?
 	name = "meteor"
 	config_tag = "meteor"
 	var/const/initialmeteordelay = 6000
@@ -13,7 +13,10 @@
 
 /datum/game_mode/meteor/post_setup()
 	spawn(rand(waittime_l, waittime_h))
-		GLOB.command_announcement.Announce("Станция находится на пути надвигающегося потока метеоров. Укрепите обшивку и подготовьте группы по устранению повреждений.", "ВНИМАНИЕ: ПРИБЛИЖЕНИЕ МЕТЕОРОВ.", 'sound/effects/siren.ogg')
+		GLOB.major_announcement.announce("Станция находится на пути надвигающегося потока метеоров. Укрепите обшивку и подготовьте группы по устранению повреждений.",
+										ANNOUNCE_METEOR_RU,
+										'sound/effects/siren.ogg'
+		)
 	spawn(initialmeteordelay)
 		sendmeteors()
 	..()

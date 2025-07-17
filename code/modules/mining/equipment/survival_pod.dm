@@ -9,7 +9,15 @@
 
 /obj/item/survivalcapsule
 	name = "bluespace shelter capsule"
-	desc = "An emergency shelter stored within a pocket of bluespace."
+	desc = "Аварийное убежище, хранящееся в карманной капсуле блюспейса."
+	ru_names = list(
+		NOMINATIVE = "капсула блюспейс-убежища",
+		GENITIVE = "капсулы блюспейс-убежища",
+		DATIVE = "капсуле блюспейс-убежища",
+		ACCUSATIVE = "капсулу блюспейс-убежища",
+		INSTRUMENTAL = "капсулой блюспейс-убежища",
+		PREPOSITIONAL = "капсуле блюспейс-убежища"
+	)
 	icon_state = "capsule"
 	icon = 'icons/obj/mining.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -22,11 +30,11 @@
 /obj/item/survivalcapsule/emag_act(mob/user)
 	if(!emagged)
 		if(user)
-			to_chat(user, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
+			to_chat(user, span_warning("Вы отключаете защитные механизмы, позволяя размещение в секторе станции."))
 		emagged = TRUE
 		return
 	if(user)
-		to_chat(user, "<span class='warning'>The safeties are already shorted out!</span>")
+		to_chat(user, span_warning("Защитные механизмы уже отключены!"))
 
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)
@@ -39,8 +47,8 @@
 /obj/item/survivalcapsule/examine(mob/user)
 	. = ..()
 	get_template()
-	. += "<span class='notice'>This capsule has the [template.name] stored.</span>"
-	. += "<span class='notice'>[template.description]</span>"
+	. += span_notice("В этой капсуле хранится [template.name].")
+	. += span_notice("[template.description]")
 
 /obj/item/survivalcapsule/attack_self(mob/user)
 	. = ..()
@@ -52,10 +60,10 @@
 		return FALSE
 	var/turf/UT = get_turf(user)
 	if((is_station_level(UT.z)) && !emagged)
-		to_chat(user, span_notice("Error. Deployment was attempted on the station sector. Deployment aborted."))
+		to_chat(user, span_notice("Ошибка. Попытка развертывания в секторе станции. Развертывание отменено."))
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
-	loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
+	loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает трястись. Отойдите!"))
 	used = TRUE
 	addtimer(CALLBACK(src, PROC_REF(expand), user), 5 SECONDS)
 	return TRUE
@@ -66,15 +74,15 @@
 		return
 	var/turf/deploy_location = get_turf(src)
 	if((is_station_level(deploy_location.z)) && !emagged)
-		to_chat(triggerer, span_notice("Error. Expanding was attempted on the station sector. Expanding aborted."))
+		to_chat(triggerer, span_notice("Ошибка. Попытка расширения в секторе станции. Расширение отменено."))
 		playsound(triggerer, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
 	var/status = template.check_deploy(deploy_location)
 	switch(status)
 		if(SHELTER_DEPLOY_BAD_AREA)
-			loc.visible_message(span_warning("[src] will not function in this area."))
+			loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] не функционирует в этой зоне."))
 		if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
-			loc.visible_message(span_warning("[src] doesn't have room to deploy! You need to clear a [template.width]x[template.height] area!"))
+			loc.visible_message(span_warning("[capitalize(declent_ru(DATIVE))] не хватает места для развертывания! Необходимо очистить площадь [template.width]x[template.height]!"))
 
 	if(status != SHELTER_DEPLOY_ALLOWED)
 		used = FALSE
@@ -129,13 +137,29 @@
 
 /obj/item/survivalcapsule/luxury
 	name = "luxury bluespace shelter capsule"
-	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace."
+	desc = "Чрезмерно дорогая люксовая капсула, хранящаяся в карманной капсуле блюспейса."
+	ru_names = list(
+		NOMINATIVE = "капсула роскошного блюспейс-убежища",
+		GENITIVE = "капсулы роскошного блюспейс-убежища",
+		DATIVE = "капсуле роскошного блюспейс-убежища",
+		ACCUSATIVE = "капсулу роскошного блюспейс-убежища",
+		INSTRUMENTAL = "капсулой роскошного блюспейс-убежища",
+		PREPOSITIONAL = "капсуле роскошного блюспейс-убежища"
+	)
 	origin_tech = "engineering=3;bluespace=4"
 	template_id = "shelter_beta"
 
 /obj/item/survivalcapsule/luxuryelite
 	name = "luxury elite bar capsule"
-	desc = "A luxury bar in a capsule. Bartender required and not included."
+	desc = "Роскошный бар в капсуле. Бармен требуется, но не входит в комплект."
+	ru_names = list(
+		NOMINATIVE = "капсула элитного бара",
+		GENITIVE = "капсулы элитного бара",
+		DATIVE = "капсуле элитного бара",
+		ACCUSATIVE = "капсулу элитного бара",
+		INSTRUMENTAL = "капсулой элитного бара",
+		PREPOSITIONAL = "капсуле элитного бара"
+	)
 	template_id = "shelter_charlie"
 
 //Pod turfs and objects
@@ -245,7 +269,15 @@
 //NanoMed
 /obj/machinery/vending/wallmed/survival_pod
 	name = "survival pod medical supply"
-	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
+	desc = "Настенный диспенсер медицинского оборудования. Этот кажется чуть меньше обычного."
+	ru_names = list(
+		NOMINATIVE = "медицинский модуль аварийного убежища",
+		GENITIVE = "медицинского модуля аварийного убежища",
+		DATIVE = "медицинскому модулю аварийного убежища",
+		ACCUSATIVE = "медицинский модуль аварийного убежища",
+		INSTRUMENTAL = "медицинским модулем аварийного убежища",
+		PREPOSITIONAL = "медицинском модуле аварийного убежища"
+	)
 	req_access = list()
 
 	products = list(/obj/item/stack/medical/splint = 2,
@@ -269,9 +301,9 @@
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] disassembles [src]."),
-		span_notice("You start to disassemble [src]..."),
-		span_italics("You hear clanking and banging noises."),
+		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
+		span_italics("Слышны стук и лязг."),
 	)
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return .
@@ -373,9 +405,9 @@
 /obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] disassembles [src]."),
-		span_notice("You start to disassemble [src]..."),
-		span_italics("You hear clanking and banging noises."),
+		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
+		span_italics("Слышны стук и лязг."),
 	)
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return .
@@ -384,7 +416,15 @@
 
 /obj/structure/fans/tiny
 	name = "tiny fan"
-	desc = "A tiny fan, releasing a thin gust of air."
+	desc = "Небольшой вентилятор, создающий постоянный поток воздуха."
+	ru_names = list(
+		NOMINATIVE = "система контроля среды",
+		GENITIVE = "системы контроля среды",
+		DATIVE = "системе контроля среды",
+		ACCUSATIVE = "систему контроля среды",
+		INSTRUMENTAL = "системой контроля среды",
+		PREPOSITIONAL = "системе контроля среды"
+	)
 	layer = TURF_LAYER+0.1
 	density = FALSE
 	icon_state = "fan_tiny"
@@ -397,13 +437,29 @@
 //Signs
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"
-	desc = "A sign of relief for weary miners, and a warning for would-be competitors to Nanotrasen's mining claims."
+	desc = "Знак облегчения для уставших шахтеров и предупреждение для потенциальных конкурентов НаноТрейзен."
+	ru_names = list(
+		NOMINATIVE = "знак шахтёрского корпуса НТ",
+		GENITIVE = "знака шахтёрского корпуса НТ",
+		DATIVE = "знаку шахтёрского корпуса НТ",
+		ACCUSATIVE = "знак шахтёрского корпуса НТ",
+		INSTRUMENTAL = "знаком шахтёрского корпуса НТ",
+		PREPOSITIONAL = "знаке шахтёрского корпуса НТ"
+	)
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "ntpod"
 
 /obj/structure/sign/mining/survival
 	name = "shelter sign"
-	desc = "A high visibility sign designating a safe shelter."
+	desc = "Яркий знак, обозначающий безопасное укрытие."
+	ru_names = list(
+		NOMINATIVE = "знак убежища",
+		GENITIVE = "знака убежища",
+		DATIVE = "знаку убежища",
+		ACCUSATIVE = "знак убежища",
+		INSTRUMENTAL = "знаком убежища",
+		PREPOSITIONAL = "знаке убежища"
+	)
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "survival"
 
@@ -420,9 +476,9 @@
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] disassembles [src]."),
-		span_notice("You start to disassemble [src]..."),
-		span_italics("You hear clanking and banging noises."),
+		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
+		span_italics("Слышны стук и лязг."),
 	)
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return .

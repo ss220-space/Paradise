@@ -57,7 +57,7 @@
 	. = ..()
 
 	if(flip_check())
-		. += span_info("Можно <b>кликнуть в намерении \"Обезоружить\"</b> чтобы [flipped ? "вернуть [src.declent_ru(ACCUSATIVE)] в исходное положение" : "перевернуть [src.declent_ru(ACCUSATIVE)]"].")
+		. += span_notice("Можно <b>кликнуть в намерении \"Обезоружить\"</b> чтобы [flipped ? "вернуть [src.declent_ru(ACCUSATIVE)] в исходное положение" : "перевернуть [src.declent_ru(ACCUSATIVE)]"].")
 
 	. += deconstruction_hints(user)
 
@@ -760,7 +760,7 @@
 
 
 /obj/structure/table/reinforced/brass/ratvar_act()
-	obj_integrity = max_integrity
+	update_integrity(max_integrity)
 
 
 /obj/structure/table/reinforced/brass/fake/ratvar_act()

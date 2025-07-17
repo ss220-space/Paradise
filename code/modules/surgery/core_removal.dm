@@ -1,5 +1,5 @@
 /datum/surgery/core_removal
-	name = "core removal"
+	name = "Извлечение ядра слайма"
 	steps = list(/datum/surgery_step/slime/cut_flesh, /datum/surgery_step/slime/extract_core)
 	target_mobtypes = list(/mob/living/simple_animal/slime)
 	possible_locs = list(
@@ -38,57 +38,66 @@
 	time = 1.6 SECONDS
 
 /datum/surgery_step/slime/cut_flesh/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("[user] starts cutting through [target]'s flesh with \the [tool].", "You start cutting through [target]'s flesh with \the [tool].", chat_message_type = MESSAGE_TYPE_COMBAT)
+	user.visible_message(
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] прорезать слизь [target.declent_ru(GENITIVE)], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете прорезать слизь [target.declent_ru(GENITIVE)], используя [tool.declent_ru(ACCUSATIVE)]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
 	return ..()
 
 /datum/surgery_step/slime/cut_flesh/end_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message(span_notice("[user] cuts through [target]'s flesh with \the [tool]."),
-	span_notice(" You cut through [target]'s flesh with \the [tool], revealing its silky innards."), chat_message_type = MESSAGE_TYPE_COMBAT)
+	user.visible_message(
+		span_notice("[user] прореза[pluralize_ru(user.gender, "ет", "ют")] слизь [target.declent_ru(GENITIVE)], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы прорезаете слизь [target.declent_ru(GENITIVE)], используя [tool.declent_ru(ACCUSATIVE)]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/slime/cut_flesh/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
 	user.visible_message(
-		span_warning("[user]'s hand slips, tearing [target]'s flesh with \the [tool]!"),
-		span_warning("Your hand slips, tearing [target]'s flesh with \the [tool]!"), chat_message_type = MESSAGE_TYPE_COMBAT
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, нанося серьёзные повреждения [target.declent_ru(DATIVE)] [tool.declent_ru(ACCUSATIVE)]!"),
+		span_warning("Вы дёргаете рукой, нанося серьёзные повреждения [target.declent_ru(DATIVE)] [tool.declent_ru(ACCUSATIVE)]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/slime/extract_core
-	name = "extract core"
+	name = "извлечение ядра"
 	allowed_tools = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 100)
 	time = 1.6 SECONDS
 
 /datum/surgery_step/slime/extract_core/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
 	user.visible_message(
-		span_notice("[user] begins to extract a core from [target]."),
-		span_notice("You begin to extract a core from [target]...")
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] извлекать ядро [target.declent_ru(GENITIVE)], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете извлекать ядро [target.declent_ru(GENITIVE)], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	return ..()
 
 
-/datum/surgery_step/slime/extract_core/end_step(mob/user, mob/living/simple_animal/slime/slime, target_zone, obj/item/tool)
-	if(slime.cores > 0)
-		slime.cores--
+/datum/surgery_step/slime/extract_core/end_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
+	if(target.cores > 0)
+		target.cores--
 		user.visible_message(
-			span_notice("[user] successfully extracts a core from [slime]!"),
-			span_notice("You successfully extract a core from [slime]. [slime.cores] core\s remaining."),
+			span_notice("[user] извлека[pluralize_ru(user.gender, "ет", "ют")] ядро [target.declent_ru(GENITIVE)], используя [tool.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы извлекаете ядро [target.declent_ru(GENITIVE)], используя [tool.declent_ru(ACCUSATIVE)]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
-			)
+		)
 
-		new slime.coretype(slime.loc)
+		new target.coretype(target.loc)
 
-		if(slime.cores <= 0)
+		if(target.cores <= 0)
+			target.icon_state = "[target.colour] baby slime dead-nocore"
 			return SURGERY_STEP_CONTINUE
 		else
 			return SURGERY_STEP_INCOMPLETE
 	else
-		to_chat(user, span_warning("There aren't any cores left in [slime]!"))
+		user.balloon_alert(user, "ядра отсутствуют!")
 		return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/slime/extract_core/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
 	user.visible_message(
-		span_warning("[user]'s hand slips, tearing [target]'s flesh with \the [tool]!"),
-		span_warning("Your hand slips, tearing [target]'s flesh with \the [tool]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, нанося серьёзные повреждения [target.declent_ru(DATIVE)] [tool.declent_ru(ACCUSATIVE)]!"),
+		span_warning("Вы дёргаете рукой, нанося серьёзные повреждения [target.declent_ru(DATIVE)] [tool.declent_ru(ACCUSATIVE)]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY

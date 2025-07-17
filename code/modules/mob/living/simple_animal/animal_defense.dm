@@ -74,8 +74,8 @@
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			visible_message(
-				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [response_harm] [src]!"),
-				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [response_harm] тебя!")
+				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [response_harm] [declent_ru(ACCUSATIVE)]!"),
+				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [response_harm] вас!")
 			)
 			playsound(loc, attacked_sound, 25, 1, -1)
 			attack_threshold_check(harm_intent_damage)
@@ -88,14 +88,14 @@
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 			visible_message(
 				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [response_disarm] [name]!"),
-				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [response_disarm] тебя!")
+				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [response_disarm] вас!")
 			)
 			add_attack_logs(M, src, "Alien disarmed")
 		else
 			var/damage = M.attack_damage
 			visible_message(
-				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] делает резкий выпад в сторону [src]!"),
-				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] делает резкий выпад в твою сторону!")
+				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] дела[pluralize_ru(M.gender,"ет","ют")] резкий выпад в сторону [declent_ru(ACCUSATIVE)]!"),
+				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] делает резкий выпад в вашу сторону!")
 			)
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 			add_attack_logs(M, src, "Alien attacked")

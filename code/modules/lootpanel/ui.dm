@@ -36,6 +36,8 @@
 	var/modifiers = ""
 	if(params["ctrl"])
 		modifiers += "ctrl=1;"
+	if(params["alt"])
+		modifiers += "alt=1;"
 	if(params["middle"])
 		modifiers += "middle=1;"
 	if(params["shift"])

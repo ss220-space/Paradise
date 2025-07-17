@@ -481,7 +481,7 @@
 	/// The amount by which the stability of the anomaly changes upon impact.
 	var/stability_delta = 0
 	/// The distance the anomaly is pulled towards the shooter upon impact.
-	var/pull_strenght = 0
+	var/pull_strength = 0
 	/// The amount of time that beam increase the blocking of the anomaly's normal movement.
 	var/move_block = 0
 	/// The amount of time that beam increase the blocking of the anomaly's impulsive movement.
@@ -506,7 +506,7 @@
 		anomaly.weaken = anom_weaken
 		anomaly.weaken_moment = world.time + weaken_time
 
-	INVOKE_ASYNC(anomaly, TYPE_PROC_REF(/obj/effect/anomaly, go_to), get_turf(firer_source_atom), pull_strenght)
+	INVOKE_ASYNC(anomaly, TYPE_PROC_REF(/obj/effect/anomaly, go_to), get_turf(firer_source_atom), pull_strength)
 	return TRUE
 
 /obj/projectile/beam/anomaly/stabilizer

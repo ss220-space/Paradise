@@ -6,6 +6,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/carrotcake
 	name = "carrot cake"
 	desc = "A favorite desert of a certain wascally wabbit. Not a lie."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "carrotcake"
 	slice_path = /obj/item/reagent_containers/food/snacks/carrotcakeslice
 	slices_num = 5
@@ -18,6 +19,7 @@
 /obj/item/reagent_containers/food/snacks/carrotcakeslice
 	name = "carrot cake slice"
 	desc = "Carrotty slice of Carrot Cake, carrots are good for your eyes! Also not a lie."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "carrotcake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FFD675"
@@ -28,6 +30,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/braincake
 	name = "brain cake"
 	desc = "A squishy cake-thing."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "braincake"
 	slice_path = /obj/item/reagent_containers/food/snacks/braincakeslice
 	slices_num = 5
@@ -40,6 +43,7 @@
 /obj/item/reagent_containers/food/snacks/braincakeslice
 	name = "brain cake slice"
 	desc = "Lemme tell you something about brains. THEY'RE DELICIOUS."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "braincakeslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#E6AEDB"
@@ -49,6 +53,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/cheesecake
 	name = "cheese cake"
 	desc = "DANGEROUSLY cheesy."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "cheesecake"
 	slice_path = /obj/item/reagent_containers/food/snacks/cheesecakeslice
 	slices_num = 5
@@ -61,6 +66,7 @@
 /obj/item/reagent_containers/food/snacks/cheesecakeslice
 	name = "cheese cake slice"
 	desc = "Slice of pure cheestisfaction."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "cheesecake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FAF7AF"
@@ -70,6 +76,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/plaincake
 	name = "vanilla cake"
 	desc = "A plain cake, not a lie."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "plaincake"
 	slice_path = /obj/item/reagent_containers/food/snacks/plaincakeslice
 	slices_num = 5
@@ -82,6 +89,7 @@
 /obj/item/reagent_containers/food/snacks/plaincakeslice
 	name = "vanilla cake slice"
 	desc = "Just a slice of cake, it is enough for everyone."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "plaincake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#F7EDD5"
@@ -91,6 +99,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/orangecake
 	name = "orange cake"
 	desc = "A cake with added orange."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "orangecake"
 	slice_path = /obj/item/reagent_containers/food/snacks/orangecakeslice
 	slices_num = 5
@@ -103,6 +112,7 @@
 /obj/item/reagent_containers/food/snacks/orangecakeslice
 	name = "orange cake slice"
 	desc = "Just a slice of cake, it is enough for everyone."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "orangecake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FADA8E"
@@ -112,6 +122,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/bananacake
 	name = "banana cake"
 	desc = "A cake with added bananas."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bananacake"
 	slice_path = /obj/item/reagent_containers/food/snacks/bananacakeslice
 	slices_num = 5
@@ -124,6 +135,7 @@
 /obj/item/reagent_containers/food/snacks/bananacakeslice
 	name = "banana cake slice"
 	desc = "Just a slice of cake, it is enough for everyone."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "bananacake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FADA8E"
@@ -133,6 +145,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/limecake
 	name = "lime cake"
 	desc = "A cake with added lime."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "limecake"
 	bitesize = 3
 	slice_path = /obj/item/reagent_containers/food/snacks/limecakeslice
@@ -145,6 +158,7 @@
 /obj/item/reagent_containers/food/snacks/limecakeslice
 	name = "lime cake slice"
 	desc = "Just a slice of cake, it is enough for everyone."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "limecake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#CBFA8E"
@@ -154,6 +168,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/lemoncake
 	name = "lemon cake"
 	desc = "A cake with added lemon."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "lemoncake"
 	slice_path = /obj/item/reagent_containers/food/snacks/lemoncakeslice
 	slices_num = 5
@@ -166,6 +181,7 @@
 /obj/item/reagent_containers/food/snacks/lemoncakeslice
 	name = "lemon cake slice"
 	desc = "Just a slice of cake, it is enough for everyone."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "lemoncake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FAFA8E"
@@ -175,6 +191,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/chocolatecake
 	name = "chocolate cake"
 	desc = "A cake with added chocolate."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "chocolatecake"
 	slice_path = /obj/item/reagent_containers/food/snacks/chocolatecakeslice
 	slices_num = 5
@@ -187,6 +204,7 @@
 /obj/item/reagent_containers/food/snacks/chocolatecakeslice
 	name = "chocolate cake slice"
 	desc = "Just a slice of cake, it is enough for everyone."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "chocolatecake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#805930"
@@ -196,6 +214,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/birthdaycake
 	name = "birthday cake"
 	desc = "Happy Birthday..."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "birthdaycake"
 	slice_path = /obj/item/reagent_containers/food/snacks/birthdaycakeslice
 	slices_num = 5
@@ -208,6 +227,7 @@
 /obj/item/reagent_containers/food/snacks/birthdaycakeslice
 	name = "birthday cake slice"
 	desc = "A slice of your birthday"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "birthdaycakeslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FFD6D6"
@@ -217,6 +237,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/applecake
 	name = "apple cake"
 	desc = "A cake centered with Apple."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "applecake"
 	slice_path = /obj/item/reagent_containers/food/snacks/applecakeslice
 	slices_num = 5
@@ -229,6 +250,7 @@
 /obj/item/reagent_containers/food/snacks/applecakeslice
 	name = "apple cake slice"
 	desc = "A slice of heavenly cake."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "applecakeslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#EBF5B8"
@@ -238,6 +260,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/slimepie
 	name = "slime pie"
 	desc = "Blurp blob blup blep blop. Slicable."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "slimepie"
 	slice_path = /obj/item/reagent_containers/food/snacks/slimepieslice
 	slices_num = 5
@@ -250,6 +273,7 @@
 /obj/item/reagent_containers/food/snacks/slimepieslice
 	name = "slime pie slice"
 	desc = "Blurp blob blup blep blop."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "slimepieslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#00d9ff"
@@ -259,6 +283,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/choccherrycake
 	name = "Chocolate - cherry cake"
 	desc = "Another cake. However."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "choccherrycake"
 	slice_path = /obj/item/reagent_containers/food/snacks/choccherrycakeslice
 	slices_num = 6
@@ -271,6 +296,7 @@
 /obj/item/reagent_containers/food/snacks/choccherrycakeslice
 	name = "Chocolate - cherry cake's slice"
 	desc = "Slice of another cake. Wait, what?"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "choccherrycake_s"
 	trash = /obj/item/trash/plate
 	filling_color = "#5e1706"
@@ -279,6 +305,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/noel
 	name = "Buche de Noel"
 	desc = "What?"
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "noel"
 	trash = /obj/item/trash/tray
 	slice_path = /obj/item/reagent_containers/food/snacks/noelslice
@@ -362,6 +389,7 @@
 /obj/item/reagent_containers/food/snacks/pie
 	name = "banana cream pie"
 	desc = "Just like back home, on clown planet! HONK!"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "pie"
 	trash = /obj/item/trash/plate
 	filling_color = "#FBFFB8"
@@ -380,6 +408,7 @@
 	name = "meat-pie"
 	icon_state = "meatpie"
 	desc = "An old barber recipe, very delicious!"
+	w_class = WEIGHT_CLASS_SMALL
 	trash = /obj/item/trash/plate
 	filling_color = "#948051"
 	bitesize = 3
@@ -465,6 +494,7 @@
 /obj/item/reagent_containers/food/snacks/tofupie
 	name = "tofu-pie"
 	icon_state = "meatpie"
+	w_class = WEIGHT_CLASS_SMALL
 	desc = "A delicious tofu pie."
 	trash = /obj/item/trash/plate
 	filling_color = "#FFFEE0"
@@ -504,6 +534,7 @@
 /obj/item/reagent_containers/food/snacks/xemeatpie
 	name = "xeno-pie"
 	icon_state = "xenomeatpie"
+	w_class = WEIGHT_CLASS_SMALL
 	desc = "A delicious meatpie. Probably heretical."
 	trash = /obj/item/trash/plate
 	filling_color = "#43DE18"
@@ -515,6 +546,7 @@
 /obj/item/reagent_containers/food/snacks/applepie
 	name = "apple pie"
 	desc = "A pie containing sweet sweet love... or apple."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "applepie"
 	filling_color = "#E0EDC5"
 	bitesize = 3
@@ -526,6 +558,7 @@
 /obj/item/reagent_containers/food/snacks/cherrypie
 	name = "cherry pie"
 	desc = "Taste so good, make a grown man cry."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "cherrypie"
 	filling_color = "#FF525A"
 	bitesize = 3
@@ -536,6 +569,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/pumpkinpie
 	name = "pumpkin pie"
 	desc = "A delicious treat for the autumn months."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "pumpkinpie"
 	slice_path = /obj/item/reagent_containers/food/snacks/pumpkinpieslice
 	slices_num = 5
@@ -548,6 +582,7 @@
 /obj/item/reagent_containers/food/snacks/pumpkinpieslice
 	name = "pumpkin pie slice"
 	desc = "A slice of pumpkin pie, with whipped cream on top. Perfection."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "pumpkinpieslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#F5B951"
@@ -734,6 +769,7 @@
 /obj/item/reagent_containers/food/snacks/pancake
 	name = "pancake"
 	desc = "A plain pancake."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "pancake"
 	filling_color = "#E7D8AB"
 	bitesize = 2
@@ -743,6 +779,7 @@
 /obj/item/reagent_containers/food/snacks/pancake/berry_pancake
 	name = "berry pancake"
 	desc = "A pancake loaded with berries."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "berry_pancake"
 	list_reagents = list("nutriment" = 3, "sugar" = 10, "berryjuice" = 3)
 	foodtype = GRAIN | SUGAR | FRUIT
@@ -750,6 +787,7 @@
 /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
 	name = "choc-chip pancake"
 	desc = "A pancake loaded with chocolate chips."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "choc_chip_pancake"
 	list_reagents = list("nutriment" = 3, "sugar" = 10, "cocoa" = 3)
 
@@ -769,6 +807,7 @@
 /obj/item/reagent_containers/food/snacks/berryclafoutis
 	name = "berry clafoutis"
 	desc = "No black birds, this is a good sign."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "berryclafoutis"
 	trash = /obj/item/trash/plate
 	bitesize = 3
@@ -805,6 +844,7 @@
 /obj/item/reagent_containers/food/snacks/appletart
 	name = "golden apple streusel tart"
 	desc = "A tasty dessert that won't make it through a metal detector."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "gappletart"
 	trash = /obj/item/trash/plate
 	filling_color = "#FFFF00"

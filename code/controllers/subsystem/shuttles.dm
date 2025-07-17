@@ -192,8 +192,8 @@ SUBSYSTEM_DEF(shuttle)
 		return
 
 	var/area/signal_origin = get_area(user)
-	var/emergency_reason = "\nNature of emergency:\n\n[call_reason]"
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
+	var/emergency_reason = "\nПричина вызова шаттла:\n\n[call_reason]"
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		var/extra_minutes = 0
 		var/priority_time = emergencyCallTime * 0.5
 		if(world.time - emergency_sec_level_time < priority_time)
@@ -226,7 +226,7 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	if(SSticker.mode.name == "meteor")
 		return
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		if(emergency.timeLeft(1) < emergencyCallTime * 0.25)
 			return
 	else
@@ -485,7 +485,7 @@ SUBSYSTEM_DEF(shuttle)
 	if(!ishuman(occupant) || !occupant.mind)
 		return
 
-	if(GLOB.security_level < SEC_LEVEL_GAMMA)
+	if(SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_GAMMA)
 		return
 
 	if(!is_station_level(pod.z) && !istype(get_area(pod), /area/mine))
