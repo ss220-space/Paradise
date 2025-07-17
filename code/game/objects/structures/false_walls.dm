@@ -267,19 +267,13 @@
 	canSmoothWith = SMOOTH_GROUP_URANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_URANIUM_WALLS
 
-/obj/structure/falsewall/uranium/attack_hand(mob/user as mob)
-	radiate()
-	..()
-
-/obj/structure/falsewall/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event + 1.5 SECONDS)
-			active = TRUE
-			radiation_pulse(src, 150)
-			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
-				T.radiate()
-			last_event = world.time
-			active = FALSE
+/obj/structure/falsewall/uranium/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/radioactivity, \
+				rad_per_interaction = 12, \
+				rad_interaction_radius = 3, \
+				rad_interaction_cooldown = 1.5 SECONDS \
+	)
 
 /*
  * Other misc falsewall types

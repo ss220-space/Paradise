@@ -227,26 +227,13 @@
 	var/last_event = 0
 	var/active = null
 
-/turf/simulated/floor/mineral/uranium/Entered(mob/AM)
-	.=..()
-	if(!.)
-		if(istype(AM))
-			radiate()
-
-/turf/simulated/floor/mineral/uranium/attack_hand(mob/user)
-	.=..()
-	if(!.)
-		radiate()
-
-/turf/simulated/floor/mineral/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event + 15)
-			active = TRUE
-			radiation_pulse(src, 10)
-			for(var/turf/simulated/floor/mineral/uranium/T in orange(1, src))
-				T.radiate()
-			last_event = world.time
-			active = FALSE
+/turf/simulated/floor/mineral/uranium/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/radioactivity, \
+				rad_per_interaction = 1, \
+				rad_interaction_radius = 3, \
+				rad_interaction_cooldown = 1.5 SECONDS \
+	)
 
 // ALIEN ALLOY
 /turf/simulated/floor/mineral/abductor
