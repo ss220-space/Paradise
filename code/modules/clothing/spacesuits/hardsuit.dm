@@ -852,17 +852,17 @@
 
 /obj/effect/anomaly/attack_hand(mob/user, list/modifiers)
 	if(ishuman(user))
-		var/mob/living/carbon/human/user = user
-		var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = user.head
-		var/obj/item/clothing/suit/space/hardsuit/anom/suit = user.wear_suit
+		var/mob/living/carbon/human/wearer = user
+		var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = wearer.head
+		var/obj/item/clothing/suit/space/hardsuit/anom/suit = wearer.wear_suit
 		if(istype(helmet) && istype(suit) && helmet.scanner_active)
 			return
-			if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			if(wearer.incapacitated() || HAS_TRAIT(wearer, TRAIT_HANDS_BLOCKED))
 				return TRUE
-			if(user.l_hand || user.r_hand)
+			if(wearer.l_hand || wearer.r_hand)
 				return TRUE
 			helmet.integrated_scanner.scan(src)
-			helmet.integrated_scanner.show(user)
+			helmet.integrated_scanner.show(wearer)
 			return TRUE
 	return ..()
 
@@ -873,18 +873,18 @@
 	var/list/modifiers = params2list(params)
 	if(modifiers["left"] && !modifiers["shift"] && !modifiers["alt"] && !modifiers["ctrl"])
 		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = H.head
-			var/obj/item/clothing/suit/space/hardsuit/anom/suit = H.wear_suit
+			var/mob/living/carbon/human/wearer = src
+			var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = wearer.head
+			var/obj/item/clothing/suit/space/hardsuit/anom/suit = wearer.wear_suit
 			if(istype(helmet) && istype(suit) && helmet.scanner_active)
 				return
-				if(H.incapacitated() || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+				if(wearer.incapacitated() || HAS_TRAIT(wearer, TRAIT_HANDS_BLOCKED))
 					return
-				if(H.l_hand || H.r_hand)
+				if(wearer.l_hand || wearer.r_hand)
 					return
 				if(!Adjacent(A))
 					helmet.integrated_scanner.scan(A)
-					helmet.integrated_scanner.show(H)
+					helmet.integrated_scanner.show(wearer)
 					return
 	return ..()
 
