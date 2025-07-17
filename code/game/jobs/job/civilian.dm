@@ -52,8 +52,8 @@
 	jobtype = /datum/job/civilian/prisoner
 
 	id = /obj/item/card/id/prisoner/random
-	uniform = /obj/item/clothing/under/color/orange
-	shoes = /obj/item/clothing/shoes/orange
+	uniform = /obj/item/clothing/under/prison
+	shoes = /obj/item/clothing/shoes/prison
 	l_ear = /obj/item/radio/headset
 
 #undef SALARY_FOR_NISHEBROD
