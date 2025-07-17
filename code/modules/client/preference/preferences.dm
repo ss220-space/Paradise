@@ -850,7 +850,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				rank = "<a href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
 			else
 				rank = job.title
-			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != "Civilian"))
+			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != "Civilian") || (job_support_low & JOB_FLAG_PRISONER) && (job.title != "Prisoner"))
 				rank = "<font class='text-muted'>[GetPlayerAltTitle(job)]</font>"
 			lastJob = job
 			if(jobban_isbanned(user, job.title))
@@ -879,6 +879,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			else
 				html += "<span class='[color]'>[rank]</span>"
 			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != "Civilian"))
+				html += "</td><td></td></tr>"
+				continue
+			if((job_support_low & JOB_FLAG_PRISONER) && (job.title != "Prisoner"))
 				html += "</td><td></td></tr>"
 				continue
 
@@ -915,6 +918,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			if(job.title == "Civilian")//Civilian is special
 				if(job_support_low & JOB_FLAG_CIVILIAN)
+					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>ДА</span></a>"
+				else
+					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
+				html += "</td></tr>"
+				// index += 1
+				// html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+				continue
+			if(job.title == "Prisoner")//Prisoner is special
+				if(job_support_low & JOB_FLAG_PRISONER)
 					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>ДА</span></a>"
 				else
 					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
@@ -1097,7 +1109,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if(role == "Civilian")
+	if(role == "Civilian" || role == "Prisoner")
 		if(job_support_low & job.flag)
 			job_support_low &= ~job.flag
 		else

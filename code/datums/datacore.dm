@@ -134,14 +134,19 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
 		var/assignment
+		var/rank
 		if(H.mind.role_alt_title)
 			assignment = H.mind.role_alt_title
+			rank = H.mind.assigned_role
 		else if(H.mind.assigned_role)
 			assignment = H.mind.assigned_role
+			rank = H.mind.assigned_role
 		else if(H.job)
 			assignment = H.job
+			rank = H.job
 		else
 			assignment = "Неназначенный"
+			rank = "Unknown"
 
 		var/id = num2hex(GLOB.record_id_num++, 6)
 
@@ -195,7 +200,10 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/datum/data/record/S = new()
 		S.fields["id"]			= id
 		S.fields["name"]		= H.real_name
-		S.fields["criminal"]	= "None"
+		if(rank == JOB_TITLE_PRISONER)
+			S.fields["criminal"] = SEC_RECORD_STATUS_INCARCERATED
+		else
+			S.fields["criminal"] = "None"
 		S.fields["mi_crim"]		= "None"
 		S.fields["mi_crim_d"]	= "No minor crime convictions."
 		S.fields["ma_crim"]		= "None"
@@ -206,6 +214,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		else
 			S.fields["notes"] = "Дополнительная информация отсутствует."
 		LAZYINITLIST(S.fields["comments"])
+		if(rank == JOB_TITLE_PRISONER)
+			S.fields["comments"] += "Set to [SEC_RECORD_STATUS_INCARCERATED] by Nanotrasen Central Command on [GLOB.current_date_string] [station_time_timestamp()], comment: Permabrig"
 		security += S
 
 		//Locked Record

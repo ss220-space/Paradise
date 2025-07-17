@@ -35,8 +35,8 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 3
 	spawn_positions = 3
-	supervisors = "the head of security"
-	department_head = list(JOB_TITLE_HOS)
+	supervisors = "the warden"
+	department_head = list(JOB_TITLE_WARDEN)
 	selection_color = "#e6e6e6"
 	access = list()
 	minimal_access = list()
@@ -52,6 +52,7 @@
 	jobtype = /datum/job/civilian/prisoner
 
 	id = /obj/item/card/id/prisoner/random
+	head = /obj/item/clothing/head/prison
 	uniform = /obj/item/clothing/under/prison
 	shoes = /obj/item/clothing/shoes/prison
 	l_ear = /obj/item/radio/headset
