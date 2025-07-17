@@ -1,6 +1,6 @@
 PROCESSING_SUBSYSTEM_DEF(radiation)
 	name = "Radiation"
-	flags = SS_NO_INIT | SS_BACKGROUND
+	flags = SS_BACKGROUND | SS_NO_INIT
 	wait = 1 SECONDS
 	offline_implications = "Radiation will no longer function; power generation may not happen. A restart may or may not be required, depending on the situation."
 	cpu_display = SS_CPUDISPLAY_HIGH

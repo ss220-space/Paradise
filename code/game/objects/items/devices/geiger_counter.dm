@@ -34,30 +34,28 @@
 
 /obj/item/geiger_counter/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(soundloop)
 	return ..()
 
 
 /obj/item/geiger_counter/process()
-	update_icon(UPDATE_ICON_STATE)
-	update_sound()
+	if(scanning)
+		radiation_count -= radiation_count / RAD_GEIGER_MEASURE_SMOOTHING
+		radiation_count += current_tick_amount / RAD_GEIGER_MEASURE_SMOOTHING
 
-	if(!scanning)
-		current_tick_amount = 0
-		return
+		if(current_tick_amount)
+			grace = RAD_GEIGER_GRACE_PERIOD
+			last_tick_amount = current_tick_amount
 
-	radiation_count -= radiation_count / RAD_GEIGER_MEASURE_SMOOTHING
-	radiation_count += current_tick_amount / RAD_GEIGER_MEASURE_SMOOTHING
-
-	if(current_tick_amount)
-		grace = RAD_GEIGER_GRACE_PERIOD
-		last_tick_amount = current_tick_amount
-
-	else if(!emagged)
-		grace--
-		if(grace <= 0)
-			radiation_count = 0
+		else if(!emagged)
+			grace--
+			if(grace <= 0)
+				radiation_count = 0
 
 	current_tick_amount = 0
+
+	update_icon(UPDATE_ICON_STATE)
+	update_sound()
 
 /obj/item/geiger_counter/examine(mob/user)
 	. = ..()
@@ -105,10 +103,7 @@
 
 /obj/item/geiger_counter/proc/update_sound()
 	var/datum/looping_sound/geiger/loop = soundloop
-	if(!scanning)
-		loop.stop()
-		return
-	if(!radiation_count)
+	if(!scanning || !radiation_count)
 		loop.stop()
 		return
 	loop.last_radiation = radiation_count

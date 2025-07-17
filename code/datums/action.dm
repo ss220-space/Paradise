@@ -522,6 +522,13 @@
 	else
 		button.icon_state = "[background_icon_state]_active"
 
+/datum/action/item_action/toggle_geiger_counter
+	name = "Переключить счётчик Гейгера"
+
+/datum/action/item_action/toggle_geiger_counter/Trigger()
+	var/obj/item/clothing/head/helmet/space/hardsuit/H = target
+	if(istype(H))
+		H.toggle_geiger_counter()
 
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
