@@ -222,6 +222,11 @@ SUBSYSTEM_DEF(addition_goals)
 		for(var/atom/movable/obstacle in turf.contents)
 			if(istype(obstacle,/obj/machinery/computer/shuttle/addition_goals))
 				continue
+			if(istype(obstacle,/obj/machinery/light))
+				continue
+			if(istype(obstacle, /obj/structure/closet))
+				var/obj/structure/closet/closet = ostacle
+				closet.open() //hack for delete objects in closets
 			qdel(obstacle)
 
 /// Only for test
