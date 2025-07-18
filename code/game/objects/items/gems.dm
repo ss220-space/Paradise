@@ -112,7 +112,7 @@
 	. = ..()
 	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 150, 0, 0, 1.5)
 	START_PROCESSING(SSradiation, radioactivity)
-	START_PROCESSING(SSobj, src)
+	//START_PROCESSING(SSobj, src)
 
 
 /obj/item/gem/rupee/examine(mob/user)
