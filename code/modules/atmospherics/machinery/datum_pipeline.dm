@@ -20,6 +20,9 @@
 		P.parent = null
 	for(var/obj/machinery/atmospherics/A in other_atmosmch)
 		A.nullifyPipenet(src)
+	members?.Cut()
+	other_atmosmch?.Cut()
+	other_airs?.Cut()
 	return ..()
 
 /datum/pipeline/process()//This use to be called called from the pipe networks
@@ -36,6 +39,8 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 		var/obj/machinery/atmospherics/pipe/E = base
 		volume = E.volume
 		alert_pressure = E.alert_pressure
+		E.clear_parent()
+		E.parent = src
 		members += E
 		if(E.air_temporary)
 			air = E.air_temporary
@@ -62,6 +67,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 							possible_expansions += item
 
 							volume += item.volume
+							item.clear_parent()
 							item.parent = src
 
 							alert_pressure = min(alert_pressure, item.alert_pressure)
@@ -85,6 +91,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 /datum/pipeline/proc/addMember(obj/machinery/atmospherics/A, obj/machinery/atmospherics/N)
 	if(istype(A, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/P = A
+		P.clear_parent()
 		P.parent = src
 		var/list/adjacent = P.pipeline_expansion()
 		for(var/obj/machinery/atmospherics/pipe/I in adjacent)
@@ -103,14 +110,16 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	air.volume += E.air.volume
 	members.Add(E.members)
 	for(var/obj/machinery/atmospherics/pipe/S in E.members)
+		S.clear_parent()
 		S.parent = src
 	air.merge(E.air)
 	for(var/obj/machinery/atmospherics/A in E.other_atmosmch)
 		A.replacePipenet(E, src)
-	other_atmosmch.Add(E.other_atmosmch)
-	other_airs.Add(E.other_airs)
+	other_atmosmch |= (E.other_atmosmch)
+	other_airs |= (E.other_airs)
 	E.members.Cut()
 	E.other_atmosmch.Cut()
+	E.other_airs.Cut()
 	update = TRUE
 	qdel(E)
 

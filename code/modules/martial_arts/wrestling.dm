@@ -1,6 +1,7 @@
 /datum/martial_art/wrestling
 	name = "Wrestling"
 	weight = 3
+	change_musculs = FALSE
 	has_explaination_verb = TRUE
 	has_dirslash = FALSE
 

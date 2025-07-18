@@ -172,7 +172,8 @@ const Designs = (properties) => {
         placeholder="Search by name..."
         mb="0.5rem"
         width="100%"
-        onInput={(_e, value) => setSearchText(value)}
+        expensive
+        onChange={setSearchText}
       />
       {filteredDesigns.map((design) => (
         <Design key={design.id} design={design} />

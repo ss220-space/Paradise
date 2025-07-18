@@ -23,7 +23,7 @@
 
 /datum/event/prison_break/station
 	eventDept = "Station"
-	areaName = list("Brig","Virology","Xenobiology")
+	areaName = list("Brig", "Virology", "Xenobiology")
 	areaType = list(/area/security/prison, /area/security/brig, /area/security/permabrig,  /area/security/permahallway, /area/medical/virology, /area/medical/virology/lab, /area/toxins/xenobiology)
 	areaNotType = list(/area/toxins/xenobiology/xenoflora, /area/toxins/xenobiology/xenoflora_storage)
 
@@ -37,7 +37,9 @@
 
 /datum/event/prison_break/announce(false_alarm)
 	if(length(areas) || false_alarm)
-		GLOB.event_announcement.Announce("[pick("Вирус `Gr3y.T1d3`","Вредоносный троян")] обнаружен в подсистеме [(eventDept == "Security")? "заключения":"безопасности"] на [station_name()]. Немедленно обеспечьте безопасность всех затронутых отсеков. Рекомендуется участие ИИ станции.", "АВАРИЙНОЕ Оповещение [eventDept].")
+		GLOB.minor_announcement.announce("[pick("Вирус `Gr3y.T1d3`", "Вредоносный троян")] обнаружен в подсистеме [(eventDept == "Security")? "заключения" : "безопасности"] на [station_name()]. Немедленно обеспечьте безопасность всех затронутых отсеков. Рекомендуется участие ИИ станции.",
+										"Авария в системе безопасности."
+		)
 
 /datum/event/prison_break/start()
 	for(var/area/A as anything in GLOB.areas)

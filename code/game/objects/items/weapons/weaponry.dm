@@ -104,7 +104,15 @@
 
 /obj/item/melee/katana/basalt
 	name = "basalt katana"
-	desc = "a katana made out of hardened basalt. Particularly damaging to lavaland fauna."
+	desc = "Катана, изготовленная из закалённого базальта, представляет особую опасность для обитателей Лазиса."
+	ru_names = list(
+		NOMINATIVE = "базальтовая катана",
+		GENITIVE = "базальтовой катаны",
+		DATIVE = "базальтовой катане",
+		ACCUSATIVE = "базальтовую катану",
+		INSTRUMENTAL = "базальтовой катаной",
+		PREPOSITIONAL = "базальтовой катане"
+	)
 	icon_state = "basalt_katana"
 	item_state = "basalt_katana"
 	force = 30
@@ -347,7 +355,7 @@
 
 /obj/item/melee/baseball_bat/homerun/central_command
 	name = "тактическая бита Флота NanoTrasen"
-	description_info = "Выдвижная тактическая бита Центрального Командования Nanotrasen. \
+	description_info = "Выдвижная тактическая бита Центрального командования Nanotrasen. \
 	В официальных документах эта бита проходит под элегантным названием \"Высокоскоростная система доставки СРП\". \
 	Выдаваясь только самым верным и эффективным офицерам NanoTrasen, это оружие является одновременно символом статуса \
 	и инструментом высшего правосудия."
@@ -378,7 +386,7 @@
 
 /obj/item/melee/baseball_bat/homerun/central_command/srt
 	name = "тактическая бита ГСН"
-	desc = "Выдвижная тактическая бита Центрального Командования Nanotrasen. Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
+	desc = "Выдвижная тактическая бита Центрального командования Nanotrasen. Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
 	item_state = "srt_bat_0"
 	item_state_on = "srt_bat_1"
 	icon_state = "srt_bat_0"
@@ -429,7 +437,15 @@
 
 /obj/item/melee/claymore/bone
 	name = "bone sword"
-	desc = "Jagged pieces of bone are tied to what looks like a goliath's femur."
+	desc = "Зубчатые костяные обломки привязаны к тому, что выглядит как бедренная кость голиафа."
+	ru_names = list(
+		NOMINATIVE = "костяной меч",
+		GENITIVE = "костяного меча",
+		DATIVE = "костяному мечу",
+		ACCUSATIVE = "костяной меч",
+		INSTRUMENTAL = "костяным мечом",
+		PREPOSITIONAL = "костяном мече"
+	)
 	icon_state = "bone_sword"
 	item_state = "bone_sword"
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK

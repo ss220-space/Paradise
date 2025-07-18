@@ -52,24 +52,15 @@ const Story = (props: unknown) => {
             <LabeledList>
               {addImage ? (
                 <LabeledList.Item label="base64">
-                  <Input
-                    value={base64}
-                    onChange={(e, value) => setbase64(value)}
-                  />
+                  <Input value={base64} onChange={setbase64} />
                 </LabeledList.Item>
               ) : (
                 <>
                   <LabeledList.Item label="Title">
-                    <Input
-                      value={title}
-                      onChange={(e, value) => setTitle(value)}
-                    />
+                    <Input value={title} onChange={setTitle} />
                   </LabeledList.Item>
                   <LabeledList.Item label="Content">
-                    <Input
-                      value={content}
-                      onChange={(e, value) => setContent(value)}
-                    />
+                    <Input value={content} onChange={setContent} />
                   </LabeledList.Item>
                   <LabeledList.Item label="Image Size">
                     <Slider

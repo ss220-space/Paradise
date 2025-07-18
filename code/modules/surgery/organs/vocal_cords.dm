@@ -1,42 +1,50 @@
-GLOBAL_DATUM_INIT(stun_words, /regex, regex("stop|wait|stand still|hold on|halt"))
-GLOBAL_DATUM_INIT(weaken_words, /regex, regex("drop|fall|trip"))
-GLOBAL_DATUM_INIT(sleep_words, /regex, regex("sleep|slumber"))
-GLOBAL_DATUM_INIT(vomit_words, /regex, regex("vomit|throw up"))
-GLOBAL_DATUM_INIT(silence_words, /regex, regex("shut up|silence|ssh|quiet|hush"))
-GLOBAL_DATUM_INIT(hallucinate_words, /regex, regex("see the truth|hallucinate"))
-GLOBAL_DATUM_INIT(wakeup_words, /regex, regex("wake up|awaken"))
-GLOBAL_DATUM_INIT(heal_words, /regex, regex("live|heal|survive|mend|heroes never die"))
-GLOBAL_DATUM_INIT(hurt_words, /regex, regex("die|suffer"))
-GLOBAL_DATUM_INIT(bleed_words, /regex, regex("bleed"))
-GLOBAL_DATUM_INIT(burn_words, /regex, regex("burn|ignite"))
-GLOBAL_DATUM_INIT(repulse_words, /regex, regex("shoo|go away|leave me alone|begone|flee|fus ro dah"))
-GLOBAL_DATUM_INIT(whoareyou_words, /regex, regex("who are you|say your name|state your name|identify"))
-GLOBAL_DATUM_INIT(saymyname_words, /regex, regex("say my name"))
-GLOBAL_DATUM_INIT(knockknock_words, /regex, regex("knock knock"))
-GLOBAL_DATUM_INIT(statelaws_words, /regex, regex("state laws|state your laws"))
-GLOBAL_DATUM_INIT(move_words, /regex, regex("move"))
-GLOBAL_DATUM_INIT(walk_words, /regex, regex("walk|slow down"))
-GLOBAL_DATUM_INIT(run_words, /regex, regex("run"))
-GLOBAL_DATUM_INIT(helpintent_words, /regex, regex("help"))
-GLOBAL_DATUM_INIT(disarmintent_words, /regex, regex("disarm"))
-GLOBAL_DATUM_INIT(grabintent_words, /regex, regex("grab"))
-GLOBAL_DATUM_INIT(harmintent_words, /regex, regex("harm|fight"))
-GLOBAL_DATUM_INIT(throwmode_words, /regex, regex("throw|catch"))
-GLOBAL_DATUM_INIT(flip_words, /regex, regex("flip|rotate|revolve|roll|somersault"))
-GLOBAL_DATUM_INIT(rest_words, /regex, regex("rest"))
-GLOBAL_DATUM_INIT(getup_words, /regex, regex("get up"))
-GLOBAL_DATUM_INIT(sit_words, /regex, regex("sit"))
-GLOBAL_DATUM_INIT(stand_words, /regex, regex("stand"))
-GLOBAL_DATUM_INIT(dance_words, /regex, regex("dance"))
-GLOBAL_DATUM_INIT(jump_words, /regex, regex("jump"))
-GLOBAL_DATUM_INIT(salute_words, /regex, regex("salute"))
-GLOBAL_DATUM_INIT(deathgasp_words, /regex, regex("play dead"))
-GLOBAL_DATUM_INIT(clap_words, /regex, regex("clap|applaud"))
-GLOBAL_DATUM_INIT(honk_words, /regex, regex("ho+nk")) //hooooooonk
-GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
+GLOBAL_DATUM_INIT(stun_words, /regex, regex("stop|wait|stand still|hold on|halt|стой|стоп|не двигайся|замри|стой|оглушись"))
+GLOBAL_DATUM_INIT(weaken_words, /regex, regex("drop|fall|trip|упади|ослабни|пади"))
+GLOBAL_DATUM_INIT(sleep_words, /regex, regex("sleep|slumber|засни|усни|спать|спи"))
+GLOBAL_DATUM_INIT(vomit_words, /regex, regex("vomit|throw up|рви|блюй"))
+GLOBAL_DATUM_INIT(silence_words, /regex, regex("shut up|silence|ssh|quiet|hush|заткнись|молчать|тишина|тихо"))
+GLOBAL_DATUM_INIT(hallucinate_words, /regex, regex("see the truth|hallucinate|увидь истину|галлюцинируй"))
+GLOBAL_DATUM_INIT(wakeup_words, /regex, regex("wake up|awaken|проснись|очнись"))
+GLOBAL_DATUM_INIT(heal_words, /regex, regex("live|heal|survive|mend|heroes never die|живи|исцелись|выживи|залечись"))
+GLOBAL_DATUM_INIT(hurt_words, /regex, regex("die|suffer|умри|страдай|познай боль"))
+GLOBAL_DATUM_INIT(bleed_words, /regex, regex("bleed|кровоточи"))
+GLOBAL_DATUM_INIT(burn_words, /regex, regex("burn|ignite|гори|воспламенись|загорись"))
+GLOBAL_DATUM_INIT(repulse_words, /regex, regex("shoo|go away|leave me alone|begone|flee|fus ro dah|прочь|уйди|отстань|исчезни|отвали"))
+GLOBAL_DATUM_INIT(whoareyou_words, /regex, regex("who are you|say your name|state your name|identify|кто ты|назовись|представься"))
+GLOBAL_DATUM_INIT(saymyname_words, /regex, regex("say my name|скажи моё имя"))
+GLOBAL_DATUM_INIT(knockknock_words, /regex, regex("knock knock|тук-тук"))
+GLOBAL_DATUM_INIT(statelaws_words, /regex, regex("state laws|state your laws|озвучь законы|перечисли законы"))
+GLOBAL_DATUM_INIT(move_words, /regex, regex("move|двигайся|иди|ступай"))
+GLOBAL_DATUM_INIT(walk_words, /regex, regex("walk|slow down|ходи|медленнее"))
+GLOBAL_DATUM_INIT(run_words, /regex, regex("run|беги"))
+GLOBAL_DATUM_INIT(helpintent_words, /regex, regex("help|помогай|помоги"))
+GLOBAL_DATUM_INIT(disarmintent_words, /regex, regex("disarm|обезоружь"))
+GLOBAL_DATUM_INIT(grabintent_words, /regex, regex("grab|схвати|хватай"))
+GLOBAL_DATUM_INIT(harmintent_words, /regex, regex("harm|fight|атакуй|дерись|навреди"))
+GLOBAL_DATUM_INIT(throwmode_words, /regex, regex("throw|catch|бросай|лови|брось|поймай"))
+GLOBAL_DATUM_INIT(flip_words, /regex, regex("flip|rotate|revolve|roll|somersault|крутись|вертись|перевернись|кувыркнись"))
+GLOBAL_DATUM_INIT(rest_words, /regex, regex("rest|отдыхай"))
+GLOBAL_DATUM_INIT(getup_words, /regex, regex("get up|встань|вставай"))
+GLOBAL_DATUM_INIT(sit_words, /regex, regex("sit|садись|сядь"))
+GLOBAL_DATUM_INIT(stand_words, /regex, regex("stand|стой|встань"))
+GLOBAL_DATUM_INIT(dance_words, /regex, regex("dance|танцуй"))
+GLOBAL_DATUM_INIT(jump_words, /regex, regex("jump|прыгай"))
+GLOBAL_DATUM_INIT(salute_words, /regex, regex("salute|отдай честь|салютуй"))
+GLOBAL_DATUM_INIT(deathgasp_words, /regex, regex("play dead|притворись мёртвым"))
+GLOBAL_DATUM_INIT(clap_words, /regex, regex("clap|applaud|хлопай|аплодируй"))
+GLOBAL_DATUM_INIT(honk_words, /regex, regex("ho+nk|хонк")) //hooooooonk
+GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пластинка, детка"))
 
 /obj/item/organ/internal/vocal_cords //organs that are activated through speech with the :x channel
 	name = "vocal cords"
+	ru_names = list(
+		NOMINATIVE = "голосовые связки",
+		GENITIVE = "голосовых связок",
+		DATIVE = "голосовым связкам",
+		ACCUSATIVE = "голосовые связки",
+		INSTRUMENTAL = "голосовыми связками",
+		PREPOSITIONAL = "голосовых связках"
+	)
 	icon_state = "appendix"
 	slot = INTERNAL_ORGAN_VOCALCORDS
 	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
@@ -53,14 +61,30 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 /obj/item/organ/internal/adamantine_resonator
 	name = "adamantine resonator"
-	desc = "Fragments of adamantine exist in all golems, stemming from their origins as purely magical constructs. These are used to \"hear\" messages from their leaders."
+	desc = "Частицы адамантина присутствуют во всех големах, унаследованные от их магической природы. Позволяют \"слышать\" послания своих создателей."
+	ru_names = list(
+		NOMINATIVE = "адамантиновый резонатор",
+		GENITIVE = "адамантинового резонатора",
+		DATIVE = "адамантиновому резонатору",
+		ACCUSATIVE = "адамантиновый резонатор",
+		INSTRUMENTAL = "адамантиновым резонатором",
+		PREPOSITIONAL = "адамантиновом резонаторе"
+	)
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_RESONATOR
 	icon_state = "adamantine_resonator"
 
 /obj/item/organ/internal/vocal_cords/adamantine
 	name = "adamantine vocal cords"
-	desc = "When adamantine resonates, it causes all nearby pieces of adamantine to resonate as well. Adamantine golems use this to broadcast messages to nearby golems."
+	desc = "При резонансе адамантина все ближайшие частицы входят в синхронизацию. Големы используют это для передачи сообщений сородичам."
+	ru_names = list(
+		NOMINATIVE = "адамантиновые голосовые связки",
+		GENITIVE = "адамантиновых голосовых связок",
+		DATIVE = "адамантиновым голосовым связкам",
+		ACCUSATIVE = "адамантиновые голосовые связки",
+		INSTRUMENTAL = "адамантиновыми голосовыми связками",
+		PREPOSITIONAL = "адамантиновых голосовых связках"
+	)
 	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
 	icon_state = "adamantine_cords"
 
@@ -83,7 +107,15 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 //Colossus drop, forces the listeners to obey certain commands
 /obj/item/organ/internal/vocal_cords/colossus
 	name = "divine vocal cords"
-	desc = "They carry the voice of an ancient god."
+	desc = "Они несут глас древнего бога."
+	ru_names = list(
+		NOMINATIVE = "связки бога",
+		GENITIVE = "связок бога",
+		DATIVE = "связкам бога",
+		ACCUSATIVE = "связки бога",
+		INSTRUMENTAL = "связками бога",
+		PREPOSITIONAL = "связках бога"
+	)
 	icon_state = "voice_of_god"
 	actions_types = list(/datum/action/item_action/organ_action/colossus)
 	var/next_command = 0
@@ -95,7 +127,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	spans = "colossus yell"
 
 /datum/action/item_action/organ_action/colossus
-	name = "Voice of God"
+	name = "Глас Божий"
 	var/obj/item/organ/internal/vocal_cords/colossus/cords = null
 
 /datum/action/item_action/organ_action/colossus/New()
@@ -129,7 +161,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 /obj/item/organ/internal/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
-		to_chat(owner, span_notice("Вы должны подождать [(next_command - world.time)/10] секунд перед следующим Словом."))
+		to_chat(owner, span_notice("Вы должны подождать [(next_command - world.time)/10] секунд[declension_ru((next_command - world.time)/10, "у", "ы", "")] перед следующим Словом."))
 		return FALSE
 	if(!owner)
 		return FALSE
@@ -426,7 +458,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	else if((findtext(message, GLOB.jump_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.say("HOW HIGH?!!")
+			L.say("НАСКОЛЬКО ВЫСОКО?!!")
 			L.emote("jump")
 		next_command = world.time + cooldown_meme
 

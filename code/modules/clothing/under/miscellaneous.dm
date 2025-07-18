@@ -124,7 +124,7 @@
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom/officer
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Officer Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
@@ -133,7 +133,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/officer/skirt
-	desc = "Gold trim on space-black cloth, this skirt displays the rank of \"Lieutenant-Commander\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this skirt displays the rank of \"Lieutenant-Commander\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Officer Skirt"
 	icon_state = "navy_goldf"
 	item_state = "navy_goldf"
@@ -151,7 +151,7 @@
 		)
 
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Captain Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
@@ -493,7 +493,15 @@
 
 /obj/item/clothing/under/ash_walker
 	name = "ash-walker uniform"
-	desc = ""
+	desc = "Простая, но надежная одежда из ткани, пропитанная пеплом. Швы украшены символами племени, а потертые края выглядят так, будто они видели не одно извержение вулкана."
+	ru_names = list(
+		NOMINATIVE = "одеяние пеплоходца",
+		GENITIVE = "одеяния пеплоходца",
+		DATIVE = "одеянию пеплоходца",
+		ACCUSATIVE = "одеяние пеплоходца",
+		INSTRUMENTAL = "одеянием пеплоходца",
+		PREPOSITIONAL = "одеянии пеплоходца"
+	)
 	icon_state = "ash"
 	item_state = "ash"
 	item_color = "ash"
@@ -501,7 +509,15 @@
 
 /obj/item/clothing/under/ash_walker_shaman
 	name = "shaman tribal rags"
-	desc = "Rags from Lavaland, drenched with ash, it has fine jewel coated bones sewn around the neck. This one seems to be for the shaman of a tribe."
+	desc = "Пропитанные пеплом лохмотья с Лазиса, с костяными украшениями, усыпанными грубыми самоцветами на шее. Кажется, это одеяние предназначено для шамана племени."
+	ru_names = list(
+		NOMINATIVE = "лохмотья шамана",
+		GENITIVE = "лохмотьев шамана",
+		DATIVE = "лохмотьям шамана",
+		ACCUSATIVE = "лохмотья шамана",
+		INSTRUMENTAL = "лохмотьями шамана",
+		PREPOSITIONAL = "лохмотьях шамана"
+	)
 	icon_state = "shamanrags"
 	item_state = "shamanrags"
 	item_color = "shamanrags"
@@ -987,7 +1003,19 @@
 
 /obj/item/clothing/under/medigown
 	name = "medical gown"
-	desc = "a flimsy examination gown, the back ties never close."
+	desc = "Халат, предназначенный для использования медицинским персоналом. \
+			Изготовлен из лёгкой ткани с минимальной защитой от биологических загрязнений. \
+			Застёжки на спине слабые и не застёгиваются должным образом, \
+			что делает этот халат не самым популярным выбором среди остальной униформы."
+	ru_names = list(
+		NOMINATIVE = "медицинский халат",
+		GENITIVE = "медицинского халата",
+		DATIVE = "медицинскому халату",
+		ACCUSATIVE = "медицинский халат",
+		INSTRUMENTAL = "медицинским халатом",
+		PREPOSITIONAL = "медицинском халате"
+	)
+	gender = MALE
 	icon_state = "medicalgown"
 	item_state = "medicalgown"
 	item_color = "medicalgown"

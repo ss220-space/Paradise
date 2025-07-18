@@ -6,7 +6,7 @@
 #define REVIVE_COOLDOWN_MULT_ANTAG 2
 #define REVIVE_HEALTH_MULT 0.2
 #define REVIVE_HEALTH_MULT_ANTAG 0.3
-#define STRENGHT_INCREASE_TIME 60 MINUTES
+#define STRENGTH_INCREASE_TIME 60 MINUTES
 
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
@@ -132,7 +132,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
 	dif_mult = enemies_count_scale ** (length(activators)-1)
 	dif_mult_dmg = (dif_mult + 1) * 0.5
-	if(scale_with_time && world.time > STRENGHT_INCREASE_TIME)
+	if(scale_with_time && world.time > STRENGTH_INCREASE_TIME)
 		dif_mult *= 1.4
 	setMaxHealth(initial(maxHealth) * dif_mult)
 	setHealth(initial(health) * dif_mult)
@@ -596,4 +596,4 @@ While using this makes the system rely on OnFire, it still gives options for tim
 #undef REVIVE_COOLDOWN_MULT_ANTAG
 #undef REVIVE_HEALTH_MULT
 #undef REVIVE_HEALTH_MULT_ANTAG
-#undef STRENGHT_INCREASE_TIME
+#undef STRENGTH_INCREASE_TIME

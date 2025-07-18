@@ -114,7 +114,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
-	var/breakouttime = 0
+	var/breakout_time = 0
 
 	var/block_chance = 0
 	var/block_type = ALL
@@ -1378,3 +1378,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  */
 /obj/item/proc/select_skin(new_skin)
 	return
+
+/obj/item/proc/get_final_force(mob/attacker)
+	var/delta = 0
+	var/list/deltas = list()
+	SEND_SIGNAL(attacker, COMSIG_GET_MELEE_DAMAGE_DELTAS, deltas, src)
+	for(var/addition in deltas)
+		delta += addition
+
+	return force + delta

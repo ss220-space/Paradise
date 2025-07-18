@@ -175,7 +175,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input(usr, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)
 	if(!melody)	return
 
 	play_sound(melody)
@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input(usr, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)
 	if(!melody)	return
 
 	var/cvol = 35

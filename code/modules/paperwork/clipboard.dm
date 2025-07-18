@@ -131,7 +131,7 @@
 		if(containedpen) //If there's a pen in the clipboard, let's just let them write and not bother asking about the pen
 			toppaper.attackby(I, user, params)
 			return ATTACK_CHAIN_BLOCKED_ALL
-		var/writeonwhat = input(user, "Write on [toppaper.name], or place your pen in [src]?", "Pick one!") as null|anything in list("Write", "Place pen")
+		var/writeonwhat = tgui_alert(user, "Write on [toppaper.name], or place your pen in [src]?", "Pick one!", list("Write", "Place pen"))
 		if(!writeonwhat || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return ATTACK_CHAIN_PROCEED
 		switch(writeonwhat)

@@ -13,8 +13,7 @@ jobs:
     if: |
       github.event.issue.pull_request &&
       github.event.comment.body == '!build_rust' &&
-      (github.event.sender.id == github.event.issue.user.id ||
-       github.event.comment.author_association == 'COLLABORATOR' ||
+       (github.event.comment.author_association == 'COLLABORATOR' ||
        github.event.comment.author_association == 'MEMBER' ||
        github.event.comment.author_association == 'OWNER')
 
@@ -55,20 +54,6 @@ jobs:
         token:        ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 1
 
-    - name: Check for user-supplied files
-      id: user_files_check
-      run: |
-        if [ -f "./rustlibs.dll" ]; then
-          echo "dll_exists=true"  >> $GITHUB_OUTPUT
-        else
-          echo "dll_exists=false" >> $GITHUB_OUTPUT
-        fi
-        if [ -f "./librustlibs.so" ]; then
-          echo "so_exists=true"   >> $GITHUB_OUTPUT
-        else
-          echo "so_exists=false"  >> $GITHUB_OUTPUT
-        fi
-
     - name: Setup Rust targets
       run: |
         rustup target add i686-unknown-linux-gnu
@@ -90,15 +75,19 @@ jobs:
       env:
         BASE_BRANCH: ${{ github.event.repository.default_branch }}
         BASE_REPOSITORY: ${{ github.repository }}
+        USER_USER: ${{ github.actor }}
+        USER_EMAIL: ${{ github.event.sender.email }}
         SOURCE_DATE_EPOCH: "1577836800"
         RUSTFLAGS: "-C link-arg=-Wl,--build-id=none"
         TZ: UTC
       run: |
-        git config user.name ss1984rustbuild[bot]
-        git config user.email "1499935+ss1984rustbuild[bot]@users.noreply.github.com"
+        git config --local user.name "Rust Builder"
+        git config --local user.email "action@github.com"
+
         git pull origin "$PR_BRANCH" --depth=$((ahead_by + 1))
         git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
         git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
+        
         cd rust
 
         cargo build --release --target i686-unknown-linux-gnu
@@ -106,23 +95,15 @@ jobs:
 
         cd ..
 
-        cp rust/target/i686-unknown-linux-gnu/release/librustlibs.so ../librustlibs.so
-        cp rust/target/i686-pc-windows-gnu/release/rustlibs.dll ../rustlibs.dll
-
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: rustlibs-built
-        path: |
-          librustlibs.so
-          rustlibs.dll
+        cp rust/target/i686-unknown-linux-gnu/release/librustlibs.so librustlibs.so
+        cp rust/target/i686-pc-windows-gnu/release/rustlibs.dll rustlibs.dll
 
     - name: Commit and push changes
-      if: success()
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        git commit -a -m "Build Rust library" --allow-empty
+        git add --force librustlibs.so rustlibs.dll
+        git commit -m "Build Rust library"
         git push origin
 
     - name: Notify Failure

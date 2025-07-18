@@ -497,3 +497,37 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		var/t_loc = get_turf(O)
 		qdel(O)
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
+
+
+/datum/reagent/steroids
+	name = "Стероиды"
+	id = "steroids"
+	description = "Используется для ускоренного развития мышц. \
+					Не рекомендуется употреблять обладающим хвостом, беременным, перенесшим тяжелую травму, переболевшим ветрянкой, состоящим из слизи и бесхвостым."
+	reagent_state = LIQUID
+	color = "#c2ff34"
+	taste_description = "силы"
+
+
+/datum/reagent/steroids/on_mob_life(mob/living/target)
+	..()
+	if(!ishuman(target))
+		return
+
+	if(!prob(3))
+		return
+
+	var/mob/living/carbon/human/human = target
+	var/obj/item/organ/external/head/head_organ = human.get_organ(BODY_ZONE_HEAD)
+	if(!head_organ)
+		return
+
+	if(head_organ.f_style != "Shaved" || head_organ.h_style != "Bald")
+		target.visible_message(span_warning("Волосы [target] внезапно осыпаются!"), \
+								span_userdanger("Ваши волосы внезапно осыпаются!"))
+
+	head_organ.f_style = "Shaved"
+	head_organ.h_style = "Bald"
+	human.update_hair()
+	human.update_fhair()
+	ADD_TRAIT(human, TRAIT_BALD, id)

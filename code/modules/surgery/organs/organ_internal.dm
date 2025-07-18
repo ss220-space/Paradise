@@ -328,10 +328,10 @@
 		var/turf/T = loc
 		var/light_count = T.get_lumcount()*10
 		if(light_count > 4 && obj_integrity > 0) //Die in the light
-			obj_integrity--
+			update_integrity(obj_integrity - 1)
 
 		else if(light_count < 2 && obj_integrity < max_integrity) //Heal in the dark
-			obj_integrity++
+			repair_damage(1)
 
 		if(obj_integrity <= 0)
 			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] расслаивается и распадается на множество крошечных кусочков."))

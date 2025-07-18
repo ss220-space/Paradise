@@ -1,6 +1,7 @@
 /datum/martial_art/boxing
 	name = "Boxing"
 	has_dirslash = FALSE
+	change_musculs = FALSE
 	weight = 1
 
 /datum/martial_art/boxing/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)

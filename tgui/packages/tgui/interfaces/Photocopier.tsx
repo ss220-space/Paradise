@@ -260,7 +260,8 @@ export const Photocopier = (_props: unknown) => {
                   mr={18.5}
                   width="100%"
                   placeholder="Поиск формы"
-                  onInput={(e, value) => setSearchText(value)}
+                  expensive
+                  onChange={setSearchText}
                 />
               }
             >

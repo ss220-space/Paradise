@@ -416,6 +416,14 @@
 
 /obj/item/stack/medical/splint/tribal
 	name = "tribal splints"
+	ru_names = list(
+		NOMINATIVE = "племенная шина",
+		GENITIVE = "племенной шины",
+		DATIVE = "племенной шине",
+		ACCUSATIVE = "племенную шину",
+		INSTRUMENTAL = "племенной шиной",
+		PREPOSITIONAL = "племенной шине"
+	)
 	icon_state = "tribal_splint"
 	other_delay = 5 SECONDS
 

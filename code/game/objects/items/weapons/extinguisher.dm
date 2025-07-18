@@ -1,6 +1,14 @@
 /obj/item/extinguisher
 	name = "fire extinguisher"
-	desc = "A traditional red fire extinguisher."
+	desc = "Традиционный красный огнетушитель."
+	ru_names = list(
+		NOMINATIVE = "огнетушитель",
+		GENITIVE = "огнетушителя",
+		DATIVE = "огнетушителю",
+		ACCUSATIVE = "огнетушитель",
+		INSTRUMENTAL = "огнетушителем",
+		PREPOSITIONAL = "огнетушителе"
+	)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "fire_extinguisher0"
 	base_icon_state = "fire_extinguisher"
@@ -35,7 +43,15 @@
 
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
-	desc = "A light and compact fibreglass-framed model fire extinguisher."
+	desc = "Лёгкая и компактная модель огнетушителя в фиберглассовом корпусе."
+	ru_names = list(
+		NOMINATIVE = "карманный огнетушитель",
+		GENITIVE = "карманного огнетушителя",
+		DATIVE = "карманному огнетушителю",
+		ACCUSATIVE = "карманный огнетушитель",
+		INSTRUMENTAL = "карманным огнетушителем",
+		PREPOSITIONAL = "карманном огнетушителе"
+	)
 	icon_state = "miniFE0"
 	base_icon_state = "miniFE"
 	item_state = "miniFE"
@@ -58,7 +74,7 @@
 
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
-	. += span_info("The safety is <b>[safety ? "on" : "off"]</b>.")
+	. += span_info("Предохранитель <b>[safety ? "включён" : "выключен"]</b>.")
 
 
 /obj/item/extinguisher/update_icon_state()
@@ -67,13 +83,13 @@
 
 /obj/item/extinguisher/update_desc(updates = ALL)
 	. = ..()
-	desc = "The safety is [safety ? "on" : "off"]."
+	desc = "Предохранитель [safety ? "включён" : "выключен"]."
 
 
 /obj/item/extinguisher/attack_self(mob/user)
 	safety = !safety
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
-	to_chat(user, "The safety is [safety ? "on" : "off"].")
+	to_chat(user, "Предохранитель [safety ? "включён" : "выключен"].")
 
 
 /obj/item/extinguisher/attack_obj(obj/object, mob/living/user, params)
@@ -87,18 +103,18 @@
 		var/safety_save = safety
 		safety = TRUE
 		if(reagents.total_volume == reagents.maximum_volume)
-			to_chat(user, span_notice("[src] is already full!"))
+			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] уже полностью заправлен!"))
 			safety = safety_save
 			return TRUE
 		var/obj/structure/reagent_dispensers/watertank/watertank = target
 		var/transferred = watertank.reagents.trans_to(src, max_water)
 		if(transferred > 0)
-			to_chat(user, span_notice("[src] has been refilled by [transferred] units."))
+			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] был заправлен на [transferred] единиц[declension_ru(transferred,"у","ы","")]."))
 			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			for(var/datum/reagent/water/reagent in reagents.reagent_list)
 				reagent.cooling_temperature = cooling_power
 		else
-			to_chat(user, span_notice("[watertank] is empty!"))
+			to_chat(user, span_notice("[capitalize(watertank.declent_ru(NOMINATIVE))] пуст!"))
 		safety = safety_save
 		return TRUE
 	return FALSE
@@ -114,7 +130,7 @@
 		return
 
 	if(reagents.total_volume < 1)
-		to_chat(user, span_danger("[src] is empty."))
+		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] пуст."))
 		return
 
 	if(world.time < last_use + 2 SECONDS)

@@ -177,6 +177,17 @@
 	if(user.prefs.sound & ~SOUND_LOBBY)
 		usr.stop_sound_channel(CHANNEL_ADMIN)
 
+
+/datum/preference_toggle/toggle_end_of_round_sound
+	name = "Toggle Mute End of Round Sound"
+	description = "Toggles muting the end of round sound"
+	preftoggle_bitflag = SOUND_MUTE_END_OF_ROUND
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You have muted the end of round sound."
+	disable_message = "You have unmuted the end of round sound."
+	blackbox_message = "Toggle End of Round Sound"
+
 /datum/preference_toggle/toggle_ooc
 	name = "OOC-чат"
 	description = "Включает видимость OOC (OutOfCharacter) чата."
@@ -435,7 +446,7 @@
 // 		to_chat(usr, "You have no admins with muted sounds.")
 // 		return
 
-// 	var/choice = input(usr, "Select an admin to unmute sounds from.", "Pick an admin") as null|anything in user.prefs.admin_sound_ckey_ignore
+// 	var/choice = tgui_input_list(usr, "Select an admin to unmute sounds from.", "Pick an admin", user.prefs.admin_sound_ckey_ignore)
 // 	if(!choice)
 // 		return
 

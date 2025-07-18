@@ -772,7 +772,7 @@ SUBSYSTEM_DEF(jobs)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
 	if(PM && PM.can_receive())
-		PM.notify("<b>Автоматическое Оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
+		PM.notify("<b>Автоматическое оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
 
 /datum/controller/subsystem/jobs/proc/notify_by_name(target_name, antext)
 	// Used to notify a specific crew member based on their real_name
@@ -787,7 +787,7 @@ SUBSYSTEM_DEF(jobs)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
 	if(PM && PM.can_receive())
-		PM.notify("<b>Автоматическое Оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
+		PM.notify("<b>Автоматическое оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
 
 /datum/controller/subsystem/jobs/proc/format_job_change_records(centcom)
 	var/list/formatted = list()

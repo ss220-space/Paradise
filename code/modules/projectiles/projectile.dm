@@ -51,6 +51,10 @@
 	var/tile_dropoff = 0
 	/// How much stamina damage should be decremented as the bullet moves.
 	var/tile_dropoff_s = 0
+	/// How much armour penetration should be decremented as the bullet moves.
+	var/tile_dropoff_penetration
+	/// How much forcedodge should be decremented as the bullet moves.
+	var/tile_dropoff_forcedodge
 	/// BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here.
 	var/damage_type = BRUTE
 	/// Determines if the projectile will skip any damage inflictions.
@@ -131,6 +135,10 @@
 		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
 	if(stamina && tile_dropoff_s)
 		stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
+	if(armour_penetration && tile_dropoff_penetration)
+		armour_penetration = max(0, armour_penetration - tile_dropoff_penetration) // as above, but with armour penetration
+	if(forcedodge && tile_dropoff_forcedodge)
+		forcedodge = max(0, forcedodge - tile_dropoff_forcedodge) // as above, but with forcedodge
 	if(range <= 0 && loc)
 		on_range()
 	if(!damage && !stamina && (tile_dropoff || tile_dropoff_s))
@@ -235,7 +243,7 @@
 	var/were_affects_applied = L.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown)
 
 	if(!log_override && firer && original)
-		add_attack_logs(firer, L, "Shot[organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")
+		add_attack_logs(firer, L, "Shot [organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")
 
 	return were_affects_applied
 
@@ -301,8 +309,8 @@
 	prehit(bumped_atom)
 
 	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
-	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
-		if(forcedodge > 0)
+	if(permutation == -1 || forcedodge >= 1) // the bullet passes through a dense object!
+		if(forcedodge >= 1)
 			forcedodge -= 1
 		loc = bumped_turf
 		if(bumped_atom)
@@ -454,7 +462,10 @@
 
 /obj/projectile/Destroy()
 	STOP_PROCESSING(SSprojectiles, src)
-	ammo_casing = null
+	if(ammo_casing)
+		if(ammo_casing.BB == src)
+			ammo_casing.BB = null
+		ammo_casing =  null
 	firer_source_atom = null
 	firer = null
 	return ..()

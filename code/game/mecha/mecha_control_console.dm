@@ -51,7 +51,7 @@
 		if("send_message")
 			var/obj/item/mecha_parts/mecha_tracking/MT = locateUID(params["mt"])
 			if(istype(MT))
-				var/message = strip_html_simple(input(usr, "Input message", "Transmit message") as text)
+				var/message = strip_html_simple(tgui_input_text(usr, "Input message", "Transmit message"))
 				if(!message || !trim(message) || ..())
 					return FALSE
 				var/obj/mecha/M = MT.in_mecha()

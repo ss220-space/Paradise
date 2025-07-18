@@ -254,7 +254,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/desired_num_sheets = 0
 	if(amount == "custom")
-		desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
+		desired_num_sheets = tgui_input_number(usr, "How many sheets would you like to eject from the machine?", "How much?", 1)
 		if(isnull(desired_num_sheets))
 			desired_num_sheets = 0
 	else
@@ -329,7 +329,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 	if(!pointless)
-		var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
+		var/choice = tgui_alert(usr, "This item does not raise tech levels. Proceed destroying loaded item anyway?", , list("Proceed", "Cancel"))
 		if(choice == "Cancel" || !linked_destroy)
 			return
 
