@@ -55,7 +55,7 @@
 		return
 	if(decon_speed)
 		user.visible_message(
-			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] откручивать [bomb.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(ACCINSTRUMENTALUSATIVE)]..."),
+			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] откручивать [bomb.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(INSTRUMENTAL)]..."),
 			span_notice("Вы начинаете откреплять [bomb.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(INSTRUMENTAL)]..."),
 			span_warning("Слышны звуки работы с инструментом.")
 		)
