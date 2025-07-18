@@ -452,23 +452,30 @@
 
 /obj/item/barcodescanner/attack_self(mob/user)
 	mode += 1
-	if(mode > 3)
+	if(mode > 4)
 		mode = 0
-	to_chat(user, "отображение состояния [declent_ru(GENITIVE)]:")
-	var/modedesc
 	switch(mode)
 		if(0)
-			modedesc = "Сканирование книг в локальное хранилище."
+			if(src.computer)
+				to_chat(user, span_notice("[bicon(src)] Сканирование книг в локальное хранилище с попыткой добавление в базу данных."))
+			else
+				mode +=1
 		if(1)
-			modedesc = "Сканирование книг в локальное хранилище с добалением в буфер привязанного компьютера."
+			if(src.computer)
+				to_chat(user, span_green("[bicon(src)] Устройство привязанно к компьютеру."))
+			else
+				to_chat(user, span_red("[bicon(src)] Привязанный к устройству компьютер не найден. Доступно только локальное сканирование."))
 		if(2)
-			modedesc = "Сканирование книг в локальное хранилище с оформлением их брони."
+			to_chat(user, span_notice("[bicon(src)] Сканирование книг в локальное хранилище."))
 		if(3)
-			modedesc = "Сканирование книг в локальное хранилище с попыткой добавление в базу данных."
-			modedesc = "ОШИБКА"
-	to_chat(user, " - Режим [mode] : [modedesc]")
-	if(src.computer)
-		to_chat(user, span_greentext("Устройство было привязано к компьютеру."))
-	else
-		to_chat(user, span_redtext("Привязанный к устройству компьютер не найден. Доступно только локальное сканирование."))
-	to_chat(user, "\n")
+			if(src.computer)
+				to_chat(user, span_notice("[bicon(src)] Сканирование книг в локальное хранилище с добалением в буфер привязанного компьютера."))
+			else
+				mode +=1
+		if(4)
+			if(src.computer)
+				to_chat(user, span_notice("[bicon(src)] Сканирование книг в локальное хранилище с оформлением их брони."))
+			else
+				mode +=1
+		else
+			to_chat(user, span_notice("[bicon(src)] ОШИБКА."))
