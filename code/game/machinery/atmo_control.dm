@@ -95,15 +95,15 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			var/total_moles = air_sample.total_moles()
 			if(total_moles > 0)
 				if(output & SENSOR_COMPOSITION_OXYGEN)
-					signal.data["oxygen"] = round(100 * air_sample.oxygen / total_moles, 0.1)
+					signal.data["oxygen"] = round(100 * air_sample.gases[GAS_O2][MOLES] / total_moles, 0.1)
 				if(output & SENSOR_COMPOSITION_TOXINS)
-					signal.data["toxins"] = round(100 * air_sample.toxins / total_moles, 0.1)
+					signal.data["toxins"] = round(100 * air_sample.gases[GAS_PL][MOLES] / total_moles, 0.1)
 				if(output & SENSOR_COMPOSITION_NITROGEN)
-					signal.data["nitrogen"] = round(100 * air_sample.nitrogen / total_moles, 0.1)
+					signal.data["nitrogen"] = round(100 * air_sample.gases[GAS_N2][MOLES] / total_moles, 0.1)
 				if(output & SENSOR_COMPOSITION_CO2)
-					signal.data["carbon_dioxide"] = round(100 * air_sample.carbon_dioxide / total_moles, 0.1)
+					signal.data["carbon_dioxide"] = round(100 * air_sample.gases[GAS_CO2][MOLES] / total_moles, 0.1)
 				if(output & SENSOR_COMPOSITION_N2O)
-					signal.data["nitrous_oxide"] = round(100 * air_sample.sleeping_agent / total_moles, 0.1)
+					signal.data["nitrous_oxide"] = round(100 * air_sample.gases[GAS_N2O][MOLES] / total_moles, 0.1)
 			else
 				signal.data["oxygen"] = 0
 				signal.data["toxins"] = 0
@@ -295,11 +295,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 /obj/machinery/computer/general_air_control/large_tank_control/Initialize()
 	. = ..()
 	input_linkable = list(
-		/obj/machinery/atmospherics/unary/outlet_injector,
-		/obj/machinery/atmospherics/unary/vent_pump,
+		/obj/machinery/atmospherics/components/unary/outlet_injector,
+		/obj/machinery/atmospherics/components/unary/vent_pump,
 	)
 	output_linkable=list(
-		/obj/machinery/atmospherics/unary/vent_pump,
+		/obj/machinery/atmospherics/components/unary/vent_pump,
 	)
 
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/user, obj/item/I)
@@ -317,16 +317,16 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	return FALSE
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/link_input(obj/device_to_link)
-	if(istype(device_to_link, /obj/machinery/atmospherics/unary/vent_pump))
-		var/obj/machinery/atmospherics/unary/vent_pump/input_vent_pump = device_to_link
+	if(istype(device_to_link, /obj/machinery/atmospherics/components/unary/vent_pump))
+		var/obj/machinery/atmospherics/components/unary/vent_pump/input_vent_pump = device_to_link
 		input_tag = input_vent_pump.id_tag
 		send_signal(list(
 			"tag" = input_tag,
 			"direction" = 1, // Release
-			"checks"    = 0,  // No pressure checks.
+			"checks"	= 0,  // No pressure checks.
 		))
-	else if(istype(device_to_link, /obj/machinery/atmospherics/unary/outlet_injector))
-		var/obj/machinery/atmospherics/unary/vent_pump/input_outlet_injector = device_to_link
+	else if(istype(device_to_link, /obj/machinery/atmospherics/components/unary/outlet_injector))
+		var/obj/machinery/atmospherics/components/unary/vent_pump/input_outlet_injector = device_to_link
 		input_tag = input_outlet_injector.id_tag
 	else
 		return FALSE
@@ -334,13 +334,13 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	return TRUE
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/link_output(obj/device_to_link)
-	if(istype(device_to_link, /obj/machinery/atmospherics/unary/vent_pump))
-		var/obj/machinery/atmospherics/unary/vent_pump/output_vent_pump = device_to_link
+	if(istype(device_to_link, /obj/machinery/atmospherics/components/unary/vent_pump))
+		var/obj/machinery/atmospherics/components/unary/vent_pump/output_vent_pump = device_to_link
 		output_tag = output_vent_pump.id_tag
 		send_signal(list(
 			"tag" = output_tag,
 			"direction" = 0, // Siphon
-			"checks"    = 2  // Internal pressure checks.
+			"checks"	= 2  // Internal pressure checks.
 		))
 	else
 		return FALSE
@@ -449,7 +449,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	if(href_list["out_set_pressure"])
 		var/response = tgui_input_number(usr, "Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]")
 		pressure_setting = text2num(response)
-		pressure_setting = between(0, pressure_setting, 50*ONE_ATMOSPHERE)
+		pressure_setting = clamp(pressure_setting, 0, 50*ONE_ATMOSPHERE)
 
 	if(!radio_connection)
 		return 0

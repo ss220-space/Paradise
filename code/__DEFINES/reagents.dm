@@ -21,3 +21,5 @@
 
 #define REAGENT_TOUCH 1
 #define REAGENT_INGEST 2
+#define REAGENT_VAPOR 3
+#define REAGENT_PATCH 4

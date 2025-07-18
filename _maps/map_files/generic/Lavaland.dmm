@@ -88,7 +88,7 @@
 	dir = 4;
 	network = list("Labor    Camp")
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -105,7 +105,7 @@
 /area/mine/laborcamp)
 "at" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -165,7 +165,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/machinery/camera{
@@ -238,7 +238,7 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -410,7 +410,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -658,7 +658,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "bI" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "bJ" = (
@@ -947,7 +947,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "cl" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -1043,7 +1043,7 @@
 	},
 /area/mine/production)
 "cx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -1324,7 +1324,7 @@
 	pixel_x = 1;
 	pixel_y = 25
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "di" = (
@@ -1335,7 +1335,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "dj" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "dk" = (
@@ -1379,7 +1379,7 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dr" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -1399,7 +1399,7 @@
 	},
 /area/mine/living_quarters)
 "du" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/machinery/firealarm{
@@ -1503,7 +1503,7 @@
 	},
 /area/mine/living_quarters)
 "dD" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1543,7 +1543,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/binary/pump/on,
+/obj/machinery/atmospherics/components/binary/pump/on,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dI" = (
@@ -1570,7 +1570,7 @@
 	},
 /area/mine/production)
 "dM" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "dN" = (
@@ -1706,7 +1706,7 @@
 	c_tag = "Crew Area Hallway West";
 	network = list("Mining Outpost")
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "ef" = (
@@ -1759,7 +1759,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -2057,7 +2057,7 @@
 	},
 /area/mine/living_quarters)
 "eP" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -2170,7 +2170,7 @@
 /obj/machinery/alarm{
 	pixel_y = 23
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
@@ -2251,14 +2251,14 @@
 	},
 /area/mine/living_quarters)
 "fp" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fr" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
@@ -2388,7 +2388,7 @@
 	name = "Station Intercom (General)";
 	pixel_x = 28
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -2461,7 +2461,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -2516,7 +2516,7 @@
 	},
 /area/mine/living_quarters)
 "fY" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -2583,7 +2583,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
 "gf" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -2855,7 +2855,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "gJ" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4;
 	name = "scrubber outlet"
 	},
@@ -4202,7 +4202,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -4220,7 +4220,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "oA" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -4451,7 +4451,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cigbutt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -4718,7 +4718,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -4819,7 +4819,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "vq" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "vw" = (
@@ -4998,7 +4998,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -5022,7 +5022,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "xL" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4;
 	name = "scrubber outlet"
 	},
@@ -5035,7 +5035,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -5459,7 +5459,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood{
@@ -5593,7 +5593,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "ES" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -5606,7 +5606,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
 "Fp" = (
@@ -5809,7 +5809,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "HA" = (
-/obj/machinery/atmospherics/binary/pump/on,
+/obj/machinery/atmospherics/components/binary/pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -6653,7 +6653,7 @@
 /obj/item/mining_scanner,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/breath,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/item/clothing/head/beanie/orange,
@@ -6679,7 +6679,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "Rp" = (
 /obj/machinery/optable,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel{
@@ -6795,7 +6795,7 @@
 /area/mine/living_quarters)
 "Ts" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -6954,7 +6954,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "Vt" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -7007,7 +7007,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/tapetrash,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/machinery/light/small{
@@ -7063,7 +7063,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "Ww" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -7229,7 +7229,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{

@@ -118,8 +118,8 @@
 	var/static/list/to_rename = typecacheof(list(
 		/obj/machinery/alarm,
 		/obj/machinery/power/apc,
-		/obj/machinery/atmospherics/unary/vent_scrubber,
-		/obj/machinery/atmospherics/unary/vent_pump,
+		/obj/machinery/atmospherics/components/unary/vent_scrubber,
+		/obj/machinery/atmospherics/components/unary/vent_pump,
 		/obj/machinery/door,
 		/obj/machinery/firealarm,
 		/obj/machinery/light_switch,

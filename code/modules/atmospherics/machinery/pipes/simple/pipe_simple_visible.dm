@@ -60,15 +60,15 @@
 		return
 
 	underlays.Cut()
-	if(node1)
-		universal_underlays(node1)
-		if(node2)
-			universal_underlays(node2)
+	if(NODE1)
+		universal_underlays(NODE1)
+		if(NODE2)
+			universal_underlays(NODE2)
 		else
-			var/node1_dir = get_dir(node1,src)
+			var/node1_dir = get_dir(NODE1, src)
 			universal_underlays(direction = node1_dir)
-	else if(node2)
-		universal_underlays(node2)
+	else if(NODE2)
+		universal_underlays(NODE2)
 	else
 		universal_underlays(direction = dir)
 		universal_underlays(direction = turn(dir, -180))

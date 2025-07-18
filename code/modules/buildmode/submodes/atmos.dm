@@ -43,19 +43,19 @@
 	var/left_click = pa.Find("left")
 	var/ctrl_click = pa.Find("ctrl")
 	if(left_click) //rectangular
-		for(var/turf/T in block(cornerA,cornerB))
+		for(var/turf/T in block(cornerA, cornerB))
 			if(issimulatedturf(T))
 				// fill the turf with the appropriate gasses
 				// this feels slightly icky
 				var/turf/simulated/S = T
 				if(S.air)
 					S.air.temperature = temperature
-					S.air.oxygen = ppratio_to_moles(oxygen)
-					S.air.nitrogen = ppratio_to_moles(nitrogen)
-					S.air.toxins = ppratio_to_moles(plasma)
-					S.air.carbon_dioxide = ppratio_to_moles(cdiox)
-					S.air.sleeping_agent = ppratio_to_moles(nitrox)
-					S.air.agent_b = ppratio_to_moles(agentbx)
+					S.air.gases[GAS_O2][MOLES] = ppratio_to_moles(oxygen)
+					S.air.gases[GAS_N2][MOLES] = ppratio_to_moles(nitrogen)
+					S.air.gases[GAS_PL][MOLES] = ppratio_to_moles(plasma)
+					S.air.gases[GAS_CO2][MOLES] = ppratio_to_moles(cdiox)
+					S.air.gases[GAS_N2O][MOLES] = ppratio_to_moles(nitrox)
+					S.air.gases[GAS_AGENT_B][MOLES] = ppratio_to_moles(agentbx)
 					S.update_visuals()
 					S.air_update_turf()
 			else if(ctrl_click) // overwrite "default" space air

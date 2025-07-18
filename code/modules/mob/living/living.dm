@@ -1446,12 +1446,13 @@
 	if(istype(get_turf(src), /turf/space))
 		var/turf/heat_turf = get_turf(src)
 		return heat_turf.temperature
-	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
-		if(C.air_contents.total_moles() < 10)
+	if(istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
+		var/obj/machinery/atmospherics/components/unary/cryo_cell/C = loc
+		var/datum/gas_mixture/C_air_contents = C.AIR1
+		if(C_air_contents.total_moles() < 10)
 			return environment.temperature
 		else
-			return C.air_contents.temperature
+			return C_air_contents.temperature
 	if(environment)
 		return environment.temperature
 	return T0C

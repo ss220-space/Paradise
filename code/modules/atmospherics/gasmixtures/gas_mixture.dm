@@ -14,15 +14,53 @@ What are the archived variables for?
 	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B)
 
 #define MINIMUM_HEAT_CAPACITY	0.0003
-#define QUANTIZE(variable)		(round(variable, 0.0001))
+#define QUANTIZE(variable)		(round(variable,0.0000001))/*I feel the need to document what happens here. Basically this is used to catch most rounding errors, however it's previous value made it so that
+															once gases got hot enough, most procedures wouldnt occur due to the fact that the mole counts would get rounded away. Thus, we lowered it a few orders of magnititude */
+
+/datum/gas
+	var/moles = 0
+	var/specific_heat = 0
+
+	var/moles_archived = 0
+
+/datum/gas/sleeping_agent
+		specific_heat = 40
+
+/datum/gas/oxygen_agent_b
+		specific_heat = 300
+
+/datum/gas/volatile_fuel
+		specific_heat = 30
+
+
+
+var/list/meta_gas_info = list( //this is actually the list that decides what gases exist and in what order
+	list(20, "Oxygen"), 			//GAS_O2
+	list(20, "Nitrogen"), 			//GAS_N2
+	list(30, "Carbon Dioxide"),		//GAS_C02
+	list(200, "Plasma"),			//GAS_PLASMA
+	list(40, "Nitrous Oxide"),		//GAS_N20
+	list(300, "Oxygen Agent B"),	//GAS_AGENT_B
+	list(30, "Volatile Fuel")		//GAS_V_FUEL
+)
+
+var/list/cached_gases_list
+
+/proc/gaseslist()
+	. = new /list
+	for(var/i in 1 to meta_gas_info.len)
+		.[i] = gaslist(meta_gas_info[i], i)
+
+/proc/gaslist(gas_info, index)
+	. = new /list
+	. += 0				//MOLES
+	. += 0				//ARCHIVE
+	. += index			//GAS_INDEX
+	. += gas_info		//all the rest
+
+
 
 /datum/gas_mixture
-	var/oxygen = 0
-	var/carbon_dioxide = 0
-	var/nitrogen = 0
-	var/toxins = 0
-	var/sleeping_agent = 0
-	var/agent_b = 0
 
 	var/volume = CELL_VOLUME
 
@@ -30,32 +68,36 @@ What are the archived variables for?
 
 	var/last_share
 
-	var/tmp/oxygen_archived = 0
-	var/tmp/carbon_dioxide_archived = 0
-	var/tmp/nitrogen_archived = 0
-	var/tmp/toxins_archived = 0
-	var/tmp/sleeping_agent_archived = 0
-	var/tmp/agent_b_archived = 0
+	var/list/gases
 
 	var/tmp/temperature_archived = 0
 
 	var/tmp/fuel_burnt = 0
 
-	//PV=nRT - related procedures
+/datum/gas_mixture/New(volume = CELL_VOLUME)
+	. = ..()
+	src.volume = volume
+	if(!cached_gases_list)
+		cached_gases_list = gaseslist()
+	gases = cached_gases_list
+
+
+//PV=nRT - related procedures
 /datum/gas_mixture/proc/heat_capacity()
-	return HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b)
+	for(var/gas in gases)
+		. += gas[MOLES] * gas[SPECIFIC_HEAT]
 
 
 /datum/gas_mixture/proc/heat_capacity_archived()
-	return HEAT_CAPACITY_CALCULATION(oxygen_archived, carbon_dioxide_archived, nitrogen_archived, toxins_archived, sleeping_agent_archived, agent_b_archived)
-
+	for(var/gas in gases)
+		. += gas[ARCHIVE] * gas[SPECIFIC_HEAT]
 
 /datum/gas_mixture/proc/total_moles()
-	var/moles = oxygen + carbon_dioxide + nitrogen + toxins + sleeping_agent + agent_b
-	return moles
+	for(var/gas in gases)
+		. += gas[ARCHIVE] * gas[SPECIFIC_HEAT]
 
 /datum/gas_mixture/proc/total_trace_moles()
-	var/moles = sleeping_agent + agent_b
+	var/moles = gases[GAS_N2O]+ gases[GAS_AGENT_B]
 	return moles
 
 /datum/gas_mixture/proc/return_pressure()
@@ -81,33 +123,76 @@ What are the archived variables for?
 
 /datum/gas_mixture/proc/react()
 	var/reacting = 0 //set to 1 if a notable reaction occured (used by pipe_network)
+	var/procgases = gases
+	if(temperature < TCMB)
+		temperature = TCMB
+	if(temperature > 900)
+		if(procgases[GAS_PL][MOLES] > MINIMUM_HEAT_CAPACITY && procgases[GAS_CO2][MOLES] > MINIMUM_HEAT_CAPACITY)
+			if(procgases[GAS_AGENT_B][MOLES])
+				var/reaction_rate = min(procgases[GAS_CO2][MOLES] * 0.75, procgases[GAS_PL][MOLES] * 0.25, procgases[GAS_AGENT_B][MOLES] * 0.05)
 
-	if(agent_b && temperature > 900)
-		if(toxins > MINIMUM_HEAT_CAPACITY && carbon_dioxide > MINIMUM_HEAT_CAPACITY)
-			var/reaction_rate = min(carbon_dioxide * 0.75, toxins * 0.25, agent_b * 0.05)
+				procgases[GAS_CO2][MOLES] = max(procgases[GAS_CO2][MOLES] - reaction_rate, 0)
+				procgases[GAS_O2][MOLES] += reaction_rate
 
-			carbon_dioxide = max(carbon_dioxide - reaction_rate, 0)
-			oxygen += reaction_rate
+				procgases[GAS_AGENT_B][MOLES] -= reaction_rate * 0.05
 
-			agent_b = max(agent_b - reaction_rate * 0.05, 0)
+				temperature += (reaction_rate * 20000) / heat_capacity()
 
-			temperature += (reaction_rate * 20000) / heat_capacity()
+				reacting = TRUE
 
-			reacting = 1
+	if(thermal_energy() > (PLASMA_BINDING_ENERGY * 10))
+		if(procgases[GAS_PL][MOLES] > MINIMUM_HEAT_CAPACITY && procgases[GAS_CO2][MOLES] > MINIMUM_HEAT_CAPACITY && (procgases[GAS_PL][MOLES] + procgases[GAS_CO2][MOLES]) / total_moles() >= FUSION_PURITY_THRESHOLD)//Fusion wont occur if the level of impurities is too high.
+			//world << "pre [temperature, [toxins], [carbon_dioxide]
+			var/old_heat_capacity = heat_capacity()
+			var/carbon_efficency = min(procgases[GAS_PL][MOLES] / procgases[GAS_CO2][MOLES], MAX_CARBON_EFFICENCY)
+			var/reaction_energy = thermal_energy()
+			var/moles_impurities = total_moles() - (procgases[GAS_PL][MOLES] + procgases[GAS_CO2][MOLES])
+			var/plasma_fused = (PLASMA_FUSED_COEFFICENT * carbon_efficency) * (temperature / PLASMA_BINDING_ENERGY)
+			var/carbon_catalyzed = (CARBON_CATALYST_COEFFICENT * carbon_efficency) * (temperature / PLASMA_BINDING_ENERGY)
+			var/oxygen_added = carbon_catalyzed
+			var/nitrogen_added = (plasma_fused - oxygen_added) - (thermal_energy() / PLASMA_BINDING_ENERGY)
+
+			reaction_energy = max(reaction_energy + ((carbon_efficency * procgases[GAS_PL][MOLES])/((moles_impurities / carbon_efficency) + 2) * 10)+((plasma_fused / (moles_impurities / carbon_efficency)) * PLASMA_BINDING_ENERGY), 0)
+			procgases[GAS_PL][MOLES] = max(procgases[GAS_PL][MOLES] - plasma_fused , 0)
+			procgases[GAS_CO2][MOLES] = max(procgases[GAS_CO2][MOLES] - carbon_catalyzed, 0)
+			procgases[GAS_O2][MOLES] = max(procgases[GAS_O2][MOLES] + oxygen_added, 0)
+			procgases[GAS_N2][MOLES] = max(procgases[GAS_N2][MOLES] + nitrogen_added, 0)
+
+			if(reaction_energy > 0)
+				reacting = 1
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					temperature = max(((temperature * old_heat_capacity + reaction_energy) / new_heat_capacity), TCMB)
 
 	fuel_burnt = 0
 	if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
-		if(fire() > 0)
-			reacting = 1
+		if(fire())
+			reacting = TRUE
 
 	return reacting
 
 /datum/gas_mixture/proc/fire()
 	var/energy_released = 0
 	var/old_heat_capacity = heat_capacity()
+	var/list/procgases = gases //this speeds things up because accessing datum vars is slow
+
+	if(procgases[GAS_V_FUEL][MOLES]) //General volatile gas burn
+		var/burned_fuel = 0
+
+		if(procgases[GAS_O2][MOLES] < procgases[GAS_V_FUEL][MOLES])
+			burned_fuel = procgases[GAS_O2][MOLES]
+			procgases[GAS_V_FUEL][MOLES] -= burned_fuel
+			procgases[GAS_O2][MOLES] = 0
+		else
+			burned_fuel = procgases[GAS_V_FUEL][MOLES]
+			procgases[GAS_O2][MOLES] -= procgases[GAS_V_FUEL][MOLES]
+
+		energy_released += FIRE_CARBON_ENERGY_RELEASED * burned_fuel
+		procgases[GAS_CO2][MOLES] += burned_fuel
+		fuel_burnt += burned_fuel
 
 	//Handle plasma burning
-	if(toxins > MINIMUM_HEAT_CAPACITY)
+	if(procgases[GAS_PL][MOLES] > MINIMUM_HEAT_CAPACITY)
 		var/plasma_burn_rate = 0
 		var/oxygen_burn_rate = 0
 		//more plasma released at higher temperatures
@@ -118,14 +203,14 @@ What are the archived variables for?
 			temperature_scale = (temperature - PLASMA_MINIMUM_BURN_TEMPERATURE) / (PLASMA_UPPER_TEMPERATURE-PLASMA_MINIMUM_BURN_TEMPERATURE)
 		if(temperature_scale > 0)
 			oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - temperature_scale
-			if(oxygen > toxins * PLASMA_OXYGEN_FULLBURN)
-				plasma_burn_rate = (toxins * temperature_scale) / PLASMA_BURN_RATE_DELTA
+			if(procgases[GAS_O2][MOLES]> procgases[GAS_PL][MOLES] * PLASMA_OXYGEN_FULLBURN)
+				plasma_burn_rate = (procgases[GAS_PL][MOLES] * temperature_scale) / PLASMA_BURN_RATE_DELTA
 			else
-				plasma_burn_rate = (temperature_scale * (oxygen / PLASMA_OXYGEN_FULLBURN)) / PLASMA_BURN_RATE_DELTA
+				plasma_burn_rate = (temperature_scale * (procgases[GAS_O2][MOLES] / PLASMA_OXYGEN_FULLBURN)) / PLASMA_BURN_RATE_DELTA
 			if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-				toxins = max(toxins - plasma_burn_rate, 0)
-				oxygen = max(oxygen - plasma_burn_rate*oxygen_burn_rate, 0)
-				carbon_dioxide += plasma_burn_rate
+				procgases[GAS_PL][MOLES] = max(procgases[GAS_PL][MOLES] - plasma_burn_rate, 0)
+				procgases[GAS_O2][MOLES] = max(procgases[GAS_O2][MOLES] - plasma_burn_rate*oxygen_burn_rate, 0)
+				procgases[GAS_CO2][MOLES]+= plasma_burn_rate
 
 				energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
@@ -164,37 +249,32 @@ What are the archived variables for?
 /datum/gas_mixture/proc/share(datum/gas_mixture/sharer)
 	//Performs air sharing calculations between two gas_mixtures assuming only 1 boundary length
 	//Return: amount of gas exchanged (+ if sharer received)
-/datum/gas_mixture/proc/mimic(turf/model) //I want this proc to die a painful death
+/datum/gas_mixture/proc/mimic(turf/model)
 	//Similar to share(...), except the model is not modified
 	//Return: amount of gas exchanged
 
-/datum/gas_mixture/proc/check_turf(turf/model) //I want this proc to die a painful death
+/datum/gas_mixture/proc/check_turf(turf/model)
 	//Returns: 0 if self-check failed or 1 if check passes
 
-/datum/gas_mixture/proc/temperature_mimic(turf/model, conduction_coefficient) //I want this proc to die a painful death
+///datum/gas_mixture/proc/temperature_mimic(turf/model, conduction_coefficient) //I want this proc to die a painful death
 
 /datum/gas_mixture/proc/temperature_share(datum/gas_mixture/sharer, conduction_coefficient)
+
+/datum/gas_mixture/proc/temperature_mimic(turf/model, conduction_coefficient)
 
 /datum/gas_mixture/proc/temperature_turf_share(turf/simulated/sharer, conduction_coefficient)
 
 /datum/gas_mixture/proc/compare(datum/gas_mixture/sample)
 	//Compares sample to self to see if within acceptable ranges that group processing may be enabled
-
 /datum/gas_mixture/archive()
-	oxygen_archived = oxygen
-	carbon_dioxide_archived = carbon_dioxide
-	nitrogen_archived =  nitrogen
-	toxins_archived = toxins
-	sleeping_agent_archived = sleeping_agent
-	agent_b_archived = agent_b
-
+	for(var/gas in gases)
+		gas[ARCHIVE] = gas[MOLES]
 	temperature_archived = temperature
-
-	return 1
+	. = TRUE
 
 /datum/gas_mixture/merge(datum/gas_mixture/giver)
 	if(!giver)
-		return 0
+		return FALSE
 
 	if(abs(temperature - giver.temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 		var/self_heat_capacity = heat_capacity()
@@ -202,15 +282,11 @@ What are the archived variables for?
 		var/combined_heat_capacity = giver_heat_capacity + self_heat_capacity
 		if(combined_heat_capacity != 0)
 			temperature = (giver.temperature * giver_heat_capacity + temperature * self_heat_capacity) / combined_heat_capacity
+	var/list/giver_gases = giver.gases //accessing datum vars is slower than proc vars
+	for(var/list/gas as anything in gases)
+		gas[MOLES] += giver_gases[gas[GAS_INDEX]][MOLES]
 
-	oxygen += giver.oxygen
-	carbon_dioxide += giver.carbon_dioxide
-	nitrogen += giver.nitrogen
-	toxins += giver.toxins
-	sleeping_agent += giver.sleeping_agent
-	agent_b += giver.agent_b
-
-	return 1
+	. = TRUE
 
 /datum/gas_mixture/remove(amount)
 
@@ -220,25 +296,14 @@ What are the archived variables for?
 		return null
 
 	var/datum/gas_mixture/removed = new
-
-
-	removed.oxygen = QUANTIZE((oxygen / sum) * amount)
-	removed.nitrogen = QUANTIZE((nitrogen/  sum) * amount)
-	removed.carbon_dioxide = QUANTIZE((carbon_dioxide / sum) * amount)
-	removed.toxins = QUANTIZE((toxins / sum) * amount)
-	removed.sleeping_agent = QUANTIZE((sleeping_agent / sum) * amount)
-	removed.agent_b = QUANTIZE((agent_b / sum) * amount)
-
-	oxygen = max(oxygen - removed.oxygen, 0)
-	nitrogen = max(nitrogen - removed.nitrogen, 0)
-	carbon_dioxide = max(carbon_dioxide - removed.carbon_dioxide, 0)
-	toxins = max(toxins - removed.toxins, 0)
-	sleeping_agent = max(sleeping_agent - removed.sleeping_agent, 0)
-	agent_b = max(agent_b - removed.agent_b, 0)
+	var/list/removed_gases = removed.gases //accessing datum vars is slower than proc vars
+	for(var/list/gas as anything in gases)
+		removed_gases[gas[GAS_INDEX]][MOLES] = QUANTIZE((gas[MOLES] / sum) * amount)
+		gas[MOLES] -= removed_gases[gas[GAS_INDEX]][MOLES]
 
 	removed.temperature = temperature
 
-	return removed
+	. = removed
 
 /datum/gas_mixture/remove_ratio(ratio)
 
@@ -248,110 +313,46 @@ What are the archived variables for?
 	ratio = min(ratio, 1)
 
 	var/datum/gas_mixture/removed = new
-
-	removed.oxygen = QUANTIZE(oxygen * ratio)
-	removed.nitrogen = QUANTIZE(nitrogen * ratio)
-	removed.carbon_dioxide = QUANTIZE(carbon_dioxide * ratio)
-	removed.toxins = QUANTIZE(toxins * ratio)
-	removed.sleeping_agent = QUANTIZE(sleeping_agent * ratio)
-	removed.agent_b = QUANTIZE(agent_b * ratio)
-
-	oxygen = max(oxygen - removed.oxygen, 0)
-	nitrogen = max(nitrogen - removed.nitrogen, 0)
-	carbon_dioxide = max(carbon_dioxide - removed.carbon_dioxide, 0)
-	toxins = max(toxins - removed.toxins, 0)
-	sleeping_agent = max(sleeping_agent - removed.sleeping_agent, 0)
-	agent_b = max(agent_b - removed.agent_b, 0)
+	var/list/removed_gases = removed.gases //accessing datum vars is slower than proc vars
+	for(var/list/gas as anything in gases)
+		removed_gases[gas[GAS_INDEX]][MOLES] = QUANTIZE(gas[MOLES] * ratio)
+		gas[MOLES] -= removed_gases[gas[GAS_INDEX]][MOLES]
 
 	removed.temperature = temperature
 
-	return removed
+	. = removed
 
 /datum/gas_mixture/copy_from(datum/gas_mixture/sample)
-	oxygen = sample.oxygen
-	carbon_dioxide = sample.carbon_dioxide
-	nitrogen = sample.nitrogen
-	toxins = sample.toxins
-	sleeping_agent = sample.sleeping_agent
-	agent_b = sample.agent_b
-
+	var/list/sample_gases = sample.gases //accessing datum vars is slower than proc vars
+	for(var/list/gas as anything in gases)
+		gas[MOLES] = sample_gases[gas[GAS_INDEX]][MOLES]
 	temperature = sample.temperature
 
-	return 1
+	return TRUE
 
 /datum/gas_mixture/copy_from_turf(turf/model)
-	oxygen = model.oxygen
-	carbon_dioxide = model.carbon_dioxide
-	nitrogen = model.nitrogen
-	toxins = model.toxins
-	sleeping_agent = model.sleeping_agent
-	agent_b = model.agent_b
-
-	//acounts for changes in temperature
-	var/turf/model_parent = model.parent_type
-	if(model.temperature != initial(model.temperature) || model.temperature != initial(model_parent.temperature))
-		temperature = model.temperature
-
-	return 1
+	gases[GAS_O2][MOLES] = model.oxygen
+	gases[GAS_N2][MOLES] = model.nitrogen
+	gases[GAS_PL][MOLES] = model.toxins
+	gases[GAS_CO2][MOLES] = model.carbon_dioxide
+	for(var/i in 5 to gases.len)
+		gases[i][MOLES] = 0 //turfs don't account for anything other than the four old hardcoded gases
+	temperature = model.temperature
 
 /datum/gas_mixture/check_turf(turf/model, atmos_adjacent_turfs = 4)
-	var/delta_oxygen = (oxygen_archived - model.oxygen) / (atmos_adjacent_turfs + 1)
-	var/delta_carbon_dioxide = (carbon_dioxide_archived - model.carbon_dioxide) / (atmos_adjacent_turfs + 1)
-	var/delta_nitrogen = (nitrogen_archived - model.nitrogen) / (atmos_adjacent_turfs + 1)
-	var/delta_toxins = (toxins_archived - model.toxins) / (atmos_adjacent_turfs + 1)
-	var/delta_sleeping_agent = (sleeping_agent_archived - model.sleeping_agent) / (atmos_adjacent_turfs + 1)
-	var/delta_agent_b = (agent_b_archived - model.agent_b) / (atmos_adjacent_turfs + 1)
-
-	var/delta_temperature = (temperature_archived - model.temperature)
-
-	if(((abs(delta_oxygen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_oxygen) >= oxygen_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_carbon_dioxide) >= carbon_dioxide_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= nitrogen_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= toxins_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_sleeping_agent) >= sleeping_agent_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= agent_b_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)))
-		return 0
-	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
-		return 0
-
-	return 1
-
-/datum/gas_mixture/proc/check_turf_total(turf/model) //I want this proc to die a painful death
-	var/delta_oxygen = (oxygen - model.oxygen)
-	var/delta_carbon_dioxide = (carbon_dioxide - model.carbon_dioxide)
-	var/delta_nitrogen = (nitrogen - model.nitrogen)
-	var/delta_toxins = (toxins - model.toxins)
-	var/delta_sleeping_agent = (sleeping_agent - model.sleeping_agent)
-	var/delta_agent_b = (agent_b - model.agent_b)
-
-	var/delta_temperature = (temperature - model.temperature)
-
-	if(((abs(delta_oxygen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_oxygen) >= oxygen * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_carbon_dioxide) >= carbon_dioxide * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= nitrogen * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= toxins * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_sleeping_agent) >= sleeping_agent * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= agent_b * MINIMUM_AIR_RATIO_TO_SUSPEND)))
-		return 0
-	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
-		return 0
-
-	return 1
+	var/datum/gas_mixture/copied = new
+	copied.copy_from_turf(model)
+	. = compare(copied, datatype = ARCHIVE, adjacents = atmos_adjacent_turfs)
 
 /datum/gas_mixture/share(datum/gas_mixture/sharer, atmos_adjacent_turfs = 4)
+	. = 0
 	if(!sharer)
-		return 0
+		return
 	//If there is no difference why do the calculations?
-	if(oxygen_archived == sharer.oxygen_archived && carbon_dioxide_archived == sharer.carbon_dioxide_archived && nitrogen_archived == sharer.nitrogen_archived &&\
-	toxins_archived == sharer.toxins_archived && sleeping_agent_archived == sharer.sleeping_agent_archived && agent_b_archived == sharer.agent_b_archived && temperature_archived == sharer.temperature_archived)
-		return 0
-	var/delta_oxygen = QUANTIZE(oxygen_archived - sharer.oxygen_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_carbon_dioxide = QUANTIZE(carbon_dioxide_archived - sharer.carbon_dioxide_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_nitrogen = QUANTIZE(nitrogen_archived - sharer.nitrogen_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_toxins = QUANTIZE(toxins_archived - sharer.toxins_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_sleeping_agent = QUANTIZE(sleeping_agent_archived - sharer.sleeping_agent_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_agent_b = QUANTIZE(agent_b_archived - sharer.agent_b_archived) / (atmos_adjacent_turfs + 1)
-
+	var/list/deltas = new
+	var/list/sharer_gases = sharer.gases //accessing datum vars is slower than proc vars
+	for(var/list/gas as anything in gases)
+		deltas += QUANTIZE(gas[ARCHIVE] - sharer_gases[gas[GAS_INDEX]][ARCHIVE]) / (atmos_adjacent_turfs + 1)
 	var/delta_temperature = (temperature_archived - sharer.temperature_archived)
 
 	var/old_self_heat_capacity = 0
@@ -362,65 +363,25 @@ What are the archived variables for?
 
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 
-		var/delta_air = delta_oxygen + delta_nitrogen
-		if(delta_air)
-			var/air_heat_capacity = SPECIFIC_HEAT_AIR * delta_air
-			if(delta_air > 0)
-				heat_capacity_self_to_sharer += air_heat_capacity
-			else
-				heat_capacity_sharer_to_self -= air_heat_capacity
-
-		if(delta_carbon_dioxide)
-			var/carbon_dioxide_heat_capacity = SPECIFIC_HEAT_CDO * delta_carbon_dioxide
-			if(delta_carbon_dioxide > 0)
-				heat_capacity_self_to_sharer += carbon_dioxide_heat_capacity
-			else
-				heat_capacity_sharer_to_self -= carbon_dioxide_heat_capacity
-
-		if(delta_toxins)
-			var/toxins_heat_capacity = SPECIFIC_HEAT_TOXIN * delta_toxins
-			if(delta_toxins > 0)
-				heat_capacity_self_to_sharer += toxins_heat_capacity
-			else
-				heat_capacity_sharer_to_self -= toxins_heat_capacity
-
-		if(delta_sleeping_agent)
-			var/sleeping_agent_heat_capacity = SPECIFIC_HEAT_N2O * delta_sleeping_agent
-			if(delta_sleeping_agent > 0)
-				heat_capacity_self_to_sharer += sleeping_agent_heat_capacity
-			else
-				heat_capacity_sharer_to_self -= sleeping_agent_heat_capacity
-
-		if(delta_agent_b)
-			var/agent_b_heat_capacity = SPECIFIC_HEAT_AGENT_B * delta_agent_b
-			if(delta_agent_b > 0)
-				heat_capacity_self_to_sharer += agent_b_heat_capacity
-			else
-				heat_capacity_sharer_to_self -= agent_b_heat_capacity
+		for(var/list/gas as anything in gases)
+			if(deltas[gas[GAS_INDEX]])
+				var/gas_heat_capacity = abs(gas[SPECIFIC_HEAT] * deltas[gas[GAS_INDEX]])
+				if(deltas[gas[GAS_INDEX]] > 0)
+					heat_capacity_self_to_sharer += gas_heat_capacity
+				else
+					heat_capacity_sharer_to_self += gas_heat_capacity
 
 		old_self_heat_capacity = heat_capacity()
 		old_sharer_heat_capacity = sharer.heat_capacity()
 
-	oxygen -= delta_oxygen
-	sharer.oxygen += delta_oxygen
+	for(var/list/gas as anything in gases)
+		gas[MOLES] -= deltas[gas[GAS_INDEX]]
+		sharer_gases[gas[GAS_INDEX]][MOLES] += deltas[gas[GAS_INDEX]]
 
-	carbon_dioxide -= delta_carbon_dioxide
-	sharer.carbon_dioxide += delta_carbon_dioxide
-
-	nitrogen -= delta_nitrogen
-	sharer.nitrogen += delta_nitrogen
-
-	toxins -= delta_toxins
-	sharer.toxins += delta_toxins
-
-	sleeping_agent -= delta_sleeping_agent
-	sharer.sleeping_agent += delta_sleeping_agent
-
-	agent_b -= delta_agent_b
-	sharer.agent_b += delta_agent_b
-
-	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b)
-	last_share = abs(delta_oxygen) + abs(delta_carbon_dioxide) + abs(delta_nitrogen) + abs(delta_toxins) + abs(delta_sleeping_agent) + abs(delta_agent_b)
+	var/moved_moles = 0
+	for(var/delta in deltas)
+		moved_moles += delta
+		last_share += abs(delta)
 
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 		var/new_self_heat_capacity = old_self_heat_capacity + heat_capacity_sharer_to_self - heat_capacity_self_to_sharer
@@ -441,71 +402,9 @@ What are the archived variables for?
 		return delta_pressure * R_IDEAL_GAS_EQUATION / volume
 
 /datum/gas_mixture/mimic(turf/model, atmos_adjacent_turfs = 4)
-	var/delta_oxygen = QUANTIZE(oxygen_archived - model.oxygen) / (atmos_adjacent_turfs + 1)
-	var/delta_carbon_dioxide = QUANTIZE(carbon_dioxide_archived - model.carbon_dioxide) / (atmos_adjacent_turfs + 1)
-	var/delta_nitrogen = QUANTIZE(nitrogen_archived - model.nitrogen) / (atmos_adjacent_turfs + 1)
-	var/delta_toxins = QUANTIZE(toxins_archived - model.toxins) / (atmos_adjacent_turfs + 1)
-	var/delta_sleeping_agent = QUANTIZE(sleeping_agent_archived - model.sleeping_agent) / (atmos_adjacent_turfs + 1)
-	var/delta_agent_b = QUANTIZE(agent_b_archived - model.agent_b) / (atmos_adjacent_turfs + 1)
-
-	var/delta_temperature = (temperature_archived - model.temperature)
-
-	var/heat_transferred = 0
-	var/old_self_heat_capacity = 0
-	var/heat_capacity_transferred = 0
-
-	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
-
-		var/delta_air = delta_oxygen + delta_nitrogen
-		if(delta_air)
-			var/air_heat_capacity = SPECIFIC_HEAT_AIR * delta_air
-			heat_transferred -= air_heat_capacity * model.temperature
-			heat_capacity_transferred -= air_heat_capacity
-
-		if(delta_carbon_dioxide)
-			var/carbon_dioxide_heat_capacity = SPECIFIC_HEAT_CDO * delta_carbon_dioxide
-			heat_transferred -= carbon_dioxide_heat_capacity * model.temperature
-			heat_capacity_transferred -= carbon_dioxide_heat_capacity
-
-		if(delta_toxins)
-			var/toxins_heat_capacity = SPECIFIC_HEAT_TOXIN * delta_toxins
-			heat_transferred -= toxins_heat_capacity * model.temperature
-			heat_capacity_transferred -= toxins_heat_capacity
-
-		if(delta_sleeping_agent)
-			var/sleeping_agent_heat_capacity = SPECIFIC_HEAT_N2O * delta_sleeping_agent
-			heat_transferred -= sleeping_agent_heat_capacity * model.temperature
-			heat_capacity_transferred -= sleeping_agent_heat_capacity
-
-		if(delta_agent_b)
-			var/agent_b_heat_capacity = SPECIFIC_HEAT_AGENT_B * delta_agent_b
-			heat_transferred -= agent_b_heat_capacity * model.temperature
-			heat_capacity_transferred -= agent_b_heat_capacity
-
-		old_self_heat_capacity = heat_capacity()
-
-	oxygen -= delta_oxygen
-	carbon_dioxide -= delta_carbon_dioxide
-	nitrogen -= delta_nitrogen
-	toxins -= delta_toxins
-	sleeping_agent -= delta_sleeping_agent
-	agent_b -= delta_agent_b
-
-	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b)
-	last_share = abs(delta_oxygen) + abs(delta_carbon_dioxide) + abs(delta_nitrogen) + abs(delta_toxins) + abs(delta_sleeping_agent) + abs(delta_agent_b)
-
-	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
-		var/new_self_heat_capacity = old_self_heat_capacity - heat_capacity_transferred
-		if(new_self_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			temperature = (old_self_heat_capacity * temperature - heat_capacity_transferred * temperature_archived) / new_self_heat_capacity
-
-		temperature_mimic(model, model.thermal_conductivity)
-
-	if((delta_temperature > MINIMUM_TEMPERATURE_TO_MOVE) || abs(moved_moles) > MINIMUM_MOLES_DELTA_TO_MOVE)
-		var/delta_pressure = temperature_archived * (total_moles() + moved_moles) - model.temperature * (model.oxygen + model.carbon_dioxide + model.nitrogen + model.toxins + model.sleeping_agent + model.agent_b)
-		return delta_pressure * R_IDEAL_GAS_EQUATION / volume
-	else
-		return 0
+	var/datum/gas_mixture/copied = new
+	copied.copy_from_turf(model)
+	. = share(copied, atmos_adjacent_turfs)
 
 /datum/gas_mixture/temperature_share(datum/gas_mixture/sharer, conduction_coefficient)
 
@@ -521,16 +420,17 @@ What are the archived variables for?
 			temperature -= heat / self_heat_capacity
 			sharer.temperature += heat / sharer_heat_capacity
 
+
 /datum/gas_mixture/temperature_mimic(turf/model, conduction_coefficient)
 	var/delta_temperature = (temperature - model.temperature)
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 		var/self_heat_capacity = heat_capacity()
 
 		if((model.heat_capacity > MINIMUM_HEAT_CAPACITY) && (self_heat_capacity > MINIMUM_HEAT_CAPACITY))
-			var/heat = conduction_coefficient * delta_temperature * \
-				(self_heat_capacity * model.heat_capacity / (self_heat_capacity + model.heat_capacity))
+			var/heat = conduction_coefficient*delta_temperature* \
+				(self_heat_capacity*model.heat_capacity/(self_heat_capacity+model.heat_capacity))
 
-			temperature -= heat / self_heat_capacity
+			temperature -= heat/self_heat_capacity
 
 /datum/gas_mixture/temperature_turf_share(turf/simulated/sharer, conduction_coefficient)
 	var/delta_temperature = (temperature_archived - sharer.temperature)
@@ -544,31 +444,30 @@ What are the archived variables for?
 			temperature -= heat / self_heat_capacity
 			sharer.temperature += heat / sharer.heat_capacity
 
-/datum/gas_mixture/compare(datum/gas_mixture/sample)
-	if((abs(oxygen - sample.oxygen) > MINIMUM_AIR_TO_SUSPEND) && \
-		((oxygen < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.oxygen) || (oxygen > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.oxygen)))
-		return 0
-	if((abs(nitrogen - sample.nitrogen) > MINIMUM_AIR_TO_SUSPEND) && \
-		((nitrogen < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.nitrogen) || (nitrogen > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.nitrogen)))
-		return 0
-	if((abs(carbon_dioxide - sample.carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && \
-		((carbon_dioxide < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.carbon_dioxide) || (carbon_dioxide > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.carbon_dioxide)))
-		return 0
-	if((abs(toxins - sample.toxins) > MINIMUM_AIR_TO_SUSPEND) && \
-		((toxins < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.toxins) || (toxins > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.toxins)))
-		return 0
-	if((abs(sleeping_agent - sample.sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && \
-		((sleeping_agent < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.sleeping_agent) || (sleeping_agent > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.sleeping_agent)))
-		return 0
-	if((abs(agent_b - sample.agent_b) > MINIMUM_AIR_TO_SUSPEND) && \
-		((agent_b < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.agent_b) || (agent_b > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.agent_b)))
-		return 0
+/datum/gas_mixture/compare(datum/gas_mixture/sample, datatype = MOLES, adjacents = 0)
+	. = 0
+	var/list/sample_gases = sample.gases //accessing datum vars is slower than proc vars
+	for(var/list/gas as anything in gases)
+		var/delta = abs(gas[datatype] - sample_gases[gas[GAS_INDEX]][datatype])/(adjacents+1)
+		if(delta > MINIMUM_AIR_TO_SUSPEND && \
+			delta > gas[datatype] * MINIMUM_AIR_RATIO_TO_SUSPEND)
+			return
 
 	if(total_moles() > MINIMUM_AIR_TO_SUSPEND)
-		if((abs(temperature - sample.temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND) && \
-			((temperature < (1 - MINIMUM_TEMPERATURE_RATIO_TO_SUSPEND) * sample.temperature) || (temperature > (1 + MINIMUM_TEMPERATURE_RATIO_TO_SUSPEND) * sample.temperature)))
-			return 0
-	return 1
+		var/temp
+		var/sample_temp
+		switch(datatype)
+			if(MOLES)
+				temp = temperature
+				sample_temp = sample.temperature
+			if(ARCHIVE)
+				temp = temperature_archived
+				sample_temp = sample.temperature_archived
+		var/delta_temperature = abs(temp-sample_temp)
+		if((delta_temperature > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND) && \
+			delta_temperature > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND*temp)
+			return
+	. = 1
 
 
 

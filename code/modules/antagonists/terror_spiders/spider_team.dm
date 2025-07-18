@@ -327,7 +327,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 	while(count && length(candidates))
 		var/mob/ghost = pick_n_take(candidates)
-		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(vent_spawns)
+		var/obj/machinery/atmospherics/components/unary/vent_pump/vent = pick(vent_spawns)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/spider = new spider_type(spider_type.ventcrawler_trait ? vent.loc : pick(GLOB.xeno_spawn))
 
 		spider.set_key(ghost.key)

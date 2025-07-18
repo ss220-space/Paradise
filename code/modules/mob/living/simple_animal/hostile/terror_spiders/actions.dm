@@ -64,7 +64,7 @@
 
 /datum/action/innate/terrorspider/ventsmash
 	name = "Сломать вентиляцию"
-	icon_icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
+	icon_icon = 'icons/obj/atmospherics/vent_pump.dmi'
 	button_icon_state = "map_vent"
 
 /datum/action/innate/terrorspider/ventsmash/Activate()
@@ -305,10 +305,10 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoVentSmash()
 	var/valid_target = FALSE
-	for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
+	for(var/obj/machinery/atmospherics/components/unary/vent_pump/P in range(1, get_turf(src)))
 		if(P.welded)
 			valid_target = TRUE
-	for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
+	for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/C in range(1, get_turf(src)))
 		if(C.welded)
 			valid_target = TRUE
 	if(!valid_target)
@@ -316,13 +316,13 @@
 		return
 	playsound(get_turf(src), 'sound/creatures/terrorspiders/ventbreak.ogg', 75, 0)
 	if(do_after(src, 4.3 SECONDS, loc))
-		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
+		for(var/obj/machinery/atmospherics/components/unary/vent_pump/P in range(1, get_turf(src)))
 			if(P.welded)
 				P.set_welded(FALSE)
 				forceMove(P.loc)
 				P.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выбивает приваренную крышку [P.declent_ru(GENITIVE)]!"))
 				return
-		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
+		for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/C in range(1, get_turf(src)))
 			if(C.welded)
 				C.set_welded(FALSE)
 				forceMove(C.loc)

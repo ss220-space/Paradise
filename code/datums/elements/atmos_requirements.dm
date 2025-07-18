@@ -38,10 +38,10 @@
 
 	var/atmos_suitable = TRUE
 
-	var/tox = environment.toxins
-	var/oxy = environment.oxygen
-	var/n2 = environment.nitrogen
-	var/co2 = environment.carbon_dioxide
+	var/tox = environment.gases[GAS_PL][MOLES]
+	var/oxy = environment.gases[GAS_O2][MOLES]
+	var/n2 = environment.gases[GAS_N2][MOLES]
+	var/co2 = environment.gases[GAS_CO2][MOLES]
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = FALSE

@@ -1,6 +1,5 @@
-/obj/machinery/atmospherics/trinary/mixer
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/mixer.dmi'
-	icon_state = "map"
+/obj/machinery/atmospherics/components/trinary/mixer
+	icon_state = "map_mixer"
 
 	can_unwrench = TRUE
 
@@ -13,7 +12,7 @@
 
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 
-/obj/machinery/atmospherics/trinary/mixer/CtrlClick(mob/living/user)
+/obj/machinery/atmospherics/components/trinary/mixer/CtrlClick(mob/living/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -23,29 +22,29 @@
 		return
 	toggle()
 
-/obj/machinery/atmospherics/trinary/mixer/AICtrlClick()
+/obj/machinery/atmospherics/components/trinary/mixer/AICtrlClick()
 	toggle()
 	return ..()
 
-/obj/machinery/atmospherics/trinary/mixer/click_alt(mob/living/user)
+/obj/machinery/atmospherics/components/trinary/mixer/click_alt(mob/living/user)
 	set_max()
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/atmospherics/trinary/mixer/ai_click_alt()
+/obj/machinery/atmospherics/components/trinary/mixer/ai_click_alt()
 	set_max()
 	return ..()
 
-/obj/machinery/atmospherics/trinary/mixer/flipped
-	icon_state = "mmap"
-	flipped = 1
+/obj/machinery/atmospherics/components/trinary/mixer/flipped
+	icon_state = "mmap_mixer"
+	flipped = TRUE
 
 
-/obj/machinery/atmospherics/trinary/mixer/proc/set_max()
+/obj/machinery/atmospherics/components/trinary/mixer/proc/set_max()
 	if(powered())
 		target_pressure = MAX_OUTPUT_PRESSURE
 		update_icon()
 
-/obj/machinery/atmospherics/trinary/mixer/update_icon_state()
+/obj/machinery/atmospherics/components/trinary/mixer/update_icon_state()
 	..()
 
 	if(flipped)
@@ -54,48 +53,57 @@
 		icon_state = ""
 
 	if(!powered())
-		icon_state += "off"
-	else if(node2 && node3 && node1)
-		icon_state += on ? "on" : "off"
+		icon_state += "mixer_off"
+	else if(NODE1 && NODE2 && NODE3)
+		icon_state += on ? "mixer_on" : "mixer_off"
 	else
-		icon_state += "off"
+		icon_state += "mixer_off"
 		on = FALSE
 
-/obj/machinery/atmospherics/trinary/mixer/update_underlays()
+/obj/machinery/atmospherics/components/trinary/mixer/update_underlays()
 	if(..())
 		underlays.Cut()
 		var/turf/T = get_turf(src)
 		if(!istype(T))
 			return
 
-		add_underlay(T, node1, turn(dir, -180))
+		add_underlay(T, NODE1, turn(dir, -180))
 
 		if(flipped)
-			add_underlay(T, node2, turn(dir, 90))
+			add_underlay(T, NODE2, turn(dir, 90))
 		else
-			add_underlay(T, node2, turn(dir, -90))
+			add_underlay(T, NODE2, turn(dir, -90))
 
-		add_underlay(T, node3, dir)
+		add_underlay(T, NODE3, dir)
 
-/obj/machinery/atmospherics/trinary/mixer/power_change()
+/obj/machinery/atmospherics/components/trinary/mixer/power_change()
 	if(!..())
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/trinary/mixer/New()
+/obj/machinery/atmospherics/components/trinary/mixer/New()
 	..()
+	var/datum/gas_mixture/air3 = AIR3
 	air3.volume = 300
+	AIR3 = air3
 
-/obj/machinery/atmospherics/trinary/mixer/process_atmos()
+/obj/machinery/atmospherics/components/trinary/mixer/process_atmos()
 	..()
 	if(!on)
-		return 0
+		return FALSE
+
+	if(!(NODE1 && NODE1 && NODE3))
+		return FALSE
+
+	var/datum/gas_mixture/air1 = AIR1
+	var/datum/gas_mixture/air2 = AIR2
+	var/datum/gas_mixture/air3 = AIR3
 
 	var/output_starting_pressure = air3.return_pressure()
 
 	if(output_starting_pressure >= target_pressure)
 		//No need to mix if target is already full!
-		return 1
+		return TRUE
 
 	/*
 	Pump mode:
@@ -147,19 +155,22 @@
 		air3.merge(removed2)
 
 	if(transfer_moles1)
+		var/datum/pipeline/parent1 = PARENT1
 		parent1.update = 1
 
 	if(transfer_moles2)
+		var/datum/pipeline/parent2 = PARENT2
 		parent2.update = 1
 
+	var/datum/pipeline/parent3 = PARENT3
 	parent3.update = 1
 
-	return 1
+	return TRUE
 
-/obj/machinery/atmospherics/trinary/mixer/attack_ghost(mob/user)
+/obj/machinery/atmospherics/components/trinary/mixer/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/trinary/mixer/attack_hand(mob/user)
+/obj/machinery/atmospherics/components/trinary/mixer/attack_hand(mob/user)
 	if(..())
 		return
 
@@ -170,13 +181,13 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/trinary/mixer/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/atmospherics/components/trinary/mixer/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosMixer", name)
 		ui.open()
 
-/obj/machinery/atmospherics/trinary/mixer/ui_data(mob/user)
+/obj/machinery/atmospherics/components/trinary/mixer/ui_data(mob/user)
 	var/list/data = list(
 		"on" = on,
 		"pressure" = round(target_pressure, 0.01),
@@ -188,7 +199,7 @@
 
 
 
-/obj/machinery/atmospherics/trinary/mixer/ui_act(action, list/params)
+/obj/machinery/atmospherics/components/trinary/mixer/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -225,7 +236,7 @@
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
 
-/obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/components/trinary/mixer/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

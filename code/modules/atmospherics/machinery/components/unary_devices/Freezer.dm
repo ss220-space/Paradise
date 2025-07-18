@@ -1,4 +1,4 @@
-/obj/machinery/atmospherics/unary/cold_sink/freezer
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer
 	name = "охладитель"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "freezer"
@@ -15,7 +15,7 @@
 	max_integrity = 300
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/New()
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/New()
 	..()
 	initialize_directions = dir
 	component_parts = list()
@@ -28,7 +28,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded/New()
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/upgraded/New()
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/thermomachine(null)
@@ -40,24 +40,24 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/RefreshParts()
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/RefreshParts()
 	var/H
 	var/T
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		H += M.rating
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		T += M.rating
-	min_temperature = max(TCMB, T0C - (170 + (T*15)))
+	min_temperature = max(TCMB, T0C - (170 + (T * 15)))
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/on_construction()
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/on_construction()
 	..(dir,dir)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/process()
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/process()
 	return	// need to overwrite the parent or it returns PROCESS_KILL and it stops processing/using power
 
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
@@ -65,18 +65,18 @@
 	return ..()
 
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "freezer-o", "freezer", I))
 		on = FALSE
 		use_power = IDLE_POWER_USE
 		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/wrench_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -90,12 +90,12 @@
 	initialize_directions = dir
 	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
 		if(target.initialize_directions & get_dir(target,src))
-			node = target
+			NODE1 = target
 			break
 	build_network()
 	update_icon()
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon_state()
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/update_icon_state()
 	if(panel_open)
 		icon_state = "freezer-o"
 	else if(on)
@@ -104,13 +104,13 @@
 		icon_state = "freezer"
 
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/attack_ai(mob/user as mob)
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/attack_ai(mob/user as mob)
 	attack_hand(user)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/attack_ghost(mob/user as mob)
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/attack_ghost(mob/user as mob)
 	attack_hand(user)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/attack_hand(mob/user as mob)
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/attack_hand(mob/user as mob)
 	if(..())
 		return TRUE
 
@@ -121,14 +121,15 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "GasFreezer", "Газоохладительная система")
 		ui.open()
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_data(mob/user)
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/ui_data(mob/user)
 	var/list/data = list()
+	var/datum/gas_mixture/air_contents = AIR1
 	data["on"] = on
 	data["pressure"] = round(air_contents.return_pressure())
 	data["temperature"] = round(air_contents.temperature)
@@ -141,7 +142,7 @@
 	data["targetCelsius"] = round(current_temperature - T0C, 1)
 	return data
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_act(action, params)
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/ui_act(action, params)
 	if(..())
 		return
 	add_fingerprint(usr)
@@ -164,7 +165,7 @@
 			amount = text2num(amount)
 			current_temperature = clamp(amount, T20C, min_temperature)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/power_change(forced = FALSE)
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/power_change(forced = FALSE)
 	if(!..())
 		return
 	if(stat & NOPOWER)
@@ -172,7 +173,7 @@
 		use_power = IDLE_POWER_USE
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/
 	name = "нагреватель"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "heater"
@@ -186,11 +187,11 @@
 	max_integrity = 300
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/New()
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/New()
 	..()
 	initialize_directions = dir
 	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
-	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
+	H.build_path = /obj/machinery/atmospherics/components/unary/heat_reservoir/heater
 	H.name = "circuit board (Нагреватель)"
 	component_parts = list()
 	component_parts += H
@@ -202,10 +203,10 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded/New()
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/upgraded/New()
 	..()
 	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
-	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
+	H.build_path = /obj/machinery/atmospherics/components/unary/heat_reservoir/heater
 	H.name = "circuit board (Нагреватель)"
 	component_parts = list()
 	component_parts += H
@@ -217,13 +218,13 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/on_construction()
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/on_construction()
 	..(dir,dir)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/process()
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/process()
 	return	// need to override the parent or it stops processing, meaning it stops using power.
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/RefreshParts()
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/RefreshParts()
 	var/H
 	var/T
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
@@ -234,7 +235,7 @@
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
@@ -242,18 +243,18 @@
 	return ..()
 
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "heater-o", "heater", I))
 		on = 0
 		use_power = IDLE_POWER_USE
 		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/wrench_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -267,13 +268,13 @@
 	initialize_directions = dir
 	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
 		if(target.initialize_directions & get_dir(target,src))
-			node = target
+			NODE1 = target
 			break
 	build_network()
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon_state()
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/update_icon_state()
 	if(panel_open)
 		icon_state = "heater-o"
 	else if(on)
@@ -282,13 +283,13 @@
 		icon_state = "heater"
 
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_ai(mob/user as mob)
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/attack_ai(mob/user as mob)
 	attack_hand(user)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_ghost(mob/user as mob)
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/attack_ghost(mob/user as mob)
 	src.attack_hand(user)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_hand(mob/user as mob)
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/attack_hand(mob/user as mob)
 	if(panel_open)
 		to_chat(user, span_notice("Сначала закройте панель техобслуживания."))
 		return
@@ -296,14 +297,15 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "GasFreezer", "Газонагревательная система")
 		ui.open()
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_data(mob/user)
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/ui_data(mob/user)
 	var/list/data = list()
+	var/datum/gas_mixture/air_contents = AIR1
 	data["on"] = on
 	data["pressure"] = round(air_contents.return_pressure())
 	data["temperature"] = round(air_contents.temperature)
@@ -316,7 +318,7 @@
 	data["targetCelsius"] = round(current_temperature - T0C, 1)
 	return data
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_act(action, params)
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/ui_act(action, params)
 	if(..())
 		return
 	add_fingerprint(usr)
@@ -340,7 +342,7 @@
 			current_temperature = clamp(amount, T20C, T20C + max_temperature)
 
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/power_change(forced = FALSE)
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/power_change(forced = FALSE)
 	if(!..())
 		return
 	if(stat & NOPOWER)

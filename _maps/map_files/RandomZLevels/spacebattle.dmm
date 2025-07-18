@@ -106,7 +106,7 @@
 	},
 /area/awaymission/spacebattle/syndicate2)
 "ar" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/components/unary/cryo_cell,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -1031,7 +1031,7 @@
 /turf/space,
 /area/awaymission/spacebattle/engineering)
 "dj" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/engine,
 /area/awaymission/spacebattle/engine)
 "dk" = (
@@ -2573,7 +2573,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "hs" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
 	dir = 1
 	},
 /turf/simulated/floor/shuttle{
@@ -2806,7 +2806,7 @@
 /area/awaymission/spacebattle/hallway11)
 "id" = (
 /obj/structure/window/plasmareinforced,
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
 	dir = 8;
 	external_pressure_bound = 100;
 	external_pressure_bound_default = 100
@@ -3416,7 +3416,7 @@
 	},
 /area/awaymission/spacebattle/syndicate2)
 "jN" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -3863,7 +3863,7 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "kW" = (
-/obj/machinery/atmospherics/binary/circulator{
+/obj/machinery/atmospherics/components/binary/circulator{
 	icon_state = "circ8-off"
 	},
 /obj/structure/window/plasmareinforced,
@@ -3917,7 +3917,7 @@
 	},
 /area/space/nearstation)
 "lc" = (
-/obj/machinery/atmospherics/binary/circulator{
+/obj/machinery/atmospherics/components/binary/circulator{
 	icon_state = "circ4-off";
 	side = 4
 	},
@@ -4032,7 +4032,7 @@
 /area/awaymission/spacebattle/turret1)
 "lx" = (
 /obj/structure/lattice,
-/obj/machinery/atmospherics/unary/outlet_injector,
+/obj/machinery/atmospherics/components/unary/outlet_injector,
 /turf/space,
 /area/space)
 "ly" = (
@@ -4560,7 +4560,7 @@
 	},
 /area/awaymission/spacebattle/syndicate4)
 "mY" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
 	on = 1;
@@ -4935,7 +4935,7 @@
 	},
 /area/space/nearstation)
 "nU" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8
 	},
 /obj/structure/window/plasmareinforced{
@@ -5278,7 +5278,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "oY" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /turf/simulated/floor/pod/dark,
 /area/awaymission/spacebattle/hallway10)
 "oZ" = (
@@ -5652,7 +5652,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "qj" = (
-/obj/machinery/atmospherics/unary/tank/toxins{
+/obj/machinery/atmospherics/components/unary/tank/toxins{
 	dir = 1;
 	volume = 2000
 	},
@@ -5667,7 +5667,7 @@
 /turf/simulated/floor/pod,
 /area/awaymission/spacebattle/syndicate5)
 "ql" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8
 	},
 /obj/structure/window/plasmareinforced{
@@ -5691,7 +5691,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/spacebattle/engineering)
 "qo" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -6155,7 +6155,7 @@
 /turf/space,
 /area/space)
 "rF" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/pod/dark,
@@ -6555,7 +6555,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/machinery/atmospherics/binary/passive_gate{
+/obj/machinery/atmospherics/components/binary/passive_gate{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -7321,7 +7321,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway7)
 "uK" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
 	dir = 8;
 	external_pressure_bound = 100;
 	external_pressure_bound_default = 100
@@ -7712,7 +7712,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/spacebattle/hallway11)
 "vR" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -8113,7 +8113,7 @@
 	},
 /area/awaymission/spacebattle/syndicate4)
 "wQ" = (
-/obj/machinery/atmospherics/unary/tank/toxins{
+/obj/machinery/atmospherics/components/unary/tank/toxins{
 	dir = 1;
 	volume = 2000
 	},
@@ -8872,7 +8872,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "yK" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
@@ -9190,7 +9190,7 @@
 	},
 /area/awaymission/spacebattle/engine)
 "zD" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8
 	},
 /obj/structure/window/plasmareinforced{
@@ -9921,7 +9921,7 @@
 	},
 /area/space)
 "BF" = (
-/obj/machinery/atmospherics/unary/tank/toxins{
+/obj/machinery/atmospherics/components/unary/tank/toxins{
 	volume = 2000
 	},
 /obj/structure/window/plasmareinforced{
@@ -10307,7 +10307,7 @@
 	dir = 4;
 	simulated = 0
 	},
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded{
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/upgraded{
 	dir = 1
 	},
 /obj/machinery/light/small,
@@ -10395,7 +10395,7 @@
 	dir = 1;
 	simulated = 0
 	},
-/obj/machinery/atmospherics/binary/circulator{
+/obj/machinery/atmospherics/components/binary/circulator{
 	icon_state = "circ8-off"
 	},
 /turf/simulated/floor/plating,
@@ -10487,7 +10487,7 @@
 	},
 /area/awaymission/spacebattle/engineering)
 "Dl" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway1)
 "Dn" = (
@@ -10690,7 +10690,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "DJ" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 1;
 	frequency = 1379;
 	id_tag = "ex_pump"
@@ -11335,7 +11335,7 @@
 	},
 /area/awaymission/spacebattle/hallway10)
 "Fx" = (
-/obj/machinery/atmospherics/unary/tank/toxins{
+/obj/machinery/atmospherics/components/unary/tank/toxins{
 	dir = 1;
 	volume = 2000
 	},
@@ -11556,7 +11556,7 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "Gc" = (
-/obj/machinery/atmospherics/binary/circulator{
+/obj/machinery/atmospherics/components/binary/circulator{
 	icon_state = "circ4-off";
 	side = 4
 	},
@@ -11755,7 +11755,7 @@
 /obj/machinery/portable_atmospherics/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -12256,7 +12256,7 @@
 	},
 /area/awaymission/spacebattle/hallway11)
 "HY" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8
 	},
 /obj/structure/window/plasmareinforced{
@@ -12366,7 +12366,7 @@
 	},
 /area/awaymission/spacebattle/hallway7)
 "Is" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
@@ -13400,7 +13400,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "Ln" = (
-/obj/machinery/atmospherics/unary/tank/toxins{
+/obj/machinery/atmospherics/components/unary/tank/toxins{
 	volume = 2000
 	},
 /obj/structure/window/plasmareinforced{
@@ -13507,7 +13507,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "LD" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded,
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/upgraded,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 32
 	},
@@ -14079,7 +14079,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret8)
 "Nj" = (
-/obj/machinery/atmospherics/binary/passive_gate{
+/obj/machinery/atmospherics/components/binary/passive_gate{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -14928,7 +14928,7 @@
 	},
 /area/awaymission/spacebattle/prhallway3)
 "Pu" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded{
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/upgraded{
 	dir = 1
 	},
 /turf/simulated/floor/shuttle{
@@ -16936,7 +16936,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded,
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater/upgraded,
 /obj/structure/window/plasmareinforced{
 	dir = 4;
 	simulated = 0
@@ -17984,7 +17984,7 @@
 	},
 /area/awaymission/spacebattle/hallway12)
 "XO" = (
-/obj/machinery/atmospherics/unary/tank/toxins{
+/obj/machinery/atmospherics/components/unary/tank/toxins{
 	volume = 2000
 	},
 /obj/structure/window/plasmareinforced{

@@ -1310,19 +1310,10 @@ BODY SCANNERS
 		//TODO: Port gas mixtures from TG
 		if(total_moles > 0)
 			message += span_notice("Moles: [round(total_moles, 0.01)] mol")
-			if(air.oxygen)
-				message += span_notice("Oxygen: [round(air.oxygen, 0.01)] mol ([round(air.oxygen / total_moles*100, 0.01)] %)")
-			if(air.carbon_dioxide)
-				message += span_notice("Carbon Dioxide: [round(air.carbon_dioxide, 0.01)] mol ([round(air.carbon_dioxide / total_moles*100, 0.01)] %)")
-			if(air.nitrogen)
-				message += span_notice("Nitrogen: [round(air.nitrogen, 0.01)] mol ([round(air.nitrogen / total_moles*100, 0.01)] %)")
-			if(air.toxins)
-				message += span_notice("Plasma: [round(air.toxins, 0.01)] mol ([round(air.toxins / total_moles*100, 0.01)] %)")
-			if(air.sleeping_agent)
-				message += span_notice("Nitrous Oxide: [round(air.sleeping_agent, 0.01)] mol ([round(air.sleeping_agent / total_moles*100, 0.01)] %)")
-			if(air.agent_b)
-				message += span_notice("Agent B: [round(air.agent_b, 0.01)] mol ([round(air.agent_b / total_moles*100, 0.01)] %)")
-
+			for(var/gas in air.gases)
+				var/gas_concentration = gas[MOLES] / total_moles
+				if(gas[GAS_INDEX] <= 4 || gas_concentration > 0.01) //ensures the four primary gases are always shown.
+					message += span_notice("[gas[GAS_NAME]]: [round(gas_concentration * 100)] %")
 			message += span_notice("Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
 			message += span_notice("Volume: [volume] L")
 			message += span_notice("Pressure: [round(pressure, 0.01)] kPa")

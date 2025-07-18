@@ -6,7 +6,7 @@
 	item_state = "jetpack"
 	distribute_pressure = ONE_ATMOSPHERE * O2STANDARD
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
-	var/gas_type = "oxygen"
+	var/gas_type = GAS_O2
 	var/on = FALSE
 	var/stabilize = FALSE
 	var/skip_trails = FALSE
@@ -51,12 +51,7 @@
 /obj/item/tank/jetpack/populate_gas()
 	if(!gas_type)
 		return
-	switch(gas_type)
-		if("oxygen")
-			air_contents.oxygen = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
-		if("carbon dioxide")
-			air_contents.carbon_dioxide = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
-
+	air_contents.gases[gas_type][MOLES] = (6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
 
 /obj/item/tank/jetpack/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot & ITEM_SLOT_BACK)
@@ -230,7 +225,7 @@
 	distribute_pressure = 0
 	icon_state = "jetpack-black"
 	item_state =  "jetpack-black"
-	gas_type = "carbon dioxide"
+	gas_type = GAS_CO2
 
 /obj/item/tank/jetpack/suit
 	name = "hardsuit jetpack upgrade"

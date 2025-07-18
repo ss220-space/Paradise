@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ag" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	name = "Connector Port (Air Supply)"
 	},
 /obj/machinery/portable_atmospherics/canister/air{
@@ -246,7 +246,7 @@
 /turf/simulated/floor/plating,
 /area/ae13/energy)
 "gO" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air{
@@ -1188,7 +1188,7 @@
 /obj/machinery/portable_atmospherics/canister/air{
 	maximum_pressure = 50000
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -1266,7 +1266,7 @@
 	},
 /area/ae13/hall)
 "BC" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	frequency = 1331;
 	id_tag = "syndie_cargo_left_shuttle_pump"
 	},
@@ -1790,7 +1790,7 @@
 /turf/simulated/floor/plating,
 /area/ae13/medbay)
 "No" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 1;
 	frequency = 1331;
 	id_tag = "syndie_cargo_right_shuttle_pump"
@@ -2241,7 +2241,7 @@
 /turf/simulated/floor/plating,
 /area/ae13/medbay)
 "TO" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 8;
 	frequency = 1331;
 	id_tag = "synd_pump_bottom"

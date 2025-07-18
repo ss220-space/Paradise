@@ -7,7 +7,7 @@
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | ALLOW_SILICON_REACH
 	var/datum/gas_mixture/air_contents = new
 
-	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
+	var/obj/machinery/atmospherics/components/unary/portables_connector/connected_port
 	var/obj/item/tank/holding
 	var/volume = 0
 	var/maximum_pressure = 90*ONE_ATMOSPHERE
@@ -32,7 +32,7 @@
 
 
 /obj/machinery/portable_atmospherics/proc/check_for_port()
-	var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc
+	var/obj/machinery/atmospherics/components/unary/portables_connector/port = locate() in loc
 	if(port)
 		connect(port)
 
@@ -57,7 +57,7 @@
 /obj/machinery/portable_atmospherics/update_overlays()
 	. = list()
 
-/obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
+/obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/components/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
 		return FALSE
@@ -71,9 +71,11 @@
 	connected_port.connected_device = src
 	// To avoid a chicken-egg thing where pipes need to
 	// be initialized before the atmos cans are
-	if(!connected_port.parent)
+	var/datum/pipeline/connected_port_parent = connected_port.PARENT1
+	connected_port_parent.reconcile_air()
+	if(!connected_port_parent )
 		connected_port.build_network()
-	connected_port.parent.reconcile_air()
+	connected_port_parent.reconcile_air()
 
 	set_anchored(TRUE) //Prevent movement
 
@@ -152,7 +154,7 @@
 		to_chat(user, span_notice("You disconnect [name] from the port."))
 		update_icon()
 	else
-		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector/) in loc
+		var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/components/unary/portables_connector/) in loc
 		if(possible_port)
 			if(connect(possible_port))
 				to_chat(user, span_notice("You connect [src] to the port."))

@@ -184,7 +184,7 @@
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "aB" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -357,7 +357,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "aX" = (
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -427,7 +427,7 @@
 	},
 /area/ruin/space/pirate_base/lab_sec)
 "bh" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -645,7 +645,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "bT" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -863,7 +863,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/pirate_base/lab_sec)
 "cs" = (
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -1002,7 +1002,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/pirate_base/kitchen)
 "cG" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1165,7 +1165,7 @@
 	pixel_y = 8
 	},
 /obj/effect/turf_decal/siding/thinplating,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -1218,7 +1218,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "di" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen{
@@ -1635,7 +1635,7 @@
 	icon_state = "1-2"
 	},
 /obj/item/kitchen/knife/glassshiv,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "ep" = (
@@ -1766,7 +1766,7 @@
 	},
 /area/ruin/space/pirate_base/laboratory)
 "eL" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -1791,7 +1791,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "eT" = (
@@ -1804,7 +1804,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "eU" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/canister,
@@ -1925,7 +1925,7 @@
 	},
 /area/ruin/space/pirate_base/virus_lab)
 "fj" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -2043,7 +2043,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/security_atrium)
 "fA" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/structure/sign/poster/official/air1{
@@ -2784,7 +2784,7 @@
 	},
 /area/ruin/space/pirate_base/virus_lab)
 "hC" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
 	target_pressure = 202.325
 	},
@@ -2995,7 +2995,7 @@
 "id" = (
 /obj/effect/turf_decal/siding/yellow,
 /obj/structure/window/reinforced,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/pod/light,
@@ -3132,7 +3132,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -3395,7 +3395,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "js" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3661,7 +3661,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "kg" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3844,7 +3844,7 @@
 /turf/simulated/floor/greengrid,
 /area/ruin/space/pirate_base/xeno_lab)
 "kL" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -4017,7 +4017,7 @@
 /area/ruin/space/pirate_base/lab_maint)
 "ll" = (
 /obj/effect/landmark/tiles/burnturf,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
 	on = 1;
@@ -4372,7 +4372,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "mm" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -5394,7 +5394,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/xeno_lab)
 "oW" = (
-/obj/machinery/atmospherics/unary/tank/air,
+/obj/machinery/atmospherics/components/unary/tank/air,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "oX" = (
@@ -5545,7 +5545,7 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 6
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -5620,7 +5620,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "pC" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5652,7 +5652,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "pN" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -6374,7 +6374,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "rX" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1;
 	scrub_Toxins = 0
 	},
@@ -6508,7 +6508,7 @@
 	},
 /area/ruin/space/pirate_base/observ)
 "su" = (
-/obj/machinery/atmospherics/binary/volume_pump/on{
+/obj/machinery/atmospherics/components/binary/volume_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -6565,7 +6565,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "sA" = (
-/obj/machinery/atmospherics/unary/tank/toxins{
+/obj/machinery/atmospherics/components/unary/tank/toxins{
 	volume = 2000
 	},
 /turf/simulated/floor/plating,
@@ -6640,7 +6640,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "sK" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6648,7 +6648,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "sM" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -6742,7 +6742,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "tc" = (
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded,
+/obj/machinery/atmospherics/components/unary/cryo_cell/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -6754,7 +6754,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/pirate_base/kitchen)
 "ti" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -6950,7 +6950,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atmos)
 "tK" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -7150,7 +7150,7 @@
 	color = "#F0E68C"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
 	on = 1;
@@ -7731,7 +7731,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "vF" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -7774,7 +7774,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
 "vN" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -7951,7 +7951,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -7967,7 +7967,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "wq" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "ws" = (
@@ -8109,7 +8109,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/mining)
 "wT" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 1
 	},
 /obj/item/stock_parts/capacitor,
@@ -8322,7 +8322,7 @@
 /turf/space,
 /area/space)
 "xC" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -8502,7 +8502,7 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -8700,7 +8700,7 @@
 /area/ruin/space/pirate_base/observ)
 "yV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -8942,7 +8942,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "zC" = (
@@ -8951,7 +8951,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "zD" = (
-/obj/machinery/atmospherics/unary/tank/oxygen{
+/obj/machinery/atmospherics/components/unary/tank/oxygen{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -9131,7 +9131,7 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "Ak" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	target_pressure = 202.325;
 	dir = 4
 	},
@@ -9569,7 +9569,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "BE" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
 	on = 1;
@@ -10691,7 +10691,7 @@
 	icon_state = "bulb-broken";
 	status = 2
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister{
@@ -10704,7 +10704,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/tiles/burnturf,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -11223,7 +11223,7 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "GD" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
 	on = 1;
@@ -11373,7 +11373,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "GU" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -11473,7 +11473,7 @@
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
 	on = 1;
@@ -11505,7 +11505,7 @@
 	pixel_x = 24;
 	req_access = list(160)
 	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/upgraded{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -11655,7 +11655,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "HL" = (
-/obj/machinery/atmospherics/binary/volume_pump/on,
+/obj/machinery/atmospherics/components/binary/volume_pump/on,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "HM" = (
@@ -11811,7 +11811,7 @@
 /area/ruin/space/pirate_base/arrivals)
 "Ig" = (
 /obj/effect/spawner/lootdrop/spentcasing/pistol,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "white"
@@ -11989,7 +11989,7 @@
 "IL" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -12219,7 +12219,7 @@
 	},
 /area/ruin/space/pirate_base/kitchen)
 "Jt" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -12667,7 +12667,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "Kz" = (
-/obj/machinery/atmospherics/binary/volume_pump/on{
+/obj/machinery/atmospherics/components/binary/volume_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -12688,7 +12688,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "KH" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -12982,7 +12982,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/lab_solar)
 "LE" = (
-/obj/machinery/atmospherics/binary/volume_pump,
+/obj/machinery/atmospherics/components/binary/volume_pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "LG" = (
@@ -13100,7 +13100,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "Ma" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/structure/chair/office/light{
@@ -13528,7 +13528,7 @@
 	},
 /area/ruin/space/pirate_base/observ)
 "Nk" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/structure/closet/walllocker/emerglocker/east,
@@ -13602,7 +13602,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "Ns" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13720,7 +13720,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/space)
 "NP" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -14055,7 +14055,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "OU" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister,
@@ -14463,7 +14463,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "PV" = (
-/obj/machinery/atmospherics/trinary/mixer/flipped{
+/obj/machinery/atmospherics/components/trinary/mixer/flipped{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -14647,7 +14647,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "QD" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -14696,7 +14696,7 @@
 	pixel_x = 24;
 	req_access = list(160)
 	},
-/obj/machinery/atmospherics/binary/volume_pump,
+/obj/machinery/atmospherics/components/binary/volume_pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "QJ" = (
@@ -14842,7 +14842,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/lab_solar)
 "Rg" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -15064,7 +15064,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "RT" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
 	on = 1;
@@ -15086,7 +15086,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_atrium)
 "RV" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/structure/table,
@@ -15580,7 +15580,7 @@
 /area/ruin/space/pirate_base/lab_maint)
 "Tr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -15688,7 +15688,7 @@
 	},
 /area/ruin/space/pirate_base/virus_lab)
 "TM" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	target_pressure = 202.325
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -15740,7 +15740,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/telecomms)
 "TU" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -16269,7 +16269,7 @@
 	status = 2
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -16870,7 +16870,7 @@
 	},
 /area/ruin/space/pirate_base/kitchen)
 "Xu" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
@@ -16885,7 +16885,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
 "Xw" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -17041,7 +17041,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/lab_maint)
 "Yb" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner";
@@ -17064,7 +17064,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "Yd" = (
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -17152,7 +17152,7 @@
 	},
 /area/ruin/space/pirate_base/security_medical)
 "Ys" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -17265,7 +17265,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/telecomms)
 "YG" = (
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -17482,7 +17482,7 @@
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Zi" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
 	on = 1;
@@ -17631,7 +17631,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "ZH" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	name = "Connector Port (Air Supply)"
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen{

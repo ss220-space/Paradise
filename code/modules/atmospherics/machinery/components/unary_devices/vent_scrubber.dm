@@ -1,5 +1,7 @@
-/obj/machinery/atmospherics/unary/vent_scrubber
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_scrubber.dmi'
+#define SIPHONING	0
+#define SCRUBBING	1
+
+/obj/machinery/atmospherics/components/unary/vent_scrubber
 	icon_state = "map_scrubber"
 
 	name = "air scrubber"
@@ -21,8 +23,10 @@
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
+	welded = 0
+
 	on = FALSE
-	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
+	var/scrubbing = SCRUBBING
 	var/scrub_O2 = 0
 	var/scrub_N2 = 0
 	var/scrub_CO2 = 1
@@ -40,12 +44,12 @@
 
 	multitool_menu_type = /datum/multitool_menu/idtag/freq/vent_scrubber
 
-/obj/machinery/atmospherics/unary/vent_scrubber/on
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on
 	on = TRUE
 	scrub_N2O = TRUE
 	scrub_Toxins = TRUE
 
-/obj/machinery/atmospherics/unary/vent_scrubber/New()
+/obj/machinery/atmospherics/components/unary/vent_scrubber/New()
 	..()
 	icon = null
 	initial_loc = get_area(loc)
@@ -54,21 +58,20 @@
 		assign_uid()
 		id_tag = num2text(uid)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
+/obj/machinery/atmospherics/components/unary/vent_scrubber/Destroy()
 	if(initial_loc && frequency == ATMOS_VENTSCRUB)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
+		initial_loc = null
+	adjacent_turfs.Cut()
 	return ..()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/examine(mob/user)
 	. = ..()
 	if(welded)
 		. += span_notice("It seems welded shut.")
 
-/obj/machinery/atmospherics/unary/vent_scrubber/auto_use_power()
+/obj/machinery/atmospherics/components/unary/vent_scrubber/auto_use_power()
 	if(!powered(power_channel))
 		return 0
 	if(!on || welded)
@@ -78,7 +81,7 @@
 
 	var/amount = idle_power_usage
 
-	if(scrubbing)
+	if(scrubbing & SCRUBBING)
 		if(scrub_CO2)
 			amount += idle_power_usage
 		if(scrub_Toxins)
@@ -95,7 +98,7 @@
 	use_power(amount, power_channel)
 	return 1
 
-/obj/machinery/atmospherics/unary/vent_scrubber/update_overlays()
+/obj/machinery/atmospherics/components/unary/vent_scrubber/update_overlays()
 	. = ..()
 	SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
 	if(!check_icon_cache())
@@ -107,24 +110,31 @@
 	if(!istype(T))
 		return
 
-	if(!powered())
-		scrubber_icon += "off"
+	var/scrub_dir
+	if(scrubbing & SCRUBBING)
+		scrub_dir = "_on"
 	else
-		scrubber_icon += "[on ? "[scrubbing ? "on" : "in"]" : "off"]"
+		scrub_dir = "_in"
+
+	if(!powered())
+		scrubber_icon += "_off"
+	else
+		scrubber_icon += "[on ? scrub_dir : "_off"]"
 
 	if(welded)
-		scrubber_icon = "scrubberweld"
+		scrubber_icon = "scrubber_weld"
 
 	. += SSair.icon_manager.get_atmos_icon("device", state = scrubber_icon)
 	update_pipe_image()
 
 
-/obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
+/obj/machinery/atmospherics/components/unary/vent_scrubber/update_underlays()
 	if(..())
 		underlays.Cut()
 		var/turf/T = get_turf(src)
 		if(!istype(T))
 			return
+		var/obj/machinery/atmospherics/node = NODE1
 		if(T.intact && node && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
 			return
 		else
@@ -133,7 +143,7 @@
 			else
 				add_underlay(T, direction = dir)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/set_frequency(new_frequency)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)
@@ -145,7 +155,7 @@
 	else
 		broadcast_status()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/proc/broadcast_status()
+/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/broadcast_status()
 	if(!radio_connection)
 		return 0
 
@@ -177,16 +187,16 @@
 
 	return 1
 
-/obj/machinery/atmospherics/unary/vent_scrubber/atmos_init()
+/obj/machinery/atmospherics/components/unary/vent_scrubber/atmos_init()
 	..()
 	radio_filter_in = frequency==initial(frequency)?(RADIO_FROM_AIRALARM):null
 	radio_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null
 	if(frequency)
 		set_frequency(frequency)
-		src.broadcast_status()
+	broadcast_status()
 	check_turfs()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/process_atmos()
+/obj/machinery/atmospherics/components/unary/vent_scrubber/process_atmos()
 	..()
 
 	if(widenet)
@@ -195,7 +205,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!node)
+	if(!NODE1)
 		on = 0
 
 	if(welded)
@@ -211,24 +221,32 @@
 
 //we populate a list of turfs with nonatmos-blocked cardinal turfs AND
 //	diagonal turfs that can share atmos with *both* of the cardinal turfs
-/obj/machinery/atmospherics/unary/vent_scrubber/proc/check_turfs()
+/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/check_turfs()
 	adjacent_turfs.Cut()
 	var/turf/T = loc
 	if(istype(T))
 		adjacent_turfs = T.GetAtmosAdjacentTurfs(TRUE)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(var/turf/simulated/tile)
-	if(!tile || !istype(tile))
-		return 0
+/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/scrub(turf/simulated/tile)
+	if (!istype(tile))
+		return FALSE
 
 	var/datum/gas_mixture/environment = tile.return_air()
+	var/datum/gas_mixture/air_contents = AIR1
 
-	if(scrubbing)
-		if((scrub_O2 && environment.oxygen>0.001) || (scrub_N2 && environment.nitrogen>0.001) || (scrub_CO2 && environment.carbon_dioxide>0.001) || (scrub_Toxins && environment.toxins>0.001) || (environment.sleeping_agent) || (environment.agent_b))
+	if(scrubbing & SCRUBBING)
+		var/should_we_scrub = FALSE
+		for(var/gas in environment.gases)
+			if(gas[GAS_INDEX] <= 2)
+				continue
+			if(gas[MOLES])
+				should_we_scrub = TRUE
+				break
+		if(should_we_scrub)
 			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
 
 			//Take a gas sample
-			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
+			var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
 			if(isnull(removed)) //in space
 				return
 
@@ -236,25 +254,23 @@
 			var/datum/gas_mixture/filtered_out = new
 			filtered_out.temperature = removed.temperature
 			if(scrub_O2)
-				filtered_out.oxygen = removed.oxygen
-				removed.oxygen = 0
+				filtered_out.gases[GAS_O2][MOLES] = removed.gases[GAS_O2][MOLES]
+				removed.gases[GAS_O2][MOLES] = 0
 			if(scrub_N2)
-				filtered_out.nitrogen = removed.nitrogen
-				removed.nitrogen = 0
+				filtered_out.gases[GAS_N2][MOLES] = removed.gases[GAS_N2][MOLES]
+				removed.gases[GAS_N2][MOLES] = 0
 			if(scrub_Toxins)
-				filtered_out.toxins = removed.toxins
-				removed.toxins = 0
+				filtered_out.gases[GAS_PL][MOLES] = removed.gases[GAS_PL][MOLES]
+				removed.gases[GAS_PL][MOLES] = 0
 			if(scrub_CO2)
-				filtered_out.carbon_dioxide = removed.carbon_dioxide
-				removed.carbon_dioxide = 0
-
-			if(removed.agent_b)
-				filtered_out.agent_b = removed.agent_b
-				removed.agent_b = 0
-
+				filtered_out.gases[GAS_CO2][MOLES] = removed.gases[GAS_CO2][MOLES]
+				removed.gases[GAS_CO2][MOLES] = 0
+			if(removed.gases[GAS_AGENT_B][MOLES])
+				filtered_out.gases[GAS_AGENT_B][MOLES] = removed.gases[GAS_AGENT_B][MOLES]
+				removed.gases[GAS_AGENT_B][MOLES] = 0
 			if(scrub_N2O)
-				filtered_out.sleeping_agent = removed.sleeping_agent
-				removed.sleeping_agent = 0
+				filtered_out.gases[GAS_N2O][MOLES] = removed.gases[GAS_N2O	][MOLES]
+				removed.gases[GAS_N2O][MOLES] = 0
 
 			//Remix the resulting gases
 			air_contents.merge(filtered_out)
@@ -273,14 +289,14 @@
 		air_contents.merge(removed)
 		tile.air_update_turf()
 
-	parent?.update = 1
+	update_parents()
 
-	return 1
+	return TRUE
 
-/obj/machinery/atmospherics/unary/vent_scrubber/hide(var/i) //to make the little pipe section invisible, the icon changes.
+/obj/machinery/atmospherics/components/unary/vent_scrubber/hide(i) //to make the little pipe section invisible, the icon changes.
 	update_icon()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/receive_signal(datum/signal/signal)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/receive_signal(datum/signal/signal)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
@@ -288,11 +304,13 @@
 
 	if(signal.data["power"] != null)
 		on = text2num(signal.data["power"])
+
 	if(signal.data["power_toggle"] != null)
 		on = !on
 
 	if("widenet" in signal.data)
 		widenet = text2num(signal.data["widenet"])
+
 	if("toggle_widenet" in signal.data)
 		widenet = !widenet
 
@@ -340,12 +358,12 @@
 	update_icon()
 	return
 
-/obj/machinery/atmospherics/unary/vent_scrubber/power_change(forced = FALSE)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/proc/set_tag(new_tag)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/set_tag(new_tag)
 	if(frequency == ATMOS_VENTSCRUB)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag
@@ -353,7 +371,7 @@
 	broadcast_status()
 
 
-/obj/machinery/atmospherics/unary/vent_scrubber/attack_alien(mob/user)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/attack_alien(mob/user)
 	if(!welded || !do_after(user, 2 SECONDS, src))
 		return
 	user.visible_message(
@@ -365,12 +383,12 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 
-/obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	multitool_menu_interact(user, I)
 
 
-/obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return .
@@ -389,3 +407,5 @@
 			span_notice("You unweld [src]!"),
 		)
 
+#undef SIPHONING
+#undef SCRUBBING

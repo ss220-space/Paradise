@@ -514,7 +514,7 @@
 	name = "Подключиться к порту"
 	desc = "Нажмите, чтобы подключиться к воздушному порту и пополнить запас кислорода!"
 	icon_state = "mech_port"
-	var/obj/machinery/atmospherics/unary/portables_connector/target = null
+	var/obj/machinery/atmospherics/components/unary/portables_connector/target = null
 
 /atom/movable/screen/alert/mech_port_available/Destroy()
 	target = null

@@ -115,9 +115,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 	// AI variables designed for use in procs
 	var/atom/movable/cocoon_target // for queen and nurse
-	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent // nearby vent they are going to try to get to, and enter
-	var/obj/machinery/atmospherics/unary/vent_pump/exit_vent // remote vent they intend to come out of
-	var/obj/machinery/atmospherics/unary/vent_pump/nest_vent // home vent, usually used by queens
+	var/obj/machinery/atmospherics/components/unary/vent_pump/entry_vent // nearby vent they are going to try to get to, and enter
+	var/obj/machinery/atmospherics/components/unary/vent_pump/exit_vent // remote vent they intend to come out of
+	var/obj/machinery/atmospherics/components/unary/vent_pump/nest_vent // home vent, usually used by queens
 	var/fed = 0
 	var/travelling_in_vent = 0
 	var/path_to_vent = 0

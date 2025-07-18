@@ -1,28 +1,18 @@
 /obj/machinery/atmospherics/pipe/cap
 	name = "pipe endcap"
 	desc = "An endcap for pipes"
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/pipes.dmi'
+	icon = 'icons/obj/atmospherics/pipes/simple.dmi'
 	icon_state = "cap"
 	level = 2
-
-	volume = 35
 
 	dir = SOUTH
 	initialize_directions = SOUTH
 
-	var/obj/machinery/atmospherics/node
+	device_type = BINARY
 
-/obj/machinery/atmospherics/pipe/cap/New()
-	..()
+
+/obj/machinery/atmospherics/pipe/cap/SetInitDirections()
 	initialize_directions = dir
-
-/obj/machinery/atmospherics/pipe/cap/hide(i)
-	if(level == 1 && issimulatedturf(loc))
-		invisibility = i ? INVISIBILITY_MAXIMUM : 0
-	update_icon()
-
-/obj/machinery/atmospherics/pipe/cap/pipeline_expansion()
-	return list(node)
 
 /obj/machinery/atmospherics/pipe/cap/process_atmos()
 	if(!parent)
@@ -30,28 +20,6 @@
 	else
 		. = PROCESS_KILL
 
-/obj/machinery/atmospherics/pipe/cap/Destroy()
-	. = ..()
-	if(node)
-		node.disconnect(src)
-		node.defer_build_network()
-		node = null
-
-/obj/machinery/atmospherics/pipe/cap/disconnect(obj/machinery/atmospherics/reference)
-	if(reference == node)
-		if(istype(node, /obj/machinery/atmospherics/pipe))
-			qdel(parent)
-		node = null
-
-	update_icon()
-
-	..()
-
-/obj/machinery/atmospherics/pipe/cap/change_color(new_color)
-	..()
-	//for updating connected atmos device pipes (i.e. vents, manifolds, etc)
-	if(node)
-		node.update_underlays()
 
 
 /obj/machinery/atmospherics/pipe/cap/update_overlays()
@@ -71,7 +39,7 @@
 			if(c)
 				target.connected_to = c
 				src.connected_to = c
-				node = target
+				NODE1 = target
 				break
 
 	var/turf/T = get_turf(src)			// hide if turf is not intact

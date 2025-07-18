@@ -9,16 +9,16 @@
 /obj/effect/proc_holder/spell/morph_spell/open_vent/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new
 	T.range = 1
-	T.allowed_type = /obj/machinery/atmospherics/unary
+	T.allowed_type = /obj/machinery/atmospherics/components/unary
 	return T
 
 
 /obj/effect/proc_holder/spell/morph_spell/open_vent/valid_target(target, user)
-	if(istype(target, /obj/machinery/atmospherics/unary/vent_scrubber))
-		var/obj/machinery/atmospherics/unary/vent_scrubber/S = target
+	if(istype(target, /obj/machinery/atmospherics/components/unary/vent_scrubber))
+		var/obj/machinery/atmospherics/components/unary/vent_scrubber/S = target
 		return S.welded
-	if(istype(target, /obj/machinery/atmospherics/unary/vent_pump))
-		var/obj/machinery/atmospherics/unary/vent_pump/V = target
+	if(istype(target, /obj/machinery/atmospherics/components/unary/vent_pump))
+		var/obj/machinery/atmospherics/components/unary/vent_pump/V = target
 		return V.welded
 	return FALSE
 
@@ -35,18 +35,18 @@
 		revert_cast(user)
 		return
 	for(var/thing in targets)
-		var/obj/machinery/atmospherics/unary/unary = thing
+		var/obj/machinery/atmospherics/components/unary/unary = thing
 		unary.add_overlay(GLOB.acid_overlay)
 		addtimer(CALLBACK(src, PROC_REF(unweld_vent), unary), 2 SECONDS)
 		playsound(unary, 'sound/items/welder.ogg', 100, TRUE)
 
 
-/obj/effect/proc_holder/spell/morph_spell/open_vent/proc/unweld_vent(obj/machinery/atmospherics/unary/unary)
-	if(istype(unary, /obj/machinery/atmospherics/unary/vent_scrubber))
-		var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = unary
+/obj/effect/proc_holder/spell/morph_spell/open_vent/proc/unweld_vent(obj/machinery/atmospherics/components/unary/unary)
+	if(istype(unary, /obj/machinery/atmospherics/components/unary/vent_scrubber))
+		var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber = unary
 		scrubber.set_welded(FALSE)
-	else if(istype(unary, /obj/machinery/atmospherics/unary/vent_pump))
-		var/obj/machinery/atmospherics/unary/vent_scrubber/vent = unary
+	else if(istype(unary, /obj/machinery/atmospherics/components/unary/vent_pump))
+		var/obj/machinery/atmospherics/components/unary/vent_scrubber/vent = unary
 		vent.set_welded(FALSE)
 	unary.cut_overlay(GLOB.acid_overlay)
 

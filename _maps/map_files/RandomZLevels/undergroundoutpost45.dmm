@@ -350,7 +350,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "bg" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	on = 1
 	},
 /obj/effect/landmark/awaystart,
@@ -365,7 +365,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "bi" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -933,7 +933,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
 "cJ" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -951,7 +951,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
 "cK" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -960,7 +960,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
 "cL" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -969,7 +969,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
 "cM" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -1151,7 +1151,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "dk" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	on = 1
 	},
@@ -1463,7 +1463,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "dS" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	on = 1
 	},
@@ -1478,7 +1478,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "dU" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -1487,7 +1487,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "dV" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -1588,7 +1588,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "eh" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -1650,7 +1650,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "eq" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -1658,7 +1658,7 @@
 /area/awaymission/UO45/central_hall)
 "er" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -1800,7 +1800,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "eH" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -2108,7 +2108,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "fr" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -2117,7 +2117,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "fs" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -2215,7 +2215,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
 "fC" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -2338,7 +2338,7 @@
 	pixel_y = -23;
 	req_access = null
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -2546,7 +2546,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "gt" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -2992,7 +2992,7 @@
 	},
 /area/awaymission/UO45/gateaway)
 "hx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	on = 1
 	},
 /obj/structure/chair{
@@ -3069,7 +3069,7 @@
 	},
 /area/awaymission/UO45/research)
 "hF" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -3199,7 +3199,7 @@
 	},
 /area/awaymission/UO45/crew_quarters)
 "hT" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	on = 1
 	},
@@ -3522,7 +3522,7 @@
 	},
 /area/awaymission/UO45/research)
 "iD" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	on = 1
 	},
@@ -3542,7 +3542,7 @@
 	},
 /area/awaymission/UO45/research)
 "iF" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -3575,7 +3575,7 @@
 	},
 /area/awaymission/UO45/crew_quarters)
 "iK" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	on = 1
 	},
 /obj/structure/disposalpipe/segment{
@@ -3686,7 +3686,7 @@
 	},
 /area/awaymission/UO45/gateaway)
 "iV" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3744,7 +3744,7 @@
 /area/awaymission/UO45/research)
 "ja" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -3824,7 +3824,7 @@
 	},
 /area/awaymission/UO45/crew_quarters)
 "jh" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	on = 1
 	},
@@ -4066,7 +4066,7 @@
 /area/awaymission/UO45/gateaway)
 "jK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	on = 1
 	},
@@ -4159,7 +4159,7 @@
 	},
 /area/awaymission/UO45/crew_quarters)
 "jV" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -4353,7 +4353,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
 "kn" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	on = 1
 	},
@@ -4390,7 +4390,7 @@
 	},
 /area/awaymission/UO45/crew_quarters)
 "ks" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	on = 1
 	},
@@ -4577,7 +4577,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -4718,7 +4718,7 @@
 	},
 /area/awaymission/UO45/research)
 "kV" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	on = 1
 	},
@@ -4817,7 +4817,7 @@
 	},
 /area/awaymission/UO45/crew_quarters)
 "lf" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -4935,7 +4935,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	on = 1
 	},
@@ -5100,7 +5100,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -5240,7 +5240,7 @@
 	},
 /area/awaymission/UO45/research)
 "lL" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -5286,7 +5286,7 @@
 	},
 /area/awaymission/UO45/research)
 "lQ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	on = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -5430,7 +5430,7 @@
 	},
 /area/awaymission/UO45/gateaway)
 "mf" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -5541,7 +5541,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5848,7 +5848,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/crew_quarters)
 "mY" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	on = 1
 	},
 /obj/machinery/door_control{
@@ -5870,13 +5870,13 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "na" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "nb" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	on = 1
 	},
 /obj/structure/bed,
@@ -5965,7 +5965,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "nl" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -6346,7 +6346,7 @@
 	},
 /area/awaymission/UO45/research)
 "nU" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -6863,7 +6863,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -6967,7 +6967,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -7102,7 +7102,7 @@
 	},
 /area/awaymission/UO45/research)
 "pf" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -7139,7 +7139,7 @@
 	name = "security officer's locker";
 	req_access = list(201)
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	on = 1
 	},
 /obj/item/restraints/handcuffs,
@@ -7200,7 +7200,7 @@
 	},
 /area/awaymission/UO45/crew_quarters)
 "po" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7324,7 +7324,7 @@
 	},
 /area/awaymission/UO45/research)
 "pF" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	external_pressure_bound = 0;
 	frequency = 1443;
 	icon_state = "in";
@@ -7337,7 +7337,7 @@
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
 "pG" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	frequency = 1443;
 	id = "UO45_air_in"
 	},
@@ -7414,7 +7414,7 @@
 	},
 /area/awaymission/UO45/crew_quarters)
 "pR" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -7428,7 +7428,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "pS" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	on = 1
 	},
@@ -7439,7 +7439,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO45/crew_quarters)
 "pU" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -7453,7 +7453,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "pV" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	on = 1
 	},
@@ -7552,7 +7552,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/engineering)
 "qg" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
 	current_temperature = 80;
 	on = 1
 	},
@@ -7565,7 +7565,7 @@
 /turf/simulated/wall/r_wall/rust,
 /area/awaymission/UO45/research)
 "qi" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	external_pressure_bound = 120;
 	initialize_directions = 1;
@@ -7886,7 +7886,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "qL" = (
-/obj/machinery/atmospherics/trinary/mixer{
+/obj/machinery/atmospherics/components/trinary/mixer{
 	dir = 1;
 	node1_concentration = 0.8;
 	node2_concentration = 0.2;
@@ -7995,7 +7995,7 @@
 	},
 /area/awaymission/UO45/research)
 "qU" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -8073,7 +8073,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "rd" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 4;
 	name = "Waste In";
 	on = 1
@@ -8178,7 +8178,7 @@
 	},
 /area/awaymission/UO45/engineering)
 "rn" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
 	name = "Unfiltered to Mix";
 	on = 1
@@ -8190,7 +8190,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "ro" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
@@ -8216,14 +8216,14 @@
 	req_access = list(201);
 	start_charge = 100
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "rr" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
 	name = "Air to Distro";
 	on = 1
@@ -8271,7 +8271,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
 	name = "Mix to Exterior";
 	on = 1
@@ -8390,7 +8390,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "rI" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	on = 1
 	},
@@ -8581,7 +8581,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -8796,7 +8796,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "sm" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
 	name = "Mix to Distro"
 	},
@@ -8839,7 +8839,7 @@
 	},
 /area/awaymission/UO45/research)
 "ss" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	external_pressure_bound = 0;
 	frequency = 1441;
@@ -8947,7 +8947,7 @@
 	},
 /area/awaymission/UO45/crew_quarters)
 "sD" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -9046,7 +9046,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -9161,7 +9161,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "sX" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	name = "Mix to Filter";
 	on = 1
 	},
@@ -9221,7 +9221,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "tf" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 8;
 	id = "UO45_waste_in"
 	},
@@ -9303,7 +9303,7 @@
 /area/awaymission/UO45/research)
 "tn" = (
 /obj/machinery/light/small,
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/structure/window/reinforced{
 	dir = 4;
 	layer = 2.9
@@ -9354,7 +9354,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "tt" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9377,7 +9377,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/crew_quarters)
 "tv" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	on = 1
 	},
@@ -9385,7 +9385,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/crew_quarters)
 "tw" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -9446,7 +9446,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "tB" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -9462,7 +9462,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 6
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	on = 1
 	},
@@ -9509,7 +9509,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "tI" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
 	name = "N2 Outlet Pump";
 	on = 1
@@ -9517,7 +9517,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "tJ" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
 	name = "O2 Outlet Pump";
 	on = 1
@@ -9687,7 +9687,7 @@
 	},
 /area/awaymission/UO45/engineering)
 "ub" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -9754,7 +9754,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "ui" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/components/trinary/filter{
 	dir = 4;
 	filter_type = 2;
 	on = 1
@@ -9774,7 +9774,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "uk" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 0;
 	name = "Air to External";
 	on = 1
@@ -9786,7 +9786,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
 	name = "External to Filter";
 	on = 1
@@ -9794,7 +9794,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "um" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	on = 1
 	},
@@ -9835,7 +9835,7 @@
 	},
 /area/awaymission/UO45/engineering)
 "up" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/components/trinary/filter{
 	dir = 4;
 	filter_type = 1;
 	on = 1
@@ -9854,7 +9854,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "ur" = (
-/obj/machinery/atmospherics/binary/valve,
+/obj/machinery/atmospherics/components/binary/valve,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
@@ -10016,11 +10016,11 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/engineering)
 "uL" = (
-/obj/machinery/atmospherics/binary/valve,
+/obj/machinery/atmospherics/components/binary/valve,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "uM" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
@@ -10028,7 +10028,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "uN" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
@@ -10047,7 +10047,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "uP" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -10193,14 +10193,14 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "ve" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 1;
 	id = "UO45_n2_in"
 	},
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
 "vf" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	external_pressure_bound = 0;
 	frequency = 1441;
@@ -10214,14 +10214,14 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
 "vg" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 1;
 	id = "UO45_o2_in"
 	},
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO45/engineering)
 "vh" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	external_pressure_bound = 0;
 	frequency = 1441;
@@ -10339,7 +10339,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	on = 1
 	},
@@ -10467,7 +10467,7 @@
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO45/engineering)
 "vI" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -10643,7 +10643,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/mining)
 "we" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	on = 1
 	},
@@ -10750,7 +10750,7 @@
 /turf/simulated/wall/rust,
 /area/awaymission/UO45/engineering)
 "wp" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	on = 1
 	},
@@ -10821,7 +10821,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -10853,7 +10853,7 @@
 	},
 /area/awaymission/UO45/engineering)
 "wB" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	on = 1
 	},
@@ -10869,7 +10869,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
 "wC" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	on = 1
 	},
@@ -11080,7 +11080,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/mining)
 "wX" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	on = 1
 	},
@@ -11148,7 +11148,7 @@
 	},
 /area/awaymission/UO45/engineering)
 "xe" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -11335,7 +11335,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
 "xx" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -11349,7 +11349,7 @@
 /turf/simulated/wall/rust,
 /area/awaymission/UO45/mining)
 "xz" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -11453,7 +11453,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
 "xM" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -11470,7 +11470,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO45/mining)
 "xO" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	on = 1
 	},

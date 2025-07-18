@@ -349,7 +349,7 @@
 		if(stat == DEAD)
 			return TRUE
 
-		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		if(!istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
 			var/mult = dna.species.coldmod * physiology.cold_mod
 			if(mult>0)
 				add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/cold, multiplicative_slowdown = ((dna.species.cold_level_1 - bodytemperature) / COLD_SLOWDOWN_FACTOR))

@@ -15,24 +15,24 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature, 10, 300)
 	if(!air_contents)
-		return 0
+		return FALSE
 	if(active_hotspot)
 		if(soh)
-			if(air_contents.toxins > 0.5 && air_contents.oxygen > 0.5)
+			if(air_contents.gases[GAS_PL][MOLES] > 0.5 && air_contents.gases[GAS_O2][MOLES] > 0.5)
 				if(active_hotspot.temperature < exposed_temperature)
 					active_hotspot.temperature = exposed_temperature
 				if(active_hotspot.volume < exposed_volume)
 					active_hotspot.volume = exposed_volume
-		return 1
+		return TRUE
 
-	var/igniting = 0
+	var/igniting = FALSE
 
-	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && air_contents.toxins > 0.5)
-		igniting = 1
+	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && air_contents.gases[GAS_PL][MOLES] > 0.5)
+		igniting = TRUE
 
 	if(igniting)
-		if(air_contents.oxygen < 0.5 || air_contents.toxins < 0.5)
-			return 0
+		if(air_contents.gases[GAS_O2][MOLES] < 0.5 || air_contents.gases[GAS_PL][MOLES] < 0.5)
+			return FALSE
 
 		active_hotspot = new /obj/effect/hotspot(src)
 		active_hotspot.temperature = exposed_temperature
@@ -108,8 +108,7 @@
 		volume = affected.fuel_burnt * FIRE_GROWTH_RATE
 		location.assume_air(affected)
 
-	for(var/A in loc)
-		var/atom/item = A
+	for(var/atom/item as anything in loc)
 		if(!QDELETED(item) && item != src) // It's possible that the item is deleted in temperature_expose
 			item.fire_act(null, temperature, volume)
 
@@ -135,7 +134,7 @@
 		qdel(src)
 		return
 
-	if(!(location.air) || location.air.toxins < 0.5 || location.air.oxygen < 0.5)
+	if(!(location.air) || location.air.gases[GAS_PL][MOLES] < 0.5 || location.air.gases[GAS_O2][MOLES] < 0.5)
 		qdel(src)
 		return
 

@@ -14,14 +14,7 @@
 	//Create gas mixture to hold data for passing
 	var/datum/gas_mixture/GM = new
 
-	GM.oxygen = oxygen
-	GM.carbon_dioxide = carbon_dioxide
-	GM.nitrogen = nitrogen
-	GM.toxins = toxins
-	GM.sleeping_agent = sleeping_agent
-	GM.agent_b = agent_b
-
-	GM.temperature = temperature
+	GM.copy_from(src)
 
 	return GM
 
@@ -29,19 +22,8 @@
 	return return_air()
 
 /turf/remove_air(amount)
-	var/datum/gas_mixture/GM = new
-
-	var/sum = oxygen + carbon_dioxide + nitrogen + toxins + sleeping_agent + agent_b
-	if(sum > 0)
-		GM.oxygen = (oxygen / sum) * amount
-		GM.carbon_dioxide = (carbon_dioxide / sum) * amount
-		GM.nitrogen = (nitrogen / sum) * amount
-		GM.toxins = (toxins / sum) * amount
-		GM.sleeping_agent = (sleeping_agent / sum) * amount
-		GM.agent_b = (agent_b / sum) * amount
-
-	GM.temperature = temperature
-
+	var/datum/gas_mixture/GM = return_air()
+	GM.remove(amount)
 	return GM
 
 
@@ -65,14 +47,7 @@
 	..()
 	if(!blocks_air)
 		air = new
-
-		air.oxygen = oxygen
-		air.carbon_dioxide = carbon_dioxide
-		air.nitrogen = nitrogen
-		air.toxins = toxins
-		air.sleeping_agent = sleeping_agent
-		air.agent_b = agent_b
-
+		air.copy_from_turf(src)
 		air.temperature = temperature
 
 /turf/simulated/Destroy()
@@ -245,12 +220,12 @@
 
 	if(planetary_atmos) //share our air with the "atmosphere" "above" the turf
 		var/datum/gas_mixture/G = new
-		G.oxygen = oxygen
-		G.carbon_dioxide = carbon_dioxide
-		G.nitrogen = nitrogen
-		G.toxins = toxins
-		G.sleeping_agent = sleeping_agent
-		G.agent_b = agent_b
+		G.gases[GAS_O2][MOLES] = oxygen
+		G.gases[GAS_CO2][MOLES] = carbon_dioxide
+		G.gases[GAS_N2][MOLES] = nitrogen
+		G.gases[GAS_PL][MOLES] = toxins
+		G.gases[GAS_N2O][MOLES] = sleeping_agent
+		G.gases[GAS_AGENT_B][MOLES] = agent_b
 		G.temperature = initial(temperature) // Temperature is modified at runtime; we only care about the turf's initial temperature
 		G.archive()
 		if(!air.compare(G))
@@ -298,13 +273,8 @@
 	for (var/turf/simulated/turf in turfs)
 		var/difference = turf.air.total_moles() / 2
 
-		turf.air.oxygen /= 2
-		turf.air.carbon_dioxide /= 2
-		turf.air.nitrogen /= 2
-		turf.air.toxins /= 2
-		turf.air.sleeping_agent /= 2
-		turf.air.agent_b /= 2
-		turf.air.temperature /= 2
+		for(var/gas in turf.air.gases)
+			gas[MOLES] /= 2
 		turf.archive()
 
 		if(difference)
@@ -344,10 +314,10 @@
 /turf/simulated/proc/tile_graphic()
 	if(!air)
 		return
-	if(air.toxins > MOLES_PLASMA_VISIBLE)
+	if(air.gases[GAS_PL][MOLES] > MOLES_PLASMA_VISIBLE)
 		return "plasma"
 
-	if(air.sleeping_agent > 1)
+	if(air.gases[GAS_N2O][MOLES] > 1)
 		return "sleeping_agent"
 	return null
 
@@ -439,22 +409,13 @@
 	var/list/cached_turf_list = turf_list // cache for super speed
 
 	for(var/turf/simulated/T in cached_turf_list)
-		A.oxygen 			+= T.air.oxygen
-		A.carbon_dioxide	+= T.air.carbon_dioxide
-		A.nitrogen 			+= T.air.nitrogen
-		A.toxins 			+= T.air.toxins
-		A.sleeping_agent 	+= T.air.sleeping_agent
-		A.agent_b 			+= T.air.agent_b
+		A.merge(T.air)
 
 	var/turflen = length(cached_turf_list)
 
 	for(var/turf/simulated/T in cached_turf_list)
-		T.air.oxygen			= A.oxygen / turflen
-		T.air.carbon_dioxide	= A.carbon_dioxide / turflen
-		T.air.nitrogen			= A.nitrogen / turflen
-		T.air.toxins			= A.toxins / turflen
-		T.air.sleeping_agent	= A.sleeping_agent / turflen
-		T.air.agent_b			= A.agent_b / turflen
+		for(var/gas in T.air.gases)
+			gas[MOLES] = A.gases[gas[GAS_INDEX]][MOLES]/turf_list.len
 
 		T.update_visuals()
 
@@ -573,14 +534,15 @@
 	update_visuals()
 	current_cycle = time
 	var/list/turf/simulated/passed_turfs = InitCalculateAdjacentTurfs() // will returns only simulated
-	for(var/turf/simulated/T as anything in passed_turfs)
-		if(!air.compare(T.air))
-			excited = 1
+	for(var/turf/enemy_tile as anything in passed_turfs)
+		var/datum/gas_mixture/enemy_air
+		if(issimulatedturf(enemy_tile))
+			var/turf/simulated/enemy_simulated = enemy_tile
+			enemy_air = enemy_simulated.air
+		else
+			enemy_air = new
+			enemy_air.copy_from_turf(enemy_tile)
+		if(!air.compare(enemy_air))
+			excited = TRUE
 			SSair.active_turfs |= src
-			// No sense continuing to iterate
-			return
-		else if(!air.check_turf_total(T))
-			excited = 1
-			SSair.active_turfs |= src
-			// No sense continuing to iterate
-			return
+			break

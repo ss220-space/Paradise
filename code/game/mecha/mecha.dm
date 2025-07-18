@@ -54,7 +54,7 @@
 	var/internal_tank_valve = ONE_ATMOSPHERE
 	var/obj/machinery/portable_atmospherics/canister/internal_tank
 	var/datum/gas_mixture/cabin_air
-	var/obj/machinery/atmospherics/unary/portables_connector/connected_port = null
+	var/obj/machinery/atmospherics/components/unary/portables_connector/connected_port = null
 
 	var/obj/item/radio/radio = null
 	var/list/trackers = list()
@@ -181,8 +181,8 @@
 	cabin_air = new
 	cabin_air.temperature = T20C
 	cabin_air.volume = 200
-	cabin_air.oxygen = O2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature)
-	cabin_air.nitrogen = N2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature)
+	cabin_air.gases[GAS_O2][MOLES] = O2STANDARD * cabin_air.volume / (R_IDEAL_GAS_EQUATION * cabin_air.temperature)
+	cabin_air.gases[GAS_N2][MOLES] = N2STANDARD * cabin_air.volume / (R_IDEAL_GAS_EQUATION * cabin_air.temperature)
 	return cabin_air
 
 /obj/mecha/proc/add_radio()
@@ -489,7 +489,7 @@
 /obj/mecha/proc/aftermove(move_type)
 	use_power(step_energy_drain)
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
-		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector) in loc
+		var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
 		if(possible_port)
 			var/atom/movable/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /atom/movable/screen/alert/mech_port_available, override = TRUE)
 			if(A)
@@ -1224,7 +1224,7 @@
 	if(t_air)
 		. = t_air.return_temperature()
 
-/obj/mecha/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
+/obj/mecha/proc/connect(obj/machinery/atmospherics/components/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !istype(new_port) || new_port.connected_device)
 		return FALSE
@@ -1236,7 +1236,8 @@
 	//Perform the connection
 	connected_port = new_port
 	connected_port.connected_device = src
-	connected_port.parent.reconcile_air()
+	var/datum/pipeline/connected_port_parent = connected_port.PARENT1
+	connected_port_parent.reconcile_air()
 
 	if(occupant)
 		occupant.clear_alert("mechaport")

@@ -6,7 +6,7 @@
 	use_power = NO_POWER_USE
 	can_unwrench = TRUE
 	damage_deflection = 12
-	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
+	var/alert_pressure = 80 * ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
 	resistance_flags = NO_MALF_EFFECT
 	can_be_undertile = TRUE
 
@@ -15,9 +15,24 @@
 	buckle_requires_restraints = TRUE
 	buckle_lying = 90
 
+	color = pipe_color
+
+
+/obj/machinery/atmospherics/pipe/atmos_init()
+	var/turf/T = loc			// hide if turf is not intact
+	hide(T.intact)
+	..()
+
+/obj/machinery/atmospherics/pipe/hide(i)
+	if(level == 1 && istype(loc, /turf/simulated))
+		invisibility = i ? INVISIBILITY_MAXIMUM : 0
+	update_icon()
+
 
 /obj/machinery/atmospherics/pipe/New()
 	..()
+	volume = 35 * device_type
+	color = pipe_color
 	//so pipes under walls are hidden
 	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/wall/shuttle))
 		level = 1
@@ -25,35 +40,34 @@
 /obj/machinery/atmospherics/pipe/Destroy()
 	releaseAirToTurf()
 	QDEL_NULL(air_temporary)
-
 	var/turf/T = loc
 	for(var/obj/machinery/atmospherics/meter/meter in T)
 		if(meter.target == src)
 			var/obj/item/pipe_meter/PM = new (T)
 			meter.transfer_fingerprints_to(PM)
 			qdel(meter)
-	parent?.members.RemoveAll(src)
+
 	. = ..()
-	// if we're somehow by ourself
-	if(!QDELETED(parent) && parent?.members.len == 0)
+
+	if(parent && !parent.gc_destroyed)
 		qdel(parent)
 	parent = null
 
-/obj/machinery/atmospherics/pipe/proc/clear_parent()
-	parent?.members.RemoveAll(src)
+/obj/machinery/atmospherics/pipe/nullifyNode(I)
+	var/obj/machinery/atmospherics/oldN = NODE_I
+	..()
+	if(oldN)
+		oldN.build_network()
 
 /obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
 	return parent
 
 
 /obj/machinery/atmospherics/pipe/return_pipenets()
-	return list(parent)
+	. = list(parent)
 
 
-/obj/machinery/atmospherics/proc/pipeline_expansion()
-	return null
-
-/obj/machinery/atmospherics/pipe/proc/check_pressure(pressure)
+/obj/machinery/atmospherics/pipe/check_pressure(pressure)
 	//Return 1 if parent should continue checking other pipes
 	//Return null if parent should stop checking other pipes. Recall: qdel(src) will by default return null
 
@@ -102,4 +116,8 @@
 
 // A check to make sure both nodes exist - self-delete if they aren't present
 /obj/machinery/atmospherics/pipe/proc/check_nodes_exist()
-	return
+	if(!nodes.len)
+		deconstruct()
+		return FALSE // 0: No nodes exist
+	// 1: 1-4 nodes exist, we continue existing
+	return TRUE

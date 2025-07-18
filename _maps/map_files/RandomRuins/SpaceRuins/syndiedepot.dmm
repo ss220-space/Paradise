@@ -537,7 +537,7 @@
 	},
 /area/syndicate_depot/core)
 "bD" = (
-/obj/machinery/atmospherics/unary/passive_vent/high_volume,
+/obj/machinery/atmospherics/components/unary/passive_vent/high_volume,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -852,7 +852,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cu" = (
-/obj/machinery/atmospherics/unary/passive_vent/high_volume{
+/obj/machinery/atmospherics/components/unary/passive_vent/high_volume{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -943,7 +943,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cD" = (
-/obj/machinery/atmospherics/unary/passive_vent/high_volume{
+/obj/machinery/atmospherics/components/unary/passive_vent/high_volume{
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer,
@@ -1105,7 +1105,7 @@
 	},
 /area/syndicate_depot/core)
 "cZ" = (
-/obj/machinery/atmospherics/unary/passive_vent/high_volume{
+/obj/machinery/atmospherics/components/unary/passive_vent/high_volume{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{

@@ -120,7 +120,7 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "cb" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
 	on = 1;
@@ -194,7 +194,7 @@
 	pixel_x = -2;
 	pixel_y = 9
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
 	on = 1;
@@ -295,7 +295,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/atmospherics/unary/tank/air,
+/obj/machinery/atmospherics/components/unary/tank/air,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -365,7 +365,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/alien/weeds,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4;
 	welded = 1
 	},
@@ -728,7 +728,7 @@
 /area/ruin/ussp_xeno/out)
 "km" = (
 /obj/structure/alien/weeds,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1;
 	welded = 1
 	},
@@ -795,7 +795,7 @@
 /turf/simulated/wall,
 /area/ruin/ussp_xeno/admiral)
 "lq" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	on = 1
 	},
@@ -890,7 +890,7 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "mZ" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -1032,7 +1032,7 @@
 /area/ruin/ussp_xeno/entrance)
 "pG" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
@@ -1202,7 +1202,7 @@
 	on = 1
 	},
 /obj/structure/alien/weeds,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
 	on = 1;
@@ -1260,7 +1260,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -31
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8;
 	frequency = 1379;
 	tag = "SSSP_Xeno_pump"
@@ -1672,7 +1672,7 @@
 	},
 /area/ruin/ussp_xeno/storage)
 "xz" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -1751,7 +1751,7 @@
 	pixel_x = 6;
 	pixel_y = 11
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -2016,7 +2016,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8;
 	welded = 1
 	},
@@ -2069,7 +2069,7 @@
 /area/ruin/ussp_xeno/gym_ussp)
 "CV" = (
 /obj/item/reagent_containers/glass/beaker,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8;
 	tag = "SSSP_Xeno_pump"
 	},
@@ -2214,7 +2214,7 @@
 	},
 /area/ruin/ussp_xeno/storage)
 "Fx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -2389,7 +2389,7 @@
 /obj/item/storage/belt/utility,
 /obj/item/crowbar/red,
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1;
 	welded = 1
 	},
@@ -2415,7 +2415,7 @@
 	tag_exterior_door = "SSSP_Xeno_outer";
 	tag_interior_door = "SSSP_Xeno_inner"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8;
 	frequency = 1379;
 	tag = "SSSP_Xeno_pump"
@@ -2533,7 +2533,7 @@
 	pixel_y = 20
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -2696,7 +2696,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds,
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 4;
 	target_pressure = 101
 	},
@@ -2743,7 +2743,7 @@
 	},
 /area/ruin/ussp_xeno/medbay)
 "Mg" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1;
 	welded = 1
 	},
@@ -2774,7 +2774,7 @@
 "Mu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
 	on = 1;
@@ -3055,7 +3055,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8;
 	welded = 1
 	},
@@ -3660,7 +3660,7 @@
 	},
 /area/ruin/ussp_xeno/medbay)
 "Ym" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/structure/window/reinforced{
 	dir = 4

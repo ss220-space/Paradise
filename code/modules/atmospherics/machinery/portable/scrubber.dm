@@ -3,7 +3,7 @@
 
 /obj/machinery/portable_atmospherics/scrubber
 	name = "Portable Air Scrubber"
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
+	icon = 'icons/obj/atmospherics/atmos.dmi'
 	icon_state = "pscrubber:0"
 	density = TRUE
 	volume = 750
@@ -72,17 +72,17 @@
 		filtered_out.temperature = removed.temperature
 
 
-		filtered_out.toxins = removed.toxins
-		removed.toxins = 0
+		filtered_out.gases[GAS_PL][MOLES] = removed.gases[GAS_PL][MOLES]
+		removed.gases[GAS_PL][MOLES] = 0
 
-		filtered_out.carbon_dioxide = removed.carbon_dioxide
-		removed.carbon_dioxide = 0
+		filtered_out.gases[GAS_CO2][MOLES] = removed.gases[GAS_CO2][MOLES]
+		removed.gases[GAS_CO2][MOLES] = 0
 
-		filtered_out.sleeping_agent = removed.sleeping_agent
-		removed.sleeping_agent = 0
+		filtered_out.gases[GAS_AGENT_B][MOLES] = removed.gases[GAS_AGENT_B][MOLES]
+		removed.gases[GAS_AGENT_B][MOLES] = 0
 
-		filtered_out.agent_b = removed.agent_b
-		removed.agent_b = 0
+		filtered_out.gases[GAS_N2O][MOLES] = removed.gases[GAS_N2O][MOLES]
+		removed.gases[GAS_N2O][MOLES] = 0
 
 	//Remix the resulting gases
 		air_contents.merge(filtered_out)

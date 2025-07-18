@@ -1409,7 +1409,7 @@
 	},
 /area/awaymission/research)
 "el" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
 	current_temperature = 80
 	},
 /turf/simulated/floor/plasteel{
@@ -1417,7 +1417,7 @@
 	},
 /area/awaymission/research)
 "em" = (
-/obj/machinery/atmospherics/unary/vent_pump,
+/obj/machinery/atmospherics/components/unary/vent_pump,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -1691,7 +1691,7 @@
 	},
 /area/awaymission/research)
 "eT" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	external_pressure_bound = 120;
 	icon_state = "in";

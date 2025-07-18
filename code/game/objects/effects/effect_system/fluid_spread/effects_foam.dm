@@ -94,7 +94,7 @@
 		for(var/obj/object in turf_location)
 			if(object == src)
 				continue
-			reagents.reaction(object, REAGENT_TOUCH, fraction)
+			reagents.reaction(object, REAGENT_VAPOR, fraction)
 
 	var/hit = 0
 	for(var/mob/living/foamer in loc)
@@ -102,7 +102,7 @@
 	if(hit)
 		lifetime += ds_seconds_per_tick //this is so the decrease from mobs hit and the natural decrease don't cumulate.
 
-	reagents.reaction(loc, REAGENT_TOUCH, fraction)
+	reagents.reaction(loc, REAGENT_VAPOR, fraction)
 
 /**
  * Applies the effect of this foam to a mob.
@@ -123,7 +123,7 @@
 
 	seconds_per_tick = min(seconds_per_tick SECONDS, lifetime)
 	var/fraction = (seconds_per_tick * MINIMUM_FOAM_DILUTION) / (initial(lifetime) * max(MINIMUM_FOAM_DILUTION, group.total_size))
-	reagents.reaction(foaming, REAGENT_TOUCH, fraction)
+	reagents.reaction(foaming, REAGENT_VAPOR, fraction)
 	lifetime -= seconds_per_tick
 	return TRUE
 
@@ -252,9 +252,9 @@
 		return
 
 	var/datum/gas_mixture/air = location.air
-	if (air.toxins)
-		var/scrub_amt = min(30, air.toxins) //Absorb some plasma
-		air.toxins -= scrub_amt
+	if (air.gases[GAS_PL][MOLES])
+		var/scrub_amt = min(30, air.gases[GAS_PL][MOLES]) //Absorb some plasma
+		air.gases[GAS_PL][MOLES]-= scrub_amt
 		absorbed_plasma += scrub_amt
 	if (air.temperature > T20C)
 		air.temperature = max(air.temperature / 2, T20C)
@@ -427,12 +427,12 @@
 		for(var/obj/effect/hotspot/fire in location)
 			qdel(fire)
 
-		air.toxins = 0
-		air.agent_b = 0
-		air.carbon_dioxide = 0
-		air.sleeping_agent = 0
+		air.gases[GAS_PL][MOLES] = 0
+		air.gases[GAS_AGENT_B][MOLES] = 0
+		air.gases[GAS_CO2][MOLES] = 0
+		air.gases[GAS_N2O][MOLES] = 0
 
-	for(var/obj/machinery/atmospherics/unary/comp in location)
+	for(var/obj/machinery/atmospherics/components/unary/comp in location)
 		if(!comp.welded)
 			comp.welded = TRUE
 			comp.update_appearance()

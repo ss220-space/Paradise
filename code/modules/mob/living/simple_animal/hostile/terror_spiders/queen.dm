@@ -175,7 +175,7 @@
 				if(numhostiles > 0)
 					ok_to_nest = FALSE
 				var/vdistance = 99
-				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10, src))
+				for(var/obj/machinery/atmospherics/components/unary/vent_pump/v in view(10, src))
 					if(!v.welded)
 						if(get_dist(src, v) < vdistance)
 							entry_vent = v

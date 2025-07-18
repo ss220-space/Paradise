@@ -12,9 +12,8 @@ Thus, the two variables affect pump operation are set in New():
 			but overall network volume is also increased as this increases...
 */
 
-/obj/machinery/atmospherics/binary/pump
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/pump.dmi'
-	icon_state = "map_off"
+/obj/machinery/atmospherics/components/binary/pump
+	icon_state = "pump_map_off"
 
 	name = "gas pump"
 	desc = "A pump"
@@ -27,7 +26,7 @@ Thus, the two variables affect pump operation are set in New():
 
 	var/id = null
 
-/obj/machinery/atmospherics/binary/pump/CtrlClick(mob/living/user)
+/obj/machinery/atmospherics/components/binary/pump/CtrlClick(mob/living/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -38,57 +37,54 @@ Thus, the two variables affect pump operation are set in New():
 	toggle()
 
 
-/obj/machinery/atmospherics/binary/pump/AICtrlClick()
+/obj/machinery/atmospherics/components/binary/pump/AICtrlClick()
 	toggle()
 	return ..()
 
 
-/obj/machinery/atmospherics/binary/pump/click_alt(mob/living/user)
+/obj/machinery/atmospherics/components/binary/pump/click_alt(mob/living/user)
 	set_max()
 	return CLICK_ACTION_SUCCESS
 
 
-/obj/machinery/atmospherics/binary/pump/ai_click_alt()
+/obj/machinery/atmospherics/components/binary/pump/ai_click_alt()
 	set_max()
 	return ..()
 
 
-/obj/machinery/atmospherics/binary/pump/proc/set_max()
+/obj/machinery/atmospherics/components/binary/pump/proc/set_max()
 	if(powered())
 		target_pressure = MAX_OUTPUT_PRESSURE
 		update_icon()
 
-/obj/machinery/atmospherics/binary/pump/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
-
-/obj/machinery/atmospherics/binary/pump/on
-	icon_state = "map_on"
+/obj/machinery/atmospherics/components/binary/pump/on
+	icon_state = "pump_map_on"
 	on = 1
 
-/obj/machinery/atmospherics/binary/pump/update_icon_state()
+/obj/machinery/atmospherics/components/binary/pump/update_icon_state()
 	..()
 
 	if(!powered())
-		icon_state = "off"
+		icon_state = "pump_off"
 	else
-		icon_state = "[on ? "on" : "off"]"
+		icon_state = "pump_[on ? "on" : "off"]"
 
-/obj/machinery/atmospherics/binary/pump/update_underlays()
+/obj/machinery/atmospherics/components/binary/pump/update_underlays()
 	if(..())
 		underlays.Cut()
 		var/turf/T = get_turf(src)
 		if(!istype(T))
 			return
-		add_underlay(T, node1, turn(dir, -180))
-		add_underlay(T, node2, dir)
+		add_underlay(T, NODE1, turn(dir, -180))
+		add_underlay(T, NODE2, dir)
 
-/obj/machinery/atmospherics/binary/pump/process_atmos()
+/obj/machinery/atmospherics/components/binary/pump/process_atmos()
 	..()
 	if((stat & (NOPOWER|BROKEN)) || !on)
-		return 0
+		return FALSE
+
+	var/datum/gas_mixture/air1 = AIR1
+	var/datum/gas_mixture/air2 = AIR2
 
 	var/output_starting_pressure = air2.return_pressure()
 
@@ -105,12 +101,10 @@ Thus, the two variables affect pump operation are set in New():
 		var/datum/gas_mixture/removed = air1.remove(transfer_moles)
 		air2.merge(removed)
 
-		parent1.update = 1
+		update_parents()
+	return TRUE
 
-		parent2.update = 1
-	return 1
-
-/obj/machinery/atmospherics/binary/pump/proc/broadcast_status()
+/obj/machinery/atmospherics/components/binary/pump/proc/broadcast_status()
 	if(!radio_connection)
 		return 0
 
@@ -129,12 +123,12 @@ Thus, the two variables affect pump operation are set in New():
 	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 	return 1
 
-/obj/machinery/atmospherics/binary/pump/atmos_init()
+/obj/machinery/atmospherics/components/binary/pump/atmos_init()
 	..()
 	if(frequency)
 		set_frequency(frequency)
 
-/obj/machinery/atmospherics/binary/pump/receive_signal(datum/signal/signal)
+/obj/machinery/atmospherics/components/binary/pump/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return 0
 
@@ -147,9 +141,9 @@ Thus, the two variables affect pump operation are set in New():
 		on = !on
 
 	if(signal.data["set_output_pressure"])
-		target_pressure = between(
-			0,
+		target_pressure = clamp(
 			text2num(signal.data["set_output_pressure"]),
+			0,
 			ONE_ATMOSPHERE*50
 		)
 
@@ -166,7 +160,7 @@ Thus, the two variables affect pump operation are set in New():
 	update_icon()
 	return
 
-/obj/machinery/atmospherics/binary/pump/attack_hand(mob/user)
+/obj/machinery/atmospherics/components/binary/pump/attack_hand(mob/user)
 	if(..())
 		return
 
@@ -177,16 +171,16 @@ Thus, the two variables affect pump operation are set in New():
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/binary/pump/attack_ghost(mob/user)
+/obj/machinery/atmospherics/components/binary/pump/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/binary/pump/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/atmospherics/components/binary/pump/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosPump", name)
 		ui.open()
 
-/obj/machinery/atmospherics/binary/pump/ui_data(mob/user)
+/obj/machinery/atmospherics/components/binary/pump/ui_data(mob/user)
 	var/list/data = list(
 		"on" = on,
 		"rate" = round(target_pressure),
@@ -196,7 +190,7 @@ Thus, the two variables affect pump operation are set in New():
 	)
 	return data
 
-/obj/machinery/atmospherics/binary/pump/ui_act(action, list/params)
+/obj/machinery/atmospherics/components/binary/pump/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -220,13 +214,13 @@ Thus, the two variables affect pump operation are set in New():
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/binary/pump/power_change(forced = FALSE)
+/obj/machinery/atmospherics/components/binary/pump/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon()
 
 
-/obj/machinery/atmospherics/binary/pump/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/components/binary/pump/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

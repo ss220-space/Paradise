@@ -164,7 +164,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	pipe_creation_helper(/obj/machinery/atmospherics/pipe/simple/visible, T, interior_direction, two_way_pipe)
 	switch(chamber_shape)
 		if(CHAMBER_LONG) //Easy enough, place a single vent
-			pipe_creation_helper(/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+			pipe_creation_helper(/obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
 				below_T,
 				interior_direction)
 		if(CHAMBER_SQUARE) //We need a T-manifold and two vents for this
@@ -172,10 +172,10 @@ This spawner places pipe leading up to the interior door, you will need to finis
 				below_T,
 				north_or_south_interior ? WEST : SOUTH,
 				NORTH | EAST | (north_or_south_interior ? SOUTH : WEST))
-			pipe_creation_helper(/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+			pipe_creation_helper(/obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
 				get_step(below_T, opposite_interior_direction),
 				interior_direction)
-			pipe_creation_helper(/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+			pipe_creation_helper(/obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
 				north_or_south_interior ? EAST_OF_TURF(below_T) : NORTH_OF_TURF(below_T),
 				turn(interior_direction, interior_direction == SOUTH || interior_direction == EAST ? -90 : 90))
 		if(CHAMBER_BIGGER) //We need a central column of manifolds and a vent either side of each manifold
@@ -189,10 +189,10 @@ This spawner places pipe leading up to the interior door, you will need to finis
 						put_thing_here,
 						opposite_interior_direction,
 						interior_direction_cw | interior_direction | interior_direction_ccw)
-				pipe_creation_helper(/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+				pipe_creation_helper(/obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
 					get_step(put_thing_here, interior_direction_cw),
 					interior_direction_ccw)
-				pipe_creation_helper(/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+				pipe_creation_helper(/obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
 					get_step(put_thing_here, interior_direction_ccw),
 					interior_direction_cw)
 				put_thing_here = get_step(put_thing_here, opposite_interior_direction) //Now move the turf we're generating stuff from 1 forward
@@ -201,8 +201,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/obj/machinery/atmospherics/A = new path(location)
 	A.dir = direction
 	A.on_construction(A.dir, initialization_directions ? initialization_directions : A.dir)
-	if(istype(A, /obj/machinery/atmospherics/unary/vent_pump/high_volume))
-		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = A
+	if(istype(A, /obj/machinery/atmospherics/components/unary/vent_pump/high_volume))
+		var/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/created_pump = A
 		created_pump.id_tag = AIRPUMP_TAG
 		created_pump.set_frequency(radio_frequency)
 

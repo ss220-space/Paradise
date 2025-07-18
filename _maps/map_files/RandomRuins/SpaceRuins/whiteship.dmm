@@ -37,7 +37,7 @@
 /obj/structure/mirror{
 	pixel_y = 35
 	},
-/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/atmospherics/components/unary/passive_vent,
 /obj/effect/decal/cleanable/blood,
 /obj/item/weldingtool{
 	maximum_fuel = 15
@@ -177,7 +177,7 @@
 	pixel_x = -6;
 	pixel_y = -3
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
 	on = 1;
@@ -191,7 +191,7 @@
 	},
 /area/shuttle/abandoned)
 "dA" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -274,7 +274,7 @@
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -318,7 +318,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "fO" = (
-/obj/machinery/atmospherics/unary/passive_vent{
+/obj/machinery/atmospherics/components/unary/passive_vent{
 	dir = 1
 	},
 /obj/structure/closet/l3closet,
@@ -361,7 +361,7 @@
 	pixel_x = -1;
 	pixel_y = 7
 	},
-/obj/machinery/atmospherics/unary/passive_vent{
+/obj/machinery/atmospherics/components/unary/passive_vent{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -401,7 +401,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/components/unary/cryo_cell,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -414,7 +414,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
 	on = 1;
@@ -546,7 +546,7 @@
 	pixel_y = 30
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/atmospherics/components/unary/passive_vent,
 /obj/structure/filingcabinet/chestdrawer/autopsy,
 /obj/machinery/light/built{
 	dir = 8
@@ -562,7 +562,7 @@
 "lJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/passive_vent{
+/obj/machinery/atmospherics/components/unary/passive_vent{
 	dir = 1
 	},
 /obj/item/clothing/accessory/stethoscope,
@@ -646,7 +646,7 @@
 /obj/machinery/portable_atmospherics/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/door/window/brigdoor/southleft,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -778,14 +778,14 @@
 	pixel_x = -1;
 	pixel_y = 2
 	},
-/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/atmospherics/components/unary/passive_vent,
 /obj/item/surgical_drapes,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
 /area/shuttle/abandoned)
 "qI" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -946,7 +946,7 @@
 /area/shuttle/abandoned)
 "sU" = (
 /obj/structure/table/tray,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -1118,7 +1118,7 @@
 	level = 1.4
 	},
 /obj/structure/curtain/open,
-/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/atmospherics/components/unary/passive_vent,
 /obj/machinery/light/small/built{
 	dir = 8
 	},
@@ -1316,7 +1316,7 @@
 	},
 /area/shuttle/abandoned)
 "zQ" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/components/unary/cryo_cell,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1376,7 +1376,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/power/port_gen/pacman,
-/obj/machinery/atmospherics/unary/passive_vent{
+/obj/machinery/atmospherics/components/unary/passive_vent{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -1416,7 +1416,7 @@
 "BG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
 	name = "scrubber to outside gas pump";
 	target_pressure = 4000
@@ -1429,7 +1429,7 @@
 /area/shuttle/abandoned)
 "CD" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/atmospherics/components/unary/passive_vent,
 /obj/item/clothing/mask/breath/vox,
 /obj/item/clothing/under/rank/medical/blue,
 /obj/item/clothing/under/rank/medical{
@@ -1457,7 +1457,7 @@
 /area/shuttle/abandoned)
 "Dt" = (
 /obj/structure/closet/wardrobe/white,
-/obj/machinery/atmospherics/unary/passive_vent{
+/obj/machinery/atmospherics/components/unary/passive_vent{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -1575,7 +1575,7 @@
 	level = 1.4
 	},
 /obj/structure/curtain/open,
-/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/atmospherics/components/unary/passive_vent,
 /obj/machinery/light/small/built{
 	dir = 8
 	},
@@ -1722,7 +1722,7 @@
 	},
 /area/shuttle/abandoned)
 "Jw" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -1896,7 +1896,7 @@
 	},
 /area/shuttle/abandoned)
 "Nx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
 	on = 1;
@@ -2173,7 +2173,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -2254,7 +2254,7 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/breath,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -2289,7 +2289,7 @@
 	},
 /area/shuttle/abandoned)
 "WZ" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
 	name = "air into ship gas pump"
 	},
@@ -2355,7 +2355,7 @@
 /area/shuttle/abandoned)
 "Ym" = (
 /obj/structure/rack,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
 	on = 1;
@@ -2458,7 +2458,7 @@
 	},
 /area/shuttle/abandoned)
 "ZU" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
 	dir = 1
 	},
 /obj/machinery/light/built,

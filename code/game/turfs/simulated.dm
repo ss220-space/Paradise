@@ -71,12 +71,7 @@
 /turf/simulated/proc/assimilate_air()
 	if(blocks_air || !air) // Fuck off
 		return
-	var/aoxy = 0
-	var/anitro = 0
-	var/aco = 0
-	var/atox = 0
-	var/asleep = 0
-	var/ab = 0
+	var/datum/gas_mixture/a_gas_mixture = new//Holders to assimilate air from nearby turfs
 	var/atemp = TCMB
 
 	var/turf_count = 0
@@ -87,23 +82,15 @@
 			continue
 		else if(isfloorturf(T))
 			var/datum/gas_mixture/turf_air = T.return_air()
-			aoxy += turf_air.oxygen
-			anitro += turf_air.nitrogen
-			aco += turf_air.carbon_dioxide
-			atox += turf_air.toxins
-			asleep += turf_air.sleeping_agent
-			ab += turf_air.agent_b
-			atemp += turf_air.temperature
+			for(var/gas in a_gas_mixture.gases)
+				gas[MOLES] += turf_air.gases[gas[GAS_INDEX]][MOLES]
+			a_gas_mixture.temperature += turf_air.temperature
 			turf_count++
 
 	var/datum/gas_mixture/new_air = new
 
-	new_air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
-	new_air.nitrogen = (anitro / max(turf_count, 1))
-	new_air.carbon_dioxide = (aco / max(turf_count, 1))
-	new_air.toxins = (atox / max(turf_count, 1))
-	new_air.sleeping_agent = (asleep / max(turf_count, 1))
-	new_air.agent_b = (ab / max(turf_count, 1))
+	for(var/gas in new_air.gases)
+		gas[MOLES] = (a_gas_mixture.gases[gas[GAS_INDEX]][MOLES] / max(turf_count, 1))//Averages contents of the turfs, ignoring walls and the like
 	new_air.temperature = (atemp / max(turf_count, 1))
 
 	air = new_air

@@ -772,7 +772,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "ca" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 1
 	},
 /turf/simulated/floor/grass{
@@ -782,7 +782,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "cb" = (
-/obj/machinery/atmospherics/binary/valve,
+/obj/machinery/atmospherics/components/binary/valve,
 /turf/simulated/floor/grass{
 	nitrogen = 23;
 	oxygen = 14;
@@ -801,7 +801,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ce" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/pump,

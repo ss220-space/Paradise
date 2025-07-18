@@ -18,7 +18,7 @@
 
 		var/datum/mind/player_mind = new /datum/mind(key_of_morph)
 		player_mind.active = 1
-		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(get_valid_vent_spawns(exclude_visible_by_mobs = TRUE))
+		var/obj/machinery/atmospherics/components/unary/vent_pump/vent = pick(get_valid_vent_spawns(exclude_visible_by_mobs = TRUE))
 		if(!vent)
 			kill()
 			return

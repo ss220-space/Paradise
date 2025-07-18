@@ -733,7 +733,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "mF" = (
-/obj/machinery/atmospherics/unary/vent_scrubber,
+/obj/machinery/atmospherics/components/unary/vent_scrubber,
 /turf/simulated/floor/engine,
 /area/ruin/space/crashedipcship/shard)
 "mG" = (
@@ -745,7 +745,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 8
 	},
 /obj/item/tank/internals/plasma/empty,
@@ -832,7 +832,7 @@
 	},
 /obj/effect/mob_spawn/headcrab,
 /obj/item/stock_parts/matter_bin/super,
-/obj/machinery/atmospherics/binary/valve{
+/obj/machinery/atmospherics/components/binary/valve{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -968,14 +968,14 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/shard)
 "qu" = (
-/obj/machinery/atmospherics/unary/tank/carbon_dioxide{
+/obj/machinery/atmospherics/components/unary/tank/carbon_dioxide{
 	dir = 8
 	},
 /obj/structure/curtain/black,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
 "qE" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
 "qF" = (
@@ -1087,7 +1087,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/components/trinary/filter{
 	dir = 4
 	},
 /obj/item/tank/internals/plasma/empty,
@@ -1588,7 +1588,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/aft)
 "zP" = (
-/obj/machinery/atmospherics/binary/volume_pump,
+/obj/machinery/atmospherics/components/binary/volume_pump,
 /obj/effect/mob_spawn/headcrab,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
@@ -2289,7 +2289,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/crashedipcship/aft)
 "KZ" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/upgraded{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2437,7 +2437,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/middle)
 "MS" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -2661,7 +2661,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/crashedipcship/shard)
 "RL" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded,
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/upgraded,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
 "RN" = (
@@ -2867,7 +2867,7 @@
 	},
 /obj/item/tank/internals/plasma/empty,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/binary/valve{
+/obj/machinery/atmospherics/components/binary/valve{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2919,7 +2919,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
 "Xi" = (
-/obj/machinery/atmospherics/unary/tank{
+/obj/machinery/atmospherics/components/unary/tank{
 	dir = 8
 	},
 /obj/structure/curtain/black,

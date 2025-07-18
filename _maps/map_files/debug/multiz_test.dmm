@@ -13,7 +13,7 @@
 /turf/simulated/wall/r_wall,
 /area/hallway/secondary/entry)
 "aS" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -103,7 +103,7 @@
 /turf/simulated/floor/plating,
 /area/construction/hallway)
 "cO" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/structure/table,
 /obj/item/screwdriver/power,
 /obj/item/wirecutters/power,
@@ -208,7 +208,7 @@
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "gn" = (
-/obj/machinery/atmospherics/unary/tank/air,
+/obj/machinery/atmospherics/components/unary/tank/air,
 /turf/simulated/floor/plating,
 /area/atmos)
 "go" = (
@@ -384,7 +384,7 @@
 /turf/simulated/openspace,
 /area/construction/solars)
 "ko" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -396,14 +396,14 @@
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "kN" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/construction)
 "kZ" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 4;
 	on = 1
 	},
@@ -531,7 +531,7 @@
 /turf/simulated/wall/r_wall,
 /area/storage/primary)
 "oH" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "oS" = (
@@ -645,7 +645,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
 "rP" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	on = 1
 	},
@@ -781,7 +781,7 @@
 /area/hallway/primary/central)
 "uM" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on,
 /turf/space,
 /area/engineering/engine)
 "uO" = (
@@ -814,7 +814,7 @@
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "vr" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister,
@@ -838,7 +838,7 @@
 /area/hallway/primary/central)
 "wd" = (
 /obj/machinery/light,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 10
 	},
@@ -999,7 +999,7 @@
 	},
 /area/storage/primary)
 "Ac" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -1415,7 +1415,7 @@
 	},
 /area/construction/hallway)
 "La" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -1652,7 +1652,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "Rn" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
 	on = 1
 	},
@@ -1679,11 +1679,11 @@
 /obj/machinery/power/supermatter_shard{
 	anchored = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "Sb" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
@@ -1717,7 +1717,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "Sx" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -1842,7 +1842,7 @@
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "Vh" = (
-/obj/machinery/atmospherics/trinary/filter/flipped{
+/obj/machinery/atmospherics/components/trinary/filter/flipped{
 	filter_type = "n2";
 	on = 1;
 	name = "nitrogen filter"
@@ -1996,7 +1996,7 @@
 	},
 /area/storage/primary)
 "Yr" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/atmos)
 "Ys" = (
@@ -2012,7 +2012,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
 "Yv" = (
-/obj/machinery/atmospherics/binary/valve{
+/obj/machinery/atmospherics/components/binary/valve{
 	dir = 4
 	},
 /turf/simulated/floor/plating,

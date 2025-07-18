@@ -54,7 +54,7 @@
 /mob/living/carbon/proc/breathe()
 	if(reagents.has_reagent("lexorin"))
 		return
-	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+	if(istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
 		return
 
 	var/datum/gas_mixture/environment
@@ -123,12 +123,12 @@
 	var/SA_para_min = 1
 	var/SA_sleep_min = 1
 	var/oxygen_used = 0
-	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature)/BREATH_VOLUME
+	var/breath_pressure = (breath.total_moles() * R_IDEAL_GAS_EQUATION * breath.temperature) / BREATH_VOLUME
 
-	var/O2_partialpressure = (breath.oxygen/breath.total_moles())*breath_pressure
-	var/Toxins_partialpressure = (breath.toxins/breath.total_moles())*breath_pressure
-	var/CO2_partialpressure = (breath.carbon_dioxide/breath.total_moles())*breath_pressure
-	var/SA_partialpressure = (breath.sleeping_agent/breath.total_moles())*breath_pressure
+	var/O2_partialpressure = (breath.gases[GAS_O2][MOLES] / breath.total_moles()) * breath_pressure
+	var/Toxins_partialpressure = (breath.gases[GAS_PL][MOLES] / breath.total_moles()) * breath_pressure
+	var/CO2_partialpressure = (breath.gases[GAS_CO2][MOLES] / breath.total_moles()) * breath_pressure
+	var/SA_partialpressure = (breath.gases[GAS_N2O][MOLES] / breath.total_moles()) * breath_pressure
 
 	//OXYGEN
 	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
@@ -137,18 +137,18 @@
 		if(O2_partialpressure > 0)
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
-			oxygen_used = breath.oxygen*ratio
+			oxygen_used = breath.gases[GAS_O2][MOLES] * ratio
 		else
 			adjustOxyLoss(3)
 		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		adjustOxyLoss(-5)
-		oxygen_used = breath.oxygen
+		oxygen_used = breath.gases[GAS_O2][MOLES]
 		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
-	breath.oxygen = max(breath.oxygen - oxygen_used, 0)
-	breath.carbon_dioxide += oxygen_used
+	breath.gases[GAS_O2][MOLES] = max(breath.gases[GAS_O2][MOLES] - oxygen_used, 0)
+	breath.gases[GAS_CO2][MOLES] += oxygen_used
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
@@ -168,14 +168,14 @@
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (breath.toxins/safe_tox_max) * 10
+		var/ratio = (breath.gases[GAS_PL][MOLES]/ safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 		throw_alert(ALERT_TOO_MUCH_TOX, /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert(ALERT_TOO_MUCH_TOX)
 
 	//TRACE GASES
-	if(breath.sleeping_agent)
+	if(breath.gases[GAS_N2O][MOLES])
 		if(SA_partialpressure > SA_para_min)
 			Paralyse(6 SECONDS)
 			if(SA_partialpressure > SA_sleep_min)

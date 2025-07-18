@@ -257,7 +257,7 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dz" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -558,7 +558,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "gT" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -1154,7 +1154,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "kY" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -1716,7 +1716,7 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "na" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -1780,20 +1780,20 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "oo" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "os" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/mine/production)
 "ov" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -2102,7 +2102,7 @@
 	},
 /area/mine/necropolis)
 "sE" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2176,7 +2176,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "tD" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "tE" = (
@@ -2308,7 +2308,7 @@
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "vi" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2712,7 +2712,7 @@
 /area/mine/necropolis)
 "AI" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	desc = "Отправляет дыхательную смесь из трубы распространяться по аванпосту через вентиляцию.";
 	name = "Дыхательная смесь на аванпост";
 	target_pressure = 303.325
@@ -3966,7 +3966,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "Qm" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/item/camera_assembly,
@@ -4491,7 +4491,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "Xf" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4712,7 +4712,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "Zt" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -4731,7 +4731,7 @@
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "ZG" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4;
 	name = "scrubber outlet"
 	},

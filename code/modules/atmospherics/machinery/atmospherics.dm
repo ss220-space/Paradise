@@ -26,8 +26,6 @@ Pipelines + Other Objects -> Pipe network
 	var/can_be_undertile = FALSE
 	/// If the machine is currently operating or not.
 	var/on = FALSE
-	/// Whether its currently welded
-	var/welded = FALSE
 	/// The bitflag that's being checked on ventcrawling. Default is to allow ventcrawling and seeing pipes.
 	var/vent_movement = VENTCRAWL_ALLOWED|VENTCRAWL_CAN_SEE
 
@@ -46,12 +44,16 @@ Pipelines + Other Objects -> Pipe network
 	var/pipe_color
 	/// The image of the pipe/device used for ventcrawling
 	var/image/pipe_vision_img
+	var/device_type = 0
+	var/list/obj/machinery/atmospherics/nodes = list()
 
 
 
 /obj/machinery/atmospherics/New()
+	nodes.len = device_type
 	if (!armor)
 		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
+
 	..()
 
 	if(!pipe_color)
@@ -65,19 +67,61 @@ Pipelines + Other Objects -> Pipe network
 	. = ..()
 	SSair.atmos_machinery += src
 
-/obj/machinery/atmospherics/proc/atmos_init()
-	// Updates all pipe overlays and underlays
+
+/obj/machinery/atmospherics/proc/SetInitDirections()
+	return
+
+/obj/machinery/atmospherics/proc/GetInitDirections()
+	return initialize_directions
+
+/obj/machinery/atmospherics/proc/atmos_init(list/node_connects)
+	if(!node_connects) //for pipes where order of nodes doesn't matter
+		node_connects = list()
+		node_connects.len = device_type
+
+		for(DEVICE_TYPE_LOOP)
+			for(var/D in GLOB.cardinal)
+				if(D & GetInitDirections())
+					if(D in node_connects)
+						continue
+					node_connects[I] = D
+					break
+
+	for(DEVICE_TYPE_LOOP)
+		for(var/obj/machinery/atmospherics/target in get_step(src,node_connects[I]))
+			if(can_be_node(target, I))
+				NODE_I = target
+				break
+
+	update_icon()
 	update_underlays()
+
+/obj/machinery/atmospherics/proc/can_be_node(obj/machinery/atmospherics/target)
+	if(target.initialize_directions & get_dir(target,src))
+		return TRUE
+
+/obj/machinery/atmospherics/proc/pipeline_expansion()
+	return nodes
 
 
 /obj/machinery/atmospherics/Destroy()
+	for(DEVICE_TYPE_LOOP)
+		nullifyNode(I)
 	SSair.atmos_machinery -= src
 	SSair.deferred_pipenet_rebuilds -= src
 	for(var/mob/living/mob in contents) //ventcrawling is serious business
 		mob.stop_ventcrawling()
 	QDEL_NULL(pipe_vision_img) //we have to qdel it, or it might keep a ref somewhere else
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
+	radio_connection = null
 	return ..()
 
+/obj/machinery/atmospherics/proc/nullifyNode(I)
+	if(NODE_I)
+		var/obj/machinery/atmospherics/N = NODE_I
+		N.disconnect(src)
+		NODE_I = null
 
 /obj/machinery/atmospherics/examine(mob/living/user)
 	. = ..()
@@ -160,7 +204,6 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/returnPipenet()
 	return
 
-
 /**
  * Getter of a list of pipenets
  *
@@ -188,12 +231,12 @@ Pipelines + Other Objects -> Pipe network
 	SSair.deferred_pipenet_rebuilds += src
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
-	return
-
-/obj/machinery/atmospherics/proc/nullifyPipenet(datum/pipeline/P)
-	if(P)
-		P.other_atmosmch -= src
-
+	if(istype(reference, /obj/machinery/atmospherics/pipe))
+		var/obj/machinery/atmospherics/pipe/P = reference
+		qdel(P.parent)
+	var/I = nodes.Find(reference)
+	NODE_I = null
+	update_icon()
 
 /obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -227,7 +270,7 @@ Pipelines + Other Objects -> Pipe network
 	else
 		to_chat(user, span_notice("You begin to unfasten [src]..."))
 
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return .
 
 	user.visible_message(
@@ -270,11 +313,17 @@ Pipelines + Other Objects -> Pipe network
 		var/datum/gas_mixture/env_air = loc.return_air()
 		pressures = int_air.return_pressure() - env_air.return_pressure()
 
-	var/fuck_you_dir = get_dir(src, user)
-	var/turf/general_direction = get_edge_target_turf(user, fuck_you_dir)
+	var/fuck_you_dir = get_dir(src, user) // Because fuck you...
+
+	if(!fuck_you_dir)
+		fuck_you_dir = pick(GLOB.cardinal)
+
+	var/turf/target = get_edge_target_turf(user, fuck_you_dir)
+	var/range = pressures / 250
+	var/speed = range  / 5
 	user.visible_message(span_danger("[user] is sent flying by pressure!"),span_userdanger("The pressure sends you flying!"))
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
-	user.throw_at(general_direction, pressures/10, pressures/50)
+	user.throw_at(target, range, speed)
 
 /obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
 	if(can_unwrench && !(obj_flags & NODECONSTRUCT))
@@ -287,8 +336,6 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/on_construction(D, P, C)
 	if(C)
 		color = C
-	dir = D
-	initialize_directions = P
 	var/turf/T = loc
 	if(!T.transparent_floor)
 		level = (T.intact || !can_be_undertile) ? 2 : 1
@@ -468,14 +515,4 @@ Pipelines + Other Objects -> Pipe network
 	update_icon()
 	if(user)
 		to_chat(user, span_notice("You toggle [src] [on ? "on" : "off"]."))
-
-
-/obj/machinery/atmospherics/proc/set_welded(new_value)
-	if(welded == new_value)
-		return
-
-	. = welded
-	welded = new_value
-	update_icon()
-	update_pipe_image()
 

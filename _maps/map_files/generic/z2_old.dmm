@@ -790,7 +790,7 @@
 	},
 /area/ninja/outpost)
 "aKj" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 4;
 	frequency = 1331;
 	id_tag = "ninja_pump"
@@ -4718,7 +4718,7 @@
 /obj/machinery/portable_atmospherics/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	name = "Connector Port (Air Supply)"
 	},
 /turf/simulated/floor/indestructible{
@@ -4738,7 +4738,7 @@
 	},
 /area/holodeck/source_basketball)
 "dOV" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer,
 /obj/machinery/light{
 	dir = 1;
 	switchcount = 50
@@ -4802,7 +4802,7 @@
 	},
 /area/centcom/evac)
 "dRK" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/components/unary/cryo_cell,
 /turf/simulated/floor/indestructible{
 	icon_state = "bcarpet02"
 	},
@@ -6091,7 +6091,7 @@
 	},
 /area/shuttle/ninja)
 "eME" = (
-/obj/machinery/atmospherics/unary/tank/air/ninja{
+/obj/machinery/atmospherics/components/unary/tank/air/ninja{
 	dir = 1
 	},
 /turf/simulated/wall/shuttle/nosmooth/interior{
@@ -12067,7 +12067,7 @@
 	},
 /area/centcom/evac)
 "jaU" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/components/unary/cryo_cell,
 /turf/simulated/floor/indestructible{
 	icon_state = "bcarpet03"
 	},
@@ -13908,7 +13908,7 @@
 	},
 /area/centcom/evac)
 "kqr" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4;
 	name = "Connector Port (Air Supply)"
 	},
@@ -15940,7 +15940,7 @@
 	},
 /area/vox_station)
 "lGp" = (
-/obj/machinery/atmospherics/unary/tank/air/ninja{
+/obj/machinery/atmospherics/components/unary/tank/air/ninja{
 	dir = 1
 	},
 /turf/simulated/wall/shuttle/nosmooth/interior{
@@ -19995,7 +19995,7 @@
 	},
 /area/centcom/bridge)
 "oNb" = (
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded,
+/obj/machinery/atmospherics/components/unary/cryo_cell/upgraded,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -30897,7 +30897,7 @@
 	},
 /area/centcom/supply)
 "wpd" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer/upgraded{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
@@ -32717,7 +32717,7 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/ninja/outside)
 "xAw" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 8;
 	frequency = 1331;
 	id_tag = "ninja_pump"

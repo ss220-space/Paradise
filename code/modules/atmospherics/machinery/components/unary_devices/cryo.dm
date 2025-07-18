@@ -3,7 +3,7 @@
 #define OCCUPANT_PIXEL_BOUNCE_HIGH 28
 #define OCCUPANT_PIXEL_BOUNCE_LOW 22
 
-/obj/machinery/atmospherics/unary/cryo_cell
+/obj/machinery/atmospherics/components/unary/cryo_cell
 	name = "cryo cell"
 	desc = "Медицинское устройство, представляющее из себя высокую капсулу, напичканную датчиками и сканерами. Судя по всему, она понижает температуру тела субъекта внутри."
 	ru_names = list(
@@ -45,7 +45,7 @@
 	light_color = LIGHT_COLOR_WHITE
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/power_change(forced = FALSE)
+/obj/machinery/atmospherics/components/unary/cryo_cell/power_change(forced = FALSE)
 	..()
 	if(stat & (BROKEN|NOPOWER))
 		set_light_on(FALSE)
@@ -53,7 +53,7 @@
 		set_light(2)
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
+/obj/machinery/atmospherics/components/unary/cryo_cell/examine(mob/user)
 	. = ..()
 	if(occupant)
 		if(occupant.is_dead())
@@ -64,7 +64,7 @@
 		. += span_info("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.")
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/New()
+/obj/machinery/atmospherics/components/unary/cryo_cell/New()
 	..()
 	initialize_directions = dir
 	component_parts = list()
@@ -77,7 +77,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
+/obj/machinery/atmospherics/components/unary/cryo_cell/upgraded/New()
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
@@ -89,38 +89,38 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/on_construction()
+/obj/machinery/atmospherics/components/unary/cryo_cell/on_construction()
 	..(dir,dir)
 
-/obj/machinery/atmospherics/unary/cryo_cell/RefreshParts()
+/obj/machinery/atmospherics/components/unary/cryo_cell/RefreshParts()
 	var/C
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		C += M.rating
 	current_heat_capacity = 50 * C
 	efficiency = C
 
-/obj/machinery/atmospherics/unary/cryo_cell/atmos_init()
+/obj/machinery/atmospherics/components/unary/cryo_cell/atmos_init()
 	..()
-	if(node)
+	if(NODE1)
 		return
 	for(var/cdir in GLOB.cardinal)
-		node = find_connecting(cdir)
-		if(node)
+		NODE1 = find_connecting(cdir)
+		if(NODE1)
 			break
 
-/obj/machinery/atmospherics/unary/cryo_cell/Destroy()
+/obj/machinery/atmospherics/components/unary/cryo_cell/Destroy()
 	QDEL_NULL(beaker)
 	QDEL_NULL(occupant_overlay)
 	return ..()
 
-/obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity)
+/obj/machinery/atmospherics/components/unary/cryo_cell/ex_act(severity)
 	if(occupant)
 		occupant.ex_act(severity)
 	if(beaker)
 		beaker.ex_act(severity)
 	..()
 
-/obj/machinery/atmospherics/unary/cryo_cell/handle_atom_del(atom/A)
+/obj/machinery/atmospherics/components/unary/cryo_cell/handle_atom_del(atom/A)
 	..()
 	if(A == beaker)
 		beaker = null
@@ -130,12 +130,12 @@
 		updateUsrDialog()
 		update_icon()
 
-/obj/machinery/atmospherics/unary/cryo_cell/on_deconstruction()
+/obj/machinery/atmospherics/components/unary/cryo_cell/on_deconstruction()
 	if(beaker)
 		beaker.forceMove(drop_location())
 		beaker = null
 
-/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O, mob/living/user, params)
+/obj/machinery/atmospherics/components/unary/cryo_cell/MouseDrop_T(atom/movable/O, mob/living/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
@@ -175,7 +175,7 @@
 				user.stop_pulling()
 		SStgui.update_uis(src)
 
-/obj/machinery/atmospherics/unary/cryo_cell/process()
+/obj/machinery/atmospherics/components/unary/cryo_cell/process()
 	..()
 	if(!occupant)
 		return
@@ -187,40 +187,42 @@
 		auto_eject(AUTO_EJECT_HEALTHY)
 		return
 
-	if(air_contents)
-		process_occupant()
+	if(AIR1)
+		if (occupant)
+			process_occupant()
+		expel_gas()
 
 	return TRUE
 
-/obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
+/obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
 	..()
-	if(!node)
+	if(!NODE1)
 		return
 	if(!on)
 		return
-
+	var/datum/gas_mixture/air_contents = AIR1
 	if(air_contents)
 		temperature_archived = air_contents.temperature
 		heat_gas_contents()
 
 	if(abs(temperature_archived-air_contents.temperature) > 1)
-		parent.update = 1
+		update_parents()
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/AllowDrop()
+/obj/machinery/atmospherics/components/unary/cryo_cell/AllowDrop()
 	return FALSE
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/relaymove(mob/user)
+/obj/machinery/atmospherics/components/unary/cryo_cell/relaymove(mob/user)
 	if(user.stat)
 		return
 	go_out()
 	return
 
-/obj/machinery/atmospherics/unary/cryo_cell/attack_ghost(mob/user)
+/obj/machinery/atmospherics/components/unary/cryo_cell/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
+/obj/machinery/atmospherics/components/unary/cryo_cell/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
@@ -234,17 +236,17 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/atmospherics/components/unary/cryo_cell/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Cryo", "Криогенная капсула")
 		ui.open()
 
-/obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user)
+/obj/machinery/atmospherics/components/unary/cryo_cell/ui_data(mob/user)
 	var/list/data = list()
 	data["isOperating"] = on
 	data["hasOccupant"] = occupant ? TRUE : FALSE
-
+	var/datum/gas_mixture/air_contents = AIR1
 	var/occupantData[0]
 	if(occupant)
 		occupantData["name"] = occupant.name
@@ -279,7 +281,7 @@
 	data["auto_eject_dead"] = (auto_eject_prefs & AUTO_EJECT_DEAD) ? TRUE : FALSE
 	return data
 
-/obj/machinery/atmospherics/unary/cryo_cell/ui_act(action, params)
+/obj/machinery/atmospherics/components/unary/cryo_cell/ui_act(action, params)
 	if(..() || usr == occupant)
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -317,7 +319,7 @@
 	add_fingerprint(usr)
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/components/unary/cryo_cell/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -342,7 +344,7 @@
 	return ..()
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+/obj/machinery/atmospherics/components/unary/cryo_cell/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
 		return .
@@ -359,11 +361,11 @@
 		return
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return
 
-/obj/machinery/atmospherics/unary/cryo_cell/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/cryo_cell/screwdriver_act(mob/user, obj/item/I)
 	if(occupant || on)
 		balloon_alert(user, "машина работает!")
 		return TRUE
@@ -371,11 +373,11 @@
 		return TRUE
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/update_icon_state()
+/obj/machinery/atmospherics/components/unary/cryo_cell/update_icon_state()
 	icon_state = "pod[on]" //set the icon properly every time
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/update_overlays()
+/obj/machinery/atmospherics/components/unary/cryo_cell/update_overlays()
 	. = ..()
 
 	if(occupant_overlay)
@@ -400,7 +402,8 @@
 		. += mutable_appearance(icon = icon, icon_state = "lid[on]", layer = occupant_overlay.layer + 0.01)
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/process_occupant()
+	var/datum/gas_mixture/air_contents = AIR1
 	if(air_contents.total_moles() < 10)
 		return
 
@@ -409,7 +412,7 @@
 			var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000/efficiency)) STATUS_EFFECT_CONSTANT
 			occupant.Sleeping(stun_time)
 			occupant.Paralyse(stun_time)
-			if(air_contents.oxygen > 2)
+			if(air_contents.gases[GAS_O2][MOLES] > 2)
 				if(occupant.getOxyLoss())
 					occupant.adjustOxyLoss(-6)
 			else
@@ -423,17 +426,18 @@
 				if(!reagent.can_synth) //prevents from dupe blacklisted reagents as for emagged odysseus
 					proportion = min(proportion, 1)
 					volume = 1
-			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
+			beaker.reagents.reaction(occupant, REAGENT_VAPOR, proportion)
 			beaker.reagents.trans_to(occupant, 1, volume)
 	next_trans++
 	if(next_trans == 17)
 		next_trans = 0
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/heat_gas_contents()
 	if(!occupant)
 		return
 	var/cold_protection = 0
+	var/datum/gas_mixture/air_contents = AIR1
 	var/temperature_delta = air_contents.temperature - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
 
 	if(ishuman(occupant))
@@ -449,7 +453,22 @@
 		air_contents.temperature = clamp(air_contents.temperature - heat / air_heat_capacity, TCMB, INFINITY)
 		occupant.adjust_bodytemperature(heat / current_heat_capacity, TCMB)
 
-/obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/expel_gas()
+	var/datum/gas_mixture/air_contents = AIR1
+
+	if(air_contents.total_moles() < 1)
+		return
+
+	var/datum/gas_mixture/expel_gas = new
+	var/remove_amount = air_contents.total_moles() / 100
+	expel_gas = air_contents.remove(remove_amount)
+	expel_gas.temperature = T20C	//Lets expel hot gas and see if that helps people not die as they are removed
+	loc.assume_air(expel_gas)
+	air_update_turf()
+
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/go_out()
 	if(!occupant)
 		return
 	var/turf/drop_loc = get_step(loc, SOUTH)	//this doesn't account for walls or anything, but i don't forsee that being a problem.
@@ -461,11 +480,11 @@
 	for(var/atom/movable/thing in (contents - component_parts - beaker))
 		thing.forceMove(drop_loc)
 
-/obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant(mob/target)
+/obj/machinery/atmospherics/components/unary/cryo_cell/force_eject_occupant(mob/target)
 	go_out()
 
 /// Called when either the occupant is dead and the AUTO_EJECT_DEAD flag is present, OR the occupant is alive, has no external damage, and the AUTO_EJECT_HEALTHY flag is present.
-/obj/machinery/atmospherics/unary/cryo_cell/proc/auto_eject(eject_flag)
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/auto_eject(eject_flag)
 	on = FALSE
 	go_out()
 	switch(eject_flag)
@@ -475,7 +494,7 @@
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
 	SStgui.update_uis(src)
 
-/obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
 	if(!istype(M))
 		balloon_alert(usr, "невозможно!")
 		return
@@ -485,7 +504,7 @@
 	if(M.abiotic())
 		balloon_alert(usr, "руки субъекта заняты!")
 		return
-	if(!node)
+	if(!NODE1)
 		balloon_alert(usr, "не подключено!")
 		return
 
@@ -507,13 +526,19 @@
 	return TRUE
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/click_alt(mob/living/carbon/user)
+/obj/machinery/atmospherics/components/unary/cryo_cell/click_alt(mob/living/carbon/user)
 	go_out()
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
+/obj/machinery/atmospherics/components/unary/cryo_cell/container_resist()
+	if(usr.incapacitated()) // Check that they're able to open the tube.
+		return
+	to_chat(usr, span_notice("Вы начинаете шевелиться внутри [declent_ru(GENITIVE)], пиная ногой выпускной клапан."))
+	eject_occupant()
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/verb/move_eject()
 	set name = "Извлечь пациента"
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
@@ -521,11 +546,8 @@
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return
-		to_chat(usr, span_notice("Активация протокола аварийного извлечения. Время ожидания: одна минута."))
-		sleep(60 SECONDS)
-		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
-			return
-		go_out()//and release him from the eternal prison.
+		to_chat(usr, span_notice("Активация протокола аварийного извлечения. Время ожидания: 15 секунд."))
+		eject_occupant()//and release him from the eternal prison.
 	else
 		if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
 			return
@@ -535,19 +557,24 @@
 		go_out()
 	add_fingerprint(usr)
 
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/eject_occupant()
+	sleep(15 SECONDS)
+	if(!src || !usr || !occupant || (occupant != usr)) // Make sure they didn't disappear.
+		return
+	go_out()
 
-/obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
+/obj/machinery/atmospherics/components/unary/cryo_cell/narsie_act()
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	color = "red"//force the icon to red
 	light_color = LIGHT_COLOR_RED
 
-/obj/machinery/atmospherics/unary/cryo_cell/ratvar_act()
+/obj/machinery/atmospherics/components/unary/cryo_cell/ratvar_act()
 	go_out()
 	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(src))
 	qdel(src)
 
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
+/obj/machinery/atmospherics/components/unary/cryo_cell/verb/move_inside()
 	set name = "Залезть внутрь"
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
@@ -576,13 +603,13 @@
 /datum/data/function/proc/display()
 	return
 
-/obj/machinery/atmospherics/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
+/obj/machinery/atmospherics/components/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
 	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
-/obj/machinery/atmospherics/unary/cryo_cell/update_remote_sight(mob/living/user)
+/obj/machinery/atmospherics/components/unary/cryo_cell/update_remote_sight(mob/living/user)
 	return //we don't see the pipe network while inside cryo.
 
-/obj/machinery/atmospherics/unary/cryo_cell/can_see_pipes()
+/obj/machinery/atmospherics/components/unary/cryo_cell/can_see_pipes()
 	return FALSE // you can't see the pipe network when inside a cryo cell.
 
 #undef AUTO_EJECT_HEALTHY

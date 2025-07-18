@@ -1,5 +1,5 @@
 /// Checks if the mob is able to enter the vent, and provides feedback if they are unable to.
-/mob/living/proc/can_ventcrawl(obj/machinery/atmospherics/ventcrawl_target, provide_feedback = TRUE, entering = FALSE)
+/mob/living/proc/can_ventcrawl(obj/machinery/atmospherics/components/ventcrawl_target, provide_feedback = TRUE, entering = FALSE)
 	if(QDELETED(ventcrawl_target) || QDELETED(src))
 		return FALSE
 

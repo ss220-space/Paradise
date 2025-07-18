@@ -106,7 +106,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/datum/gas_mixture/Z = air
 	var/pressure = Z.return_pressure()
 	// Can most things breathe and tolerate the temperature and pressure?
-	if(Z.oxygen < 16 || Z.toxins >= 0.05 || Z.carbon_dioxide >= 10 || Z.sleeping_agent >= 1 || (Z.temperature <= 270) || (Z.temperature >= 360) || (pressure <= 20) || (pressure >= 550))
+	if(Z.gases[GAS_O2][MOLES] < 16 || Z.gases[GAS_PL][MOLES] >= 0.05 || Z.gases[GAS_CO2][MOLES] >= 10 || Z.gases[GAS_N2O][MOLES] >= 1 || (Z.temperature <= 270) || (Z.temperature >= 360) || (pressure <= 20) || (pressure >= 550))
 		return FALSE
 	return TRUE
 

@@ -84,7 +84,7 @@
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	layer = 2
 	},
 /turf/simulated/floor/plasteel/airless{

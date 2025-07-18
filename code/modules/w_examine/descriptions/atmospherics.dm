@@ -81,49 +81,49 @@
 	description_info = "This is a cosmetic attachment, as pipes currently do not spill their contents into the air."
 
 //T-shaped valves
-/obj/machinery/atmospherics/trinary/tvalve
+/obj/machinery/atmospherics/components/trinary/tvalve
 	description_info = "Click this to toggle the mode.  The direction with the green light is where the gas will flow."
 
 //Normal valves
-/obj/machinery/atmospherics/binary/valve
+/obj/machinery/atmospherics/components/binary/valve
 	description_info = "Click this to turn the valve.  If red, the pipes on each end are separated.  Otherwise, they are connected."
 
 //TEG ports
-/obj/machinery/atmospherics/binary/circulator
+/obj/machinery/atmospherics/components/binary/circulator
 	description_info = "This generates electricity, depending on the difference in temperature between each side of the machine.  The meter in \
 	the center of the machine gives an indicator of how much electricity is being generated."
 
 //Passive gates
-/obj/machinery/atmospherics/binary/passive_gate
+/obj/machinery/atmospherics/components/binary/passive_gate
 	description_info = "This is a one-way regulator, allowing gas to flow only at a specific pressure and flow rate.  If the light is green, it is flowing."
 
 //Normal pumps (high power one inherits from this)
-/obj/machinery/atmospherics/binary/pump
+/obj/machinery/atmospherics/components/binary/pump
 	description_info = "This moves gas from one pipe to another.  A higher target pressure demands more energy.  The side with the red end is the output."
 
 //Vents
-/obj/machinery/atmospherics/unary/vent_pump
+/obj/machinery/atmospherics/components/unary/vent_pump
 	description_info = "This pumps the contents of the attached pipe out into the atmosphere, if needed.  It can be controlled from an Air Alarm."
 
 //Freezers
-/obj/machinery/atmospherics/unary/cold_sink/freezer
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer
 	description_info = "Cools down the gas of the pipe it is connected to.  It uses massive amounts of electricity while on. \
 	It can be upgraded by replacing the capacitors, manipulators, and matter bins.  It can be deconstructed by screwing the maintenance panel open with a \
 	screwdriver, and then using a crowbar."
 
 //Heaters
-/obj/machinery/atmospherics/unary/heat_reservoir/heater
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater
 	description_info = "Heats up the gas of the pipe it is connected to.  It uses massive amounts of electricity while on. \
 	It can be upgraded by replacing the capacitors, manipulators, and matter bins.  It can be deconstructed by screwing the maintenance panel open with a \
 	screwdriver, and then using a crowbar."
 
 //Gas injectors
-/obj/machinery/atmospherics/unary/outlet_injector
+/obj/machinery/atmospherics/components/unary/outlet_injector
 	description_info = "Outputs the pipe's gas into the atmosphere, similar to an air vent.  It can be controlled by a nearby atmospherics computer. \
 	A green light on it means it is on."
 
 //Scrubbers
-/obj/machinery/atmospherics/unary/vent_scrubber
+/obj/machinery/atmospherics/components/unary/vent_scrubber
 	description_info = "This filters the atmosphere of harmful gas.  Filtered gas goes to the pipes connected to it, typically a scrubber pipe. \
 	It can be controlled from an Air Alarm.  It can be configured to drain all air rapidly with a 'panic syphon' from an air alarm."
 

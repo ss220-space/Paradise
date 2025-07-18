@@ -294,7 +294,7 @@
 	},
 /area/djstation)
 "bi" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/canister/air,
@@ -382,7 +382,7 @@
 /turf/simulated/floor/plating,
 /area/djstation)
 "bA" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 1;
 	frequency = 1479;
 	id_tag = "dj_station_pump"

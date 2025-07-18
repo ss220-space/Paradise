@@ -1,4 +1,4 @@
-/obj/machinery/atmospherics/unary/passive_vent
+/obj/machinery/atmospherics/components/unary/passive_vent
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
@@ -11,19 +11,51 @@
 
 	var/volume = 250
 
-/obj/machinery/atmospherics/unary/passive_vent/high_volume
+/obj/machinery/atmospherics/components/unary/passive_vent/high_volume
 	name = "large passive vent"
 	volume = 1000
 
-/obj/machinery/atmospherics/unary/passive_vent/New()
+/obj/machinery/atmospherics/components/unary/passive_vent/New()
 	..()
+	var/datum/gas_mixture/air_contents = AIR1
 	air_contents.volume = volume
+	AIR1 = air_contents
 
-/obj/machinery/atmospherics/unary/passive_vent/process_atmos()
+/obj/machinery/atmospherics/components/unary/passive_vent/update_overlays()
+	. = ..()
+	SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
+	if(!check_icon_cache())
+		return
+
+	var/vent_icon = "vent"
+
+	var/turf/T = get_turf(src)
+	if(!istype(T))
+		return
+
+	var/obj/machinery/atmospherics/node = NODE1
+
+	var/hide = T.intact && node && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe)
+
+	if(welded)
+		vent_icon += "_weld"
+	else
+		vent_icon += "_off"
+
+	. += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
+
+	if(!hide)
+		. += SSair.icon_manager.get_atmos_icon("device", state = "vent_cap")
+
+	update_pipe_image()
+
+/obj/machinery/atmospherics/components/unary/passive_vent/process_atmos()
 	..()
 
-	if(!node)
-		return 0
+	if(!NODE1)
+		return FALSE
+
+	var/datum/gas_mixture/air_contents = AIR1
 
 	var/datum/gas_mixture/environment = loc.return_air()
 
@@ -54,13 +86,13 @@
 			air_contents.merge(removed)
 			air_update_turf()
 
-	parent.update = 1
-	return 1
+	update_parents()
+	return TRUE
 
-/obj/machinery/atmospherics/unary/passive_vent/update_underlays()
+/obj/machinery/atmospherics/components/unary/passive_vent/update_underlays()
 	if(..())
 		underlays.Cut()
 		var/turf/T = get_turf(src)
 		if(!istype(T))
 			return
-		add_underlay(T, node, dir)
+		add_underlay(T, NODE1, dir)

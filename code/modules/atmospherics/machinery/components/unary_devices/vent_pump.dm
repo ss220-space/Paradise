@@ -1,9 +1,14 @@
 #define EXTERNAL_PRESSURE_BOUND ONE_ATMOSPHERE
 #define INTERNAL_PRESSURE_BOUND 0
-#define PRESSURE_CHECKS 1
 
-/obj/machinery/atmospherics/unary/vent_pump
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
+#define EXT_BOUND	(1<<0)
+#define INT_BOUND	(1<<1)
+#define NO_BOUND	(1<<2)
+
+#define SIPHONING	0
+#define RELEASING	1
+
+/obj/machinery/atmospherics/components/unary/vent_pump
 	icon_state = "map_vent"
 
 	name = "air vent"
@@ -21,13 +26,15 @@
 	var/area/initial_loc
 	var/area_uid
 
+	welded = 0
+
 	on = FALSE
-	var/releasing = TRUE // FALSE = siphoning, TRUE = releasing
+	var/pump_direction = RELEASING
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
 	var/internal_pressure_bound = INTERNAL_PRESSURE_BOUND
 
-	var/pressure_checks = PRESSURE_CHECKS
+	var/pressure_checks = EXT_BOUND
 	//1: Do not pass external_pressure_bound
 	//2: Do not pass internal_pressure_bound
 	//3: Do not pass either
@@ -35,7 +42,7 @@
 	// Used when handling incoming radio signals requesting default settings
 	var/external_pressure_bound_default = EXTERNAL_PRESSURE_BOUND
 	var/internal_pressure_bound_default = INTERNAL_PRESSURE_BOUND
-	var/pressure_checks_default = PRESSURE_CHECKS
+	var/pressure_checks_default = EXT_BOUND
 
 	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE	//the (internal) pressure at which welded covers will burst off
 
@@ -48,18 +55,18 @@
 
 	multitool_menu_type = /datum/multitool_menu/idtag/freq/vent_pump
 
-/obj/machinery/atmospherics/unary/vent_pump/on
+/obj/machinery/atmospherics/components/unary/vent_pump/on
 	on = TRUE
 	icon_state = "map_vent_out"
 
-/obj/machinery/atmospherics/unary/vent_pump/siphon
-	releasing = FALSE
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon
+	pump_direction = SIPHONING
 
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on
 	on = TRUE
 	icon_state = "map_vent_in"
 
-/obj/machinery/atmospherics/unary/vent_pump/New()
+/obj/machinery/atmospherics/components/unary/vent_pump/New()
 	..()
 	GLOB.all_vent_pumps += src
 	icon = null
@@ -69,16 +76,25 @@
 		assign_uid()
 		id_tag = num2text(uid)
 
-/obj/machinery/atmospherics/unary/vent_pump/high_volume
+/obj/machinery/atmospherics/components/unary/vent_pump/Destroy()
+	GLOB.all_vent_pumps -= src
+	if(initial_loc)
+		initial_loc.air_vent_info -= id_tag
+		initial_loc.air_vent_names -= id_tag
+		initial_loc = null
+	return ..()
+
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume
 	name = "large air vent"
 	power_channel = EQUIP
 
-/obj/machinery/atmospherics/unary/vent_pump/high_volume/New()
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/New()
 	..()
+	var/datum/gas_mixture/air_contents = AIR1
 	air_contents.volume = 1000
 
 
-/obj/machinery/atmospherics/unary/vent_pump/update_overlays()
+/obj/machinery/atmospherics/components/unary/vent_pump/update_overlays()
 	. = ..()
 	SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
 	if(!check_icon_cache())
@@ -90,27 +106,38 @@
 	if(!istype(T))
 		return
 
-	if(T.intact && node && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
-		vent_icon += "h"
+	var/obj/machinery/atmospherics/node = NODE1
+
+	var/hide = T.intact && node && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe)
+	var/pump_dir
+
+	if(pump_direction & RELEASING)
+		pump_dir = "_out"
+	else
+		pump_dir = "_in"
 
 	if(welded)
-		vent_icon += "weld"
+		vent_icon += "_weld"
 	else if(!powered())
-		vent_icon += "off"
+		vent_icon += "_off"
 	else
-		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
+		vent_icon += "[on ? pump_dir : "_off"]"
 
 	. += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
+
+	if(!hide)
+		. += SSair.icon_manager.get_atmos_icon("device", state = "vent_cap")
 
 	update_pipe_image()
 
 
-/obj/machinery/atmospherics/unary/vent_pump/update_underlays()
+/obj/machinery/atmospherics/components/unary/vent_pump/update_underlays()
 	if(..())
 		underlays.Cut()
 		var/turf/T = get_turf(src)
 		if(!istype(T))
 			return
+		var/obj/machinery/atmospherics/node = NODE1
 		if(T.intact && node && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
 			return
 		else
@@ -120,15 +147,15 @@
 				add_underlay(T, direction = dir)
 
 
-/obj/machinery/atmospherics/unary/vent_pump/hide()
+/obj/machinery/atmospherics/components/unary/vent_pump/hide()
 	update_icon()
 	update_underlays()
 
-/obj/machinery/atmospherics/unary/vent_pump/process_atmos()
+/obj/machinery/atmospherics/components/unary/vent_pump/process_atmos()
 	..()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
-	if(!node)
+	if(!NODE1)
 		on = FALSE
 		// The state has changed, do some updates
 		broadcast_status()
@@ -136,6 +163,8 @@
 	//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0
 	if(!on)
 		return FALSE
+
+	var/datum/gas_mixture/air_contents = AIR1
 
 	if(welded)
 		if(air_contents.return_pressure() >= weld_burst_pressure && prob(5))	//the weld is on but the cover is welded shut, can it withstand the internal pressure?
@@ -147,11 +176,11 @@
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
-	if(releasing) //internal -> external
+	if(pump_direction & RELEASING) //internal -> external
 		var/pressure_delta = 10000
-		if(pressure_checks & 1)
+		if(pressure_checks & EXT_BOUND)
 			pressure_delta = min(pressure_delta, (external_pressure_bound - environment_pressure))
-		if(pressure_checks & 2)
+		if(pressure_checks & INT_BOUND)
 			pressure_delta = min(pressure_delta, (air_contents.return_pressure() - internal_pressure_bound))
 
 		if(pressure_delta > 0.5 && air_contents.temperature > 0)
@@ -159,13 +188,12 @@
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 			loc.assume_air(removed)
 			air_update_turf()
-			parent?.update = TRUE
 
 	else //external -> internal
 		var/pressure_delta = 10000
-		if(pressure_checks & 1)
+		if(pressure_checks & EXT_BOUND)
 			pressure_delta = min(pressure_delta, (environment_pressure - external_pressure_bound))
-		if(pressure_checks & 2)
+		if(pressure_checks & INT_BOUND)
 			pressure_delta = min(pressure_delta, (internal_pressure_bound - air_contents.return_pressure()))
 
 		if(pressure_delta > 0.5 && environment.temperature > 0)
@@ -175,13 +203,12 @@
 				return
 			air_contents.merge(removed)
 			air_update_turf()
-			parent.update = TRUE
-
+	update_parents()
 	return TRUE
 
 //Radio remote control
 
-/obj/machinery/atmospherics/unary/vent_pump/set_frequency(new_frequency)
+/obj/machinery/atmospherics/components/unary/vent_pump/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 
@@ -200,9 +227,9 @@
 	else
 		broadcast_status()
 
-/obj/machinery/atmospherics/unary/vent_pump/proc/broadcast_status()
+/obj/machinery/atmospherics/components/unary/vent_pump/proc/broadcast_status()
 	if(!radio_connection)
-		return 0
+		return FALSE
 
 	var/datum/signal/signal = new
 	signal.transmission_method = 1 //radio signal
@@ -213,7 +240,7 @@
 		"tag" = src.id_tag,
 		"device" = "AVP",
 		"power" = on,
-		"direction" = releasing?("release"):("siphon"),
+		"direction" = pump_direction?("release"):("siphon"),
 		"checks" = pressure_checks,
 		"internal" = internal_pressure_bound,
 		"external" = external_pressure_bound,
@@ -232,26 +259,26 @@
 	return 1
 
 
-/obj/machinery/atmospherics/unary/vent_pump/atmos_init()
+/obj/machinery/atmospherics/components/unary/vent_pump/atmos_init()
 	..()
 	if(frequency)
 		set_frequency(frequency)
-		broadcast_status()
+	broadcast_status()
 
-/obj/machinery/atmospherics/unary/vent_pump/receive_signal(datum/signal/signal)
+/obj/machinery/atmospherics/components/unary/vent_pump/receive_signal(datum/signal/signal)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	//log_admin("DEBUG \[[world.timeofday]\]: /obj/machinery/atmospherics/unary/vent_pump/receive_signal([signal.debug_print()])")
+	//log_admin("DEBUG \[[world.timeofday]\]: /obj/machinery/atmospherics/components/unary/vent_pump/receive_signal([signal.debug_print()])")
 	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
 		return 0
 
 	if(signal.data["purge"] != null)
-		pressure_checks &= ~1
-		releasing = FALSE
+		pressure_checks &= ~EXT_BOUND
+		pump_direction = SIPHONING
 
 	if(signal.data["stabilize"] != null)
-		pressure_checks |= 1
-		releasing = TRUE
+		pressure_checks |= EXT_BOUND
+		pump_direction = RELEASING
 
 	if(signal.data["power"] != null)
 		on = text2num(signal.data["power"])
@@ -266,44 +293,44 @@
 			pressure_checks = text2num(signal.data["checks"])
 
 	if(signal.data["checks_toggle"] != null)
-		pressure_checks = (pressure_checks?0:3)
+		pressure_checks = (pressure_checks? 0 : NO_BOUND)
 
 	if(signal.data["direction"] != null)
-		releasing = text2num(signal.data["direction"])
+		pump_direction = text2num(signal.data["direction"])
 
 	if(signal.data["set_internal_pressure"] != null)
 		if(signal.data["set_internal_pressure"] == "default")
 			internal_pressure_bound = internal_pressure_bound_default
 		else
-			internal_pressure_bound = between(
-				0,
+			internal_pressure_bound = clamp(
 				text2num(signal.data["set_internal_pressure"]),
-				ONE_ATMOSPHERE*50
+				0,
+				ONE_ATMOSPHERE * 50
 			)
 
 	if(signal.data["set_external_pressure"] != null)
 		if(signal.data["set_external_pressure"] == "default")
 			external_pressure_bound = external_pressure_bound_default
 		else
-			external_pressure_bound = between(
-				0,
+			external_pressure_bound = clamp(
 				text2num(signal.data["set_external_pressure"]),
-				ONE_ATMOSPHERE*50
+				0,
+				ONE_ATMOSPHERE * 50
 			)
 
 	if(signal.data["adjust_internal_pressure"] != null)
-		internal_pressure_bound = between(
-			0,
+		internal_pressure_bound = clamp(
 			internal_pressure_bound + text2num(signal.data["adjust_internal_pressure"]),
-			ONE_ATMOSPHERE*50
+			0,
+			ONE_ATMOSPHERE * 50
 		)
 
 	if(signal.data["adjust_external_pressure"] != null)
 
 
-		external_pressure_bound = between(
-			0,
+		external_pressure_bound = clamp(
 			external_pressure_bound + text2num(signal.data["adjust_external_pressure"]),
+			0,
 			ONE_ATMOSPHERE*50
 		)
 
@@ -323,7 +350,7 @@
 	return
 
 
-/obj/machinery/atmospherics/unary/vent_pump/attack_alien(mob/user)
+/obj/machinery/atmospherics/components/unary/vent_pump/attack_alien(mob/user)
 	if(!welded || !do_after(user, 2 SECONDS, src))
 		return
 	user.visible_message(
@@ -335,7 +362,7 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 
-/obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/components/unary/vent_pump/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -354,12 +381,12 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 
-/obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/vent_pump/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	multitool_menu_interact(user, I)
 
 
-/obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/vent_pump/screwdriver_act(mob/user, obj/item/I)
 	if(welded)
 		return FALSE
 	. = TRUE
@@ -374,7 +401,7 @@
 	)
 
 
-/obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/unary/vent_pump/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return .
@@ -394,7 +421,7 @@
 		)
 
 
-/obj/machinery/atmospherics/unary/vent_pump/attack_hand(mob/user)
+/obj/machinery/atmospherics/components/unary/vent_pump/attack_hand(mob/user)
 	if(welded || !open)
 		return ..()
 
@@ -409,29 +436,26 @@
 			user.put_in_hands(thing, ignore_anim = FALSE)
 
 
-/obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
+/obj/machinery/atmospherics/components/unary/vent_pump/examine(mob/user)
 	. = ..()
 	if(welded)
 		. += span_notice("It seems welded shut.")
 
-/obj/machinery/atmospherics/unary/vent_pump/power_change(forced = FALSE)
+/obj/machinery/atmospherics/components/unary/vent_pump/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/unary/vent_pump/proc/set_tag(new_tag)
+/obj/machinery/atmospherics/components/unary/vent_pump/proc/set_tag(new_tag)
 	if(frequency == ATMOS_VENTSCRUB)
 		initial_loc.air_vent_info -= id_tag
 		initial_loc.air_vent_names -= id_tag
 	id_tag = new_tag
 	broadcast_status()
 
-/obj/machinery/atmospherics/unary/vent_pump/Destroy()
-	GLOB.all_vent_pumps -= src
-	if(initial_loc)
-		initial_loc.air_vent_info -= id_tag
-		initial_loc.air_vent_names -= id_tag
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
+#undef INT_BOUND
+#undef EXT_BOUND
+#undef NO_BOUND
+
+#undef SIPHONING
+#undef RELEASING

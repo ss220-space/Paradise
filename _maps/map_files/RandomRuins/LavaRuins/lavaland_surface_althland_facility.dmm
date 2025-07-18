@@ -505,7 +505,7 @@
 	},
 /area/ruin/unpowered)
 "nN" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -634,7 +634,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "sm" = (
-/obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
+/obj/machinery/atmospherics/components/unary/tank/oxygen_agent_b,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
@@ -729,7 +729,7 @@
 	},
 /area/ruin/unpowered)
 "vF" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,

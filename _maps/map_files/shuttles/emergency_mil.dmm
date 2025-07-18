@@ -171,7 +171,7 @@
 	},
 /area/shuttle/escape)
 "aJ" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/components/unary/cryo_cell,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue";
@@ -179,7 +179,7 @@
 	},
 /area/shuttle/escape)
 "aK" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
@@ -292,7 +292,7 @@
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aY" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{

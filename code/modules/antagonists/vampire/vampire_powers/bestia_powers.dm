@@ -1526,8 +1526,8 @@
 	interior_air = new
 	interior_air.temperature = T20C
 	interior_air.volume = 200
-	interior_air.oxygen = O2STANDARD*interior_air.volume/(R_IDEAL_GAS_EQUATION*interior_air.temperature)
-	interior_air.nitrogen = N2STANDARD*interior_air.volume/(R_IDEAL_GAS_EQUATION*interior_air.temperature)
+	interior_air.gases[GAS_O2][MOLES] = O2STANDARD * interior_air.volume / (R_IDEAL_GAS_EQUATION * interior_air.temperature)
+	interior_air.gases[GAS_N2][MOLES]= N2STANDARD * interior_air.volume / (R_IDEAL_GAS_EQUATION * interior_air.temperature)
 
 
 /obj/structure/closet/coffin/vampire/proc/update_trophies(datum/antagonist/vampire/vampire)

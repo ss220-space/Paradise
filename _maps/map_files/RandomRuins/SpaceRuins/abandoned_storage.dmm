@@ -79,7 +79,7 @@
 /turf/template_noop,
 /area/template_noop)
 "bp" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -224,7 +224,7 @@
 /area/ruin/unpowered)
 "dX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -296,7 +296,7 @@
 /area/template_noop)
 "eP" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -338,7 +338,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "gj" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
 	on = 1;
@@ -410,7 +410,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "hj" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -439,7 +439,7 @@
 /area/template_noop)
 "hI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1;
 	dir = 4
 	},
@@ -492,7 +492,7 @@
 /area/ruin/unpowered)
 "iz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -502,7 +502,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "iG" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -803,7 +803,7 @@
 /area/ruin/unpowered)
 "nm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
 	scrub_N2O = 1;
@@ -920,7 +920,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "pe" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -1305,7 +1305,7 @@
 /area/ruin/unpowered)
 "wJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	on = 1
 	},
@@ -1340,7 +1340,7 @@
 /area/ruin/unpowered)
 "xf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
 	on = 1;
@@ -1701,7 +1701,7 @@
 /area/template_noop)
 "CG" = (
 /obj/structure/chair/wood,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
 	on = 1;
@@ -1808,7 +1808,7 @@
 	},
 /area/template_noop)
 "EO" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -1957,7 +1957,7 @@
 /obj/effect/decal/warning_stripes/arrow{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -2136,7 +2136,7 @@
 /area/ruin/unpowered)
 "KN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	on = 1
 	},
@@ -2277,7 +2277,7 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -2293,7 +2293,7 @@
 /area/ruin/unpowered)
 "Mg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -2550,7 +2550,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Qo" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
 	on = 1;
@@ -2718,7 +2718,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Tn" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
 	on = 1
 	},
@@ -2954,7 +2954,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Wg" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 4;
 	on = 1
 	},
@@ -3050,14 +3050,14 @@
 	dir = 1;
 	icon_state = "corpse_soviet_lying_half2"
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	on = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Xb" = (
-/obj/machinery/atmospherics/unary/tank{
+/obj/machinery/atmospherics/components/unary/tank{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -3084,7 +3084,7 @@
 /area/ruin/unpowered/no_grav)
 "Xn" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
 	on = 1;
@@ -3145,7 +3145,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Yn" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	on = 1
 	},
 /turf/simulated/floor/plating,
@@ -3204,7 +3204,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "ZW" = (
-/obj/machinery/atmospherics/unary/tank/air/ninja,
+/obj/machinery/atmospherics/components/unary/tank/air/ninja,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 

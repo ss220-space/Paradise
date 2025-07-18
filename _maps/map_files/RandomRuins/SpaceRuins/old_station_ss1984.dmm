@@ -50,7 +50,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
@@ -73,7 +73,7 @@
 /area/ruin/space/ancientstation/beta_surgery1)
 "ap" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -371,7 +371,7 @@
 /area/ruin/space/ancientstation/charlie_secintel)
 "bm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -518,7 +518,7 @@
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/theta_exit)
 "bK" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -810,7 +810,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "cF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
@@ -971,7 +971,7 @@
 /area/template_noop)
 "dp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	external_pressure_bound = 0;
 	external_pressure_bound_default = 0;
@@ -1053,7 +1053,7 @@
 	},
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "dy" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -1161,7 +1161,7 @@
 /area/template_noop)
 "dU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/trinary/mixer{
+/obj/machinery/atmospherics/components/trinary/mixer{
 	desc = "Смешивает кислород и азот, создавая смесь для дыхания на станции";
 	dir = 1;
 	name = "Дыхательный смеситель";
@@ -1558,7 +1558,7 @@
 /area/template_noop)
 "fy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -1660,7 +1660,7 @@
 /area/ruin/space/ancientstation/cowasteroid)
 "fQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/mob_spawn/human/oldstation/oldmed{
@@ -1750,7 +1750,7 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "ge" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -1844,7 +1844,7 @@
 /area/ruin/space/ancientstation/charlie_secintel)
 "gD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/structure/table,
@@ -1865,7 +1865,7 @@
 /area/ruin/space/ancientstation/beta_surgery1)
 "gG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -1896,7 +1896,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "gK" = (
-/obj/machinery/atmospherics/binary/volume_pump/on{
+/obj/machinery/atmospherics/components/binary/volume_pump/on{
 	desc = "Отправляет неотфильтрованный газ в космос";
 	name = "Остатки газа в космос"
 	},
@@ -1944,7 +1944,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "gQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	on = 1;
 	target_pressure = 101
 	},
@@ -1963,7 +1963,7 @@
 /area/ruin/space/ancientstation/charlie_restroom)
 "gU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -2009,7 +2009,7 @@
 /area/ruin/space/ancientstation/theta_docks)
 "hc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -2053,7 +2053,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "hj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -2332,7 +2332,7 @@
 /area/ruin/space/ancientstation/theta_rnd)
 "ii" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
 "ij" = (
@@ -2352,7 +2352,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_secrest)
 "in" = (
@@ -2380,7 +2380,7 @@
 /area/ruin/space/ancientstation/beta_north)
 "iw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/hivebot/rapid,
@@ -2653,7 +2653,7 @@
 /area/ruin/space/ancientstation/theta_docks)
 "jq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/structure/rack,
@@ -2670,7 +2670,7 @@
 /area/ruin/space/ancientstation/charlie_hydrostorage)
 "js" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 8
 	},
 /turf/simulated/floor/engine/o2,
@@ -2724,7 +2724,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cabinet,
 /obj/item/clothing/ears/headphones,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/item/clothing/under/soldieruniform,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_restroom)
@@ -2746,7 +2746,7 @@
 /area/ruin/space/ancientstation/theta_mine)
 "jJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel/airless,
 /area/template_noop)
 "jK" = (
@@ -2777,7 +2777,7 @@
 	},
 /area/ruin/space/ancientstation/beta_surgery)
 "jO" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -3021,7 +3021,7 @@
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "kK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/machinery/light_switch{
@@ -3221,7 +3221,7 @@
 /area/ruin/space/ancientstation/charlie_armory)
 "lj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/photocopier,
@@ -3309,13 +3309,13 @@
 	dir = 8;
 	pixel_x = 26
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_secrest)
 "lw" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1;
 	scrub_Toxins = 0
 	},
@@ -3324,7 +3324,7 @@
 "lC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cabinet,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/item/clothing/under/rank/bartender/skirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_restroom)
@@ -3481,7 +3481,7 @@
 /area/ruin/space/ancientstation/beta_surgery)
 "md" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/structure/showcase/machinery/oldpod,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -3537,7 +3537,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "mm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -3636,7 +3636,7 @@
 /area/ruin/space/ancientstation/charlie_recycler)
 "mC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -3747,7 +3747,7 @@
 "mW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -3865,7 +3865,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "nv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/components/trinary/filter{
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
 	filter_type = 3;
 	name = "Фильтр Углекислого Газа (СO2)";
@@ -4095,7 +4095,7 @@
 /area/ruin/space/ancientstation/charlie_hydrostorage)
 "ou" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -4131,7 +4131,7 @@
 /area/ruin/space/ancientstation/theta_mine)
 "oA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -4156,7 +4156,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "oD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -4240,7 +4240,7 @@
 /area/template_noop)
 "oR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -4325,7 +4325,7 @@
 /area/template_noop)
 "pg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -4710,7 +4710,7 @@
 /area/ruin/space/ancientstation/charlie_armory)
 "qo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/machinery/light_switch{
@@ -4838,7 +4838,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "qK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -5030,7 +5030,7 @@
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "rv" = (
 /obj/structure/closet,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/item/clothing/under/retro/science,
 /obj/item/card/id/away/old/mechatron{
 	access = list(29,70)
@@ -5053,7 +5053,7 @@
 /area/ruin/space/ancientstation/charlie_warden)
 "ry" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1;
 	scrub_Toxins = 0
 	},
@@ -5063,7 +5063,7 @@
 /area/ruin/space/ancientstation/beta_medstorage)
 "rz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/machinery/light/small{
@@ -5103,7 +5103,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/crate,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1;
 	scrub_Toxins = 0
 	},
@@ -5137,7 +5137,7 @@
 /area/ruin/space/ancientstation/cowasteroid)
 "rO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -5331,7 +5331,7 @@
 "sB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/item/clothing/under/retro/science,
 /obj/item/storage/backpack/old,
 /turf/simulated/floor/plasteel,
@@ -5404,7 +5404,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "sT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -5532,7 +5532,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_corridor)
 "tr" = (
-/obj/machinery/atmospherics/binary/volume_pump,
+/obj/machinery/atmospherics/components/binary/volume_pump,
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
@@ -5638,7 +5638,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "tI" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5737,7 +5737,7 @@
 "tZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/oldstation/oldsec,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -5776,7 +5776,7 @@
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/beta_medstorage)
 "un" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5787,7 +5787,7 @@
 "uo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -5850,7 +5850,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "uy" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -6041,7 +6041,7 @@
 /area/ruin/space/ancientstation/beta_north)
 "vb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -6069,7 +6069,7 @@
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -6242,7 +6242,7 @@
 /area/ruin/space/ancientstation/charlie_cryo)
 "vK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/effect/mob_spawn/human/oldstation/oldeng,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -6257,7 +6257,7 @@
 /area/ruin/space/ancientstation/theta_docks)
 "vO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -6351,7 +6351,7 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "wf" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -6421,7 +6421,7 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "wn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/structure/showcase/machinery/oldpod,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -6429,7 +6429,7 @@
 /area/ruin/space/ancientstation/charlie_cryo)
 "wo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/machinery/shower{
@@ -6675,7 +6675,7 @@
 /area/ruin/space/ancientstation/theta_rnd)
 "wX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/machinery/light/small,
@@ -7104,7 +7104,7 @@
 /area/ruin/space/ancientstation/charlie_cryo)
 "yy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/light_construct/small{
@@ -7285,7 +7285,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "zd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 8
 	},
 /turf/simulated/floor/engine/co2,
@@ -7297,7 +7297,7 @@
 /area/ruin/space/ancientstation/hivebot)
 "zf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -7427,7 +7427,7 @@
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "zF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	external_pressure_bound = 0;
 	external_pressure_bound_default = 0;
@@ -7521,14 +7521,14 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "zY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "Ab" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -7728,7 +7728,7 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "AK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	external_pressure_bound = 0;
 	external_pressure_bound_default = 0;
@@ -7803,7 +7803,7 @@
 /area/template_noop)
 "AV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/mob_spawn/human/oldstation/oldeng,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -8038,7 +8038,7 @@
 /area/ruin/space/ancientstation/charlie_engi)
 "BG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	desc = "Подаёт кислород в смеситель для создания дыхательной смеси, которая потом распространяется по станции";
 	dir = 8;
 	name = "Кислород (O2) в дыхательную смесь";
@@ -8207,7 +8207,7 @@
 /area/ruin/space/ancientstation/charlie_recycler)
 "Ck" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/machinery/light/small{
@@ -8342,7 +8342,7 @@
 /area/template_noop)
 "CI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/structure/toilet,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -8517,12 +8517,12 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "Dl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump,
+/obj/machinery/atmospherics/components/unary/vent_pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
 "Do" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -8545,7 +8545,7 @@
 /area/ruin/space/ancientstation/theta_exit)
 "Dw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1;
 	scrub_Toxins = 0
 	},
@@ -8639,7 +8639,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "DJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/airless,
 /area/template_noop)
 "DK" = (
@@ -8667,7 +8667,7 @@
 /area/ruin/space/ancientstation/charlie_secintel)
 "DR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/item/extinguisher,
@@ -8781,7 +8781,7 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "Eg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/item/stack/cable_coil/yellow,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
@@ -8801,7 +8801,7 @@
 /area/template_noop)
 "En" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1;
 	scrub_Toxins = 0
 	},
@@ -8847,7 +8847,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -8968,7 +8968,7 @@
 /area/ruin/space/ancientstation/hivebot)
 "EY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/components/trinary/filter{
 	desc = "Отфильтровывает азот из трубы и отправляет его в камеру хранения";
 	dir = 1;
 	filter_type = 2;
@@ -9026,7 +9026,7 @@
 /area/ruin/space/ancientstation/beta_medstorage)
 "Fl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/firealarm{
@@ -9124,7 +9124,7 @@
 "FB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/item/twohanded/required/kirbyplants/dead{
 	pixel_y = 13
 	},
@@ -9200,7 +9200,7 @@
 	},
 /area/ruin/space/ancientstation/charlie_corridor)
 "FO" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/hivebot/strong,
@@ -9253,7 +9253,7 @@
 /area/ruin/space/ancientstation/charlie_cryo)
 "FZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -9522,7 +9522,7 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "GU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -9544,7 +9544,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "Hf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/effect/mob_spawn/human/oldstation/oldeng{
@@ -9746,7 +9746,7 @@
 /area/ruin/space/ancientstation/theta_docks)
 "HE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/machinery/papershredder,
@@ -10068,7 +10068,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
 "IN" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -10087,7 +10087,7 @@
 /turf/template_noop,
 /area/template_noop)
 "IU" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid,
@@ -10294,7 +10294,7 @@
 "JB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/item/tank/internals/oxygen,
@@ -10421,7 +10421,7 @@
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "JZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -10463,7 +10463,7 @@
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "Kj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/structure/rack,
@@ -10503,7 +10503,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump,
+/obj/machinery/atmospherics/components/unary/vent_pump,
 /obj/machinery/alarm/old{
 	pixel_y = 26
 	},
@@ -10563,7 +10563,7 @@
 /area/ruin/space/ancientstation/charlie_hydrostorage)
 "KP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -10799,7 +10799,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/dresser,
 /obj/item/storage/ashtray/glass,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -10997,7 +10997,7 @@
 "Mi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible/green,
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -11125,7 +11125,7 @@
 "MM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/partial,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -11210,7 +11210,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "Nf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -11255,7 +11255,7 @@
 /area/template_noop)
 "Nn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/structure/showcase/machinery/oldpod{
@@ -11428,7 +11428,7 @@
 /area/ruin/space/ancientstation/beta_surgery1)
 "NL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
@@ -11512,7 +11512,7 @@
 /area/template_noop)
 "NZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/components/trinary/filter{
 	desc = "Отфильтровывает кислород из трубы и отправляет его в камеру хранения";
 	dir = 1;
 	filter_type = 1;
@@ -11568,7 +11568,7 @@
 "Oj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -11586,7 +11586,7 @@
 /area/template_noop)
 "Oo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/effect/mob_spawn/human/oldstation/oldsci{
@@ -11637,7 +11637,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "Ot" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
@@ -11764,7 +11764,7 @@
 /area/ruin/space/ancientstation/charlie_engi)
 "OL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	desc = "Подаёт азот для смешивания с другими газами";
 	dir = 8;
 	name = "Азот (N2) в смеситель";
@@ -11782,7 +11782,7 @@
 /area/template_noop)
 "ON" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -11939,7 +11939,7 @@
 /area/ruin/space/ancientstation/charlie_prison)
 "Pr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -11981,7 +11981,7 @@
 /area/ruin/space/ancientstation/theta_proto)
 "Py" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1;
 	scrub_Toxins = 0
 	},
@@ -12087,7 +12087,7 @@
 /area/template_noop)
 "PN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "PO" = (
@@ -12181,7 +12181,7 @@
 /area/ruin/space/ancientstation/charlie_kitchen)
 "Qf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8
 	},
 /turf/simulated/floor/engine/air,
@@ -12275,7 +12275,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "Qz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /mob/living/simple_animal/hostile/hivebot/strong,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
@@ -12400,7 +12400,7 @@
 "QQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible/green,
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	desc = "Подаёт азот в смеситель для создания дыхательной смеси, которая потом распространяется по станции";
 	dir = 8;
 	name = "Азот (N2) в дыхательную смесь";
@@ -12582,7 +12582,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "RA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/structure/closet/cabinet,
@@ -12592,7 +12592,7 @@
 /area/ruin/space/ancientstation/charlie_restroom)
 "RC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1;
 	scrub_Toxins = 0
 	},
@@ -12848,7 +12848,7 @@
 /area/ruin/space/ancientstation/charlie_engi)
 "SA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
@@ -12908,7 +12908,7 @@
 /area/ruin/space/ancientstation/theta_corridor)
 "SO" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 1
 	},
 /turf/template_noop,
@@ -13085,7 +13085,7 @@
 /area/ruin/space/ancientstation/theta_rnd)
 "TO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -13119,14 +13119,14 @@
 /area/ruin/space/ancientstation/theta_mine)
 "TW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 8
 	},
 /turf/simulated/floor/engine/air,
 /area/ruin/space/ancientstation/beta_atmos)
 "TX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -13164,7 +13164,7 @@
 /area/ruin/space/ancientstation/theta_proto)
 "Ud" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/alarm/old{
@@ -13371,7 +13371,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
 "UY" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
@@ -13412,7 +13412,7 @@
 /area/ruin/space/ancientstation/theta_corridor)
 "Ve" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -13753,7 +13753,7 @@
 /area/ruin/space/ancientstation/beta_surgery)
 "Wq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/machinery/kitchen_machine/grill,
@@ -13865,7 +13865,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/light_construct/small{
@@ -14044,7 +14044,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "XA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 8
 	},
 /turf/simulated/floor/engine/n2,
@@ -14077,7 +14077,7 @@
 	dir = 4;
 	pixel_x = 26
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
 "XG" = (
@@ -14224,7 +14224,7 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "Yq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/machinery/alarm/old{
@@ -14305,7 +14305,7 @@
 /area/ruin/space/ancientstation/charlie_restroom)
 "YH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -14559,7 +14559,7 @@
 /area/template_noop)
 "ZH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/tank/air,
+/obj/machinery/atmospherics/components/unary/tank/air,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "ZI" = (
@@ -14583,7 +14583,7 @@
 /area/ruin/space/ancientstation/beta_medstorage)
 "ZO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/light/small,
@@ -14602,7 +14602,7 @@
 /area/ruin/space/ancientstation/charlie_armory)
 "ZR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{

@@ -309,7 +309,7 @@
 	},
 /area/shuttle/administration)
 "iK" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	frequency = 1331;
 	id_tag = "admin_s_pump"
 	},
@@ -884,7 +884,7 @@
 	},
 /area/shuttle/administration)
 "yu" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 8;
 	frequency = 1331;
 	id_tag = "admin_s_pump"
@@ -1173,7 +1173,7 @@
 	},
 /area/shuttle/administration)
 "Hv" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /turf/simulated/floor/shuttle{

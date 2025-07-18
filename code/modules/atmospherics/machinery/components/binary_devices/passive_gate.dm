@@ -1,8 +1,7 @@
-/obj/machinery/atmospherics/binary/passive_gate
+/obj/machinery/atmospherics/components/binary/passive_gate
 	//Tries to achieve target pressure at output (like a normal pump) except
 	//	Uses no power but can not transfer gases from a low pressure area to a high pressure area
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/passive_gate.dmi'
-	icon_state = "map"
+	icon_state = "passgate_map"
 
 	name = "passive gate"
 	desc = "A one-way air valve that does not require power"
@@ -14,34 +13,34 @@
 
 	var/id = null
 
-/obj/machinery/atmospherics/binary/passive_gate/atmos_init()
+/obj/machinery/atmospherics/components/binary/passive_gate/atmos_init()
 	..()
 	if(frequency)
 		set_frequency(frequency)
 
-/obj/machinery/atmospherics/binary/passive_gate/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
-
-/obj/machinery/atmospherics/binary/passive_gate/update_icon_state()
+/obj/machinery/atmospherics/components/binary/passive_gate/update_icon_state()
 	..()
-	icon_state = "[on ? "on" : "off"]"
+	if(!powered())
+		icon_state = "passgate_off"
+	else
+		icon_state = "passgate_[on ? "on" : "off"]"
 
-/obj/machinery/atmospherics/binary/passive_gate/update_underlays()
+/obj/machinery/atmospherics/components/binary/passive_gate/update_underlays()
 	if(..())
 		underlays.Cut()
 		var/turf/T = get_turf(src)
 		if(!istype(T))
 			return
-		add_underlay(T, node1, turn(dir, 180))
-		add_underlay(T, node2, dir)
+		add_underlay(T, NODE1, turn(dir, 180))
+		add_underlay(T, NODE2, dir)
 
-/obj/machinery/atmospherics/binary/passive_gate/process_atmos()
+/obj/machinery/atmospherics/components/binary/passive_gate/process_atmos()
 	..()
 	if(!on)
-		return 0
+		return FALSE
+
+	var/datum/gas_mixture/air1 = AIR1
+	var/datum/gas_mixture/air2 = AIR2
 
 	var/output_starting_pressure = air2.return_pressure()
 	var/input_starting_pressure = air1.return_pressure()
@@ -61,13 +60,10 @@
 		//Actually transfer the gas
 		var/datum/gas_mixture/removed = air1.remove(transfer_moles)
 		air2.merge(removed)
+		update_parents()
+	return TRUE
 
-		parent1.update = 1
-
-		parent2.update = 1
-	return 1
-
-/obj/machinery/atmospherics/binary/passive_gate/proc/broadcast_status()
+/obj/machinery/atmospherics/components/binary/passive_gate/proc/broadcast_status()
 	if(!radio_connection)
 		return 0
 
@@ -87,7 +83,7 @@
 
 	return 1
 
-/obj/machinery/atmospherics/binary/passive_gate/receive_signal(datum/signal/signal)
+/obj/machinery/atmospherics/components/binary/passive_gate/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return 0
 
@@ -100,10 +96,10 @@
 		on = !on
 
 	if("set_output_pressure" in signal.data)
-		target_pressure = between(
-			0,
+		target_pressure = clamp(
 			text2num(signal.data["set_output_pressure"]),
-			ONE_ATMOSPHERE*50
+			0,
+			ONE_ATMOSPHERE * 50
 		)
 
 	if(on != old_on)
@@ -119,7 +115,7 @@
 	update_icon()
 	return
 
-/obj/machinery/atmospherics/binary/passive_gate/attack_hand(mob/user)
+/obj/machinery/atmospherics/components/binary/passive_gate/attack_hand(mob/user)
 	if(..())
 		return
 
@@ -130,16 +126,16 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/binary/passive_gate/attack_ghost(mob/user)
+/obj/machinery/atmospherics/components/binary/passive_gate/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/binary/passive_gate/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/atmospherics/components/binary/passive_gate/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosPump", name)
 		ui.open()
 
-/obj/machinery/atmospherics/binary/passive_gate/ui_data(mob/user)
+/obj/machinery/atmospherics/components/binary/passive_gate/ui_data(mob/user)
 	var/list/data = list(
 		"on" = on,
 		"rate" = round(target_pressure),
@@ -149,7 +145,7 @@
 	)
 	return data
 
-/obj/machinery/atmospherics/binary/passive_gate/ui_act(action, list/params)
+/obj/machinery/atmospherics/components/binary/passive_gate/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -174,7 +170,7 @@
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
 
-/obj/machinery/atmospherics/binary/passive_gate/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/components/binary/passive_gate/wrench_act(mob/living/user, obj/item/I)
 	if(on)
 		to_chat(user, span_warning("You cannot unwrench [src], turn it off first."))
 		return TRUE

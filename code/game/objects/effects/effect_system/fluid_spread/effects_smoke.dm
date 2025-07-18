@@ -337,16 +337,16 @@
 		if(!distcheck || get_dist(location, chilly) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
 			air.temperature = temperature
 
-		if(air.toxins)
-			air.nitrogen += air.toxins
-			air.toxins = 0
+		if(air.gases[GAS_PL][MOLES])
+			air.gases[GAS_N2][MOLES] += air.gases[GAS_PL][MOLES]
+			air.gases[GAS_PL][MOLES] = 0
 
 		for(var/obj/effect/hotspot/fire in chilly)
 			qdel(fire)
 		chilly.air_update_turf(FALSE, FALSE)
 
 	if(weldvents)
-		for(var/obj/machinery/atmospherics/unary/comp in chilly)
+		for(var/obj/machinery/atmospherics/components/unary/comp in chilly)
 			if(!isnull(comp.welded) && !comp.welded) //must be an unwelded vent pump or vent scrubber.
 				comp.welded = TRUE
 				comp.update_appearance()

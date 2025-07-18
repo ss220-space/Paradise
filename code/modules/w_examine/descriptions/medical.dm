@@ -6,7 +6,7 @@
 	Right-click the scanner and click 'Eject Occupant' to remove them.  You can enter the scanner yourself in a similar way, using the 'Enter Body Scanner' \
 	verb."
 
-/obj/machinery/atmospherics/unary/cryo_cell
+/obj/machinery/atmospherics/components/unary/cryo_cell
 	description_info = "The cryogenic chamber, or 'cryo', treats most damage types, most notably genetic damage. It also stabilizes patients \
 	in critical condition by placing them in stasis, so they can be treated at a later time.<br>\
 	<br>\

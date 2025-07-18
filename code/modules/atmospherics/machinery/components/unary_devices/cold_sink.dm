@@ -1,6 +1,5 @@
-/obj/machinery/atmospherics/unary/cold_sink
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/cold_sink.dmi'
-	icon_state = "on_cool"
+/obj/machinery/atmospherics/components/unary/cold_sink
+	icon_state = "thermal_plate_cool_map"
 	density = TRUE
 	use_power = IDLE_POWER_USE
 
@@ -12,20 +11,23 @@
 	var/current_temperature = T20C
 	var/current_heat_capacity = 50000 //totally random
 
-/obj/machinery/atmospherics/unary/cold_sink/update_icon_state()
-	..()
+/obj/machinery/atmospherics/components/unary/cold_sink/update_icon_state()
+	var/prefix = ""
+	if(level == 1 && issimulatedturf(loc))
+		prefix = "h"
+	icon_state = "[prefix]thermal_plate"
 
-	if(node)
-		icon_state = "intact_[on?("on"):("off")]"
-	else
-		icon_state = "exposed"
-		on = FALSE
+/obj/machinery/atmospherics/components/unary/cold_sink/update_overlays()
+	. = ..()
+	if(!powered())
+		return .
+	. += SSair.icon_manager.get_atmos_icon("device", state = "thermal_plate_cool")
 
-/obj/machinery/atmospherics/unary/cold_sink/process_atmos()
+/obj/machinery/atmospherics/components/unary/cold_sink/process_atmos()
 	..()
 	if(!on)
-		return 0
-
+		return FALSE
+	var/datum/gas_mixture/air_contents = AIR1
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = current_heat_capacity + air_heat_capacity
 	var/old_temperature = air_contents.temperature
@@ -37,5 +39,5 @@
 	//todo: have current temperature affected. require power to bring down current temperature again
 
 	if(abs(old_temperature-air_contents.temperature) > 1)
-		parent.update = 1
-	return 1
+		update_parents()
+	return TRUE

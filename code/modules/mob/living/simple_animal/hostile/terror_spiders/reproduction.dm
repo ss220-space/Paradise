@@ -130,16 +130,17 @@
 		if(get_dist(src, entry_vent) <= 1)
 			frustration = 0
 			var/list/vents = list()
-			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
+			var/datum/pipeline/parent = entry_vent.PARENT1
+			for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in parent.other_atmosmch)
 				if(temp_vent.welded) // no point considering a vent we can't even use
 					continue
 				vents.Add(temp_vent)
 			if(!vents.len)
 				entry_vent = null
 				return
-			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
+			var/obj/machinery/atmospherics/components/unary/vent_pump/exit_vent = pick(vents)
 			if(spider_mymother && (goto_mother || prob(10)))
-				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(5, spider_mymother))
+				for(var/obj/machinery/atmospherics/components/unary/vent_pump/v in view(5, spider_mymother))
 					if(!v.welded)
 						exit_vent = v
 				goto_mother = FALSE
@@ -189,7 +190,7 @@
 			if(safety_score > 0)
 				// This area seems safe (friendly spiders present). Do not leave this area.
 				return
-		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
+		for(var/obj/machinery/atmospherics/components/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
 				SSmove_manager.move_to(src, entry_vent, 1, rand(2, 4))

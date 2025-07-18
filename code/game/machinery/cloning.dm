@@ -230,7 +230,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/return_air() //non-reactive air
 	var/datum/gas_mixture/GM = new
-	GM.nitrogen = MOLES_O2STANDARD + MOLES_N2STANDARD
+	GM.gases[GAS_N2][MOLES] = MOLES_O2STANDARD + MOLES_N2STANDARD
 	GM.temperature = T20C
 	return GM
 

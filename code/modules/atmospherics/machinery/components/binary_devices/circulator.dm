@@ -1,7 +1,6 @@
-/obj/machinery/atmospherics/binary/circulator
+/obj/machinery/atmospherics/components/binary/circulator
 	name = "circulator/heat exchanger"
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the south side, and its output port is on the north side."
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/circulator.dmi'
 	icon_state = "circ1-off"
 	vent_movement = VENTCRAWL_CAN_SEE
 
@@ -22,19 +21,19 @@
 	name = "circulator/heat exchanger fitting"
 
 /obj/item/pipe/circulator/New(loc)
-	var/obj/machinery/atmospherics/binary/circulator/C = new /obj/machinery/atmospherics/binary/circulator(null)
+	var/obj/machinery/atmospherics/components/binary/circulator/C = new /obj/machinery/atmospherics/components/binary/circulator(null)
 	..(loc, make_from = C)
 
-/obj/machinery/atmospherics/binary/circulator/Destroy()
+/obj/machinery/atmospherics/components/binary/circulator/Destroy()
 	if(generator && generator.cold_circ == src)
 		generator.cold_circ = null
 	else if(generator && generator.hot_circ == src)
 		generator.hot_circ = null
 	return ..()
 
-/obj/machinery/atmospherics/binary/circulator/proc/return_transfer_air()
-	var/datum/gas_mixture/inlet = get_inlet_air()
-	var/datum/gas_mixture/outlet = get_outlet_air()
+/obj/machinery/atmospherics/components/binary/circulator/proc/return_transfer_air()
+	var/datum/gas_mixture/outlet = AIR1
+	var/datum/gas_mixture/inlet = AIR2
 	var/output_starting_pressure = outlet.return_pressure()
 	var/input_starting_pressure = inlet.return_pressure()
 
@@ -56,45 +55,32 @@
 		//Actually transfer the gas
 		var/datum/gas_mixture/removed = inlet.remove(transfer_moles)
 
-		parent1.update = 1
-		parent2.update = 1
+		update_parents()
 
 		return removed
 
 	else
 		last_pressure_delta = 0
 
-/obj/machinery/atmospherics/binary/circulator/process_atmos()
+/obj/machinery/atmospherics/components/binary/circulator/process_atmos()
 	..()
 	update_icon()
 
-/obj/machinery/atmospherics/binary/circulator/proc/get_inlet_air()
-	if(side_inverted==0)
-		return air2
-	else
-		return air1
-
-/obj/machinery/atmospherics/binary/circulator/proc/get_outlet_air()
-	if(side_inverted==0)
-		return air1
-	else
-		return air2
-
-/obj/machinery/atmospherics/binary/circulator/proc/get_inlet_side()
+/obj/machinery/atmospherics/components/binary/circulator/proc/get_inlet_side()
 	if(dir==SOUTH||dir==NORTH)
 		if(side_inverted==0)
 			return "South"
 		else
 			return "North"
 
-/obj/machinery/atmospherics/binary/circulator/proc/get_outlet_side()
-	if(dir==SOUTH||dir==NORTH)
+/obj/machinery/atmospherics/components/binary/circulator/proc/get_outlet_side()
+	if(dir == SOUTH||dir == NORTH)
 		if(side_inverted==0)
 			return "North"
 		else
 			return "South"
 
-/obj/machinery/atmospherics/binary/circulator/multitool_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/components/binary/circulator/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -106,14 +92,14 @@
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 
-/obj/machinery/atmospherics/binary/circulator/update_desc(updates = ALL)
+/obj/machinery/atmospherics/components/binary/circulator/update_desc(updates = ALL)
 	. = ..()
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
 
 
-/obj/machinery/atmospherics/binary/circulator/update_icon_state() //this gets called everytime atmos is updated in the circulator (alot)
+/obj/machinery/atmospherics/components/binary/circulator/update_icon_state() //this gets called everytime atmos is updated in the circulator (alot)
 	..()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (BROKEN | NOPOWER))
 		icon_state = "circ[side]-p"
 		return
 	if(last_pressure_delta > 0)

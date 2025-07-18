@@ -11,7 +11,7 @@
 	},
 /area/shuttle/administration)
 "aq" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/components/unary/cryo_cell,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
@@ -115,7 +115,7 @@
 	},
 /area/shuttle/administration)
 "aS" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen{
@@ -309,7 +309,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "bJ" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 8;
 	frequency = 1331;
 	id_tag = "admin_s_pump"
@@ -335,7 +335,7 @@
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/shuttle/administration)
 "bU" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	frequency = 1331;
 	id_tag = "admin_s_pump"
 	},
@@ -500,7 +500,7 @@
 	},
 /area/shuttle/administration)
 "dK" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/shuttle{
@@ -887,7 +887,7 @@
 	},
 /area/shuttle/administration)
 "KH" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{

@@ -208,7 +208,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "bE" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/machinery/computer/crew,
@@ -483,7 +483,7 @@
 /area/lavaland/surface/outdoors)
 "eu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 2
 	},
 /turf/simulated/floor/plasteel,
@@ -579,7 +579,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "fc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -769,7 +769,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 2
 	},
 /turf/simulated/floor/plasteel/white,
@@ -791,7 +791,7 @@
 /area/mine/living_quarters)
 "gn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -830,7 +830,7 @@
 /obj/item/clothing/gloves/fingerless,
 /obj/item/clothing/shoes/workboots,
 /obj/item/clothing/suit/storage/hazardvest,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -911,7 +911,7 @@
 /area/mine/lobby)
 "gL" = (
 /obj/effect/turf_decal/box,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -961,7 +961,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "he" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
@@ -984,7 +984,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "ho" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	desc = "Отправляет дыхательную смесь из трубы распространяться по аванпосту через вентиляцию.";
 	dir = 8;
 	name = "Дыхательная смесь на аванпост";
@@ -1386,7 +1386,7 @@
 /area/mine/laborcamp)
 "jH" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1741,7 +1741,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 2
 	},
 /turf/simulated/floor/plasteel,
@@ -2222,7 +2222,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
 	on = 1;
@@ -2444,7 +2444,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "qv" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -2588,7 +2588,7 @@
 	},
 /area/mine/storage)
 "rC" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4;
 	name = "scrubber outlet"
 	},
@@ -2660,7 +2660,7 @@
 /obj/machinery/vending/wallmed{
 	pixel_x = 26
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/sleeper,
@@ -2791,7 +2791,7 @@
 /area/lavaland/surface/outdoors)
 "tc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/machinery/light/small{
@@ -2894,7 +2894,7 @@
 	dir = 1;
 	network = list("Labor    Camp")
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -2911,7 +2911,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "tX" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	name = "scrubber outlet"
 	},
 /obj/structure/lattice/catwalk/mapping,
@@ -3058,7 +3058,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -3507,7 +3507,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "xe" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/structure/closet/secure_closet/freezer/meat,
@@ -3573,7 +3573,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood{
@@ -3897,7 +3897,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "zT" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -4125,7 +4125,7 @@
 /area/mine/living_quarters)
 "AU" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/item/toy/plushie/ashwalkerplushie{
@@ -4219,7 +4219,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Bv" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -4311,7 +4311,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/tapetrash,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/machinery/light/small{
@@ -4630,7 +4630,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "DE" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4680,7 +4680,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "DV" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -4885,7 +4885,7 @@
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
 "FG" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 2
 	},
 /turf/simulated/floor/plasteel,
@@ -4932,7 +4932,7 @@
 /turf/simulated/wall,
 /area/mine/eva)
 "FU" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -5077,7 +5077,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "GJ" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5103,7 +5103,7 @@
 	},
 /area/mine/eva)
 "GX" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -5273,7 +5273,7 @@
 	},
 /area/mine/laborcamp)
 "Il" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/machinery/camera{
@@ -5684,7 +5684,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/firealarm{
@@ -5694,7 +5694,7 @@
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "Lp" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -5742,7 +5742,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4;
 	pixel_y = 0
 	},
@@ -5873,7 +5873,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 2
 	},
 /obj/machinery/light/small{
@@ -6085,7 +6085,7 @@
 	pixel_y = 28
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -6363,7 +6363,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "Pt" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -6522,7 +6522,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "Qo" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -6662,7 +6662,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "Rc" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 2
 	},
 /obj/structure/sign/poster/random{
@@ -6919,7 +6919,7 @@
 /area/mine/living_quarters)
 "SH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -7050,7 +7050,7 @@
 	dir = 2;
 	network = list("Mining Outpost")
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -7086,7 +7086,7 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "TU" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7362,7 +7362,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "VC" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -7744,7 +7744,7 @@
 /area/mine/necropolis)
 "Yr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8;
 	pixel_y = 0
 	},
@@ -7974,7 +7974,7 @@
 	},
 /area/mine/laborcamp/security)
 "ZE" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -8004,7 +8004,7 @@
 /area/lavaland/surface/outdoors)
 "ZJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{

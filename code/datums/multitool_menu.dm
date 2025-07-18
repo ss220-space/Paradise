@@ -377,31 +377,31 @@
 //	vent_pump
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/vent_pump
-	holder_type = /obj/machinery/atmospherics/unary/vent_pump
+	holder_type = /obj/machinery/atmospherics/components/unary/vent_pump
 
 /datum/multitool_menu/idtag/freq/vent_pump/get_tag()
-	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/vent_pump/my_holder = holder
 	return my_holder.id_tag
 
 /datum/multitool_menu/idtag/freq/vent_pump/set_tag(new_tag)
 	if(!new_tag)
 		service_message("The ID tag of [holder] cannot be null.")
 		return
-	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/vent_pump/my_holder = holder
 	if(my_holder.id_tag == new_tag)
 		return
 	my_holder.set_tag(new_tag)
 
 /datum/multitool_menu/idtag/freq/vent_pump/get_frequency()
-	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/vent_pump/my_holder = holder
 	return my_holder.frequency
 
 /datum/multitool_menu/idtag/freq/vent_pump/get_default_frequency()
-	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/vent_pump/my_holder = holder
 	return initial(my_holder.frequency)
 
 /datum/multitool_menu/idtag/freq/vent_pump/set_frequency(new_frequency)
-	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/vent_pump/my_holder = holder
 	if(my_holder.frequency == new_frequency)
 		return
 	my_holder.set_frequency(new_frequency)
@@ -410,31 +410,31 @@
 //	vent_scrubber
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/vent_scrubber
-	holder_type = /obj/machinery/atmospherics/unary/vent_scrubber
+	holder_type = /obj/machinery/atmospherics/components/unary/vent_scrubber
 
 /datum/multitool_menu/idtag/freq/vent_scrubber/get_tag()
-	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/vent_scrubber/my_holder = holder
 	return my_holder.id_tag
 
 /datum/multitool_menu/idtag/freq/vent_scrubber/set_tag(new_tag)
 	if(!new_tag)
 		service_message("The ID tag of [holder] cannot be null.")
 		return
-	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/vent_scrubber/my_holder = holder
 	if(my_holder.id_tag == new_tag)
 		return
 	my_holder.set_tag(new_tag)
 
 /datum/multitool_menu/idtag/freq/vent_scrubber/get_frequency()
-	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/vent_scrubber/my_holder = holder
 	return my_holder.frequency
 
 /datum/multitool_menu/idtag/freq/vent_scrubber/get_default_frequency()
-	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/vent_scrubber/my_holder = holder
 	return initial(my_holder.frequency)
 
 /datum/multitool_menu/idtag/freq/vent_scrubber/set_frequency(new_frequency)
-	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/vent_scrubber/my_holder = holder
 	if(my_holder.frequency == new_frequency)
 		return
 	my_holder.set_frequency(new_frequency)
@@ -443,28 +443,28 @@
 //	outlet_injector
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/outlet_injector
-	holder_type = /obj/machinery/atmospherics/unary/outlet_injector
+	holder_type = /obj/machinery/atmospherics/components/unary/outlet_injector
 
 /datum/multitool_menu/idtag/freq/outlet_injector/get_tag()
-	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/outlet_injector/my_holder = holder
 	return my_holder.id_tag
 
 /datum/multitool_menu/idtag/freq/outlet_injector/set_tag(new_tag)
-	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/outlet_injector/my_holder = holder
 	if(my_holder.id_tag == new_tag)
 		return
 	my_holder.id_tag = new_tag
 
 /datum/multitool_menu/idtag/freq/outlet_injector/get_frequency()
-	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/outlet_injector/my_holder = holder
 	return my_holder.frequency
 
 /datum/multitool_menu/idtag/freq/outlet_injector/get_default_frequency()
-	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/outlet_injector/my_holder = holder
 	return initial(my_holder.frequency)
 
 /datum/multitool_menu/idtag/freq/outlet_injector/set_frequency(new_frequency)
-	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
+	var/obj/machinery/atmospherics/components/unary/outlet_injector/my_holder = holder
 	if(my_holder.frequency == new_frequency)
 		return
 	my_holder.set_frequency(new_frequency)
@@ -473,28 +473,28 @@
 //	dp_vent_pump
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/dp_vent_pump
-	holder_type = /obj/machinery/atmospherics/binary/dp_vent_pump
+	holder_type = /obj/machinery/atmospherics/components/binary/dp_vent_pump
 
 /datum/multitool_menu/idtag/freq/dp_vent_pump/get_tag()
-	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
+	var/obj/machinery/atmospherics/components/binary/dp_vent_pump/my_holder = holder
 	return my_holder.id_tag
 
 /datum/multitool_menu/idtag/freq/dp_vent_pump/set_tag(new_tag)
-	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
+	var/obj/machinery/atmospherics/components/binary/dp_vent_pump/my_holder = holder
 	if(my_holder.id_tag == new_tag)
 		return
 	my_holder.id_tag = new_tag
 
 /datum/multitool_menu/idtag/freq/dp_vent_pump/get_frequency()
-	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
+	var/obj/machinery/atmospherics/components/binary/dp_vent_pump/my_holder = holder
 	return my_holder.frequency
 
 /datum/multitool_menu/idtag/freq/dp_vent_pump/get_default_frequency()
-	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
+	var/obj/machinery/atmospherics/components/binary/dp_vent_pump/my_holder = holder
 	return initial(my_holder.frequency)
 
 /datum/multitool_menu/idtag/freq/dp_vent_pump/set_frequency(new_frequency)
-	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
+	var/obj/machinery/atmospherics/components/binary/dp_vent_pump/my_holder = holder
 	if(my_holder.frequency == new_frequency)
 		return
 	my_holder.set_frequency(new_frequency)

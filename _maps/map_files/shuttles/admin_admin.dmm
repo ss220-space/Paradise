@@ -274,7 +274,7 @@
 	},
 /area/shuttle/administration)
 "bq" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	frequency = 1331;
 	id_tag = "admin_s_pump"
 	},
@@ -283,7 +283,7 @@
 	},
 /area/shuttle/administration)
 "br" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 8;
 	frequency = 1331;
 	id_tag = "admin_s_pump"
@@ -1087,7 +1087,7 @@
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/shuttle/administration)
 "RD" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{

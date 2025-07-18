@@ -396,7 +396,7 @@
 	},
 /area/shuttle/administration)
 "oe" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 8;
 	frequency = 1331;
 	id_tag = "admin_s_pump"
@@ -1203,7 +1203,7 @@
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/administration)
 "TY" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
@@ -1297,7 +1297,7 @@
 	},
 /area/shuttle/administration)
 "YN" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	frequency = 1331;
 	id_tag = "admin_s_pump"
 	},

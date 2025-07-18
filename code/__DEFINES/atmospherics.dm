@@ -1,9 +1,27 @@
-#define GAS_O2 	(1 << 0)
-#define GAS_N2	(1 << 1)
-#define GAS_PL	(1 << 2)
-#define GAS_CO2	(1 << 3)
-#define GAS_N2O	(1 << 4)
-#define GAS_A_B	(1 << 5)
+
+//indices of specific gases. used by listmos.
+#define GAS_O2 		1
+#define GAS_N2		2
+#define GAS_CO2		3
+#define GAS_PL		4
+#define GAS_N2O		5
+#define GAS_AGENT_B	6
+#define GAS_V_FUEL	7
+
+
+//Plasma fusion properties
+#define PLASMA_BINDING_ENERGY				3000000
+#define MAX_CARBON_EFFICENCY				9
+#define PLASMA_FUSED_COEFFICENT				0.08
+#define CARBON_CATALYST_COEFFICENT			0.01
+#define FUSION_PURITY_THRESHOLD				0.9
+
+//indices of values in gas lists. used by listmos.
+#define MOLES			1
+#define ARCHIVE			2
+#define GAS_INDEX		3
+#define SPECIFIC_HEAT	4
+#define GAS_NAME		5
 
 //ATMOS
 //stuff you should probably leave well alone!
@@ -152,4 +170,36 @@
 #define VENTCRAWL_ENTRANCE_ALLOWED (1<<1)
 ///Used to check if a machinery is visible. Called by update_pipe_vision(). On by default for all except cryo.
 #define VENTCRAWL_CAN_SEE (1<<2)
+
+
+// used for device_type vars; used by DEVICE_TYPE_LOOP
+#define UNARY		1
+#define BINARY 		2
+#define TRINARY		3
+#define QUATERNARY	4
+
+// this is the standard for loop used by all sorts of atmos machinery procs
+#define DEVICE_TYPE_LOOP	var/I = 1; I <= device_type; I++
+
+// defines for the various machinery lists
+// NODE_I, AIR_I, PARENT_I are used within DEVICE_TYPE_LOOP
+
+//  nodes list - all atmos machinery
+#define NODE1	nodes[1]
+#define	NODE2	nodes[2]
+#define NODE3	nodes[3]
+#define NODE4	nodes[4]
+#define NODE_I	nodes[I]
+
+//  airs list - components only
+#define AIR1	airs[1]
+#define AIR2	airs[2]
+#define AIR3	airs[3]
+#define AIR_I	airs[I]
+
+//  parents list - components only
+#define PARENT1		parents[1]
+#define PARENT2		parents[2]
+#define PARENT3		parents[3]
+#define PARENT_I	parents[I]
 

@@ -193,7 +193,7 @@
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "ado" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	desc = "Отправляет дыхательную смесь к коннекторам";
 	name = "Дыхательную смесь к коннекторам";
 	target_pressure = 3000;
@@ -370,7 +370,7 @@
 	},
 /area/coldcolony/malta/engineering/control)
 "agg" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -455,7 +455,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -589,7 +589,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "all" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/birch,
@@ -1498,7 +1498,7 @@
 	},
 /area/coldcolony/malta/quartermaster/ore_production)
 "aAX" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/greengrid,
@@ -1611,7 +1611,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	target_pressure = 303.325;
 	dir = 1
 	},
@@ -1622,7 +1622,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/xenobiology)
 "aCv" = (
-/obj/machinery/atmospherics/unary/tank,
+/obj/machinery/atmospherics/components/unary/tank,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
 "aCR" = (
@@ -1663,7 +1663,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/outer/roadblock)
 "aDC" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -1875,7 +1875,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/wood/oak,
@@ -2020,7 +2020,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/paramedic)
 "aKM" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/canister,
@@ -2112,7 +2112,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "aMv" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	id = "n2_in"
 	},
 /obj/machinery/light/small{
@@ -2193,7 +2193,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/syndie_outpost)
 "aNs" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -2368,7 +2368,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/components/binary/volume_pump{
 	desc = "Позволяет опустошить трубу дыхательной смеси, отправив её в отходы на повторную фильтрацию";
 	dir = 1;
 	name = "Дыхательную смесь в отходы"
@@ -2691,7 +2691,7 @@
 /obj/machinery/vending/wallmed{
 	pixel_x = -25
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2724,7 +2724,7 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_x = 28
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -3301,7 +3301,7 @@
 	},
 /area/coldcolony/malta/security/main)
 "bjl" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on,
 /obj/item/trash/doshik,
 /obj/item/trash/spentcasing,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -3525,7 +3525,7 @@
 /area/coldcolony/malta/bridge/captain)
 "bmA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -3538,7 +3538,7 @@
 	},
 /area/coldcolony/malta/security/processing)
 "bmK" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -3725,7 +3725,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/vip)
 "bqN" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3820,7 +3820,7 @@
 /area/coldcolony/malta/research/xenobiology)
 "bsm" = (
 /obj/machinery/computer/crew,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -3984,7 +3984,7 @@
 	},
 /area/coldcolony/malta/hallway/service/nw)
 "bws" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -4509,7 +4509,7 @@
 /area/coldcolony/malta/security/warden)
 "bHs" = (
 /obj/structure/table/reinforced,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/item/t_scanner,
@@ -5304,7 +5304,7 @@
 	},
 /area/coldcolony/malta/hallway/service/east)
 "bTw" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -5372,7 +5372,7 @@
 	},
 /area/coldcolony/malta/hallway/service/east)
 "bUH" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -5485,7 +5485,7 @@
 	},
 /area/coldcolony/malta/resid_serv/janitor)
 "bXh" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
@@ -5564,7 +5564,7 @@
 	id = "Cell 1";
 	name = "Cell 1 Locker"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -5663,7 +5663,7 @@
 "caK" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -5741,7 +5741,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/dormitory)
 "ccO" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5883,7 +5883,7 @@
 	},
 /area/ruin/unpowered/coldcolony_outside)
 "ceT" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -6006,7 +6006,7 @@
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/engineering/control)
 "cib" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/machinery/light_switch{
@@ -6340,7 +6340,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/research/storage)
 "cnA" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	desc = "Переводит смесь из хранилища в трубы";
 	dir = 4;
 	name = "Из хранилища в трубы";
@@ -6467,7 +6467,7 @@
 /area/coldcolony/malta/turret_protected/aisat)
 "cqq" = (
 /obj/machinery/portable_atmospherics/canister,
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -7103,7 +7103,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -7949,7 +7949,7 @@
 	},
 /area/coldcolony/malta/hallway/service/south)
 "cQn" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/scrubber,
@@ -7991,7 +7991,7 @@
 	},
 /area/coldcolony/malta/security/brig)
 "cRv" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/scrubber,
@@ -8063,7 +8063,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/permabrig)
 "cSx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/bluegrid,
@@ -8227,7 +8227,7 @@
 /area/coldcolony/malta/hallway/service/nw)
 "cVt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/components/unary/cryo_cell,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "cVE" = (
@@ -8481,7 +8481,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "cZC" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater{
 	dir = 8;
 	on = 1
 	},
@@ -8780,7 +8780,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/coldcolony/malta/civilian/vacantoffice)
 "ddN" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/bluegrid,
@@ -9274,7 +9274,7 @@
 	},
 /area/coldcolony/ruin/sm_chamber)
 "dnQ" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9319,7 +9319,7 @@
 	},
 /area/coldcolony/ruin/abandoned_house)
 "dos" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -9396,7 +9396,7 @@
 	},
 /area/coldcolony/ruin/abandoned_house)
 "dqo" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/landmark/event/xeno_spawn,
@@ -10812,7 +10812,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
 "dUA" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -10901,7 +10901,7 @@
 "dWD" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -10956,7 +10956,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "dXz" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11772,7 +11772,7 @@
 "eml" = (
 /obj/structure/table,
 /obj/item/reagent_containers/spray/cleaner/janitor,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/machinery/light/small{
@@ -11942,7 +11942,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/maintenance/garden)
 "eoK" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	target_pressure = 303.325
 	},
 /turf/simulated/floor/plating,
@@ -12041,7 +12041,7 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "erK" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -12236,7 +12236,7 @@
 	},
 /area/coldcolony/malta/security/reception)
 "euZ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	scrub_Toxins = 0
 	},
 /obj/item/trash/tastybread,
@@ -12657,7 +12657,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/hallway/service/south)
 "eCm" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -12676,7 +12676,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
 "eCJ" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /turf/simulated/floor/plating{
@@ -12780,7 +12780,7 @@
 /area/coldcolony/malta/hallway/service/nw)
 "eEO" = (
 /obj/structure/chair/office/dark,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/landmark/start/warden,
@@ -13432,7 +13432,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
 "eQC" = (
-/obj/machinery/atmospherics/binary/circulator{
+/obj/machinery/atmospherics/components/binary/circulator{
 	icon_state = "circ4-off";
 	side = 4
 	},
@@ -13516,7 +13516,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/research)
 "eRF" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13530,7 +13530,7 @@
 	},
 /area/coldcolony/malta/research/chargebay)
 "eSn" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	target_pressure = 303.325;
 	dir = 8
 	},
@@ -13699,7 +13699,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
 "eVG" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/components/trinary/filter{
 	desc = "Отфильтровывает азот из трубы и отправляет его в камеру хранения";
 	dir = 8;
 	filter_type = 2;
@@ -13725,7 +13725,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/dormitory)
 "eWP" = (
-/obj/machinery/atmospherics/unary/tank/toxins{
+/obj/machinery/atmospherics/components/unary/tank/toxins{
 	volume = 2000
 	},
 /turf/simulated/floor/plasteel{
@@ -13907,7 +13907,7 @@
 /area/coldcolony/malta/medical/paramedic)
 "eZh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -13915,7 +13915,7 @@
 	},
 /area/coldcolony/malta/hallway/service/east)
 "eZJ" = (
-/obj/machinery/atmospherics/unary/tank/toxins{
+/obj/machinery/atmospherics/components/unary/tank/toxins{
 	volume = 2000;
 	dir = 1
 	},
@@ -13968,7 +13968,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "faO" = (
 /obj/structure/table/wood,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "faQ" = (
@@ -13978,7 +13978,7 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "faT" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/greengrid,
@@ -14495,7 +14495,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/sleep)
 "fph" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -14652,7 +14652,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/ntrep)
 "fsS" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
@@ -14792,7 +14792,7 @@
 	},
 /area/ruin/unpowered/coldcolony_outside)
 "fvv" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -14839,7 +14839,7 @@
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/medical/cmo)
 "fwb" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15494,7 +15494,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet)
 "fIS" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -15607,7 +15607,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/qm)
 "fKY" = (
-/obj/machinery/atmospherics/unary/tank/carbon_dioxide{
+/obj/machinery/atmospherics/components/unary/tank/carbon_dioxide{
 	volume = 0;
 	name = "Pressure Tank (Gases)"
 	},
@@ -15643,7 +15643,7 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -16111,7 +16111,7 @@
 	},
 /area/coldcolony/malta/bridge)
 "fVn" = (
-/obj/machinery/atmospherics/unary/tank/carbon_dioxide{
+/obj/machinery/atmospherics/components/unary/tank/carbon_dioxide{
 	volume = 0;
 	name = "Pressure Tank (Gases)"
 	},
@@ -16790,7 +16790,7 @@
 	},
 /area/coldcolony/malta/engineering/chief)
 "gkx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -17152,7 +17152,7 @@
 	},
 /area/coldcolony/malta/chapel/main)
 "gpF" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -17608,7 +17608,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "gxA" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/birch,
@@ -17661,7 +17661,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/landmark/start/engineer,
@@ -18155,7 +18155,7 @@
 /area/coldcolony/malta/engineering/break_room)
 "gII" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"
@@ -18370,7 +18370,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/miningeva)
 "gMb" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -18687,7 +18687,7 @@
 /area/coldcolony/malta/resid_serv/kitchen)
 "gPN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -18833,7 +18833,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker)
 "gSo" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -19181,7 +19181,7 @@
 	},
 /area/coldcolony/malta/resid_serv/library/game_zone)
 "haX" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -19325,7 +19325,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/dormitory)
 "hed" = (
-/obj/machinery/atmospherics/unary/tank/oxygen{
+/obj/machinery/atmospherics/components/unary/tank/oxygen{
 	dir = 8
 	},
 /obj/machinery/light/small{
@@ -19384,7 +19384,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "heQ" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
@@ -19540,7 +19540,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -19765,7 +19765,7 @@
 "hlX" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -20503,7 +20503,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/hallway/service/central)
 "hBe" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -21029,7 +21029,7 @@
 	},
 /area/coldcolony/ruin/syndie_outpost)
 "hMc" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -21198,7 +21198,7 @@
 /area/coldcolony/malta/security/permahallway)
 "hPe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "hPi" = (
@@ -21252,7 +21252,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge/hop)
 "hPL" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -21274,7 +21274,7 @@
 	color = "#332a2a";
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -21387,7 +21387,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -21484,7 +21484,7 @@
 	},
 /area/coldcolony/malta/engineering/break_room)
 "hVu" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -21761,7 +21761,7 @@
 	},
 /area/coldcolony/malta/security/warden)
 "ibu" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -21831,7 +21831,7 @@
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/maintenance/bridge)
 "icn" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -22204,7 +22204,7 @@
 	},
 /area/coldcolony/ruin/abandoned_house)
 "iis" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/civilian/mrchangs)
 "iit" = (
@@ -22756,7 +22756,7 @@
 	},
 /area/coldcolony/malta/security/permahallway)
 "ivk" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -22829,7 +22829,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/machinery/light,
@@ -23287,7 +23287,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/medbay)
 "iFi" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	desc = "Подаёт азот для смешивания с другими газами";
 	dir = 8;
 	name = "Азот (N2) в смеситель";
@@ -23482,7 +23482,7 @@
 	},
 /area/coldcolony/malta/bridge/meeting_room)
 "iIr" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -23692,7 +23692,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/hallway)
 "iLc" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -23834,7 +23834,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -23860,7 +23860,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "iQC" = (
 /obj/structure/table/wood,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "iQD" = (
@@ -24603,7 +24603,7 @@
 /obj/structure/table/glass,
 /obj/item/paper_bin,
 /obj/item/pen/red,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/structure/reagent_dispensers/virusfood{
@@ -24824,7 +24824,7 @@
 	},
 /area/coldcolony/malta/research/chargebay)
 "jgG" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -24932,7 +24932,7 @@
 "jiZ" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -24977,7 +24977,7 @@
 	},
 /area/coldcolony/malta/hallway/service/north)
 "jjX" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -25423,7 +25423,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
 "jqy" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -25863,7 +25863,7 @@
 	},
 /area/coldcolony/malta/quartermaster/storage)
 "jyx" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 4;
 	volume = 20000
 	},
@@ -26444,7 +26444,7 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/engineering/control)
 "jJY" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/components/trinary/filter{
 	desc = "Отфильтровывает кислород из трубы и отправляет его в камеру хранения";
 	dir = 8;
 	filter_type = 1;
@@ -26526,7 +26526,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/research)
 "jKW" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/components/unary/heat_reservoir/heater{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -26658,7 +26658,7 @@
 	id = "Cell 2";
 	name = "Cell 2 Locker"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -26758,7 +26758,7 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "jPN" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -26918,7 +26918,7 @@
 /area/coldcolony/malta/civilian/mrchangs)
 "jUa" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -27119,7 +27119,7 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "jXj" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -27377,7 +27377,7 @@
 	},
 /area/coldcolony/malta/bridge/ntrep)
 "kaH" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -27502,7 +27502,7 @@
 	},
 /area/coldcolony/malta/security/brig)
 "kci" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -27557,7 +27557,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_chamber)
 "kdv" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	desc = "Отправляет дыхательную смесь из трубы распространяться по инженерии через вентиляции";
 	name = "Дыхательную смесь в систему инженерии";
 	target_pressure = 303.325;
@@ -27726,7 +27726,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "kgv" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/components/trinary/filter{
 	desc = "Отфильтровывает оксид азота из трубы и отправляет его в камеру хранения.";
 	filter_type = 4;
 	name = "Фильтр Оксида Азота (NO2)";
@@ -27750,7 +27750,7 @@
 /area/coldcolony/malta/resid_serv/library/game_zone)
 "kgR" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -27808,7 +27808,7 @@
 	},
 /area/coldcolony/malta/turret_protected/ai)
 "kiI" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	external_pressure_bound = 0;
 	external_pressure_bound_default = 0;
 	frequency = 1441;
@@ -27978,7 +27978,7 @@
 	},
 /area/coldcolony/malta/security/securearmory)
 "kkD" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/machinery/light_switch{
@@ -28007,7 +28007,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "kll" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -28181,7 +28181,7 @@
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
 "koN" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -29007,7 +29007,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -29057,7 +29057,7 @@
 /area/coldcolony/malta/maintenance/bridge)
 "kEs" = (
 /obj/structure/closet/l3closet/virology,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/northwest,
@@ -29171,7 +29171,7 @@
 	},
 /area/coldcolony/malta/security/main)
 "kGl" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -29399,7 +29399,7 @@
 	},
 /area/coldcolony/ruin/abandoned_house)
 "kKR" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -29478,7 +29478,7 @@
 /area/coldcolony/malta/hallway/service/south)
 "kMe" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -29628,7 +29628,7 @@
 	},
 /area/coldcolony/malta/medical/virology)
 "kOZ" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -29831,7 +29831,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/coldcolony/malta/engineering/atmos)
 "kUj" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -29887,7 +29887,7 @@
 /area/coldcolony/malta/maintenance/medbay)
 "kVl" = (
 /obj/structure/table_frame,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -30038,7 +30038,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "kXC" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -30151,7 +30151,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -30193,7 +30193,7 @@
 	},
 /area/coldcolony/ruin/abandoned_house)
 "lcc" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -30455,7 +30455,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/biostorage)
 "lgA" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	target_pressure = 303.325;
 	dir = 4
 	},
@@ -30748,7 +30748,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/abandoned_garage)
 "lmX" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	external_pressure_bound = 0;
 	external_pressure_bound_default = 0;
@@ -31043,7 +31043,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "ltJ" = (
-/obj/machinery/atmospherics/binary/valve/digital,
+/obj/machinery/atmospherics/components/binary/valve/digital,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31240,7 +31240,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "lyx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteredfull"
@@ -31375,7 +31375,7 @@
 	},
 /area/coldcolony/malta/engineering/break_room)
 "lAO" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -31474,7 +31474,7 @@
 	},
 /area/coldcolony/malta/research)
 "lCN" = (
-/obj/machinery/atmospherics/binary/circulator{
+/obj/machinery/atmospherics/components/binary/circulator{
 	icon_state = "circ8-off"
 	},
 /turf/simulated/floor/plasteel{
@@ -31772,7 +31772,7 @@
 	},
 /area/coldcolony/malta/medical/chemistry)
 "lIA" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -32000,7 +32000,7 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/resid_serv/crew_quarters/barber)
 "lLn" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	desc = "Подаёт азот в смеситель для создания дыхательной смеси, которая потом распространяется по станции";
 	name = "Азот (N2) в дыхательную смесь";
 	on = 1;
@@ -32050,7 +32050,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/coldcolony/malta/bridge/meeting_room)
 "lMt" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	volume = 20000
 	},
 /turf/simulated/floor/plating,
@@ -32130,7 +32130,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "lNx" = (
-/obj/machinery/atmospherics/binary/volume_pump/on{
+/obj/machinery/atmospherics/components/binary/volume_pump/on{
 	dir = 1
 	},
 /obj/machinery/light/small{
@@ -32198,7 +32198,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/casino)
 "lPE" = (
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -32473,7 +32473,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/library)
 "lVS" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -32669,7 +32669,7 @@
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/security/evidence)
 "lZR" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4;
 	id = "mix_in"
 	},
@@ -32732,7 +32732,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -32911,7 +32911,7 @@
 /obj/structure/chair/sofa/pew/left{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -32981,7 +32981,7 @@
 	},
 /area/coldcolony/ruin/abandoned_house)
 "meY" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -32998,7 +32998,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "mfh" = (
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -33119,7 +33119,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "mig" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -33263,7 +33263,7 @@
 	},
 /area/coldcolony/malta/security/prison/cell_block/A)
 "mlU" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 4;
 	volume = 20000
 	},
@@ -33300,7 +33300,7 @@
 	},
 /area/coldcolony/malta/engineering/chief)
 "mnr" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -33716,7 +33716,7 @@
 	},
 /area/coldcolony/malta/medical/cmostore)
 "mwQ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -33724,7 +33724,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "mwZ" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -33801,7 +33801,7 @@
 	},
 /area/coldcolony/malta/security/securearmory)
 "myC" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -33811,7 +33811,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "myS" = (
-/obj/machinery/atmospherics/unary/tank/carbon_dioxide{
+/obj/machinery/atmospherics/components/unary/tank/carbon_dioxide{
 	volume = 1000
 	},
 /turf/simulated/floor/plasteel{
@@ -33949,7 +33949,7 @@
 	},
 /area/coldcolony/malta/medical/virology)
 "mAb" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -34284,14 +34284,14 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
 "mHs" = (
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
 "mHt" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	volume = 20000
 	},
 /turf/simulated/floor/plating,
@@ -34455,7 +34455,7 @@
 	},
 /area/coldcolony/malta/bridge/meeting_room)
 "mJY" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/miningeva)
 "mKl" = (
@@ -34722,7 +34722,7 @@
 	},
 /area/ruin/unpowered/coldcolony_outside)
 "mPC" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/machinery/newscaster{
@@ -35003,7 +35003,7 @@
 	},
 /area/coldcolony/malta/engineering/teg)
 "mSV" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -35119,7 +35119,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/shallway)
 "mUn" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -35382,7 +35382,7 @@
 /area/coldcolony/malta/bridge/checkpoint)
 "mZc" = (
 /obj/machinery/photocopier,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -35588,7 +35588,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "nbY" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -35696,7 +35696,7 @@
 	},
 /area/coldcolony/malta/security/lobby)
 "ndO" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -35767,7 +35767,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "neW" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/pump,
@@ -36078,7 +36078,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/checkpoint)
 "nlH" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	volume = 20000
 	},
 /turf/simulated/floor/plating,
@@ -36350,7 +36350,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/engineering)
 "nuB" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/xenobiology)
 "nvD" = (
@@ -36437,7 +36437,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/reception)
 "nwW" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -36834,7 +36834,7 @@
 	dir = 8;
 	pixel_x = -26
 	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
 	current_temperature = 80;
 	on = 1
 	},
@@ -36970,7 +36970,7 @@
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
 "nFt" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
@@ -37033,7 +37033,7 @@
 	},
 /area/coldcolony/malta/medical/medbay)
 "nGi" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -37374,7 +37374,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "nOe" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -37516,7 +37516,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -37555,7 +37555,7 @@
 	},
 /area/coldcolony/malta/research/chargebay)
 "nRS" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -37625,7 +37625,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/maintenance/garden)
 "nSC" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/pump,
@@ -37717,7 +37717,7 @@
 	},
 /area/coldcolony/malta/quartermaster/miningeva)
 "nTS" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/structure/table/glass,
@@ -38175,7 +38175,7 @@
 "ocu" = (
 /obj/item/crowbar/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/test_chamber)
 "ocC" = (
@@ -38271,7 +38271,7 @@
 /area/coldcolony/malta/quartermaster/office)
 "ody" = (
 /obj/effect/spawner/random_spawners/rodent,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -38287,7 +38287,7 @@
 "odE" = (
 /obj/structure/table/glass,
 /obj/item/folder/white,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -38698,7 +38698,7 @@
 	},
 /area/coldcolony/malta/outer/roadblock)
 "okw" = (
-/obj/machinery/atmospherics/binary/volume_pump/on,
+/obj/machinery/atmospherics/components/binary/volume_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
@@ -39084,14 +39084,14 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/medbay)
 "orm" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_division)
 "osp" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -39188,7 +39188,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "otA" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -39259,7 +39259,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -39339,7 +39339,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/securearmory)
 "ovd" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -39459,7 +39459,7 @@
 	id = "Cell 4";
 	name = "Cell 4 Locker"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -39552,7 +39552,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/aisat)
 "ozb" = (
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -39589,7 +39589,7 @@
 /turf/simulated/wall/r_wall,
 /area/coldcolony/ruin/sm_division)
 "oAg" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -39642,7 +39642,7 @@
 	pixel_x = -1;
 	pixel_y = 7
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -39678,7 +39678,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/dormitory)
 "oBi" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteredfull"
@@ -39715,7 +39715,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -40196,7 +40196,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
@@ -40510,7 +40510,7 @@
 	},
 /area/coldcolony/malta/chapel/main)
 "oRt" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -40792,7 +40792,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/aisat)
 "oXQ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -40843,7 +40843,7 @@
 	},
 /area/coldcolony/malta/quartermaster/miningbar)
 "oYo" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -41002,7 +41002,7 @@
 	pixel_y = 6
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -41347,7 +41347,7 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -41366,7 +41366,7 @@
 "pjB" = (
 /obj/structure/table,
 /obj/item/storage/fancy/crayons,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "neutral"
@@ -41421,7 +41421,7 @@
 /obj/item/chair/wood{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -41431,7 +41431,7 @@
 /area/coldcolony/malta/security/execution)
 "pkT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -41508,7 +41508,7 @@
 "pmm" = (
 /obj/structure/table/wood,
 /obj/item/storage/briefcase,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/bridge/checkpoint)
 "pmr" = (
@@ -41627,7 +41627,7 @@
 "pnH" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -42055,7 +42055,7 @@
 	},
 /area/coldcolony/ruin/abandoned_garage)
 "puP" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -42349,7 +42349,7 @@
 	},
 /area/ruin/unpowered/coldcolony_outside)
 "pAo" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -42379,7 +42379,7 @@
 	layer = 5;
 	pixel_y = 14
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -42387,7 +42387,7 @@
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
 "pBp" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister,
@@ -42646,7 +42646,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "pGm" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "pGn" = (
@@ -42716,7 +42716,7 @@
 /area/coldcolony/malta/bridge/blueshield)
 "pHQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/effect/landmark/event/xeno_spawn,
@@ -42746,7 +42746,7 @@
 	},
 /area/coldcolony/malta/quartermaster/storage)
 "pIk" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -42756,7 +42756,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "pIC" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -43358,7 +43358,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge/hop)
 "pTa" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -43472,7 +43472,7 @@
 /area/coldcolony/malta/security/prison/cell_block/A)
 "pXS" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_med,
@@ -43568,7 +43568,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/surgery/west)
 "pYW" = (
-/obj/machinery/atmospherics/binary/volume_pump,
+/obj/machinery/atmospherics/components/binary/volume_pump,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
@@ -43864,7 +43864,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/research/storage)
 "qfl" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	target_pressure = 303.325;
 	dir = 1
 	},
@@ -43998,7 +43998,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/shallway)
 "qiA" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -44064,7 +44064,7 @@
 	},
 /area/coldcolony/malta/security/processing)
 "qjz" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/structure/reagent_dispensers/oil,
@@ -44299,7 +44299,7 @@
 	},
 /obj/item/pinpointer,
 /obj/item/disk/nuclear,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -44347,7 +44347,7 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_x = -28
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -44403,14 +44403,14 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "qoz" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/quartermaster/storage)
 "qoH" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -44456,7 +44456,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/library)
 "qpz" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	external_pressure_bound = 0;
 	external_pressure_bound_default = 0;
 	frequency = 1441;
@@ -44734,7 +44734,7 @@
 /area/shuttle/pirate_corvette)
 "qtk" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/machinery/alarm{
@@ -44986,7 +44986,7 @@
 /area/coldcolony/malta/medical/chemistry)
 "qxx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -45125,7 +45125,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "qzO" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -46102,7 +46102,7 @@
 	},
 /area/coldcolony/malta/medical/virology)
 "qRW" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -46266,7 +46266,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -46363,7 +46363,7 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -46503,7 +46503,7 @@
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
 "rab" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/southeast,
@@ -46512,7 +46512,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "raf" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -46553,7 +46553,7 @@
 	dir = 8;
 	network = list("SS13","Research")
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	external_pressure_bound = 140;
 	external_pressure_bound_default = 140;
 	name = "server vent";
@@ -46979,7 +46979,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -47490,7 +47490,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
 "roo" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -47684,7 +47684,7 @@
 /obj/item/paper/tcommskey,
 /obj/item/stamp/ce,
 /obj/item/paper/monitorkey,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -47991,7 +47991,7 @@
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/hallway/service/central)
 "rxc" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -48035,7 +48035,7 @@
 /area/coldcolony/malta/resid_serv/hydroponics)
 "ryr" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -48097,7 +48097,7 @@
 /area/coldcolony/malta/research/shallway)
 "rAg" = (
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -48261,7 +48261,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "rDl" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -48304,7 +48304,7 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "rDR" = (
-/obj/machinery/atmospherics/unary/tank/carbon_dioxide{
+/obj/machinery/atmospherics/components/unary/tank/carbon_dioxide{
 	volume = 0;
 	name = "Pressure Tank (Gases)";
 	dir = 1
@@ -48361,7 +48361,7 @@
 	},
 /area/coldcolony/malta/security/warden)
 "rFb" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -48463,7 +48463,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "rHq" = (
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -48505,7 +48505,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_maintenance)
 "rIv" = (
-/obj/machinery/atmospherics/binary/volume_pump/on{
+/obj/machinery/atmospherics/components/binary/volume_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -48688,7 +48688,7 @@
 	},
 /area/coldcolony/ruin/abandoned_garage)
 "rMi" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -48863,7 +48863,7 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "rQj" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -49030,7 +49030,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "rSC" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -49269,7 +49269,7 @@
 	},
 /area/coldcolony/malta/security/reception)
 "rXT" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -49298,7 +49298,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/coldcolony/ruin/sm_chamber)
 "rZm" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -49484,7 +49484,7 @@
 	},
 /area/coldcolony/malta/hallway/service/nw)
 "sdq" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -49570,7 +49570,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "seO" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/light/small,
@@ -49667,7 +49667,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "sgn" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -50089,7 +50089,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "sqp" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -50157,7 +50157,7 @@
 	},
 /area/coldcolony/malta/security/main)
 "srP" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	id = "air_in"
 	},
 /obj/machinery/light/small{
@@ -50610,7 +50610,7 @@
 	},
 /area/coldcolony/malta/hallway/service/north)
 "sAo" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "sAv" = (
@@ -51426,7 +51426,7 @@
 "sOz" = (
 /obj/structure/table,
 /obj/item/storage/box/mousetraps,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/machinery/alarm{
@@ -51545,7 +51545,7 @@
 	},
 /area/coldcolony/malta/security/checkpoint)
 "sSr" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/components/trinary/filter{
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
 	filter_type = 3;
 	name = "Фильтр Углекислого Газа (СO2)";
@@ -51954,7 +51954,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
 "taH" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	desc = "Подаёт кислород в смеситель для создания дыхательной смеси, которая потом распространяется по станции";
 	name = "Кислород (O2) в дыхательную смесь";
 	on = 1;
@@ -52067,7 +52067,7 @@
 	},
 /area/coldcolony/malta/research/lab)
 "tco" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -52114,7 +52114,7 @@
 /obj/structure/chair/sofa/pew/right{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -52242,7 +52242,7 @@
 "tga" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	target_pressure = 303.325
 	},
 /turf/simulated/floor/plating,
@@ -52605,7 +52605,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/permabrig)
 "toa" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	desc = "Подаёт кислород для смешивания с другими газами";
 	dir = 8;
 	name = "Кислород (O2) в смеситель";
@@ -52617,7 +52617,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "tok" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -52625,7 +52625,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
 "ton" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 4;
 	volume = 20000
 	},
@@ -52641,7 +52641,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "toB" = (
-/obj/machinery/atmospherics/binary/volume_pump/on{
+/obj/machinery/atmospherics/components/binary/volume_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -53084,7 +53084,7 @@
 /area/coldcolony/malta/hallway/service/south)
 "twE" = (
 /obj/item/circuitboard/pandemic,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -53122,7 +53122,7 @@
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "txq" = (
-/obj/machinery/atmospherics/trinary/mixer{
+/obj/machinery/atmospherics/components/trinary/mixer{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -53189,7 +53189,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/bridge/hop)
 "tyX" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	external_pressure_bound = 0;
 	external_pressure_bound_default = 0;
 	frequency = 1441;
@@ -53348,7 +53348,7 @@
 /area/coldcolony/ruin/sm_lab)
 "tBG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -53586,7 +53586,7 @@
 /area/coldcolony/malta/security/permabrig)
 "tFw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8;
 	volume = 20000
 	},
@@ -53718,7 +53718,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/xenobiology)
 "tIL" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -54004,7 +54004,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/coldcolony/malta/bridge/blueshield)
 "tPO" = (
-/obj/machinery/atmospherics/unary/tank/nitrous_oxide{
+/obj/machinery/atmospherics/components/unary/tank/nitrous_oxide{
 	volume = 3000
 	},
 /obj/machinery/light{
@@ -54119,7 +54119,7 @@
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/security/magistrateoffice)
 "tRK" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -54579,14 +54579,14 @@
 	color = "#332a2a";
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "tYZ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -54684,7 +54684,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "uay" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -54839,7 +54839,7 @@
 /area/coldcolony/malta/research/hallway)
 "ucM" = (
 /obj/machinery/pdapainter,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -54857,7 +54857,7 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/quartermaster/sorting)
 "udf" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/structure/reagent_dispensers/virusfood{
@@ -54932,7 +54932,7 @@
 	},
 /area/coldcolony/malta/hallway/bridge)
 "ufl" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
@@ -55151,7 +55151,7 @@
 	},
 /area/coldcolony/ruin/sm_division)
 "ujt" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -55175,7 +55175,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/xenobiology)
 "ujQ" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -55202,7 +55202,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -56265,7 +56265,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -56310,7 +56310,7 @@
 	},
 /area/coldcolony/malta/security/medbay)
 "uIn" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/northeast,
@@ -56608,7 +56608,7 @@
 	},
 /area/coldcolony/ruin/abandoned_house)
 "uPc" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -56901,7 +56901,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/bridge)
 "uVn" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -57214,7 +57214,7 @@
 	},
 /area/coldcolony/malta/security/reception)
 "vai" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -57331,7 +57331,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "vdL" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
 "vdR" = (
@@ -57612,7 +57612,7 @@
 	},
 /area/coldcolony/ruin/sm_chamber)
 "vhN" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -58064,7 +58064,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/quartermaster/ore_production)
 "voF" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -58333,7 +58333,7 @@
 /area/coldcolony/malta/engineering/break_room)
 "vsA" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/machinery/alarm{
@@ -59390,7 +59390,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "vIL" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/machinery/station_map/directional/east,
@@ -59413,7 +59413,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/machinery/light,
@@ -59547,7 +59547,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/research/test_chamber)
 "vMb" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/components/trinary/filter{
 	desc = "Отфильтровывает токсины из трубы и отправляет их в камеру хранения";
 	name = "Фильтр Токсинов (Плазма)";
 	on = 1;
@@ -59679,7 +59679,7 @@
 	},
 /area/ruin/unpowered)
 "vOX" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -59817,7 +59817,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_chamber)
 "vRQ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/camera{
@@ -60084,7 +60084,7 @@
 	},
 /area/coldcolony/malta/hallway/service/nw)
 "vWW" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -60098,7 +60098,7 @@
 	},
 /area/ruin/unpowered/coldcolony_outside)
 "vXd" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -60138,7 +60138,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "vXE" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	id = "o2_in"
 	},
 /obj/machinery/light/small{
@@ -60293,7 +60293,7 @@
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
 "wbz" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60415,7 +60415,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "wet" = (
 /obj/structure/table/reinforced,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/item/stamp/denied,
 /obj/item/stamp/granted{
 	pixel_x = 3;
@@ -60431,7 +60431,7 @@
 	},
 /area/coldcolony/ruin/sm_chamber)
 "wey" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	target_pressure = 303.325;
 	dir = 8
 	},
@@ -60475,7 +60475,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/coldcolony_outside)
 "wfc" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -60690,7 +60690,7 @@
 /obj/structure/curtain/open/shower,
 /obj/item/soap/deluxe,
 /obj/item/bikehorn/rubberducky/captain,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/machinery/shower{
@@ -61361,7 +61361,7 @@
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "wul" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
@@ -61713,7 +61713,7 @@
 /area/coldcolony/malta/escape_toilet)
 "wCe" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -61726,7 +61726,7 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "wCl" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -61802,7 +61802,7 @@
 	},
 /area/coldcolony/malta/bridge)
 "wDv" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -62069,7 +62069,7 @@
 	},
 /area/coldcolony/malta/security/securehallway)
 "wId" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_lab)
 "wIm" = (
@@ -62142,7 +62142,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/civilian/trading)
 "wJX" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -62163,7 +62163,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/processing)
 "wKo" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	external_pressure_bound = 140;
 	external_pressure_bound_default = 140;
 	name = "server vent";
@@ -62273,7 +62273,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "wMk" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	volume = 20000;
 	dir = 1
 	},
@@ -63096,7 +63096,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin1)
 "xaG" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63435,7 +63435,7 @@
 /area/coldcolony/malta/quartermaster/office)
 "xiD" = (
 /obj/structure/table/wood,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -63762,7 +63762,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "xnv" = (
-/obj/machinery/atmospherics/trinary/mixer{
+/obj/machinery/atmospherics/components/trinary/mixer{
 	desc = "Смешивает кислород и азот, создавая смесь для дыхания на станции";
 	dir = 8;
 	name = "Дыхательный смеситель";
@@ -63910,7 +63910,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/office)
 "xqx" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -63994,7 +63994,7 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_x = -28
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -64059,7 +64059,7 @@
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "xtl" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -64262,7 +64262,7 @@
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "xwA" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -64425,7 +64425,7 @@
 	},
 /area/coldcolony/malta/research/lab)
 "xzK" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -64525,7 +64525,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/hallway)
 "xAE" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/scrubber,
@@ -64922,7 +64922,7 @@
 "xIA" = (
 /obj/structure/table/wood,
 /obj/item/newspaper,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -65076,7 +65076,7 @@
 /obj/structure/table/reinforced,
 /obj/item/trash/plate,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/item/reagent_containers/glass/beaker/large{
@@ -65161,7 +65161,7 @@
 	},
 /area/coldcolony/malta/chapel/office)
 "xMW" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -65282,7 +65282,7 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_x = 28
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -65497,7 +65497,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "xTV" = (
-/obj/machinery/atmospherics/unary/tank/nitrous_oxide{
+/obj/machinery/atmospherics/components/unary/tank/nitrous_oxide{
 	volume = 3000
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -65696,7 +65696,7 @@
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
 "xXS" = (
-/obj/machinery/atmospherics/binary/volume_pump{
+/obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -65936,7 +65936,7 @@
 "ycN" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/britcup,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/medbay)
 "ycV" = (
@@ -66017,7 +66017,7 @@
 /turf/simulated/floor/bluegrid,
 /area/coldcolony/malta/turret_protected/ai_upload)
 "yfF" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -66270,7 +66270,7 @@
 /area/coldcolony/malta/security/lobby)
 "ylA" = (
 /obj/structure/chair,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"

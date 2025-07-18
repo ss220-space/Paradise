@@ -1,6 +1,5 @@
-/obj/machinery/atmospherics/unary/generator_input
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/heat_exchanger.dmi'
-	icon_state = "intact"
+/obj/machinery/atmospherics/components/unary/generator_input
+	icon_state = "heat_exchanger_intact"
 	density = TRUE
 
 	name = "generator input"
@@ -8,13 +7,13 @@
 
 	var/update_cycle
 
-/obj/machinery/atmospherics/unary/generator_input/update_icon_state()
+/obj/machinery/atmospherics/components/unary/generator_input/update_icon_state()
 	..()
 
-	if(node)
-		icon_state = "intact"
+	if(NODE1)
+		icon_state = "heat_exchanger_intact"
 	else
-		icon_state = "exposed"
+		icon_state = "heat_exchanger_exposed"
 
-/obj/machinery/atmospherics/unary/generator_input/proc/return_exchange_air()
-	return air_contents
+/obj/machinery/atmospherics/components/unary/generator_input/proc/return_exchange_air()
+	return AIR1

@@ -15,8 +15,13 @@
 		if(T.active_hotspot)
 			burning = 1
 
-	to_chat(usr, "<span class='notice'>@[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] N2O: [GM.sleeping_agent] Agent B: [GM.agent_b] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("<span class='warning'>BURNING</span>"):(null)]</span>")
-
+	to_chat(usr, )
+	var/list/messages = list()
+	messages += span_adminnotice("@[target.x],[target.y]: [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)? (span_red(" BURNING")) : (null)]")
+	for(var/gas in GM.gases)
+		if(gas[GAS_INDEX] <= 4 || gas[MOLES])
+			messages += span_notice("[gas[GAS_NAME]]: [gas[MOLES]]")
+	to_chat(usr, messages.Join("<br>"))
 	message_admins("[key_name_admin(usr)] has checked the air status of [target]")
 	log_admin("[key_name(usr)] has checked the air status of [target]")
 

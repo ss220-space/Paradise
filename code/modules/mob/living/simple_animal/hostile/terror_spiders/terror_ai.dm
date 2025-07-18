@@ -154,7 +154,7 @@
 			if(prob(idle_ventcrawl_chance))
 				last_ventcrawl_time = world.time
 				var/vdistance = 99
-				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10, src))
+				for(var/obj/machinery/atmospherics/components/unary/vent_pump/v in view(10, src))
 					if(!v.welded || ai_ventbreaker)
 						if(get_dist(src,v) < vdistance)
 							entry_vent = v
@@ -308,12 +308,13 @@
 				entry_vent.set_welded(FALSE)
 				entry_vent.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выбивает приваренную крышку [entry_vent.declent_ru(GENITIVE)]!"))
 			var/list/vents = list()
-			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
+			var/datum/pipeline/parent = entry_vent.PARENT1
+			for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in parent.other_atmosmch)
 				vents.Add(temp_vent)
 			if(!vents.len)
 				entry_vent = null
 				return
-			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
+			var/obj/machinery/atmospherics/components/unary/vent_pump/exit_vent = pick(vents)
 			visible_message("<b>[capitalize(declent_ru(NOMINATIVE))] залезает в вентиляционные каналы!</b>", span_notice("Слышно, как что-то сжимается в вентиляционных каналах."))
 			spawn(rand(20,60))
 				var/original_location = loc

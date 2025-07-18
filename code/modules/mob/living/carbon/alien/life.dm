@@ -22,20 +22,20 @@
 	var/breath_pressure = (breath.total_moles() * R_IDEAL_GAS_EQUATION * breath.temperature) / BREATH_VOLUME
 
 	//Partial pressure of the toxins in our breath
-	var/Toxins_pp = (breath.toxins / breath.total_moles()) * breath_pressure
+	var/plasma_pp = (breath.gases[GAS_PL][MOLES] / breath.total_moles()) * breath_pressure
 
-	if(Toxins_pp > tox_detect_threshold) // Detect toxins in air
-		adjust_alien_plasma(breath.toxins*250)
+	if(plasma_pp > tox_detect_threshold) // Detect toxins in air
+		adjust_alien_plasma(breath.gases[GAS_PL][MOLES] * 250)
 		throw_alert("alien_tox", /atom/movable/screen/alert/alien_tox)
 
-		toxins_used = breath.toxins
+		toxins_used = breath.gases[GAS_PL][MOLES]
 
 	else
 		clear_alert("alien_tox")
 
 	//Breathe in toxins and out oxygen
-	breath.toxins -= toxins_used
-	breath.oxygen += toxins_used
+	breath.gases[GAS_PL][MOLES] -= toxins_used
+	breath.gases[GAS_O2][MOLES] += toxins_used
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)

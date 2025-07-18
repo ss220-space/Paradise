@@ -29,7 +29,7 @@
 		/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers
 	)
 	var/list/unary_roots = list(
-		/obj/machinery/atmospherics/unary
+		/obj/machinery/atmospherics/components/unary
 	)
 
 /datum/map_per_tile_test/pipe_vent_checker/CheckTile(turf/T)
@@ -40,7 +40,7 @@
 		if(locate(pipe_root) in T.contents)
 			has_pipe = TRUE
 
-	if(locate(/obj/machinery/atmospherics/unary) in T.contents)
+	if(locate(/obj/machinery/atmospherics/components/unary) in T.contents)
 		has_unary = TRUE
 
 	if(has_pipe && has_unary)

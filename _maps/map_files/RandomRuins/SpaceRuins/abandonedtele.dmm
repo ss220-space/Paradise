@@ -54,7 +54,7 @@
 /turf/simulated/floor/plating/airless,
 /area/AIsattele)
 "n" = (
-/obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
+/obj/machinery/atmospherics/components/unary/tank/oxygen_agent_b,
 /turf/simulated/floor/plating/airless,
 /area/AIsattele)
 "o" = (
@@ -72,7 +72,7 @@
 /turf/simulated/floor/plating/airless,
 /area/AIsattele)
 "r" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,

@@ -85,7 +85,7 @@
 	switch (action)
 		if("set_charge")
 			var/newcharge = tgui_input_number(usr, "Set new charge", borg.name, borg.cell.charge, max_value = INFINITY)
-			newcharge = between(0,newcharge, borg.cell.maxcharge)
+			newcharge = clamp(newcharge, 0, borg.cell.maxcharge)
 			if(isnull(newcharge))
 				return
 			borg.cell.charge = newcharge

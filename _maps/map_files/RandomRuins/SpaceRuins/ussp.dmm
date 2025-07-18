@@ -1763,7 +1763,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/unary/tank/air/ninja{
+/obj/machinery/atmospherics/components/unary/tank/air/ninja{
 	volume = 30000
 	},
 /turf/simulated/floor/plasteel{
@@ -1780,7 +1780,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/engineer_area)
 "eA" = (
-/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/atmospherics/components/unary/passive_vent,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "eB" = (
@@ -1973,7 +1973,7 @@
 /area/derelict/engineer_area)
 "eX" = (
 /obj/machinery/portable_atmospherics/pump,
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2167,7 +2167,7 @@
 /area/derelict/engineer_area)
 "fu" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7074,7 +7074,7 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_y = -32
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/air,
@@ -7194,7 +7194,7 @@
 /turf/simulated/floor/plating,
 /area/derelict/arrival)
 "sc" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 1;
 	frequency = 1379;
 	id_tag = "rus_pump_1"
@@ -7217,7 +7217,7 @@
 /turf/simulated/floor/plating,
 /area/derelict/arrival)
 "sd" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 1;
 	frequency = 1379;
 	id_tag = "rus_pump_1"
@@ -7564,7 +7564,7 @@
 "vR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/components/unary/portables_connector,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8226,7 +8226,7 @@
 	},
 /area/derelict/crew_quarters)
 "Ds" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
 	dir = 1;
 	frequency = 1379;
 	id_tag = "rus_pump_2"

@@ -608,7 +608,7 @@
 
 	. = list()
 	for(var/object in GLOB.all_vent_pumps) // This only contains vent_pumps so don't bother with type checking
-		var/obj/machinery/atmospherics/unary/vent_pump/vent = object
+		var/obj/machinery/atmospherics/components/unary/vent_pump/vent = object
 		var/vent_z = vent.z
 		if(z_level && vent_z != z_level)
 			continue
@@ -635,11 +635,12 @@
 					break
 			if(visible_by_mobs)
 				continue
-		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
+		var/datum/pipeline/entry_vent_parent = vent.PARENT1
+		if(!entry_vent_parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
 			// Can cause heavy message spam in some situations (e.g. pipenets breaking)
 			// log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
 			continue
-		if(length(vent.parent.other_atmosmch) <= min_network_size)
+		if(length(entry_vent_parent.other_atmosmch) <= min_network_size)
 			continue
 		. += vent
 

@@ -39,10 +39,10 @@
 #define AALARM_MODE_OFF 8
 #define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
 
-#define AALARM_PRESET_HUMAN     1 // Default
-#define AALARM_PRESET_VOX       2 // Support Vox
+#define AALARM_PRESET_HUMAN	 1 // Default
+#define AALARM_PRESET_VOX	   2 // Support Vox
 #define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
-#define AALARM_PRESET_SERVER    4 // Server coldroom
+#define AALARM_PRESET_SERVER	4 // Server coldroom
 
 #define AALARM_REPORT_TIMEOUT 100
 
@@ -146,44 +146,44 @@
 			apply_preset(1) // Only this air alarm should send a cycle.
 
 	TLV = list (
-		"oxygen"         = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
-		"nitrogen"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+		"oxygen"		 = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
+		"nitrogen"	   = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 		"carbon dioxide" = new/datum/tlv(-1.0, -1.0, 5,  10), // Partial pressure, kpa
-		"plasma"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
-		"other"          = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
-		"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.10,ONE_ATMOSPHERE*1.20), /* kpa */
-		"temperature"    = new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K
+		"plasma"		 = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
+		"other"		  = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
+		"pressure"	   = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.10,ONE_ATMOSPHERE*1.20), /* kpa */
+		"temperature"	= new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K
 	)
 	switch(preset)
 		if(AALARM_PRESET_VOX)
 			TLV = list(
-				"oxygen"         = new/datum/tlv(-1.0, -1.0, 1, 2), // Partial pressure, kpa
-				"nitrogen"       = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
+				"oxygen"		 = new/datum/tlv(-1.0, -1.0, 1, 2), // Partial pressure, kpa
+				"nitrogen"	   = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
 				"carbon dioxide" = new/datum/tlv(-1.0, -1.0, 5,  10), // Partial pressure, kpa
-				"plasma"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
-				"other"          = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
-				"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.10,ONE_ATMOSPHERE*1.20), /* kpa */
-				"temperature"    = new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K
+				"plasma"		 = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
+				"other"		  = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
+				"pressure"	   = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.10,ONE_ATMOSPHERE*1.20), /* kpa */
+				"temperature"	= new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K
 			)
 		if(AALARM_PRESET_COLDROOM)
 			TLV = list(
-				"oxygen"         = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
-				"nitrogen"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"oxygen"		 = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
+				"nitrogen"	   = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"carbon dioxide" = new/datum/tlv(-1.0, -1.0,   5,  10), // Partial pressure, kpa
-				"plasma"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
-				"other"          = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
-				"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.50,ONE_ATMOSPHERE*1.60), /* kpa */
-				"temperature"    = new/datum/tlv(T0C-50, T0C-20, T0C, T20C), // K
+				"plasma"		 = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
+				"other"		  = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
+				"pressure"	   = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.50,ONE_ATMOSPHERE*1.60), /* kpa */
+				"temperature"	= new/datum/tlv(T0C-50, T0C-20, T0C, T20C), // K
 			)
 		if(AALARM_PRESET_SERVER)
 			TLV = list(
-				"oxygen"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
-				"nitrogen"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"oxygen"		 = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"nitrogen"	   = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"carbon dioxide" = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
-				"plasma"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
-				"other"          = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
-				"pressure"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
-				"temperature"    = new/datum/tlv(0, 0, T20C + 5, T20C + 15), // K
+				"plasma"		 = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"other"		  = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"pressure"	   = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
+				"temperature"	= new/datum/tlv(0, 0, T20C + 5, T20C + 15), // K
 			)
 
 	if(!no_cycle_after)
@@ -276,26 +276,29 @@
 
 	handle_heating_cooling(environment, cur_tlv, location)
 
-	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature/environment.volume
+	var/partial_pressure = R_IDEAL_GAS_EQUATION * environment.temperature / environment.volume
 
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 
 	cur_tlv = TLV["oxygen"]
-	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen*GET_PP)
+	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_O2][MOLES] * partial_pressure)
 
 	cur_tlv = TLV["nitrogen"]
-	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen*GET_PP)
+	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_N2][MOLES] * partial_pressure)
 
 	cur_tlv = TLV["carbon dioxide"]
-	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide*GET_PP)
+	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_PL][MOLES] * partial_pressure)
 
 	cur_tlv = TLV["plasma"]
-	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins*GET_PP)
+	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_PL][MOLES] * partial_pressure)
 
 	cur_tlv = TLV["other"]
-	var/other_dangerlevel = cur_tlv.get_danger_level(environment.total_trace_moles() * GET_PP)
+	var/other_moles = 0
+	for(var/i in 5 to environment.gases.len)
+		other_moles+=environment.gases[i][MOLES]
+	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles * partial_pressure)
 
 	cur_tlv = TLV["temperature"]
 	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
@@ -621,37 +624,38 @@
 		return
 
 	var/datum/gas_mixture/environment = location.return_air()
-	var/known_total = environment.oxygen + environment.nitrogen + environment.carbon_dioxide + environment.toxins
 	var/total = environment.total_moles()
 	if(total == 0)
 		return null
 
 	var/datum/tlv/cur_tlv
-	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature/environment.volume
+	var/partial_pressure = R_IDEAL_GAS_EQUATION * environment.temperature / environment.volume
 
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 
 	cur_tlv = TLV["oxygen"]
-	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen*GET_PP)
-	var/oxygen_percent = environment.oxygen / total * 100
+	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_O2][MOLES] * partial_pressure)
+	var/oxygen_percent = environment.gases[GAS_O2][MOLES] / total * 100
 
 	cur_tlv = TLV["nitrogen"]
-	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen*GET_PP)
-	var/nitrogen_percent = environment.nitrogen / total * 100
+	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_N2][MOLES] * partial_pressure)
+	var/nitrogen_percent = environment.gases[GAS_N2][MOLES] / total * 100
 
 	cur_tlv = TLV["carbon dioxide"]
-	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide*GET_PP)
-	var/co2_percent = environment.carbon_dioxide / total * 100
+	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_CO2][MOLES] * partial_pressure)
+	var/co2_percent = environment.gases[GAS_CO2][MOLES] / total * 100
 
 	cur_tlv = TLV["plasma"]
-	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins*GET_PP)
-	var/plasma_percent = environment.toxins / total * 100
+	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_PL][MOLES] * partial_pressure)
+	var/plasma_percent = environment.gases[GAS_PL][MOLES] / total * 100
 
 	cur_tlv = TLV["other"]
-	var/other_moles = total - known_total
-	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
+	var/other_moles = 0
+	for(var/i in 5 to environment.gases.len)
+		other_moles += environment.gases[i][MOLES]
+	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles * partial_pressure)
 	var/other_percent = other_moles / total * 100
 
 	cur_tlv = TLV["temperature"]
@@ -707,18 +711,18 @@
 	data["modes"] = list(
 		AALARM_MODE_SCRUBBING   = list("name"="Filtering",   "desc"="Scrubs out contaminants", "id" = AALARM_MODE_SCRUBBING),\
 		AALARM_MODE_VENTING		= list("name"="Draught", 	 "desc"="Siphons out air while replacing", "id" = AALARM_MODE_VENTING),\
-		AALARM_MODE_PANIC       = list("name"="Panic Siphon","desc"="Siphons air out of the room quickly", "id" = AALARM_MODE_PANIC),\
-		AALARM_MODE_REPLACEMENT = list("name"="Cycle",       "desc"="Siphons air before replacing", "id" = AALARM_MODE_REPLACEMENT),\
-		AALARM_MODE_SIPHON	    = list("name"="Siphon",		 "desc"="Siphons air out of the room", "id" = AALARM_MODE_SIPHON),\
+		AALARM_MODE_PANIC	   = list("name"="Panic Siphon","desc"="Siphons air out of the room quickly", "id" = AALARM_MODE_PANIC),\
+		AALARM_MODE_REPLACEMENT = list("name"="Cycle",	   "desc"="Siphons air before replacing", "id" = AALARM_MODE_REPLACEMENT),\
+		AALARM_MODE_SIPHON		= list("name"="Siphon",		 "desc"="Siphons air out of the room", "id" = AALARM_MODE_SIPHON),\
 		AALARM_MODE_CONTAMINATED= list("name"="Contaminated","desc"="Scrubs out all contaminants quickly", "id" = AALARM_MODE_CONTAMINATED),\
-		AALARM_MODE_REFILL      = list("name"="Refill",      "desc"="Triples vent output", "id" = AALARM_MODE_REFILL),\
-		AALARM_MODE_OFF         = list("name"="Off",         "desc"="Shuts off vents and scrubbers", "id" = AALARM_MODE_OFF),\
+		AALARM_MODE_REFILL	  = list("name"="Refill",	  "desc"="Triples vent output", "id" = AALARM_MODE_REFILL),\
+		AALARM_MODE_OFF		 = list("name"="Off",		 "desc"="Shuts off vents and scrubbers", "id" = AALARM_MODE_OFF),\
 		AALARM_MODE_FLOOD 		= list("name"="Flood", 		 "desc"="Shuts off scrubbers and opens vents", 	"emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
 	)
 	data["mode"] = mode
 	data["presets"] = list(
-		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),\
-		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for nitrogen only", "id" = AALARM_PRESET_VOX),\
+		AALARM_PRESET_HUMAN		= list("name"="Human",	 	 "desc"="Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),\
+		AALARM_PRESET_VOX 		= list("name"="Vox",	   	 "desc"="Checks for nitrogen only", "id" = AALARM_PRESET_VOX),\
 		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers", "id" = AALARM_PRESET_COLDROOM),\
 		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER)
 	)
@@ -769,11 +773,11 @@
 	var/list/thresholds = list()
 
 	var/list/gas_names = list(
-		"oxygen"         = "O2",
-		"nitrogen"       = "N2",
+		"oxygen"		 = "O2",
+		"nitrogen"	   = "N2",
 		"carbon dioxide" = "CO2",
-		"plasma"         = "Toxin",
-		"other"          = "Other")
+		"plasma"		 = "Toxin",
+		"other"		  = "Other")
 	for(var/g in gas_names)
 		thresholds += list(list("name" = gas_names[g], "settings" = list()))
 		selected = TLV[g]
@@ -1169,8 +1173,8 @@ Just an object used in constructing air alarms
 //for oldstation
 
 /obj/machinery/alarm/old
-    name = "old air alarm"
-    desc = "This atmos control unit is too old, that it no longer requires access."
-    report_danger_level = FALSE
-    remote_control = FALSE
-    req_access = null
+	name = "old air alarm"
+	desc = "This atmos control unit is too old, that it no longer requires access."
+	report_danger_level = FALSE
+	remote_control = FALSE
+	req_access = null

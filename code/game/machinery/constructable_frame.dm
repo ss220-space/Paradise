@@ -437,7 +437,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/thermomachine
 	board_name = "Freezer"
 	desc = "Use screwdriver to switch between heating and cooling modes."
-	build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
+	build_path = /obj/machinery/atmospherics/components/unary/cold_sink/freezer
 	board_type = "machine"
 	origin_tech = "programming=3;plasmatech=3"
 	req_components = list(
@@ -451,12 +451,12 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
-	if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
-		build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
+	if(build_path == /obj/machinery/atmospherics/components/unary/cold_sink/freezer)
+		build_path = /obj/machinery/atmospherics/components/unary/heat_reservoir/heater
 		board_name = "Heater"
 		to_chat(user, span_notice("You set the board to heating."))
 	else
-		build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
+		build_path = /obj/machinery/atmospherics/components/unary/cold_sink/freezer
 		board_name = "Freezer"
 		to_chat(user, span_notice("You set the board to cooling."))
 
@@ -1069,7 +1069,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/cryo_tube
 	board_name = "Cryotube"
-	build_path = /obj/machinery/atmospherics/unary/cryo_cell
+	build_path = /obj/machinery/atmospherics/components/unary/cryo_cell
 	board_type = "machine"
 	origin_tech = "programming=4;biotech=3;engineering=4;plasmatech=3"
 	req_components = list(

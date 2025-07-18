@@ -1,47 +1,46 @@
 /datum/canister_icons
-	var
-		possiblemaincolor = list( //these lists contain the possible colors of a canister
-			list("name" = "\[N2O\]", "icon" = "redws"),
-			list("name" = "\[N2\]", "icon" = "red"),
-			list("name" = "\[O2\]", "icon" = "blue"),
-			list("name" = "\[Toxin (Bio)\]", "icon" = "orange"),
-			list("name" = "\[CO2\]", "icon" = "black"),
-			list("name" = "\[Air\]", "icon" = "grey"),
-			list("name" = "\[CAUTION\]", "icon" = "yellow"),
-			list("name" = "\[SPECIAL\]", "icon" = "whiters")
+	var/static/possiblemaincolor = list( //these lists contain the possible colors of a canister
+				list("name" = "\[N2O\]", "icon" = "redws"),
+				list("name" = "\[N2\]", "icon" = "red"),
+				list("name" = "\[O2\]", "icon" = "blue"),
+				list("name" = "\[Toxin (Bio)\]", "icon" = "orange"),
+				list("name" = "\[CO2\]", "icon" = "black"),
+				list("name" = "\[Air\]", "icon" = "grey"),
+				list("name" = "\[CAUTION\]", "icon" = "yellow"),
+				list("name" = "\[SPECIAL\]", "icon" = "whiters")
 			)
-		possibleseccolor = list( // no point in having the N2O and "whiters" ones in these lists
-			list("name" = "\[None\]", "icon" = "none"),
-			list("name" = "\[N2\]", "icon" = "red-c"),
-			list("name" = "\[O2\]", "icon" = "blue-c"),
-			list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c"),
-			list("name" = "\[CO2\]", "icon" = "black-c"),
-			list("name" = "\[Air\]", "icon" = "grey-c"),
-			list("name" = "\[CAUTION\]", "icon" = "yellow-c")
+	var/static/possibleseccolor = list( // no point in having the N2O and "whiters" ones in these lists
+				list("name" = "\[None\]", "icon" = "none"),
+				list("name" = "\[N2\]", "icon" = "red-c"),
+				list("name" = "\[O2\]", "icon" = "blue-c"),
+				list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c"),
+				list("name" = "\[CO2\]", "icon" = "black-c"),
+				list("name" = "\[Air\]", "icon" = "grey-c"),
+				list("name" = "\[CAUTION\]", "icon" = "yellow-c")
 			)
-		possibletertcolor = list(
-			list("name" = "\[None\]", "icon" = "none"),
-			list("name" = "\[N2\]", "icon" = "red-c-1"),
-			list("name" = "\[O2\]", "icon" = "blue-c-1"),
-			list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c-1"),
-			list("name" = "\[CO2\]", "icon" = "black-c-1"),
-			list("name" = "\[Air\]", "icon" = "grey-c-1"),
-			list("name" = "\[CAUTION\]", "icon" = "yellow-c-1")
+	var/static/possibletertcolor = list(
+				list("name" = "\[None\]", "icon" = "none"),
+				list("name" = "\[N2\]", "icon" = "red-c-1"),
+				list("name" = "\[O2\]", "icon" = "blue-c-1"),
+				list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c-1"),
+				list("name" = "\[CO2\]", "icon" = "black-c-1"),
+				list("name" = "\[Air\]", "icon" = "grey-c-1"),
+				list("name" = "\[CAUTION\]", "icon" = "yellow-c-1")
 			)
-		possiblequartcolor = list(
-			list("name" = "\[None\]", "icon" = "none"),
-			list("name" = "\[N2\]", "icon" = "red-c-2"),
-			list("name" = "\[O2\]", "icon" = "blue-c-2"),
-			list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c-2"),
-			list("name" = "\[CO2\]", "icon" = "black-c-2"),
-			list("name" = "\[Air\]", "icon" = "grey-c-2"),
-			list("name" = "\[CAUTION\]", "icon" = "yellow-c-2")
+	var/static/possiblequartcolor = list(
+				list("name" = "\[None\]", "icon" = "none"),
+				list("name" = "\[N2\]", "icon" = "red-c-2"),
+				list("name" = "\[O2\]", "icon" = "blue-c-2"),
+				list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c-2"),
+				list("name" = "\[CO2\]", "icon" = "black-c-2"),
+				list("name" = "\[Air\]", "icon" = "grey-c-2"),
+				list("name" = "\[CAUTION\]", "icon" = "yellow-c-2")
 			)
 GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/portable_atmospherics/canister
 	name = "canister"
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
+	icon = 'icons/obj/atmospherics/atmos.dmi'
 	icon_state = "yellow"
 	density = TRUE
 	flags = CONDUCT
@@ -391,10 +390,10 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 				logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into [holding || "air"]."
 				if(!holding)
 					logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into the air."
-					if(air_contents.toxins > 0)
+					if(air_contents.gases[GAS_PL][MOLES] > 0)
 						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [ADMIN_VERBOSEJMP(src)]!")
 						log_admin("[key_name(usr)] opened a canister that contains plasma at [AREACOORD(src)]")
-					if(air_contents.sleeping_agent > 0)
+					if(air_contents.gases[GAS_N2O][MOLES] > 0)
 						message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [ADMIN_VERBOSEJMP(src)]!")
 						log_admin("[key_name(usr)] opened a canister that contains N2O at [AREACOORD(src)]")
 			else
@@ -454,43 +453,43 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/portable_atmospherics/canister/toxins/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "orange"
-	air_contents.toxins = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.gases[GAS_PL][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 	update_icon()
 
 
 /obj/machinery/portable_atmospherics/canister/oxygen/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "blue"
-	air_contents.oxygen = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.gases[GAS_O2][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 	update_icon()
 
 
 /obj/machinery/portable_atmospherics/canister/sleeping_agent/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "redws"
-	air_contents.sleeping_agent = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.gases[GAS_N2O][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 	update_icon()
 
 
 /obj/machinery/portable_atmospherics/canister/nitrogen/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "red"
-	air_contents.nitrogen = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.gases[GAS_N2][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 	update_icon()
 
 
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "black"
-	air_contents.carbon_dioxide = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.gases[GAS_CO2][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 	update_icon()
 
 
 /obj/machinery/portable_atmospherics/canister/air/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "grey"
-	air_contents.oxygen = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	air_contents.nitrogen = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.gases[GAS_O2][MOLES] = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.gases[GAS_N2][MOLES] = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 	update_icon()
 
 

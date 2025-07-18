@@ -11,17 +11,17 @@
 	T.random_target = TRUE
 	T.range = 1
 	T.use_turf_of_user = TRUE
-	T.allowed_type = /obj/machinery/atmospherics/unary
+	T.allowed_type = /obj/machinery/atmospherics/components/unary
 	return T
 
 
 /obj/effect/proc_holder/spell/alien_spell/break_vents/valid_target(target, user)
-	if(istype(target, /obj/machinery/atmospherics/unary/vent_scrubber))
-		var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = target
+	if(istype(target, /obj/machinery/atmospherics/components/unary/vent_scrubber))
+		var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber = target
 		return scrubber.welded
 
-	if(istype(target, /obj/machinery/atmospherics/unary/vent_pump))
-		var/obj/machinery/atmospherics/unary/vent_scrubber/vent = target
+	if(istype(target, /obj/machinery/atmospherics/components/unary/vent_pump))
+		var/obj/machinery/atmospherics/components/unary/vent_scrubber/vent = target
 		return vent.welded
 
 	return FALSE
@@ -29,7 +29,7 @@
 
 /obj/effect/proc_holder/spell/alien_spell/break_vents/cast(list/targets, mob/user)
 
-	var/obj/machinery/atmospherics/vent = targets[1]
+	var/obj/machinery/atmospherics/components/vent = targets[1]
 	if(!vent)
 		to_chat(user, span_warning("No nearby welded vents found!"))
 		revert_cast(user)

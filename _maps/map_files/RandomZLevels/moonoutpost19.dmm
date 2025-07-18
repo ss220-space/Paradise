@@ -1934,7 +1934,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19research)
 "eg" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 4
 	},
 /obj/structure/alien/weeds{
@@ -1946,7 +1946,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "eh" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister,
@@ -2108,7 +2108,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19research)
 "ew" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister,
@@ -2349,7 +2349,7 @@
 /turf/simulated/wall/r_wall,
 /area/moonoutpost19/mo19utilityroom)
 "eW" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	layer = 2.4;
 	on = 1
@@ -2850,7 +2850,7 @@
 /turf/simulated/floor/engine,
 /area/moonoutpost19/mo19research)
 "fK" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
+/obj/machinery/atmospherics/components/unary/outlet_injector{
 	desc = "Has a valve and pump attached to it. This one has been applied with an acid-proof coating.";
 	dir = 8;
 	icon_state = "on";
@@ -3390,7 +3390,7 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19research)
 "gI" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -4945,7 +4945,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "jJ" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -5131,7 +5131,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "kf" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -5295,7 +5295,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4;
 	layer = 2.4;
 	on = 1
@@ -5842,7 +5842,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "lH" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -6889,7 +6889,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/moonoutpost19/hive)
 "oo" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -6923,7 +6923,7 @@
 /area/moonoutpost19/mo19arrivals)
 "os" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 8;
 	on = 1
 	},
@@ -6964,7 +6964,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "ox" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
@@ -7161,7 +7161,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "oT" = (
-/obj/machinery/atmospherics/binary/valve,
+/obj/machinery/atmospherics/components/binary/valve,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
 "oU" = (
@@ -7192,7 +7192,7 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
 "oX" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -7240,7 +7240,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "vO" = (
-/obj/machinery/atmospherics/unary/vent_pump{
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
