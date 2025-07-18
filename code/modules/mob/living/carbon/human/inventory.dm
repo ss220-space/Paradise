@@ -426,6 +426,7 @@
 				I.forceMove(back)
 			else
 				I.forceMove(drop_location())
+			I.item_flags |= IN_STORAGE
 
 		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = w_uniform

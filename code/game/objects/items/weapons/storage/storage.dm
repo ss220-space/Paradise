@@ -100,6 +100,16 @@
 			continue
 		hide_from(player)
 
+/obj/item/storage/proc/dump_storage(mob/user, obj/item/storage/target)
+	if(!length(contents) || (HAS_TRAIT(user, TRAIT_RESTRAINED)) || (HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) || src == target)
+		return
+	for(var/obj/item/thing in contents)
+		if(!target.can_be_inserted(thing))
+			continue
+		if(!do_after(user, 0.3 SECONDS, target = user))
+			break
+		playsound(loc, "rustle", 50, TRUE, -5)
+		target.handle_item_insertion(thing, user)
 
 /obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!isliving(usr))
@@ -114,6 +124,12 @@
 	if(over_object == user && user.Adjacent(src)) // this must come before the screen objects only block
 		open(user)
 		return FALSE
+
+	if(istype(over_object, /obj/item/storage))
+		var/obj/item/storage = over_object
+		if(!(storage.item_flags & IN_STORAGE))
+			dump_storage(user, over_object)
+			return
 
 	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || isfloorturf(over_object)) \
 		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
