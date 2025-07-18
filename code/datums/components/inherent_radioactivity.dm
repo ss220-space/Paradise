@@ -16,7 +16,7 @@
 	RegisterSignal(parent, list(COMSIG_MOVABLE_IMPACT, COMSIG_ATOM_HITBY), PROC_REF(impact_contaminate))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(try_contaminate_hand))
 	if(isitem(parent))
-		RegisterSignal(parent, list(COMSIG_ATTACK, COMSIG_ATTACK_OBJ), PROC_REF(impact_contaminate))
+		RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ), PROC_REF(impact_contaminate))
 	START_PROCESSING(SSradiation, src)
 
 /datum/component/inherent_radioactivity/proc/impact_contaminate(atom/source, atom/target)

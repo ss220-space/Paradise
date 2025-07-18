@@ -110,12 +110,8 @@
 
 /obj/item/gem/rupee/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-			rad_per_cycle = 10, \
-			rad_cycle = 3 SECONDS, \
-			rad_cycle_radius = 5 \
-	)
-	ADD_TRAIT(src, TRAIT_BLOCK_RADIATION, INNATE_TRAIT)
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 150, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 	START_PROCESSING(SSobj, src)
 
 

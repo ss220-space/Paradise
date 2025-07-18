@@ -129,7 +129,7 @@
 
 /obj/item/geiger_counter/proc/update_sound()
 	var/datum/looping_sound/geiger/loop = soundloop
-	var/radiation_count = max(radiation_count_alpha + radiation_count_beta + radiation_count_gamma)
+	var/radiation_count = max(radiation_count_alpha, radiation_count_beta, radiation_count_gamma)
 	if(!scanning || !radiation_count)
 		loop.stop()
 		return
@@ -204,17 +204,20 @@
 		return ..()
 
 /obj/item/geiger_counter/click_alt(mob/user)
-    if(!istype(user) || !user.Adjacent(src))
-        return ..()
-    if(!scanning)
-        to_chat(user, span_warning("[src] must be on to reset its radiation level!"))
-        return CLICK_ACTION_SUCCESS
-    radiation_count_alpha = 0
+	if(!istype(user) || !user.Adjacent(src))
+		return NONE
+		
+	if(!scanning)
+		to_chat(user, span_warning("[src] must be on to reset its radiation level!"))
+		return CLICK_ACTION_SUCCESS
+
+	radiation_count_alpha = 0
 	radiation_count_beta = 0
 	radiation_count_gamma = 0
-    to_chat(user, span_notice("You flush [src]'s radiation counts, resetting it to normal."))
-    update_icon(UPDATE_ICON_STATE)
-    return CLICK_ACTION_SUCCESS
+	to_chat(user, span_notice("You flush [src]'s radiation counts, resetting it to normal."))
+	update_icon(UPDATE_ICON_STATE)
+
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/geiger_counter/emag_act(mob/user)
 	if(emagged)

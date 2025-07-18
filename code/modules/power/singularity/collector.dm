@@ -171,6 +171,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		// stored_energy is converted directly to watts every SSmachines.wait * 0.1 seconds.
 		// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
 		// So joules = stored_energy * SSmachines.wait * 0.1
+		var/joules = stored_energy * SSmachines.wait * 0.1
 		var/max_beta = 0
 		var/max_gamma = 0
 		// Find the maximum beta and gamma absorptions we have logged
