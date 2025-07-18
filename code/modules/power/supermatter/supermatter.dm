@@ -201,8 +201,9 @@
 							H.AdjustHallucinate(max(100 SECONDS, min(300 SECONDS, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)))))
 							H.last_hallucinator_log = "Supermatter explosion"
 						var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
-						mob.apply_effect(rads, IRRADIATE)
+						base_rad_act(mob, rads, GAMMA_RAD)
 			explode()
+			radiation_pulse(src, 2000, GAMMA_RAD)
 			emergency_lighting(0)
 			//It's kinda pointless to process atmos on destroyed (qdel'ed) crystal
 			return
@@ -294,7 +295,7 @@
 
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src),1) )
-		l.apply_effect(rads, IRRADIATE)
+		base_rad_act(l, rads, GAMMA_RAD)
 
 	power -= (power/DECAY_FACTOR)**3
 
@@ -368,7 +369,7 @@
 /obj/machinery/power/supermatter_shard/proc/transfer_energy()
 	for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)
 		if(get_dist(R, src) <= 15) // Better than using orange() every process
-			R.base_rad_act(src, power * 0.1, GAMMA_RAD)
+			base_rad_act(R, 1000 + power, GAMMA_RAD)
 	return
 
 
@@ -426,7 +427,7 @@
 		span_italics("Everything suddenly goes silent."),
 	)
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE)
-	user.apply_effect(150, IRRADIATE)
+	base_rad_act(user, 500, GAMMA_RAD)
 
 
 /obj/machinery/power/supermatter_shard/wrench_act(mob/living/user, obj/item/I)
@@ -598,7 +599,7 @@
 
 /obj/machinery/power/supermatter_shard/anchored/attackby(obj/item/I, mob/living/user, params)
 	consume_wrench(I)
-	user.apply_effect(150, IRRADIATE)
+	base_rad_act(user, 500, GAMMA_RAD)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 
@@ -611,7 +612,7 @@
 		span_warning("As you try to loose bolts of [src], the tool disappears."),
 	)
 	consume_wrench(I)
-	user.apply_effect(150, IRRADIATE)
+	base_rad_act(user, 500, GAMMA_RAD)
 
 
 /obj/machinery/power/supermatter_shard/proc/nuclear_touch(var/mob/living/user)

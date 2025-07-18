@@ -107,13 +107,13 @@
 	point_value = 500
 	sell_multiplier = 2
 
-
+/*
 /obj/item/gem/rupee/Initialize(mapload)
 	. = ..()
 	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 150, 0, 0, 1.5)
 	START_PROCESSING(SSradiation, radioactivity)
 	//START_PROCESSING(SSobj, src)
-
+*/
 
 /obj/item/gem/rupee/examine(mob/user)
 	. = ..()
