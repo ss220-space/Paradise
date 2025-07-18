@@ -449,13 +449,6 @@
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(isbrain(M)) //Ignore brains
 			continue
-
-		if(HAS_TRAIT(M, TRAIT_MESON_VISION))
-			to_chat(M, span_notice("You look directly into [src], but your meson vision protects you!"))
-			return
-
-		// We need to make a refactor of the shit that was added to our build without normal inheritance. I didn't do it.
-		// That's the only reason why these fucking checks still exist.
 		if(!M.stat) // We can't stare on the lord if we are not so alive.
 			continue
 		if((M.sight >= SEE_TURFS) && !(M.sight >= (SEE_TURFS|SEE_OBJS))) // If they can see it without mesons on or can see objects through mesons. Bad on them.

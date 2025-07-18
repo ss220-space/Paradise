@@ -340,4 +340,3 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_BALD "bald"
 
-#define TRAIT_MESON_VISION "meson_vision"

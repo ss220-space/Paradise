@@ -90,6 +90,8 @@
 	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
 	prescription_upgradable = TRUE
+	vision_flags = SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -103,17 +105,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
 
-	var/active_on_equip = TRUE
-
-/obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
-	. = ..()
-	if(active_on_equip && slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/meson/dropped(mob/user)
-	. = ..()
-	if(user)
-		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/meson/sunglasses
 	name = "Meson Sunglasses"

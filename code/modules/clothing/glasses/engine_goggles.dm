@@ -12,7 +12,8 @@
 	item_state = "trayson-meson"
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	origin_tech = "materials=3;magnets=3;engineering=3;plasmatech=3"
-	active_on_equip = FALSE
+	vision_flags = NONE
+	invis_view = SEE_INVISIBLE_LIVING
 
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
 	var/mode = MODE_NONE
@@ -31,13 +32,14 @@
 	mode = modes[mode]
 	to_chat(user, "<span class='[voluntary ? "notice" : "warning"]'>[voluntary ? "You turn the goggles" : "The goggles turn"] [mode ? "to [mode] mode" : "off"][voluntary ? "." : "!"]</span>")
 
-	if(mode == MODE_MESON)
-		if(!HAS_TRAIT_FROM(user, TRAIT_MESON_VISION, "meson_glasses[UID()]"))
-			ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-		active_on_equip = TRUE
-	else
-		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-		active_on_equip = FALSE
+	switch(mode)
+		if(MODE_MESON)
+			vision_flags = SEE_TURFS
+			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+		if(MODE_TRAY) //undoes the last mode, meson
+			vision_flags = NONE
+			lighting_alpha = null
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
