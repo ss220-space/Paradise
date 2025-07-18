@@ -1,6 +1,7 @@
 /**********************Mineral deposits**************************/
 
-/turf/simulated/mineral //wall piece
+/// wall piece
+/turf/simulated/mineral
 	name = "rock"
 	ru_names = list(
 		NOMINATIVE = "камень",
@@ -21,7 +22,7 @@
 	density = TRUE
 	blocks_air = TRUE
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	init_air = FALSE
 	layer = EDGED_TURF_LAYER
 	// We're a BIG wall, larger then 32x32, so we need to be on the game plane

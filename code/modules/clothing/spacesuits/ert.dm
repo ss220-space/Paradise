@@ -138,6 +138,7 @@
 	name = "elite emergency response team engineer helmet"
 	icon_state = "hardsuit0-gammaengineer"
 	item_color = "gammaengineer"
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	name = "emergency response team engineer suit"
@@ -150,6 +151,7 @@
 	name = "elite emergency response team engineer suit"
 	icon_state = "ert_gengineer"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma/engineer
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 //Medical
 /obj/item/clothing/head/helmet/space/hardsuit/ert/medical

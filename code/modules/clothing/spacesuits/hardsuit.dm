@@ -75,10 +75,7 @@
 	if(msg && ishuman(wearer))
 		wearer.show_message(span_robot("<b>[msg]</b>"), 1)
 
-/obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
-	. = ..()
-	if(amount <= RAD_BACKGROUND_RADIATION)
-		return
+/obj/item/clothing/head/helmet/space/hardsuit/rad_act(atom/source, amount, emission_type)
 	current_tick_amount += amount
 
 /obj/item/clothing/head/helmet/space/hardsuit/process()
@@ -608,6 +605,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
 	icon_state = "hardsuit0-sst"
 	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100, fire = 100, acid = 100) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	item_color = "sst"
 	combat_rad = 100
 	combat_slow = -0.1
@@ -616,6 +614,7 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
 	icon_state = "hardsuit0-sst"
 	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100, fire = 100, acid = 100)
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	item_color = "sst"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
 
@@ -840,6 +839,7 @@
 	icon_state = "hardsuit0-singuloth"
 	item_state = "singuloth_helm"
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 95, acid = 95)
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	item_color = "singuloth"
 	sprite_sheets = null
 
@@ -849,6 +849,7 @@
 	icon_state = "hardsuit-singuloth"
 	item_state = "singuloth_hardsuit"
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 95, acid = 95)
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	clothing_flags = STOPSPRESSUREDMAGE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	sprite_sheets = null

@@ -1449,10 +1449,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(current_size >= STAGE_THREE)
 		var/list/handlist = list(l_hand, r_hand)
 		for(var/obj/item/hand in handlist)
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& drop_item_ground(hand))
+			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2) && drop_item_ground(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
-	rad_act(current_size * 3)
+	base_rad_act(S, current_size * 3, GAMMA_RAD)
 
 /mob/living/carbon/human/narsie_act(obj/singularity/god/narsie/narsie)
 	if(iswizard(src) && iscultist(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway
@@ -1947,3 +1947,36 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
+
+/// Checks if an item is inside the body of the mob
+/mob/living/carbon/human/is_inside_mob(atom/thing)
+	if(!(..()))
+		return FALSE
+	if(w_uniform && w_uniform.UID() == thing.UID())
+		return FALSE
+	if(shoes && shoes.UID() == thing.UID())
+		return FALSE
+	if(belt && belt.UID() == thing.UID())
+		return FALSE
+	if(gloves && gloves.UID() == thing.UID())
+		return FALSE
+	if(neck && neck.UID() == thing.UID())
+		return FALSE
+	if(glasses && glasses.UID() == thing.UID())
+		return FALSE
+	if(l_ear && l_ear.UID() == thing.UID())
+		return FALSE
+	if(r_ear && r_ear.UID() == thing.UID())
+		return FALSE
+	if(wear_id && wear_id.UID() == thing.UID())
+		return FALSE
+	if(wear_pda && wear_pda.UID() == thing.UID())
+		return FALSE
+	if(r_store && r_store.UID() == thing.UID())
+		return FALSE
+	if(l_store && l_store.UID() == thing.UID())
+		return FALSE
+	if(s_store && s_store.UID() == thing.UID())
+		return FALSE
+
+	return TRUE

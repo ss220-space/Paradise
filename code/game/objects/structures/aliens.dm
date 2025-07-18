@@ -141,6 +141,9 @@
 	var/icon_closing = "resin_door_closing"
 	var/icon_opening = "resin_door_opening"
 	max_integrity = 160
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation_beta = RAD_MEDIUM_INSULATION
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	canSmoothWith = null
 	smooth = NONE
 	pass_flags_self = PASSDOOR

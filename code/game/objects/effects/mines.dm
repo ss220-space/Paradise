@@ -83,7 +83,7 @@
 	var/radiation_amount
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
-	victim.rad_act(radiation_amount)
+	victim.base_rad_act(src, radiation_amount, BETA_RAD)
 	if(HAS_TRAIT(victim, TRAIT_NO_DNA))
 		return
 	randmutb(victim)

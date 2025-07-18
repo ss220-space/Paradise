@@ -2,9 +2,7 @@
 // DISABILITIES //
 //////////////////
 
-////////////////////////////////////////
-// Totally Crippling
-////////////////////////////////////////
+// MARK: Totally Crippling
 
 // WAS: /datum/bioEffect/mute
 /datum/dna/gene/disability/mute
@@ -24,9 +22,7 @@
 /datum/dna/gene/disability/mute/OnSay(mob/M, message)
 	return ""
 
-////////////////////////////////////////
-// Harmful to others as well as self
-////////////////////////////////////////
+// MARK: Harmful to everyone
 
 /datum/dna/gene/disability/radioactive
 	name = "Радиоактивность"
@@ -45,14 +41,12 @@
 	return TRUE
 
 /datum/dna/gene/disability/radioactive/OnMobLife(mob/living/mutant)
-	radiation_pulse(mutant, 20)
+	radiation_pulse(mutant, 80, ALPHA_RAD)
 
 /datum/dna/gene/disability/radioactive/OnDrawUnderlays(mob/M, g)
 	return "rads_s"
 
-////////////////////////////////////////
-// Other disabilities
-////////////////////////////////////////
+// MARK: Other disabilities
 
 // WAS: /datum/bioEffect/fat
 /datum/dna/gene/disability/obesity
@@ -269,10 +263,7 @@
 			rearranged += cword
 	return "[prefix][uppertext(jointext(rearranged," "))]!!"
 
-
-//////////////////
-// USELESS SHIT //
-//////////////////
+// MARK: USELESS SHIT
 
 // WAS: /datum/bioEffect/horns
 /datum/dna/gene/disability/horns
@@ -290,8 +281,6 @@
 /datum/dna/gene/disability/horns/OnDrawUnderlays(mob/M, g)
 	return "horns_s"
 
-
-////////////////////////////////////////////////////////////////////////
 // WAS: /datum/bioEffect/immolate
 /datum/dna/gene/basic/grant_spell/immolate
 	name = "Зажигательные митохондрии"

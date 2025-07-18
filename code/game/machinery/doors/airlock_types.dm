@@ -152,15 +152,10 @@
 	paintable = FALSE
 	var/last_event = 0
 
-/obj/machinery/door/airlock/uranium/Initialize()
+/obj/machinery/door/airlock/uranium/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_cycle = 15, \
-				rad_cycle_chance = 50, \
-				rad_cycle = 2 SECONDS, \
-				rad_cycle_radius = 3 \
-	)
-	START_PROCESSING(SSobj, src)
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 150, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /obj/machinery/door/airlock/uranium/attack_hand(mob/user)
 	. = ..()

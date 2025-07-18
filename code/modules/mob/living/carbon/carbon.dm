@@ -985,3 +985,12 @@ so that different stomachs can handle things in different ways VB*/
 		return TRUE
 
 	return ..()
+
+/mob/living/carbon/is_inside_mob(atom/thing)
+	if(!(..()))
+		return FALSE
+	if(head && head.UID() == thing.UID())
+		return FALSE
+	if(wear_suit && wear_suit.UID() == thing.UID())
+		return FALSE
+	return TRUE

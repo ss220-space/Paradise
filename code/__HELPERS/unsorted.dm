@@ -1226,6 +1226,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 				return FALSE
 			if(turf_content.dir == test_dir)
 				return FALSE
+			if(istype(turf_content, /obj/machinery/power/rad_collector))
+				return FALSE
 	return TRUE
 
 

@@ -19,31 +19,23 @@
 	icon_state = "plutonium_core"
 	item_state = "plutoniumcore"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	flags_2 = RAD_NO_CONTAMINATE_2 //This is made from radioactive material so cannot really be contaminated
 	var/cooldown = 0
 	var/pulseicon = "plutonium_core_pulse"
+	/// Is this made from radioactive material or not.
+	var/radioactive_material = TRUE
 
 /obj/item/nuke_core/Initialize()
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_cycle = 40, \
-				rad_cycle = 2 SECONDS, \
-				rad_cycle_radius = 5 \
-	)
-	START_PROCESSING(SSobj, src)
+	if(radioactive_material)
+		var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 0, 400, 0, 1.5)
+		START_PROCESSING(SSradiation, radioactivity)
 
 /obj/item/nuke_core/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/nuke_core/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
-
-/obj/item/nuke_core/process()
-	if(cooldown < world.time - 2 SECONDS)
-		cooldown = world.time
-		flick(pulseicon, src)
 
 /obj/item/nuke_core/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] натирает себя [src.declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пытается покончить с собой!"))
@@ -143,8 +135,11 @@
 
 /obj/item/nuke_core_container/proc/seal()
 	if(!QDELETED(core))
-		STOP_PROCESSING(SSobj, core)
-		ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+		var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+		var/datum/component/radioactive/box_contamination = GetComponent(/datum/component/radioactive)
+		STOP_PROCESSING(SSradiation, radioactivity)
+		if(box_contamination)
+			box_contamination.RemoveComponent()
 		sealed = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
@@ -158,8 +153,8 @@
 	addtimer(CALLBACK(src, PROC_REF(unseal), user), SEAL_TIME)
 
 /obj/item/nuke_core_container/proc/unseal(mob/user)
-	START_PROCESSING(SSobj, core)
-	REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+	var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+	START_PROCESSING(SSradiation, radioactivity)
 	sealed = FALSE
 	playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] распечатан, радиация от [core.declent_ru(GENITIVE)] больше не изолирована."))
@@ -179,8 +174,8 @@
 /obj/item/nuke_core_container/proc/crack_open()
 	visible_message(span_boldnotice("[capitalize(src.declent_ru(NOMINATIVE))] распахивается!"))
 	if(core)
-		START_PROCESSING(SSobj, core)
-		REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+		var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+		START_PROCESSING(SSradiation, radioactivity)
 	cracked = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
@@ -225,8 +220,9 @@
 	)
 	icon_state = "supermatter_sliver"
 	pulseicon = "supermatter_sliver_pulse"
+	radioactive_material = FALSE
 
-/obj/item/nuke_core/supermatter_sliver/Initialize()
+/obj/item/nuke_core/supermatter_sliver/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 
@@ -260,12 +256,11 @@
 		return .
 
 	to_chat(user, span_danger("При контакте с [src.declent_ru(INSTRUMENTAL)] и [I.declent_ru(NOMINATIVE)] мгновенно вспыхивают!"))
-	for(var/mob/living/victim in view(5, get_turf(src)))
-		victim.apply_effect(80, IRRADIATE)
+	radiation_pulse(user, 400, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	qdel(I)
 	qdel(src)
-
+	return ..()
 
 /obj/item/nuke_core/supermatter_sliver/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -287,8 +282,7 @@
 		span_hear("Внезапно наступает тишина.")
 	)
 	victim.gib()
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(120, IRRADIATE)
+	radiation_pulse(src, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	qdel(src)
 
@@ -299,10 +293,9 @@
 	user.visible_message(
 		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [src.declent_ru(DATIVE)]. [genderize_ru(user.gender,"его","её","его","их")] тело начинает светиться и мгновенно вспыхивает!"),
 		span_userdanger("Вы попытались взять [src.declent_ru(NOMINATIVE)] голыми руками. Это было глупо."),
-		span_italics("Внезапно наступает тишина.")
+		span_hear("Внезапно наступает тишина.")
 	)
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(80, IRRADIATE)
+	radiation_pulse(user, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.gib()
 	return FALSE
@@ -366,7 +359,9 @@
 /obj/item/nuke_core_container/supermatter/seal()
 	if(!QDELETED(sliver))
 		STOP_PROCESSING(SSobj, sliver)
-		ADD_TRAIT(sliver, TRAIT_BLOCK_RADIATION, src)
+		var/datum/component/radioactive/contamination = GetComponent(/datum/component/radioactive)
+		if(contamination)
+			contamination.RemoveComponent()
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		sealed = TRUE
 		update_icon(UPDATE_ICON_STATE)
@@ -407,8 +402,7 @@
 			span_userdanger("Вы попытались взять [sliver.declent_ru(ACCUSATIVE)] голыми руками. Это было глупо."),
 			span_italics("Внезапно наступает тишина.")
 		)
-		for(var/mob/living/L in view(5, src))
-			L.apply_effect(80, IRRADIATE)
+		radiation_pulse(user, 2000, GAMMA_RAD)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(user)].", "supermatter")
@@ -522,8 +516,7 @@
 			span_hear("Внезапно наступает тишина.")
 		)
 		user.gib()
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(60, IRRADIATE)
+	radiation_pulse(src, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)
 	update_icon(UPDATE_ICON_STATE)

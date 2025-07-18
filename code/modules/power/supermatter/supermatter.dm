@@ -153,6 +153,7 @@
 	supermatter_explosive_effects.z = src.z
 	supermatter_explosive_effects.handle_special_effects()
 	explosion(get_turf(src), explosion_power, explosion_power * 1.2, explosion_power * 1.5, explosion_power * 2, 1, 1, cause = src)
+	radiation_pulse(src, 6 * power, GAMMA_RAD)
 	qdel(src)
 	return
 
@@ -367,7 +368,7 @@
 /obj/machinery/power/supermatter_shard/proc/transfer_energy()
 	for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)
 		if(get_dist(R, src) <= 15) // Better than using orange() every process
-			R.rad_act(power/10)
+			R.base_rad_act(src, power * 0.1, GAMMA_RAD)
 	return
 
 

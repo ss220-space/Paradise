@@ -45,7 +45,7 @@
 	if(prob(50))
 		empulse(src, 4, 10, TRUE, "[user] screwed with [name]")
 	else
-		radiation_pulse(get_turf(src), 500, 2)
+		radiation_pulse(get_turf(src), 2000, BETA_RAD)
 
 /obj/structure/fusionreactor/wrench_act(mob/user, obj/item/I)
 	. = TRUE

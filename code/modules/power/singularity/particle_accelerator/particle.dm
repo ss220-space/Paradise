@@ -49,7 +49,7 @@
 /obj/effect/accelerated_particle/proc/try_irradiate(atom/movable/thing)
 	if(isliving(thing))
 		var/mob/living/living_thing = thing
-		living_thing.rad_act(energy * 6)
+		living_thing.base_rad_act(src, energy * 6, GAMMA_RAD)
 	else if(istype(thing, /obj/machinery/the_singularitygen))
 		var/obj/machinery/the_singularitygen/singularitygen = thing
 		singularitygen.energy += energy

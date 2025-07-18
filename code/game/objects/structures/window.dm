@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
-	rad_insulation = RAD_VERY_LIGHT_INSULATION
+	rad_insulation_beta = RAD_MEDIUM_INSULATION
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
@@ -63,10 +63,15 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
 	var/hitsound = 'sound/effects/glasshit.ogg'
-
 	/// If we added a leaning component to ourselves
 	var/added_leaning = FALSE
+	/// How much we get activated by gamma radiation
+	var/rad_conversion_amount = 0
 
+
+/obj/structure/window/rad_act(atom/source, amount, emission_type)
+	if(emission_type == GAMMA_RAD && amount * rad_conversion_amount > RAD_BACKGROUND_RADIATION)
+		AddComponent(/datum/component/radioactive, amount * rad_conversion_amount, src, BETA_RAD, 60)
 
 /obj/structure/window/Initialize(mapload, direct)
 	. = ..()
@@ -548,7 +553,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	cancolor = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	rad_insulation = RAD_HEAVY_INSULATION
+	rad_insulation_beta = RAD_NO_INSULATION
 	max_integrity = 50
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
@@ -675,7 +680,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/plasmabasic
 	name = "plasma window"
-	desc = "Окно из плазменно-силикатного сплава. Выглядит невероятно прочным и огнестойким."
+	desc = "Окно из плазменно-силикатного сплава. Выглядит невероятно прочным и огнестойким. При попадании гамма-частиц он заряжается и начинает испускать бета-частицы."
 	ru_names = list(
 		NOMINATIVE = "плазменное окно",
 		GENITIVE = "плазменного окна",
@@ -691,14 +696,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 150
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
-	rad_insulation = RAD_NO_INSULATION
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_WINDOW
+	rad_conversion_amount = 2
 
 /obj/structure/window/plasmabasic/BlockSuperconductivity()
 	return 1
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
-	desc = "Окно из плазменно-стеклянного сплава с усиливающими стержнями. Выглядит практически нерушимым и абсолютно огнестойким."
+	desc = "Окно из плазменно-стеклянного сплава с усиливающими стержнями. Выглядит практически нерушимым и абсолютно огнестойким. При попадании гамма-частиц он заряжается и начинает испускать бета-частицы."
 	ru_names = list(
 		NOMINATIVE = "укреплённое плазменное окно",
 		GENITIVE = "укреплённого плазменного окна",
@@ -715,8 +722,34 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 500
 	explosion_block = 2
 	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
-	rad_insulation = RAD_NO_INSULATION
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_WINDOW
 	damage_deflection = 21
+	rad_conversion_amount = 1.5
+
+/obj/structure/window/plastitanium
+	name = "plastitanium window"
+	desc = "Зловещего вида окно из плазмы и титана. При попадании гамма-частиц он заряжается и начинает испускать бета-частицы."
+	ru_names = list(
+		NOMINATIVE = "пластитановое окно",
+		GENITIVE = "пластитанового окна",
+		DATIVE = "пластитановому окну",
+		ACCUSATIVE = "пластитановое окно",
+		INSTRUMENTAL = "пластитановым окном",
+		PREPOSITIONAL = "пластитановом окне"
+	)
+	icon_state = "plastitaniumwindow"
+	shardtype = /obj/item/shard/plasma
+	glass_type = /obj/item/stack/sheet/plastitaniumglass
+	reinf = TRUE
+	heat_resistance = 32000
+	max_integrity = 600
+	explosion_block = 2
+	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_WINDOW
+	damage_deflection = 21
+	rad_conversion_amount = 2.25
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -773,7 +806,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
-	desc = "Окно из плазменно-силикатного сплава. Выглядит невероятно прочным и огнестойким."
+	desc = "Окно из плазменно-силикатного сплава. Выглядит невероятно прочным и огнестойким. При попадании гамма-частиц он заряжается и начинает испускать бета-частицы."
 	ru_names = list(
 		NOMINATIVE = "плазменное окно",
 		GENITIVE = "плазменного окна",
@@ -794,7 +827,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
-	rad_insulation = RAD_NO_INSULATION
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
+	rad_conversion_amount = 2.6
 
 /obj/structure/window/full/paperframe
 	name = "Paperframe Window"
@@ -818,7 +853,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
-	desc = "Окно из плазменно-стеклянного сплава с усиливающими стержнями. Выглядит практически нерушимым и абсолютно огнестойким."
+	desc = "Окно из плазменно-стеклянного сплава с усиливающими стержнями. Выглядит практически нерушимым и абсолютно огнестойким. При попадании гамма-частиц он заряжается и начинает испускать бета-частицы."
 	ru_names = list(
 		NOMINATIVE = "укреплённое плазменное окно",
 		GENITIVE = "укреплённого плазменного окна",
@@ -839,7 +874,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 1000
 	explosion_block = 2
 	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
-	rad_insulation = RAD_NO_INSULATION
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
+	rad_conversion_amount = 2.2
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -868,7 +905,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	rad_insulation = RAD_HEAVY_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 	cancolor = TRUE
@@ -1038,7 +1075,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	rad_insulation = RAD_HEAVY_INSULATION
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
+	rad_conversion_amount = 3
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM

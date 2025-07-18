@@ -175,6 +175,29 @@
 			return BODY_ZONE_PRECISE_R_FOOT
 	return zone
 
+/// Convert the impact zone of a projectile to a clothing zone we can do a contamination check on
+/proc/hit_zone_to_clothes_zone(zone)
+	switch(zone)
+		if("head")
+			return HEAD
+		if("chest")
+			return UPPER_TORSO
+		if("l_hand")
+			return HANDS
+		if("r_hand")
+			return HANDS
+		if("l_arm")
+			return ARMS
+		if("r_arm")
+			return ARMS
+		if("l_leg")
+			return LEGS
+		if("r_leg")
+			return LEGS
+		if("l_foot")
+			return FEET
+		if("r_foot")
+			return FEET
 
 /proc/above_neck(zone)
 	var/list/zones = list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES)

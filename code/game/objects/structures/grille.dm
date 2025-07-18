@@ -8,6 +8,7 @@
 	anchored = TRUE
 	flags = CONDUCT
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	pressure_resistance = 5 * ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	level = 3

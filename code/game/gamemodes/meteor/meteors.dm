@@ -404,9 +404,11 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 
 /obj/effect/meteor/irradiated/meteor_effect()
 	. = ..()
-	explosion(loc, 0, 0, 4, 3, adminlog = FALSE, cause = src)
+	explosion(loc, 0, 0, 4, 3, adminlog = FALSE, cause = name)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
-	radiation_pulse(src, 500)
+	radiation_pulse(src, 20000, 7, ALPHA_RAD)
+	for(var/turf/target_turf in range(loc, 3))
+		contaminate_target(target_turf, src, 2000, ALPHA_RAD)
 
 
 //Station buster Tunguska

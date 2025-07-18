@@ -258,6 +258,9 @@
 /obj/effect/decal/cleanable/glass/plasma
 	icon_state = "plasmatiny"
 
+/obj/effect/decal/cleanable/glass/plastitanium
+	icon_state = "plastitaniumtiny"
+
 /obj/effect/decal/cleanable/ashrune
 	name = "Ash rune"
 	desc = "A rune drawn in ash."

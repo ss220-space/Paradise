@@ -1,5 +1,5 @@
 /*
- * False Walls
+ * MARK: Falsewalls
  */
 
 // Minimum pressure difference to fail building falsewalls.
@@ -14,7 +14,8 @@
 	icon_state = "wall-0"
 	base_icon_state = "wall"
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 
 	var/mineral = /obj/item/stack/sheet/metal
 	var/mineral_amount = 2
@@ -222,7 +223,7 @@
 
 
 /*
- * False R-Walls
+ * MARK: Reinforced Falsewalls
  */
 
 /obj/structure/falsewall/reinforced
@@ -251,7 +252,7 @@
 	. = ..()
 
 /*
- * Uranium Falsewalls
+ * MARK: Uranium Falsewalls
  */
 
 /obj/structure/falsewall/uranium
@@ -269,15 +270,11 @@
 
 /obj/structure/falsewall/uranium/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_interaction = 12, \
-				rad_interaction_radius = 3, \
-				rad_interaction_cooldown = 1.5 SECONDS \
-	)
-	START_PROCESSING(SSobj, src)
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 50, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /*
- * Other misc falsewall types
+ * MARK: Other Falsewalls
  */
 
 /obj/structure/falsewall/gold

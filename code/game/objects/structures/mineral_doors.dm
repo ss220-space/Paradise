@@ -10,7 +10,8 @@
 	max_integrity = 200
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	var/initial_state
 	var/state = 0 //closed, 1 == open
 	var/isSwitchingStates = 0
@@ -181,13 +182,12 @@
 	icon_state = "silver"
 	sheetType = /obj/item/stack/sheet/mineral/silver
 	max_integrity = 300
-	rad_insulation = RAD_HEAVY_INSULATION
 
 /obj/structure/mineral_door/gold
 	name = "gold door"
 	icon_state = "gold"
 	sheetType = /obj/item/stack/sheet/mineral/gold
-	rad_insulation = RAD_HEAVY_INSULATION
+	rad_insulation_gamma = RAD_MEDIUM_INSULATION
 
 /obj/structure/mineral_door/uranium
 	name = "uranium door"
@@ -205,7 +205,7 @@
 /obj/structure/mineral_door/transparent
 	opacity = FALSE
 	is_opaque = FALSE
-	rad_insulation = RAD_VERY_LIGHT_INSULATION
+	rad_insulation_beta = RAD_MEDIUM_INSULATION
 
 /obj/structure/mineral_door/transparent/plasma
 	name = "plasma door"
@@ -248,7 +248,7 @@
 	hardness = 1
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	rad_insulation = RAD_VERY_LIGHT_INSULATION
+	rad_insulation_beta = RAD_VERY_LIGHT_INSULATION
 
 /obj/structure/mineral_door/wood/paperframe
 	name = "Paperframe door"

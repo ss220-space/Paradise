@@ -471,6 +471,14 @@
 	return old_component
 
 /**
+  * Removes the component from the datum
+  */
+/datum/proc/DeleteComponent(component_to_nuke)
+	var/datum/component/removing = GetComponent(component_to_nuke)
+	if(istype(removing, component_to_nuke) && !QDELETED(removing))
+		qdel(removing)
+
+/**
  * Get existing component of type, or create it and return a reference to it
  *
  * Use this if the item needs to exist at the time of this call, but may not have been created before now
@@ -496,6 +504,13 @@
 	_RemoveFromParent()
 	parent = null
 	SEND_SIGNAL(old_parent, COMSIG_COMPONENT_REMOVING, src)
+
+/**
+  * Deletes the component and removes it from parent.
+  */
+/datum/component/proc/RemoveComponent() // This really is just a wrapper to pretend that we're using sane procs to fully remove a component
+	if(!QDELETED(src))
+		qdel(src)
 
 /**
  * Transfer this component to another parent

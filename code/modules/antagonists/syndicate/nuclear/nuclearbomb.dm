@@ -18,20 +18,33 @@ GLOBAL_VAR(bomb_set)
 	icon_state = "nuclearbomb0"
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | NO_MALF_EFFECT
+	flags_2 = RAD_NO_CONTAMINATE_2 | RAD_PROTECT_CONTENTS_2
+	rad_insulation_alpha = RAD_FULL_INSULATION
+	rad_insulation_beta = RAD_FULL_INSULATION
+	rad_insulation_gamma = RAD_FULL_INSULATION
+	use_power = NO_POWER_USE
+
 	var/extended = FALSE
 	var/lighthack = FALSE
+	/// Countdown to boom
 	var/timeleft = 120
+	/// Are we counting down?
 	var/timing = FALSE
+	/// Have we gone boom yet?
 	var/exploded = FALSE
+	/// Code entered by user
 	var/code
+	/// Is the most recently inputted code correct?
 	var/yes_code = FALSE
 	var/safety = TRUE
+	/// The Nuclear Authentication Disk.
 	var/obj/item/disk/nuclear/auth = null
+	/// The plutonium core.
 	var/obj/item/nuke_core/plutonium/core = null
 	var/removal_stage = NUKE_INTACT
 	var/lastentered
+	/// Is this a nuke-ops bomb?
 	var/is_syndicate = FALSE
-	use_power = NO_POWER_USE
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
 	///The same state removal stage is, until someone opens the panel of the nuke. This way we can have someone open the front of the nuke, while keeping track of where in the world we are on the anchoring bolts.
@@ -48,14 +61,14 @@ GLOBAL_VAR(bomb_set)
 	cinematic_type = SYNDICATE_NUKE
 
 
-/obj/machinery/nuclearbomb/Initialize()
+/obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = SSsecurity_level.get_current_level_as_text()
 	GLOB.poi_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
-	STOP_PROCESSING(SSobj, core)
-	ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src) //Let us not irradiate the vault by default.
+	var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+	STOP_PROCESSING(SSradiation, radioactivity) // Let us not irradiate the vault by default.
 	AddElement(/datum/element/high_value_item)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -162,8 +175,8 @@ GLOBAL_VAR(bomb_set)
 		)
 		removal_stage = NUKE_CORE_PANEL_UNWELDED
 		if(core)
-			STOP_PROCESSING(SSobj, core)
-			ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+			var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+			STOP_PROCESSING(SSradiation, radioactivity)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
@@ -228,8 +241,8 @@ GLOBAL_VAR(bomb_set)
 		removal_stage = NUKE_CORE_FULLY_EXPOSED
 		new /obj/item/stack/sheet/mineral/titanium(loc, 5)
 		if(core)
-			START_PROCESSING(SSobj, core)
-			REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+			var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+			START_PROCESSING(SSradiation, radioactivity)
 	if(removal_stage == NUKE_UNWRENCHED)
 		user.visible_message("[user] begins lifting [src] off of the anchors.", "You begin lifting the device off the anchors...")
 		if(!I.use_tool(src, user, 80, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)

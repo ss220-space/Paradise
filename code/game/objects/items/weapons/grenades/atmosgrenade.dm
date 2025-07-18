@@ -39,13 +39,13 @@
 	icon_state = "gluon"
 	item_state = "flashbang"
 	var/freeze_range = 4
-	var/rad_damage = 350
+	var/rad_damage = 1400
 	var/stamina_damage = 30
 
 /obj/item/grenade/gluon/prime()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
-	radiation_pulse(src, rad_damage)
+	radiation_pulse(src, rad_damage, BETA_RAD)
 	for(var/turf/T in view(freeze_range, loc))
 		if(isfloorturf(T))
 			var/turf/simulated/F = T

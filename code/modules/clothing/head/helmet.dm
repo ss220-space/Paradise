@@ -206,6 +206,7 @@
 	icon_state = "thunderdome"
 	item_state = "thunderdome"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90)
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	item_flags = NONE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT

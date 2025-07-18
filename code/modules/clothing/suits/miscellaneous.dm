@@ -1115,6 +1115,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD

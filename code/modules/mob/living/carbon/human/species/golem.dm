@@ -556,9 +556,15 @@
 	chance_name_neuter = 10
 	special_name_chance = 60
 
-/datum/species/golem/uranium/handle_life(mob/living/carbon/human/user)
-	radiation_pulse(user, 20)
-	..()
+/datum/species/golem/uranium/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = H.AddComponent(/datum/component/inherent_radioactivity, 40, 0, 0)
+	START_PROCESSING(SSradiation, radioactivity)
+
+/datum/species/golem/uranium/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	var/datum/component/inherent_radioactivity/rads = H.GetComponent(/datum/component/inherent_radioactivity)
+	rads.RemoveComponent()
 
 //Ventcrawler
 /datum/species/golem/plastic

@@ -274,6 +274,7 @@
 	slowdown = -10
 	siemens_coefficient = 0
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 /obj/item/clothing/under/johnny
 	name = "johnny~~ jumpsuit"

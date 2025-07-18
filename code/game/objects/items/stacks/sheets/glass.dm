@@ -250,6 +250,9 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 
 GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	new/datum/stack_recipe/window("plastitanium window", /obj/structure/window/plastitanium, 2, time = 0, on_floor = TRUE, is_fulltile = TRUE)
+	new /datum/stack_recipe("plastitanium shard", /obj/item/shard/plastitanium, time = 0 SECONDS),
+	new /datum/stack_recipe/window("directional plastitanium window", /obj/structure/window/plastitanium, 1, time = 0 SECONDS, on_floor = TRUE, is_fulltile = TRUE),
+	new /datum/stack_recipe/window("fulltile plastitanium window", /obj/structure/window/full/plastitanium, 2, time = 0 SECONDS, on_floor = TRUE, is_fulltile = TRUE),
 	))
 
 /obj/item/stack/sheet/plastitaniumglass
@@ -262,6 +265,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
+	created_window = /obj/structure/window/plastitanium
 	full_window = /obj/structure/window/plastitanium
 
 /obj/item/stack/sheet/plastitaniumglass/fifty

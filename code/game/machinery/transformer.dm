@@ -235,7 +235,7 @@
 	flick("separator-AO0", src)
 	playsound(loc, 'sound/effects/alert.ogg', 50, FALSE)
 	sleep(0.5 SECONDS)
-	victim.rad_act(rand(150, 200))
+	victim.base_rad_act(src, rand(150, 200), GAMMA_RAD)
 	if(prob(5))
 		if(prob(75))
 			randmutb(victim) // Applies bad mutation

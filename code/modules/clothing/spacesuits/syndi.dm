@@ -94,6 +94,7 @@
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 /obj/item/clothing/suit/space/syndicate/black
 	name = "Black Space Suit"
@@ -106,6 +107,7 @@
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 //Black-green syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/green
@@ -167,6 +169,7 @@
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 /obj/item/clothing/suit/space/syndicate/black/red
 	name = "Black and Red Space Suit"
@@ -179,6 +182,7 @@
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 
 //Black with yellow/red engineering syndicate space suit

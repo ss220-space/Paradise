@@ -188,6 +188,9 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
+	rad_insulation_alpha = RAD_FULL_INSULATION
+	rad_insulation_beta = RAD_FULL_INSULATION
+	rad_insulation_gamma = RAD_FULL_INSULATION
 
 /obj/item/clothing/suit/radiation
 	name = "Radiation suit"
@@ -217,3 +220,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
+	rad_insulation_alpha = RAD_FULL_INSULATION
+	rad_insulation_beta = RAD_FULL_INSULATION
+	rad_insulation_gamma = RAD_FULL_INSULATION

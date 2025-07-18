@@ -49,6 +49,8 @@
 	if(!ishuman(target) || !prob(max(0, 100 - resist)))
 		return
 
+	target.base_rad_act(target, 400, BETA_RAD)
+
 	randmuti(target)
 
 	if(prob(50))

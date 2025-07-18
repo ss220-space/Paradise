@@ -61,6 +61,7 @@
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 	see_in_dark = 8
@@ -77,6 +78,7 @@
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 	species_restricted = null
@@ -142,6 +144,7 @@
 	slowdown = 0
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	w_class = WEIGHT_CLASS_NORMAL
 	species_restricted = null
 
