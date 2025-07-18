@@ -469,8 +469,8 @@ BODY SCANNERS
 	if(scan_data["cloneStatus"] > 0)
 		P.header += "<font color='#d82020'>Обнаружено [scan_data["cloneStatus"] > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.</font><br>"
 
-	if(scan_data["brainWorms"])
-		P.header += "<font color='#d82020'>Обнаружены отклонения в работе мозга.</font><br>"
+	// if(scan_data["brainWorms"])
+	// 	P.header += "<font color='#d82020'>Обнаружены отклонения в работе мозга.</font><br>"
 
 	if(scan_data["brainDamage"] >= 100)
 		P.header += "<font color='#d82020'><b>Мозг мёртв.</b></font><br>"
@@ -737,8 +737,8 @@ BODY SCANNERS
 	if(H.getCloneLoss())
 		data["cloneStatus"] = H.getCloneLoss()
 
-	if(H.has_brain_worms())
-		data["brainWorms"] = TRUE
+	// if(H.has_brain_worms())
+	// 	data["brainWorms"] = TRUE
 
 	if(H.get_int_organ(/obj/item/organ/internal/brain))
 		data["brainDamage"] = H.getBrainLoss()
@@ -883,8 +883,8 @@ BODY SCANNERS
 		scan_data += span_info("Обнаружено переутомление.")
 	if(H.getCloneLoss())
 		scan_data += span_warning("Обнаружено [H.getCloneLoss() > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.")
-	if(H.has_brain_worms())
-		scan_data += span_warning("Обнаружены отклонения в работе мозга.")
+	// if(H.has_brain_worms())
+	// 	scan_data += span_warning("Обнаружены отклонения в работе мозга.")
 
 	if(H.get_int_organ(/obj/item/organ/internal/brain))
 		if(H.getBrainLoss() >= 100)
@@ -1681,8 +1681,8 @@ BODY SCANNERS
 
 	dat += "<hr>"
 
-	if(target.has_brain_worms())
-		dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
+	// if(target.has_brain_worms())
+	// 	dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
 
 	var/blood_percent =  round((target.blood_volume / BLOOD_VOLUME_NORMAL))
 	blood_percent *= 100
