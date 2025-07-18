@@ -82,8 +82,8 @@
 	var/precision_coeff
 
 
-/obj/machinery/dna_scannernew/New()
-	..()
+/obj/machinery/dna_scannernew/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -94,8 +94,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/dna_scannernew/upgraded/New()
-	..()
+/obj/machinery/dna_scannernew/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)

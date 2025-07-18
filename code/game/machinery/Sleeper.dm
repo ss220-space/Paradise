@@ -39,8 +39,8 @@
 	light_color = LIGHT_COLOR_CYAN
 
 
-/obj/machinery/sleeper/New()
-	..()
+/obj/machinery/sleeper/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -50,8 +50,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/sleeper/upgraded/New()
-	..()
+/obj/machinery/sleeper/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -593,8 +593,8 @@
 
 	light_color = LIGHT_COLOR_DARKRED
 
-/obj/machinery/sleeper/syndie/New()
-	..()
+/obj/machinery/sleeper/syndie/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/syndicate(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

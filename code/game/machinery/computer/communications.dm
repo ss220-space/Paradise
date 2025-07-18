@@ -58,6 +58,9 @@
 	GLOB.shuttle_caller_list += src
 	..()
 
+/obj/machinery/computer/communications/Initialize(mapload)
+	. = ..()
+
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = TRUE)
 	if(user.can_admin_interact())
 		return COMM_AUTHENTICATION_AGHOST

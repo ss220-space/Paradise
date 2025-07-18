@@ -22,8 +22,8 @@
 
 	multitool_menu_type = /datum/multitool_menu/idtag/driver_button
 
-/obj/machinery/driver_button/New(turf/loc, var/w_dir=null)
-	..()
+/obj/machinery/driver_button/Initialize(mapload, place_dir)
+	. = ..()
 	switch(w_dir)
 		if(NORTH)
 			pixel_y = 25
@@ -36,7 +36,7 @@
 	if(SSradio)
 		set_frequency(frequency)
 
-/obj/machinery/driver_button/Initialize()
+/obj/machinery/driver_button/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
 

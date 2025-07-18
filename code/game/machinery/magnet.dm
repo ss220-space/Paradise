@@ -44,7 +44,7 @@
 
 
 /obj/machinery/magnetic_module/Initialize(mapload)
-	..()
+	. = ..()
 	var/turf/T = loc
 	if(!T.transparent_floor)
 		hide(T.intact)
@@ -237,8 +237,7 @@
 
 
 /obj/machinery/magnetic_controller/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 

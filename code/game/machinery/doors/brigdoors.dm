@@ -43,8 +43,8 @@
 
 /obj/machinery/door_timer/Initialize(mapload)
 	. = ..()
-	GLOB.celltimers_list += src
 
+	GLOB.celltimers_list += src
 	Radio = new /obj/item/radio(src)
 	Radio.listening = 0
 	Radio.config(list(SEC_FREQ_NAME = 0))

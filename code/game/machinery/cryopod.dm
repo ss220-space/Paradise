@@ -41,8 +41,8 @@
 	var/storage_name = "Cryogenic Oversight Control"
 	var/allow_items = 1
 
-/obj/machinery/computer/cryopod/New()
-	..()
+/obj/machinery/computer/cryopod/Initialize(mapload)
+	. = ..()
 	for(var/T in GLOB.potential_theft_objectives + GLOB.potential_theft_objectives_hard + GLOB.potential_theft_objectives_medium /*+ GLOB.potential_theft_objectives_collect*/)
 		theft_cache += new T
 

@@ -174,8 +174,8 @@
 			to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
 		src.updateUsrDialog()
 
-/obj/machinery/computer/HolodeckControl/New()
-	..()
+/obj/machinery/computer/HolodeckControl/Initialize(mapload)
+	. = ..()
 	linkedholodeck = locate(/area/holodeck/alphadeck)
 	//if(linkedholodeck)
 	//	target = locate(/area/holodeck/source_emptycourt)
