@@ -215,8 +215,8 @@
 		add_fingerprint(user)
 		var/obj/item/barcodescanner/scanner = I
 		scanner.computer = src
-		to_chat(user, span_notice("The [scanner.name]'s associated machine has been set to [src]."))
-		audible_message("The [name] lets out a low, short blip.", hearing_distance = 2)
+		atom_say("Сканер был успешно привязан.")
+		playsound(src, 'sound/machines/ping.ogg', 20)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
