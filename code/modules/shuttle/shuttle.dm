@@ -467,12 +467,13 @@
 
 	return ripple_turfs
 
-/// this is the main proc. It instantly moves our mobile port to stationary port S1
+/// this is the main proc. It instantly moves our mobile port to stationary port new_dock
 /// it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
 /obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/new_dock, force = FALSE, transit = FALSE)
 	// Crashing this ship with NO SURVIVORS
 	if(new_dock.get_docked() == src)
 		remove_ripples()
+		SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock)
 		return DOCKING_SUCCESS
 
 	if(!force)
@@ -597,6 +598,7 @@
 			W.update_audio()
 
 	unlockPortDoors(new_dock)
+	SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
 	var/static/list/blacklisted_turf_types = typecacheof(GLOB.blacklisted_turf_types_for_transit)

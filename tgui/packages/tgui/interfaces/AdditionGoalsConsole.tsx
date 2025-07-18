@@ -20,72 +20,148 @@ import { ComplexModal } from './common/ComplexModal';
 
 
 type AdditionGoalsConsoleData = {
-  online: boolean;
+  state: number;
   shuttle_loc: string;
-  goal: string;
+  refresh_available: boolean;
+  available_goals: AvailableAdditionGoalData[];
+  current_goal: AvailableAdditionGoalData;
 };
 
+type AvailableAdditionGoalData = {
+  id: string;
+  name: string;
+};
 
 export const AdditionGoalsConsole = (props: unknown) => {
   const { act, data } = useBackend<AdditionGoalsConsoleData>();
 
-  if(!data.online) {
-    return (
-      <Window width={600} height={800}>
-        <Window.Content>
-          <Box textColor="red">
-            Ошибка: Шаттл не обнаружен!
-          </Box>
-        </Window.Content>
-      </Window>
-    );
+  let contentBlock: ReactNode;
+  if(data.state === 1) {
+    contentBlock = <AvailableAdditionGoalsListBlock/>
+  } else if(data.state === 2 || data.state === 3) {
+    contentBlock = <CurrentAdditionGoalBlock/>
+  } else {
+    contentBlock = <Box><h3>Нет данных!</h3></Box>
   }
   return (
     <Window width={600} height={800}>
       <Window.Content>
+        <ComplexModal />
         <Stack fill vertical>
+          <Stack.Item>
+            <AdditionGoalsStateBlock/>
+          </Stack.Item>
           <Stack.Item grow>
-            <LabeledList>
-              <LabeledList.Item label="Местоположение шаттла">
-                {data.shuttle_loc}
-              </LabeledList.Item>
-              <LabeledList.Item label="Вызов шаттла">
-                <Button
-                  icon="location-arrow"
-                  color={data.online ? 'green' : 'grey'}
-                  width="180px"
-                  align="center"
-                  onClick={() => act('call_shuttle')}
-                >
-                  Вызвать
-                </Button>
-              </LabeledList.Item>
-              <LabeledList.Item label="Шаттл с трупами">
-                <Button
-                  icon="check"
-                  color='green'
-                  width="180px"
-                  align="center"
-                  onClick={() => act('accept_goal', { goal: data.goal })}
-                >
-                  Взять в работу
-                </Button>
-              </LabeledList.Item>
-              <LabeledList.Item label="Завершить текущую цель">
-                <Button
-                  icon="check"
-                  color='green'
-                  width="180px"
-                  align="center"
-                  onClick={() => act('complete_goal')}
-                >
-                  Завершить
-                </Button>
-              </LabeledList.Item>
-            </LabeledList>
+            {contentBlock}
           </Stack.Item>
         </Stack>
       </Window.Content>
     </Window>
   );
 };
+
+
+const getStateText = (s) => {
+  if(s === 1){
+    return "Нет текущей цели."
+  }
+  if(s === 2){
+    return "Цель в процессе выполнения."
+  }
+  if(s === 3){
+    return "Завершение цели."
+  }
+  return "Дополнительные цели смены недоступны."
+};
+
+const AdditionGoalsStateBlock = (props: unknown) => {
+  const { act, data } = useBackend<AdditionGoalsConsoleData>();
+  return (
+    <Section title="Состояние">
+      <Box>
+        <LabeledList>
+          <LabeledList.Item label="Состояние">
+            {getStateText(data.state)}
+          </LabeledList.Item>
+          <LabeledList.Item label="Шаттл">
+            {data.shuttle_loc} <Button
+                icon="rocket"
+                onClick={() => act('call_shuttle')}
+              >
+                Вызвать
+              </Button>
+          </LabeledList.Item>
+        </LabeledList>
+      </Box>
+    </Section>
+  );
+};
+
+
+
+const AvailableAdditionGoalsListBlock = (props: unknown) => {
+  const { act, data } = useBackend<AdditionGoalsConsoleData>();
+  const { available_goals } = data;
+
+  return (
+    <Section title="Доступные дополнительные цели"
+    buttons={
+      <Button
+        icon="refresh"
+        color={data.refresh_available ? 'green' : 'grey'}
+        onClick={() => act('refresh_available_goals')}
+      >
+        Обновиь список
+      </Button>
+    }
+    >
+      <Box>
+        <LabeledList>
+          {available_goals.map((goal) => (
+            <LabeledList.Item label={goal.name} key={goal.name}>
+              <Button
+                icon="plus"
+                color='green'
+                align="center"
+                onClick={() => act('accept_goal', { goal: goal.id })}
+              >
+                Взять в работу
+              </Button>
+            </LabeledList.Item>
+          ))}
+        </LabeledList>
+      </Box>
+    </Section>
+  );
+};
+
+
+const CurrentAdditionGoalBlock = (props: unknown) => {
+  const { act, data } = useBackend<AdditionGoalsConsoleData>();
+  const { current_goal } = data;
+
+  return (
+    <Section title="Текущая дополнительная цель смены">
+      <Stack fill vertical>
+        <Stack.Item>
+          <Box><b>Идентификатор:</b> {current_goal.id}</Box>
+        </Stack.Item>
+        <Stack.Item>
+          <Box><b>Название:</b> {current_goal.name}</Box>
+        </Stack.Item>
+        <Stack.Item>
+          <Button
+            icon="check"
+            color={data.state === 2 ? 'green' : 'grey' }
+            width="180px"
+            align="center"
+            fontSize="12px"
+            onClick={() => act('complete_goal')}
+          >
+            Завершить цель
+          </Button>
+        </Stack.Item>
+      </Stack>
+    </Section>
+  );
+}
