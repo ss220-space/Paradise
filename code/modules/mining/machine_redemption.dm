@@ -213,7 +213,7 @@
 		CHECK_TICK
 	if(invalid_material)
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		atom_say("ERROR - Spitting out invalid materials.")
+		atom_say("ОШИБКА: Некорректные материалы.", use_tts = FALSE)
 		invalid_material = FALSE
 	// Process it
 	if(length(ore_buffer))
