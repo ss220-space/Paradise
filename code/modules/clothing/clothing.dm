@@ -1187,14 +1187,14 @@ BLIND     // can't see anything
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/accessory, mob/user, unequip = FALSE)
 	if(!can_attach_accessory(accessory))
 		if(user)
-			to_chat(user, span_notice("You cannot attach more accessories of this type to [src]."))
+			to_chat(user, span_notice("Невозможно добавить больше аксессуаров этого типа к [declent_ru(DATIVE)]."))
 		return FALSE
 	if(unequip && user && !user.drop_transfer_item_to_loc(accessory, src)) // Make absolutely sure this accessory is removed from hands
 		return FALSE
 	accessory.on_attached(src, user)
 	if(user)
 		accessory.add_fingerprint(user)
-		to_chat(user, span_notice("You have attached [accessory] to [src]."))
+		to_chat(user, span_notice("Вы прикрепили [accessory.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
 	return TRUE
 
 
@@ -1214,17 +1214,17 @@ BLIND     // can't see anything
 /obj/item/clothing/under/proc/handle_accessories_removal(mob/user)
 	var/accessories_len = LAZYLEN(accessories)
 	if(!accessories_len)
-		to_chat(user, span_notice("There are no accessories attached to [src]."))
+		to_chat(user, span_notice("На [declent_ru(PREPOSITIONAL)] нет присоединённых аксессуаров."))
 		return FALSE
 	var/obj/item/clothing/accessory/accessory
 	if(accessories_len > 1)
-		accessory = tgui_input_list(user, "Select an accessory to remove from [src]", "Accessory Removal", accessories)
+		accessory = tgui_input_list(user, "Выберите аксессуар для удаления с [declent_ru(GENITIVE)]", "Удаление аксессуара", accessories)
 		if(!accessory || !LAZYIN(accessories, accessory) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return FALSE
 	else
 		accessory = accessories[1]
 
-	to_chat(user, span_notice("You remove [accessory] from [src]."))
+	to_chat(user, span_notice("Вы снимаете [accessory.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 	accessory.on_removed(user)
 	if(!user.put_in_hands(accessory, ignore_anim = FALSE))
 		accessory.forceMove_turf()

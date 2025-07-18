@@ -22998,7 +22998,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "cDV" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/machinery/shower{
+	dir = 4;
+	pixel_y = 4;
+	tag = "icon-shower (EAST)"
+	},
+/obj/effect/turf_decal/siding/white/end,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/engineering/controlroom)
 "cDZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -24122,10 +24130,12 @@
 	dir = 8;
 	pixel_x = 22
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/radiation,
 /obj/item/clothing/glasses/meson,
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/engineering/controlroom)
 "cIO" = (
 /obj/structure/cable{
@@ -32457,13 +32467,20 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "dsW" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/radiation,
-/obj/item/clothing/glasses/meson,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/shower{
+	dir = 4;
+	pixel_y = 4;
+	tag = "icon-shower (EAST)"
+	},
+/obj/effect/turf_decal/siding/white/end{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/engineering/controlroom)
 "dsY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -70327,6 +70344,14 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/wood/fancy/light,
 /area/ntrep)
+"lqd" = (
+/obj/structure/closet/radiation,
+/obj/item/clothing/glasses/meson,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/engineering/controlroom)
 "lqe" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -151149,7 +151174,7 @@ crk
 qVS
 btC
 bVk
-cDV
+bVk
 bVk
 aOg
 aMI
@@ -151407,7 +151432,7 @@ bsu
 btE
 bVk
 dsW
-bvC
+cDV
 aOg
 dJZ
 dNA
@@ -152434,7 +152459,7 @@ aDc
 bsu
 cDe
 bVk
-bvC
+lqd
 cIN
 aOg
 aMK

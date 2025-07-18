@@ -247,15 +247,15 @@
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += span_info("Можно <b>перетащить</b> кого-то на [declent_ru(GENITIVE)], чтобы через короткое время поместить на стол.")
+		. += span_notice("\nМожно <b>перетащить</b> кого-то на [declent_ru(GENITIVE)], чтобы через короткое время поместить его на поверхность.")
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
 	switch(healthpercent)
 		if(50 to 99)
-			. += "Выглядит слегка повреждённым."
+			. += span_notice("Выглядит слегка повреждённым.")
 		if(25 to 50)
-			. += "Кажется сильно повреждённым."
+			. += span_notice("Кажется сильно повреждённым.")
 		if(0 to 25)
 			if(!broken)
 				. += span_warning("Оно разваливается на части!")

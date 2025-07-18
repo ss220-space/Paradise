@@ -228,7 +228,7 @@
 /obj/item/rod_of_asclepius/attack_self(mob/user)
 	if(activated)
 		return
-	if(!iscarbon(user))
+	if(!iscarbon(user) || !user.mind)
 		to_chat(user, span_warning("Резьба змеи, кажется, оживает на мгновение, прежде чем вернуться в свое спящее состояние, словно она находит вас недостойным её клятвы."))
 		return
 	var/mob/living/carbon/itemUser = user

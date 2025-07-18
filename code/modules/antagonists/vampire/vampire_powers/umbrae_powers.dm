@@ -75,7 +75,7 @@
 	alpha = 60
 	armed = TRUE
 	anchored = TRUE
-	breakouttime = 5 SECONDS
+	breakout_time = 5 SECONDS
 	item_flags = DROPDEL
 
 
