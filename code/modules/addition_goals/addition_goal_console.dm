@@ -91,20 +91,3 @@
 		if("call_shuttle")
 			to_chat(usr, "Тестовая реализация!")
 			SSaddition_goals.toggle_shuttle(usr)
-
-
-
-
-////////////////////////////////////////
-// MARK:	Other addition goal machinery
-////////////////////////////////////////
-
-/area/shuttle/addition_goals
-	icon_state = "shuttle3"
-	name = "Addition Goals Shuttle"
-
-/obj/machinery/computer/shuttle/addition_goals
-	name = "Addition Goal Shuttle Console"
-	desc = "Используется для вызова и отправки шаттла дополнительных целей смены."
-	shuttleId = "addition_goal"
-	possible_destinations = "graveyard_church;addition_goal_dock"

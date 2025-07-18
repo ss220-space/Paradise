@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(addition_goals)
 	for(var/i = 0; i < AVAILABLE_GOALS_COUNT; i++) // create new goals as available
 		var/goal_type = pick(goal_types)
 		var/datum/addition_goal/goal = new goal_type()
-		goal.id = "goal_[goals_id_counter]"
+		goal.id = "[goal.id]_[goals_id_counter]"
 		goals_id_counter += 1
 		goal.setup()
 		available_goals += goal
@@ -164,89 +164,6 @@ SUBSYSTEM_DEF(addition_goals)
 
 
 ////////////////////////////////////////
-// MARK:	Shuttle logic
-////////////////////////////////////////
-
-/// Try send shuttle to station (call shuttle)
-/datum/controller/subsystem/addition_goals/proc/send_shuttle_to_station(mob/user)
-	SSshuttle.moveShuttle(shuttle.id, AGS_SHUTTLE_STATION_DOCK, FALSE, user)
-
-/// Try send shuttle to centrom (return shuttle)
-/datum/controller/subsystem/addition_goals/proc/send_shuttle_to_centcom(mob/user)
-	SSshuttle.moveShuttle(shuttle.id, AGS_SHUTTLE_CENTCOM_DOCK, FALSE, user)
-
-/// Get text where shuttle docked
-/datum/controller/subsystem/addition_goals/proc/get_shuttle_location()
-	if(!shuttle)
-		return "Неизвестно"
-	var/dock_id = shuttle.getDockedId()
-	switch(dock_id)
-		if(AGS_SHUTTLE_CENTCOM_DOCK)
-			return "На ЦК"
-		if(AGS_SHUTTLE_STATION_DOCK)
-			return "На станции"
-		else
-			return shuttle.getStatusText()
-
-/// Check shuttle ready to call (docked in centcom sector)
-/datum/controller/subsystem/addition_goals/proc/is_shuttle_in_centcom()
-	if(!shuttle)
-		return FALSE
-	var/dock_id = shuttle.getDockedId()
-	return dock_id == AGS_SHUTTLE_CENTCOM_DOCK
-
-/// Check shuttle ready to return (docked in station sector)
-/datum/controller/subsystem/addition_goals/proc/is_shuttle_in_station()
-	if(!shuttle)
-		return FALSE
-	var/dock_id = shuttle.getDockedId()
-	return dock_id == AGS_SHUTTLE_STATION_DOCK
-
-/// Collect shuttle floor turfs
-/datum/controller/subsystem/addition_goals/proc/get_shuttle_turfs()
-	. = list()
-	if(!shuttle)
-		return
-	var/turf/shuttle_anchor = shuttle.loc
-	//TODO change it
-	for(var/x = 1; x <= 5; x++)
-		for(var/y=-5; y <= 1; y++)
-			var/turf/shuttle_turf = locate(shuttle_anchor.x + x, shuttle_anchor.y + y, shuttle_anchor.z)
-			. += shuttle_turf
-
-/// Clear all objects in shuttle
-/datum/controller/subsystem/addition_goals/proc/clear_shuttle_turfs()
-	if(!shuttle)
-		return
-	for(var/turf/turf in get_shuttle_turfs())
-		for(var/atom/movable/obstacle in turf.contents)
-			if(istype(obstacle,/obj/machinery/computer/shuttle/addition_goals))
-				continue
-			if(istype(obstacle,/obj/machinery/light))
-				continue
-			if(istype(obstacle, /obj/structure/closet))
-				var/obj/structure/closet/closet = ostacle
-				closet.open() //hack for delete objects in closets
-			qdel(obstacle)
-
-/// Only for test
-/datum/controller/subsystem/addition_goals/proc/toggle_shuttle(mob/user)
-	. = FALSE
-	if(!shuttle)
-		return
-	var/dock_id = shuttle.getDockedId()
-	switch(dock_id)
-		if(AGS_SHUTTLE_CENTCOM_DOCK)
-			send_shuttle_to_station(user)
-			return TRUE
-		if(AGS_SHUTTLE_STATION_DOCK)
-			send_shuttle_to_centcom(user)
-			return TRUE
-
-
-
-
-////////////////////////////////////////
 // MARK:	Console logic
 ////////////////////////////////////////
 
@@ -303,3 +220,11 @@ SUBSYSTEM_DEF(addition_goals)
 /datum/addition_goal/proc/check_completion(list/turf/shuttle_turfs)
 	message_admins("addition goal '[name]' not implement check_completion")
 	return 0
+
+
+
+/obj/effect/mob_spawn/human/addition_goal
+	roundstart = FALSE
+	instant = FALSE
+	random = TRUE
+	uses = -1

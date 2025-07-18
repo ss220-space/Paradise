@@ -13,19 +13,23 @@
 
 /datum/addition_goal/funeral/setup()
 	corpse_count = rand(3, 5)
+	name += " ([corpse_count])"
 
 
 /datum/addition_goal/funeral/spawn_shuttle_contain(list/turf/shuttle_turfs)
 	message_admins("funeral addition goal: id=[id] begin spawn shuttle contain corpses=[corpse_count].")
+	var/obj/effect/mob_spawn/human/spawner = new /obj/effect/mob_spawn/human/addition_goal/funeral(shuttle_turfs[1])
 	for(var/i = 0; i < corpse_count; i++)
 		var/turf/random_turf = pick(shuttle_turfs)
+		shuttle_turfs -= random_turf
 		var/obj/structure/closet/body_bag/body_bag = new /obj/structure/closet/body_bag(random_turf)
 		body_bag.open()
-		var/obj/effect/mob_spawn/spawner = new /obj/effect/mob_spawn/human/corpse/funeral_addition_goal(random_turf)
+		spawner.loc = random_turf
 		var/mob/living/corpse = spawner.create()
 		corpses += corpse
 		body_bag.close()
 		message_admins("funeral addition goal: created corpse [corpse.name] [ADMIN_COORDJMP(random_turf)].")
+	qdel(spawner)
 	return TRUE
 
 
@@ -56,10 +60,7 @@
 // MARK:	Misc
 ////////////////////////////////////////
 
-/obj/effect/mob_spawn/human/corpse/funeral_addition_goal
-	roundstart = FALSE
-	instant = FALSE
-	random = TRUE
-	//outfit = /datum/outfit/space_graveyard
+/obj/effect/mob_spawn/human/addition_goal/funeral
+	death = TRUE
 	uniform = /obj/item/clothing/under/suit_jacket/charcoal
 	shoes = /obj/item/clothing/shoes/centcom
