@@ -43,7 +43,7 @@
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 
 /obj/structure/bookcase/examine(mob/user)
-	if(icon_state = "book-0")
+	if(icon_state == "book-0")
 		desc += "Его полки давно не протирали..."
 	else
 		desc += "На его полках стоят книги."
@@ -77,7 +77,7 @@
 		return
 	if(!user.drop_transfer_item_to_loc(thing, src))
 		return ..()
-	to_chat(user, span_notice("Вы положили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	to_chat(user, span_notice("Вы положили [thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -239,7 +239,10 @@
 	)
 	gender = FEMALE
 	icon = 'icons/obj/library.dmi'
-	icon_state ="book"
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
+	icon_state = "book"
+	item_state = "book"
 	throw_speed = 1
 	throw_range = 5
 	force = 2
@@ -333,22 +336,22 @@
 		var/choice = tgui_input_list(user, "Что вы хотели бы изменить?", "Редактура", list("Заголовок", "Содержание", "Автор", "Отмена"))
 		switch(choice)
 			if("Title")
-				var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title:", "Title", title))
+				var/newtitle = reject_bad_text(tgui_input_text(user, "Напишите новый заголовок:", "Название", title))
 				if(isnull(newtitle))
-					to_chat(user, span_warning("The title is invalid."))
+					user.balloon_alert(user, "недопустимый формат!")
 					return ATTACK_CHAIN_PROCEED
 				name = newtitle
 				title = newtitle
 			if("Contents")
-				var/content = tgui_input_text(user, "Write your book's contents (HTML NOT allowed):", "Summary", max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE)
+				var/content = tgui_input_text(user, "Напишите содержание книги (HTML ЗАПЕЩЁН):", "Содержание", max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE)
 				if(isnull(content))
-					to_chat(user, span_warning("The contents is invalid."))
+					user.balloon_alert(user, "недопустимое содержание!")
 					return ATTACK_CHAIN_PROCEED
 				dat += content
 			if("Author")
-				var/newauthor = tgui_input_text(user, "Write the author's name:", "Author", author, MAX_NAME_LEN)
+				var/newauthor = tgui_input_text(user, "Напишите имя автора:", "Автор", author, MAX_NAME_LEN)
 				if(isnull(newauthor))
-					to_chat(user, span_warning("The name is invalid."))
+					user.balloon_alert(user, "недопустимое имя!")
 					return ATTACK_CHAIN_PROCEED
 				author = newauthor
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -441,6 +444,7 @@
 		INSTRUMENTAL = "сканнером штрих-кодов",
 		PREPOSITIONAL = "сканнере штрих-кодов"
 	)
+	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state ="scanner"
 	throw_speed = 1

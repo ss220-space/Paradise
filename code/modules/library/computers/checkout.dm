@@ -40,15 +40,15 @@
 			// Main Menu
 
 			dat += {"<ol>
-				<li><a href='byond://?src=[UID()];switchscreen=1'Просмотр общего инвентаря</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=2'>Просмотр зарегистрированного инвентаря</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=3'>Напечатать книгу</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=4'>Подключиться к внешнему архиву</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=5'>Опубликовать новое Произведение в Архив</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=6'>Напечатать библию</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=7'>Напечатать руководство</a></li>"}
+				<li><a href='byond://?src=[UID()];switchscreen=1'>View General Inventory</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=2'>View Checked Out Inventory</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=3'>Check out a Book</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=4'>Connect to External Archive</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=5'>Upload New Title to Archive</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=6'>Print a Bible</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=7'>Print a Manual</a></li>"}
 			if(src.emagged)
-				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</a></li>" Допуск к засекреченн
+				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</a></li>"
 			dat += "</ol>"
 
 			if(src.arcanecheckout)
@@ -204,7 +204,7 @@
 	if(density && !emagged)
 		emagged = 1
 		if(user)
-			to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")
+			to_chat(user, span_notice("Вы обходите ограничения печати компьютера."))
 
 
 /obj/machinery/computer/library/checkout/attackby(obj/item/I, mob/user, params)
