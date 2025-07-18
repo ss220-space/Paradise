@@ -16611,7 +16611,9 @@
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	dir = 4
+	},
 /obj/structure/table/wood,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
@@ -19659,6 +19661,17 @@
 /obj/structure/filingcabinet/employment,
 /turf/simulated/floor/bluegrid,
 /area/centcom/bridge)
+"jCc" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/machinery/computer/library/public{
+	dir = 8;
+	pixel_y = 5
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/zone2)
 "jCl" = (
 /obj/machinery/light{
 	dir = 4
@@ -22200,7 +22213,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	pixel_y = 5;
+	dir = 1
+	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "kLh" = (
@@ -31790,7 +31806,8 @@
 /obj/structure/table,
 /obj/machinery/computer/library/public{
 	pixel_x = 1;
-	pixel_y = 4
+	pixel_y = 4;
+	dir = 4
 	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
@@ -43808,7 +43825,10 @@
 /area/centcom/zone3)
 "ueU" = (
 /obj/structure/table,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	pixel_y = 5;
+	dir = 8
+	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "ufa" = (
@@ -93124,11 +93144,11 @@ onc
 wKZ
 bVU
 wbF
-oJc
+jCc
 wta
 fCK
 bFM
-oJc
+jCc
 sfO
 qDR
 wvg

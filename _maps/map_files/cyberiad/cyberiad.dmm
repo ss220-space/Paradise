@@ -20316,7 +20316,10 @@
 /area/library)
 "boG" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library/checkout{
+	dir = 8;
+	pixel_y = 8
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -52344,7 +52347,10 @@
 	},
 /area/turret_protected/aisat_interior)
 "diN" = (
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	dir = 1;
+	pixel_y = 8
+	},
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/library)
