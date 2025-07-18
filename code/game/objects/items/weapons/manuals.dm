@@ -27,8 +27,6 @@
 
 /obj/item/book/manual/Initialize(mapload)
 	. = ..()
-	if(!wiki_title || !CONFIG_GET(string/wikiurl)) //it means, manual doesnt rely on wiki, or we dont have wiki
-		return
 	name = "manual \"[manual_title]\""
 	ru_names = list(
 		NOMINATIVE = "руководство \"[manual_title_ru]\"",
@@ -39,6 +37,8 @@
 		PREPOSITIONAL = "руководстве \"[manual_title_ru]\""
 	)
 	title = manual_title_ru
+	if(!wiki_title || !CONFIG_GET(string/wikiurl)) //it means, manual doesnt rely on wiki, or we dont have wiki
+		return
 	dat = {"
 
 		<html><meta charset="UTF-8"><head>
@@ -58,7 +58,7 @@
 	manual_title_ru = "Ремонт и Строительство"
 	desc = "Руководство по строительсву, сборке и ремонту оборудования."
 	icon_state = "bookEngineering"
-	item_state = "bookEngineering"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	wiki_title = "Руководство_по_строительству"
 
@@ -67,7 +67,7 @@
 	manual_title_ru = "Тесла Двигатель: Руководство Пользователя"
 	desc = "Руководство по запуску Тесла Двигателя."
 	icon_state = "bookParticleAccelerator"
-	item_state = "bookParticleAccelerator"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	wiki_title = "Тесла-двигатель"
 
@@ -76,7 +76,7 @@
 	manual_title_ru = "Двигатель на Суперматерии: Руководство Пользователя"
 	desc = "Руководство по запуску двигателя на Суперматерии."
 	icon_state = "bookSupermatter"
-	item_state = "bookSupermatter"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	wiki_title = "Двигатель_Суперматерии"
 
@@ -85,7 +85,7 @@
 	manual_title_ru = "Взлом"
 	desc = "Руководство по взлому различных устройств."
 	icon_state = "bookHacking"
-	item_state = "bookHacking"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	wiki_title = "Руководство_по_взлому"
 
@@ -94,7 +94,7 @@
 	manual_title_ru = "Сингулярный Двигатель: Руководство Пользователя"
 	desc = "Руководство по запуску Сингулярности."
 	icon_state = "bookEngineeringSingularitySafety"
-	item_state = "bookEngineeringSingularitySafety"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	wiki_title = "Сингулярный_двигатель"
 
@@ -712,7 +712,7 @@
 	manual_title_ru = "Общая инженерия"
 	desc = "Классическое издания руководство по инженерии, широко используемое в техникумах."
 	icon_state ="bookEngineering2"
-	item_state ="bookEngineering2"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
 	wiki_title = "Руководство_по_инженерии"
 

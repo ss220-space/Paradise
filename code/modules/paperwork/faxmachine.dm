@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	icon_state = "fax"
 	insert_anim = "faxsend"
 	pass_flags = PASSTABLE
-	var/fax_network = "Local Fax Network"
+	var/fax_network = "Локальная Факсимильная сеть"
 	/// If true, prevents fax machine from sending messages to NT machines
 	var/syndie_restricted = FALSE
 	var/ussp_restricted = FALSE
@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
-	fax_network = "Central Command Quantum Entanglement Network"
+	fax_network = "Сеть Квантовой Запутанности Центрального Коммандования"
 	long_range_enabled = TRUE
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie
@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange/ussp
 	name = "USSP long range fax machine"
-	fax_network = "USSP Quantum Entanglement Network"
+	fax_network = "Сеть Квантовой Запутанности СССП"
 	ussp_restricted = TRUE
 	req_access = list(ACCESS_USSP_MARINE_CAPTAIN)
 	idle_power_usage = 60
@@ -113,11 +113,15 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			return ..()
 		src.balloon_alert(user, "вставлено.")
 		return ATTACK_CHAIN_BLOCKED_ALL
-
+	..()
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
-		. = ..()
+		usr.drop_transfer_item_to_loc(I, src)
+		copyitem = I
+		playsound(loc, 'sound/machines/fax_send.ogg', 50, 0)
+		to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]."))
+		flick(insert_anim, src)
 		SStgui.update_uis(src)
-		return .
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
@@ -269,7 +273,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				destination = tgui_input_list(usr, "В какой отдел отправить?", "Выберите отдел:", combineddepartments)
 				if(!destination)
 					destination = lastdestination
-		if("отправить") // actually send the fax
+		if("send") // actually send the fax
 			if(!copyitem || !is_authenticated || !destination)
 				return
 			if(stat & (BROKEN|NOPOWER))

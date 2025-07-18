@@ -42,8 +42,8 @@ export const FaxMachine = (props: unknown) => {
         </Section>
         <Section title="Меню факса">
           <LabeledList>
-            <LabeledList.Item label="Network">{data.network}</LabeledList.Item>
-            <LabeledList.Item label="Document">
+            <LabeledList.Item label="Сеть">{data.network}</LabeledList.Item>
+            <LabeledList.Item label="Документ">
               <Button
                 icon={data.paper ? 'eject' : 'paperclip'}
                 disabled={!data.authenticated && !data.paper}

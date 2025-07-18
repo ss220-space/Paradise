@@ -33,7 +33,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	/// Typecache of the things allowed in the bookcase. Populated in [/proc/generate_allowed_books()] on Initialize.
 	var/list/allowed_books
-	var/desc_text
 
 
 /obj/structure/bookcase/Initialize(mapload)
@@ -44,9 +43,9 @@
 
 /obj/structure/bookcase/examine(mob/user)
 	if(icon_state == "book-0")
-		desc += "Его полки давно не протирали..."
+		desc = "Большой книжный шкаф. Его полки давно не протирали..."
 	else
-		desc += "На его полках стоят книги."
+		desc = "Большой книжный шкаф. На его полках стоят книги."
 
 	. = ..()
 
@@ -184,7 +183,6 @@
 /obj/structure/bookcase/manuals/medical
 	manual_name = "Medical Manuals "
 	manual_name_ru = " с учебниками по медицине"
-	desc_text = "На его полках стоит различная медицинская литература."
 
 /obj/structure/bookcase/manuals/medical/Initialize()
 	. = ..()
@@ -195,7 +193,6 @@
 /obj/structure/bookcase/manuals/engineering
 	manual_name = "Engineering Manuals "
 	manual_name_ru = " с руководствами по инженерному делу"
-	desc_text = "На его полках стоят различные руководства по инженерному делу."
 
 
 
@@ -213,7 +210,6 @@
 /obj/structure/bookcase/manuals/research_and_development
 	manual_name = "R&D Manuals "
 	manual_name_ru = " с учебниками по научной деятельности"
-	desc_text = "На его полках стоят различные учебники по научной деятельности."
 
 
 
