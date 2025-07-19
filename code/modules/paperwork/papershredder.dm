@@ -1,14 +1,15 @@
 /obj/machinery/papershredder
 	name = "paper shredder"
-	desc = "Устройство для документов, которые вы не хотите видеть."
+	desc = "Устройство для тех документов, которых вы не хотите видеть."
 	ru_names = list(
-		NOMINATIVE = "шреддер",
-		GENITIVE = "шреддера",
-		DATIVE = "шреддеру",
-		ACCUSATIVE = "шреддер",
-		INSTRUMENTAL = "шреддером",
-		PREPOSITIONAL = "шреддере"
+		NOMINATIVE = "измельчитель бумаги",
+		GENITIVE = "измельчителя бумаги",
+		DATIVE = "измельчителю бумаги",
+		ACCUSATIVE = "измельчитель бумаги",
+		INSTRUMENTAL = "измельчителем бумаги",
+		PREPOSITIONAL = "измельчителе бумаги"
 	)
+	gender = MALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "papershredder0"
 	density = TRUE
@@ -52,12 +53,12 @@
 		return ..()
 
 	. = ATTACK_CHAIN_BLOCKED_ALL
-	to_chat(user, span_notice("[capitalize(I.declent_ru(NOMINATIVE))] был[genderize_ru(I.gender, "", "а", "о", "и" )] успешно уничтожен[genderize_ru(I.gender, "", "а", "о", "ы" )]."))
+	balloon_alert(user, "помещено внутрь")
 	qdel(I)
 	paperamount += paper_result
 	playsound(loc, 'sound/items/pshred.ogg', 75, TRUE)
 	if(paperamount > max_paper)
-		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] был переполнен и куски бумаги разлетаются повсюду!"))
+		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] переполняется и куски бумаги разлетаются повсюду!"))
 		var/atom/drop_loc = drop_location()
 		var/turf/throw_to = get_edge_target_turf(src, pick(GLOB.alldirs))
 		for(var/i = 1 to (paperamount - max_paper))
@@ -85,7 +86,7 @@
 		return
 
 	if(!paperamount)
-		src.balloon_alert(usr, "пусто.")
+		src.balloon_alert(usr, "пусто!")
 		return
 
 	empty_bin(usr)
@@ -140,7 +141,7 @@
 		add_fingerprint(user)
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(
-				span_warning("[capitalize(user)] случайно поджигает себя!"),
+				span_warning("[user] случайно поджигает себя!"),
 				span_userdanger("Вы промахиваетесь по куче разорванной бумаги и случайно поджигаете себя!")
 			)
 			user.drop_item_ground(I)
@@ -162,6 +163,15 @@
 /obj/item/shredded_paper
 	name = "shredded paper"
 	desc = "Куча разорванной бумаги."
+	ru_names = list(
+		NOMINATIVE = "измельчённая бумага",
+		GENITIVE = "измельчённой бумаги",
+		DATIVE = "измельчённой бумаге",
+		ACCUSATIVE = "измельчённую бумагу",
+		INSTRUMENTAL = "измельчонной бумагой",
+		PREPOSITIONAL = "измельчённой бумаге"
+	)
+	gender = MALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "shredded_paper"
 	throwforce = 0

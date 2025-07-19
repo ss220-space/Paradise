@@ -4,7 +4,7 @@
 
 /obj/machinery/photocopier
 	name = "photocopier"
-	desc = "Устройство для сканирования и печати важных документов, или, что более вероятно, вашей сраки."
+	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ\"."
 	ru_names = list(
 		NOMINATIVE = "ксерокс",
 		GENITIVE = "ксерокса",
@@ -67,7 +67,7 @@
 	var/syndicate = FALSE
 	var/info_box = "Если у вас есть пожелания или\
 					идеи для улучшения стандартных\
-					форм, обратитесь в Департамент\
+					форм, обратитесь в Отдел\
 					Стандартизации НаноТрейзен."
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
@@ -75,7 +75,7 @@
 
 /obj/machinery/photocopier/syndie
 	name = "Syndicate photocopier"
-	desc = "Они даже не пытаются скрыть, что это их собственность..."
+	desc = "Устройство для сканирования и печати важных документов. Они даже не пытаются скрыть, что это их собственность..."
 	ru_names = list(
 		NOMINATIVE = "ксерокс Синдиката",
 		GENITIVE = "ксерокса Синдиката",
@@ -290,7 +290,7 @@
 		copyitem.forceMove(get_turf(src))
 		if(ishuman(usr))
 			usr.put_in_hands(copyitem)
-		to_chat(usr, "<span class='notice'>Вы вынимаете [copyitem.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].</span>")
+		to_chat(usr, span_notice("Вы вынимаете [copyitem.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 		copyitem = null
 
 	else if(check_mob())
@@ -382,7 +382,7 @@
 			toner -= 5
 	else
 		src.balloon_alert(usr, "нельзя отсканировать!")
-		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлечён."))
+		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлеч[genderize_ru(copyitem.gender, "ён", "ена", "ено", "ены")]."))
 		copyitem.forceMove(loc) //fuckery detected! get off my photocopier... shitbird!
 
 	copying = FALSE
@@ -515,7 +515,8 @@
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/text = clean_input("Напшите то, что хотите:", "писать")
+
+	var/text = tgui_input_text(user, "Напишите то, что хотите:", "Письмо")
 	if(!text)
 		return
 	if(toner < 1 || !user)
@@ -598,7 +599,7 @@
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 		add_fingerprint(user)
 		if(copyitem)
-			src.balloon_alert(user, "ксерокс занят!")
+			balloon_alert(user, "ксерокс занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -611,11 +612,11 @@
 		add_fingerprint(user)
 		var/obj/item/toner/toner = I
 		if(src.toner > 10) //allow replacing when low toner is affecting the print darkness
-			src.balloon_alert(user, "тонер ещё полон!")
+			balloon_alert(user, "тонер ещё полон!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		src.balloon_alert(user, "вставлено.")
+		balloon_alert(user, "вставлено")
 		src.toner += toner.toner_amount
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -628,7 +629,7 @@
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing) || grabbed_thing == copymob)
 		return .
 	add_fingerprint(grabber)
-	visible_message(span_warning("[grabber] затаскивает [grabbed_thing.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_warning("[grabber] затаскива[pluralize_ru(grabber.gender, "ет", "ют")] [grabbed_thing.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]!"))
 	var/turf/source_turf = get_turf(src)
 	grabbed_thing.forceMove(source_turf)
 	copymob = grabbed_thing
@@ -665,7 +666,7 @@
 		visible_message(span_notice("[capitalize(copymob.declent_ru(NOMINATIVE))] сталкивает [copyitem.declent_ru(ACCUSATIVE)] со своего пути!"))
 		copyitem = null
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
-	atom_say("Внимание: На Стеклянной Плаформе Обнаружены Ягодицы!")
+	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!")
 	SStgui.update_uis(src)
 	return TRUE
 
@@ -690,13 +691,13 @@
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			src.balloon_alert(user, "взломано.")
+			balloon_alert(user, "взломано")
 	else if(user)
-		src.balloon_alert(user, "уже взломано!")
+		balloon_alert(user, "уже взломано!")
 
 /obj/item/toner
 	name = "toner cartridge"
-	desc = "Картридж с чернилами на 140 листов! Жаль только что синие чернила кончаются на тридцатом..."
+	desc = "Стандартный картридж с чернилами для ксероксов. Пользуется высоким спросом у бюрократов."
 	ru_names = list(
 		NOMINATIVE = "тонер-картридж",
 		GENITIVE = "тонер-картриджа",

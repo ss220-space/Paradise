@@ -535,7 +535,7 @@
 ////////////////////////////////////////
 /obj/item/storage/bag/books
 	name = "book bag"
-	desc = "Красная сумка, в которой удобно хранить книги."
+	desc = "Красная сумка, предназначенная для удобной транспортировки и хранения книг."
 	ru_names = list(
 		NOMINATIVE = "книжная сумка",
 		GENITIVE = "книжной сумки",
@@ -544,6 +544,7 @@
 		INSTRUMENTAL = "книжной сумкой",
 		PREPOSITIONAL = "книжной сумке"
 	)
+	gender = FEMALE
 	icon = 'icons/obj/library.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'

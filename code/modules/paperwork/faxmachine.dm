@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
-	desc = "Небольшая машинка с большой силой."
+	desc = "Небольшая машинка для работы с факсами. Не смотря на свой размер, обладает большой силой."
 	ru_names = list(
 		NOMINATIVE = "факс",
 		GENITIVE = "факса",
@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
-	fax_network = "Сеть Квантовой Запутанности Центрального Коммандования"
+	fax_network = "Блюспейс факсимильная сеть Центрального Командования"
 	long_range_enabled = TRUE
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie
@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange/ussp
 	name = "USSP long range fax machine"
-	fax_network = "Сеть Квантовой Запутанности СССП"
+	fax_network = "Блюспейс факсимильная сеть СССП"
 	ussp_restricted = TRUE
 	req_access = list(ACCESS_USSP_MARINE_CAPTAIN)
 	idle_power_usage = 60
@@ -111,14 +111,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			return ATTACK_CHAIN_PROCEED
 		if(!scan(I))
 			return ..()
-		src.balloon_alert(user, "вставлено.")
+		balloon_alert(user, "вставлено")
 		return ATTACK_CHAIN_BLOCKED_ALL
 	..()
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 		usr.drop_transfer_item_to_loc(I, src)
 		copyitem = I
 		playsound(loc, 'sound/machines/fax_send.ogg', 50, 0)
-		to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]."))
+		to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		flick(insert_anim, src)
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -133,6 +133,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		req_access = list()
 		if(user)
 			to_chat(user, span_notice("Передатчики настраиваются на неизвестный источник!"))
+			balloon_alert(user, "взломано")
 			playsound(loc, 'sound/machines/fax_emag.ogg', 50, 0)
 	else if(user)
 		src.balloon_alert(user, "уже взломано!")
@@ -195,15 +196,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if("auth") // log in/out
 			if(!is_authenticated && scan)
 				if(scan.registered_name in GLOB.fax_blacklist)
-					to_chat(usr, span_warning("Вход не выполнен: пользователь занесён в чёрный список факсимильной сети."))
-					atom_say("Отклонено.")
+					atom_say("Вход не выполнен: пользователь занесён в чёрный список факсимильной сети.")
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 					. = FALSE
 				else if(check_access(scan))
 					authenticated = TRUE
 				else // ID doesn't have access to this machine
-					to_chat(usr, span_warning("Вход не выполнен: ID карта не обладает необходимым досутпом."))
-					atom_say("Отклонено.")
+					atom_say("Вход не выполнен: ID-карта не обладает необходимым досутпом.")
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 					. = FALSE
 			else if(is_authenticated)
@@ -214,7 +213,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				if(ishuman(usr))
 					if(Adjacent(usr))
 						usr.put_in_hands(copyitem, ignore_anim = FALSE)
-				to_chat(usr, span_notice("Вы достаёте [copyitem.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]"))
+				to_chat(usr, span_notice("Вы достаёте [copyitem.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 				copyitem = null
 			else
 				var/obj/item/I = usr.get_active_hand()
@@ -222,20 +221,27 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					usr.drop_transfer_item_to_loc(I, src)
 					copyitem = I
 					playsound(loc, 'sound/machines/fax_send.ogg', 50, 0)
-					to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]."))
+					to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 					flick(insert_anim, src)
 				else
 					to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] может принять только бумагу, фото и их стопки."))
 					. = FALSE
 		if("rename") // rename the item that is currently in the fax machine
 			if(copyitem)
-				var/n_name = tgui_input_text(usr, "Как вы хотите подписать факс?", "подпись факса:", copyitem.name)
+				var/n_name = tgui_input_text(usr, "Как вы хотите подписать факс?", "Подпись факса:", copyitem.name)
 				if(!n_name)
 					return
 				if((copyitem && copyitem.loc == src && usr.stat == 0))
 					if(istype(copyitem, /obj/item/paper))
 						copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
-						copyitem.desc = "Бумага, подписанная как '" + copyitem.name + "'."
+						copyitem.desc = "Бумага, подписанная как \"" + copyitem.name + "\""."
+						if(ru_names)
+							initial(ru_names[NOMINATIVE]) += " — \"[copyitem.name]\""
+							initial(ru_names[GENITIVE]) += " — \"[copyitem.name]\""
+							initial(ru_names[DATIVE]) += " — \"[copyitem.name]\""
+							initial(ru_names[ACCUSATIVE]) += " — \"[copyitem.name]\""
+							initial(ru_names[INSTRUMENTAL]) += " — \"[copyitem.name]\""
+							initial(ru_names[PREPOSITIONAL]) += " — \"[copyitem.name]\""
 					else if(istype(copyitem, /obj/item/photo))
 						copyitem.name = "[(n_name ? text("[n_name]") : "photo")]"
 					else if(istype(copyitem, /obj/item/paper_bundle))
@@ -331,14 +337,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
-	set name = "Достать ID карту"
+	set name = "Достать ID-карту"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(scan)
-		to_chat(usr, "Вы вынули [scan.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].")
+		to_chat(usr, "Вы вынимаете [scan.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].")
 		scan.forceMove(get_turf(src))
 		if(Adjacent(usr))
 			usr.put_in_hands(scan, ignore_anim = FALSE)
@@ -365,7 +371,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		atom_say("Сообщение успешно отправлено.")
 		playsound(src, 'sound/machines/ping.ogg', 50)
 	else
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] пищит, \"При отправке сообщения произошла ошибка.\"")
+		atom_say("При отправке сообщения произошла ошибка.")
 
 /obj/machinery/photocopier/faxmachine/proc/receivefax(var/obj/item/incoming)
 	if(stat & (BROKEN|NOPOWER))
@@ -396,7 +402,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	use_power(active_power_usage)
 
 	if(!(istype(copyitem, /obj/item/paper) || istype(copyitem, /obj/item/paper_bundle) || istype(copyitem, /obj/item/photo)))
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] пищит, \"При отправке сообщения произошла ошибка.\"")
+		atom_say("При отправке сообщения произошла ошибка.")
 		return
 
 	var/datum/fax/admin/A = new /datum/fax/admin()

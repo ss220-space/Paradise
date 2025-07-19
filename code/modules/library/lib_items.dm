@@ -76,7 +76,7 @@
 		return
 	if(!user.drop_transfer_item_to_loc(thing, src))
 		return ..()
-	to_chat(user, span_notice("Вы положили [thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	balloon_alert(user, "поставлено на полку")
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -100,16 +100,16 @@
 				book.add_fingerprint(user)
 				bag.remove_from_storage(book, src)
 		if(!loaded)
-			user.balloon_alert(user, "сумка пуста!")
+			balloon_alert(user, "сумка пуста!")
 			return ATTACK_CHAIN_PROCEED
-		src.balloon_alert(user, "опустошено")
+		balloon_alert(user, "опустошено")
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(is_type_in_typecache(I, allowed_books))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("Вы положили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы поместили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		add_fingerprint(user)
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -172,12 +172,12 @@
 	. = ..()
 	name = manual_name + name
 	if(ru_names)
-		ru_names[NOMINATIVE] += manual_name_ru
-		ru_names[GENITIVE] += manual_name_ru
-		ru_names[DATIVE] += manual_name_ru
-		ru_names[ACCUSATIVE] += manual_name_ru
-		ru_names[INSTRUMENTAL] += manual_name_ru
-		ru_names[PREPOSITIONAL] += manual_name_ru
+		initial(ru_names[NOMINATIVE]) += manual_name_ru
+		initial(ru_names[GENITIVE]) += manual_name_ru
+		initial(ru_names[DATIVE]) += manual_name_ru
+		initial(ru_names[ACCUSATIVE]) += manual_name_ru
+		initial(ru_names[INSTRUMENTAL]) += manual_name_ru
+		initial(ru_names[PREPOSITIONAL]) += manual_name_ru
 
 
 /obj/structure/bookcase/manuals/medical
@@ -277,27 +277,27 @@
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			attack_self(user)
 		else
-			. += span_notice("Вам стоит одойдти ближе, чтобы её прочесть.")
+			. += span_notice("Вам стоит подойти ближе, чтобы её прочесть.")
 	else
 		. += span_notice("Вы не умеете читать.")
 
 /obj/item/book/attack_self(mob/user)
 	if(carved)
 		if(store)
-			to_chat(user, span_notice("[capitalize(store.declent_ru(NOMINATIVE))] выпадает из [title]!"))
+			to_chat(user, span_notice("[capitalize(store.declent_ru(NOMINATIVE))] выпада[pluralize_ru(store, "ет", "ют")] из \"[title]\"!"))
 			store.forceMove(get_turf(loc))
 			store = null
 			return
 		else
-			to_chat(user, span_notice("Кто-то вырезал страницы [title]!"))
+			to_chat(user, span_notice("Кто-то вырезал страницы из \"[title]\"!"))
 			return
 	if(src.dat)
 		var/datum/browser/popup = new(user, "book", title)
 		popup.include_default_stylesheet = FALSE
-		popup.set_content("<tt><i>За авторством [author].</i></tt><br>" + "[dat]")
+		popup.set_content("<tt><i>Автор — [author].</i></tt><br>" + "[dat]")
 		popup.open(TRUE)
 		if(!isobserver(user))
-			user.visible_message("[user] открывает книгу под заголовком \"[title]\" и начина[pluralize_ru(user.gender, "ет", "ют")] внимательно её читать.")
+			user.visible_message("[user] открыва[pluralize_ru(user.gender, "ет", "ют")] книгу под заголовком \"[title]\" и начина[pluralize_ru(user.gender, "ет", "ют")] внимательно её читать.")
 		onclose(user, "book")
 	else
 		to_chat(user, "Эта книга полностью пуста!")
@@ -307,15 +307,15 @@
 	if(carved)
 		add_fingerprint(user)
 		if(store)
-			src.balloon_alert(user, "занято!")
+			balloon_alert(user, "занято!")
 			return ATTACK_CHAIN_PROCEED
 		if(I.w_class >= WEIGHT_CLASS_NORMAL)
-			src.balloon_alert(user, "слишком большое!")
+			balloon_alert(user, "слишком большое!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		store = I
-		to_chat(user, span_notice("Вы кладёте [I.declent_ru(ACCUSATIVE)] в [title]."))
+		to_chat(user, span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [title]."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(is_sharp(I))
@@ -334,20 +334,20 @@
 			if("Title")
 				var/newtitle = reject_bad_text(tgui_input_text(user, "Напишите новый заголовок:", "Название", title))
 				if(isnull(newtitle))
-					user.balloon_alert(user, "недопустимый формат!")
+					balloon_alert(user, "недопустимый формат!")
 					return ATTACK_CHAIN_PROCEED
 				name = newtitle
 				title = newtitle
 			if("Contents")
 				var/content = tgui_input_text(user, "Напишите содержание книги (HTML ЗАПЕЩЁН):", "Содержание", max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE)
 				if(isnull(content))
-					user.balloon_alert(user, "недопустимое содержание!")
+					balloon_alert(user, "недопустимое содержание!")
 					return ATTACK_CHAIN_PROCEED
 				dat += content
 			if("Author")
 				var/newauthor = tgui_input_text(user, "Напишите имя автора:", "Автор", author, MAX_NAME_LEN)
 				if(isnull(newauthor))
-					user.balloon_alert(user, "недопустимое имя!")
+					balloon_alert(user, "недопустимое имя!")
 					return ATTACK_CHAIN_PROCEED
 				author = newauthor
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -413,10 +413,10 @@
 	if(I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
 		return FALSE
 	if(!is_sharp(I))
-		user.balloon_alert(user, "Сначала заточите!")
+		balloon_alert(user, "недостаточно острое!")
 		return FALSE
 	if(carved)
-		user.balloon_alert(user, "уже изрезано!")
+		balloon_alert(user, "уже изрезано!")
 		return FALSE
 	to_chat(user, span_notice("Вы начинаете резать страницы [title]..."))
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || carved)

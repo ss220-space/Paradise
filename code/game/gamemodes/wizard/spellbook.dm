@@ -728,7 +728,7 @@
 
 /obj/item/spellbook
 	name = "spell book"
-	desc = "Легендарная книга заклинаний магов."
+	desc = "Легендарная книга заклинаний, используемых могущественными магами."
 	ru_names = list(
 		NOMINATIVE = "книга заклинаний",
 		GENITIVE = "книги заклинаний",
@@ -737,6 +737,7 @@
 		INSTRUMENTAL = "книгой заклинаний",
 		PREPOSITIONAL = "книге заклинаний"
 	)
+	gender = FEMALE
 	icon = 'icons/obj/library.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
@@ -1036,7 +1037,7 @@
 	. |= RECHARGE_SUCCESSFUL
 
 	if(prob(80))
-		visible_message(span_warning("[declent_ru(NOMINATIVE)] загорается!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] загорается!"))
 		user.temporarily_remove_item_from_inventory(src)
 		qdel(src)
 		. |= RECHARGE_BURNOUT
@@ -1046,12 +1047,12 @@
 	..()
 	name += spellname
 	if(ru_names)
-		ru_names[NOMINATIVE] += spellname_ru
-		ru_names[GENITIVE] += spellname_ru
-		ru_names[DATIVE] += spellname_ru
-		ru_names[ACCUSATIVE] += spellname_ru
-		ru_names[INSTRUMENTAL] += spellname_ru
-		ru_names[PREPOSITIONAL] += spellname_ru
+		initial(ru_names[NOMINATIVE]) += spellname_ru
+		initial(ru_names[GENITIVE]) += spellname_ru
+		initial(ru_names[DATIVE]) += spellname_ru
+		initial(ru_names[ACCUSATIVE]) += spellname_ru
+		initial(ru_names[INSTRUMENTAL]) += spellname_ru
+		initial(ru_names[PREPOSITIONAL]) += spellname_ru
 
 /obj/item/spellbook/oneuse/initialize() //No need to init
 	return
@@ -1100,7 +1101,7 @@
 	spellname_ru = "Дыма"
 	icon_state = "booksmoke"
 	item_state = "booksmoke"
-	desc = "Эта книга переполнена тёмными исскуствами."
+	desc = "Эта книга переполнена тёмными искусствами."
 
 /obj/item/spellbook/oneuse/smoke/recoil(mob/user as mob)
 	..()
@@ -1119,7 +1120,7 @@
 	..()
 	if(isliving(user))
 		var/mob/living/L = user
-		to_chat(user, span_warning("Вы слепните!"))
+		to_chat(user, span_warningbig("Вы слепните!"))
 		L.EyeBlind(20 SECONDS)
 
 /obj/item/spellbook/oneuse/mindswap
@@ -1128,7 +1129,7 @@
 	spellname_ru = "Перемещения Разума"
 	icon_state = "bookmindswap"
 	item_state = "bookmindswap"
-	desc = "Обложка этой книги выглядит нетронутой, хотя ее страницы выглядят изношенными и порванными."
+	desc = "Обложка этой книги выглядит нетронутой, хотя её страницы выглядят изношенными и истрёпанными."
 	var/mob/stored_swap = null //Used in used book recoils to store an identity for mindswaps
 
 /obj/item/spellbook/oneuse/mindswap/onlearned()
@@ -1154,12 +1155,12 @@
 	item_state = "book[spellname]"
 	name = "spellbook of [spellname]" //Note, desc doesn't change by design
 	if(ru_names)
-		ru_names[NOMINATIVE] = "гримуар " + spellname_ru
-		ru_names[GENITIVE] = "гримуара " + spellname_ru
-		ru_names[DATIVE] = "гримуару" + spellname_ru
-		ru_names[ACCUSATIVE] = "гримуар " + spellname_ru
-		ru_names[INSTRUMENTAL] = "гримуаром " + spellname_ru
-		ru_names[PREPOSITIONAL] = "гримуаре " + spellname_ru
+		initial(ru_names[NOMINATIVE]) = "гримуар " + spellname_ru
+		initial(ru_names[GENITIVE]) = "гримуара " + spellname_ru
+		initial(ru_names[DATIVE]) = "гримуару" + spellname_ru
+		initial(ru_names[ACCUSATIVE]) = "гримуар " + spellname_ru
+		initial(ru_names[INSTRUMENTAL]) = "гримуаром " + spellname_ru
+		initial(ru_names[PREPOSITIONAL]) = "гримуаре " + spellname_ru
 	..()
 
 /obj/item/spellbook/oneuse/mindswap/recoil(mob/user)
@@ -1171,13 +1172,13 @@
 		to_chat(user, span_warning("На секунду вы поймали чувство, будто больше не знаете, кто вы такой."))
 		return
 	if(stored_swap == user)
-		to_chat(user, span_notice("Вы пялитесь на страницы книги ещё некоторое время, но в ней кончилась всякая полезная для изучания информация..."))
+		to_chat(user, span_notice("Вы пялитесь на страницы книги ещё некоторое время, но вдруг осознаёте, что в ней закончилась полезная для изучения информация..."))
 		return
 
 	var/obj/effect/proc_holder/spell/mind_transfer/swapper = new
 	swapper.cast(user, stored_swap)
 
-	to_chat(stored_swap, span_warning("Внезапно вы оказались где-то... и кем-то?!"))
+	to_chat(stored_swap, span_warning("Внезапно вы оказываетесь где-то... и кем-то?!"))
 	to_chat(user, span_warning("Внезапно вы вновь ловите себя смотрящим на страницы [declent_ru(GENITIVE)]... Где вы, и кто вы?!"))
 	stored_swap = null
 
@@ -1264,7 +1265,7 @@
 	spellname_ru = "Распада"
 	icon_state = "bookfireball"
 	item_state = "bookfireball"
-	desc = "Прикасаясь к этой книге у вас складывается чувство, будто она способна разорвать что угодно на кусочки."
+	desc = "При прикосновении к этой книге у вас складывается чувство, будто она способна разорвать что угодно на мелкие кусочки."
 
 /obj/item/spellbook/oneuse/sacredflame
 	spell = /obj/effect/proc_holder/spell/sacred_flame

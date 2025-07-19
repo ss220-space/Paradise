@@ -78,9 +78,9 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		return
 
 	books_flagged_this_round["[id]"] = 1
-	message_admins("[key_name_admin(user)] пометил книгу #[id] в качестве недопустимой.")
+	message_admins("[key_name_admin(user)] has flagged book #[id] as inappropriate.")
 
-	log_game("[user] (ckey: [user.key]) пометил книгу #[id] в качестве недопустимой.")
+	log_game("[user] (ckey: [user.key]) has flagged book #[id] as inappropriate.")
 
 	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1, flaggedby=:flaggedby WHERE id=:id", list(
 		"id" = text2num(id),
@@ -175,7 +175,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 
 	return ..()
 
-
 /obj/machinery/libraryscanner/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
 
@@ -252,10 +251,10 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		if(!user.drop_transfer_item_to_loc(paper, src))
 			return ..()
 		user.visible_message(
-			span_notice("[user] загрузил[genderize_ru(user.gender, "", "а", "о", "и")] немного бумаги в [src.declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
-			span_notice("Вы загружаете немного бумаги в [src.declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
+			span_notice("[user] загружа[pluralize_ru(user.gender, "ет", "ют")] немного бумаги в [declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
+			span_notice("Вы загружаете немного бумаги в [declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
 		)
-		atom_say("Проходит печать новой книги...")
+		atom_say("Проходит печать книги...")
 		playsound(src, 'sound/machines/binder_work.ogg', 25, FALSE)
 		addtimer(CALLBACK(src, PROC_REF(finalize_printing), paper), rand(20 SECONDS, 40 SECONDS))
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -271,16 +270,16 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	new_book.dat = paper.info
 	new_book.name = "Print Job #[rand(100, 999)]"
 	new_book.ru_names = list(
-		NOMINATIVE = "печатное издание #[rand(100, 999)]",
-		GENITIVE = "печатного издания #[rand(100, 999)]",
-		DATIVE = "печатному изданию #[rand(100, 999)]",
-		ACCUSATIVE = "печатное издание #[rand(100, 999)]",
-		INSTRUMENTAL = "печатным изданием #[rand(100, 999)]",
-		PREPOSITIONAL = "печатном издании #[rand(100, 999)]"
+		NOMINATIVE = "печатное издание №[rand(100, 999)]",
+		GENITIVE = "печатного издания №[rand(100, 999)]",
+		DATIVE = "печатному изданию №[rand(100, 999)]",
+		ACCUSATIVE = "печатное издание №[rand(100, 999)]",
+		INSTRUMENTAL = "печатным изданием №[rand(100, 999)]",
+		PREPOSITIONAL = "печатном издании №[rand(100, 999)]"
 	)
 	new_book.icon_state = "book[rand(1,16)]"
 	new_book.item_state = new_book.icon_state
-	atom_say("Новая книга была напечатана.")
+	atom_say("Печать книги успешно завершена.")
 	playsound(loc, 'sound/machines/ping.ogg', 20, 1)
 	qdel(paper)
 
