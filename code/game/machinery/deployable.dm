@@ -42,7 +42,7 @@
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
-		obj_integrity = clamp(obj_integrity + 20, 0, max_integrity)
+		update_integrity(clamp(obj_integrity + 20, 0, max_integrity))
 		update_icon()
 	return TRUE
 
@@ -107,6 +107,19 @@
 
 	return ..()
 
+/obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(obj_flags & NODECONSTRUCT)
+		return
+	. = TRUE
+
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+		return
+	deconstruct(TRUE)
+	TOOL_DISMANTLE_SUCCESS_MESSAGE
 
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"

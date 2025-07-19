@@ -42,8 +42,10 @@
 
 	..()
 	status_alarm(TRUE)
-	GLOB.event_announcement.Announce("Биологической угроза пятого уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
-									"ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
+	GLOB.major_announcement.announce("Биологической угроза 5-го уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
+									ANNOUNCE_BIOHAZARD_RU,
+									'sound/AI/commandreport.ogg'
+	)
 
 
 /datum/weather/blob_storm/can_weather_act(mob/living/mob_to_check)
@@ -76,7 +78,7 @@
 	if(!SSticker || !SSticker.mode)
 		return
 	status_alarm(FALSE)
-	if(GLOB.security_level != SEC_LEVEL_DELTA && SSticker.mode.blob_stage < BLOB_STAGE_END)
+	if(SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_DELTA && SSticker.mode.blob_stage < BLOB_STAGE_END)
 		SSticker.mode.start_blob_win()
 
 /datum/weather/blob_storm/proc/status_alarm(active)
@@ -89,7 +91,7 @@
 	if(stage >= MAIN_STAGE)
 		return
 	stage = MAIN_STAGE
-	if(GLOB.security_level == SEC_LEVEL_DELTA)
+	if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 		for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 			if(bomb && bomb.timing && is_station_level(bomb.z))
 				INVOKE_ASYNC(bomb, TYPE_PROC_REF(/obj/machinery/nuclearbomb/,explode))

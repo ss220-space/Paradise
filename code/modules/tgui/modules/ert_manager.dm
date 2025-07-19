@@ -21,16 +21,8 @@
 
 /datum/ui_module/ert_manager/ui_data(mob/user)
 	var/list/data = list()
-	data["str_security_level"] = capitalize(get_security_level())
-	switch(GLOB.security_level)
-		if(SEC_LEVEL_GREEN)
-			data["security_level_color"] = "green"
-		if(SEC_LEVEL_BLUE)
-			data["security_level_color"] = "blue"
-		if(SEC_LEVEL_RED)
-			data["security_level_color"] = "red"
-		else
-			data["security_level_color"] = "purple"
+	data["str_security_level"] = capitalize(SSsecurity_level.get_current_level_as_text())
+	data["security_level_color"] = SSsecurity_level.current_security_level.color
 	data["ert_request_answered"] = GLOB.ert_request_answered
 	data["ert_type"] = ert_type
 	data["com"] = commander_slots
@@ -70,7 +62,7 @@
 			cyborg_slots = text2num(params["set_cyb"])
 		if("dispatch_ert")
 			if(GLOB.send_emergency_team)
-				to_chat(usr, span_warning("Центральное Командование уже направило Отряд Быстрого Реагирования!"))
+				to_chat(usr, span_warning("Центральное командование уже направило Отряд Быстрого Реагирования!"))
 				return
 			var/datum/response_team/D
 			switch(ert_type)
@@ -107,7 +99,9 @@
 			var/slot_text = english_list(slots_list)
 			log_and_message_admins("dispatched a [params["silent"] ? "silent " : ""][ert_type] ERT. Slots: [slot_text]")
 			if(!params["silent"])
-				GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования. Ожидайте.", "ВНИМАНИЕ: Активирован протокол ОБР.")
+				GLOB.major_announcement.announce("Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования. Ожидайте.",
+												ANNOUNCE_ERT_ACTIVATE_RU
+				)
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
 		if("view_player_panel")
@@ -118,7 +112,9 @@
 			var/message = "[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования."
 			if(params["reason"])
 				message += " Ваш запрос ОБР был отклонен по следующим причинам:\n[params["reason"]]"
-			GLOB.event_announcement.Announce(message, "Оповещение: ОБР недоступен.")
+			GLOB.major_announcement.announce(message,
+											ANNOUNCE_ERT_UNAVAIL_RU
+			)
 		else
 			return FALSE
 

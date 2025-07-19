@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(ticker)
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "ticker"
 
-	/// Time the world started, relative to world.time
+	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
 	/// Time that the round started
 	var/time_game_started = 0
@@ -448,7 +448,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(!station_missed)	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
-			if(M.stat != DEAD && !(issilicon(M) && override == "AI malfunction"))
+			if(M.stat != DEAD && !(issilicon(M) && override == MALF_AI))
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 					M.ghostize()
@@ -463,14 +463,12 @@ SUBSYSTEM_DEF(ticker)
 	//Now animate the cinematic
 	switch(station_missed)
 		if(1)	//nuke was nearby but (mostly) missed
-			if(mode && !override)
-				override = mode.name
 
 			switch(override)
-				if("nuclear emergency") //Nuke wasn't on station when it blew up
+				if(SYNDICATE_NUKE) //Nuke wasn't on station when it blew up
 					play_cinematic(/datum/cinematic/nuke/ops_miss, world)
 
-				if("fake") //The round isn't over, we're just freaking people out for fun
+				if(FAKE_NUKE) //The round isn't over, we're just freaking people out for fun
 					play_cinematic(/datum/cinematic/nuke/fake, world)
 
 				else
@@ -483,14 +481,11 @@ SUBSYSTEM_DEF(ticker)
 			if(mode && !override)
 				override = mode.name
 			switch(override)
-				if("nuclear emergency") //Nuke Ops successfully bombed the station
+				if(SYNDICATE_NUKE) //Nuke Ops successfully bombed the station
 					play_cinematic(/datum/cinematic/nuke/ops_victory, world)
 
-				if("AI malfunction") //Malf (screen,explosion,summary)
+				if(MALF_AI) //Malf (screen,explosion,summary)
 					play_cinematic(/datum/cinematic/malf, world)
-
-				if("blob") //Station nuked (nuke,explosion,summary)
-					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
 
 				else //Station nuked (nuke,explosion,summary)
 					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
@@ -616,7 +611,7 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/team_type in GLOB.antagonist_teams)
 		var/datum/team/team = GLOB.antagonist_teams[team_type]
-		team.declare_completion()
+		end_of_round_info += team.declare_completion()
 
 	mode.declare_completion()//To declare normal completion.
 
@@ -721,10 +716,15 @@ SUBSYSTEM_DEF(ticker)
 	if(end_string)
 		end_state = end_string
 
-	// Play a haha funny noise
+	// Play a haha funny noise for those who want to hear it :)
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
-	world << sound(round_end_sound, volume = 80)
+
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.client.prefs.sound & SOUND_MUTE_END_OF_ROUND)
+			continue
+		SEND_SOUND(mob, round_end_sound)
+
 	sleep(sound_length)
 
 	world.Reboot()

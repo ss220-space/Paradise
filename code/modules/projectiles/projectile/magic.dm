@@ -1,5 +1,13 @@
 /obj/projectile/magic
 	name = "bolt of nothing"
+	ru_names = list(
+		NOMINATIVE = "разряд пустоты",
+		GENITIVE = "разряда пустоты",
+		DATIVE = "разряду пустоты",
+		ACCUSATIVE = "разряд пустоты",
+		INSTRUMENTAL = "разрядом пустоты",
+		PREPOSITIONAL = "разряде пустоты"
+	)
 	icon_state = "energy"
 	damage = 0
 	hitsound = 'sound/weapons/magic.ogg'
@@ -11,10 +19,26 @@
 
 /obj/projectile/magic/death
 	name = "bolt of death"
+	ru_names = list(
+		NOMINATIVE = "заряд смерти",
+		GENITIVE = "заряда смерти",
+		DATIVE = "заряду смерти",
+		ACCUSATIVE = "заряд смерти",
+		INSTRUMENTAL = "зарядом смерти",
+		PREPOSITIONAL = "заряде смерти"
+	)
 	icon_state = "pulse1_bl"
 
 /obj/projectile/magic/fireball
 	name = "bolt of fireball"
+	ru_names = list(
+		NOMINATIVE = "фаербол",
+		GENITIVE = "фаербола",
+		DATIVE = "фаерболу",
+		ACCUSATIVE = "фаербол",
+		INSTRUMENTAL = "фаерболом",
+		PREPOSITIONAL = "фаерболе"
+	)
 	icon_state = "fireball"
 	damage = 10
 	damage_type = BRUTE
@@ -35,7 +59,7 @@
 		else
 			C.death()
 
-		visible_message("<span class='danger'>[C] topples backwards as the death bolt impacts [C.p_them()]!</span>")
+		visible_message(span_danger("[capitalize(C.declent_ru(NOMINATIVE))] падает замертво, когда [genderize_ru(C.gender,"его","её","его","их")] поражает заряд смерти!"))
 
 /obj/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -67,6 +91,14 @@
 
 /obj/projectile/magic/fireball/infernal
 	name = "infernal fireball"
+	ru_names = list(
+		NOMINATIVE = "адский фаербол",
+		GENITIVE = "адского фаербола",
+		DATIVE = "адскому фаерболу",
+		ACCUSATIVE = "адский фаербол",
+		INSTRUMENTAL = "адским фаерболом",
+		PREPOSITIONAL = "адском фаерболе"
+	)
 	exp_heavy = -1
 	exp_light = -1
 	exp_flash = 4
@@ -86,6 +118,14 @@
 
 /obj/projectile/magic/resurrection
 	name = "bolt of resurrection"
+	ru_names = list(
+		NOMINATIVE = "воскрешающий заряд",
+		GENITIVE = "воскрешающего заряда",
+		DATIVE = "воскрешающему заряду",
+		ACCUSATIVE = "воскрешающий заряд",
+		INSTRUMENTAL = "воскрешающим зарядом",
+		PREPOSITIONAL = "воскрешающем заряде"
+	)
 	icon_state = "ion"
 
 /obj/projectile/magic/resurrection/on_hit(var/mob/living/carbon/target)
@@ -102,12 +142,20 @@
 					ghost.reenter_corpse()
 					break
 		if(old_stat != DEAD)
-			to_chat(target, "<span class='notice'>You feel great!</span>")
+			to_chat(target, span_notice("Вы чувствуете себя великолепно!"))
 		else
-			to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
+			to_chat(target, span_notice("Вы восстаете из мёртвых. <b>ВЫ СНОВА ЖИВЫ!!!</b>"))
 
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"
+	ru_names = list(
+		NOMINATIVE = "телепортационный импульс",
+		GENITIVE = "телепортационного импульса",
+		DATIVE = "телепортационному импульсу",
+		ACCUSATIVE = "телепортационный импульс",
+		INSTRUMENTAL = "телепортационным импульсом",
+		PREPOSITIONAL = "телепортационном импульсе"
+	)
 	icon_state = "bluespace"
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
@@ -128,6 +176,14 @@
 
 /obj/projectile/magic/door
 	name = "bolt of door creation"
+	ru_names = list(
+		NOMINATIVE = "заряд создания дверей",
+		GENITIVE = "заряда создания дверей",
+		DATIVE = "заряду создания дверей",
+		ACCUSATIVE = "заряд создания дверей",
+		INSTRUMENTAL = "зарядом создания дверей",
+		PREPOSITIONAL = "заряде создания дверей"
+	)
 	icon_state = "energy"
 	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
 		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
@@ -164,6 +220,14 @@
 
 /obj/projectile/magic/change
 	name = "bolt of change"
+	ru_names = list(
+		NOMINATIVE = "заряд полиморфа",
+		GENITIVE = "заряда полиморфа",
+		DATIVE = "заряду полиморфа",
+		ACCUSATIVE = "заряд полиморфа",
+		INSTRUMENTAL = "зарядом полиморфа",
+		PREPOSITIONAL = "заряде полиморфа"
+	)
 	icon_state = "ice_1"
 	damage_type = BURN
 
@@ -325,6 +389,14 @@
 
 /obj/projectile/magic/animate
 	name = "bolt of animation"
+	ru_names = list(
+		NOMINATIVE = "анимационный заряд",
+		GENITIVE = "анимационного заряда",
+		DATIVE = "анимационному заряду",
+		ACCUSATIVE = "анимационный заряд",
+		INSTRUMENTAL = "анимационным зарядом",
+		PREPOSITIONAL = "анимационном заряде"
+	)
 	icon_state = "red_1"
 	damage_type = BURN
 
@@ -362,6 +434,14 @@
 
 /obj/projectile/magic/spellblade
 	name = "blade energy"
+	ru_names = list(
+		NOMINATIVE = "энергия лезвия",
+		GENITIVE = "энергии лезвия",
+		DATIVE = "энергии лезвия",
+		ACCUSATIVE = "энергию лезвия",
+		INSTRUMENTAL = "энергией лезвия",
+		PREPOSITIONAL = "энергии лезвия"
+	)
 	icon_state = "lavastaff"
 	damage = 15
 	damage_type = BURN
@@ -372,6 +452,14 @@
 
 /obj/projectile/magic/slipping
 	name = "magical banana"
+	ru_names = list(
+		NOMINATIVE = "волшебный банан",
+		GENITIVE = "волшебного банана",
+		DATIVE = "волшебному банану",
+		ACCUSATIVE = "волшебный банан",
+		INSTRUMENTAL = "волшебным бананом",
+		PREPOSITIONAL = "волшебном банане"
+	)
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
 	hitsound = 'sound/items/bikehorn.ogg'
@@ -385,7 +473,7 @@
 	if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
 		if(!R.IsStunned())
-			to_chat(target, span_warning("You get splatted by [src], HONKING your sensors!"))
+			to_chat(target, span_warning("В вас попадает волшебный банан, ХОНКая ваши сенсоры!"))
 			R.Stun(slip_disable_time)
 	else if(isliving(target))
 		var/mob/living/L = target
@@ -394,12 +482,20 @@
 		// Something something don't run with scissors
 		L.moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
 		if(!L.IsWeakened())
-			to_chat(target, span_warning("You get splatted by [src]."))
+			to_chat(target, span_warning("В вас попадает волшебный банан."))
 			L.Weaken(slip_disable_time)
 	. = ..()
 
 /obj/projectile/magic/arcane_barrage
 	name = "arcane bolt"
+	ru_names = list(
+		NOMINATIVE = "тайный заряд",
+		GENITIVE = "тайного заряда",
+		DATIVE = "тайному заряду",
+		ACCUSATIVE = "тайный заряд",
+		INSTRUMENTAL = "тайным зарядом",
+		PREPOSITIONAL = "тайном заряде"
+	)
 	icon_state = "arcane_barrage"
 	damage = 20
 	damage_type = BURN

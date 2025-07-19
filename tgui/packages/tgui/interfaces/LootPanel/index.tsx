@@ -70,7 +70,8 @@ export const LootPanel = (props: unknown) => {
           )}
           {showSearchBar && (
             <Input
-              onInput={(event, value) => setSearchText(value)}
+              expensive
+              onChange={setSearchText}
               placeholder={`Search items...`}
             />
           )}

@@ -640,7 +640,7 @@ const AdminAnnouncePage = (props: unknown) => {
               placeholder="Введите заголовок тут."
               fluid
               value={subtitle}
-              onChange={(e, value) => setSubtitle(value)}
+              onChange={setSubtitle}
               mb="5px"
             />
           </Stack.Item>
@@ -650,7 +650,7 @@ const AdminAnnouncePage = (props: unknown) => {
               fluid
               height={18}
               value={text}
-              onChange={(e, value) => setText(value)}
+              onChange={setText}
             />
           </Stack.Item>
           <Stack.Item>

@@ -168,6 +168,7 @@
 
 	var/obj/item/reagent_containers/food/snacks/organ/S = new
 	S.name = name
+	S.ru_names = ru_names
 	S.desc = desc
 	S.icon = icon
 	S.icon_state = icon_state
@@ -204,6 +205,8 @@
 	icon = 'icons/obj/surgery.dmi'
 	list_reagents = list("nutriment" = 5)
 
+/obj/item/reagent_containers/food/snacks/organ/update_icon_state()
+	return
 
 /obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target != user || !ishuman(target) || !user.can_unEquip(src))
@@ -325,10 +328,10 @@
 		var/turf/T = loc
 		var/light_count = T.get_lumcount()*10
 		if(light_count > 4 && obj_integrity > 0) //Die in the light
-			obj_integrity--
+			update_integrity(obj_integrity - 1)
 
 		else if(light_count < 2 && obj_integrity < max_integrity) //Heal in the dark
-			obj_integrity++
+			repair_damage(1)
 
 		if(obj_integrity <= 0)
 			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] расслаивается и распадается на множество крошечных кусочков."))

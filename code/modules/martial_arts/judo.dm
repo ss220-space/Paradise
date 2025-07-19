@@ -12,6 +12,7 @@
 	)
 	weight = 8
 	no_baton_reason = span_warning("Из-за занятий дзюдо у вас не получается крепко держать дубинку!")
+	change_musculs = FALSE
 	can_horizontally_grab = FALSE
 
 //Corporate Judo Belt

@@ -5,7 +5,7 @@
 	max_stages = 3
 	spread_flags = AIRBORNE
 	visibility_flags = HIDDEN_HUD
-	cure_text = "Отдых и Спейсацилин"
+	cure_text = "Отдых и Космоциллин"
 	cures = list("spaceacillin")
 	cure_prob = 30
 	permeability_mod = 0.5

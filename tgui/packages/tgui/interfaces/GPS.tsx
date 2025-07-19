@@ -135,7 +135,8 @@ const Settings = (properties) => {
             width="5rem"
             value={tag}
             onEnter={() => act('tag', { newtag: newTag })}
-            onInput={(e, value) => setNewTag(value)}
+            expensive
+            onChange={setNewTag}
           />
           <Button
             disabled={tag === newTag}

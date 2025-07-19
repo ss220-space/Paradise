@@ -1531,6 +1531,10 @@ BODY SCANNERS
 	cell.give(cell.maxcharge)
 	update_icon()
 
+/obj/item/bodyanalyzer/Destroy()
+	QDEL_NULL(cell)
+	. = ..()
+
 /obj/item/bodyanalyzer/proc/setReady()
 	ready = TRUE
 	playsound(src, 'sound/machines/defib_saftyon.ogg', 50, 0)

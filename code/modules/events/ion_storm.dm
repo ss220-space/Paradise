@@ -23,13 +23,19 @@
 
 /datum/event/ion_storm/announce(false_alarm)
 	if(announceEvent == ION_SYNDICATE)
-		GLOB.event_announcement.Announce("Неестественная ионная активность была замечена на станции. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок. Дополнительная информация была загружена и распечатана на всех консолях связи.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", 'sound/AI/ionstorm.ogg')
+		GLOB.minor_announcement.announce("Неестественная ионная активность была замечена на станции. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок. Дополнительная информация была загружена и распечатана на всех консолях связи.",
+										ANNOUNCE_ANOMALY_RU,
+										'sound/AI/ions.ogg'
+		)
 		var/message = "Malicious Interference with standard AI-Subsystems detected. Investigation recommended.<br><br>"
 		message += (location_name ? "Signal traced to <b>[location_name]</b>.<br>" : "Signal untracable.<br>")
 		print_command_report(message, "Classified [command_name()] Update", FALSE)
 
 	else if(false_alarm || announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
-		GLOB.event_announcement.Announce("Вблизи станции обнаружена ионная буря. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", 'sound/AI/ionstorm.ogg')
+		GLOB.minor_announcement.announce("Вблизи станции обнаружена ионная буря. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок.",
+										ANNOUNCE_ANOMALY_RU,
+										'sound/AI/ions.ogg'
+		)
 
 
 /datum/event/ion_storm/start()
@@ -41,10 +47,11 @@
 				add_law(ai_player, message)
 				SSticker?.score?.save_silicon_laws(ai_player, additional_info = "ion storm event, new ion law was added '[message]'")
 				to_chat(ai_player, "<br>")
-				to_chat(ai_player, span_danger("[message] ...ЗАКОНЫ ОБНОВЛЕНЫ."))
+				to_chat(ai_player, span_danger("[message] ...ЗАКОНЫ ОБНОВЛЕНЫ"))
 				to_chat(ai_player, "<br>")
+
 				for(var/ghost in GLOB.dead_mob_list)
-					to_chat(ghost, span_deadsay("<b>[ai_player] ([ghost_follow_link(ai_player, ghost)])</b> has received an ion law:\n<b>'[message]'</b>"))
+					to_chat(ghost, span_deadsay("<b>[ai_player] ([ghost_follow_link(ai_player, ghost)])</b> получил новый закон:\n<b>'[message]'</b>"))
 
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot as anything in GLOB.bots_list)

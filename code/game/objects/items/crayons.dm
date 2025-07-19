@@ -65,7 +65,7 @@
 		if("random_letter")
 			temp = pick(letters)
 		if("letter")
-			temp = input("Choose the letter.", "Scribbles") in letters
+			temp = tgui_input_list(usr, "Choose the letter.", "Scribbles", letters)
 		if("random_rune")
 			temp = "rune[rand(1,10)]"
 		if("random_graffiti")
@@ -296,7 +296,7 @@
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
-	var/choice = input(user,"Spraycan options") in list("Toggle Cap","Change Drawing","Change Color")
+	var/choice = tgui_input_list(user, "Spraycan options", , list("Toggle Cap", "Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
 			to_chat(user, span_notice("You [capped ? "Remove" : "Replace"] the cap of the [src]"))

@@ -26,7 +26,7 @@
 			dummy.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
 			qdel(src)
 		if("emp")
-			var/name = prob(50) ? mob_area.name : pick(GLOB.teleportlocs)
+			var/name = prob(50) ? mob_area.name : pick(SSmapping.teleportlocs)
 			dummy.autosay("[mobname] has died in [name]!", "[mobname]'s Death Alarm")
 		else
 			if(is_type_in_typecache(mob_area, stealth_areas))

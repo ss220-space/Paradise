@@ -6,7 +6,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/isbn = input("ISBN number?", "Delete Book") as num | null
+	var/isbn = tgui_input_number(usr, "ISBN number?", "Delete Book")
 	if(!isbn)
 		return
 

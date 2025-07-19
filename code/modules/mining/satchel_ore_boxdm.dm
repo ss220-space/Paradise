@@ -5,7 +5,15 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "orebox0"
 	name = "ore box"
-	desc = "A heavy wooden box, which can be filled with a lot of ores."
+	desc = "Прочный деревянный ящик для хранения больших объёмов руды."
+	ru_names = list(
+		NOMINATIVE = "ящик для руды",
+		GENITIVE = "ящика для руды",
+		DATIVE = "ящику для руды",
+		ACCUSATIVE = "ящик для руды",
+		INSTRUMENTAL = "ящиком для руды",
+		PREPOSITIONAL = "ящике для руды"
+	)
 	density = TRUE
 	pressure_resistance = 5 * ONE_ATMOSPHERE
 
@@ -31,10 +39,10 @@
 			storage.remove_from_storage(ore, src) //This will move the item to this item's contents
 			CHECK_TICK
 		if(!loaded)
-			to_chat(user, span_warning("The [storage.name] has no ore."))
+			to_chat(user, span_warning("[capitalize(storage.declent_ru(NOMINATIVE))] пуст - здесь нет руды."))
 			return ATTACK_CHAIN_PROCEED
 		storage.update_appearance()	// just in case
-		to_chat(user, span_notice("You have emptied [storage] into [src]."))
+		to_chat(user, span_notice("Вы пересыпали руду из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -45,9 +53,9 @@
 	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 		return .
 	user.visible_message(
-		span_notice("[user] has pried [src] apart."),
-		span_notice("You have pried [src] apart."),
-		span_italics("You hear splitting wood."),
+		span_notice("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы разбираете [declent_ru(ACCUSATIVE)]."),
+		span_italics("Слышен треск дерева."),
 	)
 	deconstruct(TRUE, user)
 
@@ -62,7 +70,7 @@
 		show_contents(user)
 
 /obj/structure/ore_box/proc/show_contents(mob/user)
-	var/dat = "<b>The contents of the ore box reveal...</b><br>"
+	var/dat = "<b>Содержимое ящика для руды:</b><br>"
 	var/list/assembled = list()
 	for(var/obj/item/stack/ore/O in src)
 		assembled[O.type] += O.amount
@@ -70,7 +78,7 @@
 		var/obj/item/stack/ore/O = type
 		dat += "[initial(O.name)] - [assembled[type]]<br>"
 
-	dat += "<br><br><a href='byond://?src=[UID()];removeall=1'>Empty box</a>"
+	dat += "<br><br><a href='byond://?src=[UID()];removeall=1'>Очистить ящик</a>"
 	var/datum/browser/popup = new(user, "orebox", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(FALSE)

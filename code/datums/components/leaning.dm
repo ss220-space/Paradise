@@ -83,8 +83,8 @@
 		ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 
 	visible_message(
-		span_notice("[src] прислоня[pluralize_ru(gender, "ется", "ются")] к [lean_target.declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы прислоняетесь к [lean_target.declent_ru(ACCUSATIVE)]."),
+		span_notice("[src] прислоня[pluralize_ru(gender, "ется", "ются")] к [lean_target.declent_ru(DATIVE)]."),
+		span_notice("Вы прислоняетесь к [lean_target.declent_ru(DATIVE)]."),
 	)
 	leaned_object = lean_target
 	RegisterSignal(src, list(

@@ -1,6 +1,6 @@
 /obj/item/storage/briefcase
 	name = "briefcase"
-	desc = "It's made of AUTHENTIC faux-leather and has a price-tag still attached. Its owner must be a real professional."
+	desc = "Он сделан из НАСТОЯЩЕЙ искусственной кожи и всё ещё с ценником. Его владелец, должно быть, настоящий профессионал."
 	icon_state = "briefcase"
 	item_state = "briefcase"
 	flags = CONDUCT
@@ -16,7 +16,7 @@
 	max_integrity = 150
 
 /obj/item/storage/briefcase/sniperbundle
-	desc = "Its label reads \"genuine hardened Captain leather\", but suspiciously has no other tags or branding. Smells like L'Air du Temps."
+	desc = "На его этикетке написано \"настоящая закаленная кожа капитана\", но подозрительно отсутствуют другие метки или бренды. Пахнет как L'Air du Temps."
 	force = 10
 
 /obj/item/storage/briefcase/sniperbundle/populate_contents()
@@ -51,17 +51,17 @@
 	if(bottom_open)
 		add_fingerprint(user)
 		if(stored_item)
-			to_chat(user, span_warning("There's already something in the false bottom!"))
+			to_chat(user, span_warning("В потайном дне уже что-то лежит!"))
 			return ATTACK_CHAIN_PROCEED
 		if(I.w_class > WEIGHT_CLASS_NORMAL)
-			to_chat(user, span_warning("The [I.name] is too big to fit in the false bottom!"))
+			to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] слишком большой для потайного дна!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		stored_item = I
 		max_w_class = WEIGHT_CLASS_NORMAL - stored_item.w_class
 		I.move_to_null_space() //null space here we go - to stop it showing up in the briefcase
-		to_chat(user, span_notice("You place the [I] into the false bottom of the briefcase."))
+		to_chat(user, span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в потайное отделение кейса."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
@@ -73,21 +73,21 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!bottom_open)
-		to_chat(user, "You begin to hunt around the rim of the [src]...")
+		to_chat(user, "Вы начинаете ощупывать край [declent_ru(GENITIVE)]...")
 		busy_hunting = TRUE
 		if(do_after(user, 2 SECONDS, src))
 			if(user)
-				to_chat(user, "You pry open the false bottom!")
+				to_chat(user, "Вы поддеваете и открываете потайное дно!")
 			bottom_open = TRUE
 		busy_hunting = FALSE
 	else
-		to_chat(user, "You push the false bottom down and close it with a click[stored_item ? ", with the [stored_item] snugly inside." : "."]")
+		to_chat(user, "Вы защёлкиваете потайное дно с характерным щелчком[stored_item ? ", и [stored_item] остаётся внутри." : "."]")
 		bottom_open = FALSE
 
 /obj/item/storage/briefcase/false_bottomed/attack_hand(mob/user)
 	if(bottom_open && stored_item)
 		user.put_in_hands(stored_item)
-		to_chat(user, "You pull out the [stored_item] from the [src]'s false bottom.")
+		to_chat(user, "Вы достаёте [stored_item.declent_ru(NOMINATIVE)] из потайного отделения [declent_ru(GENITIVE)].")
 		stored_item = null
 		max_w_class = initial(max_w_class)
 	else
@@ -96,6 +96,14 @@
 /obj/item/case_with_bipki
 	name = "bipki case"
 	desc = "Легендарный чемодан с бипками! Стоп, а что такое бипки?"
+	ru_names = list(
+		NOMINATIVE = "чемодан с бипками",
+		GENITIVE = "чемодана с бипками",
+		DATIVE = "чемодану с бипками",
+		ACCUSATIVE = "чемодан с бипками",
+		INSTRUMENTAL = "чемоданом с бипками",
+		PREPOSITIONAL = "чемодане с бипками"
+	)
 	icon = 'icons/obj/beebki.dmi'
 	icon_state = "briefcase_bipki"
 	item_state = "briefcase"

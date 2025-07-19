@@ -103,7 +103,15 @@
 
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
-	desc = "For when you're expecting to get slapped on the wrist. Offers modest protection to your arms."
+	desc = "На случай, если вы ожидаете удара в руку. Обеспечивает достаточную защиту для ваших рук."
+	ru_names = list(
+		NOMINATIVE = "костяные наручи",
+		GENITIVE = "костяных наручей",
+		DATIVE = "костяным наручам",
+		ACCUSATIVE = "костяные наручи",
+		INSTRUMENTAL = "костяными наручами",
+		PREPOSITIONAL = "костяных наручах"
+	)
 	icon_state = "bracers"
 	item_state = "bracers"
 	item_color = null	//So they don't wash.

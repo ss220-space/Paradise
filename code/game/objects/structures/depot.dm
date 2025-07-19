@@ -30,7 +30,7 @@
 
 /obj/structure/fusionreactor/ex_act(severity)
 	if(severity < 3)
-		obj_integrity = 0
+		update_integrity(0)
 		healthcheck()
 
 /obj/structure/fusionreactor/proc/healthcheck()

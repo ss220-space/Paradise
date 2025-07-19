@@ -18,7 +18,7 @@
 	actions_types = list(/datum/action/item_action/print_forensic_report, /datum/action/item_action/clear_records)
 
 /obj/item/detective_scanner/attack_self(mob/user)
-	var/search = input(user, "Введите имя, отпечатки пальцев или код ДНК.", "Найти запись", "")
+	var/search = tgui_input_text(user, "Введите имя, отпечатки пальцев или код ДНК.", "Найти запись", "")
 
 	if(!search || user.stat || user.incapacitated())
 		return

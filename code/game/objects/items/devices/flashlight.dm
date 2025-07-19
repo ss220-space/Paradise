@@ -125,7 +125,15 @@
 
 /obj/item/flashlight/seclite
 	name = "seclite"
-	desc = "A robust flashlight used by security."
+	desc = "Надежный фонарик, используемый службой безопасности."
+	ru_names = list(
+		NOMINATIVE = "фонарик",
+		GENITIVE = "фонарика",
+		DATIVE = "фонарику",
+		ACCUSATIVE = "фонарик",
+		INSTRUMENTAL = "фонариком",
+		PREPOSITIONAL = "фонарике"
+	)
 	icon_state = "seclite"
 	item_state = "seclite"
 	belt_icon = "seclite"

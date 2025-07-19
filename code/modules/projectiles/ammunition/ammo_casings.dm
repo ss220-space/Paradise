@@ -257,7 +257,7 @@
 	projectile_type = /obj/projectile/bullet/pellet/nuclear
 
 /obj/item/ammo_casing/shotgun/rubbershot
-	name = "rubber shot"
+	name = "rubbershot shell"
 	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "rubbershotshell"
 	materials = list(MAT_METAL = 1000)
@@ -412,7 +412,7 @@
 	variance = 17
 
 /obj/item/ammo_casing/shotgun/tranquilizer
-	name = "tranquilizer darts"
+	name = "tranquilizer dart"
 	desc = "A tranquilizer round used to subdue individuals utilizing stimulants."
 	icon_state = "tranquilizershell"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 200)

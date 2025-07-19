@@ -126,7 +126,7 @@
 
 		if("setdest")
 			if(GLOB.deliverybeacons)
-				var/dest = input("Select Bot Destination", "Mulebot [active.suffix] Interlink", active.destination) as null|anything in GLOB.deliverybeacontags
+				var/dest = tgui_input_list(usr, "Select Bot Destination", "Mulebot [active.suffix] Interlink", GLOB.deliverybeacontags, active.destination)
 				if(dest)
 					post_signal(control_freq, "command", "target", "active", active, "destination", dest, s_filter = RADIO_MULEBOT)
 

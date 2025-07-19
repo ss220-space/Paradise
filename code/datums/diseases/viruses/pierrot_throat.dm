@@ -50,7 +50,7 @@
 		if(3)
 			if(prob(10))
 				to_chat(affected_mob, span_danger("Ваши мысли прерывает громкий <b>ХОНК!</b>"))
-				affected_mob << 'sound/items/airhorn.ogg'
+				SEND_SOUND(affected_mob, sound('sound/items/airhorn.ogg'))
 		if(4)
 			if(prob(5))
 				affected_mob.say(pick(list("ХОНК!", "Хонк!", "Хонк.", "Хонк?", "Хонк!!", "Хонк?!", "Хонк...")))

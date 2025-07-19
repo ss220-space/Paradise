@@ -12,14 +12,30 @@
 
 /obj/item/clothing/suit/unathi/robe
 	name = "roughspun robes"
-	desc = "A traditional Unathi garment."
+	desc = "Традиционный гардеробный элемент унати."
+	ru_names = list(
+		NOMINATIVE = "грубошерстные одеяния",
+		GENITIVE = "грубошерстных одеяний",
+		DATIVE = "грубошерстным одеяниям",
+		ACCUSATIVE = "грубошерстные одеяния",
+		INSTRUMENTAL = "грубошерстными одеяниями",
+		PREPOSITIONAL = "грубошерстных одеяниях"
+	)
 	icon_state = "robe-unathi"
 	item_state = "robe-unathi"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 /obj/item/clothing/neck/mantle/unathi
 	name = "hide mantle"
-	desc = "A rather grisly selection of cured hides and skin, sewn together to form a ragged mantle."
+	desc = "Довольно жуткая подборка выделанных шкур, сшитых вместе, чтобы получилась рваная накидка."
+	ru_names = list(
+		NOMINATIVE = "накидка из шкур",
+		GENITIVE = "накидки из шкур",
+		DATIVE = "накидке из шкур",
+		ACCUSATIVE = "накидку из шкур",
+		INSTRUMENTAL = "накидкой из шкур",
+		PREPOSITIONAL = "накидке из шкур"
+	)
 	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "mantle-unathi"
 	body_parts_covered = UPPER_TORSO

@@ -91,3 +91,5 @@ GLOBAL_LIST_EMPTY(cargo_announcers)
 
 
 GLOBAL_LIST_EMPTY(devil_contracts)
+
+GLOBAL_LIST_EMPTY(nuke_codes)

@@ -57,7 +57,8 @@ export const RequestManager = (_props: unknown) => {
           buttons={
             <Input
               value={searchText}
-              onInput={(_, value) => setSearchText(value)}
+              expensive
+              onChange={setSearchText}
               placeholder={'Search...'}
               mr={1}
             />

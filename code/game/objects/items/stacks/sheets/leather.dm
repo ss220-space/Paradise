@@ -117,14 +117,30 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 
 /obj/item/stack/sheet/hairlesshide
 	name = "hairless hide"
-	desc = "This hide was stripped of it's hair, but still needs tanning."
+	desc = "Шкура, освобождённая от наростов, но всё ещё требующая обработки водой."
+	ru_names = list(
+		NOMINATIVE = "очищенная шкура",
+		GENITIVE = "очищенной шкуры",
+		DATIVE = "очищенной шкуре",
+		ACCUSATIVE = "очищенную шкуру",
+		INSTRUMENTAL = "очищенной шкурой",
+		PREPOSITIONAL = "очищенной шкуре"
+	)
 	singular_name = "hairless hide piece"
 	icon_state = "sheet-hairlesshide"
 	origin_tech = ""
 
 /obj/item/stack/sheet/wetleather
 	name = "wet leather"
-	desc = "This leather has been cleaned but still needs to be dried."
+	desc = "Промытая кожа, готовая к сушке. Издаёт характерный мокрый запах."
+	ru_names = list(
+		NOMINATIVE = "мокрая шкура",
+		GENITIVE = "мокрой шкуры",
+		DATIVE = "мокрой шкуре",
+		ACCUSATIVE = "мокрую шкуру",
+		INSTRUMENTAL = "мокрой шкурой",
+		PREPOSITIONAL = "мокрой шкуре"
+	)
 	singular_name = "wet leather piece"
 	icon_state = "sheet-wetleather"
 	origin_tech = ""
@@ -133,7 +149,15 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 
 /obj/item/stack/sheet/leather
 	name = "leather"
-	desc = "The by-product of mob grinding."
+	desc = "Побочный продукт переработки животных."
+	ru_names = list(
+		NOMINATIVE = "кожа",
+		GENITIVE = "кожи",
+		DATIVE = "коже",
+		ACCUSATIVE = "кожу",
+		INSTRUMENTAL = "кожей",
+		PREPOSITIONAL = "коже"
+	)
 	singular_name = "leather piece"
 	icon_state = "sheet-leather"
 	origin_tech = "materials=2"
@@ -161,7 +185,15 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 /obj/item/stack/sheet/sinew
 	name = "watcher sinew"
 	icon = 'icons/obj/mining.dmi'
-	desc = "Long stringy filaments which presumably came from a watcher's wings."
+	desc = "Длинные нити, предположительно извлечённые из крыльев наблюдателя."
+	ru_names = list(
+		NOMINATIVE = "сухожилия наблюдателя",
+		GENITIVE = "сухожилий наблюдателя",
+		DATIVE = "сухожилиям наблюдателя",
+		ACCUSATIVE = "сухожилия наблюдателя",
+		INSTRUMENTAL = "сухожилиями наблюдателя",
+		PREPOSITIONAL = "сухожилиях наблюдателя"
+	)
 	singular_name = "watcher sinew"
 	icon_state = "sinew"
 	origin_tech = "biotech=4"
@@ -179,7 +211,15 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
-	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
+	desc = "Фрагменты каменистой шкуры голиафа, способные усилить защиту вашего костюма от местной фауны."
+	ru_names = list(
+		NOMINATIVE = "пластина шкуры голиафа",
+		GENITIVE = "пластины шкуры голиафа",
+		DATIVE = "пластине шкуры голиафа",
+		ACCUSATIVE = "пластину шкуры голиафа",
+		INSTRUMENTAL = "пластиной шкуры голиафа",
+		PREPOSITIONAL = "пластине шкуры голиафа"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "goliath_hide"
 	singular_name = "hide plate"
@@ -229,10 +269,10 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 					H.update_inv_head()
 					H.update_inv_wear_suit()
 
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			to_chat(user, span_notice("Вы укрепляете [target.declent_ru(ACCUSATIVE)], повышая его устойчивость к ближним атакам."))
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
+			to_chat(user, span_warning("Вы не можете улучшить [C.declent_ru(ACCUSATIVE)] еще сильнее!"))
 
 	else if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
@@ -241,11 +281,11 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			to_chat(user, span_notice("Вы укрепляете [target.declent_ru(ACCUSATIVE)], повышая его устойчивость к ближним атакам."))
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+			to_chat(user, span_warning("Вы не можете улучшить [D.declent_ru(ACCUSATIVE)] еще сильнее!"))
 
 /obj/item/stack/sheet/animalhide/goliath_hide/five
 	amount = 5
@@ -301,7 +341,15 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"
-	desc = "The strong, scaled hide of an ash drake."
+	desc = "Прочная чешуйчатая шкура пепельного дрейка."
+	ru_names = list(
+		NOMINATIVE = "шкура пепельного дрейка",
+		GENITIVE = "шкуры пепельного дрейка",
+		DATIVE = "шкуре пепельного дрейка",
+		ACCUSATIVE = "шкуру пепельного дрейка",
+		INSTRUMENTAL = "шкурой пепельного дрейка",
+		PREPOSITIONAL = "шкуре пепельного дрейка"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "dragon_hide"
 	singular_name = "drake plate"
@@ -317,13 +365,13 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		if(loc == user && !user.can_unEquip(src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] starts cutting hair off [src]."),
-			span_notice("You start cutting the hair off [src]..."),
-			span_italics("You hear the sound of a knife rubbing against flesh."),
+			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] очищать бронированные сегменты [declent_ru(GENITIVE)]."),
+			span_notice("Вы начинаете очищать бронированные сегменты [declent_ru(GENITIVE)]..."),
+			span_italics("Слышен звук трения ножа о плоть."),
 		)
 		if(!do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("You cut the hair from [src]."))
+		to_chat(user, span_notice("Вы очистили [declent_ru(ACCUSATIVE)] от бронированных сегментов."))
 		var/obj/item/stack/sheet/hairlesshide/hide = new(drop_location(), 3 * amount)
 		hide.add_fingerprint(user)
 		qdel(src)
