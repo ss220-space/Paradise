@@ -69,14 +69,15 @@
 		timer = new_timer SECONDS
 		timer_set = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
-		to_chat(user, span_notice("You set the timer to [timer / 10] before activating the payload and closing \the [src]."))
-		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at [ADMIN_COORDJMP(loc)].")
-		add_game_logs("has set the timer on a pizza bomb to [timer/10] seconds [COORD(loc)].", usr)
+		to_chat(user, span_notice("You set the timer to [timer / 10] before activating the payload and closing  [src]."))
+		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer / 10] seconds at [ADMIN_COORDJMP(loc)].")
+		add_game_logs("has set the timer on a pizza bomb to [timer / 10] seconds [COORD(loc)].", usr)
 		armer = usr
 		return
 
 	if(!primed)
-		audible_message(span_warning("[bicon(src)] *beep* *beep*"))
+		audible_message(span_warning("[bicon(src)] *beep* *beep* *beep*"))
+		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 		to_chat(user, span_danger("That's no pizza! That's a bomb!"))
 		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [armer] at [ADMIN_COORDJMP(loc)].")
 		add_game_logs("has triggered a pizza bomb armed by [armer] [COORD(loc)].", usr)
@@ -87,10 +88,10 @@
 
 /obj/item/pizza_bomb/proc/go_boom()
 	if(disarmed)
-		visible_message(span_danger("[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on \the [src], but it's disarmed!"))
+		visible_message(span_danger("[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on  [src], but it's disarmed!"))
 		return
 	atom_say("Наслаждайтесь пиццей!")
-	src.visible_message(span_userdanger("\The [src] violently explodes!"))
+	src.visible_message(span_userdanger(" [src] violently explodes!"))
 	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
 	qdel(src)
 
