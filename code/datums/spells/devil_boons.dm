@@ -92,6 +92,8 @@
 
 /obj/effect/proc_holder/spell/view_range/genetic
 	desc = "Позволяет вам выбрать, как далеко вы будете видеть."
+	invocation_type = "none"
+	invocation = null
 
 /obj/effect/proc_holder/spell/summon_friend
 	name = "Призвать друга"
