@@ -33,8 +33,8 @@
 	title = JOB_TITLE_PRISONER
 	flag = JOB_FLAG_PRISONER
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 4
+	spawn_positions = 4
 	supervisors = "the warden"
 	department_head = list(JOB_TITLE_WARDEN)
 	selection_color = "#e6e6e6"
@@ -48,7 +48,7 @@
 	max_start_money = 50
 
 /datum/outfit/job/assistant/prisoner
-	name = "Prisoner"
+	name = "Заключенный"
 	jobtype = /datum/job/civilian/prisoner
 
 	id = /obj/item/card/id/prisoner/random
