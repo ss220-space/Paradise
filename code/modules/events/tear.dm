@@ -111,7 +111,7 @@
 		return
 	var/mob/mob = new leader(get_turf(src))
 	playsound(mob, 'sound/goonstation/voice/growl2.ogg', 100)
-	visible_message("<span class='danger'>With a terrifying growl, \a [mob] steps out of the portal!</span>")
+	visible_message(span_danger("С оглушительным рёвом, [mob] вышла из портала!"))
 
 /obj/effect/tear/proc/spawn_next_mob()
 	spawn_total++
@@ -127,4 +127,4 @@
 	mob.faction = list("rift")
 	step(mob, pick(GLOB.cardinal))
 	if(prob(30))
-		visible_message("<span class='danger'>[mob] steps out of the portal!</span>")
+		visible_message(span_danger("[mob] steps out of the portal!"))
