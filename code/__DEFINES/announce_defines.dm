@@ -26,7 +26,7 @@
 
 /// Define of other titles.
 #define ANNOUNCE_BIOHAZARD_RU		"Биологическая угроза."
-#define ANNOUNCE_ANOMALY_RU			"Аномалия."
+#define ANNOUNCE_ANOMALY_RU			"Предупреждение об аномалии."
 #define ANNOUNCE_PARANORMAL_RU		"Паранормальная активность."
 #define ANNOUNCE_CCPARANORMAL_RU	"Отдел Центрального командования по делам высших измерений."
 #define ANNOUNCE_METEOR_RU			"Метеориты."

@@ -22,17 +22,17 @@
 		log_debug("No valid event areas could be generated for dimensional tear.")
 	var/list/area_turfs = get_area_turfs(impact_area)
 	while(length(area_turfs))
-		var/turf/T = pick_n_take(area_turfs)
-		if(T.is_blocked_turf())
+		var/turf/turf = pick_n_take(area_turfs)
+		if(turf.is_blocked_turf())
 			continue
 
 		// Give ghosts some time to jump there before it begins.
 		var/image/alert_overlay = image('icons/mob/animal.dmi', notify_image)
-		notify_ghosts("\A [src] is about to open in [get_area(T)].", title = notify_title, source = T, alert_overlay = alert_overlay, action = NOTIFY_FOLLOW)
-		addtimer(CALLBACK(src, PROC_REF(spawn_tear), T), 4 SECONDS)
+		notify_ghosts("\A [src] is about to open in [get_area(turf)].", title = notify_title, source = turf, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_FOLLOW)
+		addtimer(CALLBACK(src, PROC_REF(spawn_tear), turf), 4 SECONDS)
 		// Energy overload; we mess with machines as an early warning and for extra spookiness.
-		for(var/obj/machinery/M in range(8, T))
-			INVOKE_ASYNC(M, TYPE_PROC_REF(/atom, get_spooked))
+		for(var/obj/machinery/machinery in range(8, turf))
+			INVOKE_ASYNC(machinery, TYPE_PROC_REF(/atom, get_spooked))
 
 		return
 
@@ -53,9 +53,10 @@
 			log_debug("Tried to announce a tear without a valid area!")
 			kill()
 			return
-	GLOB.minor_announcement.announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].",
-									ANNOUNCE_ANOMALY_RU,
-									'sound/AI/anomaly.ogg'
+	GLOB.minor_announcement.announce(
+		"На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].",
+		ANNOUNCE_ANOMALY_RU,
+		'sound/AI/anomaly.ogg'
 	)
 
 /datum/event/tear/end()
@@ -97,20 +98,20 @@
 
 	// We break some of those flickering consoles from earlier.
 	// Mirrors as well, for the extra bad luck.
-	for(var/obj/machinery/computer/C in range(6, src))
-		C.obj_break()
-	for(var/obj/structure/mirror/M in range(6, src))
-		M.obj_break()
-	for(var/obj/machinery/light/L in range(4, src))
-		L.break_light_tube()
+	for(var/obj/machinery/computer/computer in range(6, src))
+		computer.obj_break()
+	for(var/obj/structure/mirror/mirror in range(6, src))
+		mirror.obj_break()
+	for(var/obj/machinery/light/light in range(4, src))
+		light.break_light_tube()
 
 // We spawn a leader mob to make the portal actually dangerous.
 /obj/effect/tear/proc/spawn_leader()
 	if(!leader)
 		return
-	var/mob/M = new leader(get_turf(src))
-	playsound(M, 'sound/goonstation/voice/growl2.ogg', 100)
-	visible_message("<span class='danger'>With a terrifying growl, \a [M] steps out of the portal!</span>")
+	var/mob/mob = new leader(get_turf(src))
+	playsound(mob, 'sound/goonstation/voice/growl2.ogg', 100)
+	visible_message("<span class='danger'>With a terrifying growl, \a [mob] steps out of the portal!</span>")
 
 /obj/effect/tear/proc/spawn_next_mob()
 	spawn_total++
@@ -122,8 +123,8 @@
 		spawn_leader()
 
 /obj/effect/tear/proc/make_mob(mob_type)
-	var/mob/M = new mob_type(get_turf(src))
-	M.faction = list("rift")
-	step(M, pick(GLOB.cardinal))
+	var/mob/mob = new mob_type(get_turf(src))
+	mob.faction = list("rift")
+	step(mob, pick(GLOB.cardinal))
 	if(prob(30))
-		visible_message("<span class='danger'>[M] steps out of the portal!</span>")
+		visible_message("<span class='danger'>[mob] steps out of the portal!</span>")
