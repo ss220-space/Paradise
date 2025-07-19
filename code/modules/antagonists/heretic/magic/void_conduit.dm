@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/conjure/void_conduit
+/obj/effect/proc_holder/spell/aoe/conjure/void_conduit
 	name = "Void Conduit"
 	desc = "Opens a gate to the Void; it releases an intermittent pulse that damages windows and airlocks, \
 		while afflicting Heathens with void chill. \
@@ -16,10 +16,11 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	summon_radius = 0
+	aoe_range = 0
 	summon_type = list(/obj/structure/void_conduit)
-	summon_respects_density = TRUE
-	summon_respects_prev_spawn_points = TRUE
+	//summon_respects_density = TRUE
+	//summon_respects_prev_spawn_points = TRUE
+
 
 /obj/structure/void_conduit
 	name = "Void Conduit"
@@ -39,12 +40,14 @@
 	///Audio loop for the rift being alive
 	var/datum/looping_sound/void_conduit/soundloop
 
+
 /obj/structure/void_conduit/Initialize(mapload)
 	. = ..()
 	soundloop = new(src, start_immediately = TRUE)
 	timerid = QDEL_IN_STOPPABLE(src, 1 MINUTES)
 	START_PROCESSING(SSobj, src)
 	build_view_turfs()
+
 
 /obj/structure/void_conduit/proc/build_view_turfs()
 	for(var/turf/affected_turf as anything in overlayed_turfs)
@@ -57,6 +60,7 @@
 		void_overlay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		void_overlay.alpha = 180
 
+
 /obj/structure/void_conduit/Destroy(force)
 	QDEL_NULL(soundloop)
 	deltimer(timerid)
@@ -65,9 +69,11 @@
 		affected_turf.cut_overlay(void_overlay)
 	return ..()
 
+
 /obj/structure/void_conduit/process(seconds_per_tick)
 	build_view_turfs()
 	do_conduit_pulse()
+
 
 ///Sends out a pulse
 /obj/structure/void_conduit/proc/do_conduit_pulse()
@@ -84,6 +90,7 @@
 		addtimer(CALLBACK(src, PROC_REF(handle_effects), turfs_to_affect["[distance]"]), (1 SECONDS) * distance)
 
 	new /obj/effect/temp_visual/circle_wave/void_conduit(get_turf(src))
+
 
 ///Applies the effects of the pulse "hitting" something. Freezes non-heretic, destroys airlocks/windows
 /obj/structure/void_conduit/proc/handle_effects(list/turfs)
@@ -107,6 +114,7 @@
 				var/obj/structure/affected_structure = thing_to_affect
 				affected_structure.take_damage(rand(10, 20))
 
+
 /datum/looping_sound/void_conduit
 	mid_sounds = 'sound/ambience/misc/ambiatm1.ogg'
 	mid_length = 1 SECONDS
@@ -115,15 +123,38 @@
 	falloff_distance = 5
 	falloff_exponent = 20
 
+
 /datum/status_effect/void_conduit
 	id = "void_conduit"
 	duration = 15 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 
+
 /datum/status_effect/void_conduit/on_apply()
-	ADD_TRAIT(action.owner, TRAIT_RESISTLOWPRESSURE, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_RESIST_COLD, TRAIT_STATUS_EFFECT(id))
 	return TRUE
 
+
 /datum/status_effect/void_conduit/on_remove()
-	REMOVE_TRAIT(action.owner, TRAIT_RESISTLOWPRESSURE, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_RESIST_COLD, TRAIT_STATUS_EFFECT(id))
+
+
+
+/// Visual effect spawned when the bioscrambler scrambles your bio
+/obj/effect/temp_visual/circle_wave
+	icon = 'icons/effects/64x64.dmi'
+	icon_state = "circle_wave"
+	pixel_x = -16
+	pixel_y = -16
+	duration = 0.5 SECONDS
+	color = COLOR_LIME
+	var/max_alpha = 255
+	///How far the effect would scale in size
+	var/amount_to_scale = 2
+
+
+/obj/effect/temp_visual/circle_wave/void_conduit
+	color = COLOR_FULL_TONER_BLACK
+	duration = 12 SECONDS
+	amount_to_scale = 12

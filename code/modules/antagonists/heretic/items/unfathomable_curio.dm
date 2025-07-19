@@ -4,11 +4,11 @@
 	name = "Unfathomable Curio"
 	desc = "It. It looks backs. It looks past. It looks in. It sees. It hides. It opens."
 	icon_state = "unfathomable_curio"
-	worn_icon_state = "unfathomable_curio"
-	content_overlays = FALSE
+	item_state = "unfathomable_curio"
+	//content_overlays = FALSE
 	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
 	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
-	storage_type = /datum/storage/unfathomable_curio
+	//storage_type = /datum/storage/unfathomable_curio
 
 	//Vars used for the shield component
 	var/heretic_shield_icon = "unfathomable_shield"
@@ -16,6 +16,7 @@
 	var/recharge_start_delay = 30 SECONDS
 	var/charge_increment_delay = 30 SECONDS
 	var/charge_recovery = 1
+
 
 /obj/item/storage/belt/unfathomable_curio/Initialize(mapload)
 	. = ..()
@@ -31,12 +32,16 @@
 
 	RegisterSignal(user, COMSIG_LIVING_CHECK_BLOCK, PROC_REF(shield_reaction))
 
-	if(!isheretic(user))
-		to_chat(user, span_warning("The curio wraps around you, and you feel the beating of something dark inside it..."))
+	if(isheretic(user))
+		return
+
+	to_chat(user, span_warning("The curio wraps around you, and you feel the beating of something dark inside it..."))
+
 
 /obj/item/storage/belt/unfathomable_curio/dropped(mob/user)
 	. = ..()
 	UnregisterSignal(user, COMSIG_LIVING_CHECK_BLOCK)
+
 
 // Here we make sure our curio is only able to block while worn on the belt slot
 /obj/item/storage/belt/unfathomable_curio/proc/shield_reaction(mob/living/carbon/human/owner,
@@ -53,23 +58,38 @@
 		return SUCCESSFUL_BLOCK
 	return NONE
 
+
 // Our on hit effect
-/obj/item/storage/belt/unfathomable_curio/proc/shield_damaged(mob/living/carbon/wearer, attack_text, new_current_charges)
-	var/list/brain_traumas = list(
+/obj/item/storage/belt/unfathomable_curio/proc/shield_damaged(mob/living/carbon/human/wearer, attack_text, new_current_charges)
+	/*var/list/brain_traumas = list(
 		/datum/brain_trauma/severe/mute,
 		/datum/brain_trauma/severe/flesh_desire,
 		/datum/brain_trauma/severe/eldritch_beauty,
 		/datum/brain_trauma/severe/paralysis,
 		/datum/brain_trauma/severe/monophobia
-	)
+	)*/
 	wearer.visible_message(span_danger("[wearer]'s veil makes [attack_text] miss, but the force behind the blow causes it to disperse!"))
 	if(isheretic(wearer))
 		return
 
 	to_chat(wearer, span_warning("Laughter echoes in your mind...."))
 	wearer.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 40)
-	wearer.dropItemToGround(src, TRUE)
-	wearer.gain_trauma(pick(brain_traumas) ,TRAUMA_RESILIENCE_ABSOLUTE)
+	wearer.drop_item_ground(src, TRUE)
+	var/trauma_type = rand(1, 5)
+	switch(trauma_type)
+		if(1)
+			wearer.force_gene_block(GLOB.muteblock, TRUE, TRUE)
+		if(2)
+			wearer.force_gene_block(GLOB.swedeblock, TRUE, TRUE)
+		if(3)
+			wearer.force_gene_block(GLOB.scrambleblock, TRUE, TRUE)
+		if(4)
+			wearer.force_gene_block(GLOB.comicblock, TRUE, TRUE)
+		if(5)
+			wearer.force_gene_block(GLOB.paraplegiablock, TRUE, TRUE)
+
+	//wearer.gain_trauma(pick(brain_traumas) ,TRAUMA_RESILIENCE_ABSOLUTE)
+
 
 /obj/item/storage/belt/unfathomable_curio/examine(mob/living/carbon/user)
 	. = ..()
@@ -77,7 +97,6 @@
 		return
 
 	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 160)
-	user.adjust_temp_blindness(5 SECONDS)
+	user.EyeBlind(5 SECONDS)
 	. += span_notice("It. It looked. IT WRAPS ITSELF AROUND ME.")
-
 

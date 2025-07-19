@@ -48,13 +48,17 @@
 			Shapeshift(M)
 
 
+/obj/effect/proc_holder/spell/shapeshift/proc/create_shapeshift_mob(atom/loc)
+	return new shapeshift_type(loc)
+
+
 /obj/effect/proc_holder/spell/shapeshift/proc/Shapeshift(mob/living/caster)
 	for(var/mob/living/mob in caster)
 		if(HAS_TRAIT_FROM(mob, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src)))
 			to_chat(caster, span_warning("You're already shapeshifted!"))
 			return
 
-	var/mob/living/shape = new shapeshift_type(get_turf(caster))
+	var/mob/living/shape = create_shapeshift_mob(get_turf(caster))
 	caster.forceMove(shape)
 	ADD_TRAIT(caster, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 

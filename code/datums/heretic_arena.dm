@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	wound_bonus,
 	bare_wound_bonus,
 	sharpness,
-	attack_direction,
+	//attack_direction,
 	attacking_item,
 	wound_clothing,
 )

@@ -64,6 +64,7 @@
 	/// Effect for when someone teleports
 	var/obj/effect/rune_effect = /obj/effect/temp_visual/rune_light
 
+
 /obj/effect/cosmic_rune/Initialize(mapload)
 	. = ..()
 	var/image/silicon_image = image(icon = 'icons/obj/hand_of_god_structures.dmi', icon_state = null, loc = src)
@@ -71,26 +72,34 @@
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cosmic", silicon_image)
 	ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
 
-/obj/effect/cosmic_rune/attack_paw(mob/living/user, list/modifiers)
-	return attack_hand(user, modifiers)
+
+/obj/effect/cosmic_rune/attack_animal(mob/living/simple_animal/user)
+	. = ..()
+	return attack_hand(user)
+
 
 /obj/effect/cosmic_rune/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
+
 	if(!linked_rune)
 		balloon_alert(user, "no linked rune!")
 		fail_invoke()
 		return
+
 	if(!(user in get_turf(src)))
 		balloon_alert(user, "not close enough!")
 		fail_invoke()
 		return
+
 	if(user.has_status_effect(/datum/status_effect/star_mark))
 		balloon_alert(user, "blocked by star mark!")
 		fail_invoke()
 		return
+
 	invoke(user)
+
 
 /// For invoking the rune
 /obj/effect/cosmic_rune/proc/invoke(mob/living/user)
@@ -99,14 +108,15 @@
 	do_teleport(
 		user,
 		get_turf(linked_rune_resolved),
-		no_effects = TRUE,
-		channel = TELEPORT_CHANNEL_MAGIC,
 		asoundin = 'sound/effects/magic/cosmic_energy.ogg',
 		asoundout = 'sound/effects/magic/cosmic_energy.ogg',
 	)
 	for(var/mob/living/person_on_rune in get_turf(src))
-		if(person_on_rune.has_status_effect(/datum/status_effect/star_mark))
-			do_teleport(person_on_rune, get_turf(linked_rune_resolved), no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
+		if(!person_on_rune.has_status_effect(/datum/status_effect/star_mark))
+			continue
+
+		do_teleport(person_on_rune, get_turf(linked_rune_resolved))
+
 	new rune_effect(get_turf(linked_rune_resolved))
 
 /// For if someone failed to invoke the rune
@@ -117,19 +127,25 @@
 	animate(src, color = oldcolor, time = 5)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 0.5 SECONDS)
 
+
 /// For linking a new rune
 /obj/effect/cosmic_rune/proc/link_rune(datum/weakref/new_rune)
 	linked_rune = WEAKREF(new_rune)
 
+
 /obj/effect/cosmic_rune/Destroy()
 	var/obj/effect/cosmic_rune/linked_rune_resolved = linked_rune?.resolve()
-	if(linked_rune_resolved)
-		linked_rune_resolved.unlink_rune()
+	if(!linked_rune_resolved)
+		return ..()
+
+	linked_rune_resolved.unlink_rune()
 	return ..()
+
 
 /// Used for unlinking the other rune if this rune gets destroyed
 /obj/effect/cosmic_rune/proc/unlink_rune()
 	linked_rune = null
+
 
 /obj/effect/temp_visual/cosmic_rune_fade
 	name = "cosmic rune"
@@ -140,11 +156,13 @@
 	anchored = TRUE
 	duration = 5
 
+
 /obj/effect/temp_visual/cosmic_rune_fade/Initialize(mapload)
 	. = ..()
 	var/image/silicon_image = image(icon = 'icons/obj/hand_of_god_structures.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cosmic", silicon_image)
+
 
 /obj/effect/temp_visual/rune_light
 	name = "cosmic rune"
@@ -154,6 +172,7 @@
 	layer = CLEANABLES_LAYER
 	anchored = TRUE
 	duration = 5
+
 
 /obj/effect/temp_visual/rune_light/Initialize(mapload)
 	. = ..()

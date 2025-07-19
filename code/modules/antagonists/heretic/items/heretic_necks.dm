@@ -5,9 +5,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF
 
+
 /obj/item/clothing/neck/heretic_focus/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/heretic_focus)
+
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion
 	name = "crimson medallion"
@@ -18,6 +20,7 @@
 	/// If active or not, used to add and remove its cult and heretic buffs.
 	var/active = FALSE
 
+
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/equipped(mob/living/user, slot)
 	. = ..()
 	if(!(slot & ITEM_SLOT_NECK))
@@ -25,18 +28,21 @@
 
 	var/team_color = COLOR_ADMIN_PINK
 	if(iscultist(user))
-		var/datum/action/innate/cult/blood_magic/magic_holder = locate() in user.actions
+		//var/obj/effect/proc_holder/spell/cult/blood_magic/magic_holder = locate() in user.actions
 		team_color = COLOR_CULT_RED
-		magic_holder.magic_enhanced = TRUE
+		//magic_holder.magic_enhanced = TRUE
+
 	else if(IS_HERETIC_OR_MONSTER(user) && !active)
-		for(var/datum/action/innate/spell_action in user.actions)
+		for(var/obj/effect/proc_holder/spell/spell_action in user.actions)
 			spell_action.base_cooldown *= 0.5
 			active = TRUE
+
 		team_color = COLOR_GREEN
+
 	else
 		team_color = pick(COLOR_CULT_RED, COLOR_GREEN)
 
-	user.add_traits(list(TRAIT_MANSUS_TOUCHED, TRAIT_BLOODY_MESS), REF(src))
+	user.add_traits(list(TRAIT_MANSUS_TOUCHED/*, TRAIT_BLOODY_MESS*/), REF(src))
 	to_chat(user, span_alert("Your heart takes on a strange yet soothing irregular rhythm, and your blood feels significantly less viscous than it used to be. You're not sure if that's a good thing."))
 	component = user.AddComponent( \
 		/datum/component/aura_healing, \
@@ -51,6 +57,7 @@
 		healing_color = team_color, \
 	)
 
+
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/dropped(mob/living/user)
 	. = ..()
 
@@ -61,18 +68,20 @@
 		to_chat(user, span_notice("Your heart and blood return to their regular old rhythm and flow."))
 
 	if(IS_HERETIC_OR_MONSTER(user) && active)
-		for(var/datum/action/innate/spell_action in user.actions)
+		for(var/obj/effect/proc_holder/spell/spell_action in user.actions)
 			spell_action.base_cooldown *= 2
 			active = FALSE
+
 	QDEL_NULL(component)
-	user.remove_traits(list(TRAIT_MANSUS_TOUCHED, TRAIT_BLOODY_MESS), REF(src))
+	user.remove_traits(list(TRAIT_MANSUS_TOUCHED/*, TRAIT_BLOODY_MESS*/), REF(src))
 
 	// If boosted enable is set, to prevent false dropped() calls from repeatedly nuking the max spells.
-	var/datum/action/innate/cult/blood_magic/magic_holder = locate() in user.actions
+	//var/obj/effect/proc_holder/spell/cult/blood_magic/magic_holder = locate() in user.actions
 	// Remove the last spell if over new limit, as we will reduce our max spell amount. Done beforehand as it causes a index out of bounds runtime otherwise.
-	if(magic_holder?.magic_enhanced)
-		QDEL_NULL(magic_holder.spells[ENHANCED_BLOODCHARGE])
-	magic_holder?.magic_enhanced = FALSE
+	//if(magic_holder?.magic_enhanced)
+	//	QDEL_NULL(magic_holder.spells[ENHANCED_BLOODCHARGE])
+
+	//magic_holder?.magic_enhanced = FALSE
 
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/attack_self(mob/living/user, modifiers)
@@ -90,6 +99,7 @@
 	user.reagents?.add_reagent(/datum/reagent/eldritch, rand(6, 10))
 	qdel(src)
 
+
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/examine(mob/user)
 	. = ..()
 
@@ -97,12 +107,16 @@
 	if(iscultist(user))
 		. += span_cultbold("This focus will allow you to store one extra spell and halve the empowering time, alongside providing a small regenerative effect.")
 		magic_dude = TRUE
+
 	if(IS_HERETIC_OR_MONSTER(user))
 		. += span_notice("This focus will halve your spell cooldowns, alongside granting a small regenerative effect to any nearby heretics or monsters, including you.")
 		magic_dude = TRUE
 
-	if(magic_dude)
-		. += span_red("You can also squeeze it to recover a large amount of health quickly, at a cost...")
+	if(!magic_dude)
+		return
+
+	. += span_red("You can also squeeze it to recover a large amount of health quickly, at a cost...")
+
 
 /obj/item/clothing/neck/eldritch_amulet
 	name = "warm eldritch medallion"
@@ -114,29 +128,35 @@
 	/// A secondary clothing trait only applied to heretics.
 	var/heretic_only_trait = TRAIT_THERMAL_VISION
 
+
 /obj/item/clothing/neck/eldritch_amulet/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/heretic_focus)
+
 
 /obj/item/clothing/neck/eldritch_amulet/equipped(mob/user, slot)
 	. = ..()
 	if(!(slot & ITEM_SLOT_NECK))
 		return
+
 	if(!ishuman(user) || !IS_HERETIC_OR_MONSTER(user))
 		return
 
 	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[REF(src)]")
 	user.update_sight()
 
+
 /obj/item/clothing/neck/eldritch_amulet/dropped(mob/user)
 	. = ..()
 	REMOVE_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[REF(src)]")
 	user.update_sight()
 
+
 /obj/item/clothing/neck/eldritch_amulet/piercing
 	name = "piercing eldritch medallion"
 	desc = "A strange medallion. Peering through the crystalline surface, the light refracts into new and terrifying spectrums of color. You see yourself, reflected off cascading mirrors, warped into impossible shapes."
-	heretic_only_trait = TRAIT_XRAY_VISION
+	heretic_only_trait = TRAIT_XRAY
+
 
 // Cosmetic-only version
 /obj/item/clothing/neck/fake_heretic_amulet
@@ -157,6 +177,7 @@
 	// How much damage does this item do to the targets sanity?
 	var/sanity_damage = 20
 
+
 /obj/item/clothing/neck/heretic_focus/moon_amulet/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/mob/living/carbon/human/hit = target
 	if(!IS_HERETIC_OR_MONSTER(user))
@@ -168,6 +189,6 @@
 
 	user.balloon_alert(user, "their mind bends to see the truth!")
 	hit.apply_status_effect(/datum/status_effect/moon_converted)
-	user.log_message("made [target] insane.", LOG_GAME)
-	hit.log_message("was driven insane by [user]")
+	//user.log_message("made [target] insane.", LOG_GAME)
+	//hit.log_message("was driven insane by [user]")
 	. = ..()

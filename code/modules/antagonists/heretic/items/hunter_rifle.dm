@@ -4,29 +4,32 @@
 // The Lionhunter, a gun for heretics
 // The ammo it uses takes time to "charge" before firing,
 // releasing a homing, very damaging projectile
-/obj/item/gun/ballistic/rifle/lionhunter
+/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter
 	name = "\improper Lionhunter's Rifle"
 	desc = "An antique looking rifle that looks immaculate despite being clearly very old."
 	slot_flags = ITEM_SLOT_BACK
 	icon_state = "lionhunter"
-	inhand_icon_state = "lionhunter"
-	worn_icon_state = "lionhunter"
-	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
-	fire_sound = 'sound/weapons/gun/sniper/shot.ogg'
+	item_state = "lionhunter"
+	item_state = "lionhunter"
+	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
+	fire_sound = 'sound/weapons/gunshots/shot.ogg'
 
 	SET_BASE_PIXEL(-8, 0)
 
-/obj/item/gun/ballistic/rifle/lionhunter/Initialize(mapload)
+/*
+/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/scope, range_modifier = 3.2)
+*/
 
 /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
 	name = "lionhunter rifle internal magazine"
 	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter
-	caliber = CALIBER_STRILKA310
+	//caliber = CALIBER_STRILKA310
 	armour_penetration = 100
 	max_ammo = 3
 	multiload = TRUE
+
 
 /obj/item/ammo_casing/strilka310/lionhunter
 	projectile_type = /obj/projectile/bullet/strilka310/lionhunter
@@ -37,18 +40,18 @@
 	/// The minimum distance required to gain a damage bonus from aiming
 	var/min_distance = 4
 
-/obj/item/ammo_casing/strilka310/lionhunter/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/fired_from)
-	if(!loaded_projectile)
-		return
+
+/obj/item/ammo_casing/strilka310/lionhunter/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom)
 	if(!check_fire(target, user))
 		return
 
 	return ..()
 
+
 /// Checks if we can successfully fire our projectile.
 /obj/item/ammo_casing/strilka310/lionhunter/proc/check_fire(atom/target, mob/living/user)
 	// In case someone puts this in turrets or something wacky, just fire like normal
-	if(!iscarbon(user) || !istype(loc, /obj/item/gun/ballistic/rifle/lionhunter))
+	if(!iscarbon(user) || !istype(loc, /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter))
 		return TRUE
 
 	if(currently_aiming)
@@ -65,7 +68,7 @@
 		return TRUE
 
 	user.balloon_alert(user, "taking aim...")
-	user.playsound_local(get_turf(user), 'sound/weapons/gun/general/chunkyrack.ogg', 100, TRUE)
+	user.playsound_local(get_turf(user), 'sound/weapons/chunkyrack.ogg', 100, TRUE)
 
 	var/image/reticle = image(
 		icon = 'icons/mob/actions/actions_items.dmi',
@@ -87,7 +90,7 @@
 	animate(reticle, fire_time * 0.5, transform = turn(reticle.transform, 180))
 
 	currently_aiming = TRUE
-	. = do_after(user, fire_time, target, IGNORE_TARGET_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(check_fire_callback), target, user))
+	. = do_after(user, fire_time, target, DEFAULT_DOAFTER_IGNORE | DA_IGNORE_TARGET_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(check_fire_callback), target, user))
 	currently_aiming = FALSE
 
 	animate(reticle, 0.5 SECONDS, alpha = 0)
@@ -99,6 +102,7 @@
 
 	return .
 
+
 /// Callback for the do_after within the check_fire proc to see if something will prevent us from firing while aiming
 /obj/item/ammo_casing/strilka310/lionhunter/proc/check_fire_callback(mob/living/target, mob/living/user)
 	if(!isturf(target.loc))
@@ -106,8 +110,9 @@
 
 	return TRUE
 
+
 /obj/item/ammo_casing/strilka310/lionhunter/ready_proj(atom/target, mob/living/user, quiet, zone_override, atom/fired_from)
-	if(!loaded_projectile)
+	if(!BB)
 		return
 
 	var/distance = get_dist(user, target)
@@ -116,16 +121,17 @@
 	// BUT, if we're at a decent range and the target's a living mob,
 	// the projectile's been channel fired. It has full effects and homes in.
 	if(distance > min_distance && isliving(target) && iscarbon(user))
-		loaded_projectile.stamina *= 2
-		loaded_projectile.knockdown = 0.5 SECONDS
-		loaded_projectile.stutter = 6 SECONDS
-		loaded_projectile.projectile_phasing =  PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
+		BB.stamina *= 2
+		BB.knockdown = 0.5 SECONDS
+		BB.stutter = 6 SECONDS
+		//BB.projectile_phasing =  PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 
-		loaded_projectile.homing = TRUE
-		loaded_projectile.homing_turn_speed = 150
-		loaded_projectile.set_homing_target(target)
+		//homing = TRUE
+		//homing_turn_speed = 150
+		//set_homing_target(target)
 
 	return ..()
+
 
 /obj/projectile/bullet/strilka310/lionhunter
 	name = "hunter's .310 bullet"
@@ -133,47 +139,59 @@
 	// If fired without aiming or at someone too close, it will do much less
 	damage = 30
 	stamina = 30
-	projectile_phasing =  PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
+	//projectile_phasing =  PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 	///The mob that is currently inside the bullet
 	var/mob/stored_mob
+
 
 /obj/projectile/bullet/strilka310/lionhunter/fire(angle, atom/direct_target)
 	. = ..()
 	if(QDELETED(src) || !isliving(firer) || !isliving(original))
 		return
+
 	var/mob/living/living_firer = firer
-	if(isheretic(living_firer))
-		living_firer.forceMove(src)
-		stored_mob = living_firer
+	if(!isheretic(living_firer))
+		return
+
+	living_firer.forceMove(src)
+	stored_mob = living_firer
 
 
 /obj/projectile/bullet/strilka310/lionhunter/Exited(atom/movable/gone)
 	if(gone == stored_mob)
 		stored_mob = null
+
 	return ..()
+
 
 /obj/projectile/bullet/strilka310/lionhunter/on_range()
 	stored_mob?.forceMove(loc)
 	return ..()
 
+
 /obj/projectile/bullet/strilka310/lionhunter/on_hit(atom/target, blocked, pierce_hit)
 	stored_mob?.forceMove(loc) //Pretty important to get our mob out of the bullet
 	. = ..()
 	if(!isliving(target))
-		return BULLET_ACT_HIT
+		return
+
 	var/mob/living/victim = target
 	var/mob/firing_mob = firer
 	if(IS_HERETIC_OR_MONSTER(victim) || !isheretic(firing_mob))
-		return BULLET_ACT_HIT
+		return
 
 	SEND_SIGNAL(firer, COMSIG_LIONHUNTER_ON_HIT, victim)
-	return BULLET_ACT_HIT
+	return
+
 
 /obj/projectile/bullet/strilka310/lionhunter/Destroy()
-	if(stored_mob)
-		stack_trace("Lionhunter bullet qdel'd with its firer still inside!")
-		stored_mob.forceMove(loc)
+	if(!stored_mob)
+		return ..()
+
+	stack_trace("Lionhunter bullet qdel'd with its firer still inside!")
+	stored_mob.forceMove(loc)
 	return ..()
+
 
 // Extra ammunition can be made with a heretic ritual.
 /obj/item/ammo_box/strilka310/lionhunter
@@ -182,7 +200,8 @@
 	icon_state = "310_strip"
 	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter
 	max_ammo = 3
-	multiple_sprites = AMMO_BOX_PER_BULLET
+	//multiple_sprites = AMMO_BOX_PER_BULLET
+
 
 /obj/effect/temp_visual/bullet_target
 	icon = 'icons/mob/actions/actions_items.dmi'
@@ -190,5 +209,6 @@
 	layer = BELOW_MOB_LAYER
 	plane = GAME_PLANE
 	light_range = 2
+
 
 #undef MAX_LIONHUNTER_RANGE

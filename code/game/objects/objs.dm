@@ -333,4 +333,22 @@
 		take_damage(damage, BRUTE)
 	C.Weaken(3 SECONDS)
 
+
+/// Attempt to freeze this obj if possible. returns TRUE if it succeeded, FALSE otherwise.
+/obj/proc/freeze_add()
+	if(HAS_TRAIT(src, TRAIT_FROZEN))
+		return FALSE
+
+	if(resistance_flags & FREEZE_PROOF)
+		return FALSE
+
+	AddElement(/datum/element/frozen)
+	return TRUE
+
+
+/// Unfreezes this obj if its frozen
+/obj/proc/unfreeze()
+	SEND_SIGNAL(src, COMSIG_OBJ_UNFREEZE)
+
+
 #undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER

@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/conjure/cosmic_expansion
+/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion
 	name = "Cosmic Expansion"
 	desc = "This spell generates a 3x3 domain of cosmic fields. \
 		Creatures up to 7 tiles away will also receive a star mark."
@@ -15,8 +15,8 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	summon_amount = 9
-	summon_radius = 1
+	summon_amt = 9
+	aoe_range = 1
 	summon_type = list(/obj/effect/forcefield/cosmic_field)
 	/// The range at which people will get marked with a star mark.
 	var/star_mark_range = 7
@@ -25,20 +25,26 @@
 	/// If the heretic is ascended or not
 	var/ascended = FALSE
 
-/obj/effect/proc_holder/spell/conjure/cosmic_expansion/cast(mob/living/cast_on)
+
+/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cast(mob/living/cast_on)
 	new expansion_effect(get_turf(cast_on))
 	for(var/mob/living/nearby_mob in range(star_mark_range, cast_on))
 		if(cast_on == nearby_mob || cast_on.buckled == nearby_mob)
 			continue
 		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, cast_on)
-	if (ascended)
-		for(var/turf/cast_turf as anything in get_turfs(get_turf(cast_on)))
-			new /obj/effect/forcefield/cosmic_field(cast_turf)
+
+	if (!ascended)
+		return ..()
+
+	for(var/turf/cast_turf as anything in get_turfs(get_turf(cast_on)))
+		new /obj/effect/forcefield/cosmic_field(cast_turf)
+
 	return ..()
 
-/obj/effect/proc_holder/spell/conjure/cosmic_expansion/proc/get_turfs(turf/target_turf)
+
+/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/proc/get_turfs(turf/target_turf)
 	var/list/target_turfs = list()
-	for (var/direction as anything in GLOB.cardinals)
+	for (var/direction as anything in GLOB.cardinal)
 		target_turfs += get_ranged_target_turf(target_turf, direction, 2)
 		target_turfs += get_ranged_target_turf(target_turf, direction, 3)
 	return target_turfs

@@ -294,7 +294,7 @@ emp_act
 			if(r_ear)
 				inventory_items_to_kill += r_ear
 
-	//CHEST//
+	//UPPER_TORSO|LOWER_TORSO//
 	if(!bodyzone_hit || bodyzone_hit == BODY_ZONE_CHEST)
 		var/obj/item/clothing/chest_clothes = null
 		if(w_uniform)

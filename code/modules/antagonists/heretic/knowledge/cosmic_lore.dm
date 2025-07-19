@@ -24,7 +24,7 @@
 		You can only create two at a time."
 	gain_text = "A nebula appeared in the sky, its infernal birth shone upon me. This was the start of a great transcendence."
 	required_atoms = list(
-		/obj/item/knife = 1,
+		/obj/item/kitchen/knife = 1,
 		/obj/item/stack/sheet/mineral/plasma = 1,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/cosmic)
@@ -62,7 +62,7 @@
 		However, people with a star mark will get transported along with another person using the rune."
 	gain_text = "The distant stars crept into my dreams, roaring and screaming without reason. \
 		I spoke, and heard my own words echoed back."
-	action_to_add = /datum/action/innate/cosmic_rune
+	action_to_add = /obj/effect/proc_holder/spell/cosmic_rune
 	cost = 1
 
 
@@ -86,7 +86,7 @@
 		The beam lasts a minute, until the beam is obstructed or until a new target has been found."
 	gain_text = "After waking in a cold sweat I felt a palm on my scalp, a sigil burned onto me. \
 		My veins now emitted a strange purple glow, the Beast knows I will surpass its expectations."
-	action_to_add = /datum/action/innate/touch/star_touch
+	action_to_add = /obj/effect/proc_holder/spell/touch/star_touch
 	cost = 1
 
 /datum/heretic_knowledge/spell/star_blast
@@ -94,7 +94,7 @@
 	desc = "Fires a projectile that moves very slowly, raising a short-lived wall of cosmic fields where it goes. \
 		Anyone hit by the projectile will receive burn damage, a knockdown, and give people in a three tile range a star mark."
 	gain_text = "The Beast was behind me now at all times, with each sacrifice words of affirmation coursed through me."
-	action_to_add = /datum/action/innate/pointed/projectile/star_blast
+	action_to_add = /obj/effect/proc_holder/spell/pointed/projectile/star_blast
 	cost = 1
 
 /datum/heretic_knowledge/blade_upgrade/cosmic
@@ -199,7 +199,7 @@
 	desc = "Grants you Cosmic Expansion, a spell that creates a 3x3 area of cosmic fields around you. \
 		Nearby beings will also receive a star mark."
 	gain_text = "The ground now shook beneath me. The Beast inhabited me, and their voice was intoxicating."
-	action_to_add = /datum/action/innate/conjure/cosmic_expansion
+	action_to_add = /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion
 	cost = 1
 
 /datum/heretic_knowledge/ultimate/cosmic_final
@@ -218,9 +218,9 @@
 		I closed my eyes with my head laid against their form. I was safe. \
 		WITNESS MY ASCENSION!"
 
-	ascension_achievement = /datum/award/achievement/misc/cosmic_ascension
+	//ascension_achievement = /datum/award/achievement/misc/cosmic_ascension
 	announcement_text = "%SPOOKY% A Star Gazer has arrived into the station, %NAME% has ascended! This station is the domain of the Cosmos! %SPOOKY%"
-	announcement_sound = 'sound/music/antag/heretic/ascend_cosmic.ogg'
+	announcement_sound = 'sound/music/heretic/ascend_cosmic.ogg'
 	/// A static list of command we can use with our mob.
 	var/static/list/star_gazer_commands = list(
 		/datum/pet_command/idle,
@@ -234,7 +234,7 @@
 	if(!.)
 		return FALSE
 
-	return sacrifice.has_reagent(/datum/reagent/bluespace)
+	return TRUE // sacrifice.has_reagent(/datum/reagent/bluespace)
 
 /datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
@@ -245,9 +245,8 @@
 	star_gazer_mob.AddComponent(/datum/component/obeys_commands, star_gazer_commands, radial_menu_offset = list(30,0), radial_menu_lifetime = 15 SECONDS, radial_relative_to_user = TRUE)
 	star_gazer_mob.AddComponent(/datum/component/damage_aura, range = 7, burn_damage = 0.5, simple_damage = 0.5, immune_factions = list(FACTION_HERETIC), current_owner = user)
 	star_gazer_mob.befriend(user)
-	var/obj/effect/proc_holder/spell/open_mob_commands/commands_action = new /obj/effect/proc_holder/spell/open_mob_commands()
-	commands_action.Grant(user, star_gazer_mob)
-	var/datum/action/innate/touch/star_touch/star_touch_spell = locate() in user.actions
+	user.AddSpell(new /obj/effect/proc_holder/spell/open_mob_commands(star_gazer_mob))
+	var/obj/effect/proc_holder/spell/touch/star_touch/star_touch_spell = locate() in user.actions
 	if(star_touch_spell)
 		star_touch_spell.set_star_gazer(star_gazer_mob)
 		star_touch_spell.ascended = TRUE
@@ -259,5 +258,39 @@
 	blade_upgrade.max_combo_duration = 30 SECONDS
 	blade_upgrade.increase_amount = 2 SECONDS
 
-	var/datum/action/innate/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.actions
+	var/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.actions
 	cosmic_expansion_spell?.ascended = TRUE
+
+
+/obj/effect/proc_holder/spell/open_mob_commands
+	name = "Command Star Gazer"
+	desc = "Open the command menu for your star gazer."
+	action_background_icon_state = "bg_heretic"
+	overlay_icon_state = "bg_heretic_border"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "stargazer_menu"
+	//check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED | AB_CHECK_PHASED
+	/// Weakref for storing our stargazer
+	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/our_mob
+
+
+/obj/effect/proc_holder/spell/open_mob_commands/New(gazer)
+	. = ..()
+	our_mob = gazer
+
+
+/obj/effect/proc_holder/spell/open_mob_commands/cast(list/targets, mob/user)
+	open_menu()
+	return TRUE
+
+
+/// Opens the pet command options menu for a mob.
+/obj/effect/proc_holder/spell/open_mob_commands/proc/open_menu()
+	if(!our_mob)
+		return
+
+	var/datum/component/obeys_commands/command_component = our_mob.GetComponent(/datum/component/obeys_commands)
+	if(!command_component)
+		return
+
+	command_component.display_menu(action.owner)

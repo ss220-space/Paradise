@@ -17,6 +17,7 @@
 	tier3 =	/datum/heretic_knowledge/spell/void_pull
 	ascension = /datum/heretic_knowledge/ultimate/void_final
 
+
 /datum/heretic_knowledge/limited_amount/starting/base_void
 	name = "Glimmer of Winter"
 	desc = "Opens up the Path of Void to you. \
@@ -24,22 +25,20 @@
 		You can only create two at a time."
 	gain_text = "I feel a shimmer in the air, the air around me gets colder. \
 		I start to realize the emptiness of existence. Something's watching me."
-	required_atoms = list(/obj/item/knife = 1)
+	required_atoms = list(/obj/item/kitchen/knife = 1)
 	result_atoms = list(/obj/item/melee/sickly_blade/void)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "void_blade"
+
 
 /datum/heretic_knowledge/limited_amount/starting/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!is_space_or_openspace(loc))
 		loc.balloon_alert(user, "ritual failed, invalid location!")
 		return FALSE
 
-	var/turf/spaceour_turf = loc
-	if(our_turf.GetTemperature() > T0C)
-		loc.balloon_alert(user, "ritual failed, not cold enough!")
-		return FALSE
+	loc.balloon_alert(user, "ritual failed, not cold enough!")
+	return FALSE
 
-	return ..()
 
 /datum/heretic_knowledge/void_grasp
 	name = "Grasp of Void"
@@ -50,11 +49,14 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "grasp_void"
 
+
 /datum/heretic_knowledge/void_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 
+
 /datum/heretic_knowledge/void_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
+
 
 /datum/heretic_knowledge/void_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -63,8 +65,9 @@
 		return
 
 	var/mob/living/carbon/carbon_target = target
-	carbon_target.adjust_silence(10 SECONDS)
+	carbon_target.Silence(10 SECONDS)
 	carbon_target.apply_status_effect(/datum/status_effect/void_chill, 2)
+
 
 /datum/heretic_knowledge/cold_snap
 	name = "Aristocrat's Way"
@@ -79,26 +82,33 @@
 	/// Traits we apply to become immune to the environment
 	var/static/list/gain_traits = list(TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_SLIDE)
 
+
 /datum/heretic_knowledge/cold_snap/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	user.add_traits(list(TRAIT_NO_BREATH, TRAIT_RESIST_COLD), type)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(check_environment))
 
+
 /datum/heretic_knowledge/cold_snap/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	user.remove_traits(list(TRAIT_RESIST_COLD, TRAIT_NO_BREATH), type)
 	UnregisterSignal(user, COMSIG_LIVING_LIFE)
+
 
 ///Checks if our traits should be active
 /datum/heretic_knowledge/cold_snap/proc/check_environment(mob/living/user)
 	SIGNAL_HANDLER
 
 	var/datum/gas_mixture/environment = user.loc?.return_air()
-	if(!isnull(environment))
-		var/affected_temperature = environment.return_temperature()
-		var/affected_pressure = environment.return_pressure()
-		if(affected_temperature <= T0C || affected_pressure < ONE_ATMOSPHERE)
-			user.add_traits(gain_traits, type)
-		else
-			user.remove_traits(gain_traits, type)
+	if(isnull(environment))
+		return
+
+	var/affected_temperature = environment.return_temperature()
+	var/affected_pressure = environment.return_pressure()
+	if(affected_temperature <= T0C || affected_pressure < ONE_ATMOSPHERE)
+		user.add_traits(gain_traits, type)
+		return
+
+	user.remove_traits(gain_traits, type)
+
 
 /datum/heretic_knowledge/mark/void_mark
 	name = "Mark of Void"
@@ -108,7 +118,9 @@
 		my senses began to betray me. My mind is my own enemy."
 	mark_type = /datum/status_effect/eldritch/void
 
+
 /datum/heretic_knowledge/knowledge_ritual/void
+
 
 /datum/heretic_knowledge/spell/void_conduit
 	name = "Void Conduit"
@@ -116,8 +128,9 @@
 	gain_text = "The hum in the still, cold air turns to a cacophonous rattle. \
 		Over the noise, there is no distinction to the clattering of window panes and the yawning knowledge that ricochets through my skull. \
 		The doors won't close. I can't keep the cold out now."
-	action_to_add = /datum/action/innate/conjure/void_conduit
+	action_to_add = /obj/effect/proc_holder/spell/aoe/conjure/void_conduit
 	cost = 1
+
 
 /datum/heretic_knowledge/spell/void_phase
 	name = "Void Phase"
@@ -125,9 +138,10 @@
 		Additionally causes damage to heathens around your original and target destination."
 	gain_text = "The entity calls themself the Aristocrat. They effortlessly walk through air like \
 		nothing - leaving a harsh, cold breeze in their wake. They disappear, and I am left in the blizzard."
-	action_to_add = /datum/action/innate/pointed/void_phase
+	action_to_add = /obj/effect/proc_holder/spell/pointed/void_phase
 	cost = 1
 	research_tree_icon_frame = 7
+
 
 /datum/heretic_knowledge/blade_upgrade/void
 	name = "Seeking Blade"
@@ -138,11 +152,13 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_void"
 
+
 /datum/heretic_knowledge/blade_upgrade/void/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
 
 	target.apply_status_effect(/datum/status_effect/void_chill, 2)
+
 
 /datum/heretic_knowledge/blade_upgrade/void/do_ranged_effects(mob/living/user, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(!target.has_status_effect(/datum/status_effect/eldritch))
@@ -153,8 +169,10 @@
 
 	INVOKE_ASYNC(src, PROC_REF(follow_up_attack), user, target, blade)
 
+
 /datum/heretic_knowledge/blade_upgrade/void/proc/follow_up_attack(mob/living/user, mob/living/target, obj/item/melee/sickly_blade/blade)
 	blade.melee_attack_chain(user, target)
+
 
 /datum/heretic_knowledge/spell/void_pull
 	name = "Void Pull"
@@ -162,11 +180,11 @@
 	gain_text = "All is fleeting, but what else stays? I'm close to ending what was started. \
 		The Aristocrat reveals themselves to me again. They tell me I am late. Their pull is immense, I cannot turn back."
 
-	action_to_add = /datum/action/innate/aoe/void_pull
+	action_to_add = /obj/effect/proc_holder/spell/aoe/void_pull
 	cost = 1
 
-
 	research_tree_icon_frame = 6
+
 
 /datum/heretic_knowledge/ultimate/void_final
 	name = "Waltz at the End of Time"
@@ -179,43 +197,43 @@
 		The Aristocrat stands before me, beckoning. We will play a waltz to the whispers of dying reality, \
 		as the world is destroyed before our eyes. The void will return all to nothing, WITNESS MY ASCENSION!"
 
-	ascension_achievement = /datum/award/achievement/misc/void_ascension
+	//ascension_achievement = /datum/award/achievement/misc/void_ascension
 	announcement_text = "%SPOOKY% The nobleman of void %NAME% has arrived, stepping along the Waltz that ends worlds! %SPOOKY%"
-	announcement_sound = 'sound/music/antag/heretic/ascend_void.ogg'
+	announcement_sound = 'sound/music/heretic/ascend_void.ogg'
 	///soundloop for the void theme
-	var/datum/looping_sound/void_loop/sound_loop
+	//var/datum/looping_sound/void_loop/sound_loop
 	///Reference to the ongoing voidstrom that surrounds the heretic
 	var/datum/weather/void_storm/storm
 	///The storm where there are actual effects
 	var/datum/component/proximity_monitor/advanced/void_storm/heavy_storm
+
 
 /datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!is_space_or_openspace(loc))
 		loc.balloon_alert(user, "ritual failed, invalid location!")
 		return FALSE
 
-	var/turf/spaceour_turf = loc
-	if(our_turf.GetTemperature() > T0C)
-		loc.balloon_alert(user, "ritual failed, not cold enough!")
-		return FALSE
-
 	return ..()
+
 
 /datum/heretic_knowledge/ultimate/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	user.add_traits(list(TRAIT_RESISTLOWPRESSURE, TRAIT_NEGATES_GRAVITY, TRAIT_MOVE_FLYING/*, TRAIT_FREE_HYPERSPACE_MOVEMENT*/), type)
+	user.add_traits(list(TRAIT_RESIST_COLD, TRAIT_NEGATES_GRAVITY, TRAIT_MOVE_FLYING/*, TRAIT_FREE_HYPERSPACE_MOVEMENT*/), type)
 
 	// Let's get this show on the road!
-	sound_loop = new(user, TRUE, TRUE)
+	//sound_loop = new(user, TRUE, TRUE)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
-	RegisterSignal(user, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(hit_by_projectile))
+	RegisterSignal(user, COMSIG_ATOM_BULLET_ACT, PROC_REF(hit_by_projectile))
 	RegisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING), PROC_REF(on_death))
 	heavy_storm = new(user, 10)
-	if(ishuman(user))
-		var/mob/living/carbon/human/ascended_human = user
-		var/obj/item/organ/internal/eyes/heretic_eyes = ascended_human.get_organ_slot(INTERNAL_ORGAN_EYES)
-		heretic_eyes?.color_cutoffs = list(30, 30, 30)
-		ascended_human.update_sight()
+	if(!ishuman(user))
+		return
+
+	var/mob/living/carbon/human/ascended_human = user
+	//var/obj/item/organ/internal/eyes/heretic_eyes = ascended_human.get_organ_slot(INTERNAL_ORGAN_EYES)
+	//heretic_eyes?.color_cutoffs = list(30, 30, 30)
+	ascended_human.update_sight()
+
 
 /datum/heretic_knowledge/ultimate/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	on_death() // Losing is pretty much dying. I think
@@ -230,6 +248,10 @@
  */
 /datum/heretic_knowledge/ultimate/void_final/proc/on_life(mob/living/source, seconds_per_tick, times_fired)
 	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(async_on_life), source, seconds_per_tick, times_fired)
+
+
+/datum/heretic_knowledge/ultimate/void_final/proc/async_on_life(mob/living/source, seconds_per_tick, times_fired)
 
 	for(var/atom/thing_in_range as anything in range(10, source))
 		if(iscarbon(thing_in_range))
@@ -237,9 +259,10 @@
 			if(IS_HERETIC_OR_MONSTER(close_carbon))
 				close_carbon.apply_status_effect(/datum/status_effect/void_conduit)
 				continue
-			close_carbon.adjust_silence_up_to(2 SECONDS, 20 SECONDS)
+
+			close_carbon.Silence(2 SECONDS, 20 SECONDS)
 			close_carbon.apply_status_effect(/datum/status_effect/void_chill, 1)
-			close_carbon.adjust_eye_blur(rand(0 SECONDS, 2 SECONDS))
+			close_carbon.EyeBlurry(rand(0 SECONDS, 2 SECONDS))
 			close_carbon.adjust_bodytemperature(-30 * TEMPERATURE_DAMAGE_COEFFICIENT)
 
 		if(istype(thing_in_range, /obj/machinery/door) || istype(thing_in_range, /obj/structure/door_assembly))
@@ -250,16 +273,23 @@
 			var/obj/structure/affected_structure = thing_in_range
 			affected_structure.take_damage(rand(20, 40))
 
-		if(isturf(thing_in_range))
-			var/turf/affected_turf = thing_in_range
-			var/datum/gas_mixture/environment = affected_turf.return_air()
-			environment.temperature *= 0.9
+		if(!isturf(thing_in_range))
+			continue
+
+		var/turf/affected_turf = thing_in_range
+		var/datum/gas_mixture/environment = affected_turf.return_air()
+		environment.temperature *= 0.9
+
+
 
 	// Telegraph the storm in every area on the station.
-	var/list/station_levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
-	if(!storm)
-		storm = new /datum/weather/void_storm(station_levels)
-		storm.telegraph()
+	var/list/station_levels = levels_by_trait(STATION_LEVEL)
+	if(storm)
+		return
+
+	storm = new /datum/weather/void_storm(station_levels)
+	storm.telegraph()
+
 
 /**
  * Signal proc for [COMSIG_LIVING_DEATH].
@@ -269,22 +299,29 @@
 /datum/heretic_knowledge/ultimate/void_final/proc/on_death(datum/source)
 	SIGNAL_HANDLER
 
-	if(sound_loop)
-		sound_loop.stop()
+	//if(sound_loop)
+	//	sound_loop.stop()
+
 	if(storm)
 		storm.end()
 		QDEL_NULL(storm)
+
 	if(heavy_storm)
 		QDEL_NULL(heavy_storm)
-	UnregisterSignal(source, list(COMSIG_LIVING_LIFE, COMSIG_ATOM_PRE_BULLET_ACT, COMSIG_LIVING_DEATH, COMSIG_QDELETING))
+
+	UnregisterSignal(source, list(COMSIG_LIVING_LIFE, COMSIG_ATOM_BULLET_ACT, COMSIG_LIVING_DEATH, COMSIG_QDELETING))
+
 
 ///Few checks to determine if we can deflect bullets
 /datum/heretic_knowledge/ultimate/void_final/proc/can_deflect(mob/living/ascended_heretic)
 	if(!(ascended_heretic.mobility_flags & MOBILITY_USE))
 		return FALSE
+
 	if(!isturf(ascended_heretic.loc))
 		return FALSE
+
 	return TRUE
+
 
 /datum/heretic_knowledge/ultimate/void_final/proc/hit_by_projectile(mob/living/ascended_heretic, obj/projectile/hitting_projectile, def_zone)
 	SIGNAL_HANDLER
@@ -296,10 +333,35 @@
 		span_danger("The void storm surrounding [ascended_heretic] deflects [hitting_projectile]!"),
 		span_userdanger("The void storm protects you from [hitting_projectile]!"),
 	)
-	playsound(ascended_heretic, SFX_VOID_DEFLECT, 75, TRUE)
+	//playsound(ascended_heretic, SFX_VOID_DEFLECT, 75, TRUE)
 	hitting_projectile.firer = ascended_heretic
 	if(prob(75))
-		hitting_projectile.set_angle(get_angle(hitting_projectile.firer, hitting_projectile.fired_from))
-	else
-		hitting_projectile.set_angle(rand(0, 360))//SHING
-	return COMPONENT_BULLET_PIERCED
+		hitting_projectile.set_angle(get_angle(hitting_projectile.firer, hitting_projectile.firer))
+		return
+
+	hitting_projectile.set_angle(rand(0, 360))//SHING
+
+
+
+/datum/weather/void_storm
+	name = "void storm"
+	desc = "A rare and highly anomalous event often accompanied by unknown entities shredding spacetime continouum. We'd advise you to start running."
+
+	telegraph_duration = 2 SECONDS
+	telegraph_overlay = "light_snow"
+
+	weather_message = span_hypnophrase("You feel the air around you getting colder... and void's sweet embrace...")
+	weather_overlay = "light_snow"
+	weather_color = COLOR_BLACK
+	weather_duration_lower = 1 MINUTES
+	weather_duration_upper = 2 MINUTES
+
+	//use_glow = FALSE
+	weather_duration = 60 HOURS
+
+	end_duration = 10 SECONDS
+
+	area_type = /area
+	//target_trait = ZTRAIT_VOIDSTORM
+
+	//weather_flags = (WEATHER_INDOORS | WEATHER_BAROMETER)

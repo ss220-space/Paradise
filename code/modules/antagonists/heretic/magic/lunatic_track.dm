@@ -8,26 +8,29 @@
 	action_icon_state = "moon_smile"
 	base_cooldown = 4 SECONDS
 
-/obj/effect/proc_holder/spell/lunatic_track/Grant(mob/granted)
-	if(!IS_LUNATIC(granted))
+/obj/effect/proc_holder/spell/lunatic_track/on_spell_gain(mob/user = usr)
+	if(!IS_LUNATIC(user))
 		return
 	return ..()
 
-/obj/effect/proc_holder/spell/lunatic_track/Activate(atom/target)
-	var/datum/antagonist/lunatic/lunatic_datum = IS_LUNATIC(action.owner)
-	var/mob/living/carbon/human/ascended_heretic = lunatic_datum.ascended_body
-	if(!(ascended_heretic))
-		action.owner.balloon_alert(action.owner, "what cruel fate, your master is gone...")
-		StartCooldown(1 SECONDS)
-		return FALSE
-	playsound(action.owner, 'sound/effects/singlebeat.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-	action.owner.balloon_alert(action.owner, get_balloon_message(ascended_heretic))
 
-	if(ascended_heretic.stat == DEAD)
-		to_chat(action.owner, span_hierophant("[ascended_heretic] is dead. Weep for the lie has struck out."))
+/obj/effect/proc_holder/spell/lunatic_track/cast(list/targets, mob/user)
+	for(var/mob/target as anything in targets)
+		var/datum/antagonist/lunatic/lunatic_datum = IS_LUNATIC(action.owner)
+		var/mob/living/carbon/human/ascended_heretic = lunatic_datum.ascended_body
+		if(!(ascended_heretic))
+			action.owner.balloon_alert(action.owner, "what cruel fate, your master is gone...")
+			cooldown_handler.start_recharge(1 SECONDS)
+			return FALSE
 
-	StartCooldown()
-	return TRUE
+		playsound(action.owner, 'sound/effects/singlebeat.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
+		action.owner.balloon_alert(action.owner, get_balloon_message(ascended_heretic))
+
+		if(ascended_heretic.stat == DEAD)
+			to_chat(action.owner, span_hierophant("[ascended_heretic] is dead. Weep for the lie has struck out."))
+
+		cooldown_handler.start_recharge()
+		return TRUE
 
 
 /// Gets the balloon message for the heretic we are tracking.
@@ -67,7 +70,7 @@
 		balloon_message = "on lavaland!"
 		return balloon_message
 
-	if(is_away_level(their_z) || is_secret_level(their_z))
+	if(is_away_level(their_z) || is_admin_level(their_z))
 		balloon_message = "beyond the gateway!"
 		return balloon_message
 

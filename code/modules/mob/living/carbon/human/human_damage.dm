@@ -45,7 +45,7 @@
  * * slot - organ slot, like [INTERNAL_ORGAN_HEART]
  * * amount - damage to be done
  * * maximum - currently an arbitrarily large number, can be set so as to limit damage
- * * required_organ_flag - targets only a specific organ type if set to ORGAN_ORGANIC or ORGAN_ROBOTIC
+ * * required_organ_flag - targets only a specific organ type if set to ORGAN_ORGANIC or ORGAN_ROBOT
  *
  * Returns: The net change in damage from internal_receive_damage()
  */
@@ -66,7 +66,7 @@
  * Arguments:
  * * slot - organ slot, like [INTERNAL_ORGAN_HEART]
  * * amount - damage to be set to
- * * required_organ_flag - targets only a specific organ type if set to ORGAN_ORGANIC or ORGAN_ROBOTIC
+ * * required_organ_flag - targets only a specific organ type if set to ORGAN_ORGANIC or ORGAN_ROBOT
  *
  * Returns: The net change in damage from set_organ_damage()
  */

@@ -13,6 +13,7 @@
 // common trait sources
 #define GENERIC_TRAIT "generic"
 #define MAGIC_TRAIT "magic"
+#define HERETIC_TRAIT "heretic"
 #define CULT_TRAIT "cult"
 #define CLOCK_TRAIT "clockwork_cult"
 #define INNATE_TRAIT "innate"
@@ -47,6 +48,7 @@
 #define CYBORG_ITEM_TRAIT "cyborg-item"
 #define MECHA_EQUIPMENT_TRAIT "mecha-equip"
 #define HIS_GRACE_TRAIT "his-grace"
+#define HAND_REPLACEMENT_TRAIT "magic-hand"
 #define CHAINSAW_TRAIT "chainsaw-wield"
 #define CENTCOMM_RAPIER_TRAIT "centcomm_rapier"
 #define PYRO_CLAWS_TRAIT "pyro-claws"

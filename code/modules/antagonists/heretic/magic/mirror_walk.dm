@@ -24,13 +24,16 @@
 		/obj/structure/mirror,
 	))
 
-/obj/effect/proc_holder/spell/jaunt/mirror_walk/Grant(mob/grant_to)
-	. = ..()
-	RegisterSignal(grant_to, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 
-/obj/effect/proc_holder/spell/jaunt/mirror_walk/Remove(mob/remove_from)
+/obj/effect/proc_holder/spell/jaunt/mirror_walk/on_spell_gain(mob/user = usr)
+	. = ..()
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/datum/action, update_status_on_signal))
+
+
+/obj/effect/proc_holder/spell/jaunt/mirror_walk/on_spell_loss(mob/remove_from)
 	. = ..()
 	UnregisterSignal(remove_from, COMSIG_MOVABLE_MOVED)
+
 
 /obj/effect/proc_holder/spell/jaunt/mirror_walk/can_cast(feedback = TRUE)
 	. = ..()
@@ -40,16 +43,21 @@
 	var/we_are_phasing = is_jaunting(action.owner)
 	var/turf/owner_turf = get_turf(action.owner)
 	if(!is_reflection_nearby(get_turf(owner_turf)))
-		if(feedback)
-			to_chat(action.owner, span_warning("There are no reflective surfaces nearby to [we_are_phasing ? "exit":"enter"] the mirror's realm here!"))
+		if(!feedback)
+			return FALSE
+
+		to_chat(action.owner, span_warning("There are no reflective surfaces nearby to [we_are_phasing ? "exit":"enter"] the mirror's realm here!"))
 		return FALSE
 
 	if(owner_turf.is_blocked_turf(exclude_mobs = TRUE))
-		if(feedback)
-			to_chat(action.owner, span_warning("Something is blocking you from [we_are_phasing ? "exiting":"entering"] the mirror's realm here!"))
+		if(!feedback)
+			return FALSE
+
+		to_chat(action.owner, span_warning("Something is blocking you from [we_are_phasing ? "exiting":"entering"] the mirror's realm here!"))
 		return FALSE
 
 	return TRUE
+
 
 /obj/effect/proc_holder/spell/jaunt/mirror_walk/cast(mob/living/cast_on)
 	. = ..()
@@ -66,7 +74,7 @@
 
 	jaunter.Beam(nearby_reflection, icon_state = "light_beam", time = phase_out_time)
 	nearby_reflection.visible_message(span_warning("[nearby_reflection] begins to shimmer and shake slightly!"))
-	if(!do_after(jaunter, phase_out_time, nearby_reflection, IGNORE_USER_LOC_CHANGE|IGNORE_INCAPACITATED))
+	if(!do_after(jaunter, phase_out_time, nearby_reflection, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_INCAPACITATED))
 		return
 
 	playsound(jaunter, 'sound/effects/magic/ethereal_enter.ogg', 50, TRUE, -1)
@@ -80,20 +88,16 @@
 	var/obj/effect/dummy/phased_mob/jaunt = ..(jaunter, get_turf(nearby_reflection))
 	if (!jaunt)
 		return FALSE
-	RegisterSignal(jaunt, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
+
+	RegisterSignal(jaunt, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/datum/action, update_status_on_signal))
 	return jaunt
+
 
 /obj/effect/proc_holder/spell/jaunt/mirror_walk/exit_jaunt(mob/living/unjaunter, turf/loc_override)
 	var/turf/phase_turf = get_turf(unjaunter)
 	var/atom/nearby_reflection = is_reflection_nearby(phase_turf)
 	if(!nearby_reflection)
 		to_chat(unjaunter, span_warning("There are no reflective surfaces nearby to exit from the mirror's realm!"))
-		return FALSE
-
-	// It would likely be a bad idea to teleport into an ai monitored area (ai sat)
-	var/area/phase_area = get_area(phase_turf)
-	if(istype(phase_area, /area/ai_monitored))
-		to_chat(unjaunter, span_warning("It's probably not a very wise idea to exit the mirror's realm here."))
 		return FALSE
 
 	nearby_reflection.Beam(phase_turf, icon_state = "light_beam", time = phase_in_time)
@@ -105,16 +109,17 @@
 	// Pass the jaunter's turf at the start of the proc back to the parent call.
 	return ..(unjaunter, phase_turf)
 
+
 // Play a spooky noise, provide textual feedback, and make the turf colder.
 /obj/effect/proc_holder/spell/jaunt/mirror_walk/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
 	. = ..()
 	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
 	playsound(unjaunter, 'sound/effects/magic/ethereal_exit.ogg', 50, TRUE, -1)
-	var/turf/phase_turf = get_turf(unjaunter)
+	var/turf/simulated/phase_turf = get_turf(unjaunter)
 
 	// Chilly!
 	if (is_space_or_openspace(phase_turf))
-		phase_turf.TakeTemperature(-20)
+		phase_turf.air.temperature = max(0, phase_turf.air.temperature - 20)
 
 	var/atom/nearby_reflection = is_reflection_nearby(phase_turf)
 	if (!nearby_reflection) // Should only be true if you're forced out somehow, like by having the spell removed
@@ -148,6 +153,7 @@
 			var/turf/turf_thing = thing
 			if(turf_thing.turf_flags & NOJAUNT)
 				continue
+
 			if(turf_thing.flags_ricochet & RICOCHET_SHINY)
 				return thing
 
@@ -155,6 +161,7 @@
 			return thing
 
 	return null
+
 
 /obj/effect/dummy/phased_mob/mirror_walk
 	name = "reflection"

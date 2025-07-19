@@ -27,7 +27,7 @@
 		stack_trace("[name] ([type]) was instantiated on a non-mind_linker target, this doesn't work.")
 		qdel(src)
 
-/obj/effect/proc_holder/spell/pointed/manse_link/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/manse_link/valid_target(atom/cast_on)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -47,7 +47,7 @@
  * The actual process of linking [linkee] to our network.
  */
 /obj/effect/proc_holder/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
-	var/datum/component/mind_linker/linker = target
+	var/datum/component/mind_linker/linker = action.owner
 	if(linkee.stat == DEAD)
 		to_chat(action.owner, span_warning("They're dead!"))
 		return FALSE

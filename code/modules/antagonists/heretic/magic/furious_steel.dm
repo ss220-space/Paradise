@@ -27,7 +27,8 @@
 	/// A ref to the status effect surrounding our heretic on activation.
 	var/datum/status_effect/protective_blades/blade_effect
 
-/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/Grant(mob/grant_to)
+
+/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/on_spell_gain(mob/user = usr)
 	. = ..()
 	if(!action.owner)
 		return
@@ -35,15 +36,18 @@
 	if(isheretic(action.owner))
 		RegisterSignal(action.owner, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
 
-/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/Remove(mob/remove_from)
+
+/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/on_spell_loss(mob/remove_from)
 	UnregisterSignal(remove_from, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING))
 	return ..()
+
 
 /// Signal proc for [SIGNAL_REMOVETRAIT], via [TRAIT_ALLOW_HERETIC_CASTING], to remove the effect when we lose the focus trait
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/proc/on_focus_lost(mob/source)
 	SIGNAL_HANDLER
 
-	unset_click_ability(source, refund_cooldown = TRUE)
+	remove_mousepointer(source, refund_cooldown = TRUE)
+
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/InterceptClickOn(mob/living/clicker, params, atom/target)
 	// Let the caster prioritize using items like guns over blade casts
@@ -54,6 +58,7 @@
 		return FALSE
 
 	return ..()
+
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/on_activation(mob/on_who)
 	. = ..()
@@ -74,27 +79,34 @@
 	RegisterSignal(blade_effect, COMSIG_QDELETING, PROC_REF(on_status_effect_deleted))
 	RegisterSignal(blade_effect, COMSIG_BLADE_BARRIER_TRIGGERED, PROC_REF(on_status_effect_triggered))
 
+
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/on_deactivation(mob/on_who, refund_cooldown = TRUE)
 	. = ..()
-	if(blade_effect)
-		UnregisterSignal(blade_effect, COMSIG_QDELETING)
-		UnregisterSignal(blade_effect, COMSIG_BLADE_BARRIER_TRIGGERED)
-		QDEL_NULL(blade_effect)
+	if(!blade_effect)
+		return
+
+	UnregisterSignal(blade_effect, COMSIG_QDELETING)
+	UnregisterSignal(blade_effect, COMSIG_BLADE_BARRIER_TRIGGERED)
+	QDEL_NULL(blade_effect)
+
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/before_cast(atom/cast_on)
 	if(isnull(blade_effect) || !current_amount)
-		unset_click_ability(action.owner, refund_cooldown = FALSE)
+		remove_mousepointer(action.owner, refund_cooldown = FALSE)
 		return SPELL_CANCEL_CAST
 
 	return ..() | SPELL_NO_IMMEDIATE_COOLDOWN // all CD handling will be done by the status effect being deleted
+
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/fire_projectile(mob/living/user, atom/target)
 	. = ..()
 	qdel(blade_effect.blades[1])
 
+
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/ready_projectile(obj/projectile/to_launch, atom/target, mob/user, iteration)
 	. = ..()
 	to_launch.def_zone = check_zone(user.zone_selected)
+
 
 /// If our blade status effect is deleted, clear our refs and deactivate
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/proc/on_status_effect_deleted(datum/status_effect/protective_blades/source)
@@ -103,10 +115,11 @@
 	blade_effect = null
 	var/blades_remaining = current_amount
 	// Which scales the cooldown according to projectiles remaining
-	unset_click_ability(action.owner, refund_cooldown = FALSE)
+	remove_mousepointer(action.owner, refund_cooldown = FALSE)
 	// Snowflake because it does not handle cooldown if we used every projectile
 	if(blades_remaining <= 0)
-		StartCooldown()
+		cooldown_handler.start_recharge()
+
 
 /// Reduce our projectile amount when our blade status effect is triggered
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/proc/on_status_effect_triggered(datum/status_effect/protective_blades/source, atom/target)
@@ -121,16 +134,19 @@
 	speed = 0.5
 	damage = 25
 	armour_penetration = 100
-	sharpness = SHARP_EDGED
+	sharp = TRUE
+	//sharpness = SHARP_EDGED
 	//wound_bonus = 15
 	pass_flags = PASSTABLE | PASSFLAPS
 	/// Color applied as an outline filter on init
 	var/outline_color = "#f8f8ff"
 
+
 /obj/projectile/floating_blade/Initialize(mapload)
 	. = ..()
 	add_filter("dio_knife", 2, list("type" = "outline", "color" = outline_color, "size" = 1))
 
+/*
 /obj/projectile/floating_blade/prehit_pierce(atom/hit)
 	if(isliving(hit) && isliving(firer))
 		var/mob/living/caster = firer
@@ -148,6 +164,7 @@
 			return PROJECTILE_DELETE_WITHOUT_HITTING
 
 	return ..()
+*/
 
 /obj/projectile/floating_blade/haunted
 	name = "ritual blade"
@@ -157,12 +174,14 @@
 	//wound_bonus = 25
 	outline_color = "#D7CBCA"
 
+
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/solo
 	name = "Lesser Furious Steel"
 	base_cooldown = 20 SECONDS
 	projectile_amount = 1
 	active_msg = "You summon forth a blade of furious silver."
 	deactive_msg = "You conceal the blade of furious silver."
+
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/haunted
 	name = "Cursed Steel"

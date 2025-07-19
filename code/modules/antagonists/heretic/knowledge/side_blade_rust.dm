@@ -8,6 +8,7 @@
 	tier2 = list(/datum/heretic_knowledge/crucible, /datum/heretic_knowledge/rifle)
 	tier3 = list(/datum/heretic_knowledge/spell/rust_charge, /datum/heretic_knowledge/greaves_of_the_prophet)
 
+
 // Sidepaths for knowledge between Rust and Blade.
 /datum/heretic_knowledge/armor
 	name = "Armorer's Ritual"
@@ -23,7 +24,7 @@
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
 	cost = 1
 
-	research_tree_icon_path = 'icons/obj/clothing/suits/armor.dmi'
+	research_tree_icon_path = 'icons/obj/clothing/armor.dmi'
 	research_tree_icon_state = "eldritch_armor"
 	research_tree_icon_frame = 12
 
@@ -58,16 +59,17 @@
 		I could not purchase it at the time, but they showed me how they made it ages ago."
 
 	required_atoms = list(
-		/obj/item/stack/sheet/mineral/wood = 1,
+		/obj/item/stack/sheet/wood = 1,
 		/obj/item/stack/sheet/animalhide = 1,
 		/obj/item/camera = 1,
 	)
-	result_atoms = list(/obj/item/gun/ballistic/rifle/lionhunter)
+	result_atoms = list(/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter)
 	cost = 1
 
 
-	research_tree_icon_path = 'icons/obj/weapons/guns/ballistic.dmi'
+	research_tree_icon_path = 'icons/obj/weapons/ballistic.dmi'
 	research_tree_icon_state = "goldrevolver"
+
 
 /datum/heretic_knowledge/rifle_ammo
 	name = "Lionhunter Rifle Ammunition"
@@ -82,9 +84,9 @@
 	result_atoms = list(/obj/item/ammo_box/strilka310/lionhunter)
 	cost = 0
 
-	research_tree_icon_path = 'icons/obj/weapons/guns/ammo.dmi'
+	research_tree_icon_path = 'icons/obj/weapons/ammo.dmi'
 	research_tree_icon_state = "310_strip"
-
+/*
 	/// A list of calibers that the ritual will deny. Only ballistic calibers are allowed.
 	var/static/list/caliber_blacklist = list(
 		CALIBER_LASER,
@@ -93,12 +95,12 @@
 		CALIBER_ARROW,
 		CALIBER_HARPOON,
 		CALIBER_HOOK,
-	)
+	)*/
 
 /datum/heretic_knowledge/rifle_ammo/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	for(var/obj/item/ammo_casing/casing in atoms)
-		if(!(casing.caliber in caliber_blacklist))
-			continue
+		//if(!(casing.caliber in caliber_blacklist))
+		//	continue
 
 		// Remove any casings in the caliber_blacklist list from atoms
 		atoms -= casing

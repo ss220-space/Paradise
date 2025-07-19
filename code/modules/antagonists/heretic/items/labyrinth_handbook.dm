@@ -4,6 +4,7 @@
 	icon_state = "lintel"
 	lifetime = 8 SECONDS
 
+
 /obj/effect/forcefield/wizard/heretic/Bumped(mob/living/bumpee)
 	. = ..()
 	if(!istype(bumpee) || IS_HERETIC_OR_MONSTER(bumpee))
@@ -13,6 +14,7 @@
 	bumpee.throw_at(throwtarget, 10, 1, force = MOVE_FORCE_EXTREMELY_STRONG)
 	visible_message(span_danger("[src] repulses [bumpee] in a storm of paper!"))
 
+
 ///A heretic item that spawns a barrier at the clicked turf, 3 uses
 /obj/item/heretic_labyrinth_handbook
 	name = "labyrinth handbook"
@@ -21,12 +23,12 @@
 	icon_state = "heretichandbook"
 	force = 10
 	damtype = BURN
-	worn_icon_state = "book"
+	item_state = "book"
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	//attack_verb_continuous = list("bashes", "curses")
-	attacktext = list("bash", "curse")
+	attack_verb = list("bash", "curse")
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound = 'sound/items/handling/book_pickup.ogg'
@@ -34,6 +36,7 @@
 	var/barrier_type = /obj/effect/forcefield/wizard/heretic
 	///how many uses do we have left
 	var/uses = 3
+
 
 /obj/item/heretic_labyrinth_handbook/examine(mob/user)
 	. = ..()
@@ -43,17 +46,14 @@
 	. += span_hypnophrase("Materializes a barrier upon any tile in sight, which only you can pass through. Lasts 8 seconds.")
 	. += span_hypnophrase("It has <b>[uses]</b> uses left.")
 
-/obj/item/heretic_labyrinth_handbook/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	return ranged_interact_with_atom(interacting_with, user, modifiers)
 
-
-/obj/item/heretic_labyrinth_handbook/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+/obj/item/heretic_labyrinth_handbook/attackby(atom/interacting_with, mob/living/user, list/modifiers)
 	if(!isheretic(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/human_user = user
 			to_chat(human_user, span_userdanger("Your mind burns as you stare deep into the book, a headache setting in like your brain is on fire!"))
 			human_user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 30, 190)
-			human_user.dropItemToGround(src)
+			human_user.drop_item_ground(src)
 
 		return ATTACK_CHAIN_BLOCKED
 
@@ -67,8 +67,22 @@
 	playsound(turf_target, 'sound/effects/magic/smoke.ogg', 30)
 	new barrier_type(turf_target, user)
 	uses--
-	if(uses <= 0)
-		to_chat(user, span_warning("[src] falls apart, turning into ash and dust!"))
-		qdel(src)
+	if(uses > 0)
+		return ATTACK_CHAIN_SUCCESS
 
+	to_chat(user, span_warning("[src] falls apart, turning into ash and dust!"))
+	qdel(src)
 	return ATTACK_CHAIN_SUCCESS
+
+
+//fancy effects
+/obj/effect/temp_visual/paper_scatter
+	name = "scattering paper"
+	desc = "Pieces of paper scattering to the wind."
+	layer = ABOVE_NORMAL_TURF_LAYER
+	plane = GAME_PLANE
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "paper_scatter"
+	anchored = TRUE
+	duration = 0.5 SECONDS
+	randomdir = FALSE

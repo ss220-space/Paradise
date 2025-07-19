@@ -2302,6 +2302,17 @@
 	// if you use the verb you better mean it
 	do_succumb(FALSE)
 
+
+/mob/living/proc/CanSuccumb()
+	if(stat == DEAD)
+		return FALSE
+
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		return FALSE
+
+	return TRUE
+
+
 /mob/living/proc/do_succumb(cancel_on_no_words)
 	if(stat == DEAD)
 		to_chat(src, span_notice("It's too late, you're already dead!"))
@@ -2390,3 +2401,34 @@
 		return SUCCESSFUL_BLOCK
 
 	return FAILED_BLOCK
+
+
+/// Proc for giving a mob a new 'friend', generally used for AI control and targeting. Returns false if already friends or null if qdeleted.
+/mob/living/proc/befriend(mob/living/new_friend)
+	SHOULD_CALL_PARENT(TRUE)
+	if(QDELETED(new_friend))
+		return
+
+	var/friend_ref = REF(new_friend)
+	if (faction.Find(friend_ref))
+		return FALSE
+
+	faction |= friend_ref
+	ai_controller?.insert_blackboard_key_lazylist(BB_FRIENDS_LIST, new_friend)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
+	return TRUE
+
+
+/// Proc for removing a friend you added with the proc 'befriend'. Returns true if you removed a friend.
+/mob/living/proc/unfriend(mob/living/old_friend)
+	SHOULD_CALL_PARENT(TRUE)
+	var/friend_ref = REF(old_friend)
+	if (!faction.Find(friend_ref))
+		return FALSE
+
+	faction -= friend_ref
+	ai_controller?.remove_thing_from_blackboard_key(BB_FRIENDS_LIST, old_friend)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_UNFRIENDED, old_friend)
+	return TRUE

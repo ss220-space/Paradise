@@ -152,3 +152,4 @@
 	for(var/obj/machinery/door/airlock/to_restore in banished_airlocks)
 		to_restore.forceMove(banished_airlocks[to_restore])
 		banished_airlocks -= to_restore
+

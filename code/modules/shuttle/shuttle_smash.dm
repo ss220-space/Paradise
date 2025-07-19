@@ -36,6 +36,9 @@
  * Return `TRUE` if atom was crushed and it must be noticed by viewers of stationary_turf .
  */
 /atom/movable/proc/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
+	if(resistance_flags & SHUTTLE_CRUSH_PROOF)
+		return FALSE
+
 	. = FALSE
 	pulledby?.stop_pulling()
 	if(!skip_ungibable_search)

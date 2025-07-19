@@ -85,7 +85,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/structure/closet/body_bag/open()
+/obj/structure/closet/body_bag/open(force = FALSE)
 	. = ..()
 	if(.)
 		pull_push_slowdown = 0

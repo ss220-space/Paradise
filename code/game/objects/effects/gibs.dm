@@ -78,3 +78,21 @@
 	gib.update_icon()
 	gib.blood_DNA[mob_dna.unique_enzymes] = mob_dna.blood_type
 	return TRUE
+
+
+/obj/effect/decal/cleanable/blood/gibs/torso
+	icon_state = "gibtorso"
+	random_icon_states = null
+
+
+/obj/effect/gibspawner/human/bodypartless //only the gibs that don't look like actual full bodyparts (except torso).
+	gibtypes = list(/obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/core, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/core, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/torso)
+	gibamounts = list(1, 1, 1, 1, 1, 1)
+
+
+/obj/effect/gibspawner/human/bodypartless/Initialize(mapload)
+	if(gibdirections.len)
+		return ..()
+
+	gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST), list(SOUTH, SOUTHEAST, SOUTHWEST), list(WEST, NORTHWEST, SOUTHWEST), list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, list())
+	return ..()

@@ -30,17 +30,20 @@
 	range = 75
 	ricochets_max = 40
 	ricochet_chance = 500
-	ricochet_incidence_leeway = 0
-	projectile_piercing = PASSMOB|PASSVEHICLE
+	//ricochet_incidence_leeway = 0
+	//projectile_piercing = PASSMOB|PASSVEHICLE
 	///looping sound datum for our projectile.
 	var/datum/looping_sound/moon_parade/soundloop
 	// A list of the people we hit
 	var/list/mobs_hit = list()
 
+/*
 /obj/projectile/moon_parade/Initialize(mapload)
 	. = ..()
 	soundloop = new(src,  TRUE)
+*/
 
+/*
 /obj/projectile/moon_parade/prehit_pierce(atom/A)
 	if(!isliving(firer) || !isliving(A))
 		return ..()
@@ -68,10 +71,11 @@
 		return PROJECTILE_DELETE_WITHOUT_HITTING
 
 	return ..()
+*/
 
 /obj/projectile/moon_parade/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
-	if(. == BULLET_ACT_BLOCK || !isliving(target))
+	if(!. || !isliving(target))
 		return
 
 	var/mob/living/victim = target
@@ -85,11 +89,13 @@
 
 	victim.cause_hallucination(/datum/hallucination/delusion/preset/moon, name)
 
+
 /obj/projectile/moon_parade/Destroy()
 	for(var/mob/living/leftover_mob as anything in mobs_hit)
 		clear_mob(leftover_mob)
+
 	mobs_hit.Cut() // You never know
-	soundloop.stop()
+	//soundloop.stop()
 	return ..()
 
 // Blocks movement in order to make it appear like the character is transfixed to the projectile and wandering after it

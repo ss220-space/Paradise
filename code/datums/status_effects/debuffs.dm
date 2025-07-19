@@ -516,6 +516,7 @@
 	. = ..()
 	if(!.)
 		return .
+
 	owner.EyeBlurry(4 SECONDS)
 	if(prob(1))
 		owner.AdjustSleeping(2 SECONDS)

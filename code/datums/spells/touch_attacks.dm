@@ -24,6 +24,21 @@
 	charge_hand(usr)
 
 
+/obj/effect/proc_holder/spell/touch/cast(list/targets, mob/user)
+	var/recooldown = FALSE
+	for(var/atom/target in targets)
+		if(!HASBIT(SEND_SIGNAL(target, COMSIG_TOUCH_HANDLESS_CAST, src), COMPONENT_CAST_HANDLESS))
+			continue
+
+		recooldown = TRUE
+
+	if(recooldown)
+		cooldown_handler.start_recharge()
+		return
+
+	. = ..()
+
+
 /obj/effect/proc_holder/spell/touch/proc/charge_hand(mob/living/carbon/user)
 
 	var/obj/item/melee/touch_attack/new_hand = new hand_path(src, user)

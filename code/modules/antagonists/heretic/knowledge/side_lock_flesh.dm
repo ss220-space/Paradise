@@ -19,9 +19,9 @@
 		Whether it chose the shape for itself, or this is the humor of the sickened mind that conjured this vile implement into being is something best not pondered."
 	required_atoms = list(
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/food/grown/poppy = 1,
+		/obj/item/reagent_containers/food/snacks/grown/poppy = 1,
 	)
-	result_atoms = list(/obj/item/reagent_containers/cup/phylactery)
+	result_atoms = list(/obj/item/reagent_containers/glass/phylactery)
 	cost = 1
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "phylactery_2"
@@ -34,7 +34,7 @@
 		However, you will fall unconscious a short time after casting this spell."
 	gain_text = "My shackles undone in dark fury, their feeble bindings crumble before my power."
 
-	action_to_add = /datum/action/innate/aoe/wave_of_desperation
+	action_to_add = /obj/effect/proc_holder/spell/aoe/wave_of_desperation
 	cost = 1
 
 /datum/heretic_knowledge/spell/apetra_vulnera
@@ -44,7 +44,7 @@
 		Wounds a random limb if no limb is sufficiently damaged."
 	gain_text = "Flesh opens, and blood spills. My master seeks sacrifice, and I shall appease."
 
-	action_to_add = /datum/action/innate/pointed/apetra_vulnera
+	action_to_add = /obj/effect/proc_holder/spell/pointed/apetra_vulnera
 	cost = 1
 
 

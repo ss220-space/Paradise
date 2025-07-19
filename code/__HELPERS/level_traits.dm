@@ -10,6 +10,9 @@
 /proc/is_teleport_allowed(z)
 	return !check_level_trait(z, BLOCK_TELEPORT)
 
+/proc/is_phase_allowed(z)
+	return !check_level_trait(z, ZTRAIT_NOPHASE)
+
 /proc/is_admin_level(z)
 	return check_level_trait(z, ADMIN_LEVEL)
 

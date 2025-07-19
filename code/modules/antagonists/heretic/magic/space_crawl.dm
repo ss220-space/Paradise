@@ -21,13 +21,13 @@
 
 	jaunt_type = /obj/effect/dummy/phased_mob/spell_jaunt/space
 	///List of traits that are added to the heretic while in space phase jaunt
-	var/static/list/jaunting_traits = list(TRAIT_RESISTLOWPRESSURE, TRAIT_RESIST_COLD, TRAIT_NO_BREATH)
+	var/static/list/jaunting_traits = list(TRAIT_RESIST_COLD, TRAIT_RESIST_COLD, TRAIT_NO_BREATH)
 
-/obj/effect/proc_holder/spell/jaunt/space_crawl/Grant(mob/grant_to)
+/obj/effect/proc_holder/spell/jaunt/space_crawl/on_spell_gain(mob/user = usr)
 	. = ..()
-	RegisterSignal(grant_to, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/datum/action, update_status_on_signal))
 
-/obj/effect/proc_holder/spell/jaunt/space_crawl/Remove(mob/remove_from)
+/obj/effect/proc_holder/spell/jaunt/space_crawl/on_spell_loss(mob/remove_from)
 	. = ..()
 	UnregisterSignal(remove_from, COMSIG_MOVABLE_MOVED)
 
@@ -62,7 +62,8 @@
 		. = try_enter_jaunt(our_turf, jaunter)
 
 	if(!.)
-		reset_spell_cooldown()
+		//reset_spell_cooldown()
+		cooldown_handler.start_recharge()
 		to_chat(jaunter, span_warning("You are unable to space crawl!"))
 
 /**
@@ -76,7 +77,7 @@
 		REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
 		return FALSE
 
-	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
+	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/datum/action, update_status_on_signal))
 	if(iscarbon(jaunter))
 		jaunter.drop_all_held_items()
 		// Sanity check to ensure we didn't lose our focus as a result.
@@ -97,7 +98,7 @@
 	playsound(our_turf, 'sound/effects/magic/cosmic_energy.ogg', 50, TRUE, -1)
 	our_turf.visible_message(span_warning("[jaunter] sinks into [our_turf]!"))
 	new /obj/effect/temp_visual/space_explosion(our_turf)
-	jaunter.extinguish_mob()
+	jaunter.ExtinguishMob()
 
 	REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
 	return TRUE
@@ -121,10 +122,15 @@
 	UnregisterSignal(unjaunter, list(SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING)))
 	playsound(get_turf(unjaunter), 'sound/effects/magic/cosmic_energy.ogg', 50, TRUE, -1)
 	new /obj/effect/temp_visual/space_explosion(get_turf(unjaunter))
-	if(iscarbon(unjaunter))
-		for(var/obj/item/space_crawl/space_hand in unjaunter.held_items)
-			unjaunter.temporarilyRemoveItemFromInventory(space_hand, force = TRUE)
-			qdel(space_hand)
+	if(!iscarbon(unjaunter))
+		return ..()
+
+	/*
+	for(var/obj/item/space_crawl/space_hand in unjaunter.held_items)
+		unjaunter.drop_item_ground(space_hand, force = TRUE)
+		qdel(space_hand)
+	*/
+
 	return ..()
 
 /// Signal proc for [SIGNAL_REMOVETRAIT] via [TRAIT_ALLOW_HERETIC_CASTING], losing our focus midcast will throw us out.
@@ -150,3 +156,123 @@
 	movespeed = 0
 
 #undef SPACE_PHASING
+
+
+/**
+ * ## Jaunt spells
+ *
+ * A basic subtype for jaunt related spells.
+ * Jaunt spells put their caster in a dummy
+ * phased_mob effect that allows them to float
+ * around incorporeally.
+ *
+ * Doesn't actually implement any behavior on cast to
+ * enter or exit the jaunt - that must be done via subtypes.
+ *
+ * Use enter_jaunt() and exit_jaunt() as wrappers.
+ */
+/obj/effect/proc_holder/spell/jaunt
+	school = SCHOOL_TRANSMUTATION
+
+	invocation_type = INVOCATION_NONE
+
+	/// What dummy mob type do we put jaunters in on jaunt?
+	var/jaunt_type = /obj/effect/dummy/phased_mob
+
+
+/obj/effect/proc_holder/spell/jaunt/before_cast(atom/cast_on)
+	return ..() | SPELL_NO_FEEDBACK // Don't do the feedback until after we're jaunting
+
+
+/obj/effect/proc_holder/spell/jaunt/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/area/owner_area = get_area(action.owner)
+	var/turf/owner_turf = get_turf(action.owner)
+	if(!owner_area || !owner_turf)
+		return FALSE // nullspaced?
+
+	if(!HASBIT(owner_turf?.turf_flags, NOJAUNT))
+		return isliving(user)
+
+	if(show_message)
+		to_chat(action.owner, span_danger("An otherwordly force is preventing you from jaunting here."))
+
+	return FALSE
+
+
+/**
+ * Places the [jaunter] in a jaunt holder mob
+ * If [loc_override] is supplied,
+ * the jaunt will be moved to that turf to start at
+ *
+ * Returns the holder mob that was created
+ */
+/obj/effect/proc_holder/spell/jaunt/proc/enter_jaunt(mob/living/jaunter, turf/loc_override)
+	SHOULD_CALL_PARENT(TRUE)
+
+	var/obj/effect/dummy/phased_mob/jaunt = new jaunt_type(loc_override || get_turf(jaunter), jaunter)
+	RegisterSignal(jaunt, COMSIG_MOB_EJECTED_FROM_JAUNT, PROC_REF(on_jaunt_exited))
+	//check_flags &= ~AB_CHECK_PHASED
+	//jaunter.add_traits(list(TRAIT_MAGICALLY_PHASED, TRAIT_RUNECHAT_HIDDEN, TRAIT_WEATHER_IMMUNE), REF(src))
+	// Don't do the feedback until we have runechat hidden.
+	// Otherwise the text will follow the jaunt holder, which reveals where our caster is travelling.
+	//spell_feedback(jaunter)
+
+	// This needs to happen at the end, after all the traits and stuff is handled
+	//SEND_SIGNAL(jaunter, COMSIG_MOB_ENTER_JAUNT, src, jaunt)
+	return jaunt
+
+/**
+ * Ejects the [unjaunter] from jaunt
+ * The jaunt object in turn should call on_jaunt_exited
+ * If [loc_override] is supplied,
+ * the jaunt will be moved to that turf
+ * before ejecting the unjaunter
+ *
+ * Returns TRUE on successful exit, FALSE otherwise
+ */
+/obj/effect/proc_holder/spell/jaunt/proc/exit_jaunt(mob/living/unjaunter, turf/loc_override)
+	SHOULD_CALL_PARENT(TRUE)
+
+	var/obj/effect/dummy/phased_mob/jaunt = unjaunter.loc
+	if(!istype(jaunt))
+		return FALSE
+
+	if(jaunt.jaunter != unjaunter)
+		CRASH("Jaunt spell attempted to exit_jaunt with an invalid unjaunter, somehow.")
+
+	if(loc_override)
+		jaunt.forceMove(loc_override)
+	jaunt.eject_jaunter()
+	return TRUE
+
+
+/**
+ * Called when a mob is ejected from the jaunt holder and goes back to normal.
+ * This is called both fom exit_jaunt() but also if the caster is ejected involuntarily for some reason.
+ * Use this to clear state data applied when jaunting, such as the trait TRAIT_MAGICALLY_PHASED.
+ * Arguments
+ * * jaunt - The mob holder effect the caster has just exited
+ * * unjaunter - The spellcaster who is no longer jaunting
+ */
+/obj/effect/proc_holder/spell/jaunt/proc/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
+	return
+/*
+	SHOULD_CALL_PARENT(TRUE)
+	check_flags |= AB_CHECK_PHASED
+	unjaunter.remove_traits(list(TRAIT_MAGICALLY_PHASED, TRAIT_RUNECHAT_HIDDEN, TRAIT_WEATHER_IMMUNE), REF(src))
+	// This needs to happen at the end, after all the traits and stuff is handled
+	SEND_SIGNAL(unjaunter, COMSIG_MOB_AFTER_EXIT_JAUNT, src)
+*/
+
+/obj/effect/proc_holder/spell/jaunt/on_spell_loss(mob/living/remove_from)
+	exit_jaunt(remove_from)
+	if (!is_jaunting(remove_from)) // In case you have made exit_jaunt conditional, as in mirror walk
+		return ..()
+
+	var/obj/effect/dummy/phased_mob/jaunt = remove_from.loc
+	jaunt.eject_jaunter()
+	return ..()

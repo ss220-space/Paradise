@@ -49,7 +49,7 @@
 	COOLDOWN_START(src, recently_moved_cd, delay)
 
 
-/obj/structure/closet/cardboard/open()
+/obj/structure/closet/cardboard/open(force = FALSE)
 	if(opened || !can_open())
 		return FALSE
 

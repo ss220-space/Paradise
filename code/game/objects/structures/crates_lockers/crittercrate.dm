@@ -42,7 +42,7 @@
 		return 0
 	return 1
 
-/obj/structure/closet/critter/open()
+/obj/structure/closet/critter/open(force = FALSE)
 	if(!can_open())
 		return 0
 

@@ -51,3 +51,8 @@
 /datum/status_effect/freon/watcher
 	duration = 1.5 SECONDS
 	can_melt = FALSE
+
+
+/datum/status_effect/freon/lasting
+	id = "lasting_frozen"
+	duration = -1

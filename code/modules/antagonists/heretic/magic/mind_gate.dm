@@ -18,11 +18,14 @@
 
 	active_msg = "You prepare to open your mind..."
 
+
 /obj/effect/proc_holder/spell/pointed/mind_gate/can_cast(feedback = TRUE)
 	return ..() && isliving(action.owner)
 
-/obj/effect/proc_holder/spell/pointed/mind_gate/is_valid_target(atom/cast_on)
+
+/obj/effect/proc_holder/spell/pointed/mind_gate/valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
+
 
 /obj/effect/proc_holder/spell/pointed/mind_gate/cast(mob/living/carbon/human/cast_on)
 	. = ..()
@@ -31,9 +34,9 @@
 		to_chat(action.owner, span_warning("Their mind doesn't swing open, but neither does yours."))
 		return FALSE
 
-	cast_on.adjust_confusion(10 SECONDS)
+	cast_on.Confused(10 SECONDS)
 	cast_on.adjustOxyLoss(30)
-	cast_on.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/body), "Mind gate, cast by [action.owner]")
+	cast_on.Hallucinate(60 SECONDS)
 	cast_on.cause_hallucination(/datum/hallucination/delusion/preset/heretic/gate, "Caused by mindgate")
 	cast_on.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 30)
 

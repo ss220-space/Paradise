@@ -36,7 +36,7 @@
 		You can only phase in and out when you are on a space or misc turf."
 	gain_text = "You feel like your body can move through space as if you where dust."
 
-	action_to_add = /datum/action/innate/jaunt/space_crawl
+	action_to_add = /obj/effect/proc_holder/spell/jaunt/space_crawl
 	cost = 1
 
 
@@ -60,3 +60,59 @@
 	research_tree_icon_path = 'icons/obj/economy.dmi'
 	research_tree_icon_state = "coin_heretic"
 
+
+/obj/item/coin/eldritch
+	name = "eldritch coin"
+	desc = "A surprisingly heavy, ornate coin. Its sides seem to depict a different image each time you look."
+	icon_state = "coin_heretic"
+	//custom_materials = list(/datum/material/diamond =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/plasma =HALF_SHEET_MATERIAL_AMOUNT)
+	sideslist = list("heretic", "blade")
+	//heads_name = "heretic"
+	//has_action = TRUE
+	//material_flags = NONE
+	/// The range at which airlocks are effected.
+	var/airlock_range = 5
+
+/obj/item/coin/eldritch/attack_self(mob/user)
+	var/mob/living/living_user = user
+	if(!isheretic(user))
+		living_user.adjustBruteLoss(5)
+		return
+
+	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
+		if(target_airlock.density)
+			target_airlock.open()
+			continue
+
+		target_airlock.close()
+
+/*
+/obj/item/coin/eldritch/tails_action(mob/user)
+	var/mob/living/living_user = user
+	if(!isheretic(user))
+		living_user.adjustFireLoss(5)
+		return
+
+	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
+		if(target_airlock.locked)
+			target_airlock.unlock()
+			continue
+
+		target_airlock.lock()
+*/
+
+/obj/item/coin/eldritch/afterattack(atom/interacting_with, mob/living/user, proximity, params, status)
+	if(!istype(interacting_with, /obj/machinery/door/airlock))
+		return
+
+	if(!isheretic(user))
+		user.adjustBruteLoss(5)
+		user.adjustFireLoss(5)
+		user.drop_from_active_hand()
+		return
+
+	var/obj/machinery/door/airlock/target_airlock = interacting_with
+	to_chat(user, span_warning("You insert [src] into the airlock."))
+	target_airlock.emag_act(user, src)
+	qdel(src)
+	return

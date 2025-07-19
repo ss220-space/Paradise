@@ -25,7 +25,7 @@
 		In addition, they can fit into utility belts."
 	gain_text = "The Locked Labyrinth leads to freedom. But only the trapped Stewards know the correct path."
 	required_atoms = list(
-		/obj/item/knife = 1,
+		/obj/item/kitchen/knife = 1,
 		/obj/item/crowbar = 1,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/lock)
@@ -45,41 +45,48 @@
 
 /datum/heretic_knowledge/lock_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, PROC_REF(on_secondary_mansus_grasp))
-	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
+	//RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 
 /datum/heretic_knowledge/lock_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
 
+/*
 /datum/heretic_knowledge/lock_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 	var/obj/item/clothing/under/suit = target.get_item_by_slot(ITEM_SLOT_ICLOTHING)
 	if(istype(suit) && suit.adjusted == NORMAL_STYLE)
 		suit.toggle_jumpsuit_adjust()
 		suit.update_appearance()
+*/
 
 /datum/heretic_knowledge/lock_grasp/proc/on_secondary_mansus_grasp(mob/living/source, atom/target)
 	SIGNAL_HANDLER
 
 	if(ismecha(target))
 		var/obj/mecha/mecha = target
-		mecha.dna_lock = null
-		mecha.mecha_flags &= ~ID_LOCK_ON
-		for(var/mob/living/occupant as anything in mecha.occupants)
-			if(isAI(occupant))
-				continue
-			mecha.mob_exit(occupant, randomstep = TRUE)
-			occupant.Paralyze(5 SECONDS)
+		mecha.dna = null
+		//mecha.mecha_flags &= ~ID_LOCK_ON
+		if(mecha.occupant)
+			var/mob/living/occupant = mecha.occupant
+			if(!isAI(occupant))
+				occupant.forceMove(get_turf(src))
+				occupant.Paralyse(5 SECONDS)
+				mecha.occupant = null
+
 	else if(istype(target,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/door = target
-		door.unbolt()
+		door.locked = FALSE
+
+/*
 	else if(istype(target, /obj/machinery/computer))
 		var/obj/machinery/computer/computer = target
 		computer.authenticated = TRUE
 		computer.balloon_alert(source, "unlocked")
+*/
 
-	var/turf/target_turf = get_turf(target)
-	SEND_SIGNAL(target_turf, COMSIG_ATOM_MAGICALLY_UNLOCKED, src, source)
+	//var/turf/target_turf = get_turf(target)
+	//SEND_SIGNAL(target_turf, COMSIG_ATOM_MAGICALLY_UNLOCKED, src, source)
 	playsound(target, 'sound/effects/magic/hereticknock.ogg', 100, TRUE, -1)
 
 	return COMPONENT_USE_HAND
@@ -132,7 +139,7 @@
 	gain_text = "The Concierge scribbled my name into the Handbook. \"Welcome to your new home, fellow Steward.\""
 	required_atoms = list(
 		/obj/item/toy/crayon = 1,
-		/obj/item/stack/sheet/mineral/wood = 1,
+		/obj/item/stack/sheet/wood = 1,
 		/obj/item/multitool = 1,
 	)
 	result_atoms = list(/obj/item/heretic_labyrinth_handbook)
@@ -146,14 +153,13 @@
 		that puts a random item from the victims backpack into your hand."
 	gain_text = "Consorting with Burglar spirits is frowned upon, but a Steward will always want to learn about new doors."
 
-	action_to_add = /datum/action/innate/pointed/burglar_finesse
+	action_to_add = /obj/effect/proc_holder/spell/pointed/burglar_finesse
 	cost = 1
 
 /datum/heretic_knowledge/blade_upgrade/flesh/lock //basically a chance-based weeping avulsion version of the former
 	name = "Opening Blade"
 	desc = "Your blade has a chance to cause a weeping avulsion on attack."
 	gain_text = "The Pilgrim-Surgeon was not an Steward. Nonetheless, its blades and sutures proved a match for their keys."
-	wound_type = /datum/wound/slash/flesh/critical
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_lock"
 	var/chance = 35
@@ -168,7 +174,7 @@
 		While in refuge, you cannot use your hands or spells, and you are immune to slowdown. \
 		You are invincible but unable to harm anything. Cancelled by being hit with an anti-magic item."
 	gain_text = "Jealously, the Guard and the Hound hunted me. But I unlocked my form, and was but a haze, untouchable."
-	action_to_add = /datum/action/innate/caretaker
+	action_to_add = /obj/effect/proc_holder/spell
 	cost = 1
 
 /datum/heretic_knowledge/ultimate/lock_final
@@ -185,9 +191,9 @@
 		My foes were the Locks and my blades were the Key! \
 		The Labyrinth will be Locked no more, and freedom will be ours! WITNESS US!"
 	required_atoms = list(/mob/living/carbon/human = 3)
-	ascension_achievement = /datum/award/achievement/misc/lock_ascension
+	//ascension_achievement = /datum/award/achievement/misc/lock_ascension
 	announcement_text = "Delta-class dimensional anomaly detec%SPOOKY% Reality rended, torn. Gates open, doors open, %NAME% has ascended! Fear the tide! %SPOOKY%"
-	announcement_sound = 'sound/music/antag/heretic/ascend_knock.ogg'
+	announcement_sound = 'sound/music/heretic/ascend_knock.ogg'
 
 /datum/heretic_knowledge/ultimate/lock_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	. = ..()
@@ -197,7 +203,8 @@
 	for(var/mob/living/carbon/human/body in atoms)
 		if(body.stat != DEAD)
 			continue
-		if(LAZYLEN(body.get_organs_for_zone(BODY_ZONE_CHEST)))
+
+		if(LAZYLEN(body.get_organs_zone(BODY_ZONE_CHEST)))
 			to_chat(user, span_hierophant_warning("[body] has organs in their chest."))
 			continue
 
@@ -211,9 +218,7 @@
 /datum/heretic_knowledge/ultimate/lock_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	// buffs
-	var/obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/transform_spell = new(user.mind)
-	transform_spell.Grant(user)
-
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/eldritch/ascension)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/datum/heretic_knowledge/blade_upgrade/flesh/lock/blade_upgrade = heretic_datum.get_knowledge(/datum/heretic_knowledge/blade_upgrade/flesh/lock)
 	blade_upgrade.chance += 30

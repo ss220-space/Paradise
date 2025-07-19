@@ -36,7 +36,7 @@
 		/obj/item/organ/internal/heart/corrupt,
 		/obj/item/organ/internal/liver/corrupt,
 		/obj/item/organ/internal/lungs/corrupt,
-		/obj/item/organ/internal/stomach/corrupt,
+		///obj/item/organ/internal/stomach/corrupt,
 		/obj/item/organ/internal/tongue/corrupt,
 	)
 
@@ -50,13 +50,13 @@
 	obtain_targets(user, silent = TRUE, heretic_datum = our_heretic)
 	heretic_mind = our_heretic.owner
 
-#ifndef UNIT_TESTS // This is a decently hefty thing to generate while unit testing, so we should skip it.
-	if(!heretic_level_generated)
-		heretic_level_generated = TRUE
-		log_game("Loading heretic lazytemplate for heretic sacrifices...")
-		INVOKE_ASYNC(src, PROC_REF(generate_heretic_z_level))
-#endif
-
+//#ifndef UNIT_TESTS // This is a decently hefty thing to generate while unit testing, so we should skip it.
+	//if(!heretic_level_generated)
+		//heretic_level_generated = TRUE
+		//log_game("Loading heretic lazytemplate for heretic sacrifices...")
+		//`INVOKE_ASYNC(src, PROC_REF(generate_heretic_z_level))
+//#endif
+/*
 /// Generate the sacrifice z-level.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/generate_heretic_z_level()
 	if(!SSmapping.lazy_load_template(LAZY_TEMPLATE_KEY_HERETIC_SACRIFICE))
@@ -64,6 +64,7 @@
 		message_admins("The heretic sacrifice lazy template failed to load. Heretic sacrifices won't be teleported to the shadow realm. \
 			If you want, you can spawn an /obj/effect/landmark/heretic somewhere to stop that from happening.")
 		CRASH("Failed to lazy load heretic sacrifice template!")
+*/
 
 /datum/heretic_knowledge/hunt_and_sacrifice/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -84,7 +85,7 @@
 	// Let's remove any humans in our atoms list that aren't a sac target
 	for(var/mob/living/carbon/human/sacrifice in atoms)
 		// If the mob's not in soft crit or worse, remove from list
-		if(sacrifice.stat < SOFT_CRIT)
+		if(sacrifice.stat)
 			atoms -= sacrifice
 		// Otherwise if it's neither a target nor a cultist, remove it
 		else if(!(sacrifice in heretic_datum.sac_targets) && !iscultist(sacrifice))
@@ -148,21 +149,21 @@
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
-		if(head_mind.assigned_role?.job_flags & JOB_HEAD_OF_STAFF)
+		if(head_mind.assigned_job.flag & JOB_FLAG_HOP)
 			final_targets += head_mind
 			valid_targets -= head_mind
 			break
 
 	// Second target, any security
 	for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
-		if(sec_mind.assigned_role?.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY)
+		if(sec_mind.assigned_job?.department_flag & JOBCAT_ENGSEC)
 			final_targets += sec_mind
 			valid_targets -= sec_mind
 			break
 
 	// Third target, someone in their department.
 	for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
-		if(department_mind.assigned_role?.departments_bitflags & user.mind.assigned_role?.departments_bitflags)
+		if(department_mind.assigned_job?.department_flag & user.mind.assigned_job?.department_flag)
 			final_targets += department_mind
 			valid_targets -= department_mind
 			break
@@ -206,42 +207,47 @@
 
 
 	var/feedback = "Your patrons accept your offer"
-	var/sac_job_flag = sacrifice.mind?.assigned_role?.job_flags | sacrifice.last_mind?.assigned_role?.job_flags
-	var/datum/antagonist/cult/cultist_datum = GET_CULTIST(sacrifice)
+	var/sac_job = sacrifice.mind?.assigned_job.flag
 	// Heads give 3 points, cultists give 1 point (and a special reward), normal sacrifices give 2 points.
 	heretic_datum.total_sacrifices++
-	if((sac_job_flag & JOB_HEAD_OF_STAFF))
+	if(sac_job == JOB_FLAG_HOP)
 		heretic_datum.knowledge_points += 3
 		heretic_datum.high_value_sacrifices++
 		feedback += " <i>graciously</i>"
-	if(cultist_datum)
-		heretic_datum.knowledge_points += 1
-		grant_reward(user, sacrifice, loc)
-		// easier to read
-		var/rewards_given = heretic_datum.rewards_given
-		// Chance for it to send a warning to cultists, higher with each reward. Stops after 5 because they probably got the hint by then.
-		if(prob(min(15 * rewards_given)) && (rewards_given <= 5))
-			for(var/datum/mind/mind as anything in cultist_datum.SSticker.mode.cult)
-				if(mind.current)
-					SEND_SOUND(mind.current, 'sound/effects/magic/clockwork/narsie_attack.ogg')
-					var/message = span_narsie("A vile heretic has ") + \
-					span_cultlarge(span_hypnophrase("sacrificed")) + \
-					span_narsie(" one of our own. Destroy and sacrifice the infidel before it claims more!")
-					to_chat(mind.current, message)
-			// he(retic) gets a warn too
-			to_chat(user, span_narsiesmall("How DARE you!? I will see you destroyed for this."))
-			var/non_flavor_warning = span_cultbold("You feel that your action has attracted ") + span_hypnophrase("attention") + span_cultbold(".")
-			to_chat(user, non_flavor_warning)
-		return
-	else
+
+	if(!iscultist(sacrifice))
 		heretic_datum.knowledge_points += 2
+		to_chat(user, span_hypnophrase("[feedback]."))
+		if(!begin_sacrifice(sacrifice))
+			disembowel_target(sacrifice)
+			return
 
-	to_chat(user, span_hypnophrase("[feedback]."))
-	if(!begin_sacrifice(sacrifice))
-		disembowel_target(sacrifice)
+		sacrifice.apply_status_effect(/datum/status_effect/heretic_curse, user)
 		return
 
-	sacrifice.apply_status_effect(/datum/status_effect/heretic_curse, user)
+
+	heretic_datum.knowledge_points += 1
+	grant_reward(user, sacrifice, loc)
+	// easier to read
+	var/rewards_given = heretic_datum.rewards_given
+	// Chance for it to send a warning to cultists, higher with each reward. Stops after 5 because they probably got the hint by then.
+	if(!prob(min(15 * rewards_given)) || (rewards_given > 5))
+		return
+
+	for(var/datum/mind/mind as anything in SSticker.mode.cult)
+		if(!mind.current)
+			continue
+
+		SEND_SOUND(mind.current, 'sound/effects/magic/clockwork/narsie_attack.ogg')
+		var/message = span_narsie("A vile heretic has ") + \
+		span_cultlarge(span_hypnophrase("sacrificed")) + \
+		span_narsie(" one of our own. Destroy and sacrifice the infidel before it claims more!")
+		to_chat(mind.current, message)
+
+	// he(retic) gets a warn too
+	to_chat(user, span_narsiesmall("How DARE you!? I will see you destroyed for this."))
+	var/non_flavor_warning = span_cultbold("You feel that your action has attracted ") + span_hypnophrase("attention") + span_cultbold(".")
+	to_chat(user, non_flavor_warning)
 
 
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/grant_reward(mob/living/user, mob/living/sacrifice, turf/loc)
@@ -334,17 +340,17 @@
 
 	sac_target.visible_message(span_danger("[sac_target] begins to shudder violenty as dark tendrils begin to drag them into thin air!"))
 	sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult(sac_target))
-	sac_target.update_handcuffed()
+	//sac_target.update_handcuffed()
 
 	if(sac_target.legcuffed)
 		sac_target.legcuffed.forceMove(sac_target.drop_location())
 		sac_target.legcuffed.dropped(sac_target)
 		sac_target.legcuffed = null
-		sac_target.update_worn_legcuffs()
+		//sac_target.update_worn_legcuffs()
 
 	sac_target.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 85, 150)
 	sac_target.do_jitter_animation()
-	log_combat(heretic_mind.current, sac_target, "sacrificed")
+	//log_combat(heretic_mind.current, sac_target, "sacrificed")
 
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
@@ -360,7 +366,7 @@
 	else
 		to_chat(sac_target, span_hypnophrase("Your mind begins to tear apart as you watch dark tendrils envelop you."))
 
-	sac_target.AdjustParalyzed(SACRIFICE_SLEEP_DURATION * 1.2)
+	sac_target.AdjustParalysis(SACRIFICE_SLEEP_DURATION * 1.2)
 	sac_target.AdjustImmobilized(SACRIFICE_SLEEP_DURATION * 1.2)
 
 	addtimer(CALLBACK(src, PROC_REF(after_target_sleeps), sac_target, destination), SACRIFICE_SLEEP_DURATION * 0.5) // Teleport to the minigame
@@ -389,7 +395,7 @@
 	curse_organs(sac_target)
 
 	// Send 'em to the destination. If the teleport fails, just disembowel them and stop the chain
-	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/effects/magic/repulse.ogg', asoundout = 'sound/effects/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
+	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/effects/magic/repulse.ogg', asoundout = 'sound/effects/magic/blind.ogg'))
 		disembowel_target(sac_target)
 		return
 
@@ -403,7 +409,7 @@
 
 	to_chat(sac_target, span_big(span_hypnophrase("Unnatural forces begin to claw at your every being from beyond the veil.")))
 
-	playsound(sac_target, 'sound/music/antag/heretic/heretic_sacrifice.ogg', 50, FALSE) // play theme
+	playsound(sac_target, 'sound/music/heretic/heretic_sacrifice.ogg', 50, FALSE) // play theme
 
 	sac_target.apply_status_effect(/datum/status_effect/unholy_determination, SACRIFICE_REALM_DURATION)
 	addtimer(CALLBACK(src, PROC_REF(after_target_wakes), sac_target), SACRIFICE_SLEEP_DURATION * 0.5) // Begin the minigame
@@ -422,9 +428,10 @@
 	for (var/i in 1 to total_implant)
 		if (!length(usable_organs))
 			return
+
 		var/organ_path = pick_n_take(usable_organs)
 		var/obj/item/organ/to_give = new organ_path
-		to_give.Insert(sac_target)
+		to_give.safe_replace(sac_target)
 
 	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target), sac_target)
 	sac_target.visible_message(span_boldwarning("Several organs force themselves out of [sac_target]!"))
@@ -448,11 +455,11 @@
 	sac_target.reagents?.add_reagent(/datum/reagent/inverse/helgrasp/heretic, helgrasp_time / 20)
 	sac_target.apply_necropolis_curse(CURSE_BLINDING | CURSE_GRASPING)
 
-	sac_target.flash_act()
-	sac_target.set_eye_blur_if_lower(30 SECONDS)
-	sac_target.set_jitter_if_lower(20 SECONDS)
-	sac_target.set_dizzy_if_lower(20 SECONDS)
-	sac_target.adjust_hallucinations(24 SECONDS)
+	sac_target.flash_eyes()
+	sac_target.EyeBlurry(30 SECONDS)
+	sac_target.Jitter(20 SECONDS)
+	sac_target.Dizzy(20 SECONDS)
+	sac_target.Hallucinate(24 SECONDS)
 	sac_target.emote("scream")
 
 	to_chat(sac_target, span_reallybig(span_hypnophrase("The grasp of the Mansus reveal themselves to you!")))
@@ -500,14 +507,14 @@
 	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
 	sac_target.reagents?.del_reagent(/datum/reagent/inverse/helgrasp/heretic)
 	sac_target.uncuff()
-	sac_target.clear_mood_event("shadow_realm")
+	//sac_target.clear_mood_event("shadow_realm")
 	if(isheretic(sac_target))
 		var/datum/antagonist/heretic/victim_heretic = sac_target.mind?.has_antag_datum(/datum/antagonist/heretic)
 		victim_heretic.knowledge_points -= 3
 
 	// Wherever we end up, we sure as hell won't be able to explain
-	sac_target.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/slurring/heretic)
-	sac_target.adjust_stutter(40 SECONDS)
+	sac_target.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 40 SECONDS)
+	sac_target.Stuttering(40 SECONDS)
 
 	// They're already back on the station for some reason, don't bother teleporting
 	var/turf/below_target = get_turf(sac_target)
@@ -523,7 +530,7 @@
 		safe_turf = get_turf(backup_loc)
 		stack_trace("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to observer start turf.")
 
-	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/effects/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
+	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/effects/magic/blind.ogg'/*, forced = TRUE*/))
 		safe_turf = get_turf(backup_loc)
 		sac_target.forceMove(safe_turf)
 		stack_trace("[type] - return_target was unable to teleport [sac_target] to the observer start turf. Forcemoving.")
@@ -579,11 +586,11 @@
 		to_chat(sac_target, span_big(span_hypnophrase("You don't remember anything leading up to the experience - All you can think about are those horrific hands...")))
 
 	// Oh god where are we?
-	sac_target.flash_act()
-	sac_target.adjust_confusion(60 SECONDS)
-	sac_target.set_jitter_if_lower(120 SECONDS)
-	sac_target.set_eye_blur_if_lower(100 SECONDS)
-	sac_target.set_dizzy_if_lower(1 MINUTES)
+	sac_target.flash_eyes()
+	sac_target.Confused(60 SECONDS)
+	sac_target.Jitter(120 SECONDS)
+	sac_target.EyeBlurry(100 SECONDS)
+	sac_target.Dizzy(1 MINUTES)
 	sac_target.AdjustKnockdown(80)
 	sac_target.adjustStaminaLoss(120)
 
@@ -611,8 +618,9 @@
  * Disembowels the [sac_target] and brutilizes their body. Throws some gibs around for good measure.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/disembowel_target(mob/living/carbon/human/sac_target)
-	if(heretic_mind)
-		log_combat(heretic_mind.current, sac_target, "disemboweled via sacrifice")
+	//if(heretic_mind)
+	//	log_combat(heretic_mind.current, sac_target, "disemboweled via sacrifice")
+
 	sac_target.spill_organs()
 	sac_target.apply_damage(250, BRUTE)
 	if(sac_target.stat != DEAD)
@@ -627,3 +635,278 @@
 
 #undef SACRIFICE_SLEEP_DURATION
 #undef SACRIFICE_REALM_DURATION
+
+/**
+ * Drops a mob's organs on the floor
+ *
+ * drop_bitflags: (see code/__DEFINES/blood.dm)
+ * * DROP_BRAIN - Mob will drop a brain
+ * * DROP_ORGANS - Mob will drop organs
+ * * DROP_BODYPARTS - Mob will drop bodyparts (arms, legs, etc.)
+ * * DROP_ALL_REMAINS - Mob will drop everything
+**/
+/mob/living/proc/spill_organs()
+	return
+
+
+/mob/living/carbon/spill_organs()
+	var/atom/Tsec = drop_location()
+
+	for(var/obj/item/organ/organ as anything in internal_organs)
+		organ.remove()
+		organ.forceMove(Tsec)
+		organ.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)
+
+
+/// Applies a curse with various possible effects
+/mob/living/proc/apply_necropolis_curse(set_curse)
+	var/datum/status_effect/necropolis_curse/curse = has_status_effect(/datum/status_effect/necropolis_curse)
+	if(!set_curse)
+		set_curse = pick(CURSE_BLINDING, CURSE_WASTING, CURSE_GRASPING)
+
+	if(QDELETED(curse))
+		apply_status_effect(/datum/status_effect/necropolis_curse, set_curse)
+		return curse
+
+	curse.apply_curse(set_curse)
+	curse.duration += 5 MINUTES //time added by additional curses
+	return curse
+
+
+/// A curse that does up to three nasty things to you
+/datum/status_effect/necropolis_curse
+	id = "necrocurse"
+	duration = 10 MINUTES //you're cursed for 10 minutes have fun
+	tick_interval = 5 SECONDS
+	alert_type = null
+	/// Which nasty things are we doing? [CURSE_BLINDING / CURSE_WASTING / CURSE_GRASPING]]
+	var/curse_flags = NONE
+	/// When should we next throw hands?
+	var/effect_next_activation = 0
+	/// How long between throwing hands?
+	var/effect_cooldown = 10 SECONDS
+	/// Visuals for the wasting effect
+	var/obj/effect/temp_visual/curse/wasting_effect
+
+
+/datum/status_effect/necropolis_curse/on_creation(mob/living/new_owner, set_curse)
+	. = ..()
+	if(!.)
+		return
+
+	apply_curse(set_curse)
+
+
+/datum/status_effect/necropolis_curse/Destroy()
+	if(QDELETED(wasting_effect))
+		return ..()
+
+	qdel(wasting_effect)
+	wasting_effect = null
+	return ..()
+
+
+/datum/status_effect/necropolis_curse/on_remove()
+	remove_curse(curse_flags)
+
+
+/datum/status_effect/necropolis_curse/proc/apply_curse(set_curse)
+	curse_flags |= set_curse
+	if(curse_flags & CURSE_BLINDING)
+		owner.overlay_fullscreen("curse", /atom/movable/screen/fullscreen/curse, 1)
+
+	if(curse_flags & CURSE_WASTING && !wasting_effect)
+		wasting_effect = new
+
+
+/datum/status_effect/necropolis_curse/proc/remove_curse(remove_curse)
+	if(remove_curse & CURSE_BLINDING)
+		owner.clear_fullscreen("curse", 50)
+
+	curse_flags &= ~remove_curse
+
+
+/datum/status_effect/necropolis_curse/tick(seconds_between_ticks)
+	if(owner.stat == DEAD)
+		return
+
+	if(curse_flags & CURSE_WASTING)
+		wasting_effect.forceMove(owner.loc)
+		wasting_effect.setDir(owner.dir)
+		wasting_effect.transform = owner.transform //if the owner has been stunned the overlay should inherit that position
+		wasting_effect.alpha = 255
+		animate(wasting_effect, alpha = 0, time = 32)
+		playsound(owner, 'sound/effects/curse/curse5.ogg', 20, TRUE, -1)
+		owner.adjustFireLoss(0.75)
+
+	if(!HASBIT(curse_flags, CURSE_GRASPING))
+		return
+
+	if(effect_next_activation > world.time)
+		return
+
+	effect_next_activation = world.time + effect_cooldown
+	fire_curse_hand(owner, range = 5, projectile_type = /obj/projectile/curse_hand) // This one stuns people
+
+
+/obj/effect/temp_visual/curse
+	icon_state = "curse"
+
+/obj/effect/temp_visual/curse/Initialize(mapload)
+	. = ..()
+	deltimer(timerid)
+
+
+/obj/effect/ebeam/curse_arm
+	name = "curse arm"
+
+/obj/projectile/curse_hand
+	name = "curse hand"
+	icon_state = "cursehand0"
+	base_icon_state = "cursehand"
+	hitsound = 'sound/effects/curse/curse4.ogg'
+	layer = LARGE_MOB_LAYER
+	damage_type = BURN
+	damage = 10
+	paralyze = 20
+	speed = 0.5
+	range = 16
+	var/datum/beam/arm
+	var/handedness = 0
+
+/obj/projectile/curse_hand/Initialize(mapload)
+	. = ..()
+	//ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
+	handedness = prob(50)
+	icon_state = "[base_icon_state][handedness]"
+
+/obj/projectile/curse_hand/Destroy()
+	QDEL_NULL(arm)
+	return ..()
+
+/obj/projectile/curse_hand/update_icon_state()
+	icon_state = "[base_icon_state]0[handedness]"
+	return ..()
+
+/obj/projectile/curse_hand/fire(setAngle)
+	if(QDELETED(src)) //I'm going to try returning nothing because if it's being deleted, surely we don't want anything to happen?
+		return
+	if(starting)
+		arm = starting.Beam(src, icon_state = "curse[handedness]", beam_type=/obj/effect/ebeam/curse_arm)
+	..()
+
+/*
+/obj/projectile/curse_hand/prehit_pierce(atom/target)
+	return (target == original)? PROJECTILE_PIERCE_NONE : PROJECTILE_PIERCE_PHASE
+*/
+
+/// The visual effect for the hand disappearing
+/obj/projectile/curse_hand/proc/finale()
+	if(arm)
+		QDEL_NULL(arm)
+	if((movement_type & PHASING))
+		playsound(src, 'sound/effects/curse/curse3.ogg', 25, TRUE, -1)
+	var/turf/T = get_step(src, dir)
+	var/obj/effect/temp_visual/dir_setting/curse/hand/leftover = new(T, dir)
+	leftover.icon_state = icon_state
+	for(var/obj/effect/temp_visual/dir_setting/curse/grasp_portal/G in starting)
+		qdel(G)
+
+	if(!T) //T can be in nullspace when src is set to QDEL
+		return
+
+	new /obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading(starting, dir)
+	var/datum/beam/D = starting.Beam(T, icon_state = "curse[handedness]", time = 32, beam_type=/obj/effect/ebeam/curse_arm)
+	animate(D.visuals, alpha = 0, time = 32)
+
+/obj/projectile/curse_hand/on_range()
+	finale()
+	return ..()
+
+/obj/projectile/curse_hand/on_hit(atom/target, blocked, pierce_hit)
+	. = ..()
+	//if (. == BULLET_ACT_HIT)
+	finale()
+
+/obj/projectile/curse_hand/hel //Used in helbital's impure reagent
+	name = "Hel's grasp"
+	damage = 5
+	paralyze = 0 //Lets not stun people!
+	speed = 1
+	range = 20
+	color = "#ff7e7e"//Tint it slightly
+
+
+
+/obj/effect/temp_visual/dir_setting/curse
+	icon_state = "curse"
+	duration = 32
+	var/fades = TRUE
+
+/obj/effect/temp_visual/dir_setting/curse/Initialize(mapload, set_dir)
+	. = ..()
+	if(fades)
+		animate(src, alpha = 0, time = 32)
+
+
+/obj/effect/temp_visual/dir_setting/curse/grasp_portal
+	icon = 'icons/effects/64x64.dmi'
+	layer = ABOVE_ALL_MOB_LAYER
+	plane = ABOVE_GAME_PLANE
+	pixel_y = -16
+	pixel_x = -16
+	duration = 32
+	fades = FALSE
+
+/obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading
+	duration = 32
+	fades = TRUE
+
+
+/obj/effect/temp_visual/dir_setting/curse/hand
+	icon_state = "cursehand1"
+
+
+/**
+ * Heals up the mob up to [heal_to] of the main damage types.
+ * EX: If heal_to is 50, and they have 150 brute damage, they will heal 100 brute (up to 50 brute damage)
+ *
+ * If the target is dead, also revives them and heals their organs / restores blood.
+ * If we have a [revive_message], play a visible message if the revive was successful.
+ *
+ * Arguments
+ * * heal_to - the health threshold to heal the mob up to for each of the main damage types.
+ * * revive_message - if provided, a visible message to show on a successful revive.
+ *
+ * Returns TRUE if the mob is alive afterwards, or FALSE if they're still dead (revive failed).
+ */
+/mob/living/proc/heal_and_revive(heal_to = 50, revive_message)
+
+	// Heal their brute and burn up to the threshold we're looking for
+	var/brute_to_heal = heal_to - getBruteLoss()
+	var/burn_to_heal = heal_to - getFireLoss()
+	var/oxy_to_heal = heal_to - getOxyLoss()
+	var/tox_to_heal = heal_to - getToxLoss()
+	if(brute_to_heal < 0)
+		adjustBruteLoss(brute_to_heal, updating_health = FALSE)
+	if(burn_to_heal < 0)
+		adjustFireLoss(burn_to_heal, updating_health = FALSE)
+	if(oxy_to_heal < 0)
+		adjustOxyLoss(oxy_to_heal, updating_health = FALSE)
+	if(tox_to_heal < 0)
+		adjustToxLoss(tox_to_heal, updating_health = FALSE, forced = TRUE)
+
+	// Run updatehealth once to set health for the revival check
+	updatehealth()
+
+	// We've given them a decent heal.
+	// If they happen to be dead too, try to revive them - if possible.
+	if(stat == DEAD && can_be_revived())
+		// If the revive is successful, show our revival message (if present).
+		if(rejuvenate() && revive_message)
+			visible_message(revive_message)
+
+	// Finally update health again after we're all done
+	updatehealth()
+
+	return stat != DEAD

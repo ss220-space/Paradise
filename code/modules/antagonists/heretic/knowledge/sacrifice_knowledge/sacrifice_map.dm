@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 /obj/structure/no_effect_signpost
 	name = "signpost"
 	desc = "Won't somebody give me a sign?"
-	icon = 'icons/obj/fluff/general.dmi'
+	icon = 'icons/obj/fluff_general.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
 	density = TRUE
@@ -60,6 +60,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	. = ..()
 	set_light(range, power)
 
+/*
 // Some VERY dim lights, used for the void sacrifice realm.
 /obj/machinery/light/very_dim
 	nightshift_allowed = FALSE
@@ -79,19 +80,22 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 /obj/machinery/light/very_dim/directional/west
 	dir = WEST
+*/
 
 // Rooms for where heretic sacrifices send people.
 /area/centcom/heretic_sacrifice
 	name = "Mansus"
 	icon_state = "heretic"
-	default_gravity = STANDARD_GRAVITY
-	ambience_index = AMBIENCE_SPOOKY
+	has_gravity = TRUE
+	//ambience_index = AMBIENCE_SPOOKY
 	sound_environment = SOUND_ENVIRONMENT_CAVE
-	area_flags = UNIQUE_AREA | NOTELEPORT | HIDDEN_AREA | BLOCK_SUICIDE | NO_BOH
+	area_flags = UNIQUE_AREA // | BLOCK_SUICIDE | NO_BOH
+
 
 /area/centcom/heretic_sacrifice/Initialize(mapload)
 	if(!ambientsounds)
-		ambientsounds = GLOB.ambience_assoc[ambience_index] + 'sound/ambience/misc/ambiatm1.ogg'
+		ambientsounds = /*GLOB.ambience_assoc[ambience_index] +*/ 'sound/ambience/misc/ambiatm1.ogg'
+
 	return ..()
 
 /area/centcom/heretic_sacrifice/ash //also, the default
@@ -107,10 +111,10 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 /area/centcom/heretic_sacrifice/rust
 	name = "Mansus Rust Gate"
-	ambience_index = AMBIENCE_REEBE
+	//ambience_index = AMBIENCE_REEBE
 	sound_environment = SOUND_ENVIRONMENT_SEWER_PIPE
 
 /area/centcom/heretic_sacrifice/lock
 	name = "Mansus Lock Gate"
-	ambience_index = AMBIENCE_DANGER
+	//ambience_index = AMBIENCE_DANGER
 	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC

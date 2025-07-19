@@ -17,7 +17,7 @@
 		The caster takes 20 brain damage per use."
 	gain_text = "My mind swings open like a gate, and its insight will let me perceive the truth."
 
-	action_to_add = /datum/action/innate/pointed/mind_gate
+	action_to_add = /obj/effect/proc_holder/spell/pointed/mind_gate
 	cost = 1
 
 /datum/heretic_knowledge/unfathomable_curio
@@ -77,11 +77,11 @@
 		)
 		return TRUE
 
-	if(locate(/obj/item/food/grown) in atoms)
+	if(locate(/obj/item/reagent_containers/food/snacks/grown) in atoms)
 		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/vines)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
-			/obj/item/food/grown = 1,
+			/obj/item/reagent_containers/food/snacks/grown = 1,
 		)
 		return TRUE
 
@@ -127,12 +127,13 @@
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "book_morbus"
 
+
 /datum/heretic_knowledge/codex_morbus/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	var/mob/living/carbon/human/to_fuck_up = locate() in selected_atoms
 	for(var/_limb in to_fuck_up.bodyparts)
 		var/obj/item/organ/external/limb = _limb
-		limb.force_wound_upwards(/datum/wound/slash/flesh/critical)
-	for(var/obj/item/organ/external/limb as anything in to_fuck_up.bodyparts)
-		to_fuck_up.cause_wound_of_type_and_severity(WOUND_BLUNT, limb, WOUND_SEVERITY_CRITICAL)
+		limb.fracture()
+		limb.internal_bleeding()
+
 	return TRUE

@@ -8,13 +8,16 @@
 	/// Don't experience bad things too often
 	COOLDOWN_DECLARE(consequence_cooldown)
 
+
 /datum/status_effect/heretic_curse/on_creation(mob/living/new_owner, mob/living/the_curser)
 	src.the_curser = the_curser
 	return ..()
 
+
 /datum/status_effect/heretic_curse/Destroy()
 	the_curser = null
 	return ..()
+
 
 /datum/status_effect/heretic_curse/on_apply()
 	if (isnull(the_curser) || !iscarbon(owner))
@@ -29,6 +32,7 @@
 
 	return TRUE
 
+
 /datum/status_effect/heretic_curse/on_remove()
 	UnregisterSignal(owner, COMSIG_ATOM_WAS_ATTACKED)
 	UnregisterSignal(the_curser, COMSIG_ATOM_WAS_ATTACKED)
@@ -40,21 +44,26 @@
 	SIGNAL_HANDLER
 	qdel(src)
 
+
 /// If we attack the guy who cursed us, that's no good
 /datum/status_effect/heretic_curse/proc/on_curser_attacked(datum/source, mob/attacker)
 	SIGNAL_HANDLER
 	if (attacker != owner || !HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))
 		return
-	log_combat(owner, the_curser, "attacked", addition = "and lost some organs because they had previously been sacrificed by them.")
+
+	//log_combat(owner, the_curser, "attacked", addition = "and lost some organs because they had previously been sacrificed by them.")
 	experience_the_consequences()
+
 
 /// If we are attacked by the guy who cursed us, that's also no good
 /datum/status_effect/heretic_curse/proc/on_owner_attacked(datum/source, mob/attacker)
 	SIGNAL_HANDLER
 	if (attacker != the_curser || !HAS_TRAIT(attacker, TRAIT_ALLOW_HERETIC_CASTING))
 		return
-	log_combat(the_curser, owner, "attacked", addition = "and as they had previously sacrificed them, removed some of their organs.")
+
+	//log_combat(the_curser, owner, "attacked", addition = "and as they had previously sacrificed them, removed some of their organs.")
 	experience_the_consequences()
+
 
 /// Experience something you may not enjoy which may also significantly shorten your lifespan
 /datum/status_effect/heretic_curse/proc/experience_the_consequences()
@@ -67,24 +76,25 @@
 		carbon_owner.gib() // IDK how you don't have a chest but you're not getting away that easily
 		return
 
-	var/list/removable_organs = list()
+	var/list/removable_organs = organ_storage.contents
+	/*
 	for(var/obj/item/organ/bodypart_organ in organ_storage.contents)
 		if(bodypart_organ.status & (ORGAN_EXTERNAL|ORGAN_UNREMOVABLE))
 			continue
 		removable_organs += bodypart_organ
+	*/
 
 	if (!length(removable_organs))
 		return // This one is a little more possible but they're probably already in pretty bad shape by this point
 
 	var/obj/item/organ/removing_organ = pick(removable_organs)
 
-	if (carbon_owner.vomit(vomit_flags = VOMIT_CATEGORY_BLOOD))
+	if (carbon_owner.vomit(mode = VOMIT_BLOOD))
 		carbon_owner.visible_message(span_boldwarning("[carbon_owner] vomits out [carbon_owner.p_their()] [removing_organ]"))
 	else
 		carbon_owner.visible_message(span_boldwarning("[carbon_owner]'s [removing_organ] rips itself out of `[carbon_owner.p_their()] chest!"))
 
-	removing_organ.Remove(carbon_owner)
-
+	removing_organ.remove()
 	var/turf/land_turf = get_step(carbon_owner, carbon_owner.dir)
 	if (land_turf.is_blocked_turf(exclude_mobs = TRUE))
 		land_turf = carbon_owner.drop_location()

@@ -42,9 +42,7 @@
 	do_teleport(
 		action.owner,
 		targeted_turf,
-		precision = 1,
-		no_effects = TRUE,
-		channel = TELEPORT_CHANNEL_MAGIC,
+		aprecision = 1,
 	)
 
 /// Does the AOE effect of the blinka t the passed turf

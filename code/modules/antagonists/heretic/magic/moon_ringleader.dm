@@ -41,10 +41,10 @@
 
 	return stuff
 
-/obj/effect/proc_holder/spell/aoe/moon_ringleader/cast_on_thing_in_aoe(mob/living/carbon/victim, mob/living/caster)
-	victim.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 100 - victim_sanity, 160)
-	for(var/i in 1 to round((120 - victim_sanity) / 10))
-		victim.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/body), name)
+/obj/effect/proc_holder/spell/aoe/moon_ringleader/cast(list/targets, mob/caster = usr)
+	for(var/mob/living/carbon/victim as anything in targets)
+		victim.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 160)
+		victim.Hallucinate(60 SECONDS)
 
 
 /obj/effect/temp_visual/moon_ringleader

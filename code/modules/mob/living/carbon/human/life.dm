@@ -726,6 +726,9 @@
 		death()
 		return
 
+	if(HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
+		return FALSE
+
 	if(getBrainLoss() >= 100) // braindeath
 		AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 		Weaken(60 SECONDS)
@@ -1040,6 +1043,14 @@
 		return FALSE
 	return TRUE
 
+
+/mob/living/carbon/proc/needs_heart()
+	if(dna && dna.species && (HAS_TRAIT(src, TRAIT_NO_BLOOD))) //not all carbons have species!
+		return FALSE
+
+	return TRUE
+
+
 /mob/living/carbon/human/proc/undergoing_cardiac_arrest()
 	if(!can_heartattack())
 		return FALSE
@@ -1074,6 +1085,15 @@
 	adjustOxyLoss(20)
 
 
+/mob/living/carbon/human/proc/get_held_items()
+	var/list/held = list()
+	if(l_hand)
+		held.Add(l_hand)
+
+	if(r_hand)
+		held.Add(r_hand)
+
+	return held
 
 // Need this in species.
 //#undef HUMAN_MAX_OXYLOSS

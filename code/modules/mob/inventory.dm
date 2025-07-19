@@ -568,56 +568,58 @@
  * Use one of the 4 helper above.
  * You may override it, but do not modify the args.
  */
-/mob/proc/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
+/mob/proc/do_unEquip(obj/item/item, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	// 'force' overrides TRAIT_NODROP and clothing obscuration
 	// 'no_move' is used when item is just gonna be immediately moved afterwards
 	// 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping when item in jumsuit slot was removed
 	PROTECTED_PROC(TRUE)
 
 	// If there's nothing to drop, the drop is automatically succesfull
-	if(!I)
+	if(!item)
 		return TRUE
 
-	if(!can_unEquip(I, force, silent, newloc, no_move, invdrop))
+	if(!can_unEquip(item, force, silent, newloc, no_move, invdrop))
 		return FALSE
 
-	var/slot = get_slot_by_item(I)
+	var/slot = get_slot_by_item(item)
 	//if we actually unequipped an item
 	var/not_handled = FALSE
 
-	if(I == r_hand)
+	if(item == r_hand)
 		r_hand = null
 		update_inv_r_hand()
-	else if(I == l_hand)
+	else if(item == l_hand)
 		l_hand = null
 		update_inv_l_hand()
-	else if(I in tkgrabbed_objects)
-		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[I]
+	else if(item in tkgrabbed_objects)
+		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[item]
 		drop_item_ground(tkgrab, force)
 	else
 		not_handled = TRUE
 
-	if(I)
+	if(item)
 		if(client)
-			client.screen -= I
+			client.screen -= item
 		// For inventory observing
 		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
 				LAZYREMOVE(inventory_observers, observe)
 				continue
-			observe.client.screen -= I
-		I.layer = initial(I.layer)
-		SET_PLANE_EXPLICIT(I, initial(I.plane), newloc)
-		if(!no_move && !(I.item_flags & DROPDEL)) // Item may be moved/qdel'd immedietely, don't bother moving it
+			observe.client.screen -= item
+		item.layer = initial(item.layer)
+		SET_PLANE_EXPLICIT(item, initial(item.plane), newloc)
+		if(!no_move && !(item.item_flags & DROPDEL)) // Item may be moved/qdel'd immedietely, don't bother moving it
 			if(isnull(newloc))
-				I.move_to_null_space()
+				item.move_to_null_space()
 			else
-				I.forceMove(newloc)
-		I.dropped(src, slot, silent, newloc)
+				item.forceMove(newloc)
+		item.dropped(src, slot, silent, newloc)
 
-	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
+	SEND_SIGNAL(item, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, item, force, newloc, no_move, invdrop, silent)
 	if(!not_handled)
 		update_equipment_speed_mods()
+
 	return TRUE
 
 

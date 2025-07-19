@@ -25,7 +25,7 @@
 		REMOVE_TRAIT(source.loc, TRAIT_ALLOW_HERETIC_CASTING, ELEMENT_TRAIT(source))
 
 /**
- * Signal proc for [COMSIG_ATOM_EXAMINE].
+ * Signal proc for [COMSIG_PARENT_EXAMINE].
  * Let's the examiner see that this item is a heretic focus
  */
 /datum/element/heretic_focus/proc/on_examine(obj/item/source, mob/user, list/examine_list)

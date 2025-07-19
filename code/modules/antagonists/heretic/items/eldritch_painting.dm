@@ -4,50 +4,54 @@
 	desc = "An impossible painting made of impossible paint. It should not exist in this reality."
 	icon = 'icons/obj/signs.dmi'
 	resistance_flags = FLAMMABLE
-	flags_1 = NONE
 	icon_state = "eldritch_painting_debug"
 	result_path = /obj/structure/sign/painting/eldritch
 	pixel_shift = 30
+
 
 /obj/structure/sign/painting/eldritch
 	name = "The Blank Canvas: A Study in Default Subtypes"
 	desc = "An impossible painting made of impossible paint. It should not exist in this reality."
 	icon = 'icons/obj/signs.dmi'
 	icon_state = "eldritch_painting_debug"
-	custom_materials = list(/datum/material/wood =SHEET_MATERIAL_AMOUNT)
 	resistance_flags = FLAMMABLE
-	buildable_sign = FALSE
+	//buildable_sign = FALSE
 	// The list of canvas types accepted by this frame, set to zero here
 	accepted_canvas_types = list()
 	// Set to false since we don't want this to persist
 	persistence_id = FALSE
-	/// The trauma the painting applies
-	var/applied_trauma = /datum/brain_trauma/severe/pacifism
 	/// The text that shows up when you cross the paintings path
 	var/text_to_display = "Some things should not be seen by mortal eyes..."
 	/// The range of the paintings effect
 	var/range = 7
 
+
 /obj/structure/sign/painting/eldritch/Initialize(mapload, dir, building)
 	. = ..()
-	if(ispath(applied_trauma))
-		var/static/list/connections = list(COMSIG_ATOM_ENTERED = PROC_REF(apply_trauma))
-		AddComponent(/datum/component/connect_range, tracked = src, connections = connections, range = range, works_in_containers = FALSE)
+	var/static/list/connections = list(COMSIG_ATOM_ENTERED = PROC_REF(apply_trauma))
+	AddComponent(/datum/component/connect_range, tracked = src, connections = connections, range = range, works_in_containers = FALSE)
+
+
+/obj/structure/sign/painting/eldritch/proc/apply_choosen_trauma(mob/living/carbon/human/viewer)
+	ADD_TRAIT(viewer, TRAIT_PACIFISM, HERETIC_TRAIT)
+
 
 /obj/structure/sign/painting/eldritch/proc/apply_trauma(datum/source, mob/living/carbon/viewer)
 	SIGNAL_HANDLER
 	if(!isliving(viewer) || !can_see(viewer, src, range))
 		return
+
 	if(isnull(viewer.mind) || viewer.stat != CONSCIOUS || viewer.is_blind())
 		return
-	if(viewer.has_trauma_type(applied_trauma))
-		return
+
 	if(isheretic(viewer))
 		return
+
 	if(viewer.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		return
+
 	to_chat(viewer, span_notice(text_to_display))
-	viewer.gain_trauma(applied_trauma, TRAUMA_RESILIENCE_SURGERY)
+	apply_choosen_trauma(viewer)
 	INVOKE_ASYNC(viewer, TYPE_PROC_REF(/mob, emote), "scream")
 	to_chat(viewer, span_hypnophrase("Your mind is overcome! The painting leaves a mark on your psyche."))
 
@@ -63,6 +67,7 @@
 	. = ..()
 	if(!iscarbon(user))
 		return
+
 	if(HAS_TRAIT(user, TRAIT_ELDRITCH_PAINTING_EXAMINE))
 		return
 
@@ -70,11 +75,13 @@
 	addtimer(TRAIT_CALLBACK_REMOVE(user, TRAIT_ELDRITCH_PAINTING_EXAMINE, REF(src)), 3 MINUTES)
 	addtimer(CALLBACK(src, PROC_REF(examine_effects), user), 0.2 SECONDS)
 
+
 /obj/structure/sign/painting/eldritch/proc/examine_effects(mob/living/carbon/examiner)
 	if(isheretic(examiner))
 		to_chat(examiner, span_notice("What an engrossing painting!"))
 	else
 		to_chat(examiner, span_notice("What a strange painting..."))
+
 
 // The Sister and He Who Wept eldritch painting
 /obj/item/wallframe/painting/eldritch/weeping
@@ -83,12 +90,18 @@
 	icon_state = "eldritch_painting_weeping"
 	result_path = /obj/structure/sign/painting/eldritch/weeping
 
+
 /obj/structure/sign/painting/eldritch/weeping
-	name = "\improper The Sister and He Who Wept"
-	desc = "A beautiful painting depicting a fair lady sitting beside Him. He weeps. You will see him again. Removable with wirecutters."
+	name = "Сестра и Плачущий"
+	desc = "Прекрасная картина, изображающая прекрасную даму, сидящую рядом с Ним. Он плачет. Вы ещё увидите Его. Можно снять кусачками."
 	icon_state = "eldritch_painting_weeping"
-	applied_trauma = /datum/brain_trauma/severe/weeping
 	text_to_display = "Such beauty! Such sorrow!"
+
+
+/obj/structure/sign/painting/eldritch/weeping/apply_choosen_trauma(mob/living/carbon/human/viewer)
+	viewer.force_gene_block(GLOB.hallucinationblock, TRUE, TRUE)
+	viewer.Hallucinate(3 MINUTES)
+
 
 /obj/structure/sign/painting/eldritch/weeping/examine_effects(mob/living/carbon/examiner)
 	if(!isheretic(examiner))
@@ -96,7 +109,8 @@
 		return
 
 	to_chat(examiner, span_notice("Just gazing upon it clears your mind."))
-	examiner.remove_status_effect(/datum/status_effect/hallucination)
+	examiner.SetHallucinate(0)
+
 
 // The First Desire painting, using a lot of the painting/eldritch framework
 /obj/item/wallframe/painting/eldritch/desire
@@ -105,12 +119,17 @@
 	icon_state = "eldritch_painting_desire"
 	result_path = /obj/structure/sign/painting/eldritch/desire
 
+
 /obj/structure/sign/painting/eldritch/desire
-	name = "\improper The Feast of Desire"
-	desc = "A painting of an elaborate feast. Despite being made entirely of rotting meat and decaying organs, the food looks very appetising. Removable with wirecutters."
+	name = "Пир Чревоугодия"
+	desc = "Картина, изображающая изысканное пиршество. Несмотря на то, что еда давно сгнила, она выглядит очень аппетитно. Можно снять кусачками."
 	icon_state = "eldritch_painting_desire"
-	applied_trauma = /datum/brain_trauma/severe/flesh_desire
 	text_to_display = "Just looking at this painting makes me hungry..."
+
+
+/obj/structure/sign/painting/eldritch/desire/apply_choosen_trauma(mob/living/carbon/human/viewer)
+	viewer.gain_trauma(/datum/brain_trauma/severe/flesh_desire, TRAUMA_RESILIENCE_MAGIC)
+
 
 // The special examine interaction for this painting
 /obj/structure/sign/painting/eldritch/desire/examine_effects(mob/living/carbon/examiner)
@@ -131,17 +150,18 @@
 		/obj/item/organ/internal/ears,
 		/obj/item/organ/internal/heart,
 		/obj/item/organ/internal/liver,
-		/obj/item/organ/internal/stomach,
+		///obj/item/organ/internal/stomach,
 		/obj/item/organ/internal/appendix,
 		/obj/item/organ/external/arm,
 		/obj/item/organ/external/arm/right,
-		/obj/item/organ/external/leg/left,
+		/obj/item/organ/external/leg,
 		/obj/item/organ/external/leg/right
 	)
 	var/organ_or_bodypart_to_spawn = pick(random_bodypart_or_organ)
 	new organ_or_bodypart_to_spawn(drop_location())
 	to_chat(examiner, span_notice("A piece of flesh crawls out of the painting and flops onto the floor."))
 	to_chat(examiner, span_warning("The void screams!"))
+
 
 // Great chaparral over rolling hills, this one doesn't have the sensor type
 /obj/item/wallframe/painting/eldritch/vines
@@ -150,33 +170,39 @@
 	icon_state = "eldritch_painting_vines"
 	result_path = /obj/structure/sign/painting/eldritch/vines
 
+
 /obj/structure/sign/painting/eldritch/vines
 	name = "\improper Great Chaparral Over Rolling Hills"
 	desc = "A painting depicting a massive thicket. This painting teems with life, and seems to strain against its frame. Removable with wirecutters."
 	icon_state = "eldritch_painting_vines"
-	applied_trauma = null
 	// A static list of 5 pretty strong mutations, simple to expand for any admins
 	var/list/mutations = list(
 		/datum/spacevine_mutation/aggressive_spread,
 		/datum/spacevine_mutation/fire_proof,
-		/datum/spacevine_mutation/hardened,
+		/datum/spacevine_mutation/woodening,
 		/datum/spacevine_mutation/thorns,
 		/datum/spacevine_mutation/toxicity,
 	)
 	// Poppy and harebell are used in heretic rituals
 	var/list/items_to_spawn = list(
-		/obj/item/food/grown/poppy,
-		/obj/item/food/grown/harebell,
+		/obj/item/reagent_containers/food/snacks/grown/poppy,
+		/obj/item/reagent_containers/food/snacks/grown/harebell,
 	)
+
+
+/obj/structure/sign/painting/eldritch/vines/apply_choosen_trauma(mob/living/carbon/human/viewer)
+	return
+
 
 /obj/structure/sign/painting/eldritch/vines/Initialize(mapload, dir, building)
 	. = ..()
-	new /datum/spacevine_controller(get_turf(src), mutations, 0, 10)
+	new /obj/structure/spacevine_controller/event(get_turf(src), mutations, 0, 10)
+
 
 /obj/structure/sign/painting/eldritch/vines/examine_effects(mob/living/carbon/examiner)
 	. = ..()
 	if(!isheretic(examiner))
-		new /datum/spacevine_controller(get_turf(examiner), mutations, 0, 10)
+		new /obj/structure/spacevine_controller/event(get_turf(examiner), mutations, 0, 10)
 		to_chat(examiner, span_hypnophrase("You are transfixed for a moment by the vines on the painting."))
 		to_chat(examiner, span_notice("You feel something writhing around you."))
 		return
@@ -194,28 +220,35 @@
 	icon_state = "eldritch_painting_beauty"
 	result_path = /obj/structure/sign/painting/eldritch/beauty
 
+
 /obj/structure/sign/painting/eldritch/beauty
-	name = "\improper Lady of the Gate"
-	desc = "A painting of an otherworldly being. Its thin, porcelain-coloured skin is stretched tight over its strange bone structure. It has an odd beauty. Removable with wirecutters."
+	name = "Леди за Вратами"
+	desc = "Картина существа из другого мира. Тонкая кожа цвета фарфора туго натянута на странные кости. Она обладает странной красотой. Можно снять кусачками."
 	icon_state = "eldritch_painting_beauty"
-	applied_trauma = /datum/brain_trauma/severe/eldritch_beauty
 	text_to_display = "A beacon of purity, the real world seems so mundane and imperfect in comparison..."
 	/// List of reagents to add to heretics on examine, set to mutadone by default to remove mutations
 	var/list/reagents_to_add = list(/datum/reagent/medicine/mutadone = 5)
 
+
+/obj/structure/sign/painting/eldritch/beauty/apply_choosen_trauma(mob/living/carbon/human/viewer)
+	viewer.force_gene_block(GLOB.radblock, TRUE, TRUE)
+	viewer.apply_effect(30, IRRADIATE, 0)
+
+
 // The special examine interaction for this painting
 /obj/structure/sign/painting/eldritch/beauty/examine_effects(mob/living/carbon/examiner)
 	. = ..()
-	if(!examiner.has_dna())
+	if(!examiner.dna)
 		return
 
 	if(!isheretic(examiner))
 		to_chat(examiner, span_hypnophrase("You are not yet pure."))
-		examiner.easy_random_mutate(NEGATIVE + MINOR_NEGATIVE)
+		randmutb(examiner)
 		return
 
 	to_chat(examiner, span_notice("Your imperfections are shed."))
 	examiner.reagents.add_reagent_list(reagents_to_add)
+
 
 // Climb over the rusted mountain, gives a brain trauma causing the person to randomly rust tiles beneath them
 /obj/item/wallframe/painting/eldritch/rust
@@ -224,12 +257,18 @@
 	icon_state = "eldritch_painting_rust"
 	result_path = /obj/structure/sign/painting/eldritch/rust
 
+
 /obj/structure/sign/painting/eldritch/rust
-	name = "\improper Master of the Rusted Mountain"
-	desc = "A painting of a strange being climbing a rust-coloured mountain. The brushwork is unnatural and unnerving. Removable with wirecutters."
+	name = "Хозяйка Ржавой Горы" // I think its like ike "Хозяйка Медной горы" from "Малахитовая шкатулка".
+	desc = "Картина, изображающая странное существо, взбирающееся на гору цвета ржавчины. Стиль картины неестественный и пугающий. Можно снять кусачками."
 	icon_state = "eldritch_painting_rust"
-	applied_trauma = /datum/brain_trauma/severe/rusting
 	text_to_display = "The rust decays. The master climbs. It calls. You answer..."
+
+
+/obj/structure/sign/painting/eldritch/rust/apply_choosen_trauma(mob/living/carbon/human/viewer)
+	var/obj/item/organ/organ = pick(list(pick(viewer.internal_organs), pick(viewer.bodyparts)))
+	organ.handle_germs()
+
 
 // The special examine interaction for this painting
 /obj/structure/sign/painting/eldritch/rust/examine_effects(mob/living/carbon/examiner)

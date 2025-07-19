@@ -145,10 +145,11 @@ GLOBAL_LIST_EMPTY(closets)
 	if(throwing)
 		throwing.finalize()
 
-/obj/structure/closet/proc/open()
-	if(opened || !can_open())
+/obj/structure/closet/proc/open(force = FALSE)
+	if(opened || !force && !can_open())
 		return FALSE
 
+	welded = FALSE
 	dump_contents()
 
 	opened = TRUE

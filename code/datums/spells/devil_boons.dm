@@ -38,7 +38,7 @@
 	/// Currently selected view range
 	var/selected_view = "default"
 	/// View ranges to apply
-	var/static/list/view_ranges = list(
+	var/list/view_ranges = list(
 		"default",
 		"17x17",
 		"19x19",

@@ -16,12 +16,12 @@
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
-/obj/effect/proc_holder/spell/caretaker/Remove(mob/living/remove_from)
+/obj/effect/proc_holder/spell/caretaker/on_spell_loss(mob/living/remove_from)
 	if(remove_from.has_status_effect(/datum/status_effect/caretaker_refuge))
 		remove_from.remove_status_effect(/datum/status_effect/caretaker_refuge)
 	return ..()
 
-/obj/effect/proc_holder/spell/caretaker/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/caretaker/valid_target(atom/cast_on)
 	return isliving(cast_on)
 
 /obj/effect/proc_holder/spell/caretaker/before_cast(mob/living/cast_on)

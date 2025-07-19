@@ -28,7 +28,7 @@
 	var/warps_projectiles = TRUE
 	allow_spin = 0
 	var/obj/effect/warp_effect/supermatter/warp
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | SHUTTLE_CRUSH_PROOF
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()

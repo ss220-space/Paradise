@@ -43,10 +43,6 @@
 	return
 
 /obj/item/gun/magic/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
-	if(!user.can_cast_magic(antimagic_flags))
-		add_fingerprint(user)
-		return
-
 	newshot()
 	return ..()
 

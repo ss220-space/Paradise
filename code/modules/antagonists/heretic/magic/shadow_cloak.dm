@@ -22,16 +22,22 @@
 	/// The cloak currently active
 	var/datum/status_effect/shadow_cloak/active_cloak
 
-/obj/effect/proc_holder/spell/shadow_cloak/Remove(mob/living/remove_from)
-	if(active_cloak)
-		uncloak_mob(remove_from, show_message = FALSE)
+
+/obj/effect/proc_holder/spell/shadow_cloak/on_spell_loss(mob/living/remove_from)
+	if(!active_cloak)
+		return ..()
+
+	uncloak_mob(remove_from, show_message = FALSE)
 	return ..()
 
-/obj/effect/proc_holder/spell/shadow_cloak/is_valid_target(atom/cast_on)
-	if(HAS_TRAIT(cast_on, TRAIT_HULK)) // Hulks are not stealthy. Need not apply
-		cast_on.balloon_alert(cast_on, "cannot cast while hulk!")
-		return FALSE
-	return isliving(cast_on)
+
+/obj/effect/proc_holder/spell/shadow_cloak/valid_target(atom/cast_on)
+	if(!HAS_TRAIT(cast_on, TRAIT_HULK)) // Hulks are not stealthy. Need not apply
+		return isliving(cast_on)
+
+	cast_on.balloon_alert(cast_on, "cannot cast while hulk!")
+	return FALSE
+
 
 /obj/effect/proc_holder/spell/shadow_cloak/before_cast(mob/living/cast_on)
 	. = ..()
@@ -46,24 +52,27 @@
 	// We handle the CD on our own
 	return . | SPELL_NO_IMMEDIATE_COOLDOWN
 
+
 /obj/effect/proc_holder/spell/shadow_cloak/cast(mob/living/cast_on)
 	. = ..()
 	if(active_cloak)
 		var/new_cd = max((uncloak_time - timeleft(uncloak_timer)) / 3, base_cooldown)
 		uncloak_mob(cast_on)
-		StartCooldown(new_cd)
+		cooldown_handler.start_recharge(new_cd)
+		return
 
-	else
-		uncloak_timer = addtimer(CALLBACK(src, PROC_REF(timed_uncloak), cast_on), uncloak_time, TIMER_STOPPABLE)
-		cloak_mob(cast_on)
-		StartCooldown()
+	uncloak_timer = addtimer(CALLBACK(src, PROC_REF(timed_uncloak), cast_on), uncloak_time, TIMER_STOPPABLE)
+	cloak_mob(cast_on)
+	cooldown_handler.start_recharge()
+
 
 /obj/effect/proc_holder/spell/shadow_cloak/proc/timed_uncloak(mob/living/cast_on)
 	if(QDELETED(src) || QDELETED(cast_on))
 		return
 
 	uncloak_mob(cast_on)
-	StartCooldown(uncloak_timer / 3)
+	cooldown_handler.start_recharge(uncloak_timer / 3)
+
 
 /obj/effect/proc_holder/spell/shadow_cloak/proc/cloak_mob(mob/living/cast_on)
 	playsound(cast_on, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
@@ -76,10 +85,12 @@
 	RegisterSignal(active_cloak, COMSIG_QDELETING, PROC_REF(on_early_cloak_loss))
 	RegisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
 
+
 /obj/effect/proc_holder/spell/shadow_cloak/proc/uncloak_mob(mob/living/cast_on, show_message = TRUE)
 	if(!QDELETED(active_cloak))
 		UnregisterSignal(active_cloak, COMSIG_QDELETING)
 		qdel(active_cloak)
+
 	active_cloak = null
 
 	UnregisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING))
@@ -94,11 +105,12 @@
 	deltimer(uncloak_timer)
 	uncloak_timer = null
 
+
 /// Signal proc for [COMSIG_QDELETING], if our cloak is deleted early, impart negative effects
 /obj/effect/proc_holder/spell/shadow_cloak/proc/on_early_cloak_loss(datum/status_effect/source)
 	SIGNAL_HANDLER
 
-	var/mob/living/removed = source.action.owner
+	var/mob/living/removed = source.owner
 	uncloak_mob(removed, show_message = FALSE)
 	removed.visible_message(
 		span_warning("[removed] is pulled from the shadows!"),
@@ -108,7 +120,8 @@
 	removed.Knockdown(0.5 SECONDS)
 	removed.add_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak/early_remove)
 	addtimer(CALLBACK(removed, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/shadow_cloak/early_remove), 2 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
-	StartCooldown(uncloak_time * 2/3)
+	cooldown_handler.start_recharge(uncloak_time * 2/3)
+
 
 /// Signal proc for [SIGNAL_REMOVETRAIT] via [TRAIT_ALLOW_HERETIC_CASTING], losing our focus midcast will throw us out.
 /obj/effect/proc_holder/spell/shadow_cloak/proc/on_focus_lost(mob/living/source)
@@ -119,9 +132,10 @@
 		span_warning("[source] suddenly appears from the shadows!"),
 		span_userdanger("As you lose your focus, you are pulled out of the shadows!"),
 	)
-	StartCooldown(uncloak_time / 3)
+	cooldown_handler.start_recharge(uncloak_time / 3)
 
-/// Shadow cloak effect. Conceals the action.owner in a cloud of purple smoke, making them unidentifiable.
+
+/// Shadow cloak effect. Conceals the owner in a cloud of purple smoke, making them unidentifiable.
 /// Also comes with some other buffs and debuffs - faster movespeed, slower actionspeed, etc.
 /datum/status_effect/shadow_cloak
 	id = "shadow_cloak"
@@ -131,37 +145,39 @@
 	var/damage_sustained = 0
 	/// How much damage we can be hit with before it starts rolling reveal chances
 	var/damage_before_reveal = 25
-	/// The image we place over the action.owner
+	/// The image we place over the owner
 	var/image/cloak_image
 
+
 /datum/status_effect/shadow_cloak/on_apply()
-	cloak_image = image('icons/effects/effects.dmi', action.owner, "curse", dir = action.owner.dir)
+	cloak_image = image('icons/effects/effects.dmi', owner, "curse", dir = owner.dir)
 	cloak_image.override = TRUE
 	cloak_image.alpha = 0
 	animate(cloak_image, alpha = 255, 0.2 SECONDS)
-	action.owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, id, cloak_image)
+	owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, id, cloak_image)
 	// Add the relevant traits and modifiers
-	action.owner.add_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
-	action.owner.add_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak)
-	action.owner.add_actionspeed_modifier(/datum/actionspeed_modifier/shadow_cloak)
+	owner.add_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak)
+	owner.add_actionspeed_modifier(/datum/actionspeed_modifier/shadow_cloak)
 	// Register signals to cause effects
-	RegisterSignal(action.owner, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_dir_change))
-	RegisterSignal(action.owner, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(on_body_position_change))
-	RegisterSignal(action.owner, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_change))
-	RegisterSignal(action.owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
-	RegisterSignal(action.owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	RegisterSignal(owner, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_dir_change))
+	RegisterSignal(owner, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(on_body_position_change))
+	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_change))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	return TRUE
+
 
 /datum/status_effect/shadow_cloak/on_remove()
 	// Remove image
-	action.owner.remove_alt_appearance(id)
+	owner.remove_alt_appearance(id)
 	QDEL_NULL(cloak_image)
 	// Remove traits and modifiers
-	action.owner.remove_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
-	action.owner.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak)
-	action.owner.remove_actionspeed_modifier(/datum/actionspeed_modifier/shadow_cloak)
+	owner.remove_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak)
+	owner.remove_actionspeed_modifier(/datum/actionspeed_modifier/shadow_cloak)
 	// Clear signals
-	UnregisterSignal(action.owner, list(
+	UnregisterSignal(owner, list(
 		COMSIG_ATOM_DIR_CHANGE,
 		COMSIG_LIVING_SET_BODY_POSITION,
 		COMSIG_MOB_STATCHANGE,
@@ -169,11 +185,13 @@
 		COMSIG_MOVABLE_MOVED,
 	))
 
+
 /// Signal proc for [COMSIG_ATOM_DIR_CHANGE], handles turning the effect as we turn
 /datum/status_effect/shadow_cloak/proc/on_dir_change(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER
 
 	cloak_image.dir = new_dir
+
 
 /// Signal proc for [COMSIG_LIVING_SET_BODY_POSITION], handles rotating the effect when we're downed
 /datum/status_effect/shadow_cloak/proc/on_body_position_change(datum/source, new_value, old_value)
@@ -184,6 +202,7 @@
 	else
 		cloak_image.transform = turn(cloak_image.transform, -90)
 
+
 /// Signal proc for [COMSIG_MOB_STATCHANGE], going past soft crit will stop the effect
 /datum/status_effect/shadow_cloak/proc/on_stat_change(datum/source, new_stat, old_stat)
 	SIGNAL_HANDLER
@@ -191,6 +210,7 @@
 	// Going above unconscious will self-delete
 	if(new_stat >= UNCONSCIOUS)
 		qdel(src)
+
 
 /// Signal proc for [COMSIG_MOB_APPLY_DAMAGE], being damaged past a threshold will roll a chance to stop the effect
 /datum/status_effect/shadow_cloak/proc/on_damaged(datum/source, damage, damagetype, ...)
@@ -210,26 +230,30 @@
 	if(prob(damage_sustained))
 		qdel(src)
 
+
 /// Signal proc for [COMSIG_MOVABLE_MOVED], leaves a cool looking trail behind us as we walk
 /datum/status_effect/shadow_cloak/proc/on_move(datum/source, old_loc, movement_dir)
 	SIGNAL_HANDLER
 
-	if(action.owner.loc == old_loc)
+	if(owner.loc == old_loc)
 		return
 
 	// Only create an effect every other step, starting without one
 	var/obj/effect/temp_visual/dir_setting/cloak_walk/trail = new (old_loc, movement_dir)
-	if(action.owner.body_position == LYING_DOWN)
+	if(owner.body_position == LYING_DOWN)
 		trail.transform = turn(trail.transform, 90)
+
 
 // Visual effect for the shadow cloak "trail"
 /obj/effect/temp_visual/dir_setting/cloak_walk
 	duration = 0.75 SECONDS
 	icon_state = "curse"
 
+
 /obj/effect/temp_visual/dir_setting/cloak_walk/Initialize(mapload, set_dir)
 	. = ..()
 	animate(src, alpha = 0, time = duration - 1)
+
 
 // Movespeed modifiers for being in cloak
 /datum/movespeed_modifier/shadow_cloak
@@ -237,9 +261,11 @@
 	// While cloaked, you move faster
 	multiplicative_slowdown = -0.25
 
+
 /datum/movespeed_modifier/shadow_cloak/early_remove
 	// Being thrusted out of cloak from damage makes you move slower
 	multiplicative_slowdown = 0.5
+
 
 /datum/actionspeed_modifier/shadow_cloak
 	// While cloaked, all actions are much slower

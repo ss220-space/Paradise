@@ -1,3 +1,4 @@
+/*
 // Some moodlets involved in the sacrifice process.
 /datum/mood_event/shadow_realm
 	description = "Where am I?!"
@@ -18,3 +19,4 @@
 	description = "I've been humiliated! My knowledge sapped from my being! The world feels much duller again..."
 	mood_change = -8
 	timeout = 8 MINUTES
+*/

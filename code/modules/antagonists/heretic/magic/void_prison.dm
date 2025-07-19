@@ -19,22 +19,27 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
+
 /obj/effect/proc_holder/spell/pointed/void_prison/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
+
 	if(!ismob(cast_on))
 		return SPELL_CANCEL_CAST
 
+
 /obj/effect/proc_holder/spell/pointed/void_prison/cast(mob/living/carbon/human/cast_on)
 	. = ..()
-	if(cast_on.can_block_magic(antimagic_flags))
-		cast_on.visible_message(
-			span_danger("A swirling, cold void wraps around [cast_on], but they burst free in a wave of heat!"),
-			span_danger("A yawning void begins to open before you, but a great wave of heat bursts it apart! You are protected!!")
-		)
+	if(!cast_on.can_block_magic(antimagic_flags))
+		cast_on.apply_status_effect(/datum/status_effect/void_prison, "void_stasis")
 		return
-	cast_on.apply_status_effect(/datum/status_effect/void_prison, "void_stasis")
+
+	cast_on.visible_message(
+		span_danger("A swirling, cold void wraps around [cast_on], but they burst free in a wave of heat!"),
+		span_danger("A yawning void begins to open before you, but a great wave of heat bursts it apart! You are protected!!")
+	)
+
 
 /datum/status_effect/void_prison
 	id = "void_prison"
@@ -42,6 +47,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/void_prison
 	///The overlay that gets applied to whoever has this status active
 	var/obj/effect/abstract/voidball/stasis_overlay
+
 
 /datum/status_effect/void_prison/on_creation(mob/living/new_owner, set_duration)
 	. = ..()
@@ -51,21 +57,26 @@
 	stasis_overlay.animate_opening()
 	addtimer(CALLBACK(src, PROC_REF(enter_prison), new_owner), 1 SECONDS)
 
+
 /datum/status_effect/void_prison/on_remove()
-	if(!isheretic(action.owner))
-		action.owner.apply_status_effect(/datum/status_effect/void_chill, 3)
-	if(stasis_overlay)
-		//Free our prisoner
-		action.owner.remove_traits(list(TRAIT_GODMODE, TRAIT_NO_TRANSFORM, TRAIT_SOFTSPOKEN), TRAIT_STATUS_EFFECT(id))
-		action.owner.forceMove(get_turf(stasis_overlay))
-		stasis_overlay.forceMove(action.owner)
-		action.owner.vis_contents += stasis_overlay
-		//Animate closing the ball
-		stasis_overlay.animate_closing()
-		stasis_overlay.icon_state = "voidball_closed"
-		QDEL_IN(stasis_overlay, 1.1 SECONDS)
-		stasis_overlay = null
+	if(!isheretic(owner))
+		owner.apply_status_effect(/datum/status_effect/void_chill, 3)
+
+	if(!stasis_overlay)
+		return ..()
+
+	//Free our prisoner
+	owner.remove_traits(list(TRAIT_GODMODE, TRAIT_NO_TRANSFORM, TRAIT_SOFTSPOKEN), TRAIT_STATUS_EFFECT(id))
+	owner.forceMove(get_turf(stasis_overlay))
+	stasis_overlay.forceMove(owner)
+	owner.vis_contents += stasis_overlay
+	//Animate closing the ball
+	stasis_overlay.animate_closing()
+	stasis_overlay.icon_state = "voidball_closed"
+	QDEL_IN(stasis_overlay, 1.1 SECONDS)
+	stasis_overlay = null
 	return ..()
+
 
 ///Freezes our prisoner in place
 /datum/status_effect/void_prison/proc/enter_prison(mob/living/prisoner)
@@ -73,10 +84,12 @@
 	prisoner.forceMove(stasis_overlay)
 	prisoner.add_traits(list(TRAIT_GODMODE, TRAIT_NO_TRANSFORM, TRAIT_SOFTSPOKEN), TRAIT_STATUS_EFFECT(id))
 
+
 ///Makes sure to clear the ref in case the voidball ever suddenly disappears
 /datum/status_effect/void_prison/proc/clear_overlay()
 	SIGNAL_HANDLER
 	stasis_overlay = null
+
 
 //----Voidball effect
 /obj/effect/abstract/voidball
@@ -85,13 +98,16 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	vis_flags = VIS_INHERIT_ID
 
+
 ///Plays a opening animation
 /obj/effect/abstract/voidball/proc/animate_opening()
 	flick("voidball_opening", src)
 
+
 ///Plays a closing animation
 /obj/effect/abstract/voidball/proc/animate_closing()
 	flick("voidball_closing", src)
+
 
 //---- Screen alert
 /atom/movable/screen/alert/status_effect/void_prison

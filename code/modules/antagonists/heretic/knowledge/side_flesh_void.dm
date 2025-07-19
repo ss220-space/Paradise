@@ -26,8 +26,9 @@
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/void)
 	cost = 1
 
-	research_tree_icon_path = 'icons/obj/clothing/suits/armor.dmi'
+	research_tree_icon_path = 'icons/obj/clothing/armor.dmi'
 	research_tree_icon_state = "void_cloak"
+
 
 /datum/heretic_knowledge/spell/blood_siphon
 	name = "Blood Siphon"
@@ -35,7 +36,7 @@
 		Also has a chance to transfer wounds from you to the victim."
 	gain_text = "\"No matter the man, we bleed all the same.\" That's what the Marshal told me."
 
-	action_to_add = /datum/action/innate/pointed/blood_siphon
+	action_to_add = /obj/effect/proc_holder/spell/pointed/blood_siphon
 	cost = 1
 
 /datum/heretic_knowledge/spell/void_prison
@@ -47,7 +48,7 @@
 		But the only welts made are on my own beating fist. \
 		My smiling face turns to regard me, reflecting back in glassy eyes the empty path I have been lead down."
 
-	action_to_add = /datum/action/innate/pointed/void_prison
+	action_to_add = /obj/effect/proc_holder/spell/pointed/void_prison
 	cost = 1
 
 /datum/heretic_knowledge/spell/cleave

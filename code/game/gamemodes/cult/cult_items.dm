@@ -32,6 +32,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	sprite_sheets_inhand = list(SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
+	var/free_use = FALSE
 
 
 /obj/item/melee/cultblade/Initialize(mapload)
@@ -49,7 +50,7 @@
 
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!iscultist(user))
+	if(!iscultist(user) && !free_use)
 		user.Knockdown(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		user.visible_message(
@@ -66,7 +67,7 @@
 		to_chat(user, span_danger("You can't seem to hold the blade properly!"))
 		return FALSE
 
-	if(!iscultist(user))
+	if(!iscultist(user) && !free_use)
 		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.Confused(20 SECONDS)

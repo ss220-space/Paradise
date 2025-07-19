@@ -10,8 +10,11 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /proc/initialize_starting_knowledge()
 	. = list()
 	for(var/datum/heretic_knowledge/knowledge as anything in subtypesof(/datum/heretic_knowledge))
-		if(initial(knowledge.is_starting_knowledge) == TRUE)
-			. += knowledge
+		if(initial(knowledge.is_starting_knowledge) != TRUE)
+			continue
+
+		. += knowledge
+
 
 /*
  * The base heretic knowledge. Grants the Восприятие Мансуса spell.
@@ -21,15 +24,17 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	desc = "Starts your journey into the Mansus. \
 		Grants you the Восприятие Мансуса, a powerful and upgradable \
 		disabling spell that can be cast regardless of having a focus."
-	action_to_add = /datum/action/innate/touch/mansus_grasp
+	action_to_add = /obj/effect/proc_holder/spell/touch/mansus_grasp
 	cost = 0
 	is_starting_knowledge = TRUE
 
+/*
 // Heretics can enhance their fishing rods to fish better - fishing content.
 // Lasts until successfully fishing something up.
 /datum/heretic_knowledge/spell/basic/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	..()
 	RegisterSignal(user, COMSIG_TOUCH_HANDLESS_CAST, PROC_REF(on_grasp_cast))
+
 
 /datum/heretic_knowledge/spell/basic/proc/on_grasp_cast(mob/living/carbon/cast_on, obj/effect/proc_holder/spell/touch/touch_spell)
 	SIGNAL_HANDLER
@@ -38,12 +43,12 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	if(!istype(touch_spell, action_to_add))
 		return NONE
 
-	var/obj/item/fishing_rod/held_rod = cast_on.get_active_hand()
-	if(!istype(held_rod, /obj/item/fishing_rod) || HAS_TRAIT(held_rod, TRAIT_ROD_MANSUS_INFUSED))
+	var/obj/item/twohanded/fishing_rod/held_rod = cast_on.get_active_hand()
+	if(!istype(held_rod, /obj/item/twohanded/fishing_rod) || HAS_TRAIT(held_rod, TRAIT_ROD_MANSUS_INFUSED))
 		return NONE
 
 	INVOKE_ASYNC(cast_on, TYPE_PROC_REF(/atom/movable, say), message = "R'CH T'H F'SH!", forced = "fishing rod infusion invocation")
-	playsound(cast_on, /datum/action/innate/touch/mansus_grasp::sound, 15)
+	playsound(cast_on, /obj/effect/proc_holder/spell/touch/mansus_grasp::sound, 15)
 	cast_on.visible_message(span_notice("[cast_on] snaps [cast_on.p_their()] fingers next to [held_rod], covering it in a burst of purple flames!"))
 
 	ADD_TRAIT(held_rod, TRAIT_ROD_MANSUS_INFUSED, REF(held_rod))
@@ -52,12 +57,15 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	held_rod.add_filter("mansus_infusion", 2, list("type" = "outline", "color" = COLOR_VOID_PURPLE, "size" = 1))
 	return COMPONENT_CAST_HANDLESS
 
-/datum/heretic_knowledge/spell/basic/proc/unfuse(obj/item/fishing_rod/item, reward, mob/user)
-	if(reward == FISHING_INFLUENCE || prob(35))
-		item.remove_filter("mansus_infusion")
-		REMOVE_TRAIT(item, TRAIT_ROD_MANSUS_INFUSED, REF(item))
-		item.difficulty_modifier += 20
 
+/datum/heretic_knowledge/spell/basic/proc/unfuse(obj/item/fishing_rod/item, reward, mob/user)
+	if(reward != FISHING_INFLUENCE && !prob(35))
+		return
+
+	item.remove_filter("mansus_infusion")
+	REMOVE_TRAIT(item, TRAIT_ROD_MANSUS_INFUSED, REF(item))
+	item.difficulty_modifier += 20
+*/
 /**
  * The Living Heart heretic knowledge.
  *
@@ -72,7 +80,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		you will be unable to reawaken it."
 	required_atoms = list(
 		/obj/effect/decal/cleanable/blood = 1,
-		/obj/item/food/grown/poppy = 1,
+		/obj/item/reagent_containers/food/snacks/grown/poppy = 1,
 	)
 	cost = 0
 	priority = MAX_KNOWLEDGE_PRIORITY - 1 // Knowing how to remake your heart is important
@@ -80,6 +88,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "living_heart"
 	research_tree_icon_frame = 1
+
 
 /datum/heretic_knowledge/living_heart/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
@@ -94,7 +103,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		var/static/list/backup_organs = list(
 			INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs,
 			INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver,
-			INTERNAL_ORGAN_STOMACH = /obj/item/organ/internal/stomach,
+			//INTERNAL_ORGAN_STOMACH = /obj/item/organ/internal/stomach,
 		)
 
 		for(var/backup_slot in backup_organs)
@@ -169,13 +178,14 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	if(QDELETED(new_heart))
 		return FALSE
 
-	if(!new_heart.useable)
+	if(new_heart.is_dead())
 		return FALSE
 
-	if(new_heart.status & (ORGAN_ROBOTIC|ORGAN_FAILING))
+	if(HASBIT(new_heart.status, ORGAN_ROBOT))
 		return FALSE
 
 	return TRUE
+
 
 /**
  * Allows the heretic to craft a spell focus.
@@ -196,11 +206,12 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	research_tree_icon_path = 'icons/obj/clothing/neck.dmi'
 	research_tree_icon_state = "eldritch_necklace"
 
+
 /datum/heretic_knowledge/spell/cloak_of_shadows
 	name = "Cloak of Shadow"
 	desc = "Grants you the spell Cloak of Shadow. This spell will completely conceal your identity in a purple smoke \
 		for three minutes, assisting you in keeping secrecy. Requires a focus to cast."
-	action_to_add = /datum/action/innate/shadow_cloak
+	action_to_add = /obj/effect/proc_holder/spell/shadow_cloak
 	cost = 0
 	is_starting_knowledge = TRUE
 
@@ -219,23 +230,26 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	gain_text = "The occult leaves fragments of knowledge and power anywhere and everywhere. The Кодекс Истезания is one such example. \
 		Within the leather-bound faces and age old pages, a path into the Mansus is revealed."
 	required_atoms = list(
-		list(/obj/item/toy/eldritch_book, /obj/item/book) = 1,
+		list(/obj/item/book) = 1,
 		/obj/item/pen = 1,
-		list(/mob/living, /obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide, /obj/item/food/deadmouse) = 1,
+		list(/mob/living, /obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide) = 1,
 	)
 	banned_atom_types = list(/obj/item/pen)
 	result_atoms = list(/obj/item/codex_cicatrix)
 	cost = 1
 	is_starting_knowledge = TRUE
 	priority = MAX_KNOWLEDGE_PRIORITY - 4 // Least priority out of the starting knowledges, as it's an optional boon.
-	var/static/list/non_mob_bindings = typecacheof(list(/obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide, /obj/item/food/deadmouse))
+	var/static/list/non_mob_bindings = typecacheof(list(/obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide, /mob/living/simple_animal/mouse))
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "book"
+
 
 /datum/heretic_knowledge/codex_cicatrix/parse_required_item(atom/item_path, number_of_things)
 	if(item_path == /obj/item/pen)
 		return "unique type of pen"
+
 	return ..()
+
 
 /datum/heretic_knowledge/codex_cicatrix/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	. = ..()
@@ -246,13 +260,17 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		if(is_type_in_typecache(thingy, non_mob_bindings))
 			selected_atoms += thingy
 			return TRUE
+
 		else if(isliving(thingy))
 			var/mob/living/body = thingy
 			if(body.stat != DEAD)
 				continue
+
 			selected_atoms += body
 			return TRUE
+
 	return FALSE
+
 
 /datum/heretic_knowledge/codex_cicatrix/cleanup_atoms(list/selected_atoms)
 	var/mob/living/body = locate() in selected_atoms
@@ -266,15 +284,15 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	// We will check if it's a carbon's body.
 	// If it is, we will damage a random bodypart, and check that bodypart for its body type, to select between 'skin' or 'exterior'.
 	if(iscarbon(body))
-		var/mob/living/carbon/carbody = body
-		var/obj/item/organ/external/bodypart = pick(carbody.bodyparts)
+		var/mob/living/carbon/human/human_body = body
+		var/obj/item/organ/external/bodypart = pick(human_body.bodyparts)
 		ripped_thing = bodypart
 
-		carbody.apply_damage(25, BRUTE, bodypart, sharpness = SHARP_EDGED)
-		if(!(bodypart.bodytype & BODYTYPE_ORGANIC))
-			exterior_text = "exterior"
+		human_body.apply_damage(25, BRUTE, bodypart, sharp = TRUE)
+		//if(!(bodypart.bodytype & BODYTYPE_ORGANIC))
+		//	exterior_text = "exterior"
 	else
-		body.apply_damage(25, BRUTE, sharpness = SHARP_EDGED)
+		body.apply_damage(25, BRUTE, sharp = TRUE)
 		// If it is not a carbon mob, we will just check biotypes and damage it directly.
 		//if(body.mob_biotypes & (MOB_MINERAL|MOB_ROBOTIC))
 		//	exterior_text = "exterior"
@@ -283,10 +301,12 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	var/obj/item/book/le_book = locate() in selected_atoms
 	if(!le_book)
 		stack_trace("Somehow, no book in Кодекс Истезания selected atoms! [english_list(selected_atoms)]")
-	playsound(body, 'sound/items/poster/poster_ripped.ogg', 100, TRUE)
+
+	playsound(body, 'sound/items/poster_ripped.ogg', 100, TRUE)
 	body.do_jitter_animation()
 	body.visible_message(span_danger("An awful ripping sound is heard as [ripped_thing]'s [exterior_text] is ripped straight out, wrapping around [le_book || "the book"], turning into an eldritch shade of blue!"))
 	return ..()
+
 
 /datum/heretic_knowledge/feast_of_owls
 	name = "Feast of Owls"
@@ -299,13 +319,16 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	/// amount of research points granted
 	var/reward = 5
 
+
 /datum/heretic_knowledge/feast_of_owls/can_be_invoked(datum/antagonist/heretic/invoker)
 	return !invoker.feast_of_owls
+
 
 /datum/heretic_knowledge/feast_of_owls/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/alert = tgui_alert(user,"Do you really want to forsake your ascension? This action cannot be reverted.", "Feast of Owls", list("Yes I'm sure", "No"), 30 SECONDS)
 	if(alert != "Yes I'm sure" || QDELETED(user) || QDELETED(src) || get_dist(user, loc) > 2)
 		return FALSE
+
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if(QDELETED(heretic_datum) || heretic_datum.feast_of_owls)
 		return FALSE
@@ -313,9 +336,9 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	. = TRUE
 
 	heretic_datum.feast_of_owls = TRUE
-	user.set_temp_blindness(reward * 1 SECONDS)
-	user.AdjustParalyzed(reward * 1 SECONDS)
-	user.playsound_local(get_turf(user), 'sound/music/antag/heretic/heretic_gain_intense.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	user.EyeBlind(reward * 1 SECONDS)
+	user.AdjustParalysis(reward * 1 SECONDS)
+	user.playsound_local(get_turf(user), 'sound/music/heretic/heretic_gain_intense.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	for(var/i in 1 to reward)
 		user.emote("scream")
 		playsound(loc, 'sound/items/eatfood.ogg', 100, TRUE)
@@ -352,6 +375,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	research_tree_icon_path = 'icons/obj/card.dmi'
 	research_tree_icon_state = "eldritch"
 
+
 /datum/heretic_knowledge/bookworm/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	. = ..()
 	for(var/obj/item/card/id/used_id in atoms)
@@ -363,9 +387,10 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	user.balloon_alert(user, "ritual failed, no ID lacking access!")
 	return FALSE
 
+
 /datum/heretic_knowledge/bookworm/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	var/obj/item/card/id/improved_id = locate() in selected_atoms
-	improved_id.add_access(list(ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), mode = FORCE_ADD_ALL)
+	improved_id.access |= list(ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS)
 	selected_atoms -= improved_id
 	return TRUE

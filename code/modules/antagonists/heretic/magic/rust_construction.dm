@@ -5,14 +5,14 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_icon_state = "shield"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
-	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
+	//check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
 
 	school = SCHOOL_FORBIDDEN
 	base_cooldown = 8 SECONDS
 
 	// Both of these are changed in before_cast
 	invocation = "Someone raises a wall of rust."
-	invocation_self_message = "You raise a wall of rust."
+	//invocation_self_message = "You raise a wall of rust."
 	invocation_type = INVOCATION_EMOTE
 	spell_requirements = NONE
 
@@ -27,7 +27,7 @@
 /obj/effect/proc_holder/spell/pointed/rust_construction/aim_assist(mob/living/clicker, atom/target)
 	return get_turf(target)
 
-/obj/effect/proc_holder/spell/pointed/rust_construction/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/rust_construction/valid_target(atom/cast_on)
 	if(!isturf(cast_on))
 		cast_on.balloon_alert(action.owner, "not a wall or floor!")
 		return FALSE
@@ -39,6 +39,7 @@
 
 	return TRUE
 
+/*
 /obj/effect/proc_holder/spell/pointed/rust_construction/before_cast(turf/spacecast_on)
 	. = ..()
 	if(!isliving(action.owner))
@@ -47,6 +48,7 @@
 	var/mob/living/living_owner = action.owner
 	invocation = span_danger("<b>[action.owner]</b> drags [action.owner.p_their()] hand[living_owner.usable_hands == 1 ? "":"s"] upwards as a wall of rust rises out of [cast_on]!")
 	invocation_self_message = span_notice("You drag [living_owner.usable_hands == 1 ? "a hand":"your hands"] upwards as a wall of rust rises out of [cast_on].")
+*/
 
 /obj/effect/proc_holder/spell/pointed/rust_construction/cast(turf/cast_on)
 	. = ..()
@@ -58,13 +60,13 @@
 		var/mob/living/living_owner = action.owner
 		living_owner?.do_rust_heretic_act(cast_on)
 		// ref transfers to floor
-		cast_on.Shake(shake_interval = 0.1 SECONDS, duration = 0.5 SECONDS)
+		cast_on.Shake(/*shake_interval = 0.1 SECONDS, */duration = 0.5 SECONDS)
 		// which we need to re-rust
 		living_owner?.do_rust_heretic_act(cast_on)
 		playsound(cast_on, 'sound/effects/bang.ogg', 50, vary = TRUE)
 		return
 
-	var/turf/simulated/wall/new_wall = cast_on.place_on_top(/turf/simulated/wall)
+	var/turf/simulated/wall/new_wall = cast_on.ChangeTurf(/turf/simulated/wall)
 	if(!istype(new_wall))
 		return
 
@@ -110,7 +112,7 @@
 		var/list/turfs_by_us = get_adjacent_open_turfs(cast_on)
 		// If there is no side by us, hardstun them
 		if(!length(turfs_by_us))
-			living_mob.Paralyze(5 SECONDS)
+			living_mob.Paralyse(5 SECONDS)
 			continue
 
 		// If there's an open turf throw them to the side

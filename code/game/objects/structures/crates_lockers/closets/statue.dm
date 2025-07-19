@@ -75,10 +75,10 @@
 
 	..()
 
-/obj/structure/closet/statue/open()
+/obj/structure/closet/statue/open(force = FALSE)
 	return
 
-/obj/structure/closet/statue/open()
+/obj/structure/closet/statue/open(force = FALSE)
 	return
 
 

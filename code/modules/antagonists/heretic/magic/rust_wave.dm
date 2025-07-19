@@ -20,9 +20,11 @@
 	cone_levels = 5
 	respect_density = TRUE
 
+
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/cast(atom/cast_on)
 	. = ..()
 	new /obj/effect/temp_visual/dir_setting/entropic(get_step(cast_on, cast_on.dir), cast_on.dir)
+
 
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, mob/living/caster, level)
 	if(ismob(caster))
@@ -30,12 +32,14 @@
 	else
 		target_turf.rust_heretic_act()
 
+
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
 	if(victim.can_block_magic(antimagic_flags) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
 		return
 	victim.apply_status_effect(/datum/status_effect/amok)
 	victim.apply_status_effect(/datum/status_effect/cloudstruck, level * 1 SECONDS)
-	victim.adjust_disgust(100)
+	victim.Disgust(10 SECONDS)
+
 
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/calculate_cone_shape(current_level)
 	// At the first level (that isn't level 1) we will be small
@@ -47,24 +51,30 @@
 	// Otherwise, all levels in between will be wider
 	return 5
 
+
 /obj/effect/temp_visual/dir_setting/entropic
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "entropic_plume"
 	duration = 3 SECONDS
+
 
 /obj/effect/temp_visual/dir_setting/entropic/setDir(dir)
 	. = ..()
 	switch(dir)
 		if(NORTH)
 			pixel_x = -64
+
 		if(SOUTH)
 			pixel_x = -64
 			pixel_y = -128
+
 		if(EAST)
 			pixel_y = -64
+
 		if(WEST)
 			pixel_y = -64
 			pixel_x = -128
+
 
 // Shoots a straight line of rusty stuff ahead of the caster, what rust monsters get
 /obj/effect/proc_holder/spell/fireball/rust_wave
@@ -82,7 +92,8 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
-	projectile_type = /obj/projectile/magic/aoe/rust_wave
+	fireball_type = /obj/projectile/magic/aoe/rust_wave
+
 
 /obj/projectile/magic/aoe/rust_wave
 	name = "Patron's Reach"
@@ -91,14 +102,15 @@
 	damage = 30
 	damage_type = TOX
 	hitsound = 'sound/weapons/punch3.ogg'
-	trigger_range = 0
+	//trigger_range = 0
 	ignored_factions = list(FACTION_HERETIC)
 	range = 15
 	speed = 1
 
+
 /obj/projectile/magic/aoe/rust_wave/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	playsound(src, 'sound/items/tools/welder.ogg', 75, TRUE)
+	playsound(src, 'sound/items/welder.ogg', 75, TRUE)
 	var/list/turflist = list()
 	var/turf/T1
 	turflist += get_turf(src)
@@ -111,11 +123,14 @@
 	for(var/turf/T as anything in turflist)
 		if(!T || prob(25))
 			continue
+
 		T.rust_heretic_act()
+
 
 /obj/effect/proc_holder/spell/fireball/rust_wave/short
 	name = "Lesser Patron's Reach"
-	projectile_type = /obj/projectile/magic/aoe/rust_wave/short
+	fireball_type = /obj/projectile/magic/aoe/rust_wave/short
+
 
 /obj/projectile/magic/aoe/rust_wave/short
 	range = 7

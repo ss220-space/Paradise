@@ -15,11 +15,11 @@
 	spell_requirements = NONE
 
 	cast_range = 4
-	/// What type of wound we apply
-	var/wound_type = /datum/wound/slash/flesh/critical/cleave
 
-/obj/effect/proc_holder/spell/pointed/apetra_vulnera/is_valid_target(atom/cast_on)
+
+/obj/effect/proc_holder/spell/pointed/apetra_vulnera/valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
+
 
 /obj/effect/proc_holder/spell/pointed/apetra_vulnera/cast(mob/living/carbon/human/cast_on)
 	. = ..()
@@ -41,13 +41,15 @@
 	for(var/obj/item/organ/external/bodypart in cast_on.bodyparts)
 		if(bodypart.brute_dam < 15)
 			continue
+
 		a_limb_got_damaged = TRUE
-		var/datum/wound/slash/crit_wound = new wound_type()
-		crit_wound.apply_wound(bodypart)
+		bodypart.fracture()
+
 
 	if(!a_limb_got_damaged)
-		var/datum/wound/slash/crit_wound = new wound_type()
-		crit_wound.apply_wound(pick(cast_on.bodyparts))
+		var/obj/item/organ/external/bodypart = pick(cast_on.bodyparts)
+		bodypart.fracture()
+
 
 	cast_on.visible_message(
 		span_danger("[cast_on]'s scratches and bruises are torn open by an unholy force!"),
@@ -55,5 +57,4 @@
 	)
 
 	new /obj/effect/temp_visual/cleave(get_turf(cast_on))
-
 	return TRUE

@@ -22,7 +22,7 @@
 		/obj/structure/reagent_dispensers/watertank = 1,
 		/obj/item/shard = 1,
 	)
-	result_atoms = list(/obj/item/reagent_containers/cup/beaker/eldritch)
+	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
 	cost = 1
 
 
@@ -47,7 +47,7 @@
 	desc = "Allows you to transmute 10 iron sheets and a garbage item to fill the surrounding vicinity of the rune with rust."
 	gain_text = "Reality begins to whisper to me. To give it its entropic end."
 	required_atoms = list(
-		/obj/item/stack/sheet/iron = 10,
+		/obj/item/stack/sheet/metal = 10,
 		/obj/item/trash = 1,
 	)
 	cost = 0
@@ -76,12 +76,10 @@
 
 	required_atoms = list(
 		/obj/effect/decal/cleanable/vomit = 1,
-		/obj/item/stack/sheet/iron = 10,
+		/obj/item/stack/sheet/metal = 10,
 		/obj/item/stack/cable_coil = 15,
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/rust_walker
 	cost = 1
 
 	poll_ignore_define = POLL_IGNORE_RUST_SPIRIT
-
-

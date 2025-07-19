@@ -6,7 +6,7 @@
 	icon = 'icons/obj/eldritch.dmi'
 	base_icon_state = "book"
 	icon_state = "book"
-	worn_icon_state = "book"
+	item_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
 	/// Helps determine the icon state of this item when it's used on self.
 	var/book_open = FALSE
@@ -14,6 +14,7 @@
 	var/drain_speed = 10 SECONDS
 	/// How fast we can draw runes
 	var/draw_speed = 8 SECONDS
+
 
 /obj/item/codex_cicatrix/Initialize(mapload)
 	. = ..()
@@ -23,9 +24,11 @@
 		on_clear_callback = CALLBACK(src, PROC_REF(after_clear_rune)), \
 		effects_we_clear = list(/obj/effect/heretic_rune))
 
+
 /// Callback for effect_remover component after a rune is deleted
 /obj/item/codex_cicatrix/proc/after_clear_rune(obj/effect/target, mob/living/user)
-	new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc, target.greyscale_colors)
+	new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc/*, target.greyscale_colors*/)
+
 
 /obj/item/codex_cicatrix/examine(mob/user)
 	. = ..()
@@ -36,6 +39,7 @@
 	. += span_notice("Can also be used to draw or remove transmutation runes with ease.")
 	. += span_notice("Additionally, it can work as a focus for your spells when held.")
 
+
 /obj/item/codex_cicatrix/attack_self(mob/user, modifiers)
 	. = ..()
 	if(.)
@@ -44,22 +48,30 @@
 	if(book_open)
 		close_animation()
 		RemoveElement(/datum/element/heretic_focus)
-		update_weight_class(WEIGHT_CLASS_SMALL)
-	else
-		open_animation()
-		AddElement(/datum/element/heretic_focus)
-		update_weight_class(WEIGHT_CLASS_NORMAL)
+		w_class = WEIGHT_CLASS_SMALL
+		return
 
-/obj/item/codex_cicatrix/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	open_animation()
+	AddElement(/datum/element/heretic_focus)
+	w_class = WEIGHT_CLASS_NORMAL
+
+
+/obj/item/codex_cicatrix/afterattack(atom/interacting_with, mob/living/user, proximity, params, status)
+	. = ..()
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_datum)
 		return NONE
-	if(is_space_or_openspace(interacting_with))
-		var/obj/effect/heretic_influence/influence = locate(/obj/effect/heretic_influence) in interacting_with
-		if(!influence?.drain_influence_with_codex(user, src))
-			heretic_datum.try_draw_rune(user, interacting_with, drawing_time = draw_speed)
+
+	if(!is_space_or_openspace(interacting_with))
+		return NONE
+
+	var/obj/effect/heretic_influence/influence = locate(/obj/effect/heretic_influence) in interacting_with
+	if(influence?.drain_influence_with_codex(user, src))
 		return ATTACK_CHAIN_BLOCKED
-	return NONE
+
+	heretic_datum.try_draw_rune(user, interacting_with, drawing_time = draw_speed)
+	return ATTACK_CHAIN_BLOCKED
+
 
 /// Plays a little animation that shows the book opening and closing.
 /obj/item/codex_cicatrix/proc/open_animation()
@@ -67,11 +79,13 @@
 	flick("[base_icon_state]_opening", src)
 	book_open = TRUE
 
+
 /// Plays a closing animation and resets the icon state.
 /obj/item/codex_cicatrix/proc/close_animation()
 	icon_state = base_icon_state
 	flick("[base_icon_state]_closing", src)
 	book_open = FALSE
+
 
 // Upgraded version of the Кодекс Истезания that allows us to cast curses
 /obj/item/codex_cicatrix/morbus // I'm morbing all over
@@ -84,28 +98,33 @@
 	/// List of mobs we've cursed with transmutation. When the codex is destroyed all those curses become undone
 	var/list/transmuted_victims = list()
 
+
 /obj/item/codex_cicatrix/morbus/examine(mob/user)
 	. = ..()
 	if(isheretic(user))
 		. += span_info("Can be used to cast a curse with blood in your offhand by right clicking a rune.")
 		return
+
 	. += span_danger("The eyes stop blinking. They stare at you. Their gaze burns...")
 	if(!ishuman(user))
 		return
+
 	var/mob/living/carbon/human/human_user = user
 	to_chat(human_user, span_userdanger("Your mind burns as you stare at the pages!"))
 	human_user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 190)
 
-/obj/item/codex_cicatrix/morbus/examine_more(mob/user)
-	. = ..() // XANTODO - Add a summary of each curse to the description so that the curser knows what will happen the cursee
 
-/obj/item/codex_cicatrix/morbus/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+/obj/item/codex_cicatrix/morbus/afterattack(atom/interacting_with, mob/living/user, proximity, list/modifiers, status)
+	if(!modifiers["alt"])
+		return ..()
+
 	if(!istype(interacting_with, /obj/effect/heretic_rune/big))
 		return NONE
 
 	var/list/curse_list = list()
 	for(var/datum/heretic_knowledge/curse/curses as anything in subtypesof(/datum/heretic_knowledge/curse))
 		curse_list[curses.name] = curses
+
 	var/selected_curse = tgui_input_list(user, "Cast any curse", "Select a curse!", curse_list, timeout = 0)
 	if(!selected_curse)
 		return NONE
@@ -117,13 +136,16 @@
 	if(!held_offhand)
 		user.balloon_alert(user, "no catalyst!")
 		return
+
 	var/blood_samples = list()
-	blood_samples[requirement.get_blood_dna_list()] = TRUE
+	//blood_samples[requirement.get_blood_dna_list()] = TRUE
 
 	for(var/datum/reagent/blood/usable_reagent as anything in held_offhand.reagents?.reagent_list)
 		if(!istype(usable_reagent, /datum/reagent/blood))
 			continue
+
 		blood_samples += usable_reagent.data["blood_DNA"]
+
 	if(isnull(blood_samples))
 		user.balloon_alert(user, "no blood!")
 		return ATTACK_CHAIN_BLOCKED
@@ -134,12 +156,14 @@
 	to_cast.on_finished_recipe(user, list(src, held_offhand), loc = get_turf(user))
 	return ATTACK_CHAIN_SUCCESS
 
-/obj/item/codex_cicatrix/morbus/atom_destruction(damage_flag)
-	for(var/datum/weakref/to_uncurse_ref as anything in transmuted_victims)
-		var/mob/to_uncurse = to_uncurse_ref.resolve()
+
+/obj/item/codex_cicatrix/morbus/Destroy()
+	for(var/mob/to_uncurse as anything in transmuted_victims)
 		if(!to_uncurse || !ismob(to_uncurse))
 			continue
+
 		var/datum/heretic_knowledge/curse/transmutation/to_undo = new()
 		to_undo.uncurse(to_uncurse)
-		transmuted_victims -= to_uncurse_ref
+		transmuted_victims -= to_uncurse
+
 	return ..()

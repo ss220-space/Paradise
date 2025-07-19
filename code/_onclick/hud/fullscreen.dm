@@ -217,6 +217,11 @@
 	icon_state = "fog"
 	color = "#FF0000"
 
+/atom/movable/screen/fullscreen/curse
+	icon_state = "curse"
+	layer = CURSE_LAYER
+	plane = FULLSCREEN_PLANE
+
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER
 #undef CRIT_LAYER

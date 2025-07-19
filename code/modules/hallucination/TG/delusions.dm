@@ -265,11 +265,11 @@
 			/obj/effect/mob_spawn/corpse/human/syndicatestormtrooper,
 		),
 		r_hand = pick(
-			/obj/item/knife/combat/survival,
+			/obj/item/kitchen/knife/combat/survival,
 			/obj/item/melee/energy/sword/saber,
-			/obj/item/gun/ballistic/automatic/pistol,
-			/obj/item/gun/ballistic/automatic/c20r,
-			/obj/item/gun/ballistic/shotgun/bulldog,
+			/obj/item/gun/automatic/pistol,
+			/obj/item/gun/automatic/c20r,
+			/obj/item/gun/shotgun/bulldog,
 		),
 	)
 

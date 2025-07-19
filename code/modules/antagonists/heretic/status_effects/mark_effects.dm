@@ -226,8 +226,6 @@
 	do_teleport(
 		owner,
 		get_turf(cosmic_diamond),
-		/*no_effects = TRUE,
-		channel = TELEPORT_CHANNEL_MAGIC,*/
 	)
 	new teleport_effect(get_turf(owner))
 	owner.Paralyse(2 SECONDS)

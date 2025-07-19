@@ -14,19 +14,18 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
-	exit_jaunt_sound = null
+	sound_out = null
 	jaunt_duration = 1.1 SECONDS
 	jaunt_in_time = 1.3 SECONDS
-	jaunt_type = /obj/effect/dummy/phased_mob/spell_jaunt/red
+	jaunt_type_path = /obj/effect/dummy/phased_mob/spell_jaunt/red
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/ash_shift/out
 
-/obj/effect/proc_holder/spell/ethereal_jaunt/ash/do_steam_effects()
-	return
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/ash/long
 	name = "Ashen Walk"
 	desc = "A long range spell that allows you pass unimpeded through multiple walls."
 	jaunt_duration = 5 SECONDS
+
 
 /obj/effect/temp_visual/dir_setting/ash_shift
 	name = "ash_shift"
@@ -34,5 +33,11 @@
 	icon_state = "ash_shift2"
 	duration = 1.3 SECONDS
 
+
 /obj/effect/temp_visual/dir_setting/ash_shift/out
 	icon_state = "ash_shift"
+
+
+/// Red coloured variant
+/obj/effect/dummy/phased_mob/spell_jaunt/red
+	phased_mob_icon_state = "red_1"

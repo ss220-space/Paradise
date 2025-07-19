@@ -284,7 +284,7 @@
 		owner.AdjustLoseBreath(4 SECONDS)
 
 
-//[[[[CHEST]]]]
+//[[[[UPPER_TORSO|LOWER_TORSO]]]]
 /obj/item/organ/internal/cyberimp/chest
 	name = "cybernetic torso implant"
 	desc = "implants for the organs in your torso."

@@ -115,6 +115,8 @@
 	var/dismember_head = FALSE
 	/// Probability to hit lying non-dead mobs
 	var/hit_crawling_mobs_chance = 33
+	/// We ignore mobs with these factions.
+	var/list/ignored_factions
 
 
 /obj/projectile/Initialize(mapload)
@@ -149,6 +151,11 @@
 
 
 /obj/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
+	if(ignored_factions?.len && ismob(target))
+		var/mob/target_mob = target
+		if(faction_check(target_mob.faction, ignored_factions))
+			return FALSE
+
 	var/turf/target_loca = get_turf(target)
 	var/hitx
 	var/hity

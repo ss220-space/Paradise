@@ -522,6 +522,20 @@
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
 
 
+/datum/mind/proc/memory_edit_heretic()
+	. = _memory_edit_header("heretic")
+	var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+	if(heretic_datum)
+		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
+		if(!length(heretic_datum.objectives))
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];heretic=autoobjectives'>Randomize!</a>"
+
+	else
+		. += "<a href='byond://?src=[UID()];heretic=heretic'>heretic</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_THIEF)
+
+
 /datum/mind/proc/memory_edit_space_dragon()
 	. = _memory_edit_header("dragon")
 	var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
@@ -1953,6 +1967,19 @@
 				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
 				log_admin("[key_name(usr)] has sintouch'ed [current].")
 
+	else if(href_list["heretic"])
+		switch(href_list["heretic"])
+			if("clear")
+				remove_heretic_role()
+
+			if("heretic")
+				if(has_antag_datum(/datum/antagonist/heretic))
+					return
+
+				add_antag_datum(/datum/antagonist/heretic)
+				message_admins("[key_name_admin(usr)] has heretic'ed [current].")
+				log_admin("[key_name(usr)] has heretic'ed [current].")
+
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
 			if("clear")
@@ -2777,6 +2804,14 @@
 	remove_antag_datum(ninja_datum)
 
 
+/datum/mind/proc/remove_heretic_role()
+	var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+	if(!heretic_datum)
+		return
+
+	remove_antag_datum(heretic_datum)
+
+
 /datum/mind/proc/remove_all_antag_roles(adminlog = TRUE) // Except abductor, because it isnt implemented in admin panel
 	remove_revolutionary_role()
 	remove_cult_role()
@@ -2791,6 +2826,7 @@
 	remove_thief_role()
 	remove_shadow_role()
 	remove_ninja_role()
+	remove_heretic_role()
 
 	if(adminlog)
 		message_admins("[ADMIN_LOOKUP(current)] lost all antag roles")
@@ -3019,10 +3055,14 @@
 /datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/instance_or_path) //To remove a specific spell from a mind
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
+
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
-		if(spell.type == instance_or_path)
-			LAZYREMOVE(spell_list, spell)
-			qdel(spell)
+		if(spell.type != instance_or_path)
+			continue
+
+		spell.on_spell_loss(current)
+		LAZYREMOVE(spell_list, spell)
+		qdel(spell)
 
 /datum/mind/proc/deactivate_spell(obj/effect/proc_holder/spell/instance_or_path)
 	if(!ispath(instance_or_path))

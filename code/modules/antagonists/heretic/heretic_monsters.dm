@@ -4,7 +4,7 @@
 	roundend_category = "Heretics"
 	job_rank = ROLE_HERETIC
 	antag_hud_name = "heretic_beast"
-	//stinger_sound = 'sound/music/antag/heretic/heretic_gain.ogg'
+	//stinger_sound = 'sound/music/heretic/heretic_gain.ogg'
 	/// Our master (a heretic)'s mind.
 	var/datum/mind/master
 

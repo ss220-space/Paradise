@@ -9,7 +9,7 @@
 	speak_emote = list("whispers")
 	movement_type = FLOATING
 	status_flags = CANSTUN | CANPUSH
-	//attack_sound = SFX_SHATTER
+	attack_sound = 'sound/effects/glassbr1.ogg'
 	maxHealth = 80
 	health = 80
 	melee_damage_lower = 12

@@ -197,6 +197,8 @@
 		if(parent)
 			LAZYOR(parent.children, src)
 
+	SEND_SIGNAL(target, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
+
 
 /obj/item/organ/external/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	if(!owner)
@@ -237,6 +239,8 @@
 		explosion(get_turf(organ_owner), -1, -1, 2, 3, cause = "Organ Sabotage")
 		do_sparks(5, FALSE, organ_owner)
 		qdel(src)
+
+	SEND_SIGNAL(organ_owner, COMSIG_CARBON_POST_REMOVE_LIMB, src, special)
 
 
 /obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)

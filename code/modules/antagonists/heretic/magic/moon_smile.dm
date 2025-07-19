@@ -19,30 +19,28 @@
 
 	active_msg = "You prepare to let them see the true face..."
 
+
 /obj/effect/proc_holder/spell/pointed/moon_smile/can_cast(feedback = TRUE)
 	return ..() && isliving(action.owner)
 
-/obj/effect/proc_holder/spell/pointed/moon_smile/is_valid_target(atom/cast_on)
+
+/obj/effect/proc_holder/spell/pointed/moon_smile/valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
+
 
 /obj/effect/proc_holder/spell/pointed/moon_smile/cast(mob/living/carbon/human/cast_on)
 	. = ..()
-	/// The duration of these effects are based on sanity, mainly for flavor but also to make it a weaker alpha strike
-	var/maximum_duration = 15 SECONDS
-	var/moon_smile_duration = ((SANITY_MAXIMUM) / (SANITY_MAXIMUM - SANITY_INSANE)) * maximum_duration
+	var/moon_smile_duration = 15 SECONDS
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, span_notice("The moon turns, its smile no longer set on you."))
 		to_chat(action.owner, span_warning("The moon does not smile upon them."))
 		return FALSE
 
-	playsound(cast_on, 'sound/effects/hallucinations/i_see_you1.ogg', 50, 1)
+	playsound(cast_on, 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	to_chat(cast_on, span_warning("Your eyes cry out in pain, your ears bleed and your lips seal! THE MOON SMILES UPON YOU!"))
-	cast_on.adjust_temp_blindness(moon_smile_duration + 1 SECONDS)
-	cast_on.set_eye_blur_if_lower(moon_smile_duration + 2 SECONDS)
+	cast_on.EyeBlind(moon_smile_duration + 1 SECONDS)
+	cast_on.EyeBlurry(moon_smile_duration + 2 SECONDS)
 
-	var/obj/item/organ/internal/ears/ears = cast_on.get_organ_slot(INTERNAL_ORGAN_EARS)
-	//adjustEarDamage takes deafness duration parameter in one unit per two seconds, instead of the normal time, so we divide by two seconds
-	ears?.adjustEarDamage(0, (moon_smile_duration + 1 SECONDS) / (2 SECONDS))
-
-	cast_on.adjust_silence(moon_smile_duration + 1 SECONDS)
+	cast_on.adjustOrganLoss(INTERNAL_ORGAN_EARS, 10)
+	cast_on.Silence(moon_smile_duration + 1 SECONDS)
 	return TRUE

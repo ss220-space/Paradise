@@ -164,6 +164,20 @@
 	return TRUE
 
 
+/**
+ * Applies our button icon and icon state to the button
+ *
+ * current_button - what button are we editing?
+ * force - whether an update is forced regardless of existing status
+ */
+/datum/action/proc/apply_button_icon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
+	if(!button_icon || !button_icon_state || (current_button.icon_state == button_icon_state && !force))
+		return
+
+	current_button.icon = button_icon
+	current_button.icon_state = button_icon_state
+
+
 /datum/action/proc/UpdateButtonIcon()
 	if(!button)
 		return FALSE
@@ -760,7 +774,7 @@
 	var/obj/effect/proc_holder/spell/spell = target
 
 	if(owner)
-		return spell.can_cast(owner, show_message = message)
+		return spell.can_cast(owner)
 	return FALSE
 
 

@@ -643,8 +643,8 @@
 		to_chat(usr,  span_notice("<div class='examine'>[get_description_fluff()]</div>"))
 		return TRUE
 
-/atom/proc/relaymove()
-	return
+/atom/proc/relaymove(mob/user)
+	SEND_SIGNAL(src, COMSIG_ATOM_RELAYMOVE, user)
 
 /atom/proc/ex_act()
 	return
@@ -668,20 +668,24 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
-/atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
+/atom/proc/tool_act(mob/living/user, obj/item/tool, tool_type)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, tool)
+	if(signal_result)
+		return signal_result
+
 	switch(tool_type)
 		if(TOOL_CROWBAR)
-			return crowbar_act(user, I)
+			return crowbar_act(user, tool)
 		if(TOOL_MULTITOOL)
-			return multitool_act(user, I)
+			return multitool_act(user, tool)
 		if(TOOL_SCREWDRIVER)
-			return screwdriver_act(user, I)
+			return screwdriver_act(user, tool)
 		if(TOOL_WRENCH)
-			return wrench_act(user, I)
+			return wrench_act(user, tool)
 		if(TOOL_WIRECUTTER)
-			return wirecutter_act(user, I)
+			return wirecutter_act(user, tool)
 		if(TOOL_WELDER)
-			return welder_act(user, I)
+			return welder_act(user, tool)
 
 
 // Tool-specific behavior procs. To be overridden in subtypes.
@@ -1875,7 +1879,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 
 ///wrapper proc that passes our mob's rust_strength to the target we are rusting
-/mob/living/proc/do_rust_heretic_act(atom/target)
+/mob/proc/do_rust_heretic_act(atom/target)
 	var/datum/antagonist/heretic/heretic_data = mind.has_antag_datum(/datum/antagonist/heretic)
 	target.rust_heretic_act(heretic_data?.rust_strength)
 

@@ -19,11 +19,11 @@
 	/// How long it the ring lasts
 	var/duration = 1 MINUTES
 
-/obj/effect/proc_holder/spell/fire_sworn/Remove(mob/living/remove_from)
+/obj/effect/proc_holder/spell/fire_sworn/on_spell_loss(mob/living/remove_from)
 	remove_from.remove_status_effect(/datum/status_effect/fire_ring)
 	return ..()
 
-/obj/effect/proc_holder/spell/fire_sworn/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/fire_sworn/valid_target(atom/cast_on)
 	return isliving(cast_on)
 
 /obj/effect/proc_holder/spell/fire_sworn/cast(mob/living/cast_on)
@@ -45,18 +45,18 @@
 	return ..()
 
 /datum/status_effect/fire_ring/tick(seconds_between_ticks)
-	if(QDELETED(action.owner) || action.owner.stat == DEAD)
+	if(QDELETED(owner) || owner.stat == DEAD)
 		qdel(src)
 		return
 
-	if(!isturf(action.owner.loc))
+	if(!isturf(owner.loc))
 		return
 
-	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, action.owner))
+	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, owner))
 		var/obj/effect/hotspot/flame_tile = (locate() in nearby_turf) || new(nearby_turf)
 		flame_tile.alpha = 125
 		nearby_turf.hotspot_expose(750, 25 * seconds_between_ticks, 1)
-		for(var/mob/living/fried_living in nearby_turf.contents - action.owner)
+		for(var/mob/living/fried_living in nearby_turf.contents - owner)
 			fried_living.apply_damage(2.5 * seconds_between_ticks, BURN)
 
 /// Creates one, large, expanding ring of fire around the caster, which does not follow them.
@@ -67,7 +67,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "fire_ring"
-	sound = 'sound/items/tools/welder.ogg'
+	sound = 'sound/items/welder.ogg'
 
 	school = SCHOOL_FORBIDDEN
 	base_cooldown = 30 SECONDS
@@ -119,7 +119,7 @@
 	/// The length of the flame line spit out.
 	var/flame_line_length = 15
 
-/obj/effect/proc_holder/spell/pointed/ash_beams/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/ash_beams/valid_target(atom/cast_on)
 	return TRUE
 
 /obj/effect/proc_holder/spell/pointed/ash_beams/cast(atom/target)

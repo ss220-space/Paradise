@@ -4,8 +4,8 @@
 	desc = "A spell that allows you to take on the form of another eldritch creature, gaining their abilities. \
 		You can change your choice at any time, and if your form dies, you dont die."
 	base_cooldown = 20 SECONDS
-	convert_damage = FALSE
-	die_with_shapeshifted_form = FALSE
+	//convert_damage = FALSE
+	//die_with_shapeshifted_form = FALSE
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "lock_ascension"
 	possible_shapes = list(
@@ -15,7 +15,8 @@
 		/mob/living/simple_animal/hostile/heretic_summon/stalker,
 	)
 
-/obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/do_shapeshift(mob/living/caster)
+
+/obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/Shapeshift(mob/living/caster)
 	. = ..()
 	if(!.)
 		return
@@ -30,6 +31,7 @@
 	monster.transform *= 1.5
 	monster.AddElement(/datum/element/wall_tearer)
 
-/obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/do_unshapeshift(mob/living/caster)
+
+/obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/Restore(mob/living/caster)
 	. = ..()
 	shapeshift_type = null //pick another loser

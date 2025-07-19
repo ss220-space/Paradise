@@ -17,11 +17,14 @@
 
 	cast_range = 6
 
+
 /obj/effect/proc_holder/spell/pointed/blood_siphon/can_cast(feedback = TRUE)
 	return ..() && isliving(action.owner)
 
-/obj/effect/proc_holder/spell/pointed/blood_siphon/is_valid_target(atom/cast_on)
+
+/obj/effect/proc_holder/spell/pointed/blood_siphon/valid_target(atom/cast_on)
 	return ..() && isliving(cast_on)
+
 
 /obj/effect/proc_holder/spell/pointed/blood_siphon/cast(mob/living/cast_on)
 	. = ..()
@@ -53,16 +56,12 @@
 	if(!iscarbon(cast_on) || !iscarbon(action.owner))
 		return TRUE
 
-	var/mob/living/carbon/carbon_target = cast_on
-	var/mob/living/carbon/carbon_user = action.owner
-	for(var/obj/item/organ/external/bodypart as anything in carbon_user.bodyparts)
-		for(var/datum/wound/iter_wound as anything in bodypart.wounds)
-			if(prob(50))
-				continue
-			var/obj/item/organ/external/target_bodypart = locate(bodypart.type) in carbon_target.bodyparts
-			if(!target_bodypart)
-				continue
-			iter_wound.remove_wound()
-			iter_wound.apply_wound(target_bodypart)
+	var/mob/living/carbon/human/human_user = action.owner
+	for(var/obj/item/organ/external/bodypart as anything in human_user.bodyparts)
+		if(prob(50))
+			bodypart.stop_internal_bleeding()
+
+		if(prob(50))
+			bodypart.mend_fracture()
 
 	return TRUE

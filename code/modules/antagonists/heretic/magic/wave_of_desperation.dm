@@ -17,8 +17,10 @@
 
 	aoe_range = 3
 
-/obj/effect/proc_holder/spell/aoe/wave_of_desperation/is_valid_target(mob/living/carbon/cast_on)
+
+/obj/effect/proc_holder/spell/aoe/wave_of_desperation/valid_target(mob/living/carbon/cast_on)
 	return ..() && istype(cast_on) && (cast_on.handcuffed || cast_on.legcuffed)
+
 
 // Before the cast, we do some small AOE damage around the caster
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/before_cast(mob/living/carbon/cast_on)
@@ -29,6 +31,7 @@
 	if(cast_on.handcuffed)
 		cast_on.visible_message(span_danger("[cast_on.handcuffed] on [cast_on] shatter!"))
 		QDEL_NULL(cast_on.handcuffed)
+
 	if(cast_on.legcuffed)
 		cast_on.visible_message(span_danger("[cast_on.legcuffed] on [cast_on] shatters!"))
 		QDEL_NULL(cast_on.legcuffed)
@@ -38,42 +41,52 @@
 
 	for(var/mob/living/victim in get_things_to_cast_on(cast_on, radius_override = 1))
 		victim.AdjustKnockdown(3 SECONDS)
-		victim.AdjustParalyzed(0.5 SECONDS)
+		victim.AdjustParalysis(0.5 SECONDS)
+
 
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/get_things_to_cast_on(atom/center, radius_override)
 	. = list()
 	for(var/atom/nearby in orange(center, radius_override ? radius_override : aoe_range))
 		if(nearby == action.owner || nearby == center || isarea(nearby))
 			continue
+
 		if(!ismob(nearby))
 			. += nearby
 			continue
+
 		var/mob/living/nearby_mob = nearby
 		if(!isturf(nearby_mob.loc))
 			continue
+
 		if(IS_HERETIC_OR_MONSTER(nearby_mob))
 			continue
+
 		if(nearby_mob.can_block_magic(antimagic_flags))
 			continue
 
 		. += nearby_mob
 
-/obj/effect/proc_holder/spell/aoe/wave_of_desperation/cast_on_thing_in_aoe(atom/victim, atom/caster)
-	if(!ismob(victim))
-		SEND_SIGNAL(action.owner, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
 
-	var/atom/movable/mover = victim
-	if(!istype(mover))
-		return
+/obj/effect/proc_holder/spell/aoe/wave_of_desperation/cast(list/targets, mob/caster = usr)
+	for(var/victim as anything in targets)
+		if(!ismob(victim))
+			SEND_SIGNAL(action.owner, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
 
-	if(mover.anchored)
-		return
-	var/our_turf = get_turf(caster)
-	var/throwtarget = get_edge_target_turf(our_turf, get_dir(our_turf, get_step_away(mover, our_turf)))
-	mover.safe_throw_at(throwtarget, 3, 1, force = MOVE_FORCE_STRONG)
+		var/atom/movable/mover = victim
+		if(!istype(mover))
+			return
+
+		if(mover.anchored)
+			return
+
+		var/our_turf = get_turf(caster)
+		var/throwtarget = get_edge_target_turf(our_turf, get_dir(our_turf, get_step_away(mover, our_turf)))
+		mover.throw_at(throwtarget, 3, 1, force = MOVE_FORCE_STRONG)
+
 
 /obj/effect/temp_visual/knockblast
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-flash"
 	alpha = 180
 	duration = 1 SECONDS
+

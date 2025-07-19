@@ -15,11 +15,14 @@
 
 	cast_range = 6
 
-/obj/effect/proc_holder/spell/pointed/burglar_finesse/is_valid_target(mob/living/carbon/human/cast_on)
+
+/obj/effect/proc_holder/spell/pointed/burglar_finesse/valid_target(mob/living/carbon/human/cast_on)
 	if(!istype(cast_on))
 		return FALSE
+
 	var/obj/item/back_item = cast_on.get_item_by_slot(ITEM_SLOT_BACK)
-	return ..() && back_item?.atom_storage
+	return ..() && isstorage(back_item)
+
 
 /obj/effect/proc_holder/spell/pointed/burglar_finesse/cast(mob/living/carbon/human/cast_on)
 	. = ..()
@@ -28,12 +31,12 @@
 		to_chat(action.owner, span_danger("[cast_on] is protected by holy forces!"))
 		return FALSE
 
-	var/obj/storage_item = cast_on.get_item_by_slot(ITEM_SLOT_BACK)
+	var/obj/item/storage/storage_item = cast_on.get_item_by_slot(ITEM_SLOT_BACK)
 
 	if(isnull(storage_item))
 		return FALSE
 
-	var/item = pick(storage_item.atom_storage.return_inv(recursive = FALSE))
+	var/item = pick(storage_item.return_inv())
 	if(isnull(item))
 		return FALSE
 

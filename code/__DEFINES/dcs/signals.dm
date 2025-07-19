@@ -661,7 +661,7 @@
 #define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
 ///from base of mob/living/Immobilize() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
-///from base of mob/living/Paralyze() (amount, ignore_canparalyse)
+///from base of mob/living/Paralyse() (amount, ignore_canparalyse)
 #define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
@@ -1409,6 +1409,38 @@
 	/// Dusts the target instead of gibbing them (no soulstone)
 	#define DUST_SACRIFICE (1<<3)
 
+/// from /obj/proc/unfreeze()
+#define COMSIG_OBJ_UNFREEZE "obj_unfreeze"
+/// Set from /obj/effect/dummy/phased_mob after the mob is ejected from its contents: (obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
+#define COMSIG_MOB_EJECTED_FROM_JAUNT "spell_mob_eject_jaunt"
+/// Sent from [atom/proc/item_interaction], when this atom is left-clicked on by a mob with a tool of a specific tool type
+/// Args: (mob/living/user, obj/item/tool, list/recipes)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ATOM_TOOL_ACT(tooltype) "tool_act_[tooltype]"
+/// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
+#define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
+/// Sent from /datum/action/cooldown/spell/touch/cast: (mob/living/carbon/cast_on)
+#define COMSIG_TOUCH_HANDLESS_CAST "spell_touch_handless_cast"
+	/// Return this to prevent the hand spawning/unspawning
+	#define COMPONENT_CAST_HANDLESS (1<<0)
+///from base of /obj/item/bodypart/proc/try_attach_limb(): (new_limb, special, lazy)
+#define COMSIG_CARBON_POST_ATTACH_LIMB "carbon_post_attach_limb"
+/// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, special, dismembered)
+#define COMSIG_CARBON_POST_REMOVE_LIMB "carbon_post_remove_limb"
+/// A mob has just unequipped an item.
+#define COMSIG_MOB_UNEQUIPPED_ITEM "mob_unequipped_item"
+/// From /mob/living/befriend() : (mob/living/new_friend)
+#define COMSIG_LIVING_BEFRIENDED "living_befriended"
+/// From /mob/living/unfriend() : (mob/living/old_friend)
+#define COMSIG_LIVING_UNFRIENDED "living_unfriended"
+///from /obj/item/storage/bible/interact_with_atom(): (mob/user)
+#define COMSIG_BIBLE_SMACKED "bible_smacked"
+	///stops the bible chain from continuing. When all of the effects of the bible smacking have been moved to a signal we can kill this
+	#define COMSIG_END_BIBLE_CHAIN (1<<0)
+///from base of atom/relaymove(): (mob/living/user, direction)
+#define COMSIG_ATOM_RELAYMOVE "atom_relaymove"
+	///prevents the "you cannot move while buckled! message"
+	#define COMSIG_BLOCK_RELAYMOVE (1<<0)
 /// Sent from [atom/proc/item_interaction], to a mob clicking on an atom with an item
 #define COMSIG_USER_ITEM_INTERACTION "user_item_interaction"
 ///From base of mob/living/Bump() (turf/closed)

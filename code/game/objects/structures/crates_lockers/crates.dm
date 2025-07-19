@@ -32,7 +32,7 @@
 /obj/structure/closet/crate/can_close()
 	return TRUE
 
-/obj/structure/closet/crate/open(by_hand = FALSE)
+/obj/structure/closet/crate/open(by_hand = FALSE, force = FALSE)
 	if(opened)
 		return FALSE
 	if(!can_open())

@@ -887,7 +887,7 @@
 	return TRUE
 
 /mob/proc/cannot_speak_loudly()
-	return FALSE
+	return HAS_TRAIT(src, TRAIT_SOFTSPOKEN)
 
 /mob/proc/get_access_locations()
 	return list()

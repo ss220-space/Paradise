@@ -19,7 +19,7 @@
 	var/static/list/innate_abilities = list(
 		/obj/effect/proc_holder/spell/ethereal_jaunt/ash/long = null,
 		/obj/effect/proc_holder/spell/remotetalk/eldritch = null,
-		/obj/effect/proc_holder/spell/expand_sight = null,
+		/obj/effect/proc_holder/spell/view_range/expand_sight = null,
 	)
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Initialize(mapload)

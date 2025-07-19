@@ -116,6 +116,8 @@
 #define isorgan(A)	(istype(A, /obj/item/organ))
 #define isroboticorgan(A)	(isorgan(A) && (A.status & ORGAN_ROBOT))
 
+#define iscloset(A) (istype(A, /obj/structure/closet))
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
@@ -202,6 +204,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define IS_LUNATIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/lunatic))
 /// Checks if the given mob is either a heretic, heretic monster or a lunatic.
 #define IS_HERETIC_OR_MONSTER(mob) (isheretic(mob) || HAS_TRAIT(mob, TRAIT_HERETIC_SUMMON) || IS_LUNATIC(mob))
+
+#define IS_IN_MANSUS(mob) (istype(get_area(mob), /area/centcom/heretic_sacrifice))
 
 #define isspacecola(A)		(istype((A), /datum/reagent/consumable/drink/cold/space_cola))
 

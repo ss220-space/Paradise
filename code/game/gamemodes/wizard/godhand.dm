@@ -68,6 +68,24 @@
 	qdel(src)
 
 
+/**
+ * When the hand component of a touch spell is qdel'd, (the hand is dropped or otherwise lost),
+ * the cooldown on the spell that made it is automatically refunded.
+ *
+ * However, if you want to consume the hand and not give a cooldown,
+ * such as adding a unique behavior to the hand specifically, this function will do that.
+ */
+/obj/item/melee/touch_attack/proc/remove_hand_with_no_refund(mob/holder)
+	var/obj/effect/proc_holder/spell/touch/hand_spell = attached_spell
+	if(!QDELETED(hand_spell))
+		hand_spell.discharge_hand(holder)
+		return
+
+	// We have no spell associated for some reason, just delete us as normal.
+	holder.drop_item_ground(src, force = TRUE)
+	qdel(src)
+
+
 /obj/item/melee/touch_attack/disintegrate
 	name = "disintegrating touch"
 	desc = "This hand of mine glows with an awesome power!"

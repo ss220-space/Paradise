@@ -27,7 +27,7 @@
 
 	required_atoms = list(
 		/obj/item/clothing/suit = 1,
-		/obj/item/clothing/gloves/latex = 1,
+		/obj/item/clothing/gloves/color/latex = 1,
 	)
 	limit = 1
 	cost = 1
@@ -44,13 +44,16 @@
 	for(var/mob/living/carbon/human/body in atoms)
 		if(body.stat != DEAD)
 			continue
+
 		if(!IS_VALID_GHOUL_MOB(body) || HAS_TRAIT(body, TRAIT_HUSK))
 			to_chat(user, span_hierophant_warning("[body] is not in a valid state to be made into a ghoul."))
 			continue
+
 		if(!body.mind)
 			to_chat(user, span_hierophant_warning("[body] is mindless and cannot be made into a ghoul."))
 			continue
-		if(!body.client && !body.mind.get_ghost(ghosts_with_clients = TRUE))
+
+		if(!body.client && !body.mind.get_ghost())
 			to_chat(user, span_hierophant_warning("[body] is soulless and cannot be made into a ghoul."))
 			continue
 
@@ -80,8 +83,8 @@
 
 /// Make [victim] into a shattered risen ghoul.
 /datum/heretic_knowledge/limited_amount/risen_corpse/proc/make_risen(mob/living/user, mob/living/carbon/human/victim)
-	user.log_message("created a shattered risen out of [key_name(victim)].", LOG_GAME)
-	victim.log_message("became a shattered risen of [key_name(user)]'s.", LOG_VICTIM, log_globally = FALSE)
+	//user.log_message("created a shattered risen out of [key_name(victim)].", LOG_GAME)
+	//victim.log_message("became a shattered risen of [key_name(user)]'s.", LOG_VICTIM, log_globally = FALSE)
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a shattered risen, [ADMIN_LOOKUPFLW(victim)].")
 
 	victim.apply_status_effect(
@@ -109,12 +112,13 @@
 	name = "bone-shards"
 	desc = "What once appeared to be a normal human fist, now holds a mauled nest of sharp bone-shards."
 	color = "#001aff"
-	hitsound = SFX_SHATTER
+	hitsound = 'sound/effects/glassbr1.ogg'
 	force = 16
 	//wound_bonus = -30
 	//bare_wound_bonus = 15
-	demolition_mod = 1.5
-	sharpness = SHARP_EDGED
+	//demolition_mod = 1.5
+	sharp = TRUE
+
 
 /datum/heretic_knowledge/rune_carver
 	name = "Carving Knife"
@@ -125,7 +129,7 @@
 		I can carve the monolith to reveal the chains!"
 
 	required_atoms = list(
-		/obj/item/knife = 1,
+		/obj/item/kitchen/knife = 1,
 		/obj/item/shard = 1,
 		/obj/item/paper = 1,
 	)
@@ -135,6 +139,7 @@
 
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "rune_carver"
+
 
 /datum/heretic_knowledge/summon/maid_in_mirror
 	name = "Maid in the Mirror"
@@ -148,11 +153,10 @@
 	required_atoms = list(
 		/obj/item/stack/sheet/mineral/titanium = 5,
 		/obj/item/clothing/suit/armor = 1,
-		/obj/item/assembly/flash = 1,
+		/obj/item/flash = 1,
 		/obj/item/organ/internal/lungs = 1,
 	)
 	cost = 1
 
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror
 	poll_ignore_define = POLL_IGNORE_MAID_IN_MIRROR
-

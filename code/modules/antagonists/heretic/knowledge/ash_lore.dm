@@ -23,7 +23,7 @@
 		You can only create two at a time."
 	gain_text = "The City Guard know their watch. If you ask them at night, they may tell you about the ashy lantern."
 	required_atoms = list(
-		/obj/item/knife = 1,
+		/obj/item/kitchen/knife = 1,
 		/obj/item/match = 1,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/ash)
@@ -56,7 +56,7 @@
 
 	to_chat(target, span_danger("A bright green light burns your eyes horrifically!"))
 	target.adjustOrganLoss(INTERNAL_ORGAN_EYES, 15)
-	target.set_eye_blur_if_lower(20 SECONDS)
+	target.EyeBlurry(20 SECONDS)
 
 /datum/heretic_knowledge/spell/ash_passage
 	name = "Ashen Passage"
@@ -84,10 +84,11 @@
 		return
 
 	// Also refunds 75% of charge!
-	var/datum/action/innate/touch/mansus_grasp/grasp = locate() in source.actions
+	var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = locate() in source.actions
 	if(grasp)
-		grasp.next_use_time -= round(grasp.base_cooldown*0.75)
-		grasp.build_all_button_icons()
+		//grasp.next_use_time -= round(grasp.base_cooldown * 0.75)
+		grasp.action?.UpdateButtonIcon()
+
 
 /datum/heretic_knowledge/knowledge_ritual/ash
 
@@ -99,7 +100,7 @@
 		at a nearby enemy, setting them on fire and burning them. If they do not extinguish themselves, \
 		the beam will continue to another target."
 	gain_text = "No fire was hot enough to rekindle them. No fire was bright enough to save them. No fire is eternal."
-	action_to_add = /datum/action/innate/charged/beam/fire_blast
+	action_to_add = /obj/effect/proc_holder/spell/charged/beam/fire_blast
 	cost = 1
 	research_tree_icon_frame = 7
 
@@ -136,7 +137,7 @@
 		return
 
 	target.adjust_fire_stacks(1)
-	target.ignite_mob()
+	target.IgniteMob()
 
 /datum/heretic_knowledge/spell/flame_birth
 	name = "Nightwatcher's Rebirth"
@@ -145,7 +146,7 @@
 		If any victims afflicted are in critical condition, they will also instantly die."
 	gain_text = "The fire was inescapable, and yet, life remained in his charred body. \
 		The Nightwatcher was a particular man, always watching."
-	action_to_add = /datum/action/innate/aoe/fiery_rebirth
+	action_to_add = /obj/effect/proc_holder/spell/aoe/fiery_rebirth
 	cost = 1
 	research_tree_icon_frame = 5
 
@@ -162,18 +163,18 @@
 		for the Nightwatcher brought forth the rite to mankind! His gaze continues, as now I am one with the flames, \
 		WITNESS MY ASCENSION, THE ASHY LANTERN BLAZES ONCE MORE!"
 
-	ascension_achievement = /datum/award/achievement/misc/ash_ascension
+	//ascension_achievement = /datum/award/achievement/misc/ash_ascension
 	announcement_text = "%SPOOKY% Fear the blaze, for the Ashlord, %NAME% has ascended! The flames shall consume all! %SPOOKY%"
-	announcement_sound = 'sound/music/antag/heretic/ascend_ash.ogg'
+	announcement_sound = 'sound/music/heretic/ascend_ash.ogg'
 	/// A static list of all traits we apply on ascension.
 	var/static/list/traits_to_apply = list(
 		TRAIT_BOMBIMMUNE,
 		TRAIT_NO_BREATH,
-		TRAIT_NOFIRE,
+		//TRAIT_NOFIRE,
 		TRAIT_RESIST_COLD,
 		TRAIT_RESIST_HEAT,
-		TRAIT_RESISTHIGHPRESSURE,
-		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_RESIST_HEAT,
+		TRAIT_RESIST_COLD,
 	)
 
 /datum/heretic_knowledge/ultimate/ash_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
@@ -189,19 +190,15 @@
 
 /datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	var/obj/effect/proc_holder/spell/fire_sworn/circle_spell = new(user.mind)
-	circle_spell.Grant(user)
-
-	var/datum/action/innate/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
-	screen_wide_fire_spell.Grant(user)
-
-	var/datum/action/innate/charged/beam/fire_blast/existing_beam_spell = locate() in user.actions
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_sworn())
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_cascade/big())
+	var/obj/effect/proc_holder/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.actions
 	if(existing_beam_spell)
 		existing_beam_spell.max_beam_bounces *= 2 // Double beams
 		existing_beam_spell.beam_duration *= 0.66 // Faster beams
 		existing_beam_spell.base_cooldown *= 0.66 // Lower cooldown
 
-	var/datum/action/innate/aoe/fiery_rebirth/fiery_rebirth = locate() in user.actions
+	var/obj/effect/proc_holder/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.actions
 	fiery_rebirth?.base_cooldown *= 0.16
 
 	user.add_traits(traits_to_apply, type)

@@ -16,41 +16,30 @@
 	spell_requirements = NONE
 
 	hand_path = /obj/item/melee/touch_attack/flesh_surgery
-	can_cast_on_self = TRUE
+	//can_cast_on_self = TRUE
 
-	/// If used on an organ, how much percent of the organ's HP do we restore
-	var/organ_percent_healing = 0.5
-	/// If used on a heretic mob, how much brute do we heal
-	var/monster_brute_healing = 10
-	/// If used on a heretic mob, how much burn do we heal
-	var/monster_burn_healing = 5
 
-/obj/effect/proc_holder/spell/touch/flesh_surgery/is_valid_target(atom/cast_on)
+/obj/effect/proc_holder/spell/touch/flesh_surgery/valid_target(atom/cast_on)
 	return isliving(cast_on) || isorgan(cast_on)
 
-/obj/effect/proc_holder/spell/touch/flesh_surgery/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+
+/obj/item/melee/touch_attack/flesh_surgery/afterattack(atom/victim, mob/living/carbon/caster, proximity, params)
+	var/obj/effect/proc_holder/spell/touch/flesh_surgery/spell = attached_spell
 	if(isorgan(victim))
-		return heal_organ(hand, victim, caster)
-
-	if(isliving(victim))
-		return steal_organ_from_mob(hand, victim, caster)
-
-	return FALSE
-
-/obj/effect/proc_holder/spell/touch/flesh_surgery/cast_on_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
-	if(isorgan(victim))
-		return SECONDARY_ATTACK_CALL_NORMAL
+		heal_organ(src, victim, caster)
+		return
 
 	if(isliving(victim))
 		var/mob/living/mob_victim = victim
-		if(mob_victim.stat == DEAD || !HAS_TRAIT(mob_victim, TRAIT_HERETIC_SUMMON))
-			return SECONDARY_ATTACK_CALL_NORMAL
+		if(mob_victim.stat != DEAD && HAS_TRAIT(victim, TRAIT_HERETIC_SUMMON))
+			heal_heretic_monster(src, victim, caster)
+			return
 
-		if(heal_heretic_monster(hand, mob_victim, caster))
-			return SECONDARY_ATTACK_CONTINUE_CHAIN
+		return spell.steal_organ_from_mob(src, victim, caster)
 
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return FALSE
 
+/*
 /obj/effect/proc_holder/spell/touch/flesh_surgery/register_hand_signals()
 	. = ..()
 	RegisterSignal(attached_hand, COMSIG_ITEM_REQUESTING_CONTEXT_FOR_TARGET, PROC_REF(add_item_context))
@@ -59,7 +48,8 @@
 /obj/effect/proc_holder/spell/touch/flesh_surgery/unregister_hand_signals()
 	. = ..()
 	UnregisterSignal(attached_hand, COMSIG_ITEM_REQUESTING_CONTEXT_FOR_TARGET)
-
+*/
+/*
 /// Signal proc for [COMSIG_ITEM_REQUESTING_CONTEXT_FOR_TARGET] to add some context to the hand.
 /obj/effect/proc_holder/spell/touch/flesh_surgery/proc/add_item_context(obj/item/melee/touch_attack/source, list/context, atom/victim, mob/living/user)
 	SIGNAL_HANDLER
@@ -82,18 +72,20 @@
 		. = CONTEXTUAL_SCREENTIP_SET
 
 	return .
+*/
 
 /// If cast on an organ, we'll restore its health and even un-fail it.
-/obj/effect/proc_holder/spell/touch/flesh_surgery/proc/heal_organ(obj/item/melee/touch_attack/hand, obj/item/organ/to_heal, mob/living/carbon/caster)
+/obj/item/melee/touch_attack/flesh_surgery/proc/heal_organ(obj/item/melee/touch_attack/hand, obj/item/organ/to_heal, mob/living/carbon/caster)
 	if(to_heal.damage == 0)
 		to_heal.balloon_alert(caster, "already in good condition!")
 		return FALSE
+
 	to_heal.balloon_alert(caster, "healing organ...")
 	if(!do_after(caster, 1 SECONDS, to_heal, extra_checks = CALLBACK(src, PROC_REF(heal_checks), hand, to_heal, caster)))
 		to_heal.balloon_alert(caster, "interrupted!")
 		return FALSE
 
-	var/organ_hp_to_heal = to_heal.maxHealth * organ_percent_healing
+	var/organ_hp_to_heal = to_heal.max_damage * organ_percent_healing
 	to_heal.set_organ_damage(max(0 , to_heal.damage - organ_hp_to_heal))
 	to_heal.balloon_alert(caster, "organ healed")
 	playsound(to_heal, 'sound/effects/magic/staff_healing.ogg', 30)
@@ -107,10 +99,10 @@
 	return TRUE
 
 /// If cast on a heretic monster who's not dead we'll heal it a bit.
-/obj/effect/proc_holder/spell/touch/flesh_surgery/proc/heal_heretic_monster(obj/item/melee/touch_attack/hand, mob/living/to_heal, mob/living/carbon/caster)
+/obj/item/melee/touch_attack/flesh_surgery/proc/heal_heretic_monster(mob/living/to_heal, mob/living/carbon/caster)
 	var/what_are_we = ishuman(to_heal) ? "minion" : "summon"
 	to_heal.balloon_alert(caster, "healing [what_are_we]...")
-	if(!do_after(caster, 1 SECONDS, to_heal, extra_checks = CALLBACK(src, PROC_REF(heal_checks), hand, to_heal, caster)))
+	if(!do_after(caster, 1 SECONDS, to_heal, extra_checks = CALLBACK(src, PROC_REF(heal_checks), src, to_heal, caster)))
 		to_heal.balloon_alert(caster, "interrupted!")
 		return FALSE
 
@@ -129,22 +121,20 @@
 /// If cast on a carbon, we'll try to steal one of their organs directly from their person.
 /obj/effect/proc_holder/spell/touch/flesh_surgery/proc/steal_organ_from_mob(obj/item/melee/touch_attack/hand, mob/living/victim, mob/living/carbon/caster)
 	var/mob/living/carbon/carbon_victim = victim
-	if(!istype(carbon_victim) || !length(carbon_victim.organs))
+	if(!istype(carbon_victim) || !length(carbon_victim.internal_organs))
 		victim.balloon_alert(caster, "no organs!")
 		return FALSE
 
-	// Round u pto the nearest generic zone (body, chest, arm)
-	var/zone_to_check = check_zone(caster.zone_selected)
-	var/parsed_zone = victim.parse_zone_with_bodypart(zone_to_check)
+	var/zone_to_check = parse_zone(check_zone(caster.zone_selected))
 
 	var/list/organs_we_can_remove = list()
-	for(var/obj/item/organ/organ as anything in carbon_victim.organs)
+	for(var/obj/item/organ/organ as anything in carbon_victim.internal_organs)
 		// Only show organs which are in our generic zone
-		if(deprecise_zone(organ.zone) != zone_to_check)
+		if(organ.parent_organ_zone != zone_to_check)
 			continue
 		// Also, some organs to exclude. Don't remove vital (brains), don't remove synthetics, and don't remove unremovable
-		if(organ.status & (ORGAN_ROBOTIC|ORGAN_VITAL|ORGAN_UNREMOVABLE))
-			continue
+		//if(organ.status & (ORGAN_ROBOT|ORGAN_VITAL|ORGAN_UNREMOVABLE))
+		//	continue
 
 		organs_we_can_remove[organ.name] = organ
 
@@ -170,14 +160,14 @@
 
 		time_it_takes = 6 SECONDS
 		caster.visible_message(
-			span_danger("[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into [caster.p_their()] own [parsed_zone]!"),
-			span_userdanger("Your hand glows a brilliant red as you reach directly into your own [parsed_zone]!"),
+			span_danger("[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into [caster.p_their()] own [zone_to_check]!"),
+			span_userdanger("Your hand glows a brilliant red as you reach directly into your own [zone_to_check]!"),
 		)
 
 	else
 		carbon_victim.visible_message(
-			span_danger("[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into [carbon_victim]'s [parsed_zone]!"),
-			span_userdanger("[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into your [parsed_zone]!"),
+			span_danger("[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into [carbon_victim]'s [zone_to_check]!"),
+			span_userdanger("[caster]'s hand glows a brilliant red as [caster.p_they()] reach[caster.p_es()] directly into your [zone_to_check]!"),
 		)
 
 	carbon_victim.balloon_alert(caster, "extracting [chosen_organ]...")
@@ -192,22 +182,22 @@
 	// Mainly so it gets across if you're taking the eyes of someone who's conscious
 	if(carbon_victim == caster)
 		caster.visible_message(
-			span_bolddanger("[caster] pulls [caster.p_their()] own [chosen_organ] out of [caster.p_their()] [parsed_zone]!!"),
-			span_userdanger("You pull your own [chosen_organ] out of your [parsed_zone]!!"),
+			span_bolddanger("[caster] pulls [caster.p_their()] own [chosen_organ] out of [caster.p_their()] [zone_to_check]!!"),
+			span_userdanger("You pull your own [chosen_organ] out of your [zone_to_check]!!"),
 		)
 
 	else
 		carbon_victim.visible_message(
-			span_bolddanger("[caster] pulls [carbon_victim]'s [chosen_organ] out of [carbon_victim.p_their()] [parsed_zone]!!"),
-			span_userdanger("[caster] pulls your [chosen_organ] out of your [parsed_zone]!!"),
+			span_bolddanger("[caster] pulls [carbon_victim]'s [chosen_organ] out of [carbon_victim.p_their()] [zone_to_check]!!"),
+			span_userdanger("[caster] pulls your [chosen_organ] out of your [zone_to_check]!!"),
 		)
 
-	picked_organ.Remove(carbon_victim)
+	picked_organ.remove(action.owner)
 	carbon_victim.balloon_alert(caster, "[chosen_organ] removed")
 	carbon_victim.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_DARK_RED)
 	playsound(victim, 'sound/effects/dismember.ogg', 50, TRUE)
 	if(carbon_victim.stat == CONSCIOUS)
-		carbon_victim.adjust_timed_status_effect(15 SECONDS, /datum/status_effect/speech/slurring/heretic)
+		carbon_victim.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 15 SECONDS)
 		carbon_victim.emote("scream")
 
 	// We need to wait for the spell to actually finish casting to put the organ in their hands, hence, 1 ms timer.
@@ -216,14 +206,14 @@
 
 /// Extra checks ran while we're extracting an organ to make sure we can continue to do.
 /obj/effect/proc_holder/spell/touch/flesh_surgery/proc/extraction_checks(obj/item/organ/picked_organ, obj/item/melee/touch_attack/hand, mob/living/carbon/victim, mob/living/carbon/caster)
-	if(QDELETED(src) || QDELETED(hand) || QDELETED(picked_organ) || QDELETED(victim) || !IsAvailable())
+	if(QDELETED(src) || QDELETED(hand) || QDELETED(picked_organ) || QDELETED(victim))
 		return FALSE
 
 	return TRUE
 
 /// Extra checks ran while we're healing something (organ, mob).
-/obj/effect/proc_holder/spell/touch/flesh_surgery/proc/heal_checks(obj/item/melee/touch_attack/hand, atom/healing, mob/living/carbon/caster)
-	if(QDELETED(src) || QDELETED(hand) || QDELETED(healing) || !IsAvailable())
+/obj/item/melee/touch_attack/flesh_surgery/proc/heal_checks(obj/item/melee/touch_attack/hand, atom/healing, mob/living/carbon/caster)
+	if(QDELETED(src) || QDELETED(hand) || QDELETED(healing))
 		return FALSE
 
 	return TRUE
@@ -233,4 +223,11 @@
 	desc = "Let's go practice medicine."
 	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "disintegrate"
-	inhand_icon_state = "disintegrate"
+	item_state = "disintegrate"
+
+	/// If used on an organ, how much percent of the organ's HP do we restore
+	var/organ_percent_healing = 0.5
+	/// If used on a heretic mob, how much brute do we heal
+	var/monster_brute_healing = 10
+	/// If used on a heretic mob, how much burn do we heal
+	var/monster_burn_healing = 5

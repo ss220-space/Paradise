@@ -97,6 +97,9 @@
 /obj/item/storage/bible/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
+	if(SEND_SIGNAL(target, COMSIG_BIBLE_SMACKED, user) & COMSIG_END_BIBLE_CHAIN)
+		return ATTACK_CHAIN_SUCCESS
+
 	if(!ishuman(user) || is_monkeybasic(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return .

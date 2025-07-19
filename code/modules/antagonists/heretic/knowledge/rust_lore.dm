@@ -17,6 +17,7 @@
 	tier3 =	/datum/heretic_knowledge/spell/entropic_plume
 	ascension = /datum/heretic_knowledge/ultimate/rust_final
 
+
 /datum/heretic_knowledge/limited_amount/starting/base_rust
 	name = "Blacksmith's Tale"
 	desc = "Opens up the Path of Rust to you. \
@@ -24,12 +25,13 @@
 		You can only create two at a time."
 	gain_text = "\"Let me tell you a story\", said the Blacksmith, as he gazed deep into his rusty blade."
 	required_atoms = list(
-		/obj/item/knife = 1,
+		/obj/item/kitchen/knife = 1,
 		/obj/item/trash = 1,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "rust_blade"
+
 
 /datum/heretic_knowledge/rust_fist
 	name = "Grasp of Rust"
@@ -104,7 +106,7 @@
 		Anyone overtop the wall will be throw aside (or upwards) and sustain damage."
 	gain_text = "Images of foreign and ominous structures began to dance in my mind. Covered head to toe in thick rust, \
 		they no longer looked man made. Or perhaps they never were in the first place."
-	action_to_add = /datum/action/innate/pointed/rust_construction
+	action_to_add = /obj/effect/proc_holder/spell/pointed/rust_construction
 	cost = 1
 
 /datum/heretic_knowledge/spell/area_conversion
@@ -135,7 +137,7 @@
 /datum/heretic_knowledge/blade_upgrade/rust/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
-	target.adjust_disgust(50)
+	target.Disgust(50)
 
 /datum/heretic_knowledge/spell/area_conversion/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
@@ -147,7 +149,7 @@
 	gain_text = "The corrosion was unstoppable. The rust was unpleasable. \
 		The Blacksmith was gone, and you hold their blade. Champions of hope, the Rustbringer is nigh!"
 
-	action_to_add = /datum/action/innate/cone/staggered/entropic_plume
+	action_to_add = /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
 	cost = 1
 
 
@@ -167,13 +169,13 @@
 	gain_text = "Champion of rust. Corruptor of steel. Fear the dark, for the RUSTBRINGER has come! \
 		The Blacksmith forges ahead! Rusted Hills, CALL MY NAME! WITNESS MY ASCENSION!"
 
-	ascension_achievement = /datum/award/achievement/misc/rust_ascension
+	//ascension_achievement = /datum/award/achievement/misc/rust_ascension
 	announcement_text = "%SPOOKY% Fear the decay, for the Rustbringer, %NAME% has ascended! None shall escape the corrosion! %SPOOKY%"
-	announcement_sound = 'sound/music/antag/heretic/ascend_rust.ogg'
+	announcement_sound = 'sound/music/heretic/ascend_rust.ogg'
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
 	/// A typepath to an area that we must finish the ritual in.
-	var/area/ritual_location = /area/command/bridge
+	var/area/ritual_location = /area/bridge
 	/// A static list of traits we give to the heretic when on rust.
 	var/static/list/conditional_immunities = list(
 		TRAIT_BOMBIMMUNE,
@@ -185,8 +187,8 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_RESIST_COLD,
 		TRAIT_RESIST_HEAT,
-		TRAIT_RESISTHIGHPRESSURE,
-		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_RESIST_HEAT,
+		TRAIT_RESIST_COLD,
 		TRAIT_SHOCKIMMUNE,
 		TRAIT_SLEEPIMMUNE,
 		TRAIT_STUNIMMUNE,
@@ -213,7 +215,7 @@
 	trigger(loc)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
-	user.client?.give_award(/datum/award/achievement/misc/rust_ascension, user)
+	//user.client?.give_award(/datum/award/achievement/misc/rust_ascension, user)
 	var/obj/effect/proc_holder/spell/aoe/rust_spread_spell = locate() in user.actions
 	rust_spread_spell?.base_cooldown /= 2
 
@@ -221,9 +223,12 @@
 /datum/heretic_knowledge/ultimate/rust_final/proc/trigger(turf/center)
 	var/greatest_dist = 0
 	var/list/turfs_to_transform = list()
-	for (var/turf/transform_turf as anything in GLOB.station_turfs)
-		if (transform_turf.turf_flags & NO_RUST)
-			continue
+	var/list/stations_z = levels_by_trait(STATION_LEVEL)
+	var/list/station_turfs = block(1, 1, stations_z[1], world.maxx, world.maxy, stations_z[length(stations_z)])
+	for (var/turf/transform_turf as anything in station_turfs)
+		//if (transform_turf.turf_flags & NO_RUST)
+		//	continue
+
 		var/dist = get_dist(center, transform_turf)
 		if (dist > greatest_dist)
 			greatest_dist = dist
@@ -234,6 +239,7 @@
 	for (var/iterator in 1 to greatest_dist)
 		if(!turfs_to_transform["[iterator]"])
 			continue
+
 		addtimer(CALLBACK(src, PROC_REF(transform_area), turfs_to_transform["[iterator]"]), (5 SECONDS) * iterator)
 
 /datum/heretic_knowledge/ultimate/rust_final/proc/transform_area(list/turfs)

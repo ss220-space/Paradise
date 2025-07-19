@@ -875,6 +875,10 @@ so that different stomachs can handle things in different ways VB*/
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
+	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
+		add_sight(SEE_MOBS)
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
 	if(HAS_TRAIT(src, TRAIT_XRAY))
 		add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE

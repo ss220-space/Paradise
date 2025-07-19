@@ -7,8 +7,8 @@
 	name = "призрачный меч"
 	desc = "An eerie sword with a blade that is less 'black' than it is 'absolute nothingness'. It glows with furious, restrained green energy."
 	icon_state = "hauntedblade"
-	inhand_icon_state = "hauntedblade"
-	worn_icon_state = "hauntedblade"
+	item_state = "hauntedblade"
+	item_state = "hauntedblade"
 	force = 30
 	throwforce = 25
 	block_chance = 55
@@ -17,7 +17,7 @@
 	free_use = TRUE
 	light_color = COLOR_HERETIC_GREEN
 	light_range = 3
-	demolition_mod = 1.5
+	//demolition_mod = 1.5
 	/// holder for the actual action when created.
 	var/list/obj/effect/proc_holder/spell/path_sword_actions
 	/// holder for the actual action when created.
@@ -61,7 +61,7 @@
 		),
 		// Cosmic
 		PATH_COSMIC = list(
-			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/conjure/cosmic_expansion),
+			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/projectile/star_blast),
 			SWORD_PREFIX = "astral",
 		),
@@ -86,6 +86,7 @@
 	)
 	actions_types = list(/datum/action/item_action/haunted_blade)
 
+
 /obj/item/melee/cultblade/haunted/examine(mob/user)
 	. = ..()
 
@@ -97,10 +98,12 @@
 
 	. += span_cult(examine_text)
 
+
 /datum/action/item_action/haunted_blade
 	name = "Unseal Spirit" // img is of a chained shade
 	button_icon = 'icons/mob/actions/actions_cult.dmi'
 	button_icon_state = "spirit_sealed"
+
 
 /datum/action/item_action/haunted_blade/apply_button_icon(atom/movable/screen/movable/action_button/button, force)
 	var/obj/item/melee/cultblade/haunted/blade = target
@@ -110,104 +113,123 @@
 
 	return ..()
 
+
 /obj/item/melee/cultblade/haunted/ui_action_click(mob/living/user, actiontype)
-	if(DOING_INTERACTION_WITH_TARGET(user, src))
-		return // gtfo
+	//if(DOING_INTERACTION_WITH_TARGET(user, src))
+	//	return // gtfo
+
 	if(bound)
 		unbind_blade(user)
 		return
-	if(user.mind?.holy_role)
+
+	if(user.mind?.isholy)
 		on_priest_handle(user)
-	else if(IS_CULTIST_OR_CULTIST_MOB(user))
+
+	else if(iscultist(user))
 		on_cultist_handle(user)
+
 	else if(IS_HERETIC_OR_MONSTER(user) || IS_LUNATIC(user))
 		on_heresy_handle(user)
-	else if(IS_WIZARD(user))
+
+	else if(iswizard(user))
 		on_wizard_handle(user)
+
 	else
 		on_normie_handle(user)
-	return
+
 
 /obj/item/melee/cultblade/haunted/proc/on_priest_handle(mob/living/user, actiontype)
-	user.visible_message(span_cult_bold("You begin chanting the holy hymns of [GLOB.deity]..."),\
-		span_cult_bold("[user] begins chanting while holding [src] aloft..."))
+	user.visible_message(span_cultbold("You begin chanting the holy hymns of [SSticker.cultdat?.entity_name]..."),\
+		span_cultbold("[user] begins chanting while holding [src] aloft..."))
 	if(!do_after(user, 6 SECONDS, src))
 		to_chat(user, span_notice("You were interrupted!"))
 		return
+
 	playsound(user, 'sound/effects/pray_chaplain.ogg',60,TRUE)
 	return TRUE
 
-/obj/item/melee/cultblade/haunted/proc/on_cultist_handle(mob/living/user, actiontype)
+
+/obj/item/melee/cultblade/haunted/proc/on_cultist_handle(mob/living/carbon/human/user, actiontype)
 	var/binding_implements = list(/obj/item/melee/cultblade/dagger, /obj/item/melee/sickly_blade/cursed)
 	if(!user.is_holding_item_of_types(binding_implements))
 		to_chat(user, span_notice("You need to hold a ritual dagger to bind [src]!"))
 		return
 
-	user.visible_message(span_cult_bold("You begin slicing open your palm on top of [src]..."),\
-		span_cult_bold("[user] begins slicing open [user.p_their()] palm on top of [src]..."))
+	user.visible_message(span_cultbold("You begin slicing open your palm on top of [src]..."),\
+		span_cultbold("[user] begins slicing open [user.p_their()] palm on top of [src]..."))
 	if(!do_after(user, 6 SECONDS, src))
 		to_chat(user, span_notice("You were interrupted!"))
 		return
+
 	playsound(user, 'sound/weapons/slice.ogg', 30, TRUE)
 	return TRUE
 
-/obj/item/melee/cultblade/haunted/proc/on_heresy_handle(mob/living/user, actiontype)
+
+/obj/item/melee/cultblade/haunted/proc/on_heresy_handle(mob/living/carbon/human/user, actiontype)
 	// todo make the former a subtype of latter
 	var/binding_implements = list(/obj/item/clothing/neck/eldritch_amulet, /obj/item/clothing/neck/heretic_focus)
 	if(!user.is_holding_item_of_types(binding_implements))
 		to_chat(user, span_notice("You need to hold a focus to bind [src]!"))
 		return
 
-	user.visible_message(span_cult_bold("You channel the Mansus through your focus, empowering the sealing runes..."), span_cult_bold("[user] holds up their eldritch focus on top of [src] and begins concentrating..."))
-	if(!do_after(user, 6 SECONDS, src))
-		to_chat(user, span_notice("You were interrupted!"))
-		return
-	return TRUE
+	user.visible_message(span_cultbold("You channel the Mansus through your focus, empowering the sealing runes..."), span_cultbold("[user] holds up their eldritch focus on top of [src] and begins concentrating..."))
+	if(do_after(user, 6 SECONDS, src))
+		return TRUE
+
+	to_chat(user, span_notice("You were interrupted!"))
+
 
 /obj/item/melee/cultblade/haunted/proc/on_wizard_handle(mob/living/user, actiontype)
-	user.visible_message(span_cult_bold("You begin quickly and nimbly casting the sealing runes."), span_cult_bold("[user] begins tracing anti-light runes on [src]..."))
-	if(!do_after(user, 3 SECONDS, src))
-		to_chat(user, span_notice("You were interrupted!"))
-		return
-	return TRUE
+	user.visible_message(span_cultbold("You begin quickly and nimbly casting the sealing runes."), span_cultbold("[user] begins tracing anti-light runes on [src]..."))
+	if(do_after(user, 3 SECONDS, src))
+		return TRUE
 
-/obj/item/melee/cultblade/haunted/proc/on_normie_handle(mob/living/user, actiontype)
+	to_chat(user, span_notice("You were interrupted!"))
+
+
+/obj/item/melee/cultblade/haunted/proc/on_normie_handle(mob/living/carbon/human/user, actiontype)
 	// todo make the former a subtype of latter
-	var/binding_implements = list(/obj/item/book/bible)
+	var/binding_implements = list(/obj/item/storage/bible)
 	if(!user.is_holding_item_of_types(binding_implements))
 		to_chat(user, span_notice("You need to wield a bible to bind [src]!"))
 		return
 
 	var/passage = "[pick(GLOB.first_names_male)] [rand(1,9)]:[rand(1,25)]" // Space Bibles will have Alejandro 9:21 passages, as part of the Very New Testament.
-	user.visible_message(span_cult_bold("You start reading aloud the passage in [passage]..."), span_cult_bold("[user] starts reading aloud the passage in [passage]..."))
+	user.visible_message(span_cultbold("You start reading aloud the passage in [passage]..."), span_cultbold("[user] starts reading aloud the passage in [passage]..."))
 	if(!do_after(user, 12 SECONDS, src))
 		to_chat(user, span_notice("You were interrupted!"))
 		return
 
 	rebind_blade(user)
 
+
 /obj/item/melee/cultblade/haunted/proc/unbind_blade(mob/user)
 	var/holup = tgui_alert(user, "Are you sure you wish to unseal the spirit within?", "Sealed Evil In A Jar", list("I need the power!", "Maybe not..."))
 	if(holup != "I need the power!")
 		return
-	to_chat(user, span_cult_bold("You start focusing on the power of the blade, letting it guide your fingers along the inscribed runes..."))
+
+	to_chat(user, span_cultbold("You start focusing on the power of the blade, letting it guide your fingers along the inscribed runes..."))
 	if(!do_after(user, 5 SECONDS, src))
 		to_chat(user, span_notice("You were interrupted!"))
 		return
+
 	visible_message(span_danger("[user] has unbound [src]!"))
 	bound = FALSE
 	for(var/obj/effect/proc_holder/spell/sword_spell as anything in path_sword_actions)
-		sword_spell.Grant(trapped_entity)
+		trapped_entity.mind.AddSpell(sword_spell)
+
 	for(var/obj/effect/proc_holder/spell/wielder_spell as anything in path_wielder_actions)
-		wielder_spell.Grant(user)
+		trapped_entity.mind.AddSpell(wielder_spell)
+
 	free_use = TRUE
 	force += 5
 	armour_penetration += 10
 	light_range += 3
-	trapped_entity.update_mob_action_buttons()
+	//trapped_entity.update_mob_action_buttons()
 
-	playsound(src ,'sound/misc/insane_low_laugh.ogg', 200, TRUE) //quiet
+	playsound(src ,'sound/spookoween/insane_low_laugh.ogg', 200, TRUE) //quiet
 	binding_filters_update()
+
 
 /obj/item/melee/cultblade/haunted/proc/rebind_blade(mob/user)
 	visible_message(span_danger("[user] has bound [src]!"))
@@ -217,23 +239,28 @@
 	free_use = FALSE // it's a cult blade and you sealed away the other power.
 	light_range -= 3
 	for(var/obj/effect/proc_holder/spell/sword_spell as anything in path_sword_actions)
-		sword_spell.Remove(trapped_entity)
+		user.mind.RemoveSpell(sword_spell)
+
 	for(var/obj/effect/proc_holder/spell/wielder_spell as anything in path_wielder_actions)
-		wielder_spell.Remove(user)
-	trapped_entity.update_mob_action_buttons()
+		user.mind.RemoveSpell(wielder_spell)
+
+	//trapped_entity.update_mob_action_buttons()
 
 	playsound(src ,'sound/effects/wail.ogg', 20, TRUE)	// add BOUND alert and UNBOUND
 	binding_filters_update()
+
 
 /obj/item/melee/cultblade/haunted/Initialize(mapload, mob/soul_to_bind, mob/awakener, do_bind = TRUE)
 	. = ..()
 
 	AddElement(/datum/element/heretic_focus)
-	add_traits(list(TRAIT_CASTABLE_LOC, TRAIT_SPELLS_TRANSFER_TO_LOC), INNATE_TRAIT)
+	//add_traits(list(TRAIT_CASTABLE_LOC, TRAIT_SPELLS_TRANSFER_TO_LOC), INNATE_TRAIT)
 	if(do_bind && !mapload)
 		bind_soul(soul_to_bind, awakener)
+
 	binding_filters_update()
 	addtimer(CALLBACK(src, PROC_REF(start_glow_loop)), rand(0.1 SECONDS, 1.9 SECONDS))
+
 
 /obj/item/melee/cultblade/haunted/proc/bind_soul(mob/soul_to_bind, mob/awakener)
 
@@ -253,15 +280,13 @@
 
 	// Get the heretic's new body and antag datum.
 	trapped_entity = trapped_mind?.current
-	trapped_entity.PossessByPlayer(trapped_mind?.key)
-	var/datum/antagonist/heretic/heretic_holder = trapped_entity.has_antag_datum(/datum/antagonist/heretic)
+	//trapped_entity.PossessByPlayer(trapped_mind?.key)
+	var/datum/antagonist/heretic/heretic_holder = trapped_entity.mind?.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_holder)
 		stack_trace("[soul_to_bind] in but not a heretic on the heretic soul blade.")
 
 	// Give the spirit a spell that lets them try to fly around.
-	var/obj/effect/proc_holder/spell/pointed/sword_fling/fling_act = \
-	new /obj/effect/proc_holder/spell/pointed/sword_fling(trapped_mind, to_fling = src)
-	fling_act.Grant(trapped_entity)
+	trapped_entity.AddSpell(new /obj/effect/proc_holder/spell/pointed/sword_fling)
 
 	// Set the sword's path for spell selection.
 	heretic_path = heretic_holder.heretic_path
@@ -296,27 +321,34 @@
 			LAZYADD(path_sword_actions, instanced_spell)
 			instanced_spell.overlay_icon_state = "bg_cult_border" // for flavor, and also helps distinguish
 
-	if(wielder_spells)
-		for(var/obj/effect/proc_holder/spell/wielder_spell as anything in wielder_spells)
-			var/obj/effect/proc_holder/spell/instanced_spell = new wielder_spell(trapped_entity)
-			LAZYADD(path_wielder_actions, instanced_spell)
-			instanced_spell.overlay_icon_state = "bg_cult_border"
+	if(!wielder_spells)
+		binding_filters_update()
+		return
 
-	binding_filters_update()
+	for(var/obj/effect/proc_holder/spell/wielder_spell as anything in wielder_spells)
+		var/obj/effect/proc_holder/spell/instanced_spell = new wielder_spell(trapped_entity)
+		LAZYADD(path_wielder_actions, instanced_spell)
+		instanced_spell.overlay_icon_state = "bg_cult_border"
+
 
 /obj/item/melee/cultblade/haunted/equipped(mob/user, slot, initial)
 	. = ..()
 	if((!(slot & ITEM_SLOT_HANDS)) || bound)
 		return
-	for(var/obj/effect/proc_holder/spell/wielder_spell in path_wielder_actions)
-		wielder_spell.Grant(user)
+
+	for(var/spell_type in path_wielder_actions)
+		user.mind.AddSpell(new spell_type())
+
 	binding_filters_update()
+
 
 /obj/item/melee/cultblade/haunted/dropped(mob/user, silent)
 	. = ..()
 	for(var/obj/effect/proc_holder/spell/wielder_spell in path_wielder_actions)
-		wielder_spell.Remove(user)
+		user.mind.RemoveSpell(wielder_spell)
+
 	binding_filters_update()
+
 
 /obj/item/melee/cultblade/haunted/proc/binding_filters_update(mob/user)
 
@@ -327,22 +359,24 @@
 		add_filter("bind_glow", 2, list("type" = "outline", "color" = h_color, "size" = 0.1))
 		remove_filter("unbound_ray")
 		update_filters()
+		return
+
 	// on unbound
-	else
-		// we re-add this every time it's picked up or dropped
-		remove_filter("unbound_ray")
-		add_filter(name = "unbound_ray", priority = 1, params = list(
-			type = "rays",
-			size = 16,
-			color = COLOR_HERETIC_GREEN, // the sickly green of the heretic leaking through
-			density = 16,
-		))
-		// because otherwise the animations stack and it looks ridiculous
-		var/ray_filter = get_filter("unbound_ray")
-		animate(ray_filter, offset = 100, time = 2 MINUTES, loop = -1, flags = ANIMATION_PARALLEL) // Absurdly long animate so nobody notices it hitching when it loops
-		animate(offset = 0, time = 2 MINUTES) // I sure hope duration of animate doesnt have any performance effect
+	// we re-add this every time it's picked up or dropped
+	remove_filter("unbound_ray")
+	add_filter(name = "unbound_ray", priority = 1, params = list(
+		type = "rays",
+		size = 16,
+		color = COLOR_HERETIC_GREEN, // the sickly green of the heretic leaking through
+		density = 16,
+	))
+	// because otherwise the animations stack and it looks ridiculous
+	var/ray_filter = get_filter("unbound_ray")
+	animate(ray_filter, offset = 100, time = 2 MINUTES, loop = -1, flags = ANIMATION_PARALLEL) // Absurdly long animate so nobody notices it hitching when it loops
+	animate(offset = 0, time = 2 MINUTES) // I sure hope duration of animate doesnt have any performance effect
 
 	update_filters()
+
 
 /obj/item/melee/cultblade/haunted/proc/start_glow_loop()
 	var/filter = get_filter("bind_glow")
@@ -355,3 +389,20 @@
 #undef WIELDER_SPELLS
 #undef SWORD_SPELLS
 #undef SWORD_PREFIX
+
+// List version of above proc
+// Returns ret_item, which is either the successfully located item or null
+/mob/living/carbon/human/proc/is_holding_item_of_types(list/typepaths)
+	for(var/typepath in typepaths)
+		var/ret_item = is_holding_item_of_type(typepath)
+		return ret_item
+
+//Checks if we're holding an item of type: typepath
+/mob/living/carbon/human/proc/is_holding_item_of_type(typepath)
+	for(var/obj/item/item in get_held_items())
+		if(!istype(item, typepath))
+			continue
+
+		return item
+
+	return FALSE

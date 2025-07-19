@@ -472,7 +472,7 @@
 		/obj/item/organ/internal/ears,
 		/obj/item/organ/internal/heart,
 		/obj/item/organ/internal/liver,
-		/obj/item/organ/internal/stomach,
+		///obj/item/organ/internal/stomach,
 		/obj/item/organ/internal/lungs,
 	)
 
@@ -548,7 +548,7 @@
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
 	/// The typepath of the achievement to grant upon successful ascension.
-	var/datum/award/achievement/misc/ascension_achievement
+	//var/datum/award/achievement/misc/ascension_achievement
 	/// The text of the ascension announcement.
 	/// %NAME% is replaced with the heretic's real name,
 	/// and %SPOOKY% is replaced with output from [generate_heretic_text]

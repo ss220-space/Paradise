@@ -22,12 +22,16 @@
 	/// How long the beam visual lasts, also used to determine time between jumps
 	var/beam_duration = 2 SECONDS
 
+
 /obj/effect/proc_holder/spell/charged/beam/fire_blast/cast(atom/cast_on)
-	var/mob/living/caster = get_caster_from_target(cast_on)
-	if(istype(caster))
-		// Caster becomes fireblasted, but in a good way - heals damage over time
-		caster.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration, -2)
+	var/mob/living/caster = action.owner
+	if(!istype(caster))
+		return ..()
+
+	// Caster becomes fireblasted, but in a good way - heals damage over time
+	caster.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration, -2)
 	return ..()
+
 
 /obj/effect/proc_holder/spell/charged/beam/fire_blast/send_beam(atom/origin, mob/living/carbon/to_beam, bounces = 4)
 	// Send a beam from the origin to the hit mob
@@ -47,7 +51,7 @@
 	else
 		to_beam.apply_damage(20, BURN/*, wound_bonus = 5*/)
 		to_beam.adjust_fire_stacks(3)
-		to_beam.ignite_mob()
+		to_beam.IgniteMob()
 		// Apply the fire blast status effect to show they got blasted
 		to_beam.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration * 0.5)
 
@@ -67,7 +71,7 @@
 			nearby_living.Knockdown(0.8 SECONDS)
 			nearby_living.apply_damage(15, BURN/*, wound_bonus = 5*/)
 			nearby_living.adjust_fire_stacks(2)
-			nearby_living.ignite_mob()
+			nearby_living.IgniteMob()
 
 /// Timer callback to continue the chain, calling send_fire_bream recursively.
 /obj/effect/proc_holder/spell/charged/beam/fire_blast/proc/continue_beam(mob/living/carbon/beamed, bounces)
@@ -128,17 +132,17 @@
 	return ..()
 
 /datum/status_effect/fire_blasted/on_apply()
-	if(action.owner.on_fire && animate_duration > 0 SECONDS)
+	if(owner.on_fire && animate_duration > 0 SECONDS)
 		var/mutable_appearance/warning_sign = mutable_appearance('icons/effects/effects.dmi', "blessed", BELOW_MOB_LAYER)
-		var/atom/movable/flick_visual/warning = action.owner.flick_overlay_view(warning_sign, initial(duration))
+		var/atom/movable/flick_visual/warning = owner.flick_overlay_view(warning_sign, initial(duration))
 		warning.alpha = 50
 		animate(warning, alpha = 255, time = animate_duration)
 
 	return TRUE
 
 /datum/status_effect/fire_blasted/tick(seconds_between_ticks)
-	action.owner.adjustFireLoss(tick_damage * seconds_between_ticks)
-	action.owner.adjustStaminaLoss(2 * tick_damage * seconds_between_ticks)
+	owner.adjustFireLoss(tick_damage * seconds_between_ticks)
+	owner.adjustStaminaLoss(2 * tick_damage * seconds_between_ticks)
 
 // The beam fireblast spits out, causes people to walk through it to be on fire
 /obj/effect/ebeam/reacting/fire
@@ -153,7 +157,7 @@
 		return
 	living_entered.apply_damage(10, BURN/*, wound_bonus = 5*/)
 	living_entered.adjust_fire_stacks(2)
-	living_entered.ignite_mob()
+	living_entered.IgniteMob()
 	// Apply the fireblasted effect - no overlay
 	living_entered.apply_status_effect(/datum/status_effect/fire_blasted)
 
@@ -163,3 +167,184 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "explosion"
 	duration = 1 SECONDS
+
+
+/**
+ * ## Channelled spells
+ *
+ * These spells do something after a channel time.
+ * To use this template, all that's needed is for cast() to be implemented.
+ */
+/obj/effect/proc_holder/spell/charged
+	overlay_icon_state = "bg_spell_border_active_yellow"
+
+	/// What message do we display when we start chanelling?
+	var/channel_message
+	/// Whether we're currently channelling / charging the spell
+	var/currently_channeling = FALSE
+	/// How long it takes to channel the spell.
+	var/channel_time = 10 SECONDS
+	/// Flags of the do_after
+	var/channel_flags = DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_HELD_ITEM
+
+	// Overlay optional, applied when we start channelling
+	/// What icon should we use for our overlay
+	var/charge_overlay_icon
+	/// What icon state should we use for our overlay
+	var/charge_overlay_state
+	/// The actual appearance / our overlay. Don't mess with this
+	var/mutable_appearance/charge_overlay_instance
+
+	// Sound optional, played when we start chanelling
+	/// What soundpath should we play when we start chanelling
+	var/charge_sound
+	/// The actual sound we generate, don't mess with this
+	var/sound/charge_sound_instance
+
+
+/obj/effect/proc_holder/spell/charged/New(Target, original)
+	. = ..()
+	if(!channel_message)
+		channel_message = span_notice("You start chanelling [src]...")
+
+	if(charge_sound)
+		charge_sound_instance = sound(charge_sound)
+
+	if(charge_overlay_icon && charge_overlay_state)
+		charge_overlay_instance = mutable_appearance(charge_overlay_icon, charge_overlay_state, EFFECTS_LAYER)
+
+
+/obj/effect/proc_holder/spell/charged/Destroy()
+	if(action.owner)
+		stop_channel_effect(action.owner)
+
+	charge_overlay_instance = null
+	charge_sound_instance = null
+	return ..()
+
+
+/obj/effect/proc_holder/spell/charged/on_spell_loss(mob/living/remove_from)
+	stop_channel_effect(remove_from)
+	return ..()
+
+
+/obj/effect/proc_holder/spell/charged/can_cast(mob/user, charge_check, show_message)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(!currently_channeling)
+		return TRUE
+
+	if(!show_message)
+		return FALSE
+
+	to_chat(action.owner, span_warning("You're already channeling [src]!"))
+	return FALSE
+
+
+/obj/effect/proc_holder/spell/charged/before_cast(atom/cast_on)
+	. = ..()
+	if(. & SPELL_CANCEL_CAST)
+		return
+
+	to_chat(cast_on, channel_message)
+
+	if(charge_sound_instance)
+		playsound(cast_on, charge_sound_instance, 50, FALSE)
+
+	if(charge_overlay_instance)
+		cast_on.add_overlay(charge_overlay_instance)
+
+	currently_channeling = TRUE
+	if(action)
+		action.UpdateButtonIcon()
+
+	if(do_after(cast_on, channel_time, timed_action_flags = channel_flags))
+		return
+
+	stop_channel_effect(cast_on)
+	return . | SPELL_CANCEL_CAST
+
+
+/obj/effect/proc_holder/spell/charged/cast(atom/cast_on)
+	. = ..()
+	stop_channel_effect(cast_on)
+
+/*
+/obj/effect/proc_holder/spell/charged/set_statpanel_format()
+	. = ..()
+	if(!islist(.))
+		return
+
+	if(currently_channeling)
+		.[PANEL_DISPLAY_STATUS] = "CHANNELING"
+*/
+
+/// Interrupts the chanelling effect, removing any overlay or sound playing (for the passed mob)
+/obj/effect/proc_holder/spell/charged/proc/stop_channel_effect(mob/for_who)
+	if(charge_overlay_instance)
+		for_who.cut_overlay(charge_overlay_instance)
+
+	if(charge_sound_instance)
+		// Play a null sound in to cancel the sound playing, because byond
+		playsound(for_who, sound(null, repeat = 0), 50, FALSE)
+
+	currently_channeling = FALSE
+	if(!action)
+		return
+
+	action.UpdateButtonIcon()
+
+/**
+ * ### Channelled "Beam" spells
+ *
+ * Channelled spells that pick a random target from nearby atoms to cast a spell on.
+ * Commonly used for beams, hence the name, but nothing's stopping projectiles or whatever from working.
+ *
+ * If no targets are nearby, cancels the spell and refunds the cooldown.
+ */
+/obj/effect/proc_holder/spell/charged/beam
+	/// The radius around the caster to find a target.
+	var/target_radius = 5
+	/// The maximum number of bounces the beam will go before stopping.
+	var/max_beam_bounces = 1
+	/// Who's our initial beam target? Set in before cast, used in cast.
+	var/atom/initial_target
+
+/obj/effect/proc_holder/spell/charged/beam/Destroy()
+	initial_target = null // This like shouuld never hang references but I've seen some cursed things so let's be safe
+	return ..()
+
+/obj/effect/proc_holder/spell/charged/beam/before_cast(atom/cast_on)
+	. = ..()
+	if(. & SPELL_CANCEL_CAST)
+		return
+
+	initial_target = get_target(cast_on)
+	if(isnull(initial_target))
+		cast_on.balloon_alert(cast_on, "no targets nearby!")
+		stop_channel_effect(cast_on)
+		return . | SPELL_CANCEL_CAST
+
+/obj/effect/proc_holder/spell/charged/beam/cast(atom/cast_on)
+	. = ..()
+	send_beam(cast_on, initial_target, max_beam_bounces)
+	initial_target = null
+
+/obj/effect/proc_holder/spell/charged/beam/proc/send_beam(atom/origin, atom/to_beam, bounces)
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("[type] did not implement send_beam and either has no effects or implemented the spell incorrectly.")
+
+/obj/effect/proc_holder/spell/charged/beam/proc/get_target(atom/center)
+	var/list/things = list()
+	for(var/atom/nearby_thing in range(target_radius, center))
+		if(nearby_thing == action.owner || nearby_thing == center)
+			continue
+
+		things += nearby_thing
+
+	if(!length(things))
+		return null
+
+	return pick(things)

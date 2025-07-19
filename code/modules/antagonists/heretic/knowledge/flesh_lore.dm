@@ -28,7 +28,7 @@
 		You can only create three at a time."
 	gain_text = "Hundreds of us starved, but not me... I found strength in my greed."
 	required_atoms = list(
-		/obj/item/knife = 1,
+		/obj/item/kitchen/knife = 1,
 		/obj/effect/decal/cleanable/blood = 1,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
@@ -43,7 +43,7 @@
 	our_heretic.objectives += summon_objective
 
 	to_chat(user, span_hierophant("Undertaking the Path of Flesh, you are given another objective."))
-	our_heretic.owner.announce_objectives()
+	our_heretic.announce_objectives()
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp
 	name = "Grasp of Flesh"
@@ -94,7 +94,7 @@
 
 /// Makes [victim] into a ghoul.
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/make_ghoul(mob/living/user, mob/living/carbon/human/victim)
-	user.log_message("created a ghoul, controlled by [key_name(victim)].", LOG_GAME)
+	//user.log_message("created a ghoul, controlled by [key_name(victim)].", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a ghoul, [ADMIN_LOOKUPFLW(victim)].")
 
 	victim.apply_status_effect(
@@ -122,7 +122,7 @@
 	gain_text = "I found notes of a dark ritual, unfinished... yet still, I pushed forward."
 	required_atoms = list(
 		/mob/living/carbon/human = 1,
-		/obj/item/food/grown/poppy = 1,
+		/obj/item/reagent_containers/food/snacks/grown/poppy = 1,
 	)
 	limit = 2
 	cost = 1
@@ -176,7 +176,7 @@
 
 /// Makes [victim] into a ghoul.
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/proc/make_ghoul(mob/living/user, mob/living/carbon/human/victim)
-	user.log_message("created a voiceless dead, controlled by [key_name(victim)].", LOG_GAME)
+	//user.log_message("created a voiceless dead, controlled by [key_name(victim)].", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a voiceless dead, [ADMIN_LOOKUPFLW(victim)].")
 
 	victim.apply_status_effect(
@@ -215,7 +215,7 @@
 		This spell also allows you to heal your minions and summons, or restore failing organs to acceptable status."
 	gain_text = "But they were not out of my reach for long. With every step, the screams grew, until at last \
 		I learned that they could be silenced."
-	action_to_add = /datum/action/innate/touch/flesh_surgery
+	action_to_add = /obj/effect/proc_holder/spell/touch/flesh_surgery
 	cost = 1
 
 /datum/heretic_knowledge/summon/raw_prophet
@@ -243,16 +243,17 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_flesh"
 	///What type of wound do we apply on hit
-	var/wound_type = /datum/wound/slash/flesh/severe
+	//var/wound_type = /datum/wound/slash/flesh/severe
+
 
 /datum/heretic_knowledge/blade_upgrade/flesh/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(!iscarbon(target) || source == target)
 		return
 
-	var/mob/living/carbon/carbon_target = target
-	var/obj/item/organ/external/bodypart = pick(carbon_target.bodyparts)
-	var/datum/wound/crit_wound = new wound_type()
-	crit_wound.apply_wound(bodypart, attack_direction = get_dir(source, target))
+	var/mob/living/carbon/human/human_target = target
+	var/obj/item/organ/external/bodypart = pick(human_target.bodyparts)
+	bodypart.fracture()
+
 
 /datum/heretic_knowledge/summon/stalker
 	name = "Lonely Ritual"
@@ -263,7 +264,7 @@
 
 	required_atoms = list(
 		/obj/item/organ/external/tail = 1,
-		/obj/item/organ/internal/stomach = 1,
+		///obj/item/organ/internal/stomach = 1,
 		/obj/item/organ/internal/tongue = 1,
 		/obj/item/pen = 1,
 		/obj/item/paper = 1,
@@ -288,14 +289,14 @@
 		Men of this world, hear me, for the time has come! The Marshal guides my army! \
 		Reality will bend to THE LORD OF THE NIGHT or be unraveled! WITNESS MY ASCENSION!"
 	required_atoms = list(/mob/living/carbon/human = 4)
-	ascension_achievement = /datum/award/achievement/misc/flesh_ascension
+	//ascension_achievement = /datum/award/achievement/misc/flesh_ascension
 	announcement_text = "%SPOOKY% Ever coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, %NAME% has ascended! Fear the ever twisting hand! %SPOOKY%"
-	announcement_sound = 'sound/music/antag/heretic/ascend_flesh.ogg'
+	announcement_sound = 'sound/music/heretic/ascend_flesh.ogg'
+
 
 /datum/heretic_knowledge/ultimate/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	var/obj/effect/proc_holder/spell/shapeshift/shed_human_form/worm_spell = new(user.mind)
-	worm_spell.Grant(user)
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/shed_human_form)
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/datum/heretic_knowledge/limited_amount/flesh_grasp/grasp_ghoul = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/flesh_grasp)

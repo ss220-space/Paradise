@@ -138,6 +138,9 @@
 	if(isnull(item))
 		return FALSE
 
+	if(HAS_TRAIT(item, TRAIT_NO_STRIP))
+		return FALSE
+
 	if(!in_thief_mode(user))
 		source.visible_message(
 			span_warning("[user] tries to remove [source]'s [item.name]."),

@@ -151,7 +151,7 @@
 	return ..()
 
 
-/obj/structure/closet/cardboard/agent/open()
+/obj/structure/closet/cardboard/agent/open(force = FALSE)
 	. = ..()
 	if(.)
 		qdel(src)

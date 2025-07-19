@@ -120,12 +120,12 @@
 		balloon_alert(user, "[anchored ? "при":"от"]крученно")
 		return ATTACK_CHAIN_SUCCESS
 
-	if(istype(tool, /obj/item/reagent_containers/cup/beaker/eldritch))
+	if(istype(tool, /obj/item/reagent_containers/glass/beaker/eldritch))
 		if(current_mass < max_mass)
 			balloon_alert(user, "мало содержимого!")
 			return ATTACK_CHAIN_SUCCESS
 
-		var/obj/item/reagent_containers/cup/beaker/eldritch/to_fill = tool
+		var/obj/item/reagent_containers/glass/beaker/eldritch/to_fill = tool
 		if(to_fill.reagents.total_volume >= to_fill.reagents.maximum_volume)
 			balloon_alert(user, "колба полна!")
 			return ATTACK_CHAIN_SUCCESS
