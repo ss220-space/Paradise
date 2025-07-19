@@ -37,7 +37,7 @@
 	precondition = _precondition
 	after_insert = _after_insert
 
-	RegisterSignal(parent, COMSIG_MATERIAL_CONTAINER_INSERT_STACK, PROC_REF(handle_insert_stack_signal))
+	RegisterSignal(parent, COMSIG_MATERIAL_CONTAINER_ON_INSERT_STACK, PROC_REF(handle_on_insert_stack_signal))
 
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))

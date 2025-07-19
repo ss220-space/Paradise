@@ -1415,7 +1415,7 @@
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
 
 /// Called when attempting to insert a stack into the material container. (obj/item/stack/stack, amount)
-#define COMSIG_MATERIAL_CONTAINER_INSERT_STACK "material_container_insert_stack"
+#define COMSIG_MATERIAL_CONTAINER_ON_INSERT_STACK "material_container_on_insert_stack"
 	/// Stack was successfully inserted into the container
 	#define CONTAINER_INSERT_SUCCESS (1<<0)
 	/// Failed to insert stack (no space, invalid material, etc)

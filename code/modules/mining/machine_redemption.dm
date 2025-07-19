@@ -207,7 +207,7 @@
 	for(var/obj/item/stack/stack in input)
 		if(QDELETED(stack))
 			return
-		var/signal_flag = SEND_SIGNAL(src, COMSIG_MATERIAL_CONTAINER_INSERT_STACK, stack, stack.amount)
+		var/signal_flag = SEND_SIGNAL(src, COMSIG_MATERIAL_CONTAINER_ON_INSERT_STACK, stack, stack.amount)
 		if(!(signal_flag & CONTAINER_INSERT_SUCCESS))
 			stack.forceMove(get_step(src, output_dir))
 			invalid_material = TRUE
