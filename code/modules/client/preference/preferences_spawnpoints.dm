@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(spawntypes)
 
 /datum/spawnpoint/prisoner
 	display_name = "Permabrig"
-	msg = "проснулся с криосна в пермабриге"
+	msg = "очнулся от криогенного сна в пермабриге"
 	restrict_job = list(JOB_TITLE_PRISONER)
 
 /datum/spawnpoint/prisoner/New()

@@ -215,7 +215,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			S.fields["notes"] = "Дополнительная информация отсутствует."
 		LAZYINITLIST(S.fields["comments"])
 		if(rank == JOB_TITLE_PRISONER)
-			S.fields["comments"] += "Set to [SEC_RECORD_STATUS_INCARCERATED] by Nanotrasen Central Command on [GLOB.current_date_string] [station_time_timestamp()], comment: Permabrig"
+			S.fields["comments"] += generate_prisoner_role_crimes()
 		security += S
 
 		//Locked Record
@@ -233,6 +233,18 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		L.fields["reference"]	= H
 		locked += L
 	return
+
+/datum/datacore/proc/generate_prisoner_role_crimes()
+	. = "Заключен на пермабриг за статьи: "
+	var/list/major_crimes = list("400", "402", "407")
+	. += pick(major_crimes)
+	var/count = rand(1, 3)
+	var/list/minor_crimes = list("101", "303", "204", "205", "306", "308")
+	for(var/i = 0; i < count; i++)
+		var/crime = pick(minor_crimes)
+		minor_crimes -= crime
+		. += ", [crime]"
+	. += "."
 
 /proc/get_id_photo(mob/living/carbon/human/H, var/custom_job = null)
 	var/icon/preview_icon = null

@@ -419,7 +419,7 @@
 		else
 			if(character.mind.assigned_role == JOB_TITLE_PRISONER && length(GLOB.latejoin_prisoner))
 				character.forceMove(pick(GLOB.latejoin_prisoner))
-				join_message = "проснулся с криосна"
+				join_message = "очнулся от криогенного сна"
 			else
 				character.forceMove(pick(GLOB.latejoin))
 				join_message = "прибыл на станцию"
