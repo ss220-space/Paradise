@@ -166,6 +166,15 @@
 
 /mob/living/simple_animal/hostile/hellhound/tear
 	name = "frenzied hellhound"
+	ru_names = list(
+		NOMINATIVE = "бешеный адский пёс",
+		GENITIVE = "бешеного адского пса",
+		DATIVE = "бешеному адскому псу",
+		ACCUSATIVE = "бешеного адского пса",
+		INSTRUMENTAL = "бешеным адским псом",
+		PREPOSITIONAL = "бешеном адском псе"
+	)
+	gender = MALE
 	maxHealth = 300
 	health = 300
 	melee_damage_lower = 30

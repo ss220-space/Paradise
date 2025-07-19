@@ -6,7 +6,7 @@
  * to 10 random hell mobs including a guaranteed tear hellhound, then disappears.
  */
 /datum/event/tear
-	name = "dimensional tear"
+	name = "пространственный разрыв"
 	announceWhen = 6
 	endWhen = 14
 	var/notify_title = "Пространственный разлом"
@@ -28,7 +28,7 @@
 
 		// Give ghosts some time to jump there before it begins.
 		var/image/alert_overlay = image('icons/mob/animal.dmi', notify_image)
-		notify_ghosts("\A [src] is about to open in [get_area(turf)].", title = notify_title, source = turf, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_FOLLOW)
+		notify_ghosts("[capitalize(src)] вот-вот откроется в [get_area(turf)].", title = notify_title, source = turf, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_FOLLOW)
 		addtimer(CALLBACK(src, PROC_REF(spawn_tear), turf), 4 SECONDS)
 		// Energy overload; we mess with machines as an early warning and for extra spookiness.
 		for(var/obj/machinery/machinery in range(8, turf))
@@ -66,7 +66,15 @@
 /// The portal used in the [/datum/event/tear] midround.
 /obj/effect/tear
 	name = "dimensional tear"
-	desc = "A tear in the dimensional fabric of space and time."
+	ru_names = list(
+		NOMINATIVE = "пространственный разрыв",
+		GENITIVE = "пространственного разрыва",
+		DATIVE = "пространственному разрыву",
+		ACCUSATIVE = "пространственный разрыв",
+		INSTRUMENTAL = "пространственным разрывом",
+		PREPOSITIONAL = "пространственном разрыве"
+	)
+	desc = "Пространственно-временной разрыв."
 	icon = 'icons/effects/tear.dmi'
 	icon_state = "tear"
 	light_range = 3
@@ -111,7 +119,7 @@
 		return
 	var/mob/mob = new leader(get_turf(src))
 	playsound(mob, 'sound/goonstation/voice/growl2.ogg', 100)
-	visible_message(span_danger("С оглушительным рёвом, [mob] вышла из портала!"))
+	visible_message(span_danger("С оглушительным рёвом, [mob.declent_ru(NOMINATIVE)] выход[pluralize_ru(mob.gender, "ит", "ят")] из портала!"))
 
 /obj/effect/tear/proc/spawn_next_mob()
 	spawn_total++
@@ -127,4 +135,4 @@
 	mob.faction = list("rift")
 	step(mob, pick(GLOB.cardinal))
 	if(prob(30))
-		visible_message(span_danger("[mob] steps out of the portal!"))
+		visible_message(span_danger("[capitalize(mob.declent_ru(NOMINATIVE))] выход[pluralize_ru(mob.gender, "ит", "ят")] из портала!"))

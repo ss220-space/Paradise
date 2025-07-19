@@ -40,7 +40,16 @@
 /mob/living/simple_animal/hostile/retaliate/clown/goblin
 	icon = 'icons/mob/animal.dmi'
 	name = "clown goblin"
-	desc = "A tiny walking mask and clown shoes. You want to honk his nose!"
+	desc = "Крошечные ходячие маска и клоунские башмачки. Так и хочется расквасить им нос!"
+	ru_names = list(
+		NOMINATIVE = "клоун-гоблин",
+		GENITIVE = "клоуна-гоблина",
+		DATIVE = "клоуну-гоблину",
+		ACCUSATIVE = "клоуна-гоблина",
+		INSTRUMENTAL = "клоуном-гоблином",
+		PREPOSITIONAL = "клоуне-гоблине"
+	)
+	gender = MALE
 	icon_state = "clowngoblin"
 	icon_living = "clowngoblin"
 	icon_dead = null
@@ -61,7 +70,16 @@
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne
 	name = "cluwne goblin"
-	desc = "A tiny pile of misery and evil. Kill this thing before it comes for your family."
+	desc = "Крошечное воплощение страдания и зла. Уничтожьте его, пока оно не добралось до вашей семьи."
+	ru_names = list(
+		NOMINATIVE = "неуклюжий гоблин",
+		GENITIVE = "неуклюжего гоблина",
+		DATIVE = "неуклюжему гоблину",
+		ACCUSATIVE = "неуклюжего гоблина",
+		INSTRUMENTAL = "неуклюжим гоблином",
+		PREPOSITIONAL = "неуклюжем гоблине"
+	)
+	gender = MALE
 	icon_state = "cluwnegoblin"
 	icon_living = "cluwnegoblin"
 	response_help = "henks the"

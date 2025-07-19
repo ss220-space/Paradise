@@ -50,3 +50,4 @@
 #define ANNOUNCE_APC_CRIT_RU		"Критический сбой системы питания."
 #define ANNOUNCE_APC_REPAIR_RU		"Система питания восстановлена."
 #define ANNOUNCE_ROGUE_DRONE_RU		"Сбойные дроны."
+#define ANNOUNCE_HONKANOMALY_RU		"Предупреждение о Хонканомалии."
