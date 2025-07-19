@@ -186,7 +186,7 @@ SUBSYSTEM_DEF(addition_goals)
 		paper.name = "[directive]"
 		paper.info = message
 		if(stamp)
-			paper.stamp(/obj/item/stamp/navcom)
+			paper.stamp(/obj/item/stamp/centcom)
 
 
 
