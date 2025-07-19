@@ -2316,7 +2316,7 @@
 /obj/item/restraints/handcuffs/toy
 	desc = "Toy handcuffs. Plastic and extremely cheaply made."
 	throwforce = 0
-	breakouttime = 0
+	breakout_time = 0
 	ignoresClumsy = TRUE
 
 /*

@@ -87,6 +87,15 @@
 
 /obj/item/cultivator/rake
 	name = "rake"
+	desc = "Их используют, чтобы удалить сорняки или почесать спину."
+	ru_names = list(
+		NOMINATIVE = "грабли",
+		GENITIVE = "граблей",
+		DATIVE = "граблям",
+		ACCUSATIVE = "грабли",
+		INSTRUMENTAL = "граблями",
+		PREPOSITIONAL = "граблях"
+	)
 	icon_state = "rake"
 	toolspeed = 1
 	belt_icon = null

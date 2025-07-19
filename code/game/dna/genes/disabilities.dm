@@ -328,14 +328,14 @@
 
 /datum/dna/gene/disability/weak/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	ADD_TRAIT(mutant.physiology, TRAIT_WEAK_MUSCULS, DNA_TRAIT)
+	ADD_TRAIT(mutant, TRAIT_WEAK_MUSCULS, DNA_TRAIT)
 	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
 	mutant.update_body(TRUE)
 
 
 /datum/dna/gene/disability/weak/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	REMOVE_TRAIT(mutant.physiology, TRAIT_WEAK_MUSCULS, DNA_TRAIT)
+	REMOVE_TRAIT(mutant, TRAIT_WEAK_MUSCULS, DNA_TRAIT)
 	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
 	mutant.update_body(TRUE)
 
