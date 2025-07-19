@@ -7,7 +7,7 @@
 #define DELIGHT 2
 
 /mob/living/simple_animal/bot/mulebot
-	name = "\improper MULEbot"
+	name = "MULEbot"
 	desc = "Многофункциональный Узкоспециализированный Легкомоторный робот. Нет, это не просто случайные слова, подобранные для красивого написания. Честно."
 	ru_names = list(
 		NOMINATIVE = "МУЛбот",
@@ -100,9 +100,9 @@
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(_suffix)
 	suffix = _suffix
 	if(paicard)
-		bot_name = "\improper MULEbot ([suffix])"
+		bot_name = "MULEbot ([suffix])"
 	else
-		name = "\improper MULEbot ([suffix])"
+		name = "MULEbot ([suffix])"
 
 
 /mob/living/simple_animal/bot/mulebot/bot_reset()

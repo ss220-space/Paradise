@@ -205,7 +205,7 @@
 
 // The "magic hand" items
 /obj/item/melee/clock_magic
-	name = "\improper magical aura"
+	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon = 'icons/obj/clockwork.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'

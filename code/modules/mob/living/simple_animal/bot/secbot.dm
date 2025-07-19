@@ -2,7 +2,7 @@
 #define SPEAK_COOLDOWN 10 SECONDS
 
 /mob/living/simple_animal/bot/secbot
-	name = "\improper Securitron"
+	name = "Securitron"
 	desc = "Маленький охранный робот. Он выглядит абсолютно спокойным."
 	ru_names = list(
 		NOMINATIVE = "охранный робот",

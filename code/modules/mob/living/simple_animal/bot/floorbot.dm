@@ -1,6 +1,6 @@
 //Floorbot
 /mob/living/simple_animal/bot/floorbot
-	name = "\improper Floorbot"
+	name = "Floorbot"
 	desc = "Маленький робот для починки полов и обшивки. Он выглядит таким увлечённым!"
 	ru_names = list(
 		NOMINATIVE = "ремонтный робот",

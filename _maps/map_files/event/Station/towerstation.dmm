@@ -12696,7 +12696,7 @@
 /obj/machinery/disposal/deliveryChute{
 	desc = "Enter at your own risk!";
 	dir = 8;
-	name = "\improper Pipeline to Brazil"
+	name = "Pipeline to Brazil"
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -20814,13 +20814,13 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/coffee{
 	desc = "This coffee cup has an image depicting a cute moth person on it!";
-	name = "\improper Dragon Coffee";
+	name = "Dragon Coffee";
 	pixel_x = -6;
 	pixel_y = 6
 	},
 /obj/item/toy/plushie/nianplushie{
 	desc = "A plushie made as PR material for a company trying to sell the moth equivalent of monkey cubes.";
-	name = "\improper Blocked Moth";
+	name = "Blocked Moth";
 	pixel_x = 7;
 	pixel_y = 2
 	},
@@ -26425,7 +26425,7 @@
 /obj/item/book{
 	desc = "An undeniably handy book.";
 	icon_state = "bookknock";
-	name = "\improper A Simpleton's Guide to Safe-cracking with Stethoscopes"
+	name = "A Simpleton's Guide to Safe-cracking with Stethoscopes"
 	},
 /obj/item/stack/spacecash/c500,
 /obj/item/stack/spacecash/c500,

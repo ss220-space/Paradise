@@ -230,7 +230,7 @@
 
 
 /obj/item/clothing/suit/corgisuit/super_hero/en
-	name = "\improper super-hero E-N suit"
+	name = "super-hero E-N suit"
 	icon_state = "ensuit"
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/Initialize(mapload)
@@ -1064,7 +1064,7 @@
 		)
 
 /obj/item/clothing/suit/sovietcoat
-	name = "\improper Soviet greatcoat"
+	name = "Soviet greatcoat"
 	desc = "A military overcoat made of rough wool that is thick enough to provide excellent protection against the elements."
 	icon_state = "sovietcoat"
 	item_state = "sovietcoat"
@@ -1076,7 +1076,7 @@
 	allowed = list(/obj/item/flashlight,/obj/item/gun/energy,/obj/item/gun/projectile,/obj/item/ammo_box)
 
 /obj/item/clothing/suit/sovietcoat/officer
-	name = "\improper Soviet officer's greatcoat"
+	name = "Soviet officer's greatcoat"
 	desc = "A military overcoat made with expensive wool. The U.S.S.P armband means it must belong to someone important."
 	icon_state = "sovietofficercoat"
 	item_state = "sovietofficercoat"

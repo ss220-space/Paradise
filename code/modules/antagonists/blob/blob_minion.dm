@@ -1,5 +1,5 @@
 /datum/antagonist/blob_minion
-	name = "\improper Blob Minion"
+	name = "Blob Minion"
 	roundend_category = "blobs"
 	job_rank = ROLE_BLOB
 	special_role = SPECIAL_ROLE_BLOB_MINION
@@ -63,7 +63,7 @@
 	objectives |= objective
 
 /datum/antagonist/blob_minion/blobernaut
-	name = "\improper Blobernaut"
+	name = "Blobernaut"
 
 
 /datum/antagonist/blob_minion/blobernaut/greet()

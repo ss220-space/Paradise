@@ -2,7 +2,7 @@
 #define IV_INJECTING 1
 
 /obj/machinery/iv_drip
-	name = "\improper IV drip"
+	name = "IV drip"
 	icon = 'icons/goonstation/objects/iv.dmi'
 	icon_state = "stand"
 	anchored = FALSE

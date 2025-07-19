@@ -493,6 +493,7 @@
 	storage_slots = 50
 	max_combined_w_class = 50
 	display_contents_with_number = TRUE
+	use_sound = "pillbottle"
 	pickup_sound = 'sound/items/handling/pillbottle_pickup.ogg'
 	drop_sound = 'sound/items/handling/pillbottle_drop.ogg'
 	var/base_name = ""
@@ -584,6 +585,7 @@
 	)
 	icon_state = "patch_pack"
 	belt_icon = "patch_pack"
+	use_sound = "patchpack"
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
 	wrapper_state = "patch_pack_wrap"
