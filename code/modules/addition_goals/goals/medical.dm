@@ -33,12 +33,8 @@
 	patients += patient
 	var/obj/structure/bed/bed = new /obj/structure/bed(location)
 	addtimer(CALLBACK(bed, TYPE_PROC_REF(/atom/movable/, buckle_mob), patient, TRUE, FALSE), 1)
-	//addtimer(CALLBACK(src, PROC_REF(buckle_mob_to_bed), patient, bed), 1)
 	randomize_patient_diseases(patient)
 	switch_ai_to_angry_mode(patient)
-
-/datum/addition_goal/medical_patients/proc/buckle_mob_to_bed(mob/living/patient, obj/structure/bed/bed)
-	bed.buckle_mob(patient, force = TRUE, check_loc = FALSE)
 
 /datum/addition_goal/medical_patients/proc/randomize_patient_diseases(mob/living/patient)
 	patient.adjustBruteLoss(rand(20, 50))

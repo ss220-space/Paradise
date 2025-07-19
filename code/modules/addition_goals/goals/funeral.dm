@@ -53,7 +53,7 @@
 /datum/addition_goal/funeral/format_accept_report(mob/user)
 	var/text = {"<center><b>Запрос на проведение погребения</b></center><br>
 		В ваш адрес направлены [corpse_count] тел(а) для организации процедуры захоронения.<br>
-		Прошу произвести погребение в соответствии с нижеуказанным списком:<br>"}
+		Просим произвести погребение в соответствии с нижеуказанным списком:<br>"}
 	var/number = 1
 	for(var/mob/living/corpse as anything in corpses)
 		var/preffered_method = corpse_methods[corpse.name]
