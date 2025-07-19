@@ -1,69 +1,3 @@
-/*
-/datum/event/tear
-	name = "dimensional tear"
-	announceWhen = 6
-	endWhen = 10
-	var/obj/effect/tear/TE
-
-/datum/event/tear/announce(false_alarm)
-	var/area/target_area = impact_area
-	if(!target_area)
-		if(false_alarm)
-			target_area = findEventArea()
-		else
-			log_debug("Tried to announce a tear without a valid area!")
-			kill()
-			return
-	GLOB.minor_announcement.announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].",
-									ANNOUNCE_ANOMALY_RU,
-									'sound/AI/anomaly.ogg'
-	)
-
-/datum/event/tear/start()
-	var/turf/T = pick(get_area_turfs(impact_area))
-	if(T)
-		TE = new /obj/effect/tear(T.loc)
-
-/datum/event/tear/setup()
-	impact_area = findEventArea()
-
-/datum/event/tear/end()
-	if(TE)
-		qdel(TE)
-
-/obj/effect/tear
-	name="Dimensional Tear"
-	desc="A tear in the dimensional fabric of space and time."
-	icon='icons/effects/tear.dmi'
-	icon_state="tear"
-	density = FALSE
-	anchored = TRUE
-	light_range = 3
-
-/obj/effect/tear/Initialize(mapload)
-	. = ..()
-	var/atom/movable/overlay/animation = new(loc)
-	animation.icon_state = "newtear"
-	animation.icon = 'icons/effects/tear.dmi'
-	animation.master = src
-
-	if(animation)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, animation), 1.5 SECONDS)
-
-	addtimer(CALLBACK(src, PROC_REF(spew_critters)), rand(30, 120))
-
-/obj/effect/tear/proc/spew_critters()
-	for(var/i in 1 to 5)
-		var/mob/living/spawned_mob
-		spawned_mob  = create_random_mob(get_turf(src), HOSTILE_SPAWN)
-		spawned_mob.faction |= "chemicalsummon"
-		if(prob(50))
-			for(var/j = 1, j <= rand(1, 3), j++)
-				step(spawned_mob , pick(NORTH, SOUTH, EAST, WEST))
-*/
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /**
  * Dimensional tear event.
  *
@@ -75,7 +9,7 @@
 	name = "dimensional tear"
 	announceWhen = 6
 	endWhen = 14
-	var/notify_title = "Dimensional Rift"
+	var/notify_title = "Пространственный разлом"
 	var/notify_image = "hellhound"
 
 	var/obj/effect/tear/TE
@@ -84,10 +18,12 @@
 	impact_area = findEventArea()
 
 /datum/event/tear/start()
+	if(isnull(impact_area))
+		log_debug("No valid event areas could be generated for dimensional tear.")
 	var/list/area_turfs = get_area_turfs(impact_area)
 	while(length(area_turfs))
 		var/turf/T = pick_n_take(area_turfs)
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 
 		// Give ghosts some time to jump there before it begins.
@@ -105,7 +41,18 @@
 /datum/event/tear/proc/spawn_tear(location)
 	TE = new /obj/effect/tear(location)
 
-/datum/event/tear/announce()
+/datum/event/tear/announce(false_alarm)
+	var/area/target_area = impact_area
+	if(!target_area)
+		if(false_alarm)
+			target_area = findEventArea()
+			if(isnull(target_area))
+				log_debug("Tried to announce a false-alarm tear without a valid area!")
+				kill()
+		else
+			log_debug("Tried to announce a tear without a valid area!")
+			kill()
+			return
 	GLOB.minor_announcement.announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].",
 									ANNOUNCE_ANOMALY_RU,
 									'sound/AI/anomaly.ogg'

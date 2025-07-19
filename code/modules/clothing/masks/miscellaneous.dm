@@ -636,7 +636,9 @@
 	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
 	item_state = "cclown_hat"
-	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_MASK_STRING = 'icons/goonstation/mob/clothing/mask.dmi'
+	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | HIDEHEADHAIR
