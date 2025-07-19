@@ -52,7 +52,7 @@
 			materials[id] = new mat_path()
 
 /// Signal handler for stack insertion, returns container insertion flags.
-/datum/component/material_container/proc/handle_insert_stack_signal(datum/source, obj/item/stack/stack, amt)
+/datum/component/material_container/proc/handle_on_insert_stack_signal(datum/source, obj/item/stack/stack, amt)
 	SIGNAL_HANDLER
 	if(insert_stack(stack, amt))
 		return CONTAINER_INSERT_SUCCESS
