@@ -4,7 +4,7 @@
 /obj/structure/disposalconstruct
 	name = "disposal pipe segment"
 	desc = "A huge pipe segment used for constructing disposal systems."
-	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
+	icon = 'icons/obj/atmospherics/pipes/not_atmos/disposal.dmi'
 	icon_state = "conpipe-s"
 	anchored = FALSE
 	density = FALSE

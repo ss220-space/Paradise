@@ -252,10 +252,13 @@
 		return
 
 	var/datum/gas_mixture/air = location.air
-	if (air.gases[GAS_PL][MOLES])
-		var/scrub_amt = min(30, air.gases[GAS_PL][MOLES]) //Absorb some plasma
-		air.gases[GAS_PL][MOLES]-= scrub_amt
+	var/list/gases = air.gases
+	air.assert_gas(GAS_PL)
+	if (gases[GAS_PL][MOLES])
+		var/scrub_amt = min(30, gases[GAS_PL][MOLES]) //Absorb some plasma
+		gases[GAS_PL][MOLES]-= scrub_amt
 		absorbed_plasma += scrub_amt
+	air.garbage_collect()
 	if (air.temperature > T20C)
 		air.temperature = max(air.temperature / 2, T20C)
 	location.air_update_turf(FALSE, FALSE)
@@ -423,14 +426,17 @@
 	if(location.air)
 		var/datum/gas_mixture/air = location.air
 		air.temperature = T20C
+		var/list/gases = air.gases
+
 
 		for(var/obj/effect/hotspot/fire in location)
 			qdel(fire)
-
-		air.gases[GAS_PL][MOLES] = 0
-		air.gases[GAS_AGENT_B][MOLES] = 0
-		air.gases[GAS_CO2][MOLES] = 0
-		air.gases[GAS_N2O][MOLES] = 0
+		air.assert_gases(arglist(hardcoded_gases))
+		gases[GAS_PL][MOLES] = 0
+		gases[GAS_AGENT_B][MOLES] = 0
+		gases[GAS_CO2][MOLES] = 0
+		gases[GAS_N2O][MOLES] = 0
+		air.garbage_collect()
 
 	for(var/obj/machinery/atmospherics/components/unary/comp in location)
 		if(!comp.welded)

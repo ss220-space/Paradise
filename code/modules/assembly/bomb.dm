@@ -167,10 +167,10 @@
 	loc = null
 
 	if(air_contents.temperature > (T0C + 400))
-		strength = (fuel_moles/15)
+		strength = (fuel_moles / 15)
 
 		if(strength >= 1)
-			explosion(ground_zero, round(strength, 1), round(strength * 2, 1), round(strength * 3,1), round(strength * 4, 1), cause = src)
+			explosion(ground_zero, round(strength, 1), round(strength * 2, 1), round(strength * 3, 1), round(strength * 4, 1), cause = src)
 		else if(strength >= 0.5)
 			explosion(ground_zero, 0, 1, 2, 4, cause = src)
 		else if(strength >= 0.2)

@@ -237,7 +237,7 @@
 	if(scrubbing & SCRUBBING)
 		var/should_we_scrub = FALSE
 		for(var/gas in environment.gases)
-			if(gas[GAS_INDEX] <= 2)
+			if(gas[GAS_ID] == GAS_N2 || gas[GAS_ID] == GAS_O2)
 				continue
 			if(gas[MOLES])
 				should_we_scrub = TRUE
@@ -252,25 +252,27 @@
 
 			//Filter it
 			var/datum/gas_mixture/filtered_out = new
+			var/list/filtered_gases = filtered_out.gases
+			var/list/removed_gases = removed.gases
 			filtered_out.temperature = removed.temperature
-			if(scrub_O2)
-				filtered_out.gases[GAS_O2][MOLES] = removed.gases[GAS_O2][MOLES]
-				removed.gases[GAS_O2][MOLES] = 0
-			if(scrub_N2)
-				filtered_out.gases[GAS_N2][MOLES] = removed.gases[GAS_N2][MOLES]
-				removed.gases[GAS_N2][MOLES] = 0
-			if(scrub_Toxins)
-				filtered_out.gases[GAS_PL][MOLES] = removed.gases[GAS_PL][MOLES]
-				removed.gases[GAS_PL][MOLES] = 0
-			if(scrub_CO2)
-				filtered_out.gases[GAS_CO2][MOLES] = removed.gases[GAS_CO2][MOLES]
-				removed.gases[GAS_CO2][MOLES] = 0
-			if(removed.gases[GAS_AGENT_B][MOLES])
-				filtered_out.gases[GAS_AGENT_B][MOLES] = removed.gases[GAS_AGENT_B][MOLES]
-				removed.gases[GAS_AGENT_B][MOLES] = 0
-			if(scrub_N2O)
-				filtered_out.gases[GAS_N2O][MOLES] = removed.gases[GAS_N2O	][MOLES]
-				removed.gases[GAS_N2O][MOLES] = 0
+			if(scrub_O2 && removed_gases[GAS_O2])
+				filtered_gases[GAS_O2][MOLES] = removed_gases[GAS_O2][MOLES]
+				removed_gases[GAS_O2][MOLES] = 0
+			if(scrub_N2 && removed_gases[GAS_N2])
+				filtered_gases[GAS_N2][MOLES] = removed_gases[GAS_N2][MOLES]
+				removed_gases[GAS_N2][MOLES] = 0
+			if(scrub_Toxins && removed_gases[GAS_PL])
+				filtered_gases[GAS_PL][MOLES] = removed_gases[GAS_PL][MOLES]
+				removed_gases[GAS_PL][MOLES] = 0
+			if(scrub_CO2 && removed_gases[GAS_CO2])
+				filtered_gases[GAS_CO2][MOLES] = removed_gases[GAS_CO2][MOLES]
+				removed_gases[GAS_CO2][MOLES] = 0
+			if(removed_gases[GAS_AGENT_B][MOLES])
+				filtered_gases[GAS_AGENT_B][MOLES] = removed_gases[GAS_AGENT_B][MOLES]
+				removed_gases[GAS_AGENT_B][MOLES] = 0
+			if(scrub_N2O && removed_gases[GAS_N2O])
+				filtered_gases[GAS_N2O][MOLES] = removed_gases[GAS_N2O	][MOLES]
+				removed_gases[GAS_N2O][MOLES] = 0
 
 			//Remix the resulting gases
 			air_contents.merge(filtered_out)
@@ -282,7 +284,7 @@
 		if(air_contents.return_pressure()>=50*ONE_ATMOSPHERE)
 			return
 
-		var/transfer_moles = environment.total_moles()*(volume_rate/environment.volume)
+		var/transfer_moles = environment.total_moles() * (volume_rate/environment.volume)
 
 		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
 

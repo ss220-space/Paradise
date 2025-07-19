@@ -230,7 +230,7 @@
 /area/storage/primary)
 "gH" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/space,
@@ -295,7 +295,7 @@
 /area/hallway/secondary/entry)
 "if" = (
 /obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -573,7 +573,7 @@
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "qg" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 1
 	},
 /obj/effect/spawner/window/reinforced/plasma,
@@ -823,7 +823,7 @@
 /area/atmos)
 "vC" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/space,
@@ -1096,7 +1096,7 @@
 /area/maintenance/maintcentral)
 "CL" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/space,
@@ -1132,7 +1132,7 @@
 /area/storage/primary)
 "Dw" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /turf/space,
@@ -1291,7 +1291,7 @@
 /area/engineering/engine)
 "If" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/space,
 /area/space/nearstation)
 "Ij" = (
@@ -1384,7 +1384,7 @@
 /area/engineering/engine)
 "Ko" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /turf/space,

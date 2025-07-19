@@ -3,7 +3,7 @@
 /obj/structure/disposalpipe
 	name = "disposal pipe"
 	desc = "An underfloor disposal pipe."
-	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
+	icon = 'icons/obj/atmospherics/pipes/not_atmos/disposal.dmi'
 	anchored = TRUE
 	density = FALSE
 	dir = NONE // dir will contain dominant direction for junction pipes

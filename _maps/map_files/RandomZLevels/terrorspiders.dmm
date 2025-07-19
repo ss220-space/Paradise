@@ -6817,7 +6817,7 @@
 	internal_pressure_bound = 2000;
 	on = 1;
 	pressure_checks = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO71/eng)
@@ -7061,7 +7061,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/bluegrid{
 	name = "Server Base";
@@ -8263,7 +8263,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
@@ -9589,7 +9589,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO71/eng)
@@ -9610,7 +9610,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO71/eng)

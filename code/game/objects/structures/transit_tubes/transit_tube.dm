@@ -6,7 +6,7 @@
 /obj/structure/transit_tube
 	name = "transit tube"
 	desc = "A pneumatic tube that brings you from here to there."
-	icon = 'icons/obj/pipes_and_stuff/not_atmos/transit_tube.dmi'
+	icon = 'icons/obj/atmospherics/pipes/not_atmos/transit_tube.dmi'
 	icon_state = "straight"
 	density = TRUE
 	layer = 3.1

@@ -16,9 +16,13 @@
 		reagents.temperature_reagents(exposed_temperature, 10, 300)
 	if(!air_contents)
 		return FALSE
+
+	var/oxy = air_contents.gases[GAS_O2] ? air_contents.gases[GAS_O2][MOLES] : 0
+	var/tox = air_contents.gases[GAS_PL] ? air_contents.gases[GAS_PL][MOLES] : 0
+
 	if(active_hotspot)
 		if(soh)
-			if(air_contents.gases[GAS_PL][MOLES] > 0.5 && air_contents.gases[GAS_O2][MOLES] > 0.5)
+			if(tox > 0.5 && oxy > 0.5)
 				if(active_hotspot.temperature < exposed_temperature)
 					active_hotspot.temperature = exposed_temperature
 				if(active_hotspot.volume < exposed_volume)
@@ -27,11 +31,11 @@
 
 	var/igniting = FALSE
 
-	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && air_contents.gases[GAS_PL][MOLES] > 0.5)
+	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && tox > 0.5)
 		igniting = TRUE
 
 	if(igniting)
-		if(air_contents.gases[GAS_O2][MOLES] < 0.5 || air_contents.gases[GAS_PL][MOLES] < 0.5)
+		if(oxy < 0.5 || tox < 0.5)
 			return FALSE
 
 		active_hotspot = new /obj/effect/hotspot(src)
@@ -134,13 +138,14 @@
 		qdel(src)
 		return
 
-	if(!(location.air) || location.air.gases[GAS_PL][MOLES] < 0.5 || location.air.gases[GAS_O2][MOLES] < 0.5)
+	if(!(location.air) || !location.air.gases[GAS_O2] || !location.air.gases[GAS_PL]|| location.air.gases[GAS_O2][MOLES] < 0.5 || location.air.gases[GAS_PL][MOLES] < 0.5)
 		qdel(src)
 		return
 
 	perform_exposure()
 
-	if(location.wet) location.wet = TURF_DRY
+	if(location.wet)
+		location.wet = TURF_DRY
 
 	if(bypassing)
 		icon_state = "3"
@@ -158,7 +163,7 @@
 					T.hotspot_expose(radiated_temperature, CELL_VOLUME / 4)
 
 	else
-		if(volume > CELL_VOLUME*0.4)
+		if(volume > CELL_VOLUME * 0.4)
 			icon_state = "2"
 		else
 			icon_state = "1"

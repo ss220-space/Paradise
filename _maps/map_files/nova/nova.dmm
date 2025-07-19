@@ -3101,7 +3101,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/atmos)
@@ -23550,7 +23550,7 @@
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/toxins/mixing)
 "dup" = (
@@ -24681,7 +24681,7 @@
 /area/engineering/mechanic_workshop/hangar)
 "dCr" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /turf/space,
@@ -25289,7 +25289,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/co2,
 /area/atmos)
@@ -27743,7 +27743,7 @@
 /area/hallway/primary/command)
 "eaW" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/space,
 /area/space)
 "eba" = (
@@ -32576,7 +32576,7 @@
 	},
 /area/hallway/secondary/exit)
 "eJL" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
@@ -33566,7 +33566,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
@@ -39097,7 +39097,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/atmos)
@@ -54552,7 +54552,7 @@
 /area/crew_quarters/fitness)
 "hYX" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/space,
@@ -60237,7 +60237,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -60273,7 +60273,7 @@
 /area/security/prison/cell_block/A)
 "iQp" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/space,
@@ -73247,7 +73247,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ntrep)
 "kPe" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
@@ -75406,7 +75406,7 @@
 /turf/simulated/floor/plating,
 /area/storage/office)
 "lfb" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /turf/simulated/wall/r_wall/coated,
 /area/toxins/mixing)
 "lff" = (
@@ -77709,7 +77709,7 @@
 	},
 /area/medical/cloning)
 "lyK" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -119415,7 +119415,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 8
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -122505,7 +122505,7 @@
 	},
 /area/medical/reception)
 "rZj" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /obj/structure/lattice/catwalk,
@@ -123375,7 +123375,7 @@
 /area/toxins/explab)
 "seE" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /turf/space,
@@ -126136,7 +126136,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/n20,
 /area/atmos)
@@ -128766,7 +128766,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
@@ -132972,7 +132972,7 @@
 	},
 /area/hallway/primary/central/north)
 "twG" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/toxins/mixing)
 "twK" = (
@@ -133908,7 +133908,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "tEp" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/simulated/floor/engine/insulated/vacuum,

@@ -984,7 +984,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/ruin/space/ancientstation/beta_atmos)
@@ -7440,7 +7440,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/ruin/space/ancientstation/beta_atmos)
@@ -7742,7 +7742,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/co2,
 /area/ruin/space/ancientstation/beta_atmos)

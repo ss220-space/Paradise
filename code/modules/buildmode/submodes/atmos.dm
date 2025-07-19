@@ -50,12 +50,13 @@
 				var/turf/simulated/S = T
 				if(S.air)
 					S.air.temperature = temperature
-					S.air.gases[GAS_O2][MOLES] = ppratio_to_moles(oxygen)
-					S.air.gases[GAS_N2][MOLES] = ppratio_to_moles(nitrogen)
-					S.air.gases[GAS_PL][MOLES] = ppratio_to_moles(plasma)
-					S.air.gases[GAS_CO2][MOLES] = ppratio_to_moles(cdiox)
-					S.air.gases[GAS_N2O][MOLES] = ppratio_to_moles(nitrox)
-					S.air.gases[GAS_AGENT_B][MOLES] = ppratio_to_moles(agentbx)
+					var/list/gasses = S.air.gases
+					gasses[GAS_O2][MOLES] = ppratio_to_moles(oxygen)
+					gasses[GAS_N2][MOLES] = ppratio_to_moles(nitrogen)
+					gasses[GAS_PL][MOLES] = ppratio_to_moles(plasma)
+					gasses[GAS_CO2][MOLES] = ppratio_to_moles(cdiox)
+					gasses[GAS_N2O][MOLES] = ppratio_to_moles(nitrox)
+					gasses[GAS_AGENT_B][MOLES] = ppratio_to_moles(agentbx)
 					S.update_visuals()
 					S.air_update_turf()
 			else if(ctrl_click) // overwrite "default" space air

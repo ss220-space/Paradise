@@ -30,7 +30,7 @@
 /obj/machinery/power/compressor
 	name = "compressor"
 	desc = "The compressor stage of a gas turbine generator."
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
+	icon = 'icons/obj/atmospherics/pipes/simple.dmi'
 	icon_state = "compressor"
 	anchored = TRUE
 	density = TRUE
@@ -50,7 +50,7 @@
 /obj/machinery/power/turbine
 	name = "gas turbine generator"
 	desc = "A gas turbine used for backup power generation."
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
+	icon = 'icons/obj/atmospherics/pipes/simple.dmi'
 	icon_state = "turbine"
 	anchored = TRUE
 	density = TRUE

@@ -8,7 +8,7 @@
 	var/pipename
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
 	force = 7
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipe-item.dmi'
+	icon = 'icons/obj/atmospherics/pipes/pipe-item.dmi'
 	icon_state = "simple"
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -524,7 +524,7 @@
 /obj/item/pipe_meter
 	name = "meter"
 	desc = "A meter that can be laid on pipes"
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipe-item.dmi'
+	icon = 'icons/obj/atmospherics/pipes/pipe-item.dmi'
 	icon_state = "meter"
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY

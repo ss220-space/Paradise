@@ -70,6 +70,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	use_power = NO_POWER_USE
 	interact_offline = TRUE
 	var/update_flag = NONE
+	var/gas_type
 
 
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload)
@@ -308,13 +309,13 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		qdel(src)
 
 
-/obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_ghost(mob/user)
 	return ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
@@ -421,80 +422,56 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 
 /obj/machinery/portable_atmospherics/canister/toxins
-	name = "Canister \[Toxin (Plasma)\]"
+	name = "Canister \[Plasma\]"
 	icon_state = "orange" //See Initialize()
 	can_label = FALSE
+	gas_type = GAS_PL
+
 /obj/machinery/portable_atmospherics/canister/oxygen
 	name = "Canister: \[O2\]"
 	icon_state = "blue" //See Initialize()
 	can_label = FALSE
+	gas_type = GAS_O2
+
 /obj/machinery/portable_atmospherics/canister/sleeping_agent
 	name = "Canister: \[N2O\]"
 	icon_state = "redws" //See Initialize()
 	can_label = FALSE
+	gas_type = GAS_N2O
+
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "Canister: \[N2\]"
 	icon_state = "red" //See Initialize()
 	can_label = FALSE
+	gas_type = GAS_N2
+
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide
 	name = "Canister \[CO2\]"
 	icon_state = "black" //See Initialize()
 	can_label = FALSE
+	gas_type = GAS_CO2
+
 /obj/machinery/portable_atmospherics/canister/air
 	name = "Canister \[Air\]"
 	icon_state = "grey" //See Initialize()
 	can_label = FALSE
+
 /obj/machinery/portable_atmospherics/canister/custom_mix
 	name = "Canister \[Custom\]"
 	icon_state = "whiters" //See Initialize()
 	can_label = FALSE
 
-
-/obj/machinery/portable_atmospherics/canister/toxins/Initialize(mapload)
-	. = ..()
-	canister_color["prim"] = "orange"
-	air_contents.gases[GAS_PL][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	update_icon()
-
-
-/obj/machinery/portable_atmospherics/canister/oxygen/Initialize(mapload)
-	. = ..()
-	canister_color["prim"] = "blue"
-	air_contents.gases[GAS_O2][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	update_icon()
-
-
-/obj/machinery/portable_atmospherics/canister/sleeping_agent/Initialize(mapload)
-	. = ..()
-	canister_color["prim"] = "redws"
-	air_contents.gases[GAS_N2O][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	update_icon()
-
-
-/obj/machinery/portable_atmospherics/canister/nitrogen/Initialize(mapload)
-	. = ..()
-	canister_color["prim"] = "red"
-	air_contents.gases[GAS_N2][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	update_icon()
-
-
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide/Initialize(mapload)
-	. = ..()
-	canister_color["prim"] = "black"
-	air_contents.gases[GAS_CO2][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+/obj/machinery/portable_atmospherics/canister/Initialize(mapload)
+	..()
+	canister_color["prim"] = initial(icon_state)
+	if(gas_type)
+		air_contents.assert_gas(gas_type)
+		air_contents.gases[gas_type][MOLES] = (src.maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 	update_icon()
 
 
 /obj/machinery/portable_atmospherics/canister/air/Initialize(mapload)
 	. = ..()
-	canister_color["prim"] = "grey"
 	air_contents.gases[GAS_O2][MOLES] = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 	air_contents.gases[GAS_N2][MOLES] = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 	update_icon()
-
-
-/obj/machinery/portable_atmospherics/canister/custom_mix/Initialize(mapload)
-	. = ..()
-	canister_color["prim"] = "whiters"
-	update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD
-

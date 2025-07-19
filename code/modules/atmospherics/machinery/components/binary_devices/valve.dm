@@ -1,5 +1,4 @@
 /obj/machinery/atmospherics/components/binary/valve
-	icon = 'icons/atmospherics/valve.dmi'
 	icon_state = "mvalve_map"
 
 	name = "manual valve"

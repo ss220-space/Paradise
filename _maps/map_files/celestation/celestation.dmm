@@ -643,7 +643,7 @@
 /area/hallway/primary/fore)
 "agA" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -2024,7 +2024,7 @@
 /area/toxins/rdoffice)
 "arR" = (
 /obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -7624,7 +7624,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/port)
 "bhP" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /obj/structure/lattice,
@@ -7637,7 +7637,7 @@
 	},
 /area/engineering/hardsuitstorage)
 "bhR" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /obj/structure/lattice,
@@ -7890,7 +7890,7 @@
 /turf/simulated/floor/carpet,
 /area/library)
 "bjD" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/structure/lattice,
 /turf/space,
 /area/mine/unexplored/cere/orbiting)
@@ -13287,7 +13287,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/atmos)
@@ -13930,7 +13930,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/atmos)
@@ -14738,7 +14738,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics CO2 Tank";
@@ -14768,7 +14768,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Toxins Tank";
@@ -14808,7 +14808,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics N2O Tank";
@@ -14849,7 +14849,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Gas Mix Tank";
@@ -15892,7 +15892,7 @@
 	},
 /area/crew_quarters/fitness)
 "ceI" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/simulated/floor/engine/hull/reinforced,
 /area/mine/unexplored/cere/orbiting)
 "ceK" = (
@@ -17316,7 +17316,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/captain/bedroom)
 "cni" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /turf/simulated/floor/engine,
@@ -18494,7 +18494,7 @@
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
 	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "researchlockdown";
@@ -26495,7 +26495,7 @@
 	},
 /area/hallway/primary/central)
 "dHd" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /obj/item/radio/intercom{
@@ -29174,7 +29174,7 @@
 	},
 /area/security/nuke_storage)
 "ejh" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -29615,7 +29615,7 @@
 	},
 /area/medical/cmo)
 "epr" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/structure/lattice/catwalk,
 /turf/space/openspace,
 /area/space)
@@ -32731,7 +32731,7 @@
 	},
 /area/crew_quarters/serviceyard)
 "eVf" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /obj/structure/lattice/catwalk,
@@ -35759,7 +35759,7 @@
 	},
 /area/hallway/primary/starboard/north)
 "fAc" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/simulated/floor/engine/hull/reinforced,
@@ -38063,7 +38063,7 @@
 /area/engineering/hardsuitstorage)
 "fTT" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/space,
 /area/space)
 "fUa" = (
@@ -39265,7 +39265,7 @@
 	dir = 4;
 	network = list("SS13","RD")
 	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/simulated/floor/bluegrid,
@@ -39323,7 +39323,7 @@
 /turf/simulated/floor/grass,
 /area/crew_quarters/locker)
 "gfW" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/simulated/floor/glass/plasma/airless,
@@ -42639,7 +42639,7 @@
 	},
 /area/medical/medbay2)
 "gLp" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /obj/machinery/camera{
@@ -42719,7 +42719,7 @@
 	name = "SERVER ROOM";
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 8
 	},
 /obj/effect/spawner/window/reinforced,
@@ -42825,7 +42825,7 @@
 /area/bridge/meeting_room)
 "gNo" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "gNq" = (
@@ -45505,7 +45505,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/engmed)
 "hnL" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /obj/structure/cable/orange,
@@ -46896,7 +46896,7 @@
 	},
 /area/security/brig)
 "hBo" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/simulated/floor/glass/plasma/airless,
 /area/mine/unexplored/cere/orbiting)
 "hBu" = (
@@ -46929,7 +46929,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/lobby)
 "hBK" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /obj/structure/lattice/catwalk,
@@ -48645,7 +48645,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/alarm/server{
 	dir = 4;
 	pixel_x = -22
@@ -50516,7 +50516,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "inW" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /turf/simulated/floor/glass/plasma/airless,
@@ -54323,7 +54323,7 @@
 /area/library/game_zone)
 "iXU" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /turf/space,
@@ -56573,7 +56573,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/research/restroom)
 "juU" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/simulated/floor/engine/hull/reinforced,
@@ -57201,7 +57201,7 @@
 	},
 /area/crew_quarters/kitchen)
 "jBa" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /obj/structure/lattice,
@@ -58351,7 +58351,7 @@
 /turf/simulated/floor/plating,
 /area/magistrateoffice)
 "jNE" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /obj/structure/lattice/catwalk,
@@ -58417,7 +58417,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop/expedition)
 "jOi" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/simulated/floor/bluegrid,
@@ -63122,7 +63122,7 @@
 /area/toxins/xenobiology)
 "kIJ" = (
 /obj/machinery/r_n_d/server/core,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -66074,7 +66074,7 @@
 /turf/simulated/floor/carpet/red,
 /area/chapel/main)
 "log" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 1
 	},
 /obj/effect/spawner/window/reinforced/plasma,
@@ -77232,7 +77232,7 @@
 /obj/structure/sign/vacuum{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /obj/machinery/camera{
@@ -77259,7 +77259,7 @@
 /area/medical/sleeper)
 "nyp" = (
 /obj/machinery/r_n_d/server/robotics,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -82128,7 +82128,7 @@
 	},
 /area/gateway)
 "ozD" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/simulated/floor/glass/plasma/airless,
@@ -89989,7 +89989,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "pVd" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /turf/simulated/floor/glass/plasma/airless,
@@ -92315,7 +92315,7 @@
 	},
 /area/bridge/meeting_room)
 "qsC" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /obj/machinery/camera{
@@ -93394,7 +93394,7 @@
 	},
 /area/hallway/primary/central)
 "qDW" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
@@ -95002,7 +95002,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet)
 "qVw" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/simulated/floor/glass/plasma/airless,
@@ -95354,7 +95354,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/courtroom)
 "qZN" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/simulated/floor/bluegrid,
@@ -96596,7 +96596,7 @@
 /area/crew_quarters/theatre)
 "rlT" = (
 /obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -99979,7 +99979,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/simulated/floor/bluegrid,
@@ -103325,7 +103325,7 @@
 /turf/space/openspace,
 /area/hallway/spacebridge/medcargo)
 "sCi" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 1
 	},
 /obj/effect/spawner/window/reinforced/plasma,
@@ -107386,7 +107386,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -113178,7 +113178,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/comeng)
 "uta" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/simulated/floor/engine/hull/reinforced,
@@ -123777,7 +123777,7 @@
 /turf/simulated/floor/carpet,
 /area/library)
 "wuh" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /obj/structure/lattice,
@@ -125880,7 +125880,7 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/launch)
 "wQY" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /turf/simulated/floor/bluegrid,
@@ -126954,7 +126954,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/primary/central)
 "xbh" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "xbi" = (
@@ -128513,7 +128513,7 @@
 	},
 /area/teleporter/quantum/cargo)
 "xqX" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /turf/simulated/floor/bluegrid,
@@ -129162,7 +129162,7 @@
 	},
 /area/crew_quarters/serviceyard)
 "xxt" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /obj/structure/lattice/catwalk,

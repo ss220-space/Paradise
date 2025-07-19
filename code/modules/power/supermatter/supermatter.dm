@@ -229,12 +229,14 @@
 
 	damage = max(0, damage + clamp((removed.temperature - CRITICAL_TEMPERATURE) / 150, -DAMAGE_RATE_LIMIT, damage_inc_limit))
 
+	var/list/removed_gasses = removed.gases
+
 	//Maxes out at 100% oxygen pressure
 	if(!removed.total_moles())
 		oxygen = 0
 	else
 		//Result of this formula is undefined if we (total moles of removed) -> 0. So, let's roll with zero if no gas was removed.
-		oxygen = clamp((removed.gases[GAS_O2][MOLES] - (removed.gases[GAS_N2][MOLES] * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
+		oxygen = clamp((removed_gasses[GAS_O2][MOLES] - (removed_gasses[GAS_N2][MOLES] * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
 
 	var/temp_factor
 	var/equilibrium_power
@@ -255,8 +257,8 @@
 	var/old_heat_capacity = removed.heat_capacity()
 
 	if(device_energy)
-		removed.gases[GAS_PL][MOLES] += max(device_energy / PLASMA_RELEASE_MODIFIER, 0)
-		removed.gases[GAS_O2][MOLES] += max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
+		removed_gasses[GAS_PL][MOLES] += max(device_energy / PLASMA_RELEASE_MODIFIER, 0)
+		removed_gasses[GAS_O2][MOLES] += max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 
 	var/heat_capacity = removed.heat_capacity()
 

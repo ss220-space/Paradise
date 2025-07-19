@@ -3,7 +3,7 @@
 /obj/structure/disposaloutlet
 	name = "disposal outlet"
 	desc = "An outlet for the pneumatic disposal system."
-	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
+	icon = 'icons/obj/atmospherics/pipes/not_atmos/disposal.dmi'
 	icon_state = "outlet"
 	density = TRUE
 	anchored = TRUE

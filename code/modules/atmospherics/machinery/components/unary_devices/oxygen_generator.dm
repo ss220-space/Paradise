@@ -1,5 +1,4 @@
 /obj/machinery/atmospherics/components/unary/oxygen_generator
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/oxygen_generator.dmi'
 	icon_state = "intact_off"
 	density = TRUE
 
@@ -47,6 +46,7 @@
 		var/added_oxygen = oxygen_content - total_moles
 
 		air_contents.temperature = (current_heat_capacity*air_contents.temperature + 20 * added_oxygen * T0C) / (current_heat_capacity + 20 * added_oxygen)
+		air_contents.assert_gas(GAS_O2)
 		air_contents.gases[GAS_O2][MOLES] += added_oxygen
 
 		update_parents()

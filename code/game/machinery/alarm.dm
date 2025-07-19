@@ -273,31 +273,35 @@
 
 	var/datum/gas_mixture/environment = location.return_air()
 	var/datum/tlv/cur_tlv
+	var/list/env_gases = environment.gases
 
 	handle_heating_cooling(environment, cur_tlv, location)
 
 	var/partial_pressure = R_IDEAL_GAS_EQUATION * environment.temperature / environment.volume
-
+	environment.assert_gases(arglist(hardcoded_gases))
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 
 	cur_tlv = TLV["oxygen"]
-	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_O2][MOLES] * partial_pressure)
+	var/oxygen_dangerlevel = cur_tlv.get_danger_level(env_gases[GAS_O2][MOLES] * partial_pressure)
 
 	cur_tlv = TLV["nitrogen"]
-	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_N2][MOLES] * partial_pressure)
+	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(env_gases[GAS_N2][MOLES] * partial_pressure)
 
 	cur_tlv = TLV["carbon dioxide"]
-	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_PL][MOLES] * partial_pressure)
+	var/co2_dangerlevel = cur_tlv.get_danger_level(env_gases[GAS_PL][MOLES] * partial_pressure)
 
 	cur_tlv = TLV["plasma"]
-	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_PL][MOLES] * partial_pressure)
+	var/plasma_dangerlevel = cur_tlv.get_danger_level(env_gases[GAS_PL][MOLES] * partial_pressure)
 
 	cur_tlv = TLV["other"]
 	var/other_moles = 0
-	for(var/i in 5 to environment.gases.len)
-		other_moles+=environment.gases[i][MOLES]
+	for(var/gas in env_gases)
+		if(gas[GAS_ID] in hardcoded_gases)
+			continue
+		other_moles += gas[MOLES]
+	environment.garbage_collect()
 	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles * partial_pressure)
 
 	cur_tlv = TLV["temperature"]
@@ -625,39 +629,42 @@
 
 	var/datum/gas_mixture/environment = location.return_air()
 	var/total = environment.total_moles()
+	var/list/env_gases = environment.gases
 	if(total == 0)
 		return null
 
 	var/datum/tlv/cur_tlv
 	var/partial_pressure = R_IDEAL_GAS_EQUATION * environment.temperature / environment.volume
-
+	environment.assert_gases(arglist(hardcoded_gases))
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 
 	cur_tlv = TLV["oxygen"]
-	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_O2][MOLES] * partial_pressure)
-	var/oxygen_percent = environment.gases[GAS_O2][MOLES] / total * 100
+	var/oxygen_dangerlevel = cur_tlv.get_danger_level(env_gases[GAS_O2][MOLES] * partial_pressure)
+	var/oxygen_percent = env_gases[GAS_O2][MOLES] / total * 100
 
 	cur_tlv = TLV["nitrogen"]
-	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_N2][MOLES] * partial_pressure)
-	var/nitrogen_percent = environment.gases[GAS_N2][MOLES] / total * 100
+	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(env_gases[GAS_N2][MOLES] * partial_pressure)
+	var/nitrogen_percent = env_gases[GAS_N2][MOLES] / total * 100
 
 	cur_tlv = TLV["carbon dioxide"]
-	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_CO2][MOLES] * partial_pressure)
-	var/co2_percent = environment.gases[GAS_CO2][MOLES] / total * 100
+	var/co2_dangerlevel = cur_tlv.get_danger_level(env_gases[GAS_CO2][MOLES] * partial_pressure)
+	var/co2_percent = env_gases[GAS_CO2][MOLES] / total * 100
 
 	cur_tlv = TLV["plasma"]
-	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.gases[GAS_PL][MOLES] * partial_pressure)
-	var/plasma_percent = environment.gases[GAS_PL][MOLES] / total * 100
+	var/plasma_dangerlevel = cur_tlv.get_danger_level(env_gases[GAS_PL][MOLES] * partial_pressure)
+	var/plasma_percent = env_gases[GAS_PL][MOLES] / total * 100
 
 	cur_tlv = TLV["other"]
 	var/other_moles = 0
-	for(var/i in 5 to environment.gases.len)
-		other_moles += environment.gases[i][MOLES]
+	for(var/gas in env_gases)
+		if(gas[GAS_ID] in hardcoded_gases)
+			continue
+		other_moles += gas[MOLES]
 	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles * partial_pressure)
 	var/other_percent = other_moles / total * 100
-
+	environment.garbage_collect()
 	cur_tlv = TLV["temperature"]
 	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
 

@@ -333,7 +333,7 @@
 	},
 /area/coldcolony/malta/security/reception)
 "aeF" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
@@ -8643,7 +8643,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "dbV" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
@@ -24221,7 +24221,7 @@
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
 "iWd" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
@@ -27820,7 +27820,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/o2{
 	oxygen = 10000
@@ -30762,7 +30762,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/coldcolony/malta/engineering/atmos)
@@ -31449,7 +31449,7 @@
 	},
 /area/coldcolony/malta/turret_protected/ai_upload)
 "lCB" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
@@ -42209,7 +42209,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
 "pxs" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /turf/simulated/wall/r_wall,
 /area/coldcolony/ruin/sm_chamber)
 "pxx" = (
@@ -44466,7 +44466,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/coldcolony/malta/engineering/atmos)
@@ -52920,7 +52920,7 @@
 	},
 /area/coldcolony/malta/security/medbay)
 "tul" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/ruin/sm_chamber)
 "tun" = (
@@ -53201,7 +53201,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/n2{
 	nitrogen = 10000
@@ -62169,7 +62169,7 @@
 	name = "server vent";
 	on = 1;
 	pressure_checks = 0;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/server)
@@ -62280,7 +62280,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "wMo" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
@@ -65951,7 +65951,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "ycW" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "ydu" = (

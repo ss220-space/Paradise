@@ -125,30 +125,32 @@
 	var/oxygen_used = 0
 	var/breath_pressure = (breath.total_moles() * R_IDEAL_GAS_EQUATION * breath.temperature) / BREATH_VOLUME
 
-	var/O2_partialpressure = (breath.gases[GAS_O2][MOLES] / breath.total_moles()) * breath_pressure
-	var/Toxins_partialpressure = (breath.gases[GAS_PL][MOLES] / breath.total_moles()) * breath_pressure
-	var/CO2_partialpressure = (breath.gases[GAS_CO2][MOLES] / breath.total_moles()) * breath_pressure
-	var/SA_partialpressure = (breath.gases[GAS_N2O][MOLES] / breath.total_moles()) * breath_pressure
+	var/list/breath_gases = breath.gases
+
+	var/O2_partialpressure = (breath_gases[GAS_O2][MOLES] / breath.total_moles()) * breath_pressure
+	var/Toxins_partialpressure = (breath_gases[GAS_PL][MOLES] / breath.total_moles()) * breath_pressure
+	var/CO2_partialpressure = (breath_gases[GAS_CO2][MOLES] / breath.total_moles()) * breath_pressure
+	var/SA_partialpressure = (breath_gases[GAS_N2O][MOLES] / breath.total_moles()) * breath_pressure
 
 	//OXYGEN
 	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
 		if(prob(20))
 			emote("gasp")
 		if(O2_partialpressure > 0)
-			var/ratio = 1 - O2_partialpressure/safe_oxy_min
-			adjustOxyLoss(min(5*ratio, 3))
-			oxygen_used = breath.gases[GAS_O2][MOLES] * ratio
+			var/ratio = 1 - O2_partialpressure / safe_oxy_min
+			adjustOxyLoss(min(5 * ratio, 3))
+			oxygen_used = breath_gases[GAS_O2][MOLES] * ratio
 		else
 			adjustOxyLoss(3)
 		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		adjustOxyLoss(-5)
-		oxygen_used = breath.gases[GAS_O2][MOLES]
+		oxygen_used = breath_gases[GAS_O2][MOLES]
 		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
-	breath.gases[GAS_O2][MOLES] = max(breath.gases[GAS_O2][MOLES] - oxygen_used, 0)
-	breath.gases[GAS_CO2][MOLES] += oxygen_used
+	breath_gases[GAS_O2][MOLES] = max(breath_gases[GAS_O2][MOLES] - oxygen_used, 0)
+	breath_gases[GAS_CO2][MOLES] += oxygen_used
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
@@ -168,21 +170,21 @@
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (breath.gases[GAS_PL][MOLES]/ safe_tox_max) * 10
+		var/ratio = (breath_gases[GAS_PL][MOLES]/ safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 		throw_alert(ALERT_TOO_MUCH_TOX, /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert(ALERT_TOO_MUCH_TOX)
 
 	//TRACE GASES
-	if(breath.gases[GAS_N2O][MOLES])
+	if(breath_gases[GAS_N2O][MOLES])
 		if(SA_partialpressure > SA_para_min)
 			Paralyse(6 SECONDS)
 			if(SA_partialpressure > SA_sleep_min)
 				AdjustSleeping(4 SECONDS, bound_lower = 0, bound_upper = 20 SECONDS)
 		else if(SA_partialpressure > 0.01)
 			if(prob(20))
-				emote(pick("giggle","laugh"))
+				emote(pick("giggle", "laugh"))
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)

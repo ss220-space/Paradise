@@ -63,8 +63,8 @@
 
 //Constant high generator. This will continue to send a signal of LOGIC_HIGH as long as it exists.
 /obj/machinery/logic/sensor/constant_high
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/outlet_injector.dmi'
-	icon_state = "off"
+	icon = 'icons/obj/atmospherics/unary_devices.dmi'
+	icon_state = "injector_off"
 
 /obj/machinery/logic/sensor/constant_high/process()
 	if(!..())	//Parent proc checks if input1 exists.
@@ -85,8 +85,8 @@
 	var/dir_output = 1
 	var/obj/structure/cable/input
 	var/obj/structure/cable/output
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/heat.dmi'
-	icon_state = "intact"
+	icon = 'icons/obj/atmospherics/unary_devices.dmi'
+	icon_state = "thermal_plate"
 
 /obj/machinery/logic/oneinput/process()
 	if(input && output)
@@ -148,8 +148,8 @@
 	var/obj/structure/cable/input1
 	var/obj/structure/cable/input2
 	var/obj/structure/cable/output
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/mixer.dmi'
-	icon_state = "intact_off"
+	icon = 'icons/obj/atmospherics/trinary_devices.dmi'
+	icon_state = "mixer_off"
 
 /obj/machinery/logic/twoinput/process()
 	if(input1 && input2 && output)

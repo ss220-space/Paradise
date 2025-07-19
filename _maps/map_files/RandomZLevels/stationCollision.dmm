@@ -1699,7 +1699,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"

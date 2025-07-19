@@ -1,6 +1,6 @@
 
 /// Nothing will be filtered.
-#define FILTER_NOTHING -1
+#define FILTER_NOTHING 			""
 //very cleverly using the gas index defines so as to simplify a bunch of logic
 #define FILTER_PLASMA			GAS_PL
 #define FILTER_OXYGEN			GAS_O2
@@ -131,13 +131,17 @@
 			return
 		var/datum/gas_mixture/filtered_out = new
 		filtered_out.temperature = removed.temperature
+		var/list/filtered_gases = filtered_out.gases
+		var/list/removed_gases = removed.gases
 
-		if(filter_type > 0)
-			filtered_out.gases[filter_type][MOLES] = removed.gases[filter_type][MOLES]
-			removed.gases[filter_type][MOLES] = 0
-			if(filter_type == FILTER_PLASMA)
-				filtered_out.gases[GAS_AGENT_B][MOLES] = removed.gases[GAS_AGENT_B][MOLES]
-				removed.gases[GAS_AGENT_B][MOLES] = 0
+		if(filter_type && removed_gases[filter_type])
+			filtered_out.assert_gas(filter_type)
+			filtered_gases[filter_type][MOLES] = removed_gases[filter_type][MOLES]
+			removed_gases[filter_type][MOLES] = 0
+			if(filter_type == FILTER_PLASMA && removed.gases[GAS_AGENT_B])
+				filtered_out.assert_gas(GAS_AGENT_B)
+				filtered_gases[GAS_AGENT_B][MOLES] = removed_gases[GAS_AGENT_B][MOLES]
+				removed_gases[GAS_AGENT_B][MOLES] = 0
 		else
 			filtered_out = null
 

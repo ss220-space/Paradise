@@ -159,6 +159,7 @@
 		return
 
 	var/datum/gas_mixture/G = new
+	var/list/new_gases = G.gases
 
 	if(flag & LINDA_SPAWN_20C)
 		G.temperature = T20C
@@ -167,26 +168,33 @@
 		G.temperature += 1000
 
 	if(flag & LINDA_SPAWN_TOXINS)
-		G.gases[GAS_PL][MOLES] += amount
+		G.assert_gas(GAS_PL)
+		new_gases[GAS_PL][MOLES] += amount
 
 	if(flag & LINDA_SPAWN_OXYGEN)
-		G.gases[GAS_O2][MOLES] += amount
+		G.assert_gas(GAS_O2)
+		new_gases[GAS_O2][MOLES] += amount
 
 	if(flag & LINDA_SPAWN_CO2)
-		G.gases[GAS_CO2][MOLES] += amount
+		G.assert_gas(GAS_CO2)
+		new_gases[GAS_CO2][MOLES] += amount
 
 	if(flag & LINDA_SPAWN_NITROGEN)
-		G.gases[GAS_N2][MOLES] += amount
+		G.assert_gas(GAS_N2)
+		new_gases[GAS_N2][MOLES] += amount
 
 	if(flag & LINDA_SPAWN_N2O)
-		G.gases[GAS_N2O][MOLES]  += amount
+		G.assert_gas(GAS_N2O)
+		new_gases[GAS_N2O][MOLES]  += amount
 
 	if(flag & LINDA_SPAWN_AGENT_B)
-		G.gases[GAS_AGENT_B][MOLES]  += amount
+		G.assert_gas(GAS_AGENT_B)
+		new_gases[GAS_AGENT_B][MOLES]  += amount
 
 	if(flag & LINDA_SPAWN_AIR)
-		G.gases[GAS_O2][MOLES] += MOLES_O2STANDARD * amount
-		G.gases[GAS_N2][MOLES] += MOLES_N2STANDARD * amount
+		G.assert_gas(GAS_O2, GAS_N2)
+		new_gases[GAS_O2][MOLES] += MOLES_O2STANDARD * amount
+		new_gases[GAS_N2][MOLES] += MOLES_N2STANDARD * amount
 
 	air.merge(G)
 	SSair.add_to_active(src, FALSE)

@@ -35,16 +35,18 @@
 		"heat_capacity" = null,
 		"thermal_energy" = null,
 	)
-	
+
 	if(!gasmix)
 		return
-
-	.["oxygen"] = gasmix.gases[GAS_O2][MOLES]
-	.["carbon_dioxide"] = gasmix.gases[GAS_CO2][MOLES]
-	.["nitrogen"] = gasmix.gases[GAS_N2][MOLES]
-	.["toxins"] = gasmix.gases[GAS_PL][MOLES]
-	.["sleeping_agent"] = gasmix.gases[GAS_N2O][MOLES]
-	.["agent_b"] = gasmix.gases[GAS_AGENT_B][MOLES]
+	var/list/gasses = gasmix.gases
+	gasmix.assert_gases(arglist(hardcoded_gases))
+	.["oxygen"] = gasses[GAS_O2][MOLES]
+	.["carbon_dioxide"] = gasses[GAS_CO2][MOLES]
+	.["nitrogen"] = gasses[GAS_N2][MOLES]
+	.["toxins"] = gasses[GAS_PL][MOLES]
+	.["sleeping_agent"] = gasses[GAS_N2O][MOLES]
+	.["agent_b"] = gasses[GAS_AGENT_B][MOLES]
+	gasmix.garbage_collect()
 	.["total_moles"] = gasmix.total_moles()
 	.["temperature"] = gasmix.temperature
 	.["volume"] = gasmix.volume

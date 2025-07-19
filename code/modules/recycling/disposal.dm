@@ -23,7 +23,7 @@
 		INSTRUMENTAL = "мусоропроводом",
 		PREPOSITIONAL = "мусоропроводе"
 	)
-	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
+	icon = 'icons/obj/atmospherics/pipes/not_atmos/disposal.dmi'
 	icon_state = "disposal"
 	base_icon_state = "disposal"
 	anchored = TRUE

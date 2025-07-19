@@ -450,6 +450,7 @@
 	if(!istype(T))
 		return
 	var/datum/gas_mixture/GM = new
+	GM.assert_gas(GAS_PL)
 	if(prob(10))
 		GM.gases[GAS_PL][MOLES] += 100
 		GM.temperature = 1500+T0C //should be enough to start a fire

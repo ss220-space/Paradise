@@ -4710,7 +4710,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
@@ -5107,7 +5107,7 @@
 	},
 /area/turret_protected/aisat)
 "dtq" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "dud" = (
@@ -8055,7 +8055,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/n20,
 /area/atmos)
@@ -13707,7 +13707,7 @@
 	name = "server vent";
 	on = 1;
 	pressure_checks = 0;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
@@ -22123,7 +22123,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/atmos)
@@ -25713,7 +25713,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/atmos)
@@ -25990,7 +25990,7 @@
 	},
 /area/medical/psych)
 "qJI" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -26197,7 +26197,7 @@
 	},
 /area/security/brig)
 "qPF" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "qPK" = (
@@ -29841,7 +29841,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/co2,
 /area/atmos)
@@ -30087,7 +30087,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	releasing = 0
+	pump_direction = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -34482,7 +34482,7 @@
 	},
 /area/atmos)
 "wdV" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -36803,7 +36803,7 @@
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "xtA" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/air_sensor{
 	frequency = 1222;
 	id_tag = "toxins_mixing_exterior"

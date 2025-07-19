@@ -122,14 +122,15 @@
 
 	var/gas_breathed = 0
 
-	//Partial pressures in our breath
-	var/O2_pp = breath.get_breath_partial_pressure(breath.gases[GAS_PL][MOLES])
-	var/N2_pp = breath.get_breath_partial_pressure(breath.gases[GAS_N2][MOLES])
-	var/Toxins_pp = breath.get_breath_partial_pressure(breath.gases[GAS_PL][MOLES])
-	var/CO2_pp = breath.get_breath_partial_pressure(breath.gases[GAS_CO2][MOLES])
-	var/SA_pp = breath.get_breath_partial_pressure(breath.gases[GAS_N2O][MOLES])
-
 	var/list/gases = breath.gases
+
+	//Partial pressures in our breath
+	var/O2_pp = breath.get_breath_partial_pressure(gases[GAS_PL][MOLES])
+	var/N2_pp = breath.get_breath_partial_pressure(gases[GAS_N2][MOLES])
+	var/Toxins_pp = breath.get_breath_partial_pressure(gases[GAS_PL][MOLES])
+	var/CO2_pp = breath.get_breath_partial_pressure(gases[GAS_CO2][MOLES])
+	var/SA_pp = breath.get_breath_partial_pressure(gases[GAS_N2O][MOLES])
+
 	//-- OXY --//
 
 	//Too much oxygen! //Yes, some species may not like it.

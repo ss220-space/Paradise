@@ -334,12 +334,15 @@
 
 	if(chilly.air)
 		var/datum/gas_mixture/air = chilly.air
+		var/list/gases = air.gases
 		if(!distcheck || get_dist(location, chilly) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
 			air.temperature = temperature
 
-		if(air.gases[GAS_PL][MOLES])
-			air.gases[GAS_N2][MOLES] += air.gases[GAS_PL][MOLES]
-			air.gases[GAS_PL][MOLES] = 0
+		if(gases[GAS_PL])
+			air.assert_gas(GAS_N2)
+			gases[GAS_N2][MOLES] += gases[GAS_PL][MOLES]
+			gases[GAS_PL][MOLES] = 0
+			air.garbage_collect()
 
 		for(var/obj/effect/hotspot/fire in chilly)
 			qdel(fire)

@@ -220,12 +220,13 @@
 
 	if(planetary_atmos) //share our air with the "atmosphere" "above" the turf
 		var/datum/gas_mixture/G = new
-		G.gases[GAS_O2][MOLES] = oxygen
-		G.gases[GAS_CO2][MOLES] = carbon_dioxide
-		G.gases[GAS_N2][MOLES] = nitrogen
-		G.gases[GAS_PL][MOLES] = toxins
-		G.gases[GAS_N2O][MOLES] = sleeping_agent
-		G.gases[GAS_AGENT_B][MOLES] = agent_b
+		var/list/gasses = G.gases
+		gasses[GAS_O2][MOLES] = oxygen
+		gasses[GAS_CO2][MOLES] = carbon_dioxide
+		gasses[GAS_N2][MOLES] = nitrogen
+		gasses[GAS_PL][MOLES] = toxins
+		gasses[GAS_N2O][MOLES] = sleeping_agent
+		gasses[GAS_AGENT_B][MOLES] = agent_b
 		G.temperature = initial(temperature) // Temperature is modified at runtime; we only care about the turf's initial temperature
 		G.archive()
 		if(!air.compare(G))
@@ -314,10 +315,11 @@
 /turf/simulated/proc/tile_graphic()
 	if(!air)
 		return
-	if(air.gases[GAS_PL][MOLES] > MOLES_PLASMA_VISIBLE)
+	var/list/gasses = air.gases
+	if(gasses[GAS_PL] && gasses[GAS_PL][MOLES] > MOLES_PLASMA_VISIBLE)
 		return "plasma"
 
-	if(air.gases[GAS_N2O][MOLES] > 1)
+	if(gasses[GAS_N2O] && gasses[GAS_N2O][MOLES] > 1)
 		return "sleeping_agent"
 	return null
 
@@ -407,15 +409,14 @@
 	var/datum/gas_mixture/A = new
 
 	var/list/cached_turf_list = turf_list // cache for super speed
+	var/list/A_gases = A.gases
 
 	for(var/turf/simulated/T in cached_turf_list)
 		A.merge(T.air)
 
-	var/turflen = length(cached_turf_list)
-
 	for(var/turf/simulated/T in cached_turf_list)
 		for(var/gas in T.air.gases)
-			gas[MOLES] = A.gases[gas[GAS_INDEX]][MOLES]/turf_list.len
+			gas[MOLES] = A_gases[gas[GAS_ID]][MOLES] / turf_list.len
 
 		T.update_visuals()
 

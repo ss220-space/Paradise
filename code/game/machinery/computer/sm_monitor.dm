@@ -59,10 +59,11 @@
 		var/other_moles = air.total_trace_moles()
 		var/TM = air.total_moles()
 		if(TM)
-			data["SM_gas_O2"] = round(100 * air.gases[GAS_O2][MOLES] / TM, 0.01)
-			data["SM_gas_CO2"] = round(100 * air.gases[GAS_CO2][MOLES]/ TM, 0.01)
-			data["SM_gas_N2"] = round(100 * air.gases[GAS_N2][MOLES] / TM, 0.01)
-			data["SM_gas_PL"] = round(100 * air.gases[GAS_PL][MOLES] / TM, 0.01)
+			var/list/gasses = air.gases
+			data["SM_gas_O2"] = round(100 * gasses[GAS_O2][MOLES] / TM, 0.01)
+			data["SM_gas_CO2"] = round(100 * gasses[GAS_CO2][MOLES]/ TM, 0.01)
+			data["SM_gas_N2"] = round(100 * gasses[GAS_N2][MOLES] / TM, 0.01)
+			data["SM_gas_PL"] = round(100 * gasses[GAS_PL][MOLES] / TM, 0.01)
 			if(other_moles)
 				data["SM_gas_OTHER"] = round(100 * other_moles / TM, 0.01)
 			else

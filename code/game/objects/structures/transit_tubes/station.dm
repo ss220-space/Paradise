@@ -21,7 +21,7 @@ Arrow direction - where to pod will move
 /obj/structure/transit_tube/station
 	name = "station tube station"
 	desc = "The lynchpin of the transit system."
-	icon = 'icons/obj/pipes_and_stuff/not_atmos/transit_tube_station.dmi'
+	icon = 'icons/obj/atmospherics/pipes/not_atmos/transit_tube_station.dmi'
 	icon_state = "closed_station0"
 	base_icon_state = "station0"
 	exit_delay = 1

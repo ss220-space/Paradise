@@ -20,6 +20,7 @@
 	air_contents.volume = volume
 	air_contents.temperature = T20C
 	if(gas_type)
+		air_contents.assert_gas(gas_type)
 		air_contents.gases[gas_type][MOLES] = AIR_CONTENTS
 		name = "[name] ([air_contents.gases[gas_type][GAS_NAME]])"
 
@@ -42,6 +43,7 @@
 	..()
 	icon_state = "air"
 	var/datum/gas_mixture/air_contents = AIR1
+	air_contents.assert_gases(GAS_O2, GAS_N2)
 	air_contents.gases[GAS_O2][MOLES] = AIR_CONTENTS * 0.2
 	air_contents.gases[GAS_N2][MOLES] = AIR_CONTENTS * 0.8
 

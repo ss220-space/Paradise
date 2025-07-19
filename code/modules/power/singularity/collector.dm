@@ -26,13 +26,14 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	return ..()
 
 /obj/machinery/power/rad_collector/process()
+	var/list/gasses = P.air_contents.gases
 	if(P)
-		if(P.air_contents.gases[GAS_PL][MOLES] <= 0)
+		if(gasses[GAS_PL][MOLES] <= 0)
 			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINE)
-			P.air_contents.gases[GAS_PL][MOLES] = 0
+			gasses[GAS_PL][MOLES] = 0
 			eject()
 		else
-			P.air_contents.gases[GAS_PL][MOLES] -= 0.001 * drainratio
+			gasses[GAS_PL][MOLES] -= 0.001 * drainratio
 	return
 
 

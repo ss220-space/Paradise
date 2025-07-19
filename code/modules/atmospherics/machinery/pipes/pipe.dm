@@ -15,8 +15,6 @@
 	buckle_requires_restraints = TRUE
 	buckle_lying = 90
 
-	color = pipe_color
-
 
 /obj/machinery/atmospherics/pipe/atmos_init()
 	var/turf/T = loc			// hide if turf is not intact
@@ -67,7 +65,7 @@
 	. = list(parent)
 
 
-/obj/machinery/atmospherics/pipe/check_pressure(pressure)
+/obj/machinery/atmospherics/pipe/proc/check_pressure(pressure)
 	//Return 1 if parent should continue checking other pipes
 	//Return null if parent should stop checking other pipes. Recall: qdel(src) will by default return null
 

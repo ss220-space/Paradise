@@ -109,10 +109,12 @@
 		var/total_moles = environment.total_moles()
 
 		if(total_moles)
-			var/o2_level = environment.gases[GAS_O2][MOLES]/ total_moles
-			var/n2_level = environment.gases[GAS_N2][MOLES]/ total_moles
-			var/co2_level = environment.gases[GAS_CO2][MOLES] / total_moles
-			var/plasma_level = environment.gases[GAS_PL][MOLES] / total_moles
+			var/list/env_gases = environment.gases
+			environment.assert_gases(arglist(hardcoded_gases))
+			var/o2_level = env_gases[GAS_O2][MOLES] / total_moles
+			var/n2_level = env_gases[GAS_N2][MOLES] / total_moles
+			var/co2_level = env_gases[GAS_CO2][MOLES] / total_moles
+			var/plasma_level = env_gases[GAS_PL][MOLES] / total_moles
 			var/unknown_level =  1 - (o2_level  + n2_level + co2_level + plasma_level)
 			results = list(
 				list("entry" = "Pressure", "units" = "kPa", "val" = "[round(pressure, 0.1)]", "bad_high" = 120, "poor_high" = 110, "poor_low" = 95, "bad_low" = 80),
