@@ -93,6 +93,8 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	move_to_delay = 2
 
+	loot = list(/obj/item/clothing/mask/false_cluwne_mask, /obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes) // We'd rather not give them ACTUAL cluwne stuff you know?
+
 /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
@@ -100,4 +102,3 @@
 		maxbodytemp = INFINITY, \
 	)
 
-	loot = list(/obj/item/clothing/mask/false_cluwne_mask, /obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes) // We'd rather not give them ACTUAL cluwne stuff you know?
