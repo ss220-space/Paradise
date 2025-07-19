@@ -792,8 +792,8 @@ GLOBAL_LIST_INIT(body_zone, list(
     BODY_ZONE_PRECISE_EYES = list(NOMINATIVE = "глаза", GENITIVE = "глаз", DATIVE = "глазам", ACCUSATIVE = "глаза", INSTRUMENTAL = "глазами", PREPOSITIONAL = "глазах"),
     BODY_ZONE_PRECISE_MOUTH = list(NOMINATIVE = "рот", GENITIVE = "рта", DATIVE = "рту", ACCUSATIVE = "рот", INSTRUMENTAL = "ртом", PREPOSITIONAL = "рте"),
     BODY_ZONE_PRECISE_GROIN = list(NOMINATIVE = "живот", GENITIVE = "живота", DATIVE = "животу", ACCUSATIVE = "живот", INSTRUMENTAL = "животом", PREPOSITIONAL = "животе"),
-    BODY_ZONE_PRECISE_L_HAND = list(NOMINATIVE = "левая ладонь", GENITIVE = "левой ладони", DATIVE = "левой ладони", ACCUSATIVE = "левую ладонь", INSTRUMENTAL = "левой ладонью", PREPOSITIONAL = "левой ладони"),
-    BODY_ZONE_PRECISE_R_HAND = list(NOMINATIVE = "правая ладонь", GENITIVE = "правой ладони", DATIVE = "правой ладони", ACCUSATIVE = "правую ладонь", INSTRUMENTAL = "правой ладонью", PREPOSITIONAL = "правой ладони"),
+    BODY_ZONE_PRECISE_L_HAND = list(NOMINATIVE = "левая кисть", GENITIVE = "левой кисти", DATIVE = "левой кисти", ACCUSATIVE = "левую кисть", INSTRUMENTAL = "левой кистью", PREPOSITIONAL = "левой кисти"),
+    BODY_ZONE_PRECISE_R_HAND = list(NOMINATIVE = "правая кисть", GENITIVE = "правой кисти", DATIVE = "правой кисти", ACCUSATIVE = "правую кисть", INSTRUMENTAL = "правой кистью", PREPOSITIONAL = "правой кисти"),
     BODY_ZONE_PRECISE_L_FOOT = list(NOMINATIVE = "левая ступня", GENITIVE = "левой ступни", DATIVE = "левой ступне", ACCUSATIVE = "левую ступню", INSTRUMENTAL = "левой ступнёй", PREPOSITIONAL = "левой ступне"),
     BODY_ZONE_PRECISE_R_FOOT = list(NOMINATIVE = "правая ступня", GENITIVE = "правой ступни", DATIVE = "правой ступне", ACCUSATIVE = "правую ступню", INSTRUMENTAL = "правой ступнёй", PREPOSITIONAL = "правой ступне")
 ))
@@ -823,9 +823,9 @@ GLOBAL_LIST_INIT(body_zone, list(
 		if(BODY_ZONE_PRECISE_GROIN)
 			return "живот"
 		if(BODY_ZONE_PRECISE_L_HAND)
-			return "левая ладонь"
+			return "левая кисть"
 		if(BODY_ZONE_PRECISE_R_HAND)
-			return "правая ладонь"
+			return "правая кисть"
 		if(BODY_ZONE_PRECISE_L_FOOT)
 			return "левая ступня"
 		if(BODY_ZONE_PRECISE_R_FOOT)

@@ -55,7 +55,7 @@
 
 /////////////////////////// DNA MACHINES
 /obj/machinery/dna_scannernew
-	name = "\improper DNA modifier"
+	name = "DNA modifier"
 	desc = "Высокотехнологичное устройство, предназначенное для сканирования и изменения структуры ДНК гуманоидов. Здесь и происходит всё волшебство."
 	ru_names = list(
 		NOMINATIVE = "ДНК-модификатор",
@@ -329,7 +329,7 @@
 	return FALSE
 
 /obj/machinery/computer/scan_consolenew
-	name = "\improper DNA Modifier access console"
+	name = "DNA Modifier access console"
 	desc = "Консоль для работы с ДНК-модификатором."
 	ru_names = list(
 		NOMINATIVE = "консоль управления ДНК-модификатором",

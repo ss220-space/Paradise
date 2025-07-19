@@ -286,7 +286,7 @@
 	},
 /obj/structure/sign/atmosplaque{
 	desc = "A ruined and partially melted plaque bears words that are now faded and rusted, with some letters missing entirely. It reads: Est...ished by the Althland Mining...ration. In recog...on of the brave...who dared...harness...fiery heart...this world. May the...of our labor...shine as brightly...as the molten rivers...beneath our feet. The date of the facility's establishment at the bottom is obliterated, and the signatures of any founding miners are completely lost to time.";
-	name = "\improper Althland facility plaque";
+	name = "Althland facility plaque";
 	pixel_y = 29
 	},
 /turf/simulated/floor/plasteel{

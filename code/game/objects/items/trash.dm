@@ -96,7 +96,7 @@
 	icon_state = "candle4"
 
 /obj/item/trash/liquidfood
-	name = "\improper \"LiquidFood\" ration"
+	name = "\"LiquidFood\" ration"
 	icon_state = "liquidfood"
 
 /obj/item/trash/can

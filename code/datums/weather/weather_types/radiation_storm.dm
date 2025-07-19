@@ -23,6 +23,9 @@
 
 	immunity_type = TRAIT_RADSTORM_IMMUNE
 
+/datum/weather/rad_storm/endless
+	weather_duration_upper = 10 HOURS
+
 /datum/weather/rad_storm/telegraph()
 	..()
 	status_alarm(TRUE)

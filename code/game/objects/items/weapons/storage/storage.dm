@@ -4,44 +4,42 @@
 // Do not remove this functionality without good reason, cough reagent_containers cough.
 // -Sayu
 
-
 /obj/item/storage
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = BLOCKS_LIGHT
 	interaction_flags_click = ALLOW_RESTING | FORBID_TELEKINESIS_REACH
-	///No message on putting items in
+	/// No message on putting items in
 	var/silent = FALSE
-	///List of objects which this item can store (if set, it can't store anything else)
+	/// List of objects which this item can store (if set, it can't store anything else)
 	var/list/can_hold = list()
 	/// List of objects that can be stored, regardless of w_class
 	var/list/w_class_override = list()
-	///List of objects which this item can't store (in effect only if can_hold isn't set)
+	/// List of objects which this item can't store (in effect only if can_hold isn't set)
 	var/list/cant_hold = list()
-	///Max size of objects that this object can store (in effect only if can_hold isn't set)
+	/// Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_w_class = WEIGHT_CLASS_SMALL
-	///Min size of objects that this object can store (in effect only if can_hold isn't set)
+	/// Min size of objects that this object can store (in effect only if can_hold isn't set)
 	var/min_w_class
-	///The sum of the w_classes of all the items in this storage item.
+	/// The sum of the w_classes of all the items in this storage item.
 	var/max_combined_w_class = 14
 	var/storage_slots = 7
-	///The number of storage slots in this container.
+	/// The number of storage slots in this container.
 	var/atom/movable/screen/storage/boxes = null
 	var/atom/movable/screen/close/closer = null
-	///Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
+	/// Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
 	var/use_to_pickup
-	///Set this to make the storage item group contents of the same type and display them as a number.
+	/// Set this to make the storage item group contents of the same type and display them as a number.
 	var/display_contents_with_number
-	///Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
+	/// Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
 	var/allow_quick_empty
-	///Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
+	/// Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/allow_quick_gather
-	///FALSE = pick one at a time, TRUE = pick all on tile
+	/// FALSE = pick one at a time, TRUE = pick all on tile
 	var/pickup_all_on_tile = TRUE
-	///Sound played when used. null for no sound.
+	/// Sound played when used. `null` for no sound.
 	var/use_sound = "rustle"
-
 	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
 	var/foldable = null
 	/// How much of the stack item do you get.

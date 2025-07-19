@@ -1,7 +1,7 @@
 //Parent types
 
 /area/ruin
-	name = "\improper Unexplored Location"
+	name = "Unexplored Location"
 	icon_state = "away"
 	has_gravity = STANDARD_GRAVITY
 	area_flags = UNIQUE_AREA
@@ -25,7 +25,7 @@
 //Areas
 
 /area/ruin/unpowered/no_grav/way_home
-	name = "\improper Salvation"
+	name = "Salvation"
 	icon_state = "away"
 
 /area/ruin/powered/snow_biodome

@@ -212,7 +212,7 @@
 	cost = list("working" = 0, "medical" = 0, "security" = 6, "robo" = 0)
 
 /datum/roboshop_item/experimental_parts
-	name = "\improper experimental parts"
+	name = "experimental parts"
 	path = /obj/item/storage/part_replacer/bluespace/experimental
 	visual_item = /obj/item/storage/box/stockparts/experimental_parts
 	cost = list("working" = 2, "medical" = 2, "security" = 2, "robo" = 0)

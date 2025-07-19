@@ -633,7 +633,7 @@
 		R.GiveTarget(target)
 
 /obj/projectile/bullet/a84mm_hedp
-	name ="\improper HEDP rocket"
+	name ="HEDP rocket"
 	desc = "ИСПОЛЬЗУЙ ПНЕВМАТИЧЕСКИЙ ПИСТОЛЕТ"
 	icon_state= "84mm-hedp"
 	damage = 80
@@ -677,7 +677,7 @@
 			to_chat(H, span_warning("Шрапнель отскакивает от вашей брони!"))
 
 /obj/projectile/bullet/a84mm_he
-	name ="\improper HE missile"
+	name ="HE missile"
 	desc = "Boom."
 	icon_state = "84mm-he"
 	damage = 30

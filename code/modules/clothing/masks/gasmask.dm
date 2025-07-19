@@ -172,7 +172,7 @@
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 
 /obj/item/clothing/mask/gas/swat
-	name = "\improper SWAT mask"
+	name = "SWAT mask"
 	desc = "Плотно прилегающая к коже тактическая маска, которую можно подключить к системе подачи воздуха."
 	ru_names = list(
 		NOMINATIVE = "маска спецназа",
@@ -633,7 +633,7 @@
 	force_adjust_mask()
 
 /obj/item/clothing/mask/gas/sechailer/tactical
-	name = "\improper Security gas mask FCO-26"
+	name = "Security gas mask FCO-26"
 	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией N&R специально для сотрудников станционной службы безопасности НаноТрейзен. Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
 	ru_names = list(
 		NOMINATIVE = "тактический противогаз СБ",
@@ -651,7 +651,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/hos
-	name = "\improper HOS SWAT mask"
+	name = "HOS SWAT mask"
 	desc = "Тактический противогаз чёрного цвета с более агрессивным Подчи-о-натором 3000."
 	ru_names = list(
 		NOMINATIVE = "тактический противогаз ГСБ",
@@ -669,7 +669,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/warden
-	name = "\improper Warden SWAT mask"
+	name = "Warden SWAT mask"
 	desc = "Тактический противогаз синего цвета с более агрессивным Подчи-о-натором 3000."
 	ru_names = list(
 		NOMINATIVE = "тактический противогаз смотрителя",
@@ -687,7 +687,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/swat
-	name = "\improper SWAT mask"
+	name = "SWAT mask"
 	desc = "Тактический противогаз с более агрессивным Подчи-о-натором 3000."
 	ru_names = list(
 		NOMINATIVE = "тактический противогаз",
@@ -705,7 +705,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/blue
-	name = "\improper blue SWAT mask"
+	name = "blue SWAT mask"
 	desc = "Тактический противогаз, окрашенный в неоново-синие цвета. Используется для деморализации Грейтадеров."
 	ru_names = list(
 		NOMINATIVE = "синий тактический противогаз",
