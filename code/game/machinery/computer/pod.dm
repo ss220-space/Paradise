@@ -222,7 +222,7 @@
 			for(var/z in reachable_levels)
 				choices += z
 			var/obj/machinery/computer/pod/deathsquad/D = src
-			var/input = tgui_input_list(usr, "Enter the destination Z-Level. The mechs will arrive from the East. Leave 0 if you don't want to set a specific ZLevel", "Mass Driver Controls", choices, 0) 
+			var/input = tgui_input_list(usr, "Enter the destination Z-Level. The mechs will arrive from the East. Leave 0 if you don't want to set a specific ZLevel", "Mass Driver Controls", choices, 0)
 			D.teleporter_dest = input
 
 		if(href_list["massfire"])
@@ -294,7 +294,7 @@
 		..()
 
 /obj/machinery/computer/pod/old/swf
-	name = "\improper Magix System IV"
+	name = "Magix System IV"
 	desc = "Таинственный артефакт, в котором сконцентрировано огромное количество магической энергии."
 	circuit = /obj/item/circuitboard/swfdoor
 

@@ -140,7 +140,7 @@
  * Bombsuit closet
  */
 /obj/structure/closet/bombcloset
-	name = "\improper EOD closet"
+	name = "EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
 	icon_state = "bombsuit"
 
@@ -152,7 +152,7 @@
 
 
 /obj/structure/closet/bombclosetsecurity
-	name = "\improper EOD closet"
+	name = "EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
 	icon_state = "bombsuitsec"
 

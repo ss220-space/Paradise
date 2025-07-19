@@ -226,7 +226,7 @@
 		new /obj/item/reagent_containers/iv_bag(src)
 
 /obj/item/storage/box/injectors
-	name = "\improper DNA injectors"
+	name = "DNA injectors"
 	desc = "This box contains injectors it seems."
 
 /obj/item/storage/box/injectors/populate_contents()
@@ -1600,7 +1600,7 @@
 	new /obj/item/clothing/head/mr_chang_band(src)
 
 /obj/item/storage/box/bombsecurity
-	name = "\improper Security Bombsuit"
+	name = "Security Bombsuit"
 	desc = "It's a box with explosion-protective suit."
 
 /obj/item/storage/box/bombsecurity/populate_contents()

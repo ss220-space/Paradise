@@ -396,7 +396,7 @@
 
 /// Atmos Backpack Resin, transparent, prevents atmos and filters the air
 /obj/structure/foamedmetal/resin
-	name = "\improper ATMOS Resin"
+	name = "ATMOS Resin"
 	ru_names = list(
 		NOMINATIVE = "атмосферная смола",
 		GENITIVE = "атмосферной смолы",

@@ -46,7 +46,7 @@ Difficulty: Very Hard
 */
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot
-	name = "\improper Vetus Speculator"
+	name = "Vetus Speculator"
 	desc = "Древний робот, принадлежащий к давно исчезнувшей цивилизации, способен адаптироваться к окружающей среде и всему, что в ней находится, что делает его идеальным бойцом."
 	ru_names = list(
 		NOMINATIVE = "Ветус Спекулятор",

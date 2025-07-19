@@ -37,7 +37,7 @@
 	)
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
-	name = "\improper SWAT shoes"
+	name = "SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50)
@@ -405,7 +405,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 0) //lizards like to stay warm
 
 /obj/item/clothing/shoes/cowboy/lizardmasterwork
-	name = "\improper Hugs-The-Feet lizard skin boots"
+	name = "Hugs-The-Feet lizard skin boots"
 	desc = "A pair of masterfully crafted lizard skin boots. Finally a good application for the station's most bothersome inhabitants."
 	icon_state = "lizardboots_blue"
 

@@ -909,7 +909,7 @@
 	sprite_sheets = null
 
 /obj/item/clothing/suit/fluff/stobarico_greatcoat // Stobarico: F.U.R.R.Y
-	name = "\improper F.U.R.R.Y's Nanotrasen Greatcoat"
+	name = "F.U.R.R.Y's Nanotrasen Greatcoat"
 	desc = "A greatcoat with Nanotrasen colors."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "stobarico_jacket"
@@ -1627,7 +1627,7 @@
 	icon_state = "ps_horns"
 
 /obj/item/storage/backpack/fluff/hiking //Pineapple Salad: Dan Jello
-	name = "\improper Fancy Hiking Pack"
+	name = "Fancy Hiking Pack"
 	desc = "A black and red hiking pack with some nice little accessories."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "danpack"

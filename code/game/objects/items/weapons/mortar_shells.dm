@@ -1,5 +1,5 @@
 /obj/item/mortar_shell
-	name = "\improper 80mm mortar shell"
+	name = "80mm mortar shell"
 	desc = "An unlabeled 80mm mortar shell, probably a casing."
 	icon = 'icons/obj/structures/mortar.dmi'
 	icon_state = "mortar_ammo_cas"
@@ -57,7 +57,7 @@
 
 
 /obj/item/mortar_shell/he
-	name = "\improper 80mm high explosive mortar shell"
+	name = "80mm high explosive mortar shell"
 	desc = "An 80mm mortar shell, loaded with a high explosive charge."
 	icon_state = "mortar_ammo_he"
 	item_state = "mortar_ammo_he"
@@ -67,7 +67,7 @@
 	explosion(detonate_turf, 0, 4, 7, 7)
 
 /obj/item/mortar_shell/frag
-	name = "\improper 80mm fragmentation mortar shell"
+	name = "80mm fragmentation mortar shell"
 	desc = "An 80mm mortar shell, loaded with a fragmentation charge."
 	icon_state = "mortar_ammo_frag"
 	item_state = "mortar_ammo_frag"
@@ -79,7 +79,7 @@
 	explosion(detonate_turf, 0, 0, 5)
 
 /obj/item/mortar_shell/incendiary
-	name = "\improper 80mm incendiary mortar shell"
+	name = "80mm incendiary mortar shell"
 	desc = "An 80mm mortar shell, loaded with a Type B napalm charge. Perfect for long-range area denial."
 	icon_state = "mortar_ammo_inc"
 	item_state = "mortar_ammo_inc"
@@ -95,7 +95,7 @@
 	playsound(detonate_turf, 'sound/weapons/gun_flamethrower2.ogg', 35, 1, 4)
 
 /obj/item/mortar_shell/flare
-	name = "\improper 80mm flare/camera mortar shell"
+	name = "80mm flare/camera mortar shell"
 	desc = "An 80mm mortar shell, loaded with an illumination flare / camera combo, attached to a parachute."
 	icon_state = "mortar_ammo_flr"
 	item_state = "mortar_ammo_flr"
@@ -108,7 +108,7 @@
 	deploy_camera(detonate_turf)
 
 /obj/item/mortar_shell/custom
-	name = "\improper 80mm custom mortar shell"
+	name = "80mm custom mortar shell"
 	desc = "An 80mm mortar shell."
 	icon_state = "mortar_ammo_custom"
 	item_state = "mortar_ammo_custom_locked"

@@ -6,7 +6,7 @@
 // Credit to polaris for the code which this current map was originally based off of, and credit to VG for making it in the first place.
 
 /obj/machinery/station_map
-	name = "\improper station holomap"
+	name = "station holomap"
 	desc = "Карта окрестностей станции, только виртуальная."
 	ru_names = list(
 		NOMINATIVE = "голокарта станции",
@@ -293,7 +293,7 @@
 	return legend
 
 /obj/machinery/station_map/engineering
-	name = "\improper engineering station map"
+	name = "engineering station map"
 	icon_state = "station_map_engi"
 
 /obj/machinery/station_map/engineering/Initialize(mapload)

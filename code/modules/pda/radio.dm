@@ -1,7 +1,7 @@
 //TODO convert this crap over to proper radios or find a way to utilize regualr radios for this object, this thing needs to go.
 
 /obj/item/integrated_radio
-	name = "\improper PDA radio module"
+	name = "PDA radio module"
 	desc = "An electronic radio system of Nanotrasen origin."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "power_mod"
