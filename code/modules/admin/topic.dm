@@ -397,6 +397,8 @@
 		if(!check_rights(R_SERVER))	return
 
 		var/timer = tgui_input_number(usr, "Enter new shuttle duration (seconds):", "Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft())
+		if(isnull(timer))
+			return
 		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
