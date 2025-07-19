@@ -125,13 +125,13 @@
 		open(user)
 		return FALSE
 
-	if(istype(over_object, /obj/item/storage))
+	if(isstorage(over_object))
 		var/obj/item/storage = over_object
 		if(!(storage.item_flags & IN_STORAGE))
 			dump_storage(user, over_object)
 			return
 
-	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || isfloorturf(over_object)) \
+	if((!istype(src, /obj/item/storage/lockbox) && (istable(over_object) || isfloorturf(over_object)) \
 		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
 
 		if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
@@ -491,6 +491,8 @@
 /obj/item/storage/proc/remove_from_storage(obj/item/W, atom/new_location)
 	if(!istype(W))
 		return FALSE
+
+	W.item_flags &= ~IN_STORAGE
 
 	for(var/mob/M as anything in mobs_viewing)
 		if((M.s_active == src) && M.client)

@@ -197,13 +197,14 @@
 	var/obj/structure/ore_box/OB = locate() in input
 	if(OB)
 		input = OB
-	// Suck the ore in
-	for(var/obj/item/stack/ore/O in input)
-		if(QDELETED(O))
+	// Sucking the ore inside.
+	for(var/obj/item/stack/ore/ore in input)
+		if(QDELETED(ore))
 			continue
-		ore_buffer |= O
-		O.forceMove(src)
+		ore_buffer |= ore
+		ore.forceMove(src)
 		CHECK_TICK
+	// Sucking materials inside.
 	for(var/obj/item/stack/stack in input)
 		if(QDELETED(stack))
 			return
@@ -211,6 +212,7 @@
 			stack.forceMove(get_step(src, output_dir))
 			invalid_material = TRUE
 		CHECK_TICK
+	// Throwing it away if it doesn't suck.
 	if(invalid_material)
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		atom_say("ОШИБКА: Некорректные материалы.", use_tts = FALSE)
