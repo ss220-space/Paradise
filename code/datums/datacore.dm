@@ -215,7 +215,9 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			S.fields["notes"] = "Дополнительная информация отсутствует."
 		LAZYINITLIST(S.fields["comments"])
 		if(rank == JOB_TITLE_PRISONER)
-			S.fields["comments"] += generate_prisoner_role_crimes()
+			var/crimes = generate_prisoner_role_crimes()
+			H.mind.store_memory("Меня посадили за: [crimes]")
+			S.fields["comments"] += "Заключен на пермабриг за статьи: [crimes]"
 		security += S
 
 		//Locked Record
@@ -235,9 +237,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	return
 
 /datum/datacore/proc/generate_prisoner_role_crimes()
-	. = "Заключен на пермабриг за статьи: "
 	var/list/major_crimes = list("400", "402", "407")
-	. += pick(major_crimes)
+	. = pick(major_crimes)
 	var/count = rand(1, 3)
 	var/list/minor_crimes = list("101", "303", "204", "205", "306", "308")
 	for(var/i = 0; i < count; i++)
