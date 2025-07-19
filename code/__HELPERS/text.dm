@@ -313,6 +313,7 @@
 /proc/capitalize(var/t as text)
 	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
 
+//Returns a string depending on number it recieves
 /proc/numeric_ending(num, more, one, three)
 	var/last_digit = num % 10
 	var/last_two_digit = num % 100

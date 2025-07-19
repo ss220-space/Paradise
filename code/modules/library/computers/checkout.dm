@@ -204,7 +204,8 @@
 	if(density && !emagged)
 		emagged = 1
 		if(user)
-			src.balloon_alert(user, "взломано")
+			to_chat(user, span_notice("Вы обходите ограничения печати компьютера."))
+			balloon_alert(user, "взломано")
 
 
 /obj/machinery/computer/library/checkout/attackby(obj/item/I, mob/user, params)

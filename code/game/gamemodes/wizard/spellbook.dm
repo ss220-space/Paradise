@@ -1155,12 +1155,12 @@
 	item_state = "book[spellname]"
 	name = "spellbook of [spellname]" //Note, desc doesn't change by design
 	if(ru_names)
-		initial(ru_names[NOMINATIVE]) = "гримуар " + spellname_ru
-		initial(ru_names[GENITIVE]) = "гримуара " + spellname_ru
-		initial(ru_names[DATIVE]) = "гримуару" + spellname_ru
-		initial(ru_names[ACCUSATIVE]) = "гримуар " + spellname_ru
-		initial(ru_names[INSTRUMENTAL]) = "гримуаром " + spellname_ru
-		initial(ru_names[PREPOSITIONAL]) = "гримуаре " + spellname_ru
+		ru_names[NOMINATIVE] = "гримуар " + spellname_ru
+		ru_names[GENITIVE] = "гримуара " + spellname_ru
+		ru_names[DATIVE] = "гримуару" + spellname_ru
+		ru_names[ACCUSATIVE] = "гримуар " + spellname_ru
+		ru_names[INSTRUMENTAL] = "гримуаром " + spellname_ru
+		ru_names[PREPOSITIONAL] = "гримуаре " + spellname_ru
 	..()
 
 /obj/item/spellbook/oneuse/mindswap/recoil(mob/user)

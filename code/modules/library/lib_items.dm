@@ -315,7 +315,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		store = I
-		to_chat(user, span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [title]."))
+		to_chat(user, span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в \"	[title]\"."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(is_sharp(I))
@@ -418,10 +418,10 @@
 	if(carved)
 		balloon_alert(user, "уже изрезано!")
 		return FALSE
-	to_chat(user, span_notice("Вы начинаете резать страницы [title]..."))
+	balloon_alert(user, "режем страницы...")
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || carved)
 		return FALSE
-	to_chat(user, span_notice("Вы вырезали несколько страниц из [title]! Всё равно никто бы её не стал читать."))
+	balloon_alert(user, "страницы вырезаны.")
 	carved = TRUE
 	return TRUE
 
@@ -442,7 +442,10 @@
 	)
 	gender = MALE
 	icon = 'icons/obj/library.dmi'
-	icon_state ="scanner"
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
+	icon_state = "scanner"
+	item_state = "scanner"
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY

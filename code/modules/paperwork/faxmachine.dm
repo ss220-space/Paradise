@@ -234,7 +234,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				if((copyitem && copyitem.loc == src && usr.stat == 0))
 					if(istype(copyitem, /obj/item/paper))
 						copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
-						copyitem.desc = "Бумага, подписанная как \"" + copyitem.name + "\""."
+						copyitem.desc = "Бумага, подписанная как \"" + copyitem.name + "\"."
 						if(ru_names)
 							initial(ru_names[NOMINATIVE]) += " — \"[copyitem.name]\""
 							initial(ru_names[GENITIVE]) += " — \"[copyitem.name]\""
