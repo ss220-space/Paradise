@@ -9,6 +9,7 @@
 	name = "Медицинский шаттл с пациентами"
 	var/patiens_count
 	var/list/patients = list()
+	var/obj/effect/mob_spawn/human/spawner
 
 
 /datum/addition_goal/medical_patients/setup()
@@ -18,26 +19,39 @@
 
 /datum/addition_goal/medical_patients/spawn_shuttle_contain(list/turf/shuttle_turfs)
 	message_admins("medical patients addition goal: id=[id] begin spawn shuttle contain patiens=[patiens_count].")
-	var/obj/effect/mob_spawn/human/spawner = new /obj/effect/mob_spawn/human/addition_goal/medical_patients(shuttle_turfs[1])
+	spawner = new /obj/effect/mob_spawn/human/addition_goal/medical_patients(shuttle_turfs[1])
 	for(var/i = 0; i < patiens_count; i++)
 		var/turf/random_turf = pick(shuttle_turfs)
 		shuttle_turfs -= random_turf
-		var/obj/structure/bed/bed = new /obj/structure/bed(random_turf)
-		spawner.loc = random_turf
-		var/mob/living/carbon/human/monkeybrain/patient = spawner.create()
-		patients += patient
-		bed.buckle_mob(patient, force = TRUE, check_loc = FALSE)
-		patient.adjustBruteLoss(rand(20-50))
-		if(prob(30))
-			patient.adjustFireLoss(rand(20-50))
-		if(prob(10))
-			patient.adjustCloneLoss(rand(5-25))
-		if(prob(10))
-			patient.adjustToxLoss(rand(15-10))
-		patient.ai_controller = /datum/ai_controller/monkey/angry
-		patient.InitializeAIController()
+		create_patient_at(random_turf)
 	qdel(spawner)
 	return TRUE
+
+/datum/addition_goal/medical_patients/proc/create_patient_at(turf/location)
+	spawner.loc = location
+	var/mob/living/patient = spawner.create()
+	patients += patient
+	var/obj/structure/bed/bed = new /obj/structure/bed(location)
+	addtimer(CALLBACK(bed, TYPE_PROC_REF(/atom/movable/, buckle_mob), patient, TRUE, FALSE), 1)
+	//addtimer(CALLBACK(src, PROC_REF(buckle_mob_to_bed), patient, bed), 1)
+	randomize_patient_diseases(patient)
+	switch_ai_to_angry_mode(patient)
+
+/datum/addition_goal/medical_patients/proc/buckle_mob_to_bed(mob/living/patient, obj/structure/bed/bed)
+	bed.buckle_mob(patient, force = TRUE, check_loc = FALSE)
+
+/datum/addition_goal/medical_patients/proc/randomize_patient_diseases(mob/living/patient)
+	patient.adjustBruteLoss(rand(20, 50))
+	if(prob(30))
+		patient.adjustFireLoss(rand(20, 50))
+	if(prob(10))
+		patient.adjustCloneLoss(rand(5, 25))
+	if(prob(10))
+		patient.adjustToxLoss(rand(15, 10))
+
+/datum/addition_goal/medical_patients/proc/switch_ai_to_angry_mode(mob/living/patient)
+	patient.ai_controller = /datum/ai_controller/monkey/angry
+	patient.InitializeAIController()
 
 
 /datum/addition_goal/medical_patients/format_accept_report(mob/user)
