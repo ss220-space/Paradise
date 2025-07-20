@@ -3,6 +3,7 @@
 	name = "Phazon"
 	icon_state = "phazon"
 	initial_icon = "phazon"
+	ratvarized_icon = "phazon_ratvar"
 	step_in = 2
 	dir_in = 2 //Facing south.
 	step_energy_drain = 3
@@ -48,3 +49,8 @@
 						"}
 	output += ..()
 	return output
+
+/obj/mecha/combat/phazon/ratvar_act(convert_mecha)
+	if(convert_mecha)
+		phase_state = "phazon_ratvar_phaze"
+	. = ..()

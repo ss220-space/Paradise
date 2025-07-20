@@ -18,6 +18,7 @@
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
+	var/ratvarized_icon = null // Just for mecha variations like ert or syndie
 	var/can_move = 0 // time of next allowed movement
 	var/mech_enter_time = 4 SECONDS // Entering mecha time
 	var/mob/living/carbon/occupant = null
@@ -128,6 +129,8 @@
 	var/phase_modifier = 1
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
+
+	var/ratvarized = FALSE
 
 /obj/mecha/Initialize()
 	. = ..()
@@ -939,6 +942,9 @@
 			return ..()
 		user.visible_message(span_notice("[user] opens [paintkit] and spends some quality time customising [name]."))
 
+		if(ratvarized)
+			return ATTACK_CHAIN_PROCEED
+
 		var/list/icon_states = paintkit.icon_states
 		var/transformed_mech_type = "[mech_type]"
 		if(transformed_mech_type in icon_states)
@@ -1301,7 +1307,9 @@
 	if(user.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("You can't enter the exosuit with other creatures attached to you!"))
 		return TRUE
-
+	if(ratvarized && !isclocker(user))
+		to_chat(user, span_clockitalic("Этот механизм предназначен не для тебя."))
+		return TRUE
 	visible_message(span_notice("[user] starts to climb into [src]"))
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/mecha, put_in), user)
 	return TRUE
@@ -1794,8 +1802,13 @@
 
 
 /obj/mecha/update_icon_state()
-	var/init_icon_state = initial_icon ? initial_icon : initial(icon_state)
-	icon_state = occupant ? init_icon_state : "[init_icon_state]-open"
+	if(ratvarized)
+		if(ratvarized_icon)
+			icon_state = ratvarized_icon
+			icon_state = occupant ? icon_state : "[icon_state]-open"
+	else
+		var/init_icon_state = initial_icon ? initial_icon : initial(icon_state)
+		icon_state = occupant ? init_icon_state : "[init_icon_state]-open"
 
 
 /obj/mecha/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
@@ -1813,8 +1826,32 @@
 	phasing_action.button_icon_state = "mech_phasing_off"
 	phasing_action.UpdateButtonIcon()
 
-/obj/mecha/ratvar_act()
-
-	. = ..()
-
+/obj/mecha/ratvar_act(convert_mecha)
+	if(!convert_mecha)
+		return
+	if(ratvarized)
+		return
+	switch(mech_type)
+		if(MECH_TYPE_NONE)
+			visible_message(span_clockitalic("Механизм начинает светиться желтым, но ничего не происходит!"))
+			return
+		if(MECH_TYPE_SIDEWINTER)
+			visible_message(span_clocklarge("ЧТО ЭТО ЗА ЕРЕСЬ?!?!?!"))
+			return
+		if(MECH_TYPE_HONKER)
+			visible_message(span_clown("Силы Хонкоматери защищают этот механизм!"))
+			return
+		if(MECH_TYPE_RETICENCE)
+			visible_message(span_boldnotice("..."))
+			return
+		else
+			ratvarized = TRUE
+			update_icon(UPDATE_ICON_STATE)
+			emag_act()
+			armor = armor.modifyAllRatings(10)
+			if(occupant)
+				if(!isclocker(occupant))
+					occupant.SetSleeping(destruction_sleep_duration)
+					go_out()
+			return
 #undef OCCUPANT_LOGGING

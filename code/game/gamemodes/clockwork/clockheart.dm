@@ -25,6 +25,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	var/cur_enchant = null
 	var/list/enchants
 	var/list/blessings = list(/obj/item/gun/energy/clockwork, /obj/item/gun/energy/clockwork/sniper)
+	var/list/enchanted_before = FALSE
 
 /obj/structure/clockwork/functional/heart/Initialize(mapload)
 	if(!GLOB.Heart)
@@ -43,6 +44,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 		var/obj/structure/heart_filler/F = new(T)
 		F.parent = src
 		fillers += F
+	spawn_parts()
 	. = ..()
 
 /obj/structure/clockwork/functional/heart/update_overlays()
@@ -68,6 +70,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart/proc/heart_pulse()
 	if(!GLOB.curse_dial)
+		enchanted_before = TRUE
 		switch(cur_enchant)
 			if(EMP_HEART_PULSE)
 				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/emp(loc, pulse_range)
@@ -77,7 +80,9 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/stun(loc, pulse_range)
 			else
 				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse(loc, pulse_range)
-		new /obj/effect/warp_effect/bsg(loc)
+				enchanted_before = FALSE
+		new /obj/effect/temp_visual/pulse(src.loc)
+		new /obj/effect/warp_effect/heart(loc)
 		cur_enchant = null
 		pulse_range += 2
 	update_icon(UPDATE_OVERLAYS)
@@ -99,6 +104,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 			if(do_after(user, 5 SECONDS, src))
 				GLOB.curse_dial = FALSE
 				addtimer(CALLBACK(src, PROC_REF(heart_pulse)), 30 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/magic/clockwork/heart_tick_tock.ogg', 100, FALSE, 0, SOUND_FALLOFF_EXPONENT, null, 0, TRUE, TRUE, SOUND_DEFAULT_FALLOFF_DISTANCE, TRUE), 4 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 				qdel(dropping)
 				give_blessing(user)
 				update_icon(UPDATE_OVERLAYS)
@@ -197,6 +203,14 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	chosen_blessing = null
 	bless_to_give = null
 
+/obj/structure/clockwork/functional/heart/proc/spawn_parts()
+	var/first_part_loc = get_safe_random_station_turf()
+	var/second_part_loc = get_safe_random_station_turf()
+	var/third_part_loc = get_safe_random_station_turf()
+	new /obj/structure/part1(first_part_loc)
+	new /obj/item/part2(second_part_loc)
+	new /obj/item/part3(third_part_loc)
+
 /obj/structure/heart_filler
 	name = "The heart of Ratvar"
 	ru_names = list(
@@ -281,6 +295,13 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 			to_chat(user, span_clockitalic("Вы пытаетесь схватить циферблат, но он слишком тяжелый!"))
 	return
 
+/obj/structure/part1/New()
+	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+	. = ..()
+
+/obj/structure/part1/proc/pulse()
+	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
+
 /obj/item/part2
 	name = "brass component"
 	ru_names = list(
@@ -327,6 +348,14 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 			new /obj/effect/decal/cleanable/ash(user.loc)
 	return
 
+/obj/item/part2/New()
+	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+	. = ..()
+
+
+/obj/item/part2/proc/pulse()
+	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
+
 /obj/item/part3
 	name = "brass component"
 	ru_names = list(
@@ -372,3 +401,18 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
 			new /obj/effect/decal/cleanable/ash(user.loc)
 	return
+
+/obj/item/part3/New()
+	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+	. = ..()
+
+/obj/item/part3/proc/pulse()
+	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
+
+/obj/effect/temp_visual/pulse
+	icon = 'icons/obj/clockheart.dmi'
+	icon_state = "pulse"
+	pixel_x = -32
+	pixel_y = -32
+	layer = SPACEVINE_LAYER
+	duration = 4

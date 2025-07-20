@@ -3,6 +3,7 @@
 	name = "Clarke"
 	icon_state = "clarke"
 	initial_icon = "clarke"
+	ratvarized_icon = "clarke_ratvar"
 	step_in = 2
 	dir_in = 1 //Facing North.
 	max_integrity = 250

@@ -169,6 +169,10 @@
 				midas_spell.Grant(owner, src)
 				to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
 		if(do_Heart)
+			if(GLOB.Heart.enchanted_before)
+				to_chat(owner, span_clockitalic("Сердце перегрето! Необходимо охладить его, прежде чем оно сможет снова быть зачаровано"))
+				channeling = FALSE
+				return
 			var/list/possible_pulse_icons = list()
 			var/list/possible_pulses = list()
 			var/image/heart_img

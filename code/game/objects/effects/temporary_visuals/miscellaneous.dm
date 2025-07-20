@@ -435,6 +435,21 @@
 	animate(src, transform = M * 8, time = 0.8 SECONDS, alpha = 0)
 	QDEL_IN(src, 0.8 SECONDS)
 
+/obj/effect/warp_effect/heart
+	var/range = 12
+
+/obj/effect/warp_effect/heart/New()
+	if(GLOB.Heart)
+		range = GLOB.Heart.pulse_range * 4
+	. = ..()
+
+/obj/effect/warp_effect/heart/Initialize(mapload)
+	. = ..()
+	var/matrix/M = matrix() * 0.5
+	transform = M
+	animate(src, transform = M * range, time = 0.1 * range SECONDS, alpha = 0)
+	QDEL_IN(src, 0.1 * range SECONDS)
+
 /obj/effect/temp_visual/love_heart
 	name = "love heart"
 	icon = 'icons/effects/effects.dmi'

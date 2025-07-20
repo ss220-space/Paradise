@@ -1605,6 +1605,7 @@
 	var/do_emp = FALSE
 	var/do_stun = FALSE
 	var/sound = 'sound/magic/clockwork/reconstruct.ogg'
+	var/convert_mecha = FALSE
 
 /obj/effect/temp_visual/ratvar/reconstruct/Initialize(mapload)
 	. = ..()
@@ -1623,17 +1624,21 @@
 				if(!ishuman(living))
 					continue
 				if(!isclocker(living))
-					if(do_emp)
+					var/obj/item/nullrod/N = locate() in living
+					if(do_emp && !N && !living.mind.isblessed)
 						living.emp_act(EMP_HEAVY)
-					if(do_stun)
+						new /obj/effect/temp_visual/emp/clock(living.loc)
+					if(do_stun && !N && !living.mind.isblessed)
 						if(isrobot(living))
 							living.emp_act(EMP_HEAVY)
+							new /obj/effect/temp_visual/emp/clock(living.loc)
 						else
 							living.Weaken(8 SECONDS)
 							living.Silence(10 SECONDS)
 							living.clockslur(20 SECONDS)
-				if(istype(living, /mob/living/simple_animal/hostile/clockwork/marauder) && heal_marauders)
-					living.heal_overall_damage(100)
+				if(istype(living, /mob/living/simple_animal/hostile/clockwork/marauder))
+					if(heal_marauders)
+						living.heal_overall_damage(100)
 				else
 					living.heal_overall_damage(heal, heal, affect_robotic = robo_affect_heal)
 				if(Can_adv_heal)
@@ -1644,7 +1649,7 @@
 						bodypart.mend_fracture()
 			else
 				if(is_rat_act)
-					affected.ratvar_act()
+					affected.ratvar_act(convert_mecha)
 	animate(src, transform = matrix() * 0.1, time = anim_time)
 	icon_state = null
 
@@ -1660,10 +1665,11 @@
 	Can_adv_heal = FALSE
 	radius = 3
 	sound = null
+	convert_mecha = TRUE
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/reconstruct()
 	. = ..()
-	playsound(src, 'sound/magic/clockwork/heart_beat.ogg', 50, TRUE)
+	playsound(src, 'sound/magic/clockwork/heart_beat.ogg', vol = 100, vary = FALSE, extrarange = radius, pressure_affected = FALSE, falloff_distance = radius)
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/New()
 	radius = GLOB.Heart.pulse_range
@@ -1685,3 +1691,18 @@
 	do_emp = TRUE
 	heal = 0
 	is_rat_act = FALSE
+
+/obj/effect/temp_visual/ratvar/reconstruct/part
+	heal = 0
+	convert_mecha = FALSE
+	radius = 3
+	Can_adv_heal = FALSE
+
+/obj/effect/temp_visual/ratvar/reconstruct/part/reconstruct()
+	. = ..()
+
+/obj/effect/temp_visual/heart_particle
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "heartbeat particles"
+	layer = ABOVE_MOB_LAYER
+	duration = 10
