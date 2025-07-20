@@ -22,7 +22,7 @@
 		success_feedback = "You remove %THEEFFECT.", \
 		tip_text = "Clear rune", \
 		on_clear_callback = CALLBACK(src, PROC_REF(after_clear_rune)), \
-		effects_we_clear = list(/obj/effect/heretic_rune))
+		effects_we_clear = list(/obj/effect/decal/heretic_rune))
 
 
 /// Callback for effect_remover component after a rune is deleted
@@ -118,7 +118,7 @@
 	if(!modifiers["alt"])
 		return ..()
 
-	if(!istype(interacting_with, /obj/effect/heretic_rune/big))
+	if(!istype(interacting_with, /obj/effect/decal/heretic_rune/big))
 		return NONE
 
 	var/list/curse_list = list()

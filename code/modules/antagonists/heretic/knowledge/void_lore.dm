@@ -329,8 +329,8 @@
 		return NONE
 
 	ascended_heretic.visible_message(
-		span_danger("The void storm surrounding [ascended_heretic] deflects [hitting_projectile]!"),
-		span_userdanger("The void storm protects you from [hitting_projectile]!"),
+		span_danger("Пустотный шторм отражает [hitting_projectile.declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("Пустотный шторм защищает вас от [hitting_projectile.declent_ru(GENITIVE)]!"),
 	)
 	//playsound(ascended_heretic, SFX_VOID_DEFLECT, 75, TRUE)
 	hitting_projectile.firer = ascended_heretic
@@ -343,13 +343,13 @@
 
 
 /datum/weather/void_storm
-	name = "void storm"
-	desc = "A rare and highly anomalous event often accompanied by unknown entities shredding spacetime continouum. We'd advise you to start running."
+	name = "пустотный шторм"
+	desc = "Редкое и крайне ненормальное событие, часто сопровождаемое неизвестными сущностями, разрывающими пространственно-временной континуум. Вам лучше начать бежать."
 
 	telegraph_duration = 2 SECONDS
 	telegraph_overlay = "light_snow"
 
-	weather_message = span_hypnophrase("You feel the air around you getting colder... and void's sweet embrace...")
+	weather_message = span_hypnophrase("Вы чувствуете, как воздух вокруг становится холоднее... Вы чувствуете сладкие объятия пустоты...")
 	weather_overlay = "light_snow"
 	weather_color = COLOR_BLACK
 	weather_duration_lower = 1 MINUTES

@@ -137,7 +137,8 @@
 
 	if(!length(valid_targets))
 		if(!silent)
-			to_chat(user, span_hierophant_warning("No sacrifice targets could be found!"))
+			to_chat(user, span_hierophant_warning("Целей для жертвоприношения не обнаружено!"))
+
 		return FALSE
 
 	// Now, let's try to get four targets.
@@ -270,7 +271,7 @@
 	antag.rewards_given++
 
 	// Cool effect for the rune as well as the item
-	var/obj/effect/heretic_rune/rune = locate() in range(2, user)
+	var/obj/effect/decal/heretic_rune/rune = locate() in range(2, user)
 	if(rune)
 		rune.gender_reveal(
 			outline_color = COLOR_CULT_RED,

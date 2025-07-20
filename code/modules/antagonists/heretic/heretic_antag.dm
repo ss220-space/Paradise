@@ -139,6 +139,16 @@
 
 	return knowledge_data
 
+
+/datum/antagonist/heretic/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(ui)
+		return
+
+	ui = new(user, src, "AntagInfoHeretic", name)
+	ui.open()
+
+
 /datum/antagonist/heretic/ui_data(mob/user)
 	var/list/data = list()
 
@@ -208,10 +218,13 @@
 			knowledge_points -= initial(researched_path.cost)
 			return TRUE
 
+
 /datum/antagonist/heretic/ui_status(mob/user, datum/ui_state/state)
 	if(user.stat == DEAD)
 		return UI_CLOSE
-	return ..()
+
+	return UI_INTERACTIVE //..()
+
 
 /datum/antagonist/heretic/farewell()
 	if(silent)
@@ -298,6 +311,7 @@
 	// If we've got the trait, we don't care
 	if(HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))
 		return
+
 	// All powerful, don't care
 	if(ascended)
 		return
@@ -345,7 +359,7 @@
 		target_turf.balloon_alert(user, "не подходящее место!")
 		return
 
-	if(locate(/obj/effect/heretic_rune) in range(3, target_turf))
+	if(locate(/obj/effect/decal/heretic_rune) in range(3, target_turf))
 		target_turf.balloon_alert(user, "другая руна рядом!")
 		return
 
@@ -384,7 +398,7 @@
 
 	qdel(drawing_effect)
 	target_turf.balloon_alert(user, "руна создана")
-	new /obj/effect/heretic_rune/big(target_turf, rune_colour)
+	new /obj/effect/decal/heretic_rune/big(target_turf, rune_colour)
 	drawing_rune = FALSE
 
 /**

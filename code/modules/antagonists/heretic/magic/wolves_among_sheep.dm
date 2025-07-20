@@ -41,7 +41,7 @@
 	center_turf = get_turf(action.owner)
 	playsound(center_turf,'sound/machines/airlock/airlockopen.ogg', 750, TRUE)
 	to_transform = list()
-	new /obj/effect/heretic_rune/big(center_turf)
+	new /obj/effect/decal/heretic_rune/big(center_turf)
 	addtimer(CALLBACK(src, PROC_REF(create_arena), center_turf), 1 SECONDS)
 	revert_timer = addtimer(CALLBACK(src, PROC_REF(revert_effects)), 61 SECONDS, TIMER_STOPPABLE) // 1 second to spread out, 60 seconds to fight
 

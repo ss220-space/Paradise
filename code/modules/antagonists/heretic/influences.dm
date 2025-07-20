@@ -117,7 +117,7 @@
 		return
 
 	var/mob/living/carbon/human/human_user = user
-	var/obj/item/organ/external/their_poor_arm = human_user.get_active_hand()
+	var/obj/item/organ/external/their_poor_arm = user.hand ? user.get_organ(BODY_ZONE_L_ARM) : user.get_organ(BODY_ZONE_R_ARM)
 	if(prob(75))
 		to_chat(human_user, span_danger("Вы в последний момент отдергиваете руку от дыры, видя как потусторонняя энергия, пытается ухватиться за нее!"))
 		return
@@ -126,6 +126,7 @@
 	their_poor_arm.dismember()
 	their_poor_arm.forceMove(src) // stored for later fishage
 	return TRUE
+
 
 /obj/effect/visible_heretic_influence/attack_tk(mob/user)
 	if(!ishuman(user))
@@ -159,6 +160,7 @@
 	explosion.set_up(1, get_turf(human_user), TRUE, 0)
 	explosion.start(src)
 
+
 /obj/effect/visible_heretic_influence/examine(mob/living/user)
 	. = ..()
 	. += span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "examine"))
@@ -167,6 +169,7 @@
 
 	. += span_userdanger("Ваш разум горит, когда вы смотрите на разлом!")
 	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 190)
+
 
 /obj/effect/heretic_influence
 	name = "раскол реальности"
@@ -188,6 +191,7 @@
 	/// The icon state applied to the image created for this influence.
 	var/real_icon_state = "reality_smash"
 
+
 /obj/effect/heretic_influence/Initialize(mapload)
 	. = ..()
 	GLOB.reality_smash_track.smashes += src
@@ -198,29 +202,33 @@
 
 	AddComponent(/datum/component/redirect_attack_hand_from_turf, interact_check = CALLBACK(src, PROC_REF(verify_user_can_see)))
 
+
 /obj/effect/heretic_influence/proc/verify_user_can_see(mob/user)
 	return (user.mind in GLOB.reality_smash_track.tracked_heretics)
+
 
 /obj/effect/heretic_influence/Destroy()
 	GLOB.reality_smash_track.smashes -= src
 	return ..()
 
+
 /obj/effect/heretic_influence/attackby(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
 	. = ..()
-	if(.)
-		return
-
 	// Using a codex will give you two knowledge points for draining.
 	if(drain_influence_with_codex(user, weapon))
-		return TRUE
+		return ATTACK_CHAIN_PROCEED
+
 
 /obj/effect/heretic_influence/proc/drain_influence_with_codex(mob/user, obj/item/codex_cicatrix/codex)
 	if(!istype(codex) || being_drained)
 		return FALSE
+
 	if(!codex.book_open)
 		codex.attack_self(user) // open booke
+
 	INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 2, codex.drain_speed)
 	return TRUE
+
 
 /**
  * Begin to drain the influence, setting being_drained,
@@ -247,6 +255,7 @@
 	// Aaand now we delete it
 	after_drain(user)
 
+
 /**
  * Handle the effects of the drain.
  */
@@ -270,13 +279,16 @@
 	GLOB.reality_smash_track.num_drained++
 	qdel(src)
 
+
 /**
  * Generates a random name for the influence.
  */
 /obj/effect/heretic_influence/proc/generate_name()
 	name = "\improper" + pick_list(HERETIC_INFLUENCE_FILE, "prefix") + " " + pick_list(HERETIC_INFLUENCE_FILE, "postfix")
 
+
 #undef NUM_INFLUENCES_PER_HERETIC
+
 
 /// Hud used for heretics to see influences
 /datum/atom_hud/alternate_appearance/basic/has_antagonist/heretic

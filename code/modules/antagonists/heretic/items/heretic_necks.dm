@@ -1,6 +1,15 @@
 /obj/item/clothing/neck/heretic_focus
-	name = "amber focus"
-	desc = "An amber focusing glass that provides a link to the world beyond. The necklace seems to twitch, but only when you look at it from the corner of your eye."
+	name = "Янтарный Амулет"
+	ru_names = list(
+		NOMINATIVE = "Янтарный Амулет",
+		GENITIVE = "Янтарного Амулета",
+		DATIVE = "Янтарному Амулету",
+		ACCUSATIVE = "Янтарный Амулет",
+		INSTRUMENTAL = "Янтарным Амулетом",
+		PREPOSITIONAL = "Янтарном Амулете",
+	)
+	desc = "Янтарный кристалл, связанный с потусторонним миром. Если не смотреть на амулет, он начинает подрагивать."
+	gender = MALE
 	icon_state = "eldritch_necklace"
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF

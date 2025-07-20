@@ -139,6 +139,9 @@
 	if(!length(result_atoms))
 		return FALSE
 
+	for(var/result in result_atoms)
+		new result(loc)
+
 	return TRUE
 
 /**
@@ -234,6 +237,7 @@
 		return FALSE
 
 	return TRUE
+
 
 /datum/heretic_knowledge/limited_amount/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	for(var/result in result_atoms)

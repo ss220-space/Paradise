@@ -1,5 +1,5 @@
 /// The heretic's rune, which they use to complete transmutation rituals.
-/obj/effect/heretic_rune
+/obj/effect/decal/heretic_rune
 	name = "Руна Трансформации"
 	ru_names = list(
 		NOMINATIVE = "Руна Трансформации",
@@ -15,12 +15,12 @@
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	plane = FLOOR_PLANE
-	layer = CLEANABLES_LAYER
+	layer = ABOVE_CLEANABLES_LAYER
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
 	var/is_in_use = FALSE
 
 
-/obj/effect/heretic_rune/Initialize(mapload)
+/obj/effect/decal/heretic_rune/Initialize(mapload)
 	. = ..()
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
@@ -28,7 +28,7 @@
 	ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
 
 
-/obj/effect/heretic_rune/examine(mob/user)
+/obj/effect/decal/heretic_rune/examine(mob/user)
 	. = ..()
 	if(!isheretic(user))
 		return
@@ -37,7 +37,7 @@
 	. += span_notice("Вы можете использовать <i>Прикосновение Мансуса</i> на руне, чтобы стереть её.")
 
 
-/obj/effect/heretic_rune/proc/can_interact(mob/living/user)
+/obj/effect/decal/heretic_rune/proc/can_interact(mob/living/user)
 	if(!isheretic(user))
 		return FALSE
 
@@ -47,21 +47,21 @@
 	return TRUE
 
 
-/obj/effect/heretic_rune/attackby(obj/item/item, mob/living/user, params)
+/obj/effect/decal/heretic_rune/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
 	if(!can_interact(user))
-		return FALSE
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(try_rituals), user)
-	return TRUE
+	return ATTACK_CHAIN_PROCEED
 
 
 /**
  * Attempt to begin a ritual, giving them an input list to chose from.
  * Also ensures is_in_use is enabled and disabled before and after.
  */
-/obj/effect/heretic_rune/proc/try_rituals(mob/living/user)
+/obj/effect/decal/heretic_rune/proc/try_rituals(mob/living/user)
 	is_in_use = TRUE
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -89,7 +89,7 @@
  *
  * returns TRUE if any rituals passed succeeded, FALSE if they all failed.
  */
-/obj/effect/heretic_rune/proc/do_ritual(mob/living/user, datum/heretic_knowledge/ritual)
+/obj/effect/decal/heretic_rune/proc/do_ritual(mob/living/user, datum/heretic_knowledge/ritual)
 
 	// Collect all nearby valid atoms over the rune for processing in rituals.
 	var/list/atom/movable/atoms_in_range = list()
@@ -133,7 +133,7 @@
 			if(islist(req_type) && !is_type_in_list(nearby_atom, req_type))
 				continue
 
-			else if(!istype(nearby_atom, req_type))
+			else if(!islist(req_type) && !istype(nearby_atom, req_type))
 				continue
 
 			// if list has items, check if the strict type is banned.
@@ -146,7 +146,7 @@
 			// as our requirements may want more than one item of a stack
 			if(!isstack(nearby_atom))
 				requirements_list[req_type]--
-				return
+				continue
 
 			var/obj/item/stack/picked_stack = nearby_atom
 			requirements_list[req_type] -= picked_stack.amount // Can go negative, but doesn't matter. Negative = fulfilled
@@ -223,16 +223,17 @@
 
 
 /// A 3x3 heretic rune. The kind heretics actually draw in game.
-/obj/effect/heretic_rune/big
+/obj/effect/decal/heretic_rune/big
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "transmutation_rune"
 	pixel_x = -30
-	pixel_y = 18
-	pixel_z = -48
+	pixel_y = -30
+	//pixel_y = 18
+	//pixel_z = -48
 	//greyscale_config = /datum/greyscale_config/heretic_rune
 
 
-/obj/effect/heretic_rune/big/Initialize(mapload, path_colour)
+/obj/effect/decal/heretic_rune/big/Initialize(mapload, path_colour)
 	. = ..()
 	if(!path_colour)
 		return
@@ -245,13 +246,15 @@
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "transmutation_rune"
 	pixel_x = -30
-	pixel_y = 18
-	pixel_z = -48
+	pixel_y = -30
+	//pixel_y = 18
+	//pixel_z = -48
 	plane = FLOOR_PLANE
-	layer = CLEANABLES_LAYER
+	layer = ABOVE_CLEANABLES_LAYER
 	//greyscale_config = /datum/greyscale_config/heretic_rune
 	/// We only set this state after setting the colour, otherwise the animation doesn't colour correctly
 	var/animation_state = "transmutation_rune_draw"
+
 
 /obj/effect/temp_visual/drawing_heretic_rune/Initialize(mapload, path_colour = COLOR_WHITE)
 	. = ..()
@@ -261,9 +264,11 @@
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "heretic_rune", silicon_image)
 
+
 /obj/effect/temp_visual/drawing_heretic_rune/fast
 	duration = 12 SECONDS
 	animation_state = "transmutation_rune_fast"
+
 
 /obj/effect/temp_visual/drawing_heretic_rune/fail
 	duration = 0.25 SECONDS

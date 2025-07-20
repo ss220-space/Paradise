@@ -161,6 +161,7 @@
 #define TURF_DECAL_LAYER 2.039 //Makes turf decals appear in DM how they will look inworld.
 #define ABOVE_OPEN_TURF_LAYER 2.04
 #define CLEANABLES_LAYER 2.045
+#define ABOVE_CLEANABLES_LAYER 2.0475
 
 //WALL_PLANE layers
 #define CLOSED_TURF_LAYER 2.05

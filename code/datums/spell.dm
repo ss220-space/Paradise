@@ -433,7 +433,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	before_cast(targets, user)
+	if(!before_cast(targets, user))
+		return FALSE
+
 	invocation(user)
 
 	if(user && user.ckey)
@@ -472,23 +474,29 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/spell/proc/before_cast(list/targets, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
-	if(overlay)
-		for(var/atom/target in targets)
-			var/location
-			if(isliving(target))
-				location = target.loc
-			else if(isturf(target))
-				location = target
-			var/obj/effect/overlay/spell = new /obj/effect/overlay(location)
-			spell.icon = overlay_icon
-			spell.icon_state = overlay_icon_state
-			spell.set_anchored(TRUE)
-			spell.set_density(FALSE)
-			spawn(overlay_lifespan)
-				qdel(spell)
+	if(!overlay)
+		custom_handler?.before_cast(targets, user, src)
+		return !HASBIT(SEND_SIGNAL(action.owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, targets), SPELL_CANCEL_CAST)
+
+
+	for(var/atom/target in targets)
+		var/location
+		if(isliving(target))
+			location = target.loc
+		else if(isturf(target))
+			location = target
+
+		var/obj/effect/overlay/spell = new /obj/effect/overlay(location)
+		spell.icon = overlay_icon
+		spell.icon_state = overlay_icon_state
+		spell.set_anchored(TRUE)
+		spell.set_density(FALSE)
+		spawn(overlay_lifespan)
+			qdel(spell)
 
 	custom_handler?.before_cast(targets, user, src)
-	SEND_SIGNAL(action.owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, targets)
+	return !HASBIT(SEND_SIGNAL(action.owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, targets), SPELL_CANCEL_CAST)
+
 
 /obj/effect/proc_holder/spell/proc/after_cast(list/targets, mob/user)
 	SHOULD_CALL_PARENT(TRUE)

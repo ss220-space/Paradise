@@ -11,14 +11,16 @@
 	clothes_req = FALSE
 	base_cooldown = 10 SECONDS
 
-	invocation_type = INVOCATION_SHOUT
+	invocation_type = INVOCATION_NONE
 	// Mimes can cast it. Chaplains can cast it. Anyone can cast it, so long as they have a hand.
 	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 
+
 /obj/effect/proc_holder/spell/touch/mansus_grasp/valid_target(atom/cast_on)
 	return TRUE // This baby can hit anything
+
 
 /obj/effect/proc_holder/spell/touch/mansus_grasp/can_cast(feedback = TRUE)
 	return ..() && (isheretic(action.owner) || !!IS_LUNATIC(action.owner))
@@ -30,6 +32,7 @@
 		span_danger("The spell bounces off of you!"),
 	)
 */
+
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/victim, mob/living/carbon/caster, proximity, params)
 	var/list/modifiers = params2list(params)
@@ -81,6 +84,14 @@
 
 /obj/item/melee/touch_attack/mansus_fist
 	name = "Прикосновение Мансуса"
+	ru_names = list(
+		NOMINATIVE = "Прикосновение Мансуса",
+		GENITIVE = "Прикосновения Мансуса",
+		DATIVE = "Прикосновению Мансуса",
+		ACCUSATIVE = "Прикосновение Мансуса",
+		INSTRUMENTAL = "Прикосновением Мансуса",
+		PREPOSITIONAL = "Прикосновении Мансуса",
+	)
 	desc = "Ваша рука пропитана зловещей аурой, способной искажать реальнось. \
 			Вызывает нокдаун, лёгкие ушибы и значительный урон выносливости. \
 			По мере того, как вы расширяете свои знания о Мансусе, она приобретает дополнительные эффекты."
@@ -95,7 +106,7 @@
 		success_feedback = "You remove %THEEFFECT.", \
 		tip_text = "Не забудьте стереть руну", \
 		on_clear_callback = CALLBACK(src, PROC_REF(after_clear_rune)), \
-		effects_we_clear = list(/obj/effect/heretic_rune), \
+		effects_we_clear = list(/obj/effect/decal/heretic_rune), \
 		time_to_remove = 0.4 SECONDS)
 
 /*
