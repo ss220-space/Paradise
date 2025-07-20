@@ -14,6 +14,16 @@
 
 /obj/item/pinpointer
 	name = "pinpointer"
+	desc = "Небольшого размера устройство с дисплеем, предназначенное для обнаружения сигналов различных объектов. \
+			Эта модель настроена на поиск дискеты ядерной аутентификации и ядерной боеголовки."
+	ru_names = list(
+		NOMINATIVE = "целеуказатель",
+		GENITIVE = "целеуказателя",
+		DATIVE = "целеуказателю",
+		ACCUSATIVE = "целеуказатель",
+		INSTRUMENTAL = "целеуказателем",
+		PREPOSITIONAL = "целеуказателе"
+	)
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
@@ -35,6 +45,9 @@
 	var/cur_index = 1 // Which index the current mode is
 	var/mode = MODE_OFF // On which mode the pointer is at
 	var/modes = list(MODE_DISK, MODE_NUKE) // Which modes are there
+	// For LOCATION mode
+	var/locationx = NONE
+	var/locationy = NONE
 	var/shows_nuke_timer = TRUE
 	var/syndicate = FALSE // Indicates pointer is syndicate, and points to the syndicate nuke.
 	var/icon_off = "pinoff"
@@ -83,7 +96,7 @@
 		STOP_PROCESSING(SSfastprocess, src)
 		cur_index = 1
 		if(!silent)
-			to_chat(user, span_notice("You turn off [name]."))
+			user.balloon_alert(user, "отключено")
 		return
 	if(cur_index == 1)
 		START_PROCESSING(SSfastprocess, src)
@@ -91,28 +104,23 @@
 	if(!target)
 		update_icon(UPDATE_ICON_STATE)	// we need to update icon only without target, since processing will do it for us
 	if(!silent)
-		to_chat(user, span_notice("[get_mode_text(mode)]"))
-
-
-/obj/item/pinpointer/proc/get_mode_text(mode)
-	switch(mode)
-		if(MODE_DISK)
-			return "Authentication Disk Locator active."
-		if(MODE_NUKE)
-			return "Nuclear Device Locator active."
-		if(MODE_ADV)
-			return "Advanced Pinpointer Online."
-		if(MODE_SHIP)
-			return "Shuttle Locator active."
-		if(MODE_OPERATIVE)
-			return "You point the pinpointer to the nearest operative."
-		if(MODE_CREW)
-			return "You turn on the pinpointer."
-		if(MODE_THIEF)
-			return "Вы включили спец-пинпоинтер."
-		if(MODE_TENDRIL)
-			return "High energy scanner active."
-
+		switch(mode)
+			if(MODE_DISK)
+				user.balloon_alert(user, "поиск ядерной дискеты")
+			if(MODE_NUKE)
+				user.balloon_alert(user, "поиск ядерной боеголовки")
+			if(MODE_SHIP)
+				user.balloon_alert(user, "поиск шаттла")
+			if(MODE_OPERATIVE)
+				user.balloon_alert(user, "поиск ближайшего оперативника")
+			if(MODE_TENDRIL)
+				user.balloon_alert(user, "поиск всплесков энергии")
+			if(MODE_ADV)
+				user.balloon_alert(user, "включено")
+			if(MODE_CREW)
+				user.balloon_alert(user, "включено")
+			if(MODE_THIEF)
+				user.balloon_alert(user, "включено")
 
 /obj/item/pinpointer/proc/scandisk()
 	if(!the_disk)
@@ -197,20 +205,41 @@
 	if(shows_nuke_timer)
 		for(var/obj/machinery/nuclearbomb/bomb in GLOB.poi_list)
 			if(bomb.timing)
-				. += span_warning("Extreme danger. Arming signal detected. Time remaining: [bomb.timeleft]")
+				. += span_warning("Ядерная боеголовка активирована. Оставшееся время: <b>[bomb.timeleft] секунд[declension_ru(bomb.timeleft, "а", "ы", "")]</b>.")
 
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
-	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
+	desc = "Улучшенная версия целеуказателя. \
+			Представляет собой небольшого размера устройство с дисплеем, \
+			предназначенное для обнаружения широкого диапазона сигналов различных объектов."
+	ru_names = list(
+		NOMINATIVE = "продвинутый целеуказатель",
+		GENITIVE = "продвинутого целеуказателя",
+		DATIVE = "продвинутому целеуказателю",
+		ACCUSATIVE = "продвинутый целеуказатель",
+		INSTRUMENTAL = "продвинутым целеуказателем",
+		PREPOSITIONAL = "продвинутом целеуказателе"
+	)
 	modes = list(MODE_ADV)
-	var/modelocked = FALSE // If true, user cannot change mode.
+	// If true, user cannot change mode
+	var/modelocked = FALSE
 	var/setting = NONE
 
 
 /obj/item/pinpointer/advpinpointer/examine(mob/user)
 	. = ..()
+	var/active_mode
+	if(setting)
+		. += span_notice("Активный режим: <b>[active_mode]</b>.")
+	switch(setting)
+		if(SETTING_LOCATION)
+			active_mode = "поиск по координатам ([locationx], [locationy])"
+		if(SETTING_DISK)
+			active_mode = "поиск дискеты ядерной аутентификации"
+		if(SETTING_OBJECT)
+			active_mode = "поиск объекта"
 	if(Adjacent(user))
-		. += span_info("You can <b>Alt-Click</b> to choose tracking target.")
+		. += span_info("Используйте <b>Alt+ЛКМ</b> для смены режима поиска.")
 
 
 /obj/item/pinpointer/advpinpointer/process()
@@ -232,17 +261,17 @@
 		return
 
 	if(modelocked)
-		to_chat(user, span_warning("[src] is locked. It can only track one specific target."))
+		user.balloon_alert(user, "смена режима заблокирована!")
 		return
 
-	switch(tgui_alert(user, "Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", list("Location", "Disk Recovery", "Other Signature")))
-		if("Location")
+	switch(tgui_alert(user, "Выберите режим целеуказателя", "Режим целеуказателя", list("Местоположение", "Диск аутентификации", "Другие сигнатуры")))
+		if("Местоположение")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(user, "Enter X coordinate to search.", "Location X Define" , "") as null|num
+			locationx = tgui_input_number(user, "Введите координату местоположения по оси X", "X-координата местоположения" , min_value = 1)
 			if(isnull(locationx) || !(user in view(1,src)))
 				return
-			var/locationy = input(user, "Enter Y coordinate to search.", "Location Y Define" , "") as null|num
+			locationy = tgui_input_number(user, "Введите координату местоположения по оси Y", "Y-координата местоположения" , min_value = 1)
 			if(isnull(locationy) || !(user in view(1,src)))
 				return
 
@@ -250,23 +279,24 @@
 			locationx = clamp(locationx, 1, 255)
 			locationy = clamp(locationy, 1, 255)
 			target = locate(locationx, locationy, source_turf.z)
-			to_chat(user, span_notice("You point the pinpointer to coordinates: [locationx], [locationy]."))
+			user.balloon_alert(user, "поиск по координатам")
+			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] теперь указывает на местоположение со следующими координатами: [locationx], [locationy]."))
 
-		if("Disk Recovery")
+		if("Диск аутентификации")
 			setting = SETTING_DISK
-			to_chat(user, span_notice("You point the pinpointer to Nuclear Authentication Disk."))
+			user.balloon_alert(user, "поиск диска аутентификации")
 
-		if("Other Signature")
+		if("Другие сигнатуры")
 			setting = SETTING_OBJECT
-			switch(tgui_alert(user, "Search for item signature or DNA fragment?", "Signature Mode Select", list("Item", "DNA")))
-				if("Item")
+			switch(tgui_alert(user, "Выберите тип сигнатуры", "Другие сигнатуры", list("Предмет", "ДНК")))
+				if("Предмет")
 					var/list/item_names = list()
 					var/list/item_paths = list()
 					for(var/datum/theft_objective/objective as anything in GLOB.potential_theft_objectives)
 						var/name = initial(objective.name)
 						item_names += name
 						item_paths[name] = initial(objective.typepath)
-					var/targetitem = tgui_input_list(user, "Select item to serach for.", "Item Mode Select", item_names)
+					var/targetitem = tgui_input_list(user, "Выберите искомый предмет", "Поиск предмета", item_names)
 					if(!targetitem)
 						return
 
@@ -275,15 +305,17 @@
 					for(var/obj/item/candidate in target_candidates)
 						if(!is_admin_level((get_turf(candidate)).z))
 							target = candidate
-							to_chat(user, span_notice("You point the pinpointer to [target]."))
+							user.balloon_alert(user, "поиск предмета")
+							to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] теперь указывает на [target.declent_ru(ACCUSATIVE)]."))
 							break
 
 					if(!target)
 						nullify_targets(stop_icon_update = TRUE)
-						to_chat(user, span_warning("Could not find [targetitem] signature!"))
+						user.balloon_alert(user, "предмет не найден!")
+						to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] не смог обнаружить [target.declent_ru(ACCUSATIVE)]."))
 
-				if("DNA")
-					var/DNAstring = input("Input DNA string to search for." , "Please Enter String" , "")
+				if("ДНК")
+					var/DNAstring = tgui_input_text(user, "Введите ДНК-код искомого гуманоида" , "Поиск по ДНК-коду" , "")
 					if(!DNAstring)
 						return
 
@@ -293,12 +325,14 @@
 							continue
 						if(check.dna.unique_enzymes == DNAstring)
 							target = check
-							to_chat(user, span_notice("You point the pinpointer to [check.real_name]."))
+							user.balloon_alert(user, "поиск гуманоида")
+							to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] теперь указывает на [check.real_name]."))
 							break
 
 					if(!target)
 						nullify_targets(stop_icon_update = TRUE)
-						to_chat(user, span_warning("Failed to detect humanoid with DNA: [DNAstring]!"))
+						user.balloon_alert(user, "гуманоид с таким ДНК не найден!")
+						to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] не смог обнаружить гуманоида с введённым ДНК-кодом: [DNAstring]."))
 
 	if(mode == MODE_OFF)
 		cycle(user, silent = TRUE)
@@ -324,33 +358,36 @@
 
 
 /obj/item/pinpointer/nukeop/workdisk()
+	var/mob/user = usr
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
 		mode = MODE_SHIP	//Ensures worklocation() continues to work
 		modes = list(MODE_SHIP)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)	//Plays a beep
-		visible_message(span_notice("Shuttle Locator mode actived."))			//Lets the mob holding it know that the mode has changed
+		user.balloon_alert(user, "поиск шаттла")
 		return		//Get outta here
 	scandisk()
 	pinpoint_at(the_disk)
 
 
 /obj/item/pinpointer/nukeop/workbomb()
+	var/mob/user = usr
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
 		mode = MODE_SHIP	//Ensures worklocation() continues to work
 		modes = list(MODE_SHIP)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)	//Plays a beep
-		visible_message(span_notice("Shuttle Locator mode actived."))			//Lets the mob holding it know that the mode has changed
+		user.balloon_alert(user, "поиск шаттла")
 		return		//Get outta here
 	scanbomb()
 	pinpoint_at(the_s_bomb)
 
 
 /obj/item/pinpointer/nukeop/proc/worklocation()
+	var/mob/user = usr
 	if(!GLOB.bomb_set)
 		mode = MODE_DISK
 		modes = list(MODE_DISK, MODE_NUKE)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
-		visible_message(span_notice("Authentication Disk Locator mode actived."))
+		user.balloon_alert(user, "поиск ядерной дискеты")
 		return
 	if(!home)
 		home = SSshuttle.getShuttle("syndicate")
@@ -359,7 +396,17 @@
 
 /obj/item/pinpointer/operative
 	name = "operative pinpointer"
-	desc = "A pinpointer that leads to the first Syndicate operative detected."
+	desc = "Специализированная версия целеуказателя. \
+			Представляет собой небольшого размера устройство с дисплеем, \
+			предназначенное для поиска ближайшего оперативника Синдиката."
+	ru_names = list(
+		NOMINATIVE = "целеуказатель оперативника",
+		GENITIVE = "целеуказателя оперативника",
+		DATIVE = "целеуказателю оперативника",
+		ACCUSATIVE = "целеуказатель оперативника",
+		INSTRUMENTAL = "целеуказателем оперативника",
+		PREPOSITIONAL = "целеуказателе оперативника"
+	)
 	icon_state = "pinoff_contractor"
 	icon_off = "pinoff_contractor"
 	icon_null = "pinonnull_contractor"
@@ -398,14 +445,24 @@
 	. = ..()
 	if(target)
 		var/mob/living/carbon/human/operative = target
-		. += span_notice("Nearest operative detected is <i>[operative.real_name]</i>.")
+		. += span_notice("Ближаший обнаруженный оперативник – <b>[operative.real_name]</b>.")
 	else
-		. += span_notice("No operatives detected within scanning range.")
+		. += span_notice("Оперативники в радиусе сканирования не обнаружены.")
 
 
 /obj/item/pinpointer/ninja
 	name = "spider clan pinpointer"
-	desc = "A pinpointer that leads to the first Spider Clan assassin detected."
+	desc = "Специализированная версия целеуказателя. \
+			Представляет собой небольшого размера устройство с дисплеем, \
+			предназначенное для поиска ближайшего ассасина Клана Паука."
+	ru_names = list(
+		NOMINATIVE = "целеуказатель Клана Паука",
+		GENITIVE = "целеуказателя Клана Паука",
+		DATIVE = "целеуказателю Клана Паука",
+		ACCUSATIVE = "целеуказатель Клана Паука",
+		INSTRUMENTAL = "целеуказателем Клана Паука",
+		PREPOSITIONAL = "целеуказателе Клана Паука"
+	)
 	modes = list(MODE_NINJA)
 
 
@@ -437,14 +494,24 @@
 	. = ..()
 	if(target)
 		var/mob/living/carbon/human/ninja = target
-		. += span_notice("Nearest ninja detected is <i>[ninja.real_name]</i>.")
+		. += span_notice("Ближайший обнаруженный ниндзя – <b>[ninja.real_name]</b>.")
 	else
-		. += span_notice("No ninjas detected within scanning range.")
+		. += span_notice("Ниндзя в радиусе сканирования не обнаружен.")
 
 
 /obj/item/pinpointer/crew
 	name = "crew pinpointer"
-	desc = "A handheld tracking device that points to crew suit sensors."
+	desc = "Специализированная версия целеуказателя. \
+			Представляет собой небольшого размера устройство с дисплеем, \
+			предназначенное для отслеживания членов экипажа объекта по датчикам жизнедеятельности."
+	ru_names = list(
+		NOMINATIVE = "целеуказатель экипажа",
+		GENITIVE = "целеуказателя экипажа",
+		DATIVE = "целеуказателю экипажа",
+		ACCUSATIVE = "целеуказатель экипажа",
+		INSTRUMENTAL = "целеуказателем экипажа",
+		PREPOSITIONAL = "целеуказателе экипажа"
+	)
 	shows_nuke_timer = FALSE
 	icon_state = "pinoff_crew"
 	item_state = "pinoff_crew"
@@ -460,7 +527,7 @@
 /obj/item/pinpointer/crew/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += span_info("You can <b>Alt-Click</b> to choose whom to track.")
+		. += span_info("Используйте <b>Alt+ЛКМ</b> для выбора цели отслеживания.")
 
 
 /obj/item/pinpointer/crew/proc/is_trackable(mob/living/carbon/human/pin_target)
@@ -505,7 +572,7 @@
 		if(!is_trackable(human))
 			continue
 
-		var/human_name = "Unknown"
+		var/human_name = "Неизвестный"
 		if(human.wear_id)
 			var/obj/item/card/id/card = human.wear_id.GetID()
 			if(card)
@@ -518,21 +585,16 @@
 		name_counts[human_name] = 1
 
 	if(!length(names))
-		user.visible_message(
-			span_notice("[user]'s pinpointer fails to detect any signals."),
-			span_notice("Your pinpointer fails to detect any signals."),
-		)
+		balloon_alert(user, "сигналы не зафиксированы!")
 		return
 
-	var/choice = tgui_input_list(user, "Person to track", "Pinpoint", names)
+	var/choice = tgui_input_list(user, "Выберите цель для отслеживания", "Целеуказатель экипажа", names)
 	if(!choice || !src || !user || (user.get_active_hand() != src) || user.incapacitated())
 		return
 
 	target = names[choice]
-	user.visible_message(
-		span_notice("[user] activates [user.p_their()] pinpointer."),
-		span_notice("You start tracking [choice]."),
-	)
+	balloon_alert(user, "отслеживание гуманоида")
+	to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] теперь указывает на <b>[choice]</b>."))
 
 	if(mode == MODE_OFF)
 		cycle(user, silent = TRUE)
@@ -540,7 +602,18 @@
 
 /obj/item/pinpointer/crew/centcom
 	name = "centcom pinpointer"
-	desc = "A handheld tracking device that tracks crew based on remote centcom sensors."
+	desc = "Специализированная версия целеуказателя. \
+			Представляет собой небольшого размера устройство с дисплеем, \
+			предназначенное для отслеживания членов экипажа объекта\
+			с помощью сканеров Центрального Командования."
+	ru_names = list(
+		NOMINATIVE = "целеуказатель ЦентКома",
+		GENITIVE = "целеуказателя ЦентКома",
+		DATIVE = "целеуказателю ЦентКома",
+		ACCUSATIVE = "целеуказатель ЦентКома",
+		INSTRUMENTAL = "целеуказателем ЦентКома",
+		PREPOSITIONAL = "целеуказателе ЦентКома"
+	)
 
 
 /obj/item/pinpointer/crew/centcom/is_trackable(mob/living/carbon/human/pin_target)
@@ -553,8 +626,10 @@
 ///thief pinpointers///
 ///////////////////////
 /obj/item/pinpointer/thief
-	name = "pinpointer"
-	desc = "Модифицированный пинпоинтер #REDACTED# предназначенный для нахождения всех ценных и интересных для #REDACTED# сигнатур, не передающий сигналы локаторами. На обратной стороне напечатан странный непонятный детский ребус."
+	desc = "Модицифированная версия целеуказателя. \
+			Представляет собой небольшого размера устройство с дисплеем, \
+			предназначенное для отслеживания сигнатуре определённого рода. \
+			На обратной стороне напечатан странный ребус."
 	modes = list(MODE_THIEF)
 	shows_nuke_timer = FALSE
 	icon_state = "pinoff_crew"
@@ -572,7 +647,7 @@
 /obj/item/pinpointer/thief/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += span_info("Нажмите <b>Alt-Click</b> для выбора режима отслеживания.")
+		. += span_info("Используйте <b>Alt+ЛКМ</b> для выбора режима отслеживания.")
 
 
 /obj/item/pinpointer/thief/process()
@@ -585,12 +660,12 @@
 	switch(setting)
 		if(SETTING_LOCATION)
 			if(!target)
-				to_chat(user, span_notice("Определите координаты локации у пинпоинтера."))
+				balloon_alert(user, "поиск по координатам")
 		if(SETTING_OBJECT)
 			if(!target)
-				to_chat(user, span_notice("Определите цель пинпоинтера."))
+				balloon_alert(user, "поиск объекта")
 		else
-			to_chat(user, span_notice("Режим пинпоинтера не определен."))
+			balloon_alert(user, "выключено")
 
 
 /obj/item/pinpointer/thief/click_alt(mob/user)
@@ -602,14 +677,14 @@
 	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	switch(alert("Выберите режим пинпоинтера.", "Выбор режима пинпоинтера", "Локация", "Сигнатура Объекта", "Цели"))
-		if("Локация")
+	switch(tgui_alert(user, "Выберите режим целеуказателя", "Режим целеуказателя", list("Местоположение", "Поиск объекта", "Поиск целевого объекта")))
+		if("Местоположение")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(user, "Введите X координату для поиска.", "Локация?" , "") as null|num
+			locationx = tgui_input_number(user, "Введите координату местоположения по оси X", "X-координата местоположения" , min_value = 1)
 			if(isnull(locationx) || !(user in view(1,src)))
 				return
-			var/locationy = input(user, "Введите Y координату для поиска.", "Локация?" , "") as null|num
+			locationy = tgui_input_number(user, "Введите координату местоположения по оси Y", "Y-координата местоположения" , min_value = 1)
 			if(isnull(locationy) || !(user in view(1,src)))
 				return
 
@@ -617,7 +692,8 @@
 			locationx = clamp(locationx, 1, 255)
 			locationy = clamp(locationy, 1, 255)
 			target = locate(locationx, locationy, source_turf.z)
-			to_chat(user, span_notice("Вы переключили пинпоинтер на координаты: [locationx], [locationy]."))
+			user.balloon_alert(user, "поиск по координатам")
+			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] теперь указывает на местоположение со следующими координатами: [locationx], [locationy]."))
 
 		if("Сигнатура Объекта")
 			setting = SETTING_OBJECT
@@ -633,13 +709,13 @@
 			var/input_subtype
 			switch(input_type)
 				if("Предмет")
-					input_subtype = tgui_alert("Какой тип доступности предмета?" , "Определение Доступности Предмета" , "Сложнодоступен" , "Доступен" , "Коллекционный")
+					input_subtype = tgui_alert("Какой тип доступности предмета?" , "Определение доступности предмета" , "Сложнодоступен" , "Легкодоступен" , "Коллекционный")
 					switch(input_subtype)
 						if("Сложнодоступен")
 							for(var/datum/theft_objective/theft as anything in (GLOB.potential_theft_objectives_hard|GLOB.potential_theft_objectives))
 								targets_list += initial(theft.typepath)
 
-						if("Доступен")
+						if("Легкодоступен")
 							for(var/datum/theft_objective/theft as anything in GLOB.potential_theft_objectives_medium)
 								targets_list += initial(theft.typepath)
 
@@ -669,7 +745,7 @@
 						targets_list += initial(theft.typepath)
 
 			for(var/atom/theft_typepath as anything in targets_list)
-				var/theft_name = initial(theft_typepath.name)
+				var/theft_name = theft_typepath.declent_ru_initial(NOMINATIVE)
 				target_names += theft_name
 				target_paths[theft_name] = theft_typepath
 
@@ -679,17 +755,19 @@
 
 			current_targets = get_theft_targets_station(target_paths[choosen_target], subtypes = TRUE, blacklist = list(user))
 			if(!length(current_targets))
-				to_chat(user, span_warning("Не удалось обнаружить <b>[choosen_target]</b>!"))
+				to_chat(user, span_warning("Не удалось обнаружить <b>\"[choosen_target]\"</b>!"))
+				balloon_alert(user, "объект не обнаружен!")
 				return
 
 			targets_index = 1
 			target = current_targets[targets_index]
-			to_chat(user, span_notice("Вы переключили пинпоинтер для обнаружения <b>[choosen_target]</b>. Найдено целей: <b>[length(current_targets)]</b>."))
+			to_chat(user, span_notice("Вы переключаете [declent_ru(ACCUSATIVE)] в режим поиска <b>\"[choosen_target]\"</b>. Найдено целей: <b>[length(current_targets)]</b>."))
+			balloon_alert(user, "поиск выбранного объекта")
 
 		if("Цели")
-			var/input_type = tgui_alert(user, "Какую операцию стоит произвести?", "Выбор Операции", list("Показать Цели", "Следующая Цель"))
+			var/input_type = tgui_alert(user, "Какую операцию стоит произвести?", "Выбор операции", list("Показать цели", "Следующая цель"))
 			switch(input_type)
-				if("Показать Цели")
+				if("Показать цели")
 					setting = SETTING_OBJECT
 					var/list/all_objectives = user.mind.get_all_objectives()
 					if(length(all_objectives) && user.mind.has_antag_datum(/datum/antagonist/thief))
@@ -710,41 +788,46 @@
 									targets_list |= wanted_type
 
 						for(var/atom/theft_typepath as anything in targets_list)
-							var/theft_name = initial(theft_typepath.name)
+							var/theft_name = theft_typepath.declent_ru_initial(NOMINATIVE)
 							target_names += theft_name
 							target_paths[theft_name] = theft_typepath
 
-						var/choosen_target = tgui_input_list(user, "Выберите интересующую вас цель:", "Режим Выбора Цели", target_names)
+						var/choosen_target = tgui_input_list(user, "Выберите интересующую вас цель:", "Выбор цели", target_names)
 						if(!choosen_target)
 							return
 
 						current_targets = get_theft_targets_station(target_paths[choosen_target], subtypes = TRUE, blacklist = list(user))
 						if(!length(current_targets))
-							to_chat(user, span_warning("Не удалось обнаружить <b>[choosen_target]</b>!"))
+							to_chat(user, span_warning("Не удалось обнаружить <b>\"[choosen_target]\"</b>!"))
+							balloon_alert(user, "цель не обнаружена!")
 							return
 
 						targets_index = 1
 						target = current_targets[targets_index]
-						to_chat(user, span_notice("Вы переключили пинпоинтер для обнаружения <b>[choosen_target]</b>. Найдено целей: <b>[length(current_targets)]</b>."))
+						to_chat(user, span_notice("Вы переключаете [declent_ru(ACCUSATIVE)] в режим поиска <b>\"[choosen_target]\"</b>. Найдено целей: <b>[length(current_targets)]</b>."))
+						balloon_alert(user, "поиск цели")
 
 					else
-						to_chat(user, span_warning("Не удалось обнаружить интересные цели для #REDACTED#! Если вы не член #REDACTED#, верните устройство владельцу или обратитесь по зашифрованному номеру на обратной стороне пинпоинтера."))
+						to_chat(user, span_warning("Не удалось обнаружить требуемые цели"))
+						balloon_alert(user, "цели не обнаружены!")
 						return
 
-				if("Следующая Цель")
+				if("Следующая цель")
 					if(!length(current_targets))
 						to_chat(user, span_warning("Не удалось идентифицировать режим отслеживания!"))
+						balloon_alert(user, "ошибка!")
 						return
 
 					targets_index++
 					if(targets_index > length(current_targets))
 						targets_index = 1
 						var/atom/temp_target = current_targets[targets_index]
-						to_chat(user, span_warning("Доступные цели, с сигнатурой <b>[initial(temp_target.name)]</b>, закончились, возвращаемся к первой!"))
+						to_chat(user, span_warning("Доступные цели с сигнатурой <b>[temp_target.declent_ru_initial(NOMINATIVE)]</b>, закончились, возвращаемся к первой!"))
+						balloon_alert(user, "возврат к первой цели")
 
 					else
 						var/atom/temp_target = current_targets[targets_index]
-						to_chat(user, span_notice("Вы переключили пинпоинтер на <b>[targets_index]</b> цель из <b>[length(current_targets)]</b>, сигнатура: <b>[initial(temp_target.name)]</b>."))
+						to_chat(user, span_notice("Вы переключаете [declent_ru(ACCUSATIVE)] в режим поиска <b>[targets_index]</b> цели из <b>[length(current_targets)]</b>, сигнатура: <b>[temp_target.declent_ru_initial(NOMINATIVE)]</b>."))
 
 					target = current_targets[targets_index]
 
@@ -754,7 +837,15 @@
 
 /obj/item/pinpointer/tendril
 	name = "ancient scanning unit"
-	desc = "Convenient that the scanning unit for the robot survived. Seems to point to the tendrils around here."
+	desc = "Причудливого вида небольшое устройство, похожее на сканирующий компонент какой-то машины. Судя по всему, оно указывает на отростки Лазиса."
+	ru_names = list(
+		NOMINATIVE = "древний сканер",
+		GENITIVE = "древнего сканера",
+		DATIVE = "древнему сканеру",
+		ACCUSATIVE = "древний сканер",
+		INSTRUMENTAL = "древним сканером",
+		PREPOSITIONAL = "древнем сканере"
+	)
 	icon_state = "pinoff_ancient"
 	icon_off = "pinoff_ancient"
 	icon_null = "pinonnull_ancient"
@@ -790,7 +881,7 @@
 /obj/item/pinpointer/tendril/examine(mob/user)
 	. = ..()
 	if(mode == MODE_TENDRIL)
-		. += "Number of high energy signatures remaining: [length(GLOB.tendrils)]"
+		. += "Количество обнаруженных высокоэнергетических объектов: </b>[length(GLOB.tendrils)]</b>."
 
 
 #undef MODE_OFF
