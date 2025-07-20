@@ -114,12 +114,16 @@
 	card_attack_verb = list("атаковал", "полоснул", "порезал")
 	card_resistance_flags = NONE
 	sharp = TRUE
+	var/sharpened = FALSE
 
 /obj/item/deck/cards/syndicate/sharpen_act(obj/item/whetstone/whetstone, mob/user)
+	if(sharpened)
+		return
 	name = "[whetstone.prefix] [name]"
 	card_force = clamp(card_force + whetstone.increment, 0, whetstone.max)
 	card_throwforce = clamp(card_throwforce + whetstone.increment, 0, whetstone.max)
 	set_sharpness(TRUE)
+	sharpened = TRUE
 	return TRUE
 
 
