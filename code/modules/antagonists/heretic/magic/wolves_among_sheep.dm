@@ -4,10 +4,10 @@
  * For the functionality of the spell itself see [/obj/effect/abstract/heretic_arena] which is created during [/proc/create_arena()]
  */
 /obj/effect/proc_holder/spell/wolves_among_sheep
-	name = "Wolves among Sheep"
-	desc = "Alters the fabric of reality, conjuring a magical arena unpassable to outsiders, \
-		all participants are trapped and immune to any form of crowd control or enviromental hazards; \
-		trapped participants are granted a Blade and are unable to leave or jaunt until they score a critical hit."
+	name = "Волки среди овец"
+	desc = "Изменяет ткань реальности, создавая магическую арену, недоступную для посторонних. \
+			Все участники оказываются в ловушке. \
+			Пойманным участникам даруется Клинок, и они не могут покинуть арену пока не убьют противника."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = null
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -78,7 +78,7 @@
 		if(!feedback)
 			return FALSE
 
-		action.owner.balloon_alert(action.owner, "another arena nearby!")
+		action.owner.balloon_alert(action.owner, "другая арена рядом!")
 		return FALSE
 
 
@@ -150,6 +150,7 @@
 		target.turf_flags = initial(target.turf_flags) // Restore flags to what they were
 		for(var/obj/structure/window/to_revert in target)
 			to_revert.remove_alt_appearance("heretic_arena")
+
 	for(var/obj/machinery/door/airlock/to_restore in banished_airlocks)
 		to_restore.forceMove(banished_airlocks[to_restore])
 		banished_airlocks -= to_restore

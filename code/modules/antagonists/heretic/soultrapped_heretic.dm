@@ -1,14 +1,16 @@
 ///a heretic that got soultrapped by cultists. does nothing, other than signify they suck
 /datum/antagonist/soultrapped_heretic
-	name = "\improper Запертая Душа Еретика"
+	name = "Запертая Душа Еретика"
 	roundend_category = "Heretics"
 	job_rank = ROLE_HERETIC
 	antag_hud_name = "heretic"
+
 
 // always failure obj
 /datum/objective/heretic_trapped
 	name = "soultrapped failure"
 	explanation_text = "Помогите культу. Уничтожьте культ. Помогите экипажу. Перебейте экипаж. Помогите своему владельцу. Убейте своего владельца. Убейте всех. Грохочите своими цепями. Разбейте свои оковы."
+
 
 /datum/antagonist/soultrapped_heretic/on_gain()
 	..()
