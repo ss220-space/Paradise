@@ -676,14 +676,14 @@
 			return welder_act(user, I)
 
 
-// Tool-specific behavior procs. To be overridden in subtypes.
+/// Tool-specific behavior procs. To be overridden in subtypes.
 /atom/proc/crowbar_act(mob/living/user, obj/item/I)
 	return
 
 /atom/proc/multitool_act(mob/living/user, obj/item/I)
 	return
 
-//Check if the multitool has an item in its data buffer
+/// Check if the multitool has an item in its data buffer
 /atom/proc/multitool_check_buffer(user, silent = FALSE)
 	if(!silent)
 		balloon_alert(user, "буфер данных отсутствует!")
@@ -725,11 +725,11 @@
 /atom/proc/rpd_act()
 	return
 
+/// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
 /atom/proc/rpd_blocksusage()
-	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
 	return FALSE
 
-// Wrapper, called by an RCD
+/// Wrapper, called by an RCD
 /atom/proc/rcd_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
 	if(rcd_mode == RCD_MODE_DECON)
 		return rcd_deconstruct_act(user, our_rcd)
@@ -792,7 +792,7 @@
 /atom/proc/get_spooked()
 	return FALSE
 
-///Handle the atom being slipped over
+/// Handle the atom being slipped over
 /atom/proc/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube, tilesSlipped)
 	return
 
@@ -831,7 +831,7 @@
 	return
 
 
-//Set ignoregloves to add prints irrespective of the mob having gloves on.
+/// Set ignoregloves to add prints irrespective of the mob having gloves on.
 /atom/proc/add_fingerprint(mob/living/M, ignoregloves = FALSE)
 	if(isnull(M))
 		return
@@ -937,7 +937,7 @@
 
 GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
-//returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
+/// returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
 /mob/living/proc/get_blood_dna_list()
 	if(get_blood_id() != "blood")
 		return
@@ -958,7 +958,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /mob/living/carbon/alien/get_blood_dna_list()
 	return list("UNKNOWN DNA" = "X*")
 
-//to add a mob's dna info into an object's blood_DNA list.
+/// to add a mob's dna info into an object's blood_DNA list.
 /atom/proc/transfer_mob_blood_dna(mob/living/L)
 	var/new_blood_dna = L.get_blood_dna_list()
 	if(!new_blood_dna)
@@ -983,7 +983,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		basecolor = "#A10808"
 	update_icon()
 
-//to add blood dna info to the object's blood_DNA list
+/// to add blood dna info to the object's blood_DNA list
 /atom/proc/transfer_blood_dna(list/blood_dna)
 	if(!blood_dna || !length(blood_dna))
 		return FALSE
@@ -993,7 +993,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return length(blood_DNA) > old_length	//some new blood DNA was added
 
 
-//to add blood from a mob onto something, and transfer their dna info
+/// to add blood from a mob onto something, and transfer their dna info
 /atom/proc/add_mob_blood(mob/living/M)
 	var/list/blood_dna = M.get_blood_dna_list()
 	if(!blood_dna)
@@ -1005,7 +1005,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	return add_blood(blood_dna, bloodcolor)
 
-//to add blood onto something, with blood dna info to include.
+/// to add blood onto something, with blood dna info to include.
 /atom/proc/add_blood(list/blood_dna, color)
 	return FALSE
 
@@ -1167,18 +1167,17 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		cur_y = y_arr.Find(src.z)
 		if(cur_y)
 			break
-//	to_chat(world, "X = [cur_x]; Y = [cur_y]")
+///	to_chat(world, "X = [cur_x]; Y = [cur_y]")
 	if(cur_x && cur_y)
 		return list("x" = cur_x, "y" = cur_y)
 	else
 		return null
 
-// Used to provide overlays when using this atom as a viewing focus
-// (cameras, locker tint, etc.)
+/// Used to provide overlays when using this atom as a viewing focus (cameras, locker tint, etc.)
 /atom/proc/get_remote_view_fullscreens(mob/user)
 	return
 
-//the sight changes to give to the mob whose perspective is set to that atom (e.g. A mob with nightvision loses its nightvision while looking through a normal camera)
+/// the sight changes to give to the mob whose perspective is set to that atom (e.g. A mob with nightvision loses its nightvision while looking through a normal camera)
 /atom/proc/update_remote_sight(mob/living/user)
 	user.sync_lighting_plane_alpha()
 	return
@@ -1190,7 +1189,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return FALSE
 
 
-///Used for making a sound when a mob involuntarily falls into the ground.
+/// Used for making a sound when a mob involuntarily falls into the ground.
 /atom/proc/handle_fall(mob/living/carbon/faller)
 	return
 
@@ -1216,7 +1215,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return
 
 
-//This proc is called on the location of an atom when the atom is Destroy()'d
+/// This proc is called on the location of an atom when the atom is Destroy()'d
 /atom/proc/handle_atom_del(atom/A)
 	return
 
@@ -1543,14 +1542,22 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return t
 
 
-// Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
-// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+/// Процедура выбора правильного падежа для любого предмета, если у него указан словарь «ru_names», примерно так:
+/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 /atom/proc/declent_ru(case_id, list/ru_names_override)
 	var/list/list_to_use = ru_names_override || ru_names
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
 	return name
 
+/// Процедура выбора правильного падежа для любого предмета, если у него указан словарь «ru_names», примерно так:
+/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+/// В отличие от declent_ru(), в качестве словаря берёт "ru_names" объекта в его начальном состоянии, как указано в коде
+/atom/proc/declent_ru_initial(case_id)
+	var/list/list_to_use = initial(ru_names)
+	if(length(list_to_use))
+		return list_to_use[case_id] || name
+	return name
 
 /**
  * This proc is used for telling whether something can pass by this atom in a given direction, for use by the pathfinding system.
@@ -1845,7 +1852,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!ignored_gravity_sources[id])
 		ignored_gravity_sources.Remove(id)
 
-//Generalized Fire Proc.
+/// Generalized Fire Proc.
 /atom/proc/flamer_fire_act(damage = BURN_LEVEL_TIER_1)
 	fire_act(exposed_temperature = 50 * damage, exposed_volume = 2 * damage)
 
