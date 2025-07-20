@@ -524,7 +524,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 
 	team_hud_ref = WEAKREF(target.add_alt_appearance(
 		/datum/atom_hud/alternate_appearance/basic/has_antagonist,
-		"antag_team_hud_[REF(src)]",
+		"antag_team_hud_[UID()]",
 		add_antag_hud(target),
 		antag_to_check || type,
 		get_team() && WEAKREF(get_team()),

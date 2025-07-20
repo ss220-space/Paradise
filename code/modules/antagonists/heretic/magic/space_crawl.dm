@@ -72,10 +72,10 @@
  */
 /obj/effect/proc_holder/spell/jaunt/space_crawl/proc/try_enter_jaunt(turf/our_turf, mob/living/jaunter)
 	// Begin the jaunt
-	ADD_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
+	ADD_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
 	var/obj/effect/dummy/phased_mob/holder = enter_jaunt(jaunter, our_turf)
 	if(isnull(holder))
-		REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
+		REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
 		return FALSE
 
 	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/datum/action, update_status_on_signal))
@@ -83,7 +83,7 @@
 		jaunter.drop_all_held_items()
 		// Sanity check to ensure we didn't lose our focus as a result.
 		if(!HAS_TRAIT(jaunter, TRAIT_ALLOW_HERETIC_CASTING))
-			REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
+			REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
 			exit_jaunt(jaunter, our_turf)
 			return FALSE
 		// Give them some space hands to prevent them from doing things
@@ -101,14 +101,14 @@
 	new /obj/effect/temp_visual/space_explosion(our_turf)
 	jaunter.ExtinguishMob()
 
-	REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
+	REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
 	return TRUE
 
 /**
  * Attempts to Exit the passed space or misc turf.
  */
 /obj/effect/proc_holder/spell/jaunt/space_crawl/proc/try_exit_jaunt(turf/our_turf, mob/living/jaunter, force = FALSE)
-	if(!force && HAS_TRAIT_FROM(jaunter, TRAIT_NO_TRANSFORM, REF(src)))
+	if(!force && HAS_TRAIT_FROM(jaunter, TRAIT_NO_TRANSFORM, UID()))
 		to_chat(jaunter, span_warning("You cannot exit yet!!"))
 		return FALSE
 
@@ -217,7 +217,7 @@
 	var/obj/effect/dummy/phased_mob/jaunt = new jaunt_type(loc_override || get_turf(jaunter), jaunter)
 	RegisterSignal(jaunt, COMSIG_MOB_EJECTED_FROM_JAUNT, PROC_REF(on_jaunt_exited))
 	//check_flags &= ~AB_CHECK_PHASED
-	//jaunter.add_traits(list(TRAIT_MAGICALLY_PHASED, TRAIT_RUNECHAT_HIDDEN, TRAIT_WEATHER_IMMUNE), REF(src))
+	//jaunter.add_traits(list(TRAIT_MAGICALLY_PHASED, TRAIT_RUNECHAT_HIDDEN, TRAIT_WEATHER_IMMUNE), UID())
 	// Don't do the feedback until we have runechat hidden.
 	// Otherwise the text will follow the jaunt holder, which reveals where our caster is travelling.
 	//spell_feedback(jaunter)
@@ -264,7 +264,7 @@
 /*
 	SHOULD_CALL_PARENT(TRUE)
 	check_flags |= AB_CHECK_PHASED
-	unjaunter.remove_traits(list(TRAIT_MAGICALLY_PHASED, TRAIT_RUNECHAT_HIDDEN, TRAIT_WEATHER_IMMUNE), REF(src))
+	unjaunter.remove_traits(list(TRAIT_MAGICALLY_PHASED, TRAIT_RUNECHAT_HIDDEN, TRAIT_WEATHER_IMMUNE), UID())
 	// This needs to happen at the end, after all the traits and stuff is handled
 	SEND_SIGNAL(unjaunter, COMSIG_MOB_AFTER_EXIT_JAUNT, src)
 */

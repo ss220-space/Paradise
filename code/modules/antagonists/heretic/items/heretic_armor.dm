@@ -19,7 +19,7 @@
 	name = "ominous armor"
 	desc = "A ragged, dusty set of robes. Strange eyes line the inside."
 	icon_state = "eldritch_armor"
-	item_state = null
+	//item_state = null
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter)
@@ -115,12 +115,12 @@
 	if(!HASBIT(slot, ITEM_SLOT_SUITSTORE))
 		return
 
-	item.add_traits(list(TRAIT_NO_STRIP,/* TRAIT_NO_WORN_ICON,*/ TRAIT_EXAMINE_SKIP), REF(src))
+	item.add_traits(list(TRAIT_NO_STRIP,/* TRAIT_NO_WORN_ICON,*/ TRAIT_EXAMINE_SKIP), UID())
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/show_item(datum/source, obj/item/item, slot)
 	SIGNAL_HANDLER
-	item.remove_traits(list(TRAIT_NO_STRIP,/* TRAIT_NO_WORN_ICON,*/ TRAIT_EXAMINE_SKIP), REF(src))
+	item.remove_traits(list(TRAIT_NO_STRIP,/* TRAIT_NO_WORN_ICON,*/ TRAIT_EXAMINE_SKIP), UID())
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void/examine(mob/user)
@@ -156,25 +156,25 @@
 
 /// Makes our cloak "invisible". Not the wearer, the cloak itself.
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/make_invisible()
-	add_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), REF(src))
+	add_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), UID())
 	RemoveElement(/datum/element/heretic_focus)
 
 	if(!isliving(loc))
 		return
 
-	REMOVE_TRAIT(loc, TRAIT_RESIST_COLD, REF(src))
+	REMOVE_TRAIT(loc, TRAIT_RESIST_COLD, UID())
 	loc.balloon_alert(loc, "cloak hidden")
 	loc.visible_message(span_notice("Light shifts around [loc], making the cloak around them invisible!"))
 
 
 /// Makes our cloak "visible" again.
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/make_visible()
-	remove_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), REF(src))
+	remove_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), UID())
 	AddElement(/datum/element/heretic_focus)
 
 	if(!isliving(loc))
 		return
 
-	ADD_TRAIT(loc, TRAIT_RESIST_COLD, REF(src))
+	ADD_TRAIT(loc, TRAIT_RESIST_COLD, UID())
 	loc.balloon_alert(loc, "cloak revealed")
 	loc.visible_message(span_notice("A kaleidoscope of colours collapses around [loc], a cloak appearing suddenly around their person!"))

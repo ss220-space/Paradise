@@ -19,12 +19,12 @@
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_void
-	name = "Glimmer of Winter"
-	desc = "Opens up the Path of Void to you. \
-		Allows you to transmute a knife in sub-zero temperatures into a Void Blade. \
-		You can only create two at a time."
-	gain_text = "I feel a shimmer in the air, the air around me gets colder. \
-		I start to realize the emptiness of existence. Something's watching me."
+	name = "Блеск зимы"
+	desc = "Открывает вам Путь Пустоты. \
+			Позволяет при низких температурах превратить нож в Клинок Пустоты. \
+			Вы можете создать только два клинка одновременно."
+	gain_text = "Я чувствую блеск в воздухе, воздух вокруг становится холоднее. \
+				Я начинаю осознавать пустоту бытия. Что-то наблюдает за мной."
 	required_atoms = list(/obj/item/kitchen/knife = 1)
 	result_atoms = list(/obj/item/melee/sickly_blade/void)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
@@ -33,18 +33,18 @@
 
 /datum/heretic_knowledge/limited_amount/starting/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!is_space_or_openspace(loc))
-		loc.balloon_alert(user, "ritual failed, invalid location!")
+		loc.balloon_alert(user, "не подходящее место!")
 		return FALSE
 
-	loc.balloon_alert(user, "ritual failed, not cold enough!")
+	loc.balloon_alert(user, "слишком тепло!")
 	return FALSE
 
 
 /datum/heretic_knowledge/void_grasp
-	name = "Grasp of Void"
-	desc = "Your Восприятие Мансуса will temporarily mute and chill the victim."
-	gain_text = "I saw the cold watcher who observes me. The chill mounts within me. \
-		They are quiet. This isn't the end of the mystery."
+	name = "Понимание пустоты"
+	desc = "Ваше Восприятие Мансуса временно заглушит и охладит жертву."
+	gain_text = "Я увидел Его. Он наблюдает за мной. В Его глазах холод. Холод пробирающий до костей. \
+				Они молчат. Это ещё не конец тайны."
 	cost = 1
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "grasp_void"
@@ -70,11 +70,10 @@
 
 
 /datum/heretic_knowledge/cold_snap
-	name = "Aristocrat's Way"
-	desc = "Grants you immunity to cold temperatures, and removes your need to breathe. \
-		You can still take damage due to a lack of pressure."
-	gain_text = "I found a thread of cold breath. It lead me to a strange shrine, all made of crystals. \
-		Translucent and white, a depiction of a nobleman stood before me."
+	name = "Путь аристократа"
+	desc = "Даёт вам иммунитет к холоду и избавляет от необходимости дышать."
+	gain_text = "Я почувствовал чье-то холодное дыхание. Оно привело меня к странному святилищу, целиком сделанному из кристаллов. \
+				В нём я нашел полупрозрачное и белое изображение знатного человека."
 	cost = 1
 	research_tree_icon_path = 'icons/effects/effects.dmi'
 	research_tree_icon_state = "the_freezer"
@@ -111,7 +110,7 @@
 
 
 /datum/heretic_knowledge/mark/void_mark
-	name = "Mark of Void"
+	name = "Метка Пустоты"
 	desc = "Your Восприятие Мансуса now applies the Mark of Void. The mark is triggered from an attack with your Void Blade. \
 		When triggered, further silences the victim and swiftly lowers the temperature of their body and the air around them."
 	gain_text = "A gust of wind? A shimmer in the air? The presence is overwhelming, \
@@ -210,7 +209,7 @@
 
 /datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!is_space_or_openspace(loc))
-		loc.balloon_alert(user, "ritual failed, invalid location!")
+		loc.balloon_alert(user, "не подходящее место!")
 		return FALSE
 
 	return ..()

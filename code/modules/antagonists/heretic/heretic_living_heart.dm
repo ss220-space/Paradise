@@ -24,12 +24,12 @@
 	return ..()
 
 /datum/component/living_heart/RegisterWithParent()
-	ADD_TRAIT(parent, TRAIT_LIVING_HEART, REF(src))
+	ADD_TRAIT(parent, TRAIT_LIVING_HEART, UID())
 	RegisterSignal(parent, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 	RegisterSignal(parent, COMSIG_ORGAN_BEING_REPLACED, PROC_REF(on_organ_replaced))
 
 /datum/component/living_heart/UnregisterFromParent()
-	REMOVE_TRAIT(parent, TRAIT_LIVING_HEART, REF(src))
+	REMOVE_TRAIT(parent, TRAIT_LIVING_HEART, UID())
 	UnregisterSignal(parent, list(COMSIG_ORGAN_REMOVED, COMSIG_ORGAN_BEING_REPLACED))
 
 /datum/component/living_heart/PostTransfer(datum/new_parent)

@@ -172,8 +172,9 @@
 /proc/show_radial_menu_persistent(mob/user, atom/anchor, list/choices, datum/callback/select_proc, uniqueid, radius, tooltips = FALSE, radial_slice_icon = "radial_slice", datum/callback/custom_check)
 	if(!user || !anchor || !length(choices) || !select_proc)
 		return
+
 	if(!uniqueid)
-		uniqueid = "defmenu_[REF(user)]_[REF(anchor)]"
+		uniqueid = "defmenu_[user.UID()]_[anchor.UID()]"
 
 	if(GLOB.radial_menus[uniqueid])
 		return

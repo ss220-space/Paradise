@@ -1,8 +1,8 @@
 /obj/effect/proc_holder/spell/shadow_cloak
-	name = "Cloak of Shadow"
-	desc = "Completely conceals your identity, but does not make you invisible.  Can be activated early to disable it. \
-		While cloaked, you move faster, but undergo actions much slower. \
-		Taking damage while cloaked may cause it to lift suddenly, causing negative effects. "
+	name = "Плащ Тьмы"
+	desc = "Полностью скрывает вашу личность, но не делает вас невидимым. Можно активировать снова, чтобы отключить эффект. \
+			При использовании вы двигаетесь быстрее, но реагируете гораздо медленнее. \
+			Получение урона при надетом плаще может привести к его внезапному отключению."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_minor_antag.dmi'
@@ -36,7 +36,7 @@
 	if(!HAS_TRAIT(cast_on, TRAIT_HULK)) // Hulks are not stealthy. Need not apply
 		return isliving(cast_on)
 
-	cast_on.balloon_alert(cast_on, "cannot cast while hulk!")
+	cast_on.balloon_alert(cast_on, "вы халк")
 	return FALSE
 
 
@@ -54,8 +54,9 @@
 	return . | SPELL_NO_IMMEDIATE_COOLDOWN
 
 
-/obj/effect/proc_holder/spell/shadow_cloak/cast(mob/living/cast_on)
+/obj/effect/proc_holder/spell/shadow_cloak/cast(list/targets)
 	. = ..()
+	var/mob/living/cast_on = targets[1]
 	if(active_cloak)
 		var/new_cd = max((uncloak_time - timeleft(uncloak_timer)) / 3, base_cooldown)
 		uncloak_mob(cast_on)
@@ -78,8 +79,8 @@
 /obj/effect/proc_holder/spell/shadow_cloak/proc/cloak_mob(mob/living/cast_on)
 	playsound(cast_on, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
 	cast_on.visible_message(
-		span_warning("[cast_on] disappears into the shadows!"),
-		span_notice("You disappear into the shadows, becoming unidentifiable."),
+		span_warning("[cast_on.declent_ru(NOMINATIVE)] скрывается в тени!"),
+		span_notice("Вы скрываетесь в тени."),
 	)
 
 	active_cloak = cast_on.apply_status_effect(/datum/status_effect/shadow_cloak)
@@ -98,8 +99,8 @@
 	playsound(cast_on, 'sound/effects/curse/curseattack.ogg', 50)
 	if(show_message)
 		cast_on.visible_message(
-			span_warning("[cast_on] appears from the shadows!"),
-			span_notice("You appear from the shadows, identifiable once more."),
+			span_warning("[cast_on.declent_ru(NOMINATIVE)] появляется из тени!"),
+			span_notice("Вы появляетесь из тени!"),
 		)
 
 	// Clear up the timer
@@ -114,8 +115,8 @@
 	var/mob/living/removed = source.owner
 	uncloak_mob(removed, show_message = FALSE)
 	removed.visible_message(
-		span_warning("[removed] is pulled from the shadows!"),
-		span_userdanger("You are pulled out of the shadows!"),
+		span_warning("[removed.declent_ru(NOMINATIVE)] появляется из тени!"),
+		span_userdanger("Вас вытащили из тени!"),
 	)
 
 	removed.Knockdown(0.5 SECONDS)
@@ -130,8 +131,8 @@
 
 	uncloak_mob(source, show_message = FALSE)
 	source.visible_message(
-		span_warning("[source] suddenly appears from the shadows!"),
-		span_userdanger("As you lose your focus, you are pulled out of the shadows!"),
+		span_warning("[source.declent_ru(NOMINATIVE)] внезапно появляется из тени!"),
+		span_userdanger("После потери концентрации, вы больше не можете скрываться в тени!"),
 	)
 	cooldown_handler.start_recharge(uncloak_time / 3)
 

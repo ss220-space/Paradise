@@ -71,7 +71,7 @@
 */
 
 /datum/component/obeys_commands/proc/remove_from_viewers(mob/living/source)
-	radial_viewers -= REF(source)
+	radial_viewers -= source.UID()
 
 
 /// Remove someone from our friends list
@@ -125,7 +125,7 @@
 	if (!(friend in living_parent.ai_controller?.blackboard[BB_FRIENDS_LIST]))
 		return // Not our friend, can't boss us around
 
-	if(radial_viewers[REF(friend)])
+	if(radial_viewers[friend.UID()])
 		return
 
 	if(!can_see(friend, parent, DEFAULT_RADIAL_VIEWING_DISTANCE))
@@ -145,7 +145,7 @@
 
 		radial_options += choice
 
-	radial_viewers[REF(friend)] = world.time + radial_menu_lifetime
+	radial_viewers[friend.UID()] = world.time + radial_menu_lifetime
 	var/pick = show_radial_menu(friend, parent, radial_options, radius = radial_menu_radius, /*button_animation_flags = BUTTON_FADE_IN | BUTTON_FADE_OUT, */custom_check = CALLBACK(src, PROC_REF(check_menu_viewer), friend),/* check_delay = 0.15 SECONDS, display_close_button = FALSE, radial_menu_offset = radial_menu_offset, user_space = radial_relative_to_user*/)
 	remove_from_viewers(friend)
 	if(!pick)
@@ -156,10 +156,10 @@
 
 
 /datum/component/obeys_commands/proc/check_menu_viewer(mob/living/user)
-	if(QDELETED(user) || !radial_viewers[REF(user)])
+	if(QDELETED(user) || !radial_viewers[user.UID()])
 		return FALSE
 
-	if(world.time > radial_viewers[REF(user)])
+	if(world.time > radial_viewers[user.UID()])
 		return FALSE
 
 	var/viewing_distance = DEFAULT_RADIAL_VIEWING_DISTANCE

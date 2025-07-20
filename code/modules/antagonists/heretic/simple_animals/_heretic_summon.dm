@@ -1,7 +1,15 @@
 /mob/living/simple_animal/hostile/heretic_summon
-	name = "Eldritch Demon"
-	real_name = "Eldritch Demon"
-	desc = "A horror from beyond this realm, summoned by bad code."
+	name = "Жуткий Демон"
+	ru_names = list(
+		NOMINATIVE = "Жуткий Демон",
+		GENITIVE = "Жуткого Демона",
+		DATIVE = "Жуткому Демону",
+		ACCUSATIVE = "Жуткого Демона",
+		INSTRUMENTAL = "Жутким Демоном",
+		PREPOSITIONAL = "Жутком Демоне",
+	)
+	real_name = "Жуткий Демон"
+	desc = "Ужас из потустороннего мира, вызванный плохим кодом."
 	icon = 'icons/mob/eldritch_mobs.dmi'
 	faction = list(FACTION_HERETIC)
 	gender = NEUTER

@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	playsound(cast_on, /obj/effect/proc_holder/spell/touch/mansus_grasp::sound, 15)
 	cast_on.visible_message(span_notice("[cast_on] snaps [cast_on.p_their()] fingers next to [held_rod], covering it in a burst of purple flames!"))
 
-	ADD_TRAIT(held_rod, TRAIT_ROD_MANSUS_INFUSED, REF(held_rod))
+	ADD_TRAIT(held_rod, TRAIT_ROD_MANSUS_INFUSED, held_rod.UID())
 	held_rod.difficulty_modifier -= 20
 	RegisterSignal(held_rod, COMSIG_FISHING_ROD_CAUGHT_FISH, PROC_REF(unfuse))
 	held_rod.add_filter("mansus_infusion", 2, list("type" = "outline", "color" = COLOR_VOID_PURPLE, "size" = 1))
@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		return
 
 	item.remove_filter("mansus_infusion")
-	REMOVE_TRAIT(item, TRAIT_ROD_MANSUS_INFUSED, REF(item))
+	REMOVE_TRAIT(item, TRAIT_ROD_MANSUS_INFUSED, item.UID())
 	item.difficulty_modifier += 20
 */
 /**

@@ -2409,7 +2409,7 @@
 	if(QDELETED(new_friend))
 		return
 
-	var/friend_ref = REF(new_friend)
+	var/friend_ref = new_friend.UID()
 	if (faction.Find(friend_ref))
 		return FALSE
 
@@ -2423,7 +2423,7 @@
 /// Proc for removing a friend you added with the proc 'befriend'. Returns true if you removed a friend.
 /mob/living/proc/unfriend(mob/living/old_friend)
 	SHOULD_CALL_PARENT(TRUE)
-	var/friend_ref = REF(old_friend)
+	var/friend_ref = old_friend.UID()
 	if (!faction.Find(friend_ref))
 		return FALSE
 

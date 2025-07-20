@@ -58,7 +58,7 @@
 	if(!harmed_by_examine || user == src || user.stat == DEAD || !isliving(user) || IS_HERETIC_OR_MONSTER(user))
 		return
 
-	var/user_ref = REF(user)
+	var/user_ref = UID()
 	if(user_ref in recent_examiner_refs)
 		return
 

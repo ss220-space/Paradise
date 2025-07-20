@@ -33,7 +33,7 @@
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_moon/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	ADD_TRAIT(user, TRAIT_EMPATHY, REF(src))
+	ADD_TRAIT(user, TRAIT_EMPATHY, UID())
 
 
 /datum/heretic_knowledge/moon_grasp

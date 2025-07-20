@@ -21,12 +21,12 @@
 	src.amount_added = amount_added
 	src.injection_flags = injection_flags
 	src.thrown_effect = thrown_effect
-	target.AddElementTrait(TRAIT_ON_HIT_EFFECT, REF(src), /datum/element/on_hit_effect)
+	target.AddElementTrait(TRAIT_ON_HIT_EFFECT, UID(), /datum/element/on_hit_effect)
 	RegisterSignal(target, COMSIG_ON_HIT_EFFECT, PROC_REF(do_venom))
 
 /datum/element/venomous/Detach(datum/source)
 	UnregisterSignal(source, COMSIG_ON_HIT_EFFECT)
-	REMOVE_TRAIT(source, TRAIT_ON_HIT_EFFECT, REF(src))
+	REMOVE_TRAIT(source, TRAIT_ON_HIT_EFFECT, UID())
 	return ..()
 
 /datum/element/venomous/proc/do_venom(datum/element_owner, atom/venom_source, mob/living/target, hit_zone, throw_hit)

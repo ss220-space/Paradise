@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/touch/mansus_grasp
 	name = "Восприятие Мансуса"
-	desc = "A touch spell that lets you channel the power of the Old Gods through your grip."
+	desc = "Заклинание позволяющее направлять силу Древних Богов через вашу руку."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -8,6 +8,7 @@
 	sound = 'sound/items/welder.ogg'
 
 	school = SCHOOL_EVOCATION
+	clothes_req = FALSE
 	base_cooldown = 10 SECONDS
 
 	invocation = "R'CH T'H TR'TH!"
@@ -51,8 +52,8 @@
 		carbon_hit.AdjustKnockdown(0.5 SECONDS)
 		carbon_hit.Confused(1.5 SECONDS, 3 SECONDS)
 		carbon_hit.Dizzy(1.5 SECONDS, 3 SECONDS)
-		//ADD_TRAIT(carbon_hit, TRAIT_NO_SIDE_KICK, REF(src)) // We don't want this to be a good stunning tool, just minor disorientation
-		//addtimer(TRAIT_CALLBACK_REMOVE(carbon_hit, TRAIT_NO_SIDE_KICK, REF(src)), 1 SECONDS)
+		//ADD_TRAIT(carbon_hit, TRAIT_NO_SIDE_KICK, UID()) // We don't want this to be a good stunning tool, just minor disorientation
+		//addtimer(TRAIT_CALLBACK_REMOVE(carbon_hit, TRAIT_NO_SIDE_KICK, UID()), 1 SECONDS)
 
 		var/old_color = carbon_hit.color
 		carbon_hit.color = COLOR_CULT_RED
@@ -84,9 +85,9 @@
 
 /obj/item/melee/touch_attack/mansus_fist
 	name = "Восприятие Мансуса"
-	desc = "A sinister looking aura that distorts the flow of reality around it. \
-		Causes knockdown, minor bruises, and major stamina damage. \
-		It gains additional beneficial effects as you expand your knowledge of the Mansus."
+	desc = "Ваша рука пропитана зловещей аурой, способной искажать реальнось. \
+			Вызывает нокдаун, лёгкие ушибы и значительный урон выносливости. \
+			По мере того, как вы расширяете свои знания о Мансусе, она приобретает дополнительные эффекты."
 	icon_state = "mansus"
 	item_state = "mansus"
 
@@ -95,7 +96,7 @@
 	. = ..()
 	AddComponent(/datum/component/effect_remover, \
 		success_feedback = "You remove %THEEFFECT.", \
-		tip_text = "Clear rune", \
+		tip_text = "Не забудьте стереть руну", \
 		on_clear_callback = CALLBACK(src, PROC_REF(after_clear_rune)), \
 		effects_we_clear = list(/obj/effect/heretic_rune), \
 		time_to_remove = 0.4 SECONDS)

@@ -192,7 +192,7 @@
 
 /*
 /datum/component/riding/creature/post_vehicle_mob_buckle(mob/living/ridden, mob/living/rider)
-	if(!require_minigame || ridden.faction.Find(REF(rider)))
+	if(!require_minigame || ridden.faction.Find(rider.UID()))
 		return
 	ridden.Shake(duration = 2 SECONDS)
 	ridden.balloon_alert(rider, "вас пытаются сбросить!")

@@ -250,7 +250,7 @@
 	if (!issilicon(our_mob))
 		GLOB.reality_smash_track.add_tracked_mind(owner)
 
-	ADD_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, REF(src))
+	ADD_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, UID())
 	RegisterSignal(our_mob, COMSIG_LIVING_CULT_SACRIFICED, PROC_REF(on_cult_sacrificed))
 	RegisterSignal(our_mob, list(COMSIG_MOB_BEFORE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, COMSIG_USER_ITEM_INTERACTION, PROC_REF(on_item_use))
@@ -263,7 +263,7 @@
 	if (owner in GLOB.reality_smash_track.tracked_heretics)
 		GLOB.reality_smash_track.remove_tracked_mind(owner)
 
-	REMOVE_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, REF(src))
+	REMOVE_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, UID())
 	UnregisterSignal(our_mob, list(
 		COMSIG_MOB_BEFORE_SPELL_CAST,
 		COMSIG_MOB_SPELL_ACTIVATED,

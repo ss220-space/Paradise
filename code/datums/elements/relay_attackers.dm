@@ -8,7 +8,7 @@
 /datum/element/relay_attackers/Attach(datum/target)
 	. = ..()
 	if (HAS_TRAIT(target, TRAIT_RELAYING_ATTACKER)) // Little bit gross but we want to just apply this shit from a bunch of places
-		ADD_TRAIT(target, TRAIT_RELAYING_ATTACKER, REF(src))
+		ADD_TRAIT(target, TRAIT_RELAYING_ATTACKER, UID())
 		return
 
 	// Boy this sure is a lot of ways to tell us that someone tried to attack us
@@ -19,7 +19,7 @@
 	RegisterSignal(target, COMSIG_ATOM_HITBY, PROC_REF(on_hitby))
 	RegisterSignal(target, COMSIG_ATOM_HULK_ATTACK, PROC_REF(on_attack_hulk))
 	RegisterSignal(target, COMSIG_ATOM_ATTACK_MECH, PROC_REF(on_attack_mech))
-	ADD_TRAIT(target, TRAIT_RELAYING_ATTACKER, REF(src))
+	ADD_TRAIT(target, TRAIT_RELAYING_ATTACKER, UID())
 
 /datum/element/relay_attackers/Detach(datum/source, ...)
 	. = ..()
@@ -35,7 +35,7 @@
 		COMSIG_ATOM_HULK_ATTACK,
 		COMSIG_ATOM_ATTACK_MECH,
 	))
-	REMOVE_TRAIT(source, TRAIT_RELAYING_ATTACKER, REF(src))
+	REMOVE_TRAIT(source, TRAIT_RELAYING_ATTACKER, UID())
 
 /datum/element/relay_attackers/proc/after_attackby(atom/target, obj/item/weapon, mob/attacker, list/modifiers)
 	SIGNAL_HANDLER

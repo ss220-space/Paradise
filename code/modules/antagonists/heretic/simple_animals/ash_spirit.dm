@@ -11,7 +11,7 @@
 		INSTRUMENTAL = "Духом Пепла",
 		PREPOSITIONAL = "Духе Пепла",
 	)
-	real_name = "Дух Пепла" // What about "Эшель"?
+	real_name = "Эшель"
 	gender = MALE
 	desc = "Живое облако пепла."
 	icon_state = "ash_walker"

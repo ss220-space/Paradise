@@ -42,7 +42,7 @@
 	else
 		team_color = pick(COLOR_CULT_RED, COLOR_GREEN)
 
-	user.add_traits(list(TRAIT_MANSUS_TOUCHED/*, TRAIT_BLOODY_MESS*/), REF(src))
+	user.add_traits(list(TRAIT_MANSUS_TOUCHED/*, TRAIT_BLOODY_MESS*/), UID())
 	to_chat(user, span_alert("Your heart takes on a strange yet soothing irregular rhythm, and your blood feels significantly less viscous than it used to be. You're not sure if that's a good thing."))
 	component = user.AddComponent( \
 		/datum/component/aura_healing, \
@@ -64,7 +64,7 @@
 	if(!istype(user))
 		return
 
-	if(HAS_TRAIT_FROM(user, TRAIT_MANSUS_TOUCHED, REF(src)))
+	if(HAS_TRAIT_FROM(user, TRAIT_MANSUS_TOUCHED, UID()))
 		to_chat(user, span_notice("Your heart and blood return to their regular old rhythm and flow."))
 
 	if(IS_HERETIC_OR_MONSTER(user) && active)
@@ -73,7 +73,7 @@
 			active = FALSE
 
 	QDEL_NULL(component)
-	user.remove_traits(list(TRAIT_MANSUS_TOUCHED/*, TRAIT_BLOODY_MESS*/), REF(src))
+	user.remove_traits(list(TRAIT_MANSUS_TOUCHED/*, TRAIT_BLOODY_MESS*/), UID())
 
 	// If boosted enable is set, to prevent false dropped() calls from repeatedly nuking the max spells.
 	//var/obj/effect/proc_holder/spell/cult/blood_magic/magic_holder = locate() in user.actions
@@ -142,13 +142,13 @@
 	if(!ishuman(user) || !IS_HERETIC_OR_MONSTER(user))
 		return
 
-	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[REF(src)]")
+	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[UID()]")
 	user.update_sight()
 
 
 /obj/item/clothing/neck/eldritch_amulet/dropped(mob/user)
 	. = ..()
-	REMOVE_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[REF(src)]")
+	REMOVE_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[UID()]")
 	user.update_sight()
 
 

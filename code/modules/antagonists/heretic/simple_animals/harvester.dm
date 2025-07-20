@@ -32,7 +32,7 @@
 /mob/living/simple_animal/hostile/construct/harvester/heretic/Initialize(mapload)
 	. = ..()
 	grant_abilities()
-	ADD_TRAIT(src, TRAIT_MANSUS_TOUCHED, REF(src))
+	ADD_TRAIT(src, TRAIT_MANSUS_TOUCHED, UID())
 	add_filter("rusted_harvester", 3, list("type" = "outline", "color" = COLOR_GREEN, "size" = 2, "alpha" = 40))
 	RegisterSignal(src, COMSIG_MOB_ENSLAVED_TO, PROC_REF(link_master))
 

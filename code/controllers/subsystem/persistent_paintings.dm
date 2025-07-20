@@ -150,14 +150,14 @@ SUBSYSTEM_DEF(persistent_paintings)
 				"title" = painting.title,
 				"creator" = painting.creator_name,
 				"md5" = painting.md5,
-				"ref" = REF(painting),
+				"ref" = painting.UID(),
 				"width" = painting.width,
 				"height" = painting.height,
 				"ratio" = painting.width/painting.height,
 			))
 
 		var/list/pdata = painting.to_json()
-		pdata["ref"] = REF(painting)
+		pdata["ref"] = painting.UID()
 		UNTYPED_LIST_ADD(admin_painting_data, pdata)
 
 /**

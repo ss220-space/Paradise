@@ -39,7 +39,7 @@
 	var/mob/living/our_mob = mob_override || owner.current
 	our_mob.faction |= FACTION_HERETIC
 	add_team_hud(our_mob, /datum/antagonist/lunatic)
-	ADD_TRAIT(our_mob, TRAIT_MADNESS_IMMUNE, REF(src))
+	ADD_TRAIT(our_mob, TRAIT_MADNESS_IMMUNE, UID())
 
 	var/obj/effect/proc_holder/spell/lunatic_track/moon_track = new /obj/effect/proc_holder/spell/lunatic_track()
 	var/obj/effect/proc_holder/spell/touch/mansus_grasp/mad_touch = new /obj/effect/proc_holder/spell/touch/mansus_grasp()
