@@ -149,11 +149,17 @@
 	return 1
 
 /obj/machinery/door_timer/proc/notify_prisoner(notifytext)
-	for(var/mob/living/carbon/human/H in range(4, get_turf(src)))
-		if(occupant == H.name)
-			to_chat(H, "[src] beeps, \"[notifytext]\"")
-			return
+	var/mob/living/carbon/human/human = find_prisoner()
+	if(human)
+		to_chat(human, "[src] beeps, \"[notifytext]\"")
+		return
 	atom_say("[src] beeps, \"[occupant]: [notifytext]\"")
+
+/obj/machinery/door_timer/proc/find_prisoner()
+	for(var/mob/living/carbon/human/human in range(4, get_turf(src)))
+		if(occupant == human.name)
+			return human
+	return null
 
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
@@ -245,6 +251,10 @@
 		monitor.total_joules = 0
 		monitor.on = TRUE
 
+	var/mob/living/carbon/human/human = find_prisoner()
+	if(human)
+		SEND_SIGNAL(human, COMSIG_DOOR_TIMER_START, crimes, prisoner_time)
+
 	return TRUE
 
 
@@ -255,6 +265,11 @@
 
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
+
+	//send signal
+	var/mob/living/carbon/human/human = find_prisoner()
+	if(human)
+		SEND_SIGNAL(human, COMSIG_DOOR_TIMER_FINISH, crimes, prisoner_time)
 
 	// Reset vars
 	occupant = CELL_NONE

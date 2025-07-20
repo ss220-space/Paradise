@@ -2,17 +2,18 @@
 
 	//States
 #define AGS_STATE_NOT_STARTED 0
-#define AGS_STATE_IDLE 1
-#define AGS_STATE_GOAL_IN_PROGRESS 2
-#define AGS_STATE_GOAL_COMPLETE 3
+#define AGS_STATE_IDLE 10
+#define AGS_STATE_GOAL_PREPARE 11
+#define AGS_STATE_GOAL_IN_PROGRESS 20
+#define AGS_STATE_GOAL_COMPLETE 21
 
 /// How many goals available to choose
 #define AVAILABLE_GOALS_COUNT 6
 /// Refresh goals button activation cooldown
-#define REFRESH_AVAILABLE_GOALS_COOLDOWN (15 MINUTES)
+#define REFRESH_AVAILABLE_GOALS_COOLDOWN (10 SECONDS)
 
 /// Delay between accept goal and send shuttle to station
-#define ACCEPT_GOAL_SHUTTLE_SEND_DELAY 10
+#define ACCEPT_GOAL_SHUTTLE_SEND_DELAY 3
 /// Delay between complete goal and send shuttle to centcom
 #define COMPLETE_GOAL_SHUTTLE_SEND_DELAY 10
 /// Addition goals system shuttle identifier
@@ -36,17 +37,14 @@ SUBSYSTEM_DEF(addition_goals)
 	offline_implications = "Addition goals will no longer function."
 	ss_id = "addition_goals"
 	var/goal_state = AGS_STATE_NOT_STARTED
-
 		//goals stuff
 	var/list/goal_types = list()
 	var/list/available_goals = list()
 	var/datum/addition_goal/current_goal = null
 	var/goals_id_counter = 1
-	var/available_goals_refresh_time = 0
-
+	var/available_goals_refresh_time = -REFRESH_AVAILABLE_GOALS_COOLDOWN //initially available refresh
 		//shuttle stuff
 	var/obj/docking_port/mobile/shuttle
-
 		//console stuff
 	var/list/console_list = list()
 
@@ -118,7 +116,7 @@ SUBSYSTEM_DEF(addition_goals)
 	var/shutte_turfs = get_shuttle_turfs()
 	if(!goal.spawn_shuttle_contain(shutte_turfs))
 		return
-	goal_state = AGS_STATE_GOAL_IN_PROGRESS
+	goal_state = AGS_STATE_GOAL_PREPARE
 	current_goal = goal
 	available_goals -= goal
 	print_accept_goal_details(user, goal)
@@ -142,6 +140,9 @@ SUBSYSTEM_DEF(addition_goals)
 /datum/controller/subsystem/addition_goals/proc/on_shuttle_dock(datum/source, /obj/docking_port/mobile/shuttle, obj/docking_port/stationary/new_dock)
 	SIGNAL_HANDLER
 	message_admins("addition goal shuttle dock into [new_dock.id] state=[goal_state]")
+	if(goal_state == AGS_STATE_GOAL_PREPARE)
+		goal_state = AGS_STATE_GOAL_IN_PROGRESS
+		return
 	if(goal_state != AGS_STATE_GOAL_COMPLETE)
 		return
 	if(new_dock.id != AGS_SHUTTLE_CENTCOM_DOCK)
@@ -220,6 +221,20 @@ SUBSYSTEM_DEF(addition_goals)
 /datum/addition_goal/proc/check_completion(list/turf/shuttle_turfs)
 	message_admins("addition goal '[name]' not implement check_completion")
 	return 0
+
+
+/datum/addition_goal/proc/contains_in_shuttle(list/turf/shuttle_turfs, atom/movable/target)
+	for(var/turf/turf in shuttle_turfs)
+		//open all containers before check
+		for(var/atom/movable/content in turf.contents)
+			if(istype(content, /obj/structure/closet))
+				var/obj/structure/closet/closet = content
+				closet.open()
+		//check turfs contains
+		for(var/atom/movable/content in turf.contents)
+			if(content == target)
+				return TRUE
+	return FALSE
 
 
 

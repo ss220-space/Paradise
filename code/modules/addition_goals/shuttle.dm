@@ -23,7 +23,7 @@
 
 /// Try send shuttle to station (call shuttle)
 /datum/controller/subsystem/addition_goals/proc/send_shuttle_to_station(mob/user)
-	SSshuttle.moveShuttle(shuttle.id, AGS_SHUTTLE_STATION_DOCK, FALSE, user)
+	SSshuttle.moveShuttle(shuttle.id, AGS_SHUTTLE_STATION_DOCK, TRUE, user)
 
 /// Try send shuttle to centrom (return shuttle)
 /datum/controller/subsystem/addition_goals/proc/send_shuttle_to_centcom(mob/user)

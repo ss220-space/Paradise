@@ -36,9 +36,9 @@ export const AdditionGoalsConsole = (props: unknown) => {
   const { act, data } = useBackend<AdditionGoalsConsoleData>();
 
   let contentBlock: ReactNode;
-  if(data.state === 1) {
+  if(data.state === 10) {
     contentBlock = <AvailableAdditionGoalsListBlock/>
-  } else if(data.state === 2 || data.state === 3) {
+  } else if(data.state === 11 || data.state === 20 || data.state === 21) {
     contentBlock = <CurrentAdditionGoalBlock/>
   } else {
     contentBlock = <Box><h3>Нет данных!</h3></Box>
@@ -62,13 +62,16 @@ export const AdditionGoalsConsole = (props: unknown) => {
 
 
 const getStateText = (s) => {
-  if(s === 1){
+  if(s === 10){
     return "Нет текущей цели."
   }
-  if(s === 2){
+  if(s === 11){
+    return "Шаттл в пути."
+  }
+  if(s === 20){
     return "Цель в процессе выполнения."
   }
-  if(s === 3){
+  if(s === 21){
     return "Завершение цели."
   }
   return "Дополнительные цели смены недоступны."
@@ -152,7 +155,7 @@ const CurrentAdditionGoalBlock = (props: unknown) => {
         <Stack.Item>
           <Button
             icon="check"
-            color={data.state === 2 ? 'green' : 'grey' }
+            color={data.state === 20 ? 'green' : 'grey' }
             width="180px"
             align="center"
             fontSize="12px"

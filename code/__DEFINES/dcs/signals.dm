@@ -845,6 +845,12 @@
 ///from base power_change() when power is restored
 #define COMSIG_MACHINERY_POWER_RESTORED "machinery_power_restored"
 
+// obj/machinery/door_timer signals
+///from obj/machinery/door_timer/timer_start(): (/mob/libing/target, crimes, duration_min)
+#define COMSIG_DOOR_TIMER_START "door_timer_start"
+///from obj/machinery/door_timer/timer_end(): (/mob/libing/target, crimes, duration_min)
+#define COMSIG_DOOR_TIMER_FINISH "door_timer_finish"
+
 // /obj/item signals
 
 ///from base of obj/item/attack(): (/mob/living/target, /mob/living/user, params, def_zone)

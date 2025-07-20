@@ -12,7 +12,7 @@
 /datum/addition_goal_prisoner_data
 	var/crimes = "202"
 	var/duration = 10
-	var/complete = FALSE
+	var/complete_percent = 0
 
 
 /datum/addition_goal/prisoners/setup()
@@ -40,6 +40,7 @@
 	switch_ai_to_angry_mode(prisoner)
 	create_prisoner_data(prisoner)
 	create_crimes_paper(location, prisoner)
+	register_complete_signal_handler(prisoner)
 
 /datum/addition_goal/prisoners/proc/switch_ai_to_angry_mode(mob/living/prisoner)
 	prisoner.ai_controller = /datum/ai_controller/monkey/angry
@@ -79,6 +80,28 @@
 		Настоящим подтверждается, что гражданин [prisoner.real_name] подлежит тюремному заключению сроком в [data.duration] минут в камере брига.<br>
 		<b>Вменяемые статьи:</b> [data.crimes]."}
 
+/datum/addition_goal/prisoners/proc/register_complete_signal_handler(mob/living/prisoner)
+	RegisterSignal(prisoner, COMSIG_DOOR_TIMER_FINISH, PROC_REF(on_prisoner_timer_finish))
+
+/datum/addition_goal/prisoners/proc/on_prisoner_timer_finish(datum/source, mob/living/prisoner, crimes, duration_min)
+	SIGNAL_HANDLER
+	message_admins("on_prisoner_timer_finish  prisoner=[prisoner.name] crimes='[crimes]' duration_min=[duration_min]")
+	var/datum/addition_goal_prisoner_data/data = prisoners_data[prisoner.name]
+	if(!data)
+		message_admins("not found prisoner crimes data for [prisoner.name]")
+		return
+	data.complete_percent = 100
+	if(data.crimes != crimes) {
+		data.complete_percent -= 25
+	}
+	if(duration_min < data.duration) {
+		data.complete_percent -= 50
+	}
+	if(duration_min > data.duration) {
+		data.complete_percent -= 25
+	}
+	message_admins("prisoner [prisoner.name] brig cell complete crimes='[crimes]' duration_min=[duration_min]")
+
 
 /datum/addition_goal/prisoners/format_accept_report(mob/user)
 	var/text = {"<center><b>Запрос на временное заключение</b></center><br>
@@ -93,13 +116,23 @@
 
 
 /datum/addition_goal/prisoners/check_completion(list/turf/shuttle_turfs)
-	var/complete_count = 0
-	for(var/mob/living/prisoner as anything in prisoners)
+	var/summary_complete_percent = 0
+	for(var/mob/living/carbon/prisoner as anything in prisoners)
+		//TOOD check death
 		var/datum/addition_goal_prisoner_data/data = prisoners_data[prisoner.name]
-		if(data.complete)
-			complete_count++
-	var/progress = (complete_count) / prisoners_count * 100
-	message_admins("prisioners addition goal: check completition [complete_count] of [prisoners_count] progress=[progress].")
+		if(!data) //not exists crimes data, skip this prisoner
+			continue
+		if(!prisoner || !prisoner.loc) //prisoner not exists in game (gibbed, cremated ...)
+			continue
+		if(!contains_in_shuttle(prisoner)) //prisoner not in shuttle!
+			data.complete_percent = max(0, data.complete_percent - 50)
+		if(prisoner.health <= 100 || prisoner.stat != CONSCIOUS) //prisoner hearts
+			data.complete_percent = max(0, data.complete_percent - 25)
+		if(!prisoner.handcuffed)
+			data.complete_percent = max(0, data.complete_percent - 10)
+		summary_complete_percent += data.complete_percent
+	var/progress = (summary_complete_percent) / prisoners_count
+	message_admins("prisioners addition goal: check completition progress=[progress].")
 	return progress
 
 
