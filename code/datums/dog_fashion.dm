@@ -1,16 +1,25 @@
 /datum/dog_fashion
+	/// Visible name of the entity (e.g. "Ian", "Medibot").
 	var/name
+	/// Description shown when examined (examine verb).
 	var/desc
+	/// List of visible emotes (e.g. list("nods", "shakes head")). Seen without associated text.
 	var/emote_see
+	/// List of audible emotes/sounds (e.g. list("growls", "hisses")). Heard by nearby players.
 	var/emote_hear
+	/// List of phrases randomly spoken (e.g. list("Beep!", "Status update?"))
 	var/speak
+	/// Verb used when speaking phrases (e.g. "states", "chirps", "beeps"). Appears before speak messages.
 	var/speak_emote
 
-	// This isn't applied to the dog, but stores the icon_state of the
-	// sprite that the associated item uses
+	// This isn't applied to the dog, but stores the icon_state of the sprite that the associated item uses.
+	/// File path to the icon set (e.g., 'icons/effects/blood.dmi').
 	var/icon_file
+	/// Icon state within the file (e.g., "floor1", "spark").
 	var/obj_icon_state
+	/// Transparency level (0-255) where 255 = fully opaque.
 	var/obj_alpha
+	/// Color string in hex/rgb format.
 	var/obj_color
 
 /datum/dog_fashion/New(mob/M)

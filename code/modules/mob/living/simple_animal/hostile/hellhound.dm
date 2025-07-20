@@ -2,7 +2,16 @@
 /mob/living/simple_animal/hostile/hellhound
 	// Sprites by FoS: https://www.paradisestation.org/forum/profile/335-fos
 	name = "lesser hellhound"
-	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
+	desc = "Чёрное существо с демоническим обликом, горящими красными глазами и острыми клыками, словно вышедшее из преисподней. С его тела стекает лава."
+	ru_names = list(
+		NOMINATIVE = "низший адский пёс",
+		GENITIVE = "низшего адского пса",
+		DATIVE = "низшему адскому псу",
+		ACCUSATIVE = "низшего адского пса",
+		INSTRUMENTAL = "низшим адским псом",
+		PREPOSITIONAL = "низшем адском псе"
+	)
+	gender = MALE
 	icon_state = "hellhound"
 	icon_living = "hellhound"
 	icon_dead = "hellhound_dead"
@@ -111,7 +120,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/greater
 	name = "greater hellhound"
-	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Greater hounds are far stronger than their lesser kin, and typically employed by powerful bluespace entities."
+	desc = "Чёрное существо с демоническим обликом, горящими красными глазами и острыми клыками, словно вышедшее из преисподней. Высшие гончие намного сильнее своих низших сородичей, и обычно их призывают могущественные существа из блюспейс пространства."
 	icon_state = "hellhoundgreater"
 	icon_living = "hellhoundgreater"
 	icon_resting = "hellhoundgreater_sit"
@@ -166,6 +175,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/tear
 	name = "frenzied hellhound"
+	desc = "Чёрное существо с демоническим обликом, горящими красными глазами и острыми клыками, словно вышедшее из преисподней. С его тела стекает лава. Он далеко не обычный низший пёс."
 	ru_names = list(
 		NOMINATIVE = "бешеный адский пёс",
 		GENITIVE = "бешеного адского пса",
@@ -174,7 +184,6 @@
 		INSTRUMENTAL = "бешеным адским псом",
 		PREPOSITIONAL = "бешеном адском псе"
 	)
-	gender = MALE
 	maxHealth = 300
 	health = 300
 	melee_damage_lower = 30

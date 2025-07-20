@@ -1,5 +1,5 @@
 /datum/event/tear/honk
-	name = "хонкомысленный разрыв"
+	name = "honkmensional tear"
 	notify_title = "Хонкомысленный разрыв"
 	notify_image = "clowngoblin"
 	var/obj/effect/tear/honk/HE

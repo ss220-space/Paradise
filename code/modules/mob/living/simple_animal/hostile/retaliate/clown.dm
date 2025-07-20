@@ -1,6 +1,15 @@
 /mob/living/simple_animal/hostile/retaliate/clown
-	name = "Clown"
-	desc = "A denizen of clown planet"
+	name = "clown"
+	desc = "Житель планеты клоунов."
+	ru_names = list(
+		NOMINATIVE = "клоун",
+		GENITIVE = "клоуна",
+		DATIVE = "клоуну",
+		ACCUSATIVE = "клоуна",
+		INSTRUMENTAL = "клоуном",
+		PREPOSITIONAL = "клоуне"
+	)
+	gender = MALE
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "clown"
 	icon_living = "clown"
@@ -8,11 +17,11 @@
 	icon_gib = "clown_gib"
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "pokes the"
-	response_disarm = "gently pushes aside the"
-	response_harm = "hits the"
-	speak = list("HONK", "Honk!", "Welcome to clown planet!")
-	emote_see = list("honks")
+	response_help = "тычет в"
+	response_disarm = "осторожно отодвигает в сторону"
+	response_harm = "бьёт"
+	speak = list("ХОНК!", "Хонк!", "Добро пожаловать на планету клоунов!")
+	emote_see = list("хонкает")
 	speak_chance = 1
 	a_intent = INTENT_HARM
 	maxHealth = 75
@@ -38,7 +47,6 @@
 	)
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin
-	icon = 'icons/mob/animal.dmi'
 	name = "clown goblin"
 	desc = "Крошечные ходячие маска и клоунские башмачки. Так и хочется расквасить им нос!"
 	ru_names = list(
@@ -49,14 +57,14 @@
 		INSTRUMENTAL = "клоуном-гоблином",
 		PREPOSITIONAL = "клоуне-гоблине"
 	)
-	gender = MALE
+	icon = 'icons/mob/animal.dmi'
 	icon_state = "clowngoblin"
 	icon_living = "clowngoblin"
 	icon_dead = null
-	response_help = "honks the"
-	speak = list("Honk!")
-	speak_emote = list("sqeaks")
-	emote_see = list("honks")
+	response_help = "хонкает"
+	speak = list("ХОНК!")
+	speak_emote = list("пищит")
+	emote_see = list("хонкает")
 	maxHealth = 100
 	health = 100
 
@@ -79,12 +87,12 @@
 		INSTRUMENTAL = "неуклюжим гоблином",
 		PREPOSITIONAL = "неуклюжем гоблине"
 	)
-	gender = MALE
 	icon_state = "cluwnegoblin"
 	icon_living = "cluwnegoblin"
 	response_help = "henks the"
-	speak = list("HENK!")
-	emote_see = list("henks")
+	speak = list("ХЕ-ХЕНК!")
+	speak_emote = list("злобно пищит")
+	emote_see = list("хе-хенкает")
 	maxHealth = 150
 	health = 150
 	harm_intent_damage = 15

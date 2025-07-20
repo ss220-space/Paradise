@@ -6,10 +6,10 @@
  * to 10 random hell mobs including a guaranteed tear hellhound, then disappears.
  */
 /datum/event/tear
-	name = "пространственный разрыв"
+	name = "dimensional tear"
 	announceWhen = 6
 	endWhen = 14
-	var/notify_title = "Пространственный разлом"
+	var/notify_title = "Пространственный разрыв"
 	var/notify_image = "hellhound"
 
 	var/obj/effect/tear/TE
@@ -28,7 +28,7 @@
 
 		// Give ghosts some time to jump there before it begins.
 		var/image/alert_overlay = image('icons/mob/animal.dmi', notify_image)
-		notify_ghosts("[capitalize(src)] вот-вот откроется в [get_area(turf)].", title = notify_title, source = turf, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_FOLLOW)
+		notify_ghosts("[notify_title] вот-вот откроется в [get_area(turf)].", title = notify_title, source = turf, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_FOLLOW)
 		addtimer(CALLBACK(src, PROC_REF(spawn_tear), turf), 4 SECONDS)
 		// Energy overload; we mess with machines as an early warning and for extra spookiness.
 		for(var/obj/machinery/machinery in range(8, turf))

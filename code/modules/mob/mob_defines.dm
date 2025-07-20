@@ -93,7 +93,8 @@
 	var/list/datum/language/languages
 	/// For reagents that grant language knowlege.
 	var/list/temporary_languages
-	var/list/speak_emote = list()   // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
+	/// Verb used when speaking phrases (e.g. "states", "chirps", "beeps"). Appears before speak messages. Defaults to 'say' if speak_emote is null.
+	var/list/speak_emote = list()
 	var/verb_say = "says"
 	var/verb_ask = "asks"
 	var/verb_exclaim = list("exclaims", "shouts")

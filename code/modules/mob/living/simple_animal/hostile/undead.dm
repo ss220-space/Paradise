@@ -75,16 +75,25 @@
 
 /mob/living/simple_animal/hostile/skeleton
 	name = "reanimated skeleton"
-	desc = "A real bonefied skeleton, doesn't seem like it wants to socialize."
+	desc = "Настоящий костлявый скелет, не похоже, что он хочет общаться."
+	ru_names = list(
+		NOMINATIVE = "оживший скелет",
+		GENITIVE = "ожившего скелета",
+		DATIVE = "ожившему скелету",
+		ACCUSATIVE = "ожившего скелета",
+		INSTRUMENTAL = "ожившим скелетом",
+		PREPOSITIONAL = "ожившем скелете"
+	)
+	gender = MALE
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "skeleton"
 	icon_living = "skeleton"
 	turns_per_move = 5
-	response_help = "shakes hands with"
-	response_disarm = "shoves"
-	response_harm = "hits"
-	speak_emote = list("rattles")
-	emote_see = list("rattles")
+	response_help = "пожимает руку"
+	response_disarm = "толкает"
+	response_harm = "бьёт"
+	speak_emote = list("трещит")
+	emote_see = list("трещит")
 	a_intent = INTENT_HARM
 	maxHealth = 40
 	health = 40
@@ -103,7 +112,7 @@
 	faction = list("undead")
 	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	deathmessage = "collapses into a pile of bones!"
+	deathmessage = "превращается в груду костей!"
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/remains/human)
 
