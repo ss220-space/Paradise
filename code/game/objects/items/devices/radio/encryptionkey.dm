@@ -306,12 +306,12 @@
 /obj/item/encryptionkey/heads/qm
 	name = "Quartermaster's Encryption Key"
 	ru_names = list(
-		NOMINATIVE = "ключ-шифратор Завхоза",
-		GENITIVE = "ключа-шифратора Завхоза",
-		DATIVE = "ключу-шифратору Завхоза",
-		ACCUSATIVE = "ключ-шифратор Завхоза",
-		INSTRUMENTAL = "ключом-шифратором Завхоза",
-		PREPOSITIONAL = "ключе-шифраторе Завхоза"
+		NOMINATIVE = "ключ-шифратор завхоза",
+		GENITIVE = "ключа-шифратора завхоза",
+		DATIVE = "ключу-шифратору завхоза",
+		ACCUSATIVE = "ключ-шифратор завхоза",
+		INSTRUMENTAL = "ключом-шифратором завхоза",
+		PREPOSITIONAL = "ключе-шифраторе завхоза"
 	)
 	icon_state = "cargo_cypherkey"
 	channels = list(SUP_FREQ_NAME = 1, COMM_FREQ_NAME = 1)
