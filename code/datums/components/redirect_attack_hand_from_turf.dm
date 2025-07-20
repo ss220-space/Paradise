@@ -86,6 +86,6 @@
 	if (!isnull(interact_check) && !interact_check.Invoke(user))
 		return NONE
 
-	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, UnarmedAttack), parent, proximity_flag = TRUE, modifiers = modifiers)
+	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, UnarmedAttack), parent, proximity_flag = TRUE/*, modifiers = modifiers*/)
 
 	return COMPONENT_CANCEL_ATTACK_CHAIN

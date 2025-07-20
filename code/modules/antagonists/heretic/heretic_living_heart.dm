@@ -73,6 +73,7 @@
 	action_icon = 'icons/obj/eldritch.dmi'
 	action_icon_state = "living_heart"
 	base_cooldown = 4 SECONDS
+	clothes_req = FALSE
 
 	/// Tracks whether we were right clicked or left clicked in our last trigger
 	var/right_clicked = FALSE

@@ -14,16 +14,19 @@
 	..()
 	if(owner.stat == DEAD)
 		return
-	if(!small)
-		var/image/I = image(icon = small_icon, icon_state = small_icon_state, loc = owner)
-		I.override = TRUE
-		I.pixel_x -= owner.pixel_x
-		I.pixel_y -= owner.pixel_y
-		owner.add_alt_appearance("smallsprite", I, list(owner))
-		small = TRUE
-	else
+
+	if(small)
 		owner.remove_alt_appearance("smallsprite")
 		small = FALSE
+		return
+
+	var/image/I = image(icon = small_icon, icon_state = small_icon_state, loc = owner)
+	I.override = TRUE
+	I.pixel_x -= owner.pixel_x
+	I.pixel_y -= owner.pixel_y
+	owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "smallsprite", I)
+	small = TRUE
+
 
 
 /datum/action/innate/space_dragon_gust

@@ -295,14 +295,20 @@
 
 
 /obj/item/clothing/suit/cardborg/proc/disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
-	if(istype(H))
-		if(!borghead)
-			borghead = H.head
-		if(istype(borghead, /obj/item/clothing/head/cardborg)) //why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY
-			var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = "robot", loc = H)
-			I.override = 1
-			I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = "eyes-robot") //gotta look realistic
-			H.add_alt_appearance("standard_borg_disguise", I, GLOB.silicon_mob_list+H) //you look like a robot to robots! (including yourself because you're totally a robot)
+	if(!istype(H))
+		return
+
+	if(!borghead)
+		borghead = H.head
+
+	if(!istype(borghead, /obj/item/clothing/head/cardborg)) //why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY
+		return
+
+	var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = "robot", loc = H)
+	I.override = 1
+	I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = "eyes-robot") //gotta look realistic
+	H.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons_or_self, "standard_borg_disguise", I) //you look like a robot to robots! (including yourself because you're totally a robot)
+
 
 /obj/item/clothing/suit/snowman
 	name = "snowman outfit"

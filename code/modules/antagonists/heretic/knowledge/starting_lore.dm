@@ -17,12 +17,12 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 
 /*
- * The base heretic knowledge. Grants the Восприятие Мансуса spell.
+ * The base heretic knowledge. Grants the Прикосновение Мансуса spell.
  */
 /datum/heretic_knowledge/spell/basic
 	name = "Break of Dawn"
 	desc = "Starts your journey into the Mansus. \
-		Grants you the Восприятие Мансуса, a powerful and upgradable \
+		Grants you the Прикосновение Мансуса, a powerful and upgradable \
 		disabling spell that can be cast regardless of having a focus."
 	spell_to_add = /obj/effect/proc_holder/spell/touch/mansus_grasp
 	cost = 0

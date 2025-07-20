@@ -4,10 +4,19 @@
 	icon = 'icons/obj/clothing/helmet.dmi'
 	//worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	icon_state = "eldritch"
+	//item_state = "eldritch"
 	desc = "A torn, dust-caked hood. Strange eyes line the inside."
 	//flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	//flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 	flash_protect = FLASH_PROTECTION_WELDER
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+	)
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/Initialize(mapload)
@@ -19,13 +28,21 @@
 	name = "ominous armor"
 	desc = "A ragged, dusty set of robes. Strange eyes line the inside."
 	icon_state = "eldritch_armor"
-	//item_state = null
+	//item_state = "eldritch_armor"
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// Slightly better than normal cult robes
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 20, "fire" = 20, "acid" = 20)
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+	)
 	/// Whether the hood is flipped up
 	var/hood_up = FALSE
 
@@ -56,9 +73,18 @@
 	desc = "Black like tar, reflecting no light. Runic symbols line the outside. \
 		With each flash you lose comprehension of what you are seeing."
 	icon_state = "void_cloak"
+	//item_state = "void_cloak"
 	flags_inv = NONE
 	flags_cover = NONE
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "rad" = 0, "fire" = 15, "acid" = 0)
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+	)
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/void/Initialize(mapload)
@@ -71,7 +97,8 @@
 	desc = "Black like tar, reflecting no light. Runic symbols line the outside. \
 		With each flash you lose comprehension of what you are seeing."
 	icon_state = "void_cloak"
-	item_state = null
+	//item_state = "void_cloak"
+	//item_state = null
 	allowed = list(/obj/item/melee/sickly_blade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/void
 	flags_inv = NONE
@@ -79,6 +106,14 @@
 	// slightly worse than normal cult robes
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	//alternative_mode = TRUE
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+	)
 	/// Whether the hood is flipped up
 	var/hood_up = FALSE
 

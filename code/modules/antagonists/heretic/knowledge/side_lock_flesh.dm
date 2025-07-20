@@ -30,7 +30,7 @@
 /datum/heretic_knowledge/spell/opening_blast
 	name = "Wave Of Desperation"
 	desc = "Grants you Wave Of Desparation, a spell which can only be cast while restrained. \
-		It removes your restraints, repels and knocks down adjacent people, and applies the Восприятие Мансуса to everything nearby. \
+		It removes your restraints, repels and knocks down adjacent people, and applies the Прикосновение Мансуса to everything nearby. \
 		However, you will fall unconscious a short time after casting this spell."
 	gain_text = "My shackles undone in dark fury, their feeble bindings crumble before my power."
 

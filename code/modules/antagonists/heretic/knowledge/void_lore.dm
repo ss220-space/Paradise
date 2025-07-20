@@ -42,7 +42,7 @@
 
 /datum/heretic_knowledge/void_grasp
 	name = "Понимание пустоты"
-	desc = "Ваше Восприятие Мансуса временно заглушит и охладит жертву."
+	desc = "Ваше Прикосновение Мансуса временно заглушит и охладит жертву."
 	gain_text = "Я увидел Его. Он наблюдает за мной. В Его глазах холод. Холод пробирающий до костей. \
 				Они молчат. Это ещё не конец тайны."
 	cost = 1
@@ -111,10 +111,10 @@
 
 /datum/heretic_knowledge/mark/void_mark
 	name = "Метка Пустоты"
-	desc = "Your Восприятие Мансуса now applies the Mark of Void. The mark is triggered from an attack with your Void Blade. \
-		When triggered, further silences the victim and swiftly lowers the temperature of their body and the air around them."
-	gain_text = "A gust of wind? A shimmer in the air? The presence is overwhelming, \
-		my senses began to betray me. My mind is my own enemy."
+	desc = "Ваше «Прикосновение Мансуса» теперь накладывает Метку Пустоты. Метка активируется атакой вашим Клинком Пустоты. \
+			При срабатывании на длительный срок заглушает жертву и быстро понижает температуру её тела и воздуха вокруг неё."
+	gain_text = "Порыв ветра? Мерцание в воздухе? ЗДЕСЬ КТО-ТО ЕСТЬ! ОНО ОБМАНЫВАЕТ МОИ ЧУВСТВА! \
+				МОЙ РАЗУМ МНЕ ЛЖЕТ!"
 	mark_type = /datum/status_effect/eldritch/void
 
 
@@ -122,31 +122,32 @@
 
 
 /datum/heretic_knowledge/spell/void_conduit
-	name = "Void Conduit"
-	desc = "Grants you Void Conduit, a spell which summons a pulsing gate to the Void itself. Every pulse breaks windows and airlocks, while afflicting Heathens with an eldritch chill and shielding Heretics against low pressure."
-	gain_text = "The hum in the still, cold air turns to a cacophonous rattle. \
-		Over the noise, there is no distinction to the clattering of window panes and the yawning knowledge that ricochets through my skull. \
-		The doors won't close. I can't keep the cold out now."
+	name = "Канал Пустоты"
+	desc = "Даёт вам «Канал Пустоты» — заклинание, создающее пульсирующие врата в саму Пустоту. Каждый импульс разбивает окна и шлюзы, нанося вашим врагам жуткий холод и защищая еретиков от низкого давления."
+	gain_text = "Гул в неподвижном, холодном воздухе превращается в какофонию. \
+				Сквозь этот шум не различить стук оконных стёкол и хаотичный бред проносящийся в моей голове. \
+				Врата не закрыть. Теперь я не могу уберечься от холода."
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/conjure/void_conduit
 	cost = 1
 
 
 /datum/heretic_knowledge/spell/void_phase
-	name = "Void Phase"
-	desc = "Grants you Void Phase, a long range targeted teleport spell. \
-		Additionally causes damage to heathens around your original and target destination."
-	gain_text = "The entity calls themself the Aristocrat. They effortlessly walk through air like \
-		nothing - leaving a harsh, cold breeze in their wake. They disappear, and I am left in the blizzard."
+	name = "Пустотный Сдвиг"
+	desc = "Дарует вам «Пустотный Сдвиг» — заклинание телепортации на большие расстояния. \
+			Кроме того, наносит урон врагам вокруг вашей исходной и целевой точки назначения."
+	gain_text = "Я был в пустоте. Я видел сущность называющую себя Аристократом. \
+				Она летела оставляя после себя резкий, холодный ветер. Я следовал за ней, но \
+				она исчезла, оставив меня посреди метели."
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_phase
 	cost = 1
 	research_tree_icon_frame = 7
 
 
 /datum/heretic_knowledge/blade_upgrade/void
-	name = "Seeking Blade"
-	desc = "Your blade now freezes enemies. Additionally, you can now attack distant marked targets with your Void Blade, teleporting directly next to them."
-	gain_text = "Fleeting memories, fleeting feet. I mark my way with frozen blood upon the snow. Covered and forgotten."
-
+	name = "Ищущий Клинок"
+	desc = "Ваш клинок теперь замораживает врагов. Кроме того, теперь вы можете \
+			атаковать далекие отмеченные цели своим Клинцем Пустоты, телепортируясь прямо к ним."
+	gain_text = "Мимолетные воспоминания, мимолетные шаги. Я шел среди метели отмечая свой путь замёрзшей кровью на снегу. Никто не пришел. Моё тело осталось там, под снегом, всеми забытое."
 
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_void"
@@ -174,11 +175,11 @@
 
 
 /datum/heretic_knowledge/spell/void_pull
-	name = "Void Pull"
-	desc = "Grants you Void Pull, a spell that pulls all nearby heathens towards you, stunning them briefly."
-	gain_text = "All is fleeting, but what else stays? I'm close to ending what was started. \
-		The Aristocrat reveals themselves to me again. They tell me I am late. Their pull is immense, I cannot turn back."
-
+	name = "Притяжение Пустоты"
+	desc = "Дает вам Притяжение Пустоты — заклинание, притягивающее к вам всех находящихся поблизости язычников, ненадолго оглушая их."
+	gain_text = "Всё мимолётно, но что же ещё остаётся? Я близок к завершению начатого. \
+				Аристократы снова открываются мне. Они говорят, что я опоздал. \
+				Их притяжение огромно, я не могу повернуть назад."
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/void_pull
 	cost = 1
 
@@ -186,18 +187,17 @@
 
 
 /datum/heretic_knowledge/ultimate/void_final
-	name = "Waltz at the End of Time"
-	desc = "The ascension ritual of the Path of Void. \
-		Bring 3 corpses to a transmutation rune in sub-zero temperatures to complete the ritual. \
-		When completed, causes a violent storm of void snow \
-		to assault the station, freezing and damaging heathens. Those nearby will be silenced and frozen even quicker. \
-		Additionally, you will become immune to the effects of space."
-	gain_text = "The world falls into darkness. I stand in an empty plane, small flakes of ice fall from the sky. \
-		The Aristocrat stands before me, beckoning. We will play a waltz to the whispers of dying reality, \
-		as the world is destroyed before our eyes. The void will return all to nothing, WITNESS MY ASCENSION!"
+	name = "Вальс Конца Времен"
+	desc = "Ритуал вознесения Пути Пустоты. \
+			Принесите 3 трупа к руне трансмутации при температуре ниже нуля, чтобы завершить ритуал. \
+			После завершения вызывает мощную снежную бурю, замораживающую и нанося урон дикарям. \
+			Те, кто находится рядом, будут заморожены и обездвижены ещё быстрее."
+	gain_text = "Мир погружается во тьму. Я стою в пустом самолёте, с неба падают снежинки.\
+				Аристократ стоит передо. Аристократ манит меня. Мы сыграем вальс под шёпот умирающей реальности,\
+				пока мир разрушается на наших глазах. Всё обратится в ничто, СТАНЬ СВИДЕТЕЛЕМ МОЕГО ВОЗНЕСЕНИЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/void_ascension
-	announcement_text = "%SPOOKY% The nobleman of void %NAME% has arrived, stepping along the Waltz that ends worlds! %SPOOKY%"
+	announcement_text = "%SPOOKY% Дворянин пустоты %NAME% прибыл, шагая в Вальсе, который положит конец всему! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_void.ogg'
 	///soundloop for the void theme
 	//var/datum/looping_sound/void_loop/sound_loop

@@ -76,7 +76,7 @@
 	else
 		. += span_boldnotice("[declent_ru(NOMINATIVE)] наполнен вязкой субстанцией и готов к использованию.")
 
-	. += span_notice("Вы можете <b>[anchored ? "прикрепить к полу":"открепить от пола"]</b> [declent_ru(ACCUSATIVE)] используя <b>Кодекс Истезания</b> или <b>Восприятие Мансуса</b>.")
+	. += span_notice("Вы можете <b>[anchored ? "прикрепить к полу":"открепить от пола"]</b> [declent_ru(ACCUSATIVE)] используя <b>Кодекс Истезания</b> или <b>Прикосновение Мансуса</b>.")
 	. += span_info("Можно сварить следующие зелья:")
 	for(var/obj/item/eldritch_potion/potion as anything in subtypesof(/obj/item/eldritch_potion))
 		var/potion_string = span_info(initial(potion.name) + " - " + initial(potion.crucible_tip))

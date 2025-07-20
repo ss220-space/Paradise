@@ -33,20 +33,22 @@
 
 /obj/item/twohanded/cardboard_cutout/attack_self(mob/living/user)
 	. = ..()
-	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		if(pushed_over)
-			to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты поднимаешь","Вы поднимаете")] [src]."))
-			desc = initial(desc)
-			icon = initial(icon)
-			icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
-			pushed_over = FALSE
-
-		var/image/I = image(icon = src.icon , icon_state = src.icon_state, loc = user)
-		I.override = 1
-		I.color = color
-		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		user.remove_alt_appearance("sneaking_mission")
 		return
-	user.remove_alt_appearance("sneaking_mission")
+
+	if(pushed_over)
+		to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты поднимаешь","Вы поднимаете")] [src]."))
+		desc = initial(desc)
+		icon = initial(icon)
+		icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
+		pushed_over = FALSE
+
+	var/image/I = image(icon = src.icon , icon_state = src.icon_state, loc = user)
+	I.override = 1
+	I.color = color
+	user.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "sneaking_mission", I)
+
 
 /obj/item/twohanded/cardboard_cutout/dropped(mob/living/user)
 	. = ..()

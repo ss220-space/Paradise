@@ -62,7 +62,7 @@
 	if(!heretic_datum)
 		return NONE
 
-	if(!is_space_or_openspace(interacting_with))
+	if(!istype(interacting_with, /obj/effect/heretic_influence))
 		return NONE
 
 	var/obj/effect/heretic_influence/influence = locate(/obj/effect/heretic_influence) in interacting_with
@@ -114,7 +114,7 @@
 	human_user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 190)
 
 
-/obj/item/codex_cicatrix/morbus/afterattack(atom/interacting_with, mob/living/user, proximity, list/modifiers, status)
+/obj/item/codex_cicatrix/morbus/afterattack(atom/interacting_with, mob/living/user, proximity, modifiers, status)
 	if(!modifiers["alt"])
 		return ..()
 

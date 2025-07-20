@@ -38,7 +38,7 @@
 
 /datum/heretic_knowledge/moon_grasp
 	name = "Grasp of Lunacy"
-	desc = "Your Восприятие Мансуса will cause your victims to hallucinate everyone as lunar mass, \
+	desc = "Your Прикосновение Мансуса will cause your victims to hallucinate everyone as lunar mass, \
 		and hides your identity for a short duration."
 	gain_text = "The troupe on the side of the moon showed me truth, and I took it."
 	cost = 1
@@ -79,7 +79,7 @@
 
 /datum/heretic_knowledge/mark/moon_mark
 	name = "Mark of Moon"
-	desc = "Your Восприятие Мансуса now applies the Mark of Moon, pacifying the victim until attacked. \
+	desc = "Your Прикосновение Мансуса now applies the Mark of Moon, pacifying the victim until attacked. \
 		The mark can also be triggered from an attack with your Moon Blade, leaving the victim confused."
 	gain_text = "The troupe on the moon would dance all day long \
 		and in that dance the moon would smile upon us \

@@ -47,7 +47,7 @@
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp
 	name = "Grasp of Flesh"
-	desc = "Your Восприятие Мансуса gains the ability to create a ghoul out of corpse with a soul. \
+	desc = "Your Прикосновение Мансуса gains the ability to create a ghoul out of corpse with a soul. \
 		Ghouls have only 25 health and look like husks to the heathens' eyes, but can use Bloody Blades effectively. \
 		You can only create one at a time by this method."
 	gain_text = "My new found desires drove me to greater and greater heights."
@@ -199,7 +199,7 @@
 
 /datum/heretic_knowledge/mark/flesh_mark
 	name = "Mark of Flesh"
-	desc = "Your Восприятие Мансуса now applies the Mark of Flesh. The mark is triggered from an attack with your Bloody Blade. \
+	desc = "Your Прикосновение Мансуса now applies the Mark of Flesh. The mark is triggered from an attack with your Bloody Blade. \
 		When triggered, the victim begins to bleed significantly."
 	gain_text = "That's when I saw them, the marked ones. They were out of reach. They screamed, and screamed."
 

@@ -19,6 +19,7 @@
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
 	var/is_in_use = FALSE
 
+
 /obj/effect/heretic_rune/Initialize(mapload)
 	. = ..()
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
@@ -26,13 +27,15 @@
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "heretic_rune", silicon_image)
 	ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
 
+
 /obj/effect/heretic_rune/examine(mob/user)
 	. = ..()
 	if(!isheretic(user))
 		return
 
 	. += span_notice("Позволяет трансмутировать предметы, после соблюдения некоторых условий.")
-	. += span_notice("Вы можете использовать <i>Восприятие Мансуса</i> на руне, чтобы стереть её.")
+	. += span_notice("Вы можете использовать <i>Прикосновение Мансуса</i> на руне, чтобы стереть её.")
+
 
 /obj/effect/heretic_rune/proc/can_interact(mob/living/user)
 	if(!isheretic(user))
@@ -43,13 +46,16 @@
 
 	return TRUE
 
-/obj/effect/heretic_rune/interact(mob/living/user)
+
+/obj/effect/heretic_rune/attackby(obj/item/item, mob/living/user, params)
+	. = ..()
 	if(!can_interact(user))
 		return FALSE
 
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(try_rituals), user)
 	return TRUE
+
 
 /**
  * Attempt to begin a ritual, giving them an input list to chose from.
@@ -73,6 +79,7 @@
 	do_ritual(user, rituals[chosen])
 	is_in_use = FALSE
 
+
 /**
  * Attempt to invoke a ritual from the past list of knowledges.
  *
@@ -89,12 +96,15 @@
 	for(var/atom/close_atom as anything in range(1, src))
 		if(!ismovable(close_atom))
 			continue
+
 		if(isitem(close_atom))
 			var/obj/item/close_item = close_atom
 			if(close_item.item_flags & ABSTRACT) //woops sacrificed your own head
 				continue
+
 		if(close_atom.invisibility)
 			continue
+
 		if(close_atom == user)
 			continue
 
@@ -120,26 +130,27 @@
 			if(requirements_list[req_type] <= 0)
 				continue
 			// If req_type is a list of types, check all of them for one match.
-			if(islist(req_type))
-				if(!(is_type_in_list(nearby_atom, req_type)))
-					continue
+			if(islist(req_type) && !is_type_in_list(nearby_atom, req_type))
+				continue
+
 			else if(!istype(nearby_atom, req_type))
 				continue
+
 			// if list has items, check if the strict type is banned.
-			if(length(banned_atom_types))
-				if(nearby_atom.type in banned_atom_types)
-					continue
+			if(length(banned_atom_types) && (nearby_atom.type in banned_atom_types))
+				continue
+
 			// This item is a valid type. Add it to our selected atoms list.
 			selected_atoms |= nearby_atom
 			// If it's a stack, we gotta see if it has more than one inside,
 			// as our requirements may want more than one item of a stack
-			if(isstack(nearby_atom))
-				var/obj/item/stack/picked_stack = nearby_atom
-				requirements_list[req_type] -= picked_stack.amount // Can go negative, but doesn't matter. Negative = fulfilled
-
-			// Otherwise, just add the mark down the item as fulfilled x1
-			else
+			if(!isstack(nearby_atom))
 				requirements_list[req_type]--
+				return
+
+			var/obj/item/stack/picked_stack = nearby_atom
+			requirements_list[req_type] -= picked_stack.amount // Can go negative, but doesn't matter. Negative = fulfilled
+
 
 	// All of the atoms have been checked, let's see if the ritual was successful
 	var/list/what_are_we_missing = list()
@@ -157,6 +168,7 @@
 			var/list/req_text_list = list()
 			for(var/atom/possible_type as anything in req_type_list)
 				req_text_list += ritual.parse_required_item(possible_type)
+
 			formatted_thing += english_list(req_text_list, and_text = "or")
 
 		else
@@ -219,10 +231,14 @@
 	pixel_z = -48
 	//greyscale_config = /datum/greyscale_config/heretic_rune
 
+
 /obj/effect/heretic_rune/big/Initialize(mapload, path_colour)
 	. = ..()
-	//if (path_colour)
-	//	set_greyscale(colors = list(path_colour))
+	if(!path_colour)
+		return
+
+	add_atom_colour(path_colour, FIXED_COLOUR_PRIORITY)
+
 
 /obj/effect/temp_visual/drawing_heretic_rune
 	duration = 30 SECONDS
@@ -239,7 +255,7 @@
 
 /obj/effect/temp_visual/drawing_heretic_rune/Initialize(mapload, path_colour = COLOR_WHITE)
 	. = ..()
-	//set_greyscale(colors = list(path_colour))
+	add_atom_colour(path_colour, FIXED_COLOUR_PRIORITY)
 	icon_state = animation_state
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE

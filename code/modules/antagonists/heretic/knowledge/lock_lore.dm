@@ -49,7 +49,7 @@
 
 /datum/heretic_knowledge/lock_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY)
-	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
+	//UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
 
 /*
 /datum/heretic_knowledge/lock_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
@@ -124,7 +124,7 @@
 
 /datum/heretic_knowledge/mark/lock_mark
 	name = "Mark of Lock"
-	desc = "Your Восприятие Мансуса now applies the Mark of Lock. \
+	desc = "Your Прикосновение Мансуса now applies the Mark of Lock. \
 		Attack a marked person to bar them from all passages for the duration of the mark. \
 		This will make it so that they have no access whatsoever, even public access doors will reject them."
 	gain_text = "The Gatekeeper was a corrupt Steward. She hindered her fellows for her own twisted amusement."

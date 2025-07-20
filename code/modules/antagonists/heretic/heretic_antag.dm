@@ -339,9 +339,11 @@
  */
 /datum/antagonist/heretic/proc/try_draw_rune(mob/living/user, turf/target_turf, drawing_time = 20 SECONDS, additional_checks)
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, target_turf))
-		if(!is_space_or_openspace(nearby_turf) || is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
-			target_turf.balloon_alert(user, "не подходящее место!")
-			return
+		if(!iswallturf(nearby_turf) && !is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
+			continue
+
+		target_turf.balloon_alert(user, "не подходящее место!")
+		return
 
 	if(locate(/obj/effect/heretic_rune) in range(3, target_turf))
 		target_turf.balloon_alert(user, "другая руна рядом!")
@@ -386,7 +388,7 @@
 	drawing_rune = FALSE
 
 /**
- * Callback to check that the user's still got their Восприятие Мансуса out when drawing a rune.
+ * Callback to check that the user's still got their Прикосновение Мансуса out when drawing a rune.
  *
  * Arguments
  * * user - the mob drawing the rune

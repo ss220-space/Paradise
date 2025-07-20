@@ -35,7 +35,7 @@
 
 /datum/heretic_knowledge/rust_fist
 	name = "Grasp of Rust"
-	desc = "Your Восприятие Мансуса will deal 500 damage to non-living matter and rust any surface it touches. \
+	desc = "Your Прикосновение Мансуса will deal 500 damage to non-living matter and rust any surface it touches. \
 		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted by using Right-Click. \
 		Allows you to rust basic iron walls and floors."
 	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
@@ -88,7 +88,7 @@
 
 /datum/heretic_knowledge/mark/rust_mark
 	name = "Mark of Rust"
-	desc = "Your Восприятие Мансуса now applies the Mark of Rust. The mark is triggered from an attack with your Rusty Blade. \
+	desc = "Your Прикосновение Мансуса now applies the Mark of Rust. The mark is triggered from an attack with your Rusty Blade. \
 		When triggered, your victim will suffer heavy disgust and confusion. \
 		Allows you to rust reinforced walls and floors as well as plasteel."
 	gain_text = "The Blacksmith looks away. To a place lost long ago. \"Rusted Hills help those in dire need... at a cost.\""

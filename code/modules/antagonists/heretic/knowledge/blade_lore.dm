@@ -34,7 +34,7 @@
 
 /datum/heretic_knowledge/blade_grasp
 	name = "Grasp of the Blade"
-	desc = "Your Восприятие Мансуса will cause a short stun when used on someone lying down or facing away from you."
+	desc = "Your Прикосновение Мансуса will cause a short stun when used on someone lying down or facing away from you."
 	gain_text = "The story of the footsoldier has been told since antiquity. It is one of blood and valor, \
 		and is championed by sword, steel and silver."
 	cost = 1
@@ -153,7 +153,7 @@
 
 /datum/heretic_knowledge/mark/blade_mark
 	name = "Mark of the Blade"
-	desc = "Your Восприятие Мансуса now applies the Mark of the Blade. While marked, \
+	desc = "Your Прикосновение Мансуса now applies the Mark of the Blade. While marked, \
 		the victim will be unable to leave their current room until it expires or is triggered. \
 		Triggering the mark will summon a knife that will orbit you for a short time. \
 		The knife will block any attack directed towards you, but is consumed on use."

@@ -33,7 +33,7 @@
 
 /datum/heretic_knowledge/cosmic_grasp
 	name = "Grasp of Cosmos"
-	desc = "Your Восприятие Мансуса will give people a star mark (cosmic ring) and create a cosmic field where you stand. \
+	desc = "Your Прикосновение Мансуса will give people a star mark (cosmic ring) and create a cosmic field where you stand. \
 		People with a star mark can not pass cosmic fields."
 	gain_text = "Some stars dimmed, others' magnitude increased. \
 		With newfound strength I could channel the nebula's power into myself."
@@ -68,7 +68,7 @@
 
 /datum/heretic_knowledge/mark/cosmic_mark
 	name = "Mark of Cosmos"
-	desc = "Your Восприятие Мансуса now applies the Mark of Cosmos. The mark is triggered from an attack with your Cosmic Blade. \
+	desc = "Your Прикосновение Мансуса now applies the Mark of Cosmos. The mark is triggered from an attack with your Cosmic Blade. \
 		When triggered, the victim is returned to the location where the mark was originally applied to them, \
 		leaving a cosmic field in their place. \
 		They will then be paralyzed for 2 seconds."

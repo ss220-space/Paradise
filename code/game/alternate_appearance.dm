@@ -1,14 +1,18 @@
 GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /atom/proc/remove_alt_appearance(key)
-	if(alternate_appearances)
-		for(var/K in alternate_appearances)
-			var/datum/atom_hud/alternate_appearance/alternate_appearance = alternate_appearances[K]
-			if(alternate_appearance.appearance_key != key)
-				continue
+	if(!alternate_appearances)
+		return
 
-			alternate_appearance.remove_hud_from(src)
-			break
+	for(var/possible_key in alternate_appearances)
+		var/datum/atom_hud/alternate_appearance/alternate_appearance = alternate_appearances[possible_key]
+		if(alternate_appearance.appearance_key != key)
+			continue
+
+		alternate_appearances.Remove(possible_key)
+		qdel(alternate_appearance)
+		break
+
 
 /atom/proc/add_alt_appearance(type, key, ...)
 	if(!type || !key)
@@ -23,9 +27,11 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	var/list/arguments = args.Copy(2)
 	return new type(arglist(arguments))
 
+
 /datum/atom_hud/alternate_appearance
 	var/appearance_key
 	var/transfer_overlays = FALSE
+
 
 /datum/atom_hud/alternate_appearance/New(key)
 	// We use hud_icons to register our hud, so we need to do this before the parent call
@@ -38,9 +44,11 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	for(var/mob in GLOB.player_list)
 		apply_to_new_mob(mob)
 
+
 /datum/atom_hud/alternate_appearance/Destroy()
 	GLOB.active_alternate_appearances -= src
 	return ..()
+
 
 /// Wrapper for applying this alt hud to the passed mob (if they should see it)
 /datum/atom_hud/alternate_appearance/proc/apply_to_new_mob(mob/applying_to)
@@ -51,19 +59,24 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	if(!hudusers[applying_to])
 		add_hud_to(applying_to)
 
+
 /// Checks if the passed mob should be seeing this hud
-/datum/atom_hud/alternate_appearance/proc/mobShouldSee(mob/M)
+/datum/atom_hud/alternate_appearance/proc/mobShouldSee(mob/mob)
 	return FALSE
+
 
 /datum/atom_hud/alternate_appearance/add_hud_to(mob/new_viewer, only_once=FALSE)
 	. = ..()
 	if(!new_viewer)
 		return
+
 	track_mob(new_viewer)
+
 
 /// Registers some signals to track the mob's state to determine if they should be seeing the hud still
 /datum/atom_hud/alternate_appearance/proc/track_mob(mob/new_viewer)
 	return
+
 
 /datum/atom_hud/alternate_appearance/remove_from_hud(mob/former_viewer, absolute)
 	. = ..()
@@ -72,30 +85,36 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 	untrack_mob(former_viewer)
 
+
 /// Unregisters the signals that were tracking the mob's state
 /datum/atom_hud/alternate_appearance/proc/untrack_mob(mob/former_viewer)
 	return
 
+
 /datum/atom_hud/alternate_appearance/proc/check_hud(mob/source)
 	SIGNAL_HANDLER
 	// Attempt to re-apply the hud entirely
-	if(!apply_to_new_mob(source))
-		// If that failed, probably shouldn't be seeing it at all, so nuke it
-		remove_from_hud(source, absolute = TRUE)
+	if(apply_to_new_mob(source))
+		return
+
+	// If that failed, probably shouldn't be seeing it at all, so nuke it
+	remove_from_hud(source, absolute = TRUE)
+
 
 /datum/atom_hud/alternate_appearance/add_hud_to(atom/A, only_once=FALSE, image/I)
 	. = ..()
-	if(.)
-		LAZYINITLIST(A.alternate_appearances)
-		A.alternate_appearances[appearance_key] = src
+	LAZYINITLIST(A.alternate_appearances)
+	A.alternate_appearances[appearance_key] = src
+
 
 /datum/atom_hud/alternate_appearance/remove_hud_from(atom/A)
 	. = ..()
-	if(.)
-		LAZYREMOVE(A.alternate_appearances, appearance_key)
+	LAZYREMOVE(A.alternate_appearances, appearance_key)
+
 
 /datum/atom_hud/alternate_appearance/proc/copy_overlays(atom/other, cut_old)
 	return
+
 
 //an alternate appearance that attaches a single image to a single atom
 /datum/atom_hud/alternate_appearance/basic
@@ -104,6 +123,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	var/add_ghost_version = FALSE
 	var/datum/atom_hud/alternate_appearance/basic/observers/ghost_appearance
 	//uses_global_hud_category = FALSE
+
 
 /datum/atom_hud/alternate_appearance/basic/New(key, image/I, options = AA_TARGET_SEE_APPEARANCE)
 	..()
@@ -117,21 +137,28 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	add_to_hud(target)
 	//target.set_hud_image_active(appearance_key, exclusive_hud = src)
 
-	if((options & AA_TARGET_SEE_APPEARANCE) && ismob(target))
-		add_hud_to(target)
-	if(add_ghost_version)
-		var/image/ghost_image = image(icon = I.icon , icon_state = I.icon_state, loc = I.loc)
-		ghost_image.override = FALSE
-		ghost_image.alpha = 128
-		ghost_appearance = new /datum/atom_hud/alternate_appearance/basic/observers(key + "_observer", ghost_image, NONE)
+	//if((options & AA_TARGET_SEE_APPEARANCE) && ismob(target))
+	//	add_hud_to(target)
+
+	if(!add_ghost_version)
+		return
+
+	var/image/ghost_image = image(icon = I.icon , icon_state = I.icon_state, loc = I.loc)
+	ghost_image.override = FALSE
+	ghost_image.alpha = 128
+	ghost_appearance = new /datum/atom_hud/alternate_appearance/basic/observers(key + "_observer", ghost_image, NONE)
+
 
 /datum/atom_hud/alternate_appearance/basic/Destroy()
 	. = ..()
 	LAZYREMOVE(target.update_on_z, image)
 	QDEL_NULL(image)
 	target = null
-	if(ghost_appearance)
-		QDEL_NULL(ghost_appearance)
+	if(!ghost_appearance)
+		return
+
+	QDEL_NULL(ghost_appearance)
+
 
 /datum/atom_hud/alternate_appearance/basic/track_mob(mob/new_viewer)
 	RegisterSignal(new_viewer, list(
@@ -141,6 +168,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		COMSIG_MOB_MIND_TRANSFERRED_OUT_OF,
 	), PROC_REF(check_hud), override = TRUE)
 
+
 /datum/atom_hud/alternate_appearance/basic/untrack_mob(mob/former_viewer)
 	UnregisterSignal(former_viewer, list(
 		COMSIG_MOB_ANTAGONIST_REMOVED,
@@ -149,10 +177,12 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		COMSIG_MOB_MIND_TRANSFERRED_OUT_OF,
 	))
 
+
 /datum/atom_hud/alternate_appearance/basic/add_to_hud(atom/A)
 	LAZYINITLIST(A.hud_list)
 	A.hud_list[appearance_key] = image
 	. = ..()
+
 
 /datum/atom_hud/alternate_appearance/basic/remove_hud_from(atom/A)
 	. = ..()
@@ -161,71 +191,108 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	if(. && !QDELETED(src))
 		qdel(src)
 
+
 /datum/atom_hud/alternate_appearance/basic/copy_overlays(atom/other, cut_old)
 	image.copy_overlays(other, cut_old)
+
 
 /datum/atom_hud/alternate_appearance/basic/everyone
 	add_ghost_version = TRUE
 
-/datum/atom_hud/alternate_appearance/basic/everyone/mobShouldSee(mob/M)
-	return !(M.stat & DEAD)
+
+/datum/atom_hud/alternate_appearance/basic/everyone/mobShouldSee(mob/mob)
+	return !(mob.stat & DEAD)
+
 
 /datum/atom_hud/alternate_appearance/basic/silicons
 
-/datum/atom_hud/alternate_appearance/basic/silicons/mobShouldSee(mob/M)
-	if(issilicon(M))
+
+/datum/atom_hud/alternate_appearance/basic/silicons/mobShouldSee(mob/mob)
+	if(issilicon(mob))
 		return TRUE
+
 	return FALSE
+
+
+/datum/atom_hud/alternate_appearance/basic/silicons_or_self
+	/// The guy who gets to see the image
+	var/mob/seer
+
+
+/datum/atom_hud/alternate_appearance/basic/silicons_or_self/New(key, image/I, options = NONE, mob/living/seer)
+	src.seer = seer
+	return ..()
+
+
+/datum/atom_hud/alternate_appearance/basic/silicons_or_self/mobShouldSee(mob/mob)
+	if(issilicon(mob) || mob == seer)
+		return TRUE
+
+	return FALSE
+
 
 /datum/atom_hud/alternate_appearance/basic/observers
 	add_ghost_version = FALSE //just in case, to prevent infinite loops
 
-/datum/atom_hud/alternate_appearance/basic/observers/mobShouldSee(mob/M)
-	return isobserver(M)
+
+/datum/atom_hud/alternate_appearance/basic/observers/mobShouldSee(mob/mob)
+	return isobserver(mob)
+
 
 /datum/atom_hud/alternate_appearance/basic/noncult
 
-/datum/atom_hud/alternate_appearance/basic/noncult/mobShouldSee(mob/M)
-	return !iscultist(M)
+
+/datum/atom_hud/alternate_appearance/basic/noncult/mobShouldSee(mob/mob)
+	return !iscultist(mob)
+
 
 /datum/atom_hud/alternate_appearance/basic/blessed_aware
 
-/datum/atom_hud/alternate_appearance/basic/blessed_aware/mobShouldSee(mob/M)
-	if(M.mind?.isholy)
+
+/datum/atom_hud/alternate_appearance/basic/blessed_aware/mobShouldSee(mob/mob)
+	if(mob.mind?.isholy)
 		return TRUE
 
-	if (iswraith(M))
+	if (iswraith(mob))
 		return TRUE
 
-	if(isrevenant(M) || iswizard(M) || isheretic(M))
+	if(isrevenant(mob) || iswizard(mob) || isheretic(mob))
 		return TRUE
 
 	return FALSE
+
 
 /// Only shows the image to one person
 /datum/atom_hud/alternate_appearance/basic/one_person
 	/// The guy who gets to see the image
 	var/mob/seer
 
-/datum/atom_hud/alternate_appearance/basic/one_person/mobShouldSee(mob/M)
-	return M == seer
+
+/datum/atom_hud/alternate_appearance/basic/one_person/mobShouldSee(mob/mob)
+	return mob == seer
+
 
 /datum/atom_hud/alternate_appearance/basic/one_person/New(key, image/I, options = NONE, mob/living/seer)
 	src.seer = seer
 	return ..()
 
+
 /// Shows the image to everyone but one person
 /datum/atom_hud/alternate_appearance/basic/one_person/reversed
 
-/datum/atom_hud/alternate_appearance/basic/one_person/reversed/mobShouldSee(mob/M)
-	return M != seer
+
+/datum/atom_hud/alternate_appearance/basic/one_person/reversed/mobShouldSee(mob/mob)
+	return mob != seer
+
 
 /datum/atom_hud/alternate_appearance/basic/food_demands
 
+
 /datum/atom_hud/alternate_appearance/basic/heretic
 
-/datum/atom_hud/alternate_appearance/basic/heretic/mobShouldSee(mob/M)
-	if(isheretic(M))
+
+/datum/atom_hud/alternate_appearance/basic/heretic/mobShouldSee(mob/mob)
+	if(isheretic(mob))
 		return TRUE
 
 	return FALSE

@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/touch/mansus_grasp
-	name = "Восприятие Мансуса"
+	name = "Прикосновение Мансуса"
 	desc = "Заклинание позволяющее направлять силу Древних Богов через вашу руку."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -11,7 +11,6 @@
 	clothes_req = FALSE
 	base_cooldown = 10 SECONDS
 
-	invocation = "R'CH T'H TR'TH!"
 	invocation_type = INVOCATION_SHOUT
 	// Mimes can cast it. Chaplains can cast it. Anyone can cast it, so long as they have a hand.
 	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION
@@ -33,63 +32,61 @@
 */
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/victim, mob/living/carbon/caster, proximity, params)
+	var/list/modifiers = params2list(params)
+	if(modifiers["alt"])
+		if(isliving(victim)) // if it's a living mob, go with our normal afterattack
+			return ..()
+
+		SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
+		return ..()
+
 	if(!isliving(victim))
-		return FALSE
+		return ..()
 
 	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, victim) & COMPONENT_BLOCK_HAND_USE)
-		return FALSE
+		return ..()
 
 	var/mob/living/living_hit = victim
 	living_hit.apply_damage(10, BRUTE/*, wound_bonus = CANT_WOUND*/)
 	if(!iscarbon(victim))
-		return TRUE
+		return ..()
 
 	var/mob/living/carbon/carbon_hit = victim
 
 	// Cultists are momentarily disoriented by the stunning aura. Enough for both parties to go 'oh shit' but only a mild combat ability.
 	// Cultists have an identical effect on their stun hand. The heretic's faster spell charge time is made up for by their lack of teammates.
-	if(iscultist(carbon_hit))
-		carbon_hit.AdjustKnockdown(0.5 SECONDS)
-		carbon_hit.Confused(1.5 SECONDS, 3 SECONDS)
-		carbon_hit.Dizzy(1.5 SECONDS, 3 SECONDS)
-		//ADD_TRAIT(carbon_hit, TRAIT_NO_SIDE_KICK, UID()) // We don't want this to be a good stunning tool, just minor disorientation
-		//addtimer(TRAIT_CALLBACK_REMOVE(carbon_hit, TRAIT_NO_SIDE_KICK, UID()), 1 SECONDS)
+	if(!iscultist(carbon_hit))
+		carbon_hit.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 4 SECONDS)
+		carbon_hit.AdjustKnockdown(5 SECONDS)
+		carbon_hit.adjustStaminaLoss(80)
+		return ..()
 
-		var/old_color = carbon_hit.color
-		carbon_hit.color = COLOR_CULT_RED
-		animate(carbon_hit, color = old_color, time = 4 SECONDS, easing = EASE_IN)
-		carbon_hit.mob_light2(range = 1.5, power = 2.5, color = COLOR_CULT_RED, duration = 0.5 SECONDS)
-		playsound(carbon_hit, 'sound/effects/magic/curse.ogg', 50, TRUE)
+	carbon_hit.AdjustKnockdown(0.5 SECONDS)
+	carbon_hit.Confused(1.5 SECONDS, 3 SECONDS)
+	carbon_hit.Dizzy(1.5 SECONDS, 3 SECONDS)
+	//ADD_TRAIT(carbon_hit, TRAIT_NO_SIDE_KICK, UID()) // We don't want this to be a good stunning tool, just minor disorientation
+	//addtimer(TRAIT_CALLBACK_REMOVE(carbon_hit, TRAIT_NO_SIDE_KICK, UID()), 1 SECONDS)
 
-		to_chat(caster, span_warning("An unholy force intervenes as you grasp [carbon_hit], absorbing most of the effects!"))
-		to_chat(carbon_hit, span_warning("As [caster] grasps you with eldritch forces, your blood magic absorbs most of the effects!"))
-		carbon_hit.balloon_alert_to_viewers("absorbed!")
-		return TRUE
+	var/old_color = carbon_hit.color
+	carbon_hit.color = COLOR_CULT_RED
+	animate(carbon_hit, color = old_color, time = 4 SECONDS, easing = EASE_IN)
+	carbon_hit.mob_light2(range = 1.5, power = 2.5, color = COLOR_CULT_RED, duration = 0.5 SECONDS)
+	playsound(carbon_hit, 'sound/effects/magic/curse.ogg', 50, TRUE)
 
-	carbon_hit.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 4 SECONDS)
-	carbon_hit.AdjustKnockdown(5 SECONDS)
-	carbon_hit.adjustStaminaLoss(80)
-
-	return TRUE
-
-
-/obj/effect/proc_holder/spell/touch/mansus_grasp/click_alt(mob/victim)
-	if(isliving(victim)) // if it's a living mob, go with our normal afterattack
-		return ATTACK_CHAIN_PROCEED
-
-	if(SEND_SIGNAL(action.owner, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim) & COMPONENT_USE_HAND)
-		return ATTACK_CHAIN_PROCEED
-
-	return ATTACK_CHAIN_PROCEED
+	to_chat(caster, span_warning("An unholy force intervenes as you grasp [carbon_hit], absorbing most of the effects!"))
+	to_chat(carbon_hit, span_warning("As [caster] grasps you with eldritch forces, your blood magic absorbs most of the effects!"))
+	carbon_hit.balloon_alert_to_viewers("absorbed!")
+	return ..()
 
 
 /obj/item/melee/touch_attack/mansus_fist
-	name = "Восприятие Мансуса"
+	name = "Прикосновение Мансуса"
 	desc = "Ваша рука пропитана зловещей аурой, способной искажать реальнось. \
 			Вызывает нокдаун, лёгкие ушибы и значительный урон выносливости. \
 			По мере того, как вы расширяете свои знания о Мансусе, она приобретает дополнительные эффекты."
 	icon_state = "mansus"
 	item_state = "mansus"
+	catchphrase = "R'CH T'H TR'TH!"
 
 
 /obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)
