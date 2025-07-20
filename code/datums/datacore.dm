@@ -217,7 +217,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(rank == JOB_TITLE_PRISONER)
 			var/crimes = generate_prisoner_role_crimes()
 			H.mind.store_memory("Меня посадили за: [crimes]")
-			S.fields["comments"] += "Заключен на пермабриг за статьи: [crimes]"
+			S.fields["comments"] += "Заключён в пермабриг за: : [crimes]"
 		security += S
 
 		//Locked Record
