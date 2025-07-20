@@ -527,8 +527,12 @@
 		return FALSE
 	return TRUE
 
-
-/proc/projectile_def_zone_hit_chance(def_zone)
+/obj/projectile/proc/calculate_hit_chance(mob/living/target)
+	if(forced_accuracy)
+		return 100
+	var/distance = get_dist(firer, target)
+	if(distance < 2) //point-back shot (diagonal dist is 1.414)
+		return 100
 	switch(def_zone)
 		if(BODY_ZONE_CHEST)
 			return 100
