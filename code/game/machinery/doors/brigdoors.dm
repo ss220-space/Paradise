@@ -175,8 +175,8 @@
 			return PROCESS_KILL
 		if(timeleft() <= 0)
 			Radio.autosay("Timer has expired. Releasing prisoner.", name, SEC_FREQ_NAME)
-			occupant = CELL_NONE
 			timer_end() // open doors, reset timer, clear status screen
+			occupant = CELL_NONE
 			return PROCESS_KILL
 		update_display()
 	else
@@ -270,6 +270,8 @@
 	var/mob/living/carbon/human/human = find_prisoner()
 	if(human)
 		SEND_SIGNAL(human, COMSIG_DOOR_TIMER_FINISH, crimes, prisoner_time)
+	else
+		message_admins("door_timer.timer_end(): not found prisoner [occupant] in cell for send signal")
 
 	// Reset vars
 	occupant = CELL_NONE
@@ -279,6 +281,7 @@
 	officer = CELL_NONE
 	releasetime = 0
 	printed = FALSE
+	prisoner_time = null
 	if(prisoner)
 		prisoner.fields["criminal"] = SEC_RECORD_STATUS_RELEASED
 		update_all_mob_security_hud()
@@ -430,7 +433,6 @@
 			crimes = prisoner_charge
 			prisoner_name = null
 			prisoner_charge = null
-			prisoner_time = null
 			timer_start()
 		if("add_timer")
 			if(timing)

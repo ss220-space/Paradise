@@ -83,7 +83,7 @@
 /datum/addition_goal/prisoners/proc/register_complete_signal_handler(mob/living/prisoner)
 	RegisterSignal(prisoner, COMSIG_DOOR_TIMER_FINISH, PROC_REF(on_prisoner_timer_finish))
 
-/datum/addition_goal/prisoners/proc/on_prisoner_timer_finish(datum/source, mob/living/prisoner, crimes, duration_min)
+/datum/addition_goal/prisoners/proc/on_prisoner_timer_finish(mob/living/prisoner, crimes, duration_min)
 	SIGNAL_HANDLER
 	message_admins("on_prisoner_timer_finish  prisoner=[prisoner.name] crimes='[crimes]' duration_min=[duration_min]")
 	var/datum/addition_goal_prisoner_data/data = prisoners_data[prisoner.name]
@@ -92,15 +92,15 @@
 		return
 	data.complete_percent = 100
 	if(data.crimes != crimes) {
-		data.complete_percent -= 25
+		data.complete_percent -= 10
 	}
 	if(duration_min < data.duration) {
 		data.complete_percent -= 50
 	}
 	if(duration_min > data.duration) {
-		data.complete_percent -= 25
+		data.complete_percent -= 10
 	}
-	message_admins("prisoner [prisoner.name] brig cell complete crimes='[crimes]' duration_min=[duration_min]")
+	message_admins("prisoner [prisoner.name] brig cell complete crimes='[crimes]' duration_min=[duration_min] complete=[data.complete_percent]%")
 
 
 /datum/addition_goal/prisoners/format_accept_report(mob/user)
@@ -118,19 +118,24 @@
 /datum/addition_goal/prisoners/check_completion(list/turf/shuttle_turfs)
 	var/summary_complete_percent = 0
 	for(var/mob/living/carbon/prisoner as anything in prisoners)
-		//TOOD check death
 		var/datum/addition_goal_prisoner_data/data = prisoners_data[prisoner.name]
 		if(!data) //not exists crimes data, skip this prisoner
+			message_admins("prisioners addition goal: prisoner [prisoner.name] not found crimes data!")
 			continue
-		if(!prisoner || !prisoner.loc) //prisoner not exists in game (gibbed, cremated ...)
+		if(!prisoner.loc) //prisoner not exists in game (gibbed, cremated ...)
+			message_admins("prisioners addition goal: prisoner [prisoner.name] not not exists!")
 			continue
 		if(!contains_in_shuttle(prisoner)) //prisoner not in shuttle!
+			message_admins("prisioners addition goal: prisoner [prisoner.name] not in shuttle!")
 			data.complete_percent = max(0, data.complete_percent - 50)
 		if(prisoner.health <= 100 || prisoner.stat != CONSCIOUS) //prisoner hearts
+			message_admins("prisioners addition goal: prisoner [prisoner.name] have deceases!")
 			data.complete_percent = max(0, data.complete_percent - 25)
 		if(!prisoner.handcuffed)
+			message_admins("prisioners addition goal: prisoner [prisoner.name] not hancuffed!")
 			data.complete_percent = max(0, data.complete_percent - 10)
 		summary_complete_percent += data.complete_percent
+		message_admins("prisioners addition goal: check completition [prisoner.name] progress=[data.complete_percent].")
 	var/progress = (summary_complete_percent) / prisoners_count
 	message_admins("prisioners addition goal: check completition progress=[progress].")
 	return progress
