@@ -4,9 +4,18 @@
 // What if we took a linked list... But made it a mob?
 /// The "Terror of the Night" / Armsy, a large worm made of multiple bodyparts that occupies multiple tiles
 /mob/living/simple_animal/hostile/heretic_summon/armsy
-	name = "Lord of the Night"
-	real_name = "Master of Decay"
-	desc = "An abomination made from dozens and dozens of severed and malformed limbs grasping onto each other."
+	name = "Лорд Ночи"
+	ru_names = list(
+		NOMINATIVE = "Лорд Ночи",
+		GENITIVE = "Лорда Ночи",
+		DATIVE = "Лорду Ночи",
+		ACCUSATIVE = "Лорда Ночи",
+		INSTRUMENTAL = "Лордом Ночи",
+		PREPOSITIONAL = "Лорде Ночи",
+	)
+	real_name = "Повелитель Распада"
+	desc = "Мерзость, созданная из десятков отрубленных и изуродованных конечностей, цепляющихся друг за друга."
+	gender = MALE
 	icon_state = "armsy_start"
 	icon_living = "armsy_start"
 	base_icon_state = "armsy"
@@ -77,12 +86,14 @@
 
 	update_appearance(UPDATE_ICON_STATE)
 
+
 /// Grows a new segment behind the passed mob
 /mob/living/simple_animal/hostile/heretic_summon/armsy/proc/new_segment(mob/living/simple_animal/hostile/heretic_summon/armsy/behind)
 	var/mob/living/segment = new type(drop_location(), FALSE)
 	segment.AddComponent(/datum/component/mob_chain, front = behind, vary_icon_state = TRUE)
 	behind.register_behind(segment)
 	return segment
+
 
 /// Record that we got another guy on our ass
 /mob/living/simple_animal/hostile/heretic_summon/armsy/proc/register_behind(mob/living/tail)
@@ -91,8 +102,11 @@
 
 	back_tg = tail
 	update_appearance(UPDATE_ICON_STATE)
-	if(!isnull(back_tg))
-		RegisterSignal(back_tg, COMSIG_QDELETING, PROC_REF(tail_deleted))
+	if(isnull(back_tg))
+		return
+
+	RegisterSignal(back_tg, COMSIG_QDELETING, PROC_REF(tail_deleted))
+
 
 /// When our tail is gone stop holding a reference to it
 /mob/living/simple_animal/hostile/heretic_summon/armsy/proc/tail_deleted()
@@ -107,6 +121,7 @@
 	playsound(src, 'sound/effects/magic/demon_consume.ogg', 50, TRUE)
 	qdel(target)
 	on_arm_eaten()
+
 
 /*
  * Handle healing our chain.
@@ -130,6 +145,7 @@
 	visible_message(span_boldwarning("[src] flexes and expands!"))
 	current_stacks = 0
 	new_segment(behind = src)
+
 
 /*
  * Recursively get the length of our chain.

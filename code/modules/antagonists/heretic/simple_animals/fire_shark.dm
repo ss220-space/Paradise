@@ -1,7 +1,15 @@
 /mob/living/simple_animal/hostile/heretic_summon/fire_shark
-	name = "\improper Fire Shark"
-	real_name = "Fire Shark"
-	desc = "It is a eldritch dwarf space shark, also known as a fire shark."
+	name = "Огненная Акула"
+	ru_names = list(
+		NOMINATIVE = "Огненная Акула",
+		GENITIVE = "Огненной Акулы",
+		DATIVE = "Огненной Акуле",
+		ACCUSATIVE = "Огненную Акулу",
+		INSTRUMENTAL = "Огненной Акулой",
+		PREPOSITIONAL = "Огненной Акуле",
+	)
+	real_name = "Огненная Акула"
+	desc = "Это жуткая карликовая космическая акула."
 	icon_state = "fire_shark"
 	icon_living = "fire_shark"
 	pass_flags = PASSTABLE | PASSMOB
@@ -14,14 +22,15 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	//attack_vis_effect = ATTACK_EFFECT_BITE
 	obj_damage = 0
-	attacktext = "bite"
+	attacktext = "кусает"
 	damage_coeff = list(BRUTE = 1, BURN = 0.25, TOX = 0, STAMINA = 0, OXY = 0)
 	faction = list(FACTION_HERETIC)
 	mob_size = MOB_SIZE_TINY
-	speak_emote = list("screams")
+	speak_emote = list("кричит")
 	del_on_death = TRUE
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 	//initial_language_holder = /datum/language_holder/carp/hear_common
+
 
 /mob/living/simple_animal/hostile/heretic_summon/fire_shark/Initialize(mapload)
 	. = ..()
@@ -33,6 +42,7 @@
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	//ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+
 
 /mob/living/simple_animal/hostile/heretic_summon/fire_shark/wild
 	faction = list(FACTION_HOSTILE)

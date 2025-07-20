@@ -8,6 +8,7 @@
 
 	sound = 'sound/effects/magic/cosmic_energy.ogg'
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 20 SECONDS
 
 	invocation = "R'T'T' ST'R!"

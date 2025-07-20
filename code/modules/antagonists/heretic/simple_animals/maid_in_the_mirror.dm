@@ -1,12 +1,21 @@
 /// Scout and assassin who can appear and disappear from glass surfaces. Damaged by being examined.
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror
-	name = "\improper Maid in the Mirror"
-	real_name = "Maid in the Mirror"
-	desc = "A floating and flowing wisp of chilled air. Glancing at it causes it to shimmer slightly."
+	name = "Горничная в Зеркале"
+	ru_names = list(
+		NOMINATIVE = "Горничная в Зеркале",
+		GENITIVE = "Горничную в Зеркале",
+		DATIVE = "Горничной в Зеркале",
+		ACCUSATIVE = "Горничную в Зеркале",
+		INSTRUMENTAL = "Горничной в Зеркале",
+		PREPOSITIONAL = "Горничной в Зеркале",
+	)
+	real_name = "Горничная в Зеркале"
+	desc = "Плавающий, струящийся поток холодного воздуха. При постороннем взгляде, начинает слегка мерцать."
+	gender = FEMALE
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "stand"
 	icon_living = "stand" // Placeholder sprite... still
-	speak_emote = list("whispers")
+	speak_emote = list("шепчет")
 	movement_type = FLOATING
 	status_flags = CANSTUN | CANPUSH
 	attack_sound = 'sound/effects/glassbr1.ogg'
@@ -15,7 +24,7 @@
 	melee_damage_lower = 12
 	melee_damage_upper = 16
 	sight = SEE_MOBS | SEE_OBJS | SEE_TURFS
-	deathmessage = "shatters and vanishes, releasing a gust of cold air."
+	deathmessage = "разбивается на тысячи осколков и рассеивается, выпуская порыв холодного воздуха."
 	/// Whether we take damage when someone looks at us
 	var/harmed_by_examine = TRUE
 	/// How often being examined by a specific mob can hurt us
@@ -56,8 +65,8 @@
 	// If we have health, we take some damage
 	if(health > (maxHealth * 0.125))
 		visible_message(
-				span_warning("[src] seems to fade in and out slightly."),
-				span_userdanger("[user]'s gaze pierces your every being!"),
+				span_warning("[declent_ru(NOMINATIVE)] едва заметно мерцает."),
+				span_userdanger("Взгляд пронзает все твое существо!"),
 		)
 
 		recent_examiner_refs += user_ref
@@ -70,8 +79,8 @@
 
 	// If we're examined on low enough health we die straight up
 	visible_message(
-			span_danger("[src] vanishes from existence!"),
-			span_userdanger("[user]'s gaze shatters your form, destroying you!"),
+			span_danger("[declent_ru(NOMINATIVE)] рассеивается"),
+			span_userdanger("Чужой взгляд полностью разрушает вас!"),
 	)
 	death()
 
@@ -82,6 +91,7 @@
 
 	recent_examiner_refs -= mob_ref
 	heal_overall_damage(5)
+
 
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/AttackingTarget()
 	attack_sound = pick(

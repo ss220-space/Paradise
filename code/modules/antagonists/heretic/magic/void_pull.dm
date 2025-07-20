@@ -9,6 +9,7 @@
 	sound = 'sound/effects/magic/voidblink.ogg'
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
 	invocation = "BR'NG F'RTH TH'M T' M'."

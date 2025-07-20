@@ -185,7 +185,7 @@
 		During this process, you will rapidly regenerate stamina and quickly recover from stuns, however, you will be unable to attack. \
 		This spell can be cast in rapid succession, but doing so will increase the cooldown."
 	gain_text = "In the flurry of death, he found peace within himself. Despite insurmountable odds, he forged on."
-	action_to_add = /obj/effect/proc_holder/spell/realignment
+	spell_to_add = /obj/effect/proc_holder/spell/realignment
 	cost = 1
 
 /datum/heretic_knowledge/spell/wolves_among_sheep
@@ -200,7 +200,7 @@
 		again. I have shattered bonds and severed all alliances. In this truth, \
 		I know now the fragility of comradery. My enemies will be all, divided."
 	cost = 1
-	action_to_add = /obj/effect/proc_holder/spell/wolves_among_sheep
+	spell_to_add = /obj/effect/proc_holder/spell/wolves_among_sheep
 
 /datum/heretic_knowledge/blade_upgrade/blade
 	name = "Empowered Blades"
@@ -312,7 +312,7 @@
 		at a target, dealing damage and causing bleeding."
 	gain_text = "Without thinking, I took the knife of a fallen soldier and threw with all my might. My aim was true! \
 		The Torn Champion smiled at their first taste of agony, and with a nod, their blades became my own."
-	action_to_add = /obj/effect/proc_holder/spell/pointed/projectile/furious_steel
+	spell_to_add = /obj/effect/proc_holder/spell/pointed/projectile/furious_steel
 	cost = 1
 
 /datum/heretic_knowledge/ultimate/blade_final

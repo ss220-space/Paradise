@@ -17,7 +17,7 @@
 		The caster takes 20 brain damage per use."
 	gain_text = "My mind swings open like a gate, and its insight will let me perceive the truth."
 
-	action_to_add = /obj/effect/proc_holder/spell/pointed/mind_gate
+	spell_to_add = /obj/effect/proc_holder/spell/pointed/mind_gate
 	cost = 1
 
 /datum/heretic_knowledge/unfathomable_curio

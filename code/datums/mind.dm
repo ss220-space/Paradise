@@ -777,6 +777,7 @@
 		sections["thief"] = memory_edit_thief()
 		/** TRAITOR ***/
 		sections["traitor"] = memory_edit_traitor()
+		sections["heretic"] = memory_edit_heretic()
 
 	if(isAI(current))
 		sections["malf_ai"] = memory_edit_malf_ai()
@@ -2636,7 +2637,9 @@
 	antag.owner = src
 	LAZYADD(antag_datums, antag)
 
-	antag.create_team(team)
+	if(team)
+		antag.create_team(team)
+
 	var/datum/team/antag_team = antag.get_team()
 	if(antag_team)
 		antag_team.add_member(src)

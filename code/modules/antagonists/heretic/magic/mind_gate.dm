@@ -9,6 +9,7 @@
 
 	sound = 'sound/effects/magic/curse.ogg'
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 20 SECONDS
 
 	invocation = "Op'n y'r m'd."

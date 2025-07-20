@@ -7,6 +7,7 @@
 	overlay_icon_state = "bg_heretic_border"
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	invocation = "SH'PE."
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE

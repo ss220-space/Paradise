@@ -313,7 +313,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  */
 /obj/effect/proc_holder/spell/proc/create_new_targeting()
 	RETURN_TYPE(/datum/spell_targeting)
-	return
+	return /datum/spell_targeting/self
 
 
 /**

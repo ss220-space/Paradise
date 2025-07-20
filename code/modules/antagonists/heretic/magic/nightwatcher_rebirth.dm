@@ -9,6 +9,7 @@
 	action_icon_state = "smoke"
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
 
 	invocation = "GL'RY T' TH' N'GHT'W'TCH'ER."

@@ -9,6 +9,7 @@
 	action_icon_state = "icebeam"
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
 	invocation = "FR'ZE!"

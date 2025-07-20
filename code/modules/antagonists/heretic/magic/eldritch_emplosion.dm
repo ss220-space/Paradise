@@ -6,6 +6,7 @@
 	overlay_icon_state = "bg_heretic_border"
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
 	invocation = "E'P."

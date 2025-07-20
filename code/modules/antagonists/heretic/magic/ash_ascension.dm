@@ -8,6 +8,7 @@
 	action_icon_state = "fire_ring"
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 70 SECONDS
 
 	invocation = "FL'MS."
@@ -70,6 +71,7 @@
 	sound = 'sound/items/welder.ogg'
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
 	invocation = "C'SC'D."
@@ -110,6 +112,7 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 300
 
 	invocation = "F'R."

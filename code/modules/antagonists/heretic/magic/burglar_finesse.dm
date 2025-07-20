@@ -7,6 +7,7 @@
 	action_icon_state = "burglarsfinesse"
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 40 SECONDS
 
 	invocation = "Y'O'K!"

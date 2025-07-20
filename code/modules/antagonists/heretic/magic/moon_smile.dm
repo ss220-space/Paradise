@@ -10,6 +10,7 @@
 
 	sound = 'sound/effects/magic/blind.ogg'
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 20 SECONDS
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 	invocation = "M'N S'M'LE!"

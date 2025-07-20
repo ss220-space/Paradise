@@ -9,6 +9,7 @@
 	sound = 'sound/effects/magic/swap.ogg'
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
 
 	invocation = "F'K 'FF."

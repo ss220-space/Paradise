@@ -8,6 +8,8 @@
 	sound = 'sound/items/welder.ogg'
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
+	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
 	invocation = "A'GRSV SPR'D."

@@ -11,6 +11,7 @@
 	sound = 'sound/effects/magic/forcewall.ogg'
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
 	invocation = "'NTR'P'C PL'M!"
@@ -86,6 +87,7 @@
 	action_icon_state = "rust_wave"
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 35 SECONDS
 
 	invocation = "SPR'D TH' W'D."

@@ -11,6 +11,7 @@
 	sound = 'sound/effects/curse/curse2.ogg'
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
 
 	invocation_type = INVOCATION_NONE

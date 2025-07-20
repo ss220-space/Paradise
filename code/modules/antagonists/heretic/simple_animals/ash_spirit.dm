@@ -2,9 +2,18 @@
  * Player-only mob which is fast, can jaunt a short distance, and is dangerous at close range
  */
 /mob/living/simple_animal/hostile/heretic_summon/ash_spirit
-	name = "\improper Ash Spirit"
-	real_name = "Ashy"
-	desc = "A manifestation of ash, trailing a perpetual cloud of short-lived cinders."
+	name = "Дух Пепла"
+	ru_names = list(
+		NOMINATIVE = "Дух Пепла",
+		GENITIVE = "Духа Пепла",
+		DATIVE = "Духу Пепла",
+		ACCUSATIVE = "Духа Пепла",
+		INSTRUMENTAL = "Духом Пепла",
+		PREPOSITIONAL = "Духе Пепла",
+	)
+	real_name = "Дух Пепла" // What about "Эшель"?
+	gender = MALE
+	desc = "Живое облако пепла."
 	icon_state = "ash_walker"
 	icon_living = "ash_walker"
 	maxHealth = 75

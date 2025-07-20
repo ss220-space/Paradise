@@ -9,6 +9,7 @@
 
 	sound = 'sound/effects/magic/forcewall.ogg'
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
 
 	invocation = "ST'R R'N."

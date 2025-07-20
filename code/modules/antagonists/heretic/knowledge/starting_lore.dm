@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	desc = "Starts your journey into the Mansus. \
 		Grants you the Восприятие Мансуса, a powerful and upgradable \
 		disabling spell that can be cast regardless of having a focus."
-	action_to_add = /obj/effect/proc_holder/spell/touch/mansus_grasp
+	spell_to_add = /obj/effect/proc_holder/spell/touch/mansus_grasp
 	cost = 0
 	is_starting_knowledge = TRUE
 
@@ -40,7 +40,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	SIGNAL_HANDLER
 
 	// Not a grasp, we dont want this to activate with say star or mending touch.
-	if(!istype(touch_spell, action_to_add))
+	if(!istype(touch_spell, spell_to_add))
 		return NONE
 
 	var/obj/item/twohanded/fishing_rod/held_rod = cast_on.get_active_hand()
@@ -211,7 +211,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	name = "Cloak of Shadow"
 	desc = "Grants you the spell Cloak of Shadow. This spell will completely conceal your identity in a purple smoke \
 		for three minutes, assisting you in keeping secrecy. Requires a focus to cast."
-	action_to_add = /obj/effect/proc_holder/spell/shadow_cloak
+	spell_to_add = /obj/effect/proc_holder/spell/shadow_cloak
 	cost = 0
 	is_starting_knowledge = TRUE
 

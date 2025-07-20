@@ -8,6 +8,7 @@
 	action_icon_state = "apetra_vulnera"
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 45 SECONDS
 
 	invocation = "AP'TRA VULN'RA!"

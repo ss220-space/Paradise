@@ -8,6 +8,7 @@
 	sound = null
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
 
 	invocation = "ASH'N P'SSG'"

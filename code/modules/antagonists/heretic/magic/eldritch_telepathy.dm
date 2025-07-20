@@ -2,6 +2,7 @@
 /obj/effect/proc_holder/spell/remotetalk/eldritch
 	name = "Eldritch Telepathy"
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	invocation_type = INVOCATION_NONE

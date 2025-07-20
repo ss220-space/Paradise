@@ -15,6 +15,7 @@
 	action_icon_state = "space_crawl"
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE

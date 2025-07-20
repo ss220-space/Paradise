@@ -36,7 +36,7 @@
 		Also has a chance to transfer wounds from you to the victim."
 	gain_text = "\"No matter the man, we bleed all the same.\" That's what the Marshal told me."
 
-	action_to_add = /obj/effect/proc_holder/spell/pointed/blood_siphon
+	spell_to_add = /obj/effect/proc_holder/spell/pointed/blood_siphon
 	cost = 1
 
 /datum/heretic_knowledge/spell/void_prison
@@ -48,7 +48,7 @@
 		But the only welts made are on my own beating fist. \
 		My smiling face turns to regard me, reflecting back in glassy eyes the empty path I have been lead down."
 
-	action_to_add = /obj/effect/proc_holder/spell/pointed/void_prison
+	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_prison
 	cost = 1
 
 /datum/heretic_knowledge/spell/cleave
@@ -58,7 +58,7 @@
 	gain_text = "At first I didn't understand these instruments of war, but the Priest \
 		told me to use them regardless. Soon, he said, I would know them well."
 
-	action_to_add = /obj/effect/proc_holder/spell/pointed/cleave
+	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
 	cost = 1
 
 

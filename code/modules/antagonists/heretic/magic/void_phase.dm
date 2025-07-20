@@ -10,6 +10,7 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	base_cooldown = 25 SECONDS
 
 	invocation = "RE'L'TY PH'S'E."

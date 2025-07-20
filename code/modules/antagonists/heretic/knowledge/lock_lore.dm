@@ -153,7 +153,7 @@
 		that puts a random item from the victims backpack into your hand."
 	gain_text = "Consorting with Burglar spirits is frowned upon, but a Steward will always want to learn about new doors."
 
-	action_to_add = /obj/effect/proc_holder/spell/pointed/burglar_finesse
+	spell_to_add = /obj/effect/proc_holder/spell/pointed/burglar_finesse
 	cost = 1
 
 /datum/heretic_knowledge/blade_upgrade/flesh/lock //basically a chance-based weeping avulsion version of the former
@@ -174,7 +174,7 @@
 		While in refuge, you cannot use your hands or spells, and you are immune to slowdown. \
 		You are invincible but unable to harm anything. Cancelled by being hit with an anti-magic item."
 	gain_text = "Jealously, the Guard and the Hound hunted me. But I unlocked my form, and was but a haze, untouchable."
-	action_to_add = /obj/effect/proc_holder/spell
+	spell_to_add = /obj/effect/proc_holder/spell
 	cost = 1
 
 /datum/heretic_knowledge/ultimate/lock_final

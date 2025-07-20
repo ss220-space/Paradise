@@ -1,8 +1,17 @@
 /// Durable ambush mob with an EMP ability
 /mob/living/simple_animal/hostile/heretic_summon/stalker
-	name = "\improper Flesh Stalker"
-	real_name = "Flesh Stalker"
-	desc = "An abomination cobbled together from varied remains. Its appearance changes slightly every time you blink."
+	name = "Ловец Плоти"
+	ru_names = list(
+		NOMINATIVE = "Ловец Плоти",
+		GENITIVE = "Ловца Плоти",
+		DATIVE = "Ловцу Плоти",
+		ACCUSATIVE = "Ловца Плоти",
+		INSTRUMENTAL = "Ловцом Плоти",
+		PREPOSITIONAL = "Ловце Плоти",
+	)
+	real_name = "Ловец Плоти"
+	desc = "Мерзость, слепленная из разрозненных человеческих останков."
+	gender = MALE
 	icon_state = "stalker"
 	icon_living = "stalker"
 	maxHealth = 150
@@ -18,10 +27,12 @@
 		/obj/effect/proc_holder/spell/shapeshift/eldritch = BB_SHAPESHIFT_ACTION,
 	)
 
+
 /mob/living/simple_animal/hostile/heretic_summon/stalker/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/ai_target_timer)
 	grant_actions_by_list(actions_to_add)
+
 
 /// Changes shape and lies in wait when it has no target, uses EMP and attacks once it does
 /datum/ai_controller/basic_controller/stalker

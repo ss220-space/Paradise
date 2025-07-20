@@ -128,7 +128,7 @@
 	gain_text = "The hum in the still, cold air turns to a cacophonous rattle. \
 		Over the noise, there is no distinction to the clattering of window panes and the yawning knowledge that ricochets through my skull. \
 		The doors won't close. I can't keep the cold out now."
-	action_to_add = /obj/effect/proc_holder/spell/aoe/conjure/void_conduit
+	spell_to_add = /obj/effect/proc_holder/spell/aoe/conjure/void_conduit
 	cost = 1
 
 
@@ -138,7 +138,7 @@
 		Additionally causes damage to heathens around your original and target destination."
 	gain_text = "The entity calls themself the Aristocrat. They effortlessly walk through air like \
 		nothing - leaving a harsh, cold breeze in their wake. They disappear, and I am left in the blizzard."
-	action_to_add = /obj/effect/proc_holder/spell/pointed/void_phase
+	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_phase
 	cost = 1
 	research_tree_icon_frame = 7
 
@@ -180,7 +180,7 @@
 	gain_text = "All is fleeting, but what else stays? I'm close to ending what was started. \
 		The Aristocrat reveals themselves to me again. They tell me I am late. Their pull is immense, I cannot turn back."
 
-	action_to_add = /obj/effect/proc_holder/spell/aoe/void_pull
+	spell_to_add = /obj/effect/proc_holder/spell/aoe/void_pull
 	cost = 1
 
 	research_tree_icon_frame = 6

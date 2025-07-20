@@ -4,9 +4,18 @@
  * It can blind people to make a getaway, but also get stronger if it attacks the same target consecutively.
  */
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
-	name = "\improper Raw Prophet"
-	real_name = "Raw Prophet"
-	desc = "An abomination stitched together from a few severed arms and one swollen, orphaned eye."
+	name = "Пророк Сырости"
+	ru_names = list(
+		NOMINATIVE = "Пророк Сырости",
+		GENITIVE = "Пророка Сырости",
+		DATIVE = "Пророку Сырости",
+		ACCUSATIVE = "Пророка Сырости",
+		INSTRUMENTAL = "Пророком Сырости",
+		PREPOSITIONAL = "Пророке Сырости",
+	)
+	real_name = "Пророк Сырости"
+	desc = "Мерзость, сшитая из нескольких отрубленных рук и глаза."
+	gender = MALE
 	icon_state = "raw_prophet"
 	icon_living = "raw_prophet"
 	status_flags = CANPUSH
@@ -22,18 +31,19 @@
 		/obj/effect/proc_holder/spell/view_range/expand_sight = null,
 	)
 
+
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/wheel)
 	var/static/list/body_parts = list(/obj/effect/gibspawner/human, /obj/item/organ/external/arm, /obj/item/organ/internal/eyes)
 	AddElement(/datum/element/death_drops, body_parts)
 	AddComponent(/datum/component/focused_attacker)
-	var/on_link_message = "You feel something new enter your sphere of mind... \
-		You hear whispers of people far away, screeches of horror and a huming of welcome to [src]'s Mansus Link."
-	var/on_unlink_message = "Your mind shatters as [src]'s Mansus Link leaves your mind."
+	var/on_link_message = "Вы чувствуете, как что-то инородное проникает в ваше подсознание... \
+		Вы слышите шепот людей где-то вдалеке, крики ужаса и приветственное гудение [declent_ru(GENITIVE)]."
+	var/on_unlink_message = "Ваш разум пронзает волна боли! Вы больше не чувствуете [declent_ru(GENITIVE)]!"
 	AddComponent( \
 		/datum/component/mind_linker/active_linking, \
-		network_name = "Mansus Link", \
+		network_name = "Связь Мансуса", \
 		chat_color = "#568b00", \
 		post_unlink_callback = CALLBACK(src, PROC_REF(after_unlink)), \
 		speech_action_background_icon_state = "bg_heretic", \
@@ -45,11 +55,13 @@
 
 	grant_actions_by_list(get_innate_abilities())
 
+
 /// Returns a list of abilities that we should add.
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/proc/get_innate_abilities()
 	var/list/returnable_list = innate_abilities.Copy()
 	returnable_list += list(/obj/effect/proc_holder/spell/pointed/blind/eldritch = BB_TARGETED_ACTION)
 	return returnable_list
+
 
 /*
  * Callback for the mind_linker component.
@@ -62,6 +74,7 @@
 	INVOKE_ASYNC(unlinked_mob, TYPE_PROC_REF(/mob, emote), "scream")
 	unlinked_mob.AdjustParalysis(0.5 SECONDS) //micro stun
 
+
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/AttackingTarget()
 	SpinAnimation(speed = 5, loops = 1)
 	if (target == src)
@@ -69,19 +82,23 @@
 
 	return ..()
 
+
 /// Variant raw prophet used by eldritch transformation with more base attack power
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/ascended
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 
+
 /// NPC variant with a less bullshit ability
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/ruins
 	ai_controller = /datum/ai_controller/basic_controller/raw_prophet
+
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/ruins/get_innate_abilities()
 	var/list/returnable_list = innate_abilities.Copy()
 	returnable_list += list(/obj/effect/proc_holder/spell/watchers_look = BB_TARGETED_ACTION)
 	return returnable_list
+
 
 /// Walk and attack people, blind them when we can
 /datum/ai_controller/basic_controller/raw_prophet

@@ -8,6 +8,7 @@
 	action_icon_state = "worm_ascend"
 
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 
 	invocation = "REALITY UNCOIL!"
 	invocation_type = INVOCATION_SHOUT

@@ -114,7 +114,7 @@
 	desc = "A charge that must be started on a rusted tile and will destroy any rusted objects you come into contact with, will deal high damage to others and rust around you during the charge."
 	gain_text = "The hills sparkled now, as I neared them my mind began to wander. I quickly regained my resolve and pushed forward, this last leg would be the most treacherous."
 
-	action_to_add = /obj/effect/proc_holder/spell/mob_cooldown/charge/rust
+	spell_to_add = /obj/effect/proc_holder/spell/mob_cooldown/charge/rust
 	cost = 1
 
 /datum/heretic_knowledge/greaves_of_the_prophet

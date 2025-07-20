@@ -1,8 +1,17 @@
 /// Pretty simple mob which creates areas of rust and has a rust-creating projectile spell
 /mob/living/simple_animal/hostile/heretic_summon/rust_walker
-	name = "\improper Rust Walker"
-	real_name = "Rusty"
-	desc = "A grinding, clanking construct which leaches life from its surroundings with every armoured step."
+	name = "Ржавый Странник"
+	ru_names = list(
+		NOMINATIVE = "Ржавый Странник",
+		GENITIVE = "Ржавого Странника",
+		DATIVE = "Ржавому Страннику",
+		ACCUSATIVE = "Ржавого Странника",
+		INSTRUMENTAL = "Ржавым Странником",
+		PREPOSITIONAL = "Ржавом Страннике",
+	)
+	real_name = "Ржавчик"
+	gender = MALE
+	desc = "Скрежещущая, лязгающая конструкция, высасывающая жизнь из своего окружения."
 	icon_state = "rust_walker_s"
 	base_icon_state = "rust_walker"
 	icon_living = "rust_walker_s"
@@ -14,6 +23,7 @@
 	speed = 1
 	ai_controller = /datum/ai_controller/basic_controller/rust_walker
 
+
 /mob/living/simple_animal/hostile/heretic_summon/rust_walker/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_RUST)
@@ -24,9 +34,11 @@
 	)
 	grant_actions_by_list(grantable_spells)
 
+
 /mob/living/simple_animal/hostile/heretic_summon/rust_walker/setDir(newdir)
 	. = ..()
 	update_appearance(UPDATE_ICON_STATE)
+
 
 /mob/living/simple_animal/hostile/heretic_summon/rust_walker/update_icon_state()
 	. = ..()
@@ -41,6 +53,7 @@
 
 	icon_living = icon_state
 
+
 /mob/living/simple_animal/hostile/heretic_summon/rust_walker/Life(seconds_per_tick, times_fired)
 	. = ..()
 	if(!.) //dead or deleted
@@ -52,6 +65,7 @@
 
 	adjustBruteLoss(-3 * seconds_per_tick)
 	return ..()
+
 
 /// Converts unconverted terrain, sprays pocket sand around
 /datum/ai_controller/basic_controller/rust_walker
@@ -69,9 +83,11 @@
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
 
+
 /// Moves a lot if healthy and on rust (to find more tiles to rust) or unhealthy and not on rust (to find healing rust)
 /// Still moving in random directions though we're not really seeking it out
 /datum/idle_behavior/idle_random_walk/rust
+
 
 /datum/idle_behavior/idle_random_walk/rust/perform_idle_behavior(seconds_per_tick, datum/ai_controller/controller)
 	var/mob/living/our_mob = controller.pawn
@@ -83,8 +99,10 @@
 
 	return ..()
 
+
 /// Use if we're not stood on rust right now
 /datum/ai_planning_subtree/use_mob_ability/rust_walker
+
 
 /datum/ai_planning_subtree/use_mob_ability/rust_walker/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/turf/our_turf = get_turf(controller.pawn)

@@ -15,6 +15,7 @@
 
 	sound = null
 	school = SCHOOL_FORBIDDEN
+	clothes_req = FALSE
 	invocation = "V'D PR'S'N!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
