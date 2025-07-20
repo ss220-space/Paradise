@@ -526,3 +526,15 @@
 	if(reflectability < desired_reflectability_level)
 		return FALSE
 	return TRUE
+
+
+/proc/projectile_def_zone_hit_chance(def_zone)
+	switch(def_zone)
+		if(BODY_ZONE_CHEST)
+			return 100
+		if(BODY_ZONE_HEAD)
+			return 75
+		if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			return 50
+		else
+			return 50

@@ -524,7 +524,8 @@
 		return !density || body_position == LYING_DOWN
 	// always hitting dense/standing mobs
 	if(density || body_position == STANDING_UP)
-		return FALSE
+		var/def_zone_hit_chance = projectile_def_zone_hit_chance(projectile.def_zone)
+		return !prob(def_zone_hit_chance)
 	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
 	if(projectile.hit_crawling_mobs_chance > 0 && projectile.hit_crawling_mobs_chance <= 100)
 		return !prob(projectile.hit_crawling_mobs_chance)
