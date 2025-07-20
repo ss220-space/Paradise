@@ -9,7 +9,7 @@
  */
 
 /*
- * Tables
+ * MARK: Tables
  */
 
 /obj/structure/table
@@ -471,7 +471,7 @@
 
 
 /*
- * Glass Tables
+ * MARK: Glass Tables
  */
 
 /obj/structure/table/glass
@@ -578,7 +578,7 @@
 		S.color = NARSIE_WINDOW_COLOUR
 
 /*
- * Wooden tables
+ * MARK: Wooden tables
  */
 
 /obj/structure/table/wood
@@ -611,7 +611,7 @@
 	..(FALSE)
 
 /*
- * Fancy Tables
+ * MARK: Fancy Tables
  */
 
 /obj/structure/table/wood/fancy
@@ -692,7 +692,7 @@
 
 
 /*
- * Reinforced tables
+ * MARK: Reinforced tables
  */
 
 /obj/structure/table/reinforced
@@ -846,7 +846,7 @@
 	return
 
 /*
- * Racks
+ * MARK: Racks
  */
 /obj/structure/rack
 	name = "rack"
@@ -1050,10 +1050,7 @@
 		qdel(src)
 	building = FALSE
 
-/*
- * Rack destruction
- */
-
+/// Rack destruction
 /obj/structure/rack/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
 		set_density(FALSE)
@@ -1062,7 +1059,7 @@
 	qdel(src)
 
 /*
- * Rack Parts
+ * MARK: Rack Parts
  */
 
 /obj/item/rack_parts
