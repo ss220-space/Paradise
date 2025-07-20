@@ -87,7 +87,7 @@
 
 //This is pretty much just for the death-ripley
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
-	name = "\improper KILL CLAMP"
+	name = "KILL CLAMP"
 	desc = "They won't know what clamped them!"
 	energy_drain = 0
 
@@ -433,7 +433,7 @@
 		return
 	if(href_list["cut"])
 		if(cable && cable.amount)
-			var/m = round(input(chassis.occupant,"Please specify the length of cable to cut","Cut cable",min(cable.amount,30)) as num, 1)
+			var/m = round(tgui_input_number(chassis.occupant, "Please specify the length of cable to cut", "Cut cable", min(cable.amount,30)), 1)
 			m = min(m, cable.amount)
 			if(m)
 				use_cable(m)

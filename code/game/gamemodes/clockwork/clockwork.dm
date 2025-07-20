@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			if(!ishuman(M.current))
 				powered_borgs(M.current)
 				continue
-			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
+			SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
 			to_chat(M.current, span_clocklarge("The veil begins to stutter in fear as the power of Ratvar grows, your hands begin to glow..."))
 			addtimer(CALLBACK(src, PROC_REF(powered), M.current), 20 SECONDS)
 
@@ -261,12 +261,15 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		for(var/datum/mind/M in clockwork_cult)
 			if(!M.current)
 				continue
-			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
+			SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
 			if(!ishuman(M.current))
 				continue
 			to_chat(M.current, span_clocklarge("Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!"))
 			addtimer(CALLBACK(src, PROC_REF(clocked), M.current), 20 SECONDS)
-		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+										ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/commandreport.ogg'
+		)
 		log_game("Clockwork cult reveal. Powergame allowed.")
 
 /datum/game_mode/proc/powered(clocker)

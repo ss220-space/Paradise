@@ -172,7 +172,7 @@
 	if(user.get_item_by_slot(ITEM_SLOT_FEET) != src || !cell || !core)
 		return
 
-	style.bonus_damage = core.get_strenght() * CORE_STRENGTH_TO_DAMAGE_MULT
+	style.bonus_damage = core.get_strength() * CORE_STRENGTH_TO_DAMAGE_MULT
 	style.teach(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot, initial)
@@ -227,7 +227,7 @@
 		user.balloon_alert(user, "нет опоры")
 		return
 
-	var/jump_mult = core.get_strenght() / 150
+	var/jump_mult = core.get_strength() / 150
 	var/cur_jumpdistance = jumpdistance * jump_mult
 	var/cur_jumpjumpspeed = jumpspeed * jump_mult
 	var/turf/turf = get_step(get_turf(user), user.dir)

@@ -49,7 +49,7 @@
 			if(can_change_skin_tone())
 				var/new_s_tone = null
 				if(owner.dna.species.bodyflags & HAS_SKIN_TONE)
-					new_s_tone = input(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone) as num|null
+					new_s_tone = tgui_input_number(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone, max_value = 220)
 					if(isnum(new_s_tone) && (!..()))
 						new_s_tone = 35 - max(min(round(new_s_tone), 220),1)
 				else if(owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
@@ -63,7 +63,7 @@
 							prompt += ", "
 					prompt += ")"
 
-					new_s_tone = input(usr, prompt, "Skin Tone", owner.s_tone) as num|null
+					new_s_tone = tgui_input_number(usr, prompt, "Skin Tone", owner.s_tone)
 					if(isnum(new_s_tone) && (!..()))
 						new_s_tone = max(min(round(new_s_tone), length(owner.dna.species.icon_skin_tones)), 1)
 
@@ -101,19 +101,19 @@
 
 		if("hair_gradient_offset")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_offset = input("Please enter gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Hair Gradient", "[head_organ.h_grad_offset_x],[head_organ.h_grad_offset_y]") as null|text
+				var/new_offset = tgui_input_text(usr, "Please enter gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Hair Gradient", "[head_organ.h_grad_offset_x],[head_organ.h_grad_offset_y]")
 				if(new_offset)
 					owner.change_hair_gradient(offset_raw = new_offset)
 
 		if("hair_gradient_colour")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_color = input("Please select gradient color.", "Hair Gradient", head_organ.h_grad_colour) as null|color
+				var/new_color = tgui_input_color(usr, "Please select gradient color.", "Hair Gradient", head_organ.h_grad_colour)
 				if(new_color)
 					owner.change_hair_gradient(color = new_color)
 
 		if("hair_gradient_alpha")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_alpha = input("Please enter gradient alpha (0-200).", "Hair Gradient", head_organ.h_grad_alpha) as null|num
+				var/new_alpha = tgui_input_number(usr, "Please enter gradient alpha (0-200).", "Hair Gradient", head_organ.h_grad_alpha, max_value = 200)
 				if(!isnull(new_alpha))
 					owner.change_hair_gradient(alpha = new_alpha)
 

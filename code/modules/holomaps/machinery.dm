@@ -6,8 +6,16 @@
 // Credit to polaris for the code which this current map was originally based off of, and credit to VG for making it in the first place.
 
 /obj/machinery/station_map
-	name = "\improper station holomap"
-	desc = "A virtual map of the surrounding station."
+	name = "station holomap"
+	desc = "Карта окрестностей станции, только виртуальная."
+	ru_names = list(
+		NOMINATIVE = "голокарта станции",
+		GENITIVE = "голокарты станции",
+		DATIVE = "голокарте станции",
+		ACCUSATIVE = "голокарту станции",
+		INSTRUMENTAL = "голокартой станции",
+		PREPOSITIONAL = "голокарте станции"
+	)
 	icon = 'icons/obj/stationmap.dmi'
 	icon_state = "station_map"
 	layer = ABOVE_WINDOW_LAYER
@@ -80,7 +88,7 @@
 		return
 
 	if(watching_mob && watching_mob != user)
-		to_chat(user, span_warning("Someone else is currently watching the holomap."))
+		to_chat(user, span_warning("Кто-то другой уже просматривает голокарту."))
 		return
 
 	open_map(user)
@@ -95,7 +103,7 @@
 		if(!holomap_datum)
 			// Something is very wrong if we have to un-fuck ourselves here.
 			stack_trace("Holomap at [COORD(src)] couldn't setup holomap_datum.")
-			to_chat(user, span_warning("[src] glitches out and shows a message:\"ERROR: NTOS is not responding.\""))
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
 			return
 
 	holomap_datum.update_map(handle_overlays())
@@ -125,9 +133,9 @@
 	use_power = ACTIVE_POWER_USE
 
 	if(holomap_datum.bogus)
-		to_chat(user, span_warning("The holomap failed to initialize. This area of space cannot be mapped."))
+		to_chat(user, span_warning("Ошибка инициализации голокарты. Этот сектор пространства невозможно отобразить."))
 	else
-		to_chat(user, span_warning("A hologram of the station appears before your eyes."))
+		to_chat(user, span_warning("Перед вами появляется голографическая проекция станции."))
 
 	return TRUE
 
@@ -221,10 +229,10 @@
 
 /obj/machinery/station_map/multitool_act(mob/living/user, obj/item/tool)
 	if(!panel_open)
-		to_chat(user, span_warning("You need to open the panel to change the [src]'[p_s()] settings!"))
+		to_chat(user, span_warning("Для изменения настроек [declent_ru(GENITIVE)] необходимо открыть панель!"))
 		return FALSE
 	if(!SSholomaps.valid_map_indexes.len > 1)
-		to_chat(user, span_warning("There are no other maps available for [src]!"))
+		to_chat(user, span_warning("Нет других доступных карт для [declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	tool.play_tool_sound(user, 50)
@@ -234,7 +242,7 @@
 	else
 		current_z_level = SSholomaps.valid_map_indexes[current_index + 1]
 
-	to_chat(user, span_info("You set the [src]'[p_s()] database index to [current_z_level]."))
+	to_chat(user, span_info("Вы устанавливаете индекс базы данных [declent_ru(GENITIVE)] на [current_z_level]."))
 	return TRUE
 
 /obj/machinery/station_map/crowbar_act(mob/living/user, obj/item/tool)
@@ -282,24 +290,10 @@
 	var/list/z_transitions = SSholomaps.holomap_z_transitions["[current_z_level]"]
 	if(length(z_transitions))
 		legend += z_transitions
-
-	if(length(GLOB.meteor_shielded_turfs))
-		var/icon/canvas = icon(HOLOMAP_ICON, "blank")
-		var/z_has_coverage = FALSE
-		for(var/turf/shielded_turf as anything in GLOB.meteor_shielded_turfs)
-			if(shielded_turf?.z != current_z_level)
-				continue
-			var/offset_x = HOLOMAP_CENTER_X + shielded_turf.x
-			var/offset_y = HOLOMAP_CENTER_Y + shielded_turf.y
-			var/color = ((offset_x ^ offset_y) % 2 == 0) ? HOLOMAP_AREACOLOR_SHIELD_1 : HOLOMAP_AREACOLOR_SHIELD_2
-			canvas.DrawBox(color, offset_x, offset_y)
-			z_has_coverage = TRUE
-		if(z_has_coverage)
-			legend["Метеор щиты"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "meteor_shield"), "markers" = list(image(canvas)))
 	return legend
 
 /obj/machinery/station_map/engineering
-	name = "\improper engineering station map"
+	name = "engineering station map"
 	icon_state = "station_map_engi"
 
 /obj/machinery/station_map/engineering/Initialize(mapload)

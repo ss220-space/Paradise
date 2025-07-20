@@ -86,7 +86,7 @@
 	var/list/splinted_limbs
 	var/original_eye_color = "#000000"
 
-	/// Holder for the phisiology datum
+	/// Holder for the physiology datum
 	var/datum/physiology/physiology
 
 	/// What types of mobs are allowed to ride/buckle to this mob. Only human for now

@@ -1,5 +1,5 @@
 /obj/machinery/computer/atmoscontrol
-	name = "\improper central atmospherics computer"
+	name = "central atmospherics computer"
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "atmos_key"
 	icon_screen = "tank"

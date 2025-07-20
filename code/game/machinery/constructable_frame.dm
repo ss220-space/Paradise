@@ -361,7 +361,8 @@ to destroy them and players will be able to make replacements.
 		"Service Departament ClothesMate Botanical" = /obj/machinery/vending/clothing/departament/service/botanical,
 		"Service Departament ClothesMate Chaplain" 	= /obj/machinery/vending/clothing/departament/service/chaplain,
 		"RoboFriends" =                         /obj/machinery/vending/pai,
-		"Customat" =						 	/obj/machinery/customat,)
+		"Customat" =						 	/obj/machinery/customat,
+		"Автомат спортивного питания" =			/obj/machinery/vending/protein,)
 
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
@@ -895,7 +896,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor/quadratic = 5)
 
 /obj/item/circuitboard/clonescanner
-	board_name = "\improper DNA Scanner"
+	board_name = "DNA Scanner"
 	build_path = /obj/machinery/dna_scannernew
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"

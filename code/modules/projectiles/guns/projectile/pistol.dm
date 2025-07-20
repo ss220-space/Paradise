@@ -22,7 +22,7 @@
 
 //M1911//
 /obj/item/gun/projectile/automatic/pistol/m1911
-	name = "\improper M1911"
+	name = "M1911"
 	desc = "A classic .45 handgun with a small magazine capacity."
 	icon_state = "m1911"
 	w_class = WEIGHT_CLASS_NORMAL

@@ -1,6 +1,14 @@
 /obj/structure/katana_grave
 	name = "katana mound"
-	desc = "A desolate and shallow grave for those who have fallen. This one seems to be punctuated by a katana."
+	desc = "Пустынная и неглубокая могила павшему воину. В эту вставлена катана."
+	ru_names = list(
+		NOMINATIVE = "могила с катаной",
+		GENITIVE = "могилы с катаной",
+		DATIVE = "могиле с катаной",
+		ACCUSATIVE = "могилу с катаной",
+		INSTRUMENTAL = "могилой с катаной",
+		PREPOSITIONAL = "могиле с катаной"
+	)
 	icon = 'icons/obj/lavaland/misc.dmi'
 	icon_state = "grave_katana"
 	anchored = TRUE

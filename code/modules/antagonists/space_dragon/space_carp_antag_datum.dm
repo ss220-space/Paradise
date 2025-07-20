@@ -1,5 +1,5 @@
 /datum/antagonist/space_carp
-	name = "\improper Space Carp"
+	name = "Space Carp"
 	special_role = SPECIAL_ROLE_CARP
 	antag_menu_name = "Космический карп"
 	/// The rift to protect

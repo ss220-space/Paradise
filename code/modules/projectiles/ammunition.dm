@@ -1,6 +1,14 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
-	desc = "A bullet casing."
+	desc = "Иногда гильза от пули - это просто гильза, и ничего более."
+	ru_names = list(
+		NOMINATIVE = "гильза от пули",
+		GENITIVE = "гильзы от пули",
+		DATIVE = "гильзе от пули",
+		ACCUSATIVE = "гильзу от пули",
+		INSTRUMENTAL = "гильзой от пули",
+		PREPOSITIONAL = "гильзе от пули"
+	)
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "s-casing"
 	flags = CONDUCT
@@ -42,6 +50,15 @@
 	dir = pick(GLOB.alldirs)
 	update_appearance(UPDATE_ICON|UPDATE_DESC)
 
+/obj/item/ammo_casing/Destroy()
+	QDEL_NULL(BB)
+	if(!isgun(loc))
+		return ..()
+	var/obj/item/gun/gun = loc
+	if(gun.chambered != src)
+		return ..()
+	gun.chambered = null
+	. = ..()
 
 /obj/item/ammo_casing/update_icon_state()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
@@ -49,7 +66,7 @@
 
 /obj/item/ammo_casing/update_desc(updates = ALL)
 	. = ..()
-	desc = "[initial(desc)][BB ? "" : " This one is spent."]"
+	desc = "[initial(desc)][BB ? "" : " Эта гильза уже отстрелялась."]"
 
 
 /obj/item/ammo_casing/proc/newshot(params) //For energy weapons, shotgun shells and wands (!).
@@ -69,10 +86,10 @@
 		add_fingerprint(user)
 		var/obj/item/ammo_box/box = I
 		if(!isturf(loc))
-			to_chat(user, span_warning("You can collect shells from the floor only."))
+			to_chat(user, span_warning("Вы можете собирать гильзы только с пола."))
 			return ATTACK_CHAIN_PROCEED
 		if(length(box.stored_ammo) >= box.max_ammo)
-			to_chat(user, span_warning("The [box.name] is full."))
+			to_chat(user, span_warning("[box.declent_ru(NOMINATIVE)] переполнена."))
 			return ATTACK_CHAIN_PROCEED
 		var/boolets = 0
 		for(var/obj/item/ammo_casing/bullet in loc)
@@ -83,10 +100,10 @@
 			if(box.give_round(bullet, FALSE))
 				boolets++
 		if(!boolets)
-			to_chat(user, span_warning("You have failed to collect anything."))
+			to_chat(user, span_warning("Вам не удалось ничего собрать."))
 			return ATTACK_CHAIN_PROCEED
 		box.update_appearance(UPDATE_ICON|UPDATE_DESC)
-		to_chat(user, span_notice("You have collected [boolets] shell\s. The [box.name] now contains [length(box.stored_ammo)] shell\s."))
+		to_chat(user, span_notice("Вы собрали [boolets] гильз[declension_ru(boolets,"у","ы","")]. Теперь в [box.declent_ru(GENITIVE)] [length(box.stored_ammo)] гильз[declension_ru(length(box.stored_ammo),"а","ы","")]."))
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -96,22 +113,29 @@
 /obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!BB)
-		to_chat(user, span_warning("There is no bullet in the casing to inscribe anything into."))
+		to_chat(user, span_warning("В гильзе нет пули для нанесения гравировки."))
 		return .
 	if(initial(BB.name) != "bullet")
-		to_chat(user, span_notice("You can only inscribe a metal bullet."))	//because inscribing beanbags is silly
+		to_chat(user, span_notice("Вы можете гравировать только металлические пули."))		//because inscribing beanbags is silly
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
-	var/label_text = tgui_input_text(user, "Inscribe some text onto the [initial(BB.name)]", "Inscription", "", 20)
+	var/label_text = tgui_input_text(user, "Нанесите текст на патрон", "Гравировка", "", 20)
 	if(isnull(label_text))
 		return .
 	if(label_text == "")
-		to_chat(user, span_notice("You scratch the inscription off from the [initial(BB.name)]."))
+		to_chat(user, span_notice("Вы соскабливаете гравировку с патрона."))
 		BB.name = initial(BB.name)
 	else
-		to_chat(user, span_notice("You inscribe \"[label_text]\" onto the [initial(BB.name)]."))
-		BB.name = "[initial(BB.name)] \"[label_text]\""
+		to_chat(user, span_notice("Вы наносите \"[label_text]\" на патрон."))
+		BB.ru_names = list(
+			NOMINATIVE = "пуля \"[label_text]\"",
+			GENITIVE = "пули \"[label_text]\"",
+			DATIVE = "пуле \"[label_text]\"",
+			ACCUSATIVE = "пулю \"[label_text]\"",
+			INSTRUMENTAL = "пулей \"[label_text]\"",
+			PREPOSITIONAL = "пуле \"[label_text]\""
+		)
 
 
 /obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
@@ -126,7 +150,15 @@
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"
-	desc = "A box of ammo?"
+	ru_names = list(
+		NOMINATIVE = "коробка с боеприпасами (универсальная)",
+		GENITIVE = "коробки с боеприпасами (универсальной)",
+		DATIVE = "коробке с боеприпасами (универсальной)",
+		ACCUSATIVE = "коробку с боеприпасами (универсальную)",
+		INSTRUMENTAL = "коробкой с боеприпасами (универсальной)",
+		PREPOSITIONAL = "коробке с боеприпасами (универсальной)"
+	)
+	desc = "Э-э... коробка с патронами?"
 	icon_state = "357"
 	icon = 'icons/obj/weapons/ammo.dmi'
 	flags = CONDUCT
@@ -300,14 +332,14 @@
 		if(islist(remove_sound) && length(remove_sound))
 			chosen_sound = pick(remove_sound)
 		playsound(loc, chosen_sound, 50, TRUE)
-		to_chat(user, span_notice("You have removed a round from [src]!"))
+		to_chat(user, span_notice("Вы достали патрон из [src.declent_ru(GENITIVE)]!"))
 		update_appearance(UPDATE_ICON|UPDATE_DESC)
 		user.put_in_hands(casing)
 
 
 /obj/item/ammo_box/update_desc(updates = ALL)
 	. = ..()
-	desc = "[initial(desc)] There are [length(stored_ammo)] shell\s left!"
+	desc = "[initial(desc)] В ней осталось [length(stored_ammo)] патрон[declension_ru(length(stored_ammo), "", "а", "ов")]!"
 
 
 /obj/item/ammo_box/update_icon_state()

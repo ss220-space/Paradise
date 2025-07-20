@@ -669,7 +669,15 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "bone"
 	singular_name = "bone"
-	desc = "Someone's been drinking their milk."
+	desc = "Кто-то выпил их молоко."
+	ru_names = list(
+		NOMINATIVE = "кости",
+		GENITIVE = "костей",
+		DATIVE = "костям",
+		ACCUSATIVE = "кости",
+		INSTRUMENTAL = "костями",
+		PREPOSITIONAL = "костях"
+	)
 	force = 7
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL

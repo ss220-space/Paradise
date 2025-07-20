@@ -346,7 +346,7 @@
 	. = FALSE
 	if(panel_open)
 		return .
-	if(istype(I, /obj/item/clothing/suit/space) && !suit)
+	if((istype(I, /obj/item/clothing/suit/space) || istype(I, suit_type)) && !suit)
 		. = user.drop_transfer_item_to_loc(I, src)
 		if(.)
 			suit = I
@@ -362,7 +362,7 @@
 		. = user.drop_transfer_item_to_loc(I, src)
 		if(.)
 			magboots = I
-	else if((istype(I, /obj/item/tank)) && !storage)
+	else if((istype(I, /obj/item/tank) || istype(I, storage_type)) && !storage)
 		. = user.drop_transfer_item_to_loc(I, src)
 		if(.)
 			storage = I

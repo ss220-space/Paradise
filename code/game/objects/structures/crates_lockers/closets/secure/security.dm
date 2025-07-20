@@ -177,7 +177,7 @@
 	new /obj/item/reagent_containers/spray/cleaner/tactical(src)
 
 /obj/structure/closet/secure_closet/ntrep
-	name = "\improper Nanotrasen Representative's locker"
+	name = "Nanotrasen Representative's locker"
 	req_access = list(ACCESS_NTREP)
 	icon_state = "nt"
 
@@ -294,7 +294,7 @@
 	large = FALSE
 
 /obj/structure/closet/secure_closet/magistrate
-	name = "\improper Magistrate's locker"
+	name = "Magistrate's locker"
 	req_access = list(ACCESS_MAGISTRATE)
 	icon_state = "magistrate"
 

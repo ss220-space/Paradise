@@ -90,7 +90,7 @@
 
 //Corgis and pugs are now under one dog subtype
 /mob/living/simple_animal/pet/dog/corgi
-	name = "\improper corgi"
+	name = "corgi"
 	real_name = "corgi"
 	desc = "It's a corgi."
 	icon_state = "corgi"
@@ -577,7 +577,7 @@
 	adjustBruteLoss(-maxHealth)
 
 /mob/living/simple_animal/pet/dog/corgi/puppy
-	name = "\improper corgi puppy"
+	name = "corgi puppy"
 	real_name = "corgi"
 	desc = "It's a corgi puppy!"
 	icon_state = "puppy"
@@ -594,7 +594,7 @@
 	strippable_inventory_slots = list(/datum/strippable_item/pet_collar) // Puppies do not have a head or back equipment slot.
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void		//Tribute to the corgis born in nullspace
-	name = "\improper void puppy"
+	name = "void puppy"
 	real_name = "voidy"
 	desc = "A corgi puppy that has been infused with deep space energy. It's staring back..."
 	icon_state = "void_puppy"
@@ -622,7 +622,7 @@
 	return TRUE	//Void puppies can navigate space.
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/slime
-	name = "\improper slime puppy"
+	name = "slime puppy"
 	real_name = "slimy"
 	desc = "Крайне склизкий. Но прикольный!"
 	icon_state = "slime_puppy"
@@ -777,7 +777,7 @@
 ///Pugs
 
 /mob/living/simple_animal/pet/dog/pug
-	name = "\improper pug"
+	name = "pug"
 	real_name = "pug"
 	desc = "It's a pug."
 	icon = 'icons/mob/pets.dmi'
@@ -802,7 +802,7 @@
 					sleep(1)
 
 /mob/living/simple_animal/pet/dog/bullterrier
-	name = "\improper bullterrier"
+	name = "bullterrier"
 	real_name = "bullterrier"
 	desc = "Кого-то его мордочка напоминает..."
 	icon = 'icons/mob/pets.dmi'
@@ -813,7 +813,7 @@
 	holder_type = /obj/item/holder/bullterrier
 
 /mob/living/simple_animal/pet/dog/tamaskan
-	name = "\improper tamaskan"
+	name = "tamaskan"
 	real_name = "tamaskan"
 	desc = "Хорошая семейная собака. Уживается с другими собаками и ассистентами."
 	icon = 'icons/mob/pets.dmi'
@@ -824,7 +824,7 @@
 	holder_type = /obj/item/holder/bullterrier
 
 /mob/living/simple_animal/pet/dog/german
-	name = "\improper german"
+	name = "german"
 	real_name = "german"
 	desc = "Немецкая овчарка с помесью двортерьера. Судя по крупу - явно не породистый."
 	icon = 'icons/mob/pets.dmi'
@@ -834,7 +834,7 @@
 	//tts_seed = "Kleiner"
 
 /mob/living/simple_animal/pet/dog/brittany
-	name = "\improper brittany"
+	name = "brittany"
 	real_name = "brittany"
 	desc = "Старая порода, которую любят аристократы."
 	icon = 'icons/mob/pets.dmi'

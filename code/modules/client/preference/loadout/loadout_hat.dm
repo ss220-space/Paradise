@@ -199,3 +199,7 @@
 							/obj/item/clothing/head/beanie/stripedgreen,
 							/obj/item/clothing/head/beanie/stripedred)
 	gear_tweaks += new /datum/gear_tweak/path(beanies, src, TRUE)
+
+/datum/gear/hat/shapka_pepega
+	index_name = "frog_hat"
+	path = /obj/item/clothing/head/shapka_pepega

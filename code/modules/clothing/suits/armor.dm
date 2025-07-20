@@ -78,11 +78,11 @@
 	if(istype(I, /obj/item/clothing/accessory/holobadge))
 		add_fingerprint(user)
 		if(attached_badge)
-			to_chat(user, span_warning("The [name] already has [attached_badge]."))
+			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL)] уже есть [attached_badge.declent_ru(NOMINATIVE)]."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You attach [I] to [src]."))
+		to_chat(user, span_notice("Вы прицепили [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
 		attached_badge = I
 		var/datum/action/item_action/remove_badge/holoaction = new(src)
 		holoaction.Grant(user)
@@ -102,7 +102,7 @@
 		attached_badge = null
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 		update_equipped_item()
-		to_chat(user, span_notice("You remove [attached_badge] from [src]."))
+		to_chat(user, span_notice("Вы снимаете [attached_badge.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 		return
 	..()
 
@@ -410,15 +410,12 @@
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	if(emp_d)
-		to_chat(user, span_warning("[src] is disabled from an electromagnetic pulse!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отключён из-за электромагнитного импульса!"))
 		return
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
-	if(active)
-		to_chat(user, span_notice("[src] is now active."))
-	else
-		to_chat(user, span_notice("[src] is now inactive."))
+	to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] теперь [active ? "активен" : "неактивен"]."))
 	update_equipped_item()
 
 
@@ -429,7 +426,7 @@
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/user = loc
-		to_chat(user, span_warning("[src] starts malfunctioning!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает глючить!"))
 		update_equipped_item()
 	..()
 
@@ -439,7 +436,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/user = loc
 		update_equipped_item()
-		to_chat(user, span_notice("Looks like [src] returns its functionality."))
+		to_chat(user, span_notice("Похоже, [declent_ru(NOMINATIVE)] снова функционирует нормально."))
 
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
@@ -452,12 +449,15 @@
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 
-/obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
-		owner.visible_message(span_danger("The reactive teleport system flings [H] clear of [attack_text]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+		owner.visible_message(
+			span_danger("Реактивная телепортная система отражает [attack_text] [H.declent_ru(GENITIVE)]!"),
+			projectile_message = (attack_type == PROJECTILE_ATTACK)
+		)
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(tele_range, H))
 			if(isspaceturf(T))
@@ -481,11 +481,14 @@
 /obj/item/clothing/suit/armor/reactive/fire
 	name = "reactive incendiary armor"
 
-/obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
-		owner.visible_message(span_danger("The [src] blocks the [attack_text], sending out jets of flame!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+		owner.visible_message(
+			span_danger("[capitalize(declent_ru(NOMINATIVE))] блокирует [attack_text], выпуская струи пламени!"),
+			projectile_message = (attack_type == PROJECTILE_ATTACK)
+		)
 		for(var/mob/living/carbon/C in range(6, owner))
 			if(C != owner)
 				C.fire_stacks += 8
@@ -497,7 +500,7 @@
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"
 
-/obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "удар", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
@@ -506,7 +509,10 @@
 		E.GiveTarget(owner) //so it starts running right away
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.alpha = 0
-		owner.visible_message(span_danger("[owner] is hit by [attack_text] in the chest!"), projectile_message = (attack_type == PROJECTILE_ATTACK)) //We pretend to be hit, since blocking it would stop the message otherwise
+		owner.visible_message(
+			span_danger("[owner] получает [attack_text] в грудь!"),
+			projectile_message = (attack_type == PROJECTILE_ATTACK)
+		) //We pretend to be hit, since blocking it would stop the message otherwise
 		spawn(40)
 			owner.alpha = initial(owner.alpha)
 		return 1
@@ -514,11 +520,14 @@
 /obj/item/clothing/suit/armor/reactive/tesla
 	name = "reactive tesla armor"
 
-/obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
-		owner.visible_message(span_danger("The [src] blocks the [attack_text], sending out arcs of lightning!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+		owner.visible_message(
+			span_danger("[capitalize(declent_ru(NOMINATIVE))] блокирует [attack_text], испуская разряды молний!"),
+			projectile_message = (attack_type == PROJECTILE_ATTACK)
+		)
 		for(var/mob/living/M in view(6, owner))
 			if(M == owner)
 				continue
@@ -659,7 +668,15 @@
 	name = "drake armour"
 	icon_state = "dragon"
 	item_state = "dragon"
-	desc = "A suit of armour fashioned from the remains of an ash drake."
+	desc = "Доспехи, созданные из останков пепельного дракона."
+	ru_names = list(
+		NOMINATIVE = "доспех из дрейка",
+		GENITIVE = "доспеха из дрейка",
+		DATIVE = "доспеху из дрейка",
+		ACCUSATIVE = "доспех из дрейка",
+		INSTRUMENTAL = "доспехом из дрейка",
+		PREPOSITIONAL = "доспехе из дрейка"
+	)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 40, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
 	hoodtype = /obj/item/clothing/head/hooded/drake
@@ -681,7 +698,15 @@
 	name = "drake helmet"
 	icon_state = "dragon"
 	item_state = "dragon"
-	desc = "The skull of a dragon."
+	desc = "Череп дрейка."
+	ru_names = list(
+		NOMINATIVE = "шлем из дрейка",
+		GENITIVE = "шлема из дрейка",
+		DATIVE = "шлему из дрейка",
+		ACCUSATIVE = "шлем из дрейка",
+		INSTRUMENTAL = "шлемом из дрейка",
+		PREPOSITIONAL = "шлеме из дрейка"
+	)
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 40, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -693,7 +718,15 @@
 	name = "goliath cloak"
 	icon_state = "goliath_cloak"
 	item_state = "goliath_cloak"
-	desc = "A staunch, practical cape made out of numerous monster materials, it is coveted amongst exiles & hermits."
+	desc = "Прочный и практичный плащ, созданный из различных материалов, добытых из монстров. Он пользуется большим спросом у тех, кто ведёт жизнь отшельника или изгнанника."
+	ru_names = list(
+		NOMINATIVE = "накидка из голиафа",
+		GENITIVE = "накидки из голиафа",
+		DATIVE = "накидке из голиафа",
+		ACCUSATIVE = "накидку из голиафа",
+		INSTRUMENTAL = "накидкой из голиафа",
+		PREPOSITIONAL = "накидке из голиафа"
+	)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
@@ -703,7 +736,15 @@
 	name = "goliath cloak hood"
 	icon_state = "golhood"
 	item_state = "golhood"
-	desc = "A protective & concealing hood."
+	desc = "Защитный и скрывающий капюшон."
+	ru_names = list(
+		NOMINATIVE = "капюшон накидки из голиафа",
+		GENITIVE = "капюшона накидки из голиафа",
+		DATIVE = "капюшону накидки из голиафа",
+		ACCUSATIVE = "капюшон накидки из голиафа",
+		INSTRUMENTAL = "капюшоном накидки из голиафа",
+		PREPOSITIONAL = "капюшоне накидки из голиафа"
+	)
 	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
@@ -717,7 +758,15 @@
 	name = "shaman skull"
 	icon_state = "shamskull"
 	item_state = "shamskull"
-	desc = "The skull of a long dead animal bolted to the front of a repurposed pan."
+	desc = "К передней части переделанного шлема прикрутили череп какого-то дохлого зверя."
+	ru_names = list(
+		NOMINATIVE = "череп шамана",
+		GENITIVE = "черепа шамана",
+		DATIVE = "черепу шамана",
+		ACCUSATIVE = "череп шамана",
+		INSTRUMENTAL = "черепом шамана",
+		PREPOSITIONAL = "черепе шамана"
+	)
 	armor = list("melee" = 60, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 60)
 	magical = TRUE
 
@@ -734,7 +783,15 @@
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
-	desc = "A tribal armor plate, crafted from animal bone."
+	desc = "Племенной доспех, созданный из костей животных."
+	ru_names = list(
+		NOMINATIVE = "костяная броня",
+		GENITIVE = "костяной брони",
+		DATIVE = "костяной броне",
+		ACCUSATIVE = "костяную броню",
+		INSTRUMENTAL = "костяной броней",
+		PREPOSITIONAL = "костяной броне"
+	)
 	icon_state = "bonearmor"
 	item_state = "bonearmor"
 	blood_overlay_type = "armor"

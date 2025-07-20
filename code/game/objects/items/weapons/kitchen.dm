@@ -282,7 +282,15 @@
 	name = "survival knife"
 	icon_state = "survivalknife"
 	belt_icon = "survival_knife"
-	desc = "A hunting grade survival knife."
+	desc = "Охотничий нож повышенной прочности."
+	ru_names = list(
+		NOMINATIVE = "нож для выживания",
+		GENITIVE = "ножа для выживания",
+		DATIVE = "ножу для выживания",
+		ACCUSATIVE = "нож для выживания",
+		INSTRUMENTAL = "ножом для выживания",
+		PREPOSITIONAL = "ноже для выживания"
+	)
 	force = 15
 	throwforce = 15
 
@@ -300,7 +308,15 @@
 	item_state = "bone_dagger"
 	icon_state = "bone_dagger"
 	belt_icon = "bone_dagger"
-	desc = "A sharpened bone. The bare minimum in survival."
+	desc = "Острая кость – минимум для выживания."
+	ru_names = list(
+		NOMINATIVE = "костяной кинжал",
+		GENITIVE = "костяного кинжала",
+		DATIVE = "костяному кинжалу",
+		ACCUSATIVE = "костяной кинжал",
+		INSTRUMENTAL = "костяным кинжалом",
+		PREPOSITIONAL = "костяном кинжале"
+	)
 	materials = list()
 	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
 	drop_sound = 'sound/items/handling/bone_drop.ogg'

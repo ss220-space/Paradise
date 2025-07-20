@@ -168,7 +168,7 @@
 		wear_suit = null
 		if(!QDELETED(src))
 			wear_suit_update(I)
-			if(I.breakouttime) //when unequipping a straightjacket
+			if(I.breakout_time) //when unequipping a straightjacket
 				REMOVE_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 	else if(I == w_uniform)
@@ -400,7 +400,7 @@
 		if(ITEM_SLOT_CLOTH_OUTER)
 			wear_suit = I
 			wear_suit_update(I)
-			if(I.breakouttime) //when equipping a straightjacket
+			if(I.breakout_time) //when equipping a straightjacket
 				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 		if(ITEM_SLOT_CLOTH_INNER)

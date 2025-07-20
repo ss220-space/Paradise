@@ -31,7 +31,7 @@
 	icon_state = "paint_red"
 
 /obj/spacepod
-	name = "\improper space pod"
+	name = "space pod"
 	desc = "Космический челнок, предназначенный для путешествий в открытом космосе."
 	ru_names = list(
 		NOMINATIVE = "космический челнок",
@@ -108,7 +108,7 @@
 		balloon_alert(user, "нельзя перекрасить!")
 		return
 
-	var/part = input(user, "Выберите элемент", null) as null|anything in list("Фары","Окантовка","Основной цвет","Стекла")
+	var/part = tgui_input_list(user, "Выберите элемент", null, list("Фары", "Окантовка", "Основной цвет", "Стекла"))
 	switch(part)
 		if("Фары")
 			part_type = POD_LIGHT
@@ -570,11 +570,11 @@
 	switch(tgui_input_list(user, "Remove which equipment?", "Equipment",possible))
 		if("Energy Cell")
 			if(user.get_active_hand() && user.get_inactive_hand())
-				to_chat(user, span_warning("You need an open hand to do that."))
+				to_chat(user, span_warning("Для этого нужна свободная рука."))
 				return
 			battery.forceMove_turf()
 			user.put_in_any_hand_if_possible(battery, ignore_anim = FALSE)
-			to_chat(user, span_notice("You remove [battery] from the space pod"))
+			to_chat(user, span_notice("Вы извлекаете [battery] из космического модуля"))
 			battery = null
 			return
 		if("Weapon System")
@@ -609,7 +609,6 @@
 		return
 
 	if(user.get_active_hand() && user.get_inactive_hand())
-		to_chat(user, span_warning("You need an open hand to do that."))
 		balloon_alert(user, "нужна свободная рука!")
 		return
 
@@ -669,7 +668,7 @@
 // placeholder
 
 /obj/spacepod/sec
-	name = "\improper security spacepod"
+	name = "security spacepod"
 	desc = "Бронированный челнок службы безопасности с усиленной бронёй."
 	ru_names = list(
 		NOMINATIVE = "космический челнок охраны",

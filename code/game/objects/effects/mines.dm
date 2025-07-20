@@ -102,7 +102,7 @@
 	gas_type = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
 
 /obj/effect/mine/gas/n2o
-	name = "\improper N2O mine"
+	name = "N2O mine"
 	gas_type = LINDA_SPAWN_N2O
 
 /obj/effect/mine/sound
@@ -146,7 +146,7 @@
 	if(!istype(victim) || !victim.client)
 		return
 	to_chat(victim, span_redtext(span_reallybig("RIP AND TEAR")))
-	victim << 'sound/misc/e1m1.ogg'
+	SEND_SOUND(victim, sound('sound/misc/e1m1.ogg'))
 	var/old_color = victim.client.color
 	var/red_splash = list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0)
 	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)

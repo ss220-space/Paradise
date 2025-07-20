@@ -55,7 +55,7 @@
 	. = ..()
 	if(defib)
 		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы взять прикреплённый дефибриллятор.")
-		if(GLOB.security_level >= SEC_LEVEL_RED)
+		if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 			. += span_notice("Автоматическа система блокировки активирована. Используйте любую ID-карту для разблокировки.")
 		else
 			. += span_notice("Вы можете активировать систему блокировки, использовав свою ID-карту.")
@@ -120,7 +120,7 @@
 
 	if(I.GetID())
 		add_fingerprint(user)
-		if(check_access(I) || GLOB.security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
+		if(check_access(I) || SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
 			if(!defib)
 				balloon_alert(user, "дефибриллятор отсутствует!")
 				return ATTACK_CHAIN_PROCEED

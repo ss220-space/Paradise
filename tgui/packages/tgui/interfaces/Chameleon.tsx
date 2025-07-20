@@ -53,7 +53,8 @@ export const ChameleonAppearances = (_props) => {
         <Input
           fluid
           placeholder="Search for an appearance"
-          onInput={(e, value) => setSearchText(value)}
+          expensive
+          onChange={setSearchText}
         />
       </Stack.Item>
       <Stack.Item grow>

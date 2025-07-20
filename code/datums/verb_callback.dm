@@ -12,9 +12,9 @@
 
 #ifndef UNIT_TESTS
 /datum/callback/verb_callback/Invoke(...)
-	if(isnull(usr_uid))
+	if(isnull(user))
 		return
-	var/mob/our_user = locateUID(usr_uid)
+	var/mob/our_user = user.resolve()
 	if(QDELETED(our_user) || isnull(our_user.client))
 		return
 	var/mob/temp = usr
@@ -23,9 +23,9 @@
 
 
 /datum/callback/verb_callback/InvokeAsync(...)
-	if(isnull(usr_uid))
+	if(isnull(user))
 		return
-	var/mob/our_user = locateUID(usr_uid)
+	var/mob/our_user = user.resolve()
 	if(QDELETED(our_user) || isnull(our_user.client))
 		return
 	var/mob/temp = usr

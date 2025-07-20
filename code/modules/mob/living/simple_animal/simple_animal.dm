@@ -34,9 +34,9 @@
 	var/stop_automated_movement_when_pulled = 1 //When set to 1 this stops the animal from moving when someone is pulling it.
 
 	//Interaction
-	var/response_help   = "pokes"
-	var/response_disarm = "shoves"
-	var/response_harm   = "hits"
+	var/response_help   = "тычет"
+	var/response_disarm = "толкает"
+	var/response_harm   = "бъёт"
 	var/harm_intent_damage = 3
 	var/force_threshold = 0 //Minimum force required to deal any damage
 
@@ -65,7 +65,7 @@
 	var/friendly = "утыкается носом в" //If the mob does no damage with it's attack
 	var/environment_smash = ENVIRONMENT_SMASH_NONE //Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
 
-	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
+	var/speed = 1 //LETS SEE IF item CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 	var/can_hide = FALSE
 	var/hidden = FALSE
 
@@ -125,7 +125,7 @@
 	///Added success chance after every failed tame attempt.
 	var/bonus_tame_chance
 
-	var/my_z // I don't want to confuse this with client registered_z
+	var/my_z // item don't want to confuse this with client registered_z
 	///What kind of footstep this mob should have. Null if it shouldn't have any.
 	var/footstep_type
 
@@ -192,10 +192,10 @@
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		. += span_deadsay("При ближайшем рассмотрении, [genderize_ru(user.gender,"он","она","оно","они")] выгляд[pluralize_ru(user.gender,"ит","ят")] мёртв[genderize_ru(user.gender,"ым","ой","ым","ыми")].")
 		return
 	if(IsSleeping())
-		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
+		. += span_notice("При ближайшем рассмотрении, [genderize_ru(user.gender,"он","она","оно","они")] выгляд[pluralize_ru(user.gender,"ит","ят")] спящ[genderize_ru(user.gender,"им","ей","им","ими")].")
 
 
 /mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
@@ -397,7 +397,7 @@
 /mob/living/simple_animal/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Health:", "[round((health / maxHealth) * 100)]%")
+	status_tab_data[++status_tab_data.len] = list("Здоровье:", "[round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/proc/drop_loot()
 	if(loot.len)
@@ -537,7 +537,7 @@
 			return pcollar
 	. = ..()
 
-/mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
+/mob/living/simple_animal/can_equip(obj/item/item, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	// . = ..() // Do not call parent. We do not want animals using their hand slots.
 	switch(slot)
 		if(ITEM_SLOT_NECK)
@@ -545,13 +545,13 @@
 				return FALSE
 			if(!can_collar)
 				return FALSE
-			if(!istype(I, /obj/item/clothing/accessory/petcollar))
+			if(!istype(item, /obj/item/clothing/accessory/petcollar))
 				return FALSE
 			return TRUE
 
 
-/mob/living/simple_animal/equip_to_slot(obj/item/I, slot, initial)
-	if(!istype(I))
+/mob/living/simple_animal/equip_to_slot(obj/item/item, slot, initial)
+	if(!istype(item))
 		return FALSE
 
 	if(!slot)
@@ -559,23 +559,23 @@
 
 	. = TRUE
 
-	I.pixel_x = initial(I.pixel_x)
-	I.pixel_y = initial(I.pixel_y)
-	I.layer = ABOVE_HUD_LAYER
-	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
-	I.forceMove(src)
+	item.pixel_x = initial(item.pixel_x)
+	item.pixel_y = initial(item.pixel_y)
+	item.layer = ABOVE_HUD_LAYER
+	SET_PLANE_EXPLICIT(item, ABOVE_HUD_PLANE, src)
+	item.forceMove(src)
 
 	switch(slot)
 		if(ITEM_SLOT_NECK)
-			add_collar(I)
+			add_collar(item)
 
 
-/mob/living/simple_animal/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
+/mob/living/simple_animal/do_unEquip(obj/item/item, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	. = ..()
-	if(!. || !I)
+	if(!. || !item)
 		return .
 
-	if(I == pcollar)
+	if(item == pcollar)
 		pcollar = null
 		if(!QDELETED(src))
 			regenerate_icons()
@@ -666,7 +666,10 @@
 	pcollar = P
 	regenerate_icons()
 	if(user)
-		to_chat(user, span_notice("You put [P] around [src]'s neck."))
+		visible_message(
+			span_warning(span_notice("Вы надеваете [P.declent_ru(ACCUSATIVE)] на шею [src.declent_ru(GENITIVE)].")),
+			span_warning(span_notice("[user.declent_ru(NOMINATIVE)] надева[pluralize_ru(user.gender,"ет","ют")] [P.declent_ru(ACCUSATIVE)] вам на шею [src.declent_ru(GENITIVE)]."))
+		)
 	if(P.tagname && !unique_pet)
 		name = P.tagname
 		real_name = P.tagname
@@ -709,24 +712,24 @@
 	toggle_ai(AI_ON)
 
 
-/mob/living/simple_animal/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	. = ..()
 	if(. && length(talk_sound))
 		playsound(src, pick(talk_sound), 75, TRUE)
 
 
-/mob/living/simple_animal/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
-	if(I.force && (I.force < force_threshold || I.damtype == STAMINA))
+/mob/living/simple_animal/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
+	if(item.force && (item.get_final_force(user) < force_threshold || item.damtype == STAMINA))
 		visible_message(
-			span_warning("[user] tries to hit [src] with [I], but it bounces harmlessly!"),
-			span_warning("[user] tries to hit you with [I], but it bounces harmlessly!"),
+			span_warning("[user.declent_ru(NOMINATIVE)] пытается ударить [src.declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)], но удар безвредно отскакивает!"),
+			span_warning("[user.declent_ru(NOMINATIVE)] пытается ударить вас [item.declent_ru(INSTRUMENTAL)], но удар безвредно отскакивает!"),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_danger("This weapon is ineffective, it does no damage!"))
+		to_chat(user, span_danger("Это оружие неэффективно - оно не наносит урона!"))
 		return ATTACK_CHAIN_BLOCKED
 
 	. = ..()
-	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && I.force && length(damaged_sound))
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && item.force && length(damaged_sound))
 		playsound(loc, pick(damaged_sound), 40, TRUE)
 
 
@@ -824,3 +827,6 @@
 
 /mob/living/simple_animal/proc/end_dchat_plays()
 	stop_automated_movement = FALSE
+
+/mob/living/simple_animal/can_use_machinery(obj/machinery/mach)
+	return

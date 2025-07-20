@@ -186,7 +186,7 @@
 		balloon_alert(src, "нет подходящей дионы!")
 		return FALSE
 
-	var/mob/living/M = input(src,"С кем вы хотите слиться?") in null|choices
+	var/mob/living/M = tgui_input_list(src, "С кем вы хотите слиться?", , choices)
 
 	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE
@@ -295,7 +295,7 @@
 		balloon_alert(src, "нет подходящего донора!")
 		return FALSE
 
-	var/mob/living/carbon/human/M = input(src,"У кого вы хотите взять образец крови?") in null|choices
+	var/mob/living/carbon/human/M = tgui_input_list(src, "У кого вы хотите взять образец крови?", , choices)
 
 	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE

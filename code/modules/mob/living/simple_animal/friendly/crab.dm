@@ -73,6 +73,28 @@
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
+// Billy Crabbington, MASTER OF THE GYM
+
+/mob/living/simple_animal/crab/billy
+	name = "Billy Crabington"
+	real_name = "Билли Крабингтон"
+	desc = "Босс качалки в этом и всех ближайших секторах, известен также как мастер глубоководных подземелий. \
+			От долгого нахождения в обществе суровых мужчин научился говорить несколько фраз."
+	ru_names = list(
+		NOMINATIVE = "Билли Крабингтон",
+		GENITIVE = "Билли Крабингтона",
+		DATIVE = "Билли Крабингтону",
+		ACCUSATIVE = "Билли Крабингтона",
+		INSTRUMENTAL = "Билли Крабингтоном",
+		PREPOSITIONAL = "Билли Крабингтоне"
+	)
+	speak = list("ААААРГХ!", "О, йес сэр!", "Шёл бы ты, кожевник")
+	emote_hear = list("клацает по своему блестящему панцирю")
+	emote_see = list("играет панцирем")
+	response_harm   = "шлёпает"
+	gold_core_spawnable = NO_SPAWN
+	unique_pet = TRUE
+
 /mob/living/simple_animal/crab/evil
 	name = "evil crab"
 	real_name = "Злой краб"

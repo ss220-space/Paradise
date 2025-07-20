@@ -37,7 +37,7 @@
 	)
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
-	name = "\improper SWAT shoes"
+	name = "SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50)
@@ -405,7 +405,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 0) //lizards like to stay warm
 
 /obj/item/clothing/shoes/cowboy/lizardmasterwork
-	name = "\improper Hugs-The-Feet lizard skin boots"
+	name = "Hugs-The-Feet lizard skin boots"
 	desc = "A pair of masterfully crafted lizard skin boots. Finally a good application for the station's most bothersome inhabitants."
 	icon_state = "lizardboots_blue"
 
@@ -434,7 +434,15 @@
 
 /obj/item/clothing/shoes/footwraps/goliath
 	name = "goliath hide footwraps"
-	desc = "These wraps, made from goliath hide, make your feet feel snug and secure, while still being breathable and light."
+	desc = "Эти обмотки, изготовленные из шкуры голиафа, подарят вашим ступням ощущение уюта и безопасности, оставаясь при этом дышащими и лёгкими."
+	ru_names = list(
+		NOMINATIVE = "обмотки из шкуры голиафа",
+		GENITIVE = "обмоток из шкуры голиафа",
+		DATIVE = "обмоткам из шкуры голиафа",
+		ACCUSATIVE = "обмотки из шкуры голиафа",
+		INSTRUMENTAL = "обмотками из шкуры голиафа",
+		PREPOSITIONAL = "обмотках из шкуры голиафа"
+	)
 	icon_state = "footwraps_goliath"
 	item_state = "footwraps_goliath"
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 10, "acid" = 0)
@@ -443,7 +451,15 @@
 
 /obj/item/clothing/shoes/footwraps/dragon
 	name = "ash drake hide footwraps"
-	desc = "These wraps, made from ash drake hide, make your feet feel snug and secure, while still being breathable and light."
+	desc = "Эти обмотки, изготовленные из шкуры пепельного дракона, обеспечат вам комфорт и безопасность ваших ног, оставаясь при этом лёгкими и дышащими."
+	ru_names = list(
+		NOMINATIVE = "обмотки из шкуры пепельного дракона",
+		GENITIVE = "обмоток из шкуры пепельного дракона",
+		DATIVE = "обмоткам из шкуры пепельного дракона",
+		ACCUSATIVE = "обмотки из шкуры пепельного дракона",
+		INSTRUMENTAL = "обмотками из шкуры пепельного дракона",
+		PREPOSITIONAL = "обмотках из шкуры пепельного дракона"
+	)
 	icon_state = "footwraps_dragon"
 	item_state = "footwraps_dragon"
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 15, "energy" = 10, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 15, "acid" = 0)

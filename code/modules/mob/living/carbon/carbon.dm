@@ -237,8 +237,8 @@
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
-						span_notice("[M] тряс[pluralize_ru(M.gender, "ёт", "ут")] [name], пытаясь разбудить [genderize_ru(gender, "его", "её", "его", "их")]."),\
-						span_notice("Вы трясёте [name], пытаясь разбудить [genderize_ru(gender, "его", "её", "его", "их")]."),\
+						span_notice("[M] тряс[pluralize_ru(M.gender, "ёт", "ут")] [name], пытаясь поднять [genderize_ru(gender, "его", "её", "его", "их")]."),\
+						span_notice("Вы трясёте [name], пытаясь поднять [genderize_ru(gender, "его", "её", "его", "их")]."),\
 						)
 
 			else if(on_fire)
@@ -332,7 +332,7 @@
 		status_list += msg
 
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
-			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(NOMINATIVE)] застрял[genderize_ru(embedded.gender, "", "а", "о", "и")] [embedded.declent_ru(NOMINATIVE)]!</a>"
+			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(GENITIVE)] застрял[genderize_ru(embedded.gender, "", "а", "о", "и")] [bicon(embedded)] [embedded.declent_ru(NOMINATIVE)]!</a>"
 
 	for(var/t in missing)
 		status_list += span_boldannounceic("У вас отсутствует [parse_zone(t)]!")
@@ -662,26 +662,39 @@
 
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
-	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
-		var/breakouttime = 60 SECONDS
-		var/obj/item/restraints = handcuffed
-		if(wear_suit?.breakouttime)
-			restraints = wear_suit
-		if(restraints)
-			breakouttime = restraints.breakouttime
-		visible_message(
-			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
-			span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakouttime / 10] секунд[declension_ru(breakouttime / 10, "у", "ы", "")]."),
-		)
-		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-			if(!buckled)
-				return
-			buckled.user_unbuckle_mob(src, src)
-		else
-			if(src && buckled)
-				to_chat(src, span_warning("Вам не удалось себя отстегнуть."))
-	else
+	if(!HAS_TRAIT(src, TRAIT_RESTRAINED))
 		buckled.user_unbuckle_mob(src, src)
+		return
+
+	var/breakout_time = 60 SECONDS
+	var/obj/item/restraints = handcuffed
+	if(wear_suit?.breakout_time)
+		restraints = wear_suit
+
+	if(restraints)
+		breakout_time = restraints.breakout_time
+
+	var/list/breakouttime_modifiers = list()
+	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
+	for(var/mod in breakouttime_modifiers)
+		breakout_time *= mod
+
+	visible_message(
+		span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
+		span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[declension_ru(breakout_time * 0.1, "у", "ы", "")]."),
+	)
+	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+		if(!buckled)
+			return
+
+		buckled.user_unbuckle_mob(src, src)
+		return
+
+	if(!src || !buckled)
+		return
+
+	to_chat(src, span_warning("Вам не удалось себя отстегнуть."))
+
 
 
 /mob/living/carbon/resist_fire()

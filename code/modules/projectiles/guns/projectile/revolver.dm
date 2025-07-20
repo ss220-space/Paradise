@@ -1,5 +1,5 @@
 /obj/item/gun/projectile/revolver
-	name = "\improper .357 revolver"
+	name = ".357 revolver"
 	desc = "A suspicious revolver. Uses .357 ammo."
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
@@ -126,7 +126,7 @@
 
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
-	name = "\improper finger gun"
+	name = "finger gun"
 	desc = "Bang bang bang!"
 	icon_state = "fingergun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
@@ -190,12 +190,12 @@
 
 
 /obj/item/gun/projectile/revolver/mateba
-	name = "\improper Unica 6 auto-revolver"
+	name = "Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
 
 /obj/item/gun/projectile/revolver/ga12
-	name = "\improper Tkach Ya-Sui GA 12 revolver"
+	name = "Tkach Ya-Sui GA 12 revolver"
 	desc = "An outdated sidearm rarely seen in use by certain PMCs that operate throughout the frontier systems, featuring a three-shell cylinder. Thats right, shell, this one shoots twelve gauge."
 	icon_state = "12garevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ga12
@@ -230,7 +230,7 @@
 // You can spin the chamber to randomize the position of the bullet.
 
 /obj/item/gun/projectile/revolver/russian
-	name = "\improper Russian revolver"
+	name = "Russian revolver"
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
 	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/rus357

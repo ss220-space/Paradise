@@ -93,8 +93,9 @@
 	name = "accelerator laser cannon"
 	desc = "An advanced laser cannon that does more damage the farther away the target is."
 	icon_state = "lasercannon"
-	item_state = "laser"
+	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
 	force = 10
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BACK
@@ -106,17 +107,24 @@
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/projectile/beam/laser/accelerator
 	select_name = "accelerator"
-	fire_sound = 'sound/weapons/gunshots/1laser5.ogg'
+	fire_sound = 'sound/weapons/gunshots/accelerator_cannon.ogg'
+	e_cost = 150
+	delay = 20
 
 /obj/projectile/beam/laser/accelerator
 	name = "accelerator laser"
 	icon_state = "heavylaser"
 	range = 255
-	damage = 6
+	damage = 8
+	armour_penetration = -50
+	speed = 1
 
 /obj/projectile/beam/laser/accelerator/Range()
 	..()
-	damage = min(damage+7, 100)
+	damage = min(damage + 4, 80)
+	armour_penetration = min(armour_penetration + 5, 50)
+	forcedodge = min(forcedodge + 0.2, 20)
+
 
 /obj/item/gun/energy/lasercannon/cyborg
 

@@ -211,7 +211,7 @@
 	charge = 0
 
 /obj/item/stock_parts/cell/crap
-	name = "\improper Nanotrasen brand rechargeable AA battery"
+	name = "Nanotrasen brand rechargeable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
 	maxcharge = 500
 	materials = list(MAT_GLASS = 40)
@@ -381,7 +381,7 @@
 	chargerate = 500
 
 /obj/item/stock_parts/cell/emproof
-	name = "\improper EMP-proof cell"
+	name = "EMP-proof cell"
 	desc = "An EMP-proof cell."
 	maxcharge = 500
 	rating = 3
@@ -407,7 +407,7 @@
 	materials = list(MAT_GLASS = 60)
 
 /obj/item/stock_parts/cell/bsg
-	name = "\improper B.S.G power cell"
+	name = "B.S.G power cell"
 	desc = "A high capacity, slow charging cell for the B.S.G."
 	maxcharge = 40000
 	chargerate = 2600 // about 30 seconds to charge with a default recharger

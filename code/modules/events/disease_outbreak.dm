@@ -33,7 +33,10 @@
 		D = new virus_type()
 
 /datum/event/disease_outbreak/announce()
-	GLOB.event_announcement.Announce("Вспышка вирусной угрозы 7-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", new_sound = 'sound/AI/outbreak7.ogg')
+	GLOB.major_announcement.announce("Вспышка вирусной угрозы 7-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение.",
+									ANNOUNCE_BIOHAZARD_RU,
+									new_sound2 = 'sound/AI/outbreak7.ogg'
+	)
 
 /datum/event/disease_outbreak/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))

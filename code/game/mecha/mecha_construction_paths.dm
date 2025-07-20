@@ -1295,7 +1295,7 @@
 
 /datum/construction/reversible/mecha/phazon/after_spawn_result(atom/A)
 	var/obj/mecha/phazon = A
-	phazon.phase_modifier = core.get_strenght() / 150
+	phazon.phase_modifier = core.get_strength() / 150
 	core.forceMove(A)
 
 /datum/construction/reversible/mecha/phazon/custom_action(index, diff, atom/used_atom, mob/user)
@@ -1478,7 +1478,7 @@
 		if(1)
 			if(diff==FORWARD)
 				var/obj/item/assembly/signaler/core/bluespace/core = used_atom
-				if(core.get_strenght() < 100)
+				if(core.get_strength() < 100)
 					to_chat(user, span_warning("Ядро слишком слабо!"))
 					return FALSE
 
