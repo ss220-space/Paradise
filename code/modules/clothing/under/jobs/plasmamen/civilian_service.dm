@@ -30,14 +30,14 @@
 
 /obj/item/clothing/under/plasmaman/qm
 	name = "quartermaster plasma envirosuit"
-	desc = "Защитный костюм плазмолюда, разработанный специально для завхоза."
+	desc = "Защитный костюм плазмолюда, разработанный специально для Завхоза."
 	ru_names = list(
-		NOMINATIVE = "защитный костюм завхоза",
-		GENITIVE = "защитного костюма завхоза",
-		DATIVE = "защитному костюму завхоза",
-		ACCUSATIVE = "защитный костюм завхоза",
-		INSTRUMENTAL = "защитным костюмом завхоза",
-		PREPOSITIONAL = "защитном костюме завхоза"
+		NOMINATIVE = "защитный костюм Завхоза",
+		GENITIVE = "защитного костюма Завхоза",
+		DATIVE = "защитному костюму Завхоза",
+		ACCUSATIVE = "защитный костюм Завхоза",
+		INSTRUMENTAL = "защитным костюмом Завхоза",
+		PREPOSITIONAL = "защитном костюме Завхоза"
 	)
 	icon_state = "qm_envirosuit"
 	item_state = "qm_envirosuit"
