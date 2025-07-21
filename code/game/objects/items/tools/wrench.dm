@@ -1,7 +1,7 @@
-//Wrench
+/Wrench
 /obj/item/wrench
 	name = "wrench"
-	desc = "Гаечный ключ общего назначения. Может быть найден в вашей руке."
+	desc = "Это гаечный ключ, используемый для закручивания и откручивания гаек и болтов. Может быть найден где угодно."
 	ru_names = list(
 	    NOMINATIVE = "гаечный ключ",
 		GENITIVE = "гаечного ключа",
@@ -10,6 +10,7 @@
 		INSTRUMENTAL = "гаечным ключом",
 		PREPOSITIONAL = "гаечном ключе"
 	)
+	gender = MALE
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "wrench"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -35,7 +36,7 @@
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/wrench/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] избивает себя до смерти [(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] совершить самоубийсто!"))
+	user.visible_message(span_suicide("[user] избива[pluralize_ru(user.gender,"ет","ют")] себя до смерти [(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] совершить самоубийство!"))
 	return BRUTELOSS
 
 /obj/item/wrench/cyborg
@@ -49,6 +50,7 @@
 		INSTRUMENTAL = "автоматическим ключом",
 		PREPOSITIONAL = "автоматическом ключе"
 	)
+	gender = MALE
 	toolspeed = 0.5
 
 /obj/item/wrench/brass
@@ -62,6 +64,7 @@
 		INSTRUMENTAL = "латунным ключом",
 		PREPOSITIONAL = "латунном ключе"
 	)
+	gender = MALE
 	icon_state = "wrench_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -77,6 +80,7 @@
 		INSTRUMENTAL = "инопланетным ключом",
 		PREPOSITIONAL = "инопланетном ключе"
 	)
+	gender = MALE
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "wrench"
 	item_state = "wrench_alien"
@@ -96,6 +100,7 @@
 		INSTRUMENTAL = "ручной дрелью",
 		PREPOSITIONAL = "ручной дрели"
 	)
+	gender = FEMALE
 	icon_state = "drill_bolt"
 	item_state = "drill"
 	belt_icon = "hand_drill"
@@ -110,7 +115,7 @@
 /obj/item/wrench/power/attack_self(mob/user)
 	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wirecutters/power/s_drill = new /obj/item/screwdriver/power
-	to_chat(user, span_notice("Вы прикрепляете насадку отвертки к [src]."))
+	balloon_alert(user, "Вы прикрепляете насадку отвертки к [declent_ru(GENITIVE)].")
 	qdel(src)
 	user.put_in_active_hand(s_drill)
 
@@ -129,6 +134,7 @@
 		INSTRUMENTAL = "медицинским ключом",
 		PREPOSITIONAL = "медицинском ключе"
 	)
+	gender = MALE
 	icon_state = "wrench_medical"
 	force = 2 //MEDICAL
 	throwforce = 4
@@ -158,6 +164,10 @@
 
 	if(!user)
 		return
+
+	user.dust()
+	return OBLITERATION
+
 
 	user.dust()
 	return OBLITERATION
