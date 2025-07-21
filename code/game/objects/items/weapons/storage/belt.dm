@@ -11,9 +11,9 @@
 	flags = BLOCKS_LIGHT
 	attack_verb = list("хлестнул", "стегнул", "проучил")
 	max_integrity = 300
-	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
-	equip_sound = 'sound/items/handling/backpack_equip.ogg'
-	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
+	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
+	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
 	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
 	actions_types = list(/datum/action/item_action/belt_fast_equip)
 

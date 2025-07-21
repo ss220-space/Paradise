@@ -28,7 +28,7 @@
 	use_to_pickup = 1
 	slot_flags = ITEM_SLOT_BELT
 	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
-	equip_sound = 'sound/items/handling/backpack_equip.ogg'
+	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 
 ////////////////////////////////////////
