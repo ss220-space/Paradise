@@ -848,30 +848,30 @@ GLOBAL_LIST_INIT(body_zone, list(
 
 */
 
-/proc/get_turf_pixel(atom/movable/AM)
-	if(!istype(AM))
+/proc/get_turf_pixel(atom/movable/atom_movable)
+	if(!istype(atom_movable))
 		return
 
-	//Find AM's matrix so we can use it's X/Y pixel shifts
-	var/matrix/M = matrix(AM.transform)
+	//Find atom_movable's matrix so we can use it's X/Y pixel shifts
+	var/matrix/matrix = matrix(atom_movable.transform)
 
-	var/pixel_x_offset = AM.pixel_x + M.get_x_shift()
-	var/pixel_y_offset = AM.pixel_y + M.get_y_shift()
+	var/pixel_x_offset = atom_movable.pixel_x + matrix.get_x_shift()
+	var/pixel_y_offset = atom_movable.pixel_y + matrix.get_y_shift()
 
 	//Irregular objects
-	var/icon/AM_icon = icon(AM.icon, AM.icon_state)
-	var/AM_icon_height = AM_icon.Height()
-	var/AM_icon_width = AM_icon.Width()
-	if(AM_icon_height != world.icon_size || AM_icon_width != world.icon_size)
-		pixel_x_offset += ((AM_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
-		pixel_y_offset += ((AM_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
+	var/icon/atom_movable_icon = icon(atom_movable.icon, atom_movable.icon_state)
+	var/atom_movable_icon_height = atom_movable_icon.Height()
+	var/atom_movable_icon_width = atom_movable_icon.Width()
+	if(atom_movable_icon_height != world.icon_size || atom_movable_icon_width != world.icon_size)
+		pixel_x_offset += ((atom_movable_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
+		pixel_y_offset += ((atom_movable_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
 
 	//DY and DX
 	var/rough_x = round(round(pixel_x_offset, world.icon_size) / world.icon_size)
 	var/rough_y = round(round(pixel_y_offset, world.icon_size) / world.icon_size)
 
 	//Find coordinates
-	var/turf/T = get_turf(AM) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
+	var/turf/T = get_turf(atom_movable) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
 	if(!T)
 		return null
 	var/final_x = clamp(T.x + rough_x, 1, world.maxx)
