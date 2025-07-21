@@ -753,6 +753,17 @@
 	return NONE
 
 
+/mob/living/carbon/human/proc/get_held_items()
+	var/list/held = list()
+	if(l_hand)
+		held.Add(l_hand)
+
+	if(r_hand)
+		held.Add(r_hand)
+
+	return held
+
+
 //search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it. Not recursive, so doesnt search storage in storage
 /mob/proc/find_item(path)
 	for(var/obj/item/I in contents)
