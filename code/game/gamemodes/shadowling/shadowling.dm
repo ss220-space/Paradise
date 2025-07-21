@@ -112,7 +112,7 @@ Made by Xhuis
 		var/list/messages = list()
 		spawn(rand(10,100))
 			messages.Add("<br>")
-			messages.Add("<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
+			messages.Add(span_deadsay(span_fontsize3(span_bold("You are a shadowling!"))))
 			messages.Add(greet_shadow(shadow))
 			messages.Add(process_shadow_objectives(shadow))
 			finalize_shadowling(shadow)
@@ -173,11 +173,8 @@ Made by Xhuis
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 
-		var/thralls = 0
+		var/thralls = get_thralls()
 		var/victory_threshold = SSticker.mode.required_thralls
-		for(var/mob/living/target in GLOB.alive_mob_list)
-			if(is_thrall(target))
-				thralls++
 
 		if(thralls < victory_threshold)
 			for(var/mob/shadowling in GLOB.alive_mob_list)
@@ -194,7 +191,10 @@ Made by Xhuis
 
 		if(!victory_warning_announced && (length(shadowling_thralls) >= warning_threshold))//are the slings very close to winning?
 			victory_warning_announced = TRUE	//then let's give the station a warning
-			GLOB.command_announcement.Announce("Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Вероятность вознесения тенеморфов высока, всему экипажу следует предотвратить вознесение любой ценой!", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+			GLOB.major_announcement.announce("Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Вероятность вознесения тенеморфов высока, всему экипажу следует предотвратить вознесение любой ценой!",
+											ANNOUNCE_CCPARANORMAL_RU,
+											'sound/AI/commandreport.ogg'
+			)
 			log_game("Shadowling reveal. Powergame and validhunt allowed.")
 		return 1
 
@@ -247,7 +247,7 @@ Made by Xhuis
 							var/shadow_nag_messages = list("Ты едва можешь терпеть эту низшую форму!», «Желание стать чем-то большим непреодолимо!», «Ты чувствуешь жгучую страсть освободиться от этой оболочки и обрести божественность».!")
 							H.take_overall_damage(0, 3)
 							to_chat(H, "<span class='userdanger'>[pick(shadow_nag_messages)]</span>")
-							H << 'sound/weapons/sear.ogg'
+							SEND_SOUND(H, sound('sound/weapons/sear.ogg'))
 
 	if(shadows_alive)
 		return ..()
@@ -273,9 +273,9 @@ Made by Xhuis
 		spawn(30)
 			if(!M || QDELETED(M))
 				return
-			M.visible_message("<span class='warning'>[M] внезапно раздувается и взрывается!</span>", \
-							  "<span class='warning'><b>AAAAAAAAA<font size=3>AAAAAAAAAAAAA</font><font size=4>AAAAAAAAAAAA----</font></span>")
-			playsound(M, 'sound/effects/magic/disintegrate.ogg', 100, 1)
+			M.visible_message(span_warning("[M] внезапно раздувается и взрывается!"), \
+							  span_warning(span_bold("AAAAAAAAA[span_fontsize3("AAAAAAAAAAAAA")][span_fontsize4("AAAAAAAAAAAA.....")]")))
+			playsound(M, 'sound/magic/disintegrate.ogg', 100, 1)
 			M.gib()
 
 /datum/game_mode/shadowling/proc/check_shadow_victory()
@@ -307,7 +307,7 @@ Made by Xhuis
 
 
 /datum/game_mode/proc/auto_declare_completion_shadowling()
-	var/text = ""
+	var/list/text = list("")
 	if(shadows.len)
 		text += "<br><span class='big'><b>Тенелингами были:</b></span>"
 		for(var/datum/mind/shadow in shadows)
@@ -338,7 +338,7 @@ Made by Xhuis
 					text += "тело уничтожено"
 				text += ")"
 	text += "<br>"
-	to_chat(world, text)
+	return text.Join("")
 
 
 /*

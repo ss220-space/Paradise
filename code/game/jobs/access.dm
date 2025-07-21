@@ -2,26 +2,18 @@
 /obj/var/check_one_access = TRUE
 
 //returns 1 if this mob has sufficient access to use this object
-/obj/proc/allowed(mob/accessor)
+/obj/proc/allowed(mob/M)
 	//check if we don't require any access at all
 	if(check_access())
-		return TRUE
+		return 1
 
-	if(!accessor)
-		return FALSE
+	if(!M)
+		return 0
 
-	var/attempted_access = SEND_SIGNAL(accessor, COMSIG_MOB_TRIED_ACCESS, src)
-	if(attempted_access & ACCESS_ALLOWED)
-		return TRUE
+	var/acc = M.get_access() //see mob.dm
 
-	if(attempted_access & ACCESS_DISALLOWED)
-		return FALSE
-
-	var/acc = accessor.get_access() //see mob.dm
-
-	if(acc == IGNORE_ACCESS || accessor.can_admin_interact())
-		return TRUE //Mob ignores access
-
+	if(acc == IGNORE_ACCESS || M.can_admin_interact())
+		return 1 //Mob ignores access
 	else
 		return check_access_list(acc)
 
@@ -102,17 +94,17 @@
 
 /proc/get_syndicate_access(job)
 	switch(job)
-		if("Syndicate Operative")
-			return list(ACCESS_SYNDICATE)
-		if("Syndicate Operative Leader")
-			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
-		if("Syndicate Agent")
+		if(SYNDICATE_OPERATIVE)
+			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_CONTAINER)
+		if(SYNDICATE_OPERATIVE_LEADER)
+			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_CONTAINER, ACCESS_SYNDICATE_LEADER)
+		if(SYNDICATE_AGENT)
 			return list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS)
-		if("Vox Raider")
+		if(VOX_RAIDER)
 			return list(ACCESS_VOX)
-		if("Vox Trader")
+		if(VOX_TRADER)
 			return list(ACCESS_VOX)
-		if("Syndicate Commando")
+		if(SYNDICATE_COMMANDO)
 			return list(	ACCESS_SYNDICATE,
 							ACCESS_SYNDICATE_LEADER,
 							ACCESS_SYNDICATE_COMMS_OFFICER,

@@ -134,7 +134,15 @@
 /obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
 	icon_state = "bone_axe0"
 	name = "bone axe"
-	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
+	desc = "Большой и мощный топор, созданный из нескольких остро заточенных костяных пластин, грубо связанных вместе. Создан из монстров, путём убийства монстров, для убийства монстров."
+	ru_names = list(
+		NOMINATIVE = "костяной топор",
+		GENITIVE = "костяного топора",
+		DATIVE = "костяному топору",
+		ACCUSATIVE = "костяной топор",
+		INSTRUMENTAL = "костяным топором",
+		PREPOSITIONAL = "костяном топоре"
+	)
 	force_wielded = 23
 	needs_permit = TRUE
 
@@ -165,6 +173,12 @@
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
 	icon_state = "guillotine[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
+/obj/item/twohanded/fireaxe/boneaxe/guillotine/sharped
+	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ. Выглядит острее обычного"
+
+/obj/item/twohanded/fireaxe/boneaxe/guillotine/sharped/Initialize(mapload)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_ITEM_SHARPEN_ACT, 4, 30)
 
 /obj/item/twohanded/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
@@ -201,10 +215,10 @@
 		return .
 
 	charge = 0
-	playsound(loc, 'sound/effects/magic/lightningbolt.ogg', 5, TRUE)
+	playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
 	user.visible_message(
-		span_danger("[user] slams the charged axe into [target.name] with all [user.p_their()] might!"),
-		span_warning("You have slammed the charged axe into [target.name] with all your might!"),
+		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] со всей силы вгоня[pluralize_ru(user.gender,"ет","ют")] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
+		span_warning("Вы со всей мощи вгоняете заряженный топор в [target.declent_ru(ACCUSATIVE)]!")
 	)
 	do_sparks(1, 1, src)
 	target.Weaken(6 SECONDS)
@@ -257,7 +271,7 @@
 
 /obj/item/twohanded/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_HULK))
-		to_chat(user, span_warning("You lack the grace to wield this!"))
+		to_chat(user, span_warning("Вам не хватает ловкости для этого!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
 
 
@@ -293,7 +307,7 @@
 		return .
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-		to_chat(user, span_warning("You twirl around a bit before losing your balance and impaling yourself on the [src]."))
+		to_chat(user, span_warning("Вы крутитесь на месте, теряете равновесие и напарываетесь на [declent_ru(ACCUSATIVE)]!"))
 		user.take_organ_damage(20, 25)
 		return .
 
@@ -309,7 +323,7 @@
 		sleep(1)
 
 
-/obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атакует", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
 	return FALSE
@@ -350,14 +364,22 @@
 		blade_color = "rainbow"
 		update_icon()
 	else
-		to_chat(user, span_warning("It's starting to look like a triple rainbow - no, nevermind."))
+		to_chat(user, span_warning("Похоже на тройную радугу... хотя нет, показалось."))
 
 
 //spears
 /obj/item/twohanded/spear
 	icon_state = "spearglass0"
 	name = "spear"
-	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
+	desc = "Оружие древней конструкции, хоть и изготовленное небрежно, но всё ещё остаётся смертоносным."
+	ru_names = list(
+		NOMINATIVE = "копьё",
+		GENITIVE = "копья",
+		DATIVE = "копью",
+		ACCUSATIVE = "копьё",
+		INSTRUMENTAL = "копьём",
+		PREPOSITIONAL = "копье"
+	)
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
@@ -417,7 +439,15 @@
 /obj/item/twohanded/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
 	icon_state = "bone_spear0"
 	name = "bone spear"
-	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
+	desc = "Небрежно изготовленное, но смертоносное оружие. Венец современных технологий."
+	ru_names = list(
+		NOMINATIVE = "костяное копьё",
+		GENITIVE = "костяного копья",
+		DATIVE = "костяному копью",
+		ACCUSATIVE = "костяное копьё",
+		INSTRUMENTAL = "костяным копьём",
+		PREPOSITIONAL = "костяном копье"
+	)
 	force = 11
 	force_unwielded = 11
 	force_wielded = 20					//I have no idea how to balance
@@ -428,7 +458,15 @@
 /obj/item/twohanded/spear/bonespear/chitinspear //like a mix of a bone spear and bone axe, but more like a bone spear. And better.
 	icon_state = "chitin_spear0"
 	name = "chitin spear"
-	desc = "A well constructed spear with a sharpened edge akin to a naginata, making it equally great for slicing and throwing."
+	desc = "Тщательно изготовленное копьё с острым краем, похожее на нагинату, отлично подходит как для рубящих ударов, так и для метания."
+	ru_names = list(
+		NOMINATIVE = "хитиновое копьё",
+		GENITIVE = "хитинового копья",
+		DATIVE = "хитиновому копью",
+		ACCUSATIVE = "хитиновое копьё",
+		INSTRUMENTAL = "хитиновым копьём",
+		PREPOSITIONAL = "хитиновом копье"
+	)
 	force = 14
 	force_unwielded = 14
 	force_wielded = 24 // I have no idea about balance too
@@ -478,7 +516,7 @@
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
 	icon_state = "spearglass0"
-	name = "\improper Grey Tide"
+	name = "Grey Tide"
 	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
 	force_unwielded = 15
 	force_wielded = 25
@@ -510,8 +548,8 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		user.visible_message(
-			span_warning("[user] stick [I] onto the spear just in front of you!"),
-			span_notice("You stick [I] onto the spear and stand it upright on the ground."),
+			span_warning("[capitalize(user.declent_ru(NOMINATIVE))] насажива[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] на копьё перед собой!"),
+			span_notice("Вы насаживаете [I.declent_ru(ACCUSATIVE)] на копьё и устанавливаете его вертикально.")
 		)
 		var/obj/structure/headspear/trophy = new(get_turf(src))
 		trophy.add_fingerprint(user)
@@ -532,7 +570,15 @@
 
 /obj/structure/headspear
 	name = "head on a spear"
-	desc = "How barbaric."
+	desc = "Какое варварство."
+	ru_names = list(
+		NOMINATIVE = "голова на копье",
+		GENITIVE = "головы на копье",
+		DATIVE = "голове на копье",
+		ACCUSATIVE = "голову на копье",
+		INSTRUMENTAL = "головой на копье",
+		PREPOSITIONAL = "голове на копье"
+	)
 	icon_state = "headspear"
 	density = FALSE
 	anchored = TRUE
@@ -550,8 +596,8 @@
 
 /obj/structure/headspear/attack_hand(mob/living/user)
 	user.visible_message(
-		span_warning("[user] kicks over [src]!"),
-		span_danger("You kick down [src]!")
+		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сбива[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] ногой!"),
+		span_danger("Вы с пинаете [declent_ru(ACCUSATIVE)], опрокидывая его!")
 	)
 	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	var/turf/T = get_turf(src)
@@ -589,7 +635,7 @@
 
 /obj/item/twohanded/required/chainsaw/attack_self(mob/user)
 	on = !on
-	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr." : "the chain stops moving."]")
+	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], [on ? "вы слышите нарастающее гудение." : "цепь останавливается."]")
 	if(on)
 		playsound(loc, 'sound/weapons/chainsawstart.ogg', 50, 1)
 	force = on ? force_on : initial(force)
@@ -624,9 +670,9 @@
 	armour_penetration = 100
 	force_on = 30
 
-/obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атакует", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
-		owner.visible_message(span_danger("Ranged attacks just make [owner] angrier!"), projectile_message = TRUE)
+		owner.visible_message(span_danger("Дальние атаки только сильнее злят [owner.declent_ru(ACCUSATIVE)]!"), projectile_message = TRUE)
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
 		return TRUE
 	return FALSE
@@ -781,9 +827,9 @@
 	target.Stun(4 SECONDS)
 	do_sparks(5, 1, target.loc)
 	target.visible_message(
-		span_danger("[target.name] was shocked by the [name]!"),
-		span_userdanger("You feel a powerful shock course through your body sending you flying!"),
-		span_italics("You hear a heavy electrical crack!"),
+		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[genderize_ru(target.gender,"", "а", "о", "ы")] разрядом [declent_ru(GENITIVE)]!"),
+		span_userdanger("Мощный разряд пронзает ваше тело, отбрасывая вас!"),
+		span_italics("Раздаётся оглушительный электрический треск!")
 	)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 200, 4)
@@ -846,16 +892,20 @@
 		if(isliving(A))
 			var/mob/living/Z = A
 			if(Z.health >= 1)
-				Z.visible_message(span_danger("[Z.name] was sent flying by a blow from the [name]!"), \
-					span_userdanger("You feel a powerful blow connect with your body and send you flying!"), \
-					span_danger("You hear something heavy impact flesh!."))
+				Z.visible_message(
+					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] отброшен[genderize_ru(Z.gender,"", "а", "о", "ы")] сокрушительным ударом [declent_ru(GENITIVE)]!"),
+					span_userdanger("Мощный удар разрывает ваше тело и отшвыривает вас!"),
+					span_danger("Слышен глухой удар и хлюпающий звук разрыва плоти!")
+				)
 				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 				Z.throw_at(throw_target, 200, 4)
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
-				Z.visible_message(span_danger("[Z.name] was blown to pieces by the power of [name]!"), \
-					span_userdanger("You feel a powerful blow rip you apart!"), \
-					span_danger("You hear a heavy impact and the sound of ripping flesh!."))
+				Z.visible_message(
+					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] разрыва[pluralize_ru(Z.gender,"ет","ют")]ся на куски силой [declent_ru(GENITIVE)]!"),
+					span_userdanger("Вы чувствуете, как ваше тело разрывается на куски!"),
+					span_danger("Слышен мощный удар и звук разрывающейся плоти!")
+				)
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -887,11 +937,27 @@
 
 /obj/item/twohanded/pitchfork/demonic
 	name = "demonic pitchfork"
-	desc = "A red pitchfork, it looks like the work of the devil."
+	desc = "Красные вилы. Похоже, это инструмент дьявола."
+	ru_names = list(
+		NOMINATIVE = "демонические вилы",
+		GENITIVE = "демонических вил",
+		DATIVE = "демоническим вилам",
+		ACCUSATIVE = "демонические вилы",
+		INSTRUMENTAL = "демоническими вилами",
+		PREPOSITIONAL = "демонических вилах"
+	)
 	force = 19
 	throwforce = 24
 	force_unwielded = 19
 	force_wielded = 25
+	block_chance = 50
+	block_type = MELEE_ATTACKS
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_power = 6
+	siemens_coefficient = 0
+	light_color = COLOR_SOFT_RED
+	gender = PLURAL
 
 /obj/item/twohanded/pitchfork/demonic/greater
 	force = 24
@@ -909,33 +975,40 @@
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] impales \himself in \his abdomen with [src]! It looks like \he's trying to commit suicide..."))
+	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронза[pluralize_ru(user.gender, "ет", "ют")] свой живот [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] пытается покончить с собой..."))
 	return BRUTELOSS
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
 	. = ..()
-	if(isliving(user))
-		var/mob/living/U = user
-		if(!U.mind?.has_antag_datum(/datum/antagonist/devil) && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
-			U.visible_message(span_warning("As [U] picks [src] up, [U]'s arms briefly catch fire."), \
-				span_warning("\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\""))
-			if(ishuman(U))
-				var/mob/living/carbon/human/H = U
-				H.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-			else
-				U.adjustFireLoss(rand(force/2,force))
+	if(!isliving(user))
+		return
 
+	var/mob/living/living_user = user
+
+	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || living_user.mind.soulOwner != living_user.mind) //Burn hands unless they are a devil or have sold their soul
+		return
+
+	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднима[pluralize_ru(living_user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)], [genderize_ru(living_user.gender, "его", "её", "его", "их")] руки на мгновение загораются."), \
+					span_warning("Когда вы поднимаете [declent_ru(ACCUSATIVE)], ваши руки воспламеняются, напоминая вам обо всех ваших прошлых грехах."))
+
+	if(!ishuman(living_user))
+		living_user.adjustFireLoss(rand(living_user.health / 4, force))
+		return
+
+	var/mob/living/carbon/human/human = living_user
+	human.apply_damage(rand(living_user.health / 4, living_user.health / 2), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 /obj/item/twohanded/pitchfork/demonic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
-	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
+
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
-	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner == user.mind))
+	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner != user.mind))
 		return .
 
-	to_chat(user, span_warning("The [name] burns in your hands!"))
-	user.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пылают в ваших руках!"))
+	user.apply_damage(rand(user.health / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 
 
@@ -943,12 +1016,21 @@
 /obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
+
 	if(iswallturf(target))
-		var/turf/simulated/wall/W = target
-		user.visible_message(span_danger("[user] blasts \the [target] with \the [src]!"))
-		playsound(target, 'sound/effects/magic/Disintegrate.ogg', 100, 1)
-		W.devastate_wall(TRUE)
+		var/turf/simulated/wall/wall = target
+		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
+		wall.dismantle_wall(TRUE)
 		return TRUE
+
+	if(ismineralturf(target))
+		var/turf/simulated/mineral/mineral = target
+		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
+		mineral.gets_drilled(user)
+		return TRUE
+
 	..()
 
 /obj/item/twohanded/bamboospear
@@ -1012,15 +1094,23 @@
 			return
 
 		if(A.locked)
-			to_chat(user, span_notice("The airlock's bolts prevent it from being forced."))
+			to_chat(user, span_notice("Болты шлюза не позволяют его открыть."))
 			return
 
 		if(A.arePowerSystemsOn())
-			user.visible_message(span_warning("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"), span_warning("You start forcing the airlock open."), span_warning("You hear a metal screeching sound."))
+			user.visible_message(
+				span_warning("[capitalize(user.declent_ru(NOMINATIVE))] вставля[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] в шлюз и пыта[pluralize_ru(user.gender,"ет","ют")]ся его открыть!"),
+				span_warning("Вы начинаете открывать шлюз."),
+				span_warning("Раздаётся скрежет металла.")
+			)
 			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
 			if(!do_after(user, 2.5 SECONDS, A))
 				return
-		user.visible_message(span_warning("[user] forces the airlock open with [user.p_their()] [name]!"), span_warning("You force open the airlock."), span_warning("You hear a metal screeching sound."))
+		user.visible_message(
+			span_warning("[capitalize(user.declent_ru(NOMINATIVE))] открыва[pluralize_ru(user.gender,"ет","ют")] шлюз при помощи [declent_ru(GENITIVE)]!"),
+			span_warning("Вы открывается шлюз."),
+			span_warning("Раздаётся скрежет металла.")
+		)
 		A.open(2)
 
 /obj/item/twohanded/sechammer
