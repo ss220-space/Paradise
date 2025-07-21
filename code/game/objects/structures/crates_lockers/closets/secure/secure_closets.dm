@@ -77,31 +77,31 @@
 		flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance), UPDATE_ICON|UPDATE_DESC), sparking_duration)
 		if(user)
-			user.balloon_alert(user, "замок взломан")
+			balloon_alert(user, "замок взломан")
 
 
 /obj/structure/closet/secure_closet/proc/togglelock(mob/living/user)
 	if(!istype(user))
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		user.balloon_alert(user, "ваши руки заблокированы!")
+		balloon_alert(user, "ваши руки заблокированы!")
 		return
 	if(opened)
-		user.balloon_alert(user, "не закрыто!")
+		balloon_alert(user, "не закрыто!")
 		return
 	if(lock_broken)
-		user.balloon_alert(user, "замок сломан!")
+		balloon_alert(user, "замок сломан!")
 		return
 	if(user.loc == src)
-		user.balloon_alert(user, "изнутри не достать!")
+		balloon_alert(user, "изнутри не достать!")
 		return
 	if(allowed(user))
 		locked = !locked
 		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
-		user.balloon_alert(user, "замок [locked ? "за" : "раз"]блокирован")
+		balloon_alert(user, "замок [locked ? "за" : "раз"]блокирован")
 		update_icon()
 	else
-		user.balloon_alert(user, "отказано в доступе!")
+		balloon_alert(user, "отказано в доступе!")
 	add_fingerprint(user)
 
 
@@ -198,10 +198,10 @@
 /obj/structure/closet/secure_closet/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(locked && lock_broken == 0 && user.a_intent != INTENT_HARM) // Stage one
-		user.balloon_alert(user, "снятие панели замка...")
+		balloon_alert(user, "снятие панели замка...")
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
 			if(prob(95))
-				user.balloon_alert(user, "панель замка снята")
+				balloon_alert(user, "панель замка снята")
 				lock_broken = 3
 				update_icon()
 			else
@@ -209,20 +209,20 @@
 				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				user.apply_damage(5, BRUTE , affecting)
 				user.emote("scream")
-				user.balloon_alert(user, "неудача!")
+				balloon_alert(user, "неудача!")
 				to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] срыва[pluralize_ru(I.gender, "ет", "ют")]ся, ударяя вас по [affecting.declent_ru(DATIVE)]!"))
 		return TRUE
 
 /obj/structure/closet/secure_closet/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(locked && lock_broken == 3 && user.a_intent != INTENT_HARM) // Stage two
-		user.balloon_alert(user, "подготовка проводов...")
+		balloon_alert(user, "подготовка проводов...")
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
 			if(prob(80))
-				user.balloon_alert(user, "провода подготовлены")
+				balloon_alert(user, "провода подготовлены")
 				lock_broken = 2
 			else
-				user.balloon_alert(user, "неудача!")
+				balloon_alert(user, "неудача!")
 				to_chat(user, span_warning("Вы неправильно подготавливаете провода и вас ударяет током!"))
 				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
@@ -231,7 +231,7 @@
 /obj/structure/closet/secure_closet/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(locked && lock_broken == 2 && user.a_intent != INTENT_HARM) // Stage three
-		user.balloon_alert(user, "закорачивание провода...")
+		balloon_alert(user, "закорачивание провода...")
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
 			if(prob(80))
 				add_attack_logs(user, src, "hacked")
@@ -240,9 +240,9 @@
 				playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 				addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance), UPDATE_ICON|UPDATE_DESC), sparking_duration)
-				user.balloon_alert(user, "замок взломан")
+				balloon_alert(user, "замок взломан")
 			else
-				user.balloon_alert(user, "неудача!")
+				balloon_alert(user, "неудача!")
 				to_chat(user, span_warning("Вы закорачиваете неверный провод и вас ударяет током!"))
 				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
