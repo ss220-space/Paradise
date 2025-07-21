@@ -231,7 +231,7 @@
 	meal.adjustBruteLoss(200)
 	meal.death()
 	playsound(meal, 'sound/weapons/bladeslice.ogg', 75, TRUE)
-	playsound(loc, 'sound/goonstation/misc/burp_alien.ogg', 50, 0)
+	playsound(loc, 'sound/goonstation/misc/burp_alien.ogg', 50, FALSE)
 	meal.forceMove(src)
 	force_bonus += HIS_GRACE_FORCE_BONUS
 	prev_bloodthirst = bloodthirst

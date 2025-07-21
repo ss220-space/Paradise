@@ -173,7 +173,7 @@
 	user.balloon_alert(user, "включено")
 	if(world.time > next_on_message)
 		user.visible_message(span_rose("Не отвлекаясь от дела, [user] одним плавным движением открыва[pluralize_ru(user.gender, "ет", "ют")] и зажига[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)]."))
-		playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
+		playsound(src.loc, 'sound/items/zippolight.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
 
 /obj/item/lighter/zippo/turn_off_lighter(mob/living/user)
@@ -183,7 +183,7 @@
 	user.balloon_alert(user, "выключено")
 	if(world.time > next_off_message)
 		user.visible_message(span_rose("Вы слышите тихий щелчок, когда [user] закрыва[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)], даже не смотря в её сторону. Во даёт!"))
-		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
+		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)

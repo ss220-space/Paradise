@@ -147,7 +147,7 @@
 	if(rigged && !spam_flag && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
 		spam_flag = TRUE
 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 3 SECONDS)
-		playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
+		playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE)
 
 
 /obj/item/paper/attack_ai(mob/living/silicon/ai/user)

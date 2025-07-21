@@ -54,7 +54,7 @@
 			do_sparks(5, 0, src)
 			var/obj/item/paper/monitorkey/MK = new/obj/item/paper/monitorkey
 			MK.loc = src.loc
-			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			// Will help make emagging the console not so easy to get away with.
 			MK.info += "<br><br><span style='color: red;'>�%@%(*$%&(�&?*(%&�/{}</span>"
 			update_icon()

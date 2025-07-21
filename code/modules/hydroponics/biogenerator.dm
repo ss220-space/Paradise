@@ -277,7 +277,7 @@
 		qdel(plant)
 
 	stored_plants.Cut()
-	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
+	playsound(loc, 'sound/machines/blender.ogg', 50, TRUE)
 	use_power(plants_processed * 150)
 	addtimer(CALLBACK(src, PROC_REF(biogenerator_end_processing)), (plants_processed * 5) / productivity)
 

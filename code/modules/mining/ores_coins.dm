@@ -737,7 +737,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		cooldown = world.time
 		flick("coin_[cmineral]_flip", src)
 		icon_state = "coin_[cmineral]_[coinflip]"
-		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
+		playsound(user.loc, 'sound/items/coinflip.ogg', 50, TRUE)
 		if(do_after(user, 1.5 SECONDS, src))
 			var/ru_coinflip = list(
 				"heads" = "Орёл",

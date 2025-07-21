@@ -756,7 +756,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		// These smiting types are valid for all living mobs
 		if("Lightning bolt")
 			M.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
-			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
+			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
 			M.adjustFireLoss(75)
 			M.Weaken(10 SECONDS)
 			to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")

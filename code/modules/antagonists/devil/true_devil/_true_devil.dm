@@ -172,7 +172,7 @@
 	switch(M.a_intent)
 		if(INTENT_HARM)
 			var/damage = rand(1, 5)
-			playsound(loc, "punch", 25, 1, -1)
+			playsound(loc, "punch", 25, TRUE, -1)
 			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"), \
 					span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"))
 			adjustBruteLoss(damage)
@@ -189,19 +189,19 @@
 				// It's Paralyse for parity though
 				// Weaken(4 SECONDS)
 				Paralyse(4 SECONDS)
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				add_attack_logs(M, src, "pushed")
 				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "повалил", "повалила", "повалило", "повалили")] [declent_ru(ACCUSATIVE)]!"), \
 						span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "повалил", "повалила", "повалило", "повалили")] [declent_ru(ACCUSATIVE)]!"))
 				return FALSE
 
 			if(!prob(25))
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "попытался", "попыталась", "попыталось", "попытались")] обезоружить [declent_ru(ACCUSATIVE)]!"))
 				return FALSE
 
 			drop_from_active_hand()
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "обезоружил", "обезоружила", "обезоружило", "обезоружили")] [declent_ru(ACCUSATIVE)]!"), \
 			span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "обезоружил", "обезоружила", "обезоружило", "обезоружили")] [declent_ru(ACCUSATIVE)]!"))
 

@@ -291,7 +291,7 @@
 	wall_ready = TRUE
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
-	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
+	playsound(src, 'sound/effects/spray2.ogg', 50, TRUE)
 	if(target.reagents)
 		if(target.reagents.get_reagent_amount("atropine") + force < force*2)
 			target.reagents.add_reagent("atropine", force/2)
@@ -1333,7 +1333,7 @@
 		log_append_to_last("[H] moved in as pilot.")
 		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
-		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 		if(!activated)
 			SEND_SOUND(occupant, sound(longactivationsound, volume = 50))
 			activated = TRUE

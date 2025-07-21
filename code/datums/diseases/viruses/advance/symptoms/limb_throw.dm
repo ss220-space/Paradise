@@ -80,7 +80,7 @@ Limb Rejection
 	limb_projectile.preparePixelProjectile(target, target_turf, user)
 	limb_projectile.firer = user
 	limb_projectile.fire()
-	playsound(get_turf(usr), 'sound/effects/splat.ogg', 50, 1)
+	playsound(get_turf(usr), 'sound/effects/splat.ogg', 50, TRUE)
 
 	limb.droplimb()
 	qdel(limb)

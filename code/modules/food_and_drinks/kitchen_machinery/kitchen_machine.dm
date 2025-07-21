@@ -492,7 +492,7 @@
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/stop()
-	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	operating = FALSE // Turn it off again aferwards
 	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
@@ -510,10 +510,10 @@
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/muck_start()
-	playsound(loc, 'sound/effects/splat.ogg', 50, 1) // Play a splat sound
+	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE) // Play a splat sound
 
 /obj/machinery/kitchen_machine/proc/muck_finish()
-	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	visible_message("<span class='alert'>\The [src] gets covered in muck!</span>")
 	if(can_be_dirty) //this vars are much more easy than copy-paste all that code to tribal oven
 		dirty = MAX_DIRT // Make it dirty so it can't be used util cleaned

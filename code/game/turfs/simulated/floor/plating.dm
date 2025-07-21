@@ -450,7 +450,7 @@
 		M.visible_message(span_notice("[M] nudges \the [src]."))
 	else
 		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
+			playsound(loc, M.attack_sound, 50, TRUE, 1)
 		M.visible_message(span_danger("\The [M] [M.attacktext] [src]!"))
 		smash(src)
 

@@ -53,7 +53,7 @@
 	if(plushy)
 		var/cuddle_verb = pick("hugs","cuddles","snugs")
 		user.visible_message(span_notice("[user] [cuddle_verb] the [src]."))
-		playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		if(!isclocker(user))
 			return
 		if(alert(user, "Do you want to reveal clockwork slab?","Revealing!","Yes","No") != "Yes")
@@ -994,7 +994,7 @@
 			var/mob/living/silicon/robot/robot = living
 			robot.Weaken(1 SECONDS)
 		do_sparks(5, 0, loc)
-		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
 		deplete_spell()
 	if(north_star && !user.mind.martial_art)

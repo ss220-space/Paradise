@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 		plays++
 		working = TRUE
 		update_icon(UPDATE_ICON_STATE)
-		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr), 25)
 
 /obj/machinery/slot_machine/proc/get_prize_coefficient()

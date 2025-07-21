@@ -90,7 +90,7 @@
 		channel = "[channel]"
 	if(isnull(volume_mixer[channel]))
 		return 1
-	return clamp(volume_mixer[channel] / 100, 0, 1)
+	return clamp(volume_mixer[channel] / 100, FALSE, TRUE)
 
 
 /client/verb/volume_mixer()

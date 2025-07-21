@@ -470,7 +470,7 @@
 	go_out()
 	switch(eject_flag)
 		if(AUTO_EJECT_HEALTHY)
-			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+			playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 		if(AUTO_EJECT_DEAD)
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
 	SStgui.update_uis(src)

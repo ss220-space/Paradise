@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(tendrils)
 
 /obj/effect/collapse/proc/collapse()
 	for(var/mob/M in range(7, src))
-		shake_camera(M, 15, 1)
+		shake_camera(M, 15, TRUE)
 	playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, TRUE)
 	visible_message(span_boldannounceic("Щупальце рушится, и почва обваливается в чёрную пропасть!"))
 	for(var/turf/T in range(2,src))

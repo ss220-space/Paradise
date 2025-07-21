@@ -141,7 +141,7 @@
 		return
 	var/turf/mylocation = loc
 	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает выделять липкое вещество."))
-	playsound(src.loc, 'sound/creatures/terrorspiders/web.ogg', 50, 1)
+	playsound(src.loc, 'sound/creatures/terrorspiders/web.ogg', 50, TRUE)
 	if(do_after(src, delay_web, loc))
 		if(loc != mylocation)
 			return
@@ -314,7 +314,7 @@
 	if(!valid_target)
 		to_chat(src, span_warning("Рядом нет заваренного вентиляционного отверстия или скраббера!"))
 		return
-	playsound(get_turf(src), 'sound/creatures/terrorspiders/ventbreak.ogg', 75, 0)
+	playsound(get_turf(src), 'sound/creatures/terrorspiders/ventbreak.ogg', 75, FALSE)
 	if(do_after(src, 4.3 SECONDS, loc))
 		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
 			if(P.welded)

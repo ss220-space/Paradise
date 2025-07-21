@@ -513,7 +513,7 @@
 	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), user)
 	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		last_jump = after_jump_callback
-		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+		playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 		user.visible_message(span_warning("[user] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else

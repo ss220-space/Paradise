@@ -122,11 +122,11 @@
 			recycle_item(AM)
 			items_recycled++
 		else
-			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			AM.forceMove(loc)
 
 	if(items_recycled && sound)
-		playsound(loc, item_recycle_sound, 100, 0)
+		playsound(loc, item_recycle_sound, 100, FALSE)
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
 	I.forceMove(loc)
@@ -142,14 +142,14 @@
 
 
 /obj/machinery/recycler/proc/emergency_stop(mob/living/L)
-	playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+	playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	emergency_mode = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	L.forceMove(loc)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
-	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	emergency_mode = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
@@ -158,9 +158,9 @@
 	L.forceMove(loc)
 
 	if(issilicon(L))
-		playsound(loc, 'sound/items/welder.ogg', 50, 1)
+		playsound(loc, 'sound/items/welder.ogg', 50, TRUE)
 	else
-		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/gib = 1
 	// By default, the emagged recycler will gib all non-carbons. (human simple animal mobs don't count)

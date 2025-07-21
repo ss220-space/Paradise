@@ -67,7 +67,7 @@
 		user.drop_item_ground(src, force = TRUE)
 		user.visible_message(span_warning("[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!"), \
 							span_warning("[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!"))
-		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
 		return FALSE
 

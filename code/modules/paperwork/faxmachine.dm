@@ -182,13 +182,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			if(!is_authenticated && scan)
 				if(scan.registered_name in GLOB.fax_blacklist)
 					to_chat(usr, "<span class='warning'>Login rejected: individual is blacklisted from fax network.</span>")
-					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 					. = FALSE
 				else if(check_access(scan))
 					authenticated = TRUE
 				else // ID doesn't have access to this machine
 					to_chat(usr, "<span class='warning'>Login rejected: ID card does not have required access.</span>")
-					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 					. = FALSE
 			else if(is_authenticated)
 				authenticated = FALSE
@@ -264,7 +264,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 			var/cooldown_seconds = cooldown_seconds()
 			if(cooldown_seconds > 0)
-				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 				to_chat(usr, "<span class='warning'>[src] is not ready for another [cooldown_seconds] seconds.</span>")
 				return
 
@@ -358,7 +358,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	flick("faxreceive", src)
 
-	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 
 	// give the sprite some time to flick
 	sleep(20)

@@ -549,7 +549,7 @@
 		return
 	if(user.a_intent == INTENT_HELP)
 		user.visible_message(span_notice("[user] гладит [name]."))
-		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	else
 		visible_message(span_danger("[user] бупает [name] по голове."))
 		spawn(1)

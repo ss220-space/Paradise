@@ -246,7 +246,7 @@
 		if(deflectmode)
 			if(prob(10))
 				visible_message(span_boldwarning("[owner] отбива[pluralize_ru(owner.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] прямо в метателя! Это хоум-ран!"), span_boldwarning("[pluralize_ru(owner.gender,"Ты отбиваешь","Вы отбиваете")] [I.declent_ru(ACCUSATIVE)] прямо в метателя! Это хоум-ран!"))
-				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, 1)
+				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, TRUE)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(locateUID(I.thrownby), 20, 20, owner)
 				deflectmode = FALSE
@@ -255,7 +255,7 @@
 				return TRUE
 			else if(prob(30))
 				visible_message(span_warning("[owner] замахива[pluralize_ru(owner.gender,"ет","ют")]ся... и промахива[pluralize_ru(owner.gender,"ет","ют")]ся! Как неловко..."), span_warning("[pluralize_ru(owner.gender,"Ты замахиваешься","Вы замахиваетесь")]... и промахивае[pluralize_ru(owner.gender,"шься","тесь")]! Вот чёрт!"))
-				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				do_attack_animation(get_step(owner, pick(GLOB.alldirs)), ATTACK_EFFECT_DISARM)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
@@ -263,7 +263,7 @@
 				return FALSE
 			else
 				visible_message(span_warning("[owner] замахива[pluralize_ru(owner.gender,"ет","ют")]ся и отбивает [I.declent_ru(ACCUSATIVE)]!"), span_warning("[pluralize_ru(owner.gender,"Ты отбиваешь","Вы отбиваете")] [I.declent_ru(ACCUSATIVE)]!"))
-				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, 1, -1)
+				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, TRUE, -1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
 				deflectmode = FALSE
@@ -348,9 +348,9 @@
 	var/picksound = rand(1,2)
 	var/turf = get_turf(src)
 	if(picksound == 1)
-		playsound(turf, 'sound/weapons/effects/batreflect1.ogg', 50, 1)
+		playsound(turf, 'sound/weapons/effects/batreflect1.ogg', 50, TRUE)
 	if(picksound == 2)
-		playsound(turf, 'sound/weapons/effects/batreflect2.ogg', 50, 1)
+		playsound(turf, 'sound/weapons/effects/batreflect2.ogg', 50, TRUE)
 	return 1
 
 /obj/item/melee/baseball_bat/homerun/central_command

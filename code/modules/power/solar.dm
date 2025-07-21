@@ -58,7 +58,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	playsound(loc, 'sound/machines/click.ogg', 50, 1)
+	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 	user.visible_message("[user] begins to take the glass off the solar panel.", "<span class='notice'>You begin to take the glass off the solar panel...</span>")
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		user.visible_message("[user] takes the glass off the solar panel.", "<span class='notice'>You take the glass off the solar panel.</span>")
@@ -85,7 +85,7 @@
 	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
 			var/obj/item/solar_assembly/assembly = locate() in src
-			
+
 			if(assembly)
 				assembly.forceMove(loc)
 				assembly.give_glass(stat & BROKEN)
@@ -352,7 +352,7 @@
 
 /obj/machinery/power/solar_control/proc/setup()
 	set_panels(cdir)
-	
+
 	if(autostart)
 		search_for_connected()
 

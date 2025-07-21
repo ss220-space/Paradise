@@ -190,7 +190,7 @@
 		if(P == toppaper)
 			return
 		to_chat(usr, "<span class='notice'>You flick the pages so that [P] is on top.</span>")
-		playsound(loc, "pageturn", 50, 1)
+		playsound(loc, "pageturn", 50, TRUE)
 		toppaper = P
 	update_icon(UPDATE_OVERLAYS)
 	showClipboard(usr)

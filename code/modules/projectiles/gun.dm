@@ -170,7 +170,7 @@
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
 	to_chat(user, span_danger("*клик*"))
-	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	if(recoil)

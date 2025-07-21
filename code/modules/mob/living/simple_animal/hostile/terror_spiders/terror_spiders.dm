@@ -223,7 +223,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		to_chat(src, span_warning("Вам не нужно лечиться!"))
 		return
 	to_chat(src, span_notice("Вы употребляете королевское желе, чтобы исцелить себя!"))
-	playsound(src.loc, 'sound/creatures/terrorspiders/jelly.ogg', 100, 1)
+	playsound(src.loc, 'sound/creatures/terrorspiders/jelly.ogg', 100, TRUE)
 	apply_status_effect(STATUS_EFFECT_TERROR_REGEN)
 	qdel(J)
 

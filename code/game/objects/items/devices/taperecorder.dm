@@ -319,7 +319,7 @@
 		return
 
 	recorder_say("Распечатка в процессе...")
-	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	flick("taperecorder_anim", src)
 
 	sleep(3 SECONDS) //prevent paper from being printed until the end of the animation

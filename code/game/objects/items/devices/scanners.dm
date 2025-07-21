@@ -238,7 +238,7 @@ BODY SCANNERS
 		for(var/mob/living/alerted_mob in alerted)
 			if(!alerted_mob.stat)
 				do_alert_animation(alerted_mob)
-				alerted_mob.playsound_local(alerted, 'sound/machines/chime.ogg', 15, 0)
+				alerted_mob.playsound_local(alerted, 'sound/machines/chime.ogg', 15, FALSE)
 		was_alerted = TRUE
 		addtimer(CALLBACK(src, PROC_REF(end_alert_cd)), 1 MINUTES)
 
@@ -1398,7 +1398,7 @@ BODY SCANNERS
 /obj/item/reagent_scanner/proc/print_report()
 	if(!scanning)
 		usr.visible_message(span_warning("[src] rattles and prints out a sheet of paper."))
-		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 		if(!details)
 			flick("spectrometer_anim", src)
 		else
@@ -1537,7 +1537,7 @@ BODY SCANNERS
 
 /obj/item/bodyanalyzer/proc/setReady()
 	ready = TRUE
-	playsound(src, 'sound/machines/defib_saftyon.ogg', 50, 0)
+	playsound(src, 'sound/machines/defib_saftyon.ogg', 50, FALSE)
 	update_icon()
 
 
@@ -1604,7 +1604,7 @@ BODY SCANNERS
 			var/obj/item/paper/printout = new(drop_location())
 			printout.info = report
 			printout.name = "Scan report - [M.name]"
-			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			user.put_in_hands(printout, ignore_anim = FALSE)
 			time_to_use = world.time + scan_cd
 			if(isrobot(user))
@@ -1620,7 +1620,7 @@ BODY SCANNERS
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_OVERLAYS), 1.5 SECONDS)
 	else if(iscorgi(M) && M.stat == DEAD)
 		to_chat(user, span_notice("You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b>")) // :'(
-		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+		playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 		ready = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)

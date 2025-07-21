@@ -114,7 +114,7 @@
 		damtype = BURN
 		force = force_enabled
 		hitsound = 'sound/items/welder.ogg'
-		playsound(loc, activation_sound, 50, 1)
+		playsound(loc, activation_sound, 50, TRUE)
 		set_light_on(TRUE)
 	else
 		if(!refills_over_time)
@@ -122,7 +122,7 @@
 		damtype = BRUTE
 		force = initial(force)
 		hitsound = "swing_hit"
-		playsound(loc, deactivation_sound, 50, 1)
+		playsound(loc, deactivation_sound, 50, TRUE)
 		set_light_on(FALSE)
 	update_icon()
 	if(ismob(loc))
@@ -186,7 +186,7 @@
 	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
 	if(amount_transferred)
 		to_chat(user, "<span class='notice'>You refuel [src] by [amount_transferred] unit\s.</span>")
-		playsound(src, 'sound/effects/refill.ogg', 50, 1)
+		playsound(src, 'sound/effects/refill.ogg', 50, TRUE)
 		update_icon()
 		return amount_transferred
 	else
