@@ -253,7 +253,7 @@
 	layer = ABOVE_CLEANABLES_LAYER
 	//greyscale_config = /datum/greyscale_config/heretic_rune
 	/// We only set this state after setting the colour, otherwise the animation doesn't colour correctly
-	var/animation_state = "transmutation_rune_draw"
+	var/animation_state = "transmutation_rune_draw_colour"
 
 
 /obj/effect/temp_visual/drawing_heretic_rune/Initialize(mapload, path_colour = COLOR_WHITE)
