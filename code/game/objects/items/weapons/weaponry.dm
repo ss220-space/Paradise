@@ -56,8 +56,8 @@
 	throwforce = 10
 	sharp = 1
 	embed_chance = 20
-	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
@@ -88,8 +88,8 @@
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
-	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
@@ -224,8 +224,8 @@
 	throwforce = 12
 	attack_verb = list("beat", "шлёпнул")
 	w_class = WEIGHT_CLASS_HUGE
-	pickup_sound = 'sound/items/handling/wooden_pickup.ogg'
-	drop_sound = 'sound/items/handling/wooden_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/wooden_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/wooden_drop.ogg'
 	var/next_throw_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0
@@ -517,8 +517,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 34
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	throw_speed = 3
 	throw_range = 6
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")

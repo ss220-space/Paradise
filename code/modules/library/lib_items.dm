@@ -196,8 +196,8 @@
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("ударил", "огрел")
 	resistance_flags = FLAMMABLE
-	drop_sound = 'sound/items/handling/book_drop.ogg'
-	pickup_sound =  'sound/items/handling/book_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/book_pickup.ogg'
 
 	/// Actual page content
 	var/dat

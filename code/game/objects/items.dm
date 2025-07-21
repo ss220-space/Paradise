@@ -52,25 +52,25 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/mob_throw_hit_sound
 	///Sound used when equipping the item into a valid slot.
 	var/equip_sound = list(
-		'sound/items/handling/generic_equip1.ogg',
-		'sound/items/handling/generic_equip2.ogg',
-		'sound/items/handling/generic_equip3.ogg',
-		'sound/items/handling/generic_equip4.ogg',
-		'sound/items/handling/generic_equip5.ogg',
+		'sound/items/handling/equip/generic_equip1.ogg',
+		'sound/items/handling/equip/generic_equip2.ogg',
+		'sound/items/handling/equip/generic_equip3.ogg',
+		'sound/items/handling/equip/generic_equip4.ogg',
+		'sound/items/handling/equip/generic_equip5.ogg',
 	)
 	///Sound used when picking the item up (into your hands)
 	var/pickup_sound = list(
-		'sound/items/handling/generic_pickup1.ogg',
-		'sound/items/handling/generic_pickup2.ogg',
-		'sound/items/handling/generic_pickup3.ogg',
+		'sound/items/handling/pickup/generic_pickup1.ogg',
+		'sound/items/handling/pickup/generic_pickup2.ogg',
+		'sound/items/handling/pickup/generic_pickup3.ogg',
 	)
 	///Sound used when dropping the item.
 	var/drop_sound = list(
-		'sound/items/handling/generic_drop1.ogg',
-		'sound/items/handling/generic_drop2.ogg',
-		'sound/items/handling/generic_drop3.ogg',
-		'sound/items/handling/generic_drop4.ogg',
-		'sound/items/handling/generic_drop5.ogg',
+		'sound/items/handling/drop/generic_drop1.ogg',
+		'sound/items/handling/drop/generic_drop2.ogg',
+		'sound/items/handling/drop/generic_drop3.ogg',
+		'sound/items/handling/drop/generic_drop4.ogg',
+		'sound/items/handling/drop/generic_drop5.ogg',
 	)
 	///Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE

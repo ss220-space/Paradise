@@ -3,9 +3,9 @@
 	desc = "A handgun holster."
 	icon_state = "holster"
 	slot = ACCESSORY_SLOT_UTILITY
-	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
+	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
 	equip_sound = 'sound/items/handling/backpack_equip.ogg'
-	drop_sound = 'sound/items/handling/backpack_drop.ogg'
+	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/accessory/holster)
 	var/holster_allow = /obj/item/gun

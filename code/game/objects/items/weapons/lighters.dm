@@ -461,8 +461,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1"
 	attack_verb = null
-	pickup_sound = 'sound/items/handling/generic_small_pickup.ogg'
-	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/generic_small_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/generic_small_drop.ogg'
 
 
 /obj/item/match/process()

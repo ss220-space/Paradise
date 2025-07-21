@@ -14,8 +14,8 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
-	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/screwdriver_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/screwdriver_pickup.ogg'
 	materials = list(MAT_METAL=75)
 	attack_verb = list("уколол", "тыкнул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
