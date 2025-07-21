@@ -18,7 +18,7 @@ Bonus
 
 /datum/symptom/sneeze
 
-	name = "Sneezing"
+	name = "Чихание"
 	id = "sneeze"
 	stealth = -2
 	resistance = 3

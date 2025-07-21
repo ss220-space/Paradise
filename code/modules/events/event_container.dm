@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	log_debug("Next event of severity [GLOB.severity_to_string[severity]] in [(next_event_time - world.time)/600] minutes.")
 
 /datum/event_container/proc/SelectEvent()
-	var/datum/event_meta/EM = input("Select an event to queue up.", "Event Selection", null) as null|anything in available_events
+	var/datum/event_meta/EM = tgui_input_list(usr, "Select an event to queue up.", "Event Selection", available_events, null)
 	if(!EM)
 		return
 	if(next_event)
@@ -229,6 +229,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Хедкрабы",					/datum/event/headcrabs, 				0,		list(ASSIGNMENT_SECURITY = 20)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Сбой работы дверей",		/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Космический ниндзя",		/datum/event/space_ninja, 				40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ядерный оперативник",		/datum/event/lone_operative, 			40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Торговцы",					/datum/event/traders,					85, is_one_shot = TRUE),
 	)
 

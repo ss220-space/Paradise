@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/message = ""
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
-	var/datum/announcement/announcement = new
+	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/requests_console)
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
@@ -49,13 +49,12 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
 	Radio.listening = TRUE
-	Radio.config(list(ENG_FREQ_NAME, MED_FREQ_NAME, SUP_FREQ_NAME, COMM_FREQ_NAME, SCI_FREQ_NAME, SRV_FREQ_NAME, SEC_FREQ_NAME, AI_FREQ_NAME = 0))
+	Radio.config(list(ENG_FREQ_NAME, MED_FREQ_NAME, SUP_FREQ_NAME, COMM_FREQ_NAME, SCI_FREQ_NAME, SRV_FREQ_NAME, SEC_FREQ_NAME, AI_FREQ_NAME = FALSE))
 	Radio.follow_target = src
 	. = ..()
 
-	announcement.title = "[department] announcement"
-	announcement.newscast = FALSE
-	announcement.log = TRUE
+	announcer.config.default_title = "[department] объявление."
+	announcer.config.add_log = TRUE
 
 	name = "[department] Requests Console"
 	GLOB.allRequestConsoles += src
@@ -177,7 +176,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 						priority = RQ_NONEW_MESSAGES
 
 		if("writeAnnouncement")
-			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
+			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE, multiline = TRUE)
 			if(isnull(new_message))
 				return
 			message = new_message
@@ -185,7 +184,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("sendAnnouncement")
 			if(!announcementConsole)
 				return
-			announcement.Announce(message, msg_sanitized = TRUE)
+			if(!announceAuth) // No you don't
+				return
+			announcer.announce(message)
 			reset_message(TRUE)
 
 		if("department")
@@ -203,21 +204,21 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(pass)
 				screen = RCS_SENTPASS
 				if(recipient in ENGI_ROLES)
-					radiochannel = ENG_FREQ
+					radiochannel = ENG_FREQ_NAME
 				else if(recipient in SEC_ROLES)
-					radiochannel = SEC_FREQ
+					radiochannel = SEC_FREQ_NAME
 				else if(recipient in MISC_ROLES)
-					radiochannel = SRV_FREQ
+					radiochannel = SRV_FREQ_NAME
 				else if(recipient in MED_ROLES)
-					radiochannel = MED_FREQ
+					radiochannel = MED_FREQ_NAME
 				else if(recipient in COM_ROLES)
-					radiochannel = COMM_FREQ
+					radiochannel = COMM_FREQ_NAME
 				else if(recipient in SCI_ROLES)
-					radiochannel = SCI_FREQ
+					radiochannel = SCI_FREQ_NAME
 				else if(recipient == RC_AI)
-					radiochannel = AI_FREQ
+					radiochannel = AI_FREQ_NAME
 				else if(recipient == RC_CARGO_BAY)
-					radiochannel = SUP_FREQ
+					radiochannel = SUP_FREQ_NAME
 				write_to_message_log("Message sent to [recipient] at [station_time_timestamp()] - [message]")
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 			else
@@ -295,7 +296,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if(RCS_ANNOUNCE)
 			if(ACCESS_RC_ANNOUNCE in id.GetAccess())
 				announceAuth = TRUE
-				announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
+				announcer.author = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
 				SStgui.update_uis(ui_object)
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 			reset_message()
@@ -315,7 +316,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	msgVerified = ""
 	msgStamped = ""
 	announceAuth = FALSE
-	announcement.announcer = ""
+	announcer.author = ""
 	ship_tag_name = ""
 	ship_tag_index = FALSE
 	if(mainmenu)

@@ -7,7 +7,7 @@
 //Wild West Areas
 
 /area/awaymission/wwmines
-	name = "\improper Wild West Mines"
+	name = "Wild West Mines"
 	icon_state = "away1"
 	requires_power = FALSE
 	static_lighting = FALSE
@@ -15,7 +15,7 @@
 	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwgov
-	name = "\improper Wild West Mansion"
+	name = "Wild West Mansion"
 	icon_state = "away2"
 	requires_power = FALSE
 	static_lighting = FALSE
@@ -23,7 +23,7 @@
 	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwrefine
-	name = "\improper Wild West Refinery"
+	name = "Wild West Refinery"
 	icon_state = "away3"
 	requires_power = FALSE
 	static_lighting = FALSE
@@ -31,7 +31,7 @@
 	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwvault
-	name = "\improper Wild West Vault"
+	name = "Wild West Vault"
 	icon_state = "away3"
 
 /*
@@ -71,7 +71,7 @@
 	else
 		chargesa--
 		insistinga = 0
-		var/wish = input("You want...","Wish") as null|anything in list("Power","Wealth","Immortality","Peace")
+		var/wish = tgui_input_list(usr, "You want...", "Wish", list("Power", "Wealth", "Immortality", "Peace"))
 		switch(wish)
 			if("Power")
 				to_chat(user, "<b>Your wish is granted, but at a terrible cost...</b>")

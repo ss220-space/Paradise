@@ -142,7 +142,8 @@
 		return FALSE
 	cooldown = 2
 	pulse(FALSE, triggered)
-	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
+	audible_message("[bicon(src)] *beep* *beep* *beep*", hearing_distance = 3)
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	if(first)
 		qdel(first)
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
@@ -192,8 +193,8 @@
 
 
 /obj/item/assembly/infra/verb/rotate_verb()
-	set name = "Rotate Infrared Laser"
-	set category = "Object"
+	set name = "Повернуть"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	rotate(usr)

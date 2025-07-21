@@ -243,6 +243,13 @@
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/kitchen/knife/butcher/sharped
+	desc = "Огромный мясницкий тесак, предназначенный для измельчения мяса. В том числе и клоунов и их субпродуктов. Блестит от заточки."
+
+/obj/item/kitchen/knife/butcher/sharped/Initialize(mapload)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_ITEM_SHARPEN_ACT, 4, 30)
+
 /obj/item/kitchen/knife/butcher/meatcleaver
 	name = "meat cleaver"
 	ru_names = list(
@@ -275,7 +282,15 @@
 	name = "survival knife"
 	icon_state = "survivalknife"
 	belt_icon = "survival_knife"
-	desc = "A hunting grade survival knife."
+	desc = "Охотничий нож повышенной прочности."
+	ru_names = list(
+		NOMINATIVE = "нож для выживания",
+		GENITIVE = "ножа для выживания",
+		DATIVE = "ножу для выживания",
+		ACCUSATIVE = "нож для выживания",
+		INSTRUMENTAL = "ножом для выживания",
+		PREPOSITIONAL = "ноже для выживания"
+	)
 	force = 15
 	throwforce = 15
 
@@ -293,7 +308,15 @@
 	item_state = "bone_dagger"
 	icon_state = "bone_dagger"
 	belt_icon = "bone_dagger"
-	desc = "A sharpened bone. The bare minimum in survival."
+	desc = "Острая кость – минимум для выживания."
+	ru_names = list(
+		NOMINATIVE = "костяной кинжал",
+		GENITIVE = "костяного кинжала",
+		DATIVE = "костяному кинжалу",
+		ACCUSATIVE = "костяной кинжал",
+		INSTRUMENTAL = "костяным кинжалом",
+		PREPOSITIONAL = "костяном кинжале"
+	)
 	materials = list()
 	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
 	drop_sound = 'sound/items/handling/bone_drop.ogg'

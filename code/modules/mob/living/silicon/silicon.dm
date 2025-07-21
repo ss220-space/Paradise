@@ -292,16 +292,16 @@
 	return -10
 
 /mob/living/silicon/verb/pose()
-	set name = "Set Pose"
+	set name = "Задать позу"
 	set desc = "Sets a description which will be shown when someone examines you."
-	set category = "IC"
+	set category = STATPANEL_IC
 
-	pose =  sanitize(copytext_char(input(usr, "This is [src]. It is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose =  tgui_input_text(usr, "This is [src]. It is...", "Pose", null, max_length = MAX_MESSAGE_LEN)
 
 /mob/living/silicon/verb/set_flavor()
-	set name = "Set Flavour Text"
+	set name = "Описание внешности"
 	set desc = "Sets an extended description of your character's features."
-	set category = "IC"
+	set category = STATPANEL_IC
 
 	update_flavor_text()
 
@@ -331,7 +331,7 @@
 
 
 /mob/living/silicon/proc/toggle_sensor_mode()
-	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Diagnostic", "Multisensor","Disable")
+	var/sensor_type = tgui_input_list(usr, "Please select sensor type.", "Sensor Integration", list("Security", "Medical","Diagnostic", "Multisensor","Disable"), null)
 	remove_med_sec_hud()
 	switch(sensor_type)
 		if("Security")

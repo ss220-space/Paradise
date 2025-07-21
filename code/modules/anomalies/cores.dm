@@ -32,7 +32,7 @@
 /obj/item/assembly/signaler/core/examine(mob/user)
 	. = ..()
 	. += span_info("Текущий заряд: [charge].")
-	. += span_info("Текущая сила: [get_strenght()].")
+	. += span_info("Текущая сила: [get_strength()].")
 
 /obj/item/assembly/signaler/core/New(spawnloc, charge)
 	. = ..()
@@ -57,7 +57,7 @@
 100 of tier 1 == 50 of tier 2 == 25 of tier 3
 100 of tier 3 == 200 of tier 2 == 400 of tier 1
 */
-/obj/item/assembly/signaler/core/proc/get_strenght()
+/obj/item/assembly/signaler/core/proc/get_strength()
 	return round(charge * (1 << (tier - 1)) * (tier != 4 ? 1 : 1.5))
 
 // ============================ Tier 1 ===================================
@@ -178,7 +178,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/atmospheric/tier2
-	name = "\improper pyroclastic anomaly core"
+	name = "pyroclastic anomaly core"
 	desc = "Стабилизированное ядро ​атмосферной аномалии. На ощупь теплое. Вероятно, оно пригодится для исследований."
 	icon_state = "core_atmos_t2"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier2
@@ -186,7 +186,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/gravitational/tier2
-	name = "\improper gravitational anomaly core"
+	name = "gravitational anomaly core"
 	desc = "Стабилизированное ядро ​​гравитационной аномалии. Гораздо тяжелее, чем кажется. Вероятно, оно пригодится для исследований."
 	ru_names = list(
 		NOMINATIVE = "ядро гравитационной аномалии", \
@@ -202,7 +202,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/energetic/tier2
-	name = "\improper flux anomaly core"
+	name = "flux anomaly core"
 	desc = "Стабилизированное ядро ​​энергетической аномалии. Прикосновение к нему вызывает лёгкое покалывание. Вероятно, оно пригодится для исследований."
 	ru_names = list(
 		NOMINATIVE = "ядро ​​энергетической аномалии", \
@@ -218,7 +218,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/bluespace/tier2
-	name = "\improper bluespace anomaly core"
+	name = "bluespace anomaly core"
 	desc = "Стабилизированное ядро ​​блюспейс аномалии. Оно то появляется, то исчезает из виду. Вероятно, оно пригодится для исследований."
 	ru_names = list(
 		NOMINATIVE = "ядро ​​блюспейс аномалии", \
@@ -234,7 +234,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/vortex/tier2
-	name = "\improper vortex anomaly core"
+	name = "vortex anomaly core"
 	desc = "Стабилизированное ядро ​​вихревой аномалии. Оно слегка трясётся, как будто на него воздействует некая невидимая сила. Вероятно, оно пригодится для исследований."
 	ru_names = list(
 		NOMINATIVE = "ядро ​​вихревой аномалии", \
@@ -314,7 +314,7 @@
 
 	if(H.bodytemperature < T0C - 50)
 		visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с холодным объектом, испуская языки пламени!")
-		H.adjust_fire_stacks(round(get_strenght() / 30 + 0.5))
+		H.adjust_fire_stacks(round(get_strength() / 30 + 0.5))
 		H.IgniteMob()
 		return
 
@@ -324,7 +324,7 @@
 	visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с горячим объектом, значительно охлаждая окружающую среду!")
 	H.apply_status_effect(/datum/status_effect/freon)
 	H.ExtinguishMob()
-	H.adjust_bodytemperature(-get_strenght())
+	H.adjust_bodytemperature(-get_strength())
 
 
 /obj/item/assembly/signaler/core/gravitational/tier3

@@ -872,8 +872,8 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 
 /obj/item/clothing/suit/fluff/kluys/verb/toggle()
-	set name = "Toggle Nanofibre Mode"
-	set category = "Object"
+	set name = "Режим наноткани"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -909,7 +909,7 @@
 	sprite_sheets = null
 
 /obj/item/clothing/suit/fluff/stobarico_greatcoat // Stobarico: F.U.R.R.Y
-	name = "\improper F.U.R.R.Y's Nanotrasen Greatcoat"
+	name = "F.U.R.R.Y's Nanotrasen Greatcoat"
 	desc = "A greatcoat with Nanotrasen colors."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "stobarico_jacket"
@@ -1167,8 +1167,8 @@
 
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
-	set name = "Toggle Jumpsuit Zipper"
-	set category = "Object"
+	set name = "Молния костюма"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -1627,7 +1627,7 @@
 	icon_state = "ps_horns"
 
 /obj/item/storage/backpack/fluff/hiking //Pineapple Salad: Dan Jello
-	name = "\improper Fancy Hiking Pack"
+	name = "Fancy Hiking Pack"
 	desc = "A black and red hiking pack with some nice little accessories."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "danpack"

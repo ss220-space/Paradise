@@ -282,7 +282,7 @@
 
 /client/proc/empty_ai_core_toggle_latejoin()
 	set name = "Toggle AI Core Latejoin"
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 
 	var/list/cores = list()
 	for(var/obj/structure/AIcore/deactivated/D in world)
@@ -291,8 +291,9 @@
 	if(!cores.len)
 		to_chat(src, "No deactivated AI cores were found.")
 
-	var/id = input("Which core?", "Toggle AI Core Latejoin", null) as null|anything in cores
-	if(!id) return
+	var/id = tgui_input_list(usr, "Which core?", "Toggle AI Core Latejoin", cores, null)
+	if(!id)
+		return
 
 	var/obj/structure/AIcore/deactivated/D = cores[id]
 	if(!D) return

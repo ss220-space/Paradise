@@ -77,7 +77,7 @@ log transactions
 				authenticated_account.charge(-cash_amount, null, "Credit deposit", machine_id, "Terminal")
 
 /obj/machinery/atm/proc/reconnect_database()
-	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
+	for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
 		if(DB.stat & NOPOWER || !DB.activated)
 			continue
 		if(is_station_level(z) && is_station_level(DB.z))

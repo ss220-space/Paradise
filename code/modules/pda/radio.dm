@@ -1,7 +1,7 @@
 //TODO convert this crap over to proper radios or find a way to utilize regualr radios for this object, this thing needs to go.
 
 /obj/item/integrated_radio
-	name = "\improper PDA radio module"
+	name = "PDA radio module"
 	desc = "An electronic radio system of Nanotrasen origin."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "power_mod"
@@ -126,7 +126,7 @@
 
 		if("setdest")
 			if(GLOB.deliverybeacons)
-				var/dest = input("Select Bot Destination", "Mulebot [active.suffix] Interlink", active.destination) as null|anything in GLOB.deliverybeacontags
+				var/dest = tgui_input_list(usr, "Select Bot Destination", "Mulebot [active.suffix] Interlink", GLOB.deliverybeacontags, active.destination)
 				if(dest)
 					post_signal(control_freq, "command", "target", "active", active, "destination", dest, s_filter = RADIO_MULEBOT)
 

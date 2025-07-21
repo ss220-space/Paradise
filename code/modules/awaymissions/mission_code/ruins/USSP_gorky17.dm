@@ -316,16 +316,16 @@
 		D.UpdateName()
 
 /obj/machinery/computer/id_upgrader/ussp/verb/set_name()
-	set name = "Enter name"
-	set category = "Object"
+	set name = "Ввести название"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
-	var/temp_name = reject_bad_name(input("Enter cardholder name:", "Cardholder name", usr.name), TRUE)
+	var/temp_name = reject_bad_name(tgui_input_text(usr, "Enter cardholder name:", "Cardholder name", usr.name), TRUE)
 	if(temp_name)
 		cardholdername = temp_name
-	cardrank = input("Select cardholder rank:") in possiblerank
+	cardrank = tgui_input_list(usr, "Select cardholder rank:", , possiblerank)
 
 /obj/machinery/computer/id_upgrader/ussp/conscript
 	access_to_give = list(ACCESS_USSP_CONSCRIPT)

@@ -50,14 +50,14 @@
 	var/mimic_option = tgui_alert(user, "What voice do you want to mimic?", "Set Voice Changer", list("Real Voice", "Custom Voice", "Cancel"))
 	switch(mimic_option)
 		if("Real Voice")
-			var/mob/living/carbon/human/human = input(user, "Select a voice to copy from.", "Set Voice Changer") in GLOB.human_list
+			var/mob/living/carbon/human/human = tgui_input_list(user, "Select a voice to copy from.", "Set Voice Changer", GLOB.human_list)
 			if(!human)
 				return
 
 			mimic_voice = human.real_name
 			mimic_voice_tts = human.dna.tts_seed_dna
 		if("Custom Voice")
-			mimic_voice = reject_bad_name(stripped_input(user, "Enter a name to mimic.", "Set Voice Changer", null, MAX_NAME_LEN), TRUE)
+			mimic_voice = reject_bad_name(tgui_input_text(user, "Enter a name to mimic.", "Set Voice Changer", null, max_length = MAX_NAME_LEN), TRUE)
 			if(!mimic_voice)
 				to_chat(user, span_warning("Invalid name, try again."))
 				return

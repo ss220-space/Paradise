@@ -16,7 +16,7 @@
 	power_channel = EQUIP
 	max_integrity = 300
 	integrity_failure = 100
-	atom_say_verb = "bleeps"
+	atom_say_verb = "пищит"
 
 	COOLDOWN_DECLARE(copying_cooldown)
 
@@ -491,7 +491,7 @@
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/text = clean_input("Enter what you want to write:", "Write")
+	var/text = tgui_input_text(usr, "Enter what you want to write:", "Write")
 	if(!text)
 		return
 	if(toner < 1 || !user)

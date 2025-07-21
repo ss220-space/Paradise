@@ -153,6 +153,17 @@
 	icon = 'icons/turf/floors.dmi'
 	},
 /area/ruin/space/pirate_base/black_market)
+"gq" = (
+/obj/structure/rack,
+/obj/item/storage/backpack,
+/obj/item/storage/backpack,
+/obj/item/storage/backpack,
+/obj/item/storage/backpack,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
 "hk" = (
 /obj/effect/bump_teleporter{
 	id_target = "pirat_n1"
@@ -173,13 +184,9 @@
 	},
 /area/ruin/space/pirate_base/black_market)
 "ir" = (
-/obj/structure/chair/stool/bar{
-	icon = 'icons/obj/lighting.dmi';
-	icon_state = "lantern-on";
+/obj/effect/light_emitter{
 	light_color = "#FFBF00";
-	light_range = 6;
-	name = "lantern";
-	invisibility = 70
+	light_range = 6
 	},
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
@@ -203,6 +210,10 @@
 /area/ruin/space/pirate_base/black_market)
 "iU" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/light_emitter{
+	light_color = "#FFBF00";
+	light_range = 6
+	},
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
@@ -218,6 +229,25 @@
 	id = "black_market2";
 	density = 0
 	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"jJ" = (
+/obj/structure/rack,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/under/pirate,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/under/pirate,
+/obj/item/clothing/under/pirate,
+/obj/item/clothing/under/pirate,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
@@ -278,6 +308,32 @@
 "mV" = (
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/space/pirate_base/black_market)
+"nN" = (
+/obj/structure/rack,
+/obj/item/card/id/syndicate/anyone{
+	initial_access = list(160,161,162,26)
+	},
+/obj/item/card/id/syndicate/anyone{
+	initial_access = list(160,161,162,26)
+	},
+/obj/item/card/id/syndicate/anyone{
+	initial_access = list(160,161,162,26)
+	},
+/obj/item/card/id/syndicate/anyone{
+	initial_access = list(160,161,162,26)
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"oH" = (
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "piratereinf_shutters";
+	use_power = 0
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
 "oP" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/indestructible/plating{
@@ -296,7 +352,8 @@
 /area/ruin/space/pirate_base/black_market)
 "ps" = (
 /obj/structure/mirror{
-	pixel_x = -26
+	pixel_x = -26;
+	pixel_y = -30
 	},
 /obj/effect/mob_spawn/human/oldstation/oldsec{
 	desc = "A cryo pod.";
@@ -304,7 +361,6 @@
 	assignedrole = "Pirate";
 	faction = "pirate";
 	allow_gender_pick = 0;
-	allow_prefs_prompt = 0;
 	allow_species_pick = 0;
 	mob_gender = "male";
 	name = "Pirate";
@@ -312,6 +368,29 @@
 	description = "Вы пират, пират который должен синдикату. Выполняйте задачи и зарабатывайте на оплату долга.";
 	facial_hair_style = "Up Mustache";
 	hair_style = "Manbun"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"pJ" = (
+/obj/structure/rack,
+/obj/item/clothing/head/bandana,
+/obj/item/clothing/glasses/eyepatch,
+/obj/item/clothing/head/bandana,
+/obj/item/clothing/head/bandana,
+/obj/item/clothing/head/bandana,
+/obj/item/clothing/glasses/eyepatch,
+/obj/item/clothing/glasses/eyepatch,
+/obj/item/clothing/glasses/eyepatch,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"qh" = (
+/obj/machinery/door_control{
+	id = "piratereinf_shutters";
+	use_power = 0;
+	pixel_y = 24
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/space/pirate_base/black_market)
@@ -371,14 +450,22 @@
 	icon = 'icons/turf/floors.dmi'
 	},
 /area/ruin/space/pirate_base/black_market)
+"si" = (
+/obj/structure/rack,
+/obj/item/implanter/freedom,
+/obj/item/implanter/freedom,
+/obj/item/implanter/freedom,
+/obj/item/implanter/freedom,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
 "sA" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron4"
 	},
 /area/ruin/space/pirate_base/black_market)
-"tA" = (
-/turf/simulated/wall/indestructible/invisible,
-/area/space)
 "tR" = (
 /obj/effect/turf_decal/box/corners,
 /obj/effect/turf_decal/box/corners{
@@ -403,13 +490,9 @@
 /turf/simulated/wall/indestructible/iron,
 /area/ruin/space/pirate_base/black_market)
 "us" = (
-/obj/structure/chair/stool/bar{
-	icon = 'icons/obj/lighting.dmi';
-	icon_state = "lantern-on";
+/obj/effect/light_emitter{
 	light_color = "#FFBF00";
-	light_range = 6;
-	name = "lantern";
-	invisibility = 70
+	light_range = 6
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/space/pirate_base/black_market)
@@ -440,7 +523,6 @@
 	assignedrole = "Pirate";
 	faction = "pirate";
 	allow_gender_pick = 0;
-	allow_prefs_prompt = 0;
 	allow_species_pick = 0;
 	mob_gender = "male";
 	name = "Pirate";
@@ -450,7 +532,8 @@
 	hair_style = "Manbun"
 	},
 /obj/structure/mirror{
-	pixel_x = -26
+	pixel_x = -26;
+	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/space/pirate_base/black_market)
@@ -564,20 +647,6 @@
 	icon = 'icons/turf/floors.dmi'
 	},
 /area/ruin/space/pirate_base/black_market)
-"Ee" = (
-/obj/docking_port/stationary/transit{
-	dir = 8;
-	dwidth = 8;
-	height = 19;
-	id = "pirateship_transit";
-	name = "Pirate Corvette in transit";
-	turf_type = /turf/space/transit/west;
-	width = 17
-	},
-/turf/space/transit/west{
-	icon_state = "speedspace_ew_1"
-	},
-/area/space)
 "EC" = (
 /obj/structure/rack{
 	name = "rack 10k"
@@ -605,11 +674,19 @@
 	icon_state = "iron6"
 	},
 /area/ruin/space/pirate_base/black_market)
-"Fe" = (
-/turf/space/transit/west,
-/area/space)
 "Fp" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"FL" = (
+/obj/structure/rack,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
@@ -705,6 +782,25 @@
 	icon_state = "iron3"
 	},
 /area/ruin/space/pirate_base/black_market)
+"Ms" = (
+/obj/structure/rack,
+/obj/item/radio/headset/syndicate/alt/syndteam{
+	name = "headset"
+	},
+/obj/item/radio/headset/syndicate/alt/syndteam{
+	name = "headset"
+	},
+/obj/item/radio/headset/syndicate/alt/syndteam{
+	name = "headset"
+	},
+/obj/item/radio/headset/syndicate/alt/syndteam{
+	name = "headset"
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
 "Nc" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron2"
@@ -760,16 +856,97 @@
 	icon = 'icons/turf/floors.dmi'
 	},
 /area/ruin/space/pirate_base/black_market)
-"Ph" = (
-/turf/space/transit/west{
-	icon_state = "speedspace_ew_1"
+"Pi" = (
+/obj/structure/rack,
+/obj/item/storage/box/survival,
+/obj/item/storage/box/survival,
+/obj/item/storage/box/survival,
+/obj/item/storage/box/survival,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
 	},
-/area/space)
+/area/ruin/space/pirate_base/black_market)
+"Pm" = (
+/obj/effect/turf_decal/box,
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal-syndicate";
+	name = "redspace portal";
+	invisibility = 0;
+	id = "pirat_resp";
+	id_target = "pirat_n1"
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Pp" = (
+/obj/structure/rack,
+/obj/item/reagent_containers/applicator/brute{
+	pixel_y = 6;
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/applicator/brute{
+	pixel_y = 6;
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/applicator/brute{
+	pixel_y = 6;
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/applicator/brute{
+	pixel_y = 6;
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/applicator/burn{
+	pixel_y = -6;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/applicator/burn{
+	pixel_y = -6;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/applicator/burn{
+	pixel_y = -6;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/applicator/burn{
+	pixel_y = -6;
+	pixel_x = 3
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
 "Pw" = (
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
+/area/ruin/space/pirate_base/black_market)
+"PK" = (
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/under/pirate,
+/obj/item/clothing/under/pirate_rags,
+/obj/item/clothing/glasses/eyepatch,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/head/bandana,
+/obj/item/clothing/suit/pirate_black,
+/obj/structure/closet{
+	icon_state = "syndicate"
+	},
+/obj/item/storage/backpack,
+/obj/item/card/id/syndicate/anyone{
+	initial_access = list(160,161,162,26)
+	},
+/obj/item/radio/headset/syndicate/alt/syndteam{
+	name = "headset"
+	},
+/turf/simulated/floor/indestructible/plating,
 /area/ruin/space/pirate_base/black_market)
 "Qe" = (
 /turf/simulated/wall/indestructible{
@@ -795,6 +972,44 @@
 /obj/item/radio/headset/syndicate/alt/syndteam,
 /obj/item/gun/energy/gun/advtaser,
 /obj/item/clothing/accessory/holster,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"QU" = (
+/obj/structure/rack,
+/obj/item/melee/energy/sword/pirate{
+	pixel_y = 6
+	},
+/obj/item/melee/energy/sword/pirate{
+	pixel_y = 6
+	},
+/obj/item/melee/energy/sword/pirate{
+	pixel_y = 6
+	},
+/obj/item/melee/energy/sword/pirate{
+	pixel_y = 6
+	},
+/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"RA" = (
+/obj/structure/rack,
+/obj/item/autoimplanter/oneuse,
+/obj/item/autoimplanter/oneuse,
+/obj/item/autoimplanter/oneuse,
+/obj/item/autoimplanter/oneuse,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
@@ -860,6 +1075,17 @@
 	icon = 'icons/turf/floors.dmi'
 	},
 /area/ruin/space/pirate_base/black_market)
+"Tt" = (
+/obj/structure/rack,
+/obj/item/radio/headset,
+/obj/item/radio/headset,
+/obj/item/radio/headset,
+/obj/item/radio/headset,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
 "Tu" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/indestructible/plating{
@@ -870,6 +1096,73 @@
 "UJ" = (
 /turf/space,
 /area/space)
+"WN" = (
+/obj/structure/rack,
+/obj/item/gun/projectile/automatic/pistol{
+	pixel_x = 3
+	},
+/obj/item/gun/projectile/automatic/pistol{
+	pixel_x = 3
+	},
+/obj/item/gun/projectile/automatic/pistol{
+	pixel_x = 3
+	},
+/obj/item/gun/projectile/automatic/pistol{
+	pixel_x = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
 "Xk" = (
 /obj/structure/rack{
 	name = "rack 5k"
@@ -965,11 +1258,11 @@ er
 Qe
 RJ
 Pw
-ir
+Pw
 Pw
 Lc
 Pw
-ir
+Pw
 Pw
 Qe
 UJ
@@ -999,7 +1292,7 @@ iU
 co
 tR
 Pw
-Pw
+ir
 Pw
 Qe
 UJ
@@ -1008,7 +1301,7 @@ mV
 mV
 mV
 rC
-Xz
+rC
 Xz
 Xz
 Xz
@@ -1068,7 +1361,7 @@ mV
 us
 mV
 rC
-Xz
+rC
 Xz
 Xz
 Xz
@@ -1085,8 +1378,8 @@ Xk
 rC
 Pw
 Pw
-Pw
 ir
+Pw
 Pw
 BJ
 Qe
@@ -1122,13 +1415,13 @@ BJ
 Qe
 ir
 Qe
-UJ
+Xz
 Xz
 mV
 mV
 mV
 rC
-Xz
+rC
 Xz
 Xz
 Xz
@@ -1152,9 +1445,9 @@ Nc
 Qi
 Pw
 Qe
-UJ
 Xz
 rF
+mV
 mV
 mV
 rC
@@ -1175,17 +1468,17 @@ Pw
 Ky
 Pw
 Pw
-Pw
 ir
+Pw
 Pw
 jj
 Ky
 Pw
 Qe
-UJ
 Xz
 Xz
-Xz
+mV
+mV
 Xz
 Xz
 Xz
@@ -1213,18 +1506,18 @@ sA
 Pw
 Qe
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+Xz
+mV
+mV
+rC
+mV
+PK
+Xz
+Xz
+Xz
 "}
 (11,1,1) = {"
-HC
+vK
 LD
 LD
 LD
@@ -1243,17 +1536,23 @@ KH
 LD
 Qi
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+Xz
+mV
+mV
+rC
+us
+mV
+oH
+hk
+Xz
 "}
 (12,1,1) = {"
+Qe
+nN
+Pw
+Pw
+Pm
+Qe
 UJ
 UJ
 UJ
@@ -1267,23 +1566,23 @@ UJ
 UJ
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+Xz
+mV
+mV
+Xz
+rC
+rC
+Xz
+Xz
+Xz
 "}
 (13,1,1) = {"
+Qe
+Ms
+Pw
+si
+ER
+Qi
 UJ
 UJ
 UJ
@@ -1297,23 +1596,22 @@ UJ
 UJ
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+Xz
+mV
+mV
+rC
+mV
+PK
+Xz
+Xz
+Xz
 "}
 (14,1,1) = {"
+Qe
+gq
+Pw
+Tt
+Qe
 UJ
 UJ
 UJ
@@ -1328,22 +1626,22 @@ UJ
 UJ
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+Xz
+mV
+mV
+rC
+us
+mV
+oH
+AK
+Xz
 "}
 (15,1,1) = {"
+Qe
+pJ
+ir
+FL
+Qe
 UJ
 UJ
 UJ
@@ -1358,22 +1656,22 @@ UJ
 UJ
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+Xz
+qh
+mV
+Xz
+rC
+rC
+Xz
+Xz
+Xz
 "}
 (16,1,1) = {"
+Qe
+jJ
+Pw
+Pi
+Qe
 UJ
 UJ
 UJ
@@ -1388,22 +1686,22 @@ UJ
 UJ
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+Xz
+mV
+mV
+rC
+mV
+PK
+Xz
+Xz
+Xz
 "}
 (17,1,1) = {"
+Qe
+WN
+Pw
+QU
+Qe
 UJ
 UJ
 UJ
@@ -1418,22 +1716,22 @@ UJ
 UJ
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
+Xz
+mV
+mV
+rC
+us
+mV
+oH
+Nt
+Xz
 "}
 (18,1,1) = {"
+Qe
+Pp
+Pw
+RA
+Qe
 UJ
 UJ
 UJ
@@ -1441,29 +1739,29 @@ UJ
 UJ
 UJ
 UJ
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+Xz
+mV
+mV
+Xz
+rC
+rC
+Xz
+Xz
+Xz
 "}
 (19,1,1) = {"
+HC
+LD
+LD
+LD
+Qi
 UJ
 UJ
 UJ
@@ -1471,27 +1769,22 @@ UJ
 UJ
 UJ
 UJ
-tA
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-tA
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+Xz
+mV
+mV
+rC
+mV
+PK
+Xz
+Xz
+Xz
 "}
 (20,1,1) = {"
 UJ
@@ -1501,27 +1794,27 @@ UJ
 UJ
 UJ
 UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+Xz
+mV
+mV
+rC
+us
+mV
+oH
+Sj
+Xz
 "}
 (21,1,1) = {"
 UJ
@@ -1531,29 +1824,6 @@ UJ
 UJ
 UJ
 UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(22,1,1) = {"
 UJ
 UJ
 UJ
@@ -1561,565 +1831,18 @@ UJ
 UJ
 UJ
 UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(23,1,1) = {"
 UJ
 UJ
 UJ
 UJ
 UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(24,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(25,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(26,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(27,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(28,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(29,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(30,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(31,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(32,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(33,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(34,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(35,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(36,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(37,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(38,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ee
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Ph
-Fe
-tA
-"}
-(39,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-tA
-"}
-(40,1,1) = {"
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
-tA
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
 "}

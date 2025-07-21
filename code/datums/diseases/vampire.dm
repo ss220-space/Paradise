@@ -1,6 +1,6 @@
 /datum/disease/vampire
-	name = "Grave Fever"
-	agent = "Grave Dust"
+	name = "Могильная лихорадка"
+	agent = "Могильная пыль"
 	max_stages = 4
 	stage_prob = 5
 	//TODO: Something with chaplain & cure
@@ -18,15 +18,15 @@
 	var/stuntime = stage * 2
 
 	if(prob(10))
-		affected_mob.emote(pick("cough","groan", "gasp"))
+		affected_mob.emote(pick("cough", "groan", "gasp"))
 		affected_mob.AdjustLoseBreath(2 SECONDS)
 
 	if(prob(15))
 		if(prob(33))
-			to_chat(affected_mob, span_danger("You feel sickly and weak."))
+			to_chat(affected_mob, span_danger("Вы чувствуете себя больным и слабым."))
 			affected_mob.Slowed(6 SECONDS)
 		affected_mob.adjustToxLoss(toxdamage)
 
 	if(prob(5))
-		to_chat(affected_mob, span_danger("Your joints ache horribly!"))
+		to_chat(affected_mob, span_danger("Ваши суставы ужасно болят!"))
 		affected_mob.Weaken(stuntime STATUS_EFFECT_CONSTANT)

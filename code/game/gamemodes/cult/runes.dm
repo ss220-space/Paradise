@@ -574,7 +574,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a revived Cultist?", ROLE_CULTIST, TRUE, poll_time = 20 SECONDS, source = /obj/item/melee/cultblade/dagger)
 		if(length(candidates))
 			var/mob/dead/observer/C = pick(candidates)
-			to_chat(mob_to_revive, span_dangerbigger("Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form."))
+			to_chat(mob_to_revive, span_biggerdanger("Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form."))
 			message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(mob_to_revive)]) to replace an AFK player.")
 			mob_to_revive.ghostize(FALSE)
 			mob_to_revive.key = C.key
@@ -582,7 +582,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			fail_invoke()
 			return
 
-	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult.ogg')
+	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, span_cultlarge("\"PASNAR SAVRAE YAM'TOTH. Arise.\""))
 	mob_to_revive.visible_message(span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
 								  span_cultlarge("You awaken suddenly from the void. You're alive!"))

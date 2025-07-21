@@ -1295,7 +1295,7 @@
 
 /datum/construction/reversible/mecha/phazon/after_spawn_result(atom/A)
 	var/obj/mecha/phazon = A
-	phazon.phase_modifier = core.get_strenght() / 150
+	phazon.phase_modifier = core.get_strength() / 150
 	core.forceMove(A)
 
 /datum/construction/reversible/mecha/phazon/custom_action(index, diff, atom/used_atom, mob/user)
@@ -1478,13 +1478,13 @@
 		if(1)
 			if(diff==FORWARD)
 				var/obj/item/assembly/signaler/core/bluespace/core = used_atom
-				if(core.get_strenght() < 100)
+				if(core.get_strength() < 100)
 					to_chat(user, span_warning("Ядро слишком слабо!"))
 					return FALSE
 
 				user.visible_message("[user] carefully inserts the anomaly core into \the [holder] and secures it.", "You slowly place the anomaly core into its socket and close its chamber.")
 				src.core = used_atom
-				core.forceMove(holder)
+				return user.drop_transfer_item_to_loc(core, holder)
 			else
 				user.visible_message("[user] аккуратно достает [core.declent_ru(ACCUSATIVE)] из [holder.declent_ru(GENITIVE)].", "Вы аккуратно достаете [core.declent_ru(ACCUSATIVE)] из [holder.declent_ru(GENITIVE)].")
 				if(!user.put_in_hands(core))

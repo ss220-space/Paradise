@@ -143,10 +143,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		CRASH("WrapAdminProcCall with no ckey: [target] [procname] [english_list(arguments)]")
 	if(current_caller && current_caller != ckey)
 		if(!GLOB.AdminProcCallSpamPrevention[ckey])
-			to_chat(usr, "<span class='adminnotice'>Another set of admin called procs are still running, your proc will be run after theirs finish.</span>")
+			to_chat(usr, span_adminnotice("Another set of admin called procs are still running, your proc will be run after theirs finish."))
 			GLOB.AdminProcCallSpamPrevention[ckey] = TRUE
 			UNTIL(!GLOB.AdminProcCaller)
-			to_chat(usr, "<span class='adminnotice'>Running your proc</span>")
+			to_chat(usr, span_adminnotice("Running your proc"))
 			GLOB.AdminProcCallSpamPrevention -= ckey
 		else
 			UNTIL(!GLOB.AdminProcCaller)
@@ -158,7 +158,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	try
 		. = world.WrapAdminProcCall(target, procname, arguments)
 	catch
-		to_chat(usr, "<span class='adminnotice'>Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you.</span>")
+		to_chat(usr, span_adminnotice("Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you."))
 
 	if(--GLOB.AdminProcCallCount == 0)
 		GLOB.AdminProcCaller = null
@@ -192,7 +192,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!hascall(A,procname))
-		to_chat(usr, "<span class='warning'>Error: callproc_datum(): target has no such call [procname].</span>")
+		to_chat(usr, span_warning("Error: callproc_datum(): target has no such call [procname]."))
 		return
 
 	var/list/lst = get_callproc_args()
@@ -200,14 +200,14 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!A || !IsValidSrc(A))
-		to_chat(src, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
+		to_chat(src, span_warning("Error: callproc_datum(): owner of proc no longer exists."))
 		return
 	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
 	log_admin("[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
-		to_chat(src, "<span class='notice'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</span>")
+		to_chat(src, span_notice("[procname] returned: [!isnull(returnval) ? returnval : "null"]"))
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
@@ -274,7 +274,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Make Robot"
 
 	if(!check_rights(R_SPAWN))
@@ -295,7 +295,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		tgui_alert(usr, "Invalid mob")
 
 /client/proc/cmd_admin_animalize(mob/M in GLOB.mob_list)
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Make Simple Animal"
 
 	if(!check_rights(R_SPAWN))
@@ -318,7 +318,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		M.Animalize()
 
 /client/proc/cmd_admin_gorillize(mob/M in GLOB.mob_list)
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Make Gorilla"
 
 	if(!check_rights(R_SPAWN))
@@ -348,7 +348,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 
 /client/proc/cmd_admin_super(var/mob/M in GLOB.mob_list)
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Make Superhero"
 
 	if(!check_rights(R_SPAWN))
@@ -362,7 +362,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/datum/superheroes/S = GLOB.all_superheroes[type]
 		if(S)
 			S.create(M)
-		log_and_message_admins("<span class='notice'>made [key_name(M)] into a Superhero.</span>")
+		log_and_message_admins(span_notice("made [key_name(M)] into a Superhero."))
 	else
 		tgui_alert(usr, "Invalid mob")
 
@@ -398,7 +398,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
-	set category = "Admin.Debug"
+	set category = STATPANEL_ADMIN_DEBUG
 	set name = "\[Admin\] Grant Full Access"
 
 	if(!check_rights(R_EVENT))
@@ -427,10 +427,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else
 		tgui_alert(usr, "Invalid mob")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
-	log_and_message_admins("<span class='notice'>has granted [M.key] full access.</span>")
+	log_and_message_admins(span_notice("has granted [M.key] full access."))
 
 /client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
-	set category = "Admin.Debug"
+	set category = STATPANEL_ADMIN_DEBUG
 	set name = "\[Admind\] Assume direct control"
 	set desc = "Direct intervention"
 
@@ -443,7 +443,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		else
 			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
 			ghost.ckey = M.ckey
-	log_and_message_admins("<span class='notice'>assumed direct control of [M].</span>")
+	log_and_message_admins(span_notice("assumed direct control of [M]."))
 	var/mob/adminmob = src.mob
 	M.ckey = src.ckey
 	if( isobserver(adminmob) )
@@ -493,19 +493,19 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		else
 			areas_with_multiple_air_alarms |= A.type
 
-	for(var/obj/machinery/requests_console/RC in GLOB.machines)
+	for(var/obj/machinery/requests_console/RC in SSmachines.get_by_type(/obj/machinery/requests_console))
 		var/area/A = get_area(RC)
 		if(!A)
 			continue
 		areas_with_RC |= A.type
 
-	for(var/obj/machinery/light/L in GLOB.machines)
+	for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
 		var/area/A = get_area(L)
 		if(!A)
 			continue
 		areas_with_light |= A.type
 
-	for(var/obj/machinery/light_switch/LS in GLOB.machines)
+	for(var/obj/machinery/light_switch/LS in SSmachines.get_by_type(/obj/machinery/light_switch))
 		var/area/A = get_area(LS)
 		if(!A)
 			continue
@@ -517,7 +517,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			continue
 		areas_with_intercom |= A.type
 
-	for(var/obj/machinery/camera/C in GLOB.machines)
+	for(var/obj/machinery/camera/C in SSmachines.get_by_type(/obj/machinery/camera))
 		var/area/A = get_area(C)
 		if(!A)
 			continue
@@ -649,7 +649,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	return dresscode
 
 /client/proc/startSinglo()
-	set category = "Admin.Debug"
+	set category = STATPANEL_ADMIN_DEBUG
 	set name = "Start Singularity"
 	set desc = "Sets up the singularity and all machines to get power flowing through the station"
 
@@ -659,11 +659,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(tgui_alert(usr, "Are you sure? This will start up the engine. Should only be used during debug!",, list("Yes", "No")) != "Yes")
 		return
 
-	for(var/obj/machinery/power/emitter/E in GLOB.machines)
+	for(var/obj/machinery/power/emitter/E in SSmachines.get_by_type(/obj/machinery/power/emitter))
 		if(E.anchored)
 			E.active = 1
 
-	for(var/obj/machinery/field/generator/F in GLOB.machines)
+	for(var/obj/machinery/field/generator/F in SSmachines.get_by_type(/obj/machinery/field/generator))
 		if(F.active == 0)
 			F.active = 1
 			F.state = 2
@@ -674,13 +674,13 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			F.update_icon()
 
 	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in GLOB.machines)
+		for(var/obj/machinery/the_singularitygen/G in SSmachines.get_by_type(/obj/machinery/the_singularitygen))
 			if(G.anchored)
 				var/obj/singularity/S = new /obj/singularity(get_turf(G))
 				S.energy = 800
 				break
 
-	for(var/obj/machinery/power/rad_collector/Rad in GLOB.machines)
+	for(var/obj/machinery/power/rad_collector/Rad in SSmachines.get_by_type(/obj/machinery/power/rad_collector))
 		if(Rad.anchored)
 			if(!Rad.P)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
@@ -692,7 +692,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(!Rad.active)
 				Rad.toggle_power()
 
-	for(var/obj/machinery/power/smes/SMES in GLOB.machines)
+	for(var/obj/machinery/power/smes/SMES in SSmachines.get_by_type(/obj/machinery/power/smes))
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 
@@ -787,7 +787,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	var/datum/browser/popup = new(usr, "simpledellog", "Simple del logs")
 	popup.set_content(dat)
 	popup.open(FALSE)
-	
+
 
 /client/proc/cmd_admin_toggle_block(mob/M, block)
 	if(!check_rights(R_SPAWN))
@@ -823,15 +823,15 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG) || !isclient(src))
 		return
 	if(byond_version < 516)
-		to_chat(src, "<span class='warning'>You can only use this on 516!</span>")
+		to_chat(src, span_warning("You can only use this on 516!"))
 		return
 
-	to_chat(src, "<span class='info'>You can now right click to use inspect on browsers.</span>")
+	to_chat(src, span_info("You can now right click to use inspect on browsers."))
 	winset(src, null, list("browser-options" = "+devtools"))
 
 /client/proc/jump_to_ruin()
-	set category = "OOC"
-	set name = "Jump to Ruin"
+	set category = STATPANEL_OOC
+	set name = "К руине"
 	set desc = "Displays a list of all placed ruins to teleport to."
 
 	if(!check_rights(R_DEBUG))
@@ -863,8 +863,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			O.force_eject_occupant(usr)
 		admin_forcemove(usr, get_turf(landmark))
 
-		to_chat(usr, "<span class='name'>[template.name]</span>")
-		to_chat(usr, "<span class='italics'>[template.description]</span>")
+		var/list/messages = list(
+			span_notice("Jumped to <b>[template.name]</b>:"),
+			span_notice("[template.description]")
+		)
+		to_chat(usr, chat_box_examine(messages.Join("\n")))
 
 		log_admin("[key_name(usr)] jumped to ruin [ruinname]")
 		if(!isobserver(usr))
@@ -882,7 +885,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	SSmedals.hub_enabled = !SSmedals.hub_enabled
 
-	message_admins("<span class='adminnotice'>[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.</span>")
+	message_admins(span_adminnotice("[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Medal Disable") // If...
 	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
 
@@ -915,7 +918,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
 
 	for(var/key in zlevel_turf_indexes)
-		to_chat(usr, "<span class='notice'>Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] ATs</b></span>")
+		to_chat(usr, span_notice("Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] ATs</b>"))
 
 	var/z_to_view = tgui_input_number(usr, "A list of z-levels their ATs has appeared in chat. Please enter a Z to visualise. Enter 0 to cancel.", "Selection", 0, max_value = 255)
 

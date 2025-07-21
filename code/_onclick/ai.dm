@@ -60,6 +60,19 @@
 				return
 
 	var/list/modifiers = params2list(params)
+
+	if(modifiers["middle"] && modifiers["shift"] && modifiers["alt"])
+		MiddleShiftAltClickOn(A)
+		return
+	if(modifiers["middle"] && modifiers["ctrl"])
+		MiddleControlClickOn(A)
+		return
+	if(modifiers["middle"] && modifiers["shift"])
+		MiddleShiftClickOn(A)
+		return
+	if(modifiers["middle"] && modifiers["alt"])
+		MiddleAltClickOn(A)
+		return
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
 		return
@@ -128,8 +141,6 @@
 	A.AICtrlClick(src)
 /mob/living/silicon/ai/MiddleClickOn(atom/A)
     A.AIMiddleClick(src)
-/mob/living/silicon/ai/MiddleShiftClickOn(atom/A)
-	A.AIMiddleShiftClick(src)
 
 // DEFAULT PROCS TO OVERRIDE
 
@@ -173,7 +184,16 @@
 /atom/proc/AIMiddleClick(mob/living/user)
 	return
 
-/atom/proc/AIMiddleShiftClick()
+/atom/proc/AIMiddleControlClick()
+	return
+
+/atom/proc/AIMiddleShiftControlClick()
+	return
+
+/atom/proc/AIMiddleAltClick()
+	return
+
+/atom/proc/AIMiddleAltShiftClick()
 	return
 
 /mob/living/silicon/ai/TurfAdjacent(turf/T)
@@ -184,10 +204,16 @@
 
 /obj/machinery/power/apc/AICtrlClick(mob/living/user) // turns off/on APCs.
 	if(!can_use(user))
-		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
 		return
 	toggle_breaker(user)
 
+/obj/machinery/power/apc/AIShiftClick(mob/living/user) // Bolt all Airlocks in APC room.
+	if(!can_use(user))
+		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
+		return
+	for(var/obj/machinery/door/airlock/A in area.machinery_cache)
+		A.AICtrlClick(user)
 
 // TURRETCONTROL
 
@@ -243,3 +269,45 @@
 /obj/machinery/ai_slipper/ai_click_alt(mob/living/silicon/ai/user) //Dispenses liquid if on
 	Activate()
 	return CLICK_ACTION_SUCCESS
+
+// AREAS
+
+/mob/living/silicon/ai/proc/MiddleControlClickOn(atom/A)
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.AICtrlClick(src)
+
+/mob/living/silicon/ai/MiddleShiftClickOn(atom/A)
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.AIShiftClick(src)
+
+/mob/living/silicon/ai/proc/MiddleAltClickOn(atom/A)
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.ai_click_alt(src)
+
+/mob/living/silicon/ai/proc/MiddleShiftAltClickOn(atom/A)
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.AIAltShiftClick(src)

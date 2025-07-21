@@ -459,8 +459,8 @@
 	var/strap_side_straight = FALSE
 
 /obj/item/storage/backpack/satchel/verb/switch_strap()
-	set name = "Switch Strap Side"
-	set category = "Object"
+	set name = "Перекинуть ремешок"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -919,7 +919,7 @@
 
 //Solgov
 /obj/item/storage/backpack/ert/solgov
-	name = "\improper TSF marine backpack"
+	name = "TSF marine backpack"
 	desc = "A spacious backpack with lots of pockets, worn by marines of the Trans-Solar Federation."
 	icon_state = "ert_solgov"
 

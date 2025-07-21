@@ -163,7 +163,7 @@
 
 
 /obj/item/clothing/head/helmet/swat
-	name = "\improper SWAT helmet"
+	name = "SWAT helmet"
 	desc = "They're often used by highly trained Swat Members."
 	icon_state = "swat"
 	item_state = "swat"
@@ -192,7 +192,7 @@
 	item_state = "helmet"
 
 /obj/item/clothing/head/helmet/thunderdome
-	name = "\improper Thunderdome helmet"
+	name = "Thunderdome helmet"
 	desc = "<i>'Let the battle commence!'</i>"
 	icon_state = "thunderdome"
 	item_state = "thunderdome"
@@ -315,7 +315,15 @@
 
 /obj/item/clothing/head/helmet/skull
 	name = "skull helmet"
-	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
+	desc = "Этот шлем, который выглядит устрашающе и походит на племенной, кажется не очень удобным."
+	ru_names = list(
+		NOMINATIVE = "костяной шлем",
+		GENITIVE = "костяного шлема",
+		DATIVE = "костяному шлему",
+		ACCUSATIVE = "костяной шлем",
+		INSTRUMENTAL = "костяным шлемом",
+		PREPOSITIONAL = "костяном шлеме"
+	)
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDENAME
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 45, "bullet" = 30, "laser" = 30, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)

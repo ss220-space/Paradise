@@ -1,22 +1,24 @@
 /*
-/mob/living/carbon/human/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/carbon/human/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	..(message, sanitize = sanitize, ignore_speech_problems = ignore_speech_problems, ignore_atmospherics = ignore_atmospherics)	//ohgod we should really be passing a datum here.
 */
 
 /mob/living/carbon/human/GetAltName()
 	if(name != GetVoice())
-		return " (as [get_id_name("Unknown")])"
+		return " (как [get_id_name("Unknown")])"
 	return ..()
 
 
-/mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
+/mob/living/carbon/human/say_understands(atom/movable/other, datum/language/speaking = null)
 	if(dna?.species?.can_understand(other))
 		return TRUE
 
-	//These only pertain to common. Languages are handled by mob/say_understands()
-	if(!speaking)
-		if(isnymph(other) && LAZYLEN(other.languages) >= 2)	//They've sucked down some blood and can speak common now.
-			return TRUE
+	// These only pertain to common. Languages are handled by mob/say_understands()
+	if(!speaking && ismob(other))
+		if(isnymph(other))
+			var/mob/nymph = other
+			if(length(nymph.languages) >= 2) // They've sucked down some blood and can speak common now.
+				return TRUE
 		if(issilicon(other) || isbot(other) || isbrain(other) || isslime(other))
 			return TRUE
 
@@ -95,7 +97,7 @@
 	if(TRAIT_NO_VOCAL_CORDS in dna?.species.inherent_traits)
 		return FALSE
 
-	// how do species that don't breathe talk? magic, that's what.
+	// How do species that don't breathe talk? magic, that's what.
 	var/breathes = !HAS_TRAIT(src, TRAIT_NO_BREATH)
 	var/obj/item/organ/internal/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 	if((breathes && !lungs) || (breathes && lungs && lungs.is_dead()))

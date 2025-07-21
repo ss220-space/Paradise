@@ -16,9 +16,6 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	/// Used for CentCom announcement when reached crew limit conversion
 	var/reveal_percent
 
-/proc/isclocker(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.clockwork_cult)
-
 /proc/is_convertable_to_clocker(datum/mind/mind)
 	if(!mind)
 		return FALSE
@@ -103,6 +100,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(clockwork_mind.current)
 
+		clockwork_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
+
 		add_clock_actions(clockwork_mind)
 		update_clock_icons_added(clockwork_mind)
 		clocker_objs.study(clockwork_mind.current)
@@ -147,10 +146,10 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	var/clockers = 0
 	var/constructs = 0
 	for(var/I in clockwork_cult)
-		var/datum/mind/M = I
-		if(ishuman(M.current))
+		var/datum/mind/mind = I
+		if(ishuman(mind.current) && !mind.madeby_sentience_potion)
 			clockers++
-		else if(istype(M.current, /mob/living/simple_animal/hostile/clockwork/marauder) && isclocker(M.current))
+		else if(ismarauder(mind.current) && isclocker(mind.current))
 			constructs++
 	if(separate)
 		return list(clockers, constructs)
@@ -217,6 +216,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 		adjust_clockwork_power(CLOCK_POWER_CONVERT)
 
+		clock_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
+
 		if(power_reveal)
 			powered(clock_mind.current)
 			powered_borgs(clock_mind.current)
@@ -237,7 +238,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			if(!ishuman(M.current))
 				powered_borgs(M.current)
 				continue
-			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
+			SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
 			to_chat(M.current, span_clocklarge("The veil begins to stutter in fear as the power of Ratvar grows, your hands begin to glow..."))
 			addtimer(CALLBACK(src, PROC_REF(powered), M.current), 20 SECONDS)
 
@@ -260,12 +261,15 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		for(var/datum/mind/M in clockwork_cult)
 			if(!M.current)
 				continue
-			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
+			SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
 			if(!ishuman(M.current))
 				continue
 			to_chat(M.current, span_clocklarge("Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!"))
 			addtimer(CALLBACK(src, PROC_REF(clocked), M.current), 20 SECONDS)
-		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+										ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/commandreport.ogg'
+		)
 		log_game("Clockwork cult reveal. Powergame allowed.")
 
 /datum/game_mode/proc/powered(clocker)
@@ -283,8 +287,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(ishuman(clocker) && isclocker(clocker))
 		var/mob/living/carbon/human/H = clocker
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(H), H.dir)
-		H.update_halo_layer()
-
+		SEND_SIGNAL(H, COMSIG_MOB_HALO_GAINED)
 
 /datum/game_mode/proc/remove_clocker(datum/mind/clock_mind, show_message = TRUE)
 	if(!(clock_mind in clockwork_cult))
@@ -302,6 +305,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 	if(ishuman(clocker))
 		var/mob/living/carbon/human/H = clocker
+		clock_mind.current.RemoveElement(/datum/element/halo_attach)
 		REMOVE_TRAIT(H, CLOCK_HANDS, null)
 		H.change_eye_color(H.original_eye_color, FALSE)
 		H.update_eyes()
@@ -343,7 +347,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	else
 		SSticker.mode_result = "clockwork cult loss - staff stopped the cult"
 
-	var/endtext
+	var/list/endtext = list()
 	endtext += "<br><b>The clockers' objectives were:</b>"
 	endtext += "<br>[clocker_objs.obj_demand.explanation_text] - "
 	if(!clocker_objs.obj_demand.check_completion())
@@ -358,5 +362,11 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		else
 			endtext += "<font color='green'><b>Success!</b></font>"
 
-	to_chat(world, endtext)
+	to_chat(world, endtext.Join(""))
 	. = ..()
+
+/proc/isclocker(mob/living/user)
+	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.clockwork_cult)
+
+/proc/isclocker_ascended(mob/living/user)
+	return isclocker(user) && SSticker.mode.crew_reveal

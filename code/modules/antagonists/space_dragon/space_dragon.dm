@@ -223,7 +223,7 @@
  * If the name is invalid, will re-prompt the dragon until a proper name is chosen.
  */
 /mob/living/simple_animal/hostile/space_dragon/proc/dragon_name()
-	var/chosen_name = reject_bad_name(input(src, "Какое имя вы хотите задать?", "Выбор имени", real_name))
+	var/chosen_name = reject_bad_name(tgui_input_text(src, "Какое имя вы хотите задать?", "Выбор имени", real_name))
 	if(!chosen_name)
 		to_chat(src, span_warning("Это имя некорректно, попробуйте ещё раз."))
 		dragon_name()

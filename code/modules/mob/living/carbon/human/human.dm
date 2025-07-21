@@ -8,7 +8,7 @@
 		tts_seed = SStts.get_random_seed(src)
 
 	// Physiology needs to be created before species, as some species modify physiology
-	physiology = new()
+	physiology = new(src)
 
 	setup_dna(new_species)
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
@@ -211,8 +211,8 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 
-	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
-	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
+	status_tab_data[++status_tab_data.len] = list("Намерение:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Режим передвижения:", "[m_intent]")
 
 	var/total_user_contents = GetAllContents() // cache it
 	if(locate(/obj/item/gps) in total_user_contents)
@@ -486,7 +486,7 @@
 			forcesay()
 		if(undergoing_cardiac_arrest() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			if(set_heartattack(FALSE) && stat == CONSCIOUS)
-				to_chat(src, span_notice("You feel your heart beating again!"))
+				to_chat(src, span_notice("Вы чувствуете, как ваше сердце вновь бьется!"))
 
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 
@@ -503,8 +503,8 @@
 				return
 			var/time_taken = thing.embedded_unsafe_removal_time * thing.w_class
 			usr.visible_message(
-				span_warning("[usr] attempts to remove [thing] from [usr.p_their()] [bodypart.name]."),
-				span_notice("You attempt to remove [thing] from your [bodypart.name]... (It will take [time_taken/10] seconds.)"),
+				span_warning("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
+				span_notice("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]... (Это займет [time_taken/10] секунд.)"),
 			)
 			if(do_after(usr, time_taken, src))
 				if(QDELETED(thing) || QDELETED(bodypart) || thing.loc != bodypart || !LAZYIN(bodypart.embedded_objects, thing))
@@ -517,8 +517,8 @@
 					if(h_user.has_pain())
 						h_user.emote("scream")
 				usr.visible_message(
-					span_warning("[usr] successfully rips [thing] out of [usr.p_their()] [bodypart.name]!"),
-					span_notice("You successfully remove [thing] from your [bodypart.name]."),
+					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]!"),
+					span_notice("Вы успешно извлекли [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
 				)
 			return
 
@@ -539,7 +539,7 @@
 								var/setcriminal = tgui_input_list(usr, "Specify a new criminal status for this person.", "Security HUD", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
 								if(!setcriminal)
 									return
-								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
+								var/t1 = tgui_input_text(usr, "Enter Reason:", "Security HUD", null, max_length = MAX_MESSAGE_LEN)
 								if(!t1)
 									t1 = "(none)"
 
@@ -554,7 +554,7 @@
 											rank = U.get_assignment()
 										else if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
-											rank = "[U.modtype] [U.braintype]"
+											rank = "[U.modtype?.name] [U.braintype]"
 										else if(isAI(usr))
 											rank = JOB_TITLE_AI
 										set_criminal_status(usr, R, setcriminal, t1, rank)
@@ -633,7 +633,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.general)
 						if(R.fields["id"] == E.fields["id"])
-							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
+							var/setmedical = tgui_input_list(usr, "Specify a new medical status for this person.", "Medical HUD", list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel"), R.fields["p_stat"])
 
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 								if(setmedical != "Cancel")
@@ -1274,8 +1274,8 @@
 	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null
 
 /mob/living/carbon/human/proc/bloody_doodle()
-	set category = "IC"
-	set name = "Write in blood"
+	set category = STATPANEL_IC
+	set name = "Рисовать кровью"
 	set desc = "Use blood on your hands to write a short message on the floor or a wall, murder mystery style."
 
 	if(usr != src)
@@ -1296,7 +1296,7 @@
 		return
 
 	var/turf/origin = T
-	var/direction = input(src,"Which way?","Tile selection") as anything in list("Here","North","South","East","West")
+	var/direction = tgui_input_list(src, "Which way?", "Tile selection", list("Here", "North", "South", "East", "West"))
 	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
 	if(!istype(T))
@@ -1789,14 +1789,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/fakefire()
-	if(!overlays_standing[FIRE_LAYER])
-		overlays_standing[FIRE_LAYER] = image(FIRE_DMI(src), icon_state = "Generic_mob_burning")
-		update_icons()
+	ADD_TRAIT(src, TRAIT_FAKE_FIRE, FAKEFIRE_TRAIT)
+	update_fire()
 
 /mob/living/carbon/human/fakefireextinguish()
-	overlays_standing[FIRE_LAYER] = null
-	update_icons()
-
+	REMOVE_TRAIT(src, TRAIT_FAKE_FIRE, FAKEFIRE_TRAIT)
+	update_fire()
 
 /mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
 	for(var/block = 1; block <= DNA_SE_LENGTH; block++)
@@ -1837,16 +1835,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/verb/pose()
-	set name = "Set Pose"
+	set name = "Задать позу"
 	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
-	set category = "IC"
+	set category = STATPANEL_IC
 
 	pose = tgui_input_text(usr, "Это [src]. [p_they(TRUE)] [p_are()]...", "Pose", pose)
 
 /mob/living/carbon/human/verb/set_flavor()
-	set name = "Set Flavour Text"
+	set name = "Описание внешности"
 	set desc = "Устанавливает подробное описание внешности вашего персонажа."
-	set category = "IC"
+	set category = STATPANEL_IC
 
 	update_flavor_text()
 

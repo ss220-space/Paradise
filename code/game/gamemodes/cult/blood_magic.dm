@@ -365,7 +365,7 @@
 
 // The "magic hand" items
 /obj/item/melee/blood_magic
-	name = "\improper magical aura"
+	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -920,7 +920,7 @@
 			if(uses < BLOOD_ORB_COST)
 				to_chat(user, span_warning("You need [BLOOD_ORB_COST] charges to perform this rite."))
 			else
-				var/ammount = input("How much blood would you like to transfer? You have [uses] blood.", "How much blood?", 50) as null|num
+				var/ammount = tgui_input_number(usr, "How much blood would you like to transfer? You have [uses] blood.", "How much blood?", 50)
 				if(ammount < 50) // No 1 blood orbs, 50 or more.
 					to_chat(user, span_warning("You need to give up at least 50 blood."))
 					return

@@ -132,7 +132,7 @@
 	alcohol_perc = 1
 	drink_icon = "glass_brown2"
 	drink_name = "стакан самогона"
-	drink_desc = "Теперь вы действительно на дне... Вага печень собрала свои вещи и уехала прошлой ночью."
+	drink_desc = "Теперь вы действительно на дне... Ваша печень собрала свои вещи и уехала прошлой ночью."
 	taste_description = "чистого смирения"
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)

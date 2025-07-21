@@ -455,7 +455,7 @@
 			if(empty_slots < 1)
 				to_chat(owner, span_notice("You have no available slots."))
 				return
-			var/voice_name = input(owner, "Choose a name for slot.", "Mimicking") as text|null
+			var/voice_name = tgui_input_text(owner, "Choose a name for slot.", "Mimicking")
 			if(!voice_name)
 				return
 			var/voice_seed = tgui_input_list(owner, "Choose a voice for slot", "Mimicking", available_voices, owner.tts_seed)
@@ -501,8 +501,8 @@
 	return list("name" = name, "voice" = voice, "selected" = selected, "id" = UID())
 
 /mob/living/carbon/human/proc/mimicking(var/mob/living/carbon/human/H)
-	set name = "Mimic voice"
-	set category = "IC"
+	set name = "Имитировать голос"
+	set category = STATPANEL_IC
 	if(!H)
 		to_chat(usr, span_notice("Use right click to choose target correctly."))
 	var/datum/action/innate/mimicking/mimic = locate(/datum/action/innate/mimicking) in usr.actions

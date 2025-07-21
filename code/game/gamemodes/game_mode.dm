@@ -276,13 +276,6 @@
 
 
 /**
- * Universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
- */
-/datum/game_mode/proc/check_win()
-	return FALSE
-
-
-/**
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
  * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
  */
@@ -293,7 +286,7 @@
 	// Assemble a list of active players without jobbans and role enabled
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(!player.client || !player.ready || !player.has_valid_preferences() \
-			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
+			|| jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, role) \
 			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
@@ -329,7 +322,7 @@
 	// Assemble a list of active players without jobbans and role enabled
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
 		if(!player.client \
-			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
+			|| jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, role) \
 			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special) || !is_player_station_relevant(player))
 			continue
@@ -363,7 +356,7 @@
 	. = list()
 	for(var/mob/living/silicon/ai/AI in GLOB.alive_mob_list)
 		if(!AI.client || !AI.mind \
-			|| jobban_isbanned(AI, "Syndicate") || jobban_isbanned(AI, role) \
+			|| jobban_isbanned(AI, ROLE_SYNDICATE) || jobban_isbanned(AI, role) \
 			|| !player_old_enough_antag(AI.client, role, JOB_TITLE_AI) || AI.client.prefs?.skip_antag \
 			|| !(role in AI.client.prefs.be_special) || AI.stat == DEAD || AI.control_disabled \
 			|| AI.mind.offstation_role || AI.mind.special_role)
@@ -577,16 +570,12 @@
 
 
 /proc/get_nuke_code()
-	var/nukecode = "ERROR"
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
-		if(bomb?.r_code && is_station_level(bomb.z))
-			nukecode = bomb.r_code
-	return nukecode
+	return GLOB.nuke_codes[/obj/machinery/nuclearbomb]
 
 
 /proc/get_nuke_status()
 	var/nuke_status = NUKE_MISSING
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 		if(is_station_level(bomb.z))
 			nuke_status = NUKE_CORE_MISSING
 			if(bomb.core)
@@ -607,7 +596,7 @@
 	else
 		log_game("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take player's place.")
 		message_admins("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [player.p_their()] place.")
-		to_chat(player, span_dangerbigger("You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban."))
+		to_chat(player, span_biggerdanger("You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban."))
 
 /proc/printplayer(datum/mind/player, flee_check)
 	var/jobtext = ""
@@ -660,9 +649,9 @@
 	var/count = 1
 	for(var/datum/objective/objective in player.get_all_objectives())
 		if(objective.check_completion())
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_greentext("Success!")]"
 		else
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_redtext("Fail")]"
 		count++
 
 	return objective_parts.Join("<br>")
@@ -674,6 +663,9 @@
 	for(var/T in subtypesof(/datum/station_goal))
 		var/datum/station_goal/goal = new T
 		if(config_tag in goal.gamemode_blacklist)
+			continue
+
+		if(!goal.can_gain())
 			continue
 
 		possible += goal
@@ -723,6 +715,32 @@
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
 
+/// Gets the value of all end of round stats through auto_declare and returns them
+/datum/game_mode/proc/get_end_of_round_antagonist_statistics()
+	. = list()
+	. += auto_declare_completion_traitor()
+	. += auto_declare_completion_vampire()
+	. += auto_declare_completion_enthralled()
+	. += auto_declare_completion_changeling()
+	. += auto_declare_completion_wizard()
+	. += auto_declare_completion_revolution()
+	. += auto_declare_completion_abduction()
+	. += auto_declare_completion_morph()
+	. += auto_declare_completion_revenant()
+	. += auto_declare_completion_honksquad()
+	. += auto_declare_completion_deathsquad()
+	. += auto_declare_completion_sst()
+	. += auto_declare_completion_sit()
+	. += auto_declare_completion_blob()
+	. += auto_declare_completion_heist()
+	. += auto_declare_completion_ninja()
+	. += auto_declare_completion_thief()
+	. += auto_declare_completion_goon_vampire()
+	. += auto_declare_completion_goon_enthralled()
+	. += auto_declare_completion_devil()
+	. += auto_declare_completion_sintouched()
+	listclearnulls(.)
+
 /datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
 	if(istype(god, /obj/singularity/god/narsie))
 		return SSticker.cultdat.apocalypse_cinema
@@ -733,16 +751,25 @@
 	return FALSE
 
 /datum/game_mode/proc/apocalypse()
-	set_security_level(SEC_LEVEL_DELTA)
-	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Моделирование пути противостояния угрозе начато, ожидайте.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+	GLOB.major_announcement.announce("Обнаружена угроза класса \"Разрушитель миров\". Моделирование пути противостояния угрозе начато, ожидайте.",
+									ANNOUNCE_CCPARANORMAL_RU,
+									'sound/AI/commandreport.ogg'
+	)
 	sleep(50 SECONDS)
-	GLOB.priority_announcement.Announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	GLOB.major_announcement.announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.",
+									ANNOUNCE_CCPARANORMAL_RU,
+									'sound/AI/commandreport.ogg'
+	)
 	sleep(30 SECONDS)
 
 	var/obj/singularity/god/god = locate(/obj/singularity/god) in GLOB.poi_list
 
 	if(!god)
-		GLOB.priority_announcement.Announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+		GLOB.minor_announcement.announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.",
+										ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/commandreport.ogg'
+		)
 		SSshuttle.emergency.request(null, 0.3)
 		SSshuttle.emergency.canRecall = FALSE
 		return

@@ -2,7 +2,7 @@
 #define SPEAK_COOLDOWN 10 SECONDS
 
 /mob/living/simple_animal/bot/secbot
-	name = "\improper Securitron"
+	name = "Securitron"
 	desc = "Маленький охранный робот. Он выглядит абсолютно спокойным."
 	ru_names = list(
 		NOMINATIVE = "охранный робот",
@@ -410,8 +410,8 @@
 
 
 /mob/living/simple_animal/bot/secbot/verb/toggle_flashing_lights()
-	set name = "Toggle Flashing Lights"
-	set category = "Object"
+	set name = "Вкл/выкл фонарик"
+	set category = STATPANEL_OBJECT
 	set src = usr
 
 	flashing_lights = !flashing_lights

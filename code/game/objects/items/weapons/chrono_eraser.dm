@@ -124,6 +124,10 @@
 	nodamage = TRUE
 	var/obj/item/gun/energy/chrono_gun/gun = null
 
+/obj/projectile/energy/chrono_beam/Destroy()
+	gun = null
+	. = ..()
+
 /obj/projectile/energy/chrono_beam/fire()
 	gun = firer.get_active_hand()
 	if(istype(gun))

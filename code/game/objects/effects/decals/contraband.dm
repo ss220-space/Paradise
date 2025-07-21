@@ -5,7 +5,15 @@
 
 /obj/item/poster
 	name = "rolled-up poster"
-	desc = "The poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	ru_names = list(
+		NOMINATIVE = "свёрнутый постер",
+		GENITIVE = "свёрнутого постера",
+		DATIVE = "свёрнутому постеру",
+		ACCUSATIVE = "свёрнутый постер",
+		INSTRUMENTAL = "свёрнутым постером",
+		PREPOSITIONAL = "свёрнутом постере"
+	)
+	desc = "Постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах НаноТрейзен."
 	icon = 'icons/obj/contraband.dmi'
 	force = 0
 	resistance_flags = FLAMMABLE
@@ -57,7 +65,15 @@
 
 /obj/structure/sign/poster
 	name = "poster"
-	desc = "A large piece of space-resistant printed paper."
+	ru_names = list(
+		NOMINATIVE = "постер",
+		GENITIVE = "постера",
+		DATIVE = "постеру",
+		ACCUSATIVE = "постер",
+		INSTRUMENTAL = "постером",
+		PREPOSITIONAL = "постере"
+	)
+	desc = "Большой лист устойчивой к космическим условиям печатной бумаги."
 	icon = 'icons/obj/contraband.dmi'
 	anchored = TRUE
 	var/original_name
@@ -75,8 +91,8 @@
 		randomise(random_basetype)
 	if(!ruined)
 		original_name = name
-		name = "poster - [name]"
-		desc = "A large piece of space-resistant printed paper. [desc]"
+		name = "Постер – [name]"
+		desc = "Большой лист устойчивой к космическим условиям печатной бумаги. [desc]"
 
 /obj/structure/sign/poster/proc/randomise(base_type)
 	var/list/poster_types = subtypesof(base_type)
@@ -104,16 +120,16 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(ruined)
-		to_chat(user, "<span class='notice'>You remove the remnants of the poster.</span>")
+		balloon_alert(user, "вы убираете остатки постера")
 		qdel(src)
 	else
-		to_chat(user, "<span class='notice'>You carefully remove the poster from the wall.</span>")
+		balloon_alert(user, "вы аккуратно снимаете постер")
 		roll_and_drop(user.loc)
 
 /obj/structure/sign/poster/attack_hand(mob/user)
 	if(ruined)
 		return
-	visible_message("[user] rips [src] in a single, decisive motion!" )
+	visible_message("[user] разрывает [declent_ru(NOMINATIVE)] одним решительным движением!")
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 100, 1)
 
 	var/obj/structure/sign/poster/ripped/R = new(loc)
@@ -141,14 +157,14 @@
 	var/stuff_on_wall = 0
 	for(var/obj/O in contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O, /obj/structure/sign/poster))
-			to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
+			balloon_alert(user, "нет места!")
 			return
 		stuff_on_wall++
 		if(stuff_on_wall >= 4)
-			to_chat(user, "<span class='notice'>The wall is far too cluttered to place a poster!</span>")
+			balloon_alert(user, "нет места!")
 			return
 
-		to_chat(user, "<span class='notice'>You start placing the poster on the wall...</span>")//Looks like it's uncluttered enough. Place the poster.
+		balloon_alert(user, "размещение...") //Looks like it's uncluttered enough. Place the poster.
 
 	var/obj/structure/sign/poster/D = P.poster_structure
 
@@ -168,7 +184,7 @@
 			D.pixel_x = -32
 			D.pixel_y = 0
 		else
-			to_chat(user, "<span class='notice'>You cannot reach the wall from here!</span>")
+			balloon_alert(user, "слишком далеко!")
 			return
 
 	P.transfer_fingerprints_to(D)
@@ -182,10 +198,10 @@
 			return
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
-			to_chat(user, "<span class='notice'>You place the poster!</span>")
+			balloon_alert(user, "постер размещён")
 			return
 
-	to_chat(user, "<span class='notice'>The poster falls down!</span>")
+	balloon_alert(user, "постер упал!")
 	D.roll_and_drop(temp_loc, user)
 
 
@@ -195,7 +211,15 @@
 	ruined = TRUE
 	icon_state = "poster_ripped"
 	name = "ripped poster"
-	desc = "You can't make out anything from the poster's original print. It's ruined."
+	ru_names = list(
+		NOMINATIVE = "порванный постер",
+		GENITIVE = "порванного постера",
+		DATIVE = "порванному постеру",
+		ACCUSATIVE = "порванный постер",
+		INSTRUMENTAL = "порванным постером",
+		PREPOSITIONAL = "порванном постере"
+	)
+	desc = "Вы не можете разобрать, что было изображено на постере. Он испорчен."
 
 /obj/structure/sign/poster/random
 	name = "random poster" // could even be ripped
@@ -206,7 +230,15 @@
 //contraband posters
 /obj/structure/sign/poster/contraband
 	poster_item_name = "contraband poster"
-	poster_item_desc = "This poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	ru_names = list(
+		NOMINATIVE = "контрабандный постер",
+		GENITIVE = "контрабандного постера",
+		DATIVE = "контрабандному постеру",
+		ACCUSATIVE = "контрабандный постер",
+		INSTRUMENTAL = "контрабандным постером",
+		PREPOSITIONAL = "контрабандном постере"
+	)
+	poster_item_desc = "Этот постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах НаноТрейзен."
 	poster_item_icon_state = "rolled_poster"
 
 /obj/structure/sign/poster/contraband/random
@@ -216,219 +248,227 @@
 	random_basetype = /obj/structure/sign/poster/contraband
 
 /obj/structure/sign/poster/contraband/free_tonto
-	name = "Free Tonto"
-	desc = "A salvaged shred of a much larger flag, colors bled together and faded from age."
+	name = "Освободите Тонто"
+	desc = "Спасённый обрывок гораздо большего флага, цвета слились и выцвели от времени."
 	icon_state = "poster1"
 
 /obj/structure/sign/poster/contraband/atmosia_independence
-	name = "Atmosia Declaration of Independence"
-	desc = "A relic of a failed rebellion."
+	name = "Декларация независимости Атмосии"
+	desc = "Реликвия неудавшегося восстания."
 	icon_state = "poster2"
 
 /obj/structure/sign/poster/contraband/fun_police
 	name = "Fun Police"
-	desc = "A poster condemning the station's security forces."
+	desc = "Постер, осуждающий силы безопасности станции."
 	icon_state = "poster3"
 
 /obj/structure/sign/poster/contraband/lusty_xenomorph
-	name = "Lusty Xenomorph"
-	desc = "A heretical poster depicting the titular star of an equally heretical book."
+	name = "Похотливый Ксеноморф"
+	desc = "Еретический постер, изображающий главную звезду столь же еретической книги."
 	icon_state = "poster4"
 
 /obj/structure/sign/poster/contraband/syndicate_recruitment
-	name = "Syndicate Recruitment"
-	desc = "See the galaxy! Shatter corrupt megacorporations! Join today!"
+	name = "Набор в Синдикат"
+	desc = "Увидьте галактику! Разрушьте коррумпированные мегакорпорации! Вступайте сегодня!"
 	icon_state = "poster5"
 
 /obj/structure/sign/poster/contraband/clown
-	name = "Clown"
-	desc = "Honk."
+	name = "Клоун"
+	desc = "Хонк."
 	icon_state = "poster6"
 
 /obj/structure/sign/poster/contraband/smoke
-	name = "Smoke"
-	desc = "A poster advertising a rival corporate brand of cigarettes."
+	name = "Курите"
+	desc = "Постер, рекламирующий сигареты конкурирующей корпорации."
 	icon_state = "poster7"
 
 /obj/structure/sign/poster/contraband/grey_tide
 	name = "Grey Tide"
-	desc = "A rebellious poster symbolizing assistant solidarity."
+	desc = "Мятежный постер, символизирующий солидарность ассистентов."
 	icon_state = "poster8"
 
 /obj/structure/sign/poster/contraband/missing_gloves
-	name = "Missing Gloves"
-	desc = "This poster references the uproar that followed Nanotrasen's financial cuts toward insulated-glove purchases."
+	name = "Пропавшие перчатки"
+	desc = "Этот постер ссылается на возмущение, вызванное сокращением финансирования НаноТрейзен на покупку изолированных перчаток."
 	icon_state = "poster9"
 
 /obj/structure/sign/poster/contraband/hacking_guide
-	name = "Hacking Guide"
-	desc = "This poster details the internal workings of the common Nanotrasen airlock. Sadly, it appears out of date."
+	name = "Руководство по взлому"
+	desc = "Этот постер подробно описывает внутреннюю работу стандартного шлюза НаноТрейзен. К сожалению, он устарел."
 	icon_state = "poster10"
 
 /obj/structure/sign/poster/contraband/rip_badger
-	name = "RIP Badger"
-	desc = "This seditious poster references Nanotrasen's genocide of a space station full of badgers."
+	name = "Покойся с миром, Барсук"
+	desc = "Этот мятежный постер ссылается на геноцид НаноТрейзен целой космической станции, полной барсуков."
 	icon_state = "poster11"
 
 /obj/structure/sign/poster/contraband/ambrosia_vulgaris
-	name = "Ambrosia Vulgaris"
-	desc = "This poster is lookin' pretty trippy man."
+	name = "Амброзия Вульгарис"
+	desc = "Этот постер выглядит довольно трипово, чувак."
 	icon_state = "poster12"
 
 /obj/structure/sign/poster/contraband/donut_corp
 	name = "Donut Corp."
-	desc = "This poster is an unauthorized advertisement for Donut Corp."
+	desc = "Этот постер является несанкционированной рекламой Донат Корп."
 	icon_state = "poster13"
 
 /obj/structure/sign/poster/contraband/eat
-	name = "EAT."
-	desc = "This poster promotes rank gluttony."
+	name = "ЕШЬ"
+	desc = "Этот постер пропагандирует безудержное обжорство."
 	icon_state = "poster14"
 
 /obj/structure/sign/poster/contraband/tools
-	name = "Tools"
-	desc = "This poster looks like an advertisement for tools, but is in fact a subliminal jab at the tools at CentComm."
+	name = "Инструменты"
+	desc = "Этот постер выглядит как реклама инструментов, но на самом деле это скрытый выпад в адрес инструментов ЦК."
 	icon_state = "poster15"
 
 /obj/structure/sign/poster/contraband/power
-	name = "Power"
-	desc = "A poster that positions the seat of power outside Nanotrasen."
+	name = "Мощь"
+	desc = "Плакат сообщает, что не только у НаноТразен есть сила."
 	icon_state = "poster16"
 
 /obj/structure/sign/poster/contraband/power_people
-	name = "Power to the people"
-	desc = "Screw those EDF guys!"
+	name = "Власть народу"
+	desc = "К чёрту этих парней из EDF!"
 	icon_state = "poster17"
 
 /obj/structure/sign/poster/contraband/communist_state
-	name = "Communist State"
-	desc = "All hail the Communist party!"
+	name = "Коммунистическое государство"
+	desc = "Да здравствует Коммунистическая партия!"
 	icon_state = "poster18"
 
 /obj/structure/sign/poster/contraband/lamarr
-	name = "Lamarr"
-	desc = "This poster depicts Lamarr. Probably made by a traitorous Research Director."
+	name = "Ламарр"
+	desc = "Этот постер изображает Ламарра. Вероятно, создан Директором Исследований, работавшим на Синдикат."
 	icon_state = "poster19"
 
 /obj/structure/sign/poster/contraband/borg_fancy_1
-	name = "Borg Fancy"
-	desc = "Being fancy can be for any borg, just need a suit."
+	name = "Элегантный борг"
+	desc = "Быть элегантным может любой борг, нужен только костюм."
 	icon_state = "poster20"
 
 /obj/structure/sign/poster/contraband/borg_fancy_2
-	name = "Borg Fancy v2"
-	desc = "Borg Fancy, Now only taking the most fancy."
+	name = "Элегантный борг v2"
+	desc = "Элегантный борг, теперь только для самых стильных."
 	icon_state = "poster21"
 
 /obj/structure/sign/poster/contraband/kss13
-	name = "Kosmicheskaya Stantsiya 13 Does Not Exist"
-	desc = "A poster mocking CentComm's denial of the existence of the derelict station near Space Station 13."
+	name = "Космической Станции 13 не существует"
+	desc = "Постер, высмеивающий отрицание ЦК существования заброшенной Космической Станции 13."
 	icon_state = "poster22"
 
 /obj/structure/sign/poster/contraband/rebels_unite
-	name = "Rebels Unite"
-	desc = "A poster urging the viewer to rebel against Nanotrasen."
+	name = "Повстанцы, объединяйтесь"
+	desc = "Постер, призывающий восстать против НаноТрейзен."
 	icon_state = "poster23"
 
 /obj/structure/sign/poster/contraband/c20r
 	name = "C-20r"
-	desc = "A poster advertising the Scarborough Arms C-20r."
+	desc = "Постер, рекламирующий пистолет-пулемёт C-20r от \"Скарборо Армс\"."
 	icon_state = "poster24"
 
 /obj/structure/sign/poster/contraband/have_a_puff
-	name = "Have a Puff"
-	desc = "Who cares about lung cancer when you're high as a kite?"
+	name = "Затянись"
+	desc = "Кого волнует рак лёгких, когда ты кайфуешь?"
 	icon_state = "poster25"
 
 /obj/structure/sign/poster/contraband/revolver
-	name = "Revolver"
-	desc = "Because seven shots are all you need."
+	name = "Револьвер"
+	desc = "Семь выстрелов хватит на всех."
 	icon_state = "poster26"
 
 /obj/structure/sign/poster/contraband/d_day_promo
-	name = "D-Day Promo"
-	desc = "A promotional poster for some rapper."
+	name = "Промо D-Day"
+	desc = "Рекламный постер какого-то рэпера."
 	icon_state = "poster27"
 
 /obj/structure/sign/poster/contraband/syndicate_pistol
-	name = "Syndicate Pistol"
-	desc = "A poster advertising syndicate pistols as being 'classy as fuck'. It is covered in faded gang tags."
+	name = "Пистолет Синдиката"
+	desc = "Этот постер рекламирует вам ахуенно-шикарные пистолеты синдиката."
 	icon_state = "poster28"
 
 /obj/structure/sign/poster/contraband/energy_swords
-	name = "Energy Swords"
-	desc = "All the colors of the bloody murder rainbow."
+	name = "Энергетические мечи"
+	desc = "Все цвета кровавой радуги убийств."
 	icon_state = "poster29"
 
 /obj/structure/sign/poster/contraband/red_rum
-	name = "Red Rum"
-	desc = "Looking at this poster makes you want to kill."
+	name = "Красный ром"
+	desc = "Взгляд на этот постер вызывает желание убивать."
 	icon_state = "poster30"
 
 /obj/structure/sign/poster/contraband/cc64k_ad
-	name = "CC 64K Ad"
-	desc = "The latest portable computer from Comrade Computing, with a whole 64kB of ram!"
+	name = "Реклама CC 64d"
+	desc = "Последний портативный компьютер от \"Комрад Тех\" с целыми 64 КБ оперативной памяти!"
 	icon_state = "poster31"
 
 /obj/structure/sign/poster/contraband/punch_shit
-	name = "Punch Shit"
-	desc = "Fight things for no reason, like a man!"
+	name = "Ломай всё"
+	desc = "Тебе не нужна причина, чтобы что-либо ударить, будь мужиком!"
 	icon_state = "poster32"
 
 /obj/structure/sign/poster/contraband/the_griffin
-	name = "The Griffin"
-	desc = "The Griffin commands you to be the worst you can be. Will you?"
+	name = "Гриффин"
+	desc = "Гриффин приказывает тебе быть мудаком настолько, насколько это возможно. Ты подчинишься?"
 	icon_state = "poster33"
 
 /obj/structure/sign/poster/contraband/pinup_syn
-	name = "Pinup Girl Cindy Kate"
-	desc = "This particular one is of Cindy Kate, a seductive performer well known among less savoury circles."
+	name = "Пин-ап девушка Синди Кейт"
+	desc = "Этот постер изображает Синди Кейт, соблазнительную исполнительницу, хорошо известную в менее приличных кругах."
 	icon_state = "poster34"
 
 /obj/structure/sign/poster/contraband/wanted
-	name = "Water Potassuimovich"
-	desc = "On the poster you can see: a bald, black-eyed men, age 30, and he is wanted in the vastness of the entire space. What did he do to be so wanted... "
+	name = "Вода Калиевич"
+	desc = "На постере изображён лысый мужчина с чёрными глазами, 30 лет, разыскиваемый по всей галактике. Что он сделал, чтобы быть таким разыскиваемым..."
 	icon_state = "poster35"
 
 /obj/structure/sign/poster/contraband/very_robust
-	name = "Very Robust"
-	desc = "You see a slightly battered poster, which shows a RED toolbox and the inscription \"Danger, very robust!\", some people say that this red paint on the poster is made of real blood."
+	name = "РОБАСТ"
+	desc = "Вы видите слегка потрёпанный постер, на котором изображён КРАСНЫЙ ящик для инструментов и надпись \"Осторожно, РОБАСТ!\". Некоторые говорят, что эта красная краска на постере сделана из настоящей крови."
 	icon_state = "poster36"
 
 /obj/structure/sign/poster/contraband/commando
-	name = "Commandos"
-	desc = "You see a muscular man in combat gear. Just the sight of this poster brings the scent of true masculinity."
+	name = "Коммандос"
+	desc = "Вы видите мускулистого мужчину в боевой экипировке. Сам вид этого постера вызывает запах настоящей маскулинности."
 	icon_state = "poster37"
 
 /obj/structure/sign/poster/contraband/lostcat
-	name = "Lost Cat"
-	desc = "Kisik got lost. Armed and dangerous."
+	name = "Пропала кошка"
+	desc = "Кисик пропал. Вооружён и опасен."
 	icon_state = "poster38"
 
 /obj/structure/sign/poster/contraband/bad_guy
-	name = "Bad Guy"
-	desc = "Smoking time. On a poster you can see grub with cigarette that promote people to have a cig and smoke on work."
+	name = "Плохой парень"
+	desc = "Время курить. На постере изображён парень с сигаретой, который призывает людей курить на работе."
 	icon_state = "poster39"
 
 /obj/structure/sign/poster/contraband/ninja
-	name = "Space Ninja"
-	desc = "This is a poster depicting the main character of the most popular animated series in the galaxy, \"Space Ninja\". The inscription on it says that the new season will start soon."
+	name = "Космический ниндзя"
+	desc = "Это постер, изображающий главного героя самого популярного анимационного сериала в галактике, \"Космический ниндзя\". Надпись на нём гласит, что новый сезон скоро начнётся."
 	icon_state = "poster40"
 
 /obj/structure/sign/poster/contraband/Enlist_Syndicate
-	name = "Enlist Syndicate"
-	desc = "See the galaxy! Shatter corrupt megacorporations! Get paid! Join today!"
+	name = "Вступайте в Синдикат"
+	desc = "Увидьте галактику! Разрушьте коррумпированные мегакорпорации! Получайте зарплату! Вступайте сегодня!"
 	icon_state = "poster41"
 
 /obj/structure/sign/poster/contraband/Enlist_Gorlex
-	name = "Enlist"
-	desc = "Enlist with the Gorlex Marauders today! See the galaxy, kill corpos, get paid!"
+	name = "Вступайте"
+	desc = "Вступайте в ряды Горлексских Мародёров сегодня! Увидьте галактику, убейте корпоратов, получите оплату!"
 	icon_state = "poster42"
 
 //official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
-	poster_item_desc = "An official Nanotrasen-issued poster to foster a compliant and obedient workforce. It comes with state-of-the-art adhesive backing, for easy pinning to any vertical surface."
+	ru_names = list(
+		NOMINATIVE = "мотивационный постер",
+		GENITIVE = "мотивационного постера",
+		DATIVE = "мотивационному постеру",
+		ACCUSATIVE = "мотивационный постер",
+		INSTRUMENTAL = "мотивационным постером",
+		PREPOSITIONAL = "мотивационном постере"
+	)
+	poster_item_desc = "Официальный постер от НаноТрейзен, призванный воспитывать покорную и послушную рабочую силу. Оснащён передовой клеевой основой для удобного крепления на любую вертикальную поверхность."
 	poster_item_icon_state = "rolled_poster_legit"
 
 /obj/structure/sign/poster/official/random
@@ -438,288 +478,296 @@
 	never_random = TRUE
 
 /obj/structure/sign/poster/official/here_for_your_safety
-	name = "Here For Your Safety"
-	desc = "A poster glorifying the station's security force."
+	name = "На страже вашей безопасности"
+	desc = "Постер, прославляющий службу безопасности станции."
 	icon_state = "poster1_legit"
 
 /obj/structure/sign/poster/official/nanotrasen_logo
-	name = "Nanotrasen Logo"
-	desc = "A poster depicting the Nanotrasen logo."
+	name = "Логотип НаноТрейзен"
+	desc = "Постер с изображением логотипа НаноТрейзен."
 	icon_state = "poster2_legit"
 
 /obj/structure/sign/poster/official/cleanliness
-	name = "Cleanliness"
-	desc = "A poster warning of the dangers of poor hygiene."
+	name = "Чистота"
+	desc = "Постер, предупреждающий об опасностях плохой гигиены."
 	icon_state = "poster3_legit"
 
 /obj/structure/sign/poster/official/help_others
-	name = "Help Others"
-	desc = "A poster encouraging you to help fellow crewmembers."
+	name = "Помогайте другим"
+	desc = "Постер, призывающий помогать другим членам экипажа."
 	icon_state = "poster4_legit"
 
 /obj/structure/sign/poster/official/build
-	name = "Build"
-	desc = "A poster glorifying the engineering team."
+	name = "Стройте"
+	desc = "Постер, прославляющий инженерную команду."
 	icon_state = "poster5_legit"
 
 /obj/structure/sign/poster/official/bless_this_spess
-	name = "Bless This Spess"
-	desc = "A poster blessing this area."
+	name = "Благослови это место"
+	desc = "Постер, благословляющий эту область."
 	icon_state = "poster6_legit"
 
 /obj/structure/sign/poster/official/science
-	name = "Science"
-	desc = "A poster depicting an atom."
+	name = "Наука"
+	desc = "Постер с изображением атома."
 	icon_state = "poster7_legit"
 
 /obj/structure/sign/poster/official/ian
-	name = "Ian"
-	desc = "Arf arf. Yap."
+	name = "Иан"
+	desc = "Гав-гав. Тяв!"
 	icon_state = "poster8_legit"
 
 /obj/structure/sign/poster/official/obey
-	name = "Obey"
-	desc = "A poster instructing the viewer to obey authority."
+	name = "Повинуйтесь"
+	desc = "Постер, призывающий зрителя подчиняться власти."
 	icon_state = "poster9_legit"
 
 /obj/structure/sign/poster/official/walk
-	name = "Walk"
-	desc = "A poster instructing the viewer to walk instead of running."
+	name = "Ходите"
+	desc = "Постер, призывающий зрителя ходить, а не бегать."
 	icon_state = "poster10_legit"
 
 /obj/structure/sign/poster/official/state_laws
-	name = "State Laws"
-	desc = "A poster instructing cyborgs to state their laws."
+	name = "Озвучь Законы"
+	desc = "Постер, призывающий киборгов озвучивать свои законы."
 	icon_state = "poster11_legit"
 
 /obj/structure/sign/poster/official/love_ian
-	name = "Love Ian"
-	desc = "Ian is love, Ian is life."
+	name = "Любите Иана"
+	desc = "Иан - это любовь, Иан - это жизнь."
 	icon_state = "poster12_legit"
 
 /obj/structure/sign/poster/official/space_cops
-	name = "Space Cops."
-	desc = "A poster advertising the television show Space Cops."
+	name = "Космические копы."
+	desc = "Постер, рекламирующий телешоу «Космические копы»."
 	icon_state = "poster13_legit"
 
 /obj/structure/sign/poster/official/ue_no
 	name = "Ue No."
-	desc = "This thing is all in Japanese."
+	desc = "Этот постер полностью на японском."
 	icon_state = "poster14_legit"
 
 /obj/structure/sign/poster/official/get_your_legs
-	name = "Get Your LEGS"
-	desc = "LEGS: Leadership, Experience, Genius, Subordination."
+	name = "Получи свои НОГИ"
+	desc = "НОГИ: Наука, Опыт, Гениальность, Идеология."
 	icon_state = "poster15_legit"
 
 /obj/structure/sign/poster/official/do_not_question
-	name = "Do Not Question"
-	desc = "A poster instructing the viewer not to ask about things they aren't meant to know."
+	name = "Не задавайте вопросов"
+	desc = "Постер, призывающий зрителя не задавать вопросы о том, что им не положено знать."
 	icon_state = "poster16_legit"
 
 /obj/structure/sign/poster/official/work_for_a_future
-	name = "Work For A Future"
-	desc = " A poster encouraging you to work for your future."
+	name = "Работайте ради будущего"
+	desc = "Постер, призывающий работать ради своего будущего."
 	icon_state = "poster17_legit"
 
 /obj/structure/sign/poster/official/soft_cap_pop_art
-	name = "Soft Cap Pop Art"
-	desc = "A poster reprint of some cheap pop art."
+	name = "Поп-арт с мягкой кепкой"
+	desc = "Постер-репродукция дешёвого поп-арта."
 	icon_state = "poster18_legit"
 
 /obj/structure/sign/poster/official/safety_internals
-	name = "Safety: Internals"
-	desc = "A poster instructing the viewer to wear internals in the rare environments where there is no oxygen or the air has been rendered toxic."
+	name = "Безопасность: Дыхательные аппараты"
+	desc = "Постер, призывающий зрителя носить дыхательные аппараты в редких условиях, где нет кислорода или воздух стал токсичным."
 	icon_state = "poster19_legit"
 
 /obj/structure/sign/poster/official/safety_eye_protection
-	name = "Safety: Eye Protection"
-	desc = "A poster instructing the viewer to wear eye protection when dealing with chemicals, smoke, or bright lights."
+	name = "Безопасность: Защита глаз"
+	desc = "Постер, призывающий зрителя носить защиту для глаз при работе с химикатами, дымом или ярким светом."
 	icon_state = "poster20_legit"
 
 /obj/structure/sign/poster/official/safety_report
-	name = "Safety: Report"
-	desc = "A poster instructing the viewer to report suspicious activity to the security force."
+	name = "Безопасность: Докладывайте"
+	desc = "Постер, призывающий зрителя докладывать о подозрительной деятельности службе безопасности."
 	icon_state = "poster21_legit"
 
 /obj/structure/sign/poster/official/report_crimes
-	name = "Report Crimes"
-	desc = "A poster encouraging the swift reporting of crime or seditious behavior to station security."
+	name = "Сообщайте о преступлениях"
+	desc = "Постер, призывающий быстро сообщать о преступлениях или мятежном поведении службе безопасности станции."
 	icon_state = "poster22_legit"
 
 /obj/structure/sign/poster/official/ion_rifle
-	name = "Ion Rifle"
-	desc = "A poster displaying an Ion Rifle."
+	name = "Ионная винтовка"
+	desc = "Постер с изображением ионной винтовки."
 	icon_state = "poster23_legit"
 
 /obj/structure/sign/poster/official/foam_force_ad
-	name = "Foam Force Ad"
-	desc = "Foam Force, it's Foam or be Foamed!"
+	name = "Реклама \"Пенная сила\""
+	desc = "Пенная сила: пеняй или будь пеной!"
 	icon_state = "poster24_legit"
 
 /obj/structure/sign/poster/official/cohiba_robusto_ad
-	name = "Cohiba Robusto Ad"
-	desc = "Cohiba Robusto, the classy cigar."
+	name = "Реклама Коиба Робусто"
+	desc = "Коиба Робусто – стильные сигары."
 	icon_state = "poster25_legit"
 
 /obj/structure/sign/poster/official/anniversary_vintage_reprint
-	name = "50th Anniversary Vintage Reprint"
-	desc = "A reprint of a poster from 2505, commemorating the 50th Anniversery of Nanoposters Manufacturing, a subsidary of Nanotrasen."
+	name = "Винтажная репродукция к 50-летию"
+	desc = "Репродукция постера 2505 года, посвящённая 50-летию \"НаноПостер\", дочерней компании НаноТрейзен."
 	icon_state = "poster26_legit"
 
 /obj/structure/sign/poster/official/fruit_bowl
-	name = "Fruit Bowl"
-	desc = " Simple, yet awe-inspiring."
+	name = "Фруктовая тарелка"
+	desc = "Просто, но впечатляюще."
 	icon_state = "poster27_legit"
 
 /obj/structure/sign/poster/official/pda_ad
-	name = "PDA Ad"
-	desc = "A poster advertising the latest PDA from Nanotrasen suppliers."
+	name = "Реклама КПК"
+	desc = "Постер, рекламирующий последнюю модель КПК от поставщиков НаноТрейзен."
 	icon_state = "poster28_legit"
 
 /obj/structure/sign/poster/official/enlist
-	name = "Enlist"
-	desc = "Enlist in the Nanotrasen ERT reserves today!"
+	name = "Вступайте"
+	desc = "Вступайте в резерв ОБР НаноТрейзен сегодня!"
 	icon_state = "poster29_legit"
 
 /obj/structure/sign/poster/official/nanomichi_ad
-	name = "Nanomichi Ad"
-	desc = " A poster advertising Nanomichi brand audio cassettes."
+	name = "Реклама Nanomichi"
+	desc = "Постер, рекламирующий аудиокассеты бренда Наномичи."
 	icon_state = "poster30_legit"
 
 /obj/structure/sign/poster/official/twelve_gauge
-	name = "12 Gauge"
-	desc = "A poster boasting about the superiority of 12 gauge shotgun shells."
+	name = "12 калибр"
+	desc = "Постер, восхваляющий превосходство патронов калибра 12g."
 	icon_state = "poster31_legit"
 
 /obj/structure/sign/poster/official/high_class_martini
-	name = "High-Class Martini"
-	desc = "I told you to shake it, no stirring."
+	name = "Высококлассный мартини"
+	desc = "Я же сказал взболтать, а не смешивать."
 	icon_state = "poster32_legit"
 
 /obj/structure/sign/poster/official/the_owl
-	name = "The Owl"
-	desc = "The Owl would do his best to protect the station. Will you?"
+	name = "Сова"
+	desc = "Сова сделает всё возможное, чтобы защитить станцию. А вы?"
 	icon_state = "poster33_legit"
 
 /obj/structure/sign/poster/official/spiders
-	name = "Spider Risk"
-	desc = "A poster detailing what to do when giant spiders are seen."
+	name = "Риск пауков"
+	desc = "Постер, объясняющий, что делать при виде гигантских пауков."
 	icon_state = "poster34_legit"
 
 /obj/structure/sign/poster/official/kill_syndicate
-	name = "Kill Syndicate"
-	desc = "A poster demanding that all crew should be ready to fight the Syndicate."
+	name = "Убивайте Синдикат"
+	desc = "Постер, требующий, чтобы весь экипаж был готов сражаться с Синдикатом."
 	icon_state = "poster35_legit"
 
 /obj/structure/sign/poster/official/air1
-	name = "Information on Air"
-	desc = "A poster providing visual aid to remind crew of air canisters."
+	name = "Информация о воздухе"
+	desc = "Постер, напоминающий экипажу о баллонах с воздухом."
 	icon_state = "poster36_legit"
 
 /obj/structure/sign/poster/official/air2
-	name = "Information on Air"
-	desc = "A poster providing visual aid to remind crew of air canisters."
+	name = "Информация о воздухе"
+	desc = "Постер, напоминающий экипажу о баллонах с воздухом."
 	icon_state = "poster37_legit"
 
 /obj/structure/sign/poster/official/dig
-	name = "Dig for Glory!"
-	desc = "A poster trying to convince the crew to mine for ore."
+	name = "Копайте ради славы!"
+	desc = "Постер, пытающийся убедить экипаж добывать руду."
 	icon_state = "poster38_legit"
 
 /obj/structure/sign/poster/official/religious
-	name = "Religious Poster"
-	desc = "A generic religious poster telling you to believe."
+	name = "Религиозный постер"
+	desc = "Обычный религиозный постер, призывающий верить."
 	icon_state = "poster39_legit"
 
 /obj/structure/sign/poster/official/healthy
-	name = "Stay Healthy!"
-	desc = "A healthy crew is a happy crew!"
+	name = "Оставайтесь здоровыми!"
+	desc = "Здоровый экипаж — счастливый экипаж!"
 	icon_state = "poster40_legit"
 
 /obj/structure/sign/poster/official/vodka
-	name = "Bodka"
-	desc = "Advertising poster of vodka, drink from real men for real men. Feel like a space bear."
+	name = "Водка"
+	desc = "Рекламный постер водки, от настоящих мужчин для настоящих мужчин. Почувствуйте себя космическим медведем."
 	icon_state = "poster41_legit"
 
 /obj/structure/sign/poster/official/tsf_emblem
-	name = "TSF Emblem"
-	desc = "Patriotic poster with an emblem of TSF and some dull text for marine honor on it."
+	name = "Эмблема ТСФ"
+	desc = "Патриотический постер с эмблемой ТСФ и скучным текстом о чести морпехов."
 	icon_state = "poster42_legit"
 
 /obj/structure/sign/poster/official/wetskrell
 	name = "WetSkrell"
-	desc = "You can see a pretty skrell in red dress and with long headtails, which have decorative bands. It is advertising a site with \"adult recreation procedures\", the wetskrell.nt."
+	desc = "Вы видите симпатичную скрелл в красном платье и с длинными головными щупальцами, украшенными декоративными лентами. Это реклама сайта с \"процедурами для взрослых\", wetskrell.nt."
 	icon_state = "poster43_legit"
 
 /obj/structure/sign/poster/official/keepcalm
-	name = "Keep Calm"
-	desc = "This particular one is of a famous New Earth design, although a bit modified. Someone has scribbled an O over the A on the poster."
+	name = "Сохраняйте спокойствие"
+	desc = "Этот постер выполнен в знаменитом дизайне Новой Земли, хотя и слегка изменён. Кто-то написал букву O поверх A на постере."
 	icon_state = "poster44_legit"
 
 /obj/structure/sign/poster/official/pinup_a
-	name = "Pinup Girl Cindy"
-	desc = "This particular one is of a historical corporate PR girl, Cindy, in a particularly feminine pose."
+	name = "Пин-ап девушка Синди"
+	desc = "Этот постер изображает историческую корпоративную ПР-девушку Синди в особенно женственной позе."
 	icon_state = "poster45_legit"
 
 /obj/structure/sign/poster/official/pinup_b
-	name = "Pinup Girl Amy"
-	desc = "This particular one is of Amy, the nymphomaniac urban legend of deep space. How this photograph came to be is not known."
+	name = "Пин-ап девушка Эми"
+	desc = "Этот постер изображает Эми, нимфоманку-легенду дальнего космоса. Как появилась эта фотография, неизвестно."
 	icon_state = "poster46_legit"
 
 /obj/structure/sign/poster/official/insp_law
-	name = "Inspirational Lawyer"
-	desc = "An inspirational poster depicting a Skrellian lawyer. He seems to be shouting something, while pointing fiercely to the right."
+	name = "Вдохновляющий юрист"
+	desc = "Вдохновляющий постер, изображающий скреллианского юриста. Кажется, он что-то кричит, яростно указывая вправо."
 	icon_state = "poster47_legit"
 
 /obj/structure/sign/poster/official/space_a
-	name = "Space Appreciation Poster"
-	desc = "This is a poster produced by the Generic Space Company, as a part of a series of commemorative posters on the wonders of space. One of three."
+	name = "Постер восхищения космосом"
+	desc = "Этот постер создан \"Дженерерик Спейс Компани\" как часть серии памятных постеров о чудесах космоса. Один из трёх."
 	icon_state = "poster48_legit"
 
 /obj/structure/sign/poster/official/space_b
-	name = "Mars Appreciation Poster"
-	desc = "This is a poster produced by the Generic Space Company, as a part of a series of commemorative posters on the wonders of space. Three of three."
+	name = "Постер восхищения Марсом"
+	desc = "Этот постер создан \"Дженерерик Спейс Компани\" как часть серии памятных постеров о чудесах космоса. Третий из трёх."
 	icon_state = "poster49_legit"
 
 /obj/structure/sign/poster/official/wild_west
-	name = "Wild Cargo"
-	desc = "The beautiful wild place with their own sheriff."
+	name = "Дикое Карго"
+	desc = "Красивое дикое место со своим шерифом."
 	icon_state = "poster50_legit"
 
 /obj/structure/sign/poster/official/razumause
-	name = "Razumause"
-	desc = "Hey hey! What`s can go wrong, yeah?"
+	name = "Разумышь"
+	desc = "Эй, эй! Что может пойти не так, да?"
 	icon_state = "poster51_legit"
 
 /obj/structure/sign/poster/official/assist_pride
-	name = "Assistant pride"
-	desc = "Even in space, the profession of assistant is in demand. And this poster shows you their beauty."
+	name = "Гордость ассистента"
+	desc = "Даже в космосе профессия ассистента востребована. И этот постер показывает вам их красоту."
 	icon_state = "poster52_legit"
 
 /obj/structure/sign/poster/official/mr_cheng
-	name = "Mr. Cheng!"
-	desc = "Stunning discounts! The best product quality! Good prices for lots and lots of goods! Only Mr. Cheng."
+	name = "Мистер Чанг!"
+	desc = "Ошеломляющие скидки! Лучшее качество продукции! Хорошие цены на множество товаров! Только у мистера Чанга."
 	icon_state = "poster53_legit"
 
 /obj/structure/sign/poster/secret
 	poster_item_name = "Secret poster"
+	ru_names = list(
+		NOMINATIVE = "секретный постер",
+		GENITIVE = "секретного постера",
+		DATIVE = "секретному постеру",
+		ACCUSATIVE = "секретный постер",
+		INSTRUMENTAL = "секретным постером",
+		PREPOSITIONAL = "секретном постере"
+	)
 	poster_item_desc = "Крайне Секретный постер."
 	poster_item_icon_state = "rolled_poster"
 
 /obj/structure/sign/poster/secret/lady
-	name = "Scientist lady"
-	desc = "A gorgeous looking lady wearing a labcoat. Whoah, hot!"
+	name = "Девушка-учёный"
+	desc = "Потрясающе выглядящая девушка в лабораторном халате. Уфф, горяча!"
 	icon_state = "poster1_secret"
 
 /obj/structure/sign/poster/secret/Viper
-	name = "Wanted Syndicate Officer"
-	desc = "On the poster you can see: A red-haired man in aviator glasses, slightly over 30, with a cigar in his mouth, dressed in a fur coat over a tactical turtleneck."
+	name = "Разыскивается офицер Синдиката"
+	desc = "На постере изображён: рыжеволосый мужчина в авиаторских очках, чуть за 30, с сигарой во рту, одетый в шубу поверх тактической водолазки."
 	icon_state = "poster2_secret"
 
 /obj/structure/sign/poster/secret/lizard
-	name = "Lewd Lizard"
-	desc = "This lewd poster depicts a lizard preparing to mate."
+	name = "Развратная ящерица"
+	desc = "Этот похабный постер изображает ящерицу, которая готовится к брачному периоду."
 	icon_state = "poster3_secret"
 
 #undef PLACE_SPEED

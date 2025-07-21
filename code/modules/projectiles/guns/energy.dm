@@ -60,8 +60,8 @@
 
 
 /obj/item/gun/energy/proc/toggle_voice()
-	set name = "Переключить голос Sibyl System"
-	set category = "Object"
+	set name = "Сменить голос Sibyl System"
+	set category = STATPANEL_OBJECT
 	set desc = "Кликните для переключения голосовой подсистемы."
 
 	if(sibyl_mod)
@@ -178,6 +178,9 @@
 /obj/item/gun/energy/Destroy()
 	if(selfcharge)
 		STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(cell)
+	QDEL_NULL(sibyl_mod)
+	QDEL_LIST(ammo_type)
 	return ..()
 
 /obj/item/gun/energy/process()
@@ -393,8 +396,18 @@
 			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
 
-/obj/item/gun/energy/proc/turret_check()
-	return TRUE
 
-/obj/item/gun/energy/proc/turret_deconstruct()
+/obj/item/gun/energy/proc/turret_check()
+	return !HAS_TRAIT(src, TRAIT_NOT_TURRET_GUN)
+
+
+/obj/item/gun/energy/proc/turret_deconstruct(list/data)
+	return
+
+
+/obj/item/gun/energy/proc/prepare_gun_data(list/data)
+	return
+
+
+/obj/item/gun/energy/proc/setup_gun_for_turret(list/data)
 	return

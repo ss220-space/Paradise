@@ -27,7 +27,7 @@
 	if(used)
 		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
 		return FALSE
-	if(!(user.mind in SSticker.mode.syndicates))
+	if(!(user.mind.has_antag_datum(/datum/antagonist/nuclear_operative)))
 		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
 		return FALSE
 	if(checking)
@@ -64,27 +64,10 @@
 /obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 
-	var/agent_number = LAZYLEN(SSticker.mode.syndicates) - 1
-	M.real_name = "[syndicate_name()] Operative #[agent_number]"
-
-	set_syndicate_values(C, M)
-	SSticker.mode.create_syndicate(M.mind)
-	SSticker.mode.equip_syndicate(M, 0)
-	SSticker.mode.update_syndicate_id(M.mind, FALSE)
-
-/obj/item/antag_spawner/nuke_ops/proc/set_syndicate_values(client/C, mob/living/M)
 	M.key = C.key
-
-	SSticker.mode.syndicates += M.mind
-	SSticker.mode.update_synd_icons_added(M.mind)
-
-	M.mind.assigned_role = SPECIAL_ROLE_NUKEOPS
-	M.mind.special_role = SPECIAL_ROLE_NUKEOPS
-	M.mind.offstation_role = TRUE
-
-	M.faction = list("syndicate")
-	SSticker.mode.forge_syndicate_objectives(M.mind)
-	SSticker.mode.greet_syndicate(M.mind)
+	create_syndicate(M.mind)
+	var/datum/antagonist/nuclear_operative/datum = M.mind.add_antag_datum(/datum/antagonist/nuclear_operative/reinf, /datum/team/nuclear_team)
+	datum.equip()
 
 //////SYNDICATE BORG
 /obj/item/antag_spawner/nuke_ops/borg_tele
@@ -104,12 +87,15 @@
 	name = "syndicate saboteur teleporter"
 	borg_to_spawn = "Saboteur"
 
+#define SYNDICATE_CYBORG "Борг Синдиката"
+#define NUCLEAR_OPERATIVE "Ядерный Оперативник"
+
 /obj/item/antag_spawner/nuke_ops/borg_tele/before_candidate_search(mob/user)
-	var/switch_roles_choice = input("Would you like to continue playing as an operative or take over as the cyborg? If you play as the cyborg, another player will control your old self.", "Play As") as null|anything in list("Nuclear Operative", "Syndicate Cyborg")
+	var/switch_roles_choice = tgui_input_list(usr, "Вы хотите продолжить играть за оперативника или стать боргом? Если вы выберите борга, другой игрок займет ваше старое тело", "Играть за", list(NUCLEAR_OPERATIVE, SYNDICATE_CYBORG))
 	if(!switch_roles_choice || !(check_usability(user)))
 		return FALSE
 
-	if(switch_roles_choice == "Syndicate Cyborg")
+	if(switch_roles_choice == SYNDICATE_CYBORG)
 		switch_roles = TRUE
 		rolename = initial(rolename)
 	else
@@ -118,8 +104,11 @@
 
 	return TRUE
 
+#undef SYNDICATE_CYBORG
+#undef NUCLEAR_OPERATIVE
+
 /obj/item/antag_spawner/nuke_ops/borg_tele/spawn_antag(client/C, turf/T, datum/mind/user)
-	if(!(user in SSticker.mode.syndicates))
+	if(!(user.has_antag_datum(/datum/antagonist/nuclear_operative)))
 		used = FALSE
 		return
 
@@ -137,8 +126,10 @@
 	if(prob(50))
 		brainfirstname = pick(GLOB.first_names_female)
 		brainopslastname = pick(GLOB.last_names_female)
-	if(syndicate_name())  //the brain inside the syndiborg has the same last name as the other ops.
-		brainopslastname = syndicate_name()
+
+	var/datum/team/nuclear_team/team = GLOB.antagonist_teams[/datum/team/nuclear_team]
+	if(team?.syndicate_name)  //the brain inside the syndiborg has the same last name as the other ops.
+		brainopslastname = team.syndicate_name
 	var/brainopsname = "[brainfirstname] [brainopslastname]"
 
 	R.mmi.name = "[initial(R.mmi.name)]: [brainopsname]"
@@ -146,13 +137,12 @@
 	R.mmi.brainmob.name = brainopsname
 
 	if(!switch_roles)
-		set_syndicate_values(C, R)
+		R.key = C.key
 	else
 		var/mob/living/L = user.current
-		set_syndicate_values(user.current.client, R)
-
+		R.key = user.current.client.key
 		L.key = C.key
-		SSticker.mode.greet_syndicate(L.mind)
+	R.mind.add_antag_datum(/datum/antagonist/nuclear_operative/cyborg, /datum/team/nuclear_team)
 
 ///////////SLAUGHTER DEMON
 

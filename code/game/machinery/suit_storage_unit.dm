@@ -346,7 +346,7 @@
 	. = FALSE
 	if(panel_open)
 		return .
-	if(istype(I, /obj/item/clothing/suit/space) && !suit)
+	if((istype(I, /obj/item/clothing/suit/space) || istype(I, suit_type)) && !suit)
 		. = user.drop_transfer_item_to_loc(I, src)
 		if(.)
 			suit = I
@@ -362,7 +362,7 @@
 		. = user.drop_transfer_item_to_loc(I, src)
 		if(.)
 			magboots = I
-	else if((istype(I, /obj/item/tank)) && !storage)
+	else if((istype(I, /obj/item/tank) || istype(I, storage_type)) && !storage)
 		. = user.drop_transfer_item_to_loc(I, src)
 		if(.)
 			storage = I
@@ -698,8 +698,8 @@
 	eject_occupant()
 
 /obj/machinery/suit_storage_unit/verb/get_out()
-	set name = "Eject Suit Storage Unit"
-	set category = "Object"
+	set name = "Извлечь находящегося внутри"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.stat)
@@ -711,8 +711,8 @@
 	return
 
 /obj/machinery/suit_storage_unit/verb/move_inside()
-	set name = "Hide in Suit Storage Unit"
-	set category = "Object"
+	set name = "Спрятаться внутри"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other

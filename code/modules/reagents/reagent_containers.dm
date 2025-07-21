@@ -18,7 +18,7 @@
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Установить объём перемещения"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(!ishuman(usr) && !isrobot(usr))
@@ -28,7 +28,7 @@
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
 		default = amount_per_transfer_from_this
-	var/N = input("Объём перемещения отсюда:", "[declent_ru(NOMINATIVE)]", default) as null|anything in possible_transfer_amounts
+	var/N = tgui_input_list(usr, "Объём перемещения отсюда:", "[declent_ru(NOMINATIVE)]", possible_transfer_amounts, default)
 
 	if(!N)
 		return
@@ -50,7 +50,7 @@
 /obj/item/reagent_containers/verb/empty()
 
 	set name = "Вылить содержимое"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

@@ -92,7 +92,7 @@
 	if(!location)
 		return
 
-	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
+	for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
 		if(DB.z == location.z)
 			linked_db = DB
 			break

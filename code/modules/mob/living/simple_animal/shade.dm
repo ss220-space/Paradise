@@ -11,9 +11,9 @@
 	speak_emote = list("hisses")
 	emote_hear = list("wails","screeches")
 	tts_seed = "Kelthuzad"
-	response_help  = "puts their hand through"
-	response_disarm = "flails at"
-	response_harm   = "punches the"
+	response_help  = "протягивает руку сквозь"
+	response_disarm = "размахивает перед"
+	response_harm   = "бьёт кулаком по"
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 	attacktext = "опустошает"
@@ -28,7 +28,7 @@
 	status_flags = CANPUSH
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = TRUE
-	deathmessage = "lets out a contented sigh as their form unwinds."
+	deathmessage = "издаёт довольный вздох, пока его форма распадается."
 	var/holy = FALSE
 
 /mob/living/simple_animal/shade/ComponentInitialize()

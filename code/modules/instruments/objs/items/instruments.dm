@@ -39,7 +39,7 @@
 	item_state = "guitar"
 	attack_verb = list("заметалил", "засеренадил", "грохнул")
 	hitsound = 'sound/weapons/guitarslam.ogg'
-	allowed_instrument_ids = "guitar"
+	allowed_instrument_ids = list("guitar", "csteelgt", "cnylongt", "ccleangt", "cmutedgt", "sleggt", "piclgt")
 
 /obj/item/instrument/eguitar
 	name = "electric guitar"

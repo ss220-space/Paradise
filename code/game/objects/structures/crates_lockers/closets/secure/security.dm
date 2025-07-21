@@ -177,7 +177,7 @@
 	new /obj/item/reagent_containers/spray/cleaner/tactical(src)
 
 /obj/structure/closet/secure_closet/ntrep
-	name = "\improper Nanotrasen Representative's locker"
+	name = "Nanotrasen Representative's locker"
 	req_access = list(ACCESS_NTREP)
 	icon_state = "nt"
 
@@ -256,8 +256,9 @@
 	var/id = null
 
 /obj/structure/closet/secure_closet/brig/populate_contents()
-	new /obj/item/clothing/under/color/orange/prison(src)
-	new /obj/item/clothing/shoes/orange(src)
+	new /obj/item/clothing/under/prison(src)
+	new /obj/item/clothing/head/prison(src)
+	new /obj/item/clothing/shoes/prison(src)
 	new /obj/item/card/id/prisoner/random(src)
 	new /obj/item/radio/headset(src)
 
@@ -293,7 +294,7 @@
 	large = FALSE
 
 /obj/structure/closet/secure_closet/magistrate
-	name = "\improper Magistrate's locker"
+	name = "Magistrate's locker"
 	req_access = list(ACCESS_MAGISTRATE)
 	icon_state = "magistrate"
 

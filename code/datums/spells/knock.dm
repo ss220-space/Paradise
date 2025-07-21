@@ -66,11 +66,11 @@
 		for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 			if(is_station_level(A.z))
 				A.req_access = list()
-		GLOB.command_announcement.Announce(
-			message = "Мы убрали все доступы у шл+юзов вашей станции. Вы сможете поблагодарить нас позже!",
-			new_title = "Приветствуем!",
-			new_sound = 'sound/misc/announce_dig.ogg',
-			from = "Послание Федерации Космических Волшебников."
+		GLOB.major_announcement.announce(
+			message = "Мы убрали все доступы с шлюзов на вашей станции. Вы сможете поблагодарить нас позже!",
+			new_title = "Послание Федерации Космических Волшебников.",
+			new_subtitle = "Приветствуем!",
+			new_sound = 'sound/misc/notice2.ogg'
 		)
 	else
 		..()

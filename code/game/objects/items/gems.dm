@@ -1,7 +1,7 @@
 //rare and valulable gems- designed to eventually be used for archeology, or to be given as opposed to money as loot. Auctioned off at export, or kept as a trophy. -MemedHams
 
 /obj/item/gem
-	name = "\improper gem"
+	name = "gem"
 	desc = "Ооо! Блестяшка!"
 	ru_names = list(
 		NOMINATIVE = "самоцвет",
@@ -90,7 +90,7 @@
 
 //goldgrub gem
 /obj/item/gem/rupee
-	name = "\improper ruperium crystal"
+	name = "ruperium crystal"
 	desc = "Крайне радиоактивное кристаллическое соединение, которое можно найти во внутренностях златожора. Хоть вы и можете преобразовать кристалл в урановую руду, его истинная ценность заключается в его резонирующих свойствах."
 	ru_names = list(
 		NOMINATIVE = "кристалл рупериума",
@@ -147,7 +147,7 @@
 
 //magmawing watcher gem
 /obj/item/gem/magma
-	name = "\improper calcified auric"
+	name = "calcified auric"
 	desc = "Горячий на ощупь, слегка святящийся минерал, получаемый из потрохов магменных наблюдателей. Может быть переплавлен в чистое золото."
 	ru_names = list(
 		NOMINATIVE = "окаменелый аурит",
@@ -194,7 +194,7 @@
 
 //icewing watcher gem
 /obj/item/gem/fdiamond
-	name = "\improper frost diamond"
+	name = "frost diamond"
 	desc = "Уникальный алмаз, получаемый из морозных наблюдателей. Кажется его можно разрезать на маленькие алмазы."
 	ru_names = list(
 		NOMINATIVE = "морозный бриллиант",
@@ -241,7 +241,7 @@
 
 //blood-drunk miner gem
 /obj/item/gem/phoron
-	name = "\improper stabilized baroxuldium"
+	name = "stabilized baroxuldium"
 	desc = "Мягкий на ощупь кристалл, который можно найти исключительно в самых глубоких жилах плазмы. Судя по всему, ученые им явно заинтересуются."
 	ru_names = list(
 		NOMINATIVE = "стабилизированный бароксильдиум",
@@ -264,7 +264,7 @@
 
 //hierophant gem
 /obj/item/gem/purple
-	name = "\improper densified dilithium"
+	name = "densified dilithium"
 	desc = "Крайне необычная форма дилитиума, пульсирующая в устойчивом ритме. Этот ритм достаточно легко улавливается большинством систем GPS."
 	ru_names = list(
 		NOMINATIVE = "уплотненный дилитиум",
@@ -303,7 +303,7 @@
 
 //drake gem
 /obj/item/gem/amber //all cool effects in the necklace, not here. Also this works as fuel for Anvil
-	name = "\improper draconic amber"
+	name = "draconic amber"
 	desc = "Крайне хрупкий минерал, формирующийся из загустевшей крови пепельного дракона. Крайне популярен среди браконьеров из-за его необычной формы и свечения. Среди охотников ходят истории о невероятной силе, даруемой носителю украшений из этого жемчуга."
 	ru_names = list(
 		NOMINATIVE = "Драконий жемчуг",
@@ -323,7 +323,7 @@
 
 //colossus gem
 /obj/item/gem/void
-	name = "\improper null crystal"
+	name = "null crystal"
 	desc = "Осколок чистой, кристаллизированной энергии. Эти странные объекты изредка формируются там, где покров реальности крайне неустойчив. Он слегка бьётся током при прикосновении."
 	ru_names = list(
 		NOMINATIVE = "пустотный кристалл",
@@ -374,7 +374,7 @@
 
 //bubblegum gem. Can be used for antags to get some active blood or TK.
 /obj/item/gem/bloodstone
-	name = "\improper ichorium"
+	name = "ichorium"
 	desc = "Странная, липкая субстанция, срастающаяся в единое целое в присутствии чего-то ужасающего и потустороннего. В то время, как большинство спиритических групп избегает использования этого кристалла, некоторые наиболее опасные секты высоко его ценят."
 	ru_names = list(
 		NOMINATIVE = "кровавый ихор",
@@ -427,7 +427,7 @@
 
 //vetus gem
 /obj/item/gem/data
-	name = "\improper bluespace data crystal"
+	name = "bluespace data crystal"
 	desc = "Массивный блюспейс кристалл, на котором выгравированы наносхемы. Кажется, он черпает энергию из воздуха."
 	ru_names = list(
 		NOMINATIVE = "блюспейс кристалл данных",
@@ -464,7 +464,7 @@
 	qdel(src)
 
 /obj/item/gem/ruby
-	name = "\improper ruby"
+	name = "ruby"
 	ru_names = list(
 		NOMINATIVE = "рубин",
 		GENITIVE = "рубина",
@@ -480,7 +480,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/sapphire
-	name = "\improper sapphire"
+	name = "sapphire"
 	ru_names = list(
 		NOMINATIVE = "сапфир",
 		GENITIVE = "сапфира",
@@ -496,7 +496,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/emerald
-	name = "\improper emerald"
+	name = "emerald"
 	ru_names = list(
 		NOMINATIVE = "изумруд",
 		GENITIVE = "изумруда",
@@ -512,7 +512,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/topaz
-	name = "\improper topaz"
+	name = "topaz"
 	ru_names = list(
 		NOMINATIVE = "топаз",
 		GENITIVE = "топаза",

@@ -232,8 +232,8 @@
 		return messages
 
 	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
-	messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-	messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+	messages.Add("<b>Code Phrase:</b> <span class='codephrases'>[phrases]</span>")
+	messages.Add("<b>Code Response:</b> <span class='coderesponses'>[responses]</span>")
 	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
@@ -256,11 +256,11 @@
 	var/mob/living/carbon/human/traitor_mob = owner.current
 	var/uplink_pref = traitor_mob.client?.prefs?.uplink_pref
 	if(!uplink_pref)
-		uplink_pref = "pda"
+		uplink_pref = PREF_UPLINK_PDA
 
 	var/obj/item/uplink_holder = null
 	// find a radio! toolbox(es), backpack, belt, headset
-	if(uplink_pref == "pda")
+	if(uplink_pref == PREF_UPLINK_PDA)
 		uplink_holder = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
 		if(!uplink_holder)
 			uplink_holder = locate(/obj/item/radio) in traitor_mob.contents

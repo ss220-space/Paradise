@@ -67,7 +67,7 @@
 			targets += brigdoor
 			INVOKE_ASYNC(brigdoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
-	for(var/obj/machinery/machine in GLOB.machines)
+	for(var/obj/machinery/machine in SSmachines.get_by_type(/obj/machinery))
 		if(istype(machine, /obj/machinery/flasher))
 			var/obj/machinery/flasher/flasher = machine
 			if(flasher.id == id)
@@ -168,7 +168,7 @@
 			timer_end()
 			return PROCESS_KILL
 		if(timeleft() <= 0)
-			Radio.autosay("Timer has expired. Releasing prisoner.", name, SEC_FREQ, list(z))
+			Radio.autosay("Timer has expired. Releasing prisoner.", name, SEC_FREQ_NAME)
 			occupant = CELL_NONE
 			timer_end() // open doors, reset timer, clear status screen
 			return PROCESS_KILL
@@ -419,11 +419,11 @@
 			timer_start()
 		if("add_timer")
 			if(timing)
-				var/add_reason = sanitize(copytext(input(usr, "Reason:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
+				var/add_reason = tgui_input_text(usr, "Reason:", name, "", max_length = MAX_MESSAGE_LEN)
 				if(!add_reason)
 					to_chat(usr, span_warning("Must specify the reason!"))
 					return FALSE
-				prisoner_time_add = input(usr, "Minutes to add:", name, prisoner_time_add) as num|null
+				prisoner_time_add = tgui_input_number(usr, "Minutes to add:", name, prisoner_time_add)
 				prisoner_time_add = min(max(round(prisoner_time_add), 0), PERMABRIG_TIME)
 				if(!prisoner_time_add)
 					to_chat(usr, span_warning("Must specify the number!"))
@@ -435,7 +435,7 @@
 				timetoset = timetoset + prisoner_time_add
 				releasetime = releasetime + prisoner_time_add
 				var/addtext = isobserver(usr) ? "for: [add_reason]." : "by [usr.name] for: [add_reason]"
-				Radio.autosay("Prisoner [occupant] had their timer increased by [prisoner_time_add / 600] minutes [addtext]", name, SEC_FREQ, list(z))
+				Radio.autosay("Prisoner [occupant] had their timer increased by [prisoner_time_add / 600] minutes [addtext]", name, SEC_FREQ_NAME)
 				notify_prisoner("Your brig timer has been increased by [prisoner_time_add / 600] minutes for: '[add_reason]'.")
 				var/datum/data/record/R = find_security_record("name", occupant)
 				if(istype(R))
@@ -451,7 +451,7 @@
 					return FALSE
 				releasetime = world.timeofday + timetoset
 				var/resettext = isobserver(usr) ? "for: [reset_reason]." : "by [usr.name] for: [reset_reason]."
-				Radio.autosay("Prisoner [occupant] had their timer reset [resettext]", name, SEC_FREQ, list(z))
+				Radio.autosay("Prisoner [occupant] had their timer reset [resettext]", name, SEC_FREQ_NAME)
 				notify_prisoner("Your brig timer has been reset for: '[reset_reason]'.")
 				var/datum/data/record/R = find_security_record("name", occupant)
 				if(istype(R))
@@ -462,7 +462,7 @@
 			if(timing)
 				timer_end()
 				var/stoptext = isobserver(usr) ? "from cell control." : "by [usr.name]."
-				Radio.autosay("Timer stopped manually [stoptext]", name, SEC_FREQ, list(z))
+				Radio.autosay("Timer stopped manually [stoptext]", name, SEC_FREQ_NAME)
 			else
 				. = FALSE
 		if("flash")

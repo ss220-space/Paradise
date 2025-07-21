@@ -400,78 +400,6 @@
 	build_path = /obj/item/hatchet
 	category = list("initial","Miscellaneous")
 
-/datum/design/scalpel
-	name = "Scalpel"
-	id = "scalpel"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000)
-	build_path = /obj/item/scalpel
-	category = list("initial", "Medical")
-
-/datum/design/circular_saw
-	name = "Circular Saw"
-	id = "circular_saw"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000)
-	build_path = /obj/item/circular_saw
-	category = list("initial", "Medical")
-
-/datum/design/surgicaldrill
-	name = "Surgical Drill"
-	id = "surgicaldrill"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000)
-	build_path = /obj/item/surgicaldrill
-	category = list("initial", "Medical")
-
-/datum/design/retractor
-	name = "Retractor"
-	id = "retractor"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000)
-	build_path = /obj/item/retractor
-	category = list("initial", "Medical")
-
-/datum/design/cautery
-	name = "Cautery"
-	id = "cautery"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 2500, MAT_GLASS = 750)
-	build_path = /obj/item/cautery
-	category = list("initial", "Medical")
-
-/datum/design/hemostat
-	name = "Hemostat"
-	id = "hemostat"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
-	build_path = /obj/item/hemostat
-	category = list("initial", "Medical")
-
-/datum/design/bonesetter
-	name = "Bone Setter"
-	id = "bonesetter"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 4000)
-	build_path = /obj/item/bonesetter
-	category = list("initial", "Medical")
-
-/datum/design/fixovein
-	name = "FixOVein"
-	id = "fixovein"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
-	build_path = /obj/item/FixOVein
-	category = list("initial", "Medical")
-
-/datum/design/bonegel
-	name = "Bone Gel"
-	id = "bonegel"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 6000)
-	build_path = /obj/item/bonegel
-	category = list("initial", "Medical")
-
 /datum/design/beaker
 	name = "Beaker"
 	id = "beaker"
@@ -863,6 +791,39 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/c9mmte
+	category = list("hacked", "Security")
+
+/datum/design/specter/disable
+	name = "ammo box (Specter disabler)"
+	id = "specter_disable"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 25000)
+	build_path = /obj/item/ammo_box/specter/disabler
+	category = list("initial", "Security")
+
+/datum/design/specter/laser
+	name = "ammo box (Specter laser)"
+	id = "specter_laser"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/specter/laser
+	category = list("hacked", "Security")
+
+/datum/design/spectermag_disabler
+	name = "magazine Specter (disabler)"
+	id = "spectermag_disabler"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 8000)
+	build_path = /obj/item/ammo_box/magazine/specter
+	category = list("initial", "Security")
+
+//hacked autolathe recipes
+/datum/design/spectermag_laser
+	name = "magazine Specter (laser)"
+	id = "spectermag_laser"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 10000)
+	build_path = /obj/item/ammo_box/magazine/specter/laser
 	category = list("hacked", "Security")
 
 /datum/design/sp91rc_mag

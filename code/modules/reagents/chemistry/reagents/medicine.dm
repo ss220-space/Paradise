@@ -870,22 +870,27 @@
 					if(update)
 						M.updatehealth()
 					if(ishuman(M))
-						var/mob/living/carbon/human/H = M
 						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
-						for(var/obj/item/organ/organ as anything in (H.bodyparts|H.internal_organs))
-							// Per non-vital body part:
-							// 0% chance of necrosis within 1 minute of death
-							// 40% chance of necrosis after 20 minutes of death
-							if(!organ.vital && prob(necrosis_prob))
-								// side effects may include: Organ failure
-								if(organ.necrotize())
-									organ.germ_level = INFECTION_LEVEL_THREE
-						H.update_body()
+						// Per non-vital body part:
+						// 0% chance of necrosis within 1 minute of death
+						// 40% chance of necrosis after 20 minutes of death
+						necrotize_body(M, necrosis_prob)
 
 					M.update_revive(TRUE, TRUE)
 					M.grab_ghost()
 					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
+/proc/necrotize_body(mob/living/carbon/human/human, necrosis_prob)
+	for(var/obj/item/organ/organ as anything in (human.bodyparts|human.internal_organs))
+		if(organ.vital || !prob(necrosis_prob))
+			continue
+
+		// side effects may include: Organ failure
+		if(!organ.necrotize())
+			continue
+
+		organ.germ_level = INFECTION_LEVEL_THREE
+	human.update_body()
 
 /datum/reagent/medicine/mannitol
 	name = "Маннитол"
@@ -1367,7 +1372,7 @@
 /datum/reagent/medicine/syndiezine
 	name = "Синдизин"
 	id = "syndiezine"
-	description = "Попытка синдиката вывести синтетический аналог вещества \"Кровь Земли\". Слабо лечит раны, но быстро избавляет от усталости, вызывает галлюцинации."
+	description = "Попытка Синдиката вывести синтетический аналог вещества \"Кровь Земли\". Слабо лечит раны, но быстро избавляет от усталости, вызывает галлюцинации."
 	color = "#332300"
 	overdose_threshold = 25
 	harmless = FALSE
@@ -1475,9 +1480,9 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/lavaland_extract
-	name = "Экстракт Лаваленда"
+	name = "Экстракт Лазиса"
 	id = "lavaland_extract"
-	description = "Экстракт атмосферы Лаваленда и минеральные элементы в придачу. В небольших дозах исцеляет пользователя, но в остальных случаях крайне токсичен."
+	description = "Экстракт атмосферы Лазиса и минеральные элементы в придачу. В небольших дозах исцеляет пользователя, но в остальных случаях крайне токсичен."
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
 	harmless = FALSE
@@ -1607,7 +1612,7 @@
 	return list(0, update_flags)
 
 /datum/reagent/medicine/adv_lava_extract
-	name = "Модифицированный Экстракт Лаваленда"
+	name = "Модифицированный Экстракт Лазиса"
 	id = "adv_lava_extract"
 	description = "Очень дорогое лекарство, которое помогает перекачивать кровь по телу и предотвращает замедление работы сердца, исцеляя пациента в процессе. Передозировка приводит к сердечным приступам."
 	reagent_state = LIQUID
@@ -1664,7 +1669,7 @@
 	user.clear_alert("penthrite")
 
 /datum/reagent/medicine/ashiezine
-	name = "Сироп Лаваленда"
+	name = "Сироп Лазиса"
 	id = "ashiezine"
 	description = "Странный реагент, найденный на Лазис Ардаксе. Судя по всему, он работает только на пеплоходцев."
 	reagent_state = LIQUID

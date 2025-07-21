@@ -28,6 +28,8 @@
 	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
 	var/next_possible_ghost_ping
 
+	var/list/skin_permissions = list()
+
 
 /obj/item/mmi/update_icon_state()
 	if(held_brain)
@@ -72,6 +74,10 @@
 		if(held_brain)
 			to_chat(user, span_userdanger("Somehow, this MMI still has a brain in it. Report this to the bug tracker."))
 			log_runtime(EXCEPTION("[user] tried to stick a [brain.name] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
+			return ATTACK_CHAIN_PROCEED
+
+		if(brain.brainmob.mind && !brain.brainmob.mind.hasSoul)
+			to_chat(user, span_warning("Нельзя поместить в НКИ мозг существа, потерявшего душу."))
 			return ATTACK_CHAIN_PROCEED
 
 		if(!user.drop_transfer_item_to_loc(brain, src))

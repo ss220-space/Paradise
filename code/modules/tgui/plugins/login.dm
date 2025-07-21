@@ -137,18 +137,18 @@ GLOBAL_LIST(ui_logins)
 			state.rank = state.id.assignment
 			state.access = state.id.access
 		else
-			to_chat(usr, "<span class='warning'>Отказано в доступе.</span>")
+			to_chat(usr, span_warning("Отказано в доступе."))
 			return
 	else if(login_type == LOGIN_TYPE_AI && (isAI(usr) || ispAI(usr)))
 		state.name = usr.name
 		state.rank = JOB_TITLE_AI
 	else if(iscogscarab(usr))
-		to_chat(usr, "<span class='warning'>Отказано в доступе.</span>")
+		to_chat(usr,  span_warning("Отказано в доступе."))
 		return
 	else if(login_type == LOGIN_TYPE_ROBOT && isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
 		state.name = usr.name
-		state.rank = "[R.modtype] [R.braintype]"
+		state.rank = "[R.modtype?.name] [R.braintype]"
 	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
 		state.name = "*ЗАСЕКРЕЧЕНО*"
 		state.rank = "Защищённый канал ЦентКома"

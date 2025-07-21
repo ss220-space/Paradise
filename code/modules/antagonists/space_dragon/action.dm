@@ -1,6 +1,6 @@
 //Small sprites
 /datum/action/innate/small_sprite_dragon
-	name = "Toggle Giant Sprite"
+	name = "Переключить спрайт"
 	desc = "Остальные продолжат видеть вас огромным."
 	button_icon_state = "carp"
 	background_icon_state = "bg_alien"
@@ -30,7 +30,7 @@
 
 
 /datum/action/innate/space_dragon_gust
-	name = "Gust"
+	name = "Порыв ветра"
 	desc = "Эта способность отталкивает всех, кто находится рядом с вами."
 	button_icon_state = "repulse"
 	background_icon_state = "bg_alien"
@@ -61,7 +61,7 @@
 
 
 /datum/action/innate/summon_rift
-	name = "Summon Rift"
+	name = "Создать разлом"
 	desc = "Открывает разлом призыва орды космических карпов."
 	button_icon_state = "carp_rift"
 	background_icon_state = "bg_alien"
@@ -101,7 +101,7 @@
 
 
 /datum/action/innate/lesser_carp_rift
-	name = "Lesser Carp Rift"
+	name = "малый разлом карпов"
 	desc = "Открывает малый разлом карпов, который позволяет перемещаться на малое расстояние."
 	button_icon_state = "rift"
 	background_icon_state = "bg_alien"
@@ -151,7 +151,7 @@
 
 /// If you touch the entrance you are teleported to the exit, exit doesn't do anything
 /obj/effect/temp_visual/lesser_carp_rift
-	name = "lesser carp rift"
+	name = "малый разлом карпов"
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "carp_rift"
 	duration = 5 SECONDS
@@ -221,7 +221,7 @@
 
 /// Just an animation
 /obj/effect/temp_visual/lesser_carp_rift_dissipating
-	name = "lesser carp rift"
+	name = "малый разлом карпов"
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	duration = 1 SECONDS

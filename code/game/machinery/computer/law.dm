@@ -2,7 +2,7 @@
 #define SHORTEN_UPLOAD_DELAY 5 SECONDS
 
 /obj/machinery/computer/aiupload
-	name = "\improper AI upload console"
+	name = "AI upload console"
 	desc = "Используется для манипуляций с законами ИИ."
 	icon_screen = "command"
 	icon_keyboard = "med_key"

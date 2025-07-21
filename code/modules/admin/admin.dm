@@ -30,7 +30,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				to_chat(C, msg, MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_ADMINHELP)
-					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 				window_flash(C)
 
 /**
@@ -44,10 +44,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg, MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
+				to_chat(C, msg, MESSAGE_TYPE_MENTORPM, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
-					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 				window_flash(C)
 
 /proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)
@@ -323,7 +323,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 #define PLAYER_NOTES_ENTRIES_PER_PAGE 50
 /datum/admins/proc/PlayerNotes()
-	set category = "Admin.Ban"
+	set category = STATPANEL_ADMIN_BAN
 	set name = "Player Notes"
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -332,7 +332,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	show_note()
 
 /datum/admins/proc/show_player_notes(var/key as text)
-	set category = "Admin.Ban"
+	set category = STATPANEL_ADMIN_BAN
 	set name = "Show Player Notes"
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -341,7 +341,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	show_note(key)
 
 /datum/admins/proc/vpn_whitelist()
-	set category = "Admin.Ban"
+	set category = STATPANEL_ADMIN_BAN
 	set name = "VPN Ckey Whitelist"
 	if(!check_rights(R_BAN))
 		return
@@ -397,7 +397,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /datum/admins/proc/restart()
-	set category = "Server"
+	set category = STATPANEL_SERVER
 	set name = "Restart"
 	set desc = "Restarts the world."
 
@@ -445,7 +445,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /datum/admins/proc/end_round()
-	set category = "Server"
+	set category = STATPANEL_SERVER
 	set name = "End Round"
 	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
 
@@ -469,7 +469,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /datum/admins/proc/announce()
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Announce"
 	set desc = "Announce your desires to the world"
 
@@ -484,10 +484,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
 		to_chat(world, chat_box_notice("<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><br><br><p>[message]</p></span>"))
 		log_admin("Announce: [key_name(usr)] : [message]")
+		for(var/client/clients_to_alert in GLOB.clients)
+			window_flash(clients_to_alert)
+			if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
+				SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 	set desc="Globally Toggles OOC"
 	set name="Toggle OOC"
 
@@ -499,7 +503,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/togglelooc()
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 	set desc="Globally Toggles LOOC"
 	set name="Toggle LOOC"
 
@@ -516,7 +520,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle LOOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggledsay()
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 	set desc="Globally Toggles DSAY"
 	set name="Toggle DSAY"
 
@@ -533,7 +537,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deadchat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc
 
 /datum/admins/proc/toggleoocdead()
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 	set desc="Toggle Dead OOC."
 	set name="Toggle Dead OOC"
 
@@ -549,7 +553,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleemoji()
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 	set desc = "Toggle OOC Emoji"
 	set name = "Toggle OOC Emoji"
 
@@ -561,7 +565,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC Emoji")
 
 /datum/admins/proc/startnow()
-	set category = "Server"
+	set category = STATPANEL_SERVER
 	set desc="Start the round RIGHT NOW"
 	set name="Start Now"
 
@@ -589,8 +593,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(usr, "<span style='color: red;'>Error: Start Now: Game has already started.</span>", confidential=TRUE)
 		return
 
+
 /datum/admins/proc/toggleenter()
-	set category = "Server"
+	set category = STATPANEL_SERVER
 	set desc="People can't enter"
 	set name="Toggle Entering"
 
@@ -607,7 +612,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleAI()
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 	set desc="People can't be AI"
 	set name="Toggle AI"
 
@@ -624,7 +629,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle AI") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleaban()
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 	set desc="Toggle the ability for players to respawn."
 	set name="Toggle Respawn"
 
@@ -641,7 +646,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
-	set category = "Server"
+	set category = STATPANEL_SERVER
 	set desc="Delay the game start/end"
 	set name="Delay"
 
@@ -744,7 +749,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Revolutionary"
 	if(M.mind in SSticker.mode.cult)
 		antag_list += "Cultist"
-	if(M.mind in SSticker.mode.syndicates)
+	if(M.mind.has_antag_datum(/datum/antagonist/nuclear_operative))
 		antag_list += "Nuclear Operative"
 	if(M.mind in SSticker.mode.wizards)
 		antag_list += "Wizard"
@@ -789,14 +794,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /datum/admins/proc/spawn_atom(object as text)
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set desc = "(путь атома) Создать атом. Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
 	set name = "Spawn"
 
 	return usr.client.spawn_atom_impl(object, FALSE)
 
 /datum/admins/proc/spawn_atom_adv(object as text)
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set desc = "(путь атома) Создать атом c aргументами в New(). Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
 	set name = "Advanced Spawn"
 
@@ -857,7 +862,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /datum/admins/proc/show_traitor_panel(var/mob/M in GLOB.mob_list)
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	set desc = "Edit mobs's memory and role"
 	set name = "\[Admin\] Show Traitor Panel"
 
@@ -875,7 +880,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Traitor Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleguests()
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 	set desc="Guests can't enter"
 	set name="Toggle Guests"
 
@@ -892,30 +897,32 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
+	var/list/messages = list()
 	for(var/mob/living/silicon/S in GLOB.mob_list)
 		ai_number++
 		if(isAI(S))
-			to_chat(usr, "<b>AI [key_name(S, TRUE)]'s laws:</b>", confidential=TRUE)
+			messages += "<b>AI [key_name(S, TRUE)]'s laws:</b>"
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S
-			to_chat(usr, "<b>CYBORG [key_name(S, TRUE)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>", confidential=TRUE)
+			messages += "<b>CYBORG [key_name(S, TRUE)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>"
 		else if(ispAI(S))
 			var/mob/living/silicon/pai/P = S
-			to_chat(usr, "<b>pAI [key_name(S, TRUE)]'s laws:</b>", confidential=TRUE)
-			to_chat(usr, "[P.pai_law0]", confidential=TRUE)
+			messages += "<b>pAI [key_name(S, TRUE)]'s laws:</b>"
+			messages += "[P.pai_law0]"
 			if(P.pai_laws)
-				to_chat(usr, "[P.pai_laws]")
+				messages += "[P.pai_laws]"
 			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
-			to_chat(usr, "<b>SILICON [key_name(S, TRUE)]'s laws:</b>", confidential=TRUE)
+			messages += "<b>SILICON [key_name(S, TRUE)]'s laws:</b>"
 
 		if(S.laws == null)
-			to_chat(usr, "[key_name(S, TRUE)]'s laws are null. Contact a coder.", confidential=TRUE)
+			messages += "[key_name(S, TRUE)]'s laws are null. Contact a coder."
 		else
-			S.laws.show_laws(usr)
+			messages += S.laws.show_laws()
 	if(!ai_number)
-		to_chat(usr, "<b>No AI's located.</b>", confidential=TRUE)//Just so you know the thing is actually working and not just ignoring you.
+		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
+	to_chat(usr, chat_box_examine(messages.Join("\n")), confidential=TRUE)
 
 	log_and_message_admins("checked the AI laws")
 
@@ -1078,7 +1085,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Enables an admin to upload a new titlescreen image.
  */
 /client/proc/admin_change_title_screen()
-	set category = "Admin.Fun"
+	set category = STATPANEL_ADMIN_FUN
 	set name = "Title Screen: Change"
 
 	if(!check_rights(R_EVENT))
@@ -1103,7 +1110,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Sets a titlescreen notice, a big red text on the main screen.
  */
 /client/proc/change_title_screen_notice()
-	set category = "Admin.Fun"
+	set category = STATPANEL_ADMIN_FUN
 	set name = "Title Screen: Set Notice"
 
 	if(!check_rights(R_EVENT))
@@ -1125,7 +1132,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * An admin debug command that enables you to change the HTML on the go.
  */
 /client/proc/change_title_screen_html()
-	set category = "Admin.Fun"
+	set category = STATPANEL_ADMIN_FUN
 	set name = "Title Screen: Set HTML"
 
 	if(!check_rights(R_DEBUG))

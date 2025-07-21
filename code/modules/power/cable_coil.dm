@@ -14,7 +14,6 @@
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
 	color = WIRE_COLOR_RED
 	desc = "A coil of power cable."
-	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
 	full_w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
@@ -470,7 +469,7 @@
 	cost = 1
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
-	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
+	var/cablecolor = tgui_input_list(user, "Pick a cable color.", "Cable Color", list("red", "yellow", "green", "blue", "pink", "orange", "cyan", "white"))
 	color = cablecolor
 	update_icon()
 

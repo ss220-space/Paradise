@@ -86,7 +86,7 @@
 /mob/living/carbon/resist_restraints()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
 	var/obj/item/restraints
-	if(wear_suit?.breakouttime)
+	if(wear_suit?.breakout_time)
 		restraints = wear_suit
 	else if(handcuffed)
 		restraints = handcuffed
@@ -165,23 +165,27 @@
 /// General proc to resist passed item.
 /mob/living/carbon/proc/cuff_resist(obj/item/I, cuff_break = FALSE)
 	. = FALSE
-	var/breakouttime = I.breakouttime
+	var/breakout_time = cuff_break ? 5 SECONDS : I.breakout_time
+	var/list/breakouttime_modifiers = list()
+	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
+	for(var/mod in breakouttime_modifiers)
+		breakout_time *= mod
+
 	if(cuff_break)
-		breakouttime = 5 SECONDS	// very fast!
 		visible_message(
 			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся сломать [I.declent_ru(ACCUSATIVE)]!"),
 			span_notice("Вы пытаетесь сломать [I.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
 		)
-		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+		if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			. = clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, span_warning("Вам не удалось сломать [I.declent_ru(ACCUSATIVE)]!"))
 	else
 		visible_message(
 			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся снять [I.declent_ru(ACCUSATIVE)]!"),
-			span_notice("Вы пытаетесь снять [I.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakouttime / 10] секунд[declension_ru(breakouttime / 10, "у", "ы", "")]."),
+			span_notice("Вы пытаетесь снять [I.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakout_time / 10] секунд[declension_ru(breakout_time / 10, "у", "ы", "")]."),
 		)
-		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+		if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			. = clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, span_warning("Вам не удалось снять [I.declent_ru(ACCUSATIVE)]!"))
@@ -274,17 +278,20 @@
 /**
  * All the necessary checks for carbon to put an item in hand
  */
-/mob/living/carbon/put_in_hand_check(obj/item/I, hand_id)
-	if(!istype(I))
+/mob/living/carbon/put_in_hand_check(obj/item/item, hand_id)
+	if(!istype(item))
 		return FALSE
 
-	if(SEND_SIGNAL(src, COMSIG_CARBON_TRY_PUT_IN_HAND, I, hand_id) & COMPONENT_CARBON_CANT_PUT_IN_HAND)
+	if(SEND_SIGNAL(src, COMSIG_CARBON_TRY_PUT_IN_HAND, item, hand_id) & COMPONENT_CARBON_CANT_PUT_IN_HAND)
 		return FALSE
 
-	if(I.item_flags & NOPICKUP)
+	if(SEND_SIGNAL(item, COMSIG_ITEM_TRY_PUT_IN_HAND, src, hand_id) & COMPONENT_ITEM_CANT_PUT_IN_HAND)
 		return FALSE
 
-	if(!(mobility_flags & MOBILITY_PICKUP) && !(I.item_flags & ABSTRACT))
+	if(item.item_flags & NOPICKUP)
+		return FALSE
+
+	if(!(mobility_flags & MOBILITY_PICKUP) && !(item.item_flags & ABSTRACT))
 		return FALSE
 
 	if(hand_id == ITEM_SLOT_HAND_LEFT && !has_left_hand())

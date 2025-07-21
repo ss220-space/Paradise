@@ -1,3 +1,4 @@
+#define SPACEVINE_SPAWN_THRESHOLD 5
 //Types of usual mutations
 #define	POSITIVE 			1
 #define	NEGATIVE			2
@@ -11,7 +12,20 @@
 	SC = null
 	return ..()
 
+
 /datum/event/spacevine/start()
+	var/player_count = num_station_players()
+	if(player_count >= SPACEVINE_SPAWN_THRESHOLD)
+		// It is necessary to wrap this to avoid the event triggering repeatedly.
+		INVOKE_ASYNC(src, PROC_REF(wrapped_start))
+		return
+
+	log_and_message_admins("Random event attempted to spawn a spacevine, but there were only [player_count]/[SPACEVINE_SPAWN_THRESHOLD] players.")
+	var/datum/event_container/event_container = SSevents.event_containers[EVENT_LEVEL_MODERATE]
+	event_container.next_event_time = world.time + (60 * 10)
+
+
+/datum/event/spacevine/proc/wrapped_start()
 	var/list/turfs = list() //list of all the empty floor turfs in the hallway areas
 
 	var/obj/structure/spacevine/SV = new()
@@ -41,7 +55,9 @@
 
 /datum/event/spacevine/announce(false_alarm)
 	if((false_alarm || LAZYLEN(SC?.vines)) && (LAZYLEN(GLOB.player_list) < 20))
-		GLOB.event_announcement.Announce("Биосканеры фиксируют рост космической лозы в [get_area(SC.loc)]. Избавьтесь от неё, прежде чем она нанесёт ущерб станции.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.")
+		GLOB.minor_announcement.announce("Биосканеры фиксируют рост космической лозы в [get_area(SC.loc)]. Избавьтесь от неё, прежде чем она нанесёт ущерб станции.",
+										ANNOUNCE_BIOHAZARD_RU
+		)
 
 /datum/spacevine_mutation
 	var/name = ""
@@ -82,7 +98,7 @@
 /datum/spacevine_mutation/proc/on_deletion(obj/structure/spacevine/holder)
 	return
 
-/datum/spacevine_mutation/proc/on_hit(obj/structure/spacevine/holder, mob/hitter, obj/item/I, expected_damage)
+/datum/spacevine_mutation/proc/on_hit(obj/structure/spacevine/holder, mob/hitter, obj/item/item, expected_damage)
 	. = expected_damage
 
 /datum/spacevine_mutation/proc/on_cross(obj/structure/spacevine/holder, mob/crosser)
@@ -126,7 +142,7 @@
 //All of this shit is useless for vines
 
 
-/turf/simulated/floor/vines/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/vines/attackby(obj/item/item, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 
@@ -252,7 +268,7 @@
 		spawn(5)
 			holder.wither()
 
-/datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/I)
+/datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/item)
 	explosion(holder.loc, 0, 0, severity, 0, 0)
 
 /datum/spacevine_mutation/fire_proof
@@ -263,8 +279,8 @@
 /datum/spacevine_mutation/fire_proof/process_temperature(obj/structure/spacevine/holder, temp, volume)
 	return 1
 
-/datum/spacevine_mutation/fire_proof/on_hit(obj/structure/spacevine/holder, mob/hitter, obj/item/I, expected_damage)
-	if(I && I.damtype == BURN)
+/datum/spacevine_mutation/fire_proof/on_hit(obj/structure/spacevine/holder, mob/hitter, obj/item/item, expected_damage)
+	if(item && item.damtype == BURN)
 		. = 0
 	else
 		. = expected_damage
@@ -323,7 +339,7 @@
 		M.adjustBruteLoss(5)
 		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
 
-/datum/spacevine_mutation/thorns/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
+/datum/spacevine_mutation/thorns/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
 	if(prob(severity) && istype(hitter) && !isvineimmune(holder))
 		var/mob/living/M = hitter
 		M.adjustBruteLoss(5)
@@ -339,10 +355,10 @@
 	if(holder.energy)
 		holder.set_density(TRUE)
 	holder.max_integrity = 100
-	holder.obj_integrity = holder.max_integrity
+	holder.update_integrity(holder.max_integrity)
 
-/datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
-	if(!is_sharp(I))
+/datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
+	if(!is_sharp(item))
 		. = expected_damage * 0.5
 	else
 		. = expected_damage
@@ -510,43 +526,43 @@
 		wither()
 
 
-/obj/structure/spacevine/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+/obj/structure/spacevine/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
-	if(!I.force)
+	if(!item.force)
 		user.visible_message(
-			span_warning("[user] gently pokes [src] with [I]."),
-			span_warning("You gently poke [src] with [I]."),
+			span_warning("[user] gently pokes [src] with [item]."),
+			span_warning("You gently poke [src] with [item]."),
 		)
 		return .
 	user.visible_message(
-		span_danger("[user] has hit [src] with [I]!"),
-		span_danger("You have hit [src] with [I]!"),
+		span_danger("[user] has hit [src] with [item]!"),
+		span_danger("You have hit [src] with [item]!"),
 	)
-	var/damage_dealt = I.force
-	var/obj/item/scythe/scythe = I
+	var/damage_dealt = item.get_final_force(user)
+	var/obj/item/scythe/scythe = item
 	//so folded telescythes won't get damage boosts / insta-clears (they instead will be treated like non-scythes)
-	if(istype(I, /obj/item/scythe) && scythe.extend)
+	if(istype(item, /obj/item/scythe) && scythe.extend)
 		damage_dealt *= 4
 		for(var/obj/structure/spacevine/spacevine in range(1, src))
 			for(var/datum/spacevine_mutation/mutation as anything in spacevine.mutations)
 				//on_hit now takes override damage as arg and returns new value for other mutations to permutate further
-				damage_dealt = mutation.on_hit(src, user, I, damage_dealt)
+				damage_dealt = mutation.on_hit(src, user, item, damage_dealt)
 			//this only is going to occur for woodening mutation vines (increased health) or if we nerf scythe damage/multiplier
 			if(spacevine.obj_integrity > damage_dealt)
-				spacevine.take_damage(damage_dealt, I.damtype, MELEE, TRUE, get_dir(user, spacevine), I.armour_penetration)
+				spacevine.take_damage(damage_dealt, item.damtype, MELEE, TRUE, get_dir(user, spacevine), item.armour_penetration)
 			else
 				spacevine.wither()
 		if(QDELETED(src))
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return .
 
-	if(is_sharp(I) || I.damtype == BURN)
+	if(is_sharp(item) || item.damtype == BURN)
 		damage_dealt *= 4
 
 	for(var/datum/spacevine_mutation/mutation as anything in mutations)
-		damage_dealt = mutation.on_hit(src, user, I, damage_dealt)
+		damage_dealt = mutation.on_hit(src, user, item, damage_dealt)
 
-	take_damage(damage_dealt, I.damtype, MELEE, TRUE, get_dir(user, src), I.armour_penetration)
+	take_damage(damage_dealt, item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)
 	if(QDELETED(src))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -779,3 +795,5 @@
 		var/mob/living/M = A
 		if(("vines" in M.faction) || ("plants" in M.faction))
 			. = TRUE
+
+#undef SPACEVINE_SPAWN_THRESHOLD

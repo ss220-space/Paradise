@@ -303,8 +303,8 @@
 		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(!supress_message)
 			pulled_mob.visible_message(
-				span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob]!"),
-				span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
+				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
+				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
 			)
 		pulled_mob.LAssailant = iscarbon(src) ? src : null
 	return TRUE
@@ -381,13 +381,13 @@
 		return FALSE
 	if(anchored)
 		if(!supress_message && ismob(puller))
-			to_chat(puller, span_warning("Похоже, [name] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!"))
+			to_chat(puller, span_warning("Похоже, [declent_ru(NOMINATIVE)] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!"))
 		return FALSE
 	if(throwing || move_resist == INFINITY)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(!supress_message && ismob(puller))
-			to_chat(puller, span_warning("[name] слишком тяжел[genderize_ru(src.gender,"ый","ая","ое","ые")]!"))
+			to_chat(puller, span_warning("[capitalize(declent_ru(NOMINATIVE))] слишком тяжел[genderize_ru(src.gender,"ый","ая","ое","ые")]!"))
 		return FALSE
 	return TRUE
 
@@ -1001,7 +1001,7 @@
 		destination = get_step_multiz(start, direction)
 		if(!destination)
 			if(z_move_flags & ZMOVE_FEEDBACK)
-				to_chat(rider || src, span_warning("There's nowhere to go in that direction!"))
+				to_chat(rider || src, span_warning("В этом направлении некуда идти!"))
 			return FALSE
 
 	if(SEND_SIGNAL(src, COMSIG_CAN_Z_MOVE, start, destination) & COMPONENT_CANT_Z_MOVE)
@@ -1012,13 +1012,13 @@
 	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && !(movement_type & (FLYING|FLOATING)) && !no_gravity(start))
 		if(z_move_flags & ZMOVE_FEEDBACK)
 			if(rider)
-				to_chat(rider, span_notice("[src] is not capable of flight."))
+				to_chat(rider, span_notice("[capitalize(declent_ru(NOMINATIVE))] не способен к полёту."))
 			else
-				to_chat(src, span_notice("You are not Superman."))
+				to_chat(src, span_notice("Вы не Супермен."))
 		return FALSE
 	if((!(z_move_flags & ZMOVE_IGNORE_OBSTACLES) && !(start.zPassOut(direction) && destination.zPassIn(direction))) || (!(z_move_flags & ZMOVE_ALLOW_ANCHORED) && anchored))
 		if(z_move_flags & ZMOVE_FEEDBACK)
-			to_chat(rider || src, span_warning("You couldn't move there!"))
+			to_chat(rider || src, span_warning("Ты не можешь туда переместиться!"))
 		return FALSE
 	return destination //used by some child types checks and zMove()
 
@@ -1130,6 +1130,19 @@
 
 
 /atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
+	var/list/speed_mods = list()
+	SEND_SIGNAL(thrower, COMSIG_GET_THROW_SPEED_MODIFIERS, speed_mods)
+	for(var/mod in speed_mods)
+		speed *= mod
+
+	var/list/range_deltas = list()
+	if(range > 1)
+		SEND_SIGNAL(thrower, COMSIG_GET_THROW_RANGE_DELTAS, range_deltas)
+		for(var/delta in range_deltas)
+			range += delta
+
+		range = max(0, range)
+
 	if(throwing || !target || HAS_TRAIT(src, TRAIT_NODROP) || speed <= 0)
 		return FALSE
 
@@ -1243,12 +1256,12 @@
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
-		visible_message(span_warning("[src] сильно толка[pluralize_ru(gender,"ет","ют")] [AM]!"), span_warning("Вы сильно толкаете [AM]!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] сильно толка[pluralize_ru(gender,"ет","ют")] [AM.declent_ru(ACCUSATIVE)]!"), span_warning("Вы сильно толкаете [AM.declent_ru(ACCUSATIVE)]!"))
 
 /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
-		visible_message(span_danger("[src] сокруша[pluralize_ru(gender,"ет","ют")] [AM]!"), span_danger("Вы сокрушили [AM]!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сокруша[pluralize_ru(gender,"ет","ют")] [AM.declent_ru(ACCUSATIVE)]!"), span_danger("Вы сокрушили [AM.declent_ru(ACCUSATIVE)]!"))
 
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -1418,13 +1431,13 @@
 	var/target = isturf(loc) ? src : gourmet
 
 	gourmet.setDir(get_dir(gourmet, src))
-	gourmet.visible_message(span_danger("[gourmet.name] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [name]!"))
+	gourmet.visible_message(span_danger("[capitalize(gourmet.declent_ru(NOMINATIVE))] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [capitalize(declent_ru(ACCUSATIVE))]!"))
 
-	if(!do_after(gourmet, get_devour_time(gourmet), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [name]!")))
-		gourmet.visible_message(span_notice("[gourmet.name] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [name]!"))
+	if(!do_after(gourmet, get_devour_time(gourmet), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [capitalize(declent_ru(ACCUSATIVE))]!")))
+		gourmet.visible_message(span_notice("[capitalize(gourmet.declent_ru(NOMINATIVE))] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [capitalize(declent_ru(ACCUSATIVE))]!"))
 		return FALSE
 
-	gourmet.visible_message(span_danger("[gourmet.name] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [name]!"))
+	gourmet.visible_message(span_danger("[capitalize(gourmet.declent_ru(NOMINATIVE))] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [capitalize(declent_ru(ACCUSATIVE))]!"))
 
 	if(victim.mind)
 		add_attack_logs(gourmet, src, "Devoured")

@@ -171,6 +171,9 @@
 	icon_state = "chaplain_hood"
 	flags_cover = HEADCOVERSEYES
 
+/obj/item/clothing/head/hooded/chaplain_hood/armoured
+	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+
 /obj/item/clothing/head/hooded/chaplain_hood/no_name
 	name = "dark robe's hood"
 	desc = "Капюшон, покрывающий голову. Позволяет сохранить тепло во время космической зимы."
@@ -534,7 +537,7 @@
 
 /obj/item/clothing/head/surgery
 	name = "surgical cap"
-	desc = "Шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "хирургическая шапочка",
 		GENITIVE = "хирургической шапочки",
@@ -557,7 +560,7 @@
 
 /obj/item/clothing/head/surgery/purple
 	name = "purple surgical cap"
-	desc = "Фиолетовая шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Фиолетовая шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "фиолетовая хирургическая шапочка",
 		GENITIVE = "фиолетовой хирургической шапочки",
@@ -570,7 +573,7 @@
 
 /obj/item/clothing/head/surgery/blue
 	name = "blue surgical cap"
-	desc = "Голубая шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Голубая шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "голубая хирургическая шапочка",
 		GENITIVE = "голубой хирургической шапочки",
@@ -583,7 +586,7 @@
 
 /obj/item/clothing/head/surgery/green
 	name = "dark green surgical cap"
-	desc = "Тёмно-зелёная шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Тёмно-зелёная шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "тёмно-зелёная хирургическая шапочка",
 		GENITIVE = "тёмно-зелёной хирургической шапочки",
@@ -596,7 +599,7 @@
 
 /obj/item/clothing/head/surgery/lightgreen
 	name = "green surgical cap"
-	desc = "Зелёная шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Зелёная шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "зелёная хирургическая шапочка",
 		GENITIVE = "зелёной хирургической шапочки",
@@ -609,7 +612,7 @@
 
 /obj/item/clothing/head/surgery/black
 	name = "black surgical cap"
-	desc = "Чёрная шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Чёрная шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "чёрная хирургическая шапочка",
 		GENITIVE = "чёрной хирургической шапочки",
@@ -622,7 +625,7 @@
 
 //SolGov
 /obj/item/clothing/head/beret/solgov/command
-	name = "\improper Trans-Solar Federation Lieutenant's beret"
+	name = "Trans-Solar Federation Lieutenant's beret"
 	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель - лейтенант."
 	ru_names = list(
 		NOMINATIVE = "берет лейтенанта ТСФ",
@@ -638,7 +641,7 @@
 	strip_delay = 80
 
 /obj/item/clothing/head/beret/solgov/command/elite
-	name = "\improper Trans-Solar Federation Specops Lieutenant's beret"
+	name = "Trans-Solar Federation Specops Lieutenant's beret"
 	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель принадлежит отделу специальных операций флота."
 	ru_names = list(
 		NOMINATIVE = "берет офицера специальных операций ТСФ",
@@ -668,7 +671,7 @@
 
 /obj/item/clothing/head/surgery/brown
 	name = "brown surgical cap"
-	desc = "Коричневая шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Коричневая шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "коричневая хирургическая шапочка",
 		GENITIVE = "коричневой хирургической шапочки",
@@ -678,6 +681,21 @@
 		PREPOSITIONAL = "коричневой хирургической шапочке"
 	)
 	icon_state = "surgcap_brown"
+
+//prison
+/obj/item/clothing/head/prison
+	name = "prison hat"
+	desc = "Тюремная шапка, которая должна предотвращать распространение космо вшей... По крайней мере так задумывалось."
+	ru_names = list(
+		NOMINATIVE = "тюремная шапка",
+		GENITIVE = "тюремную шапкапу",
+		DATIVE = "тюремной шапке",
+		ACCUSATIVE = "тюремную шапку",
+		INSTRUMENTAL = "тюремной шапкой",
+		PREPOSITIONAL = "тюремной шапке"
+	)
+	item_state = "prison_hat"
+	icon_state = "prison_hat"
 
 //Mining medic
 /obj/item/clothing/head/beret/mining_medic
@@ -692,3 +710,4 @@
 		PREPOSITIONAL = "берете шахтёрского врача"
 	)
 	icon_state = "beret_minmed"
+

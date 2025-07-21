@@ -3,6 +3,7 @@
 	desc = "It's a flag."
 	icon = 'icons/obj/flag.dmi'
 	icon_state = "ntflag"
+	slot_flags = ITEM_SLOT_NECK
 	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/flags_righthand.dmi'
 	item_flags = NO_PIXEL_RANDOM_DROP
@@ -255,7 +256,7 @@
 
 	var/list/show_flag = list("EXIT" = null) + sortList(flag)
 
-	var/input_flag = input(user, "Choose a flag to disguise as.", "Choose a flag.") in show_flag
+	var/input_flag = tgui_input_list(user, "Choose a flag to disguise as.", "Choose a flag.", show_flag)
 
 	if(user && (src in user.contents))
 

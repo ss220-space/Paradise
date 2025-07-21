@@ -386,8 +386,11 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
-		GLOB.command_announcement.Announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
-		visible_message(span_dangerbigger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
+		GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
+										ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/cult_summon.ogg'
+		)
+		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
 		begin_the_ritual()
 		return ATTACK_CHAIN_BLOCKED_ALL

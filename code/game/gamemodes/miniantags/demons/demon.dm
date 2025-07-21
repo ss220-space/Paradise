@@ -4,13 +4,21 @@
 
 /mob/living/simple_animal/demon
 	name = "a generic demon"
-	desc = "you shouldnt be reading this, file a github report"
+	ru_names = list(
+		NOMINATIVE = "обычный демон",
+		GENITIVE = "обычного демона",
+		DATIVE = "обычному демону",
+		ACCUSATIVE = "обычного демона",
+		INSTRUMENTAL = "обычным демоном",
+		PREPOSITIONAL = "обычном демоне"
+	)
+	desc = "Если вы это видите, составьте баг-репорт в Discord."
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
 	tts_seed = "Mannoroth"
-	response_help  = "thinks better of touching"
-	response_disarm = "flails at"
-	response_harm   = "punches"
+	response_help  = "решает не трогать"
+	response_disarm = "машет в сторону"
+	response_harm   = "бьёт"
 	speed = 1
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
@@ -59,7 +67,7 @@
 
 
 /datum/action/innate/demon/whisper
-	name = "Demonic Whisper"
+	name = "Демонический шёпот"
 	button_icon_state = "cult_comms"
 	background_icon_state = "bg_demon"
 
@@ -71,10 +79,10 @@
 			validtargets += target
 
 	if(!length(validtargets))
-		to_chat(usr, span_warning("There are no valid targets!"))
+		user.balloon_alert(usr, "нет подходящих целей!")
 		return
 
-	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
+	var/mob/living/target = tgui_input_list(user, "Выберите цель для разговора", "Выбор цели", validtargets)
 	return target
 
 
@@ -83,20 +91,28 @@
 	if(!choice)
 		return
 
-	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
+	var/msg = tgui_input_text(usr, "Что вы хотите сказать [choice]?", null, "")
 	if(!msg)
 		return
 
 	add_say_logs(usr, msg, choice, "SLAUGHTER")
-	to_chat(usr, span_info("<b>You whisper to [choice]: </b>[msg]"))
-	to_chat(choice, "[span_deadsay("<b>Suddenly a strange, demonic voice resonates in your head... </b>")][span_danger("<i> [msg]</i>")]")
+	to_chat(usr, span_info("<b>Вы шепчете [choice]: </b>[msg]"))
+	to_chat(choice, "[span_deadsay("<b>Внезапно странный демонический голос звучит у вас в голове... </b>")][span_danger("<i> [msg]</i>")]")
 	for(var/mob/dead/observer/G in GLOB.player_list)
-		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
+		G.show_message("<i>Демоническое сообщение от <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) к <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
 
 
 /obj/item/organ/internal/heart/demon
 	name = "demon heart"
-	desc = "Still it beats furiously, emanating an aura of utter hate."
+	ru_names = list(
+		NOMINATIVE = "демоническое сердце",
+		GENITIVE = "демонического сердца",
+		DATIVE = "демоническому сердцу",
+		ACCUSATIVE = "демоническое сердце",
+		INSTRUMENTAL = "демоническим сердцем",
+		PREPOSITIONAL = "демоническом сердце"
+	)
+	desc = "Оно всё ещё яростно бьётся, излучая ауру абсолютной ненависти."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=7"
@@ -115,8 +131,8 @@
 
 
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
-	user.visible_message(span_warning("[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!"), \
-						 span_danger("An unnatural hunger consumes you. You raise [src] to your mouth and devour it!"))
+	user.visible_message(span_warning("[user] поднимает [declent_ru(ACCUSATIVE)] ко рту и вгрызается в него зубами!"), \
+						 span_danger("Неестественный голод охватывает вас. Вы поднимаете [declent_ru(ACCUSATIVE)] ко рту и пожираете его!"))
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 
 

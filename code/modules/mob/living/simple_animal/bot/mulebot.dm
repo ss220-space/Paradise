@@ -7,7 +7,7 @@
 #define DELIGHT 2
 
 /mob/living/simple_animal/bot/mulebot
-	name = "\improper MULEbot"
+	name = "MULEbot"
 	desc = "Многофункциональный Узкоспециализированный Легкомоторный робот. Нет, это не просто случайные слова, подобранные для красивого написания. Честно."
 	ru_names = list(
 		NOMINATIVE = "МУЛбот",
@@ -100,9 +100,9 @@
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(_suffix)
 	suffix = _suffix
 	if(paicard)
-		bot_name = "\improper MULEbot ([suffix])"
+		bot_name = "MULEbot ([suffix])"
 	else
-		name = "\improper MULEbot ([suffix])"
+		name = "MULEbot ([suffix])"
 
 
 /mob/living/simple_animal/bot/mulebot/bot_reset()
@@ -320,7 +320,7 @@
 			if(mode == BOT_IDLE || mode == BOT_DELIVER)
 				start_home()
 		if("destination")
-			var/new_dest = input(usr, "Введите пункт назначения:", name, destination) as null|anything in GLOB.deliverybeacontags
+			var/new_dest = tgui_input_list(usr, "Введите пункт назначения:", name, GLOB.deliverybeacontags, destination)
 			if(new_dest)
 				set_destination(new_dest)
 		if("setid")
@@ -328,7 +328,7 @@
 			if(new_id)
 				set_suffix(new_id)
 		if("sethome")
-			var/new_home = input(usr, "Введите домашнюю точку:", name, home_destination) as null|anything in GLOB.deliverybeacontags
+			var/new_home = tgui_input_list(usr, "Введите домашнюю точку:", name, GLOB.deliverybeacontags, home_destination)
 			if(new_home)
 				home_destination = new_home
 		if("unload")

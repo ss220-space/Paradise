@@ -67,7 +67,15 @@
 
 /obj/item/ammo_casing/caseless/glockroach
 	name = "0.9mm bullet casing"
-	desc = "A... 0.9mm bullet casing? What?"
+	desc = "Это... 0.9mm гильза? Чего?"
+	ru_names = list(
+		NOMINATIVE = "гильза 0.9 мм",
+		GENITIVE = "гильзы 0.9 мм",
+		DATIVE = "гильзе 0.9 мм",
+		ACCUSATIVE = "гильзу 0.9 мм",
+		INSTRUMENTAL = "гильзой 0.9 мм",
+		PREPOSITIONAL = "гильзе 0.9 мм"
+	)
 	projectile_type = /obj/projectile/glockroachbullet
 
 /mob/living/basic/cockroach/glockroach

@@ -118,7 +118,7 @@
 
 /obj/item/organ/internal/eyes/on_life()
 	var/update_flags = STATUS_UPDATE_NONE
-	if(owner.glasses)
+	if(ishuman(owner) && owner.glasses)
 		var/obj/item/clothing/glasses/G = owner.glasses
 		if(G.heal_bodypart == INTERNAL_ORGAN_EYES && iscarbon(owner))
 			var/mob/living/carbon/C = owner

@@ -157,6 +157,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
+/obj/item/clothing/suit/hooded/chaplain_hoodie/armoured
+		armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+		hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/armoured
+
 /obj/item/clothing/suit/hooded/chaplain_hoodie/no_name
 	name = "dark hoodie"
 	desc = "A dark robe made of thick fabric that looks intimidating"
@@ -442,7 +446,7 @@
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
-	name = "\improper Internal Affairs jacket"
+	name = "Internal Affairs jacket"
 	desc = "A smooth black jacket."
 	icon_state = "ia_jacket_open"
 	item_state = "ia_jacket_open"
@@ -463,7 +467,7 @@
 		)
 
 /obj/item/clothing/suit/storage/ntrep
-	name = "\improper Nanotrasen Representative jacket"
+	name = "Nanotrasen Representative jacket"
 	desc = "A fancy black jacket; standard issue to Nanotrasen Representatives."
 	icon_state = "ntrep"
 	item_state = "ntrep"
@@ -572,7 +576,16 @@
 // Surgeon
 /obj/item/clothing/suit/apron/surgical
 	name = "surgical apron"
-	desc = "A sterile blue surgical apron."
+	desc = "Стерильный хирургический фартук синего цвета, предназначенный для ношения хирургами в операционных. \
+			Изготовлен из многослойного материала с антисептической пропиткой, оборудован креплениями для хирургических инструментов."
+	ru_names = list(
+		NOMINATIVE = "хирургический фартук",
+		GENITIVE = "хирургического фартука",
+		DATIVE = "хирургическому фартуку",
+		ACCUSATIVE = "хирургический фартук",
+		INSTRUMENTAL = "хирургическим фартуком",
+		PREPOSITIONAL = "хирургическом фартуке"
+	)
 	icon_state = "surgical"
 	item_state = "surgical"
 	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)

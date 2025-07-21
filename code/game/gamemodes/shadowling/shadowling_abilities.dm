@@ -387,11 +387,8 @@
 	eyes = new /obj/item/organ/internal/cyberimp/eyes/thermals/ling(null) // thermal without item
 	eyes.insert(user)
 
-	var/thralls = 0
+	var/thralls = get_thralls()
 	var/victory_threshold = SSticker.mode.required_thralls
-	for(var/mob/living/target in GLOB.alive_mob_list)
-		if(is_thrall(target))
-			thralls++
 
 	if(!do_after(user, 3 SECONDS, user))
 		to_chat(user, span_warning("Ваша концентрация нарушена."))
@@ -450,6 +447,16 @@
 		return FALSE
 	. = ..()
 
+/proc/get_thralls()
+	var/thralls = 0
+	for(var/mob/living/target in GLOB.alive_mob_list)
+		if(!is_thrall(target) || target.mind.madeby_sentience_potion)
+			continue
+
+		thralls++
+		to_chat(target, span_shadowling("You feel hooks sink into your mind and pull."))
+
+	return thralls
 
 /obj/effect/proc_holder/spell/shadowling_collective_mind/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
@@ -458,12 +465,8 @@
 
 	to_chat(user, span_shadowling("<b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b>"))
 
-	var/thralls = 0
+	var/thralls = get_thralls()
 	var/victory_threshold = SSticker.mode.required_thralls
-	for(var/mob/living/target in GLOB.alive_mob_list)
-		if(is_thrall(target))
-			thralls++
-			to_chat(target, span_shadowling("You feel hooks sink into your mind and pull."))
 
 	if(!do_after(user, 3 SECONDS, user))
 		to_chat(user, span_warning("Your concentration has been broken. The mental hooks you have sent out now retract into your mind."))
@@ -609,7 +612,7 @@
 			else if(issilicon(target))
 				var/mob/living/silicon/robot = target
 				to_chat(robot, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! ПЕРЕГРУЗКА СЕНСЕРОВ \[$(!@#</b>"))
-				robot << 'sound/misc/interference.ogg'
+				SEND_SOUND(robot, sound('sound/misc/interference.ogg'))
 				playsound(robot, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
 				do_sparks(5, 1, robot)
 				robot.Weaken(12 SECONDS)
@@ -868,7 +871,10 @@
 	target.death()
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/timer = SSshuttle.emergency.timeLeft(1) + 10 MINUTES
-		GLOB.event_announcement.Announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.", "Системный сбой.", 'sound/misc/notice1.ogg')
+		GLOB.major_announcement.announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.",
+										ANNOUNCE_SYSERROR_RU,
+										'sound/misc/notice1.ogg'
+		)
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
 	user.mind.RemoveSpell(src)	//Can only be used once!
@@ -1057,7 +1063,7 @@
 
 
 /obj/effect/proc_holder/spell/ascendant_transmit/cast(list/targets, mob/living/simple_animal/ascendant_shadowling/user = usr)
-	var/text = stripped_input(user, "Что ты хочешь сказать всем находящимся рядом и на [station_name()]?.", "Озвучить всем", "")
+	var/text = tgui_input_text(user, "Что ты хочешь сказать всем находящимся рядом и на [station_name()]?.", "Озвучить всем", "")
 
 	if(!text)
 		revert_cast(user)

@@ -235,11 +235,11 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
 		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A) || iscogscarab(A) || isclocker(A))
 			continue
-		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
+		var/name = "[A.real_name] ([A.modtype?.name] [A.braintype])"
 		borgs[name] = A
 
 	if(borgs.len)
-		select = input("Unshackled borg signals detected:", "Borg selection", null, null) as null|anything in borgs
+		select = tgui_input_list(usr, "Unshackled borg signals detected:", "Borg selection", borgs, null)
 		return borgs[select]
 
 //When a borg is activated, it can choose which AI it wants to be slaved to
@@ -269,7 +269,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/select_active_ai(var/mob/user)
 	var/list/ais = active_ais()
 	if(ais.len)
-		if(user)	. = input(usr,"AI signals detected:", "AI selection") in ais
+		if(user)	. = tgui_input_list(usr, "AI signals detected:", "AI selection", ais)
 		else		. = pick(ais)
 	return .
 
@@ -331,30 +331,32 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/sortmobs()
 	var/list/moblist = list()
 	var/list/sortmob = sortAtom(GLOB.mob_list)
-	for(var/mob/living/silicon/ai/M in sortmob)
-		moblist.Add(M)
-		if(M.eyeobj)
-			moblist.Add(M.eyeobj)
-	for(var/mob/living/silicon/pai/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/silicon/robot/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/carbon/human/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/carbon/brain/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/carbon/alien/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/dead/observer/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/new_player/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/simple_animal/slime/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/simple_animal/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/camera/blob/M in sortmob)
-		moblist.Add(M)
+	for(var/mob/living/silicon/ai/mob in sortmob)
+		moblist.Add(mob)
+		if(mob.eyeobj)
+			moblist.Add(mob.eyeobj)
+	for(var/mob/living/silicon/pai/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/silicon/robot/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/carbon/human/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/carbon/true_devil/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/carbon/brain/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/carbon/alien/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/dead/observer/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/new_player/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/simple_animal/slime/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/simple_animal/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/camera/blob/mob in sortmob)
+		moblist.Add(mob)
 	return moblist
 
 // Format a power value in W, kW, MW, or GW.
@@ -778,6 +780,23 @@ Returns 1 if the chain up to the area contains the given typepath
 			mobs += M
 	return mobs
 
+GLOBAL_LIST_INIT(body_zone, list(
+	BODY_ZONE_HEAD = list(NOMINATIVE = "голова", GENITIVE = "головы", DATIVE = "голове", ACCUSATIVE = "голову", INSTRUMENTAL = "головой", PREPOSITIONAL = "голове"),
+    BODY_ZONE_CHEST = list(NOMINATIVE = "грудь", GENITIVE = "груди", DATIVE = "груди", ACCUSATIVE = "грудь", INSTRUMENTAL = "грудью", PREPOSITIONAL = "груди"),
+    BODY_ZONE_L_ARM = list(NOMINATIVE = "левая рука", GENITIVE = "левой руки", DATIVE = "левой руке", ACCUSATIVE = "левую руку", INSTRUMENTAL = "левой рукой", PREPOSITIONAL = "левой руке"),
+    BODY_ZONE_R_ARM = list(NOMINATIVE = "правая рука", GENITIVE = "правой руки", DATIVE = "правой руке", ACCUSATIVE = "правую руку", INSTRUMENTAL = "правой рукой", PREPOSITIONAL = "правой руке"),
+    BODY_ZONE_L_LEG = list(NOMINATIVE = "левая нога", GENITIVE = "левой ноги", DATIVE = "левой ноге", ACCUSATIVE = "левую ногу", INSTRUMENTAL = "левой ногой", PREPOSITIONAL = "левой ноге"),
+    BODY_ZONE_R_LEG = list(NOMINATIVE = "правая нога", GENITIVE = "правой ноги", DATIVE = "правой ноге", ACCUSATIVE = "правую ногу", INSTRUMENTAL = "правой ногой", PREPOSITIONAL = "правой ноге"),
+    BODY_ZONE_TAIL = list(NOMINATIVE = "хвост", GENITIVE = "хвоста", DATIVE = "хвосту", ACCUSATIVE = "хвост", INSTRUMENTAL = "хвостом", PREPOSITIONAL = "хвосте"),
+    BODY_ZONE_WING = list(NOMINATIVE = "крылья", GENITIVE = "крыльев", DATIVE = "крыльям", ACCUSATIVE = "крылья", INSTRUMENTAL = "крыльями", PREPOSITIONAL = "крыльях"),
+    BODY_ZONE_PRECISE_EYES = list(NOMINATIVE = "глаза", GENITIVE = "глаз", DATIVE = "глазам", ACCUSATIVE = "глаза", INSTRUMENTAL = "глазами", PREPOSITIONAL = "глазах"),
+    BODY_ZONE_PRECISE_MOUTH = list(NOMINATIVE = "рот", GENITIVE = "рта", DATIVE = "рту", ACCUSATIVE = "рот", INSTRUMENTAL = "ртом", PREPOSITIONAL = "рте"),
+    BODY_ZONE_PRECISE_GROIN = list(NOMINATIVE = "живот", GENITIVE = "живота", DATIVE = "животу", ACCUSATIVE = "живот", INSTRUMENTAL = "животом", PREPOSITIONAL = "животе"),
+    BODY_ZONE_PRECISE_L_HAND = list(NOMINATIVE = "левая кисть", GENITIVE = "левой кисти", DATIVE = "левой кисти", ACCUSATIVE = "левую кисть", INSTRUMENTAL = "левой кистью", PREPOSITIONAL = "левой кисти"),
+    BODY_ZONE_PRECISE_R_HAND = list(NOMINATIVE = "правая кисть", GENITIVE = "правой кисти", DATIVE = "правой кисти", ACCUSATIVE = "правую кисть", INSTRUMENTAL = "правой кистью", PREPOSITIONAL = "правой кисти"),
+    BODY_ZONE_PRECISE_L_FOOT = list(NOMINATIVE = "левая ступня", GENITIVE = "левой ступни", DATIVE = "левой ступне", ACCUSATIVE = "левую ступню", INSTRUMENTAL = "левой ступнёй", PREPOSITIONAL = "левой ступне"),
+    BODY_ZONE_PRECISE_R_FOOT = list(NOMINATIVE = "правая ступня", GENITIVE = "правой ступни", DATIVE = "правой ступне", ACCUSATIVE = "правую ступню", INSTRUMENTAL = "правой ступнёй", PREPOSITIONAL = "правой ступне")
+))
 
 /proc/parse_zone(zone)
 	switch(zone)
@@ -804,16 +823,15 @@ Returns 1 if the chain up to the area contains the given typepath
 		if(BODY_ZONE_PRECISE_GROIN)
 			return "живот"
 		if(BODY_ZONE_PRECISE_L_HAND)
-			return "левая ладонь"
+			return "левая кисть"
 		if(BODY_ZONE_PRECISE_R_HAND)
-			return "правая ладонь"
+			return "правая кисть"
 		if(BODY_ZONE_PRECISE_L_FOOT)
 			return "левая ступня"
 		if(BODY_ZONE_PRECISE_R_FOOT)
 			return "правая ступня"
 		else
 			stack_trace("Wrong zone input.")
-
 
 /*
 

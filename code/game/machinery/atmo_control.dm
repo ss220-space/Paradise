@@ -447,7 +447,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	add_fingerprint(usr)
 
 	if(href_list["out_set_pressure"])
-		var/response=input(usr,"Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]") as num
+		var/response = tgui_input_number(usr, "Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]")
 		pressure_setting = text2num(response)
 		pressure_setting = between(0, pressure_setting, 50*ONE_ATMOSPHERE)
 

@@ -1,10 +1,10 @@
 /datum/disease/ectoplasmic
-	name = "Ectoplasmic fever"
-	agent = "Corrupted ectoplasm"
-	desc = "Caused by a revenant, it slowly depletes organic life forms and can corrupt soul."
+	name = "Эктоплазменная лихорадка"
+	agent = "Искажённая эктоплазма"
+	desc = "Вызвана ревенантом, она медленно истощает органические формы жизни и может искажать душу."
 	cures = list("holywater")
 	cure_prob = 50
-	cure_text = "Holy water"
+	cure_text = "Святая вода"
 	discovered = TRUE
 	severity = DANGEROUS
 	can_immunity = FALSE
@@ -22,7 +22,7 @@
 		if(3)
 			if(prob(10))
 				human.apply_damage(10, STAMINA)
-				to_chat(human, span_danger("You feel weak!"))
+				to_chat(human, span_danger("Вы чувствуете слабость!"))
 				create_effect = TRUE
 			if(prob(30))
 				human.vomit(stun = 0.1 SECONDS)
@@ -33,25 +33,25 @@
 				create_effect = TRUE
 			if(prob(15))
 				human.AdjustLoseBreath(5 SECONDS)
-				to_chat(human, span_warning("Otherworld powers exhausts you!"))
+				to_chat(human, span_warning("Силы иного мира истощают вас!"))
 				create_effect = TRUE
 			if(prob(15))
 				human.AdjustConfused(10 SECONDS, bound_lower = 0, bound_upper = 30 SECONDS)
 				human.apply_damage(10, TOX)
-				to_chat(human, span_warning("You feel totally disoriented!"))
+				to_chat(human, span_warning("Вы чувствуете полную дезориентацию!"))
 				create_effect = TRUE
 			if(prob(20))
 				human.apply_damage(20, STAMINA)
 				human.AdjustWeakened(1)
-				to_chat(human, span_warning("You suddenly feel [pick("sick and tired", "nauseated", "dizzy", "stabbing pain in your head")]."))
-				create_effect = TRUE	
+				to_chat(human, span_warning("Вы внезапно чувствуете [pick("тошноту и усталость", "тошноту", "головокружение", "острую боль в голове")]."))
+				create_effect = TRUE
 		if(5)
 			if(prob(SYMPTOM_ACTIVATION_PROB * 10))
 				human.mind?.add_antag_datum(/datum/antagonist/sintouched)
-				to_chat(human, span_revenbignotice("You suddenly feel your soul become corrupted."))
+				to_chat(human, span_revenbignotice("Вы внезапно чувствуете, как ваша душа искажается."))
 			else
 				human.apply_damage(80, STAMINA)
-				to_chat(human, "You feel very tired, but disease left you.")
+				to_chat(human, "Вы чувствуете сильную усталость, но болезнь покинула вас.")
 
 			create_effect = TRUE
 			cure()

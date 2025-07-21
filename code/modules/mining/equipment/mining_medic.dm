@@ -91,7 +91,7 @@ Almost every mining medic related stuff
 	if(!force)
 		balloon_alert(user, "камера [on ? "в" : "вы"]ключена")
 
-	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
+	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in SSmachines.get_by_type(/obj/machinery/computer/security/telescreen/entertainment))
 		TV.update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/accessory/camera/update_icon_state()
@@ -170,7 +170,7 @@ Almost every mining medic related stuff
 
 /obj/item/camera_bug/mining
 	name = "mining camera monitor"
-	desc = "Небольшое устройство, считывающее данные с шахтёрских видеокамер. Позволяет следить за тем, как шахтёры борятся за жизнь на просторах Лаваленда."
+	desc = "Небольшое устройство, считывающее данные с шахтёрских видеокамер. Позволяет следить за тем, как шахтёры борятся за жизнь на просторах Лазиса."
 	ru_names = list(
 		NOMINATIVE = "шахтёрский монитор видеокамер",
 		GENITIVE = "шахтёрского монитора видеокамер",

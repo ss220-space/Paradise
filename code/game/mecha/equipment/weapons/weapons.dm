@@ -292,7 +292,7 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
-	name = "\improper S.H.H. \"Quietus\" Carbine"
+	name = "S.H.H. \"Quietus\" Carbine"
 	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 1.5 SECONDS

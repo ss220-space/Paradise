@@ -251,7 +251,7 @@
 	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/cogscarab/toggle_sensor_mode()
-	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Medical","Diagnostic", "Multisensor","Disable")
+	var/sensor_type = tgui_input_list(usr, "Please select sensor type.", "Sensor Integration", list("Medical","Diagnostic", "Multisensor","Disable"), null)
 	remove_med_sec_hud()
 	switch(sensor_type)
 		if("Medical")
@@ -278,9 +278,9 @@
 	return
 
 /mob/living/silicon/robot/cogscarab/verb/light()
-	set name = "Light On/Off"
+	set name = "Освещение"
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = "Cogscarab"
+	set category = STATPANEL_COGSCARAB
 
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp

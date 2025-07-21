@@ -193,6 +193,15 @@
 	durationfire = BURN_TIME_TIER_4
 	rangefire = 5
 
+/datum/reagent/napalm/hellfire
+	name = "Жидкое адское пламя"
+	id = "hellfire"
+	description = "Адское пламя, превращённое в вещество неизвестными силами."
+	burncolor = "#EE6515"
+	intensityfire = BURN_LEVEL_TIER_2
+	durationfire = BURN_TIME_TIER_1
+	rangefire = 3
+
 // This is the green flamer fuel for the pyro.
 /datum/reagent/napalm/green
 	name = "Napalm B"

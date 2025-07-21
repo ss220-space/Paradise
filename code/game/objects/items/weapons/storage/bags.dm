@@ -4,16 +4,20 @@
  *	that were already defined in weapon/storage, but which had been
  *	re-implemented in other classes.
  *
- *	Contains:
- *		Trash Bag
- *		Mining Satchel
- *		Plant Bag
- *		Sheet Snatcher
- *		Book Bag
- *      Construction bag
+ *	CONTENTS:
+ *		Trash bag
+ *		Plastic bag
+ *		Mining satchel
+ *		Bombs bag
+ *		Plant bag
+ *		Cash bag
+ *		Book bag
+ *		Construction bag
  *		Tray
- *
- *	-Sayu
+ *		Antag tray
+ *		Chemistry bag
+ *		Bio bag
+ *		Pouch
  */
 
 //  Generic non-item
@@ -27,9 +31,9 @@
 	equip_sound = 'sound/items/handling/backpack_equip.ogg'
 	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 
-// -----------------------------
-//          Trash bag
-// -----------------------------
+////////////////////////////////////////
+// MARK:	Trash bag
+////////////////////////////////////////
 /obj/item/storage/bag/trash
 	name = "trash bag"
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
@@ -75,10 +79,9 @@
 	storage_slots = 60
 	item_flags = NO_MAT_REDEMPTION
 
-// -----------------------------
-//        Plastic Bag
-// -----------------------------
-
+////////////////////////////////////////
+// MARK:	Plastic bag
+////////////////////////////////////////
 /obj/item/storage/bag/plasticbag
 	name = "plastic bag"
 	desc = "It's a very flimsy, very noisy alternative to a bag."
@@ -124,13 +127,20 @@
 		STOP_PROCESSING(SSobj, src)
 	return
 
-// -----------------------------
-//        Mining Satchel
-// -----------------------------
-
+////////////////////////////////////////
+// MARK:	Mining satchel
+////////////////////////////////////////
 /obj/item/storage/bag/ore
 	name = "mining satchel"
-	desc = "This little bugger can be used to store and transport ores."
+	desc = "Эта малютка может хранить и переносить руду."
+	ru_names = list(
+		NOMINATIVE = "шахтёрская сумка",
+		GENITIVE = "шахтёрской сумки",
+		DATIVE = "шахтёрской сумке",
+		ACCUSATIVE = "шахтёрскую сумку",
+		INSTRUMENTAL = "шахтёрской сумкой",
+		PREPOSITIONAL = "шахтёрской сумке"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
@@ -144,7 +154,15 @@
 
 /obj/item/storage/bag/ore/bigger
 	name = "industrial mining satchel"
-	desc = "This bugger can be used to store and transport ores. This one has additional utility pockets for ore."
+	desc = "Усовершенствованная версия с дополнительными карманами для руды."
+	ru_names = list(
+		NOMINATIVE = "промышленная шахтёрская сумка",
+		GENITIVE = "промышленной шахтёрской сумки",
+		DATIVE = "промышленной шахтёрской сумке",
+		ACCUSATIVE = "промышленную шахтёрскую сумку",
+		INSTRUMENTAL = "промышленной шахтёрской сумкой",
+		PREPOSITIONAL = "промышленной шахтёрской сумке"
+	)
 	icon_state = "satchel_better"
 	storage_slots = 16 //little better
 
@@ -159,7 +177,15 @@
 
 /obj/item/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
-	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
+	desc = "Революционное решение – бесконечное хранилище для руды с защитой от сбоев."
+	ru_names = list(
+		NOMINATIVE = "шахтёрская сумка хранения",
+		GENITIVE = "шахтёрской сумки хранения",
+		DATIVE = "шахтёрской сумке хранения",
+		ACCUSATIVE = "шахтёрскую сумку хранения",
+		INSTRUMENTAL = "шахтёрской сумкой хранения",
+		PREPOSITIONAL = "шахтёрской сумке хранения"
+	)
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=4;materials=3;engineering=3"
@@ -176,7 +202,15 @@
 
 /obj/item/storage/bag/gem
 	name = "gem satchel"
-	desc = "You thought it would be more like what those cartoon robbers wear."
+	desc = "Вы ожидали чего-то более стильного, как в мультфильмах про грабителей."
+	ru_names = list(
+		NOMINATIVE = "сумка для самоцветов",
+		GENITIVE = "сумки для самоцветов",
+		DATIVE = "сумке для самоцветов",
+		ACCUSATIVE = "сумку для самоцветов",
+		INSTRUMENTAL = "сумкой для самоцветов",
+		PREPOSITIONAL = "сумке для самоцветов"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "gem_satchel"
 	slot_flags = ITEM_SLOT_BELT
@@ -196,10 +230,9 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 
-// -----------------------------
-//          bombs bag
-// -----------------------------
-
+////////////////////////////////////////
+// MARK:	Bombs bag
+////////////////////////////////////////
 /obj/item/storage/bag/kaboom // bag that can hold plastic explosions(used only for emagged mining borg)
 	name = "Charge Deployment System"
 	ru_names = list(
@@ -318,10 +351,9 @@
 	else
 		icon_state = "bomb_satchel"
 
-// -----------------------------
-//          Plant bag
-// -----------------------------
-
+////////////////////////////////////////
+// MARK:	Plant bag
+////////////////////////////////////////
 /obj/item/storage/bag/plants
 	name = "plant bag"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -340,8 +372,8 @@
 	origin_tech = "biotech=3;engineering=2"
 
 /obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
-	set name = "Activate Seed Extraction"
-	set category = "Object"
+	set name = "Конвертация в семена"
+	set category = STATPANEL_OBJECT
 	set desc = "Activate to convert your plants into plantable seeds."
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -352,18 +384,16 @@
 		if(M.s_active == src)
 			close(M)
 
-
-// -----------------------------
-//        Sheet Snatcher
-// -----------------------------
+////////////////////////////////////////
+// MARK:	Sheet snatcher
+////////////////////////////////////////
 // Because it stacks stacks, this doesn't operate normally.
 // However, making it a storage/bag allows us to reuse existing code in some places. -Sayu
-
 /obj/item/storage/bag/sheetsnatcher
+	name = "sheet snatcher"
+	desc = "A patented Nanotrasen storage system designed for any kind of mineral sheet."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
-	name = "Sheet Snatcher"
-	desc = "A patented Nanotrasen storage system designed for any kind of mineral sheet."
 
 	var/capacity = 300; //the number of sheets it can carry.
 	w_class = WEIGHT_CLASS_NORMAL
@@ -418,7 +448,7 @@
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
 	update_icon()
-	return 1
+	return TRUE
 
 
 // Sets up numbered display to show the stack size of each stored mineral
@@ -470,7 +500,7 @@
 	//Therefore, make a new stack internally that has the remainder.
 	// -Sayu
 
-	if(S.amount > S.max_amount)
+	if(S.get_amount() > S.max_amount)
 
 		new S.type(src, S.amount - S.max_amount)
 
@@ -478,20 +508,17 @@
 
 	return ..(S,new_location)
 
-// -----------------------------
-//    Sheet Snatcher (Cyborg)
-// -----------------------------
 
+// Sheet Snatcher (Cyborg)
 /obj/item/storage/bag/sheetsnatcher/borg
 	name = "Sheet Snatcher 9000"
 	desc = ""
 	capacity = 500//Borgs get more because >specialization
 
 
-// -----------------------------
-//           Cash Bag
-// -----------------------------
-
+////////////////////////////////////////
+// MARK:	Cash bag
+////////////////////////////////////////
 /obj/item/storage/bag/cash
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cashbag"
@@ -503,10 +530,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/coin,/obj/item/stack/spacecash)
 
-// -----------------------------
-//           Book bag
-// -----------------------------
-
+////////////////////////////////////////
+// MARK:	Book bag
+////////////////////////////////////////
 /obj/item/storage/bag/books
 	name = "book bag"
 	desc = "A bag for books."
@@ -520,10 +546,9 @@
 	can_hold = list(/obj/item/book, /obj/item/storage/bible, /obj/item/tome, /obj/item/spellbook)
 	resistance_flags = FLAMMABLE
 
-// ------------------------------------------
-//           Construction bag
-// ------------------------------------------
-
+////////////////////////////////////////
+// MARK:	Construction bag
+////////////////////////////////////////
 /obj/item/storage/bag/construction
 	name = "construction bag"
 	desc = "A bag for construction stuff."
@@ -550,10 +575,9 @@
 	)
 	resistance_flags = FLAMMABLE
 
-/*
- * Trays - Agouri
- */
-
+////////////////////////////////////////
+// MARK:	Tray
+////////////////////////////////////////
 /obj/item/storage/bag/tray
 	name = "tray"
 	icon = 'icons/obj/food/containers.dmi'
@@ -601,11 +625,11 @@
 	var/placement_radius = 12
 
 /obj/item/storage/bag/tray/cyborg/verb/select_placement_radius()
-	set name = "Select Placement Radius"
-	set category = "Object"
+	set name = "Радиус размещения"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
-	var/new_radius = input(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12) as num
+	var/new_radius = tgui_input_number(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12)
 	new_radius = clamp(new_radius, 0, 16)
 	placement_radius = new_radius
 
@@ -655,10 +679,9 @@
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
 
-/*
- *	Antag Tray
- */
-
+////////////////////////////////////////
+// MARK:	Antag tray
+////////////////////////////////////////
 /obj/item/storage/bag/dangertray
 	name = "tray"
 	desc = "Металлический поднос для еды с острыми как бритва краями."
@@ -710,10 +733,9 @@
 	for(var/obj/item/item in contents)
 		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_x = rand(-4,4), pixel_y = rand(-4,4))
 
-/*
- *	Chemistry bag
- */
-
+////////////////////////////////////////
+// MARK:	Chemistry bag
+////////////////////////////////////////
 /obj/item/storage/bag/chemistry
 	name = "chemistry bag"
 	icon = 'icons/obj/chemical.dmi'
@@ -726,10 +748,9 @@
 	can_hold = list(/obj/item/reagent_containers/food/pill,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle)
 	resistance_flags = FLAMMABLE
 
-/*
- *  Biowaste bag (mostly for xenobiologists)
- */
-
+////////////////////////////////////////
+// MARK:	Bio bag
+////////////////////////////////////////
 /obj/item/storage/bag/bio
 	name = "bio bag"
 	icon = 'icons/obj/chemical.dmi'
@@ -741,10 +762,10 @@
 	can_hold = list(/obj/item/slime_extract,/obj/item/reagent_containers/food/snacks/monkeycube,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/iv_bag,/obj/item/reagent_containers/hypospray/autoinjector)
 	resistance_flags = FLAMMABLE
 
-/*
- *  Medicinal Pouch (mostly for ashwalkers)
- */
-
+////////////////////////////////////////
+// MARK:	Pouch
+//			(mostly for ashwalkers)
+////////////////////////////////////////
 /obj/item/storage/bag/medpouch
 	name = "medicinal pouch"
 	desc = "Небольшой мешочек для хранения трав, припарок, наживки и мелких предметов."

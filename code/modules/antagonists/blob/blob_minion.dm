@@ -1,5 +1,5 @@
 /datum/antagonist/blob_minion
-	name = "\improper Blob Minion"
+	name = "Blob Minion"
 	roundend_category = "blobs"
 	job_rank = ROLE_BLOB
 	special_role = SPECIAL_ROLE_BLOB_MINION
@@ -63,14 +63,14 @@
 	objectives |= objective
 
 /datum/antagonist/blob_minion/blobernaut
-	name = "\improper Blobernaut"
+	name = "Blobernaut"
 
 
 /datum/antagonist/blob_minion/blobernaut/greet()
 	. = ..()
 	var/mob/camera/blob/blob = overmind?.resolve()
 	var/datum/blobstrain/blobstrain = blob.blobstrain
-	. += span_dangerbigger("Вы блобернаут! Вы должны помогать всем формам блоба в их миссии по уничтожению всего!")
+	. += span_biggerdanger("Вы блобернаут! Вы должны помогать всем формам блоба в их миссии по уничтожению всего!")
 	. += span_info("Вы сильны, крепки, и медленно регенерируете в пределах плиток блоба, [span_cultlarge("но вы будете медленно умирать, если их рядом нету")] или если фабрика, создавшая вас, будет разрушена.")
 	. += span_info("Вы можете общаться с другими бернаутами, миньенами, зараженными и надразумами <b>телепатически</b> заместо обычного общения.")
 	. += span_info("Штамм вашего надразума: <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font>!")

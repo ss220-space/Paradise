@@ -168,7 +168,7 @@
 	active = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
-	for(var/obj/machinery/flasher/flasher in GLOB.machines)
+	for(var/obj/machinery/flasher/flasher in SSmachines.get_by_type(/obj/machinery/flasher))
 		if(flasher.id == id)
 			INVOKE_ASYNC(flasher, TYPE_PROC_REF(/obj/machinery/flasher, flash))
 

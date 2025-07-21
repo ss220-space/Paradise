@@ -185,12 +185,12 @@
 	active = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
-	for(var/obj/machinery/sparker/M in GLOB.machines)
+	for(var/obj/machinery/sparker/M in SSmachines.get_by_type(/obj/machinery/sparker))
 		if(M.id == id)
 			spawn( 0 )
 				M.spark()
 
-	for(var/obj/machinery/igniter/M in GLOB.machines)
+	for(var/obj/machinery/igniter/M in SSmachines.get_by_type(/obj/machinery/igniter))
 		if(M.id == id)
 			use_power(50)
 			M.on = !( M.on )

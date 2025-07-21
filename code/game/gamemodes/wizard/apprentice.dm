@@ -57,7 +57,7 @@
 				var/wizard_name_first = pick(GLOB.wizard_first)
 				var/wizard_name_second = pick(GLOB.wizard_second)
 				var/randomname = "[wizard_name_first] [wizard_name_second]"
-				var/newname = sanitize(copytext_char(input(apprentice, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
+				var/newname = tgui_input_text(apprentice, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname, max_length = MAX_NAME_LEN)
 
 				if(!newname)
 					newname = randomname
@@ -493,7 +493,7 @@
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magus(owner), ITEM_SLOT_HEAD)
 
 /datum/magick_school/lavaland
-	name = "Школа Лаваленда"
+	name = "Школа Лазиса"
 	id = "lavaland"
 	desc = "Школа, использующая традиции магии пеплоходцев."
 

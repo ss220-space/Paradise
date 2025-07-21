@@ -9,7 +9,15 @@
 
 /obj/structure/nest
 	name = "tunnel"
-	desc = "A twisted, dark passage to the underground."
+	desc = "Тёмный и извилистый туннель, ведущий в недра."
+	ru_names = list(
+		NOMINATIVE = "туннель",
+		GENITIVE = "туннеля",
+		DATIVE = "туннелю",
+		ACCUSATIVE = "туннель",
+		INSTRUMENTAL = "туннелем",
+		PREPOSITIONAL = "туннеле"
+	)
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "hole"
 
@@ -37,7 +45,7 @@
 /obj/structure/nest/examine(mob/user)
 	. = ..()
 	if(!spawn_is_triggered)
-		. += span_warning("You can hear a cacophony of growling snores from within.")
+		. += span_warning("Изнутри доносится хаотичная какофония рычащего храпа.")
 
 
 /obj/structure/nest/attack_animal(mob/living/simple_animal/M)
@@ -61,7 +69,7 @@
 /obj/structure/nest/proc/try_spawn(mob/living/L)
 	var/chosen_mob = pick(spawn_mob_options)
 
-	to_chat(L, span_danger("As you stumble across \the [name], you can hear ominous rumbling from beneath your feet!"))
+	to_chat(L, span_danger("Спотыкаясь о [declent_ru(ACCUSATIVE)], вы слышите зловещий гул под ногами!"))
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
 	for(var/obj/structure/nest/N in range(spawn_trigger_distance, src))
 		N.spawn_is_triggered = TRUE
@@ -73,7 +81,7 @@
 
 	for(var/i in 1 to spawn_max)
 		var/mob/spawned_mob = new M(get_turf(src))
-		visible_message(span_danger("\A [spawned_mob.name] crawls out of \the [name]!"))
+		visible_message(span_danger("[spawned_mob.declent_ru(NOMINATIVE)] выползает из [declent_ru(GENITIVE)]!"))
 
 /obj/structure/nest/lavaland
 	spawn_mob_options = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/simple_animal/hostile/asteroid/goldgrub)

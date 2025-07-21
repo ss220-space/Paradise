@@ -5163,6 +5163,15 @@
 	icon_state = "darkred"
 	},
 /area/security/interrogation)
+"aMS" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/engineering/engine)
 "aNe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -6853,12 +6862,6 @@
 	icon_state = "darkyellow"
 	},
 /area/engineering/mechanic_workshop/hangar)
-"aZq" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/air,
-/area/atmos)
 "aZA" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
@@ -10718,6 +10721,10 @@
 	icon_state = "darkbluecorners"
 	},
 /area/maintenance/detectives_office)
+"bAZ" = (
+/obj/effect/landmark/start/mining_medic,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/miningdock)
 "bBd" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -14902,12 +14909,6 @@
 	icon_state = "cult"
 	},
 /area/maintenance/chapel)
-"cfq" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/insulated/vacuum,
-/area/atmos)
 "cft" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -15579,9 +15580,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "ckZ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/radiation,
-/obj/item/clothing/glasses/meson,
 /obj/item/radio/intercom{
 	dir = 8;
 	pixel_y = 24
@@ -15590,7 +15588,15 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/shower{
+	dir = 4;
+	pixel_y = 4;
+	tag = "icon-shower (EAST)"
+	},
+/obj/effect/turf_decal/siding/white/end{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
 /area/engineering/controlroom)
 "clc" = (
 /obj/effect/decal/cleanable/dust,
@@ -26745,12 +26751,6 @@
 	dir = 8
 	},
 /area/medical/cryo)
-"dSL" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/n20,
-/area/atmos)
 "dSM" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -61793,6 +61793,12 @@
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
+"jcS" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/engineering/engine)
 "jcV" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -70347,11 +70353,11 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/magistrateoffice)
 "kqR" = (
-/obj/machinery/vending/cola,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
+/obj/machinery/vending/protein,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -129196,12 +129202,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/assembly/showroom)
-"sXd" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/n2,
-/area/atmos)
 "sXg" = (
 /turf/simulated/wall,
 /area/maintenance/electrical)
@@ -132008,7 +132008,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/mining_medic,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "tro" = (
@@ -154030,12 +154030,6 @@
 	icon_state = "dark"
 	},
 /area/aisat/maintenance)
-"wBV" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/co2,
-/area/atmos)
 "wBY" = (
 /obj/machinery/light,
 /turf/simulated/openspace,
@@ -154529,7 +154523,7 @@
 	pixel_y = 25
 	},
 /obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/pet/dog/bullterrier/Genn,
+/mob/living/simple_animal/pet/library_owl,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -154839,12 +154833,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"wJR" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/engine/o2,
-/area/atmos)
 "wJT" = (
 /obj/machinery/light{
 	dir = 8
@@ -155884,12 +155872,6 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
-"wRm" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/engine/plasma,
-/area/atmos)
 "wRn" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/light,
@@ -163445,10 +163427,13 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/radiation,
-/obj/item/clothing/glasses/meson,
-/turf/simulated/floor/plasteel,
+/obj/machinery/shower{
+	dir = 4;
+	pixel_y = 4;
+	tag = "icon-shower (EAST)"
+	},
+/obj/effect/turf_decal/siding/white/end,
+/turf/simulated/floor/plasteel/freezer,
 /area/engineering/controlroom)
 "xWx" = (
 /obj/item/flag/nt,
@@ -209235,19 +209220,19 @@ eIe
 eIe
 syE
 ake
-cfq
+ake
 ake
 syE
 jBM
-wBV
+jBM
 jBM
 syE
 vce
-wRm
+vce
 vce
 syE
 cVE
-dSL
+cVE
 cVE
 syE
 eIe
@@ -216431,15 +216416,15 @@ dnj
 eIe
 syE
 xEw
-aZq
+xEw
 xEw
 syE
 avC
-wJR
+avC
 avC
 syE
 ndf
-sXd
+ndf
 ndf
 syE
 eIe
@@ -216659,7 +216644,7 @@ mlQ
 jGo
 axU
 xwJ
-sms
+jcS
 eGh
 iAM
 aUk
@@ -217430,7 +217415,7 @@ vXs
 rIT
 usf
 eHx
-kaK
+aMS
 uVO
 uVO
 fYn
@@ -271709,7 +271694,7 @@ gfP
 gfP
 rDM
 caF
-pTX
+bAZ
 kbZ
 kbZ
 rAo

@@ -170,7 +170,7 @@
 
 	if(!(lube_flags & SLIDE_ICE))
 		// Ice slides are intended to be combo'd so don't give the feedback
-		to_chat(slipper, span_notice("You slipped[slippable ? " on the [slippable.name]" : ""]!"))
+		to_chat(slipper, span_notice("[pluralize_ru(slipper.gender,"Ты","Вы")] поскользнул[genderize_ru(slipper.gender,"ся","ась","ся","ись")][slippable ? " на [slippable.declent_ru(PREPOSITIONAL)]" : ""]!"))
 		playsound(slipper.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 
 	SEND_SIGNAL(slipper, COMSIG_ON_CARBON_SLIP)
@@ -183,7 +183,7 @@
 		slipper.Immobilize(1 SECONDS)
 	else
 		slipper.stop_pulling()
-		slipper.Weaken(weaken_amount)
+		slipper.Knockdown(weaken_amount)
 
 	if(buckled_obj)
 		buckled_obj.unbuckle_mob(slipper)

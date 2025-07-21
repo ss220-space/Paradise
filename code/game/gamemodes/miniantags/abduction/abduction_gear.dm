@@ -135,7 +135,7 @@
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.vest == src)
 			C.vest = null
 			break
@@ -636,7 +636,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "hard-light energy field"
 	desc = "A hard-light field restraining the hands."
 	icon_state = "cuff_white" // Needs sprite
-	breakouttime = 450
+	breakout_time = 450
 	trashtype = /obj/item/restraints/handcuffs/energy/used
 	origin_tech = "materials=4;magnets=5;abductor=2"
 
