@@ -125,9 +125,7 @@ const FlavorSection = () => {
             Ещё один день на бессмысленной работе. Вы видите &nbsp;
             <span style={hereticBlue}>мерцание</span>
             &nbsp;вокруг, и чувствуете нечто&nbsp;
-            <span style={hereticRed}>великое</span>
-            &nbsp;Затем вы смотрите внутрь себя и обнаруживаете что-то, что
-            изменит твою жизнь.
+            <span style={hereticRed}>великое</span>.
           </i>
         </Stack.Item>
         <Stack.Item>

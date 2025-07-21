@@ -1,8 +1,8 @@
 /obj/effect/proc_holder/spell/pointed/void_phase
-	name = "Void Phase"
-	desc = "Lets you blink to your pointed destination, causes 3x3 aoe damage bubble \
-		around your pointed destination and your current location. \
-		It has a minimum range of 3 tiles and a maximum range of 9 tiles."
+	name = "Пустотный Сдвиг"
+	desc = "Позволяет переместиться в выбранное место, повреждает всех в квадрате 3x3 вокруг \
+			выбранного места и вашего текущего местоположения. Минимальная дальность — 3 клетки, \
+			максимальная — 9 клеток."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -13,7 +13,7 @@
 	clothes_req = FALSE
 	base_cooldown = 25 SECONDS
 
-	invocation = "RE'L'TY PH'S'E."
+	invocation = "СДВ'Г Р'ЛЬН'СТ."
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
@@ -23,14 +23,18 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
+
 /obj/effect/proc_holder/spell/pointed/void_phase/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
-	if(action.owner && get_dist(get_turf(action.owner), get_turf(cast_on)) < min_cast_range)
-		cast_on.balloon_alert(action.owner, "too close!")
-		return . | SPELL_CANCEL_CAST
+	if(!action.owner || get_dist(get_turf(action.owner), get_turf(cast_on)) >= min_cast_range)
+		return
+
+	cast_on.balloon_alert(action.owner, "слишком близко!")
+	return . | SPELL_CANCEL_CAST
+
 
 /obj/effect/proc_holder/spell/pointed/void_phase/cast(atom/cast_on)
 	. = ..()
@@ -46,6 +50,7 @@
 		aprecision = 1,
 	)
 
+
 /// Does the AOE effect of the blinka t the passed turf
 /obj/effect/proc_holder/spell/pointed/void_phase/proc/cause_aoe(turf/target_turf, effect_type = /obj/effect/temp_visual/voidin)
 	new effect_type(target_turf)
@@ -53,10 +58,13 @@
 	for(var/mob/living/living_mob in range(damage_radius, target_turf))
 		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == action.owner)
 			continue
+
 		if(living_mob.can_block_magic(antimagic_flags))
 			continue
+
 		living_mob.apply_damage(40, BRUTE/*, wound_bonus = CANT_WOUND*/)
 		living_mob.apply_status_effect(/datum/status_effect/void_chill, 1)
+
 
 /obj/effect/temp_visual/voidin
 	icon = 'icons/effects/96x96.dmi'
@@ -65,6 +73,7 @@
 	duration = 6
 	pixel_x = -32
 	pixel_y = -32
+
 
 /obj/effect/temp_visual/voidout
 	icon = 'icons/effects/96x96.dmi'

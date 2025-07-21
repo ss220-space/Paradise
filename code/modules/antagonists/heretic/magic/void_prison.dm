@@ -1,8 +1,8 @@
 /obj/effect/proc_holder/spell/pointed/void_prison
-	name = "Void Prison"
-	desc = "Sends a heathen into the void for 10 seconds. \
-		They will be unable to perform any actions for the duration. \
-		Afterwards, they will be chilled and returned to the mortal plane."
+	name = "Пустотная Тюрьма"
+	desc = "Отправляет врага в пустоту на 10 секунд. \
+			В течение этого времени он не сможет выполнять никаких действий. \
+			После этого он будет заморожен и возвращен в мир смертных."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -16,7 +16,7 @@
 	sound = null
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
-	invocation = "V'D PR'S'N!"
+	invocation = "П'СТ'ТН Т'РЬМ!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
@@ -37,8 +37,8 @@
 		return
 
 	cast_on.visible_message(
-		span_danger("A swirling, cold void wraps around [cast_on], but they burst free in a wave of heat!"),
-		span_danger("A yawning void begins to open before you, but a great wave of heat bursts it apart! You are protected!!")
+		span_danger("Холодная, кружащаяся пустота окутывает [cast_on.declent_ru(ACCUSATIVE)], но [genderize_ru(cast_on.gender, "он", "она", "оно", "они")] вырыва[pluralize_ru(cast_on.gender, "е", "ю")]тся на свободу!"),
+		span_danger("Перед вами появляется бескраяняя пустота, но мощная волна жара разносит её вдребезги! Вы защищены!!")
 	)
 
 
@@ -112,7 +112,7 @@
 
 //---- Screen alert
 /atom/movable/screen/alert/status_effect/void_prison
-	name = "Void Prison"
-	desc = "A Yawning void encases your mortal coil." //Go straight to jail, do not pass GO, do not collect 200$
+	name = "Пустотная Тюрьма"
+	desc = "Зияющая пустота окутывает вас." //Go straight to jail, do not pass GO, do not collect 200$
 	icon = 'icons/mob/actions/actions_ecult.dmi'
 	icon_state = "voidball_effect"

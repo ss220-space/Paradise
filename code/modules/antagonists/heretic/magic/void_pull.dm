@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/aoe/void_pull
-	name = "Void Pull"
-	desc = "Calls the void, damaging, knocking down, and stunning people nearby. \
-		Distant foes are also pulled closer to you (but not damaged)."
+	name = "Притяжение Пустоты"
+	desc = "Временно открывает врата в пустоту, нанося урон, сбивая с ног и оглушая всех находящихся поблизости. \
+			Далёкие враги притягиваются к вам (но не получают урона)."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -12,7 +12,7 @@
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
-	invocation = "BR'NG F'RTH TH'M T' M'."
+	invocation = "ПР'В'Д' 'Х К' МН'"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 

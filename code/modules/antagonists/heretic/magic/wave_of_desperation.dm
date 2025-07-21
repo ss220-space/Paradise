@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation
-	name = "Wave Of Desperation"
-	desc = "Removes your restraints, repels and knocks down adjacent people, and applies certain effects of the Прикосновение Мансуса upon everything nearby. \
-		Cannot be cast unless you are restrained, and the stress renders you unconscious 12 seconds later!"
+	name = "Волна отчаяния"
+	desc = "Развязывает вас, отталкивает и сбивает с ног находящихся рядом людей, а также накладывает определённые эффекты Прикосновения Мансуса на всё вокруг. \
+			Нельзя применить, если вы не ограничены, а стресс лишает вас сознания через 12 секунд!"
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -12,7 +12,7 @@
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
 
-	invocation = "F'K 'FF."
+	invocation = "'ТЪ'Б'СЬ"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
@@ -30,10 +30,11 @@
 		return
 
 	if(cast_on.handcuffed)
-		cast_on.visible_message(span_danger("[cast_on.handcuffed] on [cast_on] shatter!"))
+		cast_on.visible_message(span_danger("[cast_on.handcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(cast_on.handcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(cast_on.gender, "ит", "ят")] [cast_on.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(cast_on.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
 		QDEL_NULL(cast_on.handcuffed)
 
 	if(cast_on.legcuffed)
+		cast_on.visible_message(span_danger("[cast_on.legcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(cast_on.legcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(cast_on.gender, "ит", "ят")] [cast_on.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(cast_on.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
 		cast_on.visible_message(span_danger("[cast_on.legcuffed] on [cast_on] shatters!"))
 		QDEL_NULL(cast_on.legcuffed)
 

@@ -17,7 +17,7 @@
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
 
-	invocation = "D'M'N XP'NS'N!"
+	invocation = "В'ЛК В'ЛК' В'ЛК!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 	/// Max distance our effect is expected to reach
