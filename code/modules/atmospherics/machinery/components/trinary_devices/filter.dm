@@ -142,6 +142,7 @@
 				filtered_out.assert_gas(GAS_AGENT_B)
 				filtered_gases[GAS_AGENT_B][MOLES] = removed_gases[GAS_AGENT_B][MOLES]
 				removed_gases[GAS_AGENT_B][MOLES] = 0
+			removed.garbage_collect()
 		else
 			filtered_out = null
 

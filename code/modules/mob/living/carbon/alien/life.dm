@@ -21,6 +21,7 @@
 	var/tox_detect_threshold = 0.02
 	var/breath_pressure = (breath.total_moles() * R_IDEAL_GAS_EQUATION * breath.temperature) / BREATH_VOLUME
 	var/list/breath_gases = breath.gases
+	breath.assert_gases(GAS_PL, GAS_O2)
 	//Partial pressure of the toxins in our breath
 	var/plasma_pp = (breath_gases[GAS_PL][MOLES] / breath.total_moles()) * breath_pressure
 
@@ -37,6 +38,7 @@
 	breath_gases[GAS_PL][MOLES] -= toxins_used
 	breath_gases[GAS_O2][MOLES] += toxins_used
 
+	breath.garbage_collect()
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)
 

@@ -266,7 +266,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	var/t = ""
 	for(var/gas in env.gases)
-		if(gas[GAS_INDEX] <= 4 || gas[MOLES])
+		if(gas[GAS_ID] in hardcoded_gases || gas[MOLES])
 			t+= "[gas[GAS_NAME]] : [gas[MOLES]]\n"
 
 	usr.show_message(t, 1)
@@ -683,6 +683,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(Rad.anchored)
 			if(!Rad.P)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
+				Plasma.air_contents.assert_gas(GAS_PL)
 				Plasma.air_contents.gases[GAS_PL][MOLES] = 70
 				Rad.drainratio = 0
 				Rad.P = Plasma

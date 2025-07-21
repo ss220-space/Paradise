@@ -231,12 +231,14 @@
 
 	var/list/removed_gasses = removed.gases
 
+	var/removed_nitrogen = 0
+	if(removed.gases[GAS_N2])
+		removed_nitrogen = (removed.gases[GAS_N2][MOLES] * NITROGEN_RETARDATION_FACTOR)
+
+	removed.assert_gases(GAS_O2, GAS_PL)
+
 	//Maxes out at 100% oxygen pressure
-	if(!removed.total_moles())
-		oxygen = 0
-	else
-		//Result of this formula is undefined if we (total moles of removed) -> 0. So, let's roll with zero if no gas was removed.
-		oxygen = clamp((removed_gasses[GAS_O2][MOLES] - (removed_gasses[GAS_N2][MOLES] * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
+	oxygen = clamp((removed_gasses[GAS_O2][MOLES] - removed_nitrogen) / MOLES_CELLSTANDARD, 0, 1)
 
 	var/temp_factor
 	var/equilibrium_power

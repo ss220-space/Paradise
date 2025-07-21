@@ -60,6 +60,7 @@
 		var/TM = air.total_moles()
 		if(TM)
 			var/list/gasses = air.gases
+			air.assert_gases(GAS_O2, GAS_CO2, GAS_N2, GAS_PL)
 			data["SM_gas_O2"] = round(100 * gasses[GAS_O2][MOLES] / TM, 0.01)
 			data["SM_gas_CO2"] = round(100 * gasses[GAS_CO2][MOLES]/ TM, 0.01)
 			data["SM_gas_N2"] = round(100 * gasses[GAS_N2][MOLES] / TM, 0.01)
@@ -68,6 +69,7 @@
 				data["SM_gas_OTHER"] = round(100 * other_moles / TM, 0.01)
 			else
 				data["SM_gas_OTHER"] = 0
+			air.garbage_collect()
 		else
 			data["SM_gas_O2"] = 0
 			data["SM_gas_CO2"] = 0

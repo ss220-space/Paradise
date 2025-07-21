@@ -19,7 +19,7 @@
 	var/list/messages = list()
 	messages += span_adminnotice("@[target.x],[target.y]: [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)? (span_red(" BURNING")) : (null)]")
 	for(var/gas in GM.gases)
-		if(gas[GAS_INDEX] <= 4 || gas[MOLES])
+		if(gas[GAS_ID] in hardcoded_gases || gas[MOLES])
 			messages += span_notice("[gas[GAS_NAME]]: [gas[MOLES]]")
 	to_chat(usr, messages.Join("<br>"))
 	message_admins("[key_name_admin(usr)] has checked the air status of [target]")

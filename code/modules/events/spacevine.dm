@@ -436,6 +436,67 @@
 	/obj/item/stack/sheet/wood = 1
 	)
 
+/datum/spacevine_mutation/oxy_eater
+	name = "oxygen consuming"
+	hue = "#ffff88"
+	severity = 3
+	quality = NEGATIVE
+
+/datum/spacevine_mutation/oxy_eater/process_mutation(/obj/structure/spacevine/holder)
+	var/turf/simulated/floor/T = holder.loc
+	if(istype(T))
+		var/datum/gas_mixture/GM = T.air
+		if(!GM.gases[GAS_O2])
+			return
+		GM.gases[GAS_O2][MOLES] -= severity * holder.energy
+		GM.garbage_collect()
+
+/datum/spacevine_mutation/nitro_eater
+	name = "nitrogen consuming"
+	hue = "#8888ff"
+	severity = 3
+	quality = NEGATIVE
+
+/datum/spacevine_mutation/nitro_eater/process_mutation(/obj/structure/spacevine/holder)
+	var/turf/simulated/floor/T = holder.loc
+	if(istype(T))
+		var/datum/gas_mixture/GM = T.air
+		if(!GM.gases[GAS_N2])
+			return
+		GM.gases[GAS_N2][MOLES] -= severity * holder.energy
+		GM.garbage_collect()
+
+/datum/spacevine_mutation/carbondioxide_eater
+	name = "CO2 consuming"
+	hue = "#00ffff"
+	severity = 3
+	quality = POSITIVE
+
+/datum/spacevine_mutation/carbondioxide_eater/process_mutation(/obj/structure/spacevine/holder)
+	var/turf/simulated/floor/T = holder.loc
+	if(istype(T))
+		var/datum/gas_mixture/GM = T.air
+		if(!GM.gases[GAS_CO2])
+			return
+		GM.gases[GAS_CO2][MOLES] -= severity * holder.energy
+		GM.garbage_collect()
+
+/datum/spacevine_mutation/plasma_eater
+	name = "toxins consuming"
+	hue = "#ffbbff"
+	severity = 3
+	quality = POSITIVE
+
+/datum/spacevine_mutation/plasma_eater/process_mutation(/obj/structure/spacevine/holder)
+	var/turf/simulated/floor/T = holder.loc
+	if(istype(T))
+		var/datum/gas_mixture/GM = T.air
+		if(!GM.gases[GAS_PL])
+			return
+		GM.gases[GAS_PL][MOLES] -= severity * holder.energy
+		GM.garbage_collect()
+
+
 // SPACE VINES (Note that this code is very similar to Biomass code)
 /obj/structure/spacevine
 	name = "space vines"

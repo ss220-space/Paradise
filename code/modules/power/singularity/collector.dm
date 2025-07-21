@@ -28,8 +28,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/rad_collector/process()
 	var/list/gasses = P.air_contents.gases
 	if(P)
-		if(gasses[GAS_PL][MOLES] <= 0)
-			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINE)
+		if(!gasses[GAS_PL])
+			investigate_log(span_red("out of fuel."), INVESTIGATE_ENGINE)
 			gasses[GAS_PL][MOLES] = 0
 			eject()
 		else
@@ -162,7 +162,9 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/rad_collector/proc/receive_pulse(pulse_strength)
 	if(P && active)
 		var/power_produced = 0
-		power_produced = P.air_contents.gases[GAS_PL][MOLES] * pulse_strength * 20
+		var/datum/gas_mixture/gas_mixture = P.air_contents
+		if(gas_mixture.gases[GAS_PL])
+			power_produced = gas_mixture.gases[GAS_PL][MOLES] * pulse_strength * 20
 		add_avail(power_produced)
 		last_power = power_produced
 		return

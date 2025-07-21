@@ -160,6 +160,7 @@
 
 
 /obj/item/tank/proc/detonate()	//This happens when a bomb is told to explode
+	air_contents.assert_gases(GAS_PL, GAS_O2)
 	var/fuel_moles = air_contents.gases[GAS_PL][MOLES] + air_contents.gases[GAS_O2][MOLES] / 6
 	var/strength = 1
 

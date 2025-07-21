@@ -232,7 +232,7 @@
 		if(environment)
 			if(environment.total_moles())
 				var/list/env_gases = environment.gases
-				if(env_gases[GAS_O2][MOLES] && env_gases[GAS_O2][MOLES] >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
+				if(env_gases[GAS_O2] && env_gases[GAS_O2][MOLES] >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
 					H.adjust_fire_stacks(0.5)
 					if(!H.on_fire && H.fire_stacks > 0)
 						H.visible_message("<span class='danger'>Тело [H] вступает в реакцию с атмосферой и загорается!</span>","<span class='userdanger'>Ваше тело вступает в реакцию с атмосферой и загорается!</span>")

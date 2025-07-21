@@ -13,7 +13,7 @@
 	var/obj/item/gun/energy/chrono_gun/PA = null
 	var/list/erased_minds = list() //a collection of minds from the dead
 
-/obj/item/chrono_eraser/proc/pass_mind(var/datum/mind/M)
+/obj/item/chrono_eraser/proc/pass_mind(datum/mind/M)
 	erased_minds += M
 
 /obj/item/chrono_eraser/dropped(mob/user, slot, silent = FALSE)
@@ -249,6 +249,7 @@
 
 /obj/structure/chrono_field/return_air() //we always have nominal air and temperature
 	var/datum/gas_mixture/GM = new
+	GM.assert_gases(GAS_O2, GAS_N2)
 	GM.gases[GAS_O2][MOLES] = MOLES_O2STANDARD
 	GM.gases[GAS_N2][MOLES] = MOLES_N2STANDARD
 	GM.temperature = T20C

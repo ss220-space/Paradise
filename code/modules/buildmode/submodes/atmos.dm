@@ -51,6 +51,7 @@
 				if(S.air)
 					S.air.temperature = temperature
 					var/list/gasses = S.air.gases
+					S.air.assert_gases(arglist(hardcoded_gases))
 					gasses[GAS_O2][MOLES] = ppratio_to_moles(oxygen)
 					gasses[GAS_N2][MOLES] = ppratio_to_moles(nitrogen)
 					gasses[GAS_PL][MOLES] = ppratio_to_moles(plasma)

@@ -128,8 +128,10 @@
 	if(!isvox(H))
 		return
 	var/obj/item/tank/internals/oxygen/red/prom = H.s_store
+	prom.air_contents.assert_gas(GAS_O2, GAS_N2)
 	prom.air_contents.gases[GAS_O2][MOLES] = 0
 	prom.air_contents.gases[GAS_N2][MOLES] = (6 * ONE_ATMOSPHERE) * prom.volume / (R_IDEAL_GAS_EQUATION * T20C)
+	prom.air_contents.garbage_collect()
 
 /datum/outfit/radial_outfit/death_book/plague_inc
 	name = "Вестник чумы"

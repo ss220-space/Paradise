@@ -127,6 +127,8 @@
 
 	var/list/breath_gases = breath.gases
 
+	breath.assert_gases(GAS_O2, GAS_PL, GAS_CO2, GAS_N2O)
+
 	var/O2_partialpressure = (breath_gases[GAS_O2][MOLES] / breath.total_moles()) * breath_pressure
 	var/Toxins_partialpressure = (breath_gases[GAS_PL][MOLES] / breath.total_moles()) * breath_pressure
 	var/CO2_partialpressure = (breath_gases[GAS_CO2][MOLES] / breath.total_moles()) * breath_pressure
@@ -185,6 +187,8 @@
 		else if(SA_partialpressure > 0.01)
 			if(prob(20))
 				emote(pick("giggle", "laugh"))
+
+	breath.garbage_collect()
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)

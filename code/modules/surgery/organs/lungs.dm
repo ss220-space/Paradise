@@ -124,6 +124,8 @@
 
 	var/list/gases = breath.gases
 
+	breath.assert_gases(GAS_PL, GAS_N2, GAS_PL, GAS_CO2, GAS_N2O)
+
 	//Partial pressures in our breath
 	var/O2_pp = breath.get_breath_partial_pressure(gases[GAS_PL][MOLES])
 	var/N2_pp = breath.get_breath_partial_pressure(gases[GAS_N2][MOLES])
@@ -257,6 +259,8 @@
 		else if(SA_pp > 0.3)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 			if(prob(20))
 				H.emote(pick("giggle", "laugh"))
+
+	breath.garbage_collect()
 
 	handle_breath_temperature(breath, H)
 

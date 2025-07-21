@@ -53,7 +53,7 @@
 
 	alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	var/turf/simulated/turf = get_turf(spawner)
-	if(istype(turf) && turf.air.gases[GAS_PL][MOLES] > MOLES_PLASMA_VISIBLE)
+	if(istype(turf) && turf.air.gases[GAS_PL] && turf.air.gases[GAS_PL][MOLES] > MOLES_PLASMA_VISIBLE)
 		can_be_on_fire = TRUE
 		fire_damage = 20 // Fire kills plasma creatures.
 		add_atom_colour(COLOR_PINK, FIXED_COLOUR_PRIORITY)

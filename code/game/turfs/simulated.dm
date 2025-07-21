@@ -85,14 +85,14 @@
 			var/datum/gas_mixture/turf_air = T.return_air()
 			var/list/turf_gasses = turf_air.gases
 			for(var/gas in a_gases)
-				gas[MOLES] += turf_gasses[gas[GAS_INDEX]][MOLES]
+				gas[MOLES] += turf_gasses[gas[GAS_ID]][MOLES]
 			a_gas_mixture.temperature += turf_air.temperature
 			turf_count++
 
 	var/datum/gas_mixture/new_air = new
 
 	for(var/gas in new_air.gases)
-		gas[MOLES] = (a_gases[gas[GAS_INDEX]][MOLES] / max(turf_count, 1))//Averages contents of the turfs, ignoring walls and the like
+		gas[MOLES] = (a_gases[gas[GAS_ID]][MOLES] / max(turf_count, 1))//Averages contents of the turfs, ignoring walls and the like
 	new_air.temperature = (atemp / max(turf_count, 1))
 
 	air = new_air

@@ -35,6 +35,18 @@
 	deathmessage = "is hacked into pieces!"
 	del_on_death = 1
 
+/mob/living/simple_animal/hostile/tree/Life()
+	..()
+	if(istype(loc, /turf/simulated))
+		var/turf/simulated/T = src.loc
+		if(T.air && T.air.gases[GAS_CO2])
+			var/co2 = T.air.gases[GAS_CO2][MOLES]
+			if(co2 > 0)
+				if(prob(25))
+					var/amt = min(co2, 9)
+					T.air.gases[GAS_CO2][MOLES] -= amt
+					T.atmos_spawn_air(LINDA_SPAWN_OXYGEN, amt)
+
 /mob/living/simple_animal/hostile/tree/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \

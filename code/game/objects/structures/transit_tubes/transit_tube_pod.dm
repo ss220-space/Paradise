@@ -31,6 +31,7 @@
 	// Give auto tubes time to align before trying to start moving
 	spawn(5)
 
+	air_contents.assert_gases(GAS_O2, GAS_N2)
 	air_contents.gases[GAS_O2][MOLES] = MOLES_O2STANDARD * 2
 	air_contents.gases[GAS_N2][MOLES] = MOLES_N2STANDARD
 	air_contents.temperature = T20C

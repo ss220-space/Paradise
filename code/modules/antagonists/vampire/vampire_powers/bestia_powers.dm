@@ -1526,6 +1526,7 @@
 	interior_air = new
 	interior_air.temperature = T20C
 	interior_air.volume = 200
+	interior_air.assert_gases(GAS_O2, GAS_N2)
 	interior_air.gases[GAS_O2][MOLES] = O2STANDARD * interior_air.volume / (R_IDEAL_GAS_EQUATION * interior_air.temperature)
 	interior_air.gases[GAS_N2][MOLES]= N2STANDARD * interior_air.volume / (R_IDEAL_GAS_EQUATION * interior_air.temperature)
 

@@ -40,11 +40,14 @@
 
 	var/list/env_gases = environment.gases
 
+	environment.assert_gases(GAS_PL, GAS_O2, GAS_N2, GAS_CO2)
+
 	var/tox = env_gases[GAS_PL][MOLES]
 	var/oxy = env_gases[GAS_O2][MOLES]
 	var/n2 = env_gases[GAS_N2][MOLES]
 	var/co2 = env_gases[GAS_CO2][MOLES]
 
+	environment.garbage_collect()
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = FALSE
 		target.throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
