@@ -76,7 +76,7 @@
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> the [initial(name)] with a pen in hand to rename it.</span>"
+	. += span_notice("<b>Alt-Click</b> the [initial(name)] with a pen in hand to rename it.")
 	if(user.is_literate())
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			show_content(user)

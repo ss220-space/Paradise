@@ -158,7 +158,7 @@
 /obj/machinery/kitchen_machine/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
-		. += span_info("<b>Alt-click</b> to activate it.<br/><b>Ctrl-Shift-click</b> to dispose content.")
+		. += span_notice("<b>Alt-click</b> to activate it.<br/><b>Ctrl-Shift-click</b> to dispose content.")
 
 /obj/machinery/kitchen_machine/click_alt(mob/living/carbon/human/human)
 	if(operating)

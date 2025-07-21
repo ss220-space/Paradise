@@ -193,7 +193,7 @@
 	var/equipped_slot = mob.equip_in_one_of_slots(folder, slots, qdel_on_fail = TRUE)
 	if(equipped_slot)
 		where = "In your [equipped_slot]"
-	to_chat(mob, "<br><br><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><br>")
+	to_chat(mob, span_notice("<br><br>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.<br>"))
 	mob.update_icons()
 
 

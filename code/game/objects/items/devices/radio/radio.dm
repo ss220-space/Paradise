@@ -598,7 +598,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			. += span_notice("Может быть прикреплено или модифицировано.")
 		else
 			. += span_notice("Не может быть прикреплено или модифицировано.")
-		. += span_info("Используйте <b>Ctrl+Shift+ЛКМ</b>, чтобы переключить динамик.<br/>Используйте <b>Alt+ЛКМ</b>, чтобы переключить микрофон.")
+		. += span_notice("Используйте <b>Ctrl+Shift+ЛКМ</b>, чтобы переключить динамик.<br/>Используйте <b>Alt+ЛКМ</b>, чтобы переключить микрофон.")
 
 /obj/item/radio/click_alt(mob/user)
 	broadcasting = !broadcasting

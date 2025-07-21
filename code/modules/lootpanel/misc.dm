@@ -7,7 +7,7 @@
 		var/build = owner.byond_build
 		var/version = owner.byond_version
 		if(build < 515 || (build == 515 && version < 1635))
-			to_chat(owner.mob, span_info("\
+			to_chat(owner.mob, span_notice("\
 				<span class='bolddanger'>Your version of Byond doesn't support fast image loading.</span>\n\
 				Detected: [version].[build]\n\
 				Required version for this feature: <b>515.1635</b> or later.\n\

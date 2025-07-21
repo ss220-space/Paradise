@@ -38,7 +38,7 @@
 
 /obj/item/grenade/bananade/casing/examine(mob/user)
 	. = ..()
-	. += span_info("Only banana peels fit in this assembly. Currently: <b>[fillamt]/9<b>.")
+	. += span_notice("Only banana peels fit in this assembly. Currently: <b>[fillamt]/9<b>.")
 
 
 /obj/item/grenade/bananade/casing/screwdriver_act(mob/living/user, obj/item/I)

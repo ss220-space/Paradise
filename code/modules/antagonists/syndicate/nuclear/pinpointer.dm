@@ -210,7 +210,7 @@
 /obj/item/pinpointer/advpinpointer/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += span_info("You can <b>Alt-Click</b> to choose tracking target.")
+		. += span_notice("You can <b>Alt-Click</b> to choose tracking target.")
 
 
 /obj/item/pinpointer/advpinpointer/process()
@@ -460,7 +460,7 @@
 /obj/item/pinpointer/crew/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += span_info("You can <b>Alt-Click</b> to choose whom to track.")
+		. += span_notice("You can <b>Alt-Click</b> to choose whom to track.")
 
 
 /obj/item/pinpointer/crew/proc/is_trackable(mob/living/carbon/human/pin_target)
@@ -572,7 +572,7 @@
 /obj/item/pinpointer/thief/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += span_info("Нажмите <b>Alt-Click</b> для выбора режима отслеживания.")
+		. += span_notice("Нажмите <b>Alt-Click</b> для выбора режима отслеживания.")
 
 
 /obj/item/pinpointer/thief/process()

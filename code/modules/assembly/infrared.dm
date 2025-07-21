@@ -35,7 +35,7 @@
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
 	. += span_notice("The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"].")
-	. += span_info("<b>Alt-Click</b> to rotate it.")
+	. += span_notice("<b>Alt-Click</b> to rotate it.")
 
 
 /obj/item/assembly/infra/activate()

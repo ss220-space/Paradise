@@ -550,7 +550,7 @@
 		to_chat(src, span_warning("Our bluespace transceiver cannot locate a viable bluespace link, our teleportation abilities are useless in this area."))
 		return
 
-	to_chat(src, span_info("Attempting to remove this being from our presence."))
+	to_chat(src, span_notice("Attempting to remove this being from our presence."))
 
 	if(!do_after(src, 3 SECONDS, target, NONE))
 		return
@@ -579,13 +579,13 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(obj/machinery/target)
 	do_attack_animation(target)
-	to_chat(src, span_info("We begin to dismantle this machine. We will need to be uninterrupted."))
+	to_chat(src, span_notice("We begin to dismantle this machine. We will need to be uninterrupted."))
 	var/obj/effect/temp_visual/swarmer/dismantle/D = new /obj/effect/temp_visual/swarmer/dismantle(get_turf(target))
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
 	D.pixel_z = target.pixel_z
 	if(do_after(src, 10 SECONDS, target, NONE))
-		to_chat(src, span_info("Dismantling complete."))
+		to_chat(src, span_notice("Dismantling complete."))
 		var/atom/Tsec = target.drop_location()
 		new /obj/item/stack/sheet/metal(Tsec, 5)
 		for(var/obj/item/I in target.component_parts)
@@ -723,7 +723,7 @@
 	set name = "Репликация"
 	set category = STATPANEL_SWARMER
 	set desc = "Creates a shell for a new swarmer. Swarmers will self activate."
-	to_chat(src, span_info("We are attempting to replicate ourselves. We will need to stand still until the process is complete."))
+	to_chat(src, span_notice("We are attempting to replicate ourselves. We will need to stand still until the process is complete."))
 	if(resources < 100)
 		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
@@ -746,10 +746,10 @@
 	set desc = "Attempts to repair damage to our body. You will have to remain motionless until repairs are complete."
 	if(!isturf(loc))
 		return
-	to_chat(src, span_info("Attempting to repair damage to our body, stand by..."))
+	to_chat(src, span_notice("Attempting to repair damage to our body, stand by..."))
 	if(do_after(src, 10 SECONDS, src, NONE))
 		adjustHealth(-100)
-		to_chat(src, span_info("We successfully repaired ourselves."))
+		to_chat(src, span_notice("We successfully repaired ourselves."))
 
 /mob/living/simple_animal/hostile/swarmer/proc/ToggleLight()
 	if(!light_on && is_ventcrawling(src))
