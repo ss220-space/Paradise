@@ -258,7 +258,7 @@
 		..()
 
 /mob/living/simple_animal/chick
-	name = "\improper chick"
+	name = "chick"
 	desc = "Прелесть! Но они такие шумные."
 	ru_names = list(
 		NOMINATIVE = "цыплёнок",
@@ -324,7 +324,7 @@
 GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/chicken
-	name = "\improper chicken"
+	name = "chicken"
 	desc = "Надеюсь, в этом году яйца уродятся."
 	ru_names = list(
 		NOMINATIVE = "курица",

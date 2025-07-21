@@ -86316,7 +86316,7 @@
 "uNU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/smartfridge/secure{
-	name = "\improper Kitchen Delivery SmartFridge";
+	name = "Kitchen Delivery SmartFridge";
 	req_access = list(28,35)
 	},
 /turf/simulated/floor/plasteel{

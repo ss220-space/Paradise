@@ -128,7 +128,7 @@
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
-	name = "\improper Trans-Solar Federation commander's beret"
+	name = "Trans-Solar Federation commander's beret"
 	desc = "A camouflaged beret adorned with the star of the Trans-Solar Federation, worn by generals of the Trans-Solar Federation."
 	icon_state = "solgov_elite_beret"
 
@@ -160,7 +160,7 @@
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 75)
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
-	name = "\improper Trans-Solar Federation commander's jacket"
+	name = "Trans-Solar Federation commander's jacket"
 	icon_state = "solgovcommander"
 	item_state = "solgovcommander"
 

@@ -1,5 +1,5 @@
 /mob/living/simple_animal/bot/honkbot
-	name = "\improper honkbot"
+	name = "honkbot"
 	desc = "Маленький робот. У него есть гудок. Он счастлив."
 	ru_names = list(
 		NOMINATIVE = "хонкобот",

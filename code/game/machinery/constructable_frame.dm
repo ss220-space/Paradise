@@ -896,7 +896,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor/quadratic = 5)
 
 /obj/item/circuitboard/clonescanner
-	board_name = "\improper DNA Scanner"
+	board_name = "DNA Scanner"
 	build_path = /obj/machinery/dna_scannernew
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"

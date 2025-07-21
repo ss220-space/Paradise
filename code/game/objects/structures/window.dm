@@ -221,7 +221,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message(span_notice("Кто-то постучал по [declent_ru(DATIVE)]."))
 	add_fingerprint(user)
-	playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
+	playsound(src, 'sound/effects/glassknock.ogg', 50, TRUE)
 
 /obj/structure/window/attack_hand(mob/living/carbon/human/user)
 	if(!can_be_reached(user))
@@ -231,14 +231,14 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		if(ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 			attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		else
-			playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
+			playsound(src, 'sound/effects/glassbang.ogg', 100, TRUE)
 			user.visible_message(span_warning("[user] сильно стучит по [declent_ru(DATIVE)]!"),
 								span_warning("Вы сильно стучите по [declent_ru(DATIVE)]!"),
 								"Слышен громкий стук.")
 		add_fingerprint(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
-		playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
+		playsound(src, 'sound/effects/glassknock.ogg', 50, TRUE)
 		user.visible_message("[user] стучит по [declent_ru(DATIVE)].",
 							"Вы стучите по [declent_ru(DATIVE)].",
 							"Слышен стук.")

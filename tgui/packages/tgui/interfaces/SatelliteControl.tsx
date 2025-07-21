@@ -34,7 +34,7 @@ type SatelliteControlData = {
 };
 
 type Satellite = {
-  id: string;
+  id: number;
   mode: string;
   active: boolean;
   kill_range: number;
@@ -118,7 +118,7 @@ const SatelliteControlSatellitesList = (props: unknown) => {
             <Button
               icon={sat.active ? 'power-off' : 'times'}
               color={sat.active ? 'average' : 'good'}
-              onClick={() => act('toggle', { id: sat.id.toString() })}
+              onClick={() => act('toggle', { id: sat.id })}
             >
               {sat.active ? 'Деактивировать' : 'Активировать'}
             </Button>

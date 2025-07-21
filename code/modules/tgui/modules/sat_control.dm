@@ -109,7 +109,7 @@
 			if(goal)
 				goal.simulate_meteors()
 		if("toggle")
-			toggle(params["id"])
+			toggle(text2num(params["id"]))
 			. = TRUE
 		if("set_tab_index")
 			var/new_tab_index = text2num(params["tab_index"])
@@ -131,15 +131,16 @@
 
 /datum/ui_module/sat_control/proc/toggle(id)
 	for(var/obj/machinery/satellite/sat in SSmachines.get_by_type(/obj/machinery/satellite))
-		if(sat.id == id && are_zs_connected(object, sat))
+		if(!(sat.id == id && are_zs_connected(object, sat)))
 			continue
 
-		if(!sat.toggle())
+		if(sat.toggle())
 			continue
 
 		notice = "Вы можете активировать только спутники, находящиеся в космосе."
 		notice_color = "red"
 		freeze_notice_until = world.time + 5 SECONDS
+		return
 
 /datum/ui_module/sat_control/proc/update_notice()
 	var/datum/station_goal/station_shield/goal = locate() in SSticker.mode?.station_goals

@@ -186,7 +186,7 @@
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/bunbun
-	name = "\improper Bun Bun"
+	name = "Bun Bun"
 	desc = "A small bread monkey fashioned from two burger buns."
 	icon_state = "bunbun"
 	list_reagents = list("nutriment" = 2)

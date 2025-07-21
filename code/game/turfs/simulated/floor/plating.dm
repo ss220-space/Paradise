@@ -176,7 +176,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	
+
 /turf/simulated/floor/engine/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/blob_turf_consuming, 3)
@@ -243,7 +243,7 @@
 			if(prob(50))
 				ChangeTurf(baseturf)
 
-		
+
 /turf/simulated/floor/engine/blob_consume()
 	ChangeTurf(baseturf)
 
@@ -282,13 +282,13 @@
 //air filled floors; used in atmos pressure chambers
 
 /turf/simulated/floor/engine/n20
-	name = "\improper N2O floor"
+	name = "N2O floor"
 	sleeping_agent = 6000
 	oxygen = 0
 	nitrogen = 0
 
 /turf/simulated/floor/engine/co2
-	name = "\improper CO2 floor"
+	name = "CO2 floor"
 	carbon_dioxide = 50000
 	oxygen = 0
 	nitrogen = 0
@@ -300,12 +300,12 @@
 	nitrogen = 0
 
 /turf/simulated/floor/engine/o2
-	name = "\improper O2 floor"
+	name = "O2 floor"
 	oxygen = 100000
 	nitrogen = 0
 
 /turf/simulated/floor/engine/n2
-	name = "\improper N2 floor"
+	name = "N2 floor"
 	nitrogen = 100000
 	oxygen = 0
 

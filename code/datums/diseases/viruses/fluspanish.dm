@@ -4,7 +4,7 @@
 	desc = "Если не лечить, заражённый сгорит заживо за ересь."
 	max_stages = 3
 	spread_flags = AIRBORNE
-	cure_text = "Спейсацилин и антитела к обычному гриппу"
+	cure_text = "Космоциллин и антитела к обычному гриппу"
 	cures = list("spaceacillin")
 	cure_prob = 10
 	permeability_mod = 0.75

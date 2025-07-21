@@ -1,7 +1,7 @@
 // The Marine mortar, the M402 Mortar
 // Works like a contemporary crew weapon mortar
 /obj/structure/mortar
-	name = "\improper M402S mortar"
+	name = "M402S mortar"
 	desc = "A manual, crew-operated mortar system intended to rain down 80mm goodness on anything it's aimed at. Uses an advanced targeting computer. Insert round to fire."
 	icon = 'icons/obj/structures/mortar.dmi'
 	icon_state = "mortar_m402"
@@ -386,7 +386,7 @@
 
 //The portable mortar item
 /obj/item/mortar_kit
-	name = "\improper M402S mortar portable kit"
+	name = "M402S mortar portable kit"
 	desc = "A manual, crew-operated mortar system intended to rain down 80mm goodness on anything it's aimed at. Needs to be set down first"
 	icon = 'icons/obj/structures/mortar.dmi'
 	icon_state = "mortar_m402_carry"
