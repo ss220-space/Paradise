@@ -28,7 +28,7 @@
 #define DIAG_PATH_HUD 		"23"//Bot path indicators
 #define GLAND_HUD 			"24"//Gland indicators for abductors
 #define THOUGHT_HUD			"25"//Telepathy bubbles
-#define KIDAN_PHEROMONES_HUD	"26"//Kidan pheromones hud
+#define KIDAN_PHEROMONES_HUD	"pheromone_hud" // Kidan pheromones hud
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -56,15 +56,16 @@
 #define ANTAG_HUD_VAMPIRE 17
 #define ANTAG_HUD_ABDUCTOR 18
 #define DATA_HUD_ABDUCTOR 19
-#define ANTAG_HUD_DEVIL 20
-#define ANTAG_HUD_EVENTMISC 21
-#define ANTAG_HUD_BLOB 22
-#define TAIPAN_HUD 23
-#define ANTAG_HUD_THIEF 24
-#define THOUGHTS_HUD 25
-#define ANTAG_HUD_HERETIC 26
+#define ANTAG_HUD_DEVIL			20
+#define ANTAG_HUD_SINTOUCHED	21
+#define ANTAG_HUD_SOULLESS		22
+#define ANTAG_HUD_EVENTMISC 23
+#define ANTAG_HUD_BLOB 24
+#define TAIPAN_HUD 25
+#define ANTAG_HUD_THIEF 26
+#define THOUGHTS_HUD 27
 //species hud
-#define DATA_HUD_KIDAN_PHEROMONES 27
+#define DATA_HUD_KIDAN_PHEROMONES 26
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

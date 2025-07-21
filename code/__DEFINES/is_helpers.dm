@@ -33,6 +33,8 @@
 
 #define isdevil(A) (istype(A, /mob/living/carbon/true_devil))
 
+#define isascendeddevil(A) (istype(A, /mob/living/carbon/true_devil/ascended))
+
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
 
 #define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
@@ -44,6 +46,21 @@
 #define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
 #define isfacehugger(A) (istype(A, /mob/living/simple_animal/hostile/facehugger))
 #define isfacehugger_mask(A) (istype(A, /obj/item/clothing/mask/facehugger) && !istype(A, /obj/item/clothing/mask/facehugger/toy))
+
+
+/// Check if the given mob is a  lunatic
+#define IS_LUNATIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/lunatic))
+/// Checks if the given mob is either a heretic, heretic monster or a lunatic.
+#define IS_HERETIC_OR_MONSTER(mob) (isheretic(mob) || HAS_TRAIT(mob, TRAIT_HERETIC_SUMMON) || IS_LUNATIC(mob))
+#define IS_IN_MANSUS(mob) (istype(get_area(mob), /area/centcom/heretic_sacrifice))
+#define isspacecola(A)		(istype((A), /datum/reagent/consumable/drink/cold/space_cola))
+#define isacid(A)			(istype(A, /datum/reagent/acid))
+#define isprojectilespell(thing) (istype(thing, /obj/effect/proc_holder/spell/fireball))
+#define isplatingturf(A) istype(A, /turf/simulated/floor/plating)
+#define isorgan(A)	(istype(A, /obj/item/organ))
+#define isroboticorgan(A)	(isorgan(A) && (A.status & ORGAN_ROBOT))
+#define iscloset(A) (istype(A, /obj/structure/closet))
+
 
 // Simple animals
 // #define issimple_animal(A) (istype(A, /mob/living/simple_animal)) use isanimal(A) instead
@@ -93,9 +110,13 @@
 
 #define isgun(A) (istype(A, /obj/item/gun))
 
+#define isbaton(A) (istype(A, /obj/item/melee/baton))
+
 #define is_pen(W) (istype(W, /obj/item/pen))
 
 #define is_pda(W) (istype(W, /obj/item/pda))
+
+#define is_id_card(W) (istype(W, /obj/item/card/id))
 
 #define isradio(A) istype(A, /obj/item/radio)
 
@@ -112,11 +133,6 @@
 #define issyringe(A) istype(A, /obj/item/reagent_containers/syringe)
 
 #define isglassreagentcontainer(A) istype(A, /obj/item/reagent_containers/glass)
-
-#define isorgan(A)	(istype(A, /obj/item/organ))
-#define isroboticorgan(A)	(isorgan(A) && (A.status & ORGAN_ROBOT))
-
-#define iscloset(A) (istype(A, /obj/structure/closet))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -163,8 +179,6 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define iswallturf(A) istype(A, /turf/simulated/wall)
 
-#define isplatingturf(A) istype(A, /turf/simulated/floor/plating)
-
 #define isreinforcedwallturf(A) istype(A, /turf/simulated/wall/r_wall)
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
@@ -197,16 +211,12 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_ventcrawler(A) (HAS_TRAIT(A, TRAIT_VENTCRAWLER_NUDE) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALWAYS) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ITEM_BASED) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALIEN))
 
-#define isprojectilespell(thing) (istype(thing, /obj/effect/proc_holder/spell/fireball))
 #define is_multi_tile_object(atom) (atom.bound_width > world.icon_size || atom.bound_height > world.icon_size)
 
-/// Check if the given mob is a  lunatic
-#define IS_LUNATIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/lunatic))
-/// Checks if the given mob is either a heretic, heretic monster or a lunatic.
-#define IS_HERETIC_OR_MONSTER(mob) (isheretic(mob) || HAS_TRAIT(mob, TRAIT_HERETIC_SUMMON) || IS_LUNATIC(mob))
+#define is_proximity(A) istype(A, /obj/effect/abstract/proximity_checker)
 
-#define IS_IN_MANSUS(mob) (istype(get_area(mob), /area/centcom/heretic_sacrifice))
+#define is_light(A) istype(A, /atom/movable/lighting_object)
 
-#define isspacecola(A)		(istype((A), /datum/reagent/consumable/drink/cold/space_cola))
+#define ischest(A) (istype(A, /obj/item/organ/external/chest))
 
-#define isacid(A)			(istype(A, /datum/reagent/acid))
+#define isgroin(A) (istype(A, /obj/item/organ/external/groin))
