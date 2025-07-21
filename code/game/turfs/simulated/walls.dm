@@ -341,7 +341,7 @@
 	if((M.environment_smash & ENVIRONMENT_SMASH_WALLS) || (M.environment_smash & ENVIRONMENT_SMASH_RWALLS))
 		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
 			dismantle_wall(1)
-			to_chat(M, span_info("Вы проламываете стену."))
+			to_chat(M, span_notice("Вы проламываете стену."))
 		else
 			to_chat(M, span_notice("Вы ударяетесь о стену."))
 			take_damage(rand(25, 75))
@@ -359,7 +359,7 @@
 
 		if(A.environment_smash & ENVIRONMENT_SMASH_RWALLS)
 			dismantle_wall(1)
-			to_chat(A, span_info("Вы проламываете стену."))
+			to_chat(A, span_notice("Вы проламываете стену."))
 			return
 		if(A.environment_smash & ENVIRONMENT_SMASH_WALLS)
 			to_chat(A, span_notice("Вы ударяетесь о стену."))

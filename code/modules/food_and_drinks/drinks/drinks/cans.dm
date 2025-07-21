@@ -20,7 +20,7 @@
 	. = ..()
 	. += span_notice("<b>[canopened ? "Открыто" : "Закрыто"]</b>")
 	if(!canopened)
-		. += span_info("Используйте <b>Ctrl+ЛКМ</b>, чтобы встряхнуть!")
+		. += span_notice("Используйте <b>Ctrl+ЛКМ</b>, чтобы встряхнуть!")
 
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(canopened)

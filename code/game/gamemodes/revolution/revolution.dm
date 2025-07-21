@@ -65,7 +65,7 @@
 	if(!recruit)
 		return
 	log_admin("[key_name(usr)] attempted recruitment [key_name(recruit)] into the revolution.", usr)
-	to_chat(usr, span_info("<b>You are trying to recruit [recruit]: </b>"))
+	to_chat(usr, span_notice("<b>You are trying to recruit [recruit]: </b>"))
 	if(ismindshielded(recruit) || (recruit.mind in SSticker.mode.get_living_heads()))
 		to_chat(recruit, span_danger(span_fontsize4("You were asked to join the revolution, but for reasons you did not know, you refused.")))
 		to_chat(usr, span_danger("\The [recruit] does not support the revolution!"))

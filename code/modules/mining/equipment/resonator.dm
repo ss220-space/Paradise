@@ -34,10 +34,10 @@
 
 /obj/item/resonator/attack_self(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, span_info("Вы настроили поля резонатора на детонацию только после удара."))
+		to_chat(user, span_notice("Вы настроили поля резонатора на детонацию только после удара."))
 		mode = RESONATOR_MODE_MANUAL
 	else
-		to_chat(user, span_info("Вы настроили автоматический подрыв полей через 2 секунды."))
+		to_chat(user, span_notice("Вы настроили автоматический подрыв полей через 2 секунды."))
 		mode = RESONATOR_MODE_AUTO
 
 /obj/item/resonator/proc/create_resonance(target, mob/user)
@@ -190,13 +190,13 @@
 
 /obj/item/resonator/upgraded/attack_self(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, span_info("Вы настроили поля на детонацию только после удара."))
+		to_chat(user, span_notice("Вы настроили поля на детонацию только после удара."))
 		mode = RESONATOR_MODE_MANUAL
 	else if(mode == RESONATOR_MODE_MANUAL)
-		to_chat(user, span_info("Вы активировали режим матричных ловушек."))
+		to_chat(user, span_notice("Вы активировали режим матричных ловушек."))
 		mode = RESONATOR_MODE_MATRIX
 	else
-		to_chat(user, span_info("Вы настроили автоматический подрыв через 2 секунды."))
+		to_chat(user, span_notice("Вы настроили автоматический подрыв через 2 секунды."))
 		mode = RESONATOR_MODE_AUTO
 
 #undef RESONATOR_MODE_AUTO
