@@ -1,6 +1,14 @@
 /obj/item/crowbar
 	name = "pocket crowbar"
-	desc = "A small crowbar. This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
+	desc = "Небольшой лом. Этот удобный инструмент пригодится для многих вещей, например, для поддевания плитки на полу или открывания обесточенных дверей."
+	ru_names = list(
+	    NOMINATIVE = "карманный лом",
+		GENITIVE = "карманного лома",
+		DATIVE = "карманному лому",
+		ACCUSATIVE = "карманный лом",
+		INSTRUMENTAL = "карманным ломом",
+		PREPOSITIONAL = "карманном ломе"
+    )
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -37,7 +45,15 @@
 
 /obj/item/crowbar/brass
 	name = "brass crowbar"
-	desc = "A brass crowbar. It feels faintly warm to the touch."
+	desc = "Латунный лом. На ощупь он слегка тёплый."
+	ru_names = list(
+	    NOMINATIVE = "латунный лом",
+		GENITIVE = "латунного лома",
+		DATIVE = "латунному лому",
+		ACCUSATIVE = "латунный лом",
+		INSTRUMENTAL = "латунным ломом",
+		PREPOSITIONAL = "латунном ломе"
+	)
 	icon_state = "crowbar_brass"
 	item_state = "crowbar_brass"
 	toolspeed = 0.5
@@ -45,7 +61,15 @@
 
 /obj/item/crowbar/abductor
 	name = "alien crowbar"
-	desc = "A hard-light crowbar. It appears to pry by itself, without any effort required."
+	desc = "Инопланетный лом. Кажется, что он поднимается сам по себе, без каких-либо усилий."
+	ru_names = list(
+	    NOMINATIVE = "инопланетный лом",
+		GENITIVE = "инопланетного лома",
+		DATIVE = "инопланетному лому",
+		ACCUSATIVE = "инопланетный лом",
+		INSTRUMENTAL = "инопланетным ломом",
+		PREPOSITIONAL = "инопланетном ломе"
+    )
 	icon = 'icons/obj/abductor.dmi'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "crowbar"
@@ -56,7 +80,15 @@
 
 /obj/item/crowbar/large
 	name = "crowbar"
-	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
+	desc = "Это большой лом. Такой в карман не положить."
+	ru_names = list(
+	    NOMINATIVE = "большой лом",
+		GENITIVE = "большого лома",
+		DATIVE = "большому лому",
+		ACCUSATIVE = "большой лом",
+		INSTRUMENTAL = "большим ломом",
+		PREPOSITIONAL = "большом ломе"
+	)
 	force = 20
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
@@ -68,13 +100,29 @@
 
 /obj/item/crowbar/cyborg
 	name = "hydraulic crowbar"
-	desc = "A hydraulic prying tool, compact but powerful. Designed to replace crowbar in construction cyborgs."
+	desc = "Гидравлический подъемник, компактный, но мощный. Аналог лома для строительных киборгов."
+	ru_names = list(
+	    NOMINATIVE = "гидравлический лом",
+		GENITIVE = "гидравлического лома",
+		DATIVE = "гидравлическому лому",
+		ACCUSATIVE = "гидравлический лом",
+		INSTRUMENTAL = "гидравлическим ломом",
+		PREPOSITIONAL = "гидравлическом ломе"
+	)
 	usesound = 'sound/items/jaws_pry.ogg'
 	toolspeed = 0.5
 
 /obj/item/crowbar/power
 	name = "jaws of life"
-	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head."
+	desc = "Набор челюстей жизни, магия науки сумела втиснуть его в устройство, достаточно маленькое, чтобы поместиться на поясе для инструментов. Он оснащён выдвигающейся головкой."
+	ru_names = list(
+	    NOMINATIVE = "челюсти жизни",
+		GENITIVE = "челюстей жизни",
+		DATIVE = "челюстям жизни",
+		ACCUSATIVE = "челюсти жизни",
+		INSTRUMENTAL = "челюстями жизни",
+		PREPOSITIONAL = "челюстях жизни"
+	)
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
 	belt_icon = "jaws_of_life"
@@ -82,7 +130,6 @@
 	origin_tech = "materials=2;engineering=2"
 	usesound = 'sound/items/jaws_pry.ogg'
 	toolspeed = 0.25
-	ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/airlock_open_time = 100 // Time required to open powered airlocks
 
 /obj/item/crowbar/power/Initialize(mapload)
@@ -90,13 +137,13 @@
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/crowbar/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] помеща[pluralize_ru(user.gender,"ет","ют")] свою голову между лезвиями [src.declent_ru(GENITIVE)]. Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] использовать [src.declent_ru(ACCUSATIVE)] для самоубийства!</span>")
+	user.visible_message(span_suicide("[user] помеща[pluralize_ru(user.gender,"ет","ют")] свою голову между лезвиями [declent_ru(GENITIVE)]. Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] использовать [declent_ru(ACCUSATIVE)] для самоубийства!"))
 	playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
 	return BRUTELOSS
 
 /obj/item/crowbar/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
-	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
+	to_chat(user, span_notice("Ты присоединяешь режущую головку к [declent_ru(GENITIVE)]."))
 	qdel(src)
 	user.put_in_active_hand(cutjaws)

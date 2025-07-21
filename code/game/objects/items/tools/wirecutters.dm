@@ -1,6 +1,14 @@
 /obj/item/wirecutters
 	name = "wirecutters"
-	desc = "This cuts wires."
+	desc = "Инструмент для перерезания различных материалов."
+	ru_names = list(
+	    NOMINATIVE = "кусачки",
+		GENITIVE = "кусачек",
+		DATIVE = "кусачкам",
+		ACCUSATIVE = "кусачки",
+		INSTRUMENTAL = "кусачками",
+		PREPOSITIONAL = "кусачках"
+	)
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -41,9 +49,10 @@
 	if(istype(target) && istype(target.handcuffed, /obj/item/restraints/handcuffs/cable))
 		var/obj/item/cuffs = target.handcuffed
 		user.visible_message(
-			span_notice("[user] cuts [target]'s restraints with [src]!"),
-			span_notice("You have cut [target]'s restraints with [src]!"),
+			span_notice("[user] режет стяжки [target] с помощью [declent_ru(GENITIVE)]!"),
+			span_notice("Вы перерезаете стяжки [target] с помощью [declent_ru(GENITIVE)]!"),
 		)
+		balloon_alert(user, "стяжки перерезаны")
 		play_tool_sound(target, 100)
 		target.temporarily_remove_item_from_inventory(cuffs, force = TRUE)
 		qdel(cuffs)
@@ -52,13 +61,21 @@
 
 
 /obj/item/wirecutters/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] перереза[pluralize_ru(user.gender,"ет","ют")] [genderize_ru(user.gender,"его","её","его","их")] артерии с помощью [declent_ru(GENITIVE)]! Кажется, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] совершить самоубийство"))
 	playsound(loc, usesound, 50, 1, -1)
 	return BRUTELOSS
 
 /obj/item/wirecutters/brass
 	name = "brass wirecutters"
-	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch."
+	desc = "Пара кусачек из латуни. Ручка на ощупь ледяная."
+	ru_names = list(
+	    NOMINATIVE = "латунные кусачки",
+		GENITIVE = "латунных кусачек",
+		DATIVE = "латунным кусачкам",
+		ACCUSATIVE = "латунные кусачки",
+		INSTRUMENTAL = "латунными кусачками",
+		PREPOSITIONAL = "латунных кусачках"
+	)
 	icon_state = "cutters_brass"
 	toolspeed = 0.5
 	random_color = FALSE
@@ -66,7 +83,15 @@
 
 /obj/item/wirecutters/abductor
 	name = "alien wirecutters"
-	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
+	desc = "Очень острые кусачки, изготовленные из серебристо-зеленого металла."
+	ru_names = list(
+	    NOMINATIVE = "инопланетные кусачки",
+		GENITIVE = "иноплатных кусачек",
+		DATIVE = "инопланетным кусачкам",
+		ACCUSATIVE = "инопланетные кусачки",
+		INSTRUMENTAL = "инопланетными кусачками",
+		PREPOSITIONAL = "инопланетных кусачках"
+	)
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cutters"
 	item_state = "cutters_alien"
@@ -77,12 +102,28 @@
 
 /obj/item/wirecutters/cyborg
 	name = "wirecutters"
-	desc = "This cuts wires."
+	desc = "Инструмент для перерезания различных материалов."
+	ru_names = list(
+	    NOMINATIVE = "кусачки",
+		GENITIVE = "кусачек",
+		DATIVE = "кусачкам",
+		ACCUSATIVE = "кусачки",
+		INSTRUMENTAL = "кусачками",
+		PREPOSITIONAL = "кусачках"
+	)
 	toolspeed = 0.5
 
 /obj/item/wirecutters/power
 	name = "jaws of life"
-	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a cutting head."
+	desc = "Набор челюстей жизни, магия науки сумела втиснуть его в устройство, достаточно маленькое, чтобы поместиться на поясе для инструментов. Он оснащен режущей головкой."
+	ru_names = list(
+	    NOMINATIVE = "челюсти жизни",
+		GENITIVE = "челюстей жизни",
+		DATIVE = "челюстям жизни",
+		ACCUSATIVE = "челюсти жизни",
+		INSTRUMENTAL = "челюстями жизни",
+		PREPOSITIONAL = "челюстях жизни"
+	)
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
 	belt_icon = "jaws_of_life"
@@ -93,7 +134,7 @@
 	random_color = FALSE
 
 /obj/item/wirecutters/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
+	user.visible_message(span_suicide("[user] обертывает [declent_ru(NOMINATIVE)] вокруг [genderize_ru(user.gender,"его","её","его","их")] шеи. Кажется, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] оторвать [genderize_ru(user.gender,"его","её","его","их")] голову!"))
 	playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -106,6 +147,6 @@
 /obj/item/wirecutters/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
-	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")
+	to_chat(user, span_notice("Вы присоеденяете поддевающую головку к [declent_ru(DATIVE)]."))
 	qdel(src)
 	user.put_in_active_hand(pryjaws)

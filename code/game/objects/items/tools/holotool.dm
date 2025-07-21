@@ -6,7 +6,15 @@ Holotool. All instruments in one object
 
 /obj/item/holotool
 	name = "experimental holotool"
-	desc = "A highly experimental holographic tool projector."
+	desc = "Экспериментальный голографический инструмент-проектор."
+	ru_names = list(
+	    NOMINATIVE = "экспериментальный голотул",
+		GENITIVE = "экспериментального голотула",
+		DATIVE = "экспериментальному голотулу",
+		ACCUSATIVE = "экспериментальный голотул",
+		INSTRUMENTAL = "экспериментальным голотулом",
+		PREPOSITIONAL = "экспериментальном голотуле"
+	)
 	icon = 'icons/obj/holotool.dmi'
 	icon_state = "holotool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -26,7 +34,7 @@ Holotool. All instruments in one object
 
 /obj/item/holotool/examine(mob/user)
 	. = ..()
-	. += span_notice("It is currently set to [current_tool ? current_tool.name : "'off'"] mode.")
+	. += span_notice("It is currently set to [current_tool ? current_tool.name : "'off'"] mode.") // оставляю другим бедолагам, не представляю как это нормально оформить. можно попробовать += span_notice("В настоящее время он находится в [current_tool ? current_tool.name : "'выключенном'"] режиме."), но я не шарю, мб "'off'" это часть кода.
 
 /obj/item/holotool/ui_action_click(mob/user, datum/action/action)
 	var/C = tgui_input_color(user, "Select Color", "Select color", "#48D1CC")

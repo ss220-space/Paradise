@@ -2,7 +2,15 @@
 
 /obj/item/weldingtool
 	name = "welding tool"
-	desc = "A standard edition welder provided by Nanotrasen."
+	desc = "Стандартный сварочный аппарат, предоставленный Nanotrasen."
+	ru_names = list(
+	    NOMINATIVE = "сварочный аппарат",
+		GENITIVE = "сварочного аппарата",
+		DATIVE = "сварочному аппарату",
+		ACCUSATIVE = "сварочный аппарата",
+		INSTRUMENTAL = "сварочным аппаратом",
+		PREPOSITIONAL = "сварочном аппарате"
+	)
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -56,15 +64,15 @@
 /obj/item/weldingtool/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 0)
-		. += "<span class='notice'>It contains [GET_FUEL] unit\s of fuel out of [maximum_fuel].</span>"
+		. += span_notice("Он содержит [GET_FUEL] u топлива из [maximum_fuel].")
 
 /obj/item/weldingtool/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] заварива[pluralize_ru(user.gender,"ет","ют")] себе все отверстия! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] совершить самоубийство!"))
 	return FIRELOSS
 
 /obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
 	if(tool_enabled)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, span_warning("Не могу положить [declent_ru(NOMINATIVE)] в [S] пока он горит!"))
 		return FALSE
 	else
 		return TRUE
@@ -134,13 +142,13 @@
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount, silent = FALSE)
 	if(!tool_enabled)
 		if(!silent)
-			to_chat(user, "<span class='notice'>[src] has to be on to complete this task!</span>")
+			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] должен быть включен для выполнения этой задачи!"))
 		return FALSE
 	if(GET_FUEL >= amount * requires_fuel)
 		return TRUE
 	else
 		if(!silent)
-			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
+			to_chat(user, span_warning("Вам нужно больше сварочного топлива в [declent_ru(PREPOSITIONAL)] для выполнения этой задачи!"))
 		return FALSE
 
 // When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
@@ -181,16 +189,16 @@
 	if(!A.reagents)
 		return
 	if(GET_FUEL >= maximum_fuel)
-		to_chat(user, "<span class='notice'>[src] is already full!</span>")
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] уже полон!"))
 		return
 	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
 	if(amount_transferred)
-		to_chat(user, "<span class='notice'>You refuel [src] by [amount_transferred] unit\s.</span>")
+		to_chat(user, span_notice("Вы заполнили [declent_ru(NOMINATIVE)] на [amount_transferred] u."))
 		playsound(src, 'sound/effects/refill.ogg', 50, 1)
 		update_icon()
 		return amount_transferred
 	else
-		to_chat(user, "<span class='warning'>There's not enough fuel in [A] to refuel [src]!</span>")
+		balloon_alert(user, "Недостаточно топлива для заполнения [declent_ru(GENITIVE)]!")
 
 
 /obj/item/weldingtool/update_icon_state()
@@ -217,7 +225,15 @@
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
-	desc = "A slightly larger welder with a larger tank."
+	desc = "Сварочный аппарат, но с баком побольше."
+	ru_names = list(
+	    NOMINATIVE = "промышленный сварочный аппарат",
+		GENITIVE = "промышленного сварочного аппарата",
+		DATIVE = "промышленному сварочному аппарату",
+		ACCUSATIVE = "промышленный сварочный аппарат",
+		INSTRUMENTAL = "промышленным сварочным аппаратом",
+		PREPOSITIONAL = "промышленном сварочном аппарате"
+	)
 	icon_state = "indwelder"
 	belt_icon = "industrial_welding_tool"
 	maximum_fuel = 40
@@ -226,12 +242,28 @@
 
 /obj/item/weldingtool/largetank/cyborg
 	name = "integrated welding tool"
-	desc = "An advanced welder designed to be used in robotic systems."
+	desc = "Усовершенствованный сварочный аппарат, предназначенный для использования в роботизированных системах."
+	ru_names = list(
+	    NOMINATIVE = "усовершенствованный сварочный аппарат",
+		GENITIVE = "усовершенствованного сварочного аппарата",
+		DATIVE = "усовершенствованному сварочному аппарату",
+		ACCUSATIVE = "усовершенствованный сварочный аппарат",
+		INSTRUMENTAL = "усовершенствованным сварочным аппаратом",
+		PREPOSITIONAL = "усовершенствованном сварочном аппарате"
+	)
 	toolspeed = 0.5
 
 /obj/item/weldingtool/mini
 	name = "emergency welding tool"
-	desc = "A miniature welder used during emergencies."
+	desc = "Миниатюрный сварочный аппарат, используемый в экстренных случаях."
+	ru_names = list(
+	    NOMINATIVE = "экстренный сварочный аппарат",
+		GENITIVE = "экстренного сварочного аппарата",
+		DATIVE = "экстренному сварочному аппарату",
+		ACCUSATIVE = "экстренный сварочный аппарат",
+		INSTRUMENTAL = "экстренным сварочным аппаратом",
+		PREPOSITIONAL = "экстренном сварочном аппарате"
+	)
 	icon_state = "miniwelder"
 	maximum_fuel = 10
 	w_class = WEIGHT_CLASS_TINY
@@ -254,7 +286,15 @@
 
 /obj/item/weldingtool/hugetank
 	name = "upgraded welding tool"
-	desc = "An upgraded welder based off the industrial welder."
+	desc = "Усовершенствованная версия промышленного сварочного аппарата. С баком побольше!"
+	ru_names = list(
+	    NOMINATIVE = "улучшенный сварочный аппарат",
+		GENITIVE = "улучшенного сварочного аппарата",
+		DATIVE = "улучшенному сварочному аппарату",
+		ACCUSATIVE = "улучшенный сварочный аппарат",
+		INSTRUMENTAL = "улучшенным сварочным аппаратом",
+		PREPOSITIONAL = "улучшенном сварочном аппарате"
+	)
 	icon_state = "upindwelder"
 	item_state = "upindwelder"
 	belt_icon = "upgraded_welding_tool"
@@ -264,7 +304,15 @@
 
 /obj/item/weldingtool/experimental
 	name = "experimental welding tool"
-	desc = "An experimental welder capable of self-fuel generation and less harmful to the eyes."
+	desc = "Экспериментальный сварочный аппарат, способный самостоятельно вырабатывать топливо и менее вредный для глаз."
+	ru_names = list(
+	    NOMINATIVE = "экспериментальный сварочный аппарат",
+		GENITIVE = "экспериментального сварочного аппарата",
+		DATIVE = "экспериментальному сварочному аппарату",
+		ACCUSATIVE = "экспериментальный сварочный аппарат",
+		INSTRUMENTAL = "экспериментальным сварочным аппаратом",
+		PREPOSITIONAL = "экспериментальном сварочном аппарате"
+	)
 	icon_state = "exwelder"
 	item_state = "exwelder"
 	belt_icon = "experimental_welding_tool"
@@ -278,13 +326,29 @@
 
 /obj/item/weldingtool/experimental/mecha
 	name = "integrated welding tool"
-	desc = "An advanced welder designed to be used in robotic systems."
+	desc = "Усовершенствованный сварочный аппарат, предназначенный для использования в роботизированных системах."
+	ru_names = list(
+	    NOMINATIVE = "интергированный сварочный аппарат",
+		GENITIVE = "интрегрированного сварочного аппарата",
+		DATIVE = "интегрированному сварочному аппарату",
+		ACCUSATIVE = "интегрированный сварочный аппарат",
+		INSTRUMENTAL = "интегрированным сварочным аппаратом",
+		PREPOSITIONAL = "интегрированном сварочном аппарате"
+	)
 	requires_fuel = FALSE
 	light_intensity = 0
 
 /obj/item/weldingtool/experimental/brass
 	name = "brass welding tool"
-	desc = "A brass welder that seems to constantly refuel itself. It is faintly warm to the touch."
+	desc = "Латунный сварочный аппарат, который, кажется, постоянно заправляется. Он слегка теплый на ощупь."
+	ru_names = list(
+	    NOMINATIVE = "латунный сварочный аппарат",
+		GENITIVE = "латунного сварочного аппарата",
+		DATIVE = "латунному сварочному аппарату",
+		ACCUSATIVE = "латунный сварочный аппарат",
+		INSTRUMENTAL = "латунным сварочным аппаратом",
+		PREPOSITIONAL = "латунном сварочном аппарате"
+	)
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF

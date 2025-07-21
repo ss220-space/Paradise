@@ -8,7 +8,15 @@
 
 /obj/item/multitool
 	name = "multitool"
-	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors."
+	desc = "Используется для пульсации проводов, чтобы проверить, какой из них следует разрезать. Не рекомендуется врачами."
+	ru_names = list(
+	    NOMINATIVE = "мультитул",
+		GENITIVE = "мультитула",
+		DATIVE = "мультитулу",
+		ACCUSATIVE = "мультитул",
+		INSTRUMENTAL = "мультитулом",
+		PREPOSITIONAL = "мультитуле"
+	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -45,10 +53,10 @@
 
 /obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)	//Loads a machine into memory, returns TRUE if it does
 	if(!ismachinery(M))
-		to_chat(user, "<span class='warning'>That's not a machine!</span>")
+		balloon_alert(user,"это не машина")
 		return
 	buffer = M
-	to_chat(user, "<span class='notice'>You load [M] into [src]'s internal buffer.</span>")
+	to_chat(user, span_notice("Ты загрузил [M] во внутренний буфер [declent_ru(GENITIVE)]."))
 	return TRUE
 
 /obj/item/multitool/attack_self(mob/user)
@@ -113,7 +121,7 @@
 				break
 
 /obj/item/multitool/ai_detect/admin
-	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?
+	desc = "Используется для пульсации проводов, чтобы проверить, какой из них следует разрезать. Не рекомендуется врачами. Имеет странную бирку с надписью 'Гриферить в удовольствие!'" //What else should I say for a meme item?
 	track_delay = 5
 	shows_wire_information = TRUE
 
@@ -129,12 +137,28 @@
 
 /obj/item/multitool/cyborg
 	name = "multitool"
-	desc = "Optimised and stripped-down version of a regular multitool."
+	desc = "Оптимизированная и урезанная версия обычного мультитула."
+	ru_names = list(
+	    NOMINATIVE = "мультитул",
+		GENITIVE = "мультитула",
+		DATIVE = "мультитулу",
+		ACCUSATIVE = "мультитул",
+		INSTRUMENTAL = "мультитулом",
+		PREPOSITIONAL = "мультитуле"
+	)
 	toolspeed = 0.5
 
 /obj/item/multitool/abductor
 	name = "alien multitool"
-	desc = "An omni-technological interface."
+	desc = "Универсальный технологичный интерфейс."
+	ru_names = list(
+	    NOMINATIVE = "инопланетный мультитул",
+		GENITIVE = "инопланетного мультитула",
+		DATIVE = "инопланетному мультитулу",
+		ACCUSATIVE = "инопланетный мультитул",
+		INSTRUMENTAL = "инопланетным мультитулом",
+		PREPOSITIONAL = "инопланетном мультитуле"
+	)
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
 	belt_icon = "alien_multitool"

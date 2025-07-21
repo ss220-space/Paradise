@@ -1,7 +1,15 @@
 //Screwdriver
 /obj/item/screwdriver
 	name = "screwdriver"
-	desc = "You can be totally screwy with this."
+	desc = "Инструмент для откручивания и прикручивания различных предметов. Плохо сочетается с глазными яблоками."
+	ru_names = list(
+	    NOMINATIVE = "отвёртка",
+		GENITIVE = "отвёртки",
+		DATIVE = "отвёртку",
+		ACCUSATIVE = "отвёртка",
+		INSTRUMENTAL = "отвёрткой",
+		PREPOSITIONAL = "отвёртке"
+	)
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "screwdriver_map"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -31,13 +39,21 @@
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
-	desc = "A screwdriver with an ultra thin tip."
+	desc = "Отвертка с ультратонким наконечником."
+	ru_names = list(
+	    NOMINATIVE = "отвёртка",
+		GENITIVE = "отвёртки",
+		DATIVE = "отвёртку",
+		ACCUSATIVE = "отвёртка",
+		INSTRUMENTAL = "отвёрткой",
+		PREPOSITIONAL = "отвёртке"
+	)
 	icon_state = "screwdriver_nuke"
 	toolspeed = 0.5
 	random_color = FALSE
 
 /obj/item/screwdriver/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] кол[pluralize_ru(user.gender,"ет","ют")] [declent_ru(INSTRUMENTAL)] в [user.p_their()] [pick("temple", "heart")]! Похоже на то, что [user.p_theyre()] пыта[pluralize_ru(user.gender,"ется","ются")] совершить самоубийство!"))
 	return BRUTELOSS
 
 /obj/item/screwdriver/Initialize(mapload, param_color = null)
@@ -65,7 +81,15 @@
 
 /obj/item/screwdriver/brass
 	name = "brass screwdriver"
-	desc = "A screwdriver made of brass. The handle feels freezing cold."
+	desc = "Отвертка из латуни. Ручка кажется ледяной."
+	ru_names = list(
+	    NOMINATIVE = "латунная отвёртка",
+		GENITIVE = "латунной отвёртки",
+		DATIVE = "латунную отвёртку",
+		ACCUSATIVE = "латунная отвёртка",
+		INSTRUMENTAL = "латунной отвёрткой",
+		PREPOSITIONAL = "латунной отвёртке"
+	)
 	icon_state = "screwdriver_brass"
 	toolspeed = 0.5
 	random_color = FALSE
@@ -73,7 +97,15 @@
 
 /obj/item/screwdriver/abductor
 	name = "alien screwdriver"
-	desc = "An ultrasonic screwdriver."
+	desc = "Ультразвуковая отвёртка."
+	ru_names = list(
+	    NOMINATIVE = "инопланетная отвёртка",
+		GENITIVE = "инопланетной отвёртки",
+		DATIVE = "инопланетную отвёртку",
+		ACCUSATIVE = "инопланетная отвёртка",
+		INSTRUMENTAL = "инопланетной отвёрткой",
+		PREPOSITIONAL = "инопланетной отвёртке"
+	)
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "screwdriver"
 	belt_icon = "alien_screwdriver"
@@ -83,7 +115,15 @@
 
 /obj/item/screwdriver/power
 	name = "hand drill"
-	desc = "A simple hand drill with a screwdriver bit attached."
+	desc = "Простая ручная дрель с крестовой битой."
+	ru_names = list(
+	    NOMINATIVE = "ручная дрель",
+		GENITIVE = "ручной дрели",
+		DATIVE = "ручной дрели",
+		ACCUSATIVE = "ручную дрель",
+		INSTRUMENTAL = "ручной дрелью",
+		PREPOSITIONAL = "ручной дрели"
+	)
 	icon_state = "drill_screw"
 	item_state = "drill"
 	belt_icon = "hand_drill"
@@ -104,18 +144,26 @@
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/screwdriver/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] ставит [declent_ru(ACCUSATIVE)] к [genderize_ru(user.gender,"его","её","его","их")] виску. Похоже [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] совершить самоубийство!"))
 	return BRUTELOSS
 
 /obj/item/screwdriver/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
-	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")
+	to_chat(user, span_notice("Вы присоединяете головку болтового сверла к [declent_ru(GENITIVE)]."))
 	qdel(src)
 	user.put_in_active_hand(b_drill)
 
 /obj/item/screwdriver/cyborg
 	name = "powered screwdriver"
-	desc = "An electrical screwdriver, designed to be both precise and quick."
+	desc = "Электрическая отвёртка, разработанная для точного и быстрого использования"
+	ru_names = list(
+	    NOMINATIVE = "электрическая отвёртка",
+		GENITIVE = "электрической отвёртки",
+		DATIVE = "электрическую отвёртку",
+		ACCUSATIVE = "электрическая отвёртка",
+		INSTRUMENTAL = "электрической отвёрткой",
+		PREPOSITIONAL = "электрической отвёртке"
+	)
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.5
