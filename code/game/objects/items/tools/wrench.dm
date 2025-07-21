@@ -167,7 +167,3 @@
 
 	user.dust()
 	return OBLITERATION
-
-
-	user.dust()
-	return OBLITERATION
