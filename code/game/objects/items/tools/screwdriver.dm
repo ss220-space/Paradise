@@ -10,6 +10,7 @@
 		INSTRUMENTAL = "отвёрткой",
 		PREPOSITIONAL = "отвёртке"
 	)
+	gender = FEMALE
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "screwdriver_map"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -39,7 +40,7 @@
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
-	desc = "Отвертка с ультратонким наконечником."
+	desc = "Отвёртка с ультратонким наконечником."
 	ru_names = list(
 	    NOMINATIVE = "отвёртка",
 		GENITIVE = "отвёртки",
@@ -48,6 +49,7 @@
 		INSTRUMENTAL = "отвёрткой",
 		PREPOSITIONAL = "отвёртке"
 	)
+	gender = FEMALE
 	icon_state = "screwdriver_nuke"
 	toolspeed = 0.5
 	random_color = FALSE
@@ -90,6 +92,7 @@
 		INSTRUMENTAL = "латунной отвёрткой",
 		PREPOSITIONAL = "латунной отвёртке"
 	)
+	gender = FEMALE
 	icon_state = "screwdriver_brass"
 	toolspeed = 0.5
 	random_color = FALSE
@@ -106,6 +109,7 @@
 		INSTRUMENTAL = "инопланетной отвёрткой",
 		PREPOSITIONAL = "инопланетной отвёртке"
 	)
+	gender = FEMALE
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "screwdriver"
 	belt_icon = "alien_screwdriver"
@@ -124,6 +128,7 @@
 		INSTRUMENTAL = "ручной дрелью",
 		PREPOSITIONAL = "ручной дрели"
 	)
+	gender = FEMALE
 	icon_state = "drill_screw"
 	item_state = "drill"
 	belt_icon = "hand_drill"
@@ -144,13 +149,13 @@
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/screwdriver/power/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] ставит [declent_ru(ACCUSATIVE)] к [genderize_ru(user.gender,"его","её","его","их")] виску. Похоже [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] совершить самоубийство!"))
+	user.visible_message(span_suicide("[user] кол[pluralize_ru(user.gender,"ит","ют")] [declent_ru(INSTRUMENTAL)] себе в висок! Похоже на то, что [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся совершить самоубийство!"))
 	return BRUTELOSS
 
 /obj/item/screwdriver/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
-	to_chat(user, span_notice("Вы присоединяете головку болтового сверла к [declent_ru(GENITIVE)]."))
+	balloon_alert(user, "Вы присоединяете головку болтового сверла к [declent_ru(GENITIVE)]."
 	qdel(src)
 	user.put_in_active_hand(b_drill)
 
@@ -164,6 +169,11 @@
 		ACCUSATIVE = "электрическая отвёртка",
 		INSTRUMENTAL = "электрической отвёрткой",
 		PREPOSITIONAL = "электрической отвёртке"
+	)
+	gender = FEMALE
+	usesound = 'sound/items/drill_use.ogg'
+	toolspeed = 0.5
+
 	)
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.5
