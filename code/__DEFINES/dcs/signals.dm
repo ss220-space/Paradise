@@ -40,6 +40,11 @@
 ///from SSsun when the sun changes position : (azimuth)
 #define COMSIG_SUN_MOVED "sun_moved"
 
+///from SSsecurity_level on planning security level change : (previous_level_number, new_level_number)
+#define COMSIG_SECURITY_LEVEL_CHANGE_PLANNED "security_level_change_planned"
+///from SSsecurity_level when the security level changes : (previous_level_number, new_level_number)
+#define COMSIG_SECURITY_LEVEL_CHANGED "security_level_changed"
+
 //////////////////////////////////////////////////////////////////
 
 // /datum signals
@@ -53,6 +58,8 @@
 #define COMSIG_QDELETING "parent_qdeleting"
 /// generic topic handler (usr, href_list)
 #define COMSIG_TOPIC "handle_topic"
+/// Forces you to equip a hood
+#define COMSIG_EQUIP_HOOD "force_hood_equip"
 
 /// fires on the target datum when an element is attached to it (/datum/element)
 #define COMSIG_ELEMENT_ATTACH "element_attach"
@@ -168,9 +175,9 @@
 ///from obj/machinery/bsa/full/proc/fire(): ()
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM (1<<0)
-///from mind/transfer_to. Sent after the mind has been transferred: (mob/previous_body)
-#define COMSIG_MIND_TRANSFERRED "mind_transferred"
 
+/// Called on [/atom/SpinAnimation()] : (speed, loops, segments, angle)
+#define COMSIG_ATOM_SPIN_ANIMATION "atom_spin_animation"
 
 /// From base of atom/setDir(): (old_dir, new_dir). Called before the direction changes
 #define COMSIG_ATOM_PRE_DIR_CHANGE "atom_pre_dir_change"
@@ -481,6 +488,8 @@
 #define COMSIG_MOB_VERB_EXAMINATE "mob_examinate"
 /// from base of /mob/proc/run_examinate(): (atom/target, list/result)
 #define COMSIG_MOB_RUN_EXAMINATE "mob_run_examinate"
+/// from /datum/element/halo_attach
+#define COMSIG_MOB_HALO_GAINED "mob_halo_gained"
 ///from base of /mob/update_sight(): ()
 #define COMSIG_MOB_UPDATE_SIGHT "mob_update_sight"
 ////from /mob/living/say(): ()
@@ -586,7 +595,7 @@
 #define COMSIG_LIVING_REVIVE "living_revive"
 ///from base of /mob/living/regenerate_limbs(): (noheal, excluded_limbs)
 #define COMSIG_LIVING_REGENERATE_LIMBS "living_regen_limbs"
-///from base of /obj/item/organ/external/proc/attach_limb(): (new_limb, special) allows you to fail limb attachment
+///from base of /obj/item/bodypart/proc/attach_limb(): (new_limb, special) allows you to fail limb attachment
 #define COMSIG_LIVING_ATTACH_LIMB "living_attach_limb"
 	#define COMPONENT_NO_ATTACH (1<<0)
 ///sent from borg recharge stations: (amount, repairs)
@@ -661,24 +670,13 @@
 #define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
 ///from base of mob/living/Immobilize() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
-///from base of mob/living/Paralyse() (amount, ignore_canparalyse)
+///from base of mob/living/Paralyze() (amount, ignore_canparalyse)
 #define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
 /// from mob/living/check_incapacitating_immunity(): (check_flags, force_apply)
 #define COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK "living_check_incapacitate"
 	#define COMPONENT_NO_EFFECT (1<<0) //For all of them
-/// Sent to the mob when their mind is slaved
-#define COMSIG_MOB_ENSLAVED_TO "mob_enslaved_to"
-/// from /atom/movable/can_z_move(): (turf/start, turf/destination)
-#define COMSIG_CAN_Z_MOVE "movable_can_z_move"
-	/// Return to block z movement
-	#define COMPONENT_CANT_Z_MOVE (1<<0)
-/// Called on a mob attempting to use a ladder to go in either direction.  (entrance_ladder, exit_ladder, going_up)
-#define COMSIG_LADDER_TRAVEL "ladder-travel"
-	#define LADDER_TRAVEL_BLOCK (1<<0)
-///Called after a movable is teleported from `do_teleport()`: ()
-#define COMSIG_MOVABLE_POST_TELEPORT "movable_post_teleport"
 
 /// Sent to a mob grabbing another mob: (mob/living/grabbing)
 #define COMSIG_LIVING_GRAB "living_grab"
@@ -709,18 +707,6 @@
 /// Source: /mob/living/say (message, verb, ignore_speech_problems, ignore_atmospherics, ignore_languages, datum/multilingual_say_piece)
 #define COMSIG_LIVING_EARLY_SAY "living_early_say"
 	#define COMPONENT_PREVENT_SPEAKING	(1<<0)
-
-// Organ signals
-/// Called on the organ when it is implanted into someone (mob/living/carbon/receiver)
-#define COMSIG_ORGAN_IMPLANTED "organ_implanted"
-/// Called on the organ when it is removed from someone (mob/living/carbon/old_owner)
-#define COMSIG_ORGAN_REMOVED "organ_removed"
-/// Called when an organ is being regenerated with a new copy in species regenerate_organs (obj/item/organ/replacement)
-#define COMSIG_ORGAN_BEING_REPLACED "organ_being_replaced"
-/// Called when an organ gets surgically removed (mob/living/user, mob/living/carbon/old_owner, target_zone, obj/item/tool)
-#define COMSIG_ORGAN_SURGICALLY_REMOVED "organ_surgically_removed"
-/// Called when an organ gets surgically removed (mob/living/user, mob/living/carbon/new_owner, target_zone, obj/item/tool)
-#define COMSIG_ORGAN_SURGICALLY_INSERTED "organ_surgically_inserted"
 
 /// From base of /client/Move(): (new_loc, direction)
 #define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"
@@ -764,7 +750,7 @@
 #define COMSIG_CARBON_EQUIP_HAT "carbon_equip_hat"
 ///from /mob/living/carbon/doUnEquip(obj/item/I, force, newloc, no_move, invdrop, silent)
 #define COMSIG_CARBON_UNEQUIP_HAT "carbon_unequip_hat"
-///defined twice, in carbon and human's topics, fired when interacting with a valid embedded_object to pull it out (mob/living/carbon/target, /obj/item, /obj/item/organ/external/L)
+///defined twice, in carbon and human's topics, fired when interacting with a valid embedded_object to pull it out (mob/living/carbon/target, /obj/item, /obj/item/bodypart/L)
 #define COMSIG_CARBON_EMBED_RIP "item_embed_start_rip"
 ///called when removing a given item from a mob, from mob/living/carbon/remove_embedded_object(mob/living/carbon/target, /obj/item)
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
@@ -782,6 +768,9 @@
 #define COMSIG_CARBON_TRY_PUT_IN_HAND "carbon_try_put_in_hand"
 	/// Can't pick up
 	#define COMPONENT_CARBON_CANT_PUT_IN_HAND (1<<0)
+#define COMSIG_ITEM_TRY_PUT_IN_HAND "carbon_try_put_in_hand"
+	/// Can't pick up
+	#define COMPONENT_ITEM_CANT_PUT_IN_HAND (1<<0)
 /// from /mob/living/carbon/enter_stamcrit()
 #define COMSIG_CARBON_ENTER_STAMCRIT "carbon_enter_stamcrit"
 ///Called from apply_overlay(cache_index, overlay)
@@ -789,10 +778,6 @@
 ///Called from remove_overlay(cache_index, overlay)
 #define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
 #define COMSIG_CARBON_UPDATING_HEALTH_HUD "carbon_health_hud_update"
-///Called when a carbon gets a brain trauma (source = carbon, trauma = what trauma was added, resilience = the resilience of the trauma given, if set differently from the default) - this is before on_gain()
-#define COMSIG_CARBON_GAIN_TRAUMA "carbon_gain_trauma"
-	/// Return if you want to prevent the carbon from gaining the brain trauma.
-	#define COMSIG_CARBON_BLOCK_TRAUMA (1 << 0)
 #define COMSIG_HUMAN_UPDATING_HEALTH_HUD "human_health_hud_update"
 	/// Return if you override the carbon's or human's health hud with something else
 	#define COMPONENT_OVERRIDE_HEALTH_HUD (1<<0)
@@ -803,7 +788,12 @@
 
 ///Called when someone attempts to cuff a carbon
 #define COMSIG_CARBON_CUFF_ATTEMPTED "carbon_attempt_cuff"
-	#define COMSIG_CARBON_CUFF_PREVENT (1<<0)
+
+///Called when checking the rituals of the devil's sacrifice
+#define COMSIG_DEVIL_SACRIFICE_CHECK "devil_sacrifice_check"
+	#define COMPONENT_SACRIFICE_VALID (1<<0)
+///Called after successfully performing the Devil Sacrifice Ritual
+#define COMSIG_DEVIL_SACRIFICE "devil_sacrifice"
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
@@ -841,8 +831,6 @@
 #define COMSIG_SINK_ACT "sink_act"
 	/// returns on succes of species special sink_act()
 	#define COMSIG_SINK_ACT_SUCCESS (1<<0)
-
-#define COMSIG_LIONHUNTER_ON_HIT "lionhunter_on_hit"
 
 // /obj/machinery signals
 
@@ -906,6 +894,8 @@
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
+///from [/obj/item/organ/internal/remove]:
+#define COMSIG_ORGAN_REMOVED "organ_removed"
 ///from [/obj/item/organ/internal/cyberimp/mouth/translator/check_lang]
 #define COMSIG_LANG_PRE_ACT "check_language"
 	#define COMSIG_LANG_SECURED (1<<0)
@@ -1150,6 +1140,87 @@
 ///(datum/component/nanites, full_overwrite, copy_activation) Called to sync the target's nanites to a given nanite component
 #define COMSIG_NANITE_SYNC "nanite_sync"
 
+
+///from mind/transfer_to. Sent to the receiving mob.
+#define COMSIG_MOB_MIND_TRANSFERRED_INTO "mob_mind_transferred_into"
+///from mind/transfer_from. Sent to the mob the mind is being transferred out of.
+#define COMSIG_MOB_MIND_TRANSFERRED_OUT_OF "mob_mind_transferred_out_of"
+#define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
+	/// Prevents the atom from being exposed to reagents if returned on [COMSIG_ATOM_EXPOSE_REAGENTS]
+	#define COMPONENT_NO_EXPOSE_REAGENTS (1<<0)
+///from base of obj/allowed(mob/M): (/obj) returns ACCESS_ALLOWED if mob has id access to the obj
+#define COMSIG_MOB_TRIED_ACCESS "tried_access"
+	#define ACCESS_ALLOWED (1<<0)
+	#define ACCESS_DISALLOWED (1<<1)
+	#define LOCKED_ATOM_INCOMPATIBLE (1<<2)
+///from /mob/living/proc/check_block(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
+#define COMSIG_LIVING_CHECK_BLOCK "living_check_block"
+	#define FAILED_BLOCK NONE
+	#define SUCCESSFUL_BLOCK (1<<0)
+/// Called on the atom being hit, from /datum/component/anti_magic/on_attack() : (obj/item/weapon, mob/user, antimagic_flags)
+#define COMSIG_ATOM_HOLYATTACK "atom_holyattacked"
+///from base of mob/can_block_magic(): (mob/user, casted_magic_flags, charge_cost)
+#define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"
+	#define COMPONENT_MAGIC_BLOCKED (1<<0)
+///from base of mob/can_cast_magic(): (mob/user, magic_flags, charge_cost)
+#define COMSIG_MOB_RESTRICT_MAGIC "mob_cast_magic"
+///Called on the mob being stripped, accepts COMPONENT_CANT_STRIP (mob/user, obj/item/unequipping)
+#define COMSIG_BEING_STRIPPED "try_strip"
+	#define COMPONENT_CANT_STRIP (1<<0)
+///from relay_attackers element: (atom/attacker, attack_flags)
+#define COMSIG_ATOM_WAS_ATTACKED "atom_was_attacked"
+///The damage type of the weapon projectile is non-lethal stamina
+#define ATTACKER_STAMINA_ATTACK (1<<0)
+///the attacker is shoving the source
+#define ATTACKER_SHOVING (1<<1)
+/// The attack is a damaging-type attack
+#define ATTACKER_DAMAGING_ATTACK (1<<2)
+/// From [/item/attack()], sent by an atom which was just attacked by an item: (/obj/item/weapon, /mob/user, list/modifiers)
+#define COMSIG_ATOM_AFTER_ATTACKEDBY "atom_after_attackby"
+///from base of atom/mech_melee_attack(): (obj/vehicle/sealed/mecha/mecha_attacker, mob/living/user)
+#define COMSIG_ATOM_ATTACK_MECH "atom_attack_mech"
+/// From the base of /datum/component/callouts/proc/callout_picker(mob/user, atom/clicked_atom): (datum/callout_option/callout, atom/target)
+#define COMSIG_MOB_CREATED_CALLOUT "mob_created_callout"
+/// called once a mindshield is implanted: (mob/user)
+#define COMSIG_MINDSHIELD_IMPLANTED "mindshield_implanted"
+	/// Are we the reason for deconversion?
+	#define COMPONENT_MINDSHIELD_DECONVERTED (1<<0)
+/// Sent on a mob from /datum/component/mob_chain when component is attached with it as the "front" : (mob/living/basic/tail)
+#define COMSIG_MOB_GAINED_CHAIN_TAIL "living_gained_chain_tail"
+/// Sent on a mob from /datum/component/mob_chain when component is detached from it as the "front" : (mob/living/basic/tail)
+#define COMSIG_MOB_LOST_CHAIN_TAIL "living_detached_chain_tail"
+/// Sent from a 'contract chain' button on a mob chain
+#define COMSIG_MOB_CHAIN_CONTRACT "living_chain_contracted"
+/// Called when a /datum/component/leash must forcibly teleport the parent to the owner.
+/// Fired on the object with the leash component.
+#define COMSIG_LEASH_FORCE_TELEPORT "leash_force_teleport"
+/// Called when a /datum/component/leash plans on pathfinding to the target, if out of range.
+/// Fired on the object with the leash component.
+#define COMSIG_LEASH_PATH_STARTED "leash_path_started"
+/// Called when a /datum/component/leash finishes its pathfinding to the target.
+/// Fired on the object with the leash component.
+#define COMSIG_LEASH_PATH_COMPLETE "leash_path_complete"
+// adjust_x_loss messages sent from /mob/living/proc/adjust[x]Loss
+/// Returned from all the following messages if you actually aren't going to apply any change
+#define COMPONENT_IGNORE_CHANGE (1 << 0)
+// Each of these messages sends the damagetype even though it is inferred by the signal so you can pass all of them to the same proc if required
+/// Send when bruteloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_BRUTE_DAMAGE "living_adjust_brute_damage"
+/// Send when fireloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_BURN_DAMAGE "living_adjust_burn_damage"
+/// Send when oxyloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_OXY_DAMAGE "living_adjust_oxy_damage"
+/// Send when toxloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_TOX_DAMAGE "living_adjust_tox_damage"
+/// Send when staminaloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_STAMINA_DAMAGE "living_adjust_stamina_damage"
+///from /obj/item/bodypart/proc/receive_damage, sent from the limb owner (limb, brute, burn)
+#define COMSIG_CARBON_LIMB_DAMAGED "carbon_limb_damaged"
+	#define COMPONENT_PREVENT_LIMB_DAMAGE (1 << 0)
+///from /datum/component/on_hit_effect/send_signal(): (user, target, hit_zone)
+#define COMSIG_ON_HIT_EFFECT "comsig_on_hit_effect"
+
+
 // /datum/component/storage signals
 
 ///() - returns bool.
@@ -1373,7 +1444,8 @@
 
 /// Source: /datum/component/object_possession/proc/on_move (mob/mob, new_loc, direct)
 #define COMSIG_POSSESSED_MOVEMENT "possessed_movement"
-
+/// from base of atom/obj/item/death_book
+#define COMSIG_PHANTOM_DELETE "phantom_delete"
 /// from base of atom/on_teleported(): ()
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
 
@@ -1398,6 +1470,58 @@
 /// Window is fully visible and we can make fragile calls
 #define COMSIG_TGUI_WINDOW_VISIBLE "tgui_window_visible"
 
+/// /obj/item/card/id/proc/freeze_linked_account(datum/source)
+#define COMSIG_FREEZE_LINKED_ACCOUNT "nigga_freeze"
+
+#define COMSIG_GET_PULL_SLOWDOWN_MODIFIERS "get_pull_slowdown_modifiers"
+#define COMSIG_GET_GRAB_SPEED_MODIFIERS "get_grab_speed_modifiers"
+#define COMSIG_GET_MELEE_DAMAGE_DELTAS "get_melee_damage_deltas"
+#define COMSIG_GET_ICON_RENDER_KEY_INFO "get_icon_render_key_info"
+#define COMSIG_MOB_EXERCISED "mob_exercised"
+#define COMSIG_GET_ORGAN_ICON_STATE "get_organ_icon_state"
+#define COMSIG_STRENGTH_BORDER_UPDATE "strength_border_update"
+#define COMSIG_CAN_CHANGE_STRENGTH	"can_change_strength"
+	#define COMPONENT_CAN_CHANGE_STRENGTH (1<<0)
+#define COMSIG_GET_STRENGTH	"get_strength"
+#define COMSIG_UPDATE_STRENGTH	"update_strength"
+#define COMSIG_GET_BREAKOUTTIME_MODIFIERS "get_breakouttime_modifiers"
+#define COMSIG_GET_THROW_SPEED_MODIFIERS "get_throw_speed_modifiers"
+#define COMSIG_GET_THROW_RANGE_DELTAS "get_throw_range_deltas"
+#define COMSIG_GET_BOLA_MODIFIERS "get_bola_modifiers"
+#define COMSIG_GET_HUNGER_MODS "get_hunger_mods"
+#define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
+///from mind/transfer_to. Sent after the mind has been transferred: (mob/previous_body)
+#define COMSIG_MIND_TRANSFERRED "mind_transferred"
+/// Sent to the mob when their mind is slaved
+#define COMSIG_MOB_ENSLAVED_TO "mob_enslaved_to"
+/// from /atom/movable/can_z_move(): (turf/start, turf/destination)
+#define COMSIG_CAN_Z_MOVE "movable_can_z_move"
+	/// Return to block z movement
+	#define COMPONENT_CANT_Z_MOVE (1<<0)
+/// Called on a mob attempting to use a ladder to go in either direction.  (entrance_ladder, exit_ladder, going_up)
+#define COMSIG_LADDER_TRAVEL "ladder-travel"
+	#define LADDER_TRAVEL_BLOCK (1<<0)
+///Called after a movable is teleported from `do_teleport()`: ()
+#define COMSIG_MOVABLE_POST_TELEPORT "movable_post_teleport"
+// Organ signals
+/// Called on the organ when it is implanted into someone (mob/living/carbon/receiver)
+#define COMSIG_ORGAN_IMPLANTED "organ_implanted"
+/// Called on the organ when it is removed from someone (mob/living/carbon/old_owner)
+#define COMSIG_ORGAN_REMOVED "organ_removed"
+/// Called when an organ is being regenerated with a new copy in species regenerate_organs (obj/item/organ/replacement)
+#define COMSIG_ORGAN_BEING_REPLACED "organ_being_replaced"
+/// Called when an organ gets surgically removed (mob/living/user, mob/living/carbon/old_owner, target_zone, obj/item/tool)
+#define COMSIG_ORGAN_SURGICALLY_REMOVED "organ_surgically_removed"
+/// Called when an organ gets surgically removed (mob/living/user, mob/living/carbon/new_owner, target_zone, obj/item/tool)
+#define COMSIG_ORGAN_SURGICALLY_INSERTED "organ_surgically_inserted"
+///Called when a carbon gets a brain trauma (source = carbon, trauma = what trauma was added, resilience = the resilience of the trauma given, if set differently from the default) - this is before on_gain()
+#define COMSIG_CARBON_GAIN_TRAUMA "carbon_gain_trauma"
+	/// Return if you want to prevent the carbon from gaining the brain trauma.
+	#define COMSIG_CARBON_BLOCK_TRAUMA (1 << 0)
+///Called when someone attempts to cuff a carbon
+#define COMSIG_CARBON_CUFF_ATTEMPTED "carbon_attempt_cuff"
+	#define COMSIG_CARBON_CUFF_PREVENT (1<<0)
+#define COMSIG_LIONHUNTER_ON_HIT "lionhunter_on_hit"
 ///From /obj/effect/rune/convert/do_sacrifice() : (list/invokers)
 #define COMSIG_LIVING_CULT_SACRIFICED "living_cult_sacrificed"
 	/// Return to stop the sac from occurring
@@ -1449,81 +1573,3 @@
 #define COMSIG_LIVING_WALL_EXITED "living_wall_exited"
 /// Called on the mob when losing an antagonist datum (datum/antagonist/antagonist)
 #define COMSIG_MOB_ANTAGONIST_REMOVED "mob_antagonist_removed"
-///from mind/transfer_to. Sent to the receiving mob.
-#define COMSIG_MOB_MIND_TRANSFERRED_INTO "mob_mind_transferred_into"
-///from mind/transfer_from. Sent to the mob the mind is being transferred out of.
-#define COMSIG_MOB_MIND_TRANSFERRED_OUT_OF "mob_mind_transferred_out_of"
-#define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
-	/// Prevents the atom from being exposed to reagents if returned on [COMSIG_ATOM_EXPOSE_REAGENTS]
-	#define COMPONENT_NO_EXPOSE_REAGENTS (1<<0)
-///from base of obj/allowed(mob/M): (/obj) returns ACCESS_ALLOWED if mob has id access to the obj
-#define COMSIG_MOB_TRIED_ACCESS "tried_access"
-	#define ACCESS_ALLOWED (1<<0)
-	#define ACCESS_DISALLOWED (1<<1)
-	#define LOCKED_ATOM_INCOMPATIBLE (1<<2)
-///from /mob/living/proc/check_block(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
-#define COMSIG_LIVING_CHECK_BLOCK "living_check_block"
-	#define FAILED_BLOCK NONE
-	#define SUCCESSFUL_BLOCK (1<<0)
-/// Called on the atom being hit, from /datum/component/anti_magic/on_attack() : (obj/item/weapon, mob/user, antimagic_flags)
-#define COMSIG_ATOM_HOLYATTACK "atom_holyattacked"
-///from base of mob/can_block_magic(): (mob/user, casted_magic_flags, charge_cost)
-#define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"
-	#define COMPONENT_MAGIC_BLOCKED (1<<0)
-///from base of mob/can_cast_magic(): (mob/user, magic_flags, charge_cost)
-#define COMSIG_MOB_RESTRICT_MAGIC "mob_cast_magic"
-///Called on the mob being stripped, accepts COMPONENT_CANT_STRIP (mob/user, obj/item/unequipping)
-#define COMSIG_BEING_STRIPPED "try_strip"
-	#define COMPONENT_CANT_STRIP (1<<0)
-///from relay_attackers element: (atom/attacker, attack_flags)
-#define COMSIG_ATOM_WAS_ATTACKED "atom_was_attacked"
-///The damage type of the weapon projectile is non-lethal stamina
-#define ATTACKER_STAMINA_ATTACK (1<<0)
-///the attacker is shoving the source
-#define ATTACKER_SHOVING (1<<1)
-/// The attack is a damaging-type attack
-#define ATTACKER_DAMAGING_ATTACK (1<<2)
-/// From [/item/attack()], sent by an atom which was just attacked by an item: (/obj/item/weapon, /mob/user, list/modifiers)
-#define COMSIG_ATOM_AFTER_ATTACKEDBY "atom_after_attackby"
-///from base of atom/mech_melee_attack(): (obj/vehicle/sealed/mecha/mecha_attacker, mob/living/user)
-#define COMSIG_ATOM_ATTACK_MECH "atom_attack_mech"
-/// From the base of /datum/component/callouts/proc/callout_picker(mob/user, atom/clicked_atom): (datum/callout_option/callout, atom/target)
-#define COMSIG_MOB_CREATED_CALLOUT "mob_created_callout"
-/// called once a mindshield is implanted: (mob/user)
-#define COMSIG_MINDSHIELD_IMPLANTED "mindshield_implanted"
-	/// Are we the reason for deconversion?
-	#define COMPONENT_MINDSHIELD_DECONVERTED (1<<0)
-/// Sent on a mob from /datum/component/mob_chain when component is attached with it as the "front" : (mob/living/basic/tail)
-#define COMSIG_MOB_GAINED_CHAIN_TAIL "living_gained_chain_tail"
-/// Sent on a mob from /datum/component/mob_chain when component is detached from it as the "front" : (mob/living/basic/tail)
-#define COMSIG_MOB_LOST_CHAIN_TAIL "living_detached_chain_tail"
-/// Sent from a 'contract chain' button on a mob chain
-#define COMSIG_MOB_CHAIN_CONTRACT "living_chain_contracted"
-/// Called when a /datum/component/leash must forcibly teleport the parent to the owner.
-/// Fired on the object with the leash component.
-#define COMSIG_LEASH_FORCE_TELEPORT "leash_force_teleport"
-/// Called when a /datum/component/leash plans on pathfinding to the target, if out of range.
-/// Fired on the object with the leash component.
-#define COMSIG_LEASH_PATH_STARTED "leash_path_started"
-/// Called when a /datum/component/leash finishes its pathfinding to the target.
-/// Fired on the object with the leash component.
-#define COMSIG_LEASH_PATH_COMPLETE "leash_path_complete"
-// adjust_x_loss messages sent from /mob/living/proc/adjust[x]Loss
-/// Returned from all the following messages if you actually aren't going to apply any change
-#define COMPONENT_IGNORE_CHANGE (1 << 0)
-// Each of these messages sends the damagetype even though it is inferred by the signal so you can pass all of them to the same proc if required
-/// Send when bruteloss is modified (type, amount, forced)
-#define COMSIG_LIVING_ADJUST_BRUTE_DAMAGE "living_adjust_brute_damage"
-/// Send when fireloss is modified (type, amount, forced)
-#define COMSIG_LIVING_ADJUST_BURN_DAMAGE "living_adjust_burn_damage"
-/// Send when oxyloss is modified (type, amount, forced)
-#define COMSIG_LIVING_ADJUST_OXY_DAMAGE "living_adjust_oxy_damage"
-/// Send when toxloss is modified (type, amount, forced)
-#define COMSIG_LIVING_ADJUST_TOX_DAMAGE "living_adjust_tox_damage"
-/// Send when staminaloss is modified (type, amount, forced)
-#define COMSIG_LIVING_ADJUST_STAMINA_DAMAGE "living_adjust_stamina_damage"
-///from /obj/item/bodypart/proc/receive_damage, sent from the limb owner (limb, brute, burn)
-#define COMSIG_CARBON_LIMB_DAMAGED "carbon_limb_damaged"
-	#define COMPONENT_PREVENT_LIMB_DAMAGE (1 << 0)
-///from /datum/component/on_hit_effect/send_signal(): (user, target, hit_zone)
-#define COMSIG_ON_HIT_EFFECT "comsig_on_hit_effect"
