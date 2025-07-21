@@ -516,6 +516,21 @@
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
 
 
+/datum/mind/proc/memory_edit_heretic()
+	. = _memory_edit_header("heretic")
+	var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+	if(heretic_datum)
+		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
+		if(!length(heretic_datum.objectives))
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];heretic=autoobjectives'>Randomize!</a>"
+
+	else
+		. += "<a href='byond://?src=[UID()];heretic=heretic'>heretic</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_HERETIC)
+
+
+
 /datum/mind/proc/memory_edit_space_dragon()
 	. = _memory_edit_header("dragon")
 	var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
@@ -757,6 +772,8 @@
 		sections["thief"] = memory_edit_thief()
 		/** TRAITOR ***/
 		sections["traitor"] = memory_edit_traitor()
+		/** HERETIC ***/
+		sections["heretic"] = memory_edit_heretic()
 
 	if(isAI(current))
 		sections["malf_ai"] = memory_edit_malf_ai()
