@@ -848,30 +848,30 @@ GLOBAL_LIST_INIT(body_zone, list(
 
 */
 
-/proc/get_turf_pixel(atom/movable/atom_movable)
-	if(!istype(atom_movable))
+/proc/get_turf_pixel(atom/movable/checked_atom)
+	if(!istype(checked_atom))
 		return
 
-	//Find atom_movable's matrix so we can use it's X/Y pixel shifts
-	var/matrix/matrix = matrix(atom_movable.transform)
+	//Find checked_atom's matrix so we can use it's X/Y pixel shifts
+	var/matrix/matrix = matrix(checked_atom.transform)
 
-	var/pixel_x_offset = atom_movable.pixel_x + matrix.get_x_shift()
-	var/pixel_y_offset = atom_movable.pixel_y + matrix.get_y_shift()
+	var/pixel_x_offset = checked_atom.pixel_x + matrix.get_x_shift()
+	var/pixel_y_offset = checked_atom.pixel_y + matrix.get_y_shift()
 
 	//Irregular objects
-	var/icon/atom_movable_icon = icon(atom_movable.icon, atom_movable.icon_state)
-	var/atom_movable_icon_height = atom_movable_icon.Height()
-	var/atom_movable_icon_width = atom_movable_icon.Width()
-	if(atom_movable_icon_height != world.icon_size || atom_movable_icon_width != world.icon_size)
-		pixel_x_offset += ((atom_movable_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
-		pixel_y_offset += ((atom_movable_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
+	var/icon/checked_atom_icon = icon(checked_atom.icon, checked_atom.icon_state)
+	var/checked_atom_icon_height = checked_atom_icon.Height()
+	var/checked_atom_icon_width = checked_atom_icon.Width()
+	if(checked_atom_icon_height != world.icon_size || checked_atom_icon_width != world.icon_size)
+		pixel_x_offset += ((checked_atom_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
+		pixel_y_offset += ((checked_atom_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
 
 	//DY and DX
 	var/rough_x = round(round(pixel_x_offset, world.icon_size) / world.icon_size)
 	var/rough_y = round(round(pixel_y_offset, world.icon_size) / world.icon_size)
 
 	//Find coordinates
-	var/turf/turf = get_turf(atom_movable) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
+	var/turf/turf = get_turf(checked_atom) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
 	if(!turf)
 		return null
 	var/final_x = clamp(turf.x + rough_x, 1, world.maxx)
