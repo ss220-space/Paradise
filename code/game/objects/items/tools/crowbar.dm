@@ -55,6 +55,7 @@
 		INSTRUMENTAL = "латунным ломом",
 		PREPOSITIONAL = "латунном ломе"
 	)
+	gender = MALE
 	icon_state = "crowbar_brass"
 	item_state = "crowbar_brass"
 	toolspeed = 0.5
@@ -62,7 +63,7 @@
 
 /obj/item/crowbar/abductor
 	name = "alien crowbar"
-	desc = "Инопланетный лом. Кажется, что он поднимается сам по себе, без каких-либо усилий."
+	desc = "Инопланетный лом. Предназначен для использования в качестве рычага. Кажется, что он поднимается сам по себе, без каких-либо усилий."
 	ru_names = list(
 	    NOMINATIVE = "инопланетный лом",
 		GENITIVE = "инопланетного лома",
@@ -71,6 +72,7 @@
 		INSTRUMENTAL = "инопланетным ломом",
 		PREPOSITIONAL = "инопланетном ломе"
     )
+	gender = MALE
 	icon = 'icons/obj/abductor.dmi'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "crowbar"
@@ -81,7 +83,7 @@
 
 /obj/item/crowbar/large
 	name = "crowbar"
-	desc = "Это большой лом. Такой в карман не положить."
+	desc = "Это большой лом. Предназначен для использования в качестве рычага. Такой в карман не положить."
 	ru_names = list(
 	    NOMINATIVE = "большой лом",
 		GENITIVE = "большого лома",
@@ -90,6 +92,7 @@
 		INSTRUMENTAL = "большим ломом",
 		PREPOSITIONAL = "большом ломе"
 	)
+	gender = MALE
 	force = 20
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
@@ -101,7 +104,7 @@
 
 /obj/item/crowbar/cyborg
 	name = "hydraulic crowbar"
-	desc = "Гидравлический подъемник, компактный, но мощный. Аналог лома для строительных киборгов."
+	desc = "Гидравлический подъемник, компактный, но мощный. Предназначен для использования в качестве рычага. Аналог лома для строительных киборгов."
 	ru_names = list(
 	    NOMINATIVE = "гидравлический лом",
 		GENITIVE = "гидравлического лома",
@@ -110,6 +113,7 @@
 		INSTRUMENTAL = "гидравлическим ломом",
 		PREPOSITIONAL = "гидравлическом ломе"
 	)
+	gender = MALE
 	usesound = 'sound/items/jaws_pry.ogg'
 	toolspeed = 0.5
 
@@ -124,6 +128,7 @@
 		INSTRUMENTAL = "челюстями жизни",
 		PREPOSITIONAL = "челюстях жизни"
 	)
+	gender = PLURAL
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
 	belt_icon = "jaws_of_life"
@@ -145,6 +150,9 @@
 /obj/item/crowbar/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
-	to_chat(user, span_notice("Ты присоединяешь режущую головку к [declent_ru(GENITIVE)]."))
+	balloon_alert("Вы присоединяете режущую головку к [declent_ru(GENITIVE)].")
+	qdel(src)
+	user.put_in_active_hand(cutjaws)
+
 	qdel(src)
 	user.put_in_active_hand(cutjaws)
