@@ -73,7 +73,7 @@
 
 /obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
 	if(tool_enabled)
-		balloon_alert(user, "Вы не можете положить [declent_ru(ACCUSATIVE)] в [s.declent_ru(ACCUSATIVE)], пока он горит!")
+		balloon_alert(user, "Вы не можете положить [declent_ru(ACCUSATIVE)] в [S.declent_ru(ACCUSATIVE)], пока он горит!")
 		return FALSE
 	else
 		return TRUE

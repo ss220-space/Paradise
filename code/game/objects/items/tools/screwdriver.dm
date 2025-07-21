@@ -155,7 +155,7 @@
 /obj/item/screwdriver/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
-	balloon_alert(user, "Вы присоединяете головку болтового сверла к [declent_ru(GENITIVE)]."
+	balloon_alert(user, "Вы присоединяете головку болтового сверла к [declent_ru(GENITIVE)].")
 	qdel(src)
 	user.put_in_active_hand(b_drill)
 
@@ -171,9 +171,5 @@
 		PREPOSITIONAL = "электрической отвёртке"
 	)
 	gender = FEMALE
-	usesound = 'sound/items/drill_use.ogg'
-	toolspeed = 0.5
-
-	)
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.5

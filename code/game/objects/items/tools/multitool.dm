@@ -57,7 +57,7 @@
 		balloon_alert(user, "это не машина")
 		return
 	buffer = M
-	ballon_alert(user, "Вы загрузили [m.declent_ru(ACCUSATIVE)] во внутренний буфер [declent_ru(GENITIVE)]."
+	balloon_alert(user, "Вы загрузили [M.declent_ru(ACCUSATIVE)] во внутренний буфер [declent_ru(GENITIVE)].")
 	return TRUE
 
 /obj/item/multitool/attack_self(mob/user)
@@ -122,7 +122,7 @@
 				break
 
 /obj/item/multitool/ai_detect/admin
-	desc = "Используется для пульсации проводов, чтобы проверить, какой из них следует разрезать. Не рекомендуется врачами. Имеет странную бирку с надписью \Гриферить в удовольствие!\" //What else should I say for a meme item?
+	desc = "Используется для пульсации проводов, чтобы проверить, какой из них следует разрезать. Не рекомендуется врачами. Имеет странную бирку с надписью 'Гриферить в удовольствие!'" //What else should I say for a meme item?
 	track_delay = 5
 	shows_wire_information = TRUE
 
