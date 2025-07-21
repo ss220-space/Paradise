@@ -53,7 +53,7 @@
 	random_color = FALSE
 
 /obj/item/screwdriver/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] кол[pluralize_ru(user.gender,"ет","ют")] [declent_ru(INSTRUMENTAL)] в [user.p_their()] [pick("temple", "heart")]! Похоже на то, что [user.p_theyre()] пыта[pluralize_ru(user.gender,"ется","ются")] совершить самоубийство!"))
+	user.visible_message(span_suicide("[user] кол[pluralize_ru(user.gender,"ит","ют")] [declent_ru(INSTRUMENTAL)] себе в висок! Похоже на то, что [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся совершить самоубийство!"))
 	return BRUTELOSS
 
 /obj/item/screwdriver/Initialize(mapload, param_color = null)
