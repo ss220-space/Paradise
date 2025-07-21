@@ -169,7 +169,7 @@
 
 /obj/projectile/energy/shock_revolver/on_hit(atom/target)
 	. = ..()
-	tesla_zap(src, zap_range, power, zap_flags)
+	tesla_zap(source = src, zap_range = zap_range, power = power, cutoff = 1e3, zap_flags = zap_flags)
 	qdel(src)
 
 /obj/projectile/energy/toxplasma

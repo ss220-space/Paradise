@@ -11,9 +11,13 @@
 	buckle_lying = 0
 	buckle_requires_restraints = TRUE
 
+	///Flags of the zap that the coil releases when the wire is pulsed
 	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+	///Multiplier for power conversion
 	var/input_power_multiplier = 1
+	///Cooldown between pulsed zaps
 	var/zap_cooldown = 100
+	///Reference to the last zap done
 	var/last_zap = 0
 	var/datum/wires/tesla_coil/wires = null
 
@@ -116,7 +120,7 @@
 	power = min(surplus(), power) //Take the smaller of the two
 	add_load(power)
 	playsound(loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
-	tesla_zap(src, 10, power, zap_flags)
+	tesla_zap(source = src, zap_range = 10, power = power, cutoff = 1e3, zap_flags = zap_flags)
 	zap_buckle_check(power)
 
 /obj/machinery/power/grounding_rod
