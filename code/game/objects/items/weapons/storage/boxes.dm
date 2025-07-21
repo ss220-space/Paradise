@@ -33,6 +33,7 @@
 	icon_state = "box"
 	item_state = "syringe_kit"
 	resistance_flags = FLAMMABLE
+	use_sound = 'sound/items/handling/cardboard_box_rustle.ogg'
 	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
 	foldable = /obj/item/stack/sheet/cardboard
@@ -713,6 +714,7 @@
 	drop_sound = 'sound/items/handling/drop/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
+	use_sound = "patchpack"
 
 /obj/item/storage/box/matches/populate_contents()
 	for(var/i in 1 to storage_slots)

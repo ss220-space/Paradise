@@ -150,6 +150,7 @@
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"
+	desc = "Э-э... коробка с патронами?"
 	ru_names = list(
 		NOMINATIVE = "коробка с боеприпасами (универсальная)",
 		GENITIVE = "коробки с боеприпасами (универсальной)",
@@ -158,9 +159,11 @@
 		INSTRUMENTAL = "коробкой с боеприпасами (универсальной)",
 		PREPOSITIONAL = "коробке с боеприпасами (универсальной)"
 	)
-	desc = "Э-э... коробка с патронами?"
 	icon_state = "357"
 	icon = 'icons/obj/weapons/ammo.dmi'
+	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
+	use_sound = 'sound/items/handling/cardboard_box_rustle.ogg'
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	item_state = "syringe_kit"
