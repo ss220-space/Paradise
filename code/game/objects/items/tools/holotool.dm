@@ -15,6 +15,7 @@ Holotool. All instruments in one object
 		INSTRUMENTAL = "экспериментальным голотулом",
 		PREPOSITIONAL = "экспериментальном голотуле"
 	)
+	gender = MALE
 	icon = 'icons/obj/holotool.dmi'
 	icon_state = "holotool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -34,7 +35,7 @@ Holotool. All instruments in one object
 
 /obj/item/holotool/examine(mob/user)
 	. = ..()
-	. += span_notice("It is currently set to [current_tool ? current_tool.name : "'off'"] mode.") // оставляю другим бедолагам, не представляю как это нормально оформить. можно попробовать += span_notice("В настоящее время он находится в [current_tool ? current_tool.name : "'выключенном'"] режиме."), но я не шарю, мб "'off'" это часть кода.
+	. += span_notice("В настоящее время он находится в [current_tool ? current_tool.name : "'выключенном'"] режиме.")
 
 /obj/item/holotool/ui_action_click(mob/user, datum/action/action)
 	var/C = tgui_input_color(user, "Select Color", "Select color", "#48D1CC")
@@ -176,7 +177,7 @@ Holotool. All instruments in one object
 	sound = 'sound/weapons/blade1.ogg'
 
 /datum/holotool_mode/off
-	name = "off"
+	name = "выключенном"
 	sound =  'sound/items/jaws_cut.ogg'
 
 /datum/holotool_mode/knife/can_be_used(var/obj/item/holotool/H)
