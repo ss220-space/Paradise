@@ -2,6 +2,7 @@
 #define TESLA_MINI_ENERGY 3.47652e8
 
 //Zap constants, speeds up targeting
+#define BIKE (COIL + 1)
 #define COIL (ROD + 1)
 #define ROD (RIDE + 1)
 #define RIDE (LIVING + 1)
@@ -11,7 +12,7 @@
 #define STRUCTURE (1)
 
 /// The Tesla engine
-/obj/energy_ball
+/obj/singularity/energy_ball
 	name = "energy ball"
 	desc = "Энергетический шар."
 	ru_names = list(
@@ -34,10 +35,11 @@
 	pixel_x = -32
 	pixel_y = -32
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	//warps_projectiles = FALSE
+	warps_projectiles = FALSE
+	energy = 0
 
-	var/energy
-	var/target
+	//var/energy
+	//var/target
 	var/list/orbiting_balls = list()
 	var/miniball = FALSE
 	var/produced_power
@@ -45,7 +47,7 @@
 	var/energy_to_lower = -20
 	var/list/shocked_things = list()
 
-/obj/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
+/obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()
 
 	energy = starting_energy
@@ -59,17 +61,15 @@
 		message_admins("A tesla has been created at [ADMIN_VERBOSEJMP(spawned_turf)].")
 		investigate_log("was created at [AREACOORD(spawned_turf)].", INVESTIGATE_ENGINE)
 
-/*
-/obj/energy_ball/ex_act(severity, target)
+/obj/singularity/energy_ball/ex_act(severity, target)
 	return
 
-/obj/energy_ball/consume(severity, target)
+/obj/singularity/energy_ball/consume(severity, target)
 	return
-*/
 
-/obj/energy_ball/Destroy()
-	if(orbiting && istype(orbiting.parent, /obj/energy_ball))
-		var/obj/energy_ball/parent_energy_ball = orbiting.parent
+/obj/singularity/energy_ball/Destroy()
+	if(orbiting && istype(orbiting, /obj/singularity/energy_ball))
+		var/obj/singularity/energy_ball/parent_energy_ball = orbiting
 		parent_energy_ball.orbiting_balls -= src
 
 	QDEL_LIST(orbiting_balls)
@@ -77,14 +77,12 @@
 
 	return ..()
 
-/*
-/obj/energy_ball/admin_investigate_setup()
+/obj/singularity/energy_ball/admin_investigate_setup()
 	if(miniball)
 		return //don't annnounce miniballs
 	..()
-*/
 
-/obj/energy_ball/process()
+/obj/singularity/energy_ball/process()
 	if(orbiting)
 		energy = 0 // ensure we dont have miniballs of miniballs
 	else
@@ -110,12 +108,12 @@
 			shocking_info += temp_shock
 		shocked_things += shocking_info
 
-/obj/energy_ball/examine(mob/user)
+/obj/singularity/energy_ball/examine(mob/user)
 	. = ..()
 	if(length(orbiting_balls))
 		. += "Вокруг вращается [length(orbiting_balls)] мини-шар[declension_ru(length(orbiting_balls), "", "а", "ов")]."
 
-/obj/energy_ball/proc/move(move_amount)
+/obj/singularity/energy_ball/proc/move(move_amount)
 	var/list/dirs = GLOB.alldirs.Copy()
 	if(length(shocked_things))
 		for(var/i in 1 to 30)
@@ -132,7 +130,7 @@
 			for(var/mob/living/carbon/mob_to_dust in loc)
 				dust_mobs(mob_to_dust)
 
-/obj/energy_ball/proc/handle_energy()
+/obj/singularity/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)
 		energy_to_lower = energy_to_raise - 20
 		energy_to_raise = energy_to_raise * 1.25
@@ -147,10 +145,10 @@
 		var/Orchiectomy_target = pick(orbiting_balls)
 		qdel(Orchiectomy_target)
 
-/obj/energy_ball/proc/new_mini_ball()
+/obj/singularity/energy_ball/proc/new_mini_ball()
 	if(!loc)
 		return
-	var/obj/energy_ball/miniball = new(loc, 0, TRUE)
+	var/obj/singularity/energy_ball/miniball = new(loc, 0, TRUE)
 
 	miniball.transform *= pick(0.3, 0.4, 0.5, 0.6, 0.7)
 	var/icon/icon = icon(icon,icon_state,dir)
@@ -160,17 +158,17 @@
 
 	miniball.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
 
-/obj/energy_ball/Bump(atom/bumped_atom, effect_applied = TRUE)
+/obj/singularity/energy_ball/Bump(atom/bumped_atom, effect_applied = TRUE)
 	. = ..()
 	if(.)
 		return .
 	dust_mobs(bumped_atom)
 
-/obj/energy_ball/Bumped(atom/movable/moving_atom, effect_applied = TRUE)
+/obj/singularity/energy_ball/Bumped(atom/movable/moving_atom, effect_applied = TRUE)
 	. = ..()
 	dust_mobs(moving_atom)
 
-/obj/energy_ball/attack_tk(mob/user)
+/obj/singularity/energy_ball/attack_tk(mob/user)
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/jedi = user
@@ -183,7 +181,7 @@
 	jedi.death()
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/obj/energy_ball/orbit(obj/singularity/energy_ball/target)
+/obj/singularity/energy_ball/orbit(obj/singularity/energy_ball/target)
 	if(istype(target))
 		target.orbiting_balls += src
 		GLOB.poi_list -= src
@@ -194,7 +192,7 @@
 	if(!loc)
 		qdel(src)
 
-/obj/energy_ball/proc/dust_mobs(atom/atom)
+/obj/singularity/energy_ball/proc/dust_mobs(atom/atom)
 	if(!isliving(atom))
 		return
 	var/mob/living/living = atom
@@ -233,13 +231,13 @@
 		/obj/machinery/field/containment,
 		/obj/structure/disposalpipe,
 		/obj/structure/disposaloutlet,
-		/obj/machinery/disposal/delivery_chute,
+		// /obj/machinery/disposal/delivery_chute,
 		/obj/machinery/camera,
 		/obj/structure/sign,
 		/obj/machinery/gateway,
 		/obj/structure/lattice,
 		/obj/structure/grille,
-		/obj/structure/frame/machine
+		/obj/machinery/constructable_frame/machine_frame
 		))
 
 	// Ok so we are making an assumption here. We assume that view() still calculates from the center out.
