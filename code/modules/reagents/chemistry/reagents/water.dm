@@ -278,6 +278,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	drink_name = "Стакан воды"
 	drink_desc = "Обычный стакан обычной воды."
 	taste_description = "воды"
+	devil_regen_ignored = TRUE
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -301,7 +302,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 			holder.remove_reagent(id, volume)
-			M.visible_message(span_dangerbigger("[M] отшатыва[pluralize_ru(M.gender, "ет", "ют")]ся, [genderize_ru(M.gender, "его", "её", "его", "их")] кожа окрашивается в яркий цвет, [genderize_ru(M.gender, "он", "она", "оно", "они")] вновь обрета[pluralize_ru(M.gender, "ет", "ют")] чувство контроля над собой!"))
+			M.visible_message(span_biggerdanger("[M] отшатыва[pluralize_ru(M.gender, "ет", "ют")]ся, [genderize_ru(M.gender, "его", "её", "его", "их")] кожа окрашивается в яркий цвет, [genderize_ru(M.gender, "он", "она", "оно", "они")] вновь обрета[pluralize_ru(M.gender, "ет", "ют")] чувство контроля над собой!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -458,6 +459,52 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	update_flags |= M.adjustBrainLoss(5, FALSE)
 	return ..() | update_flags
 
+
+// unholy water, but for heretics.
+// why couldn't they have both just used the same reagent?
+// who knows.
+// maybe nar'sie is considered to be too "mainstream" of a god to worship in the heretic community.
+/datum/reagent/eldritch
+	name = "Сущность ужаса"
+	description = "Странная жидкость, бросающая вызов законам физики. \
+					Она исцеляет, но только тех, кто может видеть дальше границ этой хрупкой реальности. \
+					Невероятно вредна для людей с ограниченным мышлением. Эта жидкость очень быстро метаболизируется."
+	taste_description = "Ag'hsj'saje'sh"
+	color = "#1f8016"
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM  //0.5u/second
+	process_flags = ORGANIC | SYNTHETIC // Magical, so works on not organic drinkers.
+
+/datum/reagent/eldritch/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
+	. = ..()
+	var/need_mob_update = FALSE
+	if(IS_HERETIC_OR_MONSTER(drinker))
+		drinker.Drowsy(-10 * REM * seconds_per_tick)
+		drinker.AdjustAllImmobility(-40 * REM * seconds_per_tick)
+		need_mob_update += drinker.adjustStaminaLoss(-10 * REM * seconds_per_tick, updating_health = FALSE)
+		need_mob_update += drinker.adjustToxLoss(-2 * REM * seconds_per_tick, updating_health = FALSE, forced = TRUE)
+		need_mob_update += drinker.adjustOxyLoss(-2 * REM * seconds_per_tick, updating_health = FALSE)
+		need_mob_update += drinker.adjustBruteLoss(-2 * REM * seconds_per_tick, updating_health = FALSE)
+		need_mob_update += drinker.adjustFireLoss(-2 * REM * seconds_per_tick)
+		if(drinker.blood_volume < BLOOD_VOLUME_NORMAL)
+			drinker.blood_volume += 3 * REM * seconds_per_tick
+
+		return
+
+	need_mob_update = drinker.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 3 * REM * seconds_per_tick, 150)
+	need_mob_update += drinker.adjustToxLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
+	need_mob_update += drinker.adjustFireLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
+	need_mob_update += drinker.adjustOxyLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
+	need_mob_update += drinker.adjustBruteLoss(2 * REM * seconds_per_tick)
+
+
+/datum/reagent/eldritch/reaction_turf(turf/exposed_turf, reac_volume, color)
+	. = ..()
+	if (!(reac_volume >= 1.5 || isplatingturf(exposed_turf)) || HAS_TRAIT(exposed_turf, TRAIT_RUSTY))
+		return
+
+	exposed_turf.rust_turf()
+
+
 /datum/reagent/liquidgibs
 	name = "Жидкие ошмётки"
 	id = "liquidgibs"
@@ -498,43 +545,35 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
 
 
-// unholy water, but for heretics.
-// why couldn't they have both just used the same reagent?
-// who knows.
-// maybe nar'sie is considered to be too "mainstream" of a god to worship in the heretic community.
-/datum/reagent/eldritch
-	name = "Сущность ужаса"
-	description = "Странная жидкость, бросающая вызов законам физики. \
-					Она исцеляет, но только тех, кто может видеть дальше границ этой хрупкой реальности. \
-					Невероятно вредна для людей с ограниченным мышлением. Эта жидкость очень быстро метаболизируется."
-	taste_description = "Ag'hsj'saje'sh"
-	color = "#1f8016"
-	metabolization_rate = 2.5 * REAGENTS_METABOLISM  //0.5u/second
-	process_flags = ORGANIC | SYNTHETIC // Magical, so works on not organic drinkers.
+/datum/reagent/steroids
+	name = "Стероиды"
+	id = "steroids"
+	description = "Используется для ускоренного развития мышц. \
+					Не рекомендуется употреблять обладающим хвостом, беременным, перенесшим тяжелую травму, переболевшим ветрянкой, состоящим из слизи и бесхвостым."
+	reagent_state = LIQUID
+	color = "#c2ff34"
+	taste_description = "силы"
 
-/datum/reagent/eldritch/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
-	. = ..()
-	var/need_mob_update = FALSE
-	if(IS_HERETIC_OR_MONSTER(drinker))
-		drinker.Drowsy(-10 * REM * seconds_per_tick)
-		drinker.AdjustAllImmobility(-40 * REM * seconds_per_tick)
-		need_mob_update += drinker.adjustStaminaLoss(-10 * REM * seconds_per_tick, updating_health = FALSE)
-		need_mob_update += drinker.adjustToxLoss(-2 * REM * seconds_per_tick, updating_health = FALSE, forced = TRUE)
-		need_mob_update += drinker.adjustOxyLoss(-2 * REM * seconds_per_tick, updating_health = FALSE)
-		need_mob_update += drinker.adjustBruteLoss(-2 * REM * seconds_per_tick, updating_health = FALSE)
-		need_mob_update += drinker.adjustFireLoss(-2 * REM * seconds_per_tick)
-		if(drinker.blood_volume < BLOOD_VOLUME_NORMAL)
-			drinker.blood_volume += 3 * REM * seconds_per_tick
-	else
-		need_mob_update = drinker.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 3 * REM * seconds_per_tick, 150)
-		need_mob_update += drinker.adjustToxLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
-		need_mob_update += drinker.adjustFireLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
-		need_mob_update += drinker.adjustOxyLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
-		need_mob_update += drinker.adjustBruteLoss(2 * REM * seconds_per_tick)
 
-/datum/reagent/eldritch/reaction_turf(turf/exposed_turf, reac_volume, color)
-	. = ..()
-	if (!(reac_volume >= 1.5 || isplatingturf(exposed_turf)) || HAS_TRAIT(exposed_turf, TRAIT_RUSTY))
+/datum/reagent/steroids/on_mob_life(mob/living/target)
+	..()
+	if(!ishuman(target))
 		return
 
-	exposed_turf.rust_turf()
+	if(!prob(3))
+		return
+
+	var/mob/living/carbon/human/human = target
+	var/obj/item/organ/external/head/head_organ = human.get_organ(BODY_ZONE_HEAD)
+	if(!head_organ)
+		return
+
+	if(head_organ.f_style != "Shaved" || head_organ.h_style != "Bald")
+		target.visible_message(span_warning("Волосы [target] внезапно осыпаются!"), \
+								span_userdanger("Ваши волосы внезапно осыпаются!"))
+
+	head_organ.f_style = "Shaved"
+	head_organ.h_style = "Bald"
+	human.update_hair()
+	human.update_fhair()
+	ADD_TRAIT(human, TRAIT_BALD, id)
