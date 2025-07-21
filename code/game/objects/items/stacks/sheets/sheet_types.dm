@@ -67,36 +67,36 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe/rods("Metal rod", /obj/item/stack/rods, TRUE, 2, 50),
 	null,
 	new /datum/stack_recipe("Computer frame", /obj/structure/computerframe, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Firelock frame", /obj/structure/firelock_frame, 3, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Firelock frame", /obj/structure/firelock_frame, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Reflector frame", /obj/structure/reflector, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Turret frame", /obj/machinery/porta_turret_construct, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Wall girders", /obj/structure/girder, 2, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Wall girders", /obj/structure/girder, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe_list("Airlock assemblies", list(
-		new /datum/stack_recipe("Airtight hatch assembly", /obj/structure/door_assembly/door_assembly_hatch, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Atmospherics airlock assembly", /obj/structure/door_assembly/door_assembly_atmo, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Command airlock assembly", /obj/structure/door_assembly/door_assembly_com, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Engineering airlock assembly", /obj/structure/door_assembly/door_assembly_eng, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("External airlock assembly", /obj/structure/door_assembly/door_assembly_ext, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("External maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_extmai, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE), \
-		new /datum/stack_recipe("Freezer airlock assembly", /obj/structure/door_assembly/door_assembly_fre, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_mai, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Maintenance hatch assembly", /obj/structure/door_assembly/door_assembly_mhatch, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Medical airlock assembly", /obj/structure/door_assembly/door_assembly_med, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Mining airlock assembly", /obj/structure/door_assembly/door_assembly_min, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Multi-tile airlock assembly", /obj/structure/door_assembly/multi_tile, 8, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Public airlock assembly", /obj/structure/door_assembly/door_assembly_public, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Research airlock assembly", /obj/structure/door_assembly/door_assembly_research, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Science airlock assembly", /obj/structure/door_assembly/door_assembly_science, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Security airlock assembly", /obj/structure/door_assembly/door_assembly_sec, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Standard airlock assembly", /obj/structure/door_assembly, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Airtight hatch assembly", /obj/structure/door_assembly/door_assembly_hatch, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Atmospherics airlock assembly", /obj/structure/door_assembly/door_assembly_atmo, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Command airlock assembly", /obj/structure/door_assembly/door_assembly_com, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Engineering airlock assembly", /obj/structure/door_assembly/door_assembly_eng, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("External airlock assembly", /obj/structure/door_assembly/door_assembly_ext, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("External maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_extmai, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("Freezer airlock assembly", /obj/structure/door_assembly/door_assembly_fre, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_mai, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Maintenance hatch assembly", /obj/structure/door_assembly/door_assembly_mhatch, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Medical airlock assembly", /obj/structure/door_assembly/door_assembly_med, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Mining airlock assembly", /obj/structure/door_assembly/door_assembly_min, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Multi-tile airlock assembly", /obj/structure/door_assembly/multi_tile, 8, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Public airlock assembly", /obj/structure/door_assembly/door_assembly_public, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Research airlock assembly", /obj/structure/door_assembly/door_assembly_research, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Science airlock assembly", /obj/structure/door_assembly/door_assembly_science, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Security airlock assembly", /obj/structure/door_assembly/door_assembly_sec, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Standard airlock assembly", /obj/structure/door_assembly, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	null,
-	new /datum/stack_recipe("Button frame", /obj/item/mounted/frame/door_control, time = 0.5 SECONDS),
-	new /datum/stack_recipe("Mass driver button frame", /obj/item/mounted/frame/driver_button, time = 0.5 SECONDS, on_floor = TRUE),
-	new /datum/stack_recipe("Light switch frame", /obj/item/mounted/frame/light_switch, time = 0.5 SECONDS, on_floor = TRUE),
+	new /datum/stack_recipe("Button frame", /obj/item/mounted/frame/door_control, time = 5 SECONDS),
+	new /datum/stack_recipe("Mass driver button frame", /obj/item/mounted/frame/driver_button, time = 5 SECONDS, on_floor = TRUE),
+	new /datum/stack_recipe("Light switch frame", /obj/item/mounted/frame/light_switch, time = 5 SECONDS, on_floor = TRUE),
 	new /datum/stack_recipe("Light fixture frame", /obj/item/mounted/frame/light_fixture, 2),
 	new /datum/stack_recipe("Small light fixture frame", /obj/item/mounted/frame/light_fixture/small, TRUE),
 	null,
@@ -106,12 +106,12 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("Fire alarm frame", /obj/item/mounted/frame/firealarm, 2),
 	new /datum/stack_recipe("Intercom frame", /obj/item/mounted/frame/intercom, 2),
 	new /datum/stack_recipe("Shower", /obj/item/mounted/shower, 5, time = 0.7 SECONDS, on_floor = TRUE),
-	new /datum/stack_recipe("Stairs frame", /obj/structure/stairs_frame, 15, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Stairs frame", /obj/structure/stairs_frame, 15, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Torch holder", /obj/item/mounted/frame/torch_holder, 2, time = 3 SECONDS),
 	null,
 	new /datum/stack_recipe_list("Gym equipment", list(
-		new /datum/stack_recipe("Bench press", /obj/structure/weightmachine/weightlifter, 5, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Chest press", /obj/structure/weightmachine/stacklifter, 5, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Bench press", /obj/structure/weightmachine/weightlifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Chest press", /obj/structure/weightmachine/stacklifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 ))
 
@@ -155,15 +155,15 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 GLOBAL_LIST_INIT(plasteel_recipes, list(
 	new /datum/stack_recipe_list("Airlock assemblies", list(
-		new /datum/stack_recipe("High security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 6, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Vault door assembly", /obj/structure/door_assembly/door_assembly_vault, 8, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("High security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 6, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Vault door assembly", /obj/structure/door_assembly/door_assembly_vault, 8, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	null,
-	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 0.5 SECONDS, one_per_turf = TRUE),
-	new /datum/stack_recipe("Bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 0.5 SECONDS),
-	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 0.5 SECONDS, one_per_turf = TRUE),
-	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 0.5 SECONDS, one_per_turf = TRUE),
-	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 5 SECONDS, one_per_turf = TRUE),
+	new /datum/stack_recipe("Bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 5 SECONDS),
+	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 5 SECONDS, one_per_turf = TRUE),
+	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 5 SECONDS, one_per_turf = TRUE),
+	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 ))
 
 /obj/item/stack/sheet/plasteel
@@ -197,23 +197,23 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
  */
 
 GLOBAL_LIST_INIT(wood_recipes, list(
-	new /datum/stack_recipe("Apiary", /obj/structure/beebox, 40, time = 0.5 SECONDS),
+	new /datum/stack_recipe("Apiary", /obj/structure/beebox, 40, time = 5 SECONDS),
 	new /datum/stack_recipe("Baseball bat", /obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS),
-	new /datum/stack_recipe("Bookcase", /obj/structure/bookcase, 5, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Bookcase", /obj/structure/bookcase, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Coffin", /obj/structure/closet/coffin, 5, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Сoat rack", /obj/structure/coatrack, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Display case chassis", /obj/structure/displaycase_chassis, 5, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Dog bed", /obj/structure/bed/dogbed, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Dresser", /obj/structure/dresser, 30, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Dresser", /obj/structure/dresser, 30, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 0.5 SECONDS),
-	new /datum/stack_recipe("Firebrand", /obj/item/match/firebrand, 2, time = 1 SECONDS),
+	new /datum/stack_recipe("Fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 5 SECONDS),
+	new /datum/stack_recipe("Firebrand", /obj/item/match/firebrand, 2, time = 10 SECONDS),
 	new /datum/stack_recipe("Honey frame", /obj/item/honey_frame, 5, time = 1 SECONDS),
 	new /datum/stack_recipe("Loom", /obj/structure/loom, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Ore box", /obj/structure/ore_box, 4, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Ore box", /obj/structure/ore_box, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Rake", /obj/item/cultivator/rake, 5, time = 1 SECONDS),
 	new /datum/stack_recipe("Rifle stock", /obj/item/weaponcrafting/stock, 10, time = 4 SECONDS),
-	new /datum/stack_recipe("Tribune", /obj/structure/tribune, 5, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Tribune", /obj/structure/tribune, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS),
 	new /datum/stack_recipe("Wooden buckler", /obj/item/shield/riot/buckler, 20, time = 4 SECONDS),
 	new /datum/stack_recipe_list("Wooden railings", list(
@@ -241,9 +241,9 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("Fancy cherry floor tile", /obj/item/stack/tile/wood/fancy/cherry, res_amount = 4, max_res_amount = 20)
 	)),
 	new /datum/stack_recipe("Wood table frame", /obj/structure/table_frame/wood, 2, time = 1 SECONDS),
-	new /datum/stack_recipe("Wooden barricade", /obj/structure/barricade/wooden, 5, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Wooden barricade", /obj/structure/barricade/wooden, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden chair", /obj/structure/chair/wood, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Wooden stool", /obj/structure/chair/stool/wooden, 2, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Wooden stool", /obj/structure/chair/stool/wooden, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden door", /obj/structure/mineral_door/wood, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Notice Board", /obj/item/noticeboard, 5, time = 1 SECONDS),
 	new /datum/stack_recipe("Torch", /obj/item/flashlight/flare/torch, 5, time = 2 SECONDS),
@@ -310,7 +310,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	new /datum/stack_recipe("punching bag", /obj/structure/punching_bag, 10, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, res_amount = 2, max_res_amount = 6),
 	new /datum/stack_recipe("Rag", /obj/item/reagent_containers/glass/rag),
-	new /datum/stack_recipe("Wicker Bed", /obj/structure/bed/wicker, 10, one_per_turf = TRUE, on_floor = TRUE, time = 0.5 SECONDS),
+	new /datum/stack_recipe("Wicker Bed", /obj/structure/bed/wicker, 10, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS),
 	new /datum/stack_recipe_list("Towels", list(
 		new /datum/stack_recipe("Short towel", /obj/item/clothing/suit/towel/short, 2),
 		new /datum/stack_recipe("Short towel alt", /obj/item/clothing/suit/towel/short/alt, 2),
@@ -343,7 +343,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
  */
 
 GLOBAL_LIST_INIT(durathread_recipes, list(
-	new/datum/stack_recipe("Durathread bandana", /obj/item/clothing/mask/bandana/durathread, time = 25),
+	new/datum/stack_recipe("Durathread bandana", /obj/item/clothing/mask/bandana/durathread, time = 2.5 SECONDS),
 	new/datum/stack_recipe("Durathread beanie", /obj/item/clothing/head/beanie/durathread, 2, time = 4 SECONDS),
 	new/datum/stack_recipe("Durathread beret", /obj/item/clothing/head/beret/durathread, 2, time = 4 SECONDS),
 	new/datum/stack_recipe("Durathread duffelbag", /obj/item/storage/backpack/duffel/durathread, 6, time = 4 SECONDS),
@@ -452,7 +452,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
  */
 
 GLOBAL_LIST_INIT(cult_recipes, list(
-	new /datum/stack_recipe/cult("Runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe/cult("Runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("Runed girder (used to make cult walls)", /obj/structure/girder/cult, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("Pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("Forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
@@ -460,7 +460,7 @@ GLOBAL_LIST_INIT(cult_recipes, list(
 	new /datum/stack_recipe/cult("Altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 ))
 GLOBAL_LIST_INIT(cult_fake_recipes, list(
-	new /datum/stack_recipe/cult("Runed door", /obj/machinery/door/airlock/cult_fake, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe/cult("Runed door", /obj/machinery/door/airlock/cult_fake, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
 	new /datum/stack_recipe/cult("Runed girder", /obj/structure/girder/cult_fake, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
 	new /datum/stack_recipe/cult("Pylon", /obj/structure/cult/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
 	new /datum/stack_recipe/cult("Forge", /obj/structure/cult/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
@@ -551,7 +551,7 @@ GLOBAL_LIST_INIT(brass_recipes, list(
 	null,
 	new /datum/stack_recipe_list("Windows and furniture", list(
 		new /datum/stack_recipe("Brass chair", /obj/structure/chair/brass, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Brass table frame", /obj/structure/table_frame/brass, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Brass table frame", /obj/structure/table_frame/brass, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE),
 		null,
 		new /datum/stack_recipe("Clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),
@@ -569,7 +569,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	null,
 	new /datum/stack_recipe_list("Windows and furniture", list(
 		new /datum/stack_recipe("Brass chair", /obj/structure/chair/brass/fake, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Brass table frame", /obj/structure/table_frame/brass/fake, time = 0.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Brass table frame", /obj/structure/table_frame/brass/fake, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE),
 		null,
 		new /datum/stack_recipe("Clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),
@@ -817,7 +817,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 
 GLOBAL_LIST_INIT(bamboo_recipes, list(
 	new /datum/stack_recipe("Bamboo spear", /obj/item/twohanded/bamboospear, 25, time = 9 SECONDS),
-	new /datum/stack_recipe("Blow gun", /obj/item/gun/syringe/blowgun, 10, time = 0.7 SECONDS SECONDS),
+	new /datum/stack_recipe("Blow gun", /obj/item/gun/syringe/blowgun, 10, time = 7 SECONDS SECONDS),
 	new /datum/stack_recipe("Punji sticks trap", /obj/structure/punji_sticks, 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 ))
 
@@ -845,7 +845,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
  */
 
 GLOBAL_LIST_INIT(cheese_recipes, list(
-	new /datum/stack_recipe("Cheesus statue", /obj/structure/statue/cheese/cheesus, 5, one_per_turf = TRUE, time = 1 SECONDS, on_floor = TRUE),
+	new /datum/stack_recipe("Cheesus statue", /obj/structure/statue/cheese/cheesus, 5, one_per_turf = TRUE, time = 10 SECONDS, on_floor = TRUE),
 ))
 
 /obj/item/stack/sheet/cheese

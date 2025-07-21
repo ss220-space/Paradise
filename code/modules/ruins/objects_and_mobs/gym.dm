@@ -44,12 +44,16 @@
 
 /obj/structure/punching_bag/wirecutter_act(mob/user, obj/item/item)
 	. = TRUE
+
 	if(!item.tool_start_check(src, user, 0))
 		return
+
 	WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
-	if(item.use_tool(src, user, 5 SECONDS, volume = item.tool_volume))
-		WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
-		deconstruct(TRUE)
+	if(!item.use_tool(src, user, 5 SECONDS, volume = item.tool_volume))
+		return
+
+	WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
+	deconstruct(TRUE)
 
 /obj/structure/punching_bag/deconstruct(disassembled = TRUE)
 	if(ispath(material_drop) && material_drop_amount && !(obj_flags & NODECONSTRUCT))
@@ -125,19 +129,22 @@
 	to_chat(user, finishmessage)
 	user.apply_status_effect(STATUS_EFFECT_EXERCISED)
 
-/obj/structure/weightmachine/welder_act(mob/user, obj/item/I)
+/obj/structure/weightmachine/welder_act(mob/user, obj/item/item)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+
+	if(!item.tool_use_check(user, 0))
 		return
+
 	if(in_use)
 		user.balloon_alert(user, "занято")
 		return
-	else
-		WELDER_ATTEMPT_SLICING_MESSAGE
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
-			WELDER_SLICING_SUCCESS_MESSAGE
-			deconstruct(TRUE)
-			return
+
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(!item.use_tool(src, user, 40, volume = item.tool_volume))
+		return
+
+	WELDER_SLICING_SUCCESS_MESSAGE
+	deconstruct(TRUE)
 
 /obj/structure/weightmachine/deconstruct(disassembled = TRUE)
 	if(ispath(material_drop) && material_drop_amount && !(obj_flags & NODECONSTRUCT))
