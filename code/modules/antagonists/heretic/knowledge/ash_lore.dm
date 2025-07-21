@@ -16,12 +16,13 @@
 	tier3 =	/datum/heretic_knowledge/spell/flame_birth
 	ascension = /datum/heretic_knowledge/ultimate/ash_final
 
+
 /datum/heretic_knowledge/limited_amount/starting/base_ash
-	name = "Nightwatcher's Secret"
-	desc = "Opens up the Path of Ash to you. \
-		Allows you to transmute a match and a knife into an Ashen Blade. \
-		You can only create two at a time."
-	gain_text = "The City Guard know their watch. If you ask them at night, they may tell you about the ashy lantern."
+	name = "Секрет Ночного Наблюдателя"
+	desc = "Открывает вам Путь Пепла. \
+			Позволяет превратить спичку и нож в Пепельный Клинок. \
+			Вы можете создать только два клинка одновременно."
+	gain_text = "Городская стража стоит на своем посту. Если вы подойдете к ним ночью, возможно, узнаете историю о потухшем фонаре."
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
 		/obj/item/match = 1,
@@ -30,20 +31,24 @@
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "ash_blade"
 
+
 /datum/heretic_knowledge/ashen_grasp
-	name = "Grasp of Ash"
-	desc = "Your Прикосновение Мансуса will burn the eyes of the victim, damaging them and blurring their vision."
-	gain_text = "The Nightwatcher was the first of them, his treason started it all. \
-		Their lantern, expired to ash - their watch, absent."
+	name = "Хватка Пепла"
+	desc = "Ваше Прикосновение Мансуса обожжет глаза жертвы, затуманив зрение."
+	gain_text = "Ночной Наблюдатель был первым из них, его предательство положило начало всему. \
+				Их фонарь погас, превратившись в пепел, — их дозор исчез."
 	cost = 1
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "grasp_ash"
 
+
 /datum/heretic_knowledge/ashen_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 
+
 /datum/heretic_knowledge/ashen_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
+
 
 /datum/heretic_knowledge/ashen_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -54,30 +59,32 @@
 	if(!target.get_organ_slot(INTERNAL_ORGAN_EYES))
 		return
 
-	to_chat(target, span_danger("A bright green light burns your eyes horrifically!"))
+	to_chat(target, span_danger("Яркий зеленый свет ужасно жжет ваши глаза!"))
 	target.adjustOrganLoss(INTERNAL_ORGAN_EYES, 15)
 	target.EyeBlurry(20 SECONDS)
 
+
 /datum/heretic_knowledge/spell/ash_passage
-	name = "Ashen Passage"
-	desc = "Grants you Ashen Passage, a spell that lets you phase out of reality and traverse a short distance, passing though any walls."
-	gain_text = "He knew how to walk between the planes."
+	name = "Врата Пепла"
+	desc = "Дает вам «Врата Пепла» — заклинание, позволяющее вам выходить из реальности и перемещаться на небольшие расстояния, проходя сквозь любые стены."
+	gain_text = "Он умел ходить между мирами."
 
 	spell_to_add = /obj/effect/proc_holder/spell/ethereal_jaunt/ash
 	cost = 1
 
 
 /datum/heretic_knowledge/mark/ash_mark
-	name = "Mark of Ash"
-	desc = "Your Прикосновение Мансуса now applies the Mark of Ash. The mark is triggered from an attack with your Ashen Blade. \
-		When triggered, the victim takes additional stamina and burn damage, and the mark is transferred to a nearby heathen. \
-		Damage dealt is decreased with each transfer. \
-		Triggering the mark will also greatly reduce the cooldown of your Прикосновение Мансуса."
-	gain_text = "He was a very particular man, always watching in the dead of night. \
-		But in spite of his duty, he regularly tranced through the Manse with his blazing lantern held high. \
-		He shone brightly in the darkness, until the blaze begin to die."
+	name = "Пепельная Метка"
+	desc = "Ваше Прикосновение Мансуса теперь ставит Пепельную Метку. Метка активируется в результате атаки Пепельным клинком. \
+			При срабатывании жертва получает дополнительные урон выносливости и урон от ожогов, а метка передается ближайшему язычнику. \
+			Наносимый урон уменьшается с каждой передачей. \
+			Активация метки также значительно сократит время восстановления вашего Прикосновения Мансуса."
+	gain_text = "Он был очень щепетильным человеком, всегда бодрствовавшим в глухую ночь. \
+				Но, несмотря на свой долг, он регулярно впадал в транс, бродя по особняку с высоко поднятым пылающим фонарём. \
+				Он ярко светил в темноте, пока пламя не начало угасать."
 	mark_type = /datum/status_effect/eldritch/ash
 
+/*
 /datum/heretic_knowledge/mark/ash_mark/trigger_mark(mob/living/source, mob/living/target)
 	. = ..()
 	if(!.)
@@ -85,20 +92,22 @@
 
 	// Also refunds 75% of charge!
 	var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = locate() in source.actions
-	if(grasp)
-		//grasp.next_use_time -= round(grasp.base_cooldown * 0.75)
-		grasp.action?.UpdateButtonIcon()
+	if(!grasp)
+		return
 
+	grasp.next_use_time -= round(grasp.base_cooldown * 0.75)
+	grasp.action?.UpdateButtonIcon()
+*/
 
 /datum/heretic_knowledge/knowledge_ritual/ash
 
 
 
 /datum/heretic_knowledge/spell/fire_blast
-	name = "Volcano Blast"
-	desc = "Grants you Volcano Blast, a spell that - after a short charge - fires off a beam of energy \
-		at a nearby enemy, setting them on fire and burning them. If they do not extinguish themselves, \
-		the beam will continue to another target."
+	name = "Извержение Вулкана"
+	desc = "Дарует вам «Извержение Вулкана» — заклинание, после короткой подготовки выпускающее луч энергии \
+			в ближайшего врага, поджигая его. Если противник не погаснет сам, \
+			луч продолжит движение к другой цели."
 	gain_text = "No fire was hot enough to rekindle them. No fire was bright enough to save them. No fire is eternal."
 	spell_to_add = /obj/effect/proc_holder/spell/charged/beam/fire_blast
 	cost = 1

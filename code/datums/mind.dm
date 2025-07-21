@@ -1952,6 +1952,22 @@
 
 				devil.ui_interact(usr)
 
+	else if(href_list["heretic"])
+		switch(href_list["heretic"])
+			if("clear")
+				if(src in SSticker.mode.devils)
+					log_admin("[key_name(usr)] has de-heretic'ed [current].")
+
+				remove_devil_role()
+
+			if("heretic")
+				if(has_antag_datum(/datum/antagonist/heretic))
+					return
+
+				add_antag_datum(/datum/antagonist/heretic)
+				message_admins("[key_name_admin(usr)] has heretic'ed [current].")
+				log_admin("[key_name(usr)] has heretic'ed [current].")
+
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
 			if("clear")

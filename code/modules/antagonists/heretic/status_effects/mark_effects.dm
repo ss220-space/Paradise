@@ -71,7 +71,7 @@
 
 	return ..()
 
-// MARK OF ASH
+// Пепельная Метка
 
 /datum/status_effect/eldritch/ash
 	effect_icon_state = "emark2"
