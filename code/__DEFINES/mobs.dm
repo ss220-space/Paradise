@@ -201,6 +201,28 @@
 #define INCORPOREAL_NINJA 2
 #define INCORPOREAL_REVENANT 3
 
+
+#define TRAUMA_RESILIENCE_BASIC 1 //Curable with chems
+#define TRAUMA_RESILIENCE_SURGERY 2 //Curable with brain surgery
+#define TRAUMA_RESILIENCE_LOBOTOMY 3 //Curable with lobotomy
+#define TRAUMA_RESILIENCE_WOUND 4 //Curable by healing the head wound
+#define TRAUMA_RESILIENCE_MAGIC 5 //Curable only with magic
+#define TRAUMA_RESILIENCE_ABSOLUTE 6 //This is here to stay
+//Limit of traumas for each resilience tier
+#define TRAUMA_LIMIT_BASIC 3
+#define TRAUMA_LIMIT_SURGERY 2
+#define TRAUMA_LIMIT_WOUND 2
+#define TRAUMA_LIMIT_LOBOTOMY 3
+#define TRAUMA_LIMIT_MAGIC 3
+#define TRAUMA_LIMIT_ABSOLUTE INFINITY
+#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
+#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
+#define ismonkey(A)		(istype(A, /datum/species/monkey))
+#define iswraith(A)		(istype(A, /mob/living/simple_animal/hostile/construct/wraith))
+#define isrevenant(A)		(istype(A, /mob/living/simple_animal/revenant))
+#define SPECIES_OTHER "Other"
+
+
 //Human sub-species
 #define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
 #define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
@@ -244,8 +266,8 @@
 #define SPECIES_GOLEM_PLASMA "Плазменный Голем"
 #define SPECIES_GOLEM_DIAMOND "Алмазный Голем"
 #define SPECIES_GOLEM_GOLD "Золотой Голем"
-#define SPECIES_GOLEM_SILVER "Серебрянный Голем"
-#define SPECIES_GOLEM_PLASTEEL "Пласталиевый Голем"
+#define SPECIES_GOLEM_SILVER "Серебряный Голем"
+#define SPECIES_GOLEM_PLASTEEL "Пласталевый Голем"
 #define SPECIES_GOLEM_TITANIUM "Титановый Голем"
 #define SPECIES_GOLEM_PLASTITANIUM "Пластитановый Голем"
 #define SPECIES_GOLEM_ALLOY "Голем из инопланетных сплавов"
@@ -291,6 +313,9 @@
 #define SPECIES_VULPKANIN "Vulpkanin"
 #define SPECIES_WRYN "Wryn"
 
+// not race
+#define SPECIES_OTHER "Other"
+
 #define isanimal(A)		(istype((A), /mob/living/simple_animal) || istype(A, /mob/living/basic))
 #define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
@@ -309,9 +334,7 @@
 #define isairmob(A)		(istype(A, /mob/living/simple_animal/hostile/airmob))
 #define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 #define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
-#define ismonkey(A)		(istype(A, /datum/species/monkey))
-#define iswraith(A)		(istype(A, /mob/living/simple_animal/hostile/construct/wraith))
-#define isrevenant(A)		(istype(A, /mob/living/simple_animal/revenant))
+#define ismarauder(A) 	(istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
 
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
@@ -328,8 +351,6 @@
 #define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
 #define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
-
-#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
 
 #define isAIEye(A)		(istype((A), /mob/camera/aiEye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
@@ -350,7 +371,7 @@
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
-#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
+#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user)
 
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \
@@ -400,6 +421,8 @@
 #define STANDING_UP 0
 /// Mob is lying down, usually associated with lying_angle values of 90 or 270.
 #define LYING_DOWN 1
+
+#define IS_HORIZONTAL(x) (x.body_position == LYING_DOWN)
 
 ///How much a mob's sprite should be moved when they're lying down
 #define PIXEL_Y_OFFSET_LYING -6
@@ -523,19 +546,3 @@
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
 
 #define MINING_FACTIONS list("mining", "boss")
-
-#define TRAUMA_RESILIENCE_BASIC 1 //Curable with chems
-#define TRAUMA_RESILIENCE_SURGERY 2 //Curable with brain surgery
-#define TRAUMA_RESILIENCE_LOBOTOMY 3 //Curable with lobotomy
-#define TRAUMA_RESILIENCE_WOUND 4 //Curable by healing the head wound
-#define TRAUMA_RESILIENCE_MAGIC 5 //Curable only with magic
-#define TRAUMA_RESILIENCE_ABSOLUTE 6 //This is here to stay
-
-
-//Limit of traumas for each resilience tier
-#define TRAUMA_LIMIT_BASIC 3
-#define TRAUMA_LIMIT_SURGERY 2
-#define TRAUMA_LIMIT_WOUND 2
-#define TRAUMA_LIMIT_LOBOTOMY 3
-#define TRAUMA_LIMIT_MAGIC 3
-#define TRAUMA_LIMIT_ABSOLUTE INFINITY
