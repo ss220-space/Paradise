@@ -112,7 +112,7 @@
 		return .
 
 	. = ATTACK_CHAIN_BLOCKED_ALL
-	to_chat(user, span_info("Вы незаметно прикрепляете жучок к одежде [declent_ru(GENITIVE)]."))
+	to_chat(user, span_notice("Вы незаметно прикрепляете жучок к одежде [declent_ru(GENITIVE)]."))
 	spy_spider.forceMove(clothing_for_attach)
 	clothing_for_attach.spy_spider_attached = spy_spider
 

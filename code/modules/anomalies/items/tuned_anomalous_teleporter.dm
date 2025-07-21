@@ -118,7 +118,7 @@
 	if(!core)
 		. += span_warning("В [declent_ru(PREPOSITIONAL)] нет ядра!")
 	else
-		. += span_info("В [declent_ru(PREPOSITIONAL)] есть ядро.")
+		. += span_notice("В [declent_ru(PREPOSITIONAL)] есть ядро.")
 
 	if(emp_timer > world.time)
 		. += span_warning("[declent_ru(NOMINATIVE)] выглядит неработающим.")

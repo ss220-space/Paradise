@@ -56,7 +56,7 @@
 
 /obj/structure/world_anvil/examine(mob/user)
 	. = ..()
-	. += span_info("Доступно [forge_charges] ковочн[declension_ru(forge_charges,"ый заряд","ых заряда","ых заряда")].")
+	. += span_notice("Доступно [forge_charges] ковочн[declension_ru(forge_charges,"ый заряд","ых заряда","ых заряда")].")
 
 
 /obj/structure/world_anvil/attackby(obj/item/I, mob/living/user, params)
@@ -118,7 +118,7 @@
 		forge_charges--
 		update_state()
 		if(forge_charges <= 0)
-			visible_message(span_info("Мировая Кузня остывает."))
+			visible_message(span_notice("Мировая Кузня остывает."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/magmite_parts))

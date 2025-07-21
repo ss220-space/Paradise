@@ -96,7 +96,7 @@
 
 /obj/item/pod_parts/pod_frame/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt+ЛКМ</b> для поворота.")
+	. += span_notice("<b>Alt+ЛКМ</b> для поворота.")
 
 
 /obj/item/pod_parts/pod_frame/verb/rotate()

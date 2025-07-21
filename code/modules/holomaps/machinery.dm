@@ -242,7 +242,7 @@
 	else
 		current_z_level = SSholomaps.valid_map_indexes[current_index + 1]
 
-	to_chat(user, span_info("Вы устанавливаете индекс базы данных [declent_ru(GENITIVE)] на [current_z_level]."))
+	to_chat(user, span_notice("Вы устанавливаете индекс базы данных [declent_ru(GENITIVE)] на [current_z_level]."))
 	return TRUE
 
 /obj/machinery/station_map/crowbar_act(mob/living/user, obj/item/tool)

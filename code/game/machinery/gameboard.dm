@@ -82,7 +82,7 @@
 		if(cooling_down)
 			message_admins("Too many checkmates on chessboard, possible HREF exploits: [ADMIN_LOOKUPFLW(usr)]")
 			return
-		visible_message(span_info("[span_name("[src.name]")] beeps, \"WINNER!\""))
+		visible_message(span_notice("[span_name("[src.name]")] beeps, \"WINNER!\""))
 		new prize(get_turf(src), 80)
 		close_game()
 		cooling_down = 1

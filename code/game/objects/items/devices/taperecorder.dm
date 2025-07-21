@@ -60,7 +60,7 @@
 				. += span_notice("[mytape] has [mytape.remaining_capacity] seconds remaining.") // to avoid having 0 minutes
 			else
 				. += span_notice("[mytape] has [seconds_to_time(mytape.remaining_capacity)] remaining.")
-		. += span_info("<b>Alt-Click</b> to access the tape.")
+		. += span_notice("<b>Alt-Click</b> to access the tape.")
 
 
 /obj/item/taperecorder/proc/update_sound()

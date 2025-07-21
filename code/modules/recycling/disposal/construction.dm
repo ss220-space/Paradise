@@ -106,7 +106,7 @@
 
 /obj/structure/disposalconstruct/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.")
+	. += span_notice("<b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.")
 
 
 // flip and rotate verbs
