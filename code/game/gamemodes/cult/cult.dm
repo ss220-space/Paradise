@@ -17,6 +17,37 @@ GLOBAL_LIST_EMPTY(all_cults)
 	/// The number of ghost summons available to the cult.
 	var/ghost_summons = null
 
+/proc/is_convertable_to_cult(datum/mind/mind)
+	if(!mind)
+		return FALSE
+	if(!mind.current)
+		return FALSE
+	if(is_sacrifice_target(mind))
+		return FALSE
+	if(isclocker(mind.current))
+		return FALSE // Go away Ratvar
+	if(iscultist(mind.current))
+		return TRUE //If they're already in the cult, assume they are convertable
+	if(mind.isholy)
+		return FALSE
+	if(ishuman(mind.current))
+		var/mob/living/carbon/human/H = mind.current
+		if(ismindshielded(H)) //mindshield protects against conversions unless removed
+			return FALSE
+	if(mind.offstation_role)
+		return FALSE
+	if(issilicon(mind.current))
+		return FALSE //can't convert machines, that's ratvar's thing
+	if(isalien(mind.current))
+		return FALSE
+	if(isguardian(mind.current))
+		var/mob/living/simple_animal/hostile/guardian/G = mind.current
+		if(!iscultist(G.summoner))
+			return FALSE //can't convert it unless the owner is converted
+	if(isgolem(mind.current))
+		return FALSE
+	return TRUE
+
 
 /proc/iscultist(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
@@ -63,36 +94,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 	to_chat(H, span_cultlarge("На полу кинжал. Он поможет вам в призыве [SSticker.cultdat.entity_title1]."))
 
-/proc/is_convertable_to_cult(datum/mind/mind)
-	if(!mind)
-		return FALSE
-	if(!mind.current)
-		return FALSE
-	if(is_sacrifice_target(mind))
-		return FALSE
-	if(isclocker(mind.current))
-		return FALSE // Go away Ratvar
-	if(iscultist(mind.current))
-		return TRUE //If they're already in the cult, assume they are convertable
-	if(mind.isholy)
-		return FALSE
-	if(ishuman(mind.current))
-		var/mob/living/carbon/human/H = mind.current
-		if(ismindshielded(H)) //mindshield protects against conversions unless removed
-			return FALSE
-	if(mind.offstation_role)
-		return FALSE
-	if(issilicon(mind.current))
-		return FALSE //can't convert machines, that's ratvar's thing
-	if(isalien(mind.current))
-		return FALSE
-	if(isguardian(mind.current))
-		var/mob/living/simple_animal/hostile/guardian/G = mind.current
-		if(!iscultist(G.summoner))
-			return FALSE //can't convert it unless the owner is converted
-	if(isgolem(mind.current))
-		return FALSE
-	return TRUE
 
 /datum/game_mode/cult
 	name = "cult"
@@ -131,7 +132,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	cult_objs.setup()
 
 	for(var/datum/mind/cult_mind in cult)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
 		var/list/messages = list(CULT_GREETING)
 		to_chat(cult_mind.current, chat_box_red(messages.Join("<br>")))
 		equip_cultist(cult_mind.current)
@@ -148,6 +149,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 			if(!(locate(/datum/action/innate/toggle_clumsy) in cult_mind.current.actions))
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(cult_mind.current)
+
+		cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
 
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
@@ -192,7 +195,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/constructs = 0
 	for(var/I in cult)
 		var/datum/mind/M = I
-		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST) && !M.madeby_sentience_potion)
 			cultists++
 		else if(isconstruct(M.current))
 			constructs++
@@ -250,7 +253,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(cult_mind.current)
 
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
 		add_conversion_logs(cult_mind.current, "converted to the blood cult")
 
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
@@ -262,6 +265,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		var/datum/objective/servecult/obj = new
 		obj.owner = cult_mind
 		cult_mind.objectives += obj
+
+		cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
 
 		if(cult_risen)
 			rise(cult_mind.current)
@@ -296,7 +301,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 			to_chat(M.current, span_cultlarge("Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!"))
 			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
 			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
-		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.announce("На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+										ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/commandreport.ogg'
+		)
 		log_game("Blood cult reveal. Powergame allowed.")
 
 
@@ -314,7 +322,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(ishuman(cultist) && iscultist(cultist))
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
-		H.update_halo_layer()
+		SEND_SIGNAL(H, COMSIG_MOB_HALO_GAINED)
 
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE)
@@ -327,6 +335,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			cult_mind.objectives -= O
 			qdel(O)
 		REMOVE_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
+		cult_mind.current.RemoveElement(/datum/element/halo_attach)
 		for(var/datum/action/innate/cult/C in cultist.actions)
 			qdel(C)
 		update_cult_icons_removed(cult_mind)
@@ -381,7 +390,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, span_warning(span_fontsize3("The staff managed to stop the cult!")))
 
-	var/endtext
+	var/list/endtext = list()
 	endtext += "<br><b>The cultists' objectives were:</b>"
 	for(var/datum/objective/obj in cult_objs.presummon_objs)
 		endtext += "<br>[obj.explanation_text] - "
@@ -396,10 +405,12 @@ GLOBAL_LIST_EMPTY(all_cults)
 		else
 			endtext += "<font color='green'><b>Success!</b></font>"
 
-	to_chat(world, endtext)
+	to_chat(world, endtext.Join(""))
 	..()
 
 
-/proc/is_cultist(mob/living/user)
+/proc/iscultist(mob/living/user)
 	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.cult)
 
+/proc/iscultist_ascended(mob/living/user)
+	return iscultist(user) && SSticker.mode.cult_ascendant

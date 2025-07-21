@@ -24,7 +24,7 @@
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
 	GLOB.poi_list |= src
-	visible_message("<span class='boldwarning'>[src] shudders and roars to life, its parts beginning to whirr and screech!</span>")
+	visible_message(span_boldwarning("[src] shudders and roars to life, its parts beginning to whirr and screech!"))
 	GLOB.ark_of_the_clockwork_justiciar = src
 	if(!countdown)
 		countdown = new(src)
@@ -35,7 +35,7 @@
 	if(SSticker.mode.clocker_objs.clock_status != RATVAR_HAS_RISEN)
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, "<span class='clocklarge'>The Ark has fallen!</span>")
+				to_chat(clock_mind.current, span_clocklarge("The Ark has fallen!"))
 	if(countdown)
 		qdel(countdown)
 		countdown = null
@@ -49,14 +49,16 @@
 	if(!disassembled)
 		resistance_flags |= INDESTRUCTIBLE
 		countdown.stop()
-		visible_message("<span class='userdanger'>[src] begins to pulse uncontrollably... you might want to run!</span>")
-		sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, sound = sound('sound/effects/magic/clockwork/clockcult_gateway_disrupted.ogg'))
+		visible_message(span_userdanger("[src] begins to pulse uncontrollably... you might want to run!"))
+		sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, sound = sound('sound/magic/clockwork/clockcult_gateway_disrupted.ogg'))
 		update_icon(UPDATE_ICON_STATE)
 		resistance_flags |= INDESTRUCTIBLE
-		sleep(2.7 SECONDS)
-		explosion(src, 1, 3, 8, 8)
-		sound_to_playing_players('sound/effects/explosionfar.ogg', volume = 50)
+		addtimer(CALLBACK(src, PROC_REF(end_deconstruct)), 2.7 SECONDS)
 	qdel(src)
+
+/obj/structure/clockwork/functional/celestial_gateway/proc/end_deconstruct()
+	explosion(src, 1, 3, 8, 8)
+	sound_to_playing_players('sound/effects/explosionfar.ogg', volume = 50)
 
 
 /obj/structure/clockwork/functional/celestial_gateway/update_icon_state()
@@ -90,19 +92,19 @@
 	if(isclocker(user) || isobserver(user))
 		switch(seconds_until_activation)
 			if(-INFINITY to GATEWAY_REEBE_FOUND)
-				to_chat(user, "<span class='heavy_brass'>The Ark is feeding power into the bluespace field.</span>")
+				to_chat(user, span_clocklarge("The Ark is feeding power into the bluespace field."))
 			if(GATEWAY_REEBE_FOUND to GATEWAY_RATVAR_COMING)
-				to_chat(user, "<span class='heavy_brass'>The field is ripping open a copy of itself in Ratvar's prison.</span>")
+				to_chat(user, span_clocklarge("The field is ripping open a copy of itself in Ratvar's prison."))
 			if(GATEWAY_RATVAR_COMING to INFINITY)
-				to_chat(user, "<span class='heavy_brass'>With the bluespace field established, Ratvar is preparing to come through!</span>")
+				to_chat(user, span_clocklarge("With the bluespace field established, Ratvar is preparing to come through!"))
 	else
 		switch(seconds_until_activation)
 			if(-INFINITY to GATEWAY_REEBE_FOUND)
-				to_chat(user, "<span class='warning'>You see a swirling bluespace anomaly steadily growing in intensity.</span>")
+				to_chat(user, span_warning("You see a swirling bluespace anomaly steadily growing in intensity."))
 			if(GATEWAY_REEBE_FOUND to GATEWAY_RATVAR_COMING)
-				to_chat(user, "<span class='warning'>The anomaly is stable, and you can see flashes of something from it.</span>")
+				to_chat(user, span_warning("The anomaly is stable, and you can see flashes of something from it."))
 			if(GATEWAY_RATVAR_COMING to INFINITY)
-				to_chat(user, "<span class='boldwarning'>The anomaly is stable! Something is coming through!</span>")
+				to_chat(user, span_boldwarning("The anomaly is stable! Something is coming through!"))
 
 /obj/structure/clockwork/functional/celestial_gateway/process()
 	adjust_clockwork_power(10)
@@ -119,18 +121,18 @@
 	switch(seconds_until_activation)
 		if(-INFINITY to GATEWAY_REEBE_FOUND)
 			if(!first_sound_played)
-				sound_to_playing_players('sound/effects/magic/clockwork/invoke_general.ogg', 30, FALSE)
-				sound_to_playing_players(volume = 20, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/effects/magic/clockwork/clockcult_gateway_charging.ogg', TRUE))
+				sound_to_playing_players('sound/magic/clockwork/invoke_general.ogg', 30, FALSE)
+				sound_to_playing_players(volume = 20, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/magic/clockwork/clockcult_gateway_charging.ogg', TRUE))
 				first_sound_played = TRUE
 				update_icon(UPDATE_ICON_STATE)
 		if(GATEWAY_REEBE_FOUND to GATEWAY_RATVAR_COMING)
 			if(!second_sound_played)
-				sound_to_playing_players(volume = 30, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/effects/magic/clockwork/clockcult_gateway_active.ogg', TRUE))
+				sound_to_playing_players(volume = 30, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/magic/clockwork/clockcult_gateway_active.ogg', TRUE))
 				second_sound_played = TRUE
 				update_icon(UPDATE_ICON_STATE)
 		if(GATEWAY_RATVAR_COMING to GATEWAY_RATVAR_ARRIVAL)
 			if(!third_sound_played)
-				sound_to_playing_players(volume = 40, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/effects/magic/clockwork/clockcult_gateway_closing.ogg', TRUE))
+				sound_to_playing_players(volume = 40, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/magic/clockwork/clockcult_gateway_closing.ogg', TRUE))
 				third_sound_played = TRUE
 				update_icon(UPDATE_ICON_STATE)
 		if(GATEWAY_RATVAR_ARRIVAL to INFINITY)
