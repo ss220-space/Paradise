@@ -45,10 +45,10 @@
 
 /obj/item/gun/throw/examine(mob/user)
 	. = ..()
-	. += span_info("It is [to_launch ? "loaded with [to_launch]" : "not loaded"].")
+	. += span_notice("It is [to_launch ? "loaded with [to_launch]" : "not loaded"].")
 	var/ammo_count = notify_ammo_count()
 	if(ammo_count)
-		. += span_info(ammo_count)
+		. += span_notice(ammo_count)
 
 
 /obj/item/gun/throw/attackby(obj/item/I, mob/user, params)

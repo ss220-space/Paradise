@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-click</b> to start washing.")
+	. += span_notice("<b>Alt-click</b> to start washing.")
 
 /obj/machinery/washing_machine/Initialize(mapload)
 	. = ..()
@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(state & (STATE_DISABLED|STATE_HACKED))
 		. += span_warning("The red light on the panel is blinking...")
 	if(!(state & (STATE_OPENED|STATE_WORKING)) && (state & STATE_FULL))
-		. += span_info("<b>Alt-click</b> to start the washing cycle.")
+		. += span_notice("<b>Alt-click</b> to start the washing cycle.")
 
 
 /obj/machinery/washing_machine/process(seconds_per_tick)

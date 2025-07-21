@@ -32,7 +32,7 @@
 /obj/item/toy/examine(mob/user)
 	. = ..()
 	if(unique_toy_rename)
-		. += span_info("Используй ручку на игрушке, чтобы переименовать её.")
+		. += span_notice("Используй ручку на игрушке, чтобы переименовать её.")
 
 
 /obj/item/toy/attackby(obj/item/I, mob/user, params)

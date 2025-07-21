@@ -412,7 +412,7 @@ BODY SCANNERS
 		P.header += "<hr>"
 		P.header += "Локализация повреждений, <font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>:<br>"
 		for(var/damage in scan_data["damageLocalization"])
-			P.header += "&emsp;<span class='info'>[capitalize(damage["name"])]</span>: <font color='#FF8000'>[damage["burn"]]</font> - <font color='red'>[damage["brute"]]</font><br>"
+			P.header += "&emsp;[span_notice(capitalize(damage["name"]))]: <span style='color: red;'><font color='#FF8000'>[damage["burn"]]</font> - <font color='red'>[damage["brute"]]</font><br>"
 
 	if(scan_data["fractureList"])
 		for(var/fracture in scan_data["fractureList"])
@@ -464,7 +464,7 @@ BODY SCANNERS
 		P.header += "<font color='#d82020'><b>Сердце не обнаружено.</b></font><br>"
 
 	if(scan_data["staminaStatus"] == 1)
-		P.header += span_info("Обнаружено переутомление.<br>")
+		P.header += span_notice("Обнаружено переутомление.<br>")
 
 	if(scan_data["cloneStatus"] > 0)
 		P.header += "<font color='#d82020'>Обнаружено [scan_data["cloneStatus"] > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.</font><br>"
@@ -843,7 +843,7 @@ BODY SCANNERS
 		scan_data += "Локализация повреждений, <font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>:"
 		if(length(damaged) > 0)
 			for(var/obj/item/organ/external/org as anything in damaged)
-				scan_data += "&emsp;<span class='info'>[capitalize(org.name)]</span>: [(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"] - [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font>" : "<font color='red'>0</font>"]"
+				scan_data += "&emsp;[span_notice(capitalize(org.name))]: [(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"] - [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font>" : "<font color='red'>0</font>"]"
 	if(advanced)
 		if(H.reagents)
 			if(H.reagents.reagent_list.len)
@@ -880,7 +880,7 @@ BODY SCANNERS
 			scan_data += span_alert("<b>Сердце не обнаружено.</b>")
 
 	if(H.getStaminaLoss())
-		scan_data += span_info("Обнаружено переутомление.")
+		scan_data += span_notice("Обнаружено переутомление.")
 	if(H.getCloneLoss())
 		scan_data += span_warning("Обнаружено [H.getCloneLoss() > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.")
 	if(H.has_brain_worms())

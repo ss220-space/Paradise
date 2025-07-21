@@ -137,7 +137,7 @@
 
 /obj/item/clothing/glasses/hud/debug/examine(mob/user)
 	. = ..()
-	. += span_info("Щелкните <b>Alt + ЛКМ</b>, чтобы переключить иксрей.")
+	. += span_notice("Щелкните <b>Alt + ЛКМ</b>, чтобы переключить иксрей.")
 
 /obj/item/clothing/glasses/hud/debug/click_alt(mob/user)
 	if(!ishuman(user))

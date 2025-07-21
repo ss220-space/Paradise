@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-Click</b> to rotate.")
+	. += span_notice("<b>Alt-Click</b> to rotate.")
 
 /obj/machinery/doppler_array/New()
 	..()

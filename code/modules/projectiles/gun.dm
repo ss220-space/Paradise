@@ -132,15 +132,15 @@
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(unique_reskin)
-		. += "<span class='info'>Alt-click it to reskin it.</span>"
+		. += span_notice("Alt-click it to reskin it.")
 	if(unique_rename)
-		. += "<span class='info'>Use a pen on it to rename it.</span>"
+		. += span_notice("Use a pen on it to rename it.")
 	if(bayonet)
-		. += "<span class='notice'>It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.</span>"
+		. += span_notice("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
-			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
+			. += span_notice("[bayonet] looks like it can be [span_bold("unscrewed")] from [src].")
 	else if(can_bayonet)
-		. += span_info("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно <b>открутить</b> от [declent_ru(GENITIVE)].")
+		. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
 
 
 /obj/item/gun/proc/update_gun_skins()

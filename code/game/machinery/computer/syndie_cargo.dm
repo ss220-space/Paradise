@@ -530,7 +530,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		var/obj/item/stack/spacecash/cash = I
 		playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 		data_storage.cash += cash.amount
-		to_chat(user, span_info("You insert [cash] into [src]."))
+		to_chat(user, span_notice("You insert [cash] into [src]."))
 		data_storage.blackmarket_message += "[span_good("+[cash.amount]")]: [user.get_authentification_name()] adds credits to the console.<br>"
 		SStgui.update_uis(src)
 		qdel(cash)
@@ -734,7 +734,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		data_storage.cash -= cash_sum
 		playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
 		var/obj/item/stack/spacecash/C = new(drop_location(), cash_sum)
-		to_chat(user, span_info("The machine give you [C]!"))
+		to_chat(user, span_notice("The machine give you [C]!"))
 		var/mob/living/carbon/human/H = user
 		var/name = H.get_authentification_name()
 		data_storage.blackmarket_message += "[span_bad("-[cash_sum]")]: [name] withdraws credits from the console.<br>"

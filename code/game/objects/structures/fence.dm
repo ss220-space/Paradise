@@ -98,7 +98,7 @@
 		"<span class='warning'>You start dismantling [src] with [W].</span>")
 		if(W.use_tool(src, user, FULL_CUT_TIME, volume = W.tool_volume))
 			user.visible_message("<span class='notice'>[user] completely dismantles [src].</span>",\
-			"<span class='info'>You completely dismantle [src].</span>")
+			span_notice("You completely dismantle [src]."))
 			qdel(src)
 		return
 	var/current_stage = hole_size
@@ -109,15 +109,15 @@
 			switch(hole_size)
 				if(NO_HOLE)
 					user.visible_message("<span class='notice'>[user] cuts into [src] some more.</span>",\
-					"<span class='info'>You could probably fit yourself through that hole now. Although climbing through would be much faster if you made it even bigger.</span>")
+					span_notice("You could probably fit yourself through that hole now. Although climbing through would be much faster if you made it even bigger."))
 					hole_size = MEDIUM_HOLE
 				if(MEDIUM_HOLE)
 					user.visible_message("<span class='notice'>[user] completely cuts through [src].</span>",\
-					"<span class='info'>The hole in [src] is now big enough to walk through.</span>")
+					span_notice("The hole in [src] is now big enough to walk through."))
 					hole_size = LARGE_HOLE
 				if(LARGE_HOLE)
 					user.visible_message("<span class='notice'>[user] completely dismantles [src].</span>",\
-					"<span class='info'>You completely take apart [src].</span>")
+					span_notice("You completely take apart [src]."))
 					qdel(src)
 					return
 			update_cut_status()

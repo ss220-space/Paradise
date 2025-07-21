@@ -33,7 +33,7 @@
 /obj/item/organ/internal/cyberimp/arm/examine(mob/user)
 	. = ..()
 	. += span_notice("[src] is assembled in the [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm configuration.")
-	. += span_info("You can use a screwdriver to reassemble it.")
+	. += span_notice("You can use a screwdriver to reassemble it.")
 
 /obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

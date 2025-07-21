@@ -364,7 +364,7 @@
 		if(backup.newtonian_move(REVERSE_DIR(movement_dir), instant = TRUE))
 			backup.last_pushoff = world.time
 			if(occupant)
-				to_chat(occupant, span_info("Вы отталкиваетесь от [backup.declent_ru(GENITIVE)]."))
+				to_chat(occupant, span_notice("Вы отталкиваетесь от [backup.declent_ru(GENITIVE)]."))
 		return TRUE
 
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))

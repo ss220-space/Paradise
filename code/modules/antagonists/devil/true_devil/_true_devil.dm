@@ -88,7 +88,7 @@
 
 
 /mob/living/carbon/true_devil/examine(mob/user)
-	var/msg = span_info("Это [bicon(src)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
+	var/msg = span_notice("Это [bicon(src)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
 
 	//left hand
 	if(l_hand && !(l_hand.item_flags & ABSTRACT))

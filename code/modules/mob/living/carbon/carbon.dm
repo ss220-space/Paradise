@@ -343,7 +343,7 @@
 		if(staminaloss > 30)
 			status_list += span_danger("Вы истощены!")
 		else
-			status_list += span_info("Вы чувствуете усталость.")
+			status_list += span_notice("Вы чувствуете усталость.")
 
 	to_chat(src, chat_box_examine(status_list.Join("\n")))
 

@@ -76,7 +76,7 @@
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
-	. += span_info("Используйте <b>Ctrl + ЛКМ</b>, чтобы взять электроды.")
+	. += span_notice("Используйте <b>Ctrl + ЛКМ</b>, чтобы взять электроды.")
 
 
 /obj/item/defibrillator/proc/update_power()
