@@ -253,7 +253,7 @@ const KnowledgeTree = (props) => {
   const { knowledge_tiers } = data;
 
   return (
-    <Section title="Research Tree" fill scrollable>
+    <Section title="Дерево прокачки" fill scrollable>
       <Box textAlign="center" fontSize="32px">
         <span style={hereticYellow}>РАССВЕТ</span>
       </Box>

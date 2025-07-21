@@ -17,6 +17,7 @@
 	tier3 = /datum/heretic_knowledge/spell/wolves_among_sheep
 	ascension = /datum/heretic_knowledge/ultimate/blade_final
 
+
 /datum/heretic_knowledge/limited_amount/starting/base_blade
 	name = "The Cutting Edge"
 	desc = "Opens up the Path of Blades to you. \
@@ -358,7 +359,7 @@
 		delete_after_passing_max = FALSE,
 		recharge_time = 2 MINUTES,
 	)
-	var/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/steel_spell = locate() in user.actions
+	var/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/steel_spell = locate() in user.mob_spell_list
 	steel_spell?.base_cooldown /= 2
 
 	var/mob/living/carbon/human/heretic = user

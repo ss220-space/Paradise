@@ -266,7 +266,7 @@
 	ADD_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, UID())
 	RegisterSignal(our_mob, COMSIG_LIVING_CULT_SACRIFICED, PROC_REF(on_cult_sacrificed))
 	RegisterSignal(our_mob, list(COMSIG_MOB_BEFORE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
-	RegisterSignal(our_mob, COMSIG_USER_ITEM_INTERACTION, PROC_REF(on_item_use))
+	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_use))
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -280,7 +280,7 @@
 	UnregisterSignal(our_mob, list(
 		COMSIG_MOB_BEFORE_SPELL_CAST,
 		COMSIG_MOB_SPELL_ACTIVATED,
-		COMSIG_USER_ITEM_INTERACTION,
+		COMSIG_MOB_ITEM_AFTERATTACK,
 		COMSIG_LIVING_CULT_SACRIFICED,
 	))
 
@@ -321,7 +321,7 @@
 	return SPELL_CANCEL_CAST
 
 /*
- * Signal proc for [COMSIG_USER_ITEM_INTERACTION].
+ * Signal proc for [COMSIG_MOB_ITEM_AFTERATTACK].
  *
  * If a heretic is holding a pen in their main hand,
  * and have mansus grasp active in their offhand,

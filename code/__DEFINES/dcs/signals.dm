@@ -1211,8 +1211,6 @@
 #define COMSIG_ATOM_RELAYMOVE "atom_relaymove"
 	///prevents the "you cannot move while buckled! message"
 	#define COMSIG_BLOCK_RELAYMOVE (1<<0)
-/// Sent from [atom/proc/item_interaction], to a mob clicking on an atom with an item
-#define COMSIG_USER_ITEM_INTERACTION "user_item_interaction"
 ///From base of mob/living/Bump() (turf/closed)
 #define COMSIG_LIVING_WALL_BUMP "living_wall_bump"
 ///From base of turf/closed/Exited() (turf/closed)

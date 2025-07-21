@@ -246,7 +246,7 @@
 	star_gazer_mob.AddComponent(/datum/component/damage_aura, range = 7, burn_damage = 0.5, simple_damage = 0.5, immune_factions = list(FACTION_HERETIC), current_owner = user)
 	star_gazer_mob.befriend(user)
 	user.AddSpell(new /obj/effect/proc_holder/spell/open_mob_commands(star_gazer_mob))
-	var/obj/effect/proc_holder/spell/touch/star_touch/star_touch_spell = locate() in user.actions
+	var/obj/effect/proc_holder/spell/touch/star_touch/star_touch_spell = locate() in user.mob_spell_list
 	if(star_touch_spell)
 		star_touch_spell.set_star_gazer(star_gazer_mob)
 		star_touch_spell.ascended = TRUE
@@ -258,7 +258,7 @@
 	blade_upgrade.max_combo_duration = 30 SECONDS
 	blade_upgrade.increase_amount = 2 SECONDS
 
-	var/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.actions
+	var/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.mob_spell_list
 	cosmic_expansion_spell?.ascended = TRUE
 
 

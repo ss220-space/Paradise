@@ -18,7 +18,7 @@
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_ash
-	name = "Секрет Ночного Наблюдателя"
+	name = "Секрет Ночного Дозорного"
 	desc = "Открывает вам Путь Пепла. \
 			Позволяет превратить спичку и нож в Пепельный Клинок. \
 			Вы можете создать только два клинка одновременно."
@@ -35,7 +35,7 @@
 /datum/heretic_knowledge/ashen_grasp
 	name = "Хватка Пепла"
 	desc = "Ваше Прикосновение Мансуса обожжет глаза жертвы, затуманив зрение."
-	gain_text = "Ночной Наблюдатель был первым из них, его предательство положило начало всему. \
+	gain_text = "Ночной Дозорный был первым из них, его предательство положило начало всему. \
 				Их фонарь погас, превратившись в пепел, — их дозор исчез."
 	cost = 1
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
@@ -84,23 +84,22 @@
 				Он ярко светил в темноте, пока пламя не начало угасать."
 	mark_type = /datum/status_effect/eldritch/ash
 
-/*
+
 /datum/heretic_knowledge/mark/ash_mark/trigger_mark(mob/living/source, mob/living/target)
 	. = ..()
 	if(!.)
 		return
 
 	// Also refunds 75% of charge!
-	var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = locate() in source.actions
+	var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = locate() in source.mob_spell_list
 	if(!grasp)
 		return
 
-	grasp.next_use_time -= round(grasp.base_cooldown * 0.75)
+	grasp.cooldown_handler.recharge_time -= round(grasp.base_cooldown * 0.75)
 	grasp.action?.UpdateButtonIcon()
-*/
+
 
 /datum/heretic_knowledge/knowledge_ritual/ash
-
 
 
 /datum/heretic_knowledge/spell/fire_blast
@@ -108,18 +107,18 @@
 	desc = "Дарует вам «Извержение Вулкана» — заклинание, после короткой подготовки выпускающее луч энергии \
 			в ближайшего врага, поджигая его. Если противник не погаснет сам, \
 			луч продолжит движение к другой цели."
-	gain_text = "No fire was hot enough to rekindle them. No fire was bright enough to save them. No fire is eternal."
+	gain_text = "Никакой огонь не был достаточно жарким, чтобы разжечь фонарь вновь. Никакой огонь не был достаточно ярким, чтобы спасти их. Никакой огонь не вечен."
 	spell_to_add = /obj/effect/proc_holder/spell/charged/beam/fire_blast
 	cost = 1
 	research_tree_icon_frame = 7
 
 
 /datum/heretic_knowledge/mad_mask
-	name = "Mask of Madness"
-	desc = "Allows you to transmute any mask, four candles, a stun baton, and a liver to create a Mask of Madness. \
-		The mask instills fear into heathens who witness it, causing stamina damage, hallucinations, and insanity. \
-		It can also be forced onto a heathen, to make them unable to take it off..."
-	gain_text = "The Nightwatcher was lost. That's what the Watch believed. Yet he walked the world, unnoticed by the masses."
+	name = "Маска Безумия"
+	desc = "Позволяет преобразовать любую маску, четыре свечи, стандубинку и печень в Маску Безумия. \
+			Маска вселяет страх в язычников, которые её видят, вызывая снижение выносливости, галлюцинации и безумие. \
+			Её также можно надеть на язычника силой, чтобы он не смог её снять..."
+	gain_text = "Ночной Дозорный был мертв. Так считал Дозор. И всё же он бродил по миру, не привлекая внимания людей."
 	required_atoms = list(
 		/obj/item/organ/internal/liver = 1,
 		/obj/item/melee/baton/security = 1,  // Technically means a cattleprod is valid
@@ -131,15 +130,16 @@
 	research_tree_icon_path = 'icons/obj/clothing/masks.dmi'
 	research_tree_icon_state = "mad_mask"
 
-/datum/heretic_knowledge/blade_upgrade/ash
-	name = "Fiery Blade"
-	desc = "Your blade now lights enemies ablaze on attack."
-	gain_text = "He returned, blade in hand, he swung and swung as the ash fell from the skies. \
-		His city, the people he swore to watch... and watch he did, as they all burnt to cinders."
 
+/datum/heretic_knowledge/blade_upgrade/ash
+	name = "Огненный Клинок"
+	desc = "Теперь ваш клинок поджигает врагов при атаке."
+	gain_text = "Он вернулся с клинком в руке, он размахивал им, пока пепел падал с небес. \
+				Его город, люди, за которыми он поклялся следить... и он следил, пока они все не сгорели дотла."
 
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_ash"
+
 
 /datum/heretic_knowledge/blade_upgrade/ash/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(source == target || !isliving(target))
@@ -148,32 +148,34 @@
 	target.adjust_fire_stacks(1)
 	target.IgniteMob()
 
+
 /datum/heretic_knowledge/spell/flame_birth
-	name = "Nightwatcher's Rebirth"
-	desc = "Grants you Nightwatcher's Rebirth, a spell that extinguishes you and \
-		burns all nearby heathens who are currently on fire, healing you for every victim afflicted. \
-		If any victims afflicted are in critical condition, they will also instantly die."
-	gain_text = "The fire was inescapable, and yet, life remained in his charred body. \
-		The Nightwatcher was a particular man, always watching."
+	name = "Возрождение Ночного Дозорного"
+	desc = "Дарует вам «Возрождение Ночного Дозорного — заклинание, которое уничтожает вас и \
+			сжигает всех находящихся поблизости язычников, исцеляя вас за каждую пораженную жертву. \
+			Если жертвы находятся в критическом состоянии, они также мгновенно умирают."
+	gain_text = "Огонь был неизбежен, и всё же жизнь теплилась в его обугленном теле. \
+				Ночной Страж был особенным человеком, всегда наблюдавшим."
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/fiery_rebirth
 	cost = 1
 	research_tree_icon_frame = 5
 
+
 /datum/heretic_knowledge/ultimate/ash_final
-	name = "Ashlord's Rite"
-	desc = "The ascension ritual of the Path of Ash. \
-		Bring 3 burning or husked corpses to a transmutation rune to complete the ritual. \
-		When completed, you become a harbinger of flames, gaining two abilites. \
-		Cascade, which causes a massive, growing ring of fire around you, \
-		and Oath of Flame, causing you to passively create a ring of flames as you walk. \
-		Some ashen spells you already knew will be empowered as well. \
-		You will also become immune to flames, space, and similar environmental hazards."
-	gain_text = "The Watch is dead, the Nightwatcher burned with it. Yet his fire burns evermore, \
-		for the Nightwatcher brought forth the rite to mankind! His gaze continues, as now I am one with the flames, \
-		WITNESS MY ASCENSION, THE ASHY LANTERN BLAZES ONCE MORE!"
+	name = "Обряд Повелителя Пепла"
+	desc = "Ритуал вознесения Пути Пепла. \
+			Положите 3 горящих трупа на руну трансмутации, чтобы завершить ритуал. \
+			После завершения ритуала вы становитесь предвестником пламени и получаете две способности. \
+			Каскад, создающий вокруг вас огромное растущее огненное кольцо, \
+			и Клятва Пламени, позволяющая вам пассивно создавать огненное кольцо при ходьбе. \
+			Также будут усилены некоторые заклинания пепла, которые вы уже знали. \
+			Вы также приобретете иммунитет к огню и давлению."
+	gain_text = "Дозор уничтожен, Ночной Дозорный сгорел вместе с ним. Но его огонь горит вечно, \
+				ибо Ночной Дозорный принёс себя в жертву человечеству! Его взгляд продолжает смотреть, \
+				ибо теперь он един с пламенем, СТАНЬТЕ СВИДЕТЕЛЕМ МОЕГО ВОЗНЕСЕНИЯ, ПЕПЕЛЬНЫЙ ФОНАРЬ СНОВА ЗАГОРИТСЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/ash_ascension
-	announcement_text = "%SPOOKY% Fear the blaze, for the Ashlord, %NAME% has ascended! The flames shall consume all! %SPOOKY%"
+	announcement_text = "%SPOOKY% Бойтесь пламени, ибо Повелитель Пепла, %NAME% вознесся! Пламя поглотит все! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_ash.ogg'
 	/// A static list of all traits we apply on ascension.
 	var/static/list/traits_to_apply = list(
@@ -186,6 +188,7 @@
 		TRAIT_RESIST_COLD,
 	)
 
+
 /datum/heretic_knowledge/ultimate/ash_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
 	. = ..()
 	if(!.)
@@ -193,21 +196,24 @@
 
 	if(sacrifice.on_fire)
 		return TRUE
+
 	if(HAS_TRAIT_FROM(sacrifice, TRAIT_HUSK, BURN))
 		return TRUE
+
 	return FALSE
+
 
 /datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_sworn())
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_cascade/big())
-	var/obj/effect/proc_holder/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.actions
+	var/obj/effect/proc_holder/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.mob_spell_list
 	if(existing_beam_spell)
 		existing_beam_spell.max_beam_bounces *= 2 // Double beams
 		existing_beam_spell.beam_duration *= 0.66 // Faster beams
 		existing_beam_spell.base_cooldown *= 0.66 // Lower cooldown
 
-	var/obj/effect/proc_holder/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.actions
+	var/obj/effect/proc_holder/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.mob_spell_list
 	fiery_rebirth?.base_cooldown *= 0.16
 
 	user.add_traits(traits_to_apply, type)

@@ -95,9 +95,10 @@
 	desc = "Ваша рука пропитана зловещей аурой, способной искажать реальнось. \
 			Вызывает нокдаун, лёгкие ушибы и значительный урон выносливости. \
 			По мере того, как вы расширяете свои знания о Мансусе, она приобретает дополнительные эффекты."
+	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "mansus"
 	item_state = "mansus"
-	catchphrase = "R'CH T'H TR'TH!"
+	catchphrase = "Р'СКР ПР'ВД'!"
 
 
 /obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)
