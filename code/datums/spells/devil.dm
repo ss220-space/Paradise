@@ -578,3 +578,4 @@
 			continue
 		to_chat(player_mob, message)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, player_mob, message, user.tts_seed, TRUE)
+
