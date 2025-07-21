@@ -88,7 +88,7 @@
 	else
 		handle_energy()
 
-		move(4 + length(orbiting_balls) * 1.5)
+		move_basketball(4 + length(orbiting_balls) * 1.5)
 
 		playsound(loc, 'sound/magic/lightningbolt.ogg', 100, TRUE, extrarange = 30)
 
@@ -113,7 +113,7 @@
 	if(length(orbiting_balls))
 		. += "Вокруг вращается [length(orbiting_balls)] мини-шар[declension_ru(length(orbiting_balls), "", "а", "ов")]."
 
-/obj/singularity/energy_ball/proc/move(move_amount)
+/obj/singularity/energy_ball/proc/move_basketball(move_amount) // We need to get the gods and Tesla out of the inheritance from Singa. What a vicious piece of shit that is.
 	var/list/dirs = GLOB.alldirs.Copy()
 	if(length(shocked_things))
 		for(var/i in 1 to 30)
