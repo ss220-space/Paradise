@@ -180,7 +180,7 @@
 	var/arrived_is_mob = isliving(arrived)
 	var/mob/living/arrived_mob = arrived
 	if(arrived_is_mob && (arrived_mob.mind in GLOB.taipan_players_active))
-		to_chat(arrived_mob, span_info("Вы вернулись в ваш родной скрытый от чужих глаз сектор..."))
+		to_chat(arrived_mob, span_notice("Вы вернулись в ваш родной скрытый от чужих глаз сектор..."))
 		return destination_z
 	// if we are not from taipan's crew, then we cannot get there until there is enought players on Taipan
 	if(length(GLOB.taipan_players_active) < TAIPAN_PLAYER_LIMIT)

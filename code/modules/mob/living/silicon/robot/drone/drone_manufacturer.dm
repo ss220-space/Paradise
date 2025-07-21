@@ -63,7 +63,7 @@
 /obj/machinery/drone_fabricator/examine(mob/user)
 	. = ..()
 	if(produce_drones && drone_progress >= 100 && istype(user,/mob/dead) && CONFIG_GET(flag/allow_drone_spawn) && count_drones() < CONFIG_GET(number/max_maint_drones))
-		. += span_info("<br><b>Дрон готов. Выберите 'Присоединиться как дрон' во вкладке Ghost, чтобы появиться как дрон обслуживания.</b>")
+		. += span_notice("<br><b>Дрон готов. Выберите 'Присоединиться как дрон' во вкладке Ghost, чтобы появиться как дрон обслуживания.</b>")
 
 /obj/machinery/drone_fabricator/proc/count_drones()
 	var/drones = 0

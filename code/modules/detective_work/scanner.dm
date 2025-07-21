@@ -58,7 +58,7 @@
 		<i>Отпечатки пальцев:</i><span class='notice'> [fingerprint]</span><br>\
 		<i>ДНК:</i><span class='notice'> [dna]</span>")
 	else
-		to_chat(user, "<span class='warning'>В записях станции не найдено совпадений.</span>")
+		to_chat(user, span_warning("В записях станции не найдено совпадений."))
 
 /obj/item/detective_scanner/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/print_forensic_report))
@@ -69,7 +69,7 @@
 /obj/item/detective_scanner/proc/print_scanner_report()
 	if(length(log) && !scanning)
 		scanning = TRUE
-		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")
+		to_chat(usr, span_notice("Printing report, please wait..."))
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		flick("Detective_anim", src)
 		sleep(3 SECONDS)
@@ -77,7 +77,7 @@
 		log = list() // Clear the logs
 		scanning = FALSE
 	else
-		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
+		to_chat(usr, span_warning("The scanner has no logs or is in use."))
 
 /obj/item/detective_scanner/proc/make_paper(log) // Moved to a proc because 'spawn()' is evil
 	var/obj/item/paper/P = new(drop_location())
@@ -90,16 +90,16 @@
 	if(ismob(loc))
 		var/mob/M = loc
 		M.put_in_hands(P, ignore_anim = FALSE)
-		to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
+		to_chat(M, span_notice("Report printed. Log cleared."))
 
 
 /obj/item/detective_scanner/proc/clear_scanner()
 	if(length(log) && !scanning)
 		log = list()
 		playsound(loc, 'sound/machines/ding.ogg', 40)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, usr, "<span class='notice'>Scanner logs cleared.</span>"), 1.5 SECONDS) //Timer so that it clears on the 'ding'
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, usr, span_notice("Scanner logs cleared.")), 1.5 SECONDS) //Timer so that it clears on the 'ding'
 	else
-		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
+		to_chat(usr, span_warning("The scanner has no logs or is in use."))
 
 
 /obj/item/detective_scanner/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -120,8 +120,10 @@
 
 		scanning = TRUE
 
-		user.visible_message("[user] points [src] at [scan_atom] and performs a forensic scan.",
-		"<span class='notice'>You scan [scan_atom]. The scanner is now analysing the results...</span>")
+		user.visible_message(
+			"[user] points [src] at [scan_atom] and performs a forensic scan.",
+			span_notice("You scan [scan_atom]. The scanner is now analysing the results...")
+		)
 
 
 		// GATHER INFORMATION
@@ -180,7 +182,7 @@
 		// Fingerprints
 		if(length(fingerprints))
 			sleep(30)
-			add_log("<span class='info'><b>Prints:</b></span>")
+			add_log(span_notice("<b>Prints:</b>"))
 			for(var/finger in fingerprints)
 				add_log("[finger]")
 			found_something = TRUE
@@ -188,7 +190,7 @@
 		// Blood
 		if(length(blood))
 			sleep(30)
-			add_log("<span class='info'><b>Blood:</b></span>")
+			add_log(span_notice("<b>Blood:</b>"))
 			found_something = TRUE
 			for(var/B in blood)
 				add_log("Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
@@ -196,7 +198,7 @@
 		//Fibers
 		if(length(fibers))
 			sleep(30)
-			add_log("<span class='info'><b>Fibers:</b></span>")
+			add_log(span_notice("<b>Fibers:</b>"))
 			for(var/fiber in fibers)
 				add_log("[fiber]")
 			found_something = TRUE
@@ -204,14 +206,14 @@
 		//Reagents
 		if(length(reagents))
 			sleep(30)
-			add_log("<span class='info'><b>Reagents:</b></span>")
+			add_log(span_notice("<b>Reagents:</b>"))
 			for(var/R in reagents)
 				add_log("Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
 			found_something = TRUE
 
 		if(found_spy_device)
 			sleep(10)
-			add_log("<span class='info'><b>Найдено шпионское устройство!</b></span>")
+			add_log(span_notice("<b>Найдено шпионское устройство!</b>"))
 			if(!(/obj/item/clothing/proc/remove_spy_spider in scan_atom.verbs))
 				scan_atom.verbs += /obj/item/clothing/proc/remove_spy_spider
 
@@ -223,10 +225,10 @@
 		if(!found_something)
 			add_log("<i># No forensic traces found #</i>", FALSE) // Don't display this to the holder user
 			if(holder)
-				to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on [scan_atom]!</span>")
+				to_chat(holder, span_notice("Unable to locate any fingerprints, materials, fibers, or blood on [scan_atom]!"))
 		else
 			if(holder)
-				to_chat(holder, "<span class='notice'>You finish scanning [scan_atom].</span>")
+				to_chat(holder, span_notice("You finish scanning [scan_atom]."))
 
 		add_log("---------------------------------------------------------", FALSE)
 		scanning = FALSE

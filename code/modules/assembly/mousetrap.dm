@@ -21,7 +21,7 @@
 	. = ..()
 	if(armed)
 		. += span_warning("It looks like it's armed.")
-	. += span_info("<b>Alt-Click</b> to hide it.")
+	. += span_notice("<b>Alt-Click</b> to hide it.")
 
 
 /obj/item/assembly/mousetrap/activate()

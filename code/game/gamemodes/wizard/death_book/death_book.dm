@@ -16,7 +16,7 @@
 
 	var/cooldown = FALSE
 	var/datum/dynamic_outfit/temp_outfit_storage = null
-	var/static/list/cached_outfit = list() 
+	var/static/list/cached_outfit = list()
 
 /obj/item/death_book/Initialize(mapload)
 	. = ..()
@@ -30,7 +30,7 @@
 /obj/item/death_book/Destroy()
 	SEND_SIGNAL(src, COMSIG_PHANTOM_DELETE)
 	. = ..()
-	
+
 /obj/item/death_book/attack_self(mob/user)
 	. = ..()
 	if(cooldown)
@@ -41,13 +41,13 @@
 		return
 	var/datum/outfit/radial_outfit/death_book/choise = radial_menu(user)
 	if(isnull(choise))
-		return 
+		return
 	flick("animate_death_book", src)
-	to_chat(user, span_info(choise.message_to_chat))
+	to_chat(user, span_notice(choise.message_to_chat))
 	//Even death will not stop the progress of the bar
 	if(!do_after(user, 1 SECONDS, src, INFINITY & !(DA_IGNORE_HELD_ITEM)))
 		flick("close_death_book", src)
-		to_chat(user, span_info("Вам не хватает терпения и вы перестаете читать!"))
+		to_chat(user, span_notice("Вам не хватает терпения и вы перестаете читать!"))
 		return
 	cooldown_start(choise, user)
 	phantom_timer_start(choise, user)
@@ -62,7 +62,7 @@
 	addtimer(CALLBACK(src, PROC_REF(phantom_delete), user), choise.time_action)
 
 /obj/item/death_book/proc/equip_choise_outfit(datum/outfit/radial_outfit/death_book/equip_choise, mob/user)
-	temp_outfit_storage = new()	
+	temp_outfit_storage = new()
 	temp_outfit_storage.temp_unequip(user, selective_mode = (equip_choise.force_unequip_slots | equip_choise.used_slots | user.is_in_hands_to_flag(src)))
 	equip_choise.equip(user, prom_component = /datum/component/phantom_component, comp_args = list(src, TRUE))
 

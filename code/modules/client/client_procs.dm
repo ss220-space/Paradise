@@ -356,7 +356,7 @@
 	send_resources()
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
-		to_chat(src, span_info("У вас есть непрочитанные сообщения в журнале обновлений."), confidential=TRUE)
+		to_chat(src, span_notice("У вас есть непрочитанные сообщения в журнале обновлений."), confidential=TRUE)
 		winset(src, "infobuttons.changelog", "font-style=bold")
 
 	// Karma is disabled
