@@ -28,6 +28,7 @@
 
 // special roles
 // Distinct from the ROLE_X defines because some antags have multiple special roles but only one ban type
+#define SPECIAL_ROLE_HERETIC				"heretic"
 #define SPECIAL_ROLE_ABDUCTOR_AGENT         "Abductor Agent"
 #define SPECIAL_ROLE_ABDUCTOR_SCIENTIST     "Abductor Scientist"
 #define SPECIAL_ROLE_BLOB                   "Blob"
@@ -83,4 +84,5 @@
 #define SPECIAL_ROLE_MALFAI                 "Malfunctioning AI"
 #define SPECIAL_ROLE_SINTOUCHED             "Sintouched"
 #define SPECIAL_ROLE_DEVIL_PAWN             "Devil's pawn"
-#define SPECIAL_ROLE_HERETIC				"heretic"
+#define SPECIAL_ROLE_DEVIL            "Devil"
+#define SPECIAL_ROLE_IMP             		"Imp"
