@@ -281,6 +281,8 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/D = getDock(dockId)
+	var/fly_sound_mini = M.fly_sound
+	var/fly_sound_mini_target = M.areaInstance
 
 	if(M.mode == SHUTTLE_RECHARGING)
 		return SHUTTLE_CONSOLE_RECHARGING
@@ -294,7 +296,7 @@ SUBSYSTEM_DEF(shuttle)
 	else
 		if(M.dock(D))
 			return 2
-	M.areaInstance << M.fly_sound
+	SEND_SOUND(fly_sound_mini_target, sound(fly_sound_mini))
 	return 0	//dock successful
 
 

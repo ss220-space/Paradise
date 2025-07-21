@@ -70,4 +70,4 @@
 		if(!isnewplayer(M) && M.client)
 			to_chat(M, message)
 			if(new_sound)
-				M << new_sound
+				SEND_SOUND(M, sound(new_sound))

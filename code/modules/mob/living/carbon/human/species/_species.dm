@@ -814,6 +814,7 @@
 
 
 /datum/species/proc/can_equip(obj/item/I, slot, mob/living/carbon/human/user, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
+	var/disable_warning_sound = sound('sound/machines/chime.ogg')
 	if(slot in no_equip)
 		return FALSE
 
@@ -1020,7 +1021,7 @@
 
 			if(!user.wear_suit.allowed)
 				if(!disable_warning)
-					user << 'sound/machines/chime.ogg'
+					SEND_SOUND(user, disable_warning_sound) // I don't know why he added that, but okay.
 					to_chat(user, span_danger("Откуда у Вас этот костюм? Срочно сообщите о находке в высшие инстанции!"))
 				return FALSE
 
