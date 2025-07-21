@@ -9,6 +9,7 @@
 		INSTRUMENTAL = "карманным ломом",
 		PREPOSITIONAL = "карманном ломе"
     )
+    gender = MALE
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
