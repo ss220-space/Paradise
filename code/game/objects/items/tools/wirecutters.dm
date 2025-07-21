@@ -9,6 +9,7 @@
 		INSTRUMENTAL = "кусачками",
 		PREPOSITIONAL = "кусачках"
 	)
+	gender = PLURAL
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -49,8 +50,8 @@
 	if(istype(target) && istype(target.handcuffed, /obj/item/restraints/handcuffs/cable))
 		var/obj/item/cuffs = target.handcuffed
 		user.visible_message(
-			span_notice("[user] режет стяжки [target] с помощью [declent_ru(GENITIVE)]!"),
-			span_notice("Вы перерезаете стяжки [target] с помощью [declent_ru(GENITIVE)]!"),
+			span_notice("[user] реж[pluralize_ru(user.gender,"ет","ут")] стяжки [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]!"),
+			span_notice("Вы перерезаете стяжки [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]!"),
 		)
 		balloon_alert(user, "стяжки перерезаны")
 		play_tool_sound(target, 100)
@@ -76,6 +77,7 @@
 		INSTRUMENTAL = "латунными кусачками",
 		PREPOSITIONAL = "латунных кусачках"
 	)
+	gender = PLURAL
 	icon_state = "cutters_brass"
 	toolspeed = 0.5
 	random_color = FALSE
@@ -92,6 +94,7 @@
 		INSTRUMENTAL = "инопланетными кусачками",
 		PREPOSITIONAL = "инопланетных кусачках"
 	)
+	gender = PLURAL
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cutters"
 	item_state = "cutters_alien"
@@ -111,6 +114,7 @@
 		INSTRUMENTAL = "кусачками",
 		PREPOSITIONAL = "кусачках"
 	)
+	gender = PLURAL
 	toolspeed = 0.5
 
 /obj/item/wirecutters/power
@@ -124,6 +128,7 @@
 		INSTRUMENTAL = "челюстями жизни",
 		PREPOSITIONAL = "челюстях жизни"
 	)
+	gender = PLURAL
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
 	belt_icon = "jaws_of_life"
@@ -134,7 +139,7 @@
 	random_color = FALSE
 
 /obj/item/wirecutters/power/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] обертывает [declent_ru(NOMINATIVE)] вокруг [genderize_ru(user.gender,"его","её","его","их")] шеи. Кажется, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] оторвать [genderize_ru(user.gender,"его","её","его","их")] голову!"))
+	user.visible_message(span_suicide("[user] обёртыва[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] вокруг [genderize_ru(user.gender,"его","её","его","их")] шеи. Кажется, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] оторвать [genderize_ru(user.gender,"его","её","его","их")] голову!"))
 	playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -147,6 +152,9 @@
 /obj/item/wirecutters/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
-	to_chat(user, span_notice("Вы присоеденяете поддевающую головку к [declent_ru(DATIVE)]."))
+	balloon_alert(user, "Вы присоеденяете поддевающую головку к [declent_ru(DATIVE)].")
+	qdel(src)
+	user.put_in_active_hand(pryjaws)
+
 	qdel(src)
 	user.put_in_active_hand(pryjaws)
