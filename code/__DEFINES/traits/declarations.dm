@@ -22,12 +22,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //atom/movable traits
 /// Buckling yourself to objects with this trait won't immobilize you
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
-/// Prevents stripping this equipment
-#define TRAIT_NO_STRIP "no_strip"
-/// Items with this trait will not appear when examined.
-#define TRAIT_EXAMINE_SKIP "examine_skip"
-/// determines whether or not objects are haunted and teleport/attack randomly
-#define TRAIT_HAUNTED "haunted"
 ///Chasms will be safe to cross if there is something with this trait on it
 #define TRAIT_CHASM_STOPPER "chasm_stopper"
 /// `do_teleport` will not allow this atom to teleport
@@ -63,8 +57,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_JESTER "jester"
 #define TRAIT_ELITE_CHALLENGER "elite_challenger"
 #define TRAIT_MUTE "mute"
-/// Softspoken. Always whisper.
-#define TRAIT_SOFTSPOKEN "softspoken"
 #define TRAIT_DEAF "deaf"
 #define TRAIT_SECDEATH "secdeath"
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
@@ -72,7 +64,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_XENO_HOST "xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_LEGION_TUMOUR "legion_tumour" //used in huds for special icon
 #define TRAIT_NO_SPELLS "no_spells"	// Used to prevent cast or use any spells
-#define TRAIT_SLEEPIMMUNE "sleep_immunity"
 /// Are we immune to shocks?
 #define TRAIT_SHOCKIMMUNE "shock_immunity"
 /// Are we immune to specifically tesla / SM shocks?
@@ -94,11 +85,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EMOTE_MUTE "emote_mute"
 #define TRAIT_IGNORESLOWDOWN "ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
-/// This human is immune to the effects of being exploded. (ex_act)
-#define TRAIT_BOMBIMMUNE "bomb_immunity"
-/// This mob is immune to stun causing status effects and stamcrit.
-/// Prefer to use [/mob/living/proc/check_incapacitating_immunity] over checking for this trait exactly.
-#define TRAIT_STUNIMMUNE "stun_immunity"
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_PUSHIMMUNE "push_immunity"
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
@@ -113,10 +99,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOB_ALLY "blob_ally"
 /// Objects with this trait are deleted if they fall into chasms, rather than entering abstract storage
 #define TRAIT_CHASM_DESTROYED "chasm_destroyed"
-// You can stare into the abyss, but it does not stare back.
-// You're immune to the hallucination effect of the supermatter, either
-// through force of will, or equipment. Present on /mob or /datum/mind
-#define TRAIT_MADNESS_IMMUNE "supermatter_madness_immune"
+/// Objects with this trait can cross chasm safe/
+#define TRAIT_CHASM_IGNORED "chasm_ignored"
 
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
@@ -125,14 +109,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HEALS_FROM_ASH_TENDRIL "heals_from_ash_tendril"
 /// This mob heals from carp rifts.
 #define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
+/// This mob heals from hell rifts.
+#define TRAIT_HEALS_FROM_HELL_RIFTS "heals_from_hell_rifts"
 /// This mob heals from cult pylons.
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 /// This mob heals from holy pylons.
 #define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
-/// Trait given to anything linked to, not necessarily allied to, the mansus
-#define TRAIT_MANSUS_TOUCHED "mansus_touched"
-/// Trait given to all participants in a heretic arena
-#define TRAIT_ELDRITCH_ARENA_PARTICIPANT "eldritch_arena_participant"
 #define TRAIT_LASEREYES "laser_eyes"	//traits that should be properly converted to genetic mutations one day
 /// Forces the user to stay unconscious.
 #define TRAIT_KNOCKEDOUT "knockedout"
@@ -152,18 +134,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PULL_BLOCKED "pullblocked"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
-/// Trait from [/datum/element/rust]. Its rusty and should be applying a special overlay to denote this.
-#define TRAIT_RUSTY "rust_trait"
-/// Apply to movables to say "hey, this movable is technically flat on the floor, so it'd be mopped up by a mop"
-#define TRAIT_MOPABLE "mopable"
-/// Allows heretics to cast their spells.
-#define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
-/// Designates a heart as a living heart for a heretic.
-#define TRAIT_LIVING_HEART "living_heart"
-///Trait given to heretic summons, making them immune to heretic spells
-#define TRAIT_HERETIC_SUMMON "heretic_summon"
-/// This mob recently blocked magic with some form of antimagic
-#define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
 
 /// Anti Dual-baton cooldown bypass exploit.
 #define TRAIT_IWASBATONED "iwasbatoned"
@@ -253,8 +223,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WINGDINGS "wingdings"
 #define TRAIT_NO_FINGERPRINTS "no_fingerprints"
 #define TRAIT_DWARF "dwarf"
-#define TRAIT_GENE_STRONG "gene_strong"
-#define TRAIT_GENE_WEAK "gene_weak"
+#define TRAIT_STRONG_MUSCLES "gene_strong"
+#define TRAIT_WEAK_MUSCULS "gene_weak"
 #define TRAIT_SOBER "sober"
 #define TRAIT_PSY_RESIST "psy_resist"	// block remoteview
 #define TRAIT_OPEN_MIND "open_mind"	// allows to remote view this mob
@@ -264,8 +234,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLIND "blind"
 #define TRAIT_COLORBLIND "colorblind"
 
-/// Gives us mob vision through walls and slight night vision
-#define TRAIT_THERMAL_VISION "thermal_vision"
 // old species traits
 /// This human mob doesn't bleed
 #define TRAIT_NO_BLOOD "no_blood"
@@ -296,6 +264,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RADIMMUNE "rad_immunity"
 /// This mob is completely immune to viruses and diseases, unless they ignore us
 #define TRAIT_VIRUSIMMUNE "virus_immunity"
+/// This mob is completely immune to viruses and diseases
+#define TRAIT_ABSOLUTE_VIRUSIMMUNE "absolute_virus_immunity"
 /// This human mob will not show its species on examine
 #define TRAIT_NO_SPECIES_EXAMINE "no_examine"
 /// This human mob will never become fat, does not affect genetic obesity
@@ -336,51 +306,36 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_BEING_OFFERED "offered"
 
+#define TRAIT_TOXIC_FUEL_PROTECTED "toxic_fuel_protected"
+
 
 /// Ignore Crew monitor Z levels
 #define TRAIT_MULTIZ_SUIT_SENSORS "multiz_suit_sensors"
 /// This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
 #define TRAIT_AI_BAGATTACK "bagattack"
 
+#define TRAIT_SPACEWALK "spacewalk"
+
 /// A trait gained by leaning against a wall
 #define TRAIT_LEANING "leaning"
-#define TRAIT_VORACIOUS "voracious"
-/// Trait used by the /datum/brain_trauma/severe/flesh_desire trauma to change their preferences of what they eat
-#define TRAIT_FLESH_DESIRE "flesh_desire"
 
 /// used for dead mobs that are observing, but should not be afforded all the same platitudes as full ghosts.
 /// This is a mind trait because ghosts can be frequently deleted and we want to be sure this sticks.
 #define TRAIT_OBSERVING_INVENTORY "observe_inventory"
 
-#define TRAIT_BATON_RESISTANCE "baton_resistance"
+/// When it's cold you go faster, when it's hotter - slower
+#define TRAIT_TEMPERATURE_MOVEMENT "temperature_movement"
+/// when pulling you keep your speed same
+#define TRAIT_STRONG_PULLING "strong_pulling"
 
-/// Trait for when you can no longer gain body heat
-#define TRAIT_HYPOTHERMIC "body_hypothermic"
+#define TRAIT_FAKE_FIRE "fake_fire"
 
-/// Used to prevent multiple floating blades from triggering over the same target
-#define TRAIT_BEING_BLADE_SHIELDED "being_blade_shielded"
+#define TRAIT_CAN_SEE_WIRES "can_see_wires"
 
-/// The person with this trait always appears as 'unknown'.
-#define TRAIT_UNKNOWN "unknown"
+#define TRAIT_DECOY_BRAIN "decoy_brain"
 
-///Trait given by /datum/element/relay_attacker
-#define TRAIT_RELAYING_ATTACKER "relaying_attacker"
+#define TRAIT_BAD_SOUL "bad_soul"
 
-#define TRAIT_SPACEWALK "spacewalk"
+#define TRAIT_NOT_TURRET_GUN "not_turret_gun"
 
-/// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
-#define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
-
-/// Required by the on_hit_effect element, which is in turn added by other elements.
-#define TRAIT_ON_HIT_EFFECT "trait_on_hit_effect"
-
-/// this object has been frozen
-#define TRAIT_FROZEN "frozen"
-
-///Used for managing KEEP_TOGETHER in [/atom/var/appearance_flags]
-#define TRAIT_KEEP_TOGETHER "keep-together"
-
-#define TRAIT_NOCRITDAMAGE "no_crit"
-
-/// Trait determines if this mob has examined an eldritch painting
-#define TRAIT_ELDRITCH_PAINTING_EXAMINE "eldritch_painting_examine"
+#define TRAIT_BALD "bald"
