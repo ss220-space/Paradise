@@ -11,6 +11,7 @@
 		INSTRUMENTAL = "сварочным аппаратом",
 		PREPOSITIONAL = "сварочном аппарате"
 	)
+	gender = MALE
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -64,7 +65,7 @@
 /obj/item/weldingtool/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 0)
-		. += span_notice("Он содержит [GET_FUEL] u топлива из [maximum_fuel].")
+		. += span_notice("Он содержит [GET_FUEL] единиц топлива из [maximum_fuel].")
 
 /obj/item/weldingtool/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] заварива[pluralize_ru(user.gender,"ет","ют")] себе все отверстия! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] совершить самоубийство!"))
@@ -72,7 +73,7 @@
 
 /obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
 	if(tool_enabled)
-		to_chat(user, span_warning("Не могу положить [declent_ru(NOMINATIVE)] в [S] пока он горит!"))
+		balloon_alert(user, "Вы не можете положить [declent_ru(ACCUSATIVE)] в [s.declent_ru(ACCUSATIVE)], пока он горит!")
 		return FALSE
 	else
 		return TRUE
@@ -142,13 +143,13 @@
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount, silent = FALSE)
 	if(!tool_enabled)
 		if(!silent)
-			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] должен быть включен для выполнения этой задачи!"))
+			balloon_alert(user, "[capitalize(declent_ru(NOMINATIVE))] должен быть включен для выполнения этой задачи!")
 		return FALSE
 	if(GET_FUEL >= amount * requires_fuel)
 		return TRUE
 	else
 		if(!silent)
-			to_chat(user, span_warning("Вам нужно больше сварочного топлива в [declent_ru(PREPOSITIONAL)] для выполнения этой задачи!"))
+			balloon_alert(user, "Вам нужно больше сварочного топлива в [declent_ru(PREPOSITIONAL)] для выполнения этой задачи!")
 		return FALSE
 
 // When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
@@ -189,11 +190,11 @@
 	if(!A.reagents)
 		return
 	if(GET_FUEL >= maximum_fuel)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] уже полон!"))
+		balloon_alert(user, "[capitalize(declent_ru(NOMINATIVE))] уже полон!")
 		return
 	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
 	if(amount_transferred)
-		to_chat(user, span_notice("Вы заполнили [declent_ru(NOMINATIVE)] на [amount_transferred] u."))
+		balloon_alert(user, "Вы заполнили [declent_ru(NOMINATIVE)] на [amount_transferred] единиц.")
 		playsound(src, 'sound/effects/refill.ogg', 50, 1)
 		update_icon()
 		return amount_transferred
@@ -234,6 +235,7 @@
 		INSTRUMENTAL = "промышленным сварочным аппаратом",
 		PREPOSITIONAL = "промышленном сварочном аппарате"
 	)
+	gender = MALE
 	icon_state = "indwelder"
 	belt_icon = "industrial_welding_tool"
 	maximum_fuel = 40
@@ -251,6 +253,7 @@
 		INSTRUMENTAL = "усовершенствованным сварочным аппаратом",
 		PREPOSITIONAL = "усовершенствованном сварочном аппарате"
 	)
+	gender = MALE
 	toolspeed = 0.5
 
 /obj/item/weldingtool/mini
@@ -264,6 +267,7 @@
 		INSTRUMENTAL = "экстренным сварочным аппаратом",
 		PREPOSITIONAL = "экстренном сварочном аппарате"
 	)
+	gender = MALE
 	icon_state = "miniwelder"
 	maximum_fuel = 10
 	w_class = WEIGHT_CLASS_TINY
@@ -272,7 +276,16 @@
 
 /obj/item/weldingtool/abductor
 	name = "alien welding tool"
-	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
+	desc = "Инопланетный сварочный инструмент. Топливо в нём никогда не закончится."
+	ru_names = list(
+	    NOMINATIVE = "инопланетный сварочный аппарат",
+		GENITIVE = "инопланетного сварочного аппарата",
+		DATIVE = "инопланетному сварочному аппарату",
+		ACCUSATIVE = "инопланетный сварочный аппарат",
+		INSTRUMENTAL = "инопланетным сварочным аппаратом",
+		PREPOSITIONAL = "инопланетном сварочном аппарате"
+	)
+	gender = MALE
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
 	item_state = "alienwelder"
@@ -295,6 +308,7 @@
 		INSTRUMENTAL = "улучшенным сварочным аппаратом",
 		PREPOSITIONAL = "улучшенном сварочном аппарате"
 	)
+	gender = MALE
 	icon_state = "upindwelder"
 	item_state = "upindwelder"
 	belt_icon = "upgraded_welding_tool"
@@ -313,6 +327,7 @@
 		INSTRUMENTAL = "экспериментальным сварочным аппаратом",
 		PREPOSITIONAL = "экспериментальном сварочном аппарате"
 	)
+	gender = MALE
 	icon_state = "exwelder"
 	item_state = "exwelder"
 	belt_icon = "experimental_welding_tool"
@@ -335,6 +350,7 @@
 		INSTRUMENTAL = "интегрированным сварочным аппаратом",
 		PREPOSITIONAL = "интегрированном сварочном аппарате"
 	)
+	gender = MALE
 	requires_fuel = FALSE
 	light_intensity = 0
 
@@ -349,6 +365,7 @@
 		INSTRUMENTAL = "латунным сварочным аппаратом",
 		PREPOSITIONAL = "латунном сварочном аппарате"
 	)
+	gender = MALE
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
