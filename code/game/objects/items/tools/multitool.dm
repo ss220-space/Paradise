@@ -17,6 +17,7 @@
 		INSTRUMENTAL = "мультитулом",
 		PREPOSITIONAL = "мультитуле"
 	)
+	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -53,10 +54,10 @@
 
 /obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)	//Loads a machine into memory, returns TRUE if it does
 	if(!ismachinery(M))
-		balloon_alert(user,"это не машина")
+		balloon_alert(user, "это не машина")
 		return
 	buffer = M
-	to_chat(user, span_notice("Ты загрузил [M] во внутренний буфер [declent_ru(GENITIVE)]."))
+	ballon_alert(user, "Вы загрузили [m.declent_ru(ACCUSATIVE)] во внутренний буфер [declent_ru(GENITIVE)]."
 	return TRUE
 
 /obj/item/multitool/attack_self(mob/user)
@@ -121,7 +122,7 @@
 				break
 
 /obj/item/multitool/ai_detect/admin
-	desc = "Используется для пульсации проводов, чтобы проверить, какой из них следует разрезать. Не рекомендуется врачами. Имеет странную бирку с надписью \"Гриферить в удовольствие!\"" //What else should I say for a meme item?
+	desc = "Используется для пульсации проводов, чтобы проверить, какой из них следует разрезать. Не рекомендуется врачами. Имеет странную бирку с надписью \Гриферить в удовольствие!\" //What else should I say for a meme item?
 	track_delay = 5
 	shows_wire_information = TRUE
 
@@ -146,6 +147,7 @@
 		INSTRUMENTAL = "мультитулом",
 		PREPOSITIONAL = "мультитуле"
 	)
+	gender = MALE
 	toolspeed = 0.5
 
 /obj/item/multitool/abductor
@@ -159,6 +161,7 @@
 		INSTRUMENTAL = "инопланетным мультитулом",
 		PREPOSITIONAL = "инопланетном мультитуле"
 	)
+	gender = MALE
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
 	belt_icon = "alien_multitool"
