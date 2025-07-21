@@ -1,5 +1,5 @@
 /mob/living/simple_animal/bot/secbot/griefsky //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
-	name = "\improper General Griefsky"
+	name = "General Griefsky"
 	desc = "Это охранный робот с четырьмя лазерными мечами в руках..?"
 	ru_names = list(
 		NOMINATIVE = "Генерал Грифски",

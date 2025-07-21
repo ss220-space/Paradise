@@ -31,7 +31,7 @@
 	icon_state = "paint_red"
 
 /obj/spacepod
-	name = "\improper space pod"
+	name = "space pod"
 	desc = "Космический челнок, предназначенный для путешествий в открытом космосе."
 	ru_names = list(
 		NOMINATIVE = "космический челнок",
@@ -668,7 +668,7 @@
 // placeholder
 
 /obj/spacepod/sec
-	name = "\improper security spacepod"
+	name = "security spacepod"
 	desc = "Бронированный челнок службы безопасности с усиленной бронёй."
 	ru_names = list(
 		NOMINATIVE = "космический челнок охраны",

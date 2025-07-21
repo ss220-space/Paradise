@@ -488,6 +488,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/machinery/conveyor_switch/proc/on_user_activation(mob/user, direction)
 	add_fingerprint(user)
+	playsound(loc, 'sound/machines/switch.ogg', 10, TRUE)
 	if(stat & NOPOWER)
 		to_chat(user, span_warning("Switch is unpowered."))
 		return

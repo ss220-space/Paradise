@@ -919,7 +919,7 @@
 
 //Solgov
 /obj/item/storage/backpack/ert/solgov
-	name = "\improper TSF marine backpack"
+	name = "TSF marine backpack"
 	desc = "A spacious backpack with lots of pockets, worn by marines of the Trans-Solar Federation."
 	icon_state = "ert_solgov"
 

@@ -29,7 +29,7 @@
 	var/price = 0  // Price to buy one
 
 /obj/machinery/vending
-	name = "\improper Vendomat"
+	name = "Vendomat"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат",
 		GENITIVE = "торгового автомата",
@@ -1310,7 +1310,7 @@
 	refill_canister = /obj/item/vending_refill/assist
 
 /obj/machinery/vending/boozeomat
-	name = "\improper Booze-O-Mat"
+	name = "Booze-O-Mat"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Booze-O-Mat",
 		GENITIVE = "торгового автомата Booze-O-Mat",
@@ -1393,7 +1393,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/coffee
-	name = "\improper Solar's Best Hot Drinks"
+	name = "Solar's Best Hot Drinks"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Solar's Best Hot Drinks",
 		GENITIVE = "торгового автомата Solar's Best Hot Drinks",
@@ -1495,7 +1495,7 @@
 
 
 /obj/machinery/vending/snack
-	name = "\improper Getmore Chocolate Corp"
+	name = "Getmore Chocolate Corp"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Getmore Chocolate Corp",
 		GENITIVE = "торгового автомата Getmore Chocolate Corp",
@@ -1559,7 +1559,7 @@
 	prices = list()
 
 /obj/machinery/vending/chinese
-	name = "\improper \"Мистер Чанг\""
+	name = "\"Мистер Чанг\""
 	ru_names = list(
 		NOMINATIVE = "торговый автомат \"Мистер Чанг\"",
 		GENITIVE = "торгового автомата \"Мистер Чанг\"",
@@ -1620,7 +1620,7 @@
 	prices = list()
 
 /obj/machinery/vending/cola
-	name = "\improper Robust Softdrinks"
+	name = "Robust Softdrinks"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Robust Softdrinks",
 		GENITIVE = "торгового автомата Robust Softdrinks",
@@ -1680,7 +1680,7 @@
 	prices = list()
 
 /obj/machinery/vending/cart
-	name = "\improper PTech"
+	name = "PTech"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат PTech",
 		GENITIVE = "торгового автомата PTech",
@@ -1718,7 +1718,7 @@
 	prices = list()
 
 /obj/machinery/vending/liberationstation
-	name = "\improper Liberation Station"
+	name = "Liberation Station"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Liberation Station",
 		GENITIVE = "торгового автомата Liberation Station",
@@ -1762,7 +1762,7 @@
 
 
 /obj/machinery/vending/toyliberationstation
-	name = "\improper Syndicate Donksoft Toy Vendor"
+	name = "Syndicate Donksoft Toy Vendor"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Syndicate Donksoft Toy Vendor",
 		GENITIVE = "торгового автомата Syndicate Donksoft Toy Vendor",
@@ -1893,7 +1893,7 @@
 
 
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
-	name = "\improper ShadyCigs Ultra"
+	name = "ShadyCigs Ultra"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат ShadyCigs Ultra",
 		GENITIVE = "торгового автомата ShadyCigs Ultra",
@@ -1928,7 +1928,7 @@
 	prices = list()
 
 /obj/machinery/vending/medical
-	name = "\improper NanoMed Plus"
+	name = "NanoMed Plus"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат NanoMed Plus",
 		GENITIVE = "торгового автомата NanoMed Plus",
@@ -1982,7 +1982,7 @@
 	refill_canister = /obj/item/vending_refill/medical
 
 /obj/machinery/vending/medical/syndicate_access
-	name = "\improper SyndiMed Plus"
+	name = "SyndiMed Plus"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат SyndiMed Plus",
 		GENITIVE = "торгового автомата SyndiMed Plus",
@@ -2005,7 +2005,7 @@
 	premium = list(/obj/item/gun/medbeam = 1)
 
 /obj/machinery/vending/plasmaresearch
-	name = "\improper Toximate 3000"
+	name = "Toximate 3000"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Toximate 3000",
 		GENITIVE = "торгового автомата Toximate 3000",
@@ -2029,7 +2029,7 @@
 
 
 /obj/machinery/vending/wallmed
-	name = "\improper NanoMed"
+	name = "NanoMed"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат NanoMed",
 		GENITIVE = "торгового автомата NanoMed",
@@ -2066,7 +2066,7 @@
 	tiltable = FALSE
 
 /obj/machinery/vending/wallmed/syndicate
-	name = "\improper SyndiWallMed"
+	name = "SyndiWallMed"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат SyndiWallMed",
 		GENITIVE = "торгового автомата SyndiWallMed",
@@ -2102,7 +2102,7 @@
 
 
 /obj/machinery/vending/security
-	name = "\improper SecTech"
+	name = "SecTech"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат SecTech",
 		GENITIVE = "торгового автомата SecTech",
@@ -2173,7 +2173,7 @@
 	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/training
-	name = "\improper SecTech Training"
+	name = "SecTech Training"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат SecTech Training",
 		GENITIVE = "торгового автомата SecTech Training",
@@ -2253,7 +2253,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/machinery/vending/hydronutrients
-	name = "\improper NutriMax"
+	name = "NutriMax"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат NutriMax",
 		GENITIVE = "торгового автомата NutriMax",
@@ -2289,7 +2289,7 @@
 	refill_canister = /obj/item/vending_refill/hydronutrients
 
 /obj/machinery/vending/hydroseeds
-	name = "\improper MegaSeed Servitor"
+	name = "MegaSeed Servitor"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат MegaSeed Servitor",
 		GENITIVE = "торгового автомата MegaSeed Servitor",
@@ -2387,7 +2387,7 @@
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
 /obj/machinery/vending/magivend
-	name = "\improper MagiVend"
+	name = "MagiVend"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат MagiVend",
 		GENITIVE = "торгового автомата MagiVend",
@@ -2457,7 +2457,7 @@
 
 
 /obj/machinery/vending/autodrobe
-	name = "\improper AutoDrobe"
+	name = "AutoDrobe"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат AutoDrobe",
 		GENITIVE = "торгового автомата AutoDrobe",
@@ -2769,7 +2769,7 @@
 	refill_canister = /obj/item/vending_refill/autodrobe
 
 /obj/machinery/vending/dinnerware
-	name = "\improper Plasteel Chef's Dinnerware Vendor"
+	name = "Plasteel Chef's Dinnerware Vendor"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Plasteel Chef's Dinnerware Vendor",
 		GENITIVE = "торгового автомата Plasteel Chef's Dinnerware Vendor",
@@ -2830,7 +2830,7 @@
 					/obj/item/kitchen/mould/loli = 1,/obj/item/kitchen/cutter = 0, /obj/item/eftpos = 1)
 
 /obj/machinery/vending/sovietsoda
-	name = "\improper BODA"
+	name = "BODA"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат BODA",
 		GENITIVE = "торгового автомата BODA",
@@ -2862,7 +2862,7 @@
 	refill_canister = /obj/item/vending_refill/sovietsoda
 
 /obj/machinery/vending/tool
-	name = "\improper YouTool"
+	name = "YouTool"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат YouTool",
 		GENITIVE = "торгового автомата YouTool",
@@ -2911,7 +2911,7 @@
 
 
 /obj/machinery/vending/engivend
-	name = "\improper Engi-Vend"
+	name = "Engi-Vend"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Engi-Vend",
 		GENITIVE = "торгового автомата Engi-Vend",
@@ -2937,7 +2937,7 @@
 	refill_canister = /obj/item/vending_refill/engivend
 
 /obj/machinery/vending/engineering
-	name = "\improper Robco Tool Maker"
+	name = "Robco Tool Maker"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Robco Tool Maker",
 		GENITIVE = "торгового автомата Robco Tool Maker",
@@ -2967,7 +2967,7 @@
 	refill_canister = /obj/item/vending_refill/engineering
 
 /obj/machinery/vending/robotics
-	name = "\improper Robotech Deluxe"
+	name = "Robotech Deluxe"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Robotech Deluxe",
 		GENITIVE = "торгового автомата Robotech Deluxe",
@@ -3013,7 +3013,7 @@
 	/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy = 3)
 
 /obj/machinery/vending/sustenance
-	name = "\improper Sustenance Vendor"
+	name = "Sustenance Vendor"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Sustenance Vendor",
 		GENITIVE = "торгового автомата Sustenance Vendor",
@@ -3064,7 +3064,7 @@
 	contraband = list(/obj/item/kitchen/knife=2)
 
 /obj/machinery/vending/hatdispenser
-	name = "\improper Hatlord 9000"
+	name = "Hatlord 9000"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Hatlord 9000",
 		GENITIVE = "торгового автомата Hatlord 9000",
@@ -3101,7 +3101,7 @@
 	refill_canister = /obj/item/vending_refill/hatdispenser
 
 /obj/machinery/vending/suitdispenser
-	name = "\improper Suitlord 9000"
+	name = "Suitlord 9000"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Suitlord 9000",
 		GENITIVE = "торгового автомата Suitlord 9000",
@@ -3154,7 +3154,7 @@
 	refill_canister = /obj/item/vending_refill/suitdispenser
 
 /obj/machinery/vending/shoedispenser
-	name = "\improper Shoelord 9000"
+	name = "Shoelord 9000"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Shoelord 9000",
 		GENITIVE = "торгового автомата Shoelord 9000",
@@ -3187,7 +3187,7 @@
 	refill_canister = /obj/item/vending_refill/shoedispenser
 
 /obj/machinery/vending/syndicigs
-	name = "\improper Suspicious Cigarette Machine"
+	name = "Suspicious Cigarette Machine"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Suspicious Cigarette Machine",
 		GENITIVE = "торгового автомата Suspicious Cigarette Machine",
@@ -3225,7 +3225,7 @@
 
 
 /obj/machinery/vending/syndisnack
-	name = "\improper Getmore Chocolate Corp"
+	name = "Getmore Chocolate Corp"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Getmore Chocolate Corp",
 		GENITIVE = "торгового автомата Getmore Chocolate Corp",
@@ -3307,7 +3307,7 @@
 
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/vending/clothing
-	name = "\improper ClothesMate" //renamed to make the slogan rhyme
+	name = "ClothesMate" //renamed to make the slogan rhyme
 	ru_names = list(
 		NOMINATIVE = "торговый автомат ClothesMate",
 		GENITIVE = "торгового автомата ClothesMate",
@@ -3429,7 +3429,7 @@
 	refill_canister = /obj/item/vending_refill/clothing
 
 /obj/machinery/vending/artvend
-	name = "\improper ArtVend"
+	name = "ArtVend"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат ArtVend",
 		GENITIVE = "торгового автомата ArtVend",
@@ -3508,7 +3508,7 @@
 	)
 
 /obj/machinery/vending/crittercare
-	name = "\improper CritterCare"
+	name = "CritterCare"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат CritterCare",
 		GENITIVE = "торгового автомата CritterCare",
@@ -3590,7 +3590,7 @@
 	prices = list()
 
 /obj/machinery/vending/clothing/departament
-	name = "\improper Broken Departament ClothesMate"
+	name = "Broken Departament ClothesMate"
 	ru_names = list(
 		NOMINATIVE = "сломанный торговый автомат Departament ClothesMate",
 		GENITIVE = "сломанного торгового автомата Departament ClothesMate",
@@ -3639,7 +3639,7 @@
 	refill_canister = null
 
 /obj/machinery/vending/clothing/departament/security
-	name = "\improper Departament Security ClothesMate"
+	name = "Departament Security ClothesMate"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Departament Security ClothesMate",
 		GENITIVE = "торгового автомата Departament Security ClothesMate",
@@ -3726,7 +3726,7 @@
 	refill_canister = /obj/item/vending_refill/clothing/security
 
 /obj/machinery/vending/clothing/departament/medical
-	name = "\improper Departament Medical ClothesMate"
+	name = "Departament Medical ClothesMate"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Departament Medical ClothesMate",
 		GENITIVE = "торгового автомата Departament Medical ClothesMate",
@@ -3834,7 +3834,7 @@
 	refill_canister = /obj/item/vending_refill/clothing/medical
 
 /obj/machinery/vending/clothing/departament/engineering
-	name = "\improper Departament Engineering ClothesMate"
+	name = "Departament Engineering ClothesMate"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Departament Engineering ClothesMat",
 		GENITIVE = "торгового автомата Departament Engineering ClothesMat",
@@ -3901,7 +3901,7 @@
 	refill_canister = /obj/item/vending_refill/clothing/engineering
 
 /obj/machinery/vending/clothing/departament/science
-	name = "\improper Departament Science ClothesMate"
+	name = "Departament Science ClothesMate"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Departament Science ClothesMate",
 		GENITIVE = "торгового автомата Departament Science ClothesMate",
@@ -3964,7 +3964,7 @@
 	refill_canister = /obj/item/vending_refill/clothing/science
 
 /obj/machinery/vending/clothing/departament/cargo
-	name = "\improper Departament Cargo ClothesMate"
+	name = "Departament Cargo ClothesMate"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Departament Cargo ClothesMate",
 		GENITIVE = "торгового автомата Departament Cargo ClothesMate",
@@ -4030,7 +4030,7 @@
 
 
 /obj/machinery/vending/clothing/departament/law
-	name = "\improper Departament Law ClothesMate"
+	name = "Departament Law ClothesMate"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Departament Law ClothesMate",
 		GENITIVE = "торгового автомата Departament Law ClothesMate",
@@ -4097,7 +4097,7 @@
 
 
 /obj/machinery/vending/clothing/departament/service
-	name = "\improper Departament Service ClothesMate"
+	name = "Departament Service ClothesMate"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Departament Service ClothesMate",
 		GENITIVE = "торгового автомата Departament Service ClothesMate",
@@ -4112,7 +4112,7 @@
 	refill_canister = /obj/item/vending_refill/
 
 /obj/machinery/vending/clothing/departament/service/chaplain
-	name = "\improper Departament Service ClothesMate Chaplain"
+	name = "Departament Service ClothesMate Chaplain"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Departament Service ClothesMate Chaplain",
 		GENITIVE = "торгового автомата Departament Service ClothesMate Chaplain",
@@ -4157,7 +4157,7 @@
 
 
 /obj/machinery/vending/clothing/departament/service/botanical
-	name = "\improper Departament Service ClothesMate Botanical"
+	name = "Departament Service ClothesMate Botanical"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Departament Service ClothesMate Botanical",
 		GENITIVE = "торгового автомата Departament Service ClothesMate Botanical",
@@ -4634,7 +4634,7 @@
 	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/pai
-	name = "\improper RoboFriends"
+	name = "RoboFriends"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат RoboFriends",
 		GENITIVE = "торгового автомата RoboFriends",
@@ -5104,7 +5104,7 @@
 	)
 
 /obj/machinery/vending/plasmamate
-	name = "\improper PlasmaMate"
+	name = "PlasmaMate"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат PlasmaMate",
 		GENITIVE = "торгового автомата PlasmaMate",

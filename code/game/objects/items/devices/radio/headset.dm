@@ -213,7 +213,7 @@
 	freqlock = FALSE
 
 /obj/item/radio/headset/alt/soviet
-	name = "\improper Soviet bowman headset"
+	name = "Soviet bowman headset"
 	desc = "Тактическая гарнитура, разработанная по технологиям СССП. \
 			Система активного шумоподавления защищает органы слуха пользователя от громких звуков. \
 			Использует особые протоколы связи для доступа к военным частотам сил СССП. \
@@ -794,7 +794,7 @@
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/ert/alt/solgov
-	name = "\improper Trans-Solar Federation Marine's bowman headset"
+	name = "Trans-Solar Federation Marine's bowman headset"
 	desc = "Элитная тактическая гарнитура, выполненная из передовых титано-алюминиевых сплавов с каркасом из композитных полимеров. \
 			Система активного шумоподавления поддерживает громкость окружения на комфортном уровне, \
 			защищая органы слуха пользователя от громких звуков и обеспечивая отличную слышимость в условиях интенсивного боя. \
@@ -831,7 +831,7 @@
 	instant = TRUE
 
 /obj/item/radio/headset/ert/alt/commander/solgov
-	name = "\improper Trans-Solar Federation Lieutenant's bowman headset"
+	name = "Trans-Solar Federation Lieutenant's bowman headset"
 	desc = "Элитная тактическая гарнитура, выполненная из передовых титано-алюминиевых сплавов с каркасом из композитных полимеров. \
 			Система активного шумоподавления поддерживает громкость окружения на комфортном уровне, \
 			защищая органы слуха пользователя от громких звуков и обеспечивая отличную слышимость в условиях интенсивного боя. \
@@ -874,7 +874,7 @@
 	instant = TRUE
 
 /obj/item/radio/headset/centcom/solgov
-	name = "\improper Trans-Solar Federation General's bowman headset"
+	name = "Trans-Solar Federation General's bowman headset"
 	desc = "Элитная тактическая гарнитура, выполненная из передовых титано-алюминиевых сплавов с каркасом из композитных полимеров. \
 			Система активного шумоподавления поддерживает громкость окружения на комфортном уровне, \
 			защищая органы слуха пользователя от громких звуков и обеспечивая отличную слышимость в условиях интенсивного боя. \
@@ -893,7 +893,7 @@
 	)
 
 /obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
-	name = "\improper AI subspace transceiver"
+	name = "AI subspace transceiver"
 	desc = "Интегрированный радиопередатчик ИИ. \
 			Обеспечивает связь с серверами, базами данных, основными частотами и \
 			дополнительными зашифрованными частотами роботизированных систем объекта через защищённый интерфейс."

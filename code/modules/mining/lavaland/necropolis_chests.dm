@@ -209,7 +209,7 @@
 
 //Rod of Asclepius
 /obj/item/rod_of_asclepius
-	name = "\improper Rod of Asclepius"
+	name = "Rod of Asclepius"
 	desc = "Деревянный посох, размером с вашу руку. На нём змея вырезана. От него прям веет ответственностью и желанием помогать другим."
 	ru_names = list(
 		NOMINATIVE = "посох асклепия",

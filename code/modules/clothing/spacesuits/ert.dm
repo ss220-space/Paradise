@@ -279,14 +279,14 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command
-	name = "\improper Trans-Solar Federation Specops Lieutenant helmet"
+	name = "Trans-Solar Federation Specops Lieutenant helmet"
 	desc = "A helmet worn by Lieutenants of the Trans-Solar Federation Marines. Has gold highlights to denote the wearer's rank. Armored, space ready, and fireproof."
 	icon_state = "hardsuit0-solgovcommand"
 	item_state = "hardsuit0-solgovcommand"
 	item_color = "solgovcommand"
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
-	name = "\improper Trans-Solar Federation Specops Lieutenant hardsuit"
+	name = "Trans-Solar Federation Specops Lieutenant hardsuit"
 	desc = "A suit worn by Lieutenants of the Trans-Solar Federation Marines. Has gold highlights to denote the wearer's rank. Armored, space ready, and fireproof."
 	icon_state = "ert_solgov_command"
 	item_state = "ert_solgov_command"

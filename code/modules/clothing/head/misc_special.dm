@@ -204,19 +204,19 @@
 	)
 
 /obj/item/clothing/head/sovietsidecap
-	name = "\improper Soviet side cap"
+	name = "Soviet side cap"
 	desc = "A simple military cap with a Soviet star on the front. What it lacks in protection it makes up for in revolutionary spirit."
 	icon_state = "sovietsidecap"
 	item_state = "sovietsidecap"
 
 /obj/item/clothing/head/sovietofficerhat
-	name = "\improper Soviet officer hat"
+	name = "Soviet officer hat"
 	desc = "A military officer hat designed to stand out so the conscripts know who is in charge."
 	icon_state = "sovietofficerhat"
 	item_state = "sovietofficerhat"
 
 /obj/item/clothing/head/sovietadmiralhat
-	name = "\improper Soviet admiral hat"
+	name = "Soviet admiral hat"
 	desc = "This hat clearly belongs to someone very important."
 	icon_state = "sovietadmiralhat"
 	item_state = "sovietadmiralhat"

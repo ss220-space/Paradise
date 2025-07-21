@@ -1,5 +1,5 @@
 /area/survivalpod
-	name = "\improper Emergency Shelter"
+	name = "Emergency Shelter"
 	icon_state = "away"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY

@@ -11,7 +11,7 @@
 #define LIGHTFLOOR_CYCLEB 10
 
 /turf/simulated/floor/light
-	name = "\improper light floor"
+	name = "light floor"
 	light_range = 5
 	icon_state = "light_on"
 	floor_tile = /obj/item/stack/tile/light

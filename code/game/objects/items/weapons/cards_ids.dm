@@ -295,6 +295,7 @@
 		dat += "<img src=large_[I.icon_state].png>"
 		stamped = TRUE
 		to_chat(user, span_notice("You stamp the ID card!"))
+		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/card/id/guest))

@@ -197,7 +197,7 @@
 	return
 
 /obj/machinery/computer/guestpass/hop
-	name = "\improper HoP guest pass terminal"
+	name = "HoP guest pass terminal"
 
 /obj/machinery/computer/guestpass/hop/get_changeable_accesses()
 	. = ..()
@@ -205,7 +205,7 @@
 		return get_all_accesses()
 
 /obj/machinery/computer/guestpass/syndicate
-	name = "\improper Syndicate guest pass terminal"
+	name = "Syndicate guest pass terminal"
 
 /obj/machinery/computer/guestpass/syndicate/get_changeable_accesses()
 	. = ..()

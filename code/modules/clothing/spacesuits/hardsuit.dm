@@ -591,7 +591,7 @@
 
 //Soviet hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/soviet
-	name = "\improper Soviet hardsuit helmet"
+	name = "Soviet hardsuit helmet"
 	desc = "A military hardsuit helmet bearing the red star of the U.S.S.P."
 	icon_state = "hardsuit0-soviet"
 	item_state = "hardsuit0-soviet"
@@ -599,7 +599,7 @@
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30,"energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
 
 /obj/item/clothing/suit/space/hardsuit/soviet
-	name = "\improper Soviet hardsuit"
+	name = "Soviet hardsuit"
 	desc = "A soviet military hardsuit designed for maximum speed and mobility. Proudly displays the U.S.S.P flag on the chest."
 	icon_state = "hardsuit-soviet"
 	item_state = "hardsuit-soviet"
@@ -611,14 +611,14 @@
 	jetpack = /obj/item/tank/jetpack/suit
 
 /obj/item/clothing/head/helmet/space/hardsuit/soviet/commander
-	name = "\improper Soviet command hardsuit helmet"
+	name = "Soviet command hardsuit helmet"
 	desc = "A military hardsuit helmet with a red command stripe."
 	icon_state = "hardsuit0-soviet-commander"
 	item_state = "hardsuit0-soviet-commander"
 	item_color = "soviet-commander"
 
 /obj/item/clothing/suit/space/hardsuit/soviet/commander
-	name = "\improper Soviet command hardsuit"
+	name = "Soviet command hardsuit"
 	desc = "A soviet military command hardsuit designed for maximum speed and mobility."
 	icon_state = "hardsuit-soviet-commander"
 	item_state = "hardsuit-soviet-commander"
