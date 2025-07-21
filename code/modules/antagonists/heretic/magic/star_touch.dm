@@ -1,9 +1,9 @@
 /obj/effect/proc_holder/spell/touch/star_touch
-	name = "Star Touch"
+	name = "Звездное Касание"
 	desc = "Manifests cosmic fields on tiles next to you while marking the victim with a star mark \
 		or consuming an already present star mark to put them to sleep for 4 seconds. \
 		They will then be linked to you with a cosmic ray, burning them for up to a minute, or \
-		until they can escape your sight. Star Touch can also remove Cosmic Runes, or teleport you \
+		until they can escape your sight. Звездное Касание can also remove Космические руны, or teleport you \
 		to your Star Gazer when used on yourself."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -77,7 +77,7 @@
 
 
 /obj/item/melee/touch_attack/star_touch
-	name = "Star Touch"
+	name = "Звездное Касание"
 	desc = "A sinister looking aura that distorts the flow of reality around it. \
 		Causes people with a star mark to sleep for 4 seconds, and causes people without a star mark to get one."
 	icon_state = "star"

@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel
-	name = "Furious Steel"
+	name = "Яростная Сталь"
 	desc = "Summon three silver blades which orbit you. \
 		While orbiting you, these blades will protect you from attacks, but will be consumed on use. \
 		Additionally, you can click to fire the blades at a target, dealing damage and causing bleeding."
