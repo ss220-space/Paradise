@@ -268,7 +268,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
-	equip_sound = 'sound/items/handling/generic_equip4.ogg'
+	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING
