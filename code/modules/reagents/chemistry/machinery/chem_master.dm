@@ -11,7 +11,7 @@
 #define TRANSFER_TO_BEAKER   1
 
 /obj/machinery/chem_master
-	name = "\improper ChemMaster 3000"
+	name = "ChemMaster 3000"
 	desc = "Химическое оборудование, предназначенное для преобразования реагентов в таблетки, пластыри и бутылки."
 	ru_names = list(
 		NOMINATIVE = "ХимМастер 3000",
@@ -531,7 +531,7 @@
 		return FALSE
 
 /obj/machinery/chem_master/condimaster
-	name = "\improper CondiMaster 3000"
+	name = "CondiMaster 3000"
 	desc = "Химическое оборудование, специализированное под кулинарные нужды. Позволяет создавать пакеты со специями или бутыли, как вы того пожелаете."
 	ru_names = list(
 		NOMINATIVE = "КондиМастер 3000",

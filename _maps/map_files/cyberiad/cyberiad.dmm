@@ -75447,7 +75447,7 @@
 /area/security/permabrig)
 "qmV" = (
 /obj/structure/sign/securearea{
-	name = "\improper STAY CLEAR HEAVY MACHINERY";
+	name = "STAY CLEAR HEAVY MACHINERY";
 	pixel_y = -32
 	},
 /obj/machinery/light/small,

@@ -301,7 +301,7 @@
 	return ..()
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
-	name = "\improper DromedaryCo packet"
+	name = "DromedaryCo packet"
 	desc = "Упаковка 20 сигарет \"Марсианский Табак\". Надпись на упаковке гласит: \"Быстрее или медленнее – всё равно смерть вас настигнет.\""
 	ru_names = list(
 		NOMINATIVE = "пачка \"Марсианский Табак\"",
@@ -316,7 +316,7 @@
 
 
 /obj/item/storage/fancy/cigarettes/syndicate
-	name = "\improper Syndicate Cigarettes"
+	name = "Syndicate Cigarettes"
 	desc = "Упаковка двадцати зловещих сигарет. Надпись на упаковке гласит: \"Вкусно и Пончик\"."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет Синдиката",
@@ -353,7 +353,7 @@
 
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
-	name = "\improper Uplift Smooth packet"
+	name = "Uplift Smooth packet"
 	desc = "Упаковка 20 сигарет \"Лёгкие на подъём\" со вкусом ментола."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Лёгкие на подъём\"",
@@ -368,7 +368,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
 /obj/item/storage/fancy/cigarettes/cigpack_richard
-	name = "\improper Richard & Co cigarettes"
+	name = "Richard & Co cigarettes"
 	desc = "Упаковка 20 сигарет \"Ричард и Компания\". Курево для самых отчаяных."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Ричард и Компания\"",
@@ -381,7 +381,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/richard
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
-	name = "\improper Robust packet"
+	name = "Robust packet"
 	desc = "Упаковка 20 сигарет \"Робаст\", популярных у безработных ассистентов."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Робаст\"",
@@ -395,7 +395,7 @@
 	item_state = "robustpacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
-	name = "\improper Robust Gold packet"
+	name = "Robust Gold packet"
 	desc = "Упаковка 20 сигарет \"Золотой Робаст\". Курево для настоящих мужиков."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Золотой Робаст\"",
@@ -410,7 +410,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp
-	name = "\improper Carp Classic packet"
+	name = "Carp Classic packet"
 	desc = "Упаковка 20 сигарет \"Дымящий Карп\". Надпись на упаковке гласит: \"Дарим клиентам рак лёгких с 2313 года\"."
 	ru_names = list(
 		NOMINATIVE = "Пачка сигарет \"Дымящий Карп\"",
@@ -424,7 +424,7 @@
 	item_state = "carppacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
-	name = "\improper Midori Tabako packet"
+	name = "Midori Tabako packet"
 	desc = "Упаковка 20 сигарет \"Табак Мидори\". Вы не понимаете, что написано на упаковке, но пахнет прикольно."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Табак Мидори\"",
@@ -438,7 +438,7 @@
 	item_state = "midoripacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
-	name ="\improper Shady Jim's Super Slims"
+	name ="Shady Jim's Super Slims"
 	desc = "Упаковка 20 сигарет \"от Шейди Джима\". Надпись на упаковке гласит: \
 		\"Теряете в весе? \
 		Не можете поспевать за коллегами, убегая от Сингулярности? \
@@ -457,7 +457,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/shadyjims
 
 /obj/item/storage/fancy/cigarettes/cigpack_random
-	name ="\improper Embellished Enigma packet"
+	name ="Embellished Enigma packet"
 	desc = "Упаковка 20 сигарет \"Энигма\". Для истинных ценителей экзотики."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Энигма\"",

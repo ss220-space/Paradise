@@ -85,7 +85,7 @@
 
 //Saber SMG//
 /obj/item/gun/projectile/automatic/proto
-	name = "\improper Nanotrasen Saber SMG"
+	name = "Nanotrasen Saber SMG"
 	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
@@ -94,7 +94,7 @@
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
-	name = "\improper C-20r SMG"
+	name = "C-20r SMG"
 	desc = "A two-round burst .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
 	item_state = "c20r"
@@ -196,7 +196,7 @@
 
 //Type-U3 Uzi//
 /obj/item/gun/projectile/automatic/mini_uzi
-	name = "\improper ''Type U3 Uzi"
+	name = "''Type U3 Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	icon_state = "mini-uzi"
 	origin_tech = "combat=4;materials=2;syndicate=4"
@@ -206,7 +206,7 @@
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
-	name = "\improper M-90gl Carbine"
+	name = "M-90gl Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
 	item_state = "m90-4"
@@ -281,7 +281,7 @@
 
 //Tommy Gun//
 /obj/item/gun/projectile/automatic/tommygun
-	name = "\improper Thompson SMG"
+	name = "Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
 	icon_state = "tommygun"
 	item_state = "shotgun"
@@ -312,7 +312,7 @@
 
 //AK-814 Soviet Assault Rifle
 /obj/item/gun/projectile/automatic/ak814
-	name = "\improper AK-814 assault rifle"
+	name = "AK-814 assault rifle"
 	desc = "A modern AK assault rifle favored by elite Soviet soldiers."
 	icon_state = "ak814"
 	item_state = "ak814"
@@ -330,7 +330,7 @@
 
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
-	name = "\improper 'Bulldog' Shotgun"
+	name = "'Bulldog' Shotgun"
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 12/24-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
@@ -347,7 +347,7 @@
 
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
-	name = "\improper 'Mastiff' Shotgun"
+	name = "'Mastiff' Shotgun"
 	desc = "A cheap copy of famous mag-fed semi-automatic 'Bulldog' shotgun used by multiple pirate groups. A critical duplication failure has made it impossible to use the original drum magazines, so do not lose them."
 	mag_type = /obj/item/ammo_box/magazine/cheap_m12g
 	color = COLOR_ASSEMBLY_BROWN
@@ -389,7 +389,7 @@
 
 //AS-12 Minotaur//
 /obj/item/gun/projectile/automatic/shotgun/minotaur
-	name = "\improper AS-12 'Minotaur' Shotgun"
+	name = "AS-12 'Minotaur' Shotgun"
 	desc = "Smooth, powerful, highly illegal. The newest full auto shotgun available at the market, utilizes standard 12g drum mags. Property of Gorlex Marauders."
 	icon_state = "minotaur"
 	item_state = "minotaur"
@@ -415,7 +415,7 @@
 //Combat Automatic Tactical Shotgun//
 
 /obj/item/gun/projectile/automatic/cats
-	name = "\improper C.A.T. Shotgun"
+	name = "C.A.T. Shotgun"
 	desc = "Terra Light Armories - Combat Automatic Tactical Shotgun - мощный автоматический дробовик, в основном используемый силами Транс-Солнечной Федерации. Производится корпорацией Terra Industries."
 	icon_state = "tla_cats"
 	item_state = "arg"
@@ -441,7 +441,7 @@
 
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
-	name = "\improper IK-60 Laser Carbine"
+	name = "IK-60 Laser Carbine"
 	desc = "A short, compact carbine like rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lasercarbine"
 	item_state = "laser"
@@ -458,7 +458,7 @@
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
 
 /obj/item/gun/projectile/automatic/lr30
-	name = "\improper LR-30 Laser Rifle"
+	name = "LR-30 Laser Rifle"
 	desc = "A compact rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lr30"
 	item_state = "lr30"

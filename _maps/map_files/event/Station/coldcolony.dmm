@@ -19754,7 +19754,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/qm,
 /obj/item/gun/projectile/shotgun/boltaction{
-	name = "\improper Охотничья винтовка";
+	name = "Охотничья винтовка";
 	pixel_y = 26
 	},
 /turf/simulated/floor/carpet,
@@ -26303,7 +26303,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin1)
 "jFS" = (
 /obj/structure/sign/comand{
-	name = "\improper COMMAND POST"
+	name = "COMMAND POST"
 	},
 /turf/simulated/wall,
 /area/coldcolony/malta/bridge/checkpoint)
@@ -46397,7 +46397,7 @@
 /area/coldcolony/malta/medical/chemistry)
 "qXS" = (
 /obj/structure/sign/science{
-	name = "\improper Supermatter Testing Lab"
+	name = "Supermatter Testing Lab"
 	},
 /turf/simulated/wall/r_wall,
 /area/coldcolony/ruin/sm_division)
@@ -63320,7 +63320,7 @@
 /area/coldcolony/malta/engineering/chief)
 "xho" = (
 /obj/structure/sign/comand{
-	name = "\improper COMMAND"
+	name = "COMMAND"
 	},
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/hallway/bridge)

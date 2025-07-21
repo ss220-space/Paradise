@@ -1,5 +1,5 @@
 /obj/machinery/reagentgrinder
-	name = "\improper All-In-One Grinder"
+	name = "All-In-One Grinder"
 	desc = "Измельчает, дробит, разжижает и извлекает вещества из предметов, помещённых внутрь. Ради всего святого, не суйте туда свои пальцы."
 	ru_names = list(
 		NOMINATIVE = "универсальный блендер",

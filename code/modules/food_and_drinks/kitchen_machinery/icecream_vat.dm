@@ -2,7 +2,7 @@
 //Code made by Sawu at Sawu-Station.
 
 /obj/machinery/icemachine
-	name = "\improper Cream-Master Deluxe"
+	name = "Cream-Master Deluxe"
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/machines/cooking_machines.dmi'

@@ -81,7 +81,7 @@
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
 
 /obj/item/encryptionkey/soviet
-	name = "\improper Soviet encryption key"
+	name = "Soviet encryption key"
 	ru_names = list(
 		NOMINATIVE = "ключ-шифратор СССП",
 		GENITIVE = "ключа-шифратора СССП",

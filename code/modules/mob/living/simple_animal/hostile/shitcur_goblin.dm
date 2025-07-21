@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile/shitcur_goblin
-	name = "\improper Shitcurity Goblin"
+	name = "Shitcurity Goblin"
 	desc = "You better start praying, boy."
 	icon = 'icons/mob/shitkur_v6.dmi'
 	icon_state = "ShitKur"

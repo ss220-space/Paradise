@@ -1725,7 +1725,7 @@
 "dD" = (
 /obj/structure/sign/vacuum{
 	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
-	name = "\improper HOSTILE ATMOSPHERE AHEAD";
+	name = "HOSTILE ATMOSPHERE AHEAD";
 	pixel_y = -32
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -6159,7 +6159,7 @@
 /obj/structure/grille,
 /obj/structure/sign/vacuum{
 	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
-	name = "\improper HOSTILE ATMOSPHERE AHEAD"
+	name = "HOSTILE ATMOSPHERE AHEAD"
 	},
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
@@ -6488,7 +6488,7 @@
 "np" = (
 /obj/structure/sign/vacuum{
 	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
-	name = "\improper HOSTILE ATMOSPHERE AHEAD";
+	name = "HOSTILE ATMOSPHERE AHEAD";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
@@ -6660,7 +6660,7 @@
 "nL" = (
 /obj/structure/sign/vacuum{
 	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
-	name = "\improper HOSTILE ATMOSPHERE AHEAD";
+	name = "HOSTILE ATMOSPHERE AHEAD";
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,

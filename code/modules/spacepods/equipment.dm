@@ -166,7 +166,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	icon_state = "blank"
 
 /obj/item/spacepod_equipment/misc/tracker
-	name = "\improper spacepod tracking system"
+	name = "spacepod tracking system"
 	desc = "A tracking device for spacepods."
 	icon_state = "pod_locator"
 

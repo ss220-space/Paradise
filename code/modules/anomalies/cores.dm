@@ -178,7 +178,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/atmospheric/tier2
-	name = "\improper pyroclastic anomaly core"
+	name = "pyroclastic anomaly core"
 	desc = "Стабилизированное ядро ​атмосферной аномалии. На ощупь теплое. Вероятно, оно пригодится для исследований."
 	icon_state = "core_atmos_t2"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier2
@@ -186,7 +186,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/gravitational/tier2
-	name = "\improper gravitational anomaly core"
+	name = "gravitational anomaly core"
 	desc = "Стабилизированное ядро ​​гравитационной аномалии. Гораздо тяжелее, чем кажется. Вероятно, оно пригодится для исследований."
 	ru_names = list(
 		NOMINATIVE = "ядро гравитационной аномалии", \
@@ -202,7 +202,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/energetic/tier2
-	name = "\improper flux anomaly core"
+	name = "flux anomaly core"
 	desc = "Стабилизированное ядро ​​энергетической аномалии. Прикосновение к нему вызывает лёгкое покалывание. Вероятно, оно пригодится для исследований."
 	ru_names = list(
 		NOMINATIVE = "ядро ​​энергетической аномалии", \
@@ -218,7 +218,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/bluespace/tier2
-	name = "\improper bluespace anomaly core"
+	name = "bluespace anomaly core"
 	desc = "Стабилизированное ядро ​​блюспейс аномалии. Оно то появляется, то исчезает из виду. Вероятно, оно пригодится для исследований."
 	ru_names = list(
 		NOMINATIVE = "ядро ​​блюспейс аномалии", \
@@ -234,7 +234,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/vortex/tier2
-	name = "\improper vortex anomaly core"
+	name = "vortex anomaly core"
 	desc = "Стабилизированное ядро ​​вихревой аномалии. Оно слегка трясётся, как будто на него воздействует некая невидимая сила. Вероятно, оно пригодится для исследований."
 	ru_names = list(
 		NOMINATIVE = "ядро ​​вихревой аномалии", \

@@ -52,7 +52,7 @@
 /obj/item/syndicate_reverse_card/update_name()
 	. = ..()
 	if(used)
-		name = "\improper 'Red Reverse' card"
+		name = "'Red Reverse' card"
 
 /obj/item/syndicate_reverse_card/examine(mob/user)
 	. = ..()

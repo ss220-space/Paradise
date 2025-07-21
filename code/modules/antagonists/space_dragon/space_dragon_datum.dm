@@ -1,5 +1,5 @@
 /datum/antagonist/space_dragon
-	name = "\improper Space Dragon"
+	name = "Space Dragon"
 	roundend_category = "space dragons"
 	job_rank = ROLE_SPACE_DRAGON
 	special_role = SPECIAL_ROLE_SPACE_DRAGON

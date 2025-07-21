@@ -152,7 +152,7 @@
 	lastused = world.time
 
 /obj/item/toy/balloon/snail
-	name = "\improper 'snail' balloon"
+	name = "'snail' balloon"
 	desc = "It looks quite familiar, right?"
 	icon_state = "snailplushie"
 	item_state = "snailplushie"
@@ -458,7 +458,7 @@
 	icon_state = "phazonprize"
 
 /obj/item/toy/nuke
-	name = "\improper Nuclear Fission Explosive toy"
+	name = "Nuclear Fission Explosive toy"
 	desc = "A plastic model of a Nuclear Fission Explosive."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoyidle"
@@ -1969,7 +1969,7 @@
 		return FALSE
 
 /obj/item/toy/russian_revolver/trick_revolver
-	name = "\improper .357 revolver"
+	name = ".357 revolver"
 	desc = "Подозрительный револьвер. В нём используются патроны .357 калибра."
 	ru_names = list(
 		NOMINATIVE = "револьвер .357 калибра",
@@ -2369,7 +2369,7 @@
 	desc = "A ancient human bird idol, worshipped by clerks and desk jockeys."
 	icon_state= "dippybird"
 /obj/item/toy/desk/newtoncradle
-	name = "\improper Newton's cradle"
+	name = "Newton's cradle"
 	desc = "A ancient 21th century super-weapon model demonstrating that Sir Isaac Newton is the deadliest sonuvabitch in space."
 	icon_state = "newtoncradle"
 	var/datum/looping_sound/newtonballs/soundloop
