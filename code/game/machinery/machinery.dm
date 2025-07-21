@@ -622,7 +622,7 @@ Class Procs:
 
 /obj/machinery/zap_act(power, zap_flags)
 	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE, cause = "Random Zap Explosion")
+		explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 2, adminlog = TRUE, smoke = FALSE, cause = "Random Zap Explosion")
 	else if(zap_flags & ZAP_OBJ_DAMAGE)
 		take_damage(power * 0.0005, BURN, ENERGY)
 		if(prob(40))
@@ -630,13 +630,13 @@ Class Procs:
 		power -= power * 0.0005
 	return ..()
 
-/obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
-	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
+/obj/machinery/proc/adjust_item_drop_location(atom/movable/dropped_atom) // Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
+	var/md5 = md5(dropped_atom.name) // Oh, and it's deterministic too. A specific item will always drop from the same slot.
 	for (var/i in 1 to 32)
 		. += hex2num(md5[i])
 	. = . % 9
-	AM.pixel_x = -8 + ((.%3)*8)
-	AM.pixel_y = -8 + (round( . / 3)*8)
+	dropped_atom.pixel_x = -8 + ((.%3)*8)
+	dropped_atom.pixel_y = -8 + (round( . / 3)*8)
 
 /**
  * Alerts the AI that a hack is in progress.

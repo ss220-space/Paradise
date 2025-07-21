@@ -349,7 +349,7 @@
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
-#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user)
+#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
 
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \

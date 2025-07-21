@@ -817,7 +817,7 @@
 	zap_flags &= ~(ZAP_MACHINE_EXPLOSIVE | ZAP_OBJ_DAMAGE)
 	. = ..()
 	if(explosive)
-		explosion(src, 0, 0, 0, flame_range = 5, cause = "Exploding light")
+		explosion(src, flame_range = 5, adminlog = FALSE)
 		qdel(src)
 
 // timed process

@@ -268,7 +268,7 @@
 
 /obj/structure/zap_act(power, zap_flags)
 	if(zap_flags & ZAP_OBJ_DAMAGE)
-		take_damage(power * 0.000125, BURN, ENERGY)
+		take_damage(power * 0.00025, BURN, ENERGY)
 	power -= power * 0.0005 //walls take a lot out of ya
 	. = ..()
 
