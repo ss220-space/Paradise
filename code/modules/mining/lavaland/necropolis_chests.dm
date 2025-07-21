@@ -597,7 +597,7 @@
 		span_notice("Вы стремительно пронзаете [target.declent_ru(ACCUSATIVE)]!")
 	)
 	to_chat(target, span_userdanger("[user] пронза[pluralize_ru(user.gender,"ет","ют")] вас!"))
-	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
+	playsound(src, 'sound/effects/magic/blink.ogg', 50, TRUE)
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
 	for(var/distance in 1 to 9)
 		var/turf/current_dash_target = dash_target

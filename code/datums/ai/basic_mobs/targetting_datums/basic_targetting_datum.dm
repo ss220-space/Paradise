@@ -12,9 +12,6 @@
 		target_hiding_location = target.loc
 	return target_hiding_location
 
-/datum/targetting_datum/basic
-	/// When we do our basic faction check, do we look for exact faction matches?
-	var/check_factions_exactly = FALSE
 
 /datum/targetting_datum/basic/can_attack(mob/living/living_mob, atom/the_target)
 	if(isturf(the_target) || !the_target) // bail out on invalids

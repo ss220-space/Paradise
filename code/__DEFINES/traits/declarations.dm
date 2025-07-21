@@ -234,6 +234,68 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLIND "blind"
 #define TRAIT_COLORBLIND "colorblind"
 
+
+#define TRAIT_BATON_RESISTANCE "baton_resistance"
+/// Trait for when you can no longer gain body heat
+#define TRAIT_HYPOTHERMIC "body_hypothermic"
+/// Used to prevent multiple floating blades from triggering over the same target
+#define TRAIT_BEING_BLADE_SHIELDED "being_blade_shielded"
+/// The person with this trait always appears as 'unknown'.
+#define TRAIT_UNKNOWN "unknown"
+///Trait given by /datum/element/relay_attacker
+#define TRAIT_RELAYING_ATTACKER "relaying_attacker"
+/// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
+#define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
+/// Required by the on_hit_effect element, which is in turn added by other elements.
+#define TRAIT_ON_HIT_EFFECT "trait_on_hit_effect"
+/// this object has been frozen
+#define TRAIT_FROZEN "frozen"
+///Used for managing KEEP_TOGETHER in [/atom/var/appearance_flags]
+#define TRAIT_KEEP_TOGETHER "keep-together"
+#define TRAIT_NOCRITDAMAGE "no_crit"
+/// Trait determines if this mob has examined an eldritch painting
+#define TRAIT_ELDRITCH_PAINTING_EXAMINE "eldritch_painting_examine"
+#define TRAIT_VORACIOUS "voracious"
+/// Trait used by the /datum/brain_trauma/severe/flesh_desire trauma to change their preferences of what they eat
+#define TRAIT_FLESH_DESIRE "flesh_desire"
+/// Gives us mob vision through walls and slight night vision
+#define TRAIT_THERMAL_VISION "thermal_vision"
+/// Trait from [/datum/element/rust]. Its rusty and should be applying a special overlay to denote this.
+#define TRAIT_RUSTY "rust_trait"
+/// Apply to movables to say "hey, this movable is technically flat on the floor, so it'd be mopped up by a mop"
+#define TRAIT_MOPABLE "mopable"
+/// Allows heretics to cast their spells.
+#define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
+/// Designates a heart as a living heart for a heretic.
+#define TRAIT_LIVING_HEART "living_heart"
+///Trait given to heretic summons, making them immune to heretic spells
+#define TRAIT_HERETIC_SUMMON "heretic_summon"
+/// This mob recently blocked magic with some form of antimagic
+#define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
+/// Trait given to anything linked to, not necessarily allied to, the mansus
+#define TRAIT_MANSUS_TOUCHED "mansus_touched"
+/// Trait given to all participants in a heretic arena
+#define TRAIT_ELDRITCH_ARENA_PARTICIPANT "eldritch_arena_participant"
+// You can stare into the abyss, but it does not stare back.
+// You're immune to the hallucination effect of the supermatter, either
+// through force of will, or equipment. Present on /mob or /datum/mind
+#define TRAIT_MADNESS_IMMUNE "supermatter_madness_immune"
+/// This human is immune to the effects of being exploded. (ex_act)
+#define TRAIT_BOMBIMMUNE "bomb_immunity"
+/// This mob is immune to stun causing status effects and stamcrit.
+/// Prefer to use [/mob/living/proc/check_incapacitating_immunity] over checking for this trait exactly.
+#define TRAIT_STUNIMMUNE "stun_immunity"
+#define TRAIT_SLEEPIMMUNE "sleep_immunity"
+/// Softspoken. Always whisper.
+#define TRAIT_SOFTSPOKEN "softspoken"
+/// Prevents stripping this equipment
+#define TRAIT_NO_STRIP "no_strip"
+/// Items with this trait will not appear when examined.
+#define TRAIT_EXAMINE_SKIP "examine_skip"
+/// determines whether or not objects are haunted and teleport/attack randomly
+#define TRAIT_HAUNTED "haunted"
+
+
 // old species traits
 /// This human mob doesn't bleed
 #define TRAIT_NO_BLOOD "no_blood"

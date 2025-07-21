@@ -4,7 +4,7 @@
 
 	var/linked_timer
 	var/regen_cycles_count = 0
-	var/list/sounds = list('sound/magic/demon_consume.ogg', 'sound/effects/attackblob.ogg')
+	var/list/sounds = list('sound/effects/magic/demon_consume.ogg', 'sound/effects/attackblob.ogg')
 
 /datum/element/devil_regeneration/Attach(datum/target, datum/antagonist/devil/devil)
 	. = ..()
@@ -105,7 +105,7 @@
 		return
 
 	to_chat(human, span_revenbignotice("Сверхъестественные силы предотвращают вашу смерть."))
-	playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
+	playsound(get_turf(human), 'sound/effects/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
 
 	linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.rank.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE | TIMER_DELETE_ME)
 

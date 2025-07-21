@@ -220,7 +220,6 @@
 #define ismonkey(A)		(istype(A, /datum/species/monkey))
 #define iswraith(A)		(istype(A, /mob/living/simple_animal/hostile/construct/wraith))
 #define isrevenant(A)		(istype(A, /mob/living/simple_animal/revenant))
-#define SPECIES_OTHER "Other"
 
 
 //Human sub-species
@@ -371,7 +370,6 @@
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
-#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user)
 
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \

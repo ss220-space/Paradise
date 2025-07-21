@@ -153,7 +153,7 @@
 	)
 	desc = "Воскрешает тело умершего на определенное время."
 	catchphrase = "Surge e lecto"
-	on_use_sound = 'sound/magic/staff_healing.ogg'
+	on_use_sound = 'sound/effects/magic/staff_healing.ogg'
 	icon_state = "disintegrate"
 	color = "#acb78e"
 

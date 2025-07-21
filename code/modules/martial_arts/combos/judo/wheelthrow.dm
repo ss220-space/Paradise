@@ -12,7 +12,7 @@
 	if(!IS_HORIZONTAL(user))
 		target.visible_message(span_warning("[user] перекидывает [target] через плечо и бросает на пол!"), \
 								span_userdanger("[user] перекидывает вас через плечо и бросает на пол!"))
-		playsound(get_turf(user), 'sound/magic/tail_swing.ogg', 40, TRUE, -1)
+		playsound(get_turf(user), 'sound/effects/magic/tail_swing.ogg', 40, TRUE, -1)
 		target.SpinAnimation(10, 1)
 	else
 		target.visible_message(span_warning("[user] хватает [target], и прижимает к полу!"), \

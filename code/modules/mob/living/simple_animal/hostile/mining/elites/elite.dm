@@ -264,7 +264,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				if (fighter.stat != DEAD)
 					make_activator(fighter)
 			if(boosted)
-				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
+				mychild.playsound_local(get_turf(mychild), 'sound/effects/magic/cult_spell.ogg', 40, 0)
 				to_chat(mychild, span_warning("Кто-то активировал вашу опухоль. Вскоре вы будете возвращены для боя, будьте готовы!"))
 			addtimer(CALLBACK(src, PROC_REF(return_elite)), 3 SECONDS)
 			INVOKE_ASYNC(src, PROC_REF(arena_checks))
@@ -287,7 +287,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			if(length(candidates))
 				audible_message(span_userdanger("Глухие удары под ногами становятся отчётливее!"))
 				elitemind = pick(candidates)
-				SEND_SOUND(elitemind, 'sound/magic/cult_spell.ogg')
+				SEND_SOUND(elitemind, 'sound/effects/magic/cult_spell.ogg')
 				to_chat(elitemind, "<b>Вы были избраны на роль Элиты Лазиса.\nЧерез несколько секунд вы появитесь в виде сильного монстра, с целью убить призвавшего вас.\n\
 					Вы можете выбирать разные атаки, нажимая на кнопки в верхнем левом углу экрана, а так же использовать их с помощью нажатия на тайл или моба.\n\
 					Хоть и оппонент снаряжен шахтёрской экипировкой и различными артефактами, у вас есть мощные способности, которые обычно были ограничены ИИ.\n\
@@ -523,7 +523,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.reviver = user
 		E.revive()
 		user.visible_message(span_notice("[user] пронза[pluralize_ru(user.gender,"ет","ют")] [E.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)], воскрешая его."))
-		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
+		SEND_SOUND(E, 'sound/effects/magic/cult_spell.ogg')
 		to_chat(user, "<span class='notice'>Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам.</span>")
 		to_chat(E, "<span class='userdanger'>Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск.</span>")
 		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!</span>")

@@ -610,7 +610,7 @@
 		source = user,
 		title = "Еретик Вознесся!",
 	)
-	GLOB.priority_announcement.Announce(
+	GLOB.major_announcement.announce(
 		message = replacetext(replacetext(announcement_text, "%NAME%", user.real_name), "%SPOOKY%", GLOBAL_PROC_REF(generate_heretic_text)),
 		new_title = generate_heretic_text(),
 		new_sound = announcement_sound

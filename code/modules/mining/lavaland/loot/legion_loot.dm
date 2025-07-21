@@ -60,7 +60,7 @@
 				span_warning("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] к небу, и оранжевый луч устремляется ввысь!"),
 				span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)] к небу, рассеивая бурю!")
 			)
-			playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
+			playsound(user, 'sound/effects/magic/staff_change.ogg', 200, 0)
 			A.wind_down()
 			var/old_color = user.color
 			user.color = list(340/255, 240/255, 0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
@@ -91,7 +91,7 @@
 		if((target_turf.z in W.impacted_z_levels) && W.area_type == target_area.type)
 			power_boosted = TRUE
 			break
-	playsound(src, 'sound/magic/lightningshock.ogg', 10, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+	playsound(src, 'sound/effects/magic/lightningshock.ogg', 10, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	targeted_turfs += target_turf
 	to_chat(user, span_warning("Вы целитесь в [target_turf.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/thunderbolt_targeting(target_turf)
@@ -101,7 +101,7 @@
 
 /obj/item/storm_staff/proc/recharge(mob/user)
 	thunder_charges = min(thunder_charges + 1, max_thunder_charges)
-	playsound(src, 'sound/magic/charge.ogg', 10, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+	playsound(src, 'sound/effects/magic/charge.ogg', 10, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 
 /obj/item/storm_staff/proc/throw_thunderbolt(turf/target, boosted)
 	targeted_turfs -= target
@@ -121,7 +121,7 @@
 
 		for(var/obj/hit_thing in T)
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
-	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+	playsound(target, 'sound/effects/magic/lightningbolt.ogg', 100, TRUE)
 	target.visible_message(span_danger("Молния ударяет в [target.declent_ru(ACCUSATIVE)]!"))
 	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
 

@@ -1870,7 +1870,7 @@
 					return
 
 				add_antag_datum(new /datum/antagonist/space_dragon)
-				playsound(current, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+				playsound(current, 'sound/effects/magic/ethereal_exit.ogg', 50, TRUE, -1)
 				log_admin("[key_name(usr)] has added space dragon role to [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has added space dragon role to [key_name_admin(current)]")
 

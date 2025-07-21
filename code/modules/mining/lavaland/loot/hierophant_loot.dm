@@ -153,7 +153,7 @@
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 			if(do_after(user, 5 SECONDS, user) && !beacon)
 				var/turf/T = get_turf(user)
-				playsound(T,'sound/magic/blind.ogg', 200, TRUE, -4)
+				playsound(T,'sound/effects/magic/blind.ogg', 200, TRUE, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 				beacon = new/obj/effect/hierophant(T)
 				beacon.add_fingerprint(user)
@@ -200,7 +200,7 @@
 			return
 		new /obj/effect/temp_visual/hierophant/telegraph(beacon_turf, user)
 		new /obj/effect/temp_visual/hierophant/telegraph(source, user)
-		playsound(beacon_turf,'sound/magic/wand_teleport.ogg', 200, TRUE)
+		playsound(beacon_turf,'sound/effects/magic/wand_teleport.ogg', 200, TRUE)
 		playsound(source,'sound/machines/airlock_open.ogg', 200, TRUE)
 		if(!do_after(user, 0.3 SECONDS, user) || !user || !beacon || QDELETED(beacon)) //no walking away shitlord
 			teleporting = FALSE
@@ -398,7 +398,7 @@
 /obj/item/clothing/accessory/necklace/hierophant_talisman/Destroy()
 	for(var/mob/living/simple_animal/shade/talisman/S in contents)
 		to_chat(S, span_hierophant("Вас уничтожили! Но... я создам новый талисман в будущем."))
-		playsound(get_turf(src),'sound/magic/repulse.ogg', 200, 1)
+		playsound(get_turf(src),'sound/effects/magic/repulse.ogg', 200, 1)
 		S.ghostize()
 		qdel(S)
 	QDEL_NULL(spell_heal)

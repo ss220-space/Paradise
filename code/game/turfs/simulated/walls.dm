@@ -550,7 +550,7 @@
 		I.deplete_spell()
 		ChangeTurf(/turf/simulated/floor/plating)
 		new /obj/structure/falsewall/clockwork(src) //special falsewalls
-		playsound(src, 'sound/magic/cult_spell.ogg', 100, 1)
+		playsound(src, 'sound/effects/magic/cult_spell.ogg', 100, 1)
 		return TRUE
 	return FALSE
 

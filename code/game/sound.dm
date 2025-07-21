@@ -282,7 +282,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 					'sound/weapons/boxing5.ogg', 'sound/weapons/boxing6.ogg')
 			if("honkbot_e")
 				soundin = pick('sound/items/bikehorn.ogg', 'sound/items/AirHorn2.ogg', 'sound/misc/sadtrombone.ogg', 'sound/items/AirHorn.ogg',
-					'sound/items/WEEOO1.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bcreep.ogg', 'sound/magic/Fireball.ogg' , 'sound/effects/pray.ogg',
+					'sound/items/WEEOO1.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bcreep.ogg', 'sound/effects/magic/Fireball.ogg' , 'sound/effects/pray.ogg',
 					'sound/voice/hiss1.ogg', 'sound/machines/buzz-sigh.ogg', 'sound/machines/ping.ogg', 'sound/weapons/flashbang.ogg', 'sound/weapons/bladeslice.ogg')
 			if("u_fscream")
 				soundin = pick('sound/voice/unathi/f_u_scream.ogg', 'sound/voice/unathi/f_u_scream2.ogg')

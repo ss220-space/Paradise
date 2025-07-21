@@ -194,7 +194,7 @@ Difficulty: Medium
 		INVOKE_ASYNC(src, PROC_REF(fire_rain))
 	for(var/i = 1 to times)
 		SetRecoveryTime(50)
-		playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
+		playsound(get_turf(src),'sound/effects/magic/fireball.ogg', 200, TRUE)
 		var/increment = 360 / spiral_count
 		for(var/j = 1 to spiral_count)
 			var/list/turfs = line_target(j * increment + i * increment / 2, range, src)
@@ -262,7 +262,7 @@ Difficulty: Medium
 	light_range = initial(light_range)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_cone(var/atom/at = target, var/meteors = TRUE)
-	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
+	playsound(get_turf(src),'sound/effects/magic/fireball.ogg', 200, TRUE)
 	SLEEP_CHECK_DEATH(src, 0)
 	if(prob(50) && meteors)
 		INVOKE_ASYNC(src, PROC_REF(fire_rain))
@@ -464,9 +464,9 @@ Difficulty: Medium
 
 /obj/effect/temp_visual/lava_warning/proc/fall(var/reset_time)
 	var/turf/T = get_turf(src)
-	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
+	playsound(T,'sound/effects/magic/fleshtostone.ogg', 80, TRUE)
 	sleep(duration)
-	playsound(T,'sound/magic/fireball.ogg', 200, TRUE)
+	playsound(T,'sound/effects/magic/fireball.ogg', 200, TRUE)
 
 	for(var/mob/living/L in T.contents)
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))
@@ -608,7 +608,7 @@ Difficulty: Medium
 
 /obj/effect/temp_visual/target/proc/fall(list/flame_hit)
 	var/turf/T = get_turf(src)
-	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
+	playsound(T,'sound/effects/magic/fleshtostone.ogg', 80, TRUE)
 	new /obj/effect/temp_visual/fireball(T)
 	sleep(duration)
 	if(ismineralturf(T))
@@ -705,7 +705,7 @@ Difficulty: Medium
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(var/atom/at = target)
-	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
+	playsound(get_turf(src),'sound/effects/magic/fireball.ogg', 200, TRUE)
 	SLEEP_CHECK_DEATH(src, 0)
 	var/range = 20
 	var/list/turfs = list()
@@ -721,7 +721,7 @@ Difficulty: Medium
 /obj/effect/proc_holder/spell/aoe/repulse/spacedragon
 	name = "Удар хвостом"
 	desc = "Отбрасывайте нападающих ударом хвоста."
-	sound = 'sound/magic/tail_swing.ogg'
+	sound = 'sound/effects/magic/tail_swing.ogg'
 	base_cooldown = 15 SECONDS
 	cooldown_min = 15 SECONDS
 	clothes_req = FALSE
