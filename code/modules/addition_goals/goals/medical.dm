@@ -6,7 +6,6 @@
 
 /datum/addition_goal/medical_patients
 	id = "medical"
-	name = "Медицинский шаттл с пациентами"
 	var/patiens_count
 	var/list/patients = list()
 	var/obj/effect/mob_spawn/human/spawner
@@ -14,7 +13,9 @@
 
 /datum/addition_goal/medical_patients/setup()
 	patiens_count = rand(3, 5)
-	name += " ([patiens_count])"
+	request_number = "[rand(100, 999)]"
+	name = "Запрос медицинской помощи №[request_number]"
+	description = "Запрос медицинской помощи №[request_number]. На станцию прибудет шаттл с [patiens_count] пациентами для проведения медицинских услуг."
 
 
 /datum/addition_goal/medical_patients/spawn_shuttle_contain(list/turf/shuttle_turfs)

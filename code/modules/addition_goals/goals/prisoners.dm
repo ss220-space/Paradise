@@ -17,7 +17,9 @@
 
 /datum/addition_goal/prisoners/setup()
 	prisoners_count = rand(3, 5)
-	name += " ([prisoners_count])"
+	request_number = "[rand(100, 999)]"
+	name = "Запрос исполнения наказания №[request_number]"
+	description = "Запрос исполнения наказания №[request_number]. На станцию прибудет шаттл с [prisoners_count] заключенными для исполнения наказания."
 
 
 /datum/addition_goal/prisoners/spawn_shuttle_contain(list/turf/shuttle_turfs)
@@ -74,7 +76,7 @@
 /datum/addition_goal/prisoners/proc/create_crimes_paper(turf/location, mob/living/prisoner)
 	var/datum/addition_goal_prisoner_data/data = prisoners_data[prisoner.name]
 	var/obj/item/paper/paper = new (location)
-	var/number = "[rand(100, 999)]-[rand(1000, 9999)]"
+	var/number = "[request_number]-[rand(1000, 9999)]"
 	paper.name = "Приказ о заключении под стражу №[number]"
 	paper.info = {"<center><b>Приказ о заключении [number]</b></center><br>
 		Настоящим подтверждается, что гражданин [prisoner.real_name] подлежит тюремному заключению сроком в [data.duration] минут в камере брига.<br>

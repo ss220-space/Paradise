@@ -153,8 +153,7 @@ SUBSYSTEM_DEF(addition_goals)
 		goal_state = AGS_STATE_IDLE
 		return
 	message_admins("complete addition goal [current_goal.id]")
-	var/progress = current_goal.check_completion()
-	print_complete_goal_details(current_goal, progress)
+	current_goal.complete_goal(src)
 	current_goal = null
 	clear_shuttle_turfs()
 	if(!length(available_goals))
@@ -169,22 +168,31 @@ SUBSYSTEM_DEF(addition_goals)
 ////////////////////////////////////////
 
 /datum/controller/subsystem/addition_goals/proc/print_accept_goal_details(mob/user, datum/addition_goal/goal)
-	goal.directive = "Nanotrasen Directive [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]"
 	var/report = goal.format_accept_report(user)
-	var/report_message = "<div style='text-align:center;'><img src = ntlogo.png>" + "<h3>[goal.directive]</h3></div><hr>[report]"
-	print_report_on_console(goal.directive, report_message, stamp = TRUE)
+	report += "<br><b>Награда при выполнении запроса:</b><br>"
+	var/reward_number = 1
+	if(goal.reward_credits > 0)
+		report += "[reward_number]. [goal.reward_credits] кредитов на счет станции."
+		reward_number++
+	if(goal.reward_cargopoints > 0)
+		report += "[reward_number]. [goal.reward_cargopoints] очков поставки в карго."
+	report += "<hr><b>Капитан станции \[field]</b>: \[field]<br>"
+	report += "<hr><b>Время принятия запроса</b>: \[field]<br>"
+	var/addition = "Данный запрос считается действительным только при наличии печати Центрального Командоваия Нанотрейзен.<br>"
+	addition += "Для подтверждения получения запроса капитану станции необходимо поставить свою печать и подпись."
+	var/report_message = create_paper_content(goal.name, report, addition)
+	print_report_on_console(goal.name, report_message, stamp = TRUE)
 
-/datum/controller/subsystem/addition_goals/proc/print_complete_goal_details(datum/addition_goal/goal, progress)
-	var/report_message = "<div style='text-align:center;'><img src = ntlogo.png>" + "<h3>[goal.directive]</h3></div><hr>Выполнено на [progress]%.<br>Ваша награда:<br>"
-	print_report_on_console(goal.directive, report_message, stamp = TRUE)
+/datum/controller/subsystem/addition_goals/proc/create_paper_content(title, message, ending = "")
+	return "<div style='text-align:center;'><img src=ntlogo.png>" + "<h3>[title]</h3></div><hr>[message]<hr><small><i>[ending]</i></small>"
 
 /// Print report paper on all Addition goal consoles
-/datum/controller/subsystem/addition_goals/proc/print_report_on_console(directive, message, stamp = FALSE)
+/datum/controller/subsystem/addition_goals/proc/print_report_on_console(title, message, stamp = FALSE)
 	for(var/obj/machinery/computer/addition_goals/console as anything in console_list)
 		if(console.stat & (BROKEN|NOPOWER))
 			continue
 		var/obj/item/paper/paper = new (console.loc)
-		paper.name = "[directive]"
+		paper.name = "[title]"
 		paper.info = message
 		if(stamp)
 			paper.stamp(/obj/item/stamp/centcom)
@@ -197,14 +205,16 @@ SUBSYSTEM_DEF(addition_goals)
 ////////////////////////////////////////
 
 /datum/addition_goal
-	/// Unique goal name
-	var/name
 	/// Goal unique identifier (Same type goals can have difficult identifiers)
 	var/id
 
 	// Accept goal data
-	var/directive = "Unknown"
-
+	var/name
+	var/description
+	var/request_number
+	var/reward_credits = 0
+	var/reward_cargopoints = 0
+	var/accept_time = "???"
 
 
 /datum/addition_goal/proc/setup()
@@ -222,6 +232,9 @@ SUBSYSTEM_DEF(addition_goals)
 	message_admins("addition goal '[name]' not implement check_completion")
 	return 0
 
+/datum/addition_goal/proc/complete_goal(datum/controller/subsystem/addition_goals/system)
+	message_admins("addition goal '[name]' not implement complete_goal")
+	return 0
 
 /datum/addition_goal/proc/contains_in_shuttle(list/turf/shuttle_turfs, atom/movable/target)
 	for(var/turf/turf in shuttle_turfs)
