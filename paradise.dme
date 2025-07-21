@@ -501,6 +501,7 @@
 #include "code\datums\ai\_ai_controller.dm"
 #include "code\datums\ai\_ai_planning_subtree.dm"
 #include "code\datums\ai\_item_behaviors.dm"
+#include "code\datums\ai\_targeting_strategy.dm"
 #include "code\datums\ai\attack_obstacle_in_path.dm"
 #include "code\datums\ai\generic_actions.dm"
 #include "code\datums\ai\pet_command_planning.dm"

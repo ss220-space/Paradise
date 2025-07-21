@@ -19,11 +19,11 @@
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_blade
-	name = "The Cutting Edge"
-	desc = "Opens up the Path of Blades to you. \
-		Allows you to transmute a knife with one bar of silver or titanium to create a Sundered Blade. \
-		You can create up to four at a time."
-	gain_text = "Our great ancestors forged swords and practiced sparring on the eve of great battles."
+	name = "Бегущий по Лезвию"
+	desc = "Открывает вам Путь Клинков. \
+			Позволяет преобразовать нож в один слиток серебра или титана в Расколотый Клинок. \
+			Вы можете создать до четырёх клинков одновременно."
+	gain_text = "Наши великие предки ковали мечи и тренировались в спаррингах накануне великих сражений."
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
 		list(/obj/item/stack/sheet/mineral/silver, /obj/item/stack/sheet/mineral/titanium) = 1,
@@ -33,20 +33,25 @@
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "dark_blade"
 
+
 /datum/heretic_knowledge/blade_grasp
-	name = "Grasp of the Blade"
-	desc = "Your Прикосновение Мансуса will cause a short stun when used on someone lying down or facing away from you."
-	gain_text = "The story of the footsoldier has been told since antiquity. It is one of blood and valor, \
-		and is championed by sword, steel and silver."
+	name = "Прикосновение клинка"
+	desc = "Ваше Прикосновение Мансуса вызовет кратковременное оглушение, если применить его к человеку, \
+			лежащему или отвернувшемуся от вас."
+	gain_text = "История пехотинца известна с древних времён. Она полна крови и доблести, \
+				её верные спутники - меч, сталь и серебро."
 	cost = 1
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "grasp_blade"
 
+
 /datum/heretic_knowledge/blade_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 
+
 /datum/heretic_knowledge/blade_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
+
 
 /datum/heretic_knowledge/blade_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -57,18 +62,20 @@
 	// We're officially behind them, apply effects
 	target.AdjustParalysis(1.5 SECONDS)
 	target.apply_damage(10, BRUTE/*, wound_bonus = CANT_WOUND*/)
-	target.balloon_alert(source, "backstab!")
+	target.balloon_alert(source, "удар в спину!")
 	playsound(target, 'sound/weapons/guillotine.ogg', 100, TRUE)
+
 
 /// The cooldown duration between triggers of blade dance
 #define BLADE_DANCE_COOLDOWN (20 SECONDS)
 
+
 /datum/heretic_knowledge/blade_dance
-	name = "Dance of the Brand"
-	desc = "Being attacked while wielding a Heretic Blade in either hand will deliver a riposte \
-		towards your attacker. This effect can only trigger once every 20 seconds."
-	gain_text = "The footsoldier was known to be a fearsome duelist. \
-		Their general quickly appointed them as their personal Champion."
+	name = "Танец Клинка"
+	desc = "Если вас атакуют, держа в любой из рук клинок Еретика, вы нанесёте ответный удар \
+			по атакующему. Этот эффект может сработать только раз в 20 секунд."
+	gain_text = "Этот пехотинец был известен как грозный дуэлянт. \
+				Их генерал быстро назначил его своим личным охранником."
 	cost = 1
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "shatter"
@@ -76,17 +83,20 @@
 	/// Used instead of cooldowns, so we can give feedback when it's ready again
 	var/riposte_ready = TRUE
 
+
 /datum/heretic_knowledge/blade_dance/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_LIVING_CHECK_BLOCK, PROC_REF(on_shield_reaction))
 
+
 /datum/heretic_knowledge/blade_dance/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_LIVING_CHECK_BLOCK)
+
 
 /datum/heretic_knowledge/blade_dance/proc/on_shield_reaction(
 	mob/living/carbon/human/source,
 	atom/movable/hitby,
 	damage = 0,
-	attack_text = "the attack",
+	attack_text = "атакует",
 	attack_type = ITEM_ATTACK,
 	armour_penetration = 0,
 	damage_type = BRUTE,
@@ -136,24 +146,28 @@
 	riposte_ready = FALSE
 	addtimer(CALLBACK(src, PROC_REF(reset_riposte), source), BLADE_DANCE_COOLDOWN)
 
+
 /datum/heretic_knowledge/blade_dance/proc/counter_attack(mob/living/carbon/human/source, mob/living/target, obj/item/melee/sickly_blade/weapon, attack_text)
 	playsound(get_turf(source), 'sound/weapons/parry.ogg', 100, TRUE)
-	source.balloon_alert(source, "riposte used")
+	source.balloon_alert(source, "контратака")
 	source.visible_message(
-		span_warning("[source] leans into [attack_text] and delivers a sudden riposte back at [target]!"),
-		span_warning("You lean into [attack_text] and deliver a sudden riposte back at [target]!"),
-		span_hear("You hear a clink, followed by a stab."),
+		span_warning("[source.declent_ru(NOMINATIVE)] наклоняется к [target.declent_ru(ACCUSATIVE)] и наносит внезапный ответный удар!"),
+		span_warning("Вы наклоняетесь и наносите внезапный ответный удар!"),
+		span_hear("Вы слышите звон, и тяжелый удар."),
 	)
 	weapon.melee_attack_chain(source, target)
 
+
 /datum/heretic_knowledge/blade_dance/proc/reset_riposte(mob/living/carbon/human/source)
 	riposte_ready = TRUE
-	source.balloon_alert(source, "riposte ready")
+	source.balloon_alert(source, "контратака готова")
+
 
 #undef BLADE_DANCE_COOLDOWN
 
+
 /datum/heretic_knowledge/mark/blade_mark
-	name = "Mark of the Blade"
+	name = "Метка Клинка"
 	desc = "Your Прикосновение Мансуса now applies the Mark of the Blade. While marked, \
 		the victim will be unable to leave their current room until it expires or is triggered. \
 		Triggering the mark will summon a knife that will orbit you for a short time. \
