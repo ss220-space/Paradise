@@ -5,6 +5,14 @@ GLOBAL_LIST_EMPTY(closets)
 	desc = "Стандартный шкаф, предназначенный для хранения различных предметов. \
 			Изготовлен из прочного металла, устойчивого к различным повреждениям. \
 			Достаточно вместительный."
+	ru_names = list(
+		NOMINATIVE = "шкафчик",
+		GENITIVE = "шкафчика",
+		DATIVE = "шкафчику",
+		ACCUSATIVE = "шкафчик",
+		INSTRUMENTAL = "шкафчиком",
+		PREPOSITIONAL = "шкафчике"
+	)
 	gender = MALE
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
@@ -140,9 +148,9 @@ GLOBAL_LIST_EMPTY(closets)
 		open()
 
 /obj/structure/closet/proc/dump_contents()
-	var/atom/L = drop_location()
+	var/atom/Loc = drop_location()
 	for(var/atom/movable/AM in src)
-		AM.forceMove(L)
+		AM.forceMove(Loc)
 		if(throwing) // you keep some momentum when getting out of a thrown closet
 			step(AM, dir)
 	if(throwing)
@@ -292,7 +300,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!opened && user.loc == src)
-		to_chat(user, span_warning("You can't weld [src] from inside!"))
+		balloon_alert(user, "изнутри не достать!")
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -305,20 +313,25 @@ GLOBAL_LIST_EMPTY(closets)
 	else
 		if(!can_weld_shut)
 			return
-		var/adjective = welded ? "open" : "shut"
+		var/welding_prefix = welded ? "раз" : "за"
 		user.visible_message(
-			span_notice("[user] begins welding [src] [adjective]..."),
-			span_notice("You begin welding [src] [adjective]..."),
-			span_warning("You hear welding.")
+			span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] [welding_prefix]варивать дверцу [declent_ru(GENITIVE)], используя [I.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете [welding_prefix]варивать дверцу [declent_ru(GENITIVE)], используя [I.declent_ru(ACCUSATIVE)]."),
+			span_warning("Вы слышите звук сварки."),
+			ignored_mobs = user
 		)
+		balloon_alert(user, "[welding_prefix]варивание дверцы...")
+
 		if(I.use_tool(src, user, 15, volume = I.tool_volume))
 			if(opened)
-				to_chat(user, span_notice("Keep [src] shut while doing that!"))
+				balloon_alert(user, "дверца не закрыта!")
 				return
 			user.visible_message(
-				span_notice("[user] welds [src] [adjective]!"),
-				span_notice("You weld [src] [adjective]!")
+				span_notice("[user] [welding_prefix]варива[pluralize_ru(user.gender, "ет", "ют")] дверцу [declent_ru(GENITIVE)], используя [I.declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы [welding_prefix]вариваете дверцу [declent_ru(GENITIVE)], используя [I.declent_ru(ACCUSATIVE)]."),
+				ignored_mobs = user
 			)
+			balloon_alert(user, "дверца [welding_prefix]варена")
 			welded = !welded
 			update_icon()
 
@@ -333,7 +346,7 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
 		return
-	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
+	if(user.loc == null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
 	if(!istype(user.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
@@ -346,9 +359,11 @@ GLOBAL_LIST_EMPTY(closets)
 	step_towards(O, loc)
 	if(user != O)
 		user.visible_message(
-			span_danger("[user] stuffs [O] into [src]!"),
-			span_danger("You stuff [O] into [src]!")
+			span_notice("[user] помеща[pluralize_ru(user.gender, "ет", "ют")] [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы помещаете [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			ignored_mobs = user
 		)
+		balloon_alert(user, "помещено внутрь")
 	add_fingerprint(user)
 	return TRUE
 
@@ -361,11 +376,11 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 
 	if(!open())
-		to_chat(user, span_notice("It won't budge!"))
+		balloon_alert(user, "не поддаётся!")
 		if(!lastbang)
 			lastbang = 1
 			for(var/mob/M in hearers(src, null))
-				to_chat(M, "<span style='font-size: [max(0, 5 - get_dist(src, M))];'>BANG, bang!</span>")
+				to_chat(M, "<span style='font-size: [max(0, 5 - get_dist(src, M))];'>БАМ, БАМ!</span>")
 			spawn(30)
 				lastbang = 0
 
@@ -384,7 +399,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
-	set name = "Toggle Open"
+	set name = "Открыть"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -393,7 +408,7 @@ GLOBAL_LIST_EMPTY(closets)
 		add_fingerprint(usr)
 		toggle(usr)
 	else
-		to_chat(usr, span_warning("This mob type can't use this verb."))
+		balloon_alert(usr, "вы недостаточно ловки!")
 
 
 /obj/structure/closet/update_icon(updates = ALL)
@@ -444,16 +459,16 @@ GLOBAL_LIST_EMPTY(closets)
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/container_resist(var/mob/living/L)
+/obj/structure/closet/container_resist(var/mob/living/user)
 	var/breakout_time = 2 //2 minutes by default
 	if(opened)
-		if(L.loc == src)
-			L.forceMove(get_turf(src)) // Let's just be safe here
+		if(user.loc == src)
+			user.forceMove(get_turf(src)) // Let's just be safe here
 		return //Door's open... wait, why are you in it's contents then?
 	if(!welded)
 		if(isobj(loc))
 			var/obj/loc_as_obj = loc
-			loc_as_obj.container_resist(L)
+			loc_as_obj.container_resist(user)
 			return
 		open() //for cardboard boxes
 		return //closed but not welded...
@@ -461,14 +476,15 @@ GLOBAL_LIST_EMPTY(closets)
 	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
 
 	//okay, so the closet is either welded or locked... resist!!!
-	to_chat(L, span_warning("You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)"))
-	for(var/mob/O in viewers(usr.loc))
-		O.show_message(span_danger("The [src] begins to shake violently!"), 1)
+	visible_message(
+		span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает качаться из стороны в сторону с громким стуком!"),
+		span_warning("Вы опираетесь спиной на заднюю стенку [declent_ru(GENITIVE)] и начинаете изо всех сил давить ногами на дверь.")
+	)
 
 
 	spawn(0)
-		if(do_after(L, breakout_time * 6 MINUTES, src))
-			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
+		if(do_after(user, breakout_time * 6 MINUTES, src))
+			if(!src || !user || user.stat != CONSCIOUS || user.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				return
 
 			//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
@@ -478,22 +494,23 @@ GLOBAL_LIST_EMPTY(closets)
 			//Well then break it!
 			welded = FALSE
 			update_icon()
-			to_chat(usr, span_warning("You successfully break out!"))
-			for(var/mob/O in viewers(L.loc))
-				O.show_message(span_danger("\the [usr] successfully broke out of \the [src]!"), 1)
+			visible_message(
+				span_danger("[user] выламыва[pluralize_ru(user.gender, "ет", "ют")] дверь [declent_ru(GENITIVE)] и выбира[pluralize_ru(user.gender, "ет", "ют")]ся наружу!"),
+				span_warning("Вы выламываете дверь [declent_ru(GENITIVE)] и выбираетесь наружу!"),
+			)
 			if(istype(loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)
 			if(isobj(loc))
 				var/obj/loc_as_obj = loc
-				loc_as_obj.container_resist(L)
+				loc_as_obj.container_resist(user)
 			open()
 
 /obj/structure/closet/tesla_act(var/power)
 	..()
 	visible_message(
-		span_danger("[src] is blown apart by the bolt of electricity!"),
-		span_danger("You hear a metallic screeching sound.")
+		span_danger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части от удара молнии!"),
+		blind_message = span_danger("Вы слышите скрежет металла.")
 	)
 	qdel(src)
 
@@ -534,9 +551,9 @@ GLOBAL_LIST_EMPTY(closets)
 	if(opened && can_close())
 		target.forceMove(src)
 		visible_message(
-			span_danger("[attacker] shoves [target] inside [src]!"),
-			span_userdanger("You shove [target] inside [src]!"),
-			span_warning("You hear a thud, and something clangs shut.")
+			span_notice("[attacker] заталкива[pluralize_ru(attacker.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы заталкиваете [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_warning("Вы слышите глухой удар, а затем металлический скрип.")
 		)
 		close()
 		add_attack_logs(attacker, target, "shoved into [src]")
@@ -544,7 +561,11 @@ GLOBAL_LIST_EMPTY(closets)
 
 	if(locked && allowed(target))
 		locked = !locked
-		visible_message(span_danger("[attacker] shoves [target] against [src], knocking the lock [locked ? null : "un"]locked!"))
+		visible_message(
+			span_danger("[attacker] толка[pluralize_ru(attacker.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)], [locked ? "" : "раз"]блокируя дверцу!"),
+			span_danger("Вы толкаете [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)], [locked ? "" : "раз"]блокируя дверцу!"),
+			span_warning("Вы слышите глухой удар, а затем механический щелчок.")
+		)
 		target.Knockdown(3 SECONDS)
 		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
 		update_icon()
@@ -552,7 +573,11 @@ GLOBAL_LIST_EMPTY(closets)
 
 	if(!opened && can_open())
 		open()
-		visible_message(span_danger("[attacker] shoves [target] against [src], knocking it open!"))
+		visible_message(
+			span_danger("[attacker] толка[pluralize_ru(attacker.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)], открывая дверцу!"),
+			span_danger("Вы толкаете [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)], открывая дверцу!"),
+			span_warning("Вы слышите глухой удар, а затем металлический скрип.")
+		)
 		target.Knockdown(3 SECONDS)
 		return TRUE
 
@@ -560,7 +585,17 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
-	desc = "A storage unit that moves and stores through the fourth dimension."
+	desc = "Экспериментальный шкаф, предназначенный для хранения различных предметов. \
+			Изготовлен с изпользованием блюспейс-технологий. \
+			Хранит своё содержимое в карманном измерении."
+	ru_names = list(
+		NOMINATIVE = "блюспейс-шкафчик",
+		GENITIVE = "блюспейс-шкафчика",
+		DATIVE = "блюспейс-шкафчику",
+		ACCUSATIVE = "блюспейс-шкафчик",
+		INSTRUMENTAL = "блюспейс-шкафчиком",
+		PREPOSITIONAL = "блюспейс-шкафчике"
+	)
 	density = FALSE
 	icon_state = "bluespace"
 	storage_capacity = 60
