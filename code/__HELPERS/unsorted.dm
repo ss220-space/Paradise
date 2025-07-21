@@ -871,14 +871,14 @@ GLOBAL_LIST_INIT(body_zone, list(
 	var/rough_y = round(round(pixel_y_offset, world.icon_size) / world.icon_size)
 
 	//Find coordinates
-	var/turf/T = get_turf(atom_movable) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
-	if(!T)
+	var/turf/turf = get_turf(atom_movable) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
+	if(!turf)
 		return null
-	var/final_x = clamp(T.x + rough_x, 1, world.maxx)
-	var/final_y = clamp(T.y + rough_y, 1, world.maxy)
+	var/final_x = clamp(turf.x + rough_x, 1, world.maxx)
+	var/final_y = clamp(turf.y + rough_y, 1, world.maxy)
 
 	if(final_x || final_y)
-		return locate(final_x, final_y, T.z)
+		return locate(final_x, final_y, turf.z)
 
 //Finds the distance between two atoms, in pixels
 //centered = 0 counts from turf edge to edge
