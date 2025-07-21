@@ -161,6 +161,14 @@ SUBSYSTEM_DEF(addition_goals)
 	goal_state = AGS_STATE_IDLE
 
 
+/datum/controller/subsystem/addition_goals/proc/add_reward(credits, cargopoints)
+	if(credits > 0)
+		var/datum/money_account/account = GLOB.station_account
+		account.credit(round(credits), "Complete station addition goal", "Addition Goal", account.owner_name)
+	if(cargopoints > 0)
+		SSshuttle.points += round(cargopoints)
+
+
 
 
 ////////////////////////////////////////
@@ -176,15 +184,15 @@ SUBSYSTEM_DEF(addition_goals)
 		reward_number++
 	if(goal.reward_cargopoints > 0)
 		report += "[reward_number]. [goal.reward_cargopoints] очков поставки в карго."
-	report += "<hr><b>Капитан станции \[field]</b>: \[field]<br>"
-	report += "<hr><b>Время принятия запроса</b>: \[field]<br>"
+	report += "<hr><b>Капитан станции <span class=\"paper_field\"></b>: <span class=\"paper_field\"><br>"
+	report += "<b>Время принятия запроса</b>: <span class=\"paper_field\"><br>"
 	var/addition = "Данный запрос считается действительным только при наличии печати Центрального Командоваия Нанотрейзен.<br>"
 	addition += "Для подтверждения получения запроса капитану станции необходимо поставить свою печать и подпись."
 	var/report_message = create_paper_content(goal.name, report, addition)
 	print_report_on_console(goal.name, report_message, stamp = TRUE)
 
 /datum/controller/subsystem/addition_goals/proc/create_paper_content(title, message, ending = "")
-	return "<div style='text-align:center;'><img src=ntlogo.png>" + "<h3>[title]</h3></div><hr>[message]<hr><small><i>[ending]</i></small>"
+	return "<div style='text-align:center;'><img src=ntlogo.png><h3>[title]</h3></div><hr>[message]<hr><small><i>[ending]</i></small>"
 
 /// Print report paper on all Addition goal consoles
 /datum/controller/subsystem/addition_goals/proc/print_report_on_console(title, message, stamp = FALSE)

@@ -1,9 +1,11 @@
 /// Funeral shuttle addition goal
 #define CORPSE_METHOD_CREMATION "кремация"
 #define CORPSE_METHOD_SPACE "космирование"
+#define CORPSE_METHOD_UTILIZATION "утилизация тела"
 
 #define CREDITS_BY_CREMATION 1000
 #define CREDITS_BY_SPACE 2000
+#define CREDITS_BY_UTILIZATION 500
 
 ////////////////////////////////////////
 // MARK:	Goal datum
@@ -27,6 +29,8 @@
 /datum/addition_goal/funeral/spawn_shuttle_contain(list/turf/shuttle_turfs)
 	message_admins("funeral addition goal: id=[id] begin spawn shuttle contain corpses=[corpse_count].")
 	spawner = new /obj/effect/mob_spawn/human/addition_goal/funeral(shuttle_turfs[1])
+	reward_credits = 0
+	reward_cargopoints = 0
 	for(var/i = 0; i < corpse_count; i++)
 		var/turf/random_turf = pick(shuttle_turfs)
 		shuttle_turfs -= random_turf
@@ -34,6 +38,7 @@
 		var/datum/addition_goal_corpse_data/data = create_corpse_data(corpse.name)
 		create_paper_about_corpse(random_turf, corpse, data)
 		create_body_bag_and_close(random_turf)
+		calculate_reward(data)
 		message_admins("funeral addition goal: created corpse [corpse.name] [ADMIN_COORDJMP(random_turf)].")
 	qdel(spawner)
 	return TRUE
@@ -47,7 +52,13 @@
 /datum/addition_goal/funeral/proc/create_corpse_data(corpse_name)
 	var/datum/addition_goal_corpse_data/data = new ()
 	data.name = corpse_name
-	data.preffered_method = rand(1, 2) == 1 ? CORPSE_METHOD_CREMATION : CORPSE_METHOD_SPACE
+	switch(rand(1, 5))
+		if(1, 2)
+			data.preffered_method = CORPSE_METHOD_CREMATION
+		if(3, 4)
+			data.preffered_method = CORPSE_METHOD_SPACE
+		if(5)
+			data.preffered_method = CORPSE_METHOD_UTILIZATION
 	data.request_number = "[request_number]-[rand(1000, 9999)]"
 	corpse_data[corpse_name] = data
 	return data
@@ -64,10 +75,17 @@
 	body_bag.open()
 	body_bag.close()
 
+/datum/addition_goal/funeral/proc/calculate_reward(datum/addition_goal_corpse_data/data)
+	switch(data.preffered_method)
+		if(CORPSE_METHOD_CREMATION)
+			reward_credits += CREDITS_BY_CREMATION
+		if(CORPSE_METHOD_SPACE)
+			reward_credits += CREDITS_BY_SPACE
+		if(CORPSE_METHOD_UTILIZATION)
+			reward_credits += CREDITS_BY_UTILIZATION
 
 /datum/addition_goal/funeral/format_accept_report(mob/user)
-	var/text = {"<center><b>Запрос на проведение погребения №[request_number]</b></center><br>
-		В ваш адрес направлены [corpse_count] тел(а) для организации процедуры захоронения.<br>
+	var/text = {"В ваш адрес направлены [corpse_count] тел(а) для организации процедуры захоронения.<br>
 		Просим произвести погребение в соответствии с нижеуказанным списком:<br>"}
 	var/number = 1
 	for(var/mob/living/corpse as anything in corpses)
@@ -79,7 +97,7 @@
 
 /datum/addition_goal/funeral/complete_goal(datum/controller/subsystem/addition_goals/system)
 	var/complete_count = 0
-	var/report_text = "<center><b>Отчет о проведении погребения №[request_number]</b><center><br>"
+	var/report_text = ""
 	var/number = 1
 	for(var/mob/living/corpse in corpses)
 		var/datum/addition_goal_corpse_data/data = corpse_data[corpse.name]
@@ -116,8 +134,10 @@
 		reward_number++
 	if(reward_cargopoints > 0)
 		report_text += "[reward_number]. [reward_cargopoints] очков поставки в карго.<br>"
+	system.add_reward(reward_credits, reward_cargopoints)
+	var/paper_content = system.create_paper_content("Отчет о проведении погребения №[request_number]", report_text, "Официальный документ заверенный печатью Центрального Командования Нанотрейзен")
 	message_admins("funeral addition goal: check completition [complete_count] of [corpse_count] progress=[progress].")
-	system.print_report_on_console("Отчет [goal.name]", report_text, stamp = TRUE)
+	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
 
 
 
