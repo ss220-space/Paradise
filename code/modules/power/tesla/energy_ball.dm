@@ -222,12 +222,19 @@
 	/// Things that we want to shock.
 	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure, /obj/vehicle/ridden))
 	/// Things that we don't want to shock.
-	var/static/blacklisted_tesla_types = typecacheof(list(
+	var/static/blacklisted_tesla_types = typecacheof(list(\
 		/obj/machinery/atmospherics,
 		/obj/machinery/portable_atmospherics,
 		/obj/machinery/power/emitter,
 		/obj/machinery/field/generator,
 		/mob/living/simple_animal,
+		/obj/machinery/particle_accelerator/control_box,
+		/obj/structure/particle_accelerator/fuel_chamber,
+		/obj/structure/particle_accelerator/particle_emitter/center,
+		/obj/structure/particle_accelerator/particle_emitter/left,
+		/obj/structure/particle_accelerator/particle_emitter/right,
+		/obj/structure/particle_accelerator/power_box,
+		/obj/structure/particle_accelerator/end_cap,
 		/obj/machinery/field/containment,
 		/obj/structure/disposalpipe,
 		/obj/structure/disposaloutlet,
@@ -237,6 +244,8 @@
 		/obj/machinery/gateway,
 		/obj/structure/lattice,
 		/obj/structure/grille,
+		/obj/structure/cable,
+		/obj/machinery/the_singularitygen/tesla,
 		/obj/machinery/constructable_frame/machine_frame
 		))
 
@@ -316,7 +325,7 @@
 	if(!closest_atom)
 		return
 	//common stuff
-	source.Beam(closest_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5, maxdistance = INFINITY)
+	source.Beam(closest_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	var/zapdir = get_dir(source, closest_atom)
 	if(zapdir)
 		. = zapdir
@@ -341,6 +350,7 @@
 		power /= 1.5
 	else
 		power = closest_atom.zap_act(power, zap_flags)
+
 	if(prob(20))//I know I know
 		var/list/shocked_copy = shocked_targets.Copy()
 		tesla_zap(source = closest_atom, zap_range = next_range, power = power * 0.5, cutoff = cutoff, zap_flags = zap_flags, shocked_targets = shocked_copy)
