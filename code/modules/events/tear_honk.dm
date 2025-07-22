@@ -2,6 +2,7 @@
 	name = "honkmensional tear"
 	notify_title = "Хонкомысленный разрыв"
 	notify_image = "clowngoblin"
+
 	var/obj/effect/tear/honk/HE
 
 /datum/event/tear/honk/spawn_tear(location)
