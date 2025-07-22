@@ -335,10 +335,10 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 	if(istype(I, /obj/item/plant_analyzer))
 		add_fingerprint(user)
-		to_chat(user, "[span_info("This is the ")][span_name("[name]")]")
+		to_chat(user, "[span_notice("This is the ")][span_name("[name]")]")
 		var/advanced_info = get_analyzer_text()
 		if(advanced_info)
-			to_chat(user, span_info("[advanced_info]"))
+			to_chat(user, span_notice("[advanced_info]"))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

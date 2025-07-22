@@ -923,7 +923,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		var/mob/living/carbon/human/human_owner = player.current
 		var/where = human_owner.equip_in_one_of_slots(item, slots)
 		if(where)
-			to_chat(human_owner, "<br><br><span class='info'>В вашем [where] находится коробка с <b>предметами и инструкциями</b>, которые помогут вам в воровстве.</span><br>")
+			to_chat(human_owner, span_notice("<br><br>В вашем [where] находится коробка с [span_bold("предметами и инструкциями")], которые помогут вам в воровстве.<br>"))
 		else
 			to_chat(human_owner, span_userdanger("К сожалению, вам не удалось получить набор для кражи. Это очень плохо, и вам следует немедленно обратиться за помощью к администраторам (нажмите F1)."))
 			message_admins("[ADMIN_LOOKUPFLW(human_owner)] Failed to spawn with their [item_path] theft kit.")

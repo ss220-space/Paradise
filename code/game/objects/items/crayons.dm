@@ -86,12 +86,12 @@
 			temp = "letter"
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
-		to_chat(user, span_info("You start drawing a [temp] on the [target.name]."))
+		to_chat(user, span_notice("You start drawing a [temp] on the [target.name]."))
 		busy = TRUE
 		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
-			to_chat(user, span_info("You finish drawing [temp]."))
+			to_chat(user, span_notice("You finish drawing [temp]."))
 			if(uses)
 				uses--
 				if(!uses)

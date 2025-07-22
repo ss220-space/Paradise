@@ -33,7 +33,7 @@
 
 /obj/structure/windoor_assembly/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-click</b> to rotate it clockwise.")
+	. += span_notice("<b>Alt-click</b> to rotate it clockwise.")
 
 /obj/structure/windoor_assembly/Initialize(mapload, set_dir)
 	. = ..()

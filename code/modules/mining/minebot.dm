@@ -130,7 +130,7 @@
 	if(!I.tool_use_check(user, 1))
 		return
 	if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
-		to_chat(user, span_info("[capitalize(declent_ru(NOMINATIVE))] слишком активно двигается для ремонта!"))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] слишком активно двигается для ремонта!"))
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, 15, 1, volume = I.tool_volume) && health != maxHealth)
@@ -150,9 +150,9 @@
 		toggle_mode()
 		switch(mode)
 			if(MINEDRONE_COLLECT)
-				to_chat(M, span_info("[capitalize(declent_ru(NOMINATIVE))] переведён в режим поиска и сбора руды."))
+				to_chat(M, span_notice("[capitalize(declent_ru(NOMINATIVE))] переведён в режим поиска и сбора руды."))
 			if(MINEDRONE_ATTACK)
-				to_chat(M, span_info("[capitalize(declent_ru(NOMINATIVE))] переведён в режим атаки на опасную фауну."))
+				to_chat(M, span_notice("[capitalize(declent_ru(NOMINATIVE))] переведён в режим атаки на опасную фауну."))
 		return
 	..()
 
@@ -180,7 +180,7 @@
 	minimum_distance = 1
 	retreat_distance = null
 	icon_state = "mining_drone"
-	to_chat(src, span_info("Активирован режим сбора. Теперь можно собирать рассыпанную руду."))
+	to_chat(src, span_notice("Активирован режим сбора. Теперь можно собирать рассыпанную руду."))
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetOffenseBehavior()
 	mode = MINEDRONE_ATTACK
@@ -191,7 +191,7 @@
 	retreat_distance = 2
 	minimum_distance = 1
 	icon_state = "mining_drone_offense"
-	to_chat(src, span_info("Активирован боевой режим. Теперь доступна дистанционная атака."))
+	to_chat(src, span_notice("Активирован боевой режим. Теперь доступна дистанционная атака."))
 
 /mob/living/simple_animal/hostile/mining_drone/AttackingTarget()
 	if(istype(target, /obj/item/stack/ore) && mode == MINEDRONE_COLLECT)

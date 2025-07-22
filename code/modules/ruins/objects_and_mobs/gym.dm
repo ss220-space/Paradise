@@ -19,11 +19,15 @@
 	layer = WALL_OBJ_LAYER
 	var/list/hit_sounds = list('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg',\
 	'sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
+	var/material_drop = /obj/item/stack/sheet/cloth
+	var/material_drop_amount = 10
 
-
-/obj/structure/punching_bag/attack_hand(mob/user as mob)
-	. = ..()
+/obj/structure/punching_bag/attack_hand(mob/living/user, obj/item/item)
+	. = FALSE
 	if(.)
+		return
+
+	if(iswirecutter(item))
 		return
 
 	flick("[icon_state]2", src)
@@ -37,6 +41,24 @@
 		return
 
 	attacker.apply_status_effect(STATUS_EFFECT_EXERCISED)
+
+/obj/structure/punching_bag/wirecutter_act(mob/user, obj/item/item)
+	. = TRUE
+
+	if(!item.tool_start_check(src, user, 0))
+		return
+
+	WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
+	if(!item.use_tool(src, user, 5 SECONDS, volume = item.tool_volume))
+		return
+
+	WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
+	deconstruct(TRUE)
+
+/obj/structure/punching_bag/deconstruct(disassembled = TRUE)
+	if(ispath(material_drop) && material_drop_amount && !(obj_flags & NODECONSTRUCT))
+		new material_drop(loc, material_drop_amount)
+	qdel(src)
 
 /obj/structure/weightmachine
 	name = "weight machine"
@@ -53,11 +75,11 @@
 	density = TRUE
 	anchored = TRUE
 	var/icon_state_inuse
-
+	var/material_drop = /obj/item/stack/sheet/metal
+	var/material_drop_amount = 5
 
 /obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)
 	return
-
 
 /obj/structure/weightmachine/attack_hand(mob/living/user)
 	. = ..()
@@ -91,7 +113,7 @@
 		"станов[pluralize_ru(user.gender, "ит", "ят")]ся сильнее",
 		"облива[pluralize_ru(user.gender, "ет", "ют")]ся потом",
 	)
-	user.visible_message("<b>[user] [bragmessage]!</b>")
+	user.visible_message(span_bold("[user] [bragmessage]!"))
 	AnimateMachine(user)
 
 	playsound(user, 'sound/machines/click.ogg', 60, 1)
@@ -107,12 +129,41 @@
 	to_chat(user, finishmessage)
 	user.apply_status_effect(STATUS_EFFECT_EXERCISED)
 
+/obj/structure/weightmachine/welder_act(mob/user, obj/item/item)
+	. = TRUE
+
+	if(!item.tool_use_check(user, 0))
+		return
+
+	if(in_use)
+		user.balloon_alert(user, "занято")
+		return
+
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(!item.use_tool(src, user, 40, volume = item.tool_volume))
+		return
+
+	WELDER_SLICING_SUCCESS_MESSAGE
+	deconstruct(TRUE)
+
+/obj/structure/weightmachine/deconstruct(disassembled = TRUE)
+	if(ispath(material_drop) && material_drop_amount && !(obj_flags & NODECONSTRUCT))
+		new material_drop(loc, material_drop_amount)
+	qdel(src)
 
 /obj/structure/weightmachine/stacklifter
+	name = "chest press"
+	ru_names = list(
+		NOMINATIVE = "грузоблочный тренажёр",
+		GENITIVE = "грузоблочного тренажёра",
+		DATIVE = "грузоблочному тренажёру",
+		ACCUSATIVE = "грузоблочный тренажёр",
+		INSTRUMENTAL = "грузоблочным тренажёром",
+		PREPOSITIONAL = "грузоблочном тренажёре"
+	)
 	icon = 'icons/goonstation/objects/fitness.dmi'
 	icon_state = "fitnesslifter"
 	icon_state_inuse = "fitnesslifter2"
-
 
 /obj/structure/weightmachine/stacklifter/AnimateMachine(mob/living/carbon/human/user)
 	var/lifts = 0
@@ -131,12 +182,19 @@
 		if(!SEND_SIGNAL(user, COMSIG_MOB_EXERCISED, 1.0 / EXERCISES_PER_TRY))
 			return
 
-
 /obj/structure/weightmachine/weightlifter
+	name = "bench press"
+	ru_names = list(
+		NOMINATIVE = "скамья для жима",
+		GENITIVE = "скамьи для жима",
+		DATIVE = "скамье для жима",
+		ACCUSATIVE = "скамью для жима",
+		INSTRUMENTAL = "скамьёй для жима",
+		PREPOSITIONAL = "скамье для жима"
+	)
 	icon = 'icons/goonstation/objects/fitness.dmi'
 	icon_state = "fitnessweight"
 	icon_state_inuse = "fitnessweight-c"
-
 
 /obj/structure/weightmachine/weightlifter/AnimateMachine(mob/living/carbon/human/user)
 	var/mutable_appearance/swole_overlay = mutable_appearance(icon, "fitnessweight-w", WALL_OBJ_LAYER)
@@ -162,7 +220,6 @@
 	sleep(3)
 	cut_overlay(swole_overlay)
 
-
 /obj/structure/weightmachine/horizontalbar
 	name = "турник"
 	ru_names = list(
@@ -178,7 +235,6 @@
 	icon_state = "horizontalbar"
 	icon_state_inuse = "horizontalbar"
 	var/rod_y = 28
-
 
 /obj/structure/weightmachine/horizontalbar/AnimateMachine(mob/living/carbon/human/user)
 	var/mutable_appearance/swole_overlay = mutable_appearance(icon, "rod", WALL_OBJ_LAYER)
@@ -207,11 +263,9 @@
 	cut_overlay(swole_overlay)
 	user.apply_status_effect(STATUS_EFFECT_EXERCISED)
 
-
 /obj/structure/weightmachine/horizontalbar/high
 	icon = 'icons/goonstation/objects/horizontalbar2.dmi'
 	rod_y = 32
-
 
 /datum/crafting_recipe/horizontalbar
 	name = "Турник"
@@ -222,7 +276,6 @@
 	time = 6 SECONDS
 	category = CAT_MISC
 
-
 /datum/crafting_recipe/horizontalbar_high
 	name = "Турник (Высокий)"
 	result = /obj/structure/weightmachine/horizontalbar/high
@@ -231,7 +284,6 @@
 				/obj/item/stack/cable_coil = 5)
 	time = 6 SECONDS
 	category = CAT_MISC
-
 
 #undef EXERCISES_PER_TRY
 #undef PUNCHINGBAG_HITS_PER_TRY

@@ -109,7 +109,7 @@
 	var/mob/living/carbon/receiver = locateUID(receiver_UID)
 	var/mob/living/carbon/giver = attached_effect.owner
 	var/obj/item/I = locateUID(item_UID)
-	to_chat(giver, span_info("Вы передумали передавать [I.declent_ru(ACCUSATIVE)] [receiver]."))
+	to_chat(giver, span_notice("Вы передумали передавать [I.declent_ru(ACCUSATIVE)] [receiver]."))
 	to_chat(receiver, span_warning("[giver] передум[pluralize_ru(giver.gender,"ал","али")] передавать вам [I.declent_ru(ACCUSATIVE)]."))
 	receiver.clear_alert("take item [item_UID]") // This cancels *everything* related to the giving/item offering.
 
@@ -126,14 +126,14 @@
 /datum/click_intercept/give/New(client/C)
 	..()
 	holder.mouse_pointer_icon = 'icons/misc/mouse_icons/give_item.dmi'
-	to_chat(holder, span_info("ЛКМ по игроку – предложить предмет в руке."))
+	to_chat(holder, span_notice("ЛКМ по игроку – предложить предмет в руке."))
 	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
 	RegisterSignal(holder.mob, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(signal_qdel))
 
 /datum/click_intercept/give/Destroy(force = FALSE)
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
 	if(!item_offered)
-		to_chat(holder.mob, span_info("Вы прекратили попытку передачи предмета."))
+		to_chat(holder.mob, span_notice("Вы прекратили попытку передачи предмета."))
 	return ..()
 
 
@@ -158,7 +158,7 @@
 	// Otherwise, throwing a new "take item" alert would override any current one also named "take item".
 	receiver.throw_alert("Вам предлагают [I.UID()]", /atom/movable/screen/alert/take_item, alert_args = list(user, receiver, I))
 	item_offered = TRUE // TRUE so we don't give them the default chat message in Destroy.
-	to_chat(user, span_info("Вы предлагаете [I.declent_ru(ACCUSATIVE)] [receiver]."))
+	to_chat(user, span_notice("Вы предлагаете [I.declent_ru(ACCUSATIVE)] [receiver]."))
 	qdel(src)
 
 
