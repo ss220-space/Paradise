@@ -76,7 +76,7 @@
 	blade.silence = TRUE
 	state_flags &= ~ARMGUARD_BLADE_EXISTS_FLAG
 	qdel(blade)
-	reload(user)
+	INVOKE_ASYNC(src, PROC_REF(reload), user)
 
 /obj/item/clothing/accessory/armguard/syndicate/proc/appear_blade(mob/user)
 	if(!(state_flags & ARMGUARD_BLADE_READY_FLAG))
@@ -108,6 +108,7 @@
 	user.balloon_alert(user, "наручи перезаряжены")
 
 /obj/item/clothing/accessory/armguard/syndicate/proc/trigger_blade_action(mob/user)
+	SIGNAL_HANDLER
 	var/item_in_hands = user.get_active_hand()
 	if(istype(item_in_hands, /obj/item/kitchen/knife/hidden_blade))
 		hide_blade(user, item_in_hands)
