@@ -213,6 +213,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Space Dust",				/datum/event/dust,						50,		list(ASSIGNMENT_ENGINEER = 50)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Пространственный разрыв",	/datum/event/tear,						0,		list(ASSIGNMENT_SECURITY = 35)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Хонканомалия",				/datum/event/tear/honk,					0),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Рандомысленный разрыв",	/datum/event/tear/random,				0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Отходы из вытяжек",		/datum/event/vent_clog,					250),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Червоточины",				/datum/event/wormholes,					150),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Атмосферная аномалия",		/datum/event/anomaly/anomaly_pyro,		75,		list(ASSIGNMENT_ENGINEER = 60)),
@@ -231,7 +232,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Космический ниндзя",		/datum/event/space_ninja, 				40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ядерный оперативник",		/datum/event/lone_operative, 			40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Торговцы",					/datum/event/traders,					85,		is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Рандомысленный разрыв",	/datum/event/tear/random,				0),
 	)
 
 /datum/event_container/major
