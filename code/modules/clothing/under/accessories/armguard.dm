@@ -35,21 +35,29 @@
 	. = ..()
 	if(!has_suit)
 		return
-	blade_action.Grant(has_suit.loc)
+	grant_action(has_suit.loc)
 
 /obj/item/clothing/accessory/armguard/syndicate/on_removed(mob/detacher)
 	if(!has_suit)
 		return ..()
-	blade_action.Remove(has_suit.loc)
+	remove_action(has_suit.loc)
 	. = ..()
 
 /obj/item/clothing/accessory/armguard/syndicate/attached_equip(mob/user)
-	blade_action.Grant(user)
+	grant_action(user)
 	. = ..()
 
 /obj/item/clothing/accessory/armguard/syndicate/attached_unequip(mob/user)
-	blade_action.Remove(user)
+	remove_action(user)
 	. = ..()
+
+/obj/item/clothing/accessory/armguard/syndicate/proc/grant_action(mob/user)
+	blade_action.Grant(user)
+	RegisterSignal(user, COMSIG_ARMGUARD_ACTION_TOGGLE, PROC_REF(trigger_blade_action))
+
+/obj/item/clothing/accessory/armguard/syndicate/proc/remove_action(mob/user)
+	blade_action.Remove(user)
+	UnregisterSignal(user, COMSIG_ARMGUARD_ACTION_TOGGLE)
 
 /obj/item/clothing/accessory/armguard/syndicate/proc/reload(mob/user)
 	if(state_flags & ARMGUARD_BLADE_READY_FLAG)
@@ -98,6 +106,16 @@
 	if(!istype(user))
 		return
 	user.balloon_alert(user, "наручи перезаряжены")
+
+/obj/item/clothing/accessory/armguard/syndicate/proc/trigger_blade_action(mob/user)
+	SIGNAL_HANDLER
+	var/item_in_hands = user.get_active_hand()
+	if(istype(item_in_hands, /obj/item/kitchen/knife/hidden_blade))
+		hide_blade(user, item_in_hands)
+		return
+	if(item_in_hands)
+		return
+	appear_blade(user)
 
 
 ///Hidden blade
@@ -202,24 +220,8 @@
 	if(!..())
 		return FALSE
 	var/mob/user = usr
-	var/suit = user.get_item_by_slot(ITEM_SLOT_CLOTH_INNER)
-	if(!suit)
-		return FALSE
-	var/obj/item/clothing/accessory/armguard/syndicate/armguard
-	if(istype(suit, /obj/item/clothing/under))
-		var/obj/item/clothing/under/uniform = suit
-		if(LAZYLEN(uniform.accessories))
-			armguard = locate() in uniform.accessories
-	if(!armguard)
-		return FALSE
-	var/item_in_hands = user.get_active_hand()
-	if(istype(item_in_hands, /obj/item/kitchen/knife/hidden_blade))
-		armguard.hide_blade(user, item_in_hands)
-		return TRUE
-	if(!item_in_hands)
-		armguard.appear_blade(user)
-		return TRUE
-	return FALSE
+	SEND_SIGNAL(user, COMSIG_ARMGUARD_ACTION_TOGGLE)
+	return TRUE
 
 /datum/action/armguard_hidden_blade/proc/set_activate_mode()
 	button_icon_state = activate_icon

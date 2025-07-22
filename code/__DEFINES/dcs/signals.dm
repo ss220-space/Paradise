@@ -937,6 +937,9 @@
 ///from base of /obj/item/clothing/suit/space/proc/toggle_spacesuit(): (obj/item/clothing/suit/space/suit)
 #define COMSIG_SUIT_SPACE_TOGGLE "suit_space_toggle"
 
+///from /datum/action/armguard_hidden_blade/Trigger(): ()
+#define COMSIG_ARMGUARD_ACTION_TOGGLE "armguard_action_toggle"
+
 // /obj/item/implant signals
 ///from base of /obj/item/implant/proc/activate(): ()
 #define COMSIG_IMPLANT_ACTIVATED "implant_activated"
