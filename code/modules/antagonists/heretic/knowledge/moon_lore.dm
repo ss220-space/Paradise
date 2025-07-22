@@ -217,13 +217,16 @@
 		if(IS_HERETIC_OR_MONSTER(crewmate))
 			to_chat(crewmate, span_boldwarning("Возвышение [user.declent_ru(ACCUSATIVE)] влияет на тех, чья воля слаба. Их разум будет разорван."))
 			continue
+
 		// Mindshielded and anti-magic folks are immune against this effect because this is a magical mind effect
 		//if(HAS_MIND_TRAIT(crewmate, TRAIT_UNCONVERTABLE) || crewmate.can_block_magic(MAGIC_RESISTANCE))
 		//	to_chat(crewmate, span_boldwarning("You feel shielded from something." ))
 		//	continue
+
 		if(amount_of_lunatics > max_lunatics)
-			to_chat(crewmate, span_boldwarning("You feel uneasy, as if for a brief moment something was gazing at you."))
+			to_chat(crewmate, span_boldwarning("Вы чувствуете на себе чей-то пристальный взгляд."))
 			continue
+
 		var/datum/antagonist/lunatic/lunatic = crewmate.mind.add_antag_datum(/datum/antagonist/lunatic)
 		lunatic.set_master(user.mind, user)
 		var/obj/item/clothing/neck/heretic_focus/moon_amulet/amulet = new(crewmate.drop_location())
@@ -239,6 +242,7 @@
 		crewmate.emote("laugh")
 		amount_of_lunatics++
 
+
 /datum/heretic_knowledge/ultimate/moon_final/proc/on_life(mob/living/source, seconds_per_tick, times_fired)
 	var/obj/effect/moon_effect = /obj/effect/temp_visual/moon_ringleader
 	SIGNAL_HANDLER
@@ -252,9 +256,12 @@
 	for(var/mob/living/carbon/carbon_view in view(5, source))
 		if(carbon_view.stat != CONSCIOUS)
 			continue
+
 		if(IS_HERETIC_OR_MONSTER(carbon_view))
 			continue
+
 		if(carbon_view.can_block_magic(MAGIC_RESISTANCE_MIND)) //Somehow a shitty piece of tinfoil is STILL able to hold out against the power of an ascended heretic.
 			continue
+
 		new moon_effect(get_turf(carbon_view))
 		carbon_view.Confused(2 SECONDS)

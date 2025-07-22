@@ -19,11 +19,11 @@
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_rust
-	name = "Blacksmith's Tale"
-	desc = "Opens up the Path of Rust to you. \
-		Allows you to transmute a knife with any trash item into a Rusty Blade. \
-		You can only create two at a time."
-	gain_text = "\"Let me tell you a story\", said the Blacksmith, as he gazed deep into his rusty blade."
+	name = "Тёмный Кузнец" // The Dark Knight
+	desc = "Открывает вам Путь Ржавчины. \
+			Позволяет превратить нож и мусор (например обертки) в ржавый клинок. \
+			Вы можете создать только два клинка одновременно."
+	gain_text = "«Позволь мне рассказать тебе историю», — сказал Кузнец, пристально вглядываясь в свой ржавый клинок."
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
 		/obj/item/trash = 1,
@@ -38,18 +38,21 @@
 	desc = "Your Прикосновение Мансуса will deal 500 damage to non-living matter and rust any surface it touches. \
 		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted by using Right-Click. \
 		Allows you to rust basic iron walls and floors."
-	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
+	gain_text = "Вокруг Мансуса ржавчина растёт, как мох на камне."
 	cost = 1
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "grasp_rust"
+
 
 /datum/heretic_knowledge/rust_fist/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, PROC_REF(on_secondary_mansus_grasp))
 	our_heretic.increase_rust_strength()
 
+
 /datum/heretic_knowledge/rust_fist/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY))
+
 
 /datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -58,6 +61,7 @@
 		return
 
 	source.do_rust_heretic_act(target)
+
 
 /datum/heretic_knowledge/rust_fist/proc/on_secondary_mansus_grasp(mob/living/source, atom/target)
 	SIGNAL_HANDLER
@@ -71,10 +75,11 @@
 	source.do_rust_heretic_act(target)
 	return COMPONENT_USE_HAND
 
+
 /datum/heretic_knowledge/rust_regen
 	name = "Leeching Walk"
 	desc = "Grants you passive healing and resistance to batons while standing over rust."
-	gain_text = "The speed was unparalleled, the strength unnatural. The Blacksmith was smiling."
+	gain_text = "Скорость его была невиданной, сила — нечеловеческой. Кузнец улыбался."
 	cost = 1
 	research_tree_icon_path = 'icons/effects/eldritch.dmi'
 	research_tree_icon_state = "cloud_swirl"
@@ -83,16 +88,19 @@
 /datum/heretic_knowledge/rust_regen/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	user.AddElement(/datum/element/leeching_walk)
 
+
 /datum/heretic_knowledge/rust_regen/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	user.RemoveElement(/datum/element/leeching_walk)
+
 
 /datum/heretic_knowledge/mark/rust_mark
 	name = "Mark of Rust"
 	desc = "Your Прикосновение Мансуса now applies the Mark of Rust. The mark is triggered from an attack with your Rusty Blade. \
 		When triggered, your victim will suffer heavy disgust and confusion. \
 		Allows you to rust reinforced walls and floors as well as plasteel."
-	gain_text = "The Blacksmith looks away. To a place lost long ago. \"Rusted Hills help those in dire need... at a cost.\""
+	gain_text = "Кузнец смотрит вдаль. На место, что давно забыто. «Ржавые Холмы помогают нуждающимся... за определённую цену»."
 	mark_type = /datum/status_effect/eldritch/rust
+
 
 /datum/heretic_knowledge/mark/rust_mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
