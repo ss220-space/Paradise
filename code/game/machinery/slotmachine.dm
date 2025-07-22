@@ -34,10 +34,10 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 		return credits * EMAGGED_SLOT_MACHINE_PRIZE_MOD
 	return credits
 
-/datum/slotmachine_prize/proc/apply_effect(obj/machinery/slot_machine/slotmachine, mob/user, prize_credits)
+/datum/slotmachine_prize/proc/apply_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user, prize_credits)
 	//Do nothing by default
 
-/datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+/datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user)
 	if(!length(available_prizes))
 		to_chat(user, "Кажется ваш приз затерялся в блюспейс аномалии!")
 		return
@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	resultlvl = "orange"
 	custom_result = "Неудача!"
 
-/datum/slotmachine_prize/lose/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+/datum/slotmachine_prize/lose/apply_emagged_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user)
 	if(!isliving(user))
 		return
 	var/mob/living/target = user
@@ -94,7 +94,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	say_phrase = "Победитель!"
 	sound = 'sound/goonstation/misc/bell.ogg'
 
-/datum/slotmachine_prize/medium/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+/datum/slotmachine_prize/medium/apply_emagged_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user)
 	slotmachine.give_custom_prize(user, /obj/item/storage/box/random_syndi)
 
 
@@ -122,15 +122,15 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	say_phrase = "ДЖЕКПОТ!"
 	sound = 'sound/goonstation/misc/airraid_loop.ogg'
 
-/datum/slotmachine_prize/jackpot/apply_effect(obj/machinery/slot_machine/slotmachine, mob/user, prize_credits)
+/datum/slotmachine_prize/jackpot/apply_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user, prize_credits)
 	GLOB.minor_announcement.announce("Поздравляем [user.name] с выигрышем джекпота в [prize_credits] кредитов!", "Обладатель джекпота!")
 
-/datum/slotmachine_prize/jackpot/apply_emagged_effect(obj/machinery/slot_machine/slotmachine, mob/user)
+/datum/slotmachine_prize/jackpot/apply_emagged_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user)
 	slotmachine.give_custom_prize(user, /obj/item/radio/uplink)
 
 
 
-/obj/machinery/slot_machine
+/obj/machinery/computer/slot_machine
 	name = "slot machine"
 	desc = "Gambling for the antisocial."
 	icon = 'icons/obj/economy.dmi'
@@ -143,11 +143,11 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	var/result = null
 	var/resultlvl = null
 
-/obj/machinery/slot_machine/attack_hand(mob/user as mob)
+/obj/machinery/computer/slot_machine/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/slot_machine/emag_act(mob/user)
+/obj/machinery/computer/slot_machine/emag_act(mob/user)
 	. = ..()
 	if(emagged)
 		return
@@ -155,17 +155,17 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	to_chat(user, span_warning("Smells like something burnt"))
 	emagged = TRUE
 
-/obj/machinery/slot_machine/update_icon_state()
+/obj/machinery/computer/slot_machine/update_icon_state()
 	icon_state = "slots-[working ? "on" : "off"]"
 
 
-/obj/machinery/slot_machine/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/computer/slot_machine/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SlotMachine", name)
 		ui.open()
 
-/obj/machinery/slot_machine/ui_data(mob/user)
+/obj/machinery/computer/slot_machine/ui_data(mob/user)
 	var/list/data = list()
 	// Get account
 	account = get_card_account(user)
@@ -178,7 +178,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	data["resultlvl"] = resultlvl
 	return data
 
-/obj/machinery/slot_machine/ui_act(action, params)
+/obj/machinery/computer/slot_machine/ui_act(action, params)
 	if(..())
 		return
 	add_fingerprint(usr)
@@ -196,18 +196,18 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr), 25)
 
-/obj/machinery/slot_machine/proc/get_prize_coefficient()
+/obj/machinery/computer/slot_machine/proc/get_prize_coefficient()
 	if(emagged)
 		return EMAGGED_SLOT_MACHINE_PRIZE_MOD
 	return 1
 
-/obj/machinery/slot_machine/proc/apply_emagged_lose_effect(mob/user)
+/obj/machinery/computer/slot_machine/proc/apply_emagged_lose_effect(mob/user)
 	if(!isliving(user))
 		return
 	var/mob/living/target = user
 	target.adjust_slot_machine_lose_effect()
 
-/obj/machinery/slot_machine/proc/spin_slots(mob/user)
+/obj/machinery/computer/slot_machine/proc/spin_slots(mob/user)
 	if(!istype(user))
 		return
 	var/prize = detect_result()
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src) // Push a UI update
 
-/obj/machinery/slot_machine/proc/apply_spin_result(mob/user, datum/slotmachine_prize/prizedatum)
+/obj/machinery/computer/slot_machine/proc/apply_spin_result(mob/user, datum/slotmachine_prize/prizedatum)
 	if(!prizedatum || !istype(prizedatum))
 		do_sparks(1, TRUE, src)
 		atom_say("Ошибка!")
@@ -235,7 +235,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	if(emagged)
 		prizedatum.apply_emagged_effect(src, user)
 
-/obj/machinery/slot_machine/proc/detect_result()
+/obj/machinery/computer/slot_machine/proc/detect_result()
 	// Convert prize chance to weigth logic
 	var/total = 0
 	for(var/prize_id in GLOB.slotmachine_prizes)
@@ -251,50 +251,50 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	// if any other cases
 	return GLOB.slotmachine_prizes["lose"]
 
-/obj/machinery/slot_machine/verb/test_lose()
+/obj/machinery/computer/slot_machine/verb/test_lose()
 	set name = "Проверить lose"
 	set category = STATPANEL_OBJECT
 	apply_spin_result(usr, "lose")
 
-/obj/machinery/slot_machine/verb/test_minimal()
+/obj/machinery/computer/slot_machine/verb/test_minimal()
 	set name = "Проверить minimal"
 	set category = STATPANEL_OBJECT
 	apply_spin_result(usr, "minimal")
 
-/obj/machinery/slot_machine/verb/test_small()
+/obj/machinery/computer/slot_machine/verb/test_small()
 	set name = "Проверить small"
 	set category = STATPANEL_OBJECT
 	apply_spin_result(usr, "small")
 
-/obj/machinery/slot_machine/verb/test_medium()
+/obj/machinery/computer/slot_machine/verb/test_medium()
 	set name = "Проверить medium"
 	set category = STATPANEL_OBJECT
 	apply_spin_result(usr, "medium")
 
-/obj/machinery/slot_machine/verb/test_big()
+/obj/machinery/computer/slot_machine/verb/test_big()
 	set name = "Проверить big"
 	set category = STATPANEL_OBJECT
 	apply_spin_result(usr, "big")
 
-/obj/machinery/slot_machine/verb/test_jackpot()
+/obj/machinery/computer/slot_machine/verb/test_jackpot()
 	set name = "Проверить jackpot"
 	set category = STATPANEL_OBJECT
 	apply_spin_result(usr, "jackpot")
 
-/obj/machinery/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
+/obj/machinery/computer/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
 	if(sound)
 		playsound(loc, sound, 55, 1)
 	if(!account)
 		return
 	account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)
 
-/obj/machinery/slot_machine/proc/give_custom_prize(mob/user, obj/item/prize)
+/obj/machinery/computer/slot_machine/proc/give_custom_prize(mob/user, obj/item/prize)
 	var/item = new prize(get_turf(src)) // Create item on slot machine turf
 	var/mob/living/carbon/human/carbon_user = user
 	if(istype(carbon_user)) // If living carbon - put in hands
 		carbon_user.put_in_any_hand_if_possible(item)
 
-/obj/machinery/slot_machine/wrench_act(mob/user, obj/item/I)
+/obj/machinery/computer/slot_machine/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
