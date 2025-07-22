@@ -86,7 +86,7 @@
 
 /datum/status_effect/shadow_mend/on_apply()
 	owner.visible_message(span_notice("Фиолетовый свет обволакивает тело [owner]!"), span_notice("Фиолетовый свет обволакивает ваше тело!"))
-	playsound(owner, 'sound/magic/teleport_app.ogg', 50, 1)
+	playsound(owner, 'sound/magic/teleport_app.ogg', 50, TRUE)
 	return ..()
 
 /datum/status_effect/shadow_mend/tick(seconds_between_ticks)
@@ -94,7 +94,7 @@
 
 /datum/status_effect/shadow_mend/on_remove()
 	owner.visible_message(span_warning("Фиолетовый свет вокруг [owner] становится чёрным!"), span_warning("Щупальца вокруг вас сжимаются и забирают свою цену..."))
-	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
+	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
 	owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 
 /datum/status_effect/shadow_empower
@@ -108,7 +108,7 @@
 
 /datum/status_effect/shadow_empower/on_apply()
 	to_chat(owner, span_revenbignotice("Вы чувствуете себя усиленным тьмой!"))
-	playsound(owner, 'sound/magic/teleport_app.ogg', 50, 1)
+	playsound(owner, 'sound/magic/teleport_app.ogg', 50, TRUE)
 	return TRUE
 
 /datum/status_effect/shadow_empower/tick(seconds_between_ticks)
@@ -127,7 +127,7 @@
 
 /datum/status_effect/shadow_empower/on_remove()
 	to_chat(owner, span_revenbignotice("Вы чувствуете истощение! Тьма больше не поддерживает вас!"))
-	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
+	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
 
 /datum/status_effect/void_price
 	id = "void_price"

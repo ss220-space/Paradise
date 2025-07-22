@@ -14,8 +14,8 @@
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/helmet
-	pickup_sound = 'sound/items/handling/helmet_pickup.ogg'
-	drop_sound = 'sound/items/handling/helmet_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/helmet_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/helmet_drop.ogg'
 	undyeable = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',

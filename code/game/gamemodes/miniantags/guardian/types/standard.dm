@@ -27,10 +27,10 @@
 			visible_message(span_danger("[src] бьёт [target.declent_ru(ACCUSATIVE )]!"))
 		else
 			say("[battlecry]", TRUE)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
 
 /mob/living/simple_animal/hostile/guardian/punch/Life(seconds, times_fired)
 	. = ..()

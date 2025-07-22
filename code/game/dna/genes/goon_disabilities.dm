@@ -334,5 +334,5 @@
 	L.adjust_fire_stacks(0.5)
 	L.visible_message(span_danger("[L.name] внезапно вспыхива[pluralize_ru(L.gender, "ет", "ют")] пламенем!"))
 	L.IgniteMob()
-	playsound(L.loc, 'sound/effects/bamf.ogg', 50, 0)
+	playsound(L.loc, 'sound/effects/bamf.ogg', 50, FALSE)
 

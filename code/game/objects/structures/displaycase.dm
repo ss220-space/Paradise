@@ -81,7 +81,7 @@
 		visible_message(span_danger("The burglar alarm goes off!"))
 		// Play the burglar alarm three times
 		for(var/i = 0, i < 4, i++)
-			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, 0)
+			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, FALSE)
 			sleep(74) // 7.4 seconds long
 
 

@@ -94,7 +94,7 @@
 
 /obj/structure/mineral_door/proc/Open()
 	isSwitchingStates = 1
-	playsound(loc, openSound, 100, 1)
+	playsound(loc, openSound, 100, TRUE)
 	flick("[initial_state]opening",src)
 	sleep(10)
 	set_density(FALSE)
@@ -117,7 +117,7 @@
 		return FALSE
 	. = TRUE
 	isSwitchingStates = 1
-	playsound(loc, closeSound, 100, 1)
+	playsound(loc, closeSound, 100, TRUE)
 	flick("[initial_state]closing",src)
 	sleep(10)
 	set_density(TRUE)

@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	clocker_objs.setup()
 
 	for(var/datum/mind/clockwork_mind in clockwork_cult)
-		SEND_SOUND(clockwork_mind.current, 'sound/ambience/antag/clockcult.ogg')
+		SEND_SOUND(clockwork_mind.current, sound('sound/ambience/antag/clockcult.ogg'))
 		var/list/messages = list(CLOCK_GREETING)
 		to_chat(clockwork_mind.current, chat_box_yellow(messages.Join("<br>")))
 		equip_clocker(clockwork_mind.current)
@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(clock_mind.current)
 
-		SEND_SOUND(clock_mind.current, 'sound/ambience/antag/clockcult.ogg')
+		SEND_SOUND(clock_mind.current, sound('sound/ambience/antag/clockcult.ogg'))
 		add_conversion_logs(clock_mind.current, "converted to the clockwork cult")
 
 		if(jobban_isbanned(clock_mind.current, ROLE_CLOCKER) || jobban_isbanned(clock_mind.current, ROLE_CULTIST) || jobban_isbanned(clock_mind.current, ROLE_SYNDICATE))

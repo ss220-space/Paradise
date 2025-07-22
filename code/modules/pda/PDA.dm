@@ -559,13 +559,13 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		A.emp_act(severity)
 
 /obj/item/pda/proc/play_ringtone()
-	var/S
+	var/sound
 
 	if(ttone in ttone_sound)
-		S = ttone_sound[ttone]
+		sound = ttone_sound[ttone]
 	else
-		S = 'sound/machines/twobeep_high.ogg'
-	playsound(loc, S, 50, 1)
+		sound = 'sound/machines/twobeep_high.ogg'
+	playsound(loc, sound, 50, TRUE)
 	for(var/mob/O in hearers(3, loc))
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 

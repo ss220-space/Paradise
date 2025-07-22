@@ -312,12 +312,12 @@
 				to_chat(user, span_danger("Вы упустили [limb]!"))
 				return
 			user.visible_message(span_danger("[user] [pick("отрыва[pluralize_ru(user, "ет", "ют")]","откусыва[pluralize_ru(user, "ет", "ют")]")] [limb] от [the_item]!"))
-			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+			playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 			limb.droplimb(0, DROPLIMB_SHARP)
 			doHeal(user)
 	else
 		user.visible_message(span_danger("[user] [pick("съеда[pluralize_ru(user, "ет", "ют")]","поглоща[pluralize_ru(user, "ет", "ют")]")] [the_item]."))
-		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+		playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 		qdel(the_item)
 		doHeal(user)
 
@@ -375,7 +375,7 @@
 				puller.stop_pulling()
 
 		user.visible_message(span_danger("[user.name] дела[pluralize_ru(user, "ет", "ют")] огромный скачок!"))
-		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
+		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 		if(failure)
 			user.Weaken(10 SECONDS)
 			user.visible_message(span_warning("[user] пыта[pluralize_ru(user, "ет", "ют")]ся отпрыгнуть, но снова оказыва[pluralize_ru(user, "ет", "ют")]ся прижатым[pluralize_ru(user, "", "и")] к земле!"),
@@ -400,7 +400,6 @@
 
 		else if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
 			user.visible_message(span_danger("[user.name] пада[pluralize_ru(user, "ет", "ют")] на землю под весом своего тела!"))
-			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(20 SECONDS)
 
 		user.layer = prevLayer
@@ -411,7 +410,7 @@
 		user.AdjustParalysis(6 SECONDS)
 		user.AdjustWeakened(10 SECONDS)
 		container.visible_message(span_danger("[user.loc] изда[pluralize_ru(user, "ет", "ют")] громкий стук и немного дребезжит."))
-		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
+		playsound(user.loc, 'sound/effects/bang.ogg', 50, TRUE)
 		var/wiggle = 6
 		while(wiggle > 0)
 			wiggle--
@@ -473,7 +472,7 @@
 
 	spawn(1 SECONDS)
 		if(target && user)
-			playsound(user.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+			playsound(user.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 			var/mob/living/carbon/human/H = user
 			H.UpdateAppearance(target.dna.UI)
 			H.real_name = target.real_name

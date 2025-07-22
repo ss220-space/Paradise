@@ -98,6 +98,16 @@
 			continue
 		hide_from(player)
 
+/obj/item/storage/proc/dump_storage(mob/user, obj/item/storage/target)
+	if(!length(contents) || (HAS_TRAIT(user, TRAIT_RESTRAINED)) || (HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) || src == target)
+		return
+	for(var/obj/item/thing in contents)
+		if(!target.can_be_inserted(thing))
+			continue
+		if(!do_after(user, 0.3 SECONDS, target = user))
+			break
+		playsound(loc, "rustle", 50, TRUE, -5)
+		target.handle_item_insertion(thing, user)
 
 /obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!isliving(usr))
@@ -113,7 +123,13 @@
 		open(user)
 		return FALSE
 
-	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || isfloorturf(over_object)) \
+	if(isstorage(over_object))
+		var/obj/item/storage = over_object
+		if(!(storage.item_flags & IN_STORAGE))
+			dump_storage(user, over_object)
+			return
+
+	if((!istype(src, /obj/item/storage/lockbox) && (istable(over_object) || isfloorturf(over_object)) \
 		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
 
 		if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
@@ -473,6 +489,8 @@
 /obj/item/storage/proc/remove_from_storage(obj/item/W, atom/new_location)
 	if(!istype(W))
 		return FALSE
+
+	W.item_flags &= ~IN_STORAGE
 
 	for(var/mob/M as anything in mobs_viewing)
 		if((M.s_active == src) && M.client)

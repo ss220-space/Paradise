@@ -339,7 +339,7 @@
 			addtimer(VARSET_CALLBACK(src, print_delayed, FALSE), 10 SECONDS)
 
 /obj/machinery/computer/roboquest/proc/print_task(datum/roboquest/quest)
-	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	var/obj/item/paper/paper = new(get_turf(src))
 	paper.header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr noshade size='4'>"
 	paper.info = "<center> <h2> Mecha request form </h2> </center>"

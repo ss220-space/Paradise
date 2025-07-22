@@ -158,7 +158,7 @@
 			playsound(loc, doorClose, 30, 1)
 			flick("door_closing", src)
 		if("deny")
-			playsound(src.loc, doorDeni, 50, 0, 3)
+			playsound(src.loc, doorDeni, 50, FALSE, 3)
 			flick("door_deny", src)
 
 /obj/machinery/door/unpowered/hotel_door/autoclose()

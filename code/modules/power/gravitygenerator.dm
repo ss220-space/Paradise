@@ -217,13 +217,13 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		return
 	switch(broken_state)
 		if(GRAV_NEEDS_SCREWDRIVER)
-			. += span_info("The entire frame is barely holding together, the <b>screws</b> need to be refastened.")
+			. += span_notice("The entire frame is barely holding together, the <b>screws</b> need to be refastened.")
 		if(GRAV_NEEDS_WELDING)
-			. += span_info("There's lots of broken seals on the framework, it could use some <b>welding</b>.")
+			. += span_notice("There's lots of broken seals on the framework, it could use some <b>welding</b>.")
 		if(GRAV_NEEDS_PLASTEEL)
-			. += span_info("Some of this damaged plating needs full replacement. <b>10 plasteel</> should be enough.")
+			. += span_notice("Some of this damaged plating needs full replacement. <b>10 plasteel</> should be enough.")
 		if(GRAV_NEEDS_WRENCH)
-			. += span_info("The new plating just needs to be <b>bolted</b> into place now.")
+			. += span_notice("The new plating just needs to be <b>bolted</b> into place now.")
 
 
 /obj/machinery/gravity_generator/main/attackby(obj/item/I, mob/user, params)
@@ -435,7 +435,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/mob/shaked as anything in GLOB.mob_list)
 		var/turf/mob_turf = get_turf(shaked)
-    
+
 		if(!istype(mob_turf))
 			continue
 
@@ -448,7 +448,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 		if(shaked.client)
 			shake_camera(shaked, 15, 1)
-			shaked.playsound_local(our_turf, null, 100, 1, 0.5, sound = alert_sound)
+			shaked.playsound_local(our_turf, null, 100, TRUE, 0.5, sound = alert_sound)
 
 
 // TODO: Make the gravity generator cooperate with the space manager

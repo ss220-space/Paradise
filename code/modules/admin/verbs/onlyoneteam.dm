@@ -87,6 +87,6 @@
 			to_chat(A, "<span class='warning'>You're not part of the dodgeball game, sorry!</span>")
 			return
 		else
-			playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
+			playsound(src, 'sound/items/dodgeball.ogg', 50, TRUE)
 			visible_message("<span class='danger'>[H] HAS BEEN ELIMINATED!</span>")
 			H.melt()

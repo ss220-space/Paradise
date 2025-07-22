@@ -156,7 +156,7 @@
 	visible_message(span_danger("Something is scratching its way out of \the [src]!"))
 
 	for(var/i in 1 to (6*breakout_time * 2)) //minutes * 6 * 5seconds * 2
-		playsound(src.loc, 'sound/effects/squelch1.ogg', 100, 1)
+		playsound(src.loc, 'sound/effects/squelch1.ogg', 100, TRUE)
 
 		if(!do_after(escapee, 5 SECONDS))
 			to_chat(escapee, span_warning("You have stopped digging."))
@@ -169,7 +169,7 @@
 
 	to_chat(escapee, span_warning("You successfuly dig yourself out!"))
 	visible_message(span_danger("\the [escapee] emerges from \the [src]!"))
-	playsound(src.loc, 'sound/effects/squelch1.ogg', 100, 1)
+	playsound(src.loc, 'sound/effects/squelch1.ogg', 100, TRUE)
 	open()
 
 /obj/structure/pit/Destroy()
