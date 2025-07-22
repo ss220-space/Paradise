@@ -146,6 +146,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	icon_state = "slots-off"
 	anchored = TRUE
 	density = TRUE
+	circuit = /obj/item/circuitboard/arcade/slotmachine
 	var/plays = 0
 	var/working = 0
 	var/datum/money_account/account = null
@@ -162,6 +163,8 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 		return
 	do_sparks(3, TRUE, src)
 	to_chat(user, span_warning("Smells like something burnt"))
+	circuit = /obj/item/circuitboard/broken
+	frame.circuit = new circuit(frame)
 	emagged = TRUE
 
 /obj/machinery/computer/slot_machine/update_icon_state()
@@ -308,3 +311,6 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	if(!I.tool_use_check(user, 0))
 		return
 	default_unfasten_wrench(user, I)
+
+/obj/machinery/computer/slot_machine/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE

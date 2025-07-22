@@ -703,7 +703,10 @@
 				return
 
 			to_chat(user, span_notice("You connect the monitor."))
-			new circuit.build_path(get_turf(src), src)
+			if(circuit.build_path)
+				new circuit.build_path(get_turf(src), src)
+			else
+				to_chat(user, span_warning("You connect the monitor, but it doesn't work. Maybe the circuit is broken?"))
 
 
 /obj/structure/computerframe/wirecutter_act(mob/living/user, obj/item/I)
