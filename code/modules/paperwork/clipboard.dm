@@ -48,7 +48,7 @@
 
 /obj/item/clipboard/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to remove its pen.</span>"
+	. += span_notice("<b>Alt-Click</b> to remove its pen.")
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
 

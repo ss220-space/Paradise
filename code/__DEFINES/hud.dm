@@ -28,7 +28,7 @@
 #define DIAG_PATH_HUD 		"23"//Bot path indicators
 #define GLAND_HUD 			"24"//Gland indicators for abductors
 #define THOUGHT_HUD			"25"//Telepathy bubbles
-#define KIDAN_PHEROMONES_HUD	"26"//Kidan pheromones hud
+#define KIDAN_PHEROMONES_HUD	"pheromone_hud" // Kidan pheromones hud
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior

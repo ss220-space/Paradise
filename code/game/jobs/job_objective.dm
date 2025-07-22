@@ -42,11 +42,11 @@
 	return 0
 
 /datum/game_mode/proc/declare_job_completion()
-	var/text = "<hr><b><u>Выполнение работы</u></b>"
+	var/text = span_bold("<hr><u>Выполнение работы</u>")
 
 	for(var/datum/mind/employee in SSticker.minds)
 
-		if(!employee.job_objectives.len)//If the employee had no objectives, don't need to process this.
+		if(!length(employee.job_objectives))//If the employee had no objectives, don't need to process this.
 			continue
 
 		if(employee.assigned_role == employee.special_role || employee.offstation_role) //If the character is an offstation character, skip them.
@@ -59,18 +59,17 @@
 		var/count = 1
 		for(var/datum/job_objective/objective in employee.job_objectives)
 			if(objective.is_completed(1))
-				text += "<br>&nbsp;-&nbsp;<b>Задача №[count]</b>: [objective.get_description()] <font color='green'><b>Выполнена!</b></font>"
+				text += "<br>&nbsp;-&nbsp;<b>Задача №[count]</b>: [objective.get_description()] [span_green(span_bold("Выполнена"))]!"
 				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "SUCCESS"))
 				tasks_completed++
 			else
-				text += "<br>&nbsp;-&nbsp;<b>Задача №[count]</b>: [objective.get_description()] <font color='red'><b>Провалена.</b></font>"
+				text += "<br>&nbsp;-&nbsp;<b>Задача №[count]</b>: [objective.get_description()] [span_red(span_bold("Провалена"))]."
 				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "FAIL"))
 			count++
 
 		if(tasks_completed >= 1)
-			text += "<br>&nbsp;<font color='green'><b>[employee.name] сделал свою чёртову работу!</b></font>"
+			text += span_green(span_bold("<br>&nbsp;[employee.name] сделал свою работу!"))
 			SSblackbox.record_feedback("tally", "employee_success", 1, "SUCCESS")
-
 		else
 			SSblackbox.record_feedback("tally", "employee_success", 1, "FAIL")
 
@@ -81,19 +80,19 @@
 
 	if(href_list["amb_add"])
 		ambition_func = TRUE
-		if (ambition_objectives.len < ambition_limit)
+		if(length(ambition_objectives) < ambition_limit)
 			var/datum/ambition_objective/objective = new /datum/ambition_objective(usr.mind)
 
 			var/counter = 0
 			do
 				counter = 0
 				objective.description = objective.get_random_ambition()
-				if (objective.description == null || objective.description == "")
+				if(objective.description == null || objective.description == "")
 					break
 				for(var/datum/ambition_objective/amb in ambition_objectives)
-					if (objective.description == amb.description) //&& objective.unique_datum_id != amb.unique_datum_id)
+					if(objective.description == amb.description) //&& objective.unique_datum_id != amb.unique_datum_id)
 						counter++
-						if (counter > 1)
+						if(counter > 1)
 							break
 			while(counter > 1)
 
@@ -120,14 +119,14 @@
 			return
 		objective.completed = !objective.completed
 
-		if (objective.completed)
+		if(objective.completed)
 			to_chat(usr, "<span class='warning'>[pluralize_ru(usr.gender,"Моя","Наша")] амбиция выполнена. [pluralize_ru(usr.gender,"Поздравляю сам себя","Поздравим же нас")]!</span>")
 		else
 			to_chat(usr, "<span class='warning'>Пожалуй [pluralize_ru(usr.gender,"моя","наша")] амбиция ещё не выполнена. Но у [pluralize_ru(usr.gender,"меня","нас")] ещё будут возможности!</span>")
 		add_misc_logs(usr, "[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambitions")
 
 	// Обновляем открытую память
-	if (ambition_func)
+	if(ambition_func)
 		show_memory()
 
 	return ambition_func

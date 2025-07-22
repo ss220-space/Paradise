@@ -96,7 +96,7 @@
 		return
 
 	add_say_logs(usr, msg, choice, "SLAUGHTER")
-	to_chat(usr, span_info("<b>Вы шепчете [choice]: </b>[msg]"))
+	to_chat(usr, span_notice("<b>Вы шепчете [choice]: </b>[msg]"))
 	to_chat(choice, "[span_deadsay("<b>Внезапно странный демонический голос звучит у вас в голове... </b>")][span_danger("<i> [msg]</i>")]")
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message("<i>Демоническое сообщение от <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) к <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")

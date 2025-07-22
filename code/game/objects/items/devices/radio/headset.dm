@@ -65,7 +65,7 @@
 	. = ..()
 	if(in_range(src, user) && radio_desc)
 		. += span_notice("<b>Доступные частоты:</b>")
-		. += span_info("[radio_desc]")
+		. += span_notice("[radio_desc]")
 
 /obj/item/radio/headset/handle_message_mode(mob/living/M, list/message_pieces, channel)
 	if(channel == SPEC_FREQ_NAME)

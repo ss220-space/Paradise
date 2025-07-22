@@ -203,7 +203,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				msg = "The [BadBoy.name] subsystem was the last to fire for 2 controller restarts. It will be recovered now and disabled if it happens again."
 				FireHim = TRUE
 			if(3)
-				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined. [span_info("The following implications are now in effect: [BadBoy.offline_implications]")]"
+				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined. [span_notice("The following implications are now in effect: [BadBoy.offline_implications]")]"
 				BadBoy.flags |= SS_NO_FIRE
 		if(msg)
 			to_chat(GLOB.admins, span_boldannounceooc("[msg]"))

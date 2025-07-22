@@ -627,7 +627,7 @@
 	if(.)
 		return TRUE
 	if(href_list["description_info"])
-		to_chat(usr, span_info("<div class='examine'>[get_description_info()]</div>"))
+		to_chat(usr, span_notice("<div class='examine'>[get_description_info()]</div>"))
 		return TRUE
 	if(href_list["description_antag"])
 		to_chat(usr, span_syndradio("<div class='examine'>[get_description_antag()]</div>"))

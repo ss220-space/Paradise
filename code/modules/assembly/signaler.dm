@@ -35,7 +35,7 @@
 /obj/item/assembly/signaler/examine(mob/user)
 	. = ..()
 	. += span_notice("The power light is <b>[receiving ? "on" : "off"]</b>.")
-	. += span_info("<b>Alt+Click</b> to send a signal.")
+	. += span_notice("<b>Alt+Click</b> to send a signal.")
 
 
 /obj/item/assembly/signaler/click_alt(mob/user)

@@ -425,7 +425,10 @@
 					temporarily_remove_item_from_inventory(I)
 				I.forceMove(back)
 			else
+				I.item_flags &= ~IN_STORAGE
 				I.forceMove(drop_location())
+
+			I.item_flags |= IN_STORAGE
 
 		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = w_uniform
