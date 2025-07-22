@@ -29,7 +29,7 @@
 	if(update)
 		update = FALSE
 		reconcile_air()
-	return
+	update = air.react()
 
 GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
@@ -136,9 +136,10 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 		member.air_temporary = new
 		member.air_temporary.volume = member.volume
 		member.air_temporary.copy_from(air)
+		var/member_gases = member.air_temporary.gases
 
-		for(var/gas in member.air_temporary.gases)
-			gas[MOLES] *= member.volume/air.volume
+		for(var/id in member_gases)
+			member_gases[id] *= member.volume / air.volume
 
 		member.air_temporary.temperature = air.temperature
 
@@ -199,8 +200,8 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	var/list/datum/pipeline/PL = list()
 	PL += src
 
-	for(var/i= 1 ;i <= PL.len; i++)
-		var/datum/pipeline/P = PL[i]
+	for(var/i in PL)
+		var/datum/pipeline/P = i
 		if(!P)
 			return
 		GL += P.air
@@ -224,23 +225,21 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
 	var/total_thermal_energy = 0
 	var/total_heat_capacity = 0
-	var/datum/gas_mixture/total_gas_mixture = new
+	var/datum/gas_mixture/total_gas_mixture = new(0)
 
-	for(var/datum/gas_mixture/G in GL)
+	for(var/datum/gas_mixture/G as anything in GL)
 		total_gas_mixture.volume += G.volume
 		total_gas_mixture.merge(G)
 		total_thermal_energy += G.thermal_energy()
 		total_heat_capacity += G.heat_capacity()
 
-	if(total_heat_capacity > 0)
-		total_gas_mixture.temperature = total_thermal_energy / total_heat_capacity
-	else
-		total_gas_mixture.temperature = 0
+		total_gas_mixture.temperature = total_heat_capacity ? total_thermal_energy / total_heat_capacity : 0
 
 	if(total_gas_mixture.volume > 0)
 
 		//Update individual gas_mixtures by volume ratio
 		for(var/datum/gas_mixture/G in GL)
 			G.copy_from(total_gas_mixture)
-			for(var/gas in G.gases)
-				gas[MOLES] *= G.volume / total_gas_mixture.volume
+			var/list/gases = G.gases
+			for(var/id in gases)
+				gases[id][MOLES] *= G.volume / total_gas_mixture.volume

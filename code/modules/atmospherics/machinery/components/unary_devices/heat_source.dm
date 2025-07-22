@@ -38,6 +38,12 @@
 
 	//todo: have current temperature affected. require power to bring up current temperature again
 
-	if(abs(old_temperature-air_contents.temperature) > 1)
+	var/temperature_change = abs(old_temperature - air_contents.temperature)
+
+	if(temperature_change > 1)
+		active_power_usage = (current_heat_capacity * temperature_change) / 10 + idle_power_usage
 		update_parents()
+	else
+		//No change in temp, use idle power
+		active_power_usage = idle_power_usage
 	return TRUE

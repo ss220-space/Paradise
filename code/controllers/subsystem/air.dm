@@ -408,8 +408,8 @@ SUBSYSTEM_DEF(air)
 /obj/effect/overlay/turf/plasma
 	icon_state = "plasma"
 
-/obj/effect/overlay/turf/sleeping_agent
-	icon_state = "sleeping_agent"
+/obj/effect/overlay/turf/nitrous_oxide
+	icon_state = "nitrous_oxide"
 
 
 /datum/controller/subsystem/air/proc/setup_overlays()
@@ -417,9 +417,9 @@ SUBSYSTEM_DEF(air)
 		var/obj/effect/overlay/turf/plasma/plasma = new
 		SET_PLANE_W_SCALAR(plasma, plasma.plane, i)
 		GLOB.plmaster["[i]"] += plasma
-		var/obj/effect/overlay/turf/sleeping_agent/sleeping_agent = new
-		SET_PLANE_W_SCALAR(sleeping_agent, sleeping_agent.plane, i)
-		GLOB.slmaster["[i]"] += sleeping_agent
+		var/obj/effect/overlay/turf/nitrous_oxide/nitrous_oxide = new
+		SET_PLANE_W_SCALAR(nitrous_oxide, nitrous_oxide.plane, i)
+		GLOB.slmaster["[i]"] += nitrous_oxide
 
 /datum/controller/subsystem/air/proc/throw_error_on_active_roundstart_turfs()
 	// Can't properly test lavaland due to Init order issues and EVERYTHING being surrounded by rocks, as such we just ignore any turfs on that level

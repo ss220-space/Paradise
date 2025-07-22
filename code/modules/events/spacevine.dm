@@ -435,7 +435,7 @@
 	mineral_results = list(
 	/obj/item/stack/sheet/wood = 1
 	)
-
+/*
 /datum/spacevine_mutation/oxy_eater
 	name = "oxygen consuming"
 	hue = "#ffff88"
@@ -495,7 +495,7 @@
 			return
 		GM.gases[GAS_PL][MOLES] -= severity * holder.energy
 		GM.garbage_collect()
-
+*/
 
 // SPACE VINES (Note that this code is very similar to Biomass code)
 /obj/structure/spacevine

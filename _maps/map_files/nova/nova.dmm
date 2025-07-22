@@ -16921,7 +16921,7 @@
 	},
 /area/turret_protected/aisat_interior/secondary)
 "cus" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light{
 	dir = 1;
@@ -28740,7 +28740,7 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "ehB" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -38613,7 +38613,7 @@
 	c_tag = "Toxins Gas Storage";
 	network = list("Research","SS13")
 	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -51713,7 +51713,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint6)
 "hAG" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/cleanable/cobweb{
 	layer = 4
 	},
@@ -76370,7 +76370,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "lmZ" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -90351,7 +90351,7 @@
 /turf/simulated/floor/plating,
 /area/security/warden)
 "npw" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n20,
@@ -94025,7 +94025,7 @@
 	},
 /area/crew_quarters/fitness)
 "nRG" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
@@ -97076,7 +97076,7 @@
 	},
 /area/storage/tech)
 "orb" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -97164,7 +97164,7 @@
 /area/hallway/secondary/exit)
 "osh" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -132671,7 +132671,7 @@
 /area/aisat/aihallway)
 "tvm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "tvt" = (
@@ -133674,7 +133674,7 @@
 	},
 /area/hallway/primary/command)
 "tCy" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plating,
 /area/security/permahallway)
 "tCz" = (
@@ -138566,7 +138566,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "umr" = (
@@ -142500,7 +142500,7 @@
 /area/maintenance/livingcomplex)
 "uRH" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{

@@ -27570,7 +27570,7 @@
 	},
 /area/hallway/primary/fore/west)
 "dOS" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/engine/n20,
 /area/atmos)
@@ -50541,7 +50541,7 @@
 	pixel_y = -28
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -54856,7 +54856,7 @@
 	},
 /area/medical/virology/lab)
 "lTh" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/engine,
 /area/security/permabrig)
@@ -56000,7 +56000,7 @@
 /area/hallway/primary/port/south)
 "mio" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -75085,7 +75085,7 @@
 /area/maintenance/disposal)
 "rAy" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79929,7 +79929,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83235,7 +83235,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -95572,7 +95572,7 @@
 	},
 /area/toxins/mixing)
 "xBd" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "xBl" = (

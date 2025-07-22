@@ -72,8 +72,7 @@
 	// To avoid a chicken-egg thing where pipes need to
 	// be initialized before the atmos cans are
 	var/datum/pipeline/connected_port_parent = connected_port.PARENT1
-	connected_port_parent.reconcile_air()
-	if(!connected_port_parent )
+	if(!connected_port_parent)
 		connected_port.build_network()
 	connected_port_parent.reconcile_air()
 

@@ -6842,7 +6842,7 @@
 	},
 /area/ruin/space/USSP_gorky17/check1)
 "zi" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{

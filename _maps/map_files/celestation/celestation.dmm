@@ -2947,7 +2947,7 @@
 /area/security/armory)
 "ayp" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n20,
@@ -63036,7 +63036,7 @@
 	pixel_y = -28
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -66132,7 +66132,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67416,7 +67416,7 @@
 /area/medical/cmostore)
 "lCC" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70470,7 +70470,7 @@
 /area/maintenance/fsmaint2)
 "mio" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -92896,7 +92896,7 @@
 /area/engineering/mechanic_workshop)
 "qxO" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -103113,7 +103113,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -121521,7 +121521,7 @@
 /area/medical/morgue)
 "vZK" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

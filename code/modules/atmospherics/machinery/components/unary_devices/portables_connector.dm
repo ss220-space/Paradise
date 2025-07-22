@@ -14,6 +14,15 @@
 	use_power = FALSE
 	level = 0
 
+/obj/machinery/atmospherics/components/unary/portables_connector/visible
+	level = 2
+
+/obj/machinery/atmospherics/components/unary/portables_connector/New()
+	..()
+	var/datum/gas_mixture/air_contents = AIR1
+
+	air_contents.volume = 0
+
 /obj/machinery/atmospherics/components/unary/portables_connector/Destroy()
 	if(connected_device)
 		connected_device.disconnect()

@@ -41,7 +41,7 @@
 
 	var/temperature_archived //USED ONLY FOR SOLIDS
 
-	var/atmos_overlay_type = null //current active overlay
+	var/atmos_overlay_types = list() //current active overlay
 
 /turf/simulated/New()
 	..()
@@ -168,17 +168,17 @@
 							our_excited_group = excited_group //update our cache
 						share_air(enemy_simulated, fire_count, adjacent_turfs_length) //share
 					else
-						if((recently_active == 1 && enemy_simulated.recently_active == 1) || !air.compare(enemy_simulated.air))
+						if((recently_active == 1 && enemy_simulated.recently_active == 1) || air.compare(enemy_simulated.air))
 							our_excited_group.add_turf(enemy_simulated) //add enemy to our group
 							share_air(enemy_simulated, fire_count, adjacent_turfs_length) //share
 				else
 					if(enemy_excited_group)
-						if((recently_active == 1 && enemy_simulated.recently_active == 1) || !air.compare(enemy_simulated.air))
+						if((recently_active == 1 && enemy_simulated.recently_active == 1) || air.compare(enemy_simulated.air))
 							enemy_excited_group.add_turf(src) //join self to enemy group
 							our_excited_group = excited_group //update our cache
 							share_air(enemy_simulated, fire_count, adjacent_turfs_length) //share
 					else
-						if((recently_active == 1 && enemy_simulated.recently_active == 1) || !air.compare(enemy_simulated.air))
+						if((recently_active == 1 && enemy_simulated.recently_active == 1) || air.compare(enemy_simulated.air))
 							var/datum/excited_group/EG = new //generate new group
 							EG.add_turf(src)
 							EG.add_turf(enemy_simulated)
@@ -272,10 +272,11 @@
 
 /turf/simulated/proc/decompression(list/turfs, turf/space/space_turf, turn = 0)
 	for (var/turf/simulated/turf in turfs)
-		var/difference = turf.air.total_moles() / 2
-
-		for(var/gas in turf.air.gases)
-			gas[MOLES] /= 2
+		var/datum/gas_mixture/turf_air = turf.air
+		var/difference = turf_air.total_moles() / 2
+		var/gases = turf_air.gases
+		for(var/id in gases)
+			gases[id][MOLES] /= 2
 		turf.archive()
 
 		if(difference)
@@ -292,36 +293,35 @@
 	archived_cycle = SSair.times_fired
 
 /turf/simulated/proc/update_visuals()
-	var/new_overlay_type = tile_graphic()
-	if(new_overlay_type == atmos_overlay_type)
-		return
-	var/atmos_overlay = get_atmos_overlay_by_name(atmos_overlay_type)
-	if(atmos_overlay)
-		vis_contents -= atmos_overlay
+	var/list/new_overlay_types = tile_graphic()
+	for(var/overlay in atmos_overlay_types - new_overlay_types) //doesn't remove overlays that would only be added
+		overlay = get_atmos_overlay_by_name(overlay)
+		overlays -= overlay
+		atmos_overlay_types -= overlay
 
-	atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
-	if(atmos_overlay)
-		vis_contents += atmos_overlay
-		atmos_overlay_type = new_overlay_type
+	for(var/overlay in new_overlay_types - atmos_overlay_types) //doesn't add overlays that already exist
+		overlay = get_atmos_overlay_by_name(overlay)
+		if(overlay in atmos_overlay_types)
+			continue //doesn't add overlays that already exist
+		overlays += overlay
+
+	atmos_overlay_types = new_overlay_types
 
 /turf/simulated/proc/get_atmos_overlay_by_name(name)
 	switch(name)
 		if("plasma")
 			return GLOB.plmaster["[GET_Z_PLANE_OFFSET(z)]"]
-		if("sleeping_agent")
+		if("nitrous_oxide")
 			return GLOB.slmaster["[GET_Z_PLANE_OFFSET(z)]"]
 	return null
 
 /turf/simulated/proc/tile_graphic()
-	if(!air)
-		return
-	var/list/gasses = air.gases
-	if(gasses[GAS_PL] && gasses[GAS_PL][MOLES] > MOLES_PLASMA_VISIBLE)
-		return "plasma"
-
-	if(gasses[GAS_N2O] && gasses[GAS_N2O][MOLES] > 1)
-		return "sleeping_agent"
-	return null
+	. = list()
+	var/list/gases = air.gases
+	for(var/id in gases)
+		var/gas = gases[id]
+		if(gas[MOLES_VISIBLE] != null && gas[MOLES] > gas[MOLES_VISIBLE])
+			. += gas[GAS_OVERLAY]
 
 /turf/simulated/proc/share_air(turf/simulated/T, fire_count, adjacent_turfs_length)
 	if(T.current_cycle < fire_count)
@@ -415,8 +415,9 @@
 		A.merge(T.air)
 
 	for(var/turf/simulated/T in cached_turf_list)
-		for(var/gas in T.air.gases)
-			gas[MOLES] = A_gases[gas[GAS_ID]][MOLES] / turf_list.len
+		var/gases = T.air.gases
+		for(var/id in gases)
+			gases[id][MOLES] = A_gases[id][MOLES] / turf_list.len
 
 		T.update_visuals()
 

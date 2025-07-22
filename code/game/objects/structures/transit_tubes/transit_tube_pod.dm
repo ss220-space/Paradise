@@ -28,14 +28,14 @@
 
 /obj/structure/transit_tube_pod/Initialize(mapload)
 	. = ..()
-	// Give auto tubes time to align before trying to start moving
-	spawn(5)
-
 	air_contents.assert_gases(GAS_O2, GAS_N2)
 	air_contents.gases[GAS_O2][MOLES] = MOLES_O2STANDARD * 2
 	air_contents.gases[GAS_N2][MOLES] = MOLES_N2STANDARD
 	air_contents.temperature = T20C
+	// Give auto tubes time to align before trying to start moving
+	addtimer(CALLBACK(src, PROC_REF(start_moving)), 5)
 
+/obj/structure/transit_tube_pod/proc/start_moving()
 	for(var/obj/structure/transit_tube/tube in loc)
 		setDir(pick(tube.directions()))
 		break

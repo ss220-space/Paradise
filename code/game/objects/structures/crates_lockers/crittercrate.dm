@@ -13,9 +13,11 @@
 	if(!env)
 		env = new/datum/gas_mixture()
 	var/list/env_gases = env.gases
+	env.assert_gases(GAS_O2, GAS_N2, GAS_CO2)
 	env_gases[GAS_O2][MOLES] = MOLES_O2STANDARD
 	env_gases[GAS_N2][MOLES] = MOLES_N2STANDARD
 	env_gases[GAS_CO2][MOLES] = 0
+	env.garbage_collect()
 	env.temperature = T20C
 
 /obj/structure/closet/critter/Initialize(mapload)

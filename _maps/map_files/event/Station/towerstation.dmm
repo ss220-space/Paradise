@@ -3637,7 +3637,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/secondary/exit)
 "cpK" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
 	valve_open = 1
 	},
 /turf/simulated/floor/engine/n20,
@@ -15943,7 +15943,7 @@
 "klO" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "escape"

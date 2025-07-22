@@ -9012,7 +9012,7 @@
 /area/coldcolony/malta/bridge/checkpoint)
 "diM" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -15752,7 +15752,7 @@
 /area/coldcolony/ruin/syndie_outpost)
 "fOs" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26130,7 +26130,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/maintenance/garden)
 "jCC" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/permabrig)

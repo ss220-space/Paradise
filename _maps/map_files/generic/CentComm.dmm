@@ -28440,7 +28440,7 @@
 /area/centcom/specops)
 "nov" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
@@ -41760,7 +41760,7 @@
 /area/shuttle/administration)
 "tlp" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{

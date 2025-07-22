@@ -111,7 +111,9 @@
 
 	var/t =	span_notice("Coordinates: [x],[y] \n")
 	t += span_warning("Temperature: [environment.temperature] \n")
-	for(var/gas in environment.gases)
+	var/list/env_gases = environment.gases
+	for(var/id in env_gases)
+		var/gas = env_gases[id]
 		if(gas[MOLES])
 			t += span_notice("[gas[GAS_NAME]]: [gas[MOLES]] \n")
 

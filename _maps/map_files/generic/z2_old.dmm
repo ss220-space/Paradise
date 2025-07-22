@@ -15200,7 +15200,7 @@
 	},
 /area/vox_station)
 "lju" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
 	maximum_pressure = 50000
 	},
 /turf/simulated/floor/indestructible{

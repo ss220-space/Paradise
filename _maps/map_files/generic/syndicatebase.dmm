@@ -8327,7 +8327,7 @@
 /turf/simulated/floor/engine/n20,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "hLs" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n20,
@@ -10603,7 +10603,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
 "jJy" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12732,7 +12732,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
 "lGg" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{

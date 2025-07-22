@@ -34404,7 +34404,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "dzD" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
@@ -56286,7 +56286,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "icF" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -66111,7 +66111,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -32
 	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "kTh" = (
@@ -67298,7 +67298,7 @@
 	},
 /area/medical/chemistry)
 "lol" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n20,
@@ -73020,7 +73020,7 @@
 /turf/simulated/floor/wood,
 /area/security/hos)
 "mNo" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -76692,7 +76692,7 @@
 /area/medical/sleeper)
 "nMG" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79346,7 +79346,7 @@
 	},
 /area/security/processing)
 "ozi" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -101533,7 +101533,7 @@
 	},
 /area/bridge/vip)
 "uul" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -110821,7 +110821,7 @@
 	},
 /area/toxins/explab)
 "wNO" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/structure/window/reinforced{
 	dir = 4
 	},

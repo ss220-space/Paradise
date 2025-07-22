@@ -9,6 +9,7 @@
 		return
 
 	var/datum/gas_mixture/GM = target.return_air()
+	var/list/gases
 	var/burning = 0
 	if(issimulatedturf(target))
 		var/turf/simulated/T = target
@@ -18,9 +19,9 @@
 	to_chat(usr, )
 	var/list/messages = list()
 	messages += span_adminnotice("@[target.x],[target.y]: [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)? (span_red(" BURNING")) : (null)]")
-	for(var/gas in GM.gases)
-		if(gas[GAS_ID] in hardcoded_gases || gas[MOLES])
-			messages += span_notice("[gas[GAS_NAME]]: [gas[MOLES]]")
+	for(var/id in gases)
+		if(id in hardcoded_gases || gases[id][MOLES])
+			messages += span_notice("[gases[id][GAS_NAME]]: [gases[id][MOLES]]")
 	to_chat(usr, messages.Join("<br>"))
 	message_admins("[key_name_admin(usr)] has checked the air status of [target]")
 	log_admin("[key_name(usr)] has checked the air status of [target]")

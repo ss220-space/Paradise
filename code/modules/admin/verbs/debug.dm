@@ -263,11 +263,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	var/datum/gas_mixture/env = T.return_air()
+	var/list/env_gases = env.gases
 
 	var/t = ""
-	for(var/gas in env.gases)
-		if(gas[GAS_ID] in hardcoded_gases || gas[MOLES])
-			t+= "[gas[GAS_NAME]] : [gas[MOLES]]\n"
+	for(var/id in env_gases)
+		if(id in hardcoded_gases || env_gases[id][MOLES])
+			t+= "[env_gases[id][GAS_NAME]] : [env_gases[id][MOLES]]\n"
 
 	usr.show_message(t, 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

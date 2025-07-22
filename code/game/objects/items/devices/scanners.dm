@@ -1307,14 +1307,14 @@ BODY SCANNERS
 		var/heat_capacity = air.heat_capacity()
 		var/thermal_energy = air.thermal_energy()
 
-		//TODO: Port gas mixtures from TG
 		if(total_moles > 0)
 			message += span_notice("Moles: [round(total_moles, 0.01)] mol")
 			air.assert_gases(arglist(hardcoded_gases))
-			for(var/gas in air.gases)
-				var/gas_concentration = gas[MOLES] / total_moles
-				if(gas[GAS_ID] in hardcoded_gases || gas_concentration > 0.01) //ensures the four primary gases are always shown.
-					message += span_notice("[gas[GAS_NAME]]: [round(gas_concentration * 100)] %")
+			var/gases = air.gases
+			for(var/id in gases)
+				var/gas_concentration = gases[id][MOLES] / total_moles
+				if(id in hardcoded_gases || gas_concentration > 0.01) //ensures the four primary gases are always shown.
+					message += span_notice("[gases[id][GAS_NAME]]: [round(gas_concentration * 100)] %")
 			air.garbage_collect()
 			message += span_notice("Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
 			message += span_notice("Volume: [volume] L")

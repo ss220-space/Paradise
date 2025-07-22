@@ -70,7 +70,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	use_power = NO_POWER_USE
 	interact_offline = TRUE
 	var/update_flag = NONE
-	var/gas_type
+	var/gas_type = ""
 
 
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload)
@@ -464,14 +464,17 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload)
 	..()
 	canister_color["prim"] = initial(icon_state)
+	create_gas()
+	update_icon()
+
+/obj/machinery/portable_atmospherics/canister/proc/create_gas()
 	if(gas_type)
 		air_contents.assert_gas(gas_type)
 		air_contents.gases[gas_type][MOLES] = (src.maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	update_icon()
-
 
 /obj/machinery/portable_atmospherics/canister/air/Initialize(mapload)
 	. = ..()
+	air_contents.assert_gases(GAS_O2, GAS_N2)
 	air_contents.gases[GAS_O2][MOLES] = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 	air_contents.gases[GAS_N2][MOLES] = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 	update_icon()
