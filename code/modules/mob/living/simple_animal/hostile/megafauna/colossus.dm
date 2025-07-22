@@ -38,7 +38,7 @@ Difficulty: Very Hard
 	health = 2500
 	maxHealth = 2500
 	attacktext = "осуждает"
-	attack_sound = 'sound/effects/magic/ratvar_attack.ogg'
+	attack_sound = 'sound/magic/ratvar_attack.ogg'
 	icon_state = "eva"
 	icon_living = "eva"
 	icon_dead = ""
@@ -219,7 +219,7 @@ Difficulty: Very Hard
 		if(counter < 1)
 			counter = 16
 		shoot_projectile(start_turf, counter * 22.5)
-		playsound(get_turf(src), 'sound/effects/magic/clockwork/invoke_general.ogg', 20, TRUE)
+		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 		SLEEP_CHECK_DEATH(src, 1)
 	icon_state = initial(icon_state)
 
@@ -241,7 +241,7 @@ Difficulty: Very Hard
 		telegraph(RANDOM_SHOTS)
 		SLEEP_CHECK_DEATH(src, 2.5 SECONDS)
 	var/turf/U = get_turf(src)
-	playsound(U, 'sound/effects/magic/clockwork/invoke_general.ogg', 300, TRUE, 5)
+	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, TRUE, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
 		if(prob(enraged ? 10 : 5))
 			shoot_projectile(T)
@@ -254,7 +254,7 @@ Difficulty: Very Hard
 	else
 		SLEEP_CHECK_DEATH(src, 1 SECONDS)
 	var/turf/target_turf = get_turf(target)
-	playsound(src, 'sound/effects/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
+	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))
 	var/angle_to_target = Get_Angle(src, target_turf)
 	if(isnum(set_angle))
@@ -266,7 +266,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/dir_shots(list/dirs)
 	if(!islist(dirs))
 		dirs = GLOB.alldirs.Copy()
-	playsound(src, 'sound/effects/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
+	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	for(var/d in dirs)
 		var/turf/E = get_step(src, d)
 		shoot_projectile(E)
@@ -277,7 +277,7 @@ Difficulty: Very Hard
 			flash_color(M.client, "#C80000", 1)
 			sleep(0.5 SECONDS)
 			shake_camera(M, 4, 3)
-	playsound(src, 'sound/effects/magic/narsie_attack.ogg', 200, TRUE)
+	playsound(src, 'sound/magic/narsie_attack.ogg', 200, TRUE)
 	if(mode)
 		say("[mode]")
 

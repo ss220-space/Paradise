@@ -51,7 +51,7 @@
 /obj/structure/lock_tear/proc/end_madness(datum/former_master)
 	SIGNAL_HANDLER
 	var/turf/our_turf = get_turf(src)
-	playsound(our_turf, 'sound/effects/magic/castsummon.ogg', vol = 100, vary = TRUE)
+	playsound(our_turf, 'sound/magic/castsummon.ogg', vol = 100, vary = TRUE)
 	visible_message(span_boldwarning("Разрыв в пространстве сжимается и исчезает!"))
 	UnregisterSignal(former_master, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING)) // Just in case they die THEN delete
 	new /obj/effect/temp_visual/destabilising_tear(our_turf)

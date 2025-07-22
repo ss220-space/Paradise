@@ -2,7 +2,7 @@
 	screen.icon_state = null
 	flick("intro_clockwork", screen)
 	stoplag(2.5 SECONDS)
-	play_cinematic_sound(sound('sound/effects/magic/clockwork/reconstruct.ogg'))
+	play_cinematic_sound(sound('sound/magic/clockwork/reconstruct.ogg'))
 	stoplag(6 SECONDS)
 	play_cinematic_sound(sound('sound/machines/terminal_off.ogg'))
 	stoplag(2 SECONDS)

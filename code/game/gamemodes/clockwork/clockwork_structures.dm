@@ -80,7 +80,7 @@
 					return ATTACK_CHAIN_BLOCKED_ALL
 			toggle_hide(choice)
 			to_chat(user, span_notice("You [hidden ? null : "un"]disguise [src]."))
-			playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE)
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			I.deplete_spell()
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(hidden)
@@ -259,7 +259,7 @@
 			if(anchored)
 				START_PROCESSING(SSprocessing, src)
 			to_chat(user, span_notice("You undisguise [src]."))
-			playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(I.enchant_type == HIDE_SPELL && canbehidden)
 			var/choice
@@ -277,7 +277,7 @@
 				convert_timer = 0
 				converting = null
 			to_chat(user, span_notice("You disguise [src]."))
-			playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			I.deplete_spell()
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!anchored && !isfloorturf(loc))

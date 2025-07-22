@@ -462,7 +462,7 @@
 		if(!mind.current)
 			continue
 
-		SEND_SOUND(mind.current, 'sound/effects/magic/clockwork/narsie_attack.ogg')
+		SEND_SOUND(mind.current, 'sound/magic/clockwork/narsie_attack.ogg')
 		to_chat(mind.current, span_cultlarge(span_warning("Тайные и запретные знания заполонили ваши кузницы и архивы. Культ научился создавать ")) + span_cultlarge(span_hypnophrase("[result]!")))
 */
 	return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE

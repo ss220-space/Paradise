@@ -4146,12 +4146,12 @@
 /proc/portalAnnounce(announcement, playlightning)
 	set waitfor = 0
 	if (playlightning)
-		sound_to_playing_players('sound/effects/magic/lightning_chargeup.ogg')
+		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
 		sleep(80)
 	GLOB.major_announcement.announce(replacetext(announcement, "%STATION%", station_name()))
 	if (playlightning)
 		sleep(20)
-		sound_to_playing_players('sound/effects/magic/lightningbolt.ogg')
+		sound_to_playing_players('sound/magic/lightningbolt.ogg')
 
 /proc/doPortalSpawn(turf/loc, mobtype, numtospawn, portal_appearance)
 	loc.flick_overlay_static(portal_appearance, 15)

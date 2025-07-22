@@ -5480,7 +5480,7 @@
 /area/awaymission/academy/academyaft)
 "Om" = (
 /mob/living/simple_animal/hostile/faithless{
-	attack_sound = 'sound/effects/magic/ratvar_attack.ogg';
+	attack_sound = 'sound/magic/ratvar_attack.ogg';
 	health = 200;
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi';
 	icon_living = "eva";

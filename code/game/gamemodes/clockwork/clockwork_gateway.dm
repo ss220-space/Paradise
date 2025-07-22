@@ -50,7 +50,7 @@
 		resistance_flags |= INDESTRUCTIBLE
 		countdown.stop()
 		visible_message(span_userdanger("[src] begins to pulse uncontrollably... you might want to run!"))
-		sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, sound = sound('sound/effects/magic/clockwork/clockcult_gateway_disrupted.ogg'))
+		sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, sound = sound('sound/magic/clockwork/clockcult_gateway_disrupted.ogg'))
 		update_icon(UPDATE_ICON_STATE)
 		resistance_flags |= INDESTRUCTIBLE
 		addtimer(CALLBACK(src, PROC_REF(end_deconstruct)), 2.7 SECONDS)
@@ -121,18 +121,18 @@
 	switch(seconds_until_activation)
 		if(-INFINITY to GATEWAY_REEBE_FOUND)
 			if(!first_sound_played)
-				sound_to_playing_players('sound/effects/magic/clockwork/invoke_general.ogg', 30, FALSE)
-				sound_to_playing_players(volume = 20, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/effects/magic/clockwork/clockcult_gateway_charging.ogg', TRUE))
+				sound_to_playing_players('sound/magic/clockwork/invoke_general.ogg', 30, FALSE)
+				sound_to_playing_players(volume = 20, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/magic/clockwork/clockcult_gateway_charging.ogg', TRUE))
 				first_sound_played = TRUE
 				update_icon(UPDATE_ICON_STATE)
 		if(GATEWAY_REEBE_FOUND to GATEWAY_RATVAR_COMING)
 			if(!second_sound_played)
-				sound_to_playing_players(volume = 30, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/effects/magic/clockwork/clockcult_gateway_active.ogg', TRUE))
+				sound_to_playing_players(volume = 30, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/magic/clockwork/clockcult_gateway_active.ogg', TRUE))
 				second_sound_played = TRUE
 				update_icon(UPDATE_ICON_STATE)
 		if(GATEWAY_RATVAR_COMING to GATEWAY_RATVAR_ARRIVAL)
 			if(!third_sound_played)
-				sound_to_playing_players(volume = 40, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/effects/magic/clockwork/clockcult_gateway_closing.ogg', TRUE))
+				sound_to_playing_players(volume = 40, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/magic/clockwork/clockcult_gateway_closing.ogg', TRUE))
 				third_sound_played = TRUE
 				update_icon(UPDATE_ICON_STATE)
 		if(GATEWAY_RATVAR_ARRIVAL to INFINITY)

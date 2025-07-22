@@ -11,7 +11,7 @@
 	name = "Блюспейс унитаз"
 	desc = "It is high technological utilization system. We don't need 'выгребная яма' anymore, all the stuff goes directly to the black hole."
 	icon_state = "bluespace_toilet00"
-	var/teleport_sound = 'sound/effects/magic/lightning_chargeup.ogg'
+	var/teleport_sound = 'sound/magic/lightning_chargeup.ogg'
 	var/teleport_sound_cooldown = FALSE
 
 
@@ -222,7 +222,7 @@
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_rift/New()
-	playsound(loc, 'sound/effects/magic/blink.ogg', 50)
+	playsound(loc, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, loc)
 	if(!locate(/obj/effect/portal) in get_turf(loc))
 		new /obj/effect/portal(loc, null, null, 4 SECONDS)

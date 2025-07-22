@@ -8,7 +8,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "entropic_plume"
-	sound = 'sound/effects/magic/forcewall.ogg'
+	sound = 'sound/magic/forcewall.ogg'
 
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE

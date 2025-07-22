@@ -14,7 +14,7 @@
 	selection_deactivated_message = "<span class='notice'>You stop neighing to yourself.</span>"
 
 	action_icon_state = "barn"
-	sound = 'sound/effects/magic/HorseHead_curse.ogg'
+	sound = 'sound/magic/HorseHead_curse.ogg'
 	need_active_overlay = TRUE
 
 

@@ -6,7 +6,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "voidpull"
-	sound = 'sound/effects/magic/voidblink.ogg'
+	sound = 'sound/magic/voidblink.ogg'
 
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE

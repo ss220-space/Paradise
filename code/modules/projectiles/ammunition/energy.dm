@@ -366,7 +366,7 @@
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 
 /obj/item/ammo_casing/energy/shock_revolver
-	fire_sound = 'sound/effects/magic/lightningbolt.ogg'
+	fire_sound = 'sound/magic/lightningbolt.ogg'
 	e_cost = 200
 	select_name = "lightning beam"
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE

@@ -100,7 +100,7 @@
 	if(play_wabbajack)
 		// WTF is it?
 		// to_chat(hallucinator, span_hear("...wabbajack...wabbajack..."))
-		hallucinator.playsound_local(get_turf(hallucinator), 'sound/effects/magic/staff_change.ogg', 50, TRUE)
+		hallucinator.playsound_local(get_turf(hallucinator), 'sound/magic/staff_change.ogg', 50, TRUE)
 
 	if(duration > 0)
 		QDEL_IN(src, duration)

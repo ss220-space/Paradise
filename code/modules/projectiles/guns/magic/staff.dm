@@ -12,7 +12,7 @@
 	icon_state = "staffofchange"
 	item_state = "staffofchange"
 	recharge_rate = 12
-	fire_sound = 'sound/effects/magic/Staff_Change.ogg'
+	fire_sound = 'sound/magic/Staff_Change.ogg'
 
 /obj/item/gun/magic/staff/animate
 	name = "staff of animation"
@@ -20,7 +20,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/animate
 	icon_state = "staffofanimation"
 	item_state = "staffofanimation"
-	fire_sound = 'sound/effects/magic/staff_animation.ogg'
+	fire_sound = 'sound/magic/staff_animation.ogg'
 
 /obj/item/gun/magic/staff/healing
 	name = "staff of healing"
@@ -28,7 +28,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	icon_state = "staffofhealing"
 	item_state = "staffofhealing"
-	fire_sound = 'sound/effects/magic/staff_healing.ogg'
+	fire_sound = 'sound/magic/staff_healing.ogg'
 
 /obj/item/gun/magic/staff/healing/handle_suicide() //Stops people trying to commit suicide to heal themselves
 	return
@@ -42,7 +42,7 @@
 	max_charges = 10
 	recharge_rate = 2
 	no_den_usage = 1
-	fire_sound = 'sound/effects/magic/staff_chaos.ogg'
+	fire_sound = 'sound/magic/staff_chaos.ogg'
 
 /obj/item/gun/magic/staff/door
 	name = "staff of door creation"
@@ -53,7 +53,7 @@
 	max_charges = 10
 	recharge_rate = 2
 	no_den_usage = 1
-	fire_sound = 'sound/effects/magic/staff_door.ogg'
+	fire_sound = 'sound/magic/staff_door.ogg'
 
 /obj/item/gun/magic/staff/slipping
 	name = "staff of slipping"
@@ -79,7 +79,7 @@
 /obj/item/gun/magic/staff/spellblade
 	name = "spellblade"
 	desc = "A deadly combination of laziness and bloodlust, this blade allows the user to dismember their enemies without all the hard work of actually swinging the sword."
-	fire_sound = 'sound/effects/magic/fireball.ogg'
+	fire_sound = 'sound/magic/fireball.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/spellblade
 	icon_state = "spellblade"
 	item_state = "spellblade"

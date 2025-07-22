@@ -239,7 +239,7 @@
 		if(!mind.current)
 			continue
 
-		SEND_SOUND(mind.current, 'sound/effects/magic/clockwork/narsie_attack.ogg')
+		SEND_SOUND(mind.current, 'sound/magic/clockwork/narsie_attack.ogg')
 		var/message = span_narsie("A vile heretic has ") + \
 		span_cultlarge(span_hypnophrase("sacrificed")) + \
 		span_narsie(" one of our own. Destroy and sacrifice the infidel before it claims more!")
@@ -256,7 +256,7 @@
 	// Visible and audible encouragement!
 	to_chat(user, span_big(span_hypnophrase("A servant of the Sanguine Apostate!")))
 	to_chat(user, span_hierophant("Your patrons are rapturous!"))
-	playsound(sacrifice, 'sound/effects/magic/disintegrate.ogg', 75, TRUE)
+	playsound(sacrifice, 'sound/magic/disintegrate.ogg', 75, TRUE)
 
 	// Drop all items and splatter them around messily.
 	var/list/dustee_items = sacrifice.unequip_everything()
@@ -288,7 +288,7 @@
 		return
 	// Remove the outline, we don't need it anymore.
 	rune?.remove_filter("reward_outline")
-	playsound(loc, 'sound/effects/magic/repulse.ogg', 75, TRUE)
+	playsound(loc, 'sound/magic/repulse.ogg', 75, TRUE)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	ASSERT(heretic_datum)
 	// This list will be almost identical to unlocked_heretic_items, with the same keys, the difference being the values will be 1 to 5.
@@ -396,7 +396,7 @@
 	curse_organs(sac_target)
 
 	// Send 'em to the destination. If the teleport fails, just disembowel them and stop the chain
-	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/effects/magic/repulse.ogg', asoundout = 'sound/effects/magic/blind.ogg'))
+	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg'))
 		disembowel_target(sac_target)
 		return
 
@@ -532,7 +532,7 @@
 		safe_turf = get_turf(backup_loc)
 		stack_trace("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to observer start turf.")
 
-	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/effects/magic/blind.ogg'/*, forced = TRUE*/))
+	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg'/*, forced = TRUE*/))
 		safe_turf = get_turf(backup_loc)
 		sac_target.forceMove(safe_turf)
 		stack_trace("[type] - return_target was unable to teleport [sac_target] to the observer start turf. Forcemoving.")

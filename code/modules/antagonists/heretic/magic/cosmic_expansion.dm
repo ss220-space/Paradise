@@ -7,7 +7,7 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "cosmic_domain"
 
-	sound = 'sound/effects/magic/cosmic_expansion.ogg'
+	sound = 'sound/magic/cosmic_expansion.ogg'
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 	base_cooldown = 45 SECONDS

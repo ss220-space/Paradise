@@ -100,7 +100,7 @@
 				return
 
 			item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly disappears!"))
-			playsound(target_turf, 'sound/effects/magic/summonitems_generic.ogg', 50, TRUE)
+			playsound(target_turf, 'sound/magic/summonitems_generic.ogg', 50, TRUE)
 
 			if(!target.put_in_active_hand(item_to_retrieve) && !target.put_in_inactive_hand(item_to_retrieve))
 				item_to_retrieve.loc = target_turf

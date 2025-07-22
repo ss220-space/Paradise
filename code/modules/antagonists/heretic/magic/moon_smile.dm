@@ -8,7 +8,7 @@
 	action_icon_state = "moon_smile"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/moon_target.dmi'
 
-	sound = 'sound/effects/magic/blind.ogg'
+	sound = 'sound/magic/blind.ogg'
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 	base_cooldown = 20 SECONDS

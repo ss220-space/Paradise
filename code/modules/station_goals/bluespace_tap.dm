@@ -420,7 +420,7 @@
 		return
 	points -= A.product_cost
 	A.product_cost = round(1.2 * A.product_cost, 1)
-	playsound(src, 'sound/effects/magic/blink.ogg', 50)
+	playsound(src, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, src)
 	new A.product_path(get_turf(src))
 

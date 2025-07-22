@@ -13,7 +13,7 @@
 	weather_color = COLOR_PALE_GREEN_GRAY
 	overlay_layer = MOB_LAYER
 	overlay_plane = GAME_PLANE
-	weather_sound = 'sound/effects/magic/mutate.ogg'
+	weather_sound = 'sound/magic/mutate.ogg'
 
 	end_duration = 10 SECONDS
 	end_message = span_notice("Поток частиц осел.")

@@ -541,7 +541,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	A.override = 1
 	if(target.client)
 		to_chat(target, "<span class='italics'>...wabbajack...wabbajack...</span>")
-		target.playsound_local(target,'sound/effects/magic/staff_change.ogg', 50, 1, -1)
+		target.playsound_local(target,'sound/magic/staff_change.ogg', 50, 1, -1)
 		delusion = A
 		target.client.images |= A
 	sleep(duration)
@@ -874,7 +874,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						sleep(15)
 						playsound_local(null, 'sound/weapons/ring.ogg', 35)
 				if(6)
-					playsound_local(null, 'sound/effects/magic/summon_guns.ogg', 50, 1)
+					playsound_local(null, 'sound/magic/summon_guns.ogg', 50, 1)
 				if(7)
 					playsound_local(null, 'sound/machines/alarm.ogg', 100, 0)
 				if(8)
@@ -928,10 +928,10 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					to_chat(src, "<br><br><span class='alert'>Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!.</span><br><br>")
 					playsound_local(null, 'sound/AI/outbreak5.ogg')
 				if(19) //Tesla loose!
-					playsound_local(null, 'sound/effects/magic/lightningbolt.ogg', 35, 1)
+					playsound_local(null, 'sound/magic/lightningbolt.ogg', 35, 1)
 					for(var/i in 0 to 2)
 						sleep(20)
-						playsound_local(null, 'sound/effects/magic/lightningbolt.ogg', 65+(35*(i-1)), 1)	//65%, then 100% volume.
+						playsound_local(null, 'sound/magic/lightningbolt.ogg', 65+(35*(i-1)), 1)	//65%, then 100% volume.
 				if(20) //AI is doomsdaying!
 					to_chat(src, "<h1 class='alert'>Аномалия</h1>")
 					to_chat(src, "<br><br><span class='alert'>Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.</span><br><br>")

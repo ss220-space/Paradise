@@ -215,7 +215,7 @@
 		return .
 
 	charge = 0
-	playsound(loc, 'sound/effects/magic/lightningbolt.ogg', 5, TRUE)
+	playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
 	user.visible_message(
 		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] со всей силы вгоня[pluralize_ru(user.gender,"ет","ют")] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
 		span_warning("Вы со всей мощи вгоняете заряженный топор в [target.declent_ru(ACCUSATIVE)]!")
@@ -1020,14 +1020,14 @@
 	if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
 		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
-		playsound(target, 'sound/effects/magic/Disintegrate.ogg', 100, 1)
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
 		wall.dismantle_wall(TRUE)
 		return TRUE
 
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/mineral = target
 		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
-		playsound(target, 'sound/effects/magic/Disintegrate.ogg', 100, 1)
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
 		mineral.gets_drilled(user)
 		return TRUE
 

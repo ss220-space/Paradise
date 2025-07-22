@@ -4,7 +4,7 @@
 	desc = "Entangle the strings of space-time in an area around you, \
 		randomizing the layout and making proper movement impossible. The strings vibrate... \
 		Upgrading the spell increases range, it does not lower cooldown."
-	sound = 'sound/effects/magic/strings.ogg'
+	sound = 'sound/magic/strings.ogg'
 	action_icon_state = "spacetime"
 
 	school = "transmutation"

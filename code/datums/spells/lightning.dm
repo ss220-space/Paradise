@@ -7,12 +7,12 @@
 	invocation = "UN'LTD P'WAH!"
 	invocation_type = "shout"
 	action_icon_state = "lightning"
-	charge_sound = new /sound('sound/effects/magic/lightning_chargeup.ogg', channel = 7)
+	charge_sound = new /sound('sound/magic/lightning_chargeup.ogg', channel = 7)
 	max_charge_time = 10 SECONDS
 	stop_charging_text = "You stop charging the lightning around you."
 	stop_charging_fail_text = "The lightning around you is too strong to stop now!"
 	start_charging_text = "You start gathering lightning around you."
-	bounce_hit_sound = 'sound/effects/magic/lightningshock.ogg'
+	bounce_hit_sound = 'sound/magic/lightningshock.ogg'
 	var/damaging = TRUE
 	var/energy_divisor = 2
 

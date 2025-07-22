@@ -96,7 +96,7 @@
 
 	jaunter.add_traits(jaunting_traits, SPACE_PHASING)
 	RegisterSignal(jaunter, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
-	playsound(our_turf, 'sound/effects/magic/cosmic_energy.ogg', 50, TRUE, -1)
+	playsound(our_turf, 'sound/magic/cosmic_energy.ogg', 50, TRUE, -1)
 	our_turf.visible_message(span_warning("[jaunter] sinks into [our_turf]!"))
 	new /obj/effect/temp_visual/space_explosion(our_turf)
 	jaunter.ExtinguishMob()
@@ -121,7 +121,7 @@
 /obj/effect/proc_holder/spell/jaunt/space_crawl/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
 	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(unjaunter, list(SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING)))
-	playsound(get_turf(unjaunter), 'sound/effects/magic/cosmic_energy.ogg', 50, TRUE, -1)
+	playsound(get_turf(unjaunter), 'sound/magic/cosmic_energy.ogg', 50, TRUE, -1)
 	new /obj/effect/temp_visual/space_explosion(get_turf(unjaunter))
 	if(!iscarbon(unjaunter))
 		return ..()

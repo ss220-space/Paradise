@@ -311,7 +311,7 @@
  * * atom/at - The target
  */
 /mob/living/simple_animal/hostile/space_dragon/proc/fire_stream(atom/at = target)
-	playsound(get_turf(src),'sound/effects/magic/fireball.ogg', 200, TRUE)
+	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 	var/range = 20
 	var/list/turfs = list()
 	turfs = line_target(0, range, at)

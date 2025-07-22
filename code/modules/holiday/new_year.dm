@@ -88,7 +88,7 @@
 	item_state = "frost_staff"
 	max_charges = 10
 	recharge_rate = 2
-	fire_sound = 'sound/effects/magic/staff_healing.ogg'
+	fire_sound = 'sound/magic/staff_healing.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/gun/magic/staff/frost/attack_self(mob/user)

@@ -133,7 +133,7 @@
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 500
 	projectile = /obj/projectile/energy/shock_revolver
-	fire_sound = 'sound/effects/magic/lightningbolt.ogg'
+	fire_sound = 'sound/magic/lightningbolt.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray

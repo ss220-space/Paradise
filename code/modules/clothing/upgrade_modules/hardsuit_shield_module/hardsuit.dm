@@ -41,6 +41,6 @@
 		to_chat(user, "<span class='warning'>You cannot replenish charges to [W] while wearing it.</span>")
 		return
 	shielded.current_charges += 8
-	playsound(loc, 'sound/effects/magic/charge.ogg', 50, TRUE)
+	playsound(loc, 'sound/magic/charge.ogg', 50, TRUE)
 	to_chat(user, "<span class='notice'>You charge [W]. It can now absorb [shielded.current_charges] hits.</span>")
 	qdel(src)

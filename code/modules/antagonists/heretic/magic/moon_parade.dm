@@ -7,7 +7,7 @@
 	action_icon_state = "moon_parade"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/moon_target.dmi'
 
-	sound = 'sound/effects/magic/cosmic_energy.ogg'
+	sound = 'sound/magic/cosmic_energy.ogg'
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS

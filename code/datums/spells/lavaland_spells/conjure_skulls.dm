@@ -15,7 +15,7 @@
 	aoe_range = 1
 	can_use_stunned = TRUE
 
-	cast_sound = 'sound/effects/magic/forcewall.ogg'
+	cast_sound = 'sound/magic/forcewall.ogg'
 
 /obj/effect/proc_holder/spell/aoe/conjure/legion_skulls/cast(list/targets, mob/living/user = usr)
 	. = ..()

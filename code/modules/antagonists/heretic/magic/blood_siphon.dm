@@ -29,7 +29,7 @@
 
 /obj/effect/proc_holder/spell/pointed/blood_siphon/cast(mob/living/cast_on)
 	. = ..()
-	playsound(action.owner, 'sound/effects/magic/demon_attack1.ogg', 75, TRUE)
+	playsound(action.owner, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 	if(cast_on.can_block_magic())
 		action.owner.balloon_alert(action.owner, "spell blocked!")
 		cast_on.visible_message(

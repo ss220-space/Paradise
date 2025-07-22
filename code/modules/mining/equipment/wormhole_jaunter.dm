@@ -180,7 +180,7 @@
 				do_teleport(fish, pick(destinations))
 			if(found_mob)
 				new /obj/effect/temp_visual/thunderbolt(chasm) // visual feedback if it worked.
-				playsound(src, 'sound/effects/magic/lightningbolt.ogg', 100, TRUE)
+				playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 		qdel(src)
 		return
 
@@ -188,7 +188,7 @@
 	for(var/turf/turf as anything in circleviewturfs(our_turf, 3))
 		if(!turf.density)
 			portal_turfs += turf
-	playsound(our_turf, 'sound/effects/magic/lightningbolt.ogg', 100, TRUE)
+	playsound(our_turf, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 	for(var/turf/drunk_dial as anything in shuffle(destinations))
 		if(!length(portal_turfs))
 			break

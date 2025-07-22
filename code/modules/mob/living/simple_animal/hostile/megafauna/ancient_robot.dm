@@ -863,7 +863,7 @@ Difficulty: Very Hard
 
 /obj/effect/temp_visual/target/ancient/fall(list/flame_hit)
 	var/turf/T = get_turf(src)
-	playsound(T,'sound/effects/magic/fleshtostone.ogg', 80, TRUE)
+	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
 	new /obj/effect/temp_visual/fireball/rock(T)
 	SLEEP_CHECK_QDEL(duration)
 	if(ismineralturf(T))

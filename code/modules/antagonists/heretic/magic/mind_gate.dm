@@ -7,7 +7,7 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mind_gate"
 
-	sound = 'sound/effects/magic/curse.ogg'
+	sound = 'sound/magic/curse.ogg'
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 	base_cooldown = 20 SECONDS

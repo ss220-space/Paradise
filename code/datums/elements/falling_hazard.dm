@@ -10,7 +10,7 @@
 	/// Does the target crush and flatten whoever it falls on
 	var/crushes_people = FALSE
 	/// What sound is played when the target falls onto a mob
-	var/impact_sound = 'sound/effects/magic/fellowship_armory.ogg' //CLANG
+	var/impact_sound = 'sound/magic/fellowship_armory.ogg' //CLANG
 
 /datum/element/falling_hazard/Attach(datum/target, damage, hardhat_safety, crushes, impact_sound)
 	. = ..()

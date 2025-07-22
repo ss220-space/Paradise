@@ -911,7 +911,7 @@
 
 	var/mob/living/carbon/human/target = targets[1]
 
-	playsound(user.loc, 'sound/effects/magic/staff_chaos.ogg', 100, TRUE)
+	playsound(user.loc, 'sound/magic/staff_chaos.ogg', 100, TRUE)
 
 	if(is_shadow(target)) //Used to not work on thralls. Now it does so you can PUNISH THEM LIKE THE WRATHFUL GOD YOU ARE.
 		to_chat(user, span_warning("Making an ally explode seems unwise."))
@@ -925,7 +925,7 @@
 	if(QDELETED(target) || QDELETED(user))
 		return
 
-	playsound(target, 'sound/effects/magic/disintegrate.ogg', 100, TRUE)
+	playsound(target, 'sound/magic/disintegrate.ogg', 100, TRUE)
 	target.visible_message(span_userdanger("[target] взрывается!"))
 	target.gib()
 
@@ -1036,14 +1036,14 @@
 
 	user.visible_message(span_warning("<b>В руках [user] возникает и разгорается огромная шаровая молния!</b>"), \
 						span_shadowling("Вы создаете шаровую молнию и выпускаете ее."))
-	playsound(user.loc, 'sound/effects/magic/lightningbolt.ogg', 100, TRUE)
+	playsound(user.loc, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 
 	for(var/mob/living/carbon/human/target in targets)
 		if(is_shadow_or_thrall(target))
 			continue
 
 		to_chat(target, span_userdanger("Вас поражает молния!"))
-		playsound(target, 'sound/effects/magic/lightningshock.ogg', 50, 1)
+		playsound(target, 'sound/magic/lightningshock.ogg', 50, 1)
 		target.Weaken(16 SECONDS)
 		target.take_organ_damage(0, 50)
 		user.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)

@@ -165,7 +165,7 @@
 		return FALSE
 
 /datum/action/item_action/rune_shatter/do_effect(trigger_flags, left_click = TRUE)
-	owner.playsound_local(get_turf(owner), 'sound/effects/magic/blind.ogg', 50, TRUE)
+	owner.playsound_local(get_turf(owner), 'sound/magic/blind.ogg', 50, TRUE)
 	var/obj/item/melee/rune_carver/target_sword = target
 	QDEL_LIST(target_sword.current_runes)
 	target_sword.SpinAnimation(5, 1)
@@ -241,7 +241,7 @@
 		return
 
 	to_chat(real_owner, span_userdanger("[victim.real_name] наступил[genderize_ru(victim.gender, "", "а", "о", "и")] на [declent_ru(ACCUSATIVE)] в [get_area(src)]!"))
-	real_owner.playsound_local(get_turf(real_owner), 'sound/effects/magic/curse.ogg', 50, TRUE)
+	real_owner.playsound_local(get_turf(real_owner), 'sound/magic/curse.ogg', 50, TRUE)
 
 /obj/structure/trap/eldritch/tentacle
 	name = "руна удержания"
@@ -267,7 +267,7 @@
 	human_victim.Paralyse(5 SECONDS)
 	human_victim.apply_damage(20, BRUTE, BODY_ZONE_R_LEG)
 	human_victim.apply_damage(20, BRUTE, BODY_ZONE_L_LEG)
-	playsound(src, 'sound/effects/magic/demon_attack1.ogg', 75, TRUE)
+	playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 
 /obj/structure/trap/eldritch/mad
 	name = "руна безумия"
@@ -297,4 +297,4 @@
 	human_victim.Jitter(20 SECONDS)
 	human_victim.Dizzy(40 SECONDS)
 	human_victim.AdjustEyeBlind(4 SECONDS)
-	playsound(src, 'sound/effects/magic/blind.ogg', 75, TRUE)
+	playsound(src, 'sound/magic/blind.ogg', 75, TRUE)

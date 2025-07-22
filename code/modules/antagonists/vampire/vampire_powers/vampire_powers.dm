@@ -339,7 +339,7 @@
 	base_cooldown = 10 SECONDS
 	cooldown_min = 2 SECONDS
 	action_icon_state = "revive_thrall"
-	sound = 'sound/effects/magic/wandodeath.ogg'
+	sound = 'sound/magic/wandodeath.ogg'
 	gain_desc = "Вы получили способность «Возвышение вампиров». Эта чрезвычайно мощная АОЕ-способность действует на всех людей рядом с вами. Вампиры/стражи исцеляются. Трупы воскрешаются как вампиры. Другие люди оглушаются, получают повреждения мозга, а затем погибают."
 
 

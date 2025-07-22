@@ -70,7 +70,7 @@ Difficulty: Hard
 	medal_type = BOSS_MEDAL_HIEROPHANT
 	score_type = HIEROPHANT_SCORE
 	del_on_death = TRUE
-	death_sound = 'sound/effects/magic/repulse.ogg'
+	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
 	enraged_unique_loot = /obj/item/clothing/accessory/necklace/hierophant_talisman
 	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
@@ -370,7 +370,7 @@ Difficulty: Hard
 	var/turf/source = get_turf(src)
 	new /obj/effect/temp_visual/hierophant/telegraph(T, src)
 	new /obj/effect/temp_visual/hierophant/telegraph(source, src)
-	playsound(T,'sound/effects/magic/wand_teleport.ogg', 80, TRUE)
+	playsound(T,'sound/magic/wand_teleport.ogg', 80, TRUE)
 	playsound(source,'sound/machines/airlock_open.ogg', 80, TRUE)
 	blinking = TRUE
 	SLEEP_CHECK_DEATH(src, 2) //short delay before we start...
@@ -762,7 +762,7 @@ Difficulty: Hard
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
-	playsound(T,'sound/effects/magic/blind.ogg', 65, TRUE, -5) //make a sound
+	playsound(T,'sound/magic/blind.ogg', 65, TRUE, -5) //make a sound
 	sleep(6) //wait a little
 	bursting = TRUE
 	do_damage(T) //do damage and mark us as bursting
@@ -860,7 +860,7 @@ Difficulty: Hard
 			club.timer = world.time
 			INVOKE_ASYNC(club, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
 			return ATTACK_CHAIN_PROCEED
-		playsound(loc, 'sound/effects/magic/blind.ogg', 200, TRUE, -4)
+		playsound(loc, 'sound/magic/blind.ogg', 200, TRUE, -4)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(loc, user)
 		to_chat(user, span_hierophant_warning("Вы собираете [declent_ru(ACCUSATIVE)], возвращая его к клубу!"))
 		club.beacon = null

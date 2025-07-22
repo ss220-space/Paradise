@@ -257,7 +257,7 @@
 	required_blood = 30
 	centcom_cancast = FALSE
 	action_icon_state = "dark_passage"
-	sound = 'sound/effects/magic/teleport_app.ogg'
+	sound = 'sound/magic/teleport_app.ogg'
 	need_active_overlay = TRUE
 
 

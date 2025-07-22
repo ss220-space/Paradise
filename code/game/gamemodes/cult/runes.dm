@@ -375,7 +375,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			offering.dust() //To prevent the MMI from remaining
 		else
 			offering.gib()
-		playsound(offering, 'sound/effects/magic/disintegrate.ogg', 100, TRUE)
+		playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE)
 	if(sacrifice_fulfilled)
 		gamemode.cult_objs.succesful_sacrifice()
 	return TRUE

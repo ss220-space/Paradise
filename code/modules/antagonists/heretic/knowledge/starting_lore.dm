@@ -174,7 +174,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	// Make it the living heart
 	our_new_heart.AddComponent(/datum/component/living_heart)
 	to_chat(user, span_warning("Вы чувствуете как [our_new_heart.declent_ru(NOMINATIVE)] начинает яростно биться!"))
-	playsound(user, 'sound/effects/magic/demon_consume.ogg', 50, TRUE)
+	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
 	return TRUE
 
 

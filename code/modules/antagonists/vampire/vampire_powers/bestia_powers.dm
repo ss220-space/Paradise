@@ -1327,7 +1327,7 @@
 	desc = "Блюспейс сущность внутри вас призывает таинственный гроб, который может быстро восстановить вас даже на пороге смерти ценой крайней уязвимости во время лечения. Чем больше трофеев вы собрали, тем эффективнее будет процесс восстановления."
 	gain_desc = "Вы получили способность залечивать раны благодаря длительному анабиозу. Собранные трофеи значительно усиливают регенерацию."
 	action_icon_state = "vampire_coffin"
-	sound = 'sound/effects/magic/vampire_anabiosis.ogg'
+	sound = 'sound/magic/vampire_anabiosis.ogg'
 	base_cooldown = 3 MINUTES
 	required_blood = 100
 	var/rejuvenation_time = 30 SECONDS

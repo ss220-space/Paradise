@@ -23,7 +23,7 @@
 
 	action_icon_state = "magicm"
 
-	sound = 'sound/effects/magic/magic_missile.ogg'
+	sound = 'sound/magic/magic_missile.ogg'
 
 	var/max_targets = INFINITY
 
@@ -37,7 +37,7 @@
 
 /obj/effect/proc_holder/spell/inflict_handler/magic_missile
 	amt_weakened = 6 SECONDS
-	sound = 'sound/effects/magic/mm_hit.ogg'
+	sound = 'sound/magic/mm_hit.ogg'
 
 
 /obj/effect/proc_holder/spell/projectile/honk_missile
@@ -109,7 +109,7 @@
 	duration = 30 SECONDS
 
 	action_icon_state = "mutate"
-	sound = 'sound/effects/magic/mutate.ogg'
+	sound = 'sound/magic/mutate.ogg'
 
 
 /obj/effect/proc_holder/spell/genetic/mutate/Initialize(mapload)
@@ -152,7 +152,7 @@
 	emp_heavy = 6
 	emp_light = 10
 
-	sound = 'sound/effects/magic/disable_tech.ogg'
+	sound = 'sound/magic/disable_tech.ogg'
 
 
 /obj/effect/proc_holder/spell/turf_teleport/blink
@@ -174,8 +174,8 @@
 
 	action_icon_state = "blink"
 
-	sound_in = 'sound/effects/magic/blink.ogg'
-	sound_out = 'sound/effects/magic/blink.ogg'
+	sound_in = 'sound/magic/blink.ogg'
+	sound_out = 'sound/magic/blink.ogg'
 
 
 /obj/effect/proc_holder/spell/area_teleport/teleport
@@ -192,8 +192,8 @@
 	smoke_amt = 5
 	action_icon_state = "spell_teleport"
 
-	sound_in = 'sound/effects/magic/teleport_diss.ogg'
-	sound_out = 'sound/effects/magic/teleport_app.ogg'
+	sound_in = 'sound/magic/teleport_diss.ogg'
+	sound_out = 'sound/magic/teleport_app.ogg'
 
 
 /obj/effect/proc_holder/spell/area_teleport/teleport/create_new_targeting()
@@ -211,7 +211,7 @@
 	human_req = FALSE
 	invocation = "TARCOL MINTI ZHERI"
 	invocation_type = "whisper"
-	sound = 'sound/effects/magic/forcewall.ogg'
+	sound = 'sound/magic/forcewall.ogg'
 	action_icon_state = "shield"
 	var/wall_type = /obj/effect/forcefield/wizard
 	var/large = FALSE
@@ -271,7 +271,7 @@
 
 	summon_type = list(/mob/living/simple_animal/hostile/carp)
 
-	cast_sound = 'sound/effects/magic/summon_karp.ogg'
+	cast_sound = 'sound/magic/summon_karp.ogg'
 	aoe_range = 1
 
 
@@ -286,7 +286,7 @@
 	summon_type = list(/obj/structure/constructshell)
 
 	action_icon_state = "artificer"
-	cast_sound = 'sound/effects/magic/summonitems_generic.ogg'
+	cast_sound = 'sound/magic/summonitems_generic.ogg'
 	aoe_range = 0
 
 
@@ -303,7 +303,7 @@
 	summon_amt = 10
 
 	summon_type = list(/mob/living/simple_animal/hostile/creature)
-	cast_sound = 'sound/effects/magic/summonitems_generic.ogg'
+	cast_sound = 'sound/magic/summonitems_generic.ogg'
 	aoe_range = 3
 
 
@@ -334,11 +334,11 @@
 
 /obj/effect/proc_holder/spell/inflict_handler/blind
 	amt_eye_blind = 10 SECONDS
-	sound = 'sound/effects/magic/blind.ogg'
+	sound = 'sound/magic/blind.ogg'
 
 
 /obj/effect/proc_holder/spell/genetic/blind // 10 sec
-	sound = 'sound/effects/magic/blind.ogg'
+	sound = 'sound/magic/blind.ogg'
 
 
 /obj/effect/proc_holder/spell/genetic/blind/Initialize(mapload)
@@ -367,7 +367,7 @@
 
 	var/fireball_type = /obj/projectile/magic/fireball
 	action_icon_state = "fireball0"
-	sound = 'sound/effects/magic/fireball.ogg'
+	sound = 'sound/magic/fireball.ogg'
 
 
 /obj/effect/proc_holder/spell/fireball/create_new_targeting()
@@ -411,7 +411,7 @@
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
 
-	sound = 'sound/effects/magic/repulse.ogg'
+	sound = 'sound/magic/repulse.ogg'
 	var/maxthrow = 5
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	action_icon_state = "repulse"
@@ -465,7 +465,7 @@
 	invocation = "FI'RAN DADISKO"
 	invocation_type = "shout"
 	action_icon_state = "sacredflame"
-	sound = 'sound/effects/magic/fireball.ogg'
+	sound = 'sound/magic/fireball.ogg'
 
 
 /obj/effect/proc_holder/spell/sacred_flame/create_new_targeting()

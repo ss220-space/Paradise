@@ -7,7 +7,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "flames"
-	sound = 'sound/effects/magic/fireball.ogg'
+	sound = 'sound/magic/fireball.ogg'
 
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE

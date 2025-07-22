@@ -239,7 +239,7 @@
 	else
 		owner.visible_message(span_warning("A [O.name] appears at [owner]'s feet!"), \
 							  span_cultitalic("A [O.name] materializes at your feet."))
-	playsound(owner, 'sound/effects/magic/cult_spell.ogg', 25, TRUE)
+	playsound(owner, 'sound/magic/cult_spell.ogg', 25, TRUE)
 	charges--
 	desc = base_desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
@@ -327,7 +327,7 @@
 		owner.visible_message(span_warning("Thin grey dust falls from [owner]'s hand!"), \
 		span_cultitalic("You invoke the veiling spell, hiding nearby runes and cult structures."))
 		charges--
-		playsound(owner, 'sound/effects/magic/smoke.ogg', 25, TRUE)
+		playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE)
 		owner.whisper(invocation)
 		for(var/obj/O in range(4, owner))
 			O.cult_conceal()
@@ -615,7 +615,7 @@
 				uses--
 				to_chat(user, span_warning("A dark cloud emanates from your hand and swirls around the metal, twisting it into a construct shell!"))
 				new /obj/structure/constructshell(T)
-				playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE)
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			else
 				to_chat(user, span_warning("You need [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal to produce a construct shell!"))
 				return
@@ -628,7 +628,7 @@
 				uses--
 				new /obj/item/stack/sheet/runed_metal(T, quantity)
 				to_chat(user, span_warning("A dark cloud emanates from you hand and swirls around the plasteel, transforming it into runed metal!"))
-				playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE)
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
 		//Airlock to cult airlock
 		else if(istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/airlock/cult))
@@ -639,7 +639,7 @@
 				target.narsie_act(TRUE)
 				uses--
 				user.visible_message(span_warning("Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!"))
-				playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE)
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 				channeling = FALSE
 			else
 				channeling = FALSE
@@ -689,7 +689,7 @@
 				return
 			uses--
 			to_chat(user, span_warning("You empower [target] with blood, recharging its shields!"))
-			playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE)
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			shield.current_charges = 3
 			user.update_appearance(UPDATE_ICON)
 			return ..()
@@ -702,7 +702,7 @@
 				return
 			uses--
 			to_chat(user, span_warning("You empower [target] with blood, recharging its ability to shift!"))
-			playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE)
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			S.uses = 4
 			S.update_icon(UPDATE_ICON_STATE)
 			return ..()
@@ -778,7 +778,7 @@
 					update |= H.heal_damages(tox = (overall_damage * ratio) * (H.getToxLoss() / overall_damage), oxy = (overall_damage * ratio) * (H.getOxyLoss() / overall_damage), updating_health = FALSE)
 					if(update)
 						H.updatehealth("Blood Rite")
-					playsound(get_turf(H), 'sound/effects/magic/staff_healing.ogg', 25)
+					playsound(get_turf(H), 'sound/magic/staff_healing.ogg', 25)
 					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 					user.Beam(H, icon_state="sendbeam", time = 15)
 
@@ -831,7 +831,7 @@
 					M.visible_message(span_warning("[M] is partially healed by [user]'s blood magic!"),
 										span_cultitalic("You are partially healed by [user]'s blood magic."))
 					uses = 0
-				playsound(get_turf(M), 'sound/effects/magic/staff_healing.ogg', 25)
+				playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25)
 				user.Beam(M, icon_state = "sendbeam", time = 10)
 
 		//Draining blood on the floor

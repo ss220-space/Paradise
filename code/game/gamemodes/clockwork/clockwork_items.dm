@@ -73,7 +73,7 @@
 
 	if(enchant_type == HIDE_SPELL)
 		to_chat(user, span_notice("You disguise your tool as some little toy."))
-		playsound(user, 'sound/effects/magic/cult_spell.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(user, 'sound/magic/cult_spell.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		plushy = pick(plush_colors)
 		attack_verb = list("тыкнул", "ударил", "шлёпнул")
 		enchant_type = CASTING_SPELL
@@ -168,7 +168,7 @@
 				if(istype(door, /obj/machinery/door/airlock))
 					var/obj/machinery/door/airlock/A = door
 					A.unlock(TRUE)	//forced because it's magic!
-				playsound(get_turf(usr), 'sound/effects/magic/knock.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+				playsound(get_turf(usr), 'sound/magic/knock.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				door.open()
 				deplete_spell()
 			else if(istype(target, /obj/structure/closet))
@@ -176,7 +176,7 @@
 				if(istype(closet, /obj/structure/closet/secure_closet))
 					var/obj/structure/closet/secure_closet/SC = closet
 					SC.locked = FALSE
-				playsound(get_turf(usr), 'sound/effects/magic/knock.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+				playsound(get_turf(usr), 'sound/magic/knock.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				closet.open()
 				deplete_spell()
 			else
@@ -711,7 +711,7 @@
 		if(enchant_type == INVIS_SPELL)
 			if(carbon.wear_suit != src)
 				return
-			playsound(get_turf(carbon), 'sound/effects/magic/smoke.ogg', 30, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			playsound(get_turf(carbon), 'sound/magic/smoke.ogg', 30, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			enchant_type = CASTING_SPELL
 			animate(carbon, alpha = 20, time = 1 SECONDS)
 			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(INVIS_SPELL))
@@ -1452,7 +1452,7 @@
 	reconstruct()
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/reconstruct()
-	playsound(src, 'sound/effects/magic/clockwork/reconstruct.ogg', 50, TRUE)
+	playsound(src, 'sound/magic/clockwork/reconstruct.ogg', 50, TRUE)
 	animate(src, transform = matrix() * 1, time = 2 SECONDS)
 	sleep(20)
 	for(var/atom/affected in range(4, get_turf(src)))

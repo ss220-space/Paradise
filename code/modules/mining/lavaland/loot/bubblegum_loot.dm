@@ -430,7 +430,7 @@
 	projectile.firer_source_atom = src
 	projectile.fire(null, attacked_atom)
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] стреля[pluralize_ru(gender,"ет","ют")] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
-	playsound(src, 'sound/effects/magic/fireball.ogg', 50, TRUE)
+	playsound(src, 'sound/magic/fireball.ogg', 50, TRUE)
 
 /obj/item/soulscythe/proc/slash_target(atom/attacked_atom)
 	if(isliving(attacked_atom) && use_blood(10))

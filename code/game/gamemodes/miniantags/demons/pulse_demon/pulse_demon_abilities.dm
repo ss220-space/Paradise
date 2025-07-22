@@ -136,7 +136,7 @@
 	if(!istype(C))
 		to_chat(user, span_warning("No cable found!"))
 		return FALSE
-	playsound(T, 'sound/effects/magic/lightningshock.ogg', 50, TRUE)
+	playsound(T, 'sound/magic/lightningshock.ogg', 50, TRUE)
 	O.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 1 SECONDS)
 	for(var/turf/working as anything in get_line(O, T))
 		for(var/mob/living/L in working)

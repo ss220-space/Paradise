@@ -7,8 +7,8 @@
 	var/max_charges = 1
 	var/charge_rate = 250
 	var/obj/item/dashing_item
-	var/dash_sound = 'sound/effects/magic/blink.ogg'
-	var/recharge_sound = 'sound/effects/magic/charge.ogg'
+	var/dash_sound = 'sound/magic/blink.ogg'
+	var/recharge_sound = 'sound/magic/charge.ogg'
 	var/beam_effect = "blur"
 	var/phasein = /obj/effect/temp_visual/dir_setting/ninja/phase
 	var/phaseout = /obj/effect/temp_visual/dir_setting/ninja/phase/out

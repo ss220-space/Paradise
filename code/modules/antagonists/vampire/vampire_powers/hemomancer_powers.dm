@@ -163,7 +163,7 @@
 			L.apply_damage(33, TOX)
 			L.visible_message(span_warning("[L] опутыва[pluralize_ru(L.gender, "ет", "ют")]ся кровавыми щупальцами, которые ограничивают [genderize_ru(L.gender, "его", "её", "его", "их")] движение!"))
 			var/turf/target_turf = get_turf(L)
-			playsound(target_turf, 'sound/effects/magic/tail_swing.ogg', 50, TRUE)
+			playsound(target_turf, 'sound/magic/tail_swing.ogg', 50, TRUE)
 			new /obj/effect/decal/cleanable/blood(target_turf)
 			new /obj/effect/temp_visual/blood_tendril/long(target_turf)
 

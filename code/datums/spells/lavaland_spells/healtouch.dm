@@ -22,7 +22,7 @@
         PREPOSITIONAL = "целебном касании"
   	)
 	catchphrase = "ИСЦЕЛЕНИЕ!"
-	on_use_sound = 'sound/effects/magic/staff_healing.ogg'
+	on_use_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "disintegrate" //ironic huh
 	item_state = "disintegrate"
 	//total of 40 assuming they're hurt by both brute and burn

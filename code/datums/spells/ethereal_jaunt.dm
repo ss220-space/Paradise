@@ -8,8 +8,8 @@
 	cooldown_min = 10 SECONDS //50 deciseconds reduction per rank
 	nonabstract_req = TRUE
 	centcom_cancast = FALSE //Prevent people from getting to centcom
-	var/sound_in = 'sound/effects/magic/ethereal_enter.ogg'
-	var/sound_out = 'sound/effects/magic/ethereal_exit.ogg'
+	var/sound_in = 'sound/magic/ethereal_enter.ogg'
+	var/sound_out = 'sound/magic/ethereal_exit.ogg'
 	var/jaunt_duration = 5 SECONDS //in deciseconds
 	var/jaunt_in_time = 0.5 SECONDS
 	var/jaunt_in_type = /obj/effect/temp_visual/wizard

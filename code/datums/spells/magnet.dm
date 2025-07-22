@@ -5,7 +5,7 @@
 	base_cooldown = 30 SECONDS
 	cooldown_min = 3 SECONDS
 	clothes_req = FALSE
-	charge_sound = new /sound('sound/effects/magic/lightning_chargeup.ogg', channel = 7)
+	charge_sound = new /sound('sound/magic/lightning_chargeup.ogg', channel = 7)
 	max_charge_time = 10 SECONDS
 	stop_charging_text = "You stop charging the magnetism around you."
 	stop_charging_fail_text = "The magnetism around you is too strong to stop now!"

@@ -11,7 +11,7 @@
 	invocation_type = "whisper"
 
 	action_icon_state = "knock"
-	sound = 'sound/effects/magic/knock.ogg'
+	sound = 'sound/magic/knock.ogg'
 	aoe_range = 3
 
 

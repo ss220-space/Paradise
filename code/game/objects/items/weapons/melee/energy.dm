@@ -352,7 +352,7 @@
 		if(attack_verb_on.len)
 			attack_verb = attack_verb_on
 		w_class = w_class_on
-		playsound(user, 'sound/effects/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
+		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
 		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
 	else
 		force = initial(force)
@@ -362,7 +362,7 @@
 		if(attack_verb_on.len)
 			attack_verb = list()
 		w_class = initial(w_class)
-		playsound(user, 'sound/effects/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
+		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)

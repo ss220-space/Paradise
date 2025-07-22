@@ -395,7 +395,7 @@
 	required_reagents = list("teslium" = 5, "uranium" = 5) //uranium to this so it can't be spammed like no tomorrow without mining help.
 	result_amount = 1
 	mix_message = "<span class='danger'>The reaction releases an electrical blast!</span>"
-	mix_sound = 'sound/effects/magic/lightningbolt.ogg'
+	mix_sound = 'sound/magic/lightningbolt.ogg'
 
 /atom/proc/do_shock_ex(radius, damage = 3.5, animate = FALSE)
 	var/turf/epicenter = get_turf(src)

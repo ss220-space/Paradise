@@ -266,7 +266,7 @@
 			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
 			user.put_in_hands(B)
 			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the metal, transforming it into brass!</span>")
-			playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE)
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 		else
 			to_chat(user, "<span class='warning'>You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!</span>")
 			return
@@ -279,7 +279,7 @@
 			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
 			user.put_in_hands(B)
 			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the plasteel, transforming it into brass!</span>")
-			playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE)
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
 	else if(istype(target, /obj/item/stack/sheet/brass))
 		var/obj/item/stack/sheet/brass/candidate = target
@@ -293,7 +293,7 @@
 			O.forceMove(get_turf(src))
 		candidate.use(1)
 		to_chat(user, "<span class='warning'>With you magic hand you re-materialize brass into [O.name]!</span>")
-		playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE)
+		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
 	else if(istype(target, /mob/living/silicon/robot))
 		var/mob/living/silicon/robot/candidate = target
@@ -327,7 +327,7 @@
 		else
 			to_chat(user, "<span class='warning'>Your hand finalizes [candidate] - twisting it into a marauder!</span>")
 			new /obj/item/clockwork/marauder(get_turf(src))
-			playsound(user, 'sound/effects/magic/cult_spell.ogg', 25, TRUE)
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			qdel(candidate)
 	else
 		to_chat(user, "<span class='warning'>The spell will not work on [target]!</span>")
