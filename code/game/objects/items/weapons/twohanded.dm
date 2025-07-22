@@ -599,7 +599,7 @@
 		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сбива[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] ногой!"),
 		span_danger("Вы с пинаете [declent_ru(ACCUSATIVE)], опрокидывая его!")
 	)
-	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 	var/turf/T = get_turf(src)
 	if(contained_spear)
 		contained_spear.forceMove(T)
@@ -637,7 +637,7 @@
 	on = !on
 	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], [on ? "вы слышите нарастающее гудение." : "цепь останавливается."]")
 	if(on)
-		playsound(loc, 'sound/weapons/chainsawstart.ogg', 50, 1)
+		playsound(loc, 'sound/weapons/chainsawstart.ogg', 50, TRUE)
 	force = on ? force_on : initial(force)
 	throwforce = on ? force_on : initial(throwforce)
 	icon_state = "gchainsaw_[on ? "on" : "off"]"
@@ -899,7 +899,7 @@
 				)
 				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 				Z.throw_at(throw_target, 200, 4)
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 			else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
 				Z.visible_message(
 					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] разрыва[pluralize_ru(Z.gender,"ет","ют")]ся на куски силой [declent_ru(GENITIVE)]!"),
@@ -907,18 +907,18 @@
 					span_danger("Слышен мощный удар и звук разрывающейся плоти!")
 				)
 				Z.gib()
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
 			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
 				Z.ex_act(2)
 				charged = 3
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 
 /obj/item/twohanded/pitchfork
 	icon_state = "pitchfork0"
@@ -1020,14 +1020,14 @@
 	if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
 		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
-		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
 		wall.dismantle_wall(TRUE)
 		return TRUE
 
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/mineral = target
 		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
-		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
 		mineral.gets_drilled(user)
 		return TRUE
 
@@ -1103,7 +1103,7 @@
 				span_warning("Вы начинаете открывать шлюз."),
 				span_warning("Раздаётся скрежет металла.")
 			)
-			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
 			if(!do_after(user, 2.5 SECONDS, A))
 				return
 		user.visible_message(
@@ -1169,7 +1169,7 @@
 		var/turf/simulated/wall/W = A
 		user.changeNext_move(attack_speed)
 		user.do_attack_animation(src)
-		playsound(src, 'sound/weapons/smash.ogg', 50, 1)
+		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 		W.take_damage(wall_damage)
 	if(user.getStaminaLoss() < max_stamina_damage)
 		if(istype(A, /obj/structure/girder))

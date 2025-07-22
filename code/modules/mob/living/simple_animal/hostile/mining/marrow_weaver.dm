@@ -88,7 +88,7 @@
 				var/mob/living/carbon/human/H = L
 				var/turf/T = get_turf(H)
 				H.add_splatter_floor(T)	//Visual proc from disembowel(), just for exclude organ dropping (brains), but stay cool.
-				playsound(T, 'sound/effects/splat.ogg', 25, 1)	//Sound proc for the same reason.
+				playsound(T, 'sound/effects/splat.ogg', 25, TRUE)	//Sound proc for the same reason.
 				src.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] впрыскивает токсичную слизь во внутренности [L]..."),
 					span_danger("...после чего высасывает кашицу из костного мозга и плоти, исцеляясь!"),
 					span_userdanger("Вы разжижаете внутренности [L] своим ядом и высасываете получившуюся массу, восстанавливая силы."))

@@ -397,7 +397,7 @@
 		balloon_alert(user, "переключено на первый ствол")
 	else
 		balloon_alert(user, "переключено на второй ствол")
-	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
+	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/click_alt(mob/living/user)
 	pump()

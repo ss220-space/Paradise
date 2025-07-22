@@ -24,8 +24,8 @@
 	item_state = "newspaper"
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("стукнул")
-	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/paper_pickup.ogg'
 
 	///The page in the newspaper currently being read. 0 is the title screen while the last is the security screen.
 	var/current_page = 1

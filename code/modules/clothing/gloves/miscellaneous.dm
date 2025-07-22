@@ -46,7 +46,7 @@
 	var/stamindamage = rand(stamdamage_low, stamdamage_high)
 	if(ishuman(A))
 		user.do_attack_animation(A, "kick")
-		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		var/mob/living/carbon/human/target = A
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		add_attack_logs(user, target, "Melee attacked with weaver gloves")
@@ -340,7 +340,7 @@
 		add_attack_logs(user, target, "Melee attacked with razor gloves")
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/armor_block = target.run_armor_check(affecting, "melee")
-		playsound(target.loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+		playsound(target.loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 
 		target.visible_message("<span class='danger'>[user] cuts [target] with razor gloves!</span>")
 
@@ -356,7 +356,7 @@
 	if(isliving(A))
 		user.do_attack_animation(A, "claw")
 		var/mob/living/living = A
-		playsound(living.loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+		playsound(living.loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 		living.visible_message("<span class='danger'>[user] cuts [living] with razor gloves!</span>")
 		living.apply_damage(damage, BRUTE)
 		return TRUE
@@ -401,7 +401,7 @@
 	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage + user.physiology.punch_obj_damage
 	if(ishuman(A))
 		user.do_attack_animation(A, "kick")
-		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		var/mob/living/carbon/human/target = A
 		add_attack_logs(user, target, "Melee attacked with knuckles")
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
@@ -421,7 +421,7 @@
 	if(isliving(A))
 		var/mob/living/living = A
 		user.do_attack_animation(A, "kick")
-		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		living.visible_message("<span class='danger'>[user] smash [living] with knuckles!</span>")
 		living.apply_damage(damage, BRUTE)
 		return TRUE

@@ -58,7 +58,7 @@
 		user.visible_message(span_warning("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] в шлюз и начина[pluralize_ru(user.gender,"ет","ют")] открывать его!"), \
 							span_warning("Вы начинаете силой открывать шлюз."), \
 							span_warning("Вы слышите металлический скрежет."))
-		playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+		playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
 		if(!do_after(user, 2.5 SECONDS, airlock))
 			return
 

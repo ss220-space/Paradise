@@ -106,7 +106,7 @@
 						current_action = NONE
 						blade_status = GUILLOTINE_BLADE_DROPPING
 						update_icon(UPDATE_ICON_STATE)
-						playsound(src, 'sound/items/unsheath.ogg', 100, 1)
+						playsound(src, 'sound/items/unsheath.ogg', 100, TRUE)
 						addtimer(CALLBACK(src, PROC_REF(drop_blade), user), GUILLOTINE_ANIMATION_LENGTH - 2) // Minus two so we play the sound and decap faster
 					else
 						current_action = NONE
@@ -117,7 +117,7 @@
 				add_fingerprint(user)
 				blade_status = GUILLOTINE_BLADE_DROPPING
 				update_icon(UPDATE_ICON_STATE)
-				playsound(src, 'sound/items/unsheath.ogg', 100, 1)
+				playsound(src, 'sound/items/unsheath.ogg', 100, TRUE)
 				addtimer(CALLBACK(src, PROC_REF(drop_blade)), GUILLOTINE_ANIMATION_LENGTH)
 
 
@@ -142,7 +142,7 @@
 			update_icon(UPDATE_ICON_STATE)
 			return
 
-		playsound(src, 'sound/weapons/bladeslice.ogg', 100, 1)
+		playsound(src, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 		if(blade_sharpness >= GUILLOTINE_DECAP_MIN_SHARP || head.brute_dam >= 100)
 			head.droplimb()
 			add_attack_logs(user, H, "beheaded with [src]")
@@ -215,7 +215,7 @@
 	current_action = NONE
 	to_chat(user, span_notice("You [anchored ? "un" : ""]secure [src]."))
 	set_anchored(!anchored)
-	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
+	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	dir = SOUTH
 
 /obj/structure/guillotine/welder_act(mob/user, obj/item/I)

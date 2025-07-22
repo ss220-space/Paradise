@@ -2,8 +2,8 @@
 	name = "organ"
 	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
-	pickup_sound = 'sound/items/handling/flesh_pickup.ogg'
-	drop_sound = 'sound/items/handling/flesh_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/flesh_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/flesh_drop.ogg'
 	germ_level = 0
 	var/dead_icon
 	/// Current organ holder

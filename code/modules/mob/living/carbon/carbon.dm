@@ -62,7 +62,7 @@
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
 						M.show_message(span_warning("[user] атаку[pluralize_ru(user.gender, "ет", "ют")] стенку желудка [name], используя [I.declent_ru(ACCUSATIVE)]!"), 2)
-				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
+				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, TRUE)
 
 				if(prob(getBruteLoss() - 50))
 					gib()
@@ -234,7 +234,7 @@
 				adjustStaminaLoss(-10)
 				if(body_position != STANDING_UP && !resting && !buckled)
 					get_up(instant = TRUE)
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				if(!player_logged)
 					M.visible_message( \
 						span_notice("[M] тряс[pluralize_ru(M.gender, "ёт", "ут")] [name], пытаясь поднять [genderize_ru(gender, "его", "её", "его", "их")]."),\
@@ -254,12 +254,12 @@
 						H.update_icons()
 
 				M.visible_message(span_warning("[M] пыта[pluralize_ru(M.gender, "ет", "ют")]ся потушить [name]."), self_message)
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				adjust_fire_stacks(-0.5)
 
 			// BEGIN HUGCODE - N3X
 			else
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				if(M.zone_selected == BODY_ZONE_HEAD)
 					M.visible_message(\
 					span_notice("[M] глад[pluralize_ru(M.gender, "ит", "ят")] [name] по голове."),\

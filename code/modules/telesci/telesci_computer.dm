@@ -222,7 +222,7 @@
 		flick("[initial(telepad.icon_state)]-beam", telepad)
 
 		if(spawn_time > 15) // 1.5 seconds
-			playsound(telepad.loc, 'sound/weapons/flash.ogg', 25, 1)
+			playsound(telepad.loc, 'sound/weapons/flash.ogg', 25, TRUE)
 			// Wait depending on the time the projectile took to get there
 			teleporting = 1
 			temp_msg = "Зарядка кристаллов блюспейса.<br>Подождите."

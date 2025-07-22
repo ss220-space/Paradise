@@ -174,7 +174,7 @@
 		if(T)
 			child.forceMove(T)
 			child.revive() // at most this is a 49 hp heal.
-			playsound(src, 'sound/effects/bamf.ogg', 100, 1)
+			playsound(src, 'sound/effects/bamf.ogg', 100, TRUE)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/AltShiftClickOn(atom/A)
 	if(isliving(A))

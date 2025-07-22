@@ -16,8 +16,8 @@
 	origin_tech = "combat=1"
 	needs_permit = TRUE
 	attack_verb = list("ударил")
-	pickup_sound = 'sound/items/handling/gun_pickup.ogg'
-	drop_sound = 'sound/items/handling/gun_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/gun_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/gun_drop.ogg'
 
 	var/fire_sound = "gunshot"
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
@@ -170,7 +170,7 @@
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
 	to_chat(user, span_danger("*клик*"))
-	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	if(recoil)

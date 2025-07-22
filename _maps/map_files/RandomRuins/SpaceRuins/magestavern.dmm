@@ -437,7 +437,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "tm" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "tr" = (

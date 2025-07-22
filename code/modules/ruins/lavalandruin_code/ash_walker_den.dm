@@ -59,7 +59,7 @@
 	for(var/mob/living/H in view(src, 1)) //Only for corpse right next to/on same tile
 		if(H.stat)
 			visible_message(span_warning("Шипастые усики жадно подтаскивают тело [H.declent_ru(GENITIVE)] и разрывают его на куски, окропляя кровью растущие яйца."))
-			playsound(get_turf(src),'sound/magic/demon_consume.ogg', 100, 1)
+			playsound(get_turf(src),'sound/magic/demon_consume.ogg', 100, TRUE)
 			for(var/obj/item/W in H)
 				if(!H.drop_item_ground(W))
 					qdel(W)

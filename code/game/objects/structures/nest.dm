@@ -70,7 +70,7 @@
 	var/chosen_mob = pick(spawn_mob_options)
 
 	to_chat(L, span_danger("Спотыкаясь о [declent_ru(ACCUSATIVE)], вы слышите зловещий гул под ногами!"))
-	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
+	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
 	for(var/obj/structure/nest/N in range(spawn_trigger_distance, src))
 		N.spawn_is_triggered = TRUE
 		addtimer(CALLBACK(N, TYPE_PROC_REF(/obj/structure/nest, spawn_mob), chosen_mob), rand(2, 5) SECONDS)

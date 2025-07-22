@@ -12,8 +12,8 @@
 	can_suppress = FALSE
 	clumsy_check = FALSE
 	needs_permit = FALSE
-	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
-	drop_sound = 'sound/items/handling/generic_drop3.ogg'
+	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 
 
 /obj/item/gun/projectile/automatic/toy/pistol
@@ -75,8 +75,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy
 	clumsy_check = FALSE
 	needs_permit = FALSE
-	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
-	drop_sound = 'sound/items/handling/generic_drop3.ogg'
+	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	pb_knockback = 0
 
 /obj/item/gun/projectile/shotgun/toy/process_chamber()
@@ -102,8 +102,8 @@
 	can_suppress = FALSE
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
-	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
-	drop_sound = 'sound/items/handling/generic_drop3.ogg'
+	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 
 /obj/item/gun/projectile/automatic/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
@@ -116,8 +116,8 @@
 	can_suppress = FALSE
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
-	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
-	drop_sound = 'sound/items/handling/generic_drop3.ogg'
+	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
@@ -141,6 +141,6 @@
 	needs_permit = FALSE
 	zoomable = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/sniper_rounds
-	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
-	drop_sound = 'sound/items/handling/generic_drop3.ogg'
+	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 

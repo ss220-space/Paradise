@@ -716,7 +716,7 @@ emp_act
 				to_chat(M, span_danger("Вы обезоружили [src]!"))
 			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+				playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 				apply_damage(M.disarm_stamina_damage, STAMINA)
 				if(prob(40))
 					apply_effect(2 SECONDS, WEAKEN, run_armor_check(affecting, "melee"))

@@ -12,8 +12,8 @@
 	force = 5
 	throwforce = 7
 	usesound = 'sound/items/ratchet.ogg'
-	drop_sound = 'sound/items/handling/wrench_drop.ogg'
-	pickup_sound =  'sound/items/handling/wrench_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/wrench_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/wrench_pickup.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=150)
 	origin_tech = "materials=1;engineering=1"
@@ -28,7 +28,7 @@
 
 /obj/item/wrench/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is beating [user.p_them()]self to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/wrench/cyborg
@@ -69,7 +69,7 @@
 	toolspeed = 0.25
 
 /obj/item/wrench/power/attack_self(mob/user)
-	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)
+	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, TRUE)
 	var/obj/item/wirecutters/power/s_drill = new /obj/item/screwdriver/power
 	to_chat(user, "<span class='notice'>You attach the screwdriver bit to [src].</span>")
 	qdel(src)
@@ -94,7 +94,7 @@
 
 	// Stun stops them from wandering off
 	user.Stun(10 SECONDS)
-	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
+	playsound(loc, 'sound/effects/pray.ogg', 50, TRUE, -1)
 
 	// Let the sound effect finish playing
 	sleep(20)

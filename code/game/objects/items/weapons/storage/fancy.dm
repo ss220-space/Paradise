@@ -52,6 +52,9 @@
 	icon_type = "donut"
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
+	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
+	use_sound = 'sound/items/handling/cardboard_box_rustle.ogg'
 
 /obj/item/storage/fancy/donut_box/update_icon_state()
 	return
@@ -125,6 +128,9 @@
 	name = "egg box"
 	storage_slots = 12
 	can_hold = list(/obj/item/reagent_containers/food/snacks/egg)
+	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
+	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 
 /obj/item/storage/fancy/egg_box/populate_contents()
 	for(var/I = 1 to storage_slots)
@@ -144,6 +150,7 @@
 	storage_slots = 5
 	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
+	use_sound = "patchpack"
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
 	for(var/I = 1 to storage_slots)
@@ -169,9 +176,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	storage_slots = 8
 	icon_type = "crayon"
-	can_hold = list(
-		/obj/item/toy/crayon
-	)
+	can_hold = list(/obj/item/toy/crayon)
+	use_sound = "patchpack"
 
 /obj/item/storage/fancy/crayons/populate_contents()
 	new /obj/item/toy/crayon/white(src)
@@ -225,6 +231,7 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cigpacket"
 	item_state = "cigpacket"
+	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
@@ -538,10 +545,11 @@
  */
 
 /obj/item/storage/fancy/vials
+	name = "vial storage box"
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox6"
 	icon_type = "vial"
-	name = "vial storage box"
+	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
 

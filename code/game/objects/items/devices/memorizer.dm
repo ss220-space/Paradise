@@ -89,7 +89,7 @@
 	if(broken)
 		return FALSE
 
-	playsound(loc, use_sound, 100, 1)
+	playsound(loc, use_sound, 100, TRUE)
 	flick("[initial(icon_state)]2", src)
 	set_light(2, 1, COLOR_WHITE, l_on = TRUE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)

@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		Radio.autosay(message, name, MED_FREQ_NAME)
 
 /obj/machinery/clonepod/proc/spooky_devil_flavor()
-	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, 1)
+	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, TRUE)
 	mess = TRUE
 	update_icon()
 	connected_message("<font face=\"REBUFFED\" color=#600A0A>Если ты снова попытаешься украсть у Меня, то Я приду за тобой лично.</font>")
@@ -559,7 +559,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		missing_organs.Cut()
 		mess = FALSE
 		new /obj/effect/gibspawner/generic(get_turf(src), occupant)
-		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 		update_icon()
 		return
 
@@ -620,7 +620,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			qdel(occupant)
 
 
-	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 0)
+	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, FALSE)
 	mess = TRUE
 	update_icon()
 
