@@ -548,6 +548,27 @@
 	return TRUE
 
 
+/mob/living/carbon/proc/get_throw_speed(speed)
+	var/list/speed_mods = list()
+	SEND_SIGNAL(src, COMSIG_GET_THROW_SPEED_MODIFIERS, speed_mods)
+	for(var/mod in speed_mods)
+		speed *= mod
+
+	return speed
+
+
+/mob/living/carbon/proc/get_throw_range(range)
+	var/list/range_deltas = list()
+	if(range <= 1)
+		return range
+
+	SEND_SIGNAL(src, COMSIG_GET_THROW_RANGE_DELTAS, range_deltas)
+	for(var/delta in range_deltas)
+		range += delta
+
+	return max(0, range)
+
+
 /mob/living/carbon/throw_item(atom/target)
 	. = ..()
 
@@ -617,20 +638,8 @@
 		throwsound = 'sound/weapons/throwsoft.ogg'
 		power_throw_text = " слабо"
 
-	var/speed = max(1, thrown_thing.throw_speed + power_throw)
-	var/list/speed_mods = list()
-	SEND_SIGNAL(src, COMSIG_GET_THROW_SPEED_MODIFIERS, speed_mods)
-	for(var/mod in speed_mods)
-		speed *= mod
-
-	var/range = thrown_thing.throw_range
-	var/list/range_deltas = list()
-	if(range > 1)
-		SEND_SIGNAL(src, COMSIG_GET_THROW_RANGE_DELTAS, range_deltas)
-		for(var/delta in range_deltas)
-			range += delta
-
-		range = max(0, range)
+	var/speed = get_throw_speed(max(1, thrown_thing.throw_speed + power_throw))
+	var/range = get_throw_range(thrown_thing.throw_range)
 
 	// Adds a bit of randomness in the frequency to not sound exactly the same.
 	// The volume of the sound takes the minimum between the distance thrown or the max range an item,
