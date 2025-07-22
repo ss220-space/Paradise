@@ -11,9 +11,9 @@
 	flags = BLOCKS_LIGHT
 	attack_verb = list("хлестнул", "стегнул", "проучил")
 	max_integrity = 300
-	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
-	equip_sound = 'sound/items/handling/backpack_equip.ogg'
-	drop_sound = 'sound/items/handling/backpack_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
+	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
+	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
 	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
 	actions_types = list(/datum/action/item_action/belt_fast_equip)
 
@@ -109,8 +109,9 @@
 	desc = "Can hold various tools."
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
-	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
+	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
+	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
 	use_item_overlays = TRUE
 	max_combined_w_class = 15	// 6 `WEIGHT_CLASS_SMALL` items + RCD.
 	max_w_class = WEIGHT_CLASS_NORMAL

@@ -18,8 +18,8 @@
 	attack_verb = list("ущипнул", "тяпнул")
 	hitsound = 'sound/items/wirecutter.ogg'
 	usesound = 'sound/items/wirecutter.ogg'
-	drop_sound = 'sound/items/handling/wirecutter_drop.ogg'
-	pickup_sound =  'sound/items/handling/wirecutter_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/wirecutter_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/wirecutter_pickup.ogg'
 	sharp = 1
 	embed_chance = 5
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -53,7 +53,7 @@
 
 /obj/item/wirecutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, usesound, 50, 1, -1)
+	playsound(loc, usesound, 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/wirecutters/brass
@@ -94,17 +94,17 @@
 
 /obj/item/wirecutters/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
-	playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
+	playsound(loc, 'sound/items/jaws_cut.ogg', 50, TRUE, -1)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/head/head = H.bodyparts_by_name[BODY_ZONE_HEAD]
 		if(head)
 			head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
-			playsound(loc,"desceration" ,50, 1, -1)
+			playsound(loc, "desceration" ,50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/wirecutters/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
+	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, TRUE)
 	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
 	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")
 	qdel(src)

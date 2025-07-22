@@ -363,18 +363,18 @@
 	. = ..()
 	if(our_rcd.checkResource(16, user))
 		to_chat(user, "Deconstructing firelock...")
-		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(16, user))
 				return RCD_ACT_FAILED
-			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed firelock with RCD")
 			qdel(src)
 			return RCD_ACT_SUCCESSFULL
 		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
 		return RCD_ACT_FAILED
 	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this firelock!"))
-	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
 /obj/machinery/door/firedoor/heavy

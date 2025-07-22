@@ -233,7 +233,7 @@
 
 			printing = TRUE
 			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
-			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 
 			var/obj/item/paper/P = new /obj/item/paper(loc)
 			P.info = "<center><b>Химический анализ</b></center><br>"

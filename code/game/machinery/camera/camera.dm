@@ -326,7 +326,7 @@
 		else
 			visible_message(span_danger("\The [src] [change_msg]!"))
 
-		playsound(loc, toggle_sound, 100, 1)
+		playsound(loc, toggle_sound, 100, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/camera/proc/triggerCameraAlarm()

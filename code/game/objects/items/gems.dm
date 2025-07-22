@@ -121,7 +121,7 @@
 /obj/item/gem/rupee/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
-		. += span_info("Вы можете использовать что-нибудь <b>острое</b>, чтобы распилить кристалл.")
+		. += span_notice("Вы можете использовать что-нибудь <b>острое</b>, чтобы распилить кристалл.")
 	else
 		. += span_warning("Кристалл ярко горит!")
 

@@ -121,7 +121,7 @@
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //not exploding after touching yourself would be bad
 		return
 	do_sparks(4, 0, target.loc)
-	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 	..()
 
 

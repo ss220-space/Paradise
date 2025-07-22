@@ -71,10 +71,10 @@
 	var/mob/camera/blob/blob = overmind?.resolve()
 	var/datum/blobstrain/blobstrain = blob.blobstrain
 	. += span_biggerdanger("Вы блобернаут! Вы должны помогать всем формам блоба в их миссии по уничтожению всего!")
-	. += span_info("Вы сильны, крепки, и медленно регенерируете в пределах плиток блоба, [span_cultlarge("но вы будете медленно умирать, если их рядом нету")] или если фабрика, создавшая вас, будет разрушена.")
-	. += span_info("Вы можете общаться с другими бернаутами, миньенами, зараженными и надразумами <b>телепатически</b> заместо обычного общения.")
-	. += span_info("Штамм вашего надразума: <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font>!")
-	. += span_info("Штамм <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font> [blobstrain.shortdesc ? "[blobstrain.shortdesc]" : "[blobstrain.description]"]")
+	. += span_notice("Вы сильны, крепки, и медленно регенерируете в пределах плиток блоба, [span_cultlarge("но вы будете медленно умирать, если их рядом нету")] или если фабрика, создавшая вас, будет разрушена.")
+	. += span_notice("Вы можете общаться с другими бернаутами, миньенами, зараженными и надразумами <b>телепатически</b> заместо обычного общения.")
+	. += span_notice("Штамм вашего надразума: <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font>!")
+	. += span_notice("Штамм <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font> [blobstrain.shortdesc ? "[blobstrain.shortdesc]" : "[blobstrain.description]"]")
 
 /**
  * Takes any datum `source` and checks it for blob_minion datum.

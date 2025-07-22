@@ -826,7 +826,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		to_chat(src, span_warning("You can only use this on 516!"))
 		return
 
-	to_chat(src, span_info("You can now right click to use inspect on browsers."))
+	to_chat(src, span_notice("You can now right click to use inspect on browsers."))
 	winset(src, null, list("browser-options" = "+devtools"))
 
 /client/proc/jump_to_ruin()

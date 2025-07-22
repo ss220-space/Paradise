@@ -27,7 +27,7 @@
 	if(swirlie)
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		playsound(src.loc, "swing_hit", 25, 1)
+		playsound(src.loc, "swing_hit", 25, TRUE)
 		swirlie.visible_message(
 			span_danger("[user] slams the toilet seat onto [swirlie]'s head!"),
 			span_userdanger("[user] slams the toilet seat onto [swirlie]'s head!"),
@@ -139,7 +139,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, span_notice("You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]..."))
-	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
+	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, TRUE)
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
 		user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", span_notice("You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!"), span_italics("You hear grinding porcelain."))
 		cistern = !cistern

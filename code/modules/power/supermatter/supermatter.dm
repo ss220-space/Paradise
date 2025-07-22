@@ -323,11 +323,12 @@
 
 /obj/machinery/power/supermatter_shard/singularity_act()
 	var/gain = 100
+	var/supermatter_sound = sound('sound/effects/supermatter.ogg')
 	investigate_log("consumed by singularity.", INVESTIGATE_ENGINE)
 	message_admins("[span_danger("Singularity has consumed a supermatter shard and can now become stage six")] [ADMIN_COORDJMP(src)].")
 	visible_message(span_userdanger("[src] is consumed by the singularity!"))
 	for(var/mob/M in GLOB.mob_list)
-		M << 'sound/effects/supermatter.ogg' //everyone gunna know bout this
+		SEND_SOUND(M, supermatter_sound) //everyone goan know bout this
 		to_chat(M, span_boldannounceic("A horrible screeching fills your ears, and a wave of dread washes over you..."))
 	qdel(src)
 	return(gain)
@@ -345,7 +346,7 @@
 		var/touch_sm = pick(list("poke", "pet", "hug", "cuddle"))
 		user.visible_message(span_notice("[user] [touch_sm]s the supermatter!"), \
 								span_notice("You [touch_sm] the supermatter!"))
-		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		return
 
 	user.visible_message(
@@ -354,7 +355,7 @@
 		span_warning("You hear an uneartly ringing, then what sounds like a shrilling kettle as you are washed with a wave of heat.")
 	)
 
-	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
+	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 
 	consume(user)
 
@@ -479,7 +480,7 @@
 	else
 		return
 
-	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
+	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 
 	consume(moving_atom)
 

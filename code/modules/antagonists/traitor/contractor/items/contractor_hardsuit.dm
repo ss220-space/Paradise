@@ -99,7 +99,7 @@
 			hook.toggle_button_on_off()
 			break
 		usr.put_in_hands(scorpion)
-		playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+		playsound(loc, 'sound/mecha/mechmove03.ogg', 50, TRUE)
 		to_chat(usr, "<span class='notice'>You engage the [scorpion].</span>")
 
 /datum/action/item_action/advanced/hook_upgrade/toggle_button_on_off()
@@ -264,7 +264,7 @@
 	to_chat(usr, "<span class='notice'>Turning on the disguise..</span>")
 	sleep(25)
 	usr.visible_message("<span class='warning'>[usr] changes the look of his hardsuit!</span>", "<span class='notice'>[selected_chameleon] selected.</span>")
-	playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
+	playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
 	update_suit()
 	disguise = TRUE
 

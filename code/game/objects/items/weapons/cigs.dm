@@ -44,9 +44,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/list/list_reagents = list("nicotine" = 40)
 	var/first_puff = TRUE // the first puff is a bit more reagents ingested
 
-	pickup_sound = 'sound/items/handling/generic_small_pickup.ogg'
-	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
-	equip_sound = 'sound/items/handling/generic_equip5.ogg'
+	pickup_sound = 'sound/items/handling/pickup/generic_small_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/generic_small_drop.ogg'
+	equip_sound = 'sound/items/handling/equip/generic_equip5.ogg'
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',

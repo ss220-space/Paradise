@@ -145,7 +145,7 @@
 
 /obj/item/phone/attack_self(mob/user)
 	if(cooldown < world.time - 20)
-		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
+		playsound(user.loc, 'sound/weapons/ring.ogg', 50, TRUE)
 		cooldown = world.time
 
 /obj/item/nunchuck

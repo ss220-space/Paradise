@@ -421,7 +421,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
 	if(!(stat & BROKEN))
-		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+		playsound(src.loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
 		visible_message(span_danger("[M] has slashed at [src]!"))
 		take_damage(M.attack_damage)
 	else

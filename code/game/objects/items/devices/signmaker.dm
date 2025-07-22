@@ -107,7 +107,7 @@
 				else
 					visible_message(span_warning("You fail to blind [C] by shining [src] at [C.p_their()] eyes!"))
 			else
-				visible_message(span_info("You missed the [C] with [src]."))
+				visible_message(span_notice("You missed the [C] with [src]."))
 		if(SILICON)
 			energy--
 			icon_flick()
@@ -123,7 +123,7 @@
 				else
 					visible_message(span_notice("You fail to overload [S] by shining [src] at [S.p_their()] sensors."))
 			else
-				visible_message(span_info("You missed the [S] with [src]."))
+				visible_message(span_notice("You missed the [S] with [src]."))
 		if(CAMERA)
 			energy--
 			icon_flick()
@@ -135,7 +135,7 @@
 				log_admin("[key_name(user)] EMPd a camera with a signmaker")
 				add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 			else
-				visible_message(span_info("You missed the lens of [C] with [src]."))
+				visible_message(span_notice("You missed the lens of [C] with [src]."))
 		else
 			create_holosign(target, user)
 	//to make sure energy doesn't go below 0

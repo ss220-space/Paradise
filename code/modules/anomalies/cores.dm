@@ -31,8 +31,8 @@
 
 /obj/item/assembly/signaler/core/examine(mob/user)
 	. = ..()
-	. += span_info("Текущий заряд: [charge].")
-	. += span_info("Текущая сила: [get_strength()].")
+	. += span_notice("Текущий заряд: [charge].")
+	. += span_notice("Текущая сила: [get_strength()].")
 
 /obj/item/assembly/signaler/core/New(spawnloc, charge)
 	. = ..()

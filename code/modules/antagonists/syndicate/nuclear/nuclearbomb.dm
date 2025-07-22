@@ -537,7 +537,7 @@ GLOBAL_VAR(bomb_set)
 	yes_code = FALSE
 	safety = TRUE
 	update_icon()
-	playsound(src,'sound/machines/alarm.ogg', 100, 0, 5)
+	playsound(src,'sound/machines/alarm.ogg', 100, FALSE, 5)
 	if(SSticker && SSticker.mode)
 		SSticker.mode.explosion_in_progress = 1
 	sleep(100)
