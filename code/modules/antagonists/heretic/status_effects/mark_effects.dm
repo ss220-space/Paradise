@@ -58,20 +58,22 @@
 
 //Each mark has different effects when it is destroyed that combine with the mansus grasp effect.
 
-// MARK OF FLESH
+// flesh mark
 
 /datum/status_effect/eldritch/flesh
 	effect_icon_state = "emark1"
 
 /datum/status_effect/eldritch/flesh/on_effect()
-	if(ishuman(owner))
-		var/mob/living/carbon/human/human_owner = owner
-		var/obj/item/organ/external/bodypart = pick(human_owner.bodyparts)
-		bodypart.fracture() // IDK what is "SLASH" in tg, so let's it will be fracture.
+	if(!ishuman(owner))
+		return ..()
 
+	var/mob/living/carbon/human/human_owner = owner
+	var/obj/item/organ/external/bodypart = pick(human_owner.bodyparts)
+	bodypart.internal_bleeding() // IDK what is "SLASH" in tg, so let's it will be int.bleeding.
 	return ..()
 
-// Пепельная Метка
+
+// ash mark
 
 /datum/status_effect/eldritch/ash
 	effect_icon_state = "emark2"
@@ -267,6 +269,7 @@
 	RegisterSignal (owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	return TRUE
 
+
 /// Checks for damage so the heretic can't just attack them with another weapon whilst they are unable to fight back
 /datum/status_effect/eldritch/moon/proc/on_damaged(datum/source, damage, damagetype)
 	SIGNAL_HANDLER
@@ -284,11 +287,13 @@
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
 	to_chat(owner, span_notice("Вы чувствуете что снова можете причинять вред..."))
 
+
 /datum/status_effect/eldritch/moon/on_effect()
 	owner.Confused(30 SECONDS)
 	owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 25, 160)
 	owner.emote(pick("giggle", "laugh"))
 	return ..()
+
 
 /datum/status_effect/eldritch/moon/on_remove()
 	. = ..()

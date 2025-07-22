@@ -49,30 +49,30 @@
 
 
 /// Sometimes speak in incomprehensible tongues
-/obj/item/organ/internal/tongue/corrupt
+/obj/item/organ/internal/vocal_cords/corrupt
 	name = "corrupt tongue"
 	desc = "This one tells only lies."
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 
 
-/obj/item/organ/internal/tongue/corrupt/Initialize(mapload)
+/obj/item/organ/internal/vocal_cords/corrupt/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/corrupted_organ)
 	AddElement(/datum/element/noticable_organ, "The inside of %PRONOUN_Their mouth is full of stars.", BODY_ZONE_PRECISE_MOUTH)
 
 
-/obj/item/organ/internal/tongue/corrupt/insert(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/internal/vocal_cords/corrupt/insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	RegisterSignal(organ_owner, COMSIG_MOB_SAY, PROC_REF(on_spoken))
 
 
-/obj/item/organ/internal/tongue/corrupt/remove(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/internal/vocal_cords/corrupt/remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	UnregisterSignal(organ_owner, COMSIG_MOB_SAY)
 
 
 /// When the mob speaks, sometimes put it in a different language
-/obj/item/organ/internal/tongue/corrupt/proc/on_spoken(mob/living/organ_owner, list/speech_args)
+/obj/item/organ/internal/vocal_cords/corrupt/proc/on_spoken(mob/living/organ_owner, list/speech_args)
 	SIGNAL_HANDLER
 	/*
 	if(organ_owner.has_reagent("holywater") || prob(60))

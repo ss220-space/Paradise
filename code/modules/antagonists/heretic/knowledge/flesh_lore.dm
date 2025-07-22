@@ -149,14 +149,14 @@
 			continue
 
 		if(!IS_VALID_GHOUL_MOB(body) || HAS_TRAIT(body, TRAIT_HUSK))
-			to_chat(user, span_hierophant_warning("[body] is not in a valid state to be made into a ghoul."))
+			to_chat(user, span_hierophant_warning("[body.declent_ru(NOMINATIVE)] не может стать Гулем."))
 			continue
 
 		// We'll select any valid bodies here. If they're clientless, we'll give them a new one.
 		selected_atoms += body
 		return TRUE
 
-	loc.balloon_alert(user, "ritual failed, no valid body!")
+	loc.balloon_alert(user, "нет подходящего тела!")
 	return FALSE
 
 
@@ -164,25 +164,31 @@
 	var/mob/living/carbon/human/soon_to_be_ghoul = locate() in selected_atoms
 	if(QDELETED(soon_to_be_ghoul)) // No body? No ritual
 		stack_trace("[type] reached on_finished_recipe without a human in selected_atoms to make a ghoul out of.")
-		loc.balloon_alert(user, "ritual failed, no valid body!")
+		loc.balloon_alert(user, "нет подходящего тела!")
 		return FALSE
 
 	soon_to_be_ghoul.grab_ghost()
 
-	if(!soon_to_be_ghoul.mind || !soon_to_be_ghoul.client)
-		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
-		var/mob/chosen_one = pick(SSghost_spawns.poll_candidates("Вы бы хотели сыграть за насильно убит[genderize_ru(soon_to_be_ghoul.gender, "ого", "ую", "ое", "ых")] [soon_to_be_ghoul.declent_ru(ACCUSATIVE)]?", \
-					ROLE_HERETIC, FALSE, poll_time = 5 SECONDS, source = soon_to_be_ghoul))
-		if(isnull(chosen_one))
-			loc.balloon_alert(user, "ritual failed, no ghosts!")
-			return FALSE
-		message_admins("[key_name_admin(chosen_one)] has taken control of ([key_name_admin(soon_to_be_ghoul)]) to replace an AFK player.")
-		soon_to_be_ghoul.ghostize(FALSE)
-		soon_to_be_ghoul.key = chosen_one.key
+	if(soon_to_be_ghoul.mind && soon_to_be_ghoul.client)
+		selected_atoms -= soon_to_be_ghoul
+		make_ghoul(user, soon_to_be_ghoul)
+		return TRUE
 
+	message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
+	var/mob/chosen_one = pick(SSghost_spawns.poll_candidates("Вы бы хотели сыграть за насильно убит[genderize_ru(soon_to_be_ghoul.gender, "ого", "ую", "ое", "ых")] [soon_to_be_ghoul.declent_ru(ACCUSATIVE)]?", \
+				ROLE_HERETIC, FALSE, poll_time = 5 SECONDS, source = soon_to_be_ghoul))
+
+	if(isnull(chosen_one))
+		loc.balloon_alert(user, "нет согласных призраков!")
+		return FALSE
+
+	message_admins("[key_name_admin(chosen_one)] has taken control of ([key_name_admin(soon_to_be_ghoul)]) to replace an AFK player.")
+	soon_to_be_ghoul.ghostize(FALSE)
+	soon_to_be_ghoul.key = chosen_one.key
 	selected_atoms -= soon_to_be_ghoul
 	make_ghoul(user, soon_to_be_ghoul)
 	return TRUE
+
 
 /// Makes [victim] into a ghoul.
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/proc/make_ghoul(mob/living/user, mob/living/carbon/human/victim)
@@ -197,44 +203,52 @@
 		CALLBACK(src, PROC_REF(remove_from_ghoul)),
 	)
 
+
 /// Callback for the ghoul status effect - Tracks all of our ghouls and applies effects
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/proc/apply_to_ghoul(mob/living/ghoul)
 	LAZYADD(created_items, WEAKREF(ghoul))
 	ADD_TRAIT(ghoul, TRAIT_MUTE, MAGIC_TRAIT)
+
 
 /// Callback for the ghoul status effect - Tracks all of our ghouls and applies effects
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/proc/remove_from_ghoul(mob/living/ghoul)
 	LAZYREMOVE(created_items, WEAKREF(ghoul))
 	REMOVE_TRAIT(ghoul, TRAIT_MUTE, MAGIC_TRAIT)
 
+
 /datum/heretic_knowledge/mark/flesh_mark
-	name = "Mark of Flesh"
-	desc = "Your Прикосновение Мансуса now applies the Mark of Flesh. The mark is triggered from an attack with your Bloody Blade. \
-		When triggered, the victim begins to bleed significantly."
-	gain_text = "That's when I saw them, the marked ones. They were out of reach. They screamed, and screamed."
-
-
+	name = "Метка Плоти"
+	desc = "Ваше Прикосновение Мансуса теперь применяет Метку Плоти. \
+			Метка активируется в результате атаки вашим Кровавым клинком. \
+			При активации у жертвы начинается внутреннее кровотечение."
+	gain_text = "Вот тогда я их и увидел, несущих метку. Они были вне досягаемости. Они кричали и кричали."
 	mark_type = /datum/status_effect/eldritch/flesh
+
 
 /datum/heretic_knowledge/knowledge_ritual/flesh
 
+
 /datum/heretic_knowledge/spell/flesh_surgery
-	name = "Knitting of Flesh"
-	desc = "Grants you the spell Knit Flesh. This spell allows you to remove organs from victims \
-		without requiring a lengthy surgery. This process is much longer if the target is not dead. \
-		This spell also allows you to heal your minions and summons, or restore failing organs to acceptable status."
-	gain_text = "But they were not out of my reach for long. With every step, the screams grew, until at last \
-		I learned that they could be silenced."
+	name = "Управление Плотью"
+	desc = "Даёт вам заклинание «Управление Плотью». Это заклинание позволяет извлекать органы из жертв, \
+			не прибегая к длительной хирургической операции. Этот процесс занимает гораздо больше времени, \
+			если цель жива. Это заклинание позволяет вам исцелять ваших миньонов и призванных существ, \
+			а также восстанавливать поврежденные органы до приемлемого состояния."
+	gain_text = "Но они не смогли спастись от меня. \
+				С каждым шагом крики становились всё громче, пока наконец \
+				я не заставил их замолчать."
 	spell_to_add = /obj/effect/proc_holder/spell/touch/flesh_surgery
 	cost = 1
 
+
 /datum/heretic_knowledge/summon/raw_prophet
-	name = "Raw Ritual"
-	desc = "Allows you to transmute a pair of eyes, a left arm, and a pool of blood to create a Raw Prophet. \
-		Raw Prophets have a greatly increased sight range and x-ray vision, as well as a long range jaunt and \
-		the ability to link minds to communicate with ease, but are very fragile and weak in combat."
-	gain_text = "I could not continue alone. I was able to summon The Uncanny Man to help me see more. \
-		The screams... once constant, now silenced by their wretched appearance. Nothing was out of reach."
+	name = "Ритуал Сырости"
+	desc = "Позволяет трансмутировать пару глаз, левую руку и лужу крови, чтобы создать Пророка Сырости. \
+			Пророки Сырости обладают большой дальностью обзора, могут видеть сквозь стены, \
+			временно становиться нематериальными и общаться с вами на расстоянии."
+	gain_text = "Я не мог продолжать в одиночку. Я смог призвать Существо, \
+				чтобы оно помогло мне увидеть больше. Крики... когда-то мучившие меня и днем и ночью, \
+				теперь звучали тише. Я мог достичь своей цели."
 	required_atoms = list(
 		/obj/item/organ/internal/eyes = 1,
 		/obj/effect/decal/cleanable/blood = 1,
@@ -246,10 +260,10 @@
 
 
 /datum/heretic_knowledge/blade_upgrade/flesh
-	name = "Bleeding Steel"
-	desc = "Your Bloody Blade now causes enemies to bleed heavily on attack."
-	gain_text = "The Uncanny Man was not alone. They led me to the Marshal. \
-		I finally began to understand. And then, blood rained from the heavens."
+	name = "Кровоточащая Cталь"
+	desc = "Теперь «Кровавый клинок» поглощает кровь ваших врагов при атаке."
+	gain_text = "Подобных существ было множество. Они привели меня к Маршалу. \
+				Я наконец начал понимать. Небеса окрасились в алый."
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_flesh"
 	///What type of wound do we apply on hit
@@ -257,25 +271,25 @@
 
 
 /datum/heretic_knowledge/blade_upgrade/flesh/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
-	if(!iscarbon(target) || source == target)
+	if(!ishuman(target) || source == target)
 		return
 
 	var/mob/living/carbon/human/human_target = target
-	var/obj/item/organ/external/bodypart = pick(human_target.bodyparts)
-	bodypart.fracture()
+	human_target.AdjustBlood(-25)
 
 
 /datum/heretic_knowledge/summon/stalker
-	name = "Lonely Ritual"
-	desc = "Allows you to transmute a tail of any kind, a stomach, a tongue, a pen and a piece of paper to create a Stalker. \
-		Stalkers can jaunt, release EMPs, shapeshift into animals or automatons, and are strong in combat."
-	gain_text = "I was able to combine my greed and desires to summon an eldritch beast I had never seen before. \
-		An ever shapeshifting mass of flesh, it knew well my goals. The Marshal approved."
+	name = "Ритуал Одиночества"
+	desc = "Позволяет трансмутировать любой хвост, голосовые связки, ручку и лист бумаги, чтобы создать Ловца Плоти. \
+			Ловцы Плоти умеют становиться нематериальными, выпускать ЭМИ, превращаться в животных или роботов, \
+			а также сильны в бою."
+	gain_text = "Мне удалось объединить жадность и желания в жуткого зверя. \
+				Эта вечно меняющая форму масса плоти прекрасно знала мои цели."
 
 	required_atoms = list(
 		/obj/item/organ/external/tail = 1,
 		///obj/item/organ/internal/stomach = 1,
-		/obj/item/organ/internal/tongue = 1,
+		/obj/item/organ/internal/vocal_cords = 1,
 		/obj/item/pen = 1,
 		/obj/item/paper = 1,
 	)
@@ -286,21 +300,21 @@
 
 
 /datum/heretic_knowledge/ultimate/flesh_final
-	name = "Priest's Final Hymn"
-	desc = "The ascension ritual of the Path of Flesh. \
-		Bring 4 corpses to a transmutation rune to complete the ritual. \
-		When completed, you gain the ability to shed your human form \
-		and become the Lord of the Night, a supremely powerful creature. \
-		Just the act of transforming causes nearby heathens great fear and trauma. \
-		While in the Lord of the Night form, you can consume arms to heal and regain segments. \
-		Additionally, you can summon three times as many Ghouls and Voiceless Dead, \
-		and can create unlimited blades to arm them all."
-	gain_text = "With the Marshal's knowledge, my power had peaked. The throne was open to claim. \
-		Men of this world, hear me, for the time has come! The Marshal guides my army! \
-		Reality will bend to THE LORD OF THE NIGHT or be unraveled! WITNESS MY ASCENSION!"
+	name = "Последний гимн священника"
+	desc = "Ритуал вознесения Пути Плоти. \
+			Положите 4 трупа на руну трансмутации, чтобы завершить ритуал. \
+			После завершения ритуала вы сможете сбросить человеческий облик \
+			и стать Повелителем Ночи, невероятно могущественным существом. \
+			Один лишь акт трансформации вселяет в варваров, находящихся поблизости, сильный страх. \
+			В облике Повелителя Ночи вы можете поглощать руки для исцеления и восстановления сегментов. \
+			Кроме того, вы можете призвать в три раза больше Упырей и Безмолвных Мертвецов, \
+			и создать бесчисленное множество клинков, чтобы вооружить их всех."
+	gain_text = "При поддержке Маршала моя власть достигла пика. Трон был пуст. \
+				Люди этого мира, услышьте меня, ибо время пришло! Маршал ведёт мою армию! \
+				Реальность покорится ВЛАДЫКЕ НОЧИ или будет разрушена! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 	required_atoms = list(/mob/living/carbon/human = 4)
 	//ascension_achievement = /datum/award/achievement/misc/flesh_ascension
-	announcement_text = "%SPOOKY% Ever coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, %NAME% has ascended! Fear the ever twisting hand! %SPOOKY%"
+	announcement_text = "%SPOOKY% Реальность развернулась. ВОЗДЕНЬТЕ РУКИ К НЕБУ И ПОПРИВЕТСТВУЙТЕ, ВЛАДЫКУ НОЧИ! %NAME% вознесся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_flesh.ogg'
 
 

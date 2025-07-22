@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/projectile/moon_parade
-	name = "Lunar parade"
+	name = "Лунный парад"
 	desc = "This unleashes the parade, making everyone in its way join it and suffer hallucinations."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -23,7 +23,7 @@
 
 
 /obj/projectile/moon_parade
-	name = "Lunar parade"
+	name = "Лунный парад"
 	icon_state = "lunar_parade"
 	damage = 0
 	damage_type = BURN
@@ -81,13 +81,14 @@
 
 	var/mob/living/victim = target
 
-	if(!(victim in mobs_hit))
-		RegisterSignal(victim, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, PROC_REF(moon_block_move))
-		RegisterSignal(victim, COMSIG_QDELETING, PROC_REF(clear_mob))
-		victim.AddComponent(/datum/component/leash, src, distance = 1)
-		victim.balloon_alert(victim, "you feel unable to move away from the parade!")
-		mobs_hit += victim
+	if(victim in mobs_hit)
+		victim.cause_hallucination(/datum/hallucination/delusion/preset/moon, name)
+		return
 
+	RegisterSignal(victim, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, PROC_REF(moon_block_move))
+	RegisterSignal(victim, COMSIG_QDELETING, PROC_REF(clear_mob))
+	victim.AddComponent(/datum/component/leash, src, distance = 1)
+	mobs_hit += victim
 	victim.cause_hallucination(/datum/hallucination/delusion/preset/moon, name)
 
 

@@ -468,7 +468,7 @@
 		/obj/item/organ/internal/appendix,
 		/obj/item/organ/external/tail,
 		/obj/item/organ/internal/eyes,
-		/obj/item/organ/internal/tongue,
+		///obj/item/organ/internal/vocal_cords,
 		/obj/item/organ/internal/ears,
 		/obj/item/organ/internal/heart,
 		/obj/item/organ/internal/liver,

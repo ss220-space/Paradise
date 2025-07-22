@@ -17,12 +17,13 @@
 	tier3 =	/datum/heretic_knowledge/spell/moon_ringleader
 	ascension = /datum/heretic_knowledge/ultimate/moon_final
 
+
 /datum/heretic_knowledge/limited_amount/starting/base_moon
-	name = "Moonlight Troupe"
-	desc = "Opens up the Path of Moon to you. \
-		Allows you to transmute 2 sheets of iron and a knife into an Lunar Blade. \
-		You can only create two at a time."
-	gain_text = "Under the light of the moon the laughter echoes."
+	name = "Лунная Призма" // Sailor Moon
+	desc = "Открывает вам Путь Луны. \
+			Позволяет превратить 2 листа железа и нож в Лунный Клинок. \
+			Вы можете создать только два клинка одновременно."
+	gain_text = "Под лунным светом раздается смех."
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
 		/obj/item/stack/sheet/metal = 2,
@@ -37,10 +38,10 @@
 
 
 /datum/heretic_knowledge/moon_grasp
-	name = "Grasp of Lunacy"
-	desc = "Your Прикосновение Мансуса will cause your victims to hallucinate everyone as lunar mass, \
-		and hides your identity for a short duration."
-	gain_text = "The troupe on the side of the moon showed me truth, and I took it."
+	name = "Касание Луны"
+	desc = "Ваше Прикосновение Мансуса заставит ваших жертв видеть всех в виде лунной массы, \
+			и на короткое время скроет вашу личность."
+	gain_text = "Труппа на обратной стороне Луны показала мне правду, и я её принял."
 	cost = 1
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "grasp_moon"
@@ -57,51 +58,55 @@
 /datum/heretic_knowledge/moon_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 	if(target.can_block_magic(MAGIC_RESISTANCE_MIND))
-		to_chat(target, span_danger("You hear echoing laughter from above..but it is dull and distant."))
+		to_chat(target, span_danger("Сверху доносится эхо смеха, но он глух и далек."))
 		return
 
 	source.apply_status_effect(/datum/status_effect/moon_grasp_hide)
-
 	if(!iscarbon(target))
 		return
+
 	var/mob/living/carbon/carbon_target = target
-	to_chat(carbon_target, span_danger("You hear echoing laughter from above"))
+	to_chat(carbon_target, span_danger("Вы слышите эхо смеха откуда-то сверху!"))
 	carbon_target.cause_hallucination(/datum/hallucination/delusion/preset/moon, "delusion/preset/moon hallucination caused by mansus grasp")
 
+
 /datum/heretic_knowledge/spell/moon_smile
-	name = "Smile of the moon"
-	desc = "Grants you Smile of the moon, a ranged spell muting, blinding, deafening and knocking down the target for a\
-		duration based on their sanity."
-	gain_text = "The moon smiles upon us all and those who see its true side can bring its joy."
+	name = "Лунная Улыбка"
+	desc = "Даёт вам Лунную Улыбку — заклинание дальнего боя, оглушающее, ослепляющее и \
+			сбивающее с ног цель на время."
+	gain_text = "Луна улыбается нам всем, но лишь те, кто видит истинну, могут улыбнуться ей в ответ."
 
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/moon_smile
 	cost = 1
 
+
 /datum/heretic_knowledge/mark/moon_mark
-	name = "Mark of Moon"
-	desc = "Your Прикосновение Мансуса now applies the Mark of Moon, pacifying the victim until attacked. \
-		The mark can also be triggered from an attack with your Moon Blade, leaving the victim confused."
-	gain_text = "The troupe on the moon would dance all day long \
-		and in that dance the moon would smile upon us \
-		but when the night came its smile would dull forced to gaze on the earth."
+	name = "Лунная Метка"
+	desc = "Ваше «Прикосновение Мансуса» теперь накладывает Метку Луны, умиротворяя жертву до тех пор, пока её не атакуют. \
+			Метка также может быть активирована атакой вашим Лунным Клинком, временно забрав у жертвы возможность ходить прямо."
+	gain_text = "Труппа на Луне танцевала бы весь день, и в этом танце Луна улыбалась \
+				бы, но когда наступала ночь, её улыбка гасла, и мы вынуждены были смотреть на Землю."
 	mark_type = /datum/status_effect/eldritch/moon
+
 
 /datum/heretic_knowledge/knowledge_ritual/moon
 
+
 /datum/heretic_knowledge/spell/moon_parade
-	name = "Lunar Parade"
-	desc = "Grants you Lunar Parade, a spell that - after a short charge - sends a carnival forward \
-		when hitting someone they are forced to join the parade and suffer hallucinations."
-	gain_text = "The music like a reflection of the soul compelled them, like moths to a flame they followed"
+	name = "Лунный парад"
+	desc = "Дарует вам Лунный парад, заклинание, которое после короткой подготовки посылает вперёд снаряд. \
+			При попадании, жертва будет вынуждена присоединиться к параду и страдать от галлюцинаций."
+	gain_text = "Музыка, словно из глубин их души, влекла, словно мотыльков к пламени."
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/projectile/moon_parade
 	cost = 1
 
+
 /datum/heretic_knowledge/moon_amulet
-	name = "Moonlight Amulet"
-	desc = "Allows you to transmute 2 sheets of glass, a heart and a tie to create a Moonlight Amulet. \
-			If the item is used on someone with low sanity they go berserk attacking everyone, \
-			if their sanity isn't low enough it decreases their mood."
-	gain_text = "At the head of the parade he stood, the moon condensed into one mass, a reflection of the soul."
+	name = "Амулет Лунного Света"
+	desc = "Позволяет преобразовать 2 листа стекла, сердце и галстук в Амулет Лунного Света. \
+			Если предмет используется на ком-то в критическом состоянии, жертва приходит в ярость и начинает \
+			атаковать всех вокруг."
+	gain_text = "Он стоял во главе парада, луна слилась в единую массу, отражение души."
 
 	required_atoms = list(
 		/obj/item/organ/internal/heart = 1,
@@ -111,19 +116,19 @@
 	result_atoms = list(/obj/item/clothing/neck/heretic_focus/moon_amulet)
 	cost = 1
 
-
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "moon_amulette"
 	research_tree_icon_frame = 9
 
-/datum/heretic_knowledge/blade_upgrade/moon
-	name = "Moonlight Blade"
-	desc = "Your blade now deals brain damage, causes  random hallucinations and does sanity damage."
-	gain_text = "His wit was sharp as a blade, cutting through the lie to bring us joy."
 
+/datum/heretic_knowledge/blade_upgrade/moon
+	name = "Клинок Лунного Света"
+	desc = "Теперь ваш клинок наносит урон мозгу, и вызывает галлюцинации."
+	gain_text = "Его слова были остры как лезвие, он разрубал ложь, принося нам радость."
 
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_moon"
+
 
 /datum/heretic_knowledge/blade_upgrade/moon/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(source == target || !isliving(target))
@@ -140,11 +145,11 @@
 		)*/
 	target.emote(pick("giggle", "laugh"))
 
+
 /datum/heretic_knowledge/spell/moon_ringleader
 	name = "Ringleaders Rise"
-	desc = "Grants you Ringleaders Rise, an AoE spell that deals more brain damage the lower the sanity of everyone in the AoE \
-			and causes hallucinations, with those who have less sanity getting more. \
-			If their sanity is low enough this turns them insane, the spell then halves their sanity."
+	desc = "Даёт вам «Восстание главарей» — заклинание с областью действия, которое наносит \
+			урон мозгу, и вызывает галлюцинации."
 	gain_text = "I grabbed his hand and we rose, those who saw the truth rose with us. \
 		The ringleader pointed up and the dim light of truth illuminated us further."
 

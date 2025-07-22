@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/burglar_finesse
-	name = "Burglar's Finesse"
+	name = "Хитрость взломщика"
 	desc = "Steal a random item from the victim's backpack."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"

@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/moon_smile
-	name = "Smile of the moon"
+	name = "Лунная Улыбка"
 	desc = "Lets you turn the gaze of the moon on someone \
 			temporarily blinding, muting, deafening and knocking down a single target if their sanity is low enough."
 	action_background_icon_state = "bg_heretic"

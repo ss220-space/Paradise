@@ -190,13 +190,16 @@
 /obj/item/clothing/neck/heretic_focus/moon_amulet/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/mob/living/carbon/human/hit = target
 	if(!IS_HERETIC_OR_MONSTER(user))
-		user.balloon_alert(user, "you feel a presence watching you")
+		user.balloon_alert(user, "луна наблюдает за вами")
 		return
 
 	if(hit.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		return
 
-	user.balloon_alert(user, "their mind bends to see the truth!")
+	if(!hit.isInCrit())
+		return
+
+	user.balloon_alert(user, "[genderize_ru(target.gender, "он", "она", "оно", "они")] увид[pluralize_ru(target.gender, "ит", "ят")] правду!")
 	hit.apply_status_effect(/datum/status_effect/moon_converted)
 	//user.log_message("made [target] insane.", LOG_GAME)
 	//hit.log_message("was driven insane by [user]")

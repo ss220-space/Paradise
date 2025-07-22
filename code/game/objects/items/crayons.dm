@@ -78,6 +78,7 @@
 	update_window(usr)
 
 /obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
+	..()
 	if(!proximity) return
 	if(busy) return
 	if(is_type_in_list(target,validSurfaces))
