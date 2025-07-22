@@ -21,12 +21,13 @@
 	tier3 = /datum/heretic_knowledge/summon/stalker
 	ascension = /datum/heretic_knowledge/ultimate/flesh_final
 
+
 /datum/heretic_knowledge/limited_amount/starting/base_flesh
-	name = "Principle of Hunger"
-	desc = "Opens up the Path of Flesh to you. \
-		Allows you to transmute a knife and a pool of blood into a Bloody Blade. \
-		You can only create three at a time."
-	gain_text = "Hundreds of us starved, but not me... I found strength in my greed."
+	name = "Голодная игра" // The Hunger Games
+	desc = "Открывает вам Путь Плоти. \
+			Позволяет превратить нож и лужу крови в Кровавый Клинок. \
+			Вы можете создать только три клинка одновременно."
+	gain_text = "Сотни из нас голодали, но не я... Я нашёл силу в своей жадности."
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
 		/obj/effect/decal/cleanable/blood = 1,
@@ -36,34 +37,37 @@
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "flesh_blade"
 
+
 /datum/heretic_knowledge/limited_amount/starting/base_flesh/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	var/datum/objective/heretic_summon/summon_objective = new()
 	summon_objective.owner = our_heretic.owner
 	our_heretic.objectives += summon_objective
 
-	to_chat(user, span_hierophant("Undertaking the Path of Flesh, you are given another objective."))
+	to_chat(user, span_hierophant("Ступив на Путь Плоти, вы получаете еще одну цель."))
 	our_heretic.announce_objectives()
 
-/datum/heretic_knowledge/limited_amount/flesh_grasp
-	name = "Grasp of Flesh"
-	desc = "Your Прикосновение Мансуса gains the ability to create a ghoul out of corpse with a soul. \
-		Ghouls have only 25 health and look like husks to the heathens' eyes, but can use Bloody Blades effectively. \
-		You can only create one at a time by this method."
-	gain_text = "My new found desires drove me to greater and greater heights."
 
+/datum/heretic_knowledge/limited_amount/flesh_grasp
+	name = "Прикосновение Плоти"
+	desc = "Ваше Прикосновение Мансуса получает способность создавать гулей из трупов с душой. \
+			У гулей всего 25 единиц здоровья, но они могут эффективно использовать Кровавые Клинки. \
+			Этим методом можно создавать только одного гуля за раз."
+	gain_text = "Мои новые желания вели меня ко все большим и большим высотам."
 	limit = 1
 	cost = 1
-
 
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "grasp_flesh"
 
+
 /datum/heretic_knowledge/limited_amount/flesh_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 
+
 /datum/heretic_knowledge/limited_amount/flesh_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
+
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -92,6 +96,7 @@
 
 	make_ghoul(source, target)
 
+
 /// Makes [victim] into a ghoul.
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/make_ghoul(mob/living/user, mob/living/carbon/human/victim)
 	//user.log_message("created a ghoul, controlled by [key_name(victim)].", LOG_GAME)
@@ -105,21 +110,25 @@
 		CALLBACK(src, PROC_REF(remove_from_ghoul)),
 	)
 
+
 /// Callback for the ghoul status effect - Tracking all of our ghouls
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/apply_to_ghoul(mob/living/ghoul)
 	LAZYADD(created_items, WEAKREF(ghoul))
+
 
 /// Callback for the ghoul status effect - Tracking all of our ghouls
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/remove_from_ghoul(mob/living/ghoul)
 	LAZYREMOVE(created_items, WEAKREF(ghoul))
 
+
 /datum/heretic_knowledge/limited_amount/flesh_ghoul
-	name = "Imperfect Ritual"
-	desc = "Allows you to transmute a corpse and a poppy to create a Voiceless Dead. \
-		The corpse does not need to have a soul. \
-		Voiceless Dead are mute ghouls and only have 50 health, but can use Bloody Blades effectively. \
-		You can only create two at a time."
-	gain_text = "I found notes of a dark ritual, unfinished... yet still, I pushed forward."
+	name = "Незавершенный ритуал"
+	desc = "Позволяет преобразовать труп и мак, чтобы создать Безмолвного Мертвеца. \
+			Трупу не обязательно иметь душу. \
+			Безмолвные Мертвецы — немые гули с запасом здоровья всего 50 единиц, но могут \
+			эффективно использовать Кровавые Клинки. \
+			Вы можете создать только двух одновременно."
+	gain_text = "Я нашел записи темного ритуала, незаконченного... но меня это не остановило..."
 	required_atoms = list(
 		/mob/living/carbon/human = 1,
 		/obj/item/reagent_containers/food/snacks/grown/poppy = 1,
@@ -130,7 +139,6 @@
 	research_tree_icon_state = "ghoul_voiceless"
 
 
-
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	. = ..()
 	if(!.)
@@ -139,6 +147,7 @@
 	for(var/mob/living/carbon/human/body in atoms)
 		if(body.stat != DEAD)
 			continue
+
 		if(!IS_VALID_GHOUL_MOB(body) || HAS_TRAIT(body, TRAIT_HUSK))
 			to_chat(user, span_hierophant_warning("[body] is not in a valid state to be made into a ghoul."))
 			continue
@@ -149,6 +158,7 @@
 
 	loc.balloon_alert(user, "ritual failed, no valid body!")
 	return FALSE
+
 
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/mob/living/carbon/human/soon_to_be_ghoul = locate() in selected_atoms

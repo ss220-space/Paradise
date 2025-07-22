@@ -19,7 +19,7 @@
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_cosmic
-	name = "Врата Вечности" // WarHammer
+	name = "Звёздный Путь" // Star Trek
 	desc = "Открывает вам Путь Космоса. \
 			Позволяет преобразовать лист плазмы и нож в Клинок Космоса. \
 			Вы можете создать только два клинка одновременно."
@@ -237,31 +237,33 @@
 
 
 /datum/heretic_knowledge/spell/cosmic_expansion
-	name = "Cosmic Expansion"
-	desc = "Grants you Cosmic Expansion, a spell that creates a 3x3 area of cosmic fields around you. \
-		Nearby beings will also receive a star mark."
-	gain_text = "The ground now shook beneath me. The Beast inhabited me, and their voice was intoxicating."
+	name = "Захват Территории"
+	desc = "Даёт вам «Захват Территории» — заклинание, создающее вокруг вас область космических полей размером 3x3. \
+			Существа поблизости получат звёздную метку."
+	gain_text = "Земля подо мной задрожала. Зверь вселился в меня. Его голос опьянял."
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion
 	cost = 1
 
+
 /datum/heretic_knowledge/ultimate/cosmic_final
-	name = "Creators's Gift"
-	desc = "The ascension ritual of the Path of Cosmos. \
-		Bring 3 corpses with bluespace dust in their body to a transmutation rune to complete the ritual. \
-		When completed, you become the owner of a Star Gazer. \
-		You will be able to command the Star Gazer with Alt+click. \
-		You can also give it commands through speech. \
-		The Star Gazer is a strong ally who can even break down reinforced walls. \
-		The Star Gazer has an aura that will heal you and damage opponents. \
-		Звездное Касание can now teleport you to the Star Gazer when activated in your hand. \
-		Your cosmic expansion spell and your blades also become greatly empowered."
-	gain_text = "The Beast held out its hand, I grabbed hold and they pulled me to them. Their body was towering, but it seemed so small and feeble after all their tales compiled in my head. \
-		I clung on to them, they would protect me, and I would protect it. \
-		I closed my eyes with my head laid against their form. I was safe. \
-		WITNESS MY ASCENSION!"
+	name = "Дар Творца"
+	desc = "Ритуал вознесения Пути Космоса. \
+			Поднесите 3 трупа с плазмой внутри к руне трансмутации, чтобы завершить ритуал. \
+			После завершения ритуала вы станете владельцем Звездного Наблюдателя. \
+			Вы сможете управлять Звёздным Наблюдателем, нажимая Alt+клик, \
+			а также отдавать ему голосовые команды. \
+			Звёздный Наблюдатель — сильный союзник, способный разрушать укреплённые стены. \
+			У Звездного Наблюдателя есть аура, исцеляющая вас и наносящая урон противникам. \
+			Звёздное Касание теперь может телепортировать вас к Звёздному Глашатаю. \
+			Ваше заклинание «Захват Территории» и ваши клинки также значительно усиливаются."
+	gain_text = "Зверь протянул руку, и я ухватился за неё, и он притянул меня к себе. \
+				Его тело возвышалось надо мной, но казалось слишком маленьким и слабыми после всех \
+				их историй, накопившихся в моей голове. Я вцепился в него, он защитит \
+				меня, а я защищу его. Я закрыл глаза, прижавшись головой к его телу. \
+				Я был в безопасности. СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/cosmic_ascension
-	announcement_text = "%SPOOKY% A Star Gazer has arrived into the station, %NAME% has ascended! This station is the domain of the Cosmos! %SPOOKY%"
+	announcement_text = "%SPOOKY% Звёздный Наблюдатель прибыл на станцию, %NAME% вознесся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_cosmic.ogg'
 	/// A static list of command we can use with our mob.
 	var/static/list/star_gazer_commands = list(
@@ -271,12 +273,14 @@
 		/datum/pet_command/attack/star_gazer
 	)
 
+
 /datum/heretic_knowledge/ultimate/cosmic_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	return TRUE // sacrifice.has_reagent(/datum/reagent/bluespace)
+	return sacrifice.reagents.has_reagent("plasma")
+
 
 /datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
@@ -305,8 +309,8 @@
 
 
 /obj/effect/proc_holder/spell/open_mob_commands
-	name = "Command Star Gazer"
-	desc = "Open the command menu for your star gazer."
+	name = "Управлять Звёздным Наблюдателем"
+	desc = "Открывает меню для управления вашим Звёздным Наблюдателем."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
