@@ -21,9 +21,11 @@
 	/// Effect for when the spell triggers
 	var/obj/effect/moon_effect = /obj/effect/temp_visual/moon_ringleader
 
+
 /obj/effect/proc_holder/spell/aoe/moon_ringleader/cast(mob/living/caster)
 	new moon_effect(get_turf(caster))
 	return ..()
+
 
 /obj/effect/proc_holder/spell/aoe/moon_ringleader/get_things_to_cast_on(atom/center, radius_override)
 	var/list/stuff = list()
@@ -42,10 +44,13 @@
 
 	return stuff
 
+
 /obj/effect/proc_holder/spell/aoe/moon_ringleader/cast(list/targets, mob/caster = usr)
 	for(var/mob/living/carbon/victim as anything in targets)
 		victim.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 160)
 		victim.Hallucinate(60 SECONDS)
+		victim.Confused(10 SECONDS)
+		victim.EyeBlurry(10 SECONDS)
 
 
 /obj/effect/temp_visual/moon_ringleader

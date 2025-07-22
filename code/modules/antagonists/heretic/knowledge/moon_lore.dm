@@ -147,11 +147,11 @@
 
 
 /datum/heretic_knowledge/spell/moon_ringleader
-	name = "Ringleaders Rise"
-	desc = "Даёт вам «Восстание главарей» — заклинание с областью действия, которое наносит \
-			урон мозгу, и вызывает галлюцинации."
-	gain_text = "I grabbed his hand and we rose, those who saw the truth rose with us. \
-		The ringleader pointed up and the dim light of truth illuminated us further."
+	name = "Восстание Главарей"
+	desc = "Даёт вам «Восстание Главарей» — заклинание с областью действия, которое наносит \
+			урон мозгу, вызывает галлюцинации и спутанность у окружающих вас врагов."
+	gain_text = "Я схватил его за руку, и мы поднялись. Те, кто видел истину, поднялись вместе с нами. \
+				Главарь указал вверх, и тусклый свет истины озарил нас ярче."
 
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/moon_ringleader
 	cost = 1
@@ -159,23 +159,26 @@
 
 	research_tree_icon_frame = 5
 
+
 /datum/heretic_knowledge/ultimate/moon_final
-	name = "The Last Act"
-	desc = "The ascension ritual of the Path of Moon. \
-		Bring 3 corpses with more than 50 brain damage to a transmutation rune to complete the ritual. \
-		When completed, you become a harbinger of madness gaining and aura of passive sanity decrease, \
-		confusion increase and, if their sanity is low enough, brain damage and blindness. \
-		1/5th of the crew will turn into acolytes and follow your command, they will all receive moonlight amulets."
-	gain_text = "We dived down towards the crowd, his soul splitting off in search of greater venture \
-		for where the Ringleader had started the parade, I shall continue it unto the suns demise \
-		WITNESS MY ASCENSION, THE MOON SMILES ONCE MORE AND FOREVER MORE IT SHALL!"
+	name = "Последний Акт"
+	desc = "Ритуал вознесения Пути Луны. \
+			Принесите 3 трупа с повреждениями мозга более 50 к руне трансмутации, чтобы завершить ритуал. \
+			После завершения ритуала ваша аура начнет вызывать разнообразные формы безумия у окружающих. \
+			Одна пятая часть экипажа превратится в аколитов и будет следовать вашим приказам. \
+			Все они получат амулеты лунного света."
+	gain_text = "Мы нырнули вниз, к толпе, его душа отделилась в поисках большего приключения \
+				ибо там, где Главарь начал парад, я продолжу его до заката солнца \
+				СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ, ЛУНА СНОВА УЛЫБНУЛАСЬ И БУДЕТ УЛЫБАТЬСЯ ВСЕГДА!"
 
 	//ascension_achievement = /datum/award/achievement/misc/moon_ascension
-	announcement_text = "%SPOOKY% Laugh, for the ringleader %NAME% has ascended! \
-						The truth shall finally devour the lie! %SPOOKY%"
+	announcement_text = "%SPOOKY% Смейтесь, ибо главарь %NAME% вознёсся! \
+							Правда наконец поглотит ложь! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_moon.ogg'
 
+
 /datum/heretic_knowledge/ultimate/moon_final/is_valid_sacrifice(mob/living/sacrifice)
+
 
 	var/brain_damage = sacrifice.get_organ_loss(INTERNAL_ORGAN_BRAIN)
 	// Checks if our target has enough brain damage
@@ -183,6 +186,7 @@
 		return FALSE
 
 	return ..()
+
 
 /datum/heretic_knowledge/ultimate/moon_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
@@ -211,7 +215,7 @@
 	for(var/mob/living/carbon/human/crewmate as anything in lunatic_candidates)
 		// Heretics, lunatics and monsters shouldn't become lunatics because they either have a master or have a mansus grasp
 		if(IS_HERETIC_OR_MONSTER(crewmate))
-			to_chat(crewmate, span_boldwarning("[user]'s rise is influencing those who are weak willed. Their minds shall rend." ))
+			to_chat(crewmate, span_boldwarning("Возвышение [user.declent_ru(ACCUSATIVE)] влияет на тех, чья воля слаба. Их разум будет разорван."))
 			continue
 		// Mindshielded and anti-magic folks are immune against this effect because this is a magical mind effect
 		//if(HAS_MIND_TRAIT(crewmate, TRAIT_UNCONVERTABLE) || crewmate.can_block_magic(MAGIC_RESISTANCE))
