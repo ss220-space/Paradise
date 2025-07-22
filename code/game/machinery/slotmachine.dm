@@ -54,7 +54,16 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	if(!isliving(user))
 		return
 	var/mob/living/target = user
-	target.adjust_slot_machine_lose_effect()
+	var/gibbed = target.adjust_slot_machine_lose_effect()
+	if(!gibbed)
+		return
+	var/location = slotmachine.loc
+	do_sparks(3, TRUE, slotmachine)
+	qdel(slotmachine)
+	new /obj/item/stack/sheet/metal(location, 5)
+	new /obj/item/shard(location)
+	new /obj/item/shard(location)
+	explosion(location, 0, 0, 1, cause = "Emagged slotmachine self-destroy")
 
 
 /datum/slotmachine_prize/minimal
