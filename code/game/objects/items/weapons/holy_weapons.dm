@@ -550,8 +550,8 @@
 		return .
 
 	user.visible_message(
-		span_info("[user] kneels[target == user ? null : " next to [target]"] and begins to utter a prayer to [SSticker.Bible_deity_name]."),
-		span_info("You kneel[target == user ? null : " next to [target]"] and begin a prayer to [SSticker.Bible_deity_name]."),
+		span_notice("[user] kneels[target == user ? null : " next to [target]"] and begins to utter a prayer to [SSticker.Bible_deity_name]."),
+		span_notice("You kneel[target == user ? null : " next to [target]"] and begin a prayer to [SSticker.Bible_deity_name]."),
 	)
 
 	praying = TRUE
@@ -629,8 +629,10 @@
 
 	if(!(ghostcall_CD > world.time))
 		ghostcall_CD = world.time + 5 MINUTES
-		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!</span>",
-		"<span class='info'>You kneel and begin a prayer to [SSticker.Bible_deity_name] while drawing a circle!</span>")
+		user.visible_message(
+			span_notice("[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!"),
+			span_notice("You kneel and begin a prayer to [SSticker.Bible_deity_name] while drawing a circle!")
+		)
 		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
 	else
 		to_chat(user, "<span class='notice'>You need to wait before using [src] again.</span>")

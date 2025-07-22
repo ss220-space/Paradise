@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		else
 			. += span_notice("Окно <i>откручено</i> от пола и может быть разобрано <b>гаечным ключом</b>.")
 	if(!anchored && !fulltile)
-		. += span_info("<b>Alt+ЛКМ</b> для поворота.")
+		. += span_notice("<b>Alt+ЛКМ</b> для поворота.")
 
 
 /obj/structure/window/narsie_act()

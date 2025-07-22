@@ -221,13 +221,13 @@
 	set_light_on(FALSE)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/send_plant_details(mob/user)
-	var/msg = "<span class='info'>This is \a <span class='name'>[src].</span>\n"
+	var/msg = span_notice("This is \a [span_name(src)].\n")
 	if(seed)
 		msg += seed.get_analyzer_text()
 		for(var/reagent_id in seed.reagents_add)
 			var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 			var/amt = reagents.get_reagent_amount(reagent_id)
-			msg += "\n<span class='info'>- [R.name]: [amt]</span>"
+			msg += span_notice("\n– [R.name]: [amt]")
 	to_chat(user, msg)
 
 /obj/item/reagent_containers/food/snacks/grown/attack_ghost(mob/dead/observer/user)
