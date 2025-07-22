@@ -737,7 +737,7 @@ BODY SCANNERS
 	if(H.getCloneLoss())
 		data["cloneStatus"] = H.getCloneLoss()
 
-	if(H.has_brain_worms() && H.borer.controlling)
+	if(H.borer?.controlling)
 		data["brainWorms"] = TRUE
 
 	if(H.get_int_organ(/obj/item/organ/internal/brain))
@@ -883,7 +883,7 @@ BODY SCANNERS
 		scan_data += span_notice("Обнаружено переутомление.")
 	if(H.getCloneLoss())
 		scan_data += span_warning("Обнаружено [H.getCloneLoss() > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.")
-	if(H.has_brain_worms() && H.borer.controlling)
+	if(H.borer?.controlling)
 		scan_data += span_warning("Обнаружены отклонения в работе мозга.")
 
 	if(H.get_int_organ(/obj/item/organ/internal/brain))
@@ -1681,7 +1681,7 @@ BODY SCANNERS
 
 	dat += "<hr>"
 
-	if(target.has_brain_worms() && target.borer.controlling)
+	if(target.borer?.controlling)
 		dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
 
 	var/blood_percent =  round((target.blood_volume / BLOOD_VOLUME_NORMAL))
