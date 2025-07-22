@@ -386,7 +386,9 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
-		GLOB.command_announcement.Announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на событие класса \"Divina Sanatio\". Успешное завершения событие может привести к угрозе класса \"Разрушитель Миров\".", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+		GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на событие класса \"Divina Sanatio\". Успешное завершения события может привести к угрозе класса \"Разрушитель Миров\".",
+										 ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/commandreport.ogg')
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
 		begin_the_ritual()

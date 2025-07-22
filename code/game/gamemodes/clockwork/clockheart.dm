@@ -93,6 +93,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	for(var/turf/tile in orange(1, src))
 		new /obj/effect/gibspawner/clock(tile)
 	playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
+	GLOB.Heart = null
 	QDEL_LIST(fillers)
 	. = ..()
 
@@ -134,12 +135,15 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 		if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
 			to_chat(user, span_clocklarge("Еще слишком рано, Сын мой..."))
 			return
-		if(!adjust_clockwork_power(-250))
+		if(GLOB.clockwork_power < 250)
 			to_chat(user, span_clocklarge("Вам не хватает энергии!"))
 			return
+		adjust_clockwork_power(-250)
 		visible_message(span_danger("[capitalize(src)] исчезает, и на его месте появляется Великий Ковчег!"))
 		var/area/A = get_area(src)
-		GLOB.command_announcement.Announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+		GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
+										ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/commandreport.ogg')
 		new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
 		qdel(src)
 		return
