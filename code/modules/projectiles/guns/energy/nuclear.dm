@@ -50,6 +50,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/dominator/slaughter)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
 	. = ..()
@@ -101,6 +102,7 @@
 	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/gun/nuclear
 	name = "advanced energy gun"

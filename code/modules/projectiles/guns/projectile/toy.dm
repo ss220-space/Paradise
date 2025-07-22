@@ -14,6 +14,7 @@
 	needs_permit = FALSE
 	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/generic_drop3.ogg'
+	accuracy = GUN_ACCURACY_RIFLE
 
 
 /obj/item/gun/projectile/automatic/toy/pistol
@@ -28,6 +29,7 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/projectile/automatic/toy/pistol/update_icon_state()
@@ -78,6 +80,7 @@
 	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 	pb_knockback = 0
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/projectile/shotgun/toy/process_chamber()
 	..()

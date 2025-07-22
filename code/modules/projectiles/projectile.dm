@@ -527,18 +527,30 @@
 		return FALSE
 	return TRUE
 
-/obj/projectile/proc/calculate_hit_chance(mob/living/target)
+
+
+/obj/projectile/proc/calculate_hit_chance(obj/projectile/projectile, mob/living/target)
 	if(forced_accuracy)
 		return 100
 	var/distance = get_dist(firer, target)
 	if(distance < 2) //point-back shot (diagonal dist is 1.414)
 		return 100
+	var/obj/item/gun/gun = projectile.firer_source_atom
+	var/datum/gun_accuracy/gun_accuracy = GUN_ACCURACY_DEFAULT
+	if(istype(gun))
+		gun_accuracy = gun.accuracy
 	switch(def_zone)
-		if(BODY_ZONE_CHEST)
-			return 100
-		if(BODY_ZONE_HEAD)
-			return 75
-		if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-			return 50
+		if(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN)
+			return gun_accuracy.chest
+		if(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
+			return gun.accuracy.head
+		if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			return gun.accuracy.legs
+		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			return gun_accuracy.arms
+		if(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+			return gun_accuracy.foots
+		if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
+			return gun_accuracy.hands
 		else
-			return 50
+			return gun_accuracy.other

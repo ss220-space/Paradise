@@ -19,6 +19,7 @@
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -100,6 +101,7 @@
 	cell_type = /obj/item/stock_parts/cell/potato
 	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
 	selfcharge = TRUE
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -139,6 +141,7 @@
 	can_flashlight = FALSE
 	max_mod_capacity = 0
 	empty_state = null
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
@@ -388,6 +391,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -439,6 +443,7 @@
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = TRUE
+	accuracy = GUN_ACCURACY_SNIPER
 
 /obj/item/gun/energy/sniperrifle/pod_pilot
 	name = "LSR-39 Queen blade"
@@ -481,6 +486,7 @@
 
 	var/emagged = FALSE			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
@@ -759,6 +765,7 @@
 	cell_type = /obj/item/stock_parts/cell/emittergun
 	ammo_type = list(/obj/item/ammo_casing/energy/emittergun)
 	can_charge = TRUE
+	accuracy = GUN_ACCURACY_RIFLE
 
 // Shield breaker //
 

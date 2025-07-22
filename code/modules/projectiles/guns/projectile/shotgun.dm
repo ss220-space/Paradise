@@ -14,6 +14,7 @@
 	weapon_weight = WEAPON_HEAVY
 	pb_knockback = 2
 	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/I, mob/user, params)
