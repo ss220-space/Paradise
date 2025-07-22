@@ -162,7 +162,7 @@
 			return
 		for(var/datum/mind/M in gamemode.cult)
 			if(M.current)
-				SEND_SOUND(M.current, 'sound/ambience/antag/bloodcult_scribe.ogg')
+				SEND_SOUND(M.current, sound('sound/ambience/antag/bloodcult_scribe.ogg'))
 		GLOB.major_announcement.announce("Образы внепространственного бога из неизвестного измерения собираются воедино в [A.map_name]. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
 										ANNOUNCE_CCPARANORMAL_RU,
 										'sound/AI/cult_summon.ogg'

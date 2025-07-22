@@ -1431,7 +1431,7 @@
 		golem.revive()
 		golem.set_species(/datum/species/golem/clockwork)
 		log_game("[golem.key] has become Brass Golem.")
-		SEND_SOUND(golem, 'sound/ambience/antag/clockcult.ogg')
+		SEND_SOUND(golem, sound('sound/ambience/antag/clockcult.ogg'))
 	else
 		golem.visible_message(span_warning("[golem] twitches as their body twists and rapidly changes the form!"))
 		new /obj/effect/mob_spawn/human/golem/clockwork(get_turf(golem))

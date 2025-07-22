@@ -588,7 +588,7 @@
 		return FALSE
 
 	if(user.attack_sound)
-		playsound(loc, user.attack_sound, 50, TRUE, TRUE)
+		playsound(loc, user.attack_sound, 50, TRUE, 1)
 	user.do_attack_animation(src)
 	visible_message(span_danger("[user] [user.attack_verb_continuous] [declent_ru(ACCUSATIVE)]!"), \
 					span_userdanger("[user] [user.attack_verb_continuous] вас!"))

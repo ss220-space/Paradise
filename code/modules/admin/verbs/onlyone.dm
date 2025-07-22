@@ -111,9 +111,9 @@
 	GLOB.nologevent = 1
 
 	var/sound/music = sound('sound/music/thunderdome.ogg', channel = CHANNEL_ADMIN)
-	for(var/mob/M in GLOB.player_list)
-		if(M.client.prefs.sound & SOUND_MIDI)
-			if(isnewplayer(M) && (M.client.prefs.sound & SOUND_LOBBY))
-				M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
-			music.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
-			SEND_SOUND(M, music)
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.client.prefs.sound & SOUND_MIDI)
+			if(isnewplayer(mob) && (mob.client.prefs.sound & SOUND_LOBBY))
+				mob.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			music.volume = 100 * mob.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+			SEND_SOUND(mob, music)

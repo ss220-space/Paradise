@@ -179,7 +179,7 @@
 		to_chat(usr, span_warning("The device is not able to play more DJ sounds at this time."))
 		return
 	charge -= 5
-	playsound(src, S, 300, 1)
+	playsound(src, S, 300, TRUE)
 
 /obj/machinery/disco/proc/dance_setup()
 	stop = world.time + selection.song_length

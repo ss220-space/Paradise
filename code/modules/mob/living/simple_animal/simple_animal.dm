@@ -416,7 +416,7 @@
 	drop_loot()
 	if(!gibbed)
 		if(death_sound)
-			playsound(get_turf(src),death_sound, 200, 1)
+			playsound(get_turf(src),death_sound, 200, TRUE)
 		if(deathmessage)
 			visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] [genderize_decode(src, deathmessage)]"))
 		else if(!del_on_death)

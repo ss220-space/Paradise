@@ -1103,7 +1103,7 @@
 				span_warning("Вы начинаете открывать шлюз."),
 				span_warning("Раздаётся скрежет металла.")
 			)
-			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
 			if(!do_after(user, 2.5 SECONDS, A))
 				return
 		user.visible_message(

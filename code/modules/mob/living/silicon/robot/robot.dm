@@ -471,7 +471,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	R.mmi = new /obj/item/mmi/robotic_brain/syndicate(M)
 	M.mind.transfer_to(R)
 	R.faction = list("syndicate")
-	SEND_SOUND(R.mind.current, 'sound/effects/contractstartup.ogg')
+	SEND_SOUND(R.mind.current, sound('sound/effects/contractstartup.ogg'))
 
 	robot_module_hat_offset(icon_state)
 

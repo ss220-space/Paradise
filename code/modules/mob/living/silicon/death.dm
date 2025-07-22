@@ -46,4 +46,4 @@
 	. = ..()
 	if(!gibbed)
 		if(death_sound)
-			playsound(get_turf(src), death_sound, 200, 1)
+			playsound(get_turf(src), death_sound, 200, TRUE)
