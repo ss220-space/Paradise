@@ -30,8 +30,8 @@
 	//attack_verb_continuous = list("bashes", "curses")
 	attack_verb = list("bash", "curse")
 	resistance_flags = FLAMMABLE
-	drop_sound = 'sound/items/handling/book_drop.ogg'
-	pickup_sound = 'sound/items/handling/book_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/book_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/book_pickup.ogg'
 	///what type of barrier do we spawn when used
 	var/barrier_type = /obj/effect/forcefield/wizard/heretic
 	///how many uses do we have left
