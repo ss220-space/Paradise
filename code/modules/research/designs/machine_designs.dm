@@ -484,7 +484,7 @@
 
 /datum/design/slotmachine
 	name = "Machine Board (Slotmachine Arcade)"
-	desc = "Allows for the construction of circuit boards used to build a new Slotmachine."
+	desc = "Позволяет изготавливать схемы, используемые для сборки новой слот-машины."
 	id = "arcadeslotmachine"
 	req_tech = list("programming" = 1)
 	build_type = IMPRINTER
