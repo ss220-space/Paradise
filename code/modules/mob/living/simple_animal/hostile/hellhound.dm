@@ -22,7 +22,7 @@
 	stat_attack = UNCONSCIOUS
 	attacktext = "кусает"
 	attack_sound = 'sound/effects/bite.ogg'
-	speak_emote = list("growls")
+	speak_emote = list("рычит")
 	nightvision = 9
 	universal_understand = 1
 	wander = 0

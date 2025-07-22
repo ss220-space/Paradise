@@ -63,7 +63,7 @@
 	real_name = "Swarmer"
 	icon = 'icons/mob/swarmer.dmi'
 	desc = "Robotic constructs of unknown design, swarmers seek only to consume materials and replicate themselves indefinitely."
-	speak_emote = list("tones")
+	speak_emote = list("гудит")
 	bubble_icon = "swarmer"
 	health = 35
 	maxHealth = 35
@@ -85,7 +85,7 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	attacktext = "бьёт током"
 	attack_sound = 'sound/effects/empulse.ogg'
-	friendly = "pinches"
+	friendly = "щипает"
 	speed = 0
 	a_intent = INTENT_HARM
 	can_change_intents = 0

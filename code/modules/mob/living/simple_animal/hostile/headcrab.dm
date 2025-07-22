@@ -17,7 +17,7 @@
 	var/jumpspeed = 1
 	attacktext = "грызёт"
 	attack_sound = 'sound/creatures/headcrab_attack.ogg'
-	speak_emote = list("hisses")
+	speak_emote = list("шипит")
 	var/is_zombie = 0
 	stat_attack = DEAD // Necessary for them to attack (zombify) dead humans
 	robust_searching = 1
@@ -73,7 +73,7 @@
 	icon = H.icon
 	speak = list('sound/creatures/zombie_idle1.ogg','sound/creatures/zombie_idle2.ogg','sound/creatures/zombie_idle3.ogg')
 	speak_chance = 50
-	speak_emote = list("groans")
+	speak_emote = list("стонет")
 	attacktext = "грызёт"
 	attack_sound = 'sound/creatures/zombie_attack.ogg'
 	icon_state = "zombie2_s"
@@ -138,7 +138,7 @@
 	ranged_cooldown_time = 30
 	jumpdistance = 8
 	jumpspeed = 2
-	speak_emote = list("screech")
+	speak_emote = list("визжит")
 	crab_head_overlay = "fast_headcrabpod"
 
 
@@ -161,7 +161,7 @@
 	melee_damage_lower = 8
 	melee_damage_upper = 20
 	attack_sound = 'sound/creatures/ph_scream1.ogg'
-	speak_emote = list("screech")
+	speak_emote = list("визжит")
 	crab_head_overlay = "poison_headcrabpod"
 
 

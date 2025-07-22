@@ -10,7 +10,7 @@
 	)
 	real_name = "Guardian Spirit"
 	desc = "Таинственное существо, которое всегда настороже, охраняет своего подопечного."
-	speak_emote = list("intones")
+	speak_emote = list("распевает", "поёт", "произносит нараспев", "интонирует")
 	tts_seed = "Earth"
 	bubble_icon = "guardian"
 	response_help  = "gently pets"
@@ -433,7 +433,7 @@
 	G.icon_state = "[theme][color]"
 	G.icon_dead = "[theme][color]"
 	to_chat(user, "[G.tech_fluff_string].")
-	G.speak_emote = list("states")
+	G.speak_emote = list("констатирует")
 
 /obj/item/guardiancreator/tech/check_uplink_validity()
 	return !used
@@ -481,7 +481,7 @@
 	G.icon_dead = "[theme][color]"
 	to_chat(user, "[G.bio_fluff_string].")
 	G.attacktext = "swarms"
-	G.speak_emote = list("chitters")
+	G.speak_emote = list("щебечет")
 
 /obj/item/guardiancreator/biological/choose
 	random = FALSE

@@ -29,8 +29,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
 	var/spider_intro_text = "Если ты это видишь, это баг."
 	speak_chance = 0 // quiet but deadly
-	speak_emote = list("hisses")
-	emote_hear = list("hisses")
+	speak_emote = list("шипит")
+	emote_hear = list("шипит")
 	tts_seed = "Anubarak"
 	sentience_type = SENTIENCE_OTHER
 	response_help  = "гладит"

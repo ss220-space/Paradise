@@ -42,12 +42,12 @@
 		)
 
 	var/global/list/possible_say_verbs = list(
-		"Robotic" = list("states","declares","queries"),
-		"Natural" = list("says","yells","asks"),
-		"Beep" = list("beeps","beeps loudly","boops"),
-		"Chirp" = list("chirps","chirrups","cheeps"),
-		"Feline" = list("purrs","yowls","meows"),
-		"Canine" = list("yaps","barks","growls")
+		"Robotic" = list("констатирует", "подмечает", "объявляет"),
+		"Natural" = list("говорит", "восклицает", "спрашивает"),
+		"Beep" = list("сигналит", "громко сигналит", "вопросительно сигналит"),
+		"Chirp" = list("щебечет", "громко щебечет", "вопросительно щебечет"),
+		"Feline" = list("мурчит", "визжит", "вопросительно мяукает"),
+		"Canine" = list("гавкает", "лает", "вопросительно тявкает")
 		)
 
 

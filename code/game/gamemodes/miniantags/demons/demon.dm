@@ -13,8 +13,8 @@
 		PREPOSITIONAL = "обычном демоне"
 	)
 	desc = "Если вы это видите, составьте баг-репорт в Discord."
-	speak_emote = list("gurgles")
-	emote_hear = list("wails","screeches")
+	speak_emote = list("клокочет", "урчит", "булькает")
+	emote_hear = list("визжит", "воет")
 	tts_seed = "Mannoroth"
 	response_help  = "решает не трогать"
 	response_disarm = "машет в сторону"

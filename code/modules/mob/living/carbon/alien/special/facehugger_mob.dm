@@ -52,7 +52,7 @@
 	talk_sound = 'sound/creatures/facehugger_talk.ogg'
 	damaged_sound = 'sound/creatures/facehugger_damaged.ogg'
 	death_sound = 'sound/creatures/facehugger_dies.ogg'
-	speak_emote = list("hisses")
+	speak_emote = list("шипит")
 	stat_attack = UNCONSCIOUS // Necessary for them to attack (zombify) dead humans
 	speed = -0.5
 	holder_type = /obj/item/clothing/mask/facehugger

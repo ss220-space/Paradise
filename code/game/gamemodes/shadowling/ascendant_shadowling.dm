@@ -5,7 +5,7 @@
 	icon_state = "shadowling_ascended"
 	icon_living = "shadowling_ascended"
 	speak = list("Azima'dox", "Mahz'kavek", "N'ildzak", "Kaz'vadosh")
-	speak_emote = list("telepathically thunders", "telepathically booms")
+	speak_emote = list("телепатически грохочет", "телепатически гудит")
 	force_threshold = INFINITY //Can't die by normal means
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	health = 100000
