@@ -92,6 +92,10 @@
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 	gun_light_overlay = "enforcer-light"
+	attachable_allowed = list(ATTACHMENT_SLOT_MUZZLE)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 10, "y" = 2)
+	)
 
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_gun_skins()
@@ -114,8 +118,8 @@
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_overlays()
 	. = ..()
-	if(suppressed)
-		. += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
+	// if(suppressed)
+	// 	. += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
 
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/ui_action_click(mob/user, datum/action/action, leftclick)

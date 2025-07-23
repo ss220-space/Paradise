@@ -23,9 +23,6 @@
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
 	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
 	var/fire_sound_text = "выстрел" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
-	var/suppressed = 0					//whether or not a message is displayed when fired
-	var/can_suppress = 0
-	var/can_unsuppress = 1
 	var/recoil = 0						//boom boom shake the room
 	var/clumsy_check = 1
 	var/obj/item/ammo_casing/chambered = null
@@ -57,6 +54,32 @@
 
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+
+/*
+ * Gun modules
+ */
+	///List of allowed attachments, IT MUST INCLUDE THE STARTING ATTACHMENT TYPES OR THEY WILL NOT ATTACH.
+	var/list/attachable_allowed = null
+	///The attachments this gun starts with on Init
+	var/list/starting_attachment_types = null
+	///Image list of attachments overlays.
+	var/list/image/attachment_overlays = list()
+	///List of offsets to make attachment overlays not look wonky.
+	var/list/attachable_offset = null
+	///List of slots a gun can have.
+	var/list/attachments_by_slot = list(
+		ATTACHMENT_SLOT_MUZZLE,
+		ATTACHMENT_SLOT_RAIL,
+		ATTACHMENT_SLOT_STOCK,
+		ATTACHMENT_SLOT_UNDER,
+		ATTACHMENT_SLOT_MAGAZINE,
+	)
+
+
+	var/suppressed = FALSE
+	var/suppress_muzzle_flash = FALSE
+	var/can_suppress = 0
+	var/can_unsuppress = 1
 
 	/// Whether user can attach/detach flashlights to/from this gun.
 	var/can_flashlight = FALSE
@@ -146,6 +169,30 @@
 /obj/item/gun/proc/update_gun_skins()
 	return
 
+/obj/item/gun/update_overlays()
+	. = ..()
+	for(var/slot in attachment_overlays)
+		var/image/overlay = attachment_overlays[slot]
+		if(overlay)
+			. += overlay
+
+/obj/item/gun/proc/add_attachment_overlay(obj/item/gun_module/module)
+	var/image/overlay = module.create_overlay()
+	if(attachable_offset)
+		var/x_offset = attachable_offset[module.slot]["x"]
+		var/y_offset = attachable_offset[module.slot]["y"]
+		overlay.pixel_x = x_offset
+		overlay.pixel_y = y_offset
+	attachment_overlays[module.slot] = overlay
+	update_icon()
+
+/obj/item/gun/proc/remove_attachment_overlay(obj/item/gun_module/module)
+	if(attachment_overlays[module.slot])
+		attachment_overlays[module.slot] = null
+	update_icon()
+
+
+
 
 /**
  * Adds skin in associative lazy list: skin_options[skin_name] = skin_icon_state
@@ -179,11 +226,12 @@
 	var/muzzle_range = chambered.muzzle_flash_range
 	var/muzzle_strength = chambered.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
-	if(suppressed)
-		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+	if(suppress_muzzle_flash)
 		muzzle_range *= 0.5
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
+	if(suppressed)
+		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	else
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
@@ -446,8 +494,24 @@
 		set_bayonet(knife)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
+	if(istype(I, /obj/item/gun_module))
+		add_fingerprint(user)
+		var/obj/item/gun_module/module = I
+		if(module.try_attach(src, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
+
+/obj/item/gun/projectile/attack_hand(mob/user)
+	if(loc == user)
+		for(var/slot in attachments_by_slot)
+			if(attachments_by_slot[slot])
+				var/obj/item/gun_module/module = attachments_by_slot[slot]
+				module.detach_without_check(src, user)
+				return
+		return
+	. = ..()
 
 /obj/item/gun/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

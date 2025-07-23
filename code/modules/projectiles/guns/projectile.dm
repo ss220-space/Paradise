@@ -36,11 +36,16 @@
 		desc = initial(desc)
 
 
+// /obj/item/gun/projectile/update_icon_state()
+// 	if(current_skin)
+// 		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+// 	else
+// 		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
 /obj/item/gun/projectile/update_icon_state()
 	if(current_skin)
-		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+		icon_state = "[current_skin][sawn_state ? "-sawn" : ""]"
 	else
-		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
+		icon_state = "[initial(icon_state)][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
 
 
 /obj/item/gun/projectile/update_overlays()
@@ -151,23 +156,23 @@
 	return ..()
 
 
-/obj/item/gun/projectile/attack_hand(mob/user)
-	if(loc == user)
-		if(suppressed && can_unsuppress)
-			var/obj/item/suppressor/S = suppressed
-			if(user.l_hand != src && user.r_hand != src)
-				..()
-				return
+// /obj/item/gun/projectile/attack_hand(mob/user)
+// 	if(loc == user)
+// 		if(suppressed && can_unsuppress)
+// 			var/obj/item/suppressor/S = suppressed
+// 			if(user.l_hand != src && user.r_hand != src)
+// 				..()
+// 				return
 
-			balloon_alert(user, "глушитель снят!")
-			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
-			user.put_in_hands(suppressed)
-			fire_sound = S.oldsound
-			w_class = S.initial_w_class
-			suppressed = null
-			update_icon()
-			return
-	..()
+// 			balloon_alert(user, "глушитель снят!")
+// 			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
+// 			user.put_in_hands(suppressed)
+// 			fire_sound = S.oldsound
+// 			w_class = S.initial_w_class
+// 			suppressed = null
+// 			update_icon()
+// 			return
+// 	..()
 
 
 /obj/item/gun/projectile/attack_self(mob/living/user)
