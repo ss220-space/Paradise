@@ -838,7 +838,7 @@ About the new airlock wires panel:
 	if(ishuman(user) && prob(40) && density)
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60 && Adjacent(user))
-			playsound(loc, 'sound/effects/bang.ogg', 25, 1)
+			playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
 				visible_message(span_warning("[user] headbutts the airlock."))
 				H.Weaken(10 SECONDS)
@@ -1283,13 +1283,13 @@ About the new airlock wires panel:
 		if(!F.wielded)
 			to_chat(user, span_warning("You need to be wielding the fire axe to do that!"))
 			return
-		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
+		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
 		if(do_after(user, 5 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
 	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
-		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, 1) //scary
+		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, TRUE) //scary
 		if(do_after(user, 4 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density) // faster because of ITS A MECH
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
@@ -1302,7 +1302,7 @@ About the new airlock wires panel:
 		to_chat(user, span_warning("The airlock's motors resist your efforts to force it!"))
 		return
 
-	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
+	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
 	if(do_after(user, 5 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 		to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 
@@ -1619,12 +1619,12 @@ About the new airlock wires panel:
 	if(!wirecutters_used)
 		if (ishuman(user) && (user.a_intent == INTENT_GRAB)) //grab that note
 			user.visible_message(span_notice("[user] removes [note] from [src]."), span_notice("You remove [note] from [src]."))
-			playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
+			playsound(src, 'sound/items/poster_ripped.ogg', 50, TRUE)
 		else
 			return FALSE
 	else
 		user.visible_message(span_notice("[user] cuts down [note] from [src]."), span_notice("You remove [note] from [src]."))
-		playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
+		playsound(src, 'sound/items/wirecutter.ogg', 50, TRUE)
 	note.add_fingerprint(user)
 	add_misc_logs(user, "removed [note] from", src)
 	note.forceMove_turf()
@@ -1674,18 +1674,18 @@ About the new airlock wires panel:
 	. = ..()
 	if(our_rcd.checkResource(20, user))
 		to_chat(user, "Deconstructing airlock...")
-		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(20, user))
 				return RCD_ACT_FAILED
-			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed airlock with RCD")
 			qdel(src)
 			return RCD_ACT_SUCCESSFULL
 		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
 		return RCD_ACT_FAILED
 	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this airlock!"))
-	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
 /obj/machinery/door/airlock/proc/ai_control_callback()

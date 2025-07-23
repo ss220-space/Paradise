@@ -268,7 +268,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
-	equip_sound = 'sound/items/handling/generic_equip4.ogg'
+	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING
@@ -703,8 +703,8 @@ BLIND     // can't see anything
 	var/cut_open = FALSE
 	body_parts_covered = FEET
 	slot_flags = ITEM_SLOT_FEET
-	pickup_sound = 'sound/items/handling/shoes_pickup.ogg'
-	drop_sound = 'sound/items/handling/shoes_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/shoes_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/shoes_drop.ogg'
 
 	var/silence_steps = 0
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
@@ -817,8 +817,8 @@ BLIND     // can't see anything
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	drop_sound = 'sound/items/handling/cloth_drop.ogg'
-	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_CLOTH_OUTER
 	var/blood_overlay_type = "suit"
 	/// Whether suit is currently adjusted, example: shirt is buttoned.
@@ -1064,9 +1064,9 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.90
 	slot_flags = ITEM_SLOT_CLOTH_INNER
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
-	drop_sound = 'sound/items/handling/cloth_drop.ogg'
-	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
+	equip_sound = 'sound/items/handling/equip/jumpsuit_equip.ogg'
+	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cloth_pickup.ogg'
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
@@ -1187,14 +1187,14 @@ BLIND     // can't see anything
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/accessory, mob/user, unequip = FALSE)
 	if(!can_attach_accessory(accessory))
 		if(user)
-			to_chat(user, span_notice("You cannot attach more accessories of this type to [src]."))
+			to_chat(user, span_notice("Невозможно добавить больше аксессуаров этого типа к [declent_ru(DATIVE)]."))
 		return FALSE
 	if(unequip && user && !user.drop_transfer_item_to_loc(accessory, src)) // Make absolutely sure this accessory is removed from hands
 		return FALSE
 	accessory.on_attached(src, user)
 	if(user)
 		accessory.add_fingerprint(user)
-		to_chat(user, span_notice("You have attached [accessory] to [src]."))
+		to_chat(user, span_notice("Вы прикрепили [accessory.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
 	return TRUE
 
 
@@ -1214,17 +1214,17 @@ BLIND     // can't see anything
 /obj/item/clothing/under/proc/handle_accessories_removal(mob/user)
 	var/accessories_len = LAZYLEN(accessories)
 	if(!accessories_len)
-		to_chat(user, span_notice("There are no accessories attached to [src]."))
+		to_chat(user, span_notice("На [declent_ru(PREPOSITIONAL)] нет присоединённых аксессуаров."))
 		return FALSE
 	var/obj/item/clothing/accessory/accessory
 	if(accessories_len > 1)
-		accessory = tgui_input_list(user, "Select an accessory to remove from [src]", "Accessory Removal", accessories)
+		accessory = tgui_input_list(user, "Выберите аксессуар для удаления с [declent_ru(GENITIVE)]", "Удаление аксессуара", accessories)
 		if(!accessory || !LAZYIN(accessories, accessory) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return FALSE
 	else
 		accessory = accessories[1]
 
-	to_chat(user, span_notice("You remove [accessory] from [src]."))
+	to_chat(user, span_notice("Вы снимаете [accessory.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 	accessory.on_removed(user)
 	if(!user.put_in_hands(accessory, ignore_anim = FALSE))
 		accessory.forceMove_turf()

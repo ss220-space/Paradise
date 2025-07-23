@@ -85,7 +85,7 @@
 			var/turflist = get_line(user, target_turf)
 			add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
 			flame_turf(turflist)
-			playsound(src, 'sound/weapons/gunshots/1flamethr.ogg', 50, 1)
+			playsound(src, 'sound/weapons/gunshots/1flamethr.ogg', 50, TRUE)
 
 
 /obj/item/flamethrower/attackby(obj/item/I, mob/user, params)

@@ -6,8 +6,8 @@
 	item_state = ""	//no inhands
 	slot_flags = ITEM_SLOT_ACCESSORY
 	w_class = WEIGHT_CLASS_SMALL
-	pickup_sound = 'sound/items/handling/accessory_pickup.ogg'
-	drop_sound = 'sound/items/handling/accessory_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the tie may be attached to
 	var/obj/item/clothing/under/has_suit
@@ -162,7 +162,7 @@
 
 /// Additional info when examine accessory on the suit
 /obj/item/clothing/accessory/proc/attached_examine(mob/user)
-	return span_notice("\A [src] is attached to it.")
+	return span_notice("К нему прикреплен [bicon(src)] [declent_ru(NOMINATIVE)].")
 
 
 /obj/item/clothing/accessory/blue
@@ -637,7 +637,15 @@
 
 /obj/item/clothing/accessory/necklace/skullcodpiece
 	name = "skull codpiece"
-	desc = "A skull shaped ornament, intended to protect the important things in life."
+	desc = "Украшение в виде черепа, которое предназначено для защиты самого важного в жизни."
+	ru_names = list(
+		NOMINATIVE = "костяной гульфик",
+		GENITIVE = "костяного гульфика",
+		DATIVE = "костяному гульфику",
+		ACCUSATIVE = "костяной гульфик",
+		INSTRUMENTAL = "костяным гульфиком",
+		PREPOSITIONAL = "костяном гульфике"
+	)
 	icon_state = "skull"
 	item_state = "skull"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
@@ -645,7 +653,15 @@
 
 /obj/item/clothing/accessory/necklace/talisman
 	name = "bone talisman"
-	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
+	desc = "Талисман охотника – многие верят, что он дарует защиту от старых богов тем, кто его носит."
+	ru_names = list(
+		NOMINATIVE = "костяной талисман",
+		GENITIVE = "костяного талисмана",
+		DATIVE = "костяному талисману",
+		ACCUSATIVE = "костяной талисман",
+		INSTRUMENTAL = "костяным талисманом",
+		PREPOSITIONAL = "костяном талисмане"
+	)
 	icon_state = "talisman"
 	item_state = "talisman"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)

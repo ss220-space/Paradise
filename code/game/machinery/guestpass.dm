@@ -161,18 +161,14 @@
 						usr.drop_transfer_item_to_loc(I, src)
 						giver = I
 				updateUsrDialog()
-
 			if("print")
 				var/dat = "<h3>Activity log of guest pass terminal #[uid]</h3><br>"
 				for(var/entry in internal_log)
 					dat += "[entry]<br><hr>"
-//				to_chat(usr, "Printing the log, standby...")
-				//sleep(50)
 				var/obj/item/paper/P = new/obj/item/paper( loc )
-				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 				P.name = "activity log"
 				P.info = dat
-
 			if("issue")
 				if(giver)
 					var/number = add_zero("[rand(0,9999)]", 4)
@@ -197,7 +193,7 @@
 	return
 
 /obj/machinery/computer/guestpass/hop
-	name = "\improper HoP guest pass terminal"
+	name = "HoP guest pass terminal"
 
 /obj/machinery/computer/guestpass/hop/get_changeable_accesses()
 	. = ..()
@@ -205,7 +201,7 @@
 		return get_all_accesses()
 
 /obj/machinery/computer/guestpass/syndicate
-	name = "\improper Syndicate guest pass terminal"
+	name = "Syndicate guest pass terminal"
 
 /obj/machinery/computer/guestpass/syndicate/get_changeable_accesses()
 	. = ..()

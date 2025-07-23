@@ -325,7 +325,7 @@
 		else
 			visible_message(span_danger("\The [src] [change_msg]!"))
 
-		playsound(loc, toggle_sound, 100, 1)
+		playsound(loc, toggle_sound, 100, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
@@ -495,6 +495,6 @@
 
 /obj/machinery/camera/mortar/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
 	return
-	
+
 /obj/machinery/camera/mortar/flamer_fire_act(damage)
 	return

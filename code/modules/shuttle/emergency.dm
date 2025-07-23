@@ -181,7 +181,7 @@
 				continue
 			if(H.handcuffed) //cuffs
 				continue
-			if(H.wear_suit && H.wear_suit.breakouttime) //straight jacket
+			if(H.wear_suit && H.wear_suit.breakout_time) //straight jacket
 				continue
 			if(istype(H.loc, /obj/structure/closet)) //locked/welded locker, all aboard the clown train honk honk
 				var/obj/structure/closet/C = H.loc

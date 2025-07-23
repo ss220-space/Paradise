@@ -37,10 +37,10 @@
 
 	var/obj/item/weapon = new weapon_type(user, silent, src)
 	user.put_in_hands(weapon)
-	playsound(user, "bonebreak", 150, 1)
 
 	RegisterSignal(user, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(retract), override = TRUE)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
+	playsound(owner.loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 	return weapon
 
@@ -66,7 +66,7 @@
 	if(done)
 		. = COMPONENT_CANCEL_DROP
 		if(!silent)
-			playsound(user, "bonebreak", 150, TRUE)
+			playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 			user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!"),
 								span_notice("We assimilate the [weapon_name_simple] back into our body."),
 								span_warning("You hear organic matter ripping and tearing!"))
@@ -94,6 +94,7 @@
 
 	if(istype(user.wear_suit, suit_type) || istype(user.head, helmet_type))
 		user.visible_message(span_warning("[user] casts off [user.p_their()] [suit_name_simple]!"), span_warning("We cast off our [suit_name_simple][genetic_damage > 0 ? ", temporarily weakening our genomes." : "."]"), span_warning("You hear the organic matter ripping and tearing!"))
+		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 		qdel(user.wear_suit)
 		qdel(user.head)
 		user.update_inv_wear_suit()
@@ -161,7 +162,7 @@
 	armour_penetration = -30
 	block_chance = 50
 	block_type = MELEE_ATTACKS
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'sound/weapons/armblade.ogg'
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
@@ -336,6 +337,7 @@
 			loc.visible_message(span_warning("[loc.name]\'s arm starts stretching inhumanly!"), \
 								span_warning("Our arm twists and mutates, transforming it into a tentacle."), \
 								span_italics("You hear organic matter ripping and tearing!"))
+			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 		else
 			to_chat(loc, span_notice("You prepare to extend a tentacle."))
 
@@ -345,6 +347,7 @@
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 		parent_action = null
+		playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 	return ..()
 
 
@@ -595,6 +598,7 @@
 		loc.visible_message(span_warning("The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!"), \
 							span_warning("We inflate our hand into a strong shield."), \
 							span_italics("You hear organic matter ripping and tearing!"))
+		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 
 /obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
@@ -604,6 +608,7 @@
 			user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] shield into an arm!"), \
 								span_notice("We assimilate our shield into our body."), \
 								span_italics("You hear organic matter ripping and tearing!"))
+			playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 		return FALSE
@@ -740,6 +745,7 @@
 		loc.visible_message(span_warning("[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!"), \
 							span_warning("We harden our flesh, creating a suit of armor!"), \
 							span_italics("You hear organic matter ripping and tearing!"))
+		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 
 /obj/item/clothing/head/helmet/changeling

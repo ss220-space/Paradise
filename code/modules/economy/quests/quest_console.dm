@@ -203,7 +203,7 @@
 
 /obj/machinery/computer/supplyquest/proc/print_order(datum/cargo_quests_storage/quest)
 
-	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	var/obj/item/paper/paper = new(get_turf(src))
 	paper.info = "<div id=\"output\"><center> <h3> Форма запроса на поставку </h3> </center><br><hr><br>"
 	paper.info += "Отдел-заказчик: [quest.customer.departament_name]<br>"
@@ -292,7 +292,7 @@
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
 	paper.stamp(/obj/item/stamp/navcom)
 	paper.name = "Отчёт о поставке"
-	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	print_animation()
 
 

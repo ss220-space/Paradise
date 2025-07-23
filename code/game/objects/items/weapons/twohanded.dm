@@ -134,7 +134,15 @@
 /obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
 	icon_state = "bone_axe0"
 	name = "bone axe"
-	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
+	desc = "Большой и мощный топор, созданный из нескольких остро заточенных костяных пластин, грубо связанных вместе. Создан из монстров, путём убийства монстров, для убийства монстров."
+	ru_names = list(
+		NOMINATIVE = "костяной топор",
+		GENITIVE = "костяного топора",
+		DATIVE = "костяному топору",
+		ACCUSATIVE = "костяной топор",
+		INSTRUMENTAL = "костяным топором",
+		PREPOSITIONAL = "костяном топоре"
+	)
 	force_wielded = 23
 	needs_permit = TRUE
 
@@ -363,7 +371,15 @@
 /obj/item/twohanded/spear
 	icon_state = "spearglass0"
 	name = "spear"
-	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
+	desc = "Оружие древней конструкции, хоть и изготовленное небрежно, но всё ещё остаётся смертоносным."
+	ru_names = list(
+		NOMINATIVE = "копьё",
+		GENITIVE = "копья",
+		DATIVE = "копью",
+		ACCUSATIVE = "копьё",
+		INSTRUMENTAL = "копьём",
+		PREPOSITIONAL = "копье"
+	)
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
@@ -423,7 +439,15 @@
 /obj/item/twohanded/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
 	icon_state = "bone_spear0"
 	name = "bone spear"
-	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
+	desc = "Небрежно изготовленное, но смертоносное оружие. Венец современных технологий."
+	ru_names = list(
+		NOMINATIVE = "костяное копьё",
+		GENITIVE = "костяного копья",
+		DATIVE = "костяному копью",
+		ACCUSATIVE = "костяное копьё",
+		INSTRUMENTAL = "костяным копьём",
+		PREPOSITIONAL = "костяном копье"
+	)
 	force = 11
 	force_unwielded = 11
 	force_wielded = 20					//I have no idea how to balance
@@ -434,7 +458,15 @@
 /obj/item/twohanded/spear/bonespear/chitinspear //like a mix of a bone spear and bone axe, but more like a bone spear. And better.
 	icon_state = "chitin_spear0"
 	name = "chitin spear"
-	desc = "A well constructed spear with a sharpened edge akin to a naginata, making it equally great for slicing and throwing."
+	desc = "Тщательно изготовленное копьё с острым краем, похожее на нагинату, отлично подходит как для рубящих ударов, так и для метания."
+	ru_names = list(
+		NOMINATIVE = "хитиновое копьё",
+		GENITIVE = "хитинового копья",
+		DATIVE = "хитиновому копью",
+		ACCUSATIVE = "хитиновое копьё",
+		INSTRUMENTAL = "хитиновым копьём",
+		PREPOSITIONAL = "хитиновом копье"
+	)
 	force = 14
 	force_unwielded = 14
 	force_wielded = 24 // I have no idea about balance too
@@ -484,7 +516,7 @@
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
 	icon_state = "spearglass0"
-	name = "\improper Grey Tide"
+	name = "Grey Tide"
 	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
 	force_unwielded = 15
 	force_wielded = 25
@@ -567,7 +599,7 @@
 		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сбива[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] ногой!"),
 		span_danger("Вы с пинаете [declent_ru(ACCUSATIVE)], опрокидывая его!")
 	)
-	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 	var/turf/T = get_turf(src)
 	if(contained_spear)
 		contained_spear.forceMove(T)
@@ -605,7 +637,7 @@
 	on = !on
 	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], [on ? "вы слышите нарастающее гудение." : "цепь останавливается."]")
 	if(on)
-		playsound(loc, 'sound/weapons/chainsawstart.ogg', 50, 1)
+		playsound(loc, 'sound/weapons/chainsawstart.ogg', 50, TRUE)
 	force = on ? force_on : initial(force)
 	throwforce = on ? force_on : initial(throwforce)
 	icon_state = "gchainsaw_[on ? "on" : "off"]"
@@ -867,7 +899,7 @@
 				)
 				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 				Z.throw_at(throw_target, 200, 4)
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 			else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
 				Z.visible_message(
 					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] разрыва[pluralize_ru(Z.gender,"ет","ют")]ся на куски силой [declent_ru(GENITIVE)]!"),
@@ -875,18 +907,18 @@
 					span_danger("Слышен мощный удар и звук разрывающейся плоти!")
 				)
 				Z.gib()
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
 			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
 				Z.ex_act(2)
 				charged = 3
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 
 /obj/item/twohanded/pitchfork
 	icon_state = "pitchfork0"
@@ -988,14 +1020,14 @@
 	if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
 		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
-		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
 		wall.dismantle_wall(TRUE)
 		return TRUE
 
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/mineral = target
 		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
-		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
 		mineral.gets_drilled(user)
 		return TRUE
 
@@ -1071,7 +1103,7 @@
 				span_warning("Вы начинаете открывать шлюз."),
 				span_warning("Раздаётся скрежет металла.")
 			)
-			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
 			if(!do_after(user, 2.5 SECONDS, A))
 				return
 		user.visible_message(
@@ -1137,7 +1169,7 @@
 		var/turf/simulated/wall/W = A
 		user.changeNext_move(attack_speed)
 		user.do_attack_animation(src)
-		playsound(src, 'sound/weapons/smash.ogg', 50, 1)
+		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 		W.take_damage(wall_damage)
 	if(user.getStaminaLoss() < max_stamina_damage)
 		if(istype(A, /obj/structure/girder))

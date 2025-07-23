@@ -6,8 +6,8 @@
 	var/butcher_state = 8 // Icon state for dead spider icons
 	icon_living = "guard"
 	icon_dead = "guard_dead"
-	speak_emote = list("chitters")
-	emote_hear = list("chitters")
+	speak_emote = list("щебечет")
+	emote_hear = list("щебечет")
 	tts_seed = "Anubarak"
 	speak_chance = 5
 	turns_per_move = 5

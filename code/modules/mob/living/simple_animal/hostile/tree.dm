@@ -23,8 +23,8 @@
 	melee_damage_upper = 12
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
-	speak_emote = list("pines")
-	emote_taunt = list("growls")
+	speak_emote = list("шуршит", "скрипит")
+	emote_taunt = list("гремит")
 	taunt_chance = 20
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

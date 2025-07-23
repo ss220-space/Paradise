@@ -58,7 +58,7 @@
 	reagents_list.add_reagent("blob_cryogenic_poison", 250) // new blow reagent because old was deleted
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 	smoke.set_up(range = 3, location = user.loc, carry = reagents_list, silent = TRUE)
-	playsound(user.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+	playsound(user.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 	smoke.start(TRUE)
 	user.changeNext_move(delay)
 

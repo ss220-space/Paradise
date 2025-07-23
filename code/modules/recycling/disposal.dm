@@ -667,7 +667,7 @@
 /obj/machinery/disposal/deliveryChute/examine(mob/user)
 	. = ..()
 	. += span_notice("Люк настроен на [to_waste ? "мусорную" : "грузовую"] систему.")
-	. += span_info("Используйте маркировщик для изменения пункта назначения.")
+	. += span_notice("Используйте маркировщик для изменения пункта назначения.")
 
 
 /obj/machinery/disposal/deliveryChute/interact()

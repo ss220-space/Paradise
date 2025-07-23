@@ -3481,7 +3481,7 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "UO" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/light_switch{
 	pixel_x = -19;

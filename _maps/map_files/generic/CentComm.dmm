@@ -17,7 +17,7 @@
 /obj/item/lazarus_injector,
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/bot/medbot{
-	name = "\improper Emergency Medibot";
+	name = "Emergency Medibot";
 	pixel_x = -3;
 	pixel_y = 2
 	},
@@ -6893,7 +6893,7 @@
 	},
 /area/shuttle/administration)
 "djz" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -11794,23 +11794,23 @@
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/green/hollow,
 /obj/item/gun/projectile/automatic/m90{
-	name = "\improper DAE 5.56 Compact GL";
+	name = "DAE 5.56 Compact GL";
 	pixel_x = -6
 	},
 /obj/item/gun/projectile/automatic/m90{
-	name = "\improper DAE 5.56 Compact GL";
+	name = "DAE 5.56 Compact GL";
 	pixel_x = -6
 	},
 /obj/item/gun/projectile/automatic/m90{
-	name = "\improper DAE 5.56 Compact GL";
+	name = "DAE 5.56 Compact GL";
 	pixel_x = 6
 	},
 /obj/item/gun/projectile/automatic/m90{
-	name = "\improper DAE 5.56 Compact GL";
+	name = "DAE 5.56 Compact GL";
 	pixel_x = 6
 	},
 /obj/item/gun/projectile/automatic/m90{
-	name = "\improper DAE 5.56 Compact GL";
+	name = "DAE 5.56 Compact GL";
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -29497,7 +29497,7 @@
 	},
 /area/syndicate_mothership)
 "nKO" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "nKV" = (
@@ -34768,7 +34768,7 @@
 	},
 /area/shuttle/trade/sol)
 "qkl" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -41049,7 +41049,7 @@
 	},
 /area/shuttle/escape)
 "sWF" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -48645,7 +48645,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "wqc" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_x = 7

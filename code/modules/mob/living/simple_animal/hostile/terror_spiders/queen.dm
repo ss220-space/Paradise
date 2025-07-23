@@ -359,7 +359,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(light_range, light_chance, camera_range, camera_chance)
 	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] издает пронзительный визг!"))
-	playsound(src.loc, 'sound/creatures/terrorspiders/queen_shriek.ogg', 100, 1)
+	playsound(src.loc, 'sound/creatures/terrorspiders/queen_shriek.ogg', 100, TRUE)
 	for(var/obj/machinery/light/L in orange(light_range, src))
 		if(L.on && prob(light_chance))
 			L.break_light_tube()

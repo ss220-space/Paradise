@@ -17,7 +17,7 @@
 		if(!isclient(C))
 			return
 
-		C << 'sound/effects/adminhelp.ogg'
+		SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 		to_chat(C, span_fontsize4("<span style='color: red;'><b>- AdminHelp Rejected! -</b></span>"), confidential=TRUE)
 		to_chat(C, "<span style='color: red;'><b>Your admin help was rejected.</b></span>", confidential=TRUE)
@@ -397,6 +397,8 @@
 		if(!check_rights(R_SERVER))	return
 
 		var/timer = tgui_input_number(usr, "Enter new shuttle duration (seconds):", "Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft())
+		if(isnull(timer))
+			return
 		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
@@ -2543,7 +2545,7 @@
 			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
 				to_chat(H, span_danger("The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned."))
-				SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+				SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 				if(H.client)
 					window_flash(H.client)
 	else if(href_list["FaxReplyTemplate"])
@@ -2693,6 +2695,10 @@
 		var/destination
 		var/notify
 		var/obj/item/paper/P
+
+		if(sender)
+			message_admins("[key_name_admin(owner)] has started replying to a fax message from [key_name_admin(sender)]")
+
 		var/use_letterheard = tgui_alert(usr, "Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",, list("Yes", "No"))
 		switch(use_letterheard)
 			if("Yes")
@@ -3482,7 +3488,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				log_and_message_admins("made everything kawaii.")
 				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
-					SEND_SOUND(human, 'sound/AI/animes.ogg')
+					SEND_SOUND(human, sound('sound/AI/animes.ogg'))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
 						var/obj/item/clothing/head/kitty/hat = new
@@ -3800,6 +3806,10 @@
 						SSnightshift.can_fire = FALSE
 						SSnightshift.update_nightshift(FALSE, FALSE)
 						to_chat(usr, span_notice("Night shift forced off."), confidential=TRUE)
+
+			if("lavatype")
+				change_lava_type()
+
 			else
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")
@@ -4181,3 +4191,22 @@
 	log_admin(msg)
 	message_admins(span_darkmblue(msg))
 	return TRUE
+
+
+/datum/admins/proc/change_lava_type()
+	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+		to_chat(usr, span_warning("Генерация ещё не завершена. Пожалуйста, подождите."))
+		return
+
+	var/list/themes = list()
+	var/list/only_names = list() // Req for tgui_alert
+	for(var/lava_theme in subtypesof(/datum/lavaland_theme))
+		var/datum/lavaland_theme/lavaland_theme_type = lava_theme
+		only_names.Add(lavaland_theme_type.name)
+		themes[lavaland_theme_type.name] = lavaland_theme_type
+
+	var/choosen = tgui_alert(usr, "Выберите тип Лазиса, который вы хотите установить.", "Выбор типа Лазиса", only_names)
+	if(!choosen)
+		return
+
+	set_lazis_type(themes[choosen])

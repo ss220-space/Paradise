@@ -282,7 +282,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	if(target.client)
 		target.client.images |= fakebroken
 		target.client.images |= fakerune
-	target.playsound_local(wall,'sound/effects/meteorimpact.ogg', 150, 1)
+	target.playsound_local(wall,'sound/effects/meteorimpact.ogg', 150, TRUE)
 	bubblegum = new(wall, target)
 	addtimer(CALLBACK(src, PROC_REF(bubble_attack), landing), 10)
 
@@ -291,7 +291,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	while(get_turf(bubblegum) != landing && target && target.stat != DEAD && get_dist(landing, get_turf(bubblegum)) <= 7)
 		bubblegum.forceMove(get_step_towards(bubblegum, landing))
 		bubblegum.setDir(get_dir(bubblegum, landing))
-		target.playsound_local(get_turf(bubblegum), 'sound/effects/meteorimpact.ogg', 150, 1)
+		target.playsound_local(get_turf(bubblegum), 'sound/effects/meteorimpact.ogg', 150, TRUE)
 		shake_camera(target, 2, 1)
 		if(bubblegum.Adjacent(target) && !charged)
 			charged = TRUE
@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	switch(rand(1,5))
 		if(1) //Laser fight
 			for(var/i in 0 to hits)
-				target.playsound_local(null, 'sound/weapons/laser.ogg', 25, 1)
+				target.playsound_local(null, 'sound/weapons/laser.ogg', 25, TRUE)
 				if(prob(75))
 					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/sear.ogg', 25, 1), rand(10,20))
 				else
@@ -364,12 +364,12 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
 			target.playsound_local(null, get_sfx("bodyfall"), 25)
 		if(2) //Esword fight
-			target.playsound_local(null, 'sound/weapons/saberon.ogg', 15, 1)
+			target.playsound_local(null, 'sound/weapons/saberon.ogg', 15, TRUE)
 			for(var/i in 0 to hits)
-				target.playsound_local(null, 'sound/weapons/blade1.ogg', 25, 1)
+				target.playsound_local(null, 'sound/weapons/blade1.ogg', 25, TRUE)
 				sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 8))
 			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
-			target.playsound_local(null, 'sound/weapons/saberoff.ogg', 15, 1)
+			target.playsound_local(null, 'sound/weapons/saberoff.ogg', 15, TRUE)
 		if(3) //Gun fight
 			for(var/i in 0 to hits)
 				target.playsound_local(null, get_sfx("gunshot"), 25)
@@ -380,13 +380,13 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
 			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
 		if(4) //Stunprod + cablecuff
-			target.playsound_local(null, 'sound/weapons/egloves.ogg', 40, 1)
-			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
+			target.playsound_local(null, 'sound/weapons/egloves.ogg', 40, TRUE)
+			target.playsound_local(null, get_sfx("bodyfall"), 25, TRUE)
 			sleep(20)
-			target.playsound_local(null, 'sound/weapons/cablecuff.ogg', 15, 1)
+			target.playsound_local(null, 'sound/weapons/cablecuff.ogg', 15, TRUE)
 		if(5) // Tick Tock
 			for(var/i in 0 to hits)
-				target.playsound_local(null, 'sound/items/timer.ogg', 25, 1)
+				target.playsound_local(null, 'sound/items/timer.ogg', 25, TRUE)
 				sleep(15)
 	qdel(src)
 
@@ -410,10 +410,10 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			if(image_file)
 				switch(item)
 					if("esword")
-						target.playsound_local(H, 'sound/weapons/saberon.ogg',35,1)
+						target.playsound_local(H, 'sound/weapons/saberon.ogg', 35, TRUE)
 						A = image(image_file,H,"swordred", layer=ABOVE_MOB_LAYER)
 					if("dual_esword")
-						target.playsound_local(H, 'sound/weapons/saberon.ogg',35,1)
+						target.playsound_local(H, 'sound/weapons/saberon.ogg', 35, TRUE)
 						A = image(image_file,H,"dualsaberred1", layer=ABOVE_MOB_LAYER)
 					if("stunpaper")
 						A = image(image_file,H,"paper", layer=ABOVE_MOB_LAYER)
@@ -430,7 +430,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 					target.client.images |= A
 					sleep(rand(150,250))
 					if(item == "esword" || item == "dual_esword")
-						target.playsound_local(H, 'sound/weapons/saberoff.ogg',35,1)
+						target.playsound_local(H, 'sound/weapons/saberoff.ogg', 35, TRUE)
 					target.client.images.Remove(A)
 				break
 	qdel(src)
@@ -535,13 +535,13 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			A = image('icons/mob/mob.dmi',target,"daemon")
 		if("robot")//Cyborg
 			A = image('icons/mob/robots.dmi',target,"robot")
-			target.playsound_local(target,'sound/voice/liveagain.ogg', 75, 1)
+			target.playsound_local(target,'sound/voice/liveagain.ogg', 75, TRUE)
 		if("custom")
 			A = image(custom_icon_file, target, custom_icon)
 	A.override = 1
 	if(target.client)
 		to_chat(target, "<span class='italics'>...wabbajack...wabbajack...</span>")
-		target.playsound_local(target,'sound/magic/staff_change.ogg', 50, 1, -1)
+		target.playsound_local(target,'sound/magic/staff_change.ogg', 50, TRUE, -1)
 		delusion = A
 		target.client.images |= A
 	sleep(duration)
@@ -634,7 +634,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	. |= ATTACK_CHAIN_SUCCESS
 	user.do_attack_animation(src)
 	step_away(src, my_target, 2)
-	my_target.playsound_local(src, I.hitsound, 1)
+	my_target.playsound_local(src, I.hitsound, TRUE)
 	my_target.visible_message(
 		span_danger("[my_target] flails around wildly."),
 		span_danger("[my_target] has attacked [src]!"),
@@ -694,7 +694,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 						if(!locate(/obj/effect/overlay) in my_target.loc)
 							fake_blood(my_target)
 				else
-					my_target.playsound_local(my_target, pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg'), 25, 1, -1)
+					my_target.playsound_local(my_target, pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg'), 25, TRUE, -1)
 					my_target.show_message("<span class='userdanger'>[src.name] has punched [my_target]!</span>", 1)
 					my_target.apply_damage(30, STAMINA)
 					if(prob(33))
@@ -749,13 +749,13 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		doors += I
 		if(target.client)
 			target.client.images |= I
-			target.playsound_local(get_turf(A), 'sound/machines/boltsdown.ogg',30,0,3)
+			target.playsound_local(get_turf(A), 'sound/machines/boltsdown.ogg', 30, FALSE, 3)
 		sleep(rand(6,12))
 	sleep(100)
 	for(var/image/B in doors)
 		if(target.client)
 			target.client.images.Remove(B)
-			target.playsound_local(get_turf(B), 'sound/machines/boltsup.ogg',30,0,3)
+			target.playsound_local(get_turf(B), 'sound/machines/boltsup.ogg', 30, FALSE, 3)
 		sleep(rand(6,12))
 	qdel(src)
 
@@ -858,30 +858,30 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 //			to_chat(src, "Strange Audio")
 			switch(rand(1,20))
 				if(1)
-					playsound_local(null,'sound/machines/airlock_open.ogg', 15, 1)
+					playsound_local(null,'sound/machines/airlock_open.ogg', 15, TRUE)
 				if(2)
 					if(prob(50))
-						playsound_local(null,'sound/effects/explosion1.ogg', 50, 1)
+						playsound_local(null,'sound/effects/explosion1.ogg', 50, TRUE)
 					else
-						playsound_local(null, 'sound/effects/explosion2.ogg', 50, 1)
+						playsound_local(null, 'sound/effects/explosion2.ogg', 50, TRUE)
 				if(3)
-					playsound_local(null, 'sound/effects/explosionfar.ogg', 50, 1)
+					playsound_local(null, 'sound/effects/explosionfar.ogg', 50, TRUE)
 				if(4)
-					playsound_local(null, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 50, 1)
+					playsound_local(null, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 50, TRUE)
 				if(5)
 					playsound_local(null, 'sound/weapons/ring.ogg', 35)
 					for(var/i in 0 to 2)
 						sleep(15)
 						playsound_local(null, 'sound/weapons/ring.ogg', 35)
 				if(6)
-					playsound_local(null, 'sound/magic/summon_guns.ogg', 50, 1)
+					playsound_local(null, 'sound/magic/summon_guns.ogg', 50, TRUE)
 				if(7)
-					playsound_local(null, 'sound/machines/alarm.ogg', 100, 0)
+					playsound_local(null, 'sound/machines/alarm.ogg', 100, FALSE)
 				if(8)
-					playsound_local(null, 'sound/voice/bfreeze.ogg', 35, 0)
+					playsound_local(null, 'sound/voice/bfreeze.ogg', 35, FALSE)
 				if(9)
 					//To make it more realistic, I added two gunshots (enough to kill)
-					playsound_local(null, 'sound/weapons/gunshots/gunshot.ogg', 25, 1)
+					playsound_local(null, 'sound/weapons/gunshots/gunshot.ogg', 25, TRUE)
 					var/timer_pause = rand(10,30)
 					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/gunshots/gunshot.ogg', 25, 1), timer_pause)
 					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
@@ -889,7 +889,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					playsound_local(null, 'sound/effects/pray_chaplain.ogg', 50)
 				if(11)
 					//Same as above, but with tasers.
-					playsound_local(null, 'sound/weapons/taser.ogg', 25, 1)
+					playsound_local(null, 'sound/weapons/taser.ogg', 25, TRUE)
 					var/timer_pause = rand(10,30)
 					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/taser.ogg', 25, 1), timer_pause)
 					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
@@ -901,7 +901,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
 						'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
 						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
-					playsound_local(null, pick(creepyasssounds), 50, 1)
+					playsound_local(null, pick(creepyasssounds), 50, TRUE)
 				if(13)
 					to_chat(src, "<span class='warning'>Вы ощущаете лёгкое покалывание!</span>")
 				if(14)
@@ -909,29 +909,29 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					to_chat(src, "<br><br><span class='alert'>Эвакуационный шаттл совершил стыковку со станцией. У вас есть 3 минуты, чтобы взобраться на борт эвакуационного шаттла.</span><br><br>")
 					playsound_local(null, 'sound/AI/eshuttle_dock.ogg', 100)
 				if(15)
-					playsound_local(null, 'sound/items/welder.ogg', 15, 1)
+					playsound_local(null, 'sound/items/welder.ogg', 15, TRUE)
 					sleep(105)
-					playsound_local(null, 'sound/items/welder2.ogg', 15, 1)
+					playsound_local(null, 'sound/items/welder2.ogg', 15, TRUE)
 					sleep(15)
-					playsound_local(null, 'sound/items/ratchet.ogg', 15, 1)
+					playsound_local(null, 'sound/items/ratchet.ogg', 15, TRUE)
 				if(16)
-					playsound_local(null, 'sound/items/screwdriver.ogg', 15, 1)
+					playsound_local(null, 'sound/items/screwdriver.ogg', 15, TRUE)
 					sleep(rand(10,30))
 					for(var/i in 0 to rand(1,3))
-						playsound_local(null, 'sound/weapons/empty.ogg', 15, 1)
+						playsound_local(null, 'sound/weapons/empty.ogg', 15, TRUE)
 						sleep(rand(10,30))
-					playsound_local(null, 'sound/machines/airlock_force_open.ogg', 15, 1)
+					playsound_local(null, 'sound/machines/airlock_force_open.ogg', 15, TRUE)
 				if(17)
-					playsound_local(null, 'sound/weapons/saberon.ogg', 35, 1)
+					playsound_local(null, 'sound/weapons/saberon.ogg', 35, TRUE)
 				if(18)
 					to_chat(src, "<h1 class='alert'>Биологическая угроза</h1>")
 					to_chat(src, "<br><br><span class='alert'>Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!.</span><br><br>")
 					playsound_local(null, 'sound/AI/outbreak5.ogg')
 				if(19) //Tesla loose!
-					playsound_local(null, 'sound/magic/lightningbolt.ogg', 35, 1)
+					playsound_local(null, 'sound/magic/lightningbolt.ogg', 35, TRUE)
 					for(var/i in 0 to 2)
 						sleep(20)
-						playsound_local(null, 'sound/magic/lightningbolt.ogg', 65+(35*(i-1)), 1)	//65%, then 100% volume.
+						playsound_local(null, 'sound/magic/lightningbolt.ogg', 65+(35*(i-1)), TRUE)	//65%, then 100% volume.
 				if(20) //AI is doomsdaying!
 					to_chat(src, "<h1 class='alert'>Аномалия</h1>")
 					to_chat(src, "<br><br><span class='alert'>Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.</span><br><br>")

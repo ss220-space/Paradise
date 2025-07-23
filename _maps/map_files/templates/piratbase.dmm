@@ -1173,7 +1173,7 @@
 	},
 /area/ruin/space/pirate_base/kitchen)
 "dc" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
 "dd" = (
@@ -5588,7 +5588,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "pv" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/structure/sign/poster/contraband/have_a_puff{
 	pixel_x = -32
 	},

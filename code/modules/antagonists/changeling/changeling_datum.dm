@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 /datum/antagonist/changeling/greet()
 	..()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/ling_aler.ogg')
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_aler.ogg'))
 	//to_chat(owner.current, span_changeling("Remember: you get all of the absorbed DNA points from other changelings if you absorb them."))
 
 

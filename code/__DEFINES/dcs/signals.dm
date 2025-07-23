@@ -937,6 +937,9 @@
 ///from base of /obj/item/clothing/suit/space/proc/toggle_spacesuit(): (obj/item/clothing/suit/space/suit)
 #define COMSIG_SUIT_SPACE_TOGGLE "suit_space_toggle"
 
+///from /datum/action/armguard_hidden_blade/Trigger(): ()
+#define COMSIG_ARMGUARD_ACTION_TOGGLE "armguard_action_toggle"
+
 // /obj/item/implant signals
 ///from base of /obj/item/implant/proc/activate(): ()
 #define COMSIG_IMPLANT_ACTIVATED "implant_activated"
@@ -1403,4 +1406,20 @@
 #define COMSIG_MOB_EXERCISED "mob_exercised"
 #define COMSIG_GET_ORGAN_ICON_STATE "get_organ_icon_state"
 #define COMSIG_STRENGTH_BORDER_UPDATE "strength_border_update"
+#define COMSIG_CAN_CHANGE_STRENGTH	"can_change_strength"
+	#define COMPONENT_CAN_CHANGE_STRENGTH (1<<0)
+#define COMSIG_GET_STRENGTH	"get_strength"
+#define COMSIG_UPDATE_STRENGTH	"update_strength"
+#define COMSIG_GET_BREAKOUTTIME_MODIFIERS "get_breakouttime_modifiers"
+#define COMSIG_GET_THROW_SPEED_MODIFIERS "get_throw_speed_modifiers"
+#define COMSIG_GET_THROW_RANGE_DELTAS "get_throw_range_deltas"
+#define COMSIG_GET_BOLA_MODIFIERS "get_bola_modifiers"
+#define COMSIG_GET_HUNGER_MODS "get_hunger_mods"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
+
+/// Called when attempting to insert a stack into the material container. (obj/item/stack/stack, amount)
+#define COMSIG_MATERIAL_CONTAINER_ON_INSERT_STACK "material_container_on_insert_stack"
+	/// Stack was successfully inserted into the container
+	#define CONTAINER_INSERT_SUCCESS (1<<0)
+	/// Failed to insert stack (no space, invalid material, etc)
+	#define CONTAINER_INSERT_FAILED (1<<1)

@@ -68,14 +68,6 @@
 	/// Internal armor datum
 	var/datum/armor/armor
 
-	/// Body of the owner of physiology.
-	var/mob/living/owner
-
 
 /datum/physiology/New(owner)
 	armor = new
-	src.owner = owner
-
-/datum/physiology/Destroy(force)
-	owner = null
-	return ..()

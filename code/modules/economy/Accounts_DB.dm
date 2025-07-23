@@ -160,7 +160,7 @@ GLOBAL_VAR(current_date_string)
 				to_chat(usr, "<span class='warning'>The printer is busy spooling. It will be ready in [(next_print - world.time) / 10] seconds.")
 				return
 			var/text
-			playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+			playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 			var/obj/item/paper/P = new(loc)
 			P.name = "financial account list"
 			text = {"
@@ -204,7 +204,7 @@ GLOBAL_VAR(current_date_string)
 				to_chat(usr, "<span class='warning'>The printer is busy spooling. It will be ready in [(next_print - world.time) / 10] seconds.")
 				return
 			var/text
-			playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+			playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 			var/obj/item/paper/P = new(loc)
 			P.name = "account #[detailed_account_view.account_number] details"
 			var/title = "Account #[detailed_account_view.account_number] Details"

@@ -32,7 +32,7 @@
 /obj/item/toy/examine(mob/user)
 	. = ..()
 	if(unique_toy_rename)
-		. += span_info("Используй ручку на игрушке, чтобы переименовать её.")
+		. += span_notice("Используй ручку на игрушке, чтобы переименовать её.")
 
 
 /obj/item/toy/attackby(obj/item/I, mob/user, params)
@@ -152,7 +152,7 @@
 	lastused = world.time
 
 /obj/item/toy/balloon/snail
-	name = "\improper 'snail' balloon"
+	name = "'snail' balloon"
 	desc = "It looks quite familiar, right?"
 	icon_state = "snailplushie"
 	item_state = "snailplushie"
@@ -301,7 +301,7 @@
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"), span_warning("Вы слышите хлопок!"))
-	playsound(src, 'sound/effects/snap.ogg', 50, 1)
+	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 	qdel(src)
 
 /*
@@ -328,7 +328,7 @@
 	do_sparks(n, c, src)
 	new ash_type(loc)
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"), span_warning("Вы слышите хлопок!"))
-	playsound(src, 'sound/effects/snap.ogg', 50, 1)
+	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 	qdel(src)
 
 /obj/item/toy/snappop/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -458,7 +458,7 @@
 	icon_state = "phazonprize"
 
 /obj/item/toy/nuke
-	name = "\improper Nuclear Fission Explosive toy"
+	name = "Nuclear Fission Explosive toy"
 	desc = "A plastic model of a Nuclear Fission Explosive."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoyidle"
@@ -690,7 +690,7 @@
 /obj/item/toy/plushie/attack_self(mob/user as mob)
 	var/cuddle_verb = pick("обнима[pluralize_ru(user.gender,"ет","ют")]", "тиска[pluralize_ru(user.gender,"ет","ют")]", "прижима[pluralize_ru(user.gender,"ет","ют")]")
 	user.visible_message(span_notice("[user] [cuddle_verb] the [src]."))
-	playsound(get_turf(src), poof_sound, 50, 1, -1)
+	playsound(get_turf(src), poof_sound, 50, TRUE, -1)
 	return ..()
 
 /obj/random/plushie
@@ -1252,7 +1252,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/items/rawr.ogg', 25, 0)
+	playsound(src, 'sound/items/rawr.ogg', 25, FALSE)
 	user.visible_message("[bicon(src)] [span_boldnotice("Rawr!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1408,7 +1408,7 @@
 /obj/item/toy/plushie/pig/proc/oink(mob/user, msg)
 	if(spam_flag == 0)
 		spam_flag = 1
-		playsound(loc, pick('sound/items/pig1.ogg','sound/items/pig2.ogg','sound/items/pig3.ogg'), 100, 1)
+		playsound(loc, pick('sound/items/pig1.ogg','sound/items/pig2.ogg','sound/items/pig3.ogg'), 100, TRUE)
 		add_fingerprint(user)
 		if(message_spam_flag == 0)
 			message_spam_flag = 1
@@ -1618,7 +1618,7 @@
 	if(cooldown < world.time)
 		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
 		user.visible_message(span_warning("[user] нажима[pluralize_ru(user.gender,"ет","ют")] большую красную кнопку."), span_notice("Вы нажимаете кнопку, раздаётся громкий звук!"), span_notice("Кнопка громко щёлкает."))
-		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0, 0)
+		playsound(src, 'sound/effects/explosionfar.ogg', 50, FALSE, 0)
 		for(var/mob/M in range(10, src)) // Checks range
 			if(!M.stat && !istype(M, /mob/living/silicon/ai)) // Checks to make sure whoever's getting shaken is alive/not the AI
 				sleep(8) // Short delay to match up with the explosion sound
@@ -1697,7 +1697,7 @@
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("На этот раз тебе не уйти, Гриффин!", "Стой, преступник!", "Ух! Ух!", "Я – ночь!")
 		to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
-		playsound(user, 'sound/creatures/hoot.ogg', 25, 1)
+		playsound(user, 'sound/creatures/hoot.ogg', 25, TRUE)
 		user.visible_message(span_danger("[bicon(src)] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
@@ -1716,7 +1716,7 @@
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("Ты не остановишь меня, Сова!", "Мой план безупречен! Хранилище моё!", "Карррр!", "Меня никогда не поймаешь!")
 		to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
-		playsound(user, 'sound/creatures/caw.ogg', 25, 1)
+		playsound(user, 'sound/creatures/caw.ogg', 25, TRUE)
 		user.visible_message(span_danger("[bicon(src)] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
@@ -1910,7 +1910,7 @@
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] быстро заряжает шесть патронов в барабан [declent_ru(GENITIVE)], приставляет к виску и нажимает на курок! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой."))
-	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
+	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
 	return BRUTELOSS
 
 /obj/item/toy/russian_revolver/New()
@@ -1950,14 +1950,14 @@
 	if(bullets_left > 1)
 		bullets_left--
 		user.visible_message(span_danger("*клик*"))
-		playsound(src, 'sound/weapons/empty.ogg', 100, 1)
+		playsound(src, 'sound/weapons/empty.ogg', 100, TRUE)
 		return FALSE
 	if(bullets_left == 1)
 		bullets_left = 0
 		var/zone = BODY_ZONE_HEAD
 		if(!(user.get_organ(zone))) // If they somehow don't have a head.
 			zone = BODY_ZONE_CHEST
-		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
+		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
 		user.visible_message(span_danger("[src] goes off!"))
 		post_shot(user)
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
@@ -1969,7 +1969,7 @@
 		return FALSE
 
 /obj/item/toy/russian_revolver/trick_revolver
-	name = "\improper .357 revolver"
+	name = ".357 revolver"
 	desc = "Подозрительный револьвер. В нём используются патроны .357 калибра."
 	ru_names = list(
 		NOMINATIVE = "револьвер .357 калибра",
@@ -2316,7 +2316,7 @@
 /obj/item/restraints/handcuffs/toy
 	desc = "Toy handcuffs. Plastic and extremely cheaply made."
 	throwforce = 0
-	breakouttime = 0
+	breakout_time = 0
 	ignoresClumsy = TRUE
 
 /*
@@ -2369,7 +2369,7 @@
 	desc = "A ancient human bird idol, worshipped by clerks and desk jockeys."
 	icon_state= "dippybird"
 /obj/item/toy/desk/newtoncradle
-	name = "\improper Newton's cradle"
+	name = "Newton's cradle"
 	desc = "A ancient 21th century super-weapon model demonstrating that Sir Isaac Newton is the deadliest sonuvabitch in space."
 	icon_state = "newtoncradle"
 	var/datum/looping_sound/newtonballs/soundloop

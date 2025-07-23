@@ -202,7 +202,7 @@
 	muzzle_flash_color = null
 
 /obj/item/ammo_casing/caseless/rocket
-	name = "\improper PM-9HE"
+	name = "PM-9HE"
 	desc = "An 84mm High Explosive rocket. Fire at people and pray."
 	caliber = "84mm"
 	w_class = WEIGHT_CLASS_NORMAL //thats the rocket!
@@ -211,7 +211,7 @@
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'	// better than default casing but not ideal
 
 /obj/item/ammo_casing/caseless/rocket/hedp
-	name = "\improper PM-9HEDP"
+	name = "PM-9HEDP"
 	desc = "An 84mm High Explosive Dual Purpose rocket. Pointy end toward mechs and unarmed civilians."
 	icon_state = "84mm-hedp"
 	projectile_type = /obj/projectile/bullet/a84mm_hedp
@@ -257,7 +257,7 @@
 	projectile_type = /obj/projectile/bullet/pellet/nuclear
 
 /obj/item/ammo_casing/shotgun/rubbershot
-	name = "rubber shot"
+	name = "rubbershot shell"
 	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "rubbershotshell"
 	materials = list(MAT_METAL = 1000)
@@ -412,7 +412,7 @@
 	variance = 17
 
 /obj/item/ammo_casing/shotgun/tranquilizer
-	name = "tranquilizer darts"
+	name = "tranquilizer dart"
 	desc = "A tranquilizer round used to subdue individuals utilizing stimulants."
 	icon_state = "tranquilizershell"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 200)

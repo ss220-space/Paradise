@@ -35,10 +35,10 @@
 	var/turf/pull = get_turf(M)
 	if(!setting_type)
 		new /obj/effect/temp_visual/implosion(pull)
-		playsound(pull, 'sound/effects/whoosh.ogg', 25, 1) //credit to Robinhood76 of Freesound.org for this.
+		playsound(pull, 'sound/effects/whoosh.ogg', 25, TRUE) //credit to Robinhood76 of Freesound.org for this.
 	else
 		new /obj/effect/temp_visual/shockwave(pull)
-		playsound(pull, 'sound/effects/bang.ogg', 25, 1)
+		playsound(pull, 'sound/effects/bang.ogg', 25, TRUE)
 	var/range_power = clamp(round(volume/5, 1), 1, 5)
 	for(var/atom/movable/X in range(range_power,pull))
 		if(iseffect(X))
