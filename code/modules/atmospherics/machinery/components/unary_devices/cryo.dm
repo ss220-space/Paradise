@@ -27,22 +27,26 @@
 	on = FALSE
 	vent_movement = VENTCRAWL_CAN_SEE
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	light_color = LIGHT_COLOR_WHITE
 	var/temperature_archived
 	var/mob/living/carbon/occupant
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
 	var/obj/effect/occupant_overlay
 	var/obj/item/reagent_containers/glass/beaker
+	var/reagent_transfer = 0
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
+	var/volume = 100
 	var/auto_eject_prefs = NONE
+	var/sleep_factor = 750
+	var/paralyze_factor = 1000
 
 	var/next_trans = 0
 	var/current_heat_capacity = 50
 	var/efficiency
-	var/conduction_coefficient = 1
+	var/heat_capacity = 100000
+	var/conduction_coefficient = 0.01
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
-
-	light_color = LIGHT_COLOR_WHITE
 
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/power_change(forced = FALSE)
@@ -90,14 +94,22 @@
 	RefreshParts()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/on_construction()
-	..(dir,dir)
+	..(dir, dir)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/RefreshParts()
 	var/C
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		C += M.rating
-	current_heat_capacity = 50 * C
-	efficiency = C
+	efficiency = initial(efficiency) * C
+	sleep_factor = initial(sleep_factor) * C
+	paralyze_factor = initial(paralyze_factor) * C
+	heat_capacity = initial(heat_capacity) / C
+	conduction_coefficient = initial(conduction_coefficient) * C
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/Destroy()
+	QDEL_NULL(beaker)
+	QDEL_NULL(occupant_overlay)
+	return ..()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/atmos_init()
 	..()
@@ -107,11 +119,6 @@
 		NODE1 = find_connecting(cdir)
 		if(NODE1)
 			break
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/Destroy()
-	QDEL_NULL(beaker)
-	QDEL_NULL(occupant_overlay)
-	return ..()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/ex_act(severity)
 	if(occupant)
@@ -177,36 +184,96 @@
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process()
 	..()
-	if(!occupant)
+	if(!on)
 		return
 
-	if((auto_eject_prefs & AUTO_EJECT_DEAD) && occupant.stat == DEAD)
-		auto_eject(AUTO_EJECT_DEAD)
-		return
-	if((auto_eject_prefs & AUTO_EJECT_HEALTHY) && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
-		auto_eject(AUTO_EJECT_HEALTHY)
-		return
+	var/datum/gas_mixture/air1 = AIR1
 
-	if(AIR1)
-		if (occupant)
-			process_occupant()
-		expel_gas()
+	if(occupant)
+		auto_eject_check()
+		if(occupant.bodytemperature < T0C) // Sleepytime. Why? More cryo magic.
+			occupant.Sleeping((occupant.bodytemperature / sleep_factor) * 100)
+			occupant.Paralyse((occupant.bodytemperature / paralyze_factor) * 100)
+
+		if(beaker)
+			if(reagent_transfer == 0) // Magically transfer reagents. Because cryo magic.
+				beaker.reagents.trans_to(occupant, 1, 10 * efficiency) // Transfer reagents, multiplied because cryo magic.
+				beaker.reagents.reaction(occupant, REAGENT_VAPOR)
+				air1.gases[GAS_O2][MOLES] -= 2 / efficiency // Lets use gas for this.
+				air1.garbage_collect()
+
+			if(++reagent_transfer == 10 * efficiency) // Throttle reagent transfer (higher efficiency will transfer the same amount but consume less from the beaker).
+				reagent_transfer = 0
 
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
 	..()
-	if(!NODE1)
-		return
+
 	if(!on)
 		return
-	var/datum/gas_mixture/air_contents = AIR1
-	if(air_contents)
-		temperature_archived = air_contents.temperature
-		heat_gas_contents()
 
-	if(abs(temperature_archived-air_contents.temperature) > 1)
-		update_parents()
+	var/datum/gas_mixture/air1 = AIR1
+
+	if(!NODE1 || !air1 || air1.gases[GAS_O2][MOLES] < 5) // Turn off if the machine won't work.
+		on = FALSE
+		update_icon()
+		return
+
+	if(occupant)
+		var/cold_protection = 0
+		var/mob/living/carbon/human/H = occupant
+		if(istype(H))
+			cold_protection = H.get_cold_protection(air1.temperature)
+
+		var/temperature_delta = air1.temperature - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
+		if(abs(temperature_delta) > 1)
+			var/air_heat_capacity = air1.heat_capacity()
+			var/heat = ((1 - cold_protection) / 10 + conduction_coefficient) \
+						* temperature_delta * \
+						(air_heat_capacity * heat_capacity / (air_heat_capacity + heat_capacity))
+			air1.temperature = max(air1.temperature - heat / air_heat_capacity, TCMB)
+			occupant.bodytemperature = max(occupant.bodytemperature + heat / heat_capacity, TCMB)
+
+		air1.gases[GAS_O2][MOLES] -= 0.5 / efficiency // Magically consume gas? Why not, we run on cryo magic.
+		air1.garbage_collect()
+
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/go_out()
+	if(!occupant)
+		return
+	var/turf/drop_loc = get_step(loc, SOUTH)	//this doesn't account for walls or anything, but i don't forsee that being a problem.
+	occupant.forceMove(drop_loc)
+	occupant.set_bodytemperature(occupant.dna ? occupant.dna.species.body_temperature : BODYTEMP_NORMAL)
+	occupant = null
+	update_icon()
+	// eject trash the occupant dropped
+	for(var/atom/movable/thing in (contents - component_parts - beaker))
+		thing.forceMove(drop_loc)
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/force_eject_occupant(mob/target)
+	go_out()
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/auto_eject_check()
+	if((auto_eject_prefs & AUTO_EJECT_DEAD) && occupant.stat == DEAD)
+		auto_eject(AUTO_EJECT_DEAD)
+		return
+
+	if((auto_eject_prefs & AUTO_EJECT_HEALTHY) && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
+		auto_eject(AUTO_EJECT_HEALTHY)
+		return
+
+
+/// Called when either the occupant is dead and the AUTO_EJECT_DEAD flag is present, OR the occupant is alive, has no external damage, and the AUTO_EJECT_HEALTHY flag is present.
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/auto_eject(eject_flag)
+	on = FALSE
+	go_out()
+	switch(eject_flag)
+		if(AUTO_EJECT_HEALTHY)
+			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		if(AUTO_EJECT_DEAD)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
+	SStgui.update_uis(src)
 
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/AllowDrop()
@@ -369,131 +436,42 @@
 	if(occupant || on)
 		balloon_alert(user, "машина работает!")
 		return TRUE
-	if(default_deconstruction_screwdriver(user, "pod0-o", "pod0", I))
+	if(default_deconstruction_screwdriver(user, I = I))
 		return TRUE
 
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/update_icon_state()
-	icon_state = "pod[on]" //set the icon properly every time
+/obj/machinery/atmospherics/components/unary/cryo_cell/update_icon()
+	SET_PLANE_IMPLICIT(src, initial(plane))
+	return ..()
 
+/obj/machinery/atmospherics/components/unary/cryo_cell/update_icon_state()
+	icon_state = !occupant ? "pod-open" : ((on && is_operational()) ? "pod-on" : "pod-off")
+	return ..()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/update_overlays()
 	. = ..()
+	if(panel_open)
+		. += "pod-panel"
 
-	if(occupant_overlay)
-		QDEL_NULL(occupant_overlay)
+	var/is_operational = is_operational()
+
+	var/cover_state = "cover-[on && is_operational ? "on" : "off"]"
 
 	if(!occupant)
-		. += "lid[on]" //if no occupant, just put the lid overlay on, and ignore the rest
+		. += cover_state //if no occupant, just put the lid overlay on, and ignore the rest
 		return
 
-	if(occupant)
-		occupant_overlay = new(get_turf(src))
-		occupant_overlay.icon = occupant.icon
-		occupant_overlay.icon_state = occupant.icon_state
-		occupant_overlay.overlays = occupant.overlays
-		occupant_overlay.pixel_y = OCCUPANT_PIXEL_BOUNCE_LOW
-		occupant_overlay.layer = layer + 0.01
+	occupant_overlay = new(get_turf(src))
+	occupant_overlay.icon = occupant.icon
+	occupant_overlay.icon_state = occupant.icon_state
+	occupant_overlay.overlays = occupant.overlays
+	occupant_overlay.pixel_y = OCCUPANT_PIXEL_BOUNCE_LOW
+	occupant_overlay.layer = layer + 0.01
+	if(on && is_operational)
+		animate(occupant_overlay, time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_y = OCCUPANT_PIXEL_BOUNCE_HIGH)
+		animate(time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_y = OCCUPANT_PIXEL_BOUNCE_LOW)
 
-		if(on)
-			animate(occupant_overlay, time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_y = OCCUPANT_PIXEL_BOUNCE_HIGH)
-			animate(time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_y = OCCUPANT_PIXEL_BOUNCE_LOW)
-
-		. += mutable_appearance(icon = icon, icon_state = "lid[on]", layer = occupant_overlay.layer + 0.01)
-
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/proc/process_occupant()
-	var/datum/gas_mixture/air_contents = AIR1
-	if(air_contents.total_moles() < 10)
-		return
-
-	if(occupant)
-		if(occupant.bodytemperature < T0C)
-			var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000/efficiency)) STATUS_EFFECT_CONSTANT
-			occupant.Sleeping(stun_time)
-			occupant.Paralyse(stun_time)
-			var/list/gasses = air_contents.gases
-			if(gasses[GAS_O2] && gasses[GAS_O2][MOLES] > 2)
-				if(occupant.getOxyLoss())
-					occupant.adjustOxyLoss(-6)
-			else
-				occupant.adjustOxyLoss(-1.2)
-		if(beaker && next_trans == 0)
-			var/proportion = 10 * min(1/beaker.volume, 1)
-			var/volume = 10
-			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
-			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
-			for(var/datum/reagent/reagent in beaker.reagents.reagent_list)
-				if(!reagent.can_synth) //prevents from dupe blacklisted reagents as for emagged odysseus
-					proportion = min(proportion, 1)
-					volume = 1
-			beaker.reagents.reaction(occupant, REAGENT_VAPOR, proportion)
-			beaker.reagents.trans_to(occupant, 1, volume)
-	next_trans++
-	if(next_trans == 17)
-		next_trans = 0
-
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/proc/heat_gas_contents()
-	if(!occupant)
-		return
-	var/cold_protection = 0
-	var/datum/gas_mixture/air_contents = AIR1
-	var/temperature_delta = air_contents.temperature - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
-
-	if(ishuman(occupant))
-		var/mob/living/carbon/human/H = occupant
-		cold_protection = H.get_cold_protection(air_contents.temperature)
-
-	if(abs(temperature_delta) > 1)
-		var/air_heat_capacity = air_contents.heat_capacity()
-
-		var/heat = (1 - cold_protection) * conduction_coefficient * temperature_delta * \
-			(air_heat_capacity * current_heat_capacity / (air_heat_capacity + current_heat_capacity))
-
-		air_contents.temperature = clamp(air_contents.temperature - heat / air_heat_capacity, TCMB, INFINITY)
-		occupant.adjust_bodytemperature(heat / current_heat_capacity, TCMB)
-
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/proc/expel_gas()
-	var/datum/gas_mixture/air_contents = AIR1
-
-	if(air_contents.total_moles() < 1)
-		return
-
-	var/datum/gas_mixture/expel_gas = new
-	var/remove_amount = air_contents.total_moles() / 100
-	expel_gas = air_contents.remove(remove_amount)
-	expel_gas.temperature = T20C	//Lets expel hot gas and see if that helps people not die as they are removed
-	loc.assume_air(expel_gas)
-	air_update_turf()
-
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/proc/go_out()
-	if(!occupant)
-		return
-	var/turf/drop_loc = get_step(loc, SOUTH)	//this doesn't account for walls or anything, but i don't forsee that being a problem.
-	occupant.forceMove(drop_loc)
-	occupant.set_bodytemperature(occupant.dna ? occupant.dna.species.body_temperature : BODYTEMP_NORMAL)
-	occupant = null
-	update_icon(UPDATE_OVERLAYS)
-	// eject trash the occupant dropped
-	for(var/atom/movable/thing in (contents - component_parts - beaker))
-		thing.forceMove(drop_loc)
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/force_eject_occupant(mob/target)
-	go_out()
-
-/// Called when either the occupant is dead and the AUTO_EJECT_DEAD flag is present, OR the occupant is alive, has no external damage, and the AUTO_EJECT_HEALTHY flag is present.
-/obj/machinery/atmospherics/components/unary/cryo_cell/proc/auto_eject(eject_flag)
-	on = FALSE
-	go_out()
-	switch(eject_flag)
-		if(AUTO_EJECT_HEALTHY)
-			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-		if(AUTO_EJECT_DEAD)
-			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
-	SStgui.update_uis(src)
+	. += mutable_appearance(icon = icon, cover_state, ABOVE_ALL_MOB_LAYER, src, plane = ABOVE_GAME_PLANE)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
 	if(!istype(M))
@@ -533,11 +511,17 @@
 	return CLICK_ACTION_SUCCESS
 
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/container_resist()
+/obj/machinery/atmospherics/components/unary/cryo_cell/container_resist(mob/living)
 	if(usr.incapacitated()) // Check that they're able to open the tube.
 		return
 	to_chat(usr, span_notice("Вы начинаете шевелиться внутри [declent_ru(GENITIVE)], пиная ногой выпускной клапан."))
-	eject_occupant()
+	audible_message(span_notice("Вы слышите стук от [declent_ru(GENITIVE)]."))
+	addtimer(CALLBACK(src, PROC_REF(eject_occupant), living), 15 SECONDS)
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/eject_occupant(mob/user)
+	if(occupant && (user in src)) // Make sure they didn't disappear.
+		return
+	go_out()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/verb/move_eject()
 	set name = "Извлечь пациента"
@@ -557,12 +541,6 @@
 		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
 		go_out()
 	add_fingerprint(usr)
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/proc/eject_occupant()
-	sleep(15 SECONDS)
-	if(!src || !usr || !occupant || (occupant != usr)) // Make sure they didn't disappear.
-		return
-	go_out()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/narsie_act()
 	go_out()

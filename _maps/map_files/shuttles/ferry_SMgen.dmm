@@ -210,8 +210,8 @@
 	},
 /area/shuttle/transport)
 "C" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
-	current_temperature = 0;
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
+	target_temperature = 0;
 	dir = 1;
 	on = 1
 	},

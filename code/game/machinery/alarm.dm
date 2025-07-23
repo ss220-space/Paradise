@@ -741,7 +741,7 @@
 			var/list/vent_info = list()
 			var/long_name = alarm_area.air_vent_names[id_tag]
 			var/list/vent_data = alarm_area.air_vent_info[id_tag]
-			if(!vent_data)
+			if(!vent_data || vent_data["frequency"] != frequency)
 				continue
 			vent_info["id_tag"] = id_tag
 			vent_info["name"] = readd_quote(sanitize(long_name))
@@ -754,7 +754,7 @@
 		for(var/id_tag in alarm_area.air_scrub_names)
 			var/long_name = alarm_area.air_scrub_names[id_tag]
 			var/list/scrubber_data = alarm_area.air_scrub_info[id_tag]
-			if(!scrubber_data)
+			if(!scrubber_data || scrubber_data["frequency"] != frequency)
 				continue
 			scrubber_data["id_tag"] = id_tag
 			scrubber_data["name"] = readd_quote(sanitize(long_name))
@@ -851,6 +851,8 @@
 	// Used for rcon auth
 	var/datum/tgui/active_ui = SStgui.get_open_ui(usr, src, "main")
 
+	var/device_id = params["id_tag"]
+
 	switch(action)
 		if("set_rcon")
 			var/attempted_rcon_setting = params["rcon"]
@@ -867,7 +869,6 @@
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			var/device_id = params["id_tag"]
 			switch(params["cmd"])
 				if ("power",
 					"adjust_external_pressure",
@@ -959,6 +960,14 @@
 
 		if("thermostat_state")
 			thermostat_state = !thermostat_state
+
+		if("set_external_pressure")
+			var/input_pressure = tgui_input_number(usr, "Enter target pressure:", "Pressure Controls")
+			if(isnum(input_pressure))
+				send_signal(device_id, list("set_external_pressure" = input_pressure))
+
+		if("reset_external_pressure")
+			send_signal(device_id, list("reset_external_pressure"))
 
 
 /obj/machinery/alarm/ui_state(mob/user)

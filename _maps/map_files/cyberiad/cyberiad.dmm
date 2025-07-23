@@ -32121,7 +32121,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "caH" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 1
 	},
 /obj/machinery/camera{
@@ -49885,7 +49885,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "daN" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 8;
 	icon_state = "freezer_0"
 	},
@@ -64617,7 +64617,7 @@
 	},
 /area/medical/patients_rooms)
 "jAH" = (
-/obj/machinery/atmospherics/components/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/components/unary/thermomachine/heater{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -67987,8 +67987,8 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "lRb" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
-	current_temperature = 80;
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
+	target_temperature = 80;
 	on = 1
 	},
 /obj/item/radio/intercom{
@@ -77089,7 +77089,7 @@
 	},
 /area/medical/chemistry)
 "rzJ" = (
-/obj/machinery/atmospherics/components/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/components/unary/thermomachine/heater{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/southwest,
@@ -81240,7 +81240,7 @@
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/incinerator)
 "uew" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
@@ -82094,7 +82094,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "uNv" = (
-/obj/machinery/atmospherics/components/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/components/unary/thermomachine/heater{
 	dir = 8;
 	on = 1
 	},
@@ -84947,7 +84947,7 @@
 	},
 /area/toxins/misc_lab)
 "wto" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/extinguisher_cabinet{
 	name = "north extinguisher cabinet";

@@ -406,11 +406,11 @@ Class Procs:
 		var/prev_icon_state = icon_state
 		if(!panel_open)
 			panel_open = TRUE
-			icon_state = icon_state_open
+			icon_state = icon_state_open? icon_state_open : icon_state
 			to_chat(user, span_notice("You open the maintenance hatch of [src]."))
 		else
 			panel_open = FALSE
-			icon_state = icon_state_closed
+			icon_state = icon_state_closed? icon_state_closed : icon_state
 			to_chat(user, span_notice("You close the maintenance hatch of [src]."))
 		if(prev_icon_state != icon_state)
 			SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
@@ -427,7 +427,7 @@ Class Procs:
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return FALSE
 	if(panel_open)
-		setDir(turn(dir,-90))
+		setDir(turn(dir, -90))
 		to_chat(user, span_notice("You rotate [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		return TRUE

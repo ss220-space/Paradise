@@ -7140,8 +7140,8 @@
 	},
 /area/awaymission/UO71/science)
 "qC" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
-	current_temperature = 80;
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
+	target_temperature = 80;
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -9959,7 +9959,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/mining)
 "ww" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{

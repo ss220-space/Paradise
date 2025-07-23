@@ -8481,7 +8481,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "cZC" = (
-/obj/machinery/atmospherics/components/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/components/unary/thermomachine/heater{
 	dir = 8;
 	on = 1
 	},
@@ -21198,7 +21198,7 @@
 /area/coldcolony/malta/security/permahallway)
 "hPe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "hPi" = (
@@ -26526,7 +26526,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/research)
 "jKW" = (
-/obj/machinery/atmospherics/components/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/components/unary/thermomachine/heater{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -27502,7 +27502,7 @@
 	},
 /area/coldcolony/malta/security/brig)
 "kci" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -36834,8 +36834,8 @@
 	dir = 8;
 	pixel_x = -26
 	},
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
-	current_temperature = 80;
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
+	target_temperature = 80;
 	on = 1
 	},
 /turf/simulated/floor/plating,

@@ -165,7 +165,8 @@
 	signal.data = list(
 		"area" = area_uid,
 		"tag" = id_tag,
-		"device" = "AScr",
+		"frequency" = frequency,
+		"device" = "VS",
 		"timestamp" = world.time,
 		"power" = on,
 		"scrubbing" = scrubbing,
@@ -208,10 +209,7 @@
 	if(!NODE1)
 		on = 0
 
-	if(welded)
-		return 0
-	//broadcast_status()
-	if(!on)
+	if(!on || welded)
 		return 0
 
 	scrub(loc)
@@ -352,12 +350,10 @@
 		return
 
 	if(signal.data["status"] != null)
-		spawn(2)
-			broadcast_status()
+		broadcast_status()
 		return //do not update_icon
 
-	spawn(2)
-		broadcast_status()
+	broadcast_status()
 	update_icon()
 	return
 

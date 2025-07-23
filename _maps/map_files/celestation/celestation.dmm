@@ -10900,8 +10900,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "bBv" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
-	current_temperature = 80;
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
+	target_temperature = 80;
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -13765,7 +13765,7 @@
 "bSp" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/light,
-/obj/machinery/atmospherics/components/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/components/unary/thermomachine/heater{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -23260,7 +23260,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -30978,7 +30978,7 @@
 	},
 /area/medical/medbay2)
 "eDg" = (
-/obj/machinery/atmospherics/components/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/components/unary/thermomachine/heater{
 	dir = 8;
 	on = 1
 	},
@@ -39177,7 +39177,7 @@
 	},
 /area/bridge/meeting_room)
 "geI" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 4
 	},
 /obj/machinery/status_display{
@@ -73821,7 +73821,7 @@
 /area/maintenance/port)
 "mOz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -79868,7 +79868,7 @@
 /area/assembly/chargebay)
 "oaB" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -94523,7 +94523,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/cele/servise)
 "qQw" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -95578,8 +95578,8 @@
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/sersec)
 "rbj" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
-	current_temperature = 80;
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
+	target_temperature = 80;
 	dir = 8;
 	on = 1
 	},

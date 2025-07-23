@@ -28,10 +28,11 @@
 	return ..() | initialize_directions_he
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/process_atmos()
+	if(!parent)
+		return
+
 	var/environment_temperature = 0
 	var/datum/gas_mixture/pipe_air = return_air()
-	if(!pipe_air)
-		return
 
 	var/turf/simulated/T = loc
 	if(istype(T))

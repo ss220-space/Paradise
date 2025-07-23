@@ -433,7 +433,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	can_label = FALSE
 	gas_type = GAS_O2
 
-/obj/machinery/portable_atmospherics/canister/sleeping_agent
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide
 	name = "Canister: \[N2O\]"
 	icon_state = "redws" //See Initialize()
 	can_label = FALSE

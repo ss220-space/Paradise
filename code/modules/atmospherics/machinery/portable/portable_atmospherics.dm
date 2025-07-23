@@ -74,6 +74,7 @@
 	var/datum/pipeline/connected_port_parent = connected_port.PARENT1
 	if(!connected_port_parent)
 		connected_port.build_network()
+		connected_port_parent = connected_port.PARENT1
 	connected_port_parent.reconcile_air()
 
 	set_anchored(TRUE) //Prevent movement

@@ -4738,7 +4738,7 @@
 	},
 /area/holodeck/source_basketball)
 "dOV" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /obj/machinery/light{
 	dir = 1;
 	switchcount = 50
@@ -30897,7 +30897,7 @@
 	},
 /area/centcom/supply)
 "wpd" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer/upgraded{
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/upgraded{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{

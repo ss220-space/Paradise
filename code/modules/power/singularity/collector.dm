@@ -26,8 +26,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	return ..()
 
 /obj/machinery/power/rad_collector/process()
-	var/list/gasses = P.air_contents.gases
 	if(P)
+		var/list/gasses = P.air_contents.gases
 		if(!gasses[GAS_PL])
 			investigate_log(span_red("out of fuel."), INVESTIGATE_ENGINE)
 			gasses[GAS_PL][MOLES] = 0

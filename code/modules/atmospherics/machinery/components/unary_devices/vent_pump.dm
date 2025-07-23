@@ -238,7 +238,8 @@
 	signal.data = list(
 		"area" = src.area_uid,
 		"tag" = src.id_tag,
-		"device" = "AVP",
+		"frequency" = frequency,
+		"device" = "VP",
 		"power" = on,
 		"direction" = pump_direction?("release"):("siphon"),
 		"checks" = pressure_checks,
@@ -318,6 +319,9 @@
 				ONE_ATMOSPHERE * 50
 			)
 
+	if("reset_external_pressure" in signal.data)
+		external_pressure_bound = ONE_ATMOSPHERE
+
 	if(signal.data["adjust_internal_pressure"] != null)
 		internal_pressure_bound = clamp(
 			internal_pressure_bound + text2num(signal.data["adjust_internal_pressure"]),
@@ -339,13 +343,11 @@
 		return
 
 	if(signal.data["status"] != null)
-		spawn(2)
-			broadcast_status()
+		broadcast_status()
 		return //do not update_icon
 
 		//log_admin("DEBUG \[[world.timeofday]\]: vent_pump/receive_signal: unknown command \"[signal.data["command"]]\"\n[signal.debug_print()]")
-	spawn(2)
-		broadcast_status()
+	broadcast_status()
 	update_icon()
 	return
 

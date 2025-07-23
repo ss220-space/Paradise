@@ -146,17 +146,69 @@
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(iscarbon(M) && M.bodytemperature < TCRYO)
-		update_flags |= M.adjustCloneLoss(-1, FALSE)
-		update_flags |= M.adjustOxyLoss(-2, FALSE)
-		update_flags |= M.adjustToxLoss(-0.5, FALSE)
-		update_flags |= M.adjustBruteLoss(-2, FALSE, affect_robotic = FALSE)
-		update_flags |= M.adjustFireLoss(-4, FALSE, affect_robotic = FALSE)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
-			head?.undisfigure()
+
+	if(!iscarbon(M) || M.stat != DEAD)
+		return ..()
+
+	for(var/datum/cryoxadone_stats/stats as anything in GLOB.cryoxadone_stats)
+		update_flags |= stats.apply_regen(M)
+
 	return ..() | update_flags
+
+/datum/cryoxadone_stats
+	var/max_temperature
+	var/clone_regen
+	var/oxy_regen
+	var/brute_regen
+	var/burn_regen
+	var/tox_regen
+	var/undisfigure = FALSE
+
+/datum/cryoxadone_stats/proc/apply_regen(mob/living/target)
+	var/update_flags = STATUS_UPDATE_NONE
+
+	if(!istype(target))
+		return update_flags
+
+	if(target.bodytemperature >= max_temperature)
+		return update_flags
+
+	if(undisfigure && ishuman(target))
+		var/mob/living/carbon/human/human = target
+		var/obj/item/organ/external/head/head = human.get_organ(BODY_ZONE_HEAD)
+		head?.undisfigure()
+
+	update_flags |= target.adjustCloneLoss(-clone_regen, FALSE)
+	update_flags |=	target.adjustOxyLoss(-oxy_regen, FALSE)
+	update_flags |= target.adjustBruteLoss(-brute_regen, affect_robotic = FALSE)
+	update_flags |= target.adjustFireLoss(-burn_regen, affect_robotic = FALSE)
+	update_flags |= target.adjustToxLoss(-tox_regen, FALSE)
+	return update_flags
+
+/datum/cryoxadone_stats/start_effect
+	max_temperature = T0C
+	clone_regen = 1
+	oxy_regen = 5
+	brute_regen = 1
+	burn_regen = 1
+	tox_regen = 1
+	undisfigure = TRUE
+
+/datum/cryoxadone_stats/lower_effect
+	max_temperature = 225
+	clone_regen = 1
+	oxy_regen = 2
+	brute_regen = 2
+	burn_regen = 2
+	tox_regen = 2
+
+/datum/cryoxadone_stats/extreme_effect
+	max_temperature = 100
+	clone_regen = 5
+	oxy_regen = 2
+	brute_regen = 2
+	burn_regen = 2
+	tox_regen = 2
 
 /datum/reagent/medicine/cryoxadone/on_merge(list/mix_data)
 	merge_diseases_data(mix_data)

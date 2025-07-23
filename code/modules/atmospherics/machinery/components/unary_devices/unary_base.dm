@@ -9,7 +9,6 @@
 /obj/machinery/atmospherics/components/unary/SetInitDirections()
 	initialize_directions = dir
 
-
 /obj/machinery/atmospherics/components/unary/hide(intact)
 	update_icon()
 
@@ -20,7 +19,7 @@ Housekeeping and pipe network stuff below
 
 /obj/machinery/atmospherics/components/unary/default_change_direction_wrench(mob/user, obj/item/wrench/W)
 	if(..())
-		return 0
+		return FALSE
 	initialize_directions = dir
 	var/obj/machinery/atmospherics/node = NODE1
 

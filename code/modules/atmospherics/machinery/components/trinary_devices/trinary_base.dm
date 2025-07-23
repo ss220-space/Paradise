@@ -35,7 +35,6 @@
 
 
 /obj/machinery/atmospherics/components/trinary/atmos_init()
-	..()
 	//Mixer:
 	//1 and 2 is input
 	//Node 3 is output

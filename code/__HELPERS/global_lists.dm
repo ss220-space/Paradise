@@ -49,6 +49,7 @@
 
 	init_datum_subtypes(/datum/devil_contract, GLOB.devil_contracts, list(/datum/devil_contract), "contract_type")
 
+	init_subtypes(/datum/cryoxadone_stats, GLOB.cryoxadone_stats)
 	// Setup languages
 	for(var/language_name in GLOB.all_languages)
 		var/datum/language/language = GLOB.all_languages[language_name]

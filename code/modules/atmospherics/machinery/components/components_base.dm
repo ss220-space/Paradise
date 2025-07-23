@@ -29,11 +29,7 @@ Pipenet stuff; housekeeping
 	..()
 	if(NODE_I)
 		nullifyPipenet(PARENT_I)
-		qdel(AIR_I)
-		AIR_I = null
-
-/obj/machinery/atmospherics/components/atmos_init() //doesn't work for another reason
-	. = ..()
+		QDEL_NULL(AIR_I)
 
 /obj/machinery/atmospherics/components/on_construction() //doesn't work
 	..()
@@ -118,7 +114,10 @@ Helpers
 /obj/machinery/atmospherics/components/proc/update_parents()
 	for(DEVICE_TYPE_LOOP)
 		var/datum/pipeline/parent = PARENT_I
-		parent.update = 1
+		if(!parent)
+			throw EXCEPTION("Component is missing a pipenet! Rebuilding...")
+			build_network()
+		parent.update = TRUE
 
 
 /obj/machinery/atmospherics/components/proc/set_welded(new_value)
@@ -129,3 +128,7 @@ Helpers
 	welded = new_value
 	update_icon()
 	update_pipe_image()
+
+/obj/machinery/atmospherics/components/dealWithShuttleStuff(I)
+	..()
+	nullifyPipenet(PARENT_I)

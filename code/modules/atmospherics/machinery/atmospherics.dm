@@ -55,7 +55,7 @@ Pipelines + Other Objects -> Pipe network
 		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
 
 	..()
-
+	SetInitDirections()
 	if(!pipe_color)
 		pipe_color = color
 	color = null
@@ -88,7 +88,7 @@ Pipelines + Other Objects -> Pipe network
 					break
 
 	for(DEVICE_TYPE_LOOP)
-		for(var/obj/machinery/atmospherics/target in get_step(src,node_connects[I]))
+		for(var/obj/machinery/atmospherics/target in get_step(src, node_connects[I]))
 			if(can_be_node(target, I))
 				NODE_I = target
 				break
@@ -97,7 +97,7 @@ Pipelines + Other Objects -> Pipe network
 	update_underlays()
 
 /obj/machinery/atmospherics/proc/can_be_node(obj/machinery/atmospherics/target)
-	if(target.initialize_directions & get_dir(target,src))
+	if(target.initialize_directions & get_dir(target, src))
 		return TRUE
 
 /obj/machinery/atmospherics/proc/pipeline_expansion()
@@ -516,3 +516,22 @@ Pipelines + Other Objects -> Pipe network
 	if(user)
 		to_chat(user, span_notice("You toggle [src] [on ? "on" : "off"]."))
 
+
+/obj/machinery/atmospherics/onShuttleMove()
+	. = ..()
+	if(!.)
+		return
+
+	for(DEVICE_TYPE_LOOP)
+		dealWithShuttleStuff(I)
+
+	atmos_init() //we've moved, so what once was next to us may not be
+	build_network()
+
+/obj/machinery/atmospherics/proc/dealWithShuttleStuff(I)
+	var/obj/machinery/atmospherics/node = NODE_I
+	var/turf/node_turf = get_turf(node)
+	var/turf/self_turf = get_turf(src)
+	if(node_turf.loc != self_turf.loc) //shuttles are area based, so this means the node is not on the shuttle with us
+		node.disconnect(src)
+		NODE_I = null

@@ -44,11 +44,11 @@
 	var/atmos_overlay_types = list() //current active overlay
 
 /turf/simulated/New()
-	..()
 	if(!blocks_air)
 		air = new
 		air.copy_from_turf(src)
 		air.temperature = temperature
+	..()
 
 /turf/simulated/Destroy()
 	QDEL_NULL(active_hotspot)
@@ -317,6 +317,10 @@
 
 /turf/simulated/proc/tile_graphic()
 	. = list()
+
+	if(!air)
+		return .
+
 	var/list/gases = air.gases
 	for(var/id in gases)
 		var/gas = gases[id]

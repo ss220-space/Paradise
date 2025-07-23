@@ -67,9 +67,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
 							volume += item.volume
 							item.parent = src
-
 							alert_pressure = min(alert_pressure, item.alert_pressure)
-
 							if(item.air_temporary)
 								air.merge(item.air_temporary)
 								item.air_temporary = null
@@ -200,8 +198,8 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	var/list/datum/pipeline/PL = list()
 	PL += src
 
-	for(var/i in PL)
-		var/datum/pipeline/P = i
+	for(var/i = 1; i <= PL.len; i++) //can't do a for-each here because we may add to the list within the loop
+		var/datum/pipeline/P = PL[i]
 		if(!P)
 			return
 		GL += P.air

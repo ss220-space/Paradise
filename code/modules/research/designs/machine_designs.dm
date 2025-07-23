@@ -2,14 +2,24 @@
 //////////Machine Boards///////////
 ///////////////////////////////////
 
-/datum/design/thermomachine
-	name = "Machine Board (Freezer/Heater)"
-	desc = "The circuit board for a Freezer/Heater."
-	id = "thermomachine"
+/datum/design/heater
+	name = "Machine Board (Heater)"
+	desc = "The circuit board for a Heater."
+	id = "heater"
 	req_tech = list("programming" = 3, "plasmatech" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/thermomachine
+	build_path = /obj/item/circuitboard/thermomachine/heater
+	category = list ("Engineering Machinery")
+
+/datum/design/freezer
+	name = "Machine Board (Freezer)"
+	desc = "The circuit board for a Freezer."
+	id = "freezer"
+	req_tech = list("programming" = 3, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/thermomachine/freezer
 	category = list ("Engineering Machinery")
 
 /datum/design/cell_charger

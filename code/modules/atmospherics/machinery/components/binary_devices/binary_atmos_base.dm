@@ -27,9 +27,9 @@
 	..(intact)
 
 /obj/machinery/atmospherics/components/binary/atmos_init()
-	..()
 	var/node2_connect = dir
 	var/node1_connect = turn(dir, 180)
+
 	var/list/node_connects = list(node1_connect, node2_connect)
 
 	..(node_connects)

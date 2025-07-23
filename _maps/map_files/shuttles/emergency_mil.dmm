@@ -292,7 +292,7 @@
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aY" = (
-/obj/machinery/atmospherics/components/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
