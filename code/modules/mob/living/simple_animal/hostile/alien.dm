@@ -19,7 +19,7 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "кромсает"
-	speak_emote = list("hisses")
+	speak_emote = list("шипит")
 	tts_seed = "Ladyvashj"
 	bubble_icon = "alien"
 	a_intent = INTENT_HARM

@@ -1,5 +1,5 @@
 /datum/ai_behavior/battle_screech/dog
-	screeches = list("barks","howls")
+	screeches = list("лает", "рявкает", "воет")
 
 /// Fetching makes the pawn chase after whatever it's targeting and pick it up when it's in range, with the dog_equip behavior
 /datum/ai_behavior/fetch

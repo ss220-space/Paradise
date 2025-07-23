@@ -94,10 +94,10 @@
 	/// For reagents that grant language knowlege.
 	var/list/temporary_languages
 	var/list/speak_emote = list()   // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
-	var/verb_say = "says"
-	var/verb_ask = "asks"
-	var/verb_exclaim = list("exclaims", "shouts")
-	var/verb_yell = "yells"
+	var/verb_say = "говорит"
+	var/verb_ask = "спрашивает"
+	var/verb_exclaim = list("восклицает", "выкрикивает")
+	var/verb_yell = "кричит"
 	/// Define emote default type, EMOTE_VISIBLE for seen emotes, EMOTE_AUDIBLE for heard emotes.
 	var/emote_type = EMOTE_VISIBLE
 	var/gunshot_residue

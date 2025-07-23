@@ -45,7 +45,7 @@
 	icon_living = "seal"
 	icon_state = "seal"
 	attacktext = "шлёпает"
-	speak_emote = list("barks")
+	speak_emote = list("лает", "рявкает")
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA

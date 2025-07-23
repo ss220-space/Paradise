@@ -14,8 +14,8 @@
 	)
 	real_name = "morph"
 	desc = "Отвратительная пульсирующая масса плоти."
-	speak_emote = list("gurgles")
-	emote_hear = list("gurgles")
+	speak_emote = list("булькает", "клокочет")
+	emote_hear = list("булькает", "клокочет")
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "morph"
 	icon_living = "morph"
