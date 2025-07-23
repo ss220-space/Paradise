@@ -13,7 +13,7 @@
 		target.AdjustLoseBreath(20 SECONDS)
 		target.Weaken(6 SECONDS)
 		target.adjustStaminaLoss(15)
-		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Stomach Knee", ATKLOG_ALL)
 		if(prob(80))
 			user.say(pick("HWOP!", "KUH!", "YAKUUH!", "KYUH!", "KNEESTRIKE!"))

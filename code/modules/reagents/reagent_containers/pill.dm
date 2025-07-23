@@ -21,8 +21,8 @@
 	consume_sound = null
 	can_taste = FALSE
 	antable = FALSE
-	pickup_sound = 'sound/items/handling/generic_small_pickup.ogg'
-	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/generic_small_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/generic_small_drop.ogg'
 
 /obj/item/reagent_containers/food/pill/Initialize(mapload)
 	if(icon_state == "pill")

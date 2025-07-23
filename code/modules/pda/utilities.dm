@@ -22,7 +22,7 @@
 
 /datum/data/pda/utility/honk/start()
 	if(!(last_honk && world.time < last_honk + 20))
-		playsound(pda.loc, 'sound/items/bikehorn.ogg', 50, 1)
+		playsound(pda.loc, 'sound/items/bikehorn.ogg', 50, TRUE)
 		last_honk = world.time
 
 /datum/data/pda/utility/toggle_door

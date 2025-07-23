@@ -23,8 +23,8 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
-	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
-	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/crowbar_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("атаковал", "ударил", "огрел")
 	toolspeed = 1
@@ -148,7 +148,7 @@
 	return BRUTELOSS
 
 /obj/item/crowbar/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
+	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, TRUE)
 	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
 	balloon_alert("Вы присоединяете режущую головку к [declent_ru(GENITIVE)].")
 	qdel(src)

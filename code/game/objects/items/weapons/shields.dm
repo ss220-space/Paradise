@@ -195,7 +195,7 @@
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
+	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
 
 	if(active)
 		force = 8

@@ -8,7 +8,7 @@
 	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
-			playsound(holder, C.usesound, 50, 1)
+			playsound(holder, C.usesound, 50, TRUE)
 		else
 			to_chat(user, ("There's not enough cable to finish the task."))
 			return 0
@@ -29,7 +29,7 @@
 	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
-			playsound(holder, C.usesound, 50, 1)
+			playsound(holder, C.usesound, 50, TRUE)
 		else
 			to_chat(user, ("There's not enough cable to finish the task."))
 			return 0
@@ -787,7 +787,7 @@
 		return 0
 
 	if(istype(used_atom, /obj/item/bikehorn))
-		playsound(holder, 'sound/items/bikehorn.ogg', 50, 1)
+		playsound(holder, 'sound/items/bikehorn.ogg', 50, TRUE)
 		user.visible_message("HONK!")
 
 	//TODO: better messages.

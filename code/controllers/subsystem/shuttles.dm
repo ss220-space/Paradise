@@ -279,22 +279,24 @@ SUBSYSTEM_DEF(shuttle)
 
 
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
-	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
-	var/obj/docking_port/stationary/D = getDock(dockId)
+	var/obj/docking_port/mobile/mobile = getShuttle(shuttleId)
+	var/obj/docking_port/stationary/dockAt = getDock(dockId)
+	var/hyperspace_mini = sound(mobile.fly_sound)
+	var/area = mobile.areaInstance
 
-	if(M.mode == SHUTTLE_RECHARGING)
+	if(mobile.mode == SHUTTLE_RECHARGING)
 		return SHUTTLE_CONSOLE_RECHARGING
 
-	if(!M)
+	if(!mobile)
 		return 1
-	M.last_caller = user // Save the caller of the shuttle for later logging
+	mobile.last_caller = user // Save the caller of the shuttle for later logging
 	if(timed)
-		if(M.request(D))
+		if(mobile.request(dockAt))
 			return 2
 	else
-		if(M.dock(D))
+		if(mobile.dock(dockAt))
 			return 2
-	M.areaInstance << M.fly_sound
+	SEND_SOUND(area, hyperspace_mini)
 	return 0	//dock successful
 
 

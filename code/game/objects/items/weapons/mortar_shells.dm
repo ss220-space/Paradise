@@ -104,7 +104,7 @@
 /obj/item/mortar_shell/flare/detonate(turf/detonate_turf)
 	. = ..()
 	new /obj/item/flashlight/flare/on/illumination(detonate_turf)
-	playsound(detonate_turf, 'sound/weapons/gun_flare.ogg', 50, 1, 4)
+	playsound(detonate_turf, 'sound/weapons/gun_flare.ogg', 50, TRUE, 4)
 	deploy_camera(detonate_turf)
 
 /obj/item/mortar_shell/custom
@@ -181,7 +181,7 @@
 	else
 		to_chat(user, span_notice("You lock [name]."))
 	locked = !locked
-	playsound(loc, 'sound/items/Screwdriver.ogg', 25, 0, 6)
+	playsound(loc, 'sound/items/Screwdriver.ogg', 25, FALSE, 6)
 	update_icon(UPDATE_ICON_STATE)
 	. = ..()
 
@@ -199,7 +199,7 @@
 		fuel = I
 		to_chat(user, span_danger("You add [I] to [name]."))
 		update_icon(UPDATE_ICON_STATE)
-		playsound(loc, 'sound/items/Screwdriver2.ogg', 25, 0, 6)
+		playsound(loc, 'sound/items/Screwdriver2.ogg', 25, FALSE, 6)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(!(istype(I,/obj/item/warhead/mortar) && !locked))
@@ -219,7 +219,7 @@
 	warhead = I
 	to_chat(user, span_danger("You add [I] to [name]."))
 	update_icon(UPDATE_ICON_STATE)
-	playsound(loc, 'sound/items/Screwdriver2.ogg', 25, 0, 6)
+	playsound(loc, 'sound/items/Screwdriver2.ogg', 25, FALSE, 6)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/item/mortar_shell/ex_act(severity, explosion_direction)

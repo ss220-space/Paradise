@@ -373,7 +373,7 @@
 		return
 
 	atom_say("Была создана [cur_anomaly.anomaly_type] аномалия.", FALSE)
-	playsound(src, 'sound/machines/ping.ogg', 50, 1, -1) // A rare call, let it be without CD.
+	playsound(src, 'sound/machines/ping.ogg', 50, TRUE, -1) // A rare call, let it be without CD.
 
 /obj/machinery/power/anomaly_generator/upgraded/admin
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \

@@ -13,8 +13,8 @@
 	)
 	desc = "Большое, грозное существо, покрытое бронированной черной чешуей."
 	unique_name = TRUE
-	speak_emote = list("cackles")
-	emote_hear = list("cackles","screeches")
+	speak_emote = list("гогочет")
+	emote_hear = list("гогочет", "визжит")
 	response_help  = "thinks better of touching"
 	response_disarm = "flails at"
 	response_harm   = "punches"

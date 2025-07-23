@@ -36,7 +36,7 @@
 	maxHealth = 20
 	health = 20
 
-	emote_taunt = list("wails")
+	emote_taunt = list("воет")
 	taunt_chance = 20
 
 	harm_intent_damage = 10
@@ -83,8 +83,8 @@
 	response_help = "shakes hands with"
 	response_disarm = "shoves"
 	response_harm = "hits"
-	speak_emote = list("rattles")
-	emote_see = list("rattles")
+	speak_emote = list("бряцает", "трещит")
+	emote_see = list("бряцает", "трещит")
 	a_intent = INTENT_HARM
 	maxHealth = 40
 	health = 40
@@ -169,7 +169,7 @@
 /mob/living/simple_animal/hostile/zombie/whiteship
 	speak = list("RAWR!","Rawr!","GRR!","Growl!")
 	speak_chance = 1
-	speak_emote = list("growls","roars")
+	speak_emote = list("рычит", "ревёт")
 
 	faction = list("zombie")
 	icon_living = "zombie2_s"

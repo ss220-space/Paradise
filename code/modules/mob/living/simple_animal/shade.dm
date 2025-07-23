@@ -8,8 +8,8 @@
 	icon_dead = "shade_dead"
 	maxHealth = 50
 	health = 50
-	speak_emote = list("hisses")
-	emote_hear = list("wails","screeches")
+	speak_emote = list("шипит")
+	emote_hear = list("воет", "визжит")
 	tts_seed = "Kelthuzad"
 	response_help  = "протягивает руку сквозь"
 	response_disarm = "размахивает перед"

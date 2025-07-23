@@ -187,18 +187,18 @@
 	. = ..()
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Разборка стены...")
-		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 4 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
-			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed false wall with RCD")
 			qdel(src)
 			return RCD_ACT_SUCCESSFULL
 		to_chat(user, span_warning("ОШИБКА! Прервана разборка!"))
 		return RCD_ACT_FAILED
 	to_chat(user, span_warning("ОШИБКА! Недостаточно вещества в устройстве для разборки этой стены!"))
-	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
 
@@ -339,7 +339,7 @@
 
 
 /obj/structure/falsewall/plasma/proc/burnbabyburn(user)
-	playsound(src, 'sound/items/welder.ogg', 100, 1)
+	playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 400)
 	new /obj/structure/girder/displaced(loc)
 	qdel(src)
@@ -490,7 +490,7 @@
 	if(!isclocker(user))
 		user.changeNext_move(CLICK_CD_MELEE)
 		to_chat(user, span_notice("Вы толкаете стену, но ничего не происходит!"))
-		playsound(src, 'sound/weapons/genhit.ogg', 25, 1) //sneaky
+		playsound(src, 'sound/weapons/genhit.ogg', 25, TRUE) //sneaky
 		return FALSE
 	return ..()
 

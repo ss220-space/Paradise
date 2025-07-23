@@ -32,7 +32,7 @@
 
 	if(sound_to_play)
 		playsound(get_turf(src), sound_to_play, 100, 1, vary = FALSE)
-	
+
 	if(message)
 		user.visible_message(message)
 

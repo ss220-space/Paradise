@@ -73,15 +73,16 @@
 	if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
 		to_chat(src, span_warningbig("Критическая неудача!<br>Неизвестная сила разрушает ваш корпус."))
 		src.gib()
-		return
+		return TRUE
 	if (prob(EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE))
 		to_chat(src, span_warning("Неудача! Из корпуса [src.name] вылетают искры."))
 		do_sparks(3, TRUE, src)
 		src.destroy_random_component()
-		return
+		return FALSE
 	to_chat(src, span_warning("Неудача! [src.name] получает видимые повреждения."))
 	do_sparks(3, TRUE, src)
 	src.adjustBruteLoss(rand(15, 20))
+	return FALSE
 
 
 /mob/living/silicon/robot/proc/get_damaged_components(get_brute, get_burn, get_borked = FALSE, get_missing = FALSE)

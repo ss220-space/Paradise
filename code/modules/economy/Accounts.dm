@@ -100,7 +100,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(source_db.loc)
 
 		var/obj/item/paper/R = new /obj/item/paper(P)
-		playsound(source_db.loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+		playsound(source_db.loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 		P.wrapped = R
 		P.w_class = R.w_class
 		P.update_icon(UPDATE_ICON_STATE)

@@ -160,7 +160,7 @@
 	if(!discharge)
 		user.visible_message(span_danger("[user] fires [src]!"), span_danger("You fire [src]!"), projectile_message = TRUE)
 	add_attack_logs(user, target, "Fired [src]")
-	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
+	playsound(loc, 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE)
 	for(var/obj/item/ITD in loadedItems) //Item To Discharge
 		spawn(0)
 			loadedItems.Remove(ITD)
