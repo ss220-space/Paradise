@@ -26,7 +26,7 @@
 /mob/living/simple_animal/hostile/netherworld/migo
 	name = "mi-go"
 	desc = "A pinkish, fungoid crustacean-like creature with numerous pairs of clawed appendages and a head covered with waving antennae."
-	speak_emote = list("кричит", "кликает", "щебечет", "лает", "рявкает", "стонет", "рявкает", "мяукает", "отдаётся эхом", "рычит", "пищит", "гремит", "констатирует", "восклицает", "подмечает", "бормочет", "тараторит", "заикаясь, говорит", "булькаетseethes")
+	speak_emote = list("кричит", "кликает", "щебечет", "лает", "рявкает", "стонет", "рявкает", "мяукает", "отдаётся эхом", "рычит", "пищит", "гремит", "констатирует", "восклицает", "подмечает", "бормочет", "тараторит", "заикаясь, говорит", "булькает")
 	icon_state = "mi-go"
 	icon_living = "mi-go"
 	icon_dead = "mi-go-dead"
