@@ -51,7 +51,7 @@
 
 /datum/antagonist/thief/greet()
 	var/list/messages = list()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/thiefalert.ogg')
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/thiefalert.ogg'))
 	messages.Add(span_userdanger("Вы член гильдии воров!"))
 	messages.Add(span_danger("Гильдия воров прислала новые заказы для кражи. Пора заняться старым добрым ремеслом, пока цели не украли конкуренты!"))
 	return messages

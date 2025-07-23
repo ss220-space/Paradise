@@ -142,7 +142,7 @@
 	for(var/i in 1 to 6)
 		new /obj/effect/temp_visual/dragon_swoop/legionnaire(T)
 		T = get_step(T, dir_to_target)
-	playsound(src, 'sound/misc/demon_attack1.ogg', 200, 1)
+	playsound(src, 'sound/misc/demon_attack1.ogg', 200, TRUE)
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] готовится к рывку!"))
 	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_to), dir_to_target, 0), 2)
 
@@ -171,7 +171,7 @@
 		charging = FALSE
 		return
 	forceMove(T)
-	playsound(src,'sound/effects/bang.ogg', 200, 1)
+	playsound(src,'sound/effects/bang.ogg', 200, TRUE)
 	var/throwtarget = get_edge_target_turf(src, move_dir)
 	for(var/mob/living/L in T.contents - src)
 		if(faction_check_mob(L))
@@ -231,7 +231,7 @@
 		var/obj/structure/legionnaire_bonfire/newpile = new(loc)
 		mypile = newpile
 		mypile.myowner = src
-		playsound(get_turf(src),'sound/items/fultext_deploy.ogg', 200, 1)
+		playsound(get_turf(src),'sound/items/fultext_deploy.ogg', 200, TRUE)
 		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] призывает костёр на [get_turf(src)]!"))
 		return
 	else
@@ -240,8 +240,8 @@
 		if(legionturf == pileturf)
 			QDEL_NULL(mypile)
 			return
-		playsound(pileturf,'sound/items/fultext_deploy.ogg', 200, 1)
-		playsound(legionturf,'sound/items/fultext_deploy.ogg', 200, 1)
+		playsound(pileturf,'sound/items/fultext_deploy.ogg', 200, TRUE)
+		playsound(legionturf,'sound/items/fultext_deploy.ogg', 200, TRUE)
 		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] распадается на горящую груду костей!"))
 		forceMove(pileturf)
 		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] формируется из костра!"))

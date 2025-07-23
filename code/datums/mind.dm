@@ -1400,7 +1400,7 @@
 				SSticker.mode.revolutionaries += src
 				SSticker.mode.update_rev_icons_added(src)
 				special_role = SPECIAL_ROLE_REV
-				SEND_SOUND(current, 'sound/ambience/antag/revolutionary_tide.ogg')
+				SEND_SOUND(current, sound('sound/ambience/antag/revolutionary_tide.ogg'))
 				log_admin("[key_name(usr)] has rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has rev'd [key_name_admin(current)]")
 				current.create_log(MISC_LOG, "[current] was made into a revolutionary by [key_name_admin(usr)]")
@@ -1422,7 +1422,7 @@
 				if(!recruit_action)
 					recruit_action = new
 					recruit_action.Grant(src.current)
-				SEND_SOUND(current, 'sound/ambience/antag/revolutionary_tide.ogg')
+				SEND_SOUND(current, sound('sound/ambience/antag/revolutionary_tide.ogg'))
 				log_admin("[key_name(usr)] has head-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has head-rev'd [key_name_admin(current)]")
 				current.create_log(MISC_LOG, "[current] was made into a head revolutionary by [key_name_admin(usr)]")
@@ -2237,7 +2237,7 @@
 				thief_datum.give_objectives = FALSE
 				thief_datum.give_kit = FALSE
 				add_antag_datum(thief_datum)
-				SEND_SOUND(current, 'sound/ambience/antag/thiefalert.ogg')
+				SEND_SOUND(current, sound('sound/ambience/antag/thiefalert.ogg'))
 				to_chat(current, "<b><font color='red'>Мои [ishuman(current) ? "руки" : "лапы"] так и чешутся чего-нибудь прикарманить!</font></b>")
 				log_admin("[key_name(usr)] has thiefed [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has thiefed [key_name_admin(current)]")

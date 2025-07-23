@@ -67,7 +67,7 @@
 		user.drop_item_ground(src, force = TRUE)
 		user.visible_message(span_warning("[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!"), \
 							span_warning("[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!"))
-		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
 		return FALSE
 
@@ -472,8 +472,8 @@
 	slot_flags = NONE
 	item_flags = SLOWS_WHILE_IN_HAND
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	var/mob/living/carbon/wielder
 
@@ -772,6 +772,6 @@
 	//if you made it this far: congratulations! you are now a religious zealot!
 	target.mind.make_zealot(missionary, convert_duration, team_color)
 
-	target << sound('sound/misc/wololo.ogg', 0, 1, 25)
+	SEND_SOUND(target, sound('sound/misc/wololo.ogg', volume = 25))
 	missionary.say("WOLOLO!")
-	missionary << sound('sound/misc/wololo.ogg', 0, 1, 25)
+	SEND_SOUND(missionary, sound('sound/misc/wololo.ogg', volume = 25))

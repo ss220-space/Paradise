@@ -20,7 +20,7 @@
 
 /mob/living/simple_animal/hostile/shitcur_goblin/Initialize()
 	. = ..()
-	playsound(src, 'sound/misc/Wild_Griefer_Appeared.ogg', 50, 1, -1)
+	playsound(src, 'sound/misc/Wild_Griefer_Appeared.ogg', 50, TRUE, -1)
 
 /mob/living/simple_animal/hostile/shitcur_goblin/proc/stun_attack(mob/living/carbon/griefer)
 	griefer.SetStuttering(10 SECONDS)
@@ -34,4 +34,4 @@
 
 /mob/living/simple_animal/hostile/shitcur_goblin/AttackingTarget()
 	stun_attack(target)
-	playsound(loc, 'sound/misc/BAAN.ogg', 50, 1, -1)
+	playsound(loc, 'sound/misc/BAAN.ogg', 50, TRUE, -1)

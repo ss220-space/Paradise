@@ -8,8 +8,8 @@
 	fire_sound_text = "energy blast"
 	flags =  CONDUCT
 	w_class = WEIGHT_CLASS_HUGE
-	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
-	drop_sound = 'sound/items/handling/generic_drop3.ogg'
+	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	var/max_charges = 6
 	var/charges = 0
 	var/recharge_rate = 4
@@ -99,5 +99,5 @@
 
 /obj/item/gun/magic/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is twisting the [name] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	playsound(loc, fire_sound, 50, 1, -1)
+	playsound(loc, fire_sound, 50, TRUE, -1)
 	return FIRELOSS

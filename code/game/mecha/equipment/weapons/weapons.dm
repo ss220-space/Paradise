@@ -26,6 +26,9 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot
 
+/obj/item/mecha_parts/mecha_equipment/weapon/get_destroy_sound()
+	return chassis.weapdestrsound
+
 /obj/item/mecha_parts/mecha_equipment/weapon/action(target, params)
 	if(!action_checks(target))
 		return FALSE
@@ -58,7 +61,7 @@
 			chassis.use_power(energy_drain)
 			projectiles--
 			A.fire()
-			playsound(chassis, fire_sound, 50, 1)
+			playsound(chassis, fire_sound, 50, TRUE)
 
 	if(isliving(target))
 		if((get_dist(chassis, target) == 1) && pb_knockback)
@@ -211,7 +214,7 @@
 	if(!equip_ready)
 		return FALSE
 
-	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
+	playsound(chassis, 'sound/items/airhorn.ogg', 100, TRUE)
 	chassis.occupant_message("<font color='red' size='5'>HONK</font>")
 	for(var/mob/living/carbon/M in ohearers(6, chassis))
 		if(ishuman(M))
@@ -271,7 +274,7 @@
 			chassis.use_power(projectile_energy_cost)
 	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 	log_message("Rearmed [name].")
-	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, 1)
+	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, TRUE)
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
@@ -414,7 +417,7 @@
 		return FALSE
 	var/obj/item/missile/M = new projectile(chassis.loc)
 	M.primed = 1
-	playsound(chassis, fire_sound, 50, 1)
+	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed, spin = FALSE)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
@@ -494,7 +497,7 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/obj/item/grenade/flashbang/F = new projectile(chassis.loc)
-	playsound(chassis, fire_sound, 50, 1)
+	playsound(chassis, fire_sound, 50, TRUE)
 	F.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
@@ -602,7 +605,7 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/obj/item/restraints/legcuffs/bola/M = new projectile(chassis.loc)
-	playsound(chassis, fire_sound, 50, 1)
+	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")

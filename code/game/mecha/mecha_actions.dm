@@ -253,7 +253,7 @@
 			chassis.occupant_message("Из ладони выдвигается леденящая кровь пласталевая игла.")
 	chassis.damtype = new_damtype
 	button_icon_state = "mech_damtype_[new_damtype]"
-	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
+	playsound(src, 'sound/mecha/mechmove01.ogg', 50, TRUE)
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_energywall

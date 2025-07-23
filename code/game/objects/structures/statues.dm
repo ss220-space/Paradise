@@ -265,7 +265,7 @@
 /obj/structure/statue/bananium/proc/honk()
 	if(!spam_flag)
 		spam_flag = 1
-		playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
+		playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE)
 		spawn(20)
 			spam_flag = 0
 

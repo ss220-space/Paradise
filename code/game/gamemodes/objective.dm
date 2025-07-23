@@ -153,7 +153,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/proc/alarm_changes()
 	for(var/datum/mind/user in get_owners())
 		to_chat(user.current, span_userdanger("<br>Вы чувствуете, что ваша цель больше не находится в пределах досягаемости. Время для плана [pick("A","B","C","D","X","Y","Z")]. Цели обновлены!"))
-		SEND_SOUND(user.current, 'sound/ambience/alarm4.ogg')
+		SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
 
 
 /**

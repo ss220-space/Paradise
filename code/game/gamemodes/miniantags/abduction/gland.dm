@@ -306,7 +306,7 @@
 
 /obj/item/organ/internal/heart/gland/electric/proc/zap()
 	tesla_zap(owner, 4, 8000)
-	playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
+	playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, TRUE)
 
 /obj/item/organ/internal/heart/gland/chem
 	cooldown_low = 50

@@ -291,7 +291,7 @@
 	wall_ready = TRUE
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
-	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
+	playsound(src, 'sound/effects/spray2.ogg', 50, TRUE)
 	if(target.reagents)
 		if(target.reagents.get_reagent_amount("atropine") + force < force*2)
 			target.reagents.add_reagent("atropine", force/2)
@@ -633,7 +633,7 @@
 /obj/mecha/proc/setInternalDamage(int_dam_flag)
 	internal_damage |= int_dam_flag
 	log_append_to_last("Internal damage of type [int_dam_flag].",1)
-	occupant << sound('sound/machines/warning-buzzer.ogg',wait=0)
+	SEND_SOUND(occupant, sound('sound/machines/warning-buzzer.ogg'))
 	diag_hud_set_mechstat()
 
 /obj/mecha/proc/clearInternalDamage(int_dam_flag)
@@ -1166,9 +1166,9 @@
 	AI.forceMove(src)
 	occupant = AI
 	update_icon(UPDATE_ICON_STATE)
-	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+	playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 	if(!hasInternalDamage())
-		occupant << sound(nominalsound, volume = 50)
+		SEND_SOUND(occupant, sound(nominalsound, volume = 50))
 	AI.eyeobj?.forceMove(src)
 	AI.eyeobj?.RegisterSignal(src, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/camera/aiEye, update_visibility))
 	AI.controlled_mech = src
@@ -1333,12 +1333,12 @@
 		log_append_to_last("[H] moved in as pilot.")
 		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
-		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 		if(!activated)
-			occupant << sound(longactivationsound, volume = 50)
+			SEND_SOUND(occupant, sound(longactivationsound, volume = 50))
 			activated = TRUE
 		else if(!hasInternalDamage())
-			occupant << sound(nominalsound, volume = 50)
+			SEND_SOUND(occupant, sound(nominalsound, volume = 50))
 		if(state)
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		if(selected)
@@ -1609,7 +1609,7 @@
 			if(0.01 to 0.25)
 				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 3)
 				if(!power_warned)
-					occupant << sound(lowpowersound, volume = 50)
+					SEND_SOUND(occupant, sound(lowpowersound, volume = 50))
 					power_warned = TRUE
 			else
 				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_emptycell)

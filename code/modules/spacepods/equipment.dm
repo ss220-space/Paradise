@@ -43,7 +43,7 @@
 		projtwo.firer_source_atom = src
 		projtwo.def_zone = BODY_ZONE_CHEST
 		spawn()
-			playsound(src, fire_sound, 50, 1)
+			playsound(src, fire_sound, 50, TRUE)
 			projone.dumbfire(my_atom.dir)
 			projtwo.dumbfire(my_atom.dir)
 		sleep(2)

@@ -224,7 +224,7 @@
 		printing = 1
 		var/obj/item/paper/P = new /obj/item/paper(loc)
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 
 		P.info = span_fontsize4("<u><b><center> Выпуск вируса </b></center></u>")
 		P.info += "<hr>"

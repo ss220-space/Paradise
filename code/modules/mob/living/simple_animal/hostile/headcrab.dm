@@ -95,7 +95,7 @@
 	if(speak_chance)
 		if(rand(0,200) < speak_chance)
 			if(speak && speak.len)
-				playsound(get_turf(src), pick(speak), 200, 1)
+				playsound(get_turf(src), pick(speak), 200, TRUE)
 
 /mob/living/simple_animal/hostile/headcrab/Destroy()
 	if(contents)

@@ -152,7 +152,7 @@
 	if(devastated)
 		devastate_wall()
 	else
-		playsound(src, 'sound/items/welder.ogg', 100, 1)
+		playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 		var/newgirder = break_wall()
 		if(newgirder) //maybe we don't /want/ a girder!
 			transfer_fingerprints_to(newgirder)
@@ -192,7 +192,7 @@
 /turf/simulated/wall/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_ATMOS_MODE)
 		if(!our_rpd.ranged)
-			playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
+			playsound(src, "sound/weapons/circsawhit.ogg", 50, TRUE)
 			user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
 				span_notice("Вы начинаете сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
 				span_italics("Вы слышите звук сверления."))
@@ -208,18 +208,18 @@
 	. = ..()
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Разборка стены...")
-		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 4 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
-			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed wall with RCD")
 			src.ChangeTurf(our_rcd.floor_type)
 			return RCD_ACT_SUCCESSFULL
 		to_chat(user, span_warning("ОШИБКА! Прервана разборка!"))
 		return RCD_ACT_FAILED
 	to_chat(user, span_warning("ОШИБКА! Недостаточно вещества в устройстве для разборки этой стены!"))
-	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
 /turf/simulated/wall/mech_melee_attack(obj/mecha/M)
@@ -378,7 +378,7 @@
 			return
 
 	to_chat(user, span_notice("Вы толкаете стену, но ничего не происходит"))
-	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
+	playsound(src, 'sound/weapons/genhit.ogg', 25, TRUE)
 	add_fingerprint(user)
 	return ..()
 
@@ -466,7 +466,7 @@
 /turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, span_notice("Вы начинаете прорезать внешнюю обшивку."))
-		playsound(src, I.usesound, 100, 1)
+		playsound(src, I.usesound, 100, TRUE)
 
 		var/delay = istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 12 SECONDS : 6 SECONDS
 		if(do_after(user, delay * I.toolspeed, src, category = DA_CAT_TOOL))
@@ -523,7 +523,7 @@
 	if(istype(I, /obj/item/pipe))
 		var/obj/item/pipe/P = I
 		if(P.pipe_type != -1) // ANY PIPE
-			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, 1)
+			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, TRUE)
 			user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] сверлить отверстие в [declent_ru(PREPOSITIONAL)]."), span_notice("Вы начинаете сверлить отверстие в [declent_ru(PREPOSITIONAL)]."), span_italics("Слышен звук дрели."))
 
 			if(do_after(user, 8 SECONDS * P.toolspeed, src, category = DA_CAT_TOOL))
@@ -550,7 +550,7 @@
 		I.deplete_spell()
 		ChangeTurf(/turf/simulated/floor/plating)
 		new /obj/structure/falsewall/clockwork(src) //special falsewalls
-		playsound(src, 'sound/magic/cult_spell.ogg', 100, 1)
+		playsound(src, 'sound/magic/cult_spell.ogg', 100, TRUE)
 		return TRUE
 	return FALSE
 

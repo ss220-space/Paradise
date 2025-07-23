@@ -274,7 +274,7 @@
 		user.do_attack_animation(src)
 		user.changeNext_move(CLICK_CD_MELEE)
 		deal_damage(user.obj_damage)
-		playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
+		playsound(src.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
 		to_chat(user, span_warning("Вы наносите удар по [src.declent_ru(DATIVE)]!"))
 		visible_message(span_warning("[capitalize(user)] пробивает броню [src.declent_ru(GENITIVE)]"))
 
@@ -809,7 +809,7 @@
 		H.forceMove(src)
 		passengers += H
 		H.forceMove(src)
-		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 		return 1
 
 /obj/spacepod/MouseDrop_T(mob/living/dropping, mob/living/user, params)
@@ -901,14 +901,14 @@
 				user.forceMove(src)
 				GrantActions(user)
 				add_fingerprint(user)
-				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+				playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 				return
 			if(passengers.len < max_passengers)
 				passengers += user
 				user.forceMove(src)
 				passanger_eject.Grant(user, src)
 				add_fingerprint(user)
-				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+				playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 			else
 				to_chat(user, span_notice("Вы слишком медлили. В следующий раз будьте быстрее."))
 		else

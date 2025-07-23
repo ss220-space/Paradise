@@ -6,8 +6,8 @@
 	item_state = ""	//no inhands
 	slot_flags = ITEM_SLOT_ACCESSORY
 	w_class = WEIGHT_CLASS_SMALL
-	pickup_sound = 'sound/items/handling/accessory_pickup.ogg'
-	drop_sound = 'sound/items/handling/accessory_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the tie may be attached to
 	var/obj/item/clothing/under/has_suit
