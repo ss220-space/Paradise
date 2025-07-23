@@ -1562,8 +1562,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/declent_ru_initial(case_id)
 	var/list/list_to_use = initial(ru_names)
 	if(length(list_to_use))
-		return list_to_use[case_id] || name
-	return name
+		return list_to_use[case_id] || initial(name)
+	return initial(name)
 
 /**
  * This proc is used for telling whether something can pass by this atom in a given direction, for use by the pathfinding system.
