@@ -410,4 +410,3 @@
 
 /mob/living/silicon/rust_heretic_act()
 	adjustBruteLoss(500)
-	
