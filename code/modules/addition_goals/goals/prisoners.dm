@@ -188,7 +188,7 @@
 		reward_number++
 	if(reward_cargopoints > 0)
 		report_text += "[reward_number]. [reward_cargopoints] очков поставки в карго.<br>"
-	else if reward_cargopoints < 0)
+	else if(reward_cargopoints < 0)
 		report_text += "[reward_number]. Штраф в размере [reward_cargopoints] очков поставки в карго.<br>"
 	system.add_reward(reward_credits, reward_cargopoints)
 	var/paper_content = system.create_paper_content("Отчет о заключении под стражу №[request_number]", report_text, "Официальный документ заверенный печатью Центрального Командования Нанотрейзен")
