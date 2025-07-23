@@ -751,7 +751,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		"heads" = "Орёл",
 		"tails" = "Решка",
 		"valid" = "Ребро",
-		"salad" = "ERROR"
+		"salad" = "ERROR",
+		"blade" = "клинок",
+		"heretic" = "еретик",
 	)
 	var/ru_result = (coinflip in ru_coinflip) ? ru_coinflip[coinflip] : coinflip
 	user.visible_message(

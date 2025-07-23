@@ -48,8 +48,6 @@
 	if (is_space_or_openspace(my_turf) || my_area.outdoors && lavaland_equipment_pressure_check(my_turf))
 		return TRUE
 
-	if(feedback)
-		to_chat(action.owner, span_warning("You must stand in space, or an outdoor area with low pressure!"))
 	return FALSE
 
 /obj/effect/proc_holder/spell/jaunt/space_crawl/cast(list/targets)
@@ -128,19 +126,17 @@
 	our_turf.visible_message(span_boldwarning("[jaunter] rises out of [our_turf]!"))
 	return TRUE
 
-/obj/effect/proc_holder/spell/jaunt/space_crawl/on_jaunt_exited(obj/effect/dummy/spell_jaunt/jaunt, mob/living/unjaunter)
+/obj/effect/proc_holder/spell/jaunt/space_crawl/on_jaunt_exited(obj/effect/dummy/spell_jaunt/jaunt, mob/living/carbon/human/unjaunter)
 	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(unjaunter, list(SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING)))
 	playsound(get_turf(unjaunter), 'sound/magic/cosmic_energy.ogg', 50, TRUE, -1)
 	new /obj/effect/temp_visual/space_explosion(get_turf(unjaunter))
-	if(!iscarbon(unjaunter))
+	if(!ishuman(unjaunter))
 		return ..()
 
-	/*
-	for(var/obj/item/space_crawl/space_hand in unjaunter.held_items)
+	for(var/obj/item/space_crawl/space_hand in unjaunter.get_held_items())
 		unjaunter.drop_item_ground(space_hand, force = TRUE)
 		qdel(space_hand)
-	*/
 
 	return ..()
 

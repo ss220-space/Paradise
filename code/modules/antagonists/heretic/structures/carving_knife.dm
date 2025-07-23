@@ -61,7 +61,7 @@
 	if(!IS_HERETIC_OR_MONSTER(user))
 		return
 
-	if(iswallturf(target) || is_type_in_typecache(target, blacklisted_turfs))
+	if(iswallturf(target) || is_type_in_typecache(target, blacklisted_turfs) || ismob(target))
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(try_carve_rune), target, user)

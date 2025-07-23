@@ -14,7 +14,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
 	fire_sound = 'sound/weapons/gunshots/shot.ogg'
 
-	SET_BASE_PIXEL(-8, 0)
+	//SET_BASE_PIXEL(-8, 0)
 
 /*
 /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/Initialize(mapload)

@@ -26,9 +26,7 @@
 // Before the cast, we do some small AOE damage around the caster
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/before_cast(list/targets)
 	. = ..()
-	if(. & SPELL_CANCEL_CAST)
-		return
-	
+
 	for(var/mob/living/carbon/cast_on in targets)
 		if(cast_on.handcuffed)
 			cast_on.visible_message(span_danger("[cast_on.handcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(cast_on.handcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(cast_on.gender, "ит", "ят")] [cast_on.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(cast_on.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))

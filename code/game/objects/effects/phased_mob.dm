@@ -85,7 +85,7 @@
 	SHOULD_CALL_PARENT(FALSE)
 	return
 
-
+/*
 /obj/effect/dummy/spell_jaunt/relaymove(mob/living/user, direction)
 	var/turf/newloc = phased_check(user, direction)
 	if(!newloc)
@@ -95,7 +95,7 @@
 		setDir(direction)
 
 	forceMove(newloc)
-
+*/
 
 /// Checks if the conditions are valid to be able to phase. Returns a turf destination if positive.
 /obj/effect/dummy/spell_jaunt/proc/phased_check(mob/living/user, direction)

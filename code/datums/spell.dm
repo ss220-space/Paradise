@@ -779,13 +779,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/spell/pointed/add_mousepointer(client/on_who)
 	. = ..()
-	on_activation(on_who)
+	on_activation(on_who.eye)
 
 
 // Note: Destroy() calls Remove(), Remove() calls remove_mousepointer() if our spell is active.
 /obj/effect/proc_holder/spell/pointed/remove_mousepointer(client/on_who, refund_cooldown = TRUE)
 	. = ..()
-	on_deactivation(on_who, refund_cooldown = refund_cooldown)
+	on_deactivation(on_who.eye, refund_cooldown = refund_cooldown)
 
 
 /obj/effect/proc_holder/spell/pointed/before_cast(atom/cast_on)

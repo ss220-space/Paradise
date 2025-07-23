@@ -76,7 +76,7 @@
 	gender = FEMALE
 	icon_state = "coin_heretic"
 	//custom_materials = list(/datum/material/diamond =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/plasma =HALF_SHEET_MATERIAL_AMOUNT)
-	sideslist = list("еретик", "клинок")
+	sideslist = list("heretic", "blade")
 	//heads_name = "heretic"
 	//has_action = TRUE
 	//material_flags = NONE
@@ -95,7 +95,7 @@
 
 /obj/item/coin/eldritch/on_result_act(coinflip)
 	switch(coinflip)
-		if("еретик")
+		if("heretic")
 			for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, src))
 				if(target_airlock.density)
 					target_airlock.open()
@@ -103,7 +103,7 @@
 
 				target_airlock.close()
 
-		if("клинок")
+		if("blade")
 			for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, src))
 				if(target_airlock.locked)
 					target_airlock.unlock()

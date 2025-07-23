@@ -46,7 +46,7 @@
 
 /datum/component/proximity_monitor/Destroy(force)
 	hasprox_receiver = null
-	nested_receiver_locs.Cut()
+	nested_receiver_locs?.Cut()
 	QDEL_LIST(proximity_checkers)
 	return ..()
 
