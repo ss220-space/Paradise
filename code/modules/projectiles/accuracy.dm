@@ -1,34 +1,25 @@
 // Accuracy datum for /obj/item/gun
 
 /// Default accuracy for all projectile weapon
-#define GUN_ACCURACY_DEFAULT new /datum/gun_accuracy(head_value = 75, chest_value = 100, arms_value = 66, legs_value = 66, hand_value = 50, foots_value = 50, other_value = 50)
+#define GUN_ACCURACY_DEFAULT new /datum/gun_accuracy/default()
 /// Rifle accuracy (more than default)
-#define GUN_ACCURACY_RIFLE new /datum/gun_accuracy(head_value = 90, chest_value = 100, arms_value = 80, legs_value = 80, hand_value = 66, foots_value = 66, other_value = 66)
+#define GUN_ACCURACY_RIFLE new /datum/gun_accuracy/rifle()
 /// Shotgun accuracy (less than default)
-#define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy(head_value = 70, chest_value = 100, arms_value = 60, legs_value = 60, hand_value = 50, foots_value = 50, other_value = 50)
+#define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
 /// Sniper rifle accuracy (100% hit)
-#define GUN_ACCURACY_SNIPER new /datum/gun_accuracy(head_value = 100, chest_value = 100, arms_value = 100, legs_value = 100, hand_value = 100, foots_value = 100, other_value = 100)
+#define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
 GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAULT)
 
 /datum/gun_accuracy
-	var/head
-	var/chest
-	var/arms
-	var/legs
-	var/hands
-	var/foots
-	var/other  //tail, wings
+	var/head = 100
+	var/chest = 100
+	var/arms = 100
+	var/legs = 100
+	var/hands = 100
+	var/foots = 100
+	var/other = 100  //tail, wings
 
-/datum/gun_accuracy/New(head_value = 100, chest_value = 100, arms_value = 100, legs_value = 100, hand_value = 100, foots_value = 100, other_value = 100)
-	. = ..()
-	head = head_value
-	chest = chest_value
-	arms = arms_value
-	legs = legs_value
-	hands = hand_value
-	foots = foots_value
-	other = other_value
 
 /datum/gun_accuracy/proc/getList()
 	return list("head" = head, "chest" = chest, "arms" = arms, "legs" = legs, "hands" = hands, "foots" = foots, "other" = other)
@@ -51,7 +42,52 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 			return other
 
 /proc/getAccuracy(head = 100, chest = 100, arms = 100, legs = 100, hands = 100, foots = 100, other = 100)
-	. = new /datum/gun_accuracy(head, chest, arms, legs, hands, foots, other)
+	var/datum/gun_accuracy/acc = new /datum/gun_accuracy()
+	acc.head = head
+	acc.chest = chest
+	acc.arms = arms
+	acc.legs = legs
+	acc.hands = hands
+	acc.foots = foots
+	acc.other = other
+	return acc
+
+
+/datum/gun_accuracy/shotgun
+	head = 70
+	chest = 100
+	arms = 60
+	legs = 60
+	hands = 50
+	foots = 50
+	other = 50
+
+/datum/gun_accuracy/default
+	head = 75
+	chest = 100
+	arms = 66
+	legs = 66
+	hands = 50
+	foots = 50
+	other = 50
+
+/datum/gun_accuracy/rifle
+	head = 90
+	chest = 100
+	arms = 80
+	legs = 80
+	hands = 66
+	foots = 66
+	other = 66
+
+/datum/gun_accuracy/sniper
+	head = 100
+	chest = 100
+	arms = 100
+	legs = 100
+	hands = 100
+	foots = 100
+	other = 100
 
 
 /obj/projectile/proc/calculate_hit_chance(obj/projectile/projectile, mob/living/target)
