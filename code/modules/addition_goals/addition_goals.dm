@@ -177,17 +177,14 @@ SUBSYSTEM_DEF(addition_goals)
 
 /datum/controller/subsystem/addition_goals/proc/print_accept_goal_details(mob/user, datum/addition_goal/goal)
 	var/report = goal.format_accept_report(user)
-	report += "<br><b>Награда при выполнении запроса:</b><br>"
+	report += "<br><br><b>Награда при выполнении запроса:</b>"
 	var/reward_number = 1
 	if(goal.reward_credits > 0)
-		report += "[reward_number]. [goal.reward_credits] кредитов на счет станции."
+		report += "<br>[reward_number]. [goal.reward_credits] кредитов на счет станции."
 		reward_number++
 	if(goal.reward_cargopoints > 0)
-		report += "[reward_number]. [goal.reward_cargopoints] очков поставки в карго."
-	report += "<hr><b>Капитан станции <span class=\"paper_field\"></b>: <span class=\"paper_field\"><br>"
-	report += "<b>Время принятия запроса</b>: <span class=\"paper_field\"><br>"
-	var/addition = "Данный запрос считается действительным только при наличии печати Центрального Командоваия Нанотрейзен.<br>"
-	addition += "Для подтверждения получения запроса капитану станции необходимо поставить свою печать и подпись."
+		report += "<br>[reward_number]. [goal.reward_cargopoints] очков поставки в карго."
+	var/addition = "Данный запрос считается действительным только при наличии печати Центрального Командоваия Нанотрейзен"
 	var/report_message = create_paper_content(goal.name, report, addition)
 	print_report_on_console(goal.name, report_message, stamp = TRUE)
 
@@ -258,9 +255,22 @@ SUBSYSTEM_DEF(addition_goals)
 	return FALSE
 
 
+GLOBAL_LIST_INIT(addition_goal_spawn_human_types, list(
+	/mob/living/carbon/human,
+	/mob/living/carbon/human/vulpkanin,
+	/mob/living/carbon/human/tajaran,
+	/mob/living/carbon/human/unathi,
+	/mob/living/carbon/human/skrell,
+	/mob/living/carbon/human/kidan,
+	/mob/living/carbon/human/kidan
+))
 
 /obj/effect/mob_spawn/human/addition_goal
 	roundstart = FALSE
 	instant = FALSE
 	random = TRUE
 	uses = -1
+
+/obj/effect/mob_spawn/human/addition_goal/create(mob/plr, flavour, name, prefs, _mob_name, _mob_gender, _mob_species)
+	mob_type = pick(GLOB.addition_goal_spawn_human_types)
+	. = ..()

@@ -106,7 +106,7 @@
 	report_text += "<b>Общий прогресс запроса</b>: [progress]%<br>"
 	report_text += "<b>Ваша награда</b>:<br>"
 	reward_credits = reward_credits * (progress / 100)
-	reward_cargopoints = reward_credits * (progress / 100)
+	reward_cargopoints = reward_cargopoints * (progress / 100)
 	var/reward_number = 1
 	if(reward_credits > 0)
 		report_text += "[reward_number]. [reward_credits] кредитов на счет станции.<br>"
