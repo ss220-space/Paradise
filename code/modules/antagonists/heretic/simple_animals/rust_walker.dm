@@ -32,7 +32,8 @@
 		/obj/effect/proc_holder/spell/aoe/rust_conversion = BB_GENERIC_ACTION,
 		/obj/effect/proc_holder/spell/fireball/rust_wave/short = BB_TARGETED_ACTION,
 	)
-	grant_actions_by_list(grantable_spells)
+	for(var/path in grantable_spells)
+		mind.AddSpell(new path)
 
 
 /mob/living/simple_animal/hostile/heretic_summon/rust_walker/setDir(newdir)

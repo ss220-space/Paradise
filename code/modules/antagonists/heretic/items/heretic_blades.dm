@@ -1,7 +1,16 @@
 
 /obj/item/melee/sickly_blade
-	name = "\improper sickly blade"
-	desc = "A sickly green crescent blade, decorated with an ornamental eye. You feel like you're being watched..."
+	name = "серповидный клинок"
+	ru_names = list(
+		NOMINATIVE = "серповидный клинок",
+		GENITIVE = "серповидного клинка",
+		DATIVE = "серповидному клинку",
+		ACCUSATIVE = "серповидный клинок",
+		INSTRUMENTAL = "серповидным клинком",
+		PREPOSITIONAL = "серповидном клинке",
+	)
+	desc = "Болезненно-зелёный клинок в форме полумесяца, украшенный реалистичным декоративным глазом. \
+			Возможно даже слишком реалистичным... Стоп, он что, моргнул?"
 	icon = 'icons/obj/weapons/khopesh.dmi'
 	icon_state = "eldritch_blade"
 	item_state = "eldritch_blade"
@@ -22,7 +31,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 35
 	//attack_verb_continuous = list("attacks", "slashes", "slices", "tears", "lacerates", "rips", "dices", "rends")
-	attack_verb = list("attack", "slash", "slice", "tear", "lacerate", "rip", "dice", "rend")
+	attack_verb = list("атакует", "режет", "рубит", "крамсает", "царапает", "разрывает", "сечёт")
 	var/after_use_message = ""
 	/// Tracks how many times attack_self() is called so that breaking a blade while in an arena has to be intentional
 	var/escape_attempts = 0
@@ -35,7 +44,7 @@
 	if(!check_usability(user))
 		return
 
-	. += span_notice("You can shatter the blade to teleport to a random, (mostly) safe location by <b>activating it in-hand</b>.")
+	. += span_notice("Вы можете разбить клинок, чтобы телепортироваться в случайное, обычно безопасное место, <b>сжав его в руке</b>.")
 
 
 /// Checks if the passed mob can use this blade without being stunned
@@ -47,7 +56,7 @@
 	if(check_usability(user))
 		return ..()
 
-	to_chat(user, span_danger("You feel a pulse of alien intellect lash out at your mind!"))
+	to_chat(user, span_danger("Вы чувствуете, как нечто инородное вторгается в ваш разум!"))
 	var/mob/living/carbon/human/human_user = user
 	human_user.AdjustParalysis(5 SECONDS)
 	return ATTACK_CHAIN_BLOCKED_ALL
@@ -57,17 +66,18 @@
 	if(!HAS_TRAIT(user, TRAIT_ELDRITCH_ARENA_PARTICIPANT))
 		if(!HAS_TRAIT(user, TRAIT_NO_TELEPORT))
 			seek_safety(user)
+			return
 
-		user.balloon_alert(user, "can't break!")
+		user.balloon_alert(user, "не телепортироваться!")
 		return
 
-	user.balloon_alert(user, "can't escape!")
+	user.balloon_alert(user, "не сбежать!")
 	if(escape_attempts <= 2)
 		escape_attempts++
 		escape_timer = addtimer(CALLBACK(src, PROC_REF(reset_attempts)), 2 SECONDS, TIMER_STOPPABLE)
 		return
 
-	to_chat(user, span_hypnophrase(span_big("Cowardly sheep will be slaughtered!")))
+	to_chat(user, span_hypnophrase(span_big("Трусливые овцы будут зарезаны!")))
 	playsound(src, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 70, TRUE)
 	var/obj/item/organ/external/to_remove = user.get_active_hand()
 	to_remove.dismember()
@@ -83,15 +93,18 @@
 
 /// Attempts to teleport the passed mob to somewhere safe on the station, if they can use the blade.
 /obj/item/melee/sickly_blade/proc/seek_safety(mob/user)
+	if(!do_after(user, 0.5 SECONDS, src))
+		return
+		
 	var/turf/safe_turf = find_safe_turf(zlevels = z/*, extended_safety_checks = TRUE*/)
 	if(!check_usability(user))
-		to_chat(user,span_warning("You shatter [src]."))
+		to_chat(user, span_warning("Вы разбиваете [declent_ru(ACCUSATIVE)]."))
 		playsound(src, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 70, TRUE) //copied from the code for smashing a glass sheet onto the ground to turn it into a shard
 		qdel(src)
 		return
 
 	if(do_teleport(user, safe_turf))
-		to_chat(user, span_warning("As you shatter [src], you feel a gust of energy flow through your body. [after_use_message]"))
+		to_chat(user, span_warning("После разбивания [declent_ru(GENITIVE)], вы чувствуете, как по вашему телу проходит поток энергии. [after_use_message]"))
 	else
 		to_chat(user, span_warning("You shatter [src], but your plea goes unanswered."))
 

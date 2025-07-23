@@ -120,7 +120,7 @@
 
 
 /datum/heretic_knowledge/key_ring/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	var/obj/item/card/id = locate(/obj/item/card/id/advanced) in selected_atoms
+	var/obj/item/card/id = locate(/obj/item/card/id) in selected_atoms
 	if(isnull(id))
 		return FALSE
 

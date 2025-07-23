@@ -1116,6 +1116,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			H.nightvision += 1 // base of 2, 2+1 is 3
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
+	if(HAS_TRAIT(H, TRAIT_THERMAL_VISION))
+		H.add_sight(SEE_MOBS)
+		H.nightvision += 1
+		H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in H.internal_organs)
 		H.add_sight(cyber_eyes.vision_flags)

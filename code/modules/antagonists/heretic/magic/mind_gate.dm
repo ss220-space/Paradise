@@ -28,7 +28,8 @@
 	return ..() && ishuman(cast_on)
 
 
-/obj/effect/proc_holder/spell/pointed/mind_gate/cast(mob/living/carbon/human/cast_on)
+/obj/effect/proc_holder/spell/pointed/mind_gate/cast(list/targets)
+	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, span_notice("Your mind feels closed."))

@@ -473,6 +473,7 @@
 	/// Used for the swap hands/drop tutorials to know when you might just be trying to do something normally.
 	/// Does not necessarily imply success, or even that it did hit an item, just intent.
 	#define COMPONENT_AFTERATTACK_PROCESSED_ITEM (1<<0)
+	#define COMPONENT_AFTERATTACK_STOP (1<<1)
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, proxiumity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_ATTACK_QDELETED "mob_item_attack_qdeleted"
 ///from base of mob/RangedAttack(): (atom/A, params)

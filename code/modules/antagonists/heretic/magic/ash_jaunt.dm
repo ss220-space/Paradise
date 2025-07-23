@@ -18,7 +18,7 @@
 	sound_out = null
 	jaunt_duration = 1.1 SECONDS
 	jaunt_in_time = 1.3 SECONDS
-	jaunt_type_path = /obj/effect/dummy/phased_mob/spell_jaunt/red
+	jaunt_type_path = /obj/effect/dummy/spell_jaunt/red
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/ash_shift/out
 
 
@@ -40,5 +40,5 @@
 
 
 /// Red coloured variant
-/obj/effect/dummy/phased_mob/spell_jaunt/red
-	phased_mob_icon_state = "red_1"
+/obj/effect/dummy/spell_jaunt/red
+	icon_state = "red_1"

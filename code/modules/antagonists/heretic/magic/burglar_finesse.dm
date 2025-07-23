@@ -25,7 +25,8 @@
 	return ..() && isstorage(back_item)
 
 
-/obj/effect/proc_holder/spell/pointed/burglar_finesse/cast(mob/living/carbon/human/cast_on)
+/obj/effect/proc_holder/spell/pointed/burglar_finesse/cast(list/targets)
+	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, span_danger("You feel a light tug, but are otherwise fine, you were protected by holiness!"))

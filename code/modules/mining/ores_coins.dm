@@ -731,25 +731,36 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		qdel(src)
 
 
+/obj/item/coin/proc/on_result_act(coinflip)
+	return
+	
+
 /obj/item/coin/attack_self(mob/user)
-	if(cooldown < world.time - 15)
-		var/coinflip = pick(sideslist)
-		cooldown = world.time
-		flick("coin_[cmineral]_flip", src)
-		icon_state = "coin_[cmineral]_[coinflip]"
-		playsound(user.loc, 'sound/items/coinflip.ogg', 50, TRUE)
-		if(do_after(user, 1.5 SECONDS, src))
-			var/ru_coinflip = list(
-				"heads" = "Орёл",
-				"tails" = "Решка",
-				"valid" = "Ребро",
-				"salad" = "ERROR"
-			)
-			user.visible_message(
-				span_notice("[user] подбрасыва[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
-				span_notice("Вы подбросили [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
-				span_notice("Слышен звон монеты.")
-			)
+	if(cooldown >= world.time - 15)
+		return
+
+	var/coinflip = pick(sideslist)
+	cooldown = world.time
+	flick("coin_[cmineral]_flip", src)
+	icon_state = "coin_[cmineral]_[coinflip]"
+	playsound(user.loc, 'sound/items/coinflip.ogg', 50, TRUE)
+	if(!do_after(user, 1.5 SECONDS, src))
+		return
+
+	var/ru_coinflip = list(
+		"heads" = "Орёл",
+		"tails" = "Решка",
+		"valid" = "Ребро",
+		"salad" = "ERROR"
+	)
+	var/ru_result = (coinflip in ru_coinflip) ? ru_coinflip[coinflip] : coinflip
+	user.visible_message(
+		span_notice("[user] подбрасыва[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]. Выпало: [ru_result]."),
+		span_notice("Вы подбросили [declent_ru(ACCUSATIVE)]. Выпало: [ru_result]."),
+		span_notice("Слышен звон монеты.")
+	)
+	on_result_act(coinflip)
+
 
 /obj/item/coin/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(istype(throwingdatum?.thrower?.mind?.martial_art, /datum/martial_art/mr_chang))

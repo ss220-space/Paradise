@@ -12,11 +12,11 @@
 // Sidepaths for knowledge between Cosmos and Ash.
 
 /datum/heretic_knowledge/summon/fire_shark
-	name = "Scorching Shark"
-	desc = "Allows you to transmute a pool of ash, a liver, and a sheet of plasma into a Fire Shark. \
-		Fire Sharks are fast and strong in groups, but die quickly. They are also highly resistant against fire attacks. \
-		Fire Sharks inject phlogiston into its victims and spawn plasma once they die."
-	gain_text = "The cradle of the nebula was cold, but not dead. Light and heat flits even through the deepest darkness, and is hunted by its own predators."
+	name = "Огненная Акула"
+	desc = "Позволяет преобразовать горстку пепла, печень и лист плазмы в Огненную Акулу. \
+			Огненные Акулы быстры и сильны в группах, но быстро погибают. Они также очень устойчивы к огню. \
+			Огненные Акулы впрыскивают в своих жертв флогистон и выделяют плазму после смерти."
+	gain_text = "Колыбель туманности была холодной, но не мертвой. Свет и тепло проникают даже сквозь самую глубокую тьму, но даже за ними охотятся хищники."
 
 	required_atoms = list(
 		/obj/effect/decal/cleanable/ash = 1,
@@ -30,25 +30,26 @@
 
 	research_tree_icon_dir = EAST
 
+
 /datum/heretic_knowledge/spell/space_phase
-	name = "Space Phase"
-	desc = "Grants you Space Phase, a spell that allows you to move freely through space. \
-		You can only phase in and out when you are on a space or misc turf."
-	gain_text = "You feel like your body can move through space as if you where dust."
+	name = "Пустотный Сдвиг"
+	desc = "Даёт вам способность «Пустотный Сдвиг» — заклинание, позволяющее свободно перемещаться в пространстве. \
+			Вы можете переходить в фазу и обратно, только находясь в месте с низким давлением."
+	gain_text = "Вы чувствуете, что ваше тело может перемещаться в пространстве, словно вы космическая пыль."
 
 	spell_to_add = /obj/effect/proc_holder/spell/jaunt/space_crawl
 	cost = 1
 
-
 	research_tree_icon_frame = 6
 
+
 /datum/heretic_knowledge/eldritch_coin
-	name = "Eldritch Coin"
-	desc = "Allows you to transmute a sheet of plasma and a diamond to create an Eldritch Coin. \
-		The coin will open or close nearby doors when landing on heads and toggle their bolts \
-		when landing on tails. If you insert the coin into an airlock, it will be consumed \
-		to fry its electronics, opening the airlock permanently unless bolted. "
-	gain_text = "The Mansus is a place of all sorts of sins. But greed held a special role."
+	name = "Жуткая Монета"
+	desc = "Позволяет преобразовать лист плазмы и алмаз в Жуткую Монету. \
+			Монета будет открывать или закрывать ближайшие шлюзы при выпадении орла и переключать их болты \
+			при выпадении решки. Если вставить монету в шлюз, она будет уничтожена \
+			и сожжёт его электронику, что сделает шлюз открытым навсегда, если только он небыл заблокирован."
+	gain_text = "Мансус — сборище всевозможных грехов. Но жадность играет здесь особую роль."
 
 	required_atoms = list(
 		/obj/item/stack/sheet/mineral/diamond = 1,
@@ -62,16 +63,26 @@
 
 
 /obj/item/coin/eldritch
-	name = "eldritch coin"
-	desc = "A surprisingly heavy, ornate coin. Its sides seem to depict a different image each time you look."
+	name = "жуткая монета"
+	ru_names = list(
+		NOMINATIVE = "жуткая монета",
+		GENITIVE = "жуткой монеты",
+		DATIVE = "жуткой монете",
+		ACCUSATIVE = "жуткую монету",
+		INSTRUMENTAL = "жуткой монетой",
+		PREPOSITIONAL = "жуткой монете",
+	)
+	desc = "Удивительно тяжёлая, богато украшенная монета. Рисунки на гранях постоянно меняются."
+	gender = FEMALE
 	icon_state = "coin_heretic"
 	//custom_materials = list(/datum/material/diamond =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/plasma =HALF_SHEET_MATERIAL_AMOUNT)
-	sideslist = list("heretic", "blade")
+	sideslist = list("еретик", "клинок")
 	//heads_name = "heretic"
 	//has_action = TRUE
 	//material_flags = NONE
 	/// The range at which airlocks are effected.
 	var/airlock_range = 5
+
 
 /obj/item/coin/eldritch/attack_self(mob/user)
 	var/mob/living/living_user = user
@@ -79,27 +90,27 @@
 		living_user.adjustBruteLoss(5)
 		return
 
-	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
-		if(target_airlock.density)
-			target_airlock.open()
-			continue
+	return ..()
 
-		target_airlock.close()
 
-/*
-/obj/item/coin/eldritch/tails_action(mob/user)
-	var/mob/living/living_user = user
-	if(!isheretic(user))
-		living_user.adjustFireLoss(5)
-		return
+/obj/item/coin/eldritch/on_result_act(coinflip)
+	switch(coinflip)
+		if("еретик")
+			for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, src))
+				if(target_airlock.density)
+					target_airlock.open()
+					continue
 
-	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
-		if(target_airlock.locked)
-			target_airlock.unlock()
-			continue
+				target_airlock.close()
 
-		target_airlock.lock()
-*/
+		if("клинок")
+			for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, src))
+				if(target_airlock.locked)
+					target_airlock.unlock()
+					continue
+
+				target_airlock.lock()
+
 
 /obj/item/coin/eldritch/afterattack(atom/interacting_with, mob/living/user, proximity, params, status)
 	if(!istype(interacting_with, /obj/machinery/door/airlock))
@@ -112,7 +123,7 @@
 		return
 
 	var/obj/machinery/door/airlock/target_airlock = interacting_with
-	to_chat(user, span_warning("You insert [src] into the airlock."))
+	to_chat(user, span_warning("Вы вставляете [declent_ru(ACCUSATIVE)] в шлюз."))
 	target_airlock.emag_act(user, src)
 	qdel(src)
 	return

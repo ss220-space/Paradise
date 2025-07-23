@@ -30,7 +30,8 @@
 		return SPELL_CANCEL_CAST
 
 
-/obj/effect/proc_holder/spell/pointed/void_prison/cast(mob/living/carbon/human/cast_on)
+/obj/effect/proc_holder/spell/pointed/void_prison/cast(list/targets)
+	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	if(!cast_on.can_block_magic(antimagic_flags))
 		cast_on.apply_status_effect(/datum/status_effect/void_prison, "void_stasis")

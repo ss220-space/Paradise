@@ -27,7 +27,8 @@
 /obj/effect/proc_holder/spell/fire_sworn/valid_target(atom/cast_on)
 	return isliving(cast_on)
 
-/obj/effect/proc_holder/spell/fire_sworn/cast(mob/living/cast_on)
+/obj/effect/proc_holder/spell/fire_sworn/cast(list/targets)
+	var/mob/living/cast_on = targets[1]
 	. = ..()
 	cast_on.apply_status_effect(/datum/status_effect/fire_ring, duration, fire_radius)
 

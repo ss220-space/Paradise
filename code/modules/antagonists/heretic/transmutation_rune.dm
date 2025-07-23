@@ -47,10 +47,21 @@
 	return TRUE
 
 
-/obj/effect/decal/heretic_rune/attackby(obj/item/item, mob/living/user, params)
-	. = ..()
+/obj/effect/decal/heretic_rune/attack_hand(mob/living/user, list/modifiers)
 	if(!can_interact(user))
 		return ATTACK_CHAIN_BLOCKED_ALL
+
+	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(try_rituals), user)
+	return ATTACK_CHAIN_PROCEED
+
+
+/obj/effect/decal/heretic_rune/attackby(obj/item/item, mob/living/user, params)
+	
+	if(istype(item, /obj/item/melee/touch_attack/mansus_fist))
+		user.balloon_alert(user, "руна стерта")
+		qdel(src)
+		return ATTACK_CHAIN_PROCEED
 
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(try_rituals), user)
@@ -267,9 +278,9 @@
 
 /obj/effect/temp_visual/drawing_heretic_rune/fast
 	duration = 12 SECONDS
-	animation_state = "transmutation_rune_fast"
+	animation_state = "transmutation_rune_fast_colour"
 
 
 /obj/effect/temp_visual/drawing_heretic_rune/fail
 	duration = 0.25 SECONDS
-	animation_state = "transmutation_rune_fail"
+	animation_state = "transmutation_rune_fail_colour"

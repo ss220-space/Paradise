@@ -215,6 +215,10 @@
 		charge_overlay_instance = mutable_appearance(charge_overlay_icon, charge_overlay_state, EFFECTS_LAYER)
 
 
+/obj/effect/proc_holder/spell/charged/create_new_targeting()
+	return new /datum/spell_targeting/clicked_atom
+
+
 /obj/effect/proc_holder/spell/charged/Destroy()
 	if(action.owner)
 		stop_channel_effect(action.owner)
@@ -244,11 +248,12 @@
 	return FALSE
 
 
-/obj/effect/proc_holder/spell/charged/before_cast(atom/cast_on)
+/obj/effect/proc_holder/spell/charged/before_cast(list/targets)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
+	var/atom/cast_on = targets[0]
 	to_chat(cast_on, channel_message)
 
 	if(charge_sound_instance)

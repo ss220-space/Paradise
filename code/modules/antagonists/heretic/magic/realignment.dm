@@ -24,7 +24,8 @@
 	return isliving(cast_on)
 
 
-/obj/effect/proc_holder/spell/realignment/cast(mob/living/cast_on)
+/obj/effect/proc_holder/spell/realignment/cast(list/targets)
+	var/mob/living/cast_on = targets[1]
 	. = ..()
 	cast_on.apply_status_effect(/datum/status_effect/realignment)
 	to_chat(cast_on, span_notice("We begin to realign ourselves."))

@@ -43,6 +43,9 @@
 		SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
 		return ..()
 
+	if(isturf(victim))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(!isliving(victim))
 		return ..()
 

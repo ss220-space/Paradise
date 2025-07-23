@@ -29,8 +29,9 @@
 	return ..() && ishuman(cast_on)
 
 
-/obj/effect/proc_holder/spell/pointed/moon_smile/cast(mob/living/carbon/human/cast_on)
+/obj/effect/proc_holder/spell/pointed/moon_smile/cast(list/targets)
 	. = ..()
+	var/mob/living/carbon/human/cast_on = targets[1]
 	var/moon_smile_duration = 15 SECONDS
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, span_notice("The moon turns, its smile no longer set on you."))

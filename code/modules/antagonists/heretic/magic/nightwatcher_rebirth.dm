@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/aoe/fiery_rebirth
-	name = "Nightwatcher's Rebirth"
+	name = "Возрождение Ночного Дозорного"
 	desc = "A spell that extinguishes you and drains nearby heathens engulfed in flames of their life force, \
 		healing you for each victim drained. Those in critical condition \
 		will have the last of their vitality drained, killing them."
@@ -17,20 +17,18 @@
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
 
-/obj/effect/proc_holder/spell/aoe/fiery_rebirth/cast(mob/living/carbon/human/cast_on)
-	cast_on.ExtinguishMob()
-	return ..()
-
-
 /obj/effect/proc_holder/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)
 	var/list/things = list()
 	for(var/mob/living/carbon/nearby_mob in range(aoe_range, center))
 		if(nearby_mob == action.owner || nearby_mob == center)
 			continue
+
 		if(!nearby_mob.mind || !nearby_mob.client)
 			continue
+
 		if(IS_HERETIC_OR_MONSTER(nearby_mob))
 			continue
+			
 		if(nearby_mob.stat == DEAD || !nearby_mob.on_fire)
 			continue
 

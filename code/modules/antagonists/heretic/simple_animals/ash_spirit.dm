@@ -29,4 +29,5 @@
 		/obj/effect/proc_holder/spell/ethereal_jaunt/ash,
 		/obj/effect/proc_holder/spell/pointed/cleave,
 	)
-	grant_actions_by_list(actions_to_add)
+	for(var/path in actions_to_add)
+		mind.AddSpell(new path)

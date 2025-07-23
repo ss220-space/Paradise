@@ -27,7 +27,8 @@
 	var/ascended = FALSE
 
 
-/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cast(mob/living/cast_on)
+/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cast(list/targets)
+	var/mob/living/cast_on = targets[1]
 	new expansion_effect(get_turf(cast_on))
 	for(var/mob/living/nearby_mob in range(star_mark_range, cast_on))
 		if(cast_on == nearby_mob || cast_on.buckled == nearby_mob)

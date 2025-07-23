@@ -34,10 +34,9 @@
 
 
 /datum/heretic_knowledge/rust_fist
-	name = "Grasp of Rust"
-	desc = "Your Прикосновение Мансуса will deal 500 damage to non-living matter and rust any surface it touches. \
-		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted by using Right-Click. \
-		Allows you to rust basic iron walls and floors."
+	name = "Прикосновение Ржавчины"
+	desc = "Ваше «Прикосновение Мансуса» будет наносить 500 ед. урона неживой материи и вызывать ржавчину на \
+			любой поверхности. Уже ржавые поверхности уничтожаются. Ржавчина вызывается альткликом."
 	gain_text = "Вокруг Мансуса ржавчина растёт, как мох на камне."
 	cost = 1
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
@@ -77,8 +76,8 @@
 
 
 /datum/heretic_knowledge/rust_regen
-	name = "Leeching Walk"
-	desc = "Grants you passive healing and resistance to batons while standing over rust."
+	name = "Прогулка по Ржавому Мосту"
+	desc = "Дает вам пассивное исцеление и сопротивление дубинкам, пока вы стоите на ржавчине."
 	gain_text = "Скорость его была невиданной, сила — нечеловеческой. Кузнец улыбался."
 	cost = 1
 	research_tree_icon_path = 'icons/effects/eldritch.dmi'
@@ -94,10 +93,9 @@
 
 
 /datum/heretic_knowledge/mark/rust_mark
-	name = "Mark of Rust"
-	desc = "Your Прикосновение Мансуса now applies the Mark of Rust. The mark is triggered from an attack with your Rusty Blade. \
-		When triggered, your victim will suffer heavy disgust and confusion. \
-		Allows you to rust reinforced walls and floors as well as plasteel."
+	name = "Метка Ржавчины"
+	desc = "Ваше «Прикосновение Мансуса» теперь накладывает Метку Ржавчины. Метка активируется атакой вашим Ржавым Клинком. \
+			При срабатывании метки ваша жертва испытает сильное отвращение и замешательство."
 	gain_text = "Кузнец смотрит вдаль. На место, что давно забыто. «Ржавые Холмы помогают нуждающимся... за определённую цену»."
 	mark_type = /datum/status_effect/eldritch/rust
 
@@ -106,7 +104,9 @@
 	. = ..()
 	our_heretic.increase_rust_strength()
 
+
 /datum/heretic_knowledge/knowledge_ritual/rust
+
 
 /datum/heretic_knowledge/spell/rust_construction
 	name = "Rust Construction"

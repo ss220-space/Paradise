@@ -20,7 +20,7 @@
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
-	jaunt_type = /obj/effect/dummy/phased_mob/spell_jaunt/space
+	jaunt_type = /obj/effect/dummy/spell_jaunt/space
 	///List of traits that are added to the heretic while in space phase jaunt
 	var/static/list/jaunting_traits = list(TRAIT_RESIST_COLD, TRAIT_RESIST_COLD, TRAIT_NO_BREATH)
 
@@ -36,17 +36,21 @@
 	. = ..()
 	if(!.)
 		return FALSE
+
 	var/turf/my_turf = get_turf(action.owner)
 	if(isspaceturf(my_turf))
 		return TRUE
+
 	var/area/my_area = get_area(action.owner)
 	if (is_space_or_openspace(my_turf) && my_area.outdoors && lavaland_equipment_pressure_check(my_turf))
 		return TRUE
+
 	if(feedback)
 		to_chat(action.owner, span_warning("You must stand in space, or an outdoor area with low pressure!"))
 	return FALSE
 
-/obj/effect/proc_holder/spell/jaunt/space_crawl/cast(mob/living/cast_on)
+/obj/effect/proc_holder/spell/jaunt/space_crawl/cast(list/targets)
+	var/mob/living/cast_on = targets[1]
 	. = ..()
 	// Should always return something because we checked that in can_cast before arriving here
 	var/turf/our_turf = get_turf(cast_on)
@@ -152,8 +156,8 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /// Different graphic for position indicator
-/obj/effect/dummy/phased_mob/spell_jaunt/space
-	phased_mob_icon_state = "solarflare"
+/obj/effect/dummy/spell_jaunt/space
+	icon_state = "solarflare"
 	movespeed = 0
 
 #undef SPACE_PHASING

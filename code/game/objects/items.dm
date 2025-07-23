@@ -361,7 +361,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/proc/afterattack(atom/target, mob/user, proximity, params, status)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params, status)
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity, params, status)
+	if(HASBIT(SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity, params, status), COMPONENT_AFTERATTACK_STOP))
+		return FALSE
+
+	return TRUE
 
 
 /obj/item/attack_hand(mob/user, pickupfireoverride = FALSE)

@@ -22,7 +22,8 @@
 	return ..() && ishuman(cast_on)
 
 
-/obj/effect/proc_holder/spell/pointed/apetra_vulnera/cast(mob/living/carbon/human/cast_on)
+/obj/effect/proc_holder/spell/pointed/apetra_vulnera/cast(list/targets)
+	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 
 	if(IS_HERETIC_OR_MONSTER(cast_on))

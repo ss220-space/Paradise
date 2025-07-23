@@ -136,6 +136,10 @@
 	if(!isheretic(user))
 		return
 
+	if(!fused_ids)
+		user.balloon_alert(user, "нет поглощенных карт")
+		return
+
 	var/cardname = tgui_input_list(user, "Shapeshift into?", "Shapeshift", fused_ids)
 	if(!cardname)
 		balloon_alert(user, "no options!")
@@ -200,8 +204,8 @@
 	balloon_alert(user, "[message]")
 
 
-/obj/item/card/id/advanced/heretic/afterattack(atom/target, mob/user, proximity, params)
-	if(!istype(target, /obj/item/card/id/advanced) || !isheretic(user))
+/obj/item/card/id/advanced/heretic/melee_attack_chain(mob/user, atom/target, params)
+	if(!istype(target, /obj/item/card/id) || !isheretic(user))
 		return ..()
 
 	eat_card(target, user)

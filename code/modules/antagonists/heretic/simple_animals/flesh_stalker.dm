@@ -31,7 +31,8 @@
 /mob/living/simple_animal/hostile/heretic_summon/stalker/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/ai_target_timer)
-	grant_actions_by_list(actions_to_add)
+	for(var/path in actions_to_add)
+		mind.AddSpell(new path)
 
 
 /// Changes shape and lies in wait when it has no target, uses EMP and attacks once it does

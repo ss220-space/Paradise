@@ -103,12 +103,18 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /datum/atom_hud/alternate_appearance/add_hud_to(atom/A, only_once=FALSE, image/I)
 	. = ..()
+	if(!A)
+		return
+
 	LAZYINITLIST(A.alternate_appearances)
 	A.alternate_appearances[appearance_key] = src
 
 
 /datum/atom_hud/alternate_appearance/remove_hud_from(atom/A)
 	. = ..()
+	if(!A)
+		return
+
 	LAZYREMOVE(A.alternate_appearances, appearance_key)
 
 
@@ -179,14 +185,17 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 
 /datum/atom_hud/alternate_appearance/basic/add_to_hud(atom/A)
-	LAZYINITLIST(A.hud_list)
+	if(!A)
+		return
+		
+	LAZYINITLIST(A?.hud_list)
 	A.hud_list[appearance_key] = image
 	. = ..()
 
 
 /datum/atom_hud/alternate_appearance/basic/remove_hud_from(atom/A)
 	. = ..()
-	LAZYREMOVE(A.hud_list, appearance_key)
+	LAZYREMOVE(A?.hud_list, appearance_key)
 	//A.set_hud_image_inactive(appearance_key)
 	if(. && !QDELETED(src))
 		qdel(src)

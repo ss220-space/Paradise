@@ -327,8 +327,11 @@
  * and have mansus grasp active in their offhand,
  * they're able to draw a transmutation rune.
  */
-/datum/antagonist/heretic/proc/on_item_use(mob/living/source, atom/target, obj/item/weapon, list/modifiers)
+/datum/antagonist/heretic/proc/on_item_use(mob/living/source, atom/target, obj/item/weapon, proximity, params, status)
 	SIGNAL_HANDLER
+	if(!proximity)
+		return NONE
+
 	if(!is_type_in_typecache(weapon, scribing_tools))
 		return NONE
 
@@ -340,7 +343,7 @@
 		return NONE
 
 	try_draw_rune(source, target, additional_checks = CALLBACK(src, PROC_REF(check_mansus_grasp_offhand), source))
-	//return ATTACK_CHAIN_SUCCESS
+	return COMPONENT_AFTERATTACK_STOP
 
 /**
  * Attempt to draw a rune on [target_turf].

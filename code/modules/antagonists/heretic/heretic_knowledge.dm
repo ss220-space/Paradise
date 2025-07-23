@@ -206,7 +206,7 @@
 	user.mind.AddSpell(new spell_to_add())
 
 /datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	user.mind.RemoveSpell(spell_to_add)
+	user.mind?.RemoveSpell(spell_to_add)
 
 /**
  * A knowledge subtype for knowledge that can only

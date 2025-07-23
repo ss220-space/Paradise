@@ -25,7 +25,8 @@
 	return ..() && ishuman(cast_on)
 
 
-/obj/effect/proc_holder/spell/pointed/cleave/cast(mob/living/carbon/human/cast_on)
+/obj/effect/proc_holder/spell/pointed/cleave/cast(list/targets)
+	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	for(var/mob/living/carbon/human/victim in range(cleave_radius, cast_on))
 		if(victim == action.owner || IS_HERETIC_OR_MONSTER(victim))
