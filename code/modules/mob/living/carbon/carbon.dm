@@ -548,6 +548,27 @@
 	return TRUE
 
 
+/mob/living/carbon/proc/get_throw_speed(speed)
+	var/list/speed_mods = list()
+	SEND_SIGNAL(src, COMSIG_GET_THROW_SPEED_MODIFIERS, speed_mods)
+	for(var/mod in speed_mods)
+		speed *= mod
+
+	return speed
+
+
+/mob/living/carbon/proc/get_throw_range(range)
+	var/list/range_deltas = list()
+	if(range <= 1)
+		return range
+
+	SEND_SIGNAL(src, COMSIG_GET_THROW_RANGE_DELTAS, range_deltas)
+	for(var/delta in range_deltas)
+		range += delta
+
+	return max(0, range)
+
+
 /mob/living/carbon/throw_item(atom/target)
 	. = ..()
 
@@ -617,19 +638,22 @@
 		throwsound = 'sound/weapons/throwsoft.ogg'
 		power_throw_text = " слабо"
 
+	var/speed = get_throw_speed(max(1, thrown_thing.throw_speed + power_throw))
+	var/range = get_throw_range(thrown_thing.throw_range)
+
 	// Adds a bit of randomness in the frequency to not sound exactly the same.
 	// The volume of the sound takes the minimum between the distance thrown or the max range an item,
 	// but no more than 50. Short throws are quieter. A fast throwing speed also makes the noise sharper.
 	frequency_number = frequency_number + (rand(-5, 5) / 100)
 
-	playsound(src, throwsound, min(8 * min(get_dist(loc, target), thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1, frequency = frequency_number)
+	playsound(src, throwsound, min(8 * min(get_dist(loc, target), range), 50), vary = TRUE, extrarange = -1, frequency = frequency_number)
 
 	visible_message(
 		span_danger("[name][power_throw_text] броса[pluralize_ru(gender, "ет", "ют")] [thrown_thing.declent_ru(ACCUSATIVE)]."),
 		span_danger("Вы[power_throw_text] бросаете [thrown_thing.declent_ru(ACCUSATIVE)]."),
 	)
 	newtonian_move(get_dir(target, src))
-	thrown_thing.throw_at(target, thrown_thing.throw_range, max(1, thrown_thing.throw_speed + power_throw), src, null, null, null, move_force)
+	thrown_thing.throw_at(target, range, speed, src, null, null, null, move_force)
 
 
 //generates realistic-ish pulse output based on preset levels
