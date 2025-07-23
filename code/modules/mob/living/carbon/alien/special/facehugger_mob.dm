@@ -252,7 +252,7 @@
 	animation.icon = old_icon
 	animation.master = src
 
-	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 
 	flick(icon_gib, animation)
 	remove_from_dead_mob_list()

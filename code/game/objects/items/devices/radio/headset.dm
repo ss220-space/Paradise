@@ -14,7 +14,7 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
-	equip_sound = 'sound/items/handling/generic_equip4.ogg'
+	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/ears.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/ears.dmi',

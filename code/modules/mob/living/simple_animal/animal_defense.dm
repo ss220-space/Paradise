@@ -61,7 +61,7 @@
 					span_notice("[capitalize(M.declent_ru(NOMINATIVE))] [response_help] [declent_ru(ACCUSATIVE)]."),
 					span_notice("[capitalize(M.declent_ru(NOMINATIVE))] [response_help] вас.")
 				)
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 		if(INTENT_GRAB)
 			if(holder_type)
@@ -77,7 +77,7 @@
 				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [response_harm] [declent_ru(ACCUSATIVE)]!"),
 				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [response_harm] вас!")
 			)
-			playsound(loc, attacked_sound, 25, 1, -1)
+			playsound(loc, attacked_sound, 25, TRUE, -1)
 			attack_threshold_check(harm_intent_damage)
 			add_attack_logs(M, src, "Melee attacked with fists")
 			return TRUE
@@ -97,7 +97,7 @@
 				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] дела[pluralize_ru(M.gender,"ет","ют")] резкий выпад в сторону [declent_ru(ACCUSATIVE)]!"),
 				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] делает резкий выпад в вашу сторону!")
 			)
-			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			add_attack_logs(M, src, "Alien attacked")
 			attack_threshold_check(damage)
 		return TRUE

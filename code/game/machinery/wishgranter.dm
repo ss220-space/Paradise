@@ -83,7 +83,7 @@
 	S.create(user)
 	S.activated = TRUE //sets this superhero as taken so we don't have duplicates
 
-	playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1)
+	playsound(src.loc, 'sound/effects/bamf.ogg', 50, TRUE)
 	visible_message(span_notice("The wishgranter fades into mist.."))
 	add_attack_logs(null, user, "Became [GLOB.all_superheroes[wish]]")
 	notify_ghosts("[GLOB.all_superheroes[wish]] has appeared in [get_area(user)].", source = user)

@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/proc/print()
 	visible_message(span_notice("[src] prints a piece of paper!"))
-	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	var/obj/item/paper/explosive_log/P = new(get_turf(src))
 	for(var/D in logged_explosions)
 		var/datum/explosion_log/E = D

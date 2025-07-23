@@ -54,7 +54,7 @@
 	if(resting)
 		if(!wants_to_rest())
 			custom_emote(EMOTE_AUDIBLE, "рыч%(ит,ат)% и поднима%(ет,ют)%ся.")
-			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
+			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, TRUE)
 			set_resting(FALSE, instant = TRUE)
 	else if(wants_to_rest())
 		custom_emote(EMOTE_VISIBLE, "лож%(ит,ат)%ся и начина%(ет,ют)% зализывать свои раны.")

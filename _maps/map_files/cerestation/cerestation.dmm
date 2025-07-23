@@ -15038,7 +15038,7 @@
 	},
 /area/atmos)
 "bVa" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/gambling_den2)
 "bVc" = (
@@ -40022,7 +40022,7 @@
 	pixel_y = -32;
 	random_basetype = /obj/structure/sign/poster/contraband
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/gambling_den2)
 "hHP" = (
@@ -75801,7 +75801,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar)
 "rKY" = (
@@ -91293,7 +91293,7 @@
 	},
 /area/hallway/primary/fore/west)
 "wot" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar)
 "woF" = (

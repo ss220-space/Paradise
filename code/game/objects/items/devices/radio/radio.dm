@@ -849,8 +849,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	icon_state = "red_phone"
 	listening = TRUE
 	broadcasting = FALSE
-	drop_sound = 'sound/items/handling/phone_drop.ogg'
-	pickup_sound = 'sound/items/handling/phone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/phone_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/phone_pickup.ogg'
 	dog_fashion = null
 
 /obj/item/radio/phone/medbay

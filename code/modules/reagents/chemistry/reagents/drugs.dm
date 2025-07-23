@@ -225,7 +225,7 @@
 		else if(effect <= 7)
 			M.emote("collapse")
 			to_chat(M, span_warning("Ваше сердце едва ли не выскакивает из груди!"))
-			M << 'sound/effects/singlebeat.ogg'
+			SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 			M.Paralyse(10 SECONDS)
 			M.Jitter(60 SECONDS)
 			update_flags |= M.adjustToxLoss(4, FALSE)
@@ -517,7 +517,7 @@
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
 		to_chat(M, span_danger("<font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>КАК ЖЕ ЭТО ОХУЕННО!!!</font>"))
-		M << 'sound/effects/singlebeat.ogg'
+		SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 		M.emote("faint")
 		M.apply_effect(volume, IRRADIATE, negate_armor = 1)
 		M.adjustToxLoss(volume)

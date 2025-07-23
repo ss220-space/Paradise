@@ -78,7 +78,7 @@
 	G.add_fingerprint(user)
 	if(bomb)
 		bomb.forceMove(loc)
-	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
+	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	user.balloon_alert(user, "успешно разобрано")
 	deconstruct()
 

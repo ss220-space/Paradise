@@ -70,7 +70,7 @@
 			if(C && prob(15))
 				if(C.avail())
 					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
-					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
+					playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
 					toast() // mmmm toasty.
 				else
 					visible_message("<span class='warning'>[src] chews through [C].</span>")
@@ -85,7 +85,7 @@
 /mob/living/simple_animal/hostile/retaliate/syndirat/handle_automated_speech()
 	..()
 	if(prob(speak_chance) && !incapacitated())
-		playsound(src, squeak_sound, 100, 1)
+		playsound(src, squeak_sound, 100, TRUE)
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/handle_automated_movement()
 	. = ..()

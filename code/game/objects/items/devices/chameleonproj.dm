@@ -50,7 +50,7 @@
 		return
 	if(!active_dummy)
 		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
-			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
+			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
 			to_chat(user, span_notice("Scanned [target]."))
 			var/obj/temp = new /obj()
 			temp.appearance = target.appearance
@@ -68,12 +68,12 @@
 		return
 	if(active_dummy)
 		eject_all()
-		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
+		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
 		QDEL_NULL(active_dummy)
 		to_chat(user, span_notice("You deactivate [src]."))
 		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 	else
-		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
+		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
 		var/obj/effect/dummy/chameleon/C = new/obj/effect/dummy/chameleon(get_turf(user))
 		C.activate(user, saved_appearance, src)
 		to_chat(user, span_notice("You activate [src]."))
@@ -403,7 +403,7 @@
 
 /obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, -6)
+		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, -6)
 		to_chat(user, span_notice("You deactivate [src]."))
 		deactivate(user)
 	else
@@ -444,7 +444,7 @@
 			animate(f, offset = f:offset, time = 0, loop = 3, flags = ANIMATION_PARALLEL)
 			animate(offset = f:offset - 1, time = rand() * 20 + 10)
 		if(do_after(user, 5 SECONDS, user) && user.cell.use(activationCost))
-			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
+			playsound(src, 'sound/effects/bamf.ogg', 100, TRUE, -6)
 			to_chat(user, span_notice("You are now disguised as a Nanotrasen cyborg."))
 			activate(user, choice)
 		else

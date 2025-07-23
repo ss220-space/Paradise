@@ -40,7 +40,7 @@
 	D.apply_damage(damage, BRUTE)
 	objective_damage(A, D, damage, BRUTE)
 
-	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, 1, -1)
+	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	if(prob(50))
 		A.say(pick("HUAH!", "HYA!", "CHOO!", "WUO!", "KYA!", "HUH!", "HIYOH!", "CARP STRIKE!", "CARP BITE!"))
 	if(prob(D.getBruteLoss()) && D.body_position != LYING_DOWN)

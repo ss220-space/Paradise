@@ -3,9 +3,9 @@
 	desc = "A handgun holster."
 	icon_state = "holster"
 	slot = ACCESSORY_SLOT_UTILITY
-	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
-	equip_sound = 'sound/items/handling/backpack_equip.ogg'
-	drop_sound = 'sound/items/handling/backpack_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
+	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
+	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/accessory/holster)
 	var/holster_allow = /obj/item/gun
@@ -67,7 +67,7 @@
 	I.forceMove(src)
 	I.add_fingerprint(user)
 	user.visible_message(span_notice("[user] holsters the [I]."), span_notice("You holster the [I]."))
-	playsound(user.loc, sound_holster, 50, 1)
+	playsound(user.loc, sound_holster, 50, TRUE)
 
 /obj/item/clothing/accessory/holster/proc/unholster(mob/user)
 	if(!holstered.len)
@@ -87,7 +87,7 @@
 		next_item.add_fingerprint(user)
 		holstered -= next_item
 		unholster_message(user, next_item)
-		playsound(user.loc, sound_unholster, 50, 1)
+		playsound(user.loc, sound_unholster, 50, TRUE)
 
 /obj/item/clothing/accessory/holster/proc/unholster_message(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)

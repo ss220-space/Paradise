@@ -176,12 +176,12 @@
 
 /turf/simulated/floor/mineral/bananium/proc/honk()
 	if(spam_flag < world.time)
-		playsound(src, 'sound/items/bikehorn.ogg', 50, 1)
+		playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
 		spam_flag = world.time + 20
 
 /turf/simulated/floor/mineral/bananium/proc/squeek()
 	if(spam_flag < world.time)
-		playsound(src, "clownstep", 50, 1)
+		playsound(src, "clownstep", 50, TRUE)
 		spam_flag = world.time + 10
 
 /turf/simulated/floor/mineral/bananium/airless

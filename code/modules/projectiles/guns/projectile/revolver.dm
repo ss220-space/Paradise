@@ -85,7 +85,7 @@
 		var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
 		C.spin()
 		chamber_round(FALSE)
-		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, 1)
+		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, TRUE)
 		usr.visible_message("[usr] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
 	else
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
@@ -321,7 +321,7 @@
 		if(chambered)
 			var/obj/item/ammo_casing/AC = chambered
 			if(AC.fire(user, user, firer_source_atom = src))
-				playsound(user, fire_sound, 50, 1)
+				playsound(user, fire_sound, 50, TRUE)
 				var/zone = check_zone(user.zone_selected)
 				if(zone == BODY_ZONE_HEAD || zone == BODY_ZONE_PRECISE_EYES || zone == BODY_ZONE_PRECISE_MOUTH)
 					shoot_self(user, zone)
@@ -330,7 +330,7 @@
 				return
 
 		user.visible_message(span_danger("*click*"))
-		playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+		playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)

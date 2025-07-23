@@ -133,7 +133,7 @@
 		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] слишком активно двигается для ремонта!"))
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, 15, 1, volume = I.tool_volume) && health != maxHealth)
+	if(I.use_tool(src, user, 15, TRUE, volume = I.tool_volume) && health != maxHealth)
 		adjustBruteLoss(-20)
 		WELDER_REPAIR_SUCCESS_MESSAGE
 	return

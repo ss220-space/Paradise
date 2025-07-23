@@ -136,7 +136,7 @@
 	aiCamera = new/obj/item/camera/siliconcam/drone_camera(src)
 	additional_law_channels["Drone"] = get_language_prefix(LANGUAGE_DRONE_BINARY)
 
-	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, FALSE)
 
 
 /mob/living/silicon/robot/drone/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)

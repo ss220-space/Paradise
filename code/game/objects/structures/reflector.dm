@@ -96,7 +96,7 @@
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(!I.use_tool(src, user, 80, volume = I.tool_volume))
 		return
-	playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
+	playsound(user, 'sound/items/Ratchet.ogg', 50, TRUE)
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
 	new /obj/item/stack/sheet/metal(src.loc, 5)
 	qdel(src)

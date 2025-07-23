@@ -8,8 +8,8 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = FIRE_PROOF
-	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
-	drop_sound = 'sound/items/handling/boots_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/boots_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/boots_drop.ogg'
 	/// Fluff name for our magpulse system.
 	var/magpulse_name = "mag-pulse traction system"
 	/// Whether the magpulse system is active
@@ -123,8 +123,8 @@
 	magpulse_name = "honk-powered traction system"
 	item_color = "clown"
 	origin_tech = "magnets=4;syndicate=2"
-	pickup_sound = 'sound/items/handling/shoes_pickup.ogg'
-	drop_sound = 'sound/items/handling/shoes_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/shoes_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/shoes_drop.ogg'
 	var/enabled_waddle = TRUE
 
 /obj/item/clothing/shoes/magboots/clown/Initialize(mapload)
