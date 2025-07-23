@@ -1,34 +1,3 @@
-#define GUN_ACCURACY_DEFAULT new /datum/gun_accuracy(head_value = 75, chest_value = 100, arms_value = 66, legs_value = 66, hand_value = 50, foots_value = 50, other_value = 50)
-#define GUN_ACCURACY_RIFLE new /datum/gun_accuracy(head_value = 90, chest_value = 100, arms_value = 80, legs_value = 80, hand_value = 66, foots_value = 66, other_value = 66)
-#define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy(head_value = 100, chest_value = 100, arms_value = 100, legs_value = 100, hand_value = 75, foots_value = 75, other_value = 75)
-#define GUN_ACCURACY_SNIPER new /datum/gun_accuracy(head_value = 100, chest_value = 100, arms_value = 100, legs_value = 100, hand_value = 100, foots_value = 100, other_value = 100)
-
-/proc/getAccuracy(head = 100, chest = 100, arms = 100, legs = 100, hands = 100, foots = 100, other = 100)
-	. = new /datum/gun_accuracy(head, chest, arms, legs, hands, foots, other)
-
-/datum/gun_accuracy
-	var/head
-	var/chest
-	var/arms
-	var/legs
-	var/hands
-	var/foots
-	var/other  //tail, wings
-
-/datum/gun_accuracy/New(head_value = 100, chest_value = 100, arms_value = 100, legs_value = 100, hand_value = 100, foots_value = 100, other_value = 100)
-	. = ..()
-	head = head_value
-	chest = chest_value
-	arms = arms_value
-	legs = legs_value
-	hands = hand_value
-	foots = foots_value
-	other = other_value
-
-/datum/gun_accuracy/proc/getList()
-	return list("head" = head, "chest" = chest, "arms" = arms, "legs" = legs, "hands" = hands, "foots" = foots, "other" = other)
-
-
 /obj/item/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
