@@ -85,19 +85,24 @@ var/list/cached_gases_list = null
 
 //PV=nRT - related procedures
 /datum/gas_mixture/proc/heat_capacity()
+
+/datum/gas_mixture/heat_capacity()
 	var/list/cached_gases = gases
 	. = 0
 	for(var/id in cached_gases)
 		. += cached_gases[id][MOLES] * cached_gases[id][SPECIFIC_HEAT]
 
-
 /datum/gas_mixture/proc/heat_capacity_archived()
+
+/datum/gas_mixture/heat_capacity_archived()
 	var/list/cached_gases = gases
 	. = 0
 	for(var/id in cached_gases)
 		. += cached_gases[id][ARCHIVE]*cached_gases[id][SPECIFIC_HEAT]
 
 /datum/gas_mixture/proc/total_moles()
+
+/datum/gas_mixture/total_moles()
 	var/list/cached_gases = gases
 	. = 0
 	for(var/id in cached_gases)
