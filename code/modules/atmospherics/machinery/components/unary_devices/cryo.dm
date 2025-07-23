@@ -471,7 +471,7 @@
 		animate(occupant_overlay, time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_y = OCCUPANT_PIXEL_BOUNCE_HIGH)
 		animate(time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_y = OCCUPANT_PIXEL_BOUNCE_LOW)
 
-	. += mutable_appearance(icon = icon, cover_state, ABOVE_ALL_MOB_LAYER, src, plane = ABOVE_GAME_PLANE)
+	. += mutable_appearance(icon, cover_state, ABOVE_ALL_MOB_LAYER, src, plane = ABOVE_GAME_PLANE)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
 	if(!istype(M))

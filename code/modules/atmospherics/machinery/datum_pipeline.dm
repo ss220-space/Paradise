@@ -225,7 +225,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	var/total_heat_capacity = 0
 	var/datum/gas_mixture/total_gas_mixture = new(0)
 
-	for(var/datum/gas_mixture/G as anything in GL)
+	for(var/datum/gas_mixture/G in GL)
 		total_gas_mixture.volume += G.volume
 		total_gas_mixture.merge(G)
 		total_thermal_energy += G.thermal_energy()
