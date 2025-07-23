@@ -48,7 +48,7 @@
 	if(playstyle_string)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, src, playstyle_string), 5 DECISECONDS)
 
-	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/syndicate/Login()
 	. = ..()

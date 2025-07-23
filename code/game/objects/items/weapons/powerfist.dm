@@ -124,13 +124,13 @@
 		return
 	if(tank && !tank.air_contents.remove(gasperfist * fisto_setting))
 		to_chat(user, span_warning("[src]'s piston-ram lets out a weak hiss, it needs more gas!"))
-		playsound(loc, 'sound/effects/refill.ogg', 50, 1)
+		playsound(loc, 'sound/effects/refill.ogg', 50, TRUE)
 		return
 
 	user.do_attack_animation(target)
 	new /obj/effect/temp_visual/kinetic_blast(target.loc)
-	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
-	playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)
+	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, TRUE)
+	playsound(loc, 'sound/weapons/genhit2.ogg', 50, TRUE)
 
 	if(isliving(target))
 		var/mob/living/mobtarget = target

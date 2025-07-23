@@ -68,8 +68,8 @@
 		return
 	add_attack_logs(victim, parent_atom, "booby trap TRIGGERED (spawner: [bomber], ckey: [bomber.ckey])")
 	to_chat(victim, span_danger("Это ловушка! [parent_atom] был заминирован!"))
-	playsound(get_turf(parent_atom),'sound/effects/bomb_activate.ogg', 200, 1)
-	playsound(get_turf(parent_atom),'sound/effects/explosion1.ogg', 200, 1)
+	playsound(get_turf(parent_atom),'sound/effects/bomb_activate.ogg', 200, TRUE)
+	playsound(get_turf(parent_atom),'sound/effects/explosion1.ogg', 200, TRUE)
 	victim.ex_act(3)
 	victim.Weaken(6 SECONDS)
 	victim.adjustBruteLoss(20)

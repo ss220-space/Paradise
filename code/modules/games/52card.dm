@@ -120,6 +120,7 @@
 	card_force = clamp(card_force + whetstone.increment, 0, whetstone.max)
 	card_throwforce = clamp(card_throwforce + whetstone.increment, 0, whetstone.max)
 	set_sharpness(TRUE)
+	item_flags |= NOSHARPENING
 	return TRUE
 
 

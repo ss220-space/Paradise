@@ -197,11 +197,10 @@
 	return FALSE
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(obj/D, normal = 1, special = 1)
-	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	var/mob/living/L = can_shock(loc)
 	if(!L)
 		return
-	to_chat(L, "<span class='danger'>You feel a sharp shock!</span>")
+	to_chat(L, span_danger("You feel a sharp shock!"))
 	do_sparks(3, 1, L)
 
 	L.Weaken(10 SECONDS)

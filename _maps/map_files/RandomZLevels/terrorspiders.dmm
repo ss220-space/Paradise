@@ -1005,7 +1005,7 @@
 /obj/structure/disposalpipe/trunk,
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -2020,7 +2020,7 @@
 	},
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -3419,7 +3419,7 @@
 	},
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -4915,7 +4915,7 @@
 	},
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -6717,7 +6717,7 @@
 	},
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -10362,7 +10362,7 @@
 	},
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,

@@ -81,7 +81,7 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 
 /obj/item/clothing/under/solgov/elite
-	name = "\improper Trans-Solar Federation Specops marine uniform"
+	name = "Trans-Solar Federation Specops marine uniform"
 	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
 	icon_state = "solgovelite"
 	item_color = "solgovelite"
@@ -94,7 +94,7 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 
 /obj/item/clothing/under/solgov/command/elite
-	name = "\improper Trans-Solar Federation Specops Lieutenant's uniform"
+	name = "Trans-Solar Federation Specops Lieutenant's uniform"
 	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces. This one has additional insignia on its shoulders and cuffs."
 	icon_state = "solgovcelite"
 	item_color = "solgovcelite"
@@ -107,7 +107,7 @@
 
 /obj/item/clothing/under/rank/centcom_officer
 	desc = "It's a jumpsuit worn by CentComm Officers."
-	name = "\improper CentComm officer's jumpsuit"
+	name = "CentComm officer's jumpsuit"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
@@ -118,14 +118,14 @@
 
 /obj/item/clothing/under/rank/centcom_commander
 	desc = "It's a jumpsuit worn by CentComm's highest-tier Commanders."
-	name = "\improper CentComm officer's jumpsuit"
+	name = "CentComm officer's jumpsuit"
 	icon_state = "centcom"
 	item_state = "dg_suit"
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom/officer
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
-	name = "\improper Nanotrasen Naval Officer Uniform"
+	name = "Nanotrasen Naval Officer Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
@@ -134,7 +134,7 @@
 
 /obj/item/clothing/under/rank/centcom/officer/skirt
 	desc = "Gold trim on space-black cloth, this skirt displays the rank of \"Lieutenant-Commander\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
-	name = "\improper Nanotrasen Naval Officer Skirt"
+	name = "Nanotrasen Naval Officer Skirt"
 	icon_state = "navy_goldf"
 	item_state = "navy_goldf"
 	item_color = "navy_goldf"
@@ -152,7 +152,7 @@
 
 /obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
-	name = "\improper Nanotrasen Naval Captain Uniform"
+	name = "Nanotrasen Naval Captain Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
@@ -160,12 +160,12 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/captain/solgov
-	name = "\improper Trans-Solar Federation commander's uniform"
+	name = "Trans-Solar Federation commander's uniform"
 	desc = "Gold trim on space-black cloth, this uniform is worn by generals of the Trans-Solar Federation. It has exotic materials for protection."
 
 /obj/item/clothing/under/rank/centcom/blueshield
 	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."
-	name = "\improper Formal Blueshield's Uniform"
+	name = "Formal Blueshield's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
@@ -174,7 +174,7 @@
 
 /obj/item/clothing/under/rank/centcom/representative
 	desc = "Gold trim on space-black cloth, this uniform bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Formal Nanotrasen Representative's Uniform"
+	name = "Formal Nanotrasen Representative's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
@@ -193,7 +193,7 @@
 
 /obj/item/clothing/under/rank/centcom/magistrate
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Formal Magistrate's Uniform"
+	name = "Formal Magistrate's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
@@ -212,7 +212,7 @@
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
-	name = "\improper Nanotrasen Diplomatic Uniform"
+	name = "Nanotrasen Diplomatic Uniform"
 	icon_state = "presidente"
 	item_state = "g_suit"
 	item_color = "presidente"
@@ -234,7 +234,7 @@
 	item_color = "blueshieldf"
 
 /obj/item/clothing/under/space
-	name = "\improper NASA jumpsuit"
+	name = "NASA jumpsuit"
 	desc = "It has a NASA logo on it and is made of space-proofed materials."
 	icon_state = "black"
 	item_state = "bl_suit"
@@ -421,7 +421,7 @@
 	item_color = "piraterags"
 
 /obj/item/clothing/under/soviet
-	name = "\improper Soviet uniform"
+	name = "Soviet uniform"
 	desc = "A standard U.S.S.P military uniform."
 	icon_state = "soviet"
 	item_state = "soviet"
@@ -429,14 +429,14 @@
 
 
 /obj/item/clothing/under/sovietofficer
-	name = "\improper Soviet officer uniform"
+	name = "Soviet officer uniform"
 	desc = "A U.S.S.P commanding officer's uniform."
 	icon_state = "sovietofficer"
 	item_state = "sovietofficer"
 	item_color = "sovietofficer"
 
 /obj/item/clothing/under/sovietadmiral
-	name = "\improper Soviet admiral uniform"
+	name = "Soviet admiral uniform"
 	desc = "A U.S.S.P naval admiral's uniform."
 	icon_state = "sovietadmiral"
 	item_state = "sovietadmiral"

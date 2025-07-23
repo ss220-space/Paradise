@@ -758,7 +758,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 
 /obj/machinery/computer/card/centcom
-	name = "\improper CentComm identification computer"
+	name = "CentComm identification computer"
 	circuit = /obj/item/circuitboard/card/centcom
 	req_access = list(ACCESS_CENT_COMMANDER)
 	change_position_cooldown = -1

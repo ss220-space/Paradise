@@ -8,7 +8,7 @@
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
-	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 	gibs(loc, dna)
 	QDEL_IN(src, 0)
 	return TRUE

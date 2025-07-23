@@ -338,7 +338,7 @@
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
-	. += span_info("Можно зачерпнуть <b>жидкую плазму</b> с помощью <b>ёмкости</b>.")
+	. += span_notice("Можно зачерпнуть <b>жидкую плазму</b> с помощью <b>ёмкости</b>.")
 
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)

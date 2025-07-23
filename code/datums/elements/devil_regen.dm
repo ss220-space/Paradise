@@ -89,7 +89,7 @@
 	human.heal_overall_damage(devil.rank.regen_amount, devil.rank.regen_amount)
 	human.CureBlind()
 	human.AdjustEyeBlind(-devil.rank.regen_amount)
-	playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
+	playsound(get_turf(human), pick(sounds), 50, FALSE, 0)
 	update_status(human)
 
 /datum/element/devil_regeneration/proc/pre_death(datum/source, gibbed)
@@ -105,7 +105,7 @@
 		return
 
 	to_chat(human, span_revenbignotice("Сверхъестественные силы предотвращают вашу смерть."))
-	playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
+	playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, FALSE, 0)
 
 	linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.rank.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE | TIMER_DELETE_ME)
 
@@ -181,7 +181,7 @@
 
 
 
-	playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
+	playsound(get_turf(human), pick(sounds), 50, FALSE, 1)
 	regen_cycles_count += DEVIL_REGEN_BOOST
 	update_status(human)
 

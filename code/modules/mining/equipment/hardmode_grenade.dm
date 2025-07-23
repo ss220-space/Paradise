@@ -1,5 +1,5 @@
 /obj/item/grenade/megafauna_hardmode
-	name = "\improper HRD-MDE Scanning Grenade"
+	name = "HRD-MDE Scanning Grenade"
 	desc = "Передовая граната, выпускающая наномашины, которые проникают в ближайшую мегафауну. Это сильно разъярит её, но позволит НаноТрейзен полностью изучить её способности."
 	ru_names = list(
 		NOMINATIVE = "сканирующая граната HRD-MDE",
@@ -72,7 +72,7 @@
 	output = /obj/item/clothing/accessory/medal/blood_drunk
 
 /obj/item/disk/fauna_research/hierophant
-	name = "\improper Hierophant HRD-MDE project disk"
+	name = "Hierophant HRD-MDE project disk"
 	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о манипуляции энергией и материальном составе Иерофанта."
 	ru_names = list(
 		NOMINATIVE = "диск проекта HRD-MDE \"Иерофант\"",
@@ -98,7 +98,7 @@
 	output = /obj/item/clothing/accessory/medal/plasma/ash_drake
 
 /obj/item/disk/fauna_research/vetus
-	name = "\improper Vetus Speculator HRD-MDE project disk"
+	name = "Vetus Speculator HRD-MDE project disk"
 	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о манипуляции аномалиями и вычислительных процессах Ветус Спекулятора."
 	ru_names = list(
 		NOMINATIVE = "диск проекта HRD-MDE \"Ветус Спекулятор\"",
@@ -124,7 +124,7 @@
 	output = /obj/item/clothing/accessory/medal/silver/colossus
 
 /obj/item/disk/fauna_research/legion
-	name = "\improper Legion HRD-MDE project disk"
+	name = "Legion HRD-MDE project disk"
 	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о бесконечной регенерации и дезинтегрирующем лазере Легиона."
 	ru_names = list(
 		NOMINATIVE = "диск проекта HRD-MDE \"Легион\"",
@@ -137,7 +137,7 @@
 	output = /obj/item/clothing/accessory/medal/silver/legion
 
 /obj/item/disk/fauna_research/bubblegum
-	name = "\improper Bubblegum HRD-MDE project disk"
+	name = "Bubblegum HRD-MDE project disk"
 	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о ████████████ и \[ЗАСЕКРЕЧЕНО\] Бубльгума."
 	ru_names = list(
 		NOMINATIVE = "диск проекта HRD-MDE \"Бубльгум\"",

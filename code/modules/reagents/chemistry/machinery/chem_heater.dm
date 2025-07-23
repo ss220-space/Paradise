@@ -53,7 +53,7 @@
 				return
 			beaker.reagents.temperature_reagents(desired_temp, max(1, 35 - speed_increase))
 			if(round(beaker.reagents.chem_temp) == round(desired_temp))
-				playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+				playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 				on = FALSE
 				if(auto_eject)
 					eject_beaker()

@@ -50,7 +50,7 @@
 		to_chat(user, "You cannot turn the light on while in this [user.loc].")	//To prevent some lighting anomalities.
 		return FALSE
 	on = !on
-	playsound(user, togglesound, 100, 1)
+	playsound(user, togglesound, 100, TRUE)
 	update_brightness()
 	update_equipped_item(update_speedmods = FALSE)
 	return TRUE

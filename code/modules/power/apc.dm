@@ -197,7 +197,7 @@
 
 
 /obj/machinery/power/apc/worn_out
-	name = "\improper Worn out APC"
+	name = "Worn out APC"
 	keep_preset_name = TRUE
 	locked = FALSE
 	lighting_channel = CHANNEL_SETTING_OFF
@@ -295,9 +295,9 @@
 		// no-op, keep the name
 	else if(isarea(A) && !areastring)
 		area = A
-		name = "\improper [area.name] APC"
+		name = "[area.name] APC"
 	else
-		name = "\improper [get_area_name(area, TRUE)] APC"
+		name = "[get_area_name(area, TRUE)] APC"
 	area.apc |= src
 	. = ..()
 	if(!mapload)
@@ -792,7 +792,7 @@
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
-		. += span_info("<b>Alt-click</b> to toggle locker.<br/><b>Ctrl-click</b> to toggle power.")
+		. += span_notice("<b>Alt-click</b> to toggle locker.<br/><b>Ctrl-click</b> to toggle power.")
 
 /obj/machinery/power/apc/click_alt(mob/living/carbon/human/H)
 	if(!istype(H))

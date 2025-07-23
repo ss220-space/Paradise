@@ -664,7 +664,7 @@
 "bJ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/securearea{
-	name = "\improper KEEP CLEAR: DOCKING AREA"
+	name = "KEEP CLEAR: DOCKING AREA"
 	},
 /turf/simulated/floor/plating,
 /area/mine/production)

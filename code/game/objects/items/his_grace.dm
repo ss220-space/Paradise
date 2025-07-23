@@ -25,8 +25,8 @@
 	attack_verb = list("заробастил", "сокрушил")
 	hitsound = 'sound/weapons/smash.ogg'
 	actions_types = list(/datum/action/item_action/toggle)
-	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
-	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/toolbox_pickup.ogg'
 	COOLDOWN_DECLARE(choose_cooldown)
 	var/cooldown = 3 SECONDS
 	var/mob/living/chosen_target
@@ -231,7 +231,7 @@
 	meal.adjustBruteLoss(200)
 	meal.death()
 	playsound(meal, 'sound/weapons/bladeslice.ogg', 75, TRUE)
-	playsound(loc, 'sound/goonstation/misc/burp_alien.ogg', 50, 0)
+	playsound(loc, 'sound/goonstation/misc/burp_alien.ogg', 50, FALSE)
 	meal.forceMove(src)
 	force_bonus += HIS_GRACE_FORCE_BONUS
 	prev_bloodthirst = bloodthirst

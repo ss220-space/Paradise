@@ -1,5 +1,5 @@
 /obj/item/gun/energy/bsg
-	name = "Б.С.П." // No \improper because it's russian name. "The Б.С.П." is worse than just "Б.С.П.".
+	name = "Б.С.П."
 	desc = "Большая С*** Пушка. Использует ядро энергетической аномалии и блюспейс кристалл для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
 	icon_state = "bsg"
 	item_state = "bsg"

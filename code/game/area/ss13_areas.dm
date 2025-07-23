@@ -3209,7 +3209,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 
 // Malta event map
 /area/ruin/unpowered/coldcolony_outside
-	name = "\improper Surface"
+	name = "Surface"
 	always_unpowered = TRUE
 	ignore_gravgen = TRUE
 	outdoors = TRUE
@@ -3226,35 +3226,35 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "unknown"
 
 /area/coldcolony/ruin/sm_division
-	name = "\improper Abandoned SM Research Division"
+	name = "Abandoned SM Research Division"
 	icon_state = "research"
 
 /area/coldcolony/ruin/sm_maintenance
-	name = "\improper Abandoned SM Maintenance"
+	name = "Abandoned SM Maintenance"
 	icon_state = "asmaint"
 
 /area/coldcolony/ruin/sm_lab
-	name = "\improper Abandoned SM Laboratory"
+	name = "Abandoned SM Laboratory"
 	icon_state = "toxlab"
 
 /area/coldcolony/ruin/sm_chamber
-	name = "\improper Abandoned SM Chamber"
+	name = "Abandoned SM Chamber"
 	icon_state = "toxtest"
 
 /area/coldcolony/ruin/abandoned_banya
-	name = "\improper Abandoned Banya"
+	name = "Abandoned Banya"
 	icon_state = "barstation"
 
 /area/coldcolony/ruin/syndie_outpost
-	name = "\improper Syndicate Recruiter Outpost"
+	name = "Syndicate Recruiter Outpost"
 	icon_state = "red"
 
 /area/coldcolony/ruin/abandoned_house
-	name = "\improper House"
+	name = "House"
 	icon_state = "red"
 
 /area/coldcolony/ruin/abandoned_garage
-	name = "\improper Mech Garage"
+	name = "Mech Garage"
 	icon_state = "mining"
 
 //Malta
@@ -3268,7 +3268,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	name = "outer"
 
 /area/coldcolony/malta/outer/roadblock
-	name = "\improper Roadblock"
+	name = "Roadblock"
 	icon_state = "entry"
 	holomap_color = HOLOMAP_AREACOLOR_ARRIVALS
 

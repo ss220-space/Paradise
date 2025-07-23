@@ -22,7 +22,7 @@
 	icon_living = "seal"
 	icon_state = "seal"
 	attacktext = "шлёпает"
-	speak_emote = list("barks")
+	speak_emote = list("лает", "рявкает")
 	friendly = "heals"
 	speed = 0
 	melee_damage_lower = 0

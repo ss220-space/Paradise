@@ -92,7 +92,7 @@
 
 			if(is_proximity(A) || is_light(A))
 				continue
-				
+
 			if(istype(A, /obj/machinery/light))
 				continue //hacky but whatever, shuttles need three spots each for this shit
 			contcount++
@@ -274,7 +274,7 @@
 		return
 
 	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
-	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
 	reqform.info += "<h3>[station_name()] Supply Requisition Form</h3><hr>"
 	reqform.info += "INDEX: #[SSshuttle.ordernum]<br>"

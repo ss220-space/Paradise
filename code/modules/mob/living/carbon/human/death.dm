@@ -11,9 +11,9 @@
 		animation.icon = 'icons/mob/mob.dmi'
 		animation.master = src
 
-		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 	else
-		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
+		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, TRUE)
 
 	var/drop_loc = drop_location()
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)

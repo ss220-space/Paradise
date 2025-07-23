@@ -44,7 +44,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	if(!check_rights(R_SOUNDS))	return
 
 	log_and_message_admins("played a local sound [S]")
-	playsound(get_turf(src.mob), S, 50, 0, 0)
+	playsound(get_turf(src.mob), S, 50, FALSE, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 

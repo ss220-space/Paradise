@@ -52,6 +52,9 @@
 		'sound/misc/guitar_rifs/guitar_riff_3.ogg',
 		'sound/misc/guitar_rifs/guitar_riff_4.ogg',
 		'sound/misc/guitar_rifs/guitar_riff_5.ogg',
+		'sound/misc/guitar_rifs/guitar_riff_6.ogg',
+		'sound/misc/guitar_rifs/guitar_riff_7.ogg',
+		'sound/misc/guitar_rifs/guitar_riff_8.ogg',
 	)
 
 /datum/emote/living/carbon/human/airguitar/run_emote(mob/living/carbon/human/user, params, type_override, intentional)

@@ -52,6 +52,9 @@
 	icon_type = "donut"
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
+	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
+	use_sound = 'sound/items/handling/cardboard_box_rustle.ogg'
 
 /obj/item/storage/fancy/donut_box/update_icon_state()
 	return
@@ -125,6 +128,9 @@
 	name = "egg box"
 	storage_slots = 12
 	can_hold = list(/obj/item/reagent_containers/food/snacks/egg)
+	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
+	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 
 /obj/item/storage/fancy/egg_box/populate_contents()
 	for(var/I = 1 to storage_slots)
@@ -144,6 +150,7 @@
 	storage_slots = 5
 	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
+	use_sound = "patchpack"
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
 	for(var/I = 1 to storage_slots)
@@ -169,9 +176,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	storage_slots = 8
 	icon_type = "crayon"
-	can_hold = list(
-		/obj/item/toy/crayon
-	)
+	can_hold = list(/obj/item/toy/crayon)
+	use_sound = "patchpack"
 
 /obj/item/storage/fancy/crayons/populate_contents()
 	new /obj/item/toy/crayon/white(src)
@@ -225,6 +231,7 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cigpacket"
 	item_state = "cigpacket"
+	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
@@ -301,7 +308,7 @@
 	return ..()
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
-	name = "\improper DromedaryCo packet"
+	name = "DromedaryCo packet"
 	desc = "Упаковка 20 сигарет \"Марсианский Табак\". Надпись на упаковке гласит: \"Быстрее или медленнее – всё равно смерть вас настигнет.\""
 	ru_names = list(
 		NOMINATIVE = "пачка \"Марсианский Табак\"",
@@ -316,7 +323,7 @@
 
 
 /obj/item/storage/fancy/cigarettes/syndicate
-	name = "\improper Syndicate Cigarettes"
+	name = "Syndicate Cigarettes"
 	desc = "Упаковка двадцати зловещих сигарет. Надпись на упаковке гласит: \"Вкусно и Пончик\"."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет Синдиката",
@@ -353,7 +360,7 @@
 
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
-	name = "\improper Uplift Smooth packet"
+	name = "Uplift Smooth packet"
 	desc = "Упаковка 20 сигарет \"Лёгкие на подъём\" со вкусом ментола."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Лёгкие на подъём\"",
@@ -368,7 +375,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
 /obj/item/storage/fancy/cigarettes/cigpack_richard
-	name = "\improper Richard & Co cigarettes"
+	name = "Richard & Co cigarettes"
 	desc = "Упаковка 20 сигарет \"Ричард и Компания\". Курево для самых отчаяных."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Ричард и Компания\"",
@@ -381,7 +388,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/richard
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
-	name = "\improper Robust packet"
+	name = "Robust packet"
 	desc = "Упаковка 20 сигарет \"Робаст\", популярных у безработных ассистентов."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Робаст\"",
@@ -395,7 +402,7 @@
 	item_state = "robustpacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
-	name = "\improper Robust Gold packet"
+	name = "Robust Gold packet"
 	desc = "Упаковка 20 сигарет \"Золотой Робаст\". Курево для настоящих мужиков."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Золотой Робаст\"",
@@ -410,7 +417,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp
-	name = "\improper Carp Classic packet"
+	name = "Carp Classic packet"
 	desc = "Упаковка 20 сигарет \"Дымящий Карп\". Надпись на упаковке гласит: \"Дарим клиентам рак лёгких с 2313 года\"."
 	ru_names = list(
 		NOMINATIVE = "Пачка сигарет \"Дымящий Карп\"",
@@ -424,7 +431,7 @@
 	item_state = "carppacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
-	name = "\improper Midori Tabako packet"
+	name = "Midori Tabako packet"
 	desc = "Упаковка 20 сигарет \"Табак Мидори\". Вы не понимаете, что написано на упаковке, но пахнет прикольно."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Табак Мидори\"",
@@ -438,7 +445,7 @@
 	item_state = "midoripacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
-	name ="\improper Shady Jim's Super Slims"
+	name ="Shady Jim's Super Slims"
 	desc = "Упаковка 20 сигарет \"от Шейди Джима\". Надпись на упаковке гласит: \
 		\"Теряете в весе? \
 		Не можете поспевать за коллегами, убегая от Сингулярности? \
@@ -457,7 +464,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/shadyjims
 
 /obj/item/storage/fancy/cigarettes/cigpack_random
-	name ="\improper Embellished Enigma packet"
+	name ="Embellished Enigma packet"
 	desc = "Упаковка 20 сигарет \"Энигма\". Для истинных ценителей экзотики."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Энигма\"",
@@ -538,10 +545,11 @@
  */
 
 /obj/item/storage/fancy/vials
+	name = "vial storage box"
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox6"
 	icon_type = "vial"
-	name = "vial storage box"
+	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
 

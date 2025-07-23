@@ -77,8 +77,8 @@
 		PREPOSITIONAL = "мозговом черве"
 	)
 
-	speak_emote = list("chirrups")
-	emote_hear = list("chirrups")
+	speak_emote = list("щебечет", "стрекочет")
+	emote_hear = list("щебечет", "стрекочет")
 
 	tts_seed = "Gman_e2"
 

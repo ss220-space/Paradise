@@ -21,10 +21,10 @@
 	can_collar = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	nightvision = 6
-	speak = list("Слава Синдикату!","Смерть НаноТрейзен!", "У вас есть сыр?")
-	speak_emote = list("squeeks","squeaks","squiks")
-	emote_hear = list("squeeks","squeaks","squiks")
-	emote_see = list("runs in a circle", "shakes", "scritches at something")
+	speak = list("Слава Синдикату!", "Смерть НаноТрейзен!", "У вас есть сыр?")
+	speak_emote = list("пищит", "попискивает")
+	emote_hear = list("пищит", "попискивает")
+	emote_see = list("бегает кругами", "дрожит", "быстро осматривается")
 
 	mob_size = MOB_SIZE_TINY // If theyre not at least small it doesnt seem like the treadmill works or makes sound
 	pass_flags = PASSTABLE
@@ -70,7 +70,7 @@
 			if(C && prob(15))
 				if(C.avail())
 					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
-					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
+					playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
 					toast() // mmmm toasty.
 				else
 					visible_message("<span class='warning'>[src] chews through [C].</span>")
@@ -85,7 +85,7 @@
 /mob/living/simple_animal/hostile/retaliate/syndirat/handle_automated_speech()
 	..()
 	if(prob(speak_chance) && !incapacitated())
-		playsound(src, squeak_sound, 100, 1)
+		playsound(src, squeak_sound, 100, TRUE)
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/handle_automated_movement()
 	. = ..()
