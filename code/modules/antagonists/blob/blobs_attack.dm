@@ -7,5 +7,5 @@
 		return
 	return !incorporeal_move
 
-/obj/effect/dummy/phased_mob/can_blob_attack()
+/obj/effect/dummy/spell_jaunt/can_blob_attack()
 	return FALSE

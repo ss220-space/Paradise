@@ -112,7 +112,7 @@
 				target_airlock.lock()
 
 
-/obj/item/coin/eldritch/melee_attack_chain(mob/user, atom/interacting_with, params)
+/obj/item/coin/eldritch/melee_attack_chain(mob/living/user, atom/interacting_with, params)
 	if(!istype(interacting_with, /obj/machinery/door/airlock))
 		return ..()
 

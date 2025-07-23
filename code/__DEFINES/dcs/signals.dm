@@ -1182,7 +1182,7 @@
 	#define DUST_SACRIFICE (1<<3)
 /// from /obj/proc/unfreeze()
 #define COMSIG_OBJ_UNFREEZE "obj_unfreeze"
-/// Set from /obj/effect/dummy/phased_mob after the mob is ejected from its contents: (obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
+/// Set from /obj/effect/dummy/spell_jaunt after the mob is ejected from its contents: (obj/effect/dummy/spell_jaunt/jaunt, mob/living/unjaunter)
 #define COMSIG_MOB_EJECTED_FROM_JAUNT "spell_mob_eject_jaunt"
 /// Sent from [atom/proc/item_interaction], when this atom is left-clicked on by a mob with a tool of a specific tool type
 /// Args: (mob/living/user, obj/item/tool, list/recipes)

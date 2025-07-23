@@ -56,7 +56,7 @@
 		jaunt_steam(mobloc)
 
 	ADD_TRAIT(target, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
-	holder.reappearing = TRUE
+	//holder.reappearing = TRUE
 	playsound(mobloc, sound_out, 50, TRUE, -1)
 
 	sleep(jaunt_in_time * 4)
@@ -92,7 +92,7 @@
 	steam.set_up(10, 0, mobloc)
 	steam.start()
 
-
+/*
 /obj/effect/dummy/spell_jaunt
 	name = "water"
 	icon = 'icons/effects/effects.dmi'
@@ -104,7 +104,7 @@
 	var/reappearing = FALSE
 	var/movedelay = 0
 	var/movespeed = 2
-
+*/
 
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow
@@ -114,7 +114,7 @@
 
 
 /obj/effect/dummy/spell_jaunt/relaymove(mob/user, direction)
-	if((movedelay > world.time) || reappearing || !direction)
+	if((movedelay > world.time) ||/* reappearing ||*/ !direction)
 		return
 	var/turf/newLoc = get_step(src,direction)
 	setDir(direction)

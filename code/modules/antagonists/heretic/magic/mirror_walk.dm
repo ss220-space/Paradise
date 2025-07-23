@@ -9,7 +9,7 @@
 	action_icon_state = "ninja_cloak"
 
 	base_cooldown = 6 SECONDS
-	jaunt_type = /obj/effect/dummy/phased_mob/mirror_walk
+	jaunt_type = /obj/effect/dummy/spell_jaunt/mirror_walk
 	clothes_req = FALSE
 	human_req = FALSE
 	nonabstract_req = FALSE
@@ -86,7 +86,7 @@
 
 	// Pass the turf of the nearby reflection to the parent call
 	// as that's the location we're actually jaunting into
-	var/obj/effect/dummy/phased_mob/jaunt = ..(jaunter, get_turf(nearby_reflection))
+	var/obj/effect/dummy/spell_jaunt/jaunt = ..(jaunter, get_turf(nearby_reflection))
 	if (!jaunt)
 		return FALSE
 
@@ -112,7 +112,7 @@
 
 
 // Play a spooky noise, provide textual feedback, and make the turf colder.
-/obj/effect/proc_holder/spell/jaunt/mirror_walk/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
+/obj/effect/proc_holder/spell/jaunt/mirror_walk/on_jaunt_exited(obj/effect/dummy/spell_jaunt/jaunt, mob/living/unjaunter)
 	. = ..()
 	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
 	playsound(unjaunter, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
@@ -164,5 +164,5 @@
 	return null
 
 
-/obj/effect/dummy/phased_mob/mirror_walk
+/obj/effect/dummy/spell_jaunt/mirror_walk
 	name = "reflection"

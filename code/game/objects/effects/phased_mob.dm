@@ -1,4 +1,4 @@
-/obj/effect/dummy/phased_mob
+/obj/effect/dummy/spell_jaunt
 	name = "ethereal form"
 	anchored = TRUE
 	//flags_1 = PREVENT_CONTENTS_EXPLOSION_1
@@ -19,14 +19,14 @@
 	var/phased_mob_icon_state = "ice_1"
 
 
-/obj/effect/dummy/phased_mob/Initialize(mapload, atom/movable/jaunter)
+/obj/effect/dummy/spell_jaunt/Initialize(mapload, atom/movable/jaunter)
 	. = ..()
 	if(jaunter)
 		set_jaunter(jaunter)
 
 
 /// Sets [new_jaunter] as our jaunter, forcemoves them into our contents
-/obj/effect/dummy/phased_mob/proc/set_jaunter(atom/movable/new_jaunter)
+/obj/effect/dummy/spell_jaunt/proc/set_jaunter(atom/movable/new_jaunter)
 	jaunter = new_jaunter
 	jaunter.forceMove(src)
 	if(!ismob(jaunter))
@@ -42,19 +42,19 @@
 
 
 /// Displays our position indicator to a client
-/obj/effect/dummy/phased_mob/proc/show_client_image(mob/show_to)
+/obj/effect/dummy/spell_jaunt/proc/show_client_image(mob/show_to)
 	SIGNAL_HANDLER
 	show_to.client?.images |= position_indicator
 
 
-/obj/effect/dummy/phased_mob/Destroy()
+/obj/effect/dummy/spell_jaunt/Destroy()
 	jaunter = null // If a mob was left in the jaunter on qdel, they'll be dumped into nullspace
 	position_indicator = null
 	return ..()
 
 
 /// Removes [jaunter] from our phased mob
-/obj/effect/dummy/phased_mob/proc/eject_jaunter()
+/obj/effect/dummy/spell_jaunt/proc/eject_jaunter()
 	if(!jaunter)
 		return // This is weird but it can happen if the jaunt is gibbed by an arriving shuttle
 
@@ -66,7 +66,7 @@
 	qdel(src)
 
 
-/obj/effect/dummy/phased_mob/Exited(atom/movable/gone, direction)
+/obj/effect/dummy/spell_jaunt/Exited(atom/movable/gone, direction)
 	. = ..()
 	if(gone != jaunter)
 		return
@@ -77,16 +77,16 @@
 	jaunter = null
 
 
-/obj/effect/dummy/phased_mob/ex_act()
+/obj/effect/dummy/spell_jaunt/ex_act()
 	return FALSE
 
 
-/obj/effect/dummy/phased_mob/bullet_act()
+/obj/effect/dummy/spell_jaunt/bullet_act()
 	SHOULD_CALL_PARENT(FALSE)
 	return
 
 
-/obj/effect/dummy/phased_mob/relaymove(mob/living/user, direction)
+/obj/effect/dummy/spell_jaunt/relaymove(mob/living/user, direction)
 	var/turf/newloc = phased_check(user, direction)
 	if(!newloc)
 		return
@@ -98,7 +98,7 @@
 
 
 /// Checks if the conditions are valid to be able to phase. Returns a turf destination if positive.
-/obj/effect/dummy/phased_mob/proc/phased_check(mob/living/user, direction)
+/obj/effect/dummy/spell_jaunt/proc/phased_check(mob/living/user, direction)
 	RETURN_TYPE(/turf)
 	if (movedelay > world.time || !direction)
 		return
@@ -126,7 +126,7 @@
 
 
 /// Signal proc for [COMSIG_MOB_STATCHANGE], to throw us out of the jaunt if we lose consciousness.
-/obj/effect/dummy/phased_mob/proc/on_stat_change(mob/living/source, new_stat, old_stat)
+/obj/effect/dummy/spell_jaunt/proc/on_stat_change(mob/living/source, new_stat, old_stat)
 	SIGNAL_HANDLER
 	if(source == jaunter && source.stat != CONSCIOUS)
 		eject_jaunter()

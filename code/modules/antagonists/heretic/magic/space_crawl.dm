@@ -82,7 +82,7 @@
 /obj/effect/proc_holder/spell/jaunt/space_crawl/proc/try_enter_jaunt(turf/our_turf, mob/living/jaunter)
 	// Begin the jaunt
 	ADD_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
-	var/obj/effect/dummy/phased_mob/holder = enter_jaunt(jaunter, our_turf)
+	var/obj/effect/dummy/spell_jaunt/holder = enter_jaunt(jaunter, our_turf)
 	if(isnull(holder))
 		REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
 		return FALSE
@@ -128,7 +128,7 @@
 	our_turf.visible_message(span_boldwarning("[jaunter] rises out of [our_turf]!"))
 	return TRUE
 
-/obj/effect/proc_holder/spell/jaunt/space_crawl/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
+/obj/effect/proc_holder/spell/jaunt/space_crawl/on_jaunt_exited(obj/effect/dummy/spell_jaunt/jaunt, mob/living/unjaunter)
 	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(unjaunter, list(SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING)))
 	playsound(get_turf(unjaunter), 'sound/magic/cosmic_energy.ogg', 50, TRUE, -1)
@@ -188,7 +188,7 @@
 	invocation_type = INVOCATION_NONE
 
 	/// What dummy mob type do we put jaunters in on jaunt?
-	var/jaunt_type = /obj/effect/dummy/phased_mob
+	var/jaunt_type = /obj/effect/dummy/spell_jaunt
 
 
 /obj/effect/proc_holder/spell/jaunt/before_cast(atom/cast_on)
@@ -224,7 +224,7 @@
 /obj/effect/proc_holder/spell/jaunt/proc/enter_jaunt(mob/living/jaunter, turf/loc_override)
 	SHOULD_CALL_PARENT(TRUE)
 
-	var/obj/effect/dummy/phased_mob/jaunt = new jaunt_type(loc_override || get_turf(jaunter), jaunter)
+	var/obj/effect/dummy/spell_jaunt/jaunt = new jaunt_type(loc_override || get_turf(jaunter), jaunter)
 	RegisterSignal(jaunt, COMSIG_MOB_EJECTED_FROM_JAUNT, PROC_REF(on_jaunt_exited))
 	jaunter.forceMove(jaunt)
 	//check_flags &= ~AB_CHECK_PHASED
@@ -249,7 +249,7 @@
 /obj/effect/proc_holder/spell/jaunt/proc/exit_jaunt(mob/living/unjaunter, turf/loc_override)
 	SHOULD_CALL_PARENT(TRUE)
 
-	var/obj/effect/dummy/jaunt = unjaunter.loc
+	var/obj/effect/dummy/spell_jaunt/jaunt = unjaunter.loc
 	if(!istype(jaunt))
 		return FALSE
 
@@ -258,6 +258,7 @@
 
 	if(loc_override)
 		jaunt.forceMove(loc_override)
+
 	jaunt.eject_jaunter()
 	return TRUE
 
@@ -270,7 +271,7 @@
  * * jaunt - The mob holder effect the caster has just exited
  * * unjaunter - The spellcaster who is no longer jaunting
  */
-/obj/effect/proc_holder/spell/jaunt/proc/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
+/obj/effect/proc_holder/spell/jaunt/proc/on_jaunt_exited(obj/effect/dummy/spell_jaunt/jaunt, mob/living/unjaunter)
 	return
 /*
 	SHOULD_CALL_PARENT(TRUE)
@@ -285,6 +286,6 @@
 	if (!is_jaunting(remove_from)) // In case you have made exit_jaunt conditional, as in mirror walk
 		return ..()
 
-	var/obj/effect/dummy/phased_mob/jaunt = remove_from.loc
+	var/obj/effect/dummy/spell_jaunt/jaunt = remove_from.loc
 	jaunt.eject_jaunter()
 	return ..()
