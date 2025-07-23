@@ -1,5 +1,5 @@
-#define TESLA_DEFAULT_ENERGY 6.95304e8
-#define TESLA_MINI_ENERGY 3.47652e8
+#define TESLA_DEFAULT_POWER 50e6
+#define TESLA_MINI_POWER 25e6
 
 //Zap constants, speeds up targeting
 #define BIKE (COIL + 1)
@@ -25,7 +25,6 @@
 	)
 	icon = 'icons/obj/engines_and_power/tesla/energy_ball.dmi'
 	icon_state = "energy_ball"
-	anchored = TRUE
 	appearance_flags = LONG_GLIDE
 	density = TRUE
 	plane = MASSIVE_OBJ_PLANE
@@ -37,6 +36,11 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	warps_projectiles = FALSE
 	energy = 0
+
+	// Garbage due to inheritance from the singularity.
+	current_size = STAGE_TWO
+	move_self = TRUE
+	grav_pull = 0
 
 	//var/energy
 	//var/target
@@ -96,7 +100,7 @@
 		pixel_y = 0
 		shocked_things.Cut(1, length(shocked_things) / 1.3)
 		var/list/shocking_info = list()
-		tesla_zap(source = src, zap_range = 3, power = TESLA_DEFAULT_ENERGY, shocked_targets = shocking_info)
+		tesla_zap(source = src, zap_range = 3, power = TESLA_DEFAULT_POWER, shocked_targets = shocking_info)
 
 		pixel_x = -32
 		pixel_y = -32
@@ -104,7 +108,7 @@
 			var/range = rand(1, clamp(length(orbiting_balls), 2, 3))
 			var/list/temp_shock = list()
 			//We zap off the main ball instead of ourselves to make things looks proper
-			tesla_zap(source = src, zap_range = range, power = TESLA_MINI_ENERGY / 7 * range, shocked_targets = temp_shock)
+			tesla_zap(source = src, zap_range = range, power = TESLA_MINI_POWER / 7 * range, shocked_targets = temp_shock)
 			shocking_info += temp_shock
 		shocked_things += shocking_info
 
@@ -207,7 +211,7 @@
 	carbon.investigate_log("has been dusted by an energy ball.", INVESTIGATE_DEATHS)
 	carbon.dust()
 
-/proc/tesla_zap(atom/source, zap_range = 3, power, cutoff = 4e5, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
+/proc/tesla_zap(atom/source, zap_range = 3, power, cutoff = 4e3, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
 	if(QDELETED(source))
 		return
 	if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
@@ -325,7 +329,7 @@
 	if(!closest_atom)
 		return
 	//common stuff
-	source.Beam(closest_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
+	source.Beam(closest_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS, maxdistance = INFINITY)
 	var/zapdir = get_dir(source, closest_atom)
 	if(zapdir)
 		. = zapdir
@@ -341,9 +345,9 @@
 		var/shock_damage = (zap_flags & ZAP_MOB_DAMAGE) ? (min(round(power / 600), 90) + rand(-5, 5)) : 0
 		closest_mob.electrocute_act(shock_damage, "тесла шар", 1, SHOCK_TESLA | ((zap_flags & ZAP_MOB_STUN) ? NONE : SHOCK_NOSTUN))
 		if(issilicon(closest_mob))
-			var/mob/living/silicon/S = closest_mob
+			var/mob/living/silicon/silicon = closest_mob
 			if((zap_flags & ZAP_MOB_STUN) && (zap_flags & ZAP_MOB_DAMAGE))
-				S.emp_act(EMP_LIGHT)
+				silicon.emp_act(EMP_LIGHT)
 			next_range = 7 // metallic folks bounce it further
 		else
 			next_range = 5
@@ -366,3 +370,6 @@
 #undef MACHINERY
 #undef BLOB
 #undef STRUCTURE
+
+#undef TESLA_DEFAULT_POWER
+#undef TESLA_MINI_POWER
