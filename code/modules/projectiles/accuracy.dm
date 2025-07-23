@@ -79,3 +79,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 		return FULL_ACCURACY_PERCENT
 	var/distance_progress = 1 - clamp((distance - FULL_ACCURACY_DISTANCE) / MIN_ACCURACY_DISTANCE, 0, 1)
 	return clamp(distance_progress * (FULL_ACCURACY_PERCENT - MIN_ACCURACY_PERCENT) + MIN_ACCURACY_PERCENT, 0, 100)
+
+#undef FULL_ACCURACY_DISTANCE
+#undef MIN_ACCURACY_DISTANCE
+#undef MIN_ACCURACY_PERCENT
+#undef FULL_ACCURACY_PERCENT
