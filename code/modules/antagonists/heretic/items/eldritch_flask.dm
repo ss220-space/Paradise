@@ -11,7 +11,7 @@
 // Unique bottle that lets you instantly draw blood from a victim
 /obj/item/reagent_containers/glass/phylactery
 	name = "phylactery of damnation"
-	desc = "Used to steal blood from soon-to-be victims."
+	desc = "Используется для кражи крови у будущих жертв."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "phylactery"
 	base_icon_state = "phylactery"
@@ -22,20 +22,17 @@
 	COOLDOWN_DECLARE(drain_cooldown)
 
 
-/obj/item/reagent_containers/glass/phylactery/afterattack(obj/target, mob/user, proximity, list/modifiers)
-	if(!proximity || !modifiers["alt"])
-		return ..()
-
+/obj/item/reagent_containers/glass/phylactery/afterattack(obj/target, mob/user, proximity, params)
 	if(!COOLDOWN_FINISHED(src, drain_cooldown))
-		user.balloon_alert(user, "can't steal so fast!")
-		return NONE
+		user.balloon_alert(user, "подождите!")
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!isliving(target))
-		return NONE
+	if(!ishuman(target))
+		return ..()
 
 	var/mob/living/living_target = target
 	if(reagents.total_volume >= reagents.maximum_volume)
-		to_chat(user, span_notice("[src] is full."))
+		to_chat(user, span_notice("[declent_ru(NOMINATIVE)] полон."))
 		return ATTACK_CHAIN_BLOCKED
 
 	if(living_target == user)
@@ -74,7 +71,7 @@
 
 // Funny potion that is basically an aheal. The downside is that it puts you to sleep for a minute.
 /obj/item/ether
-	name = "ether of the newborn"
+	name = "Душа Нерожденного Младенца"
 	desc = "A flask of nausea-inducing, thick green liquid. Restores your body completely, then places you into an enhanced sleep for a full minute."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "poison_flask"

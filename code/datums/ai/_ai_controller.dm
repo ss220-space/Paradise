@@ -113,7 +113,7 @@ multiple modular subtrees with behaviors
 
 /// Proc for deinitializing the pawn to the old controller
 /datum/ai_controller/proc/UnpossessPawn(destroy)
-	UnregisterSignal(pawn,  list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT))
+	UnregisterSignal(pawn, list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT))
 	if(ai_movement.moving_controllers[src])
 		ai_movement.stop_moving_towards(src)
 	pawn.ai_controller = null

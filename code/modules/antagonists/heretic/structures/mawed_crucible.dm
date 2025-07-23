@@ -98,18 +98,18 @@
 		var/obj/item/organ/consumed = tool
 		if(consumed.status & ORGAN_ROBOT)
 			balloon_alert(user, "не орган!")
-			return ATTACK_CHAIN_BLOCKED
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(isbrain(consumed)) // Basically, don't eat organs like brains
 			balloon_alert(user, "не подходит!")
-			return ATTACK_CHAIN_BLOCKED
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(!IS_HERETIC_OR_MONSTER(user))
 			if(user.a_intent == INTENT_HARM)
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 			bite_the_hand(user)
-			return ATTACK_CHAIN_SUCCESS
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		consume_fuel(user, consumed)
 
@@ -118,22 +118,22 @@
 		playsound(src, 'sound/items/deconstruct.ogg', 30, TRUE, ignore_walls = FALSE)
 		set_anchored(!anchored)
 		balloon_alert(user, "[anchored ? "при":"от"]крученно")
-		return ATTACK_CHAIN_SUCCESS
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(tool, /obj/item/reagent_containers/glass/beaker/eldritch))
 		if(current_mass < max_mass)
 			balloon_alert(user, "мало содержимого!")
-			return ATTACK_CHAIN_SUCCESS
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		var/obj/item/reagent_containers/glass/beaker/eldritch/to_fill = tool
 		if(to_fill.reagents.total_volume >= to_fill.reagents.maximum_volume)
 			balloon_alert(user, "колба полна!")
-			return ATTACK_CHAIN_SUCCESS
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		to_fill.reagents.add_reagent(/datum/reagent/eldritch, 50)
 		current_mass--
 		balloon_alert(user, "колба заполненна")
-		return ATTACK_CHAIN_SUCCESS
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
@@ -247,6 +247,12 @@
 /obj/structure/destructible/eldritch_crucible/update_icon_state()
 	icon_state = "[base_icon_state][(current_mass == max_mass) ? null : "_empty"]"
 	return ..()
+
+
+// no breaky herety thingy
+/obj/structure/destructible/eldritch_crucible/rust_heretic_act()
+	return
+
 
 // Potions created by the mawed crucible.
 /obj/item/eldritch_potion

@@ -53,11 +53,11 @@
 	to_chat(viewer, span_notice(text_to_display))
 	apply_choosen_trauma(viewer)
 	INVOKE_ASYNC(viewer, TYPE_PROC_REF(/mob, emote), "scream")
-	to_chat(viewer, span_hypnophrase("Your mind is overcome! The painting leaves a mark on your psyche."))
+	to_chat(viewer, span_purple("Your mind is overcome! The painting leaves a mark on your psyche."))
 
 /obj/structure/sign/painting/eldritch/wirecutter_act(mob/living/user, obj/item/I)
 	if(!user.can_block_magic(MAGIC_RESISTANCE))
-		to_chat(user, span_hypnophrase("There's an itch in your brain. It's laughing at you..."))
+		to_chat(user, span_purple("There's an itch in your brain. It's laughing at you..."))
 
 	qdel(src)
 	return ATTACK_CHAIN_SUCCESS
@@ -105,7 +105,7 @@
 
 /obj/structure/sign/painting/eldritch/weeping/examine_effects(mob/living/carbon/examiner)
 	if(!isheretic(examiner))
-		to_chat(examiner, span_hypnophrase("Respite, for now...."))
+		to_chat(examiner, span_purple("Respite, for now...."))
 		return
 
 	to_chat(examiner, span_notice("Just gazing upon it clears your mind."))
@@ -203,7 +203,7 @@
 	. = ..()
 	if(!isheretic(examiner))
 		new /obj/structure/spacevine_controller/event(get_turf(examiner), mutations, 0, 10)
-		to_chat(examiner, span_hypnophrase("You are transfixed for a moment by the vines on the painting."))
+		to_chat(examiner, span_purple("You are transfixed for a moment by the vines on the painting."))
 		to_chat(examiner, span_notice("You feel something writhing around you."))
 		return
 
@@ -242,7 +242,7 @@
 		return
 
 	if(!isheretic(examiner))
-		to_chat(examiner, span_hypnophrase("You are not yet pure."))
+		to_chat(examiner, span_purple("You are not yet pure."))
 		randmutb(examiner)
 		return
 
@@ -259,7 +259,7 @@
 
 
 /obj/structure/sign/painting/eldritch/rust
-	name = "Хозяйка Ржавой Горы" // I think its like ike "Хозяйка Медной горы" from "Малахитовая шкатулка".
+	name = "Хозяйка Ржавой Горы"
 	desc = "Картина, изображающая странное существо, взбирающееся на гору цвета ржавчины. Стиль картины неестественный и пугающий. Можно снять кусачками."
 	icon_state = "eldritch_painting_rust"
 	text_to_display = "The rust decays. The master climbs. It calls. You answer..."
@@ -275,7 +275,7 @@
 	. = ..()
 
 	if(!isheretic(examiner))
-		to_chat(examiner, span_hypnophrase("You feel the rust. The rot."))
+		to_chat(examiner, span_purple("You feel the rust. The rot."))
 		return
 
 	to_chat(examiner, span_notice("The painting fills you with resolve."))

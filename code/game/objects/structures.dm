@@ -302,3 +302,6 @@
 	name = initial(name)
 	desc = initial(desc)
 	deltimer(extinguish_timer_id)
+
+/obj/structure/rust_heretic_act()
+	take_damage(500, BRUTE, "melee", 1)

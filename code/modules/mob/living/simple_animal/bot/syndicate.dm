@@ -81,7 +81,7 @@
 /mob/living/simple_animal/bot/ed209/syndicate/retaliate(mob/living/carbon/human/H)
 	if(!H)
 		return
-	target = H
+	arrest_target = H
 	mode = BOT_HUNT
 
 
@@ -112,15 +112,15 @@
 				SSmove_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
-			if(target)
-				if(isliving(target))
-					if(target.stat == DEAD)
+			if(arrest_target)
+				if(isliving(arrest_target))
+					if(arrest_target.stat == DEAD)
 						back_to_idle()
 						return
-				shootAt(target)
-				var/turf/olddist = get_dist(src, target)
-				SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
-				if((get_dist(src, target)) >= (olddist))
+				shootAt(arrest_target)
+				var/turf/olddist = get_dist(src, arrest_target)
+				SSmove_manager.move_to(src, arrest_target, 1, BOT_STEP_DELAY)
+				if((get_dist(src, arrest_target)) >= (olddist))
 					frustration++
 				else
 					frustration = 0
@@ -149,7 +149,7 @@
 			continue
 		if((M.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
-		target = M
+		arrest_target = M
 		oldtarget_name = M.name
 		mode = BOT_HUNT
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
@@ -164,14 +164,14 @@
 			continue
 		if(P.pilot.stat == DEAD)
 			continue
-		target = P
+		arrest_target = P
 		oldtarget_name = P.name
 		mode = BOT_HUNT
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		break
 
 
-/mob/living/simple_animal/bot/ed209/syndicate/shootAt(atom/target)
+/mob/living/simple_animal/bot/ed209/syndicate/shootAt(atom/arrest_target)
 	if(lastfired && world.time - lastfired < shot_delay)
 		return
 	lastfired = world.time
@@ -180,9 +180,9 @@
 	P.current = loc
 	P.starting = loc
 	P.firer = src
-	P.yo = target.y - loc.y
-	P.xo = target.x - loc.x
-	P.original = target
+	P.yo = arrest_target.y - loc.y
+	P.xo = arrest_target.x - loc.x
+	P.original = arrest_target
 	P.fire()
 
 
@@ -233,7 +233,7 @@
 	if(tries >= BOT_STEP_MAX_RETRIES)
 		if(!pathing_failed)
 			pathing_failed = TRUE
-			var/failmsg = "Depot: [src] at [loc.x],[loc.y],[loc.z] lacks patrol target."
+			var/failmsg = "Depot: [src] at [loc.x],[loc.y],[loc.z] lacks patrol arrest_target."
 			if(istype(patrol_target))
 				failmsg = "Depot: [src] at [loc.x],[loc.y],[loc.z] cannot reach [patrol_target.x],[patrol_target.y]"
 			log_debug(failmsg)

@@ -43,8 +43,8 @@
 	if(!IS_HERETIC_OR_MONSTER(user))
 		return
 
-	. += span_hypnophrase("Materializes a barrier upon any tile in sight, which only you can pass through. Lasts 8 seconds.")
-	. += span_hypnophrase("It has <b>[uses]</b> uses left.")
+	. += span_purple("Materializes a barrier upon any tile in sight, which only you can pass through. Lasts 8 seconds.")
+	. += span_purple("It has <b>[uses]</b> uses left.")
 
 
 /obj/item/heretic_labyrinth_handbook/attackby(atom/interacting_with, mob/living/user, list/modifiers)

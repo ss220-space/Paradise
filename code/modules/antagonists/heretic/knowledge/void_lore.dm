@@ -349,7 +349,7 @@
 	telegraph_duration = 2 SECONDS
 	telegraph_overlay = "light_snow"
 
-	weather_message = span_hypnophrase("Вы чувствуете, как воздух вокруг становится холоднее... Вы чувствуете сладкие объятия пустоты...")
+	weather_message = span_purple("Вы чувствуете, как воздух вокруг становится холоднее... Вы чувствуете сладкие объятия пустоты...")
 	weather_overlay = "light_snow"
 	weather_color = COLOR_BLACK
 	weather_duration_lower = 1 MINUTES

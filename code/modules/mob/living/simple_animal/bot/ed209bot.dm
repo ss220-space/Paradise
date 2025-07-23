@@ -43,12 +43,12 @@
 	/// A holder for if it needs to be disabled, if true it will not seach for targets, shoot at targets, or move, currently only used for lasertag
 	var/disabled = FALSE
 
-	var/mob/living/carbon/target
+	var/mob/living/carbon/arrest_target
 	var/oldtarget_name
 	var/threatlevel = 0
-	/// Loc of target when arrested.
+	/// Loc of arrest_target when arrested.
 	var/target_lastloc
-	/// Delay between checks for target.
+	/// Delay between checks for arrest_target.
 	var/last_found
 	/// When making an arrest, should it notify everyone on the security channel?
 	var/declare_arrests = TRUE
@@ -81,7 +81,7 @@
 
 	if(lasercolor)
 		shot_delay = 6 //Longer shot delay because JESUS CHRIST
-		check_records = FALSE //Don't actively target people set to arrest
+		check_records = FALSE //Don't actively arrest_target people set to arrest
 		arrest_type = TRUE //Don't even try to cuff
 		declare_arrests = FALSE // Don't spam sec
 		bot_core.req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
@@ -117,7 +117,7 @@
 
 /mob/living/simple_animal/bot/ed209/bot_reset()
 	..()
-	target = null
+	arrest_target = null
 	oldtarget_name = null
 	set_anchored(FALSE)
 	SSmove_manager.stop_looping(src)
@@ -212,7 +212,7 @@
 	threatlevel = H.assess_threat(src)
 	threatlevel += 6
 	if(threatlevel >= 4)
-		target = H
+		arrest_target = H
 		mode = BOT_HUNT
 
 
@@ -265,7 +265,7 @@
 
 /mob/living/simple_animal/bot/ed209/proc/ed209_ai()
 	var/list/targets = list()
-	for(var/mob/living/carbon/C in view(7, src)) //Let's find us a target
+	for(var/mob/living/carbon/C in view(7, src)) //Let's find us a arrest_target
 		var/threatlevel = 0
 		if(C.stat || C.body_position == LYING_DOWN)
 			continue
@@ -301,41 +301,41 @@
 				set_path(null)
 				back_to_idle()
 
-			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc) && !baton_delayed) // if right next to perp
-					stun_attack(target)
+			if(arrest_target)		// make sure arrest_target exists
+				if(Adjacent(arrest_target) && isturf(arrest_target.loc) && !baton_delayed) // if right next to perp
+					stun_attack(arrest_target)
 					if(!lasercolor)
 						mode = BOT_PREP_ARREST
 						set_anchored(TRUE)
-						target_lastloc = target.loc
+						target_lastloc = arrest_target.loc
 						return
 					else
 						mode = BOT_HUNT
-						target = null
+						arrest_target = null
 						target_lastloc = null
 						return
 
 				else if(!disabled) // not next to perp
-					var/turf/olddist = get_dist(src, target)
-					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
-					if((get_dist(src, target)) >= (olddist))
+					var/turf/olddist = get_dist(src, arrest_target)
+					SSmove_manager.move_to(src, arrest_target, 1, BOT_STEP_DELAY)
+					if((get_dist(src, arrest_target)) >= (olddist))
 						frustration++
 					else
 						frustration = 0
 			else
 				back_to_idle()
 
-		if(BOT_PREP_ARREST)		// preparing to arrest target
+		if(BOT_PREP_ARREST)		// preparing to arrest arrest_target
 
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
+			if(!Adjacent(arrest_target) || !isturf(arrest_target.loc) || world.time - arrest_target.stam_regen_start_time < 4 SECONDS && arrest_target.getStaminaLoss() <= 100)
 				back_to_hunt()
 				return
 
-			if(iscarbon(target) && target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
+			if(iscarbon(arrest_target) && arrest_target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 				if(!arrest_type)
-					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
-						start_cuffing(target)
+					if(!arrest_target.handcuffed)  //he's not cuffed? Try to cuff him!
+						start_cuffing(arrest_target)
 					else
 						back_to_idle()
 						return
@@ -344,18 +344,18 @@
 				return
 
 		if(BOT_ARREST)
-			if(!target)
+			if(!arrest_target)
 				set_anchored(FALSE)
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
 				return
 
-			if(target.handcuffed) //no target or target cuffed? back to idle.
+			if(arrest_target.handcuffed) //no arrest_target or arrest_target cuffed? back to idle.
 				back_to_idle()
 				return
 
-			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
+			if(!Adjacent(arrest_target) || !isturf(arrest_target.loc) || (arrest_target.loc != target_lastloc && world.time - arrest_target.stam_regen_start_time < 4 SECONDS && arrest_target.getStaminaLoss() <= 100)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
 			else
@@ -374,7 +374,7 @@
 /mob/living/simple_animal/bot/ed209/proc/back_to_idle()
 	set_anchored(FALSE)
 	mode = BOT_IDLE
-	target = null
+	arrest_target = null
 	last_found = world.time
 	frustration = 0
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
@@ -408,7 +408,7 @@
 			continue
 
 		else if(threatlevel >= 4)
-			target = C
+			arrest_target = C
 			oldtarget_name = C.name
 			speak("Вижу преступника! Уровень опасности - <b>[threatlevel]</b>!")
 			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, FALSE)
@@ -488,12 +488,12 @@
 			projectile = /obj/projectile/beam/lasertag/redtag
 
 
-/mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
+/mob/living/simple_animal/bot/ed209/proc/shootAt(mob/arrest_target)
 	if(lastfired && world.time - lastfired < shot_delay)
 		return
 	lastfired = world.time
 	var/turf/T = loc
-	var/atom/U = (istype(target, /atom/movable) ? target.loc : target)
+	var/atom/U = (istype(arrest_target, /atom/movable) ? arrest_target.loc : arrest_target)
 	if((!U || !T))
 		return
 	while(!isturf(U))
@@ -513,8 +513,8 @@
 
 /mob/living/simple_animal/bot/ed209/attack_alien(mob/living/carbon/alien/user)
 	..()
-	if(!isalien(target))
-		target = user
+	if(!isalien(arrest_target))
+		arrest_target = user
 		mode = BOT_HUNT
 
 
@@ -552,7 +552,7 @@
 				if(targets.len)
 					var/mob/toarrest = pick(targets)
 					if(toarrest)
-						target = toarrest
+						arrest_target = toarrest
 						mode = BOT_HUNT
 
 
@@ -571,7 +571,7 @@
 			icon_state = "[lasercolor]ed2090"
 			disabled = TRUE
 			SSmove_manager.stop_looping(src)
-			target = null
+			arrest_target = null
 			addtimer(CALLBACK(src, PROC_REF(unset_disabled)), 10 SECONDS)
 			return TRUE
 

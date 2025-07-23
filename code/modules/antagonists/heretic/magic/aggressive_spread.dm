@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/aoe/rust_conversion
-	name = "Aggressive Spread"
+	name = "Агрессивное Распространение"
 	desc = "Spreads rust onto nearby surfaces."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -17,6 +17,10 @@
 	spell_requirements = NONE
 
 	aoe_range = 2
+
+
+/obj/effect/proc_holder/spell/aoe/rust_conversion/valid_target(target, user)
+	return TRUE
 
 
 /obj/effect/proc_holder/spell/aoe/rust_conversion/get_things_to_cast_on(atom/center)

@@ -19,7 +19,7 @@
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_rust
-	name = "Тёмный Кузнец" // The Dark Knight
+	name = "Хозяин Ржавой Горы" // "Хозяйка Медной горы" from "Малахитовая шкатулка".
 	desc = "Открывает вам Путь Ржавчины. \
 			Позволяет превратить нож и мусор (например обертки) в ржавый клинок. \
 			Вы можете создать только два клинка одновременно."
@@ -109,57 +109,68 @@
 
 
 /datum/heretic_knowledge/spell/rust_construction
-	name = "Rust Construction"
-	desc = "Grants you Rust Construction, a spell that allows you to raise a wall out of a rusted floor. \
-		Anyone overtop the wall will be throw aside (or upwards) and sustain damage."
-	gain_text = "Images of foreign and ominous structures began to dance in my mind. Covered head to toe in thick rust, \
-		they no longer looked man made. Or perhaps they never were in the first place."
+	name = "Образование ржавчины"
+	desc = "Даёт вам «Образование ржавчины» — заклинание, позволяющее создать стену на ржавом полу. \
+			Все кто на нём находились, будут отброшен в стороны (или вверх) и получат урон."
+	gain_text = "В голове закружились образы чуждых и зловещих сооружений. \
+				Покрытые толстым слоем ржавчины, они больше не выглядели рукотворными. \
+				Или, возможно, они никогда небыли таковыми."
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/rust_construction
 	cost = 1
 
+
 /datum/heretic_knowledge/spell/area_conversion
-	name = "Aggressive Spread"
-	desc = "Grants you Aggressive Spread, a spell that spreads rust to nearby surfaces. \
-		Already rusted surfaces are destroyed \ Also improves the rusting abilities of non rust-heretics."
-	gain_text = "All wise men know well not to visit the Rusted Hills... Yet the Blacksmith's tale was inspiring."
+	name = "Агрессивное Распространение"
+	desc = "Даёт вам «Агрессивное Распространение» — заклинание, распространяющее ржавчину на близлежащие \
+			поверхности. Уже поражённые ржавчиной поверхности уничтожаются."
+	gain_text = "Все мудрецы прекрасно знали, что не стоило посещать Ржавые Холмы... \
+				И все же рассказ Кузнеца был вдохновляющим."
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/rust_conversion
 	cost = 1
 	research_tree_icon_frame = 5
+
 
 /datum/heretic_knowledge/spell/area_conversion/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	our_heretic.increase_rust_strength(TRUE)
 
+
 /datum/heretic_knowledge/blade_upgrade/rust
-	name = "Toxic Blade"
-	desc = "Your Rusty Blade now disgusts enemies on attack \ Allows you to rust Titanium and Plastitanium.."
-	gain_text = "The Blacksmith hands you their blade. \"The Blade will guide you through the flesh, should you let it.\" \
-		The heavy rust weights it down. You stare deeply into it. The Rusted Hills call for you, now."
+	name = "Ядовитый Клинок"
+	desc = "Ваш Ржавый Клинок теперь вызывает отвращение у врагов при атаке."
+	gain_text = "Кузнец вручает вам свой клинок. «Клинок проложит тебе дорогу. Дорогу сквозь плоть твоих врагов.». \
+				Тяжёлая ржавчина давит на него. Вы всматриваетесь в него. Вы слышите зов Ржавых Холмов."
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_rust"
+
 
 /datum/heretic_knowledge/blade_upgrade/rust/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	our_heretic.increase_rust_strength()
 
+
 /datum/heretic_knowledge/blade_upgrade/rust/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
+
 	target.Disgust(50)
+
 
 /datum/heretic_knowledge/spell/area_conversion/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
+
+
 /datum/heretic_knowledge/spell/entropic_plume
-	name = "Entropic Plume"
-	desc = "Grants you Entropic Plume, a spell that releases a vexing wave of Rust. \
-		Blinds, poisons, and inflicts Amok on any heathen it hits, causing them to strike \
-		at friend or foe wildly. Also rusts and destroys and surfaces it hits and improves the rusting abilities of non-rust heretics."
-	gain_text = "The corrosion was unstoppable. The rust was unpleasable. \
-		The Blacksmith was gone, and you hold their blade. Champions of hope, the Rustbringer is nigh!"
+	name = "Шлейф Разложения"
+	desc = "Даёт вам Шлейф Разложения, заклинание, создающее волну Ржавчины. \
+			Ослепляет, отравляет и выводит из себя любого язычника, которого коснётся, заставляя его яростно бить \
+			окружающих существ. Также покрывает ржавчиной, разрушает и повреждает поверхности, по которым ударяет, \
+			и усиливает способности домена ржавчины у еретиков других путей."
+	gain_text = "Коррозию было не остановить. Ржавчина была повсюду. \
+				Кузнец исчез, но его клинок остался с вами. Воины надежды, Ржавеющий уже близко!"
 
 	spell_to_add = /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
 	cost = 1
-
 
 
 /datum/heretic_knowledge/spell/entropic_plume/on_gain(mob/user)
@@ -167,18 +178,20 @@
 	var/datum/antagonist/heretic/our_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	our_heretic.increase_rust_strength(TRUE)
 
+
 /datum/heretic_knowledge/ultimate/rust_final
-	name = "Rustbringer's Oath"
-	desc = "The ascension ritual of the Path of Rust. \
-		Bring 3 corpses to a transmutation rune on the bridge of the station to complete the ritual. \
-		When completed, the ritual site will endlessly spread rust onto any surface, stopping for nothing. \
-		Additionally, you will become extremely resilient on rust, healing at triple the rate \
-		and becoming immune to many effects and dangers \ You will be able to rust almost anything upon ascending."
-	gain_text = "Champion of rust. Corruptor of steel. Fear the dark, for the RUSTBRINGER has come! \
-		The Blacksmith forges ahead! Rusted Hills, CALL MY NAME! WITNESS MY ASCENSION!"
+	name = "Клятва Ржавчины"
+	desc = "Ритуал вознесения Пути Ржавчины. \
+			Принесите 3 трупа к руне трансмутации на мостике, чтобы завершить ритуал. \
+			После завершения ритуала ржавчина начнет распространяться от места его проведения. \
+			Кроме того, вы станете чрезвычайно живучи пока находитесь на ржавчине, \
+			будете восстанавливаться в три раза быстрее и приобретете иммунитет ко многим негативным эффектам. \
+			После вознесения вы сможете поражать ржавчиной практически всё."
+	gain_text = "Поборник ржавчины. Осквернитель стали. Бойтесь тьмы, ибо пришёл Ржавеющий! \
+				Кузнец идёт вперёд! Ржавые Холмы, НАЗОВИТЕ МОЁ ИМЯ! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/rust_ascension
-	announcement_text = "%SPOOKY% Fear the decay, for the Rustbringer, %NAME% has ascended! None shall escape the corrosion! %SPOOKY%"
+	announcement_text = "%SPOOKY% Бойтесь, ибо Ржавеющий, %NAME%, вознёсся! Никто и ничто не избежит коррозии! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_rust.ogg'
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
@@ -202,6 +215,7 @@
 		TRAIT_STUNIMMUNE,
 	)
 
+
 /datum/heretic_knowledge/ultimate/rust_final/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	// This map doesn't have a Bridge, for some reason??
@@ -209,14 +223,18 @@
 	if(!GLOB.areas_by_type[ritual_location])
 		ritual_location = null
 
-/datum/heretic_knowledge/ultimate/rust_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	if(ritual_location)
-		var/area/our_area = get_area(loc)
-		if(!istype(our_area, ritual_location))
-			loc.balloon_alert(user, "ritual failed, must be in [initial(ritual_location.name)]!") // "must be in bridge"
-			return FALSE
 
-	return ..()
+/datum/heretic_knowledge/ultimate/rust_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+	if(!ritual_location)
+		return ..()
+
+	var/area/our_area = get_area(loc)
+	if(istype(our_area, ritual_location))
+		return ..()
+
+	loc.balloon_alert(user, "ritual failed, must be in [initial(ritual_location.name)]!") // "must be in bridge"
+	return FALSE
+
 
 /datum/heretic_knowledge/ultimate/rust_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
@@ -226,6 +244,7 @@
 	//user.client?.give_award(/datum/award/achievement/misc/rust_ascension, user)
 	var/obj/effect/proc_holder/spell/aoe/rust_spread_spell = locate() in user.mob_spell_list
 	rust_spread_spell?.base_cooldown /= 2
+
 
 // I sure hope this doesn't have performance implications
 /datum/heretic_knowledge/ultimate/rust_final/proc/trigger(turf/center)
@@ -240,8 +259,10 @@
 		var/dist = get_dist(center, transform_turf)
 		if (dist > greatest_dist)
 			greatest_dist = dist
+
 		if (!turfs_to_transform["[dist]"])
 			turfs_to_transform["[dist]"] = list()
+
 		turfs_to_transform["[dist]"] += transform_turf
 
 	for (var/iterator in 1 to greatest_dist)
@@ -249,6 +270,7 @@
 			continue
 
 		addtimer(CALLBACK(src, PROC_REF(transform_area), turfs_to_transform["[iterator]"]), (5 SECONDS) * iterator)
+
 
 /datum/heretic_knowledge/ultimate/rust_final/proc/transform_area(list/turfs)
 	turfs = shuffle(turfs)
@@ -260,10 +282,12 @@
 	addtimer(CALLBACK(src, PROC_REF(delay_transform_turfs), second_third), 5 SECONDS * 0.33)
 	addtimer(CALLBACK(src, PROC_REF(delay_transform_turfs), third_third), 5 SECONDS * 0.66)
 
+
 /datum/heretic_knowledge/ultimate/rust_final/proc/delay_transform_turfs(list/turfs)
 	for(var/turf/turf as anything in turfs)
 		turf.rust_heretic_act(5)
 		CHECK_TICK
+
 
 /**
  * Signal proc for [COMSIG_MOVABLE_MOVED].
@@ -280,13 +304,18 @@
 			source.add_traits(conditional_immunities, type)
 			source.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
 			immunities_active = TRUE
+			return
+
+		return
 
 	// If we're not on a rust turf, and we have given out our traits, nerf our guy
-	else
-		if(immunities_active)
-			source.remove_traits(conditional_immunities, type)
-			source.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
-			immunities_active = FALSE
+	if(!immunities_active)
+		return
+
+	source.remove_traits(conditional_immunities, type)
+	source.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+	immunities_active = FALSE
+
 
 /**
  * Signal proc for [COMSIG_LIVING_LIFE].
@@ -309,5 +338,6 @@
 	need_mob_update += source.adjustStaminaLoss(-base_heal_amt * 4, updating_health = FALSE)
 	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
 		source.blood_volume += base_heal_amt
+		
 	if(need_mob_update)
 		source.updatehealth()

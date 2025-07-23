@@ -10,7 +10,7 @@
 
 /datum/element/ranged_attacks/Attach(atom/movable/target, casingtype, projectilesound, projectiletype)
 	. = ..()
-	if(!isbasicmob(target))
+	if(!isanimal(target))
 		return COMPONENT_INCOMPATIBLE
 
 	src.casingtype = casingtype
@@ -26,12 +26,12 @@
 	UnregisterSignal(target, COMSIG_MOB_ATTACK_RANGED)
 	return ..()
 
-/datum/element/ranged_attacks/proc/fire_ranged_attack(mob/living/basic/firer, atom/target, modifiers)
+/datum/element/ranged_attacks/proc/fire_ranged_attack(mob/living/simple_animal/firer, atom/target, modifiers)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(async_fire_ranged_attack), firer, target, modifiers)
 
 
-/datum/element/ranged_attacks/proc/async_fire_ranged_attack(mob/living/basic/firer, atom/target, modifiers)
+/datum/element/ranged_attacks/proc/async_fire_ranged_attack(mob/living/simple_animal/firer, atom/target, modifiers)
 	var/turf/startloc = get_turf(firer)
 
 	if(casingtype)

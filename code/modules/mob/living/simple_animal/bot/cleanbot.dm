@@ -31,7 +31,7 @@
 	var/mask_color = null
 	var/blood = TRUE
 	var/list/target_types = list()
-	var/obj/effect/decal/cleanable/target
+	var/obj/effect/decal/cleanable/clean_target
 	var/max_targets = 50 //Maximum number of targets a cleanbot can ignore.
 	var/oldloc = null
 	var/closest_dist
@@ -76,7 +76,7 @@
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
 	ignore_list.Cut() //Allows the bot to clean targets it previously ignored due to being unreachable.
-	target = null
+	clean_target = null
 	oldloc = null
 
 
@@ -141,42 +141,42 @@
 	else if(prob(5))
 		custom_emote(EMOTE_VISIBLE, "бипает и бупает!")
 
-	if(!target) //Search for cleanables it can see.
-		target = scan(/obj/effect/decal/cleanable)
+	if(!clean_target) //Search for cleanables it can see.
+		clean_target = scan(/obj/effect/decal/cleanable)
 
 	var/mob/living/simple_animal/bot/cleanbot/otherbot
-	if(target)
-		otherbot = locate(src.type) in target.loc
+	if(clean_target)
+		otherbot = locate(src.type) in clean_target.loc
 
 	if(otherbot && (src != otherbot) && otherbot.mode == BOT_CLEANING)
-		target = null
+		clean_target = null
 		path = list()
 
-	if(!target && auto_patrol) //Search for cleanables it can see.
+	if(!clean_target && auto_patrol) //Search for cleanables it can see.
 		if(mode == BOT_IDLE || mode == BOT_START_PATROL)
 			start_patrol()
 
 		if(mode == BOT_PATROL)
 			bot_patrol()
 
-	if(target && loc == get_turf(target))
-		start_clean(target)
+	if(clean_target && loc == get_turf(clean_target))
+		start_clean(clean_target)
 		path = list()
-		target = null
+		clean_target = null
 
-	if(target)
+	if(clean_target)
 		if(!path || !length(path)) //No path, need a new one
-			//Try to produce a path to the target, and ignore airlocks to which it has access.
-			path = get_path_to(src, target, max_distance = 30, access = access_card.GetAccess())
-			if(!bot_move(target))
-				add_to_ignore(target)
-				target = null
+			//Try to produce a path to the clean_target, and ignore airlocks to which it has access.
+			path = get_path_to(src, clean_target, max_distance = 30, access = access_card.GetAccess())
+			if(!bot_move(clean_target))
+				add_to_ignore(clean_target)
+				clean_target = null
 				path = list()
 				return
 			mode = BOT_MOVING
 
-		else if(!bot_move(target))
-			target = null
+		else if(!bot_move(clean_target))
+			clean_target = null
 			mode = BOT_IDLE
 			return
 
@@ -210,19 +210,19 @@
 		target_types += /obj/effect/decal/cleanable/trail_holder
 
 
-/mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
+/mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/clean_target)
 	set_anchored(TRUE)
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает очищать [target]."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает очищать [clean_target]."))
 	mode = BOT_CLEANING
 	update_icon()
-	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_clean), clean_target), 5 SECONDS)
 
 
-/mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
+/mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/clean_target)
 	if(QDELETED(src))
 		return
 	if(mode == BOT_CLEANING)
-		QDEL_NULL(target)
+		QDEL_NULL(clean_target)
 		set_anchored(FALSE)
 	mode = BOT_IDLE
 	update_icon()

@@ -16,6 +16,9 @@
 
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
+	clothes_req = FALSE
+	human_req = FALSE
+	phase_allowed = TRUE
 
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
@@ -26,13 +29,13 @@
 
 /obj/effect/proc_holder/spell/jaunt/space_crawl/on_spell_gain(mob/user = usr)
 	. = ..()
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/datum/action, update_status_on_signal))
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 
 /obj/effect/proc_holder/spell/jaunt/space_crawl/on_spell_loss(mob/remove_from)
 	. = ..()
 	UnregisterSignal(remove_from, COMSIG_MOVABLE_MOVED)
 
-/obj/effect/proc_holder/spell/jaunt/space_crawl/can_cast(feedback = TRUE)
+/obj/effect/proc_holder/spell/jaunt/space_crawl/can_cast(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -42,7 +45,7 @@
 		return TRUE
 
 	var/area/my_area = get_area(action.owner)
-	if (is_space_or_openspace(my_turf) && my_area.outdoors && lavaland_equipment_pressure_check(my_turf))
+	if (is_space_or_openspace(my_turf) || my_area.outdoors && lavaland_equipment_pressure_check(my_turf))
 		return TRUE
 
 	if(feedback)
@@ -66,10 +69,12 @@
 	else
 		. = try_enter_jaunt(our_turf, jaunter)
 
-	if(!.)
-		//reset_spell_cooldown()
-		cooldown_handler.start_recharge()
-		to_chat(jaunter, span_warning("You are unable to space crawl!"))
+	if(.)
+		return
+
+	//reset_spell_cooldown()
+	//cooldown_handler.start_recharge()
+	to_chat(jaunter, span_warning("You are unable to space crawl!"))
 
 /**
  * Attempts to enter the passed space or misc turfs.
@@ -82,7 +87,7 @@
 		REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
 		return FALSE
 
-	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/datum/action, update_status_on_signal))
+	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 	if(iscarbon(jaunter))
 		jaunter.drop_all_held_items()
 		// Sanity check to ensure we didn't lose our focus as a result.
@@ -90,6 +95,7 @@
 			REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
 			exit_jaunt(jaunter, our_turf)
 			return FALSE
+
 		// Give them some space hands to prevent them from doing things
 		var/obj/item/space_crawl/left_hand = new(jaunter)
 		var/obj/item/space_crawl/right_hand = new(jaunter)
@@ -99,7 +105,7 @@
 		jaunter.put_in_hands(right_hand)
 
 	jaunter.add_traits(jaunting_traits, SPACE_PHASING)
-	RegisterSignal(jaunter, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
+	RegisterSignal(jaunter, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost), override = TRUE)
 	playsound(our_turf, 'sound/magic/cosmic_energy.ogg', 50, TRUE, -1)
 	our_turf.visible_message(span_warning("[jaunter] sinks into [our_turf]!"))
 	new /obj/effect/temp_visual/space_explosion(our_turf)
@@ -220,6 +226,7 @@
 
 	var/obj/effect/dummy/phased_mob/jaunt = new jaunt_type(loc_override || get_turf(jaunter), jaunter)
 	RegisterSignal(jaunt, COMSIG_MOB_EJECTED_FROM_JAUNT, PROC_REF(on_jaunt_exited))
+	jaunter.forceMove(jaunt)
 	//check_flags &= ~AB_CHECK_PHASED
 	//jaunter.add_traits(list(TRAIT_MAGICALLY_PHASED, TRAIT_RUNECHAT_HIDDEN, TRAIT_WEATHER_IMMUNE), UID())
 	// Don't do the feedback until we have runechat hidden.

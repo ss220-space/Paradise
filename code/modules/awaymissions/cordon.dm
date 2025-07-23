@@ -34,6 +34,11 @@
 
 	dump_in_space(bumped_atom)
 
+
+/turf/cordon/rust_heretic_act()
+	return FALSE
+	
+
 /// Area used in conjuction with the cordon turf to create a fully functioning world border.
 /area/misc/cordon
 	name = "CORDON"

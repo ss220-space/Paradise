@@ -1304,5 +1304,15 @@
 	. = ..()
 	current_color = chosen_color
 
+
+/datum/crafting_recipe/canvas
+	name = "Холст"
+	result = /obj/item/canvas
+	reqs = list(/obj/item/stack/sheet/cloth = 4,
+				/obj/item/stack/sheet/wood = 2,)
+	time = 5 SECONDS
+	category = CAT_MISC
+
+
 #undef AVAILABLE_PALETTE_SPACE
 #undef MAX_PAINTING_ZOOM_OUT

@@ -1,8 +1,8 @@
-/*
+
 /// Basetype with normal parameters
 /datum/ai_controller/basic_controller/simple
 	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGETING_STRATEGY = /datum/targetting_datum/basic,
 	)
 
 	ai_movement = /datum/ai_movement/basic_avoidance
@@ -14,7 +14,7 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
-*/
+
 
 /// Find a target, walk at target, attack intervening obstacles
 /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles

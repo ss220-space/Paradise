@@ -556,3 +556,12 @@
 	dir = SOUTH
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
+
+
+/obj/machinery/door/window/rust_heretic_act()
+	add_atom_colour(COLOR_RUSTED_GLASS, FIXED_COLOUR_PRIORITY)
+	AddElement(/datum/element/rust)
+	getArmor()
+	take_damage(get_integrity() * 0.5)
+	modify_max_integrity(initial(max_integrity) * 0.2)
+	

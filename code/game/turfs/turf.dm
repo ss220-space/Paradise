@@ -917,3 +917,11 @@
 	}
 
 	return target_space_turf
+
+
+/// Check if the heretic is strong enough to rust this turf, and if so, rusts the turf with an added visual effect.
+/turf/rust_heretic_act(rust_strength = 1)
+	/*if((turf_flags & NO_RUST) || (rust_strength < rust_resistance))
+		return
+*/
+	rust_turf()

@@ -72,7 +72,7 @@
 
 /datum/heretic_knowledge/blade_dance
 	name = "Танец Клинка"
-	desc = "Если вас атакуют, держа в любой из рук клинок Еретика, вы нанесёте ответный удар \
+	desc = "Если вас атакуют, пока вы держите в любой из рук клинок Еретика, вы нанесёте ответный удар \
 			по атакующему. Этот эффект может сработать только раз в 20 секунд."
 	gain_text = "Этот пехотинец был известен как грозный дуэлянт. \
 				Их генерал даровал ему титул Чемпиона."
@@ -85,11 +85,13 @@
 
 
 /datum/heretic_knowledge/blade_dance/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	RegisterSignal(user, COMSIG_LIVING_CHECK_BLOCK, PROC_REF(on_shield_reaction))
+	RegisterSignal(user, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(on_shield_reaction))
+	if(!HAS_TRAIT(user, TRAIT_RELAYING_ATTACKER))
+		user.AddElement(/datum/element/relay_attackers)
 
 
 /datum/heretic_knowledge/blade_dance/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	UnregisterSignal(user, COMSIG_LIVING_CHECK_BLOCK)
+	UnregisterSignal(user, COMSIG_ATOM_WAS_ATTACKED)
 
 
 /datum/heretic_knowledge/blade_dance/proc/on_shield_reaction(
@@ -184,7 +186,7 @@
 
 	var/area/to_lock_to = get_area(target)
 	blade_mark.locked_to = to_lock_to
-	to_chat(target, span_hypnophrase("Потусторонняя сила заставляет вас оставаться в [get_area_name(to_lock_to)]!"))
+	to_chat(target, span_purple("Потусторонняя сила заставляет вас оставаться в [get_area_name(to_lock_to)]!"))
 	return blade_mark
 
 
@@ -384,7 +386,7 @@
 		source = name,
 		message = span_warning("%EFFECT_OWNER выдерживает оглушение!"),
 		self_message = span_warning("Вы выдерживаете оглушение!"),
-		examine_message = span_hypnophrase("%EFFECT_OWNER слегка покачивается."),
+		examine_message = span_purple("%EFFECT_OWNER слегка покачивается."),
 		// flashbangs are like 5-10 seoncds,
 		// a banana peel is ~5 seconds, depending on botany
 		// body throws and tackles are less than 5 seconds,

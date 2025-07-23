@@ -27,7 +27,7 @@
 
 /obj/effect/proc_holder/spell/jaunt/mirror_walk/on_spell_gain(mob/user = usr)
 	. = ..()
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/datum/action, update_status_on_signal))
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 
 
 /obj/effect/proc_holder/spell/jaunt/mirror_walk/on_spell_loss(mob/remove_from)
@@ -90,7 +90,7 @@
 	if (!jaunt)
 		return FALSE
 
-	RegisterSignal(jaunt, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/datum/action, update_status_on_signal))
+	RegisterSignal(jaunt, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 	return jaunt
 
 

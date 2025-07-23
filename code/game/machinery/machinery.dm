@@ -652,3 +652,7 @@ Class Procs:
 /obj/machinery/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
+
+
+/obj/machinery/rust_heretic_act()
+	take_damage(500, BRUTE, MELEE, 1)

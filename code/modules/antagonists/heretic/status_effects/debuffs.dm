@@ -215,13 +215,16 @@
 	desc = "ОНИ ЛГУТ, ОНИ ВСЕ ЛГУТ!!! УБЕЙТЕ ИХ!!! СОЖГИТЕ ИХ!!! ЗАСТАВЬТЕ ИХ УВИДЕТЬ ПРАВДУ!!!"
 	icon_state = "lastresort"
 
+
 /datum/status_effect/moon_converted/on_creation()
 	. = ..()
 	moon_insanity_overlay = mutable_appearance(effect_icon, effect_icon_state, ABOVE_MOB_LAYER)
+	
 
 /datum/status_effect/moon_converted/Destroy()
 	QDEL_NULL(moon_insanity_overlay)
 	return ..()
+
 
 /datum/status_effect/moon_converted/on_apply()
 	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
@@ -229,7 +232,17 @@
 	owner.adjustBruteLoss( -150)
 	owner.adjustFireLoss(-150)
 
-	to_chat(owner, span_hypnophrase(("ЛУНА ПОКАЗЫВАЕТ ВАМ ПРАВДУ, А ЛЖЕЦЫ ХОТЯТ ЕЁ СКРЫТЬ, УБЕЙТЕ ИХ ВСЕХ!!!")))
+	var/datum/objective/custom_objective = new("Вы познали правду! Убейте всех кого сможете! \
+												Ведите себя при этом как можно более ненормально!")
+
+	if(owner.mind)
+		custom_objective.needs_target = FALSE
+		custom_objective.owner = owner.mind
+		owner.mind.objectives += custom_objective
+		var/list/messages = owner.mind.prepare_announce_objectives()
+		to_chat(owner, chat_box_red(messages.Join("<br>")))
+
+	to_chat(owner, span_purple(("ЛУНА ПОКАЗЫВАЕТ ВАМ ПРАВДУ, А ЛЖЕЦЫ ХОТЯТ ЕЁ СКРЫТЬ, УБЕЙТЕ ИХ ВСЕХ!!!")))
 	owner.balloon_alert(owner, "они. все. ЛГАЛИ!")
 	owner.Sleeping(7 SECONDS)
 	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_STATUS_EFFECT(id))

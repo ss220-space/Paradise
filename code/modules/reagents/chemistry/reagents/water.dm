@@ -474,27 +474,27 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM  //0.5u/second
 	process_flags = ORGANIC | SYNTHETIC // Magical, so works on not organic drinkers.
 
-/datum/reagent/eldritch/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
+/datum/reagent/eldritch/on_mob_life(mob/living/carbon/drinker)
 	. = ..()
 	var/need_mob_update = FALSE
 	if(IS_HERETIC_OR_MONSTER(drinker))
-		drinker.Drowsy(-10 * REM * seconds_per_tick)
-		drinker.AdjustAllImmobility(-40 * REM * seconds_per_tick)
-		need_mob_update += drinker.adjustStaminaLoss(-10 * REM * seconds_per_tick, updating_health = FALSE)
-		need_mob_update += drinker.adjustToxLoss(-2 * REM * seconds_per_tick, updating_health = FALSE, forced = TRUE)
-		need_mob_update += drinker.adjustOxyLoss(-2 * REM * seconds_per_tick, updating_health = FALSE)
-		need_mob_update += drinker.adjustBruteLoss(-2 * REM * seconds_per_tick, updating_health = FALSE)
-		need_mob_update += drinker.adjustFireLoss(-2 * REM * seconds_per_tick)
+		drinker.Drowsy(-10 * REM)
+		drinker.AdjustAllImmobility(-40 * REM)
+		need_mob_update += drinker.adjustStaminaLoss(-10 * REM, updating_health = FALSE)
+		need_mob_update += drinker.adjustToxLoss(-2 * REM, updating_health = FALSE, forced = TRUE)
+		need_mob_update += drinker.adjustOxyLoss(-2 * REM, updating_health = FALSE)
+		need_mob_update += drinker.adjustBruteLoss(-2 * REM, updating_health = FALSE)
+		need_mob_update += drinker.adjustFireLoss(-2 * REM)
 		if(drinker.blood_volume < BLOOD_VOLUME_NORMAL)
-			drinker.blood_volume += 3 * REM * seconds_per_tick
+			drinker.blood_volume += 3 * REM
 
 		return
 
-	need_mob_update = drinker.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 3 * REM * seconds_per_tick, 150)
-	need_mob_update += drinker.adjustToxLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
-	need_mob_update += drinker.adjustFireLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
-	need_mob_update += drinker.adjustOxyLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
-	need_mob_update += drinker.adjustBruteLoss(2 * REM * seconds_per_tick)
+	need_mob_update = drinker.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 3 * REM, 150)
+	need_mob_update += drinker.adjustToxLoss(2 * REM, updating_health = FALSE)
+	need_mob_update += drinker.adjustFireLoss(2 * REM, updating_health = FALSE)
+	need_mob_update += drinker.adjustOxyLoss(2 * REM, updating_health = FALSE)
+	need_mob_update += drinker.adjustBruteLoss(2 * REM)
 
 
 /datum/reagent/eldritch/reaction_turf(turf/exposed_turf, reac_volume, color)

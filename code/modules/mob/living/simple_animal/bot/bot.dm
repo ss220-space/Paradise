@@ -1411,3 +1411,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 /obj/machinery/bot_core/syndicate
 	req_access = list(ACCESS_SYNDICATE)
 
+
+/mob/living/simple_animal/bot/rust_heretic_act()
+	adjustBruteLoss(400)

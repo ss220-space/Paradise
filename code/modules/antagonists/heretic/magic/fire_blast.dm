@@ -253,7 +253,7 @@
 	if(. & SPELL_CANCEL_CAST)
 		return
 
-	var/atom/cast_on = targets[0]
+	var/atom/cast_on = targets[1]
 	to_chat(cast_on, channel_message)
 
 	if(charge_sound_instance)
@@ -322,11 +322,12 @@
 	initial_target = null // This like shouuld never hang references but I've seen some cursed things so let's be safe
 	return ..()
 
-/obj/effect/proc_holder/spell/charged/beam/before_cast(atom/cast_on)
+/obj/effect/proc_holder/spell/charged/beam/before_cast(list/targets)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
+	var/atom/cast_on = targets[1]
 	initial_target = get_target(cast_on)
 	if(isnull(initial_target))
 		cast_on.balloon_alert(cast_on, "no targets nearby!")

@@ -85,16 +85,18 @@
 	src.repetitions = max(1, repetition)
 
 /datum/status_effect/eldritch/ash/on_effect()
-	if(iscarbon(owner))
-		var/mob/living/carbon/carbon_owner = owner
-		carbon_owner.adjustStaminaLoss(6 * repetitions) // first one = 30 stam
-		carbon_owner.adjustFireLoss(3 * repetitions) // first one = 15 burn
-		for(var/mob/living/carbon/victim in shuffle(range(1, carbon_owner)))
-			if(isheretic(victim) || victim == carbon_owner)
-				continue
+	if(!iscarbon(owner))
+		return ..()
 
-			victim.apply_status_effect(type, repetitions - 1)
-			break
+	var/mob/living/carbon/carbon_owner = owner
+	carbon_owner.adjustStaminaLoss(6 * repetitions) // first one = 30 stam
+	carbon_owner.adjustFireLoss(3 * repetitions) // first one = 15 burn
+	for(var/mob/living/carbon/victim in shuffle(range(3, carbon_owner)))
+		if(isheretic(victim) || victim == carbon_owner)
+			continue
+
+		victim.apply_status_effect(type, repetitions - 1)
+		break
 
 	return ..()
 
@@ -171,9 +173,9 @@
 
 	var/mob/thrower = throw_args[4]
 	if(istype(thrower))
-		to_chat(thrower, span_hypnophrase("Потусторонняя сила не позволяет вам выбросить [source.declent_ru(ACCUSATIVE)] из [get_area_name(locked_to)]!"))
+		to_chat(thrower, span_purple("Потусторонняя сила не позволяет вам выбросить [source.declent_ru(ACCUSATIVE)] из [get_area_name(locked_to)]!"))
 
-	to_chat(source, span_hypnophrase("Потусторонняя сила не даёт вам вылететь из [get_area_name(locked_to)]!"))
+	to_chat(source, span_purple("Потусторонняя сила не даёт вам вылететь из [get_area_name(locked_to)]!"))
 
 	return COMPONENT_CANCEL_THROW
 
@@ -184,7 +186,7 @@
 	if(!is_escaping_locked_area(source, destination))
 		return
 
-	to_chat(source, span_hypnophrase("Потусторонняя сила не дает вам сбежать из [get_area_name(locked_to)]!"))
+	to_chat(source, span_purple("Потусторонняя сила не дает вам сбежать из [get_area_name(locked_to)]!"))
 	source.Stun(1 SECONDS)
 	return TRUE
 
@@ -200,7 +202,7 @@
 	if(forced || !is_escaping_locked_area(old_loc, source))
 		return
 
-	to_chat(source, span_hypnophrase("Потусторонняя сила не дает вам сбежать из [get_area_name(locked_to)]!"))
+	to_chat(source, span_purple("Потусторонняя сила не дает вам сбежать из [get_area_name(locked_to)]!"))
 
 	var/turf/further_behind_old_loc = get_edge_target_turf(old_loc, REVERSE_DIR(movement_dir))
 

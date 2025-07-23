@@ -150,7 +150,7 @@
 	/// The message sent to someone when unlinked.
 	var/unlink_message
 	/// The master's linking action, which allows them to link people to the network.
-	VAR_FINAL/datum/action/linker_action
+	VAR_FINAL/obj/effect/proc_holder/spell/linker_spell
 
 /datum/component/mind_linker/active_linking/Initialize(
 	// Customization related settings
@@ -167,7 +167,7 @@
 	link_message,
 	unlink_message,
 	// Required for this subtype
-	linker_action_path,
+	linker_spell_path,
 )
 
 	. = ..()
@@ -178,16 +178,16 @@
 	src.link_message = link_message || "You are now connected to [owner.real_name]'s [network_name]."
 	src.unlink_message = unlink_message || "You are no longer connected to [owner.real_name]'s [network_name]."
 
-	if(ispath(linker_action_path))
-		linker_action = new linker_action_path(src)
-		linker_action.Grant(owner)
+	if(ispath(linker_spell_path))
+		linker_spell = new linker_spell_path(src)
+		owner.mind.AddSpell(linker_spell)
 	else
-		stack_trace("[type] was created without a valid linker_action_path. No one will be able to link to it.")
+		stack_trace("[type] was created without a valid linker_spell_path. No one will be able to link to it.")
 
 	to_chat(owner, span_boldnotice("You establish a [network_name], allowing you to link minds to communicate telepathically."))
 
 /datum/component/mind_linker/active_linking/Destroy()
-	QDEL_NULL(linker_action)
+	QDEL_NULL(linker_spell)
 	return ..()
 
 /datum/component/mind_linker/active_linking/link_mob(mob/living/to_link)

@@ -77,7 +77,7 @@
 		escape_timer = addtimer(CALLBACK(src, PROC_REF(reset_attempts)), 2 SECONDS, TIMER_STOPPABLE)
 		return
 
-	to_chat(user, span_hypnophrase(span_big("Трусливые овцы будут зарезаны!")))
+	to_chat(user, span_purple(span_big("Трусливые овцы будут зарезаны!")))
 	playsound(src, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 70, TRUE)
 	var/obj/item/organ/external/to_remove = user.get_active_hand()
 	to_remove.dismember()
@@ -329,7 +329,7 @@
 	if(!prob(15))
 		return TRUE
 
-	to_chat(user, span_big(span_hypnophrase("LW'NAFH'NAHOR UH'ENAH'YMG EPGOKA AH NAFL MGEMPGAH'EHYE")))
+	to_chat(user, span_big(span_purple("LW'NAFH'NAHOR UH'ENAH'YMG EPGOKA AH NAFL MGEMPGAH'EHYE")))
 	to_chat(user, span_danger("Horrible, unintelligible utterances flood your mind!"))
 	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 15) // This can kill you if you ignore it
 	return TRUE

@@ -195,9 +195,9 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 		return
 
 	if(isheretic(owner))
-		to_chat(owner, span_big(span_hypnophrase("The mansus is pleased with your performance, you may leave now.")))
+		to_chat(owner, span_big(span_purple("The mansus is pleased with your performance, you may leave now.")))
 	else
-		to_chat(owner, span_big(span_hypnophrase("You have done well, you may leave now.")))
+		to_chat(owner, span_big(span_purple("You have done well, you may leave now.")))
 
 	arena_victor = TRUE
 

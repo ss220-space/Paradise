@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/cosmic_rune
-	name = "Cosmic Rune"
+	name = "Космические руны"
 	desc = "Creates a cosmic rune at your position, only two can exist at a time. Invoking one rune transports you to the other. \
 		Anyone with a star mark gets transported along with you."
 	action_background_icon_state = "bg_heretic"
@@ -23,8 +23,10 @@
 	/// Rune removal effect.
 	var/obj/effect/rune_remove_effect = /obj/effect/temp_visual/cosmic_rune_fade
 
-/obj/effect/proc_holder/spell/cosmic_rune/cast(atom/cast_on)
+
+/obj/effect/proc_holder/spell/cosmic_rune/cast(list/targets)
 	. = ..()
+	var/atom/cast_on = targets[1]
 	var/obj/effect/cosmic_rune/first_rune_resolved = first_rune?.resolve()
 	var/obj/effect/cosmic_rune/second_rune_resolved = second_rune?.resolve()
 	if(first_rune_resolved && second_rune_resolved)
@@ -36,11 +38,14 @@
 		second_rune_resolved.link_rune(new_rune)
 		new_rune.link_rune(second_rune_resolved)
 		return
+
 	if(!first_rune_resolved)
 		first_rune = make_new_rune(get_turf(cast_on), second_rune_resolved)
 		return
+
 	if(!second_rune_resolved)
 		second_rune = make_new_rune(get_turf(cast_on), first_rune_resolved)
+
 
 /// Returns a weak reference to a new rune, linked to an existing rune if provided
 /obj/effect/proc_holder/spell/cosmic_rune/proc/make_new_rune(turf/target_turf, obj/effect/cosmic_rune/other_rune)
@@ -48,7 +53,9 @@
 	if(other_rune)
 		other_rune.link_rune(new_rune)
 		new_rune.link_rune(other_rune)
+
 	return WEAKREF(new_rune)
+
 
 /// A rune that allows you to teleport to the location of a linked rune.
 /obj/effect/cosmic_rune

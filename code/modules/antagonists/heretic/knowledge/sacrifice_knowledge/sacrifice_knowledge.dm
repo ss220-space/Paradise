@@ -218,7 +218,7 @@
 
 	if(!iscultist(sacrifice))
 		heretic_datum.knowledge_points += 2
-		to_chat(user, span_hypnophrase("[feedback]."))
+		to_chat(user, span_purple("[feedback]."))
 		if(!begin_sacrifice(sacrifice))
 			disembowel_target(sacrifice)
 			return
@@ -241,20 +241,20 @@
 
 		SEND_SOUND(mind.current, 'sound/magic/clockwork/narsie_attack.ogg')
 		var/message = span_narsie("A vile heretic has ") + \
-		span_cultlarge(span_hypnophrase("sacrificed")) + \
+		span_cultlarge(span_purple("sacrificed")) + \
 		span_narsie(" one of our own. Destroy and sacrifice the infidel before it claims more!")
 		to_chat(mind.current, message)
 
 	// he(retic) gets a warn too
 	to_chat(user, span_narsiesmall("How DARE you!? I will see you destroyed for this."))
-	var/non_flavor_warning = span_cultbold("You feel that your action has attracted ") + span_hypnophrase("attention") + span_cultbold(".")
+	var/non_flavor_warning = span_cultbold("You feel that your action has attracted ") + span_purple("attention") + span_cultbold(".")
 	to_chat(user, non_flavor_warning)
 
 
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/grant_reward(mob/living/user, mob/living/sacrifice, turf/loc)
 
 	// Visible and audible encouragement!
-	to_chat(user, span_big(span_hypnophrase("A servant of the Sanguine Apostate!")))
+	to_chat(user, span_big(span_purple("A servant of the Sanguine Apostate!")))
 	to_chat(user, span_hierophant("Your patrons are rapturous!"))
 	playsound(sacrifice, 'sound/magic/disintegrate.ogg', 75, TRUE)
 
@@ -363,9 +363,9 @@
 		return
 
 	if(sac_target.Sleeping(SACRIFICE_SLEEP_DURATION))
-		to_chat(sac_target, span_hypnophrase("Your mind feels torn apart as you fall into a shallow slumber..."))
+		to_chat(sac_target, span_purple("Your mind feels torn apart as you fall into a shallow slumber..."))
 	else
-		to_chat(sac_target, span_hypnophrase("Your mind begins to tear apart as you watch dark tendrils envelop you."))
+		to_chat(sac_target, span_purple("Your mind begins to tear apart as you watch dark tendrils envelop you."))
 
 	sac_target.AdjustParalysis(SACRIFICE_SLEEP_DURATION * 1.2)
 	sac_target.AdjustImmobilized(SACRIFICE_SLEEP_DURATION * 1.2)
@@ -408,7 +408,7 @@
 		disembowel_target(sac_target)
 		return
 
-	to_chat(sac_target, span_big(span_hypnophrase("Unnatural forces begin to claw at your every being from beyond the veil.")))
+	to_chat(sac_target, span_big(span_purple("Unnatural forces begin to claw at your every being from beyond the veil.")))
 
 	playsound(sac_target, 'sound/music/heretic/heretic_sacrifice.ogg', 50, FALSE) // play theme
 
@@ -463,8 +463,8 @@
 	sac_target.Hallucinate(24 SECONDS)
 	sac_target.emote("scream")
 
-	to_chat(sac_target, span_reallybig(span_hypnophrase("The grasp of the Mansus reveal themselves to you!")))
-	to_chat(sac_target, span_hypnophrase("You feel invigorated! Fight to survive!"))
+	to_chat(sac_target, span_reallybig(span_purple("The grasp of the Mansus reveal themselves to you!")))
+	to_chat(sac_target, span_purple("You feel invigorated! Fight to survive!"))
 	// When it runs out, let them know they're almost home free
 	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
 	// Win condition
@@ -480,7 +480,7 @@
 	if(QDELETED(sac_target) || sac_target.stat == DEAD)
 		return
 
-	to_chat(sac_target, span_hypnophrase("The worst is behind you... Not much longer! Hold fast, or expire!"))
+	to_chat(sac_target, span_purple("The worst is behind you... Not much longer! Hold fast, or expire!"))
 
 /**
  * This proc is called from [proc/begin_sacrifice] if the target survived the shadow realm), or [COMSIG_LIVING_DEATH] if they don't.
@@ -551,7 +551,7 @@
 			composed_return_message += span_green("alive, but with a shattered mind. ")
 
 		composed_return_message += span_notice("You hear a whisper... ")
-		composed_return_message += span_hypnophrase(get_area_name(safe_turf, TRUE))
+		composed_return_message += span_purple(get_area_name(safe_turf, TRUE))
 		to_chat(heretic_mind.current, composed_return_message)
 
 /**
@@ -581,11 +581,11 @@
  * Gives the sacrifice target some after effects upon ariving back to reality.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_live_target(mob/living/carbon/human/sac_target)
-	to_chat(sac_target, span_hypnophrase("The fight is over, but at great cost. You have been returned to the station in one piece."))
+	to_chat(sac_target, span_purple("The fight is over, but at great cost. You have been returned to the station in one piece."))
 	if(isheretic(sac_target))
-		to_chat(sac_target, span_big(span_hypnophrase("You don't remember anything leading up to the experience, but you feel your connection with the Mansus weakened - Knowledge once known, forgotten...")))
+		to_chat(sac_target, span_big(span_purple("You don't remember anything leading up to the experience, but you feel your connection with the Mansus weakened - Knowledge once known, forgotten...")))
 	else
-		to_chat(sac_target, span_big(span_hypnophrase("You don't remember anything leading up to the experience - All you can think about are those horrific hands...")))
+		to_chat(sac_target, span_big(span_purple("You don't remember anything leading up to the experience - All you can think about are those horrific hands...")))
 
 	// Oh god where are we?
 	sac_target.flash_eyes()
@@ -607,8 +607,8 @@
  * it spawns a special red broken illusion on their spot, for style.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_dead_target(mob/living/carbon/human/sac_target)
-	to_chat(sac_target, span_hypnophrase("You failed to resist the horrors of the Mansus! Your ruined body has been returned to the station."))
-	to_chat(sac_target, span_big(span_hypnophrase("The experience leaves your mind torn and memories tattered. You will not remember anything leading up to the experience if revived.")))
+	to_chat(sac_target, span_purple("You failed to resist the horrors of the Mansus! Your ruined body has been returned to the station."))
+	to_chat(sac_target, span_big(span_purple("The experience leaves your mind torn and memories tattered. You will not remember anything leading up to the experience if revived.")))
 
 	var/obj/effect/visible_heretic_influence/illusion = new(get_turf(sac_target))
 	illusion.name = "\improper weakened rift in reality"

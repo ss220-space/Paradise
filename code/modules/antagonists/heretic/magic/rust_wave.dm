@@ -1,6 +1,6 @@
 // Shoots out in a wave-like, what rust heretics themselves get
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
-	name = "Entropic Plume"
+	name = "Шлейф Разложения"
 	desc = "Spews forth a disorienting plume that causes enemies to strike each other, \
 		briefly blinds them (increasing with range) and poisons them (decreasing with range). \
 		Also spreads rust in the path of the plume."
@@ -22,8 +22,9 @@
 	respect_density = TRUE
 
 
-/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/cast(list/targets)
 	. = ..()
+	var/atom/cast_on = targets[1]
 	new /obj/effect/temp_visual/dir_setting/entropic(get_step(cast_on, cast_on.dir), cast_on.dir)
 
 
@@ -37,6 +38,7 @@
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
 	if(victim.can_block_magic(antimagic_flags) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
 		return
+		
 	victim.apply_status_effect(/datum/status_effect/amok)
 	victim.apply_status_effect(/datum/status_effect/cloudstruck, level * 1 SECONDS)
 	victim.Disgust(10 SECONDS)

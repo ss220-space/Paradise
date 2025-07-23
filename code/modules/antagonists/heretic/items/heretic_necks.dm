@@ -128,7 +128,7 @@
 
 
 /obj/item/clothing/neck/eldritch_amulet
-	name = "warm eldritch medallion"
+	name = "жуткий тёплый медальон"
 	desc = "A strange medallion. Peering through the crystalline surface, the world around you melts away. You see your own beating heart, and the pulsing of a thousand others."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eye_medalion"

@@ -368,10 +368,10 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 	to_chat(user, span_danger(span_big("Ваши амбиции разрушены, но что-то могущественное осталось после них...")))
 	var/drain_message = pick_list(HERETIC_INFLUENCE_FILE, "drain_message")
-	to_chat(user, span_hypnophrase(span_big("[drain_message]")))
+	to_chat(user, span_purple(span_big("[drain_message]")))
 	return .
 
-
+/*
 /**
  * Warren King's Welcome
  * Ritual available at the start. So that heretics can easily gain access to maintenance airlocks without having to rely on a HoP or having to off some poor assistant.
@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
  */
 /datum/heretic_knowledge/bookworm
 	name = "Приветствие короля Уоррена"
-	desc = "Позволяет преобразовать 5 кусков кабеля и лист бумаги в любую ID карту с доступом к техническому обслуживанию и внешнему шлюзу."
+	desc = "Позволяет преобразовать 5 кусков кабеля и лист бумаги в любую ID карту с доступом к тех тоннелям и внешним шлюзам."
 	gain_text = "Въевшись в кости пальцев, существо направляет мой гудящий, затуманенный разум к массивной двери. \
 				Медленно свет танцует среди наползающей тьмы, покрывая зловонный променад бесконечными бликами. \
 				Но король скоро получит свой фунт плоти. Даже здесь сборщик налогов получает свою долю. Ибо нужно кормить тысячи ртов."
@@ -413,3 +413,4 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	improved_id.access |= list(ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS)
 	selected_atoms -= improved_id
 	return TRUE
+*/

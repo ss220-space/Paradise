@@ -111,7 +111,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/griefsky/secbot_crossed(mob/living/carbon/arrived)
-	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))
+	if(!iscarbon(arrived) || arrived != arrest_target || in_range(src, arrived))
 		return FALSE
 
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] размахивает своими мечами и отталкивает [arrived]!"))
@@ -188,18 +188,18 @@
 				set_path(null)
 				back_to_idle()
 				return
-			if(target)		// make sure target exists
-				if(target.stat == !DEAD)
-					if(Adjacent(target) && isturf(target.loc))	// if right next to perp
-						target_lastloc = target.loc
-						sword_attack(target)
+			if(arrest_target)		// make sure arrest_target exists
+				if(arrest_target.stat == !DEAD)
+					if(Adjacent(arrest_target) && isturf(arrest_target.loc))	// if right next to perp
+						target_lastloc = arrest_target.loc
+						sword_attack(arrest_target)
 						set_anchored(TRUE)
 						frustration++
 						return
 					else	// not next to perp
-						var/turf/olddist = get_dist(src, target)
-						SSmove_manager.move_to(src, target, 1, 3)	//he's a fast fucker
-						if((get_dist(src, target)) >= (olddist))
+						var/turf/olddist = get_dist(src, arrest_target)
+						SSmove_manager.move_to(src, arrest_target, 1, 3)	//he's a fast fucker
+						if((get_dist(src, arrest_target)) >= (olddist))
 							frustration++
 						else
 							frustration = 0
@@ -243,7 +243,7 @@
 			continue
 
 		else if(threatlevel >= 4)
-			target = C
+			arrest_target = C
 			oldtarget_name = C.name
 			speak("Ты больно смелый, как я погляжу, да?!")
 			playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)

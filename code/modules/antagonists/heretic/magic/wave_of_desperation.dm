@@ -20,30 +20,31 @@
 
 
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/valid_target(mob/living/carbon/cast_on)
-	return ..() && istype(cast_on) && (cast_on.handcuffed || cast_on.legcuffed)
+	return istype(cast_on) && (cast_on.handcuffed || cast_on.legcuffed)
 
 
 // Before the cast, we do some small AOE damage around the caster
-/obj/effect/proc_holder/spell/aoe/wave_of_desperation/before_cast(mob/living/carbon/cast_on)
+/obj/effect/proc_holder/spell/aoe/wave_of_desperation/before_cast(list/targets)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
+	
+	for(var/mob/living/carbon/cast_on in targets)
+		if(cast_on.handcuffed)
+			cast_on.visible_message(span_danger("[cast_on.handcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(cast_on.handcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(cast_on.gender, "ит", "ят")] [cast_on.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(cast_on.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
+			QDEL_NULL(cast_on.handcuffed)
 
-	if(cast_on.handcuffed)
-		cast_on.visible_message(span_danger("[cast_on.handcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(cast_on.handcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(cast_on.gender, "ит", "ят")] [cast_on.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(cast_on.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
-		QDEL_NULL(cast_on.handcuffed)
+		if(cast_on.legcuffed)
+			cast_on.visible_message(span_danger("[cast_on.legcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(cast_on.legcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(cast_on.gender, "ит", "ят")] [cast_on.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(cast_on.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
+			cast_on.visible_message(span_danger("[cast_on.legcuffed] on [cast_on] shatters!"))
+			QDEL_NULL(cast_on.legcuffed)
 
-	if(cast_on.legcuffed)
-		cast_on.visible_message(span_danger("[cast_on.legcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(cast_on.legcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(cast_on.gender, "ит", "ят")] [cast_on.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(cast_on.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
-		cast_on.visible_message(span_danger("[cast_on.legcuffed] on [cast_on] shatters!"))
-		QDEL_NULL(cast_on.legcuffed)
+		cast_on.apply_status_effect(/datum/status_effect/heretic_lastresort)
+		new /obj/effect/temp_visual/knockblast(get_turf(cast_on))
 
-	cast_on.apply_status_effect(/datum/status_effect/heretic_lastresort)
-	new /obj/effect/temp_visual/knockblast(get_turf(cast_on))
-
-	for(var/mob/living/victim in get_things_to_cast_on(cast_on, radius_override = 1))
-		victim.AdjustKnockdown(3 SECONDS)
-		victim.AdjustParalysis(0.5 SECONDS)
+		for(var/mob/living/victim in get_things_to_cast_on(cast_on, radius_override = 1))
+			victim.AdjustKnockdown(3 SECONDS)
+			victim.AdjustParalysis(0.5 SECONDS)
 
 
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/get_things_to_cast_on(atom/center, radius_override)

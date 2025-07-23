@@ -7,6 +7,7 @@
 /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter
 	name = "\improper Lionhunter's Rifle"
 	desc = "An antique looking rifle that looks immaculate despite being clearly very old."
+	icon = 'icons/obj/weapons/wide_guns.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	icon_state = "lionhunter"
 	item_state = "lionhunter"

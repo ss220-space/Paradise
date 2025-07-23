@@ -38,6 +38,9 @@
 */
 
 /obj/item/melee/touch_attack/star_touch/afterattack(mob/living/victim, mob/living/carbon/caster, proximity, params)
+	if(!istype(victim))
+		return FALSE
+
 	if(victim.has_status_effect(/datum/status_effect/star_mark))
 		victim.apply_effect(4 SECONDS, effecttype = SLEEPING)
 		victim.remove_status_effect(/datum/status_effect/star_mark)

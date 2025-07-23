@@ -170,7 +170,7 @@
 	if(!isanimal(our_mob))
 		return
 
-	var/mob/living/basic/basic_parent = our_mob
+	var/mob/living/simple_animal/basic_parent = our_mob
 	basic_parent.icon_living = current_icon_state
 
 /// Do not allow someone to be pulled out of the chain

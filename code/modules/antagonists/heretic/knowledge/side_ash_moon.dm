@@ -8,12 +8,14 @@
 	tier2 = /datum/heretic_knowledge/ether
 	tier3 = /datum/heretic_knowledge/summon/ashy
 
+
 // Sidepaths for knowledge between Ash and Flesh.
 /datum/heretic_knowledge/medallion
-	name = "Ashen Eyes"
-	desc = "Allows you to transmute a pair of eyes, a candle, and a glass shard into an Eldritch Medallion. \
-		The Eldritch Medallion grants you thermal vision while worn, and also functions as a focus."
-	gain_text = "Piercing eyes guided them through the mundane. Neither darkness nor terror could stop them."
+	name = "Глаза Пепла" // It should be like colour of eyes, but I think this sounds better.
+	desc = "Позволяет преобразовать пару глаз, свечу и осколок стекла в Потусторонний Медальон. \
+			Потусторонний Медальон дарует вам термальное зрение, пока вы его носите, а также выполняет \
+			функцию амулета."
+	gain_text = "Пронзительный взгляд вёл их сквозь обыденность. Ни тьма, ни страх не могли их остановить."
 
 	required_atoms = list(
 		/obj/item/organ/internal/eyes = 1,
@@ -25,13 +27,16 @@
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "eye_medalion"
 
+
 /datum/heretic_knowledge/ether
-	name = "Ether Of The Newborn"
-	desc = "Transmutes a pool of vomit and a shard into a single use potion, drinking it will remove any sort of abnormality from your body including diseases, traumas and implants \
-		on top of restoring it to full health, at the cost of losing consciousness for an entire minute."
-	gain_text = "Vision and thought grow hazy as the fumes of this ichor swirl up to meet me. \
-		Through the haze, I find myself staring back in relief, or something grossly resembling my visage. \
-		It is this wretched thing that I consign to my fate, and whose own that I snatch through the haze of dreams. Fools that we are."
+	name = "Душа Нерожденного Младенца"
+	desc = "Превращает лужу рвоты и осколок в одноразовое зелье. Выпив его, \
+			вы избавитесь от любых отклонений в вашем теле, включая болезни, травмы и имплантаты. \
+			Кроме того, вы полностью восстановите здоровье, но потеряете сознание на целую минуту."
+	gain_text = "Видения и мысли затуманиваются, когда пары этого вещества поднимаются мне навстречу. \
+				Сквозь дымку я обнаруживаю, что смотрю на самого себя. Вернее на что-то отдалённо \
+				напоминающее моё лицо. Именно эта жалкая личность будет следовать моей судьбе. Чью-то \
+				чужую судьбу я поглотил вместе с этой дымкой. Как же я глуп."
 	required_atoms = list(
 		/obj/item/shard = 1,
 		/obj/effect/decal/cleanable/vomit = 1,
@@ -40,6 +45,7 @@
 	cost = 1
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "poison_flask"
+
 
 /datum/heretic_knowledge/summon/ashy
 	name = "Ashen Ritual"

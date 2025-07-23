@@ -1313,7 +1313,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, casted_magic_flags, charge_cost, antimagic_sources) & COMPONENT_MAGIC_BLOCKED)
 		is_magic_blocked = TRUE
 
-	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && mind.isholy)
+	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && mind?.isholy)
 		is_magic_blocked = TRUE
 
 	if(is_magic_blocked && charge_cost > 0 && !HAS_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC))

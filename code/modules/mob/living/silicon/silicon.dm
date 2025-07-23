@@ -407,3 +407,7 @@
 /mob/living/silicon/on_standing_up()
 	return // Silicons are always standing by default.
 
+
+/mob/living/silicon/rust_heretic_act()
+	adjustBruteLoss(500)
+	

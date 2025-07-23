@@ -389,7 +389,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 		add_ranged_ability(user, selection_activated_message)
 	else
-		var/list/targets = targeting.choose_targets(user, src)
+		var/list/targets = get_things_to_cast_on(user)
 		try_perform(targets, user)
 
 
@@ -609,7 +609,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return spell_targeting
 
 
-/obj/effect/proc_holder/spell/aoe/proc/get_things_to_cast_on(atom/center, radius_override)
+/obj/effect/proc_holder/spell/proc/get_things_to_cast_on(mob/user)
+	return targeting.choose_targets(user, src)
+
+
+/obj/effect/proc_holder/spell/aoe/get_things_to_cast_on(atom/center, radius_override)
 	return targeting.choose_targets(action.owner, src, null, center, radius_override)
 
 
@@ -841,11 +845,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return TRUE
 */
 
-/obj/effect/proc_holder/spell/pointed/before_cast(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/before_cast(list/targets)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
+	var/atom/cast_on = targets[1]
 	if(!action.owner || get_dist(get_turf(action.owner), get_turf(cast_on)) <= cast_range)
 		return
 
@@ -895,11 +900,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 
 // cast_on is a turf, or atom target, that we clicked on to fire at.
-/obj/effect/proc_holder/spell/pointed/projectile/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/projectile/cast(list/targets)
 	. = ..()
 	if(!isturf(action.owner.loc))
 		return FALSE
 
+	var/atom/cast_on = targets[1]
 	var/turf/caster_turf = get_turf(action.owner)
 	// Get the tile infront of the caster, based on their direction
 	var/turf/caster_front_turf = get_step(action.owner, action.owner.dir)
@@ -956,3 +962,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	SEND_SIGNAL(src, COMSIG_SPELL_PROJECTILE_HIT, source, firer, target, angle, hit_limb)
 */
+
+/obj/effect/proc_holder/spell/proc/update_status_on_signal()
+	return action.update_status_on_signal()

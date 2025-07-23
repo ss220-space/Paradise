@@ -163,7 +163,7 @@
 
 /obj/effect/visible_heretic_influence/examine(mob/living/user)
 	. = ..()
-	. += span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "examine"))
+	. += span_purple(pick_list(HERETIC_INFLUENCE_FILE, "examine"))
 	if(isheretic(user) || !ishuman(user))
 		return
 
@@ -261,7 +261,7 @@
  */
 /obj/effect/heretic_influence/proc/after_drain(mob/living/user)
 	if(user)
-		to_chat(user, span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "drain_message")))
+		to_chat(user, span_purple(pick_list(HERETIC_INFLUENCE_FILE, "drain_message")))
 		to_chat(user, span_warning("[src] начинает проявляться в реальности!"))
 
 	var/obj/effect/visible_heretic_influence/illusion = new /obj/effect/visible_heretic_influence(drop_location())

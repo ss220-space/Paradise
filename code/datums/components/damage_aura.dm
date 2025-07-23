@@ -133,7 +133,7 @@
 		if(damage_message && prob(message_probability))
 			to_chat(candidate, damage_message)
 
-		if (iscarbon(candidate) || issilicon(candidate) || isbasicmob(candidate))
+		if (iscarbon(candidate) || issilicon(candidate) || isbasicmob(candidate) || isanimal(candidate))
 			candidate.adjustBruteLoss(brute_damage * seconds_per_tick, updating_health = FALSE)
 			candidate.adjustFireLoss(burn_damage * seconds_per_tick, updating_health = FALSE)
 
@@ -144,9 +144,11 @@
 
 			for (var/organ in organ_damage)
 				candidate.adjustOrganLoss(organ, organ_damage[organ] * seconds_per_tick)
+
 		else if (isanimal(candidate))
 			var/mob/living/simple_animal/animal_candidate = candidate
 			animal_candidate.adjustHealth(simple_damage * seconds_per_tick, updating_health = FALSE)
+
 		else if (isbasicmob(candidate))
 			var/mob/living/basic/basic_candidate = candidate
 			basic_candidate.adjust_health(simple_damage * seconds_per_tick, updating_health = FALSE)

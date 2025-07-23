@@ -13,8 +13,9 @@
  */
 /datum/heretic_knowledge/phylactery
 	name = "Phylactery of Damnation"
-	desc = "Allows you to transmute a sheet of glass and a poppy into a Phylactery that can instantly draw blood, even from long distances. \
-		Be warned, your target may still feel a prick."
+	desc = "Позволяет превратить лист стекла и мак в филактерию, \
+			способную мгновенно набирать кровь даже с большого расстояния. \
+			Имейте в виду, что ваша цель может почувствовать укол."
 	gain_text = "A tincture twisted into the shape of a bloodsucker vermin. \
 		Whether it chose the shape for itself, or this is the humor of the sickened mind that conjured this vile implement into being is something best not pondered."
 	required_atoms = list(

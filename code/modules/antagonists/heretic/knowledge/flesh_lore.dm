@@ -175,13 +175,14 @@
 		return TRUE
 
 	message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
-	var/mob/chosen_one = pick(SSghost_spawns.poll_candidates("Вы бы хотели сыграть за насильно убит[genderize_ru(soon_to_be_ghoul.gender, "ого", "ую", "ое", "ых")] [soon_to_be_ghoul.declent_ru(ACCUSATIVE)]?", \
-				ROLE_HERETIC, FALSE, poll_time = 5 SECONDS, source = soon_to_be_ghoul))
+	var/list/ghosts = SSghost_spawns.poll_candidates("Вы бы хотели сыграть за насильно убит[genderize_ru(soon_to_be_ghoul.gender, "ого", "ую", "ое", "ых")] [soon_to_be_ghoul.declent_ru(ACCUSATIVE)]?", \
+				ROLE_HERETIC, FALSE, poll_time = 5 SECONDS, source = soon_to_be_ghoul)
 
-	if(isnull(chosen_one))
+	if(!ghosts.len)
 		loc.balloon_alert(user, "нет согласных призраков!")
 		return FALSE
 
+	var/mob/chosen_one = pick(ghosts)
 	message_admins("[key_name_admin(chosen_one)] has taken control of ([key_name_admin(soon_to_be_ghoul)]) to replace an AFK player.")
 	soon_to_be_ghoul.ghostize(FALSE)
 	soon_to_be_ghoul.key = chosen_one.key

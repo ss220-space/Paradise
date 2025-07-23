@@ -41,4 +41,5 @@
 
 /// Red coloured variant
 /obj/effect/dummy/spell_jaunt/red
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "red_1"

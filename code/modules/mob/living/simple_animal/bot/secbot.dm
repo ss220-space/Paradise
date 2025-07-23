@@ -35,12 +35,12 @@
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 
 	var/base_icon = "secbot"
-	var/mob/living/carbon/target
+	var/mob/living/carbon/arrest_target
 	var/oldtarget_name
 	var/threatlevel = 0
-	/// Loc of target when arrested.
+	/// Loc of arrest_target when arrested.
 	var/target_lastloc
-	/// Delay between checks for target.
+	/// Delay between checks for arrest_target.
 	var/last_found
 	/// When making an arrest, should it notify everyone on the security channel?
 	var/declare_arrests = TRUE
@@ -199,7 +199,7 @@
 
 /mob/living/simple_animal/bot/secbot/bot_reset()
 	..()
-	target = null
+	arrest_target = null
 	oldtarget_name = null
 	set_anchored(FALSE)
 	SSmove_manager.stop_looping(src)
@@ -285,7 +285,7 @@
 	threatlevel = H.assess_threat(src)
 	threatlevel += 6
 	if(threatlevel >= 4)
-		target = H
+		arrest_target = H
 		mode = BOT_HUNT
 
 
@@ -439,35 +439,35 @@
 				back_to_idle()
 				return
 
-			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc) && !baton_delayed)	// if right next to perp
-					stun_attack(target)
+			if(arrest_target)		// make sure arrest_target exists
+				if(Adjacent(arrest_target) && isturf(arrest_target.loc) && !baton_delayed)	// if right next to perp
+					stun_attack(arrest_target)
 
 					mode = BOT_PREP_ARREST
 					set_anchored(TRUE)
-					target_lastloc = target.loc
+					target_lastloc = arrest_target.loc
 					return
 
 				else								// not next to perp
-					var/turf/olddist = get_dist(src, target)
-					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
-					if((get_dist(src, target)) >= (olddist))
+					var/turf/olddist = get_dist(src, arrest_target)
+					SSmove_manager.move_to(src, arrest_target, 1, BOT_STEP_DELAY)
+					if((get_dist(src, arrest_target)) >= (olddist))
 						frustration++
 					else
 						frustration = 0
 			else
 				back_to_idle()
 
-		if(BOT_PREP_ARREST)		// preparing to arrest target
+		if(BOT_PREP_ARREST)		// preparing to arrest arrest_target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
+			if( !Adjacent(arrest_target) || !isturf(arrest_target.loc) || world.time - arrest_target.stam_regen_start_time < 4 SECONDS && arrest_target.getStaminaLoss() <= 100)
 				back_to_hunt()
 				return
 
-			if(iscarbon(target) && target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
+			if(iscarbon(arrest_target) && arrest_target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 				if(!arrest_type)
-					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
-						cuff(target)
+					if(!arrest_target.handcuffed)  //he's not cuffed? Try to cuff him!
+						cuff(arrest_target)
 					else
 						back_to_idle()
 						return
@@ -476,21 +476,21 @@
 				return
 
 		if(BOT_ARREST)
-			if(!target)
+			if(!arrest_target)
 				set_anchored(FALSE)
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
 				return
 
-			if(target.handcuffed) //no target or target cuffed? back to idle.
+			if(arrest_target.handcuffed) //no arrest_target or arrest_target cuffed? back to idle.
 				back_to_idle()
 				return
 
-			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.staminaloss < 110)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
+			if(!Adjacent(arrest_target) || !isturf(arrest_target.loc) || (arrest_target.loc != target_lastloc && arrest_target.staminaloss < 110)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
-			else //Try arresting again if the target escapes.
+			else //Try arresting again if the arrest_target escapes.
 				mode = BOT_PREP_ARREST
 				set_anchored(FALSE)
 
@@ -506,7 +506,7 @@
 /mob/living/simple_animal/bot/secbot/proc/back_to_idle()
 	set_anchored(FALSE)
 	mode = BOT_IDLE
-	target = null
+	arrest_target = null
 	last_found = world.time
 	frustration = 0
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
@@ -537,7 +537,7 @@
 			continue
 
 		else if(threatlevel >= 4)
-			target = C
+			arrest_target = C
 			oldtarget_name = C.name
 			speak("Вижу преступника! Уровень опасности - <b>[threatlevel]</b>!")
 			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, FALSE)
@@ -574,8 +574,8 @@
 
 /mob/living/simple_animal/bot/secbot/attack_alien(mob/living/carbon/alien/user as mob)
 	..()
-	if(!isalien(target))
-		target = user
+	if(!isalien(arrest_target))
+		arrest_target = user
 		mode = BOT_HUNT
 
 
@@ -586,7 +586,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/secbot_crossed(mob/living/carbon/arrived)
-	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))
+	if(!iscarbon(arrived) || arrived != arrest_target || in_range(src, arrived))
 		return
 
 	arrived.visible_message(span_warning("[pick( \

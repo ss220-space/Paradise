@@ -1814,5 +1814,7 @@
 	phasing_action.button_icon_state = "mech_phasing_off"
 	phasing_action.UpdateButtonIcon()
 
+/obj/mecha/rust_heretic_act()
+	take_damage(500,  BRUTE)
 
 #undef OCCUPANT_LOGGING

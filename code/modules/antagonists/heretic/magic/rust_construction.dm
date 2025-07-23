@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/rust_construction
-	name = "Rust Formation"
+	name = "Образование ржавчины"
 	desc = "Transforms a rusted floor into a full wall of rust. Creating a wall underneath a mob will harm it."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -33,12 +33,14 @@
 		cast_on.balloon_alert(action.owner, "not a wall or floor!")
 		return FALSE
 
-	if(!HAS_TRAIT(cast_on, TRAIT_RUSTY))
-		if(action.owner)
-			cast_on.balloon_alert(action.owner, "not rusted!")
+	if(HAS_TRAIT(cast_on, TRAIT_RUSTY))
+		return TRUE
+
+	if(!action.owner)
 		return FALSE
 
-	return TRUE
+	cast_on.balloon_alert(action.owner, "not rusted!")
+	return FALSE
 
 /*
 /obj/effect/proc_holder/spell/pointed/rust_construction/before_cast(turf/spacecast_on)
@@ -51,7 +53,8 @@
 	invocation_self_message = span_notice("You drag [living_owner.usable_hands == 1 ? "a hand":"your hands"] upwards as a wall of rust rises out of [cast_on].")
 */
 
-/obj/effect/proc_holder/spell/pointed/rust_construction/cast(turf/cast_on)
+/obj/effect/proc_holder/spell/pointed/rust_construction/cast(list/targets)
+	var/turf/cast_on = targets[1]
 	. = ..()
 	var/rises_message = "rises out of [cast_on]"
 

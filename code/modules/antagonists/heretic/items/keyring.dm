@@ -62,7 +62,7 @@
 		qdel(src)
 		return
 
-	if(is_phase_allowed(z) || is_phase_allowed(destination.z))
+	if(!is_phase_allowed(z) || !is_phase_allowed(destination.z))
 		qdel(src)
 		return
 
@@ -83,7 +83,7 @@
 ///Returns a random airlock on the same Z level as our portal, that isnt our airlock
 /obj/effect/lock_portal/proc/find_random_airlock()
 	var/list/turf/possible_destinations = list()
-	for(var/obj/machinery/door/airlock/airlock in GLOB.machines)
+	for(var/obj/machinery/door/airlock/airlock in SSmachines.all_machines)
 		if(airlock.z != z)
 			continue
 
@@ -124,11 +124,11 @@
 	. = ..()
 	if(!IS_HERETIC_OR_MONSTER(user))
 		return
-	. += span_hypnophrase("Enchanted by the Mansus!")
-	. += span_hypnophrase("Using an ID on this or using this ID on another ID will consume it and allow you to copy its accesses.")
-	. += span_hypnophrase("<b>Using this in-hand</b> allows you to change its appearance.")
-	. += span_hypnophrase("<b>Using this on a pair of doors</b>, allows you to link them together. Entering one door will transport you to the other, while heathens are instead teleported to a random airlock.")
-	. += span_hypnophrase("<b>Ctrl-clicking the ID</b>, makes the ID make inverted portals instead, which teleport you onto a random airlock onstation, while heathens are teleported to the destination.")
+	. += span_purple("Enchanted by the Mansus!")
+	. += span_purple("Using an ID on this or using this ID on another ID will consume it and allow you to copy its accesses.")
+	. += span_purple("<b>Using this in-hand</b> allows you to change its appearance.")
+	. += span_purple("<b>Using this on a pair of doors</b>, allows you to link them together. Entering one door will transport you to the other, while heathens are instead teleported to a random airlock.")
+	. += span_purple("<b>Ctrl-clicking the ID</b>, makes the ID make inverted portals instead, which teleport you onto a random airlock onstation, while heathens are teleported to the destination.")
 
 
 /obj/item/card/id/advanced/heretic/attack_self(mob/user)
@@ -205,32 +205,10 @@
 
 
 /obj/item/card/id/advanced/heretic/melee_attack_chain(mob/user, atom/target, params)
-	if(!istype(target, /obj/item/card/id) || !isheretic(user))
+	if(!isheretic(user))
 		return ..()
 
-	eat_card(target, user)
-	return ATTACK_CHAIN_SUCCESS
-
-
-/obj/item/card/id/advanced/heretic/proc/eat_card(obj/item/card/id/card, mob/user)
-	if(card == src)
-		return //no self vore
-
-	fused_ids[card.name] = card
-	card.moveToNullspace()
-	access |= card.access
-	if(isnull(user))
-		return
-
-	playsound(drop_location(), 'sound/items/eatfood.ogg', rand(10,30), TRUE)
-	balloon_alert(user, "consumed card")
-
-
-/obj/item/card/id/advanced/heretic/afterattack(atom/target, mob/living/user, proximity, params)
-	if(!isheretic(user))
-		return NONE
-
-	if(istype(target, /obj/item/card/id/advanced))
+	if(istype(target, /obj/item/card/id))
 		eat_card(target, user)
 		return ATTACK_CHAIN_SUCCESS
 
@@ -239,10 +217,10 @@
 		return ATTACK_CHAIN_SUCCESS
 
 	if(!istype(target, /obj/machinery/door))
-		return NONE
+		return ..()
 
-	if(is_phase_allowed(target.z))
-		return NONE
+	if(!is_phase_allowed(target.z))
+		return ..()
 
 	var/reference_resolved = link?.resolve()
 	if(reference_resolved == target)
@@ -258,6 +236,20 @@
 	link = null
 	balloon_alert(user, "link 2/2")
 	return ATTACK_CHAIN_SUCCESS
+
+
+/obj/item/card/id/advanced/heretic/proc/eat_card(obj/item/card/id/card, mob/user)
+	if(card == src)
+		return //no self vore
+
+	fused_ids[card.name] = card
+	card.moveToNullspace()
+	access |= card.access
+	if(isnull(user))
+		return
+
+	playsound(drop_location(), 'sound/items/eatfood.ogg', rand(10,30), TRUE)
+	balloon_alert(user, "consumed card")
 
 
 /obj/item/card/id/advanced/heretic/Destroy()

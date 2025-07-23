@@ -521,6 +521,7 @@
 	var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
 	if(heretic_datum)
 		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
+		. += "<a href='byond://?src=[UID()];heretic=add_knowledge_points'><font color='green'>add points ([heretic_datum.knowledge_points])</font></a>"
 		if(!length(heretic_datum.objectives))
 			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];heretic=autoobjectives'>Randomize!</a>"
 
@@ -1954,12 +1955,6 @@
 
 	else if(href_list["heretic"])
 		switch(href_list["heretic"])
-			if("clear")
-				if(src in SSticker.mode.devils)
-					log_admin("[key_name(usr)] has de-heretic'ed [current].")
-
-				remove_devil_role()
-
 			if("heretic")
 				if(has_antag_datum(/datum/antagonist/heretic))
 					return
@@ -1968,6 +1963,14 @@
 				message_admins("[key_name_admin(usr)] has heretic'ed [current].")
 				log_admin("[key_name(usr)] has heretic'ed [current].")
 
+			if("clear")
+				log_admin("[key_name(usr)] has de-heretic'ed [current].")
+				remove_antag_datum(/datum/antagonist/heretic)
+
+			if("add_knowledge_points")
+				var/datum/antagonist/heretic/heretic = has_antag_datum(/datum/antagonist/heretic)
+				heretic?.admin_change_points(usr)
+				
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
 			if("clear")

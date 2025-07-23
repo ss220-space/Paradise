@@ -9,15 +9,18 @@
 	//show_duration = TRUE
 	///Stores the location where the mob drank the potion, used to teleport the drinker back to the spot after expiration
 	var/turf/location
+	var/datum/action/cancel_crucible_soul/cancel_button
+
 
 /datum/status_effect/crucible_soul/on_apply()
 	to_chat(owner,span_notice("Вы перемещаетесь игнорируя окружающую реальность. Вам кажется, что нет ничего невозможного!"))
 	owner.alpha = 180
 	owner.pass_flags |= PASSEVERYTHING
 	location = get_turf(owner)
-	var/datum/action/cancel_crucible_soul/cancel_button = new(src)
+	cancel_button = new(src)
 	cancel_button.Grant(owner)
 	return TRUE
+
 
 /datum/status_effect/crucible_soul/on_remove()
 	to_chat(owner,span_notice("Вы восстанавливаете свою физическую форму и вернулись в свое изначальное местоположение..."))
@@ -25,9 +28,12 @@
 	owner.pass_flags &= ~PASSEVERYTHING
 	owner.forceMove(location)
 	location = null
+	cancel_button.Remove(owner)
+	
 
 /datum/status_effect/crucible_soul/get_examine_text()
 	return span_notice("Не похоже что [genderize_ru(owner.gender, "он", "она", "оно", "они")] действительно здесь наход[pluralize_ru(owner.gender, "и", "я")]тся.")
+
 
 /datum/action/cancel_crucible_soul
 	name = "Вернуться"
@@ -92,7 +98,7 @@
 
 	if(length(missing_bodyparts))
 		drinker.dna.species.create_organs(drinker, missing_bodyparts)
-		to_chat(drinker, span_hypnophrase("Мансус вернул вам [missing_bodyparts.len == 1 ? "утерянную конечность" : "утерянные конечности"]."))
+		to_chat(drinker, span_purple("Мансус вернул вам [missing_bodyparts.len == 1 ? "утерянную конечность" : "утерянные конечности"]."))
 
 	playsound(drinker, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
 
@@ -106,7 +112,7 @@
 		if(isroboticorgan(part))
 			continue
 
-		part.heal_damage(-max(0.2, part.brute_dam / 10) * seconds_between_ticks, -max(0.2, part.burn_dam / 10) * seconds_between_ticks)
+		part.heal_damage(max(0.2, part.brute_dam / 10) * seconds_between_ticks, max(0.2, part.burn_dam / 10) * seconds_between_ticks)
 
 
 /atom/movable/screen/alert/status_effect/crucible_soul

@@ -31,9 +31,9 @@
 	var/spam_flag = FALSE
 	var/cooldowntime = 3 SECONDS
 	var/cooldowntimehorn = 1 SECONDS
-	var/mob/living/carbon/target
+	var/mob/living/carbon/honk_target
 	var/oldtarget_name
-	var/target_lastloc = FALSE	//Loc of target when arrested.
+	var/target_lastloc = FALSE	//Loc of honk_target when arrested.
 	var/last_found = FALSE	//There's a delay
 	var/threatlevel = FALSE
 	var/arrest_type = FALSE
@@ -77,7 +77,7 @@
 
 /mob/living/simple_animal/bot/honkbot/bot_reset()
 	..()
-	target = null
+	honk_target = null
 	oldtarget_name = null
 	set_anchored(FALSE)
 	SSmove_manager.stop_looping(src)
@@ -111,7 +111,7 @@
 
 /mob/living/simple_animal/bot/honkbot/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = 6
-	target = H
+	honk_target = H
 	mode = BOT_HUNT
 
 
@@ -206,7 +206,7 @@
 				spam_flag = TRUE
 			if(emagged <= 1) //HONK once, then leave
 				threatlevel -= 6
-				target = oldtarget_name
+				honk_target = oldtarget_name
 			else // you really don't want to hit an emagged honkbot
 				threatlevel = 6 // will never let you go
 			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntime)
@@ -237,21 +237,21 @@
 				back_to_idle()
 				return
 
-			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc))
+			if(honk_target)		// make sure honk_target exists
+				if(Adjacent(honk_target) && isturf(honk_target.loc))
 					if(threatlevel <= 4)
-						honk_attack(target)
+						honk_attack(honk_target)
 					else
 						if(threatlevel >= 6)
 							set waitfor = 0
-							stun_attack(target)
+							stun_attack(honk_target)
 							set_anchored(FALSE)
-							target_lastloc = target.loc
+							target_lastloc = honk_target.loc
 					return
 				else	// not next to perp
-					var/turf/olddist = get_dist(src, target)
-					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
-					if((get_dist(src, target)) >= (olddist))
+					var/turf/olddist = get_dist(src, honk_target)
+					SSmove_manager.move_to(src, honk_target, 1, BOT_STEP_DELAY)
+					if((get_dist(src, honk_target)) >= (olddist))
 						frustration++
 					else
 						frustration = 0
@@ -270,7 +270,7 @@
 /mob/living/simple_animal/bot/honkbot/proc/back_to_idle()
 	set_anchored(FALSE)
 	mode = BOT_IDLE
-	target = null
+	honk_target = null
 	last_found = world.time
 	frustration = 0
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) //responds quickly
@@ -298,7 +298,7 @@
 					bike_horn()
 		else if(threatlevel >= 4)
 			if(!spam_flag || emagged > 1)
-				target = C
+				honk_target = C
 				oldtarget_name = C.name
 				bike_horn()
 				speak("Хонк!")
@@ -330,15 +330,15 @@
 
 /mob/living/simple_animal/bot/honkbot/attack_alien(mob/living/carbon/alien/user)
 	..()
-	if(!isalien(target))
-		target = user
+	if(!isalien(honk_target))
+		honk_target = user
 		mode = BOT_HUNT
 
 
 /mob/living/simple_animal/bot/honkbot/proc/on_entered(datum/source, mob/living/carbon/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
-	if(!on || !iscarbon(arrived) || arrived != target || in_range(src, target))
+	if(!on || !iscarbon(arrived) || arrived != honk_target || in_range(src, honk_target))
 		return
 
 	arrived.visible_message(span_warning("[pick( \

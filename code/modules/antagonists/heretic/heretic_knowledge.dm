@@ -416,14 +416,15 @@
 	animate(summoned, 10 SECONDS, alpha = 155)
 
 	message_admins("[summoned.name] был[genderize_ru(summoned.gender, "", "а", "о", "и")] призван[genderize_ru(summoned.gender, "", "а", "о", "ы")] [ADMIN_LOOKUPFLW(user)] в [ADMIN_COORDJMP(summoned)].")
-	var/mob/chosen_one = pick(SSghost_spawns.poll_candidates("Вы бы хотели сыграть за [summoned.declent_ru(ACCUSATIVE)] призванн[genderize_ru(summoned.gender, "ого", "ую", "ое", "ых")] еретиком?", \
-								ROLE_HERETIC, FALSE, poll_time = 10 SECONDS, source = summoned))
-	if(isnull(chosen_one))
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы бы хотели сыграть за [summoned.declent_ru(ACCUSATIVE)] призванн[genderize_ru(summoned.gender, "ого", "ую", "ое", "ых")] еретиком?", \
+								ROLE_HERETIC, FALSE, poll_time = 10 SECONDS, source = summoned)
+	if(!candidates.len)
 		loc.balloon_alert(user, "нет готовых кандидатов!")
 		animate(summoned, 0.5 SECONDS, alpha = 0)
 		QDEL_IN(summoned, 0.6 SECONDS)
 		return FALSE
 
+	var/mob/chosen_one = pick(candidates)
 	// Ok let's make them an interactable mob now, since we got a ghost
 	summoned.alpha = 255
 	REMOVE_TRAIT(summoned, TRAIT_NO_TRANSFORM, UID())
@@ -514,7 +515,7 @@
 	to_chat(user, span_hierophant("[name] требует следующих подношений:"))
 	for(var/obj/item/path as anything in required_atoms)
 		var/amount_needed = required_atoms[path]
-		to_chat(user, span_hypnophrase("[amount_needed] [initial(path.name)]\s..."))
+		to_chat(user, span_purple("[amount_needed] [initial(path.name)]\s..."))
 		requirements_string += "[amount_needed == 1 ? "":"[amount_needed] "][initial(path.name)]\s"
 
 	to_chat(user, span_hierophant("Завершив этот ритуал вы получите в награду [KNOWLEDGE_RITUAL_POINTS] очков знаний. Вы можете проверить свои знания в разделе «Изученные знания»."))
@@ -532,7 +533,7 @@
 	was_completed = TRUE
 
 	to_chat(user, span_boldnotice("[name] завершен!"))
-	to_chat(user, span_hypnophrase(span_big("[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]")))
+	to_chat(user, span_purple(span_big("[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]")))
 	desc += " (Завершен!)"
 	user.store_memory("Проведен Ритуал Знания.")
 	return TRUE

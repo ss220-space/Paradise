@@ -49,13 +49,13 @@
 	var/atom/movable/load = null
 	var/mob/living/passenger = null
 	/// This is turf to navigate to (location of beacon).
-	var/turf/target
+	var/turf/goto_target
 	/// This the direction to unload onto/load from.
 	var/loaddir = 0
 	/// Tag of home beacon.
 	var/home_destination = ""
 
-	/// `TRUE` if already reached the target.
+	/// `TRUE` if already reached the goto_target.
 	var/reached_target = TRUE
 
 	/// `TRUE` if auto return to home beacon after unload.
@@ -333,7 +333,7 @@
 				home_destination = new_home
 		if("unload")
 			if(load && mode != BOT_HUNT)
-				if(loc == target)
+				if(loc == goto_target)
 					unload(loaddir)
 				else
 					unload(0)
@@ -501,16 +501,16 @@
 	return FALSE
 
 
-/mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/target)
-	target.pixel_y = target.base_pixel_y + 9
-	if(target.layer < layer)
-		target.layer = layer + 0.01
+/mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/goto_target)
+	goto_target.pixel_y = goto_target.base_pixel_y + 9
+	if(goto_target.layer < layer)
+		goto_target.layer = layer + 0.01
 
 
-/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/target)
+/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/goto_target)
 	load = null
-	target.layer = initial(target.layer)
-	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+	goto_target.layer = initial(goto_target.layer)
+	goto_target.pixel_y = goto_target.base_pixel_y + goto_target.body_position_pixel_y_offset
 
 
 // called to unload the bot
@@ -550,8 +550,8 @@
 	..()
 	var/area/dest_area
 	if(path && length(path))
-		target = ai_waypoint //Target is the end point of the path, the waypoint set by the AI.
-		dest_area = get_area(target)
+		goto_target = ai_waypoint //goto_target is the end point of the path, the waypoint set by the AI.
+		dest_area = get_area(goto_target)
 		destination = format_text(dest_area.name)
 		pathset = TRUE //Indicates the AI's custom path is initialized.
 		start()
@@ -586,11 +586,11 @@
 
 			next_move_time = world.time + step_delay
 
-			if(loc == target) // reached target
+			if(loc == goto_target) // reached goto_target
 				at_target()
 				return
 
-			else if(length(path) && target) // valid path
+			else if(length(path) && goto_target) // valid path
 				var/turf/next = path[1]
 				reached_target = FALSE
 				if(next == loc)
@@ -661,7 +661,7 @@
  */
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid)
 	check_bot_access()
-	set_path(get_path_to(src, target, max_distance = 250, access = access_card.GetAccess(), exclude = avoid, diagonal_handling = DIAGONAL_REMOVE_ALL))
+	set_path(get_path_to(src, goto_target, max_distance = 250, access = access_card.GetAccess(), exclude = avoid, diagonal_handling = DIAGONAL_REMOVE_ALL))
 
 
 /**
@@ -703,7 +703,7 @@
 
 
 /**
- * Called when bot reaches current target.
+ * Called when bot reaches current goto_target.
  */
 /mob/living/simple_animal/bot/mulebot/proc/at_target()
 	if(!reached_target)
@@ -720,7 +720,7 @@
 				calling_ai = null
 				radio_channel = AI_FREQ_NAME //Report on AI Private instead if the AI is controlling us.
 
-		if(load)		// if loaded, unload at target
+		if(load)		// if loaded, unload at goto_target
 			if(report_delivery)
 				speak("Пункт назначения <b>[destination]</b> достигнут. Выгружаю [load].", radio_channel)
 			if(istype(load, /obj/structure/closet/crate))
@@ -841,7 +841,7 @@
 				to_chat(src, span_warningbig("ВЫГРУЗИТЬСЯ"))
 			else
 				to_chat(src, span_warningbig("ЗАГРУЗИТЬСЯ"))
-		if("autoret", "autopick", "target")
+		if("autoret", "autopick", "goto_target")
 			return
 		else
 			..()
@@ -863,11 +863,11 @@
 		if("start")
 			start()
 
-		if("target")
+		if("goto_target")
 			set_destination(signal.data["destination"])
 
 		if("unload")
-			if(loc == target)
+			if(loc == goto_target)
 				unload(loaddir)
 			else
 				unload(0)
@@ -932,7 +932,7 @@
 	for(var/obj/machinery/navbeacon/NB in GLOB.deliverybeacons)
 		if(NB.location == new_destination)	// if the beacon location matches the set destination
 			destination = new_destination	// the we will navigate there
-			target = NB.loc
+			goto_target = NB.loc
 			var/direction = NB.dir	// this will be the load/unload dir
 			loaddir = direction
 			update_icon()

@@ -317,7 +317,7 @@
 		return
 
 	// We shouldn't be able to cast this! Cancel it.
-	source.balloon_alert(source, "нужно сфокусироваться")
+	source.balloon_alert(source, "нужен амулет")
 	return SPELL_CANCEL_CAST
 
 /*
@@ -466,7 +466,7 @@
 			continue
 
 		SEND_SOUND(mind.current, 'sound/magic/clockwork/narsie_attack.ogg')
-		to_chat(mind.current, span_cultlarge(span_warning("Тайные и запретные знания заполонили ваши кузницы и архивы. Культ научился создавать ")) + span_cultlarge(span_hypnophrase("[result]!")))
+		to_chat(mind.current, span_cultlarge(span_warning("Тайные и запретные знания заполонили ваши кузницы и архивы. Культ научился создавать ")) + span_cultlarge(span_purple("[result]!")))
 */
 	return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE
 
@@ -597,7 +597,7 @@
 	knowledge_points++
 	var/mob/living/carbon/human/human = owner.current
 	if(human.is_in_crit())
-		to_chat(owner.current, "[span_hear("Вы слышите шепот...")] [span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
+		to_chat(owner.current, "[span_hear("Вы слышите шепот...")] [span_purple(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
 
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
@@ -719,11 +719,7 @@
 /**
  * Admin proc for easily adding / removing knowledge points.
  */
-/datum/antagonist/heretic/proc/admin_change_points(mob/admin)
-	if(!admin.client?.holder)
-		to_chat(admin, span_warning("Вы не должны это использовать!"))
-		return
-
+/datum/antagonist/heretic/proc/admin_change_points(admin)
 	var/change_num = tgui_input_number(admin, "Добавить или забрать очки знаний", "Очки", 0, 100, -100)
 	if(!change_num || QDELETED(src))
 		return
@@ -740,7 +736,8 @@
 
 	var/mob/living/pawn = owner.current
 	pawn.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(pawn)), ITEM_SLOT_NECK, TRUE, TRUE)
-	to_chat(pawn, span_hypnophrase("Мансус даровал вам фокус."))
+	to_chat(pawn, span_purple("Мансус даровал вам способность колдовать без амулетов."))
+
 
 /datum/antagonist/heretic/roundend_report()
 	var/list/string_of_knowledge = list()
@@ -934,9 +931,13 @@
 	target_amount += rand(2, 4)
 	update_explanation_text()
 
+
 /datum/objective/heretic_research/update_explanation_text()
 	. = ..()
-	explanation_text = "Узнайте как минимум о [target_amount] еретических знаниях. Вы начинаете с уже изученным знанием \"[length(GLOB.heretic_start_knowledge)]\"."
+	explanation_text = "Узнайте как минимум о [target_amount] еретических знаниях. Вы начинаете с уже изученными знаниями:\n"
+	for(var/datum/heretic_knowledge/knowledge as anything in GLOB.heretic_start_knowledge)
+		explanation_text += "[knowledge.name]\n"
+	
 
 /datum/objective/heretic_research/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)

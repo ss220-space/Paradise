@@ -25,7 +25,7 @@
 	health = 65
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
 	/// List of innate abilities we have to add.
-	var/static/list/innate_abilities = list(
+	var/static/list/innate_spells = list(
 		/obj/effect/proc_holder/spell/ethereal_jaunt/ash/long = null,
 		/obj/effect/proc_holder/spell/remotetalk/eldritch = null,
 		/obj/effect/proc_holder/spell/view_range/expand_sight = null,
@@ -53,12 +53,13 @@
 		unlink_message = on_unlink_message, \
 	)
 
-	grant_actions_by_list(get_innate_abilities())
+	for(var/path in get_innate_spells())
+		mind.AddSpell(new path)
 
 
 /// Returns a list of abilities that we should add.
-/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/proc/get_innate_abilities()
-	var/list/returnable_list = innate_abilities.Copy()
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/proc/get_innate_spells()
+	var/list/returnable_list = innate_spells.Copy()
 	returnable_list += list(/obj/effect/proc_holder/spell/pointed/blind/eldritch = BB_TARGETED_ACTION)
 	return returnable_list
 
@@ -94,8 +95,8 @@
 	ai_controller = /datum/ai_controller/basic_controller/raw_prophet
 
 
-/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/ruins/get_innate_abilities()
-	var/list/returnable_list = innate_abilities.Copy()
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/ruins/get_innate_spells()
+	var/list/returnable_list = innate_spells.Copy()
 	returnable_list += list(/obj/effect/proc_holder/spell/watchers_look = BB_TARGETED_ACTION)
 	return returnable_list
 

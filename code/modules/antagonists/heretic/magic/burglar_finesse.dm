@@ -38,10 +38,16 @@
 	if(isnull(storage_item))
 		return FALSE
 
-	var/item = pick(storage_item.return_inv())
+	var/obj/item/item = pick(storage_item.return_inv())
 	if(isnull(item))
 		return FALSE
 
 	to_chat(cast_on, span_warning("Your [storage_item] feels lighter..."))
 	to_chat(action.owner, span_notice("With a blink, you pull [item] out of [cast_on][p_s()] [storage_item]."))
-	action.owner.put_in_active_hand(item)
+	if(action.owner.put_in_active_hand(item))
+		return
+
+	if(action.owner.put_in_inactive_hand(item))
+		return
+
+	item.forceMove(get_turf(action.owner))

@@ -90,7 +90,6 @@
 #define span_bad(str) ("<span class='bad'>" + str + "</span>")
 #define span_average(str) ("<span class='average'>" + str + "</span>")
 #define span_good(str) ("<span class='good'>" + str + "</span>")
-#define span_hypnophrase(str) ("<span class='hypnophrase'>" + str + "</span>")
 #define span_deconversion_message(str) ("<span class='deconversion_message'>" + str + "</span>")
 #define span_info(str) ("<span class='info'>" + str + "</span>")
 
