@@ -38,7 +38,7 @@
 					bee_stinging()
 
 	if(prob(5 * stage))
-		playsound(get_turf(affected_mob.loc), pick('sound/creatures/bee3.ogg', 'sound/creatures/bee4.ogg'), (stage*stage)*6.25, 1)
+		playsound(get_turf(affected_mob.loc), pick('sound/creatures/bee3.ogg', 'sound/creatures/bee4.ogg'), (stage*stage)*6.25, TRUE)
 
 	if(stage == max_stages && prob(3) && bees_spawned < 10)
 		affected_mob.visible_message(span_danger("Рой пчёл вылетает изо рта [affected_mob]!"), span_userdanger("Рой пчёл вылетает из вашего рта!"))

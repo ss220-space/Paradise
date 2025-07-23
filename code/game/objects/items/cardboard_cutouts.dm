@@ -19,7 +19,7 @@
 	if(user.a_intent == INTENT_HELP || pushed_over)
 		return ..()
 	user.visible_message(span_warning("[user] толка[pluralize_ru(user.gender,"ет","ют")] [src]!"), span_danger("[pluralize_ru(user.gender,"Ты толкаешь","Вы толкаете")] [src]!"))
-	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 	push_over()
 
 /obj/item/twohanded/cardboard_cutout/proc/push_over()
@@ -87,7 +87,7 @@
 
 /obj/item/twohanded/cardboard_cutout/bullet_act(obj/projectile/P)
 	visible_message(span_danger("[src] is hit by [P]!"), projectile_message = TRUE)
-	playsound(src, 'sound/weapons/slice.ogg', 50, 1)
+	playsound(src, 'sound/weapons/slice.ogg', 50, TRUE)
 	if(prob(P.damage))
 		push_over()
 

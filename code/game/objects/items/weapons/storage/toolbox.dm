@@ -17,8 +17,8 @@
 	attack_verb = list("заробастил")
 	use_sound = 'sound/effects/toolbox.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
-	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
-	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/toolbox_pickup.ogg'
 	var/blurry_chance = 5
 
 /obj/item/storage/toolbox/Initialize(mapload)

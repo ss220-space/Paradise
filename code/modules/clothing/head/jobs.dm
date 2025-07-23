@@ -625,7 +625,7 @@
 
 //SolGov
 /obj/item/clothing/head/beret/solgov/command
-	name = "\improper Trans-Solar Federation Lieutenant's beret"
+	name = "Trans-Solar Federation Lieutenant's beret"
 	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель - лейтенант."
 	ru_names = list(
 		NOMINATIVE = "берет лейтенанта ТСФ",
@@ -641,7 +641,7 @@
 	strip_delay = 80
 
 /obj/item/clothing/head/beret/solgov/command/elite
-	name = "\improper Trans-Solar Federation Specops Lieutenant's beret"
+	name = "Trans-Solar Federation Specops Lieutenant's beret"
 	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель принадлежит отделу специальных операций флота."
 	ru_names = list(
 		NOMINATIVE = "берет офицера специальных операций ТСФ",

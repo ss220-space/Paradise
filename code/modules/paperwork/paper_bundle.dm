@@ -12,8 +12,8 @@
 	layer = 4
 	pressure_resistance = 2
 	attack_verb = list("стукнул")
-	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/paper_pickup.ogg'
 	var/list/papers
 	var/amount = 0 //Amount of total items clipped to the paper. Note: If you have 2 paper, this should be 1
 	var/photos = 0 //Amount of photos clipped to the paper.
@@ -235,7 +235,7 @@
 			else if(page == amount+1)
 				return
 			page++
-			playsound(src.loc, "pageturn", 50, 1)
+			playsound(src.loc, "pageturn", 50, TRUE)
 		if(href_list["prev_page"])
 			if(page == 1)
 				return
@@ -244,7 +244,7 @@
 			else if(page == amount+1)
 				screen = 1
 			page--
-			playsound(src.loc, "pageturn", 50, 1)
+			playsound(src.loc, "pageturn", 50, TRUE)
 		if(href_list["remove"])
 			var/obj/item/W = papers[page]
 			papers -= W

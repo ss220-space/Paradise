@@ -30,7 +30,7 @@ RLF
 		return
 	var/obj/item/I = new /obj/item/reagent_containers/food/snacks/candy/sucker/lollipop
 	receiver.throw_alert("take item [I.UID()]", /atom/movable/screen/alert/take_item/RLF, alert_args = list(user, receiver, I))
-	to_chat(user, "<span class='info'>You offer lollipop to [receiver].</span>")
+	to_chat(user, span_notice("You offer lollipop to [receiver]."))
 
 /atom/movable/screen/alert/take_item/RLF
 

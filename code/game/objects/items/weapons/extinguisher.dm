@@ -74,7 +74,7 @@
 
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
-	. += span_info("Предохранитель <b>[safety ? "включён" : "выключен"]</b>.")
+	. += span_notice("Предохранитель <b>[safety ? "включён" : "выключен"]</b>.")
 
 
 /obj/item/extinguisher/update_icon_state()

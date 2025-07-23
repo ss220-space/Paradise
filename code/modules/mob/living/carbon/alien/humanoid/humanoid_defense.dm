@@ -4,7 +4,7 @@
 			if(INTENT_HARM)
 				var/damage = rand(1, 9)
 				if(prob(90))
-					playsound(loc, "punch", 25, 1, -1)
+					playsound(loc, "punch", 25, TRUE, -1)
 					visible_message(
 						span_danger("[M] ударил[genderize_ru(M.gender,"","а","о","и")] [src.name]!"),
 						span_userdanger("[M] ударил[genderize_ru(M.gender,"","а","о","и")] [src.name]!")
@@ -19,14 +19,14 @@
 					adjustBruteLoss(damage)
 					add_attack_logs(M, src, "Melee attacked with fists")
 				else
-					playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+					playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 					visible_message(span_danger("[M] попытал[genderize_ru(M.gender,"ся","ась","ось","ись")] ударить [src.name]!"))
 
 			if(INTENT_DISARM)
 				if(body_position != LYING_DOWN)
 					if(prob(5))//Very small chance to push an alien down.
 						Paralyse(4 SECONDS)
-						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 						add_attack_logs(M, src, "Pushed over")
 						visible_message(
 							span_danger("[M] опрокинул[genderize_ru(M.gender,"","а","о","и")] [src.name]!"),
@@ -35,13 +35,13 @@
 					else
 						if(prob(50))
 							drop_from_active_hand()
-							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 							visible_message(
 								span_danger("[M] обезоружил[genderize_ru(M.gender,"","а","о","и")] [src.name]!"),
 								span_userdanger("[M] обезоружил[genderize_ru(M.gender,"","а","о","и")] [src.name]!")
 							)
 						else
-							playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+							playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 							visible_message(span_danger("[M] попытал[genderize_ru(M.gender,"ся","ась","ось","ись")] обезоружить [src.name]!"))
 
 /mob/living/carbon/alien/humanoid/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)

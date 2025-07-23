@@ -173,7 +173,7 @@
 /obj/effect/proc_holder/spell/vampire/pacify/cast(list/targets, mob/user)
 	for(var/mob/living/carbon/human/H as anything in targets)
 		to_chat(H, span_notice("Вы вдруг почувствовали себя очень спокойно..."))
-		SEND_SOUND(H, 'sound/hallucinations/i_see_you1.ogg')
+		SEND_SOUND(H, sound('sound/hallucinations/i_see_you1.ogg'))
 		H.apply_status_effect(STATUS_EFFECT_PACIFIED)
 
 
@@ -206,7 +206,7 @@
 
 	if(target.affects_vampire(user))
 		target.Slowed(4 SECONDS)
-		SEND_SOUND(target, 'sound/hallucinations/behind_you1.ogg')
+		SEND_SOUND(target, sound('sound/hallucinations/behind_you1.ogg'))
 		target.flash_eyes(2, TRUE, affect_silicon = TRUE) // flash to give them a second to lose track of who is who
 		new /obj/effect/hallucination/delusion(user_turf, target, duration = 15 SECONDS, skip_nearby = FALSE)
 
@@ -300,7 +300,7 @@
 		if(!target.affects_vampire(user))
 			continue
 
-		SEND_SOUND(target, 'sound/hallucinations/over_here1.ogg')
+		SEND_SOUND(target, sound('sound/hallucinations/over_here1.ogg'))
 		target.Slowed(4 SECONDS)
 		target.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
 		new /obj/effect/hallucination/delusion(get_turf(user), target, skip_nearby = FALSE)

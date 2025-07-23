@@ -735,7 +735,7 @@ Difficulty: Medium
 /obj/effect/proc_holder/spell/aoe/repulse/spacedragon/cast(list/targets, mob/user = usr)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		playsound(C.loc, 'sound/effects/hit_punch.ogg', 80, TRUE, TRUE)
+		playsound(C.loc, 'sound/effects/hit_punch.ogg', 80, TRUE, 1)
 		C.spin(6, 1)
 	..(targets, user, 3 SECONDS)
 

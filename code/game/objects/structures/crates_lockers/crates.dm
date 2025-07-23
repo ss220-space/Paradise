@@ -125,7 +125,7 @@
 
 	if(I.use_tool(src, user))
 		to_chat(user, span_notice("You cut away the wiring."))
-		playsound(loc, I.usesound, 100, 1)
+		playsound(loc, I.usesound, 100, TRUE)
 		rigged = FALSE
 		return TRUE
 
@@ -321,7 +321,7 @@
 
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of the RCD."
-	name = "\improper RCD crate"
+	name = "RCD crate"
 	icon_state = "crate"
 
 /obj/structure/closet/crate/rcd/populate_contents()

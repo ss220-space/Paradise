@@ -1,6 +1,6 @@
 //Medbot
 /mob/living/simple_animal/bot/medbot
-	name = "\improper Medibot"
+	name = "Medibot"
 	desc = "Маленький медицинский робот. Выглядит несколько подавленным."
 	ru_names = list(
 		NOMINATIVE = "медбот",
@@ -92,7 +92,7 @@
 	skin = "paramed"
 
 /mob/living/simple_animal/bot/medbot/mysterious
-	name = "\improper Mysterious Medibot"
+	name = "Mysterious Medibot"
 	desc = "Загадочный медбот. От него веет тайнами..."
 	ru_names = list(
 		NOMINATIVE = "загадочный медбот",

@@ -114,7 +114,7 @@
 		return
 	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
 		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
-			playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+			playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 			user.visible_message(span_warning("[user] соверша[pluralize_ru(user, "ет", "ют")] рывок!"))
 		else
 			to_chat(user, span_warning("Что-то не даёт вам совершить рывок!"))
@@ -132,7 +132,7 @@
 		D.firer = user
 		D.firer_source_atom = src
 		D.hammer_synced = src
-		playsound(user, 'sound/weapons/crusher_shot.ogg', 160, 1)
+		playsound(user, 'sound/weapons/crusher_shot.ogg', 160, TRUE)
 		D.fire()
 		charged = FALSE
 		update_icon()

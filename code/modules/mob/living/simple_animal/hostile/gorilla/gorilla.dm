@@ -337,7 +337,7 @@
 	is_bipedal = TRUE
 	update_icon()
 	movable_target.forceMove(src)
-	playsound(loc, 'sound/items/handling/toolbox_pickup.ogg', 80)
+	playsound(loc, 'sound/items/handling/pickup/toolbox_pickup.ogg', 80)
 	if(master)
 		custom_emote(EMOTE_VISIBLE, "хвата%(ет,ют)% [target_object] в лапы.", intentional = TRUE)
 	return TRUE
@@ -354,7 +354,7 @@
 	held_crate.forceMove(drop_to)
 	LAZYREMOVE(crates_in_hand, held_crate)
 	update_icon()
-	playsound(loc, 'sound/items/handling/toolbox_drop.ogg', 100)
+	playsound(loc, 'sound/items/handling/drop/toolbox_drop.ogg', 100)
 	if(master)
 		oogaooga(100)
 		custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)% ящик на пол.", intentional = TRUE)
@@ -371,7 +371,7 @@
 		held_crate.forceMove(drop_to)
 		LAZYREMOVE(crates_in_hand, held_crate)
 	update_icon()
-	playsound(loc, 'sound/items/handling/toolbox_drop.ogg', 100)
+	playsound(loc, 'sound/items/handling/drop/toolbox_drop.ogg', 100)
 	if(master)
 		oogaooga(100)
 		custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)% все ящики на пол.", intentional = TRUE)

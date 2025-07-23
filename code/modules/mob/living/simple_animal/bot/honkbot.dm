@@ -1,5 +1,5 @@
 /mob/living/simple_animal/bot/honkbot
-	name = "\improper honkbot"
+	name = "honkbot"
 	desc = "Маленький робот. У него есть гудок. Он счастлив."
 	ru_names = list(
 		NOMINATIVE = "хонкобот",
@@ -171,7 +171,7 @@
 			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 	else if(emagged == 2) //emagged honkbots will spam short and memorable sounds.
 		if(!spam_flag)
-			playsound(src, "honkbot_e", 50, 0)
+			playsound(src, "honkbot_e", 50, FALSE)
 			spam_flag = TRUE // prevent spam
 			icon_state = "honkbot-e"
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)

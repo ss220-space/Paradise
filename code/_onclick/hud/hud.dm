@@ -346,7 +346,7 @@
 
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(usr, span_info("Изменён режим HUD. Переключение – клавиша F12."))
+		to_chat(usr, span_notice("Изменён режим HUD. Переключение – клавиша F12."))
 	else
 		to_chat(usr, span_warning("У этого типа существ нет HUD."))
 

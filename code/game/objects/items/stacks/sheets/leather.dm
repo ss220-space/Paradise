@@ -310,7 +310,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating("melee") + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
-			to_chat(user, "<span class='info'>Вы нашли куда суется [name] и пихнули её на экзокостюм, усиливая защиту против атак.</span>")
+			to_chat(user, span_notice("Вы нашли куда суется [name] и пихнули её на экзокостюм, усиливая защиту против атак."))
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
