@@ -275,7 +275,7 @@ Made by Xhuis
 				return
 			M.visible_message(span_warning("[M] внезапно раздувается и взрывается!"), \
 							  span_warning(span_bold("AAAAAAAAA[span_fontsize3("AAAAAAAAAAAAA")][span_fontsize4("AAAAAAAAAAAA.....")]")))
-			playsound(M, 'sound/magic/disintegrate.ogg', 100, 1)
+			playsound(M, 'sound/magic/disintegrate.ogg', 100, TRUE)
 			M.gib()
 
 /datum/game_mode/shadowling/proc/check_shadow_victory()

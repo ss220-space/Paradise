@@ -61,7 +61,7 @@ effective or pretty fucking useless.
 			M.Slowed(10 SECONDS)
 			M.Confused(6 SECONDS)
 
-	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
+	playsound(loc, 'sound/misc/interference.ogg', 50, TRUE)
 	charges--
 	to_chat(user,span_notice("Вы активируете [declent_ru(ACCUSATIVE)]. У него осталось [charges] заряд[declension_ru(charges, "", "а", "ов")]."))
 	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)

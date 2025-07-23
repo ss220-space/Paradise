@@ -24,7 +24,7 @@
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
 	balloon_alert(user, "крышка [cover_open ? "от" : "за"]крыта")
-	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
+	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, TRUE)
 	update_icon()
 
 
@@ -52,7 +52,7 @@
 		magazine.forceMove(drop_location())
 		user.put_in_hands(magazine)
 		magazine = null
-		playsound(src, magout_sound, 50, 1)
+		playsound(src, magout_sound, 50, TRUE)
 		update_icon()
 		balloon_alert(user, "магазин вынут")
 

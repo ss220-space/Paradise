@@ -9,7 +9,7 @@
  */
 
 /*
- * Tables
+ * MARK: Tables
  */
 
 /obj/structure/table
@@ -471,7 +471,7 @@
 
 
 /*
- * Glass Tables
+ * MARK: Glass Tables
  */
 
 /obj/structure/table/glass
@@ -578,7 +578,7 @@
 		S.color = NARSIE_WINDOW_COLOUR
 
 /*
- * Wooden tables
+ * MARK: Wooden tables
  */
 
 /obj/structure/table/wood
@@ -611,7 +611,7 @@
 	..(FALSE)
 
 /*
- * Fancy Tables
+ * MARK: Fancy Tables
  */
 
 /obj/structure/table/wood/fancy
@@ -692,7 +692,7 @@
 
 
 /*
- * Reinforced tables
+ * MARK: Reinforced tables
  */
 
 /obj/structure/table/reinforced
@@ -846,7 +846,7 @@
 	return
 
 /*
- * Racks
+ * MARK: Racks
  */
 /obj/structure/rack
 	name = "rack"
@@ -863,7 +863,7 @@
 /obj/structure/rack/examine(mob/user)
 	. = ..()
 	if(!wooden_version)
-		. += span_notice("Держится на паре <b>болтов</b>.")
+		. += span_notice("Держится на паре [span_bold("болтов")].")
 
 
 /obj/structure/rack/CanAllowThrough(atom/movable/mover, border_dir)
@@ -1038,7 +1038,7 @@
 		return
 	building = TRUE
 	to_chat(user, span_notice("Вы начинаете собирать оружейную стойку..."))
-	if(do_after(user, 5 SECONDS, user))
+	if(do_after(user, 2 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/gunrack/GR = new (user.loc)
@@ -1050,10 +1050,7 @@
 		qdel(src)
 	building = FALSE
 
-/*
- * Rack destruction
- */
-
+/// Rack destruction
 /obj/structure/rack/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
 		set_density(FALSE)
@@ -1062,7 +1059,7 @@
 	qdel(src)
 
 /*
- * Rack Parts
+ * MARK: Rack Parts
  */
 
 /obj/item/rack_parts
@@ -1086,7 +1083,7 @@
 		return
 	building = TRUE
 	to_chat(user, span_notice("Вы начинаете собирать стойку..."))
-	if(do_after(user, 5 SECONDS, user))
+	if(do_after(user, 2 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)

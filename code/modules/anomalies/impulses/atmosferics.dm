@@ -55,6 +55,7 @@
 /datum/anomaly_impulse/freese
 	name = "Заморозка"
 	desc = "Аномалия выпускает водяной пар понижает температуру окружающей среды, что приводит к образованию льда на полу."
+	stability_high = 50
 	/// Minimum range of effect.
 	var/range_low = 0
 	/// Maximum range of effect.

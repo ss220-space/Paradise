@@ -39,7 +39,7 @@
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
-	SEND_SOUND(world, 'sound/effects/narsie_risen.ogg')
+	SEND_SOUND(world, sound('sound/effects/narsie_risen.ogg'))
 
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
@@ -56,7 +56,7 @@
 
 /obj/singularity/god/narsie/large/Destroy()
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
-	SEND_SOUND(world, 'sound/hallucinations/wail.ogg')
+	SEND_SOUND(world, sound('sound/hallucinations/wail.ogg'))
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
 		gamemode.cult_objs.narsie_death()

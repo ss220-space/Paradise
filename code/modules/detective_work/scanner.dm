@@ -70,7 +70,7 @@
 	if(length(log) && !scanning)
 		scanning = TRUE
 		to_chat(usr, span_notice("Printing report, please wait..."))
-		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 		flick("Detective_anim", src)
 		sleep(3 SECONDS)
 		addtimer(CALLBACK(src, PROC_REF(make_paper), log), 10 SECONDS) // Create our paper

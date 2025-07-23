@@ -301,7 +301,7 @@
 		occupantData["bodyTempC"] = occupant.bodytemperature-T0C
 		occupantData["bodyTempF"] = (((occupant.bodytemperature-T0C) * 1.8) + 32)
 
-		occupantData["hasBorer"] = occupant.has_brain_worms()
+		occupantData["hasBorer"] = occupant.borer?.controlling
 
 		var/bloodData[0]
 		bloodData["hasBlood"] = FALSE
@@ -484,7 +484,7 @@
 
 		dat += "<hr>"
 
-		if(occupant.has_brain_worms())
+		if(occupant.borer?.controlling)
 			dat += "В лобной доле обнаружено крупное образование, возможно, злокачественное. Рекомендуется хирургическое удаление."
 
 		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))

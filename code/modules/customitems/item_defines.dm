@@ -460,7 +460,7 @@
 
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
-		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, TRUE)
 		to_chat(user, "<span class='notice'>You modify [target] with [src].</span>")
 		H.update_inv_head()
 		qdel(target)
@@ -737,7 +737,7 @@
 			icon_state = new_state["icon_state"]
 			state = choice
 			to_chat(user, "You adjust the helmet.")
-			playsound(src.loc, "[toggle_sound]", 100, 0, 4)
+			playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
 			user.update_inv_head()
 			return 1
 

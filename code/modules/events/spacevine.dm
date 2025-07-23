@@ -222,7 +222,7 @@
 		// also conveniently prevents this from spreading too crazily
 		remove_mutation_from_vinepiece(holder)
 		holder.master.spawn_spacevine_piece(target, holder)
-		playsound(holder, 'sound/misc/interference.ogg', 50, 1)
+		playsound(holder, 'sound/misc/interference.ogg', 50, TRUE)
 		. = TRUE
 
 /datum/spacevine_mutation/light

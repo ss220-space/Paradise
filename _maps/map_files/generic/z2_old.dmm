@@ -8162,7 +8162,7 @@
 	},
 /area/centcom/zone1)
 "ghO" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/item/radio/intercom{
 	pixel_y = 30
 	},
@@ -15911,7 +15911,7 @@
 	},
 /area/syndicate_mothership)
 "lFi" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},

@@ -60,7 +60,7 @@
 	messages.Add(span_danger("Вы Блоб!"))
 	for(var/message in get_blob_help_messages(strain))
 		messages.Add(message)
-	SEND_SOUND(owner.current, 'sound/magic/mutate.ogg')
+	SEND_SOUND(owner.current, sound('sound/magic/mutate.ogg'))
 	return messages
 
 /proc/get_blob_help_messages(datum/blobstrain/blob_reagent_datum)

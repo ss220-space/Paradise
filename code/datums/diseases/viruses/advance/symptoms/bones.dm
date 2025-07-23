@@ -31,7 +31,7 @@ Fragile Bones Syndrome
 			if(3, 4)
 				switch(rand(1, 3))
 					if(1)
-						playsound(M, "bonebreak", 15, 1)
+						playsound(M, "bonebreak", 15, TRUE)
 						M.visible_message(span_warning("Кажется, вы слышите хруст, исходящий от [M.declent_ru(GENITIVE)]."), span_warning("Вы слышите, как что-то хрустнуло внутри вас!"))
 					if(2)
 						to_chat(M, span_warning("Вы чувствуете ужасную боль в [pick("ноге", "стопе", "руке", "кисти", "плече", "позвоночнике", "шее")]."))
@@ -44,7 +44,7 @@ Fragile Bones Syndrome
 					if(1)
 						to_chat(M, span_danger(pick("Вы чувствуете, как ваше тело разрушается!", "Что-то громко хрустнуло.", "Вы чувствуете ужасную боль в [pick("ноге", "стопе", "руке", "кисти", "плече", "позвоночнике", "шее")].", "Такое ощущение, будто вы растекаетесь по полу.")))
 					if(2)
-						playsound(M, "bonebreak", 50, 1)
+						playsound(M, "bonebreak", 50, TRUE)
 						M.visible_message(span_userdanger(span_italics("ХРУСЬ")))
 
 				if(!done)

@@ -92,7 +92,7 @@
 	I.forceMove(get_turf(src))
 	to_launch = null
 	modify_projectile(I)
-	playsound(user, fire_sound, 50, 1)
+	playsound(user, fire_sound, 50, TRUE)
 	I.throw_at(target, get_throwrange(), get_throwspeed(), user, FALSE)
 	add_attack_logs(user, target, "fired [I] from a [src]")
 	process_chamber()

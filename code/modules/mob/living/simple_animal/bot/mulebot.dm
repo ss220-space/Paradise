@@ -431,13 +431,13 @@
 	switch(type)
 		if(SIGH)
 			audible_message("[capitalize(declent_ru(NOMINATIVE))] разочарованно гудит.")
-			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		if(ANNOYED)
 			audible_message("[capitalize(declent_ru(NOMINATIVE))] раздражённо жужжит.")
-			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-two.ogg', 50, FALSE)
 		if(DELIGHT)
 			audible_message("[capitalize(declent_ru(NOMINATIVE))] восторженно звенит!")
-			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+			playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 
 
 // mousedrop a crate to load the bot
@@ -709,7 +709,7 @@
 	if(!reached_target)
 		radio_channel = SUP_FREQ_NAME //Supply channel
 		audible_message("[capitalize(declent_ru(NOMINATIVE))] громко звенит!")
-		playsound(loc, 'sound/machines/chime.ogg', 50, 0)
+		playsound(loc, 'sound/machines/chime.ogg', 50, FALSE)
 		reached_target = 1
 
 		if(pathset) //The AI called us here, so notify it of our arrival.
@@ -804,7 +804,7 @@
 	add_attack_logs(src, H, "Run over (DAMTYPE: [uppertext(BRUTE)])")
 	H.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] переезжает [H]!"),
 					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] переезжает вас!"))
-	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/damage = rand(5, 15)
 	H.apply_damage(2*damage, BRUTE, BODY_ZONE_HEAD, run_armor_check(BODY_ZONE_HEAD, MELEE))
