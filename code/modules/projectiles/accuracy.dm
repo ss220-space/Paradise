@@ -18,7 +18,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	var/legs = 100
 	var/hands = 100
 	var/foots = 100
-	var/other = 100  //tail, wings
+	var/other = 100
 
 
 /datum/gun_accuracy/proc/getList()

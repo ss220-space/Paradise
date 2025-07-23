@@ -43,7 +43,7 @@
 	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
 	var/bolt_open = FALSE
 	var/spread = 0
-	/// Точность оружия в процентах. Перемножается на точность попадания по части тела (100% попадание при точности оружия 200)
+	/// Gun accuracy (without distance accuracy)
 	var/datum/gun_accuracy/accuracy
 	var/barrel_dir = EAST // barel direction need for a rotate gun with telekinesis for shot to target (default: matched with tile direction)
 	var/randomspread = TRUE
