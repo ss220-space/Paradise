@@ -37,7 +37,7 @@
 		nearby_living.apply_status_effect(/datum/status_effect/void_chill, 1)
 
 
-/obj/effect/proc_holder/spell/aoe/void_pull/get_things_to_cast_on(atom/center, radius_override = 1)
+/obj/effect/proc_holder/spell/aoe/void_pull/get_things_to_cast_on(atom/center, radius_override)
 	var/list/things = list()
 	for(var/mob/living/nearby_mob in view(radius_override || aoe_range, center))
 		if(nearby_mob == action.owner || nearby_mob == center)

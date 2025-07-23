@@ -296,6 +296,7 @@
 	qdel(src)
 	return TRUE
 
+
 /**
  * The effect of the potion, if it has any special one.
  * In general try not to override this
@@ -304,6 +305,7 @@
 /obj/item/eldritch_potion/proc/potion_effect(mob/user)
 	var/mob/living/carbon/carbon_user = user
 	carbon_user.apply_status_effect(status_effect)
+
 
 /obj/item/eldritch_potion/crucible_soul
 	name = "Зелье Блуждающей Души"
@@ -320,6 +322,7 @@
 	status_effect = /datum/status_effect/crucible_soul
 	crucible_tip = "Позволяет проходить сквозь стены. После окончания действия вы телепортируетесь в исходное местоположение. Длится 15 секунд."
 
+
 /obj/item/eldritch_potion/duskndawn
 	name = "Зелье Заката и Рассвета"
 	ru_names = list(
@@ -334,6 +337,7 @@
 	icon_state = "clarity"
 	status_effect = /datum/status_effect/duskndawn
 	crucible_tip = "Позволяет видеть сквозь преграды. Длится 90 секунд."
+
 
 /obj/item/eldritch_potion/wounded
 	name = "Зелье Раненого Солдата"

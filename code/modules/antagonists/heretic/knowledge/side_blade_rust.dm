@@ -11,11 +11,11 @@
 
 // Sidepaths for knowledge between Rust and Blade.
 /datum/heretic_knowledge/armor
-	name = "Armorer's Ritual"
-	desc = "Allows you to transmute a table and a gas mask to create Eldritch Armor. \
-		Eldritch Armor provides great protection while also acting as a focus when hooded."
-	gain_text = "The Rusted Hills welcomed the Blacksmith in their generosity. And the Blacksmith \
-		returned their generosity in kind."
+	name = "Ритуал оружейника"
+	desc = "Позволяет преобразовать стол и противогаз в «Потустороннюю броню». \
+			«Потусторонняя броня» обеспечивает отличную защиту, а также позволяет \
+			колдовать без амулета при ношении капюшона."
+	gain_text = "Ржавые Холмы щедро встретили Кузнеца. И Кузнец ответил им взаимностью."
 
 	required_atoms = list(
 		/obj/structure/table = 1,
@@ -30,11 +30,12 @@
 
 
 /datum/heretic_knowledge/crucible
-	name = "Mawed Crucible"
-	desc = "Allows you to transmute a portable water tank and a table to create a Mawed Crucible. \
-		The Mawed Crucible can brew powerful potions for combat and utility, but must be fed bodyparts and organs between uses."
-	gain_text = "This is pure agony. I wasn't able to summon the figure of the Aristocrat, \
-		but with the Priest's attention I stumbled upon a different recipe..."
+	name = "Котел Страданий"
+	desc = "Позволяет преобразовать переносной резервуар для воды и стол в Котел Страданий. \
+			Котел Страданий позволяет варить мощные зелья, но между \
+			использованиями его необходимо подпитывать частями тела и органами."
+	gain_text = "Это просто мучение. Мне не удалось вызвать фигуру Аристократа, \
+				но благодаря вниманию Жреца я наткнулся на другой рецепт..."
 
 	required_atoms = list(
 		/obj/structure/reagent_dispensers/watertank = 1,
@@ -48,15 +49,13 @@
 
 
 /datum/heretic_knowledge/rifle
-	name = "Lionhunter's Rifle"
-	desc = "Allows you to transmute a piece of wood, with hide \
-		from any animal,and a camera to create the Lionhunter's rifle. \
-		The Lionhunter's Rifle is a long ranged ballistic weapon with three shots. \
-		These shots function as normal, albeit weak high-caliber munitions when fired from \
-		close range or at inanimate objects. You can aim the rifle at distant foes, \
-		causing the shot to mark your victim with your grasp and teleport you directly to them."
-	gain_text = "I met an old man in an antique shop who wielded a very unusual weapon. \
-		I could not purchase it at the time, but they showed me how they made it ages ago."
+	name = "Винтовка Охотника на львов"
+	desc = "Позволяет преобразовать кусок дерева, шкуру \
+			любого животного и фотоаппарат, в винтовку Охотника на львов. \
+			Винтовка Охотника на львов — это дальнобойное баллистическое оружие вмещающее три патрона. \
+			Попадание по жертве оставляет вашу метку на ней."
+	gain_text = "В антикварной лавке я встретил старика, владеющего очень необычным оружием. \
+				Тогда я не смог его купить, но старик рассказал, как оно было создано."
 
 	required_atoms = list(
 		/obj/item/stack/sheet/wood = 1,

@@ -36,10 +36,10 @@
 	return . | SPELL_CANCEL_CAST
 
 
-/obj/effect/proc_holder/spell/pointed/void_phase/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/void_phase/cast(list/targets)
 	. = ..()
 	var/turf/source_turf = get_turf(action.owner)
-	var/turf/targeted_turf = get_turf(cast_on)
+	var/turf/targeted_turf = get_turf(targets[1])
 
 	cause_aoe(source_turf, /obj/effect/temp_visual/voidin)
 	cause_aoe(targeted_turf, /obj/effect/temp_visual/voidout)

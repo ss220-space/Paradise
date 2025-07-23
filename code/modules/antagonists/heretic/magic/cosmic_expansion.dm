@@ -28,17 +28,17 @@
 
 
 /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cast(list/targets)
-	var/mob/living/cast_on = targets[1]
-	new expansion_effect(get_turf(cast_on))
-	for(var/mob/living/nearby_mob in range(star_mark_range, cast_on))
-		if(cast_on == nearby_mob || cast_on.buckled == nearby_mob)
+	new expansion_effect(get_turf(action.owner))
+	for(var/mob/living/nearby_mob in range(star_mark_range, action.owner))
+		if(action.owner == nearby_mob)
 			continue
-		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, cast_on)
+
+		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, action.owner)
 
 	if (!ascended)
 		return ..()
 
-	for(var/turf/cast_turf as anything in get_turfs(get_turf(cast_on)))
+	for(var/turf/cast_turf as anything in get_turfs(get_turf(action.owner)))
 		new /obj/effect/forcefield/cosmic_field(cast_turf)
 
 	return ..()
@@ -49,4 +49,5 @@
 	for (var/direction as anything in GLOB.cardinal)
 		target_turfs += get_ranged_target_turf(target_turf, direction, 2)
 		target_turfs += get_ranged_target_turf(target_turf, direction, 3)
+
 	return target_turfs

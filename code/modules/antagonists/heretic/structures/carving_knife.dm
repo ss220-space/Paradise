@@ -57,14 +57,11 @@
 		. += potion_string
 
 
-/obj/item/melee/rune_carver/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	return ATTACK_CHAIN_PROCEED
-
 /obj/item/melee/rune_carver/afterattack(atom/target, mob/user, proximity, params)
 	if(!IS_HERETIC_OR_MONSTER(user))
 		return
 
-	if(!is_space_or_openspace(target) || is_type_in_typecache(target, blacklisted_turfs))
+	if(iswallturf(target) || is_type_in_typecache(target, blacklisted_turfs))
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(try_carve_rune), target, user)

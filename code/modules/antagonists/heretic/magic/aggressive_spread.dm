@@ -43,7 +43,7 @@
 		var/chance_of_not_rusting = (max(distance_to_caster, 1) - 1) * 100 / (aoe_range + 1)
 
 		if(prob(chance_of_not_rusting))
-			return
+			continue
 
 		if(ismob(caster))
 			caster.do_rust_heretic_act(victim)

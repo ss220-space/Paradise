@@ -11,12 +11,14 @@
 // Sidepaths for knowledge between Flesh and Void.
 
 /datum/heretic_knowledge/void_cloak
-	name = "Void Cloak"
-	desc = "Allows you to transmute a glass shard, a bedsheet, and any outer clothing item (such as armor or a suit jacket) \
-		to create a Void Cloak. While the hood is down, the cloak functions as a focus, \
-		and while the hood is up, the cloak is completely invisible. It also provide decent armor and \
-		has pockets which can hold one of your blades, various ritual components (such as organs), and small heretical trinkets."
-	gain_text = "The Owl is the keeper of things that are not quite in practice, but in theory are. Many things are."
+	name = "Плащ Пустоты"
+	desc = "Позволяет преобразовать осколок стекла, простыню и любой предмет верхней одежды чтобы создать \
+			Плащ Пустоты. Пока капюшон опущен, плащ позволяет колдовать без амулета. \
+			Он также обеспечивает хорошую броню и \
+			имеет карманы, в которые можно положить один из ваших клинков или различные ритуальные \
+			принадлежности (например, органы) и небольшие еретические безделушки."
+	gain_text = "Сова — хранительница того, что на практике не совсем так, но теоретически таковым является. \
+				И многие вещи таковыми являются." // Wtf. In English its also too strange.
 
 	required_atoms = list(
 		/obj/item/shard = 1,
@@ -31,18 +33,19 @@
 
 
 /datum/heretic_knowledge/spell/blood_siphon
-	name = "Blood Siphon"
-	desc = "Grants you Blood Siphon, a spell that drains a victim of blood and health, transferring it to you. \
-		Also has a chance to transfer wounds from you to the victim."
-	gain_text = "\"No matter the man, we bleed all the same.\" That's what the Marshal told me."
+	name = "Вампиризм"
+	desc = "Дарует вам «Вампиризм» — заклинание, высасывающее кровь и здоровье жертвы и передающее их вам. \
+			Также есть шанс передать раны от вас жертве."
+	gain_text = "«Все мы разные, но кровь у всех идет одинаково». Так мне сказал маршал."
 
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/blood_siphon
 	cost = 1
 
+
 /datum/heretic_knowledge/spell/void_prison
-	name = "Void Prison"
-	desc = "Grants you Void Prison, a spell that places your victim into ball, making them unable to do anything or speak. \
-		Applies void chill afterwards."
+	name = "Пустотная Тюрьма"
+	desc = "Даёт вам «Пустотную Тюрьму» — заклинание, заключающее вашу жертву в шар, \
+			лишая её возможности что-либо делать или говорить."
 	gain_text = "At first, I see myself, waltzing along a snow-laden street. \
 		I try to yell, grab hold of this fool and tell them to run. \
 		But the only welts made are on my own beating fist. \
@@ -50,6 +53,7 @@
 
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_prison
 	cost = 1
+
 
 /datum/heretic_knowledge/spell/cleave
 	name = "Blood Cleave"

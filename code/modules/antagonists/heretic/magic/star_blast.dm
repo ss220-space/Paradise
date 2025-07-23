@@ -20,6 +20,7 @@
 	cast_range = 12
 	projectile_type = /obj/projectile/magic/star_ball
 
+
 /obj/projectile/magic/star_ball
 	name = "star ball"
 	icon_state = "star_ball"
@@ -33,9 +34,11 @@
 	/// The range at which people will get marked with a star mark.
 	var/star_mark_range = 3
 
+
 /obj/projectile/magic/star_ball/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
+
 
 /obj/projectile/magic/star_ball/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
@@ -43,13 +46,17 @@
 	for(var/mob/living/nearby_mob in range(star_mark_range, target))
 		if(cast_on == nearby_mob || cast_on.buckled == nearby_mob)
 			continue
+
 		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, cast_on)
+
 
 /obj/projectile/magic/star_ball/Destroy()
 	playsound(get_turf(src), 'sound/magic/cosmic_energy.ogg', 50, FALSE)
 	for(var/turf/cast_turf as anything in get_turfs())
 		new /obj/effect/forcefield/cosmic_field(cast_turf)
+		
 	return ..()
+
 
 /obj/projectile/magic/star_ball/proc/get_turfs()
 	return list(get_turf(src), pick(get_step(src, NORTH), get_step(src, SOUTH)), pick(get_step(src, EAST), get_step(src, WEST)))

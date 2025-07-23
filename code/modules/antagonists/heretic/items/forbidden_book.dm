@@ -131,12 +131,13 @@
 	human_user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 190)
 
 
-/obj/item/codex_cicatrix/morbus/afterattack(atom/interacting_with, mob/living/user, proximity, modifiers, status)
+/obj/item/codex_cicatrix/morbus/melee_attack_chain(mob/user, atom/interacting_with, params)
+	var/list/modifiers = params2list(params)
 	if(!modifiers["alt"])
 		return ..()
 
 	if(!istype(interacting_with, /obj/effect/decal/heretic_rune/big))
-		return NONE
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	var/list/curse_list = list()
 	for(var/datum/heretic_knowledge/curse/curses as anything in subtypesof(/datum/heretic_knowledge/curse))

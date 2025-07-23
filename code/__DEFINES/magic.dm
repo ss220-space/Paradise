@@ -104,7 +104,7 @@ DEFINE_BITFIELD(antimagic_flags, list(
  * to instead check for trait [TRAIT_MAGICALLY_PHASED] instead of using this
  * as it encompasses more states in which a mob may be "incorporeal from magic"
  */
-#define is_jaunting(atom) (istype(atom.loc, /obj/effect/dummy/phased_mob))
+#define is_jaunting(atom) (istype(atom.loc, /obj/effect/dummy/phased_mob) || istype(atom.loc, /obj/effect/dummy/spell_jaunt))
 
 /// Sent from /obj/effect/proc_holder/spell/before_cast() to the caster: (obj/effect/proc_holder/spell/spell, atom/cast_on)
 #define COMSIG_MOB_BEFORE_SPELL_CAST "mob_spell_pre_cast"

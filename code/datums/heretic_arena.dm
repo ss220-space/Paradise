@@ -54,7 +54,6 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 
 
 /datum/component/proximity_monitor/advanced/heretic_arena/New(atom/_parent, range, _ignore_if_not_on_turf)
-	. = ..()
 	recalculate_field(full_recalc = TRUE)
 	var/list/things_in_range = range(range)
 	for(var/mob/living/carbon/human/human_in_range in things_in_range)

@@ -11,7 +11,6 @@
 	slot_flags = ITEM_SLOT_BACK
 	icon_state = "lionhunter"
 	item_state = "lionhunter"
-	item_state = "lionhunter"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
 	fire_sound = 'sound/weapons/gunshots/shot.ogg'
 

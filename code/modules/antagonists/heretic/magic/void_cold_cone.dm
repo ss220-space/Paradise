@@ -143,8 +143,9 @@
 	/// This value determines if the cone penetrates walls.
 	var/respect_density = FALSE
 
-/obj/effect/proc_holder/spell/cone/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/cone/cast(list/targets)
 	. = ..()
+	var/atom/cast_on = targets[1]
 	var/list/cone_turfs = get_cone_turfs(get_turf(cast_on), cast_on.dir, cone_levels)
 	make_cone(cone_turfs, cast_on)
 

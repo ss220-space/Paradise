@@ -779,18 +779,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/spell/pointed/add_mousepointer(client/on_who)
 	. = ..()
-	if(!.)
-		return
-
 	on_activation(on_who)
 
 
 // Note: Destroy() calls Remove(), Remove() calls remove_mousepointer() if our spell is active.
 /obj/effect/proc_holder/spell/pointed/remove_mousepointer(client/on_who, refund_cooldown = TRUE)
 	. = ..()
-	if(!.)
-		return
-
 	on_deactivation(on_who, refund_cooldown = refund_cooldown)
 
 
@@ -865,7 +859,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * will instead fire a projectile pointed at the target's direction.
  */
 /obj/effect/proc_holder/spell/pointed/projectile
-	should_recharge_after_cast = FALSE
+	//should_recharge_after_cast = FALSE
 	/// What projectile we create when we shoot our spell.
 	var/obj/projectile/projectile_type = /obj/projectile/magic/teleport
 	/// How many projectiles we can fire per cast. Not all at once, per click, kinda like charges

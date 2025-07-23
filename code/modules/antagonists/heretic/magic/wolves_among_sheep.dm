@@ -4,7 +4,7 @@
  * For the functionality of the spell itself see [/obj/effect/abstract/heretic_arena] which is created during [/proc/create_arena()]
  */
 /obj/effect/proc_holder/spell/wolves_among_sheep
-	name = "Волк в овечей шкуре"
+	name = "Волк в овечьей шкуре"
 	desc = "Изменяет ткань реальности, создавая магическую арену, недоступную для посторонних. \
 			Все участники оказываются в ловушке. \
 			Пойманным участникам даруется Клинок, и они не могут покинуть арену пока не убьют противника."
@@ -66,7 +66,7 @@
 	// Loop doesnt catch src.loc so we have to handle it manually
 	apply_visual(list(center_turf))
 
-
+/*
 /obj/effect/proc_holder/spell/wolves_among_sheep/can_cast(feedback)
 	. = ..()
 	for(var/obj/nearby_arena in GLOB.heretic_arenas)
@@ -80,12 +80,12 @@
 
 		action.owner.balloon_alert(action.owner, "другая арена рядом!")
 		return FALSE
-
+*/
 
 /// Applies a visual to each turf
 /obj/effect/proc_holder/spell/wolves_among_sheep/proc/apply_visual(list/turfs)
 	for(var/turf/target as anything in turfs)
-		if(is_space_or_openspace(target))
+		if(isfloorturf(target))
 			var/turf_icon = "rose_stone_" + "[pick(1, 2, 3, 4, 5, 6, 7, 8)]"
 			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena", image('icons/turf/floors/rose_stone_turf.dmi', target, turf_icon, layer = ABOVE_OPEN_TURF_LAYER))
 

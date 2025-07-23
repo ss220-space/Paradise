@@ -19,7 +19,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	phase_allowed = TRUE
-
+	base_cooldown = 5 SECONDS
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
@@ -249,7 +249,7 @@
 /obj/effect/proc_holder/spell/jaunt/proc/exit_jaunt(mob/living/unjaunter, turf/loc_override)
 	SHOULD_CALL_PARENT(TRUE)
 
-	var/obj/effect/dummy/phased_mob/jaunt = unjaunter.loc
+	var/obj/effect/dummy/jaunt = unjaunter.loc
 	if(!istype(jaunt))
 		return FALSE
 

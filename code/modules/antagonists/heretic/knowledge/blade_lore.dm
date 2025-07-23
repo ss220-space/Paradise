@@ -115,7 +115,7 @@
 	//if(INCAPACITATED_IGNORING(source, INCAPABLE_GRAB))
 	//	return
 
-	var/mob/living/attacker = hitby.loc
+	var/mob/living/attacker = isliving(hitby) ? hitby : hitby.loc
 	if(!istype(attacker))
 		return
 
@@ -212,7 +212,7 @@
 
 
 /datum/heretic_knowledge/spell/wolves_among_sheep
-	name = "Волк в овечей шкуре"
+	name = "Волк в овечьей шкуре"
 	desc = "Изменяет ткань реальности, создавая магическую арену, закрытую для посторонних. \
 			Все участники оказываются в ловушке и становятся невосприимчивыми к \
 			опасностям окружающей среды. Пойманным участникам даруется Клинок, и они не могут \
@@ -244,7 +244,7 @@
 	. = ..()
 	RegisterSignal(user, COMSIG_TOUCH_HANDLESS_CAST, PROC_REF(on_grasp_cast))
 	//RegisterSignal(user, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(on_blade_equipped))
-	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(do_melee_effects))
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(do_melee_effects), override = TRUE)
 
 
 /datum/heretic_knowledge/blade_upgrade/blade/on_lose(mob/user, datum/antagonist/heretic/our_heretic)

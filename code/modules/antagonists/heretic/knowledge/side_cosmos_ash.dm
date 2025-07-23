@@ -112,18 +112,18 @@
 				target_airlock.lock()
 
 
-/obj/item/coin/eldritch/afterattack(atom/interacting_with, mob/living/user, proximity, params, status)
+/obj/item/coin/eldritch/melee_attack_chain(mob/user, atom/interacting_with, params)
 	if(!istype(interacting_with, /obj/machinery/door/airlock))
-		return
+		return ..()
 
 	if(!isheretic(user))
 		user.adjustBruteLoss(5)
 		user.adjustFireLoss(5)
 		user.drop_from_active_hand()
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	var/obj/machinery/door/airlock/target_airlock = interacting_with
 	to_chat(user, span_warning("Вы вставляете [declent_ru(ACCUSATIVE)] в шлюз."))
 	target_airlock.emag_act(user, src)
 	qdel(src)
-	return
+	return ATTACK_CHAIN_BLOCKED_ALL

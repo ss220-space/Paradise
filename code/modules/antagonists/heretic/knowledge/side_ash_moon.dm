@@ -48,11 +48,13 @@
 
 
 /datum/heretic_knowledge/summon/ashy
-	name = "Ashen Ritual"
-	desc = "Allows you to transmute a head, a pile of ash, and a book to create an Ash Spirit. \
-		Ash Spirits have a short range jaunt and the ability to cause bleeding in foes at range. \
-		They also have the ability to create a ring of fire around themselves for a length of time."
-	gain_text = "I combined my principle of hunger with my desire for destruction. The Marshal knew my name, and the Nightwatcher gazed on."
+	name = "Ритуал Пепла"
+	desc = "Позволяет преобразовать голову, кучку пепла и книгу в Духа Пепла. \
+			Духи пепла способны на короткий промежуток время становиться не материальными \
+			и вызывать внутреннее кровотечение у врагов на расстоянии. \
+			Они также способны создавать вокруг себя огненное кольцо."
+	gain_text = "Я соединил свой принцип голода с жаждой разрушения. \
+				Маршал знал моё имя, а Ночной Страж наблюдал за мной."
 
 	required_atoms = list(
 		/obj/effect/decal/cleanable/ash = 1,

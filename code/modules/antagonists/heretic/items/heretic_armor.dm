@@ -65,7 +65,7 @@
 	. += span_notice("Allows you to cast heretic spells while the hood is up.")
 
 
-// Void cloak. Turns invisible with the hood up, lets you hide stuff.
+// Плащ Пустоты. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
 	name = "void hood"
 	icon = 'icons/obj/clothing/helmet.dmi'
@@ -93,7 +93,7 @@
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void
-	name = "void cloak"
+	name = "Плащ Пустоты"
 	desc = "Black like tar, reflecting no light. Runic symbols line the outside. \
 		With each flash you lose comprehension of what you are seeing."
 	icon_state = "void_cloak"

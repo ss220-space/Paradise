@@ -232,7 +232,7 @@
 	if(istype(our_area, ritual_location))
 		return ..()
 
-	loc.balloon_alert(user, "ritual failed, must be in [initial(ritual_location.name)]!") // "must be in bridge"
+	loc.balloon_alert(user, "вы не в [initial(ritual_location.name)]!") // "must be in bridge"
 	return FALSE
 
 
