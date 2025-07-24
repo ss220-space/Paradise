@@ -33,6 +33,14 @@
 	item_state = "bl_suit"
 	item_color = "black_suit"
 
+/obj/item/clothing/under/syndicate/sniper_civ
+	name = "Executive tactical suit"
+	desc = "An evecutive version of tactical turtleneck suit. Intended more for formal meetings than for actual combat."
+	icon_state = "black_suit"
+	item_state = "bl_suit"
+	item_color = "black_suit"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
 /obj/item/clothing/under/syndicate/blackops
 	name = "Black ops coverall"
 	desc = "Robust coverall made for covert oprations deep within enemy territory. Offers small protection to it's user due to durathread and kevlar inserts."
