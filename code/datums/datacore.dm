@@ -136,16 +136,12 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/assignment
 		if(H.mind.role_alt_title)
 			assignment = H.mind.role_alt_title
-			rank = H.mind.assigned_role
 		else if(H.mind.assigned_role)
 			assignment = H.mind.assigned_role
-			rank = H.mind.assigned_role
 		else if(H.job)
 			assignment = H.job
-			rank = H.job
 		else
 			assignment = "Неназначенный"
-			rank = "Unknown"
 
 		var/id = num2hex(GLOB.record_id_num++, 6)
 
