@@ -16,7 +16,7 @@ env:
   BASE_BRANCH: master220
   TESTMERGE_BRANCH: testmerge
   STABLE_BRANCH: stable
-  REQUIRED_LABEL: testmerge
+  REQUIRED_LABEL: Testmerge
 
 jobs:
   process:
