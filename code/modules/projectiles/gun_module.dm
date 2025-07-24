@@ -7,13 +7,12 @@
 /obj/item/gun_module
 	name = "unknown gun module"
 	desc = "Неизветный модуль для оружия"
-	icon = 'icons/obj/weapons/attachments/muzzle.dmi'
-	icon_state = "suppressor"
-	item_state = "suppressor"
+	icon_state = "lace"
+	item_state = "lace"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=2;engineering=2"
 	var/slot
-	var/overlay_state = "enforcer_supp"
+	var/overlay_state = "lace"
 	var/overlay_offset
 
 
@@ -69,7 +68,7 @@
 
 //----------------------------------------------------------
 			//							    \\
-			//         Modules              \\
+			//       Muzzle modules         \\
 			//							    \\
 			//						   	    \\
 //----------------------------------------------------------
@@ -85,6 +84,7 @@
 		INSTRUMENTAL = "универсальным глушителем",
 		PREPOSITIONAL = "универсальном глушителе"
 	)
+	icon = 'icons/obj/weapons/attachments/muzzle.dmi'
 	icon_state = "suppressor"
 	item_state = "suppressor"
 	overlay_state = "suppressor"
@@ -121,6 +121,7 @@
 		INSTRUMENTAL = "универсальным пламегасителем",
 		PREPOSITIONAL = "универсальном пламегасителе"
 	)
+	icon = 'icons/obj/weapons/attachments/muzzle.dmi'
 	icon_state = "comp"
 	item_state = "comp"
 	overlay_state = "comp"
@@ -140,3 +141,101 @@
 	target_gun.w_class = initial_w_class
 
 
+
+
+
+//----------------------------------------------------------
+			//							    \\
+			//       Rail modules           \\
+			//		  (scopes)				\\
+			//						   	    \\
+//----------------------------------------------------------
+
+/obj/item/gun_module/scope
+	icon = 'icons/obj/weapons/attachments/scope.dmi'
+	slot = ATTACHMENT_SLOT_RAIL
+	origin_tech = "combat=3;engineering=4"
+	icon_state = "pmc"
+	item_state = "pmc"
+	overlay_state = "pmc"
+	var/zoom_amount = 1
+	var/old_zoom_amount
+
+
+/obj/item/gun_module/scope/on_attach(obj/item/gun/target_gun, mob/user)
+	target_gun.zoomable = TRUE
+	old_zoom_amount = target_gun.zoom_amt
+	target_gun.zoom_amt = zoom_amount
+	target_gun.build_zooming()
+	if(user.is_in_hands(target_gun))
+		target_gun.ZoomGrantCheck(null, user, ITEM_SLOT_HANDS)
+
+/obj/item/gun_module/scope/on_detach(obj/item/gun/target_gun, mob/user)
+	target_gun.zoomable = FALSE
+	target_gun.zoom_amt = old_zoom_amount
+	target_gun.destroy_zooming()
+
+/obj/item/gun_module/scope/collimator
+	name = "collimator scope"
+	desc = "Коллиматорный прицел с универсальным креплением, подходит для большинства видов оружия. Позволяет удобнее целиться с оружия и повышает точность стрельбы."
+	ru_names = list(
+		NOMINATIVE = "коллиматорный прицел",
+		GENITIVE = "коллиматорного прицела",
+		DATIVE = "коллиматорному прицелу",
+		ACCUSATIVE = "коллиматорный прицел",
+		INSTRUMENTAL = "коллиматорным прицелом",
+		PREPOSITIONAL = "коллиматорном прицеле"
+	)
+	icon_state = "t37"
+	item_state = "t37"
+	overlay_state = "t37"
+	zoom_amount = 3
+
+/obj/item/gun_module/scope/x4
+	name = "optical scope x4"
+	desc = "Оптический прицел с 8-кратным увеличением и универсальным креплением, подходит для большинства видов оружия. Позволяет целиться гораздо дальше."
+	ru_names = list(
+		NOMINATIVE = "оптический прицел х4",
+		GENITIVE = "оптического прицела х4",
+		DATIVE = "оптическому прицелу х4",
+		ACCUSATIVE = "оптический прицел х4",
+		INSTRUMENTAL = "оптическим прицелом х4",
+		PREPOSITIONAL = "оптическом прицеле х4"
+	)
+	icon_state = "mosin"
+	item_state = "mosin"
+	overlay_state = "mosin"
+	zoom_amount = 5
+
+/obj/item/gun_module/scope/x8
+	name = "optical scope x8"
+	desc = "Оптический прицел с 8-кратным увеличением и универсальным креплением, подходит для большинства видов оружия. Позволяет целиться гораздо дальше."
+	ru_names = list(
+		NOMINATIVE = "оптический прицел х8",
+		GENITIVE = "оптического прицела х8",
+		DATIVE = "оптическому прицелу х8",
+		ACCUSATIVE = "оптический прицел х8",
+		INSTRUMENTAL = "оптическим прицелом х8",
+		PREPOSITIONAL = "оптическом прицеле х8"
+	)
+	icon_state = "tes"
+	item_state = "tes"
+	overlay_state = "tes"
+	zoom_amount = 7
+
+/obj/item/gun_module/scope/x16
+	name = "optical scope x16"
+	desc = "Оптический прицел с 16-кратным увеличением и универсальным креплением, подходит для большинства видов оружия. Позволяет целиться гораздо дальше."
+	ru_names = list(
+		NOMINATIVE = "оптический прицел х16",
+		GENITIVE = "оптического прицела х16",
+		DATIVE = "оптическому прицелу х16",
+		ACCUSATIVE = "оптический прицел х16",
+		INSTRUMENTAL = "оптическим прицелом х16",
+		PREPOSITIONAL = "оптическом прицеле х16"
+	)
+	icon_state = "tl127_a"
+	item_state = "tl127_a"
+	overlay_state = "tl127_a"
+	overlay_offset = list("x" = 0, "y" = 1)
+	zoom_amount = 11

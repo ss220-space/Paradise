@@ -15,10 +15,12 @@
 	actions_types = null
 	attachable_allowed = list(
 		/obj/item/gun_module/supressor,
-		/obj/item/gun_module/muzzle_flash_supressor
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope/collimator,
 	)
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
 	)
 
 
@@ -35,7 +37,8 @@
 	mag_type = /obj/item/ammo_box/magazine/m45
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 6)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 6),
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 9)
 	)
 
 
@@ -64,7 +67,12 @@
 	can_flashlight = TRUE
 	materials = list(MAT_METAL = 1000)
 	gun_light_overlay = "specter-light"
-	attachable_allowed = null
+	attachable_allowed = list(
+		/obj/item/gun_module/scope/collimator,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8)
+	)
 
 
 /obj/item/gun/projectile/automatic/pistol/specter/update_gun_skins()
@@ -100,7 +108,8 @@
 	can_flashlight = TRUE
 	gun_light_overlay = "enforcer-light"
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 4)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 4),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
 	)
 
 
@@ -153,7 +162,8 @@
 	can_flashlight = TRUE
 	gun_light_overlay = "sp8-light"
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 5)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 5),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8)
 	)
 
 
@@ -184,7 +194,12 @@
 	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
 	unique_reskin = TRUE
 	can_flashlight = TRUE
-	attachable_allowed = null
+	attachable_allowed = list(
+		/obj/item/gun_module/scope/collimator
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8)
+	)
 
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t/update_gun_skins()
@@ -199,7 +214,12 @@
 	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
 	unique_reskin = FALSE
 	can_flashlight = TRUE
-	attachable_allowed = null
+	attachable_allowed = list(
+		/obj/item/gun_module/scope/collimator
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8)
+	)
 
 
 //Desert Eagle//
@@ -214,7 +234,8 @@
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 4)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 4),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
 	)
 
 
@@ -244,5 +265,6 @@
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 4)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 4),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
 	)

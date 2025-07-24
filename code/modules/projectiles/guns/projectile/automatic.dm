@@ -141,15 +141,19 @@
 	bayonet_x_offset = 25
 	bayonet_y_offset = 12
 	gun_light_overlay = "wt-light"
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+	)
 
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
-
-/obj/item/gun/projectile/automatic/wt550/update_overlays()
-	. = ..()
-	if(suppressed)
-		. += image(icon = icon, icon_state = "wt-sp_supp", pixel_x = 3)
 
 
 /obj/item/gun/projectile/automatic/wt550/ui_action_click(mob/user, datum/action/action, leftclick)

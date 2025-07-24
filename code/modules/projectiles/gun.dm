@@ -70,9 +70,7 @@
 	var/list/attachments_by_slot = list(
 		ATTACHMENT_SLOT_MUZZLE,
 		ATTACHMENT_SLOT_RAIL,
-		ATTACHMENT_SLOT_STOCK,
-		ATTACHMENT_SLOT_UNDER,
-		ATTACHMENT_SLOT_MAGAZINE,
+		ATTACHMENT_SLOT_UNDER
 	)
 
 
@@ -507,13 +505,13 @@
 
 
 /obj/item/gun/projectile/attack_hand(mob/user)
-	if(loc == user)
-		for(var/slot in attachments_by_slot)
-			if(attachments_by_slot[slot])
-				var/obj/item/gun_module/module = attachments_by_slot[slot]
-				module.detach_without_check(src, user)
-				return
-		return
+	// if(loc == user)
+	// 	for(var/slot in attachments_by_slot)
+	// 		if(attachments_by_slot[slot])
+	// 			var/obj/item/gun_module/module = attachments_by_slot[slot]
+	// 			module.detach_without_check(src, user)
+	// 			return
+	// 	return
 	. = ..()
 
 /obj/item/gun/screwdriver_act(mob/user, obj/item/I)
@@ -642,13 +640,24 @@
 
 
 /obj/item/gun/click_alt(mob/user)
-	if(!unique_reskin || current_skin || loc != user)
+	if(loc != user)
 		return NONE
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("Вы не можете сделать это сейчас!"))
 		return CLICK_ACTION_BLOCKING
-	reskin_gun(user)
+	if(unique_reskin && !current_skin)
+		reskin_gun(user)
+	else
+		try_detach_gun_module(user)
 	return CLICK_ACTION_SUCCESS
+
+/obj/item/gun/proc/try_detach_gun_module(mob/user)
+	for(var/slot in attachments_by_slot)
+		if(!attachments_by_slot[slot])
+			continue
+		var/obj/item/gun_module/module = attachments_by_slot[slot]
+		module.detach_without_check(src, user)
+		return
 
 
 /obj/item/gun/proc/reskin_gun(mob/user)
@@ -784,6 +793,14 @@
 		azoom = new()
 		azoom.gun = src
 		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(ZoomGrantCheck))
+
+
+/obj/item/gun/proc/destroy_zooming()
+	if(!azoom)
+		return
+	if(!zoomable)
+		QDEL_NULL(azoom)
+		UnregisterSignal(src, COMSIG_ITEM_EQUIPPED)
 
 /**
  * Proc which will be called when the gun receives the `COMSIG_ITEM_EQUIPPED` signal.
