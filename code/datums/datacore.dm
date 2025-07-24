@@ -134,7 +134,6 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
 		var/assignment
-		var/rank
 		if(H.mind.role_alt_title)
 			assignment = H.mind.role_alt_title
 			rank = H.mind.assigned_role
