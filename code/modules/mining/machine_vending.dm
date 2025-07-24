@@ -368,7 +368,7 @@
 		if(!points)
 			to_chat(user, span_warning("На [declent_ru(DATIVE)] не осталось очков."))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_info("Вы перевели <b>[points]</b> очк[declension_ru(points,"о","а","ов")] на свою ID-карту."))
+		to_chat(user, span_notice("Вы перевели <b>[points]</b> очк[declension_ru(points,"о","а","ов")] на свою ID-карту."))
 		id_card.mining_points += points
 		points = 0
 		return ATTACK_CHAIN_PROCEED_SUCCESS

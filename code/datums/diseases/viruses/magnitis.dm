@@ -41,7 +41,7 @@
 				move_mobs(6, rand(1, 3))
 
 /datum/disease/virus/magnitis/proc/move_obj(range, iter)
-	playsound(get_turf(affected_mob.loc), 'sound/effects/magnitis.ogg', 100, 1)
+	playsound(get_turf(affected_mob.loc), 'sound/effects/magnitis.ogg', 100, TRUE)
 	for(var/obj/M in orange(range, affected_mob))
 		if(!M.anchored && (M.flags & CONDUCT))
 			var/i

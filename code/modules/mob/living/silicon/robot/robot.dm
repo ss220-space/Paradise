@@ -471,7 +471,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	R.mmi = new /obj/item/mmi/robotic_brain/syndicate(M)
 	M.mind.transfer_to(R)
 	R.faction = list("syndicate")
-	SEND_SOUND(R.mind.current, 'sound/effects/contractstartup.ogg')
+	SEND_SOUND(R.mind.current, sound('sound/effects/contractstartup.ogg'))
 
 	robot_module_hat_offset(icon_state)
 
@@ -1147,7 +1147,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			SetLockdown(TRUE) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
-			src.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, 0) // plays a specific sound that only borg hears when emagged.
+			src.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, FALSE) // plays a specific sound that only borg hears when emagged.
 			disconnect_from_ai()
 			to_chat(user, "You emag [src]'s interface.")
 			add_attack_logs(user, src, "emagged", ATKLOG_FEW)
@@ -1869,7 +1869,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/radio/borg/deathsquad(src)
 	radio.recalculateChannels()
-	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
@@ -1988,7 +1988,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	radio = new /obj/item/radio/borg/ert/specops(src)
 	radio.recalculateChannels()
-	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/destroyer/bullet_act(obj/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting && !(istype(module_active, /obj/item/borg/destroyer/mobility)))

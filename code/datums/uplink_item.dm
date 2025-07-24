@@ -1347,6 +1347,12 @@
 	item = /obj/item/pen/edagger
 	cost = 7
 
+/datum/uplink_item/stealthy_weapons/edagger
+	name = "Скрытый клинок убийцы"
+	desc = "Наручный механизм со скрытым клинком для тайных убийств. Замаскирован под обычные наручи."
+	item = /obj/item/clothing/accessory/armguard/syndicate
+	cost = 20
+
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Усыпляющая ручка"
 	desc = "Гипоспрей, замаскированный под обычную ручку, содержит 100 единиц кетамина. \

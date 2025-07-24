@@ -9,7 +9,7 @@
 	if(!target.stat && target.body_position == LYING_DOWN)
 		target.visible_message("<span class='warning'>[user] kicks [target]'s head, knocking [target.p_them()] out!</span>", \
 					  		"<span class='userdanger'>[user] kicks your head, knocking you out!</span>")
-		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, TRUE, -1)
 		target.SetSleeping(5 SECONDS)
 		target.apply_damage(5, BRAIN)
 		add_attack_logs(user, target, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
@@ -17,7 +17,7 @@
 	else
 		target.visible_message("<span class='warning'>[user] kicks [target] back!</span>", \
 							"<span class='userdanger'>[user] kicks you back!</span>")
-		playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		RegisterSignal(target, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact))
 		target.throw_at(throw_target, 1, 14, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), target))

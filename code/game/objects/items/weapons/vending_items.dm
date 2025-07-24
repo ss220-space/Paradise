@@ -23,7 +23,7 @@
 
 /obj/item/vending_refill/Initialize(mapload)
 	. = ..()
-	name = "\improper [machine_name] restocking unit"
+	name = "[machine_name] restocking unit"
 
 /obj/item/vending_refill/examine(mob/user)
 	. = ..()

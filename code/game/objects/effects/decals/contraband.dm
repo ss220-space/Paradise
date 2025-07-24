@@ -130,7 +130,7 @@
 	if(ruined)
 		return
 	visible_message("[user] разрывает [declent_ru(NOMINATIVE)] одним решительным движением!")
-	playsound(src.loc, 'sound/items/poster_ripped.ogg', 100, 1)
+	playsound(src.loc, 'sound/items/poster_ripped.ogg', 100, TRUE)
 
 	var/obj/structure/sign/poster/ripped/R = new(loc)
 	R.pixel_y = pixel_y
@@ -191,7 +191,7 @@
 	flick("poster_being_set", D)
 	D.forceMove(temp_loc)
 	qdel(P)	//delete it now to cut down on sanity checks afterwards. Agouri's code supports rerolling it anyway
-	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)
+	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, TRUE)
 
 	if(do_after(user, PLACE_SPEED, src))
 		if(!D || QDELETED(D))

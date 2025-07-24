@@ -28,8 +28,13 @@
  * Returns the modified msg string.
  */
 /proc/genderize_decode(mob/user, msg)
-	if(!ismob(user) || !istext(msg))
+	if(!istext(msg))
 		stack_trace("Invalid arguments in genderize_decode proc.")
+	var/gender
+	if(ismob(user))
+		gender = user.gender
+	else
+		gender = NEUTER
 	while(TRUE)
 		var/prefix = findtext_char(msg, "%(")
 		if(!prefix)
@@ -40,9 +45,9 @@
 		var/list/pieces = splittext(copytext_char(msg, prefix + 2, postfix), ",")
 		switch(length(pieces))
 			if(2)	// pluralize if only two parts present
-				msg = replacetext(splicetext_char(msg, prefix, postfix + 2, pluralize_ru(user.gender, pieces[1], pieces[2])), "*", "")
+				msg = replacetext(splicetext_char(msg, prefix, postfix + 2, pluralize_ru(gender, pieces[1], pieces[2])), "*", "")
 			if(4)	// use full genderize if all four parts exist
-				msg = replacetext(splicetext_char(msg, prefix, postfix + 2, genderize_ru(user.gender, pieces[1], pieces[2], pieces[3], pieces[4])), "*", "")
+				msg = replacetext(splicetext_char(msg, prefix, postfix + 2, genderize_ru(gender, pieces[1], pieces[2], pieces[3], pieces[4])), "*", "")
 			else
 				stack_trace("Invalid data sent to genderize_decode proc.")
 	return msg

@@ -87,10 +87,10 @@
 		user.client.active_keybindings[keybind_to_set_to] += list(triggerer)
 		linked_keybind = triggerer
 		triggerer.binded_to = keybind_to_set_to
-		to_chat(user, span_info("[src] назначена на клавишу [keybind_to_set_to]!"))
+		to_chat(user, span_notice("[src] назначена на клавишу [keybind_to_set_to]!"))
 	else if(linked_keybind)
 		clean_up_keybinds(user)
-		to_chat(user, span_info("Назначение клавиши для [src] удалено."))
+		to_chat(user, span_notice("Назначение клавиши для [src] удалено."))
 
 
 /atom/movable/screen/movable/action_button/click_alt(mob/user)

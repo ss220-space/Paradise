@@ -152,14 +152,14 @@
 			A.do_attack_animation(D, attack.animation_type)
 
 	if(!damage)
-		playsound(D.loc, attack.miss_sound, 25, 1, -1)
+		playsound(D.loc, attack.miss_sound, 25, TRUE, -1)
 		D.visible_message(span_warning("[A] has attempted to [atk_verb] [D]!"))
 		return FALSE
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
 
-	playsound(D.loc, attack.attack_sound, 25, 1, -1)
+	playsound(D.loc, attack.attack_sound, 25, TRUE, -1)
 	D.visible_message(span_danger("[A] has [atk_verb] [D]!"), \
 								span_userdanger("[A] has [atk_verb] [D]!"))
 

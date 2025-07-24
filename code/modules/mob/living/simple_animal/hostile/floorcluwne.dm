@@ -69,7 +69,7 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/attack_hand(mob/living/carbon/human/M)
 	..()
-	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
+	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, TRUE)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/CanAllowThrough(atom/movable/mover, border_dir)
@@ -341,10 +341,10 @@
 
 		if(do_after(src, 1 SECONDS, H))
 			step_towards(H, src)
-			playsound(H, pick('sound/effects/bodyscrape-01.ogg', 'sound/effects/bodyscrape-02.ogg'), 20, 1, -4)
+			playsound(H, pick('sound/effects/bodyscrape-01.ogg', 'sound/effects/bodyscrape-02.ogg'), 20, TRUE, -4)
 			H.emote("scream")
 			if(prob(25))
-				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg', 'sound/items/bikehorn.ogg'), 50, 1)
+				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg', 'sound/items/bikehorn.ogg'), 50, TRUE)
 
 	if(get_dist(src,H) <= 1)
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
@@ -378,7 +378,7 @@
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Kill(mob/living/carbon/human/H)
-	playsound(H, 'sound/spookoween/scary_horn2.ogg', 100, 0)
+	playsound(H, 'sound/spookoween/scary_horn2.ogg', 100, FALSE)
 	var/old_color = H.client?.color
 	client_kill_animation(H)
 
@@ -404,7 +404,7 @@
 	if(prob(2))
 		switch_stage = max(switch_stage * 0.75, switch_stage_min) //he gets a chance to be faster after each feast
 	if(smiting)
-		playsound(loc, 'sound/spookoween/scary_horn2.ogg', 100, 0, -4)
+		playsound(loc, 'sound/spookoween/scary_horn2.ogg', 100, FALSE, -4)
 		qdel(src)
 	else
 		Acquire_Victim()
@@ -431,7 +431,7 @@
 
 /obj/effect/temp_visual/fcluwne_manifest/New()
 	. = ..()
-	playsound(src, 'sound/spookoween/scary_clown_appear.ogg', 100, 1)
+	playsound(src, 'sound/spookoween/scary_clown_appear.ogg', 100, TRUE)
 
 #undef STAGE_HAUNT
 #undef STAGE_SPOOK

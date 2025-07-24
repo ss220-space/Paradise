@@ -61,7 +61,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define DECONSTRUCT_POWER 250
 
 /obj/machinery/computer/rdconsole
-	name = "\improper R&D console"
+	name = "R&D console"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -995,7 +995,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
-	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
+	name = "E.X.P.E.R.I-MENTOR R&D console"
 	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
 	id = 3
 	range = 5

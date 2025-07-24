@@ -21,7 +21,7 @@
 /obj/item/airlock_electronics/examine(mob/user)
 	. = ..()
 	if(access_electronics)
-		. += span_info("It has [access_electronics] attached. Use <b>screwdriver</b> to remove it.")
+		. += span_notice("It has [access_electronics] attached. Use <b>screwdriver</b> to remove it.")
 
 
 /obj/item/airlock_electronics/attackby(obj/item/I, mob/user, params)

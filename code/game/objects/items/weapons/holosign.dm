@@ -92,7 +92,7 @@
 
 /obj/item/holosign_creator/janitor/examine(mob/user)
 	. = ..()
-	. += span_info("Используйте <b>Alt+ЛКМ</b>, чтобы [wet_enabled ? "деактивировать" : "активировать"] таймер влажного испарения.")
+	. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы [wet_enabled ? "деактивировать" : "активировать"] таймер влажного испарения.")
 
 /obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag, params)
 	var/obj/structure/holosign/wetsign/WS = ..()

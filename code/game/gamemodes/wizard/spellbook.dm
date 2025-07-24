@@ -355,7 +355,7 @@
 	new /datum/event/wizard/ghost()
 	active = TRUE
 	to_chat(user, "<span class='notice'>You have cast summon ghosts!</span>")
-	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
+	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, TRUE)
 	return TRUE
 
 /datum/spellbook_entry/summon/guns

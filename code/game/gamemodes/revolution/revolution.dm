@@ -65,7 +65,7 @@
 	if(!recruit)
 		return
 	log_admin("[key_name(usr)] attempted recruitment [key_name(recruit)] into the revolution.", usr)
-	to_chat(usr, span_info("<b>You are trying to recruit [recruit]: </b>"))
+	to_chat(usr, span_notice("<b>You are trying to recruit [recruit]: </b>"))
 	if(ismindshielded(recruit) || (recruit.mind in SSticker.mode.get_living_heads()))
 		to_chat(recruit, span_danger(span_fontsize4("You were asked to join the revolution, but for reasons you did not know, you refused.")))
 		to_chat(usr, span_danger("\The [recruit] does not support the revolution!"))
@@ -152,7 +152,7 @@
 	messages.Add(rev_mind.prepare_announce_objectives())
 	to_chat(rev_mind.current, chat_box_red(messages.Join("<br>")))
 	if(rev_mind.current)
-		SEND_SOUND(rev_mind.current, 'sound/ambience/antag/revolutionary_tide.ogg')
+		SEND_SOUND(rev_mind.current, sound('sound/ambience/antag/revolutionary_tide.ogg'))
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
@@ -235,7 +235,7 @@
 	if(jobban_isbanned(rev_mind.current, ROLE_REV) || jobban_isbanned(rev_mind.current, ROLE_SYNDICATE))
 		replace_jobbanned_player(rev_mind.current, ROLE_REV)
 	if(rev_mind.current)
-		SEND_SOUND(rev_mind.current, 'sound/ambience/antag/revolutionary_tide.ogg')
+		SEND_SOUND(rev_mind.current, sound('sound/ambience/antag/revolutionary_tide.ogg'))
 	return 1
 //////////////////////////////////////////////////////////////////////////////
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.

@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 		update_icon(UPDATE_ICON_STATE)
 		return
 	if(prob(3))
-		playsound(loc, "computer_ambience", 50, 1)
+		playsound(loc, "computer_ambience", 50, TRUE)
 
 
 /obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
@@ -104,12 +104,12 @@ GLOBAL_LIST_EMPTY(message_servers)
 			switch(priority)
 				if(2)
 					if(!RC.silent)
-						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
+						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 						RC.atom_say("PRIORITY Alert in [sender]")
 					rendered_message = "High Priority message from [sender]: [authmsg]"
 				else
 					if(!RC.silent)
-						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
+						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 						RC.atom_say("Message from [sender]")
 					rendered_message = "Message [sender]: [authmsg]"
 			if(!isnull(rendered_message))
