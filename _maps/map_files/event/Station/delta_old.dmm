@@ -3763,10 +3763,6 @@
 /area/quartermaster/storage)
 "aJi" = (
 /obj/effect/decal/warning_stripes/yellow,
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #2";
-	suffix = "#2"
-	},
 /obj/machinery/alarm{
 	dir = 8;
 	pixel_x = 24
@@ -4733,10 +4729,6 @@
 /area/hallway/primary/fore)
 "aOH" = (
 /obj/effect/decal/warning_stripes/yellow,
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #4";
-	suffix = "#4"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 4;
@@ -58750,10 +58742,6 @@
 /area/security/permabrig)
 "iLQ" = (
 /obj/effect/decal/warning_stripes/yellow,
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #1";
-	suffix = "#1"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 4;

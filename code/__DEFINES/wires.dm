@@ -29,15 +29,6 @@
 // Camera
 #define WIRE_FOCUS "Focus"
 
-// Mulebot
-#define WIRE_MOB_AVOIDANCE "Mob Avoidance"
-#define WIRE_LOADCHECK "Load Checking"
-#define WIRE_MOTOR1 "Primary Motor"
-#define WIRE_MOTOR2 "Secondary Motor"
-#define WIRE_REMOTE_RX "Signal Receiver"
-#define WIRE_REMOTE_TX "Signal Sender"
-#define WIRE_BEACON_RX "Beacon Receiver"
-
 // Explosives, bombs
 #define WIRE_EXPLODE "Explode" // Explodes if pulsed or cut while active, defuses a bomb that isn't active on cut.
 #define WIRE_BOMB_UNBOLT "Unbolt" // Unbolts the bomb if cut, hint on pulsed.

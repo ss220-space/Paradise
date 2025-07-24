@@ -77,7 +77,6 @@
 		"5" = "RADIO_NAVBEACONS",
 		"6" = "RADIO_AIRLOCK",
 		"7" = "RADIO_SECBOT",
-		"8" = "RADIO_MULEBOT",
 		"_default" = "NO_FILTER"
 		)
 	var/output = {"<b>Radio Report</b><hr>"}

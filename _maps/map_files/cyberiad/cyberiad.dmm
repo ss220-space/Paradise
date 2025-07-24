@@ -28935,10 +28935,6 @@
 /turf/simulated/wall/r_wall,
 /area/assembly/robotics)
 "bRK" = (
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #2";
-	suffix = "#2"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 8;
@@ -80688,10 +80684,6 @@
 	},
 /area/turret_protected/ai)
 "txi" = (
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #1";
-	suffix = "#1"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 8;
@@ -85302,10 +85294,6 @@
 	location = "QM #3"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #3";
-	suffix = "#3"
-	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "wnL" = (

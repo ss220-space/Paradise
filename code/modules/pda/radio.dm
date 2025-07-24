@@ -111,41 +111,6 @@
 	bot_filter = RADIO_CLEANBOT
 	bot_type = CLEAN_BOT
 
-/obj/item/integrated_radio/mule
-	bot_filter = RADIO_MULEBOT
-	bot_type = MULE_BOT
-
-/obj/item/integrated_radio/mule/Topic(href, href_list)
-	..()
-	switch(href_list["op"])
-		if("start")
-			post_signal(control_freq, "command", "start", "active", active, s_filter = RADIO_MULEBOT)
-
-		if("unload")
-			post_signal(control_freq, "command", "unload", "active", active, s_filter = RADIO_MULEBOT)
-
-		if("setdest")
-			if(GLOB.deliverybeacons)
-				var/dest = tgui_input_list(usr, "Select Bot Destination", "Mulebot [active.suffix] Interlink", GLOB.deliverybeacontags, active.destination)
-				if(dest)
-					post_signal(control_freq, "command", "target", "active", active, "destination", dest, s_filter = RADIO_MULEBOT)
-
-		if("retoff")
-			post_signal(control_freq, "command", "autoret", "active", active, "value", 0, s_filter = RADIO_MULEBOT)
-
-		if("reton")
-			post_signal(control_freq, "command", "autoret", "active", active, "value", 1, s_filter = RADIO_MULEBOT)
-
-		if("pickoff")
-			post_signal(control_freq, "command", "autopick", "active", active, "value", 0, s_filter = RADIO_MULEBOT)
-
-		if("pickon")
-			post_signal(control_freq, "command", "autopick", "active", active, "value", 1, s_filter = RADIO_MULEBOT)
-
-	post_signal(control_freq, "command", "bot_status", "active", active, s_filter = RADIO_MULEBOT)
-
-
-
 /*
  *	Radio Cartridge, essentially a signaler.
  */

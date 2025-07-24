@@ -58,9 +58,6 @@
 	return ..()
 
 
-/obj/structure/largecrate/mule
-
-
 /obj/structure/largecrate/lisa
 	icon_state = "lisacrate"
 	animal_type = /mob/living/simple_animal/pet/dog/corgi/Lisa

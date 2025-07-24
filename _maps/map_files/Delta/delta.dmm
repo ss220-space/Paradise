@@ -31982,10 +31982,6 @@
 	dir = 4;
 	location = "QM #3"
 	},
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #3";
-	suffix = "#4"
-	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "dqz" = (
@@ -32941,10 +32937,6 @@
 	codes_txt = "delivery";
 	dir = 4;
 	location = "QM #1"
-	},
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #1";
-	suffix = "#1"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -91249,10 +91241,6 @@
 	codes_txt = "delivery";
 	dir = 4;
 	location = "QM #2"
-	},
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #2";
-	suffix = "#2"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)

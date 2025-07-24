@@ -59,7 +59,6 @@ DEFINE_BITFIELD(status_flags, list(
 
 DEFINE_BITFIELD(bot_type, list(
 	"SEC_BOT" = SEC_BOT,
-	"MULE_BOT" = MULE_BOT,
 	"FLOOR_BOT" = FLOOR_BOT,
 	"CLEAN_BOT" = CLEAN_BOT,
 	"MED_BOT" = MED_BOT,

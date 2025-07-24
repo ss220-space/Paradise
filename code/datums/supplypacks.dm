@@ -2346,13 +2346,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "HEADER"
 	group = SUPPLY_MISC
 
-/datum/supply_packs/misc/mule
-	name = "MULEbot Crate"
-	contains = list(/mob/living/simple_animal/bot/mulebot)
-	cost = 20
-	containertype = /obj/structure/largecrate/mule
-	containername = "MULEbot crate"
-
 /datum/supply_packs/misc/cargo_mon
 	name = "Order Monitors Crate"
 	contains = list(/obj/item/qm_quest_tablet/cargotech, /obj/item/qm_quest_tablet/cargotech, /obj/item/qm_quest_tablet/cargotech)

@@ -10,7 +10,7 @@
  * * mintargetdistance: Minimum distance to the target before path returns, could be used to get near a target, but not right to it - for an AI mob with a gun, for example.
  * * access: A list representing what access we have and what doors we can open.
  * * simulated_only: Whether we consider tur fs without atmos simulation (AKA do we want to ignore space)
- * * exclude: If we want to avoid a specific turf, like if we're a mulebot who already got blocked by some turf
+ * * exclude: If we want to avoid a specific turf, like if we're a mulebot (^_^) who already got blocked by some turf
  * * skip_first: Whether or not to delete the first item in the path. This would be done because the first item is the starting tile, which can break movement for some creatures.
  * * diagonal_handling: defines how we handle diagonal moves. see __DEFINES/path.dm
  */
@@ -47,7 +47,7 @@
  * * age: How old a path map can be before we'll avoid reusing it. Use the defines found in [code/__DEFINES/path.dm], values larger then MAP_REUSE_SLOWEST will be discarded
  * * access: A list representing what access we have and what doors we can open.
  * * simulated_only: Whether we consider tur fs without atmos simulation (AKA do we want to ignore space)
- * * exclude: If we want to avoid a specific turf, like if we're a mulebot who already got blocked by some turf
+ * * exclude: If we want to avoid a specific turf, like if we're a mulebot (^_^) who already got blocked by some turf
  * * skip_first: Whether or not to delete the first item in the path. This would be done because the first item is the starting tile, which can break movement for some creatures.
  */
 /proc/get_swarm_path_to(atom/movable/requester, atom/end, max_distance = 30, mintargetdist, age = MAP_REUSE_INSTANT, access = list(), simulated_only = TRUE, turf/exclude, skip_first = TRUE)
@@ -97,7 +97,7 @@
 	var/max_distance = 30
 	/// Space is big and empty, if this is TRUE then we ignore pathing through unsimulated tiles
 	var/simulated_only
-	/// A specific turf we're avoiding, like if a mulebot is being blocked by someone t-posing in a doorway we're trying to get through
+	/// A specific turf we're avoiding, like if a mulebot (^_^) is being blocked by someone t-posing in a doorway we're trying to get through
 	var/turf/avoid
 	/// The callbacks to invoke when we're done working, passing in the completed product
 	/// Invoked in order

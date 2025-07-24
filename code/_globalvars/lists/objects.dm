@@ -30,8 +30,6 @@ GLOBAL_LIST_EMPTY(power_monitors)
 GLOBAL_LIST_EMPTY(all_vent_pumps)
 
 GLOBAL_LIST_EMPTY(navbeacons)					//list of all bot nagivation beacons, used for patrolling.
-GLOBAL_LIST_EMPTY(deliverybeacons)			//list of all MULEbot delivery beacons.
-GLOBAL_LIST_EMPTY(deliverybeacontags)			//list of all tags associated with delivery beacons.
 
 GLOBAL_LIST_EMPTY(beacons)
 GLOBAL_LIST_EMPTY(shuttle_caller_list)  		//list of all communication consoles, comms consoles circuit and AIs, for automatic shuttle calls when there are none.

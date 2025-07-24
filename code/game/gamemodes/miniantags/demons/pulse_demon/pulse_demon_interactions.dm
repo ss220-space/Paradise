@@ -238,14 +238,3 @@
 			if(!(locate(/obj/effect/decal/cleanable/blood/gibs) in F))
 				new /obj/effect/decal/cleanable/blood/gibs(F)
 				playsound(F, 'sound/effects/blobattack.ogg', 40, TRUE)
-
-/mob/living/simple_animal/bot/mulebot/attack_integrated_pulsedemon(mob/living/simple_animal/demon/pulse_demon/user, atom/A)
-	if(!on)
-		return
-	if(istype(A) && Adjacent(A) && ismovable(A))
-		to_chat(user, span_notice("You try to load [A] onto [src]."))
-		load(A)
-		return
-	if(load)
-		to_chat(user, span_notice("You unload [load]."))
-		unload(0)

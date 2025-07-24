@@ -74,9 +74,6 @@
 
 	else if(isliving(mover)) // You Shall Not Pass!
 		var/mob/living/living_mover = mover
-		if(istype(living_mover.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
-			return TRUE
-
 		if(living_mover.body_position != LYING_DOWN && living_mover.mob_size != MOB_SIZE_TINY && !is_ventcrawler(living_mover))	//If your not laying down, or a ventcrawler or a small creature, no pass.
 			return FALSE
 

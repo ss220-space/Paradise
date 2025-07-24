@@ -47,7 +47,6 @@
 	addtimer(CALLBACK(src, PROC_REF(handle_vendor_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY)
 	addtimer(CALLBACK(src, PROC_REF(handle_door_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY*2)
 	addtimer(CALLBACK(src, PROC_REF(handle_alarm_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY*3)
-	addtimer(CALLBACK(src, PROC_REF(handle_mulebot_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY*4)
 	addtimer(CALLBACK(src, PROC_REF(handle_autolathe_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY*5)
 	addtimer(CALLBACK(src, PROC_REF(handle_camera_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY*6)
 
@@ -87,17 +86,6 @@
 				continue
 			if(prob(DETONATION_MACHINE_BREAKDOWN_CHANCE))
 				alarm.take_damage(40, BURN)
-
-//Mulebots are machines too!
-/datum/supermatter_explosive_effects/proc/handle_mulebot_breakdown()
-	for(var/mob/living/simple_animal/bot/mulebot/bot in GLOB.mob_living_list)
-		if(bot.z == src.z)
-			if(prob(DETONATION_MACHINE_EFFECT_CHANCE))
-				bot.wires?.pulse_random()
-				bot.wires?.pulse_random()
-				continue
-			if(prob(DETONATION_MACHINE_BREAKDOWN_CHANCE))
-				bot.take_overall_damage(0,40)
 
 //Well, random pulse autolathes
 /datum/supermatter_explosive_effects/proc/handle_autolathe_breakdown()

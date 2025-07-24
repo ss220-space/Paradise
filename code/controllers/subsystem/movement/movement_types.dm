@@ -324,7 +324,7 @@
  * miminum_distance - Minimum distance to the target before path returns, could be used to get near a target, but not right to it - for an AI mob with a gun, for example
  * access - A list representing what access we have and what doors we can open
  * simulated_only -  Whether we consider turfs without atmos simulation (AKA do we want to ignore space)
- * avoid - If we want to avoid a specific turf, like if we're a mulebot who already got blocked by some turf
+ * avoid - If we want to avoid a specific turf, like if we're a mulebot (^_^) who already got blocked by some turf
  * skip_first -  Whether or not to delete the first item in the path. This would be done because the first item is the starting tile, which can break things
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem

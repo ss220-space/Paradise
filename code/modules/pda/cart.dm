@@ -147,12 +147,11 @@
 	desc = "Perfect for the Quartermaster on the go!"
 	icon_state = "cart-q"
 	programs = list(
-		new/datum/data/pda/app/supply,
-		new/datum/data/pda/app/mule_control)
+		new/datum/data/pda/app/supply
+		)
 
 /obj/item/cartridge/quartermaster/Initialize(mapload)
 	. = ..()
-	radio = new /obj/item/integrated_radio/mule(src)
 
 /obj/item/cartridge/head
 	name = "Easy-Record DELUXE"
@@ -168,13 +167,11 @@
 		new/datum/data/pda/app/janitor,
 
 		new/datum/data/pda/app/supply,
-		new/datum/data/pda/app/mule_control,
 
 		new/datum/data/pda/app/status_display)
 
 /obj/item/cartridge/hop/Initialize(mapload)
 	. = ..()
-	radio = new /obj/item/integrated_radio/mule(src)
 
 /obj/item/cartridge/hos
 	name = "R.O.B.U.S.T. DELUXE"

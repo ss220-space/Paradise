@@ -6332,14 +6332,6 @@
 	dir = 4;
 	location = "SQM #3"
 	},
-/mob/living/simple_animal/bot/mulebot{
-	access_card = 150;
-	desc = "Керберос до сих пор ищет своего 3-его мулбота";
-	faction = list("syndicate","silicon");
-	home_destination = "SQM #3";
-	player_access = list(150);
-	suffix = "#3"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,

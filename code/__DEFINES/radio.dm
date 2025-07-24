@@ -26,7 +26,7 @@
 #define ERT_FREQ 1345
 #define COMM_FREQ 1353 //Command
 #define PROC_FREQ 1339 //Procedure
-#define BOT_FREQ 1447 //mulebot, secbot, ed209
+#define BOT_FREQ 1447 //secbot, ed209
 
 // Event channels
 #define EVENT_ALPHA_FREQ 1522
@@ -60,7 +60,6 @@
 #define RADIO_AIRLOCK "radio_airlock"
 #define RADIO_SECBOT "radio_secbot"
 #define RADIO_HONKBOT "radio_honkbot"
-#define RADIO_MULEBOT "radio_mulebot"
 #define RADIO_CLEANBOT "10"
 #define RADIO_FLOORBOT "11"
 #define RADIO_MEDBOT "12"
