@@ -148,7 +148,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "FaxMachine", name)
+		ui = new(user, src, "FaxMachine", "Факсимальный аппарат")
 		ui.open()
 
 /obj/machinery/photocopier/faxmachine/ui_data(mob/user)
@@ -156,27 +156,27 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	data["authenticated"] = is_authenticated(user)
 	data["scan_name"] = scan ? scan.name : FALSE
 	if(!data["authenticated"])
-		data["network"] = "Disconnected"
+		data["network"] = "Отключено"
 	else if(!emagged)
 		data["network"] = fax_network
 	else
-		data["network"] = "ERR*?*%!*"
+		data["network"] = "ОШИ*?*%!*"
 	data["paper"] = copyitem ? copyitem.name : FALSE
 	data["paperinserted"] = copyitem ? TRUE : FALSE
 	data["destination"] = destination ? destination : FALSE
 	data["sendError"] = FALSE
 	if(stat & (BROKEN|NOPOWER))
-		data["sendError"] = "No Power"
+		data["sendError"] = "Нет питания"
 	else if(!data["authenticated"])
-		data["sendError"] = "Not Logged In"
+		data["sendError"] = "Вход не выпонен"
 	else if(!data["paper"])
-		data["sendError"] = "Nothing Inserted"
+		data["sendError"] = "Факс пуст"
 	else if(!data["destination"])
-		data["sendError"] = "Destination Not Set"
+		data["sendError"] = "Место доставки не установлено"
 	else
 		var/cooldown_seconds = cooldown_seconds()
 		if(cooldown_seconds)
-			data["sendError"] = "Re-aligning in [cooldown_seconds] seconds..."
+			data["sendError"] = "Перенастройка через [cooldown_seconds] секунд[numeric_ending(cooldown_seconds, "", "у", "ы")]"
 	return data
 
 
@@ -236,12 +236,12 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 						copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
 						copyitem.desc = "Бумага, подписанная как \"" + copyitem.name + "\"."
 						if(ru_names)
-							initial(ru_names[NOMINATIVE]) += " — \"[copyitem.name]\""
-							initial(ru_names[GENITIVE]) += " — \"[copyitem.name]\""
-							initial(ru_names[DATIVE]) += " — \"[copyitem.name]\""
-							initial(ru_names[ACCUSATIVE]) += " — \"[copyitem.name]\""
-							initial(ru_names[INSTRUMENTAL]) += " — \"[copyitem.name]\""
-							initial(ru_names[PREPOSITIONAL]) += " — \"[copyitem.name]\""
+							ru_names[NOMINATIVE] = "\"[copyitem.name]\""
+							ru_names[GENITIVE] = "\"[copyitem.name]\""
+							ru_names[DATIVE] = "\"[copyitem.name]\""
+							ru_names[ACCUSATIVE] = "\"[copyitem.name]\""
+							ru_names[INSTRUMENTAL] = "\"[copyitem.name]\""
+							ru_names[PREPOSITIONAL] = "\"[copyitem.name]\""
 					else if(istype(copyitem, /obj/item/photo))
 						copyitem.name = "[(n_name ? text("[n_name]") : "photo")]"
 					else if(istype(copyitem, /obj/item/paper_bundle))
