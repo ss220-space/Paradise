@@ -17,8 +17,8 @@
 		to_chat(master.current, span_warning("Вы чувствуете как связь с [owner.current.declent_ru(NOMINATIVE)] - вашим слугой, постепенно рассеивается."))
 
 	if(owner.current)
-		to_chat(owner.current, span_deconversion_message("Ваш разум расслабляется. [master ? "[master.current.declent_ru(NOMINATIVE)] больше не властен над вами." : "у вас больше нет Мастера."]"))
-		owner.current.visible_message(span_deconversion_message("Вы чувствуете что [owner.current.declent_ru(NOMINATIVE)] освободился от цепей Мансуса!"), ignored_mobs = owner.current)
+		to_chat(owner.current, span_warning("Ваш разум расслабляется. [master ? "[master.current.declent_ru(NOMINATIVE)] больше не властен над вами." : "у вас больше нет Мастера."]"))
+		owner.current.visible_message(span_warning("Вы чувствуете что [owner.current.declent_ru(NOMINATIVE)] освободился от цепей Мансуса!"), ignored_mobs = owner.current)
 
 	master = null
 	return ..()
