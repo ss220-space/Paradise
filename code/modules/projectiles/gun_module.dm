@@ -14,6 +14,7 @@
 	origin_tech = "combat=2;engineering=2"
 	var/slot
 	var/overlay_state = "enforcer_supp"
+	var/overlay_offset
 
 
 /// Try attach module to gun, return TRUE if success
@@ -24,7 +25,7 @@
 	var/obj/item/gun/gun = target_gun
 	var/allowed = FALSE
 	for(var/allowed_slot as anything in gun.attachable_allowed)
-		if(src.slot == allowed_slot)
+		if(istype(src, allowed_slot))
 			allowed = TRUE
 			break
 	if(!allowed)
@@ -123,6 +124,7 @@
 	icon_state = "comp"
 	item_state = "comp"
 	overlay_state = "comp"
+	overlay_offset = list("x" = -2, "y" = 0)
 	slot = ATTACHMENT_SLOT_MUZZLE
 	origin_tech = "combat=2;engineering=2"
 	var/initial_w_class

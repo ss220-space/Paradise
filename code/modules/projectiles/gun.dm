@@ -181,6 +181,9 @@
 	if(attachable_offset)
 		var/x_offset = attachable_offset[module.slot]["x"]
 		var/y_offset = attachable_offset[module.slot]["y"]
+		if(module.overlay_offset)
+			x_offset += module.overlay_offset["x"]
+			y_offset += module.overlay_offset["y"]
 		overlay.pixel_x = x_offset
 		overlay.pixel_y = y_offset
 	attachment_overlays[module.slot] = overlay
