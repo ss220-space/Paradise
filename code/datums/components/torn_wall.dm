@@ -90,7 +90,7 @@
 	SIGNAL_HANDLER
 	var/intensity = (current_stage == TORN_WALL_INITIAL) ? "slightly" : "badly"
 	examine_list += span_notice("It looks [intensity] damaged.")
-	examine_list += span_info("You may be able to repair it using a welding tool.")
+	examine_list += span_notice("You may be able to repair it using a welding tool.")
 
 
 /// Show a little crack on here

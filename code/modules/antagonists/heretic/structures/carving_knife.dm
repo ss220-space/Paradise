@@ -51,9 +51,9 @@
 		return
 
 	. += span_notice("Было вырезанно рун: <b>[length(current_runes)] / [max_rune_amt]</b>")
-	. += span_info("Руны которые можно вырезать:")
+	. += span_notice("Руны которые можно вырезать:")
 	for(var/obj/structure/trap/eldritch/trap as anything in subtypesof(/obj/structure/trap/eldritch))
-		var/potion_string = span_info(initial(trap.name) + " - " + initial(trap.carver_tip))
+		var/potion_string = span_notice(initial(trap.name) + " - " + initial(trap.carver_tip))
 		. += potion_string
 
 
