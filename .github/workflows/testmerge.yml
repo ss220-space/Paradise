@@ -1,22 +1,22 @@
 name: 'Testmerge Worker'
 
 concurrency:
-  group: Testmerge
+  group: testmerge
 
 on:
   workflow_dispatch:
     inputs:
       apply_to_stable:
-        description: 'Apply Testmerge to stable branch'
+        description: 'Apply testmerge to stable branch'
         type: boolean
         required: true
         default: false
 
 env:
   BASE_BRANCH: master220
-  TESTMERGE_BRANCH: Testmerge
+  TESTMERGE_BRANCH: testmerge
   STABLE_BRANCH: stable
-  REQUIRED_LABEL: Testmerge
+  REQUIRED_LABEL: testmerge
 
 jobs:
   process:
@@ -142,7 +142,7 @@ jobs:
             git merge --abort
 
             git merge --squash pr-$PR_NUMBER
-            git commit -m "$PR_TITLE (#$PR_NUMBER) [Testmerge][$PR_LAST_COMMIT]"
+            git commit -m "$PR_TITLE (#$PR_NUMBER) [testmerge][$PR_LAST_COMMIT]"
 
             # Perform your git actions here, for example:
             echo "::endgroup::"
