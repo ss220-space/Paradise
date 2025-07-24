@@ -22,6 +22,16 @@
 	self_shot_divisor = 3
 	malf_low_bound = 60
 	malf_high_bound = 90
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope/collimator,
+		/obj/item/gun_module/scope/x4
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 5)
+	)
 
 
 /obj/item/gun/projectile/automatic/rusted/aksu
@@ -50,6 +60,10 @@
 	burst_size = 5
 	fire_delay = 1.5
 	recoil = 1.2
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 4)
+	)
 
 
 //////////// Shotguns

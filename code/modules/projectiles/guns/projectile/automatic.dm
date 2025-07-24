@@ -11,7 +11,7 @@
 
 
 /obj/item/gun/projectile/automatic/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
 
 /obj/item/gun/projectile/automatic/update_overlays()
@@ -91,6 +91,13 @@
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 4)
+	)
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
@@ -106,6 +113,15 @@
 	can_bayonet = TRUE
 	bayonet_x_offset = 26
 	bayonet_y_offset = 12
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 7)
+	)
 
 
 /obj/item/gun/projectile/automatic/c20r/Initialize()
@@ -119,7 +135,7 @@
 
 
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
-	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
 
 
 
@@ -179,16 +195,20 @@
 	burst_size = 3
 	can_bayonet = FALSE
 	gun_light_overlay = "SP-91-RC-light"
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+	)
 
 
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
-
-/obj/item/gun/projectile/automatic/sp91rc/update_overlays()
-	. = ..()
-	if(suppressed)
-		. += image(icon = icon, icon_state = "wt-sp_supp", pixel_x = 3)
 
 /obj/item/gun/projectile/automatic/sp91rc/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(..())
@@ -207,6 +227,15 @@
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
 	burst_size = 4
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 15, "y" = 8),
+		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 11)
+	)
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
@@ -223,6 +252,15 @@
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
 	fire_delay = 2
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7)
+	)
 
 
 /obj/item/gun/projectile/automatic/m90/Initialize(mapload)
@@ -251,7 +289,7 @@
 
 
 /obj/item/gun/projectile/automatic/m90/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 	if(magazine)
 		item_state = "m90-[CEILING(get_ammo(FALSE)/7.5, 1)]"
 	else
@@ -313,6 +351,15 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 22, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+	)
 
 //AK-814 Soviet Assault Rifle
 /obj/item/gun/projectile/automatic/ak814
@@ -331,6 +378,15 @@
 	bayonet_y_offset = 10
 	burst_size = 2
 	fire_delay = 1
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 22, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 5)
+	)
 
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
@@ -457,6 +513,12 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 2
+	attachable_allowed = list(
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 5)
+	)
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -475,6 +537,12 @@
 	can_suppress = 0
 	burst_size = 1
 	actions_types = null
+	attachable_allowed = list(
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8)
+	)
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
 	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
@@ -490,10 +558,19 @@
 	burst_size = 3
 	can_flashlight = TRUE
 	gun_light_overlay = "sfg-light"
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 4)
+	)
 
 
 /obj/item/gun/projectile/automatic/sfg/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 
 
 /obj/item/gun/projectile/automatic/sfg/ui_action_click(mob/user, datum/action/action, leftclick)
@@ -513,4 +590,13 @@
 	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
 	mag_type = /obj/item/ammo_box/magazine/m52mag
 	can_suppress = 0
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 8)
+	)
 
