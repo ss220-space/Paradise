@@ -21,11 +21,12 @@
 	spell_requirements = NONE
 
 
-/obj/effect/proc_holder/spell/pointed/void_prison/before_cast(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/void_prison/before_cast(list/targets)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
+	var/atom/cast_on = targets[1]
 	if(!ismob(cast_on))
 		return SPELL_CANCEL_CAST
 

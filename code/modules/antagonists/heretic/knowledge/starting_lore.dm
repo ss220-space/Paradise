@@ -24,6 +24,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	desc = "Начинает ваше путешествие в Мансус. \
 			Даёт вам Прикосновение Мансуса — мощное и улучшаемое \
 			заклинание, которое можно применить без Амулета."
+	research_tree_icon_path = 'icons/effects/effects.dmi'
+	research_tree_icon_state = "static"
 	spell_to_add = /obj/effect/proc_holder/spell/touch/mansus_grasp
 	cost = 0
 	is_starting_knowledge = TRUE
@@ -215,6 +217,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /datum/heretic_knowledge/spell/heretic_menu
 	name = "Меню Еретика"
 	desc = "Открывает меню, в котором можно изучать новые знания."
+	research_tree_icon_path = 'icons/mob/actions/actions.dmi'
+	research_tree_icon_state = "spell_default"
 	spell_to_add = /obj/effect/proc_holder/spell/heretic_menu
 	cost = 0
 	is_starting_knowledge = TRUE
@@ -224,6 +228,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	name = "Плащ Тьмы"
 	desc = "Даёт вам заклинание «Плащ Тени». Это заклинание полностью скроет вашу личность в фиолетовом дыму \
 			на три минуты, помогая вам сохранять скрытность. Для применения требуется концентрация."
+	research_tree_icon_path = 'icons/effects/effects.dmi'
+	research_tree_icon_state = "curse"
 	spell_to_add = /obj/effect/proc_holder/spell/shadow_cloak
 	cost = 0
 	is_starting_knowledge = TRUE

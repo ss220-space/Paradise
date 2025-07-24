@@ -433,7 +433,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	if(!before_cast(targets, user))
+	if(HASBIT(before_cast(targets, user), SPELL_CANCEL_CAST))
 		return FALSE
 
 	invocation(user)
@@ -476,8 +476,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	SHOULD_CALL_PARENT(TRUE)
 	if(!overlay)
 		custom_handler?.before_cast(targets, user, src)
-		return !HASBIT(SEND_SIGNAL(action.owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, targets), SPELL_CANCEL_CAST)
-
+		return SEND_SIGNAL(action.owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, targets)
 
 	for(var/atom/target in targets)
 		var/location
@@ -495,7 +494,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			qdel(spell)
 
 	custom_handler?.before_cast(targets, user, src)
-	return !HASBIT(SEND_SIGNAL(action.owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, targets), SPELL_CANCEL_CAST)
+	return SEND_SIGNAL(action.owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, targets)
 
 
 /obj/effect/proc_holder/spell/proc/after_cast(list/targets, mob/user)
@@ -788,7 +787,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	on_deactivation(on_who.eye, refund_cooldown = refund_cooldown)
 
 
-/obj/effect/proc_holder/spell/pointed/before_cast(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/before_cast(list/targets)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		on_deactivation(action.owner, refund_cooldown = FALSE)

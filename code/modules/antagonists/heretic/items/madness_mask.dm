@@ -52,7 +52,7 @@
 	return ..()
 
 
-/obj/item/clothing/mask/madness_mask/process(seconds_per_tick)
+/obj/item/clothing/mask/madness_mask/process()
 	if(!local_user)
 		return PROCESS_KILL
 
@@ -66,15 +66,15 @@
 		if(human_in_range.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 			continue
 
-		if(SPT_PROB(60, seconds_per_tick))
+		if(prob(60))
 			human_in_range.Hallucinate(10 SECONDS, 120 SECONDS)
 
-		if(SPT_PROB(40, seconds_per_tick))
+		if(prob(40))
 			human_in_range.Jitter(10 SECONDS)
 
-		if(human_in_range.getStaminaLoss() <= 85 && SPT_PROB(30, seconds_per_tick))
+		if(human_in_range.getStaminaLoss() <= 85 && prob(30))
 			human_in_range.emote(pick("giggle", "laugh"))
 			human_in_range.adjustStaminaLoss(10)
 
-		if(SPT_PROB(25, seconds_per_tick))
+		if(prob(25))
 			human_in_range.Dizzy(10 SECONDS)

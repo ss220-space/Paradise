@@ -71,12 +71,12 @@
 
 
 /datum/heretic_knowledge/rifle_ammo
-	name = "Lionhunter Rifle Ammunition"
-	desc = "Allows you to transmute 3 ballistic ammo casings (used or unused) of any caliber, \
-		including shotgun shells to create an extra clip of ammunition for the Lionhunter Rifle."
-	gain_text = "The weapon came with three rough iron balls, intended to be used as ammunition. \
-		They were very effective, for simple iron, but used up quickly. I soon ran out. \
-		No replacement munitions worked in their stead. It was peculiar in what it wanted."
+	name = "Боеприпасы для винтовки охотника на львов"
+	desc = "Позволяет преобразовать 3 гильзы баллистических патронов любого калибра, \
+			включая патроны для дробовика, в дополнительный магазин для винтовки охотника на львов."
+	gain_text = "К оружию прилагались три грубых железных шарика - патрога. \
+				Вскоре они закончились. Никакие другие боеприпасы не работали. \
+				Тот старик был очень странным."
 	required_atoms = list(
 		/obj/item/ammo_casing = 3,
 	)
@@ -96,37 +96,44 @@
 		CALIBER_HOOK,
 	)*/
 
+
 /datum/heretic_knowledge/rifle_ammo/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/*
 	for(var/obj/item/ammo_casing/casing in atoms)
-		//if(!(casing.caliber in caliber_blacklist))
-		//	continue
+		if(!(casing.caliber in caliber_blacklist))
+			continue
 
 		// Remove any casings in the caliber_blacklist list from atoms
 		atoms -= casing
-
+*/
 	// We removed any invalid casings from the atoms list,
 	// return to allow the ritual to fill out selected atoms with the new list
 	return TRUE
+	
 
 /datum/heretic_knowledge/spell/rust_charge
-	name = "Rust Charge"
-	desc = "A charge that must be started on a rusted tile and will destroy any rusted objects you come into contact with, will deal high damage to others and rust around you during the charge."
-	gain_text = "The hills sparkled now, as I neared them my mind began to wander. I quickly regained my resolve and pushed forward, this last leg would be the most treacherous."
-
+	name = "Заряд Ржавчины"
+	desc = "Дает заклинание, которое необходимо начать стоя на ржавой плитке. Уничтожит все ржавые \
+			объекты, которых вы коснётесь, нанесет большой урон не ржавым и покроет ржавчиной всё вокруг."
+	gain_text = "Холмы теперь сверкали.  Чем ближе я был к ним, тем ужасней были мои мысли. \
+				Я быстро собрался с духом и двинулся вперёд: последний отрезок пути был самым опасным."
+	research_tree_icon_path = 'icons/mob/actions/actions_items.dmi'
+	research_tree_icon_state = "sniper_zoom"
 	spell_to_add = /obj/effect/proc_holder/spell/mob_cooldown/charge/rust
 	cost = 1
 
+
 /datum/heretic_knowledge/greaves_of_the_prophet
-	name = "Greaves Of The Prophet"
-	desc = "Allows you to combine a pair of Jackboots and 2 sheets of Titanium into a pair of Armored Greaves, they confer to the user fully immunity to slips."
-	gain_text = " \
-		Gristle churns into joint, a pop, and the fool twists a blackened foot from the \
-		jaws of another. At their game for centuries, this mangled tree of limbs twists, \
-		thrashing snares buried into snarling gums, seeking to shred the weight of grafted \
-		neighbors. Weighed down by lacerated feet, this canopy of rancid idiots ever seeks \
-		the undoing of its own bonds. I dread the thought of walking in their wake, but \
-		I must press on all the same. Their rhythms keep the feud fresh with indifference \
-		to barrier or border. Pulling more into their turmoil as they waltz."
+	name = "Поножи Пророка"
+	desc = "Позволяет объединить пару ботфортов (ботинки как у службы безопасности) и 2 листа титана в пару \
+			бронированных, не скользящих поножей."
+	gain_text = "Хрящ отрывается, вместе с суставом, раздаётся крик и один дурак вырывает почерневшую ногу из \
+				челюстей другого. Веками в их игре извивается это изуродованное дерево ветвей, \
+				дрожащее силки, зарытые в рычащие десны, стремясь разорвать вес привитых соседей. \
+				Отягощённый израненными ногами, этот навес прогорклых идиотов вечно стремится \
+				разрушить собственные узы. Мне страшна мысль о том, чтобы идти по их следу, но \
+				я всё равно должен идти вперёд. Их ритмы поддерживают вражду свежей, безразличием к \
+				барьерам или границам. Вальсируя, они всё больше втягивают в свою суматоху." // Wtf
 	cost = 1
 	required_atoms = list(
 		/obj/item/clothing/shoes/jackboots = 1,

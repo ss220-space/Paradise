@@ -194,6 +194,15 @@
 	var/obj/effect/proc_holder/spell/spell_to_add
 
 
+/datum/heretic_knowledge/spell/New()
+	if(research_tree_icon_path)
+		return ..()
+
+	research_tree_icon_path = spell_to_add.action_icon
+	research_tree_icon_state = spell_to_add.action_icon_state
+	return ..()
+
+
 /datum/heretic_knowledge/spell/Destroy()
 	spell_to_add = null
 	return ..()

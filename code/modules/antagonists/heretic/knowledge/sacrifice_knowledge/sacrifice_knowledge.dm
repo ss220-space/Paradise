@@ -150,21 +150,21 @@
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
-		if(head_mind.assigned_job.flag & JOB_FLAG_HOP)
+		if(head_mind?.assigned_job.flag & JOB_FLAG_HOP)
 			final_targets += head_mind
 			valid_targets -= head_mind
 			break
 
 	// Second target, any security
 	for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
-		if(sec_mind.assigned_job?.department_flag & JOBCAT_ENGSEC)
+		if(sec_mind?.assigned_job?.department_flag & JOBCAT_ENGSEC)
 			final_targets += sec_mind
 			valid_targets -= sec_mind
 			break
 
 	// Third target, someone in their department.
 	for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
-		if(department_mind.assigned_job?.department_flag & user.mind.assigned_job?.department_flag)
+		if(department_mind?.assigned_job?.department_flag & user.mind.assigned_job?.department_flag)
 			final_targets += department_mind
 			valid_targets -= department_mind
 			break

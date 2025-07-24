@@ -741,8 +741,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 	var/coinflip = pick(sideslist)
 	cooldown = world.time
-	flick("coin_[cmineral]_flip", src)
-	icon_state = "coin_[cmineral]_[coinflip]"
+	var/state_begin = cmineral ? "coin_[cmineral]" : "coin"
+	flick("[state_begin]_flip", src)
+	icon_state = "[state_begin]_[coinflip]"
 	playsound(user.loc, 'sound/items/coinflip.ogg', 50, TRUE)
 	if(!do_after(user, 1.5 SECONDS, src))
 		return

@@ -37,7 +37,8 @@
 	desc = "Дарует вам «Вампиризм» — заклинание, высасывающее кровь и здоровье жертвы и передающее их вам. \
 			Также есть шанс передать раны от вас жертве."
 	gain_text = "«Все мы разные, но кровь у всех идет одинаково». Так мне сказал маршал."
-
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "blood_siphon"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/blood_siphon
 	cost = 1
 
@@ -46,22 +47,23 @@
 	name = "Пустотная Тюрьма"
 	desc = "Даёт вам «Пустотную Тюрьму» — заклинание, заключающее вашу жертву в шар, \
 			лишая её возможности что-либо делать или говорить."
-	gain_text = "At first, I see myself, waltzing along a snow-laden street. \
-		I try to yell, grab hold of this fool and tell them to run. \
-		But the only welts made are on my own beating fist. \
-		My smiling face turns to regard me, reflecting back in glassy eyes the empty path I have been lead down."
-
+	gain_text = "Я вижу себя, вальсирующего по заснеженной улице. \
+				Я пытаюсь кричать, пытаюсь схватить этого дурака, пытаюсь сказать ему, чтобы он бежал. \
+				Моё улыбающееся лицо поворачивается ко мне, отражая в остекленевших глазах пустоту - путь по которому я шел."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "voidball"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_prison
 	cost = 1
 
 
 /datum/heretic_knowledge/spell/cleave
-	name = "Blood Cleave"
-	desc = "Grants you Cleave, an area-of-effect targeted spell \
-		that causes heavy bleeding and blood loss to anyone afflicted."
-	gain_text = "At first I didn't understand these instruments of war, but the Priest \
-		told me to use them regardless. Soon, he said, I would know them well."
-
+	name = "Расчленение"
+	desc = "Даёт вам «Рассечение» — заклинание, действующее по области, \
+			вызывающее внутреннее кровотечение и кровопотерю у любого, кого оно затронуло."
+	gain_text = "Сначала я не понимал, как использовать эти орудия войны, но священник \
+				велел мне научиться. Скоро, сказал он, я овладею ими в совершенстве."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "cleave"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
 	cost = 1
 

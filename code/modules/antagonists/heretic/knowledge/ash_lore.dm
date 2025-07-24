@@ -60,15 +60,21 @@
 		return
 
 	to_chat(target, span_danger("Яркий зеленый свет ужасно жжет ваши глаза!"))
-	target.adjustOrganLoss(INTERNAL_ORGAN_EYES, 15)
+	target.adjustOrganLoss(INTERNAL_ORGAN_EYES, 5)
 	target.EyeBlurry(20 SECONDS)
+	for(var/obj/effect/proc_holder/spell/touch/mansus_grasp/spell in source.mind.spell_list)
+		if(!spell.cooldown_handler.is_on_cooldown())
+			continue
+			
+		spell.cooldown_handler.recharge_time += spell.base_cooldown / 2
 
 
 /datum/heretic_knowledge/spell/ash_passage
 	name = "Врата Пепла"
 	desc = "Дает вам «Врата Пепла» — заклинание, позволяющее вам выходить из реальности и перемещаться на небольшие расстояния, проходя сквозь любые стены."
 	gain_text = "Он умел ходить между мирами."
-
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "ash_shift"
 	spell_to_add = /obj/effect/proc_holder/spell/ethereal_jaunt/ash
 	cost = 1
 
@@ -91,7 +97,7 @@
 		return
 
 	// Also refunds 75% of charge!
-	var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = locate() in source.mob_spell_list
+	var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = locate() in source.mind.spell_list
 	if(!grasp)
 		return
 
@@ -156,6 +162,8 @@
 			Если жертвы находятся в критическом состоянии, они также мгновенно умирают."
 	gain_text = "Огонь был неизбежен, и всё же жизнь теплилась в его обугленном теле. \
 				Ночной Страж был особенным человеком, всегда наблюдавшим."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "smoke"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/fiery_rebirth
 	cost = 1
 	research_tree_icon_frame = 5
@@ -207,13 +215,13 @@
 	. = ..()
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_sworn())
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_cascade/big())
-	var/obj/effect/proc_holder/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.mob_spell_list
+	var/obj/effect/proc_holder/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.mind.spell_list
 	if(existing_beam_spell)
 		existing_beam_spell.max_beam_bounces *= 2 // Double beams
 		existing_beam_spell.beam_duration *= 0.66 // Faster beams
 		existing_beam_spell.base_cooldown *= 0.66 // Lower cooldown
 
-	var/obj/effect/proc_holder/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.mob_spell_list
+	var/obj/effect/proc_holder/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.mind.spell_list
 	fiery_rebirth?.base_cooldown *= 0.16
 
 	user.add_traits(traits_to_apply, type)

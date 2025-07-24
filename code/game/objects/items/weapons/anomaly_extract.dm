@@ -92,6 +92,9 @@
 
 /obj/effect/proc_holder/spell/slime_degradation/before_cast(list/targets, mob/user)
 	. = ..()
+	if(. & SPELL_CANCEL_CAST)
+		return
+		
 	if(is_transformed)
 		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIME_MOB
 	else

@@ -138,6 +138,8 @@
 	gain_text = "Я был в пустоте. Я видел сущность называющую себя Аристократом. \
 				Она летела оставляя после себя резкий, холодный ветер. Я следовал за ней, но \
 				она исчезла, оставив меня посреди метели."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "voidblink"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_phase
 	cost = 1
 	research_tree_icon_frame = 7
@@ -146,7 +148,7 @@
 /datum/heretic_knowledge/blade_upgrade/void
 	name = "Ищущий Клинок"
 	desc = "Ваш клинок теперь замораживает врагов. Кроме того, теперь вы можете \
-			атаковать далекие отмеченные цели своим Клинцем Пустоты, телепортируясь прямо к ним."
+			атаковать далекие отмеченные цели своим Клинком Пустоты, телепортируясь прямо к ним."
 	gain_text = "Мимолетные воспоминания, мимолетные шаги. Я шел среди метели отмечая свой путь замёрзшей кровью на снегу. Никто не пришел. Моё тело осталось там, под снегом, всеми забытое."
 
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
@@ -180,6 +182,8 @@
 	gain_text = "Всё мимолётно, но что же ещё остаётся? Я близок к завершению начатого. \
 				Аристократы снова открываются мне. Они говорят, что я опоздал. \
 				Их притяжение огромно, я не могу повернуть назад."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "voidpull"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/void_pull
 	cost = 1
 

@@ -24,11 +24,12 @@
 	var/damage_radius = 1
 
 
-/obj/effect/proc_holder/spell/pointed/void_phase/before_cast(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/void_phase/before_cast(list/targets)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
+	var/atom/cast_on = targets[1]
 	if(!action.owner || get_dist(get_turf(action.owner), get_turf(cast_on)) >= min_cast_range)
 		return
 

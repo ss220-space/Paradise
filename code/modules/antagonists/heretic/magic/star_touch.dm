@@ -191,7 +191,7 @@
  */
 /datum/status_effect/cosmic_beam/proc/lose_target()
 	if(active)
-		QDEL_NULL(current_beam)
+		//QDEL_NULL(current_beam)
 		active = FALSE
 	if(current_target)
 		on_beam_release(current_target)

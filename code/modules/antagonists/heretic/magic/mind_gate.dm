@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/mind_gate
-	name = "Mind Gate"
+	name = "Врата Разума"
 	desc = "Deals you 20 brain damage and the target suffers a hallucination, \
 			is left confused for 10 seconds, and suffers oxygen loss and brain damage."
 	action_background_icon_state = "bg_heretic"

@@ -238,6 +238,8 @@
 	gain_text = "Но они не смогли спастись от меня. \
 				С каждым шагом крики становились всё громче, пока наконец \
 				я не заставил их замолчать."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "mad_touch"
 	spell_to_add = /obj/effect/proc_holder/spell/touch/flesh_surgery
 	cost = 1
 

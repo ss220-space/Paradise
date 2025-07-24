@@ -521,7 +521,7 @@
 	var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
 	if(heretic_datum)
 		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
-		. += "<a href='byond://?src=[UID()];heretic=add_knowledge_points'><font color='green'>add points ([heretic_datum.knowledge_points])</font></a>"
+		. += "<a href='byond://?src=[UID()];heretic=add_knowledge_points'>add points ([heretic_datum.knowledge_points])</a>"
 		if(!length(heretic_datum.objectives))
 			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];heretic=autoobjectives'>Randomize!</a>"
 

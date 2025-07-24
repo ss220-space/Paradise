@@ -24,11 +24,12 @@
 
 
 // Before the cast, we do some small AOE damage around the caster
-/obj/effect/proc_holder/spell/aoe/void_pull/before_cast(atom/cast_on)
+/obj/effect/proc_holder/spell/aoe/void_pull/before_cast(list/targets)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
+	var/atom/cast_on = targets[1]
 	new /obj/effect/temp_visual/voidin(get_turf(cast_on))
 
 	// Before we cast the actual effects, deal AOE damage to anyone adjacent to us

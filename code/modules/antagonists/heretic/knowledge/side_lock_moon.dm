@@ -10,23 +10,26 @@
 
 // Sidepaths for knowledge between Knock and Moon.
 
-/datum/heretic_knowledge/spell/mind_gate
-	name = "Mind Gate"
-	desc = "Grants you Mind Gate, a spell which inflicts hallucinations, \
-		confusion, oxygen loss and brain damage to its target over 10 seconds.\
-		The caster takes 20 brain damage per use."
-	gain_text = "My mind swings open like a gate, and its insight will let me perceive the truth."
 
+/datum/heretic_knowledge/spell/mind_gate
+	name = "Врата Разума"
+	desc = "Даёт вам «Врату Разума» — заклинание, вызывающее у цели галлюцинации, \
+			спутанность сознания, удушие и повреждения мозга в течение 10 секунд.\
+			Заклинатель получает 20 единиц урона мозгу за каждое применение."
+	gain_text = "Мой разум распахивается, как врата, и это, ценой немалых жертв, позволяет мне постичь истину."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "mind_gate"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/mind_gate
 	cost = 1
 
+
 /datum/heretic_knowledge/unfathomable_curio
-	name = "Unfathomable Curio"
-	desc = "Allows you to transmute 3 rods, lungs and any belt into an Unfathomable Curio, \
-			a belt that can hold blades and items for rituals. Whilst worn it will also \
-			veil you, allowing you to take 5 hits without suffering damage, this veil will recharge very slowly \
-			outside of combat."
-	gain_text = "The mansus holds many a curio, some are not meant for the mortal eye."
+	name = "Непостижимая Диковинка"
+	desc = "Позволяет преобразовать 3 стержня, лёгкие и любой пояс в Непостижимую Диковинку, \
+			пояс, в котором можно хранить клинки и предметы для ритуалов. Если этот пояс надет, \
+			он позволит выдержать 5 ударов без получения урона. \
+			Вне боя эта защита будет перезаряжаться очень медленно."
+	gain_text = "В Мансусе хранится множество диковинок, некоторые из которых не предназначены для глаз смертных."
 
 	required_atoms = list(
 		/obj/item/organ/internal/lungs = 1,
@@ -41,16 +44,20 @@
 
 
 /datum/heretic_knowledge/painting
-	name = "Unsealed Arts"
-	desc = "Allows you to transmute a canvas and an additional item to create a painting. \
-			Each painting has a unique effect and recipe. Possible paintings: \
-			The Sister and He Who Wept: Requires a pair of Eyes. Clears your own mind, and curses non-heretics with hallucinations. \
-			The Feast of Desire: Requires a severed limb. Supplies you with random organs, and curses non-heretics with a hunger for flesh. \
-			Great Chaparral Over Rolling Hills: Requires any plant produce. Spreads kudzu when placed, and supplies you with poppies and harebells. \
-			Lady of the Gate: Requires any pair of Gloves. Clears your mutations, mutates non-heretics and curses them with scratching. \
-			Master of the Rusted Mountain: Requires a piece of Trash. Curses non-heretics to rust the floor they walk on."
-	gain_text = "A wind of inspiration blows through me. Beyond the veil and past the gate great works exist, yet to be painted. \
-				They yearn for mortal eyes, so I shall give them an audience."
+	name = "Непостижимое Искусство"
+	desc = "Позволяет преобразовать холст и дополнительный предмет для создания картины. \
+			Каждая картина обладает уникальным эффектом и рецептом. Возможные варианты: \
+			«Сестра и Плачущий»: Требуется пара Глаз. Очищает и лечит ваш разум и накладывает галлюцинации на нееретиков. \
+			«Фестиваль Желаний»: Требуется отрубленная конечность. Обеспечивает вас случайными органами и накладывает \
+			жажду плоти на нееретиков. \
+			«Мир Без Всех Вас»: Требуется любое растение. При размещении разбрасывает кудзу \
+			и снабжает вас маками и колокольчиками. \
+			«Леди за Вратами»: Требуется любая пара Перчаток. Очищает ваши мутации, мутирует нееретиков и делает их \
+				радиоактивными. \
+			«Хозяйка Ржавой Горы»: Требуется кусок Мусора. Накладывает на нееретиков проклятие, вызывая ржавчину \
+			на полу, по которому они ходят."
+	gain_text = "Ветер вдохновения пронизывал меня. За завесой и за вратами лежат величайшие творения, которые уже были \
+				написаны, и те, которые ещё предстоит написать. Они жаждут смертных глаз."
 
 	required_atoms = list(/obj/item/canvas = 1)
 	result_atoms = list(/obj/item/canvas)
@@ -101,7 +108,7 @@
 		)
 		return TRUE
 
-	user.balloon_alert(user, "no additional atom present!")
+	user.balloon_alert(user, "нет второго предмета!")
 	return FALSE
 
 /**
@@ -110,14 +117,18 @@
  * Requires you to have the blood of your victim in your off-hand
  */
 /datum/heretic_knowledge/codex_morbus
-	name = "Codex Morbus"
-	desc = "Allows you to to combine a Кодекс Истезания, and a body into a Codex Morbus. \
-		It draws runes and siphons essences a bit faster. \
-		Right Click on a rune to curse crewmembers, the target's blood is required in your off hand for a curse to take effect (Best combined with Phylactery Of Damnation)."
-	gain_text = "The spine of this leather-bound tome creaks with an eerily pained sigh. \
-		To ply page from place takes considerable effort, and I dare not linger on the suggestions the book makes for longer than necessary. \
-		It speaks of coming plagues, of waiting supplicants of dead and forgotten gods, and the undoing of mortal kind. \
-		It speaks of needles to peel the skin of the world back and leaving it to fester. And it speaks to me by name."
+	name = "Кодекс Морбус"
+	desc = "Позволяет объединить Кодекс Истезания и труп в Кодекс Морбус. \
+			Он немного быстрее создает руны и изучает разломы. \
+			Нажмите по руне, чтобы проклясть членов экипажа. \
+			Для того, чтобы проклятие подействовало, требуется кровь цели в сосуде в вашей левой руке \
+			(лучше всего сочетать с Проклятой Филактерией)."
+	gain_text = "Корешок этого тома в кожаном переплёте скрипит от жуткого, мучительного вздоха. \
+				Перелистывание страницы требует значительных усилий, и я не смею задерживаться на \
+				предложениях книги дольше, чем необходимо. В ней говорится о грядущих бедствиях, \
+				о забытых богах ожидающих молитв мёртвых и об уничтожении смертных. \
+				В ней говорится об иглах, сдирающих кожу с мира и оставляющих его гноиться. \
+				И эта книга обращается ко мне по имени."
 	required_atoms = list(
 		/obj/item/codex_cicatrix = 1,
 		/mob/living/carbon/human = 1,

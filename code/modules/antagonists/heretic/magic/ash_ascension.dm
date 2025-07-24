@@ -82,7 +82,8 @@
 	/// The radius the flames will go around the caster.
 	var/flame_radius = 4
 
-/obj/effect/proc_holder/spell/fire_cascade/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/fire_cascade/cast(list/targets)
+	var/atom/cast_on = targets[1]
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(fire_cascade), get_turf(cast_on), flame_radius)
 
@@ -126,11 +127,12 @@
 /obj/effect/proc_holder/spell/pointed/ash_beams/valid_target(atom/cast_on)
 	return TRUE
 
-/obj/effect/proc_holder/spell/pointed/ash_beams/cast(atom/target)
+/obj/effect/proc_holder/spell/pointed/ash_beams/cast(list/targets)
 	. = ..()
 	var/static/list/offsets = list(-25, -10, 0, 10, 25)
 	for(var/offset in offsets)
-		INVOKE_ASYNC(src, PROC_REF(fire_line), action.owner, line_target(offset, flame_line_length, target, action.owner))
+		INVOKE_ASYNC(src, PROC_REF(fire_line), action.owner, line_target(offset, flame_line_length, targets[1], action.owner))
+
 
 /obj/effect/proc_holder/spell/pointed/ash_beams/proc/line_target(offset, range, atom/at, atom/user)
 	var/turf/user_loc = get_turf(user)

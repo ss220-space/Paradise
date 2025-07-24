@@ -47,7 +47,7 @@
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/proc/on_focus_lost(mob/source)
 	SIGNAL_HANDLER
 
-	remove_mousepointer(source, refund_cooldown = TRUE)
+	remove_mousepointer(source.client, refund_cooldown = TRUE)
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/InterceptClickOn(mob/living/clicker, params, atom/target)
@@ -91,12 +91,16 @@
 	QDEL_NULL(blade_effect)
 
 
-/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/before_cast(atom/cast_on)
+/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/before_cast(list/targets)
+	. = ..()
+	if(. & SPELL_CANCEL_CAST)
+		return
+
 	if(isnull(blade_effect) || !current_amount)
-		remove_mousepointer(action.owner, refund_cooldown = FALSE)
+		remove_mousepointer(action.owner.client, refund_cooldown = FALSE)
 		return SPELL_CANCEL_CAST
 
-	return ..() | SPELL_NO_IMMEDIATE_COOLDOWN // all CD handling will be done by the status effect being deleted
+	return . | SPELL_NO_IMMEDIATE_COOLDOWN // all CD handling will be done by the status effect being deleted
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/fire_projectile(mob/living/user, atom/target)
@@ -116,7 +120,7 @@
 	blade_effect = null
 	var/blades_remaining = current_amount
 	// Which scales the cooldown according to projectiles remaining
-	remove_mousepointer(action.owner, refund_cooldown = FALSE)
+	remove_mousepointer(action.owner.client, refund_cooldown = FALSE)
 	// Snowflake because it does not handle cooldown if we used every projectile
 	if(blades_remaining <= 0)
 		cooldown_handler.start_recharge()

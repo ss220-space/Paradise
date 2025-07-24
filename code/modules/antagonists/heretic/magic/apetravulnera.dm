@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/apetra_vulnera
-	name = "Apetra Vulnera"
+	name = "Усугубление"
 	desc = "Causes severe bleeding on every limb of a target which has more than 15 brute damage. \
 		Wounds a random limb if no limb is sufficiently damaged."
 	action_background_icon_state = "bg_heretic"

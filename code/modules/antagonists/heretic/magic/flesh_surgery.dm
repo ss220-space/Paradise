@@ -126,7 +126,7 @@
 		victim.balloon_alert(caster, "no organs!")
 		return FALSE
 
-	var/zone_to_check = parse_zone(check_zone(caster.zone_selected))
+	var/zone_to_check = check_zone(caster.zone_selected)
 
 	var/list/organs_we_can_remove = list()
 	for(var/obj/item/organ/organ as anything in carbon_victim.internal_organs)
@@ -140,7 +140,7 @@
 		organs_we_can_remove[organ.name] = organ
 
 	if(!length(organs_we_can_remove))
-		victim.balloon_alert(caster, "no organs there!")
+		victim.balloon_alert(caster, "нет органов!")
 		return FALSE
 
 	var/chosen_organ = tgui_input_list(caster, "Which organ do you want to extract?", name, sort_list(organs_we_can_remove))

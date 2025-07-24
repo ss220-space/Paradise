@@ -26,23 +26,28 @@
 // Before the cast, we do some small AOE damage around the caster
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/before_cast(list/targets)
 	. = ..()
+	if(. & SPELL_CANCEL_CAST)
+		return
 
-	for(var/mob/living/carbon/cast_on in targets)
-		if(cast_on.handcuffed)
-			cast_on.visible_message(span_danger("[cast_on.handcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(cast_on.handcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(cast_on.gender, "ит", "ят")] [cast_on.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(cast_on.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
-			QDEL_NULL(cast_on.handcuffed)
+	if(!iscarbon(action.owner))
+		return SPELL_CANCEL_CAST
+	
+	var/mob/living/carbon/human/human = action.owner
+	if(human.handcuffed)
+		human.visible_message(span_danger("[human.handcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(human.handcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(human.gender, "ит", "ят")] [human.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(human.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
+		QDEL_NULL(human.handcuffed)
 
-		if(cast_on.legcuffed)
-			cast_on.visible_message(span_danger("[cast_on.legcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(cast_on.legcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(cast_on.gender, "ит", "ят")] [cast_on.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(cast_on.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
-			cast_on.visible_message(span_danger("[cast_on.legcuffed] on [cast_on] shatters!"))
-			QDEL_NULL(cast_on.legcuffed)
+	if(human.legcuffed)
+		human.visible_message(span_danger("[human.legcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(human.legcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(human.gender, "ит", "ят")] [human.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(human.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
+		human.visible_message(span_danger("[human.legcuffed] on [human] shatters!"))
+		QDEL_NULL(human.legcuffed)
 
-		cast_on.apply_status_effect(/datum/status_effect/heretic_lastresort)
-		new /obj/effect/temp_visual/knockblast(get_turf(cast_on))
+	human.apply_status_effect(/datum/status_effect/heretic_lastresort)
+	new /obj/effect/temp_visual/knockblast(get_turf(human))
 
-		for(var/mob/living/victim in get_things_to_cast_on(cast_on, radius_override = 1))
-			victim.AdjustKnockdown(3 SECONDS)
-			victim.AdjustParalysis(0.5 SECONDS)
+	for(var/mob/living/victim in get_things_to_cast_on(human, radius_override = 1))
+		victim.AdjustKnockdown(3 SECONDS)
+		victim.AdjustParalysis(0.5 SECONDS)
 
 
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/get_things_to_cast_on(atom/center, radius_override)

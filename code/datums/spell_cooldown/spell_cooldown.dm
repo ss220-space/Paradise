@@ -3,6 +3,8 @@
 	var/recharge_time = 0
 	/// The amount of time that must pass before a spell can be used again.
 	var/recharge_duration = 10 SECONDS // default spell cooldown.
+	/// Used for correct percentage with cooldown owerrides.
+	var/last_recharge_duration
 	/// Does it start off cooldown?
 	var/starts_off_cooldown = TRUE
 	/// Holds a ref to the spell.
@@ -63,7 +65,7 @@
 	if(!is_on_cooldown()) // if off cooldown, we don't bother with the maths
 		return TRUE
 
-	return min(1, (recharge_duration - (recharge_time - world.time)) / recharge_duration)
+	return min(1, (last_recharge_duration - (recharge_time - world.time)) / last_recharge_duration)
 
 
 /datum/spell_cooldown/proc/get_recharge_time()
@@ -73,8 +75,11 @@
 /datum/spell_cooldown/proc/start_recharge(recharge_duration_override = 0)
 	if(recharge_duration_override)
 		recharge_time = world.time + recharge_duration_override
+		last_recharge_duration = recharge_duration_override
 	else
 		recharge_time = get_recharge_time()
+		last_recharge_duration = recharge_duration
+
 	if(spell_parent.action)
 		spell_parent.action.UpdateButtonIcon()
 		START_PROCESSING(SSfastprocess, src)

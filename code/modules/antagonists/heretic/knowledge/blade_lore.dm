@@ -221,6 +221,8 @@
 	gain_text = "Кто-то идет по комнате, отбрасывая неясные тени. Кто-то замахивается клинком над спящим. \
 				Я нажил себе врагов. Я больше никогда не познаю мир. Я разрушил все связи и \
 				разорвал все союзы. В этой истине я теперь знаю хрупкость товарищества. Мои враги падут."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "among_sheep"
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/wolves_among_sheep
 
@@ -347,6 +349,8 @@
 	gain_text = "Не раздумывая, я схватил нож павшего солдата и метнул его со всей силы. \
 				Мои тренировки меня не подвели! Поверженный воин улыбнулся, \
 				впервые почувствовав боль. Его клинки стали моими."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "furious_steel"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/projectile/furious_steel
 	cost = 1
 

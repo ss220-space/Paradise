@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion
-	name = "Cosmic Expansion"
+	name = "Захват Территории"
 	desc = "This spell generates a 3x3 domain of cosmic fields. \
 		Creatures up to 7 tiles away will also receive a star mark."
 	action_background_icon_state = "bg_heretic"

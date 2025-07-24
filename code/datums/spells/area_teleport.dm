@@ -16,7 +16,10 @@
 
 
 /obj/effect/proc_holder/spell/area_teleport/before_cast(list/targets, mob/user)
-	..()
+	. = ..()
+	if(. & SPELL_CANCEL_CAST)
+		return
+		
 	selected_area = null // Reset it
 	var/A
 

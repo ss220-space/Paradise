@@ -42,6 +42,9 @@
 
 /obj/effect/proc_holder/spell/shadow_cloak/before_cast(mob/living/cast_on)
 	. = ..()
+	if(. & SPELL_CANCEL_CAST)
+		return
+
 	sound = pick(
 		'sound/effects/curse/curse1.ogg',
 		'sound/effects/curse/curse2.ogg',
@@ -84,6 +87,7 @@
 	)
 
 	active_cloak = cast_on.apply_status_effect(/datum/status_effect/shadow_cloak)
+	RegisterSignal(cast_on, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(active_cloak, COMSIG_QDELETING, PROC_REF(on_early_cloak_loss))
 	RegisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
 
@@ -94,7 +98,7 @@
 		qdel(active_cloak)
 
 	active_cloak = null
-
+	UnregisterSignal(cast_on, COMSIG_PARENT_EXAMINE)
 	UnregisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING))
 	playsound(cast_on, 'sound/effects/curse/curseattack.ogg', 50)
 	if(show_message)
@@ -106,6 +110,12 @@
 	// Clear up the timer
 	deltimer(uncloak_timer)
 	uncloak_timer = null
+
+
+/obj/effect/proc_holder/spell/shadow_cloak/proc/on_examine(datum/source, mob/living/carbon/human/human, list/examine_list)
+	SIGNAL_HANDLER
+	examine_list.Cut()
+	examine_list += "[bicon(src)] Это фигура покрытая тьмой."
 
 
 /// Signal proc for [COMSIG_QDELETING], if our cloak is deleted early, impart negative effects

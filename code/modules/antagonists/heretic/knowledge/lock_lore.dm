@@ -169,7 +169,8 @@
 			которое кладёт вам в руку случайный предмет из рюкзака жертвы."
 	gain_text = "Общение с духами-взломщиками не приветствуется, но управляющий \
 				всегда захочет узнать больше о новых дверях."
-
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "burglarsfinesse"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/burglar_finesse
 	cost = 1
 
@@ -196,6 +197,8 @@
 			В этом состоянии вы не можете использовать руки или заклинания, а также невосприимчивы к замедлению. \
 			Вы неуязвимы, но не можете причинить вред кому-либо. Отменяется ударом антимагического предмета."
 	gain_text = "Завистливо преследовали меня Страж и Гончая. Но я скрыл свой облик став неосязаемым туманом."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "caretaker"
 	spell_to_add = /obj/effect/proc_holder/spell/caretaker
 	cost = 1
 

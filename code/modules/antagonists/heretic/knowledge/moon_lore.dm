@@ -75,7 +75,8 @@
 	desc = "Даёт вам Лунную Улыбку — заклинание дальнего боя, оглушающее, ослепляющее и \
 			не дающее говорить некоторое время."
 	gain_text = "Луна улыбается нам всем, но лишь те, кто видит истинну, могут улыбнуться ей в ответ."
-
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "moon_smile"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/moon_smile
 	cost = 1
 
@@ -148,11 +149,12 @@
 
 /datum/heretic_knowledge/spell/moon_ringleader
 	name = "Восстание Главарей"
-	desc = "Даёт вам «Восстание Главарей» — заклинание с областью действия, которое наносит \
-			урон мозгу, вызывает галлюцинации и спутанность у окружающих вас врагов."
+	desc = "Даёт вам «Восстание Главарей» — заклинание по области, наносящее \
+			урон мозгу, вызывающее галлюцинации и спутанность у окружающих вас врагов."
 	gain_text = "Я схватил его за руку, и мы поднялись. Те, кто видел истину, поднялись вместе с нами. \
 				Главарь указал вверх, и тусклый свет истины озарил нас ярче."
-
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "moon_ringleader"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/moon_ringleader
 	cost = 1
 

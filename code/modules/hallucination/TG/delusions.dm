@@ -339,7 +339,7 @@
 
 
 /datum/hallucination/delusion/preset/heretic/gate
-	delusion_name = "Mind Gate"
+	delusion_name = "Врата Разума"
 	duration = 60 SECONDS
 	affects_us = TRUE
 

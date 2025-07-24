@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/caretaker
-	name = "Caretaker’s Last Refuge"
+	name = "Последнее пристанище смотрителя"
 	desc = "Shifts you into the Caretaker's Refuge, rendering you translucent and intangible. \
 		While in the Refuge your movement is unrestricted, but you cannot use your hands or cast any spells. \
 		You cannot enter the Refuge while near other sentient beings, \
@@ -29,17 +29,17 @@
 	return isliving(cast_on)
 
 
-/obj/effect/proc_holder/spell/caretaker/before_cast(mob/living/cast_on)
+/obj/effect/proc_holder/spell/caretaker/before_cast(list/targets)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
-
+	
 	for(var/mob/living/alive in orange(5, action.owner))
 		if(alive.stat != DEAD && alive.client)
 			action.owner.balloon_alert(action.owner, "other minds nearby!")
 			return . | SPELL_CANCEL_CAST
 
-	if(!cast_on.has_status_effect(/datum/status_effect/caretaker_refuge))
+	if(!action.owner.has_status_effect(/datum/status_effect/caretaker_refuge))
 		return SPELL_NO_IMMEDIATE_COOLDOWN // cooldown only on exit
 
 

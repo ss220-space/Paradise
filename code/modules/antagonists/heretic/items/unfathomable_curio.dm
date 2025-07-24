@@ -1,7 +1,7 @@
 //Item for knock/moon heretic sidepath, it can block 5 hits of damage, acts as storage and if the heretic is examined the examiner suffers brain damage and blindness
 
 /obj/item/storage/belt/unfathomable_curio
-	name = "Unfathomable Curio"
+	name = "Непостижимая Диковинка"
 	desc = "It. It looks backs. It looks past. It looks in. It sees. It hides. It opens."
 	icon_state = "unfathomable_curio"
 	item_state = "unfathomable_curio"

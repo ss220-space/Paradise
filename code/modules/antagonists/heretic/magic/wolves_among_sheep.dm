@@ -36,7 +36,7 @@
 	var/ongoing_arena
 
 
-/obj/effect/proc_holder/spell/wolves_among_sheep/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/wolves_among_sheep/cast(list/targets)
 	. = ..()
 	center_turf = get_turf(action.owner)
 	playsound(center_turf,'sound/machines/airlock/airlockopen.ogg', 750, TRUE)

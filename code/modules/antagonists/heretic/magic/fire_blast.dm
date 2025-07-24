@@ -24,7 +24,7 @@
 	var/beam_duration = 2 SECONDS
 
 
-/obj/effect/proc_holder/spell/charged/beam/fire_blast/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/charged/beam/fire_blast/cast(list/targets)
 	var/mob/living/caster = action.owner
 	if(!istype(caster))
 		return ..()
@@ -94,7 +94,7 @@
 	var/list/possibles = list()
 	var/list/priority_possibles = list()
 	for(var/mob/living/carbon/to_check in view(target_radius, center))
-		if(to_check == center || to_check == action.owner)
+		if(to_check == action.owner)
 			continue
 		if(to_check.has_status_effect(/datum/status_effect/fire_blasted)) // Already blasted
 			continue
@@ -266,15 +266,16 @@
 	if(action)
 		action.UpdateButtonIcon()
 
-	if(do_after(cast_on, channel_time, timed_action_flags = channel_flags))
+	if(do_after(action.owner, channel_time, timed_action_flags = channel_flags))
 		return
 
 	stop_channel_effect(cast_on)
 	return . | SPELL_CANCEL_CAST
 
 
-/obj/effect/proc_holder/spell/charged/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/charged/cast(list/targets)
 	. = ..()
+	var/atom/cast_on = targets[1]
 	stop_channel_effect(cast_on)
 
 /*
@@ -334,8 +335,9 @@
 		stop_channel_effect(cast_on)
 		return . | SPELL_CANCEL_CAST
 
-/obj/effect/proc_holder/spell/charged/beam/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/charged/beam/cast(list/targets)
 	. = ..()
+	var/atom/cast_on = targets[1]
 	send_beam(cast_on, initial_target, max_beam_bounces)
 	initial_target = null
 

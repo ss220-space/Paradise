@@ -125,6 +125,8 @@
 			поверхности. Уже поражённые ржавчиной поверхности уничтожаются."
 	gain_text = "Все мудрецы прекрасно знали, что не стоило посещать Ржавые Холмы... \
 				И все же рассказ Кузнеца был вдохновляющим."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "corrode"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/rust_conversion
 	cost = 1
 	research_tree_icon_frame = 5
@@ -168,7 +170,8 @@
 			и усиливает способности домена ржавчины у еретиков других путей."
 	gain_text = "Коррозию было не остановить. Ржавчина была повсюду. \
 				Кузнец исчез, но его клинок остался с вами. Воины надежды, Ржавеющий уже близко!"
-
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "entropic_plume"
 	spell_to_add = /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
 	cost = 1
 

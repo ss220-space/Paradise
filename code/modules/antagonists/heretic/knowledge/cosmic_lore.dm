@@ -69,6 +69,8 @@
 			Однако люди со звёздной меткой будут перемещены вместе с другим человеком, использующим руну."
 	gain_text = "Далёкие звёзды проникли в мои сны, ревя и крича без причины. Я заговорил и \
 				услышал эхо собственных слов."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "cosmic_rune"
 	spell_to_add = /obj/effect/proc_holder/spell/cosmic_rune
 	cost = 1
 
@@ -94,6 +96,8 @@
 			Луч существует минуту, пока не будет преграждён или пока не будет найдена новая цель."
 	gain_text = "Я проснулся в холодном поту из-за того, что почувствовал на голове чью-то ладонь. \
 				Мои вены начали излучать странное фиолетовое свечение. Зверь знает, что я превзойду его ожидания."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "star_touch"
 	spell_to_add = /obj/effect/proc_holder/spell/touch/star_touch
 	cost = 1
 
@@ -103,6 +107,8 @@
 	desc = "Выпускает снаряд, создающий стену космических полей. \
 			Любой, в кого попал снаряд, получит ожог, будет сбит с ног и получит звёздную метку."
 	gain_text = "Зверь всегда был позади меня, и с каждой принесенной жертвой я чувствовал его одобрение."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "star_blast"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/projectile/star_blast
 	cost = 1
 
@@ -241,6 +247,8 @@
 	desc = "Даёт вам «Захват Территории» — заклинание, создающее вокруг вас область космических полей размером 3x3. \
 			Существа поблизости получат звёздную метку."
 	gain_text = "Земля подо мной задрожала. Зверь вселился в меня. Его голос опьянял."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "cosmic_domain"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion
 	cost = 1
 

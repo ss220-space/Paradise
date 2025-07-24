@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 
 /obj/effect/abstract/heretic_arena/Initialize(mapload, range, duration, caster)
 	. = ..()
-	arena = new(src, range)
+	arena = new(list(src, range))
 	QDEL_IN(src, duration)
 	arena.set_caster(caster)
 	GLOB.heretic_arenas += src

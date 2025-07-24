@@ -96,7 +96,7 @@
 /obj/item/coin/eldritch/on_result_act(coinflip)
 	switch(coinflip)
 		if("heretic")
-			for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, src))
+			for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, get_turf(src)))
 				if(target_airlock.density)
 					target_airlock.open()
 					continue
@@ -104,7 +104,7 @@
 				target_airlock.close()
 
 		if("blade")
-			for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, src))
+			for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, get_turf(src)))
 				if(target_airlock.locked)
 					target_airlock.unlock()
 					continue

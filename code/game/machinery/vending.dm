@@ -3479,7 +3479,8 @@
 		/obj/item/c_tube = 10,
 		/obj/item/pen = 5,
 		/obj/item/pen/blue = 5,
-		/obj/item/pen/red = 5)
+		/obj/item/pen/red = 5,
+		/obj/item/storage/fancy/candle_box/full = 5)
 	contraband = list(
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/toy/crayon/rainbow = 1,
@@ -3506,7 +3507,8 @@
 		/obj/item/pen/red = 10,
 		/obj/item/toy/crayon/mime = 50,
 		/obj/item/toy/crayon/rainbow = 50,
-		/obj/item/weaponcrafting/receiver = 250
+		/obj/item/weaponcrafting/receiver = 250,
+		/obj/item/storage/fancy/candle_box/full = 75,
 	)
 
 /obj/machinery/vending/crittercare
