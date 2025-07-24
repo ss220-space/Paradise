@@ -197,28 +197,16 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		medical += M
 
 		//Security Record
-		var/datum/data/record/S = new()
-		S.fields["id"]			= id
-		S.fields["name"]		= H.real_name
-		if(rank == JOB_TITLE_PRISONER)
-			S.fields["criminal"] = SEC_RECORD_STATUS_INCARCERATED
-		else
-			S.fields["criminal"] = "None"
-		S.fields["mi_crim"]		= "None"
-		S.fields["mi_crim_d"]	= "No minor crime convictions."
-		S.fields["ma_crim"]		= "None"
-		S.fields["ma_crim_d"]	= "No major crime convictions."
-		S.fields["notes"]		= "No notes."
+		var/datum/data/record/S = find_security_record("name", H.real_name)
+		if(S) //records exists, set correct id and name
+			S.name = text("Security Record #[id]")
+			S.fields["id"] = id
+		else //create new record
+			S = CreateSecurityRecord(H.real_name, id)
 		if(H.sec_record && !jobban_isbanned(H, "Records"))
 			S.fields["notes"] = H.sec_record
 		else
 			S.fields["notes"] = "Дополнительная информация отсутствует."
-		LAZYINITLIST(S.fields["comments"])
-		if(rank == JOB_TITLE_PRISONER)
-			var/crimes = generate_prisoner_role_crimes()
-			H.mind.store_memory("Меня посадили за: [crimes]")
-			S.fields["comments"] += "Заключён в пермабриг за: : [crimes]"
-		security += S
 
 		//Locked Record
 		var/datum/data/record/L = new()
@@ -235,17 +223,6 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		L.fields["reference"]	= H
 		locked += L
 	return
-
-/datum/datacore/proc/generate_prisoner_role_crimes()
-	var/list/major_crimes = list("400", "402", "407")
-	. = pick(major_crimes)
-	var/count = rand(1, 3)
-	var/list/minor_crimes = list("101", "303", "204", "205", "306", "308")
-	for(var/i = 0; i < count; i++)
-		var/crime = pick(minor_crimes)
-		minor_crimes -= crime
-		. += ", [crime]"
-	. += "."
 
 /proc/get_id_photo(mob/living/carbon/human/H, var/custom_job = null)
 	var/icon/preview_icon = null

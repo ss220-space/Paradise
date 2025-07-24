@@ -57,4 +57,26 @@
 	shoes = /obj/item/clothing/shoes/prison
 	l_ear = /obj/item/radio/headset
 
+
+/datum/job/civilian/prisoner/after_spawn(mob/living/carbon/human/human)
+	. = ..()
+	var/datum/data/record/record = find_security_record("name", human.real_name)
+	if(!record) //record not exists, create record with temporary identifier
+		record = CreateSecurityRecord(human.real_name, -1)
+	record.fields["criminal"] = SEC_RECORD_STATUS_INCARCERATED
+	var/crimes = generate_prisoner_role_crimes()
+	human.mind.store_memory("Меня посадили за: [crimes]")
+	record.fields["comments"] += "Заключён в пермабриг за: : [crimes]"
+
+/datum/job/civilian/prisoner/proc/generate_prisoner_role_crimes()
+	var/list/major_crimes = list("400", "402", "407")
+	. = pick(major_crimes)
+	var/count = rand(1, 3)
+	var/list/minor_crimes = list("101", "303", "204", "205", "306", "308")
+	for(var/i = 0; i < count; i++)
+		var/crime = pick(minor_crimes)
+		minor_crimes -= crime
+		. += ", [crime]"
+	. += "."
+
 #undef SALARY_FOR_NISHEBROD
