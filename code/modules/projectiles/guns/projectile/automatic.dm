@@ -404,6 +404,13 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
+	attachable_allowed = list(
+		/obj/item/gun_module/scope/collimator,
+		/obj/item/gun_module/scope/x4
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 8)
+	)
 
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
@@ -463,6 +470,13 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1.5
+	attachable_allowed = list(
+		/obj/item/gun_module/scope/collimator,
+		/obj/item/gun_module/scope/x4
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 3)
+	)
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/New()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
@@ -485,6 +499,13 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	burst_size = 2
 	can_suppress = 0
+	attachable_allowed = list(
+		/obj/item/gun_module/scope/collimator,
+		/obj/item/gun_module/scope/x4
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+	)
 
 
 /obj/item/gun/projectile/automatic/cats/update_icon_state()

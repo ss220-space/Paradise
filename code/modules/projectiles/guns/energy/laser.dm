@@ -11,6 +11,12 @@
 	shaded_charge = TRUE
 	can_flashlight = TRUE
 	gun_light_overlay = "lasergun_light"
+	attachable_allowed = list(
+		/obj/item/gun_module/scope
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
+	)
 
 /obj/item/gun/energy/laser/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_gunlight))
@@ -26,6 +32,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0
 	needs_permit = FALSE
+	attachable_allowed = null
 
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"
@@ -33,6 +40,7 @@
 	item_state = "laser"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
+	attachable_allowed = null
 
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
@@ -46,6 +54,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	unique_reskin = TRUE
 	var/high_risk = TRUE
+	attachable_allowed = null
 
 /obj/item/gun/energy/laser/captain/Initialize(mapload, ...)
 	. = ..()
@@ -74,6 +83,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/cyborg)
 	can_charge = FALSE
 	origin_tech = null
+	attachable_allowed = null
 
 /obj/item/gun/energy/laser/cyborg/newshot()
 	..()
@@ -86,6 +96,9 @@
 	name = "scatter laser gun"
 	desc = "A laser gun equipped with a refraction kit that spreads bolts."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
+	)
 
 ///Laser Cannon
 
@@ -103,6 +116,12 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
+	attachable_allowed = list(
+		/obj/item/gun_module/scope
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+	)
 
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/projectile/beam/laser/accelerator
@@ -127,6 +146,7 @@
 
 
 /obj/item/gun/energy/lasercannon/cyborg
+	attachable_allowed = null
 
 /obj/item/gun/energy/lasercannon/cyborg/newshot()
 	..()
@@ -141,6 +161,12 @@
 	icon_state = "xray"
 	origin_tech = "combat=6;materials=4;magnets=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
+	attachable_allowed = list(
+		/obj/item/gun_module/scope
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+	)
 
 /obj/item/gun/energy/immolator
 	name = "Immolator laser gun"
@@ -150,6 +176,12 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = TRUE
+	attachable_allowed = list(
+		/obj/item/gun_module/scope
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6)
+	)
 
 /obj/item/gun/energy/immolator/multi
 	name = "multi lens immolator cannon"
@@ -169,6 +201,7 @@
 /obj/item/gun/energy/immolator/multi/cyborg
 	name = "cyborg immolator cannon"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/scatter/cyborg, /obj/item/ammo_casing/energy/immolator/strong/cyborg) // scatter is default, because it is more useful
+	attachable_allowed = null
 
 
 ////////Laser Tag////////////////////
@@ -183,6 +216,7 @@
 	needs_permit = FALSE
 	ammo_x_offset = 2
 	selfcharge = TRUE
+	attachable_allowed = null
 
 /obj/item/gun/energy/laser/tag/blue
 	icon_state = "bluetag"

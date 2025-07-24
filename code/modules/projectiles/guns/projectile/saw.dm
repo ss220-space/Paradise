@@ -16,6 +16,15 @@
 	fire_delay = 1
 	burst_size = 1
 	actions_types = null
+	attachable_allowed = list(
+		/obj/item/gun_module/supressor,
+		/obj/item/gun_module/muzzle_flash_supressor,
+		/obj/item/gun_module/scope,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 22, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 6)
+	)
 
 /obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
 	. = ..()
@@ -29,7 +38,7 @@
 
 
 /obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/25, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/25, 1)*25 : "-empty"]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
 

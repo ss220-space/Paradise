@@ -18,7 +18,7 @@
 
 /// Try attach module to gun, return TRUE if success
 /obj/item/gun_module/proc/try_attach(obj/item/gun/target_gun, mob/user)
-	if(!istype(target_gun, /obj/item/gun/projectile))
+	if(!istype(target_gun, /obj/item/gun))
 		to_chat(user, "[capitalize(target_gun.declent_ru(NOMINATIVE))] не поддерживает установку модулей.")
 		return FALSE
 	var/obj/item/gun/gun = target_gun
@@ -57,7 +57,7 @@
 	return TRUE
 
 /obj/item/gun_module/proc/create_overlay()
-	return mutable_appearance(icon, overlay_state)
+	return mutable_appearance(icon, overlay_state, layer = FLOAT_LAYER + 0.1)
 
 /obj/item/gun_module/proc/on_attach(obj/item/gun/target_gun, mob/user)
 	return
@@ -161,7 +161,6 @@
 	var/zoom_amount = 1
 	var/old_zoom_amount
 
-
 /obj/item/gun_module/scope/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.zoomable = TRUE
 	old_zoom_amount = target_gun.zoom_amt
@@ -174,6 +173,7 @@
 	target_gun.zoomable = FALSE
 	target_gun.zoom_amt = old_zoom_amount
 	target_gun.destroy_zooming()
+
 
 /obj/item/gun_module/scope/collimator
 	name = "collimator scope"

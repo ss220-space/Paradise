@@ -24,6 +24,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
 	origin_tech = "combat=4"
 	ammo_x_offset = 2
+	attachable_allowed = null
 
 /obj/item/gun/energy/gun/advtaser/cyborg
 	name = "cyborg taser"

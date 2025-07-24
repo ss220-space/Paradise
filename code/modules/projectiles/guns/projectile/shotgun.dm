@@ -89,6 +89,13 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	can_flashlight = TRUE
 	gun_light_overlay = "riotshotgun_light"
+	attachable_allowed = list(
+		/obj/item/gun_module/scope/collimator,
+		/obj/item/gun_module/scope/x4
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 4)
+	)
 
 /obj/item/gun/projectile/shotgun/riot/update_overlays()
 	. = ..()
@@ -258,6 +265,13 @@
 	bayonet_x_offset = 27
 	bayonet_y_offset = 13
 	pb_knockback = 0
+	attachable_allowed = list(
+		/obj/item/gun_module/scope/collimator,
+		/obj/item/gun_module/scope/x4
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 3)
+	)
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
@@ -362,6 +376,13 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	attachable_allowed = list(
+		/obj/item/gun_module/scope/collimator,
+		/obj/item/gun_module/scope/x4
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+	)
 
 //Dual Feed Shotgun
 
@@ -375,6 +396,13 @@
 	var/toggled = 0
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
+	attachable_allowed = list(
+		/obj/item/gun_module/scope/collimator,
+		/obj/item/gun_module/scope/x4
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+	)
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()

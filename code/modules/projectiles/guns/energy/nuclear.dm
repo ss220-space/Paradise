@@ -10,9 +10,16 @@
 	ammo_x_offset = 3
 	flight_x_offset = 15
 	flight_y_offset = 10
+	attachable_allowed = list(
+		/obj/item/gun_module/scope
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+	)
 
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
+	attachable_allowed = null
 
 /obj/item/gun/energy/gun/cyborg/newshot()
 	..()
@@ -32,6 +39,7 @@
 	ammo_x_offset = 2
 	charge_sections = 3
 	can_flashlight = FALSE
+	attachable_allowed = null
 
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
@@ -50,6 +58,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/dominator/slaughter)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	attachable_allowed = null
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
 	. = ..()
@@ -64,6 +73,12 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	attachable_allowed = list(
+		/obj/item/gun_module/scope
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+	)
 
 /obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
 	. = ..()
@@ -80,6 +95,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	attachable_allowed = null
 
 /obj/item/gun/energy/gun/pdw9/ert
 
@@ -101,6 +117,7 @@
 	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
+	attachable_allowed
 
 /obj/item/gun/energy/gun/nuclear
 	name = "advanced energy gun"
@@ -113,6 +130,12 @@
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
+	attachable_allowed = list(
+		/obj/item/gun_module/scope
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 8)
+	)
 
 /obj/item/gun/energy/gun/minigun
 	name = "Laser gatling gun"
@@ -145,6 +168,7 @@
 	slowdown = 0.2
 	var/force_unwielded = 10
 	var/force_wielded = 20
+	attachable_allowed = null
 
 /obj/item/gun/energy/gun/minigun/Initialize(mapload)
 	. = ..()
