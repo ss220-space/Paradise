@@ -82,6 +82,7 @@
 	else if(istype(target,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/door = target
 		door.locked = FALSE
+		INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door, open), TRUE)
 
 /*
 	else if(istype(target, /obj/machinery/computer))
@@ -149,7 +150,7 @@
 /datum/heretic_knowledge/limited_amount/concierge_rite // item that creates 3 max at a time heretic only barriers, probably should limit to 1 only, holy people can also pass
 	name = "Обряд консьержа"
 	desc = "Позволяет преобразовать мелок, деревянную доску и мультитул в «Справочник по лабиринту». \
-			Он может материализовать баррикаду на расстоянии, через которое сможете пройти только вы и люди, \
+			Он может материализовать баррикаду на расстоянии, через которую сможете пройти только вы и люди, \
 			устойчивые к магии. 3 использования."
 	gain_text = "Консьерж записал мое имя в справочнике. «Добро пожаловать в ваш новый дом, товарищ Стюард»."
 	required_atoms = list(

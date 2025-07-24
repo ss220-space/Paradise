@@ -23,6 +23,11 @@
 	return istype(cast_on) && (cast_on.handcuffed || cast_on.legcuffed)
 
 
+/obj/effect/proc_holder/spell/aoe/wave_of_desperation/can_cast(mob/user, charge_check, feedback)
+	var/mob/living/carbon/human/human = action.owner
+	return istype(human) && ..() && (human.handcuffed || human.legcuffed)
+
+
 // Before the cast, we do some small AOE damage around the caster
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/before_cast(list/targets)
 	. = ..()

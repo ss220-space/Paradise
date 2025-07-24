@@ -47,7 +47,8 @@
 	. += span_purple("It has <b>[uses]</b> uses left.")
 
 
-/obj/item/heretic_labyrinth_handbook/attackby(atom/interacting_with, mob/living/user, list/modifiers)
+/obj/item/heretic_labyrinth_handbook/afterattack(atom/interacting_with, mob/user, proximity, params, status)
+	. = ..()
 	if(!isheretic(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/human_user = user

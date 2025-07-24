@@ -35,11 +35,10 @@
 
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/victim, mob/living/carbon/caster, proximity, params)
-	var/list/modifiers = params2list(params)
-	if(modifiers["alt"])
-		if(isliving(victim)) // if it's a living mob, go with our normal afterattack
-			return ..()
+	if(!proximity)
+		return ..()
 
+	if(!mode)
 		SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
 		return ..()
 
@@ -102,6 +101,7 @@
 	icon_state = "mansus"
 	item_state = "mansus"
 	catchphrase = "Р'СКР ПР'ВД'!"
+	var/mode = TRUE
 
 
 /obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)
@@ -112,6 +112,13 @@
 		on_clear_callback = CALLBACK(src, PROC_REF(after_clear_rune)), \
 		effects_we_clear = list(/obj/effect/decal/heretic_rune), \
 		time_to_remove = 0.4 SECONDS)
+
+
+/obj/item/melee/touch_attack/mansus_fist/attack_self(mob/user)
+	. = ..()
+	mode = !mode
+	user.balloon_alert(user, "альтернативное взаимодействие в[mode ? "ы" : ""]ключено")
+
 
 /*
  * Callback for effect_remover component.

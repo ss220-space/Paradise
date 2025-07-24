@@ -1,8 +1,8 @@
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel
 	name = "Яростная Сталь"
-	desc = "Summon three silver blades which orbit you. \
-		While orbiting you, these blades will protect you from attacks, but will be consumed on use. \
-		Additionally, you can click to fire the blades at a target, dealing damage and causing bleeding."
+	desc = "Призывает три серебряных клинка, вращающихся вокруг вас. \
+			Эти клинки защитят вас от атак, но будут расходоваться при использовании. \
+			Кроме того, вы можете кликнуть, чтобы выстрелить клинками в цель, нанося урон и вызывая кровотечение."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -17,8 +17,8 @@
 
 	spell_requirements = NONE
 
-	active_msg = "You summon forth three blades of furious silver."
-	deactive_msg = "You conceal the blades of furious silver."
+	active_msg = "Вы призываете три серебрянных клинка."
+	deactive_msg = "Вы отзываете три серебрянных клинка."
 	cast_range = 20
 	projectile_type = /obj/projectile/floating_blade
 	projectile_amount = 3
@@ -133,7 +133,15 @@
 	current_amount--
 
 /obj/projectile/floating_blade
-	name = "blade"
+	name = "клинок"
+	ru_names = list(
+		NOMINATIVE = "клинок",
+		GENITIVE = "клинка",
+		DATIVE = "клинку",
+		ACCUSATIVE = "клинок",
+		INSTRUMENTAL = "клинком",
+		PREPOSITIONAL = "клинке"
+	)
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "dio_knife"
 	speed = 0.5
@@ -172,7 +180,15 @@
 */
 
 /obj/projectile/floating_blade/haunted
-	name = "ritual blade"
+	name = "ритуальный клинок"
+	ru_names = list(
+		NOMINATIVE = "ритуальный клинок",
+		GENITIVE = "ритуального клинка",
+		DATIVE = "ритуальному клинку",
+		ACCUSATIVE = "ритуальный клинок",
+		INSTRUMENTAL = "ритуальным клинком",
+		PREPOSITIONAL = "ритуальном клинке"
+	)
 	icon = 'icons/obj/weapons/khopesh.dmi'
 	icon_state = "render"
 	damage = 35
@@ -181,18 +197,18 @@
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/solo
-	name = "Lesser Furious Steel"
+	name = "Ослабленная Яростная сталь"
 	base_cooldown = 20 SECONDS
 	projectile_amount = 1
-	active_msg = "You summon forth a blade of furious silver."
-	deactive_msg = "You conceal the blade of furious silver."
+	active_msg = "Вы призываете серебрянный клинок."
+	deactive_msg = "Вы отзываете серебрянный клинок."
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/haunted
-	name = "Cursed Steel"
-	desc = "Summon two cursed blades which orbit you. \
-		While orbiting you, these blades will protect you from attacks, but will be consumed on use. \
-		Additionally, you can click to fire the blades at a target, dealing damage and causing bleeding."
+	name = "Проклятая Сталь"
+	desc = "Призывает два проклятых клинка, вращающихся вокруг вас. \
+			Эти клинки защитят вас от атак, уничтожаясь в процессе. \
+			Кроме того, вы можете кликнуть, чтобы выстрелить клинками в цель, нанося урон и вызывая кровотечение."
 	action_background_icon_state = "bg_heretic" // kept intentionally
 	overlay_icon_state = "bg_cult_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -205,8 +221,8 @@
 
 	spell_requirements = NONE
 
-	active_msg = "You summon forth two cursed blades."
-	deactive_msg = "You conceal the cursed blades."
+	active_msg = "Вы призываете два проклятых клинка."
+	deactive_msg = "Вы отзываете проклятые клинки."
 	projectile_amount = 2
 	projectile_type = /obj/projectile/floating_blade/haunted
 	projectile_effect = /obj/effect/floating_blade/haunted

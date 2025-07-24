@@ -11,19 +11,19 @@
 	tier3 = /datum/heretic_knowledge/summon/maid_in_mirror
 
 
-
 /// The max health given to Shattered Risen
 #define RISEN_MAX_HEALTH 125
 
 /datum/heretic_knowledge/limited_amount/risen_corpse
-	name = "Shattered Ritual"
-	desc = "Allows you to transmute a corpse with a soul, a pair of latex or nitrile gloves, and \
-		and any exosuit clothing (such as armor) to create a Shattered Risen. \
-		Shattered Risen are strong ghouls that have 125 health, but cannot hold items, \
-		instead having two brutal weapons for hands. You can only create one at a time."
-	gain_text = "I witnessed a cold, rending force drag this corpse back to near-life. \
-		When it moves, it crunches like broken glass. Its hands are no longer recognizable as human - \
-		each clenched fist contains a brutal nest of sharp bone-shards instead."
+	name = "Разрушенный ритуал"
+	desc = "Позволяет трансмутировать труп с душой, пару латексных или нитриловых перчаток и любую \
+			внешнюю одежду, чтобы создать Разбитого Восставшего. \
+			Разбитые Восставшие — сильные гули со 125 единицами здоровья, но неспособные держать предметы. \
+			Вместо рук у них два грозных оружия. Вы можете создать только одно Разбитого Восставшего раз."
+	gain_text = "Я видел, как холодная, раздирающая сила вернула этот труп к жизни. \
+				Когда он движется, раздаётся хруст, словно внутри него пересыпаются осколки стекла. \
+				Его руки больше не похожи на человеческие. \
+				Вместо каждого из кулаков - грозное месиво острых костяных осколков."
 
 	required_atoms = list(
 		/obj/item/clothing/suit = 1,
@@ -46,40 +46,42 @@
 			continue
 
 		if(!IS_VALID_GHOUL_MOB(body) || HAS_TRAIT(body, TRAIT_HUSK))
-			to_chat(user, span_hierophant_warning("[body] is not in a valid state to be made into a ghoul."))
+			to_chat(user, span_hierophant_warning("[body.declent_ru(NOMINATIVE)] в слишком плохом состоянии, чтобы превратиться в гуля."))
 			continue
 
 		if(!body.mind)
-			to_chat(user, span_hierophant_warning("[body] is mindless and cannot be made into a ghoul."))
+			to_chat(user, span_hierophant_warning("[body.declent_ru(NOMINATIVE)] не име[pluralize_ru(body.gender, "е", "ю")]т разума, а значит не мо[pluralize_ru(body.gender, "же", "гу")]т стать гулём."))
 			continue
 
 		if(!body.client && !body.mind.get_ghost())
-			to_chat(user, span_hierophant_warning("[body] is soulless and cannot be made into a ghoul."))
+			to_chat(user, span_hierophant_warning("[body.declent_ru(NOMINATIVE)] не име[pluralize_ru(body.gender, "е", "ю")]т души, а значит не мо[pluralize_ru(body.gender, "же", "гу")]т стать гулём."))
 			continue
 
 		// We will only accept valid bodies with a mind, or with a ghost connected that used to control the body
 		selected_atoms += body
 		return TRUE
 
-	loc.balloon_alert(user, "ritual failed, no valid body!")
+	loc.balloon_alert(user, "нет подходящего тела!")
 	return FALSE
+
 
 /datum/heretic_knowledge/limited_amount/risen_corpse/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/mob/living/carbon/human/soon_to_be_ghoul = locate() in selected_atoms
 	if(QDELETED(soon_to_be_ghoul)) // No body? No ritual
 		stack_trace("[type] reached on_finished_recipe without a human in selected_atoms to make a ghoul out of.")
-		loc.balloon_alert(user, "ritual failed, no valid body!")
+		loc.balloon_alert(user, "нет подходящего трупа!")
 		return FALSE
 
 	soon_to_be_ghoul.grab_ghost()
 	if(!soon_to_be_ghoul.mind || !soon_to_be_ghoul.client)
 		stack_trace("[type] reached on_finished_recipe without a minded / cliented human in selected_atoms to make a ghoul out of.")
-		loc.balloon_alert(user, "ritual failed, no valid body!")
+		loc.balloon_alert(user, "нет подходящего трупа!")
 		return FALSE
 
 	selected_atoms -= soon_to_be_ghoul
 	make_risen(user, soon_to_be_ghoul)
 	return TRUE
+
 
 /// Make [victim] into a shattered risen ghoul.
 /datum/heretic_knowledge/limited_amount/risen_corpse/proc/make_risen(mob/living/user, mob/living/carbon/human/victim)
@@ -95,22 +97,35 @@
 		CALLBACK(src, PROC_REF(remove_from_risen)),
 	)
 
+
 /// Callback for the ghoul status effect - what effects are applied to the ghoul.
 /datum/heretic_knowledge/limited_amount/risen_corpse/proc/apply_to_risen(mob/living/risen)
 	LAZYADD(created_items, WEAKREF(risen))
 	risen.AddComponent(/datum/component/mutant_hands, mutant_hand_path = /obj/item/mutant_hand/shattered_risen)
+
 
 /// Callback for the ghoul status effect - cleaning up effects after the ghoul status is removed.
 /datum/heretic_knowledge/limited_amount/risen_corpse/proc/remove_from_risen(mob/living/risen)
 	LAZYREMOVE(created_items, WEAKREF(risen))
 	qdel(risen.GetComponent(/datum/component/mutant_hands))
 
+
 #undef RISEN_MAX_HEALTH
+
 
 /// The "hand" "weapon" used by shattered risen
 /obj/item/mutant_hand/shattered_risen
-	name = "bone-shards"
-	desc = "What once appeared to be a normal human fist, now holds a mauled nest of sharp bone-shards."
+	name = "месиво костяных осколков"
+	ru_names = list(
+		NOMINATIVE = "месиво костяных осколков",
+		GENITIVE = "месива костяных осколков",
+		DATIVE = "месиву костяных осколков",
+		ACCUSATIVE = "месиво костяных осколков",
+		INSTRUMENTAL = "месивом костяных осколков",
+		PREPOSITIONAL = "месиве костяных осколков",
+	)
+	desc = "То, что когда-то было обычным человеческим кулаком, \
+			теперь является месивом из острых костяных осколков."
 	color = "#001aff"
 	hitsound = 'sound/effects/glassbr1.ogg'
 	force = 16
@@ -121,12 +136,13 @@
 
 
 /datum/heretic_knowledge/rune_carver
-	name = "Carving Knife"
-	desc = "Allows you to transmute a knife, a shard of glass, and a piece of paper to create a Carving Knife. \
-		The Carving Knife allows you to etch difficult to see traps that trigger on heathens who walk overhead. \
-		Also makes for a handy throwing weapon."
-	gain_text = "Etched, carved... eternal. There is power hidden in everything. I can unveil it! \
-		I can carve the monolith to reveal the chains!"
+	name = "Разделочный Нож"
+	desc = "Позволяет преобразовать нож, осколок стекла и лист бумаги в разделочный нож. \
+			Разделочный нож позволяет создавать руны - ловушки, срабатывающие при \
+			наступании на них. \
+			Также служит неплохим метательным оружием."
+	gain_text = "Высеченный, вырезанный... ныне вечный. Во всём скрыта сила. Я могу раскрыть её! \
+				Я могу высечь монолит, чтобы сбросить цепи!"
 
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
@@ -142,13 +158,13 @@
 
 
 /datum/heretic_knowledge/summon/maid_in_mirror
-	name = "Maid in the Mirror"
-	desc = "Allows you to transmute five sheets of titanium, a flash, a suit of armor, and a pair of lungs \
-		to create a Maid in the Mirror. Maid in the Mirrors are decent combatants that can become incorporeal by \
-		phasing in and out of the mirror realm, serving as powerful scouts and ambushers. \
-		However, they are weak to mortal gaze and take damage by being examined."
-	gain_text = "Within each reflection, lies a gateway into an unimaginable world of colors never seen and \
-		people never met. The ascent is glass, and the walls are knives. Each step is blood, if you do not have a guide."
+	name = "Горничная в Зеркале"
+	desc = "Позволяет трансмутировать пять листов титана, вспышку, доспехи и пару лёгких, \
+			чтобы создать Горничную в Зеркеле. Горничные в Зеркеле — достойные бойцы, способные \
+			становиться бестелесными, появляясь в зеркальном мире и выходя из него, служа мощными \
+			разведчиками и засадниками. Однако они уязвимы для взгляда смертных и получают урон при осмотре."
+	gain_text = "В каждом отражении — врата в невообразимый мир полный цветов, которых никогда никто не видел. \
+				Пол — стекло, а стены — ножи. Каждый шаг ранит, если у вас нет проводника."
 
 	required_atoms = list(
 		/obj/item/stack/sheet/mineral/titanium = 5,

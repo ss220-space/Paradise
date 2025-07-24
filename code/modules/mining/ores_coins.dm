@@ -563,7 +563,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	pixel_x = rand(0,16)-8
 	pixel_y = rand(0,8)-8
 
-	icon_state = "coin_[cmineral]_[sideslist[1]]"
+	var/state_begin = cmineral ? "coin_[cmineral]" : "coin"
+	icon_state = "[state_begin]_[sideslist[1]]"
 	if(cmineral && name_by_cmineral)
 		name = "[cmineral] coin"
 

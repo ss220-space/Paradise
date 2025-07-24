@@ -16,13 +16,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 
 /obj/effect/proc_holder/proc/InterceptClickOn(mob/user, params, atom/target)
-	if(user.ranged_ability != src)
-		to_chat(user, span_warning("<b>[user.ranged_ability.name]</b> has been disabled."))
-		user.ranged_ability.remove_ranged_ability(user)
-		return TRUE //TRUE for failed, FALSE for passed.
-	user.face_atom(target)
-	return FALSE
+	if(user.ranged_ability == src)
+		user.face_atom(target)
+		return FALSE
 
+	to_chat(user, span_warning("<b>[user.ranged_ability.name]</b> has been disabled."))
+	user.ranged_ability.remove_ranged_ability(user)
+	return TRUE //TRUE for failed, FALSE for passed.
+	
 
 /datum/click_intercept/proc_holder
 	var/obj/effect/proc_holder/spell
@@ -858,6 +859,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * will instead fire a projectile pointed at the target's direction.
  */
 /obj/effect/proc_holder/spell/pointed/projectile
+	should_recharge_after_cast = FALSE
 	//should_recharge_after_cast = FALSE
 	/// What projectile we create when we shoot our spell.
 	var/obj/projectile/projectile_type = /obj/projectile/magic/teleport
@@ -869,10 +871,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	/// Unwise to change without overriding or extending ready_projectile.
 	var/projectiles_per_fire = 1
 
-/obj/effect/proc_holder/spell/pointed/projectile/New(Target)
-	. = ..()
-	//if(projectile_amount > 1)
-	//	unset_after_click = FALSE
+
+/obj/effect/proc_holder/spell/pointed/projectile/star_blast/should_remove_click_intercept(mob/user)
+	return !current_amount
+
 
 /obj/effect/proc_holder/spell/pointed/projectile/valid_target(atom/cast_on)
 	return TRUE
@@ -886,10 +888,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/spell/pointed/projectile/on_deactivation(mob/on_who, refund_cooldown = TRUE)
 	. = ..()
-	if(projectile_amount > 1 && current_amount)
-		cooldown_handler.start_recharge()
-		//start_recharge(cooldown_time * ((projectile_amount - current_amount) / projectile_amount))
-		current_amount = 0
+	if(projectile_amount < 1 || projectile_amount == current_amount)
+		return
+
+	cooldown_handler.start_recharge(base_cooldown * ((projectile_amount - current_amount) / projectile_amount))
+	current_amount = 0
 
 
 // cast_on is a turf, or atom target, that we clicked on to fire at.
@@ -905,8 +908,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	fire_projectile(cast_on)
 	action.owner.newtonian_move(get_angle(caster_front_turf, caster_turf))
-	//if(current_amount <= 0)
-	//	remove_mousepointer(owner, refund_cooldown = FALSE)
+	if(current_amount <= 0)
+		remove_mousepointer(action.owner.client, refund_cooldown = FALSE)
 
 	return TRUE
 
@@ -929,6 +932,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		to_fire.fire()
 
 	return TRUE
+
 
 /obj/effect/proc_holder/spell/pointed/projectile/proc/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
 	var/turf/turf = get_turf(user)

@@ -4,7 +4,7 @@
  */
 
 /obj/item/grenade/chem_grenade/rust_sower
-	name = "\improper Rust sower"
+	name = "Ржавый Дождь"
 	desc = "A nifty little thing that explodes into rust. Causes borgs and mechs to get utterly obliterated"
 	//possible_fuse_time = list("5")
 	stage = 2
