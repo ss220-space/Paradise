@@ -505,7 +505,7 @@
 		if(!is_trackable(human))
 			continue
 
-		var/human_name = "Unknown"
+		var/human_name = "Неизвестный"
 		if(human.wear_id)
 			var/obj/item/card/id/card = human.wear_id.GetID()
 			if(card)

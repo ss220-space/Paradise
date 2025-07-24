@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/cooldown_time_local = 50
 
 	/// Our department, determines whether this machine gets faxes sent to a department
-	var/department = "Unknown"
+	var/department = "Неизвестно"
 
 	/// Target department to send outgoing faxes to
 	var/destination
@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	update_network()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
-	if(department != "Unknown")
+	if(department != "Неизвестно")
 		if(!(("[department]" in GLOB.alldepartments) || ("[department]" in GLOB.hidden_departments) || ("[department]" in GLOB.admin_departments) || ("[department]" in GLOB.hidden_admin_departments) || ("[department]" in GLOB.hidden_ussp)))
 			GLOB.alldepartments |= department
 
@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	//No point setting fax network, being emagged overrides that anyway.
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
-	if(department != "Unknown")
+	if(department != "Неизвестно")
 		GLOB.hidden_departments |= department
 
 /obj/machinery/photocopier/faxmachine/longrange/ussp
@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	active_power_usage = 300
 
 /obj/machinery/photocopier/faxmachine/longrange/ussp/update_network()
-	if(department != "Unknown")
+	if(department != "Неизвестно")
 		GLOB.hidden_ussp |= department
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
@@ -353,7 +353,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
 
-	if(department == "Unknown")
+	if(department == "Неизвестно")
 		return FALSE //You can't send faxes to "Unknown"
 
 	flick("faxreceive", src)

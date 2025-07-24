@@ -675,7 +675,7 @@
 			temp = rand(120, 160)
 			return num2text(method ? temp : temp + rand(-10, 10))
 		if(PULSE_THREADY)
-			return method ? ">250" : "очень слабый и быстрый, сердце пациента работает на пределе"
+			return method ? ">250" : "очень слабый и быстрый"
 //			output for machines^	^^^^^^^output for people^^^^^^^^^
 
 

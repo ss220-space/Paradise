@@ -395,7 +395,7 @@
 
 		menu_list.Add(usr.real_name)	// the real name of the character, even if it is hidden
 
-		if(usr.real_name != usr.name && lowertext(usr.name) != "unknown")	// if the player is masked or the name is different a new answer option is added
+		if(usr.real_name != usr.name && lowertext(usr.name) != "неизвестный")	// if the player is masked or the name is different a new answer option is added
 			menu_list.Add(usr.name)
 
 		if(usr.job)

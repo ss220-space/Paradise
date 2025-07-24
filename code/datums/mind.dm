@@ -2085,8 +2085,8 @@
 					return
 				// Update
 				var/datum/data/record/R = find_record("name", target.name, GLOB.data_core.general)
-				var/name = R?.fields["name"] || target.name || "Unknown"
-				var/rank = R?.fields["rank"] || target.assigned_role || "Unknown"
+				var/name = R?.fields["name"] || target.name || "Неизвестно"
+				var/rank = R?.fields["rank"] || target.assigned_role || "Неизвестно"
 				CO.contract.target = target
 				CO.target_name = "[name], the [rank]"
 				if(R?.fields["photo"])

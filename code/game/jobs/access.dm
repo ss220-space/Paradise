@@ -470,7 +470,7 @@
 	return GLOB.joblist + list("Prisoner")
 
 /obj/item/proc/GetJobName() //Used in secHUD icon generation
-	var/rankName = "Unknown"
+	var/rankName = "Неизвестно"
 	if(is_pda(src))
 		var/obj/item/pda/P = src
 		rankName = P.ownrank
@@ -512,7 +512,7 @@
 	if(rankName in job_icons) //Check if the job has a hud icon
 		return rankName
 
-	return "Unknown" //Return unknown if none of the above apply
+	return "Неизвестно" //Return unknown if none of the above apply
 
 /proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
 	var/list/retval

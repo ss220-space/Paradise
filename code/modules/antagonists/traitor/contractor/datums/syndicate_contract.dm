@@ -1,5 +1,5 @@
-#define DEFAULT_NAME "Unknown"
-#define DEFAULT_RANK "Unknown"
+#define DEFAULT_NAME "Неизвестный"
+#define DEFAULT_RANK "Неизвестно"
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
 #define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS

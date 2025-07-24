@@ -206,8 +206,8 @@
 			G.fields["rank"] = "Unassigned"
 			G.fields["real_rank"] = "Unassigned"
 			G.fields["sex"] = "Male"
-			G.fields["age"] = "Unknown"
-			G.fields["fingerprint"] = "Unknown"
+			G.fields["age"] = "Неизвестно"
+			G.fields["fingerprint"] = "Неизвестно"
 			G.fields["p_stat"] = "Active"
 			G.fields["m_stat"] = "Stable"
 			G.fields["species"] = SPECIES_HUMAN
