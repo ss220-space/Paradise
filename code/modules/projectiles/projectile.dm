@@ -383,6 +383,8 @@
 			forcemoved = TRUE
 		else if(T != loc)
 			step_towards(src, T)
+		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER && !ismob(original)))
+			Bump(original)
 	if(QDELETED(src)) //deleted on last move
 		return
 	if(!forcemoved)
@@ -416,8 +418,8 @@
 		Angle = round(get_angle(src, current))
 	if(spread)
 		Angle += (rand() - 0.5) * spread
-	if(firer && ismob(firer))
-		hit_crawling_mobs_chance = firer.a_intent == INTENT_HELP ? 0 : 100
+	if(firer && ismob(firer) && firer.a_intent != INTENT_HELP)
+		hit_crawling_mobs_chance =  100
 	// Turn right away
 	var/matrix/M = new
 	M.Turn(Angle)
