@@ -26,9 +26,11 @@
 		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(Detach), override = TRUE)
 
 /// Deactivates the functionality defines by the element on the given datum
-/datum/element/proc/Detach(datum/source, force)
+/datum/element/proc/Detach(datum/source, ...)
+	SIGNAL_HANDLER
+	SHOULD_CALL_PARENT(TRUE)
+
 	SEND_SIGNAL(source, COMSIG_ELEMENT_DETACH, src)
-	SHOULD_CALL_PARENT(1)
 	UnregisterSignal(source, COMSIG_QDELETING)
 
 /datum/element/Destroy(force)
@@ -45,17 +47,18 @@
 		var/datum/element/element_type = arguments[1]
 		stack_trace("We just tried to add the element [element_type] to a qdeleted datum, something is fucked")
 		return
+
 	var/datum/element/ele = SSdcs.GetElement(arguments)
 	if(!ele) // We couldn't fetch the element, likely because it was not an element.
 		return // the crash message has already been sent
 	arguments[1] = src
 	if(ele.Attach(arglist(arguments)) == ELEMENT_INCOMPATIBLE)
-		CRASH("Incompatible [arguments[1]] assigned to a [type]! args: [json_encode(args)]")
+		CRASH("Incompatible element [ele.type] was assigned to a [type]! args: [json_encode(args)]")
 
 /**
-  * Finds the singleton for the element type given and detaches it from src
-  * You only need additional arguments beyond the type if you're using [ELEMENT_BESPOKE]
-  */
+ * Finds the singleton for the element type given and detaches it from src
+ * You only need additional arguments beyond the type if you're using [ELEMENT_BESPOKE]
+ */
 /datum/proc/_RemoveElement(list/arguments)
 	var/datum/element/ele = SSdcs.GetElement(arguments, init_element = FALSE)
 	if(!ele) // We couldn't fetch the element, likely because it didn't exist.
