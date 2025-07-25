@@ -1409,9 +1409,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "dH" = (
-/obj/structure/safe/floor{
-	known_by = list("m1911")
-	},
+/obj/structure/safe/floor,
 /obj/item/gun/projectile/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
@@ -1835,7 +1833,9 @@
 	},
 /obj/structure/table,
 /obj/item/storage/belt/utility,
-/obj/item/crowbar/red,
+/obj/item/crowbar/red{
+	force = 30
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "eX" = (
@@ -8109,6 +8109,18 @@
 "wx" = (
 /turf/simulated/wall/rust,
 /area/ruin/space/pirate_base/kitchen)
+"wy" = (
+/obj/structure/safe/floor{
+	known_by = list("m1911")
+	},
+/obj/item/gun/projectile/automatic/pistol/m1911,
+/obj/item/ammo_box/magazine/m45,
+/obj/item/ammo_box/magazine/m45,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "wz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
@@ -24654,7 +24666,7 @@ NE
 MF
 cS
 cS
-iK
+wy
 GU
 BW
 Ma

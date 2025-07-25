@@ -1816,7 +1816,9 @@
 	},
 /obj/structure/table,
 /obj/item/storage/belt/utility,
-/obj/item/crowbar/red,
+/obj/item/crowbar/red{
+	force = 30
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "eX" = (
@@ -5573,9 +5575,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "pq" = (
-/obj/structure/safe/floor{
-	known_by = list("m1911")
-	},
+/obj/structure/safe/floor,
 /obj/item/gun/projectile/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
@@ -16535,6 +16535,18 @@
 /obj/item/stock_parts/scanning_module,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
+"Wq" = (
+/obj/structure/safe/floor{
+	known_by = list("m1911")
+	},
+/obj/item/gun/projectile/automatic/pistol/m1911,
+/obj/item/ammo_box/magazine/m45,
+/obj/item/ammo_box/magazine/m45,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "Wr" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/structure/cable/yellow{
@@ -24330,7 +24342,7 @@ NE
 MF
 cS
 cS
-iK
+Wq
 GU
 BW
 Ma
