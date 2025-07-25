@@ -204,6 +204,7 @@
 	force = 12
 	sharp = 1
 	can_charge = FALSE
+	accuracy = GUN_ACCURACY_SNIPER
 
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
