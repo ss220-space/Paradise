@@ -60,11 +60,7 @@
  * You only need additional arguments beyond the type if you're using [ELEMENT_BESPOKE]
  */
 /datum/proc/_RemoveElement(list/arguments)
-	var/datum/element/ele = SSdcs.GetElement(arguments, FALSE)
+	var/datum/element/ele = SSdcs.GetElement(arguments, init_element = FALSE)
 	if(!ele) // We couldn't fetch the element, likely because it didn't exist.
 		return
-	if(ele.element_flags & ELEMENT_COMPLEX_DETACH)
-		arguments[1] = src
-		ele.Detach(arglist(arguments))
-	else
-		ele.Detach(src)
+	ele.Detach(src)
