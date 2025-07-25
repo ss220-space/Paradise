@@ -3440,9 +3440,6 @@
 "nQ" = (
 /obj/machinery/seed_extractor,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -3583,13 +3580,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
-"pq" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_away";
-	name = "Labor Camp Airlock"
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp)
 "pt" = (
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 6
@@ -4365,6 +4355,7 @@
 /obj/item/seeds/lavaland/cactus,
 /obj/item/seeds/lavaland/cactus,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
@@ -4504,6 +4495,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
@@ -4737,6 +4729,9 @@
 /obj/item/seeds/comfrey,
 /obj/item/seeds/comfrey,
 /obj/item/seeds/comfrey,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -5106,7 +5101,6 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/plant_analyzer,
 /obj/item/seeds/lavaland/fireblossom,
-/obj/machinery/light/small,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Breakroom";
 	dir = 1;
@@ -5365,6 +5359,9 @@
 /obj/item/reagent_containers/food/snacks/lavaland_food/fine_meal{
 	pixel_x = 4;
 	pixel_y = 14
+	},
+/obj/machinery/light/small{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -5973,6 +5970,7 @@
 /obj/structure/table/wood,
 /obj/item/twohanded/fishing_rod/tribal,
 /obj/effect/mapping_helpers/no_lava,
+/obj/item/twohanded/fishing_rod/tribal,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Hg" = (
@@ -6006,6 +6004,7 @@
 /obj/machinery/biogenerator,
 /obj/item/reagent_containers/glass/bucket,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/bag/plants,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
@@ -7756,9 +7755,6 @@
 /obj/item/seeds/lavaland/inocybe,
 /obj/item/seeds/lavaland/inocybe,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -13021,7 +13017,7 @@ aq
 gu
 aq
 aq
-pq
+hQ
 hQ
 aq
 ty
@@ -13535,7 +13531,7 @@ aq
 gu
 aq
 aq
-pq
+hQ
 hQ
 aq
 bZ
@@ -16581,7 +16577,7 @@ an
 an
 an
 an
-an
+nO
 nO
 nO
 nO
@@ -16838,8 +16834,8 @@ an
 an
 an
 an
-an
-an
+nO
+nO
 nO
 nO
 nO
@@ -17096,15 +17092,15 @@ an
 an
 an
 an
-an
 nO
 nO
 nO
 nO
 nO
 nO
-Dn
-an
+nO
+nO
+fw
 an
 an
 an
@@ -17354,14 +17350,14 @@ an
 an
 an
 an
+nO
+nO
+nO
+nO
+nO
+nO
+nO
 fw
-nO
-nO
-nO
-nO
-Cv
-fw
-an
 an
 an
 an
@@ -17611,14 +17607,14 @@ an
 an
 an
 an
-Hk
-fw
 nO
 nO
 nO
+nO
+nO
+nO
+Dn
 fw
-fw
-an
 an
 an
 an
@@ -17868,13 +17864,13 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
+fw
+nO
+nO
+nO
+nO
+Cv
+fw
 an
 an
 an
@@ -18125,13 +18121,13 @@ an
 an
 an
 an
-an
-an
-an
-an
-an
-an
-an
+Hk
+fw
+nO
+nO
+nO
+fw
+fw
 an
 an
 an
