@@ -20,7 +20,8 @@ GLOBAL_VAR_INIT(morphs_announced, FALSE)
 GLOBAL_VAR_INIT(disable_robotics_consoles, FALSE)
 
 /// Chance to roll double antag for traitors in ANTAG-PARADISE gamemode.
-GLOBAL_VAR(antag_paradise_double_antag_chance)
+//GLOBAL_VAR(antag_paradise_double_antag_chance)
+GLOBAL_VAR_INIT(antag_paradise_double_antag_chance, 10)
 
 /// Weights for all minor antags in ANTAG-PARADISE gamemode.
 GLOBAL_LIST(antag_paradise_weights)
