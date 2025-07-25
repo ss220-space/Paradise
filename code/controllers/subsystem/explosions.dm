@@ -146,7 +146,26 @@ SUBSYSTEM_DEF(explosions)
 
 	return TRUE
 
-
+/**
+ * Makes a given turf explode.
+ *
+ * Arguments:
+ * - [origin][/turf]: The turf that's exploding.
+ * - devastation_range: The range at which the effects of the explosion are at their strongest.
+ * - heavy_impact_range: The range at which the effects of the explosion are relatively severe.
+ * - light_impact_range: The range at which the effects of the explosion are relatively weak.
+ * - flash_range: The range at which the explosion flashes people.
+ * - adminlog: Whether to log the explosion/report it to the administration.
+ * - ignorecap: Whether to ignore the relevant bombcap. Defaults to FALSE.
+ * - flame_range: The range at which the explosion should produce hotspots.
+ * - silent: Whether to generate/execute sound effects.
+ * - smoke: Whether to generate a smoke cloud provided the explosion is powerful enough to warrant it.
+ * - cause: [Optional] The turf that caused the explosion, when different to the origin. Used for logging.
+ * - breach: ...
+ * - protect_epicenter: Whether to leave the epicenter turf unaffected by the explosion
+ * - explosion_direction: The angle in which the explosion is pointed (for directional explosions.)
+ * - explosion_arc: The angle of the arc covered by a directional explosion (if 360 the explosion is non-directional.)
+ */
 /proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, cause, breach, protect_epicenter = FALSE, explosion_direction = 0, explosion_arc = 360)
 	SSexplosions.explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, cause, breach, protect_epicenter, explosion_direction, explosion_arc)
 

@@ -1,5 +1,9 @@
-#define TESLA_DEFAULT_POWER 50e6
-#define TESLA_MINI_POWER 25e6
+/**
+ * Values from the official Paradise multiplied by 2.
+ * Previously, Tesla produced 1-2 MW, I think this is too little.
+ */
+#define TESLA_DEFAULT_POWER 3476520
+#define TESLA_MINI_POWER 1738260
 
 //Zap constants, speeds up targeting
 #define BIKE (COIL + 1)
@@ -211,7 +215,7 @@
 	carbon.investigate_log("has been dusted by an energy ball.", INVESTIGATE_DEATHS)
 	carbon.dust()
 
-/proc/tesla_zap(atom/source, zap_range = 3, power, cutoff = 4e3, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
+/proc/tesla_zap(atom/source, zap_range = 3, power, cutoff = 1e3, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
 	if(QDELETED(source))
 		return
 	if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
@@ -329,7 +333,7 @@
 	if(!closest_atom)
 		return
 	//common stuff
-	source.Beam(closest_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS, maxdistance = INFINITY)
+	source.Beam(closest_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 	var/zapdir = get_dir(source, closest_atom)
 	if(zapdir)
 		. = zapdir
