@@ -126,20 +126,18 @@
 		. += "[icon_keyboard]"
 		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask", src)
 
-	if(!(stat & BROKEN))
-		// Get the average color of the computer screen so it can be used as a tinted glow
-		// Shamelessly stolen from /tg/'s /datum/component/customizable_reagent_holder.
-		var/icon/emissive_avg_screen_color = new(icon, icon_screen)
-		emissive_avg_screen_color.Scale(1, 1)
-		var/screen_emissive_color = copytext(emissive_avg_screen_color.GetPixel(1, 1), 1, 8) // remove opacity
-		set_light(light_range_on, light_power_on, screen_emissive_color)
 
 /obj/machinery/computer/power_change(forced = FALSE)
 	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
 	if((stat & (BROKEN|NOPOWER)))
 		set_light_on(FALSE)
 	else
-		set_light(light_range_on, light_power_on, l_on = TRUE)
+		// Get the average color of the computer screen so it can be used as a tinted glow
+		// Shamelessly stolen from /tg/'s /datum/component/customizable_reagent_holder.
+		var/icon/emissive_avg_screen_color = new(icon, icon_screen)
+		emissive_avg_screen_color.Scale(1, 1)
+		var/screen_emissive_color = copytext(emissive_avg_screen_color.GetPixel(1, 1), 1, 8) // remove opacity
+		set_light(l_range = light_range_on, l_power = light_power_on, l_color = screen_emissive_color, l_on = TRUE)
 	if(.)
 		update_icon()
 
