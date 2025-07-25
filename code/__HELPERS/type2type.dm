@@ -382,7 +382,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 
 	. = list()
 
-	var/var_found = findtext(t_string, "\[") //N ot the actual variables, just a generic "should we even bother" check
+	var/var_found = findtext(t_string, "\[") //Not the actual variables, just a generic "should we even bother" check
 	if(var_found)
 		// Find var names
 

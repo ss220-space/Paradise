@@ -804,7 +804,6 @@
 			target_zone = user.zone_selected
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
-	var/fail_msg
 	if(!affecting)
 		. = FALSE
 		balloon_alert(user, "конечность отсутствует!")
@@ -817,8 +816,7 @@
 	else if(covered_with_thick_material(target_zone) && !penetrate_thick)
 		. = FALSE
 	if(!. && error_msg && user)
-		if(!fail_msg)
-			balloon_alert(user, "закрыто чем-то плотным!")
+		balloon_alert(user, "закрыто чем-то плотным!")
 
 
 /mob/living/carbon/human/check_obscured_slots(check_transparent)
