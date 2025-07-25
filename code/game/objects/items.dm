@@ -1032,6 +1032,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 
 /obj/item/MouseEntered(location, control, params)
+	. = ..()
 	if(item_flags & (IN_INVENTORY|IN_STORAGE))
 		var/mob/living/user = usr
 		if(user.client.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS)
