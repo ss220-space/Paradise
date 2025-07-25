@@ -1,8 +1,8 @@
 /obj/effect/proc_holder/spell/aoe/conjure/void_conduit
-	name = "Void Conduit"
-	desc = "Opens a gate to the Void; it releases an intermittent pulse that damages windows and airlocks, \
-		while afflicting Heathens with void chill. \
-		Affected Heretics instead receive low pressure resistance."
+	name = "Врата в Пустоту"
+	desc = "Открывает врата в Пустоту испускающие частые импульсы, повреждающие окна и шлюзы, \
+			а также поражающин язычников пустотным холодом. \
+			Ближайшие еретики получают легкую сопротивляемость давлению."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -13,7 +13,7 @@
 	sound = null
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
-	invocation = "MBR'C' TH' V''D!"
+	invocation = "ВР'Т В П'СТ'Т!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
@@ -24,8 +24,17 @@
 
 
 /obj/structure/void_conduit
-	name = "Void Conduit"
-	desc = "An open gate which leads to nothingness. Releases pulses which you do not want to get hit by."
+	name = "врата в пустоту"
+	ru_names = list(
+		NOMINATIVE = "врата в пустоту",
+		GENITIVE = "врат в пустоту",
+		DATIVE = "вратам в пустоту",
+		ACCUSATIVE = "врата в пустоту",
+		INSTRUMENTAL = "вратами в пустоту",
+		PREPOSITIONAL = "вратах в пустоту",
+	)
+	desc = "Открытые врата, ведущие в небытие. Испускают импульсы, под которые вам не хотелось бы попасть."
+	gender = PLURAL
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "void_conduit"
 	anchored = TRUE
@@ -68,6 +77,7 @@
 	STOP_PROCESSING(SSobj, src)
 	for(var/turf/affected_turf as anything in overlayed_turfs) //If the portal is moved, the overlays don't stick around
 		affected_turf.cut_overlay(void_overlay)
+
 	return ..()
 
 
@@ -83,11 +93,13 @@
 		var/distance = get_dist(loc, affected_turf)
 		if(!turfs_to_affect["[distance]"])
 			turfs_to_affect["[distance]"] = list()
+
 		turfs_to_affect["[distance]"] += affected_turf
 
 	for(var/distance in 0 to effect_range)
 		if(!turfs_to_affect["[distance]"])
 			continue
+
 		addtimer(CALLBACK(src, PROC_REF(handle_effects), turfs_to_affect["[distance]"]), (1 SECONDS) * distance)
 
 	new /obj/effect/temp_visual/circle_wave/void_conduit(get_turf(src))
@@ -102,6 +114,7 @@
 				var/mob/living/affected_mob = thing_to_affect
 				if(affected_mob.can_block_magic(MAGIC_RESISTANCE))
 					continue
+
 				if(IS_HERETIC_OR_MONSTER(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_MANSUS_TOUCHED))
 					affected_mob.apply_status_effect(/datum/status_effect/void_conduit)
 				else
@@ -139,7 +152,6 @@
 
 /datum/status_effect/void_conduit/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_RESIST_COLD, TRAIT_STATUS_EFFECT(id))
-
 
 
 /// Visual effect spawned when the bioscrambler scrambles your bio

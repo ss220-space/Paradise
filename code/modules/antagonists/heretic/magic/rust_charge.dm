@@ -1,9 +1,10 @@
 // Rust charge, a charge action that can only be started on rust (and only destroys rust tiles)
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust
 	name = "Заряд Ржавчины"
-	desc = "A charge that must be started on a rusted tile and will destroy any rusted objects you come into contact with, \
-		will deal high damage to others and rust around you during the charge. \
-		As it is the rust that empowers you with this ability, no focus is needed."
+	desc = "Занимающее время заклинание, которое необходимо начать на ржавой плитке. \
+			Уничтожит все ржавые предметы, с которыми вы соприкоснётесь. \
+			Нанесёт большой урон окружающим и распространит ржавчину во время завершения заклинания. \
+			Поскольку именно ржавчина даёт вам эту способность, фокусировка не требуется."
 	charge_distance = 10
 	charge_damage = 50
 	base_cooldown = 45 SECONDS
@@ -25,8 +26,8 @@
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/on_move(atom/source, atom/new_loc, atom/target)
 	var/turf/victim = get_turf(action.owner)
-	if(!actively_moving)
-		return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+	//if(!actively_moving)
+	//	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
 	new /obj/effect/temp_visual/decoy/fading(source.loc, source)
 	INVOKE_ASYNC(src, PROC_REF(DestroySurroundings), source)
@@ -56,11 +57,16 @@
 	if(action.owner == target)
 		return
 
-	if(destroy_objects)
-		if(isturf(target))
-			INVOKE_ASYNC(src, PROC_REF(DestroySurroundings), source)
-		if(isobj(target) && target.density)
-			target.ex_act(EXPLODE_HEAVY)
+	if(!destroy_objects)
+		INVOKE_ASYNC(src, PROC_REF(DestroySurroundings), source)
+		try_hit_target(source, target, charge_damage)
+		return
+
+	if(isturf(target))
+		INVOKE_ASYNC(src, PROC_REF(DestroySurroundings), source)
+
+	if(isobj(target) && target.density)
+		target.ex_act(EXPLODE_HEAVY)
 
 	INVOKE_ASYNC(src, PROC_REF(DestroySurroundings), source)
 	try_hit_target(source, target, charge_damage)

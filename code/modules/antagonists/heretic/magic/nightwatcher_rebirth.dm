@@ -1,8 +1,8 @@
 /obj/effect/proc_holder/spell/aoe/fiery_rebirth
 	name = "Возрождение Ночного Дозорного"
-	desc = "A spell that extinguishes you and drains nearby heathens engulfed in flames of their life force, \
-		healing you for each victim drained. Those in critical condition \
-		will have the last of their vitality drained, killing them."
+	desc = "Заклинание, которое тушит вас и высасывает жизненную силу из язычников, охваченных огнём, \
+			исцеляя вас за каждую жертву. Те, кто находится в критическом состоянии \
+			потеряют последние жизненные силы, что приведёт к их смерти."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -12,7 +12,7 @@
 	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
 
-	invocation = "GL'RY T' TH' N'GHT'W'TCH'ER."
+	invocation = "СЛ'В Н'ЧН'М Д'З'РН'М"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
@@ -36,7 +36,9 @@
 
 	return things
 
+
 /obj/effect/proc_holder/spell/aoe/fiery_rebirth/cast(list/targets, mob/living/carbon/human/caster = usr)
+	caster.ExtinguishMob()
 	for(var/mob/living/victim as anything in targets)
 		new /obj/effect/temp_visual/eldritch_smoke(get_turf(victim))
 		victim.Beam(caster, icon_state = "r_beam", time = 2 SECONDS)

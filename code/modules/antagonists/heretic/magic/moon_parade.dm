@@ -1,6 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/projectile/moon_parade
 	name = "Лунный парад"
-	desc = "This unleashes the parade, making everyone in its way join it and suffer hallucinations."
+	desc = "Оно жаждет парада, заставляя всех, кто окажется на пути, \
+			присоединиться к нему и страдать от галлюцинаций."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -12,12 +13,12 @@
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
-	invocation = "L'N'R P'R'D!"
+	invocation = "Л'НН'Й П'Р'Д!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	active_msg = "You prepare to make them join the parade!"
-	deactive_msg = "You stop the music and halt the parade... for now."
+	active_msg = "Вы готовитесь заставить их присоединиться к параду!"
+	deactive_msg = "Вы останавливаете музыку и прекращаете парад... на время."
 	cast_range = 12
 	projectile_type = /obj/projectile/moon_parade
 
@@ -90,6 +91,7 @@
 	victim.AddComponent(/datum/component/leash, src, distance = 1)
 	mobs_hit += victim
 	victim.cause_hallucination(/datum/hallucination/delusion/preset/moon, name)
+	victim.Hallucinate(60 SECONDS)
 
 
 /obj/projectile/moon_parade/Destroy()
@@ -100,11 +102,13 @@
 	//soundloop.stop()
 	return ..()
 
+
 // Blocks movement in order to make it appear like the character is transfixed to the projectile and wandering after it
 // Coded this way because its a simple way to hold the illusion compared to other methods
 /obj/projectile/moon_parade/proc/moon_block_move(datum/source)
 	SIGNAL_HANDLER
 	return COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE
+
 
 /obj/projectile/moon_parade/proc/clear_mob(datum/source)
 	SIGNAL_HANDLER

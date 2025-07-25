@@ -1,8 +1,10 @@
 // Перестройка. It's like Fleshmend but solely for stamina damage and stuns. Sec meta
 /obj/effect/proc_holder/spell/realignment
 	name = "Перестройка"
-	desc = "Realign yourself, rapidly regenerating stamina and reducing any stuns or knockdowns. \
-		You cannot attack while realigning. Can be casted multiple times in short succession, but each cast lengthens the cooldown."
+	desc = "Перестроив свой организм, вы быстро восстановите выносливость и уменьшите время \
+			оглушения или нокдауна. Вы не можете атаковать пока заклинание активно. \
+			Можно применять несколько раз подряд, но каждое применение \
+			увеличивает время перезарядки."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/hud/implants.dmi'
@@ -15,7 +17,7 @@
 	//cooldown_reduction_per_rank = -6 SECONDS // we're not a wizard spell but we use the levelling mechanic
 	//spell_max_level = 10 // we can get up to / over a minute duration cd time
 
-	invocation = "R'S'T."
+	invocation = "П'Р'СТР'ЙК"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
@@ -28,7 +30,7 @@
 	var/mob/living/cast_on = targets[1]
 	. = ..()
 	cast_on.apply_status_effect(/datum/status_effect/realignment)
-	to_chat(cast_on, span_notice("We begin to realign ourselves."))
+	to_chat(cast_on, span_notice("Вы начали перестраивать свой организм."))
 
 
 /datum/status_effect/realignment
@@ -67,5 +69,5 @@
 
 /atom/movable/screen/alert/status_effect/realignment
 	name = "Перестройка"
-	desc = "You're realignment yourself. You cannot attack, but are rapidly regenerating stamina."
+	desc = "Вы перестроили свой организм. Вы не можете атаковать, но быстро восстанавливаете выносливость."
 	icon_state = "realignment"

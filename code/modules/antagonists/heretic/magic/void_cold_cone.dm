@@ -1,9 +1,10 @@
 /obj/effect/proc_holder/spell/cone/staggered/cone_of_cold/void
-	name = "Void Blast"
-	desc = "Fires a cone of chilling void in front of you, freezing everything in its path. \
-		Enemies in the cone of the blast will be damaged slightly, slowed, and chilled overtime. \
-		Additionally, objects hit will be frozen and can shatter, and ground hit will be iced over and slippery - \
-		though they may thaw shortly if used in room temperature."
+	name = "Пустотный взрыв"
+	desc = "Выпускает перед собой конус ледяной пустоты, замораживающий всё на своём пути. \
+			Враги, оказавшиеся в конусе взрыва, получат небольшой урон, будут замедлены и со \
+			временем охлаждены. Кроме того, поражённые предметы будут заморожены и могут разбиться, \
+			а земля, попавшая под удар, покроется льдом и станет скользкой, \
+			хотя при комнатной температуре она может быстро оттаять."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon_state = "icebeam"
@@ -12,7 +13,6 @@
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
-	invocation = "FR'ZE!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
@@ -30,6 +30,7 @@
 	// Also freezes stuff (Which will likely be unfrozen similarly to turfs)
 	unfreeze_object_duration = 30 SECONDS
 
+
 /obj/effect/proc_holder/spell/cone/staggered/cone_of_cold/void/do_mob_cone_effect(mob/living/target_mob, atom/caster, level)
 	if(IS_HERETIC_OR_MONSTER(target_mob))
 		return
@@ -38,14 +39,14 @@
 
 
 /obj/effect/proc_holder/spell/cone/staggered/cone_of_cold
-	name = "Cone of Cold"
-	desc = "Shoots out a freezing cone in front of you."
+	name = "Конус Холода"
+	desc = "Выстреливает перед вами замораживающим конусом."
 
 	school = SCHOOL_EVOCATION
 	base_cooldown = 30 SECONDS
 	//cooldown_reduction_per_rank = 4 SECONDS
 
-	invocation = "ISAGE!" // What killed the dinosaurs? THE ICE AGE
+	invocation = "З'М'Р'ЗК!"
 	invocation_type = INVOCATION_SHOUT
 
 	cone_levels = 4
@@ -85,6 +86,7 @@
 	var/turf/simulated/frozen_floor = target_turf
 	frozen_floor.MakeSlippery(turf_freeze_type, unfreeze_turf_duration, permanent = (unfreeze_turf_duration == INFINITY))
 
+
 /obj/effect/proc_holder/spell/cone/staggered/cone_of_cold/do_mob_cone_effect(mob/living/target_mob, atom/caster, level)
 	if(target_mob.can_block_magic(antimagic_flags) || target_mob == caster || HAS_TRAIT(target_mob, TRAIT_RESIST_COLD))
 		return
@@ -97,7 +99,7 @@
 	if(on_freeze_brute_damage || on_freeze_burn_damage)
 		target_mob.take_overall_damage(on_freeze_brute_damage, on_freeze_burn_damage)
 
-	to_chat(target_mob, span_userdanger("You feel a bitter cold!"))
+	to_chat(target_mob, span_userdanger("Вам холодно!"))
 
 
 /obj/effect/proc_holder/spell/cone/staggered/cone_of_cold/do_obj_cone_effect(obj/target_obj, atom/caster, level)
@@ -125,6 +127,7 @@
 	/// The delay between each cone level triggering.
 	var/delay_between_level = 0.2 SECONDS
 
+
 /obj/effect/proc_holder/spell/cone/staggered/make_cone(list/cone_turfs, atom/caster)
 	var/level_counter = 0
 	for(var/list/turf_list in cone_turfs)
@@ -143,15 +146,18 @@
 	/// This value determines if the cone penetrates walls.
 	var/respect_density = FALSE
 
+
 /obj/effect/proc_holder/spell/cone/cast(list/targets)
 	. = ..()
 	var/atom/cast_on = targets[1]
 	var/list/cone_turfs = get_cone_turfs(get_turf(cast_on), cast_on.dir, cone_levels)
 	make_cone(cone_turfs, cast_on)
 
+
 /obj/effect/proc_holder/spell/cone/proc/make_cone(list/cone_turfs, atom/caster)
 	for(var/list/turf_list in cone_turfs)
 		do_cone_effects(turf_list, caster)
+
 
 /// This proc does obj, mob and turf cone effects on all targets in the passed list.
 /obj/effect/proc_holder/spell/cone/proc/do_cone_effects(list/target_turf_list, atom/caster, level = 1)
@@ -169,17 +175,21 @@
 			else if(isliving(movable_content))
 				do_mob_cone_effect(movable_content, caster, level)
 
+
 ///This proc deterimines how the spell will affect turfs.
 /obj/effect/proc_holder/spell/cone/proc/do_turf_cone_effect(turf/target_turf, atom/caster, level)
 	return
+
 
 ///This proc deterimines how the spell will affect objects.
 /obj/effect/proc_holder/spell/cone/proc/do_obj_cone_effect(obj/target_obj, atom/caster, level)
 	return
 
+
 ///This proc deterimines how the spell will affect mobs.
 /obj/effect/proc_holder/spell/cone/proc/do_mob_cone_effect(mob/living/target_mob, atom/caster, level)
 	return
+
 
 ///This proc creates a list of turfs that are hit by the cone.
 /obj/effect/proc_holder/spell/cone/proc/get_cone_turfs(turf/starter_turf, dir_to_use, cone_levels = 3)
@@ -193,12 +203,15 @@
 		if(NORTH)
 			left_dir = WEST
 			right_dir = EAST
+
 		if(SOUTH)
 			left_dir = EAST
 			right_dir = WEST
+
 		if(EAST)
 			left_dir = NORTH
 			right_dir = SOUTH
+
 		if(WEST)
 			left_dir = SOUTH
 			right_dir = NORTH
@@ -218,14 +231,17 @@
 			for(var/left_of_center in 1 to level_width_in_each_direction)
 				if(respect_density && left_turf.density)
 					break
+
 				left_turf = get_step(left_turf, left_dir)
 				level_turfs += left_turf
+
 			// And turfs to the right.
 			for(var/right_of_enter in 1 to level_width_in_each_direction)
 				if(respect_density && right_turf.density)
 					break
 				right_turf = get_step(right_turf, right_dir)
 				level_turfs += right_turf
+
 		// Add the list of all turfs on this level to the turfs to return
 		turfs_to_return += list(level_turfs)
 
@@ -237,6 +253,7 @@
 			break
 
 	return turfs_to_return
+
 
 /**
  * Adjusts the width of the cone at the passed level.

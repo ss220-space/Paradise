@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/pointed/projectile/star_blast
-	name = "Star Blast"
-	desc = "This spell fires a disk with cosmic energies at a target, spreading the star mark."
+	name = "Звездный Взрыв"
+	desc = "Это заклинание запускает в цель диск с космической энергией, распространяющий космические поля."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -11,18 +11,27 @@
 	clothes_req = FALSE
 	base_cooldown = 20 SECONDS
 
-	invocation = "R'T'T' ST'R!"
+	invocation = "ЗВ'ЗДН'Й ВЗР'В!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	active_msg = "You prepare to cast your star blast!"
-	deactive_msg = "You stop swirling cosmic energies from the palm of your hand... for now."
+	active_msg = "Вы готовы применить звездный взрыв!"
+	deactive_msg = "Вы прекращаете концентрировать космическую энергию в своих руках... на время."
 	cast_range = 12
 	projectile_type = /obj/projectile/magic/star_ball
 
 
 /obj/projectile/magic/star_ball
-	name = "star ball"
+	name = "звёздный диск"
+	ru_names = list(
+		NOMINATIVE = "звёздный диск",
+		GENITIVE = "звёздного диска",
+		DATIVE = "звёздному диску",
+		ACCUSATIVE = "звёздный диск",
+		INSTRUMENTAL = "звёздным диском",
+		PREPOSITIONAL = "звёзднои диске",
+	)
+	gender = MALE
 	icon_state = "star_ball"
 	damage = 20
 	damage_type = BURN

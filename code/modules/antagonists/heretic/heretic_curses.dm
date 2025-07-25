@@ -46,7 +46,7 @@
 		potential_targets["[human_to_check.real_name]"] = human_to_check
 
 	if(potential_targets.len == 0)
-		user.balloon_alert("нет подходящих ДНК!")
+		user.balloon_alert(user, "нет подходящих ДНК!")
 		return FALSE
 
 	var/chosen_mob = tgui_input_list(user, "Выберите жертву, которую хотите проклясть.", name, sort_list(potential_targets, GLOBAL_PROC_REF(cmp_text_asc)))

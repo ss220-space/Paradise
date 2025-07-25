@@ -6,8 +6,9 @@
  * Lets the caster enter and exit tiles of space or misc turfs.
  */
 /obj/effect/proc_holder/spell/jaunt/space_crawl
-	name = "Space Phase"
-	desc = "Allows you to phase in and out of existence while in space or a low-pressure, outdoor area."
+	name = "Пустотный Сдви"
+	desc = "Позволяет вам появляться и исчезать из реальности, находясь в космосе или на \
+			открытом воздухе с низким давлением. Для возвращения, место прибытия тоже должно быть таковым."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 
@@ -27,13 +28,16 @@
 	///List of traits that are added to the heretic while in space phase jaunt
 	var/static/list/jaunting_traits = list(TRAIT_RESIST_COLD, TRAIT_RESIST_COLD, TRAIT_NO_BREATH)
 
+
 /obj/effect/proc_holder/spell/jaunt/space_crawl/on_spell_gain(mob/user = usr)
 	. = ..()
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 
+
 /obj/effect/proc_holder/spell/jaunt/space_crawl/on_spell_loss(mob/remove_from)
 	. = ..()
 	UnregisterSignal(remove_from, COMSIG_MOVABLE_MOVED)
+
 
 /obj/effect/proc_holder/spell/jaunt/space_crawl/can_cast(feedback = FALSE)
 	. = ..()
@@ -50,12 +54,14 @@
 
 	return FALSE
 
+
 /obj/effect/proc_holder/spell/jaunt/space_crawl/cast(list/targets)
 	var/mob/living/cast_on = targets[1]
 	. = ..()
 	// Should always return something because we checked that in can_cast before arriving here
 	var/turf/our_turf = get_turf(cast_on)
 	do_spacecrawl(our_turf, cast_on)
+
 
 /**
  * Attempts to enter or exit the passed space or misc turf.
@@ -71,8 +77,9 @@
 		return
 
 	//reset_spell_cooldown()
-	//cooldown_handler.start_recharge()
-	to_chat(jaunter, span_warning("You are unable to space crawl!"))
+	cooldown_handler.start_recharge()
+	to_chat(jaunter, span_warning("Вы не можете это сделать!"))
+
 
 /**
  * Attempts to enter the passed space or misc turfs.
@@ -105,7 +112,7 @@
 	jaunter.add_traits(jaunting_traits, SPACE_PHASING)
 	RegisterSignal(jaunter, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost), override = TRUE)
 	playsound(our_turf, 'sound/magic/cosmic_energy.ogg', 50, TRUE, -1)
-	our_turf.visible_message(span_warning("[jaunter] sinks into [our_turf]!"))
+	our_turf.visible_message(span_warning("[jaunter.declent_ru(NOMINATIVE)] погружается в [our_turf.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/space_explosion(our_turf)
 	jaunter.ExtinguishMob()
 
@@ -117,14 +124,16 @@
  */
 /obj/effect/proc_holder/spell/jaunt/space_crawl/proc/try_exit_jaunt(turf/our_turf, mob/living/jaunter, force = FALSE)
 	if(!force && HAS_TRAIT_FROM(jaunter, TRAIT_NO_TRANSFORM, UID()))
-		to_chat(jaunter, span_warning("You cannot exit yet!!"))
+		to_chat(jaunter, span_warning("Вы пока не можете вернуться!"))
 		return FALSE
 
 	if(!exit_jaunt(jaunter, our_turf))
 		return FALSE
+
 	jaunter.remove_traits(jaunting_traits, SPACE_PHASING)
-	our_turf.visible_message(span_boldwarning("[jaunter] rises out of [our_turf]!"))
+	our_turf.visible_message(span_boldwarning("[jaunter.declent_ru(NOMINATIVE)] выходит из [our_turf.declent_ru(GENITIVE)]!"))
 	return TRUE
+
 
 /obj/effect/proc_holder/spell/jaunt/space_crawl/on_jaunt_exited(obj/effect/dummy/spell_jaunt/jaunt, mob/living/carbon/human/unjaunter)
 	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
@@ -140,18 +149,21 @@
 
 	return ..()
 
+
 /// Signal proc for [SIGNAL_REMOVETRAIT] via [TRAIT_ALLOW_HERETIC_CASTING], losing our focus midcast will throw us out.
 /obj/effect/proc_holder/spell/jaunt/space_crawl/proc/on_focus_lost(mob/living/source)
 	SIGNAL_HANDLER
 	var/turf/our_turf = get_turf(source)
 	try_exit_jaunt(our_turf, source, TRUE)
 
+
 /// Spacecrawl "hands", prevent the user from holding items in spacecrawl
 /obj/item/space_crawl
-	name = "space crawl"
-	desc = "You are unable to hold anything while in this form."
+	name = "пустотный сдвиг"
+	desc = "Находясь в этой форме, вы не можете держать что-то в руках."
 	icon = 'icons/obj/eldritch.dmi'
 	item_flags = ABSTRACT | DROPDEL
+
 
 /obj/item/space_crawl/Initialize(mapload)
 	. = ..()
@@ -205,7 +217,7 @@
 		return isliving(user)
 
 	if(show_message)
-		to_chat(action.owner, span_danger("An otherwordly force is preventing you from jaunting here."))
+		to_chat(action.owner, span_danger("Какая-то потусторонняя сила мешает вам совершить Пустотный Сдвиг."))
 
 	return FALSE
 

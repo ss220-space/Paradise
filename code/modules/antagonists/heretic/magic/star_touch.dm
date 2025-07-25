@@ -1,10 +1,10 @@
 /obj/effect/proc_holder/spell/touch/star_touch
 	name = "Звездное Касание"
-	desc = "Manifests cosmic fields on tiles next to you while marking the victim with a star mark \
-		or consuming an already present star mark to put them to sleep for 4 seconds. \
-		They will then be linked to you with a cosmic ray, burning them for up to a minute, or \
-		until they can escape your sight. Звездное Касание can also remove Космические руны, or teleport you \
-		to your Star Gazer when used on yourself."
+	desc = "Создаёт космические поля на плитках рядом с вами, одновременно отмечая жертву звёздной меткой \
+			или поглощая уже существующую звёздную метку, чтобы усыпить её на 4 секунды. \
+			Затем жертва будет связана с вами космическим лучом, сжигающим её до минуты или \
+			до момента пока ваша жертва не скроется от вас. «Звёздное Касание» также может стереть Космические \
+			руны или телепортировать вас к вашему Звёздному Наблюдателю при использовании на себе."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -14,7 +14,7 @@
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
-	invocation = "ST'R 'N'RG'!"
+	invocation = "ЗВ'ЗДН К'С'Н!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 	antimagic_flags = MAGIC_RESISTANCE
@@ -24,6 +24,7 @@
 	var/datum/weakref/star_gazer
 	/// If the heretic is ascended or not
 	var/ascended = FALSE
+
 
 /obj/effect/proc_holder/spell/touch/star_touch/valid_target(atom/cast_on)
 	if(!isliving(cast_on))
@@ -81,19 +82,28 @@
 
 
 /obj/item/melee/touch_attack/star_touch
-	name = "Звездное Касание"
-	desc = "A sinister looking aura that distorts the flow of reality around it. \
-		Causes people with a star mark to sleep for 4 seconds, and causes people without a star mark to get one."
-	//icon_state = "star"
-	//item_state = "star"
+	name = "звездное касание"
+	ru_names = list(
+		NOMINATIVE = "звездное касание",
+		GENITIVE = "звездного касания",
+		DATIVE = "звездному касанию",
+		ACCUSATIVE = "звездное касание",
+		INSTRUMENTAL = "звездным касанием",
+		PREPOSITIONAL = "звездном касании"
+	)
+	desc = "Зловещая аура, искажающая реальность вокруг себя. \
+			Заставляет людей со звездной меткой заснуть на 4 секунды, а людей без звездной метки — получить её."
+	icon = 'icons/obj/weapons/hand.dmi'
+	icon_state = "star"
+	item_state = "star"
 
 
 /obj/item/melee/touch_attack/star_touch/Initialize(mapload)
 	. = ..()
 	AddComponent(\
 		/datum/component/effect_remover, \
-		success_feedback = "You remove %THEEFFECT.", \
-		tip_text = "Clear rune", \
+		success_feedback = "Вы стёрли %THEEFFECT.", \
+		tip_text = "Стереть руну", \
 		on_clear_callback = CALLBACK(src, PROC_REF(after_clear_rune)), \
 		effects_we_clear = list(/obj/effect/cosmic_rune), \
 	)
@@ -118,8 +128,9 @@
 	var/obj/effect/proc_holder/spell/touch/star_touch/star_touch_spell = attached_spell
 	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_mob = star_touch_spell?.get_star_gazer()
 	if(!star_gazer_mob)
-		balloon_alert(user, "no linked star gazer!")
+		balloon_alert(user, "нет привязанного существа!")
 		return ..()
+
 	new /obj/effect/temp_visual/cosmic_explosion(get_turf(user))
 	do_teleport(
 		user,
@@ -131,7 +142,7 @@
 
 
 /obj/effect/ebeam/cosmic
-	name = "cosmic beam"
+	name = "звёздный луч"
 
 
 /datum/status_effect/cosmic_beam
@@ -161,10 +172,11 @@
 
 
 /datum/status_effect/cosmic_beam/be_replaced()
-	if(active)
-		QDEL_NULL(current_beam)
-		active = FALSE
-	return ..()
+	if(!active)
+		return ..()
+
+	QDEL_NULL(current_beam)
+	active = FALSE
 
 
 /datum/status_effect/cosmic_beam/tick(seconds_between_ticks)
@@ -183,8 +195,10 @@
 		return
 */
 
-	if(current_target)
-		on_beam_tick(current_target)
+	if(!current_target)
+		return
+
+	on_beam_tick(current_target)
 
 
 /**
@@ -194,8 +208,10 @@
 	if(active)
 		//QDEL_NULL(current_beam)
 		active = FALSE
+
 	if(current_target)
 		on_beam_release(current_target)
+
 	current_target = null
 
 
@@ -206,16 +222,16 @@
  */
 /datum/status_effect/cosmic_beam/proc/beam_died()
 	SIGNAL_HANDLER
-	to_chat(owner, span_warning("You lose control of the beam!"))
+	to_chat(owner, span_warning("Вы теряете контроль над лучом!"))
 	lose_target()
 	duration = 0
 
 
 /// Used for starting the beam when a target has been acquired
 /datum/status_effect/cosmic_beam/proc/start_beam(atom/target, mob/living/user)
-
 	if(current_target)
 		lose_target()
+		
 	if(!isliving(target))
 		return
 
@@ -225,23 +241,31 @@
 	RegisterSignal(current_beam, COMSIG_QDELETING, PROC_REF(beam_died))
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
-	if(current_target)
-		on_beam_hit(current_target)
+	if(!current_target)
+		return
+
+	on_beam_hit(current_target)
 
 
 /// What to add when the beam connects to a target
 /datum/status_effect/cosmic_beam/proc/on_beam_hit(mob/living/target)
-	if(!istype(target, /mob/living/simple_animal/hostile/heretic_summon/star_gazer))
-		target.AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
+	if(istype(target, /mob/living/simple_animal/hostile/heretic_summon/star_gazer))
+		return
+
+	target.AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
 
 
 /// What to process when the beam is connected to a target
 /datum/status_effect/cosmic_beam/proc/on_beam_tick(mob/living/target)
-	if(target.adjustFireLoss(3, updating_health = FALSE))
-		target.updatehealth()
+	if(!target.adjustFireLoss(3, updating_health = FALSE))
+		return
+
+	target.updatehealth()
 
 
 /// What to remove when the beam disconnects from a target
 /datum/status_effect/cosmic_beam/proc/on_beam_release(mob/living/target)
-	if(!istype(target, /mob/living/simple_animal/hostile/heretic_summon/star_gazer))
-		target.RemoveElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
+	if(istype(target, /mob/living/simple_animal/hostile/heretic_summon/star_gazer))
+		return
+
+	target.RemoveElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)

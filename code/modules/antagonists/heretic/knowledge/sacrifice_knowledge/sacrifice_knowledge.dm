@@ -9,9 +9,9 @@
  * Allows the heretic to sacrifice living heart targets.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice
-	name = "Heartbeat of the Mansus"
-	desc = "Allows you to sacrifice targets to the Mansus by bringing them to a rune in critical (or worse) condition. \
-		If you have no targets, stand on a transmutation rune and invoke it to acquire some."
+	name = "Сердцебиение Мансуса"
+	desc = "Позволяет приносить цели в жертву Мансусу, положив их в руну в критическом (или худшем) состоянии. \
+			Если у вас нет целей, встаньте на руну трансмутации и проведите этот ритуал, чтобы получить их."
 	required_atoms = list(/mob/living/carbon/human = 1)
 	cost = 0
 	priority = MAX_KNOWLEDGE_PRIORITY // Should be at the top
@@ -40,10 +40,12 @@
 		/obj/item/organ/internal/vocal_cords/corrupt,
 	)
 
+
 /datum/heretic_knowledge/hunt_and_sacrifice/Destroy(force)
 	heretic_mind = null
 	LAZYCLEARLIST(target_blacklist)
 	return ..()
+
 
 /datum/heretic_knowledge/hunt_and_sacrifice/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
@@ -72,7 +74,7 @@
 	// You may wonder why we don't straight up prevent them from invoking the ritual if they don't have one -
 	// Hunt and sacrifice should always be invokable for clarity's sake, even if it'll fail immediately.
 	if(heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
-		loc.balloon_alert(user, "ritual failed, no living heart!")
+		loc.balloon_alert(user, "нет живого сердца!")
 		return FALSE
 
 	// We've got no targets set, let's try to set some.
@@ -96,8 +98,9 @@
 		return TRUE
 
 	// or FALSE if we don't
-	loc.balloon_alert(user, "ritual failed, no sacrifice found!")
+	loc.balloon_alert(user, "жертва не найдена!")
 	return FALSE
+
 
 /datum/heretic_knowledge/hunt_and_sacrifice/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -106,9 +109,9 @@
 	if(!LAZYLEN(heretic_datum.sac_targets) && !iscultist(sac))
 		if(obtain_targets(user, heretic_datum = heretic_datum))
 			return TRUE
-		else
-			loc.balloon_alert(user, "ritual failed, no targets found!")
-			return FALSE
+
+		loc.balloon_alert(user, "цели не найдены!")
+		return FALSE
 
 	sacrifice_process(user, selected_atoms, loc)
 	return TRUE
@@ -150,7 +153,7 @@
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
-		if(head_mind?.assigned_job.flag & JOB_FLAG_HOP)
+		if(head_mind?.assigned_job.is_command)
 			final_targets += head_mind
 			valid_targets -= head_mind
 			break
@@ -176,12 +179,14 @@
 		target_sanity++
 
 	if(!silent)
-		to_chat(user, span_danger("Your targets have been determined. Your Living Heart will allow you to track their position. Go and sacrifice them!"))
+		to_chat(user, span_danger("Ваши цели определены. Ваше Живое Сердце позволит вам отслеживать их местоположение. Идите и принесите их в жертву!"))
 
 	for(var/datum/mind/chosen_mind as anything in final_targets)
 		heretic_datum.add_sacrifice_target(chosen_mind.current)
-		if(!silent)
-			to_chat(user, span_danger("[chosen_mind.current.real_name], the [chosen_mind.assigned_role]."))
+		if(silent)
+			continue
+
+		to_chat(user, span_danger("[chosen_mind.current.real_name] - [chosen_mind.assigned_role]."))
 
 	return TRUE
 
@@ -204,17 +209,16 @@
 
 	if(sacrifice.mind)
 		LAZYADD(target_blacklist, sacrifice.mind)
+
 	heretic_datum.remove_sacrifice_target(sacrifice)
-
-
-	var/feedback = "Your patrons accept your offer"
-	var/sac_job = sacrifice.mind?.assigned_job.flag
+	var/feedback = "Ваши покровители принимают вашу жертву"
+	var/datum/job/sac_job = sacrifice.mind?.assigned_job
 	// Heads give 3 points, cultists give 1 point (and a special reward), normal sacrifices give 2 points.
 	heretic_datum.total_sacrifices++
-	if(sac_job == JOB_FLAG_HOP)
+	if(sac_job.is_command)
 		heretic_datum.knowledge_points += 3
 		heretic_datum.high_value_sacrifices++
-		feedback += " <i>graciously</i>"
+		feedback += "Ваши покровители <i>с радостью</i> принимают вашу жертву"
 
 	if(!iscultist(sacrifice))
 		heretic_datum.knowledge_points += 2
@@ -240,22 +244,22 @@
 			continue
 
 		SEND_SOUND(mind.current, 'sound/magic/clockwork/narsie_attack.ogg')
-		var/message = span_narsie("A vile heretic has ") + \
-		span_cultlarge(span_purple("sacrificed")) + \
-		span_narsie(" one of our own. Destroy and sacrifice the infidel before it claims more!")
+		var/message = span_narsie("Подлый еретик ") + \
+		span_cultlarge(span_purple("принес в жертву")) + \
+		span_narsie(" одного из наших. Уничтожьте и принеси в жертву неверных, прежде чем они принесут в жертву нас!")
 		to_chat(mind.current, message)
 
 	// he(retic) gets a warn too
-	to_chat(user, span_narsiesmall("How DARE you!? I will see you destroyed for this."))
-	var/non_flavor_warning = span_cultbold("You feel that your action has attracted ") + span_purple("attention") + span_cultbold(".")
+	to_chat(user, span_narsiesmall("Да как ты СМЕЕШЬ!? Я тебя уничтожу!"))
+	var/non_flavor_warning = span_cultbold("Вы чувствуете, что ваши действия привлекли ") + span_purple("внимание") + span_cultbold(".")
 	to_chat(user, non_flavor_warning)
 
 
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/grant_reward(mob/living/user, mob/living/sacrifice, turf/loc)
 
 	// Visible and audible encouragement!
-	to_chat(user, span_big(span_purple("A servant of the Sanguine Apostate!")))
-	to_chat(user, span_hierophant("Your patrons are rapturous!"))
+	to_chat(user, span_big(span_purple("Слуга Сангвинического Отступника!")))
+	to_chat(user, span_hierophant("Ваши покровители в восторге!"))
 	playsound(sacrifice, 'sound/magic/disintegrate.ogg', 75, TRUE)
 
 	// Drop all items and splatter them around messily.
@@ -302,17 +306,18 @@
 	reward = new reward(loc)
 
 	if(isliving(reward))
-		if(summon_ritual_mob(user, loc, reward) == FALSE)
-			qdel(reward)
-			deposit_reward(user, loc, loop++, rune) // If no ghosts, try again until limit is hit
+		if(summon_ritual_mob(user, loc, reward) != FALSE)
+			return
+
+		qdel(reward)
+		deposit_reward(user, loc, loop++, rune) // If no ghosts, try again until limit is hit
 		return
 
-	else if(isitem(reward))
+	if(isitem(reward))
 		var/obj/item/item_reward = reward
 		item_reward.gender_reveal(outline_color = null, ray_color = COLOR_CULT_RED)
 
 	ASSERT(reward)
-
 	return reward
 
 /**
@@ -339,7 +344,7 @@
 
 	var/turf/destination = get_turf(destination_landmark)
 
-	sac_target.visible_message(span_danger("[sac_target] begins to shudder violenty as dark tendrils begin to drag them into thin air!"))
+	sac_target.visible_message(span_danger("[sac_target.declent_ru(NOMINATIVE)] начинает яростно содрогаться, когда темные щупальца утаскивают [genderize_ru(sac_target.gender, "его", "её", "его", "их")] в пустоту!"))
 	sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult(sac_target))
 	//sac_target.update_handcuffed()
 
@@ -359,19 +364,18 @@
 	// If our target is dead, try to revive them
 	// and if we fail to revive them, don't proceede the chain
 	sac_target.adjustOxyLoss(-100, FALSE)
-	if(!sac_target.heal_and_revive(50, span_danger("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
+	if(!sac_target.heal_and_revive(50, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [genderize_ru(sac_target.gender, "он", "она", "ого", "они")] возвраща[pluralize_ru(sac_target.gender, "е", "ю")]тся из объятий смерти!")))
 		return
 
 	if(sac_target.Sleeping(SACRIFICE_SLEEP_DURATION))
-		to_chat(sac_target, span_purple("Your mind feels torn apart as you fall into a shallow slumber..."))
+		to_chat(sac_target, span_purple("Ваш разум разрывается на части, когда вы погружаетесь в поверхностный сон..."))
 	else
-		to_chat(sac_target, span_purple("Your mind begins to tear apart as you watch dark tendrils envelop you."))
+		to_chat(sac_target, span_purple("Ваш разум начинает разрываться на части, когда вы видите, как вас окутывают темные щупальца."))
 
 	sac_target.AdjustParalysis(SACRIFICE_SLEEP_DURATION * 1.2)
 	sac_target.AdjustImmobilized(SACRIFICE_SLEEP_DURATION * 1.2)
 
 	addtimer(CALLBACK(src, PROC_REF(after_target_sleeps), sac_target, destination), SACRIFICE_SLEEP_DURATION * 0.5) // Teleport to the minigame
-
 	return TRUE
 
 /**
@@ -404,12 +408,11 @@
 	// and we fail to revive them (using a lower number than before),
 	// just disembowel them and stop the chain
 	sac_target.adjustOxyLoss(-100, FALSE)
-	if(!sac_target.heal_and_revive(60, span_danger("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
+	if(!sac_target.heal_and_revive(60, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [genderize_ru(sac_target.gender, "он", "она", "ого", "они")] возвраща[pluralize_ru(sac_target.gender, "е", "ю")]тся из объятий смерти!")))
 		disembowel_target(sac_target)
 		return
 
-	to_chat(sac_target, span_big(span_purple("Unnatural forces begin to claw at your every being from beyond the veil.")))
-
+	to_chat(sac_target, span_big(span_purple("Противоестественные силы из-за завесы начинают терзать ваши тело и душу!")))
 	playsound(sac_target, 'sound/music/heretic/heretic_sacrifice.ogg', 50, FALSE) // play theme
 
 	sac_target.apply_status_effect(/datum/status_effect/unholy_determination, SACRIFICE_REALM_DURATION)
@@ -417,6 +420,7 @@
 
 	RegisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_target_escape)) // Cheese condition
 	RegisterSignal(sac_target, COMSIG_LIVING_DEATH, PROC_REF(on_target_death)) // Loss condition
+
 
 /// Apply a sinister curse to some of the target's organs as an incentive to leave us alone
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/curse_organs(mob/living/carbon/human/sac_target)
@@ -435,7 +439,7 @@
 		to_give.safe_replace(sac_target)
 
 	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target), sac_target)
-	sac_target.visible_message(span_boldwarning("Several organs force themselves out of [sac_target]!"))
+	sac_target.visible_message(span_boldwarning("Несколько органов вылетают из тела [sac_target.declent_ru(GENITIVE)] направляемые таинственной силой!"))
 
 /**
  * This proc is called from [proc/after_target_sleeps] when the [sac_target] should be waking up.)
@@ -463,8 +467,8 @@
 	sac_target.Hallucinate(24 SECONDS)
 	sac_target.emote("scream")
 
-	to_chat(sac_target, span_reallybig(span_purple("The grasp of the Mansus reveal themselves to you!")))
-	to_chat(sac_target, span_purple("You feel invigorated! Fight to survive!"))
+	to_chat(sac_target, span_reallybig(span_purple("Прикосновение Мансус открывается вам!")))
+	to_chat(sac_target, span_purple("Вы чувствуете прилив сил! Боритесь чтобывыжить!"))
 	// When it runs out, let them know they're almost home free
 	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
 	// Win condition
@@ -480,7 +484,9 @@
 	if(QDELETED(sac_target) || sac_target.stat == DEAD)
 		return
 
-	to_chat(sac_target, span_purple("The worst is behind you... Not much longer! Hold fast, or expire!"))
+	// Давай! давай давай давай давай давай❤️ ты сможешь🤗верь в себя🙏зайка🥺верь💘давай давай!! поднажми)) ☝🏼еще чуть-чуть...прошу тебя😕не здавайся😘поднажми😉ты все сможешь!! 😭
+	// Sorry
+	to_chat(sac_target, span_purple("Худшее позади... Осталось совсем немного! Держитесь, иначе погибните!"))
 
 /**
  * This proc is called from [proc/begin_sacrifice] if the target survived the shadow realm), or [COMSIG_LIVING_DEATH] if they don't.
@@ -542,17 +548,19 @@
 	else
 		after_return_live_target(sac_target)
 
-	if(heretic_mind?.current)
-		var/composed_return_message = ""
-		composed_return_message += span_notice("Your victim, [sac_target], was returned to the station - ")
-		if(sac_target.stat == DEAD)
-			composed_return_message += span_red("dead. ")
-		else
-			composed_return_message += span_green("alive, but with a shattered mind. ")
+	if(!heretic_mind?.current)
+		return
 
-		composed_return_message += span_notice("You hear a whisper... ")
-		composed_return_message += span_purple(get_area_name(safe_turf, TRUE))
-		to_chat(heretic_mind.current, composed_return_message)
+	var/composed_return_message = ""
+	composed_return_message += span_notice("Ваша жертва, [sac_target.declent_ru(NOMINATIVE)], была возвращена на станцию - ")
+	if(sac_target.stat == DEAD)
+		composed_return_message += span_red("мёртвой. ")
+	else
+		composed_return_message += span_green("живой, но с разбитым разумом. ")
+
+	composed_return_message += span_notice("Вы слышите шепот...")
+	composed_return_message += span_purple(get_area_name(safe_turf, TRUE))
+	to_chat(heretic_mind.current, composed_return_message)
 
 /**
  * If they die in the shadow realm, they lost. Send them back.
@@ -571,7 +579,7 @@
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/on_target_escape(mob/living/carbon/human/sac_target, old_z, new_z)
 	SIGNAL_HANDLER
 
-	to_chat(sac_target, span_boldwarning("Your attempt to escape the Mansus is not taken kindly!"))
+	to_chat(sac_target, span_boldwarning("Ваша попытка сбежать от Мансуса не будет встречена благосклонно!"))
 	// Ends up calling return_target() via death signal to clean up.
 	disembowel_target(sac_target)
 
@@ -581,11 +589,13 @@
  * Gives the sacrifice target some after effects upon ariving back to reality.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_live_target(mob/living/carbon/human/sac_target)
-	to_chat(sac_target, span_purple("The fight is over, but at great cost. You have been returned to the station in one piece."))
+	to_chat(sac_target, span_purple("Борьба окончена, но дорогой ценой. Вы вернулись на станцию целым и невредимым."))
 	if(isheretic(sac_target))
-		to_chat(sac_target, span_big(span_purple("You don't remember anything leading up to the experience, but you feel your connection with the Mansus weakened - Knowledge once known, forgotten...")))
+		to_chat(sac_target, span_big(span_purple("Вы не помните ничего, что предшествовало этому опыту, \
+											но чувствуете, что ваша связь с Мансусом ослабла — когда-то известные знания забыты...")))
 	else
-		to_chat(sac_target, span_big(span_purple("You don't remember anything leading up to the experience - All you can think about are those horrific hands...")))
+		to_chat(sac_target, span_big(span_purple("Вы не помните ничего из того, что предшествовало этому опыту. \
+												Все, о чем вы можете думать, — это те ужасные руки...")))
 
 	// Oh god where are we?
 	sac_target.flash_eyes()
@@ -607,12 +617,13 @@
  * it spawns a special red broken illusion on their spot, for style.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_dead_target(mob/living/carbon/human/sac_target)
-	to_chat(sac_target, span_purple("You failed to resist the horrors of the Mansus! Your ruined body has been returned to the station."))
-	to_chat(sac_target, span_big(span_purple("The experience leaves your mind torn and memories tattered. You will not remember anything leading up to the experience if revived.")))
+	to_chat(sac_target, span_purple("Вы не смогли противостоять ужасам Мансуса! Ваше изуродованное тело вернули на станцию."))
+	to_chat(sac_target, span_big(span_purple("Этот опыт оставляет ваш разум повреждённым, а воспоминания — рваными. \
+												Даже если вы вернётесь к жизни, вы не вспомните ничего, что предшествовало этому опыту.")))
 
 	var/obj/effect/visible_heretic_influence/illusion = new(get_turf(sac_target))
-	illusion.name = "\improper weakened rift in reality"
-	illusion.desc = "A rift wide enough for something... or someone... to come through."
+	illusion.name = "слабый разлом реальности"
+	illusion.desc = "Трещина в реальности, достаточно широкая, чтобы что-то... или кто-то... мог через нее пройти."
 	illusion.color = COLOR_DARK_RED
 
 /**
@@ -628,9 +639,10 @@
 	if(sac_target.stat != DEAD)
 		sac_target.investigate_log("has been killed by heretic sacrifice.", INVESTIGATE_DEATHS)
 		sac_target.death()
+
 	sac_target.visible_message(
-		span_danger("[sac_target]'s organs are pulled out of [sac_target.p_their()] chest by shadowy hands!"),
-		span_userdanger("Your organs are violently pulled out of your chest by shadowy hands!")
+		span_danger("Органы [sac_target.declent_ru(GENITIVE)] были вытащены из тела теневыми руками!"),
+		span_userdanger("Вашей органы насильно вырваны из тела теневыми руками!")
 	)
 
 	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target), sac_target)
@@ -760,10 +772,11 @@
 
 
 /obj/effect/ebeam/curse_arm
-	name = "curse arm"
+	name = "проклятая рука"
+
 
 /obj/projectile/curse_hand
-	name = "curse hand"
+	name = "проклятая рука"
 	icon_state = "cursehand0"
 	base_icon_state = "cursehand"
 	hitsound = 'sound/effects/curse/curse4.ogg'
@@ -776,25 +789,33 @@
 	var/datum/beam/arm
 	var/handedness = 0
 
+
 /obj/projectile/curse_hand/Initialize(mapload)
 	. = ..()
 	//ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 	handedness = prob(50)
 	icon_state = "[base_icon_state][handedness]"
 
+
 /obj/projectile/curse_hand/Destroy()
 	QDEL_NULL(arm)
 	return ..()
+
 
 /obj/projectile/curse_hand/update_icon_state()
 	icon_state = "[base_icon_state]0[handedness]"
 	return ..()
 
+
 /obj/projectile/curse_hand/fire(setAngle)
 	if(QDELETED(src)) //I'm going to try returning nothing because if it's being deleted, surely we don't want anything to happen?
 		return
-	if(starting)
-		arm = starting.Beam(src, icon_state = "curse[handedness]", beam_type=/obj/effect/ebeam/curse_arm)
+
+	if(!starting)
+		..()
+		return
+
+	arm = starting.Beam(src, icon_state = "curse[handedness]", beam_type=/obj/effect/ebeam/curse_arm)
 	..()
 
 /*
@@ -806,8 +827,10 @@
 /obj/projectile/curse_hand/proc/finale()
 	if(arm)
 		QDEL_NULL(arm)
+
 	if((movement_type & PHASING))
 		playsound(src, 'sound/effects/curse/curse3.ogg', 25, TRUE, -1)
+
 	var/turf/T = get_step(src, dir)
 	var/obj/effect/temp_visual/dir_setting/curse/hand/leftover = new(T, dir)
 	leftover.icon_state = icon_state
@@ -821,17 +844,20 @@
 	var/datum/beam/D = starting.Beam(T, icon_state = "curse[handedness]", time = 32, beam_type=/obj/effect/ebeam/curse_arm)
 	animate(D.visuals, alpha = 0, time = 32)
 
+
 /obj/projectile/curse_hand/on_range()
 	finale()
 	return ..()
+
 
 /obj/projectile/curse_hand/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
 	//if (. == BULLET_ACT_HIT)
 	finale()
 
+
 /obj/projectile/curse_hand/hel //Used in helbital's impure reagent
-	name = "Hel's grasp"
+	name = "Прикосновение Хела"
 	damage = 5
 	paralyze = 0 //Lets not stun people!
 	speed = 1
@@ -845,10 +871,13 @@
 	duration = 32
 	var/fades = TRUE
 
+
 /obj/effect/temp_visual/dir_setting/curse/Initialize(mapload, set_dir)
 	. = ..()
-	if(fades)
-		animate(src, alpha = 0, time = 32)
+	if(!fades)
+		return
+
+	animate(src, alpha = 0, time = 32)
 
 
 /obj/effect/temp_visual/dir_setting/curse/grasp_portal
@@ -859,6 +888,7 @@
 	pixel_x = -16
 	duration = 32
 	fades = FALSE
+
 
 /obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading
 	duration = 32
@@ -891,10 +921,13 @@
 	var/tox_to_heal = heal_to - getToxLoss()
 	if(brute_to_heal < 0)
 		adjustBruteLoss(brute_to_heal, updating_health = FALSE)
+
 	if(burn_to_heal < 0)
 		adjustFireLoss(burn_to_heal, updating_health = FALSE)
+
 	if(oxy_to_heal < 0)
 		adjustOxyLoss(oxy_to_heal, updating_health = FALSE)
+
 	if(tox_to_heal < 0)
 		adjustToxLoss(tox_to_heal, updating_health = FALSE, forced = TRUE)
 

@@ -67,6 +67,7 @@
 	INVOKE_ASYNC(src, PROC_REF(try_carve_rune), target, user)
 	return
 
+
 /*
  * Begin trying to carve a rune. Go through a few checks, then call do_carve_rune if successful.
  */
@@ -90,6 +91,7 @@
 	drawing = TRUE
 	do_carve_rune(target_turf, user)
 	drawing = FALSE
+
 
 /*
  * The actual proc that handles selecting the rune to draw and creating it.
@@ -129,6 +131,7 @@
 	var/obj/structure/trap/eldritch/new_rune = new to_make(target_turf, user)
 	current_runes += WEAKREF(new_rune)
 
+
 /datum/action/item_action/rune_shatter
 	name = "Разрушить руны"
 	desc = "Уничтожает все руны, вырезанные этим клинком."
@@ -137,17 +140,22 @@
 	button_icon_state = "rune_break"
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 
+
 /datum/action/item_action/rune_shatter/New(Target)
 	. = ..()
-	if(!istype(Target, /obj/item/melee/rune_carver))
-		qdel(src)
+	if(istype(Target, /obj/item/melee/rune_carver))
 		return
+
+	qdel(src)
+	return
+
 
 /datum/action/item_action/rune_shatter/Grant(mob/granted)
 	if(!IS_HERETIC_OR_MONSTER(granted))
 		return
 
 	return ..()
+
 
 /datum/action/item_action/rune_shatter/IsAvailable(feedback = FALSE)
 	. = ..()
@@ -161,12 +169,14 @@
 	if(!length(target_sword.current_runes))
 		return FALSE
 
+
 /datum/action/item_action/rune_shatter/do_effect(trigger_flags, left_click = TRUE)
 	owner.playsound_local(get_turf(owner), 'sound/magic/blind.ogg', 50, TRUE)
 	var/obj/item/melee/rune_carver/target_sword = target
 	QDEL_LIST(target_sword.current_runes)
 	target_sword.SpinAnimation(5, 1)
 	return TRUE
+
 
 // The actual rune traps the knife draws.
 /obj/structure/trap/eldritch
@@ -188,10 +198,14 @@
 	/// Reference to trap owner mob
 	var/datum/weakref/owner
 
+
 /obj/structure/trap/eldritch/Initialize(mapload, new_owner)
 	. = ..()
-	if(new_owner)
-		owner = WEAKREF(new_owner)
+	if(!new_owner)
+		return
+
+	owner = WEAKREF(new_owner)
+
 
 /obj/structure/trap/eldritch/on_entered(datum/source, atom/movable/entering_atom)
 	if(!isliving(entering_atom))
@@ -206,14 +220,16 @@
 
 	return ..()
 
-/obj/structure/trap/eldritch/attackby(obj/item/tool, mob/user, params)
-	if(istype(tool, /obj/item/melee/rune_carver) || istype(tool, /obj/item/nullrod))
-		loc.balloon_alert(user, "руна убрана")
-		playsound(src, 'sound/items/sheath.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, ignore_walls = FALSE)
-		qdel(src)
-		return ATTACK_CHAIN_SUCCESS
 
-	return ..()
+/obj/structure/trap/eldritch/attackby(obj/item/tool, mob/user, params)
+	if(!istype(tool, /obj/item/melee/rune_carver) && !istype(tool, /obj/item/nullrod))
+		return ..()
+
+	loc.balloon_alert(user, "руна убрана")
+	playsound(src, 'sound/items/sheath.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, ignore_walls = FALSE)
+	qdel(src)
+	return ATTACK_CHAIN_SUCCESS
+
 
 /obj/structure/trap/eldritch/alert
 	name = "руна предупреждения"
@@ -232,6 +248,7 @@
 	sparks = FALSE
 	carver_tip = "Почти невидимая руна, которая, оповещает создавшего ее о том, кто и где на нее наступил."
 
+
 /obj/structure/trap/eldritch/alert/trap_effect(mob/living/victim)
 	var/mob/living/real_owner = owner?.resolve()
 	if(!real_owner)
@@ -239,6 +256,7 @@
 
 	to_chat(real_owner, span_userdanger("[victim.real_name] наступил[genderize_ru(victim.gender, "", "а", "о", "и")] на [declent_ru(ACCUSATIVE)] в [get_area(src)]!"))
 	real_owner.playsound_local(get_turf(real_owner), 'sound/magic/curse.ogg', 50, TRUE)
+
 
 /obj/structure/trap/eldritch/tentacle
 	name = "руна удержания"
@@ -256,6 +274,7 @@
 	charges = 1
 	carver_tip = "При наступании наносит значительные повреждения ногам и оглушает жертву на 5 секунд. Имеет 1 заряд."
 
+
 /obj/structure/trap/eldritch/tentacle/trap_effect(mob/living/victim)
 	if(!iscarbon(victim))
 		return
@@ -265,6 +284,7 @@
 	human_victim.apply_damage(20, BRUTE, BODY_ZONE_R_LEG)
 	human_victim.apply_damage(20, BRUTE, BODY_ZONE_L_LEG)
 	playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)
+
 
 /obj/structure/trap/eldritch/mad
 	name = "руна безумия"
@@ -281,6 +301,7 @@
 	time_between_triggers = 20 SECONDS
 	charges = 2
 	carver_tip = "При наступании, наносит жертве сильный урон выносливости, слепоту и дает различные недуги. Имеет 2 заряда."
+
 
 /obj/structure/trap/eldritch/mad/trap_effect(mob/living/victim)
 	if(!iscarbon(victim))

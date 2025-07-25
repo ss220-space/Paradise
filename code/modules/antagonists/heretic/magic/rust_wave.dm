@@ -1,9 +1,10 @@
 // Shoots out in a wave-like, what rust heretics themselves get
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
 	name = "Шлейф Разложения"
-	desc = "Spews forth a disorienting plume that causes enemies to strike each other, \
-		briefly blinds them (increasing with range) and poisons them (decreasing with range). \
-		Also spreads rust in the path of the plume."
+	desc = "Выбрасывает дезориентирующий шлейф, заставляющий врагов атаковать друг друга, \
+			кратковременно ослепляет их (эффект усиливается с увеличением расстояния) и \
+			отравляет (эффект уменьшается с увеличением расстояния). \
+			Также распространяет ржавчину на пути шлейфа."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -14,7 +15,7 @@
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
-	invocation = "'NTR'P'C PL'M!"
+	invocation = "ШЛ'ЙФ Р'ЗЛ'Ж'Н!"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
@@ -31,8 +32,9 @@
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, mob/living/caster, level)
 	if(ismob(caster))
 		caster.do_rust_heretic_act(target_turf)
-	else
-		target_turf.rust_heretic_act()
+		return
+
+	target_turf.rust_heretic_act()
 
 
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
@@ -48,9 +50,11 @@
 	// At the first level (that isn't level 1) we will be small
 	if(current_level == 2)
 		return 3
+
 	// At the max level, we turn small again
 	if(current_level == cone_levels)
 		return 3
+
 	// Otherwise, all levels in between will be wider
 	return 5
 
@@ -81,8 +85,8 @@
 
 // Shoots a straight line of rusty stuff ahead of the caster, what rust monsters get
 /obj/effect/proc_holder/spell/fireball/rust_wave
-	name = "Patron's Reach"
-	desc = "Channels energy into your hands to release a wave of rust."
+	name = "Ковровая Дорожка"
+	desc = "Направляет энергию в ваши руки, позволяя высвободить волну ржавчины."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -92,7 +96,7 @@
 	clothes_req = FALSE
 	base_cooldown = 35 SECONDS
 
-	invocation = "SPR'D TH' W'D."
+	invocation = "К'ВР'В Д'Р'ЖК"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
@@ -100,7 +104,16 @@
 
 
 /obj/projectile/magic/aoe/rust_wave
-	name = "Patron's Reach"
+	name = "сгусток ржавчины"
+	ru_names = list(
+		NOMINATIVE = "сгусток ржавчины",
+		GENITIVE = "сгустка ржавчины",
+		DATIVE = "сгустку ржавчины",
+		ACCUSATIVE = "сгусток ржавчины",
+		INSTRUMENTAL = "сгустком ржавчины",
+		PREPOSITIONAL = "сгустке ржавчины",
+	)
+	gender = MALE
 	icon_state = "eldritch_projectile"
 	alpha = 180
 	damage = 30
@@ -132,7 +145,7 @@
 
 
 /obj/effect/proc_holder/spell/fireball/rust_wave/short
-	name = "Lesser Patron's Reach"
+	name = "Малая Ковровая Дорожка"
 	fireball_type = /obj/projectile/magic/aoe/rust_wave/short
 
 

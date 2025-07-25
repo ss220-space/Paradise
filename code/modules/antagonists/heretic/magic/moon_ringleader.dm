@@ -58,6 +58,7 @@
 	alpha = 180
 	duration = 6
 
+
 /obj/effect/temp_visual/moon_ringleader/ringleader/Initialize(mapload)
 	. = ..()
 	transform = transform.Scale(10)

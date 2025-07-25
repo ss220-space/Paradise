@@ -3,7 +3,7 @@
 /// Screen alert for the below status effect.
 /atom/movable/screen/alert/status_effect/unholy_determination
 	name = "Нечестивая решимость"
-	desc = "Где вы вообще находитесь? Тьма сгущается. Паника ростет. Времени нет. Сражайтесь или умрите!"
+	desc = "Где вы вообще находитесь? Тьма сгущается. Паника растет. Времени нет. Сражайтесь или умрите!"
 	icon_state = "wounded"
 
 
@@ -41,14 +41,14 @@
 	// In softcrit you're, strong enough to stay up.
 	if(owner.health <= HEALTH_THRESHOLD_CRIT && owner.health >= HEALTH_THRESHOLD_DEAD)
 		if(prob(5))
-			to_chat(owner, span_purple("Your body feels like giving up, but you fight on!"))
+			to_chat(owner, span_purple("Ваше тело готово сдаться, но вы продолжаете бороться!"))
 
 		healing_amount *= 2
 
 	// ...But reach hardcrit and you're done. You now die faster.
 	if (owner.health < HEALTH_THRESHOLD_DEAD)
 		if(prob(5))
-			to_chat(owner, span_big(span_purple("You can't hold on for much longer...")))
+			to_chat(owner, span_big(span_purple("Вы долго не протяните...")))
 
 		healing_amount *= -0.5
 
@@ -78,8 +78,10 @@
 	damage_healed += owner.adjustOxyLoss(-amount, updating_health = FALSE)
 	damage_healed += owner.adjustBruteLoss(-amount, updating_health = FALSE)
 	damage_healed += owner.adjustFireLoss(-amount, updating_health = FALSE)
-	if(damage_healed > 0)
-		owner.updatehealth()
+	if(damage_healed <= 0)
+		return
+
+	owner.updatehealth()
 
 
 /*

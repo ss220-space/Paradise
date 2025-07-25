@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/moon_smile
 	name = "Лунная Улыбка"
-	desc = "Lets you turn the gaze of the moon on someone \
-			temporarily blinding, muting, deafening and knocking down a single target if their sanity is low enough."
+	desc = "Позволяет обратить на кого-то взгляд луны. \
+			Временно ослепляет, заглушает, не даёт говорить и ошеломляет одну цель."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -13,12 +13,12 @@
 	clothes_req = FALSE
 	base_cooldown = 20 SECONDS
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
-	invocation = "M'N S'M'LE!"
+	invocation = "Л'НН УЛ'БК!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 	cast_range = 6
 
-	active_msg = "You prepare to let them see the true face..."
+	active_msg = "Вы готовы позволить им увидеть истинное лицо луны..."
 
 
 /obj/effect/proc_holder/spell/pointed/moon_smile/can_cast(feedback = TRUE)
@@ -37,12 +37,13 @@
 
 	var/moon_smile_duration = 15 SECONDS
 	if(cast_on.can_block_magic(antimagic_flags))
-		to_chat(cast_on, span_notice("The moon turns, its smile no longer set on you."))
-		to_chat(action.owner, span_warning("The moon does not smile upon them."))
+		to_chat(cast_on, span_notice("Луна отворачивается, и ее улыбка больше не обращена к вам."))
+		to_chat(action.owner, span_warning("Луна не желает улыбаться."))
 		return FALSE
 
 	playsound(cast_on, 'sound/hallucinations/i_see_you1.ogg', 50, 1)
-	to_chat(cast_on, span_warning("Your eyes cry out in pain, your ears bleed and your lips seal! THE MOON SMILES UPON YOU!"))
+	to_chat(cast_on, span_warning("Слёзы текут из ваших глаз! Ваши уши кровоточат, а губы слипаются! \
+									ЛУНА УЛЫБАЕТСЯ ВАМ!"))
 	cast_on.EyeBlind(moon_smile_duration + 1 SECONDS)
 	cast_on.EyeBlurry(moon_smile_duration + 2 SECONDS)
 
