@@ -66,7 +66,7 @@
 	record.fields["criminal"] = SEC_RECORD_STATUS_INCARCERATED
 	var/crimes = generate_prisoner_role_crimes()
 	human.mind.store_memory("Меня посадили за: [crimes]")
-	record.fields["comments"] += "Заключён в пермабриг за: : [crimes]"
+	record.fields["comments"] += "Заключён в пермабриг за: [crimes]"
 
 /datum/job/civilian/prisoner/proc/generate_prisoner_role_crimes()
 	var/list/major_crimes = list("400", "402", "407")
