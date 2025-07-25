@@ -128,6 +128,7 @@
 	overlay_offset = list("x" = -2, "y" = 0)
 	slot = ATTACHMENT_SLOT_MUZZLE
 	origin_tech = "combat=2;engineering=2"
+	var/bonus_accuracy = 10
 	var/initial_w_class
 
 
@@ -135,10 +136,12 @@
 	target_gun.suppress_muzzle_flash = TRUE
 	initial_w_class = target_gun.w_class
 	target_gun.w_class = WEIGHT_CLASS_NORMAL
+	//TODO apply bonus accuracy
 
 /obj/item/gun_module/muzzle_flash_supressor/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppress_muzzle_flash = FALSE
 	target_gun.w_class = initial_w_class
+	//TODO remove bonus accuracy
 
 
 
@@ -158,7 +161,10 @@
 	icon_state = "pmc"
 	item_state = "pmc"
 	overlay_state = "pmc"
+	/// 'zoom' distance
 	var/zoom_amount = 1
+	/// bonus accuracy for gun
+	var/bonus_accuracy = 0
 	var/old_zoom_amount
 
 /obj/item/gun_module/scope/on_attach(obj/item/gun/target_gun, mob/user)
@@ -168,11 +174,13 @@
 	target_gun.build_zooming()
 	if(user.is_in_hands(target_gun))
 		target_gun.ZoomGrantCheck(null, user, ITEM_SLOT_HANDS)
+	//TODO apply bonus accuracy
 
 /obj/item/gun_module/scope/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.zoomable = FALSE
 	target_gun.zoom_amt = old_zoom_amount
 	target_gun.destroy_zooming()
+	//TODO remove bonus accuracy
 
 
 /obj/item/gun_module/scope/collimator
@@ -190,6 +198,7 @@
 	item_state = "t37"
 	overlay_state = "t37"
 	zoom_amount = 3
+	bonus_accuracy = 10
 
 /obj/item/gun_module/scope/x4
 	name = "optical scope x4"
@@ -206,6 +215,7 @@
 	item_state = "mosin"
 	overlay_state = "mosin"
 	zoom_amount = 5
+	bonus_accuracy = 20
 
 /obj/item/gun_module/scope/x8
 	name = "optical scope x8"
@@ -222,6 +232,7 @@
 	item_state = "tes"
 	overlay_state = "tes"
 	zoom_amount = 7
+	bonus_accuracy = 30
 
 /obj/item/gun_module/scope/x16
 	name = "optical scope x16"
@@ -239,3 +250,4 @@
 	overlay_state = "tl127_a"
 	overlay_offset = list("x" = 0, "y" = 1)
 	zoom_amount = 11
+	bonus_accuracy = 50
