@@ -14,8 +14,8 @@
 	var/obj/structure/computerframe/frame = /obj/structure/computerframe
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
-	var/light_range_on = 1
-	var/light_power_on = 0.7
+	var/light_range_on = 2
+	var/light_power_on = 0.9
 	var/abductor = FALSE
 	/// Are we in the middle of a flicker event?
 	var/flickering = FALSE
@@ -126,6 +126,13 @@
 		. += "[icon_keyboard]"
 		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask", src)
 
+	if(!(stat & BROKEN))
+		// Get the average color of the computer screen so it can be used as a tinted glow
+		// Shamelessly stolen from /tg/'s /datum/component/customizable_reagent_holder.
+		var/icon/emissive_avg_screen_color = new(icon, icon_screen)
+		emissive_avg_screen_color.Scale(1, 1)
+		var/screen_emissive_color = copytext(emissive_avg_screen_color.GetPixel(1, 1), 1, 8) // remove opacity
+		set_light(light_range_on, light_power_on, screen_emissive_color)
 
 /obj/machinery/computer/power_change(forced = FALSE)
 	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
