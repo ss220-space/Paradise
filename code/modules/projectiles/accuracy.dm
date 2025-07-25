@@ -58,9 +58,9 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	chest = 100
 	arms = 60
 	legs = 60
-	hands = 50
-	foots = 50
-	other = 50
+	hands = 40
+	foots = 40
+	other = 40
 
 /datum/gun_accuracy/default
 	head = 75
@@ -73,21 +73,22 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 
 /datum/gun_accuracy/rifle
 	head = 90
-	chest = 100
+	chest = 120
 	arms = 80
 	legs = 80
 	hands = 66
 	foots = 66
 	other = 66
 
+// min accuracy on range 12 is 50%, summary accuracy = 50% * 200% = 100%
 /datum/gun_accuracy/sniper
-	head = 100
-	chest = 100
-	arms = 100
-	legs = 100
-	hands = 100
-	foots = 100
-	other = 100
+	head = 200
+	chest = 200
+	arms = 200
+	legs = 200
+	hands = 200
+	foots = 200
+	other = 200
 
 
 /obj/projectile/proc/calculate_hit_chance(obj/projectile/projectile, mob/living/target)
