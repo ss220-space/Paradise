@@ -15,7 +15,6 @@
 	status_flags = NONE //no default canpush
 	pass_flags = PASSFLAPS
 	AI_delay_max = 0 SECONDS
-
 	speak_emote = list("констатирует")
 	tts_seed = null
 	friendly = "утыкается в"

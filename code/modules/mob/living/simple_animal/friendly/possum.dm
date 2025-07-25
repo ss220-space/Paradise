@@ -14,9 +14,9 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	speak = list("Hsss...", "Hisss...")
-	speak_emote = list("Hsss", "Hisss")
-	emote_hear = list("Aaaaa!", "Ahhss!")
-	emote_see = list("shakes its head.", "chases its tail.", "shivers.")
+	speak_emote = list("шипит", "бурчит")
+	emote_hear = list("шипит", "бурчит")
+	emote_see = list("трясёт головой", "гоняется за своим хвостом", "дрожит")
 	tts_seed = "Clockwerk"
 	faction = list("neutral")
 	maxHealth = 30

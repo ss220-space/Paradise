@@ -18,8 +18,8 @@
 	melee_damage_upper = 15
 	attacktext = "сжимает"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
-	speak_emote = list("growls")
-	emote_taunt = list("wails")
+	speak_emote = list("рычит")
+	emote_taunt = list("воет")
 	taunt_chance = 25
 	footstep_type = FOOTSTEP_MOB_SHOE
 

@@ -9,9 +9,9 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	icon_living = "tribble1"
 	icon_dead = "tribble1_dead"
 	speak = list("Prrrrr...")
-	speak_emote = list("purrs", "trills")
-	emote_hear = list("shuffles", "purrs")
-	emote_see = list("trundles around", "rolls")
+	speak_emote = list("мурлычет", "заливается трелью")
+	emote_hear = list("мурчит", "мурлычет")
+	emote_see = list("катается туда-сюда", "кружится")
 	tts_seed = "Meepo"
 	speak_chance = 10
 	turns_per_move = 5
