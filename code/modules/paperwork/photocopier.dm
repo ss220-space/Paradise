@@ -383,7 +383,7 @@
 	else
 		balloon_alert(usr, "нельзя отсканировать!")
 		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлеч[genderize_ru(copyitem.gender, "ён", "ена", "ено", "ены")]."))
-		copyitem.forceMove(loc) //fuckery detected! get off my photocopier... shitbird!
+		copyitem.forceMove(loc) // fuckery detected! get off my photocopier... shitbird!
 
 	copying = FALSE
 
