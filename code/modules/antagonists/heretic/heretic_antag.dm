@@ -26,7 +26,8 @@
 	clown_gain_text = "Вы обрели знания противоречащие учениям Хонкоматери и теперь можете владеть оружием, не причиняя себе вреда."
 	clown_removal_text = "По мере того, как ваши еретические знания рассеиваются, вы возвращаетесь к своему неуклюжему, клоунскому «я»."
 	antag_menu_name = "Еретик"
-
+	/// Automaticly allow to ascend
+	var/force_can_ascend = TRUE
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
@@ -837,7 +838,10 @@
  *
  * Returns FALSE if not all of our objectives are complete, or TRUE otherwise.
  */
-/datum/antagonist/heretic/proc/can_ascend()
+/datum/antagonist/heretic/proc/can_ascend()	
+	if(force_can_ascend)
+		return TRUE
+
 	if(feast_of_owls)
 		return FALSE // We sold our ambition for immediate power :/
 

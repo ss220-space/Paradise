@@ -114,6 +114,8 @@
 			в ближайшего врага, поджигая его. Если противник не погаснет сам, \
 			луч продолжит движение к другой цели."
 	gain_text = "Никакой огонь не был достаточно жарким, чтобы разжечь фонарь вновь. Никакой огонь не был достаточно ярким, чтобы спасти их. Никакой огонь не вечен."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "flames"
 	spell_to_add = /obj/effect/proc_holder/spell/charged/beam/fire_blast
 	cost = 1
 	research_tree_icon_frame = 7

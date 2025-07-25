@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/pointed/cleave
 	name = "Расчленение"
-	desc = "Causes severe bleeding on a target and several targets around them."
+	desc = "Вызывает тошноту кровью жертв в небольшом радиусе от выбранной точки."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -11,7 +11,7 @@
 	clothes_req = FALSE
 	base_cooldown = 45 SECONDS
 
-	invocation = "CL'VE!"
+	invocation = "Р'СЧЛ'Н'Н!"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
@@ -33,8 +33,8 @@
 			continue
 		if(victim.can_block_magic(antimagic_flags))
 			victim.visible_message(
-				span_danger("[victim]'s flashes in a firey glow, but repels the blaze!"),
-				span_danger("Your body begins to flash a firey glow, but you are protected!!")
+				span_danger("[victim.declent_ru(NOMINATIVE)] слегка мерцает!"),
+				span_danger("Ваше тело начинает светиться огненным свечением, но затем постепенно затухает!")
 			)
 			continue
 
@@ -42,13 +42,13 @@
 			continue
 
 		victim.visible_message(
-			span_danger("[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!"),
-			span_danger("Your veins burst from within and unholy flame erupts from your blood!")
+			span_danger("[victim.declent_ru(NOMINATIVE)] покрывается множеством мелких порезов!"),
+			span_danger("Ваши вены лопаются изнутри, и нечестивое пламя вырывается из вашей крови!")
 		)
 
-		var/obj/item/organ/external/bodypart = pick(victim.bodyparts)
-		bodypart.internal_bleeding()
+		//var/obj/item/organ/external/bodypart = pick(victim.bodyparts)
 		victim.apply_damage(20, BURN/*, wound_bonus = CANT_WOUND*/)
+		victim.vomit(0, VOMIT_BLOOD)
 
 		new /obj/effect/temp_visual/cleave(get_turf(victim))
 

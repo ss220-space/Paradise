@@ -1,9 +1,10 @@
 /obj/effect/proc_holder/spell/caretaker
 	name = "Последнее пристанище смотрителя"
-	desc = "Shifts you into the Caretaker's Refuge, rendering you translucent and intangible. \
-		While in the Refuge your movement is unrestricted, but you cannot use your hands or cast any spells. \
-		You cannot enter the Refuge while near other sentient beings, \
-		and you can be removed from it upon contact with antimagical artifacts."
+	desc = "Переносит вас в Убежище Смотрителя, делая вас прозрачным и неосязаемым. \
+			Находясь в Убежище, вы защищены почти от всех угроз, но не можете \
+			использовать руки и произносить заклинания. \
+			Вы не можете войти в Убежище, находясь рядом с другими разумными существами, \
+			и вас могут выкинуть из него различными антимагическими предметами."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -36,7 +37,7 @@
 	
 	for(var/mob/living/alive in orange(5, action.owner))
 		if(alive.stat != DEAD && alive.client)
-			action.owner.balloon_alert(action.owner, "other minds nearby!")
+			action.owner.balloon_alert(action.owner, "рядом разумное существо!")
 			return . | SPELL_CANCEL_CAST
 
 	if(!action.owner.has_status_effect(/datum/status_effect/caretaker_refuge))

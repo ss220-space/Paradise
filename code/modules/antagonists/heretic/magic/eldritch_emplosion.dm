@@ -1,7 +1,7 @@
 // Given to heretic monsters.
 /obj/effect/proc_holder/spell/emplosion/eldritch
-	name = "Energetic Pulse"
-	desc = "A spell that causes a large EMP around you, disabling electronics."
+	name = "Энергетический Импульс"
+	desc = "Заклинание, вызывающее вокруг вас сильный ЭМИ, выводящий из строя электронику."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 
@@ -9,7 +9,7 @@
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
-	invocation = "E'P."
+	invocation = "М'П'ЛС"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 

@@ -194,15 +194,6 @@
 	var/obj/effect/proc_holder/spell/spell_to_add
 
 
-/datum/heretic_knowledge/spell/New()
-	if(research_tree_icon_path)
-		return ..()
-
-	research_tree_icon_path = spell_to_add.action_icon
-	research_tree_icon_state = spell_to_add.action_icon_state
-	return ..()
-
-
 /datum/heretic_knowledge/spell/Destroy()
 	spell_to_add = null
 	return ..()
@@ -212,6 +203,9 @@
 	// Added spells are tracked on the body, and not the mind,
 	// because we handle heretic mind transfers
 	// via the antag datum (on_gain and on_lose).
+	if(!spell_to_add)
+		return
+
 	user.mind.AddSpell(new spell_to_add())
 
 /datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic)

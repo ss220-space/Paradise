@@ -1,8 +1,7 @@
 /obj/effect/proc_holder/spell/aoe/moon_ringleader
 	name = "Восстание Главарей"
-	desc = "Big AoE spell that deals brain damage and causes hallucinations to everyone in the AoE. \
-			The worse their sanity, the stronger this spell becomes. \
-			If their sanity is low enough, they even snap and go insane, and the spell then further halves their sanity."
+	desc = "Мощное AoE-заклинание, наносящее урон мозгу и вызывающее галлюцинации у всех в зоне \
+			действия."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

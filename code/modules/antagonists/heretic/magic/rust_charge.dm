@@ -11,15 +11,15 @@
 	school = SCHOOL_FORBIDDEN
 
 
-/obj/effect/proc_holder/spell/mob_cooldown/charge/rust/on_spell_gain(mob/user)
-	..()
+/obj/effect/proc_holder/spell/mob_cooldown/charge/rust/cast(list/targets)
+	. = ..()
 	var/turf/start_turf = get_turf(action.owner)
 	if(!istype(start_turf) || !HAS_TRAIT(start_turf, TRAIT_RUSTY))
 		return FALSE
 
 	cooldown_handler.start_recharge(135 SECONDS, 135 SECONDS)
-	charge_sequence(action.owner, user, charge_delay, charge_past)
-	cooldown_handler.start_recharge()
+	charge_sequence(action.owner, action.owner, charge_delay, charge_past)
+	//cooldown_handler.start_recharge()
 	return TRUE
 
 

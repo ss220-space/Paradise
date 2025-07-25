@@ -872,6 +872,19 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/projectiles_per_fire = 1
 
 
+/obj/effect/proc_holder/spell/pointed/projectile/InterceptClickOn(mob/user, params, atom/target)
+	if(user.ranged_ability == src)
+		user.face_atom(target)
+		return FALSE
+
+	if(current_amount)
+		return TRUE
+
+	to_chat(user, span_warning("<b>[user.ranged_ability.name]</b> has been disabled."))
+	user.ranged_ability.remove_ranged_ability(user)
+	return TRUE //TRUE for failed, FALSE for passed.
+
+
 /obj/effect/proc_holder/spell/pointed/projectile/star_blast/should_remove_click_intercept(mob/user)
 	return !current_amount
 

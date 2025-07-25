@@ -12,7 +12,7 @@
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 	base_cooldown = 60 SECONDS
-	invocation = "F'LSH'NG S'LV'R!"
+	invocation = "Р'СТН СТ'ЛЬ!"
 	invocation_type = INVOCATION_SHOUT
 
 	spell_requirements = NONE
@@ -76,7 +76,7 @@
 		QDEL_NULL(blade_effect)
 
 	var/mob/living/living_user = on_who
-	blade_effect = living_user.apply_status_effect(/datum/status_effect/protective_blades, null, projectile_amount, 25, 0.66 SECONDS, projectile_effect)
+	blade_effect = living_user.apply_status_effect(/datum/status_effect/protective_blades, -1, projectile_amount, 25, 0.66 SECONDS, projectile_effect)
 	RegisterSignal(blade_effect, COMSIG_QDELETING, PROC_REF(on_status_effect_deleted))
 	RegisterSignal(blade_effect, COMSIG_BLADE_BARRIER_TRIGGERED, PROC_REF(on_status_effect_triggered))
 
@@ -88,7 +88,7 @@
 
 	UnregisterSignal(blade_effect, COMSIG_QDELETING)
 	UnregisterSignal(blade_effect, COMSIG_BLADE_BARRIER_TRIGGERED)
-	QDEL_NULL(blade_effect)
+	//QDEL_NULL(blade_effect)
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/before_cast(list/targets)

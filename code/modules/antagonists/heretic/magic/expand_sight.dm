@@ -1,7 +1,8 @@
 // Action for Raw Prophets that boosts up or shrinks down their sight range.
 /obj/effect/proc_holder/spell/view_range/expand_sight
-	name = "Expand Sight"
-	desc = "Boosts your sight range considerably, allowing you to see enemies from much further away."
+	name = "Глаза что видели запретное"
+	desc = "Позволяет значительно увеличивать дальность обзора, чтобы \
+			видеть врагов с гораздо большего расстояния."
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "eye"
 	action_background_icon_state = "bg_heretic"

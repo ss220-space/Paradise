@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion
 	name = "Захват Территории"
-	desc = "This spell generates a 3x3 domain of cosmic fields. \
-		Creatures up to 7 tiles away will also receive a star mark."
+	desc = "Это заклинание создаёт область космических полей размером 3x3. \
+			Существа, находящиеся на расстоянии до 7 клеток, получат звёздную метку."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -12,7 +12,7 @@
 	clothes_req = FALSE
 	base_cooldown = 45 SECONDS
 
-	invocation = "C'SM'S 'XP'ND!"
+	invocation = "з'ХВ'Т Т'РР'Т'Р!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 

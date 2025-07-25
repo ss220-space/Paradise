@@ -521,7 +521,8 @@
 	var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
 	if(heretic_datum)
 		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
-		. += "<a href='byond://?src=[UID()];heretic=add_knowledge_points'>add points ([heretic_datum.knowledge_points])</a>"
+		. += "<a href='byond://?src=[UID()];heretic=add_knowledge_points'>добавить очки ([heretic_datum.knowledge_points])</a>"
+		. += "<a href='byond://?src=[UID()];heretic=add_all_knowledges'>дать все знания</a>"
 		if(!length(heretic_datum.objectives))
 			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];heretic=autoobjectives'>Randomize!</a>"
 
@@ -1970,6 +1971,21 @@
 			if("add_knowledge_points")
 				var/datum/antagonist/heretic/heretic = has_antag_datum(/datum/antagonist/heretic)
 				heretic?.admin_change_points(usr)
+
+			if("add_all_knowledges")
+				var/datum/antagonist/heretic/heretic = has_antag_datum(/datum/antagonist/heretic)
+				heretic.force_can_ascend = TRUE
+				for(var/knowledge in subtypesof(/datum/heretic_knowledge))
+					if(knowledge == /datum/heretic_knowledge/spell)
+						continue
+
+					if(knowledge == /datum/heretic_knowledge/summon)
+						continue
+
+					if(knowledge == /datum/heretic_knowledge/mark)
+						continue
+
+					heretic.gain_knowledge(knowledge)
 				
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])

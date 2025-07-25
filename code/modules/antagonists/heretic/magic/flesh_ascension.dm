@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/shapeshift/shed_human_form
-	name = "Shed form"
-	desc = "Shed your fragile form, become one with the arms, become one with the emperor. \
-		Causes heavy amounts of brain damage and sanity loss to nearby mortals."
+	name = "Сброс старой оболочки"
+	desc = "Сбросьте свою хрупкую оболочку, станьте единым с руками, стань единым с Императором. \
+			Вызывает серьёзные повреждения мозга и потерю рассудка у находящихся рядом смертных."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -10,7 +10,7 @@
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 
-	invocation = "REALITY UNCOIL!"
+	invocation = "ДА РАСКРОЕТСЯ РЕАЛЬНОСТЬ!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
@@ -30,11 +30,13 @@
 			continue
 
 		// 25% chance to cause a trauma
-		if(prob(25))
-			//var/datum/brain_trauma/trauma = pick(subtypesof(BRAIN_TRAUMA_MILD) + subtypesof(BRAIN_TRAUMA_SEVERE))
-			//nearby_human.gain_trauma(trauma, TRAUMA_RESILIENCE_LOBOTOMY)
-			nearby_human.adjustBrainLoss(50)
-			nearby_human.Hallucinate(300 SECONDS)
+		if(!prob(25))
+			continue
+
+		//var/datum/brain_trauma/trauma = pick(subtypesof(BRAIN_TRAUMA_MILD) + subtypesof(BRAIN_TRAUMA_SEVERE))
+		//nearby_human.gain_trauma(trauma, TRAUMA_RESILIENCE_LOBOTOMY)
+		nearby_human.adjustBrainLoss(50)
+		nearby_human.Hallucinate(300 SECONDS)
 
 	return ..()
 

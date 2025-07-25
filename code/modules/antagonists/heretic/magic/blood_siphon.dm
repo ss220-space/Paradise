@@ -1,7 +1,8 @@
 /obj/effect/proc_holder/spell/pointed/blood_siphon
 	name = "Вампиризм"
-	desc = "A targeted spell that heals your wounds while damaging the enemy. \
-		It has a chance to transfer wounds between you and your enemy."
+	desc = "Заклинание, которое лечит ваши раны и наносит урон врагу. \
+			Есть вероятность, что серьезные повреждения (вроди переломов) \
+			также смогут передаться."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -12,7 +13,7 @@
 	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
 
-	invocation = "FL'MS O' 'T'RN'TY."
+	invocation = "В'МП'Р'ЗМ"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
@@ -34,14 +35,14 @@
 	if(cast_on.can_block_magic())
 		action.owner.balloon_alert(action.owner, "spell blocked!")
 		cast_on.visible_message(
-			span_danger("The spell bounces off of [cast_on]!"),
-			span_danger("The spell bounces off of you!"),
+			span_danger("[cast_on.declent_ru(NOMINATIVE)] отражает заклинание!"),
+			span_danger("Заклинание отскакивает от вас!"),
 		)
 		return FALSE
 
 	cast_on.visible_message(
-		span_danger("[cast_on] turns pale as a red glow envelops [cast_on.p_them()]!"),
-		span_danger("You pale as a red glow enevelops you!"),
+		span_danger("[cast_on.declent_ru(NOMINATIVE)] бледне[pluralize_ru(cast_on.gender, "е", "ю")]т охваченн[genderize_ru(cast_on.gender, "ый", "ая", "ое", "ые")] алым сиянием!"),
+		span_danger("Вы бледнеете, когда вас окутывает алое сияние!"),
 	)
 
 	var/mob/living/living_owner = action.owner
@@ -55,15 +56,20 @@
 	if(living_owner.blood_volume < BLOOD_VOLUME_MAXIMUM) // we dont want to explode from casting
 		living_owner.blood_volume += 20
 
-	if(!iscarbon(cast_on) || !iscarbon(action.owner))
+	if(!ishuman(cast_on) || !ishuman(action.owner))
 		return TRUE
 
 	var/mob/living/carbon/human/human_user = action.owner
+	var/mob/living/carbon/human/human_target = cast_on
 	for(var/obj/item/organ/external/bodypart as anything in human_user.bodyparts)
 		if(prob(50))
 			bodypart.stop_internal_bleeding()
+			var/obj/item/organ/external/targ_bodypart = pick(human_target.bodyparts)
+			targ_bodypart.internal_bleeding()
 
 		if(prob(50))
 			bodypart.mend_fracture()
+			var/obj/item/organ/external/targ_bodypart = pick(human_target.bodyparts)
+			targ_bodypart.fracture()
 
 	return TRUE

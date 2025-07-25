@@ -256,6 +256,10 @@ emp_act
 		var/final_block_chance = w_uniform.block_chance - (clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(w_uniform.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return TRUE
+	if(belt)
+		var/final_block_chance = belt.block_chance - (clamp((armour_penetration-belt.armour_penetration)/2,0,100)) + block_chance_modifier
+		if(belt.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
+			return TRUE
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
 		return TRUE
 	return FALSE

@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/apetra_vulnera
 	name = "Усугубление"
-	desc = "Causes severe bleeding on every limb of a target which has more than 15 brute damage. \
-		Wounds a random limb if no limb is sufficiently damaged."
+	desc = "Ломает части тела, имеющие 15 единиц физических повреждений и выше. Если таковых нет, \
+			ломает случайную часть тела."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -11,7 +11,7 @@
 	clothes_req = FALSE
 	base_cooldown = 45 SECONDS
 
-	invocation = "AP'TRA VULN'RA!"
+	invocation = "С'Г'БЛ'Н!"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
@@ -34,8 +34,8 @@
 
 	if(cast_on.can_block_magic(antimagic_flags))
 		cast_on.visible_message(
-			span_danger("[cast_on]'s bruises briefly glow, but repels the effect!"),
-			span_danger("Your bruises sting a little, but you are protected!")
+			span_danger("Повреждения [cast_on.declent_ru(ACCUSATIVE)] слегка мерцают!"),
+			span_danger("Ваши раны немного покалывает, но вы защищены!")
 		)
 		return FALSE
 
@@ -54,8 +54,8 @@
 
 
 	cast_on.visible_message(
-		span_danger("[cast_on]'s scratches and bruises are torn open by an unholy force!"),
-		span_danger("Your scratches and bruises are torn open by some horrible unholy force!")
+		span_danger("Царапины и синяки [cast_on.declent_ru(GENITIVE)] внезапно разрываются под действием какой-то нечестивой силы!"),
+		span_danger("Ваши царапины и синяки внезапно разрываются какой-то ужасной нечестивой силой!")
 	)
 
 	new /obj/effect/temp_visual/cleave(get_turf(cast_on))

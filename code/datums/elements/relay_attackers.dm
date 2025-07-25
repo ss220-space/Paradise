@@ -74,7 +74,7 @@
 	relay_attacker(target, hit_projectile.firer, hit_projectile.damage_type == STAMINA ? ATTACKER_STAMINA_ATTACK : ATTACKER_DAMAGING_ATTACK)
 
 /// Even if another component blocked this hit, someone still threw something
-/datum/element/relay_attackers/proc/on_hitby(atom/target, atom/movable/hit_atom, datum/thrownthing/throwingdatum)
+/datum/element/relay_attackers/proc/on_hitby(atom/target, atom/movable/hit_atom, hitpush, blocked, datum/thrownthing/throwingdatum)
 	SIGNAL_HANDLER
 	if(!isitem(hit_atom))
 		return

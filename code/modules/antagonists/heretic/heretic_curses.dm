@@ -15,20 +15,14 @@
 	/// A list of all the blood samples that were found on our atoms, in our last go at the ritual
 	var/list/blood_samples
 
+
 /datum/heretic_knowledge/curse/recipe_snowflake_check(mob/living/carbon/human/user, list/atoms, list/selected_atoms, turf/loc)
 	fingerprints = list()
 	blood_samples = list()
-	for(var/mob/living/carbon/human/requirement as anything in atoms)
-		fingerprints[requirement.get_full_print()] = TRUE
-		blood_samples[requirement.get_blood_dna_list()] = TRUE
+	var/atom/blood_owner = atoms[1]
+	var/datum/reagent/blood = blood_owner.reagents.has_reagent("blood")
+	return blood?.data["blood_DNA"]
 
-		for(var/datum/reagent/blood/usable_reagent as anything in requirement.reagents?.reagent_list)
-			if(!istype(usable_reagent, /datum/reagent/blood))
-				continue
-
-			blood_samples[usable_reagent.data["blood_DNA"]] = TRUE
-
-	return TRUE
 
 /datum/heretic_knowledge/curse/on_finished_recipe(mob/living/user, list/selected_atoms,  turf/loc)
 	// Potential targets is an assoc list of [names] to [human mob ref].

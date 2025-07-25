@@ -9,7 +9,8 @@
 	. = ..()
 	var/list/potential_targets
 	var/mob/living/living_mob = controller.pawn
-	var/datum/targetting_datum/targetting_datum = controller.blackboard[targetting_datum_key]
+	var/path = controller.blackboard[targetting_datum_key]
+	var/datum/targetting_datum/targetting_datum = new path()
 
 	if(!targetting_datum)
 		CRASH("No target datum was supplied in the blackboard for [controller.pawn]")

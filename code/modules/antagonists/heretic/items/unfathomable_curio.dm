@@ -1,18 +1,45 @@
 //Item for knock/moon heretic sidepath, it can block 5 hits of damage, acts as storage and if the heretic is examined the examiner suffers brain damage and blindness
 
 /obj/item/storage/belt/unfathomable_curio
-	name = "Непостижимая Диковинка"
-	desc = "It. It looks backs. It looks past. It looks in. It sees. It hides. It opens."
+	name = "непостижимая диковинка"
+	ru_names = list(
+		NOMINATIVE = "непостижимая диковинка",
+		GENITIVE = "непостижимой диковинки",
+		DATIVE = "непостижимой диковинке",
+		ACCUSATIVE = "непостижимую диковинку",
+		INSTRUMENTAL = "непостижимой диковинкой",
+		PREPOSITIONAL = "непостижимой диковинке",
+	)
+	desc = "Оно. Оно оглядывается назад. Оно смотрит в прошлое. \
+			Оно заглядывает внутрь. Оно видит. Оно прячется. Оно открывается."
 	icon_state = "unfathomable_curio"
 	item_state = "unfathomable_curio"
 	//content_overlays = FALSE
 	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
 	//storage_type = /datum/storage/unfathomable_curio
-
+	max_combined_w_class = 21
+	storage_slots = 21
 	//Vars used for the shield component
+	max_w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(
+		/obj/item/ammo_box/strilka310/lionhunter,
+		/obj/item/heretic_labyrinth_handbook,
+		/obj/item/organ, // Bodyparts are often used in rituals.
+		/obj/item/clothing/neck/eldritch_amulet,
+		/obj/item/clothing/neck/heretic_focus,
+		/obj/item/codex_cicatrix,
+		/obj/item/eldritch_potion,
+		/obj/item/reagent_containers/food/snacks/grown/poppy, // Used to regain a Living Heart.
+		/obj/item/reagent_containers/food/snacks/grown/harebell, // Used to reroll targets
+		/obj/item/melee/rune_carver,
+		/obj/item/melee/sickly_blade,
+		/obj/item/organ, // Organs are also often used in rituals.
+		/obj/item/reagent_containers/glass/beaker/eldritch,
+		/obj/item/stack/sheet/glass, // Glass is often used by moon heretics
+	)
 	var/heretic_shield_icon = "unfathomable_shield"
-	var/max_charges = 1
+	var/max_charges = 5
 	var/recharge_start_delay = 30 SECONDS
 	var/charge_increment_delay = 30 SECONDS
 	var/charge_recovery = 1
@@ -30,7 +57,7 @@
 	if(!(slot & slot_flags))
 		return
 
-	RegisterSignal(user, COMSIG_LIVING_CHECK_BLOCK, PROC_REF(shield_reaction))
+	//RegisterSignal(user, COMSIG_ITEM_HIT_REACT, PROC_REF(shield_reaction))
 
 	if(isheretic(user))
 		return
@@ -38,26 +65,21 @@
 	to_chat(user, span_warning("The curio wraps around you, and you feel the beating of something dark inside it..."))
 
 
+/*
 /obj/item/storage/belt/unfathomable_curio/dropped(mob/user)
 	. = ..()
-	UnregisterSignal(user, COMSIG_LIVING_CHECK_BLOCK)
-
-
+	UnregisterSignal(user, COMSIG_ITEM_HIT_REACT)
+*/
+/*
 // Here we make sure our curio is only able to block while worn on the belt slot
-/obj/item/storage/belt/unfathomable_curio/proc/shield_reaction(mob/living/carbon/human/owner,
-	atom/movable/hitby,
-	damage = 0,
-	attack_text = "the attack",
-	attack_type = ITEM_ATTACK,
-	armour_penetration = 0,
-	damage_type = BRUTE,
-)
+/obj/item/storage/belt/unfathomable_curio/proc/shield_reaction(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, damage, attack_type)
 	SIGNAL_HANDLER
 
-	if(hit_reaction(owner, hitby, attack_text, 0, damage, attack_type) && (owner.belt == src))
-		return SUCCESSFUL_BLOCK
-	return NONE
+	if(hit_reaction(owner, hitby, "атакует", 0, damage, attack_type) && (owner.belt == src))
+		return COMPONENT_BLOCK_SUCCESSFUL
 
+	return NONE
+*/
 
 // Our on hit effect
 /obj/item/storage/belt/unfathomable_curio/proc/shield_damaged(mob/living/carbon/human/wearer, attack_text, new_current_charges)

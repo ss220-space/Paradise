@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/pointed/burglar_finesse
 	name = "Хитрость взломщика"
-	desc = "Steal a random item from the victim's backpack."
+	desc = "Помещает случайный предмет из рюкзака выбранной жертвы вам в руку."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -29,8 +29,8 @@
 	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
-		to_chat(cast_on, span_danger("You feel a light tug, but are otherwise fine, you were protected by holiness!"))
-		to_chat(action.owner, span_danger("[cast_on] is protected by holy forces!"))
+		to_chat(cast_on, span_danger("Вы чувствуете легкий рывок!"))
+		to_chat(action.owner, span_danger("[cast_on.declent_ru(NOMINATIVE)] отражает попытку кражи!"))
 		return FALSE
 
 	var/obj/item/storage/storage_item = cast_on.get_item_by_slot(ITEM_SLOT_BACK)
@@ -42,8 +42,8 @@
 	if(isnull(item))
 		return FALSE
 
-	to_chat(cast_on, span_warning("Your [storage_item] feels lighter..."))
-	to_chat(action.owner, span_notice("With a blink, you pull [item] out of [cast_on][p_s()] [storage_item]."))
+	to_chat(cast_on, span_warning("Ваш[genderize_ru(storage_item.gender, "", "а", "е", "и")] [storage_item.declent_ru(NOMINATIVE)] станов[pluralize_ru(storage_item.gender, "и", "я")]тся легче..."))
+	to_chat(action.owner, span_notice("Вы делаете легкий взмах рукой, доставая [item.declent_ru(ACCUSATIVE)] из [storage_item.declent_ru(GENITIVE)]."))
 	if(action.owner.put_in_active_hand(item))
 		return
 

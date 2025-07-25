@@ -30,4 +30,4 @@
 		/obj/effect/proc_holder/spell/pointed/cleave,
 	)
 	for(var/path in actions_to_add)
-		mind.AddSpell(new path)
+		AddSpell(new path)

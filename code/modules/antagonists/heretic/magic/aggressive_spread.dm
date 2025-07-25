@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/aoe/rust_conversion
 	name = "Агрессивное Распространение"
-	desc = "Spreads rust onto nearby surfaces."
+	desc = "Покрывает всё вокруг ржавчиной."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -12,7 +12,7 @@
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
-	invocation = "A'GRSV SPR'D."
+	invocation = "ГР'СС'ВН Р'СПР'СТР'Н'Н"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
@@ -52,5 +52,5 @@
 
 
 /obj/effect/proc_holder/spell/aoe/rust_conversion/construct
-	name = "Construct Spread"
+	name = "Агрессивное Распространение"
 	base_cooldown = 15 SECONDS

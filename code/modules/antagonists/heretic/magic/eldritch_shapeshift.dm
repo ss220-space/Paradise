@@ -1,14 +1,14 @@
 // Given to heretic monsters.
 /obj/effect/proc_holder/spell/shapeshift/eldritch
-	name = "Shapechange"
-	desc = "A spell that allows you to take on the form of another creature, gaining their abilities. \
-		After making your choice, you will be unable to change to another."
+	name = "Метаморфоза" // 177013 :)
+	desc = "Заклинание, позволяющее вам принять облик другого существа, приобретая его способности. \
+			Сделав выбор, вы больше не сможете принимать другую форму."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 
 	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
-	invocation = "SH'PE."
+	invocation = "М'Т'М'РФ'З"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 

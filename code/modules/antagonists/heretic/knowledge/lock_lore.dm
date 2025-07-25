@@ -186,7 +186,7 @@
 
 
 /datum/heretic_knowledge/blade_upgrade/flesh/lock/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
-	if(!prob(chance))
+	if(!prob(chance) || !istype(target))
 		return
 
 	target.Confused(5 SECONDS)

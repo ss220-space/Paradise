@@ -170,7 +170,7 @@
 	return ..()
 
 /datum/status_effect/protective_blades/on_apply()
-	RegisterSignal(owner, COMSIG_LIVING_CHECK_BLOCK, PROC_REF(on_shield_reaction))
+	RegisterSignal(owner, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(on_shield_reaction))
 	for(var/blade_num in 1 to max_num_blades)
 		var/time_until_created = (blade_num - 1) * time_between_initial_blades
 		if(time_until_created <= 0)
@@ -181,7 +181,7 @@
 	return TRUE
 
 /datum/status_effect/protective_blades/on_remove()
-	UnregisterSignal(owner, COMSIG_LIVING_CHECK_BLOCK)
+	UnregisterSignal(owner, COMSIG_HUMAN_CHECK_SHIELDS)
 	QDEL_LIST(blades)
 
 	return ..()
@@ -193,7 +193,7 @@
 
 	var/obj/effect/floating_blade/blade = new blade_type(get_turf(owner))
 	blades += blade
-	blade.orbit(owner, blade_orbit_radius)
+	INVOKE_ASYNC(blade, TYPE_PROC_REF(/atom/movable, orbit), owner, blade_orbit_radius)
 	RegisterSignal(blade, COMSIG_QDELETING, PROC_REF(remove_blade))
 	playsound(get_turf(owner), 'sound/items/unsheath.ogg', 33, TRUE)
 
@@ -202,10 +202,10 @@
 /datum/status_effect/protective_blades/proc/on_shield_reaction(
 	mob/living/carbon/human/source,
 	atom/movable/hitby,
-	damage = 0,
 	attack_text = "the attack",
-	attack_type = ITEM_ATTACK,
 	armour_penetration = 0,
+	damage = 0,
+	attack_type = ITEM_ATTACK,
 	damage_type = BRUTE,
 )
 	SIGNAL_HANDLER
@@ -232,7 +232,7 @@
 
 	qdel(to_remove)
 
-	return SUCCESSFUL_BLOCK
+	return SHIELD_BLOCK
 
 /// Remove deleted blades from our blades list properly.
 /datum/status_effect/protective_blades/proc/remove_blade(obj/effect/floating_blade/to_remove)
@@ -310,7 +310,7 @@
 	)
 
 /datum/status_effect/caretaker_refuge/get_examine_text()
-	return span_warning("[genderize_ru(owner.gender, "Он", "Она", "Оно", "Они")] окутан[pluralize_ru(owner.gender, "", "ы")] нечестивой дымкой!")
+	return span_warning("[genderize_ru(owner.gender, "Он", "Она", "Оно", "Они")] окутан[genderize_ru(owner.gender, "", "а", "о", "ы")] нечестивой дымкой!")
 
 /datum/status_effect/caretaker_refuge/proc/nullrod_handler(datum/source, obj/item/weapon)
 	SIGNAL_HANDLER

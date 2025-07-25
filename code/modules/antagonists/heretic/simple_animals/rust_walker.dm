@@ -33,7 +33,7 @@
 		/obj/effect/proc_holder/spell/fireball/rust_wave/short = BB_TARGETED_ACTION,
 	)
 	for(var/path in grantable_spells)
-		mind.AddSpell(new path)
+		AddSpell(new path)
 
 
 /mob/living/simple_animal/hostile/heretic_summon/rust_walker/setDir(newdir)
