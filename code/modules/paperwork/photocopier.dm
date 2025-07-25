@@ -658,12 +658,12 @@
 	else if(target != user)
 		if(target.anchored || !ishuman(user))
 			return
-		visible_message(span_warning("[user] затаскивает [target.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_warning("[user] затаскива[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]!"))
 	target.forceMove(get_turf(src))
 	copymob = target
 	if(copyitem)
 		copyitem.forceMove(get_turf(src))
-		visible_message(span_notice("[capitalize(copymob.declent_ru(NOMINATIVE))] сталкивает [copyitem.declent_ru(ACCUSATIVE)] со своего пути!"))
+		visible_message(span_notice("[capitalize(copymob.declent_ru(NOMINATIVE))] сталкива[pluralize_ru(user.gender, "ет", "ют")] [copyitem.declent_ru(ACCUSATIVE)] со своего пути!"))
 		copyitem = null
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!", FALSE)
