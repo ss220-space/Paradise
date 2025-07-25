@@ -1,12 +1,13 @@
 /obj/effect/proc_holder/spell/lunatic_track
-	name = "Moonlight Echo"
-	desc = "Track your ringleader."
+	name = "Эхо Лунного Света"
+	desc = "Узнайте местоположение вашего Лидера."
 	stat_allowed = CONSCIOUS
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "moon_smile"
 	base_cooldown = 4 SECONDS
+
 
 /obj/effect/proc_holder/spell/lunatic_track/on_spell_gain(mob/user = usr)
 	if(!IS_LUNATIC(user))
@@ -19,7 +20,7 @@
 		var/datum/antagonist/lunatic/lunatic_datum = IS_LUNATIC(action.owner)
 		var/mob/living/carbon/human/ascended_heretic = lunatic_datum.ascended_body
 		if(!(ascended_heretic))
-			action.owner.balloon_alert(action.owner, "what cruel fate, your master is gone...")
+			action.owner.balloon_alert(action.owner, "Вашего хозяина больше нет...")
 			cooldown_handler.start_recharge(1 SECONDS)
 			return FALSE
 
@@ -27,7 +28,7 @@
 		action.owner.balloon_alert(action.owner, get_balloon_message(ascended_heretic))
 
 		if(ascended_heretic.stat == DEAD)
-			to_chat(action.owner, span_hierophant("[ascended_heretic] is dead. Weep for the lie has struck out."))
+			to_chat(action.owner, span_hierophant("[ascended_heretic.declent_ru(NOMINATIVE)] мертв[pluralize_ru(ascended_heretic.gender, "", "а", "о", "ы")]. Рыдайте, ибо ложь победила."))
 
 		cooldown_handler.start_recharge()
 		return TRUE
@@ -37,13 +38,14 @@
 /obj/effect/proc_holder/spell/lunatic_track/proc/get_balloon_message(mob/living/carbon/human/tracked_mob)
 	var/balloon_message = generate_balloon_message(tracked_mob)
 	if(tracked_mob.stat == DEAD)
-		balloon_message = "they're dead, " + balloon_message
+		balloon_message = "мертв[pluralize_ru(tracked_mob.gender, "", "а", "о", "ы")] " + balloon_message
 
 	return balloon_message
 
+
 /// Create the text for the balloon message
 /obj/effect/proc_holder/spell/lunatic_track/proc/generate_balloon_message(mob/living/carbon/human/tracked_mob)
-	var/balloon_message = "error text!"
+	var/balloon_message = "ошибка!"
 	var/turf/their_turf = get_turf(tracked_mob)
 	var/turf/our_turf = get_turf(action.owner)
 	var/their_z = their_turf?.z
@@ -54,13 +56,13 @@
 
 	switch(dist)
 		if(0 to 15)
-			balloon_message = "very near, [dir2text(dir)]!"
+			balloon_message = "очень близко, [dir2text(dir)]!"
 		if(16 to 31)
-			balloon_message = "near, [dir2text(dir)]!"
+			balloon_message = "близко, [dir2text(dir)]!"
 		if(32 to 127)
-			balloon_message = "far, [dir2text(dir)]!"
+			balloon_message = "далеко, [dir2text(dir)]!"
 		else
-			balloon_message = "very far!"
+			balloon_message = "очень далеко!"
 
 	// Early returns here if we don't need to tell them the z-levels
 	if(our_z == their_z)

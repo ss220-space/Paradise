@@ -12,6 +12,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	/// Proximity monitor that handles the effects we are looking for
 	var/datum/component/proximity_monitor/advanced/heretic_arena/arena
 
+
 /obj/effect/abstract/heretic_arena/Initialize(mapload, range, duration, caster)
 	. = ..()
 	arena = new(list(src, range))
@@ -144,8 +145,17 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 
 
 /turf/closed/indestructible/heretic_wall
-	name = "eldritch wall"
-	desc = "A wall penning in the sheep amongst the wolves. It glows with malevolent energy - prodding it is likely unwise."
+	name = "жуткая стена"
+	ru_names = list(
+		NOMINATIVE = "жуткая стена",
+		GENITIVE = "жуткой стены",
+		DATIVE = "жуткой стене",
+		ACCUSATIVE = "жуткуб стену",
+		INSTRUMENTAL = "жуткой стеной",
+		PREPOSITIONAL = "жуткой стене",
+	)
+	desc = "Стена, не дающая овцам сбежать от волка. \
+			Она излучает злобную энергию — трогать её, вероятно, неразумно."
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "eldritch_forcewall"
 	opacity = FALSE
@@ -153,22 +163,24 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 
 
 /turf/closed/indestructible/heretic_wall/CanAllowThrough(atom/movable/mover, border_dir)
-	if(isliving(mover))
-		var/mob/living/living_mover = mover
-		var/datum/status_effect/arena_tracker/tracker = living_mover.has_status_effect(/datum/status_effect/arena_tracker)
-		if(tracker?.arena_victor)
-			return TRUE
-	return ..()
+	if(!isliving(mover))
+		return ..()
+
+	var/mob/living/living_mover = mover
+	var/datum/status_effect/arena_tracker/tracker = living_mover.has_status_effect(/datum/status_effect/arena_tracker)
+	if(tracker?.arena_victor)
+		return TRUE
 
 
 /turf/closed/indestructible/heretic_wall/Bumped(atom/movable/bumped_atom)
 	. = ..()
 	if(!isliving(bumped_atom))
 		return
+
 	var/mob/living/living_mob = bumped_atom
 	var/atom/target = get_edge_target_turf(living_mob, get_dir(src, get_step_away(living_mob, src)))
 	living_mob.throw_at(target, 4, 5)
-	to_chat(living_mob, span_userdanger("The wall repels you with tremendous force!"))
+	to_chat(living_mob, span_userdanger("Стена отталкивает вас с огромной силой!"))
 
 
 /// Called when you crit somebody to update your crown
@@ -195,9 +207,9 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 		return
 
 	if(isheretic(owner))
-		to_chat(owner, span_big(span_purple("The mansus is pleased with your performance, you may leave now.")))
+		to_chat(owner, span_big(span_purple("Мансус доволен вашим выступлением, теперь вы свободны.")))
 	else
-		to_chat(owner, span_big(span_purple("You have done well, you may leave now.")))
+		to_chat(owner, span_big(span_purple("Вы хорошо постарались, теперь вы можете идти.")))
 
 	arena_victor = TRUE
 
@@ -294,6 +306,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	if(ismob(attacking_projectile.firer))
 		last_attacker = WEAKREF(attacking_projectile.firer)
 
+
 ///Called when impacted by something thrown at us, setting the last attacker to the person throwing the item.
 /datum/status_effect/arena_tracker/proc/on_impact_zone(atom/source, mob/living/hitby, zone, blocked, datum/thrownthing/throwingdatum)
 	SIGNAL_HANDLER
@@ -305,8 +318,9 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	if(ismob(thrown_by))
 		last_attacker = WEAKREF(thrown_by)
 
+
 /datum/antagonist/heretic_arena_participant
-	name = "Arena Participant"
+	name = "Гладиатор"
 	show_in_roundend = FALSE
 	replace_banned = FALSE
 	objectives = list()
@@ -322,10 +336,12 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 /datum/antagonist/heretic_arena_participant/proc/forge_objectives()
 	var/datum/objective/survive = new /datum/objective
 	survive.owner = owner
-	survive.explanation_text = "You have been trapped in an arena. The only way out is to slaughter someone else. Kill your captor, or betray your friends - the choice is yours."
+	survive.explanation_text = "Вы оказались в ловушке на арене. Единственный выход — убить кого-нибудь ещё. \
+								Убить своего пленителя или предать друзей — выбор за вами."
 	objectives += survive
 	var/datum/objective/fight_to_escape = new /datum/objective
 	fight_to_escape.owner = owner
-	fight_to_escape.explanation_text = "Escape is impossible. The only way out is to defeat another participant in this battle to the death. \
-		A weapon has been bestowed unto you, granting you a fighting chance, it would be quite a shame were you to attempt to break it."
+	fight_to_escape.explanation_text = "Побег невозможен. Единственный выход — победить другого участника этой \
+										битвы. Вам даровано оружие, дающее шанс на победу. Будет очень жаль, \
+										если вы попытаетесь его сломать."
 	objectives += fight_to_escape

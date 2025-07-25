@@ -8,6 +8,7 @@
 	/// Our master (a heretic)'s mind.
 	var/datum/mind/master
 
+
 /datum/antagonist/heretic_monster/on_removal()
 	if(silent)
 		master = null
@@ -16,12 +17,15 @@
 	if(master?.current)
 		to_chat(master.current, span_warning("Вы чувствуете как связь с [owner.current.declent_ru(NOMINATIVE)] - вашим слугой, постепенно рассеивается."))
 
-	if(owner.current)
-		to_chat(owner.current, span_warning("Ваш разум расслабляется. [master ? "[master.current.declent_ru(NOMINATIVE)] больше не властен над вами." : "у вас больше нет Мастера."]"))
-		owner.current.visible_message(span_warning("Вы чувствуете что [owner.current.declent_ru(NOMINATIVE)] освободился от цепей Мансуса!"), ignored_mobs = owner.current)
+	if(!owner.current)
+		master = null
+		return ..()
 
+	to_chat(owner.current, span_warning("Ваш разум расслабляется. [master ? "[master.current.declent_ru(NOMINATIVE)] больше не властен над вами." : "у вас больше нет Мастера."]"))
+	owner.current.visible_message(span_warning("Вы чувствуете что [owner.current.declent_ru(NOMINATIVE)] освободился от цепей Мансуса!"), ignored_mobs = owner.current)
 	master = null
 	return ..()
+
 
 /*
  * Set our [master] var to a new mind.

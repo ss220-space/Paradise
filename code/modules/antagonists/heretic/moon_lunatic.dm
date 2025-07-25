@@ -11,6 +11,7 @@
 	// Our objective
 	var/datum/objective/lunatic/lunatic_obj
 
+
 /datum/antagonist/lunatic/on_gain()
 	// Masters gain an objective before so we dont want duplicates
 	for(var/objective in objectives)
@@ -24,6 +25,7 @@
 	lunatic_obj = loony
 	return ..()
 
+
 /// Runs when the moon heretic creates us, used to give the lunatic a master
 /datum/antagonist/lunatic/proc/set_master(datum/mind/heretic_master, mob/living/carbon/human/heretic_body)
 	src.ascended_heretic = heretic_master
@@ -33,6 +35,7 @@
 	lunatic_obj.update_explanation_text()
 
 	to_chat(owner, span_boldnotice("Разрушь ложь, спаси правду служа [heretic_master] - лидеру Лунатиков!"))
+
 
 /datum/antagonist/lunatic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -46,10 +49,12 @@
 	our_mob.mind.AddSpell(mad_touch)
 	our_mob.mind.AddSpell(moon_track)
 
+
 /datum/antagonist/lunatic/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
 	our_mob.faction -= FACTION_HERETIC
+
 
 /datum/objective/lunatic
 	explanation_text = "Помогите своему мастеру. Если вы видите это, прокрутите чат вверх, чтобы узнать, кто это, и напишите баг-репорт."
@@ -57,18 +62,21 @@
 	// If the person with this objective is a lunatic master
 	var/is_master = FALSE
 
+
 /datum/objective/lunatic/update_explanation_text()
 	. = ..()
 	if(is_master)
 		explanation_text = "Используйте лунатиков для достижеиния своих целей!"
 		return
 
-	explanation_text = "Помогите лидеру Лунатиков - [master]. Не вредите другим лунатикам!"
+	explanation_text = "Помогите лидеру Лунатиков. Лидер - [master.current.real_name]. Не вредите другим лунатикам!"
+
 
 // Lunatic master
 /datum/antagonist/lunatic/master
 	name = "Лидер Лунатиков"
 	antag_hud_name = "lunatic_master"
+
 
 /datum/antagonist/lunatic/master/on_gain()
 	var/datum/objective/lunatic/loony = new()
@@ -76,6 +84,7 @@
 	loony.is_master = TRUE
 	loony.update_explanation_text()
 	return ..()
+
 
 /datum/antagonist/lunatic/master/apply_innate_effects(mob/living/mob_override)
 	. = ..()

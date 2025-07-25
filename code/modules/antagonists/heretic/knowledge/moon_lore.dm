@@ -158,7 +158,6 @@
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/moon_ringleader
 	cost = 1
 
-
 	research_tree_icon_frame = 5
 
 

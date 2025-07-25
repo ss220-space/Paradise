@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/mind_gate
 	name = "Врата Разума"
-	desc = "Deals you 20 brain damage and the target suffers a hallucination, \
-			is left confused for 10 seconds, and suffers oxygen loss and brain damage."
+	desc = "Вызывает у цели галлюцинации, ошеломление на 10 секунд, удушие и повреждения мозга. \
+			Наносит вашему мозгу 20 единиц урона за каждое использование."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -12,12 +12,12 @@
 	clothes_req = FALSE
 	base_cooldown = 20 SECONDS
 
-	invocation = "Op'n y'r m'd."
+	invocation = "ТКР'Й СВ'Й Р'З'М"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 	cast_range = 6
 
-	active_msg = "You prepare to open your mind..."
+	active_msg = "Вы подготовились открыть свой разум..."
 
 
 /obj/effect/proc_holder/spell/pointed/mind_gate/can_cast(feedback = TRUE)
@@ -32,14 +32,14 @@
 	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
-		to_chat(cast_on, span_notice("Your mind feels closed."))
-		to_chat(action.owner, span_warning("Their mind doesn't swing open, but neither does yours."))
+		to_chat(cast_on, span_notice("Вы внезапно чувствуете что ваш разум закрыт. К чему бы это?"))
+		to_chat(action.owner, span_warning("Разум жертвы не смог раскрыться, ровно как и ваш."))
 		return FALSE
 
 	cast_on.Confused(10 SECONDS)
 	cast_on.adjustOxyLoss(30)
 	cast_on.Hallucinate(60 SECONDS)
-	cast_on.cause_hallucination(/datum/hallucination/delusion/preset/heretic/gate, "Caused by mindgate")
+	cast_on.cause_hallucination(/datum/hallucination/delusion/preset/heretic/gate, "Эффект Врат Разума")
 	cast_on.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 30)
 
 	var/mob/living/living_owner = action.owner

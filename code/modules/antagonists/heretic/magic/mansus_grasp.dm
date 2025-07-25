@@ -25,13 +25,43 @@
 /obj/effect/proc_holder/spell/touch/mansus_grasp/can_cast(feedback = TRUE)
 	return ..() && (isheretic(action.owner) || !!IS_LUNATIC(action.owner))
 
-/*
-/obj/effect/proc_holder/spell/touch/mansus_grasp/on_antimagic_triggered(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
-	victim.visible_message(
-		span_danger("The spell bounces off of [victim]!"),
-		span_danger("The spell bounces off of you!"),
-	)
-*/
+
+// Used for suicide
+/obj/item/melee/touch_attack/mansus_fist/proc/attack_effect(atom/victim, mob/living/carbon/caster)
+	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, victim) & COMPONENT_BLOCK_HAND_USE)
+		return
+
+	var/mob/living/living_hit = victim
+	living_hit.apply_damage(10, BRUTE/*, wound_bonus = CANT_WOUND*/)
+	if(!iscarbon(victim))
+		return
+
+	var/mob/living/carbon/carbon_hit = victim
+
+	// Cultists are momentarily disoriented by the stunning aura. Enough for both parties to go 'oh shit' but only a mild combat ability.
+	// Cultists have an identical effect on their stun hand. The heretic's faster spell charge time is made up for by their lack of teammates.
+	if(!iscultist(carbon_hit))
+		carbon_hit.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 4 SECONDS)
+		carbon_hit.AdjustKnockdown(5 SECONDS)
+		carbon_hit.adjustStaminaLoss(80)
+		return
+
+	carbon_hit.AdjustKnockdown(0.5 SECONDS)
+	carbon_hit.Confused(1.5 SECONDS, 3 SECONDS)
+	carbon_hit.Dizzy(1.5 SECONDS, 3 SECONDS)
+	//ADD_TRAIT(carbon_hit, TRAIT_NO_SIDE_KICK, UID()) // We don't want this to be a good stunning tool, just minor disorientation
+	//addtimer(TRAIT_CALLBACK_REMOVE(carbon_hit, TRAIT_NO_SIDE_KICK, UID()), 1 SECONDS)
+
+	var/old_color = carbon_hit.color
+	carbon_hit.color = COLOR_CULT_RED
+	animate(carbon_hit, color = old_color, time = 4 SECONDS, easing = EASE_IN)
+	carbon_hit.mob_light2(range = 1.5, power = 2.5, color = COLOR_CULT_RED, duration = 0.5 SECONDS)
+	playsound(carbon_hit, 'sound/magic/curse.ogg', 50, TRUE)
+
+	to_chat(caster, span_warning("Нечестивая сила вмешивается, поглощая большую часть эффектов!"))
+	to_chat(carbon_hit, span_warning("[caster.declent_ru(NOMINATIVE)] применяет к вам потусторонние силы, но ваша магия крови поглощает большую часть эффектов!"))
+	carbon_hit.balloon_alert_to_viewers("поглощено!")
+	return
 
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/victim, mob/living/carbon/caster, proximity, params)
@@ -48,39 +78,7 @@
 	if(!isliving(victim))
 		return ..()
 
-	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, victim) & COMPONENT_BLOCK_HAND_USE)
-		return ..()
-
-	var/mob/living/living_hit = victim
-	living_hit.apply_damage(10, BRUTE/*, wound_bonus = CANT_WOUND*/)
-	if(!iscarbon(victim))
-		return ..()
-
-	var/mob/living/carbon/carbon_hit = victim
-
-	// Cultists are momentarily disoriented by the stunning aura. Enough for both parties to go 'oh shit' but only a mild combat ability.
-	// Cultists have an identical effect on their stun hand. The heretic's faster spell charge time is made up for by their lack of teammates.
-	if(!iscultist(carbon_hit))
-		carbon_hit.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 4 SECONDS)
-		carbon_hit.AdjustKnockdown(5 SECONDS)
-		carbon_hit.adjustStaminaLoss(80)
-		return ..()
-
-	carbon_hit.AdjustKnockdown(0.5 SECONDS)
-	carbon_hit.Confused(1.5 SECONDS, 3 SECONDS)
-	carbon_hit.Dizzy(1.5 SECONDS, 3 SECONDS)
-	//ADD_TRAIT(carbon_hit, TRAIT_NO_SIDE_KICK, UID()) // We don't want this to be a good stunning tool, just minor disorientation
-	//addtimer(TRAIT_CALLBACK_REMOVE(carbon_hit, TRAIT_NO_SIDE_KICK, UID()), 1 SECONDS)
-
-	var/old_color = carbon_hit.color
-	carbon_hit.color = COLOR_CULT_RED
-	animate(carbon_hit, color = old_color, time = 4 SECONDS, easing = EASE_IN)
-	carbon_hit.mob_light2(range = 1.5, power = 2.5, color = COLOR_CULT_RED, duration = 0.5 SECONDS)
-	playsound(carbon_hit, 'sound/magic/curse.ogg', 50, TRUE)
-
-	to_chat(caster, span_warning("An unholy force intervenes as you grasp [carbon_hit], absorbing most of the effects!"))
-	to_chat(carbon_hit, span_warning("As [caster] grasps you with eldritch forces, your blood magic absorbs most of the effects!"))
-	carbon_hit.balloon_alert_to_viewers("absorbed!")
+	attack_effect(victim, caster)
 	return ..()
 
 
@@ -137,7 +135,7 @@
 */
 
 /obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message(span_suicide("[user.declent_ru(NOMINATIVE)] делает фейспалм [declent_ru(INSTRUMENTAL)]! Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "е", "ю")]тся убить себя!"))
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
 	var/obj/effect/proc_holder/spell/touch/mansus_grasp/source = attached_spell//?.resolve()
 	if(QDELETED(source) || !isheretic(user))
@@ -147,9 +145,10 @@
 		return SHAME
 
 	var/escape_our_torment = 0
-	while(carbon_user.stat == CONSCIOUS)
+	while(carbon_user.stat != DEAD)
 		if(QDELETED(src) || QDELETED(user))
 			return SHAME
+
 		if(escape_our_torment > 20) //Stops us from infinitely stunning ourselves if we're just not taking the damage
 			return FIRELOSS
 
@@ -160,7 +159,7 @@
 				carbon_user.emote("scream")
 				carbon_user.Stuttering(26 SECONDS)
 
-		source.attached_hand.afterattack(user, user)
+		attack_effect(user, user)
 		escape_our_torment++
 		stoplag(0.4 SECONDS)
 

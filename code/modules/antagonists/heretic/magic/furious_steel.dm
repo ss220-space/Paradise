@@ -57,7 +57,7 @@
 	// Let the caster prioritize melee attacks like punches and shoves over blade casts
 	if(get_dist(clicker, target) <= 1)
 		return FALSE
-
+	
 	return ..()
 
 
@@ -88,7 +88,7 @@
 
 	UnregisterSignal(blade_effect, COMSIG_QDELETING)
 	UnregisterSignal(blade_effect, COMSIG_BLADE_BARRIER_TRIGGERED)
-	//QDEL_NULL(blade_effect)
+	QDEL_NULL(blade_effect)
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/before_cast(list/targets)

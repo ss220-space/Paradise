@@ -21,6 +21,11 @@
 	blood_samples = list()
 	var/atom/blood_owner = atoms[1]
 	var/datum/reagent/blood = blood_owner.reagents.has_reagent("blood")
+	if(!blood)
+		return FALSE
+
+	fingerprints += blood_owner.fingerprints
+	blood_samples.Add(blood?.data["blood_DNA"])
 	return blood?.data["blood_DNA"]
 
 
@@ -34,11 +39,15 @@
 			continue
 
 		var/their_prints = md5(human_to_check.dna.uni_identity)
-		var/their_blood = human_to_check.dna.unique_enzymes
+		var/their_blood = copytext(human_to_check.dna.unique_enzymes, 1, 0)
 		if(!fingerprints[their_prints] && !blood_samples[their_blood])
 			continue
 
 		potential_targets["[human_to_check.real_name]"] = human_to_check
+
+	if(potential_targets.len == 0)
+		user.balloon_alert("нет подходящих ДНК!")
+		return FALSE
 
 	var/chosen_mob = tgui_input_list(user, "Выберите жертву, которую хотите проклясть.", name, sort_list(potential_targets, GLOBAL_PROC_REF(cmp_text_asc)))
 	if(isnull(chosen_mob))

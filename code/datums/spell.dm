@@ -872,25 +872,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/projectiles_per_fire = 1
 
 
-/obj/effect/proc_holder/spell/pointed/projectile/InterceptClickOn(mob/user, params, atom/target)
-	if(user.ranged_ability == src)
-		user.face_atom(target)
-		return FALSE
-
-	if(current_amount)
-		return TRUE
-
-	to_chat(user, span_warning("<b>[user.ranged_ability.name]</b> has been disabled."))
-	user.ranged_ability.remove_ranged_ability(user)
-	return TRUE //TRUE for failed, FALSE for passed.
-
-
-/obj/effect/proc_holder/spell/pointed/projectile/star_blast/should_remove_click_intercept(mob/user)
+/obj/effect/proc_holder/spell/pointed/projectile/should_remove_click_intercept(mob/user)
 	return !current_amount
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/valid_target(atom/cast_on)
 	return TRUE
+
 
 /obj/effect/proc_holder/spell/pointed/projectile/on_activation(mob/on_who)
 	. = ..()
@@ -898,6 +886,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		return
 
 	current_amount = projectile_amount
+
 
 /obj/effect/proc_holder/spell/pointed/projectile/on_deactivation(mob/on_who, refund_cooldown = TRUE)
 	. = ..()
@@ -929,10 +918,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/spell/pointed/projectile/after_cast(atom/cast_on)
 	. = ..()
-	if(current_amount > 0)
+	if(current_amount == 0)
+		cooldown_handler.start_recharge()
 		// We still have projectiles to cast!
 		// Reset our cooldown and let them fire away
-		cooldown_handler.start_recharge()
 		//reset_spell_cooldown()
 
 

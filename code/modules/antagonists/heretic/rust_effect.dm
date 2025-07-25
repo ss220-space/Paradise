@@ -7,6 +7,7 @@
 	layer = CLEANABLES_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
+
 /obj/effect/glowing_rune/Initialize(mapload)
 	. = ..()
 	pixel_y = rand(-6, 6)

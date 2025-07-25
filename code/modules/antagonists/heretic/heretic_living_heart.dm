@@ -236,16 +236,16 @@
 
 		switch(dist)
 			if(0 to 15)
-				balloon_message = "очень близко, [dir2textRU(dir)]!"
+				balloon_message = "очень близко, [dir2textRU_where(dir)]!"
 				arrow_color = COLOR_GREEN
 			if(16 to 31)
-				balloon_message = "близко, [dir2textRU(dir)]!"
+				balloon_message = "близко, [dir2textRU_where(dir)]!"
 				arrow_color = COLOR_YELLOW
 			if(32 to 127)
-				balloon_message = "далеко, [dir2textRU(dir)]!"
+				balloon_message = "далеко, [dir2textRU_where(dir)]!"
 				arrow_color = COLOR_ORANGE
 			else
-				balloon_message = "очень далеко!"
+				balloon_message = "слишком далеко!"
 				arrow_color = COLOR_RED
 
 		if(action.owner.hud_used)
@@ -258,6 +258,7 @@
 
 	return balloon_message
 
+
 /atom/movable/screen/navigate_arrow
 	icon = 'icons/effects/96x96.dmi'
 	name = "указатель"
@@ -265,6 +266,7 @@
 	pixel_x = -32
 	pixel_y = -32
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
 
 /atom/movable/screen/navigate_arrow/Initialize(mapload, datum/hud/hud_owner, turf/tracked_turf, arrow_color)
 	. = ..()
@@ -280,9 +282,11 @@
 
 	addtimer(CALLBACK(src, PROC_REF(end_effect)), 1.6 SECONDS)
 
+
 /atom/movable/screen/navigate_arrow/proc/end_effect()
 	icon_state = "navigate_arrow_disappear"
 	addtimer(CALLBACK(src, PROC_REF(null_arrow)), 0.4 SECONDS)
+
 
 /atom/movable/screen/navigate_arrow/proc/null_arrow()
 	if (hud)

@@ -76,6 +76,7 @@
 	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_resolved = star_gazer?.resolve()
 	if(star_gazer_resolved)
 		return star_gazer_resolved
+
 	return FALSE
 
 
@@ -83,8 +84,8 @@
 	name = "Звездное Касание"
 	desc = "A sinister looking aura that distorts the flow of reality around it. \
 		Causes people with a star mark to sleep for 4 seconds, and causes people without a star mark to get one."
-	icon_state = "star"
-	item_state = "star"
+	//icon_state = "star"
+	//item_state = "star"
 
 
 /obj/item/melee/touch_attack/star_touch/Initialize(mapload)
