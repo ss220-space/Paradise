@@ -1138,7 +1138,7 @@
 	switch(spellname)
 		if("fireball")
 			spellname_ru = "Огненного шара"
-		if("smoke")1
+		if("smoke")
 			spellname_ru = "Дыма"
 		if("blind")
 			spellname_ru = "Слепоты"
