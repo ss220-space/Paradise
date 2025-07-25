@@ -70,6 +70,8 @@
 	can_charge = FALSE
 	selfcharge = TRUE
 	var/emagged = FALSE
+	accuracy = GUN_ACCURACY_SNIPER
+
 
 /obj/item/gun/energy/floragun/emag_act(mob/user)
 	. = ..()

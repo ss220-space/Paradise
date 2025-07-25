@@ -106,7 +106,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 
 
 #define FULL_ACCURACY_DISTANCE 3
-#define MIN_ACCURACY_DISTANCE 10
+#define MIN_ACCURACY_DISTANCE 15
 #define MIN_ACCURACY_PERCENT 50
 #define FULL_ACCURACY_PERCENT 100
 
@@ -122,7 +122,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	if(istype(gun))
 		gun_accuracy = gun.accuracy
 	var/def_zone_accuracy = gun_accuracy.get_accuracy_for(projectile.def_zone)
-	return clamp(def_zone_accuracy * (max(100 - 4*distance, 25) / 100), 0, 100)
+	return clamp(def_zone_accuracy * (max(100 - 3*distance, 33) / 100), 0, 100)
 
 #undef FULL_ACCURACY_DISTANCE
 #undef MIN_ACCURACY_DISTANCE
