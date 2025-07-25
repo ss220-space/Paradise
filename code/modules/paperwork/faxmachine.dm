@@ -107,7 +107,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
 		if(scan)
-			src.balloon_alert(user, "занято!")
+			balloon_alert(user, "занято!")
 			return ATTACK_CHAIN_PROCEED
 		if(!scan(I))
 			return ..()
@@ -134,9 +134,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if(user)
 			to_chat(user, span_notice("Передатчики настраиваются на неизвестный источник!"))
 			balloon_alert(user, "взломано")
-			playsound(loc, 'sound/machines/fax_emag.ogg', 50, 0)
+			playsound(loc, 'sound/machines/fax_emag.ogg', 50, FALSE)
 	else if(user)
-		src.balloon_alert(user, "уже взломано!")
+		balloon_alert(user, "уже взломано!")
 
 /obj/machinery/photocopier/faxmachine/proc/is_authenticated(mob/user)
 	if(authenticated)
@@ -196,13 +196,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if("auth") // log in/out
 			if(!is_authenticated && scan)
 				if(scan.registered_name in GLOB.fax_blacklist)
-					atom_say("Вход не выполнен: пользователь занесён в чёрный список факсимильной сети.")
+					atom_say("Вход не выполнен: пользователь занесён в чёрный список факсимильной сети.", FALSE)
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 					. = FALSE
 				else if(check_access(scan))
 					authenticated = TRUE
 				else // ID doesn't have access to this machine
-					atom_say("Вход не выполнен: ID-карта не обладает необходимым досутпом.")
+					atom_say("Вход не выполнен: ID-карта не обладает необходимым досутпом.", FALSE)
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 					. = FALSE
 			else if(is_authenticated)
@@ -350,7 +350,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			usr.put_in_hands(scan, ignore_anim = FALSE)
 		scan = null
 	else
-		src.balloon_alert(usr, "нечего достать!")
+		balloon_alert(usr, "нечего достать!")
 
 /obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination,var/mob/sender)
 	use_power(active_power_usage)
@@ -368,10 +368,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		F.sent_by = sender
 		F.sent_at = world.time
 
-		atom_say("Сообщение успешно отправлено.")
+		atom_say("Сообщение успешно отправлено.", FALSE)
 		playsound(src, 'sound/machines/ping.ogg', 50)
 	else
-		atom_say("При отправке сообщения произошла ошибка.")
+		atom_say("При отправке сообщения произошла ошибка.", FALSE)
 
 /obj/machinery/photocopier/faxmachine/proc/receivefax(var/obj/item/incoming)
 	if(stat & (BROKEN|NOPOWER))
@@ -402,7 +402,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	use_power(active_power_usage)
 
 	if(!(istype(copyitem, /obj/item/paper) || istype(copyitem, /obj/item/paper_bundle) || istype(copyitem, /obj/item/photo)))
-		atom_say("При отправке сообщения произошла ошибка.")
+		atom_say("При отправке сообщения произошла ошибка.", FALSE)
 		return
 
 	var/datum/fax/admin/A = new /datum/fax/admin()
@@ -425,7 +425,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
 			F.receivefax(copyitem)
-	atom_say("Сообщение успешно отправлено.")
+	atom_say("Сообщение успешно отправлено.", FALSE)
 	playsound(src, 'sound/machines/ping.ogg', 50)
 
 /obj/machinery/photocopier/faxmachine/proc/cooldown_seconds()

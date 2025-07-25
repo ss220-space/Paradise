@@ -4,7 +4,7 @@
 
 /obj/machinery/photocopier
 	name = "photocopier"
-	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ\"."
+	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ!\"."
 	ru_names = list(
 		NOMINATIVE = "ксерокс",
 		GENITIVE = "ксерокса",
@@ -124,7 +124,7 @@
 /obj/machinery/photocopier/proc/papercopy(obj/item/paper/copy, scanning = FALSE, bundled = FALSE)
 	if(!scanning)
 		if(toner < 1)
-			src.balloon_alert(usr, "недостаточно чернил!")
+			balloon_alert(usr, "недостаточно чернил!")
 			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
 		total_copies++
@@ -173,7 +173,7 @@
 /obj/machinery/photocopier/proc/photocopy(obj/item/photo/photocopy, scanning = FALSE, bundled = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
 		if(toner < 5)
-			src.balloon_alert(usr, "недостаточно чернил!")
+			balloon_alert(usr, "недостаточно чернил!")
 			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
 		total_copies++
@@ -198,7 +198,7 @@
 /obj/machinery/photocopier/proc/copyass(scanning = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
 		if(toner < 5)
-			src.balloon_alert(usr, "недостаточно чернил!")
+			balloon_alert(usr, "недостаточно чернил!")
 			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
 		total_copies++
@@ -284,7 +284,7 @@
 
 /obj/machinery/photocopier/proc/remove_document()
 	if(copying)
-		src.balloon_alert(usr, "сканер ещё работает!")
+		balloon_alert(usr, "сканер ещё работает!")
 		return
 	if(copyitem)
 		copyitem.forceMove(get_turf(src))
@@ -295,17 +295,17 @@
 
 	else if(check_mob())
 		to_chat(copymob, span_notice("Вы ощущаете лёгкое давление на вашу задницу."))
-		atom_say("Внимание: Не удается извлечь крупный предмет!")
+		atom_say("Внимание: Не удается извлечь крупный предмет!", FALSE)
 
 /obj/machinery/photocopier/proc/remove_folder()
 	if(copying)
-		src.balloon_alert(usr, "сканер ещё работает!")
+		balloon_alert(usr, "сканер ещё работает!")
 		return
 	if(folder)
 		folder.forceMove(get_turf(src))
 		if(ishuman(usr))
 			usr.put_in_hands(folder)
-		to_chat(usr, "<span class='notice'>Вы вынимаете [folder.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].</span>")
+		to_chat(usr, span_notice("Вы вынимаете [folder.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 		folder = null
 
 /**
@@ -321,10 +321,10 @@
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
 	if(copying) //are we in the process of copying something already?
-		src.balloon_alert(usr, "сканер ещё работает!")
+		balloon_alert(usr, "сканер ещё работает!")
 		return FALSE
 	if(!scancopy && toner <= 0) //if we're not scanning lets check early that we actually have toner
-		src.balloon_alert(usr, "недостаточно чернил!")
+		balloon_alert(usr, "недостаточно чернил!")
 		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 		return FALSE
 	if(max_copies_reached)
@@ -335,7 +335,7 @@
 		message_admins("Photocopier cap of [MAX_COPIES_PRINTABLE] paper copies reached, all photocopiers are now disabled.")
 		max_copies_reached = TRUE
 	if(!check_mob() && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
-		src.balloon_alert(usr, "сканер пуст!")
+		balloon_alert(usr, "сканер пуст!")
 		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается красная лампочка, обозначая то, что в устройстве нечего копировать."))
 		return FALSE
 	return TRUE
@@ -381,7 +381,7 @@
 				break
 			toner -= 5
 	else
-		src.balloon_alert(usr, "нельзя отсканировать!")
+		balloon_alert(usr, "нельзя отсканировать!")
 		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлеч[genderize_ru(copyitem.gender, "ён", "ена", "ено", "ены")]."))
 		copyitem.forceMove(loc) //fuckery detected! get off my photocopier... shitbird!
 
@@ -391,7 +391,7 @@
 	if(!cancopy())
 		return
 	if(length(saved_documents) >= max_saved_documents)
-		src.balloon_alert(usr, "нет памяти!")
+		balloon_alert(usr, "нет памяти!")
 		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)] в связи с тем, что лимит сохранённых файлов был достигнут. Для продолжения операции освободите память устройства."))
 		return
 	copying = TRUE
@@ -414,7 +414,7 @@
 	LAZYADD(saved_documents, O)
 	copying = FALSE
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
-	atom_say("Документ успешно отсканирован!")
+	atom_say("Документ успешно отсканирован!", FALSE)
 
 /obj/machinery/photocopier/proc/delete_file(uid)
 	var/document = locateUID(uid)
@@ -461,7 +461,7 @@
 		return
 	. = FALSE
 	if(!COOLDOWN_FINISHED(src, copying_cooldown))
-		src.balloon_alert(usr, "сканер ещё работает!")
+		balloon_alert(usr, "сканер ещё работает!")
 		return
 	add_fingerprint(usr)
 	switch(action)
@@ -552,7 +552,7 @@
 	if(p.desc == "")
 		p.desc += "Ксерокопия была сделана [tempAI.name]"
 	else
-		p.desc += " - Ксерокопия была сделана [tempAI.name]"
+		p.desc += " – Ксерокопия была сделана [tempAI.name]"
 	toner -= 5
 	use_power(active_power_usage)
 	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
@@ -578,7 +578,7 @@
 
 /obj/machinery/photocopier/proc/print_form(var/obj/item/paper/form/form)
 	if(copying)
-		src.balloon_alert(usr, "сканер ещё работает!")
+		balloon_alert(usr, "сканер ещё работает!")
 		return FALSE
 
 	toner--
@@ -654,7 +654,7 @@
 		return
 	add_fingerprint(user)
 	if(target == user)
-		visible_message(span_warning("[user] запрыгивает на [declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_warning("[user] запрыгива[pluralize_ru(user.gender, "ет", "ют")] на [declent_ru(ACCUSATIVE)]!"))
 	else if(target != user)
 		if(target.anchored || !ishuman(user))
 			return
@@ -666,7 +666,7 @@
 		visible_message(span_notice("[capitalize(copymob.declent_ru(NOMINATIVE))] сталкивает [copyitem.declent_ru(ACCUSATIVE)] со своего пути!"))
 		copyitem = null
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
-	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!")
+	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!", FALSE)
 	SStgui.update_uis(src)
 	return TRUE
 
@@ -697,7 +697,7 @@
 
 /obj/item/toner
 	name = "toner cartridge"
-	desc = "Стандартный картридж с чернилами для ксероксов. Пользуется высоким спросом у бюрократов."
+	desc = "Стандартный картридж с чернилами для ксероксов на 30 использований. Пользуется высоким спросом у бюрократов."
 	ru_names = list(
 		NOMINATIVE = "тонер-картридж",
 		GENITIVE = "тонер-картриджа",

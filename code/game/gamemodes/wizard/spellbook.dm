@@ -728,7 +728,7 @@
 
 /obj/item/spellbook
 	name = "spell book"
-	desc = "Легендарная книга заклинаний, используемых могущественными магами."
+	desc = "Легендарная книга заклинаний, используемая могущественными магами."
 	ru_names = list(
 		NOMINATIVE = "книга заклинаний",
 		GENITIVE = "книги заклинаний",
@@ -1080,12 +1080,12 @@
 
 /obj/item/spellbook/oneuse/proc/onlearned(mob/user)
 	used = 1
-	user.visible_message(span_caution("[capitalize(declent_ru(NOMINATIVE))] на мнгновение загорается чёрным светом!"))
+	user.visible_message(span_caution("[capitalize(declent_ru(NOMINATIVE))] на мгновение загорается чёрным светом!"))
 
 /obj/item/spellbook/oneuse/fireball
 	spell = /obj/effect/proc_holder/spell/fireball
 	spellname = "fireball"
-	spellname_ru = "Огненного Шара"
+	spellname_ru = "Огненного шара"
 	icon_state = "bookfireball"
 	item_state = "bookfireball"
 	desc = "На ощупь эта книга достаточно тёплая."
@@ -1126,7 +1126,7 @@
 /obj/item/spellbook/oneuse/mindswap
 	spell = /obj/effect/proc_holder/spell/mind_transfer
 	spellname = "mindswap"
-	spellname_ru = "Перемещения Разума"
+	spellname_ru = "Перемещения разума"
 	icon_state = "bookmindswap"
 	item_state = "bookmindswap"
 	desc = "Обложка этой книги выглядит нетронутой, хотя её страницы выглядят изношенными и истрёпанными."
@@ -1137,17 +1137,17 @@
 
 	switch(spellname)
 		if("fireball")
-			spellname_ru = "Огненного Шара"
-		if("smoke")
+			spellname_ru = "Огненного шара"
+		if("smoke")1
 			spellname_ru = "Дыма"
 		if("blind")
 			spellname_ru = "Слепоты"
 		if("forcewall")
-			spellname_ru = "Силовой Стены"
+			spellname_ru = "Силовой стены"
 		if("knock")
 			spellname_ru = "Открывания"
 		if("horses")
-			spellname_ru = "Лошадиной Силы"
+			spellname_ru = "Лошадиной силы"
 		if("charge")
 			spellname_ru = "Заряда"
 
@@ -1185,7 +1185,7 @@
 /obj/item/spellbook/oneuse/forcewall
 	spell = /obj/effect/proc_holder/spell/forcewall
 	spellname = "forcewall"
-	spellname_ru = "Силовой Стены"
+	spellname_ru = "Силовой стены"
 	icon_state = "bookforcewall"
 	item_state = "bookforcewall"
 	desc = "На обложке этой книги всё кричит о любви к мимам."
@@ -1213,14 +1213,14 @@
 /obj/item/spellbook/oneuse/horsemask
 	spell = /obj/effect/proc_holder/spell/horsemask
 	spellname = "horses"
-	spellname_ru = "Лошадиной Силы"
+	spellname_ru = "Лошадиной силы"
 	icon_state = "bookhorses"
 	item_state = "bookhorses"
 	desc = "В этой книге больше лошадиных сил, чем во всех челноках в обозримой вселенной."
 
 /obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user)
 	if(ishuman(user))
-		to_chat(user, span_cultlarge("ЛОШ'АДЬ ПРОБУДИЛАСЬ!"))
+		to_chat(user, span_userdanger("ЛОШ'АДЬ ПРОБУДИЛАСЬ!"))
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
 		ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
 		magichead.item_flags |= DROPDEL	//curses!
@@ -1249,7 +1249,7 @@
 /obj/item/spellbook/oneuse/summonitem
 	spell = /obj/effect/proc_holder/spell/summonitem
 	spellname = "instant summons"
-	spellname_ru = "Мгновенного Вызова"
+	spellname_ru = "Мгновенного вызова"
 	icon_state = "booksummons"
 	item_state = "booksummons"
 	desc = "Эта книга яркая и броская, ее очень трудно не заметить."
@@ -1270,7 +1270,7 @@
 /obj/item/spellbook/oneuse/sacredflame
 	spell = /obj/effect/proc_holder/spell/sacred_flame
 	spellname = "sacred flame"
-	spellname_ru = "Священного Пламени"
+	spellname_ru = "Священного пламени"
 	icon_state = "booksacredflame"
 	item_state = "booksacredflame"
 	desc = "Эта книга призывает вас стать единным с пламенем, сжигающим изнутри... И позвать остальных присоединиться к вам."
@@ -1286,7 +1286,7 @@
 /obj/item/spellbook/oneuse/watchers_look
 	spell = /obj/effect/proc_holder/spell/watchers_look
 	spellname = "watcher's look"
-	spellname_ru = "Взгляда Наблюдателя"
+	spellname_ru = "Взгляда наблюдателя"
 	icon_state = "bookwatcherlook"
 	item_state = "bookwatcherlook"
 	desc = "Глаз на обложке следит за вашим взглядом..."

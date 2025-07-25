@@ -54,7 +54,7 @@
 /obj/item/storage/bible/fart_act(mob/living/user)
 	if(QDELETED(user) || user.stat == DEAD)
 		return FALSE
-	user.visible_message(span_danger("[user] пердит на [declent_ru(ACCUSATIVE)]!"))
+	user.visible_message(span_danger("[user] перд[pluralize_ru(user.gender, "ит", "ят")] на [declent_ru(ACCUSATIVE)]!"))
 	user.visible_message(span_userdanger("Загадочная сила поражает [user]!"))
 	user.suiciding = TRUE
 	do_sparks(3, 1, user)
@@ -118,7 +118,7 @@
 	god_forgive()
 
 	if(!user.mind || !user.mind.isholy)
-		to_chat(user, span_warning("Книга начинает шипеть в ваших руках."))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает шипеть в ваших руках."))
 		add_attack_logs(user, target, "Hit themselves with [src]")
 		user.take_organ_damage(0, 10)
 		return ATTACK_CHAIN_BLOCKED_ALL

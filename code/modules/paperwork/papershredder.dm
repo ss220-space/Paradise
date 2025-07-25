@@ -46,7 +46,7 @@
 
 	add_fingerprint(user)
 	if(paperamount == max_paper)
-		src.balloon_alert(user, "нет места!")
+		balloon_alert(user, "нет места!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(I, src))
@@ -86,7 +86,7 @@
 		return
 
 	if(!paperamount)
-		src.balloon_alert(usr, "пусто!")
+		balloon_alert(usr, "пусто!")
 		return
 
 	empty_bin(usr)
@@ -98,7 +98,7 @@
 		empty_into = null
 
 	if(empty_into && empty_into.contents.len >= empty_into.storage_slots)
-		src.balloon_alert(user, "нет места!")
+		balloon_alert(user, "нет места!")
 		return
 
 	var/atom/drop_loc = drop_location()

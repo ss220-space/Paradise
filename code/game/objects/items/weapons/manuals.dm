@@ -55,7 +55,7 @@
 
 /obj/item/book/manual/engineering_construction
 	manual_title = "Maintenance and construction"
-	manual_title_ru = "Ремонт и Строительство"
+	manual_title_ru = "Ремонт и строительство"
 	desc = "Руководство по строительсву, сборке и ремонту оборудования."
 	icon_state = "bookEngineering"
 	item_state = "bookEng"
@@ -64,7 +64,7 @@
 
 /obj/item/book/manual/engineering_particle_accelerator
 	manual_title = "Tesla Engine: User Manual"
-	manual_title_ru = "Тесла Двигатель: Руководство Пользователя"
+	manual_title_ru = "Тесла двигатель: Руководство пользователя"
 	desc = "Руководство по запуску Тесла Двигателя."
 	icon_state = "bookParticleAccelerator"
 	item_state = "bookEng"
@@ -73,7 +73,7 @@
 
 /obj/item/book/manual/supermatter_engine
 	manual_title = "SuperMatter Engine: User Manual"
-	manual_title_ru = "Двигатель на Суперматерии: Руководство Пользователя"
+	manual_title_ru = "Двигатель на Суперматерии: Руководство пользователя"
 	desc = "Руководство по запуску двигателя на Суперматерии."
 	icon_state = "bookSupermatter"
 	item_state = "bookEng"
@@ -91,7 +91,7 @@
 
 /obj/item/book/manual/engineering_singularity_safety
 	manual_title = "Singularity Engine: User Manual"
-	manual_title_ru = "Сингулярный Двигатель: Руководство Пользователя"
+	manual_title_ru = "Сингулярный двигатель: Руководство пользователя"
 	desc = "Руководство по запуску Сингулярности."
 	icon_state = "bookEngineeringSingularitySafety"
 	item_state = "bookEng"
@@ -138,7 +138,7 @@
 
 /obj/item/book/manual/medical_cloning
 	manual_title = "Cloning Techniques of the 26th century"
-	manual_title_ru = "Технология Клонирования 26 века"
+	manual_title_ru = "Технология клонирования 26 века"
 	desc = "Руководство по классическому клонированию, актуально на сегодняшний день."
 	icon_state = "bookCloning"
 	item_state = "bookCloning"
@@ -219,7 +219,7 @@
 
 /obj/item/book/manual/ripley_build_and_repair
 	manual_title = "APLU \"Ripley\" Construction and Operation Manual"
-	manual_title_ru = "Сборка и Оперирование АТМЕ \"Рипли\""
+	manual_title_ru = "Сборка и оперирование АТМЕ \"Рипли\""
 	desc = "Руководство по сбору и оперированию меха АТМЕ \"Рипли\"."
 	icon_state = "book"
 	item_state = "book"
@@ -433,7 +433,7 @@
 
 /obj/item/book/manual/research_and_development
 	manual_title = "Research and Development for Dummies"
-	manual_title_ru = "Исследование и Разработка для чайников"
+	manual_title_ru = "Исследование и разработка для чайников"
 	desc = "Руководство по работе в РнД для самых маленьких."
 	icon_state = "rdbook"
 	item_state = "rdbook"
@@ -692,7 +692,7 @@
 
 /obj/item/book/manual/security_space_law
 	manual_title = "Space Law"
-	manual_title_ru = "Космический Закон"
+	manual_title_ru = "Космический закон"
 	desc = "Свод корпоративных правил НаноТрейзен для поддержания закона и порядка на своих объектах."
 	icon_state = "bookSpaceLaw"
 	item_state = "bookSpaceLaw"
@@ -702,7 +702,7 @@
 
 /obj/item/book/manual/security_space_law/black
 	manual_title = "Space Law - Limited Edition"
-	manual_title_ru = "Космический Закон - ограниченное издание"
+	manual_title_ru = "Космический закон - ограниченное издание"
 	desc = "Кожаный переплет и безукоризненное качество исполнения - превосходня копия ПРАВОСУДИЯ."
 	icon_state = "bookSpaceLawblack"
 	item_state = "bookSpaceLawblack"
@@ -825,7 +825,7 @@
 
 /obj/item/book/manual/detective
 	manual_title = "The Film Noir: Proper Procedures for Investigations"
-	manual_title_ru = "Киношный Нуар: Надлежащие процедуры расследования"
+	manual_title_ru = "Киношный нуар: Надлежащие процедуры расследования"
 	desc = "Нуарная книга о том, как необходимо проводить расследования"
 	icon_state ="bookDetective"
 	item_state = "bookDetective"
@@ -869,7 +869,7 @@
 
 /obj/item/book/manual/nuclear
 	manual_title = "Fission Mailed: Nuclear Sabotage 101"
-	manual_title_ru = "Операция \"С доставкой на дом\": Ядерный Саботаж для чайников"
+	manual_title_ru = "Операция \"С доставкой на дом\": Ядерный саботаж для чайников"
 	icon_state ="bookNuclear"
 	item_state = "bookNuclear"
 	author = "Синдикат"
@@ -906,7 +906,7 @@
 
 /obj/item/book/manual/atmospipes
 	manual_title = "Pipes and You: Getting To Know Your Scary Tools"
-	manual_title_ru = "Вы и ваша Труба: Руководство по прокладке трубопроводов"
+	manual_title_ru = "Вы и ваша труба: Руководство по прокладке трубопроводов"
 	icon_state = "pipingbook"
 	item_state = "pipingbook"
 	author = "Мария Протечкина, старший Атмосферный Техник"
@@ -1005,7 +1005,7 @@
 
 /obj/item/book/manual/evaguide
 	manual_title = "EVA Gear and You: Not Spending All Day Inside"
-	manual_title_ru = "Костюмы для ВКД: как дышать свежим воздухом даже на орбите"
+	manual_title_ru = "Костюмы для ВКД: Как дышать свежим воздухом даже на орбите"
 	icon_state = "evabook"
 	item_state = "evabook"
 	author = "Мария Протечкина, старший Атмосферный Техник"
@@ -1137,7 +1137,7 @@
 
 /obj/item/book/manual/sop_science
 	manual_title = "Standard Operating Procedures (Science)"
-	manual_title_ru = "Стандартные Рабочие Процедуры Научного отдела"
+	manual_title_ru = "Стандартные Рабочие Процедуры научного отдела"
 	name = "Стандартные Рабочие Процедуры Научного Отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой научной деятельности."
 	icon_state = "sop_science"
@@ -1147,7 +1147,7 @@
 
 /obj/item/book/manual/sop_medical
 	manual_title = "Standard Operating Procedures (Medical)"
-	manual_title_ru = "Стандартные Рабочие Процедуры Медицинского отдела"
+	manual_title_ru = "Стандартные Рабочие Процедуры медицинского отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой медицинской деятельности."
 	icon_state = "sop_medical"
 	item_state = "sop_medical"
@@ -1156,7 +1156,7 @@
 
 /obj/item/book/manual/sop_engineering
 	manual_title = "Standard Operating Procedures (Engineering)"
-	manual_title_ru = "Стандартные Рабочие Процедуры Инженерного отдела"
+	manual_title_ru = "Стандартные Рабочие Процедуры инженерного отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой инженерной деятельности."
 	icon_state = "sop_engineering"
 	item_state = "sop_engineering"
@@ -1174,7 +1174,7 @@
 
 /obj/item/book/manual/sop_supply
 	manual_title = "Standard Operating Procedures (Cargo)"
-	manual_title_ru = "Стандартные Рабочие Процедуры Отдела снабжения"
+	manual_title_ru = "Стандартные Рабочие Процедуры отдела снабжения"
 	desc = "Свод правил, направленных на безопасное ведение любой снабженческой деятельности."
 	icon_state = "sop_cargo"
 	item_state = "sop_cargo"
@@ -1183,7 +1183,7 @@
 
 /obj/item/book/manual/sop_security
 	manual_title = "Standard Operating Procedures (Security)"
-	manual_title_ru = "Стандартные Рабочие Процедуры Службы безопасности"
+	manual_title_ru = "Стандартные Рабочие Процедуры службы безопасности"
 	desc = "Свод правил, направленных на безопасное ведение любой охранной деятельности."
 	icon_state = "sop_security"
 	item_state = "sop_security"
@@ -1192,7 +1192,7 @@
 
 /obj/item/book/manual/sop_legal
 	manual_title = "Standard Operating Procedures (Legal)"
-	manual_title_ru = "Стандартные Рабочие Процедуры Отдела юриспруденции"
+	manual_title_ru = "Стандартные Рабочие Процедуры отдела юриспруденции"
 	desc = "Свод правил, направленных на безопасное ведение любой юридической деятельности."
 	icon_state = "sop_legal"
 	item_state = "sop_legal"
@@ -1210,7 +1210,7 @@
 
 /obj/item/book/manual/sop_command
 	manual_title = "Standard Operating Procedures (Command)"
-	manual_title_ru = "Стандартные Рабочие Процедуры Коммандования"
+	manual_title_ru = "Стандартные Рабочие Процедуры коммандования"
 	desc = "Свод правил, направленных на безопасное ведение любой управленческой деятельности."
 	icon_state = "sop_command"
 	item_state = "sop_command"

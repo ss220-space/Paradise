@@ -216,7 +216,7 @@
 		add_fingerprint(user)
 		var/obj/item/barcodescanner/scanner = I
 		scanner.computer = src
-		atom_say("Сканер был успешно привязан.")
+		atom_say("Сканер был успешно привязан.", FALSE)
 		playsound(src, 'sound/machines/ping.ogg', 20)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 

@@ -167,7 +167,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		// NT with those pesky DRM schemes
 		var/obj/item/book/book = I
 		if(book.has_drm)
-			atom_say("Обнаружен материал, защищенный авторским правом. Сканер не способен поместить эту книгу в память.")
+			atom_say("Обнаружен материал, защищенный авторским правом. Сканер не способен поместить эту книгу в память.", FALSE)
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(book, src))
 			return ..()
@@ -254,7 +254,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 			span_notice("[user] загружа[pluralize_ru(user.gender, "ет", "ют")] немного бумаги в [declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
 			span_notice("Вы загружаете немного бумаги в [declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
 		)
-		atom_say("Проходит печать книги...")
+		atom_say("Проходит печать книги...", FALSE)
 		playsound(src, 'sound/machines/binder_work.ogg', 25, FALSE)
 		addtimer(CALLBACK(src, PROC_REF(finalize_printing), paper), rand(20 SECONDS, 40 SECONDS))
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -265,7 +265,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /obj/machinery/bookbinder/proc/finalize_printing(obj/item/paper/paper)
 	if(QDELETED(paper) || paper.loc != src)
 		return
-	playsound(null, 0, 0, 0, 0, 0, 0, 1)
 	var/obj/item/book/new_book = new(loc)
 	new_book.dat = paper.info
 	new_book.name = "Print Job #[rand(100, 999)]"
@@ -279,8 +278,8 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	)
 	new_book.icon_state = "book[rand(1,16)]"
 	new_book.item_state = new_book.icon_state
-	atom_say("Печать книги успешно завершена.")
-	playsound(loc, 'sound/machines/ping.ogg', 20, 1)
+	atom_say("Печать книги успешно завершена.", FALSE)
+	playsound(loc, 'sound/machines/ping.ogg', 20, TRUE)
 	qdel(paper)
 
 
