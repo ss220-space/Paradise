@@ -22,13 +22,13 @@
 
 /datum/component/cleave_attack/Initialize(
 		arc_size = 90,
-		swing_speed_mod = 1.5,
+		swing_speed_mod = 1.5, // default cleave attack is 50% slower than regular
 		afterswing_slowdown = 0.2,
 		slowdown_duration = 0.5 SECONDS,
 		requires_wielded = FALSE,
 		no_multi_hit = FALSE,
 		datum/callback/cleave_end_callback,
-		swing_sound = 'sound/weapons/punchmiss.ogg',
+		swing_sound = "generic_swing_light", // Pass it in format 'sound/weapons/sound_name.ogg' or look into /proc/get_sfx(soundin)
 		cleave_effect,
 		...
 	)
@@ -146,12 +146,7 @@
 
 	// do some effects so everyone knows you're swinging a weapon
 	playsound(item, swing_sound, 70, FALSE)
-	var/obj/effect/cleave = new cleave_effect(user_turf, facing_dir)
-	// flips the effect counter/clockwise based on active hand
-	var/matrix/flipped_matrix = matrix()
-	flipped_matrix.a = swing_direction * flipped_matrix.a
-	flipped_matrix.d = swing_direction * flipped_matrix.d
-	cleave.transform = flipped_matrix
+	new cleave_effect(user_turf, facing_dir)
 
 	// now swing across those turfs
 	ADD_TRAIT(item, TRAIT_CLEAVING, UNIQUE_TRAIT_SOURCE(src))
@@ -161,6 +156,7 @@
 	REMOVE_TRAIT(item, TRAIT_CLEAVING, UNIQUE_TRAIT_SOURCE(src))
 
 	// do these last so they don't get overridden during the attack loop
+	add_attack_logs(user, "Performed swing attack with [item] at [get_turf(user)]", ATKLOG_MOST)
 	cleave_end_callback?.Invoke(item, user)
 	user.do_attack_animation(center_turf, no_effect = TRUE)
 	user.changeNext_move(item.attack_speed * swing_speed_mod)
@@ -175,6 +171,8 @@
 		if(!(SEND_SIGNAL(hit_atom, COMSIG_ATOM_CLEAVE_ATTACK, item, user) & ATOM_ALLOW_CLEAVE_ATTACK))
 			if(hit_atom.pass_flags & LETPASSTHROW)
 				continue // if you can throw something over it, you can swing over it too
+			if(isliving(hit_atom) && HAS_TRAIT(hit_atom, TRAIT_DWARF)) // cant hit smol people with swing
+				continue
 			if(!hit_atom.density)
 				continue
 		item.melee_attack_chain(user, hit_atom, params)
