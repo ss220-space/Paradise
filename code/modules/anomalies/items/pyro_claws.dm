@@ -27,6 +27,18 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	START_PROCESSING(SSobj, src)
 
+/obj/item/twohanded/required/pyro_claws/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = -0.2, \
+		slowdown_duration = 2 SECONDS, \
+		requires_wielded = TRUE, \
+		swing_sound = "knife_swing" \
+	)
+
 /obj/item/twohanded/required/pyro_claws/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -36,6 +48,8 @@
 		do_sparks(rand(1,6), 1, loc)
 
 /obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+
 	if(!proximity)
 		return
 
