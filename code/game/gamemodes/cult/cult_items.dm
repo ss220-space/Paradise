@@ -39,6 +39,11 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
+/obj/item/melee/cultblade/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/cleave_attack)
+
+
 /obj/item/melee/cultblade/update_icon_state()
 	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.sword_icon

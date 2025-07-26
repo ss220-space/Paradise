@@ -387,6 +387,10 @@
 	. = ..()
 	enchants = GLOB.hammer_spells
 
+/obj/item/twohanded/clock_hammer/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/cleave_attack, requires_wielded = TRUE, no_multi_hit = TRUE)
+
 /obj/item/twohanded/clock_hammer/update_icon_state()
 	icon_state = "clock_hammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
@@ -487,6 +491,10 @@
 /obj/item/melee/clock_sword/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.sword_spells
+
+/obj/item/melee/clock_sword/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/cleave_attack, arc_size = 180)
 
 /obj/item/melee/clock_sword/update_overlays()
 	. = ..()
