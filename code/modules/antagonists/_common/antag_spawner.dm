@@ -107,7 +107,7 @@
 #define CANCER_SWITCH_ROLES_CHOICE "Не активировать этот робот-телепортатор"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/before_candidate_search(mob/user)
-	var/switch_roles_choice = tgui_input_list(usr, "Вы хотите продолжить играть за оперативника или стать боргом? Если вы выберите борга, другой игрок займет ваше старое тело.", "Играть за", list(NUCLEAR_OPERATIVE, SYNDICATE_CYBORG, CANCER_SWITCH_ROLES_CHOICE))
+	var/switch_roles_choice = tgui_input_list(usr, "Вы хотите продолжить играть за оперативника или стать боргом? Если вы выберете борга, другой игрок займет ваше старое тело.", "Играть за", list(NUCLEAR_OPERATIVE, SYNDICATE_CYBORG, CANCER_SWITCH_ROLES_CHOICE))
 	if(!switch_roles_choice || !(check_usability(user)) || switch_roles_choice == CANCER_SWITCH_ROLES_CHOICE)
 		return FALSE
 
