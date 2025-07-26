@@ -118,12 +118,25 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
 
+/obj/item/twohanded/fireaxe/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "chop_swing_heavy" \
+	)
 
 /obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
 /obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity, params)
+	. = ..()
 	if(!proximity)
 		return
 	if(HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
@@ -170,6 +183,18 @@
 	righthand_file = 'icons/mob/inhands/lavaland/lava_items_righthand.dmi'
 	has_speed_harvest = TRUE
 
+/obj/item/twohanded/fireaxe/boneaxe/guillotine/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		swing_sound = "chop_swing_heavy" \
+	)
+
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
 	icon_state = "guillotine[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
@@ -199,6 +224,17 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
+/obj/item/twohanded/fireaxe/energized/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		swing_sound = "chop_swing_heavy" \
+	)
 
 /obj/item/twohanded/fireaxe/energized/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -268,6 +304,16 @@
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple", "yellow", "pink", "orange", "darkblue")
 
+/obj/item/twohanded/dualsaber/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 360, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0, \
+		requires_wielded = TRUE, \
+		swing_sound = "double_energy_swing" \
+	)
 
 /obj/item/twohanded/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_HULK))
@@ -787,9 +833,20 @@
 
 /obj/item/twohanded/singularityhammer/Initialize(mapload)
 	. = ..()
-
 	START_PROCESSING(SSobj, src)
 
+/obj/item/twohanded/singularityhammer/ComponentInitialize()
+	. = ..()
+	// hammer, but multi hit allowed for it is a MAGIC weapon
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 360, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
 
 /obj/item/twohanded/singularityhammer/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -805,6 +862,7 @@
 
 
 /obj/item/twohanded/singularityhammer/afterattack(atom/A, mob/user, proximity, params)
+	. = ..()
 	if(!proximity || charged < 5 || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 
@@ -863,6 +921,19 @@
 	//var/charged = 5
 	origin_tech = "combat=4;powerstorage=7"
 
+/obj/item/twohanded/mjollnir/ComponentInitialize()
+	. = ..()
+	// no multi hits since this is pretty much strong weapon already
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
 	target.Stun(4 SECONDS)
@@ -881,7 +952,6 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
 	shock(target)
-
 
 
 /obj/item/twohanded/mjollnir/throw_impact(atom/target, datum/thrownthing/throwingdatum)
@@ -913,6 +983,19 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
+/obj/item/twohanded/knighthammer/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
+
 /obj/item/twohanded/knighthammer/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -926,6 +1009,7 @@
 
 
 /obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity, params)
+	. = ..()
 	if(!proximity)
 		return
 	if(charged == 5)
@@ -1052,7 +1136,6 @@
 	user.apply_damage(rand(user.health / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 
-
 // It's no fun being the lord of all hell if you can't get out of a simple room
 /obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
@@ -1095,65 +1178,6 @@
 /obj/item/twohanded/bamboospear/update_icon_state()
 	icon_state = "bamboo_spear[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-//pyro claws
-/obj/item/twohanded/required/pyro_claws
-	name = "hardplasma energy claws"
-	desc = "The power of the sun, in the claws of your hand."
-	icon_state = "pyro_claws"
-	item_flags = ABSTRACT|DROPDEL
-	force = 25
-	force_wielded = 25
-	damtype = BURN
-	armour_penetration = 40
-	block_chance = 50
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "поцарапал")
-	toolspeed = 0.5
-
-/obj/item/twohanded/required/pyro_claws/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
-	START_PROCESSING(SSobj, src)
-
-/obj/item/twohanded/required/pyro_claws/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/twohanded/required/pyro_claws/process()
-	if(prob(15))
-		do_sparks(rand(1,6), 1, loc)
-
-/obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
-		return
-	if(prob(60))
-		do_sparks(rand(1,6), 1, loc)
-	if(istype(target, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/A = target
-
-		if(!A.requiresID() || A.allowed(user))
-			return
-
-		if(A.locked)
-			to_chat(user, span_notice("Болты шлюза не позволяют его открыть."))
-			return
-
-		if(A.arePowerSystemsOn())
-			user.visible_message(
-				span_warning("[capitalize(user.declent_ru(NOMINATIVE))] вставля[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] в шлюз и пыта[pluralize_ru(user.gender,"ет","ют")]ся его открыть!"),
-				span_warning("Вы начинаете открывать шлюз."),
-				span_warning("Раздаётся скрежет металла.")
-			)
-			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-			if(!do_after(user, 2.5 SECONDS, A))
-				return
-		user.visible_message(
-			span_warning("[capitalize(user.declent_ru(NOMINATIVE))] открыва[pluralize_ru(user.gender,"ет","ют")] шлюз при помощи [declent_ru(GENITIVE)]!"),
-			span_warning("Вы открывается шлюз."),
-			span_warning("Раздаётся скрежет металла.")
-		)
-		A.open(2)
-
 /obj/item/twohanded/sechammer
 	name = "tactical sledgehammer"
 	desc = "Тяжёлая кувалда, используемая силовыми структурами НаноТрейзен. Удобная эргономичная рукоятка обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, силы удара достаточно, чтобы раздробить любую кость в теле гуманоида."
@@ -1187,6 +1211,19 @@
 	var/stamina_drain = 8
 	var/max_stamina_damage = 40
 
+/obj/item/twohanded/sechammer/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
+
 /obj/item/twohanded/sechammer/update_icon_state()
 	icon_state = "sechammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
@@ -1204,6 +1241,7 @@
 		return .|ATTACK_CHAIN_BLOCKED
 
 /obj/item/twohanded/sechammer/afterattack(atom/A, mob/living/user, proximity, params)
+	. = ..()
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 	if(iswallturf(A))
@@ -1220,4 +1258,3 @@
 			var/obj/machinery/D = A
 			D.take_damage(extra_door_damage)
 	user.adjustStaminaLoss(stamina_drain)
-	..()
