@@ -234,6 +234,17 @@
 	RegisterSignal(soul, COMSIG_BLOOD_LEVEL_TICK, PROC_REF(on_blood_level_tick))
 	ADD_TRAIT(src, TRAIT_CHASM_DESTROYED, INNATE_TRAIT)
 
+/obj/item/soulscythe/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 1 SECONDS, \
+		swing_sound = "chop_swing_heavy" \
+	)
+
 /obj/item/soulscythe/examine(mob/user)
 	. = ..()
 	. += soul.ckey ? span_green("В нем заточена душа.") : span_danger("В нем нет души.")
