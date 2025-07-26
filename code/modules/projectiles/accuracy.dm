@@ -1,11 +1,13 @@
 // Accuracy datum for /obj/item/gun
 
+/// Minimal gun accuracy
+#define GUN_ACCURACY_MINIMAL new /datum/gun_accuracy/minimal()
+/// Shotgun accuracy (less than default)
+#define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
 /// Default accuracy for all projectile weapon
 #define GUN_ACCURACY_DEFAULT new /datum/gun_accuracy/default()
 /// Rifle accuracy (more than default)
 #define GUN_ACCURACY_RIFLE new /datum/gun_accuracy/rifle()
-/// Shotgun accuracy (less than default)
-#define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
@@ -52,6 +54,15 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	acc.other = other
 	return acc
 
+
+/datum/gun_accuracy/minimal
+	head = 66
+	chest = 85
+	arms = 50
+	legs = 50
+	hands = 33
+	foots = 33
+	other = 33
 
 /datum/gun_accuracy/shotgun
 	head = 70

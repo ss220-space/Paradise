@@ -35,6 +35,7 @@
 	item_state = "laser"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
@@ -70,6 +71,7 @@
 	shaded_charge = FALSE
 	unique_reskin = FALSE
 	high_risk = FALSE
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 
 /obj/item/gun/energy/laser/cyborg
@@ -192,6 +194,7 @@
 	needs_permit = FALSE
 	ammo_x_offset = 2
 	selfcharge = TRUE
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/laser/tag/blue
 	icon_state = "bluetag"

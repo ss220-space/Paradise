@@ -91,7 +91,7 @@
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_DEFAULT
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
