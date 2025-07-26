@@ -41,7 +41,13 @@
 
 /obj/item/melee/cultblade/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/cleave_attack)
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 0.75 SECONDS, \
+		swing_sound = "blade_swing_heavy" \
+	)
 
 
 /obj/item/melee/cultblade/update_icon_state()

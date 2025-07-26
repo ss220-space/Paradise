@@ -26,6 +26,17 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
+/obj/item/melee/cultblade/dagger/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 1.25, \
+		afterswing_slowdown = 0, \
+		no_multi_hit = TRUE, \
+		swing_sound = "knife_swing" \
+	)
+
+
 /obj/item/melee/cultblade/dagger/update_icon_state()
 	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.dagger_icon
