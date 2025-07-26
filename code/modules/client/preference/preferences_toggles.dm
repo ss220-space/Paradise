@@ -319,8 +319,8 @@
 /datum/preference_toggle/toggle_item_tooltips
 	name = "Всплывающие подсказки"
 	description = "Переключает отображение текстовых подсказок в верхней части экрана, когда вы наводите курсор на объект."
-	preftoggle_bitflag = PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_bitflag = PREFTOGGLE_3_HIDE_ITEM_TOOLTIPS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
 	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
 	enable_message = "Вы больше не видите всплывающие подсказки."
 	disable_message = "Теперь вы видите всплывающие подсказки."

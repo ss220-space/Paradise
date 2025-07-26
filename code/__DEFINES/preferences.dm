@@ -52,7 +52,7 @@
 #define PREFTOGGLE_2_AFKWATCH						(1<<5) // 32
 #define PREFTOGGLE_2_RUNECHAT						(1<<6) // 64
 #define PREFTOGGLE_2_DEATHMESSAGE					(1<<7) // 128
-#define PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS  			(1<<8) // 256
+//#define PREFTOGGLE_2_EMPTY						(1<<8) // 256
 #define PREFTOGGLE_2_SEE_ITEM_OUTLINES				(1<<9) // 512
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
 #define PREFTOGGLE_2_REVERB_DISABLE					(1<<10) // 1024
@@ -87,6 +87,7 @@
 #define PREFTOGGLE_3_UI_SCALE         			(1<<1) // 2
 #define PREFTOGGLE_3_FACING_TO_MOUSE			(1<<2) // 4
 #define PREFTOGGLE_3_PAIN_BLURB	 				(1<<3) // 8
+#define PREFTOGGLE_3_HIDE_ITEM_TOOLTIPS			(1<<4) // 16
 
 #define TOGGLES_3_TOTAL                       	15 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
