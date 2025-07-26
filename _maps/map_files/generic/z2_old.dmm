@@ -7957,8 +7957,8 @@
 "fXF" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/chainsaw,
-/obj/item/twohanded/required/chainsaw,
-/obj/item/twohanded/required/chainsaw/doomslayer,
+/obj/item/twohanded/chainsaw_handmade,
+/obj/item/twohanded/chainsaw_handmade/doomslayer,
 /obj/item/twohanded/toy/chainsaw,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
