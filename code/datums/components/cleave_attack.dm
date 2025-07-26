@@ -135,7 +135,7 @@
 	var/turf/user_turf = get_turf(user)
 	var/turf/center_turf = get_turf_in_angle(get_angle(user, target), user_turf)
 	var/facing_dir = get_dir(user, center_turf)
-	// left hand swing - clockwise, right hand - counter clockwise
+	// left hand swing - counter clockwise, right hand - clockwise
 	var/swing_direction = user.hand == ACTIVE_HAND_LEFT ? 1 : -1
 
 	// make a list of turfs to swing across
@@ -147,6 +147,7 @@
 	// do some effects so everyone knows you're swinging a weapon
 	playsound(item, swing_sound, 70, FALSE)
 	var/obj/effect/cleave = new cleave_effect(user_turf, facing_dir)
+	// flips the effect counter/clockwise based on active hand
 	var/matrix/flipped_matrix = matrix()
 	flipped_matrix.a = swing_direction * flipped_matrix.a
 	flipped_matrix.d = swing_direction * flipped_matrix.d
