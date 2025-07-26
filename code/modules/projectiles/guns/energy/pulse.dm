@@ -10,9 +10,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/advanced, /obj/item/ammo_casing/energy/laser/pulse , /obj/item/ammo_casing/energy/laser)
 	cell_type = /obj/item/stock_parts/cell/pulse
-	attachable_allowed = list(
-		/obj/item/gun_module/scope
-	)
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
 	)
@@ -21,7 +19,7 @@
 	return
 
 /obj/item/gun/energy/pulse/cyborg
-	attachable_allowed = null
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/pulse/cyborg/newshot()
 	..()
@@ -38,6 +36,7 @@
 	can_flashlight = TRUE
 	flight_x_offset = 18
 	flight_y_offset = 12
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
 	)
@@ -52,7 +51,7 @@
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/pulse/pistol
 	can_charge = FALSE
-	attachable_allowed = null
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"
@@ -75,7 +74,7 @@
 	item_state = "gun"
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/infinite
-	attachable_allowed = null
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/pulse/turret
 	name = "pulse turret gun"
@@ -89,4 +88,4 @@
 	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
-	attachable_allowed = null
+	attachable_allowed = GUN_MODULE_CLASS_NONE

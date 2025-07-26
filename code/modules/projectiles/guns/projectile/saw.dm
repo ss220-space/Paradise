@@ -16,11 +16,7 @@
 	fire_delay = 1
 	burst_size = 1
 	actions_types = null
-	attachable_allowed = list(
-		/obj/item/gun_module/supressor,
-		/obj/item/gun_module/muzzle_flash_supressor,
-		/obj/item/gun_module/scope,
-	)
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 22, "y" = 2),
 		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 6)

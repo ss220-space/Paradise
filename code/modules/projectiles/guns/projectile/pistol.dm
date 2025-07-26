@@ -13,11 +13,7 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
-	attachable_allowed = list(
-		/obj/item/gun_module/supressor,
-		/obj/item/gun_module/muzzle_flash_supressor,
-		/obj/item/gun_module/scope/collimator,
-	)
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
@@ -67,9 +63,7 @@
 	can_flashlight = TRUE
 	materials = list(MAT_METAL = 1000)
 	gun_light_overlay = "specter-light"
-	attachable_allowed = list(
-		/obj/item/gun_module/scope/collimator,
-	)
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8)
 	)
@@ -194,9 +188,7 @@
 	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
 	unique_reskin = TRUE
 	can_flashlight = TRUE
-	attachable_allowed = list(
-		/obj/item/gun_module/scope/collimator
-	)
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8)
 	)
@@ -214,9 +206,7 @@
 	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
 	unique_reskin = FALSE
 	can_flashlight = TRUE
-	attachable_allowed = list(
-		/obj/item/gun_module/scope/collimator
-	)
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8)
 	)

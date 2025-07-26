@@ -14,6 +14,7 @@
 	weapon_weight = WEAPON_HEAVY
 	pb_knockback = 2
 	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/I, mob/user, params)
@@ -89,10 +90,7 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	can_flashlight = TRUE
 	gun_light_overlay = "riotshotgun_light"
-	attachable_allowed = list(
-		/obj/item/gun_module/scope/collimator,
-		/obj/item/gun_module/scope/x4
-	)
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 4)
 	)
@@ -265,10 +263,7 @@
 	bayonet_x_offset = 27
 	bayonet_y_offset = 13
 	pb_knockback = 0
-	attachable_allowed = list(
-		/obj/item/gun_module/scope/collimator,
-		/obj/item/gun_module/scope/x4
-	)
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 3)
 	)
@@ -376,10 +371,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
-	attachable_allowed = list(
-		/obj/item/gun_module/scope/collimator,
-		/obj/item/gun_module/scope/x4
-	)
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
 	)
@@ -396,10 +388,7 @@
 	var/toggled = 0
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
-	attachable_allowed = list(
-		/obj/item/gun_module/scope/collimator,
-		/obj/item/gun_module/scope/x4
-	)
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
 	)

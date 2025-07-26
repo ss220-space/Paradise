@@ -59,7 +59,7 @@
  * Gun modules
  */
 	///List of allowed attachments, IT MUST INCLUDE THE STARTING ATTACHMENT TYPES OR THEY WILL NOT ATTACH.
-	var/list/attachable_allowed = null
+	var/attachable_allowed = 0
 	///The attachments this gun starts with on Init
 	var/list/starting_attachment_types = null
 	///Image list of attachments overlays.

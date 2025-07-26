@@ -14,6 +14,7 @@
 	needs_permit = FALSE
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/automatic/toy/pistol
@@ -78,6 +79,7 @@
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	pb_knockback = 0
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/shotgun/toy/process_chamber()
 	..()
@@ -104,9 +106,11 @@
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/automatic/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/automatic/l6_saw/toy
 	name = "donksoft LMG"
@@ -118,6 +122,7 @@
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
@@ -131,6 +136,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
 	w_class = WEIGHT_CLASS_SMALL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/automatic/sniper_rifle/toy
 	name = "donksoft sniper rifle"
@@ -143,4 +149,5 @@
 	mag_type = /obj/item/ammo_box/magazine/toy/sniper_rounds
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 

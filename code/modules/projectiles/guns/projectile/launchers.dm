@@ -9,6 +9,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi
@@ -37,6 +38,7 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
@@ -62,6 +64,7 @@
 	fire_delay = 0
 	select = 0
 	actions_types = null
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/automatic/speargun/update_icon_state()
@@ -109,6 +112,7 @@
 	can_holster = FALSE
 	flags = CONDUCT
 	show_live_rounds = FALSE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)

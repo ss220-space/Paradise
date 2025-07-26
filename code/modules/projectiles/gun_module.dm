@@ -12,6 +12,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=2;engineering=2"
 	var/slot
+	var/class
 	var/overlay_state = "lace"
 	var/overlay_offset
 
@@ -22,11 +23,7 @@
 		to_chat(user, "[capitalize(target_gun.declent_ru(NOMINATIVE))] не поддерживает установку модулей.")
 		return FALSE
 	var/obj/item/gun/gun = target_gun
-	var/allowed = FALSE
-	for(var/allowed_slot as anything in gun.attachable_allowed)
-		if(istype(src, allowed_slot))
-			allowed = TRUE
-			break
+	var/allowed = gun.attachable_allowed & class
 	if(!allowed)
 		to_chat(user, "[capitalize(declent_ru(NOMINATIVE))] не может быть установлен на [gun.declent_ru(PREPOSITIONAL)]")
 		return FALSE
@@ -89,6 +86,7 @@
 	item_state = "suppressor"
 	overlay_state = "suppressor"
 	slot = ATTACHMENT_SLOT_MUZZLE
+	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
 	origin_tech = "combat=2;engineering=2"
 	var/oldsound
 	var/initial_w_class
@@ -127,6 +125,7 @@
 	overlay_state = "comp"
 	overlay_offset = list("x" = -2, "y" = 0)
 	slot = ATTACHMENT_SLOT_MUZZLE
+	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
 	origin_tech = "combat=2;engineering=2"
 	var/bonus_accuracy = 10
 	var/initial_w_class
@@ -197,6 +196,7 @@
 	icon_state = "t37"
 	item_state = "t37"
 	overlay_state = "t37"
+	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 3
 	bonus_accuracy = 10
 
@@ -214,6 +214,7 @@
 	icon_state = "mosin"
 	item_state = "mosin"
 	overlay_state = "mosin"
+	class = GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 5
 	bonus_accuracy = 20
 
@@ -231,6 +232,7 @@
 	icon_state = "tes"
 	item_state = "tes"
 	overlay_state = "tes"
+	class = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 7
 	bonus_accuracy = 30
 
@@ -249,5 +251,83 @@
 	item_state = "tl127_a"
 	overlay_state = "tl127_a"
 	overlay_offset = list("x" = 0, "y" = 1)
+	class = GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 11
 	bonus_accuracy = 50
+
+
+/obj/item/gun_module/hud
+	icon = 'icons/obj/weapons/attachments/scope.dmi'
+	slot = ATTACHMENT_SLOT_RAIL
+	origin_tech = "combat=3;engineering=4"
+	icon_state = "pmc"
+	item_state = "pmc"
+	overlay_state = "pmc"
+	var/hud_type
+
+/obj/item/gun_module/hud/on_attach(obj/item/gun/target_gun, mob/user)
+	RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(requip_gun_check))
+	if(user.is_in_hands(target_gun))
+		requip_gun_check(null, user, ITEM_SLOT_HANDS)
+
+/obj/item/gun_module/hud/on_detach(obj/item/gun/target_gun, mob/user)
+	UnregisterSignal(src, COMSIG_ITEM_EQUIPPED)
+
+/obj/item/gun_module/hud/proc/requip_gun_check(datum/source, mob/user, slot)
+	if(!(slot & ITEM_SLOT_HANDS))
+		remove_hud(user)
+		return
+	grant_hud(user)
+
+/obj/item/gun_module/hud/proc/grant_hud(mob/user)
+	if(islist(hud_type))
+		for(var/new_hud in hud_type)
+			var/datum/atom_hud/hud = GLOB.huds[new_hud]
+			hud.add_hud_to(user)
+		return .
+	var/datum/atom_hud/hud = GLOB.huds[hud_type]
+	hud.add_hud_to(user)
+
+/obj/item/gun_module/hud/proc/remove_hud(mob/user)
+	if(islist(hud_type))
+		for(var/new_hud in hud_type)
+			var/datum/atom_hud/hud = GLOB.huds[new_hud]
+			hud.remove_hud_from(user)
+		return .
+	var/datum/atom_hud/hud = GLOB.huds[hud_type]
+	hud.remove_hud_from(user)
+
+
+/obj/item/gun_module/hud/medical
+	name = "med hud scope"
+	desc = "Медицинский худ в виде коллиматорного прицела"
+	ru_names = list(
+		NOMINATIVE = "медицинский коллиматор",
+		GENITIVE = "медицинского коллиматора",
+		DATIVE = "медицинскому коллиматору",
+		ACCUSATIVE = "медицинский коллиматор",
+		INSTRUMENTAL = "медицинским коллиматором",
+		PREPOSITIONAL = "медицинском коллиматоре"
+	)
+	icon_state = "pmc"
+	item_state = "pmc"
+	overlay_state = "pmc"
+	hud_type = DATA_HUD_MEDICAL_ADVANCED
+	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
+
+/obj/item/gun_module/hud/security
+	name = "security hud scope"
+	desc = "Худ службы безопасности в виде коллиматорного прицела"
+	ru_names = list(
+		NOMINATIVE = "худ СБ коллиматор",
+		GENITIVE = "худ СБ коллиматора",
+		DATIVE = "худ СБ коллиматору",
+		ACCUSATIVE = "худ СБ коллиматор",
+		INSTRUMENTAL = "худ СБ коллиматором",
+		PREPOSITIONAL = "худ СБ коллиматоре"
+	)
+	icon_state = "pmc"
+	item_state = "pmc"
+	overlay_state = "pmc"
+	hud_type = DATA_HUD_SECURITY_ADVANCED
+	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL

@@ -7,6 +7,7 @@
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
@@ -498,6 +499,7 @@
 	unique_rename = TRUE
 	unique_reskin = TRUE
 	pb_knockback = 3
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/update_gun_skins()
