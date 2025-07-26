@@ -2622,7 +2622,8 @@
 "bfH" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/zone2)
@@ -8076,7 +8077,8 @@
 "dMM" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
@@ -20865,7 +20867,8 @@
 "kfl" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /obj/machinery/status_display{
 	layer = 4;
@@ -22581,7 +22584,8 @@
 	layer = 4.2
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -33297,8 +33301,7 @@
 /area/shuttle/syndicate)
 "pxK" = (
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command";
-	icon_state = "bigscanner"
+	department = "Central Command"
 	},
 /obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
@@ -33694,7 +33697,8 @@
 "pJr" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /turf/simulated/floor/bluegrid,
 /area/centcom/bridge)
@@ -35362,7 +35366,8 @@
 "quT" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/bridge)
@@ -36498,9 +36503,7 @@
 /obj/structure/cable{
 	icon_state = "2-6"
 	},
-/obj/machinery/photocopier{
-	icon_state = "fax"
-	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plating,
 /area/centcom/specops)
 "qVY" = (
@@ -36714,7 +36717,8 @@
 "raf" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /obj/effect/landmark/commando_manual,
 /obj/machinery/status_display{
