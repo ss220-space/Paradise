@@ -13,6 +13,19 @@
 	var/always_availible = TRUE //Set to FALSE if it needs to be learned first.
 	var/alert_admins_on_craft = FALSE
 
+
+/datum/crafting_recipe/proc/spawn_result(list/result_list, mob/user)
+	for(var/result in result_list)
+		var/atom/movable/item = new result(get_turf(user.loc))
+		item.add_fingerprint(user)
+		user.investigate_log("[key_name_log(user)] crafted [item]", INVESTIGATE_CRAFTING)
+		item.CheckParts(parts, src)
+		if(isitem(item))
+			user.put_in_hands(item)
+
+		SSblackbox.record_feedback("tally", "object_crafted", 1, item.type)
+
+
 /datum/crafting_recipe/IED
 	name = "IED"
 	result = /obj/item/grenade/iedcasing

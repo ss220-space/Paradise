@@ -5,8 +5,17 @@
 ///////////
 
 /obj/structure/easel
-	name = "easel"
-	desc = "Only for the finest of art!"
+	name = "мольберт"
+	ru_names = list(
+		NOMINATIVE = "мольберт",
+		GENITIVE = "мольберта",
+		DATIVE = "мольберту",
+		ACCUSATIVE = "мольберт",
+		INSTRUMENTAL = "мольбертом",
+		PREPOSITIONAL = "мольберте"
+	)
+	desc = "Только для лучших произведений искусства!"
+	gender = MALE
 	icon = 'icons/obj/art/artstuff.dmi'
 	icon_state = "easel"
 	density = TRUE
@@ -25,6 +34,7 @@
 	painting = canvas
 	canvas.layer = layer+0.1
 	user.visible_message(span_notice("[user] puts \the [canvas] on \the [src]."),span_notice("You place \the [canvas] on \the [src]."))
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 //Stick to the easel like glue
@@ -39,8 +49,17 @@
 
 
 /obj/item/canvas
-	name = "canvas"
-	desc = "Draw out your soul on this canvas!"
+	name = "холст"
+	ru_names = list(
+		NOMINATIVE = "холст",
+		GENITIVE = "холста",
+		DATIVE = "холсту",
+		ACCUSATIVE = "холст",
+		INSTRUMENTAL = "холстом",
+		PREPOSITIONAL = "холсте"
+	)
+	desc = "Нарисуйте свою душу на этом холсте!"
+	gender = MALE
 	icon = 'icons/obj/art/artstuff.dmi'
 	icon_state = "11x11"
 	//flags_1 = UNPAINTABLE_1
@@ -137,6 +156,7 @@
 /obj/item/canvas/ui_status(mob/user, datum/ui_state/state)
 	if(state == GLOB.default_state || !state)
 		return ..()
+
 	//Skip the can_interact() check from atom/ui_status() and let them zoom in/out!
 	var/src_object = ui_host(user)
 	return state.can_use_topic(src_object, user)
@@ -156,6 +176,7 @@
 		return ..()
 
 	ui_interact(user)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/item/canvas/ui_static_data(mob/user)
@@ -198,10 +219,6 @@
 		return
 
 	var/mob/living/carbon/human/user = usr
-	///this is here to allow observers and viewers to zoom in and out regardless of adjacency.
-	if(action != "zoom_in" && action != "zoom_out")
-		return
-
 	switch(action)
 		if("paint", "fill")
 			if(finalized)
@@ -325,6 +342,7 @@
 /mob/living/carbon/human/proc/get_idcard(hand_first)
 	if(!length(get_held_items())) //Early return for mobs without hands.
 		return
+
 	//Check hands
 	var/obj/item/held_item = get_active_hand()
 	if(held_item) //Check active hand
@@ -334,8 +352,10 @@
 		return
 
 	held_item = get_inactive_hand()
-	if(held_item)
-		. = held_item.GetID()
+	if(!held_item)
+		return
+
+	. = held_item.GetID()
 
 
 /obj/item/canvas/proc/patron(mob/user)
@@ -343,26 +363,27 @@
 		return
 
 	if(!painting_metadata.loaded_from_json)
-		if(tgui_alert(user, "The painting hasn't been archived yet and will be lost at the end of the shift if not placed in an elegible frame. Continue?","Unarchived Painting",list("Yes","No")) != "Yes")
+		if(tgui_alert(user, "Картина ещё не архивирована и будет утеряна в конце смены, если её не поместить в удобную раму. \
+							Продолжить?", "Несохранённая картина", list("Да", "Нет")) != "Да")
 			return
 
 	var/mob/living/carbon/human/human_user = user
 	var/obj/item/card/id/id_card = human_user.get_idcard(TRUE)
 	if(!id_card)
-		to_chat(user, span_warning("You don't even have a id and you want to be an art patron?"))
+		to_chat(user, span_warning("У вас даже нет id карты, а вы хотите стать меценатом?"))
 		return
 
 	var/datum/money_account/account = get_money_account(id_card.associated_account_number)
 	if(!account)
-		to_chat(user, span_warning("No valid non-departmental account found."))
+		to_chat(user, span_warning("Аккаунт не найден."))
 		return
 
 	if(account.money < painting_metadata.credit_value)
-		to_chat(user, span_warning("You can't afford this."))
+		to_chat(user, span_warning("Вы не можете себе этого позволить."))
 		return
 
 	var/sniped_amount = painting_metadata.credit_value
-	var/offer_amount = tgui_input_number(user, "How much do you want to offer?", "Patronage Amount", (painting_metadata.credit_value + 1), account.money, painting_metadata.credit_value)
+	var/offer_amount = tgui_input_number(user, "Какую сумму вы готовы предложить?", "Предоставляемая Сумма", (painting_metadata.credit_value + 1), account.money, painting_metadata.credit_value)
 	if(!offer_amount || QDELETED(user) || QDELETED(src) || !istype(loc, /obj/structure/sign/painting) || !user.can_perform_action(loc, FORBID_TELEKINESIS_REACH))
 		return
 
@@ -370,7 +391,7 @@
 		return
 
 	if(!account.charge(-offer_amount))
-		to_chat(user, span_warning("Transaction failure. Please try again."))
+		to_chat(user, span_warning("Ошибка транзакции. Попробуйте ещё раз."))
 		return
 
 	var/datum/money_account/service_account = GLOB.department_accounts["Support"]
@@ -386,12 +407,13 @@
 	painting_metadata.credit_value = offer_amount
 	last_patron = WEAKREF(user.mind)
 
-	to_chat(user, span_notice("Nanotrasen Trust Foundation thanks you for your contribution. You're now an official patron of this painting."))
+	to_chat(user, span_notice("Фонд \"Nanotrasen Trust\" благодарит вас за ваш вклад. Теперь вы официальный владелец этой картины."))
 	var/list/possible_frames = SSpersistent_paintings.get_available_frames(offer_amount)
 	if(possible_frames.len <= 1) // Not much room for choices here.
 		return
 
-	if(tgui_alert(user, "Do you want to change the frame appearance now? You can do so later this shift with Alt-Click as long as you're a patron.","Patronage Frame",list("Yes","No")) != "Yes")
+	if(tgui_alert(user, "Хотите изменить внешний вид рамки сейчас? Вы сможете сделать это позже, нажав Alt+клик, если являетесь владельцем.", \
+						"Рабка", list("Да", "Нет")) != "Да")
 		return
 
 	if(!can_select_frame(user))
@@ -416,7 +438,7 @@
 
 	painting_metadata.frame_type = result
 	var/obj/structure/sign/painting/our_frame = loc
-	our_frame.balloon_alert(user, "frame set to [result]")
+	our_frame.balloon_alert(user, "рамка теперь [result]")
 	our_frame.update_appearance()
 
 
@@ -457,10 +479,7 @@
 
 	var/png_filename = "data/paintings/temp_painting.png"
 	var/image_data = get_data_string()
-	var/result = rustg_dmi_create_png(png_filename, "[width]", "[height]", image_data)
-	if(result)
-		CRASH("Error generating painting png : [result]")
-
+	rustg_dmi_create_png(png_filename, "[width]", "[height]", image_data)
 	painting_metadata.md5 = md5(LOWER_TEXT(image_data))
 	generated_icon = new(png_filename)
 	icon_generated = TRUE
@@ -503,38 +522,42 @@
 		return
 
 	if(istype(painting_implement, /obj/item/paint_palette))
-		return "Oil on canvas"
+		return "Масло на холсте"
 
 	else if(istype(painting_implement, /obj/item/toy/crayon/spraycan))
-		return "Spraycan on canvas"
+		return "Краска из балончика на холсте"
 
 	else if(istype(painting_implement, /obj/item/toy/crayon))
-		return "Crayon on canvas"
+		return "Следы мелка на холсте"
 
 	else if(istype(painting_implement, /obj/item/pen))
-		return "Ink on canvas"
+		return "Чернила на холсте"
 
 	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
 		return //These are just for cleaning, ignore them
 
 	else
-		return "Unknown medium"
+		return "Неизвестный материал"
 
 
 /obj/item/canvas/proc/try_rename(mob/user)
 	if(painting_metadata.loaded_from_json) // No renaming old paintings
 		return TRUE
-	var/new_name = tgui_input_text(user, "What do you want to name the painting?", "Title Your Masterpiece", max_length = MAX_NAME_LEN)
+
+	var/new_name = tgui_input_text(user, "Как вы хотите назвать картину?", "Назовите свой шедевр", max_length = MAX_NAME_LEN)
 	//new_name = reject_bad_name(new_name, allow_numbers = TRUE, ascii_only = FALSE, strict = TRUE, cap_after_symbols = FALSE)
 	if(isnull(new_name))
 		return FALSE
+
 	if(new_name != painting_metadata.title && user.can_perform_action(src))
 		painting_metadata.title = new_name
-	switch(tgui_alert(user, "Do you want to sign it or remain anonymous?", "Sign painting?", list("Yes", "No", "Cancel")))
-		if("Yes")
+
+	switch(tgui_alert(user, "Хотите ли вы оставить подпись или остаться анонимным?", "Подписать рисунок?", list("Да", "Нет", "Отмена")))
+		if("Да")
 			return TRUE
-		if("No")
-			painting_metadata.creator_name = "Anonymous"
+
+		if("Нет")
+			painting_metadata.creator_name = "Аноним"
 			return TRUE
 
 	return FALSE
@@ -608,10 +631,12 @@
 				r_line_start = y
 			else
 				r_line_start = null
+
 			if(return_flags & CANVAS_FILL_L_MATCH)
 				l_line_start = y
 			else
 				l_line_start = null
+
 			curr_line[y] = new_color
 			curr_queue -= CANVAS_COORD(x, y) //remove it from the queue if possible.
 			y--
@@ -629,12 +654,16 @@
 			var/return_flags = canvas_scan_step(x, y, queue_left, queue_right, left_line, right_line, l_line_start, r_line_start, prev_color)
 			if(!(return_flags & CANVAS_FILL_R_MATCH))
 				r_line_start = null
+
 			else if(!r_line_start)
 				r_line_start = y
+
 			if(!(return_flags & CANVAS_FILL_L_MATCH))
 				l_line_start = null
+
 			else if(!l_line_start)
 				l_line_start = y
+
 			curr_line[y] = new_color
 			curr_queue -= CANVAS_COORD(x, y)
 			y++
@@ -657,6 +686,7 @@
 
 	return TRUE
 
+
 /**
  * The step of canvas_fill() that scans the pixels to the immediate right and left of our coord and see if they need to be queue'd or not.
  * Kept as a separate proc to reduce copypasted code.
@@ -676,10 +706,12 @@
 	else
 		QUEUE_CANVAS_COORD(x + 1, right_pos, queue_right)
 
+
 #undef CANVAS_FILL_R_MATCH
 #undef CANVAS_FILL_L_MATCH
 #undef CANVAS_COORD
 #undef QUEUE_CANVAS_COORD
+
 
 /obj/item/wallframe
 	icon = 'icons/obj/machines/wallmounts.dmi'
@@ -696,28 +728,24 @@
 
 /obj/item/wallframe/proc/try_build(turf/on_wall, mob/user)
 	if(get_dist(on_wall,user) > 1)
-		balloon_alert(user, "you are too far!")
+		balloon_alert(user, "вы слишком далеко!")
 		return
 
 	var/floor_to_wall = get_dir(user, on_wall)
 	if(!(floor_to_wall in GLOB.cardinal))
-		balloon_alert(user, "stand in line with wall!")
+		balloon_alert(user, "встаньте ровно у стены!")
 		return
 
 	var/turf/turf = get_turf(user)
 	var/area/area = get_area(turf)
 	if(!isfloorturf(turf))
-		balloon_alert(user, "cannot place here!")
+		balloon_alert(user, "нельзя поместить здесь!")
 		return
 
 	if(area.always_unpowered)
-		balloon_alert(user, "cannot place in this area!")
+		balloon_alert(user, "нельзя поместить здесь!")
 		return
-/*
-	if(check_wall_item(turf, floor_to_wall, wall_external))
-		balloon_alert(user, "already something here!")
-		return
-*/
+
 	return TRUE
 
 
@@ -727,11 +755,11 @@
 		return
 
 	playsound(src.loc, 'sound/machines/click.ogg', 75, TRUE)
-	user.visible_message(span_notice("[user.name] attaches [src] to the wall."),
-		span_notice("You attach [src] to the wall."),
-		span_hear("You hear clicking."))
-	var/floor_to_wall = get_dir(user, on_wall)
+	user.visible_message(span_notice("[user.declent_ru(NOMINATIVE)] присоединил [declent_ru(ACCUSATIVE)] к стене."),
+						span_notice("Вы присоединили [declent_ru(ACCUSATIVE)] к стене."),
+						span_hear("Вы слышите клики."))
 
+	var/floor_to_wall = get_dir(user, on_wall)
 	var/obj/hanging_object = new result_path(get_turf(user), floor_to_wall, TRUE)
 	hanging_object.setDir(floor_to_wall)
 	if(!pixel_shift)
@@ -774,7 +802,7 @@
 	if(!metal_amt && !glass_amt)
 		return FALSE
 
-	to_chat(user, span_notice("You dismantle [src]."))
+	to_chat(user, span_notice("Вы отсоединяете [declent_ru(ACCUSATIVE)]."))
 	tool.play_tool_sound(src)
 	if(metal_amt)
 		new /obj/item/stack/sheet/metal(get_turf(src), metal_amt)
@@ -787,7 +815,15 @@
 
 
 /obj/item/canvas/nineteen_nineteen
-	name = "canvas (19x19)"
+	name = "холст (19x19)"
+	ru_names = list(
+		NOMINATIVE = "холст (19x19)",
+		GENITIVE = "холста (19x19)",
+		DATIVE = "холсту (19x19)",
+		ACCUSATIVE = "холст (19x19)",
+		INSTRUMENTAL = "холстом (19x19)",
+		PREPOSITIONAL = "холсте (19x19)"
+	)
 	icon_state = "19x19"
 	width = 19
 	height = 19
@@ -797,7 +833,15 @@
 
 
 /obj/item/canvas/twentythree_nineteen
-	name = "canvas (23x19)"
+	name = "холст (23x19)"
+	ru_names = list(
+		NOMINATIVE = "холст (23x19)",
+		GENITIVE = "холста (23x19)",
+		DATIVE = "холсту (23x19)",
+		ACCUSATIVE = "холст (23x19)",
+		INSTRUMENTAL = "холстом (23x19)",
+		PREPOSITIONAL = "холсте (23x19)"
+	)
 	icon_state = "23x19"
 	width = 23
 	height = 19
@@ -808,7 +852,15 @@
 
 
 /obj/item/canvas/twentythree_twentythree
-	name = "canvas (23x23)"
+	name = "холст (23x23)"
+	ru_names = list(
+		NOMINATIVE = "холст (23x23)",
+		GENITIVE = "холста (23x23)",
+		DATIVE = "холсту (23x23)",
+		ACCUSATIVE = "холст (23x23)",
+		INSTRUMENTAL = "холстом (23x23)",
+		PREPOSITIONAL = "холсте (23x23)"
+	)
 	icon_state = "23x23"
 	width = 23
 	height = 23
@@ -819,8 +871,17 @@
 
 
 /obj/item/canvas/twentyfour_twentyfour
-	name = "canvas (24x24) (AI Universal Standard)"
-	desc = "Besides being almost too large for a standard frame, the AI can accept these as a display from their internal database after you've hung it up."
+	name = "холст (24x24)"
+	ru_names = list(
+		NOMINATIVE = "холст (24x24)",
+		GENITIVE = "холста (24x24)",
+		DATIVE = "холсту (24x24)",
+		ACCUSATIVE = "холст (24x24)",
+		INSTRUMENTAL = "холстом (24x24)",
+		PREPOSITIONAL = "холсте (24x24)"
+	)
+	desc = "Помимо того, что он слишком велик для стандартной рамки, \
+			ИИ может использовать его в качестве дисплея из своей внутренней базы данных после того, как вы его повесите."
 	icon_state = "24x24"
 	width = 24
 	height = 24
@@ -831,8 +892,17 @@
 
 
 /obj/item/canvas/thirtysix_twentyfour
-	name = "canvas (36x24)"
-	desc = "A very large canvas to draw out your soul on. You'll need a larger frame to put it on a wall."
+	name = "холст (36x24)"
+	ru_names = list(
+		NOMINATIVE = "холст (36x24)",
+		GENITIVE = "холста (36x24)",
+		DATIVE = "холсту (36x24)",
+		ACCUSATIVE = "холст (36x24)",
+		INSTRUMENTAL = "холстом (36x24)",
+		PREPOSITIONAL = "холсте (36x24)"
+	)
+	desc = "Очень большой холст, на котором можно изобразить свою душу. \
+			Чтобы повесить картину на стену, понадобится большая рамка рамка."
 	icon_state = "24x24" //The vending spritesheet needs the icons to be 32x32. We'll set the actual icon on Initialize.
 	width = 36
 	height = 24
@@ -849,9 +919,18 @@
 	icon = 'icons/obj/art/artstuff_64x64.dmi'
 	icon_state = "36x24"
 
+
 /obj/item/canvas/fortyfive_twentyseven
-	name = "canvas (45x27)"
-	desc = "The largest canvas available on the space market. You'll need a larger frame to put it on a wall."
+	name = "холст (45x27)"
+	ru_names = list(
+		NOMINATIVE = "холст (45x27)",
+		GENITIVE = "холста (45x27)",
+		DATIVE = "холсту (45x27)",
+		ACCUSATIVE = "холст (45x27)",
+		INSTRUMENTAL = "холстом (45x27)",
+		PREPOSITIONAL = "холсте (45x27)"
+	)
+	desc = "Самый большой холст, доступный на рынке. Чтобы повесить его на стену, понадобится большая рамка."
 	icon_state = "24x24" //Ditto
 	width = 45
 	height = 27
@@ -870,8 +949,17 @@
 
 
 /obj/item/wallframe/painting
-	name = "painting frame"
-	desc = "The perfect showcase for your favorite deathtrap memories."
+	name = "рама"
+	ru_names = list(
+		NOMINATIVE = "рама",
+		GENITIVE = "рамы",
+		DATIVE = "раме",
+		ACCUSATIVE = "раму",
+		INSTRUMENTAL = "рамой",
+		PREPOSITIONAL = "раме"
+	)
+	desc = "Идеальная витрина для ваших любимых воспоминаний."
+	gender = FEMALE
 	icon = 'icons/obj/signs.dmi'
 	//custom_materials = list(/datum/material/wood =SHEET_MATERIAL_AMOUNT)
 	resistance_flags = FLAMMABLE
@@ -882,8 +970,16 @@
 
 
 /obj/structure/sign/painting
-	name = "Painting"
-	desc = "Art or \"Art\"? You decide."
+	name = "картина"
+	ru_names = list(
+		NOMINATIVE = "картина",
+		GENITIVE = "картины",
+		DATIVE = "картине",
+		ACCUSATIVE = "картину",
+		INSTRUMENTAL = "картиной",
+		PREPOSITIONAL = "картине"
+	)
+	desc = "Искусство или \"Исскуство\"? Зависит только от вас."
 	icon = 'icons/obj/signs.dmi'
 	icon_state = "frame-empty"
 	base_icon_state = "frame"
@@ -898,13 +994,14 @@
 	/// The list of canvas types accepted by this frame
 	var/list/accepted_canvas_types = list(
 		/obj/item/canvas,
-		///obj/item/canvas/nineteen_nineteen,
-		///obj/item/canvas/twentythree_nineteen,
-		///obj/item/canvas/twentythree_twentythree,
-		///obj/item/canvas/twentyfour_twentyfour,
+		/obj/item/canvas/nineteen_nineteen,
+		/obj/item/canvas/twentythree_nineteen,
+		/obj/item/canvas/twentythree_twentythree,
+		/obj/item/canvas/twentyfour_twentyfour,
 	)
 	/// the type of wallframe it 'disassembles' into
 	var/wallframe_type = /obj/item/wallframe/painting
+
 
 /*
 /obj/structure/sign/painting/get_save_vars()
@@ -914,21 +1011,28 @@
 /obj/structure/sign/painting/Initialize(mapload, dir, building)
 	. = ..()
 	SSpersistent_paintings.painting_frames += src
-	if(dir)
-		setDir(dir)
+	if(!dir)
+		return
+
+	setDir(dir)
+
 
 /obj/structure/sign/painting/Destroy()
 	. = ..()
 	SSpersistent_paintings.painting_frames -= src
 
+
 /obj/structure/sign/painting/attackby(obj/item/I, mob/user, list/modifiers, list/attack_modifiers)
 	if(!current_canvas && istype(I, /obj/item/canvas))
 		frame_canvas(user,I)
-	else if(current_canvas && current_canvas.painting_metadata.title == initial(current_canvas.painting_metadata.title) && istype(I,/obj/item/pen))
-		if(try_rename(user))
-			SStgui.update_uis(src)
-	else
+
+	else if(!current_canvas || current_canvas.painting_metadata.title != initial(current_canvas.painting_metadata.title) || !istype(I,/obj/item/pen))
 		return ..()
+
+	if(!try_rename(user))
+		return
+
+	SStgui.update_uis(src)
 
 /*
 /obj/structure/sign/painting/knock_down(mob/living/user)
@@ -946,17 +1050,17 @@
 /obj/structure/sign/painting/examine(mob/user)
 	. = ..()
 	if(persistence_id)
-		. += span_notice("Any painting placed here will be archived at the end of the shift.")
+		. += span_notice("Любая картина, размещённая здесь, будет архивирована в конце смены.")
 
 	if(!current_canvas)
 		return
 
 	current_canvas.ui_interact(user)
-	. += span_notice("Use wirecutters to remove the painting.")
+	. += span_notice("Для удаления картины используйте кусачки.")
 	if(user?.mind != current_canvas.last_patron)
 		return
 
-	. += span_notice("<b>Alt-Click</b> to change select a new appearance for the frame of this painting.")
+	. += span_notice("<b>Alt-клик</b>, чтобы выбрать новый внешний вид рамы этой картины.")
 
 
 /obj/structure/sign/painting/wirecutter_act(mob/living/user, obj/item/I)
@@ -965,8 +1069,9 @@
 		return
 
 	current_canvas.forceMove(drop_location())
-	to_chat(user, span_notice("You remove the painting from the frame."))
+	to_chat(user, span_notice("Вы вынимаете картину из рамы."))
 	return TRUE
+
 
 /obj/structure/sign/painting/Exited(atom/movable/movable, atom/newloc)
 	. = ..()
@@ -990,20 +1095,21 @@
 
 /obj/structure/sign/painting/proc/frame_canvas(mob/user, obj/item/canvas/new_canvas)
 	if(!(new_canvas.type in accepted_canvas_types))
-		to_chat(user, span_warning("[new_canvas] won't fit in this frame."))
+		to_chat(user, span_warning("[new_canvas.declent_ru(NOMINATIVE)] не влезет в эту рамку."))
 		return FALSE
 
-	if(user.drop_transfer_item_to_loc(new_canvas, src))
-		current_canvas = new_canvas
-		if(!current_canvas.finalized)
-			current_canvas.finalize(user)
+	if(!user.drop_transfer_item_to_loc(new_canvas, src))
+		return FALSE
 
-		to_chat(user,span_notice("You frame [current_canvas]."))
-		//add_art_element()
-		//update_appearance()
-		return TRUE
+	current_canvas = new_canvas
+	if(!current_canvas.finalized)
+		current_canvas.finalize(user)
 
-	return FALSE
+	to_chat(user,span_notice("Вы поместиили [current_canvas.declent_ru(ACCUSATIVE)] в раму."))
+	//add_art_element()
+	//update_appearance()
+	return TRUE
+
 
 /obj/structure/sign/painting/proc/try_rename(mob/user)
 	if(current_canvas.painting_metadata.title != initial(current_canvas.painting_metadata.title))
@@ -1022,7 +1128,7 @@
 
 
 /obj/structure/sign/painting/update_name(updates)
-	name = current_canvas ? "painting - [current_canvas.painting_metadata.title]" : initial(name)
+	name = current_canvas ? "картина - [current_canvas.painting_metadata.title]" : initial(name)
 	return ..()
 
 
@@ -1043,6 +1149,7 @@
 	var/frame_type = current_canvas.painting_metadata.frame_type
 	. += mutable_appearance(current_canvas.icon,"[current_canvas.icon_state]frame_[frame_type]") //add the frame
 
+
 /**
  * Loads a painting from SSpersistence. Called globally by said subsystem when it inits
  *
@@ -1051,9 +1158,11 @@
 /obj/structure/sign/painting/proc/load_persistent()
 	if(!persistence_id)
 		return FALSE
+
 	var/list/valid_paintings = SSpersistent_paintings.get_paintings_with_tag(persistence_id)
 	if(!length(valid_paintings))
 		return FALSE //aborts loading anything this category has no usable paintings
+
 	var/datum/painting/painting = pick(valid_paintings)
 	var/png = "data/paintings/images/[painting.md5].png"
 	var/icon/I = new(png)
@@ -1062,13 +1171,18 @@
 	var/h = I.Height()
 	for(var/turf in typesof(/obj/item/canvas))
 		new_canvas = turf
-		if(initial(new_canvas.width) == w && initial(new_canvas.height) == h)
-			if(!(new_canvas in accepted_canvas_types))
-				CRASH("Found painting with canvas size not compatible with this frame. Canvas type: [new_canvas]")
-			new_canvas = new turf(src)
-			break
+		if(initial(new_canvas.width) != w || initial(new_canvas.height) != h)
+			continue
+
+		if(!(new_canvas in accepted_canvas_types))
+			CRASH("Found painting with canvas size not compatible with this frame. Canvas type: [new_canvas]")
+
+		new_canvas = new turf(src)
+		break
+
 	if(!istype(new_canvas))
 		CRASH("Found painting size with no matching canvas type")
+
 	new_canvas.painting_metadata = painting
 	new_canvas.fill_grid_from_icon(I)
 	new_canvas.generated_icon = I
@@ -1080,6 +1194,7 @@
 	current_canvas.update_appearance()
 	update_appearance()
 	return TRUE
+
 
 /*
 /obj/structure/sign/painting/proc/add_art_element()
@@ -1093,41 +1208,52 @@
 		RemoveElement(/datum/element/art, artistic_value)
 */
 
+
 /obj/structure/sign/painting/proc/get_art_value(patronage)
 	switch(patronage)
 		if(PATRONAGE_SUPERB_FRAME to INFINITY)
 			return GREAT_ART
+
 		if(PATRONAGE_EXCELLENT_FRAME to PATRONAGE_SUPERB_FRAME)
 			return GOOD_ART
+
 		if(PATRONAGE_NICE_FRAME to PATRONAGE_EXCELLENT_FRAME)
 			return OK_ART
+
 	return 0
+
 
 /obj/structure/sign/painting/proc/save_persistent()
 	if(!persistence_id || !current_canvas || current_canvas.no_save || current_canvas.painting_metadata.loaded_from_json)
 		return
+
 	if(SANITIZE_FILENAME(persistence_id) != persistence_id)
 		stack_trace("Invalid persistence_id - [persistence_id]")
 		return
+
 	var/data = current_canvas.get_data_string()
 	var/md5 = md5(LOWER_TEXT(data))
 	var/list/current = SSpersistent_paintings.paintings[persistence_id]
 	if(!current)
 		current = list()
+
 	for(var/datum/painting/entry in SSpersistent_paintings.paintings)
-		if(entry.md5 == md5) // No duplicates
-			return
+		if(entry.md5 != md5) // No duplicates
+			continue
+
+		return
+	
 	current_canvas.painting_metadata.md5 = md5
 	if(!current_canvas.painting_metadata.tags)
 		current_canvas.painting_metadata.tags = list(persistence_id)
 	else
 		current_canvas.painting_metadata.tags |= persistence_id
+
 	var/png_directory = "data/paintings/images/"
 	var/png_path = png_directory + "[md5].png"
-	var/result = rustg_dmi_create_png(png_path,"[current_canvas.width]","[current_canvas.height]",data)
-	if(result)
-		CRASH("Error saving persistent painting: [result]")
+	rustg_dmi_create_png(png_path, "[current_canvas.width]", "[current_canvas.height]", data)
 	SSpersistent_paintings.paintings += current_canvas.painting_metadata
+
 
 /obj/item/canvas/proc/fill_grid_from_icon(icon/I)
 	var/h = I.Height() + 1
@@ -1137,8 +1263,17 @@
 
 
 /obj/item/wallframe/painting/large
-	name = "large painting frame"
-	desc = "The perfect showcase for your favorite deathtrap memories. Make sure you have enough space to mount this one to the wall."
+	name = "большая рама"
+	ru_names = list(
+		NOMINATIVE = "большая рама",
+		GENITIVE = "большой рамы",
+		DATIVE = "большой раме",
+		ACCUSATIVE = "большую раму",
+		INSTRUMENTAL = "большой рамой",
+		PREPOSITIONAL = "большой раме"
+	)
+	desc = "Идеальная витрина для ваших любимых воспоминаний. \
+			Убедитесь, что на стене достаточно места."
 	//custom_materials = list(/datum/material/wood = SHEET_MATERIAL_AMOUNT*2)
 	icon_state = "frame-large-empty"
 	result_path = /obj/structure/sign/painting/large
@@ -1153,16 +1288,12 @@
 	var/our_dir = get_dir(user, on_wall)
 	var/check_dir = our_dir & (EAST|WEST) ? NORTH : EAST
 	var/turf/simulated/wall/second_wall = get_step(on_wall, check_dir)
-	if(!istype(second_wall)/* || !user.CanReach(second_wall)*/)
-		to_chat(user, span_warning("You need a reachable wall to the [check_dir == EAST ? "right" : "left"] of this one to mount this frame!"))
-		return FALSE
-/*
-	if(!check_wall_item(second_wall, our_dir, wall_external))
+	if(istype(second_wall))
 		return
 
-	to_chat(user, span_warning("There's already an item on the wall to the [check_dir == EAST ? "right" : "left"] of this one!"))
+	to_chat(user, span_warning("Слишком мало места!"))
 	return FALSE
-*/
+
 
 /obj/item/wallframe/painting/large/after_attach(obj/object)
 	. = ..()
@@ -1184,8 +1315,11 @@
 	. = ..()
 	// Necessary so that the painting is framed correctly by the frame overlay when flipped.
 	ADD_KEEP_TOGETHER(src, INNATE_TRAIT)
-	if(mapload)
-		finalize_size()
+	if(!mapload)
+		return
+
+	finalize_size()
+
 
 /**
  * This frame is visually put between two wall turfs and it has an icon that's bigger than 32px, and because
@@ -1198,25 +1332,35 @@
 		if(SOUTH)
 			pixel_y = -32
 			bound_width = 64
+
 		if(NORTH)
 			bound_width = 64
+
 		if(WEST)
 			// Totally intended so that the frame sprite doesn't spill behind the wall and get partly covered by the darkness plane.
 			// Ditto for the ones below.
 			pixel_x = -29
 			bound_height = 64
+
 		if(EAST)
 			bound_height = 64
 
+
 /obj/structure/sign/painting/large/frame_canvas(mob/user, obj/item/canvas/new_canvas)
 	. = ..()
-	if(.)
-		set_painting_offsets()
+	if(!.)
+		return
+
+	set_painting_offsets()
+
 
 /obj/structure/sign/painting/large/load_persistent()
 	. = ..()
-	if(.)
-		set_painting_offsets()
+	if(!.)
+		return
+
+	set_painting_offsets()
+
 
 /obj/structure/sign/painting/large/proc/set_painting_offsets()
 	switch(dir)
@@ -1224,63 +1368,49 @@
 			transform = transform.Turn(90)
 			pixel_x += 29
 			pixel_y += 29
+
 		if(WEST)
 			transform = transform.Turn(-90)
+
 		if(NORTH)
 			pixel_y += 29
 
+
 /obj/structure/sign/painting/large/Exited(atom/movable/movable, atom/newloc)
-	if(movable == current_canvas)
-		switch(dir)
-			if(EAST)
-				transform = transform.Turn(-90)
-				pixel_x -= 29
-				pixel_y -= 29
-			if(WEST)
-				transform = transform.Turn(90)
-			if(NORTH)
-				pixel_y -= 29
+	if(movable != current_canvas)
+		return ..()
+
+	switch(dir)
+		if(EAST)
+			transform = transform.Turn(-90)
+			pixel_x -= 29
+			pixel_y -= 29
+
+		if(WEST)
+			transform = transform.Turn(90)
+
+		if(NORTH)
+			pixel_y -= 29
+
 	return ..()
-
-//Presets for art gallery mapping, for paintings to be shared across stations
-/obj/structure/sign/painting/library
-	name = "\improper Public Painting Exhibit mounting"
-	desc = "For art pieces hung by the public."
-	desc_with_canvas = "A piece of art (or \"art\"). Anyone could've hung it."
-	persistence_id = "library"
-
-/obj/structure/sign/painting/library_secure
-	name = "\improper Curated Painting Exhibit mounting"
-	desc = "For masterpieces hand-picked by the curator."
-	desc_with_canvas = "A masterpiece hand-picked by the curator, supposedly."
-	persistence_id = "library_secure"
-
-/obj/structure/sign/painting/library_private // keep your smut away from prying eyes, or non-librarians at least
-	name = "\improper Private Painting Exhibit mounting"
-	desc = "For art pieces deemed too subversive or too illegal to be shared outside of curators."
-	desc_with_canvas = "A painting hung away from lesser minds."
-	persistence_id = "library_private"
-
-/obj/structure/sign/painting/large/library
-	name = "\improper Large Painting Exhibit mounting"
-	desc = "For the bulkier art pieces, hand-picked by the curator."
-	desc_with_canvas = "A curated, large piece of art (or \"art\"). Hopefully the price of the canvas was worth it."
-	persistence_id = "library_large"
-
-/obj/structure/sign/painting/large/library_private
-	name = "\improper Private Painting Exhibit mounting"
-	desc = "For the privier and less tasteful compositions that oughtn't to be shown in a parlor nor to the masses."
-	desc_with_canvas = "A painting that oughn't to be shown to the less open-minded commoners."
-	persistence_id = "library_large_private"
-
 
 
 #define AVAILABLE_PALETTE_SPACE 14 // Enough to fill two radial menu pages
 
+
 /// Simple painting utility.
 /obj/item/paint_palette
-	name = "paint palette"
-	desc = "paintbrush included"
+	name = "палитра"
+	ru_names = list(
+		NOMINATIVE = "палитра",
+		GENITIVE = "палитры",
+		DATIVE = "палитре",
+		ACCUSATIVE = "палитру",
+		INSTRUMENTAL = "палитрой",
+		PREPOSITIONAL = "палитре"
+	)
+	desc = "кисть включена"
+	gender = FEMALE
 	icon = 'icons/obj/art/artstuff.dmi'
 	icon_state = "palette"
 	lefthand_file = 'icons/mob/inhands/equipment/palette_lefthand.dmi'
@@ -1312,6 +1442,19 @@
 				/obj/item/stack/sheet/wood = 2,)
 	time = 5 SECONDS
 	category = CAT_MISC
+	var/static/list/sizes = list(
+		"19x19" = /obj/item/canvas/nineteen_nineteen,
+		"23x19" = /obj/item/canvas/twentythree_nineteen,
+		"23x23" = /obj/item/canvas/twentythree_twentythree,
+		"24x24" = /obj/item/canvas/twentyfour_twentyfour,
+		"36x24" = /obj/item/canvas/thirtysix_twentyfour,
+		"45x27" = /obj/item/canvas/fortyfive_twentyseven,
+	)
+
+
+/datum/crafting_recipe/canvas/spawn_result(list/result_list, mob/user = usr)
+	var/control_mode = tgui_input_list(usr, "Выберите желаемый размер", "Выбор размера", sizes, "19x19")
+	return ..(list(sizes[control_mode]), user)
 
 
 #undef AVAILABLE_PALETTE_SPACE

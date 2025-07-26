@@ -148,45 +148,43 @@
 			return FALSE
 	return TRUE
 
-/datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R)
+
+/datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/recipe)
 	var/list/contents = get_surroundings(user)
-	var/send_feedback = 1
-	if(!check_contents(R, contents))
+	if(!check_contents(recipe, contents))
 		return ", missing component."
-	if(!check_tools(user, R, contents))
-		return ", missing tool."
-	if(!check_pathtools(user, R, contents))
+
+	if(!check_tools(user, recipe, contents))
 		return ", missing tool."
 
-	if(!do_after(user, R.time, user))
+	if(!check_pathtools(user, recipe, contents))
+		return ", missing tool."
+
+	if(!do_after(user, recipe.time, user))
 		return "."
+
 	contents = get_surroundings(user)
 
-	if(!check_contents(R, contents))
+	if(!check_contents(recipe, contents))
 		return ", missing component."
-	if(!check_tools(user, R, contents))
-		return ", missing tool."
-	if(!check_pathtools(user, R, contents))
+
+	if(!check_tools(user, recipe, contents))
 		return ", missing tool."
 
-	var/list/parts = requirements_deletion(R, user)
+	if(!check_pathtools(user, recipe, contents))
+		return ", missing tool."
+
+	var/list/parts = requirements_deletion(recipe, user)
 	if(!parts)
 		return ", missing component."
 
-	var/result_list = R.result
+	var/result_list = recipe.result
 	if(!islist(result_list))
 		result_list = list(result_list)
-	for(var/result in result_list)
-		var/atom/movable/I = new result(get_turf(user.loc))
-		I.add_fingerprint(user)
-		user.investigate_log("[key_name_log(user)] crafted [I]", INVESTIGATE_CRAFTING)
-		I.CheckParts(parts, R)
-		if(isitem(I))
-			user.put_in_hands(I)
 
-		if(send_feedback)
-			SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
+	INVOKE_ASYNC(recipe, TYPE_PROC_REF(/datum/crafting_recipe, spawn_result), result_list, user)
 	return 0
+
 
 /datum/personal_crafting/proc/requirements_deletion(datum/crafting_recipe/recipe, mob/user)
 	var/list/surroundings = get_environment(user)
