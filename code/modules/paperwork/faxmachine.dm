@@ -21,6 +21,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	icon_state = "fax"
 	insert_anim = "faxsend"
 	pass_flags = PASSTABLE
+	pixel_y = 2
 	var/fax_network = "Локальная Факсимильная сеть"
 	/// If true, prevents fax machine from sending messages to NT machines
 	var/syndie_restricted = FALSE
