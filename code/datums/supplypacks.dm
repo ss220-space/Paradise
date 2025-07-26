@@ -77,15 +77,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	manifest += "<ul>"
 	for(var/path in contains)
 		if(!path)	continue
-		var/atom/movable/AM = path
-		if(AM.ru_names)
-			manifest += "<li>[initial(AM.ru_names[1])]</li>"
-			// Add the name to the UI manifest
-			ui_manifest += "[initial(AM.ru_names[1])]"
-		else
-			manifest += "<li>[initial(AM.name)]</li>"
-			// Add the name to the UI manifest
-			ui_manifest += "[initial(AM.name)]"
+		var/atom/movable/AM = new path(locate(1, 1, 1))
+		var/content_name = AM.ru_names ? AM.ru_names[1] : initial(AM.name)
+		qdel(AM)
+		manifest += "<li>[content_name]</li>"
+		// Add the name to the UI manifest
+		ui_manifest += "[content_name]"
 	manifest += "</ul>"
 
 /datum/supply_packs/proc/can_approve(mob/user)
