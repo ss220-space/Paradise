@@ -465,19 +465,19 @@
 			to_chat(user, span_notice("Вы оружию имя \"[name]\". Познакомьтесь со своим новым другом."))
 		return ATTACK_CHAIN_BLOCKED
 
-	if(istype(I, /obj/item/flashlight/seclite))
-		add_fingerprint(user)
-		if(!can_flashlight)
-			to_chat(user, span_warning("Вы не можете прикрепить [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
-			return ATTACK_CHAIN_PROCEED
-		if(gun_light)
-			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL )] уже установлен [gun_light.declent_ru(NOMINATIVE)]!"))
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
-		to_chat(user, span_notice("Вы закрепляете [I.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
-		set_gun_light(I)
-		return ATTACK_CHAIN_BLOCKED_ALL
+	// if(istype(I, /obj/item/flashlight/seclite))
+	// 	add_fingerprint(user)
+	// 	if(!can_flashlight)
+	// 		to_chat(user, span_warning("Вы не можете прикрепить [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
+	// 		return ATTACK_CHAIN_PROCEED
+	// 	if(gun_light)
+	// 		to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL )] уже установлен [gun_light.declent_ru(NOMINATIVE)]!"))
+	// 		return ATTACK_CHAIN_PROCEED
+		// if(!user.drop_transfer_item_to_loc(I, src))
+			// return ..()
+		// to_chat(user, span_notice("Вы закрепляете [I.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
+		// set_gun_light(I)
+		// return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/kitchen/knife))
 		add_fingerprint(user)
@@ -503,24 +503,13 @@
 
 	return ..()
 
-
-/obj/item/gun/projectile/attack_hand(mob/user)
-	// if(loc == user)
-	// 	for(var/slot in attachments_by_slot)
-	// 		if(attachments_by_slot[slot])
-	// 			var/obj/item/gun_module/module = attachments_by_slot[slot]
-	// 			module.detach_without_check(src, user)
-	// 			return
-	// 	return
-	. = ..()
-
 /obj/item/gun/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(gun_light && can_flashlight)
-		to_chat(user, span_notice("Вы откручиваете [gun_light] от [declent_ru(ACCUSATIVE)]."))
-		set_gun_light(null)
+	// if(gun_light && can_flashlight)
+	// 	to_chat(user, span_notice("Вы откручиваете [gun_light] от [declent_ru(ACCUSATIVE)]."))
+	// 	set_gun_light(null)
 	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
 		to_chat(user, span_notice("Вы снимаете [bayonet] с [declent_ru(ACCUSATIVE)]."))
 		set_bayonet(null)

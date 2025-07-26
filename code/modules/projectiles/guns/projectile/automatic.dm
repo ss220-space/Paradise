@@ -21,11 +21,11 @@
 	if(select == 1)
 		. += "[initial(icon_state)]burst"
 
-	if(gun_light && gun_light_overlay)
-		var/iconF = gun_light_overlay
-		if(gun_light.on)
-			iconF = "[gun_light_overlay]_on"
-		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+	// if(gun_light && gun_light_overlay)
+	// 	var/iconF = gun_light_overlay
+	// 	if(gun_light.on)
+	// 		iconF = "[gun_light_overlay]_on"
+	// 	. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 
 
 /obj/item/gun/projectile/automatic/attackby(obj/item/I, mob/user, params)

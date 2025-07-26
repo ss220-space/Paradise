@@ -71,10 +71,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
-	)
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
 	. = ..()

@@ -337,3 +337,44 @@
 	overlay_state = "pmc"
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
+
+
+
+//----------------------------------------------------------
+			//							    \\
+			//       Under modules          \\
+			//	  (bayonet,light,laser)		\\
+			//						   	    \\
+//----------------------------------------------------------
+
+/obj/item/gun_module/under
+	icon = 'icons/obj/weapons/attachments/underbarrel.dmi'
+	slot = ATTACHMENT_SLOT_UNDER
+	origin_tech = "combat=2;engineering=2"
+	icon_state = "uflashlight"
+	item_state = "uflashlight"
+	overlay_state = "uflashlight"
+
+/obj/item/gun_module/under/flashlight
+	icon_state = "uflashlight"
+	item_state = "uflashlight"
+	overlay_state = "uflashlight"
+	var/obj/item/flashlight/seclite/internal
+	class = GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
+
+/obj/item/gun_module/under/flashlight/Initialize(mapload)
+	. = ..()
+	internal = new()
+
+/obj/item/gun_module/under/flashlight/attack_self(mob/user)
+	. = ..()
+	internal.attack_self(user)
+
+/obj/item/gun_module/under/flashlight/on_attach(obj/item/gun/target_gun, mob/user)
+	target_gun.set_gun_light(internal)
+
+
+/obj/item/gun_module/under/flashlight/on_detach(obj/item/gun/target_gun, mob/user)
+	target_gun.set_gun_light(null)
+	internal.forceMove(src)
+
