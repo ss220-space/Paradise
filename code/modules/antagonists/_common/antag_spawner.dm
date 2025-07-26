@@ -19,11 +19,12 @@
 	var/borg_to_spawn
 	var/checking = FALSE
 	var/rolename = "Syndicate Operative"
-	var/image/poll_icon
+	var/poll_icon_file = 'icons/mob/simple_human.dmi'
+	var/poll_icon_state = "syndicate_space_sword"
 
 /obj/item/antag_spawner/nuke_ops/Initialize(mapload)
 	. = ..()
-	poll_icon = image(icon = 'icons/mob/simple_human.dmi', icon_state = "syndicate_space_sword")
+	poll_icon = image(icon = poll_icon_file, icon_state = poll_icon_state)
 
 /obj/item/antag_spawner/nuke_ops/proc/before_candidate_search(user)
 	return TRUE
@@ -83,28 +84,22 @@
 	name = "syndicate assault cyborg teleporter"
 	borg_to_spawn = "Assault"
 	rolename = "Syndicate Assault Cyborg"
-
-/obj/item/antag_spawner/nuke_ops/borg_tele/assault/Initialize(mapload)
-	. = ..()
-	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndie-bloodhound-preview")
+	poll_icon_file = 'icons/mob/robots.dmi'
+	poll_icon_state = "syndie-bloodhound-preview"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	name = "syndicate medical teleporter"
 	borg_to_spawn = "Medical"
 	rolename = "Syndicate Medical Cyborg"
-
-/obj/item/antag_spawner/nuke_ops/borg_tele/medical/Initialize(mapload)
-	. = ..()
-	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndi-medi")
+	poll_icon_file = 'icons/mob/robots.dmi'
+	poll_icon_state = "syndi-medi"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	name = "syndicate saboteur teleporter"
 	borg_to_spawn = "Saboteur"
 	rolename = "Syndicate Saboteur Cyborg"
-
-/obj/item/antag_spawner/nuke_ops/borg_tele/saboteur/Initialize(mapload)
-	. = ..()
-	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndi-engi-preview")
+	poll_icon_file = 'icons/mob/robots.dmi'
+	poll_icon_state = "syndi-engi-preview"
 
 #define SYNDICATE_CYBORG "Борг Синдиката"
 #define NUCLEAR_OPERATIVE "Ядерный Оперативник"
