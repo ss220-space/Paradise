@@ -43,3 +43,8 @@
 	action.button_icon_state = projectiles_icons[selected_projectile]
 	action.UpdateButtonIcon()
 	return CLICK_ACTION_SUCCESS
+
+
+/obj/effect/proc_holder/spell/watchers_look/heretic
+	clothes_req = FALSE
+	human_req = FALSE

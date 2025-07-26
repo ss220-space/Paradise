@@ -40,10 +40,14 @@
 	return isliving(cast_on)
 
 
-/obj/effect/proc_holder/spell/pointed/manse_link/before_cast(mob/living/cast_on)
+/obj/effect/proc_holder/spell/pointed/manse_link/before_cast(list/targets)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
+
+	var/mob/living/cast_on = targets[1]
+	if(!istype(cast_on))
+		return SPELL_CANCEL_CAST
 
 	// If we fail to link, cancel the spell.
 	if(!do_linking(cast_on))

@@ -504,7 +504,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		shattered = TRUE
 		var/obj/item/S = new shardtype(loc)
 		S.embedded_ignore_throwspeed_threshold = TRUE
-		S.throw_impact(C)
+		S.throw_impact(C, throwingdatum)
 		S.embedded_ignore_throwspeed_threshold = FALSE
 		damage *= (4/3) //Inverts damage loss from being a structure, since glass breaking on you hurts
 		var/turf/T = get_turf(src)

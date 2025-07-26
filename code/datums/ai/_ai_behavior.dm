@@ -24,6 +24,9 @@
 	if(!HASBIT(behavior_flags, AI_BEHAVIOR_REQUIRE_MOVEMENT)) //If this was a movement task, reset our movement target.
 		return
 
+	if(!controller.current_movement_target)
+		return
+
 	UnregisterSignal(controller.current_movement_target, list(COMSIG_MOVABLE_MOVED, COMSIG_PREQDELETED))
 	controller.current_movement_target = null
 	controller.ai_movement.stop_moving_towards(controller)

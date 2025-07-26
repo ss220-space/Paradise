@@ -220,10 +220,10 @@ const InformationSection = (props) => {
           <span style={hereticBlue}>
             очк
             {charges === 1
-              ? 'о'
+              ? 'о '
               : charges === 2 || charges === 3 || charges === 4
-                ? 'а'
-                : 'ов'}
+                ? 'а '
+                : 'ов '}
             знаний
           </span>
           .
@@ -352,10 +352,10 @@ const ResearchInfo = (props) => {
         <span style={hereticBlue}>
           очк
           {charges === 1
-            ? 'о'
+            ? 'о '
             : charges === 2 || charges === 3 || charges === 4
-              ? 'а'
-              : 'ов'}
+              ? 'а '
+              : 'ов '}
           знаний
         </span>
         .

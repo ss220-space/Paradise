@@ -3052,7 +3052,7 @@
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
-		new_character.AddSpell(new spell.type())
+		spell?.action?.Grant(new_character)
 
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions)

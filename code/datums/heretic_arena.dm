@@ -272,32 +272,28 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	damagetype,
 	def_zone,
 	blocked,
-	wound_bonus,
-	bare_wound_bonus,
-	sharpness,
-	//attack_direction,
-	attacking_item,
-	wound_clothing,
+	sharp,
+	used_weapon
 )
 	SIGNAL_HANDLER
 
 	if(source.health <= HEALTH_THRESHOLD_CRIT) // I think it will work.
 		on_enter_crit(source)
 
-	if(isnull(attacking_item))
+	if(isnull(used_weapon))
 		return
 
-	if(!isobj(attacking_item))
+	if(!isobj(used_weapon))
 		return
 
-	var/obj/attacking_object = attacking_item
+	var/obj/attacking_object = used_weapon
 
 	// Track being hit by a mob holding a stick
 	if(ismob(attacking_object.loc))
 		last_attacker = WEAKREF(attacking_object.loc)
 		return
 
-	// Edge case. If our attacking_item is a gun which the owner has dropped we need to find out who shot us
+	// Edge case. If our used_weapon is a gun which the owner has dropped we need to find out who shot us
 	// Track being hit by a mob shooting a stick
 	if(!isprojectile(attacking_object))
 		return

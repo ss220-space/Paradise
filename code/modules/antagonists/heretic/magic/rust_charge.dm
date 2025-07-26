@@ -21,7 +21,7 @@
 	if(!istype(start_turf) || !HAS_TRAIT(start_turf, TRAIT_RUSTY))
 		return FALSE
 
-	cooldown_handler.start_recharge(135 SECONDS, 135 SECONDS)
+	//cooldown_handler.start_recharge(135 SECONDS, 135 SECONDS)
 	charge_sequence(action.owner, action.owner, charge_delay, charge_past)
 	//cooldown_handler.start_recharge()
 	return TRUE

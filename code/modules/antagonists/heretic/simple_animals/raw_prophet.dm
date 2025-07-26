@@ -97,7 +97,7 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/ruins/get_innate_spells()
 	var/list/returnable_list = innate_spells.Copy()
-	returnable_list += list(/obj/effect/proc_holder/spell/watchers_look = BB_TARGETED_ACTION)
+	returnable_list += list(/obj/effect/proc_holder/spell/watchers_look/heretic = BB_TARGETED_ACTION)
 	return returnable_list
 
 
