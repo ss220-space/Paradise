@@ -63024,7 +63024,7 @@
 "jlw" = (
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Research Director's Office";
-	pixel_y = sas
+	pixel_y = 2
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
