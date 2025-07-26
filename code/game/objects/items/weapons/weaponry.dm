@@ -66,6 +66,17 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
 
+/obj/item/melee/claymore/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 0.75 SECONDS, \
+		swing_sound = "blade_swing_heavy" \
+	)
+
 /obj/item/melee/claymore/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] падает на [declent_ru(ACCUSATIVE)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой."))
 	return BRUTELOSS
@@ -97,6 +108,14 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
 
+/obj/item/melee/katana/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 1.75, \
+		afterswing_slowdown = 0, \
+		swing_sound = "katana_swing" \
+	)
 
 /obj/item/melee/katana/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] вспарывает себе живот [declent_ru(INSTRUMENTAL)]! Похоже на попытку совершить сэппуку."))
@@ -231,6 +250,15 @@
 	var/homerun_able = 0
 	var/can_deflect = TRUE
 	var/homerun_always_charged = 0
+
+/obj/item/melee/baseball_bat/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		no_multi_hit = TRUE, \
+		swing_sound = "generic_swing_heavy" \
+	)
 
 /obj/item/melee/baseball_bat/homerun
 	name = "home run bat"
@@ -416,7 +444,6 @@
 		to_chat(user, span_notice("Вы деактивировали [name]."))
 
 
-
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
 	if(!(isertmindshielded(user)))
 		user.Weaken(10 SECONDS)
@@ -523,6 +550,16 @@
 	throw_range = 6
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
 	sharp = TRUE
+
+/obj/item/melee/ghostface_knife/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = -0.3, \
+		slowdown_duration = 3 SECONDS, \
+		swing_sound = "knife_swing" \
+	)
 
 /obj/item/melee/ghostface_knife/devil
 	name = "Old knife"
