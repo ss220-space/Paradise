@@ -179,13 +179,13 @@
 
 
 /datum/preference_toggle/toggle_end_of_round_sound
-	name = "Toggle Mute End of Round Sound"
-	description = "Toggles muting the end of round sound"
+	name = "Отключение звука в конце раунда"
+	description = "Отключение звука в конце раунда."
 	preftoggle_bitflag = SOUND_MUTE_END_OF_ROUND
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You have muted the end of round sound."
-	disable_message = "You have unmuted the end of round sound."
+	enable_message = "Вы отключили звук в конце раунда."
+	disable_message = "Вы включили звук в конце раунда."
 	blackbox_message = "Toggle End of Round Sound"
 
 /datum/preference_toggle/toggle_ooc
@@ -315,6 +315,16 @@
 	enable_message = "Теперь вы будете видеть уведомления в призрак-чате, если игрок в мире погибнет."
 	disable_message = "Теперь вы не будете видеть уведомления в призрак-чате, если игрок в мире погибнет."
 	blackbox_message = "Toggle Death Notifications"
+
+/datum/preference_toggle/toggle_item_tooltips
+	name = "Всплывающие подсказки"
+	description = "Переключает отображение текстовых подсказок в верхней части экрана, когда вы наводите курсор на объект."
+	preftoggle_bitflag = PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+	enable_message = "Вы больше не видите всплывающие подсказки."
+	disable_message = "Теперь вы видите всплывающие подсказки."
+	blackbox_message = "Toggle item tooltips"
 
 /datum/preference_toggle/toggle_reverb
 	name = "Ревербация звуков"
