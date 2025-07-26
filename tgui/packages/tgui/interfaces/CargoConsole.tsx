@@ -115,7 +115,12 @@ const StatusPane = (_properties) => {
     shuttleButtonText = 'Вернуть шаттл';
   } else if (moving) {
     shuttleButtonText = 'В пути';
-    statusText = 'В пути к объекту (прилетит через ' + timeleft + ' минут' + declension_ru(timeleft, "у", "ы", "") + ')';
+    statusText =
+      'В пути к объекту (прилетит через ' +
+      timeleft +
+      ' минут' +
+      declension_ru(timeleft, 'у', 'ы', '') +
+      ')';
   }
 
   return (
@@ -123,9 +128,7 @@ const StatusPane = (_properties) => {
       <Section title="Статус">
         <LabeledList>
           <LabeledList.Item label="Очки снабжения">{points}</LabeledList.Item>
-          <LabeledList.Item label="Кредиты">
-            {credits}
-          </LabeledList.Item>
+          <LabeledList.Item label="Кредиты">{credits}</LabeledList.Item>
           <LabeledList.Item label="Статус шаттла">
             {statusText}
           </LabeledList.Item>
@@ -154,7 +157,10 @@ const CataloguePane = (properties: CataloguePaneProps) => {
   const { act, data } = useBackend<CataloguePaneData>();
   const { categories, supply_packs } = data;
 
-  const [category, setCategory] = useSharedState('category', 'Чрезвычайные ситуации');
+  const [category, setCategory] = useSharedState(
+    'category',
+    'Чрезвычайные ситуации'
+  );
 
   const [searchText, setSearchText] = useSharedState('search_text', '');
 
@@ -182,7 +188,7 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   let titleText = 'Перечень грузов для заказа';
   if (searchText) {
-    titleText = "Результаты поиска \"" + searchText + "\":";
+    titleText = 'Результаты поиска "' + searchText + '":';
   } else if (category) {
     titleText = 'Просмотр категории "' + category + '"';
   }
@@ -211,10 +217,26 @@ const CataloguePane = (properties: CataloguePaneProps) => {
             {cratesToShow.map((c) => (
               <Table.Row key={c.name}>
                 <Table.Cell bold>
-                  <Box color={c.has_sale ? 'good' : 'default'}>
-                    {c.name} ({c.cost ? c.cost + ' очк' + declension_ru(c.cost, "о", "а", "ов") : ''}
+                  <Box
+                    color={
+                      !c.is_enough_techs
+                        ? 'red'
+                        : c.has_sale
+                          ? 'good'
+                          : 'default'
+                    }
+                  >
+                    {c.name} (
+                    {c.cost
+                      ? c.cost + ' очк' + declension_ru(c.cost, 'о', 'а', 'ов')
+                      : ''}
                     {c.creditsCost && c.cost ? ' ' : ''}
-                    {c.creditsCost ? c.creditsCost + ' Кредит' + declension_ru(c.creditsCost, "", "а", "ов") : ''})
+                    {c.creditsCost
+                      ? c.creditsCost +
+                        ' Кредит' +
+                        declension_ru(c.creditsCost, '', 'а', 'ов')
+                      : ''}
+                    )
                   </Box>
                 </Table.Cell>
                 <Table.Cell textAlign="right" pr={1}>

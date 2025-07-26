@@ -89,16 +89,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/proc/can_approve(mob/user)
 	if(SSshuttle.points < cost)
-		user.balloon_alert(user, "недостаточно очков снабжения!")
+		to_chat(user, span_warning("Недостаточно очков снабжения для заказа."))
 		return FALSE
 	if(credits_cost && SSshuttle.cargo_money_account.money < credits_cost)
-		user.balloon_alert(user, "недостаточно кредитов на счету!")
+		to_chat(user, span_warning("Недостаточно кредитов для заказа."))
 		return FALSE
 	if(!length(required_tech))
 		return TRUE
 	for(var/tech_id in required_tech)
 		if(!SSshuttle.techLevels[tech_id] || required_tech[tech_id] > SSshuttle.techLevels[tech_id])
-			user.balloon_alert(user, "недостаточный уровень технологий!")
+			to_chat(user, span_warning("Недостаточный уровень технологий для заказа."))
 			return FALSE
 	return TRUE
 

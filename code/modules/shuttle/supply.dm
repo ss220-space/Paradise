@@ -513,8 +513,12 @@
 	for(var/set_name in SSshuttle.supply_packs)
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
 		var/has_sale = pack.cost < initial(pack.cost)
+		var/is_enough_techs = TRUE
+		for(var/tech_id in pack.required_tech)
+			if(!SSshuttle.techLevels[tech_id] || pack.required_tech[tech_id] > SSshuttle.techLevels[tech_id])
+				is_enough_techs = FALSE
 		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
-			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "creditsCost" = pack.credits_cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale)))
+			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "creditsCost" = pack.credits_cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale, "is_enough_techs" = is_enough_techs)))
 
 	data["supply_packs"] = packs_list
 
