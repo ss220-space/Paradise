@@ -145,7 +145,7 @@
 
 /obj/effect/landmark/join_late_prisoner
 	name = "JoinLatePrisoner"
-	icon_state = "Late"
+	icon_state = "LatePrisoner"
 
 /obj/effect/landmark/join_late_cryo
 	name = "JoinLateCryo"
@@ -317,7 +317,7 @@
 
 /obj/effect/landmark/start/prisoner
 	name = JOB_TITLE_PRISONER
-	icon_state = "Assistant"
+	icon_state = "Prisoner"
 
 /obj/effect/landmark/start/chief_engineer
 	name = JOB_TITLE_CHIEF
