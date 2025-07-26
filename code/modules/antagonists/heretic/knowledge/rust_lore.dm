@@ -115,6 +115,8 @@
 	gain_text = "В голове закружились образы чуждых и зловещих сооружений. \
 				Покрытые толстым слоем ржавчины, они больше не выглядели рукотворными. \
 				Или, возможно, они никогда небыли таковыми."
+	research_tree_icon_path = 'icons/mob/actions/actions.dmi'
+	research_tree_icon_state = "shield"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/rust_construction
 	cost = 1
 

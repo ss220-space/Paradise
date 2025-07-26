@@ -1,11 +1,20 @@
 // Eldritch armor. Looks cool, hood lets you cast heretic spells.
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
-	name = "ominous hood"
+	name = "зловещий капюшон"
+	ru_names = list(
+		NOMINATIVE = "зловещий капюшон",
+		GENITIVE = "зловещего капюшона",
+		DATIVE = "зловещему капюшону",
+		ACCUSATIVE = "зловещий капюшон",
+		INSTRUMENTAL = "зловещим капюшоном",
+		PREPOSITIONAL = "зловещем капюшоне",
+	)
+	gender = MALE
+	desc = "Рваный, покрытый пылью капюшон. Внутри виднеются жуткие глаза."
 	icon = 'icons/obj/clothing/helmet.dmi'
 	//worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	icon_state = "eldritch"
 	//item_state = "eldritch"
-	desc = "A torn, dust-caked hood. Strange eyes line the inside."
 	//flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	//flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 	flash_protect = FLASH_PROTECTION_WELDER
@@ -25,8 +34,17 @@
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch
-	name = "ominous armor"
-	desc = "A ragged, dusty set of robes. Strange eyes line the inside."
+	name = "зловещая броня"
+	ru_names = list(
+		NOMINATIVE = "зловещая броня",
+		GENITIVE = "зловещей брони",
+		DATIVE = "зловещей броне",
+		ACCUSATIVE = "зловещую броню",
+		INSTRUMENTAL = "зловещей бронёй",
+		PREPOSITIONAL = "зловещей броне",
+	)
+	desc = "Рваная, пыльная мантия. Внутри — видны жуткие глаза."
+	gender = FEMALE
 	icon_state = "eldritch_armor"
 	//item_state = "eldritch_armor"
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
@@ -62,16 +80,25 @@
 		return
 
 	// Our hood gains the heretic_focus element.
-	. += span_notice("Allows you to cast heretic spells while the hood is up.")
+	. += span_notice("Позволяет использовать еретические заклинания при надетом капюшоне.")
+
 
 
 // Плащ Пустоты. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
-	name = "void hood"
+	name = "капюшон пустоты"
+	ru_names = list(
+		NOMINATIVE = "капюшон пустоты",
+		GENITIVE = "капюшона пустоты",
+		DATIVE = "капюшону пустоты",
+		ACCUSATIVE = "капюшон пустоты",
+		INSTRUMENTAL = "капюшоном пустоты",
+		PREPOSITIONAL = "капюшоне пустоты"
+	)
+	desc = "Чёрный, как смола, не отражающий свет. Покрытый рунами. \
+			С каждой вспышкой вы теряете понимание того, что видите."
 	icon = 'icons/obj/clothing/helmet.dmi'
 	//worn_icon = 'icons/mob/clothing/head/helmet.dmi'
-	desc = "Black like tar, reflecting no light. Runic symbols line the outside. \
-		With each flash you lose comprehension of what you are seeing."
 	icon_state = "void_cloak"
 	//item_state = "void_cloak"
 	flags_inv = NONE
@@ -93,9 +120,17 @@
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void
-	name = "Плащ Пустоты"
-	desc = "Black like tar, reflecting no light. Runic symbols line the outside. \
-		With each flash you lose comprehension of what you are seeing."
+	name = "плащ пустоты"
+	ru_names = list(
+		NOMINATIVE = "плащ пустоты",
+		GENITIVE = "плаща пустоты",
+		DATIVE = "плащу пустоты",
+		ACCUSATIVE = "плащ пустоты",
+		INSTRUMENTAL = "плащом пустоты",
+		PREPOSITIONAL = "плаще пустоты"
+	)
+	desc = "Чёрный, как смола, не отражающий свет. Покрытый рунами. \
+			С каждой вспышкой вы теряете понимание того, что видите."
 	icon_state = "void_cloak"
 	//item_state = "void_cloak"
 	//item_state = null
@@ -164,13 +199,12 @@
 		return
 
 	// Let examiners know this works as a focus only if the hood is down
-	. += span_notice("Allows you to cast heretic spells while the hood is down.")
+	. += span_notice("Позволяет использовать еретические заклинания, пока капюшон опущен..")
 
-/*
-/obj/item/clothing/suit/hooded/cultrobes/void/on_hood_down(obj/item/clothing/head/hooded/hood)
+/obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
 	make_visible()
 	return ..()
-*/
+
 /*
 /obj/item/clothing/suit/hooded/cultrobes/void/can_create_hood()
 	if(!isliving(loc))
@@ -183,11 +217,11 @@
 	loc.balloon_alert(loc, "can't get the hood up!")
 	return FALSE
 */
-/*
-/obj/item/clothing/suit/hooded/cultrobes/void/on_hood_created(obj/item/clothing/head/hooded/hood)
+
+/obj/item/clothing/suit/hooded/cultrobes/void/EngageHood()
 	. = ..()
 	make_invisible()
-*/
+
 
 /// Makes our cloak "invisible". Not the wearer, the cloak itself.
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/make_invisible()
@@ -198,8 +232,8 @@
 		return
 
 	REMOVE_TRAIT(loc, TRAIT_RESIST_COLD, UID())
-	loc.balloon_alert(loc, "cloak hidden")
-	loc.visible_message(span_notice("Light shifts around [loc], making the cloak around them invisible!"))
+	loc.balloon_alert(loc, "плащ скрыт")
+	loc.visible_message(span_notice("Свет искажается вокруг [declent_ru(GENITIVE)]!"))
 
 
 /// Makes our cloak "visible" again.
@@ -211,5 +245,5 @@
 		return
 
 	ADD_TRAIT(loc, TRAIT_RESIST_COLD, UID())
-	loc.balloon_alert(loc, "cloak revealed")
-	loc.visible_message(span_notice("A kaleidoscope of colours collapses around [loc], a cloak appearing suddenly around their person!"))
+	loc.balloon_alert(loc, "плащ виден")
+	loc.visible_message(span_notice("Калейдоскоп цветов обрушивается на [loc.declent_ru(NOMINATIVE)], вырисовывая ранее скрытый плащ!"))

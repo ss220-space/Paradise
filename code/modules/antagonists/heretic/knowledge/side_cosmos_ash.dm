@@ -32,11 +32,12 @@
 
 
 /datum/heretic_knowledge/spell/space_phase
-	name = "Пустотный Сдвиг"
-	desc = "Даёт вам способность «Пустотный Сдвиг» — заклинание, позволяющее свободно перемещаться в пространстве. \
+	name = "Космический Сдвиг"
+	desc = "Даёт вам способность Космический Сдвиг» — заклинание, позволяющее свободно перемещаться в пространстве. \
 			Вы можете переходить использовать её, только находясь в месте с низким давлением."
 	gain_text = "Вы чувствуете, что ваше тело может перемещаться в пространстве, словно вы космическая пыль."
-
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "space_crawl"
 	spell_to_add = /obj/effect/proc_holder/spell/jaunt/space_crawl
 	cost = 1
 

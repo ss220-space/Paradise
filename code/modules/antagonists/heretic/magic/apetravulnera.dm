@@ -8,6 +8,7 @@
 	action_icon_state = "apetra_vulnera"
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 45 SECONDS
 

@@ -207,6 +207,8 @@
 			Во время этого процесса вы будете быстро восстанавливать выносливость и быстро восстанавливаться от оглушения, \
 			однако не сможете атаковать."
 	gain_text = "В круговерти смерти он обрёл внутренний покой. Несмотря на непреодолимые препятствия, он продолжал идти вперёд."
+	research_tree_icon_path = 'icons/hud/implants.dmi'
+	research_tree_icon_state = "adrenal"
 	spell_to_add = /obj/effect/proc_holder/spell/realignment
 	cost = 1
 

@@ -10,6 +10,7 @@
 	sound = 'sound/weapons/guillotine.ogg'
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 60 SECONDS
 	invocation = "Р'СТН СТ'ЛЬ!"

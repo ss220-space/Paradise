@@ -5,12 +5,25 @@
 // The ammo it uses takes time to "charge" before firing,
 // releasing a homing, very damaging projectile
 /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter
-	name = "\improper Lionhunter's Rifle"
-	desc = "An antique looking rifle that looks immaculate despite being clearly very old."
-	icon = 'icons/obj/weapons/wide_guns.dmi'
+	name = "винтовка охотника на львов"
+	ru_names = list(
+		NOMINATIVE = "винтовка охотника на львов",
+		GENITIVE = "винтовки охотника на львов",
+		DATIVE = "винтовке охотника на львов",
+		ACCUSATIVE = "винтовку охотника на львов",
+		INSTRUMENTAL = "винтовкой охотника на львов",
+		PREPOSITIONAL = "винтовке охотника на львов",
+	)
+	desc = "Старинное ружье, выглядящее безупречно, несмотря на то, что оно явно очень старое."
+	gender = FEMALE
 	slot_flags = ITEM_SLOT_BACK
-	icon_state = "lionhunter"
-	item_state = "lionhunter"
+	icon = 'icons/obj/weapons/ballistic.dmi'
+	icon_state = "goldrevolver"
+	item_state = "goldrevolver"
+	// IDK why it dosn't work :(
+	//icon = 'icons/obj/weapons/wide_guns.dmi'
+	//icon_state = "lionhunter"
+	//item_state = "lionhunter"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
 	fire_sound = 'sound/weapons/gunshots/shot.ogg'
 
@@ -23,7 +36,16 @@
 */
 
 /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
-	name = "lionhunter rifle internal magazine"
+	name = "внутренний магазин винтовки охотника на львов"
+	ru_names = list(
+		NOMINATIVE = "внутренний магазин винтовки охотника на львов",
+		GENITIVE = "внутреннего магазина винтовки охотника на львов",
+		DATIVE = "внутреннему магазину винтовки охотника на львов",
+		ACCUSATIVE = "внутренний магазин винтовки охотника на львов",
+		INSTRUMENTAL = "внутренним магазином винтовки охотника на львов",
+		PREPOSITIONAL = "внутреннем магазине винтовки охотника на львов",
+	)
+	gender = MALE
 	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter
 	//caliber = CALIBER_STRILKA310
 	armour_penetration = 100
@@ -55,7 +77,7 @@
 		return TRUE
 
 	if(currently_aiming)
-		user.balloon_alert(user, "already aiming!")
+		user.balloon_alert(user, "уже целится!")
 		return FALSE
 
 	var/distance = get_dist(user, target)
@@ -67,7 +89,7 @@
 	if(distance <= min_distance || !isliving(target))
 		return TRUE
 
-	user.balloon_alert(user, "taking aim...")
+	user.balloon_alert(user, "прицеливание...")
 	user.playsound_local(get_turf(user), 'sound/weapons/chunkyrack.ogg', 100, TRUE)
 
 	var/image/reticle = image(
@@ -98,7 +120,7 @@
 		viewer.client?.images -= reticle
 
 	if(!.)
-		user.balloon_alert(user, "interrupted!")
+		user.balloon_alert(user, "прервано!")
 
 	return .
 
@@ -134,7 +156,7 @@
 
 
 /obj/projectile/bullet/strilka310/lionhunter
-	name = "hunter's .310 bullet"
+	name = "пуля охотника калибра .310"
 	// These stats are only applied if the weapon is fired fully aimed
 	// If fired without aiming or at someone too close, it will do much less
 	damage = 30
@@ -195,8 +217,17 @@
 
 // Extra ammunition can be made with a heretic ritual.
 /obj/item/ammo_box/strilka310/lionhunter
-	name = "stripper clip (.310 hunter)"
-	desc = "A stripper clip of mysterious, atypical ammo. It doesn't fit into normal ballistic rifles."
+	name = "обойма (.310 охотник)"
+	ru_names = list(
+		NOMINATIVE = "обойма (.310 охотник)",
+		GENITIVE = "обоймы (.310 охотник)",
+		DATIVE = "обойме (.310 охотник)",
+		ACCUSATIVE = "обойму (.310 охотник)",
+		INSTRUMENTAL = "обоймой (.310 охотник)",
+		PREPOSITIONAL = "обойме (.310 охотник)",
+	)
+	desc = "Обойма с загадочными, необычными патронами. Она не подходит к обычным баллистическим винтовкам."
+	gender = FEMALE
 	icon_state = "310_strip"
 	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter
 	max_ammo = 3

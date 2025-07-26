@@ -114,6 +114,9 @@
 	if(isnull(controller))
 		qdel(src)
 		return
+	
+	if(!delay)
+		delay = 1
 
 	var/old_delay = delay //The signal can sometimes change delay
 
@@ -146,6 +149,9 @@
 		if(moving.glide_size != DEFAULT_GLIDE_SIZE)
 			moving.set_glide_size(DEFAULT_GLIDE_SIZE)
 		return
+
+	if(!delay)
+		delay = 1
 
 	moving.set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(delay, visual_delay))
 

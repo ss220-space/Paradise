@@ -597,6 +597,9 @@
 /datum/antagonist/heretic/proc/passive_influence_gain()
 	knowledge_points++
 	var/mob/living/carbon/human/human = owner.current
+	if(QDELETED(owner?.current))
+		return
+
 	if(human.is_in_crit())
 		to_chat(owner.current, "[span_hear("Вы слышите шепот...")] [span_purple(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
 

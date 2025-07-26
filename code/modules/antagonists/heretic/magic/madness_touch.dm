@@ -8,6 +8,7 @@
 	action_icon_state = "mad_touch"
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
 	invocation_type = INVOCATION_NONE

@@ -12,6 +12,7 @@
 	sound = 'sound/magic/forcewall.ogg'
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
@@ -93,6 +94,7 @@
 	action_icon_state = "rust_wave"
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 35 SECONDS
 

@@ -2,6 +2,7 @@
 /obj/effect/proc_holder/spell/remotetalk/eldritch
 	name = "Жуткая Телепатия"
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"

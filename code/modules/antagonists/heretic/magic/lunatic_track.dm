@@ -7,11 +7,13 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "moon_smile"
 	base_cooldown = 4 SECONDS
+	clothes_req = FALSE
 
 
 /obj/effect/proc_holder/spell/lunatic_track/on_spell_gain(mob/user = usr)
 	if(!IS_LUNATIC(user))
 		return
+
 	return ..()
 
 

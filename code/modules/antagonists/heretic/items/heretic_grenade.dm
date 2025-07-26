@@ -4,8 +4,16 @@
  */
 
 /obj/item/grenade/chem_grenade/rust_sower
-	name = "Ржавый Дождь"
-	desc = "A nifty little thing that explodes into rust. Causes borgs and mechs to get utterly obliterated"
+	name = "граната \"Ржавый Дождь\""
+	ru_names = list(
+		NOMINATIVE = "граната \"Ржавый Дождь\"",
+		GENITIVE = "гранаты \"Ржавый Дождь\"",
+		DATIVE = "гранате \"Ржавый Дождь\"",
+		ACCUSATIVE = "гранату \"Ржавый Дождь\"",
+		INSTRUMENTAL = "гранатой \"Ржавый Дождь\"",
+		PREPOSITIONAL = "гранате \"Ржавый Дождь\"",
+	)
+	desc = "Отличная штука, превращающаяся в облоко ржавчины после взрыва. Борги и мехи будут полностью уничтожены."
 	//possible_fuse_time = list("5")
 	stage = 2
 	base_icon_state = "rustgrenade"
@@ -59,10 +67,10 @@
 */
 
 /datum/reagent/heretic_rust
-	name = "Eldritch Rust"
-	description = "A slurry of viscous, chunky brown liquid."
+	name = "Жуткая Ржавчина"
+	description = "Вязкая, густая коричневая жидкость."
 	color = COLOR_CARGO_BROWN // Rust color
-	taste_description = "rotten copper"
+	taste_description = "гнилая медь"
 	penetrates_skin = NONE
 	//ph = 7.4
 	//default_container = /obj/item/reagent_containers/glass/bottle/capsaicin
@@ -122,7 +130,7 @@
 		return
 
 	if(prob(15))
-		to_chat(exposed_mob, span_danger("[pick("Your head pounds.", "Your mouth feels like it's on fire.", "You feel dizzy.")]"))
+		to_chat(exposed_mob, span_danger("[pick("Голова раскалывается.", "Ваши внутренности горят!", "Вы чувствуете головокружение.")]"))
 
 	if(prob(10))
 		victim.EyeBlurry(2 SECONDS)
@@ -147,4 +155,4 @@
 	if(!SPT_PROB(5, seconds_per_tick))
 		return
 
-	affected_mob.visible_message(span_warning("[affected_mob] [pick("dry heaves!","coughs!","splutters!")]"))
+	affected_mob.visible_message(span_warning("[affected_mob.declent_ru(NOMINATIVE)] [pick("щурится!","кашляет!", "брызгает слюной!")]"))

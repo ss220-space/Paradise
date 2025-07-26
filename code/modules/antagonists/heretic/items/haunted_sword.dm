@@ -5,7 +5,16 @@
 
 /obj/item/melee/cultblade/haunted
 	name = "призрачный меч"
-	desc = "An eerie sword with a blade that is less 'black' than it is 'absolute nothingness'. It glows with furious, restrained green energy."
+	ru_names = list(
+		NOMINATIVE = "призрачный меч",
+		GENITIVE = "призрачного меча",
+		DATIVE = "призрачному мечу",
+		ACCUSATIVE = "призрачный меч",
+		INSTRUMENTAL = "призрачным мечом",
+		PREPOSITIONAL = "призрачнои мече",
+	)
+	desc = "Жуткий меч с клинком, который не чёрный, а скорей вообще не существует. \
+			Он светится яростной, сдержанной зелёной энергией."
 	icon_state = "hauntedblade"
 	item_state = "hauntedblade"
 	item_state = "hauntedblade"
@@ -33,55 +42,55 @@
 		PATH_ASH = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/ethereal_jaunt/ash),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/ash_beams),
-			SWORD_PREFIX = "ashen",
+			SWORD_PREFIX = "пепельный",
 		),
 		// Flesh
 		PATH_FLESH = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/blood_siphon),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/cleave),
-			SWORD_PREFIX = "sanguine",
+			SWORD_PREFIX = "сангвинический",
 		),
 		// Void
 		PATH_VOID = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/void_phase),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/void_prison),
-			SWORD_PREFIX = "tenebrous",
+			SWORD_PREFIX = "мрачный",
 		),
 		// Blade
 		PATH_BLADE = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/haunted),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/solo),
-			SWORD_PREFIX = "keen",
+			SWORD_PREFIX = "острый",
 		),
 		// Rust
 		PATH_RUST = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/cone/staggered/entropic_plume),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/aoe/rust_conversion, /obj/effect/proc_holder/spell/pointed/rust_construction),
-			SWORD_PREFIX = "rusted",
+			SWORD_PREFIX = "ржавый",
 		),
 		// Cosmic
 		PATH_COSMIC = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/projectile/star_blast),
-			SWORD_PREFIX = "astral",
+			SWORD_PREFIX = "астральный",
 		),
 		// Lock
 		PATH_LOCK = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/burglar_finesse),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/apetra_vulnera),
-			SWORD_PREFIX = "incisive",
+			SWORD_PREFIX = "острый",
 		),
 		// Moon
 		PATH_MOON = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/projectile/moon_parade),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/moon_smile),
-			SWORD_PREFIX = "shimmering",
+			SWORD_PREFIX = "сияющий",
 		),
 		// Starter
 		PATH_START = list(
 			WIELDER_SPELLS = null,
 			SWORD_SPELLS = null,
-			SWORD_PREFIX = "stillborn", // lol loser
+			SWORD_PREFIX = "мертворожденный", // lol loser
 		) ,
 	)
 	actions_types = list(/datum/action/item_action/haunted_blade)
@@ -92,25 +101,26 @@
 
 	var/examine_text = ""
 	if(bound)
-		examine_text = "[src] shines a dull, sickly green, the power emanating from it clearly bound by the runes on its blade. You could unbind it, and wield its fearsome power. But is it worth loosening the bindings of the spirit inside?"
+		examine_text = "[declent_ru(NOMINATIVE)] сияет тусклым, болезненно-зелёным светом. Исходящая от него сила явно связана рунами на клинке. Вы можете освободить его и овладеть его устрашающей мощью. Но стоит ли ослаблять оковы духа внутри?"
 	else
-		examine_text = "[src] flares a bright and malicious pale lime shade. Someone has unbound the spirit within, and power now clearly resonates from inside the blade, barely restrained and brimming with fury. You may attempt to bind it once more, sealing the horror, or try to harness its strength as a blade."
+		examine_text = "[declent_ru(NOMINATIVE)] сияет ярким зловещим бледно-лаймовым светом. Кто-то освободил дух внутри, и теперь сила, едва сдерживаемая и полная ярости, отчётливо резонирует внутри клинка. Вы можете снова запечатать его, или попытаться использовать его силу."
 
 	. += span_cult(examine_text)
 
 
 /datum/action/item_action/haunted_blade
-	name = "Unseal Spirit" // img is of a chained shade
+	name = "Снять Печать" // img is of a chained shade
 	button_icon = 'icons/mob/actions/actions_cult.dmi'
 	button_icon_state = "spirit_sealed"
 
 
 /datum/action/item_action/haunted_blade/apply_button_icon(atom/movable/screen/movable/action_button/button, force)
 	var/obj/item/melee/cultblade/haunted/blade = target
-	if(istype(blade))
-		button_icon_state = "spirit_[blade.bound ? "sealed" : "unsealed"]"
-		name = "[blade.bound ? "Unseal" : "Seal"] Spirit"
+	if(!istype(blade))
+		return ..()
 
+	button_icon_state = "spirit_[blade.bound ? "sealed" : "unsealed"]"
+	name = "[blade.bound ? "Свободная" : "Запечатанная"] Душа"
 	return ..()
 
 
@@ -139,10 +149,11 @@
 
 
 /obj/item/melee/cultblade/haunted/proc/on_priest_handle(mob/living/user, actiontype)
-	user.visible_message(span_cultbold("You begin chanting the holy hymns of [SSticker.cultdat?.entity_name]..."),\
-		span_cultbold("[user] begins chanting while holding [src] aloft..."))
+	user.visible_message(span_cultbold("Вы начинаете петь священные гимны в честь [SSticker.cultdat?.entity_name]..."),\
+		span_cultbold("[user] начинает петь, держа [declent_ru(ACCUSATIVE)] над головой..."))
+
 	if(!do_after(user, 6 SECONDS, src))
-		to_chat(user, span_notice("You were interrupted!"))
+		to_chat(user, span_notice("Вас прервали!"))
 		return
 
 	playsound(user, 'sound/effects/pray_chaplain.ogg',60,TRUE)
@@ -152,13 +163,13 @@
 /obj/item/melee/cultblade/haunted/proc/on_cultist_handle(mob/living/carbon/human/user, actiontype)
 	var/binding_implements = list(/obj/item/melee/cultblade/dagger, /obj/item/melee/sickly_blade/cursed)
 	if(!user.is_holding_item_of_types(binding_implements))
-		to_chat(user, span_notice("You need to hold a ritual dagger to bind [src]!"))
+		to_chat(user, span_notice("Вам нужно держать ритуальный кинжал, чтобы запечатать [declent_ru(ACCUSATIVE)]!"))
 		return
 
-	user.visible_message(span_cultbold("You begin slicing open your palm on top of [src]..."),\
-		span_cultbold("[user] begins slicing open [user.p_their()] palm on top of [src]..."))
+	user.visible_message(span_cultbold("Вы начинаете надразрезать ладонь над [declent_ru(INSTRUMENTAL)]..."),\
+		span_cultbold("[user] начинает надрезать свою ладонь над [declent_ru(INSTRUMENTAL)]..."))
 	if(!do_after(user, 6 SECONDS, src))
-		to_chat(user, span_notice("You were interrupted!"))
+		to_chat(user, span_notice("Вас прервали!"))
 		return
 
 	playsound(user, 'sound/weapons/slice.ogg', 30, TRUE)
@@ -169,51 +180,51 @@
 	// todo make the former a subtype of latter
 	var/binding_implements = list(/obj/item/clothing/neck/eldritch_amulet, /obj/item/clothing/neck/heretic_focus)
 	if(!user.is_holding_item_of_types(binding_implements))
-		to_chat(user, span_notice("You need to hold a focus to bind [src]!"))
+		to_chat(user, span_notice("Вам нужен амулет, чтобы запечатать [declent_ru(ACCUSATIVE)]!"))
 		return
 
-	user.visible_message(span_cultbold("You channel the Mansus through your focus, empowering the sealing runes..."), span_cultbold("[user] holds up their eldritch focus on top of [src] and begins concentrating..."))
+	user.visible_message(span_cultbold("Вы направляете силв Мансуса, усиливая запечатывающие руны..."), span_cultbold("[user.declent_ru(NOMINATIVE)] направляет сверхъестественную силу на [declent_ru(ACCUSATIVE)]..."))
 	if(do_after(user, 6 SECONDS, src))
 		return TRUE
 
-	to_chat(user, span_notice("You were interrupted!"))
+	to_chat(user, span_notice("Вас прервали!"))
 
 
 /obj/item/melee/cultblade/haunted/proc/on_wizard_handle(mob/living/user, actiontype)
-	user.visible_message(span_cultbold("You begin quickly and nimbly casting the sealing runes."), span_cultbold("[user] begins tracing anti-light runes on [src]..."))
+	user.visible_message(span_cultbold("Вы начинаете быстро и ловко накладывать запечатывающие руны."), span_cultbold("[user] начинает чертить руны на [declent_ru(PREPOSITIONAL)]..."))
 	if(do_after(user, 3 SECONDS, src))
 		return TRUE
 
-	to_chat(user, span_notice("You were interrupted!"))
+	to_chat(user, span_notice("Вас прервали!"))
 
 
 /obj/item/melee/cultblade/haunted/proc/on_normie_handle(mob/living/carbon/human/user, actiontype)
 	// todo make the former a subtype of latter
 	var/binding_implements = list(/obj/item/storage/bible)
 	if(!user.is_holding_item_of_types(binding_implements))
-		to_chat(user, span_notice("You need to wield a bible to bind [src]!"))
+		to_chat(user, span_notice("Вам нужна Библия, чтобы запечатать [declent_ru(ACCUSATIVE)]!"))
 		return
 
 	var/passage = "[pick(GLOB.first_names_male)] [rand(1,9)]:[rand(1,25)]" // Space Bibles will have Alejandro 9:21 passages, as part of the Very New Testament.
-	user.visible_message(span_cultbold("You start reading aloud the passage in [passage]..."), span_cultbold("[user] starts reading aloud the passage in [passage]..."))
+	user.visible_message(span_cultbold("Вы начинаете читать вслух отрывок \"[passage]\"..."), span_cultbold("[user] начинает читать в слух отрывок \"[passage]\"..."))
 	if(!do_after(user, 12 SECONDS, src))
-		to_chat(user, span_notice("You were interrupted!"))
+		to_chat(user, span_notice("Вас прервали!"))
 		return
 
 	rebind_blade(user)
 
 
 /obj/item/melee/cultblade/haunted/proc/unbind_blade(mob/user)
-	var/holup = tgui_alert(user, "Are you sure you wish to unseal the spirit within?", "Sealed Evil In A Jar", list("I need the power!", "Maybe not..."))
-	if(holup != "I need the power!")
+	var/holup = tgui_alert(user, "Вы уверены, что хотите освободить дух, заточённый внутри?", "Зло в банке", list("Мне нужна сила!", "А может и нет..."))
+	if(holup != "Мне нужна сила!")
 		return
 
-	to_chat(user, span_cultbold("You start focusing on the power of the blade, letting it guide your fingers along the inscribed runes..."))
+	to_chat(user, span_cultbold("Вы начинаете концентрироваться на силе клинка, позволяя ему вести ваши пальцы по начертанным рунам..."))
 	if(!do_after(user, 5 SECONDS, src))
-		to_chat(user, span_notice("You were interrupted!"))
+		to_chat(user, span_notice("Вас прервали!"))
 		return
 
-	visible_message(span_danger("[user] has unbound [src]!"))
+	visible_message(span_danger("[user] освободил [declent_ru(ACCUSATIVE)]!"))
 	bound = FALSE
 	for(var/obj/effect/proc_holder/spell/sword_spell as anything in path_sword_actions)
 		trapped_entity.mind.AddSpell(sword_spell)
@@ -232,7 +243,7 @@
 
 
 /obj/item/melee/cultblade/haunted/proc/rebind_blade(mob/user)
-	visible_message(span_danger("[user] has bound [src]!"))
+	visible_message(span_danger("[user] запечатал [declent_ru(ACCUSATIVE)]!"))
 	bound = TRUE
 	force -= 5
 	armour_penetration -= 10

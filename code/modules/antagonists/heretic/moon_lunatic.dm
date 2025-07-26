@@ -2,6 +2,7 @@
 /datum/antagonist/lunatic
 	name = "Лунатик"
 	antag_hud_name = "lunatic"
+	antag_hud_type = ANTAG_HUD_HERETIC
 	clown_gain_text = "Древние знания о Луне позволили вам преодолеть свою шутовскую натуру и научиться владеть оружием, не причиняя себе вреда."
 	clown_removal_text = "По мере того, как ваши знания о Луне рассеиваются, вы возвращаетесь к своему неуклюжему, клоунскому «я»."
 	// The mind of the ascended heretic who created us
@@ -10,6 +11,7 @@
 	var/mob/living/carbon/human/ascended_body
 	// Our objective
 	var/datum/objective/lunatic/lunatic_obj
+	var/ismaster = FALSE
 
 
 /datum/antagonist/lunatic/on_gain()
@@ -44,10 +46,12 @@
 	add_team_hud(our_mob, /datum/antagonist/lunatic)
 	ADD_TRAIT(our_mob, TRAIT_MADNESS_IMMUNE, UID())
 
-	var/obj/effect/proc_holder/spell/lunatic_track/moon_track = new /obj/effect/proc_holder/spell/lunatic_track()
+	if(!ismaster)
+		var/obj/effect/proc_holder/spell/lunatic_track/moon_track = new /obj/effect/proc_holder/spell/lunatic_track()
+		our_mob.mind.AddSpell(moon_track)
+
 	var/obj/effect/proc_holder/spell/touch/mansus_grasp/mad_touch = new /obj/effect/proc_holder/spell/touch/mansus_grasp()
 	our_mob.mind.AddSpell(mad_touch)
-	our_mob.mind.AddSpell(moon_track)
 
 
 /datum/antagonist/lunatic/remove_innate_effects(mob/living/mob_override)
@@ -76,6 +80,7 @@
 /datum/antagonist/lunatic/master
 	name = "Лидер Лунатиков"
 	antag_hud_name = "lunatic_master"
+	ismaster = TRUE
 
 
 /datum/antagonist/lunatic/master/on_gain()

@@ -4,7 +4,7 @@
 	desc = "Оно смотрит в ответ. Почему ты стоишь и смотришь на это? Беги!"
 	max_integrity = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	icon = 'icons/effects/anomalies.dmi'
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "bhole3"
 	color = COLOR_VOID_PURPLE
 	light_color = COLOR_VOID_PURPLE
@@ -37,6 +37,8 @@
 
 	GLOB.poi_list |= src
 	notify_ghosts("Что это?", "???", source = src)
+	poll_ghosts()
+
 
 /// Ask ghosts if they want to make some noise
 /obj/structure/lock_tear/proc/poll_ghosts()
@@ -57,12 +59,11 @@
 	new /obj/effect/temp_visual/destabilising_tear(our_turf)
 	qdel(src)
 
+	
 /obj/structure/lock_tear/attack_ghost(mob/user)
 	. = ..()
-	if(. || gathering_candidates)
-		return
-
 	ghost_to_monster(user)
+
 
 /obj/structure/lock_tear/examine(mob/user)
 	. = ..()
@@ -114,7 +115,7 @@
 		INSTRUMENTAL = "нестабильным разломом",
 		PREPOSITIONAL = "нестабильном разломе",
 	)
-	icon = 'icons/effects/anomalies.dmi'
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "bhole3"
 	color = COLOR_VOID_PURPLE
 	light_color = COLOR_VOID_PURPLE

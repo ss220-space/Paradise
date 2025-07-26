@@ -42,7 +42,7 @@
 		/obj/item/shard,
 	)
 	AddElement(/datum/element/death_drops, loot)
-	mind.AddSpell(new /obj/effect/proc_holder/spell/jaunt/mirror_walk)
+	AddSpell(new /obj/effect/proc_holder/spell/jaunt/mirror_walk)
 
 
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/death(gibbed)

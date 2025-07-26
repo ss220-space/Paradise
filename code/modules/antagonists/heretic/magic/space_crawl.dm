@@ -6,7 +6,7 @@
  * Lets the caster enter and exit tiles of space or misc turfs.
  */
 /obj/effect/proc_holder/spell/jaunt/space_crawl
-	name = "Пустотный Сдви"
+	name = "Космический Сдвиг"
 	desc = "Позволяет вам появляться и исчезать из реальности, находясь в космосе или на \
 			открытом воздухе с низким давлением. Для возвращения, место прибытия тоже должно быть таковым."
 	action_background_icon_state = "bg_heretic"
@@ -16,6 +16,7 @@
 	action_icon_state = "space_crawl"
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	clothes_req = FALSE
 	human_req = FALSE
@@ -159,7 +160,7 @@
 
 /// Spacecrawl "hands", prevent the user from holding items in spacecrawl
 /obj/item/space_crawl
-	name = "пустотный сдвиг"
+	name = "космический сдвиг"
 	desc = "Находясь в этой форме, вы не можете держать что-то в руках."
 	icon = 'icons/obj/eldritch.dmi'
 	item_flags = ABSTRACT | DROPDEL
@@ -217,7 +218,7 @@
 		return isliving(user)
 
 	if(show_message)
-		to_chat(action.owner, span_danger("Какая-то потусторонняя сила мешает вам совершить Пустотный Сдвиг."))
+		to_chat(action.owner, span_danger("Какая-то потусторонняя сила мешает вам совершить Космический Сдвиг."))
 
 	return FALSE
 

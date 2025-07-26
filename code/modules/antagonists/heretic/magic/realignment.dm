@@ -12,6 +12,7 @@
 	// sound = 'sound/magic/whistlereset.ogg' I have no idea why this was commented out
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 6 SECONDS
 	//cooldown_reduction_per_rank = -6 SECONDS // we're not a wizard spell but we use the levelling mechanic

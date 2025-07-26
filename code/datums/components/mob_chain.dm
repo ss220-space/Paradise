@@ -66,7 +66,7 @@
 		RegisterSignal(parent, COMSIG_CARBON_LIMB_DAMAGED, PROC_REF(on_limb_damage))
 
 	var/mob/living/liv_parent = parent
-	liv_parent.mind.AddSpell(new /obj/effect/proc_holder/spell/worm_contract)
+	liv_parent.AddSpell(new /obj/effect/proc_holder/spell/worm_contract)
 
 
 /datum/component/mob_chain/UnregisterFromParent()

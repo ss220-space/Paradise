@@ -8,6 +8,7 @@
 	action_icon_state = "worm_ascend"
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 
 	invocation = "ДА РАСКРОЕТСЯ РЕАЛЬНОСТЬ!"

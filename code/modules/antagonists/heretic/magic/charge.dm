@@ -22,16 +22,6 @@
 	var/list/charging = list()
 
 
-/obj/effect/proc_holder/spell/mob_cooldown/charge/on_spell_gain(mob/target_atom)
-	. = ..()
-	//disable_cooldown_actions()
-	//next_melee_use_time = world.time + 100 SECONDS
-	charge_sequence(action.owner, target_atom, charge_delay, charge_past)
-	cooldown_handler.start_recharge()
-	//enable_cooldown_actions()
-	return TRUE
-
-
 /obj/effect/proc_holder/spell/mob_cooldown/charge/proc/charge_sequence(atom/movable/charger, atom/target_atom, delay, past)
 	do_charge(action.owner, target_atom, charge_delay, charge_past)
 
@@ -125,8 +115,8 @@
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/proc/on_move(atom/source, atom/new_loc)
 	SIGNAL_HANDLER
-	if(!actively_moving)
-		return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+	//if(!actively_moving)
+	//	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
 	new /obj/effect/temp_visual/decoy/fading(source.loc, source)
 	INVOKE_ASYNC(src, PROC_REF(DestroySurroundings), source)

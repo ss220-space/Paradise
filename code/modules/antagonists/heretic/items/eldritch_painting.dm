@@ -1,7 +1,7 @@
 // The basic eldritch painting
 /obj/item/wallframe/painting/eldritch
-	name = "The Blank Canvas: A Study in Default Subtypes"
-	desc = "An impossible painting made of impossible paint. It should not exist in this reality."
+	name = "Чистый холст"
+	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
 	icon = 'icons/obj/signs.dmi'
 	resistance_flags = FLAMMABLE
 	icon_state = "eldritch_painting_debug"
@@ -10,8 +10,8 @@
 
 
 /obj/structure/sign/painting/eldritch
-	name = "The Blank Canvas: A Study in Default Subtypes"
-	desc = "An impossible painting made of impossible paint. It should not exist in this reality."
+	name = "Чистый холст"
+	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
 	icon = 'icons/obj/signs.dmi'
 	icon_state = "eldritch_painting_debug"
 	resistance_flags = FLAMMABLE
@@ -21,7 +21,7 @@
 	// Set to false since we don't want this to persist
 	persistence_id = FALSE
 	/// The text that shows up when you cross the paintings path
-	var/text_to_display = "Some things should not be seen by mortal eyes..."
+	var/text_to_display = "Некоторые вещи не должны быть увиденны."
 	/// The range of the paintings effect
 	var/range = 7
 
@@ -53,11 +53,12 @@
 	to_chat(viewer, span_notice(text_to_display))
 	apply_choosen_trauma(viewer)
 	INVOKE_ASYNC(viewer, TYPE_PROC_REF(/mob, emote), "scream")
-	to_chat(viewer, span_purple("Your mind is overcome! The painting leaves a mark on your psyche."))
+	to_chat(viewer, span_purple("Ваш разум пылает! Картина оставляет след в вашей психике."))
+
 
 /obj/structure/sign/painting/eldritch/wirecutter_act(mob/living/user, obj/item/I)
 	if(!user.can_block_magic(MAGIC_RESISTANCE))
-		to_chat(user, span_purple("There's an itch in your brain. It's laughing at you..."))
+		to_chat(user, span_purple("У вас зудит в голове. Оно смеётся над вами..."))
 
 	qdel(src)
 	return ATTACK_CHAIN_SUCCESS
@@ -78,9 +79,10 @@
 
 /obj/structure/sign/painting/eldritch/proc/examine_effects(mob/living/carbon/examiner)
 	if(isheretic(examiner))
-		to_chat(examiner, span_notice("What an engrossing painting!"))
-	else
-		to_chat(examiner, span_notice("What a strange painting..."))
+		to_chat(examiner, span_notice("Какая захватывающая картина!"))
+		return
+
+	to_chat(examiner, span_notice("Какая странная картина..."))
 
 
 // The Sister and He Who Wept eldritch painting
@@ -278,16 +280,16 @@
 	. = ..()
 
 	if(!isheretic(examiner))
-		to_chat(examiner, span_purple("You feel the rust. The rot."))
+		to_chat(examiner, span_purple("Вы чувствуете ржавчину. Гниль."))
 		return
 
-	to_chat(examiner, span_notice("The painting fills you with resolve."))
+	to_chat(examiner, span_notice("Картина наполняет вас решимостью."))
 
 
 // This one is for "Climb over the rusted mountain" or /obj/structure/sign/painting/eldritch/rust
 /datum/brain_trauma/severe/rusting
 	name = "Синдром Ржавой Горы"
-	scan_desc = "dangerous psi-wave activity"
+	scan_desc = "опасная пси-волновая активность"
 	gain_text = span_warning("Поднимись по ржавчине. Овладей энтропией.")
 	lose_text = span_notice("У вас такое чувство, будто вы только что проснулись от дурного сна.")
 	random_gain = FALSE
@@ -298,6 +300,8 @@
 	if(HAS_TRAIT(owner, TRAIT_ELDRITCH_PAINTING_EXAMINE))
 		return
 
-	if(SPT_PROB(50, seconds_per_tick))
-		to_chat(owner, span_notice("Вы чувствуете разложение..."))
-		tile.rust_heretic_act()
+	if(!SPT_PROB(50, seconds_per_tick))
+		return
+
+	to_chat(owner, span_notice("Вы чувствуете разложение..."))
+	tile.rust_heretic_act()

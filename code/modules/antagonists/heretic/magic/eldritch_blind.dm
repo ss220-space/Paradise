@@ -5,6 +5,7 @@
 	overlay_icon_state = "bg_heretic_border"
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	invocation = "ГЛ'З"
 	spell_requirements = NONE

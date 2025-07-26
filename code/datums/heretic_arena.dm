@@ -281,8 +281,8 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 )
 	SIGNAL_HANDLER
 
-	if(source.InCritical()) // I think it will work.
-		on_enter_crit()
+	if(source.health <= HEALTH_THRESHOLD_CRIT) // I think it will work.
+		on_enter_crit(source)
 
 	if(isnull(attacking_item))
 		return

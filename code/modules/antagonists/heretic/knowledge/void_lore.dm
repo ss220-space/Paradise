@@ -31,10 +31,9 @@
 	research_tree_icon_state = "void_blade"
 
 
-/datum/heretic_knowledge/limited_amount/starting/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	if(!is_space_or_openspace(loc))
-		loc.balloon_alert(user, "не подходящее место!")
-		return FALSE
+/datum/heretic_knowledge/limited_amount/starting/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/simulated/loc)
+	if(loc.air.temperature < T0C)
+		return ..()
 
 	loc.balloon_alert(user, "слишком тепло!")
 	return FALSE
@@ -127,6 +126,8 @@
 	gain_text = "Гул в неподвижном, холодном воздухе превращается в какофонию. \
 				Сквозь этот шум не различить стук оконных стёкол и хаотичный бред проносящийся в моей голове. \
 				Врата не закрыть. Теперь я не могу уберечься от холода."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "void_rift"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/conjure/void_conduit
 	cost = 1
 
@@ -211,12 +212,12 @@
 	var/datum/component/proximity_monitor/advanced/void_storm/heavy_storm
 
 
-/datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	if(!is_space_or_openspace(loc))
-		loc.balloon_alert(user, "не подходящее место!")
-		return FALSE
+/datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/simulated/loc)
+	if(loc.air.temperature < T0C)
+		return ..()
 
-	return ..()
+	loc.balloon_alert(user, "не подходящее место!")
+	return FALSE
 
 
 /datum/heretic_knowledge/ultimate/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
@@ -239,7 +240,7 @@
 
 
 /datum/heretic_knowledge/ultimate/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	on_death() // Losing is pretty much dying. I think
+	on_death(user) // Losing is pretty much dying. I think
 
 /**
  * Signal proc for [COMSIG_LIVING_LIFE].

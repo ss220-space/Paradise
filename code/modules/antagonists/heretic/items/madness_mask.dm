@@ -1,7 +1,16 @@
 // The spooky "void" / "abyssal" / "madness" mask for heretics.
 /obj/item/clothing/mask/madness_mask
-	name = "abyssal mask"
-	desc = "A mask created from suffering. When you look into its eyes, it looks back."
+	name = "маска безумия"
+	ru_names = list(
+		NOMINATIVE = "маска безумия",
+		GENITIVE = "маски безумия",
+		DATIVE = "маске безумия",
+		ACCUSATIVE = "маску безумия",
+		INSTRUMENTAL = "маской безумия",
+		PREPOSITIONAL = "маске безумия",
+	)
+	desc = "Маска, созданная из страданий. Когда вы смотрите в щели для глаз, Нечто смотрит оттуда на вас."
+	gender = FEMALE
 	icon_state = "mad_mask"
 	item_state = null
 	w_class = WEIGHT_CLASS_SMALL
@@ -20,11 +29,11 @@
 /obj/item/clothing/mask/madness_mask/examine(mob/user)
 	. = ..()
 	if(!IS_HERETIC_OR_MONSTER(user))
-		. += span_danger("The eyes fill you with dread... You best avoid it.")
+		. += span_danger("Эти пустые глазницы пугают вас... Лучше избегать их.")
 		return
 
-	. += span_notice("Actively drains the sanity and stamina of nearby non-heretics when worn.")
-	. += span_notice("If forced onto the face of a non-heretic, they will be unable to remove it willingly.")
+	. += span_notice("При ношении активно высасывает рассудок и выносливость находящихся рядом нееретиков.")
+	. += span_notice("Если надеть на лицо нееретика, он не сможет добровольно снять её.")
 
 
 /obj/item/clothing/mask/madness_mask/equipped(mob/user, slot)
@@ -42,7 +51,7 @@
 		return
 
 	ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
-	to_chat(user, span_userdanger("[src] clamps tightly to your face as you feel your soul draining away!"))
+	to_chat(user, span_userdanger("[declent_ru(NOMINATIVE)] крепко прижимается к вашему лицу. Вы чувствуете, как ваша душа бьётся пытаясь вырваться из тела!"))
 
 
 /obj/item/clothing/mask/madness_mask/dropped(mob/M)
@@ -67,7 +76,7 @@
 			continue
 
 		if(prob(60))
-			human_in_range.Hallucinate(10 SECONDS, 120 SECONDS)
+			human_in_range.Hallucinate(10 SECONDS)
 
 		if(prob(40))
 			human_in_range.Jitter(10 SECONDS)

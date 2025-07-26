@@ -21,9 +21,12 @@
 /datum/ai_behavior/proc/finish_action(datum/ai_controller/controller, succeeded, ...)
 	LAZYREMOVE(controller.current_behaviors, src)
 	controller.behavior_args -= type
-	if(behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT) //If this was a movement task, reset our movement target.
-		controller.current_movement_target = null
-		controller.ai_movement.stop_moving_towards(controller)
+	if(!HASBIT(behavior_flags, AI_BEHAVIOR_REQUIRE_MOVEMENT)) //If this was a movement task, reset our movement target.
+		return
+
+	UnregisterSignal(controller.current_movement_target, list(COMSIG_MOVABLE_MOVED, COMSIG_PREQDELETED))
+	controller.current_movement_target = null
+	controller.ai_movement.stop_moving_towards(controller)
 
 /// Helper proc to ensure consistency in setting the source of the movement target
 /datum/ai_behavior/proc/set_movement_target(datum/ai_controller/controller, atom/target, datum/ai_movement/new_movement)

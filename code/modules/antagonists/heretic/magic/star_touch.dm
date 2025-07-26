@@ -4,7 +4,7 @@
 			или поглощая уже существующую звёздную метку, чтобы усыпить её на 4 секунды. \
 			Затем жертва будет связана с вами космическим лучом, сжигающим её до минуты или \
 			до момента пока ваша жертва не скроется от вас. «Звёздное Касание» также может стереть Космические \
-			руны или телепортировать вас к вашему Звёздному Наблюдателю при использовании на себе."
+			руны или телепортировать вас к вашему Звёздному Глашатаю при использовании на себе."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -12,6 +12,7 @@
 
 	sound = 'sound/items/welder.ogg'
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
 	invocation = "ЗВ'ЗДН К'С'Н!"

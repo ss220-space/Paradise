@@ -10,7 +10,8 @@
 	. = ..()
 	var/mob/living/simple_animal/basic_mob = controller.pawn
 	var/atom/target = controller.blackboard[target_key]
-	var/datum/targetting_datum/targetting_datum = controller.blackboard[targetting_datum_key]
+	var/type = controller.blackboard[targetting_datum_key]
+	var/datum/targetting_datum/targetting_datum = new type()
 
 	if(!targetting_datum.can_attack(basic_mob, target))
 		finish_action(controller, FALSE, target_key)

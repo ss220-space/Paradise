@@ -12,6 +12,7 @@
 
 	sound = null
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	invocation = "ВР'Т В П'СТ'Т!"
 	invocation_type = INVOCATION_SHOUT

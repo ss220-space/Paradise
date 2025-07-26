@@ -61,6 +61,7 @@
 	var/mob/living/shape = create_shapeshift_mob(get_turf(caster))
 	caster.forceMove(shape)
 	ADD_TRAIT(caster, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
+	RegisterSignal(shape, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
 	current_shapes |= shape
 	current_casters |= caster
@@ -68,6 +69,11 @@
 	human_req = FALSE
 
 	caster.mind.transfer_to(shape)
+
+
+/obj/effect/proc_holder/spell/shapeshift/proc/on_death(mob/living/source)
+	SIGNAL_HANDLER
+	Restore(source)
 
 
 /obj/effect/proc_holder/spell/shapeshift/proc/Restore(mob/living/shape)

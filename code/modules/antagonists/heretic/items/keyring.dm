@@ -1,6 +1,15 @@
 /obj/effect/lock_portal
-	name = "crack in reality"
-	desc = "A crack in space, impossibly deep and painful to the eyes. Definitely not safe."
+	name = "трещина в реальности"
+	ru_names = list(
+		NOMINATIVE = "трещина в реальности",
+		GENITIVE = "трещины в реальности",
+		DATIVE = "трещине в реальности",
+		ACCUSATIVE = "трещину в реальности",
+		INSTRUMENTAL = "трещиной в реальности",
+		PREPOSITIONAL = "трещине в реальности",
+	)
+	desc = "Трещина в реальности, невероятно глубокая. На неё больно смотреть. Определённо небезопасна."
+	gender = FEMALE
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "realitycrack"
 	light_system = STATIC_LIGHT
@@ -75,7 +84,7 @@
 
 	if(!IS_HERETIC_OR_MONSTER(teleportee))
 		teleportee.apply_damage(20, BRUTE) //so they dont roll it like a jackpot machine to see if they can land in the armory
-		to_chat(teleportee, span_userdanger("You stumble through [src], battered by forces beyond your comprehension, landing anywhere but where you thought you were going."))
+		to_chat(teleportee, span_userdanger("Вы падаете сквозь [declent_ru(ACCUSATIVE)], сталкиваясь с силами, находящимися за пределами вашего понимания, и приземляетесь где угодно, но только не там, куда, как вы думали, вы попадёте."))
 
 	INVOKE_ASYNC(src, PROC_REF(async_opendoor), doorstination)
 
@@ -124,11 +133,12 @@
 	. = ..()
 	if(!IS_HERETIC_OR_MONSTER(user))
 		return
-	. += span_purple("Enchanted by the Mansus!")
-	. += span_purple("Using an ID on this or using this ID on another ID will consume it and allow you to copy its accesses.")
-	. += span_purple("<b>Using this in-hand</b> allows you to change its appearance.")
-	. += span_purple("<b>Using this on a pair of doors</b>, allows you to link them together. Entering one door will transport you to the other, while heathens are instead teleported to a random airlock.")
-	. += span_purple("<b>Ctrl-clicking the ID</b>, makes the ID make inverted portals instead, which teleport you onto a random airlock onstation, while heathens are teleported to the destination.")
+
+	. += span_purple("Благославлена Мансусом")
+	. += span_purple("Использование на другой карте, поглотит её переняв все доступы.")
+	. += span_purple("<b>Использование в руке</b> позволяет вам изменить внешний вид этой карты.")
+	. += span_purple("<b>Использование на паре дверей</b>, позволит соединить их. Входя в одну дверь, вы перенесётесь к другой, в то время как язычники телепортируются к случайному шлюзу.")
+	. += span_purple("<b>Альтклик по карте</b> заставляет идентификатор создавать инвертированные порталы, которые будут телепортировать вас в случайный шлюз на станции, в то время как язычники телепортируются в пункт назначения.")
 
 
 /obj/item/card/id/advanced/heretic/attack_self(mob/user)
@@ -140,9 +150,9 @@
 		user.balloon_alert(user, "нет поглощенных карт")
 		return
 
-	var/cardname = tgui_input_list(user, "Shapeshift into?", "Shapeshift", fused_ids)
+	var/cardname = tgui_input_list(user, "Превратиться в?", "Превращение", fused_ids)
 	if(!cardname)
-		balloon_alert(user, "no options!")
+		balloon_alert(user, "нет вариантов!")
 		return ..()
 
 	var/obj/item/card/id/card = fused_ids[cardname]
@@ -154,7 +164,7 @@
 		return CLICK_ACTION_BLOCKING
 
 	inverted = !inverted
-	balloon_alert(user, "[inverted ? "now" : "no longer"] creating inverted rifts")
+	balloon_alert(user, "[inverted ? "теперь" : "больше не"] инвертирована")
 	return CLICK_ACTION_SUCCESS
 
 
@@ -191,10 +201,10 @@
 
 ///Creates a portal pair at door1 and door2, displays a balloon alert to user
 /obj/item/card/id/advanced/heretic/proc/make_portal(mob/user, obj/machinery/door/door1, obj/machinery/door/door2)
-	var/message = "linked"
+	var/message = "привазка"
 	if(portal_one || portal_two)
 		clear_portals()
-		message += ", previous cleared"
+		message += ", старые стёрты"
 
 	portal_one = new(get_turf(door2), door2, inverted)
 	portal_two = new(get_turf(door1), door1, inverted)
@@ -228,13 +238,13 @@
 
 	if(!reference_resolved)
 		link = WEAKREF(target)
-		balloon_alert(user, "link 1/2")
+		balloon_alert(user, "привязка 1/2")
 		return ATTACK_CHAIN_SUCCESS
 
 	make_portal(user, reference_resolved, target)
-	to_chat(user, span_notice("You use [src], to link [reference_resolved] and [target] together."))
+	to_chat(user, span_notice("Вы использовали [declent_ru(ACCUSATIVE)], чтобы связать шлюзы вместе."))
 	link = null
-	balloon_alert(user, "link 2/2")
+	balloon_alert(user, "привязка 2/2")
 	return ATTACK_CHAIN_SUCCESS
 
 
@@ -249,7 +259,7 @@
 		return
 
 	playsound(drop_location(), 'sound/items/eatfood.ogg', rand(10,30), TRUE)
-	balloon_alert(user, "consumed card")
+	balloon_alert(user, "карта поглощена")
 
 
 /obj/item/card/id/advanced/heretic/Destroy()

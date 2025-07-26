@@ -180,7 +180,7 @@
 
 	if(ispath(linker_spell_path))
 		linker_spell = new linker_spell_path(src)
-		owner.mind.AddSpell(linker_spell)
+		owner.AddSpell(linker_spell)
 	else
 		stack_trace("[type] was created without a valid linker_spell_path. No one will be able to link to it.")
 

@@ -9,6 +9,7 @@
 	action_icon_state = "smoke"
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
 

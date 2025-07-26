@@ -48,13 +48,13 @@
 		post_unlink_callback = CALLBACK(src, PROC_REF(after_unlink)), \
 		speech_action_background_icon_state = "bg_heretic", \
 		speech_action_overlay_state = "bg_heretic_border", \
-		linker_action_path = /obj/effect/proc_holder/spell/pointed/manse_link, \
+		linker_spell_path = /obj/effect/proc_holder/spell/pointed/manse_link, \
 		link_message = on_link_message, \
 		unlink_message = on_unlink_message, \
 	)
 
 	for(var/path in get_innate_spells())
-		mind.AddSpell(new path)
+		AddSpell(new path)
 
 
 /// Returns a list of abilities that we should add.

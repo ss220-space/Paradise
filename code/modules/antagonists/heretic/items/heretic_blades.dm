@@ -11,6 +11,7 @@
 	)
 	desc = "Болезненно-зелёный клинок в форме полумесяца, украшенный реалистичным декоративным глазом. \
 			Возможно даже слишком реалистичным... Стоп, он что, моргнул?"
+	gender = MALE
 	icon = 'icons/obj/weapons/khopesh.dmi'
 	icon_state = "eldritch_blade"
 	item_state = "eldritch_blade"
@@ -79,7 +80,8 @@
 
 	to_chat(user, span_purple(span_big("Трусливые овцы будут зарезаны!")))
 	playsound(src, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 70, TRUE)
-	var/obj/item/organ/external/to_remove = user.get_active_hand()
+	var/mob/living/carbon/human/human = user
+	var/obj/item/organ/external/to_remove = human.get_organ(human.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	to_remove.dismember()
 	deltimer(escape_timer)
 	qdel(src)
@@ -106,7 +108,7 @@
 	if(do_teleport(user, safe_turf))
 		to_chat(user, span_warning("После разбивания [declent_ru(GENITIVE)], вы чувствуете, как по вашему телу проходит поток энергии. [after_use_message]"))
 	else
-		to_chat(user, span_warning("You shatter [src], but your plea goes unanswered."))
+		to_chat(user, span_warning("Вы разбиваете [declent_ru(ACCUSATIVE)], но ваша мольба остается без ответа."))
 
 	playsound(src, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 70, TRUE) //copied from the code for smashing a glass sheet onto the ground to turn it into a shard
 	qdel(src)
@@ -123,33 +125,57 @@
 
 // Path of Rust's blade
 /obj/item/melee/sickly_blade/rust
-	name = "\improper rusted blade"
-	desc = "This crescent blade is decrepit, wasting to rust. \
-		Yet still it bites, ripping flesh and bone with jagged, rotten teeth."
+	name = "ржавый клинок"
+	ru_names = list(
+		NOMINATIVE = "ржавый клинок",
+		GENITIVE = "ржавого клинка",
+		DATIVE = "ржавому клинку",
+		ACCUSATIVE = "ржавый клинок",
+		INSTRUMENTAL = "ржавым клинком",
+		PREPOSITIONAL = "ржавом клинке",
+	)
+	desc = "Этот серповидный клинок обветшал и покрывается ржавчиной. \
+			Он всё ещё опасен, способный разрывать плоть ржавыми зазубринами."
 	icon_state = "rust_blade"
 	item_state = "rust_blade"
-	after_use_message = "The Rusted Hills hear your call..."
+	after_use_message = "Ржавые Холмы слышат ваш зов..."
 
 
 // Path of Ash's blade
 /obj/item/melee/sickly_blade/ash
-	name = "\improper ashen blade"
-	desc = "Molten and unwrought, a hunk of metal warped to cinders and slag. \
-		Unmade, it aspires to be more than it is, and shears soot-filled wounds with a blunt edge."
+	name = "клинок пепла"
+	ru_names = list(
+		NOMINATIVE = "клинок пепла",
+		GENITIVE = "клинка пепла",
+		DATIVE = "клинку пепла",
+		ACCUSATIVE = "клинок пепла",
+		INSTRUMENTAL = "клинком пепла",
+		PREPOSITIONAL = "клинке пепла",
+	)
+	desc = "Полурасплавленный и необработанный, кусок металла, покрытый в пеплом и шлаком. \
+			Незаконченный, он выглядит как нечто большее, чем он есть."
 	icon_state = "ash_blade"
 	item_state = "ash_blade"
-	after_use_message = "The Nightwatcher hears your call..."
+	after_use_message = "Ночной Дозорный слышит ваш зов..."
 	resistance_flags = FIRE_PROOF
 
 
 // Path of Flesh's blade
 /obj/item/melee/sickly_blade/flesh
-	name = "\improper bloody blade"
-	desc = "A crescent blade born from a fleshwarped creature. \
-		Keenly aware, it seeks to spread to others the suffering it has endured from its dreadful origins."
+	name = "кровавый клинок"
+	ru_names = list(
+		NOMINATIVE = "кровавый клинок",
+		GENITIVE = "кровавого клинка",
+		DATIVE = "кровавому клинку",
+		ACCUSATIVE = "кровавый клинок",
+		INSTRUMENTAL = "кровавым клинком",
+		PREPOSITIONAL = "кровавом клинке",
+	)
+	desc = "Полумесяц, рожденный из изуродованной плоти существа. \
+			Он постоянно чувствует боль и стремится передать свои страдания другим."
 	icon_state = "flesh_blade"
 	item_state = "flesh_blade"
-	after_use_message = "The Marshal hears your call..."
+	after_use_message = "Маршал слышит ваш зов..."
 
 
 /obj/item/melee/sickly_blade/flesh/Initialize(mapload)
@@ -169,24 +195,40 @@
 
 // Path of Void's blade
 /obj/item/melee/sickly_blade/void
-	name = "\improper void blade"
-	desc = "Devoid of any substance, this blade reflects nothingness. \
-		It is a real depiction of purity, and chaos that ensues after its implementation."
+	name = "клинок пустоты"
+	ru_names = list(
+		NOMINATIVE = "клинок пустоты",
+		GENITIVE = "клинка пустоты",
+		DATIVE = "клинку пустоты",
+		ACCUSATIVE = "клинок пустоты",
+		INSTRUMENTAL = "клинком пустоты",
+		PREPOSITIONAL = "клинке пустоты",
+	)
+	desc = "Этот клинок, не состоит из какого-либо материала. \
+			Это настоящее воплощение пустоты и хаоса."
 	icon_state = "void_blade"
 	item_state = "void_blade"
-	after_use_message = "The Aristocrat hears your call..."
+	after_use_message = "Аристократ слышит ваш зов..."
 
 
 // Path of the Blade's... blade.
 // Opting for /dark instead of /blade to avoid "sickly_blade/blade".
 /obj/item/melee/sickly_blade/dark
-	name = "\improper sundered blade"
-	desc = "A galliant blade, sundered and torn. \
-		Furiously, the blade cuts. Silver scars bind it forever to its dark purpose."
+	name = "повреждённый клинок"
+	ru_names = list(
+		NOMINATIVE = "повреждённый клинок",
+		GENITIVE = "повреждённого клинка",
+		DATIVE = "повреждённому клинку",
+		ACCUSATIVE = "повреждённый клинок",
+		INSTRUMENTAL = "повреждённым клинком",
+		PREPOSITIONAL = "повреждённом клинке",
+	)
+	desc = "Клинок доблестного война, расколотый и разорванный. \
+			Царапины на серебре навеки связывают его с темной целью."
 	icon_state = "dark_blade"
 	base_icon_state = "dark_blade"
 	item_state = "dark_blade"
-	after_use_message = "The Torn Champion hears your call..."
+	after_use_message = "Чемпион слышит ваш зов..."
 	///If our blade is currently infused with the mansus grasp
 	var/infused = FALSE
 
@@ -220,7 +262,7 @@
 	// We're officially behind them, apply effects
 	living_target.AdjustParalysis(1.5 SECONDS)
 	living_target.apply_damage(10, BRUTE/*, wound_bonus = CANT_WOUND*/)
-	living_target.balloon_alert(user, "backstab!")
+	living_target.balloon_alert(user, "удар в спину!")
 	playsound(living_target, 'sound/weapons/guillotine.ogg', 100, TRUE)
 
 
@@ -246,43 +288,77 @@
 
 // Path of Cosmos's blade
 /obj/item/melee/sickly_blade/cosmic
-	name = "\improper cosmic blade"
-	desc = "A mote of celestial resonance, shaped into a star-woven blade. \
-		An iridescent exile, carving radiant trails, desperately seeking unification."
+	name = "космический клинок"
+	ru_names = list(
+		NOMINATIVE = "космический клинок",
+		GENITIVE = "космического клинка",
+		DATIVE = "космическому клинку",
+		ACCUSATIVE = "космический клинок",
+		INSTRUMENTAL = "космическим клинком",
+		PREPOSITIONAL = "космическом клинке",
+	)
+	desc = "Частица небесного резонанса, оформившаяся в клинок сотканный из звёздного света. \
+			Радужный изгнанник, прокладывающий сияющие тропы, отчаянно стремящийся к единению."
 	icon_state = "cosmic_blade"
 	item_state = "cosmic_blade"
-	after_use_message = "The Stargazer hears your call..."
+	after_use_message = "Звёздный Глашатай слышит ваш зов..."
 
 
 // Path of Knock's blade
 /obj/item/melee/sickly_blade/lock
-	name = "\improper key blade"
-	desc = "A blade and a key, a key to what? \
-		What grand gates does it open?"
+	name = "клинок - ключ"
+	ru_names = list(
+		NOMINATIVE = "клинок - ключ",
+		GENITIVE = "клинка - ключа",
+		DATIVE = "клинку - ключу",
+		ACCUSATIVE = "клинок - ключ",
+		INSTRUMENTAL = "клинком - ключом",
+		PREPOSITIONAL = "клинке - ключе",
+	)
+	desc = "И клинок и ключ. Ключ от чего? \
+			Какие великие врата он открывает?"
 	icon_state = "key_blade"
 	item_state = "key_blade"
-	after_use_message = "The Stewards hear your call..."
+	after_use_message = "Стюарды слышат ваш зов..."
 	tool_behaviour = TOOL_CROWBAR
 	toolspeed = 1.3
 
 
 // Path of Moon's blade
 /obj/item/melee/sickly_blade/moon
-	name = "\improper moon blade"
-	desc = "A blade of iron, reflecting the truth of the earth: All join the troupe one day. \
-		A troupe bringing joy, carving smiles on their faces if they want one or not."
+	name = "лунный клинок"
+	ru_names = list(
+		NOMINATIVE = "лунный клинок",
+		GENITIVE = "лунного клинка",
+		DATIVE = "лунному клинку",
+		ACCUSATIVE = "лунный клинок",
+		INSTRUMENTAL = "лунным клинком",
+		PREPOSITIONAL = "лунном клинке",
+	)
+	desc = "Железный клинок, отражающий правду земли: однажды все присоединяются к параду. \
+			Параду, приносящему радость, вызывающему улыбки на лицах людей, хотят они того или нет."
 	icon_state = "moon_blade"
 	item_state = "moon_blade"
-	after_use_message = "The Moon hears your call..."
+	after_use_message = "Луна слышит ваш зов..."
 
 
 // Path of Nar'Sie's blade
 // What!? This blade is given to cultists as an altar item when they sacrifice a heretic.
 // It is also given to the heretic themself if they sacrifice a cultist.
 /obj/item/melee/sickly_blade/cursed
-	name = "\improper cursed blade"
-	desc = "A dark blade, cursed to bleed forever. In constant struggle between the eldritch and the dark, it is forced to accept any wielder as its master. \
-		Its eye's cornea drips blood endlessly into the ground, yet its piercing gaze remains on you."
+	name = "проклятый клинок"
+	ru_names = list(
+		NOMINATIVE = "проклятый клинок",
+		GENITIVE = "проклятого клинка",
+		DATIVE = "проклятому клинку",
+		ACCUSATIVE = "проклятый клинок",
+		INSTRUMENTAL = "проклятым клинком",
+		PREPOSITIONAL = "проклятом клинке",
+	)
+	desc = "Тёмный клинок, обречённый вечно кровоточить. В постоянной борьбе между тьмой и \
+			сверхъестественным он вынужден признать любого владельца своим хозяином. \
+			С роговицы глаза на его рукояти капает кровь, но пронзительный взгляд всё равно неотрывно \
+			устремлён на вас."
 	force = 25
 	throwforce = 15
 	block_chance = 35
@@ -320,17 +396,17 @@
 		return TRUE
 
 	if(prob(15))
-		to_chat(user, span_cultlarge(pick("\"An untouched mind? Amusing.\"", "\" I suppose it isn't worth the effort to stop you.\"", "\"Go ahead. I don't care.\"", "\"You'll be mine soon enough.\"")))
+		to_chat(user, span_cultlarge(pick("\"Нетронутый разум? Забавно.\"", "\"Полагаю, не стоит и пытаться тебя остановить.\"", "\"Валяй, мне всё равно.\"", "\"Скоро твоя душа будет моей!\"")))
 		user.apply_damage(5, BURN, user.get_active_hand())
 		playsound(src, 'sound/weapons/sear.ogg', 25, TRUE)
-		to_chat(user, span_danger("Your hand sizzles.")) // Nar nar might not care but their essence still doesn't like you
+		to_chat(user, span_danger("Ваша рука шипит.")) // Nar nar might not care but their essence still doesn't like you
 		return TRUE
 
 	if(!prob(15))
 		return TRUE
 
-	to_chat(user, span_big(span_purple("LW'NAFH'NAHOR UH'ENAH'YMG EPGOKA AH NAFL MGEMPGAH'EHYE")))
-	to_chat(user, span_danger("Horrible, unintelligible utterances flood your mind!"))
+	to_chat(user, span_big(span_purple("ДВ'НАФХ'НАХОР УН'ЕНАХ'УМГ ЕПГОКА АХ НАФЛ МГЕМПГАХ'ЕХУЕ")))
+	to_chat(user, span_danger("Ужасные, непонятные высказывания заполоняют ваш разум!"))
 	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 15) // This can kill you if you ignore it
 	return TRUE
 
@@ -338,10 +414,10 @@
 /obj/item/melee/sickly_blade/cursed/equipped(mob/user, slot)
 	. = ..()
 	if(IS_HERETIC_OR_MONSTER(user))
-		after_use_message = "The Mansus hears your call..."
+		after_use_message = "Мансус слышит ваш зов..."
 
 	else if(iscultist(user))
-		after_use_message = "Nar'Sie hears your call..."
+		after_use_message = "[SSticker.cultdat?.entity_name] слышит ваш зов..."
 
 	else
 		after_use_message = null
@@ -363,9 +439,17 @@
 
 // Weaker blade variant given to people so they can participate in the heretic arena spell
 /obj/item/melee/sickly_blade/training
-	name = "\improper imperfect blade"
-	desc = "A blade given to those who cannot accept the truth, out of pity. \
-		May it act as a blessing in the short time it remains alongside you."
+	name = "несовершенный клинок"
+	ru_names = list(
+		NOMINATIVE = "несовершенный клинок",
+		GENITIVE = "несовершенного клинка",
+		DATIVE = "несовершенному клинку",
+		ACCUSATIVE = "несовершенный клинок",
+		INSTRUMENTAL = "несовершенным клинком",
+		PREPOSITIONAL = "несовершенном клинке",
+	)
+	desc = "Клинок, дарованный из жалости тем, кто не может принять истину. \
+			Пусть он станет благословением в то короткое время, что он рядом с вами."
 	force = 17
 	armour_penetration = 0
 

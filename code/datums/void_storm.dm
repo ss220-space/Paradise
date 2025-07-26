@@ -10,7 +10,7 @@
 	var/static/image/storm_overlay = image('icons/effects/weather_effects.dmi', "snow_storm")
 
 
-/datum/component/proximity_monitor/advanced/void_storm/New(atom/_host, range, _ignore_if_not_on_turf)
+/datum/component/proximity_monitor/advanced/void_storm/Initialize(_radius, _always_active)
 	. = ..()
 	recalculate_field(full_recalc = TRUE)
 

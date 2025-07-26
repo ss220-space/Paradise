@@ -5,11 +5,14 @@
 			Уничтожит все ржавые предметы, с которыми вы соприкоснётесь. \
 			Нанесёт большой урон окружающим и распространит ржавчину во время завершения заклинания. \
 			Поскольку именно ржавчина даёт вам эту способность, фокусировка не требуется."
+	action_background_icon_state = "bg_heretic"
+	overlay_icon_state = "bg_heretic_border"
 	charge_distance = 10
 	charge_damage = 50
-	base_cooldown = 45 SECONDS
+	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/cast(list/targets)
@@ -25,6 +28,7 @@
 
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/on_move(atom/source, atom/new_loc, atom/target)
+	..()
 	var/turf/victim = get_turf(action.owner)
 	//if(!actively_moving)
 	//	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
@@ -54,6 +58,7 @@
 
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/on_bump(atom/movable/source, atom/target)
+	..()
 	if(action.owner == target)
 		return
 

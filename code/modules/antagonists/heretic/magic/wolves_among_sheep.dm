@@ -14,6 +14,7 @@
 	action_icon_state = "among_sheep"
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
 

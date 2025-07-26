@@ -8,6 +8,7 @@
 	sound = 'sound/items/welder.ogg'
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS

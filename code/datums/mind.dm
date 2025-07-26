@@ -3022,7 +3022,7 @@
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
-		if(spell.type == instance_or_path)
+		if(spell?.type == instance_or_path)
 			LAZYREMOVE(spell_list, spell)
 			qdel(spell)
 
@@ -3052,7 +3052,7 @@
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
-		spell.action.Grant(new_character)
+		new_character.AddSpell(new spell.type())
 
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions)

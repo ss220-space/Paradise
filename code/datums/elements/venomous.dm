@@ -46,7 +46,7 @@
 		final_amount_added = amount_added
 
 	var/datum/reagents/tmp_holder = new(final_amount_added)
-	tmp_holder.my_atom = src
+	tmp_holder.my_atom = target
 	tmp_holder.add_reagent(reagents, final_amount_added)
 
 	tmp_holder.reaction(target, REAGENT_INGEST, tmp_holder.total_volume)

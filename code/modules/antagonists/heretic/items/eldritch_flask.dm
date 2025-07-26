@@ -1,8 +1,17 @@
 // An unholy water flask, but for heretics.
 // Heals heretics, harms non-heretics. Pretty much identical.
 /obj/item/reagent_containers/glass/beaker/eldritch
-	name = "flask of eldritch essence"
-	desc = "Toxic to the closed minded, yet refreshing to those with knowledge of the beyond."
+	name = "флакон с жуткой эссенцией"
+	ru_names = list(
+		NOMINATIVE = "флакон с жуткой эссенцией",
+		GENITIVE = "флакона с жуткой эссенцией",
+		DATIVE = "флакону с жуткой эссенцией",
+		ACCUSATIVE = "флакон с жуткой эссенцией",
+		INSTRUMENTAL = "флаконом с жуткой эссенцией",
+		PREPOSITIONAL = "флаконе с жуткой эссенцией"
+	)
+	desc = "Токсичен для людей с ограниченным мышлением, но освежает тех, кто обладает знаниями о запредельном."
+	gender = MALE
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eldritch_flask"
 	list_reagents = list(/datum/reagent/eldritch = 50)
@@ -10,8 +19,17 @@
 
 // Unique bottle that lets you instantly draw blood from a victim
 /obj/item/reagent_containers/glass/phylactery
-	name = "Проклятая Филактерия"
+	name = "проклятая филактерия"
+	ru_names = list(
+		NOMINATIVE = "проклятая филактерия",
+		GENITIVE = "проклятой филактерии",
+		DATIVE = "проклятой филактерии",
+		ACCUSATIVE = "проклятую филактерию",
+		INSTRUMENTAL = "проклятой филактерией",
+		PREPOSITIONAL = "проклятой филактерии"
+	)
 	desc = "Используется для кражи крови у будущих жертв."
+	gender = FEMALE
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "phylactery"
 	base_icon_state = "phylactery"
@@ -39,18 +57,18 @@
 		return ATTACK_CHAIN_BLOCKED
 
 	if(living_target.can_block_magic(MAGIC_RESISTANCE_HOLY))
-		to_chat(user, span_warning("You are unable to draw any blood from [living_target]!"))
+		to_chat(user, span_warning("Вы не можете набрать крови у [living_target.declent_ru(GENITIVE)]!"))
 		COOLDOWN_START(src, drain_cooldown, 5 SECONDS)
-		to_chat(living_target, span_warning("You feel a force attempt to steal your blood, but it is repelled!"))
+		to_chat(living_target, span_warning("Вы чувствуете, как некая сила пытается украсть вашу кровь, но что-то мешает ей!"))
 		return ATTACK_CHAIN_BLOCKED
 
 	var/drawn_amount = min(reagents.maximum_volume - reagents.total_volume, 5)
 	if(!living_target.transfer_blood_to(src, drawn_amount))
-		to_chat(user, span_warning("You are unable to draw any blood from [living_target]!"))
+		to_chat(user, span_warning("У вас не получилось набрать крови у [living_target.declent_ru(GENITIVE)]!"))
 		return ATTACK_CHAIN_SUCCESS
 
-	to_chat(user, span_notice("You take a blood sample from [living_target]."))
-	to_chat(living_target, span_warning("You feel a tiny prick!"))
+	to_chat(user, span_notice("Вы взяли образец крови у [living_target.declent_ru(GENITIVE)]."))
+	to_chat(living_target, span_warning("Вы чувствуете лёгкий укол!"))
 	COOLDOWN_START(src, drain_cooldown, 5 SECONDS)
 	playsound(src, 'sound/effects/catalyst.ogg', 20, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 	return ATTACK_CHAIN_SUCCESS
@@ -71,8 +89,18 @@
 
 // Funny potion that is basically an aheal. The downside is that it puts you to sleep for a minute.
 /obj/item/ether
-	name = "Душа Нерожденного Младенца"
-	desc = "A flask of nausea-inducing, thick green liquid. Restores your body completely, then places you into an enhanced sleep for a full minute."
+	name = "душа нерожденного младенца"
+	ru_names = list(
+		NOMINATIVE = "душа нерожденного младенца",
+		GENITIVE = "души нерожденного младенца",
+		DATIVE = "душе нерожденного младенца",
+		ACCUSATIVE = "душу нерожденного младенца",
+		INSTRUMENTAL = "душой нерожденного младенца",
+		PREPOSITIONAL = "душе нерожденного младенца"
+	)
+	desc = "Флакон с тошнотворной, густой зелёной жидкостью. Полностью восстанавливает организм, \
+			а затем погружает в крепкий сон на целую минуту."
+	gender = FEMALE
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "poison_flask"
 
@@ -114,6 +142,6 @@
 
 
 /atom/movable/screen/alert/status_effect/eldritch_sleep
-	name = "Eldritch Slumber"
-	desc = "You feel an indescribable warmth keeping you safe..."
+	name = "Жуткий сон"
+	desc = "Вы чувствуете неописуемое тепло, защищающее вас..."
 	icon_state = "eldritch_slumber"

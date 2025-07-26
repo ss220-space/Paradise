@@ -12,6 +12,7 @@
 	)
 	desc = "Оно. Оно оглядывается назад. Оно смотрит в прошлое. \
 			Оно заглядывает внутрь. Оно видит. Оно прячется. Оно открывается."
+	gender = FEMALE
 	icon_state = "unfathomable_curio"
 	item_state = "unfathomable_curio"
 	//content_overlays = FALSE
@@ -62,7 +63,7 @@
 	if(isheretic(user))
 		return
 
-	to_chat(user, span_warning("The curio wraps around you, and you feel the beating of something dark inside it..."))
+	to_chat(user, span_warning("Диковинка обволакивает вас, и вы чувствуете биение чего-то темного внутри неё..."))
 
 
 /*
@@ -90,11 +91,11 @@
 		/datum/brain_trauma/severe/paralysis,
 		/datum/brain_trauma/severe/monophobia
 	)*/
-	wearer.visible_message(span_danger("[wearer]'s veil makes [attack_text] miss, but the force behind the blow causes it to disperse!"))
+	wearer.visible_message(span_danger("[declent_ru(NOMINATIVE)] обволакивает [wearer.declent_ru(ACCUSATIVE)] блокируя атаку!"))
 	if(isheretic(wearer))
 		return
 
-	to_chat(wearer, span_warning("Laughter echoes in your mind...."))
+	to_chat(wearer, span_warning("Смех раздается в вашем сознании..."))
 	wearer.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 40)
 	wearer.drop_item_ground(src, TRUE)
 	var/trauma_type = rand(1, 5)
@@ -120,5 +121,5 @@
 
 	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 160)
 	user.EyeBlind(5 SECONDS)
-	. += span_notice("It. It looked. IT WRAPS ITSELF AROUND ME.")
+	. += span_notice("Оно. Оно смотрело. ОНО ОБВАЛИВАЕТ МЕНЯ.")
 

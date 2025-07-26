@@ -98,6 +98,8 @@
 	desc = "Дарует вам Лунный парад, заклинание, которое после короткой подготовки посылает вперёд снаряд. \
 			При попадании, жертва будет вынуждена присоединиться к параду и страдать от галлюцинаций."
 	gain_text = "Музыка, словно из глубин их души, влекла, словно мотыльков к пламени."
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "moon_parade"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/projectile/moon_parade
 	cost = 1
 
@@ -266,3 +268,4 @@
 
 		new moon_effect(get_turf(carbon_view))
 		carbon_view.Confused(2 SECONDS)
+		carbon_view.Hallucinate(10 SECONDS)

@@ -183,7 +183,7 @@
 		commander.manual_emote(manual_emote_text)
 		return
 
-	RegisterSignal(commander, COMSIG_MOB_CLICKON, PROC_REF(click_on_target))
+	RegisterSignal(commander, COMSIG_MOB_CLICKON, PROC_REF(click_on_target), override = TRUE)
 	commander.client?.mouse_override_icon = 'icons/effects/mouse_pointers/pet_paw.dmi'
 	commander.update_mouse_pointer()
 

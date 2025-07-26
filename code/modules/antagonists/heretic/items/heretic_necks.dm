@@ -1,12 +1,12 @@
 /obj/item/clothing/neck/heretic_focus
-	name = "Янтарный Амулет"
+	name = "янтарный амулет"
 	ru_names = list(
-		NOMINATIVE = "Янтарный Амулет",
-		GENITIVE = "Янтарного Амулета",
-		DATIVE = "Янтарному Амулету",
-		ACCUSATIVE = "Янтарный Амулет",
-		INSTRUMENTAL = "Янтарным Амулетом",
-		PREPOSITIONAL = "Янтарном Амулете",
+		NOMINATIVE = "янтарный амулет",
+		GENITIVE = "янтарного амулета",
+		DATIVE = "янтарному амулету",
+		ACCUSATIVE = "янтарный амулет",
+		INSTRUMENTAL = "янтарным амулетом",
+		PREPOSITIONAL = "янтарном амулете",
 	)
 	desc = "Янтарный кристалл, связанный с потусторонним миром. Если не смотреть на амулет, он начинает подрагивать."
 	gender = MALE
@@ -21,8 +21,18 @@
 
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion
-	name = "crimson medallion"
-	desc = "A blood-red focusing glass that provides a link to the world beyond, and worse. Its eye is constantly twitching and gazing in all directions. It almost seems to be silently screaming..."
+	name = "кровавый амулет"
+	ru_names = list(
+		NOMINATIVE = "кровавый амулет",
+		GENITIVE = "кровавого амулета",
+		DATIVE = "кровавому амулету",
+		ACCUSATIVE = "кровавый амулет",
+		INSTRUMENTAL = "кровавым амулетом",
+		PREPOSITIONAL = "кровавом амулете",
+	)
+	desc = "Кроваво-красное фокусирующее стекло, обеспечивающее связь с потусторонним миром и даже чем-то похуже. \
+			Рубиновый глаз постоянно дёргается и смотрит во все стороны. Кажется, будто он беззвучно кричит..."
+	gender = MALE
 	icon_state = "crimson_medallion"
 	/// The aura healing component. Used to delete it when taken off.
 	var/datum/component/component
@@ -52,7 +62,8 @@
 		team_color = pick(COLOR_CULT_RED, COLOR_GREEN)
 
 	user.add_traits(list(TRAIT_MANSUS_TOUCHED/*, TRAIT_BLOODY_MESS*/), UID())
-	to_chat(user, span_alert("Your heart takes on a strange yet soothing irregular rhythm, and your blood feels significantly less viscous than it used to be. You're not sure if that's a good thing."))
+	to_chat(user, span_alert("Ваше сердцебиение приобретает странный, но успокаивающий нерегулярный ритм, \
+							а кровь становится значительно менее вязкой, чем раньше. Вы не уверены, хорошо ли это."))
 	component = user.AddComponent( \
 		/datum/component/aura_healing, \
 		range = 3, \
@@ -74,7 +85,7 @@
 		return
 
 	if(HAS_TRAIT_FROM(user, TRAIT_MANSUS_TOUCHED, UID()))
-		to_chat(user, span_notice("Your heart and blood return to their regular old rhythm and flow."))
+		to_chat(user, span_notice("Ваши сердце и кровь возвращаются к своему обычному ритму и течению."))
 
 	if(IS_HERETIC_OR_MONSTER(user) && active)
 		for(var/obj/effect/proc_holder/spell/spell_action in user.actions)
@@ -95,10 +106,13 @@
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/attack_self(mob/living/user, modifiers)
 	. = ..()
-	to_chat(user, span_danger("You start tightly squeezing [src]..."))
+	to_chat(user, span_danger("Вы сильно сжимаете [declent_ru(ACCUSATIVE)]..."))
 	if(!do_after(user, 1.25 SECONDS, src))
 		return
-	to_chat(user, span_danger("[src] explodes into a shower of gore and blood, drenching your arm. You can feel the blood seeping into your skin. You inmediately feel better, but soon, the feeling turns hollow as your veins itch."))
+
+	to_chat(user, span_danger("[declent_ru(NOMINATIVE)] взрывается потоком крови, заливая вашу руку. Вы чувствуете, как кровь \
+								просачивается вам под кожу. Ваше самочувствие резко улучшается, но вскоре возникает \
+								ощущение пустоты, после которого вены начинают зудеть."))
 	new /obj/effect/gibspawner/generic(get_turf(src))
 	var/heal_amt = user.adjustBruteLoss(-50)
 	user.adjustFireLoss( -(50 - abs(heal_amt)) ) // no double dipping
@@ -114,22 +128,35 @@
 
 	var/magic_dude
 	if(iscultist(user))
-		. += span_cultbold("This focus will allow you to store one extra spell and halve the empowering time, alongside providing a small regenerative effect.")
+		. += span_cultbold("Этот амулет позволит вам хранить одно дополнительное заклинание и вдвое сократит \
+							время подготовки заклинаний, а также обеспечит небольшой регенеративный эффект.")
 		magic_dude = TRUE
 
 	if(IS_HERETIC_OR_MONSTER(user))
-		. += span_notice("This focus will halve your spell cooldowns, alongside granting a small regenerative effect to any nearby heretics or monsters, including you.")
+		. += span_notice("Этот амулет вдвое сократит время перезарядки ваших заклинаний, \
+						а также предоставит небольшой регенеративный эффект всем находящимся \
+						поблизости еретикам и монстрам, включая вас.")
 		magic_dude = TRUE
 
 	if(!magic_dude)
 		return
 
-	. += span_red("You can also squeeze it to recover a large amount of health quickly, at a cost...")
+	. += span_red("Вы также можете сжать его, чтобы быстро восстановить большое количество здоровья, но за это придется заплатить...")
 
 
 /obj/item/clothing/neck/eldritch_amulet
 	name = "жуткий тёплый медальон"
-	desc = "A strange medallion. Peering through the crystalline surface, the world around you melts away. You see your own beating heart, and the pulsing of a thousand others."
+	ru_names = list(
+		NOMINATIVE = "жуткий тёплый медальон",
+		GENITIVE = "жуткого тёплого медальона",
+		DATIVE = "жуткому тёплому медальону",
+		ACCUSATIVE = "жуткий тёплый медальон",
+		INSTRUMENTAL = "жутким тёплым медальоном",
+		PREPOSITIONAL = "жутком тёплом медальоне",
+	)
+	desc = "Странный медальон. Сквозь кристаллическую поверхность виден таинственный мир. \
+			Вы видите своё бьющееся сердце среди тысяч других."
+	gender = MALE
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eye_medalion"
 	w_class = WEIGHT_CLASS_SMALL
@@ -161,25 +188,18 @@
 	user.update_sight()
 
 
-/obj/item/clothing/neck/eldritch_amulet/piercing
-	name = "piercing eldritch medallion"
-	desc = "A strange medallion. Peering through the crystalline surface, the light refracts into new and terrifying spectrums of color. You see yourself, reflected off cascading mirrors, warped into impossible shapes."
-	heretic_only_trait = TRAIT_XRAY
-
-
-// Cosmetic-only version
-/obj/item/clothing/neck/fake_heretic_amulet
-	name = "religious icon"
-	desc = "A strange medallion, which makes its wearer look like they're part of some cult."
-	icon = 'icons/obj/eldritch.dmi'
-	icon_state = "eye_medalion"
-	w_class = WEIGHT_CLASS_SMALL
-
-
 // The amulet conversion tool used by moon heretics
 /obj/item/clothing/neck/heretic_focus/moon_amulet
-	name = "moonlight amulet"
-	desc = "A piece of the mind, the soul and the moon. Gazing into it makes your head spin and hear whispers of laughter and joy."
+	name = "амулет лунного света"
+	ru_names = list(
+		NOMINATIVE = "амулет лунного света",
+		GENITIVE = "амулета лунного света",
+		DATIVE = "амулету лунного света",
+		ACCUSATIVE = "амулет лунного света",
+		INSTRUMENTAL = "амулетом лунного света",
+		PREPOSITIONAL = "амулете лунного света",
+	)
+	desc = "Частица разума, души и луны. От простого взгляда на неё кружится голова. Вы слышите шепот полный смеха и радости."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "moon_amulette"
 	w_class = WEIGHT_CLASS_SMALL

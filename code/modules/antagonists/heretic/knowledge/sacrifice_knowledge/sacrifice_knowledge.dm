@@ -153,7 +153,7 @@
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
-		if(head_mind?.assigned_job.is_command)
+		if(head_mind?.assigned_job?.is_command)
 			final_targets += head_mind
 			valid_targets -= head_mind
 			break
@@ -339,19 +339,19 @@
 		CRASH("[type] - begin_sacrifice was called, but no heretic sacrifice landmarks were found!")
 
 	var/obj/effect/landmark/heretic/destination_landmark = GLOB.heretic_sacrifice_landmarks[our_heretic.heretic_path] || GLOB.heretic_sacrifice_landmarks[PATH_START]
-	if(!destination_landmark)
-		CRASH("[type] - begin_sacrifice could not find a destination landmark OR default landmark to send the sacrifice! (Heretic's path: [our_heretic.heretic_path])")
+	//if(!destination_landmark)
+	//	CRASH("[type] - begin_sacrifice could not find a destination landmark OR default landmark to send the sacrifice! (Heretic's path: [our_heretic.heretic_path])")
 
 	var/turf/destination = get_turf(destination_landmark)
 
 	sac_target.visible_message(span_danger("[sac_target.declent_ru(NOMINATIVE)] начинает яростно содрогаться, когда темные щупальца утаскивают [genderize_ru(sac_target.gender, "его", "её", "его", "их")] в пустоту!"))
 	sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult(sac_target))
-	//sac_target.update_handcuffed()
 
 	if(sac_target.legcuffed)
 		sac_target.legcuffed.forceMove(sac_target.drop_location())
 		sac_target.legcuffed.dropped(sac_target)
 		sac_target.legcuffed = null
+		sac_target.update_legcuffed_status()
 		//sac_target.update_worn_legcuffs()
 
 	sac_target.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 85, 150)

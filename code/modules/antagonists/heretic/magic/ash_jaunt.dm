@@ -8,6 +8,7 @@
 	sound = null
 
 	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
 

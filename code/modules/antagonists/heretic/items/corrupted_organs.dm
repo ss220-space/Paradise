@@ -1,7 +1,16 @@
 /// Renders you unable to see people who were heretics at the time that this organ is gained
 /obj/item/organ/internal/eyes/corrupt
-	name = "corrupt orbs"
-	desc = "These eyes have seen something they shouldn't have."
+	name = "искаженные сферы"
+	ru_names = list(
+		NOMINATIVE = "искажённые сферы",
+		GENITIVE = "искажённых сфер",
+		DATIVE = "искажённым сферам",
+		ACCUSATIVE = "искажённые сферы",
+		INSTRUMENTAL = "искажёнными сферами",
+		PREPOSITIONAL = "искажённых сферах"
+	)
+	desc = "Эти глаза увидели то, чего им видеть не следовало."
+	gender = PLURAL
 	icon_state = "eyes_voidwalker"
 	color = COLOR_VOID_PURPLE
 	//iris_overlay = null
@@ -15,7 +24,7 @@
 /obj/item/organ/internal/eyes/corrupt/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/corrupted_organ, FALSE)
-	AddElement(/datum/element/noticable_organ, "%PRONOUN_Their eyes have wide dilated pupils, and no iris. Something is moving in the darkness.", BODY_ZONE_PRECISE_EYES)
+	AddElement(/datum/element/noticable_organ, "Зрачки широко раскрыты, радужки нет. В их глубинах что-то движется.", BODY_ZONE_PRECISE_EYES)
 
 
 /obj/item/organ/internal/eyes/corrupt/insert(mob/living/carbon/organ_owner, special, movement_flags)
@@ -50,15 +59,24 @@
 
 /// Sometimes speak in incomprehensible tongues
 /obj/item/organ/internal/vocal_cords/corrupt
-	name = "corrupt tongue"
-	desc = "This one tells only lies."
+	name = "искаженные голосовые связки"
+	ru_names = list(
+		NOMINATIVE = "искажённые голосовые связки",
+		GENITIVE = "искажённых голосовых связок",
+		DATIVE = "искажённым голосовым связкам",
+		ACCUSATIVE = "искажённые голосовые связки",
+		INSTRUMENTAL = "искажёнными голосовыми связками",
+		PREPOSITIONAL = "искажённых голосовых связках"
+	)
+	desc = "Эти только лгут."
+	gender = PLURAL
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 
 
 /obj/item/organ/internal/vocal_cords/corrupt/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/corrupted_organ)
-	AddElement(/datum/element/noticable_organ, "The inside of %PRONOUN_Their mouth is full of stars.", BODY_ZONE_PRECISE_MOUTH)
+	//AddElement(/datum/element/noticable_organ, "The inside of %PRONOUN_Their mouth is full of stars.", BODY_ZONE_PRECISE_MOUTH)
 
 
 /obj/item/organ/internal/vocal_cords/corrupt/insert(mob/living/carbon/organ_owner, special, movement_flags)
@@ -83,8 +101,17 @@
 
 /// Randomly secretes alcohol or hallucinogens when you're drinking something
 /obj/item/organ/internal/liver/corrupt
-	name = "corrupt liver"
-	desc = "After what you've seen you could really go for a drink."
+	name = "искаженная печень"
+	ru_names = list(
+		NOMINATIVE = "искажённая печень",
+		GENITIVE = "искажённой печени",
+		DATIVE = "искажённой печени",
+		ACCUSATIVE = "искажённую печень", 
+		INSTRUMENTAL = "искажённой печенью",
+		PREPOSITIONAL = "искажённой печени"
+	)
+	desc = "После увиденного вам действительно захочется выпить."
+	gender = FEMALE
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// How much extra ingredients to add?
 	var/amount_added = 5
@@ -124,86 +151,21 @@
 	if(!prob(20))
 		return
 
-	to_chat(human, span_warning("As you take a sip, you feel something bubbling in your stomach..."))
+	to_chat(human, span_warning("Сделав глоток, вы чувствуете, как в желудке что-то бурлит..."))
 
-/*
-/// Rapidly become hungry if you are not digesting blood
-/obj/item/organ/internal/stomach/corrupt
-	name = "corrupt stomach"
-	desc = "This parasite demands an unwholesome diet in order to be satisfied."
-	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
-	/// Do we have an unholy thirst?
-	var/thirst_satiated = FALSE
-	/// Timer for when we get thirsty again
-	var/thirst_timer
-	/// How long until we prompt the player to drink blood again?
-	COOLDOWN_DECLARE(message_cooldown)
-
-
-/obj/item/organ/internal/stomach/corrupt/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/corrupted_organ)
-	AddElement(/datum/element/noticable_organ, "%PRONOUN_They %PRONOUN_have an unhealthy pallor.")
-
-
-/obj/item/organ/internal/stomach/corrupt/insert(mob/living/carbon/organ_owner, special, movement_flags)
-	. = ..()
-	RegisterSignal(organ_owner, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_drank))
-
-
-/obj/item/organ/internal/stomach/corrupt/remove(mob/living/carbon/organ_owner, special, movement_flags)
-	. = ..()
-	UnregisterSignal(organ_owner, COMSIG_ATOM_EXPOSE_REAGENTS)
-
-
-/// Check if we drank a little blood
-/obj/item/organ/internal/stomach/corrupt/proc/on_drank(atom/source, list/reagents, methods)
-	SIGNAL_HANDLER
-	if(!(methods & REAGENT_INGEST))
-		return
-
-	var/contains_blood = locate(/datum/reagent/blood) in reagents
-	if(!contains_blood)
-		return
-
-	if(!thirst_satiated)
-		to_chat(source, span_cultitalic("The thirst is satisfied... for now."))
-
-	thirst_satiated = TRUE
-	deltimer(thirst_timer)
-	thirst_timer = addtimer(VARSET_CALLBACK(src, thirst_satiated, FALSE), 3 MINUTES, TIMER_STOPPABLE | TIMER_DELETE_ME)
-
-
-/obj/item/organ/internal/stomach/corrupt/handle_hunger(mob/living/carbon/human/human, seconds_per_tick, times_fired)
-	if(thirst_satiated || human.reagents.has_reagent("holywater"))
-		return ..()
-
-	human.adjust_nutrition(-1 * seconds_per_tick)
-
-	if(!COOLDOWN_FINISHED(src, message_cooldown))
-		return ..()
-
-	COOLDOWN_START(src, message_cooldown, 30 SECONDS)
-
-	var/static/list/blood_messages = list(
-		"Blood...",
-		"Everyone suddenly looks so tasty.",
-		"The blood...",
-		"There's an emptiness in you that only blood can fill.",
-		"You could really go for some blood right now.",
-		"You feel the blood rushing through your veins.",
-		"You think about biting someone's throat.",
-		"Your stomach growls and you feel a metallic taste in your mouth.",
-	)
-	to_chat(human, span_cultitalic(pick(blood_messages)))
-
-	return ..()
-*/
 
 /// Occasionally bombards you with spooky hands and lets everyone hear your pulse.
 /obj/item/organ/internal/heart/corrupt
-	name = "corrupt heart"
-	desc = "What corruption is this spreading along with the blood?"
+	name = "искажённое сердце"
+	ru_names = list(
+		NOMINATIVE = "искажённое сердце",
+		GENITIVE = "искажённого сердца",
+		DATIVE = "искажённому сердцу",
+		ACCUSATIVE = "искажённое сердце",
+		INSTRUMENTAL = "искажённым сердцем",
+		PREPOSITIONAL = "искажённом сердце"
+	)
+	desc = "Какая порча распространяется вместе с кровью?"
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// How long until the next heart?
 	COOLDOWN_DECLARE(hand_cooldown)
@@ -225,8 +187,17 @@
 
 /// Sometimes cough out some kind of dangerous gas
 /obj/item/organ/internal/lungs/corrupt
-	name = "corrupt lungs"
-	desc = "Some things SHOULD be drowned in tar."
+	name = "искаженные лёгкие"
+	ru_names = list(
+		NOMINATIVE = "искажённые лёгкие",
+		GENITIVE = "искажённых лёгких",
+		DATIVE = "искажённым лёгким",
+		ACCUSATIVE = "искажённые лёгкие",
+		INSTRUMENTAL = "искажёнными лёгкими",
+		PREPOSITIONAL = "искажённых лёгких"
+	)
+	desc = "Некоторые вещи ДОЛЖНЫ утонуть в смоле."
+	gender = PLURAL
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// How likely are we not to cough every time we take a breath?
 	var/cough_chance = 15
@@ -265,8 +236,17 @@
 
 /// It's full of worms
 /obj/item/organ/internal/appendix/corrupt
-	name = "corrupt appendix"
-	desc = "What kind of dark, cosmic force is even going to bother to corrupt an appendix?"
+	name = "искажённый аппендикс"
+	ru_names = list(
+		NOMINATIVE = "искажённый аппендикс",
+		GENITIVE = "искажённого аппендикса",
+		DATIVE = "искажённому аппендиксу",
+		ACCUSATIVE = "искажённый аппендикс",
+		INSTRUMENTAL = "искажённым аппендиксом",
+		PREPOSITIONAL = "искажённом аппендиксе"
+	)
+	desc = "Какая темная космическая сила вообще может захотеть испортить аппендикс?"
+	gender = MALE
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// How likely are we to spawn worms?
 	var/worm_chance = 2
@@ -275,7 +255,7 @@
 /obj/item/organ/internal/appendix/corrupt/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/corrupted_organ)
-	AddElement(/datum/element/noticable_organ, "%PRONOUN_Their abdomen is distended... and wiggling.", BODY_ZONE_PRECISE_GROIN)
+	AddElement(/datum/element/noticable_organ, "Живот вздут... и шевелится.", BODY_ZONE_PRECISE_GROIN)
 
 
 /obj/item/organ/internal/appendix/corrupt/on_life(seconds_per_tick, times_fired)
