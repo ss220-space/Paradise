@@ -1,3 +1,6 @@
+/// Helper to format the text that gets thrown onto the chem hud element.
+#define FORMAT_BLOODUSABLE_TEXT(bloodusable) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>")
+
 /datum/antagonist/vampire
 	name = "Vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
@@ -597,7 +600,7 @@
 		hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 		hud.static_inventory += hud.vampire_blood_display
 		hud.show_hud(hud.hud_version)
-	hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
+	hud.vampire_blood_display.maptext = FORMAT_BLOODUSABLE_TEXT(bloodusable)
 
 
 /datum/antagonist/vampire/proc/handle_vampire_cloak()
@@ -729,3 +732,6 @@
 	var/mob/living/user = ..()
 	user.faction -= ROLE_VAMPIRE
 	return user
+
+
+#undef FORMAT_BLOODUSABLE_TEXT

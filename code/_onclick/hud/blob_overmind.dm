@@ -7,6 +7,7 @@
 
 /atom/movable/screen/blob/MouseExited()
 	closeToolTip(usr)
+	return ..()
 
 /atom/movable/screen/blob/BlobHelp
 	icon_state = "ui_help"

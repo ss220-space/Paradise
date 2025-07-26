@@ -50,7 +50,7 @@
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
 	///UI for screentips that appear when you mouse over things
-	var/obj/screen/screentip/screentip_text
+	var/atom/movable/screen/screentip/screentip_text
 
 	/// Think of multiz as a stack of z levels. Each index in that stack has its own group of plane masters
 	/// This variable is the plane offset our mob/client is currently "on"
