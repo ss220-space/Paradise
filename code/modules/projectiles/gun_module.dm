@@ -266,18 +266,24 @@
 	var/hud_type
 
 /obj/item/gun_module/hud/on_attach(obj/item/gun/target_gun, mob/user)
-	RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(requip_gun_check))
+	RegisterSignal(target_gun, COMSIG_ITEM_EQUIPPED, PROC_REF(equip_gun_check))
+	RegisterSignal(target_gun, COMSIG_ITEM_DROPPED, PROC_REF(drop_gun_check))
 	if(user.is_in_hands(target_gun))
-		requip_gun_check(null, user, ITEM_SLOT_HANDS)
+		equip_gun_check(null, user, ITEM_SLOT_HANDS)
 
 /obj/item/gun_module/hud/on_detach(obj/item/gun/target_gun, mob/user)
-	UnregisterSignal(src, COMSIG_ITEM_EQUIPPED)
+	UnregisterSignal(target_gun, COMSIG_ITEM_EQUIPPED)
+	UnregisterSignal(target_gun, COMSIG_ITEM_DROPPED)
+	remove_hud(user)
 
-/obj/item/gun_module/hud/proc/requip_gun_check(datum/source, mob/user, slot)
+/obj/item/gun_module/hud/proc/equip_gun_check(datum/source, mob/user, slot)
 	if(!(slot & ITEM_SLOT_HANDS))
 		remove_hud(user)
 		return
 	grant_hud(user)
+
+/obj/item/gun_module/hud/proc/drop_gun_check(datum/source, mob/user)
+	remove_hud(user)
 
 /obj/item/gun_module/hud/proc/grant_hud(mob/user)
 	if(islist(hud_type))
