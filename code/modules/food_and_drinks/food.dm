@@ -103,11 +103,12 @@
 /obj/item/reagent_containers/food/proc/format_message(var/type, var/list/messages, var/datum/species/species)
 	var/plural = cmptext(type[length(type)], "s") ? "are" : "is"
 
+
 	var/with_type = replacetext(pick(messages), "$TYPE", type)
 	var/with_capital_type = replacetext(with_type, "$CAPITALTYPE", capitalize(type))
 	var/with_species = replacetext(with_capital_type, "$SPECIES", species.name)
 	var/with_plural_species = replacetext(with_species, "$PLURALSPECIES", species.name_plural)
-	var/with_a_species = replacetext(with_plural_species, "$ASPECIES", "[species.a] [species.name]")
+	var/with_a_species = replacetext(with_plural_species, "$ASPECIES", "[species.name]")
 	return replacetext(with_a_species, "$IS", plural)
 
 /obj/item/reagent_containers/food/proc/on_mob_eating_effect(mob/user)

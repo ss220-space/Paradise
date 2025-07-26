@@ -97,7 +97,7 @@
 		INSTRUMENTAL = "[name.declent_ru(INSTRUMENTAL)] ([thiscooktype])",
 		PREPOSITIONAL = "[name.declent_ru(PREPOSITIONAL)] ([thiscooktype])"
 	)
-	setme.desc = "[name.desc]. Это было [thiscooktype]."
+	setme.desc = "[name.desc] Это было [thiscooktype]."
 
 
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
@@ -105,7 +105,7 @@
 		return FALSE
 	. = TRUE
 	icon_state = onicon
-	to_chat(chef, span_notice("Вы положили [tocook.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]."))
+	to_chat(chef, span_notice("Вы положили [tocook.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 	on = 1
 
 

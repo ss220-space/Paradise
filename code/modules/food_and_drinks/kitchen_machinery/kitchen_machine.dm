@@ -158,7 +158,7 @@
 /obj/machinery/kitchen_machine/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
-		. += span_info("\n<b>Alt-ЛКМ</b> для активации.<br/><b>Ctrl+Shift+ЛКМ</b> для удаления содержимого.")
+		. += span_info("\n<b>Alt+ЛКМ</b> для активации.<br/><b>Ctrl+Shift+ЛКМ</b> для удаления содержимого.")
 
 /obj/machinery/kitchen_machine/click_alt(mob/living/carbon/human/human)
 	if(operating)

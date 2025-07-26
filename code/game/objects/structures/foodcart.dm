@@ -1,6 +1,14 @@
 /obj/structure/foodcart
 	name = "food cart"
-	desc = "A cart for transporting food and drinks."
+	desc = "Тележка для транспортировки еды и напитков."
+	ru_names = list(
+		NOMINATIVE = "тележка для еды",
+		GENITIVE = "тележки для еды",
+		DATIVE = "тележке для еды",
+		ACCUSATIVE = "тележку для еды",
+		INSTRUMENTAL = "тележкой для еды",
+		PREPOSITIONAL = "тележке для еды"
+	)
 	icon = 'icons/obj/foodcart.dmi'
 	icon_state = "cart"
 	anchored = FALSE
@@ -27,7 +35,7 @@
 /obj/structure/foodcart/proc/put_in_cart(obj/item/I, mob/user)
 	. = user.drop_transfer_item_to_loc(I, src)
 	if(.)
-		to_chat(user, span_notice("You put [I] into [src]."))
+		to_chat(user, span_notice("Вы кладёте [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 
 
 /obj/structure/foodcart/attackby(obj/item/I, mob/user, params)
@@ -44,7 +52,7 @@
 				updateUsrDialog()
 				return ATTACK_CHAIN_BLOCKED_ALL
 			return ..()
-		to_chat(user, span_warning("The [name]'s snacks compartment is full!"))
+		to_chat(user, span_warning("Отсек для закусок переполнен!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(istype(I, /obj/item/reagent_containers/food/drinks))
@@ -57,7 +65,7 @@
 				updateUsrDialog()
 				return ATTACK_CHAIN_BLOCKED_ALL
 			return ..()
-		to_chat(user, span_warning("The [name]'s drinks compartment is full!"))
+		to_chat(user, span_warning("Отсек для напитков переполнен!"))
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
@@ -66,22 +74,22 @@
 /obj/structure/foodcart/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(isinspace())
-		to_chat(user, span_warning("That was a dumb idea."))
+		to_chat(user, span_warning("Это было глупой затеей..."))
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	set_anchored(!anchored)
 	if(anchored)
 		user.visible_message(
-			span_notice("[user] tightens [name]'s casters."),
-			span_notice("You have tightened [name]'s casters."),
-			span_italics("You hear ratchet."),
+			span_notice("[user] затягива[pluralize_ru(user.gender,"ет","ют")] колёсики [declent_ru(GENITIVE)]."),
+			span_notice("Вы затянули колёсики [declent_ru(GENITIVE)]."),
+			span_italics("Слышится трещотка."),
 		)
 	else
 		user.visible_message(
-			span_notice("[user] loosens [name]'s casters."),
-			span_notice("You have loosened [name]'s casters."),
-			span_italics("You hear ratchet."),
+			span_notice("[user] ослабля[pluralize_ru(user.gender,"ет","ют")] колёсики [declent_ru(GENITIVE)]."),
+			span_notice("Вы ослабили колёсики [declent_ru(GENITIVE)]."),
+			span_italics("Слышится трещотка."),
 		)
 
 

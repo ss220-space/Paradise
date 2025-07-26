@@ -1,6 +1,6 @@
 /obj/machinery/cooker/deepfryer
 	name = "deep fryer"
-	desc = "Здесь можно <i>зафритюрить</i> что угодно."
+	desc = "Здесь можно <i>зафритюрить</i> что угодно!"
 	ru_names = list(
 		NOMINATIVE = "фритюрница",
 		GENITIVE = "фритюрницы",

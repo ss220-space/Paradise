@@ -25,7 +25,7 @@
 		INSTRUMENTAL = "изюмом \"1984\"",
 		PREPOSITIONAL = "изюме \"1984\""
 	)
-	icon_state= "4no_raisins"
+	icon_state= "1984_raisins"
 
 /obj/item/trash/candy
 	name = "Candy"

@@ -205,7 +205,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(state & (STATE_DISABLED|STATE_HACKED))
 		. += span_warning("На панели мигает красная лампочка...")
 	if(!(state & (STATE_OPENED|STATE_WORKING)) && (state & STATE_FULL))
-		. += span_info("<b>Alt-ЛКМ</b> чтобы запустить цикл стирки.")
+		. += span_info("<b>Alt+ЛКМ</b> чтобы запустить цикл стирки.")
 
 
 /obj/machinery/washing_machine/process(seconds_per_tick)

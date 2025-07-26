@@ -580,9 +580,17 @@
 ////////////////////////////////////////
 /obj/item/storage/bag/tray
 	name = "tray"
+	desc = "Металлический поднос, на который можно выкладывать еду. Ну или метнуть в буйного посетителя."
+	ru_names = list(
+		NOMINATIVE = "поднос",
+		GENITIVE = "подноса",
+		DATIVE = "подносу",
+		ACCUSATIVE = "поднос",
+		INSTRUMENTAL = "подносом",
+		PREPOSITIONAL = "подносе"
+	)
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
-	desc = "A metal tray to lay food on."
 	force = 5
 	throwforce = 10.0
 	throw_speed = 3
@@ -629,7 +637,7 @@
 	set category = STATPANEL_OBJECT
 	set src in usr
 
-	var/new_radius = tgui_input_number(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12)
+	var/new_radius = tgui_input_number(usr, "Выберите радиус размещения в диапазоне от 0 до 16 (в пикселях).", "с размещения", 12)
 	new_radius = clamp(new_radius, 0, 16)
 	placement_radius = new_radius
 
@@ -658,9 +666,15 @@
 
 		if(droppedSomething)
 			if(table)
-				user.visible_message(span_notice("[user] unloads [user.p_their()] service tray."))
+				user.visible_message(
+					span_notice("[user] выгружа[pluralize_ru(user.gender,"ет","ют")] всё с подноса на стол."),
+					span_notice("Вы выгружаете всё с вашего подноса на стол.")
+				)
 			else
-				user.visible_message(span_notice("[user] drops all the items on [user.p_their()] tray."))
+				user.visible_message(
+					span_notice("[user] роня[pluralize_ru(user.gender,"ет","ют")] все предметы с подноса."),
+					span_notice("Вы роняете все предметы с вашего подноса.")
+				)
 		update_icon(UPDATE_OVERLAYS)
 
 	return ..()

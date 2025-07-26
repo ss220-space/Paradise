@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 /obj/item/stack/marker_beacon/examine(mob/user)
 	. = ..()
 	. += span_notice("Используйте в руке, чтобы установить [declent_ru(ACCUSATIVE)].")
-	. += span_notice("Alt-ЛКМ для выбора цвета. Текущий цвет: [picked_color].")
+	. += span_notice("Alt+ЛКМ для выбора цвета. Текущий цвет: [picked_color].")
 
 /obj/item/stack/marker_beacon/update_icon_state()
 	icon_state = "[initial(icon_state)][lowertext(picked_color)]"
@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/structure/marker_beacon/examine(mob/user)
 	. = ..()
-	. += span_notice("Alt-ЛКМ для выбора цвета. Текущий цвет: [picked_color].")
+	. += span_notice("Alt+ЛКМ для выбора цвета. Текущий цвет: [picked_color].")
 
 
 /obj/structure/marker_beacon/update_icon_state()

@@ -230,7 +230,15 @@
 //Chef
 /obj/item/clothing/suit/chef/classic
 	name = "classic chef's apron"
-	desc = "A basic, dull, white chef's apron."
+	desc = "Простой, тусклый, белый фартук шеф-повара."
+	ru_names = list(
+		NOMINATIVE = "классический фартук шеф-повара",
+		GENITIVE = "классического фартука шеф-повара",
+		DATIVE = "классическому фартуку шеф-повара",
+		ACCUSATIVE = "классический фартук шеф-повара",
+		INSTRUMENTAL = "классическим фартуком шеф-повара",
+		PREPOSITIONAL = "классическом фартуке шеф-повара"
+	)
 	icon_state = "apronchef"
 	item_state = "apronchef"
 	blood_overlay_type = "armor"

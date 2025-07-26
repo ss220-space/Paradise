@@ -209,7 +209,7 @@
 
 /obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-ЛКМ</b> чтобы положить что-то маленькое внутрь.")
+	. += span_info("<b>Alt+ЛКМ</b> чтобы положить что-то маленькое внутрь.")
 
 /obj/item/reagent_containers/food/snacks/sliceable/click_alt(mob/living/user)
 	var/obj/item/I = user.get_active_hand()

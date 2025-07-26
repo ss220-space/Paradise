@@ -1120,7 +1120,15 @@
 
 /obj/item/storage/belt/chef
 	name = "culinary tool apron"
-	desc = "An apron with various pockets for holding all your cooking tools and equipment."
+	desc = "Фартук с различными карманами для хранения всех ваших кухонных принадлежностей и оборудования."
+	ru_names = list(
+		NOMINATIVE = "фартук повара",
+		GENITIVE = "фартука повара",
+		DATIVE = "фартуку повара",
+		ACCUSATIVE = "фартук повара",
+		INSTRUMENTAL = "фартуком повара",
+		PREPOSITIONAL = "фартуке повара"
+	)
 	icon_state = "chefbelt"
 	item_state = "chefbelt"
 	storage_slots = 10
