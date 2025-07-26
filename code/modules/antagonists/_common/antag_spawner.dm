@@ -19,6 +19,7 @@
 	var/borg_to_spawn
 	var/checking = FALSE
 	var/rolename = "Syndicate Operative"
+	var/image/poll_icon
 	var/poll_icon_file = 'icons/mob/simple_human.dmi'
 	var/poll_icon_state = "syndicate_space_sword"
 
