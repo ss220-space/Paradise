@@ -43,6 +43,7 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
+		arc_size = 180, \
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 0.75 SECONDS, \

@@ -150,7 +150,6 @@
 	AddComponent( \
 		/datum/component/cleave_attack, \
 		arc_size = 180, \
-		swing_speed_mod = 1.5, \
 		afterswing_slowdown = -0.25, \
 		slowdown_duration = 2 SECONDS, \
 		swing_sound = "katana_swing" \

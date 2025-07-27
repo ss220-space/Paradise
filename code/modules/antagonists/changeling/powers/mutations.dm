@@ -181,7 +181,6 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_speed_mod = 1.5, \
 		swing_sound = "blade_swing_light" \
 	)
 

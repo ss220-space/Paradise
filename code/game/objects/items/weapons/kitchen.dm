@@ -247,7 +247,6 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_speed_mod = 1.5, \
 		afterswing_slowdown = 0.15, \
 		no_multi_hit = TRUE, \
 		swing_sound = "chop_swing_light" \
@@ -280,7 +279,6 @@
 	AddComponent( \
 		/datum/component/cleave_attack, \
 		arc_size = 180, \
-		swing_speed_mod = 1.5, \
 		afterswing_slowdown = -0.2, \
 		slowdown_duration = 2 SECONDS, \
 		swing_sound = "chop_swing_light" \

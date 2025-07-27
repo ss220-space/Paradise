@@ -263,7 +263,6 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_speed_mod = 1.5, \
 		afterswing_slowdown = 0.15, \
 		no_multi_hit = TRUE, \
 		swing_sound = "blunt_swing_light" \

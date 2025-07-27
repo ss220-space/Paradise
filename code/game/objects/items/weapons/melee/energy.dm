@@ -142,7 +142,6 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_speed_mod = 1.5, \
 		afterswing_slowdown = 0, \
 		swing_sound = "energy_sword_swing" \
 	)
@@ -301,7 +300,6 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_speed_mod = 1.5, \
 		afterswing_slowdown = 0, \
 		swing_sound = "energy_sword_swing" \
 	)
