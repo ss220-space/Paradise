@@ -16,7 +16,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7)
 	)
 
 
@@ -35,7 +35,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 6),
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 9),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -1)
 	)
 
@@ -107,7 +107,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 4),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
 	)
 
@@ -162,8 +162,8 @@
 	gun_light_overlay = "sp8-light"
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 5),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 5),
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
 	)
 
@@ -197,7 +197,7 @@
 	can_flashlight = TRUE
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
 	)
 
@@ -216,7 +216,7 @@
 	can_flashlight = TRUE
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
 	)
 
@@ -235,7 +235,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 4),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -2)
 	)
 
@@ -267,6 +267,6 @@
 	actions_types = list(/datum/action/item_action/toggle_firemode)
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 4),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 5),
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 8)
 	)

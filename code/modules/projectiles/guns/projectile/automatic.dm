@@ -93,7 +93,7 @@
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 4)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3)
 	)
 
 //C-20r SMG//
@@ -113,7 +113,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 6)
 	)
 
 
@@ -152,8 +152,8 @@
 	gun_light_overlay = "wt-light"
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
 	)
 
 
@@ -186,8 +186,8 @@
 	gun_light_overlay = "SP-91-RC-light"
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 7)
 	)
 
 
@@ -214,8 +214,8 @@
 	burst_size = 4
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 15, "y" = 8),
-		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 11)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 14, "y" = 7),
+		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 12)
 	)
 
 //M-90gl Carbine//
@@ -235,8 +235,8 @@
 	fire_delay = 2
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 12, "y" = 7)
 	)
 
 
@@ -330,8 +330,8 @@
 	fire_delay = 1
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 22, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6)
 	)
 
 //AK-814 Soviet Assault Rifle

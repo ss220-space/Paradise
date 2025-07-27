@@ -7,13 +7,12 @@
 /obj/item/gun_module
 	name = "unknown gun module"
 	desc = "Неизветный модуль для оружия"
-	icon_state = "lace"
-	item_state = "lace"
+	icon = 'icons/obj/weapons/attachments.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=2;engineering=2"
 	var/slot
 	var/class
-	var/overlay_state = "lace"
+	var/overlay_state = "comp"
 	var/overlay_offset
 
 
@@ -81,10 +80,10 @@
 		INSTRUMENTAL = "универсальным глушителем",
 		PREPOSITIONAL = "универсальном глушителе"
 	)
-	icon = 'icons/obj/weapons/attachments/muzzle.dmi'
-	icon_state = "suppressor"
-	item_state = "suppressor"
-	overlay_state = "suppressor"
+	icon_state = "supp"
+	item_state = "supp"
+	overlay_state = "supp"
+	overlay_offset = list("x" = -1, "y" = 0)
 	slot = ATTACHMENT_SLOT_MUZZLE
 	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
 	origin_tech = "combat=2;engineering=2"
@@ -119,11 +118,10 @@
 		INSTRUMENTAL = "универсальным пламегасителем",
 		PREPOSITIONAL = "универсальном пламегасителе"
 	)
-	icon = 'icons/obj/weapons/attachments/muzzle.dmi'
 	icon_state = "comp"
 	item_state = "comp"
 	overlay_state = "comp"
-	overlay_offset = list("x" = -2, "y" = 0)
+	overlay_offset = list("x" = -3, "y" = 0)
 	slot = ATTACHMENT_SLOT_MUZZLE
 	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
 	origin_tech = "combat=2;engineering=2"
@@ -154,12 +152,8 @@
 //----------------------------------------------------------
 
 /obj/item/gun_module/scope
-	icon = 'icons/obj/weapons/attachments/scope.dmi'
 	slot = ATTACHMENT_SLOT_RAIL
 	origin_tech = "combat=3;engineering=4"
-	icon_state = "pmc"
-	item_state = "pmc"
-	overlay_state = "pmc"
 	/// 'zoom' distance
 	var/zoom_amount = 1
 	/// bonus accuracy for gun
@@ -193,9 +187,10 @@
 		INSTRUMENTAL = "коллиматорным прицелом",
 		PREPOSITIONAL = "коллиматорном прицеле"
 	)
-	icon_state = "t37"
-	item_state = "t37"
-	overlay_state = "t37"
+	icon_state = "coll"
+	item_state = "coll"
+	overlay_state = "coll"
+	overlay_offset = list("x" = -5, "y" = 0)
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 3
 	bonus_accuracy = 10
@@ -211,9 +206,10 @@
 		INSTRUMENTAL = "оптическим прицелом х4",
 		PREPOSITIONAL = "оптическом прицеле х4"
 	)
-	icon_state = "mosin"
-	item_state = "mosin"
-	overlay_state = "mosin"
+	icon_state = "x4"
+	item_state = "x4"
+	overlay_state = "x4"
+	overlay_offset = list("x" = -5, "y" = 0)
 	class = GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 5
 	bonus_accuracy = 20
@@ -229,9 +225,10 @@
 		INSTRUMENTAL = "оптическим прицелом х8",
 		PREPOSITIONAL = "оптическом прицеле х8"
 	)
-	icon_state = "tes"
-	item_state = "tes"
-	overlay_state = "tes"
+	icon_state = "x8"
+	item_state = "x8"
+	overlay_state = "x8"
+	overlay_offset = list("x" = -5, "y" = 0)
 	class = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 7
 	bonus_accuracy = 30
@@ -247,22 +244,18 @@
 		INSTRUMENTAL = "оптическим прицелом х16",
 		PREPOSITIONAL = "оптическом прицеле х16"
 	)
-	icon_state = "tl127_a"
-	item_state = "tl127_a"
-	overlay_state = "tl127_a"
-	overlay_offset = list("x" = 0, "y" = 1)
-	class = GUN_MODULE_CLASS_SNIPER_RAIL
+	icon_state = "x16"
+	item_state = "x16"
+	overlay_state = "x16"
+	overlay_offset = list("x" = -3, "y" = 0)
+	class = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 11
 	bonus_accuracy = 50
 
 
 /obj/item/gun_module/hud
-	icon = 'icons/obj/weapons/attachments/scope.dmi'
 	slot = ATTACHMENT_SLOT_RAIL
 	origin_tech = "combat=3;engineering=4"
-	icon_state = "pmc"
-	item_state = "pmc"
-	overlay_state = "pmc"
 	var/hud_type
 
 /obj/item/gun_module/hud/on_attach(obj/item/gun/target_gun, mob/user)
@@ -315,9 +308,10 @@
 		INSTRUMENTAL = "медицинским коллиматором",
 		PREPOSITIONAL = "медицинском коллиматоре"
 	)
-	icon_state = "pmc"
-	item_state = "pmc"
-	overlay_state = "pmc"
+	icon_state = "coll"
+	item_state = "coll"
+	overlay_state = "coll"
+	overlay_offset = list("x" = -5, "y" = 0)
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 
@@ -332,9 +326,10 @@
 		INSTRUMENTAL = "худ СБ коллиматором",
 		PREPOSITIONAL = "худ СБ коллиматоре"
 	)
-	icon_state = "pmc"
-	item_state = "pmc"
-	overlay_state = "pmc"
+	icon_state = "coll_p"
+	item_state = "coll_p"
+	overlay_state = "coll_p"
+	overlay_offset = list("x" = -5, "y" = 0)
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 
