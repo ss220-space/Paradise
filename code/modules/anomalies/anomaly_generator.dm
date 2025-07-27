@@ -66,6 +66,7 @@
 	beacon = new(src)
 	selected_beacon = beacon
 	component_parts = list()
+	powernet = find_powernet()
 	component_parts += new /obj/item/circuitboard/anomaly_generator
 	component_parts += new /obj/item/stock_parts/matter_bin
 	component_parts += new /obj/item/stock_parts/matter_bin
@@ -74,8 +75,8 @@
 	component_parts += new /obj/item/stock_parts/capacitor
 	RefreshParts()
 
-/obj/machinery/power/anomaly_generator/upgraded/Initialize()
-	..()
+/obj/machinery/power/anomaly_generator/upgraded/Initialize(mapload)
+	. = ..()
 	LAZYCLEARLIST(component_parts)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/anomaly_generator
@@ -85,10 +86,6 @@
 	component_parts += new /obj/item/stock_parts/capacitor/quadratic
 	component_parts += new /obj/item/stock_parts/capacitor/quadratic
 	RefreshParts()
-
-/obj/machinery/power/anomaly_generator/Initialize(mapload)
-	. = ..()
-	powernet = find_powernet()
 
 /obj/machinery/power/anomaly_generator/Destroy()
 	qdel(beacon)

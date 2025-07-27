@@ -104,7 +104,7 @@
 	RefreshParts()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/r_n_d/experimentor/LateInitialize()
+/obj/machinery/r_n_d/experimentor/LateInitialize(mapload)
 	. = ..()
 	// GLOB.mob_living_list gets populated in /mob/Initialize()
 	// so we need to delay searching for those until after the Initialize()

@@ -14,7 +14,7 @@
 	projectile_range = 30
 
 
-/obj/item/gun/throw/piecannon/Initialize()
+/obj/item/gun/throw/piecannon/Initialize(mapload)
 	. = ..()
 	for(var/i in 1 to max_capacity)
 		var/obj/item/reagent_containers/food/snacks/pie/P = new /obj/item/reagent_containers/food/snacks/pie(src)
@@ -36,4 +36,4 @@
 
 /obj/item/gun/throw/piecannon/process_chamber()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)

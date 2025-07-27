@@ -1361,7 +1361,7 @@
 		PREPOSITIONAL = "случайном костюме боевых искусств"
 	)
 
-/obj/item/clothing/under/martialsuit/random/Initialize()
+/obj/item/clothing/under/martialsuit/random/Initialize(mapload)
 	. = ..()
 	var/suit = pick(subtypesof(/obj/item/clothing/under/martialsuit))
 	new suit(loc)

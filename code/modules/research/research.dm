@@ -470,7 +470,7 @@ datum/tech/robotics
 	desc = "A gift from the Liberator."
 	icon_state = "datadisk1"
 
-/obj/item/disk/design_disk/golem_shell/Initialize()
+/obj/item/disk/design_disk/golem_shell/Initialize(mapload)
 	. = ..()
 	var/datum/design/golem_shell/G = new
 	blueprint = G
@@ -483,7 +483,7 @@ datum/tech/robotics
 	icon_state = "datadisk5"
 	var/design_type
 
-/obj/item/disk/design_disk/station_goal_machinery/Initialize()
+/obj/item/disk/design_disk/station_goal_machinery/Initialize(mapload)
 	. = ..()
 	if(isnull(design_type))
 		return INITIALIZE_HINT_QDEL

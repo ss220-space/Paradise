@@ -22,7 +22,7 @@
 	var/damageSound = null
 	var/is_opaque = TRUE
 
-/obj/structure/mineral_door/Initialize()
+/obj/structure/mineral_door/Initialize(mapload)
 	. = ..()
 	initial_state = icon_state
 	air_update_turf(1)

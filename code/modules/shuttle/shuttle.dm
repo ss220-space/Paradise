@@ -255,8 +255,8 @@
 	var/obj/docking_port/stationary/previous
 	var/obj/docking_port/stationary/transit/assigned_transit
 
-/obj/docking_port/mobile/New()
-	..()
+/obj/docking_port/mobile/Initialize(mapload)
+	. = ..()
 
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
@@ -273,7 +273,6 @@
 	highlight("#0f0")
 	#endif
 
-/obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
 	shuttle_areas = list()
@@ -283,7 +282,6 @@
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
 			shuttle_areas[cur_area] = TRUE
-	. = ..()
 
 /obj/docking_port/mobile/register()
 	if(!SSshuttle)

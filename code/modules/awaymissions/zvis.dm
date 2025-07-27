@@ -16,8 +16,8 @@
 	..()
 	levels += src
 
-/obj/effect/levelref/Initialize()
-	..()
+/obj/effect/levelref/Initialize(mapload)
+	. = ..()
 	for(var/obj/effect/levelref/O in levels)
 		if(id == O.id && O != src)
 			other = O

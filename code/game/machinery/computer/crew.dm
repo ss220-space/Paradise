@@ -18,7 +18,7 @@
 	circuit = /obj/item/circuitboard/crew
 	var/datum/ui_module/crew_monitor/crew_monitor
 
-/obj/machinery/computer/crew/Initialize()
+/obj/machinery/computer/crew/Initialize(mapload)
 	. = ..()
 	crew_monitor = new(src)
 

@@ -33,11 +33,11 @@
 	smooth = SMOOTH_BITMASK
 
 
-/obj/structure/wryn/wax/Initialize()
+/obj/structure/wryn/wax/Initialize(mapload)
 	if(usr)
 		add_fingerprint(usr)
 	air_update_turf(1)
-	..()
+	. = ..()
 
 /obj/structure/wryn/wax/Destroy()
 	var/turf/T = get_turf(src)

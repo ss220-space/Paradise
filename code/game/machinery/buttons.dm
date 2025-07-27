@@ -22,7 +22,7 @@
 
 	multitool_menu_type = /datum/multitool_menu/idtag/driver_button
 
-/obj/machinery/driver_button/Initialize(mapload, place_dir)
+/obj/machinery/driver_button/Initialize(mapload, w_dir = null)
 	. = ..()
 	switch(w_dir)
 		if(NORTH)
@@ -35,10 +35,6 @@
 			pixel_x = -25
 	if(SSradio)
 		set_frequency(frequency)
-
-/obj/machinery/driver_button/Initialize(mapload)
-	. = ..()
-	set_frequency(frequency)
 
 /obj/machinery/driver_button/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)

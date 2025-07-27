@@ -241,25 +241,25 @@
 
 /obj/item/paper/researchnotes/mat_bio_prog
 
-/obj/item/paper/researchnotes/mat_bio_prog/Initialize()
-	..()
+/obj/item/paper/researchnotes/mat_bio_prog/Initialize(mapload)
+	. = ..()
 	var/list/possible_techs = list("materials", "biotech", "programming")
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(6, 8)
 	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"
 
-/obj/structure/safe/random_researchnotes_MatBioProg/Initialize()
+/obj/structure/safe/random_researchnotes_MatBioProg/Initialize(mapload)
 	var/tech_spawn = pick(list(/obj/item/paper/researchnotes/mat_bio_prog))
 	new tech_spawn(loc)
 	return ..()
 
-/obj/structure/safe/floor/random_researchnotes_MatBioProg/Initialize()
+/obj/structure/safe/floor/random_researchnotes_MatBioProg/Initialize(mapload)
 	var/tech_spawn = pick(list(/obj/item/paper/researchnotes/mat_bio_prog))
 	new tech_spawn(loc)
 	return ..()
 
-/obj/structure/safe/random_documents/Initialize()
+/obj/structure/safe/random_documents/Initialize(mapload)
 	var/doc_spawn = pick(list(/obj/item/documents, /obj/item/documents/nanotrasen, /obj/item/documents/syndicate, /obj/item/documents/syndicate/yellow/trapped))
 	new doc_spawn(loc)
 	return ..()
@@ -403,7 +403,7 @@
 	<br> Время отведенное на выполнение задачи <b>72 часа</b> с момента получения директивы. <br><br><i>	Оперативный штаб специальных операций</i>"
 
 
-/obj/item/paper/gorky17/orders/Initialize()
+/obj/item/paper/gorky17/orders/Initialize(mapload)
 	. = ..()
 	stamp(/obj/item/stamp/ussp)
 
@@ -506,7 +506,7 @@
 	disable_sensors = TRUE
 	outfit = /datum/outfit/usspconscript_corpse
 
-/obj/effect/mob_spawn/human/corpse/usspconscript/Initialize()
+/obj/effect/mob_spawn/human/corpse/usspconscript/Initialize(mapload)
 	brute_damage = rand(0, 400)
 	burn_damage = rand(0, 400)
 	return ..()

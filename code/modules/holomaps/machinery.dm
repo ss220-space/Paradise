@@ -40,7 +40,7 @@
 	/// The various images and icons for the map are stored in here, as well as the actual big map itself.
 	var/datum/station_holomap/holomap_datum
 
-/obj/machinery/station_map/Initialize()
+/obj/machinery/station_map/Initialize(mapload)
 	if(!current_z_level)
 		current_z_level = loc.z
 	SSholomaps.station_holomaps += src

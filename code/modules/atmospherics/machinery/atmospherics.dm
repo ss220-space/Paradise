@@ -61,7 +61,7 @@ Pipelines + Other Objects -> Pipe network
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
 
-/obj/machinery/atmospherics/Initialize()
+/obj/machinery/atmospherics/Initialize(mapload)
 	. = ..()
 	SSair.atmos_machinery += src
 

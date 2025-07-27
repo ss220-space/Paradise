@@ -46,7 +46,7 @@
 
 	GLOB.celltimers_list += src
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
+	Radio.listening = FALSE
 	Radio.config(list(SEC_FREQ_NAME = 0))
 	Radio.follow_target = src
 
@@ -54,10 +54,10 @@
 
 
 /obj/machinery/door_timer/Destroy()
-	GLOB.celltimers_list -= src
 	QDEL_NULL(Radio)
 	targets.Cut()
 	prisoner = null
+	GLOB.celltimers_list -= src
 	return ..()
 
 

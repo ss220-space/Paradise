@@ -224,7 +224,7 @@
 	name = "CentComm. Central R&D Database"
 	server_id = -1
 
-/obj/machinery/r_n_d/server/centcom/Initialize()
+/obj/machinery/r_n_d/server/centcom/Initialize(mapload)
 	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()
@@ -264,7 +264,7 @@
 	var/badmin = 0
 	var/syndicate = 0 //добавленный для синдибазы флаг
 
-/obj/machinery/computer/rdservercontrol/Initialize()
+/obj/machinery/computer/rdservercontrol/Initialize(mapload)
 	. = ..()
 	if(is_taipan(z))
 		syndicate = 1

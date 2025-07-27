@@ -550,7 +550,7 @@
 	resistance_flags = LAVA_PROOF
 	gender = PLURAL
 
-/obj/structure/flora/ausbushes/fullgrass/hell/Initialize()
+/obj/structure/flora/ausbushes/fullgrass/hell/Initialize(mapload)
 	. = ..()
 	icon_state = "fullgrass_[rand(1, 3)]"
 	light_color = pick("#e87800", "#780606")
@@ -564,7 +564,7 @@
 	resistance_flags = LAVA_PROOF
 	gender = PLURAL
 
-/obj/structure/flora/ausbushes/sparsegrass/hell/Initialize()
+/obj/structure/flora/ausbushes/sparsegrass/hell/Initialize(mapload)
 	. = ..()
 	icon_state = "sparsegrass_[rand(1, 3)]"
 	light_color = pick("#e87800", "#780606")
@@ -586,7 +586,7 @@
 	light_power = 1
 	resistance_flags = LAVA_PROOF
 
-/obj/structure/flora/ausbushes/hell/Initialize()
+/obj/structure/flora/ausbushes/hell/Initialize(mapload)
 	. = ..()
 	if(icon_state == "firstbush_1")
 		icon_state = "firstbush_[rand(1, 4)]"
@@ -600,7 +600,7 @@
 	light_power = 1
 	resistance_flags = LAVA_PROOF
 
-/obj/structure/flora/ausbushes/fernybush/hell/Initialize()
+/obj/structure/flora/ausbushes/fernybush/hell/Initialize(mapload)
 	. = ..()
 	icon_state = "fernybush_[rand(1, 3)]"
 	light_color = pick("#e87800", "#780606")
@@ -613,7 +613,7 @@
 	light_power = 2
 	resistance_flags = LAVA_PROOF
 
-/obj/structure/flora/ausbushes/genericbush/hell/Initialize()
+/obj/structure/flora/ausbushes/genericbush/hell/Initialize(mapload)
 	. = ..()
 	icon_state = "genericbush_[rand(1, 4)]"
 	light_color = pick("#e87800", "#780606")

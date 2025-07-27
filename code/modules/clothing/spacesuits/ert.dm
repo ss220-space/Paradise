@@ -17,12 +17,12 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
-/obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize(mapload)
+	. = ..()
 	if(loc)
 		var/mob/living/carbon/human/wearer = loc.loc	//loc is the hardsuit, so its loc is the wearer
 		if(ishuman(wearer))
 			register_camera(wearer)
-	..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self(mob/user)
 	if(camera || !has_camera)
@@ -373,12 +373,12 @@
 	var/has_camera = TRUE
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form", SPECIES_VOX)
 
-/obj/item/clothing/head/helmet/space/ert_eva_amber/Initialize()
+/obj/item/clothing/head/helmet/space/ert_eva_amber/Initialize(mapload)
+	. = ..()
 	if(loc)
 		var/mob/living/carbon/human/wearer = loc.loc	//loc is the hardsuit, so its loc is the wearer
 		if(ishuman(wearer))
 			register_camera(wearer)
-	. = ..()
 
 /obj/item/clothing/head/helmet/space/ert_eva_amber/attack_self(mob/user)
 	if(camera || !has_camera)

@@ -108,7 +108,7 @@
 	bayonet_y_offset = 12
 
 
-/obj/item/gun/projectile/automatic/c20r/Initialize()
+/obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
 	. = ..()
 	update_icon()
 

@@ -225,8 +225,8 @@
 //code stolen from bluespace_tap, including comment below. He was right about the new datum
 //code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 //TODO: Replace this,bsa and gravgen with some big machinery datum
-/obj/machinery/power/bfl_emitter/Initialize()
-	.=..()
+/obj/machinery/power/bfl_emitter/Initialize(mapload)
+	. = ..()
 	lavaland_z_lvl = level_name_to_num(MINING)
 	pixel_x = -32
 	pixel_y = 0
@@ -520,7 +520,7 @@
 	update_icon()
 
 
-/obj/machinery/bfl_lens/Initialize()
+/obj/machinery/bfl_lens/Initialize(mapload)
 	. = ..()
 	pixel_x = -32
 	pixel_y = -32
@@ -528,7 +528,7 @@
 
 /obj/machinery/bfl_lens/Destroy()
 	visible_message(span_danger("Линза разлетается на миллионы осколков!"))
-	playsound(src, "shatter", 70, 1)
+	playsound(src, "shatter", 70, TRUE)
 	return ..()
 
 

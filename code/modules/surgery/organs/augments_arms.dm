@@ -15,7 +15,7 @@
 	var/sound_on = 'sound/mecha/mechmove03.ogg'
 	var/sound_off = 'sound/mecha/mechmove03.ogg'
 
-/obj/item/organ/internal/cyberimp/arm/Initialize()
+/obj/item/organ/internal/cyberimp/arm/Initialize(mapload)
 	. = ..()
 	if(ispath(active_item))
 		active_item = new active_item(src)
@@ -285,7 +285,7 @@
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "flash")
 
-/obj/item/organ/internal/cyberimp/arm/flash/Initialize()
+/obj/item/organ/internal/cyberimp/arm/flash/Initialize(mapload)
 	. = ..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list

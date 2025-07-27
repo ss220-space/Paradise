@@ -19,7 +19,7 @@
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/datum/effect_system/spark_spread/spark_system
 
-/obj/item/melee/powerfist/Initialize()
+/obj/item/melee/powerfist/Initialize(mapload)
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)

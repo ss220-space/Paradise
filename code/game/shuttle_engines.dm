@@ -57,7 +57,7 @@
 //	bound_height = 64
 	appearance_flags = LONG_GLIDE
 
-/obj/structure/shuttle/engine/large/Initialize()
+/obj/structure/shuttle/engine/large/Initialize(mapload)
 	. = ..()
 	var/list/occupied = list()
 	for(var/direct in list(EAST,NORTH,NORTHEAST))
@@ -80,7 +80,7 @@
 //	bound_height = 96
 	appearance_flags = LONG_GLIDE
 
-/obj/structure/shuttle/engine/huge/Initialize()
+/obj/structure/shuttle/engine/huge/Initialize(mapload)
 	. = ..()
 	var/list/occupied = list()
 	for(var/direct in list(EAST,WEST,NORTH,SOUTH,SOUTHEAST,SOUTHWEST,NORTHEAST,NORTHWEST))
