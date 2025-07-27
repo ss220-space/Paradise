@@ -77,6 +77,7 @@
 		JOB_TITLE_OFFICER = "secradio",
 		JOB_TITLE_PILOT = "secradio",
 		JOB_TITLE_WARDEN = "secradio",
+		JOB_TITLE_PRISONER = "prisradio",
 		// Supply
 		JOB_TITLE_QUARTERMASTER = "supradio",
 		JOB_TITLE_CARGOTECH = "supradio",

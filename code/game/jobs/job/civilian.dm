@@ -55,7 +55,7 @@
 	head = /obj/item/clothing/head/prison
 	uniform = /obj/item/clothing/under/prison
 	shoes = /obj/item/clothing/shoes/prison
-	l_ear = /obj/item/radio/headset
+	l_ear = /obj/item/radio/headset/prisoner
 
 
 /datum/job/civilian/prisoner/after_spawn(mob/living/carbon/human/human)
