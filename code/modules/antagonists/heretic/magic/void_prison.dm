@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/void_prison
-	name = "Пустотная Тюрьма"
+	name = "Пустотная тюрьма"
 	desc = "Отправляет врага в пустоту на 10 секунд. \
 			В течение этого времени он не сможет выполнять никаких действий. \
 			После этого он будет заморожен и возвращен в мир смертных."
@@ -17,7 +17,7 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-	invocation = "П'СТ'ТН Т'РЬМ!"
+	invocation = "Т ТПР'ВЛ'ШЬС В П'Д'ЛЬСК!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 

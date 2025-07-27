@@ -1299,6 +1299,7 @@
 	#define COMPONENT_PREVENT_LIMB_DAMAGE (1 << 0)
 ///from /datum/component/on_hit_effect/send_signal(): (user, target, hit_zone)
 #define COMSIG_ON_HIT_EFFECT "comsig_on_hit_effect"
+#define COMSIG_ITEM_HARVESTED_SOMEBODY "item_harvested_somebody"
 
 
 // /datum/component/storage signals

@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/ethereal_jaunt/ash
-	name = "Врата Пепла"
+	name = "Врата пепла"
 	desc = "Заклинание позволяющее в течении очень маленького промежутка времени проходить сквозь стены."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"

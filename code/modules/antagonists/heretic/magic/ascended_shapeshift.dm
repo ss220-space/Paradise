@@ -1,6 +1,6 @@
 // Given to ascended knock heretics, is a form of shapeshift that can turn into all 4 common heretic summons, and is not limited to 1 selection.
 /obj/effect/proc_holder/spell/shapeshift/eldritch/ascension
-	name = "Высший Полиморфизм"
+	name = "Высший полиморфизм"
 	desc = "Заклинание, позволяющее вам принять облик другого сверхъестественного \
 			существа, приобретая его способности. Вы можете изменить свой выбор в \
 			любой момент, и если ваша форма умрёт, вы не умрёте."

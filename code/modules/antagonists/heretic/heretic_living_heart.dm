@@ -66,8 +66,8 @@
  * Allows a heretic to track sacrifice targets.
  */
 /obj/effect/proc_holder/spell/track_target
-	name = "Биение Живого Сердца"
-	desc = "ЛКМ: Выберите одну из целей жертвоприношения для отслеживания. ПКМ: Выбирает последнюю цель."
+	name = "Биение живого сердца"
+	desc = "ЛКМ: Выберите одну из целей жертвоприношения для отслеживания.\nСКМ: Выбирает последнюю цель."
 	stat_allowed = CONSCIOUS
 	action_background_icon_state = "bg_heretic"
 	action_icon = 'icons/obj/eldritch.dmi'

@@ -322,25 +322,40 @@
 /datum/action/item_action/set_internals
 	name = "Переключить баллон"
 
+
 /datum/action/item_action/set_internals/UpdateButtonIcon()
-	if(..()) //button available
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			if(target == C.internal)
-				button.icon = 'icons/mob/actions/actions.dmi'
-				button.icon_state = "bg_default_on"
+	if(!..()) //button available
+		return
+
+	if(!iscarbon(owner))
+		return
+
+	var/mob/living/carbon/C = owner
+	if(target != C.internal)
+		return
+
+	button.icon = 'icons/mob/actions/actions.dmi'
+	button.icon_state = "bg_default_on"
+
 
 /datum/action/item_action/set_internals_ninja
 	name = "Переключить баллон"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
+
 /datum/action/item_action/set_internals_ninja/UpdateButtonIcon()
-	if(..()) //button available
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			if(target == C.internal)
-				button.icon_state = "[background_icon_state]_active"
+	if(!..()) //button available
+		return
+
+	if(!iscarbon(owner))
+		return
+
+	var/mob/living/carbon/C = owner
+	if(target != C.internal)
+		return
+
+	button.icon_state = "[background_icon_state]_active"
 
 
 /datum/action/item_action/toggle_mister

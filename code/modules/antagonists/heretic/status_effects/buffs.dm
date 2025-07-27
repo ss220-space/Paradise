@@ -29,7 +29,8 @@
 	owner.forceMove(location)
 	location = null
 	cancel_button.Remove(owner)
-	
+	cancel_button = null
+
 
 /datum/status_effect/crucible_soul/get_examine_text()
 	return span_notice("Не похоже что [genderize_ru(owner.gender, "он", "она", "оно", "они")] действительно здесь наход[pluralize_ru(owner.gender, "и", "я")]тся.")
@@ -41,6 +42,11 @@
 	button_icon = 'icons/obj/eldritch.dmi'
 	button_icon_state = "crucible_soul"
 
+
+/datum/action/cancel_crucible_soul/Grant(mob/user)
+	. = ..()
+	UpdateButtonIcon()
+
 /datum/action/cancel_crucible_soul/Trigger(left_click = TRUE, trigger_flags)
 	. = ..()
 	if(!.)
@@ -50,22 +56,26 @@
 	target = active_effect
 	qdel(target)
 
+
 // DUSK AND DAWN
 /datum/status_effect/duskndawn
 	id = "Blessing of Dusk and Dawn"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 90 SECONDS
 	//show_duration = TRUE
-	alert_type =/atom/movable/screen/alert/status_effect/duskndawn
+	alert_type = /atom/movable/screen/alert/status_effect/duskndawn
+
 
 /datum/status_effect/duskndawn/on_apply()
 	ADD_TRAIT(owner, TRAIT_XRAY, TRAIT_STATUS_EFFECT(id))
 	owner.update_sight()
 	return TRUE
 
+
 /datum/status_effect/duskndawn/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_XRAY, TRAIT_STATUS_EFFECT(id))
 	owner.update_sight()
+
 
 // WOUNDED SOLDIER
 /datum/status_effect/marshal
@@ -75,9 +85,11 @@
 	//show_duration = TRUE
 	alert_type = /atom/movable/screen/alert/status_effect/marshal
 
+
 /datum/status_effect/marshal/on_apply()
 	owner.add_movespeed_mod_immunities(id, /datum/movespeed_modifier/damage_slowdown)
 	return TRUE
+
 
 /datum/status_effect/marshal/on_remove()
 	owner.remove_movespeed_mod_immunities(id, /datum/movespeed_modifier/damage_slowdown)
@@ -96,11 +108,14 @@
 
 		missing_bodyparts += limb_zone
 
-	if(length(missing_bodyparts))
-		drinker.dna.species.create_organs(drinker, missing_bodyparts)
-		to_chat(drinker, span_purple("Мансус вернул вам [missing_bodyparts.len == 1 ? "утерянную конечность" : "утерянные конечности"]."))
+	if(!length(missing_bodyparts))
+		playsound(drinker, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
+		return
 
+	drinker.dna.species.create_organs(drinker, missing_bodyparts)
+	to_chat(drinker, span_purple("Мансус вернул вам [missing_bodyparts.len == 1 ? "утерянную конечность" : "утерянные конечности"]."))
 	playsound(drinker, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
+
 
 /datum/status_effect/marshal/tick(seconds_between_ticks)
 	if(!iscarbon(owner))
@@ -120,16 +135,19 @@
 	desc = "Вы прошли сквозь ткань реальности. Вы на полпути к конечному пункту назначения..."
 	icon_state = "crucible"
 
+
 /atom/movable/screen/alert/status_effect/duskndawn
 	name = "Благословение заката и рассвета"
 	desc = "Многое скрыто за горизонтом. С помощью Совы мне удалось проскользнуть мимо стражи Солнца и часового Луны."
 	icon_state = "duskndawn"
+
 
 /atom/movable/screen/alert/status_effect/marshal
 	name = "Благословение раненого солдата"
 	desc = "Некоторые люди ищут силу через искупление. Многие люди не знают, что битва \
 			— это окончательное искупление, а раны позволяют вам наслаждаться вечной славой."
 	icon_state = "wounded_soldier"
+
 
 // BLADES
 
@@ -153,6 +171,7 @@
 	/// A list of blade effects orbiting / protecting our owner
 	var/list/obj/effect/floating_blade/blades = list()
 
+
 /datum/status_effect/protective_blades/on_creation(
 	mob/living/new_owner,
 	new_duration = -1,
@@ -169,22 +188,25 @@
 	src.blade_type = blade_type
 	return ..()
 
+
 /datum/status_effect/protective_blades/on_apply()
 	RegisterSignal(owner, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(on_shield_reaction))
 	for(var/blade_num in 1 to max_num_blades)
 		var/time_until_created = (blade_num - 1) * time_between_initial_blades
 		if(time_until_created <= 0)
 			create_blade()
-		else
-			addtimer(CALLBACK(src, PROC_REF(create_blade)), time_until_created)
+			continue
+
+		addtimer(CALLBACK(src, PROC_REF(create_blade)), time_until_created)
 
 	return TRUE
+
 
 /datum/status_effect/protective_blades/on_remove()
 	UnregisterSignal(owner, COMSIG_HUMAN_CHECK_SHIELDS)
 	QDEL_LIST(blades)
-
 	return ..()
+
 
 /// Creates a floating blade, adds it to our blade list, and makes it orbit our owner.
 /datum/status_effect/protective_blades/proc/create_blade()
@@ -196,6 +218,7 @@
 	INVOKE_ASYNC(blade, TYPE_PROC_REF(/atom/movable, orbit), owner, blade_orbit_radius)
 	RegisterSignal(blade, COMSIG_QDELETING, PROC_REF(remove_blade))
 	playsound(get_turf(owner), 'sound/items/unsheath.ogg', 33, TRUE)
+
 
 /// Signal proc for [COMSIG_LIVING_CHECK_BLOCK].
 /// If we have a blade in our list, consume it and block the incoming attack (shield it)
@@ -221,7 +244,6 @@
 	addtimer(TRAIT_CALLBACK_REMOVE(source, TRAIT_BEING_BLADE_SHIELDED, TRAIT_STATUS_EFFECT(id)), 0.1 SECONDS)
 
 	var/obj/effect/floating_blade/to_remove = blades[1]
-
 	playsound(get_turf(source), 'sound/weapons/parry.ogg', 100, TRUE)
 	var/atom/atom_source = source
 	source.visible_message(
@@ -231,8 +253,8 @@
 	)
 
 	qdel(to_remove)
-
 	return SHIELD_BLOCK
+
 
 /// Remove deleted blades from our blades list properly.
 /datum/status_effect/protective_blades/proc/remove_blade(obj/effect/floating_blade/to_remove)
@@ -244,10 +266,12 @@
 	to_remove.stop_orbit(owner.orbiters)
 	blades -= to_remove
 
-	if(!length(blades) && !QDELETED(src) && delete_on_blades_gone)
-		qdel(src)
+	if(length(blades) || QDELETED(src) || !delete_on_blades_gone)
+		return TRUE
 
+	qdel(src)
 	return TRUE
+
 
 /// A subtype that doesn't self-delete / disappear when all blades are gone
 /// It instead regenerates over time back to the max after blades are consumed
@@ -255,6 +279,7 @@
 	delete_on_blades_gone = FALSE
 	/// The amount of time it takes for a blade to recharge
 	var/blade_recharge_time = 1 MINUTES
+
 
 /datum/status_effect/protective_blades/recharging/on_creation(
 	mob/living/new_owner,
@@ -268,6 +293,7 @@
 
 	src.blade_recharge_time = blade_recharge_time
 	return ..()
+
 
 /datum/status_effect/protective_blades/recharging/remove_blade(obj/effect/floating_blade/to_remove)
 	. = ..()
@@ -284,6 +310,7 @@
 	alert_type = null
 	var/static/list/caretaking_traits = list(TRAIT_GODMODE, TRAIT_HANDS_BLOCKED, TRAIT_IGNORESLOWDOWN, TRAIT_SECLUDED_LOCATION)
 
+
 /datum/status_effect/caretaker_refuge/on_apply()
 	animate(owner, alpha = 45, time = 0.5 SECONDS)
 	owner.set_density(FALSE)
@@ -294,6 +321,7 @@
 	RegisterSignal(owner, COMSIG_BEING_STRIPPED, PROC_REF(no_strip))
 	owner.add_traits(caretaking_traits, TRAIT_STATUS_EFFECT(id))
 	return TRUE
+
 
 /datum/status_effect/caretaker_refuge/on_remove()
 	owner.remove_traits(caretaking_traits, TRAIT_STATUS_EFFECT(id))
@@ -309,8 +337,10 @@
 		span_notice("Вы больше не в домике."),
 	)
 
+
 /datum/status_effect/caretaker_refuge/get_examine_text()
 	return span_warning("[genderize_ru(owner.gender, "Он", "Она", "Оно", "Они")] окутан[genderize_ru(owner.gender, "", "а", "о", "ы")] нечестивой дымкой!")
+
 
 /datum/status_effect/caretaker_refuge/proc/nullrod_handler(datum/source, obj/item/weapon)
 	SIGNAL_HANDLER
@@ -318,15 +348,18 @@
 	owner.visible_message(span_warning("[weapon.declent_ru(NOMINATIVE)] рассеивает дымку вокруг [owner.declent_ru(GENITIVE)]!"))
 	owner.remove_status_effect(type)
 
+
 /datum/status_effect/caretaker_refuge/proc/on_focus_lost()
 	SIGNAL_HANDLER
 	to_chat(owner, span_danger("Из-за того, что вы потеряли концентрацию, окружающая дымка бледнеет и рассеивается!"))
 	qdel(src)
 
+
 /datum/status_effect/caretaker_refuge/proc/no_strip(atom/source, mob/user, obj/item/equipping)
 	SIGNAL_HANDLER
 	to_chat(user, span_warning("[source.declent_ru(NOMINATIVE)] бестелесен!"))
 	return COMPONENT_CANT_STRIP
+
 
 /datum/status_effect/caretaker_refuge/proc/prevent_spell_usage(datum/source, datum/spell)
 	SIGNAL_HANDLER
@@ -336,9 +369,11 @@
 	owner.balloon_alert(owner, "нельзя колдовать!")
 	return SPELL_CANCEL_CAST
 
+
 /datum/status_effect/caretaker_refuge/proc/prevent_cuff(datum/source, mob/attemptee)
 	SIGNAL_HANDLER
 	return COMSIG_CARBON_CUFF_PREVENT
+
 
 // Path Of Moon status effect which hides the identity of the heretic
 /datum/status_effect/moon_grasp_hide
@@ -348,12 +383,15 @@
 	//show_duration = TRUE
 	alert_type = /atom/movable/screen/alert/status_effect/moon_grasp_hide
 
+
 /datum/status_effect/moon_grasp_hide/on_apply()
 	owner.add_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
 	return TRUE
 
+
 /datum/status_effect/moon_grasp_hide/on_remove()
 	owner.remove_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
+
 
 /atom/movable/screen/alert/status_effect/moon_grasp_hide
 	name = "Благословение Луны"

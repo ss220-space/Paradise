@@ -62,6 +62,7 @@
 	for(var/iterator in 1 to greatest_dist)
 		if(!to_transform["[iterator]"])
 			continue
+
 		addtimer(CALLBACK(src, PROC_REF(apply_visual), to_transform["[iterator]"]), 1 * iterator) // 0.9 SECONDS to convert our area
 
 	// Loop doesnt catch src.loc so we have to handle it manually
@@ -138,10 +139,14 @@
 		var/backwards_iterator = greatest_dist - iterator + 1 //We go backwards
 		if(!to_transform["[backwards_iterator]"])
 			continue
+
 		addtimer(CALLBACK(src, PROC_REF(revert_terrain), to_transform["[backwards_iterator]"]), 1 * iterator)
+
 	addtimer(CALLBACK(src, PROC_REF(revert_terrain), list(center_turf)), 1 SECONDS)
-	if(ongoing_arena)
-		QDEL_NULL(ongoing_arena)
+	if(!ongoing_arena)
+		return
+
+	QDEL_NULL(ongoing_arena)
 
 
 /// Transforms all the turfs and restores the airlocks
@@ -155,4 +160,3 @@
 	for(var/obj/machinery/door/airlock/to_restore in banished_airlocks)
 		to_restore.forceMove(banished_airlocks[to_restore])
 		banished_airlocks -= to_restore
-

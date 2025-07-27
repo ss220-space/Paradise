@@ -6,7 +6,7 @@
  * Lets the caster enter and exit tiles of space or misc turfs.
  */
 /obj/effect/proc_holder/spell/jaunt/space_crawl
-	name = "Космический Сдвиг"
+	name = "Космический сдвиг"
 	desc = "Позволяет вам появляться и исчезать из реальности, находясь в космосе или на \
 			открытом воздухе с низким давлением. Для возвращения, место прибытия тоже должно быть таковым."
 	action_background_icon_state = "bg_heretic"

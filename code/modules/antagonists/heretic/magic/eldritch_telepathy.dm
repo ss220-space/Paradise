@@ -1,6 +1,6 @@
 // Given to heretic monsters.
 /obj/effect/proc_holder/spell/remotetalk/eldritch
-	name = "Жуткая Телепатия"
+	name = "Жуткая телепатия"
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE

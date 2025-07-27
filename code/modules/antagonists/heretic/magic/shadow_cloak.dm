@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/shadow_cloak
-	name = "Плащ Тьмы"
+	name = "Плащ тьмы"
 	desc = "Полностью скрывает вашу личность, но не делает вас невидимым. Можно активировать снова, чтобы отключить эффект. \
 			При использовании вы двигаетесь быстрее, но реагируете гораздо медленнее. \
 			Получение урона при надетом плаще может привести к его внезапному отключению."
@@ -88,6 +88,7 @@
 	)
 
 	active_cloak = cast_on.apply_status_effect(/datum/status_effect/shadow_cloak)
+	cast_on.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	RegisterSignal(cast_on, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(active_cloak, COMSIG_QDELETING, PROC_REF(on_early_cloak_loss))
 	RegisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
@@ -99,6 +100,7 @@
 		qdel(active_cloak)
 
 	active_cloak = null
+	cast_on.mouse_opacity = MOUSE_OPACITY_OPAQUE
 	UnregisterSignal(cast_on, COMSIG_PARENT_EXAMINE)
 	UnregisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING))
 	playsound(cast_on, 'sound/effects/curse/curseattack.ogg', 50)

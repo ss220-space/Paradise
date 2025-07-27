@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/projectile/star_blast
-	name = "Звездный Взрыв"
+	name = "Звездный взрыв"
 	desc = "Это заклинание запускает в цель диск с космической энергией, распространяющий космические поля."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"

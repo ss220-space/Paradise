@@ -1,6 +1,6 @@
 // Shoots out in a wave-like, what rust heretics themselves get
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
-	name = "Шлейф Разложения"
+	name = "Шлейф разложения"
 	desc = "Выбрасывает дезориентирующий шлейф, заставляющий врагов атаковать друг друга, \
 			кратковременно ослепляет их (эффект усиливается с увеличением расстояния) и \
 			отравляет (эффект уменьшается с увеличением расстояния). \

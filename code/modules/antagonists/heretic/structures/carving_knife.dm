@@ -117,11 +117,11 @@
 	if(isnull(picked_choice))
 		return
 
-	var/to_make = names_to_path[picked_choice]
+	var/obj/to_make = names_to_path[picked_choice]
 	if(!ispath(to_make, /obj/structure/trap/eldritch))
 		CRASH("[type] attempted to create a rune of incorrect type! (got: [to_make])")
 
-	target_turf.balloon_alert(user, "черчение [picked_choice]...")
+	target_turf.balloon_alert(user, "черчение [to_make.ru_names[ACCUSATIVE]]...")
 	user.playsound_local(target_turf, 'sound/items/sheath.ogg', 50, TRUE)
 	if(!do_after(user, 5 SECONDS, target = target_turf))
 		target_turf.balloon_alert(user, "прервано!")
@@ -232,14 +232,14 @@
 
 
 /obj/structure/trap/eldritch/alert
-	name = "руна предупреждения"
+	name = "Руна Предупреждения"
 	ru_names = list(
-		NOMINATIVE = "руна предупреждения",
-		GENITIVE = "руны предупреждения",
-		DATIVE = "руне предупреждения",
-		ACCUSATIVE = "руну предупреждения",
-		INSTRUMENTAL = "руной предупреждения",
-		PREPOSITIONAL = "руне предупреждения",
+		NOMINATIVE = "Руна Предупреждения",
+		GENITIVE = "Руны Предупреждения",
+		DATIVE = "Руне Предупреждения",
+		ACCUSATIVE = "Руну Предупреждения",
+		INSTRUMENTAL = "Руной Предупреждения",
+		PREPOSITIONAL = "Руне Предупреждения",
 	)
 	gender = FEMALE
 	icon_state = "alert_rune"
@@ -259,14 +259,14 @@
 
 
 /obj/structure/trap/eldritch/tentacle
-	name = "руна удержания"
+	name = "Руна Удержания"
 	ru_names = list(
-		NOMINATIVE = "руна удержания",
-		GENITIVE = "руны удержания",
-		DATIVE = "руне удержания",
-		ACCUSATIVE = "руну удержания",
-		INSTRUMENTAL = "руной удержания",
-		PREPOSITIONAL = "руне удержания",
+		NOMINATIVE = "Руна Удержания",
+		GENITIVE = "Руны Удержания",
+		DATIVE = "Руне Удержания",
+		ACCUSATIVE = "Руну Удержания",
+		INSTRUMENTAL = "Руной Удержания",
+		PREPOSITIONAL = "Руне Удержания",
 	)
 	gender = FEMALE
 	icon_state = "tentacle_rune"
@@ -287,14 +287,14 @@
 
 
 /obj/structure/trap/eldritch/mad
-	name = "руна безумия"
+	name = "Руна Безумия"
 	ru_names = list(
-		NOMINATIVE = "руна безумия",
-		GENITIVE = "руны безумия",
-		DATIVE = "руне безумия",
-		ACCUSATIVE = "руну безумия",
-		INSTRUMENTAL = "руной безумия",
-		PREPOSITIONAL = "руне безумия",
+		NOMINATIVE = "Руна Безумия",
+		GENITIVE = "Руны Безумия",
+		DATIVE = "Руне Безумия",
+		ACCUSATIVE = "Руну Безумия",
+		INSTRUMENTAL = "Руной Безумия",
+		PREPOSITIONAL = "Руне Безумия",
 	)
 	gender = FEMALE
 	icon_state = "madness_rune"

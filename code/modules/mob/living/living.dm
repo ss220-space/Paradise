@@ -1470,26 +1470,35 @@
 	return 0
 
 
-/mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(user.a_intent != INTENT_HARM || stat != DEAD || !is_sharp(I) || (!butcher_results && !is_monkeybasic(src))) //can we butcher it?
+/mob/living/proc/attempt_harvest(obj/item/item, mob/user)
+	if(user.a_intent != INTENT_HARM || stat != DEAD || !is_sharp(item) || (!butcher_results && !is_monkeybasic(src))) //can we butcher it?
 		return FALSE
+
 	. = TRUE
 	to_chat(user, span_notice("Вы начинаете разделывать [declent_ru(ACCUSATIVE)]..."))
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-	if(!do_after(user, I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size), src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
+	if(!do_after(user, item.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size), src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
 		return .
-	harvest(user)
+
+	if(!harvest(user))
+		return
+
+	SEND_SIGNAL(item, COMSIG_ITEM_HARVESTED_SOMEBODY, src, user)
 
 
 /mob/living/proc/harvest(mob/living/user)
 	if(QDELETED(src) || !butcher_results)
 		return
+		
 	for(var/path in butcher_results)
 		for(var/i in 1 to butcher_results[path])
 			new path(loc)
+
 		butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
+
 	visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] разделывает [declent_ru(ACCUSATIVE)]."))
 	gib()
+	return TRUE
 
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)

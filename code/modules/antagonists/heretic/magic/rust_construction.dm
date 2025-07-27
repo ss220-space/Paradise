@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/rust_construction
-	name = "Ржавая Постройка"
+	name = "Ржавая постройка"
 	desc = "Превращает ржавый пол в сплошную стену ржавчины. Создание стены под врагом нанесёт ему вред."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"

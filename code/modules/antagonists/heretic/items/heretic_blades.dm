@@ -40,6 +40,25 @@
 	var/escape_timer
 
 
+/obj/item/melee/sickly_blade/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_HARVESTED_SOMEBODY, PROC_REF(on_harvest))
+
+
+/obj/item/melee/sickly_blade/Destroy()
+	. = ..()
+	UnregisterSignal(src, COMSIG_ITEM_HARVESTED_SOMEBODY)
+
+
+/obj/item/melee/sickly_blade/proc/on_harvest(obj/item/source, mob/living/carbon/human/target, mob/harvester)
+	SIGNAL_HANDLER
+	if(!ishuman(target))
+		return
+	
+	var/skintype = target.dna.species.skinned_type
+	new skintype(get_turf(target))
+
+
 /obj/item/melee/sickly_blade/examine(mob/user)
 	. = ..()
 	if(!check_usability(user))

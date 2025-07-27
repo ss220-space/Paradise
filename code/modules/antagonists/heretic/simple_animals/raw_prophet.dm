@@ -21,8 +21,8 @@
 	status_flags = CANPUSH
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	maxHealth = 65
-	health = 65
+	maxHealth = 130
+	health = 130
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
 	/// List of innate abilities we have to add.
 	var/static/list/innate_spells = list(

@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/charged/beam/fire_blast
-	name = "Извержение Вулкана"
+	name = "Извержение вулкана"
 	desc = "Зарядите огненную атаку, которая цепочкой охватит ближайших язычников, поджигая их. \
 			Цели, которые уже горят, имеют приоритет. Если цель не загорится или \
 			погаснет до передачи атаки дальше, цепочка прекратится."
@@ -30,12 +30,12 @@
 
 
 /obj/effect/proc_holder/spell/charged/beam/fire_blast/cast(list/targets)
-	var/mob/living/caster = action.owner
-	if(!istype(caster))
+	var/mob/living/target = targets[1]
+	if(!istype(target))
 		return ..()
 
 	// Caster becomes fireblasted, but in a good way - heals damage over time
-	caster.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration, -2)
+	target.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration, -2)
 	return ..()
 
 

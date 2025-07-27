@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/mind_gate
-	name = "Врата Разума"
+	name = "Врата разума"
 	desc = "Вызывает у цели галлюцинации, ошеломление на 10 секунд, удушие и повреждения мозга. \
 			Наносит вашему мозгу 20 единиц урона за каждое использование."
 	action_background_icon_state = "bg_heretic"

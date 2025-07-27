@@ -1,6 +1,6 @@
 /// Creates a constant Ring of Fire around the caster for a set duration of time, which follows them.
 /obj/effect/proc_holder/spell/fire_sworn
-	name = "Клятва Пламени"
+	name = "Клятва пламени"
 	desc = "В течении вы будете пассивно создадавать вокруг себя огненные кольца."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"

@@ -1852,12 +1852,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(QDELETED(src))
 		return
 
-	if(is_monkeybasic(src))
-		while(meatleft > 0)
-			new dna.species.meat_type(loc)
-			meatleft--
-		visible_message(span_notice("[user] butchers [src]."))
-		gib()
+	if(!is_monkeybasic(src))
+		return
+
+	while(meatleft > 0)
+		new dna.species.meat_type(loc)
+		meatleft--
+	
+	visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] разделывает [declent_ru(ACCUSATIVE)]."))
+	gib()
+	return TRUE
 
 
 /mob/living/carbon/human/proc/update_fractures_slowdown()

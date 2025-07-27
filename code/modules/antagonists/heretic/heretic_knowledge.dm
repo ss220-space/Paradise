@@ -420,7 +420,7 @@
 
 	message_admins("[summoned.name] был[genderize_ru(summoned.gender, "", "а", "о", "и")] призван[genderize_ru(summoned.gender, "", "а", "о", "ы")] [ADMIN_LOOKUPFLW(user)] в [ADMIN_COORDJMP(summoned)].")
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы бы хотели сыграть за [summoned.declent_ru(ACCUSATIVE)] призванн[genderize_ru(summoned.gender, "ого", "ую", "ое", "ых")] еретиком?", \
-								ROLE_HERETIC, FALSE, poll_time = 10 SECONDS, source = summoned)
+								null, FALSE, 10 SECONDS, TRUE, source = summoned)
 	if(!candidates.len)
 		loc.balloon_alert(user, "нет готовых кандидатов!")
 		animate(summoned, 0.5 SECONDS, alpha = 0)

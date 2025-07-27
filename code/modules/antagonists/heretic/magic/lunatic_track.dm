@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/lunatic_track
-	name = "Эхо Лунного Света"
+	name = "Эхо лунного света"
 	desc = "Узнайте местоположение вашего Лидера."
 	stat_allowed = CONSCIOUS
 	action_background_icon_state = "bg_heretic"

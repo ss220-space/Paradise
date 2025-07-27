@@ -15,8 +15,8 @@
 	pass_flags = PASSTABLE | PASSMOB
 	//mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_AQUATIC
 	speed = -0.5
-	health = 16
-	maxHealth = 16
+	health = 35
+	maxHealth = 35
 	melee_damage_lower = 8
 	melee_damage_upper = 8
 	attack_sound = 'sound/weapons/bite.ogg'

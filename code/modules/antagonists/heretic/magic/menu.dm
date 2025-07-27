@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/heretic_menu
-	name = "Меню Еретика"
+	name = "Меню еретика"
 	desc = "Открывает меню прокачки."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
