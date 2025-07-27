@@ -22,10 +22,13 @@
 
 	var/list/speak = list()
 	var/speak_chance = 0
-	var/list/emote_hear = list()	//Hearable emotes
-	var/list/emote_see = list()		//Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
+	/// Hearable emotes
+	var/list/emote_hear = list()
+	/// Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
+	var/list/emote_see = list()
 	tts_seed = "Kleiner"
-	var/list/talk_sound = null //The sound played when talk
+	/// The sound played when talk
+	var/list/talk_sound = null
 
 	var/turns_per_move = 1
 	var/turns_since_move = 0
@@ -416,7 +419,7 @@
 	drop_loot()
 	if(!gibbed)
 		if(death_sound)
-			playsound(get_turf(src),death_sound, 200, 1)
+			playsound(get_turf(src),death_sound, 200, TRUE)
 		if(deathmessage)
 			visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] [genderize_decode(src, deathmessage)]"))
 		else if(!del_on_death)

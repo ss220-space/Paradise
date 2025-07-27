@@ -260,7 +260,7 @@
 // -------------------------------------
 
 /obj/structure/largecrate/evil
-	name = "\improper Mysterious Crate"
+	name = "Mysterious Crate"
 	desc = "What could it be?"
 
 

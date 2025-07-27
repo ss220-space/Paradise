@@ -7,10 +7,10 @@
 	health_doll_icon = "blobpod"
 	health = BLOBMOB_ZOMBIE_HEALTH
 	maxHealth = BLOBMOB_ZOMBIE_HEALTH
-	verb_say = list("gurgles", "groans")
-	verb_ask = "demands"
-	verb_exclaim = "roars"
-	verb_yell = "bellows"
+	verb_say = list("тяжело произносит", "бормочет")
+	verb_ask = "вопросительно бормочет"
+	verb_exclaim = "рычит"
+	verb_yell = "ревёт"
 	melee_damage_lower = BLOBMOB_ZOMBIE_DMG_LOWER
 	melee_damage_upper = BLOBMOB_ZOMBIE_DMG_UPPER
 	obj_damage = BLOBMOB_ZOMBIE_OBJ_DMG

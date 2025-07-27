@@ -184,7 +184,7 @@
 	var/choice = show_radial_menu(user, src, choices)
 	if(!choice)
 		return 0
-	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
+	playsound(loc, 'sound/effects/pop.ogg', 50, FALSE)
 	mode = choices.Find(choice)
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]

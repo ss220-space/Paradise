@@ -231,9 +231,9 @@
 	if(nextTick < world.time)
 		nextTick=world.time + OP_COMPUTER_COOLDOWN
 		if(crit && table.patient.health <= -50 )
-			playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
+			playsound(src.loc, 'sound/machines/defib_success.ogg', 50, FALSE)
 		if(oxy && table.patient.getOxyLoss()>oxyAlarm)
-			playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)
+			playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, FALSE)
 		if(healthAnnounce && table.patient.health <= healthAlarm)
 			atom_say("Оценка здоровья пациента: [round(table.patient.health)] %.")
 		if(table.patient.stat != patientStatusHolder)

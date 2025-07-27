@@ -33,7 +33,7 @@
 	for(var/turf/T in targets)
 		if(T.density && !summon_ignore_density)
 			targets -= T
-	playsound(get_turf(src), cast_sound, 50, 1)
+	playsound(get_turf(src), cast_sound, 50, TRUE)
 
 	var/timed_action_flags = can_use_stunned ? DEFAULT_DOAFTER_IGNORE|DA_IGNORE_INCAPACITATED : DEFAULT_DOAFTER_IGNORE
 	if(do_after(user, delay, user, timed_action_flags))

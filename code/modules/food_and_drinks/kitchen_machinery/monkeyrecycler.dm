@@ -139,7 +139,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(grinded >= required_grind)
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube.</span>")
-		playsound(loc, 'sound/machines/hiss.ogg', 50, 1)
+		playsound(loc, 'sound/machines/hiss.ogg', 50, TRUE)
 		grinded -= required_grind
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
 			new cube_type(loc)

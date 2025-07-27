@@ -3,7 +3,7 @@
 	desc = "A large, floating eldritch horror. Its body glows with an evil red light, and its tentacles look to have been dipped in alien blood."
 
 	speed = 1
-	speak_emote = list("telepathically thunders", "telepathically booms")
+	speak_emote = list("телепатически произносит", "телепатически грохочет")
 	tts_seed = "Earth"
 	maxHealth = 2500 // same as megafauna
 	health = 2500

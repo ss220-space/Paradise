@@ -35,7 +35,7 @@
 /obj/item/assembly/signaler/examine(mob/user)
 	. = ..()
 	. += span_notice("The power light is <b>[receiving ? "on" : "off"]</b>.")
-	. += span_info("<b>Alt+Click</b> to send a signal.")
+	. += span_notice("<b>Alt+Click</b> to send a signal.")
 
 
 /obj/item/assembly/signaler/click_alt(mob/user)
@@ -149,7 +149,8 @@
 	pulse(1, signal.user)
 
 	for(var/mob/hearer in hearers(1, loc))
-		hearer.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
+		hearer.show_message("[bicon(src)] *beep* *beep* *beep*", 3, "*beep* *beep* *beep*", 2)
+		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	return TRUE
 
 

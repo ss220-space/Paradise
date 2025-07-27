@@ -32,13 +32,13 @@
 	switch(noisechoice)
 		if("Beep")
 			user.visible_message("<span class='notice'>[user] has made their TTS beep!</span>", "You make your TTS beep!")
-			playsound(user, 'sound/machines/twobeep.ogg', 50, 1, -1)
+			playsound(user, 'sound/machines/twobeep.ogg', 50, TRUE, -1)
 		if("Buzz")
 			user.visible_message("<span class='notice'>[user] has made their TTS buzz!</span>", "You make your TTS buzz!")
-			playsound(user, 'sound/machines/buzz-sigh.ogg', 50, 1, -1)
+			playsound(user, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
 		if("Ping")
 			user.visible_message("<span class='notice'>[user] has made their TTS ping!</span>", "You make your TTS ping!")
-			playsound(user, 'sound/machines/ping.ogg', 50, 1, -1)
+			playsound(user, 'sound/machines/ping.ogg', 50, TRUE, -1)
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/ttsdevice/CtrlClick(mob/living/user)

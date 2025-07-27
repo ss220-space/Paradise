@@ -4,7 +4,7 @@
   * Stores items of a specified type.
   */
 /obj/machinery/smartfridge
-	name = "\improper SmartFridge"
+	name = "SmartFridge"
 	desc = "Это холодильник. Он умный. Просто удивительно, да?"
 	ru_names = list(
 		NOMINATIVE = "холодильник SmartFridge",
@@ -454,7 +454,7 @@
   * # Syndie Fridge
   */
 /obj/machinery/smartfridge/syndie
-	name = "\improper Suspicious SmartFridge"
+	name = "Suspicious SmartFridge"
 	desc = "Это холодильник. Он умный. Подозрительно умный."
 	ru_names = list(
 		NOMINATIVE = "подозрительный холодильник SmartFridge",
@@ -494,7 +494,7 @@
   * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/vending/hydroseeds].
   */
 /obj/machinery/smartfridge/seeds
-	name = "\improper Seed Storage"
+	name = "Seed Storage"
 	desc = "Это холодильник, предназначенный для растений и их плодов."
 	ru_names = list(
 		NOMINATIVE = "ботанический холодильник",
@@ -543,7 +543,7 @@
   * Medical variant of the [Smart Fridge][/obj/machinery/smartfridge].
   */
 /obj/machinery/smartfridge/medbay
-	name = "\improper Refrigerated Medicine Storage"
+	name = "Refrigerated Medicine Storage"
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
 	ru_names = list(
 		NOMINATIVE = "медицинский холодильник",
@@ -576,7 +576,7 @@
   * Secure, Xenobiology variant of the [Smart Fridge][/obj/machinery/smartfridge].
   */
 /obj/machinery/smartfridge/secure/extract
-	name = "\improper Slime Extract Storage"
+	name = "Slime Extract Storage"
 	desc = "Это холодильник, предназначенный для хранения слаймовых экстрактов."
 	ru_names = list(
 		NOMINATIVE = "холодильник для слаймовых экстрактов",
@@ -630,7 +630,7 @@
   * Secure, Chemistry variant of the [Smart Fridge][/obj/machinery/smartfridge].
   */
 /obj/machinery/smartfridge/secure/chemistry
-	name = "\improper Smart Chemical Storage"
+	name = "Smart Chemical Storage"
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
 	ru_names = list(
 		NOMINATIVE = "химический холодильник",
@@ -682,7 +682,7 @@
 
 /obj/machinery/smartfridge/secure/medbay/organ
 
-	name = "\improper Secure Refrigerated Organ Storage"
+	name = "Secure Refrigerated Organ Storage"
 	desc = "Это холодильник, предназначенный для хранения органов, конечностей, имплантов и капельниц."
 	ru_names = list(
 		NOMINATIVE = "холодильник для органов",
@@ -760,7 +760,7 @@
   * Comes with some items.
   */
 /obj/machinery/smartfridge/secure/chemistry/virology
-	name = "\improper Smart Virus Storage"
+	name = "Smart Virus Storage"
 	desc = "Это холодильник, предназначенный для хранения образцов вирусов."
 	ru_names = list(
 		NOMINATIVE = "холодильник для вирусных образцов",
@@ -821,7 +821,7 @@
   * Drink variant of the [Smart Fridge][/obj/machinery/smartfridge].
   */
 /obj/machinery/smartfridge/drinks
-	name = "\improper Drink Showcase"
+	name = "Drink Showcase"
 	desc = "Это холодильник, предназначенный для хранения напитков."
 	ru_names = list(
 		NOMINATIVE = "холодильник для напитков",
@@ -846,7 +846,7 @@
   * Dish variant of the [Smart Fridge][/obj/machinery/smartfridge].
   */
 /obj/machinery/smartfridge/dish
-	name = "\improper Dish Showcase"
+	name = "Dish Showcase"
 	desc = "Это холодильник, предназначенный для хранения органов, конечностей, имплантов и капельниц."
 	ru_names = list(
 		NOMINATIVE = "холодильник для еды",

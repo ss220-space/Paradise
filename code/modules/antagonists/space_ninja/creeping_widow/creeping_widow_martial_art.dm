@@ -26,7 +26,7 @@
 	if(!used)
 		user.visible_message("<span class='warning'>You stick the [src]'s needle into your arm and press the button.", \
 			  "<span class='warning'>[user] sticks the [src]'s needle [user.p_their()] arm and presses the button.")
-		to_chat(user, "<span class='info'>The nanomachines in the [src] flow through your bloodstream.")
+		to_chat(user, span_notice("The nanomachines in the [src] flow through your bloodstream."))
 
 		var/datum/martial_art/ninja_martial_art/N = new/datum/martial_art/ninja_martial_art(null)
 		N.teach(user)

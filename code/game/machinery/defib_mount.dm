@@ -54,7 +54,7 @@
 /obj/machinery/defibrillator_mount/examine(mob/user)
 	. = ..()
 	if(defib)
-		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы взять прикреплённый дефибриллятор.")
+		. += span_notice("Используйте <b>Alt + ЛКМ</b>, чтобы взять прикреплённый дефибриллятор.")
 		if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 			. += span_notice("Автоматическа система блокировки активирована. Используйте любую ID-карту для разблокировки.")
 		else

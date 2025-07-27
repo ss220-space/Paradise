@@ -11,6 +11,7 @@
 	if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
 		to_chat(src, span_warningbig("Критическая неудача!<br>Неизвестная сила заставляет вас отключиться."))
 		src.death() // AI gib cause no body ghost error
-		return
+		return TRUE
 	to_chat(src, span_warning("Неудача! [src.name] получает видимые повреждения."))
 	src.adjustBruteLoss(rand(15, 20))
+	return FALSE

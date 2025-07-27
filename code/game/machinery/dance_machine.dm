@@ -69,7 +69,7 @@
 	else if(anchored)
 		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
-	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
+	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 
 
 /obj/machinery/disco/update_icon_state()
@@ -133,7 +133,7 @@
 			if(!active)
 				if(stop > world.time)
 					to_chat(usr, span_warning("Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)]."))
-					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
+					playsound(src, 'sound/misc/compiler-failure.ogg', 50, TRUE)
 					return
 				active = TRUE
 				update_icon()
@@ -179,7 +179,7 @@
 		to_chat(usr, span_warning("The device is not able to play more DJ sounds at this time."))
 		return
 	charge -= 5
-	playsound(src, S, 300, 1)
+	playsound(src, S, 300, TRUE)
 
 /obj/machinery/disco/proc/dance_setup()
 	stop = world.time + selection.song_length

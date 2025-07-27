@@ -123,9 +123,9 @@
 	desc = initial(desc)
 	// BYOND/DM doesn't support the use of initial on lists.
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
-	speak_emote = list("barks", "woofs")
-	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
-	emote_see = list("shakes its head.", "chases its tail.","shivers.")
+	speak_emote = list("лает", "рявкает", "гавкает")
+	emote_hear = list("лает", "гавкает", "тявкает", "пыхтит")
+	emote_see = list("трясёт головой", "пытается поймать свой хвост", "дрожит")
 	desc = initial(desc)
 
 	if(inventory_head && inventory_head.muhtar_fashion)

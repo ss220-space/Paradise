@@ -33,13 +33,13 @@
 		if(INTENT_HELP)
 			M.visible_message("<span class='notice'>[M] pets [src]!</span>", \
 							"<span class='notice'>You pet [src]!</span>")
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		if(INTENT_GRAB)
 			remove_from_head(M)
 			grabbedby(M)
 		else
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			playsound(loc, 'sound/effects/bang.ogg', 10, 1)
+			playsound(loc, 'sound/effects/bang.ogg', 10, TRUE)
 			visible_message("<span class='notice'>[M] punches [src], but doesn't leave a dent.</span>", \
 						"<span class='notice'>[M] punches [src], but doesn't leave a dent.</span>")
 	return FALSE

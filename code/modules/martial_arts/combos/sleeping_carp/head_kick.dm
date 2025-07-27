@@ -11,7 +11,7 @@
 		target.apply_damage(20, BRUTE, "head")
 		objective_damage(user, target, 20, BRUTE)
 		target.drop_from_active_hand()
-		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Head Kick", ATKLOG_ALL)
 		if(prob(60))
 			user.say(pick("OOHYOO!", "OOPYAH!", "HYOOAA!", "WOOAAA!", "SHURYUKICK!", "HIYAH!"))

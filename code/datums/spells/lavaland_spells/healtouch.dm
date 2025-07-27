@@ -11,7 +11,7 @@
 	action_icon_state = "healtouch"
 
 /obj/item/melee/touch_attack/healtouch
-	name = "\improper healing touch"
+	name = "healing touch"
 	desc = "Целительная аура, вырывающаяся из вашей руки. При прикосновении к гуманоиду заживляет его раны."
 	ru_names = list(
         NOMINATIVE = "целебное касание",

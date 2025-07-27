@@ -99,7 +99,7 @@
 	if(method != activation_method)
 		return 0
 	last_use_timer = (world.time + cooldown_add)
-	playsound(user, activation_sound, 100, 1)
+	playsound(user, activation_sound, 100, TRUE)
 	return 1
 
 /obj/machinery/anomalous_crystal/Bumped(atom/movable/moving_atom)

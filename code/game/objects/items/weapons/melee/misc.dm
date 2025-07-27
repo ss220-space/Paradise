@@ -43,8 +43,8 @@
 	sharp = TRUE
 	origin_tech = "combat=5"
 	attack_verb = list("полоснул", "уколол")
-	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
@@ -175,7 +175,7 @@
 				span_warning("You start forcing the airlock open."),
 				span_warning("You hear a metal screeching sound.")
 			)
-            playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+            playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
             if(!do_after(user, 2.5 SECONDS, A))
                 return
         user.visible_message(

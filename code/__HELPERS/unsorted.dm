@@ -792,8 +792,8 @@ GLOBAL_LIST_INIT(body_zone, list(
     BODY_ZONE_PRECISE_EYES = list(NOMINATIVE = "глаза", GENITIVE = "глаз", DATIVE = "глазам", ACCUSATIVE = "глаза", INSTRUMENTAL = "глазами", PREPOSITIONAL = "глазах"),
     BODY_ZONE_PRECISE_MOUTH = list(NOMINATIVE = "рот", GENITIVE = "рта", DATIVE = "рту", ACCUSATIVE = "рот", INSTRUMENTAL = "ртом", PREPOSITIONAL = "рте"),
     BODY_ZONE_PRECISE_GROIN = list(NOMINATIVE = "живот", GENITIVE = "живота", DATIVE = "животу", ACCUSATIVE = "живот", INSTRUMENTAL = "животом", PREPOSITIONAL = "животе"),
-    BODY_ZONE_PRECISE_L_HAND = list(NOMINATIVE = "левая ладонь", GENITIVE = "левой ладони", DATIVE = "левой ладони", ACCUSATIVE = "левую ладонь", INSTRUMENTAL = "левой ладонью", PREPOSITIONAL = "левой ладони"),
-    BODY_ZONE_PRECISE_R_HAND = list(NOMINATIVE = "правая ладонь", GENITIVE = "правой ладони", DATIVE = "правой ладони", ACCUSATIVE = "правую ладонь", INSTRUMENTAL = "правой ладонью", PREPOSITIONAL = "правой ладони"),
+    BODY_ZONE_PRECISE_L_HAND = list(NOMINATIVE = "левая кисть", GENITIVE = "левой кисти", DATIVE = "левой кисти", ACCUSATIVE = "левую кисть", INSTRUMENTAL = "левой кистью", PREPOSITIONAL = "левой кисти"),
+    BODY_ZONE_PRECISE_R_HAND = list(NOMINATIVE = "правая кисть", GENITIVE = "правой кисти", DATIVE = "правой кисти", ACCUSATIVE = "правую кисть", INSTRUMENTAL = "правой кистью", PREPOSITIONAL = "правой кисти"),
     BODY_ZONE_PRECISE_L_FOOT = list(NOMINATIVE = "левая ступня", GENITIVE = "левой ступни", DATIVE = "левой ступне", ACCUSATIVE = "левую ступню", INSTRUMENTAL = "левой ступнёй", PREPOSITIONAL = "левой ступне"),
     BODY_ZONE_PRECISE_R_FOOT = list(NOMINATIVE = "правая ступня", GENITIVE = "правой ступни", DATIVE = "правой ступне", ACCUSATIVE = "правую ступню", INSTRUMENTAL = "правой ступнёй", PREPOSITIONAL = "правой ступне")
 ))
@@ -823,9 +823,9 @@ GLOBAL_LIST_INIT(body_zone, list(
 		if(BODY_ZONE_PRECISE_GROIN)
 			return "живот"
 		if(BODY_ZONE_PRECISE_L_HAND)
-			return "левая ладонь"
+			return "левая кисть"
 		if(BODY_ZONE_PRECISE_R_HAND)
-			return "правая ладонь"
+			return "правая кисть"
 		if(BODY_ZONE_PRECISE_L_FOOT)
 			return "левая ступня"
 		if(BODY_ZONE_PRECISE_R_FOOT)
@@ -848,36 +848,37 @@ GLOBAL_LIST_INIT(body_zone, list(
 
 */
 
-/proc/get_turf_pixel(atom/movable/AM)
-	if(!istype(AM))
+/proc/get_turf_pixel(atom/movable/checked_atom)
+	if(!istype(checked_atom))
 		return
 
-	//Find AM's matrix so we can use it's X/Y pixel shifts
-	var/matrix/M = matrix(AM.transform)
+	//Find checked_atom's matrix so we can use it's X/Y pixel shifts
+	var/matrix/matrix = matrix(checked_atom.transform)
 
-	var/pixel_x_offset = AM.pixel_x + M.get_x_shift()
-	var/pixel_y_offset = AM.pixel_y + M.get_y_shift()
+	var/pixel_x_offset = checked_atom.pixel_x + matrix.get_x_shift()
+	var/pixel_y_offset = checked_atom.pixel_y + matrix.get_y_shift()
 
 	//Irregular objects
-	if(AM.bound_height != world.icon_size || AM.bound_width != world.icon_size)
-		var/icon/AMicon = icon(AM.icon, AM.icon_state)
-		pixel_x_offset += ((AMicon.Width()/world.icon_size)-1)*(world.icon_size*0.5)
-		pixel_y_offset += ((AMicon.Height()/world.icon_size)-1)*(world.icon_size*0.5)
-		qdel(AMicon)
+	var/icon/checked_atom_icon = icon(checked_atom.icon, checked_atom.icon_state)
+	var/checked_atom_icon_height = checked_atom_icon.Height()
+	var/checked_atom_icon_width = checked_atom_icon.Width()
+	if(checked_atom_icon_height != world.icon_size || checked_atom_icon_width != world.icon_size)
+		pixel_x_offset += ((checked_atom_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
+		pixel_y_offset += ((checked_atom_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
 
 	//DY and DX
-	var/rough_x = round(round(pixel_x_offset,world.icon_size)/world.icon_size)
-	var/rough_y = round(round(pixel_y_offset,world.icon_size)/world.icon_size)
+	var/rough_x = round(round(pixel_x_offset, world.icon_size) / world.icon_size)
+	var/rough_y = round(round(pixel_y_offset, world.icon_size) / world.icon_size)
 
 	//Find coordinates
-	var/turf/T = get_turf(AM) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
-	if(!T)
+	var/turf/turf = get_turf(checked_atom) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
+	if(!turf)
 		return null
-	var/final_x = clamp(T.x + rough_x, 1, world.maxx)
-	var/final_y = clamp(T.y + rough_y, 1, world.maxy)
+	var/final_x = clamp(turf.x + rough_x, 1, world.maxx)
+	var/final_y = clamp(turf.y + rough_y, 1, world.maxy)
 
 	if(final_x || final_y)
-		return locate(final_x, final_y, T.z)
+		return locate(final_x, final_y, turf.z)
 
 //Finds the distance between two atoms, in pixels
 //centered = 0 counts from turf edge to edge

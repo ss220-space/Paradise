@@ -27,14 +27,14 @@
 	maxHealth = 50
 	health = 50
 	voice_name = "нимфа дионы"
-	speak_emote = list("chirrups")
-	emote_hear = list("chirrups")
-	emote_see = list("chirrups")
+	speak_emote = list("щебечет", "стрекочет")
+	emote_hear = list("щебечет", "стрекочет")
+	emote_see = list("щебечет", "стрекочет")
 	tts_seed = "Priest"
 
 	response_help  = "гладит"
 	response_disarm = "толкает"
-	response_harm   = "бъет"
+	response_harm   = "бьёт"
 
 	melee_damage_lower = 1
 	melee_damage_upper = 1

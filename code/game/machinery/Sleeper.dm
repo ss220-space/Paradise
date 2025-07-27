@@ -103,7 +103,7 @@
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
-		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
+		. += span_notice("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
 
 /obj/machinery/sleeper/process()
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp

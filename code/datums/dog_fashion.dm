@@ -131,7 +131,7 @@
 	desc = "Result of robotics budget cuts."
 
 /datum/dog_fashion/head/ghost
-	name = "\improper Ghost"
+	name = "Ghost"
 	speak = list("WoooOOOooo~","AUUUUUUUUUUUUUUUUUU")
 	emote_see = list("stumbles around.", "shivers.")
 	emote_hear = list("howls!","groans.")

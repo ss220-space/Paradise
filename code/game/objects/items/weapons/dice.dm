@@ -241,7 +241,7 @@
 
 // Die of Fate
 /obj/item/dice/d20/fate
-	name = "\improper Die of Fate"
+	name = "Die of Fate"
 	desc = "A die with twenty sides. You can feel unearthly energies radiating from it. Using this might be VERY risky."
 	icon_state = "d20"
 	var/reusable = TRUE
