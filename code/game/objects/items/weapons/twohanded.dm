@@ -662,6 +662,7 @@
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
 	icon_state = "chainsaw_handmade0"
 	flags = CONDUCT
+	w_class = WEIGHT_CLASS_BULKY
 	force = 13
 	force_unwielded = 13
 	force_wielded = 24
@@ -1194,7 +1195,7 @@
 	throwforce = 20
 	throw_range = 2
 	w_class = WEIGHT_CLASS_BULKY
-	attack_speed = 16
+	attack_speed = 1.6 SECONDS
 	force_unwielded = 15
 	force_wielded = 35
 	armour_penetration = 40
@@ -1216,7 +1217,7 @@
 	AddComponent( \
 		/datum/component/cleave_attack, \
 		arc_size = 180, \
-		swing_speed_mod = 2.5, \
+		swing_speed_mod = 1.75, \
 		afterswing_slowdown = 0.3, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \

@@ -282,9 +282,8 @@
 	AddComponent( \
 		/datum/component/cleave_attack, \
 		arc_size = 180, \
-		swing_speed_mod = 2.5, \
+		swing_speed_mod = 2, \
 		afterswing_slowdown = 0.3, \
-		slowdown_duration = 1 SECONDS, \
 		no_multi_hit = TRUE, \
 		swing_sound = "blunt_swing_heavy", \
 	)
