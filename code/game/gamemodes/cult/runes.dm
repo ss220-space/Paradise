@@ -57,8 +57,8 @@ To draw a rune, use a ritual dagger.
 	/// The color of the rune. (Based on species blood color)
 	var/rune_blood_color = COLOR_BLOOD_BASE
 
-/obj/effect/rune/New(loc, set_keyword)
-	..()
+/obj/effect/rune/Initialize(mapload, set_keyword)
+	. = ..()
 	if(set_keyword)
 		keyword = set_keyword
 	var/image/blood = image(loc = src)
@@ -421,8 +421,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/obj/effect/temp_visual/cult/rune_spawn/rune2/outer_portal
 	var/listkey
 
-/obj/effect/rune/teleport/New(loc, set_keyword)
-	..()
+/obj/effect/rune/teleport/Initialize(mapload, set_keyword)
+	. = ..()
 	var/area/A = get_area(src)
 	var/locname = initial(A.name)
 	listkey = set_keyword ? "[set_keyword] [locname]":"[locname]"

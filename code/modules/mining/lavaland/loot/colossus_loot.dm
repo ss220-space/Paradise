@@ -59,9 +59,9 @@
 	var/list/affected_targets = list()
 	var/activation_sound = 'sound/effects/break_stone.ogg'
 
-/obj/machinery/anomalous_crystal/New()
+/obj/machinery/anomalous_crystal/Initialize(mapload)
+	. = ..()
 	activation_method = pick("touch","laser","bullet","energy","bomb","mob_bump","weapon","speech")
-	..()
 
 /obj/machinery/anomalous_crystal/hear_talk(mob/speaker, list/message_pieces)
 	..()

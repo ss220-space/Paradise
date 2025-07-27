@@ -31,7 +31,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/peaslaugh = "laughsyrup"
 	)
 
-/obj/machinery/juicer/New()
+/obj/machinery/juicer/Initialize(mapload)
 	. = ..()
 	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
 
