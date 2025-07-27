@@ -29,8 +29,8 @@
 	var/list/prize_list // Initialized just below! (if you're wondering why - check CONTRIBUTING.md, look for: "hidden" init proc)
 	var/dirty_items = FALSE // Used to refresh the static/redundant data in case the machine gets VV'd
 
-/obj/machinery/mineral/equipment_vendor/New()
-	..()
+/obj/machinery/mineral/equipment_vendor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mining_equipment_vendor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -269,8 +269,8 @@
 	)
 	categories = list("Gear", "Consumables", "Kinetic Accelerator", "Digging Tools", "Minebot", "Miscellaneous", "Extra")
 
-/obj/machinery/mineral/equipment_vendor/golem/New()
-	..()
+/obj/machinery/mineral/equipment_vendor/golem/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/golem(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -298,8 +298,8 @@
 	)
 	categories = list("Scum")
 
-/obj/machinery/mineral/equipment_vendor/labor/New()
-	..()
+/obj/machinery/mineral/equipment_vendor/labor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/labor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

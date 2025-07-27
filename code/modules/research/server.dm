@@ -20,8 +20,8 @@
 	var/list/logs_for_logs_clearing
 	var/static/logs_decryption_key = null
 
-/obj/machinery/r_n_d/server/New()
-	..()
+/obj/machinery/r_n_d/server/Initialize(mapload)
+	. = ..()
 	if(!logs_decryption_key)
 		logs_decryption_key = GenerateKey()
 	if(is_taipan(z))
@@ -37,8 +37,8 @@
 	RefreshParts()
 	initialize_serv() //Agouri // fuck you agouri
 
-/obj/machinery/r_n_d/server/upgraded/New()
-	..()
+/obj/machinery/r_n_d/server/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)

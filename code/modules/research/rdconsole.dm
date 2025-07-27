@@ -152,8 +152,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			KT.level=KT.max_level
 	files.RefreshResearch()
 
-/obj/machinery/computer/rdconsole/New()
-	..()
+/obj/machinery/computer/rdconsole/Initialize(mapload)
+	. = ..()
 	files = new /datum/research(src) //Setup the research data holder.
 	matching_designs = list()
 	if(is_taipan(z))
@@ -164,13 +164,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list(ACCESS_SYNDICATE_SCIENTIST)
 		id = 0027
 		update_icon()
-	if(!id)
-		for(var/obj/machinery/r_n_d/server/centcom/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server/centcom))
-			S.initialize_serv()
-			break
-
-/obj/machinery/computer/rdconsole/Initialize(mapload)
-	. = ..()
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
