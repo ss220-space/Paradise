@@ -637,7 +637,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			ManualFollow(target)
 
 	if(href_list["follow"])
-		var/atom/target = locate(href_list["follow"])
+		var/atom/target = locateUID(href_list["follow"])
 		if(target)
 			ManualFollow(target)
 

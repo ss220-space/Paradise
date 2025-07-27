@@ -46,6 +46,8 @@
 		var/list/remove_these_areas = safe_areas - allowed_areas
 		possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, remove_these_areas)
 
+	if(!length(possible_areas))
+		return null
 	return pick(possible_areas)
 
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)

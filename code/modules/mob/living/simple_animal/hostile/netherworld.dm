@@ -1,6 +1,15 @@
 /mob/living/simple_animal/hostile/netherworld
 	name = "creature"
-	desc = "A sanity-destroying otherthing from the netherworld."
+	desc = "Разрушающее рассудок существо из преисподней."
+	ru_names = list(
+		NOMINATIVE = "существо",
+		GENITIVE = "существа",
+		DATIVE = "существу",
+		ACCUSATIVE = "существо",
+		INSTRUMENTAL = "существом",
+		PREPOSITIONAL = "существе"
+	)
+	gender = MALE
 	icon_state = "otherthing-pink"
 	icon_living = "otherthing-pink"
 	icon_dead = "otherthing-pink-dead"
@@ -25,15 +34,23 @@
 
 /mob/living/simple_animal/hostile/netherworld/migo
 	name = "mi-go"
-	desc = "A pinkish, fungoid crustacean-like creature with numerous pairs of clawed appendages and a head covered with waving antennae."
-	speak_emote = list("кричит", "кликает", "щебечет", "лает", "рявкает", "стонет", "рявкает", "мяукает", "отдаётся эхом", "рычит", "пищит", "гремит", "констатирует", "восклицает", "подмечает", "бормочет", "тараторит", "говорит, заикаясь", "булькает")
+	desc = "Розоватое грибовидное существо, напоминающее ракообразное, с множеством пар когтистых отростков и головой, покрытой колышущимися усиками."
+	ru_names = list(
+		NOMINATIVE = "ми-го",
+		GENITIVE = "ми-го",
+		DATIVE = "ми-го",
+		ACCUSATIVE = "ми-го",
+		INSTRUMENTAL = "ми-го",
+		PREPOSITIONAL = "ми-го"
+	)
+	speak_emote = list("кричит", "щёлкает", "щебечет", "лает", "стонет", "рычит", "мяукает", "отдается эхом", "ревёт", "скрипит", "гремит", "восклицает", "вопит", "замечает", "бормочет", "мямлит", "заикается", "бурлит")
 	icon_state = "mi-go"
 	icon_living = "mi-go"
 	icon_dead = "mi-go-dead"
 	attacktext = "мучает"
 	speed = -0.5
 	var/static/list/migo_sounds
-	deathmessage = "wails as its form turns into a pulpy mush."
+	deathmessage = "вопит, когда превращается в мясистое месиво."
 	death_sound = 'sound/voice/hiss6.ogg'
 
 /mob/living/simple_animal/hostile/netherworld/migo/Initialize(mapload)

@@ -133,10 +133,12 @@
 		return
 
 	if(action == "switch_camera")
-		var/obj/machinery/camera/selected_camera = locate(params["camera"]) in GLOB.cameranet.cameras
+		var/obj/machinery/camera/selected_camera = locateUID(params["camera"])
+		
 		if(isnull(selected_camera))
 			to_chat(usr, span_warning("ОШИБКА. Камера не найдена."))
 			return
+
 		active_camera?.computers_watched_by -= src
 		active_camera = selected_camera
 		active_camera.computers_watched_by += src

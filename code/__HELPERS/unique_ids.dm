@@ -14,8 +14,6 @@
 //   var/myUID = mydatum.UID()
 //   var/datum/D = locateUID(myUID)
 
-/// The next UID to be used (Increments by 1 for each UID)
-GLOBAL_VAR_INIT(next_unique_datum_id, 1)
 /// Log of all UIDs created in the round. Assoc list with type as key and amount as value
 GLOBAL_LIST_EMPTY(uid_log)
 
@@ -27,28 +25,15 @@ GLOBAL_LIST_EMPTY(uid_log)
   */
 /datum/proc/UID()
 	if(!unique_datum_id)
-		var/tag_backup = tag
-		tag = null // Grab the raw ref, not the tag
-		// num2text can output 8 significant figures max. If we go above 10 million UIDs in a round, shit breaks
-		unique_datum_id = "\ref[src]_[num2text(GLOB.next_unique_datum_id++, 8)]"
-		tag = tag_backup
+		unique_datum_id = RUSTLIB_CALL(get_uuid, src)
 		GLOB.uid_log[type]++
+
 	return unique_datum_id
-
-/datum/proc/get_num_uid()
-	if(numeric_datum_id)
-		return numeric_datum_id
-
-	numeric_datum_id = GLOB.next_unique_datum_id
-
-	GLOB.next_unique_datum_id++
-	GLOB.uid_log[type]++
-
-	return numeric_datum_id
 
 /proc/UID_of(datum/target)
 	if(!isdatum(target))
 		CRASH("Non-datum passed as argument.")
+
 	return target.UID()
 
 
@@ -59,19 +44,10 @@ GLOBAL_LIST_EMPTY(uid_log)
   * Returns the datum, if found
   */
 /proc/locateUID(uid)
-	if(!istext(uid))
-		return null
+	if(!uid)
+		return
 
-	var/splitat = findlasttext(uid, "_")
-
-	if(!splitat)
-		return null
-
-	var/datum/D = locate(copytext(uid, 1, splitat))
-
-	if(D && D.unique_datum_id == uid)
-		return D
-	return null
+	return RUSTLIB_CALL(get_by_uuid, uid)
 
 
 /**
@@ -101,7 +77,7 @@ GLOBAL_LIST_EMPTY(uid_log)
 		return
 
 	var/list/sorted = sortTim(GLOB.uid_log, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
-	var/list/text = list("<h1>UID Log</h1>", "<p>Current UID: [GLOB.next_unique_datum_id]</p>", "<ul>")
+	var/list/text = list("<h1>UID Log</h1>", "<p>Current UID: [RUSTLIB_CALL(get_uuid_counter_value)]</p>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"
 
