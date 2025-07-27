@@ -270,6 +270,17 @@
 		else
 			to_chat(who, "[law.get_index()]. [law.law]")
 
+/datum/ai_laws/proc/return_laws_text()
+	. = list()
+	sort_laws()
+	for(var/datum/ai_law/law in sorted_laws)
+		if(law == zeroth_law_borg)
+			continue
+		if(law == zeroth_law)
+			. += span_danger("[law.get_index()]. [law.law]")
+		else
+			. += "[law.get_index()]. [law.law]"
+
 /********************
 *	Stating Laws	*
 ********************/
