@@ -1,5 +1,4 @@
 /datum/component/cleave_attack
-	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	/// Size of the attack arc in degrees
 	var/arc_size
 	/// Make this TRUE for two-handed weapons like axes
@@ -130,13 +129,18 @@
 		return // don't spam it
 	if(requires_wielded && !HAS_TRAIT(item, TRAIT_WIELDED))
 		return // if it needs to be wielded, check to make sure it is
+	if(istype(item, /obj/item/melee/energy))
+		var/obj/item/melee/energy/energy
+		energy = item
+		if(energy.active == FALSE)
+			return
 
 	// some information we're going to need later
 	var/turf/user_turf = get_turf(user)
 	var/turf/center_turf = get_turf_in_angle(get_angle(user, target), user_turf)
 	var/facing_dir = get_dir(user, center_turf)
-	// left hand swing - counter clockwise, right hand - clockwise
-	var/swing_direction = user.hand == ACTIVE_HAND_LEFT ? 1 : -1
+	// left hand swing - clockwise, right hand - counter clockwise
+	var/swing_direction = user.hand == ACTIVE_HAND_LEFT ? -1 : 1
 
 	// make a list of turfs to swing across
 	var/list/turf_list = list()
@@ -156,7 +160,7 @@
 	REMOVE_TRAIT(item, TRAIT_CLEAVING, UNIQUE_TRAIT_SOURCE(src))
 
 	// do these last so they don't get overridden during the attack loop
-	add_attack_logs(user, "Performed swing attack with [item] at [get_turf(user)]", ATKLOG_MOST)
+	add_attack_logs(user, "Performed swing attack with [item]", ATKLOG_MOST)
 	cleave_end_callback?.Invoke(item, user)
 	user.do_attack_animation(center_turf, no_effect = TRUE)
 	user.changeNext_move(item.attack_speed * swing_speed_mod)

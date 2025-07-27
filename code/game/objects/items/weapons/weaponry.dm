@@ -482,6 +482,17 @@
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
 
+/obj/item/melee/claymore/bone/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 0.75 SECONDS, \
+		swing_sound = "blade_swing_light" \
+	)
+
 /obj/item/melee/nutcracker
 	name = "nutcracker"
 	desc = "Простейшая дубина из кости. Воплощение силы первобытного разума и природной мощи. Настоящая классика."

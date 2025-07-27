@@ -304,7 +304,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 2, \
 		no_multi_hit = TRUE, \
-		swing_sound = "generic_swing_light" \
+		swing_sound = "chop_swing_light" \
 	)
 
 /obj/item/nullrod/scythe/vibro
