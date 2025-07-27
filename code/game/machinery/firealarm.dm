@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 		emagged = TRUE
 		if(user)
 			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag [src], disabling its thermal sensors."))
-		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
 	..()
@@ -151,7 +151,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 					to_chat(user, span_warning("You need more cable for this!"))
 					return ATTACK_CHAIN_PROCEED
 				buildstage = FIRE_ALARM_READY
-				playsound(get_turf(src), I.usesound, 50, 1)
+				playsound(get_turf(src), I.usesound, 50, TRUE)
 				to_chat(user, span_notice("You wire [src]!"))
 				update_icon()
 				return ATTACK_CHAIN_PROCEED_SUCCESS

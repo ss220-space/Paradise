@@ -712,7 +712,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		unset_machine()
 		close_window(src, href_list["mach_close"])
 	if(href_list["switchcamera"])
-		switchCamera(locate(href_list["switchcamera"]) in GLOB.cameranet.cameras)
+		switchCamera(locateUID(href_list["switchcamera"]))
 	if(href_list["showalerts"])
 		ai_alerts()
 	if(href_list["show_paper"])
@@ -723,7 +723,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			popup.open(FALSE)
 	//Carn: holopad requests
 	if(href_list["jumptoholopad"])
-		var/obj/machinery/hologram/holopad/H = locate(href_list["jumptoholopad"])
+		var/obj/machinery/hologram/holopad/H = locateUID(href_list["jumptoholopad"])
 		if(stat == CONSCIOUS)
 			if(H)
 				H.attack_ai(src) //may as well recycle
@@ -1395,10 +1395,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(!istype(apc) || QDELETED(apc) || apc.stat & BROKEN)
 		to_chat(src, span_danger("Hack aborted. The designated APC no longer exists on the power network."))
-		playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 1)
+		playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, TRUE)
 	else if(apc.aidisabled)
 		to_chat(src, span_danger("Hack aborted. [apc] is no longer responding to our systems."))
-		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 1)
+		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 	else
 		malf_picker.processing_time += 10
 
@@ -1406,7 +1406,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 
-		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1)
+		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, TRUE)
 		to_chat(src, "Hack complete. [apc] is now under your exclusive control.")
 		apc.update_icon()
 

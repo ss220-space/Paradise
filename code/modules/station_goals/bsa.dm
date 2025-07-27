@@ -45,13 +45,13 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /datum/bluespace_cannon_fire_mode/proc/fire(obj/machinery/bsa/full/cannon, mob/user, turf/target, target_signal)
 	var/turf/impact_turf = cannon.spread(target, spread)
-	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
+	playsound(src, 'sound/machines/bsa_fire.ogg', 100, TRUE)
 	addtimer(CALLBACK(cannon, TYPE_PROC_REF(/obj/machinery/bsa/full, incoming_shot_aim), impact_turf), (BSA_IMPACT_DELAY - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(create_explosion), user, impact_turf), BSA_IMPACT_DELAY SECONDS)
 	addtimer(CALLBACK(cannon, TYPE_PROC_REF(/obj/machinery/bsa/full, check_goal_complete), target_signal), (BSA_IMPACT_DELAY + BSA_AFTER_STRIKE_GOACL_CHECK_DELAY) SECONDS)
 
 /datum/bluespace_cannon_fire_mode/burst/fire(obj/machinery/bsa/full/cannon, mob/user, turf/target, target_signal)
-	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
+	playsound(src, 'sound/machines/bsa_fire.ogg', 100, TRUE)
 	for(var/i = 0; i < shots_count; i++)
 		var/turf/impact_turf = cannon.spread(target, spread)
 		var/delay = BSA_IMPACT_DELAY + i * delay_between_shots

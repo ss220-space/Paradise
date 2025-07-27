@@ -4676,7 +4676,7 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "aOs" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/maintenance/casino)
 "aOu" = (
@@ -18178,7 +18178,7 @@
 	},
 /area/atmos)
 "ciu" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -35666,7 +35666,7 @@
 /turf/simulated/floor/wood,
 /area/blueshield)
 "dFm" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
 "dFn" = (
@@ -35741,7 +35741,7 @@
 /obj/machinery/camera{
 	c_tag = "Theatre"
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
 "dFx" = (
@@ -35837,7 +35837,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dFW" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
@@ -37234,7 +37234,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/maintenance/casino)
 "dLD" = (
@@ -86994,7 +86994,7 @@
 	},
 /area/hallway/primary/central/sw)
 "qvt" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},

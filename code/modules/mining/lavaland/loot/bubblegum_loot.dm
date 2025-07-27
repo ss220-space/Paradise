@@ -52,7 +52,7 @@
 			var/obj/effect/mine/pickup/bloodbath/B = new(H)
 			B.mineEffect(H)
 	to_chat(user, span_notice("Вы разбиваете бутылку!"))
-	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
+	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, TRUE)
 	qdel(src)
 
 // Blood Contract

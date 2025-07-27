@@ -15,7 +15,7 @@
 		target.shock_internal_organs(100)
 		target.visible_message("<span class='warning'>[user] shocked [target]!</span>", \
 				"<span class='userdanger'>[user] shoked you!</span>")
-		playsound(get_turf(user), 'sound/weapons/egloves.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		target.apply_damage(10, BURN)
 		objective_damage(user, target, 10, BURN)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : defib", ATKLOG_ALL)

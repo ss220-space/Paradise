@@ -70,7 +70,7 @@
 				L.Weaken(2 SECONDS)
 				L.visible_message(span_danger("[src] врезается в [L.declent_ru(ACCUSATIVE)]!"), span_userdanger("[src] врезается в вас!"))
 				L.apply_damage(30, BRUTE)
-				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, 1)
+				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 				shake_camera(L, 4, 3)
 				shake_camera(src, 2, 3)
 

@@ -283,7 +283,7 @@
 
 /obj/item/mmi/syndie/greet(mob/living/silicon/robot/borg)
 	to_chat(borg, "Вы помните вашу прошлую жизнь. Вы не обязаны подчиняться законам или ИИ.")
-	borg.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, 0)
+	borg.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, FALSE)
 	return TRUE
 
 /obj/item/mmi/syndie/Destroy()

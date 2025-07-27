@@ -601,8 +601,8 @@
 			span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
 			span_userdanger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(target.gender,"тебя","вас")]!"),
 		)
-		SEND_SOUND(target, 'sound/weapons/targeton.ogg')
-		SEND_SOUND(src, 'sound/weapons/targeton.ogg')
+		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
+		SEND_SOUND(src, sound('sound/weapons/targeton.ogg'))
 		add_emote_logs(src, "point [hand_item] HARM to [key_name(target)] [COORD(target)]")
 		return TRUE
 

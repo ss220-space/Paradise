@@ -204,7 +204,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 			span_warning("[user] стуч[pluralize_ru(user.gender,"ит","ят")] по [declent_ru(DATIVE)]..."),
 			span_boldannounceic("Вы осторожно стучите по [declent_ru(DATIVE)]...")
 		)
-		playsound(user.loc, 'sound/effects/shieldbash.ogg', 100, 1)
+		playsound(user.loc, 'sound/effects/shieldbash.ogg', 100, TRUE)
 		sleep(50)
 	return ..()
 

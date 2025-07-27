@@ -25179,7 +25179,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bFe" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bFf" = (
@@ -57960,7 +57960,7 @@
 /turf/simulated/floor/glass,
 /area/maintenance/server)
 "eXx" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint)
 "eYH" = (
@@ -69797,7 +69797,7 @@
 	},
 /area/toxins/xenobiology)
 "mDw" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "mDU" = (

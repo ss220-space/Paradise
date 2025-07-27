@@ -13,8 +13,8 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 
-	speak_emote = list("roars")
-	emote_hear = list("roars")
+	speak_emote = list("рычит")
+	emote_hear = list("рычит")
 	tts_seed = "Grunt"
 	response_help  = "thinks better of touching"
 	response_disarm = "flails at"
@@ -57,8 +57,8 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 
-	speak_emote = list("honks")
-	emote_hear = list("honks")
+	speak_emote = list("хонкает")
+	emote_hear = list("хонкает")
 	tts_seed = "Bandit"
 	attack_sound = list('sound/items/bikehorn.ogg')
 	health_regen = 24
@@ -81,8 +81,8 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 
-	speak_emote = list("gnaw")
-	emote_hear = list("gnaw")
+	speak_emote = list("рычит", "ревёт")
+	emote_hear = list("рычит", "ревёт")
 	tts_seed = "Huskar"
 	attack_sound = list('sound/weapons/bite.ogg')
 

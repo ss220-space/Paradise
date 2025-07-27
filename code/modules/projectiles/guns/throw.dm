@@ -45,10 +45,10 @@
 
 /obj/item/gun/throw/examine(mob/user)
 	. = ..()
-	. += span_info("It is [to_launch ? "loaded with [to_launch]" : "not loaded"].")
+	. += span_notice("It is [to_launch ? "loaded with [to_launch]" : "not loaded"].")
 	var/ammo_count = notify_ammo_count()
 	if(ammo_count)
-		. += span_info(ammo_count)
+		. += span_notice(ammo_count)
 
 
 /obj/item/gun/throw/attackby(obj/item/I, mob/user, params)
@@ -92,7 +92,7 @@
 	I.forceMove(get_turf(src))
 	to_launch = null
 	modify_projectile(I)
-	playsound(user, fire_sound, 50, 1)
+	playsound(user, fire_sound, 50, TRUE)
 	I.throw_at(target, get_throwrange(), get_throwspeed(), user, FALSE)
 	add_attack_logs(user, target, "fired [I] from a [src]")
 	process_chamber()

@@ -147,7 +147,7 @@
 
 /obj/item/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/hatchet/unathiknife
@@ -208,7 +208,7 @@
 		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
-			playsound(loc, "desceration", 50, 1, -1)
+			playsound(loc, "desceration", 50, TRUE, -1)
 	return BRUTELOSS
 
 
@@ -236,7 +236,7 @@
 		attack_verb = list("рубанул", "порезал", "скосил")
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		//Extend sound (blade unsheath)
-		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
+		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, TRUE)	//Sound credit to Qat of Freesound.org
 	else
 		to_chat(user, "<span class='notice'>You collapse the scythe, folding it away for easy storage.</span>")
 		slot_flags = ITEM_SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
@@ -245,7 +245,7 @@
 		attack_verb = list("ударил", "ткнул")
 		hitsound = "swing_hit"
 		//Collapse sound (blade sheath)
-		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
+		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, TRUE)		//Sound credit to Q.K. of Freesound.org
 	set_sharpness(extend)
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_speedmods = FALSE)
