@@ -50,7 +50,7 @@
 	user.put_in_l_hand(B)
 
 	var/religion_name = "Christianity"
-	var/new_religion = tgui_input_text(user, "You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name, user, max_length = MAX_NAME_LEN)
+	var/new_religion = tgui_input_text(user, "You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name, max_length = MAX_NAME_LEN)
 
 	if(!new_religion)
 		new_religion = religion_name
@@ -79,7 +79,7 @@
 	SSblackbox.record_feedback("text", "religion_name", 1, "[new_religion]", 1)
 
 	var/deity_name = "Space Jesus"
-	var/new_deity = tgui_input_text(user, "Who or what do you worship? Default is Space Jesus.", "Name change", deity_name, user, max_length = MAX_NAME_LEN)
+	var/new_deity = tgui_input_text(user, "Who or what do you worship? Default is Space Jesus.", "Name change", deity_name, max_length = MAX_NAME_LEN)
 
 	if(!length(new_deity) || (new_deity == "Space Jesus"))
 		new_deity = deity_name
