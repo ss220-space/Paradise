@@ -44,7 +44,7 @@
 	var/bolt_open = FALSE
 	var/spread = 0
 	/// Gun accuracy (without distance accuracy)
-	var/datum/gun_accuracy/accuracy
+	var/datum/gun_accuracy/accuracy = GUN_ACCURACY_DEFAULT
 	var/barrel_dir = EAST // barel direction need for a rotate gun with telekinesis for shot to target (default: matched with tile direction)
 	var/randomspread = TRUE
 

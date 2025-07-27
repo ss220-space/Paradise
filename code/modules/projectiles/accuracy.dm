@@ -11,6 +11,7 @@
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
+GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAULT)
 
 /datum/gun_accuracy
@@ -109,7 +110,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	if(distance < 2) //point-back shot (diagonal dist is 1.414)
 		return 100
 	var/obj/item/gun/gun = projectile.firer_source_atom
-	var/datum/gun_accuracy/gun_accuracy = GLOB.gun_accuracy_default
+	var/datum/gun_accuracy/gun_accuracy = GLOB.gun_accuracy_sniper
 	if(istype(gun))
 		gun_accuracy = gun.accuracy
 	var/def_zone_accuracy = gun_accuracy.get_accuracy_for(projectile.def_zone)
@@ -130,7 +131,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 
 /obj/projectile/proc/calculate_randomize_def_zone_chance(obj/projectile/projectile, distance)
 	var/obj/item/gun/gun = projectile.firer_source_atom
-	var/datum/gun_accuracy/gun_accuracy = GLOB.gun_accuracy_default
+	var/datum/gun_accuracy/gun_accuracy = GLOB.gun_accuracy_sniper
 	if(istype(gun))
 		gun_accuracy = gun.accuracy
 	var/def_zone_accuracy = gun_accuracy.get_accuracy_for(projectile.def_zone)
