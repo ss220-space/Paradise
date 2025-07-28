@@ -125,34 +125,27 @@ SUBSYSTEM_DEF(addition_goals)
 
 /datum/controller/subsystem/addition_goals/proc/complete_current_goal(mob/user)
 	if(!is_shuttle_in_station())
-		message_admins("[user.name] try complete addition goal, error - shuttle not exists on station dock")
 		return FALSE
 	if(goal_state != AGS_STATE_GOAL_IN_PROGRESS)
-		message_admins("[user.name] try complete addition goal, error - invalid state [goal_state]")
 		return FALSE
 	goal_state = AGS_STATE_GOAL_COMPLETE
 	addtimer(CALLBACK(src, PROC_REF(send_shuttle_to_centcom), user), COMPLETE_GOAL_SHUTTLE_SEND_DELAY SECONDS)
-	message_admins("[user.name] complete addition goal [current_goal.id]")
 	return TRUE
 
 
 /// When dock shuttle to dock (signal handler)
 /datum/controller/subsystem/addition_goals/proc/on_shuttle_dock(datum/source, /obj/docking_port/mobile/shuttle, obj/docking_port/stationary/new_dock)
 	SIGNAL_HANDLER
-	message_admins("addition goal shuttle dock into [new_dock.id] state=[goal_state]")
 	if(goal_state == AGS_STATE_GOAL_PREPARE)
 		goal_state = AGS_STATE_GOAL_IN_PROGRESS
 		return
 	if(goal_state != AGS_STATE_GOAL_COMPLETE)
 		return
 	if(new_dock.id != AGS_SHUTTLE_CENTCOM_DOCK)
-		message_admins("addition goals shuttle dock to unknown location=[new_dock.id] in goal complete state")
 		return
 	if(!current_goal)
-		message_admins("can not complete goal - goal not exists")
 		goal_state = AGS_STATE_IDLE
 		return
-	message_admins("complete addition goal [current_goal.id]")
 	current_goal.complete_goal(src)
 	current_goal = null
 	clear_shuttle_turfs()

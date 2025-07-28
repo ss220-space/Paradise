@@ -26,7 +26,6 @@
 
 
 /datum/addition_goal/prisoners/spawn_shuttle_contain(list/turf/shuttle_turfs)
-	message_admins("prisoners addition goal: id=[id] begin spawn shuttle contain prisoners=[prisoners_count].")
 	reward_credits = 0
 	reward_cargopoints = 0
 	spawner = new /obj/effect/mob_spawn/human/addition_goal/prisoners(shuttle_turfs[1])
@@ -99,10 +98,8 @@
 
 /datum/addition_goal/prisoners/proc/on_prisoner_timer_finish(mob/living/prisoner, crimes, duration_min)
 	SIGNAL_HANDLER
-	message_admins("on_prisoner_timer_finish  prisoner=[prisoner.name] crimes='[crimes]' duration_min=[duration_min]")
 	var/datum/addition_goal_prisoner_data/data = prisoners_data[prisoner.real_name]
 	if(!data)
-		message_admins("not found prisoner crimes data for [prisoner.name]")
 		return
 	data.complete_percent = 100
 	data.complete_reason = "отсидел"
@@ -118,7 +115,6 @@
 		data.complete_percent -= 10
 		data.complete_reason += " с неправильными статьями"
 	}
-	message_admins("prisoner [prisoner.name] brig cell complete crimes='[crimes]' duration_min=[duration_min] complete=[data.complete_percent]%")
 
 
 /datum/addition_goal/prisoners/format_accept_report(mob/user)
@@ -143,37 +139,30 @@
 		number++
 		var/datum/addition_goal_prisoner_data/data = prisoners_data[prisoner.real_name]
 		if(!data) //not exists crimes data, skip this prisoner
-			message_admins("prisioners addition goal: prisoner [prisoner.name] not found crimes data!")
 			report_text += "потерян (<i>штраф 5000 кредитов</i>).<br>"
 			reward_credits -= 5000
 			continue
 		if(!prisoner.loc) //prisoner not exists in game (gibbed, cremated ...)
-			message_admins("prisioners addition goal: prisoner [prisoner.name] not not exists!")
 			report_text += "потерян (<i>штраф 5000 кредитов</i>).<br>"
 			reward_credits -= 5000
 			continue
 		if(!contains_in_shuttle(shuttle_turfs, prisoner)) //prisoner not in shuttle!
-			message_admins("prisioners addition goal: prisoner [prisoner.name] not in shuttle!")
 			data.complete_percent = max(0, data.complete_percent - 50)
 			report_text += "остался на станции (<i>штраф 5000 кредитов</i>) "
 			reward_credits -= 5000
 		if(prisoner.stat == DEAD)
-			message_admins("prisioners addition goal: prisoner [prisoner.name] dead!")
 			data.complete_percent = max(0, data.complete_percent - 25)
 			report_text += "мертв (<i>штраф 2000 кредитов</i>) "
 			reward_credits -= 2000
 		else if(prisoner.health < 95) //prisoner hearts
-			message_admins("prisioners addition goal: prisoner [prisoner.name] have deceases!")
 			data.complete_percent = max(0, data.complete_percent - 25)
 			report_text += "имеет ранения (<i>штраф 1000 кредитов</i>) "
 			reward_credits -= 1000
 		if(!prisoner.handcuffed)
-			message_admins("prisioners addition goal: prisoner [prisoner.name] not hancuffed!")
 			data.complete_percent = max(0, data.complete_percent - 10)
 			report_text += "не в наручниках (<i>штраф 500 кредитов</i>) "
 			reward_credits -= 500
 		summary_complete_percent += data.complete_percent
-		message_admins("prisioners addition goal: check completition [prisoner.name] progress=[data.complete_percent].")
 		report_text += data.complete_reason + ".<br>"
 	var/progress = (summary_complete_percent) / prisoners_count
 	report_text += "<b>Общий прогресс запроса</b>: [progress]%<br>"
@@ -194,7 +183,6 @@
 	system.add_reward(reward_credits, reward_cargopoints)
 	var/paper_content = system.create_paper_content("Отчет о заключении под стражу №[request_number]", report_text, "Официальный документ заверенный печатью Центрального Командования Нанотрейзен")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
-	message_admins("prisioners addition goal: check completition progress=[progress].")
 
 
 

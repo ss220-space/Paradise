@@ -27,7 +27,6 @@
 
 
 /datum/addition_goal/funeral/spawn_shuttle_contain(list/turf/shuttle_turfs)
-	message_admins("funeral addition goal: id=[id] begin spawn shuttle contain corpses=[corpse_count].")
 	spawner = new /obj/effect/mob_spawn/human/addition_goal/funeral(shuttle_turfs[1])
 	reward_credits = 0
 	reward_cargopoints = 0
@@ -39,7 +38,6 @@
 		create_paper_about_corpse(random_turf, corpse, data)
 		create_body_bag_and_close(random_turf)
 		calculate_reward(data)
-		message_admins("funeral addition goal: created corpse [corpse.name] [ADMIN_COORDJMP(random_turf)].")
 	qdel(spawner)
 	return TRUE
 
@@ -136,7 +134,6 @@
 		report_text += "[reward_number]. [reward_cargopoints] очков поставки в карго.<br>"
 	system.add_reward(reward_credits, reward_cargopoints)
 	var/paper_content = system.create_paper_content("Отчет о проведении погребения №[request_number]", report_text, "Официальный документ заверенный печатью Центрального Командования Нанотрейзен")
-	message_admins("funeral addition goal: check completition [complete_count] of [corpse_count] progress=[progress].")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
 
 

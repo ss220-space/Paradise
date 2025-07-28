@@ -35,7 +35,6 @@
 	description = "[name]. На станцию прибудет шаттл с [patiens_count] пациентами для проведения медицинских услуг."
 
 /datum/addition_goal/medical_patients/spawn_shuttle_contain(list/turf/shuttle_turfs)
-	message_admins("medical patients addition goal: id=[id] begin spawn shuttle contain patiens=[patiens_count].")
 	spawner = new /obj/effect/mob_spawn/human/addition_goal/medical_patients(shuttle_turfs[1])
 	reward_credits = 0
 	reward_cargopoints = 0
@@ -128,7 +127,6 @@
 	system.add_reward(reward_credits, reward_cargopoints)
 	var/paper_content = system.create_paper_content("Отчет о медицинской помощи №[request_number]", report_text, "Официальный документ заверенный печатью Центрального Командования Нанотрейзен")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
-	message_admins("medical patients addition goal: check completition full heal [full_healed_patients] of [patiens_count] progress=[progress].")
 
 
 
