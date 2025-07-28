@@ -247,7 +247,7 @@ const QuestItem = (properties: QuestItemProps) => {
   const rewardColor = getRewardColor(quest.reward, isCorp);
   return (
     <Section
-      title={`Запрос от ${quest.target_departament}`}
+      title={`Запрос от "${quest.target_departament}"`}
       className={`QuestConsoleSection QuestConsoleSection--${rewardColor} ${cardWithShownMenu === quest.ref && 'QuestConsoleSection--dimmed'} ${quest.active && 'QuestConsoleSection--active'}`}
       height="100%"
       stretchContents
