@@ -38,39 +38,45 @@
 ///Normal 1 per turf dynamic lighting underlays
 #define LIGHTING_PLANE 10
 
+#define LIGHTING_LAMPS_GLARE 11 // Light glare (optional setting)
+#define LIGHTING_EXPOSURE_PLANE 12 // Light sources "cones"
+#define LIGHTING_LAMPS_SELFGLOW 14 // Light sources glow (lamps, doors overlay, etc.)
+#define LIGHTING_LAMPS_PLANE 14 // Light sources themselves (lamps, screens, etc.)
+#define LIGHTING_LAMPS_RENDER_TARGET "*LIGHTING_LAMPS_RENDER_TARGET"
+
 ///Lighting objects that are "free floating"
-#define O_LIGHTING_VISUAL_PLANE 11
+#define O_LIGHTING_VISUAL_PLANE 15
 #define O_LIGHTING_VISUAL_RENDER_TARGET "O_LIGHT_VISUAL_PLANE"
 
 ///Used in camerachunks to keep some turfs hidden on photo
-#define BYOND_LIGHTING_PLANE 19
+#define BYOND_LIGHTING_PLANE 20
 
 /// This plane masks out lighting to create an "emissive" effect, ie for glowing lights in otherwise dark areas.
-#define EMISSIVE_PLANE 14
+#define EMISSIVE_PLANE 16
 /// The render target used by the emissive.
 #define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
 
 /// Masks the emissive plane
-#define EMISSIVE_MASK_PLANE 15
+#define EMISSIVE_MASK_PLANE 17
 #define EMISSIVE_MASK_RENDER_TARGET "*EMISSIVE_MASK_PLANE"
 
-#define RENDER_PLANE_LIGHTING 16
+#define RENDER_PLANE_LIGHTING 18
 
 ///Things that should render ignoring lighting
-#define ABOVE_LIGHTING_PLANE 17
+#define ABOVE_LIGHTING_PLANE 19
 
 //---------------- MISC -----------------------
 
 ///Pipecrawling images
-#define PIPECRAWL_IMAGES_PLANE 20
+#define PIPECRAWL_IMAGES_PLANE 21
 
 ///AI Camera Static
-#define CAMERA_STATIC_PLANE 21
+#define CAMERA_STATIC_PLANE 22
 
 ///Anything that wants to be part of the game plane, but also wants to draw above literally everything else
-#define HIGH_GAME_PLANE 22
+#define HIGH_GAME_PLANE 23
 
-#define FULLSCREEN_PLANE 23
+#define FULLSCREEN_PLANE 24
 
 //--------------- FULLSCREEN RUNECHAT BUBBLES ------------
 

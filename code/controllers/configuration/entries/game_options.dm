@@ -104,3 +104,20 @@
 /datum/config_entry/number/cubemonkey_cap
 	default = 20
 	min_val = 0
+
+/datum/config_entry/keyed_list/lighting_effects_configuration
+	default = list( "glow_brightness_base" = 0, 
+					"glow_brightness_power" = -0.25,
+					"glow_contrast_base" = 0, 
+					"glow_contrast_power" = 0.5,
+					"exposure_brightness_base" = 0.01, 
+					"exposure_brightness_power" = 0,
+					"exposure_contrast_base" = 9.5, 
+					"exposure_contrast_power" = 0,
+					)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/lighting_effects_configuration/New()
+	. = ..()
+	GLOB.lighting_effects_configuration = config_entry_value

@@ -52,6 +52,7 @@
 /datum/light_source/Destroy(force)
 	remove_lum()
 	if(source_atom)
+		source_atom.delete_lights()
 		LAZYREMOVE(source_atom.light_sources, src)
 
 	if(top_atom)
@@ -266,6 +267,9 @@
 	if(update)
 		needs_update = LIGHTING_CHECK_UPDATE
 		applied = TRUE
+		if(source_atom)
+			source_atom.update_bloom()
+
 	else if(needs_update == LIGHTING_CHECK_UPDATE)
 		return //nothing's changed
 

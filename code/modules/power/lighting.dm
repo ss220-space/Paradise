@@ -176,6 +176,8 @@
 	icon = 'icons/obj/lighting.dmi'
 	base_icon_state = "tube"
 	icon_state = "tube1"
+	glow_icon_state = "tube"
+	exposure_icon_state = "cone"
 	desc = "A lighting fixture."
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
@@ -245,6 +247,8 @@
 	icon_state = "bulb1"
 	base_icon_state = "bulb"
 	fitting = "bulb"
+	glow_icon_state = "bulb"
+	exposure_icon_state = "circle"
 	brightness_range = 4
 	brightness_color = "#a0a080"
 	nightshift_light_range = 4
@@ -910,6 +914,7 @@
 	base_icon_state = "ltube"
 	item_state = "c_tube"
 	brightness_range = 8
+	brightness_color = "#ffffff"
 
 /obj/item/light/tube/large
 	w_class = WEIGHT_CLASS_SMALL

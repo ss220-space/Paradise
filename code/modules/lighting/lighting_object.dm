@@ -26,6 +26,9 @@
 // Global list of lighting underlays, indexed by z level
 GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 
+/// Global list of settings for new light effects
+GLOBAL_LIST_EMPTY(lighting_effects_configuration)
+
 /atom/movable/lighting_object/New(turf/source)
 	if(!isturf(source))
 		qdel(src, force=TRUE)

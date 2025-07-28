@@ -10,6 +10,8 @@
 					toggles,
 					toggles_2,
 					sound,
+					light,
+					glowlevel,
 					volume_mixer,
 					lastchangelog,
 					exp,
@@ -44,19 +46,21 @@
 		toggles = text2num(query.item[7])
 		toggles2 = text2num(query.item[8])
 		sound = text2num(query.item[9])
-		volume_mixer = deserialize_volume_mixer(query.item[10])
-		lastchangelog = query.item[11]
-		exp = query.item[12]
-		clientfps = text2num(query.item[13])
-		atklog = text2num(query.item[14])
-		fuid = text2num(query.item[15])
-		parallax = text2num(query.item[16])
-		discord_id = query.item[17]
-		discord_name = query.item[18]
-		keybindings = init_keybindings(raw = query.item[19])
-		viewrange = query.item[20]
-		ghost_darkness_level = query.item[21]
-		toggles3 = text2num(query.item[22])
+		light = text2num(query.item[10])
+		glowlevel = query.item[11]
+		volume_mixer = deserialize_volume_mixer(query.item[12])
+		lastchangelog = query.item[13]
+		exp = query.item[14]
+		clientfps = text2num(query.item[15])
+		atklog = text2num(query.item[16])
+		fuid = text2num(query.item[17])
+		parallax = text2num(query.item[18])
+		discord_id = query.item[19]
+		discord_name = query.item[20]
+		keybindings = init_keybindings(raw = query.item[21])
+		viewrange = query.item[22]
+		ghost_darkness_level = query.item[23]
+		toggles3 = text2num(query.item[24])
 
 	qdel(query)
 
@@ -126,6 +130,8 @@
 						"toggles2" = num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1)),
 						"atklog" = atklog,
 						"sound" = sound,
+						"light" = light,
+						"glowlevel" = glowlevel,
 						"volume_mixer" = serialize_volume_mixer(volume_mixer),
 						"lastchangelog" = lastchangelog,
 						"clientfps" = clientfps,

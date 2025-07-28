@@ -101,6 +101,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
 	var/toggles3 = TOGGLES_3_DEFAULT
 	var/sound = SOUND_DEFAULT
+	var/light = LIGHT_DEFAULT
+	/// Glow level for the lighting. Takes values from GLOW_HIGH to GLOW_DISABLE.
+	var/glowlevel = GLOW_MED
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
 	var/clientfps = 0
@@ -600,6 +603,23 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Mute End Of Round Sounds:</b> <a href='byond://?_src_=prefs;preference=mute_end_of_round'><b>[(sound & SOUND_MUTE_END_OF_ROUND) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Диапазон обзора:</b> <a href='byond://?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Мигающие окна:</b> <a href='byond://?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Да" : "Нет"]</a><br>"
+			dat += "<b>Lighting settings:</b><br>"
+			dat += "<b> - New Lighting:</b> <a href='byond://?_src_=prefs;preference=enablelighting'>[(light & LIGHT_NEW_LIGHTING) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - Glow Level:</b> <a href='byond://?_src_=prefs;preference=glowlevel'>"
+			switch(glowlevel)
+				if(GLOW_LOW)
+					dat += "Low"
+				if(GLOW_MED)
+					dat += "Medium"
+				if(GLOW_HIGH)
+					dat += "High"
+				if(GLOW_DISABLE)
+					dat += "Disabled"
+				else
+					dat += "Medium"
+			dat += "</a><br>"
+			dat += "<b> - Lamp Exposure:</b> <a href='byond://?_src_=prefs;preference=exposure'>[(light & LIGHT_EXPOSURE) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - Lamp Glare:</b> <a href='byond://?_src_=prefs;preference=glare'>[(light & LIGHT_GLARE) ? "Yes" : "No"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Настройки интерфейса</h2>"
@@ -750,6 +770,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 						if(PREFTOGGLE_SOUND)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? "<span class='good'>Включено</span>" : "<span class='bad'>Выключено</span>"]</a></td>"
+						
+						if(PREFTOGGLE_LIGHT)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(light & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
 
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
@@ -2443,6 +2466,22 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
 
+				if("enablelighting")
+					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/toggle_new_lighting]
+					toggle.set_toggles(user.client)
+
+				if("glowlevel")
+					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/special_toggle/set_glow_level]
+					toggle.set_toggles(user.client)
+
+				if("exposure")
+					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/toggle_lamp_exposure]
+					toggle.set_toggles(user.client)
+
+				if("glare")
+					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/toggle_lamps_glare]
+					toggle.set_toggles(user.client)
+					
 				if("setviewrange")
 					var/list/viewrange_options = list(
 						"15x15 (Классический)" = "15x15",

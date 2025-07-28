@@ -1673,6 +1673,7 @@
 #include "code\modules\admin\verbs\antagonist_menu.dm"
 #include "code\modules\admin\verbs\asays.dm"
 #include "code\modules\admin\verbs\atmosdebug.dm"
+#include "code\modules\admin\verbs\bloom_edit.dm"
 #include "code\modules\admin\verbs\bluespacearty.dm"
 #include "code\modules\admin\verbs\borgpanel.dm"
 #include "code\modules\admin\verbs\BrokenInhands.dm"

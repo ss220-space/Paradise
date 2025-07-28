@@ -87,6 +87,18 @@
 	///Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
 	var/tmp/list/light_sources
 
+	// Variables for bloom and exposure
+	var/glow_icon = 'icons/obj/lamps.dmi'
+	var/exposure_icon = 'icons/effects/light_overlays/exposures.dmi'
+
+	var/glow_icon_state
+	var/glow_colored = TRUE
+	var/exposure_icon_state
+	var/exposure_colored = TRUE
+
+	var/image/glow_overlay
+	var/image/exposure_overlay
+	
 	/// Last name used to calculate a color for the chatmessage overlays. Used for caching.
 	var/chat_color_name
 	/// Last color calculated for the the chatmessage overlays. Used for caching.
