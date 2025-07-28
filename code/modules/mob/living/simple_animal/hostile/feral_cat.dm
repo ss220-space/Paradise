@@ -13,8 +13,8 @@
 	melee_damage_upper = 5
 	attacktext = "рвёт"
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
-	speak_emote = list("purrs", "meows")
-	emote_hear = list("meows", "mews")
+	speak_emote = list("мурлычет", "мяукает")
+	emote_hear = list("мурлычет", "мяукает")
 	tts_seed = "Mannoroth"
 	speak_chance = 1
 	turns_per_move = 5

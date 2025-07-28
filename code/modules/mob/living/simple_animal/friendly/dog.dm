@@ -9,9 +9,9 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
-	speak_emote = list("barks", "woofs")
-	emote_hear = list("barks!", "woofs!", "yaps.", "pants.")
-	emote_see = list("shakes its head.", "chases its tail.", "shivers.")
+	speak_emote = list("лает", "рявкает", "гавкает")
+	emote_hear = list("лает", "гавкает", "тявкает", "пыхтит")
+	emote_see = list("трясёт головой", "пытается поймать свой хвост", "дрожит")
 	tts_seed = "Stetmann"
 	faction = list("neutral")
 	maxHealth = 50
@@ -245,9 +245,9 @@
 	desc = initial(desc)
 	// BYOND/DM doesn't support the use of initial on lists.
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
-	speak_emote = list("barks", "woofs")
-	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
-	emote_see = list("shakes its head.", "chases its tail.","shivers.")
+	speak_emote = list("лает", "рявкает", "гавкает")
+	emote_hear = list("лает", "гавкает", "тявкает","пыхтит")
+	emote_see = list("трясёт головой", "пытается поймать свой хвост","дрожит")
 	desc = initial(desc)
 	set_light_on(FALSE)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
@@ -545,9 +545,9 @@
 /mob/living/simple_animal/pet/dog/corgi/narsie/update_dog_fluff()
 	..()
 	speak = list("Tari'karat-pasnar!", "IA! IA!", "BRRUUURGHGHRHR")
-	speak_emote = list("growls", "barks ominously")
-	emote_hear = list("barks echoingly!", "woofs hauntingly!", "yaps in an eldritch manner.", "mutters something unspeakable.")
-	emote_see = list("communes with the unnameable.", "ponders devouring some souls.", "shakes.")
+	speak_emote = list("рычит", "зловеще лает")
+	emote_hear = list("лает эхом", "одержимо гавкает", "жутко тявкает", "непонятно бормочет")
+	emote_see = list("общается с Безымянным", "пытается учуять души", "трясётся")
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/narsie_act()
 	adjustBruteLoss(-maxHealth)
@@ -569,9 +569,9 @@
 /mob/living/simple_animal/pet/dog/corgi/ratvar/update_dog_fluff()
 	..()
 	speak = list("V'z fuvavat jneevbe!", "CLICK!", "KL-KL-KLIK")
-	speak_emote = list("growls", "barks ominously")
-	emote_hear = list("barks echoingly!", "woofs hauntingly!", "yaps in an judicial manner.", "mutters something unspeakable.")
-	emote_see = list("communes with the unnameable.", "seeks the light in souls.", "shakes.")
+	speak_emote = list("рычит", "зловеще лает")
+	emote_hear = list("лает эхом", "одержимо гавкает", "авторитетно тявкает", "непонятно бормочет")
+	emote_see = list("общается с Безымянным", "пытается учуять души заблудших", "трясётся")
 
 /mob/living/simple_animal/pet/dog/corgi/ratvar/ratvar_act()
 	adjustBruteLoss(-maxHealth)

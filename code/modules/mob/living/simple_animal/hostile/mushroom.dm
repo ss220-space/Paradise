@@ -26,7 +26,7 @@
 	speed = 1
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	robust_searching = 1
-	speak_emote = list("squeaks")
+	speak_emote = list("пищит")
 	deathmessage = "fainted"
 	var/powerlevel = 0 //Tracks our general strength level gained from eating other shrooms
 	var/bruised = 0 //If someone tries to cheat the system by attacking a shroom to lower its health, punish them so that it wont award levels to shrooms that eat it

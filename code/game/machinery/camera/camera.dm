@@ -340,7 +340,7 @@
 	alarm_on = FALSE
 	SSalarm.cancelAlarm("Camera", get_area(src), src)
 
-/obj/machinery/camera/proc/can_use()
+/obj/machinery/camera/proc/can_use(mob/user)
 	if(!status)
 		return 0
 	if(stat & EMPED)
@@ -438,6 +438,15 @@
 		cam["y"] = 0
 		cam["z"] = 0
 	return cam
+
+
+/obj/machinery/camera/proc/can_AI_see(mob/living/silicon/ai/ai)
+	if(!ai)
+		return TRUE
+
+	var/list/tempnetwork = network & ai.network
+	return tempnetwork.len > 0
+
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused

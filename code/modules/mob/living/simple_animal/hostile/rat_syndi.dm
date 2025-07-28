@@ -21,10 +21,10 @@
 	can_collar = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	nightvision = 6
-	speak = list("Слава Синдикату!","Смерть НаноТрейзен!", "У вас есть сыр?")
-	speak_emote = list("squeeks","squeaks","squiks")
-	emote_hear = list("squeeks","squeaks","squiks")
-	emote_see = list("runs in a circle", "shakes", "scritches at something")
+	speak = list("Слава Синдикату!", "Смерть НаноТрейзен!", "У вас есть сыр?")
+	speak_emote = list("пищит", "попискивает")
+	emote_hear = list("пищит", "попискивает")
+	emote_see = list("бегает кругами", "дрожит", "быстро осматривается")
 
 	mob_size = MOB_SIZE_TINY // If theyre not at least small it doesnt seem like the treadmill works or makes sound
 	pass_flags = PASSTABLE
