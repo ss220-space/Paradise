@@ -82,8 +82,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/oncepoped = FALSE
 
 
-/datum/antagonist/changeling/Initialize(mapload)
-	. = ..()
+/datum/antagonist/changeling/New()
+	..()
 	if(!length(innate_powers))
 		innate_powers = get_powers_of_type(CHANGELING_INNATE_POWER)
 	if(!length(purchaseable_powers))
