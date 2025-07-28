@@ -1434,36 +1434,36 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/engineering/powergamermitts
-	name = "Изолированные перчатки"
+	name = "Изоляционные перчатки"
 	contains = list(/obj/item/clothing/gloves/color/yellow,
 					/obj/item/clothing/gloves/color/yellow,
 					/obj/item/clothing/gloves/color/yellow)
-	cost = 30	//Made of pure-grade bullshittinium
-	containername = "ящик изолированных перчаток"
+	cost = 30
+	containername = "ящик изоляционных перчаток"
 	container_ru_names = list(
-		NOMINATIVE = "ящик изолированных перчаток",
-		GENITIVE = "ящика изолированных перчаток",
-		DATIVE = "ящику изолированных перчаток",
-		ACCUSATIVE = "ящик изолированных перчаток",
-		INSTRUMENTAL = "ящиком изолированных перчаток",
-		PREPOSITIONAL = "ящике изолированных перчаток"
+		NOMINATIVE = "ящик изоляционных перчаток",
+		GENITIVE = "ящика изоляционных перчаток",
+		DATIVE = "ящику изоляционных перчаток",
+		ACCUSATIVE = "ящик изоляционных перчаток",
+		INSTRUMENTAL = "ящиком изоляционных перчаток",
+		PREPOSITIONAL = "ящике изоляционных перчаток"
 	)
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_packs/engineering/power
-	name = "Батареи"
-	contains = list(/obj/item/stock_parts/cell/high,		//Changed to an extra high powercell because normal cells are useless
+	name = "Батареи АА"
+	contains = list(/obj/item/stock_parts/cell/high,
 					/obj/item/stock_parts/cell/high,
 					/obj/item/stock_parts/cell/high)
 	cost = 25
-	containername = "ящик батарей"
+	containername = "ящик батарей АА"
 	container_ru_names = list(
-		NOMINATIVE = "ящик батарей",
-		GENITIVE = "ящика батарей",
-		DATIVE = "ящику батарей",
-		ACCUSATIVE = "ящик батарей",
-		INSTRUMENTAL = "ящиком батарей",
-		PREPOSITIONAL = "ящике батарей"
+		NOMINATIVE = "ящик батарей АА",
+		GENITIVE = "ящика батарей АА",
+		DATIVE = "ящику батарей АА",
+		ACCUSATIVE = "ящик батарей АА",
+		INSTRUMENTAL = "ящиком батарей АА",
+		PREPOSITIONAL = "ящике батарей АА"
 	)
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
@@ -2775,10 +2775,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/stack/fireproof_rods/twentyfive)
 	required_tech = list("plasmatech" = 4, "engineering" = 3, "materials" = 6)
 
-/// TODO: покумекать с названиями и перевести
 /datum/supply_packs/science/super_cell
-	name = "Super Power Cell Crate"
-	containername = "super power cell crate"
+	name = "Батареи ААА"
+	containername = "ящик батарей ААА"
+	container_ru_names = list(
+		NOMINATIVE = "ящик батарей ААА",
+		GENITIVE = "ящика батарей ААА",
+		DATIVE = "ящику батарей ААА",
+		ACCUSATIVE = "ящик батарей ААА",
+		INSTRUMENTAL = "ящиком батарей ААА",
+		PREPOSITIONAL = "ящике батарей ААА"
+	)
 	cost = 100
 	contains = list(
 		/obj/item/stock_parts/cell/super/empty,
@@ -2791,8 +2798,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list("powerstorage" = 3, "materials" = 3)
 
 /datum/supply_packs/science/bluespace_cell
-	name = "Bluespace Power Cell Crate"
-	containername = "bluespace power cell crate"
+	name = "Блюспейс-батареи"
+	containername = "ящик блюспейс-батарей"
+	container_ru_names = list(
+		NOMINATIVE = "ящик блюспейс-батарей",
+		GENITIVE = "ящика блюспейс-батарей",
+		DATIVE = "ящику блюспейс-батарей",
+		ACCUSATIVE = "ящик блюспейс-батарей",
+		INSTRUMENTAL = "ящиком блюспейс-батарей",
+		PREPOSITIONAL = "ящике блюспейс-батарей"
+	)
 	cost = 200
 	contains = list(
 		/obj/item/stock_parts/cell/bluespace/empty,
