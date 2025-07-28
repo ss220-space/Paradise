@@ -112,7 +112,7 @@
 		}\
 	} while (0)
 
-#define HAS_TRAIT(target, trait) (target._status_traits?[trait] ? TRUE : FALSE)
+#define HAS_TRAIT(target, trait) (target?._status_traits?[trait] ? TRUE : FALSE)
 
 #define HAS_TRAIT_FROM(target, trait, source) (HAS_TRAIT(target, trait) && (source in target._status_traits[trait]))
 
