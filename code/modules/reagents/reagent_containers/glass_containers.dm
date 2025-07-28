@@ -17,7 +17,8 @@
 	blocks_emissive = FALSE
 	var/label_text = ""
 
-
+/obj/item/reagent_containers/glass/Initialize(mapload)
+	. = ..()
 	base_name = name
 
 /obj/item/reagent_containers/glass/examine(mob/user)
