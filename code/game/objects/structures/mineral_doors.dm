@@ -22,10 +22,11 @@
 	var/damageSound = null
 	var/is_opaque = TRUE
 
-/obj/structure/mineral_door/Initialize()
+/obj/structure/mineral_door/Initialize(mapload)
 	. = ..()
 	initial_state = icon_state
 	air_update_turf(1)
+	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -20, 10)
 
 /obj/structure/mineral_door/Destroy()
 	set_density(FALSE)
@@ -242,6 +243,10 @@
 	hardness = 1
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
+
+/obj/structure/mineral_door/wood/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)
 
 /obj/structure/mineral_door/wood/paperframe
 	name = "Paperframe door"

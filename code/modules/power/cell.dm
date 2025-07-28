@@ -10,15 +10,23 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	var/charge = 0	// note %age conveted to actual charge in New
+	/// How much charge the battery currently has
+	var/charge = 0
+	/// How much charge the battery can hold
 	var/maxcharge = 1000
 	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
-	var/rigged = FALSE		// true if rigged to explode
-	var/chargerate = 100 //how much power is given every tick in a recharger
-	var/self_recharge = 0 //does it self recharge, over time, or not?
+	/// If the battery will explode
+	var/rigged = FALSE
+	/// How much charge is given every tick when recharging
+	var/chargerate = 100
+	/// Whether it will recharge automatically
+	var/self_recharge = TRUE
+	/// Whether the description will include the maxcharge
 	var/ratingdesc = TRUE
-	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
-	var/overlay_charged = "cell-o2" // for custom overlays
+	/// Additional overlay to signify battery being organic
+	var/grown_battery = FALSE
+	// For custom overlays.
+	var/overlay_charged = "cell-o2"
 
 /obj/item/stock_parts/cell/laser
 	maxcharge = 1500

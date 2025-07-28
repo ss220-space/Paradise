@@ -2,10 +2,10 @@
 	name = "mineral wall"
 	desc = "This shouldn't exist"
 	icon_state = ""
-	var/last_event = 0
-	var/active = null
 	canSmoothWith = null
 	smooth = SMOOTH_TRUE
+	var/last_event = 0
+	var/active = null
 
 /turf/simulated/wall/mineral/shuttleRotate(rotation)
 	return // This override is needed to properly rotate the object when on a shuttle that is rotated.
