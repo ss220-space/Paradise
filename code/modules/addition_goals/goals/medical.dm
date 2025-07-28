@@ -75,7 +75,7 @@
 		patient.adjustToxLoss(rand(15, 50))
 	if(prob(10)) //10% chance of destroy limb
 		var/zone = pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-		patient.adjustBruteLoss(100, def_zone = zone, forced = TRUE, sharp = TRUE, silent = TRUE)
+		patient.adjustBruteLoss(100, TRUE, zone, FALSE, TRUE, null, TRUE, TRUE)
 	reward_credits += AGS_MIN_CREDITS_PER_PATIEN + round(reward_progress * (AGS_MAX_CREDITS_PER_PATIEN - AGS_MIN_CREDITS_PER_PATIEN))
 	reward_cargopoints += AGS_MIN_CARGOPOINTS_PER_PATIEN + round(reward_progress * (AGS_MAX_CARGOPOINTS_PER_PATIEN - AGS_MIN_CARGOPOINTS_PER_PATIEN))
 
