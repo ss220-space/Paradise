@@ -16,7 +16,7 @@
 
 	var/atom/parent
 
-/obj/effect/abstract/particle_holder/Initialize(mapload, particle_path = /particles/smoke, particle_flags = NONE)
+/obj/effect/abstract/particle_holder/Initialize(mapload, particle_path = null, particle_flags = NONE)
 	. = ..()
 	if(!loc)
 		stack_trace("particle holder was created with no loc!")

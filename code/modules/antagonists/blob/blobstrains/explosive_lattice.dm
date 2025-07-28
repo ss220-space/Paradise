@@ -19,7 +19,7 @@
 	return ..()
 
 /datum/blobstrain/reagent/explosive_lattice/on_sporedeath(mob/living/spore)
-	var/obj/effect/temp_visual/explosion/effect = new /obj/effect/temp_visual/explosion(get_turf(spore))
+	var/obj/effect/temp_visual/pka_explosion/effect = new /obj/effect/temp_visual/pka_explosion(get_turf(spore))
 	effect.alpha = 150
 	for(var/mob/living/actor in orange(get_turf(spore), 1))
 		if(ROLE_BLOB in actor.faction) // No friendly fire
