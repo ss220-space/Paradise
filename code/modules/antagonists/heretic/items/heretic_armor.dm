@@ -62,22 +62,11 @@
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
-	/// Whether the hood is flipped up
-	var/hood_up = FALSE
-
-
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/click_alt(mob/user)
-	. = ..()
-	hood_up = !hood_up
-	user.balloon_alert("капюшон [hood_up ? "поднят" : "опущен"]")
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/examine(mob/user)
 	. = ..()
 	if(!isheretic(user))
-		return
-
-	if(hood_up)
 		return
 
 	// Our hood gains the heretic_focus element.
@@ -150,15 +139,6 @@
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
-	/// Whether the hood is flipped up
-	var/hood_up = FALSE
-
-
-/obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
-	. = ..()
-	//create_storage(storage_type = /datum/storage/pockets/void_cloak)
-	make_visible()
-	//ADD_TRAIT(src, TRAIT_CONTRABAND_BLOCKER, INNATE_TRAIT)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void/equipped(mob/user, slot)
@@ -173,12 +153,6 @@
 /obj/item/clothing/suit/hooded/cultrobes/void/dropped(mob/user)
 	. = ..()
 	UnregisterSignal(user, list(COMSIG_MOB_UNEQUIPPED_ITEM, COMSIG_MOB_EQUIPPED_ITEM))
-
-
-/obj/item/clothing/suit/hooded/cultrobes/void/click_alt(mob/user)
-	. = ..()
-	hood_up = !hood_up
-	user.balloon_alert("капюшон [hood_up ? "поднят" : "опущен"]")
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/hide_item(datum/source, obj/item/item, slot)
@@ -196,32 +170,21 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/examine(mob/user)
 	. = ..()
-	if(!isheretic(user) || !hood_up)
+	if(!isheretic(user))
 		return
 
 	// Let examiners know this works as a focus only if the hood is down
 	. += span_notice("Позволяет использовать еретические заклинания, пока капюшон опущен..")
 
+
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
-	make_visible()
+	make_invisible()
 	return ..()
 
-/*
-/obj/item/clothing/suit/hooded/cultrobes/void/can_create_hood()
-	if(!isliving(loc))
-		CRASH("[src] attempted to make a hood on a non-living thing: [loc]")
-
-	var/mob/living/wearer = loc
-	if(IS_HERETIC_OR_MONSTER(wearer))
-		return TRUE
-
-	loc.balloon_alert(loc, "can't get the hood up!")
-	return FALSE
-*/
 
 /obj/item/clothing/suit/hooded/cultrobes/void/EngageHood()
-	. = ..()
-	make_invisible()
+	make_visible()
+	return ..()
 
 
 /// Makes our cloak "invisible". Not the wearer, the cloak itself.

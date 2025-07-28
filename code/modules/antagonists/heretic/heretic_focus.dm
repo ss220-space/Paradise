@@ -13,16 +13,24 @@
 
 	var/obj/item/item_target = target
 	// If our loc is a mob, it's possible we already have it equippied
-	if(ismob(item_target.loc))
-		var/mob/wearer = item_target.loc
-		if(!item_target.slot_flags || wearer.get_item_by_slot(item_target.slot_flags) == item_target)
-			ADD_TRAIT(wearer, TRAIT_ALLOW_HERETIC_CASTING, ELEMENT_TRAIT(target))
+	if(!ismob(item_target.loc))
+		return
+
+	var/mob/wearer = item_target.loc
+	if(item_target.slot_flags && wearer.get_item_by_slot(item_target.slot_flags) != item_target)
+		return
+
+	ADD_TRAIT(wearer, TRAIT_ALLOW_HERETIC_CASTING, ELEMENT_TRAIT(target))
+
 
 /datum/element/heretic_focus/Detach(obj/item/source)
 	. = ..()
 	UnregisterSignal(source, list(COMSIG_PARENT_EXAMINE, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
-	if(isliving(source.loc))
-		REMOVE_TRAIT(source.loc, TRAIT_ALLOW_HERETIC_CASTING, ELEMENT_TRAIT(source))
+	if(!isliving(source.loc))
+		return
+
+	REMOVE_TRAIT(source.loc, TRAIT_ALLOW_HERETIC_CASTING, ELEMENT_TRAIT(source))
+
 
 /**
  * Signal proc for [COMSIG_PARENT_EXAMINE].
@@ -35,6 +43,7 @@
 		return
 
 	examine_list += span_notice("При ношении позволяет применять сложные еретические заклинания.")
+
 
 /**
  * Signal proc for [COMSIG_ITEM_EQUIPPED].
@@ -50,6 +59,7 @@
 		return
 
 	ADD_TRAIT(user, TRAIT_ALLOW_HERETIC_CASTING, ELEMENT_TRAIT(source))
+
 
 /**
  * Signal proc for [COMSIG_ITEM_DROPPED].

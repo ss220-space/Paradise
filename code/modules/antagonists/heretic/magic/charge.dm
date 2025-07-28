@@ -22,6 +22,12 @@
 	var/list/charging = list()
 
 
+/obj/effect/proc_holder/spell/mob_cooldown/charge/create_new_targeting()
+	var/datum/spell_targeting/clicked_atom/spell_targeting = new()
+	spell_targeting.range = charge_distance
+	return spell_targeting
+
+
 /obj/effect/proc_holder/spell/mob_cooldown/charge/proc/charge_sequence(atom/movable/charger, atom/target_atom, delay, past)
 	do_charge(action.owner, target_atom, charge_delay, charge_past)
 
