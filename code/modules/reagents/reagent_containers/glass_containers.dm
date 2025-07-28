@@ -17,8 +17,7 @@
 	blocks_emissive = FALSE
 	var/label_text = ""
 
-/obj/item/reagent_containers/glass/New()
-	..()
+
 	base_name = name
 
 /obj/item/reagent_containers/glass/examine(mob/user)
@@ -370,8 +369,8 @@
 	container_type = OPENCONTAINER
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-/obj/item/reagent_containers/glass/beaker/noreact/New()
-	..()
+/obj/item/reagent_containers/glass/beaker/noreact/Initialize(mapload)
+	. = ..()
 	reagents.set_reacting(FALSE)
 
 /obj/item/reagent_containers/glass/beaker/bluespace

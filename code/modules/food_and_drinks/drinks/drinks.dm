@@ -16,8 +16,8 @@
 	var/chugging = FALSE
 	foodtype = ALCOHOL
 
-/obj/item/reagent_containers/food/drinks/New()
-	..()
+/obj/item/reagent_containers/food/drinks/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 	bitesize = amount_per_transfer_from_this

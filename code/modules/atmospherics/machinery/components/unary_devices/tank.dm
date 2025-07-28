@@ -26,8 +26,8 @@
 	name = "Pressure Tank (Air)"
 	icon_state = "air_map"
 
-/obj/machinery/atmospherics/unary/tank/air/New()
-	..()
+/obj/machinery/atmospherics/unary/tank/air/Initialize(mapload)
+	. = ..()
 	icon_state = "air"
 	air_contents.volume = volume
 	air_contents.temperature = T20C
@@ -38,8 +38,8 @@
 	name = "Pressure Tank (Oxygen)"
 	icon_state = "o2_map"
 
-/obj/machinery/atmospherics/unary/tank/oxygen/New()
-	..()
+/obj/machinery/atmospherics/unary/tank/oxygen/Initialize(mapload)
+	. = ..()
 	icon_state = "o2"
 	air_contents.volume = volume
 	air_contents.temperature = T20C
@@ -49,8 +49,8 @@
 	name = "Pressure Tank (Nitrogen)"
 	icon_state = "n2_map"
 
-/obj/machinery/atmospherics/unary/tank/nitrogen/New()
-	..()
+/obj/machinery/atmospherics/unary/tank/nitrogen/Initialize(mapload)
+	. = ..()
 	icon_state = "n2"
 	air_contents.volume = volume
 	air_contents.temperature = T20C
@@ -60,8 +60,8 @@
 	name = "Pressure Tank (Carbon Dioxide)"
 	icon_state = "co2_map"
 
-/obj/machinery/atmospherics/unary/tank/carbon_dioxide/New()
-	..()
+/obj/machinery/atmospherics/unary/tank/carbon_dioxide/Initialize(mapload)
+	. = ..()
 	icon_state = "co2"
 	air_contents.volume = volume
 	air_contents.temperature = T20C
@@ -71,8 +71,8 @@
 	name = "Pressure Tank (Toxins)"
 	icon_state = "toxins_map"
 
-/obj/machinery/atmospherics/unary/tank/toxins/New()
-	..()
+/obj/machinery/atmospherics/unary/tank/toxins/Initialize(mapload)
+	. = ..()
 	icon_state = "toxins"
 	air_contents.volume = volume
 	air_contents.temperature = T20C
@@ -82,8 +82,8 @@
 	name = "Pressure Tank (Nitrous Oxide)"
 	icon_state = "n2o_map"
 
-/obj/machinery/atmospherics/unary/tank/nitrous_oxide/New()
-	..()
+/obj/machinery/atmospherics/unary/tank/nitrous_oxide/Initialize(mapload)
+	. = ..()
 	icon_state = "n2o"
 	air_contents.volume = volume
 	air_contents.temperature = T20C
@@ -95,8 +95,8 @@
 	desc = "A large vessel containing an unknown pressurized gas."
 	icon_state = "agent_b_map"
 
-/obj/machinery/atmospherics/unary/tank/oxygen_agent_b/New()
-	..()
+/obj/machinery/atmospherics/unary/tank/oxygen_agent_b/Initialize(mapload)
+	. = ..()
 	icon_state = "agent_b"
 	air_contents.volume = volume
 	air_contents.temperature = T20C
@@ -108,6 +108,6 @@
 	desc = "Despite looking like CO2 vessel this one definetly contains breathable air. It's even written on it. By something sharp..."
 	icon_state = "co2_map"
 
-/obj/machinery/atmospherics/unary/tank/air/ninja/New()
-	..()
+/obj/machinery/atmospherics/unary/tank/air/ninja/Initialize(mapload)
+	. = ..()
 	icon_state = "co2"

@@ -668,8 +668,8 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 
-/obj/item/clothing/head/pirate/fluff/stumpy/New()
-	..()
+/obj/item/clothing/head/pirate/fluff/stumpy/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/pirate/fluff/stumpy/Destroy()

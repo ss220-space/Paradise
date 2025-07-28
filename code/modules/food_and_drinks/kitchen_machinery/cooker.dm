@@ -166,7 +166,7 @@
 		setRegents(cooking, newfood)
 	if(is_snack)
 		setCooked(cooking, newfood)
-	newfood.cooktype[thiscooktype] = 1
+	newfood.cooktype[thiscooktype] = TRUE
 	turnoff(cooking)
 
 
