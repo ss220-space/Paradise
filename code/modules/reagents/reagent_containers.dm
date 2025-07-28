@@ -70,9 +70,9 @@
 		else
 			balloon_alert(usr, "пусто, нечего выливать!")
 
-/obj/item/reagent_containers/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/New()
 	create_reagents(volume, temperature_min, temperature_max)
+	..()
 	if(!possible_transfer_amounts)
 		verbs -= /obj/item/reagent_containers/verb/set_APTFT
 

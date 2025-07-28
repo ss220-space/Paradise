@@ -313,8 +313,8 @@
 	max_integrity = 3
 
 
-/obj/item/organ/internal/shadowtumor/Initialize(mapload)
-	. = ..()
+/obj/item/organ/internal/shadowtumor/New()
+	..()
 	START_PROCESSING(SSobj, src)
 
 

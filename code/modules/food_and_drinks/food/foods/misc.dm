@@ -295,8 +295,8 @@
 	tastes = list("popcorn" = 3, "butter" = 1)
 	foodtype = JUNKFOOD | FRIED
 
-/obj/item/reagent_containers/food/snacks/popcorn/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/food/snacks/popcorn/New()
+	..()
 	unpopped = rand(1,10)
 
 /obj/item/reagent_containers/food/snacks/popcorn/On_Consume(mob/M, mob/user)

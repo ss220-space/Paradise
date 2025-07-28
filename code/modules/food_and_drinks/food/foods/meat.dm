@@ -698,8 +698,8 @@
 	tastes = list("bacon" = 1)
 	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/telebacon/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/food/snacks/telebacon/New()
+	..()
 	baconbeacon = new /obj/item/radio/beacon/bacon(src)
 
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)

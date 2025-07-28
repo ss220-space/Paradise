@@ -292,8 +292,8 @@
 	force = 0.2
 	throwforce = 0.2
 
-/obj/item/reagent_containers/glass/bottle/nutrient/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/glass/bottle/nutrient/New()
+	..()
 	add_lid()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
@@ -392,8 +392,8 @@
 	icon_state = "plastic_jug_k"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/glass/bottle/nutrient/killer/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/New()
+	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 

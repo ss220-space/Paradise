@@ -29,9 +29,9 @@
 	container_type = TRANSPARENT
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)
-	. = ..()
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
+	. = ..()
 
 /obj/item/reagent_containers/syringe/set_APTFT()
 	set hidden = TRUE

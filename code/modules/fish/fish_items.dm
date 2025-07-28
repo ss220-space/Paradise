@@ -85,8 +85,8 @@
 	list_reagents = list("protein" = 1)
 	bitesize = 1
 
-/obj/item/reagent_containers/food/snacks/shrimp/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/food/snacks/shrimp/New()
+	..()
 	desc = pick("Anyway, like I was sayin', shrimp is the fruit of the sea.", "You can barbecue it, boil it, broil it, bake it, saute it.")
 
 /obj/item/reagent_containers/food/snacks/feederfish
@@ -162,8 +162,8 @@
 	throwforce = 5.0
 	materials = list()
 
-/obj/item/shard/shark_teeth/Initialize(mapload)
-	. = ..()
+/obj/item/shard/shark_teeth/New()
+	..()
 	src.pixel_x = rand(-5,5)
 	src.pixel_y = rand(-5,5)
 
