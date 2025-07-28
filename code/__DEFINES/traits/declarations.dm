@@ -292,6 +292,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_STRIP "no_strip"
 /// Items with this trait will not appear when examined.
 #define TRAIT_EXAMINE_SKIP "examine_skip"
+/// Items with this trait will not have their worn icon overlayed.
+#define TRAIT_NO_WORN_ICON "no_worn_icon"
 /// determines whether or not objects are haunted and teleport/attack randomly
 #define TRAIT_HAUNTED "haunted"
 

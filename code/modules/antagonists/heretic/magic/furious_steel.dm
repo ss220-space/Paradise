@@ -97,11 +97,11 @@
 	if(. & SPELL_CANCEL_CAST)
 		return
 
-	if(isnull(blade_effect) || !current_amount)
-		remove_mousepointer(action.owner.client, refund_cooldown = FALSE)
-		return SPELL_CANCEL_CAST
+	if(!isnull(blade_effect) && current_amount)
+		return . | SPELL_NO_IMMEDIATE_COOLDOWN
 
-	return . | SPELL_NO_IMMEDIATE_COOLDOWN // all CD handling will be done by the status effect being deleted
+	remove_mousepointer(action.owner.client, refund_cooldown = FALSE)
+	return SPELL_CANCEL_CAST
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/fire_projectile(mob/living/user, atom/target)

@@ -29,6 +29,7 @@
 								Вы хрупки и слабы, но вы разрываете культистов (только) на части при каждой атаке. \
 								Следуйте приказам своего Хозяина!")
 
+
 /mob/living/simple_animal/hostile/construct/harvester/heretic/Initialize(mapload)
 	. = ..()
 	grant_abilities()
@@ -44,10 +45,14 @@
 
 	to_chat(src, span_bold(playstyle_string))
 
+
 /mob/living/simple_animal/hostile/construct/harvester/heretic/AttackingTarget()
 	. = ..()
-	if(.)
-		do_attack_animation(target, ATTACK_EFFECT_SLASH)
+	if(!.)
+		return
+
+	do_attack_animation(target, ATTACK_EFFECT_SLASH)
+
 
 /// If the attack is a limbless carbon, abort the attack, paralyze them, and get a special message from Nar'Sie.
 /mob/living/simple_animal/hostile/construct/harvester/heretic/OnUnarmedAttack(atom/attack_target, proximity_flag)
@@ -65,6 +70,7 @@
 	human_target.Paralyse(6 SECONDS)
 	visible_message(span_danger("[declent_ru(NOMINATIVE)] сбивает [human_target.declent_ru(ACCUSATIVE)] с ног!"))
 
+
 /obj/effect/proc_holder/spell/seek_master
 	name = "Найти своего хозяина"
 	desc = "Используйте прямую связь с Мансусом, чтобы чувствовать определить местонахождение вашего хозяина."
@@ -76,19 +82,23 @@
 	var/tracking = TRUE
 	var/mob/living/simple_animal/hostile/construct/the_construct
 
+
 /obj/effect/proc_holder/spell/seek_master/New(Target)
 	. = ..()
 	the_construct = Target
 	the_construct.seeking = TRUE
 
+
 /obj/effect/proc_holder/spell/seek_master/on_spell_gain(mob/living/player)
 	the_construct = player
 	..()
+
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/proc/link_master(mob/self, mob/master)
 	construct_master = master
 	RegisterSignal(construct_master, COMSIG_LIVING_DEATH, PROC_REF(on_master_death))
 	SIGNAL_HANDLER
+
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/proc/on_master_death(mob/self, mob/master)
 	SIGNAL_HANDLER
@@ -96,11 +106,14 @@
 	visible_message(span_alert("[declent_ru(NOMINATIVE)] внезапно рассыпается в пыль!"))
 	death()
 
+
 /mob/living/simple_animal/hostile/construct/harvester/heretic/attack_animal(mob/living/simple_animal/user, list/modifiers)
 	// They're pretty fragile so this is probably necessary to prevent bullshit deaths.
 	if(user == src)
 		return
+	
 	return ..()
+
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/proc/grant_abilities()
 	AddElement(/datum/element/wall_walker, or_trait = TRAIT_RUSTY)
@@ -127,6 +140,7 @@
 	var/obj/effect/proc_holder/spell/seek_master/seek = new(src)
 	mind.AddSpell(seek)
 
+
 // These aren't friends they're assholes
 // Don't let them be near you!
 /mob/living/simple_animal/hostile/construct/harvester/heretic/Life(seconds_per_tick, times_fired)
@@ -142,8 +156,11 @@
 	var/turf/space/land = (is_space_or_openspace(adjacent) && prob(90)) ? adjacent : get_turf(src)
 	do_rust_heretic_act(land)
 
-	if(prob(7))
-		to_chat(src, span_notice("Из вашего тела исходит потусторонняя энергия."))
+	if(!prob(7))
+		return
+
+	to_chat(src, span_notice("Из вашего тела исходит потусторонняя энергия."))
+
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/proc/is_cultist_handler(mob/victim)
 	return iscultist(victim)

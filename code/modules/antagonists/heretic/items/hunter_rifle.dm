@@ -17,17 +17,16 @@
 	desc = "Старинное ружье, выглядящее безупречно, несмотря на то, что оно явно очень старое."
 	gender = FEMALE
 	slot_flags = ITEM_SLOT_BACK
-	icon = 'icons/obj/weapons/ballistic.dmi'
-	icon_state = "goldrevolver"
-	item_state = "goldrevolver"
-	// IDK why it dosn't work :(
-	//icon = 'icons/obj/weapons/wide_guns.dmi'
-	//icon_state = "lionhunter"
-	//item_state = "lionhunter"
+	icon = 'icons/obj/weapons/wide_guns.dmi'
+	icon_state = "lionhunter"
+	item_state = "lionhunter"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
 	fire_sound = 'sound/weapons/gunshots/shot.ogg'
 
 	//SET_BASE_PIXEL(-8, 0)
+
+/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/update_icon_state()
+	return
 
 /*
 /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/Initialize(mapload)
@@ -161,6 +160,7 @@
 	// If fired without aiming or at someone too close, it will do much less
 	damage = 30
 	stamina = 30
+	forcedodge = -1
 	//projectile_phasing =  PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 	///The mob that is currently inside the bullet
 	var/mob/stored_mob
@@ -168,7 +168,7 @@
 
 /obj/projectile/bullet/strilka310/lionhunter/fire(angle, atom/direct_target)
 	. = ..()
-	if(QDELETED(src) || !isliving(firer) || !isliving(original))
+	if(QDELETED(src) || !isliving(firer))
 		return
 
 	var/mob/living/living_firer = firer

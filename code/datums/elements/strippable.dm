@@ -360,9 +360,10 @@
 		if(!islist(alternates) && !isnull(alternates))
 			alternates = list(alternates)
 
-		if(isnull(item))
+		if(isnull(item) || HAS_TRAIT(item, TRAIT_EXAMINE_SKIP) || HAS_TRAIT(item, TRAIT_NO_STRIP))
 			if(length(alternates))
 				LAZYSET(result, "alternates", alternates)
+
 			items[strippable_key] = result
 			continue
 

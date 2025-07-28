@@ -2,11 +2,17 @@
 /datum/antagonist/heretic_monster
 	name = "Древний ужас"
 	roundend_category = "Heretics"
+	special_role = SPECIAL_ROLE_HERETIC
 	job_rank = ROLE_HERETIC
 	antag_hud_name = "heretic_beast"
 	//stinger_sound = 'sound/music/heretic/heretic_gain.ogg'
 	/// Our master (a heretic)'s mind.
 	var/datum/mind/master
+
+
+/datum/antagonist/heretic_monster/greet()
+	. = ..()
+	SEND_SOUND(owner.current, sound('sound/music/heretic/heretic_gain.ogg'))
 
 
 /datum/antagonist/heretic_monster/on_removal()

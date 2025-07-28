@@ -63,12 +63,12 @@
 	var/mob/living/carbon/human/human_user = action.owner
 	var/mob/living/carbon/human/human_target = cast_on
 	for(var/obj/item/organ/external/bodypart as anything in human_user.bodyparts)
-		if(prob(50))
+		if(prob(50) && bodypart.has_internal_bleeding())
 			bodypart.stop_internal_bleeding()
 			var/obj/item/organ/external/targ_bodypart = pick(human_target.bodyparts)
 			targ_bodypart.internal_bleeding()
 
-		if(prob(50))
+		if(prob(50) && bodypart.has_fracture())
 			bodypart.mend_fracture()
 			var/obj/item/organ/external/targ_bodypart = pick(human_target.bodyparts)
 			targ_bodypart.fracture()

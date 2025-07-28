@@ -2,6 +2,7 @@
 /datum/antagonist/soultrapped_heretic
 	name = "Запертая Душа Еретика"
 	roundend_category = "Heretics"
+	special_role = SPECIAL_ROLE_SOULTRAPPED_HERETIC
 	job_rank = ROLE_HERETIC
 	antag_hud_name = "heretic"
 

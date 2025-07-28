@@ -547,6 +547,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_CLOTH_INNER)
 		return
 
+	if(HAS_TRAIT(w_uniform, TRAIT_NO_WORN_ICON))
+		return
+
 	if(istype(w_uniform, /obj/item/clothing/under))
 		update_item_on_hud(w_uniform, ui_iclothing, togleable_inventory = TRUE)
 
@@ -614,6 +617,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_ID) + 1]
 		inv?.update_icon()
 
+	if(HAS_TRAIT(wear_id, TRAIT_NO_WORN_ICON))
+		return
+
 	if(wear_id)
 		update_item_on_hud(wear_id, ui_id)
 
@@ -630,6 +636,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		inv?.update_icon()
 
 	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_GLOVES)
+		return
+
+	if(HAS_TRAIT(gloves, TRAIT_NO_WORN_ICON))
 		return
 
 	if(gloves)
@@ -674,6 +683,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_EYES)
+		return
+
+	if(HAS_TRAIT(glasses, TRAIT_NO_WORN_ICON))
 		return
 
 	if(glasses)
@@ -724,8 +736,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(l_ear || r_ear)
 		var/mutable_appearance/standing = mutable_appearance(layer = -EARS_LAYER, appearance_flags = KEEP_TOGETHER)
-
-		if(l_ear)
+	
+		if(l_ear && !HAS_TRAIT(l_ear, TRAIT_NO_WORN_ICON))
 			update_item_on_hud(l_ear, ui_l_ear, togleable_inventory = TRUE)
 
 			var/t_type = l_ear.item_state ? l_ear.item_state : l_ear.icon_state
@@ -736,7 +748,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 			standing.overlays += l_ear_olay
 
-		if(r_ear)
+		if(r_ear && !HAS_TRAIT(r_ear, TRAIT_NO_WORN_ICON))
 			update_item_on_hud(r_ear, ui_r_ear, togleable_inventory = TRUE)
 
 			var/t_type = r_ear.item_state ? r_ear.item_state : r_ear.icon_state
@@ -758,6 +770,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		inv?.update_icon()
 
 	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_FEET)
+		return
+
+	if(HAS_TRAIT(shoes, TRAIT_NO_WORN_ICON))
 		return
 
 	if(shoes)
@@ -783,6 +798,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_SUITSTORE) + 1]
 		inv?.update_icon()
+	
+	if(HAS_TRAIT(s_store, TRAIT_NO_WORN_ICON))
+		return
 
 	if(s_store)
 		update_item_on_hud(s_store, ui_sstore1)
@@ -802,6 +820,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(!head_organ)
+		return
+
+	if(HAS_TRAIT(head, TRAIT_NO_WORN_ICON))
 		return
 
 	if(head)
@@ -826,6 +847,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BELT) + 1]
 		inv?.update_icon()
 
+	if(HAS_TRAIT(belt, TRAIT_NO_WORN_ICON))
+		return
+
 	if(belt)
 		update_item_on_hud(belt, ui_belt)
 
@@ -845,6 +869,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_CLOTH_OUTER) + 1]
 		inv?.update_icon()
+	
+	if(HAS_TRAIT(wear_suit, TRAIT_NO_WORN_ICON))
+		return
 
 	if(istype(wear_suit, /obj/item/clothing/suit))
 		update_item_on_hud(wear_suit, ui_oclothing, togleable_inventory = TRUE)
@@ -872,10 +899,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_RIGHT) + 1]
 		inv?.update_icon()
 
-	if(l_store)
+	if(l_store && !HAS_TRAIT(l_store, TRAIT_NO_WORN_ICON))
 		update_item_on_hud(l_store, ui_storage1)
 
-	if(r_store)
+	if(r_store && !HAS_TRAIT(r_store, TRAIT_NO_WORN_ICON))
 		update_item_on_hud(r_store, ui_storage2)
 
 
@@ -883,6 +910,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_PDA) + 1]
 		inv?.update_icon()
+
+	if(HAS_TRAIT(wear_pda, TRAIT_NO_WORN_ICON))
+		return
 
 	if(wear_pda)
 		update_item_on_hud(wear_pda, ui_pda)
@@ -899,6 +929,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_MASK)
+		return
+
+	if(HAS_TRAIT(wear_mask, TRAIT_NO_WORN_ICON))
 		return
 
 	if((istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
@@ -928,6 +961,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1]
 		inv?.update_icon()
 
+	if(HAS_TRAIT(neck, TRAIT_NO_WORN_ICON))
+		return
+
 	if(neck)
 		update_item_on_hud(neck, ui_neck, togleable_inventory = TRUE)
 
@@ -945,6 +981,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1]
 		inv?.update_icon()
+	
+	if(HAS_TRAIT(back, TRAIT_NO_WORN_ICON))
+		return
 
 	if(back)
 		update_item_on_hud(back, ui_back)

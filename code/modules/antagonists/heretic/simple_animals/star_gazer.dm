@@ -44,6 +44,7 @@
 
 	ai_controller = /datum/ai_controller/basic_controller/star_gazer
 
+
 /mob/living/simple_animal/hostile/heretic_summon/star_gazer/Initialize(mapload)
 	. = ..()
 	var/static/list/death_loot = list(/obj/effect/temp_visual/cosmic_domain)
@@ -61,6 +62,7 @@
 	ADD_TRAIT(src, TRAIT_NO_TELEPORT, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	set_light(4, l_color = "#dcaa5b")
+
 
 // Star gazer attacks everything around itself applies a spooky mark
 /mob/living/simple_animal/hostile/heretic_summon/star_gazer/AttackingTarget()
@@ -98,16 +100,20 @@
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
 
+
 /datum/ai_planning_subtree/attack_obstacle_in_path/star_gazer
 	attack_behaviour = /datum/ai_behavior/attack_obstructions/star_gazer
 
+
 /datum/ai_planning_subtree/attack_obstacle_in_path/pet_target/star_gazer
 	attack_behaviour = /datum/ai_behavior/attack_obstructions/star_gazer
+
 
 /datum/ai_behavior/attack_obstructions/star_gazer
 	action_cooldown = 0.4 SECONDS
 	can_attack_turfs = TRUE
 	can_attack_dense_objects = TRUE
+
 
 /datum/pet_command/attack/star_gazer
 	speech_commands = list("атакуй", "фас", "убей", "в атаку", "бей")

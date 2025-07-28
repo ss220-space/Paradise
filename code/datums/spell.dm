@@ -1,6 +1,6 @@
 /obj/effect/proc_holder
 	var/active = FALSE //Used by toggle based abilities.
-	var/ranged_mousepointer
+	var/ranged_mousepointer = 'icons/effects/mouse_pointers/cult_target.dmi'
 	var/mob/ranged_ability_user
 
 
@@ -918,11 +918,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/spell/pointed/projectile/after_cast(atom/cast_on)
 	. = ..()
-	if(current_amount == 0)
-		cooldown_handler.start_recharge()
-		// We still have projectiles to cast!
-		// Reset our cooldown and let them fire away
-		//reset_spell_cooldown()
+	if(current_amount != 0)
+		return
+
+	cooldown_handler.start_recharge()
+	remove_mousepointer(action.owner.client)
+	// We still have projectiles to cast!
+	// Reset our cooldown and let them fire away
+	//reset_spell_cooldown()
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/proc/fire_projectile(atom/target)

@@ -17,8 +17,8 @@
 	spell_requirements = NONE
 
 	sound_out = null
-	jaunt_duration = 0.5 SECONDS
-	jaunt_in_time = 1.3 SECONDS
+	jaunt_duration = 0.6 SECONDS
+	jaunt_in_time = 0.2 SECONDS
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/red
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/ash_shift/out
 

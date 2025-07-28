@@ -278,7 +278,7 @@
 /datum/status_effect/protective_blades/recharging
 	delete_on_blades_gone = FALSE
 	/// The amount of time it takes for a blade to recharge
-	var/blade_recharge_time = 1 MINUTES
+	var/blade_recharge_time = 30 SECONDS
 
 
 /datum/status_effect/protective_blades/recharging/on_creation(
@@ -288,7 +288,7 @@
 	blade_orbit_radius = 20,
 	time_between_initial_blades = 0.25 SECONDS,
 	blade_type = /obj/projectile/floating_blade,
-	blade_recharge_time = 1 MINUTES,
+	blade_recharge_time = 30 SECONDS,
 )
 
 	src.blade_recharge_time = blade_recharge_time

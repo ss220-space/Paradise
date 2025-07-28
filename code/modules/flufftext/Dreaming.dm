@@ -2,16 +2,22 @@
 
 
 /mob/living/carbon/proc/dream()
-	var/list/dreams = custom_dreams(GLOB.dream_strings, src)
+	var/list/bonus_dreams = list()
+	SEND_SIGNAL(src, COMSIG_GET_DREAMS, bonus_dreams)
 
+	var/list/dreams = custom_dreams(GLOB.dream_strings, src)
 	for(var/obj/item/bedsheet/sheet in loc)
 		dreams += sheet.dream_messages
-	var/list/dream_images = list()
-	for(var/i in 1 to rand(3, rand(5, 10)))
+
+	var/list/dream_images = bonus_dreams
+	dreaming += bonus_dreams.len
+	for(var/i in (bonus_dreams.len + 1) to rand(3, rand(5, 10)))
 		dream_images += pick_n_take(dreams)
 		dreaming++
+
 	for(var/i in 1 to dream_images.len)
 		addtimer(CALLBACK(src, PROC_REF(experience_dream), dream_images[i], FALSE), ((i - 1) * rand(30,60)))
+
 	return TRUE
 
 

@@ -27,7 +27,7 @@
 	clown_removal_text = "По мере того, как ваши еретические знания рассеиваются, вы возвращаетесь к своему неуклюжему, клоунскому «я»."
 	antag_menu_name = "Еретик"
 	/// Automaticly allow to ascend
-	var/force_can_ascend = TRUE
+	var/force_can_ascend = FALSE
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
@@ -234,6 +234,12 @@
 	to_chat(owner.current, span_userdanger("Ваш разум будто горит, когда потусторонние знания начинают ускользать!"))
 	return ..()
 
+
+/datum/antagonist/heretic/greet()
+	. = ..()
+	SEND_SOUND(owner.current, sound('sound/music/heretic/heretic_gain.ogg'))
+
+
 /datum/antagonist/heretic/on_gain()
 	if(!GLOB.heretic_research_tree)
 		GLOB.heretic_research_tree = generate_heretic_research_tree()
@@ -244,8 +250,8 @@
 	for(var/starting_knowledge in GLOB.heretic_start_knowledge)
 		gain_knowledge(starting_knowledge)
 
-
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
+	RegisterSignal(owner, COMSIG_GET_DREAMS, PROC_REF(get_dreams))
 	return ..()
 
 /datum/antagonist/heretic/on_removal()
@@ -254,6 +260,7 @@
 		knowledge.on_lose(owner.current, src)
 
 	QDEL_LIST_ASSOC_VAL(researched_knowledge)
+	UnregisterSignal(owner, COMSIG_GET_DREAMS)
 	return ..()
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
@@ -600,7 +607,7 @@
 	if(QDELETED(owner?.current))
 		return
 
-	if(human.is_in_crit())
+	if(human.IsSleeping())
 		to_chat(owner.current, "[span_hear("Вы слышите шепот...")] [span_purple(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
 
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
@@ -876,6 +883,16 @@
 
 	return HERETIC_HAS_LIVING_HEART
 
+
+/datum/antagonist/heretic/proc/get_dreams(mob/living/carbon/sleeper, list/dreams)
+	SIGNAL_HANDLER
+	var/area/area = get_area(pick(GLOB.reality_smash_track.smashes))
+	if(!prob(10))
+		return
+
+	dreams.Add(area.name)
+
+
 /// Heretic's minor sacrifice objective. "Minor sacrifices" includes anyone.
 /datum/objective/minor_sacrifice
 	name = "незначительная жертва"
@@ -943,8 +960,11 @@
 	. = ..()
 	explanation_text = "Узнайте как минимум о [target_amount] еретических знаниях. Вы начинаете с уже изученными знаниями:\n"
 	for(var/datum/heretic_knowledge/knowledge as anything in GLOB.heretic_start_knowledge)
+		if(knowledge != GLOB.heretic_start_knowledge[1])
+			explanation_text += ","
+
 		explanation_text += "[knowledge.name]\n"
-	
+
 
 /datum/objective/heretic_research/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)

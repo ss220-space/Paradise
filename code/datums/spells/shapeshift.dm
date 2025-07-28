@@ -15,6 +15,7 @@
 	var/list/possible_shapes = list(/mob/living/simple_animal/mouse,
 		/mob/living/simple_animal/pet/dog/corgi,
 		/mob/living/simple_animal/hostile/construct/armoured)
+	var/old_shouldwakeup
 
 
 /obj/effect/proc_holder/spell/shapeshift/create_new_targeting()
@@ -32,20 +33,23 @@
 
 
 /obj/effect/proc_holder/spell/shapeshift/cast(list/targets, mob/user = usr)
-	for(var/mob/living/M in targets)
+	for(var/mob/living/mob in targets)
 		if(!shapeshift_type)
 			var/list/animal_list = list()
 			for(var/path in possible_shapes)
 				var/mob/living/simple_animal/A = path
 				animal_list[initial(A.name)] = path
-			shapeshift_type = tgui_input_list(M, "Choose Your Animal Form!", "It's Morphing Time!", animal_list)
+
+			shapeshift_type = tgui_input_list(mob, "Выберите форму!", "Трансформация!", animal_list)
 			if(!shapeshift_type) //If you aren't gonna decide I am!
 				shapeshift_type = pick(animal_list)
+
 			shapeshift_type = animal_list[shapeshift_type]
-		if(M in current_shapes)
-			Restore(M)
+
+		if(mob in current_shapes)
+			Restore(mob)
 		else
-			Shapeshift(M)
+			Shapeshift(mob)
 
 
 /obj/effect/proc_holder/spell/shapeshift/proc/create_shapeshift_mob(atom/loc)
@@ -69,6 +73,12 @@
 	human_req = FALSE
 
 	caster.mind.transfer_to(shape)
+	if(!isanimal(caster))
+		return
+
+	var/mob/living/simple_animal/animal = caster
+	old_shouldwakeup = animal.shouldwakeup
+	animal.shouldwakeup = FALSE
 
 
 /obj/effect/proc_holder/spell/shapeshift/proc/on_death(mob/living/source)
@@ -78,12 +88,16 @@
 
 /obj/effect/proc_holder/spell/shapeshift/proc/Restore(mob/living/shape)
 	var/mob/living/caster
-	for(var/mob/living/M in shape)
-		if(M in current_casters)
-			caster = M
-			break
+	for(var/mob/living/mob in shape)
+		if(!(mob in current_casters))
+			continue
+
+		caster = mob
+		break
+
 	if(!caster)
 		return
+
 	caster.forceMove(get_turf(shape))
 	REMOVE_TRAIT(caster, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
@@ -94,6 +108,11 @@
 
 	shape.mind.transfer_to(caster)
 	qdel(shape) //Gib it maybe ?
+	if(!isanimal(caster))
+		return
+
+	var/mob/living/simple_animal/animal = caster
+	animal.shouldwakeup = old_shouldwakeup
 
 
 /obj/effect/proc_holder/spell/shapeshift/dragon

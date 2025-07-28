@@ -28,7 +28,11 @@
 
 // special roles
 // Distinct from the ROLE_X defines because some antags have multiple special roles but only one ban type
-#define SPECIAL_ROLE_HERETIC				"heretic"
+#define SPECIAL_ROLE_HERETIC				"Еретик"
+#define SPECIAL_ROLE_HERETIC_MONSTER		"призванный еретиком монстр"
+#define SPECIAL_ROLE_LUNATIC				"Лунатик"
+#define SPECIAL_ROLE_LUNATIC_LEADER			"Лидер Лунатиков"
+#define SPECIAL_ROLE_SOULTRAPPED_HERETIC 	"Заключённая душа Еретика"
 #define SPECIAL_ROLE_ABDUCTOR_AGENT         "Abductor Agent"
 #define SPECIAL_ROLE_ABDUCTOR_SCIENTIST     "Abductor Scientist"
 #define SPECIAL_ROLE_BLOB                   "Blob"

@@ -1185,6 +1185,8 @@
 	#define DUST_SACRIFICE (1<<3)
 /// from /obj/proc/unfreeze()
 #define COMSIG_OBJ_UNFREEZE "obj_unfreeze"
+/// You can add your own dreams. For example, heretics can see where influences are.
+#define COMSIG_GET_DREAMS	"get_dreams"
 /// Set from /obj/effect/dummy/spell_jaunt after the mob is ejected from its contents: (obj/effect/dummy/spell_jaunt/jaunt, mob/living/unjaunter)
 #define COMSIG_MOB_EJECTED_FROM_JAUNT "spell_mob_eject_jaunt"
 /// Sent from [atom/proc/item_interaction], when this atom is left-clicked on by a mob with a tool of a specific tool type

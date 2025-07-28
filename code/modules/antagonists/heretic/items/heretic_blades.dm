@@ -340,6 +340,7 @@
 	item_state = "key_blade"
 	after_use_message = "Стюарды слышат ваш зов..."
 	tool_behaviour = TOOL_CROWBAR
+	usesound = 'sound/items/crowbar.ogg'
 	toolspeed = 1.3
 
 

@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion
-	name = "Захват территории"
+	name = "Расширение территории"
 	desc = "Это заклинание создаёт область космических полей размером 3x3. \
 			Существа, находящиеся на расстоянии до 7 клеток, получат звёздную метку."
 	action_background_icon_state = "bg_heretic"
@@ -13,7 +13,7 @@
 	clothes_req = FALSE
 	base_cooldown = 45 SECONDS
 
-	invocation = "з'ХВ'Т Т'РР'Т'Р!"
+	invocation = "Б'СК'Н'ЧН П'СТ'Т!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 

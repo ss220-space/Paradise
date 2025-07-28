@@ -14,11 +14,13 @@
 	/// An optional callback invoked when a goul is unghouled (on_removed)
 	var/datum/callback/on_lost_callback
 
+
 /datum/status_effect/ghoul/Destroy()
 	master_mind = null
 	on_made_callback = null
 	on_lost_callback = null
 	return ..()
+
 
 /datum/status_effect/ghoul/on_creation(
 	mob/living/new_owner,
@@ -37,13 +39,16 @@
 
 	if(master_mind)
 		linked_alert.desc += " Вы — жуткое чудовище, созданное, чтобы служить своему хозяину, [master_mind]."
+
 	if(!isnum(new_max_health))
 		return
 
 	if(new_max_health > initial(new_owner.maxHealth))
 		linked_alert.desc += " В этой форме вы сильнее."
-	else
-		linked_alert.desc += " В этой форме вы хрупки."
+		return
+
+	linked_alert.desc += " В этой форме вы хрупки."
+
 
 /datum/status_effect/ghoul/on_apply()
 	if(!ishuman(owner))
@@ -76,9 +81,11 @@
 	human_target.mind.remove_cult_role()
 	return TRUE
 
+
 /datum/status_effect/ghoul/on_remove()
 	remove_ghoul_status()
 	return ..()
+
 
 /// Removes the ghoul effects from our owner and returns them to normal.
 /datum/status_effect/ghoul/proc/remove_ghoul_status(datum/source)
@@ -103,8 +110,11 @@
 	human_target.mind?.remove_antag_datum(/datum/antagonist/heretic_monster)
 
 	UnregisterSignal(human_target, COMSIG_LIVING_DEATH)
-	if(!QDELETED(src))
-		qdel(src)
+	if(QDELETED(src))
+		return
+
+	qdel(src)
+
 
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Слуга плоти"

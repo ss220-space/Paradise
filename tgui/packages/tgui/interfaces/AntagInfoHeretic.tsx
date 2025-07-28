@@ -85,30 +85,6 @@ const IntroductionSection = (props) => {
             <GuideSection />
             <Stack.Divider />
             <InformationSection />
-            <Stack.Divider />
-            {!ascended && (
-              <Stack.Item>
-                <ObjectivePrintout
-                  fill
-                  titleMessage={
-                    can_change_objective
-                      ? 'Чтобы вознестись, вам нужно выполнить следующие задачи:'
-                      : 'Используйте темные знания для достижения своей личной цели.'
-                  }
-                  objectives={objectives}
-                  objectiveFollowup={
-                    <ReplaceObjectivesButton
-                      can_change_objective={can_change_objective}
-                      button_title={'Отвергнуть Вознесение'}
-                      button_colour={'red'}
-                      button_tooltip={
-                        'Отрекитесь от Мансуса, чтобы выполнить любое задание по вашему выбору. Выбрав этот вариант, вы не сможете вознестись!'
-                      }
-                    />
-                  }
-                />
-              </Stack.Item>
-            )}
           </Stack>
         </Section>
       </Stack.Item>
@@ -122,7 +98,7 @@ const FlavorSection = () => {
       <Stack vertical textAlign="center" fontSize="14px">
         <Stack.Item>
           <i>
-            Ещё один день на бессмысленной работе. Вы видите &nbsp;
+            Ещё один день на бессмысленной работе. Вы видите&nbsp;
             <span style={hereticBlue}>мерцание</span>
             &nbsp;вокруг, и чувствуете нечто&nbsp;
             <span style={hereticRed}>великое</span>.
@@ -174,7 +150,7 @@ const GuideSection = () => {
           чтобы найти своих жертв. Притащите их на&nbsp;
           <span style={hereticGreen}>Руну Трансформации</span> в критическом
           состоянии или мертвыми и&nbsp;
-          <span style={hereticRed}>принисите их в жертву</span> чтобы получить
+          <span style={hereticRed}>принесите их в жертву</span> чтобы получить
           &nbsp;
           <span style={hereticBlue}>очки знаний</span>. Мансус принимает{' '}
           <b>ТОЛЬКО</b>
@@ -182,7 +158,7 @@ const GuideSection = () => {
           <span style={hereticRed}>Живое Сердце</span>.
         </Stack.Item>
         <Stack.Item>
-          - Сделайте себе<span style={hereticYellow}>амулет</span> чтобы иметь
+          - Сделайте себе <span style={hereticYellow}>амулет</span> чтобы иметь
           возможность применять различные продвинутые заклинания, которые
           помогут вам в принесении все более и более сложных жертв.
         </Stack.Item>

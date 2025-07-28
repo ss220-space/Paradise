@@ -9,7 +9,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	charge_distance = 10
 	charge_damage = 50
-	base_cooldown = 10 SECONDS
+	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
@@ -18,11 +18,12 @@
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/cast(list/targets)
 	. = ..()
 	var/turf/start_turf = get_turf(action.owner)
-	if(!istype(start_turf) || !HAS_TRAIT(start_turf, TRAIT_RUSTY))
+	var/turf/target_turf = get_turf(targets[1])
+	if(!istype(start_turf) || !HAS_TRAIT(start_turf, TRAIT_RUSTY) || !istype(target_turf))
 		return FALSE
 
 	//cooldown_handler.start_recharge(135 SECONDS, 135 SECONDS)
-	charge_sequence(action.owner, action.owner, charge_delay, charge_past)
+	INVOKE_ASYNC(src, PROC_REF(charge_sequence), action.owner, target_turf, charge_delay, charge_past)
 	//cooldown_handler.start_recharge()
 	return TRUE
 

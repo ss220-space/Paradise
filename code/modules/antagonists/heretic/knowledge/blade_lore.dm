@@ -371,7 +371,7 @@
 	gain_text = "Я достиг вершины боевого мастерства! МНЕ НЕТ РАВНЫХ! ДА НАГНЕТАЕТ МОИХ ВРАГОВ БУРЯ ИЗ СТАЛИ И СЕРЕБРА! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/blade_ascension
-	announcement_text = "%SPOOKY% Мастер Клинка, %NAME% вознесся! Сталь его клинков рассечет реальность в серебрянном водовороте! %SPOOKY%"
+	announcement_text = "%SPOOKY% Мастер Клинка, %NAME% вознесся! Сталь клинков рассечет реальность в серебрянном водовороте! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_blade.ogg'
 
 
@@ -387,7 +387,7 @@
 	. = ..()
 	//ADD_TRAIT(user, TRAIT_NEVER_WOUNDED, type)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
-	user.apply_status_effect(/datum/status_effect/protective_blades/recharging, null, 8, 30, 0.25 SECONDS, /obj/effect/floating_blade, 1 MINUTES)
+	user.apply_status_effect(/datum/status_effect/protective_blades/recharging, null, 8, 30, 0.25 SECONDS, /obj/effect/floating_blade, 30 SECONDS)
 	user.add_stun_absorption(
 		source = name,
 		message = span_warning("%EFFECT_OWNER выдерживает оглушение!"),

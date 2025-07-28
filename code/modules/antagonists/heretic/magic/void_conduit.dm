@@ -63,9 +63,11 @@
 /obj/structure/void_conduit/proc/build_view_turfs()
 	for(var/turf/affected_turf as anything in overlayed_turfs)
 		affected_turf.cut_overlay(void_overlay)
+
 	for(var/turf/affected_turf as anything in view(effect_range, src))
 		if(!is_space_or_openspace(affected_turf))
 			continue
+
 		affected_turf.add_overlay(void_overlay)
 		overlayed_turfs += affected_turf
 		void_overlay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT

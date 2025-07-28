@@ -176,7 +176,7 @@
 
 	message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
 	var/list/ghosts = SSghost_spawns.poll_candidates("Вы бы хотели сыграть за насильно убит[genderize_ru(soon_to_be_ghoul.gender, "ого", "ую", "ое", "ых")] [soon_to_be_ghoul.declent_ru(ACCUSATIVE)]?", \
-				ROLE_HERETIC, FALSE, poll_time = 5 SECONDS, source = soon_to_be_ghoul)
+				null, FALSE, 5 SECONDS, TRUE, source = soon_to_be_ghoul)
 
 	if(!ghosts.len)
 		loc.balloon_alert(user, "нет согласных призраков!")

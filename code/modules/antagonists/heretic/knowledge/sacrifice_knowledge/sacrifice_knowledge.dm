@@ -129,10 +129,13 @@
 	for(var/datum/mind/possible_target as anything in SSticker.minds)
 		if(possible_target == user.mind)
 			continue
+
 		if(possible_target in target_blacklist)
 			continue
+
 		if(!ishuman(possible_target.current))
 			continue
+
 		if(possible_target.current.stat == DEAD)
 			continue
 
@@ -153,24 +156,30 @@
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
-		if(head_mind?.assigned_job?.is_command)
-			final_targets += head_mind
-			valid_targets -= head_mind
-			break
+		if(!head_mind?.assigned_job?.is_command)
+			continue
+
+		final_targets += head_mind
+		valid_targets -= head_mind
+		break
 
 	// Second target, any security
 	for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
-		if(sec_mind?.assigned_job?.department_flag & JOBCAT_ENGSEC)
-			final_targets += sec_mind
-			valid_targets -= sec_mind
-			break
+		if(!HASBIT(sec_mind?.assigned_job?.department_flag, JOBCAT_ENGSEC))
+			continue
+
+		final_targets += sec_mind
+		valid_targets -= sec_mind
+		break
 
 	// Third target, someone in their department.
 	for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
-		if(department_mind?.assigned_job?.department_flag & user.mind.assigned_job?.department_flag)
-			final_targets += department_mind
-			valid_targets -= department_mind
-			break
+		if(!HASBIT(department_mind?.assigned_job?.department_flag, user.mind.assigned_job?.department_flag))
+			continue
+
+		final_targets += department_mind
+		valid_targets -= department_mind
+		break
 
 	// Now grab completely random targets until we'll full
 	var/target_sanity = 0

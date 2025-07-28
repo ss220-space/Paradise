@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/pointed/moon_smile
 	name = "Лунная улыбка"
-	desc = "Позволяет обратить на кого-то взгляд луны. \
+	desc = "Позволяет обратить на кого-то взгляд луны кликнув по нему. \
 			Временно ослепляет, заглушает, не даёт говорить и ошеломляет одну цель."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"

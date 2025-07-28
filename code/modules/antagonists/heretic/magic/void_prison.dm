@@ -2,7 +2,7 @@
 	name = "Пустотная тюрьма"
 	desc = "Отправляет врага в пустоту на 10 секунд. \
 			В течение этого времени он не сможет выполнять никаких действий. \
-			После этого он будет заморожен и возвращен в мир смертных."
+			После этого враг будет заморожен и возвращен в мир смертных."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

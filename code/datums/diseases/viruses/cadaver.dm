@@ -11,6 +11,11 @@
 	severity = DANGEROUS
 	discovery_threshold = 0.3 // 2 stage is visible
 
+
+/datum/disease/virus/cadaver/CanContract(mob/living/mob, act_type, need_protection_check, zone)
+	return isheretic(mob) && ..() // Magical Mansus resistanse. :)
+
+
 /datum/disease/virus/cadaver/stage_act()
 	if(!..())
 		return FALSE

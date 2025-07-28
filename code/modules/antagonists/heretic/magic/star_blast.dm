@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/projectile/star_blast
-	name = "Звездный взрыв"
+	name = "Звёздный взрыв"
 	desc = "Это заклинание запускает в цель диск с космической энергией, распространяющий космические поля."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -16,7 +16,7 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	active_msg = "Вы готовы применить звездный взрыв!"
+	active_msg = "Вы готовы применить звёздный взрыв!"
 	deactive_msg = "Вы прекращаете концентрировать космическую энергию в своих руках... на время."
 	cast_range = 12
 	projectile_type = /obj/projectile/magic/star_ball

@@ -20,6 +20,7 @@
 
 		performing_path_move = FALSE
 
+
 /datum/component/leash/Initialize(
 	atom/movable/owner,
 	distance = 3,
@@ -65,14 +66,17 @@
 
 	check_distance()
 
+
 /datum/component/leash/Destroy()
 	owner = null
 	return ..()
+
 
 /datum/component/leash/proc/set_distance(distance)
 	ASSERT(isnum(distance))
 	src.distance = distance
 	check_distance()
+
 
 /datum/component/leash/proc/on_owner_qdel()
 	SIGNAL_HANDLER
@@ -80,11 +84,13 @@
 
 	qdel(src)
 
+
 /datum/component/leash/proc/on_owner_moved(atom/movable/source)
 	SIGNAL_HANDLER
 	PRIVATE_PROC(TRUE)
 
 	check_distance()
+
 
 /datum/component/leash/proc/on_parent_pre_move(atom/movable/source, atom/new_location)
 	SIGNAL_HANDLER
@@ -98,9 +104,10 @@
 		return NONE
 
 	if (ismob(source))
-		source.balloon_alert(source, "too far!")
+		source.balloon_alert(source, "слишком далеко!")
 
 	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
 
 /datum/component/leash/proc/check_distance()
 	set waitfor = FALSE
@@ -132,6 +139,7 @@
 
 	commit_path(path)
 
+
 /datum/component/leash/proc/commit_path(list/turf/path)
 	SHOULD_NOT_SLEEP(TRUE)
 	PRIVATE_PROC(TRUE)
@@ -156,6 +164,7 @@
 	performing_path_move = FALSE
 	SEND_SIGNAL(parent, COMSIG_LEASH_PATH_COMPLETE)
 
+
 /datum/component/leash/proc/force_teleport_back(reason)
 	PRIVATE_PROC(TRUE)
 
@@ -172,12 +181,14 @@
 		new force_teleport_in_effect(movable_parent.loc)
 
 	if (ismob(movable_parent))
-		movable_parent.balloon_alert(movable_parent, "moved out of range!")
+		movable_parent.balloon_alert(movable_parent, "вышел за радиус!")
 
 	SEND_SIGNAL(parent, COMSIG_LEASH_FORCE_TELEPORT)
 
+
 /// A debug spawner that will create a corgi leashed to a bike horn, plus a beam
 /obj/effect/spawner/debug_leash
+
 
 /obj/effect/spawner/debug_leash/Initialize(mapload)
 	. = ..()

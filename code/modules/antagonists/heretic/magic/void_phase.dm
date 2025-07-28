@@ -50,6 +50,7 @@
 		action.owner,
 		targeted_turf,
 		aprecision = 1,
+		asoundin = 'sound/magic/repulse.ogg'
 	)
 
 

@@ -3043,44 +3043,69 @@
 
 
 /datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)
-	if(old_current && old_current.actions)
-		for(var/datum/action/A in old_current.actions)
-			if(A.check_flags & AB_TRANSFER_MIND)
-				A.Grant(new_character)
-	transfer_mindbound_actions(new_character)
+	if(!old_current || !old_current.actions)
+		transfer_mindbound_actions(new_character)
+		return
+
+	for(var/datum/action/A in old_current.actions)
+		if(!HASBIT(A.check_flags, AB_TRANSFER_MIND))
+			continue
+
+		A.Grant(new_character)
+
+	for(var/datum/action/A in old_current.actions)
+		if(!HASBIT(A.check_flags, AB_TRANSFER_MIND))
+			continue
+		
+		A.Remove(old_current)
+
+	transfer_mindbound_actions(new_character, old_current)
 
 
-/datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
+/datum/mind/proc/transfer_mindbound_actions(mob/living/new_character, mob/living/old_current)
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
 		spell?.action?.Grant(new_character)
+		spell?.action?.Remove(old_current)
 
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions)
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
 		var/exception = FALSE
 		for(var/typepath in exceptions)
-			if(istype(spell, typepath))
-				exception = TRUE
-				break
+			if(!istype(spell, typepath))
+				continue
+
+			exception = TRUE
+			break
+
 		if(exception)
 			continue
+
 		if(spell.cooldown_handler)
 			spell.cooldown_handler.recharge_duration = delay
 			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge))
+
 		spell.updateButtonIcon()
+
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
 	for(var/mob/dead/observer/G in GLOB.dead_mob_list)
-		if(G.mind == src)
-			if(G.can_reenter_corpse || even_if_they_cant_reenter)
-				return G
-			break
+		if(G.mind != src)
+			continue
+
+		if(G.can_reenter_corpse || even_if_they_cant_reenter)
+			return G
+		
+		break
+
 
 /datum/mind/proc/grab_ghost(force)
 	var/mob/dead/observer/G = get_ghost(even_if_they_cant_reenter = force)
 	. = G
-	if(G)
-		G.reenter_corpse()
+	if(!G)
+		return
+
+	G.reenter_corpse()
 
 
 /datum/mind/proc/make_zealot(mob/living/carbon/human/missionary, convert_duration = 10 MINUTES, team_color = "red")

@@ -196,8 +196,10 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 /datum/antagonist/proc/greet()
 	var/list/messages = list()
 	. = messages
-	if(owner?.current && !silent)
-		messages.Add(span_userdanger("You are a [special_role]!"))
+	if(!owner?.current || silent)
+		return
+
+	messages.Add(span_userdanger("Вы [special_role]!"))
 
 
 /**

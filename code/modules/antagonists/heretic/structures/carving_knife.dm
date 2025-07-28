@@ -17,8 +17,8 @@
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	//wound_bonus = 20
-	force = 10
-	throwforce = 20
+	force = 15
+	throwforce = 40
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атакует", "рубит", "режет", "раздирает", "терзает", "распарывает", "нарезает", "бьет")
 	actions_types = list(/datum/action/item_action/rune_shatter)

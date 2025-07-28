@@ -13,7 +13,7 @@
 	/// If true, command will not appear in radial menu and can only be accessed through speech
 	var/hidden = FALSE
 	/// Icon to display in radial menu
-	var/icon/radial_icon = 'icons/hud/radial_pets.dmi'
+	var/radial_icon = 'icons/hud/radial_pets.dmi'
 	/// Icon state to display in radial menu
 	var/radial_icon_state
 	/// Speech strings to listen out for
