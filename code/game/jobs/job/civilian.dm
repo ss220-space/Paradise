@@ -50,7 +50,6 @@
 /datum/outfit/job/assistant/prisoner
 	name = "Заключенный"
 	jobtype = /datum/job/civilian/prisoner
-
 	id = /obj/item/card/id/prisoner/random
 	head = /obj/item/clothing/head/prison
 	uniform = /obj/item/clothing/under/prison
