@@ -21,7 +21,8 @@
 		INSTRUMENTAL = "консолью управления дополнительными целями смены",
 		PREPOSITIONAL = "консоли управления дополнительными целями смены"
 	)
-	icon_screen = "supply"
+	icon_screen = "addition_goal"
+	icon_keyboard = "addition_goal_key"
 	req_access = list(ACCESS_CAPTAIN)
 	circuit = /obj/item/circuitboard/computer/bsa_control
 
