@@ -13,9 +13,9 @@
 	icon_dead = "mouse_gray_dead"
 	icon_resting = "mouse_gray_sleep"
 	speak = list("Squeek!","SQUEEK!","Squeek?")
-	speak_emote = list("squeeks","squeaks","squiks")
-	emote_hear = list("squeeks","squeaks","squiks")
-	emote_see = list("runs in a circle", "shakes", "scritches at something")
+	speak_emote = list("пищит", "попискивает")
+	emote_hear = list("пищит", "попискивает")
+	emote_see = list("бегает кругами", "трясётся", "осматривается")
 	var/squeak_sound = 'sound/creatures/mouse_squeak.ogg'
 	talk_sound = list('sound/creatures/rat_talk.ogg')
 	damaged_sound = list('sound/creatures/rat_wound.ogg')

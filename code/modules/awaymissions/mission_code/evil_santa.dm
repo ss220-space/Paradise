@@ -183,9 +183,9 @@
 
 /mob/living/simple_animal/hostile/monkey_shaftminer
 	name = "Monkey shaftminer"
-	speak = list("RAWR!","Rawr!","GRR!","Growl!")
+	speak = list("РЫЫЫ!","Рррр...","ГРРР!!!","РААА!!")
 	speak_chance = 10
-	speak_emote = list("growls","roars")
+	speak_emote = list("рычит", "ревёт")
 	faction = list("hostile", "syndicate", "winter")
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "monkey_shaftminer"

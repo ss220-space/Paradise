@@ -8,7 +8,7 @@
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(Waddle))
 
 
-/datum/element/waddling/Detach(datum/source, force)
+/datum/element/waddling/Detach(datum/source)
 	. = ..()
 	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 

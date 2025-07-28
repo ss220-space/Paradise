@@ -64,7 +64,7 @@ Difficulty: Very Hard
 	icon_state = "ancient_robot"
 	icon_living = "ancient_robot"
 	friendly = "пристально смотрит"
-	speak_emote = list("ЖУЖЖИТ")
+	speak_emote = list("жужжит")
 	universal_speak = TRUE
 	universal_understand = TRUE
 	armour_penetration = 40
