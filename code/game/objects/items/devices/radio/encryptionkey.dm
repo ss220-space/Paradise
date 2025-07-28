@@ -131,7 +131,7 @@
 		INSTRUMENTAL = "ключом-шифратором канала заключенных",
 		PREPOSITIONAL = "ключе-шифраторе канала заключенных"
 	)
-	icon_state = "cargo_cypherkey"
+	icon_state = "prisoner_cypherkey"
 	channels = list(PRS_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_iaa

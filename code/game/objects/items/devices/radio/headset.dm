@@ -305,8 +305,8 @@
 		INSTRUMENTAL = "радиочастотной гарнитурой заключенных",
 		PREPOSITIONAL = "радиочастотной гарнитуре заключенных"
 	)
-	icon_state = "headset"
-	item_state = "headset"
+	icon_state = "prisoner_headset"
+	item_state = "prisoner_headset"
 	ks2type = /obj/item/encryptionkey/prisoner
 	freqlock = TRUE
 
