@@ -4580,10 +4580,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "aNd" = (
-/obj/structure/table,
-/obj/item/paper_bin/nanotrasen,
 /obj/machinery/light,
-/obj/machinery/recharger,
+/obj/machinery/computer/addition_goals,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -11366,6 +11364,7 @@
 	dir = 4
 	},
 /obj/item/pen/multi,
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -13311,6 +13310,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
+/obj/machinery/recharger,
 /turf/simulated/floor/carpet/black,
 /area/bridge)
 "bNj" = (

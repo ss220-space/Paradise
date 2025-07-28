@@ -72,7 +72,10 @@
 /datum/controller/subsystem/addition_goals/proc/clear_shuttle_turfs()
 	if(!shuttle)
 		return
+	var/turf/shuttle_anchor = shuttle.loc
 	var/list/turfs = get_shuttle_turfs()
+	turfs += locate(shuttle_anchor.x, shuttle_anchor.y, shuttle_anchor.z) //left airlock
+	turfs += locate(shuttle_anchor.x + 6, shuttle_anchor.y, shuttle_anchor.z) //right airlock
 	for(var/turf/turf in turfs)
 		//open all containers before delete
 		for(var/atom/movable/content in turf.contents)
@@ -81,20 +84,57 @@
 				closet.open()
 		//delete all
 		for(var/atom/movable/content in turf.contents)
-			if(istype(content, /obj/machinery/computer/shuttle/addition_goals)) //this is shuttle computer
+			if(istype(content, /obj/machinery/door/airlock)) //this is airlock
 				continue
 			if(istype(content, /obj/machinery/light)) //this is shuttle lamps
 				continue
+			if(is_highrisk_item(content))
+				teleportate_item_to_station(content)
+				continue
 			if(istype(content, /mob/living/))
 				var/mob/living/living = content
-				if(living.mind)
-					var/list/safe_turfs = get_safe_random_station_turf()
-					var/turf/teleport_target = pick(safe_turfs)
-					living.forceMove(teleport_target)
-					living.AdjustWeakened(5 SECONDS)
+				if(living.mind) // this is player
+					teleportate_player_to_station(living)
 					continue
 			//TODO implement high-risk items check here
 			qdel(content)
+
+/datum/controller/subsystem/addition_goals/proc/is_highrisk_item(item)
+	for(var/highrisk_type as anything in GLOB.ungibbable_items_types)
+		if(istype(item, highrisk_type))
+			return TRUE
+	return FALSE
+
+/datum/controller/subsystem/addition_goals/proc/teleportate_item_to_station(atom/movable/content)
+	for(var/obj/machinery/computer/addition_goals/console as anything in console_list)
+		if(console.loc.z != 3)
+			continue //not a station z-level
+		teleportate_item_to_location(content, console.loc)
+		return
+	var/list/safe_turfs = get_safe_random_station_turf()
+	var/turf/teleport_target = pick(safe_turfs)
+	teleportate_item_to_location(content, teleport_target)
+
+/datum/controller/subsystem/addition_goals/proc/teleportate_item_to_location(atom/movable/content, turf/teleport_target)
+	content.forceMove(teleport_target)
+	var/datum/money_account/account = GLOB.station_account
+	account.credit(round(-1000), "Transfer highrisk item to station", "Addition Goal Shuttle", account.owner_name)
+
+
+
+/datum/controller/subsystem/addition_goals/proc/teleportate_player_to_station(mob/living/user)
+	var/list/safe_turfs = get_safe_random_station_turf()
+	var/turf/teleport_target = pick(safe_turfs)
+	user.forceMove(teleport_target)
+	user.AdjustWeakened(5 SECONDS)
+	var/credits = 1000
+	to_chat(user, span_boldwarning("Вы были отправлены обратно на станцию!"))
+	to_chat(user, span_warning("С вашего счета будет списано [credits] кредитов за услуги телепортации."))
+	var/datum/money_account/account = get_card_account(user)
+	if(!account)
+		return
+	account.credit(round(-credits), "Transfer to station", "Addition Goal Shuttle", account.owner_name)
+
 
 
 

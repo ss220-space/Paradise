@@ -32883,6 +32883,7 @@
 	},
 /obj/item/restraints/handcuffs,
 /obj/item/taperecorder,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -124745,8 +124746,7 @@
 	},
 /area/crew_quarters/fitness)
 "spU" = (
-/obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
+/obj/machinery/computer/addition_goals,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

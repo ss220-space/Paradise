@@ -20118,6 +20118,11 @@
 "boa" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/item/assembly/signaler,
+/obj/item/assembly/signaler,
+/obj/item/assembly/timer,
+/obj/item/wrench,
+/obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "boc" = (
@@ -50902,12 +50907,7 @@
 	},
 /area/bridge)
 "deu" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/emergency,
-/obj/item/wrench,
-/obj/item/assembly/timer,
-/obj/item/assembly/signaler,
-/obj/item/assembly/signaler,
+/obj/machinery/computer/addition_goals,
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "dev" = (

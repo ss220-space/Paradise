@@ -3,9 +3,9 @@
 #define CORPSE_METHOD_SPACE "космирование"
 #define CORPSE_METHOD_UTILIZATION "утилизация тела"
 
-#define CREDITS_BY_CREMATION 1000
-#define CREDITS_BY_SPACE 2000
-#define CREDITS_BY_UTILIZATION 500
+#define CREDITS_BY_CREMATION 2000
+#define CREDITS_BY_SPACE 3000
+#define CREDITS_BY_UTILIZATION 1000
 
 ////////////////////////////////////////
 // MARK:	Goal datum

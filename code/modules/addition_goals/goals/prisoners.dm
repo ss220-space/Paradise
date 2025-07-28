@@ -56,7 +56,8 @@
 
 /datum/addition_goal/prisoners/proc/handcuff_prisoner(mob/living/carbon/target)
 	var/obj/item/restraints/handcuffs/cable/zipties/cuffs = new (target.loc)
-	target.equip_to_slot(cuffs, ITEM_SLOT_HANDCUFFED)
+	if(prob(90))
+		target.equip_to_slot(cuffs, ITEM_SLOT_HANDCUFFED)
 
 /datum/addition_goal/prisoners/proc/create_prisoner_data(mob/living/prisoner)
 	var/list/hard_crimes = list("300", "302", "303", "304", "305", "306", "307", "308")

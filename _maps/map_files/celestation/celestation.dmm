@@ -10213,6 +10213,7 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen/fancy,
+/obj/item/lighter/zippo,
 /turf/simulated/floor/carpet/black,
 /area/bridge)
 "bxO" = (
@@ -60989,6 +60990,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/regular,
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -84545,14 +84547,12 @@
 	},
 /area/security/brig)
 "oVX" = (
-/obj/structure/table,
-/obj/item/paper_bin/nanotrasen,
 /obj/machinery/light,
-/obj/item/lighter/zippo,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/machinery/computer/addition_goals,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},

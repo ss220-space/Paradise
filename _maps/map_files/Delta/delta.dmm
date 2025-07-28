@@ -81890,6 +81890,8 @@
 	dir = 8
 	},
 /obj/item/taperecorder,
+/obj/item/flash,
+/obj/item/restraints/handcuffs,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -103544,12 +103546,10 @@
 	},
 /area/medical/medbay)
 "sQx" = (
-/obj/structure/table/wood,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
+/obj/machinery/computer/addition_goals,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

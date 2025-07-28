@@ -4,9 +4,9 @@
 #define AGS_DIFFICULTY_NORMAL 2
 #define AGS_DIFFICULTY_HARD 3
 
-#define AGS_MIN_CREDITS_PER_PATIEN 1000
+#define AGS_MIN_CREDITS_PER_PATIEN 3000
 #define AGS_MAX_CREDITS_PER_PATIEN 5000
-#define AGS_MIN_CARGOPOINTS_PER_PATIEN 5
+#define AGS_MIN_CARGOPOINTS_PER_PATIEN 10
 #define AGS_MAX_CARGOPOINTS_PER_PATIEN 15
 
 ////////////////////////////////////////
@@ -28,10 +28,10 @@
 			patiens_count = rand(3, 4)
 		if(AGS_DIFFICULTY_NORMAL)
 			name = "Запрос медицинской помощи №[request_number]"
-			patiens_count = rand(5, 10)
+			patiens_count = rand(5, 8)
 		if(AGS_DIFFICULTY_HARD)
 			name = "Запрос большой медицинской помощи №[request_number]"
-			patiens_count = rand(12, 15)
+			patiens_count = rand(8, 10)
 	description = "[name]. На станцию прибудет шаттл с [patiens_count] пациентами для проведения медицинских услуг."
 
 /datum/addition_goal/medical_patients/spawn_shuttle_contain(list/turf/shuttle_turfs)
@@ -50,20 +50,32 @@
 	spawner.loc = location
 	var/mob/living/patient = spawner.create()
 	patients += patient
+	if(prob(15)) // 15% chance of free from straight jacket
+		free_straight_jacket(patient)
 	var/obj/structure/bed/bed = new /obj/structure/bed(location)
 	addtimer(CALLBACK(bed, TYPE_PROC_REF(/atom/movable/, buckle_mob), patient, TRUE, FALSE), 1)
 	randomize_patient_diseases(patient)
 	switch_ai_to_angry_mode(patient)
 
+/datum/addition_goal/medical_patients/proc/free_straight_jacket(mob/living/patient)
+	var/obj/item/clothing/jacket = patient.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
+	patient.drop_item_ground(jacket, TRUE, TRUE)
+
 /datum/addition_goal/medical_patients/proc/randomize_patient_diseases(mob/living/patient)
 	var/reward_progress = 0
-	patient.adjustBruteLoss(rand(20, 50))
-	if(prob(30))
-		patient.adjustFireLoss(rand(20, 50))
-	if(prob(10))
-		patient.adjustCloneLoss(rand(5, 25))
-	if(prob(10))
-		patient.adjustToxLoss(rand(15, 10))
+	// 100% chance of brute damage
+	patient.adjustBruteLoss(rand(30, 50))
+	if(prob(50)) //50% chance of burn damage
+		patient.adjustFireLoss(rand(25, 50))
+	if(prob(10)) // 10% chance of death
+		patient.adjustBruteLoss(200)
+	if(prob(20)) // 20% chance of clone damage
+		patient.adjustCloneLoss(rand(20, 40))
+	if(prob(33)) // 33% chance of tox damage
+		patient.adjustToxLoss(rand(15, 50))
+	if(prob(10)) //10% chance of destroy limb
+		var/zone = pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+		patient.take_organ_damage(brute = 100, forced = TRUE, sharp = TRUE, silent = TRUE)
 	reward_credits += AGS_MIN_CREDITS_PER_PATIEN + round(reward_progress * (AGS_MAX_CREDITS_PER_PATIEN - AGS_MIN_CREDITS_PER_PATIEN))
 	reward_cargopoints += AGS_MIN_CARGOPOINTS_PER_PATIEN + round(reward_progress * (AGS_MAX_CARGOPOINTS_PER_PATIEN - AGS_MIN_CARGOPOINTS_PER_PATIEN))
 

@@ -6924,11 +6924,6 @@
 	icon_state = "darkyellowfull"
 	},
 /area/syndicate_mothership/cargo)
-"dkG" = (
-/obj/structure/window/full/shuttle/gray,
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/shuttle/addition_goals)
 "dkR" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/razor,
@@ -16613,12 +16608,6 @@
 /obj/structure/flora/tree/jungle/small,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
-"igs" = (
-/obj/machinery/computer/shuttle/addition_goals,
-/turf/simulated/floor/plasteel{
-	icon_state = "Dark"
-	},
-/area/shuttle/addition_goals)
 "igz" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/turf_decal/tile/neutral{
@@ -45459,11 +45448,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/cargo)
-"uMP" = (
-/obj/structure/window/full/shuttle/gray,
-/obj/structure/grille,
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/addition_goals)
 "uMQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -75340,9 +75324,9 @@ rRS
 gYH
 gYH
 gYH
-dkG
-dkG
-dkG
+cXQ
+cXQ
+cXQ
 cXQ
 iBc
 gYH
@@ -75860,7 +75844,7 @@ xgw
 xgw
 xgw
 xgw
-uMP
+cXQ
 mVX
 mVX
 mVX
@@ -76116,8 +76100,8 @@ xgw
 xgw
 xgw
 xgw
-igs
-uMP
+xgw
+cXQ
 mVX
 mVX
 mVX
@@ -76374,7 +76358,7 @@ xgw
 xgw
 xgw
 xgw
-uMP
+cXQ
 mVX
 mVX
 mVX
@@ -76882,9 +76866,9 @@ rRS
 gYH
 gYH
 gYH
-dkG
-dkG
-dkG
+cXQ
+cXQ
+cXQ
 cXQ
 xJT
 gYH
