@@ -29,7 +29,7 @@
 
 /obj/item/clothing/under/syndicate/tacticool
 	name = "tacticool turtleneck"
-	desc = "Один взгляд на это заставляет захотеть купить СКС, уйти в лес и -оперировать-."
+	desc = "Увидев это, хочется приобрести карабин СКС, уйти в лес и \"оперировать\""
 	ru_names = list(
 		NOMINATIVE = "тактикульная водолазка",
 		GENITIVE = "тактикульной водолазки",
@@ -45,7 +45,7 @@
 
 /obj/item/clothing/under/syndicate/tacticool/skirt
 	name = "tacticool skirt"
-	desc = "Один взгляд на это заставляет захотеть купить розовый СКС, уйти в лес и -оперировать-."
+	desc = "Увидев это, хочется приобрести карабин СКС, уйти в лес и \"оперировать\""
 	ru_names = list(
 		NOMINATIVE = "тактикульная юбка",
 		GENITIVE = "тактикульной юбки",
