@@ -6,7 +6,7 @@
 #define DEBRIS_LEAF "leaf"
 #define DEBRIS_SNOW "snow"
 
-// Generator defines.
+// Generator type defines.
 #define GEN_NUM "num"
 #define GEN_VECTOR "vector"
 #define GEN_BOX "box"
@@ -15,3 +15,17 @@
 #define GEN_SPHERE "sphere"
 #define GEN_SQUARE "square"
 #define GEN_CUBE "cube"
+
+// Particle editor var modifiers.
+#define P_DATA_GENERATOR "generator"
+#define P_DATA_ICON_ADD "icon_add"
+#define P_DATA_ICON_REMOVE "icon_remove"
+#define P_DATA_ICON_WEIGHT "icon_edit"
+
+/**
+ * It is not used anywhere!
+ * Modify the /particle_holder if you are going to apply the flags.
+ */
+// Flags that effect how a particle holder displays something.
+/// If we're inside something inside a mob, display off that mob too.
+#define PARTICLE_ATTACH_MOB (1<<0)
