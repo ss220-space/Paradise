@@ -37,7 +37,7 @@
 
 /obj/item/ship_in_a_bottle/attack_self(mob/user)
 	to_chat(user, "Вы не совсем понимаете, как они вообще загоняют корабли в эти штуки, но кажется знаете, как его оттуда достать.")
-	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
+	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, TRUE)
 	new /obj/vehicle/ridden/lavaboat/dragon(get_turf(src))
 	qdel(src)
 

@@ -287,7 +287,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			if(length(candidates))
 				audible_message(span_userdanger("Глухие удары под ногами становятся отчётливее!"))
 				elitemind = pick(candidates)
-				SEND_SOUND(elitemind, 'sound/magic/cult_spell.ogg')
+				SEND_SOUND(elitemind, sound('sound/magic/cult_spell.ogg'))
 				to_chat(elitemind, "<b>Вы были избраны на роль Элиты Лазиса.\nЧерез несколько секунд вы появитесь в виде сильного монстра, с целью убить призвавшего вас.\n\
 					Вы можете выбирать разные атаки, нажимая на кнопки в верхнем левом углу экрана, а так же использовать их с помощью нажатия на тайл или моба.\n\
 					Хоть и оппонент снаряжен шахтёрской экипировкой и различными артефактами, у вас есть мощные способности, которые обычно были ограничены ИИ.\n\
@@ -307,7 +307,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	mychild = new selectedspawn(loc)
 	mychild.scale_stats(activators)
 	visible_message(span_userdanger("[capitalize(mychild.declent_ru(NOMINATIVE))] появляется из [declent_ru(GENITIVE)]!"))
-	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+	playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 	if(boosted)
 		mychild.key = elitemind.key
 		mychild.sentience_act()
@@ -319,7 +319,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/proc/return_elite()
 	mychild.forceMove(loc)
 	visible_message(span_userdanger("[capitalize(mychild.declent_ru(NOMINATIVE))] появляется из [declent_ru(GENITIVE)]!"))
-	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+	playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 	mychild.revive()
 	if(boosted)
 		mychild.setMaxHealth(mychild.maxHealth * 2.5)
@@ -437,11 +437,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			if(get_dist(src, activator) >= ARENA_RADIUS)
 				activator.forceMove(loc)
 				visible_message(span_warning("[capitalize(activator)] внезапно материализуется над [declent_ru(INSTRUMENTAL)]!"))
-				playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+				playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 	if(mychild != null && get_dist(src, mychild) >= ARENA_RADIUS)
 		mychild.forceMove(loc)
 		visible_message(span_warning("[capitalize(mychild)] внезапно возникает над [declent_ru(INSTRUMENTAL)]!"))
-		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+		playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 	for(var/mob/living/carbon/human/invader in range(ARENA_RADIUS, src.loc))
 		if(invader in activators)
 			continue
@@ -454,10 +454,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			invaders += invader
 		var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 2, src)
 		invader.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
-		playsound(invader, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+		playsound(invader, 'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 
 /obj/structure/elite_tumor/proc/onEliteLoss()
-	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, TRUE, TRUE)
+	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает яростно биться в конвульсиях, затем начинает растворяться."))
 	visible_message(span_warning("Что-то выталкивается, когда [declent_ru(NOMINATIVE)] закрывается."))
 	var/lootloc = loc
@@ -523,7 +523,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.reviver = user
 		E.revive()
 		user.visible_message(span_notice("[user] пронза[pluralize_ru(user.gender,"ет","ют")] [E.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)], воскрешая его."))
-		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
+		SEND_SOUND(E, sound('sound/magic/cult_spell.ogg'))
 		to_chat(user, "<span class='notice'>Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам.</span>")
 		to_chat(E, "<span class='userdanger'>Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск.</span>")
 		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!</span>")

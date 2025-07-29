@@ -268,7 +268,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
-	equip_sound = 'sound/items/handling/generic_equip4.ogg'
+	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING
@@ -703,8 +703,8 @@ BLIND     // can't see anything
 	var/cut_open = FALSE
 	body_parts_covered = FEET
 	slot_flags = ITEM_SLOT_FEET
-	pickup_sound = 'sound/items/handling/shoes_pickup.ogg'
-	drop_sound = 'sound/items/handling/shoes_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/shoes_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/shoes_drop.ogg'
 
 	var/silence_steps = 0
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
@@ -817,8 +817,8 @@ BLIND     // can't see anything
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	drop_sound = 'sound/items/handling/cloth_drop.ogg'
-	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_CLOTH_OUTER
 	var/blood_overlay_type = "suit"
 	/// Whether suit is currently adjusted, example: shirt is buttoned.
@@ -1064,9 +1064,9 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.90
 	slot_flags = ITEM_SLOT_CLOTH_INNER
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
-	drop_sound = 'sound/items/handling/cloth_drop.ogg'
-	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
+	equip_sound = 'sound/items/handling/equip/jumpsuit_equip.ogg'
+	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cloth_pickup.ogg'
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',

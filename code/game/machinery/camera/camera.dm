@@ -325,7 +325,7 @@
 		else
 			visible_message(span_danger("\The [src] [change_msg]!"))
 
-		playsound(loc, toggle_sound, 100, 1)
+		playsound(loc, toggle_sound, 100, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
@@ -340,7 +340,7 @@
 	alarm_on = FALSE
 	SSalarm.cancelAlarm("Camera", get_area(src), src)
 
-/obj/machinery/camera/proc/can_use()
+/obj/machinery/camera/proc/can_use(mob/user)
 	if(!status)
 		return 0
 	if(stat & EMPED)
@@ -439,6 +439,15 @@
 		cam["z"] = 0
 	return cam
 
+
+/obj/machinery/camera/proc/can_AI_see(mob/living/silicon/ai/ai)
+	if(!ai)
+		return TRUE
+
+	var/list/tempnetwork = network & ai.network
+	return tempnetwork.len > 0
+
+
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
@@ -495,6 +504,6 @@
 
 /obj/machinery/camera/mortar/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
 	return
-	
+
 /obj/machinery/camera/mortar/flamer_fire_act(damage)
 	return

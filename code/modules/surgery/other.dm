@@ -448,7 +448,7 @@
 			var/mob/living/silicon/S = user
 			S.Weaken(16 SECONDS)
 			S.apply_damage(20, BRUTE)
-			playsound(S, 'sound/effects/bang.ogg', 50, 1)
+			playsound(S, 'sound/effects/bang.ogg', 50, TRUE)
 		return SURGERY_STEP_INCOMPLETE
 
 	user.visible_message(

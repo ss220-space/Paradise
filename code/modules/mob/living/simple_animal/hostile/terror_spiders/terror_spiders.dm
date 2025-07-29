@@ -29,8 +29,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
 	var/spider_intro_text = "Если ты это видишь, это баг."
 	speak_chance = 0 // quiet but deadly
-	speak_emote = list("hisses")
-	emote_hear = list("hisses")
+	speak_emote = list("шипит")
+	emote_hear = list("шипит")
 	tts_seed = "Anubarak"
 	sentience_type = SENTIENCE_OTHER
 	response_help  = "гладит"
@@ -223,7 +223,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		to_chat(src, span_warning("Вам не нужно лечиться!"))
 		return
 	to_chat(src, span_notice("Вы употребляете королевское желе, чтобы исцелить себя!"))
-	playsound(src.loc, 'sound/creatures/terrorspiders/jelly.ogg', 100, 1)
+	playsound(src.loc, 'sound/creatures/terrorspiders/jelly.ogg', 100, TRUE)
 	apply_status_effect(STATUS_EFFECT_TERROR_REGEN)
 	qdel(J)
 

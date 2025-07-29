@@ -490,6 +490,16 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/coffeemaker/standard
+  category = list("Misc. Machinery")
+
+/datum/design/slotmachine
+	name = "Machine Board (Slotmachine Arcade)"
+	desc = "Позволяет изготавливать схемы, используемые для сборки новой слот-машины."
+	id = "arcadeslotmachine"
+	req_tech = list("programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/arcade/slotmachine
 	category = list("Misc. Machinery")
 
 /datum/design/orion_trail

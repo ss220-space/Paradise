@@ -125,7 +125,7 @@
 
 	if(I.use_tool(src, user))
 		to_chat(user, span_notice("You cut away the wiring."))
-		playsound(loc, I.usesound, 100, 1)
+		playsound(loc, I.usesound, 100, TRUE)
 		rigged = FALSE
 		return TRUE
 

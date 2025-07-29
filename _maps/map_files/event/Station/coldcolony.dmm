@@ -4998,7 +4998,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "bPH" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
 "bPY" = (
@@ -6707,7 +6707,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "cwk" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/maintenance/casino)
 "cwm" = (
@@ -30707,7 +30707,7 @@
 /area/coldcolony/malta/bridge/vip)
 "lma" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/casino)
 "lmc" = (
@@ -33572,7 +33572,7 @@
 /area/coldcolony/malta/research/shallway)
 "msd" = (
 /obj/machinery/light/small,
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/maintenance/casino)
 "msF" = (
@@ -34462,7 +34462,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/checkpoint)
 "mKG" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "mLe" = (
@@ -54971,7 +54971,7 @@
 	},
 /area/coldcolony/malta/hallway/service/south)
 "ufD" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -59335,7 +59335,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/casino)
 "vHz" = (

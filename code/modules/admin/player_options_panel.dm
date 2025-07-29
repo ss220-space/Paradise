@@ -333,7 +333,7 @@
 					cmd_admin_mute(M, MUTE_ALL)
 					ui.send_update()
 		if("someadminbutton")
-			SEND_SOUND(usr, 'sound/items/bikehorn.ogg')
+			SEND_SOUND(usr, sound('sound/items/bikehorn.ogg'))
 
 
 /datum/vuap_personal/ui_state(mob/user)

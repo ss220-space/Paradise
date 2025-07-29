@@ -113,7 +113,7 @@
 	COOLDOWN_START(src, flash_cooldown, cooldown_duration)
 	flash_recharge(user)
 
-	playsound(loc, use_sound, 100, 1)
+	playsound(loc, use_sound, 100, TRUE)
 	flick("[initial(icon_state)]2", src)
 	set_light_on(TRUE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)

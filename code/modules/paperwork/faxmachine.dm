@@ -182,13 +182,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			if(!is_authenticated && scan)
 				if(scan.registered_name in GLOB.fax_blacklist)
 					to_chat(usr, "<span class='warning'>Login rejected: individual is blacklisted from fax network.</span>")
-					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 					. = FALSE
 				else if(check_access(scan))
 					authenticated = TRUE
 				else // ID doesn't have access to this machine
 					to_chat(usr, "<span class='warning'>Login rejected: ID card does not have required access.</span>")
-					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 					. = FALSE
 			else if(is_authenticated)
 				authenticated = FALSE
@@ -264,7 +264,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 			var/cooldown_seconds = cooldown_seconds()
 			if(cooldown_seconds > 0)
-				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 				to_chat(usr, "<span class='warning'>[src] is not ready for another [cooldown_seconds] seconds.</span>")
 				return
 
@@ -358,7 +358,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	flick("faxreceive", src)
 
-	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 
 	// give the sprite some time to flick
 	sleep(20)
@@ -411,11 +411,12 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
 	var/msg = "<span class='boldnotice'><span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")]) (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</a>) </span>: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)
 			if(C.prefs.sound & SOUND_ADMINHELP)
-				C << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND(C, fax_sound)
 
 	var/datum/discord_webhook_payload/payload = new()
 	if(istype(sent, /obj/item/paper))

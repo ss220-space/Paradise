@@ -5,9 +5,9 @@
 	icon_living = "iguana"
 	icon_dead = "iguana_dead"
 	speak = list("RAWR!","Rawr!","GRR!","Growl!")
-	speak_emote = list("growls", "roars")
-	emote_hear = list("rawrs","grumbles","grawls")
-	emote_see = list("stares ferociously", "stomps")
+	speak_emote = list("шипит", "рычит")
+	emote_hear = list("рычит", "шипит", "хрипит")
+	emote_see = list("свирепо смотрит", "топчется на месте")
 	tts_seed = "Shaker"
 	speak_chance = 1
 	turns_per_move = 5

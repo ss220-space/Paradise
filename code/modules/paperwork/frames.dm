@@ -159,7 +159,7 @@
 	PF.pixel_x = px
 	PF.pixel_y = py
 
-	playsound(PF.loc, usesound, 100, 1)
+	playsound(PF.loc, usesound, 100, TRUE)
 
 /obj/item/picture_frame/examine(mob/user, var/infix = "", var/suffix = "")
 	. = ..()

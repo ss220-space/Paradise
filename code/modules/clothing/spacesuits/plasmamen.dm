@@ -459,14 +459,14 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/qm
 	name = "quartermaster's plasma envirosuit helmet"
-	desc = "Шлем защитного костюма плазмолюда, созданный специально для завхоза."
+	desc = "Шлем защитного костюма плазмолюда, созданный специально для Квартирмейстера."
 	ru_names = list(
-		NOMINATIVE = "защитный шлем завхоза",
-		GENITIVE = "защитного шлема завхоза",
-		DATIVE = "защитному шлему завхоза",
-		ACCUSATIVE = "защитный шлем завхоза",
-		INSTRUMENTAL = "защитным шлемом завхоза",
-		PREPOSITIONAL = "защитном шлеме завхоза"
+		NOMINATIVE = "защитный шлем Квартирмейстера",
+		GENITIVE = "защитного шлема Квартирмейстера",
+		DATIVE = "защитному шлему Квартирмейстера",
+		ACCUSATIVE = "защитный шлем Квартирмейстера",
+		INSTRUMENTAL = "защитным шлемом Квартирмейстера",
+		PREPOSITIONAL = "защитном шлеме Квартирмейстера"
 	)
 	icon_state = "qm_envirohelm"
 	item_state = "qm_envirohelm"

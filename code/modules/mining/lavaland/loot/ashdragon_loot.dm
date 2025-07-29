@@ -298,7 +298,7 @@
 			user.visible_message(span_danger("[user] превраща[pluralize_ru(user.gender,"ет","ют")] [T.declent_ru(ACCUSATIVE)] в базаль!"))
 			T.ChangeTurf(reset_turf_type, keep_icon = FALSE)
 			timer = world.time + reset_cooldown
-		playsound(T,'sound/magic/fireball.ogg', 200, 1)
+		playsound(T,'sound/magic/fireball.ogg', 200, TRUE)
 
 /obj/effect/temp_visual/lavastaff
 	icon_state = "lavastaff_warn"

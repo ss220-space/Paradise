@@ -6893,7 +6893,7 @@
 	},
 /area/shuttle/administration)
 "djz" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -29497,7 +29497,7 @@
 	},
 /area/syndicate_mothership)
 "nKO" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "nKV" = (
@@ -34768,7 +34768,7 @@
 	},
 /area/shuttle/trade/sol)
 "qkl" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -41049,7 +41049,7 @@
 	},
 /area/shuttle/escape)
 "sWF" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -48645,7 +48645,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "wqc" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_x = 7

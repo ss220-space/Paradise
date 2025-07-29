@@ -1,12 +1,13 @@
-/*	Everything is sorted as recorded in chat-default.scss, so please observe the sorting when adding new define. */
-/*	There are the same MARKS here as in chat-default.scss to simplify navigation. */
-/*	All defines are renamed. Now they are named the same as their classes.*/
+/**
+ * Everything is sorted as recorded in chat-default.scss, so please observe the sorting when adding new define.
+ * There are the same MARKS here as in chat-default.scss to simplify navigation.
+ * All defines are renamed. Now they are named the same as their classes.
+ */
 
-// MARK: Without CSS
-
-/* Are these chat selectors? */
-/* TODO: Replace .info with .notice everywhere. */
-#define span_info(str) ("<span class='info'>" + str + "</span>")
+/**
+ * MARK: Without CSS
+ * Are these chat selectors?
+ */
 #define span_adminnotice(str) ("<span class='adminnotice'>" + str + "</span>")
 #define span_unconscious(str) ("<span class='unconscious'>" + str + "</span>")
 #define span_emojienabled(str) ("<span class='emoji_enabled'>" + str + "</span>")
@@ -30,8 +31,9 @@
 #define span_boldannounceooc(str) ("<span class='boldannounceooc'>" + str + "</span>")
 #define span_announce(str) ("<span class='announce'>" + str + "</span>")
 
-// MARK: GENERAL STUFF
-
+/**
+ * MARK: GENERAL STUFF
+ */
 #define span_italics(str) ("<span class='italic'>" + str + "</span>")
 #define span_bold(str) ("<span class='bold'>" + str + "</span>")
 #define span_bolditalics(str) ("<span class='bolditalics'>" + str + "</span>")
@@ -42,15 +44,17 @@
 #define span_wingdings(str) ("<span class='wingdings'>" + str + "</span>")
 #define span_robot(str) ("<span class='robot'>" + str + "</span>")
 
-// MARK: MOTD & MEMO
-
+/**
+ * MARK: MOTD & MEMO
+ */
 #define span_motd(str) ("<span class='motd'>" + str + "</span>")
 #define span_memo(str) ("<span class='memo'>" + str + "</span>")
 #define span_memoedit(str) ("<span class='memoedit'>" + str + "</span>")
 
-// MARK: General colors
-
-/* TODO: Combine everything just bold fonts (prefix, yell, name, ooc etc.). */
+/**
+ * MARK: General colors
+ * TODO: Combine everything just bold fonts (prefix, yell, name, ooc etc.).
+ */
 #define span_ooc(str) ("<span class='ooc'>" + str + "</span>")
 #define span_looc(str) ("<span class='looc'>" + str + "</span>")
 #define span_discordpm(str) ("<span class='discordpm'>" + str + "</span>")
@@ -61,9 +65,10 @@
 #define span_name(str) ("<span class='name'>" + str + "</span>")
 #define span_yell(str) ("<span class='yell'>" + str + "</span>")
 
-// MARK: Base colors
-
-/* All new style colors must be converted to the corresponding span and written as class. */
+/**
+ * MARK: Base colors
+ * All new style colors must be converted to the corresponding span and written as class.
+ */
 #define span_red(str) ("<span class='red'>" + str + "</span>")
 #define span_green(str) ("<span class='green'>" + str + "</span>")
 #define span_purple(str) ("<span class='purple'>" + str + "</span>")
@@ -71,8 +76,9 @@
 #define span_blue(str) ("<span class='blue'>" + str + "</span>")
 #define span_yellow(str) ("<span class='yellow'>" + str + "</span>")
 
-// MARK: Other colors
-
+/**
+ * MARK: Other colors
+ */
 #define span_rose(str) ("<span class='rose'>" + str + "</span>")
 #define span_interface(str) ("<span class='interface'>" + str + "</span>")
 #define span_greentext(str) ("<span class='greentext'>" + str + "</span>")
@@ -85,8 +91,9 @@
 #define span_average(str) ("<span class='average'>" + str + "</span>")
 #define span_good(str) ("<span class='good'>" + str + "</span>")
 
-// MARK: Admin/Mentor
-
+/**
+ * MARK: Admin/Mentor
+ */
 #define span_mentorhelp(str) ("<span class='mentorhelp'>" + str + "</span>")
 #define span_admin(str) ("<span class='admin'>" + str + "</span>")
 #define span_adminhelp(str) ("<span class='adminhelp'>" + str + "</span>")
@@ -96,14 +103,17 @@
 #define span_all_admin_ping(str) ("<span class='all_admin_ping'>" + str + "</span>")
 
 // MARK: Radio
-
-/* TODO: Check and delete if it can be replaced. */
+/**
+ * MARK: Radio
+ * TODO: Check and delete if it can be replaced.
+ */
 #define span_deptradio(str) ("<span class='deptradio'>" + str + "</span>")
 #define span_syndradio(str) ("<span class='syndradio'>" + str + "</span>")
 #define span_sciradio(str) ("<span class='sciradio'>" + str + "</span>")
 
-// MARK: Alerts
-
+/**
+ * MARK: Alerts
+ */
 #define span_alert(str) ("<span class='alert'>" + str + "</span>")
 #define span_ghostalert(str) ("<span class='ghostalert'>" + str + "</span>")
 #define span_warning(str) ("<span class='warning'>" + str + "</span>")
@@ -118,8 +128,9 @@
 #define span_boldnotice(str) ("<span class='boldnotice'>" + str + "</span>")
 #define span_suicide(str) ("<span class='suicide'>" + str + "</span>")
 
-// MARK: Antagonists
-
+/**
+ * MARK: Antagonists
+ */
 #define span_alien(str) ("<span class='alien'>" + str + "</span>")
 #define span_noticealien(str) ("<span class='noticealien'>" + str + "</span>")
 #define span_alertalien(str) ("<span class='alertalien'>" + str + "</span>")
@@ -139,8 +150,9 @@
 #define span_his_grace(str) ("<span class='his_grace'>" + str + "</span>")
 #define span_shadowling(str) ("<span class='shadowling'>" + str + "</span>")
 
-// MARK: Cults
-
+/**
+ * MARK: Cults
+ */
 #define span_cult(str) ("<span class='cult'>" + str + "</span>")
 #define span_cultspeech(str) ("<span class='cultspeech'>" + str + "</span>")
 #define span_cultitalic(str) ("<span class='cultitalic'>" + str + "</span>")
@@ -153,28 +165,32 @@
 #define span_clocklarge(str) ("<span class='clocklarge'>" + str + "</span>")
 #define span_ratvar(str) ("<span class='ratvar'>" + str + "</span>")
 
-// MARK: Syndicate codewords
-
+/**
+ * MARK: Syndicate codewords
+ */
 #define span_codephrases(str) ("<span class='codephrases'>" + str + "</span>")
 #define span_coderesponses(str) ("<span class='coderesponses'>" + str + "</span>")
 
-// MARK: Megafauna
-
+/**
+ * MARK: Megafauna
+ */
 #define span_colossus(str) ("<span class='colossus'>" + str + "</span>")
 #define span_hierophant(str) ("<span class='hierophant'>" + str + "</span>")
 #define span_hierophant_warning(str) ("<span class='hierophant_warning'>" + str + "</span>")
 
-// MARK: Anomaly
-
+/**
+ * MARK: Anomaly
+ */
 #define span_bluespace_anomaly(str) ("<span class='bluespace_anomaly'>" + str + "</span>")
 #define span_energetic_anomaly(str) ("<span class='energetic_anomaly'>" + str + "</span>")
 #define span_atmospferic_anomaly(str) ("<span class='atmospferic_anomaly'>" + str + "</span>")
 #define span_gravitational_anomaly(str) ("<span class='gravitational_anomaly'>" + str + "</span>")
 #define span_vortex_anomaly(str) ("<span class='vortex_anomaly'>" + str + "</span>")
 
-//MARK: Font sizes
-
-/* Don't rename it. Each numbered span corresponds to the numbered font style. */
+/**
+ * MARK: Font sizes
+ * Don't rename it. Each numbered span corresponds to the numbered font style.
+ */
 #define span_fontsize1(str) ("<span style='font-size: 10px;'>" + str + "</span>")
 #define span_fontsize2(str) ("<span style='font-size: 13px;'>" + str + "</span>")
 #define span_fontsize3(str) ("<span style='font-size: 16px;'>" + str + "</span>")

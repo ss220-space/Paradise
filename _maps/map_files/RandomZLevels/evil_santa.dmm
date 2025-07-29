@@ -4288,7 +4288,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Kv" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Kx" = (

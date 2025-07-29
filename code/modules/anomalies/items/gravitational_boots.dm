@@ -243,7 +243,7 @@
 	ADD_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_GRAV_BOOTS_TRAIT)
 	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), user)
 	if(user.throw_at(target, cur_jumpdistance, cur_jumpjumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
-		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+		playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 		user.visible_message(span_warning("[user] прыгает вперед!"))
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)

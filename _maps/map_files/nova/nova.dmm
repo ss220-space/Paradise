@@ -31462,7 +31462,7 @@
 	},
 /area/security/warden)
 "eAR" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
@@ -86927,7 +86927,7 @@
 	},
 /area/maintenance/trading)
 "mRf" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
@@ -113279,7 +113279,7 @@
 	},
 /area/security/brigstaff)
 "qHF" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/effect/turf_decal/siding/wood{
 	do_not_delete_me = 1
 	},
@@ -145080,7 +145080,7 @@
 "vls" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "vlt" = (
@@ -160249,7 +160249,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "xzt" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},

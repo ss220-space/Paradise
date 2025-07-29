@@ -249,7 +249,7 @@
 	dust_animation()
 
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает в огненной вспышке!"))
-	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
+	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 
 	var/obj/effect/dummy/slaughter/s_holder = new(loc)
 
@@ -271,7 +271,7 @@
 	forceMove(get_turf(src))
 
 	visible_message(span_warning("<b>[capitalize(declent_ru(NOMINATIVE))] появляется в огненной вспышке!</b>"))
-	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
+	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
 	addtimer(CALLBACK(src, PROC_REF(fakefireextinguish), TRUE), 1.5 SECONDS)
 

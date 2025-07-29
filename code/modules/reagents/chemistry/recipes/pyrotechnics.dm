@@ -38,9 +38,9 @@
 /datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	if(created_volume < 5)
-		playsound(location,'sound/effects/sparks1.ogg', 100, 1)
+		playsound(location,'sound/effects/sparks1.ogg', 100, TRUE)
 	else
-		playsound(location,'sound/creatures/bee.ogg', 100, 1)
+		playsound(location,'sound/creatures/bee.ogg', 100, TRUE)
 		var/list/beeagents = list()
 		for(var/X in holder.reagent_list)
 			var/datum/reagent/R = X
@@ -272,7 +272,7 @@
 		holder.del_reagent(f_reagent)
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
-	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
+	playsound(location, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 	if(smoke)
 		smoke.set_up(amount = round(created_volume), carry = holder, location = location)
 		smoke.start(TRUE)
@@ -297,7 +297,7 @@
 /datum/chemical_reaction/smoke_solid/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/fluid_spread/smoke/solid/smoke = new
-	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
+	playsound(location, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 	if(smoke)
 		if(created_volume < 15)
 			smoke.set_up(amount = 3, location = location, effect_range = 0)
