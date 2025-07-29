@@ -283,6 +283,9 @@
 	. = ..()
 	update_overlays()
 
+/obj/structure/rack/wooden/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+
 /obj/structure/rack/wooden/wrench_act(mob/user, obj/item/I)
 	return
 
