@@ -182,8 +182,8 @@
 		if(module.overlay_offset)
 			x_offset += module.overlay_offset["x"]
 			y_offset += module.overlay_offset["y"]
-		overlay.pixel_x = x_offset
-		overlay.pixel_y = y_offset
+		overlay.pixel_w = x_offset
+		overlay.pixel_z = y_offset
 	attachment_overlays[module.slot] = overlay
 	update_icon()
 
