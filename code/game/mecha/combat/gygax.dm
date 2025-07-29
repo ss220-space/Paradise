@@ -3,7 +3,6 @@
 	name = "Gygax"
 	icon_state = "gygax"
 	initial_icon = "gygax"
-	ratvarized_icon = "gygax_ratvar"
 	step_in = 3
 	dir_in = 1 //Facing North.
 	max_integrity = 250

@@ -40,14 +40,11 @@
 #define EMP_SPELL 1
 #define TIME_SPELL 2
 #define RECONSTRUCT_SPELL 3
-//guns
-#define EMP_GUN_SPELL 1
-#define GUN_HEAL_SPELL 2
-#define GUN_STUN_SPELL 3
-//heart
-#define EMP_HEART_PULSE 1
-#define HEAL_HEART_PULSE 2
-#define STUN_HEART_PULSE 3
+//guns and heart
+#define EMP_G_SPELL 1
+#define HEAL_G_SPELL 2
+#define STUN_G_SPELL 3
+
 
 // spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), action needs)
 GLOBAL_LIST_INIT(clockslab_spells, list(
@@ -93,16 +90,12 @@ GLOBAL_LIST_INIT(shard_spells, list(
 	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 9),
 	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 9)
 ))
-GLOBAL_LIST_INIT(gun_spells, list(
-	new /datum/spell_enchant("EMP Shot", EMP_GUN_SPELL, time = 1),
-	new /datum/spell_enchant("Healing Shot", GUN_HEAL_SPELL, time = 1),
-	new /datum/spell_enchant("Stunning Shot", GUN_STUN_SPELL, time = 1)
+GLOBAL_LIST_INIT(gun_and_heart_spells, list(
+	new /datum/spell_enchant("EMP", EMP_G_SPELL, time = 1),
+	new /datum/spell_enchant("Heal", HEAL_G_SPELL, time = 1),
+	new /datum/spell_enchant("Stun", STUN_G_SPELL, time = 1)
 ))
-GLOBAL_LIST_INIT(heart_pulses, list(
-	new /datum/spell_enchant("EMP Pulse", EMP_HEART_PULSE, time = 1),
-	new /datum/spell_enchant("Healing Pulse", HEAL_HEART_PULSE, time = 1),
-	new /datum/spell_enchant("Stunning Pulse", STUN_HEART_PULSE, time = 1)
-))
+
 
 /// Power gains permanent
 #define CLOCK_POWER_CONVERT 200

@@ -3,7 +3,6 @@
 	name = "Odysseus"
 	icon_state = "odysseus"
 	initial_icon = "odysseus"
-	ratvarized_icon = "odysseus_ratvar"
 	step_in = 3
 	max_temperature = 15000
 	max_integrity = 120

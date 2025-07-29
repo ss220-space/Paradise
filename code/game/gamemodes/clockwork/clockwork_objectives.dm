@@ -9,9 +9,6 @@
 
 
 /datum/clockwork_objectives/proc/setup()
-	GLOB.curse_dial = TRUE
-	GLOB.curse_upper = TRUE
-	GLOB.curse_lower = TRUE
 	if(clock_status != RATVAR_IS_ASLEEP)
 		return FALSE
 	clock_status = RATVAR_DEMANDS_POWER
@@ -52,7 +49,7 @@
 			to_chat(M, span_clock("Текущая цель: [obj_summon.explanation_text]"))
 		if(RATVAR_BREAK_SEALS)
 			to_chat(M, span_clock("Необходимо починить сердце, сломав наложенные на него печати. Для этого необходимо найти детали и прикрепить их к сердцу!"))
-			switch(GLOB.curse_dial+GLOB.curse_upper+GLOB.curse_lower)
+			switch(GLOB.total_curses)
 				if(3)
 					to_chat(M, span_clock("Осталось еще три печати!"))
 				if(2)
@@ -114,16 +111,17 @@
 	checktimer = addtimer(CALLBACK(src, PROC_REF(check_heart)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
 
 /datum/clockwork_objectives/proc/check_heart()
-	if(!isnull(GLOB.Heart))
-		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
-			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, span_clocklarge("Отлично, теперь вам необходимо снять печати..."))
-				clock_status = RATVAR_BREAK_SEALS
-				deltimer(checktimer)
-				checktimer = addtimer(CALLBACK(src, PROC_REF(update_seals)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
+	if(isnull(GLOB.Heart))
+		return
+	for(var/datum/mind/clock_mind as anything in SSticker.mode.clockwork_cult)
+		if(clock_mind && clock_mind.current)
+			to_chat(clock_mind.current, span_clocklarge("Отлично, теперь вам необходимо снять печати..."))
+			clock_status = RATVAR_BREAK_SEALS
+			deltimer(checktimer)
+			checktimer = addtimer(CALLBACK(src, PROC_REF(update_seals)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
 
 /datum/clockwork_objectives/proc/update_seals()
-	if(!GLOB.curse_dial && !GLOB.curse_upper && !GLOB.curse_lower)
+	if(GLOB.total_curses == 0)
 		ratvar_is_ready()
 		deltimer(checktimer)
 

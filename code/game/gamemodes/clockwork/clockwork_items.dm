@@ -689,19 +689,17 @@
 
 /obj/item/gun/energy/clockwork/examine(mob/user)
 	. = ..()
-	if(isclocker(user))
-		.+=""
-		.+= span_clockitalic("Осталось [cell.charge] заряд[declension_ru(cell.charge, "", "а", "ов")].")
+	if(!isclocker(user))
+		return
+	.+=""
+	.+= span_clockitalic("Осталось [cell.charge] заряд[declension_ru(cell.charge, "", "а", "ов")].")
 
 /obj/item/gun/energy/clockwork/proc/charge()
-	if(cell.charge < cell.maxcharge)
-		cell.charge += 1*charge_rate
-		if(cell.charge > cell.maxcharge)
-			cell.charge = cell.maxcharge
+	cell.charge = min(cell.charge + charge_rate, cell.maxcharge)
 
 /obj/item/gun/energy/clockwork/Initialize(mapload)
 	addtimer(CALLBACK(src, PROC_REF(charge)), charge_speed, TIMER_LOOP | TIMER_DELETE_ME)
-	enchants = GLOB.gun_spells
+	enchants = GLOB.gun_and_heart_spells
 	. = ..()
 
 /obj/item/gun/energy/clockwork/update_overlays()
@@ -712,10 +710,14 @@
 
 /obj/item/gun/energy/clockwork/add_enchant()
 	switch(enchant_type)
-		if(EMP_GUN_SPELL) ammo_type = list(emp_bullet)
-		if(GUN_HEAL_SPELL) ammo_type = list(heal_bullet)
-		if(GUN_STUN_SPELL) ammo_type = list(stun_bullet)
-		else ammo_type = list(def_bullet)
+		if(EMP_G_SPELL)
+			ammo_type = list(emp_bullet)
+		if(HEAL_G_SPELL)
+			ammo_type = list(heal_bullet)
+		if(STUN_G_SPELL)
+			ammo_type = list(stun_bullet)
+		else
+			ammo_type = list(def_bullet)
 	update_ammo_types()
 	if(enchant_type && haveKnockback)
 		pb_knockback = 0
@@ -723,14 +725,11 @@
 		pb_knockback = defaultpb_knockback
 	if(chambered)
 		if(chambered.BB)
-			qdel(chambered.BB)
+			QDEL_NULL(chambered.BB)
 			chambered.BB = null
 		chambered = null
 	newshot()
 
-/obj/item/gun/energy/clockwork/Initialize(mapload)
-	. = ..()
-	enchants = GLOB.gun_spells
 
 /obj/item/gun/energy/clockwork/update_icon_state()
 	return
@@ -740,30 +739,36 @@
 
 /obj/item/gun/energy/clockwork/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
 	if(!isclocker(user))
-		var/zone = BODY_ZONE_HEAD
-		if(!(user.get_organ(zone)))
-			zone = BODY_ZONE_CHEST
-		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
-		user.visible_message(span_danger("[src] начинает ярко светится!"))
-		if(iscultist(user))
-			to_chat(user, span_clocklarge("Получи, грязный еретик!"))
-		else
-			to_chat(user, span_clocklarge("Руки прочь!"))
-		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
-		user.bleed(BLOOD_VOLUME_NORMAL)
-		user.death()
+		kill_shooter()
 	. = ..()
 	if(enchant_type)
-		deplete_spell()
-		pb_knockback = 2
-		ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
-		update_ammo_types()
-		if(chambered)
-			if(chambered.BB)
-				qdel(chambered.BB)
-				chambered.BB = null
-			chambered = null
-		newshot()
+		remove_enchanted_bullet()
+
+/obj/item/gun/energy/clockwork/proc/kill_shooter(mob/living/carbon/shooter)
+	var/zone = BODY_ZONE_HEAD
+	if(!(shooter.get_organ(zone)))
+		zone = BODY_ZONE_CHEST
+	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
+	shooter.visible_message(span_danger("[src] начинает ярко светится!"))
+	if(iscultist(shooter))
+		to_chat(shooter, span_clocklarge("Получи, грязный еретик!"))
+	else
+		to_chat(shooter, span_clocklarge("Руки прочь!"))
+	shooter.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
+	shooter.bleed(BLOOD_VOLUME_NORMAL)
+	shooter.death()
+
+/obj/item/gun/energy/clockwork/proc/remove_enchanted_bullet()
+	deplete_spell()
+	pb_knockback = 2
+	ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
+	update_ammo_types()
+	if(chambered)
+		if(chambered.BB)
+			qdel(chambered.BB)
+			chambered.BB = null
+		chambered = null
+	newshot()
 
 /obj/item/gun/energy/clockwork/sniper
 	name = "Clockwork sniper rifle"
@@ -793,6 +798,7 @@
 	pb_knockback = 0
 	haveKnockback = FALSE
 	fire_delay = 40
+
 	def_bullet = /obj/item/ammo_casing/energy/rat/snipe
 	emp_bullet = /obj/item/ammo_casing/energy/rat/snipe/emp
 	heal_bullet = /obj/item/ammo_casing/energy/rat/snipe/heal
@@ -1593,7 +1599,7 @@
 	duration = 40
 	pixel_x = -32
 	pixel_y = -32
-	var/Visual_Only = FALSE
+	var/process_on_affected = TRUE
 	var/anim_time = 2 SECONDS
 	var/sleep_time = 20
 	var/Can_adv_heal = TRUE
@@ -1614,50 +1620,77 @@
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/reconstruct()
 	playsound(src, sound, 50, TRUE)
-	if(!isnull(icon_state)) animate(src, transform = matrix() * 1, time = anim_time)
-	sleep(sleep_time)
-	if(!Visual_Only)
-		for(var/atom/affected in range(radius, get_turf(src)))
-			if(isliving(affected))
-				var/mob/living/living = affected
-				living.ratvar_act(TRUE)
-				if(!ishuman(living))
-					continue
-				if(!isclocker(living))
-					var/obj/item/nullrod/N = locate() in living
-					if(do_emp && !N && !living.mind.isblessed)
-						living.emp_act(EMP_HEAVY)
-						new /obj/effect/temp_visual/emp/clock(living.loc)
-					if(do_stun && !N && !living.mind.isblessed)
-						if(isrobot(living))
-							living.emp_act(EMP_HEAVY)
-							new /obj/effect/temp_visual/emp/clock(living.loc)
-						else
-							living.Weaken(8 SECONDS)
-							living.Silence(10 SECONDS)
-							living.clockslur(20 SECONDS)
-				if(istype(living, /mob/living/simple_animal/hostile/clockwork/marauder))
-					if(heal_marauders)
-						living.heal_overall_damage(100)
-				else
-					living.heal_overall_damage(heal, heal, affect_robotic = robo_affect_heal)
-				if(Can_adv_heal)
-					living.reagents?.add_reagent("epinephrine", 5)
-					var/mob/living/carbon/human/H = living
-					for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-						bodypart.stop_internal_bleeding()
-						bodypart.mend_fracture()
-			else
-				if(is_rat_act)
-					affected.ratvar_act(convert_mecha)
-	animate(src, transform = matrix() * 0.1, time = anim_time)
-	icon_state = null
+	if(!isnull(icon_state))
+		animate(src, transform = matrix() * 1, time = anim_time)
+	addtimer(CALLBACK(src, PROC_REF(process_affected)), sleep_time)
+	return
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/process_affected()
+	if(!process_on_affected)
+		return
+	for(var/atom/affected in range(radius, get_turf(src)))
+		if(isliving(affected))
+			living_process(affected)
+		else
+			if(is_rat_act)
+				affected.ratvar_act(convert_mecha)
+	if(!isnull(icon_state))
+		animate(src, transform = matrix() * 0.1, time = anim_time)
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/living_process(target)
+	var/mob/living/living = target
+	living.ratvar_act(TRUE)
+	if(!ishuman(living))
+		return
+	if(!isclocker(living))
+		curse(living)
+	else
+		heal_clocker(living)
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/heal_clocker(mob/living/clocker)
+	if(istype(clocker, /mob/living/simple_animal/hostile/clockwork/marauder))
+		if(!heal_marauders)
+			return
+		clocker.heal_overall_damage(100)
+		return
+	clocker.heal_overall_damage(heal, heal, affect_robotic = robo_affect_heal)
+	if(!Can_adv_heal)
+		return
+	clocker.reagents?.add_reagent("epinephrine", 5)
+	var/mob/living/carbon/human/H = clocker
+	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+		bodypart.stop_internal_bleeding()
+		bodypart.mend_fracture()
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/curse(mob/living/target)
+	var/obj/item/nullrod/N = locate() in target
+	if(!isnull(N) || target.mind.isblessed)
+		return
+	if(do_emp)
+		target.emp_act(EMP_HEAVY)
+		new /obj/effect/temp_visual/emp/clock(target.loc)
+	if(do_stun)
+		if(isrobot(target))
+			target.emp_act(EMP_HEAVY)
+			new /obj/effect/temp_visual/emp/clock(target.loc)
+		else
+			target.Weaken(8 SECONDS)
+			target.Silence(10 SECONDS)
+			target.clockslur(20 SECONDS)
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart
-	Visual_Only = TRUE
+	layer = ABOVE_ALL_MOB_LAYER + 0.1
 	alpha = 255
 	anim_time = 1 SECONDS
 	sleep_time = 10
+	process_on_affected = FALSE
+	duration = 11
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart/process_affected()
+	.=..()
+	var/obj/structure/clockwork/functional/heart = locate() in loc
+	if(heart)
+		heart.alpha = 255
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse
 	icon_state = null
@@ -1666,6 +1699,8 @@
 	radius = 3
 	sound = null
 	convert_mecha = TRUE
+	duration = 1
+	sleep_time = 1
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/reconstruct()
 	. = ..()
@@ -1673,6 +1708,8 @@
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/New()
 	radius = GLOB.Heart.pulse_range
+	sleep_time = 1 * GLOB.Heart.pulse_range
+	duration = 1 * GLOB.Heart.pulse_range
 	. = ..()
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/heal
@@ -1697,6 +1734,7 @@
 	convert_mecha = FALSE
 	radius = 3
 	Can_adv_heal = FALSE
+	process_on_affected = TRUE
 
 /obj/effect/temp_visual/ratvar/reconstruct/part/reconstruct()
 	. = ..()

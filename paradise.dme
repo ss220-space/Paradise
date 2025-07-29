@@ -455,6 +455,7 @@
 #include "code\datums\log_record.dm"
 #include "code\datums\log_viewer.dm"
 #include "code\datums\logging.dm"
+#include "code\datums\mecha_rat_act.dm"
 #include "code\datums\mind.dm"
 #include "code\datums\mixed.dm"
 #include "code\datums\muhtar_fashion.dm"

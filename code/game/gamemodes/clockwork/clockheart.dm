@@ -1,6 +1,4 @@
-GLOBAL_VAR_INIT(curse_dial, TRUE)
-GLOBAL_VAR_INIT(curse_upper, TRUE)
-GLOBAL_VAR_INIT(curse_lower, TRUE)
+GLOBAL_VAR_INIT(total_curses, 3)
 GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart
@@ -26,15 +24,17 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	var/list/enchants
 	var/list/blessings = list(/obj/item/gun/energy/clockwork, /obj/item/gun/energy/clockwork/sniper)
 	var/list/enchanted_before = FALSE
+	var/curse_dial = TRUE
+	var/curse_upper = TRUE
+	var/curse_lower = TRUE
 
 /obj/structure/clockwork/functional/heart/Initialize(mapload)
 	if(!GLOB.Heart)
 		GLOB.Heart = src
-	enchants = GLOB.heart_pulses
+	enchants = GLOB.gun_and_heart_spells
 	alpha = 0
 	new /obj/effect/temp_visual/ratvar/reconstruct/heart(loc)
 	update_icon(UPDATE_OVERLAYS)
-	alpha = 255
 	throw_everything_back()
 	var/list/occupied = list()
 	for(var/direct in list(NORTHWEST,NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,SOUTHWEST,WEST))
@@ -49,16 +49,16 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart/update_overlays()
 	.=..()
-	if(GLOB.curse_dial)
+	if(curse_dial)
 		. += "[icon_state]_dialcurse"
 	else
 		. -= "[icon_state]_dialcurse"
-	if(GLOB.curse_upper)
+	if(curse_upper)
 		. += "[icon_state]_curse_upper"
 	else
 		. -= "[icon_state]_curse_upper"
 
-	if(GLOB.curse_lower)
+	if(curse_lower)
 		. += "[icon_state]_curse_lower"
 	else
 		. -= "[icon_state]_curse_lower"
@@ -69,14 +69,14 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 			remove_persistent_overlay("heart_overlay_[cur_enchant]")
 
 /obj/structure/clockwork/functional/heart/proc/heart_pulse()
-	if(!GLOB.curse_dial)
+	if(!curse_dial)
 		enchanted_before = TRUE
 		switch(cur_enchant)
-			if(EMP_HEART_PULSE)
+			if(EMP_G_SPELL)
 				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/emp(loc, pulse_range)
-			if(HEAL_HEART_PULSE)
+			if(HEAL_G_SPELL)
 				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/heal(loc, pulse_range)
-			if(STUN_HEART_PULSE)
+			if(STUN_G_SPELL)
 				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/stun(loc, pulse_range)
 			else
 				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse(loc, pulse_range)
@@ -101,9 +101,10 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	if(!isclocker(user))
 		return
 	if(istype(dropping, /obj/structure/part1))
-		if(GLOB.curse_dial)
+		if(curse_dial)
 			if(do_after(user, 5 SECONDS, src))
-				GLOB.curse_dial = FALSE
+				curse_dial = FALSE
+				GLOB.total_curses -= 1
 				addtimer(CALLBACK(src, PROC_REF(heart_pulse)), 30 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/magic/clockwork/heart_tick_tock.ogg', 100, FALSE, 0, SOUND_FALLOFF_EXPONENT, null, 0, TRUE, TRUE, SOUND_DEFAULT_FALLOFF_DISTANCE, TRUE), 4 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 				qdel(dropping)
@@ -112,24 +113,26 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/part2))
-		if(GLOB.curse_upper)
+		if(curse_upper)
 			if(do_after(user, 5 SECONDS, src))
-				GLOB.curse_upper = FALSE
+				curse_upper = FALSE
+				GLOB.total_curses -= 1
 				qdel(I)
 				update_icon(UPDATE_OVERLAYS)
 				give_blessing(user)
 				return
 	if(istype(I, /obj/item/part3))
-		if(GLOB.curse_lower)
+		if(curse_lower)
 			if(do_after(user, 5 SECONDS, src))
-				GLOB.curse_lower = FALSE
+				curse_lower = FALSE
+				GLOB.total_curses -= 1
 				qdel(I)
 				update_icon(UPDATE_OVERLAYS)
 				give_blessing(user)
 				return
 	if(istype(I, /obj/item/clockwork/shard))
 		var/datum/game_mode/gamemode = SSticker.mode
-		if(GLOB.curse_dial || GLOB.curse_lower || GLOB.curse_lower)
+		if(GLOB.total_curses > 0)
 			to_chat(user, span_clocklarge("Сердце слишком слабо! Сначало снимите печати!"))
 			return
 		if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
@@ -169,7 +172,8 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 		else if(dir_to_center & (EAST|WEST))
 			throw_dist = base_x_throw_distance - x_component + 1
 			did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_x_throw_distance))
-		did_not_stand_back.Knockdown(6 SECONDS)
+		if(!isclocker(did_not_stand_back))
+			did_not_stand_back.Knockdown(6 SECONDS)
 		did_not_stand_back.throw_at(
 			target = get_edge_target_turf(did_not_stand_back, dir_to_center),
 			range = throw_dist,

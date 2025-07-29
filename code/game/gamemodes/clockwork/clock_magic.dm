@@ -29,8 +29,8 @@
 /// Main proc on enchanting items/ making spell on hands
 /datum/action/innate/clockwork/clock_magic/Activate()
 	. = ..()
-	var/do_Midas = FALSE
-	var/do_Heart = FALSE
+	var/do_midas = FALSE
+	var/do_heart = FALSE
 	var/obj/item/item = owner.get_active_hand()
 	if(istype(item, /obj/item/gripper)) // cogs gripper
 		var/obj/item/gripper/G = item
@@ -65,8 +65,8 @@
 		if(ishuman(owner))
 			possible_items += "Spell hand"
 			possible_icons += list("Spell hand" = image(icon = 'icons/mob/actions/actions_clockwork.dmi', icon_state = "hand"))
-		var/have_heart = locate(/obj/structure/clockwork/functional/heart) in range(2)
-		if(have_heart && !GLOB.curse_dial)
+		var/obj/structure/clockwork/functional/heart/have_heart = locate() in range(2)
+		if(have_heart && !have_heart.curse_dial)
 			possible_items += "Heart pulse"
 			possible_icons += list("Heart pulse" = image(icon = 'icons/obj/clockwork.dmi', icon_state = "ratvarpart1"))
 		var/item_to_enchant
@@ -82,10 +82,10 @@
 			item_to_enchant = null
 		if(item_to_enchant == "Spell hand")
 			item_to_enchant = null
-			do_Midas = TRUE
+			do_midas = TRUE
 		if(item_to_enchant == "Heart pulse")
 			item_to_enchant = null
-			do_Heart = TRUE
+			do_heart = TRUE
 		else
 			item = possible_items[item_to_enchant]
 			if(!(item in owner.contents))
@@ -150,7 +150,7 @@
 		if(!iscarbon(owner)) //This is to throw away non carbon who doesn't have hands, but silicon modules.
 			to_chat(owner, "<span class='clockitalic'>You need an item that you can enchant!</span>")
 			return
-		if(midas_spell && do_Midas)
+		if(midas_spell && do_midas)
 			to_chat(owner, "<span class='clockitalic'>You already prepared midas touch!</b></span>")
 			return
 		if(QDELETED(src) || owner.incapacitated())
@@ -163,35 +163,42 @@
 			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
 			return
 
-		if(do_Midas)
-			if(do_after(owner, 5 SECONDS, owner))
-				midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
-				midas_spell.Grant(owner, src)
-				to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
-		if(do_Heart)
-			if(GLOB.Heart.enchanted_before)
-				to_chat(owner, span_clockitalic("Сердце перегрето! Необходимо охладить его, прежде чем оно сможет снова быть зачаровано"))
-				channeling = FALSE
-				return
-			var/list/possible_pulse_icons = list()
-			var/list/possible_pulses = list()
-			var/image/heart_img
-			var/datum/spell_enchant/next_pulse
-			for(var/datum/spell_enchant/ench in GLOB.Heart.enchants)
-				if(ench.enchantment == GLOB.Heart.cur_enchant)
-					continue
-				possible_pulses[ench.name] = ench
-				heart_img = image(icon = 'icons/obj/clockwork.dmi', icon_state = "heart_icon_[ench.enchantment]")
-				possible_pulse_icons += list(ench.name = heart_img)
-			var/chosen = show_radial_menu(owner, owner, possible_pulse_icons, require_near = TRUE)
-			next_pulse = possible_pulses[chosen]
-			if(!next_pulse)
-				channeling = FALSE
-				return
-			if(do_after(owner, 5 SECONDS, owner))
-				GLOB.Heart.cur_enchant = next_pulse.enchantment
-				GLOB.Heart.update_icon(UPDATE_OVERLAYS)
+		if(do_midas)
+			do_midas(owner)
+		if(do_heart)
+			do_heart(owner)
+
+/datum/action/innate/clockwork/clock_magic/proc/do_midas(mob/living/owner)
+	if(do_after(owner, 5 SECONDS, owner))
+		midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
+		midas_spell.Grant(owner, src)
+		to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
+	channeling = FALSE
+
+/datum/action/innate/clockwork/clock_magic/proc/do_heart(mob/living/owner)
+	if(GLOB.Heart.enchanted_before)
+		to_chat(owner, span_clockitalic("Сердце перегрето! Ему нужно охладиться, прежде чем оно сможет снова быть зачаровано"))
 		channeling = FALSE
+		return
+	var/list/possible_pulse_icons = list()
+	var/list/possible_pulses = list()
+	var/image/heart_img
+	var/datum/spell_enchant/next_pulse
+	for(var/datum/spell_enchant/ench as anything in GLOB.Heart.enchants)
+		if(ench.enchantment == GLOB.Heart.cur_enchant)
+			continue
+		possible_pulses[ench.name] = ench
+		heart_img = image(icon = 'icons/obj/clockwork.dmi', icon_state = "heart_icon_[ench.enchantment]")
+		possible_pulse_icons += list(ench.name = heart_img)
+	var/chosen = show_radial_menu(owner, owner, possible_pulse_icons, require_near = TRUE)
+	next_pulse = possible_pulses[chosen]
+	if(!next_pulse)
+		channeling = FALSE
+		return
+	if(do_after(owner, 5 SECONDS, owner))
+		GLOB.Heart.cur_enchant = next_pulse.enchantment
+		GLOB.Heart.update_icon(UPDATE_OVERLAYS)
+	channeling = FALSE
 
 /datum/action/innate/clockwork/hand_spell //The next generation of talismans, handles storage/creation of blood magic
 	name = "Clockwork Magic"

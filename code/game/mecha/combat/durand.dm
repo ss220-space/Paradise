@@ -3,7 +3,6 @@
 	name = "Durand Mk. II"
 	icon_state = "durand"
 	initial_icon = "durand"
-	ratvarized_icon = "durand_ratvar"
 	step_in = 4
 	dir_in = 1 //Facing North.
 	max_integrity = 400
@@ -37,7 +36,6 @@
 	name = "Durand"
 	icon_state = "old_durand"
 	initial_icon = "old_durand"
-	ratvarized_icon = "old_durand_ratvar"
 	step_in = 4
 	dir_in = 1 //Facing North.
 	max_integrity = 400

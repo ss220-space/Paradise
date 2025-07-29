@@ -3,7 +3,6 @@
 	name = "Marauder"
 	icon_state = "marauder"
 	initial_icon = "marauder"
-	ratvarized_icon = "durand_ratvar"
 	step_in = 5
 	max_integrity = 500
 	deflect_chance = 25

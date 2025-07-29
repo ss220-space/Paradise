@@ -3,7 +3,6 @@
 	name = "APLU \"Ripley\""
 	icon_state = "ripley"
 	initial_icon = "ripley"
-	ratvarized_icon = "ripley_ratvar"
 	step_in = 4 //Move speed, lower is faster.
 	fast_pressure_step_in = 2 //step_in while in normal pressure conditions
 	slow_pressure_step_in = 4 //step_in while in better pressure conditions
