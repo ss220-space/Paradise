@@ -1,5 +1,4 @@
 // MARK: GENERAL STUFF
-
 em {
   font-style: normal;
   font-weight: bold;
@@ -95,7 +94,6 @@ h2.alert {
 }
 
 // MARK: MOTD
-
 .motd {
   color: hsl(214, 38%, 74%);
   font-family: Verdana, sans-serif;
@@ -120,7 +118,6 @@ h2.alert {
 }
 
 // MARK: MEMO
-
 .memo {
   color: hsl(75, 100%, 26%);
   text-align: center;
@@ -132,7 +129,6 @@ h2.alert {
 }
 
 // MARK: General colors
-
 .ooc {
   font-weight: bold;
 }
@@ -171,7 +167,6 @@ h2.alert {
 }
 
 // MARK: Base colors
-
 .red {
   color: hsl(0, 100%, 50%);
 }
@@ -197,7 +192,6 @@ h2.alert {
 }
 
 // MARK: Other colors
-
 .rose {
   color: hsl(0, 100%, 66%);
 }
@@ -231,10 +225,6 @@ h2.alert {
   color: hsl(0, 0%, 80%);
 }
 
-.clown {
-  color: hsl(0, 100%, 50%);
-}
-
 .good {
   color: hsl(120, 100%, 25%);
 }
@@ -248,7 +238,6 @@ h2.alert {
 }
 
 // MARK: Admin/Mentor
-
 .mentorhelp {
   color: hsl(202, 100%, 37%);
   font-weight: bold;
@@ -312,7 +301,6 @@ h2.alert {
 }
 
 // MARK: Radio
-
 .radio {
   color: hsl(134, 69%, 41%);
 }
@@ -398,7 +386,6 @@ h2.alert {
 }
 
 // MARK: Alerts
-
 .alert {
   color: hsl(0, 74%, 49%);
 }
@@ -461,7 +448,6 @@ h2.alert {
 }
 
 // MARK: Announcements
-
 .announcement h1,
 .announcement h2 {
   color: hsl(214, 38%, 74%);
@@ -509,7 +495,6 @@ h2.alert {
 }
 
 // MARK: Syndicate codewords
-
 .codephrases {
   color: hsl(240, 100%, 67%);
 }
@@ -519,7 +504,6 @@ h2.alert {
 }
 
 // MARK: Antagonists
-
 .alien {
   color: hsl(300, 59%, 48%);
 }
@@ -610,7 +594,6 @@ h2.alert {
 }
 
 // MARK: Cults
-
 .cult {
   color: hsl(300, 100%, 25%);
   font-weight: bold;
@@ -674,7 +657,6 @@ h2.alert {
 }
 
 // MARK: Megafauna
-
 .colossus {
   color: hsl(359, 52%, 33%);
   font-size: 175%;
@@ -691,8 +673,84 @@ h2.alert {
   font-style: italic;
 }
 
-// MARK: Anomaly
+// MARK: Languages
+.tajaran {
+  color: hsl(337, 37%, 37%);
+}
 
+.skrell {
+  color: hsl(181, 100%, 41%);
+}
+
+.solcom {
+  color: hsl(240, 94%, 75%);
+}
+
+.com_zvezhan {
+  color: hsl(0, 27%, 38%);
+}
+
+.zombie {
+  color: hsl(0, 100%, 50%);
+}
+
+.soghun {
+  color: hsl(120, 61%, 34%);
+}
+
+.vox {
+  color: hsl(300, 100%, 33%);
+}
+
+.diona {
+  color: hsl(30, 100%, 25%);
+  font-weight: bold;
+}
+
+.trinary {
+  color: hsl(0, 0%, 45%);
+}
+
+.kidan {
+  color: hsl(22, 95%, 40%);
+}
+
+.slime {
+  color: hsl(198, 100%, 33%);
+}
+
+.drask {
+  color: hsl(199, 64%, 78%);
+  font-family: 'Arial Black';
+}
+
+.moth {
+  color: hsl(71, 58%, 38%);
+  font-family: 'Copperplate';
+}
+
+.clown {
+  color: hsl(0, 100%, 50%);
+}
+
+.vulpkanin {
+  color: hsl(21, 41%, 53%);
+}
+
+.gutter {
+  color: hsl(214, 38%, 59%);
+  font-family: 'Trebuchet MS', cursive, sans-serif;
+}
+
+.tradeband {
+  font-family: Georgia, Verdana, sans-serif;
+}
+
+.com_srus {
+  color: hsl(0, 27%, 38%);
+}
+
+// MARK: Anomaly
 .bluespace_anomaly {
   color: hsl(201, 100%, 59%);
   font-weight: bold;
@@ -724,7 +782,6 @@ h2.alert {
 }
 
 // MARK: Gases
-
 .oxygen {
   color: hsl(211, 100%, 63%);
 }
@@ -746,11 +803,10 @@ h2.alert {
 }
 
 .agent_b {
-  color: #008080;
+  color: hsl(180, 100%, 25%);
 }
 
 // MARK: Boxed messages
-
 .boxed_message {
   background: hsl(216, 10%, 10%);
   border: 1px solid hsla(220, 40%, 75%, 0.251);
