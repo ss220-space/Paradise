@@ -986,11 +986,12 @@
 		updatehealth()
 	. -= amount //if there's leftover healing, remove it from what we return
 
-/// Emagged slotmachine default lose effect
+/// Emagged slotmachine default lose effect, return TRUE to destroy slotmachine
 /mob/living/proc/adjust_slot_machine_lose_effect()
 	if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
 		to_chat(src, span_warningbig("Критическая неудача!<br>Неизвестная сила разрывает ваше тело изнутри."))
 		src.gib()
-		return
+		return TRUE
 	to_chat(src, span_warning("Неудача! Вы ощущаете слабость, потянув за рычаг, надеюсь оно того стоило."))
 	src.adjustCloneLoss(5)
+	return FALSE

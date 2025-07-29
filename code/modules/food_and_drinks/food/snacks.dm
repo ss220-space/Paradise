@@ -195,7 +195,7 @@
 
 /obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-click</b> to put something small inside.")
+	. += span_notice("<b>Alt-click</b> to put something small inside.")
 
 /obj/item/reagent_containers/food/snacks/sliceable/click_alt(mob/living/user)
 	var/obj/item/I = user.get_active_hand()

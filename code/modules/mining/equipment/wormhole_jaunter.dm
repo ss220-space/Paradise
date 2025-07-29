@@ -119,7 +119,7 @@
 	. = ..()
 	if(.)
 		// KERPLUNK
-		playsound(M,'sound/weapons/resonator_blast.ogg', 50, 1)
+		playsound(M,'sound/weapons/resonator_blast.ogg', 50, TRUE)
 		if(iscarbon(M))
 			var/mob/living/carbon/L = M
 			L.Weaken(12 SECONDS)

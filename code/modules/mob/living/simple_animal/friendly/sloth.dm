@@ -7,9 +7,9 @@
 	icon_dead = "sloth_dead"
 	gender = MALE
 	speak = list("Ahhhh")
-	speak_emote = list("yawns")
-	emote_hear = list("snores.","yawns.")
-	emote_see = list("dozes off.", "looks around sleepily.")
+	speak_emote = list("позёвывает", "сонливо произносит")
+	emote_hear = list("похрапывает", "зевает")
+	emote_see = list("подрёмывает", "сонно оглядывается")
 	tts_seed = "Peon"
 	speak_chance = 1
 	turns_per_move = 5

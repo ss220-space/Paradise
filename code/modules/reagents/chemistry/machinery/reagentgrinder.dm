@@ -1,5 +1,5 @@
 /obj/machinery/reagentgrinder
-	name = "\improper All-In-One Grinder"
+	name = "All-In-One Grinder"
 	desc = "Измельчает, дробит, разжижает и извлекает вещества из предметов, помещённых внутрь. Ради всего святого, не суйте туда свои пальцы."
 	ru_names = list(
 		NOMINATIVE = "универсальный блендер",
@@ -110,7 +110,7 @@
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
 	if(in_range(src, user))
-		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы активировать.<br>Используйте <b>Alt + Shift + ЛКМ</b>, чтобы удалить содержимое")
+		. += span_notice("Используйте <b>Alt + ЛКМ</b>, чтобы активировать.<br>Используйте <b>Alt + Shift + ЛКМ</b>, чтобы удалить содержимое")
 
 /obj/machinery/reagentgrinder/click_alt(mob/living/carbon/human/human)
 	if(operating)
@@ -460,7 +460,7 @@
 				return
 		if (!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
 				return
-		playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
+		playsound(src.loc, 'sound/machines/blender.ogg', 50, TRUE)
 		var/offset = prob(50) ? -2 : 2
 		animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
 		operating = 1

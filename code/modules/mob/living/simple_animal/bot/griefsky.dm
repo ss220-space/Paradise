@@ -1,5 +1,5 @@
 /mob/living/simple_animal/bot/secbot/griefsky //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
-	name = "\improper General Griefsky"
+	name = "General Griefsky"
 	desc = "Это охранный робот с четырьмя лазерными мечами в руках..?"
 	ru_names = list(
 		NOMINATIVE = "Генерал Грифски",
@@ -130,7 +130,7 @@
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
 		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает [P] своим мечом!", projectile_message = TRUE)
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()
 
@@ -297,7 +297,7 @@
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
 		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает [P] своим мечом!", projectile_message = TRUE)
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()
 

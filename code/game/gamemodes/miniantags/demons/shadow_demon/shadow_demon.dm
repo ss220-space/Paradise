@@ -18,6 +18,7 @@
 	move_resist = MOVE_FORCE_STRONG
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
+	death_sound = 'sound/shadowdemon/shadowdeath.ogg'
 	var/thrown_alert = FALSE
 	var/wrapping = FALSE
 	var/list/wrapped_victims
@@ -70,6 +71,8 @@
 
 
 /mob/living/simple_animal/demon/shadow/OnUnarmedAttack(atom/target)
+	// Pick a random attack sound for each attack
+	attack_sound = pick('sound/shadowdemon/shadowattack2.ogg', 'sound/shadowdemon/shadowattack3.ogg', 'sound/shadowdemon/shadowattack4.ogg')
 	if(!ishuman(target))
 		if(isitem(target))
 			target.extinguish_light(TRUE)
@@ -134,6 +137,7 @@
 
 /obj/structure/shadowcocoon/Initialize(mapload)
 	. = ..()
+	playsound(loc, 'sound/shadowdemon/shadownode.ogg', 5, TRUE, -1)
 	START_PROCESSING(SSobj, src)
 
 
@@ -146,10 +150,11 @@
 			to_darken.visible_message(span_notice("Тени смыкаются вокруг и поглощают пламя [to_darken.declent_ru(GENITIVE)]."))
 		to_darken.extinguish_light(TRUE)
 	if(!silent && time_since_last_hallucination >= rand(8, 12))
-		playsound(src, pick('sound/items/deconstruct.ogg', 'sound/weapons/handcuffs.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/effects/eleczap.ogg', get_sfx("bodyfall"), get_sfx("gunshot"), 'sound/weapons/egloves.ogg'), 50)
+		playsound(src, pick('sound/shadowdemon/shadowhalluc1.ogg', 'sound/shadowdemon/shadowhalluc2.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/shadowdemon/shadowhalluc3.ogg', 'sound/effects/eleczap.ogg', get_sfx("bodyfall"), get_sfx("gunshot"), 'sound/weapons/egloves.ogg'), 50)
 		time_since_last_hallucination = 0
 
 
+// Allows you to turn on cocoons making hallucination sounds or not.
 /obj/structure/shadowcocoon/click_alt(mob/user)
 	if(!isdemon(user))
 		return NONE
@@ -220,6 +225,7 @@
 	icon_state = "shadow_hand"
 	plane = FLOOR_PLANE
 	speed = 1
+	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
 	var/hit = FALSE
 
 
@@ -288,7 +294,7 @@
 	messages.Add("<b>Вы быстро двигаетесь и восстанавливаетесь в тенях, но любой источник света причиняет вам боль и может убить. ДЕРЖИТЕСЬ ПОДАЛЬШЕ ОТ СВЕТА!</b>")
 	messages.Add(span_notice("<b>Сейчас вы находитесь в ином измерении, отличном от станции. Используйте способность \"Теневой Путь\" рядом с тёмным участком.</b>"))
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Shadow_Demon\">Теневой демон</a></span>"))
-	src << 'sound/misc/demon_dies.ogg'
+	SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
 	if(vialspawned)
 		return
 

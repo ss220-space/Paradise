@@ -227,7 +227,7 @@
 //  Buckwheat       //
 //////////////////////
 
-/obj/item/reagent_containers/food/snacks/boiledbuckwheat 
+/obj/item/reagent_containers/food/snacks/boiledbuckwheat
 	name = "boiled buckwheat"
 	desc = "'Grechka', or boiled buckwheat. Motherland would be proud of you."
 	w_class = WEIGHT_CLASS_SMALL
@@ -306,7 +306,7 @@
 	..()
 
 /obj/item/reagent_containers/food/snacks/liquidfood
-	name = "\improper LiquidFood ration"
+	name = "LiquidFood ration"
 	desc = "A prepackaged grey slurry of all the essential nutrients for a spacefarer on the go. Should this be crunchy?"
 	icon_state = "liquidfood"
 	trash = /obj/item/trash/liquidfood

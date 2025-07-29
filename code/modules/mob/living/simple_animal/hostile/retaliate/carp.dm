@@ -12,7 +12,7 @@
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 2)
 	response_help = "pets"
-	emote_taunt = list("gnashes")
+	emote_taunt = list("скрипит")
 	taunt_chance = 30
 	maxHealth = 125
 	health = 125
@@ -22,7 +22,7 @@
 	melee_damage_upper = 20
 	attack_sound = 'sound/weapons/bite.ogg'
 	attacktext = "кусает"
-	speak_emote = list("gnashes")
+	speak_emote = list("скрипит")
 	unique_pet = TRUE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list("carp")

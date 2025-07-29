@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(high_value_items)
 		return ELEMENT_INCOMPATIBLE
 	GLOB.high_value_items |= target
 
-/datum/element/high_value_item/Detach(datum/source, force)
+/datum/element/high_value_item/Detach(datum/source)
 	. = ..()
 	var/turf/turf_loc = get_turf(source)
 	if(turf_loc)

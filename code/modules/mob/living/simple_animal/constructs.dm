@@ -1,8 +1,8 @@
 /mob/living/simple_animal/hostile/construct
 	name = "Construct"
 	real_name = "Construct"
-	speak_emote = list("hisses")
-	emote_hear = list("wails","screeches")
+	speak_emote = list("шипит")
+	emote_hear = list("визжит", "воет")
 	tts_seed = "Acolyte"
 	response_help  = "thinks better of touching"
 	response_disarm = "flails at"
@@ -302,7 +302,7 @@
 	icon_living = "behemoth"
 	maxHealth = 750
 	health = 750
-	speak_emote = list("rumbles")
+	speak_emote = list("грохочет")
 	response_harm = "harmlessly punches"
 	harm_intent_damage = 0
 	melee_damage_lower = 50

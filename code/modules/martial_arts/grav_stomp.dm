@@ -13,7 +13,7 @@
 		picked_hit_type = "топчет"
 
 	A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-	playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, 1, -1)
+	playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	D.apply_damage(bonus_damage * damage_mult, BRUTE)
 	objective_damage(A, D, bonus_damage * damage_mult, BRUTE)
 	D.visible_message(span_danger("[A] [picked_hit_type] [D]!"), \

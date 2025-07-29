@@ -77,7 +77,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 /obj/structure/particle_accelerator/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-click</b> to rotate.")
+	. += span_notice("<b>Alt-click</b> to rotate.")
 
 /obj/structure/particle_accelerator/Destroy()
 	construction_state = 0
@@ -267,7 +267,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 /obj/machinery/particle_accelerator/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-Click</b> to rotate it.")
+	. += span_notice("<b>Alt-Click</b> to rotate it.")
 
 /obj/machinery/particle_accelerator/click_alt(mob/user)
 	rotate_accelerator(user)

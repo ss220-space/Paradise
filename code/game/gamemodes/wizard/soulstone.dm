@@ -534,7 +534,7 @@
 				to_chat(S, span_userdanger("Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs."))
 
 	if(forced && user)
-		to_chat(user, "[span_info("<b>Capture successful!</b>:")] [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
+		to_chat(user, "[span_notice("<b>Capture successful!</b>:")] [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
 
 	if(isrobot(M))//Robots have to dust or else they spill out an empty robot brain, and unequiping them spills robot components that shouldn't spawn.
 		M.dust()

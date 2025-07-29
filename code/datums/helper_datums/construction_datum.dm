@@ -53,7 +53,7 @@
 			return 0
 		else
 			C.use(4)
-			playsound(holder, C.usesound, 50, 1)
+			playsound(holder, C.usesound, 50, TRUE)
 	else if(isstack(used_atom))
 		var/obj/item/stack/S = used_atom
 		if(S.get_amount() < 5)

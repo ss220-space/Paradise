@@ -1,7 +1,7 @@
 // Rusted Soviet special weapons
 
 /obj/item/gun/projectile/automatic/rusted
-	name = "\improper Rusted gun"
+	name = "Rusted gun"
 	desc = "An old gun, be careful using it."
 	icon_state = "aksu"
 	item_state = "aksu"
@@ -25,7 +25,7 @@
 
 
 /obj/item/gun/projectile/automatic/rusted/aksu
-	name = "\improper Rusted AKSU assault rifle"
+	name = "Rusted AKSU assault rifle"
 	desc = "An old AK assault rifle favored by Soviet soldiers."
 	icon_state = "aksu"
 	item_state = "aksu"
@@ -37,7 +37,7 @@
 	recoil = 0.8
 
 /obj/item/gun/projectile/automatic/rusted/ppsh
-	name = "\improper Rusted PPSh submachine gun"
+	name = "Rusted PPSh submachine gun"
 	desc = "An old submachine gun favored by Soviet soldiers."
 	icon_state = "ppsh"
 	item_state = "ppsh"

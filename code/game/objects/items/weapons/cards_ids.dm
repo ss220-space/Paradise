@@ -17,8 +17,8 @@
 	gender = MALE
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	pickup_sound = 'sound/items/handling/card_pickup.ogg'
-	drop_sound = 'sound/items/handling/card_drop.ogg'
+	drop_sound = 'sound/items/handling/drop/card_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/card_pickup.ogg'
 	var/associated_account_number = 0
 
 	var/list/files = list(  )
@@ -295,6 +295,7 @@
 		dat += "<img src=large_[I.icon_state].png>"
 		stamped = TRUE
 		to_chat(user, span_notice("You stamp the ID card!"))
+		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/card/id/guest))

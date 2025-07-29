@@ -114,7 +114,7 @@
 	tint = 1
 
 /obj/item/clothing/glasses/meson/heart
-	name = "\improper Heart Meson Glasses"
+	name = "Heart Meson Glasses"
 	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
 	icon_state = "heart_meson"
 	item_state = "heart_meson"
@@ -217,7 +217,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/science/heart
-	name = "\improper Heart Science Glasses"
+	name = "Heart Science Glasses"
 	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
 	icon_state = "heart_science"
 	item_state = "heart_science"

@@ -4,7 +4,7 @@ RSF
 */
 
 /obj/item/rsf
-	name = "\improper Rapid-Service-Fabricator"
+	name = "Rapid-Service-Fabricator"
 	var/name_short = "RSF"
 	desc = "A device used to rapidly deploy service items."
 	icon = 'icons/obj/tools.dmi'
@@ -31,7 +31,7 @@ RSF
 		update_appearance(UPDATE_DESC)
 
 /obj/item/rsf/rff
-	name = "\improper Rapid-Food-Fabricator"
+	name = "Rapid-Food-Fabricator"
 	name_short = "RFF"
 	desc = "A device used to rapidly deploy delucious food!"
 	icon_state = "rff"
@@ -68,7 +68,7 @@ RSF
 
 
 /obj/item/rsf/attack_self(mob/user)
-	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
+	playsound(src.loc, 'sound/effects/pop.ogg', 50, FALSE)
 	if(mode >= configured_items.len)
 		mode = 1
 	else

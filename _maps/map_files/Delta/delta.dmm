@@ -18658,7 +18658,7 @@
 	},
 /area/atmos)
 "ciu" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -22650,7 +22650,7 @@
 	},
 /area/maintenance/turbine)
 "cCO" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/maintenance/casino)
 "cCP" = (
@@ -23660,7 +23660,7 @@
 /turf/simulated/floor/plating,
 /area/engineering/controlroom)
 "cGF" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
@@ -48038,7 +48038,7 @@
 /turf/simulated/wall,
 /area/crew_quarters/kitchen)
 "fUv" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "fUO" = (
@@ -62939,7 +62939,7 @@
 /area/security/securearmory)
 "juy" = (
 /obj/machinery/light/small,
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/maintenance/casino)
 "juL" = (
@@ -93303,7 +93303,7 @@
 	},
 /area/hallway/primary/central/sw)
 "qvt" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},

@@ -137,7 +137,7 @@
 		reagents.trans_to(M, total_applied_amount * 0.5)
 		reagents.remove_any(total_applied_amount * 0.5)
 
-		playsound(get_turf(src), pick('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg'), 50, 1)
+		playsound(get_turf(src), pick('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg'), 50, TRUE)
 
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"

@@ -2,7 +2,7 @@
 #define IV_INJECT 1
 
 /obj/item/reagent_containers/iv_bag
-	name = "\improper IV Bag"
+	name = "IV Bag"
 	desc = "Пакет с тонкой иглой на конце. Предназначен для введения пациентам веществ прямо в кровоток в течение определённого времени."
 	ru_names = list(
         NOMINATIVE = "капельница",

@@ -398,7 +398,7 @@
 			investigate_log("Experimentor has released [chosenchem] smoke.", INVESTIGATE_EXPERIMENTOR)
 			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
-			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(inner_reagent)
 			ejectItem(TRUE)
@@ -410,7 +410,7 @@
 			inner_reagent.add_reagent(chosenchem , 375)
 			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
-			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(inner_reagent)
 			ejectItem(TRUE)
@@ -440,7 +440,7 @@
 	if(!isRelict)
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message(span_warning("[src]'s emergency coolant system gives off a small ding!"))
-			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+			playsound(src.loc, 'sound/machines/ding.ogg', 50, TRUE)
 			var/obj/item/reagent_containers/food/drinks/coffee/C = new /obj/item/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
 			chosenchem = pick("plasma","capsaicin","ethanol")
 			C.reagents.remove_any(25)
@@ -505,7 +505,7 @@
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message(span_warning("[src]'s emergency coolant system gives off a small ding!"))
 			var/obj/item/reagent_containers/food/drinks/coffee/C = new /obj/item/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
-			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1) //Ding! Your death coffee is ready!
+			playsound(src.loc, 'sound/machines/ding.ogg', 50, TRUE) //Ding! Your death coffee is ready!
 			chosenchem = pick("uranium","frostoil","ephedrine")
 			C.reagents.remove_any(25)
 			C.reagents.add_reagent(chosenchem , 50)
@@ -520,7 +520,7 @@
 			investigate_log("Experimentor has released frostoil gas.", INVESTIGATE_EXPERIMENTOR)
 			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
-			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(inner_reagent)
 			ejectItem(TRUE)
@@ -568,7 +568,7 @@
 				linked_materials.insert_amount( min((linked_materials.max_amount - linked_materials.total_amount), (exp_on.materials[material])), material)
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message(span_danger("[src]'s crusher goes way too many levels too high, crushing right through space-time!"))
-			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 1, -3)
+			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, TRUE, -3)
 			investigate_log("Experimentor has triggered the 'throw things' reaction.", INVESTIGATE_EXPERIMENTOR)
 			for(var/atom/movable/AM in oview(7,src))
 				if(!AM.anchored)
@@ -577,7 +577,7 @@
 
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message(span_danger("[src]'s crusher goes one level too high, crushing right into space-time!"))
-			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 1, -3)
+			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, TRUE, -3)
 			investigate_log("Experimentor has triggered the 'minor throw things' reaction.", INVESTIGATE_EXPERIMENTOR)
 			var/list/throwAt = list()
 			for(var/atom/movable/AM in oview(7,src))

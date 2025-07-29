@@ -136,7 +136,7 @@
 			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
 			add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 		else
-			outmsg = span_info("You missed the lens of [C] with [src].")
+			outmsg = span_notice("You missed the lens of [C] with [src].")
 
 	//laser pointer image
 	is_pointing = TRUE
@@ -156,7 +156,7 @@
 	if(outmsg)
 		to_chat(user, outmsg)
 	else
-		to_chat(user, "<span class='info'>You point [src] at [target].</span>")
+		to_chat(user, span_notice("You point [src] at [target]."))
 
 	energy -= 1
 	if(energy <= max_energy)
