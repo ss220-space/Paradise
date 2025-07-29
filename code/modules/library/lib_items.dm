@@ -41,6 +41,7 @@
 	if(mapload)
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 
+
 /obj/structure/bookcase/examine(mob/user)
 	if(icon_state == "book-0")
 		desc = "Большой книжный шкаф. Его полки давно не протирали..."
@@ -48,6 +49,10 @@
 		desc = "Большой книжный шкаф. На его полках стоят книги."
 
 	. = ..()
+  
+/obj/structure/bookcase/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+
 
 /// Populates typecache with the things allowed to store
 /obj/structure/bookcase/proc/generate_allowed_books()

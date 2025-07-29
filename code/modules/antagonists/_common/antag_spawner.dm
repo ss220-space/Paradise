@@ -19,6 +19,13 @@
 	var/borg_to_spawn
 	var/checking = FALSE
 	var/rolename = "Syndicate Operative"
+	var/image/poll_icon
+	var/poll_icon_file = 'icons/mob/simple_human.dmi'
+	var/poll_icon_state = "syndicate_space_sword"
+
+/obj/item/antag_spawner/nuke_ops/Initialize(mapload)
+	. = ..()
+	poll_icon = image(icon = poll_icon_file, icon_state = poll_icon_state)
 
 /obj/item/antag_spawner/nuke_ops/proc/before_candidate_search(user)
 	return TRUE
@@ -46,8 +53,7 @@
 	checking = TRUE
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/image/I = new('icons/mob/simple_human.dmi', "syndicate_space_sword")
-	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = I)
+	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = poll_icon)
 	if(LAZYLEN(nuke_candidates))
 		checking = FALSE
 		if(QDELETED(src) || !check_usability(user))
@@ -78,29 +84,38 @@
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	name = "syndicate assault cyborg teleporter"
 	borg_to_spawn = "Assault"
+	rolename = "Syndicate Assault Cyborg"
+	poll_icon_file = 'icons/mob/robots.dmi'
+	poll_icon_state = "syndie-bloodhound-preview"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	name = "syndicate medical teleporter"
 	borg_to_spawn = "Medical"
+	rolename = "Syndicate Medical Cyborg"
+	poll_icon_file = 'icons/mob/robots.dmi'
+	poll_icon_state = "syndi-medi"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	name = "syndicate saboteur teleporter"
 	borg_to_spawn = "Saboteur"
+	rolename = "Syndicate Saboteur Cyborg"
+	poll_icon_file = 'icons/mob/robots.dmi'
+	poll_icon_state = "syndi-engi-preview"
 
 #define SYNDICATE_CYBORG "Борг Синдиката"
 #define NUCLEAR_OPERATIVE "Ядерный Оперативник"
+#define CANCER_SWITCH_ROLES_CHOICE "Не активировать этот робот-телепортатор"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/before_candidate_search(mob/user)
-	var/switch_roles_choice = tgui_input_list(usr, "Вы хотите продолжить играть за оперативника или стать боргом? Если вы выберите борга, другой игрок займет ваше старое тело", "Играть за", list(NUCLEAR_OPERATIVE, SYNDICATE_CYBORG))
-	if(!switch_roles_choice || !(check_usability(user)))
+	var/switch_roles_choice = tgui_input_list(usr, "Вы хотите продолжить играть за оперативника или стать боргом? Если вы выберете борга, другой игрок займет ваше старое тело.", "Играть за", list(NUCLEAR_OPERATIVE, SYNDICATE_CYBORG, CANCER_SWITCH_ROLES_CHOICE))
+	if(!switch_roles_choice || !(check_usability(user)) || switch_roles_choice == CANCER_SWITCH_ROLES_CHOICE)
 		return FALSE
 
 	if(switch_roles_choice == SYNDICATE_CYBORG)
 		switch_roles = TRUE
-		rolename = initial(rolename)
+		rolename = "Syndicate Operative"
 	else
 		switch_roles = FALSE
-		rolename = "Syndicate [borg_to_spawn] Cyborg"
 
 	return TRUE
 

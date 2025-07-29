@@ -1,21 +1,20 @@
 // MARK: Boxed messages
-
 .boxed_message {
-  background: #1d2330;
+  background: hsl(220, 25%, 15%);
 }
 
 .boxed_message.red_border {
-  background: #301d1d;
+  background: hsl(0, 25%, 15%);
 }
 
 .boxed_message.green_border {
-  background: #1d3023;
+  background: hsl(140, 25%, 15%);
 }
 
 .boxed_message.purple_border {
-  background: #231d30;
+  background: hsl(260, 25%, 15%);
 }
 
 .boxed_message.notice_border {
-  background: #192234;
+  background: hsl(220, 35%, 15%);
 }

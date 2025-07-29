@@ -9,4 +9,5 @@ crate-type = ["cdylib"]
 [dependencies]
 byondapi = "0.4.7"
 eyre = "0.6.12"
-rand = "0.8.5"
+slotmap = "1.0.7"
+base64 = "0.22.1"
