@@ -68,8 +68,10 @@
 			//							    \\
 			//						   	    \\
 //----------------------------------------------------------
+/obj/item/gun_module/muzzle
+	slot = ATTACHMENT_SLOT_MUZZLE
 
-/obj/item/gun_module/supressor
+/obj/item/gun_module/muzzle/supressor
 	name = "suppressor"
 	desc = "Универсальный глушитель для стрелкового оружия Синдиката — максимум скрытности для шпионажа."
 	ru_names = list(
@@ -84,14 +86,13 @@
 	item_state = "supp"
 	overlay_state = "supp"
 	overlay_offset = list("x" = -1, "y" = 0)
-	slot = ATTACHMENT_SLOT_MUZZLE
 	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
 	origin_tech = "combat=2;engineering=2"
 	var/oldsound
 	var/initial_w_class
 
 
-/obj/item/gun_module/supressor/on_attach(obj/item/gun/target_gun, mob/user)
+/obj/item/gun_module/muzzle/supressor/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppressed = TRUE
 	target_gun.suppress_muzzle_flash = TRUE
 	oldsound = target_gun.fire_sound
@@ -99,7 +100,7 @@
 	target_gun.fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	target_gun.w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/gun_module/supressor/on_detach(obj/item/gun/target_gun, mob/user)
+/obj/item/gun_module/muzzle/supressor/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppressed = FALSE
 	target_gun.suppress_muzzle_flash = FALSE
 	target_gun.fire_sound = oldsound
@@ -107,35 +108,34 @@
 
 
 
-/obj/item/gun_module/muzzle_flash_supressor
-	name = "muzzle flash suppressor"
-	desc = "Универсальный пламегаситель для стрелкового оружия. Скрывает пламя при стрельбе с огнестрельного оружия."
+/obj/item/gun_module/muzzle/compensator
+	name = "compensator"
+	desc = "Универсальный компенсатор для стрелкового оружия. Уменьшает пламя при стрельбе с огнестрельного оружия и повышает точность огнестрельного оружия."
 	ru_names = list(
-		NOMINATIVE = "универсальный пламегаситель",
-		GENITIVE = "универсального пламегасителя",
-		DATIVE = "универсальному пламегасителю",
-		ACCUSATIVE = "универсальный пламегаситель",
-		INSTRUMENTAL = "универсальным пламегасителем",
-		PREPOSITIONAL = "универсальном пламегасителе"
+		NOMINATIVE = "универсальный компенсатор",
+		GENITIVE = "универсального компенсатора",
+		DATIVE = "универсальному компенсатору",
+		ACCUSATIVE = "универсальный компенсатор",
+		INSTRUMENTAL = "универсальным компенсатором",
+		PREPOSITIONAL = "универсальном компенсаторе"
 	)
 	icon_state = "comp"
 	item_state = "comp"
 	overlay_state = "comp"
 	overlay_offset = list("x" = -3, "y" = 0)
-	slot = ATTACHMENT_SLOT_MUZZLE
 	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
 	origin_tech = "combat=2;engineering=2"
 	var/bonus_accuracy = 10
 	var/initial_w_class
 
 
-/obj/item/gun_module/muzzle_flash_supressor/on_attach(obj/item/gun/target_gun, mob/user)
+/obj/item/gun_module/muzzle/compensator/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppress_muzzle_flash = TRUE
 	initial_w_class = target_gun.w_class
 	target_gun.w_class = WEIGHT_CLASS_NORMAL
 	//TODO apply bonus accuracy
 
-/obj/item/gun_module/muzzle_flash_supressor/on_detach(obj/item/gun/target_gun, mob/user)
+/obj/item/gun_module/muzzle/compensator/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppress_muzzle_flash = FALSE
 	target_gun.w_class = initial_w_class
 	//TODO remove bonus accuracy
@@ -151,8 +151,10 @@
 			//						   	    \\
 //----------------------------------------------------------
 
-/obj/item/gun_module/scope
+/obj/item/gun_module/rail
 	slot = ATTACHMENT_SLOT_RAIL
+
+/obj/item/gun_module/rail/scope
 	origin_tech = "combat=3;engineering=4"
 	/// 'zoom' distance
 	var/zoom_amount = 1
@@ -160,7 +162,7 @@
 	var/bonus_accuracy = 0
 	var/old_zoom_amount
 
-/obj/item/gun_module/scope/on_attach(obj/item/gun/target_gun, mob/user)
+/obj/item/gun_module/rail/scope/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.zoomable = TRUE
 	old_zoom_amount = target_gun.zoom_amt
 	target_gun.zoom_amt = zoom_amount
@@ -169,14 +171,14 @@
 		target_gun.ZoomGrantCheck(null, user, ITEM_SLOT_HANDS)
 	//TODO apply bonus accuracy
 
-/obj/item/gun_module/scope/on_detach(obj/item/gun/target_gun, mob/user)
+/obj/item/gun_module/rail/scope/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.zoomable = FALSE
 	target_gun.zoom_amt = old_zoom_amount
 	target_gun.destroy_zooming()
 	//TODO remove bonus accuracy
 
 
-/obj/item/gun_module/scope/collimator
+/obj/item/gun_module/rail/scope/collimator
 	name = "collimator scope"
 	desc = "Коллиматорный прицел с универсальным креплением, подходит для большинства видов оружия. Позволяет удобнее целиться с оружия и повышает точность стрельбы."
 	ru_names = list(
@@ -195,7 +197,7 @@
 	zoom_amount = 3
 	bonus_accuracy = 10
 
-/obj/item/gun_module/scope/x4
+/obj/item/gun_module/rail/scope/x4
 	name = "optical scope x4"
 	desc = "Оптический прицел с 8-кратным увеличением и универсальным креплением, подходит для большинства видов оружия. Позволяет целиться гораздо дальше."
 	ru_names = list(
@@ -214,7 +216,7 @@
 	zoom_amount = 5
 	bonus_accuracy = 20
 
-/obj/item/gun_module/scope/x8
+/obj/item/gun_module/rail/scope/x8
 	name = "optical scope x8"
 	desc = "Оптический прицел с 8-кратным увеличением и универсальным креплением, подходит для большинства видов оружия. Позволяет целиться гораздо дальше."
 	ru_names = list(
@@ -233,7 +235,7 @@
 	zoom_amount = 7
 	bonus_accuracy = 30
 
-/obj/item/gun_module/scope/x16
+/obj/item/gun_module/rail/scope/x16
 	name = "optical scope x16"
 	desc = "Оптический прицел с 16-кратным увеличением и универсальным креплением, подходит для большинства видов оружия. Позволяет целиться гораздо дальше."
 	ru_names = list(
@@ -253,32 +255,31 @@
 	bonus_accuracy = 50
 
 
-/obj/item/gun_module/hud
-	slot = ATTACHMENT_SLOT_RAIL
+/obj/item/gun_module/rail/hud
 	origin_tech = "combat=3;engineering=4"
 	var/hud_type
 
-/obj/item/gun_module/hud/on_attach(obj/item/gun/target_gun, mob/user)
+/obj/item/gun_module/rail/hud/on_attach(obj/item/gun/target_gun, mob/user)
 	RegisterSignal(target_gun, COMSIG_ITEM_EQUIPPED, PROC_REF(equip_gun_check))
 	RegisterSignal(target_gun, COMSIG_ITEM_DROPPED, PROC_REF(drop_gun_check))
 	if(user.is_in_hands(target_gun))
 		equip_gun_check(null, user, ITEM_SLOT_HANDS)
 
-/obj/item/gun_module/hud/on_detach(obj/item/gun/target_gun, mob/user)
+/obj/item/gun_module/rail/hud/on_detach(obj/item/gun/target_gun, mob/user)
 	UnregisterSignal(target_gun, COMSIG_ITEM_EQUIPPED)
 	UnregisterSignal(target_gun, COMSIG_ITEM_DROPPED)
 	remove_hud(user)
 
-/obj/item/gun_module/hud/proc/equip_gun_check(datum/source, mob/user, slot)
+/obj/item/gun_module/rail/hud/proc/equip_gun_check(datum/source, mob/user, slot)
 	if(!(slot & ITEM_SLOT_HANDS))
 		remove_hud(user)
 		return
 	grant_hud(user)
 
-/obj/item/gun_module/hud/proc/drop_gun_check(datum/source, mob/user)
+/obj/item/gun_module/rail/hud/proc/drop_gun_check(datum/source, mob/user)
 	remove_hud(user)
 
-/obj/item/gun_module/hud/proc/grant_hud(mob/user)
+/obj/item/gun_module/rail/hud/proc/grant_hud(mob/user)
 	if(islist(hud_type))
 		for(var/new_hud in hud_type)
 			var/datum/atom_hud/hud = GLOB.huds[new_hud]
@@ -287,7 +288,7 @@
 	var/datum/atom_hud/hud = GLOB.huds[hud_type]
 	hud.add_hud_to(user)
 
-/obj/item/gun_module/hud/proc/remove_hud(mob/user)
+/obj/item/gun_module/rail/hud/proc/remove_hud(mob/user)
 	if(islist(hud_type))
 		for(var/new_hud in hud_type)
 			var/datum/atom_hud/hud = GLOB.huds[new_hud]
@@ -297,7 +298,7 @@
 	hud.remove_hud_from(user)
 
 
-/obj/item/gun_module/hud/medical
+/obj/item/gun_module/rail/hud/medical
 	name = "med hud scope"
 	desc = "Медицинский худ в виде коллиматорного прицела"
 	ru_names = list(
@@ -308,14 +309,14 @@
 		INSTRUMENTAL = "медицинским коллиматором",
 		PREPOSITIONAL = "медицинском коллиматоре"
 	)
-	icon_state = "coll"
-	item_state = "coll"
-	overlay_state = "coll"
+	icon_state = "coll_med"
+	item_state = "coll_med"
+	overlay_state = "coll_med"
 	overlay_offset = list("x" = -5, "y" = 0)
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 
-/obj/item/gun_module/hud/security
+/obj/item/gun_module/rail/hud/security
 	name = "security hud scope"
 	desc = "Худ службы безопасности в виде коллиматорного прицела"
 	ru_names = list(
@@ -326,9 +327,9 @@
 		INSTRUMENTAL = "худ СБ коллиматором",
 		PREPOSITIONAL = "худ СБ коллиматоре"
 	)
-	icon_state = "coll_p"
-	item_state = "coll_p"
-	overlay_state = "coll_p"
+	icon_state = "coll_sec"
+	item_state = "coll_sec"
+	overlay_state = "coll_sec"
 	overlay_offset = list("x" = -5, "y" = 0)
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
@@ -338,24 +339,16 @@
 //----------------------------------------------------------
 			//							    \\
 			//       Under modules          \\
-			//	  (bayonet,light,laser)		\\
+			//  (bayonet,light,laser, hand) \\
 			//						   	    \\
 //----------------------------------------------------------
 
 /obj/item/gun_module/under
-	icon = 'icons/obj/weapons/attachments/underbarrel.dmi'
 	slot = ATTACHMENT_SLOT_UNDER
 	origin_tech = "combat=2;engineering=2"
-	icon_state = "uflashlight"
-	item_state = "uflashlight"
-	overlay_state = "uflashlight"
 
 /obj/item/gun_module/under/flashlight
-	icon_state = "uflashlight"
-	item_state = "uflashlight"
-	overlay_state = "uflashlight"
 	var/obj/item/flashlight/seclite/internal
-	class = GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
 
 /obj/item/gun_module/under/flashlight/Initialize(mapload)
 	. = ..()
@@ -368,8 +361,59 @@
 /obj/item/gun_module/under/flashlight/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.set_gun_light(internal)
 
-
 /obj/item/gun_module/under/flashlight/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.set_gun_light(null)
 	internal.forceMove(src)
 
+/obj/item/gun_module/under/flashlight/pistol
+	name = "pistol underbarrel light"
+	desc = "Подствольный фонарик с креплением под пистолеты. Не подходит для винтовок и дробовиков"
+	ru_names = list(
+		NOMINATIVE = "подствольный фонарик для пистолетов",
+		GENITIVE = "подствольного фонарика для пистолетов",
+		DATIVE = "подствольному фонарику для пистолетов",
+		ACCUSATIVE = "подствольный фонарик для пистолетов",
+		INSTRUMENTAL = "подствольным фонариком для пистолетов",
+		PREPOSITIONAL = "подствольном фонарике для пистолетов"
+	)
+	icon_state = "light"
+	item_state = "light"
+	overlay_state = "light"
+	class = GUN_MODULE_CLASS_PISTOL_UNDER
+	overlay_offset = list("x" = 0, "y" = 0)
+
+/obj/item/gun_module/under/flashlight/rifle
+	name = "rifle underbarrel light"
+	desc = "Подствольный фонарик с креплением под винтовоки и дробовики. Слишком большой для крепления на пистолеты"
+	ru_names = list(
+		NOMINATIVE = "подствольный фонарик для винтовок",
+		GENITIVE = "подствольного фонарика для винтовок",
+		DATIVE = "подствольному фонарику для винтовок",
+		ACCUSATIVE = "подствольный фонарик для винтовок",
+		INSTRUMENTAL = "подствольным фонариком для винтовок",
+		PREPOSITIONAL = "подствольном фонарике для винтовок"
+	)
+	icon_state = "light_s"
+	item_state = "light_s"
+	overlay_state = "light_s"
+	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
+	overlay_offset = list("x" = 0, "y" = 0)
+
+
+/obj/item/gun_module/under/hand/angle
+	name = "rifle angle hand"
+	desc = "Угловая рукоятка для повышения точности стрельбы с винтовок"
+	ru_names = list(
+		NOMINATIVE = "угловая рукоятка",
+		GENITIVE = "угловую рукоятку",
+		DATIVE = "угловой рукоятке",
+		ACCUSATIVE = "угловая рукоятка",
+		INSTRUMENTAL = "угловой рукояткой",
+		PREPOSITIONAL = "угловой рукоятке"
+	)
+	icon_state = "hand_a"
+	item_state = "hand_a"
+	overlay_state = "hand_a"
+	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
+	overlay_offset = list("x" = 0, "y" = 0)
+	//TODO add accuracy

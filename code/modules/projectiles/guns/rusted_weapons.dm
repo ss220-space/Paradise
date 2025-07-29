@@ -35,12 +35,7 @@
 	burst_size = 3
 	fire_delay = 2
 	recoil = 0.8
-	attachable_allowed = list(
-		/obj/item/gun_module/supressor,
-		/obj/item/gun_module/muzzle_flash_supressor,
-		/obj/item/gun_module/scope/collimator,
-		/obj/item/gun_module/scope/x4
-	)
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 2),
 		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6)
@@ -60,12 +55,7 @@
 	burst_size = 5
 	fire_delay = 1.5
 	recoil = 1.2
-	attachable_allowed = list(
-		/obj/item/gun_module/supressor,
-		/obj/item/gun_module/muzzle_flash_supressor,
-		/obj/item/gun_module/scope/collimator,
-		/obj/item/gun_module/scope/x4
-	)
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
 		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 5)

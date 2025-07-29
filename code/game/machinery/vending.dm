@@ -2273,32 +2273,38 @@
 		"Почему твой ствол не улучшен?!"
 	)
 
-	icon_state = "sectraining_off"
-	panel_overlay = "sec_panel"
-	screen_overlay = "sec"
-	lightmask_overlay = "sec_lightmask"
-	broken_overlay = "sec_broken"
-	broken_lightmask_overlay = "sectraining_broken_lightmask"
-	deny_overlay = "sec_deny"
+	icon_state = "attachments_off"
+	panel_overlay = "attachments_panel"
+	screen_overlay = "attachments"
+	broken_overlay = "attachments_broken"
 
-	req_access = list(ACCESS_SECURITY)
 	products = list(
-		/obj/item/gun_module/muzzle_flash_supressor = 3,
-		/obj/item/gun_module/scope/collimator = 3,
-		/obj/item/gun_module/scope/x4 = 2,
-		/obj/item/gun_module/scope/x8 = 1,
+		/obj/item/gun_module/muzzle/compensator = 3,
+		/obj/item/gun_module/rail/scope/collimator = 3,
+		/obj/item/gun_module/rail/scope/x4 = 2,
+		/obj/item/gun_module/rail/scope/x8 = 1,
+		/obj/item/gun_module/rail/hud/medical = 2,
+		/obj/item/gun_module/rail/hud/security = 2,
+		/obj/item/gun_module/under/flashlight/pistol = 5,
+		/obj/item/gun_module/under/flashlight/rifle = 3,
+		/obj/item/gun_module/under/hand/angle = 3
 	)
 	contraband = list(
-		/obj/item/gun_module/supressor = 2,
-		/obj/item/gun_module/scope/x16 = 1
+		/obj/item/gun_module/muzzle/supressor = 2,
+		/obj/item/gun_module/rail/scope/x16 = 1
 	)
 	prices = list(
-		/obj/item/gun_module/muzzle_flash_supressor = 299,
-		/obj/item/gun_module/scope/collimator = 399,
-		/obj/item/gun_module/scope/x4 = 499,
-		/obj/item/gun_module/scope/x8 = 999,
-		/obj/item/gun_module/supressor = 399,
-		/obj/item/gun_module/scope/x16 = 1999
+		/obj/item/gun_module/muzzle/compensator = 299,
+		/obj/item/gun_module/rail/scope/collimator = 399,
+		/obj/item/gun_module/rail/scope/x4 = 499,
+		/obj/item/gun_module/rail/scope/x8 = 999,
+		/obj/item/gun_module/rail/hud/medical = 499,
+		/obj/item/gun_module/rail/hud/security = 499,
+		/obj/item/gun_module/under/flashlight/pistol = 199,
+		/obj/item/gun_module/under/flashlight/rifle = 249,
+		/obj/item/gun_module/under/hand/angle = 399,
+		/obj/item/gun_module/muzzle/supressor = 399,
+		/obj/item/gun_module/rail/scope/x16 = 1999
 	)
 	refill_canister = /obj/item/vending_refill/security
 
