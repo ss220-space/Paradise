@@ -60990,7 +60990,6 @@
 	},
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/regular,
-/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"

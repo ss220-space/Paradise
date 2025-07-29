@@ -32855,7 +32855,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "eLP" = (
-/obj/structure/table/wood,
 /obj/machinery/door_control{
 	id = "eva-shutters";
 	name = "Auxilary E.V.A. Storage";
@@ -32881,9 +32880,6 @@
 	pixel_x = 38;
 	pixel_y = -4
 	},
-/obj/item/restraints/handcuffs,
-/obj/item/taperecorder,
-/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -36257,6 +36253,8 @@
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
 /obj/item/wrench,
+/obj/item/taperecorder,
+/obj/item/restraints/handcuffs,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluealt"
@@ -77028,6 +77026,7 @@
 	pixel_x = 6;
 	req_access = list(30)
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

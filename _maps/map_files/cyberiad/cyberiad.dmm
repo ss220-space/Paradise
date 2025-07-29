@@ -20115,16 +20115,6 @@
 	icon_state = "darkred"
 	},
 /area/hallway/secondary/exit)
-"boa" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/obj/item/assembly/signaler,
-/obj/item/assembly/signaler,
-/obj/item/assembly/timer,
-/obj/item/wrench,
-/obj/item/storage/toolbox/emergency,
-/turf/simulated/floor/plasteel,
-/area/bridge)
 "boc" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -20619,6 +20609,8 @@
 "bpw" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
+/obj/item/storage/toolbox/emergency,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "bpx" = (
@@ -117771,7 +117763,7 @@ biK
 bnj
 cZJ
 deu
-boa
+bqO
 bpw
 bqV
 dmt
