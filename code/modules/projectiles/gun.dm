@@ -641,13 +641,23 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/gun/proc/try_detach_gun_module(mob/user)
+	. = FALSE
+	var/list/choices = list()
 	for(var/slot in attachments_by_slot)
 		if(!attachments_by_slot[slot])
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		module.detach_without_check(src, user)
-		return TRUE
-	return FALSE
+		choices += module.name
+	if(length(choices) == 0)
+		return
+	var/choice = tgui_input_list(user, "Выберите модуль", "Снять модуль", choices, choices[1], 0, GLOB.conscious_state)
+	for(var/slot in attachments_by_slot)
+		if(!attachments_by_slot[slot])
+			continue
+		var/obj/item/gun_module/module = attachments_by_slot[slot]
+		if(module.name == choice)
+			module.detach_without_check(src, user)
+			return TRUE
 
 
 /obj/item/gun/proc/reskin_gun(mob/user)
