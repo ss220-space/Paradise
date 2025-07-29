@@ -150,12 +150,14 @@
 	/// Same as above
 	var/default_throwforce
 
-
 /obj/item/kitchen/knife/Initialize(mapload)
+	ADD_TRAIT(src, TRAIT_EMBED_MELEE ,PHYSICS_OF_SHARP_OBJECTS)
 	. = ..()
 	default_force = force
-	default_throwforce = throwforce
+	default_throwforce = throwforce	
 
+/obj/item/kitchen/knife/ComponentInitialize()
+	AddComponent(/datum/component/stick_it_in)
 
 /obj/item/kitchen/knife/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	. = ..()
@@ -282,15 +284,7 @@
 	name = "survival knife"
 	icon_state = "survivalknife"
 	belt_icon = "survival_knife"
-	desc = "Охотничий нож повышенной прочности."
-	ru_names = list(
-		NOMINATIVE = "нож для выживания",
-		GENITIVE = "ножа для выживания",
-		DATIVE = "ножу для выживания",
-		ACCUSATIVE = "нож для выживания",
-		INSTRUMENTAL = "ножом для выживания",
-		PREPOSITIONAL = "ноже для выживания"
-	)
+	desc = "A hunting grade survival knife."
 	force = 15
 	throwforce = 15
 

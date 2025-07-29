@@ -179,3 +179,5 @@
 #define DEVIL_CONTRACT_TRAIT "devil_contract"
 
 #define DEVIL_RITUAL_TRAIT "devil_ritual"
+
+#define PHYSICS_OF_SHARP_OBJECTS "god's plan"

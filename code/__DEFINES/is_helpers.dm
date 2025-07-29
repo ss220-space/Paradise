@@ -181,6 +181,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define istable(A) (istype(A, /obj/structure/table))
 
 // Misc
+#define iscomponent(A) (istype(A, /datum/component))
+
 #define isclient(A) istype(A, /client)
 
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
