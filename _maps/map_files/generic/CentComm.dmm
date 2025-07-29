@@ -31543,9 +31543,12 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
 "oHK" = (
-/obj/machinery/mineral/labor_claim_console{
-	machinedir = 1;
-	pixel_x = 30
+/obj/machinery/flasher{
+	id = "gulagshuttleflasher";
+	pixel_x = 25
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/siberia)
@@ -32591,15 +32594,8 @@
 	},
 /area/syndicate_mothership/control)
 "peG" = (
-/obj/machinery/flasher{
-	id = "gulagshuttleflasher";
-	pixel_x = 25
-	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/chair/comfy/shuttle{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/siberia)
@@ -37265,6 +37261,10 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"rjK" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/shuttle,
+/area/shuttle/siberia)
 "rkx" = (
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
@@ -41420,10 +41420,8 @@
 	},
 /area/shuttle/ninja)
 "tbX" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle,
+/obj/machinery/mineral/labor_claim_console,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/siberia)
 "tcs" = (
 /turf/simulated/floor/wood{
@@ -79880,7 +79878,7 @@ oJI
 sKg
 lDH
 sKg
-sKg
+tbX
 sXM
 prf
 oJI
@@ -80138,7 +80136,7 @@ lBl
 lOB
 svC
 tbv
-tbX
+tbv
 tbv
 qgA
 sgG
@@ -80394,9 +80392,9 @@ mMn
 nVS
 maj
 sKg
-tbv
+rjK
 kAJ
-tbv
+peG
 qgA
 sgG
 mVX
@@ -80652,7 +80650,7 @@ ogO
 oiv
 ovE
 oHK
-peG
+tbv
 tbv
 qgA
 sgG
@@ -80908,8 +80906,8 @@ oJI
 sKg
 okx
 sKg
-oJI
 sKg
+prf
 dhK
 oJI
 oJI
