@@ -26899,7 +26899,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/r_n_d/protolathe{
-	pixel_y = 2
+	pixel_x = -1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -28219,7 +28219,7 @@
 /area/engineering/controlroom)
 "daC" = (
 /obj/machinery/r_n_d/protolathe{
-	pixel_x = 1
+	pixel_x = -1
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
@@ -77687,7 +77687,8 @@
 /area/maintenance/asmaint2)
 "nan" = (
 /obj/machinery/r_n_d/circuit_imprinter{
-	pixel_y = 3
+	pixel_y = 3;
+	pixel_x = -1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/northeast,

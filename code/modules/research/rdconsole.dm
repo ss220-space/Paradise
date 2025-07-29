@@ -39,7 +39,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define DECONSTRUCT_DELAY 24
 #define SYNC_DEVICE_DELAY 20
 #define RESET_RESEARCH_DELAY 20
-#define IMPRINTER_DELAY 16
+#define IMPRINTER_DELAY 15
 
 // SUBMENU_MAIN also used by other menus
 // MENU_LEVELS is not accessible normally
@@ -334,6 +334,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return
 
 	linked_destroy.busy = TRUE
+	playsound(linked_destroy, 'sound/machines/rnd/d_analyzer_process.ogg')
 	flick("[linked_destroy.base_icon_state]_process", linked_destroy)
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), DECONSTRUCT_DELAY)
@@ -442,10 +443,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(is_lathe)
 		add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
-		flick("[machine.base_icon_state]_n", machine)
+		playsound(machine, 'sound/machines/rnd/circuit_imprinter_work.ogg')
+		flick("[machine.base_icon_state]_work", machine)
 	else
 		add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct)
-		flick("[machine.base_icon_state]_ani", machine)
+		flick("[machine.base_icon_state]_work", machine)
 
 	machine.busy = TRUE
 	use_power(power)

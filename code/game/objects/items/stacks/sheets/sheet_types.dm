@@ -120,6 +120,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	desc = "Sheets made out of metal."
 	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
+	protolathe_name = "metal"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10.0
 	flags = CONDUCT

@@ -165,9 +165,9 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/update_icon_state()
 	if(stat & BROKEN)
-		icon_state = "[base_icon_state]-broken"
+		icon_state = "[base_icon_state]_broken"
 	else
-		icon_state = (!(stat & NOPOWER) && anchored) ? base_icon_state : "[base_icon_state]-off"
+		icon_state = (!(stat & NOPOWER) && anchored) ? base_icon_state : "[base_icon_state]_off"
 
 
 /obj/machinery/doppler_array/power_change(forced = FALSE)	// overrides base power_change to check to make sure machine is anchored

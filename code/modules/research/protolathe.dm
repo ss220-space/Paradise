@@ -111,7 +111,7 @@ Note: Must be placed west/left of and R&D console to function.
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_t", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unsrewed", base_icon_state, I)
 	if(. && linked_console)
 		linked_console.linked_lathe = null
 		linked_console = null

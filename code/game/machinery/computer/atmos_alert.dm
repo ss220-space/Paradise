@@ -5,7 +5,7 @@
 	var/ui_x = 350
 	var/ui_y = 300
 	icon_keyboard = "atmos_key"
-	icon_screen = "alert:0"
+	icon_screen = "alert_0"
 	light_color = LIGHT_COLOR_CYAN
 	var/list/priority_alarms = list()
 	var/list/minor_alarms = list()
@@ -86,11 +86,11 @@
 
 /obj/machinery/computer/atmos_alert/update_icon_state()
 	if(length(priority_alarms))
-		icon_screen = "alert:2"
+		icon_screen = "alert_2"
 	else if(length(minor_alarms))
-		icon_screen = "alert:1"
+		icon_screen = "alert_1"
 	else
-		icon_screen = "alert:0"
+		icon_screen = "alert_0"
 
 /obj/machinery/computer/atmos_alert/old_frame
 	icon = 'icons/obj/machines/computer3.dmi'

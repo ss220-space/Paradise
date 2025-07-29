@@ -3,7 +3,7 @@
 	name = "station alert console"
 	desc = "Используется для доступа к автоматизированной системе тревог станции."
 	icon_keyboard = "tech_key"
-	icon_screen = "alert:0"
+	icon_screen = "alert_0"
 	light_color = LIGHT_COLOR_CYAN
 	circuit = /obj/item/circuitboard/stationalert_engineering
 	var/list/alarms_listend_for = list("Fire", "Atmosphere", "Power", "Camera")
@@ -91,8 +91,8 @@
 		if(length(L))
 			active_alarms = TRUE
 	if(active_alarms)
-		icon_screen = "alert:2"
+		icon_screen = "alert_2"
 	else
-		icon_screen = "alert:0"
+		icon_screen = "alert_0"
 
 	..()

@@ -2,7 +2,7 @@
 	name = "AI system integrity restorer"
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "rd_key"
-	icon_screen = "ai-fixer"
+	icon_screen = "ai_fixer"
 	circuit = /obj/item/circuitboard/aifixer
 	req_access = list(ACCESS_CAPTAIN, ACCESS_ROBOTICS, ACCESS_HEADS)
 	var/mob/living/silicon/ai/occupant = null
@@ -95,15 +95,15 @@
 		return
 
 	if(active)
-		. += "ai-fixer-on"
+		. += "ai_fixer_on"
 	if(occupant)
 		switch(occupant.stat)
 			if(CONSCIOUS)
-				. += "ai-fixer-full"
+				. += "ai_fixer_full"
 			if(DEAD)
-				. += "ai-fixer-404"
+				. += "ai_fixer_404"
 	else
-		. += "ai-fixer-empty"
+		. += "ai_fixer_empty"
 
 
 /obj/machinery/computer/aifixer/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/aicard/card)

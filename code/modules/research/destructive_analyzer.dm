@@ -7,7 +7,16 @@ Note: Must be placed within 3 tiles of the R&D Console
 */
 /obj/machinery/r_n_d/destructive_analyzer
 	name = "Destructive Analyzer"
-	desc = "Изучайте науку, разрушая предметы!"
+	desc = "Крупное устройство, разбирающее различные предметы для повышения уровней исследований."
+	ru_names = list(
+		NOMINATIVE = "деструктивный анализатор",
+		GENITIVE = "деструктивного анализатора",
+		DATIVE = "деструктивному анализатору",
+		ACCUSATIVE = "деструктивный анализатор",
+		INSTRUMENTAL = "деструктивным анализатором",
+		PREPOSITIONAL = "деструктивным анализатором"
+	)
+	gender = MALE
 	icon_state = "d_analyzer"
 	base_icon_state = "d_analyzer"
 	var/decon_mod = 0
@@ -89,7 +98,8 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return ..()
 	busy = TRUE
-	flick("[base_icon_state]_la", src)
+	playsound(src, 'sound/machines/rnd/d_analyzer_inserting.ogg', 30)
+	flick("[base_icon_state]_inserting", src)
 	loaded_item = I
 	to_chat(user, span_notice("Образец помещён в машину."))
 	addtimer(CALLBACK(src, PROC_REF(reset_processing)), 1 SECONDS)
@@ -100,7 +110,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_t", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
 	if(. && linked_console)
 		linked_console.linked_destroy = null
 		linked_console = null
@@ -120,7 +130,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 /obj/machinery/r_n_d/destructive_analyzer/update_icon_state()
 	if(loaded_item)
-		icon_state = "[base_icon_state]_l"
+		icon_state = "[base_icon_state]_inserted"
 	else
 		icon_state = base_icon_state
 
