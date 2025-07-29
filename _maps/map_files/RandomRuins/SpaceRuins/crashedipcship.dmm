@@ -2993,7 +2993,7 @@
 /area/ruin/space/crashedipcship/middle)
 "YB" = (
 /obj/structure/table,
-/obj/item/stock_parts/cell/crap,
+/obj/item/stock_parts/cell,
 /obj/structure/lattice,
 /turf/space,
 /area/ruin/space/crashedipcship/aft)
