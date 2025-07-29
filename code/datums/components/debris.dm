@@ -4,8 +4,11 @@
  */
 
 /datum/element/debris
+	element_flags = ELEMENT_BESPOKE
+	id_arg_index = 2
+
 	/// Icon state of debris when impacted by a projectile
-	var/debris
+	var/debris = null
 	/// Velocity of debris particles
 	var/debris_velocity = -40
 	/// Amount of debris particles
