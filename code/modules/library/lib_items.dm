@@ -43,13 +43,13 @@
 
 
 /obj/structure/bookcase/examine(mob/user)
-	if(icon_state == "book-0")
-		desc = "Большой книжный шкаф. Его полки давно не протирали..."
-	else
+	if(length(contents) > 0)
 		desc = "Большой книжный шкаф. На его полках стоят книги."
+	else
+		desc = "Большой книжный шкаф. Его полки давно не протирали..."
 
 	. = ..()
-  
+
 /obj/structure/bookcase/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
