@@ -338,7 +338,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	if(isclocker(user))
 		. = ..()
 		return
-	if(!user in orange(1, src))
+	if(!(user in orange(1, src)))
 		return
 	if(ishuman(user))
 		to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
@@ -352,7 +352,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	if(isclocker(user))
 		. = ..()
 		return
-	if(!user in orange(1, src))
+	if(!(user in orange(1, src)))
 		return
 	if(!ishuman(user))
 		return
@@ -393,7 +393,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	if(isclocker(user))
 		. = ..()
 		return
-	if(!user in orange(1, src))
+	if(!(user in orange(1, src)))
 		return
 	if(ishuman(user))
 		to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
@@ -407,7 +407,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	if(isclocker(user))
 		. = ..()
 		return
-	if(!user in orange(1, src))
+	if(!(user in orange(1, src)))
 		return
 	if(!ishuman(user))
 		return
