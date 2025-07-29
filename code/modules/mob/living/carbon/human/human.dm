@@ -509,8 +509,8 @@
 					if(h_user.has_pain())
 						h_user.emote("scream")
 				usr.visible_message(
-					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
-					span_warning("Вы успешно извлекаете [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
+					span_notice("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
+					span_notice("Вы успешно извлекаете [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
 				)
 			return
 
@@ -965,7 +965,7 @@
 		self = 1
 	if(!self)
 		usr.visible_message(
-			span_notice("[usr] склоня[pluralize_ru(usr.gender, "ет", "ют")]ся над [src], нащупыва[pluralize_ru(usr.gender, "ет", "ют")] у [genderize_ru(gender, "него", "неё", "него", "них")] артерию и замира[pluralize_ru(usr.gender, "ет", "ют")], будто бы что-то считая."),
+			span_notice("[usr] склоня[pluralize_ru(usr.gender, "ет", "ют")]ся над [declent_ru(INSTRUMENTAL)], нащупыва[pluralize_ru(usr.gender, "ет", "ют")] у [genderize_ru(gender, "него", "неё", "него", "них")] артерию и замира[pluralize_ru(usr.gender, "ет", "ют")], будто бы что-то считая."),
 			ignored_mobs = usr
 		)
 		balloon_alert(usr, "обнаружение пульса...")
@@ -1467,7 +1467,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(prob(current_size * 5) && hand_item.w_class >= ((11-current_size)/2)	&& drop_item_ground(hand_item))
 				step_towards(hand_item, src)
 				to_chat(src, span_warning("[S] вырывает [hand_item.declent_ru(ACCUSATIVE)] из вашей хватки!"))
-				balloon_alert(src, "вы выпускаете предмет из руки!")
 	apply_effect(current_size * 3, IRRADIATE)
 
 /mob/living/carbon/human/narsie_act(obj/singularity/god/narsie/narsie)
@@ -1855,7 +1854,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
 	set category = STATPANEL_IC
 
-	pose = tgui_input_text(usr, "Это [src]. [capitalize(genderize_ru(gender, "он", "она", "оно", "они"))]...", "Выбор позы", pose)
+	pose = tgui_input_text(usr, "Это [declent_ru(NOMINATIVE)]. [capitalize(genderize_ru(gender, "он", "она", "оно", "они"))]...", "Выбор позы", pose)
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Описание внешности"
@@ -1931,11 +1930,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	if(!can_be_firemanned(target) || incapacitated(INC_IGNORE_GRABBED))
-		to_chat(src, span_warning("[target.declent_ru(NOMINATIVE)] долж[genderize_ru(target.gender, "ен", "на", "но", "ны")] лежать, чтобы вы могли взять [genderize_ru(target.gender, "его", "её", "его", "их")] в пожарный захват!"))
-		target.balloon_alert("цель не лежит!")
+		target.balloon_alert(src, "цель не лежит!")
 		return
-
-	var/carrydelay = 5 SECONDS //if you have latex you are faster at grabbing
+	/// if you have latex you are faster at grabbing
+	var/carrydelay = 5 SECONDS
 	if(HAS_TRAIT(src, TRAIT_QUICKER_CARRY))
 		carrydelay -= 2 SECONDS
 	else if(HAS_TRAIT(src, TRAIT_QUICK_CARRY))
@@ -1945,20 +1943,22 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		span_notice("[src] начина[pluralize_ru(gender, "ет", "ют")] поднимать [target.declent_ru(ACCUSATIVE)] и закидывать на плечо."),
 		ignored_mobs = src
 	)
-	target.balloon_alert("взваливание на плечо...")
+	target.balloon_alert(src, "взваливание на плечо...")
 	if(!do_after(src, carrydelay, target))
 		visible_message(
-			span_warning("[src] не удаётся взять [target.declent_ru(ACCUSATIVE)] в пожарный захват.")
+			span_warning("[declent_ru(DATIVE)] не удаётся взять [target.declent_ru(ACCUSATIVE)] в пожарный захват."),
+			ignored_mobs = src
 		)
-		target.balloon_alert("пожарный захват не удался!")
+		target.balloon_alert(src, "пожарный захват не удался!")
 		return
 
 	//Second check to make sure they're still valid to be carried
 	if(!can_be_firemanned(target) || incapacitated(INC_IGNORE_GRABBED) || target.buckled)
 		visible_message(
-			span_warning("[src] не удаётся взять [target.declent_ru(ACCUSATIVE)] в пожарный захват.")
+			span_warning("[declent_ru(DATIVE)] не удаётся взять [target.declent_ru(ACCUSATIVE)] в пожарный захват."),
+			ignored_mobs = src
 		)
-		target.balloon_alert("пожарный захват не удался!")
+		target.balloon_alert(src, "пожарный захват не удался!")
 		return
 
 	return buckle_mob(target, TRUE, FALSE, CARRIER_NEEDS_ARM) //checkloc is false because we usually grab people from nearest tile

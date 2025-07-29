@@ -137,7 +137,7 @@
 		prisoner = R
 		R.fields["criminal"] = SEC_RECORD_STATUS_INCARCERATED
 		var/mob/living/carbon/human/M = usr
-		var/rank = "ДОЛЖНОСТЬ НЕ ИЗВЕСТНА"
+		var/rank = "ДОЛЖНОСТЬ НЕИЗВЕСТНА"
 		if(istype(M))
 			var/obj/item/card/id/I = M.get_id_card()
 			if(I)
