@@ -191,7 +191,7 @@
 	if(rcd_ammo.type == matter_type || rcd_ammo.type == matter_type_large)
 		matter = min(matter + rcd_ammo.ammoamt, max_matter)
 		qdel(rcd_ammo)
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 		to_chat(user, span_notice("The RCD now holds [matter]/[max_matter] matter-units."))
 	else
 		to_chat(user, span_warning("This matter cartridge is incompatible with your RCD"))
@@ -239,7 +239,7 @@
 			return
 		else
 			return
-	playsound(src, 'sound/effects/pop.ogg', 50, 0)
+	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)
 	to_chat(user, span_notice("You change [src]'s mode to '[choice]'."))
 
 

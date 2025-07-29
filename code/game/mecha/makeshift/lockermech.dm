@@ -123,7 +123,7 @@
 			if(do_after(user, 5 SECONDS, user))
 				summon_mecha.forceMove(target)
 				new /obj/effect/particle_effect/fluid/smoke(target)
-				playsound(target, 'sound/magic/disintegrate2.ogg', 200, 1)
+				playsound(target, 'sound/magic/disintegrate2.ogg', 200, TRUE)
 				for(var/mob/M in range(6, target))
 					shake_camera(M, 2 SECONDS, 2)
 				for(var/mob/living/M in range(1, target))

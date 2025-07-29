@@ -899,6 +899,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/ai_number = 0
 	var/list/messages = list()
 	for(var/mob/living/silicon/S in GLOB.mob_list)
+		if(istype(S, /mob/living/silicon/decoy) && !S.client)
+			continue
 		ai_number++
 		if(isAI(S))
 			messages += "<b>AI [key_name(S, TRUE)]'s laws:</b>"
@@ -918,7 +920,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(S.laws == null)
 			messages += "[key_name(S, TRUE)]'s laws are null. Contact a coder."
 		else
-			messages += S.laws.show_laws()
+			messages += S.laws.return_laws_text()
 	if(!ai_number)
 		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 

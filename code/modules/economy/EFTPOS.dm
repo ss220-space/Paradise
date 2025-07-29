@@ -61,7 +61,7 @@
 	return ..()
 
 /obj/item/eftpos/proc/print_check(mob/user)
-	playsound(src, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(src, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	num_check++
 	var/obj/item/paper/check/ch = new(drop_location())
 	ch.name = "Receipt: [machine_name]"
@@ -77,7 +77,7 @@
 	user.put_in_hands(ch, ignore_anim = FALSE)
 
 /obj/item/eftpos/proc/print_reference(mob/user)
-	playsound(src, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(src, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	var/obj/item/paper/check/ref = new(drop_location())
 	ref.name = "Reference: [machine_name]"
 	ref.info = {"<tt><b><big>EFTPOS Reference</big></b> <br>
@@ -283,7 +283,7 @@
 
 	if(emagged)
 		to_chat(user, "[bicon(src)]<span class='warning'>  Client Error #423 Device Locked. Contact NanoTrasen IT support.</span>")
-		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 1)
+		playsound(src, 'sound/machines/terminal_alert.ogg', 50, TRUE)
 		return
 
 	if(!linked_db)
@@ -313,12 +313,12 @@
 			card_account = attempt_account_access(id_card.associated_account_number, attempt_pin, 2)
 		if(!card_account || card_account.suspended)
 			to_chat(user, "[bicon(src)]<span class='warning'> Server Error #403 Unable To Access Account. Check security settings and try again.</span>")
-			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal_alert.ogg', 50, FALSE)
 			return during_paid = FALSE
 
 		if(transaction_amount > card_account.money)
 			to_chat(user, "[bicon(src)]<span class='warning'> Client Error #402 Payment Was Declined. You don't have that much money.</span>")
-			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal_alert.ogg', 50, FALSE)
 			return during_paid = FALSE
 
 		var/transSuccess = card_account.charge(transaction_amount, linked_account, transaction_purpose, machine_name, card_account.owner_name)
@@ -326,7 +326,7 @@
 			transaction_paid = 1
 			during_paid = FALSE
 			visible_message("[bicon(src)] The [src] chimes.")
-			playsound(src, 'sound/machines/chime.ogg', 50, 0)
+			playsound(src, 'sound/machines/chime.ogg', 50, FALSE)
 	else
 		to_chat(user, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support.</span>")
-		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_alert.ogg', 50, FALSE)

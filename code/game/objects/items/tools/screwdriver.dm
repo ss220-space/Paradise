@@ -14,8 +14,8 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
-	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/screwdriver_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/screwdriver_pickup.ogg'
 	materials = list(MAT_METAL=75)
 	attack_verb = list("уколол", "тыкнул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -108,7 +108,7 @@
 	return BRUTELOSS
 
 /obj/item/screwdriver/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
+	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, TRUE)
 	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
 	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")
 	qdel(src)

@@ -80,9 +80,9 @@
 
 /obj/item/rpd/proc/activate_rpd(delay) //Maybe makes sparks and activates cooldown if there is a delay
 	if(alt_sound && prob(3))
-		playsound(src, alt_sound, 50, 1)
+		playsound(src, alt_sound, 50, TRUE)
 	else
-		playsound(src, primary_sound, 50, 1)
+		playsound(src, primary_sound, 50, TRUE)
 	if(prob(15) && !ranged)
 		spark_system.start()
 	if(delay)

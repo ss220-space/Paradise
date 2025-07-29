@@ -68,7 +68,7 @@
 		fire_delay = initial(fire_delay)
 		balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
 
-	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
+	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -276,7 +276,7 @@
 		if(1)
 			select = 0
 			balloon_alert(user, "подствольный гранатомёт")
-	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
+	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
 
 //Tommy Gun//

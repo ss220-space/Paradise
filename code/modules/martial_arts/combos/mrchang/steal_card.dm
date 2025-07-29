@@ -19,7 +19,7 @@
 						"<span class='userdanger'>[user] [attack_verb] you!</span>")
 		var/sound = pick('sound/weapons/mr_chang/mr_chang_steal_card_1.mp3', 'sound/weapons/mr_chang/mr_chang_steal_card_2.mp3', \
 						'sound/weapons/mr_chang/mr_chang_steal_card_3.mp3', 'sound/weapons/mr_chang/mr_chang_steal_card_4.mp3')
-		playsound(get_turf(user), sound, 50, 1, -1)
+		playsound(get_turf(user), sound, 50, TRUE, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Steal Card", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
 	else

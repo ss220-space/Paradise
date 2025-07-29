@@ -38,6 +38,7 @@
 /datum/orbit_menu/proc/handle_orbit_action(list/params)
 	var/ref = params["ref"]
 	var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
+	
 	if(!poi)
 		return
 

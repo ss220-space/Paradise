@@ -60,7 +60,7 @@
 	else
 		. += span_notice("It has an empty mount for a battery cell.")
 	if(src in user)
-		. += span_info("You can <b>Alt-Click</b> to change the draw tension.")
+		. += span_notice("You can <b>Alt-Click</b> to change the draw tension.")
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))

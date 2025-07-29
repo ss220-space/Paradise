@@ -34,7 +34,7 @@
 	attacktext = "сверлит"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	sentience_type = SENTIENCE_MINEBOT
-	speak_emote = list("states")
+	speak_emote = list("констатирует")
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
 						  /obj/item/stack/ore/plasma,  /obj/item/stack/ore/uranium,    /obj/item/stack/ore/iron,
 						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
@@ -130,10 +130,10 @@
 	if(!I.tool_use_check(user, 1))
 		return
 	if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
-		to_chat(user, span_info("[capitalize(declent_ru(NOMINATIVE))] слишком активно двигается для ремонта!"))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] слишком активно двигается для ремонта!"))
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, 15, 1, volume = I.tool_volume) && health != maxHealth)
+	if(I.use_tool(src, user, 15, TRUE, volume = I.tool_volume) && health != maxHealth)
 		adjustBruteLoss(-20)
 		WELDER_REPAIR_SUCCESS_MESSAGE
 	return
@@ -150,9 +150,9 @@
 		toggle_mode()
 		switch(mode)
 			if(MINEDRONE_COLLECT)
-				to_chat(M, span_info("[capitalize(declent_ru(NOMINATIVE))] переведён в режим поиска и сбора руды."))
+				to_chat(M, span_notice("[capitalize(declent_ru(NOMINATIVE))] переведён в режим поиска и сбора руды."))
 			if(MINEDRONE_ATTACK)
-				to_chat(M, span_info("[capitalize(declent_ru(NOMINATIVE))] переведён в режим атаки на опасную фауну."))
+				to_chat(M, span_notice("[capitalize(declent_ru(NOMINATIVE))] переведён в режим атаки на опасную фауну."))
 		return
 	..()
 
@@ -180,7 +180,7 @@
 	minimum_distance = 1
 	retreat_distance = null
 	icon_state = "mining_drone"
-	to_chat(src, span_info("Активирован режим сбора. Теперь можно собирать рассыпанную руду."))
+	to_chat(src, span_notice("Активирован режим сбора. Теперь можно собирать рассыпанную руду."))
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetOffenseBehavior()
 	mode = MINEDRONE_ATTACK
@@ -191,7 +191,7 @@
 	retreat_distance = 2
 	minimum_distance = 1
 	icon_state = "mining_drone_offense"
-	to_chat(src, span_info("Активирован боевой режим. Теперь доступна дистанционная атака."))
+	to_chat(src, span_notice("Активирован боевой режим. Теперь доступна дистанционная атака."))
 
 /mob/living/simple_animal/hostile/mining_drone/AttackingTarget()
 	if(istype(target, /obj/item/stack/ore) && mode == MINEDRONE_COLLECT)

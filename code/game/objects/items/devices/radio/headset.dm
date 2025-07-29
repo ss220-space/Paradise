@@ -14,7 +14,7 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
-	equip_sound = 'sound/items/handling/generic_equip4.ogg'
+	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/ears.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/ears.dmi',
@@ -65,7 +65,7 @@
 	. = ..()
 	if(in_range(src, user) && radio_desc)
 		. += span_notice("<b>Доступные частоты:</b>")
-		. += span_info("[radio_desc]")
+		. += span_notice("[radio_desc]")
 
 /obj/item/radio/headset/handle_message_mode(mob/living/M, list/message_pieces, channel)
 	if(channel == SPEC_FREQ_NAME)
@@ -593,14 +593,14 @@
 			обеспечивающих защиту от термических и механических воздействий. \
 			Оснащена улучшенным телекоммуникационным оборудованием, \
 			обеспечивающим доступ к частотам снабжения и командования. \
-			Используется местным Завхозом."
+			Используется местным Квартирмейстеромом."
 	ru_names = list(
-		NOMINATIVE = "радиочастотная гарнитура завхоза",
-		GENITIVE = "радиочастотную гарнитуру завхоза",
-		DATIVE = "радиочастотной гарнитуры завхоза",
-		ACCUSATIVE = "радиочастотную гарнитуру завхоза",
-		INSTRUMENTAL = "радиочастотной гарнитурой завхоза",
-		PREPOSITIONAL = "радиочастотной гарнитуре завхоза"
+		NOMINATIVE = "радиочастотная гарнитура Квартирмейстера",
+		GENITIVE = "радиочастотную гарнитуру Квартирмейстера",
+		DATIVE = "радиочастотной гарнитуры Квартирмейстера",
+		ACCUSATIVE = "радиочастотную гарнитуру Квартирмейстера",
+		INSTRUMENTAL = "радиочастотной гарнитурой Квартирмейстера",
+		PREPOSITIONAL = "радиочастотной гарнитуре Квартирмейстера"
 	)
 	icon_state = "com_headset"
 	item_state = "headset"
