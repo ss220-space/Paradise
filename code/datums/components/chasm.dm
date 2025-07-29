@@ -25,7 +25,6 @@
 		/obj/effect/particle_effect/fluid/smoke,
 		/obj/effect/particle_effect/ion_trails,
 		/obj/effect/particle_effect/sparks,
-		/obj/effect/particle_effect/expl_particles,
 		/obj/effect/wisp,
 		/obj/effect/ebeam,
 		/obj/effect/spawner,
