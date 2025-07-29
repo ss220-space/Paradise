@@ -1,6 +1,6 @@
 /**
  * In this file you can find the particle component for bullet hits
- * Originally from https://github.com/tgstation/TerraGov-Marine-Corps/pull/12752
+ * Originally from TGMC.
  */
 
 /datum/element/debris
