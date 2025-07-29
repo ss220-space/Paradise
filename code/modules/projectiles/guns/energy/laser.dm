@@ -13,7 +13,7 @@
 	gun_light_overlay = "lasergun_light"
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8)
 	)
 
 /obj/item/gun/energy/laser/ui_action_click(mob/user, datum/action/action, leftclick)
@@ -96,7 +96,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8)
 	)
 
 ///Laser Cannon
@@ -117,7 +117,7 @@
 	ammo_x_offset = 3
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7)
 	)
 
 /obj/item/ammo_casing/energy/laser/accelerator
@@ -160,7 +160,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7)
 	)
 
 /obj/item/gun/energy/immolator
@@ -173,7 +173,7 @@
 	shaded_charge = TRUE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7)
 	)
 
 /obj/item/gun/energy/immolator/multi

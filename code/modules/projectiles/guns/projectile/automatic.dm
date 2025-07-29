@@ -353,8 +353,8 @@
 	fire_delay = 1
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 22, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 5)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 6)
 	)
 
 // Bulldog shotgun //
@@ -375,7 +375,7 @@
 	actions_types = null
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 8)
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 9)
 	)
 
 
@@ -438,7 +438,7 @@
 	fire_delay = 1.5
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 3)
+		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 4)
 	)
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/New()
@@ -464,7 +464,7 @@
 	can_suppress = 0
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6)
 	)
 
 
@@ -496,7 +496,7 @@
 	burst_size = 2
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 5)
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6)
 	)
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
@@ -518,7 +518,7 @@
 	actions_types = null
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8)
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 9)
 	)
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
@@ -537,8 +537,8 @@
 	gun_light_overlay = "sfg-light"
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 1),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 4)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 5)
 	)
 
 
@@ -565,7 +565,7 @@
 	can_suppress = 0
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 8)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 9)
 	)
 

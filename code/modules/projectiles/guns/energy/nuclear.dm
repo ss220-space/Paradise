@@ -12,7 +12,7 @@
 	flight_y_offset = 10
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7)
 	)
 
 /obj/item/gun/energy/gun/cyborg
@@ -125,7 +125,7 @@
 	selfcharge = TRUE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 8)
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9)
 	)
 
 /obj/item/gun/energy/gun/minigun

@@ -12,7 +12,7 @@
 	cell_type = /obj/item/stock_parts/cell/pulse
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8)
 	)
 
 /obj/item/gun/energy/pulse/emp_act(severity)
@@ -38,7 +38,7 @@
 	flight_y_offset = 12
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8)
 	)
 
 /obj/item/gun/energy/pulse/pistol

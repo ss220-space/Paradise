@@ -18,8 +18,8 @@
 	actions_types = null
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 22, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 6)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7)
 	)
 
 /obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)

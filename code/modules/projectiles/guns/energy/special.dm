@@ -33,6 +33,10 @@
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8)
+	)
 
 // Decloner //
 /obj/item/gun/energy/decloner
@@ -388,6 +392,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -414,6 +419,7 @@
 	clumsy_check = FALSE
 	selfcharge = TRUE
 	ammo_x_offset = 3
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/toxgun
 	name = "toxin pistol"
@@ -423,6 +429,7 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = TRUE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 // Energy Sniper //
 /obj/item/gun/energy/sniperrifle
@@ -439,6 +446,7 @@
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = TRUE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/sniperrifle/pod_pilot
 	name = "LSR-39 Queen blade"
@@ -481,6 +489,7 @@
 
 	var/emagged = FALSE			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
@@ -660,6 +669,7 @@
 	selfcharge = TRUE
 	ammo_x_offset = 3
 	var/mimic_type = /obj/item/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/mimicgun/newshot()
 	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
@@ -705,7 +715,7 @@
 	COOLDOWN_DECLARE(last_sound_effect)
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 7)
 	)
 
 
@@ -765,7 +775,7 @@
 	can_charge = TRUE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
 	)
 
 // Shield breaker //
@@ -788,6 +798,7 @@
 	var/warned = FALSE
 	var/charging = FALSE
 	var/mob/living/carbon/holder = null
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 	. = ..()

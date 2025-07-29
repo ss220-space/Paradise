@@ -646,7 +646,8 @@
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
 		module.detach_without_check(src, user)
-		return
+		return TRUE
+	return FALSE
 
 
 /obj/item/gun/proc/reskin_gun(mob/user)

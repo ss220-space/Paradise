@@ -92,7 +92,7 @@
 	gun_light_overlay = "riotshotgun_light"
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 4)
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5)
 	)
 
 /obj/item/gun/projectile/shotgun/riot/update_overlays()
@@ -265,7 +265,7 @@
 	pb_knockback = 0
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 3)
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 4)
 	)
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
@@ -373,7 +373,7 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 7)
 	)
 
 //Dual Feed Shotgun
@@ -390,7 +390,7 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7)
 	)
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
@@ -419,5 +419,9 @@
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/click_alt(mob/living/user)
 	pump()
 	return CLICK_ACTION_SUCCESS
+
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/AltShiftClick(mob/user)
+	. = ..()
+	try_detach_gun_module(user)
 
 // DOUBLE BARRELED SHOTGUN, IMPROVISED SHOTGUN, and CANE SHOTGUN are in revolver.dm
