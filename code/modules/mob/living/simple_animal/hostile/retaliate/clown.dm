@@ -12,7 +12,7 @@
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
 	speak = list("HONK", "Honk!", "Welcome to clown planet!")
-	emote_see = list("honks")
+	emote_see = list("хонкает")
 	speak_chance = 1
 	a_intent = INTENT_HARM
 	maxHealth = 75
@@ -46,8 +46,8 @@
 	icon_dead = null
 	response_help = "honks the"
 	speak = list("Honk!")
-	speak_emote = list("sqeaks")
-	emote_see = list("honks")
+	speak_emote = list("пищит")
+	emote_see = list("хонкает")
 	maxHealth = 100
 	health = 100
 
