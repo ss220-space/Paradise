@@ -251,8 +251,9 @@
 		gain_knowledge(starting_knowledge)
 
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
-	RegisterSignal(owner, COMSIG_GET_DREAMS, PROC_REF(get_dreams))
+	RegisterSignal(owner.current, COMSIG_GET_DREAMS, PROC_REF(get_dreams))
 	return ..()
+
 
 /datum/antagonist/heretic/on_removal()
 	for(var/knowledge_index in researched_knowledge)
@@ -260,8 +261,9 @@
 		knowledge.on_lose(owner.current, src)
 
 	QDEL_LIST_ASSOC_VAL(researched_knowledge)
-	UnregisterSignal(owner, COMSIG_GET_DREAMS)
+	UnregisterSignal(owner.current, COMSIG_GET_DREAMS)
 	return ..()
+
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -848,7 +850,7 @@
  *
  * Returns FALSE if not all of our objectives are complete, or TRUE otherwise.
  */
-/datum/antagonist/heretic/proc/can_ascend()	
+/datum/antagonist/heretic/proc/can_ascend()
 	if(force_can_ascend)
 		return TRUE
 
@@ -960,10 +962,7 @@
 	. = ..()
 	explanation_text = "Узнайте как минимум о [target_amount] еретических знаниях. Вы начинаете с уже изученными знаниями:\n"
 	for(var/datum/heretic_knowledge/knowledge as anything in GLOB.heretic_start_knowledge)
-		if(knowledge != GLOB.heretic_start_knowledge[1])
-			explanation_text += ","
-
-		explanation_text += "[knowledge.name]\n"
+		explanation_text += "[knowledge.name][knowledge != GLOB.heretic_start_knowledge[GLOB.heretic_start_knowledge.len] ? ", " : ""]\n"
 
 
 /datum/objective/heretic_research/check_completion()

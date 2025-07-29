@@ -8,7 +8,7 @@
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	charge_distance = 10
-	charge_damage = 50
+	charge_damage = 40
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE

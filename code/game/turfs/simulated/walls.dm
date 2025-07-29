@@ -162,6 +162,9 @@
 
 /turf/simulated/wall/proc/break_wall()
 	new sheet_type(src, sheet_amount)
+	if(!girder_type)
+		return
+
 	return new girder_type(src)
 
 /turf/simulated/wall/proc/devastate_wall()

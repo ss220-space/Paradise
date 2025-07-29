@@ -143,11 +143,8 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/equipped(mob/user, slot)
 	. = ..()
-	if(!HASBIT(slot, ITEM_SLOT_CLOTH_INNER))
-		return
-
-	RegisterSignal(user, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(hide_item))
-	RegisterSignal(user, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(show_item))
+	RegisterSignal(user, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(hide_item), override = TRUE)
+	RegisterSignal(user, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(show_item), override = TRUE)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void/dropped(mob/user)
@@ -157,9 +154,6 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/hide_item(datum/source, obj/item/item, slot)
 	SIGNAL_HANDLER
-	if(!HASBIT(slot, ITEM_SLOT_SUITSTORE))
-		return
-
 	item.add_traits(list(TRAIT_NO_STRIP, TRAIT_NO_WORN_ICON, TRAIT_EXAMINE_SKIP), UID())
 
 
@@ -189,6 +183,9 @@
 
 /// Makes our cloak "invisible". Not the wearer, the cloak itself.
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/make_invisible()
+	if(HAS_TRAIT_FROM(src, TRAIT_EXAMINE_SKIP, UID()))
+		return
+
 	add_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), UID())
 	RemoveElement(/datum/element/heretic_focus)
 
@@ -202,6 +199,9 @@
 
 /// Makes our cloak "visible" again.
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/make_visible()
+	if(!HAS_TRAIT_FROM(src, TRAIT_EXAMINE_SKIP, UID()))
+		return
+
 	remove_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), UID())
 	AddElement(/datum/element/heretic_focus)
 

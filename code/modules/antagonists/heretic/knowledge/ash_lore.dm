@@ -65,7 +65,7 @@
 	for(var/obj/effect/proc_holder/spell/touch/mansus_grasp/spell in source.mind.spell_list)
 		if(!spell.cooldown_handler.is_on_cooldown())
 			continue
-			
+
 		spell.cooldown_handler.recharge_time += spell.base_cooldown / 2
 
 

@@ -88,7 +88,7 @@
 	)
 
 	active_cloak = cast_on.apply_status_effect(/datum/status_effect/shadow_cloak)
-	cast_on.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	cast_on.mouse_opacity = MOUSE_OPACITY_ICON
 	RegisterSignal(cast_on, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(active_cloak, COMSIG_QDELETING, PROC_REF(on_early_cloak_loss))
 	RegisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))

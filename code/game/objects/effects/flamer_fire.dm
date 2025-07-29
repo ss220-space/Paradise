@@ -174,7 +174,7 @@
 	switch(fire_variant)
 		if(FIRE_VARIANT_TYPE_B) //Armor Shredding Greenfire, 2x tile damage (Equiavlent to UT)
 			burn_damage = burnlevel
-	var/fire_intensity_resistance = mob.run_armor_check(attack_flag = FIRE)
+	var/fire_intensity_resistance = HAS_TRAIT(mob, TRAIT_RESIST_HEAT) ? 100 : mob.run_armor_check(attack_flag = FIRE)
 
 	if(!tied_reagent.fire_penetrating)
 		burn_damage = max(burn_damage * (100 - fire_intensity_resistance) / 100, 0)
