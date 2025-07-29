@@ -5200,6 +5200,7 @@
 /obj/structure/sink{
 	pixel_y = 29
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -19229,6 +19230,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"clN" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/permabrig)
 "clQ" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
@@ -32249,6 +32260,7 @@
 	pixel_x = -28
 	},
 /obj/item/bedsheet/orange,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -41865,6 +41877,7 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50913,6 +50926,14 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"gEB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "cmo"
+	},
+/area/security/permabrig)
 "gEE" = (
 /obj/structure/closet/secure_closet/medical1{
 	req_access = list(5,62)
@@ -53428,6 +53449,14 @@
 "hfM" = (
 /turf/simulated/floor/wood,
 /area/security/hos)
+"hfN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool/wooden,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/security/permabrig)
 "hfR" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light_switch{
@@ -65373,6 +65402,13 @@
 	icon_state = "red"
 	},
 /area/security/processing)
+"kan" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/security/permabrig)
 "kas" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -74111,6 +74147,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/processing)
+"mlS" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/security/permabrig)
 "mlW" = (
 /obj/structure/table,
 /obj/item/storage/box/gloves,
@@ -83732,6 +83778,15 @@
 	},
 /turf/simulated/floor/carpet,
 /area/bridge)
+"otm" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "otn" = (
 /obj/structure/grille,
 /obj/structure/window/plasmareinforced{
@@ -87337,6 +87392,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "pke" = (
@@ -95093,6 +95149,14 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay)
+"qRy" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "qRz" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -99890,6 +99954,7 @@
 	pixel_y = -5
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -125683,6 +125748,16 @@
 	icon_state = "dark"
 	},
 /area/medical/virology/lab)
+"xPk" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/join_late_prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/permabrig)
 "xPm" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger{
@@ -182528,7 +182603,7 @@ dIk
 wGg
 aru
 wGV
-dHO
+xPk
 fFp
 adR
 euA
@@ -182781,11 +182856,11 @@ jXK
 aru
 kdO
 gIy
-gIy
+gEB
 iWm
 aru
 xbL
-dHO
+xPk
 ffs
 qOi
 aPw
@@ -183044,11 +183119,11 @@ aru
 djZ
 dXG
 dCj
-dHO
+clN
 fgv
 jwd
 fTe
-fhd
+qRy
 fhd
 pkc
 gKa
@@ -183562,9 +183637,9 @@ dHR
 don
 qMN
 czK
+otm
 hKy
-hKy
-hKy
+otm
 nLY
 gLR
 dRJ
@@ -184329,7 +184404,7 @@ aru
 eUL
 dXz
 dCw
-gJJ
+hfN
 wSo
 vsn
 qSc
@@ -184584,9 +184659,9 @@ aru
 qRG
 aHh
 hyu
-eEj
+kan
 ups
-gJJ
+hfN
 wSo
 xan
 dXG
@@ -185361,7 +185436,7 @@ ekp
 gnI
 fFB
 iZf
-iZf
+mlS
 iZf
 fCT
 dxN
@@ -190273,8 +190348,8 @@ coE
 acF
 uFL
 acF
-coE
 acF
+cIV
 uFL
 acF
 coE

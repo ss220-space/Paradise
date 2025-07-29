@@ -1677,6 +1677,7 @@
 "aiB" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/carpet,
 /area/security/permabrig)
 "aiD" = (
@@ -1735,6 +1736,7 @@
 "aiS" = (
 /obj/structure/bed,
 /obj/item/bedsheet/patriot,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/carpet,
 /area/security/permabrig)
 "aiT" = (
@@ -1808,6 +1810,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "ajb" = (
@@ -1820,6 +1823,7 @@
 /area/security/permabrig)
 "ajh" = (
 /obj/structure/bed,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -2872,6 +2876,7 @@
 "anh" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/carpet,
 /area/security/permabrig)
 "ani" = (
@@ -4034,6 +4039,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "aqN" = (
@@ -5687,6 +5693,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -7275,12 +7282,14 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
 /area/security/permabrig)
 "azr" = (
 /obj/structure/bed,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -7624,6 +7633,7 @@
 /area/security/warden)
 "aAq" = (
 /obj/machinery/light,
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aAr" = (
@@ -8913,6 +8923,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aEQ" = (
@@ -8950,6 +8961,7 @@
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aFh" = (
@@ -12183,6 +12195,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -40254,6 +40267,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -58872,6 +58886,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "fEW" = (
@@ -63315,6 +63330,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "izy" = (
@@ -65142,6 +65158,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
+"jKu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/security/permabrig)
 "jLB" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
@@ -70694,6 +70717,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"nmt" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "nmF" = (
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel,
@@ -78366,6 +78397,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "saA" = (
@@ -81841,6 +81873,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/xenozoo)
+"ugM" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "uhl" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -88308,6 +88347,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -105386,7 +105426,7 @@ atc
 qmz
 tCQ
 flv
-uyv
+nmt
 aDA
 aFd
 aGP
@@ -107190,7 +107230,7 @@ aDF
 olE
 aGU
 fjv
-smB
+ugM
 aLq
 owA
 aPJ
@@ -107712,7 +107752,7 @@ ppb
 aTP
 aXc
 aYa
-aYa
+jKu
 pwi
 awO
 awO

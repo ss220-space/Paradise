@@ -36,6 +36,7 @@
 	R.fields["ma_crim"] = "None"
 	R.fields["ma_crim_d"] = "No major crime convictions."
 	R.fields["notes"] = "No notes."
+	LAZYINITLIST(R.fields["comments"])
 	GLOB.data_core.security += R
 	return R
 

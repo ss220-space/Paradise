@@ -1330,6 +1330,7 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = -28
 	},
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "ake" = (
@@ -2416,6 +2417,16 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/cloning)
+"asG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/rodent,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/security/permabrig)
 "asI" = (
 /turf/simulated/wall/r_wall,
 /area/security/evidence)
@@ -13287,6 +13298,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -14212,6 +14224,7 @@
 	pixel_x = 28
 	},
 /obj/structure/chair,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -16701,6 +16714,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -24130,6 +24144,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "dyk" = (
@@ -24745,6 +24760,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/ants,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "dCH" = (
@@ -32595,6 +32611,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -51204,6 +51221,7 @@
 /area/hallway/secondary/exit)
 "hvw" = (
 /obj/effect/turf_decal/siding/green/corner,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "hvN" = (
@@ -51549,6 +51567,11 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/cyan,
 /area/maintenance/livingcomplex)
+"hyZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "hzd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -71312,6 +71335,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -75228,6 +75252,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop/expedition)
+"ldj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/join_late_prisoner,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "ldl" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -90643,6 +90672,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/carpet,
 /area/security/permabrig)
 "nsu" = (
@@ -96135,6 +96165,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "ojn" = (
@@ -99357,6 +99388,7 @@
 /area/bridge/checkpoint/south)
 "oIG" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 5
 	},
@@ -103847,6 +103879,7 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -108097,6 +108130,7 @@
 	},
 /area/medical/cryo)
 "pVh" = (
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "pVk" = (
@@ -110227,6 +110261,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -112236,6 +112271,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
+"qzO" = (
+/obj/effect/landmark/join_late_prisoner,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "qzQ" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
@@ -125151,6 +125190,7 @@
 	name = "Prisoners's blanket"
 	},
 /obj/effect/decal/cleanable/cobweb2,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "stF" = (
@@ -139194,6 +139234,7 @@
 	},
 /obj/item/screwdriver,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "urJ" = (
@@ -151477,6 +151518,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/carpet,
 /area/security/permabrig)
 "wkj" = (
@@ -163476,6 +163518,7 @@
 /area/maintenance/fpmaint)
 "xWJ" = (
 /obj/structure/chair/sofa/corp,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -176574,7 +176617,7 @@ eam
 uYD
 elg
 iNO
-ssL
+asG
 vLe
 lFS
 cLT
@@ -178900,7 +178943,7 @@ gGc
 dyi
 pia
 eYN
-rnQ
+hyZ
 owH
 uYD
 eIe
@@ -181195,7 +181238,7 @@ jzd
 uOk
 uYD
 oIG
-dyz
+qzO
 vsT
 uYD
 uYD
@@ -181205,7 +181248,7 @@ yiN
 uYD
 uYD
 qzY
-rnQ
+ldj
 ajZ
 uYD
 svU
