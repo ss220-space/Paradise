@@ -14,9 +14,8 @@
 	var/metalUsed = 2
 	var/metal_type = /obj/item/stack/sheet/metal
 
-/obj/structure/girder/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -40, 8, 1)
+/obj/structure/girder/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_SPARKS, -40, 8, 1)
 
 /obj/structure/girder/examine(mob/user)
 	. = ..()

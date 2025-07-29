@@ -9,6 +9,8 @@
 	move_resist = INFINITY
 	anchored = TRUE
 
+/obj/effect/add_debris_element() // They're not hittable, and prevents recursions.
+	return
 
 /obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	return

@@ -21,9 +21,8 @@
 	var/drop_amount = 3
 	var/stacktype = /obj/item/stack/sheet/metal
 
-/obj/structure/barricade/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/debris, DEBRIS_WOOD, -40, 5)
+/obj/structure/barricade/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
