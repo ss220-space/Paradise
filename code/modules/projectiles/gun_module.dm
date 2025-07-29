@@ -1,9 +1,6 @@
-//----------------------------------------------------------
-			//							    \\
-			//         Basic module         \\
-			//							    \\
-			//						   	    \\
-//----------------------------------------------------------
+/**
+ * MARK: Basic module
+ */
 /obj/item/gun_module
 	name = "unknown gun module"
 	desc = "Неизветный модуль для оружия"
@@ -62,12 +59,9 @@
 	return
 
 
-//----------------------------------------------------------
-			//							    \\
-			//       Muzzle modules         \\
-			//							    \\
-			//						   	    \\
-//----------------------------------------------------------
+/**
+ * MARK: Muzzle
+ */
 /obj/item/gun_module/muzzle
 	slot = ATTACHMENT_SLOT_MUZZLE
 
@@ -141,15 +135,9 @@
 	//TODO remove bonus accuracy
 
 
-
-
-
-//----------------------------------------------------------
-			//							    \\
-			//       Rail modules           \\
-			//		  (scopes)				\\
-			//						   	    \\
-//----------------------------------------------------------
+/**
+ * MARK: Rail
+ */
 
 /obj/item/gun_module/rail
 	slot = ATTACHMENT_SLOT_RAIL
@@ -334,15 +322,9 @@
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 
-
-
-//----------------------------------------------------------
-			//							    \\
-			//       Under modules          \\
-			//  (bayonet,light,laser, hand) \\
-			//						   	    \\
-//----------------------------------------------------------
-
+/**
+ * MARK: Under
+ */
 /obj/item/gun_module/under
 	slot = ATTACHMENT_SLOT_UNDER
 	origin_tech = "combat=2;engineering=2"
