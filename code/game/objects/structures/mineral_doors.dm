@@ -246,7 +246,7 @@
 
 /obj/structure/mineral_door/wood/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)
+	AddComponent(/datum/component/debris, DEBRIS_WOOD, -40, 5)
 
 /obj/structure/mineral_door/wood/paperframe
 	name = "Paperframe door"

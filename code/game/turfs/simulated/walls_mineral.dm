@@ -168,6 +168,9 @@
 	hardness = 70
 	explosion_block = 0
 
+/turf/simulated/wall/mineral/wood/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_WOOD, -40, 5)
 
 /turf/simulated/wall/mineral/wood/try_decon(obj/item/I, mob/user, params)
 	if(is_sharp(I) && I.force)

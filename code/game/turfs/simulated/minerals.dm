@@ -54,7 +54,7 @@
 				var/turf/T = get_step(src, dir)
 				if(istype(T, /turf/simulated/mineral/random))
 					Spread(T)
-	AddComponent(/datum/component/debris, DEBRIS_ROCK, -20, 10, 1)
+	AddComponent(/datum/component/debris, DEBRIS_ROCK, -40, 8, 1)
 
 /turf/simulated/mineral/ComponentInitialize()
 	. = ..()

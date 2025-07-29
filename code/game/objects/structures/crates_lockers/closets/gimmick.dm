@@ -13,6 +13,10 @@
 	open_sound_volume = 25
 	close_sound_volume = 50
 
+/obj/structure/closet/cabinet/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_WOOD, -40, 5)
+
 /obj/structure/closet/acloset
 	name = "strange closet"
 	desc = "It looks alien!"

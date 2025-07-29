@@ -282,6 +282,7 @@
 /obj/structure/rack/wooden/Initialize(mapload)
 	. = ..()
 	update_overlays()
+	AddComponent(/datum/component/debris, DEBRIS_WOOD, -40, 5)
 
 /obj/structure/rack/wooden/wrench_act(mob/user, obj/item/I)
 	return

@@ -8,6 +8,9 @@
 	/// What animal type this crate contains
 	var/animal_type
 
+/obj/structure/largecrate/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_WOOD, -40, 5)
 
 /obj/structure/largecrate/update_overlays()
 	. = ..()

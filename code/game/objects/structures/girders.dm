@@ -16,7 +16,7 @@
 
 /obj/structure/girder/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -20, 10)
+	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -40, 8, 1)
 
 /obj/structure/girder/examine(mob/user)
 	. = ..()

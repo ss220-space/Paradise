@@ -23,7 +23,7 @@
 
 /obj/structure/barricade/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)
+	AddComponent(/datum/component/debris, DEBRIS_WOOD, -40, 5)
 
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
