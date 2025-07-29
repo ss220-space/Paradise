@@ -718,10 +718,9 @@
 #include "code\datums\elements\connect_loc.dm"
 #include "code\datums\elements\corrupted_organ.dm"
 #include "code\datums\elements\death_drops.dm"
-#include "code\datums\elements\debris.dm"
-
 #include "code\datums\elements\death_explosion.dm"
 #include "code\datums\elements\death_gases.dm"
+#include "code\datums\elements\debris.dm"
 #include "code\datums\elements\devil_banishment.dm"
 #include "code\datums\elements\devil_regen.dm"
 #include "code\datums\elements\diona_internals.dm"
