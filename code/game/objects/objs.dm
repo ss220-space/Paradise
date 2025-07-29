@@ -52,6 +52,8 @@
 		var/turf/T = loc
 		T.add_blueprints_preround(src)
 
+	add_debris_element()
+
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())

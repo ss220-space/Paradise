@@ -194,20 +194,14 @@
 
 	return spawned
 
-/*
-//
-//	UPLINK ITEMS
-//
-*/
-//Work in Progress, job specific antag tools
-
 //Discounts (dynamically filled above)
 
 /datum/uplink_item/discounts
 	category = "Снаряжение со скидкой"
 
-//Job specific gear
-
+/**
+ * MARK: Job Specific Gear
+ */
 /datum/uplink_item/jobspecific
 	category = "Профессиональные предметы"
 	can_discount = FALSE
@@ -770,8 +764,9 @@
 	cost = 12
 	race = list(SPECIES_GREY)
 
-// DANGEROUS WEAPONS
-
+/**
+ * MARK: Dangerous Weapons
+ */
 /datum/uplink_item/dangerous
 	category = "Очень заметное и опасное оружие"
 
@@ -956,8 +951,9 @@
 	refundable = TRUE
 	can_discount = TRUE
 
-// SUPPORT AND MECHAS
-
+/**
+ * MARK: Support & Mechas
+ */
 /datum/uplink_item/support
 	category = "Поддержка и механизированные экзоскелеты"
 	surplus = 0
@@ -1022,8 +1018,9 @@
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 
-// Ammunition
-
+/**
+ * MARK: Ammunition
+ */
 /datum/uplink_item/ammo
 	category = "Боеприпасы"
 	surplus = 40
@@ -1283,8 +1280,9 @@
 	cost = 4
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// STEALTHY WEAPONS
-
+/**
+ * MARK: Stealthy Weapons
+ */
 /datum/uplink_item/stealthy_weapons
 	category = "Незаметное и тихое оружие"
 
@@ -1425,8 +1423,9 @@
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 7
 
-// GRENADES AND EXPLOSIVES
-
+/**
+ * MARK: Grenades & Explosives
+ */
 /datum/uplink_item/explosives
 	category = "Гранаты и взрывчатка"
 
@@ -1611,8 +1610,9 @@
 	item = /obj/item/storage/box/syndie_kit/emp
 	cost = 10
 
-// STEALTHY TOOLS
-
+/**
+ * MARK: Stealthy Tools
+ */
 /datum/uplink_item/stealthy_tools
 	category = "Предметы для маскировки и незаметной работы"
 
@@ -1754,8 +1754,9 @@
 	item = /obj/item/storage/box/syndie_kit/chameleon_counter
 	cost = 6
 
-// Devices and Tools
-
+/**
+ * MARK: Devices & Tools
+ */
 /datum/uplink_item/device_tools
 	category = "Девайсы и инструменты"
 
@@ -2060,8 +2061,9 @@
 	cost = 28
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
-//Space Suits and Hardsuits
-
+/**
+ * MARK: Space Suits & Hardsuits
+ */
 /datum/uplink_item/suits
 	category = "Скафандры и ИКСы"
 	surplus = 40
@@ -2115,8 +2117,9 @@
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// IMPLANTS
-
+/**
+ * MARK: Implants
+ */
 /datum/uplink_item/implants
 	category = "Импланты"
 
@@ -2201,8 +2204,9 @@
 	cost = 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// Cybernetic Implants
-
+/**
+ * MARK: Cybernetic Implants
+ */
 /datum/uplink_item/cyber_implants
 	category = "Кибернетические импланты"
 	surplus = 0
@@ -2266,8 +2270,9 @@
 	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_TRAITOR)
 
-// POINTLESS BADASSERY
-
+/**
+ * MARK: Pointless Badassery
+ */
 /datum/uplink_item/badass
 	category = "Безделушки"
 	surplus = 0
@@ -2319,8 +2324,9 @@
 	item = /obj/item/syndicate_reverse_card
 	cost = 10
 
-// Bundles and Telecrystals
-
+/**
+ * MARK: Bundles & TC
+ */
 /datum/uplink_item/bundles_TC
 	category = "Наборы и телекристаллы"
 	surplus = 0
@@ -2445,8 +2451,9 @@
 	cost = 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// Contractor
-
+/**
+ * MARK: Contractor
+ */
 /datum/uplink_item/contractor
 	category = "Контрактник"
 	uplinktypes = list(UPLINK_TYPE_ADMIN)

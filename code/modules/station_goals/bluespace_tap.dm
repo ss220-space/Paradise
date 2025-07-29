@@ -218,6 +218,7 @@
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -64
+	plane = BELOW_GAME_PLANE
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
 	use_power = NO_POWER_USE	// power usage is handelled manually

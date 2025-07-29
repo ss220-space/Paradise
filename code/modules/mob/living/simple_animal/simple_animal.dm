@@ -3,7 +3,7 @@
 	icon = 'icons/mob/animal.dmi'
 	health = 20
 	maxHealth = 20
-	gender = MALE //placeholder
+	gender = MALE // Placeholder.
 
 	universal_understand = 1
 	universal_speak = 0
@@ -14,34 +14,41 @@
 	var/icon_living = ""
 	var/icon_dead = ""
 	var/icon_resting = ""
-	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
-	var/flip_on_death = FALSE //Flip the sprite upside down on death. Mostly here for things lacking custom dead sprites.
+	/// We only try to show a gibbing animation if this exists.
+	var/icon_gib = null
+	/// Flip the sprite upside down on death. Mostly here for things lacking custom dead sprites.
+	var/flip_on_death = FALSE
 
 	/// Whether we can apply unconscious effects on this mob (Sleeping, Paralyse etc.)
 	var/allows_unconscious = FALSE
 
+	/// List of phrases randomly spoken (e.g. list("Beep!", "Status update?"))
 	var/list/speak = list()
 	var/speak_chance = 0
-	/// Hearable emotes
+	/// List of audible emotes/sounds (e.g. list("growls", "hisses")). Heard by nearby players.
 	var/list/emote_hear = list()
-	/// Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
+	/// Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps.
 	var/list/emote_see = list()
 	tts_seed = "Kleiner"
-	/// The sound played when talk
+	/// The sound played when talk.
 	var/list/talk_sound = null
 
 	var/turns_per_move = 1
 	var/turns_since_move = 0
-	var/stop_automated_movement = 0 //Use this to temporarely stop random movement or to if you write special movement code for animals.
-	var/wander = 1	// Does the mob wander around when idle?
-	var/stop_automated_movement_when_pulled = 1 //When set to 1 this stops the animal from moving when someone is pulling it.
+	/// Use this to temporarely stop random movement or to if you write special movement code for animals.
+	var/stop_automated_movement = 0
+	/// Does the mob wander around when idle?
+	var/wander = 1
+	/// When set to 1 this stops the animal from moving when someone is pulling it.
+	var/stop_automated_movement_when_pulled = 1
 
-	//Interaction
+	// Interactions
 	var/response_help   = "тычет"
 	var/response_disarm = "толкает"
 	var/response_harm   = "бъёт"
 	var/harm_intent_damage = 3
-	var/force_threshold = 0 //Minimum force required to deal any damage
+	/// Minimum force required to deal any damage.
+	var/force_threshold = 0
 
 
 	/// If the mob can catch fire
@@ -49,26 +56,34 @@
 	/// Damage the mob will take if it is on fire
 	var/fire_damage = 2
 
-	//Healable by medical stacks? Defaults to yes.
+	/// Healable by medical stacks? Defaults to yes.
 	var/healable = 1
 
-	//Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
-	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
-	var/unsuitable_atmos_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
+	/// Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
+	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) // Leaving something at 0 means it's off - has no maximum.
+	/// This damage is taken when atmos doesn't fit all the requirements above.
+	var/unsuitable_atmos_damage = 2
 
-	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
+	/// LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly.
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
-	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
-	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
-	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
-	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
+	/// How much damage this simple animal does to objects, if any.
+	var/obj_damage = 0
+	/// How much armour they ignore, as a flat reduction from the targets armour value.
+	var/armour_penetration = 0
+	/// Damage type of a simple mob's melee attack, should it do damage.
+	var/melee_damage_type = BRUTE
+	/// 1 for full damage , 0 for none , -1 for 1:1 heal from that source
+	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	var/attacktext = "атакует"
 	var/attack_sound = null
-	var/friendly = "утыкается носом в" //If the mob does no damage with it's attack
-	var/environment_smash = ENVIRONMENT_SMASH_NONE //Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
+	/// If the mob does no damage with it's attack
+	var/friendly = "утыкается носом в"
+	/// Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
+	var/environment_smash = ENVIRONMENT_SMASH_NONE
 
-	var/speed = 1 //LETS SEE IF item CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
+	/// Higher speed is slower, negative speed is faster.
+	var/speed = 1 //LETS SEE IF item CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING.
 	var/can_hide = FALSE
 	var/hidden = FALSE
 
@@ -76,30 +91,40 @@
 	var/pass_door_while_hidden = FALSE
 
 	var/obj/item/clothing/accessory/petcollar/pcollar = null
-	var/collar_type //if the mob has collar sprites, define them.
-	var/unique_pet = FALSE // if the mob can be renamed
-	/// Can add collar to mob or not, use the set_can_collar if you want to change this on runtime
+	/// If the mob has collar sprites, define them.
+	var/collar_type
+	/// If the mob can be renamed.
+	var/unique_pet = FALSE
+	/// Can add collar to mob or not, use the set_can_collar if you want to change this on runtime.
 	var/can_collar = FALSE
 
-	//Hot simple_animal baby making vars
+	/// Hot simple_animal baby making vars.
 	var/list/childtype = null
 	var/next_scan_time = 0
-	var/animal_species //Sorry, no spider+corgi buttbabies.
+	/// Sorry, no spider+corgi buttbabies.
+	var/animal_species
 
-	var/buffed = 0 //In the event that you want to have a buffing effect on the mob, but don't want it to stack with other effects, any outside force that applies a buff to a simple mob should at least set this to 1, so we have something to check against
-	var/gold_core_spawnable = NO_SPAWN //If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood
+	/// In the event that you want to have a buffing effect on the mob, but don't want it to stack with other effects, any outside force that applies a buff to a simple mob should at least set this to 1, so we have something to check against.
+	var/buffed = 0
+	/// If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood.
+	var/gold_core_spawnable = NO_SPAWN
 
-	var/mob/living/carbon/human/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
+	/// Holding var for determining who own/controls a sentient simple animal (for sentience potions).
+	var/mob/living/carbon/human/master_commander = null
 
 	var/datum/component/spawner/nest
 
-	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
+	/// Sentience type, for slime potions.
+	var/sentience_type = SENTIENCE_ORGANIC
 
-	var/list/loot = list() //list of things spawned at mob's loc when it dies
-	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	/// List of things spawned at mob's loc when it dies.
+	var/list/loot = list()
+	/// Causes mob to be deleted on death, useful for mobs that spawn lootable corpses.
+	var/del_on_death = 0
 	/// See [/proc/genderize_decode] for more info.
 	var/deathmessage = ""
-	var/death_sound = null //The sound played on death
+	/// The sound played on death.
+	var/death_sound = null
 	var/list/damaged_sound = null
 
 	var/allow_movement_on_non_turfs = FALSE
@@ -119,28 +144,35 @@
 	/// Current delay for the next mob's move/action. Used by SSnpcpool and SSidlenpcpool.
 	var/AI_delay_current
 
-	///Domestication.
+	/// Domestication.
 	var/tame = FALSE
-	///What the mob eats, typically used for taming or animal husbandry.
+	/// What the mob eats, typically used for taming or animal husbandry.
 	var/list/food_type
-	///Starting success chance for taming.
+	/// Starting success chance for taming.
 	var/tame_chance
-	///Added success chance after every failed tame attempt.
+	/// Added success chance after every failed tame attempt.
 	var/bonus_tame_chance
 
-	var/my_z // item don't want to confuse this with client registered_z
-	///What kind of footstep this mob should have. Null if it shouldn't have any.
+	/// Item don't want to confuse this with client registered_z.
+	var/my_z
+	/// What kind of footstep this mob should have. Null if it shouldn't have any.
 	var/footstep_type
 
-	var/AIproc = 0 // determines if the AI loop is activated
-	var/Atkcool = 0 // attack cooldown
-	var/Tempstun = 0 // temporary temperature stuns
-	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
-	var/SStun = 0 // stun variable
+	/// Determines if the AI loop is activated.
+	var/AIproc = 0
+	/// Attack cooldown.
+	var/Atkcool = 0
+	/// Temporary temperature stuns.
+	var/Tempstun = 0
+	/// If a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while.
+	var/Discipline = 0
+	/// Stun variable.
+	var/SStun = 0
 
 	var/list/low_priority_targets = list()
 
-	var/atom/leash // autodust on a big distance
+	/// Autodust on a big distance.
+	var/atom/leash
 	var/leash_radius = 10
 
 /mob/living/simple_animal/Initialize(mapload)

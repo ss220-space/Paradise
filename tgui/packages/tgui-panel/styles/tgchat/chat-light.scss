@@ -1,11 +1,12 @@
-/*  Stolen from the official Paradise. I'm not a fool to set something up with a light theme.
-    If there are those who wish, then it is necessary to include the cultists of Ratvar here
-     and the walkie-talkies that only we have and a few antags. */
+/**
+ * Stolen from the official Paradise. I'm not a fool to set something up with a light theme.
+ * If there are those who wish, then it is necessary to include the cultists of Ratvar here
+ * and the walkie-talkies that only we have and a few antags. - LittleBoobs
+ */
 
 // MARK: GENERAL STUFF
-
 a {
-  color: #0000ff;
+  color: hsl(240, 100%, 50%);
 }
 
 h1,
@@ -14,18 +15,17 @@ h3,
 h4,
 h5,
 h6 {
-  color: #0000ff;
+  color: hsl(240, 100%, 50%);
 }
 
 h1.alert,
 h2.alert {
-  color: #000000;
+  color: hsl(0, 0%, 0%);
 }
 
 // MARK: MOTD
-
 .motd {
-  color: #638500;
+  color: hsl(75, 100%, 26%);
 }
 
 .motd h1,
@@ -34,362 +34,345 @@ h2.alert {
 .motd h4,
 .motd h5,
 .motd h6 {
-  color: #638500;
+  color: hsl(75, 100%, 26%);
 }
 
 .motd a,
 .motd a:link,
 .motd a:active,
 .motd a:hover {
-  color: #638500;
+  color: hsl(75, 100%, 26%);
 }
 
 // MARK: General colors
-
 .looc {
-  color: #6699cc;
+  color: hsl(210, 50%, 60%);
 }
 
 .discordpm {
-  color: #0000ff;
+  color: hsl(240, 100%, 50%);
 }
 
 .debug {
-  color: #6d2f83;
+  color: hsl(284, 47%, 35%);
 }
 
 .deadsay {
-  color: #5c00e6;
+  color: hsl(264, 100%, 45%);
 }
 
 .darkmblue {
-  color: #0000ff;
+  color: hsl(240, 100%, 50%);
 }
 
 // MARK: Admin/Mentor
-
 .mentorhelp {
-  color: #0077bb;
+  color: hsl(202, 100%, 37%);
 }
 
 .mentor_channel {
-  color: #775bff;
-  color: #5e6812;
+  color: hsl(250, 100%, 68%);
+  color: hsl(67, 70%, 24%);
 }
 
 .mentor_channel_admin {
-  color: #a35cff;
-  color: #94a419;
+  color: hsl(266, 100%, 68%);
+  color: hsl(67, 74%, 37%);
 }
 
 .adminhelp {
-  color: #aa0000;
+  color: hsl(0, 100%, 33%);
 }
 
 .adminticket {
-  color: #3e7336;
+  color: hsl(112, 36%, 33%);
 }
 
 .adminticketalt {
-  color: #014c8a;
+  color: hsl(207, 99%, 27%);
 }
 
 .admin_channel {
-  color: #9a04d1;
+  color: hsl(284, 96%, 42%);
 }
 
 .all_admin_ping {
-  color: #12a5f4;
+  color: hsl(201, 91%, 51%);
 }
 
 .dev_channel {
-  color: #126719;
+  color: hsl(125, 70%, 24%);
 }
 
 .dev_channel_admin {
-  color: #26a419;
+  color: hsl(114, 74%, 37%);
 }
 
 .staff_channel {
-  color: #775bff;
+  color: hsl(250, 100%, 68%);
 }
 
 .staff_channel_admin {
-  color: #a35cff;
+  color: hsl(266, 100%, 68%);
 }
 
 // MARK: Radio
-
 .radio {
-  color: #408010;
+  color: hsl(94, 78%, 28%);
 }
 
 .deptradio {
-  color: #993399;
+  color: hsl(300, 50%, 40%);
 }
 
 .comradio {
-  color: #204090;
+  color: hsl(223, 64%, 35%);
 }
 
 .syndradio {
-  color: #6d3f40;
+  color: hsl(359, 27%, 34%);
 }
 
 .dsquadradio {
-  color: #686868;
+  color: hsl(0, 0%, 41%);
 }
 
 .airadio {
-  color: #ff00ff;
+  color: hsl(300, 100%, 50%);
 }
 
 .centradio {
-  color: #5c5c7c;
+  color: hsl(240, 15%, 42%);
 }
 
 .secradio {
-  color: #a30000;
+  color: hsl(0, 100%, 32%);
 }
 
 .engradio {
-  color: #a66300;
+  color: hsl(36, 100%, 33%);
 }
 
 .medradio {
-  color: #009190;
+  color: hsl(180, 100%, 28%);
 }
 
 .sciradio {
-  color: #993399;
+  color: hsl(300, 50%, 40%);
 }
 
 .supradio {
-  color: #7f6539;
+  color: hsl(38, 38%, 36%);
 }
 
 .srvradio {
-  color: #80a000;
+  color: hsl(72, 100%, 31%);
 }
 
 .proradio {
-  color: #e3027a;
+  color: hsl(328, 98%, 45%);
 }
 
 // MARK: Alerts
-
 .alert {
-  color: #ff0000;
+  color: hsl(0, 100%, 50%);
 }
 
 h1.alert,
 h2.alert {
-  color: #000000;
+  color: hsl(0, 0%, 0%);
 }
 
 .ghostalert {
-  color: #5c00e6;
+  color: hsl(264, 100%, 45%);
 }
 
 .warning {
-  color: #ff0000;
+  color: hsl(0, 100%, 50%);
 }
 
 .boldwarning {
-  color: #ff0000;
+  color: hsl(0, 100%, 50%);
 }
 
 .danger {
-  color: #ff0000;
+  color: hsl(0, 100%, 50%);
 }
 
 .userdanger {
-  color: #ff0000;
+  color: hsl(0, 100%, 50%);
 }
 
 .notice {
-  color: #000099;
+  color: hsl(240, 100%, 30%);
 }
 
 .boldnotice {
-  color: #000099;
+  color: hsl(240, 100%, 30%);
 }
 
 .subtle {
-  color: #000099;
+  color: hsl(240, 100%, 30%);
   font-size: 85%;
   font-style: italic;
 }
 
 // MARK: Announcements
-
 .announcement h1,
 .announcement h2 {
-  color: #000;
+  color: hsl(0, 0%, 0%);
 }
 
 .announcement.sec h1 {
-  color: #f00;
+  color: #ff0000;
 }
 
 .boldannounceic {
-  color: #ff0000;
+  color: hsl(0, 100%, 50%);
 }
 
 .boldannounceooc {
-  color: #ff0000;
+  color: hsl(0, 100%, 50%);
 }
 
 .pr_announce {
-  color: #228b22;
+  color: hsl(120, 61%, 34%);
 }
 
 .greenannounce {
-  color: #00ff00;
+  color: hsl(120, 100%, 50%);
 }
 
 // MARK: Antagonist
-
 .alien {
-  color: #543354;
+  color: hsl(300, 24%, 26%);
 }
 
 .terrorspider {
-  color: #320e32;
+  color: hsl(300, 56%, 13%);
 }
 
 .dantalion {
-  color: #6a2148;
+  color: hsl(328, 53%, 27%);
 }
 
 .revennotice {
-  color: #1d2953;
+  color: hsl(227, 48%, 22%);
 }
 
 .revenbignotice {
-  color: #1d2953;
+  color: hsl(227, 48%, 22%);
 }
 
 .changeling {
-  color: #800080;
+  color: hsl(300, 100%, 25%);
 }
 
 .cultspeech {
-  color: #7f0000;
+  color: hsl(0, 100%, 25%);
 }
 
 .cultitalic {
-  color: #960000;
+  color: hsl(0, 100%, 29%);
 }
 
 .cultlarge {
-  color: #960000;
+  color: hsl(0, 100%, 29%);
 }
 
 .narsie {
-  color: #960000;
+  color: hsl(0, 100%, 29%);
 }
 
 .narsiesmall {
-  color: #960000;
+  color: hsl(0, 100%, 29%);
 }
 
 // MARK: Other colors
-
 .rose {
-  color: #ff5050;
+  color: hsl(0, 100%, 66%);
 }
 
 .interface {
-  color: #330033;
+  color: hsl(300, 100%, 10%);
 }
 
 .purple {
-  color: #5e2d79;
+  color: hsl(279, 46%, 33%);
 }
 
 .orange {
-  color: #ffa500;
+  color: hsl(39, 100%, 50%);
 }
 
 .healthscan_oxy {
-  color: #0074bd;
+  color: hsl(203, 100%, 37%);
 }
 
 .specialnotice {
-  color: #36525e;
+  color: hsl(198, 27%, 29%);
 }
 
 .whisper {
-  color: #333333;
+  color: hsl(0, 0%, 20%);
 }
 
-/* Syndicate codewords */
-
+// MARK: Syndicate codewords
 span.body .codephrases {
-  color: #0000ff;
+  color: hsl(240, 100%, 50%);
 }
 
 span.body .coderesponses {
-  color: #ff0000;
+  color: hsl(0, 100%, 50%);
 }
 
-// MARK: GASES
+// MARK: Gases
 .oxygen {
-  color: #006adb;
+  color: hsl(211, 100%, 43%);
 }
 
 .nitrogen {
-  color: #d00a06;
+  color: hsl(1, 94%, 42%);
 }
 
 .carbon_dioxide {
-  color: #1f1f1f;
+  color: hsl(0, 0%, 12%);
 }
 
 .plasma {
-  color: #853c00;
+  color: hsl(27, 100%, 26%);
 }
 
 .sleeping_agent {
-  color: #e82f2c;
+  color: hsl(1, 80%, 54%);
 }
 
 .agent_b {
-  color: #004d4d;
+  color: hsl(180, 100%, 15%);
 }
 
 // MARK: Boxed messages
-
 .boxed_message {
-  background: #f2f7ff;
-  border-color: #10307080;
+  background: hsl(217, 100%, 97%);
+  border-color: hsla(220, 75%, 25%, 0.502);
 }
 
 .boxed_message.red_border {
-  background: #fff2f2;
-  border-color: #ff000080;
+  background: hsl(0, 100%, 97%);
+  border-color: hsla(0, 100%, 50%, 0.502);
 }
 
 .boxed_message.green_border {
-  background: #f2fff7;
-  border-color: #00a80080;
+  background: hsl(143, 100%, 97%);
+  border-color: hsla(120, 100%, 33%, 0.502);
 }
 
 .boxed_message.purple_border {
-  background: #f7f2ff;
-  border-color: #5500ff80;
+  background: hsl(263, 100%, 97%);
+  border-color: hsla(260, 100%, 50%, 0.502);
 }
 
 .boxed_message.notice_border {
-  background: #f2f7ff;
-  border-color: #0040ff80;
-}
-
-.blue {
-  color: #0077bb;
-}
-
-.yellow {
-  color: #ffff00;
+  background: hsl(217, 100%, 97%);
+  border-color: hsla(225, 100%, 50%, 0.502);
 }

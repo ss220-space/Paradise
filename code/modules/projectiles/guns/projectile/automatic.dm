@@ -125,8 +125,8 @@
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
-	name = "security auto rifle"
-	desc = "An outdated personal defense weapon utilized by law enforcement. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
+	name = "WT-550 PDW"
+	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
