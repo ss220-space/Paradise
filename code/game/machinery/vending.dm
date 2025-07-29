@@ -2252,6 +2252,56 @@
 	icon_state = "security_voucher"
 	w_class = WEIGHT_CLASS_SMALL
 
+
+/obj/machinery/vending/gun_mods
+	name = "ModTech"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат ModTech",
+		GENITIVE = "торгового автомата ModTech",
+		DATIVE = "торговому автомату ModTech",
+		ACCUSATIVE = "торговый автомат ModTech",
+		INSTRUMENTAL = "торговым автоматом ModTech",
+		PREPOSITIONAL = "торговом автомате ModTech"
+	)
+	desc = "Раздатчик модулей для оружия службы безопасности."
+
+	slogan_list = list(
+		"Улучши свое оружие!",
+		"Купи глушитель, будь на стиле!",
+		"Различные прицелы на любой вкус!",
+		"Купи глушитель, соблюдай тишину.",
+		"Почему твой ствол не улучшен?!"
+	)
+
+	icon_state = "sectraining_off"
+	panel_overlay = "sec_panel"
+	screen_overlay = "sec"
+	lightmask_overlay = "sec_lightmask"
+	broken_overlay = "sec_broken"
+	broken_lightmask_overlay = "sectraining_broken_lightmask"
+	deny_overlay = "sec_deny"
+
+	req_access = list(ACCESS_SECURITY)
+	products = list(
+		/obj/item/gun_module/muzzle_flash_supressor = 3,
+		/obj/item/gun_module/scope/collimator = 3,
+		/obj/item/gun_module/scope/x4 = 2,
+		/obj/item/gun_module/scope/x8 = 1,
+	)
+	contraband = list(
+		/obj/item/gun_module/supressor = 2,
+		/obj/item/gun_module/scope/x16 = 1
+	)
+	prices = list(
+		/obj/item/gun_module/muzzle_flash_supressor = 299,
+		/obj/item/gun_module/scope/collimator = 399,
+		/obj/item/gun_module/scope/x4 = 499,
+		/obj/item/gun_module/scope/x8 = 999,
+		/obj/item/gun_module/supressor = 399,
+		/obj/item/gun_module/scope/x16 = 1999
+	)
+	refill_canister = /obj/item/vending_refill/security
+
 /obj/machinery/vending/hydronutrients
 	name = "NutriMax"
 	ru_names = list(

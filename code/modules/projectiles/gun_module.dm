@@ -53,7 +53,7 @@
 	return TRUE
 
 /obj/item/gun_module/proc/create_overlay()
-	return mutable_appearance(icon, overlay_state, layer = FLOAT_LAYER + 0.1)
+	return mutable_appearance(icon, overlay_state, layer = FLOAT_LAYER - 0.2)
 
 /obj/item/gun_module/proc/on_attach(obj/item/gun/target_gun, mob/user)
 	return
