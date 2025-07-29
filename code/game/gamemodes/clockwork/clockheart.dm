@@ -52,20 +52,12 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 	if(curse_dial)
 		. += "[icon_state]_dialcurse"
-	else
-		. -= "[icon_state]_dialcurse"
 	if(curse_upper)
 		. += "[icon_state]_curse_upper"
-	else
-		. -= "[icon_state]_curse_upper"
-
 	if(curse_lower)
 		. += "[icon_state]_curse_lower"
 	if(cur_enchant)
 		.+= "heart_overlay_[cur_enchant]"
-	else
-		if("heart_overlay_[cur_enchant]" in overlays && !cur_enchant)
-			remove_persistent_overlay("heart_overlay_[cur_enchant]")
 
 /obj/structure/clockwork/functional/heart/proc/select_pulse()
 	switch(cur_enchant)
