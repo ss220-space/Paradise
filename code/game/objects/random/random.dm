@@ -60,9 +60,8 @@
 	icon_state = "cell"
 
 /obj/random/powercell/item_to_spawn()
-	return pick(prob(10);/obj/item/stock_parts/cell/crap,\
-				prob(40);/obj/item/stock_parts/cell,\
-				prob(40);/obj/item/stock_parts/cell/high,\
+	return pick(prob(45);/obj/item/stock_parts/cell,\
+				prob(45);/obj/item/stock_parts/cell/high,\
 				prob(9);/obj/item/stock_parts/cell/super,\
 				prob(1);/obj/item/stock_parts/cell/hyper)
 
