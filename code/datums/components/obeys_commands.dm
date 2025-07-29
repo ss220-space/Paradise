@@ -97,7 +97,7 @@
 	if(!(user in source.ai_controller?.blackboard[BB_FRIENDS_LIST]))
 		return
 
-	examine_list += span_notice("[genderize_ru(source.gender, "Его", "Её", "Его", "Их")] seem[source.p_s()] happy to see you!")
+	examine_list += span_notice("[genderize_ru(source.gender, "Его", "Её", "Его", "Их")] похоже рад[genderize_ru(source.gender, "", "а", "о", "ы")] вас видеть!")
 
 /*
 /datum/component/obeys_commands/proc/on_key_pressed(mob/living/friend)

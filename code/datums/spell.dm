@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	to_chat(user, span_warning("<b>[user.ranged_ability.name]</b> has been disabled."))
 	user.ranged_ability.remove_ranged_ability(user)
 	return TRUE //TRUE for failed, FALSE for passed.
-	
+
 
 /datum/click_intercept/proc_holder
 	var/obj/effect/proc_holder/spell
@@ -785,6 +785,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 // Note: Destroy() calls Remove(), Remove() calls remove_mousepointer() if our spell is active.
 /obj/effect/proc_holder/spell/pointed/remove_mousepointer(client/on_who, refund_cooldown = TRUE)
 	. = ..()
+	if(!on_who)
+		return
+
 	on_deactivation(on_who.eye, refund_cooldown = refund_cooldown)
 
 

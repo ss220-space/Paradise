@@ -69,6 +69,7 @@
 /datum/reagent/heretic_rust
 	name = "Жуткая Ржавчина"
 	description = "Вязкая, густая коричневая жидкость."
+	id = "heretic_rust"
 	color = COLOR_CARGO_BROWN // Rust color
 	taste_description = "гнилая медь"
 	penetrates_skin = NONE

@@ -141,27 +141,6 @@
 	)
 
 
-/obj/item/clothing/suit/hooded/cultrobes/void/equipped(mob/user, slot)
-	. = ..()
-	RegisterSignal(user, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(hide_item), override = TRUE)
-	RegisterSignal(user, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(show_item), override = TRUE)
-
-
-/obj/item/clothing/suit/hooded/cultrobes/void/dropped(mob/user)
-	. = ..()
-	UnregisterSignal(user, list(COMSIG_MOB_UNEQUIPPED_ITEM, COMSIG_MOB_EQUIPPED_ITEM))
-
-
-/obj/item/clothing/suit/hooded/cultrobes/void/proc/hide_item(datum/source, obj/item/item, slot)
-	SIGNAL_HANDLER
-	item.add_traits(list(TRAIT_NO_STRIP, TRAIT_NO_WORN_ICON, TRAIT_EXAMINE_SKIP), UID())
-
-
-/obj/item/clothing/suit/hooded/cultrobes/void/proc/show_item(datum/source, obj/item/item, slot)
-	SIGNAL_HANDLER
-	item.remove_traits(list(TRAIT_NO_STRIP, TRAIT_NO_WORN_ICON, TRAIT_EXAMINE_SKIP), UID())
-
-
 /obj/item/clothing/suit/hooded/cultrobes/void/examine(mob/user)
 	. = ..()
 	if(!isheretic(user))
@@ -171,14 +150,25 @@
 	. += span_notice("Позволяет использовать еретические заклинания, пока капюшон опущен..")
 
 
-/obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
+/obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
+	. = ..()
 	make_invisible()
-	return ..()
+
+
+/obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
+	. = ..()
+	if(!.)
+		return
+
+	make_invisible()
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void/EngageHood()
+	. = ..()
+	if(!.)
+		return
+
 	make_visible()
-	return ..()
 
 
 /// Makes our cloak "invisible". Not the wearer, the cloak itself.
@@ -186,12 +176,14 @@
 	if(HAS_TRAIT_FROM(src, TRAIT_EXAMINE_SKIP, UID()))
 		return
 
-	add_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), UID())
+	add_traits(list(TRAIT_NO_STRIP, TRAIT_NO_WORN_ICON, TRAIT_EXAMINE_SKIP), UID())
 	RemoveElement(/datum/element/heretic_focus)
 
 	if(!isliving(loc))
 		return
 
+	var/mob/living/owner = loc
+	owner.update_inv_wear_suit()
 	REMOVE_TRAIT(loc, TRAIT_RESIST_COLD, UID())
 	loc.balloon_alert(loc, "плащ скрыт")
 	loc.visible_message(span_notice("Свет искажается вокруг [declent_ru(GENITIVE)]!"))
@@ -202,12 +194,14 @@
 	if(!HAS_TRAIT_FROM(src, TRAIT_EXAMINE_SKIP, UID()))
 		return
 
-	remove_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), UID())
+	remove_traits(list(TRAIT_NO_STRIP, TRAIT_NO_WORN_ICON, TRAIT_EXAMINE_SKIP), UID())
 	AddElement(/datum/element/heretic_focus)
 
 	if(!isliving(loc))
 		return
 
+	var/mob/living/owner = loc
+	owner.update_inv_wear_suit()
 	ADD_TRAIT(loc, TRAIT_RESIST_COLD, UID())
 	loc.balloon_alert(loc, "плащ виден")
 	loc.visible_message(span_notice("Калейдоскоп цветов обрушивается на [loc.declent_ru(NOMINATIVE)], вырисовывая ранее скрытый плащ!"))

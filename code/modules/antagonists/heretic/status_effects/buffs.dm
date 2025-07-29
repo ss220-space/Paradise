@@ -39,7 +39,7 @@
 /datum/action/cancel_crucible_soul
 	name = "Вернуться"
 	desc = "Используйте, чтобы закончить эффект дарованного Мансусом благословения раньше времени."
-	button_icon = 'icons/obj/eldritch.dmi'
+	icon_icon = 'icons/obj/eldritch.dmi'
 	button_icon_state = "crucible_soul"
 
 

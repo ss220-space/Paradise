@@ -466,6 +466,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 // maybe nar'sie is considered to be too "mainstream" of a god to worship in the heretic community.
 /datum/reagent/eldritch
 	name = "Сущность ужаса"
+	id = "eldritch"
 	description = "Странная жидкость, бросающая вызов законам физики. \
 					Она исцеляет, но только тех, кто может видеть дальше границ этой хрупкой реальности. \
 					Невероятно вредна для людей с ограниченным мышлением. Эта жидкость очень быстро метаболизируется."

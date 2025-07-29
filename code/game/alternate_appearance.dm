@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 	if(alternate_appearances && alternate_appearances[key])
 		return
-	
+
 	if(!ispath(type, /datum/atom_hud/alternate_appearance))
 		CRASH("Invalid type passed in: [type]")
 
@@ -101,24 +101,24 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		return
 
 	// If that failed, probably shouldn't be seeing it at all, so nuke it
-	remove_from_hud(source, absolute = TRUE)
+	remove_from_hud(source)
 
 
-/datum/atom_hud/alternate_appearance/add_hud_to(atom/A, only_once=FALSE, image/I)
+/datum/atom_hud/alternate_appearance/add_hud_to(atom/atom, only_once=FALSE, image/I)
 	. = ..()
-	if(!A)
+	if(!atom)
 		return
 
-	LAZYINITLIST(A.alternate_appearances)
-	A.alternate_appearances[appearance_key] = src
+	LAZYINITLIST(atom.alternate_appearances)
+	atom.alternate_appearances[appearance_key] = src
 
 
-/datum/atom_hud/alternate_appearance/remove_hud_from(atom/A)
+/datum/atom_hud/alternate_appearance/remove_hud_from(atom/atom)
 	. = ..()
-	if(!A)
+	if(!atom)
 		return
 
-	LAZYREMOVE(A.alternate_appearances, appearance_key)
+	LAZYREMOVE(atom.alternate_appearances, appearance_key)
 
 
 /datum/atom_hud/alternate_appearance/proc/copy_overlays(atom/other, cut_old)
@@ -187,21 +187,25 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	))
 
 
-/datum/atom_hud/alternate_appearance/basic/add_to_hud(atom/A)
-	if(!A)
+/datum/atom_hud/alternate_appearance/basic/add_to_hud(atom/atom)
+	if(!atom)
 		return
-		
-	LAZYINITLIST(A?.hud_list)
-	A.hud_list[appearance_key] = image
+
+	LAZYINITLIST(atom?.hud_list)
+	atom.hud_list[appearance_key] = image
 	. = ..()
 
 
-/datum/atom_hud/alternate_appearance/basic/remove_hud_from(atom/A)
+/datum/atom_hud/alternate_appearance/basic/remove_from_hud(atom/atom)
+	if(!atom)
+		return
+
 	. = ..()
-	LAZYREMOVE(A?.hud_list, appearance_key)
-	//A.set_hud_image_inactive(appearance_key)
-	if(. && !QDELETED(src))
-		qdel(src)
+	LAZYREMOVE(atom?.hud_list, appearance_key)
+	if(!. || QDELETED(src))
+		return
+
+	qdel(src)
 
 
 /datum/atom_hud/alternate_appearance/basic/copy_overlays(atom/other, cut_old)

@@ -962,7 +962,7 @@
 	. = ..()
 	explanation_text = "Узнайте как минимум о [target_amount] еретических знаниях. Вы начинаете с уже изученными знаниями:\n"
 	for(var/datum/heretic_knowledge/knowledge as anything in GLOB.heretic_start_knowledge)
-		explanation_text += "[knowledge.name][knowledge != GLOB.heretic_start_knowledge[GLOB.heretic_start_knowledge.len] ? ", " : ""]\n"
+		explanation_text += "[knowledge.name][knowledge != GLOB.heretic_start_knowledge[GLOB.heretic_start_knowledge.len] ? ", " : "."]\n"
 
 
 /datum/objective/heretic_research/check_completion()

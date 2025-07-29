@@ -77,6 +77,7 @@
 		return
 
 	var/mob/living/simple_animal/animal = caster
+	animal.toggle_ai(AI_OFF)
 	old_shouldwakeup = animal.shouldwakeup
 	animal.shouldwakeup = FALSE
 
