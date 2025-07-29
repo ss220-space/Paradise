@@ -144,6 +144,7 @@
 	if(our_turf && include_turf) //At this point, only the turf is left, provided it exists.
 		. += our_turf
 
+
 ///Step-towards method of determining whether one atom can see another. Similar to viewers()
 ///note: this is a line of sight algorithm, view() does not do any sort of raycasting and cannot be emulated by it accurately
 /proc/can_see(atom/source, atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
@@ -171,3 +172,7 @@
 		steps++
 
 	return TRUE
+
+///Adds the debris element for projectile impacts
+/atom/proc/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)

@@ -79,6 +79,14 @@
 	index_name = "skirt, tactical"
 	path = /obj/item/clothing/under/syndicate/tacticool/skirt
 
+/datum/gear/uniform/suit/blackops_coverall
+	index_name = "blackops coverall"
+	path = /obj/item/clothing/under/syndicate/blackops_civ
+
+/datum/gear/uniform/suit/evecutive_grey
+	index_name = "executive suit, grey"
+	path = /obj/item/clothing/under/syndicate/sniper_civ
+
 /datum/gear/uniform/skirt/dyeable
 	index_name = "dyeable skirt, color"
 	path = /obj/item/clothing/under/colour/skirt

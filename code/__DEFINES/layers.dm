@@ -21,7 +21,8 @@
 #define FLOOR_PLANE -10
 
 #define WALL_PLANE -9
-#define GAME_PLANE -8
+#define BELOW_GAME_PLANE -8
+#define GAME_PLANE -7
 
 #define ABOVE_GAME_PLANE -3
 ///Slightly above the game plane but does not catch mouse clicks. Useful for certain visuals that should be clicked through, like seethrough trees

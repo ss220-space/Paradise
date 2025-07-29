@@ -12,6 +12,9 @@
 	thermal_conductivity = 0.05
 	heat_capacity = 0
 
+/turf/simulated/wall/shuttle/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_SPARKS, -40, 8, 1)
+
 /turf/simulated/wall/shuttle/dismantle_wall(devastated = 0, explode = 0)
 	return
 

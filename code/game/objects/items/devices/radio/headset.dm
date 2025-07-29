@@ -292,6 +292,28 @@
 	item_state = "sec_headset_alt"
 	ks2type = /obj/item/encryptionkey/headset_medsec
 
+/obj/item/radio/headset/prisoner
+	name = "prisoner radio headset"
+	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
+			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
+			Используется заключенными."
+	ru_names = list(
+		NOMINATIVE = "радиочастотная гарнитура заключенных",
+		GENITIVE = "радиочастотную гарнитуру заключенных",
+		DATIVE = "радиочастотной гарнитуры заключенных",
+		ACCUSATIVE = "радиочастотную гарнитуру заключенных",
+		INSTRUMENTAL = "радиочастотной гарнитурой заключенных",
+		PREPOSITIONAL = "радиочастотной гарнитуре заключенных"
+	)
+	icon_state = "prisoner_headset"
+	item_state = "prisoner_headset"
+	ks2type = /obj/item/encryptionkey/prisoner
+	freqlock = TRUE
+
+/obj/item/radio/headset/prisoner/New()
+	. = ..()
+	set_frequency(PRS_FREQ)
+
 /obj/item/radio/headset/headset_iaa
 	name = "internal affairs radio headset"
 	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
