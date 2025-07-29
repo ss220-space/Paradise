@@ -117,7 +117,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 				update_icon(UPDATE_OVERLAYS)
 				give_blessing(user)
 				return
-	if(istype(I, /obj/item/part_lower))
+	if(istype(I, /obj/item/part_upper/lower))
 		if(curse_lower)
 			if(do_after(user, 5 SECONDS, src))
 				curse_lower = FALSE
@@ -213,7 +213,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	var/third_part_loc = get_safe_random_station_turf()
 	new /obj/structure/part_dial(first_part_loc)
 	new /obj/item/part_upper(second_part_loc)
-	new /obj/item/part_lower(third_part_loc)
+	new /obj/item/part_upper/lower(third_part_loc)
 
 /obj/structure/heart_filler
 	name = "The heart of Ratvar"
@@ -361,59 +361,9 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 /obj/item/part_upper/proc/pulse()
 	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
 
-/obj/item/part_lower
-	name = "brass component"
-	ru_names = list(
-		NOMINATIVE = "латунная деталь",
-		GENITIVE = "латунной детали",
-		DATIVE = "латунной детали",
-		ACCUSATIVE = "латунную деталь",
-		INSTRUMENTAL = "латунной деталью",
-		PREPOSITIONAL = "латунной детали",
-	)
-	desc = "Странная деталь из латуни."
-	icon ='icons/obj/clockwork.dmi'
+/obj/item/part_upper/lower
 	icon_state = "ratvarpart3"
 	item_state = "ratvarpart3"
-	resistance_flags = INDESTRUCTIBLE
-	mouse_drag_pointer = MOUSE_DRAG_POINTER
-	w_class = WEIGHT_CLASS_BULKY
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-
-/obj/item/part_lower/CtrlClick(mob/user)
-	if(isclocker(user))
-		. = ..()
-		return
-	if(!(user in orange(1, src)))
-		return
-	if(ishuman(user))
-		to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
-		var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-		limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-		new /obj/effect/decal/cleanable/ash(user.loc)
-	else
-		to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
-
-/obj/item/part_lower/attack_hand(mob/user, pickupfireoverride)
-	if(isclocker(user))
-		. = ..()
-		return
-	if(!(user in orange(1, src)))
-		return
-	if(!ishuman(user))
-		return
-	to_chat(user, span_userdanger("Вы попытались поднять деталь, но ваша рука обратилась в пепел!"))
-	var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-	new /obj/effect/decal/cleanable/ash(user.loc)
-
-/obj/item/part_lower/New()
-	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
-	. = ..()
-
-/obj/item/part_lower/proc/pulse()
-	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
 
 /obj/effect/temp_visual/pulse
 	icon = 'icons/obj/clockheart.dmi'
