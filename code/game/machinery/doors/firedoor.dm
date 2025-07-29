@@ -94,7 +94,10 @@
 	if(stat & (NOPOWER|BROKEN))
 		set_light_on(FALSE)
 		return
-	set_light_on(active_alarm)
+	if(active_alarm)
+		set_light(1, 0.5, COLOR_RED_LIGHT)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 
 
 /obj/machinery/door/firedoor/extinguish_light(force = FALSE)
