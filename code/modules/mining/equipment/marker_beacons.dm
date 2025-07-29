@@ -80,6 +80,9 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	desc = "Устройство освещения пути. Надёжно закреплено и светится ровным светом."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "marker"
+	glow_icon = 'icons/obj/lighting.dmi'
+	glow_icon_state = "marker"
+	exposure_icon_state = "circle"
 	layer = BELOW_OPEN_DOOR_LAYER
 	armor = list("melee" = 50, "bullet" = 75, "laser" = 75, "energy" = 75, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 25, "acid" = 0)
 	max_integrity = 50
@@ -111,12 +114,13 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	while(!picked_color || !GLOB.marker_beacon_colors[picked_color])
 		picked_color = pick(GLOB.marker_beacon_colors)
 	icon_state = "[initial(icon_state)][lowertext(picked_color)]-on"
+	glow_icon_state = "[initial(icon_state)][lowertext(picked_color)]-on"
 
 
 /obj/structure/marker_beacon/proc/update_state()
 	update_icon(UPDATE_ICON_STATE)
 	set_light(light_range, light_power, GLOB.marker_beacon_colors[picked_color])
-
+	update_bloom()
 
 /obj/structure/marker_beacon/attack_hand(mob/living/user)
 	. = ..()

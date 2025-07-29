@@ -342,6 +342,7 @@
 
 	remove_filter("blur_exposure")
 	if(!istype(mymob) || !(mymob?.client?.prefs?.light & LIGHT_NEW_LIGHTING))
+		alpha = 0
 		return
 	var/enabled = mymob?.client?.prefs?.light & LIGHT_EXPOSURE
 
@@ -389,25 +390,3 @@
 
 	add_filter("add_lamps_to_selfglow", 1, layering_filter(render_source = LIGHTING_LAMPS_RENDER_TARGET, blend_mode = BLEND_OVERLAY))
 	add_filter("lamps_selfglow_bloom", 1, bloom_filter(threshold = "#777777", size = bloomsize, offset = bloomoffset, alpha = 80))
-
-/atom/movable/screen/plane_master/lamps_glare
-	name = "lamps glare plane master"
-	plane = LIGHTING_LAMPS_GLARE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/plane_master/lamps_glare/show_to(mob/mymob)
-	. = ..()
-	if(!.)
-		return
-		
-	remove_filter("add_lamps_to_glare")
-	remove_filter("lamps_glare")
-
-	if(!istype(mymob) || !(mymob?.client?.prefs?.light & LIGHT_NEW_LIGHTING))
-		return
-
-	var/enabled = mymob?.client?.prefs?.light & LIGHT_GLARE
-
-	if(enabled)
-		add_filter("add_lamps_to_glare", 1, layering_filter(render_source = LIGHTING_LAMPS_RENDER_TARGET, blend_mode = BLEND_OVERLAY))
-		add_filter("lamps_glare", 1, radial_blur_filter(size = 0.035))

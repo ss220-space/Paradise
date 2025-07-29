@@ -38,7 +38,6 @@
 ///Normal 1 per turf dynamic lighting underlays
 #define LIGHTING_PLANE 10
 
-#define LIGHTING_LAMPS_GLARE 11 // Light glare (optional setting)
 #define LIGHTING_EXPOSURE_PLANE 12 // Light sources "cones"
 #define LIGHTING_LAMPS_SELFGLOW 14 // Light sources glow (lamps, doors overlay, etc.)
 #define LIGHTING_LAMPS_PLANE 14 // Light sources themselves (lamps, screens, etc.)
@@ -255,5 +254,3 @@
 #define ABOVE_HUD_LAYER 32
 
 #define SPLASHSCREEN_LAYER 33
-
-

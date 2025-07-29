@@ -48,5 +48,4 @@
 	"workbench.editorAssociations": {
 		"*.dmi": "dmiEditor.dmiEditor"
 	},
-	"ultimateHover.fileHyperlinks": true,
 }

@@ -329,6 +329,7 @@
 /obj/machinery/teleport
 	name = "teleport"
 	icon = 'icons/obj/stationobjs.dmi'
+	glow_icon_state = 'icons/obj/stationobjs.dmi'
 	density = TRUE
 	anchored = TRUE
 
@@ -356,6 +357,7 @@
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
+	update_bloom()
 
 /obj/machinery/teleport/hub/upgraded/New()
 	..()
@@ -446,8 +448,12 @@
 		icon_state = "tele-o"
 	else if(power_station && power_station.engaged)
 		icon_state = "tele1"
+		exposure_icon_state = "circle"
+		glow_icon_state = "tele1_lightmask"
 	else
 		icon_state = "tele0"
+		exposure_icon_state = ""
+		glow_icon_state = ""
 
 
 /obj/machinery/teleport/hub/update_overlays()
@@ -470,6 +476,7 @@
 		set_light_on(TRUE)
 	else
 		set_light_on(FALSE)
+	update_bloom()
 
 
 /obj/machinery/teleport/perma
@@ -488,7 +495,7 @@
 /obj/machinery/teleport/perma/Initialize(mapload)
 	. = ..()
 	update_lighting()
-
+	update_bloom()
 
 /obj/machinery/teleport/perma/RefreshParts()
 	for(var/obj/item/circuitboard/teleporter_perma/C in component_parts)
@@ -548,9 +555,12 @@
 		icon_state = "tele-o"
 	else if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)))
 		icon_state = "tele1"
+		exposure_icon_state = "circle"
+		glow_icon_state = "tele1_lightmask"
 	else
 		icon_state = "tele0"
-
+		exposure_icon_state = ""
+		glow_icon_state = ""
 
 /obj/machinery/teleport/perma/update_overlays()
 	. = ..()
@@ -565,7 +575,7 @@
 		set_light(2, 1, "#f1f1bd", l_on = TRUE)
 	else
 		set_light_on(FALSE)
-
+	update_bloom()
 
 /obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

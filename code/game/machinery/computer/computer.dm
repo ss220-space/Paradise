@@ -2,6 +2,7 @@
 	name = "computer"
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "computer"
+	exposure_icon_state = "circle"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -140,6 +141,7 @@
 		set_light(l_range = light_range_on, l_power = light_power_on, l_color = screen_emissive_color, l_on = TRUE)
 	if(.)
 		update_icon()
+	update_bloom()
 
 
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

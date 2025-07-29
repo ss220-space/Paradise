@@ -18,6 +18,7 @@
 
 /obj/machinery/holosign/update_icon_state()
 	icon_state = lit ? on_icon : "sign_off"
+	exposure_icon_state = lit ? "circle" : ""
 
 /obj/machinery/holosign/power_change(forced = FALSE)
 	if(!..())
@@ -25,7 +26,8 @@
 	if(stat & NOPOWER)
 		lit = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
+	update_bloom()
+	
 /obj/machinery/holosign/surgery
 	name = "surgery holosign"
 	desc = "Small wall-mounted holographic projector. This one reads SURGERY."

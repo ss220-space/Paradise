@@ -603,23 +603,22 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Mute End Of Round Sounds:</b> <a href='byond://?_src_=prefs;preference=mute_end_of_round'><b>[(sound & SOUND_MUTE_END_OF_ROUND) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Диапазон обзора:</b> <a href='byond://?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Мигающие окна:</b> <a href='byond://?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Да" : "Нет"]</a><br>"
-			dat += "<b>Lighting settings:</b><br>"
-			dat += "<b> - New Lighting:</b> <a href='byond://?_src_=prefs;preference=enablelighting'>[(light & LIGHT_NEW_LIGHTING) ? "Yes" : "No"]</a><br>"
-			dat += "<b> - Glow Level:</b> <a href='byond://?_src_=prefs;preference=glowlevel'>"
+			dat += "<h3>Настройки освещения:</h3>"
+			dat += "<b> - Новое освещение:</b> <a href='byond://?_src_=prefs;preference=enablelighting'>[(light & LIGHT_NEW_LIGHTING) ? "Да" : "Нет"]</a><br>"
+			dat += "<b> - Свечение:</b> <a href='byond://?_src_=prefs;preference=glowlevel'>"
 			switch(glowlevel)
 				if(GLOW_LOW)
-					dat += "Low"
+					dat += "Слабое"
 				if(GLOW_MED)
-					dat += "Medium"
+					dat += "Среднее"
 				if(GLOW_HIGH)
-					dat += "High"
+					dat += "Сильное"
 				if(GLOW_DISABLE)
-					dat += "Disabled"
+					dat += "Отключено"
 				else
-					dat += "Medium"
+					dat += "ОШИБКА"
 			dat += "</a><br>"
-			dat += "<b> - Lamp Exposure:</b> <a href='byond://?_src_=prefs;preference=exposure'>[(light & LIGHT_EXPOSURE) ? "Yes" : "No"]</a><br>"
-			dat += "<b> - Lamp Glare:</b> <a href='byond://?_src_=prefs;preference=glare'>[(light & LIGHT_GLARE) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - Засвет от ламп:</b> <a href='byond://?_src_=prefs;preference=exposure'>[(light & LIGHT_EXPOSURE) ? "Да" : "Нет"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Настройки интерфейса</h2>"
@@ -2476,10 +2475,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("exposure")
 					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/toggle_lamp_exposure]
-					toggle.set_toggles(user.client)
-
-				if("glare")
-					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/toggle_lamps_glare]
 					toggle.set_toggles(user.client)
 					
 				if("setviewrange")

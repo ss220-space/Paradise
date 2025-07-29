@@ -26,6 +26,7 @@
 	..()
 	flick("sparks", src) // replay the animation
 	playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	set_light(1, 1, "#ffe96d", TRUE)
 	var/turf/T = loc
 	if(isturf(T))
 		T.hotspot_expose(hotspottemp, 100)

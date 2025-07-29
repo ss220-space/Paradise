@@ -66,9 +66,11 @@
 	..() //we don't check parent return here because we also care about BROKEN
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2, l_on = TRUE)
+		exposure_icon_state = "circle"
 	else
 		set_light_on(FALSE)
-
+		exposure_icon_state = ""
+	update_bloom()
 
 /obj/machinery/sleeper/update_icon_state()
 	if(occupant)

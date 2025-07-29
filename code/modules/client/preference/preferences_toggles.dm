@@ -706,15 +706,17 @@
 
 /datum/preference_toggle/toggle_new_lighting/set_toggles(client/user)
 	. = ..()
-	if(length(user.screen))
-		var/atom/movable/screen/plane_master/exposure/exposure_master = locate() in user.screen
-		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = locate() in user.screen
-		var/atom/movable/screen/plane_master/lamps_glare/glare_master = locate() in user.screen
+	
+	var/datum/hud/my_hud = user.mob?.hud_used
 
+	var/atom/movable/screen/plane_master/exposure/exposure_master = my_hud.get_plane_master(LIGHTING_EXPOSURE_PLANE)
+	var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = my_hud.get_plane_master(LIGHTING_LAMPS_SELFGLOW)
+
+	if(exposure_master)
 		exposure_master.alpha = user.prefs.light & LIGHT_NEW_LIGHTING ? 255 : 0
 		exposure_master.show_to(user.mob)
+	if(glow_master)
 		glow_master.show_to(user.mob)
-		glare_master.show_to(user.mob)
 
 /datum/preference_toggle/special_toggle/set_glow_level
 	name = "Set Glow Level"
@@ -729,14 +731,21 @@
 		"Medium (Default)" = GLOW_MED,
 		"High" = GLOW_HIGH,
 	)
+
+	var/datum/hud/my_hud = user.mob?.hud_used
+
 	var/new_level = tgui_input_list(user, "Set glow level of light sources", "Glow Level", glow_levels)
+
 	if(!new_level)
 		return
+
 	user.prefs.glowlevel = glow_levels[new_level]
 	to_chat(usr, "Glow level: [new_level].")
+
 	if(length(user.screen))
-		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = locate() in user.screen
+		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = my_hud.get_plane_master(LIGHTING_LAMPS_SELFGLOW)
 		glow_master.show_to(user.mob)
+
 	return ..()
 
 /datum/preference_toggle/toggle_lamp_exposure
@@ -751,22 +760,9 @@
 
 /datum/preference_toggle/toggle_lamp_exposure/set_toggles(client/user)
 	. = ..()
+
+	var/datum/hud/my_hud = user.mob?.hud_used
+
 	if(length(user.screen))
-		var/atom/movable/screen/plane_master/exposure/exposure_master = locate() in user.screen
+		var/atom/movable/screen/plane_master/exposure/exposure_master = my_hud.get_plane_master(LIGHTING_EXPOSURE_PLANE)
 		exposure_master.show_to(user.mob)
-
-/datum/preference_toggle/toggle_lamps_glare
-	name = "Toggle Lamp Glare"
-	description = "Toggles lamp glare"
-	preftoggle_bitflag = LIGHT_GLARE
-	preftoggle_toggle = PREFTOGGLE_LIGHT
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You've enabled lamp glare."
-	disable_message = "You've disabled lamp glare."
-	blackbox_message = "Lamp glare toggled"
-
-/datum/preference_toggle/toggle_lamps_glare/set_toggles(client/user)
-	. = ..()
-	if(length(user.screen))
-		var/atom/movable/screen/plane_master/lamps_glare/glare_master = locate() in user.screen
-		glare_master.show_to(user.mob)

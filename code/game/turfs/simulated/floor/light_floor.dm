@@ -14,6 +14,9 @@
 	name = "light floor"
 	light_range = 5
 	icon_state = "light_on"
+	glow_icon = 'icons/obj/tiles.dmi'
+	glow_icon_state = "light_on"
+	exposure_icon_state = "circle"
 	floor_tile = /obj/item/stack/tile/light
 	var/on = TRUE
 	var/state = LIGHTFLOOR_ON
@@ -22,7 +25,7 @@
 /turf/simulated/floor/light/Initialize(mapload)
 	. = ..()
 	update_icon()
-
+	update_bloom()
 
 /turf/simulated/floor/light/broken_states()
 	return list("light_broken")
@@ -37,38 +40,48 @@
 	switch(state)
 		if(LIGHTFLOOR_ON)
 			icon_state = "light_on"
+			glow_icon_state = icon_state
 			set_light(5, null,LIGHT_COLOR_LIGHTBLUE, l_on = TRUE)
 		if(LIGHTFLOOR_WHITE)
 			icon_state = "light_on-w"
+			glow_icon_state = icon_state
 			set_light(5, null,LIGHT_COLOR_WHITE, l_on = TRUE)
 		if(LIGHTFLOOR_RED)
 			icon_state = "light_on-r"
+			glow_icon_state = icon_state
 			set_light(5, null,LIGHT_COLOR_RED, l_on = TRUE)
 		if(LIGHTFLOOR_GREEN)
 			icon_state = "light_on-g"
+			glow_icon_state = icon_state
 			set_light(5, null,LIGHT_COLOR_PURE_GREEN, l_on = TRUE)
 		if(LIGHTFLOOR_YELLOW)
 			icon_state = "light_on-y"
+			glow_icon_state = icon_state
 			set_light(5, null,"#FFFF00")
 		if(LIGHTFLOOR_BLUE)
 			icon_state = "light_on-b"
+			glow_icon_state = icon_state
 			set_light(5, null,LIGHT_COLOR_DARKBLUE, l_on = TRUE)
 		if(LIGHTFLOOR_PURPLE)
 			icon_state = "light_on-p"
+			glow_icon_state = icon_state
 			set_light(5, null,LIGHT_COLOR_PURPLE, l_on = TRUE)
 		if(LIGHTFLOOR_GENERICCYCLE)
 			icon_state = "light_on-cycle_all"
+			glow_icon_state = icon_state
 			set_light(5, null,LIGHT_COLOR_WHITE, l_on = TRUE)
 		if(LIGHTFLOOR_CYCLEA)
 			icon_state = "light_on-dancefloor_A"
+			glow_icon_state = icon_state
 			set_light(5,null,LIGHT_COLOR_RED, l_on = TRUE)
 		if(LIGHTFLOOR_CYCLEB)
 			icon_state = "light_on-dancefloor_B"
+			glow_icon_state = icon_state
 			set_light(5, null,LIGHT_COLOR_DARKBLUE, l_on = TRUE)
 		else
 			icon_state = "light_off"
 			set_light_on(FALSE)
-
+	update_bloom()
 
 /turf/simulated/floor/light/BeforeChange()
 	set_light_on(FALSE)

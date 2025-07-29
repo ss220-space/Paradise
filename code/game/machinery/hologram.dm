@@ -103,10 +103,12 @@ GLOBAL_LIST_EMPTY(holopads)
 		icon_state = "holopad_ringing"
 	else if(total_users)
 		icon_state = "holopad1"
+		exposure_icon_state = "circle"
 	else
 		icon_state = "holopad0"
-
-
+		exposure_icon_state = ""
+	update_bloom()
+	
 /obj/machinery/hologram/holopad/update_overlays()
 	. = ..()
 	underlays.Cut()

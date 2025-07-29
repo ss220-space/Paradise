@@ -197,6 +197,10 @@
 		set_light_color("#ED9200")
 		throw_alert("fire", /atom/movable/screen/alert/fire)
 		update_fire()
+		glow_icon = FIRE_DMI(src)
+		glow_icon_state = "Standing"
+		exposure_icon_state = "circle"
+		update_bloom()
 		SEND_SIGNAL(src, COMSIG_LIVING_IGNITED)
 		return TRUE
 	return FALSE
@@ -210,7 +214,10 @@
 		set_light_color(initial(light_color))
 		clear_alert("fire")
 		update_fire()
-
+		glow_icon = null
+		glow_icon_state = ""
+		exposure_icon_state = ""
+		update_bloom()
 
 /mob/living/proc/update_fire()
 	return

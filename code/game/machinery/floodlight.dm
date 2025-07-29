@@ -1,6 +1,8 @@
 /obj/machinery/floodlight
 	name = "emergency floodlight"
 	icon = 'icons/obj/floodlight.dmi'
+	glow_icon = 'icons/obj/floodlight.dmi'
+	exposure_icon_state = "circle"
 	icon_state = "flood00"
 	anchored = FALSE
 	density = TRUE
@@ -23,6 +25,7 @@
 	. = ..()
 	cell = new(src)
 	mapVarInit()
+	update_bloom()
 
 /obj/machinery/floodlight/Destroy()
 	QDEL_NULL(cell)
@@ -91,6 +94,8 @@
 		on = FALSE
 		to_chat(user, span_notice("You turn off the light."))
 		set_light(l_on = FALSE)
+		glow_icon_state = ""
+		update_bloom()
 	else
 		if(!cell)
 			to_chat(user, span_warning("You try to turn on [src] but nothing happens! Seems like it <b>lacks a power cell</b>."))
@@ -104,6 +109,8 @@
 		on = TRUE
 		to_chat(user, span_notice("You turn on the light."))
 		set_light(l_on = TRUE)
+		glow_icon_state = "flood_emission"
+		update_bloom()
 	update_icon(UPDATE_ICON_STATE)
 
 
