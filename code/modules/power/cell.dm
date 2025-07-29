@@ -566,6 +566,14 @@
 	chargerate = 100
 
 /obj/item/stock_parts/cell/degraded
-	name = "degraded power cell"
+	name = "power cell A-"
+	ru_names = list(
+		NOMINATIVE = "батарея А-",
+		GENITIVE = "батареи А-",
+		DATIVE = "батарее А-",
+		ACCUSATIVE = "батарею А-",
+		INSTRUMENTAL = "батареей А-",
+		PREPOSITIONAL = "батарее А-"
+	)
 	maxcharge = 750
 	chargerate = 25
