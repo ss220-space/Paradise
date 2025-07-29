@@ -119,7 +119,20 @@
 		PREPOSITIONAL = "ключе-шифраторе канала охраны"
 	)
 	icon_state = "sec_cypherkey"
-	channels = list(SEC_FREQ_NAME = 1)
+	channels = list(SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1)
+
+/obj/item/encryptionkey/prisoner
+	name = "Prisoners Radio Encryption Key"
+	ru_names = list(
+		NOMINATIVE = "ключ-шифратор канала заключенных",
+		GENITIVE = "ключа-шифратора канала заключенных",
+		DATIVE = "ключу-шифратор канала заключенных",
+		ACCUSATIVE = "ключ-шифратор канала заключенных",
+		INSTRUMENTAL = "ключом-шифратором канала заключенных",
+		PREPOSITIONAL = "ключе-шифраторе канала заключенных"
+	)
+	icon_state = "prisoner_cypherkey"
+	channels = list(PRS_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_iaa
 	name = "Internal Affairs Radio Encryption Key"
@@ -132,7 +145,7 @@
 		PREPOSITIONAL = "ключе-шифраторе агента внутренних дел"
 	)
 	icon_state = "sec_cypherkey"
-	channels = list(SEC_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
+	channels = list(SEC_FREQ_NAME = 1, PROC_FREQ_NAME = 1, PRS_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_eng
 	name = "Engineering Radio Encryption Key"
@@ -236,7 +249,7 @@
 		PREPOSITIONAL = "ключе-шифраторе капитана"
 	)
 	icon_state = "cap_cypherkey"
-	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 1, ENG_FREQ_NAME = 0, SCI_FREQ_NAME = 0, MED_FREQ_NAME = 0, SUP_FREQ_NAME = 0, SRV_FREQ_NAME = 0, PROC_FREQ_NAME = 1)
+	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 1, ENG_FREQ_NAME = 0, SCI_FREQ_NAME = 0, MED_FREQ_NAME = 0, SUP_FREQ_NAME = 0, SRV_FREQ_NAME = 0, PRS_FREQ_NAME = 0, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/rd
 	name = "Research Director's Encryption Key"
@@ -262,7 +275,7 @@
 		PREPOSITIONAL = "ключе-шифраторе главы службы безопасности"
 	)
 	icon_state = "hos_cypherkey"
-	channels = list(SEC_FREQ_NAME = 1, COMM_FREQ_NAME = 1)
+	channels = list(SEC_FREQ_NAME = 1, COMM_FREQ_NAME = 1, PRS_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/ce
 	name = "Chief Engineer's Encryption Key"
@@ -327,7 +340,7 @@
 		PREPOSITIONAL = "ключе-шифраторе представителя НаноТрейзен"
 	)
 	icon_state = "com_cypherkey"
-	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 0, ENG_FREQ_NAME = 0, SCI_FREQ_NAME = 0, MED_FREQ_NAME = 0, SUP_FREQ_NAME = 0, SRV_FREQ_NAME = 0, PROC_FREQ_NAME = 1)
+	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 0, PRS_FREQ_NAME = 0, ENG_FREQ_NAME = 0, SCI_FREQ_NAME = 0, MED_FREQ_NAME = 0, SUP_FREQ_NAME = 0, SRV_FREQ_NAME = 0, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/magistrate
 	name = "Magistrate's Encryption Key"
@@ -340,7 +353,7 @@
 		PREPOSITIONAL = "ключе-шифраторе магистрата"
 	)
 	icon_state = "com_cypherkey"
-	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
+	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/blueshield
 	name = "Blueshield's Encryption Key"
@@ -397,7 +410,7 @@
 		INSTRUMENTAL = "ключом-шифратором ОБР",
 		PREPOSITIONAL = "ключе-шифраторе ОБР"
 	)
-	channels = list(ERT_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
+	channels = list(ERT_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/centcom
 	name = "Centcom Radio Encryption Key"
@@ -409,7 +422,7 @@
 		INSTRUMENTAL = "ключом-шифратором Центрального командования",
 		PREPOSITIONAL = "ключе-шифраторе Центрального командования"
 	)
-	channels = list(ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
+	channels = list(ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/ai_integrated //ported from bay, this goes 'inside' the AI.
 	name = "AI Integrated Encryption Key"
@@ -423,7 +436,7 @@
 		PREPOSITIONAL = "ключе-шифраторе ИИ"
 	)
 	icon_state = "cap_cypherkey"
-	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SCI_FREQ_NAME = 1, MED_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, AI_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
+	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SCI_FREQ_NAME = 1, MED_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, AI_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/admin //totally shitspawn
 	name = "Admin Radio Encryption Key"
@@ -435,7 +448,7 @@
 		INSTRUMENTAL = "ключом-шифратором админа",
 		PREPOSITIONAL = "ключе-шифраторе админа"
 	)
-	channels = list(PUB_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1, AI_FREQ_NAME = 1, SYND_FREQ_NAME = 1, \
+	channels = list(PUB_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1, AI_FREQ_NAME = 1, SYND_FREQ_NAME = 1, \
 		ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SYND_TAIPAN_FREQ_NAME = 1, SYNDTEAM_FREQ_NAME = 1, SOV_FREQ_NAME = 1, MED_I_FREQ_NAME = 1, SEC_I_FREQ_NAME = 1, SPY_SPIDER_FREQ_NAME = 1, NINJA_FREQ_NAME = 1, EVENT_ALPHA_FREQ_NAME = 1, EVENT_BETA_FREQ_NAME = 1, EVENT_GAMMA_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_mining_medic

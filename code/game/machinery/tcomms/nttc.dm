@@ -26,6 +26,7 @@
 		"Robot" = "airadio",
 		// Assistant
 		JOB_TITLE_CIVILIAN = "radio",
+		JOB_TITLE_PRISONER = "radio",
 		// Command (Solo command, not department heads)
 		JOB_TITLE_BLUESHIELD = "comradio",
 		JOB_TITLE_CAPTAIN = "comradio",
@@ -76,6 +77,7 @@
 		JOB_TITLE_OFFICER = "secradio",
 		JOB_TITLE_PILOT = "secradio",
 		JOB_TITLE_WARDEN = "secradio",
+		JOB_TITLE_PRISONER = "prisradio",
 		// Supply
 		JOB_TITLE_QUARTERMASTER = "supradio",
 		JOB_TITLE_CARGOTECH = "supradio",
