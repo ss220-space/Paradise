@@ -5,11 +5,11 @@
 	light_system = STATIC_LIGHT
 	duration = 6 SECONDS
 	/// Smoke wave particle holder.
-	var/obj/effect/abstract/particle_holder/smoke_wave
+	var/obj/effect/abstract/particle_holder_tgmc/smoke_wave
 	/// Explosion smoke particle holder.
-	var/obj/effect/abstract/particle_holder/explosion_smoke
+	var/obj/effect/abstract/particle_holder_tgmc/explosion_smoke
 	/// Sparks particle holder.
-	var/obj/effect/abstract/particle_holder/sparks
+	var/obj/effect/abstract/particle_holder_tgmc/sparks
 
 /obj/effect/temp_visual/explosion/Initialize(mapload, radius, color, small = FALSE, large = FALSE)
 	. = ..()

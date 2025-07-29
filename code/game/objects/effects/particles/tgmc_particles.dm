@@ -1,7 +1,7 @@
 // All the smoke variant particles.
 
 /**
- * MARK: Paradise SS13
+ * MARK: TGMC
  * Impact debris & Explosion smoke
  */
 /particles/explosion_smoke

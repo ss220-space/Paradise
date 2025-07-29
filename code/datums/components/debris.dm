@@ -37,8 +37,8 @@
 	var/x_component_smoke = sin(angle) * -15
 	var/y_component_smoke = cos(angle) * -15
 
-	var/obj/effect/abstract/particle_holder/debris_visuals
-	var/obj/effect/abstract/particle_holder/smoke_visuals
+	var/obj/effect/abstract/particle_holder_tgmc/debris_visuals
+	var/obj/effect/abstract/particle_holder_tgmc/smoke_visuals
 	var/position_offset = rand(-6, 6)
 
 	smoke_visuals = new(parent, /particles/impact_smoke)
@@ -58,7 +58,7 @@
 
 	addtimer(CALLBACK(src, PROC_REF(remove_ping), src, smoke_visuals, debris_visuals), 0.5 SECONDS)
 
-/datum/component/debris/proc/remove_ping(hit, obj/effect/abstract/particle_holder/smoke_visuals, obj/effect/abstract/particle_holder/debris_visuals)
+/datum/component/debris/proc/remove_ping(hit, obj/effect/abstract/particle_holder_tgmc/smoke_visuals, obj/effect/abstract/particle_holder_tgmc/debris_visuals)
 	QDEL_NULL(smoke_visuals)
 	if(debris_visuals)
 		QDEL_NULL(debris_visuals)
