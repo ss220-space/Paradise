@@ -37,7 +37,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	update_icon(UPDATE_OVERLAYS)
 	throw_everything_back()
 	var/list/occupied = list()
-	for(var/direct in list(NORTHWEST,NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,SOUTHWEST,WEST))
+	for(var/direct in list(NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST))
 		occupied += get_step(src,direct)
 
 	for(var/T in occupied)
@@ -49,6 +49,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart/update_overlays()
 	.=..()
+
 	if(curse_dial)
 		. += "[icon_state]_dialcurse"
 	else
@@ -60,27 +61,28 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 	if(curse_lower)
 		. += "[icon_state]_curse_lower"
-	else
-		. -= "[icon_state]_curse_lower"
 	if(cur_enchant)
 		.+= "heart_overlay_[cur_enchant]"
 	else
 		if("heart_overlay_[cur_enchant]" in overlays && !cur_enchant)
 			remove_persistent_overlay("heart_overlay_[cur_enchant]")
 
+/obj/structure/clockwork/functional/heart/proc/select_pulse()
+	switch(cur_enchant)
+		if(EMP_G_SPELL)
+			new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/emp(loc, pulse_range)
+		if(HEAL_G_SPELL)
+			new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/heal(loc, pulse_range)
+		if(STUN_G_SPELL)
+			new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/stun(loc, pulse_range)
+		else
+			new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse(loc, pulse_range)
+			enchanted_before = FALSE
+
 /obj/structure/clockwork/functional/heart/proc/heart_pulse()
 	if(!curse_dial)
 		enchanted_before = TRUE
-		switch(cur_enchant)
-			if(EMP_G_SPELL)
-				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/emp(loc, pulse_range)
-			if(HEAL_G_SPELL)
-				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/heal(loc, pulse_range)
-			if(STUN_G_SPELL)
-				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/stun(loc, pulse_range)
-			else
-				new /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse(loc, pulse_range)
-				enchanted_before = FALSE
+		select_pulse()
 		new /obj/effect/temp_visual/pulse(src.loc)
 		new /obj/effect/warp_effect/heart(loc)
 		cur_enchant = null
@@ -100,19 +102,21 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 /obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
 	if(!isclocker(user))
 		return
-	if(istype(dropping, /obj/structure/part1))
-		if(curse_dial)
-			if(do_after(user, 5 SECONDS, src))
-				curse_dial = FALSE
-				GLOB.total_curses -= 1
-				addtimer(CALLBACK(src, PROC_REF(heart_pulse)), 30 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
-				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/magic/clockwork/heart_tick_tock.ogg', 100, FALSE, 0, SOUND_FALLOFF_EXPONENT, null, 0, TRUE, TRUE, SOUND_DEFAULT_FALLOFF_DISTANCE, TRUE), 4 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
-				qdel(dropping)
-				give_blessing(user)
-				update_icon(UPDATE_OVERLAYS)
+	if(istype(dropping, /obj/structure/part_dial))
+		if(!curse_dial)
+			return
+		if(!do_after(user, 5 SECONDS, src))
+			return
+		curse_dial = FALSE
+		GLOB.total_curses -= 1
+		addtimer(CALLBACK(src, PROC_REF(heart_pulse)), 30 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/magic/clockwork/heart_tick_tock.ogg', 100, FALSE, 0, SOUND_FALLOFF_EXPONENT, null, 0, TRUE, TRUE, SOUND_DEFAULT_FALLOFF_DISTANCE, TRUE), 4 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+		qdel(dropping)
+		give_blessing(user)
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/part2))
+	if(istype(I, /obj/item/part_upper))
 		if(curse_upper)
 			if(do_after(user, 5 SECONDS, src))
 				curse_upper = FALSE
@@ -121,7 +125,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 				update_icon(UPDATE_OVERLAYS)
 				give_blessing(user)
 				return
-	if(istype(I, /obj/item/part3))
+	if(istype(I, /obj/item/part_lower))
 		if(curse_lower)
 			if(do_after(user, 5 SECONDS, src))
 				curse_lower = FALSE
@@ -215,9 +219,9 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	var/first_part_loc = get_safe_random_station_turf()
 	var/second_part_loc = get_safe_random_station_turf()
 	var/third_part_loc = get_safe_random_station_turf()
-	new /obj/structure/part1(first_part_loc)
-	new /obj/item/part2(second_part_loc)
-	new /obj/item/part3(third_part_loc)
+	new /obj/structure/part_dial(first_part_loc)
+	new /obj/item/part_upper(second_part_loc)
+	new /obj/item/part_lower(third_part_loc)
 
 /obj/structure/heart_filler
 	name = "The heart of Ratvar"
@@ -259,7 +263,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 /obj/structure/heart_filler/attackby(obj/item/I, mob/user, params)
 	parent.attackby(I, user, params)
 
-/obj/structure/part1
+/obj/structure/part_dial
 	name = "big brass dial"
 	ru_names = list(
 		NOMINATIVE = "большой латунный циферблат",
@@ -276,7 +280,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	resistance_flags = INDESTRUCTIBLE
 	mouse_drag_pointer = MOUSE_DRAG_POINTER
 
-/obj/structure/part1/Bumped(atom/movable/moving_atom)
+/obj/structure/part_dial/Bumped(atom/movable/moving_atom)
 	if(!ismob(moving_atom))
 		. = ..()
 	var/mob/dragger = moving_atom
@@ -288,7 +292,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	to_chat(dragger, span_clockitalic("Вы пытаетесь толкнуть циферблат, но его что-то удерживает!"))
 	return
 
-/obj/structure/part1/CtrlClick(mob/user)
+/obj/structure/part_dial/CtrlClick(mob/user)
 	if(isclocker(user))
 		anchored = FALSE
 		. = ..()
@@ -303,14 +307,14 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 			to_chat(user, span_clockitalic("Вы пытаетесь схватить циферблат, но он слишком тяжелый!"))
 	return
 
-/obj/structure/part1/New()
+/obj/structure/part_dial/New()
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	. = ..()
 
-/obj/structure/part1/proc/pulse()
+/obj/structure/part_dial/proc/pulse()
 	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
 
-/obj/item/part2
+/obj/item/part_upper
 	name = "brass component"
 	ru_names = list(
 		NOMINATIVE = "латунная деталь",
@@ -330,41 +334,42 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-/obj/item/part2/CtrlClick(mob/user)
+/obj/item/part_upper/CtrlClick(mob/user)
 	if(isclocker(user))
 		. = ..()
 		return
-	if(user in orange(1, src))
-		if(ishuman(user))
-			to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
-			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(user.loc)
-		else
-			to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
-	return
+	if(!user in orange(1, src))
+		return
+	if(ishuman(user))
+		to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
+		var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
+		new /obj/effect/decal/cleanable/ash(user.loc)
+	else
+		to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
 
-/obj/item/part2/attack_hand(mob/user, pickupfireoverride)
+/obj/item/part_upper/attack_hand(mob/user, pickupfireoverride)
 	if(isclocker(user))
 		. = ..()
 		return
-	if(user in orange(1, src))
-		if(ishuman(user))
-			to_chat(user, span_userdanger("Вы попытались поднять деталь, но ваша рука обратилась в пепел!"))
-			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(user.loc)
-	return
+	if(!user in orange(1, src))
+		return
+	if(!ishuman(user))
+		return
+	to_chat(user, span_userdanger("Вы попытались поднять деталь, но ваша рука обратилась в пепел!"))
+	var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
+	new /obj/effect/decal/cleanable/ash(user.loc)
 
-/obj/item/part2/New()
+/obj/item/part_upper/New()
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	. = ..()
 
 
-/obj/item/part2/proc/pulse()
+/obj/item/part_upper/proc/pulse()
 	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
 
-/obj/item/part3
+/obj/item/part_lower
 	name = "brass component"
 	ru_names = list(
 		NOMINATIVE = "латунная деталь",
@@ -384,37 +389,38 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-/obj/item/part3/CtrlClick(mob/user)
+/obj/item/part_lower/CtrlClick(mob/user)
 	if(isclocker(user))
 		. = ..()
 		return
-	if(user in orange(1, src))
-		if(ishuman(user))
-			to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
-			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(user.loc)
-		else
-			to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
-	return
+	if(!user in orange(1, src))
+		return
+	if(ishuman(user))
+		to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
+		var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
+		new /obj/effect/decal/cleanable/ash(user.loc)
+	else
+		to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
 
-/obj/item/part3/attack_hand(mob/user, pickupfireoverride)
+/obj/item/part_lower/attack_hand(mob/user, pickupfireoverride)
 	if(isclocker(user))
 		. = ..()
 		return
-	if(user in orange(1, src))
-		if(ishuman(user))
-			to_chat(user, span_userdanger("Вы попытались поднять деталь, но ваша рука обратилась в пепел!"))
-			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(user.loc)
-	return
+	if(!user in orange(1, src))
+		return
+	if(!ishuman(user))
+		return
+	to_chat(user, span_userdanger("Вы попытались поднять деталь, но ваша рука обратилась в пепел!"))
+	var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
+	new /obj/effect/decal/cleanable/ash(user.loc)
 
-/obj/item/part3/New()
+/obj/item/part_lower/New()
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	. = ..()
 
-/obj/item/part3/proc/pulse()
+/obj/item/part_lower/proc/pulse()
 	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
 
 /obj/effect/temp_visual/pulse
