@@ -176,6 +176,9 @@ SUBSYSTEM_DEF(jobs)
 		if(istype(job, GetJob(JOB_TITLE_CIVILIAN))) // We don't want to give him assistant, that's boring!
 			continue
 
+		if(istype(job, GetJob(JOB_TITLE_PRISONER))) //If you want a prisoner position, select it!
+			continue
+
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
 			continue
 

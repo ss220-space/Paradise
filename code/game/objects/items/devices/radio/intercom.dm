@@ -211,6 +211,7 @@
 		num2text(AI_FREQ)  = list(),
 		num2text(COMM_FREQ)= list(),
 		num2text(ENG_FREQ) = list(),
+		num2text(PRS_FREQ) = list(),
 		num2text(MED_FREQ) = list(),
 		num2text(MED_I_FREQ)=list(),
 		num2text(SEC_FREQ) = list(),
