@@ -114,7 +114,7 @@
 		return
 	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
 		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
-			playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+			playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 			user.visible_message(span_warning("[user] соверша[pluralize_ru(user, "ет", "ют")] рывок!"))
 		else
 			to_chat(user, span_warning("Что-то не даёт вам совершить рывок!"))
@@ -132,7 +132,7 @@
 		D.firer = user
 		D.firer_source_atom = src
 		D.hammer_synced = src
-		playsound(user, 'sound/weapons/crusher_shot.ogg', 160, 1)
+		playsound(user, 'sound/weapons/crusher_shot.ogg', 160, TRUE)
 		D.fire()
 		charged = FALSE
 		update_icon()
@@ -765,6 +765,14 @@
 		if(isancientturf(target_turf))
 			visible_message(span_notice("Похоже, что эту породу возьмёт только кирка!"))
 			forcedodge = 0
+		else if(istype(target_turf, /turf/simulated/mineral/gibtonite))
+			var/turf/simulated/mineral/gibtonite/gib = target
+			if(gib.stage == 0)
+				gib.defuse()
+			var/obj/item/twohanded/required/gibtonite/gibtonite_item = new(gib)
+			gibtonite_item.quality = gib.det_time
+			gibtonite_item.update_icon(UPDATE_ICON_STATE)
+			gib.ChangeTurf(gib.turf_type)
 		else
 			var/turf/simulated/mineral/M = target_turf
 			new /obj/effect/temp_visual/kinetic_blast(M)

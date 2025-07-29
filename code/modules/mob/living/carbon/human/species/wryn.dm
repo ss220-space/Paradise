@@ -194,7 +194,7 @@
 		user.adjustStaminaLoss(20)		//You can't sting infinitely, Wryn - take some Stamina loss
 		var/dam = rand(3, 7)
 		target.apply_damage(dam, BRUTE, organ)
-		playsound(user.loc, 'sound/weapons/bladeslice.ogg', 50, 0)
+		playsound(user.loc, 'sound/weapons/bladeslice.ogg', 50, FALSE)
 		add_attack_logs(user, target, "Stung by Wryn Stinger - [dam] Brute damage to [organ].")
 		if(HAS_TRAIT(target, TRAIT_RESTRAINED))			//Apply tiny BURN damage if target is restrained
 			if(prob(50))

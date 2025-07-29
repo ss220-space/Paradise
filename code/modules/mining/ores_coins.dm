@@ -549,8 +549,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	force = 1
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
-	pickup_sound = 'sound/items/handling/ring_pickup.ogg'
-	drop_sound = 'sound/items/handling/ring_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/ring_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/ring_drop.ogg'
 	var/string_attached = FALSE
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null
@@ -737,7 +737,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		cooldown = world.time
 		flick("coin_[cmineral]_flip", src)
 		icon_state = "coin_[cmineral]_[coinflip]"
-		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
+		playsound(user.loc, 'sound/items/coinflip.ogg', 50, TRUE)
 		if(do_after(user, 1.5 SECONDS, src))
 			var/ru_coinflip = list(
 				"heads" = "Орёл",

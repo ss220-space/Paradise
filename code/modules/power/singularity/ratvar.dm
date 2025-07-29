@@ -21,7 +21,7 @@
 	..()
 	set_light(15, 1, "#BE8700")
 	to_chat(world, "<span class='ratvar'>ONCE AGAIN MY LIGHT SHINES AMONG THESE PATHETIC STARS</span>")
-	SEND_SOUND(world, 'sound/effects/ratvar_reveal.ogg')
+	SEND_SOUND(world, sound('sound/effects/ratvar_reveal.ogg'))
 
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
@@ -41,7 +41,7 @@
 
 /obj/singularity/god/ratvar/Destroy()
 	to_chat(world, "<span class='ratvar'>RATVAR HAS FALLEN</span>")
-	SEND_SOUND(world, 'sound/hallucinations/wail.ogg')
+	SEND_SOUND(world, sound('sound/hallucinations/wail.ogg'))
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
 		gamemode.clocker_objs.ratvar_death()

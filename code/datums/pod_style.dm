@@ -49,7 +49,7 @@
 	)
 
 /datum/pod_style/centcom
-	name = "\improper CentCom supply pod"
+	name = "CentCom supply pod"
 	ui_name = "Nanotrasen"
 	desc = "Капсула снабжения «Nanotrasen», отмеченный обозначениями Центрального командования. После доставки телепортируется обратно."
 	decal_icon = "centcom"
@@ -82,7 +82,7 @@
 	)
 
 /datum/pod_style/deathsquad
-	name = "\improper Deathsquad drop pod"
+	name = "Deathsquad drop pod"
 	ui_name = "Отряда Смерти"
 	desc = "Капсула Nanotrasen. На ней отмечена маркировка элитной ударной группы Nanotrasen."
 	icon_state = "darkpod"
@@ -135,7 +135,7 @@
 	)
 
 /datum/pod_style/missile/syndicate
-	name = "\improper Syndicate cruise missile"
+	name = "Syndicate cruise missile"
 	ui_name = "Ракета Синдиката"
 	desc = "Огромная кроваво-красная ракета, которая, похоже, не взорвалась полностью. Вероятно, она была запущена из какой-то ракетной шахты Синдиката в дальнем космосе. Судя по всему, сбоку имеется люк для вспомогательной полезной нагрузки, хотя открыть его вручную, скорее всего, невозможно."
 	icon_state = "smissile"
@@ -150,7 +150,7 @@
 	)
 
 /datum/pod_style/box
-	name = "\improper Aussec supply crate"
+	name = "Aussec supply crate"
 	ui_name = "Ящик припасов"
 	desc = "Невероятно прочный ящик с припасами, рассчитанный на то, чтобы выдержать возвращение на орбиту. Сбоку выгравирована надпись «Aussec Armory — 2532»."
 	shape = POD_SHAPE_OTHER
@@ -169,7 +169,7 @@
 	)
 
 /datum/pod_style/clown
-	name = "\improper HONK pod"
+	name = "HONK pod"
 	ui_name = "Капсула Клоунов"
 	desc = "Яркая капсула снабжения. Вероятно, она отправлена Федерацией клоунов."
 	icon_state = "clownpod"
@@ -186,7 +186,7 @@
 	)
 
 /datum/pod_style/orange
-	name = "\improper Orange"
+	name = "Orange"
 	ui_name = "Фрукт"
 	desc = "Злой апельсин."
 	shape = POD_SHAPE_OTHER
@@ -205,7 +205,7 @@
 	)
 
 /datum/pod_style/invisible
-	name =  "\improper S.T.E.A.L.T.H. pod MKVII"
+	name =  "S.T.E.A.L.T.H. pod MKVII"
 	ui_name = "Невидимый"
 	desc = "Капсула снабжения, которая при нормальных обстоятельствах совершенно невидима для обычных методов обнаружения. Как ты вообще её видишь?"
 	shape = POD_SHAPE_OTHER

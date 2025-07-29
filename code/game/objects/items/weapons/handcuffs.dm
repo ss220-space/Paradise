@@ -14,7 +14,7 @@
 	throw_range = 5
 	materials = list(MAT_METAL=500)
 	origin_tech = "engineering=3;combat=3"
-	breakouttime = 600 //Deciseconds = 60s = 1 minutes
+	breakout_time = 600 //Deciseconds = 60s = 1 minutes
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //For disposable cuffs
@@ -124,7 +124,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sinewcuff"
 	item_state = "sinewcuff"
-	breakouttime = 300 //Deciseconds = 30s
+	breakout_time = 300 //Deciseconds = 30s
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
 /obj/item/restraints/handcuffs/cable
@@ -133,7 +133,7 @@
 	icon_state = "cuff_white"
 	origin_tech = "engineering=2"
 	materials = list(MAT_METAL=150, MAT_GLASS=75)
-	breakouttime = 300 //Deciseconds = 30s
+	breakout_time = 300 //Deciseconds = 30s
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
 /obj/item/restraints/handcuffs/cable/red
@@ -231,7 +231,7 @@
 	name = "zipties"
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
 	icon_state = "cuff_white"
-	breakouttime = 450 //Deciseconds = 45s
+	breakout_time = 450 //Deciseconds = 45s
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 
@@ -253,7 +253,7 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "manacle_lock"
 	item_state = "manacle"
-	breakouttime = 450 //Deciseconds = 45s
+	breakout_time = 450 //Deciseconds = 45s
 	cuffsound = 'sound/items/zippoclose.ogg'
 	onmob_sheets = list(
 		ITEM_SLOT_HANDCUFFED_STRING = 'icons/obj/ninjaobjects.dmi'

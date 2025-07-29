@@ -206,7 +206,10 @@
 		if(DEVIL_ASCEND_START_STAGE)
 			invoker.RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
 			to_chat(invoker, span_warning("Вы чувствуете, будто вот-вот возвыситесь."))
-			GLOB.command_announcement.Announce("Тёмная сушность, известная как [devil.info.truename], из изменерния, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать любые проявления ада на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+			GLOB.major_announcement.announce("Тёмная сушность, известная как [devil.info.truename], из изменерния, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать любые проявления ада на месте.",
+											ANNOUNCE_CCPARANORMAL_RU,
+											'sound/AI/commandreport.ogg'
+			)
 			stage = FIRST_DEVIL_ASCEND_STAGE
 
 		if(FIRST_DEVIL_ASCEND_STAGE)
@@ -246,7 +249,10 @@
 
 		if(SEVENTH_DEVIL_ASCEND_STAGE)
 			devil.try_update_rank(TRUE)
-			GLOB.command_announcement.Announce("Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение тёмных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+			GLOB.major_announcement.announce("Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение тёмных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.",
+											ANNOUNCE_CCPARANORMAL_RU,
+											'sound/AI/commandreport.ogg'
+			)
 			var/area/area = get_area(invoker)
 			if(area)
 				notify_ghosts("Архидьявол вознёсся в [area.name].", source = invoker)
@@ -258,16 +264,19 @@
 
 	addtimer(CALLBACK(src, PROC_REF(hell_coming), invoker, devil, stage), timers_list[stage])
 
+#define CLOWNIFICATION_RATIO 0.3
+
 /datum/ritual/devil/clown
 	name = "Ритуал клоунификации"
-	description = "Заставляет офицеров службы безопасности с ЦК показать свою истинную натуру."
+	description = "Заставляет некоторых офицеров службы безопасности с ЦК показать свою истинную натуру."
 	required_things = list(
-		/obj/item/stack/sheet/mineral/bananium = 1,
+		/obj/structure/statue/bananium/clown = 1,
 		/obj/item/clothing/head/helmet = 1,
 		/obj/item/organ/internal/heart = 1,
 		/obj/item/bikehorn = 1,
 		/obj/item/clothing/shoes/clown_shoes= 1
 	)
+	charges = 3
 	var/static/sound/honk_sound = sound('sound/items/AirHorn.ogg')
 
 /datum/ritual/devil/clown/del_things(list/used_things)
@@ -282,6 +291,7 @@
 	return
 
 /datum/ritual/devil/clown/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
+	var/list/possible_clowns = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
 
 		if(!(LAZYIN(GLOB.security_positions, possible_target.assigned_role)))
@@ -293,11 +303,22 @@
 		if(!ishuman(possible_target.current ))
 			continue
 
-		var/mob/living/carbon/human/human_target = possible_target.current
+		possible_clowns |= possible_target
+
+	var/clowns_count = round(length(possible_clowns) * CLOWNIFICATION_RATIO)
+
+	if(!clowns_count)
+		ritual_object.balloon_alert(invoker, "некого клоунифицировать!")
+		return RITUAL_FAILED_ON_PROCEED
+
+	for(var/i = 1 to clowns_count)
+		var/datum/mind/mind = pick_n_take(possible_clowns)
+		var/mob/living/carbon/human/human_target = mind.current
 		human_target.bananatouched()
 		playsound(human_target, honk_sound)
 
 	return RITUAL_SUCCESSFUL
+#undef CLOWNIFICATION_RATIO
 
 /datum/ritual/devil/change
 	name = "Ритуал замены"

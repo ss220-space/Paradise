@@ -13,11 +13,11 @@
 	throw_speed = 3
 	throw_range = 5
 	force = 5
-	origin_tech = "combat=1"
+	origin_tech = "materials=3;combat=3"
 	needs_permit = TRUE
 	attack_verb = list("ударил")
-	pickup_sound = 'sound/items/handling/gun_pickup.ogg'
-	drop_sound = 'sound/items/handling/gun_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/gun_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/gun_drop.ogg'
 
 	var/fire_sound = "gunshot"
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
@@ -132,15 +132,15 @@
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(unique_reskin)
-		. += "<span class='info'>Alt-click it to reskin it.</span>"
+		. += span_notice("Alt-click it to reskin it.")
 	if(unique_rename)
-		. += "<span class='info'>Use a pen on it to rename it.</span>"
+		. += span_notice("Use a pen on it to rename it.")
 	if(bayonet)
-		. += "<span class='notice'>It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.</span>"
+		. += span_notice("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
-			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
+			. += span_notice("[bayonet] looks like it can be [span_bold("unscrewed")] from [src].")
 	else if(can_bayonet)
-		. += span_info("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно <b>открутить</b> от [declent_ru(GENITIVE)].")
+		. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
 
 
 /obj/item/gun/proc/update_gun_skins()
@@ -170,7 +170,7 @@
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
 	to_chat(user, span_danger("*клик*"))
-	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	if(recoil)

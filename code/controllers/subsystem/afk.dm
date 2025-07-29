@@ -78,7 +78,7 @@ SUBSYSTEM_DEF(afk)
 
 /datum/controller/subsystem/afk/proc/warn(mob/living/carbon/human/H, text)
 	to_chat(H, text)
-	SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+	SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 	if(H.client)
 		window_flash(H.client)
 

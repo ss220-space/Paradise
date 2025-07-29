@@ -798,7 +798,7 @@
 	},
 /obj/item/lazarus_injector,
 /mob/living/simple_animal/bot/medbot{
-	name = "\improper emergency medibot";
+	name = "emergency medibot";
 	pixel_x = -3;
 	pixel_y = 2
 	},

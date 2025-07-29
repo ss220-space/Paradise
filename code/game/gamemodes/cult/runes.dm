@@ -69,9 +69,9 @@ To draw a rune, use a ritual dagger.
 /obj/effect/rune/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD) //If they're a cultist or a ghost, tell them the effects
-		. += span_info("<b>Name:</b> [cultist_name]")
-		. += span_info("<b>Effects:</b> [capitalize(cultist_desc)]")
-		. += span_info("<b>Required Acolytes:</b> [req_cultists]")
+		. += span_notice("<b>Name:</b> [cultist_name]")
+		. += span_notice("<b>Effects:</b> [capitalize(cultist_desc)]")
+		. += span_notice("<b>Required Acolytes:</b> [req_cultists]")
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> [span_cultitalic(keyword)]"
 
@@ -612,7 +612,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			fail_invoke()
 			return
 
-	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult.ogg')
+	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, span_cultlarge("\"PASNAR SAVRAE YAM'TOTH. Arise.\""))
 	mob_to_revive.visible_message(span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
 								  span_cultlarge("You awaken suddenly from the void. You're alive!"))
@@ -1006,7 +1006,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	used = TRUE
 	color = rgb(255, 0, 0)
 	..()
-	SEND_SOUND(world, 'sound/effects/narsie_summon.ogg')
+	SEND_SOUND(world, sound('sound/effects/narsie_summon.ogg'))
 	to_chat(world, span_cultitalic("<b>The veil... [span_big("is...")] [span_reallybig("TORN!!!--")]</b>"))
 	update_icon(UPDATE_ICON_STATE)
 	var/turf/T = get_turf(src)

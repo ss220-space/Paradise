@@ -72,7 +72,7 @@
 		overmind.blobs_legit -= src  //if it was in the legit blobs list, it isn't now
 		overmind = null
 	if(isturf(loc)) //Necessary because Expand() is screwed up and spawns a blob and then deletes it
-		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 	return ..()
 
 /obj/structure/blob/obj_destruction(damage_flag)
@@ -127,7 +127,7 @@
 
 
 /obj/structure/blob/proc/RegenHealth()
-	obj_integrity = min(max_integrity, obj_integrity + health_regen)
+	repair_damage(health_regen)
 	update_blob()
 
 

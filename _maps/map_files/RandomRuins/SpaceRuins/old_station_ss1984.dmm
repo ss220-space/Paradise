@@ -577,7 +577,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/biohazard{
 	icon_state = "radiation";
-	name = "\improper HAZARDOUS RADIATION";
+	name = "HAZARDOUS RADIATION";
 	pixel_y = -32
 	},
 /obj/structure/closet,
@@ -1287,7 +1287,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/sign/securearea{
-	name = "\improper STAY CLEAR HEAVY MACHINERY";
+	name = "STAY CLEAR HEAVY MACHINERY";
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -3520,7 +3520,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/sign/securearea{
-	name = "\improper STAY CLEAR HEAVY MACHINERY";
+	name = "STAY CLEAR HEAVY MACHINERY";
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -6324,7 +6324,7 @@
 	},
 /obj/structure/disposalpipe/trunk,
 /obj/structure/sign/securearea{
-	name = "\improper STAY CLEAR HEAVY MACHINERY";
+	name = "STAY CLEAR HEAVY MACHINERY";
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -9635,7 +9635,7 @@
 	},
 /obj/machinery/disposal/deliveryChute,
 /obj/structure/sign/securearea{
-	name = "\improper STAY CLEAR HEAVY MACHINERY";
+	name = "STAY CLEAR HEAVY MACHINERY";
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -12665,7 +12665,7 @@
 	dir = 1
 	},
 /obj/structure/sign/securearea{
-	name = "\improper STAY CLEAR HEAVY MACHINERY";
+	name = "STAY CLEAR HEAVY MACHINERY";
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -13827,7 +13827,7 @@
 	dir = 1
 	},
 /obj/structure/sign/securearea{
-	name = "\improper STAY CLEAR HEAVY MACHINERY";
+	name = "STAY CLEAR HEAVY MACHINERY";
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,

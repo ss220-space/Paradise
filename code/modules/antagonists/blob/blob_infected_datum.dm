@@ -128,7 +128,7 @@
 	messages.Add("<b>Найдите подходящее место для создания ядра, а затем возьмите станцию под свой контроль и сокрушите ее!</b>")
 	messages.Add("<b>Когда вы найдете нужное место, подождите, пока не превратитесь; это произойдет автоматически. Ваша смерть вызовет преждевременное превращение.</b>")
 	messages.Add("<b>Если вы выйдете за пределы уровня станции или окажетесь в космосе во время превращения, то умрете; убедитесь, что в вашем местоположении есть достаточно просторно для вашего будущего ядра.</b>")
-	SEND_SOUND(owner.current, 'sound/magic/mutate.ogg')
+	SEND_SOUND(owner.current, sound('sound/magic/mutate.ogg'))
 	return messages
 
 /datum/antagonist/blob_infected/proc/is_type_suitable(mob/living/affected)

@@ -11,6 +11,7 @@
 	)
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "s-casing"
+	origin_tech = "materials=3;combat=3"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 1
@@ -50,6 +51,15 @@
 	dir = pick(GLOB.alldirs)
 	update_appearance(UPDATE_ICON|UPDATE_DESC)
 
+/obj/item/ammo_casing/Destroy()
+	QDEL_NULL(BB)
+	if(!isgun(loc))
+		return ..()
+	var/obj/item/gun/gun = loc
+	if(gun.chambered != src)
+		return ..()
+	gun.chambered = null
+	. = ..()
 
 /obj/item/ammo_casing/update_icon_state()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
@@ -141,6 +151,7 @@
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"
+	desc = "Э-э... коробка с патронами?"
 	ru_names = list(
 		NOMINATIVE = "коробка с боеприпасами (универсальная)",
 		GENITIVE = "коробки с боеприпасами (универсальной)",
@@ -149,9 +160,9 @@
 		INSTRUMENTAL = "коробкой с боеприпасами (универсальной)",
 		PREPOSITIONAL = "коробке с боеприпасами (универсальной)"
 	)
-	desc = "Э-э... коробка с патронами?"
 	icon_state = "357"
 	icon = 'icons/obj/weapons/ammo.dmi'
+	origin_tech = "materials=3;combat=3"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	item_state = "syringe_kit"
@@ -160,8 +171,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 10
-	pickup_sound = 'sound/items/handling/ammobox_pickup.ogg'
-	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/ammobox_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/ammobox_drop.ogg'
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/start_empty = FALSE

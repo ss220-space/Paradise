@@ -82,7 +82,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/examine(mob/living/user)
 	. = ..()
 	if((vent_movement & VENTCRAWL_ENTRANCE_ALLOWED) && is_ventcrawler(user))
-		. += span_info("Alt-click to crawl through it.")
+		. += span_notice("Alt-click to crawl through it.")
 
 
 /obj/machinery/atmospherics/set_frequency(new_frequency)
@@ -280,7 +280,7 @@ Pipelines + Other Objects -> Pipe network
 	if(can_unwrench && !(obj_flags & NODECONSTRUCT))
 		var/obj/item/pipe/stored = new(loc, null, null, src)
 		if(!disassembled)
-			stored.obj_integrity = stored.max_integrity * 0.5
+			stored.update_integrity(stored.max_integrity * 0.5)
 		transfer_fingerprints_to(stored)
 	..()
 

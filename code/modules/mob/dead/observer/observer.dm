@@ -109,6 +109,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
+	remove_the_hud(THOUGHTS_HUD)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
@@ -117,6 +118,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
+	GLOB.respawnable_list -= src
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -330,7 +332,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return TRUE
 
 
-/mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source)
+/mob/dead/observer/proc/notify_cloning(message, sound, atom/source)
 	if(message)
 		to_chat(src, span_ghostalert("[message]"))
 		if(source)
@@ -346,9 +348,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.add_overlay(source)
 				source.layer = old_layer
 				source.plane = old_plane
-	to_chat(src, span_ghostalert("<a href=?src=[UID()];reenter=1>(Нажмите, чтобы вернуться)</a>"))
+	to_chat(src, span_ghostalert("<a href='byond://?src=[UID()];reenter=1>(Нажмите, чтобы вернуться)</a>"))
 	if(sound)
-		src << sound(sound)
+		SEND_SOUND(src, sound(sound))
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
@@ -381,6 +383,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
  * Toggles off all HUDs for the ghost player.
  */
 /mob/dead/observer/proc/toggle_all_huds_off()
+	remove_the_hud(DATA_HUD_DIAGNOSTIC)
 	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
@@ -430,10 +433,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(usr))
 		to_chat(usr, "Не сейчас, вы же не мертвы!")
 		return
-	var/target = tgui_input_list(usr, "Зона для телепортации", "Телепортироваться в локацию", GLOB.ghostteleportlocs)
+	var/target = tgui_input_list(usr, "Зона для телепортации", "Телепортироваться в локацию", SSmapping.ghostteleportlocs)
 	if(!target)
 		return
-	var/area/A = GLOB.ghostteleportlocs[target]
+	var/area/A = SSmapping.ghostteleportlocs[target]
 	teleport(A)
 
 /mob/dead/observer/proc/teleport(area/A)
@@ -634,7 +637,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			ManualFollow(target)
 
 	if(href_list["follow"])
-		var/atom/target = locate(href_list["follow"])
+		var/atom/target = locateUID(href_list["follow"])
 		if(target)
 			ManualFollow(target)
 

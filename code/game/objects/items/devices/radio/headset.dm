@@ -14,7 +14,7 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
-	equip_sound = 'sound/items/handling/generic_equip4.ogg'
+	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/ears.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/ears.dmi',
@@ -65,7 +65,7 @@
 	. = ..()
 	if(in_range(src, user) && radio_desc)
 		. += span_notice("<b>Доступные частоты:</b>")
-		. += span_info("[radio_desc]")
+		. += span_notice("[radio_desc]")
 
 /obj/item/radio/headset/handle_message_mode(mob/living/M, list/message_pieces, channel)
 	if(channel == SPEC_FREQ_NAME)
@@ -213,7 +213,7 @@
 	freqlock = FALSE
 
 /obj/item/radio/headset/alt/soviet
-	name = "\improper Soviet bowman headset"
+	name = "Soviet bowman headset"
 	desc = "Тактическая гарнитура, разработанная по технологиям СССП. \
 			Система активного шумоподавления защищает органы слуха пользователя от громких звуков. \
 			Использует особые протоколы связи для доступа к военным частотам сил СССП. \
@@ -593,14 +593,14 @@
 			обеспечивающих защиту от термических и механических воздействий. \
 			Оснащена улучшенным телекоммуникационным оборудованием, \
 			обеспечивающим доступ к частотам снабжения и командования. \
-			Используется местным Завхозом."
+			Используется местным Квартирмейстеромом."
 	ru_names = list(
-		NOMINATIVE = "радиочастотная гарнитура завхоза",
-		GENITIVE = "радиочастотную гарнитуру завхоза",
-		DATIVE = "радиочастотной гарнитуры завхоза",
-		ACCUSATIVE = "радиочастотную гарнитуру завхоза",
-		INSTRUMENTAL = "радиочастотной гарнитурой завхоза",
-		PREPOSITIONAL = "радиочастотной гарнитуре завхоза"
+		NOMINATIVE = "радиочастотная гарнитура Квартирмейстера",
+		GENITIVE = "радиочастотную гарнитуру Квартирмейстера",
+		DATIVE = "радиочастотной гарнитуры Квартирмейстера",
+		ACCUSATIVE = "радиочастотную гарнитуру Квартирмейстера",
+		INSTRUMENTAL = "радиочастотной гарнитурой Квартирмейстера",
+		PREPOSITIONAL = "радиочастотной гарнитуре Квартирмейстера"
 	)
 	icon_state = "com_headset"
 	item_state = "headset"
@@ -794,7 +794,7 @@
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/ert/alt/solgov
-	name = "\improper Trans-Solar Federation Marine's bowman headset"
+	name = "Trans-Solar Federation Marine's bowman headset"
 	desc = "Элитная тактическая гарнитура, выполненная из передовых титано-алюминиевых сплавов с каркасом из композитных полимеров. \
 			Система активного шумоподавления поддерживает громкость окружения на комфортном уровне, \
 			защищая органы слуха пользователя от громких звуков и обеспечивая отличную слышимость в условиях интенсивного боя. \
@@ -831,7 +831,7 @@
 	instant = TRUE
 
 /obj/item/radio/headset/ert/alt/commander/solgov
-	name = "\improper Trans-Solar Federation Lieutenant's bowman headset"
+	name = "Trans-Solar Federation Lieutenant's bowman headset"
 	desc = "Элитная тактическая гарнитура, выполненная из передовых титано-алюминиевых сплавов с каркасом из композитных полимеров. \
 			Система активного шумоподавления поддерживает громкость окружения на комфортном уровне, \
 			защищая органы слуха пользователя от громких звуков и обеспечивая отличную слышимость в условиях интенсивного боя. \
@@ -874,7 +874,7 @@
 	instant = TRUE
 
 /obj/item/radio/headset/centcom/solgov
-	name = "\improper Trans-Solar Federation General's bowman headset"
+	name = "Trans-Solar Federation General's bowman headset"
 	desc = "Элитная тактическая гарнитура, выполненная из передовых титано-алюминиевых сплавов с каркасом из композитных полимеров. \
 			Система активного шумоподавления поддерживает громкость окружения на комфортном уровне, \
 			защищая органы слуха пользователя от громких звуков и обеспечивая отличную слышимость в условиях интенсивного боя. \
@@ -893,7 +893,7 @@
 	)
 
 /obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
-	name = "\improper AI subspace transceiver"
+	name = "AI subspace transceiver"
 	desc = "Интегрированный радиопередатчик ИИ. \
 			Обеспечивает связь с серверами, базами данных, основными частотами и \
 			дополнительными зашифрованными частотами роботизированных систем объекта через защищённый интерфейс."

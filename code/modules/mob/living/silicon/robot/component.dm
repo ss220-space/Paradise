@@ -268,10 +268,10 @@
 			span_warning("[user] has analyzed the floor's vitals!"),
 			span_notice("You try to analyze the floor's vitals!"),
 		)
-		to_chat(user, span_info("Analyzing Results for The floor:\n\t Overall Status: Healthy"))
-		to_chat(user, span_info("\t Damage Specifics: [0]-[0]-[0]-[0]"))
-		to_chat(user, span_info("Key: Suffocation/Toxin/Burns/Brute"))
-		to_chat(user, span_info("Body Temperature: ???"))
+		to_chat(user, span_notice("Analyzing Results for The floor:\n\t Overall Status: Healthy"))
+		to_chat(user, span_notice("\t Damage Specifics: [0]-[0]-[0]-[0]"))
+		to_chat(user, span_notice("Key: Suffocation/Toxin/Burns/Brute"))
+		to_chat(user, span_notice("Body Temperature: ???"))
 		return .
 
 	user.visible_message(

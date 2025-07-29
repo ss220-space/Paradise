@@ -334,7 +334,7 @@
 						if(ai_ventbreaker && exit_vent.welded)
 							exit_vent.set_welded(FALSE)
 							exit_vent.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выбивает приваренную крышку [exit_vent.declent_ru(GENITIVE)]!"))
-							playsound(exit_vent.loc, 'sound/machines/airlock_alien_prying.ogg', 50, 0)
+							playsound(exit_vent.loc, 'sound/machines/airlock_alien_prying.ogg', 50, FALSE)
 						forceMove(exit_vent.loc)
 						entry_vent = null
 						var/area/new_area = get_area(loc)

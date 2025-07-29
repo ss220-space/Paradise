@@ -23,7 +23,7 @@
 		var/sound = pick('sound/weapons/mr_chang/mr_chang_1.mp3', 'sound/weapons/mr_chang/mr_chang_2.mp3', \
 						'sound/weapons/mr_chang/mr_chang_3.mp3', 'sound/weapons/mr_chang/mr_chang_4.mp3', \
 						'sound/weapons/mr_chang/mr_chang_5.mp3')
-		playsound(get_turf(defender), sound, 50, 1, -1)
+		playsound(get_turf(defender), sound, 50, TRUE, -1)
 
 		spawn(4 SECONDS)
 			stun_on_cooldown = FALSE

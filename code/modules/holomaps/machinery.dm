@@ -6,7 +6,7 @@
 // Credit to polaris for the code which this current map was originally based off of, and credit to VG for making it in the first place.
 
 /obj/machinery/station_map
-	name = "\improper station holomap"
+	name = "station holomap"
 	desc = "Карта окрестностей станции, только виртуальная."
 	ru_names = list(
 		NOMINATIVE = "голокарта станции",
@@ -242,7 +242,7 @@
 	else
 		current_z_level = SSholomaps.valid_map_indexes[current_index + 1]
 
-	to_chat(user, span_info("Вы устанавливаете индекс базы данных [declent_ru(GENITIVE)] на [current_z_level]."))
+	to_chat(user, span_notice("Вы устанавливаете индекс базы данных [declent_ru(GENITIVE)] на [current_z_level]."))
 	return TRUE
 
 /obj/machinery/station_map/crowbar_act(mob/living/user, obj/item/tool)
@@ -290,24 +290,10 @@
 	var/list/z_transitions = SSholomaps.holomap_z_transitions["[current_z_level]"]
 	if(length(z_transitions))
 		legend += z_transitions
-
-	if(length(GLOB.meteor_shielded_turfs))
-		var/icon/canvas = icon(HOLOMAP_ICON, "blank")
-		var/z_has_coverage = FALSE
-		for(var/turf/shielded_turf as anything in GLOB.meteor_shielded_turfs)
-			if(shielded_turf?.z != current_z_level)
-				continue
-			var/offset_x = HOLOMAP_CENTER_X + shielded_turf.x
-			var/offset_y = HOLOMAP_CENTER_Y + shielded_turf.y
-			var/color = ((offset_x ^ offset_y) % 2 == 0) ? HOLOMAP_AREACOLOR_SHIELD_1 : HOLOMAP_AREACOLOR_SHIELD_2
-			canvas.DrawBox(color, offset_x, offset_y)
-			z_has_coverage = TRUE
-		if(z_has_coverage)
-			legend["Метеор щиты"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "meteor_shield"), "markers" = list(image(canvas)))
 	return legend
 
 /obj/machinery/station_map/engineering
-	name = "\improper engineering station map"
+	name = "engineering station map"
 	icon_state = "station_map_engi"
 
 /obj/machinery/station_map/engineering/Initialize(mapload)

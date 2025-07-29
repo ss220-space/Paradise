@@ -590,7 +590,7 @@
 	mix_message = "The substance quickly shifts colour, cycling from red, to yellow, to green, to blue, and finally settles at a vibrant fuchsia."
 
 /datum/chemical_reaction/jestosterone/on_reaction(datum/reagents/holder, created_volume)
-	playsound(get_turf(holder.my_atom), 'sound/items/bikehorn.ogg', 50, 1)
+	playsound(get_turf(holder.my_atom), 'sound/items/bikehorn.ogg', 50, TRUE)
 
 /datum/chemical_reaction/royal_bee_jelly
 	name = "royal bee jelly"

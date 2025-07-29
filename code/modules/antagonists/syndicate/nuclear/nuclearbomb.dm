@@ -12,7 +12,7 @@
 GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb
-	name = "\improper Nuclear Fission Explosive"
+	name = "Nuclear Fission Explosive"
 	desc = "Uh oh. RUN!!!!"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
@@ -51,7 +51,7 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/Initialize()
 	. = ..()
 	wires = new/datum/wires/nuclearbomb(src)
-	previous_level = get_security_level()
+	previous_level = SSsecurity_level.get_current_level_as_text()
 	GLOB.poi_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core)
@@ -474,7 +474,7 @@ GLOBAL_VAR(bomb_set)
 			safety = !(safety)
 			if(safety)
 				if(!is_syndicate)
-					set_security_level(previous_level)
+					SSsecurity_level.set_level(previous_level)
 				timing = FALSE
 				GLOB.bomb_set = FALSE
 			update_icon()
@@ -494,14 +494,14 @@ GLOBAL_VAR(bomb_set)
 				if(!safety)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
-						set_security_level("delta")
+						SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
 					SSshuttle?.add_hostile_environment(src)
 				else
 					GLOB.bomb_set = TRUE
 			else
 				if(!is_syndicate)
-					set_security_level(previous_level)
+					SSsecurity_level.set_level(previous_level)
 				GLOB.bomb_set = FALSE
 				SSshuttle?.remove_hostile_environment(src)
 
@@ -537,7 +537,7 @@ GLOBAL_VAR(bomb_set)
 	yes_code = FALSE
 	safety = TRUE
 	update_icon()
-	playsound(src,'sound/machines/alarm.ogg', 100, 0, 5)
+	playsound(src,'sound/machines/alarm.ogg', 100, FALSE, 5)
 	if(SSticker && SSticker.mode)
 		SSticker.mode.explosion_in_progress = 1
 	sleep(100)
@@ -585,7 +585,7 @@ GLOBAL_VAR(bomb_set)
 	update_icon()
 	if(safety == 1)
 		if(!is_syndicate)
-			set_security_level(previous_level)
+			SSsecurity_level.set_level(previous_level)
 		visible_message(span_notice("The [src] quiets down."))
 	else
 		visible_message(span_notice("The [src] emits a quiet whirling noise!"))

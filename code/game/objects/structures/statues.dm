@@ -265,7 +265,7 @@
 /obj/structure/statue/bananium/proc/honk()
 	if(!spam_flag)
 		spam_flag = 1
-		playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
+		playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE)
 		spawn(20)
 			spam_flag = 0
 
@@ -527,7 +527,7 @@
 			to_chat(user, span_warning("The [name] is completely intact."))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You patch some of the damage on [src] with [I]."))
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

@@ -12,7 +12,7 @@
 /datum/spawners_menu/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "SpawnersMenu", "Spawners Menu")
+		ui = new(user, src, "SpawnersMenu", "Роли призраков")
 		ui.open()
 
 /datum/spawners_menu/ui_data(mob/user)

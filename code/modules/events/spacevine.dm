@@ -55,7 +55,9 @@
 
 /datum/event/spacevine/announce(false_alarm)
 	if((false_alarm || LAZYLEN(SC?.vines)) && (LAZYLEN(GLOB.player_list) < 20))
-		GLOB.event_announcement.Announce("Биосканеры фиксируют рост космической лозы в [get_area(SC.loc)]. Избавьтесь от неё, прежде чем она нанесёт ущерб станции.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.")
+		GLOB.minor_announcement.announce("Биосканеры фиксируют рост космической лозы в [get_area(SC.loc)]. Избавьтесь от неё, прежде чем она нанесёт ущерб станции.",
+										ANNOUNCE_BIOHAZARD_RU
+		)
 
 /datum/spacevine_mutation
 	var/name = ""
@@ -220,7 +222,7 @@
 		// also conveniently prevents this from spreading too crazily
 		remove_mutation_from_vinepiece(holder)
 		holder.master.spawn_spacevine_piece(target, holder)
-		playsound(holder, 'sound/misc/interference.ogg', 50, 1)
+		playsound(holder, 'sound/misc/interference.ogg', 50, TRUE)
 		. = TRUE
 
 /datum/spacevine_mutation/light
@@ -353,7 +355,7 @@
 	if(holder.energy)
 		holder.set_density(TRUE)
 	holder.max_integrity = 100
-	holder.obj_integrity = holder.max_integrity
+	holder.update_integrity(holder.max_integrity)
 
 /datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
 	if(!is_sharp(item))

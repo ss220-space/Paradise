@@ -419,38 +419,33 @@
 
 
 /datum/species/proc/gain_muscles(mob/living/carbon/human/target, default, max_level, can_become_stronger = TRUE)
-	var/datum/component/muscles/muscles = target.physiology.GetComponent(/datum/component/muscles)
-	if(!muscles)
-		target.physiology.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
-		return
-
-	muscles.max_species_strength = max_level
-	muscles.can_become_stronger = can_become_stronger
-	muscles.strength = min(muscles.strength, muscles.get_max_strength_level())
+	target.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
 
 
-/datum/species/proc/on_species_loss(mob/living/carbon/human/H)
+/datum/species/proc/on_species_loss(mob/living/carbon/human/human)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(speed_mod)
-		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
+		human.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
 
 	if(toolspeedmod)
-		H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
+		human.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
 
 	if(surgeryspeedmod)
-		H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod)
+		human.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod)
 
 	if(length(inherent_traits))
-		H.remove_traits(inherent_traits, SPECIES_TRAIT)
+		human.remove_traits(inherent_traits, SPECIES_TRAIT)
 
-	H.meatleft = initial(H.meatleft)
+	human.meatleft = initial(human.meatleft)
 
-	H.hud_used?.update_locked_slots()
+	human.hud_used?.update_locked_slots()
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
-			H.faction -= i
+			human.faction -= i
+
+	qdel(human?.GetComponent(/datum/component/muscles))
 
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
@@ -562,7 +557,7 @@
 
 		user.do_attack_animation(target, attack.animation_type)
 		if(attack.harmless)
-			playsound(target.loc, attack.attack_sound, 25, 1, -1)
+			playsound(target.loc, attack.attack_sound, 25, TRUE, -1)
 			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!"))
 			return FALSE
 		add_attack_logs(user, target, "Melee attacked with fists")
@@ -585,7 +580,7 @@
 		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + delta
 		damage += attack.damage
 		if(!damage)
-			playsound(target.loc, attack.miss_sound, 25, 1, -1)
+			playsound(target.loc, attack.miss_sound, 25, TRUE, -1)
 			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)], но промахива[pluralize_ru(user.gender,"ется","ются")]!"))
 			return FALSE
 
@@ -611,7 +606,7 @@
 			if(!is_infected && (V.spread_flags & CONTACT))
 				V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 
-		playsound(target.loc, attack.attack_sound, 25, 1, -1)
+		playsound(target.loc, attack.attack_sound, 25, TRUE, -1)
 
 		target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!"))
 
@@ -655,7 +650,7 @@
 				extra_knock_chance = gloves.extra_knock_chance
 		if(randn <= 10 + extra_knock_chance)
 			target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, "melee"))
-			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!"))
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
 			if(!iscarbon(user))
@@ -676,7 +671,7 @@
 
 	var/shove_dir = get_dir(user.loc, target.loc)
 	var/turf/shove_to = get_step(target.loc, shove_dir)
-	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 	if(shove_to == user.loc)
 		return FALSE
@@ -819,6 +814,7 @@
 
 
 /datum/species/proc/can_equip(obj/item/I, slot, mob/living/carbon/human/user, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
+	var/disable_warning_sound = sound('sound/machines/chime.ogg')
 	if(slot in no_equip)
 		return FALSE
 
@@ -1025,7 +1021,7 @@
 
 			if(!user.wear_suit.allowed)
 				if(!disable_warning)
-					user << 'sound/machines/chime.ogg'
+					SEND_SOUND(user, disable_warning_sound) // I don't know why he added that, but okay.
 					to_chat(user, span_danger("Откуда у Вас этот костюм? Срочно сообщите о находке в высшие инстанции!"))
 				return FALSE
 

@@ -133,7 +133,7 @@
 		revert_cast(user)
 		return
 
-	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 1)
+	playsound(user.loc, 'sound/effects/bamf.ogg', 50, TRUE)
 	// mech supress escape
 	if(HAS_TRAIT_FROM(user, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
 		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
@@ -612,7 +612,7 @@
 			else if(issilicon(target))
 				var/mob/living/silicon/robot = target
 				to_chat(robot, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! ПЕРЕГРУЗКА СЕНСЕРОВ \[$(!@#</b>"))
-				robot << 'sound/misc/interference.ogg'
+				SEND_SOUND(robot, sound('sound/misc/interference.ogg'))
 				playsound(robot, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
 				do_sparks(5, 1, robot)
 				robot.Weaken(12 SECONDS)
@@ -871,7 +871,10 @@
 	target.death()
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/timer = SSshuttle.emergency.timeLeft(1) + 10 MINUTES
-		GLOB.event_announcement.Announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.", "Системный сбой.", 'sound/misc/notice1.ogg')
+		GLOB.major_announcement.announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.",
+										ANNOUNCE_SYSERROR_RU,
+										'sound/misc/notice1.ogg'
+		)
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
 	user.mind.RemoveSpell(src)	//Can only be used once!
@@ -1040,7 +1043,7 @@
 			continue
 
 		to_chat(target, span_userdanger("Вас поражает молния!"))
-		playsound(target, 'sound/magic/lightningshock.ogg', 50, 1)
+		playsound(target, 'sound/magic/lightningshock.ogg', 50, TRUE)
 		target.Weaken(16 SECONDS)
 		target.take_organ_damage(0, 50)
 		user.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)

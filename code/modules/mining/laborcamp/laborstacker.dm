@@ -26,6 +26,7 @@
 /obj/machinery/mineral/labor_claim_console/Initialize()
 	. = ..()
 	announcer = new /obj/item/radio/intercom(null)
+	announcer.follow_target = src
 	announcer.config(list(SEC_FREQ_NAME = 0))
 
 	if(!sheet_values)
@@ -211,10 +212,10 @@
 		if(!istype(prisoner_id, /obj/item/card/id/prisoner))
 			to_chat(user, span_warning("Ошибка: Недействительная ID-карта."))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_info("<b>ID: [prisoner_id.registered_name]</b>"))
-		to_chat(user, span_info("Накоплено очков: [prisoner_id.mining_points]"))
-		to_chat(user, span_info("Квота: [prisoner_id.goal]"))
-		to_chat(user, span_info("Зарабатывайте очки, доставляя переработанные минералы на упаковочную машину шаттла каторги. Выполните квоту для получения освобождения."))
+		to_chat(user, span_notice("<b>ID: [prisoner_id.registered_name]</b>"))
+		to_chat(user, span_notice("Накоплено очков: [prisoner_id.mining_points]"))
+		to_chat(user, span_notice("Квота: [prisoner_id.goal]"))
+		to_chat(user, span_notice("Зарабатывайте очки, доставляя переработанные минералы на упаковочную машину шаттла каторги. Выполните квоту для получения освобождения."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

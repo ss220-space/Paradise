@@ -180,7 +180,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
 	var/log_message = uppertext(message)
 	message = lowertext(message)
-	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, 1, 5)
+	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, TRUE, 5)
 
 	var/list/mob/living/listeners = list()
 	for(var/mob/living/L in get_mobs_in_view(8, owner, TRUE, FALSE))
@@ -486,7 +486,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	//HONK
 	else if((findtext(message, GLOB.honk_words)))
 		spawn(25)
-			playsound(get_turf(owner), 'sound/items/bikehorn.ogg', 300, 1)
+			playsound(get_turf(owner), 'sound/items/bikehorn.ogg', 300, TRUE)
 		if(owner.mind && owner.mind.assigned_role == JOB_TITLE_CLOWN)
 			for(var/mob/living/carbon/C in listeners)
 				C.slip(14 SECONDS * power_multiplier)

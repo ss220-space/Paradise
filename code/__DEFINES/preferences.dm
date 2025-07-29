@@ -10,6 +10,7 @@
 #define SOUND_DISCO			(1<<9)
 #define SOUND_AI_VOICE		(1<<10)
 #define SOUND_PRAYERNOTIFY	(1<<11)
+#define SOUND_MUTE_END_OF_ROUND  (1<<12)
 
 #define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_HEARTBEAT|SOUND_BUZZ|SOUND_INSTRUMENTS|SOUND_MENTORHELP|SOUND_DISCO|SOUND_AI_VOICE|SOUND_PRAYERNOTIFY)
 
@@ -192,8 +193,8 @@
 #define PREF_ORGANNAME_HEAD 		"Голова"
 #define PREF_ORGANNAME_L_ARM 		"Левая рука"
 #define PREF_ORGANNAME_R_ARM 		"Правая рука"
-#define PREF_ORGANNAME_L_HAND 		"Левая ладонь"
-#define PREF_ORGANNAME_R_HAND 		"Правая ладонь"
+#define PREF_ORGANNAME_L_HAND 		"Левая кисть"
+#define PREF_ORGANNAME_R_HAND 		"Правая кисть"
 #define PREF_ORGANNAME_L_LEG 		"Левая нога"
 #define PREF_ORGANNAME_R_LEG 		"Правая нога"
 #define PREF_ORGANNAME_L_FOOT 		"Левая ступня"

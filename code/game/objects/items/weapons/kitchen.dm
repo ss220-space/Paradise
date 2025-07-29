@@ -133,8 +133,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	throw_speed = 3
 	throw_range = 6
 	materials = list(MAT_METAL=12000)
@@ -215,8 +215,8 @@
 	icon_state = "pknife"
 	item_state = "knife"
 	sharp = 0
-	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
-	drop_sound = 'sound/items/handling/bone_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
 
 /obj/item/kitchen/knife/ritual
 	name = "ritual knife"
@@ -308,10 +308,18 @@
 	item_state = "bone_dagger"
 	icon_state = "bone_dagger"
 	belt_icon = "bone_dagger"
-	desc = "A sharpened bone. The bare minimum in survival."
+	desc = "Острая кость – минимум для выживания."
+	ru_names = list(
+		NOMINATIVE = "костяной кинжал",
+		GENITIVE = "костяного кинжала",
+		DATIVE = "костяному кинжалу",
+		ACCUSATIVE = "костяной кинжал",
+		INSTRUMENTAL = "костяным кинжалом",
+		PREPOSITIONAL = "костяном кинжале"
+	)
 	materials = list()
-	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
-	drop_sound = 'sound/items/handling/bone_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
 
 /obj/item/kitchen/knife/combat/survival/bone/eel
 	name = "eel sharpened tail"
@@ -356,8 +364,8 @@
 	origin_tech = "biotech=3;combat=2"
 	attack_verb = list("порезал", "уколол")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
-	drop_sound = 'sound/items/handling/bone_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
 
 /obj/item/kitchen/knife/glassshiv
 	name = "glass shiv"
@@ -369,8 +377,8 @@
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("порезал", "уколол")
 	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
-	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
-	drop_sound = 'sound/items/handling/bone_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
 	var/size
 
 

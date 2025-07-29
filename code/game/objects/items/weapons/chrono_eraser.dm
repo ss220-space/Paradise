@@ -124,6 +124,10 @@
 	nodamage = TRUE
 	var/obj/item/gun/energy/chrono_gun/gun = null
 
+/obj/projectile/energy/chrono_beam/Destroy()
+	gun = null
+	. = ..()
+
 /obj/projectile/energy/chrono_beam/fire()
 	gun = firer.get_active_hand()
 	if(istype(gun))
@@ -177,7 +181,7 @@
 		mob_underlay = mutable_appearance(cached_icon, "frame1")
 		update_icon(UPDATE_ICON_STATE)
 
-		desc = initial(desc) + "<br><span class='info'>It appears to contain [target.name].</span>"
+		desc = initial(desc) + span_notice("<br>It appears to contain [target.name].")
 	START_PROCESSING(SSobj, src)
 	return ..()
 

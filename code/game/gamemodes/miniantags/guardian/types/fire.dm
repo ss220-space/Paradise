@@ -107,8 +107,8 @@
 			else if(issilicon(target))
 				var/mob/living/silicon/silicon = target
 				to_chat(silicon, span_warning("<b>ОШИБКА #!^: ПЕРЕГРУЗКА СЕНСОРОВ\[$(!@#</b>"))
-				silicon << 'sound/misc/interference.ogg'
-				playsound(silicon, 'sound/machines/warning-buzzer.ogg', 50, 1)
+				SEND_SOUND(silicon, sound('sound/misc/interference.ogg'))
+				playsound(silicon, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
 				do_sparks(5, 1, silicon)
 				silicon.Weaken(6 SECONDS)
 

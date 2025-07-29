@@ -168,7 +168,7 @@
 		wear_suit = null
 		if(!QDELETED(src))
 			wear_suit_update(I)
-			if(I.breakouttime) //when unequipping a straightjacket
+			if(I.breakout_time) //when unequipping a straightjacket
 				REMOVE_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 	else if(I == w_uniform)
@@ -400,7 +400,7 @@
 		if(ITEM_SLOT_CLOTH_OUTER)
 			wear_suit = I
 			wear_suit_update(I)
-			if(I.breakouttime) //when equipping a straightjacket
+			if(I.breakout_time) //when equipping a straightjacket
 				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 		if(ITEM_SLOT_CLOTH_INNER)
@@ -425,7 +425,10 @@
 					temporarily_remove_item_from_inventory(I)
 				I.forceMove(back)
 			else
+				I.item_flags &= ~IN_STORAGE
 				I.forceMove(drop_location())
+
+			I.item_flags |= IN_STORAGE
 
 		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = w_uniform

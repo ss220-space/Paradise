@@ -66,7 +66,7 @@
 	pre_double_antags = list()
 
 	var/players = roundstart ? num_players() : num_station_players()
-	var/scale = CONFIG_GET(number/traitor_scaling) ? CONFIG_GET(number/traitor_scaling) : 10
+	var/scale = /*CONFIG_GET(number/traitor_scaling) ? CONFIG_GET(number/traitor_scaling) :*/ 10
 	var/antags_amount
 	var/special_antag_amount
 

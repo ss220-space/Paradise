@@ -10,7 +10,10 @@
  *		Egg Box
  *		Candle Box
  *		Crayon Box
- *		Cigarette Box
+ *		Cigarette Packs
+ *		Cigcase
+ *		Vial Box
+ *		Aquatic Starter Kit
  */
 
 /obj/item/storage/fancy
@@ -18,23 +21,26 @@
 	resistance_flags = FLAMMABLE
 	var/icon_type
 
-
 /obj/item/storage/fancy/update_icon_state()
 	icon_state = "[icon_type]box[length(contents)]"
 
-
 /obj/item/storage/fancy/examine(mob/user)
 	. = ..()
+	. += fancy_storage_examine(user)
+
+/obj/item/storage/fancy/proc/fancy_storage_examine(mob/user)
+	. = list()
 	if(in_range(user, src))
 		var/len = LAZYLEN(contents)
 		if(len <= 0)
-			. += "<span class='notice'>There are no [src.icon_type]s left in the box.</span>"
+			. += "There are no [icon_type]s left in the box."
 		else if(len == 1)
-			. += "<span class='notice'>There is one [src.icon_type] left in the box.</span>"
+			. += "There is one [icon_type] left in the box."
 		else
-			. += "<span class='notice'>There are [src.contents.len] [src.icon_type]s in the box.</span>"
+			. += "There are [length(contents)] [icon_type]s in the box."
+
 /*
- * Donut Box
+ * MARK: Donut Box
  */
 
 /obj/item/storage/fancy/donut_box
@@ -46,11 +52,12 @@
 	icon_type = "donut"
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
-
+	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
+	use_sound = 'sound/items/handling/cardboard_box_rustle.ogg'
 
 /obj/item/storage/fancy/donut_box/update_icon_state()
 	return
-
 
 /obj/item/storage/fancy/donut_box/update_overlays()
 	. = ..()
@@ -60,7 +67,6 @@
 		new_donut_icon.Shift(EAST, 3 * (I - 1))
 		. += new_donut_icon
 	. += "donutbox_front"
-
 
 /obj/item/storage/fancy/donut_box/populate_contents()
 	for(var/i = 1 to storage_slots)
@@ -73,7 +79,7 @@
 	return
 
 /*
- * Glowsticks Box
+ * MARK: Glowsticks Box
  */
 
 /obj/item/storage/fancy/glowsticks_box
@@ -107,12 +113,12 @@
 		new /obj/item/flashlight/flare/glowstick/random(src)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/storage/fancy/glowsticks_box/empty/populate_contents()
 	update_icon(UPDATE_OVERLAYS)
 	return
+
 /*
- * Egg Box
+ * MARK: Egg Box
  */
 
 /obj/item/storage/fancy/egg_box
@@ -122,13 +128,16 @@
 	name = "egg box"
 	storage_slots = 12
 	can_hold = list(/obj/item/reagent_containers/food/snacks/egg)
+	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
+	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 
 /obj/item/storage/fancy/egg_box/populate_contents()
 	for(var/I = 1 to storage_slots)
 		new /obj/item/reagent_containers/food/snacks/egg(src)
 
 /*
- * Candle Box
+ * MARK: Candle Box
  */
 
 /obj/item/storage/fancy/candle_box
@@ -141,7 +150,7 @@
 	storage_slots = 5
 	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
-
+	use_sound = "patchpack"
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
 	for(var/I = 1 to storage_slots)
@@ -156,7 +165,7 @@
 		new /obj/item/candle/eternal(src)
 
 /*
- * Crayon Box
+ * MARK: Crayon Box
  */
 
 /obj/item/storage/fancy/crayons
@@ -167,9 +176,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	storage_slots = 8
 	icon_type = "crayon"
-	can_hold = list(
-		/obj/item/toy/crayon
-	)
+	can_hold = list(/obj/item/toy/crayon)
+	use_sound = "patchpack"
 
 /obj/item/storage/fancy/crayons/populate_contents()
 	new /obj/item/toy/crayon/white(src)
@@ -182,16 +190,13 @@
 	new /obj/item/toy/crayon/black(src)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/storage/fancy/crayons/update_icon_state()
 	return
-
 
 /obj/item/storage/fancy/crayons/update_overlays()
 	. = ..()
 	for(var/obj/item/toy/crayon/crayon in contents)
 		. += crayon.colourName
-
 
 /obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon))
@@ -207,10 +212,10 @@
 				return ATTACK_CHAIN_PROCEED
 	return ..()
 
+/*
+ * MARK: Cig Pack
+ */
 
-////////////
-//CIG PACK//
-////////////
 /obj/item/storage/fancy/cigarettes
 	name = "cigarette packet"
 	desc = "Самый популярный бренд Космических Сигарет, спонсор Космо-олимпийских игр."
@@ -226,6 +231,7 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cigpacket"
 	item_state = "cigpacket"
+	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
@@ -263,7 +269,6 @@
 		else
 			icon_state = "[init_state]0"
 
-
 /obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
 		return ..()
@@ -280,7 +285,6 @@
 	else
 		user.balloon_alert(user, "рот цели чем-то занят!")
 
-
 /obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/item , stop_messages = 0)
 	if(istype(item, /obj/item/match))
 		var/obj/item/match/match = item
@@ -296,7 +300,6 @@
 			return FALSE
 	return ..()
 
-
 /obj/item/storage/fancy/cigarettes/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!length(contents))
 		C.stored_comms["wood"] += 1
@@ -305,7 +308,7 @@
 	return ..()
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
-	name = "\improper DromedaryCo packet"
+	name = "DromedaryCo packet"
 	desc = "Упаковка 20 сигарет \"Марсианский Табак\". Надпись на упаковке гласит: \"Быстрее или медленнее – всё равно смерть вас настигнет.\""
 	ru_names = list(
 		NOMINATIVE = "пачка \"Марсианский Табак\"",
@@ -320,7 +323,7 @@
 
 
 /obj/item/storage/fancy/cigarettes/syndicate
-	name = "\improper Syndicate Cigarettes"
+	name = "Syndicate Cigarettes"
 	desc = "Упаковка двадцати зловещих сигарет. Надпись на упаковке гласит: \"Вкусно и Пончик\"."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет Синдиката",
@@ -341,15 +344,15 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
-	name = "\"Dr. Zyuzya\" Marijuana Packet"
+	name = "\"Dr. Denchigo\" Marijuana Packet"
 	desc = "Упаковка 20 медицинских сигарет, выпускаемых по рецепту. Содержат марихуану."
 	ru_names = list(
-		NOMINATIVE = "пачка сигарет \"Доктор Зюзя\"",
-		GENITIVE = "пачки сигарет \"Доктор Зюзя\"",
-		DATIVE = "пачке сигарет \"Доктор Зюзя\"",
-		ACCUSATIVE = "пачку сигарет \"Доктор Зюзя\"",
-		INSTRUMENTAL = "пачкой сигарет \"Доктор Зюзя\"",
-		PREPOSITIONAL = "пачке сигарет \"Доктор Зюзя\""
+		NOMINATIVE = "пачка сигарет \"Доктор Денчиго\"",
+		GENITIVE = "пачки сигарет \"Доктор Денчиго\"",
+		DATIVE = "пачке сигарет \"Доктор Денчиго\"",
+		ACCUSATIVE = "пачку сигарет \"Доктор Денчиго\"",
+		INSTRUMENTAL = "пачкой сигарет \"Доктор Денчиго\"",
+		PREPOSITIONAL = "пачке сигарет \"Доктор Денчиго\""
 	)
 	icon_state = "medpacket"
 	item_state = "medpacket"
@@ -357,7 +360,7 @@
 
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
-	name = "\improper Uplift Smooth packet"
+	name = "Uplift Smooth packet"
 	desc = "Упаковка 20 сигарет \"Лёгкие на подъём\" со вкусом ментола."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Лёгкие на подъём\"",
@@ -372,7 +375,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
 /obj/item/storage/fancy/cigarettes/cigpack_richard
-	name = "\improper Richard & Co cigarettes"
+	name = "Richard & Co cigarettes"
 	desc = "Упаковка 20 сигарет \"Ричард и Компания\". Курево для самых отчаяных."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Ричард и Компания\"",
@@ -385,7 +388,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/richard
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
-	name = "\improper Robust packet"
+	name = "Robust packet"
 	desc = "Упаковка 20 сигарет \"Робаст\", популярных у безработных ассистентов."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Робаст\"",
@@ -399,7 +402,7 @@
 	item_state = "robustpacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
-	name = "\improper Robust Gold packet"
+	name = "Robust Gold packet"
 	desc = "Упаковка 20 сигарет \"Золотой Робаст\". Курево для настоящих мужиков."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Золотой Робаст\"",
@@ -414,7 +417,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp
-	name = "\improper Carp Classic packet"
+	name = "Carp Classic packet"
 	desc = "Упаковка 20 сигарет \"Дымящий Карп\". Надпись на упаковке гласит: \"Дарим клиентам рак лёгких с 2313 года\"."
 	ru_names = list(
 		NOMINATIVE = "Пачка сигарет \"Дымящий Карп\"",
@@ -428,7 +431,7 @@
 	item_state = "carppacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
-	name = "\improper Midori Tabako packet"
+	name = "Midori Tabako packet"
 	desc = "Упаковка 20 сигарет \"Табак Мидори\". Вы не понимаете, что написано на упаковке, но пахнет прикольно."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Табак Мидори\"",
@@ -442,7 +445,7 @@
 	item_state = "midoripacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
-	name ="\improper Shady Jim's Super Slims"
+	name ="Shady Jim's Super Slims"
 	desc = "Упаковка 20 сигарет \"от Шейди Джима\". Надпись на упаковке гласит: \
 		\"Теряете в весе? \
 		Не можете поспевать за коллегами, убегая от Сингулярности? \
@@ -461,7 +464,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/shadyjims
 
 /obj/item/storage/fancy/cigarettes/cigpack_random
-	name ="\improper Embellished Enigma packet"
+	name ="Embellished Enigma packet"
 	desc = "Упаковка 20 сигарет \"Энигма\". Для истинных ценителей экзотики."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Энигма\"",
@@ -495,15 +498,12 @@
 	icon_type = "rolling paper"
 	can_hold = list(/obj/item/rollingpaper)
 
-
 /obj/item/storage/fancy/rollingpapers/populate_contents()
 	for(var/i in 1 to storage_slots)
 		new /obj/item/rollingpaper(src)
 
-
 /obj/item/storage/fancy/rollingpapers/update_icon_state()
 	return
-
 
 /obj/item/storage/fancy/rollingpapers/update_overlays()
 	. = ..()
@@ -511,7 +511,7 @@
 		. += "[icon_state]_empty"
 
 /*
- * cigcase
+ * MARK: Cigcase
  */
 
 /obj/item/storage/fancy/cigcase
@@ -533,24 +533,23 @@
 	storage_slots = 7
 	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
 
-
 /obj/item/storage/fancy/cigcase/update_icon_state()
 	icon_state = "[icon_type]case[length(contents)]"
-
 
 /obj/item/storage/fancy/cigcase/populate_contents()
 	for(var/I = 1 to storage_slots)
 		new /obj/item/clothing/mask/cigarette/cigar(src)
 
 /*
- * Vial Box
+ * MARK: Vial Box
  */
 
 /obj/item/storage/fancy/vials
+	name = "vial storage box"
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox6"
 	icon_type = "vial"
-	name = "vial storage box"
+	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
 
@@ -570,16 +569,13 @@
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)
 
-
 /obj/item/storage/lockbox/vials/populate_contents()
 	for(var/I = 1 to storage_slots)
 		new /obj/item/reagent_containers/glass/beaker/vial(src)
 	update_icon()
 
-
 /obj/item/storage/lockbox/vials/update_icon_state()
 	icon_state = "vialbox[length(contents)]"
-
 
 /obj/item/storage/lockbox/vials/update_overlays()
 	. = ..()
@@ -590,8 +586,9 @@
 	else
 		. += "ledb"
 
-
-///Aquatic Starter Kit
+/*
+ * MARK: Aquatic Starter Kit
+ */
 
 /obj/item/storage/firstaid/aquatic_kit
 	name = "aquatic starter kit"
