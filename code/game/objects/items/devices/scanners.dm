@@ -276,6 +276,7 @@ BODY SCANNERS
 		INSTRUMENTAL = "анализатором здоровья",
 		PREPOSITIONAL = "анализаторе здоровья"
 	)
+	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
