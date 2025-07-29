@@ -30,6 +30,7 @@
 	generate_allowed_books()
 	if(mapload)
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+	AddComponent(/datum/component/debris, DEBRIS_WOOD, -40, 5)
 
 
 /// Populates typecache with the things allowed to store

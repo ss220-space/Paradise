@@ -7,13 +7,13 @@
 	/// Icon state of debris when impacted by a projectile
 	var/debris
 	/// Velocity of debris particles
-	var/debris_velocity = -15
+	var/debris_velocity = -40
 	/// Amount of debris particles
 	var/debris_amount = 8
 	/// Scale of particle debris
-	var/debris_scale = 0.7
+	var/debris_scale = 1
 
-/datum/component/debris/Initialize(_debris_icon_state, _debris_velocity = -15, _debris_amount = 8, _debris_scale = 0.7)
+/datum/component/debris/Initialize(_debris_icon_state, _debris_velocity = -40, _debris_amount = 8, _debris_scale = 1)
 	. = ..()
 	debris = _debris_icon_state
 	debris_velocity = _debris_velocity
@@ -34,8 +34,8 @@
 	var/angle = !isnull(P.Angle) ? P.Angle : round(get_angle(P.starting, parent), 1)
 	var/x_component = sin(angle) * debris_velocity
 	var/y_component = cos(angle) * debris_velocity
-	var/x_component_smoke = sin(angle) * -15
-	var/y_component_smoke = cos(angle) * -15
+	var/x_component_smoke = sin(angle) * -37
+	var/y_component_smoke = cos(angle) * -37
 
 	var/obj/effect/abstract/particle_holder_tgmc/debris_visuals
 	var/obj/effect/abstract/particle_holder_tgmc/smoke_visuals

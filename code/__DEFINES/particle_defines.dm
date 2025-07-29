@@ -5,6 +5,7 @@
 #define DEBRIS_GLASS "glass"
 #define DEBRIS_LEAF "leaf"
 #define DEBRIS_SNOW "snow"
+#define DEBRIS_PAPER "paper"
 
 // Generator type defines.
 #define GEN_NUM "num"

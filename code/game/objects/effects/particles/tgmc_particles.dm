@@ -1,8 +1,11 @@
-// All the smoke variant particles.
-
 /**
  * MARK: TGMC
- * Impact debris & Explosion smoke
+ * Particles ported from TGMC.
+ * They are used in case of explosions and hits on objects from firearms (brute damage).
+ */
+
+/**
+ * MARK: Explosion smoke
  */
 /particles/explosion_smoke
 	icon = 'icons/effects/96x96.dmi'
@@ -77,31 +80,56 @@
 	scale = 0.1
 	friction = 0.1
 
+/**
+ * MARK: Impact debris
+ */
 /particles/debris
 	icon = 'icons/effects/particles/generic_particles.dmi'
 	width = 500
 	height = 500
 	count = 10
 	spawning = 10
-	lifespan = 0.5 SECONDS
-	fade = 0.3 SECONDS
-	drift = generator(GEN_CIRCLE, 0, 7)
-	scale = 0.3
+	lifespan = 0.7 SECONDS
+	fade = 0.4 SECONDS
+	position = generator(GEN_CIRCLE, 3, 3)
+	scale = 1
 	velocity = list(50, 0)
-	friction = generator(GEN_NUM, 0.1, 0.15)
+	friction = generator(GEN_NUM, 0.3, 0.6)
+	rotation = generator(GEN_NUM, -20, 20)
 	spin = generator(GEN_NUM, -20, 20)
+	drift = generator(GEN_CIRCLE, 0, 9, SQUARE_RAND)
 
 /particles/impact_smoke
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "smoke5"
+	width = 500
+	height = 500
+	count = 5
+	spawning = 15
+	lifespan = 0.7 SECONDS
+	fade = 3.3 SECONDS
+	grow = 0.065
+	drift = generator(GEN_CIRCLE, 8, 8)
+	scale = 0.1
+	spin = generator(GEN_NUM, -20, 20)
+	velocity = list(50, 0)
+	friction = generator(GEN_NUM, 0.3, 0.6)
+
+/**
+ * MARK: Bloodsplatter
+ */
+/particles/splatter
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "smoke"
 	width = 500
 	height = 500
 	count = 20
 	spawning = 20
-	lifespan = 0.8 SECONDS
-	fade = 10 SECONDS
+	lifespan = 0.5 SECONDS
+	fade = 0.7 SECONDS
 	grow = 0.1
 	scale = 0.2
 	spin = generator(GEN_NUM, -20, 20)
 	velocity = list(50, 0)
 	friction = generator(GEN_NUM, 0.1, 0.5)
+	position = generator(GEN_CIRCLE, 6, 6)
