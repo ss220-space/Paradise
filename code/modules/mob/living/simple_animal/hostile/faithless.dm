@@ -1,14 +1,23 @@
 /mob/living/simple_animal/hostile/faithless
-	name = "Faithless"
-	desc = "The Wish Granter's faith in humanity, incarnate"
+	name = "faithless"
+	desc = "Воплощённая в жизнь вера в человечество Исполнителя желаний."
+	ru_names = list(
+		NOMINATIVE = "неверующий",
+		GENITIVE = "неверующего",
+		DATIVE = "неверующему",
+		ACCUSATIVE = "неверующего",
+		INSTRUMENTAL = "неверующим",
+		PREPOSITIONAL = "неверующем"
+	)
+	gender = MALE
 	icon_state = "faithless"
 	icon_living = "faithless"
 	icon_dead = "faithless_dead"
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "passes through the"
-	response_disarm = "shoves"
-	response_harm = "hits the"
+	response_help = "проходит мимо"
+	response_disarm = "толкает"
+	response_harm = "бьёт"
 	speed = 0
 	maxHealth = 80
 	health = 80
@@ -38,6 +47,7 @@
 /mob/living/simple_animal/hostile/faithless/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
+// Is it a balance?
 /mob/living/simple_animal/hostile/faithless/AttackingTarget()
 	. = ..()
 	if(. && iscarbon(target))

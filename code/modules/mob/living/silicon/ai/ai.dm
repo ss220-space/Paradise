@@ -712,7 +712,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		unset_machine()
 		close_window(src, href_list["mach_close"])
 	if(href_list["switchcamera"])
-		switchCamera(locate(href_list["switchcamera"]) in GLOB.cameranet.cameras)
+		switchCamera(locateUID(href_list["switchcamera"]))
 	if(href_list["showalerts"])
 		ai_alerts()
 	if(href_list["show_paper"])
@@ -723,7 +723,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			popup.open(FALSE)
 	//Carn: holopad requests
 	if(href_list["jumptoholopad"])
-		var/obj/machinery/hologram/holopad/H = locate(href_list["jumptoholopad"])
+		var/obj/machinery/hologram/holopad/H = locateUID(href_list["jumptoholopad"])
 		if(stat == CONSCIOUS)
 			if(H)
 				H.attack_ai(src) //may as well recycle

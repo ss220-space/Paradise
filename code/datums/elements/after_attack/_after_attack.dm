@@ -14,7 +14,7 @@
 	target.AddComponent(/datum/component/after_attacks_hub)
 	SEND_SIGNAL(target, COMSIG_ITEM_REGISTER_AFTERATTACK, src)
 
-/datum/element/after_attack/Detach(datum/source, force)
+/datum/element/after_attack/Detach(datum/source)
 	SEND_SIGNAL(source, COMSIG_ITEM_UNREGISTER_AFTERATTACK, src)
 	. = ..()
 
