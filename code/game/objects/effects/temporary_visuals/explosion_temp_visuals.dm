@@ -13,7 +13,7 @@
 
 /obj/effect/temp_visual/explosion/Initialize(mapload, radius, color, small = FALSE, large = FALSE)
 	. = ..()
-	set_light(radius, radius, LIGHT_COLOR_ORANGE)
+	set_light(radius, radius, LIGHT_COLOR_LAVA)
 	generate_particles(radius, small, large)
 	var/image/I = image(icon, src, icon_state, 10, -32, -32)
 	var/matrix/rotate = matrix()
