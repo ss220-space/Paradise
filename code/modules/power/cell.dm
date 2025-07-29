@@ -565,3 +565,7 @@
 	maxcharge = 2200
 	chargerate = 100
 
+/obj/item/stock_parts/cell/degraded
+	name = "degraded power cell"
+	maxcharge = 750
+	chargerate = 25
