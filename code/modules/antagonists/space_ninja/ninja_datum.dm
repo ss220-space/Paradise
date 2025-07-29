@@ -99,7 +99,7 @@
 
 
 /datum/antagonist/ninja/greet()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/ninja_greeting.ogg')
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/ninja_greeting.ogg'))
 	to_chat(owner.current, "Я элитный наёмник в составе могущественного Клана Паука! <font color='red'><b>Космический Ниндзя!</b></font>")
 	to_chat(owner.current, "Моё оружие внезапность. Моя броня Тень. Без них, я ничто.")
 
@@ -157,7 +157,7 @@
 /datum/antagonist/ninja/proc/finalize_antag_paradise_mode()
 	give_objectives()
 	announce_objectives()
-	SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
+	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 
 
 /datum/antagonist/ninja/proc/name_ninja()

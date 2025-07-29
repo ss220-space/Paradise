@@ -518,7 +518,7 @@
 
 /obj/item/clothing/head/griffin/proc/caw()
 	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
-		playsound(src.loc, 'sound/creatures/caw.ogg', 50, 1)
+		playsound(src.loc, 'sound/creatures/caw.ogg', 50, TRUE)
 		cooldown = world.time
 
 

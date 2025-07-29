@@ -26,7 +26,7 @@
 
 /// Define of other titles.
 #define ANNOUNCE_BIOHAZARD_RU		"Биологическая угроза."
-#define ANNOUNCE_ANOMALY_RU			"Аномалия."
+#define ANNOUNCE_ANOMALY_RU			"Предупреждение об аномалии."
 #define ANNOUNCE_PARANORMAL_RU		"Паранормальная активность."
 #define ANNOUNCE_CCPARANORMAL_RU	"Отдел Центрального командования по делам высших измерений."
 #define ANNOUNCE_METEOR_RU			"Метеориты."
@@ -50,3 +50,4 @@
 #define ANNOUNCE_APC_CRIT_RU		"Критический сбой системы питания."
 #define ANNOUNCE_APC_REPAIR_RU		"Система питания восстановлена."
 #define ANNOUNCE_ROGUE_DRONE_RU		"Сбойные дроны."
+#define ANNOUNCE_HONKANOMALY_RU		"Предупреждение о Хонканомалии."

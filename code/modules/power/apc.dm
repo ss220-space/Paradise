@@ -792,7 +792,7 @@
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
-		. += span_info("<b>Alt-click</b> to toggle locker.<br/><b>Ctrl-click</b> to toggle power.")
+		. += span_notice("<b>Alt-click</b> to toggle locker.<br/><b>Ctrl-click</b> to toggle power.")
 
 /obj/machinery/power/apc/click_alt(mob/living/carbon/human/H)
 	if(!istype(H))

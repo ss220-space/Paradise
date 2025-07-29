@@ -13,6 +13,6 @@
 	target.apply_damage(20, BURN)
 	objective_damage(user, target, 20, BURN)
 	user.adjust_nutrition(-125)
-	playsound(get_turf(target), 'sound/magic/lightningbolt.ogg', 50, 1)
+	playsound(get_turf(target), 'sound/magic/lightningbolt.ogg', 50, TRUE)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

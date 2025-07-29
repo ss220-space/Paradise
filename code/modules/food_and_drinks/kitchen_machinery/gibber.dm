@@ -287,7 +287,7 @@
 		add_attack_logs(src, occupant, "gibbed")
 
 	occupant.emote("scream")
-	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
+	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 	victims += "\[[time_stamp()]\] [key_name(occupant)] killed by [UserOverride ? "Autogibbing" : "[key_name(user)]"]" //have to do this before ghostizing
 	occupant.death(1)
 	occupant.ghostize()
@@ -295,7 +295,7 @@
 	QDEL_NULL(occupant)
 
 	spawn(gibtime)
-		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
+		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, TRUE)
 
 		if(stealthmode)
 			for(var/atom/movable/AM in contents)

@@ -65,7 +65,7 @@
 	set_light_on(FALSE)
 
 /obj/item/grown/proc/send_plant_details(mob/user)
-	var/msg = span_info("This is \a </span><span class='name'>[src]\n")
+	var/msg = span_notice("This is \a </span><span class='name'>[src]\n")
 	if(seed)
 		msg += seed.get_analyzer_text()
 	msg += "</span>"

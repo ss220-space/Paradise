@@ -137,7 +137,7 @@
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
-	. += span_info("Вы можете <b>Alt-ЛКМ</b> по [declent_ru(DATIVE)] чтобы повернуть его.")
+	. += span_notice("Вы можете <b>Alt-ЛКМ</b> по [declent_ru(DATIVE)] чтобы повернуть его.")
 
 
 /obj/structure/chair/proc/rotate(mob/living/user)

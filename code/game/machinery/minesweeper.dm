@@ -229,7 +229,7 @@
 	speak(pick(loose_phrases))
 	if(emagged)
 		user.gib()
-	playsound(loc, 'sound/effects/explosionfar.ogg', 50, 1)
+	playsound(loc, 'sound/effects/explosionfar.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)
 
 /obj/machinery/arcade/minesweeper/proc/generate_matrix(var/x, var/y)

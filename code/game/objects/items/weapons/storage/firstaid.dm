@@ -6,11 +6,11 @@
  */
 
 /*
- * First Aid Kits
+ * MARK: First Aid Kits
  */
 /obj/item/storage/firstaid
 	name = "first-aid kit"
-	desc = "Это аптечка для экстренной первой помощи."
+	desc = "Если вы видите это, напишите сообщение об ошибке, что-то пошло не так!"
 	ru_names = list(
         NOMINATIVE = "аптечка первой помощи",
         GENITIVE = "аптечки первой помощи",
@@ -21,6 +21,9 @@
 	)
 	gender = FEMALE
 	icon_state = "firstaid"
+	drop_sound = 'sound/items/handling/drop/plasticbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/plasticbox_pickup.ogg'
+	use_sound = 'sound/items/handling/plasticbox_open.ogg'
 	throw_speed = 2
 	throw_range = 8
 	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
@@ -466,7 +469,7 @@
 	item_state = "mining_medic_firstaid"
 
 /*
- * Pill Bottles
+ * MARK: Pill Bottles
  */
 
 /obj/item/storage/pill_bottle
@@ -494,8 +497,8 @@
 	max_combined_w_class = 50
 	display_contents_with_number = TRUE
 	use_sound = "pillbottle"
-	pickup_sound = 'sound/items/handling/pillbottle_pickup.ogg'
-	drop_sound = 'sound/items/handling/pillbottle_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/pillbottle_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/pillbottle_drop.ogg'
 	var/base_name = ""
 	var/label_text = ""
 	var/applying_meds = FALSE //To Prevent spam clicking and generating runtimes from apply a deleting pill multiple times.

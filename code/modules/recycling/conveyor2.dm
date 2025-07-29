@@ -104,10 +104,10 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	. = ..()
 	if(inverted)
 		. += span_notice("It is currently set to go in reverse.")
-	. += span_info("Use a <b>wrench</b> on the belt to rotate it.")
-	. += span_info("Use a <b>screwdriver</b> to flip its belt around.")
-	. += span_info("Use a <b>wirecutterss</b> to invert its direction.")
-	. += span_info("Use a <b>multitool</b> to highlight the conveyor switch.")
+	. += span_notice("Use a <b>wrench</b> on the belt to rotate it.")
+	. += span_notice("Use a <b>screwdriver</b> to flip its belt around.")
+	. += span_notice("Use a <b>wirecutterss</b> to invert its direction.")
+	. += span_notice("Use a <b>multitool</b> to highlight the conveyor switch.")
 
 
 /obj/machinery/conveyor/update_icon_state()
@@ -506,8 +506,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	. += span_notice("[src] is set to <b>[invert_icon ? "inverted": "normal"]</b> position. It can be rotated with a <b>wrench</b>.")
 	. += span_notice("[src] is set to <b>[one_way ? "one way" : "default"]</b> configuration. It can be changed with a <b>multitool</b>")
 	. += span_notice("[src] is set to move <b>[conveyor_speed / 10]</b> seconds per belt. It can be changed with a <b>multitool</b>")
-	. += span_info("<b>Left-Click</b> to toggle forwards, <b>Alt-Click</b> to toggle backwards.")
-	. += span_info("Use a <b>crowbar</b> to dislodge.")
+	. += span_notice("<b>Left-Click</b> to toggle forwards, <b>Alt-Click</b> to toggle backwards.")
+	. += span_notice("Use a <b>crowbar</b> to dislodge.")
 
 
 /obj/machinery/conveyor_switch/click_alt(mob/user)
@@ -689,8 +689,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/item/conveyor_switch_construct/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Use</b> it on a section of conveyor belt or conveyor placer to link them together.")
-	. += span_info("<b>Use</b> the assembly on the ground to finalize it.")
+	. += span_notice("<b>Use</b> it on a section of conveyor belt or conveyor placer to link them together.")
+	. += span_notice("<b>Use</b> the assembly on the ground to finalize it.")
 
 
 /obj/item/conveyor_switch_construct/afterattack(turf/interacting_with, mob/user, proximity, params)

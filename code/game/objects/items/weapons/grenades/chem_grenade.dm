@@ -154,13 +154,13 @@
 			label = " ([labeler.label])"
 			update_appearance(UPDATE_NAME)
 			to_chat(user, span_notice("You apply new label to [src]."))
-			playsound(user.loc, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
+			playsound(user.loc, 'sound/items/handling/pickup/component_pickup.ogg', 20, TRUE)
 			return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 		label = null
 		update_appearance(UPDATE_NAME)
 		to_chat(user, span_notice("You remove the label from [src]."))
-		playsound(user.loc, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
+		playsound(user.loc, 'sound/items/handling/pickup/component_pickup.ogg', 20, TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 	switch(stage)

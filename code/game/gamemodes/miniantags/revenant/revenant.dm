@@ -245,7 +245,7 @@
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
 	revealed = 1
 	invisibility = 0
-	playsound(src, 'sound/effects/screech.ogg', 100, 1)
+	playsound(src, 'sound/effects/screech.ogg', 100, TRUE)
 	visible_message(span_warning("[declent_ru(NOMINATIVE)] издаёт затихающий визг, пока фиолетовый туман окутывает его распадающееся тело!"))
 	update_icon(UPDATE_ICON_STATE)
 	delayed_death()

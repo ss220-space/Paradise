@@ -65,13 +65,14 @@
 	var/datum/research/files
 	/// The currently inserted design disk.
 	var/obj/item/disk/design_disk/inserted_disk
+	var/invalid_material
 	COOLDOWN_DECLARE(messages_cooldown)
 
-/obj/machinery/mineral/ore_redemption/New()
-	..()
-	ore_buffer = list()
+/obj/machinery/mineral/ore_redemption/Initialize(mapload)
+	. = ..()
 	// Components
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
+	ore_buffer = list()
 	files = new /datum/research/smelter(src)
 	// Stock parts
 	component_parts = list()
@@ -88,8 +89,8 @@
 		req_access = list(ACCESS_SYNDICATE)
 		req_access_claim = ACCESS_SYNDICATE
 
-/obj/machinery/mineral/ore_redemption/upgraded/New()
-	..()
+/obj/machinery/mineral/ore_redemption/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -108,8 +109,8 @@
 	req_access = list(ACCESS_FREE_GOLEMS)
 	req_access_claim = ACCESS_FREE_GOLEMS
 
-/obj/machinery/mineral/ore_redemption/golem/New()
-	..()
+/obj/machinery/mineral/ore_redemption/golem/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption/golem(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -137,8 +138,8 @@
 	req_access = list()
 	anyone_claim = TRUE
 
-/obj/machinery/mineral/ore_redemption/labor/New()
-	..()
+/obj/machinery/mineral/ore_redemption/labor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption/labor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -195,13 +196,27 @@
 	var/obj/structure/ore_box/OB = locate() in input
 	if(OB)
 		input = OB
-	// Suck the ore in
-	for(var/obj/item/stack/ore/O in input)
-		if(QDELETED(O))
+	// Sucking the ore inside.
+	for(var/obj/item/stack/ore/ore in input)
+		if(QDELETED(ore))
 			continue
-		ore_buffer |= O
-		O.forceMove(src)
+		ore_buffer |= ore
+		ore.forceMove(src)
 		CHECK_TICK
+	// Sucking materials inside.
+	for(var/obj/item/stack/stack in input)
+		if(QDELETED(stack))
+			return
+		var/signal_flag = SEND_SIGNAL(src, COMSIG_MATERIAL_CONTAINER_ON_INSERT_STACK, stack, stack.amount)
+		if(!(signal_flag & CONTAINER_INSERT_SUCCESS))
+			stack.forceMove(get_step(src, output_dir))
+			invalid_material = TRUE
+		CHECK_TICK
+	// Throwing it away if it doesn't suck.
+	if(invalid_material)
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		atom_say("ОШИБКА: Некорректные материалы.", use_tts = FALSE)
+		invalid_material = FALSE
 	// Process it
 	if(length(ore_buffer))
 		message_sent = FALSE

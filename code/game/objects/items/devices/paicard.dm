@@ -293,7 +293,7 @@
 
 /obj/item/paicard/proc/softping()
 	if(COOLDOWN_FINISHED(src, ping_cooldown))
-		playsound(get_turf(src), 'sound/items/posiping.ogg', 50, 0)
+		playsound(get_turf(src), 'sound/items/posiping.ogg', 50, FALSE)
 		COOLDOWN_START(src, ping_cooldown, 20 SECONDS)
 
 

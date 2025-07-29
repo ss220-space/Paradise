@@ -204,7 +204,7 @@
 			return
 		charge.override_safety()
 		visible_message(span_warning("Из [declent_ru(GENITIVE)] летят искры!"), span_notice("Вы перегружаете [declent_ru(ACCUSATIVE)], отключая его защиту."))
-		playsound(src, "sparks", 50, 1)
+		playsound(src, "sparks", 50, TRUE)
 		charges--
 		if(charges <= 0)
 			to_chat(user , span_warning("Внутренняя батарея [declent_ru(GENITIVE)], предназначенная для перегрузки шахтёрских зарядов, разрядилась!"))

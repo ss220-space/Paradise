@@ -15,7 +15,6 @@
 	status_flags = NONE //no default canpush
 	pass_flags = PASSFLAPS
 	AI_delay_max = 0 SECONDS
-
 	speak_emote = list("констатирует")
 	tts_seed = null
 	friendly = "утыкается в"
@@ -375,7 +374,7 @@
 	user.do_attack_animation(src)
 	apply_damage(user.attack_damage, BRUTE)
 	visible_message(span_danger("[user] руб[pluralize_ru(user.gender, "ит", "ят")] [declent_ru(GENITIVE)]!"))
-	playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+	playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 

@@ -57,7 +57,7 @@
 	var/list/messages = list()
 	messages.Add(playstyle_string)
 	messages.Add(span_notice("<b>Сейчас вы находитесь в ином измерении, отличном от станции. Используйте способность \"Кровавый путь\" на луже крови, чтобы проявиться.</b>"))
-	src << 'sound/misc/demon_dies.ogg'
+	SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
 	if(vialspawned)
 		return
 

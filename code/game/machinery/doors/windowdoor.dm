@@ -189,7 +189,7 @@
 		operating = DOOR_OPENING
 	INVOKE_ASYNC(src, PROC_REF(do_animate), "opening")
 	set_opacity(FALSE)
-	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
+	playsound(loc, 'sound/machines/windowdoor.ogg', 100, TRUE)
 	update_icon()
 	sleep(1 SECONDS)
 

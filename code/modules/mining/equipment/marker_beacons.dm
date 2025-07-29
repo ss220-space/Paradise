@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		return
 	if(use(1))
 		to_chat(user, span_notice("Вы активируете и закрепляете [declent_ru(ACCUSATIVE)] на месте."))
-		playsound(user, 'sound/machines/click.ogg', 50, 1)
+		playsound(user, 'sound/machines/click.ogg', 50, TRUE)
 		var/obj/structure/marker_beacon/M = new(user.loc, picked_color)
 		transfer_fingerprints_to(M)
 
