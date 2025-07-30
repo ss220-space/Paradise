@@ -22,6 +22,7 @@
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/human)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 	AddElement(/datum/element/strippable, GLOB.strippable_human_items,  TYPE_PROC_REF(/mob/living/carbon/human/, should_strip))
+	AddComponent(/datum/component/nutrition_effects)
 	UpdateAppearance()
 	GLOB.human_list += src
 
@@ -1748,26 +1749,39 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 
 
+/mob/living/carbon/human/get_max_stamina()
+	return max_stamina
+
+
+/mob/living/carbon/human/set_max_stamina(amount)
+	max_stamina = max(0, amount)
+
+
 /mob/living/carbon/human/adjust_nutrition(change, forced)
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
-	update_hunger_slowdown()
+	update_nutrition_level()
 
 
 /mob/living/carbon/human/set_nutrition(change, forced)
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
-	update_hunger_slowdown()
+	update_nutrition_level()
 
 
-/mob/living/carbon/human/proc/update_hunger_slowdown()
-	var/hungry = (500 - nutrition) / 5 //So overeat would be 100 and default level would be 80
-	if(hungry >= 70)
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (hungry / 50))
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
+/mob/living/carbon/human/proc/update_nutrition_level()
+	SEND_SIGNAL(src, COMSIG_HUMAN_NUTRITION_UPDATE, nutrition)
+
+
+/// Sets max stamina, tool and movespeed mods based on current nutrition level
+/mob/living/carbon/human/proc/update_nutrition_effects(/datum/nutrition_level/nutrition_level)
+	set_max_stamina(BASE_MAX_STAMINA_LOSS + nutrition_level.max_stamina_bonus)
+	add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = src.dna.species.toolspeedmod + nutrition_level.tool_speed_mod)
+	add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = src.dna.species.surgeryspeedmod + nutrition_level.tool_speed_mod)
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = nutrition_level.move_speed_mod)
+	sound_environment_override = nutrition_level.sound_env
 
 
 /mob/living/carbon/human/proc/special_post_clone_handling()

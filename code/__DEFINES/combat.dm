@@ -60,8 +60,8 @@
 #define HEALTH_THRESHOLD_CRIT 0
 #define HEALTH_THRESHOLD_DEAD -100
 
-/// Maximum amount of staminaloss, living mob can have.
-#define MAX_STAMINA_LOSS 120
+/// Maximum amount of staminaloss, living mob can have without bonuses.
+#define BASE_MAX_STAMINA_LOSS 120
 
 //Grab levels
 #define GRAB_PASSIVE 0
