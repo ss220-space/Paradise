@@ -177,12 +177,12 @@
 	. = ..()
 	name = manual_name + name
 	if(ru_names)
-		initial(ru_names[NOMINATIVE]) += manual_name_ru
-		initial(ru_names[GENITIVE]) += manual_name_ru
-		initial(ru_names[DATIVE]) += manual_name_ru
-		initial(ru_names[ACCUSATIVE]) += manual_name_ru
-		initial(ru_names[INSTRUMENTAL]) += manual_name_ru
-		initial(ru_names[PREPOSITIONAL]) += manual_name_ru
+		ru_names[NOMINATIVE] += manual_name_ru
+		ru_names[GENITIVE] += manual_name_ru
+		ru_names[DATIVE] += manual_name_ru
+		ru_names[ACCUSATIVE] += manual_name_ru
+		ru_names[INSTRUMENTAL] += manual_name_ru
+		ru_names[PREPOSITIONAL] += manual_name_ru
 
 
 /obj/structure/bookcase/manuals/medical
@@ -464,26 +464,31 @@
 		mode = 0
 	switch(mode)
 		if(0)
-			if(src.computer)
+			if(computer)
 				to_chat(user, span_notice("Сканирование книг в локальное хранилище с попыткой добавление в базу данных."))
 			else
-				mode +=1
+				mode += 1
+
 		if(1)
-			if(src.computer)
+			if(computer)
 				to_chat(user, span_green("Устройство привязанно к компьютеру."))
 			else
 				to_chat(user, span_red("Привязанный к устройству компьютер не найден. Доступно только локальное сканирование."))
+
 		if(2)
 			to_chat(user, span_notice("Сканирование книг в локальное хранилище."))
+
 		if(3)
-			if(src.computer)
+			if(computer)
 				to_chat(user, span_notice("Сканирование книг в локальное хранилище с добалением в буфер привязанного компьютера."))
 			else
-				mode +=1
+				mode += 1
+
 		if(4)
-			if(src.computer)
+			if(computer)
 				to_chat(user, span_notice("Сканирование книг в локальное хранилище с оформлением их брони."))
 			else
-				mode +=1
+				mode += 1
+
 		else
 			to_chat(user, span_notice("ОШИБКА."))

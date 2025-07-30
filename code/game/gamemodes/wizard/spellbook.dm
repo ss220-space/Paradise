@@ -1047,12 +1047,12 @@
 	..()
 	name += spellname
 	if(ru_names)
-		initial(ru_names[NOMINATIVE]) += spellname_ru
-		initial(ru_names[GENITIVE]) += spellname_ru
-		initial(ru_names[DATIVE]) += spellname_ru
-		initial(ru_names[ACCUSATIVE]) += spellname_ru
-		initial(ru_names[INSTRUMENTAL]) += spellname_ru
-		initial(ru_names[PREPOSITIONAL]) += spellname_ru
+		ru_names[NOMINATIVE] += spellname_ru
+		ru_names[GENITIVE] += spellname_ru
+		ru_names[DATIVE] += spellname_ru
+		ru_names[ACCUSATIVE] += spellname_ru
+		ru_names[INSTRUMENTAL] += spellname_ru
+		ru_names[PREPOSITIONAL] += spellname_ru
 
 /obj/item/spellbook/oneuse/initialize() //No need to init
 	return
@@ -1134,7 +1134,13 @@
 
 /obj/item/spellbook/oneuse/mindswap/onlearned()
 	spellname = pick("fireball","smoke","blind","forcewall","knock","horses","charge")
+	name_change(spellname)
+	icon_state = "book[spellname]"
+	item_state = "book[spellname]"
+	name = "spellbook of [spellname]" //Note, desc doesn't change by design
+	..()
 
+/obj/item/spellbook/oneuse/mindswap/proc/name_change(spellname)
 	switch(spellname)
 		if("fireball")
 			spellname_ru = "Огненного шара"
@@ -1151,9 +1157,6 @@
 		if("charge")
 			spellname_ru = "Заряда"
 
-	icon_state = "book[spellname]"
-	item_state = "book[spellname]"
-	name = "spellbook of [spellname]" //Note, desc doesn't change by design
 	if(ru_names)
 		ru_names[NOMINATIVE] = "гримуар " + spellname_ru
 		ru_names[GENITIVE] = "гримуара " + spellname_ru
@@ -1161,7 +1164,8 @@
 		ru_names[ACCUSATIVE] = "гримуар " + spellname_ru
 		ru_names[INSTRUMENTAL] = "гримуаром " + spellname_ru
 		ru_names[PREPOSITIONAL] = "гримуаре " + spellname_ru
-	..()
+
+
 
 /obj/item/spellbook/oneuse/mindswap/recoil(mob/user)
 	..()
