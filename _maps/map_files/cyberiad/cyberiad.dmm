@@ -7234,7 +7234,8 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Security's Office"
+	department = "Head of Security's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7761,7 +7762,8 @@
 "aAG" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Magistrate's Office"
+	department = "Magistrate's Office";
+	pixel_y = 2
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -13516,7 +13518,8 @@
 "aUA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Internal Affairs Office"
+	department = "Internal Affairs Office";
+	pixel_y = 2
 	},
 /obj/item/radio/intercom{
 	name = "west station intercom (General)";
@@ -20329,7 +20332,10 @@
 /area/library)
 "boG" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library/checkout{
+	dir = 8;
+	pixel_y = 8
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -26288,7 +26294,8 @@
 	dir = 1
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office"
+	department = "Captain's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
@@ -29902,7 +29909,8 @@
 	pixel_x = 24
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Personnel's Office"
+	department = "Head of Personnel's Office";
+	pixel_y = 2
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
@@ -34051,7 +34059,8 @@
 "cfR" = (
 /obj/structure/table,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Medical Officer's Office"
+	department = "Chief Medical Officer's Office";
+	pixel_y = 2
 	},
 /obj/machinery/light,
 /obj/structure/cable{
@@ -34787,7 +34796,8 @@
 	pixel_y = -24
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Research Director's Office"
+	department = "Research Director's Office";
+	pixel_y = 2
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
@@ -36655,7 +36665,8 @@
 "cnT" = (
 /obj/structure/table,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Quartermaster's Office"
+	department = "Quartermaster's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -37435,7 +37446,8 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office"
+	department = "NT Representative's Office";
+	pixel_y = 2
 	},
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -32
@@ -52358,7 +52370,10 @@
 	},
 /area/turret_protected/aisat_interior)
 "diN" = (
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	dir = 1;
+	pixel_y = 8
+	},
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/library)
@@ -61889,7 +61904,8 @@
 "hzs" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Engineer's Office"
+	department = "Chief Engineer's Office";
+	pixel_y = 2
 	},
 /obj/item/toy/figure/ce,
 /turf/simulated/floor/plasteel{

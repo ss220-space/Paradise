@@ -90385,7 +90385,10 @@
 /area/security/podbay)
 "vZR" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library/checkout{
+	dir = 4;
+	pixel_y = 5
+	},
 /turf/simulated/floor/carpet,
 /area/library)
 "vZZ" = (
@@ -97428,7 +97431,10 @@
 /area/quartermaster/office)
 "ydI" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	dir = 4;
+	pixel_y = 5
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/library)
 "yep" = (

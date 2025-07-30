@@ -590,8 +590,8 @@
 	hijack_only = TRUE
 
 /datum/uplink_item/jobspecific/random_spell_book
-	name = "Случайная книга заклинаний"
-	desc = "Случайная книга заклинаний, которую мы позаимствовали у Федерации Космических Волшебников."
+	name = "Случайный гримуар"
+	desc = "Случайный гримуар, который мы позаимствовали у Федерации Космических Волшебников."
 	item = /obj/item/spellbook/oneuse/random
 	cost = 25
 	job = list(JOB_TITLE_LIBRARIAN)
