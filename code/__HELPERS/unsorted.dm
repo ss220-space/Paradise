@@ -33,7 +33,7 @@
 	return TRUE
 
 
-/proc/Get_Angle(atom/movable/start, atom/movable/end)//For beams.
+/proc/Get_Angle(atom/start, atom/end)//For beams.
 	if(!start || !end)
 		CRASH("Get_Angle called for inexisting atoms: [isnull(start) ? "null" : start] to [isnull(end) ? "null" : end].")
 	if(!start.z)
