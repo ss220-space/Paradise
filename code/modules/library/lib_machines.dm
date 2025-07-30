@@ -70,11 +70,11 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	if("[id]" in cached_books)
 		var/datum/cachedbook/CB = cached_books["[id]"]
 		if(CB.programmatic)
-			to_chat(user, "<span class='danger'>That book cannot be flagged in the system, as it does not actually exist in the database.</span>")
+			to_chat(user, span_danger("Эту книгу невозможно пометить в системе, так как она отсутствует в базе данных."))
 			return
 
 	if("[id]" in books_flagged_this_round)
-		to_chat(user, "<span class='danger'>This book has already been flagged this shift.</span>")
+		to_chat(user, span_danger("Эту книгу уже помечали на этой смене."))
 		return
 
 	books_flagged_this_round["[id]"] = 1
@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	if("[id]" in cached_books)
 		var/datum/cachedbook/CB = cached_books["[id]"]
 		if(CB.programmatic)
-			to_chat(user, "<span class='danger'>That book cannot be removed from the system, as it does not actually exist in the database.</span>")
+			to_chat(user, span_danger("Эту книгу невозможно убрать из системы, так как она отсутсвует в базе данных"))
 			return
 
 	var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:id", list(
@@ -140,6 +140,16 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /** Scanner **/
 /obj/machinery/libraryscanner
 	name = "scanner"
+	desc = "Крупная машина для сканирования печатной литературы."
+	ru_names = list(
+		NOMINATIVE = "сканер",
+		GENITIVE = "сканера",
+		DATIVE = "сканеру",
+		ACCUSATIVE = "сканер",
+		INSTRUMENTAL = "сканером",
+		PREPOSITIONAL = "сканере"
+	)
+	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 	anchored = TRUE
@@ -157,7 +167,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		// NT with those pesky DRM schemes
 		var/obj/item/book/book = I
 		if(book.has_drm)
-			atom_say("Copyrighted material detected. Scanner is unable to copy book to memory.")
+			atom_say("Обнаружен материал, защищенный авторским правом. Сканер не способен поместить эту книгу в память.", FALSE)
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(book, src))
 			return ..()
@@ -165,28 +175,27 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 
 	return ..()
 
-
 /obj/machinery/libraryscanner/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
 
 
 /obj/machinery/libraryscanner/attack_hand(mob/user)
 	if(istype(user,/mob/dead))
-		to_chat(user, "<span class='danger'>Nope.</span>")
+		to_chat(user, span_danger("Фигу видишь?"))
 		return
 	add_fingerprint(user)
 	usr.set_machine(src)
 	var/dat = ""
 	if(cache)
-		dat += "<span style='color: #005500;'>Data stored in memory.</span><br>"
+		dat += "[span_green("Данные помещены в память.")]"
 	else
-		dat += "No data stored in memory.<br>"
-	dat += "<a href='byond://?src=[UID()];scan=1'>\[Scan\]</a>"
+		dat += "В памяти отсутствуют данные."
+	dat += "<a href='byond://?src=[UID()];scan=1'>\[сканировать\]</a>"
 	if(cache)
-		dat += "       <a href='byond://?src=[UID()];clear=1'>\[Clear Memory\]</a><br><br><a href='byond://?src=[UID()];eject=1'>\[Remove Book\]</a>"
+		dat += "       <a href='byond://?src=[UID()];clear=1'>\[Очистить память\]</a><br><br><a href='byond://?src=[UID()];eject=1'>\[Убрать книгу\]</a>"
 	else
 		dat += "<br>"
-	var/datum/browser/popup = new(usr, "libraryscanner", "Scanner Control Interface")
+	var/datum/browser/popup = new(usr, "libraryscanner", "Интерфейс управления сканером")
 	popup.set_content(dat)
 	popup.open(TRUE)
 	onclose(user, "libraryscanner")
@@ -216,6 +225,16 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
  */
 /obj/machinery/bookbinder
 	name = "Book Binder"
+	desc = "Крупное устройство для скрепления листов бумаги в книжный переплёт."
+	ru_names = list(
+		NOMINATIVE = "брошюратор",
+		GENITIVE = "брошюратора",
+		DATIVE = "брошюратору",
+		ACCUSATIVE = "брошюратор",
+		INSTRUMENTAL = "брошюратором",
+		PREPOSITIONAL = "брошюраторе"
+	)
+	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state = "binder"
 	anchored = TRUE
@@ -232,10 +251,11 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		if(!user.drop_transfer_item_to_loc(paper, src))
 			return ..()
 		user.visible_message(
-			span_notice("[user] has loaded some paper into [src]. The machine begins to hum as it warms up its printing drums."),
-			span_notice("You have loaded some paper into [src]. The machine begins to hum as it warms up its printing drums"),
+			span_notice("[user] загружа[pluralize_ru(user.gender, "ет", "ют")] немного бумаги в [declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
+			span_notice("Вы загружаете немного бумаги в [declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
 		)
-		atom_say("Imprinting the new book...")
+		atom_say("Проходит печать книги...", FALSE)
+		playsound(src, 'sound/machines/binder_work.ogg', 25, FALSE)
 		addtimer(CALLBACK(src, PROC_REF(finalize_printing), paper), rand(20 SECONDS, 40 SECONDS))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -248,8 +268,18 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/obj/item/book/new_book = new(loc)
 	new_book.dat = paper.info
 	new_book.name = "Print Job #[rand(100, 999)]"
+	new_book.ru_names = list(
+		NOMINATIVE = "печатное издание №[rand(100, 999)]",
+		GENITIVE = "печатного издания №[rand(100, 999)]",
+		DATIVE = "печатному изданию №[rand(100, 999)]",
+		ACCUSATIVE = "печатное издание №[rand(100, 999)]",
+		INSTRUMENTAL = "печатным изданием №[rand(100, 999)]",
+		PREPOSITIONAL = "печатном издании №[rand(100, 999)]"
+	)
 	new_book.icon_state = "book[rand(1,16)]"
-	atom_say("A new book has been printed.")
+	new_book.item_state = new_book.icon_state
+	atom_say("Печать книги успешно завершена.", FALSE)
+	playsound(loc, 'sound/machines/ping.ogg', 20, TRUE)
 	qdel(paper)
 
 

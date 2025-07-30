@@ -169,6 +169,7 @@
 		PREPOSITIONAL = "руководстве по пантомимам"
 	)
 	icon_state = "bookmime"
+	item_state = "bookmime"
 
 
 /obj/item/spellbook/oneuse/mime/attack_self(mob/user)
