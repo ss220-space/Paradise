@@ -151,7 +151,7 @@
 	var/default_throwforce
 
 /obj/item/kitchen/knife/Initialize(mapload)
-	ADD_TRAIT(src, TRAIT_EMBED_MELEE ,PHYSICS_OF_SHARP_OBJECTS)
+	ADD_TRAIT(src, TRAIT_EMBED_MELEE, PHYSICS_OF_SHARP_OBJECTS)
 	. = ..()
 	default_force = force
 	default_throwforce = throwforce	
