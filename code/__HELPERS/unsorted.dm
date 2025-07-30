@@ -55,8 +55,13 @@
 		. += 360
 
 /proc/Get_Pixel_Angle(dx, dy)//for getting the angle when animating something's pixel_x and pixel_y
-	var/da = (90 - ATAN2(dx, dy))
-	return (da >= 0 ? da : da + 360)
+    if(!dy && !dx)
+        return 90
+    var/da = ATAN2(dx, dy)
+    da = 90 - da
+    if(da < 0)
+        da += 360
+    return da
 
 //Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
