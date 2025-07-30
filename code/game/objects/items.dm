@@ -212,6 +212,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// How much to offset the item randomly either way alongside Y visually
 	var/ground_offset_y = 0
 
+	var/embed_disarm = FALSE
+
 /obj/item/Initialize(mapload)
 	. = ..()
 
@@ -233,6 +235,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(!move_resist)
 		determine_move_resist()
+
+	if(embed_disarm)
+		AddComponent(/datum/component/stick_it_in)
 
 	add_eatable_component()
 	scatter_item()

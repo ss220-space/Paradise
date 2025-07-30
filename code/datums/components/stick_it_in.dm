@@ -1,7 +1,7 @@
 /datum/component/stick_it_in
 
 /datum/component/stick_it_in/Initialize(...)
-	if(!isitem(parent) || !(HAS_TRAIT(parent, TRAIT_EMBED_MELEE)))
+	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 	
 /datum/component/stick_it_in/RegisterWithParent()
@@ -13,7 +13,7 @@
 /datum/component/stick_it_in/proc/HarmAct(datum/source, mob/living/target, mob/living/user, params, def_zone)
 	SIGNAL_HANDLER
 
-	if(!ishuman(target) || !HAS_TRAIT(parent, TRAIT_EMBED_MELEE))
+	if(!ishuman(target))
 		return NONE
 	if(!(user.a_intent == INTENT_DISARM))
 		return NONE

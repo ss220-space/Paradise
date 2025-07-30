@@ -143,6 +143,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	embed_chance = 45
 	embedded_ignore_throwspeed_threshold = TRUE
+	embed_disarm = TRUE
 	/// Can this item be attached as a bayonet to the gun?
 	var/bayonet_suitable = FALSE
 	/// Used in combination with throwing martial art, to avoid sharpening checks overhead
@@ -151,13 +152,9 @@
 	var/default_throwforce
 
 /obj/item/kitchen/knife/Initialize(mapload)
-	ADD_TRAIT(src, TRAIT_EMBED_MELEE, PHYSICS_OF_SHARP_OBJECTS)
 	. = ..()
 	default_force = force
 	default_throwforce = throwforce	
-
-/obj/item/kitchen/knife/ComponentInitialize()
-	AddComponent(/datum/component/stick_it_in)
 
 /obj/item/kitchen/knife/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	. = ..()
@@ -219,6 +216,7 @@
 	sharp = 0
 	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
+	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/ritual
 	name = "ritual knife"
@@ -226,6 +224,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
 	w_class = WEIGHT_CLASS_NORMAL
+	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
@@ -339,6 +338,7 @@
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "eel_sharpened_tail"
+	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"
@@ -346,6 +346,7 @@
 	icon_state = "knife"
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	origin_tech = null
+	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/combat/cyborg/mecha
 	force = 25
@@ -418,6 +419,7 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("ударил", "огрел")
+	embed_disarm = FALSE
 
 /* Trays moved to /obj/item/storage/bag */
 
@@ -435,6 +437,7 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("ударил")
+	embed_disarm = FALSE
 
 /obj/item/kitchen/mould/bear
 	name = "bear-shaped candy mould"
@@ -489,6 +492,7 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("закатил", "треснул")
+	embed_disarm = FALSE
 
 
 
@@ -505,3 +509,4 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("ударил", "полоснул", "уколол")
+	embed_disarm = FALSE

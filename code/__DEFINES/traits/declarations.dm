@@ -339,5 +339,3 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOT_TURRET_GUN "not_turret_gun"
 
 #define TRAIT_BALD "bald"
-
-#define TRAIT_EMBED_MELEE "melee_embed_noshichek"
