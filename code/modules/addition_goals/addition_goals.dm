@@ -10,7 +10,7 @@
 /// How many goals available to choose
 #define AVAILABLE_GOALS_COUNT 6
 /// Refresh goals button activation cooldown
-#define REFRESH_AVAILABLE_GOALS_COOLDOWN (10 SECONDS)
+#define REFRESH_AVAILABLE_GOALS_COOLDOWN (15 MINUTES)
 
 /// Delay between accept goal and send shuttle to station
 #define ACCEPT_GOAL_SHUTTLE_SEND_DELAY 3
