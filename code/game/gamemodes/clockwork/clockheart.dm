@@ -341,8 +341,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/item/part_upper/attack_hand(mob/user, pickupfireoverride)
 	if(isclocker(user))
-		. = ..()
-		return
+		return ..()
 	if(!(user in orange(1, src)))
 		return
 	if(!ishuman(user))
