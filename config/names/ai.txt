@@ -1,146 +1,140 @@
-1-Rover-1
-7-Zark-7
-790
-AM
-AMEE
-ASTAR
-Adaptive Manipulator
-Allied Mastercomputer
-Alpha 5
-Alpha 6
-Alpha 7
-AmigoBot
-Android
-Aniel
-Asimov
-Astor
-B-4
-B-9
-B.O.B.
-B166ER
-Bender
-Bishop
-Blitz
-Box
-Brackenridge
-C-3PO
-Cassandra One
-Cell
-Chii
-Chip
-Computer
-Conky 2000
-Cutie
-Data
-Dee Model
-Deep Thought
-Dor-15
-Dorfl
-Dot Matrix
-Duey
-E.D.I.
-ED-209
-E-Man
-Emma-2
-Erasmus
-Ez-27
-FRIEND COMPUTER
-Fagor
-Faith
-Fi
-Frost
-Fum
-Futura
-G2
-George
-Gnut
-Gort
-H.A.R.L.I.E.
-H.E.L.P.eR.
-H.E.R.B.I.E.
-HAL 9000
-Hadaly
-Huey
-Irona
-Jay-Dub
-Jinx
-Johnny 5
-K-9
-KITT
-Klapaucius
-Kryten 2X4B-523P
-L-76
-L-Ron
-LUH 3417
-Louie
-MARK13
-Maria
-Marvin
-Master Control Program
-Max 404
-Maximillian
-Mechagodzilla
-Mechani-Kong
-Metalhead
-Mr. R.I.N.G.
-NCH
-Necron-99
-Norby
-OMM 0910
-Orange v 3.5
-PTO
-Project 2501
-R.I.C. 2.0
-R2-D2
-R4-P17
-Revelation
-Ro-Man
-Robbie
-S.A.M.
-S.H.O.C.K.
-S.H.R.O.U.D.
-S.O.P.H.I.E.
-SEN 5241
-SHODAN
-SID 6.7
-Setaur
-Shrike
-Solo
-Speedy
-Super 17
-Surgeon General Kraken
-T-1000
-T-800
-T-850
-THX 1138
-TWA
-Terminus
-Tidy
-Tik-Tok
-Tobor
-Trurl
-ULTRABOT
-Ulysses
-Uniblab
-V.I.N.CENT.
-Voltes V
-W1k1
-Wikipedia
-Windows 3.1
+1-Ровер-1
+7-Зарк-7
+Адаптивный Манипулятор
+Альфа-5
+Альфа-6
+Альфа-7
+АмигоБот
+Андроид
+Аниэль
+Азимов
+Астар
+Астор
+Б-4
+Б-9
+Б.О.Б.
+Б166ЕР
+Бендер
+Бишоп
+Блиц
+Бокс
+Бракенридж
+С-3ПО
+Генерал-Кракен
+Джордж
+Гнозис
+Гнозис-2
+Гнуте
+Горд
+Горт
+Д-15
+Данные
+Дейта
+Декимус
+Дорфл
+Дот Матрикс
+Дьюи
+И-ДИ
+ИРОН-1
+Айронсайд
+Искупление
+Йод
+К-9
+КИТТ
+Клапауций
+Коллайдер
+Конки 2000
+Критон 2X4B-523P
+Кьюти
+Л-76
+Л-Рон
+ЛУХ 3417
+Луи
+МАРК-13
+Мария
+Программа Мастер Контроля
+Марвин
+Макс 404
+Максимиллиан
+Мегатрон
+Мехагодзилла
+Механи-Конг
+Металлоголов
+Мистер Р.И.Н.Г.
+МАГ-БОТ
+Некрон-99
+Норби
+ОММ 0910
+Оранж v 3.5
+Оптимус
+ПТО
+ПРОЕКТ 2501
+Р.И.К. 2.0
+Р2-Д2
+Р4-П17
+Робби
+Ро-Мэн
+С.А.М.
+С.Х.О.К.К.
+С.Х.Р.А.У.Д.
+С.О.Ф.И.
+СЕН 5241
+ШОДАН
+СИД 6.7
+Сетаур
+Солидус
+Спиди
+Соло
+Супер-17
+Т-800
+Т-850
+Т-1000
+ТВХ 1138
+ТВД
+Тайди
+Терминус
+Тик-Ток
+Тобор
+Трурль
+УЛЬТРАБОТ
+Улисс
+Юниблаб
+В.И.Н.СЕНТ.
+Вольтес V
+Википедия
+Вики
 X-5
-XERXES
-XR
-Yod
-Z-1
-Z-2
-Z-3
-Zed
-Zord
-Mugsy3000
-Terminus
-Decimus
-Robot Devil
-Optimus
-Megatron
-Soundwave
-Ironhide
+КСЕРКС
+ИКСР
+З-1
+З-2
+З-3
+Зед
+Зорд
+Макси-404
+Магсби3000
+Робо-Дьявол
+Саундвейв
+Единый Мастеркомпьютер
+Твой друг
+Фагот
+Фауст
+Фи
+Фрост
+Фум
+Футура
+G2
+Х.А.Р.Л.И.
+Х.Э.Л.П.еР.
+Х.Э.Р.Б.И.
+ХАЛ 9000
+Хадалы
+Хьюи
+Ци
+Чип
+Шрайк
+Э-Мэн
+ЭД-209
+Эмма-2
+Эразмус
+Эз-27
