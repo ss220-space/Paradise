@@ -1,7 +1,7 @@
 /**
  * MARK: TGMC
  * Particles ported from TGMC.
- * They are used in case of explosions and hits on objects from firearms (brute damage).
+ * They are used in case of explosions and hits on objects from firearms (except for disabler and taser).
  */
 
 /**
@@ -117,7 +117,6 @@
 
 /**
  * MARK: Bloodsplatter
- * For the future.
  */
 /particles/splatter
 	icon = 'icons/effects/96x96.dmi'

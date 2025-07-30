@@ -907,7 +907,7 @@
 	if(!T || !U)
 		return
 	var/obj/projectile/energy/charged_plasma/O = new /obj/projectile/energy/charged_plasma(T)
-	playsound(get_turf(src), 'sound/weapons/marauder.ogg', 75, 1)
+	playsound(get_turf(src), 'sound/weapons/marauder.ogg', 75, TRUE)
 	O.current = T
 	O.yo = U.y - T.y
 	O.xo = U.x - T.x
