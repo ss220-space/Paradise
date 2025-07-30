@@ -17,7 +17,7 @@
 /obj/item/lazarus_injector,
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/bot/medbot{
-	name = "\improper Emergency Medibot";
+	name = "Emergency Medibot";
 	pixel_x = -3;
 	pixel_y = 2
 	},
@@ -6893,7 +6893,7 @@
 	},
 /area/shuttle/administration)
 "djz" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -11794,23 +11794,23 @@
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/green/hollow,
 /obj/item/gun/projectile/automatic/m90{
-	name = "\improper DAE 5.56 Compact GL";
+	name = "DAE 5.56 Compact GL";
 	pixel_x = -6
 	},
 /obj/item/gun/projectile/automatic/m90{
-	name = "\improper DAE 5.56 Compact GL";
+	name = "DAE 5.56 Compact GL";
 	pixel_x = -6
 	},
 /obj/item/gun/projectile/automatic/m90{
-	name = "\improper DAE 5.56 Compact GL";
+	name = "DAE 5.56 Compact GL";
 	pixel_x = 6
 	},
 /obj/item/gun/projectile/automatic/m90{
-	name = "\improper DAE 5.56 Compact GL";
+	name = "DAE 5.56 Compact GL";
 	pixel_x = 6
 	},
 /obj/item/gun/projectile/automatic/m90{
-	name = "\improper DAE 5.56 Compact GL";
+	name = "DAE 5.56 Compact GL";
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -29497,7 +29497,7 @@
 	},
 /area/syndicate_mothership)
 "nKO" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "nKV" = (
@@ -31523,9 +31523,12 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
 "oHK" = (
-/obj/machinery/mineral/labor_claim_console{
-	machinedir = 1;
-	pixel_x = 30
+/obj/machinery/flasher{
+	id = "gulagshuttleflasher";
+	pixel_x = 25
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/siberia)
@@ -32570,15 +32573,8 @@
 	},
 /area/syndicate_mothership/control)
 "peG" = (
-/obj/machinery/flasher{
-	id = "gulagshuttleflasher";
-	pixel_x = 25
-	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/chair/comfy/shuttle{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/siberia)
@@ -34768,7 +34764,7 @@
 	},
 /area/shuttle/trade/sol)
 "qkl" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -37244,6 +37240,10 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"rjK" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/shuttle,
+/area/shuttle/siberia)
 "rkx" = (
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
@@ -41049,7 +41049,7 @@
 	},
 /area/shuttle/escape)
 "sWF" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -41399,10 +41399,8 @@
 	},
 /area/shuttle/ninja)
 "tbX" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle,
+/obj/machinery/mineral/labor_claim_console,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/siberia)
 "tcs" = (
 /turf/simulated/floor/wood{
@@ -48645,7 +48643,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "wqc" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_x = 7
@@ -79856,7 +79854,7 @@ oJI
 sKg
 lDH
 sKg
-sKg
+tbX
 sXM
 prf
 oJI
@@ -80114,7 +80112,7 @@ lBl
 lOB
 svC
 tbv
-tbX
+tbv
 tbv
 qgA
 sgG
@@ -80370,9 +80368,9 @@ mMn
 nVS
 maj
 sKg
-tbv
+rjK
 kAJ
-tbv
+peG
 qgA
 sgG
 mVX
@@ -80628,7 +80626,7 @@ ogO
 oiv
 ovE
 oHK
-peG
+tbv
 tbv
 qgA
 sgG
@@ -80884,8 +80882,8 @@ oJI
 sKg
 okx
 sKg
-oJI
 sKg
+prf
 dhK
 oJI
 oJI

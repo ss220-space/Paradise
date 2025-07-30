@@ -16,7 +16,7 @@
 	icon_state = "snake"
 	icon_living = "snake"
 	icon_dead = "snake_dead"
-	speak_emote = list("hisses")
+	speak_emote = list("шипит")
 	tts_seed = "Ladyvashj"
 	health = 20
 	maxHealth = 20
@@ -80,7 +80,7 @@
 	icon_resting = "rouge_rest"
 	speak_chance = 5
 	speak = list("Шшш", "Тсс!", "Тц тц тц!", "ШШшшШШшшШ!")
-	speak_emote = list("hisses")
+	speak_emote = list("шипит")
 	emote_hear = list("зевает", "шипит", "дурачится", "толкается")
 	emote_see = list("высовывает язык", "кружится", "трясёт хвостом")
 	tts_seed = "Ladyvashj"
@@ -224,7 +224,7 @@
 	desc = initial(desc)
 	// BYOND/DM doesn't support the use of initial on lists.
 	speak = list("Шшш", "Тсс!", "Тц тц тц!", "ШШшшШШшшШ!")
-	speak_emote = list("hisses")
+	speak_emote = list("шипит")
 	emote_hear = list("зевает", "шипит", "дурачится", "толкается")
 	emote_see = list("высовывает язык", "кружится", "трясёт хвостом")
 

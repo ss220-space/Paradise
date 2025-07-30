@@ -417,7 +417,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/machinery/crematorium/examine(mob/user)
 	. = ..()
-	. += span_info("Используйте <b>гаечный ключ</b> для изменения направления.")
+	. += span_notice("Используйте <b>гаечный ключ</b> для изменения направления.")
 
 
 /obj/machinery/crematorium/update_overlays()

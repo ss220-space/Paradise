@@ -81,7 +81,7 @@
 		visible_message(span_danger("The burglar alarm goes off!"))
 		// Play the burglar alarm three times
 		for(var/i = 0, i < 4, i++)
-			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, 0)
+			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, FALSE)
 			sleep(74) // 7.4 seconds long
 
 
@@ -131,7 +131,7 @@
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You replace [src]'s glass panel."))
 		broken = FALSE
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 

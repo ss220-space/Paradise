@@ -4,7 +4,10 @@
 	announceWhen = 1
 
 /datum/event/solar_flare/announce()
-	GLOB.event_announcement.Announce("Солнечная вспышка зафиксирована на встречном со станцией курсе.", "ВНИМАНИЕ: СОЛНЕЧНАЯ ВСПЫШКА.", 'sound/AI/attention.ogg')
+	GLOB.minor_announcement.announce("Солнечная вспышка зафиксирована на встречном со станцией курсе.",
+									ANNOUNCE_SOLAR_FLARE_RU,
+									'sound/AI/flare.ogg'
+	)
 
 /datum/event/solar_flare/start()
 	SSweather.run_weather(/datum/weather/solar_flare)

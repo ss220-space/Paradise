@@ -64,7 +64,7 @@
 		var/obj/machinery/door_timer/T = locate(ref)
 		if (T)
 			T.timer_end()
-			T.Radio.autosay("Timer stopped manually from a cell management console.", T.name, SEC_FREQ_NAME, list(z))
+			T.Radio.autosay("Timer stopped manually from a cell management console.", T.name, SEC_FREQ_NAME)
 		return TRUE
 
 	return FALSE

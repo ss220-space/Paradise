@@ -209,7 +209,7 @@
 
 //Rod of Asclepius
 /obj/item/rod_of_asclepius
-	name = "\improper Rod of Asclepius"
+	name = "Rod of Asclepius"
 	desc = "Деревянный посох, размером с вашу руку. На нём змея вырезана. От него прям веет ответственностью и желанием помогать другим."
 	ru_names = list(
 		NOMINATIVE = "посох асклепия",
@@ -228,7 +228,7 @@
 /obj/item/rod_of_asclepius/attack_self(mob/user)
 	if(activated)
 		return
-	if(!iscarbon(user))
+	if(!iscarbon(user) || !user.mind)
 		to_chat(user, span_warning("Резьба змеи, кажется, оживает на мгновение, прежде чем вернуться в свое спящее состояние, словно она находит вас недостойным её клятвы."))
 		return
 	var/mob/living/carbon/itemUser = user

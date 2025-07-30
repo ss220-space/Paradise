@@ -244,10 +244,21 @@
 	/// Check for plasma river, subtype of lava, prevents simple fishing
 	var/can_be_fished_on = TRUE
 
+
 /turf/simulated/floor/lava/lava_land_surface/Initialize(mapload)
 	. = ..()
+	add_to_lazis_primary()
 	if(can_be_fished_on)
 		calculate_deep()
+
+/turf/simulated/floor/lava/lava_land_surface/proc/add_to_lazis_primary()
+	GLOB.lazis_primary_turfs |= src
+
+
+/turf/simulated/floor/lava/lava_land_surface/Destroy()
+	GLOB.lazis_primary_turfs -= src
+	. = ..()
+
 
 /turf/simulated/floor/lava/lava_land_surface/proc/calculate_deep()
 	if(locate(/turf/simulated/floor/plating/asteroid/basalt) in range(3, src))
@@ -327,7 +338,7 @@
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
-	. += span_info("Можно зачерпнуть <b>жидкую плазму</b> с помощью <b>ёмкости</b>.")
+	. += span_notice("Можно зачерпнуть <b>жидкую плазму</b> с помощью <b>ёмкости</b>.")
 
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
@@ -404,3 +415,6 @@
 		ChangeTurf(SSmapping.lavaland_theme.primary_turf_type, after_flags = CHANGETURF_IGNORE_AIR)
 
 /turf/simulated/floor/lava/lava_land_surface/lava_only //used to override reader.dm for lava only instead of adaptive type
+
+/turf/simulated/floor/lava/lava_land_surface/lava_only/add_to_lazis_primary()
+	return

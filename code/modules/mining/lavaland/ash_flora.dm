@@ -519,7 +519,15 @@
 
 /obj/item/reagent_containers/food/drinks/mushroom_bowl
 	name = "mushroom bowl"
-	desc = "A bowl made out of mushrooms. Not food, though it might have contained some at some point."
+	desc = "Мисковая чаша. Не еда, хотя когда-то могла содержать её."
+	ru_names = list(
+		NOMINATIVE = "грибная чаша",
+		GENITIVE = "грибной чаши",
+		DATIVE = "грибной чаше",
+		ACCUSATIVE = "грибную чашу",
+		INSTRUMENTAL = "грибной чашей",
+		PREPOSITIONAL = "грибной чаше"
+	)
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
 	w_class = WEIGHT_CLASS_SMALL
@@ -564,6 +572,9 @@
 	harvest_message_med = "You finish mining the rock."
 	harvest_message_high = "You finish mining the rock."
 	delete_on_harvest = TRUE
+
+/obj/structure/flora/ash/rock/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_ROCK, -20, 10)
 
 /obj/structure/flora/ash/rock/style_2
 	icon_state = "basalt2"

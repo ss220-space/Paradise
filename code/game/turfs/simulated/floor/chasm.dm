@@ -200,6 +200,13 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
 
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize(mapload)
+	. = ..()
+	GLOB.lazis_primary_turfs |= src
+
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Destroy()
+	GLOB.lazis_primary_turfs -= src
+	. = ..()
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD

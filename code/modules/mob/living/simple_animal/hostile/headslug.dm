@@ -19,7 +19,7 @@
 	stat_attack = DEAD
 	obj_damage = 0
 	environment_smash = 0
-	speak_emote = list("squeaks")
+	speak_emote = list("попискивает")
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS

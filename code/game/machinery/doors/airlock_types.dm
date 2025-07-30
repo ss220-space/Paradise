@@ -454,6 +454,19 @@
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
 
+/obj/machinery/door/airlock/highsecurity/red/Initialize(mapload)
+	. = ..()
+	if(!is_station_level(z))
+		return
+	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
+
+/obj/machinery/door/airlock/highsecurity/red/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
+	SIGNAL_HANDLER
+
+	if(new_level_number >= SEC_LEVEL_RED)
+		unlock(TRUE)
+	else
+		lock(TRUE)
 
 /obj/machinery/door/airlock/highsecurity/red/attackby(obj/item/I, mob/user, params)
 	if(!issilicon(user) && isElectrified() && shock(user, 75))
@@ -578,7 +591,7 @@
 			new /obj/effect/temp_visual/cult/sac(loc)
 			var/atom/throwtarget
 			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
-			SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
+			SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, TRUE, 50), sound('sound/hallucinations/turn_around2.ogg', 0, TRUE, 50)))
 			L.Weaken(4 SECONDS)
 			L.throw_at(throwtarget, 5, 1,src)
 		return FALSE
@@ -696,7 +709,7 @@
 		new /obj/effect/temp_visual/ratvar/door(loc)
 		var/atom/throwtarget
 		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
-		SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
+		SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, TRUE, 50), sound('sound/hallucinations/turn_around2.ogg', 0, TRUE, 50)))
 		L.Weaken(4 SECONDS)
 		L.throw_at(throwtarget, 5, 1,src)
 		return FALSE

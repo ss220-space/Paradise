@@ -33,8 +33,9 @@
 	icon_state = "box"
 	item_state = "syringe_kit"
 	resistance_flags = FLAMMABLE
-	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
+	use_sound = 'sound/items/handling/cardboard_box_rustle.ogg'
+	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 
@@ -226,7 +227,7 @@
 		new /obj/item/reagent_containers/iv_bag(src)
 
 /obj/item/storage/box/injectors
-	name = "\improper DNA injectors"
+	name = "DNA injectors"
 	desc = "This box contains injectors it seems."
 
 /obj/item/storage/box/injectors/populate_contents()
@@ -710,9 +711,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
-	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/matchbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
+	use_sound = "patchpack"
 
 /obj/item/storage/box/matches/populate_contents()
 	for(var/i in 1 to storage_slots)
@@ -1384,7 +1386,7 @@
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
-	playsound(loc, "rustle", 50, 1, -5)
+	playsound(loc, "rustle", 50, TRUE, -5)
 	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
 
 /obj/item/storage/box/wizard
@@ -1600,7 +1602,7 @@
 	new /obj/item/clothing/head/mr_chang_band(src)
 
 /obj/item/storage/box/bombsecurity
-	name = "\improper Security Bombsuit"
+	name = "Security Bombsuit"
 	desc = "It's a box with explosion-protective suit."
 
 /obj/item/storage/box/bombsecurity/populate_contents()

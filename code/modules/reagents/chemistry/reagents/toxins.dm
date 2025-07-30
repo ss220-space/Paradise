@@ -704,7 +704,7 @@
 			M.Weaken(16 SECONDS)
 		else if(effect <= 7)
 			to_chat(M, span_warning("Вы слышите оглушительный стук собственного сердца!"))
-			M << 'sound/effects/singlebeat.ogg'
+			SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 			M.emote("collapse")
 			update_flags |= M.adjustOxyLoss(8, FALSE)
 			update_flags |= M.adjustToxLoss(3, FALSE)

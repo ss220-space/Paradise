@@ -152,14 +152,14 @@
 			A.do_attack_animation(D, attack.animation_type)
 
 	if(!damage)
-		playsound(D.loc, attack.miss_sound, 25, 1, -1)
+		playsound(D.loc, attack.miss_sound, 25, TRUE, -1)
 		D.visible_message(span_warning("[A] has attempted to [atk_verb] [D]!"))
 		return FALSE
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
 
-	playsound(D.loc, attack.attack_sound, 25, 1, -1)
+	playsound(D.loc, attack.attack_sound, 25, TRUE, -1)
 	D.visible_message(span_danger("[A] has [atk_verb] [D]!"), \
 								span_userdanger("[A] has [atk_verb] [D]!"))
 
@@ -200,9 +200,8 @@
 	if(!human.mind)
 		return FALSE
 
-	var/datum/component/muscles/muscles = human.physiology.GetComponent(/datum/component/muscles)
-	if(change_musculs && muscles?.can_become_stronger)
-		ADD_TRAIT(human.physiology, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
+	if(change_musculs && HASBIT(SEND_SIGNAL(human, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
+		ADD_TRAIT(human, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
 		human.update_body(TRUE)
 
 	for(var/datum/martial_art/art in human.mind.known_martial_arts)
@@ -243,7 +242,7 @@
 	human.mind.known_martial_arts.Remove(MA)
 	human.mind.martial_art = get_highest_weight(human)
 	remove_martial_art_verbs(human)
-	REMOVE_TRAIT(human.physiology, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(human, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
 	human.update_body(TRUE)
 	return TRUE
 

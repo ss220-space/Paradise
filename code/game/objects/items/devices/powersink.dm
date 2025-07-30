@@ -145,7 +145,7 @@
 		if (!admins_warned)
 			admins_warned = TRUE
 			message_admins("Power sink at [ADMIN_VERBOSEJMP(src)] is 95% full. Explosion imminent.")
-		playsound(src, 'sound/effects/screech.ogg', 100, 1, 1)
+		playsound(src, 'sound/effects/screech.ogg', 100, TRUE, 1)
 
 	if(power_drained >= max_power)
 		STOP_PROCESSING(SSobj, src)

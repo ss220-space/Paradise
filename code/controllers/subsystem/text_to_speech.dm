@@ -67,6 +67,8 @@ SUBSYSTEM_DEF(tts)
 		"businessman" = "Бизнэсмэн",
 		"trader" = "Торговец",
 		"assistant" = "Ассистент",
+		"prisoner" = "Заключённый",
+		"arrestee" = "Арестант",
 		"chief engineer" = "Главный Инженер",
 		"station engineer" = "Станционный инженер",
 		"trainee engineer" = "Инженер-стажер",
@@ -589,6 +591,8 @@ SUBSYSTEM_DEF(tts)
 			"кз" = "Кэ Зэ",
 			"днк" = "дэ эн ка",
 			"бсх" = "бэ эс ха",
+			"исн" = "И Эс Эн",
+			"акн" = "А Кэ Эн",
 		)
 	var/match = tts_replacement_list[lowertext(word)]
 	if(match)

@@ -58,6 +58,9 @@
 	max_integrity = 200
 	smooth = SMOOTH_BITMASK
 
+/obj/structure/alien/resin/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+
 /obj/structure/alien/resin/Initialize()
 	air_update_turf(1)
 	. = ..()
@@ -494,7 +497,7 @@
 			hugger.lose_target()
 			AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
 		if(BURST)
-			obj_integrity = integrity_failure
+			update_integrity(integrity_failure)
 
 
 /obj/structure/alien/egg/update_icon_state()
@@ -516,7 +519,7 @@
 		switch(status)
 			if(BURST)
 				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
-				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+				playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
 				qdel(src)
 				return
 			if(GROWING)

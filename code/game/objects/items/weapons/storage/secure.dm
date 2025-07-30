@@ -111,7 +111,7 @@
 
 	if(istype(weapon, /obj/item/melee/energy/blade))
 		do_sparks(5, 0, loc)
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE)
 		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(user)
 			to_chat(user, "You slice through the lock on [src].")
@@ -221,6 +221,7 @@
 	item_state = "sec-case"
 	flags = CONDUCT
 	hitsound = "swing_hit"
+	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
 	throw_speed = 2
 	throw_range = 4
@@ -233,7 +234,7 @@
 	if((loc == user) && locked)
 		to_chat(usr, "<span class='warning'>[src] is locked and cannot be opened!</span>")
 	else if((loc == user) && !locked)
-		playsound(loc, "rustle", 50, 1, -5)
+		playsound(loc, 'sound/effects/briefcase.ogg', 50, TRUE, -5)
 		user.s_active?.close(user) //Close and re-open
 		show_to(user)
 	else

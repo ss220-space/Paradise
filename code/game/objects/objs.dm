@@ -35,14 +35,14 @@
 
 /obj/New()
 	..()
-	if(obj_integrity == null)
-		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
 		T.add_blueprints_preround(src)
 
 /obj/Initialize(mapload)
 	. = ..()
+	if(obj_integrity == null)
+		update_integrity(max_integrity)
 	if(islist(armor))
 		armor = getArmor(arglist(armor))
 	else if(!armor)
@@ -51,6 +51,8 @@
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
+
+	add_debris_element()
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -216,7 +218,7 @@
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, time, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		update_icon()
 	return TRUE
 

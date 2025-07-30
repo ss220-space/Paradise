@@ -1,6 +1,8 @@
+#define MOP_SOUND_CD 2 SECONDS // How many seconds before the mopping sound triggers again
+
 /obj/item/mop
-	desc = "The world of janitalia wouldn't be complete without a mop."
 	name = "mop"
+	desc = "The world of janitalia wouldn't be complete without a mop."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "mop"
 	force = 3
@@ -14,6 +16,8 @@
 	var/mopcount = 0
 	var/mopcap = 5
 	var/mopspeed = 30
+	/// The cooldown between each mopping sound effect
+	var/mop_sound_cooldown
 
 /obj/item/mop/Initialize(mapload)
 	. = ..()
@@ -58,7 +62,7 @@
 		return
 
 	if(reagents.total_volume < 1)
-		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
+		to_chat(user, span_warning("Your mop is dry!"))
 		return
 
 	var/turf/simulated/T = get_turf(A)
@@ -66,12 +70,19 @@
 	if(istype(A, /obj/item/reagent_containers/glass/bucket) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/structure/mopbucket))
 		return
 
+	if(world.time > mop_sound_cooldown)
+		playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
+		mop_sound_cooldown = world.time + MOP_SOUND_CD
+
 	if(istype(T))
 		var/obj/effect/temp_visual/bubbles/E = new /obj/effect/temp_visual/bubbles(T, mopspeed)
-		user.visible_message("[user] begins to clean [T] with [src].", "<span class='notice'>You begin to clean [T] with [src]...</span>")
+		user.visible_message(
+			"[user] begins to clean [T] with [src].",
+			span_notice("You begin to clean [T] with [src]...")
+		)
 
 		if(do_after(user, mopspeed, T))
-			to_chat(user, "<span class='notice'>You finish mopping.</span>")
+			to_chat(user, span_notice("You finish mopping."))
 			clean(T)
 		qdel(E)
 
@@ -100,7 +111,7 @@
 /obj/item/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)
 	to_chat(user, "<span class='notice'>You wet [src] in [source].</span>")
-	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
+	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 	return 1
 
 /obj/item/mop/advanced
@@ -146,3 +157,5 @@
 	return ..()
 
 /obj/item/mop/advanced/cyborg
+
+#undef MOP_SOUND_CD

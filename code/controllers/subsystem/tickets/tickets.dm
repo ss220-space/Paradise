@@ -158,8 +158,7 @@ SUBSYSTEM_DEF(tickets)
 
 	//Inform the user that they have opened a ticket
 	to_chat(C, "<span class='[span_class]'>Вы открыли [ticket_name] номер #[(getTicketCounter() - 1)]! Пожалуйста, ожидайте. Вам скоро ответят!</span>", confidential=TRUE)
-	var/ticket_open_sound = sound('sound/effects/adminticketopen.ogg')
-	SEND_SOUND(C, ticket_open_sound)
+	SEND_SOUND(C, sound('sound/effects/adminticketopen.ogg'))
 
 	message_staff(url_title, NONE, TRUE)
 	return T
@@ -277,8 +276,7 @@ SUBSYSTEM_DEF(tickets)
 		if(MENTORHELP)
 			convert_ticket(T)
 		else
-			var/msg_sound = sound('sound/effects/adminhelp.ogg')
-			SEND_SOUND(returnClient(N), msg_sound)
+			SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
 			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>", confidential=TRUE)//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
 			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:<span class='adminticketalt'> [message_key]</span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 			T.lastStaffResponse = "Autoresponse: [message_key]"

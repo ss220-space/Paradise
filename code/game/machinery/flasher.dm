@@ -79,7 +79,7 @@
 	if((disable) || (last_flash && world.time < last_flash + 150))
 		return
 
-	playsound(loc, 'sound/weapons/flash.ogg', 100, 1)
+	playsound(loc, 'sound/weapons/flash.ogg', 100, TRUE)
 	flick("[base_icon_state]_flash", src)
 	set_light(2, 1, COLOR_WHITE, TRUE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)

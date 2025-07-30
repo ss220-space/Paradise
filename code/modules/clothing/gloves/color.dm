@@ -142,7 +142,15 @@
 
 /obj/item/clothing/gloves/color/black/goliath
 	name = "goliath gloves"
-	desc = "Rudimentary gloves that aid in carrying."
+	desc = "Примитивные перчатки, которые облегчают переноску."
+	ru_names = list(
+		NOMINATIVE = "перчатки из шкуры голиафа",
+		GENITIVE = "перчаток из шкуры голиафа",
+		DATIVE = "перчаткам из шкуры голиафа",
+		ACCUSATIVE = "перчатки из шкуры голиафа",
+		INSTRUMENTAL = "перчатками из шкуры голиафа",
+		PREPOSITIONAL = "перчатках из шкуры голиафа"
+	)
 	icon_state = "goligloves"
 	item_state = "goligloves"
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 50, "acid" = 50)

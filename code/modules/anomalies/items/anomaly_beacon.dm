@@ -21,7 +21,7 @@
 
 /obj/item/assembly/anomaly_beacon/activate()
 	if(!core)
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		return
 
 	var/datum/anomaly_gen_datum/gen_datum = GLOB.anomaly_types["[core.tier - 1]"][pick(GLOB.anomaly_types["[core.tier - 1]"])]

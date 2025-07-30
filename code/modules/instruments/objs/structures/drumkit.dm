@@ -88,7 +88,7 @@
 /obj/structure/musician/drumkit/examine(mob/user)
 	. = ..()
 	if(!anchored)
-		. += span_info("You can <b>Alt-Click</b> [src] to rotate it.")
+		. += span_notice("You can <b>Alt-Click</b> [src] to rotate it.")
 
 /obj/structure/musician/drumkit/click_alt(mob/living/user)
 	rotate(user)

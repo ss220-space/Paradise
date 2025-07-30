@@ -245,14 +245,12 @@ SUBSYSTEM_DEF(explosions)
 
 
 /datum/explosion_data/proc/create_effect(smoke)
-	if(heavy_impact_range > 1)
-		var/datum/effect_system/explosion/E
-		if(smoke)
-			E = new /datum/effect_system/explosion/smoke
-		else
-			E = new
-		E.set_up(epicenter)
-		E.start()
+	if(devastation_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, TRUE)
+	else if(heavy_impact_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, FALSE)
+	else if(light_impact_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, TRUE, FALSE)
 
 /datum/explosion_data/proc/enqueue_affected_turfs(reactionary_explosions)
 	var/list/affected_turfs = prepare_explosion_turfs(max_range, epicenter, protect_epicenter, explosion_direction, explosion_arc, multiz_explosion, min_z, max_z)
@@ -342,7 +340,7 @@ SUBSYSTEM_DEF(explosions)
 				baseshakeamount = sqrt((orig_max_distance - dist) * 0.1)
 			// If inside the blast radius + world.view - 2
 			if(dist <= round(max_range + world.view - 2, 1))
-				M.playsound_local(epicenter, null, 100, 1, frequency, sound = SSexplosions.explosion_sound)
+				M.playsound_local(epicenter, null, 100, TRUE, frequency, sound = SSexplosions.explosion_sound)
 				if(baseshakeamount > 0)
 					shake_camera(M, 25, clamp(baseshakeamount, 0, 10))
 			// You hear a far explosion if you're outside the blast radius. Small bombs shouldn't be heard all over the station.

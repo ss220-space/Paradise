@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(ticker)
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "ticker"
 
-	/// Time the world started, relative to world.time
+	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
 	/// Time that the round started
 	var/time_game_started = 0
@@ -716,10 +716,15 @@ SUBSYSTEM_DEF(ticker)
 	if(end_string)
 		end_state = end_string
 
-	// Play a haha funny noise
+	// Play a haha funny noise for those who want to hear it :)
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
-	world << sound(round_end_sound, volume = 80)
+
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.client.prefs.sound & SOUND_MUTE_END_OF_ROUND)
+			continue
+		SEND_SOUND(mob, round_end_sound)
+
 	sleep(sound_length)
 
 	world.Reboot()

@@ -303,7 +303,7 @@
 	var/turf/target_turf = get_turf(target)
 	if(!target_turf)
 		target_turf = get_turf(src)
-	new /obj/effect/temp_visual/explosion/florawave(target_turf)
+	new /obj/effect/temp_visual/pka_explosion/florawave(target_turf)
 	for(var/currentTurf in RANGE_TURFS(1, target_turf))
 		for(var/object in currentTurf)
 			if(isdiona(object))
@@ -633,7 +633,7 @@
 		R.GiveTarget(target)
 
 /obj/projectile/bullet/a84mm_hedp
-	name ="\improper HEDP rocket"
+	name ="HEDP rocket"
 	desc = "ИСПОЛЬЗУЙ ПНЕВМАТИЧЕСКИЙ ПИСТОЛЕТ"
 	icon_state= "84mm-hedp"
 	damage = 80
@@ -677,7 +677,7 @@
 			to_chat(H, span_warning("Шрапнель отскакивает от вашей брони!"))
 
 /obj/projectile/bullet/a84mm_he
-	name ="\improper HE missile"
+	name ="HE missile"
 	desc = "Boom."
 	icon_state = "84mm-he"
 	damage = 30

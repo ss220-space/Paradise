@@ -1,4 +1,5 @@
 #define REVIVE_SPELL_TIME 5 MINUTES
+#define REVIVE_SPELL_NECROSIS_PROB 30
 
 /obj/effect/proc_holder/spell/summon_wealth
 	name = "Призвать богатство"
@@ -91,6 +92,8 @@
 
 /obj/effect/proc_holder/spell/view_range/genetic
 	desc = "Позволяет вам выбрать, как далеко вы будете видеть."
+	invocation_type = "none"
+	invocation = null
 
 /obj/effect/proc_holder/spell/summon_friend
 	name = "Призвать друга"
@@ -173,12 +176,10 @@
 /proc/late_death(mob/living/mob)
 	mob.death()
 
-	if(!iscarbon(mob))
+	if(!ishuman(mob))
 		return
 
-	var/mob/living/carbon/carbon = mob
-	for(var/obj/item/organ/organ as anything in carbon.internal_organs)
-		organ.necrotize(TRUE)
+	necrotize_body(mob, REVIVE_SPELL_NECROSIS_PROB)
 
 #undef REVIVE_SPELL_TIME
 
