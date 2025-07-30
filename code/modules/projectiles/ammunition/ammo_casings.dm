@@ -490,11 +490,8 @@
 /obj/item/ammo_casing/caseless
 	desc = "A caseless bullet casing."
 
-/obj/item/ammo_casing/caseless/fire(atom/target, mob/living/user, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
-	if(..())
-		qdel(src)
-		return TRUE
-	return FALSE
+/obj/item/ammo_casing/caseless/after_fire()
+	qdel(src)
 
 /obj/item/ammo_casing/caseless/a75
 	desc = "A .75 bullet casing."
