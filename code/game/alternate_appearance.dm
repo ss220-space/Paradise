@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	return
 
 
-/datum/atom_hud/alternate_appearance/remove_from_hud(mob/former_viewer, absolute)
+/datum/atom_hud/alternate_appearance/remove_from_hud(mob/former_viewer)
 	. = ..()
 	if(!former_viewer || hudusers[former_viewer] >= 1)
 		return

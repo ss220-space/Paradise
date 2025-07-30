@@ -1397,7 +1397,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 /obj/effect/proc_holder/spell/bot_speed/cast(list/targets, mob/user = usr)
 	for(var/mob/living/simple_animal/bot/bot in targets)
 		bot.set_varspeed(0.1)
-		balloon_alert(src, "вы ускоряетесь")
+		user.balloon_alert(user, "вы ускоряетесь")
 		addtimer(CALLBACK(bot, TYPE_PROC_REF(/mob/living/simple_animal/bot, reset_speed)), 45 SECONDS)
 
 

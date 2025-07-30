@@ -2,7 +2,7 @@
 /datum/antagonist/heretic_monster
 	name = "Древний ужас"
 	roundend_category = "Heretics"
-	special_role = SPECIAL_ROLE_HERETIC
+	special_role = SPECIAL_ROLE_HERETIC_MONSTER
 	job_rank = ROLE_HERETIC
 	antag_hud_name = "heretic_beast"
 	//stinger_sound = 'sound/music/heretic/heretic_gain.ogg'

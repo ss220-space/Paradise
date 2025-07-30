@@ -57,7 +57,6 @@
 
 
 /obj/effect/decal/heretic_rune/attackby(obj/item/item, mob/living/user, params)
-	
 	if(istype(item, /obj/item/melee/touch_attack/mansus_fist))
 		user.balloon_alert(user, "руна стерта")
 		qdel(src)

@@ -89,6 +89,9 @@
 		if(!(mach.stat & BROKEN))
 			possible_targets += mach
 
+	if(!possible_targets.len)
+		return
+
 	var/obj/target = pick(possible_targets)
 	target.take_damage(damage, BURN, ENERGY, TRUE, get_dir(src, target))
 	jump(target)

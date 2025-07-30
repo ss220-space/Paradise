@@ -54,7 +54,7 @@
 	SIGNAL_HANDLER
 	if(!ishuman(target))
 		return
-	
+
 	var/skintype = target.dna.species.skinned_type
 	new skintype(get_turf(target))
 
@@ -116,7 +116,7 @@
 /obj/item/melee/sickly_blade/proc/seek_safety(mob/user)
 	if(!do_after(user, 0.5 SECONDS, src))
 		return
-		
+
 	var/turf/safe_turf = find_safe_turf(zlevels = z/*, extended_safety_checks = TRUE*/)
 	if(!check_usability(user))
 		to_chat(user, span_warning("Вы разбиваете [declent_ru(ACCUSATIVE)]."))
@@ -133,14 +133,16 @@
 	qdel(src)
 
 
-/obj/item/melee/sickly_blade/afterattack(atom/target, mob/user, list/modifiers, list/attack_modifiers)
-	SEND_SIGNAL(user, COMSIG_HERETIC_BLADE_ATTACK, target, src)
+/obj/item/melee/sickly_blade/afterattack(atom/target, mob/user, proximity, list/attack_modifiers)
+	if(!ismob(target))
+		return
 
-/*
-/obj/item/melee/sickly_blade/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	SEND_SIGNAL(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK, interacting_with, src)
-	return ATTACK_CHAIN_BLOCKED
-*/
+	if(proximity)
+		SEND_SIGNAL(user, COMSIG_HERETIC_BLADE_ATTACK, target, src)
+		return
+
+	SEND_SIGNAL(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK, target, src)
+
 
 // Path of Rust's blade
 /obj/item/melee/sickly_blade/rust

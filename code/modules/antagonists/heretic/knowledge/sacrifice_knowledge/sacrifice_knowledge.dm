@@ -183,7 +183,7 @@
 
 	// Now grab completely random targets until we'll full
 	var/target_sanity = 0
-	while(length(final_targets) < num_targets_to_generate && length(valid_targets) > num_targets_to_generate && target_sanity < 25)
+	while(length(final_targets) < num_targets_to_generate && target_sanity < 25 && valid_targets.len)
 		final_targets += pick_n_take(valid_targets)
 		target_sanity++
 
@@ -224,7 +224,7 @@
 	var/datum/job/sac_job = sacrifice.mind?.assigned_job
 	// Heads give 3 points, cultists give 1 point (and a special reward), normal sacrifices give 2 points.
 	heretic_datum.total_sacrifices++
-	if(sac_job.is_command)
+	if(sac_job?.is_command)
 		heretic_datum.knowledge_points += 3
 		heretic_datum.high_value_sacrifices++
 		feedback += "Ваши покровители <i>с радостью</i> принимают вашу жертву"

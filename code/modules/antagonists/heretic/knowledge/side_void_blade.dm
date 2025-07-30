@@ -45,7 +45,7 @@
 		if(body.stat != DEAD)
 			continue
 
-		if(!IS_VALID_GHOUL_MOB(body) || HAS_TRAIT(body, TRAIT_HUSK))
+		if(!IS_VALID_GHOUL_MOB(body))
 			to_chat(user, span_hierophant_warning("[body.declent_ru(NOMINATIVE)] в слишком плохом состоянии, чтобы превратиться в гуля."))
 			continue
 

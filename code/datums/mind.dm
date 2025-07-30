@@ -1986,7 +1986,7 @@
 						continue
 
 					heretic.gain_knowledge(knowledge)
-				
+
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
 			if("clear")
@@ -3043,8 +3043,8 @@
 
 
 /datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)
+	transfer_spells(new_character)
 	if(!old_current || !old_current.actions)
-		transfer_mindbound_actions(new_character)
 		return
 
 	for(var/datum/action/A in old_current.actions)
@@ -3056,16 +3056,15 @@
 	for(var/datum/action/A in old_current.actions)
 		if(!HASBIT(A.check_flags, AB_TRANSFER_MIND))
 			continue
-		
+
 		A.Remove(old_current)
 
-	transfer_mindbound_actions(new_character, old_current)
 
-
-/datum/mind/proc/transfer_mindbound_actions(mob/living/new_character, mob/living/old_current)
-	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
-		spell?.action?.Grant(new_character)
-		spell?.action?.Remove(old_current)
+/datum/mind/proc/transfer_spells(mob/living/new_character, mob/living/old_current)
+	while(spell_list?.len)
+		var/obj/effect/proc_holder/spell/spell = spell_list[1]
+		RemoveSpell(spell)
+		new_character.AddSpell(spell)
 
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions)
@@ -3095,7 +3094,7 @@
 
 		if(G.can_reenter_corpse || even_if_they_cant_reenter)
 			return G
-		
+
 		break
 
 
