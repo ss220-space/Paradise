@@ -846,10 +846,14 @@
 #define COMSIG_MACHINERY_POWER_RESTORED "machinery_power_restored"
 
 // obj/machinery/door_timer signals
-///from obj/machinery/door_timer/timer_start(): (/mob/libing/target, crimes, duration_min)
+///from obj/machinery/door_timer/timer_start(): (/mob/living/target, crimes, duration_min)
 #define COMSIG_DOOR_TIMER_START "door_timer_start"
-///from obj/machinery/door_timer/timer_end(): (/mob/libing/target, crimes, duration_min)
+///from obj/machinery/door_timer/timer_end(): (/mob/living/target, crimes, duration_min)
 #define COMSIG_DOOR_TIMER_FINISH "door_timer_finish"
+
+// obj/machinery/crematorium
+///from obj/machinery/crematorium/cremate(): (/mob/living/target)
+#define COMSIG_LIVING_CREMATED "crematorium_cremated_living"
 
 // /obj/item signals
 

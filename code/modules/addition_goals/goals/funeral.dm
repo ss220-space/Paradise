@@ -34,10 +34,12 @@
 		var/turf/random_turf = pick(shuttle_turfs)
 		shuttle_turfs -= random_turf
 		var/mob/living/carbon/human/corpse = spawn_corpse(random_turf)
-		var/datum/addition_goal_corpse_data/data = create_corpse_data(corpse.name)
+		var/datum/addition_goal_corpse_data/data = create_corpse_data(corpse.real_name)
 		create_paper_about_corpse(random_turf, corpse, data)
 		create_body_bag_and_close(random_turf)
 		calculate_reward(data)
+		if(data.preffered_method == CORPSE_METHOD_CREMATION)
+			register_cremated_signal_handler(corpse)
 	qdel(spawner)
 	return TRUE
 
@@ -92,6 +94,15 @@
 		number++
 	return text
 
+/datum/addition_goal/funeral/proc/register_cremated_signal_handler(mob/living/corpse)
+	RegisterSignal(corpse, COMSIG_LIVING_CREMATED, PROC_REF(on_corpse_cremated))
+
+/datum/addition_goal/funeral/proc/on_corpse_cremated(mob/living/corpse)
+	SIGNAL_HANDLER
+	var/datum/addition_goal_corpse_data/data = corpse_data[corpse.real_name]
+	if(!data)
+		return
+	data.complete = TRUE
 
 /datum/addition_goal/funeral/complete_goal(datum/controller/subsystem/addition_goals/system)
 	var/complete_count = 0
@@ -102,9 +113,14 @@
 		report_text += "[number]. [corpse.name]: "
 		number++
 		switch(data.preffered_method)
-			if(CORPSE_METHOD_CREMATION, CORPSE_METHOD_UTILIZATION)
+			if(CORPSE_METHOD_CREMATION)
+				if(data.complete)
+					report_text += "успешно кремирован.<br>"
+					complete_count++
+					continue
+			if(CORPSE_METHOD_UTILIZATION)
 				if(!corpse || !corpse.loc)
-					report_text += "успешно похоронен.<br>"
+					report_text += "успешно утилизирован.<br>"
 					complete_count++
 			if(CORPSE_METHOD_SPACE)
 				if(!corpse || !corpse.loc)
