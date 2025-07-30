@@ -1213,7 +1213,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/narsie_act()
 	return
 
-/atom/proc/ratvar_act(var/convert_mecha = FALSE)
+/atom/proc/ratvar_act(convert_mecha = FALSE)
 	return
 
 
