@@ -20,9 +20,23 @@
 		"}
 	/// Put name of wiki page to open frame to. If none set - it will not link any wiki.
 	var/wiki_title = ""
+	/// book title in name variable
+	var/manual_title = ""
+	/// book title in ru_names
+	var/manual_title_ru = ""
 
 /obj/item/book/manual/Initialize(mapload)
 	. = ..()
+	name = "manual \"[manual_title]\""
+	ru_names = list(
+		NOMINATIVE = "руководство \"[manual_title_ru]\"",
+		GENITIVE = "руководства \"[manual_title_ru]\"",
+		DATIVE = "руководству \"[manual_title_ru]\"",
+		ACCUSATIVE = "руководство \"[manual_title_ru]\"",
+		INSTRUMENTAL = "руководством \"[manual_title_ru]\"",
+		PREPOSITIONAL = "руководстве \"[manual_title_ru]\""
+	)
+	title = manual_title_ru
 	if(!wiki_title || !CONFIG_GET(string/wikiurl)) //it means, manual doesnt rely on wiki, or we dont have wiki
 		return
 	dat = {"
@@ -40,45 +54,57 @@
 
 
 /obj/item/book/manual/engineering_construction
-	name = "Руководство по Ремонту и Строительству"
-	icon_state ="bookEngineering"
+	manual_title = "Maintenance and construction"
+	manual_title_ru = "Ремонт и строительство"
+	desc = "Руководство по строительсву, сборке и ремонту оборудования."
+	icon_state = "bookEngineering"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Руководство по Ремонту и Строительству"
 	wiki_title = "Руководство_по_строительству"
 
 /obj/item/book/manual/engineering_particle_accelerator
-	name = "Тесла Двигатель: Руководство Пользователя"
-	icon_state ="bookParticleAccelerator"
+	manual_title = "Tesla Engine: User Manual"
+	manual_title_ru = "Тесла двигатель: Руководство пользователя"
+	desc = "Руководство по запуску Тесла Двигателя."
+	icon_state = "bookParticleAccelerator"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Тесла Двигатель: Руководство Пользователя"
 	wiki_title = "Тесла-двигатель"
 
 /obj/item/book/manual/supermatter_engine
-	name = "Двигатель на Суперматерии: Руководство Пользователя"
+	manual_title = "SuperMatter Engine: User Manual"
+	manual_title_ru = "Двигатель на Суперматерии: Руководство пользователя"
+	desc = "Руководство по запуску двигателя на Суперматерии."
 	icon_state = "bookSupermatter"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Двигатель на Суперматерии: Руководство Пользователя"
 	wiki_title = "Двигатель_Суперматерии"
 
 /obj/item/book/manual/engineering_hacking
-	name = "Взлом"
-	icon_state ="bookHacking"
+	manual_title = "Hacking"
+	manual_title_ru = "Взлом"
+	desc = "Руководство по взлому различных устройств."
+	icon_state = "bookHacking"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Взлом"
 	wiki_title = "Руководство_по_взлому"
 
 /obj/item/book/manual/engineering_singularity_safety
-	name = "Сингулярный Двигатель: Руководство Пользователя"
-	icon_state ="bookEngineeringSingularitySafety"
+	manual_title = "Singularity Engine: User Manual"
+	manual_title_ru = "Сингулярный двигатель: Руководство пользователя"
+	desc = "Руководство по запуску Сингулярности."
+	icon_state = "bookEngineeringSingularitySafety"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Сингулярный Двигатель: Руководство Пользователя"
 	wiki_title = "Сингулярный_двигатель"
 
 /obj/item/book/manual/hydroponics_pod_people
-	name = "The Human Harvest - From seed to market"
-	icon_state ="bookHydroponicsPodPeople"
-	author = "Farmer John"
-	title = "The Human Harvest - From seed to market"
+	manual_title = "The Human Harvest - From seed to market"
+	manual_title_ru = "От семян до урожая: полное руководство по выращиванию людей на грядках."
+	desc = "Руководство по клонированию людей в стручках Боба-репликанта."
+	icon_state = "bookHydroponicsPodPeople"
+	item_state = "bookHydroponicsPodPeople"
+	author = "Джон Фермер"
 	dat = {"<html>
 				<meta charset="UTF-8">
 				<head>
@@ -111,10 +137,12 @@
 				"}
 
 /obj/item/book/manual/medical_cloning
-	name = "Cloning techniques of the 26th century"
-	icon_state ="bookCloning"
-	author = "Medical Journal, volume 3"
-	title = "Cloning techniques of the 26th century"
+	manual_title = "Cloning Techniques of the 26th century"
+	manual_title_ru = "Технология клонирования 26 века"
+	desc = "Руководство по классическому клонированию, актуально на сегодняшний день."
+	icon_state = "bookCloning"
+	item_state = "bookCloning"
+	author = "Медицинский Журнал \"Доктор Денчиго\", выпуск 3"
 //big pile of shit below.
 
 	dat = {"<html>
@@ -190,10 +218,12 @@
 
 
 /obj/item/book/manual/ripley_build_and_repair
-	name = "APLU \"Ripley\" Construction and Operation Manual"
-	icon_state ="book"
-	author = "Weyland-Yutani Corp"
-	title = "APLU \"Ripley\" Construction and Operation Manual"
+	manual_title = "APLU \"Ripley\" Construction and Operation Manual"
+	manual_title_ru = "Сборка и оперирование АТМЕ \"Рипли\""
+	desc = "Руководство по сбору и оперированию меха АТМЕ \"Рипли\"."
+	icon_state = "book"
+	item_state = "book"
+	author = "Корпорация \"Вейланд-Ютани\""
 //big pile of shit below.
 
 	dat = {"<html>
@@ -267,10 +297,12 @@
 
 
 /obj/item/book/manual/experimentor
-	name = "Mentoring your Experiments"
+	manual_title = "E.X.P.E.R.I-MENTOR for Dummies"
+	manual_title_ru = "Э.К.С.П.Е.Р.И-МЕНТОР для чайников"
+	desc = "Руководство по работе с Э.К.С.П.Е.Р.И-МЕНТОРом для самых маленьких сотрудников научного отдела."
 	icon_state = "rdbook"
-	author = "Dr. H.P. Kritz"
-	title = "Mentoring your Experiments"
+	item_state = "rdbook"
+	author = "Доктор Кой-Карпов"
 	dat = {"<html>
 		<meta charset="UTF-8">
 		<head>
@@ -400,10 +432,12 @@
 	"}
 
 /obj/item/book/manual/research_and_development
-	name = "Research and Development 101"
+	manual_title = "Research and Development for Dummies"
+	manual_title_ru = "Исследование и разработка для чайников"
+	desc = "Руководство по работе в РнД для самых маленьких."
 	icon_state = "rdbook"
-	author = "Dr. L. Ight"
-	title = "Research and Development 101"
+	item_state = "rdbook"
+	author = "Доктор С. Вет"
 	dat = {"
 	<html>
 				<meta charset="UTF-8">
@@ -452,10 +486,12 @@
 
 
 /obj/item/book/manual/robotics_cyborgs
-	name = "Cyborgs for Dummies"
+	manual_title = "Robotics for Dummies"
+	manual_title_ru = "Робототехника для чайников"
+	desc = "Руководство по работе роботами и прочими синтетиками для самых маленьких сотрудников научного отдела."
 	icon_state = "borgbook"
-	author = "XISC"
-	title = "Cyborgs for Dummies"
+	item_state = "borgbook"
+	author = "NanoChat™"
 	dat = {"<html>
 				<meta charset="UTF-8">
 				<head>
@@ -655,138 +691,145 @@
 		"}
 
 /obj/item/book/manual/security_space_law
-	name = "Космический Закон"
-	desc = "Свод корпоративных правил Nanotrasen для поддержания закона и порядка на своих космических станциях."
+	manual_title = "Space Law"
+	manual_title_ru = "Космический закон"
+	desc = "Свод корпоративных правил НаноТрейзен для поддержания закона и порядка на своих объектах."
 	icon_state = "bookSpaceLaw"
+	item_state = "bookSpaceLaw"
 	force = 4 //advanced magistrate tactics
-	author = "Nanotrasen"
-	title = "Космический Закон"
+	author = "НаноТрейзен"
 	wiki_title = "Космический_Закон"
 
 /obj/item/book/manual/security_space_law/black
-	name = "Космический Закон - Ограниченное Издание"
+	manual_title = "Space Law - Limited Edition"
+	manual_title_ru = "Космический закон - ограниченное издание"
 	desc = "Кожаный переплет и безукоризненное качество исполнения - превосходня копия ПРАВОСУДИЯ."
 	icon_state = "bookSpaceLawblack"
-	title = "Космический Закон - Ограниченное Издание"
+	item_state = "bookSpaceLawblack"
 
 /obj/item/book/manual/engineering_guide
-	name = "Руководство по Инженерии"
+	manual_title = "General Engineering"
+	manual_title_ru = "Основы инженерии"
+	desc = "Классическое издание руководства по инженерии, широко используемое в образовательных учреждениях."
 	icon_state ="bookEngineering2"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Руководство по Инженерии"
 	wiki_title = "Руководство_по_инженерии"
 
 /obj/item/book/manual/chef_recipes
-	name = "Рецепты от шеф-повара: Введение"
+	manual_title = "The Flavor Bible: Introduction"
+	manual_title_ru = "Азбука вкуса: Введение"
 	desc = "Одна из частей сборника рецептов шеф-повара."
 	icon_state = "cooked_book"
-	author = "NanoTrasen"
-	title = "Рецепты от шеф-повара: Введение"
+	item_state = "cooked_book"
+	author = "НаноТрейзен"
 	wiki_title = "Руководство_по_еде"
 
 /obj/item/book/manual/chef_recipes/part_one
-	name = "Рецепты от шеф-повара: Основные ингредиенты и приправы"
-	title = "Рецепты от шеф-повара: Основные ингредиенты и приправы"
+	manual_title = "The Flavor Bible: Main Ingredients and spices"
+	manual_title_ru = "Азбука вкуса: Основные ингредиенты и приправы"
 	wiki_title = "Руководство_по_еде_и_напиткам/Основные_ингредиенты_и_приправы"
 
 /obj/item/book/manual/chef_recipes/part_two
-	name = "Рецепты от шеф-повара: Тесто и хлеб"
-	title = "Рецепты от шеф-повара: Тесто и хлеб"
+	manual_title = "The Flavor Bible: dough and bread"
+	manual_title_ru = "Азбука вкуса: Тесто и хлеб"
 	wiki_title = "Руководство_по_еде_и_напиткам/Тесто_и_базовый_хлеб"
 
 /obj/item/book/manual/chef_recipes/part_three
-	name = "Рецепты от шеф-повара: Мясные блюда"
-	title = "Рецепты от шеф-повара: Мясные блюда"
+	manual_title = "The Flavor Bible: Meat"
+	manual_title_ru = "Азбука вкуса: Мясные блюда"
 	wiki_title = "Руководство_по_еде_и_напиткам/Мясные_блюда"
 
 /obj/item/book/manual/chef_recipes/part_four
-	name = "Рецепты от шеф-повара: Рыба, морепродукты, суши"
-	title = "Рецепты от шеф-повара: Рыба, морепродукты, суши"
+	manual_title = "The Flavor Bible: Fish, seafood, sushi"
+	manual_title_ru = "Азбука вкуса: Рыба, морепродукты, суши"
 	wiki_title = "Руководство_по_еде_и_напиткам/Рыба,_морепродукты,_суши"
 
 /obj/item/book/manual/chef_recipes/part_five
-	name = "Рецепты от шеф-повара: Бутерброды"
-	title = "Рецепты от шеф-повара: Бутерброды"
+	manual_title = "The Flavor Bible: Sandwiches"
+	manual_title_ru = "Азбука вкуса: Бутерброды"
 	wiki_title = "Руководство_по_еде_и_напиткам/Бутерброды"
 
 /obj/item/book/manual/chef_recipes/part_six
-	name = "Рецепты от шеф-повара: Паста и пицца"
-	title = "Рецепты от шеф-повара: Паста и пицца"
+	manual_title = "The Flavor Bible: Pasta and pizza"
+	manual_title_ru = "Азбука вкуса: Паста и пицца"
 	wiki_title = "Руководство_по_еде_и_напиткам/Паста_и_пицца"
 
 /obj/item/book/manual/chef_recipes/part_seven
-	name = "Рецепты от шеф-повара: Супы, салаты и гарниры"
-	title = "Рецепты от шеф-повара: Супы, салаты и гарниры"
+	manual_title = "The Flavor Bible: Soups, salats and side dishes"
+	manual_title_ru = "Азбука вкуса: Супы, салаты и гарниры"
 	wiki_title = "Руководство_по_еде_и_напиткам/Супы,_салаты_и_гарниры"
 
 /obj/item/book/manual/chef_recipes/part_eight
-	name = "Рецепты от шеф-повара: Хлебобулочные изделия и десерты"
-	title = "Рецепты от шеф-повара: Хлебобулочные изделия и десерты"
+	manual_title = "The Flavor Bible: Bakery and Desserts"
+	manual_title_ru = "Азбука вкуса: Хлебобулочные изделия и десерты"
 	wiki_title = "Руководство_по_еде_и_напиткам/Хлебобулочные_изделия_и_десерты"
 
 /obj/item/book/manual/chef_recipes/part_nine
-	name = "Рецепты от шеф-повара: Шоколадки и конфеты"
-	title = "Рецепты от шеф-повара: Шоколадки и конфеты"
+	manual_title = "The Flavor Bible: Candies and sweets"
+	manual_title_ru = "Азбука вкуса: Шоколадки и конфеты"
 	wiki_title = "Руководство_по_еде_и_напиткам/Шоколадки_и_конфеты"
 
 /obj/item/book/manual/chef_recipes/part_ten
-	name = "Рецепты от шеф-повара: Остальные рецепты"
-	title = "Рецепты от шеф-повара: Остальные рецепты"
+	manual_title = "The Flavor Bible: Other"
+	manual_title_ru = "Азбука вкуса: Остальные рецепты"
 	wiki_title = "Руководство_по_еде_и_напиткам/Остальные_рецепты"
 
 /obj/item/book/manual/barman_recipes
-	name = "Рецепты Бармена: Введение"
+	manual_title = "Barman on your own: Introduction"
+	manual_title_ru = "Сам себе бармен: Введение"
 	desc = "Одна из частей сборника рецептов бармена."
 	icon_state = "barbook"
-	author = "Сэр Джон Роуз"
-	title = "Рецепты Бармена: Введение"
+	author = "НаноТрейзен"
 	wiki_title = "Руководство_по_напиткам"
 
 /obj/item/book/manual/barman_recipes/part_one
-	name = "Рецепты Бармена: Ассортимент бухломата"
-	title = "Рецепты Бармена: Ассортимент бухломата"
+	manual_title = "Barman on your own: Booz-o-mate assortiment"
+	manual_title_ru = "Сам себе бармен: Ассортимент бухломата"
 	wiki_title = "Руководство_по_еде_и_напиткам/Ассортимент_бухломата"
 
 /obj/item/book/manual/barman_recipes/part_two
-	name = "Рецепты Бармена: Раздатчик выпивки"
-	title = "Рецепты Бармена: Раздатчик выпивки"
+	manual_title = "Barman on your own: The booze dispenser"
+	manual_title_ru = "Сам себе бармен: Раздатчик алкоголя"
 	wiki_title = "Руководство_по_еде_и_напиткам/Раздатчик_выпивки"
 
 /obj/item/book/manual/barman_recipes/part_three
-	name = "Рецепты Бармена: Фонтан газировки"
-	title = "Рецепты Бармена: Фонтан газировки"
+	manual_title = "Barman on your own: soda fountain"
+	manual_title_ru = "Сам себе бармен: Раздатчик газировки"
 	wiki_title = "Руководство_по_еде_и_напиткам/Фонтан_газировки"
 
 /obj/item/book/manual/barman_recipes/part_four
-	name = "Рецепты Бармена: Рецепты бутылочницы"
-	title = "Рецепты Бармена: Рецепты бутылочницы"
+	manual_title = "Barman on your own: Bottler"
+	manual_title_ru = "Сам себе бармен: Бутылочница"
 	wiki_title = "Руководство_по_еде_и_напиткам/Рецепты_Бутылочницы"
 
 /obj/item/book/manual/barman_recipes/part_five
-	name = "Рецепты Бармена: Алкогольные напитки и коктейли"
-	title = "Рецепты Бармена: Алкогольные напитки и коктейли"
+	manual_title = "Barman on your own: Alcoholic drinks and cocktails"
+	manual_title_ru = "Сам себе бармен: Алкогольные напитки и коктейли"
 	wiki_title = "Руководство_по_еде_и_напиткам/Алкогольные_напитки_и_коктейли"
 
 /obj/item/book/manual/barman_recipes/part_six
-	name = "Рецепты Бармена: Напитки на основе синтанола"
-	title = "Рецепты Бармена: Напитки на основе синтанола"
+	manual_title = "Barman on your own: Alcoholic drinks on synthanol"
+	manual_title_ru = "Сам себе бармен: Алкогольные напитки на синтаноле"
 	wiki_title = "Руководство_по_еде_и_напиткам/Напитки_на_основе_синтанола"
 
 /obj/item/book/manual/barman_recipes/part_seven
-	name = "Рецепты Бармена: Безалкогольные напитки"
-	title = "Рецепты Бармена: Безалкогольные напитки"
+	manual_title = "Barman on your own: Non-alcoholic drinks"
+	manual_title_ru = "Сам себе бармен: Безалкогольные напитки"
 	wiki_title = "Руководство_по_еде_и_напиткам/Безалкогольные_напитки"
 
 /obj/item/book/manual/barman_recipes/part_eight
-	name = "Рецепты Бармена: Напитки из ингредиентов с кухни"
-	title = "Рецепты Бармена: Напитки из ингредиентов с кухни"
+	manual_title = "Barman on your own: Drinks made from kitchen ingredients"
+	manual_title_ru = "Сам себе бармен: Напитки из ингредиентов с кухни"
 	wiki_title = "Руководство_по_еде_и_напиткам/Напитки_из_ингредиентов_с_кухни"
 
 /obj/item/book/manual/detective
-	name = "The Film Noir: Proper Procedures for Investigations"
+	manual_title = "The Film Noir: Proper Procedures for Investigations"
+	manual_title_ru = "Киношный нуар: Надлежащие процедуры расследования"
+	desc = "Нуарная книга о том, как необходимо проводить расследования"
 	icon_state ="bookDetective"
-	author = "Nanotrasen"
-	title = "The Film Noir: Proper Procedures for Investigations"
+	item_state = "bookDetective"
+	author = "НаноТрейзен"
 	dat = {"<html>
 			<meta charset="UTF-8">
 			<head>
@@ -825,10 +868,11 @@
 			</html>"}
 
 /obj/item/book/manual/nuclear
-	name = "Fission Mailed: Nuclear Sabotage 101"
+	manual_title = "Fission Mailed: Nuclear Sabotage 101"
+	manual_title_ru = "Операция \"С доставкой на дом\": Ядерный саботаж для чайников"
 	icon_state ="bookNuclear"
-	author = "Syndicate"
-	title = "Fission Mailed: Nuclear Sabotage 101"
+	item_state = "bookNuclear"
+	author = "Синдикат"
 	dat = {"<html>
 			<meta charset="UTF-8">
 			Nuclear Explosives 101:<br>
@@ -861,10 +905,11 @@
 			</html>"}
 
 /obj/item/book/manual/atmospipes
-	name = "Pipes and You: Getting To Know Your Scary Tools"
+	manual_title = "Pipes and You: Getting To Know Your Scary Tools"
+	manual_title_ru = "Вы и ваша труба: Руководство по прокладке трубопроводов"
 	icon_state = "pipingbook"
-	author = "Maria Crash, Senior Atmospherics Technician"
-	title = "Pipes and You: Getting To Know Your Scary Tools"
+	item_state = "pipingbook"
+	author = "Мария Протечкина, старший Атмосферный Техник"
 	dat = {"<html>
 				<meta charset="UTF-8">
 				<head>
@@ -959,10 +1004,11 @@
 			"}
 
 /obj/item/book/manual/evaguide
-	name = "EVA Gear and You: Not Spending All Day Inside"
+	manual_title = "EVA Gear and You: Not Spending All Day Inside"
+	manual_title_ru = "Костюмы для ВКД: Как дышать свежим воздухом даже на орбите"
 	icon_state = "evabook"
-	author = "Maria Crash, Senior Atmospherics Technician"
-	title = "EVA Gear and You: Not Spending All Day Inside"
+	item_state = "evabook"
+	author = "Мария Протечкина, старший Атмосферный Техник"
 	dat = {"<html>
 				<meta charset="UTF-8">
 				<head>
@@ -1029,11 +1075,12 @@
 			"}
 
 /obj/item/book/manual/faxes
-	name = "A Guide to Faxes"
-	desc = "A Nanotrasen-approved guide to writing faxes"
+	manual_title = "Faxes for dummies"
+	manual_title_ru = "Факсы для чайников"
+	desc = "Руководство по написанию факсов, одобренное руководством НаноТрейзен"
 	icon_state = "book6"
-	author = "Nanotrasen"
-	title = "A Guide to Faxes"
+	item_state = "book6"
+	author = "НаноТрейзен"
 	dat = {"
 
 		<html>
@@ -1089,73 +1136,83 @@
 		"}
 
 /obj/item/book/manual/sop_science
+	manual_title = "Standard Operating Procedures (Science)"
+	manual_title_ru = "Стандартные Рабочие Процедуры научного отдела"
 	name = "Стандартные Рабочие Процедуры Научного Отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой научной деятельности."
 	icon_state = "sop_science"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Научного Отдела"
+	item_state = "sop_science"
+	author = "НаноТрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Исследование)"
 
 /obj/item/book/manual/sop_medical
-	name = "Стандартные Рабочие Процедуры Медицинского Отдела"
+	manual_title = "Standard Operating Procedures (Medical)"
+	manual_title_ru = "Стандартные Рабочие Процедуры медицинского отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой медицинской деятельности."
 	icon_state = "sop_medical"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Медицинского Отдела"
+	item_state = "sop_medical"
+	author = "НаноТрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Медицина)"
 
 /obj/item/book/manual/sop_engineering
-	name = "Стандартные Рабочие Процедуры Инженерного Отдела"
+	manual_title = "Standard Operating Procedures (Engineering)"
+	manual_title_ru = "Стандартные Рабочие Процедуры инженерного отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой инженерной деятельности."
 	icon_state = "sop_engineering"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Инженерного Отдела"
+	item_state = "sop_engineering"
+	author = "НаноТрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Инженерия)"
 
 /obj/item/book/manual/sop_service
-	name = "Стандартные Рабочие Процедуры Отдела Обслуживания"
+	manual_title = "Standard Operating Procedures (Service)"
+	manual_title_ru = "Стандартные Рабочие Процедуры отдела Обслуживания"
 	desc = "Свод правил, направленных на безопасное ведение любой обслуживающей деятельности."
 	icon_state = "sop_service"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Отдела Обслуживания"
+	item_state = "sop_service"
+	author = "НаноТрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Сервис)"
 
 /obj/item/book/manual/sop_supply
-	name = "Стандартные Рабочие Процедуры Отдела Снабжения"
+	manual_title = "Standard Operating Procedures (Cargo)"
+	manual_title_ru = "Стандартные Рабочие Процедуры отдела снабжения"
 	desc = "Свод правил, направленных на безопасное ведение любой снабженческой деятельности."
 	icon_state = "sop_cargo"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Отдела Снабжения"
+	item_state = "sop_cargo"
+	author = "НаноТрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Снабжение)"
 
 /obj/item/book/manual/sop_security
-	name = "Стандартные Рабочие Процедуры Службы Безопасности"
+	manual_title = "Standard Operating Procedures (Security)"
+	manual_title_ru = "Стандартные Рабочие Процедуры службы безопасности"
 	desc = "Свод правил, направленных на безопасное ведение любой охранной деятельности."
 	icon_state = "sop_security"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Службы Безопасности"
+	item_state = "sop_security"
+	author = "НаноТрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Охрана)"
 
 /obj/item/book/manual/sop_legal
-	name = "Правовые Стандартные Рабочие Процедуры"
-	desc = "Свод правил, направленных на безопасное ведение любой правовой деятельности."
+	manual_title = "Standard Operating Procedures (Legal)"
+	manual_title_ru = "Стандартные Рабочие Процедуры отдела юриспруденции"
+	desc = "Свод правил, направленных на безопасное ведение любой юридической деятельности."
 	icon_state = "sop_legal"
-	author = "Nanotrasen"
-	title = "Правовые Стандартные Рабочие Процедуры"
+	item_state = "sop_legal"
+	author = "НаноТрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Закон)"
 
 /obj/item/book/manual/sop_general
-	name = "Стандартные Рабочие Процедуры"
-	desc = "Свод правил, направленных на безопасное ведение любой станционной деятельности."
+	manual_title = "General Standard Operating Procedures"
+	manual_title_ru = "Общие Стандартные Рабочие Процедуры"
+	desc = "Свод правил, направленных на безопасное ведение любой деятельности на объектах НТ."
 	icon_state = "sop"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры"
+	item_state = "sop"
+	author = "НаноТрейзен"
 	wiki_title = "Стандартные_Рабочие_Процедуры"
 
 /obj/item/book/manual/sop_command
-	name = "Стандартные Рабочие Процедуры Коммандования"
-	desc = "Свод правил, направленных на безопасное ведение любой Коммандной деятельности."
+	manual_title = "Standard Operating Procedures (Command)"
+	manual_title_ru = "Стандартные Рабочие Процедуры коммандования"
+	desc = "Свод правил, направленных на безопасное ведение любой управленческой деятельности."
 	icon_state = "sop_command"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Коммандования"
+	item_state = "sop_command"
+	author = "НаноТрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Командование)"

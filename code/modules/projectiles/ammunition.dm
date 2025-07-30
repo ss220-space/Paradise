@@ -148,6 +148,9 @@
 	else
 		H.gunshot_residue = caliber
 
+/obj/item/ammo_casing/proc/after_fire()
+	return
+
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"
