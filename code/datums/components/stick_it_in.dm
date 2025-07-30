@@ -5,15 +5,15 @@
 		return COMPONENT_INCOMPATIBLE
 	
 /datum/component/stick_it_in/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(usee))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(HarmAct))
 
 /datum/component/stick_it_in/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK)
 
-/datum/component/stick_it_in/proc/usee(datum/source, mob/living/target, mob/living/user, params, def_zone)
+/datum/component/stick_it_in/proc/HarmAct(datum/source, mob/living/target, mob/living/user, params, def_zone)
 	SIGNAL_HANDLER
 
-	if(!ishuman(target))
+	if(!ishuman(target) || !HAS_TRAIT(parent, TRAIT_EMBED_MELEE))
 		return NONE
 	if(!(user.a_intent == INTENT_DISARM))
 		return NONE
