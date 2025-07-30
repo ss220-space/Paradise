@@ -237,15 +237,6 @@
 		bloodcolor = b_data["blood_color"]
 	return bloodcolor
 
-/*
-/mob/living/carbon/human/proc/get_blood_color()
-	var/bloodcolor = "#A10808"
-	var/list/b_data = get_blood_data(get_blood_id())
-	if(b_data)
-		bloodcolor = b_data["blood_color"]
-	return bloodcolor
-*/
-
 /mob/living/proc/get_blood_data(blood_id)
 	return
 
