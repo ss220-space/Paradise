@@ -49,12 +49,14 @@
 
 /datum/outfit/job/assistant/prisoner
 	name = "Заключенный"
+	allow_loadout = FALSE
 	jobtype = /datum/job/civilian/prisoner
 	id = /obj/item/card/id/prisoner/random
 	head = /obj/item/clothing/head/prison
 	uniform = /obj/item/clothing/under/prison
 	shoes = /obj/item/clothing/shoes/prison
 	l_ear = /obj/item/radio/headset/prisoner
+	pda = null
 
 
 /datum/job/civilian/prisoner/after_spawn(mob/living/carbon/human/human)
