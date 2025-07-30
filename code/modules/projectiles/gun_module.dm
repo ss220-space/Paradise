@@ -92,7 +92,8 @@
 	oldsound = target_gun.fire_sound
 	initial_w_class = target_gun.w_class
 	target_gun.fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
-	target_gun.w_class = WEIGHT_CLASS_NORMAL
+	if(target_gun.w_class < WEIGHT_CLASS_NORMAL)
+		target_gun.w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/gun_module/muzzle/supressor/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppressed = FALSE
