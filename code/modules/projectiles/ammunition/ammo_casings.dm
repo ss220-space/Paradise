@@ -216,6 +216,18 @@
 	icon_state = "84mm-hedp"
 	projectile_type = /obj/projectile/bullet/a84mm_hedp
 
+/obj/item/ammo_casing/caseless/rocket/pigmissle
+	name = "Pig missle"
+	desc = "Test"
+	icon_state = "84mm-hedp"
+	projectile_type = /obj/projectile/bullet/pigmissle
+
+/obj/item/ammo_casing/caseless/rocket/migomissle
+	name = "Mi-Go missle"
+	desc = "Test"
+	icon_state = "84mm-hedp"
+	projectile_type = /obj/projectile/bullet/migomissle
+
 /obj/item/ammo_casing/shotgun
 	name = "shotgun slug"
 	desc = "A 12 gauge lead slug."

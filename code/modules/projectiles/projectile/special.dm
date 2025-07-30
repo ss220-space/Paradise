@@ -688,6 +688,43 @@
 	..()
 	explosion(target, 1, 3, 5, 7) //devastating
 
+/obj/projectile/bullet/pigmissle
+	name = "Pig missle"
+	desc = "Holy shit! It`s pig missle."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "pig"
+	damage = 1 //You don`t need damage if gib your targets
+	speed = 0.8
+	forcedodge = 5
+
+/obj/projectile/bullet/pigmissle/on_hit(var/atom/target, blocked=0)
+	. = ..()
+
+	if(ismob(target))
+		var/mob/M = target
+		M.gib()
+
+	new /obj/effect/gibspawner(get_turf(src))
+
+/obj/projectile/bullet/migomissle
+	name = "Mi-Go missle"
+	desc = "Boom and Mi-Go."
+	icon_state = "84mm-he"
+	damage = 100
+	speed = 0.8
+
+/obj/projectile/bullet/migomissle/on_hit(atom/target, blocked=0)
+	. = ..()
+
+	var/datum/effect_system/fluid_spread/smoke = new
+	smoke.set_up(amount = 18, location = loc)
+	smoke.effect_type = /obj/effect/particle_effect/fluid/smoke
+	smoke.start()
+
+	for(var/count = 1, count <= 7, count++)
+		var/mob/living/simple_animal/hostile/netherworld/migo/mob = new(get_turf(src))
+		mob.faction |= list("wizard")
+
 /obj/projectile/limb
 	name = "limb"
 	icon = 'icons/mob/human_races/r_human.dmi'
