@@ -746,7 +746,7 @@
 
 /obj/item/gun/energy/clockwork/proc/kill_shooter(mob/living/carbon/shooter)
 	var/zone = BODY_ZONE_HEAD
-	if(!(shooter.get_organ(zone)))
+	if(!shooter.get_organ(zone))
 		zone = BODY_ZONE_CHEST
 	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 	shooter.visible_message(span_danger("[src] начинает ярко светится!"))
