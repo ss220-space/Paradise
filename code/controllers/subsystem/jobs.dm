@@ -511,27 +511,10 @@ SUBSYSTEM_DEF(jobs)
 			mark_spawn = pick(GLOB.latejoin)
 
 		if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
-			var/list/turf/possible_turfs = list()
-			var/list/turf/possible_but_bad_turfs = list() // Used if too many people for shattle.
-			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival/station))
-				if(TS.density)
-					continue
-
-				var/bad_turf = FALSE
-				for(var/obj/O in TS)
-					if(!O.density)
-						continue
-
-					bad_turf = TRUE
-					possible_but_bad_turfs += TS
-					break
-
-				if(bad_turf)
-					continue
-
-				possible_turfs += TS
-
-			mark_spawn = possible_turfs.len ? pick(possible_turfs) : pick(possible_but_bad_turfs)
+			if(job.title == JOB_TITLE_PRISONER)
+				mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
+			else
+				mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station)
 
 		if(isturf(mark_spawn))
 			turf_spawn = mark_spawn
@@ -575,6 +558,23 @@ SUBSYSTEM_DEF(jobs)
 				W.buckle_mob(H, TRUE)
 	return H
 
+/datum/controller/subsystem/jobs/proc/get_random_area_turf_for_spawn(area_type)
+	var/list/turf/possible_turfs = list()
+	var/list/turf/possible_but_bad_turfs = list() // Used if too many people for shattle.
+	for(var/turf/TS in get_area_turfs(area_type))
+		if(TS.density)
+			continue
+		var/bad_turf = FALSE
+		for(var/obj/O in TS)
+			if(!O.density)
+				continue
+			bad_turf = TRUE
+			possible_but_bad_turfs += TS
+			break
+		if(bad_turf)
+			continue
+		possible_turfs += TS
+	return possible_turfs.len ? pick(possible_turfs) : pick(possible_but_bad_turfs)
 
 /datum/controller/subsystem/jobs/proc/LoadJobsFile(jobsfile, highpop) //ran during round setup, reads info from jobs.txt -- Urist
 	if(!CONFIG_GET(flag/load_jobs_from_txt))
