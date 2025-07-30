@@ -4,8 +4,8 @@
 	icon = 'icons/effects/blood.dmi'
 	duration = 0.5 SECONDS
 	randomdir = FALSE
-	layer = ABOVE_MOB_LAYER
-	alpha = 175
+	layer = ABOVE_ALL_MOB_LAYER
+	alpha = 200
 	var/splatter_type = "splatter"
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, angle, blood_color)
