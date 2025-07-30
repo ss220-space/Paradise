@@ -178,8 +178,8 @@
 		INSTRUMENTAL = "коллиматорным прицелом",
 		PREPOSITIONAL = "коллиматорном прицеле"
 	)
-	icon_state = "coll"
-	item_state = "coll"
+	icon_state = "coll_icon"
+	item_state = "coll_icon"
 	overlay_state = "coll"
 	overlay_offset = list("x" = -5, "y" = 0)
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
@@ -197,8 +197,8 @@
 		INSTRUMENTAL = "оптическим прицелом х4",
 		PREPOSITIONAL = "оптическом прицеле х4"
 	)
-	icon_state = "x4"
-	item_state = "x4"
+	icon_state = "x4_icon"
+	item_state = "x4_icon"
 	overlay_state = "x4"
 	overlay_offset = list("x" = -5, "y" = 0)
 	class = GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
@@ -216,8 +216,8 @@
 		INSTRUMENTAL = "оптическим прицелом х8",
 		PREPOSITIONAL = "оптическом прицеле х8"
 	)
-	icon_state = "x8"
-	item_state = "x8"
+	icon_state = "x8_icon"
+	item_state = "x8_icon"
 	overlay_state = "x8"
 	overlay_offset = list("x" = -5, "y" = 0)
 	class = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
@@ -235,8 +235,8 @@
 		INSTRUMENTAL = "оптическим прицелом х16",
 		PREPOSITIONAL = "оптическом прицеле х16"
 	)
-	icon_state = "x16"
-	item_state = "x16"
+	icon_state = "x16_icon"
+	item_state = "x16_icon"
 	overlay_state = "x16"
 	overlay_offset = list("x" = -3, "y" = 0)
 	class = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
@@ -298,8 +298,8 @@
 		INSTRUMENTAL = "медицинским коллиматором",
 		PREPOSITIONAL = "медицинском коллиматоре"
 	)
-	icon_state = "coll_med"
-	item_state = "coll_med"
+	icon_state = "coll_med_icon"
+	item_state = "coll_med_icon"
 	overlay_state = "coll_med"
 	overlay_offset = list("x" = -5, "y" = 0)
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
@@ -316,8 +316,8 @@
 		INSTRUMENTAL = "худ СБ коллиматором",
 		PREPOSITIONAL = "худ СБ коллиматоре"
 	)
-	icon_state = "coll_sec"
-	item_state = "coll_sec"
+	icon_state = "coll_sec_icon"
+	item_state = "coll_sec_icon"
 	overlay_state = "coll_sec"
 	overlay_offset = list("x" = -5, "y" = 0)
 	hud_type = DATA_HUD_SECURITY_ADVANCED
@@ -359,8 +359,8 @@
 		INSTRUMENTAL = "подствольным фонариком для пистолетов",
 		PREPOSITIONAL = "подствольном фонарике для пистолетов"
 	)
-	icon_state = "light"
-	item_state = "light"
+	icon_state = "light_icon"
+	item_state = "light_icon"
 	overlay_state = "light"
 	class = GUN_MODULE_CLASS_PISTOL_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
@@ -376,8 +376,8 @@
 		INSTRUMENTAL = "подствольным фонариком для винтовок",
 		PREPOSITIONAL = "подствольном фонарике для винтовок"
 	)
-	icon_state = "light_s"
-	item_state = "light_s"
+	icon_state = "light_s_icon"
+	item_state = "light_s_icon"
 	overlay_state = "light_s"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
@@ -394,9 +394,10 @@
 		INSTRUMENTAL = "угловой рукояткой",
 		PREPOSITIONAL = "угловой рукоятке"
 	)
-	icon_state = "hand_a"
-	item_state = "hand_a"
+	icon_state = "hand_a_icon"
+	item_state = "hand_a_icon"
 	overlay_state = "hand_a"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
+	var/bonus_accuracy = 10
 	//TODO add accuracy

@@ -80,7 +80,7 @@
 	var/can_unsuppress = 1
 
 	/// Whether user can attach/detach flashlights to/from this gun.
-	var/can_flashlight = FALSE
+	var/can_flashlight = TRUE
 	/// Currently attached flashlight.
 	var/obj/item/flashlight/seclite/gun_light
 	/// Specified icon_state used to show flashlight overlay on this gun.
