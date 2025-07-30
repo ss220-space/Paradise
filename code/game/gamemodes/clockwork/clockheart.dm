@@ -353,7 +353,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/item/part_upper/New()
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
-	. = ..()
+	return ..()
 
 
 /obj/item/part_upper/proc/pulse()
