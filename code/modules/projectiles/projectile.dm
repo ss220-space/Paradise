@@ -192,7 +192,7 @@
 			if(isalien(L) || isfacehugger(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
-				var/blood_color = "#C80000"
+				var/blood_color = "#A10808"
 				if(ishuman(target))
 					H = target
 					blood_color = H.dna.species.blood_color

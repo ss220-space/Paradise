@@ -21,38 +21,42 @@
 	return 0
 
 //Returns the middle-most value
-/proc/dd_range(var/low, var/high, var/num)
-	return max(low,min(high,num))
+/proc/dd_range(low, high, num)
+	return max(low, min(high, num))
 
 //Returns whether or not A is the middle most value
-/proc/InRange(var/A, var/lower, var/upper)
-	if(A < lower) return 0
-	if(A > upper) return 0
-	return 1
+/proc/InRange(A, lower, upper)
+	if(A < lower)
+		return FALSE
+	if(A > upper)
+		return FALSE
+	return TRUE
 
 
-/proc/Get_Angle(atom/movable/start,atom/movable/end)//For beams.
-	if(!start || !end) return 0
-	var/dy
-	var/dx
-	dy=(32*end.y+end.pixel_y)-(32*start.y+start.pixel_y)
-	dx=(32*end.x+end.pixel_x)-(32*start.x+start.pixel_x)
+/proc/Get_Angle(atom/movable/start, atom/movable/end)//For beams.
+	if(!start || !end)
+		CRASH("Get_Angle called for inexisting atoms: [isnull(start) ? "null" : start] to [isnull(end) ? "null" : end].")
+	if(!start.z)
+		start = get_turf(start)
+		if(!start)
+			CRASH("Get_Angle called for inexisting atoms (start): [isnull(start.loc) ? "null loc" : start.loc] [start] to [isnull(end.loc) ? "null loc" : end.loc] [end].") //Atoms are not on turfs.
+	if(!end.z)
+		end = get_turf(end)
+		if(!end)
+			CRASH("Get_Angle called for inexisting atoms (end): [isnull(start.loc) ? "null loc" : start.loc] [start] to [isnull(end.loc) ? "null loc" : end.loc] [end].") //Atoms are not on turfs.
+	var/dy = (32 * end.y + end.pixel_y) - (32 * start.y + start.pixel_y)
+	var/dx = (32 * end.x + end.pixel_x) - (32 * start.x + start.pixel_x)
 	if(!dy)
-		return (dx>=0)?90:270
-	.=arctan(dx/dy)
-	if(dy<0)
-		.+=180
-	else if(dx<0)
-		.+=360
+		return (dx >= 0) ? 90 : 270
+	. = arctan(dx / dy)
+	if(dy < 0)
+		. += 180
+	else if(dx < 0)
+		. += 360
 
-/proc/Get_Pixel_Angle(var/y, var/x)//for getting the angle when animating something's pixel_x and pixel_y
-	if(!y)
-		return (x>=0)?90:270
-	.=arctan(x/y)
-	if(y<0)
-		.+=180
-	else if(x<0)
-		.+=360
+/proc/Get_Pixel_Angle(dx, dy)//for getting the angle when animating something's pixel_x and pixel_y
+	var/da = (90 - ATAN2(dx, dy))
+	return (da >= 0 ? da : da + 360)
 
 //Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
@@ -201,15 +205,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 //Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
 	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
-		return 0
+		return FALSE
 
 	var/i, ch, len = length(key)
 
-	for(i = 7, i <= len, ++i)
+	for(i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
 		ch = text2ascii(key, i)
-		if(ch < 48 || ch > 57)
-			return 0
-	return 1
+		if (ch < 48 || ch > 57) //0-9
+			return FALSE
+	return TRUE
 
 //Ensure the frequency is within bounds of what it should be sending/recieving at
 /proc/sanitize_frequency(var/f, var/low = PUBLIC_LOW_FREQ, var/high = PUBLIC_HIGH_FREQ)
