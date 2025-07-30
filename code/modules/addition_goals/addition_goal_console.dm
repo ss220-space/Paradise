@@ -39,7 +39,7 @@
 /obj/machinery/computer/addition_goals/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AdditionGoalsConsole", "Консоль управления дополнительными целями")
+		ui = new(user, src, "AdditionGoalsConsole", "Консоль побочных целей")
 		ui.open()
 
 /obj/machinery/computer/addition_goals/ui_data(mob/user)

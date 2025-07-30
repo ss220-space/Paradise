@@ -36,7 +36,7 @@
 	var/dock_id = shuttle.getDockedId()
 	switch(dock_id)
 		if(AGS_SHUTTLE_CENTCOM_DOCK)
-			return "На ЦК"
+			return "Вне станции"
 		if(AGS_SHUTTLE_STATION_DOCK)
 			return "На станции"
 		else

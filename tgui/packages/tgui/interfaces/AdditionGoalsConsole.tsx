@@ -106,7 +106,7 @@ const AvailableAdditionGoalsListBlock = (props: unknown) => {
           color={data.refresh_available ? 'green' : 'grey'}
           onClick={() => act('refresh_available_goals')}
         >
-          Обновиь список
+          Обновить список
         </Button>
       }
     >
