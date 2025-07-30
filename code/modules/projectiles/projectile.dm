@@ -186,7 +186,7 @@
 	var/organ_hit_text = ""
 	if(blocked < 100) // not completely blocked
 		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
-			var/splatter_dir = dir
+			var/splatter_dir = Angle
 			if(starting)
 				splatter_dir = !isnull(Angle) ? Angle : round(Get_Angle(starting, target_loca), 1)
 			if(isalien(L) || isfacehugger(L))
@@ -204,7 +204,7 @@
 
 				if(step_over)
 					if(get_splatter_blockage(step_over, target, splatter_dir, target_loca)) //If you can't cross the tile or any of its relevant obstacles...
-						shift = pixel_shift_dir(splatter_dir) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
+						shift = pixel_shift_dir(angle2dir_cardinal(splatter_dir)) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
 					else
 						target_loca = step_over
 					L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
