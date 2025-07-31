@@ -1149,6 +1149,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		update_active_keybindings()
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
+		if(isobserver(mob))
+			var/mob/dead/observer/observer = mob
+			observer.update_admin_actions()
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
 		return
 	else

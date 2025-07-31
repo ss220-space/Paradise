@@ -161,6 +161,7 @@ SUBSYSTEM_DEF(tickets)
 	SEND_SOUND(C, sound('sound/effects/adminticketopen.ogg'))
 
 	message_staff(url_title, NONE, TRUE)
+	open_ticket_count_updated()
 	return T
 
 //Set ticket state with key N to open
@@ -170,6 +171,7 @@ SUBSYSTEM_DEF(tickets)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) снова открыл [ticket_name] номер #[N]</span>")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has been re-opened.</span>")
 		T.ticketState = TICKET_OPEN
+		open_ticket_count_updated()
 		return TRUE
 
 //Set ticket state with key N to resolved
@@ -179,6 +181,7 @@ SUBSYSTEM_DEF(tickets)
 		T.ticketState = TICKET_RESOLVED
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) решил [ticket_name] номер [N]</span>")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Ваш [ticket_name] был решён.</span>", confidential=TRUE)
+		open_ticket_count_updated()
 		return TRUE
 
 /datum/controller/subsystem/tickets/proc/addResponse(list/tickets, who, message)
@@ -221,6 +224,7 @@ SUBSYSTEM_DEF(tickets)
 	message_staff("<span class='[span_class]'>[C] перевёл тикет под номером #[T.ticketNum] в [other_ticket_name] тикет.</span>")
 	add_game_logs("[C] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.")
 	create_other_system_ticket(T)
+	open_ticket_count_updated()
 
 /datum/controller/subsystem/tickets/proc/create_other_system_ticket(datum/ticket/T)
 	var/client/C = get_client_by_ckey(T.client_ckey)
@@ -290,6 +294,7 @@ SUBSYSTEM_DEF(tickets)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) закрыл [ticket_name] под номером [N]</span>")
 		to_chat_safe(returnClient(N), close_messages, confidential=TRUE)
 		T.ticketState = TICKET_CLOSED
+		open_ticket_count_updated()
 		return TRUE
 
 //Check if the user already has a ticket open and within the cooldown period.
@@ -689,5 +694,19 @@ UI STUFF
 		return FALSE
 	return TRUE
 
+
+/datum/controller/subsystem/tickets/proc/open_ticket_count_updated()
+	var/ticket_count = 0
+	for(var/datum/ticket/T in allTickets)
+		if(T.ticketState == TICKET_OPEN || T.ticketState == TICKET_STALE)
+			ticket_count++
+	SEND_SIGNAL(src, COMSIGN_TICKET_COUNT_UPDATE, ticket_count)
+
 #undef TICKET_STAFF_MESSAGE_ADMIN_CHANNEL
 #undef TICKET_STAFF_MESSAGE_PREFIX
+#undef TICKET_TIMEOUT
+#undef TICKET_DUPLICATE_COOLDOWN
+#undef TICKET_OPEN
+#undef TICKET_CLOSED
+#undef TICKET_RESOLVED
+#undef TICKET_STALE
