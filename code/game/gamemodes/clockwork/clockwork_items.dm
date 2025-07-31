@@ -1735,9 +1735,6 @@
 	can_adv_heal = FALSE
 	process_on_affected = TRUE
 
-/obj/effect/temp_visual/ratvar/reconstruct/part/reconstruct()
-	. = ..()
-
 /obj/effect/temp_visual/heart_particle
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "heartbeat particles"

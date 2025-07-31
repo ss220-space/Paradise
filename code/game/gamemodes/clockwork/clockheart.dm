@@ -271,15 +271,16 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 		anchored = FALSE
 		. = ..()
 		return
-	if(user in orange(1, src))
-		if(ishuman(user))
-			to_chat(user, span_userdanger("Вы попытались потянуть циферблат, но ваша рука обратилась в пепел!"))
-			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(user.loc)
-		else
-			to_chat(user, span_clockitalic("Вы пытаетесь схватить циферблат, но он слишком тяжелый!"))
-	return
+	if(get_dist(user.loc, loc) > 1)
+		return
+	if(!ishuman(user))
+		to_chat(user, span_clockitalic("Вы пытаетесь схватить циферблат, но он слишком тяжелый!"))
+		return
+	to_chat(user, span_userdanger("Вы попытались потянуть циферблат, но ваша рука обратилась в пепел!"))
+	var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
+	new /obj/effect/decal/cleanable/ash(user.loc)
+
 
 /obj/structure/part_dial/New()
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
@@ -311,15 +312,15 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 /obj/item/part_upper/CtrlClick(mob/user)
 	if(isclocker(user))
 		return ..()
-	if(!(user in orange(1, src)))
+	if(get_dist(user.loc, loc) > 1)
 		return
-	if(ishuman(user))
-		to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
-		var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-		limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-		new /obj/effect/decal/cleanable/ash(user.loc)
-	else
+	if(!ishuman(user))
 		to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
+		return
+	to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
+	var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
+	new /obj/effect/decal/cleanable/ash(user.loc)
 
 /obj/item/part_upper/attack_hand(mob/user, pickupfireoverride)
 	if(isclocker(user))
