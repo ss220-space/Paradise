@@ -2302,6 +2302,22 @@
 	)
 	refill_canister = /obj/item/vending_refill/security
 
+/obj/machinery/vending/gun_mods/free
+	// all items free, this vending for central command
+	products = list(
+		/obj/item/gun_module/muzzle/compensator = 5,
+		/obj/item/gun_module/rail/scope/collimator = 5,
+		/obj/item/gun_module/rail/scope/x4 = 5,
+		/obj/item/gun_module/under/flashlight/pistol = 5,
+		/obj/item/gun_module/under/flashlight/rifle = 5,
+		/obj/item/gun_module/under/hand/angle = 5,
+		/obj/item/gun_module/muzzle/supressor = 5,
+		/obj/item/gun_module/rail/scope/x8 = 5,
+		/obj/item/gun_module/rail/scope/x16 = 3,
+	)
+	contraband = list()
+	prices = list()
+
 /obj/machinery/vending/hydronutrients
 	name = "NutriMax"
 	ru_names = list(
