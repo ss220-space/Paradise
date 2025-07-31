@@ -51,6 +51,7 @@
 #define ROLE_ELITE				"lavaland elite"
 #define ROLE_SPACE_DRAGON 		"space dragon"
 #define ROLE_MALF_AI			"Malfunctioning AI"
+#define ROLE_PRISONER_TRAITOR	"prisoner traitor"
 
 #define ROLE_NONE				"nothing"	// special define used as a marker
 #define ROLE_HIJACKER			"hijacker"	// another marker
@@ -71,6 +72,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_ELITE,											// Lavaland Elite
 	ROLE_MALF_AI = /datum/game_mode/traitor,			// Malf AI
+	ROLE_PRISONER_TRAITOR = /datum/game_mode/traitor,	// Prisoner traitor
 	ROLE_MORPH, 										// Morph
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
 	ROLE_PAI, 											// PAI
