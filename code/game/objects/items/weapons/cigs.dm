@@ -338,9 +338,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(ismob(loc))
 		var/mob/living/M = loc
 		M.balloon_alert(M, "сигарета гаснет")
+		M.emote("final_zatjag")
 		M.temporarily_remove_item_from_inventory(src, force = TRUE)		//Force the un-equip so the overlays update
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
+
+/obj/item/clothing/mask/cigarette/dropped(mob/user, slot, initial)
+	if(istype(user.wear_mask, /obj/item/clothing/mask/cigarette) && (smoketime != 0) && (lit == TRUE))
+		user.emote("zatjag")
+	.=..()
 
 /obj/item/clothing/mask/cigarette/get_heat()
 	return lit * 1000
