@@ -121,9 +121,10 @@
 			checktimer = addtimer(CALLBACK(src, PROC_REF(update_seals)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
 
 /datum/clockwork_objectives/proc/update_seals()
-	if(GLOB.total_curses == 0)
-		ratvar_is_ready()
-		deltimer(checktimer)
+	if(GLOB.total_curses != 0)
+		return
+	ratvar_is_ready()
+	deltimer(checktimer)
 
 // After all goals 've completed check this proc for start summoning
 /datum/clockwork_objectives/proc/ratvar_is_ready()
@@ -131,8 +132,9 @@
 		return
 	clock_status = RATVAR_NEEDS_SUMMONING
 	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
-		if(clock_mind && clock_mind.current)
-			to_chat(clock_mind.current, span_clock("You and your acolytes have succeeded in preparing the station for the ultimate ritual!"))
+		if(!clock_mind || !clock_mind.current)
+			continue
+		to_chat(clock_mind.current, span_clock("You and your acolytes have succeeded in preparing the station for the ultimate ritual!"))
 
 /datum/clockwork_objectives/proc/succesful_summon()
 	clock_status = RATVAR_HAS_RISEN

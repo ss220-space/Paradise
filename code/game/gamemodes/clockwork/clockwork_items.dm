@@ -723,10 +723,7 @@
 	if(!enchant_type && haveKnockback)
 		pb_knockback = defaultpb_knockback
 	if(chambered)
-		if(chambered.BB)
-			QDEL_NULL(chambered.BB)
-			chambered.BB = null
-		chambered = null
+		QDEL_NULL(chambered)
 	newshot()
 
 
@@ -737,9 +734,9 @@
 	return
 
 /obj/item/gun/energy/clockwork/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
-	if(!isclocker(user))
-		kill_shooter()
-	. = ..()
+	if(isclocker(user))
+		. = ..()
+	kill_shooter(user)
 	if(enchant_type)
 		remove_enchanted_bullet()
 
@@ -763,10 +760,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
 	update_ammo_types()
 	if(chambered)
-		if(chambered.BB)
-			qdel(chambered.BB)
-			chambered.BB = null
-		chambered = null
+		QDEL_NULL(chambered)
 	newshot()
 
 /obj/item/gun/energy/clockwork/sniper
@@ -1630,9 +1624,10 @@
 	for(var/atom/affected in range(radius, get_turf(src)))
 		if(isliving(affected))
 			living_process(affected)
-		else
-			if(is_rat_act)
-				affected.ratvar_act(convert_mecha)
+			continue
+		if(!is_rat_act)
+			continue
+		affected.ratvar_act(convert_mecha)
 	if(!isnull(icon_state))
 		animate(src, transform = matrix() * 0.1, time = anim_time)
 
@@ -1643,8 +1638,8 @@
 		return
 	if(!isclocker(living))
 		curse(living)
-	else
-		heal_clocker(living)
+		return
+	heal_clocker(living)
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/heal_clocker(mob/living/clocker)
 	if(istype(clocker, /mob/living/simple_animal/hostile/clockwork/marauder))
@@ -1672,10 +1667,10 @@
 		if(isrobot(target))
 			target.emp_act(EMP_HEAVY)
 			new /obj/effect/temp_visual/emp/clock(target.loc)
-		else
-			target.Weaken(8 SECONDS)
-			target.Silence(10 SECONDS)
-			target.clockslur(20 SECONDS)
+			return
+		target.Weaken(8 SECONDS)
+		target.Silence(10 SECONDS)
+		target.clockslur(20 SECONDS)
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart
 	layer = ABOVE_ALL_MOB_LAYER + 0.1
