@@ -46,8 +46,6 @@
 	dissipate_delay = 5
 	dissipate_strength = 1
 
-	//var/energy
-	//var/target
 	var/list/orbiting_balls = list()
 	var/miniball = FALSE
 	var/produced_power
@@ -60,7 +58,6 @@
 
 	energy = starting_energy
 	miniball = is_miniball
-	START_PROCESSING(SSobj, src)
 
 	if(!is_miniball)
 		set_light(10, 7, "#5e5edd")
@@ -81,7 +78,6 @@
 		parent_energy_ball.orbiting_balls -= src
 
 	QDEL_LIST(orbiting_balls)
-	STOP_PROCESSING(SSobj, src)
 
 	return ..()
 
