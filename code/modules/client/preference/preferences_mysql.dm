@@ -82,7 +82,7 @@
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
 	discord_id = sanitize_text(discord_id, initial(discord_id))
 	discord_name = sanitize_text(discord_name, initial(discord_name))
-	screentip_mode = sanitize_text(screentip_mode, initial(screentip_mode))
+	screentip_mode = sanitize_integer(screentip_mode, 0, 20, initial(screentip_mode))
 	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
 	return TRUE
 
