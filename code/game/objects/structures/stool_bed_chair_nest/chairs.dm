@@ -37,9 +37,16 @@
 		addtimer(CALLBACK(src, PROC_REF(flip_buckled_mobs)), 1)
 
 /obj/structure/chair/proc/flip_buckled_mobs()
+	var/flipped = TRUE
 	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		var/mob/living/carbon/carbon = buckled_mob
+		if(istype(carbon) && carbon.handcuffed)
+			flipped = FALSE
+			continue
 		buckled_mob.Weaken(1 SECONDS)
 		unbuckle_mob(buckled_mob, force = TRUE)
+	if(!flipped)
+		return
 	new item_chair(drop_location())
 	qdel(src)
 
