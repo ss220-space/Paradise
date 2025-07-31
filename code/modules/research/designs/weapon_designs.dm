@@ -310,6 +310,30 @@
 	locked = TRUE
 	category = list("Weapons")
 
+
+// Gun modules
+
+/datum/design/gun_mod/coll_med
+	name = "Medical HUD collimator"
+	desc = "Universal collimator with medical HUD."
+	id = "mod_medhud"
+	req_tech = list("biotech" = 4, "magnets" = 5, "combat" = 3, "programming" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 420, MAT_GLASS = 250, MAT_GOLD = 150, MAT_URANIUM = 200)
+	build_path = /obj/item/gun_module/rail/hud/medical
+	category = list("Weapons")
+
+/datum/design/gun_mod/coll_sec
+	name = "Security HUD collimator"
+	desc = "Universal collimator with security HUD."
+	id = "mod_sechud"
+	req_tech = list("combat" = 4, "magnets" = 5, "programming" = 3, "materials" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 520, MAT_GLASS = 300, MAT_GOLD = 150, MAT_URANIUM = 200)
+	build_path = /obj/item/gun_module/rail/hud/security
+	category = list("Weapons")
+
+
 /////////////////////////////////////////
 ////////////////ILLEGAL//////////////////
 /////////////////////////////////////////

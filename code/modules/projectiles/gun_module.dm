@@ -6,7 +6,7 @@
 	desc = "Неизветный модуль для оружия"
 	icon = 'icons/obj/weapons/attachments.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "combat=2;engineering=2"
+	materials = list(MAT_METAL = 100, MAT_GLASS = 50)
 	var/slot
 	var/class
 	var/overlay_state = "comp"
@@ -81,7 +81,6 @@
 	overlay_state = "supp"
 	overlay_offset = list("x" = -1, "y" = 0)
 	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
-	origin_tech = "combat=2;engineering=2"
 	var/oldsound
 	var/initial_w_class
 
@@ -119,7 +118,6 @@
 	overlay_state = "comp"
 	overlay_offset = list("x" = -3, "y" = 0)
 	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
-	origin_tech = "combat=2;engineering=2"
 	var/bonus_accuracy = 10
 	var/initial_w_class
 
@@ -144,7 +142,6 @@
 	slot = ATTACHMENT_SLOT_RAIL
 
 /obj/item/gun_module/rail/scope
-	origin_tech = "combat=3;engineering=4"
 	/// 'zoom' distance
 	var/zoom_amount = 1
 	/// bonus accuracy for gun
@@ -245,7 +242,6 @@
 
 
 /obj/item/gun_module/rail/hud
-	origin_tech = "combat=3;engineering=4"
 	var/hud_type
 
 /obj/item/gun_module/rail/hud/on_attach(obj/item/gun/target_gun, mob/user)
@@ -304,6 +300,7 @@
 	overlay_offset = list("x" = -5, "y" = 0)
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
+	origin_tech = "biotech=2;magnets=3;combat=1;programming=1"
 
 /obj/item/gun_module/rail/hud/security
 	name = "security hud scope"
@@ -322,13 +319,13 @@
 	overlay_offset = list("x" = -5, "y" = 0)
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
+	origin_tech = "combat=2;magnets=3;programming=1;materials=1"
 
 /**
  * MARK: Under
  */
 /obj/item/gun_module/under
 	slot = ATTACHMENT_SLOT_UNDER
-	origin_tech = "combat=2;engineering=2"
 
 /obj/item/gun_module/under/flashlight
 	var/obj/item/flashlight/seclite/internal
