@@ -855,12 +855,12 @@
 	name = "rack"
 	desc = "Белый крупный стелаж, удобен для хранения различных вещей."
 	ru_names = list(
-		NOMINATIVE = "стелаж",
-		GENITIVE = "стелажа",
-		DATIVE = "стелажу",
-		ACCUSATIVE = "стелаж",
-		INSTRUMENTAL = "стелажом",
-		PREPOSITIONAL = "стелаже"
+		NOMINATIVE = "стеллаж",
+		GENITIVE = "стеллажа",
+		DATIVE = "стеллажу",
+		ACCUSATIVE = "стеллаж",
+		INSTRUMENTAL = "стеллажом",
+		PREPOSITIONAL = "стеллаже"
 	)
 	gender = MALE
 	icon = 'icons/obj/objects.dmi'
@@ -1078,12 +1078,12 @@
 	name = "rack parts"
 	desc = "Детали разобранного стелажа."
 	ru_names = list(
-		NOMINATIVE = "детали стелажа",
-		GENITIVE = "деталей стелажа",
-		DATIVE = "деталям стелажа",
-		ACCUSATIVE = "детали стелажа",
-		INSTRUMENTAL = "деталями стелажа",
-		PREPOSITIONAL = "деталях стелажа"
+		NOMINATIVE = "детали стеллажа",
+		GENITIVE = "деталей стеллажа",
+		DATIVE = "деталям стеллажа",
+		ACCUSATIVE = "детали стеллажа",
+		INSTRUMENTAL = "деталями стеллажа",
+		PREPOSITIONAL = "деталях стеллажа"
 	)
 	gender = MALE
 	icon = 'icons/obj/items.dmi'
