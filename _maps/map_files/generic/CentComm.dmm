@@ -2632,7 +2632,8 @@
 "bfH" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/zone2)
@@ -8107,7 +8108,8 @@
 "dMM" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
@@ -16670,7 +16672,9 @@
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	dir = 4
+	},
 /obj/structure/table/wood,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
@@ -19718,6 +19722,17 @@
 /obj/structure/filingcabinet/employment,
 /turf/simulated/floor/bluegrid,
 /area/centcom/bridge)
+"jCc" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/machinery/computer/library/public{
+	dir = 8;
+	pixel_y = 5
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/zone2)
 "jCl" = (
 /obj/machinery/light{
 	dir = 4
@@ -20911,7 +20926,8 @@
 "kfl" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /obj/machinery/status_display{
 	layer = 4;
@@ -22259,7 +22275,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	pixel_y = 5;
+	dir = 1
+	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "kLh" = (
@@ -22624,7 +22643,8 @@
 	layer = 4.2
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -31869,7 +31889,8 @@
 /obj/structure/table,
 /obj/machinery/computer/library/public{
 	pixel_x = 1;
-	pixel_y = 4
+	pixel_y = 4;
+	dir = 4
 	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
@@ -33346,8 +33367,7 @@
 /area/shuttle/syndicate)
 "pxK" = (
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command";
-	icon_state = "bigscanner"
+	department = "Central Command"
 	},
 /obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
@@ -33743,7 +33763,8 @@
 "pJr" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /turf/simulated/floor/bluegrid,
 /area/centcom/bridge)
@@ -35416,7 +35437,8 @@
 "quT" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/bridge)
@@ -36552,9 +36574,7 @@
 /obj/structure/cable{
 	icon_state = "2-6"
 	},
-/obj/machinery/photocopier{
-	icon_state = "fax"
-	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plating,
 /area/centcom/specops)
 "qVY" = (
@@ -36768,7 +36788,8 @@
 "raf" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command"
+	department = "Central Command";
+	pixel_y = 2
 	},
 /obj/effect/landmark/commando_manual,
 /obj/machinery/status_display{
@@ -43900,7 +43921,10 @@
 /area/centcom/zone3)
 "ueU" = (
 /obj/structure/table,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	pixel_y = 5;
+	dir = 8
+	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "ufa" = (
@@ -93227,11 +93251,11 @@ onc
 wKZ
 bVU
 wbF
-oJc
+jCc
 wta
 fCK
 bFM
-oJc
+jCc
 sfO
 qDR
 wvg

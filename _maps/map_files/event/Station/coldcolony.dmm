@@ -6832,7 +6832,8 @@
 /area/ruin/unpowered)
 "cxT" = (
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Personnel's Office"
+	department = "Head of Personnel's Office";
+	pixel_y = 2
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet/orange,
@@ -7470,7 +7471,8 @@
 "cHA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Research Director's Office"
+	department = "Research Director's Office";
+	pixel_y = 2
 	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -7514,7 +7516,8 @@
 "cIz" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Security's Office"
+	department = "Head of Security's Office";
+	pixel_y = 2
 	},
 /obj/machinery/power/apc{
 	dir = 1;
@@ -16490,7 +16493,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Quartermaster's Office"
+	department = "Quartermaster's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/qm)
@@ -19046,7 +19050,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library/checkout{
+	pixel_y = 5;
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -28470,7 +28477,8 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Engineer's Office"
+	department = "Chief Engineer's Office";
+	pixel_y = 2
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = 8;
@@ -43652,7 +43660,8 @@
 "pZT" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Magistrate's Office"
+	department = "Magistrate's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -47007,7 +47016,8 @@
 "rgH" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Medical Officer's Office"
+	department = "Chief Medical Officer's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/cmo)
@@ -49119,7 +49129,8 @@
 /area/coldcolony/malta/quartermaster/miningbar)
 "rUz" = (
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office"
+	department = "Captain's Office";
+	pixel_y = 2
 	},
 /obj/structure/table/wood,
 /obj/machinery/requests_console{
@@ -61292,7 +61303,8 @@
 "wsH" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office"
+	department = "NT Representative's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/ntrep)

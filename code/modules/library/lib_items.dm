@@ -13,6 +13,16 @@
 
 /obj/structure/bookcase
 	name = "bookcase"
+	desc = "Большой книжный шкаф."
+	ru_names = list(
+		NOMINATIVE = "книжный шкаф",
+		GENITIVE = "книжного шкафа",
+		DATIVE = "книжному шкафу",
+		ACCUSATIVE = "книжный шкаф",
+		INSTRUMENTAL = "книжным шкафом",
+		PREPOSITIONAL = "книжном шкафе"
+	)
+	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book-0"
 	anchored = TRUE
@@ -30,6 +40,15 @@
 	generate_allowed_books()
 	if(mapload)
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+
+
+/obj/structure/bookcase/examine(mob/user)
+	if(length(contents) > 0)
+		desc = "Большой книжный шкаф. На его полках стоят книги."
+	else
+		desc = "Большой книжный шкаф. Его полки давно не протирали..."
+
+	. = ..()
 
 /obj/structure/bookcase/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
@@ -62,7 +81,7 @@
 		return
 	if(!user.drop_transfer_item_to_loc(thing, src))
 		return ..()
-	to_chat(user, span_notice("You have added [thing] into [src]."))
+	balloon_alert(user, "поставлено на полку")
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -86,16 +105,16 @@
 				book.add_fingerprint(user)
 				bag.remove_from_storage(book, src)
 		if(!loaded)
-			to_chat(user, span_warning("There are no books in [bag]."))
+			balloon_alert(user, "сумка пуста!")
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("You have emptied [bag] into [src]."))
+		balloon_alert(user, "опустошено")
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(is_type_in_typecache(I, allowed_books))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You have added [I] into [src]."))
+		to_chat(user, span_notice("Вы поместили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		add_fingerprint(user)
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -124,7 +143,7 @@
 	if(!length(contents))
 		return
 
-	var/obj/item/book/choice = tgui_input_list(user, "Which book would you like to remove from [src]?", "Bookcase", contents)
+	var/obj/item/book/choice = tgui_input_list(user, "Какую книгу вы хотели бы достать из книжного шкафа?", "Книжный шкаф", contents)
 	if(!choice || user.incapacitated() || !Adjacent(user))
 		return
 	add_fingerprint(user)
@@ -150,10 +169,25 @@
 /obj/structure/bookcase/update_icon_state()
 	icon_state = "book-[min(length(contents), 5)]"
 
+/obj/structure/bookcase/manuals
+	var/manual_name = ""
+	var/manual_name_ru = ""
+
+/obj/structure/bookcase/manuals/Initialize(mapload)
+	. = ..()
+	name = manual_name + name
+	if(ru_names)
+		ru_names[NOMINATIVE] += manual_name_ru
+		ru_names[GENITIVE] += manual_name_ru
+		ru_names[DATIVE] += manual_name_ru
+		ru_names[ACCUSATIVE] += manual_name_ru
+		ru_names[INSTRUMENTAL] += manual_name_ru
+		ru_names[PREPOSITIONAL] += manual_name_ru
+
 
 /obj/structure/bookcase/manuals/medical
-	name = "Medical Manuals bookcase"
-
+	manual_name = "Medical Manuals "
+	manual_name_ru = " с учебниками по медицине"
 
 /obj/structure/bookcase/manuals/medical/Initialize()
 	. = ..()
@@ -162,7 +196,9 @@
 
 
 /obj/structure/bookcase/manuals/engineering
-	name = "Engineering Manuals bookcase"
+	manual_name = "Engineering Manuals "
+	manual_name_ru = " с руководствами по инженерному делу"
+
 
 
 /obj/structure/bookcase/manuals/engineering/Initialize()
@@ -177,7 +213,9 @@
 
 
 /obj/structure/bookcase/manuals/research_and_development
-	name = "R&D Manuals bookcase"
+	manual_name = "R&D Manuals "
+	manual_name_ru = " с учебниками по научной деятельности"
+
 
 
 /obj/structure/bookcase/manuals/research_and_development/Initialize()
@@ -191,8 +229,21 @@
  */
 /obj/item/book
 	name = "book"
+	desc = "Напечатанная книга в твёрдом переплёте."
+	ru_names = list(
+		NOMINATIVE = "книга",
+		GENITIVE = "книги",
+		DATIVE = "книге",
+		ACCUSATIVE = "книгу",
+		INSTRUMENTAL = "книгой",
+		PREPOSITIONAL = "книге"
+	)
+	gender = FEMALE
 	icon = 'icons/obj/library.dmi'
-	icon_state ="book"
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
+	icon_state = "book"
+	item_state = "book"
 	throw_speed = 1
 	throw_range = 5
 	force = 2
@@ -231,45 +282,45 @@
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			attack_self(user)
 		else
-			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
+			. += span_notice("Вам стоит подойти ближе, чтобы её прочесть.")
 	else
-		. += "<span class='notice'>You don't know how to read.</span>"
+		. += span_notice("Вы не умеете читать.")
 
 /obj/item/book/attack_self(mob/user)
 	if(carved)
 		if(store)
-			to_chat(user, "<span class='notice'>[store] falls out of [title]!</span>")
+			to_chat(user, span_notice("[capitalize(store.declent_ru(NOMINATIVE))] выпада[pluralize_ru(store, "ет", "ют")] из \"[title]\"!"))
 			store.forceMove(get_turf(loc))
 			store = null
 			return
 		else
-			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
+			to_chat(user, span_notice("Кто-то вырезал страницы из \"[title]\"!"))
 			return
 	if(src.dat)
 		var/datum/browser/popup = new(user, "book", title)
 		popup.include_default_stylesheet = FALSE
-		popup.set_content("<tt><i>Penned by [author].</i></tt><br>" + "[dat]")
+		popup.set_content("<tt><i>Автор — [author].</i></tt><br>" + "[dat]")
 		popup.open(TRUE)
 		if(!isobserver(user))
-			user.visible_message("[user] opens a book titled \"[title]\" and begins reading intently.")
+			user.visible_message("[user] открыва[pluralize_ru(user.gender, "ет", "ют")] книгу под заголовком \"[title]\" и начина[pluralize_ru(user.gender, "ет", "ют")] внимательно её читать.")
 		onclose(user, "book")
 	else
-		to_chat(user, "This book is completely blank!")
+		to_chat(user, "Эта книга полностью пуста!")
 
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
 	if(carved)
 		add_fingerprint(user)
 		if(store)
-			to_chat(user, span_warning("There's already something in [title]!"))
+			balloon_alert(user, "занято!")
 			return ATTACK_CHAIN_PROCEED
 		if(I.w_class >= WEIGHT_CLASS_NORMAL)
-			to_chat(user, span_warning("The [I.name] won't fit in [title]!"))
+			balloon_alert(user, "слишком большое!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		store = I
-		to_chat(user, span_notice("You have put [I] into [title]."))
+		to_chat(user, span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в \"[title]\"."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(is_sharp(I))
@@ -281,27 +332,27 @@
 	if(is_pen(I))
 		add_fingerprint(user)
 		if(unique)
-			to_chat(user, span_warning("These pages don't seem to take the ink well. Looks like you can't modify it."))
+			to_chat(user, span_warning("На страницы этой книги плохо ложатся чернила. По всей видимости, вы ничего не сможете с ней сделать."))
 			return ATTACK_CHAIN_PROCEED
-		var/choice = tgui_input_list(user, "What would you like to change?", "Book Edit", list("Title", "Contents", "Author", "Cancel"))
+		var/choice = tgui_input_list(user, "Что вы хотели бы изменить?", "Редактура", list("Заголовок", "Содержание", "Автор", "Отмена"))
 		switch(choice)
 			if("Title")
-				var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title:", "Title", title))
+				var/newtitle = reject_bad_text(tgui_input_text(user, "Напишите новый заголовок:", "Название", title))
 				if(isnull(newtitle))
-					to_chat(user, span_warning("The title is invalid."))
+					balloon_alert(user, "недопустимый формат!")
 					return ATTACK_CHAIN_PROCEED
 				name = newtitle
 				title = newtitle
 			if("Contents")
-				var/content = tgui_input_text(user, "Write your book's contents (HTML NOT allowed):", "Summary", max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE)
+				var/content = tgui_input_text(user, "Напишите содержание книги (HTML ЗАПРЕЩЁН):", "Содержание", max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE)
 				if(isnull(content))
-					to_chat(user, span_warning("The contents is invalid."))
+					balloon_alert(user, "недопустимое содержание!")
 					return ATTACK_CHAIN_PROCEED
 				dat += content
 			if("Author")
-				var/newauthor = tgui_input_text(user, "Write the author's name:", "Author", author, MAX_NAME_LEN)
+				var/newauthor = tgui_input_text(user, "Напишите имя автора:", "Автор", author, MAX_NAME_LEN)
 				if(isnull(newauthor))
-					to_chat(user, span_warning("The name is invalid."))
+					balloon_alert(user, "недопустимое имя!")
 					return ATTACK_CHAIN_PROCEED
 				author = newauthor
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -310,32 +361,40 @@
 		add_fingerprint(user)
 		var/obj/item/barcodescanner/scanner = I
 		if(!scanner.computer)
-			to_chat(user, span_warning("The [scanner.name]'s screen flashes: 'No associated computer found!'"))
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 20)
+			to_chat(user, span_warning("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Привязанный компьютер не найден!\"."))
 			return ATTACK_CHAIN_PROCEED
+
 		switch(scanner.mode)
 			if(0)
+				playsound(src, 'sound/machines/ping.ogg', 20)
 				scanner.book = src
-				to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer.'"))
+				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище.\"."))
 			if(1)
+				playsound(src, 'sound/machines/ping.ogg', 20)
 				scanner.book = src
 				scanner.computer.buffer_book = name
-				to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. Book title stored in associated computer buffer.'"))
+				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Книга была занесена в буфер привязанного компьютера.\"."))
 			if(2)
 				scanner.book = src
 				for(var/datum/borrowbook/borrowbook as anything in scanner.computer.checkouts)
 					if(borrowbook.bookname == name)
+						playsound(src, 'sound/machines/ping.ogg', 20)
 						scanner.computer.checkouts.Remove(borrowbook)
-						to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. Book has been checked in.'"))
+						to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Бронирование книги было зарегистрированно.\"."))
 						return ATTACK_CHAIN_PROCEED_SUCCESS
-				to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. No active check-out record found for current title.'"))
+				playsound(src, 'sound/machines/boop.ogg', 20)
+				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Для данной книги ещё не было офорлено бронирование.\"."))
 			if(3)
 				scanner.book = src
 				for(var/obj/item/book as anything in scanner.computer.inventory)
 					if(book == src)
-						to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. Title already present in inventory, aborting to avoid duplicate entry.'"))
+						playsound(src, 'sound/machines/boop.ogg', 20)
+						to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Книга уже была добавлена в базу данных. Действие отменено во избежание дублирования.\"."))
 						return ATTACK_CHAIN_PROCEED_SUCCESS
 				scanner.computer.inventory.Add(src)
-				to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'"))
+				playsound(src, 'sound/machines/ping.ogg', 20)
+				to_chat(user, span_notice("Экран [scanner.declent_ru(GENITIVE)] загорается: \"Книга добавлена в локальное хранилище. Книга была занесена в базу данных.\"."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -356,16 +415,18 @@
 
 
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
-	if(!is_sharp(I) && I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
-		to_chat(user, span_warning("You can't carve [title] using that!"))
+	if(I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
+		return FALSE
+	if(!is_sharp(I))
+		balloon_alert(user, "недостаточно острое!")
 		return FALSE
 	if(carved)
-		to_chat(user, span_warning("The [title] is already carved!"))
+		balloon_alert(user, "уже изрезано!")
 		return FALSE
-	to_chat(user, span_notice("You start to carve out [title]..."))
+	balloon_alert(user, "режем страницы...")
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || carved)
 		return FALSE
-	to_chat(user, span_notice("You have carved out the pages from [title]! You didn't want to read it anyway."))
+	balloon_alert(user, "страницы вырезаны.")
 	carved = TRUE
 	return TRUE
 
@@ -375,8 +436,21 @@
  */
 /obj/item/barcodescanner
 	name = "barcode scanner"
+	desc = "Небольшое устройство для считывания штрих-кода с книг."
+	ru_names = list(
+		NOMINATIVE = "сканнер штрих-кодов",
+		GENITIVE = "сканнера штрих-кодов",
+		DATIVE = "сканнеру штрих-кодов",
+		ACCUSATIVE = "сканнер штрих-кодов",
+		INSTRUMENTAL = "сканнером штрих-кодов",
+		PREPOSITIONAL = "сканнере штрих-кодов"
+	)
+	gender = MALE
 	icon = 'icons/obj/library.dmi'
-	icon_state ="scanner"
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
+	icon_state = "scanner"
+	item_state = "scanner"
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
@@ -386,24 +460,35 @@
 
 /obj/item/barcodescanner/attack_self(mob/user)
 	mode += 1
-	if(mode > 3)
+	if(mode > 4)
 		mode = 0
-	to_chat(user, "[src] Status Display:")
-	var/modedesc
 	switch(mode)
 		if(0)
-			modedesc = "Scan book to local buffer."
+			if(computer)
+				to_chat(user, span_notice("Сканирование книг в локальное хранилище с попыткой добавление в базу данных."))
+			else
+				mode += 1
+
 		if(1)
-			modedesc = "Scan book to local buffer and set associated computer buffer to match."
+			if(computer)
+				to_chat(user, span_green("Устройство привязанно к компьютеру."))
+			else
+				to_chat(user, span_red("Привязанный к устройству компьютер не найден. Доступно только локальное сканирование."))
+
 		if(2)
-			modedesc = "Scan book to local buffer, attempt to check in scanned book."
+			to_chat(user, span_notice("Сканирование книг в локальное хранилище."))
+
 		if(3)
-			modedesc = "Scan book to local buffer, attempt to add book to general inventory."
+			if(computer)
+				to_chat(user, span_notice("Сканирование книг в локальное хранилище с добалением в буфер привязанного компьютера."))
+			else
+				mode += 1
+
+		if(4)
+			if(computer)
+				to_chat(user, span_notice("Сканирование книг в локальное хранилище с оформлением их брони."))
+			else
+				mode += 1
+
 		else
-			modedesc = "ERROR"
-	to_chat(user, " - Mode [mode] : [modedesc]")
-	if(src.computer)
-		to_chat(user, "<font color=green>Computer has been associated with this unit.</font>")
-	else
-		to_chat(user, "<font color=red>No associated computer found. Only local scans will function properly.</font>")
-	to_chat(user, "\n")
+			to_chat(user, span_notice("ОШИБКА."))
