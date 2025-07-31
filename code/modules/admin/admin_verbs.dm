@@ -546,8 +546,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			holder.fakekey = new_key
 			holder.big_brother = TRUE
 			if(isobserver(mob))
-				mob.invisibility = 90
-				mob.see_invisible = 90
+				mob.invisibility = INVISIBILITY_BIG_BROTHER
+				mob.see_invisible = SEE_INVISIBLE_BIG_BROTHER
 			createStealthKey()
 		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]", TRUE)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode")

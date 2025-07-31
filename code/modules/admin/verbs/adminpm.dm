@@ -423,7 +423,7 @@
 
 	if(href_list["altclose"])
 		message_admins("[key_name_admin(usr)] closed a force-opened PM window")
-		usr << browse(null, "window=[window_id]")
+		close_window(user, window_id)
 		open = FALSE
 		forced = FALSE
 		return
