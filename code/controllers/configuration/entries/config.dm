@@ -430,7 +430,7 @@
 
 
 /datum/config_entry/number/antag_paradise_double_antag_chance
-	default = 33
+	default = 10
 	max_val = 100
 	min_val = 0
 

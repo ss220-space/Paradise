@@ -8,6 +8,8 @@
 	/// What animal type this crate contains
 	var/animal_type
 
+/obj/structure/largecrate/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
 /obj/structure/largecrate/update_overlays()
 	. = ..()

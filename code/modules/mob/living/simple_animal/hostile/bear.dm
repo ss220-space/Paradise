@@ -7,9 +7,9 @@
 	icon_dead = "bear_dead"
 	icon_gib = "bear_gib"
 	speak = list("RAWR!","Rawr!","GRR!","Growl!")
-	speak_emote = list("growls", "roars")
-	emote_hear = list("rawrs","grumbles","grawls")
-	emote_see = list("stares ferociously", "stomps")
+	speak_emote = list("фырчит", "рычит")
+	emote_hear = list("рычит", "ревёт", "фыркает")
+	emote_see = list("свирепо осматривается", "топчется на месте")
 	tts_seed = "Shaker"
 	speak_chance = 1
 	turns_per_move = 5

@@ -548,7 +548,7 @@
 	set hidden = 1
 	set name = ".dblclick"
 	LogMouseMacro(".dblclick", params)
-	
+
 /mob/verb/MouseSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".mouse"

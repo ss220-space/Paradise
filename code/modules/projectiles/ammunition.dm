@@ -11,6 +11,7 @@
 	)
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "s-casing"
+	origin_tech = "materials=3;combat=3"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 1
@@ -147,6 +148,9 @@
 	else
 		H.gunshot_residue = caliber
 
+/obj/item/ammo_casing/proc/after_fire()
+	return
+
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"
@@ -161,6 +165,7 @@
 	)
 	icon_state = "357"
 	icon = 'icons/obj/weapons/ammo.dmi'
+	origin_tech = "materials=3;combat=3"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	item_state = "syringe_kit"

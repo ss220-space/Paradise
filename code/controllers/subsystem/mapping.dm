@@ -329,6 +329,7 @@ SUBSYSTEM_DEF(mapping)
 		/obj/effect/landmark/join_late_cryo,
 		/obj/effect/landmark/join_late_cyborg,
 		/obj/effect/landmark/join_late_gateway,
+		/obj/effect/landmark/join_late_prisoner,
 		/obj/effect/landmark/observer_start
 		)
 

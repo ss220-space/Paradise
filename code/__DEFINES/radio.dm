@@ -41,6 +41,7 @@
 #define MED_FREQ 1355 //medical
 #define SUP_FREQ 1347 //cargo
 #define SRV_FREQ 1349 //service
+#define PRS_FREQ 1361 //prisoners
 
 // Internal department channels
 #define MED_I_FREQ 1485
@@ -89,6 +90,7 @@
 #define SOV_FREQ_NAME "СССП"
 #define SUP_FREQ_NAME "Снабжение"
 #define SRV_FREQ_NAME "Обслуживание"
+#define PRS_FREQ_NAME "Заключенные"
 #define AI_FREQ_NAME "ИИ"
 #define MED_I_FREQ_NAME "Медицина (ИТК)"
 #define SEC_I_FREQ_NAME "Безопасность (ИТК)"

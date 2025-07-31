@@ -15,7 +15,7 @@
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
 
-	speak_emote = list("clanks", "clinks", "clunks", "clangs")
+	speak_emote = list("лязгает")
 	tts_seed = "Earth"
 	speak_statement = "clinks"
 	speak_exclamation = "proclaims"

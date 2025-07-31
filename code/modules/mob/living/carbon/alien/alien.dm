@@ -4,7 +4,7 @@
 /mob/living/carbon/alien
 	name = "alien"
 	voice_name = "alien"
-	speak_emote = list("hisses")
+	speak_emote = list("шипит")
 	tts_seed = "Ladyvashj"
 	bubble_icon = "alien"
 	icon = 'icons/mob/alien.dmi'
@@ -15,10 +15,10 @@
 	var/nightvision_enabled = FALSE
 	nightvision = 4
 
-	verb_say = "hisses"
-	verb_ask = "hisses curiously"
-	verb_exclaim = "roars"
-	verb_yell = "roars"
+	verb_say = "шипит"
+	verb_ask = "вопросительно шипит"
+	verb_exclaim = "рычит"
+	verb_yell = "ревёт"
 
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE

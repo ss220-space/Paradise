@@ -249,7 +249,8 @@
 				if(char_name == C)
 					to_chat (usr, span_danger("Уже существует персонаж с таким именем: <b>[C]</b>, пожалуйста, выберите другое имя."))
 					return
-
+		if(href_list["SelectedJob"] == JOB_TITLE_PRISONER)
+			client.prefs.spawnpoint = "Permabrig"
 		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
 		return
 
@@ -416,8 +417,12 @@
 				character.forceMove(pick(GLOB.latejoin))
 				join_message = "прибыл на станцию"
 		else
-			character.forceMove(pick(GLOB.latejoin))
-			join_message = "прибыл на станцию"
+			if(character.mind.assigned_role == JOB_TITLE_PRISONER && length(GLOB.latejoin_prisoner))
+				character.forceMove(pick(GLOB.latejoin_prisoner))
+				join_message = "очнулся от криогенного сна"
+			else
+				character.forceMove(pick(GLOB.latejoin))
+				join_message = "прибыл на станцию"
 
 	character.lastarea = get_area(loc)
 

@@ -1677,6 +1677,7 @@
 "aiB" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/carpet,
 /area/security/permabrig)
 "aiD" = (
@@ -1735,6 +1736,7 @@
 "aiS" = (
 /obj/structure/bed,
 /obj/item/bedsheet/patriot,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/carpet,
 /area/security/permabrig)
 "aiT" = (
@@ -1808,6 +1810,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "ajb" = (
@@ -1820,6 +1823,7 @@
 /area/security/permabrig)
 "ajh" = (
 /obj/structure/bed,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -2872,6 +2876,7 @@
 "anh" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/carpet,
 /area/security/permabrig)
 "ani" = (
@@ -4034,6 +4039,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "aqN" = (
@@ -5687,6 +5693,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -7227,7 +7234,8 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Security's Office"
+	department = "Head of Security's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7275,12 +7283,14 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
 /area/security/permabrig)
 "azr" = (
 /obj/structure/bed,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -7624,6 +7634,7 @@
 /area/security/warden)
 "aAq" = (
 /obj/machinery/light,
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aAr" = (
@@ -7751,7 +7762,8 @@
 "aAG" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Magistrate's Office"
+	department = "Magistrate's Office";
+	pixel_y = 2
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -8913,6 +8925,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aEQ" = (
@@ -8950,6 +8963,7 @@
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aFh" = (
@@ -12183,6 +12197,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -13503,7 +13518,8 @@
 "aUA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Internal Affairs Office"
+	department = "Internal Affairs Office";
+	pixel_y = 2
 	},
 /obj/item/radio/intercom{
 	name = "west station intercom (General)";
@@ -20316,7 +20332,10 @@
 /area/library)
 "boG" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library/checkout{
+	dir = 8;
+	pixel_y = 8
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -26275,7 +26294,8 @@
 	dir = 1
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office"
+	department = "Captain's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
@@ -29889,7 +29909,8 @@
 	pixel_x = 24
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Personnel's Office"
+	department = "Head of Personnel's Office";
+	pixel_y = 2
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
@@ -34038,7 +34059,8 @@
 "cfR" = (
 /obj/structure/table,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Medical Officer's Office"
+	department = "Chief Medical Officer's Office";
+	pixel_y = 2
 	},
 /obj/machinery/light,
 /obj/structure/cable{
@@ -34774,7 +34796,8 @@
 	pixel_y = -24
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Research Director's Office"
+	department = "Research Director's Office";
+	pixel_y = 2
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
@@ -36642,7 +36665,8 @@
 "cnT" = (
 /obj/structure/table,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Quartermaster's Office"
+	department = "Quartermaster's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -37422,7 +37446,8 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office"
+	department = "NT Representative's Office";
+	pixel_y = 2
 	},
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -32
@@ -40254,6 +40279,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -52344,7 +52370,10 @@
 	},
 /area/turret_protected/aisat_interior)
 "diN" = (
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	dir = 1;
+	pixel_y = 8
+	},
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/library)
@@ -58872,6 +58901,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "fEW" = (
@@ -61874,7 +61904,8 @@
 "hzs" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Engineer's Office"
+	department = "Chief Engineer's Office";
+	pixel_y = 2
 	},
 /obj/item/toy/figure/ce,
 /turf/simulated/floor/plasteel{
@@ -63315,6 +63346,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "izy" = (
@@ -65142,6 +65174,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
+"jKu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/security/permabrig)
 "jLB" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
@@ -70694,6 +70733,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"nmt" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "nmF" = (
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel,
@@ -78366,6 +78413,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "saA" = (
@@ -81841,6 +81889,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/xenozoo)
+"ugM" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "uhl" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -88308,6 +88363,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -105386,7 +105442,7 @@ atc
 qmz
 tCQ
 flv
-uyv
+nmt
 aDA
 aFd
 aGP
@@ -107190,7 +107246,7 @@ aDF
 olE
 aGU
 fjv
-smB
+ugM
 aLq
 owA
 aPJ
@@ -107712,7 +107768,7 @@ ppb
 aTP
 aXc
 aYa
-aYa
+jKu
 pwi
 awO
 awO
