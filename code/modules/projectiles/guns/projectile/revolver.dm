@@ -327,7 +327,9 @@
 					shoot_self(user, zone)
 				else
 					user.visible_message(span_danger("[user.name] cowardly fires [src] at [user.p_their()] [zone]!"), span_userdanger("You cowardly fire [src] at your [zone]!"), span_italics("You hear a gunshot!"))
+				chambered.after_fire()
 				return
+			chambered.after_fire()
 
 		user.visible_message(span_danger("*click*"))
 		playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
