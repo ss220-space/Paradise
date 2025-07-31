@@ -157,7 +157,7 @@
 	icon_state = "purple_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	damage = 10 //A worse lasergun
-	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+	var/zap_flags = ZAP_DEFAULT_FLAGS
 	var/zap_range = 3
 	var/power = 10000
 
