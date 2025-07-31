@@ -691,8 +691,7 @@
 	. = ..()
 	if(!isclocker(user))
 		return
-	.+=""
-	.+= span_clockitalic("Осталось [cell.charge] заряд[declension_ru(cell.charge, "", "а", "ов")].")
+	.+= span_clockitalic("\n Осталось [cell.charge] заряд[declension_ru(cell.charge, "", "а", "ов")].")
 
 /obj/item/gun/energy/clockwork/proc/charge()
 	cell.charge = min(cell.charge + charge_rate, cell.maxcharge)
@@ -1602,7 +1601,7 @@
 	var/process_on_affected = TRUE
 	var/anim_time = 2 SECONDS
 	var/sleep_time = 20
-	var/Can_adv_heal = TRUE
+	var/can_adv_heal = TRUE
 	var/robo_affect_heal = TRUE
 	var/radius = 4
 	var/heal = 60
@@ -1654,7 +1653,7 @@
 		clocker.heal_overall_damage(100)
 		return
 	clocker.heal_overall_damage(heal, heal, affect_robotic = robo_affect_heal)
-	if(!Can_adv_heal)
+	if(!can_adv_heal)
 		return
 	clocker.reagents?.add_reagent("epinephrine", 5)
 	var/mob/living/carbon/human/H = clocker
@@ -1695,7 +1694,7 @@
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse
 	icon_state = null
 	heal = 30
-	Can_adv_heal = FALSE
+	can_adv_heal = FALSE
 	radius = 3
 	sound = null
 	convert_mecha = TRUE
@@ -1714,7 +1713,7 @@
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/heal
 	heal = 80
-	Can_adv_heal = TRUE
+	can_adv_heal = TRUE
 	robo_affect_heal = FALSE
 	heal_marauders = TRUE
 	is_rat_act = FALSE
@@ -1733,7 +1732,7 @@
 	heal = 0
 	convert_mecha = FALSE
 	radius = 3
-	Can_adv_heal = FALSE
+	can_adv_heal = FALSE
 	process_on_affected = TRUE
 
 /obj/effect/temp_visual/ratvar/reconstruct/part/reconstruct()

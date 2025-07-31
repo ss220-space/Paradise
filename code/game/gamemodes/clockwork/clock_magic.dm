@@ -172,7 +172,7 @@
 	if(do_after(owner, 5 SECONDS, owner))
 		midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
 		midas_spell.Grant(owner, src)
-		to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
+		to_chat(owner, span_clock("Вы чувствуете, как энергия течет по вашей руке. Вы приготовили заклинание [midas_spell.name]!"))
 	channeling = FALSE
 
 /datum/action/innate/clockwork/clock_magic/proc/do_heart(mob/living/owner)

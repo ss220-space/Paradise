@@ -35,10 +35,10 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	alpha = 0
 	new /obj/effect/temp_visual/ratvar/reconstruct/heart(loc)
 	update_icon(UPDATE_OVERLAYS)
-	throw_everything_back()
+	addtimer(CALLBACK(src, PROC_REF(throw_everything_back)), 1 SECONDS)
 	var/list/occupied = list()
-	for(var/direct in list(NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST))
-		occupied += get_step(src,direct)
+	for(var/direct in GLOB.alldirs)
+		occupied += get_step(src, direct)
 
 	for(var/T in occupied)
 		var/obj/structure/heart_filler/F = new(T)
@@ -80,8 +80,6 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 		cur_enchant = null
 		pulse_range += 2
 	update_icon(UPDATE_OVERLAYS)
-	return
-
 
 /obj/structure/clockwork/functional/heart/Destroy(force)
 	for(var/turf/tile in orange(1, src))
@@ -109,52 +107,52 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/part_upper))
-		if(curse_upper)
-			if(do_after(user, 5 SECONDS, src))
-				curse_upper = FALSE
-				GLOB.total_curses -= 1
-				qdel(I)
-				update_icon(UPDATE_OVERLAYS)
-				give_blessing(user)
-				return
-	if(istype(I, /obj/item/part_upper/lower))
-		if(curse_lower)
-			if(do_after(user, 5 SECONDS, src))
-				curse_lower = FALSE
-				GLOB.total_curses -= 1
-				qdel(I)
-				update_icon(UPDATE_OVERLAYS)
-				give_blessing(user)
-				return
+		adjust_part(I, user)
+		return
 	if(istype(I, /obj/item/clockwork/shard))
-		var/datum/game_mode/gamemode = SSticker.mode
-		if(GLOB.total_curses > 0)
-			to_chat(user, span_clocklarge("Сердце слишком слабо! Сначало снимите печати!"))
-			return
-		if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
-			to_chat(user, span_clocklarge("Еще слишком рано, Сын мой..."))
-			return
-		if(GLOB.clockwork_power < 250)
-			to_chat(user, span_clocklarge("Вам не хватает энергии!"))
-			return
-		adjust_clockwork_power(-250)
-		visible_message(span_danger("[capitalize(src)] исчезает, и на его месте появляется Великий Ковчег!"))
-		var/area/A = get_area(src)
-		GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/commandreport.ogg')
-		new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
-		qdel(src)
+		summon()
 		return
 	. = ..()
 
+/obj/structure/clockwork/functional/heart/proc/adjust_part(obj/item/part_upper/part, mob/user)
+	if(curse_dial)
+		to_chat(user, span_clockitalic("Сначало почините циферблат!"))
+		return
+	if(!do_after(user, 5 SECONDS, src))
+		return
+	part.destroy_curse(user)
+	GLOB.total_curses -= 1
+	qdel(part)
+	update_icon(UPDATE_OVERLAYS)
+	give_blessing(user)
+
+/obj/structure/clockwork/functional/heart/proc/summon(obj/item/I, mob/user)
+	var/datum/game_mode/gamemode = SSticker.mode
+	if(GLOB.total_curses > 0)
+		to_chat(user, span_clocklarge("Сердце слишком слабо! Сначало снимите печати!"))
+		return
+	if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
+		to_chat(user, span_clocklarge("Еще слишком рано, Сын мой..."))
+		return
+	if(GLOB.clockwork_power < 250)
+		to_chat(user, span_clocklarge("Вам не хватает энергии!"))
+		return
+	adjust_clockwork_power(-250)
+	visible_message(span_danger("[capitalize(src)] исчезает, и на его месте появляется Великий Ковчег!"))
+	var/area/A = get_area(src)
+	GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
+										ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/commandreport.ogg')
+	new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
+	qdel(src)
+
 /obj/structure/clockwork/functional/heart/proc/throw_everything_back()
-	//just like in survival_pod.dm
+	//just ctrl+c ctrl+v from survival_pod.dm
 	var/width = 3
 	var/height = 3
 	var/base_x_throw_distance = ceil(width / 2)
 	var/base_y_throw_distance = ceil(height / 2)
-	for(var/mob/living/did_not_stand_back in range(loc, "[width]x[height]"))
+	for(var/mob/living/did_not_stand_back in range(3, loc))
 		var/dir_to_center = get_dir(src.loc, did_not_stand_back) || pick(GLOB.alldirs)
 		var/throw_dist = 0
 		var/x_component = abs(did_not_stand_back.x - src.loc.x)
@@ -204,6 +202,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	var/bless_to_give = new chosen_blessing(user.loc)
 	user.put_in_hands(bless_to_give)
 	LAZYREMOVE(blessings, chosen_blessing)
+	to_chat(user, span_clockitalic("Благодарю тебя, Сын мой. Прими же этот дар."))
 	chosen_blessing = null
 	bless_to_give = null
 
@@ -357,6 +356,10 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	. = ..()
 
+/obj/item/part_upper/proc/destroy_curse(mob/living/user)
+	if(!GLOB.Heart?.curse_upper)
+		return
+	GLOB.Heart?.curse_upper = FALSE
 
 /obj/item/part_upper/proc/pulse()
 	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
@@ -364,6 +367,11 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 /obj/item/part_upper/lower
 	icon_state = "ratvarpart3"
 	item_state = "ratvarpart3"
+
+/obj/item/part_upper/lower/destroy_curse(mob/living/user)
+	if(!GLOB.Heart?.curse_lower)
+		return
+	GLOB.Heart?.curse_lower = FALSE
 
 /obj/effect/temp_visual/pulse
 	icon = 'icons/obj/clockheart.dmi'

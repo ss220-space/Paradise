@@ -9,11 +9,12 @@ GLOBAL_LIST_INIT(ratvar_mechas, typesof(/datum/ratvar_mecha))
 	mecha_to_convert.update_icon(UPDATE_ICON_STATE)
 	mecha_to_convert.emag_act()
 	mecha_to_convert.armor = mecha_to_convert.armor.modifyAllRatings(10)
-	if(mecha_to_convert.occupant)
-		if(!isclocker(mecha_to_convert.occupant))
-			mecha_to_convert.occupant.SetSleeping(mecha_to_convert.destruction_sleep_duration)
-			mecha_to_convert.go_out()
-	return
+	if(!mecha_to_convert.occupant)
+		return
+	if(!isclocker(mecha_to_convert.occupant))
+		mecha_to_convert.occupant.SetSleeping(mecha_to_convert.destruction_sleep_duration)
+		mecha_to_convert.go_out()
+
 
 /datum/ratvar_mecha/ripley
 	ratvarized_icon = "ripley_ratvar"
