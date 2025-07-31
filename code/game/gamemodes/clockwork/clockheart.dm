@@ -327,8 +327,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/item/part_upper/CtrlClick(mob/user)
 	if(isclocker(user))
-		. = ..()
-		return
+		return ..()
 	if(!(user in orange(1, src)))
 		return
 	if(ishuman(user))
@@ -341,8 +340,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/item/part_upper/attack_hand(mob/user, pickupfireoverride)
 	if(isclocker(user))
-		. = ..()
-		return
+		return ..()
 	if(!(user in orange(1, src)))
 		return
 	if(!ishuman(user))
@@ -354,7 +352,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 
 /obj/item/part_upper/New()
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
-	. = ..()
+	return ..()
 
 /obj/item/part_upper/proc/destroy_curse(mob/living/user)
 	if(!GLOB.Heart?.curse_upper)
