@@ -203,7 +203,7 @@ SUBSYSTEM_DEF(events)
 	if(..())
 		return
 
-	if (!check_rights(R_EVENT))
+	if(!check_rights(R_EVENT))
 		return
 
 	if(href_list["toggle_report"])

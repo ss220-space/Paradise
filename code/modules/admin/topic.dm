@@ -1027,6 +1027,8 @@
 		return 0 //we didn't do anything!
 
 	else if(href_list["boot2"])
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 		var/mob/M = locateUID(href_list["boot2"])
 		if(!ismob(M))
 			return
@@ -2400,6 +2402,8 @@
 		C.jumptocoord(x,y,z)
 
 	else if(href_list["adminchecklaws"])
+		if(!check_rights(R_ADMIN|R_MENTOR))
+			return
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
