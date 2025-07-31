@@ -65,7 +65,7 @@
 /obj/item/gun_module/muzzle
 	slot = ATTACHMENT_SLOT_MUZZLE
 
-/obj/item/gun_module/muzzle/supressor
+/obj/item/gun_module/muzzle/suppressor
 	name = "suppressor"
 	desc = "Универсальный глушитель для стрелкового оружия Синдиката — максимум скрытности для шпионажа."
 	ru_names = list(
@@ -85,7 +85,7 @@
 	var/initial_w_class
 
 
-/obj/item/gun_module/muzzle/supressor/on_attach(obj/item/gun/target_gun, mob/user)
+/obj/item/gun_module/muzzle/suppressor/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppressed = TRUE
 	target_gun.suppress_muzzle_flash = TRUE
 	oldsound = target_gun.fire_sound
@@ -94,7 +94,7 @@
 	if(target_gun.w_class < WEIGHT_CLASS_NORMAL)
 		target_gun.w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/gun_module/muzzle/supressor/on_detach(obj/item/gun/target_gun, mob/user)
+/obj/item/gun_module/muzzle/suppressor/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppressed = FALSE
 	target_gun.suppress_muzzle_flash = FALSE
 	target_gun.fire_sound = oldsound

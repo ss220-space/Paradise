@@ -729,3 +729,22 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/suit/hooded/ghostfacesuit/devil/true(src)
 	new /obj/item/clothing/mask/gas/ghostface/true/devil(src)
 	new /obj/item/melee/ghostface_knife/devil(src)
+
+/obj/item/storage/box/syndie_kit/gun_mods
+	name = "Gun upgrade kit"
+	desc = "Коробка, содержащая различные модуля для улучшения оружия."
+	ru_names = list(
+		NOMINATIVE = "набор апгрейда оружия",
+		GENITIVE = "набора апгрейда оружия",
+		DATIVE = "набору апгрейда оружия",
+		ACCUSATIVE = "набор апгрейда оружия",
+		INSTRUMENTAL = "набором апгрейда оружия",
+		PREPOSITIONAL = "наборе апгрейда оружия"
+	)
+
+/obj/item/storage/box/syndie_kit/gun_mods/populate_contents()
+	new /obj/item/gun_module/muzzle/suppressor(src)
+	new /obj/item/gun_module/muzzle/compensator(src)
+	new /obj/item/gun_module/rail/scope/collimator(src)
+	new /obj/item/gun_module/rail/scope/x4(src)
+	new /obj/item/gun_module/under/hand/angle(src)
