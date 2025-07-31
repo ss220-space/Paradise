@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(tickets)
 	flags = SS_BACKGROUND
 	ss_id = "admin_tickets"
 	var/span_class = "adminticket"
-	var/ticket_system_name = ADMINHELP
+	var/ticket_system_name = ADMINHELP_SYSTEM_NAME
 	var/ticket_name = ADMINHELP_TICKET_NAME
 	var/close_rights = R_ADMIN
 	var/rights_needed = R_ADMIN|R_MOD
@@ -493,7 +493,7 @@ UI STUFF
 
 	dat += "</table>"
 	dat += "<h1>Resolve All</h1>"
-	if(ticket_system_name == MENTORHELP)
+	if(ticket_system_name == MENTORHELP_SYSTEM_NAME)
 		dat += "<a href='byond://?src=[UID()];resolveall=1'>Resolve All Open Mentor Tickets</a></body>"
 	else
 		dat += "<a href='byond://?src=[UID()];resolveall=1'>Resolve All Open Admin Tickets</a></body>"
@@ -663,7 +663,7 @@ UI STUFF
 		convert_to_other_ticket(indexNum)
 
 	if(href_list["resolveall"])
-		if(ticket_system_name == MENTORHELP)
+		if(ticket_system_name == MENTORHELP_SYSTEM_NAME)
 			usr.client.resolveAllMentorTickets()
 		else
 			usr.client.resolveAllAdminTickets()
