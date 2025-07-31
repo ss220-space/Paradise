@@ -22,9 +22,9 @@
 					keybindings,
 					viewrange,
 					ghost_darkness_level,
+					toggles_3,
 					screentip_mode,
-					screentip_color,
-					toggles_3
+					screentip_color
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -58,9 +58,9 @@
 		keybindings = init_keybindings(raw = query.item[19])
 		viewrange = query.item[20]
 		ghost_darkness_level = query.item[21]
-		screentip_mode = query.item[22]
-		screentip_color = query.item[23]
-		toggles3 = text2num(query.item[24])
+		toggles3 = text2num(query.item[22])
+		screentip_mode = query.item[23]
+		screentip_color = query.item[24]
 
 	qdel(query)
 
@@ -118,9 +118,9 @@
 					keybindings=:keybindings,
 					viewrange=:viewrange,
 					ghost_darkness_level=:ghost_darkness_level,
+					toggles_3=:toggles3,
 					screentip_mode=:screentip_mode,
-					screentip_color=:screentip_color,
-					toggles_3=:toggles3
+					screentip_color=:screentip_color
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -141,10 +141,10 @@
 						"keybindings" = json_encode(keybindings_overrides),
 						"viewrange" = viewrange,
 						"ghost_darkness_level" = ghost_darkness_level,
-						"screentip_mode" = screentip_mode,
-						"screentip_color" = screentip_color,
 						"ckey" = C.ckey,
 						"toggles3" = num2text(toggles3, CEILING(log(10, (TOGGLES_3_TOTAL)), 1)),
+						"screentip_mode" = screentip_mode,
+						"screentip_color" = screentip_color
 					)
 					)
 
