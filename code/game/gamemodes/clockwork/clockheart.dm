@@ -152,11 +152,13 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	var/height = 3
 	var/base_x_throw_distance = ceil(width / 2)
 	var/base_y_throw_distance = ceil(height / 2)
-	for(var/mob/living/did_not_stand_back in range(3, loc))
+	for(var/atom/movable/did_not_stand_back in range(1, loc))
 		var/dir_to_center = get_dir(src.loc, did_not_stand_back) || pick(GLOB.alldirs)
 		var/throw_dist = 0
 		var/x_component = abs(did_not_stand_back.x - src.loc.x)
 		var/y_component = abs(did_not_stand_back.y - src.loc.y)
+		if(istype(did_not_stand_back, /obj/structure/clockwork/functional/heart) || istype(did_not_stand_back, /obj/structure/heart_filler) || istype(did_not_stand_back, /obj/effect/temp_visual/ratvar/reconstruct/heart))
+			continue
 		if(ISDIAGONALDIR(dir_to_center))
 			throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
 			did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, throw_dist))
@@ -166,30 +168,11 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 		else if(dir_to_center & (EAST|WEST))
 			throw_dist = base_x_throw_distance - x_component + 1
 			did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_x_throw_distance))
-		if(!isclocker(did_not_stand_back))
-			did_not_stand_back.Knockdown(6 SECONDS)
+		if(isliving(did_not_stand_back) && !isclocker(did_not_stand_back))
+			var/mob/living/affected = did_not_stand_back
+			affected.Knockdown(6 SECONDS)
 		did_not_stand_back.throw_at(
 			target = get_edge_target_turf(did_not_stand_back, dir_to_center),
-			range = throw_dist,
-			speed = 3,
-			force = MOVE_FORCE_VERY_STRONG,
-		)
-	for(var/obj/item/item_in_range in range(loc, "[width]x[height]"))
-		var/dir_to_center = get_dir(src.loc, item_in_range) || pick(GLOB.alldirs)
-		var/throw_dist = 0
-		var/x_component = abs(item_in_range.x - src.loc.x)
-		var/y_component = abs(item_in_range.y - src.loc.y)
-		if(ISDIAGONALDIR(dir_to_center))
-			throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
-			item_in_range.forceMove(get_ranged_target_turf(src.loc, dir_to_center, throw_dist))
-		else if(dir_to_center & (NORTH|SOUTH))
-			throw_dist = base_y_throw_distance - y_component + 1
-			item_in_range.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_y_throw_distance))
-		else if(dir_to_center & (EAST|WEST))
-			throw_dist = base_x_throw_distance - x_component + 1
-			item_in_range.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_x_throw_distance))
-		item_in_range.throw_at(
-			target = get_edge_target_turf(item_in_range, dir_to_center),
 			range = throw_dist,
 			speed = 3,
 			force = MOVE_FORCE_VERY_STRONG,
