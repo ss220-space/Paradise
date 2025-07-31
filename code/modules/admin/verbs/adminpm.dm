@@ -20,7 +20,7 @@
 		if(T.mob)
 			if(isnewplayer(T.mob))
 				targets["(New Player) - [T]"] = T
-			else if(istype(T.mob, /mob/dead/observer))
+			else if(isobserver(T.mob))
 				targets["[T.mob.name](Ghost) - [T]"] = T
 			else
 				targets["[T.mob.real_name](as [T.mob.name]) - [T]"] = T
@@ -41,10 +41,12 @@
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
+		if(T?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // normal admins can't see BB
+			continue
 		if(T.mob)
 			if(isnewplayer(T.mob))
 				targets["[T] - (New Player)"] = T
-			else if(istype(T.mob, /mob/dead/observer))
+			else if(isobserver(T.mob))
 				targets["[T] - [T.mob.name](Ghost)"] = T
 			else
 				targets["[T] - [T.mob.real_name](as [T.mob.name])"] = T
@@ -297,6 +299,7 @@
 	var/list/datum/pm_convo/pms = list()
 	var/show_archived = FALSE
 	var/window_id = "pms_window"
+	var/forced = FALSE
 
 /datum/pm_tracker/New(ckey_in)
 	ckey = ckey_in
@@ -339,6 +342,10 @@
 
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 
+	// If it was forced open, make them use a special close button that alerts admins to closure.
+	if(forced)
+		dat += "<div style='float: right'><big><a href='byond://?src=[UID()];altclose=1'>Close</a></big></div>"
+
 	dat += "<a href='byond://?src=[UID()];refresh=1'>Refresh</a>"
 	dat += "<a href='byond://?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
 	dat += "<br>"
@@ -356,6 +363,10 @@
 
 	var/datum/pm_convo/convo = pms[current_title]
 	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
+
+	if(forced) // Lockout the normal close button, force the UI one
+		popup.set_window_options("can_close=0")
+
 	if(convo)
 		popup.add_head_content(@{"<script type='text/javascript'>
 			window.onload = function () {
@@ -410,6 +421,13 @@
 		show_ui(usr)
 		return
 
+	if(href_list["altclose"])
+		message_admins("[key_name_admin(usr)] closed a force-opened PM window")
+		usr << browse(null, "window=[window_id]")
+		open = FALSE
+		forced = FALSE
+		return
+
 	if(href_list["newtitle"])
 		current_title = href_list["newtitle"]
 		show_ui(usr)
@@ -428,6 +446,7 @@
 		var/client/C = pms[href_list["ping"]].client
 		if(C)
 			C.pm_tracker.current_title = usr.key
+			C.pm_tracker.forced = TRUE // We forced it open
 			window_flash(C)
 			C.pm_tracker.show_ui(C.mob)
 			to_chat(usr, span_notice("Forced open [C]'s messages window."), confidential=TRUE)
