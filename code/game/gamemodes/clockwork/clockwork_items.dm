@@ -734,9 +734,10 @@
 	return
 
 /obj/item/gun/energy/clockwork/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
-	if(isclocker(user))
-		. = ..()
-	kill_shooter(user)
+	if(!isclocker(user))
+		kill_shooter(user)
+		return
+	. = ..()
 	if(enchant_type)
 		remove_enchanted_bullet()
 
