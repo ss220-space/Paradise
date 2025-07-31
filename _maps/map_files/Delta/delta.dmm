@@ -45036,7 +45036,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/computer/addition_goals,
+/obj/structure/table/wood,
+/obj/item/restraints/handcuffs,
+/obj/item/flash,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -48281,8 +48283,7 @@
 /turf/simulated/floor/plating,
 /area/security/hos)
 "fWv" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
+/obj/machinery/computer/addition_goals,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -106343,8 +106344,6 @@
 	dir = 8
 	},
 /obj/item/taperecorder,
-/obj/item/flash,
-/obj/item/restraints/handcuffs,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

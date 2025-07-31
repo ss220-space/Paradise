@@ -46639,9 +46639,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
-"voo" = (
-/turf/space,
-/area/shuttle/mining)
 "vow" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -79727,7 +79724,7 @@ oQV
 dDb
 jNQ
 dDb
-voo
+oQV
 piE
 mVX
 mVX
