@@ -292,6 +292,28 @@
 	item_state = "sec_headset_alt"
 	ks2type = /obj/item/encryptionkey/headset_medsec
 
+/obj/item/radio/headset/prisoner
+	name = "prisoner radio headset"
+	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
+			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
+			Используется заключенными."
+	ru_names = list(
+		NOMINATIVE = "радиочастотная гарнитура заключенных",
+		GENITIVE = "радиочастотную гарнитуру заключенных",
+		DATIVE = "радиочастотной гарнитуры заключенных",
+		ACCUSATIVE = "радиочастотную гарнитуру заключенных",
+		INSTRUMENTAL = "радиочастотной гарнитурой заключенных",
+		PREPOSITIONAL = "радиочастотной гарнитуре заключенных"
+	)
+	icon_state = "prisoner_headset"
+	item_state = "prisoner_headset"
+	ks2type = /obj/item/encryptionkey/prisoner
+	freqlock = TRUE
+
+/obj/item/radio/headset/prisoner/New()
+	. = ..()
+	set_frequency(PRS_FREQ)
+
 /obj/item/radio/headset/headset_iaa
 	name = "internal affairs radio headset"
 	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
@@ -593,14 +615,14 @@
 			обеспечивающих защиту от термических и механических воздействий. \
 			Оснащена улучшенным телекоммуникационным оборудованием, \
 			обеспечивающим доступ к частотам снабжения и командования. \
-			Используется местным Завхозом."
+			Используется местным Квартирмейстеромом."
 	ru_names = list(
-		NOMINATIVE = "радиочастотная гарнитура завхоза",
-		GENITIVE = "радиочастотную гарнитуру завхоза",
-		DATIVE = "радиочастотной гарнитуры завхоза",
-		ACCUSATIVE = "радиочастотную гарнитуру завхоза",
-		INSTRUMENTAL = "радиочастотной гарнитурой завхоза",
-		PREPOSITIONAL = "радиочастотной гарнитуре завхоза"
+		NOMINATIVE = "радиочастотная гарнитура Квартирмейстера",
+		GENITIVE = "радиочастотную гарнитуру Квартирмейстера",
+		DATIVE = "радиочастотной гарнитуры Квартирмейстера",
+		ACCUSATIVE = "радиочастотную гарнитуру Квартирмейстера",
+		INSTRUMENTAL = "радиочастотной гарнитурой Квартирмейстера",
+		PREPOSITIONAL = "радиочастотной гарнитуре Квартирмейстера"
 	)
 	icon_state = "com_headset"
 	item_state = "headset"

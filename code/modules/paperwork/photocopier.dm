@@ -4,10 +4,17 @@
 
 /obj/machinery/photocopier
 	name = "photocopier"
-	desc = "For making copies of important documents, or more likely, your ass."
+	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ!\"."
+	ru_names = list(
+		NOMINATIVE = "ксерокс",
+		GENITIVE = "ксерокса",
+		DATIVE = "ксероксу",
+		ACCUSATIVE = "ксерокс",
+		INSTRUMENTAL = "ксероксом",
+		PREPOSITIONAL = "ксероксе"
+	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
-
 	anchored = TRUE
 	density = TRUE
 	use_power = IDLE_POWER_USE
@@ -20,7 +27,7 @@
 
 	COOLDOWN_DECLARE(copying_cooldown)
 
-	var/insert_anim = "bigscanner1"
+	var/insert_anim = "bigscanner_work"
 	///Is the photocopier performing an action currently?
 	var/copying = FALSE
 
@@ -53,23 +60,33 @@
 	/// Selected form's datum
 	var/obj/item/paper/form/form = null // selected form for print
 	/// Printing sound
-	var/print_sound = 'sound/goonstation/machines/printer_dotmatrix.ogg'
-
+	var/list/print_sounds = list('sound/goonstation/machines/printer_dotmatrix.ogg',
+								'sound/machines/printer_dotmatrix2.ogg',
+								'sound/machines/printer_dotmatrix3.ogg',
+								'sound/machines/printer_dotmatrix4.ogg')
 	var/syndicate = FALSE
 	var/info_box = "Если у вас есть пожелания или\
 					идеи для улучшения стандартных\
-					форм, обратитесь в Департамент\
-					Стандартизации Nanotrasen."
+					форм, обратитесь в Отдел\
+					стандартизации НаноТрейзен."
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
 
 
 /obj/machinery/photocopier/syndie
 	name = "Syndicate photocopier"
-	desc = "They don't even try to hide it's theirs..."
+	desc = "Устройство для сканирования и печати важных документов. Они даже не пытаются скрыть, что это их собственность..."
+	ru_names = list(
+		NOMINATIVE = "ксерокс Синдиката",
+		GENITIVE = "ксерокса Синдиката",
+		DATIVE = "ксероксу Синдиката",
+		ACCUSATIVE = "ксерокс Синдиката",
+		INSTRUMENTAL = "ксероксом Синдиката",
+		PREPOSITIONAL = "ксероксе Синдиката"
+	)
 	syndicate = TRUE
 	icon_state = "syndiebigscanner"
-	insert_anim = "syndiebigscanner1"
+	insert_anim = "syndiebigscanner_work"
 	info_box = "При использовании любой из данных форм,\
 				обратите внимание на все пункты снизу. \
 				Синдикат напоминает, что в ваших же интересах \
@@ -107,7 +124,8 @@
 /obj/machinery/photocopier/proc/papercopy(obj/item/paper/copy, scanning = FALSE, bundled = FALSE)
 	if(!scanning)
 		if(toner < 1)
-			visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			balloon_alert(usr, "недостаточно чернил!")
+			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
 		total_copies++
 	var/obj/item/paper/c = new /obj/item/paper (loc)
@@ -155,7 +173,8 @@
 /obj/machinery/photocopier/proc/photocopy(obj/item/photo/photocopy, scanning = FALSE, bundled = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
 		if(toner < 5)
-			visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			balloon_alert(usr, "недостаточно чернил!")
+			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
 		total_copies++
 
@@ -179,7 +198,8 @@
 /obj/machinery/photocopier/proc/copyass(scanning = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
 		if(toner < 5)
-			visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			balloon_alert(usr, "недостаточно чернил!")
+			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
 		total_copies++
 
@@ -192,7 +212,7 @@
 				copymob.emote("scream")
 		else
 			copymob.apply_damage(30, BURN)
-		to_chat(copymob, "<span class='notice'>Something smells toasty...</span>")
+		to_chat(copymob, span_notice("<span class='notice'>Что-то жаренным запахло...</span>"))
 	if(ishuman(copymob)) //Suit checks are in check_mob
 		var/mob/living/carbon/human/H = copymob
 		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
@@ -209,7 +229,7 @@
 		p.forceMove(src)
 	else if(folder)
 		p.forceMove(folder)
-	p.desc = "You see [copymob]'s ass on the photo."
+	p.desc = "На фото вы видите задницу [copymob.declent_ru(GENITIVE)]."
 	p.pixel_x = rand(-10, 10)
 	p.pixel_y = rand(-10, 10)
 	p.img = temp_img
@@ -264,28 +284,28 @@
 
 /obj/machinery/photocopier/proc/remove_document()
 	if(copying)
-		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		balloon_alert(usr, "сканер ещё работает!")
 		return
 	if(copyitem)
 		copyitem.forceMove(get_turf(src))
 		if(ishuman(usr))
 			usr.put_in_hands(copyitem)
-		to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
+		to_chat(usr, span_notice("Вы вынимаете [copyitem.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 		copyitem = null
 
 	else if(check_mob())
-		to_chat(copymob, "<span class='notice'>You feel a slight pressure on your ass.</span>")
-		atom_say("Attention: Unable to remove large object!")
+		to_chat(copymob, span_notice("Вы ощущаете лёгкое давление на вашу задницу."))
+		atom_say("Внимание: Не удается извлечь крупный предмет!", FALSE)
 
 /obj/machinery/photocopier/proc/remove_folder()
 	if(copying)
-		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		balloon_alert(usr, "сканер ещё работает!")
 		return
 	if(folder)
 		folder.forceMove(get_turf(src))
 		if(ishuman(usr))
 			usr.put_in_hands(folder)
-		to_chat(usr, "<span class='notice'>You take \the [folder] out of \the [src].</span>")
+		to_chat(usr, span_notice("Вы вынимаете [folder.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 		folder = null
 
 /**
@@ -301,20 +321,22 @@
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
 	if(copying) //are we in the process of copying something already?
-		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		balloon_alert(usr, "сканер ещё работает!")
 		return FALSE
 	if(!scancopy && toner <= 0) //if we're not scanning lets check early that we actually have toner
-		visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner for the operation.</span>")
+		balloon_alert(usr, "недостаточно чернил!")
+		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 		return FALSE
 	if(max_copies_reached)
-		visible_message("<span class='warning'>The printer screen reads \"MAX COPIES REACHED, PHOTOCOPIER NETWORK OFFLINE: PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
+		visible_message(span_warning("На экране сканера появляется надпись: \"ДОСТИГНУТО МАКСИМАЛЬНОЕ КОЛИЧЕСТВО КОПИЙ, КСЕРОКС ОТКЛЮЧЕН ОТ СЕТИ: ПОЖАЛУЙСТА, СВЯЖИТЕСЬ С СИСТЕМНЫМ АДМИНИСТРАТОРОМ\""))
 		return FALSE
 	if(total_copies >= MAX_COPIES_PRINTABLE)
-		visible_message("<span class='warning'>The printer screen reads \"MAX COPIES REACHED, PHOTOCOPIER NETWORK OFFLINE: PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
+		visible_message(span_warning("На экране сканера появляется надпись: \"ДОСТИГНУТО МАКСИМАЛЬНОЕ КОЛИЧЕСТВО КОПИЙ, КСЕРОКС ОТКЛЮЧЕН ОТ СЕТИ: ПОЖАЛУЙСТА, СВЯЖИТЕСЬ С СИСТЕМНЫМ АДМИНИСТРАТОРОМ\""))
 		message_admins("Photocopier cap of [MAX_COPIES_PRINTABLE] paper copies reached, all photocopiers are now disabled.")
 		max_copies_reached = TRUE
 	if(!check_mob() && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
-		visible_message("<span class='notice'>A red light on [src] flashes, indicating there's nothing in [src] to copy.</span>")
+		balloon_alert(usr, "сканер пуст!")
+		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается красная лампочка, обозначая то, что в устройстве нечего копировать."))
 		return FALSE
 	return TRUE
 
@@ -331,7 +353,7 @@
 	if(!cancopy(scancopy))
 		return
 	copying = TRUE
-	playsound(loc, print_sound, 50, TRUE)
+	playsound(loc, pick(print_sounds), 50, TRUE)
 	if(istype(C, /obj/item/paper))
 		for(var/i in copies to 1 step -1)
 			if(!papercopy(C))
@@ -359,8 +381,9 @@
 				break
 			toner -= 5
 	else
-		to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src], ejecting.</span>")
-		copyitem.forceMove(loc) //fuckery detected! get off my photocopier... shitbird!
+		balloon_alert(usr, "нельзя отсканировать!")
+		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлеч[genderize_ru(copyitem.gender, "ён", "ена", "ено", "ены")]."))
+		copyitem.forceMove(loc) // fuckery detected! get off my photocopier... shitbird!
 
 	copying = FALSE
 
@@ -368,7 +391,8 @@
 	if(!cancopy())
 		return
 	if(length(saved_documents) >= max_saved_documents)
-		to_chat(usr, "<span class='warning'>\The [copyitem] can't be scanned because the max file limit has been reached. Please delete a file to make room.</span>")
+		balloon_alert(usr, "нет памяти!")
+		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)] в связи с тем, что лимит сохранённых файлов был достигнут. Для продолжения операции освободите память устройства."))
 		return
 	copying = TRUE
 	var/obj/item/O
@@ -382,7 +406,7 @@
 	else if(copymob && copymob.loc == loc)
 		O = copyass(scanning = TRUE)
 	else
-		to_chat(usr, "<span class='warning'>\The [copyitem] can't be scanned by \the [src].</span>")
+		to_chat(usr, span_warning("[declent_ru(NOMINATIVE)] не может отсканировать [copyitem.declent_ru(ACCUSATIVE)]."))
 		copying = FALSE
 		return
 	use_power(active_power_usage)
@@ -390,7 +414,7 @@
 	LAZYADD(saved_documents, O)
 	copying = FALSE
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
-	atom_say("Document successfully scanned!")
+	atom_say("Документ успешно отсканирован!", FALSE)
 
 /obj/machinery/photocopier/proc/delete_file(uid)
 	var/document = locateUID(uid)
@@ -437,7 +461,7 @@
 		return
 	. = FALSE
 	if(!COOLDOWN_FINISHED(src, copying_cooldown))
-		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		balloon_alert(usr, "сканер ещё работает!")
 		return
 	add_fingerprint(usr)
 	switch(action)
@@ -491,12 +515,13 @@
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/text = tgui_input_text(usr, "Enter what you want to write:", "Write")
+
+	var/text = tgui_input_text(user, "Напишите то, что хотите:", "Письмо")
 	if(!text)
 		return
 	if(toner < 1 || !user)
 		return
-	playsound(loc, print_sound, 50, TRUE)
+	playsound(loc, pick(print_sounds), 50, TRUE)
 	var/obj/item/paper/p = new /obj/item/paper(loc)
 	text = p.parsepencode(text, null, user)
 	p.info = text
@@ -521,13 +546,13 @@
 	if(!selection)
 		return
 
-	playsound(loc, print_sound, 50, TRUE)
+	playsound(loc, pick(print_sounds), 50, TRUE)
 	var/obj/item/photo/p = new /obj/item/photo(loc)
 	p.construct(selection)
 	if(p.desc == "")
-		p.desc += "Copied by [tempAI.name]"
+		p.desc += "Ксерокопия была сделана [tempAI.name]"
 	else
-		p.desc += " - Copied by [tempAI.name]"
+		p.desc += " – Ксерокопия была сделана [tempAI.name]"
 	toner -= 5
 	use_power(active_power_usage)
 	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
@@ -553,12 +578,12 @@
 
 /obj/machinery/photocopier/proc/print_form(var/obj/item/paper/form/form)
 	if(copying)
-		visible_message(span_notice("Ксерокс работает, проявите терпение."))
+		balloon_alert(usr, "сканер ещё работает!")
 		return FALSE
 
 	toner--
 	copying = TRUE
-	playsound(loc, print_sound, 50)
+	playsound(loc, pick(print_sounds), 50)
 	use_power(active_power_usage)
 	sleep(PHOTOCOPIER_DELAY)
 	var/obj/item/paper/paper = new form(loc)
@@ -574,12 +599,12 @@
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 		add_fingerprint(user)
 		if(copyitem)
-			to_chat(user, span_warning("There is already something in [src]."))
+			balloon_alert(user, "ксерокс занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		copyitem = I
-		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		to_chat(user, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		flick(insert_anim, src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -587,11 +612,11 @@
 		add_fingerprint(user)
 		var/obj/item/toner/toner = I
 		if(src.toner > 10) //allow replacing when low toner is affecting the print darkness
-			to_chat(user, span_warning("This cartridge is not yet ready for replacement! Use up the rest of the toner."))
+			balloon_alert(user, "тонер ещё полон!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You have inserted the toner cartridge into [src]."))
+		balloon_alert(user, "вставлено")
 		src.toner += toner.toner_amount
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -604,7 +629,7 @@
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing) || grabbed_thing == copymob)
 		return .
 	add_fingerprint(grabber)
-	visible_message(span_warning("[grabber] drags [grabbed_thing.name] onto [src]!"))
+	visible_message(span_warning("[grabber] затаскива[pluralize_ru(grabber.gender, "ет", "ют")] [grabbed_thing.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]!"))
 	var/turf/source_turf = get_turf(src)
 	grabbed_thing.forceMove(source_turf)
 	copymob = grabbed_thing
@@ -629,19 +654,19 @@
 		return
 	add_fingerprint(user)
 	if(target == user)
-		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
+		visible_message(span_warning("[user] запрыгива[pluralize_ru(user.gender, "ет", "ют")] на [declent_ru(ACCUSATIVE)]!"))
 	else if(target != user)
 		if(target.anchored || !ishuman(user))
 			return
-		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
+		visible_message(span_warning("[user] затаскива[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]!"))
 	target.forceMove(get_turf(src))
 	copymob = target
 	if(copyitem)
 		copyitem.forceMove(get_turf(src))
-		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [copymob]!</span>")
+		visible_message(span_notice("[capitalize(copymob.declent_ru(NOMINATIVE))] сталкива[pluralize_ru(user.gender, "ет", "ют")] [copyitem.declent_ru(ACCUSATIVE)] со своего пути!"))
 		copyitem = null
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
-	atom_say("Attention: Posterior Placed on Printing Plaque!")
+	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!", FALSE)
 	SStgui.update_uis(src)
 	return TRUE
 
@@ -666,13 +691,21 @@
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
+			balloon_alert(user, "взломано")
 	else if(user)
-		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
+		balloon_alert(user, "уже взломано!")
 
 /obj/item/toner
 	name = "toner cartridge"
-	desc = "Has 140 papers worth of ink in it! Shame you can only use 30 before it runs out of cyan..."
+	desc = "Стандартный картридж с чернилами для ксероксов на 30 использований. Пользуется высоким спросом у бюрократов."
+	ru_names = list(
+		NOMINATIVE = "тонер-картридж",
+		GENITIVE = "тонер-картриджа",
+		DATIVE = "тонер-картриджу",
+		ACCUSATIVE = "тонер-картридж",
+		INSTRUMENTAL = "тонер-картриджом",
+		PREPOSITIONAL = "тонер-картридже"
+	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	var/toner_amount = 30

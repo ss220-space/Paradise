@@ -6,7 +6,7 @@
 	. = ..()
 	RegisterSignal(target, COMSIG_RITUAL_ENDED, PROC_REF(remove_dyes))
 
-/datum/element/dye_removal/Detach(datum/source, force)
+/datum/element/dye_removal/Detach(datum/source)
 	. = ..()
 
 	UnregisterSignal(source, COMSIG_RITUAL_ENDED)

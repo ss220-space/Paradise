@@ -26,7 +26,6 @@
 	var/list/list/signal_procs
 
 	var/tmp/unique_datum_id = null
-	var/tmp/numeric_datum_id = null
 	/// Datum level flags
 	var/datum_flags = NONE
 
@@ -67,6 +66,9 @@
 	tag = null
 	weak_reference = null //ensure prompt GCing of weakref.
 
+	if(unique_datum_id)
+		RUSTLIB_CALL(untick_by_uuid, unique_datum_id)
+
 	var/list/timers = active_timers
 	active_timers = null
 	for(var/thing in timers)
@@ -92,7 +94,6 @@
 	//END: ECS SHIT
 
 	return QDEL_HINT_QUEUE
-
 
 ///Only override this if you know what you're doing. You do not know what you're doing
 ///This is a threat

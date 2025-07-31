@@ -39,7 +39,7 @@
 					if(prob(50))
 						affected_mob.say(pick(list("Мяу", "Мяу!", "Ня!~")))
 					else
-						affected_mob.emote("purrs")
+						affected_mob.emote("мурлычет")
 
 		if(4)
 			if(istajaran(affected_mob))
@@ -49,7 +49,7 @@
 					affected_mob.Stun(10 SECONDS)
 			else
 				if(prob(30))
-					affected_mob.emote("purrs")
+					affected_mob.emote("мурлычет")
 				if(prob(5))
 					affected_mob.visible_message(span_danger("Форма [affected_mob] искажается, становясь более кошачьей!"), span_userdanger("ВЫ ПРЕВРАЩАЕТЕСЬ В ТАЯРАНА!"))
 					var/mob/living/carbon/human/catface = affected_mob

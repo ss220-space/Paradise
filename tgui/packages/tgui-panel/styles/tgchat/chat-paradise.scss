@@ -7,28 +7,27 @@
 }
 
 // MARK: Boxed messages
-
 .boxed_message {
-  background: #00000040;
-  border-color: #dfb59f40;
+  background: hsla(0, 0%, 0%, 0.25);
+  border-color: hsla(20, 50%, 75%, 0.25);
 }
 
 .boxed_message.red_border {
-  background: #16030340;
-  border-color: #ff000080;
+  background: hsla(0, 75%, 5%, 0.25);
+  border-color: hsla(0, 100%, 50%, 0.5);
 }
 
 .boxed_message.green_border {
-  background: #03160a40;
-  border-color: #00ff0080;
+  background: hsla(140, 75%, 5%, 0.25);
+  border-color: hsla(120, 100%, 50%, 0.5);
 }
 
 .boxed_message.purple_border {
-  background: #0a031640;
-  border-color: #884dff80;
+  background: hsla(260, 75%, 5%, 0.25);
+  border-color: hsla(260, 100%, 65%, 0.5);
 }
 
 .boxed_message.notice_border {
-  background: #030a1640;
-  border-color: #557ef680;
+  background: hsla(220, 75%, 5%, 0.25);
+  border-color: hsla(225, 90%, 65%, 0.5);
 }

@@ -245,14 +245,12 @@ SUBSYSTEM_DEF(explosions)
 
 
 /datum/explosion_data/proc/create_effect(smoke)
-	if(heavy_impact_range > 1)
-		var/datum/effect_system/explosion/E
-		if(smoke)
-			E = new /datum/effect_system/explosion/smoke
-		else
-			E = new
-		E.set_up(epicenter)
-		E.start()
+	if(devastation_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, TRUE)
+	else if(heavy_impact_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, FALSE)
+	else if(light_impact_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, TRUE, FALSE)
 
 /datum/explosion_data/proc/enqueue_affected_turfs(reactionary_explosions)
 	var/list/affected_turfs = prepare_explosion_turfs(max_range, epicenter, protect_epicenter, explosion_direction, explosion_arc, multiz_explosion, min_z, max_z)

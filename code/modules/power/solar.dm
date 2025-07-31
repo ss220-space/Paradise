@@ -112,7 +112,7 @@
 		return
 
 	// find the smaller angle between the direction the panel is facing and the direction of the sun (the sign is not important here)
-	var/sun_angle = SSsun.get_angle()
+	var/sun_angle = SSsun.angle
 	var/p_angle = min(abs(adir - sun_angle), 360 - abs(adir - sun_angle))
 
 	if(p_angle > 90)			// if facing more than 90deg from sun, zero output
@@ -157,8 +157,8 @@
 	var/ay = y
 	var/turf/T = null
 
-	var/dx = SSsun.get_dx()
-	var/dy = SSsun.get_dy()
+	var/dx = SSsun.dx
+	var/dy = SSsun.dy
 
 	for(var/i = 1 to 20)		// 20 steps is enough
 		ax += dx	// do step
@@ -357,7 +357,7 @@
 		search_for_connected()
 
 		if(connected_tracker && track == TRACKER_AUTO)
-			connected_tracker.modify_angle(SSsun.get_angle())
+			connected_tracker.modify_angle(SSsun.angle)
 
 		set_panels(cdir)
 
@@ -368,18 +368,18 @@
 	if(connected_tracker)
 		connected_tracker.unset_control()
 
-	SSsun.remove_solar(src)
+	SSsun.solars -= src
 	return ..()
 
 /obj/machinery/power/solar_control/disconnect_from_network()
 	..()
-	SSsun.remove_solar(src)
+	SSsun.solars -= src
 
 /obj/machinery/power/solar_control/connect_to_network()
 	var/to_return = ..()
 
 	if(powernet) // if connected and not already in solar list...
-		SSsun.add_solar(src) //... add it
+		SSsun.solars |= src
 
 	return to_return
 
@@ -400,7 +400,7 @@
 //called by the sun controller, update the facing angle (either manually or via tracking) and rotates the panels accordingly
 /obj/machinery/power/solar_control/proc/update()
 	if(track == TRACKER_AUTO && connected_tracker) // auto-tracking
-		connected_tracker.modify_angle(SSsun.get_angle())
+		connected_tracker.modify_angle(SSsun.angle)
 		set_panels(cdir)
 
 	updateDialog()
@@ -474,7 +474,7 @@
 			track = text2num(params["track"])
 			if(track == TRACKER_AUTO)
 				if(connected_tracker)
-					connected_tracker.modify_angle(SSsun.get_angle())
+					connected_tracker.modify_angle(SSsun.angle)
 					set_panels(cdir)
 			else if(track == TRACKER_TIMED)
 				targetdir = cdir
@@ -484,7 +484,7 @@
 		if("refresh")
 			search_for_connected()
 			if(connected_tracker && track == TRACKER_AUTO)
-				connected_tracker.modify_angle(SSsun.get_angle())
+				connected_tracker.modify_angle(SSsun.angle)
 			set_panels(cdir)
 
 /obj/machinery/power/solar_control/screwdriver_act(mob/user, obj/item/I)
@@ -529,7 +529,7 @@
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		stat |= BROKEN
 		update_icon(UPDATE_OVERLAYS)
-		SSsun.remove_solar(src)
+		SSsun.solars -= src
 
 /obj/machinery/power/solar_control/process()
 	lastgen = gen

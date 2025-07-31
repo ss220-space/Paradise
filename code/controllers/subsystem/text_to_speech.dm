@@ -67,6 +67,8 @@ SUBSYSTEM_DEF(tts)
 		"businessman" = "Бизнэсмэн",
 		"trader" = "Торговец",
 		"assistant" = "Ассистент",
+		"prisoner" = "Заключённый",
+		"arrestee" = "Арестант",
 		"chief engineer" = "Главный Инженер",
 		"station engineer" = "Станционный инженер",
 		"trainee engineer" = "Инженер-стажер",

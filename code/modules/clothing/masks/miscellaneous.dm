@@ -6,7 +6,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
-	put_on_delay = 20
+	put_on_delay = 2 SECONDS
 	var/resist_time = 0 //deciseconds of how long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
 	var/mute = MUZZLE_MUTE_ALL
 	var/radio_mute = FALSE
@@ -103,7 +103,7 @@
 	user.put_in_active_hand(trash_gag, ignore_anim = FALSE)
 	playsound(user, 'sound/items/poster_ripped.ogg', 40, TRUE)
 	if(user.has_pain())
-		// we have to use timer, since an item is still on user, while this proc is called
+		// We have to use timer, since an item is still on user, while this proc is called
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob, emote), "scream"), 0)
 
 
@@ -628,6 +628,20 @@
 	name = "durathread bandana"
 	desc =  "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
 	icon_state = "banddurathread"
+
+/obj/item/clothing/mask/false_cluwne_mask
+	name = "cursed clown mask"
+	desc = "This is a very, very odd looking mask."
+	icon = 'icons/goonstation/objects/clothing/mask.dmi'
+	icon_state = "cursedclown"
+	item_state = "cclown_hat"
+	onmob_sheets = list(
+		ITEM_SLOT_MASK_STRING = 'icons/goonstation/mob/clothing/mask.dmi'
+	)
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | HIDEHEADHAIR
+	flags_cover = MASKCOVERSMOUTH
 
 /obj/item/clothing/mask/cursedclown
 	name = "cursed clown mask"

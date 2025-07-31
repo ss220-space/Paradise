@@ -111,6 +111,7 @@
 
 	var/list/random_codes = list(
 		"random_crew",
+		"random_colleague",
 		"random_departament",
 		"random_departament_crew",
 		"random_pet",
@@ -134,6 +135,8 @@
 /datum/ambition_objective/proc/random_choose(var/list_for_pick, var/list/choose_list)
 	if (list_for_pick == "random_crew")
 		return random_player()
+	if(list_for_pick == "random_colleague")
+		return random_player_with_role(owner.assigned_role)
 
 	var/picked = pick_list_weight("ambition_randoms.json", list_for_pick)
 
@@ -157,6 +160,25 @@
 	if(players.len)
 		random_player = pick(players)
 	return random_player
+
+/datum/ambition_objective/proc/random_player_with_role(role)
+	var/list/players = list()
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(!player.mind || player.mind.assigned_role == player.mind.special_role || player.client.inactivity > 10 MINUTES || player.mind == owner)
+			continue
+
+		if(owner.current.z != player.z)
+			continue
+
+		if(player.mind.assigned_job != role)
+			continue
+
+		players += player.real_name
+	var/random_player = "Капитан"
+	if(players.len)
+		random_player = pick(players)
+	return random_player
+
 
 /datum/game_mode/proc/declare_ambition_completion()
 	var/text = "<hr><b><u>Осуществление амбиции</u></b>"

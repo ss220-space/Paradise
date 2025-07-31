@@ -13,7 +13,7 @@
 	throw_speed = 3
 	throw_range = 5
 	force = 5
-	origin_tech = "combat=1"
+	origin_tech = "materials=3;combat=3"
 	needs_permit = TRUE
 	attack_verb = list("ударил")
 	pickup_sound = 'sound/items/handling/pickup/gun_pickup.ogg'
@@ -373,6 +373,7 @@
 						shoot_live_shot(user, target, TRUE, message)
 					else
 						shoot_live_shot(user, target, FALSE, message)
+				chambered.after_fire()
 			else
 				shoot_with_empty_chamber(user)
 				break
@@ -395,6 +396,7 @@
 					shoot_live_shot(user, target, TRUE, message)
 				else
 					shoot_live_shot(user, target, FALSE, message)
+			chambered.after_fire()
 		else
 			shoot_with_empty_chamber(user)
 			return
