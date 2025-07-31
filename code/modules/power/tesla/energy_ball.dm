@@ -6,11 +6,11 @@
 #define TESLA_MINI_POWER 1738260
 
 //Zap constants, speeds up targeting
-#define BIKE (COIL + 1)
 #define COIL (ROD + 1)
 #define ROD (RIDE + 1)
 #define RIDE (LIVING + 1)
-#define LIVING (MACHINERY + 1)
+#define LIVING (APC + 1)
+#define APC (MACHINERY + 1)
 #define MACHINERY (BLOB + 1)
 #define BLOB (STRUCTURE + 1)
 #define STRUCTURE (1)
@@ -200,18 +200,18 @@
 	if(!loc)
 		qdel(src)
 
-/obj/singularity/energy_ball/proc/dust_mobs(atom/atom)
-	if(!isliving(atom))
+/obj/singularity/energy_ball/proc/dust_mobs(atom/source)
+	if(!isliving(source))
 		return
-	var/mob/living/living = atom
+	var/mob/living/living = source
 	if(living.incorporeal_move || HAS_TRAIT(living, TRAIT_GODMODE))
 		return
-	if(!iscarbon(atom))
+	if(!iscarbon(source))
 		return
 	for(var/obj/machinery/power/grounding_rod/rod in orange(src, 2))
 		if(rod.anchored)
 			return
-	var/mob/living/carbon/carbon = atom
+	var/mob/living/carbon/carbon = source
 	carbon.investigate_log("has been dusted by an energy ball.", INVESTIGATE_DEATHS)
 	carbon.dust()
 
@@ -228,7 +228,7 @@
 	var/atom/closest_atom
 	var/closest_type = 0
 	/// Things that we want to shock.
-	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure, /obj/vehicle/ridden))
+	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure, /obj/vehicle))
 	/// Things that we don't want to shock.
 	var/static/blacklisted_tesla_types = typecacheof(list(\
 		/obj/machinery/atmospherics,
@@ -269,8 +269,6 @@
 
 		// NOTE: these type checks are safe because CURRENTLY the range family of procs returns turfs in least to greatest distance order
 		// This is unspecified behavior tho, so if it ever starts acting up just remove these optimizations and include a distance check
-		if(closest_type >= BIKE)
-			break
 
 		else if(closest_type >= COIL)
 			continue //no need checking these other things
@@ -305,6 +303,13 @@
 				closest_type = LIVING
 				closest_atom = A
 
+		else if(closest_type >= APC)
+			continue
+
+		else if(isapc(A))
+			closest_type = APC
+			closest_atom = A
+
 		else if(closest_type >= MACHINERY)
 			continue
 
@@ -333,7 +338,7 @@
 	if(!closest_atom)
 		return
 	//common stuff
-	source.Beam(closest_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
+	source.Beam(closest_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	var/zapdir = get_dir(source, closest_atom)
 	if(zapdir)
 		. = zapdir
@@ -371,6 +376,7 @@
 #undef ROD
 #undef RIDE
 #undef LIVING
+#undef APC
 #undef MACHINERY
 #undef BLOB
 #undef STRUCTURE

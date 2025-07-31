@@ -100,17 +100,18 @@
 			connect_to_network()
 
 /obj/machinery/power/tesla_coil/zap_act(power, zap_flags)
-	if(!anchored || panel_open)
-		return ..()
-	ADD_TRAIT(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
-	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
-	zap_buckle_check(power)
-	if(zap_flags & ZAP_GENERATES_POWER) //I don't want no tesla revolver making 8GW you hear
-		return power / 2
-	var/power_produced = powernet ? power * input_power_multiplier : power
-	add_avail(power_produced)
-	flick("coilhit", src)
-	return power - power_produced //You get back the amount we didn't use
+	if(anchored && !panel_open)
+		ADD_TRAIT(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
+		addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
+		zap_buckle_check(power)
+		if(zap_flags & ZAP_GENERATES_POWER) //I don't want no tesla revolver making 8GW you hear
+			return power / 2
+		var/power_produced = powernet ? power * input_power_multiplier : power
+		add_avail(power_produced)
+		flick("coilhit", src)
+		return power - power_produced //You get back the amount we didn't use
+	else
+		. = ..()
 
 /obj/machinery/power/tesla_coil/proc/zap()
 	if((last_zap + zap_cooldown) > world.time || !powernet)
@@ -170,6 +171,6 @@
 		flick("grounding_rodhit", src)
 		zap_buckle_check(power)
 		//stored_energy += energy
-		return 0
+		return FALSE
 	else
 		. = ..()
