@@ -43,6 +43,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/chem_volume = 60
 	var/list/list_reagents = list("nicotine" = 40)
 	var/first_puff = TRUE // the first puff is a bit more reagents ingested
+	COOLDOWN_DECLARE(zatjag_cooldown)
 
 	pickup_sound = 'sound/items/handling/pickup/generic_small_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_small_drop.ogg'
@@ -345,7 +346,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/dropped(mob/user, slot, initial)
 	if(istype(user.wear_mask, /obj/item/clothing/mask/cigarette) && (smoketime != 0) && (lit == TRUE))
-		user.emote("zatjag")
+		if(COOLDOWN_FINISHED(src, zatjag_cooldown))
+			user.emote("zatjag")
+			COOLDOWN_START(src, zatjag_cooldown, 30)
 	.=..()
 
 /obj/item/clothing/mask/cigarette/get_heat()
