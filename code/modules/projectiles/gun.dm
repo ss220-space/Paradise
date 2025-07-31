@@ -61,11 +61,15 @@
 	///List of allowed attachments, IT MUST INCLUDE THE STARTING ATTACHMENT TYPES OR THEY WILL NOT ATTACH.
 	var/attachable_allowed = 0
 	///The attachments this gun starts with on Init
-	var/list/starting_attachment_types = null
+	var/list/starting_attachment_types = null //TODO implement later
 	///Image list of attachments overlays.
 	var/list/image/attachment_overlays = list()
 	///List of offsets to make attachment overlays not look wonky.
-	var/list/attachable_offset = null
+	var/list/attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0)
+	)
 	///List of slots a gun can have.
 	var/list/attachments_by_slot = list(
 		ATTACHMENT_SLOT_MUZZLE,
