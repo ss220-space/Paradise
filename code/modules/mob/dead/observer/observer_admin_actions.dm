@@ -2,6 +2,7 @@
 	for(var/datum/action/innate/admin/action in actions)
 		if(!check_rights(action.rights_required, FALSE, src))
 			qdel(action)
+
 	if(!client || !client.holder)
 		return
 	if(ckey && (ckey in (GLOB.de_admins + GLOB.de_mentors)))
@@ -13,7 +14,7 @@
 			given_action.Grant(src)
 
 /datum/action/innate/admin
-	button_icon = 'icons/mob/actions/actions_admin.dmi'
+	icon_icon = 'icons/mob/actions/actions_admin.dmi'
 	var/rights_required = R_ADMIN
 
 /datum/action/innate/admin/Trigger(left_click = TRUE)
