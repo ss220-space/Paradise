@@ -29,15 +29,12 @@
 	)
 	icon = 'icons/obj/engines_and_power/tesla/energy_ball.dmi'
 	icon_state = "energy_ball"
-	appearance_flags = LONG_GLIDE
 	density = TRUE
-	plane = MASSIVE_OBJ_PLANE
 	plane = ABOVE_LIGHTING_PLANE
 	light_range = 6
 	move_resist = INFINITY
 	pixel_x = -32
 	pixel_y = -32
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	warps_projectiles = FALSE
 	energy = 0
 
@@ -45,6 +42,9 @@
 	current_size = STAGE_TWO
 	move_self = TRUE
 	grav_pull = 0
+	dissipate = FALSE
+	dissipate_delay = 5
+	dissipate_strength = 1
 
 	//var/energy
 	//var/target
