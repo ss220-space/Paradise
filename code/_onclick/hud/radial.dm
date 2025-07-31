@@ -1,6 +1,6 @@
 #define NEXT_PAGE_ID "__next__"
 #define DEFAULT_CHECK_DELAY 20
-#define ANIM_SPEED 1
+#define ANIM_SPEED 2
 
 GLOBAL_LIST_EMPTY(radial_menus)
 
@@ -286,7 +286,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	hide()
 	. = ..()
 
-/*
+/**
 	Presents radial menu to user anchored to anchor (or user if the anchor is currently in users screen)
 	Choices should be a list where list keys are movables or text used for element names and return value
 	and list values are movables/icons/images used for element icons

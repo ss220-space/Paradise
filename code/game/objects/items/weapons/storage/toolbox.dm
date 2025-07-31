@@ -24,16 +24,25 @@
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("огрел", "ударил")
-	use_sound = 'sound/effects/toolbox.ogg'
+	use_sound = 'sound/effects/toolbox_open.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbox_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/toolbox_pickup.ogg'
+	/// Chance to blurry the vision of attacked human
 	var/blurry_chance = 5
+	/// How many interactions are we currently performing
+	var/current_interactions = 0
+	/// Items we should not interact with when clicking
+	var/static/list/lmb_exception_typecache = typecacheof(list(
+		/obj/structure/table,
+		/obj/structure/rack,
+		/obj/structure/closet,
+		/obj/machinery/disposal,
+	))
 
 /obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
-
 
 /obj/item/storage/toolbox/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -46,8 +55,80 @@
 	if(!prob(blurry_chance))
 		return .
 	target.AdjustEyeBlurry(8 SECONDS)
-	to_chat(target, span_danger("Вас оглушает звоном в ушах, а в глазах начинает двоиться."))
+	to_chat(target, span_danger("Вас оглушает звон в ушах, а в глазах начинает двоиться."))
 
+/obj/item/storage/toolbox/attack_obj(obj/object, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(is_type_in_typecache(object, lmb_exception_typecache))
+		return ATTACK_CHAIN_PROCEED
+
+	if(current_interactions)
+		var/obj/item/other_tool = user.get_inactive_hand()
+		if(!istype(other_tool))
+			return ATTACK_CHAIN_PROCEED
+		INVOKE_ASYNC(src, PROC_REF(use_tool_on), object, user, other_tool)
+		return ATTACK_CHAIN_SUCCESS
+
+	if(user.get_inactive_hand())
+		balloon_alert(user, "руки заняты!")
+		return ATTACK_CHAIN_BLOCKED
+
+	var/list/choices = list()
+	for(var/obj/tool in contents)
+		if(is_type_in_list(tool, GLOB.tool_items))
+			choices[tool.declent_ru(NOMINATIVE)] = image(icon = tool.icon, icon_state = tool.icon_state)
+
+	if(!length(choices))
+		return ATTACK_CHAIN_PROCEED
+
+	playsound(user, 'sound/effects/toolbox_open.ogg', 50)
+	var/obj/item/picked_item = show_radial_menu(user, src, choices, require_near = TRUE)
+	if(!picked_item)
+		return ATTACK_CHAIN_BLOCKED
+
+	var/obj/item/selected
+	for(var/obj/item in contents)
+		if(item.declent_ru(NOMINATIVE) == picked_item)
+			selected = item
+			break
+
+	playsound(user, 'sound/effects/toolbox_rustle.ogg', 50)
+	if(!user.put_in_inactive_hand(selected))
+		return ATTACK_CHAIN_BLOCKED
+
+	if(istype(selected, /obj/item/weldingtool))
+		var/obj/item/weldingtool/welder = selected
+		if(!welder.tool_enabled)
+			welder.attack_self(user)
+
+	INVOKE_ASYNC(src, PROC_REF(use_tool_on), object, user, selected)
+	return ATTACK_CHAIN_SUCCESS
+
+/obj/item/storage/toolbox/proc/use_tool_on(atom/object, mob/living/user, obj/item/picked_tool)
+	current_interactions += 1
+	picked_tool.melee_attack_chain(user, object)
+	current_interactions -= 1
+
+	if(QDELETED(picked_tool) || picked_tool.loc != user || !user.Adjacent(picked_tool))
+		current_interactions = 0
+		return
+
+	if(current_interactions)
+		return
+
+	if(istype(picked_tool, /obj/item/weldingtool))
+		var/obj/item/weldingtool/welder = picked_tool
+		if(welder.tool_enabled)
+			welder.attack_self(user) // Need to turn it off after use
+
+	if(can_be_inserted(picked_tool))
+		handle_item_insertion(picked_tool)
+
+/*
+Toolbox types
+*/
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
