@@ -3358,8 +3358,7 @@
 	name = "west light switch";
 	pixel_x = -24
 	},
-/obj/structure/table/reinforced,
-/obj/item/hand_labeler,
+/obj/machinery/vending/gun_mods,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkredfull"
@@ -76955,6 +76954,7 @@
 	},
 /obj/item/crowbar,
 /obj/item/radio/sec,
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkredfull"

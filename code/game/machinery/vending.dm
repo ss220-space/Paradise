@@ -2308,6 +2308,8 @@
 		/obj/item/gun_module/muzzle/compensator = 5,
 		/obj/item/gun_module/rail/scope/collimator = 5,
 		/obj/item/gun_module/rail/scope/x4 = 5,
+		/obj/item/gun_module/rail/hud/medical = 5,
+		/obj/item/gun_module/rail/hud/security = 5,
 		/obj/item/gun_module/under/flashlight/pistol = 5,
 		/obj/item/gun_module/under/flashlight/rifle = 5,
 		/obj/item/gun_module/under/hand/angle = 5,

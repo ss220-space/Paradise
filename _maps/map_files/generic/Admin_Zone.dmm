@@ -2140,6 +2140,10 @@
 /obj/item/gun/projectile/automatic/toy/pistol,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
+"xn" = (
+/obj/machinery/vending/gun_mods/free,
+/turf/simulated/floor/carpet,
+/area/admin)
 "xo" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -4751,8 +4755,8 @@ kD
 gA
 sZ
 aU
-ZG
-ZG
+xn
+xn
 wP
 ui
 Us

@@ -31258,6 +31258,12 @@
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
+"oyd" = (
+/obj/machinery/vending/gun_mods/free,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/syndicate_mothership)
 "oyw" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -33320,6 +33326,13 @@
 "pyu" = (
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"pze" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/vending/gun_mods/free,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/supply)
 "pzh" = (
 /obj/effect/mob_spawn/human/mime/corpse,
 /turf/simulated/floor/indestructible/grass,
@@ -36068,6 +36081,46 @@
 /obj/item/gun/energy/gun/advtaser{
 	pixel_x = 6
 	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	icon_state = "enforcer_black";
+	pixel_x = 6
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	icon_state = "enforcer_black";
+	pixel_x = 6
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	icon_state = "enforcer_black";
+	pixel_x = 6
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	icon_state = "enforcer_black";
+	pixel_x = 6
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	icon_state = "enforcer_black";
+	pixel_x = 6
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	icon_state = "enforcer_black";
+	pixel_x = -6
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	icon_state = "enforcer_black";
+	pixel_x = -6
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	icon_state = "enforcer_black";
+	pixel_x = -6
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	icon_state = "enforcer_black";
+	pixel_x = -6
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	icon_state = "enforcer_black";
+	pixel_x = -6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38752,48 +38805,8 @@
 	},
 /area/centcom/specops)
 "rSU" = (
-/obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/white,
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = 6
-	},
+/obj/machinery/vending/gun_mods/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -49906,6 +49919,7 @@
 /obj/structure/sign/poster/contraband/c20r{
 	pixel_y = 32
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
@@ -68220,7 +68234,7 @@ wlI
 vZf
 mxA
 keo
-xfK
+oyd
 xGb
 xGb
 tkm
@@ -104214,8 +104228,8 @@ xyc
 wNL
 eFN
 rFC
-lzS
-lzS
+pze
+pze
 afP
 lzS
 lzS
