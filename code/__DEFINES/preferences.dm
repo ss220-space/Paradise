@@ -153,6 +153,11 @@
 #define GLOW_MED     1 // Default.
 #define GLOW_LOW     2
 #define GLOW_DISABLE 3
+        
+#define GLOW_HIGH_TEXT    "Сильное"
+#define GLOW_MED_TEXT     "Среднее (По умолчанию)" // Default.
+#define GLOW_LOW_TEXT     "Слабое"
+#define GLOW_DISABLE_TEXT "Выключено"
 
 /// Tags for 'age needed for this job' list.
 #define SPECIES_AGE_MIN		"Min"

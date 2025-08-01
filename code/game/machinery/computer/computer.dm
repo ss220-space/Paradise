@@ -56,6 +56,7 @@
 /obj/machinery/computer/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
+		delete_lights()
 		underlays.Cut()
 		visible_message(span_danger("[src] grows dim, its screen barely readable."))
 
@@ -88,10 +89,12 @@
 	for(var/i in 1 to amount)
 		force_no_power_icon_state = TRUE
 		update_icon()
+		delete_lights()
 		sleep(rand(1, 3))
 
 		force_no_power_icon_state = FALSE
 		update_icon()
+		update_bloom()
 		sleep(rand(1, 10))
 	update_icon()
 	flickering = FALSE
@@ -161,6 +164,7 @@
 			stat |= BROKEN
 			update_icon()
 			set_light_on(FALSE)
+			delete_lights()
 
 /obj/machinery/computer/emp_act(severity)
 	..()
@@ -196,7 +200,8 @@
 
 		for(var/obj/C in src)
 			C.forceMove(get_turf(src))
-
+			
+	delete_lights()
 	frame = null
 	qdel(src)
 
@@ -205,6 +210,7 @@
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		stat |= BROKEN
 		update_icon()
+		delete_lights()
 
 /obj/machinery/computer/proc/decode(text)
 	// Adds line breaks

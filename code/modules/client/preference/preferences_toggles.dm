@@ -695,13 +695,13 @@
 	blackbox_message = "Toggle painblurb"
 
 /datum/preference_toggle/toggle_new_lighting
-	name = "Toggle New Lighting"
-	description = "Toggles new lighting"
+	name = "Переключить постобработку света"
+	description = "Переключает дополнительную постобработку света."
 	preftoggle_bitflag = LIGHT_NEW_LIGHTING
 	preftoggle_toggle = PREFTOGGLE_LIGHT
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You've enabled new lighting."
-	disable_message = "You've disabled new lighting."
+	enable_message = "Теперь дополнительная постобработка света включена."
+	disable_message = "Теперь дополнительная постобработка света выключена."
 	blackbox_message = "New lighting toggled"
 
 /datum/preference_toggle/toggle_new_lighting/set_toggles(client/user)
@@ -719,28 +719,28 @@
 		glow_master.show_to(user.mob)
 
 /datum/preference_toggle/special_toggle/set_glow_level
-	name = "Set Glow Level"
-	description = "Changes glow level of light sources"
+	name = "Яркость свечения"
+	description = "Меняет яркость свечения источников света"
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
 	blackbox_message = "Changed glow level of light sources"
 
 /datum/preference_toggle/special_toggle/set_glow_level/set_toggles(client/user)
 	var/glow_levels = list(
-		"Disable" = GLOW_DISABLE,
-		"Low" = GLOW_LOW,
-		"Medium (Default)" = GLOW_MED,
-		"High" = GLOW_HIGH,
+		GLOW_DISABLE_TEXT = GLOW_DISABLE,
+		GLOW_LOW_TEXT = GLOW_LOW,
+		GLOW_MED_TEXT = GLOW_MED,
+		GLOW_HIGH_TEXT = GLOW_HIGH,
 	)
 
 	var/datum/hud/my_hud = user.mob?.hud_used
 
-	var/new_level = tgui_input_list(user, "Set glow level of light sources", "Glow Level", glow_levels)
+	var/new_level = tgui_input_list(user, "Установить яркость свечения источников света", "Свечение", glow_levels)
 
 	if(!new_level)
 		return
 
 	user.prefs.glowlevel = glow_levels[new_level]
-	to_chat(usr, "Glow level: [new_level].")
+	to_chat(usr, "Яркость свечения источников света: [new_level].")
 
 	if(length(user.screen))
 		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = my_hud.get_plane_master(LIGHTING_LAMPS_SELFGLOW)
@@ -749,13 +749,13 @@
 	return ..()
 
 /datum/preference_toggle/toggle_lamp_exposure
-	name = "Toggle Lamp Exposure"
-	description = "Toggles lamp exposure"
+	name = "Засвет от ламп"
+	description = "Переключает видимость засвета от ламп"
 	preftoggle_bitflag = LIGHT_EXPOSURE
 	preftoggle_toggle = PREFTOGGLE_LIGHT
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You've enabled lamp exposure."
-	disable_message = "You've disabled lamp exposure."
+	enable_message = "Засвет от ламп теперь виден."
+	disable_message = "Засвет от ламп больше не виден."
 	blackbox_message = "Lamp exposure toggled"
 
 /datum/preference_toggle/toggle_lamp_exposure/set_toggles(client/user)

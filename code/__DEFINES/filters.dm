@@ -1,0 +1,7 @@
+#define EMISSIVE_COLOR_MATRIX_FILTER "em_block_masking"
+#define EMISSIVE_PLANE_ALPHA_MASK_FILTER_NAME "emissive_mask"
+#define PIPECRAWL_PLANE_DROP_SHADOW_FILTER_NAME "pipe_dropshadow"
+#define RUNECHAT_PLANE_AO_FILTER_NAME "AO"
+#define LAMPS_SELFGLOW_PLANE_LAYERING_FILTER_NAME "add_lamps_to_selfglow"
+#define LAMPS_SELFGLOW_PLANE_BLOOM_FILTER_NAME "lamps_selfglow_bloom"
+#define EXPOSURE_PLANE_BLUR_FILTER_NAME "blur_exposure"

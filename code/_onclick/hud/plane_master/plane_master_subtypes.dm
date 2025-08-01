@@ -200,8 +200,8 @@
 
 /atom/movable/screen/plane_master/emissive/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
 	. = ..()
-	add_filter("emissive_mask", 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(EMISSIVE_MASK_RENDER_TARGET, offset)))
-	add_filter("em_block_masking", 2, color_matrix_filter(GLOB.em_mask_matrix))
+	add_filter(EMISSIVE_PLANE_ALPHA_MASK_FILTER_NAME, 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(EMISSIVE_MASK_RENDER_TARGET, offset)))
+	add_filter(EMISSIVE_COLOR_MATRIX_FILTER, 2, color_matrix_filter(GLOB.em_mask_matrix))
 
 /atom/movable/screen/plane_master/above_lighting
 	name = "Above lighting"
@@ -222,7 +222,7 @@
 	// Has a nice effect, makes thing stand out
 	color = list(1.2,0,0,0, 0,1.2,0,0, 0,0,1.2,0, 0,0,0,1, 0,0,0,0)
 	// This serves a similar purpose, I want the pipes to pop
-	add_filter("pipe_dropshadow", 1, drop_shadow_filter(x = -1, y= -1, size = 1, color = "#0000007A"))
+	add_filter(PIPECRAWL_PLANE_DROP_SHADOW_FILTER_NAME, 1, drop_shadow_filter(x = -1, y= -1, size = 1, color = "#0000007A"))
 	mirror_parent_hidden()
 
 /atom/movable/screen/plane_master/camera_static
@@ -278,9 +278,9 @@
 	. = ..()
 	if(!.)
 		return
-	remove_filter("AO")
+	remove_filter(RUNECHAT_PLANE_AO_FILTER_NAME)
 	if(istype(mymob) && (mymob.canon_client?.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
-		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
+		add_filter(RUNECHAT_PLANE_AO_FILTER_NAME, 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 
 
 /atom/movable/screen/plane_master/balloon_chat
@@ -347,7 +347,7 @@
 	if(!.)
 		return
 
-	remove_filter("blur_exposure")
+	remove_filter(EXPOSURE_PLANE_BLUR_FILTER_NAME)
 	if(!istype(mymob) || !(mymob?.client?.prefs?.light & LIGHT_NEW_LIGHTING))
 		alpha = 0
 		return
@@ -355,7 +355,7 @@
 
 	if(enabled)
 		alpha = 255
-		add_filter("blur_exposure", 1, gauss_blur_filter(size = 20)) // by refs such blur is heavy, but tests were okay and this allow us more flexibility with setup. Possible point for improvements
+		add_filter(EXPOSURE_PLANE_BLUR_FILTER_NAME, 1, gauss_blur_filter(size = 20)) // by refs such blur is heavy, but tests were okay and this allow us more flexibility with setup. Possible point for improvements
 	else
 		alpha = 0
 
@@ -371,8 +371,8 @@
 	if(!.)
 		return
 
-	remove_filter("add_lamps_to_selfglow")
-	remove_filter("lamps_selfglow_bloom")
+	remove_filter(LAMPS_SELFGLOW_PLANE_LAYERING_FILTER_NAME)
+	remove_filter(LAMPS_SELFGLOW_PLANE_BLOOM_FILTER_NAME)
 
 	if(!istype(mymob) || !(mymob?.client?.prefs?.light & LIGHT_NEW_LIGHTING))
 		return
@@ -395,5 +395,5 @@
 		else
 			return
 
-	add_filter("add_lamps_to_selfglow", 1, layering_filter(render_source = LIGHTING_LAMPS_RENDER_TARGET, blend_mode = BLEND_OVERLAY))
-	add_filter("lamps_selfglow_bloom", 1, bloom_filter(threshold = "#777777", size = bloomsize, offset = bloomoffset, alpha = 80))
+	add_filter(LAMPS_SELFGLOW_PLANE_LAYERING_FILTER_NAME, 1, layering_filter(render_source = LIGHTING_LAMPS_RENDER_TARGET, blend_mode = BLEND_OVERLAY))
+	add_filter(LAMPS_SELFGLOW_PLANE_BLOOM_FILTER_NAME, 1, bloom_filter(threshold = "#777777", size = bloomsize, offset = bloomoffset, alpha = 80))
