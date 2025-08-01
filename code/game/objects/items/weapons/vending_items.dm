@@ -167,6 +167,7 @@
 /obj/item/vending_refill/gun_mods
 	machine_name = "ModTech"
 	icon_state = "refill_mods"
+	item_state = "refill_mods"
 
 /obj/item/vending_refill/sovietsoda
 	machine_name = "BODA"

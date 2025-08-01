@@ -742,6 +742,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		PREPOSITIONAL = "наборе апгрейда оружия"
 	)
 	icon_state = "box_gun_mods"
+	item_state = "box_gun_mods"
 
 /obj/item/storage/box/syndie_kit/gun_mods/populate_contents()
 	new /obj/item/gun_module/muzzle/suppressor(src)
