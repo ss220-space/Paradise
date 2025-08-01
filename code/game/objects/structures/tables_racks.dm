@@ -853,7 +853,16 @@
  */
 /obj/structure/rack
 	name = "rack"
-	desc = "Different from the Middle Ages version."
+	desc = "Белый крупный стелаж, удобен для хранения различных вещей."
+	ru_names = list(
+		NOMINATIVE = "стеллаж",
+		GENITIVE = "стеллажа",
+		DATIVE = "стеллажу",
+		ACCUSATIVE = "стеллаж",
+		INSTRUMENTAL = "стеллажом",
+		PREPOSITIONAL = "стеллаже"
+	)
+	gender = MALE
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "rack"
 	layer = TABLE_LAYER
@@ -1067,9 +1076,19 @@
 
 /obj/item/rack_parts
 	name = "rack parts"
-	desc = "Parts of a rack."
+	desc = "Детали разобранного стелажа."
+	ru_names = list(
+		NOMINATIVE = "детали стеллажа",
+		GENITIVE = "деталей стеллажа",
+		DATIVE = "деталям стеллажа",
+		ACCUSATIVE = "детали стеллажа",
+		INSTRUMENTAL = "деталями стеллажа",
+		PREPOSITIONAL = "деталях стеллажа"
+	)
+	gender = MALE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
+	item_state = "rack_parts"
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)
 	var/building = FALSE
