@@ -114,7 +114,7 @@
 	if(isnull(GLOB.heart))
 		return
 	for(var/datum/mind/clock_mind as anything in SSticker.mode.clockwork_cult)
-		if(clock_mind && clock_mind.current)
+		if(clock_mind.current)
 			to_chat(clock_mind.current, span_clocklarge("Отлично, теперь вам необходимо снять печати..."))
 			clock_status = RATVAR_BREAK_SEALS
 			deltimer(checktimer)

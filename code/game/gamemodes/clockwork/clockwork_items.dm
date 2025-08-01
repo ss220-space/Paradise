@@ -751,7 +751,7 @@
 		to_chat(shooter, span_clocklarge("Получи, грязный еретик!"))
 	else
 		to_chat(shooter, span_clocklarge("Руки прочь!"))
-	shooter.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
+	shooter.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Выстрел по самому себе в [zone].")
 	shooter.bleed(BLOOD_VOLUME_NORMAL)
 	shooter.death()
 
@@ -1661,17 +1661,25 @@
 	var/obj/item/nullrod/N = locate() in target
 	if(!isnull(N) || target.mind.isblessed)
 		return
-	if(do_emp)
+	emp()
+	stun()
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/emp(mob/living/target)
+	if(!do_emp)
+		return
+	target.emp_act(EMP_HEAVY)
+	new /obj/effect/temp_visual/emp/clock(target.loc)
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/stun(mob/living/target)
+	if(!do_stun)
+		return
+	if(isrobot(target))
 		target.emp_act(EMP_HEAVY)
 		new /obj/effect/temp_visual/emp/clock(target.loc)
-	if(do_stun)
-		if(isrobot(target))
-			target.emp_act(EMP_HEAVY)
-			new /obj/effect/temp_visual/emp/clock(target.loc)
-			return
-		target.Weaken(8 SECONDS)
-		target.Silence(10 SECONDS)
-		target.clockslur(20 SECONDS)
+		return
+	target.Weaken(8 SECONDS)
+	target.Silence(10 SECONDS)
+	target.clockslur(20 SECONDS)
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart
 	layer = ABOVE_ALL_MOB_LAYER + 0.1
