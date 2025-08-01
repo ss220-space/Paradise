@@ -25,9 +25,6 @@
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/fire_shark
 	cost = 1
-
-	poll_ignore_define = POLL_IGNORE_FIRE_SHARK
-
 	research_tree_icon_dir = EAST
 
 

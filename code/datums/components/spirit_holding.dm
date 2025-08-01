@@ -85,7 +85,6 @@
 		//check_jobban = ROLE_PAI,
 		poll_time = 20 SECONDS,
 		//checked_target = thing,
-		//ignore_category = POLL_IGNORE_POSSESSED_BLADE,
 		source = thing,
 		//role_name_text = "possessed blade",
 		//chat_text_border_icon = thing,

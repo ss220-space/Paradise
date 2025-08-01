@@ -70,7 +70,7 @@
 	for(var/turf/nearby_turf in view(rusting_range, loc))
 		if(get_dist(nearby_turf, loc) <= 1) //tiles on rune should always be rusted
 			nearby_turf.rust_heretic_act()
-			
+
 		//we exclude closed turf to avoid exposing cultist bases
 		if(prob(10) || iswallturf(nearby_turf))
 			continue
@@ -94,5 +94,3 @@
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/rust_walker
 	cost = 1
-
-	poll_ignore_define = POLL_IGNORE_RUST_SPIRIT
