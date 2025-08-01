@@ -393,7 +393,7 @@ multiple modular subtrees with behaviors
 /datum/ai_controller/proc/set_blackboard_key_assoc_lazylist(key, thing, value)
 	LAZYINITLIST(blackboard[key])
 	// Don't do anything if it's already got this value
-	if (blackboard[key][thing] == value)
+	if(blackboard[key][thing] == value)
 		return
 
 	TRACK_AI_DATUM_TARGET(thing, key)
