@@ -61,19 +61,33 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
+	for(var/obj/item in contents)
+		if(is_type_in_list(item, GLOB.tool_items))
+			return ATTACK_CHAIN_PROCEED
+
 	if(is_type_in_typecache(object, lmb_exception_typecache))
 		return ATTACK_CHAIN_PROCEED
+
+/obj/item/storage/toolbox/afterattack(atom/object, mob/living/user, proximity, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(!proximity)
+		return
+
+	if(ismob(object))
+		return
 
 	if(current_interactions)
 		var/obj/item/other_tool = user.get_inactive_hand()
 		if(!istype(other_tool))
-			return ATTACK_CHAIN_PROCEED
+			return
 		INVOKE_ASYNC(src, PROC_REF(use_tool_on), object, user, other_tool)
-		return ATTACK_CHAIN_SUCCESS
+		return
 
 	if(user.get_inactive_hand())
 		balloon_alert(user, "руки заняты!")
-		return ATTACK_CHAIN_BLOCKED
+		return
 
 	var/list/choices = list()
 	for(var/obj/tool in contents)
@@ -81,12 +95,12 @@
 			choices[tool.declent_ru(NOMINATIVE)] = image(icon = tool.icon, icon_state = tool.icon_state)
 
 	if(!length(choices))
-		return ATTACK_CHAIN_PROCEED
+		return
 
 	playsound(user, 'sound/effects/toolbox_open.ogg', 50)
 	var/obj/item/picked_item = show_radial_menu(user, src, choices, require_near = TRUE)
 	if(!picked_item)
-		return ATTACK_CHAIN_BLOCKED
+		return
 
 	var/obj/item/selected
 	for(var/obj/item in contents)
@@ -96,7 +110,7 @@
 
 	playsound(user, 'sound/effects/toolbox_rustle.ogg', 50)
 	if(!user.put_in_inactive_hand(selected))
-		return ATTACK_CHAIN_BLOCKED
+		return
 
 	if(istype(selected, /obj/item/weldingtool))
 		var/obj/item/weldingtool/welder = selected
@@ -104,11 +118,12 @@
 			welder.attack_self(user)
 
 	INVOKE_ASYNC(src, PROC_REF(use_tool_on), object, user, selected)
-	return ATTACK_CHAIN_SUCCESS
+	return
+
 
 /obj/item/storage/toolbox/proc/use_tool_on(atom/object, mob/living/user, obj/item/picked_tool)
 	current_interactions += 1
-	picked_tool.melee_attack_chain(user, object)
+	picked_tool.tool_attack_chain(user, object)
 	current_interactions -= 1
 
 	if(QDELETED(picked_tool) || picked_tool.loc != user || !user.Adjacent(picked_tool))

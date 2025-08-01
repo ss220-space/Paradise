@@ -16,8 +16,6 @@
 
 /// List of all "tools" that can work from toolboxes
 GLOBAL_LIST_INIT(tool_items, list(
-	/obj/item/airlock_painter,
-	/obj/item/analyzer,
 	/obj/item/assembly/signaler,
 	/obj/item/crowbar,
 	/obj/item/extinguisher/mini,
