@@ -23,9 +23,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
-	attack_verb = list("огрел", "ударил")
-	storage_slots = 10
-	use_sound = 'sound/items/handling/toolbox_open.ogg'
+	attack_verb = list("заробастил")
+	use_sound = 'sound/effects/toolbox.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbox_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/toolbox_pickup.ogg'
