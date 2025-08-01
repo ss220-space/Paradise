@@ -164,6 +164,10 @@
 /obj/item/vending_refill/security
 	icon_state = "refill_sec"
 
+/obj/item/vending_refill/gun_mods
+	machine_name = "ModTech"
+	icon_state = "refill_mods"
+
 /obj/item/vending_refill/sovietsoda
 	machine_name = "BODA"
 	icon_state = "refill_cola"

@@ -2300,7 +2300,7 @@
 		/obj/item/gun_module/muzzle/suppressor = 399,
 		/obj/item/gun_module/rail/scope/x8 = 999
 	)
-	refill_canister = /obj/item/vending_refill/security
+	refill_canister = /obj/item/vending_refill/gun_mods
 
 /obj/machinery/vending/gun_mods/free
 	// all items free, this vending for central command
