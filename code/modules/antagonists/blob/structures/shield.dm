@@ -11,7 +11,7 @@
 	explosion_vertical_block = 2
 	point_return = BLOB_REFUND_STRONG_COST
 	atmosblock = TRUE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 25, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 25, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90)
 
 /obj/structure/blob/shield/scannerreport()
 	if(atmosblock)

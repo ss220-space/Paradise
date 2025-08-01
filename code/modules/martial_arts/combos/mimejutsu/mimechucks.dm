@@ -8,7 +8,7 @@
 		var/damage = 60
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/armor_block = target.run_armor_check(affecting, "melee")
+		var/armor_block = target.run_armor_check(affecting, MELEE)
 		user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 		target.apply_damage(damage, STAMINA, affecting, armor_block)
 		add_attack_logs(user, target, "Melee attacked with [src] : Mimechucks", ATKLOG_ALL)
