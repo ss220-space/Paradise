@@ -57,6 +57,9 @@
 	shoes = /obj/item/clothing/shoes/prison
 	l_ear = /obj/item/radio/headset/prisoner
 	pda = null
+	box = null
+	allow_backbag_choice = FALSE
+	back = null
 
 
 /datum/job/civilian/prisoner/after_spawn(mob/living/carbon/human/human)
