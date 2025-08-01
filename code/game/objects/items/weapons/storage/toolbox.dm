@@ -99,7 +99,7 @@
 		return
 
 	playsound(user, 'sound/items/handling/toolbox_open.ogg', 50)
-	var/obj/item/picked_item = show_radial_menu(user, src, choices, require_near = TRUE)
+	var/obj/item/picked_item = show_radial_menu(user, src, choices, require_near = TRUE, anim_speed = 0.1)
 	if(!picked_item)
 		return
 
@@ -142,9 +142,9 @@
 	if(can_be_inserted(picked_tool))
 		handle_item_insertion(picked_tool)
 
-/*
-	Toolbox types
-*/
+/**
+ * MARK: Toolbox types
+ */
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"

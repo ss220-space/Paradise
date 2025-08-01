@@ -174,8 +174,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/tool_volume = 50
 	/// If this item is a tool, the speed multiplier
 	var/toolspeed = 1
-	/// For tools that can act as other tools
-	var/tools_variants = list()
+	/// For tools that have an extra mode.
+	var/tool_mode = NONE
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
