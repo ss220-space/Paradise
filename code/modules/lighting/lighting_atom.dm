@@ -154,9 +154,9 @@
 		glow_overlay.plane = LIGHTING_LAMPS_PLANE
 		glow_overlay.blend_mode = BLEND_ADD
 
-		if(glow_colored && light_color)
+		if(glow_colored)
 			var/datum/color_matrix/mat = new(
-				light_color,
+				length(light_color) > 3 ? light_color : "#000000",
 				GLOB.lighting_effects_configuration["glow_contrast_base"] + GLOB.lighting_effects_configuration["glow_contrast_power"] * light_power,
 				GLOB.lighting_effects_configuration["glow_brightness_base"] + GLOB.lighting_effects_configuration["glow_brightness_power"] * light_power)
 			glow_overlay.color = mat.get()
