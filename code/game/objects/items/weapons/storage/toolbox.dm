@@ -24,7 +24,7 @@
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("заробастил")
-	use_sound = 'sound/effects/toolbox.ogg'
+	use_sound = 'sound/items/handling/toolbox_open.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbox_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/toolbox_pickup.ogg'
