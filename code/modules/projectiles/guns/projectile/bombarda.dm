@@ -11,6 +11,7 @@
 	weapon_weight = WEAPON_HEAVY
 	var/pump_cooldown = 1 SECONDS
 	COOLDOWN_DECLARE(last_pump)
+	accuracy = GUN_ACCURACY_MINIMAL
 
 
 /obj/item/gun/projectile/bombarda/attackby(obj/item/I, mob/user, params)

@@ -76,7 +76,7 @@
 
 /obj/structure/clockwork/functional/celestial_gateway/ex_act(severity)
 	var/damage = max((obj_integrity * 0.7) / severity, 100)
-	take_damage(damage, BRUTE, "bomb", 0)
+	take_damage(damage, BRUTE, BOMB, 0)
 
 
 /obj/structure/clockwork/functional/celestial_gateway/attackby(obj/item/I, mob/user, params)
@@ -115,7 +115,7 @@
 	for(var/obj/O in orange(1, src))
 		if(!O.pulledby && !iseffect(O) && O.density)
 			if(!step_away(O, src, 2) || get_dist(O, src) < 2)
-				O.take_damage(50, BURN, "bomb")
+				O.take_damage(50, BURN, BOMB)
 			O.update_icon()
 	seconds_until_activation += GATEWAY_SUMMON_RATE
 	switch(seconds_until_activation)

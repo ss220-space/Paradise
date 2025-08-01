@@ -10,7 +10,7 @@
 	pass_flags_self = PASSBLOB
 	layer = BELOW_MOB_LAYER
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 	creates_cover = TRUE
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP // stops blob mobs from falling on multiz.
 	max_integrity = BLOB_REGULAR_MAX_HP

@@ -43,6 +43,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/chem_volume = 60
 	var/list/list_reagents = list("nicotine" = 40)
 	var/first_puff = TRUE // the first puff is a bit more reagents ingested
+	COOLDOWN_DECLARE(smoking_cooldown)
 
 	pickup_sound = 'sound/items/handling/pickup/generic_small_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_small_drop.ogg'
@@ -338,9 +339,17 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(ismob(loc))
 		var/mob/living/M = loc
 		M.balloon_alert(M, "сигарета гаснет")
+		M.emote("finish_smoking")
 		M.temporarily_remove_item_from_inventory(src, force = TRUE)		//Force the un-equip so the overlays update
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
+
+/obj/item/clothing/mask/cigarette/dropped(mob/user, slot, initial)
+	if(istype(user.wear_mask, /obj/item/clothing/mask/cigarette) && (smoketime != 0) && (lit == TRUE))
+		if(COOLDOWN_FINISHED(src, smoking_cooldown))
+			user.emote("smoking")
+			COOLDOWN_START(src, smoking_cooldown, 30)
+	.=..()
 
 /obj/item/clothing/mask/cigarette/get_heat()
 	return lit * 1000
