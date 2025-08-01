@@ -111,14 +111,15 @@
 	checktimer = addtimer(CALLBACK(src, PROC_REF(check_heart)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
 
 /datum/clockwork_objectives/proc/check_heart()
-	if(isnull(GLOB.heart))
+	if(isnull(GLOB.Heart))
 		return
 	for(var/datum/mind/clock_mind as anything in SSticker.mode.clockwork_cult)
-		if(clock_mind.current)
-			to_chat(clock_mind.current, span_clocklarge("Отлично, теперь вам необходимо снять печати..."))
-			clock_status = RATVAR_BREAK_SEALS
-			deltimer(checktimer)
-			checktimer = addtimer(CALLBACK(src, PROC_REF(update_seals)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
+		if(!clock_mind || !clock_mind.current)
+			continue
+		to_chat(clock_mind.current, span_clocklarge("Отлично, теперь вам необходимо снять печати..."))
+		clock_status = RATVAR_BREAK_SEALS
+		deltimer(checktimer)
+		checktimer = addtimer(CALLBACK(src, PROC_REF(update_seals)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
 
 /datum/clockwork_objectives/proc/update_seals()
 	if(GLOB.total_curses != 0)
