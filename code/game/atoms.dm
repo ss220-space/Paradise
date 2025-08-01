@@ -10,6 +10,7 @@
 	var/list/fingerprints_time
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
+	var/list/interactors = list()
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
@@ -858,6 +859,8 @@
 		//Fibers~
 		add_fibers(M)
 
+		if(!(M.real_name in interactors))
+			interactors += M.real_name
 		//He has no prints!
 		if(HAS_TRAIT(M, TRAIT_NO_FINGERPRINTS))
 			if(fingerprintslast != M.key)
@@ -1026,6 +1029,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return transfer_blood_dna(blood_dna)
 
 /obj/item/add_blood(list/blood_dna, color)
+	if(isnull(color))
+		color = "#A10808"
+
 	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
 	if(!..())
 		return FALSE
@@ -1039,6 +1045,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	transfer_blood = rand(2, 4)
 
 /turf/add_blood(list/blood_dna, color)
+	if(isnull(color))
+		color = "#A10808"
+
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
