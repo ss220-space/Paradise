@@ -169,14 +169,16 @@
 			do_heart(owner)
 
 /datum/action/innate/clockwork/clock_magic/proc/do_midas(mob/living/owner)
-	if(do_after(owner, 5 SECONDS, owner))
-		midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
-		midas_spell.Grant(owner, src)
-		to_chat(owner, span_clock("Вы чувствуете, как энергия течет по вашей руке. Вы приготовили заклинание [midas_spell.name]!"))
+	if(!do_after(owner, 5 SECONDS, owner))
+		channeling = FALSE
+		return
+	midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
+	midas_spell.Grant(owner, src)
+	to_chat(owner, span_clock("Вы чувствуете, как энергия течет по вашей руке. Вы приготовили заклинание [midas_spell.name]!"))
 	channeling = FALSE
 
 /datum/action/innate/clockwork/clock_magic/proc/do_heart(mob/living/owner)
-	if(GLOB.Heart.enchanted_before)
+	if(GLOB.heart.enchanted_before)
 		to_chat(owner, span_clockitalic("Сердце перегрето! Ему нужно охладиться, прежде чем оно сможет снова быть зачаровано"))
 		channeling = FALSE
 		return
@@ -184,8 +186,8 @@
 	var/list/possible_pulses = list()
 	var/image/heart_img
 	var/datum/spell_enchant/next_pulse
-	for(var/datum/spell_enchant/ench as anything in GLOB.Heart.enchants)
-		if(ench.enchantment == GLOB.Heart.cur_enchant)
+	for(var/datum/spell_enchant/ench as anything in GLOB.heart.enchants)
+		if(ench.enchantment == GLOB.heart.cur_enchant)
 			continue
 		possible_pulses[ench.name] = ench
 		heart_img = image(icon = 'icons/obj/clockwork.dmi', icon_state = "heart_icon_[ench.enchantment]")
@@ -196,8 +198,8 @@
 		channeling = FALSE
 		return
 	if(do_after(owner, 5 SECONDS, owner))
-		GLOB.Heart.cur_enchant = next_pulse.enchantment
-		GLOB.Heart.update_icon(UPDATE_OVERLAYS)
+		GLOB.heart.cur_enchant = next_pulse.enchantment
+		GLOB.heart.update_icon(UPDATE_OVERLAYS)
 	channeling = FALSE
 
 /datum/action/innate/clockwork/hand_spell //The next generation of talismans, handles storage/creation of blood magic

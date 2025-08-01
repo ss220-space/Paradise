@@ -434,8 +434,8 @@
 	var/range = 12
 
 /obj/effect/warp_effect/heart/New()
-	if(GLOB.Heart)
-		range = GLOB.Heart.pulse_range * 4
+	if(GLOB.heart)
+		range = GLOB.heart.pulse_range * 4
 	. = ..()
 
 /obj/effect/warp_effect/heart/Initialize(mapload)

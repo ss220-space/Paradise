@@ -11,9 +11,10 @@ GLOBAL_LIST_INIT(ratvar_mechas, typesof(/datum/ratvar_mecha))
 	mecha_to_convert.armor = mecha_to_convert.armor.modifyAllRatings(10)
 	if(!mecha_to_convert.occupant)
 		return
-	if(!isclocker(mecha_to_convert.occupant))
-		mecha_to_convert.occupant.SetSleeping(mecha_to_convert.destruction_sleep_duration)
-		mecha_to_convert.go_out()
+	if(isclocker(mecha_to_convert.occupant))
+		return
+	mecha_to_convert.occupant.SetSleeping(mecha_to_convert.destruction_sleep_duration)
+	mecha_to_convert.go_out()
 
 
 /datum/ratvar_mecha/ripley

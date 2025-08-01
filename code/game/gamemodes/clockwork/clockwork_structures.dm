@@ -404,7 +404,7 @@
 /obj/structure/clockwork/functional/altar/proc/double_check(mob/living/user, area/A)
 	var/datum/game_mode/gamemode = SSticker.mode
 
-	if(GLOB.Heart)
+	if(GLOB.heart)
 		to_chat(user, span_clockitalic("Сердце уже призванно в наш мир!"))
 		return FALSE
 

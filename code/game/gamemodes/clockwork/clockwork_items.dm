@@ -1702,9 +1702,9 @@
 	playsound(src, 'sound/magic/clockwork/heart_beat.ogg', vol = 100, vary = FALSE, extrarange = radius, pressure_affected = FALSE, falloff_distance = radius)
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/New()
-	radius = GLOB.Heart.pulse_range
-	sleep_time = 1 * GLOB.Heart.pulse_range
-	duration = 1 * GLOB.Heart.pulse_range
+	radius = GLOB.heart.pulse_range
+	sleep_time = 1 * GLOB.heart.pulse_range
+	duration = 1 * GLOB.heart.pulse_range
 	. = ..()
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/heal

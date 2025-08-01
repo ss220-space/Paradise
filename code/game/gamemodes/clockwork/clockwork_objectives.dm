@@ -111,7 +111,7 @@
 	checktimer = addtimer(CALLBACK(src, PROC_REF(check_heart)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
 
 /datum/clockwork_objectives/proc/check_heart()
-	if(isnull(GLOB.Heart))
+	if(isnull(GLOB.heart))
 		return
 	for(var/datum/mind/clock_mind as anything in SSticker.mode.clockwork_cult)
 		if(clock_mind && clock_mind.current)

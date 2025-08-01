@@ -1,5 +1,5 @@
 GLOBAL_VAR_INIT(total_curses, 3)
-GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
+GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart
 	name = "The heart of Ratvar"
@@ -29,8 +29,8 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	var/curse_lower = TRUE
 
 /obj/structure/clockwork/functional/heart/Initialize(mapload)
-	if(!GLOB.Heart)
-		GLOB.Heart = src
+	if(!GLOB.heart)
+		GLOB.heart = src
 	enchants = GLOB.gun_and_heart_spells
 	alpha = 0
 	new /obj/effect/temp_visual/ratvar/reconstruct/heart(loc)
@@ -40,8 +40,8 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	for(var/direct in GLOB.alldirs)
 		occupied += get_step(src, direct)
 
-	for(var/T in occupied)
-		var/obj/structure/heart_filler/F = new(T)
+	for(var/filler_loc in occupied)
+		var/obj/structure/heart_filler/F = new(filler_loc)
 		F.parent = src
 		fillers += F
 	spawn_parts()
@@ -85,25 +85,26 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	for(var/turf/tile in orange(1, src))
 		new /obj/effect/gibspawner/clock(tile)
 	playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
-	GLOB.Heart = null
+	GLOB.heart = null
 	QDEL_LIST(fillers)
 	. = ..()
 
 /obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
 	if(!isclocker(user))
 		return
-	if(istype(dropping, /obj/structure/part_dial))
-		if(!curse_dial)
-			return
-		if(!do_after(user, 5 SECONDS, src))
-			return
-		curse_dial = FALSE
-		GLOB.total_curses -= 1
-		addtimer(CALLBACK(src, PROC_REF(heart_pulse)), 30 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
-		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/magic/clockwork/heart_tick_tock.ogg', 100, FALSE, 0, SOUND_FALLOFF_EXPONENT, null, 0, TRUE, TRUE, SOUND_DEFAULT_FALLOFF_DISTANCE, TRUE), 4 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
-		qdel(dropping)
-		give_blessing(user)
-		update_icon(UPDATE_OVERLAYS)
+	if(!istype(dropping, /obj/structure/part_dial))
+		return
+	if(!curse_dial)
+		return
+	if(!do_after(user, 5 SECONDS, src))
+		return
+	curse_dial = FALSE
+	GLOB.total_curses --
+	addtimer(CALLBACK(src, PROC_REF(heart_pulse)), 30 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/magic/clockwork/heart_tick_tock.ogg', 100, FALSE, 0, SOUND_FALLOFF_EXPONENT, null, 0, TRUE, TRUE, SOUND_DEFAULT_FALLOFF_DISTANCE, TRUE), 4 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+	qdel(dropping)
+	give_blessing(user)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/part_upper))
@@ -121,7 +122,7 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	if(!do_after(user, 5 SECONDS, src))
 		return
 	part.destroy_curse(user)
-	GLOB.total_curses -= 1
+	GLOB.total_curses --
 	qdel(part)
 	update_icon(UPDATE_OVERLAYS)
 	give_blessing(user)
@@ -139,44 +140,50 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 		return
 	adjust_clockwork_power(-250)
 	visible_message(span_danger("[capitalize(src)] исчезает, и на его месте появляется Великий Ковчег!"))
-	var/area/A = get_area(src)
-	GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
+	var/area/summon_zone = get_area(src)
+	GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [summon_zone.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
 										ANNOUNCE_CCPARANORMAL_RU,
 										'sound/AI/commandreport.ogg')
 	new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
 	qdel(src)
 
 /obj/structure/clockwork/functional/heart/proc/throw_everything_back()
-	//just ctrl+c ctrl+v from survival_pod.dm
-	var/width = 3
-	var/height = 3
-	var/base_x_throw_distance = ceil(width / 2)
-	var/base_y_throw_distance = ceil(height / 2)
+	var/throw_dist
 	for(var/atom/movable/did_not_stand_back in range(1, loc))
-		var/dir_to_center = get_dir(src.loc, did_not_stand_back) || pick(GLOB.alldirs)
-		var/throw_dist = 0
-		var/x_component = abs(did_not_stand_back.x - src.loc.x)
-		var/y_component = abs(did_not_stand_back.y - src.loc.y)
-		if(istype(did_not_stand_back, /obj/structure/clockwork/functional/heart) || istype(did_not_stand_back, /obj/structure/heart_filler) || istype(did_not_stand_back, /obj/effect/temp_visual/ratvar/reconstruct/heart))
+		throw_dist = calculate_throw_dist(did_not_stand_back)
+		if(throw_dist < 0)
 			continue
-		if(ISDIAGONALDIR(dir_to_center))
-			throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
-			did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, throw_dist))
-		else if(dir_to_center & (NORTH|SOUTH))
-			throw_dist = base_y_throw_distance - y_component + 1
-			did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_y_throw_distance))
-		else if(dir_to_center & (EAST|WEST))
-			throw_dist = base_x_throw_distance - x_component + 1
-			did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_x_throw_distance))
-		if(isliving(did_not_stand_back) && !isclocker(did_not_stand_back))
-			var/mob/living/affected = did_not_stand_back
-			affected.Knockdown(6 SECONDS)
-		did_not_stand_back.throw_at(
-			target = get_edge_target_turf(did_not_stand_back, dir_to_center),
-			range = throw_dist,
-			speed = 3,
+		throw_out(did_not_stand_back, throw_dist)
+/obj/structure/clockwork/functional/heart/proc/calculate_throw_dist(atom/movable/did_not_stand_back)
+	var/base_x_throw_distance = 2
+	var/base_y_throw_distance = 2
+	var/throw_dist = 0
+	var/dir_to_center = get_dir(src.loc, did_not_stand_back)
+	var/x_component = abs(did_not_stand_back.x - src.loc.x)
+	var/y_component = abs(did_not_stand_back.y - src.loc.y)
+	if(istype(did_not_stand_back, /obj/structure/clockwork/functional/heart) || istype(did_not_stand_back, /obj/structure/heart_filler) || istype(did_not_stand_back, /obj/effect/temp_visual/ratvar/reconstruct/heart))
+		return -1
+	if(ISDIAGONALDIR(dir_to_center))
+		throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
+		did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, throw_dist))
+	else if(dir_to_center & (NORTH|SOUTH))
+		throw_dist = base_y_throw_distance - y_component + 1
+		did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_y_throw_distance))
+	else if(dir_to_center & (EAST|WEST))
+		throw_dist = base_x_throw_distance - x_component + 1
+		did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_x_throw_distance))
+	return throw_dist
+
+/obj/structure/clockwork/functional/heart/proc/throw_out(atom/movable/did_not_stand_back, throw_dist)
+	if(isliving(did_not_stand_back) && !isclocker(did_not_stand_back))
+		var/mob/living/affected = did_not_stand_back
+		affected.Knockdown(6 SECONDS)
+	did_not_stand_back.throw_at(
+		target = get_edge_target_turf(did_not_stand_back, get_dir(src.loc, did_not_stand_back) || pick(GLOB.alldirs)),
+		range = throw_dist,
+		speed = 3,
 			force = MOVE_FORCE_VERY_STRONG,
-		)
+	)
 
 /obj/structure/clockwork/functional/heart/proc/give_blessing(mob/living/user)
 	if(isnull(blessings))
@@ -339,9 +346,9 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	return ..()
 
 /obj/item/part_upper/proc/destroy_curse(mob/living/user)
-	if(!GLOB.Heart?.curse_upper)
+	if(!GLOB.heart?.curse_upper)
 		return
-	GLOB.Heart?.curse_upper = FALSE
+	GLOB.heart?.curse_upper = FALSE
 
 /obj/item/part_upper/proc/pulse()
 	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
@@ -351,9 +358,9 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	item_state = "ratvarpart3"
 
 /obj/item/part_upper/lower/destroy_curse(mob/living/user)
-	if(!GLOB.Heart?.curse_lower)
+	if(!GLOB.heart?.curse_lower)
 		return
-	GLOB.Heart?.curse_lower = FALSE
+	GLOB.heart?.curse_lower = FALSE
 
 /obj/effect/temp_visual/pulse
 	icon = 'icons/obj/clockheart.dmi'
