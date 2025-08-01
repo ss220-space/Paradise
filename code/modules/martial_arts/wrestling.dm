@@ -28,7 +28,7 @@
 	D.visible_message("<span class='danger'>[A] suplexes [D]!</span>", \
 								"<span class='userdanger'>[A] suplexes [D]!</span>")
 	D.forceMove(A.loc)
-	var/armor_block = D.run_armor_check(null, "melee")
+	var/armor_block = D.run_armor_check(null, MELEE)
 	D.apply_damage(30, BRUTE, null, armor_block)
 	objective_damage(A, D, 30, BRUTE)
 	D.apply_effect(12 SECONDS, KNOCKDOWN, armor_block)
@@ -38,7 +38,7 @@
 
 	D.SpinAnimation(10,1)
 	spawn(3)
-		armor_block = A.run_armor_check(null, "melee")
+		armor_block = A.run_armor_check(null, MELEE)
 		A.apply_effect(8 SECONDS, KNOCKDOWN, armor_block)
 	return
 
@@ -54,7 +54,7 @@
 	D.visible_message("<span class='danger'>[A] holds [D] down!</span>", \
 								"<span class='userdanger'>[A] holds [D] down!</span>")
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, "melee")
+	var/armor_block = D.run_armor_check(affecting, MELEE)
 	D.apply_damage(10, STAMINA, affecting, armor_block)
 	return TRUE
 

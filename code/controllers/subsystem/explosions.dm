@@ -252,6 +252,9 @@ SUBSYSTEM_DEF(explosions)
 	else if(light_impact_range > 0)
 		new /obj/effect/temp_visual/explosion(epicenter, max_range, TRUE, FALSE)
 
+	if(max_range >= 6 || heavy_impact_range)
+		new /obj/effect/temp_visual/shockwave(epicenter, max_range)
+
 /datum/explosion_data/proc/enqueue_affected_turfs(reactionary_explosions)
 	var/list/affected_turfs = prepare_explosion_turfs(max_range, epicenter, protect_epicenter, explosion_direction, explosion_arc, multiz_explosion, min_z, max_z)
 	if(reactionary_explosions)

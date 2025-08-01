@@ -15,7 +15,7 @@
 
 ///returns the damage value of the attack after processing the obj's various armor protections
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
-	if(damage_flag == "melee" && damage_amount < damage_deflection)
+	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
 	switch(damage_type)
 		if(BRUTE)
@@ -86,7 +86,7 @@
 
 /obj/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	..()
-	take_damage(AM.throwforce, BRUTE, "melee", 1, get_dir(src, AM))
+	take_damage(AM.throwforce, BRUTE, MELEE, 1, get_dir(src, AM))
 
 /obj/ex_act(severity)
 	if(QDELETED(src))
@@ -95,7 +95,7 @@
 		return
 	switch(severity)
 		if(1)
-			take_damage(INFINITY, BRUTE, "bomb", 0)
+			take_damage(INFINITY, BRUTE, BOMB, 0)
 		if(2)
 			take_damage(rand(100, 250), BRUTE, "bomb", 0)
 		if(3)
@@ -125,7 +125,7 @@
 	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
 
 /obj/attack_alien(mob/living/carbon/alien/humanoid/user)
-	if(attack_generic(user, user.obj_damage, BRUTE, "melee", 0, user.armour_penetration))
+	if(attack_generic(user, user.obj_damage, BRUTE, MELEE, 0, user.armour_penetration))
 		playsound(loc, 'sound/weapons/slash.ogg', 100, TRUE)
 
 /obj/attack_basic_mob(mob/living/basic/user)
@@ -181,7 +181,7 @@
 /obj/attack_slime(mob/living/simple_animal/slime/user)
 	if(user.age_state.age == SLIME_BABY )
 		return
-	attack_generic(user, rand(5 + user.age_state.damage, 10 + user.age_state.damage), BRUTE, "melee", 1)
+	attack_generic(user, rand(5 + user.age_state.damage, 10 + user.age_state.damage), BRUTE, MELEE, 1)
 
 /obj/mech_melee_attack(obj/mecha/M)
 	M.do_attack_animation(src)
@@ -202,7 +202,7 @@
 			else
 				return 0
 	M.visible_message(span_danger("[M.name] hits [src]!"), span_danger("You hit [src]!"))
-	return take_damage(M.force*3, mech_damtype, "melee", play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
+	return take_damage(M.force*3, mech_damtype, MELEE, play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 /obj/singularity_act()
 	ex_act(EXPLODE_DEVASTATE)
@@ -306,9 +306,9 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/modify_max_integrity(new_max, can_break = TRUE, damage_type = BRUTE, new_failure_integrity = null)
 	var/current_integrity = obj_integrity
 	var/current_max = max_integrity
-	
+
 	max_integrity = new_max
-	
+
 	if(current_integrity != 0 && current_max != 0)
 		var/percentage = current_integrity / current_max
 		current_integrity = max(1, round(percentage * new_max))	//don't destroy it as a result

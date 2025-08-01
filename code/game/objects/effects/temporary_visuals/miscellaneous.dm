@@ -258,7 +258,7 @@
 	pixel_y = rand(-4,4)
 	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = 25)
 
-/obj/effect/temp_visual/shockwave
+/obj/effect/temp_visual/shockwave_old
 	name = "shockwave"
 	icon = 'icons/goonstation/effects/64x64.dmi'
 	icon_state = "shockwave"
@@ -266,6 +266,31 @@
 	pixel_y = -16
 	pixel_x = -16
 	duration = 20
+
+/**
+ * Visual shockwave effect using a displacement filter applied to the game world plate
+ * Args:
+ * * radius: visual max radius of the effect
+ * * speed_rate: propagation rate of the effect as a ratio (0.5 is twice as fast)
+ * * easing_type: easing type to use in the anim
+ * * y_offset: additional pixel_y offsets
+ * * x_offset: additional pixel_x offsets
+ */
+/obj/effect/temp_visual/shockwave
+	icon = 'icons/effects/light_overlays/shockwave.dmi'
+	icon_state = "shockwave"
+	plane = GRAVITY_PULSE_PLANE
+	pixel_x = -496
+	pixel_y = -496
+
+/obj/effect/temp_visual/shockwave/Initialize(mapload, radius, direction, speed_rate = 1, easing_type = LINEAR_EASING, y_offset = 0, x_offset = 0)
+	. = ..()
+	pixel_x += x_offset
+	pixel_y += y_offset
+	deltimer(timerid)
+	timerid = QDEL_IN_STOPPABLE(src, 0.5 * radius * speed_rate)
+	transform = matrix().Scale(32 / 1024, 32 / 1024)
+	animate(src, time = 1/2 * radius * speed_rate, transform=matrix().Scale((32 / 1024) * radius * 1.5, (32 / 1024) * radius * 1.5), easing = easing_type)
 
 /obj/effect/temp_visual/implosion
 	name = "implosion"

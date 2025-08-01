@@ -226,7 +226,7 @@
 		return
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	take_damage(5 , BRUTE, "melee", 1)
+	take_damage(5 , BRUTE, MELEE, 1)
 
 /obj/structure/holosoap/holosoap_emagged
 	name = "solid holographic soap"

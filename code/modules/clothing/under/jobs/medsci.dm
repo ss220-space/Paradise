@@ -15,7 +15,7 @@
 	icon_state = "director"
 	item_state = "g_suit"
 	item_color = "director"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 35)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 10, RAD = 0, FIRE = 0, ACID = 35)
 
 /obj/item/clothing/under/rank/scientist
 	name = "scientist's jumpsuit"
@@ -32,7 +32,7 @@
 	item_state = "w_suit"
 	item_color = "toxinswhite"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/scientist/skirt
 	name = "scientist's jumpskirt"
@@ -122,7 +122,7 @@
 	item_state = "w_suit"
 	item_color = "chemistrywhite"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 65)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 50, ACID = 65)
 
 /obj/item/clothing/under/rank/chemist/skirt
 	name = "chemist's jumpskirt"
@@ -157,7 +157,7 @@
 	item_state = "w_suit"
 	item_color = "cmo"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/chief_medical_officer/skirt
 	name = "chief medical officer's jumpskirt"
@@ -189,7 +189,7 @@
 	item_state = "w_suit"
 	item_color = "geneticswhite"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/geneticist/skirt
 	name = "geneticist's jumpskirt"
@@ -221,7 +221,7 @@
 	item_state = "w_suit"
 	item_color = "virologywhite"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/virologist/skirt
 	name = "virologist's jumpskirt"
@@ -253,7 +253,7 @@
 	item_state = "nursesuit"
 	item_color = "nursesuit"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/nurse
 	name = "nurse's dress"
@@ -271,7 +271,7 @@
 	item_state = "nurse"
 	item_color = "nurse"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/orderly
 	name = "orderly's uniform"
@@ -289,7 +289,7 @@
 	item_state = "orderly"
 	item_color = "orderly"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical
 	name = "medical doctor's jumpsuit"
@@ -306,7 +306,7 @@
 	item_state = "w_suit"
 	item_color = "medical"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/sensor
 	sensor_mode = SENSOR_COORDS
@@ -481,7 +481,7 @@
 	item_state = "paramedic"
 	item_color = "paramedic"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 10, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/paramedic/skirt
 	name = "paramedic's jumpskirt"
@@ -563,7 +563,7 @@
 	item_state = "w_suit"
 	item_color = "genetics_new"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/chemist_new
 	name = "chemist's jumpsuit"
@@ -580,7 +580,7 @@
 	item_state = "w_suit"
 	item_color = "chemist_new"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 65)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 50, ACID = 65)
 
 /obj/item/clothing/under/rank/scientist_new
 	name = "scientist's jumpsuit"
@@ -597,7 +597,7 @@
 	item_state = "w_suit"
 	item_color = "scientist_new"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/virologist_new
 	name = "virologist's jumpsuit"
@@ -614,7 +614,7 @@
 	item_state = "w_suit"
 	item_color = "virologist_new"
 	permeability_coefficient = 0.50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/mining_medic
 	name = "mining medic's jumpsuit"
