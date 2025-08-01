@@ -24,7 +24,8 @@
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("огрел", "ударил")
-	use_sound = 'sound/effects/toolbox_open.ogg'
+	storage_slots = 10
+	use_sound = 'sound/items/handling/toolbox_open.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbox_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/toolbox_pickup.ogg'
@@ -97,7 +98,7 @@
 	if(!length(choices))
 		return
 
-	playsound(user, 'sound/effects/toolbox_open.ogg', 50)
+	playsound(user, 'sound/items/handling/toolbox_open.ogg', 50)
 	var/obj/item/picked_item = show_radial_menu(user, src, choices, require_near = TRUE)
 	if(!picked_item)
 		return
@@ -108,7 +109,7 @@
 			selected = item
 			break
 
-	playsound(user, 'sound/effects/toolbox_rustle.ogg', 50)
+	playsound(user, 'sound/items/handling/toolbox_rustle.ogg', 50)
 	if(!user.put_in_inactive_hand(selected))
 		return
 
@@ -142,7 +143,7 @@
 		handle_item_insertion(picked_tool)
 
 /*
-Toolbox types
+	Toolbox types
 */
 
 /obj/item/storage/toolbox/emergency
@@ -170,7 +171,7 @@ Toolbox types
 	new /obj/item/radio(src)
 
 /obj/item/storage/toolbox/emergency/old
-	name = "rusty red toolbox"
+	name = "rusty toolbox"
 	ru_names = list(
 		NOMINATIVE = "ржавый ящик для инструментов",
 		GENITIVE = "ржавого ящика для инструментов",
@@ -211,7 +212,7 @@ Toolbox types
 
 
 /obj/item/storage/toolbox/mechanical/old
-	name = "rusty blue toolbox"
+	name = "rusty toolbox"
 	ru_names = list(
 		NOMINATIVE = "ржавый ящик для инструментов",
 		GENITIVE = "ржавого ящика для инструментов",
@@ -293,7 +294,7 @@ Toolbox types
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=5;syndicate=1;engineering=5"
 	silent = 1
-	/// robuster because of rarity
+	// robuster because of rarity
 	force = 18.0
 	throwforce = 20.0
 	blurry_chance = 12
