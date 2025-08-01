@@ -1,10 +1,9 @@
 // The max lenght is 17 symbols!!!
-// Tabs
 
+// Tabs
 #define STATPANEL_STATUS "Статус"
 
 // Category
-
 #define STATPANEL_OOC "OOC"
 #define STATPANEL_IC "IC"
 #define STATPANEL_OBJECT "Объекты" //todo
@@ -32,7 +31,6 @@
 #define STATPANEL_ANIMAL "Животное"
 
 // Admin Category
-
 #define STATPANEL_ADMIN_TICKETS "Админ.Админская и менторская помощь" // So that the subcategory is somewhere at the top
 #define STATPANEL_ADMIN_ADMIN "Админ.Админ"
 #define STATPANEL_ADMIN_TOGGLES "Админ.Переключаемое"
@@ -44,6 +42,9 @@
 #define STATPANEL_SERVER "Сервер"
 
 // Admin and Mentor PM's
-
 #define MENTORHELP "Помощь Ментора"
 #define ADMINHELP "Помощь Админа"
+#define ADMINHELP_TICKET_NAME "Админ тикет"
+#define MENTORHELP_TICKET_NAME "Ментор тикет"
+#define MENTORHELP_SYSTEM_NAME "Запросы помощи Ментора"
+#define ADMINHELP_SYSTEM_NAME "Запросы помощи Админа"

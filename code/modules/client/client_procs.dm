@@ -219,16 +219,9 @@
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
 	if(filelength > UPLOAD_LIMIT)
-		to_chat(src, span_red("Ошибка: AllowUpload(): Загрузка слишком большого файла. Ограничение на загрузку: [UPLOAD_LIMIT/1024]КБ."), confidential=TRUE)
-		return 0
-/*	//Don't need this at the moment. But it's here if it's needed later.
-	//Helps prevent multiple files being uploaded at once. Or right after eachother.
-	var/time_to_wait = fileaccess_timer - world.time
-	if(time_to_wait > 0)
-		to_chat(src, "<font color='red'>Error: AllowUpload(): Spam prevention. Please wait [round(time_to_wait/10)] seconds.</font>")
-		return 0
-	fileaccess_timer = world.time + FTPDELAY	*/
-	return 1
+		to_chat(src, span_red("Ошибка: AllowUpload(): Загрузка слишком большого файла. Ограничение на загрузку: [UPLOAD_LIMIT/1024]КБ."), confidential = TRUE)
+		return FALSE
+	return TRUE
 
 
 	///////////
@@ -236,7 +229,7 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
-	TopicData = null							//Prevent calls to client.Topic from connect
+	TopicData = null //Prevent calls to client.Topic from connect
 
 	if(byond_version >= 516)
 		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
@@ -244,12 +237,15 @@
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
+	// Create a PM tracker bound to this ckey.
+	pm_tracker = new(ckey)
+
 	//kill old tgui panel
 	winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
 
-	if(connection != "seeker")					//Invalid connection type.
+	if(connection != "seeker") //Invalid connection type.
 		return null
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		version_blocked = TRUE
@@ -261,8 +257,8 @@
 		show_update_prompt = TRUE
 	else if(byond_version == SUGGESTED_CLIENT_VERSION && byond_build < SUGGESTED_CLIENT_BUILD)
 		show_update_prompt = TRUE
-	// Actually sent to client much later, so it appears after MOTD.
 
+	// Actually sent to client much later, so it appears after MOTD.
 	to_chat(src, span_warning("Если вы видите чёрный экран, это означает, что процесс загрузки ещё продолжается. Пожалуйста, подождите немного, пока не появится начальный экран."), confidential=TRUE)
 
 	GLOB.directory[ckey] = src
