@@ -38,7 +38,7 @@
 		if(!user.drop_transfer_item_to_loc(new_magazine, src))
 			return ..()
 		if(magazine)
-			magazine.forceMove(drop_location())
+			magazine.forceMove(get_turf(src))
 			magazine.update_appearance()
 		balloon_alert(user, "заряжено")
 		alarmed = FALSE	// Reset the alarm once a magazine is loaded
