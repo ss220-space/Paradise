@@ -81,10 +81,10 @@
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			announcer.say(";Произведена доставка двигателя типа: [engtype].")	//Let's announce the terrible choice to everyone
 
-		visible_message(span_notice("[capitalize(I.declent_ru(NOMINATIVE))] начинает сильно вибрировать и шипеть, а затем быстро распадается!"))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает сильно вибрировать и шипеть, а затем быстро распадается!"))
 		qdel(src)	//Self-destructs to prevent crew from spawning multiple engines.
 	else
-		visible_message(span_notice("[capitalize(I.declent_ru(NOMINATIVE))] гудит! Маяк не найден или не выбран!"))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] гудит! Маяк не найден или не выбран!"))
 		isactive = FALSE
 		return
 
