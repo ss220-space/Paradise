@@ -356,7 +356,7 @@ Toolbox types
 	max_w_class = WEIGHT_CLASS_NORMAL
 	/// More than standart version
 	max_combined_w_class = 28
-	/// More than standart version
+	/// Way more than standart version
 	storage_slots = 28
 
 /obj/item/storage/toolbox/brass/prefilled/populate_contents()
