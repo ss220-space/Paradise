@@ -156,7 +156,7 @@
 
 		if(glow_colored)
 			var/datum/color_matrix/mat = new(
-				length(light_color) > 3 ? light_color : "#000000",
+				light_color == ""? "#000000":light_color, 
 				GLOB.lighting_effects_configuration["glow_contrast_base"] + GLOB.lighting_effects_configuration["glow_contrast_power"] * light_power,
 				GLOB.lighting_effects_configuration["glow_brightness_base"] + GLOB.lighting_effects_configuration["glow_brightness_power"] * light_power)
 			glow_overlay.color = mat.get()
