@@ -40,6 +40,7 @@
 	var/empty_state = "kineticgun_empty"
 	/// Saved timer that can be overrided by modkits after hitting target.
 	var/recharge_timerid
+	accuracy = GUN_ACCURACY_SNIPER
 
 
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)

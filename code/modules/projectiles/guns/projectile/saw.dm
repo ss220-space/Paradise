@@ -16,6 +16,7 @@
 	fire_delay = 1
 	burst_size = 1
 	actions_types = null
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
 	. = ..()

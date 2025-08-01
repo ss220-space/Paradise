@@ -19,6 +19,7 @@
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -33,6 +34,7 @@
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
+	accuracy = GUN_ACCURACY_DEFAULT
 
 // Decloner //
 /obj/item/gun/energy/decloner
@@ -42,6 +44,7 @@
 	origin_tech = "combat=4;materials=4;biotech=5;plasmatech=6"
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/energy/decloner/update_icon_state()
@@ -69,6 +72,8 @@
 	can_charge = FALSE
 	selfcharge = TRUE
 	var/emagged = FALSE
+	accuracy = GUN_ACCURACY_SNIPER
+
 
 /obj/item/gun/energy/floragun/emag_act(mob/user)
 	. = ..()
@@ -100,6 +105,7 @@
 	cell_type = /obj/item/stock_parts/cell/potato
 	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
 	selfcharge = TRUE
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -119,6 +125,7 @@
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
+	accuracy = GUN_ACCURACY_DEFAULT
 
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
@@ -139,6 +146,7 @@
 	can_flashlight = FALSE
 	max_mod_capacity = 0
 	empty_state = null
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
@@ -149,6 +157,7 @@
 	origin_tech = "combat=4;magnets=4;syndicate=2"
 	suppressed = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/toy
 	name = "toy energy crossbow"
@@ -160,12 +169,14 @@
 	suppressed = 0
 	overheat_time = 8 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/bolttoy)
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
 	icon_state = "crossbowlarge"
 	origin_tech = null
 	materials = list()
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
@@ -199,6 +210,7 @@
 	force = 12
 	sharp = 1
 	can_charge = FALSE
+	accuracy = GUN_ACCURACY_RIFLE
 
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
@@ -260,6 +272,7 @@
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
+	accuracy = GUN_ACCURACY_SNIPER
 
 /obj/item/gun/energy/plasmacutter/adv/mega
 	name = "magmite plasma cutter"
@@ -293,6 +306,7 @@
 	origin_tech = "combat=5;materials=5;magnets=5;plasmatech=6;engineering=5"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun)
 	force = 10
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 /obj/item/gun/energy/plasmacutter/shotgun/mega
 	name = "magmite plasma cutter shotgun"
@@ -322,6 +336,7 @@
 	selfcharge = TRUE
 	var/obj/effect/portal/wormhole_projector/blue
 	var/obj/effect/portal/wormhole_projector/orange
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/energy/wormhole_projector/update_icon_state()
@@ -372,6 +387,7 @@
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/printer/update_overlays()
 	return list()
@@ -388,6 +404,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -414,6 +431,7 @@
 	clumsy_check = FALSE
 	selfcharge = TRUE
 	ammo_x_offset = 3
+	accuracy = GUN_ACCURACY_MINIMAL
 
 /obj/item/gun/energy/toxgun
 	name = "toxin pistol"
@@ -423,6 +441,7 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = TRUE
+	accuracy = GUN_ACCURACY_RIFLE
 
 // Energy Sniper //
 /obj/item/gun/energy/sniperrifle
@@ -439,6 +458,7 @@
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = TRUE
+	accuracy = GUN_ACCURACY_SNIPER
 
 /obj/item/gun/energy/sniperrifle/pod_pilot
 	name = "LSR-39 Queen blade"
@@ -458,6 +478,7 @@
 	zoom_amt = 7
 	shaded_charge = TRUE
 	modifystate = TRUE
+	accuracy = GUN_ACCURACY_SNIPER
 
 
 // Temperature Gun //
@@ -481,6 +502,7 @@
 
 	var/emagged = FALSE			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
@@ -660,6 +682,7 @@
 	selfcharge = TRUE
 	ammo_x_offset = 3
 	var/mimic_type = /obj/item/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/mimicgun/newshot()
 	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
@@ -703,6 +726,7 @@
 	var/is_equipped = FALSE
 	/// Timestamp used for sound effects
 	COOLDOWN_DECLARE(last_sound_effect)
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
@@ -759,6 +783,7 @@
 	cell_type = /obj/item/stock_parts/cell/emittergun
 	ammo_type = list(/obj/item/ammo_casing/energy/emittergun)
 	can_charge = TRUE
+	accuracy = GUN_ACCURACY_RIFLE
 
 // Shield breaker //
 
@@ -780,6 +805,7 @@
 	var/warned = FALSE
 	var/charging = FALSE
 	var/mob/living/carbon/holder = null
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 	. = ..()

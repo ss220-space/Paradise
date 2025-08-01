@@ -294,9 +294,10 @@
 	var/distance = get_dist(bumped_turf, starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
 	if(!forced_accuracy)
 		if(get_dist(bumped_atom, original) <= 1)
-			def_zone = ran_zone(def_zone, max(100 - (7 * distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+			var/hit_chance = calculate_randomize_def_zone_chance(src, distance)
+			def_zone = ran_zone(def_zone, hit_chance)
 		else
-			def_zone = pick(list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)) // If we were aiming at one target but another one got hit, no accuracy is applied
+			def_zone = ran_zone(def_zone, probability = 0) // If we were aiming at one target but another one got hit, no accuracy is applied
 
 	if(isturf(bumped_atom) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
@@ -389,7 +390,7 @@
 			forcemoved = TRUE
 		else if(T != loc)
 			step_towards(src, T)
-		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
+		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER && !isliving(original)))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original)
 	if(QDELETED(src)) //deleted on last move
@@ -425,8 +426,8 @@
 		Angle = round(get_angle(src, current))
 	if(spread)
 		Angle += (rand() - 0.5) * spread
-	if(firer && ismob(firer))
-		hit_crawling_mobs_chance = firer.a_intent == INTENT_HELP ? 0 : 100
+	if(firer && ismob(firer) && firer.a_intent != INTENT_HELP)
+		hit_crawling_mobs_chance =  100
 	// Turn right away
 	var/matrix/M = new
 	M.Turn(Angle)
