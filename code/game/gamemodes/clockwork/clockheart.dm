@@ -361,4 +361,4 @@ GLOBAL_DATUM(Heart, /obj/structure/clockwork/functional/heart)
 	pixel_x = -32
 	pixel_y = -32
 	layer = SPACEVINE_LAYER
-	duration = 4
+	duration = 3
