@@ -1423,3 +1423,5 @@
 	#define CONTAINER_INSERT_SUCCESS (1<<0)
 	/// Failed to insert stack (no space, invalid material, etc)
 	#define CONTAINER_INSERT_FAILED (1<<1)
+
+#define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"

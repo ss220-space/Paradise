@@ -545,8 +545,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
 			holder.big_brother = TRUE
+			if(isobserver(mob))
+				mob.invisibility = INVISIBILITY_BIG_BROTHER
+				mob.see_invisible = SEE_INVISIBLE_BIG_BROTHER
 			createStealthKey()
-		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]")
+		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]", TRUE)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode")
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
@@ -1146,6 +1149,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		update_active_keybindings()
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
+		if(isobserver(mob))
+			var/mob/dead/observer/observer = mob
+			observer.update_admin_actions()
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
 		return
 	else
