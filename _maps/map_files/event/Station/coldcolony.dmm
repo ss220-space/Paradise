@@ -2461,6 +2461,13 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/bridge/tcomm)
+"aSv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/join_late_prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/coldcolony/malta/security/permabrig)
 "aSC" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -2880,6 +2887,13 @@
 	icon_state = "purple"
 	},
 /area/coldcolony/malta/research/chargebay)
+"baF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/coldcolony/malta/security/permabrig)
 "baI" = (
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/security/securehallway)
@@ -6039,6 +6053,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "cir" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -8009,6 +8024,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -29363,6 +29379,16 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/bridge/tcomm)
+"kKc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/security/permabrig)
 "kKm" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -29838,6 +29864,21 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/coldcolony/malta/engineering/atmos)
+"kTw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/security/permabrig)
 "kUj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -59937,6 +59978,7 @@
 	},
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -61412,6 +61454,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/garden)
 "wuS" = (
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -66069,6 +66112,7 @@
 "ygL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/soap/syndie,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -107958,11 +108002,11 @@ fTE
 fTE
 wYq
 myV
-hHg
+kKc
 kSd
 lLL
 pTF
-eXF
+kTw
 pxI
 baI
 jLK
@@ -109761,7 +109805,7 @@ ecV
 uTu
 nMW
 fKo
-gmy
+baF
 vnF
 kzc
 vWa
@@ -110789,7 +110833,7 @@ oao
 rNa
 loV
 rbF
-gmy
+aSv
 nWp
 kzc
 kzc
