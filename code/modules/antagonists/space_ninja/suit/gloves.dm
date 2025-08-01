@@ -22,7 +22,7 @@
 	strip_delay = 120
 	permeability_coefficient = 1
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 20,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 100, FIRE = 100, ACID = 100)
 	///Ниндзя украл ваше бельё ( ͡° ͜ʖ ͡°)
 	pickpocket = 1
 	///Whether or not we're currently draining something

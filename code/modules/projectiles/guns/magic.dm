@@ -23,6 +23,7 @@
 
 	lefthand_file = 'icons/mob/inhands/staff_lefthand.dmi' //not really a gun and some toys use these inhands
 	righthand_file = 'icons/mob/inhands/staff_righthand.dmi'
+	accuracy = GUN_ACCURACY_SNIPER
 
 /obj/item/gun/magic/afterattack(atom/target, mob/living/user, flag, params)
 	if(no_den_usage)

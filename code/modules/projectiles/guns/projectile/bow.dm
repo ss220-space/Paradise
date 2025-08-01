@@ -27,6 +27,7 @@
 	var/draw_sound = 'sound/weapons/bows/bow_pull.ogg'
 	var/ready_to_fire = FALSE
 	var/slowdown_when_ready = 2
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/projectile/bow/ashen //better than wooden
 	name = "bone bow"
@@ -50,6 +51,7 @@
 	flags = NONE
 	force = 10
 	slowdown_when_ready = 1
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/projectile/bow/proc/update_state()
 	update_slowdown()

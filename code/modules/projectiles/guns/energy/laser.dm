@@ -11,6 +11,7 @@
 	shaded_charge = TRUE
 	can_flashlight = TRUE
 	gun_light_overlay = "lasergun_light"
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/laser/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_gunlight))
@@ -26,6 +27,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0
 	needs_permit = FALSE
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"
@@ -33,6 +35,7 @@
 	item_state = "laser"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
@@ -46,6 +49,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	unique_reskin = TRUE
 	var/high_risk = TRUE
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/laser/captain/Initialize(mapload, ...)
 	. = ..()
@@ -67,6 +71,7 @@
 	shaded_charge = FALSE
 	unique_reskin = FALSE
 	high_risk = FALSE
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 
 /obj/item/gun/energy/laser/cyborg
@@ -74,6 +79,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/cyborg)
 	can_charge = FALSE
 	origin_tech = null
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/laser/cyborg/newshot()
 	..()
@@ -86,6 +92,7 @@
 	name = "scatter laser gun"
 	desc = "A laser gun equipped with a refraction kit that spreads bolts."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 ///Laser Cannon
 
@@ -103,6 +110,7 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/projectile/beam/laser/accelerator
@@ -141,6 +149,7 @@
 	icon_state = "xray"
 	origin_tech = "combat=6;materials=4;magnets=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/immolator
 	name = "Immolator laser gun"
@@ -150,6 +159,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = TRUE
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/immolator/multi
 	name = "multi lens immolator cannon"
@@ -157,6 +167,7 @@
 	icon_state = "multilensimmolator"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
+	accuracy = GUN_ACCURACY_RIFLE
 
 
 /obj/item/gun/energy/immolator/multi/update_overlays()
@@ -183,6 +194,7 @@
 	needs_permit = FALSE
 	ammo_x_offset = 2
 	selfcharge = TRUE
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/laser/tag/blue
 	icon_state = "bluetag"
