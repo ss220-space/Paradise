@@ -1,6 +1,6 @@
 /obj/item/enginepicker
 	name = "Bluespace Engine Delivery Device"
-	desc = "Система доставки двигателя, основанная на блюспейс технологиях. Есть возможность выбрать только один вариант. Устройство самоуничтожается после использования."
+	desc = "Система доставки двигателя, основанная на блюспейс-технологиях. Есть возможность выбрать только один вариант. Устройство самоуничтожается после использования."
 	ru_names = list(
 		NOMINATIVE = "Блюспейс устройство доставки двигателя",
 		GENITIVE = "Блюспейс устройства доставки двигателя",
@@ -88,7 +88,7 @@
 		isactive = FALSE
 		return
 
-//Deletes objects and mobs from the beacon's turf.
+/// Deletes objects and mobs from the beacon's turf.
 /obj/item/enginepicker/proc/clearturf(var/turf/T)
 	for(var/obj/item/I in T)
 		I.visible_message("[capitalize(I.declent_ru(NOMINATIVE))] превращается в пыль!")
