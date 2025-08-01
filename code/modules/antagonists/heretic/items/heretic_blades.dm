@@ -452,7 +452,7 @@
 		return NONE
 
 	// Can only carve runes with it if off combat mode.
-	if(!is_space_or_openspace(target) || user.a_intent == INTENT_HARM)
+	if(iswallturf(target) || user.a_intent == INTENT_HARM)
 		return NONE
 
 	heretic_datum.try_draw_rune(user, target, drawing_time = 14 SECONDS) // Faster than pen, slower than cicatrix

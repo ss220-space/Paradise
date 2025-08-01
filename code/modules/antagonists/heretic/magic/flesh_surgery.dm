@@ -28,20 +28,24 @@
 
 
 /obj/item/melee/touch_attack/flesh_surgery/afterattack(atom/victim, mob/living/carbon/caster, proximity, params)
+	if(!proximity)
+		return FALSE
+
 	var/obj/effect/proc_holder/spell/touch/flesh_surgery/spell = attached_spell
 	if(isorgan(victim))
 		heal_organ(src, victim, caster)
 		return
 
-	if(isliving(victim))
-		var/mob/living/mob_victim = victim
-		if(mob_victim.stat != DEAD && HAS_TRAIT(victim, TRAIT_HERETIC_SUMMON))
-			heal_heretic_monster(src, victim, caster)
-			return
+	if(!isliving(victim))
+		return FALSE
 
-		return spell.steal_organ_from_mob(src, victim, caster)
+	var/mob/living/mob_victim = victim
+	if(mob_victim.stat != DEAD && HAS_TRAIT(victim, TRAIT_HERETIC_SUMMON))
+		heal_heretic_monster(victim, caster)
+		return
 
-	return FALSE
+	return spell.steal_organ_from_mob(src, victim, caster)
+
 
 /*
 /obj/effect/proc_holder/spell/touch/flesh_surgery/register_hand_signals()
@@ -96,7 +100,7 @@
 	new /obj/effect/temp_visual/cult/sparks(get_turf(to_heal))
 	caster.visible_message(
 		span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[genderize_ru(caster.gender, "", "а", "о", "и")] каса[pluralize_ru(caster.gender, "е", "ю")]тся [to_heal.declent_ru(GENITIVE)]!"),
-		span_notice("Ваша рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда вы касаетесь [to_heal.declent_ru(GENITIVE)]!"),
+		span_notice("Ваша рука светится брильянтово красным когда вы касаетесь [to_heal.declent_ru(GENITIVE)]!"),
 	)
 
 	return TRUE
@@ -117,7 +121,7 @@
 	new /obj/effect/temp_visual/cult/sparks(get_turf(to_heal))
 	caster.visible_message(
 		span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[genderize_ru(caster.gender, "", "а", "о", "и")] каса[pluralize_ru(caster.gender, "е", "ю")]тся [to_heal.declent_ru(GENITIVE)]!"),
-		span_notice("Ваша рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда вы касаетесь [to_heal.declent_ru(GENITIVE)]!"),
+		span_notice("Ваша рука светится брильянтово красным когда вы касаетесь [to_heal.declent_ru(GENITIVE)]!"),
 	)
 	return TRUE
 
@@ -127,6 +131,10 @@
 	var/mob/living/carbon/carbon_victim = victim
 	if(!istype(carbon_victim) || !length(carbon_victim.internal_organs))
 		victim.balloon_alert(caster, "нет органов!")
+		return FALSE
+
+	if(get_dist(caster, victim) > 1)
+		caster.balloon_alert(caster, "слишком далеко!")
 		return FALSE
 
 	var/zone_to_check = check_zone(caster.zone_selected)
@@ -166,13 +174,13 @@
 		time_it_takes = 6 SECONDS
 		caster.visible_message(
 			span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[genderize_ru(caster.gender, "", "а", "о", "и")] погружа[pluralize_ru(caster.gender, "е", "ю")]т её в своё тело!"),
-			span_notice("Ваша рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда вы погружаете её в своё тело!"),
+			span_notice("Ваша рука светится брильянтово красным когда вы погружаете её в своё тело!"),
 		)
 
 	else
-		carbon_victim.visible_message(
+		caster.visible_message(
 			span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[genderize_ru(caster.gender, "", "а", "о", "и")] погружа[pluralize_ru(caster.gender, "е", "ю")]т её в тело [carbon_victim.declent_ru(ACCUSATIVE)]!"),
-			span_notice("Ваша рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда вы погружаете её в тело [carbon_victim.declent_ru(ACCUSATIVE)]!"),
+			span_notice("Ваша рука светится брильянтово красным когда вы погружаете её в тело [carbon_victim.declent_ru(ACCUSATIVE)]!"),
 		)
 
 	carbon_victim.balloon_alert(caster, "извлечение [picked_organ.declent_ru(GENITIVE)]...")

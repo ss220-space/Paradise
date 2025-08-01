@@ -76,22 +76,18 @@
 		return
 
 	if(LAZYLEN(created_items) >= limit)
-		target.balloon_alert(source, "at ghoul limit!")
-		return COMPONENT_BLOCK_HAND_USE
-
-	if(HAS_TRAIT(target, TRAIT_HUSK))
-		target.balloon_alert(source, "husked!")
+		target.balloon_alert(source, "лимит гулей!")
 		return COMPONENT_BLOCK_HAND_USE
 
 	if(!IS_VALID_GHOUL_MOB(target))
-		target.balloon_alert(source, "invalid body!")
+		target.balloon_alert(source, "не подходящее тело!")
 		return COMPONENT_BLOCK_HAND_USE
 
 	target.grab_ghost()
 
 	// The grab failed, so they're mindless or playerless. We can't continue
 	if(!target.mind || !target.client)
-		target.balloon_alert(source, "no soul!")
+		target.balloon_alert(source, "нет души!")
 		return COMPONENT_BLOCK_HAND_USE
 
 	make_ghoul(source, target)

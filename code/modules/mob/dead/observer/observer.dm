@@ -178,27 +178,31 @@ Works together with spawning an observer, noted above.
 		C.images += target.hud_list[SPECIALROLE_HUD]
 	return 1
 
+
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER)
-	if(key)
-		if(GLOB.non_respawnable_keys[ckey])
-			flags &= ~GHOST_CAN_REENTER
+	if(!key)
+		return
 
-		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
-		if(client)
-			client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
+	if(GLOB.non_respawnable_keys[ckey])
+		flags &= ~GHOST_CAN_REENTER
 
-		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
-		GLOB.respawnable_list -= src
+	var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
+	if(client)
+		client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
 
-		if(ghost.can_reenter_corpse)
-			GLOB.respawnable_list += ghost
-		else
-			GLOB.non_respawnable_keys[ckey] = 1
+	ghost.timeofdeath = src.timeofdeath //BS12 EDIT
+	GLOB.respawnable_list -= src
 
-		ghost.key = key
-		ghost.client?.init_verbs()
-		SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
-		return ghost
+	if(ghost.can_reenter_corpse)
+		GLOB.respawnable_list += ghost
+	else
+		GLOB.non_respawnable_keys[ckey] = 1
+
+	ghost.key = key
+	ghost.client?.init_verbs()
+	SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
+	return ghost
+
 
 /mob/proc/ManualFollow(atom/movable/target)
 	if(!target)

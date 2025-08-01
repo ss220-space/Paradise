@@ -45,5 +45,5 @@
 
 	objectives += master_obj
 	owner.prepare_announce_objectives()
-	//to_chat(owner, span_boldnotice("Вы [ishuman(owner.current) ? "вернулись с того света": "ужасное создание пришедшее"] сюда через Врата Мансуса."))
-	//to_chat(owner, span_notice("[master.current.declent_ru(NOMINATIVE)] - ваш мастер. Помогайте ему во всем."))
+	to_chat(owner.current, span_boldnotice("Вы [ishuman(owner.current) ? "вернулись с того света": "ужасное создание пришедшее"] сюда через Врата Мансуса."))
+	to_chat(owner.current, span_notice("[master.current.declent_ru(NOMINATIVE)] - ваш мастер. Помогайте ему во всем."))

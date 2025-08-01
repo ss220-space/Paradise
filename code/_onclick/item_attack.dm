@@ -172,6 +172,7 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	var/signal_out = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user, params, def_zone)
+	SEND_SIGNAL(target, COMSIG_ATOM_ATTACKEDBY, src, user, params)
 
 	if(signal_out & COMPONENT_NO_AFTERATTACK)
 		. |= ATTACK_CHAIN_NO_AFTERATTACK

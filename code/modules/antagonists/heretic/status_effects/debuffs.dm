@@ -129,7 +129,7 @@
 	var/datum/weakref/spell_caster
 
 /atom/movable/screen/alert/status_effect/star_mark
-	name = "Звездная Метка"
+	name = "Звёздная Метка"
 	desc = "Кольцо над головой не позволяет вам входить в космические поля или телепортироваться через космические руны..."
 	icon_state = "star_mark"
 
@@ -219,7 +219,7 @@
 /datum/status_effect/moon_converted/on_creation()
 	. = ..()
 	moon_insanity_overlay = mutable_appearance(effect_icon, effect_icon_state, ABOVE_MOB_LAYER)
-	
+
 
 /datum/status_effect/moon_converted/Destroy()
 	QDEL_NULL(moon_insanity_overlay)

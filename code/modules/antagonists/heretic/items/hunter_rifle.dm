@@ -25,9 +25,6 @@
 
 	//SET_BASE_PIXEL(-8, 0)
 
-/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/update_icon_state()
-	return
-
 /*
 /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/Initialize(mapload)
 	. = ..()
@@ -176,6 +173,11 @@
 		return
 
 	living_firer.forceMove(src)
+	var/obj/item/gun/projectile/gun = firer_source_atom
+	gun.zoom(living_firer, FALSE)
+	if(gun.azoom)
+		gun.azoom.Remove(living_firer)
+
 	stored_mob = living_firer
 
 
@@ -192,7 +194,7 @@
 
 
 /obj/projectile/bullet/strilka310/lionhunter/on_hit(atom/target, blocked, pierce_hit)
-	stored_mob?.forceMove(loc) //Pretty important to get our mob out of the bullet
+	//stored_mob?.forceMove(loc) //Pretty important to get our mob out of the bullet // No :badguy:
 	. = ..()
 	if(!isliving(target))
 		return
@@ -210,7 +212,7 @@
 	if(!stored_mob)
 		return ..()
 
-	stack_trace("Lionhunter bullet qdel'd with its firer still inside!")
+	//stack_trace("Lionhunter bullet qdel'd with its firer still inside!")
 	stored_mob.forceMove(loc)
 	return ..()
 

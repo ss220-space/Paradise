@@ -12,7 +12,7 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-	base_cooldown = 60 SECONDS
+	base_cooldown = 25 SECONDS
 	invocation = "Р'СТН СТ'ЛЬ!"
 	invocation_type = INVOCATION_SHOUT
 
@@ -58,7 +58,7 @@
 	// Let the caster prioritize melee attacks like punches and shoves over blade casts
 	if(get_dist(clicker, target) <= 1)
 		return FALSE
-	
+
 	return ..()
 
 
@@ -105,6 +105,9 @@
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/fire_projectile(mob/living/user, atom/target)
+	if(blade_effect.blades.len == 0)
+		return
+
 	. = ..()
 	qdel(blade_effect.blades[1])
 
@@ -123,15 +126,17 @@
 	// Which scales the cooldown according to projectiles remaining
 	remove_mousepointer(action.owner.client, refund_cooldown = FALSE)
 	// Snowflake because it does not handle cooldown if we used every projectile
-	if(blades_remaining <= 0)
-		cooldown_handler.start_recharge()
+	if(blades_remaining > 0)
+		return
+
+	cooldown_handler.start_recharge()
 
 
 /// Reduce our projectile amount when our blade status effect is triggered
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/proc/on_status_effect_triggered(datum/status_effect/protective_blades/source, atom/target)
 	SIGNAL_HANDLER
-
 	current_amount--
+
 
 /obj/projectile/floating_blade
 	name = "клинок"

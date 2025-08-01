@@ -67,13 +67,13 @@
 
 
 /// The cooldown duration between triggers of blade dance
-#define BLADE_DANCE_COOLDOWN (20 SECONDS)
+#define BLADE_DANCE_COOLDOWN (10 SECONDS)
 
 
 /datum/heretic_knowledge/blade_dance
 	name = "Танец Клинка"
 	desc = "Если вас атакуют, пока вы держите в любой из рук клинок Еретика, вы нанесёте ответный удар \
-			по атакующему. Этот эффект может сработать только раз в 20 секунд."
+			по атакующему. Этот эффект может сработать только раз в 10 секунд."
 	gain_text = "Этот пехотинец был известен как грозный дуэлянт. \
 				Их генерал даровал ему титул Чемпиона."
 	cost = 1
@@ -458,8 +458,4 @@
 			return TRUE
 
 	// Exceptions aside, let's actually check if they're, yknow, behind
-	var/dir_target_to_source = get_dir(target, source)
-	if(target.dir & REVERSE_DIR(dir_target_to_source))
-		return TRUE
-
-	return FALSE
+	return source.dir == get_dir(source, target)

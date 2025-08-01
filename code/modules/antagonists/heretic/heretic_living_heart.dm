@@ -84,8 +84,10 @@
 	/// Navigator to our target that we have.
 	var/datum/status_effect/agent_pinpointer/scan/heretic/heretic_pinpointer
 
+
 /obj/effect/proc_holder/spell/track_target/can_add(mob/granted)
 	return isheretic(granted)
+
 
 /obj/effect/proc_holder/spell/track_target/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	. = ..()
@@ -99,6 +101,7 @@
 		return FALSE
 
 	return TRUE
+
 
 /obj/effect/proc_holder/spell/track_target/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/heretic/heretic_datum = action.owner.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -169,14 +172,17 @@
 	action.owner.balloon_alert(action.owner, get_balloon_message(tracked_thing))
 
 	// Let them know how to sacrifice people if they're able to be sac'd
-	if(ismob(tracked_thing))
-		var/mob/tracked_mob = tracked_thing
-		if(tracked_mob.stat == DEAD)
-			to_chat(action.owner, span_hierophant("[tracked_mob.declent_ru(NOMINATIVE)] мертв[genderize_ru(tracked_mob.gender, "", "а", "о", "ы")]. \
-											Принесите [genderize_ru(tracked_mob.gender, "его", "её", "его", "их")] на руну трансформации и скастуйте \
-											\"[sac_knowledge.name]\", чтобы принисти [genderize_ru(tracked_mob.gender, "его", "её", "его", "их")] в жертву!"))
+	if(!ismob(tracked_thing))
+		return
 
-	return
+	var/mob/tracked_mob = tracked_thing
+	if(tracked_mob.stat != DEAD)
+		return
+
+	to_chat(action.owner, span_hierophant("[tracked_mob.declent_ru(NOMINATIVE)] мертв[genderize_ru(tracked_mob.gender, "", "а", "о", "ы")]. \
+										Принесите [genderize_ru(tracked_mob.gender, "его", "её", "его", "их")] на руну трансформации и скастуйте \
+										\"[sac_knowledge.name]\", чтобы принисти [genderize_ru(tracked_mob.gender, "его", "её", "его", "их")] в жертву!"))
+
 
 /// Callback for the radial to ensure it's closed when not allowed.
 /obj/effect/proc_holder/spell/track_target/proc/check_menu()
@@ -187,6 +193,7 @@
 		return FALSE
 
 	return TRUE
+
 
 /// Gets the balloon message for who we're tracking.
 /obj/effect/proc_holder/spell/track_target/proc/get_balloon_message(atom/tracked_thing)
@@ -251,12 +258,14 @@
 		if(action.owner.hud_used)
 			new /atom/movable/screen/navigate_arrow(null, action.owner.hud_used, their_turf, arrow_color)
 
-	if(ismob(tracked_thing))
-		var/mob/tracked_mob = tracked_thing
-		if(tracked_mob.stat == DEAD)
-			balloon_message = "мертв[genderize_ru(tracked_mob.gender, "ый", "ая", "ое", "ые")] " + balloon_message
+	if(!ismob(tracked_thing))
+		return balloon_message
 
-	return balloon_message
+	var/mob/tracked_mob = tracked_thing
+	if(tracked_mob.stat != DEAD)
+		return balloon_message
+
+	return "мертв[genderize_ru(tracked_mob.gender, "ый", "ая", "ое", "ые")] " + balloon_message
 
 
 /atom/movable/screen/navigate_arrow
@@ -271,15 +280,17 @@
 /atom/movable/screen/navigate_arrow/Initialize(mapload, datum/hud/hud_owner, turf/tracked_turf, arrow_color)
 	. = ..()
 	var/mob/owner = hud?.mymob
-	if (owner)
+	if(owner)
 		animate(src, transform = matrix(get_angle(owner, tracked_turf), MATRIX_ROTATE), 0.2 SECONDS)
 
 	screen_loc = around_player
 	color = arrow_color
-	if (hud)
-		hud.infodisplay += src
-		hud.show_hud(hud.hud_version)
+	if(!hud)
+		addtimer(CALLBACK(src, PROC_REF(end_effect)), 1.6 SECONDS)
+		return
 
+	hud.infodisplay += src
+	hud.show_hud(hud.hud_version)
 	addtimer(CALLBACK(src, PROC_REF(end_effect)), 1.6 SECONDS)
 
 
@@ -289,7 +300,10 @@
 
 
 /atom/movable/screen/navigate_arrow/proc/null_arrow()
-	if (hud)
-		hud.infodisplay -= src
-		hud.show_hud(hud.hud_version)
+	if(!hud)
+		qdel(src)
+		return
+
+	hud.infodisplay -= src
+	hud.show_hud(hud.hud_version)
 	qdel(src)

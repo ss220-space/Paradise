@@ -68,9 +68,39 @@
 	/// Simpler version of above used to limit amount of loot that can be hoarded
 	var/rewards_given = 0
 
+	var/list/dreams_what_you_can_see = list(
+		/obj/item,
+		/obj/structure,
+		/obj/machinery,
+	)
+	var/static/list/dreams_what_you_cant_see = typecacheof(list(
+		// Underfloor stuff and default wallmounts
+		/obj/item/radio/intercom,
+		/obj/structure/cable,
+		/obj/structure/disposalpipe/segment,
+		/obj/machinery/atmospherics,
+		/obj/machinery/atmospherics/unary/vent_scrubber,
+		/obj/machinery/atmospherics/unary/vent_pump,
+		/obj/machinery/navbeacon,
+		/obj/machinery/power/terminal,
+		/obj/machinery/power/apc,
+		/obj/machinery/light_switch,
+		/obj/machinery/light,
+		/obj/machinery/camera,
+		/obj/machinery/door/firedoor,
+		/obj/machinery/firealarm,
+		/obj/machinery/alarm,
+		/obj/structure/window,
+		/obj/structure/grille,
+	))
+	/// Cached list of allowed typecaches for each type in dreams_what_you_can_see
+	var/static/list/dreams_allowed_typecaches_by_root_type = null
+
+
 /datum/antagonist/heretic/Destroy()
 	LAZYNULL(sac_targets)
 	return ..()
+
 
 /datum/antagonist/heretic/proc/get_icon_of_knowledge(datum/heretic_knowledge/knowledge)
 	//basic icon parameters
@@ -561,10 +591,13 @@
 
 	objectives += sac_objective
 
-	if(num_heads >= 2)
-		var/datum/objective/major_sacrifice/other_sac_objective = new()
-		other_sac_objective.owner = owner
-		objectives += other_sac_objective
+	if(num_heads < 2)
+		return
+
+	var/datum/objective/major_sacrifice/other_sac_objective = new()
+	other_sac_objective.owner = owner
+	objectives += other_sac_objective
+
 
 /**
  * Add [target] as a sacrifice target for the heretic.
@@ -886,27 +919,56 @@
 	return HERETIC_HAS_LIVING_HEART
 
 
+#define DREAM_VIEW_RANGE	5
+
 /datum/antagonist/heretic/proc/get_dreams(mob/living/carbon/sleeper, list/dreams)
 	SIGNAL_HANDLER
-	var/area/area = get_area(pick(GLOB.reality_smash_track.smashes))
-	if(!prob(10))
-		return
+	dreams += "Вы бродите по лесу Мансуса"
+	dreams += "Вы видите " + pick("пруд", "колодец", "озеро", "лужу", "ручей", "реку", "болото")
 
-	dreams.Add(area.name)
+	if(isnull(dreams_allowed_typecaches_by_root_type))
+		dreams_allowed_typecaches_by_root_type = list()
+		for(var/type in dreams_what_you_can_see)
+			dreams_allowed_typecaches_by_root_type[type] = typecacheof(type) - dreams_what_you_cant_see
 
+	var/list/all_objects = oview(DREAM_VIEW_RANGE, pick(GLOB.reality_smash_track.smashes))
+	var/something_found = FALSE
+	for(var/object_type in dreams_allowed_typecaches_by_root_type)
+		var/list/filtered_objects = typecache_filter_list(all_objects, dreams_allowed_typecaches_by_root_type[object_type])
+		if(!filtered_objects.len)
+			continue
+
+		if (!something_found)
+			dreams += "Вы видите отражение на поверхности воды"
+			something_found = TRUE
+
+		var/obj/found_object = pick(filtered_objects)
+		dreams += found_object.declent_ru(NOMINATIVE)
+
+	if(!something_found)
+		dreams += pick("Вода полностью чёрная", "Отражение слишкмо размыто.", "Вы бесцельно бродите")
+	else
+		dreams += "Изображения на поверхности воды постепенно рассеиваются"
+
+	dreams += "Вы чувствуете сильную усталость"
+
+#undef DREAM_VIEW_RANGE
 
 /// Heretic's minor sacrifice objective. "Minor sacrifices" includes anyone.
 /datum/objective/minor_sacrifice
 	name = "незначительная жертва"
+
 
 /datum/objective/minor_sacrifice/New(text)
 	. = ..()
 	target_amount = rand(3, 4)
 	update_explanation_text()
 
+
 /datum/objective/minor_sacrifice/update_explanation_text()
 	. = ..()
 	explanation_text = "Принесите в жертву как минимум [target_amount] член[target_amount == 3 ? "а" : "ов"] экипажа." // Only 3 or 4 normaly.
+
 
 /datum/objective/minor_sacrifice/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
@@ -914,6 +976,7 @@
 		return FALSE
 
 	return completed || (heretic_datum.total_sacrifices >= target_amount)
+
 
 /// Heretic's major sacrifice objective. "Major sacrifices" are heads of staff.
 /datum/objective/major_sacrifice

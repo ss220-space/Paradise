@@ -33,6 +33,7 @@
 #define SPECIAL_ROLE_LUNATIC				"Лунатик"
 #define SPECIAL_ROLE_LUNATIC_LEADER			"Лидер Лунатиков"
 #define SPECIAL_ROLE_SOULTRAPPED_HERETIC 	"Заключённая душа Еретика"
+#define SPECIAL_ROLE_ARENA_FITER 			"Гладиатор"
 #define SPECIAL_ROLE_ABDUCTOR_AGENT         "Abductor Agent"
 #define SPECIAL_ROLE_ABDUCTOR_SCIENTIST     "Abductor Scientist"
 #define SPECIAL_ROLE_BLOB                   "Blob"

@@ -87,11 +87,15 @@
 	// Let's remove any humans in our atoms list that aren't a sac target
 	for(var/mob/living/carbon/human/sacrifice in atoms)
 		// If the mob's not in soft crit or worse, remove from list
-		if(sacrifice.stat)
+		if(sacrifice.stat == CONSCIOUS)
 			atoms -= sacrifice
+			continue
+
 		// Otherwise if it's neither a target nor a cultist, remove it
-		else if(!(sacrifice in heretic_datum.sac_targets) && !iscultist(sacrifice))
-			atoms -= sacrifice
+		if((sacrifice in heretic_datum.sac_targets) || iscultist(sacrifice))
+			continue
+
+		atoms -= sacrifice
 
 	// Finally, return TRUE if we have a target in the list
 	if(locate(/mob/living/carbon/human) in atoms)
@@ -676,7 +680,7 @@
 	var/atom/Tsec = drop_location()
 
 	for(var/obj/item/organ/organ as anything in internal_organs)
-		organ.remove()
+		organ.remove(src)
 		organ.forceMove(Tsec)
 		organ.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)
 

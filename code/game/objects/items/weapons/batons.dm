@@ -157,6 +157,7 @@
 	if(!in_attack_chain && HAS_TRAIT_FROM(target, TRAIT_IWASBATONED, UNIQUE_TRAIT_SOURCE(user)))
 		return BATON_ATTACK_DONE
 
+	SEND_SIGNAL(target, COMSIG_ATOM_ATTACKEDBY, src, user)
 	COOLDOWN_START(src, stun_cooldown, cooldown)
 	if(on_stun_sound)
 		playsound(get_turf(src), on_stun_sound, on_stun_volume, TRUE, -1)

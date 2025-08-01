@@ -75,9 +75,8 @@
 		if(mecha.occupant)
 			var/mob/living/occupant = mecha.occupant
 			if(!isAI(occupant))
-				occupant.forceMove(get_turf(src))
 				occupant.Paralyse(5 SECONDS)
-				mecha.occupant = null
+				INVOKE_ASYNC(mecha, TYPE_PROC_REF(/obj/mecha, force_eject_occupant))
 
 	else if(istype(target,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/door = target

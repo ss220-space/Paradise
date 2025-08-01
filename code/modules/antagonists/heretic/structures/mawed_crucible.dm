@@ -1,15 +1,15 @@
 // The mawed crucible, a heretic structure that can create potions from bodyparts and organs.
 /obj/structure/destructible/eldritch_crucible
-	name = "Котел Страданий"
+	name = "Котёл Страданий"
 	ru_names = list(
-		NOMINATIVE = "Котел Страданий",
+		NOMINATIVE = "Котёл Страданий",
 		GENITIVE = "Котла Страданий",
 		DATIVE = "Котлу Страданий",
-		ACCUSATIVE = "Котел Страданий",
+		ACCUSATIVE = "Котёл Страданий",
 		INSTRUMENTAL = "Котлом Страданий",
 		PREPOSITIONAL = "Котле Страданий",
 	)
-	desc = "Глубокий чугунный котел, удерживаемый стальными шипами. \
+	desc = "Глубокий чугунный котёл, удерживаемый стальными шипами. \
 			Смотря на мерзкий экстракт внутри, вы чувствуете как ваш разум наполняется ужасными идеями."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "crucible"
@@ -106,12 +106,13 @@
 
 		if(!IS_HERETIC_OR_MONSTER(user))
 			if(user.a_intent == INTENT_HARM)
-				return ATTACK_CHAIN_BLOCKED_ALL
+				return ATTACK_CHAIN_PROCEED
 
 			bite_the_hand(user)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 		consume_fuel(user, consumed)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 
 	if(istype(tool, /obj/item/codex_cicatrix) || istype(tool, /obj/item/melee/touch_attack/mansus_fist))
@@ -120,22 +121,22 @@
 		balloon_alert(user, "[anchored ? "при":"от"]крученно")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(tool, /obj/item/reagent_containers/glass/beaker/eldritch))
-		if(current_mass < max_mass)
-			balloon_alert(user, "мало содержимого!")
-			return ATTACK_CHAIN_BLOCKED_ALL
+	if(!istype(tool, /obj/item/reagent_containers/glass/beaker/eldritch))
+		return ..()
 
-		var/obj/item/reagent_containers/glass/beaker/eldritch/to_fill = tool
-		if(to_fill.reagents.total_volume >= to_fill.reagents.maximum_volume)
-			balloon_alert(user, "колба полна!")
-			return ATTACK_CHAIN_BLOCKED_ALL
-
-		to_fill.reagents.add_reagent(/datum/reagent/eldritch, 50)
-		current_mass--
-		balloon_alert(user, "колба заполненна")
+	if(current_mass < max_mass)
+		balloon_alert(user, "мало содержимого!")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	return ..()
+	var/obj/item/reagent_containers/glass/beaker/eldritch/to_fill = tool
+	if(to_fill.reagents.total_volume >= to_fill.reagents.maximum_volume)
+		balloon_alert(user, "колба полна!")
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	to_fill.reagents.add_reagent(/datum/reagent/eldritch, 50)
+	current_mass--
+	balloon_alert(user, "колба заполненна")
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/structure/destructible/eldritch_crucible/attack_hand(mob/user, list/modifiers)
@@ -149,6 +150,7 @@
 	if(!IS_HERETIC_OR_MONSTER(user))
 		if(iscarbon(user))
 			bite_the_hand(user)
+
 		return TRUE
 
 	if(struct_in_use)
@@ -230,7 +232,7 @@
 /obj/structure/destructible/eldritch_crucible/proc/consume_fuel(mob/living/feeder, obj/item/consumed)
 	if(current_mass >= max_mass)
 		if(feeder)
-			balloon_alert(feeder, "котел полон!")
+			balloon_alert(feeder, "котёл полон!")
 
 		return
 

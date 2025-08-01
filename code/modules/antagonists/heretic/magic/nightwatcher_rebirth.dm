@@ -16,6 +16,7 @@
 	invocation = "СЛ'В Н'ЧН'М Д'З'РН'М"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = SPELL_REQUIRES_HUMAN
+	sound = 'sound/magic/fireball.ogg'
 
 
 /obj/effect/proc_holder/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)
@@ -29,7 +30,7 @@
 
 		if(IS_HERETIC_OR_MONSTER(nearby_mob))
 			continue
-			
+
 		if(nearby_mob.stat == DEAD || !nearby_mob.on_fire)
 			continue
 

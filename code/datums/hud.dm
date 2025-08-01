@@ -133,8 +133,12 @@ GLOBAL_LIST_INIT(huds, list( \
 			serv_huds += serv.thrallhud
 
 	for(var/datum/atom_hud/hud in (GLOB.all_huds|serv_huds))//|gang_huds))
-		if(src in hud.hudusers)
-			hud?.add_hud_to(src, only_once=TRUE)
+		hud.on_mob_mind_update(src)
+		if(!(src in hud.hudusers))
+			continue
+
+		hud?.add_hud_to(src, only_once = TRUE)
+
 
 	for(var/obj/item/check in contents)
 		if(istype(check, /obj/item/clothing/glasses/hud))
@@ -163,4 +167,7 @@ GLOBAL_LIST_INIT(huds, list( \
 	client.screen += client.void
 
 /mob/new_player/add_click_catcher()
+	return
+
+/datum/atom_hud/proc/on_mob_mind_update(mob/mob)
 	return

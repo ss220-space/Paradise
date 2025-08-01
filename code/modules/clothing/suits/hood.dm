@@ -136,8 +136,9 @@
 	flags_inv = HIDEHAIR
 
 
+/*
 /obj/item/clothing/head/hooded/Initialize(mapload, obj/item/clothing/suit/hooded/parent)
 	. = ..()
 	if(!istype(parent))
 		stack_trace("Investigate suit hood ([type]). Initialized without proper suit.")
-
+*/

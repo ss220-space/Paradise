@@ -53,6 +53,11 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	GLOB.active_alternate_appearances -= src
 	return ..()
 
+
+/datum/atom_hud/alternate_appearance/on_mob_mind_update(mob/mob)
+	apply_to_new_mob(mob)
+
+
 /// Wrapper for applying this alt hud to the passed mob (if they should see it)
 /datum/atom_hud/alternate_appearance/proc/apply_to_new_mob(mob/applying_to)
 	if(!mobShouldSee(applying_to))

@@ -106,14 +106,14 @@
 		if((isrobot(B)) && B.stat)
 			return
 		if(isliving(moving_atom))
-			var/mob/living/M = moving_atom
-			if(world.time - M.last_bumped <= 10)
+			var/mob/living/mob = moving_atom
+			if(world.time - mob.last_bumped <= 10)
 				return	//Can bump-open one airlock per second. This is to prevent shock spam.
-			M.last_bumped = world.time
-			if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && !check_access(null))
+			mob.last_bumped = world.time
+			if(HAS_TRAIT(mob, TRAIT_HANDS_BLOCKED) && !check_access(null))
 				return
-			if(M.mob_size > MOB_SIZE_TINY)
-				bumpopen(M)
+			if(mob.mob_size > MOB_SIZE_TINY)
+				bumpopen(mob)
 			return
 
 	if(ismecha(moving_atom))
@@ -254,17 +254,26 @@
 	if(density)
 		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 
-/obj/machinery/door/allowed(mob/M)
+/obj/machinery/door/allowed(mob/mob)
+	if(HASBIT(SEND_SIGNAL(mob, COMSIG_MOB_TRIED_ACCESS, src), ACCESS_ALLOWED))
+		return TRUE
+
+	if(HASBIT(SEND_SIGNAL(mob, COMSIG_MOB_TRIED_ACCESS, src), ACCESS_DISALLOWED))
+		return FALSE
+
 	if(emergency)
 		return TRUE
-	if(unrestricted_side(M))
+
+	if(unrestricted_side(mob))
 		return TRUE
+
 	if(!requiresID())
 		return FALSE // Intentional. machinery/door/requiresID() always == 1. airlocks, however, == 0 if ID scan is disabled. Yes, this var is poorly named.
+
 	return ..()
 
-/obj/machinery/door/proc/unrestricted_side(mob/M) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)
-	return get_dir(src, M) & unres_sides
+/obj/machinery/door/proc/unrestricted_side(mob/mob) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)
+	return get_dir(src, mob) & unres_sides
 
 /obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
@@ -435,8 +444,8 @@
 		return FALSE
 	if(safe)
 		for(var/turf/turf in locs)
-			for(var/atom/movable/M in turf)
-				if(M.density && M != src) //something is blocking the door
+			for(var/atom/movable/mob in turf)
+				if(mob.density && mob != src) //something is blocking the door
 					if(autoclose)
 						autoclose_in(6 SECONDS)
 					return FALSE
@@ -481,8 +490,8 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/location = get_turf(src)
 		L.add_splatter_floor(location)
-	for(var/obj/mecha/M in get_turf(src))
-		M.take_damage(DOOR_CRUSH_DAMAGE)
+	for(var/obj/mecha/mob in get_turf(src))
+		mob.take_damage(DOOR_CRUSH_DAMAGE)
 
 /obj/machinery/door/proc/requiresID()
 	return 1

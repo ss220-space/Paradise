@@ -14,7 +14,7 @@
 	icon_state = "main1"
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	plane = FLOOR_PLANE
+	plane = BELOW_GAME_PLANE
 	layer = ABOVE_CLEANABLES_LAYER
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
 	var/is_in_use = FALSE

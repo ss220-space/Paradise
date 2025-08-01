@@ -66,7 +66,7 @@
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/victim, mob/living/carbon/caster, proximity, params)
 	if(!proximity)
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(!mode)
 		SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)

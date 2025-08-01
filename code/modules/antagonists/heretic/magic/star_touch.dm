@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/touch/star_touch
-	name = "Звездное касание"
+	name = "Звёздное касание"
 	desc = "Создаёт космические поля на плитках рядом с вами, одновременно отмечая жертву звёздной меткой \
 			или поглощая уже существующую звёздную метку, чтобы усыпить её на 4 секунды. \
 			Затем жертва будет связана с вами космическим лучом, сжигающим её до минуты или \
@@ -30,6 +30,7 @@
 /obj/effect/proc_holder/spell/touch/star_touch/valid_target(atom/cast_on)
 	if(!isliving(cast_on))
 		return FALSE
+
 	return TRUE
 
 /*
@@ -53,7 +54,7 @@
 		new /obj/effect/forcefield/cosmic_field(cast_turf)
 
 	caster.apply_status_effect(/datum/status_effect/cosmic_beam, victim)
-	return TRUE
+	return ..()
 
 
 /obj/item/melee/touch_attack/star_touch/proc/get_turfs(mob/living/victim)
@@ -83,17 +84,17 @@
 
 
 /obj/item/melee/touch_attack/star_touch
-	name = "звездное касание"
+	name = "звёздное касание"
 	ru_names = list(
-		NOMINATIVE = "звездное касание",
-		GENITIVE = "звездного касания",
-		DATIVE = "звездному касанию",
-		ACCUSATIVE = "звездное касание",
-		INSTRUMENTAL = "звездным касанием",
-		PREPOSITIONAL = "звездном касании"
+		NOMINATIVE = "звёздное касание",
+		GENITIVE = "звёздного касания",
+		DATIVE = "звёздному касанию",
+		ACCUSATIVE = "звёздное касание",
+		INSTRUMENTAL = "звёздным касанием",
+		PREPOSITIONAL = "звёздном касании"
 	)
 	desc = "Зловещая аура, искажающая реальность вокруг себя. \
-			Заставляет людей со звездной меткой заснуть на 4 секунды, а людей без звездной метки — получить её."
+			Заставляет людей со звёздной меткой заснуть на 4 секунды, а людей без звёздной метки — получить её."
 	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "star"
 	item_state = "star"
@@ -232,7 +233,7 @@
 /datum/status_effect/cosmic_beam/proc/start_beam(atom/target, mob/living/user)
 	if(current_target)
 		lose_target()
-		
+
 	if(!isliving(target))
 		return
 

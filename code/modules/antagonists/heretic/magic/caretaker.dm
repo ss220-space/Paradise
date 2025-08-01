@@ -35,11 +35,13 @@
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
-	
+
 	for(var/mob/living/alive in orange(5, action.owner))
-		if(alive.stat != DEAD && alive.client)
-			action.owner.balloon_alert(action.owner, "рядом разумное существо!")
-			return . | SPELL_CANCEL_CAST
+		if(alive.stat == DEAD || !alive.client)
+			continue
+
+		action.owner.balloon_alert(action.owner, "рядом разумное существо!")
+		return . | SPELL_CANCEL_CAST
 
 	if(!action.owner.has_status_effect(/datum/status_effect/caretaker_refuge))
 		return SPELL_NO_IMMEDIATE_COOLDOWN // cooldown only on exit

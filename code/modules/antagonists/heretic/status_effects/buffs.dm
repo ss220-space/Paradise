@@ -170,6 +170,8 @@
 	var/obj/effect/floating_blade/blade_type
 	/// A list of blade effects orbiting / protecting our owner
 	var/list/obj/effect/floating_blade/blades = list()
+	/// Number of blades it remins to create.
+	var/remains_to_create
 
 
 /datum/status_effect/protective_blades/on_creation(
@@ -183,6 +185,7 @@
 
 	src.duration = new_duration
 	src.max_num_blades = max_num_blades
+	src.remains_to_create = max_num_blades
 	src.blade_orbit_radius = blade_orbit_radius
 	src.time_between_initial_blades = time_between_initial_blades
 	src.blade_type = blade_type
@@ -213,6 +216,7 @@
 	if(QDELETED(src) || QDELETED(owner))
 		return
 
+	remains_to_create--
 	var/obj/effect/floating_blade/blade = new blade_type(get_turf(owner))
 	blades += blade
 	INVOKE_ASYNC(blade, TYPE_PROC_REF(/atom/movable, orbit), owner, blade_orbit_radius)
@@ -269,7 +273,9 @@
 	if(length(blades) || QDELETED(src) || !delete_on_blades_gone)
 		return TRUE
 
-	qdel(src)
+	if(!remains_to_create)
+		qdel(src)
+
 	return TRUE
 
 

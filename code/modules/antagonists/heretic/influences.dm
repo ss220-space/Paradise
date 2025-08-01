@@ -21,10 +21,12 @@
 	/// List of minds with the ability to see influences
 	var/list/datum/mind/tracked_heretics = list()
 
+
 /datum/reality_smash_tracker/Destroy(force)
 	if(GLOB.reality_smash_track == src)
 		stack_trace("[type] was deleted. Heretics may no longer access any influences. Fix it, or call coder support.")
 		message_admins("The [type] was deleted. Heretics may no longer access any influences. Fix it, or call coder support.")
+
 	QDEL_LIST(smashes)
 	tracked_heretics.Cut()
 	return ..()
@@ -73,6 +75,7 @@
 /datum/reality_smash_tracker/proc/remove_tracked_mind(datum/mind/heretic)
 	tracked_heretics -= heretic
 
+
 /obj/effect/visible_heretic_influence
 	name = "раскол реальности"
 	ru_names = list(
@@ -90,6 +93,7 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
 
+
 /obj/effect/visible_heretic_influence/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(show_presence)), 15 SECONDS)
@@ -102,6 +106,7 @@
  */
 /obj/effect/visible_heretic_influence/proc/show_presence()
 	animate(src, alpha = 255, time = 15 SECONDS)
+
 
 /obj/effect/visible_heretic_influence/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -210,6 +215,13 @@
 /obj/effect/heretic_influence/Destroy()
 	GLOB.reality_smash_track.smashes -= src
 	return ..()
+
+
+/obj/effect/heretic_influence/attack_hand(mob/living/user, list/modifiers)
+	if(!isheretic(user))
+		return ..()
+
+	INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 1, 15 SECONDS)
 
 
 /obj/effect/heretic_influence/attackby(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)

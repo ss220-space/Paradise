@@ -19,7 +19,7 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, STAMINA = 0, OXY = 0)
 	speed = 0
 	Atkcool = CLICK_CD_MELEE
-
+	universal_speak = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
 	response_help = "прикосается"
 	response_disarm = "молотит"

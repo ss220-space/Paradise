@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 		setup_field_turf(target)
 
 	var/old_turf = target.type
-	target.ChangeTurf(/turf/closed/indestructible/heretic_wall)
+	target.ChangeTurf(/turf/simulated/wall/indestructible/heretic_wall)
 	border_walls += target
 	border_walls[target] += old_turf
 
@@ -131,26 +131,29 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	SIGNAL_HANDLER
 	if(start.z == destination.z)
 		return
+
 	return COMPONENT_CANT_Z_MOVE
 
 
 /// If our caster teleports away (after winning presumably) we'll collapse the arena so that it doens't needlessly linger
 /datum/component/proximity_monitor/advanced/heretic_arena/proc/on_teleport(atom/teleportee, atom/destination)
-	if(teleportee == arena_caster)
-		qdel(parent)
+	if(teleportee != arena_caster)
+		return
+
+	qdel(parent)
 
 
 /datum/component/proximity_monitor/advanced/heretic_arena/proc/set_caster(atom/caster)
 	arena_caster = caster
 
 
-/turf/closed/indestructible/heretic_wall
+/turf/simulated/wall/indestructible/heretic_wall
 	name = "жуткая стена"
 	ru_names = list(
 		NOMINATIVE = "жуткая стена",
 		GENITIVE = "жуткой стены",
 		DATIVE = "жуткой стене",
-		ACCUSATIVE = "жуткуб стену",
+		ACCUSATIVE = "жуткую стену",
 		INSTRUMENTAL = "жуткой стеной",
 		PREPOSITIONAL = "жуткой стене",
 	)
@@ -162,7 +165,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	pass_flags_self = NONE // No PASSCLOSEDTURF because only arena victors are allowed to go in or out
 
 
-/turf/closed/indestructible/heretic_wall/CanAllowThrough(atom/movable/mover, border_dir)
+/turf/simulated/wall/indestructible/heretic_wall/CanAllowThrough(atom/movable/mover, border_dir)
 	if(!isliving(mover))
 		return ..()
 
@@ -172,7 +175,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 		return TRUE
 
 
-/turf/closed/indestructible/heretic_wall/Bumped(atom/movable/bumped_atom)
+/turf/simulated/wall/indestructible/heretic_wall/Bumped(atom/movable/bumped_atom)
 	. = ..()
 	if(!isliving(bumped_atom))
 		return
@@ -317,6 +320,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 
 /datum/antagonist/heretic_arena_participant
 	name = "Гладиатор"
+	special_role = SPECIAL_ROLE_ARENA_FITER
 	show_in_roundend = FALSE
 	replace_banned = FALSE
 	objectives = list()
