@@ -1823,7 +1823,7 @@
 	if(!convert_mecha)
 		return
 	if(ratvarized)
-		repair_damage(max_integrity/2)
+		repair_damage(max_integrity / 2)
 		return
 	for(var/rat_mecha as anything in GLOB.ratvar_mechas)
 		var/datum/ratvar_mecha/converter = new rat_mecha

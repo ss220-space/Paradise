@@ -309,17 +309,15 @@
 /obj/projectile/energy/rat/snipe/heal
 	name = "brass sniper heal bullet"
 	icon_state = "brassshot_heal"
-	damage = 60
-
-/obj/projectile/energy/rat/snipe/heal/on_hit(mob/living/target, blocked, hit_zone)
 	damage = 25
 	stun = 2
-	if(isclocker(target))
-		damage = 0
-		stun = 0
-		target.heal_overall_damage(50, 50, TRUE)
-	. = ..()
-	return
+
+/obj/projectile/energy/rat/snipe/heal/on_hit(mob/living/target, blocked, hit_zone)
+	if(!isclocker(target))
+		return ..()
+	damage = 0
+	stun = 0
+	target.heal_overall_damage(50, 50, TRUE)
 
 /obj/projectile/energy/rat/snipe/stun
 	name = "brass sniper stun bullet"
