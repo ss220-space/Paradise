@@ -76,8 +76,8 @@
 		INSTRUMENTAL = "универсальным глушителем",
 		PREPOSITIONAL = "универсальном глушителе"
 	)
-	icon_state = "supp"
-	item_state = "supp"
+	icon_state = "supp_icon"
+	item_state = "supp_icon"
 	overlay_state = "supp"
 	overlay_offset = list("x" = -1, "y" = 0)
 	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
@@ -113,8 +113,8 @@
 		INSTRUMENTAL = "универсальным компенсатором",
 		PREPOSITIONAL = "универсальном компенсаторе"
 	)
-	icon_state = "comp"
-	item_state = "comp"
+	icon_state = "comp_icon"
+	item_state = "comp_icon"
 	overlay_state = "comp"
 	overlay_offset = list("x" = -3, "y" = 0)
 	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
@@ -166,7 +166,7 @@
 
 /obj/item/gun_module/rail/scope/collimator
 	name = "collimator scope"
-	desc = "Коллиматорный прицел с универсальным креплением, подходит для большинства видов оружия. Позволяет удобнее целиться с оружия и повышает точность стрельбы."
+	desc = "Коллиматорный прицел с универсальным креплением, подходит для большинства видов оружия, кроме пистолетов. Позволяет удобнее целиться с оружия и повышает точность стрельбы."
 	ru_names = list(
 		NOMINATIVE = "коллиматорный прицел",
 		GENITIVE = "коллиматорного прицела",
@@ -179,9 +179,26 @@
 	item_state = "coll_icon"
 	overlay_state = "coll"
 	overlay_offset = list("x" = -5, "y" = 0)
-	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
+	class = GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 3
 	bonus_accuracy = 10
+
+
+/obj/item/gun_module/rail/scope/collimator/pistol
+	name = "pistol collimator scope"
+	desc = "Коллиматорный прицел с креплением для пистолетов. Позволяет удобнее целиться с оружия и повышает точность стрельбы."
+	ru_names = list(
+		NOMINATIVE = "пистолетный коллиматорный прицел",
+		GENITIVE = "пистолетного коллиматорного прицела",
+		DATIVE = "пистолетному коллиматорному прицелу",
+		ACCUSATIVE = "пистолетный коллиматорный прицел",
+		INSTRUMENTAL = "пистолетным коллиматорным прицелом",
+		PREPOSITIONAL = "пистолетном коллиматорном прицеле"
+	)
+	icon_state = "coll_p_icon"
+	item_state = "coll_p_icon"
+	overlay_state = "coll_p"
+	class = GUN_MODULE_CLASS_PISTOL_RAIL
 
 /obj/item/gun_module/rail/scope/x4
 	name = "optical scope x4"

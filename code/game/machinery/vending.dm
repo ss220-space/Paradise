@@ -2282,6 +2282,7 @@
 	req_access = list(ACCESS_SECURITY)
 	products = list(
 		/obj/item/gun_module/muzzle/compensator = 3,
+		/obj/item/gun_module/rail/scope/collimator/pistol = 3,
 		/obj/item/gun_module/rail/scope/collimator = 3,
 		/obj/item/gun_module/rail/scope/x4 = 2,
 		/obj/item/gun_module/under/flashlight/pistol = 5,
@@ -2294,6 +2295,7 @@
 	)
 	prices = list(
 		/obj/item/gun_module/muzzle/compensator = 299,
+		/obj/item/gun_module/rail/scope/collimator/pistol = 349,
 		/obj/item/gun_module/rail/scope/collimator = 399,
 		/obj/item/gun_module/rail/scope/x4 = 499,
 		/obj/item/gun_module/under/flashlight/pistol = 199,
@@ -2308,6 +2310,7 @@
 	// all items free, this vending for central command
 	products = list(
 		/obj/item/gun_module/muzzle/compensator = 5,
+		/obj/item/gun_module/rail/scope/collimator/pistol = 5,
 		/obj/item/gun_module/rail/scope/collimator = 5,
 		/obj/item/gun_module/rail/scope/x4 = 5,
 		/obj/item/gun_module/rail/hud/medical = 5,

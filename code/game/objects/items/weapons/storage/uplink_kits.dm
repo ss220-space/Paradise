@@ -746,6 +746,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/gun_mods/populate_contents()
 	new /obj/item/gun_module/muzzle/suppressor(src)
 	new /obj/item/gun_module/muzzle/compensator(src)
+	new /obj/item/gun_module/rail/scope/collimator/pistol(src)
 	new /obj/item/gun_module/rail/scope/collimator(src)
 	new /obj/item/gun_module/rail/scope/x4(src)
 	new /obj/item/gun_module/under/hand/angle(src)
