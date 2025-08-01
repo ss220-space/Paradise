@@ -331,7 +331,7 @@ multiple modular subtrees with behaviors
 	if(islist(blackboard[key]))
 		CRASH("set_blackboard_key attempting to set a blackboard value to key [key] when it's a list!")
 	// Don't do anything if it's already got this value
-	if (blackboard[key] == thing)
+	if(blackboard[key] == thing)
 		return
 
 	// Clear existing values
