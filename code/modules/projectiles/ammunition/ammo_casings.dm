@@ -217,16 +217,40 @@
 	projectile_type = /obj/projectile/bullet/a84mm_hedp
 
 /obj/item/ammo_casing/caseless/rocket/pigmissle
-	name = "Pig missle"
+	name = "Pig missile"
 	desc = "Test"
 	icon_state = "84mm-hedp"
 	projectile_type = /obj/projectile/bullet/pigmissle
 
 /obj/item/ammo_casing/caseless/rocket/migomissle
-	name = "Mi-Go missle"
+	name = "Mi-Go missile"
 	desc = "Test"
 	icon_state = "84mm-hedp"
 	projectile_type = /obj/projectile/bullet/migomissle
+
+/obj/item/ammo_casing/caseless/rocket/anomaly
+	name = "Anomaly missile"
+	desc = "Test"
+	icon_state = "84mm-hedp"
+	projectile_type = /obj/projectile/bullet/anomalymissle
+
+/obj/item/ammo_casing/caseless/rocket/timestop
+	name = "Time stop missile"
+	desc = "Test"
+	icon_state = "84mm-hedp"
+	projectile_type = /obj/projectile/bullet/timemissle
+
+/obj/item/ammo_casing/caseless/rocket/banana
+	name = "Banana missile"
+	desc = "Test"
+	icon_state = "84mm-hedp"
+	projectile_type = /obj/projectile/bullet/bananamissle
+
+/obj/item/ammo_casing/caseless/rocket/hellmissle
+	name = "Hell missile"
+	desc = "Test"
+	icon_state = "84mm-hedp"
+	projectile_type = /obj/projectile/bullet/hellmissle
 
 /obj/item/ammo_casing/shotgun
 	name = "shotgun slug"

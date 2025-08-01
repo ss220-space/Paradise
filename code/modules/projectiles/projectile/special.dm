@@ -689,8 +689,8 @@
 	explosion(target, 1, 3, 5, 7) //devastating
 
 /obj/projectile/bullet/pigmissle
-	name = "Pig missle"
-	desc = "Holy shit! It`s pig missle."
+	name = "Pig missile"
+	desc = "Holy shit! It`s pig missile."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "pig"
 	damage = 1 //You don`t need damage if gib your targets
@@ -704,10 +704,10 @@
 		var/mob/M = target
 		M.gib()
 
-	new /obj/effect/gibspawner(get_turf(src))
+	new /obj/effect/gibspawner/generic(get_turf(src))
 
 /obj/projectile/bullet/migomissle
-	name = "Mi-Go missle"
+	name = "Mi-Go missile"
 	desc = "Boom and Mi-Go."
 	icon_state = "84mm-he"
 	damage = 100
@@ -724,6 +724,83 @@
 	for(var/count = 1, count <= 7, count++)
 		var/mob/living/simple_animal/hostile/netherworld/migo/mob = new(get_turf(src))
 		mob.faction |= list("wizard")
+
+/obj/projectile/bullet/anomalymissle
+	name = "Anomaly missile"
+	desc = "Weird missile."
+	icon_state = "84mm-he"
+	damage = 1
+	speed = 0.8
+
+/obj/projectile/bullet/anomalymissle/on_hit(atom/target, blocked=0)
+	. = ..()
+
+	if(prob(50))
+		if(prob(50)) //временный вариант пока не найду как сделать по нормальному
+			new /obj/effect/anomaly/energetic/tier2(get_turf(src))
+		else if(prob(45))
+			new /obj/effect/anomaly/bluespace/tier2(get_turf(src))
+		else if(prob(40))
+			new /obj/effect/anomaly/atmospheric/tier2(get_turf(src))
+		else if(prob(35))
+			new /obj/effect/anomaly/gravitational/tier2(get_turf(src))
+		else
+			new /obj/effect/anomaly/vortex/tier2(get_turf(src))
+	else
+		if(prob(50))
+			new /obj/effect/anomaly/energetic/tier3(get_turf(src))
+		else if(prob(45))
+			new /obj/effect/anomaly/bluespace/tier3(get_turf(src))
+		else if(prob(40))
+			new /obj/effect/anomaly/atmospheric/tier3(get_turf(src))
+		else if(prob(35))
+			new /obj/effect/anomaly/gravitational/tier3(get_turf(src))
+		else
+			new /obj/effect/anomaly/vortex/tier3(get_turf(src))
+
+/obj/projectile/bullet/timemissle
+	name = "Time stop missile"
+	desc = "The world missile."
+	icon_state = "84mm-he"
+	damage = 1
+	speed = 0.8
+
+/obj/projectile/bullet/timemissle/on_hit(atom/target, blocked=0)
+	. = ..()
+
+	var/obj/effect/timestop/T = new
+	T.forceMove(get_turf(src))
+	T.timestop()
+
+/obj/projectile/bullet/bananamissle
+	name = "Banana missile"
+	desc = "Banana missile."
+	icon_state = "84mm-he"
+	damage = 1
+	speed = 0.8
+	forcedodge = 3
+
+/obj/projectile/bullet/bananamissle/on_hit(atom/target, blocked=0)
+	. = ..()
+
+	if(ishuman(target))
+		to_chat(target, "<font color='red' size='6'>HONK</font>")
+		var/mob/living/carbon/human/h_target = target
+		h_target.bananatouched()
+
+/obj/projectile/bullet/hellmissle
+	name = "Hell missile"
+	desc = "This projectile came straight from hell."
+	icon_state = "84mm-he"
+	damage = 1
+	speed = 0.8
+
+/obj/projectile/bullet/hellmissle/on_hit(atom/target, blocked=0)
+	. = ..()
+
+	explosion(target, 0, 4, 6, 9)
+	var/turf/fire_turf = get_turf(target)
+	flame_radius(11, fire_turf, BURN_TIME_TIER_2, BURN_LEVEL_TIER_6, FLAMESHAPE_IRREGULAR, target, FIRE_VARIANT_DEFAULT)
 
 /obj/projectile/limb
 	name = "limb"
