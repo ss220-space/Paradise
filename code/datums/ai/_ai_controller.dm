@@ -374,7 +374,7 @@ multiple modular subtrees with behaviors
 	if(!islist(blackboard[key]))
 		CRASH("set_blackboard_key_assoc called on non-list key [key]!")
 	// Don't do anything if it's already got this value
-	if (blackboard[key][thing] == value)
+	if(blackboard[key][thing] == value)
 		return
 
 	TRACK_AI_DATUM_TARGET(thing, key)
