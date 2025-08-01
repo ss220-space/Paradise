@@ -186,13 +186,13 @@
 	var/organ_hit_text = ""
 	if(blocked < 100) // not completely blocked
 		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
-			var/splatter_dir = dir
+			var/splatter_dir = Angle
 			if(starting)
-				splatter_dir = get_dir(starting, target_loca)
+				splatter_dir = !isnull(Angle) ? Angle : round(get_angle_tgmc(starting, target_loca), 1)
 			if(isalien(L) || isfacehugger(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
-				var/blood_color = "#C80000"
+				var/blood_color = "#A10808"
 				if(ishuman(target))
 					H = target
 					blood_color = H.dna.species.blood_color
@@ -204,7 +204,7 @@
 
 				if(step_over)
 					if(get_splatter_blockage(step_over, target, splatter_dir, target_loca)) //If you can't cross the tile or any of its relevant obstacles...
-						shift = pixel_shift_dir(splatter_dir) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
+						shift = pixel_shift_dir(angle2dir_cardinal(splatter_dir)) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
 					else
 						target_loca = step_over
 					L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
@@ -220,7 +220,7 @@
 			organ_hit_text = "в [GLOB.body_zone[def_zone][ACCUSATIVE]]!"
 
 		if(suppressed)
-			playsound(loc, hitsound, 5, 1, -1)
+			playsound(loc, hitsound, 5, TRUE, -1)
 			to_chat(L, span_userdanger("Вы стреляете из [declent_ru(ACCUSATIVE)] [organ_hit_text]"))
 		else
 			if(hitsound)
