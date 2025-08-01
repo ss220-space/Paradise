@@ -2277,7 +2277,9 @@
 	panel_overlay = "attachments_panel"
 	screen_overlay = "attachments"
 	broken_overlay = "attachments_broken"
+	deny_overlay = "attachments_deny"
 
+	req_access = list(ACCESS_SECURITY)
 	products = list(
 		/obj/item/gun_module/muzzle/compensator = 3,
 		/obj/item/gun_module/rail/scope/collimator = 3,
