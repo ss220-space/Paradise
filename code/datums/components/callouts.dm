@@ -47,7 +47,7 @@
 
 /datum/component/callouts/Destroy(force)
 	cur_user = null
-	. = ..()
+	return ..()
 
 /datum/component/callouts/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOB_CLICKON, PROC_REF(on_click))
