@@ -251,7 +251,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	/// Screentip Mode, in pixels. 8 is small, 15 is mega big, 0 is off.
 	var/screentip_mode = 8
 	/// Color of screentips at top of screen
-	var/screentip_color = "#ffcc00"
+	var/screentip_color = "#deefff"
 
 	var/discord_id = null
 	var/discord_name = null

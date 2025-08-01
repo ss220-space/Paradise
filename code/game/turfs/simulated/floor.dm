@@ -40,6 +40,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/keep_dir = TRUE //When false, resets dir to default on changeturf()
 	smoothing_groups = SMOOTH_GROUP_FLOOR
 
+	flags = NO_SCREENTIPS
+
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
