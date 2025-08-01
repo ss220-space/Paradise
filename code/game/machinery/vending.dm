@@ -20,16 +20,20 @@
  */
 /datum/data/vending_product
 	name = "generic"
-	///Typepath of the product that is created when this record "sells"
+	/// Typepath of the product that is created when this record "sells"
 	var/product_path = null
-	///How many of this product we currently have
+	/// How many of this product we currently have
 	var/amount = 0
-	///How many we can store at maximum
+	/// How many we can store at maximum
 	var/max_amount = 0
-	var/price = 0  // Price to buy one
+	// Price to buy one
+	var/price = 0
+	/// The category the product was in, if any.
+	var/category
 
 /obj/machinery/vending
 	name = "Vendomat"
+	desc = "Обычный торговый автомат."
 	ru_names = list(
 		NOMINATIVE = "торговый автомат",
 		GENITIVE = "торгового автомата",
@@ -38,7 +42,7 @@
 		INSTRUMENTAL = "торговым автоматом",
 		PREPOSITIONAL = "торговом автомате"
 	)
-	desc = "Обычный торговый автомат."
+	gender = MALE
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "generic_off"
 	layer = BELOW_OBJ_LAYER
@@ -92,10 +96,14 @@
 	var/datum/data/vending_product/currently_vending = null
 
 	// To be filled out at compile time
-	var/list/products	= list()	// For each, use the following pattern:
-	var/list/contraband	= list()	// list(/type/path = amount,/type/path2 = amount2)
-	var/list/premium 	= list()	// No specified amount = only one in stock
-	var/list/prices     = list()	// Prices for each item, list(/type/path = price), items not in the list don't have a price.
+	/// For each, use the following pattern:
+	var/list/products	= list()
+	/// list(/type/path = amount,/type/path2 = amount2)
+	var/list/contraband	= list()
+	/// No specified amount = only one in stock
+	var/list/premium 	= list()
+	/// Prices for each item, list(/type/path = price), items not in the list don't have a price.
+	var/list/prices     = list()
 
 	// List of vending_product items available.
 	var/list/product_records = list()
@@ -106,16 +114,19 @@
 	// Stuff relating vocalizations
 	/// List of slogans the vendor will say, optional
 	var/list/slogan_list = list()
-	var/vend_reply				//Thank you for shopping!
+	/// Thank you for shopping!
+	var/vend_reply
 	/// If true, prevent saying sales pitches
 	var/shut_up = FALSE
-	///can we access the hidden inventory?
+	/// can we access the hidden inventory?
 	var/extended_inventory = FALSE
 	var/last_reply = 0
-	var/last_slogan = 0			//When did we last pitch?
-	var/slogan_delay = 6000		//How long until we can pitch again?
+	/// When did we last pitch?
+	var/last_slogan = 0
+	/// How long until we can pitch again?
+	var/slogan_delay = 6000
 
-	//The type of refill canisters used by this machine.
+	/// The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/refill_canister = null
 
 	// Things that can go wrong
@@ -165,7 +176,6 @@
 	var/static/list/all_possible_crits = list()
 	/// Possible crit effects from this vending machine tipping.
 	var/list/possible_crits = list(
-		// /datum/vendor_crit/pop_head, //too much i think
 		/datum/vendor_crit/embed,
 		/datum/vendor_crit/pin,
 		/datum/vendor_crit/shatter,
@@ -505,7 +515,7 @@
 			balloon_alert(user, "набор пополнения пуст!")
 			return ATTACK_CHAIN_PROCEED
 
-		// instantiate canister if needed
+		/// Instantiate canister if needed
 		var/transferred = restock(canister)
 		if(transferred)
 			balloon_alert(user, "набор пополнения вставлен")
@@ -525,8 +535,7 @@
 /obj/machinery/vending/proc/try_tilt(obj/item/I, mob/user)
 	if(tiltable && !tilted && I.force)
 		if(resistance_flags & INDESTRUCTIBLE)
-			// no goodies, but also no tilts
-			return
+			return // no goodies, but also no tilts
 		if(COOLDOWN_FINISHED(src, last_hit_time))
 			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] странно покачивается..."))
 			to_chat(user, span_userdanger("Кажется, что [declent_ru(NOMINATIVE)] так и норовит упасть!"))
@@ -572,7 +581,7 @@
 	tilt(AM, prob(5), FALSE)
 	aggressive = FALSE
 	//Not making same mistakes as offs did.
-	// Don't make this brob more than 5%
+	// Don't make this prob more than 5%
 
 /obj/machinery/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
@@ -637,7 +646,7 @@
 	if(prob(tilt_prob))
 		tilt()
 
-//Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
+/// Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
 /obj/machinery/vending/proc/item_slot_check(mob/user, obj/item/I)
 	if(!item_slot)
 		return FALSE
@@ -674,7 +683,7 @@
 	else
 		to_chat(user, display_parts(user))
 	if(moved)
-		to_chat(user, "Вы пополнили [moved] товар[declension_ru(moved, "", "а", "ов")].")
+		balloon_alert(user, "пополнено [moved] товар[declension_ru(moved, "", "а", "ов")]")
 		W.play_rped_sound()
 	return TRUE
 
@@ -1094,7 +1103,7 @@
 				return
 
 
-//Somebody cut an important wire and now we're following a new definition of "pitch."
+/// Somebody cut an important wire and now we're following a new definition of "pitch."
 /obj/machinery/vending/proc/throw_item()
 	var/obj/throw_item = null
 	var/mob/living/target = locate() in view(7, src)
@@ -1125,7 +1134,7 @@
 		tilt(target, from_combat = TRUE)
 		target.visible_message(
 			span_danger("[attacker] толка[pluralize_ru(attacker.gender, "ет", "ют")] [target] в [declent_ru(ACCUSATIVE)]!"),
-			span_userdanger("[attacker] впечатыва[pluralize_ru(attacker.gender, "ет", "ют")] вас в [declent_ru(GENITIVE)]!"),
+			span_userdanger("[attacker] впечатыва[pluralize_ru(attacker.gender, "ет", "ют")] вас в [declent_ru(ACCUSATIVE)]!"),
 			span_danger("Вы слышите громкий хруст.")
 		)
 	else
@@ -1148,7 +1157,7 @@
 
 /obj/machinery/vending/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, crit, from_combat)
 
-	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
+	/// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
 	var/crit_rebate = 0
 
 	var/should_throw_at_target = TRUE
@@ -1213,7 +1222,7 @@
 		tilt_over()
 		return
 	for(var/mob/living/victim in get_turf(target_atom))
-		// Damage to deal outright
+		/// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
 			if(crit)
@@ -1321,7 +1330,7 @@
 	)
 	desc = "Чудо техники, предположительно способное выдать идеальный напиток для вас в тот момент, когда вы об этом попросите."
 
-	icon_state = "boozeomat_off"        //////////////18 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
+	icon_state = "boozeomat_off" // 18 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
 	panel_overlay = "boozeomat_panel"
 	screen_overlay = "boozeomat"
 	lightmask_overlay = "boozeomat_lightmask"
@@ -1799,15 +1808,16 @@
 					/obj/item/toy/foamblade = 10,
 					/obj/item/toy/syndicateballoon = 10,
 					/obj/item/clothing/suit/syndicatefake = 5,
-					/obj/item/clothing/head/syndicatefake = 5) //OPS IN DORMS oh wait it's just an assistant
-	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow = 10,   //Congrats, you unlocked the +18 setting!
+					/obj/item/clothing/head/syndicatefake = 5)
+
+	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow = 10,   // Congrats, you unlocked the +18 setting!
 					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
 					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
   					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
 					  /obj/item/ammo_box/foambox/riot = 20,
 					  /obj/item/toy/katana = 10,
 					  /obj/item/twohanded/dualsaber/toy = 5,
-					  /obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
+					  /obj/item/deck/cards/syndicate = 10)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -1892,7 +1902,7 @@
 	prices = list()
 
 
-/obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
+/obj/machinery/vending/cigarette/beach // Used in the lavaland_biodome_beach.dmm ruin
 	name = "ShadyCigs Ultra"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат ShadyCigs Ultra",
@@ -2056,8 +2066,7 @@
 	broken_overlay = "wallmed_broken"
 	broken_lightmask_overlay = "wallmed_broken_lightmask"
 	deny_overlay = "wallmed_deny"
-
-	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
+	density = FALSE // Because it's wall-mounted
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
@@ -3309,7 +3318,7 @@
 
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/vending/clothing
-	name = "ClothesMate" //renamed to make the slogan rhyme
+	name = "ClothesMate"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат ClothesMate",
 		GENITIVE = "торгового автомата ClothesMate",
@@ -3695,7 +3704,7 @@
 		/obj/item/clothing/shoes/jackboots/jacksandals 	= 10,
 		/obj/item/clothing/shoes/jackboots/cross 		= 10,
 
-		/obj/item/radio/headset/headset_sec		= 10, //No EARBANGPROTECT. Hehe...
+		/obj/item/radio/headset/headset_sec		= 10,
 
 		/obj/item/clothing/glasses/hud/security/sunglasses/tacticool = 5,
 
@@ -5163,7 +5172,7 @@
 
 
 /obj/machinery/vending/protein
-	name = "Автомат спортивного пит+ания"
+	name = "Автомат спортивного питания"
 	ru_names = list(
 		NOMINATIVE = "торговый автомат спортивного пит+ания",
 		GENITIVE = "торгового автомата спортивного пит+ания",
