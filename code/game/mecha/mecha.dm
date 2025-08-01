@@ -232,7 +232,7 @@
 
 	if(GLOB.pacifism_after_gt)
 		var/mob/living/L = user
-		if(!target.Adjacent(src))
+		if(!Adjacent(target))
 			if(selected && selected.is_ranged())
 				if(selected.harmful)
 					to_chat(L, span_warning("Вы не хотите навредить другим живым существам!"))
@@ -259,7 +259,7 @@
 		if(user.mind?.martial_art?.no_guns)
 			to_chat(L, span_warning("[L.mind.martial_art.no_guns_message]"))
 			return
-		if(!target.Adjacent(src))
+		if(!Adjacent(target))
 			selected.action(target, params)
 			return
 		else
@@ -275,7 +275,7 @@
 
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		target = safepick(oview(1, src))
-	if(!melee_can_hit || !isatom(target))
+	if(!melee_can_hit || !isatom(target) || !Adjacent(target))
 		return
 	target.mech_melee_attack(src)
 	melee_can_hit = FALSE
