@@ -179,7 +179,7 @@
 
 /datum/action/innate/clockwork/clock_magic/proc/do_heart(mob/living/owner)
 	if(GLOB.heart.enchanted_before)
-		to_chat(owner, span_clockitalic("Сердце перегрето! Ему нужно охладиться, прежде чем оно сможет снова быть зачаровано"))
+		to_chat(owner, span_clockitalic("Сердце перегрелось! Ему нужно остыть, прежде чем оно снова сможет быть зачаровано."))
 		channeling = FALSE
 		return
 	var/list/possible_pulse_icons = list()
