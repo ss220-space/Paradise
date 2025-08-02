@@ -154,7 +154,7 @@
 		return .
 	if(attempt_harvest(item, user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-	if(is_sharp(item))
+	if(is_sharp(item) && item.damtype == BRUTE && user.a_intent == INTENT_HARM)
 		new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle_tgmc(user, src), get_blood_color())
 	user.changeNext_move(item.attack_speed)
 	. |= item.attack(src, user, params, user.zone_selected)

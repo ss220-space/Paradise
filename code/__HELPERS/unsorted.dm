@@ -926,9 +926,16 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
 		return 1
 
+
 //Whether or not the given item counts as sharp in terms of dealing damage
-/proc/is_sharp(obj/O)
-	return O?.sharp
+/proc/is_sharp(obj/item/item)
+	if(!istype(item))
+		return FALSE
+    
+	if(item.sharp)
+		return TRUE
+    
+	return FALSE
 
 
 /proc/reverse_direction(var/dir)

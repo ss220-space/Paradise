@@ -29,6 +29,14 @@
 		anomaly.after_move()
 		sleep(2)
 
+	for(var/turf/turf in orange(7, src))
+		if(iswallturf(turf))
+			continue
+
+		anomaly.jump(turf)
+		anomaly.after_move()
+
+
 /datum/anomaly_impulse/move/energ_fastmove/tier1
 	period_low = 5 SECONDS
 	period_high = 20 SECONDS
