@@ -212,6 +212,42 @@
 	carbon.investigate_log("has been dusted by an energy ball.", INVESTIGATE_DEATHS)
 	carbon.dust()
 
+/// Things that we don't want to shock.
+GLOBAL_LIST_INIT(blacklisted_tesla_types, typecacheof(list(
+	/obj/machinery/atmospherics,
+	/obj/machinery/portable_atmospherics,
+	/obj/machinery/power/emitter,
+	/obj/machinery/field/generator,
+	/mob/living/simple_animal,
+	/obj/machinery/particle_accelerator/control_box,
+	/obj/structure/particle_accelerator/fuel_chamber,
+	/obj/structure/particle_accelerator/particle_emitter/center,
+	/obj/structure/particle_accelerator/particle_emitter/left,
+	/obj/structure/particle_accelerator/particle_emitter/right,
+	/obj/structure/particle_accelerator/power_box,
+	/obj/structure/particle_accelerator/end_cap,
+	/obj/machinery/field/containment,
+	/obj/structure/disposalpipe,
+	/obj/structure/disposaloutlet,
+	// /obj/machinery/disposal/delivery_chute,
+	/obj/machinery/camera,
+	/obj/structure/sign,
+	/obj/machinery/gateway,
+	/obj/structure/lattice,
+	/obj/structure/grille,
+	/obj/structure/cable,
+	/obj/machinery/the_singularitygen/tesla,
+	/obj/machinery/constructable_frame/machine_frame
+	)))
+
+/// Things that we want to shock.
+GLOBAL_LIST_INIT(things_to_shock, typecacheof(list(
+	/obj/machinery,
+	/mob/living,
+	/obj/structure,
+	/obj/vehicle
+	)))
+
 /proc/tesla_zap(atom/source, zap_range = 3, power, cutoff = 1e3, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
 	if(QDELETED(source))
 		return
@@ -224,35 +260,6 @@
 	// THIS IS SO FUCKING UGLY AND I HATE IT, but I can't make it nice without making it slower, check*N rather then n. So we're stuck with it.
 	var/atom/closest_atom
 	var/closest_type = 0
-	/// Things that we want to shock.
-	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure, /obj/vehicle))
-	/// Things that we don't want to shock.
-	var/static/blacklisted_tesla_types = typecacheof(list(\
-		/obj/machinery/atmospherics,
-		/obj/machinery/portable_atmospherics,
-		/obj/machinery/power/emitter,
-		/obj/machinery/field/generator,
-		/mob/living/simple_animal,
-		/obj/machinery/particle_accelerator/control_box,
-		/obj/structure/particle_accelerator/fuel_chamber,
-		/obj/structure/particle_accelerator/particle_emitter/center,
-		/obj/structure/particle_accelerator/particle_emitter/left,
-		/obj/structure/particle_accelerator/particle_emitter/right,
-		/obj/structure/particle_accelerator/power_box,
-		/obj/structure/particle_accelerator/end_cap,
-		/obj/machinery/field/containment,
-		/obj/structure/disposalpipe,
-		/obj/structure/disposaloutlet,
-		// /obj/machinery/disposal/delivery_chute,
-		/obj/machinery/camera,
-		/obj/structure/sign,
-		/obj/machinery/gateway,
-		/obj/structure/lattice,
-		/obj/structure/grille,
-		/obj/structure/cable,
-		/obj/machinery/the_singularitygen/tesla,
-		/obj/machinery/constructable_frame/machine_frame
-		))
 
 	// Ok so we are making an assumption here. We assume that view() still calculates from the center out.
 	// This means that if we find an object we can assume it is the closest one of its type. This is somewhat of a speed increase.
@@ -260,7 +267,7 @@
 
 	// Darkness fucks oview up hard. I've tried dview() but it doesn't seem to work
 	// I hate existance
-	for(var/atom/A as anything in typecache_filter_multi_list_exclusion(oview(zap_range + 2, source), things_to_shock, blacklisted_tesla_types))
+	for(var/atom/A as anything in typecache_filter_multi_list_exclusion(oview(zap_range + 2, source), GLOB.things_to_shock, GLOB.blacklisted_tesla_types))
 		if(!(zap_flags & ZAP_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A))
 			continue
 
