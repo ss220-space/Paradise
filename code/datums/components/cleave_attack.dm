@@ -183,3 +183,8 @@
 		if(no_multi_hit && isliving(hit_atom))
 			return TRUE
 	return FALSE
+
+
+/datum/component/cleave_attack/Destroy(force)
+	cleave_end_callback = null
+	return ..()

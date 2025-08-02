@@ -706,13 +706,13 @@
 
 /obj/item/twohanded/chainsaw_handmade/wield(obj/item/source, mob/living/carbon/user)
 	soundloop.start()
-	src.hitsound = 'sound/weapons/chainsaw.ogg'
+	hitsound = 'sound/weapons/chainsaw.ogg'
 	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], вы слышите нарастающее гудение.")
 
 
 /obj/item/twohanded/chainsaw_handmade/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
-	src.hitsound = "swing_hit"
+	hitsound = "swing_hit"
 	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
 
 
@@ -788,14 +788,14 @@
 
 /obj/item/twohanded/chainsaw/wield(obj/item/source, mob/living/carbon/user)
 	soundloop.start()
-	src.hitsound = 'sound/weapons/chainsaw.ogg'
+	hitsound = 'sound/weapons/chainsaw.ogg'
 	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], вы слышите нарастающее гудение.")
 	ADD_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
 
 /obj/item/twohanded/chainsaw/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
-	src.hitsound = "swing_hit"
+	hitsound = "swing_hit"
 	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
 	REMOVE_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
