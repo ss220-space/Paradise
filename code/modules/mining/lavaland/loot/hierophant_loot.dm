@@ -323,7 +323,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "hierophant_talisman_nonactive"
 	item_state = "hierophant_talisman_nonactive"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 100, ACID = 100)
 	allow_duplicates = FALSE
 	var/possessed = FALSE
 	var/mob/living/simple_animal/shade/talisman/slave // Talisman

@@ -60,8 +60,8 @@
 	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
-		if(A.armor && A.armor.getRating("melee"))
-			maxHealth += A.armor.getRating("melee") //That zombie's got armor, I want armor!
+		if(A.armor && A.armor.getRating(MELEE))
+			maxHealth += A.armor.getRating(MELEE) //That zombie's got armor, I want armor!
 	maxHealth += 200
 	health = maxHealth
 	name = "zombie"

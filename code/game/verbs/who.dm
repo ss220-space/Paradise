@@ -76,12 +76,12 @@
 	var/num_admins_online = 0
 	if(holder)
 		for(var/client/C in GLOB.admins)
-			if(check_rights(R_ADMIN, 0, C.mob))
+			if(check_rights(R_ADMIN, FALSE, C.mob))
 
-				if(C.holder.fakekey && !check_rights(R_ADMIN, 0))		//Mentors can't see stealthmins
+				if(C?.holder?.fakekey && !check_rights(R_ADMIN, 0)) // Only admins can see stealthmins
 					continue
 
-				if(C.holder.big_brother && !check_rights(R_PERMISSIONS, 0))		// normal admins can't see BB
+				if(C?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // Normal admins can't see Big Brother
 					continue
 
 				msg += "\[[C.holder.rank]\]  [C]"

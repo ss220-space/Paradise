@@ -73,7 +73,7 @@
 	return FALSE
 
 /mob/living/CheckBitesProtection(datum/disease/virus/V, zone = BODY_ZONE_CHEST)
-	return ..() || prob(run_armor_check(zone, "melee") / V.permeability_mod)
+	return ..() || prob(run_armor_check(zone, MELEE) / V.permeability_mod)
 
 /mob/living/carbon/human/CheckContactProtection(datum/disease/virus/V, zone)
 	if(..())
