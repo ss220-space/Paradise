@@ -25,6 +25,7 @@
 
 	var/active = FALSE
 	var/mounted = FALSE
+	accuracy = GUN_ACCURACY_SNIPER
 
 
 /obj/item/gun/medbeam/Initialize(mapload)

@@ -442,9 +442,8 @@
 #define PARALLAX_LOOP_TIME		25
 
 // Engine types
-#define ENGTYPE_SING 		"Singularity"
-#define ENGTYPE_SM		"Supermatter"
-#define ENGTYPE_TESLA		"Tesla"
+#define ENGTYPE_SING "Сингулярность"
+#define ENGTYPE_TESLA "Тесла"
 
 #define SUMMON_GUNS "guns"
 #define SUMMON_MAGIC "magic"
