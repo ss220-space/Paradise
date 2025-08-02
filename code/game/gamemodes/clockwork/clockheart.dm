@@ -193,7 +193,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/bless_to_give = new chosen_blessing(user.loc)
 	user.put_in_hands(bless_to_give)
 	LAZYREMOVE(blessings, chosen_blessing)
-	to_chat(user, span_clockitalic("Благодарю тебя, Сын мой. Прими же этот дар."))
+	to_chat(user, span_clockitalic("Благодарю тебя, сын мой. Прими же этот дар!"))
 	chosen_blessing = null
 	bless_to_give = null
 
