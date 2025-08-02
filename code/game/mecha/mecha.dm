@@ -704,7 +704,7 @@
 		booster_deflection_modifier *= facing_modifier
 	if(prob(deflect_chance * booster_deflection_modifier))
 		visible_message(span_danger("Броня [declent_ru(GENITIVE)] отражает атаку!"), projectile_message = projectile_check)
-		log_message("Броня спасла.")
+		log_message("Броня защитила от повреждения.")
 		return FALSE
 	if(.)
 		. *= booster_damage_modifier
@@ -714,7 +714,7 @@
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
 	user.visible_message(span_notice("[user] ударя[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] без видимого эффекта."), span_notice("Вы ударяете [declent_ru(ACCUSATIVE)] без видимого эффекта."))
-	log_message("Атакован рукой/лапой. Атакующий - [user].")
+	log_message("Атакован рукой/лапой. Атакующий – [user.declent_ru(NOMINATIVE)].")
 
 
 /obj/mecha/attack_alien(mob/living/carbon/alien/user)
@@ -751,22 +751,22 @@
 	return
 
 /obj/mecha/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //wrapper
-	log_message("Получил удар с [AM].")
+	log_message("Получил удар [AM.declent_ru(INSTRUMENTAL)].")
 	if(isitem(AM))
 		var/obj/item/I = AM
 		add_attack_logs(locateUID(I.thrownby), OCCUPANT_LOGGING, "бросил [AM] в [src]")
 	. = ..()
 
 /obj/mecha/bullet_act(obj/projectile/Proj) //wrapper
-	log_message("Поражен снарядом. Тип снаряда: [Proj.name]([Proj.flag]).")
+	log_message("Поражён снарядом. Тип снаряда: [Proj.declent_ru(NOMINATIVE)]([Proj.flag]).")
 	add_attack_logs(Proj.firer, OCCUPANT_LOGGING, "выстрелил [Proj.name]([Proj.flag]) в [src]")
 	..()
 
 /obj/mecha/ex_act(severity, target)
-	log_message("Пострадал от взрыва серьезности: [severity].")
+	log_message("Поражён взрывом. Оценка мощности: [severity].")
 	if(prob(deflect_chance))
 		severity++
-		log_message("Броня спасла, меняю серьезность взрыва на [severity]")
+		log_message("Броня защитила от взрыва. Оценка мощности: [severity].")
 	..()
 	severity++
 	for(var/X in equipment)
@@ -836,7 +836,7 @@
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
-	log_message("Обнаружено ЭМИ", 1)
+	log_message("Зафиксирован ЭМИ.", 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
 /obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -859,24 +859,26 @@
 	if(istype(I, /obj/item/mmi))
 		add_fingerprint(user)
 		if(!mmi_move_inside(I, user))
-			to_chat(user, "[name]-инициализация НКИ провалена.")
+			to_chat(user, "Инициализация НКИ [declent_ru(GENITIVE)] безуспешна.")
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, "[name]-инициализация НКИ успешна.")
+		to_chat(user, "Инициализация НКИ [declent_ru(GENITIVE)] успешна.")
+)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/mecha_parts/mecha_equipment))
 		add_fingerprint(user)
 		var/obj/item/mecha_parts/mecha_equipment/equipment = I
 		if(!equipment.can_attach(src))
-			to_chat(user, span_warning("Вам не удалось прикрепить [I] к [src]!"))
+			balloon_alert(user, "не удалось установить!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		equipment.attach(src)
 		user.visible_message(
-			span_notice("[user] прикрепляет [I] к [src]."),
-			span_notice("Вы прикрепляете [I] к [src]."),
+			span_notice("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			ignored_mobs = user
 		)
+		balloon_alert(user, "модуль установлен")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/card/id))
@@ -885,7 +887,7 @@
 			to_chat(user, span_warning("Протоколы технического обслуживания отключены оператором."))
 			return ATTACK_CHAIN_PROCEED
 		if(!internals_access_allowed(user))
-			to_chat(user, span_warning("Неверный ID: Нет доступа."))
+			balloon_alert(user, "в доступе отказано!")
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/card/id/id_card = I
 		output_maintenance_dialog(id_card, user)
@@ -895,20 +897,20 @@
 		add_fingerprint(user)
 		var/obj/item/stack/cable_coil/coil = I
 		if(!coil.use(2))
-			to_chat(user, span_warning("Недостаточно проводов, чтобы завершить процесс."))
+			balloon_alert(user, "недостаточно проводов!")
 			return ATTACK_CHAIN_PROCEED
 		clearInternalDamage(MECHA_INT_SHORT_CIRCUIT)
-		to_chat(user, span_notice("Вы заменяете плавленные провода."))
+		balloon_alert(user, "повреждённые провода заменены")
 		return ATTACK_CHAIN_PROCEED
 
 	if(iscell(I) && state == 4)
 		add_fingerprint(user)
 		if(cell)
-			to_chat(user, span_warning("Внутри уже установлена батарея."))
+			balloon_alert(user, "батарея уже установлена!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("Вы устанавливаете батарею."))
+		balloon_alert(user, "батарея вставлена")
 		cell = I
 		log_message("Батарея установлена.")
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -928,17 +930,20 @@
 	if(istype(I, /obj/item/paintkit))
 		add_fingerprint(user)
 		if(occupant)
-			to_chat(user, span_warning("Нельзя видоизменять мех пока внутри кто-то находится, это опасно!"))
+			balloon_alert(user, "невозможно с пилотом внутри!")
 			return ATTACK_CHAIN_PROCEED
 
 		var/obj/item/paintkit/paintkit = I
 		if(!(paintkit.allowed_types & mech_type))
-			to_chat(user, span_warning("Данный набор декалей не подходит для данного класса мехов."))
+			balloon_alert(user, "несовместимый класс!")
 			return ATTACK_CHAIN_PROCEED
 
 		if(!user.drop_transfer_item_to_loc(paintkit, src))
 			return ..()
-		user.visible_message(span_notice("[user] открывает [paintkit] и тратит некоторое время на кастомизацию [name]."))
+		user.visible_message(span_notice("[user] открыва[pluralize_ru(user.gender, "ет", "ют")] [paintkit.declent_ru(ACCUSATIVE)] и тратит некоторое время на кастомизацию [declent_ru(GENITIVE)].",
+		ignored_mobs = user))
+		balloon_alert(user, "внешний вид изменён")
+		
 
 		var/list/icon_states = paintkit.icon_states
 		var/transformed_mech_type = "[mech_type]"
@@ -958,10 +963,10 @@
 	if(istype(I, /obj/item/mecha_modkit))
 		add_fingerprint(user)
 		if(occupant)
-			to_chat(user, span_warning("Вы не можете использовать модификационный порт этого меха пока его оперируют."))
+			balloon_alert(user, "невозможно с пилотом внутри!")
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/mecha_modkit/modkit = I
-		if(!do_after(user, modkit.install_time, src, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Вы прекращаете установку [modkit]."), category = DA_CAT_TOOL))
+		if(!do_after(user, modkit.install_time, src, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Вы прекращаете установку [modkit.declent_ru(GENITIVE)]."), category = DA_CAT_TOOL))
 			return ATTACK_CHAIN_PROCEED
 		modkit.install(src, user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -980,10 +985,10 @@
 		return
 	if(state == 2)
 		state = 3
-		to_chat(user, "Вы открываете крышку батареи.")
+		balloon_alert(user, "отсек для батареи открыт")
 	else if(state == 3)
 		state = 2
-		to_chat(user, "Вы закрываете крышку батареи.")
+		balloon_alert(user, "отсек для батареи закрыт")
 	else if(ishuman(occupant))
 		user.visible_message("[user] начинает вытаскивать оператора из [src].", "Вы начинаете вытаскивать оператора из [src].")
 		to_chat(occupant, span_warning("[user] достает вас из меха!"))
@@ -1282,7 +1287,7 @@
 	log_message("[user] пытается залезть внутрь.")
 	if(occupant)
 		to_chat(user, span_warning("[src] уже занят кем-то другим!"))
-		log_append_to_last("Доступ запрещен.")
+		log_append_to_last("В доступе отказано.")
 		return TRUE
 	var/passed
 	if(dna)
