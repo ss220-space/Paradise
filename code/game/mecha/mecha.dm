@@ -1477,7 +1477,7 @@
 
 		else
 			if(!AI.linked_core || QDELETED(AI.linked_core))
-				to_chat(AI, span_userdanger("Инактивное ядро уничтожено. Возврат невозможен."))
+				to_chat(AI, span_userdanger("Неактивное ядро уничтожено. Возврат невозможен."))
 				AI.linked_core = null
 				return
 
