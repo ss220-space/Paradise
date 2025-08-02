@@ -707,8 +707,8 @@
 	)
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "dangertray"
-	force = 25
-	throwforce = 25.0
+	force = 5
+	throwforce = 25
 	throw_speed = 3
 	throw_range = 7
 	armour_penetration = 15
