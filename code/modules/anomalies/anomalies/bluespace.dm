@@ -27,6 +27,15 @@
 	if(isliving(target))
 		investigate_log("teleported [key_name_log(target)] to [COORD(target)]", INVESTIGATE_TELEPORTATION)
 
+	var/turf/atom_loc = get_turf(target.loc)
+	if(!atom_loc.is_blocked_turf(exclude_mobs = TRUE))
+		return
+
+	for(var/turf/turf in orange(7, target))
+		if(target.Move(turf))
+			return
+
+
 /obj/effect/anomaly/bluespace/mob_touch_effect(mob/living/mob)
 	..()
 	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strength() / 100)
