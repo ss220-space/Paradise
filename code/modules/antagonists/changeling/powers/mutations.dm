@@ -186,11 +186,12 @@
 
 
 /obj/item/melee/changeling/arm_blade/Destroy()
-	if(parent_action)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
-		parent_action = null
-	return ..()
+	if(!parent_action)
+		return ..()
+
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+	parent_action = null
 
 
 /obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity, params)
@@ -289,11 +290,12 @@
 
 
 /obj/item/melee/changeling/fleshy_maul/Destroy()
-	if(parent_action)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
-		parent_action = null
-	return ..()
+	if(!parent_action)
+		return ..()
+
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+	parent_action = null
 
 
 /obj/item/melee/changeling/fleshy_maul/afterattack(atom/target, mob/living/user, proximity, params)
