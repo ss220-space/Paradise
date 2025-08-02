@@ -2,9 +2,19 @@
 
 /obj/machinery/power/solar
 	name = "solar panel"
-	desc = "A solar panel. Generates electricity when in contact with sunlight."
-	icon = 'icons/obj/engines_and_power/power.dmi'
-	icon_state = "sp_base"
+	desc = "Солнечная панель. Генерирует электричество при попадании солнечного света."
+	ru_names = list(
+        NOMINATIVE = "солнечная панель",
+        GENITIVE = "солнечной панели",
+        DATIVE = "солнечной панели",
+        ACCUSATIVE = "солнечную панель",
+        INSTRUMENTAL = "солнечной панелью",
+        PREPOSITIONAL = "солнечной панели"
+	)
+	gender = FEMALE
+	icon = 'icons/obj/engines_and_power/solar_panels.dmi'
+	icon_state = "solar_panel_base"
+	var/broken_state = list("solar_panel_broken", "solar_panel_broken_alt")
 	density = TRUE
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
@@ -59,9 +69,15 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
-	user.visible_message("[user] begins to take the glass off the solar panel.", "<span class='notice'>You begin to take the glass off the solar panel...</span>")
+	user.visible_message(
+						"[user] начина[pluralize_ru(user.gender, "ет", "ют")] снимать стекло с [declent_ru(GENITIVE)].",
+						span_notice("Вы начинаете снимать стекло с [declent_ru(GENITIVE)]...")
+						)
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		user.visible_message("[user] takes the glass off the solar panel.", "<span class='notice'>You take the glass off the solar panel.</span>")
+		user.visible_message(
+							"[user] снима[pluralize_ru(user.gender, "ет", "ют")] стекло с [declent_ru(GENITIVE)].",
+							span_notice("Вы снимаете стекло с [declent_ru(GENITIVE)].")
+						)
 		deconstruct(TRUE)
 
 /obj/machinery/power/solar/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -100,9 +116,9 @@
 /obj/machinery/power/solar/update_overlays()
 	. = ..()
 	if(stat & BROKEN)
-		. += image('icons/obj/engines_and_power/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
+		. += image('icons/obj/engines_and_power/solar_panels.dmi', icon_state = broken_state, layer = FLY_LAYER)
 	else
-		. +=  image('icons/obj/engines_and_power/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
+		. +=  image('icons/obj/engines_and_power/solar_panels.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
 		dir = angle2dir(adir)
 
 //calculates the fraction of the sunlight that the panel recieves
@@ -183,9 +199,18 @@
 
 /obj/item/solar_assembly
 	name = "solar panel assembly"
-	desc = "A solar panel assembly kit, allows constructions of a solar panel, or with a tracking circuit board, a solar tracker"
-	icon = 'icons/obj/engines_and_power/power.dmi'
-	icon_state = "sp_base"
+	desc = "База для сборки солнечной панели. Позволяет собрать солнечную панель и солнечный трекер, если ещё вставить соответствующую плату."
+	ru_names = list(
+        NOMINATIVE = "солнечная батарея",
+        GENITIVE = "солнечной батареи",
+        DATIVE = "солнечной батарее",
+        ACCUSATIVE = "солнечную батарею",
+        INSTRUMENTAL = "солнечной батареей",
+        PREPOSITIONAL = "солнечной батарее"
+	)
+	gender = FEMALE
+	icon = 'icons/obj/engines_and_power/solar_panels.dmi'
+	icon_state = "solar_panel_base"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
 	anchored = FALSE
@@ -205,13 +230,13 @@
 
 /obj/item/solar_assembly/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The solar assembly is <b>[anchored ? "wrenched into place" : "unwrenched"]</b>.</span>"
+	. += span_notice("Похоже, что она <b>[anchored ? "прикручена : не прикручена"]</b>.")
 	if(tracker)
-		. += "<span class='notice'>The solar assembly has a tracking circuit installed. It can be <b>pried out</b>.</span>"
+		. += span_notice("В ней видно плату солнечного трекера. <b>Её всё ещё можно достать</b>.")
 	else
-		. += "<span class='notice'>The solar assembly has a slot for a <i>tracking circuit<i> board.</span>"
+		. += span_notice("В ней видно отсек под плату <i>трекера<i>.")
 	if(anchored)
-		.+= "<span class='notice'>The solar assembly needs <i>glass<i> to be completed.</span>"
+		.+= span_notice("Чтобы завершить сборку — наложите <i>стекло</i>.")
 
 
 /obj/item/solar_assembly/attackby(obj/item/I, mob/user, params)
@@ -219,16 +244,16 @@
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/glass = I
 		if(!anchored)
-			to_chat(user, span_warning("The solar panel should be secured to the floor first."))
+			balloon_alert(user, "не прикручено!")
 			return ATTACK_CHAIN_PROCEED
 		var/cached_sound = glass.usesound
 		if(!glass.use(2))
-			to_chat(user, span_warning("You need at least two sheets of glass to put them into the solar panel."))
+			balloon_alert(user, "недостаточно сеткла!")
 			return ATTACK_CHAIN_PROCEED
 		playsound(loc, cached_sound, 50, TRUE)
 		user.visible_message(
-			span_notice("[user] has constructed the glass panels on the solar assembly."),
-			span_notice("You have constructed the glass panels on the solar assembly."),
+			span_notice("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] стеклянные панели на солнечной батарее."),
+			span_notice("Вы установаете стеклянные панели на солнечной батарее."),
 		)
 		glass_type = glass.merge_type
 		var/obj/machinery/power/new_panel
@@ -243,17 +268,17 @@
 	if(istype(I, /obj/item/tracker_electronics))
 		add_fingerprint(user)
 		if(!anchored)
-			to_chat(user, span_warning("The solar panel should be secured to the floor first."))
+			balloon_alert(user, "не прикручено!")
 			return ATTACK_CHAIN_PROCEED
 		if(tracker)
-			to_chat(user, span_warning("The tracker electronics is already installed."))
+			balloon_alert(user, "занято")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		tracker = TRUE
 		user.visible_message(
-			span_notice("[user] has inserted the tracker electronics into the solar assembly."),
-			span_notice("You have inserted the tracker electronics into the solar assembly."),
+			span_notice("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] плату трекера в солнечную батарею."),
+			span_notice("Вы вставляете плату трекера в солнечную батарею."),
 		)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -265,27 +290,27 @@
 	. = TRUE
 	if(!anchored && !isturf(loc))
 		add_fingerprint(user)
-		to_chat(user, span_warning("You cannot wrench [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		to_chat(user, span_warning("Вы не можете открутить [declent_ru(ACCUSATIVE)], пока она [ismob(loc) ? "в инвентаре" : "на [loc]"]."))
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	set_anchored(!anchored)
 	if(anchored)
 		user.visible_message(
-			span_notice("[user] has wrenched the solar assembly into the floor."),
-			span_notice("You have wrenched the solar assembly into the floor."),
+			span_notice("[user] прикручива[pluralize_ru(user.gender, "ет", "ют")] солнечную батарею к полу."),
+			span_notice("Вы прикручиваете солнечную батарею к полу."),
 		)
 	else
 		user.visible_message(
-			span_notice("[user] has unwrenched the solar assembly from the floor."),
-			span_notice("You have wrenched the solar assembly form the floor."),
+			span_notice("[user] откручива[pluralize_ru(user.gender, "ет", "ют")] солнечную батарею от пола."),
+			span_notice("Вы откручиваете солнечную батарею от пола."),
 		)
 
 
 /obj/item/solar_assembly/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!tracker)
-		to_chat(user, span_warning("The [name] has no tracker electronics installed."))
+		balloon_alert(user, "пусто!")
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
@@ -293,8 +318,8 @@
 	electronics.add_fingerprint(user)
 	tracker = FALSE
 	user.visible_message(
-		span_notice("[user] has taken out the tracker electronics from the solar assembly."),
-		span_notice("You have taken out the tracker electronics from the solar assembly."),
+		span_notice("[user] доста[pluralize_ru(user.gender, "ет", "ют")] плату трекера из солнечной батареи."),
+		span_notice("Вы достаёте плату трекера из солнечной батареи."),
 	)
 
 //
