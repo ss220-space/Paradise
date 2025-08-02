@@ -27,7 +27,7 @@
 	anchored = TRUE
 	layer = 5
 	max_integrity = 50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	/// Construction stage (1 = Empty frame | 2 = Wired frame | 3 = Completed frame)
 	var/stage = STAGE_EMPTY
 	/// Light bulb type
@@ -180,7 +180,7 @@
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
 	max_integrity = 10
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 20
@@ -304,7 +304,7 @@
 
 	if(new_level_number != SEC_LEVEL_EPSILON)
 		return
-		
+
 	fire_mode = FALSE
 	emergency_mode = TRUE
 	on = FALSE

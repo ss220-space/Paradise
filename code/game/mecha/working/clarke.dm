@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 250
 	deflect_chance = 15
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 20, "energy" = 30, "bomb" = 40, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 20, ENERGY = 30, BOMB = 40, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	max_temperature = 25000
 	lights_power = 8
 	wreckage = /obj/structure/mecha_wreckage/clarke

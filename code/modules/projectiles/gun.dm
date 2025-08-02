@@ -43,6 +43,8 @@
 	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
 	var/bolt_open = FALSE
 	var/spread = 0
+	/// Gun accuracy (without distance accuracy)
+	var/datum/gun_accuracy/accuracy = GUN_ACCURACY_DEFAULT
 	var/barrel_dir = EAST // barel direction need for a rotate gun with telekinesis for shot to target (default: matched with tile direction)
 	var/randomspread = TRUE
 
@@ -113,6 +115,12 @@
 	if(rusted_weapon)
 		malf_counter = rand(malf_low_bound, malf_high_bound)
 	update_gun_skins()
+	if(islist(accuracy))
+		accuracy = getAccuracy(arglist(accuracy))
+	else if(!accuracy)
+		accuracy = GUN_ACCURACY_DEFAULT
+	else if(!istype(accuracy, /datum/gun_accuracy))
+		stack_trace("Invalid type [accuracy.type] found in .accuracy during /obj/item/gun Initialize()")
 
 
 /obj/item/gun/Destroy()

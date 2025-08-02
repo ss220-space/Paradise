@@ -3132,6 +3132,7 @@
 #include "code\modules\procedural_mapping\mapGenerators\cult.dm"
 #include "code\modules\procedural_mapping\mapGenerators\nature.dm"
 #include "code\modules\procedural_mapping\mapGenerators\syndicate.dm"
+#include "code\modules\projectiles\accuracy.dm"
 #include "code\modules\projectiles\ammunition.dm"
 #include "code\modules\projectiles\firing.dm"
 #include "code\modules\projectiles\gun.dm"

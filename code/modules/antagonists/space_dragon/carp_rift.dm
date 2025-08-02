@@ -17,7 +17,7 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "Разлом, позвляющий космическим карпам перемещаться на огромные расстояния."
-	armor = list("melee" = 30, "bullet" = 40, "laser" = 20, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
 	max_integrity = 300
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
