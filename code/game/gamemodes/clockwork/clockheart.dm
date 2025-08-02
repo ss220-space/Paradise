@@ -142,8 +142,9 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	visible_message(span_danger("[capitalize(src)] исчезает, и на его месте появляется Великий Ковчег!"))
 	var/area/summon_zone = get_area(src)
 	GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [summon_zone.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/commandreport.ogg')
+		ANNOUNCE_CCPARANORMAL_RU,
+		'sound/AI/commandreport.ogg'
+	)
 	new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
 	qdel(src)
 
