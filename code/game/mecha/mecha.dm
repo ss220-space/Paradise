@@ -713,7 +713,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
-	user.visible_message(span_notice("[user] ударяет [name]. Ничего не происходит"), span_notice("Вы ударяете [name] без каких либо видимых повреждений."))
+	user.visible_message(span_notice("[user] ударя[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] без видимого эффекта."), span_notice("Вы ударяете [declent_ru(ACCUSATIVE)] без видимого эффекта."))
 	log_message("Атакован рукой/лапой. Атакующий - [user].")
 
 
