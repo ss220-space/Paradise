@@ -703,7 +703,7 @@
 		booster_damage_modifier /= facing_modifier
 		booster_deflection_modifier *= facing_modifier
 	if(prob(deflect_chance * booster_deflection_modifier))
-		visible_message(span_danger("[src] броня отражает атаку!"), projectile_message = projectile_check)
+		visible_message(span_danger("Броня [declent_ru(GENITIVE)] отражает атаку!"), projectile_message = projectile_check)
 		log_message("Броня спасла.")
 		return FALSE
 	if(.)
