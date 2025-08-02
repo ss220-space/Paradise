@@ -70,14 +70,14 @@
 		return
 	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 	user.visible_message(
-						"[user] начина[pluralize_ru(user.gender, "ет", "ют")] снимать стекло с [declent_ru(GENITIVE)].",
-						span_notice("Вы начинаете снимать стекло с [declent_ru(GENITIVE)]...")
-						)
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] снимать стекло с [declent_ru(GENITIVE)]."),
+		span_notice("Вы начинаете снимать стекло с [declent_ru(GENITIVE)]...")
+	)
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		user.visible_message(
-							"[user] снима[pluralize_ru(user.gender, "ет", "ют")] стекло с [declent_ru(GENITIVE)].",
-							span_notice("Вы снимаете стекло с [declent_ru(GENITIVE)].")
-						)
+			span_notice("[user] снима[pluralize_ru(user.gender, "ет", "ют")] стекло с [declent_ru(GENITIVE)]."),
+			span_notice("Вы снимаете стекло с [declent_ru(GENITIVE)].")
+		)
 		deconstruct(TRUE)
 
 /obj/machinery/power/solar/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -253,7 +253,7 @@
 		playsound(loc, cached_sound, 50, TRUE)
 		user.visible_message(
 			span_notice("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] стеклянные панели на солнечной батарее."),
-			span_notice("Вы установаете стеклянные панели на солнечной батарее."),
+			span_notice("Вы устанавливаете стеклянные панели на солнечной батарее."),
 		)
 		glass_type = glass.merge_type
 		var/obj/machinery/power/new_panel
