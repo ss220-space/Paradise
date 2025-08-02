@@ -2,7 +2,7 @@ GLOBAL_VAR_INIT(total_curses, 3)
 GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart
-	name = "The heart of Ratvar"
+	name = "/The Heart of Ratvar"
 	ru_names = list(
 		NOMINATIVE = "Сердце Ратвара",
 		GENITIVE = "Сердца Ратвара",
