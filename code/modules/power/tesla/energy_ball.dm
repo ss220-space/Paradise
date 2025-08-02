@@ -59,12 +59,13 @@
 	energy = starting_energy
 	miniball = is_miniball
 
-	if(!is_miniball)
-		set_light(10, 7, "#5e5edd")
+	if(is_miniball)
+		return
 
-		var/turf/spawned_turf = get_turf(src)
-		message_admins("A tesla has been created at [ADMIN_VERBOSEJMP(spawned_turf)].")
-		investigate_log("was created at [AREACOORD(spawned_turf)].", INVESTIGATE_ENGINE)
+	set_light(10, 7, "#5e5edd")
+	var/turf/spawned_turf = get_turf(src)
+	message_admins("A tesla has been created at [ADMIN_VERBOSEJMP(spawned_turf)].")
+	investigate_log("was created at [AREACOORD(spawned_turf)].", INVESTIGATE_ENGINE)
 
 /obj/singularity/energy_ball/ex_act(severity, target)
 	return
@@ -360,13 +361,14 @@
 	else
 		power = closest_atom.zap_act(power, zap_flags)
 
-	if(prob(20))//I know I know
+	if(prob(20))
 		var/list/shocked_copy = shocked_targets.Copy()
 		tesla_zap(source = closest_atom, zap_range = next_range, power = power * 0.5, cutoff = cutoff, zap_flags = zap_flags, shocked_targets = shocked_copy)
 		tesla_zap(source = closest_atom, zap_range = next_range, power = power * 0.5, cutoff = cutoff, zap_flags = zap_flags, shocked_targets = shocked_targets)
 		shocked_targets += shocked_copy
-	else
-		tesla_zap(source = closest_atom, zap_range = next_range, power = power, cutoff = cutoff, zap_flags = zap_flags, shocked_targets = shocked_targets)
+		return
+
+	tesla_zap(source = closest_atom, zap_range = next_range, power = power, cutoff = cutoff, zap_flags = zap_flags, shocked_targets = shocked_targets)
 
 #undef COIL
 #undef ROD

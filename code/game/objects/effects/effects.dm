@@ -78,6 +78,9 @@
 /obj/effect/abstract/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	return
 
+/obj/effect/abstract/zap_act()
+	return
+
 /obj/effect/abstract/singularity_act()
 	return
 
