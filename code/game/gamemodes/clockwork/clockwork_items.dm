@@ -745,7 +745,7 @@
 	var/zone = BODY_ZONE_HEAD
 	if(!shooter.get_organ(zone))
 		zone = BODY_ZONE_CHEST
-	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
+	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
 	shooter.visible_message(span_danger("[src] начинает ярко светится!"))
 	if(iscultist(shooter))
 		to_chat(shooter, span_clocklarge("Получи, грязный еретик!"))
