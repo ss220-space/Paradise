@@ -900,12 +900,7 @@ GLOBAL_LIST_INIT(body_zone, list(
 	if(centered)
 		. += world.icon_size
 
-/proc/get(atom/loc, type)
-	while(loc)
-		if(istype(loc, type))
-			return loc
-		loc = loc.loc
-	return null
+
 
 /proc/get_turf_or_move(turf/location)
 	return get_turf(location)
@@ -1379,81 +1374,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return I
 
-//similar function to RANGE_TURFS(), but will search spiralling outwards from the center (like the above, but only turfs)
-/proc/spiral_range_turfs(dist=0, center=usr, orange=0)
-	if(!dist)
-		if(!orange)
-			return list(center)
-		else
-			return list()
 
-	var/turf/t_center = get_turf(center)
-	if(!t_center)
-		return list()
 
-	var/list/L = list()
-	var/turf/T
-	var/y
-	var/x
-	var/c_dist = 1
 
-	if(!orange)
-		L += t_center
-
-	while( c_dist <= dist )
-		y = t_center.y + c_dist
-		x = t_center.x - c_dist + 1
-		for(x in x to t_center.x+c_dist)
-			T = locate(x,y,t_center.z)
-			if(T)
-				L += T
-
-		y = t_center.y + c_dist - 1
-		x = t_center.x + c_dist
-		var/list/temp_list_one = list()
-		for(y in t_center.y-c_dist to y)
-			T = locate(x,y,t_center.z)
-			if(T)
-				temp_list_one += T
-		L += reverselist(temp_list_one)
-
-		y = t_center.y - c_dist
-		x = t_center.x + c_dist - 1
-		var/list/temp_list_two = list()
-		for(x in t_center.x-c_dist to x)
-			T = locate(x,y,t_center.z)
-			if(T)
-				temp_list_two += T
-		L += reverselist(temp_list_two)
-
-		y = t_center.y - c_dist + 1
-		x = t_center.x - c_dist
-		for(y in y to t_center.y+c_dist)
-			T = locate(x,y,t_center.z)
-			if(T)
-				L += T
-		c_dist++
-
-	return L
-
-//ultra range (no limitations on distance, faster than range for distances > 8); including areas drastically decreases performance
-/proc/urange(dist=0, atom/center=usr, orange=0, areas=0)
-	if(!dist)
-		if(!orange)
-			return list(center)
-		else
-			return list()
-
-	var/list/turfs = RANGE_TURFS(dist, center)
-	if(orange)
-		turfs -= get_turf(center)
-	. = list()
-	for(var/V in turfs)
-		var/turf/T = V
-		. += T
-		. += T.contents
-		if(areas)
-			. |= T.loc
 
 /proc/urange_multiz(dist=0, atom/center=usr, orange=0, areas=0)
 	if(!dist)
@@ -1490,43 +1413,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	tY = max(1, min(world.maxy, origin.y + (text2num(tY) - (world.view + 1))))
 	return locate(tX, tY, tZ)
 
-/proc/get_closest_atom(type, list, source)
-	var/closest_atom
-	var/closest_distance
-	for(var/A in list)
-		if(!istype(A, type))
-			continue
-		var/distance = get_dist(source, A)
-		if(!closest_distance)
-			closest_distance = distance
-			closest_atom = A
-		else
-			if(closest_distance > distance)
-				closest_distance = distance
-				closest_atom = A
-	return closest_atom
 
-/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
-	if(value == FALSE) //nothing should be calling us with a number, so this is safe
-		value = tgui_input_text(usr, "Enter type to find (blank for all, cancel to cancel)", "Search for type", encode = FALSE)
-		if(isnull(value))
-			return
-	value = trim(value)
-	if(!isnull(value) && value != "")
-		matches = filter_fancy_list(matches, value)
 
-	if(matches.len == 0)
-		return
-
-	var/chosen
-	if(matches.len == 1)
-		chosen = matches[1]
-	else
-		chosen = tgui_input_list(usr, "Select a type", "Pick Type", matches,  matches[1])
-		if(!chosen)
-			return
-	chosen = matches[chosen]
-	return chosen
 
 
 //Key thing that stops lag. Cornerstone of performance in ss13, Just sitting here, in unsorted.dm.
@@ -1684,8 +1572,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			continue
 		. += A
 
-/proc/pass()
-	return
 
 /atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
 	var/initialpixelx = pixel_x
