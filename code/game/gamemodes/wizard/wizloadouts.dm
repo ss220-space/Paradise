@@ -101,3 +101,24 @@
 	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(user), ITEM_SLOT_FEET)
 	user.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(user), ITEM_SLOT_GLOVES)
 	user.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(user), ITEM_SLOT_CLOTH_INNER)
+
+/datum/spellbook_entry/loadout/magic_grenadier
+	name = "Magic grenadier"
+	desc = "TEST"
+	items_path = list(
+		/obj/item/storage/belt/rocketman/wizard/full,
+		/obj/item/clothing/suit/space/hardsuit/wizard/bomb,
+		/obj/item/gun/projectile/revolver/rocketlauncher,
+		/obj/item/clothing/shoes/magboots/wizard
+	)
+	spells_path = list(
+		/obj/effect/proc_holder/spell/summonmissile
+		/obj/effect/proc_holder/spell/smoke,
+		/obj/effect/proc_holder/spell/turf_teleport/blink,
+		/obj/effect/proc_holder/spell/summonitem,
+		/obj/effect/proc_holder/spell/touch/healtouch/advanced,
+		/obj/effect/proc_holder/spell/sacred_flame
+	)
+	category = "Unique"
+	destroy_spellbook = TRUE
+	is_ragin_restricted = TRUE
