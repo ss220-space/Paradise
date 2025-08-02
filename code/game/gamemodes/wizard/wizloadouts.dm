@@ -112,7 +112,7 @@
 		/obj/item/clothing/shoes/magboots/wizard
 	)
 	spells_path = list(
-		/obj/effect/proc_holder/spell/summonmissile
+		/obj/effect/proc_holder/spell/summonmissile,
 		/obj/effect/proc_holder/spell/smoke,
 		/obj/effect/proc_holder/spell/turf_teleport/blink,
 		/obj/effect/proc_holder/spell/summonitem,
