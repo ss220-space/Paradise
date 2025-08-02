@@ -1331,7 +1331,7 @@
 		add_fingerprint(H)
 		GrantActions(H, human_occupant = 1)
 		forceMove(loc)
-		log_append_to_last("[H] оперирует мех.")
+		log_append_to_last("[H] взял управление в качестве оператора.")
 		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
