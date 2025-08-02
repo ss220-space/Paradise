@@ -645,7 +645,7 @@
 		if(MECHA_INT_FIRE)
 			occupant_message(span_notice("Пожар внутри кабины потушен."))
 		if(MECHA_INT_TANK_BREACH)
-			occupant_message(span_notice("Пробитие дыхательного баллона запечатано."))
+			occupant_message(span_notice("Пробитие дыхательного баллона устранено."))
 	diag_hud_set_mechstat()
 
 
