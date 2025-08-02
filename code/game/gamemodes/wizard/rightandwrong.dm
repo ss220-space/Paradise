@@ -63,6 +63,16 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 
 GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 
+GLOBAL_LIST_INIT(magic_missile, list(
+	/obj/item/ammo_casing/caseless/rocket/hedp,
+	/obj/item/ammo_casing/caseless/rocket/pigmissle,
+	/obj/item/ammo_casing/caseless/rocket/migomissle,
+	/obj/item/ammo_casing/caseless/rocket/anomaly,
+	/obj/item/ammo_casing/caseless/rocket/timestop,
+	/obj/item/ammo_casing/caseless/rocket/banana,
+	/obj/item/ammo_casing/caseless/rocket/hellmissle,
+	/obj/item/ammo_casing/caseless/rocket/gluon))
+
 //if you add anything that isn't covered by the typepaths below, add it to summon_magic_objective_types
 GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/spellbook/oneuse/fireball,

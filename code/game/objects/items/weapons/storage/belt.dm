@@ -521,6 +521,19 @@
 	for(var/I in 1 to 3)
 		new /obj/item/ammo_casing/caseless/rocket/hedp(src)
 
+/obj/item/storage/belt/rocketman/wizard
+	icon_state = "soulstonebelt"
+	item_state = "soulstonebelt"
+	storage_slots = 6
+
+/obj/item/storage/belt/rocketman/wizard/full/populate_contents()
+	new /obj/item/ammo_casing/caseless/rocket/hedp(src)
+	new /obj/item/ammo_casing/caseless/rocket/anomaly(src)
+	new /obj/item/ammo_casing/caseless/rocket/migomissle(src)
+	new /obj/item/ammo_casing/caseless/rocket/pigmissle(src)
+	new /obj/item/ammo_casing/caseless/rocket/banana(src)
+	new /obj/item/ammo_casing/caseless/rocket/hellmissle(src)
+
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
 	desc = "A belt used by abductor agents."

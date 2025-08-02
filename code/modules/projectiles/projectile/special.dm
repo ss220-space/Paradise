@@ -732,31 +732,29 @@
 	damage = 1
 	speed = 0.8
 
+	var/anomaly_TIER2 = list(
+		/obj/effect/anomaly/energetic/tier2,
+		/obj/effect/anomaly/bluespace/tier2,
+		/obj/effect/anomaly/atmospheric/tier2,
+		/obj/effect/anomaly/gravitational/tier2,
+		/obj/effect/anomaly/vortex/tier2)
+
+	var/anomaly_TIER3 = list(
+		/obj/effect/anomaly/energetic/tier3,
+		/obj/effect/anomaly/bluespace/tier3,
+		/obj/effect/anomaly/atmospheric/tier3,
+		/obj/effect/anomaly/gravitational/tier3,
+		/obj/effect/anomaly/vortex/tier3)
+
 /obj/projectile/bullet/anomalymissle/on_hit(atom/target, blocked=0)
 	. = ..()
 
 	if(prob(50))
-		if(prob(50)) //временный вариант пока не найду как сделать по нормальному
-			new /obj/effect/anomaly/energetic/tier2(get_turf(src))
-		else if(prob(45))
-			new /obj/effect/anomaly/bluespace/tier2(get_turf(src))
-		else if(prob(40))
-			new /obj/effect/anomaly/atmospheric/tier2(get_turf(src))
-		else if(prob(35))
-			new /obj/effect/anomaly/gravitational/tier2(get_turf(src))
-		else
-			new /obj/effect/anomaly/vortex/tier2(get_turf(src))
+		var/anomaly_type = pick(anomaly_TIER2)
+		new anomaly_type(get_turf(src))
 	else
-		if(prob(50))
-			new /obj/effect/anomaly/energetic/tier3(get_turf(src))
-		else if(prob(45))
-			new /obj/effect/anomaly/bluespace/tier3(get_turf(src))
-		else if(prob(40))
-			new /obj/effect/anomaly/atmospheric/tier3(get_turf(src))
-		else if(prob(35))
-			new /obj/effect/anomaly/gravitational/tier3(get_turf(src))
-		else
-			new /obj/effect/anomaly/vortex/tier3(get_turf(src))
+		var/anomaly_type = pick(anomaly_TIER3)
+		new anomaly_type(get_turf(src))
 
 /obj/projectile/bullet/timemissle
 	name = "Time stop missile"
@@ -801,6 +799,31 @@
 	explosion(target, 0, 4, 6, 9)
 	var/turf/fire_turf = get_turf(target)
 	flame_radius(11, fire_turf, BURN_TIME_TIER_2, BURN_LEVEL_TIER_6, FLAMESHAPE_IRREGULAR, target, FIRE_VARIANT_DEFAULT)
+
+/obj/projectile/bullet/gluonmissle
+	name = "Gluon missile"
+	desc = "Gluon."
+	icon_state = "84mm-he"
+	damage = 1
+	speed = 0.8
+	var/range_glu = 9
+	var/rad_damage = 75
+	var/stamina_damage = 50
+
+
+/obj/projectile/bullet/gluonmissle/on_hit(atom/target, blocked=0)
+	. = ..()
+
+	playsound(target, 'sound/effects/empulse.ogg', 50, TRUE)
+	empulse(target, 7, 15, TRUE)
+	for(var/turf/T in view(range_glu, target))
+		if(isfloorturf(T))
+			var/turf/simulated/F = T
+			F.MakeSlippery(TURF_WET_PERMAFROST, 120 SECONDS)
+			for(var/mob/living/carbon/L in T)
+				L.apply_damage(stamina_damage, STAMINA)
+				L.apply_effect(rad_damage, IRRADIATE)
+
 
 /obj/projectile/limb
 	name = "limb"

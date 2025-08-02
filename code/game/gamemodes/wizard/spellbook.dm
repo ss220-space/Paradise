@@ -157,6 +157,11 @@
 	spell_type = /obj/effect/proc_holder/spell/infinite_guns
 	category = "Offensive"
 
+/datum/spellbook_entry/summon_missile
+	name = "Summon missile"
+	spell_type = /obj/effect/proc_holder/spell/summonmissile // НЕ ЗАБЫТЬ УБРАТЬ. Это спел только в наборе
+	category = "Offensive"
+
 /datum/spellbook_entry/goliath_tentacles
 	name = "Summon Tentacles"
 	spell_type = /obj/effect/proc_holder/spell/goliath_tentacles

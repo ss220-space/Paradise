@@ -353,6 +353,15 @@
 /obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)
 	return
 
+/obj/item/clothing/suit/space/hardsuit/wizard/bomb
+	name = "battlemage armour with explosion protection"
+	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 100, bio = 20, rad = 20, fire = 100, acid = 100)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard/bomb
+
+/obj/item/clothing/head/helmet/space/hardsuit/wizard/bomb
+	name = "battlemage helmet with explosion protection"
+	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 100, bio = 20, rad = 20, fire = 100, acid = 100)
+
 /obj/item/clothing/suit/space/hardsuit/wizard/arch
 	desc = "For the arch wizard in need of additional protection."
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT

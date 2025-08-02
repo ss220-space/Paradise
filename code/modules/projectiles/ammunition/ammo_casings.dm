@@ -252,6 +252,12 @@
 	icon_state = "84mm-hedp"
 	projectile_type = /obj/projectile/bullet/hellmissle
 
+/obj/item/ammo_casing/caseless/rocket/gluon
+	name = "Gluon missile"
+	desc = "Test"
+	icon_state = "84mm-hedp"
+	projectile_type = /obj/projectile/bullet/gluonmissle
+
 /obj/item/ammo_casing/shotgun
 	name = "shotgun slug"
 	desc = "A 12 gauge lead slug."
