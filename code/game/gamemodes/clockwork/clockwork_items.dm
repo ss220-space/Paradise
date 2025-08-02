@@ -653,7 +653,7 @@
 
 //clocwork guns
 /obj/item/gun/energy/clockwork
-	name = "Clockwork shotgun"
+	name = "clockwork shotgun"
 	ru_names = list(
 		NOMINATIVE = "Латунный дробовик",
 		GENITIVE = "латунного дробовика",
