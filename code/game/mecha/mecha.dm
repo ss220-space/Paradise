@@ -2,7 +2,8 @@
 
 /obj/mecha
 	name = "Меха"
-	desc = "Боевая машина"
+	desc = "Экзоскелет."
+	gender = MALE
 	icon = 'icons/obj/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
 	opacity = TRUE ///opaque. Menacing.
