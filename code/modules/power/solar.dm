@@ -230,7 +230,7 @@
 
 /obj/item/solar_assembly/examine(mob/user)
 	. = ..()
-	. += span_notice("Похоже, что она <b>[anchored ? "прикручена : не прикручена"]</b>.")
+	. += span_notice("Похоже, что она <b>[anchored ? "прикручена" : "не прикручена"]</b>.")
 	if(tracker)
 		. += span_notice("В ней видно плату солнечного трекера. <b>Её всё ещё можно достать</b>.")
 	else
