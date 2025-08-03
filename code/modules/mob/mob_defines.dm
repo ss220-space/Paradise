@@ -56,6 +56,7 @@
 	var/atom/movable/screen/healths = null
 	var/atom/movable/screen/throw_icon = null
 	var/atom/movable/screen/stamina_bar = null
+	var/atom/movable/screen/nutrition_bar = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.

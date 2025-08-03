@@ -644,6 +644,7 @@
 	med_hud_set_status()
 	update_health_hud()
 	update_stamina_hud()
+	update_nutrition_hud()
 	update_damage_hud()
 	if(should_log)
 		log_debug("[src] update_stat([reason][HAS_TRAIT(src, TRAIT_GODMODE) ? ", GODMODE" : ""])")

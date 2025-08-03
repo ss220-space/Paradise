@@ -48,9 +48,7 @@
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
 
-	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
-	var/hunger_type
-	var/hunger_level
+	var/hunger_type = "default" // Used to pick nutrition bar icon for HUD
 
 	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE   // Dangerously high pressure.
 	var/warning_high_pressure = WARNING_HIGH_PRESSURE // High pressure warning.

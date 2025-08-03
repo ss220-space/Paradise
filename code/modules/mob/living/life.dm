@@ -196,6 +196,20 @@
 		stamina_bar.icon_state = "stamina_full"
 
 
+/mob/living/update_nutrition_hud()
+	if(!client || !nutrition_bar)
+		return
+
+	if(HAS_TRAIT(src, TRAIT_NO_HUNGER) && dna.species.hunger_type)
+		nutrition_bar.icon_state = "[dna.species.hunger_type]_" + "full"
+		return
+
+	if(dna.species.hunger_type)
+		nutrition_bar.icon_state = "[dna.species.hunger_type]_" + current_nutrition_level.icon_state
+
+	med_hud_set_status()
+
+
 /mob/living/simple_animal/update_health_hud()
 	if(!client)
 		return
