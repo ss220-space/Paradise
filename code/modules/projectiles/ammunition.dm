@@ -116,7 +116,7 @@
 	if(!BB)
 		to_chat(user, span_warning("В гильзе нет пули для нанесения гравировки."))
 		return .
-	if(initial(BB.name) != "bullet")
+	if(initial(BB.name) != BULLET)
 		to_chat(user, span_notice("Вы можете гравировать только металлические пули."))		//because inscribing beanbags is silly
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))

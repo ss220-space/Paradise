@@ -1538,3 +1538,4 @@
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
 	forceMove(holder_obj.loc)
 	qdel(holder_obj)
+

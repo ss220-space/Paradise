@@ -52,8 +52,7 @@
 	SIGNAL_HANDLER
 	qdel(src)
 
-/// Signal called when a parent that's been hooked into this moves
-/// does a variety of checks to ensure overrides work out properly.
+/// Signal called when a parent that's been hooked into this moves does a variety of checks to ensure overrides work out properly.
 /obj/effect/abstract/particle_holder/proc/on_move(atom/movable/attached, atom/oldloc, direction)
 	SIGNAL_HANDLER
 
