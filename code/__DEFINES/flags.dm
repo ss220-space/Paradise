@@ -23,10 +23,12 @@
 #define ADMIN_SPAWNED (1<<6)
 /// Whether /atom/Initialize() has already run for the object
 #define INITIALIZED (1<<7)
-
 //alternate appearance flags
 #define AA_TARGET_SEE_APPEARANCE (1<<0)
 #define AA_MATCH_TARGET_OVERLAYS (1<<1)
+/// Does the supermatter skip over this atom?
+#define SUPERMATTER_IGNORES (1 << 8)
+
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name

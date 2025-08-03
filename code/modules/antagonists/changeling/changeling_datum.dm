@@ -1,3 +1,6 @@
+/// Helper to format the text that gets thrown onto the chem hud element.
+#define FORMAT_CHEM_CHARGES_TEXT(charges) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(charges)]</font></div>")
+
 /// Time before changeling can revive himself.
 #define LING_FAKEDEATH_TIME					60 SECONDS
 /// The lowest value of genetic_damage [/datum/antagonist/changeling/process()] can take it to while dead.
@@ -254,7 +257,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/mob/living/carbon/human/h_owner = owner.current
 	if(h_owner.hud_used?.lingchemdisplay)
 		h_owner.hud_used.lingchemdisplay.invisibility = 0
-		h_owner.hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(chem_charges)]</font></div>"
+		h_owner.hud_used.lingchemdisplay.maptext = FORMAT_CHEM_CHARGES_TEXT(chem_charges)
 
 	if(h_owner.stat == DEAD)
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage * 0.5)
@@ -651,3 +654,5 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/changeling)
 
+
+#undef FORMAT_CHEM_CHARGES_TEXT

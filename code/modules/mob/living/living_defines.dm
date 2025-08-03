@@ -35,15 +35,20 @@
 
 	var/atom/movable/cameraFollow = null
 
-	var/on_fire = 0 //The "Are we on fire?" var
-	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
+	/// The "Are we on fire?" var
+	var/on_fire = 0
+	/// Tracks how many stacks of fire we have on, max is usually 20
+	var/fire_stacks = 0
 
 
 	var/mob_size = MOB_SIZE_HUMAN
-	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
-	var/digestion_ratio = 1 //controls how quickly reagents metabolize; largely governered by species attributes.
+	/// More or less efficiency to metabolize helpful/harmful reagents and regulate body temperature.
+	var/metabolism_efficiency = 1
+	/// Controls how quickly reagents metabolize; largely governered by species attributes.
+	var/digestion_ratio = 1
 
-	var/holder = null //The holder for blood crawling
+	/// The holder for blood crawling
+	var/holder = null
 
 	/// Allows living mobs to have innate ventcrawl trait defined here.
 	/// Values are: TRAIT_VENTCRAWLER_ALWAYS / TRAIT_VENTCRAWLER_NUDE / TRAIT_VENTCRAWLER_ALIEN
@@ -53,7 +58,8 @@
 	/// The last direction we moved in a vent. Used to make holding two directions feel nice
 	var/last_vent_dir = NONE
 
-	var/smoke_delay = 0 //used to prevent spam with smoke reagent reaction on mob.
+	/// Used to prevent spam with smoke reagent reaction on mob.
+	var/smoke_delay = 0
 
 	var/step_count = 0
 
@@ -62,7 +68,8 @@
 	/// List of weather immunity traits that are then added on Initialize(), see traits.dm.
 	var/list/weather_immunities
 
-	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
+	/// A list of surgery datums. Generally empty, they're added when the player wants them.
+	var/list/surgeries = list()
 
 	var/gene_stability = DEFAULT_GENE_STABILITY
 	var/ignore_gene_stability = 0
@@ -73,17 +80,22 @@
 	/// A log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 	var/list/say_log
 
-	var/last_hallucinator_log // Used to log, what was last infliction to hallucination
+	/// Used to log, what was last infliction to hallucination.
+	var/last_hallucinator_log
 
-	var/blood_volume = 0 //how much blood the mob has
+	/// How much blood the mob has
+	var/blood_volume = 0
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD,THOUGHT_HUD)
 
-	var/list/status_effects //a list of all status effects the mob has
+	/// A list of all status effects the mob has
+	var/list/status_effects
 
 	var/deathgasp_on_death = FALSE
 
-	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
-	var/stam_regen_start_modifier = 1 //Modifier of time until regeneration starts
+	/// Used to halt stamina regen temporarily
+	var/stam_regen_start_time = 0
+	/// Modifier of time until regeneration starts
+	var/stam_regen_start_modifier = 1
 
 	///if this exists AND the normal sprite is bigger than 32x32, this is the replacement icon state (because health doll size limitations). the icon will always be screen_gen.dmi
 	var/health_doll_icon

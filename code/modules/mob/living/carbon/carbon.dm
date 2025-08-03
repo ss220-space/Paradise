@@ -156,7 +156,7 @@
 		M.forceMove(drop_loc)
 		visible_message(span_danger("[M] вырыва[pluralize_ru(M.gender, "ет", "ют")]ся из нутра [name]!"))
 
-
+/// Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
 /mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	. = ..()
 	if(!.)
@@ -201,7 +201,7 @@
 	return shock_damage
 
 
-///Called slightly after electrocute act to apply a secondary stun.
+/// Called slightly after electrocute act to apply a secondary stun.
 /mob/living/carbon/proc/secondary_shock(knockdown, stun_duration)
 	if(knockdown)
 		Knockdown(stun_duration)
