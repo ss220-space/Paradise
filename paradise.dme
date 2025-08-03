@@ -215,6 +215,7 @@
 #include "code\__HELPERS\maths.dm"
 #include "code\__HELPERS\matrices.dm"
 #include "code\__HELPERS\mobs.dm"
+#include "code\__HELPERS\nameof.dm"
 #include "code\__HELPERS\names.dm"
 #include "code\__HELPERS\numbers.dm"
 #include "code\__HELPERS\pronouns.dm"
