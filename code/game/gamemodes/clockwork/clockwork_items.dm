@@ -765,7 +765,7 @@
 	newshot()
 
 /obj/item/gun/energy/clockwork/sniper
-	name = "Clockwork sniper rifle"
+	name = "clockwork sniper rifle"
 	ru_names = list(
 		NOMINATIVE = "Латунная снайперская винтовка",
 		GENITIVE = "латунной снайперской винтовки",
