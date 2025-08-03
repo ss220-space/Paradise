@@ -691,7 +691,7 @@ emp_act
 				visible_message(span_danger("[M] бросил[genderize_ru(M.gender, "ся", "ась", "ось", "ись")] на [src]!"))
 				return 0
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-			var/armor_block = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
+			var/armor_block = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[M] ударил[genderize_ru(M.gender, "", "а", "о", "и")] [src]!"), \
@@ -719,7 +719,7 @@ emp_act
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 				apply_damage(M.disarm_stamina_damage, STAMINA)
 				if(prob(40))
-					apply_effect(2 SECONDS, WEAKEN, run_armor_check(affecting, "melee"))
+					apply_effect(2 SECONDS, WEAKEN, run_armor_check(affecting, MELEE))
 					add_attack_logs(M, src, "Alien tackled")
 					visible_message(span_danger("[M] сбил[genderize_ru(M.gender, "", "а", "о", "и")] с ног [src]!"))
 				else

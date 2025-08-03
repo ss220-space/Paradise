@@ -174,6 +174,7 @@
 	plane = SPLASHSCREEN_PLANE
 	layer = SPLASHSCREEN_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	flags = NO_SCREENTIPS
 	/// Pixel shifts below are needed to centrally position the black icon within the start area at compile-time. This icon used as a background for title screens with smaller resolutions than required.
 	pixel_x = -288
 	pixel_y = -224

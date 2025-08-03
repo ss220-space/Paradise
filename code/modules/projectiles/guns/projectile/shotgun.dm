@@ -14,6 +14,7 @@
 	weapon_weight = WEAPON_HEAVY
 	pb_knockback = 2
 	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/I, mob/user, params)
@@ -178,6 +179,7 @@
 	slot_flags &= ~ITEM_SLOT_BACK    //you can't sling it on your back
 	slot_flags |= ITEM_SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
+	accuracy = GUN_ACCURACY_MINIMAL
 	magazine.max_ammo = 3
 	update_icon()
 
@@ -232,6 +234,7 @@
 
 /obj/item/gun/projectile/shotgun/riot/short
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
+	accuracy = GUN_ACCURACY_MINIMAL
 
 /obj/item/gun/projectile/shotgun/riot/short/Initialize(mapload)
 	. = ..()
@@ -258,6 +261,7 @@
 	bayonet_x_offset = 27
 	bayonet_y_offset = 13
 	pb_knockback = 0
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
@@ -362,6 +366,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 //Dual Feed Shotgun
 
@@ -375,6 +380,7 @@
 	var/toggled = 0
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()

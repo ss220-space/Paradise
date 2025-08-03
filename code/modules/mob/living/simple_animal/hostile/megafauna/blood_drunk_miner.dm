@@ -89,7 +89,7 @@ Difficulty: Medium
 		INSTRUMENTAL = "усиленным костюмом исследователя",
 		PREPOSITIONAL = "усиленном костюме исследователя"
 	)
-	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
 	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
 
@@ -104,7 +104,7 @@ Difficulty: Medium
 		INSTRUMENTAL = "усиленным капюшоном исследователя",
 		PREPOSITIONAL = "усиленном капюшоне исследователя"
 	)
-	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)
 	.=..()
