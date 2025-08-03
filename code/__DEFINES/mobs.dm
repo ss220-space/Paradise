@@ -215,7 +215,6 @@
 #define TRAUMA_LIMIT_LOBOTOMY 3
 #define TRAUMA_LIMIT_MAGIC 3
 #define TRAUMA_LIMIT_ABSOLUTE INFINITY
-#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
 #define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
 #define ismonkey(A)		(istype(A, /datum/species/monkey))
 #define iswraith(A)		(istype(A, /mob/living/simple_animal/hostile/construct/wraith))
