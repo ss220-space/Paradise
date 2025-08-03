@@ -219,7 +219,7 @@
 /obj/projectile/energy/rat
 	name = "brass bullet"
 	ru_names = list(
-		NOMINATIVE = "Латунная пуля",
+		NOMINATIVE = "латунная пуля",
 		GENITIVE = "латунной пули",
 		DATIVE = "латунной пуле",
 		ACCUSATIVE = "латунную пулю",
