@@ -314,3 +314,22 @@
 		steps++
 	return TRUE
 
+/**
+ * Compare source's dir, the clockwise dir of source and the anticlockwise dir of source
+ * To the opposite dir of the dir returned by get_dir(target,source)
+ * If one of them is a match, then source is facing target
+ */
+/proc/is_source_facing_target(atom/source, atom/target)
+	if(!istype(source) || !istype(target))
+		return FALSE
+	if(isliving(source))
+		var/mob/living/source_mob = source
+		if(source_mob.body_position == LYING_DOWN)
+			return FALSE
+	var/goal_dir = get_dir(source, target)
+	var/clockwise_source_dir = turn(source.dir, -45)
+	var/anticlockwise_source_dir = turn(source.dir, 45)
+
+	if(source.dir == goal_dir || clockwise_source_dir == goal_dir || anticlockwise_source_dir == goal_dir)
+		return TRUE
+	return FALSE

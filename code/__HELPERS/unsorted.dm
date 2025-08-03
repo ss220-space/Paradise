@@ -157,124 +157,31 @@
 		select = tgui_input_list(usr, "Unshackled borg signals detected:", "Borg selection", borgs, null)
 		return borgs[select]
 
-//When a borg is activated, it can choose which AI it wants to be slaved to
-/proc/active_ais()
-	. = list()
-	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-		if(A.stat == DEAD)
-			continue
-		if(A.control_disabled)
-			continue
-		if(isclocker(A)) //the active ais list used for uploads. Avoiding to changing the laws even the AI is fully converted
-			continue
-		. += A
-	return .
 
-//Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
-/proc/select_active_ai_with_fewest_borgs()
-	var/mob/living/silicon/ai/selected
-	var/list/active = active_ais()
-	for(var/thing in active)
-		var/mob/living/silicon/ai/A = thing
-		if(!selected || (length(selected.connected_robots) > length(A.connected_robots)))
-			selected = A
 
-	return selected
 
-/proc/select_active_ai(var/mob/user)
-	var/list/ais = active_ais()
-	if(ais.len)
-		if(user)	. = tgui_input_list(usr, "AI signals detected:", "AI selection", ais)
-		else		. = pick(ais)
-	return .
 
-/proc/get_sorted_mobs()
-	var/list/old_list = getmobs()
-	var/list/AI_list = list()
-	var/list/Dead_list = list()
-	var/list/keyclient_list = list()
-	var/list/key_list = list()
-	var/list/logged_list = list()
-	for(var/named in old_list)
-		var/mob/M = old_list[named]
-		if(issilicon(M))
-			AI_list |= M
-		else if(isobserver(M) || M.stat == DEAD)
-			Dead_list |= M
-		else if(M.key && M.client)
-			keyclient_list |= M
-		else if(M.key)
-			key_list |= M
-		else
-			logged_list |= M
-		old_list.Remove(named)
-	var/list/new_list = list()
-	new_list += AI_list
-	new_list += keyclient_list
-	new_list += key_list
-	new_list += logged_list
-	new_list += Dead_list
-	return new_list
 
-//Returns a list of all mobs with their name
-/proc/getmobs()
 
-	var/list/mobs = sortmobs()
-	var/list/names = list()
-	var/list/creatures = list()
-	var/list/namecounts = list()
-	for(var/mob/M in mobs)
-		var/name = M.name
-		if(name in names)
-			namecounts[name]++
-			name = "[name] ([namecounts[name]])"
-		else
-			names.Add(name)
-			namecounts[name] = 1
-		if(M.real_name && M.real_name != M.name)
-			name += " \[[M.real_name]\]"
-		if(M.stat == DEAD)
-			if(istype(M, /mob/dead/observer/))
-				name += " \[ghost\]"
-			else
-				name += " \[dead\]"
-		creatures[name] = M
 
-	return creatures
 
-//Orders mobs by type then by name
-/proc/sortmobs()
-	var/list/moblist = list()
-	var/list/sortmob = sortAtom(GLOB.mob_list)
-	for(var/mob/living/silicon/ai/mob in sortmob)
-		moblist.Add(mob)
-		if(mob.eyeobj)
-			moblist.Add(mob.eyeobj)
-	for(var/mob/living/silicon/pai/mob in sortmob)
-		moblist.Add(mob)
-	for(var/mob/living/silicon/robot/mob in sortmob)
-		moblist.Add(mob)
-	for(var/mob/living/carbon/human/mob in sortmob)
-		moblist.Add(mob)
-	for(var/mob/living/carbon/true_devil/mob in sortmob)
-		moblist.Add(mob)
-	for(var/mob/living/carbon/brain/mob in sortmob)
-		moblist.Add(mob)
-	for(var/mob/living/carbon/alien/mob in sortmob)
-		moblist.Add(mob)
-	for(var/mob/dead/observer/mob in sortmob)
-		moblist.Add(mob)
-	for(var/mob/new_player/mob in sortmob)
-		moblist.Add(mob)
-	for(var/mob/living/simple_animal/slime/mob in sortmob)
-		moblist.Add(mob)
-	for(var/mob/living/simple_animal/mob in sortmob)
-		moblist.Add(mob)
-	for(var/mob/camera/blob/mob in sortmob)
-		moblist.Add(mob)
-	return moblist
 
-// Format a power value in W, kW, MW, or GW.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// Format a power value in W, kW, MW, or GW.
 /proc/DisplayPower(powerused)
 	if(powerused < 1000) //Less than a kW
 		return "[powerused] W"
@@ -284,34 +191,10 @@
 		return "[round((powerused * 0.000001), 0.001)] MW"
 	return "[round((powerused * 0.000000001), 0.0001)] GW"
 
-//Forces a variable to be posative
-/proc/modulus(var/M)
-	if(M >= 0)
-		return M
-	if(M < 0)
-		return -M
-
-/proc/get_mob_by_ckey(key)
-	if(!key)
-		return
-
-	for(var/mob/mob as anything in GLOB.player_list)
-		if(mob.ckey != key)
-			continue
-
-		return mob
-
-	for(var/mob/mob as anything in GLOB.left_player_list)
-		if(mob.ckey != key)
-			continue
-
-		return mob
-
 /proc/get_client_by_ckey(ckey)
 	if(cmptext(copytext(ckey, 1, 2),"@"))
 		ckey = findStealthKey(ckey)
 	return GLOB.directory[ckey]
-
 
 /proc/findStealthKey(txt)
 	if(txt)
@@ -319,14 +202,8 @@
 			if(GLOB.stealthminID[P] == txt)
 				return P
 
-
-
-
-/*
-Returns 1 if the chain up to the area contains the given typepath
-0 otherwise
-*/
-/atom/proc/is_found_within(var/typepath)
+/// Returns 1 if the chain up to the area contains the given typepath 0 otherwise.
+/atom/proc/is_found_within(typepath)
 	var/atom/A = src
 	while(A.loc)
 		if(istype(A.loc, typepath))
@@ -334,32 +211,11 @@ Returns 1 if the chain up to the area contains the given typepath
 		A = A.loc
 	return 0
 
-
-
-
-
-
-
-
-//Makes sure MIDDLE is between LOW and HIGH. If not, it adjusts it. Returns the adjusted value.
-/proc/between(var/low, var/middle, var/high)
+/// Makes sure MIDDLE is between LOW and HIGH. If not, it adjusts it. Returns the adjusted value.
+/proc/between(low, middle, high)
 	return max(min(middle, high), low)
 
-//returns random gauss number
-/proc/GaussRand(var/sigma)
-  var/x,y,rsq
-  do
-    x=2*rand()-1
-    y=2*rand()-1
-    rsq=x*x+y*y
-  while(rsq>1 || !rsq)
-  return sigma*y*sqrt(-2*log(rsq)/rsq)
-
-//returns random gauss number, rounded to 'roundto'
-/proc/GaussRandRound(var/sigma,var/roundto)
-	return round(GaussRand(sigma),roundto)
-
-//Will return the contents of an atom recursivly to a depth of 'searchDepth'
+/// Will return the contents of an atom recursivly to a depth of 'searchDepth'
 /atom/proc/GetAllContents(searchDepth = 5)
 	var/list/toReturn = list()
 
@@ -370,7 +226,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return toReturn
 
-//Searches contents of the atom and returns the sum of all w_class of obj/item within
+/// Searches contents of the atom and returns the sum of all w_class of obj/item within
 /atom/proc/GetTotalContentsWeight(searchDepth = 5)
 	var/weight = 0
 	var/list/content = GetAllContents(searchDepth)
@@ -800,19 +656,7 @@ Standard way to write links -Sayu
 
 	return TRUE
 
-/proc/check_target_facings(mob/living/initator, mob/living/target)
-	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
-	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
-	That said, this proc should not be used if the change facing proc of the click code is overriden at the same time*/
-	if(!ismob(target) || target.body_position == LYING_DOWN)
-	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
-		return FACING_FAILED
-	if(initator.dir == target.dir) //mobs are facing the same direction
-		return FACING_SAME_DIR
-	if(is_A_facing_B(initator, target) && is_A_facing_B(target, initator)) //mobs are facing each other
-		return FACING_EACHOTHER
-	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
-		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
+
 
 
 /atom/proc/GetTypeInAllContents(typepath)
@@ -890,32 +734,15 @@ Standard way to write links -Sayu
 
 //Get the dir to the RIGHT of dir if they were on a clock
 //NORTH --> NORTHEAST
-/proc/get_clockwise_dir(dir)
+/proc/get_clockwise_dir(dir) // Del this shit
 	. = angle2dir(dir2angle(dir)+45)
 
 //Get the dir to the LEFT of dir if they were on a clock
 //NORTH --> NORTHWEST
-/proc/get_anticlockwise_dir(dir)
+/proc/get_anticlockwise_dir(dir) // Del this shit
 	. = angle2dir(dir2angle(dir)-45)
 
 
-//Compare A's dir, the clockwise dir of A and the anticlockwise dir of A
-//To the opposite dir of the dir returned by get_dir(B,A)
-//If one of them is a match, then A is facing B
-/proc/is_A_facing_B(atom/A, atom/B)
-	if(!istype(A) || !istype(B))
-		return 0
-	if(isliving(A))
-		var/mob/living/LA = A
-		if(LA.body_position == LYING_DOWN)
-			return 0
-	var/goal_dir = angle2dir(dir2angle(get_dir(B, A)+180))
-	var/clockwise_A_dir = get_clockwise_dir(A.dir)
-	var/anticlockwise_A_dir = get_anticlockwise_dir(B.dir)
-
-	if(A.dir == goal_dir || clockwise_A_dir == goal_dir || anticlockwise_A_dir == goal_dir)
-		return 1
-	return 0
 
 //This is just so you can stop an orbit.
 //orbit() can run without it (swap orbiting for A)
@@ -1358,79 +1185,7 @@ Standard way to write links -Sayu
 		else
 			return NORTH
 
-/proc/slot_string_to_slot_bitfield(input_string) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont have icons)
-	switch(input_string)
-		if(ITEM_SLOT_EAR_LEFT_STRING)
-			return ITEM_SLOT_EAR_LEFT
-		if(ITEM_SLOT_EAR_RIGHT_STRING)
-			return ITEM_SLOT_EAR_RIGHT
-		if(ITEM_SLOT_BELT_STRING)
-			return ITEM_SLOT_BELT
-		if(ITEM_SLOT_BACK_STRING)
-			return ITEM_SLOT_BACK
-		if(ITEM_SLOT_CLOTH_OUTER_STRING)
-			return ITEM_SLOT_CLOTH_OUTER
-		if(ITEM_SLOT_CLOTH_INNER_STRING)
-			return ITEM_SLOT_CLOTH_INNER
-		if(ITEM_SLOT_EYES_STRING)
-			return ITEM_SLOT_EYES
-		if(ITEM_SLOT_MASK_STRING)
-			return ITEM_SLOT_MASK
-		if(ITEM_SLOT_HEAD_STRING)
-			return ITEM_SLOT_HEAD
-		if(ITEM_SLOT_FEET_STRING)
-			return ITEM_SLOT_FEET
-		if(ITEM_SLOT_ID_STRING)
-			return ITEM_SLOT_ID
-		if(ITEM_SLOT_NECK_STRING)
-			return ITEM_SLOT_NECK
-		if(ITEM_SLOT_GLOVES_STRING)
-			return ITEM_SLOT_GLOVES
-		if(ITEM_SLOT_SUITSTORE_STRING)
-			return ITEM_SLOT_SUITSTORE
-		if(ITEM_SLOT_HANDCUFFED_STRING)
-			return ITEM_SLOT_HANDCUFFED
-		if(ITEM_SLOT_LEGCUFFED_STRING)
-			return ITEM_SLOT_LEGCUFFED
-		if(ITEM_SLOT_ACCESSORY_STRING)
-			return ITEM_SLOT_ACCESSORY
 
-/proc/slot_bitfield_to_slot_string(input_bitfield) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont render)
-	switch(input_bitfield)
-		if(ITEM_SLOT_EAR_LEFT)
-			return ITEM_SLOT_EAR_LEFT_STRING
-		if(ITEM_SLOT_EAR_RIGHT)
-			return ITEM_SLOT_EAR_RIGHT_STRING
-		if(ITEM_SLOT_BELT)
-			return ITEM_SLOT_BELT_STRING
-		if(ITEM_SLOT_BACK)
-			return ITEM_SLOT_BACK_STRING
-		if(ITEM_SLOT_CLOTH_OUTER)
-			return ITEM_SLOT_CLOTH_OUTER_STRING
-		if(ITEM_SLOT_CLOTH_INNER)
-			return ITEM_SLOT_CLOTH_INNER_STRING
-		if(ITEM_SLOT_GLOVES)
-			return ITEM_SLOT_GLOVES_STRING
-		if(ITEM_SLOT_EYES)
-			return ITEM_SLOT_EYES_STRING
-		if(ITEM_SLOT_MASK)
-			return ITEM_SLOT_MASK_STRING
-		if(ITEM_SLOT_HEAD)
-			return ITEM_SLOT_HEAD_STRING
-		if(ITEM_SLOT_FEET)
-			return ITEM_SLOT_FEET_STRING
-		if(ITEM_SLOT_ID)
-			return ITEM_SLOT_ID_STRING
-		if(ITEM_SLOT_NECK)
-			return ITEM_SLOT_NECK_STRING
-		if(ITEM_SLOT_SUITSTORE)
-			return ITEM_SLOT_SUITSTORE_STRING
-		if(ITEM_SLOT_HANDCUFFED)
-			return ITEM_SLOT_HANDCUFFED_STRING
-		if(ITEM_SLOT_LEGCUFFED)
-			return ITEM_SLOT_LEGCUFFED_STRING
-		if(ITEM_SLOT_ACCESSORY)
-			return ITEM_SLOT_ACCESSORY_STRING
 
 
 // Among other things, used by flamethrower and boiler spray to calculate if flame/spray can pass through.

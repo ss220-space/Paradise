@@ -709,3 +709,226 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	for(type in view(range, GLOB.dview_mob))
 
 #define END_FOR_DVIEW GLOB.dview_mob.loc = null
+
+/// Returns the direction that the initiator and the target are facing
+/proc/check_target_facings(mob/living/initiator, mob/living/target)
+	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
+	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
+	That said, this proc should not be used if the change facing proc of the click code is overridden at the same time*/
+	if(!isliving(target) || target.body_position == LYING_DOWN)
+	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
+		return FALSE
+	if(initiator.dir == target.dir) //mobs are facing the same direction
+		return FACING_SAME_DIR
+	if(is_source_facing_target(initiator,target) && is_source_facing_target(target,initiator)) //mobs are facing each other
+		return FACING_EACHOTHER
+	if(initiator.dir + 2 == target.dir || initiator.dir - 2 == target.dir || initiator.dir + 6 == target.dir || initiator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
+		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
+
+// Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont have icons)
+/proc/slot_string_to_slot_bitfield(input_string)
+	switch(input_string)
+		if(ITEM_SLOT_EAR_LEFT_STRING)
+			return ITEM_SLOT_EAR_LEFT
+		if(ITEM_SLOT_EAR_RIGHT_STRING)
+			return ITEM_SLOT_EAR_RIGHT
+		if(ITEM_SLOT_BELT_STRING)
+			return ITEM_SLOT_BELT
+		if(ITEM_SLOT_BACK_STRING)
+			return ITEM_SLOT_BACK
+		if(ITEM_SLOT_CLOTH_OUTER_STRING)
+			return ITEM_SLOT_CLOTH_OUTER
+		if(ITEM_SLOT_CLOTH_INNER_STRING)
+			return ITEM_SLOT_CLOTH_INNER
+		if(ITEM_SLOT_EYES_STRING)
+			return ITEM_SLOT_EYES
+		if(ITEM_SLOT_MASK_STRING)
+			return ITEM_SLOT_MASK
+		if(ITEM_SLOT_HEAD_STRING)
+			return ITEM_SLOT_HEAD
+		if(ITEM_SLOT_FEET_STRING)
+			return ITEM_SLOT_FEET
+		if(ITEM_SLOT_ID_STRING)
+			return ITEM_SLOT_ID
+		if(ITEM_SLOT_NECK_STRING)
+			return ITEM_SLOT_NECK
+		if(ITEM_SLOT_GLOVES_STRING)
+			return ITEM_SLOT_GLOVES
+		if(ITEM_SLOT_SUITSTORE_STRING)
+			return ITEM_SLOT_SUITSTORE
+		if(ITEM_SLOT_HANDCUFFED_STRING)
+			return ITEM_SLOT_HANDCUFFED
+		if(ITEM_SLOT_LEGCUFFED_STRING)
+			return ITEM_SLOT_LEGCUFFED
+		if(ITEM_SLOT_ACCESSORY_STRING)
+			return ITEM_SLOT_ACCESSORY
+
+// Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont render)
+/proc/slot_bitfield_to_slot_string(input_bitfield)
+	switch(input_bitfield)
+		if(ITEM_SLOT_EAR_LEFT)
+			return ITEM_SLOT_EAR_LEFT_STRING
+		if(ITEM_SLOT_EAR_RIGHT)
+			return ITEM_SLOT_EAR_RIGHT_STRING
+		if(ITEM_SLOT_BELT)
+			return ITEM_SLOT_BELT_STRING
+		if(ITEM_SLOT_BACK)
+			return ITEM_SLOT_BACK_STRING
+		if(ITEM_SLOT_CLOTH_OUTER)
+			return ITEM_SLOT_CLOTH_OUTER_STRING
+		if(ITEM_SLOT_CLOTH_INNER)
+			return ITEM_SLOT_CLOTH_INNER_STRING
+		if(ITEM_SLOT_GLOVES)
+			return ITEM_SLOT_GLOVES_STRING
+		if(ITEM_SLOT_EYES)
+			return ITEM_SLOT_EYES_STRING
+		if(ITEM_SLOT_MASK)
+			return ITEM_SLOT_MASK_STRING
+		if(ITEM_SLOT_HEAD)
+			return ITEM_SLOT_HEAD_STRING
+		if(ITEM_SLOT_FEET)
+			return ITEM_SLOT_FEET_STRING
+		if(ITEM_SLOT_ID)
+			return ITEM_SLOT_ID_STRING
+		if(ITEM_SLOT_NECK)
+			return ITEM_SLOT_NECK_STRING
+		if(ITEM_SLOT_SUITSTORE)
+			return ITEM_SLOT_SUITSTORE_STRING
+		if(ITEM_SLOT_HANDCUFFED)
+			return ITEM_SLOT_HANDCUFFED_STRING
+		if(ITEM_SLOT_LEGCUFFED)
+			return ITEM_SLOT_LEGCUFFED_STRING
+		if(ITEM_SLOT_ACCESSORY)
+			return ITEM_SLOT_ACCESSORY_STRING
+
+/proc/get_mob_by_ckey(key)
+	if(!key)
+		return
+
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.ckey != key)
+			continue
+		return mob
+
+	for(var/mob/mob as anything in GLOB.left_player_list)
+		if(mob.ckey != key)
+			continue
+		return mob
+
+/// Orders mobs by type then by name
+/proc/sortmobs()
+	var/list/moblist = list()
+	var/list/sortmob = sortAtom(GLOB.mob_list)
+	for(var/mob/living/silicon/ai/mob in sortmob)
+		moblist.Add(mob)
+		if(mob.eyeobj)
+			moblist.Add(mob.eyeobj)
+	for(var/mob/living/silicon/pai/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/silicon/robot/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/carbon/human/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/carbon/true_devil/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/carbon/brain/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/carbon/alien/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/dead/observer/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/new_player/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/simple_animal/slime/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/living/simple_animal/mob in sortmob)
+		moblist.Add(mob)
+	for(var/mob/camera/blob/mob in sortmob)
+		moblist.Add(mob)
+	return moblist
+
+/// Returns a list of all mobs with their name
+/proc/getmobs()
+	var/list/mobs = sortmobs()
+	var/list/names = list()
+	var/list/creatures = list()
+	var/list/namecounts = list()
+	for(var/mob/M in mobs)
+		var/name = M.name
+		if(name in names)
+			namecounts[name]++
+			name = "[name] ([namecounts[name]])"
+		else
+			names.Add(name)
+			namecounts[name] = 1
+		if(M.real_name && M.real_name != M.name)
+			name += " \[[M.real_name]\]"
+		if(M.stat == DEAD)
+			if(istype(M, /mob/dead/observer/))
+				name += " \[ghost\]"
+			else
+				name += " \[dead\]"
+		creatures[name] = M
+
+	return creatures
+
+/proc/get_sorted_mobs()
+	var/list/old_list = getmobs()
+	var/list/AI_list = list()
+	var/list/Dead_list = list()
+	var/list/keyclient_list = list()
+	var/list/key_list = list()
+	var/list/logged_list = list()
+	for(var/named in old_list)
+		var/mob/M = old_list[named]
+		if(issilicon(M))
+			AI_list |= M
+		else if(isobserver(M) || M.stat == DEAD)
+			Dead_list |= M
+		else if(M.key && M.client)
+			keyclient_list |= M
+		else if(M.key)
+			key_list |= M
+		else
+			logged_list |= M
+		old_list.Remove(named)
+	var/list/new_list = list()
+	new_list += AI_list
+	new_list += keyclient_list
+	new_list += key_list
+	new_list += logged_list
+	new_list += Dead_list
+
+	return new_list
+
+/// When a borg is activated, it can choose which AI it wants to be slaved to
+/proc/active_ais()
+	. = list()
+	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+		if(A.stat == DEAD)
+			continue
+		if(A.control_disabled)
+			continue
+		if(isclocker(A)) //the active ais list used for uploads. Avoiding to changing the laws even the AI is fully converted
+			continue
+		. += A
+	return .
+
+/// Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
+/proc/select_active_ai_with_fewest_borgs()
+	var/mob/living/silicon/ai/selected
+	var/list/active = active_ais()
+	for(var/mob/living/silicon/ai/A in active)
+		if(!selected || (length(selected.connected_robots) > length(A.connected_robots)))
+			selected = A
+
+	return selected
+
+/proc/select_active_ai(mob/user)
+	var/list/ais = active_ais()
+	if(!length(ais))
+		return
+	if(user)
+		return tgui_input_list(user, "AI signals detected:", "AI selection", ais)
+	else
+		return pick(ais)
