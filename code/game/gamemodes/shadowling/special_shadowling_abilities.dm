@@ -53,21 +53,21 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
 	user.visible_message(span_warning("Хризалида окутывает [user] и [user.p_them()] скрывается внутри."), \
-						span_shadowling("Ты обвиваешься в хризалиду и начинаете извиваться внутри."))
+						span_shadowling("Ты обвиваешься в хризалиду и начинаешь извиваться внутри."))
 
 	sleep(10 SECONDS)
 	if(QDELETED(user))
 		return
 
 	user.visible_message(span_boldwarning("Кожа на спине [user] начинает расслаиваться. Из дыр медленно показываются чёрные шипы."), \
-						span_shadowling("Шипы пронзают твою спину. Когти разрывают твои пальцы. Ты чувствуешь мучительную боль, когда твоя истинная форма начинают проявляться."))
+						span_shadowling("Шипы пронзают твою спину. Когти разрывают твои пальцы. Ты чувствуешь мучительную боль, когда твоя истинная форма начинает проявляться."))
 
 	sleep(9 SECONDS)
 	if(QDELETED(user))
 		return
 
 	user.visible_message(span_boldwarning("[user], кожа рвётся, налипая на стены вокруг [user.p_them()]."), \
-						span_shadowling("Твоя фальшивая кожа отваливается. Ты начинаете рвать хрупкую мембрану, защищающую тебя.."))
+						span_shadowling("Твоя фальшивая кожа отваливается. Ты начинаешь рвать хрупкую мембрану, защищающую тебя."))
 
 	sleep(8 SECONDS)
 	if(QDELETED(user))
@@ -128,7 +128,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 	to_chat(user, span_shadowling("<b><i>Твои силы пробудились. Теперь ты заживешь в полную меру. Помни свои цели. Сотрудничай со своими союзниками и рабами.</b></i>"))
 	user.ExtinguishMob()
-	user.set_nutrition(NUTRITION_LEVEL_FED + 50)
+	user.set_nutrition(NUTRITION_LEVEL_FED)
 	//user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_enthrall(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_glare(null))
@@ -269,7 +269,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	to_chat(src, span_shadowling("<b><i>Твои силы пробудились. Теперь ты заживешь в полную меру. Помни свои цели. Сотрудничай со своими союзниками и рабами.</b></i>"))
 
 	ExtinguishMob()
-	set_nutrition(NUTRITION_LEVEL_FED + 50)
+	set_nutrition(NUTRITION_LEVEL_FED)
 	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_enthrall(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_glare(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_veil(null))
