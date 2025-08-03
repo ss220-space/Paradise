@@ -244,9 +244,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/loadout_gear = list()
 	var/list/tgui_loadout_gear = list()
 	var/list/choosen_gears = list()
-	// Parallax
+	/// Parallax
 	var/parallax = PARALLAX_HIGH
 	var/multiz_detail = MULTIZ_DETAIL_DEFAULT
+
+	/// Screentip Mode, in pixels. 8 is small, 15 is mega big, 0 is off.
+	var/screentip_mode = 8
+	/// Color of screentips at top of screen
+	var/screentip_color = "#deefff"
 
 	var/discord_id = null
 	var/discord_name = null
@@ -604,6 +609,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Настройки интерфейса</h2>"
 			dat += "<b>Настройки пользовательского интерфейса:</b><br>"
+			dat += "<b>Всплывающая подсказка:</b> <a href='byond://?_src_=prefs;preference=screentip_mode'>[(screentip_mode == 0) ? "Выключить" : "[screentip_mode]px"]</a><br>"
+			dat += "<b>Цвет всплывающей подсказки:</b> <span style='border: 1px solid #161616; background-color: [screentip_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='byond://?_src_=prefs;preference=screentip_color'><b>Изменить</b></a><br>"
 			dat += " – <b>Прозрачность:</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " – <b>Цвет:</b> <a href='byond://?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
 			dat += " – <b>Стиль интерфейса:</b> <a href='byond://?_src_=prefs;preference=ui'><b>[ui_theme_to_russian(UI_style)]</b></a><br>"
@@ -2436,6 +2443,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("tgui_strip_menu")
 					toggles2 ^= PREFTOGGLE_2_BIG_STRIP_MENU
+
+				if("screentip_mode")
+					var/desired_screentip_mode = tgui_input_number(user, "Выберите размер всплывающей подсказки. Чтобы отключить всплывающие подсказки, установите значение 0. (Рекомендуемое значение от 8 до 15)", "Размер всплывающей подсказки", screentip_mode, 20, 0)
+					if(isnull(desired_screentip_mode))
+						return
+					screentip_mode = desired_screentip_mode
+
+				if("screentip_color")
+					var/screentip_color_new = tgui_input_color(user, "Выберите цвет всплывающей подсказки", "Игровые настройки", screentip_color)
+					if(isnull(screentip_color_new))
+						return
+					screentip_color = screentip_color_new
 
 				if("vote_popup")
 					toggles2 ^= PREFTOGGLE_2_DISABLE_VOTE_POPUPS

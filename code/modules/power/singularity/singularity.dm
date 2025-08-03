@@ -10,23 +10,32 @@
 	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
-	var/contained = 1 //Are we going to move around?
-	var/energy = 100 //How strong are we?
-	var/dissipate = 1 //Do we lose energy over time?
+	/// How strong are we?
+	var/energy = 100
+	/// Do we lose energy over time?
+	var/dissipate = TRUE
 	var/dissipate_delay = 10
 	var/dissipate_track = 0
-	var/dissipate_strength = 1 //How much energy do we lose?
-	var/move_self = 1 //Do we move on our own?
-	var/grav_pull = 4 //How many tiles out do we pull?
-	move_resist = INFINITY	//no, you don't get to push the singulo. Not even you OP wizard gateway statues
-	var/consume_range = 0 //How many tiles out do we eat
-	var/event_chance = 15 //Prob for event each tick
-	var/target = null //its target. moves towards the target if it has one
-	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
+	/// How much energy do we lose?
+	var/dissipate_strength = 1
+	/// Do we move on our own?
+	var/move_self = TRUE
+	/// How many tiles out do we pull?
+	var/grav_pull = 4
+	/// No, you don't get to push the singulo. Not even you OP wizard gateway statues
+	move_resist = INFINITY
+	/// How many tiles out do we eat
+	var/consume_range = 0
+	/// Prob for event each tick
+	var/event_chance = 15
+	/// Its target. moves towards the target if it has one
+	var/target = null
+	/// Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
+	var/last_failed_movement = 0
 	var/last_warning
-	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
+	/// If the singularity has eaten a supermatter shard and can go to stage six
+	var/consumedSupermatter = FALSE
 	var/warps_projectiles = TRUE
-	allow_spin = 0
 	var/obj/effect/warp_effect/supermatter/warp
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 

@@ -156,18 +156,21 @@
 	)
 	icon_state = "purple_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	damage = 10 //A worse lasergun
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+	var/zap_range = 3
+	var/power = 10000
 
 /obj/item/ammo_casing/energy/shock_revolver/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
 	var/obj/projectile/energy/shock_revolver/P = BB
 	spawn(1)
-		P.chain = P.Beam(user,icon_state="purple_lightning",icon = 'icons/effects/effects.dmi',time=1000, maxdistance = 30)
+		P.chain = P.Beam(user, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 1000, maxdistance = 30)
 
 /obj/projectile/energy/shock_revolver/on_hit(atom/target)
 	. = ..()
-	if(isliving(target))
-		tesla_zap(src, 3, 10000)
-	qdel(chain)
+	tesla_zap(source = src, zap_range = zap_range, power = power, cutoff = 1e3, zap_flags = zap_flags)
+	qdel(src)
 
 /obj/projectile/energy/toxplasma
 	name = "toxin bolt"
