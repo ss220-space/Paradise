@@ -1741,10 +1741,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 
 
-/mob/living/carbon/human/set_max_stamina(amount)
-	max_stamina = max(0, amount)
-
-
 /mob/living/carbon/human/adjust_nutrition(change, forced)
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE

@@ -82,7 +82,7 @@
 	if(HAS_TRAIT(human, TRAIT_NO_NUTRITION_EFFECTS))
 		human.current_nutrition_level = initial(human.current_nutrition_level)
 
-	human.max_stamina = initial(human.max_stamina)
+	human.set_max_stamina(initial(human.max_stamina))
 	human.sound_environment_override = initial(human.sound_environment_override)
 	// resets all speed mods, because initial nutrition level for all species has no bonuses/penalties
 	nutrition_update_slowdown(human)

@@ -803,7 +803,11 @@
 
 /// Max stamina MUST be lower than MAX_STAMINA_LOSS otherwise everything will explode
 /mob/living/proc/set_max_stamina(amount)
-	return
+	if(amount > MAX_STAMINA_LOSS)
+		max_stamina = MAX_STAMINA_LOSS
+		return
+
+	max_stamina = max(0, amount)
 
 
 /// Maxhealth var getter
