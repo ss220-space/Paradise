@@ -76,27 +76,15 @@
 	else
 		return FALSE
 
-// Returns true if direction is blocked from loc
-// Checks if doors are open
-/proc/DirBlocked(turf/loc,var/dir)
-	for(var/obj/structure/window/D in loc)
-		if(!D.density)
-			continue
-		if(D.fulltile)
-			return 1
-		if(D.dir == dir)
-			return 1
-
-	for(var/obj/machinery/door/D in loc)
-		if(!D.density)//if the door is open
-			continue
-		else return 1	// if closed, it's a real, air blocking door
-	return 0
-
-/////////////////////////////////////////////////////////////////////////
 
 
-//Same as the thing below just for density and without support for atoms.
+
+
+
+
+
+
+/// Same as the thing below just for density and without support for atoms.
 /proc/can_line(atom/source, atom/target, length = 5)
 	var/turf/current = get_turf(source)
 	var/turf/target_turf = get_turf(target)
@@ -113,7 +101,7 @@
 		steps++
 	return TRUE
 
-//Returns whether or not a player is a guest using their ckey as an input
+/// Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
 	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
 		return FALSE
@@ -126,60 +114,9 @@
 			return FALSE
 	return TRUE
 
-//Ensure the frequency is within bounds of what it should be sending/recieving at
-/proc/sanitize_frequency(var/f, var/low = PUBLIC_LOW_FREQ, var/high = PUBLIC_HIGH_FREQ)
-	f = round(f)
-	f = max(low, f)
-	f = min(high, f)
-	if((f % 2) == 0) //Ensure the last digit is an odd number
-		f += 1
-	return f
-
-//Turns 1479 into 147.9
-/proc/format_frequency(var/f)
-	return "[round(f / 10)].[f % 10]"
-
-//Picks a string of symbols to display as the law number for hacked or ion laws
+/// Picks a string of symbols to display as the law number for hacked or ion laws
 /proc/ionnum()
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
-
-//When an AI is activated, it can choose from a list of non-slaved borgs to have as a slave.
-/proc/freeborg()
-	var/select = null
-	var/list/borgs = list()
-	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A) || iscogscarab(A) || isclocker(A))
-			continue
-		var/name = "[A.real_name] ([A.modtype?.name] [A.braintype])"
-		borgs[name] = A
-
-	if(borgs.len)
-		select = tgui_input_list(usr, "Unshackled borg signals detected:", "Borg selection", borgs, null)
-		return borgs[select]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /// Format a power value in W, kW, MW, or GW.
 /proc/DisplayPower(powerused)

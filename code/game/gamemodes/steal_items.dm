@@ -635,7 +635,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		var/atom/item_typepath = pick_n_take(possible_type_list)
 		wanted_items |= item_typepath
 
-		if(need_br && (i % 2 == 0))	//notes split
+		if(need_br && (ISEVEN(i))) //notes split
 			temp_name += "<br>"
 		temp_name += "[initial(item_typepath.name)][i < required_amount ? ", " : "."]"
 

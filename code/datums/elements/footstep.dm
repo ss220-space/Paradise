@@ -87,7 +87,7 @@
 		steps_for_living[source] = 0
 		steps = 0
 
-	if(steps % 2)
+	if(ISODD(steps))
 		return
 
 	if(steps != 0 && source.no_gravity()) // don't need to step as often when you hop around

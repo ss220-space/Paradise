@@ -932,3 +932,17 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return tgui_input_list(user, "AI signals detected:", "AI selection", ais)
 	else
 		return pick(ais)
+
+/// Selects an unlinked borg, used in the robot upload console
+/proc/freeborg(mob/user)
+	var/select
+	var/list/borgs = list()
+	for(var/mob/living/silicon/robot/A in GLOB.player_list)
+		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A) || iscogscarab(A) || isclocker(A))
+			continue
+		var/name = "[A.real_name] ([A.modtype?.name] [A.braintype])"
+		borgs[name] = A
+
+	if(borgs.len)
+		select = tgui_input_list(user, "Unshackled borg signals detected:", "Borg selection", borgs)
+		return borgs[select]

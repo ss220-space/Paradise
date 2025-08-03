@@ -43,7 +43,7 @@
 /mob/living/carbon/handle_breathing(times_fired)
 	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		return
-	if(times_fired % 2 == 1)
+	if(ISODD(times_fired))
 		breathe() //Breathe every other tick, unless suffocating
 	else
 		if(istype(loc, /obj/))

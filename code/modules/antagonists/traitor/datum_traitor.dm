@@ -281,7 +281,7 @@
 			if(freq < 1451 || freq > 1459)
 				freqlist += freq
 			freq += 2
-			if((freq % 2) == 0)
+			if(ISEVEN(freq))
 				freq += 1
 		freq = freqlist[rand(1, freqlist.len)]
 
