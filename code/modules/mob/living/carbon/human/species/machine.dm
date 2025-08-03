@@ -53,8 +53,6 @@
 	male_sneeze_sound = list('sound/effects/mob_effects/machine_sneeze.ogg')
 	female_sneeze_sound = list('sound/effects/mob_effects/f_machine_sneeze.ogg')
 	butt_sprite = "machine"
-
-	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
 	hunger_type = "machine"
 
 	has_organ = list(
