@@ -32,7 +32,7 @@
 
 	/// Set rotation
 	var/matrix/rotated_matrix = new()
-	rotated_matrix.TurnTo(0, Get_Pixel_Angle(-final_y, -final_x))
+	rotated_matrix.TurnTo(0, get_pixel_angle(-final_y, -final_x))
 	visual.transform = rotated_matrix
 
 	animate(visual, pixel_x = final_x, pixel_y = final_y, time = 0.5 SECONDS, easing = QUAD_EASING)

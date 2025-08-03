@@ -34,8 +34,8 @@
 			powermonitor = null
 			return
 		if(powermonitor.powernet)
-			data["poweravail"] = DisplayPower(powermonitor.powernet.viewavail)
-			data["powerdemand"] = DisplayPower(powermonitor.powernet.viewload)
+			data["poweravail"] = display_power(powermonitor.powernet.viewavail)
+			data["powerdemand"] = display_power(powermonitor.powernet.viewload)
 			data["history"] = powermonitor.history
 			data["apcs"] = GLOB.apc_repository.apc_data(powermonitor.powernet)
 			data["no_powernet"] = FALSE

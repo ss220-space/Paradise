@@ -43,7 +43,7 @@
 	charge = maxcharge
 
 	if(ratingdesc)
-		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
+		desc += " This one has a power rating of [display_power(maxcharge)], and you should not swallow it."
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/Destroy()

@@ -206,3 +206,109 @@
 	for(var/area/pull_from as anything in areas_to_pull)
 		turfs += pull_from.get_contained_turfs()
 	return turfs
+
+// This is unreal shit.
+/proc/is_in_teleport_proof_area(atom/source)
+	if(!source)
+		return FALSE
+	var/area/area = get_area(source)
+	if(!area)
+		return FALSE
+	if(area.tele_proof)
+		return TRUE
+	if(!is_teleport_allowed(source.z))
+		return TRUE
+	else
+		return FALSE
+
+/area/proc/copy_contents_to(area/A , platingRequired = FALSE, perfect_copy = TRUE)
+	//Takes: Area. Optional: If it should copy to areas that don't have plating
+	//Returns: Nothing.
+	//Notes: Attempts to move the contents of one area to another area.
+	//       Movement based on lower left corner. Tiles that do not fit
+	//		 into the new area will not be moved.
+
+	if(!A || !src)
+		return FALSE
+
+	var/list/turfs_src = get_area_turfs(src.type)
+	var/list/turfs_trg = get_area_turfs(A.type)
+
+	var/src_min_x = 0
+	var/src_min_y = 0
+	for(var/turf/T in turfs_src)
+		if(T.x < src_min_x || !src_min_x)
+			src_min_x	= T.x
+		if(T.y < src_min_y || !src_min_y)
+			src_min_y	= T.y
+
+	var/trg_min_x = 0
+	var/trg_min_y = 0
+	for(var/turf/T in turfs_trg)
+		if(T.x < trg_min_x || !trg_min_x)
+			trg_min_x	= T.x
+		if(T.y < trg_min_y || !trg_min_y)
+			trg_min_y	= T.y
+
+	var/list/refined_src = new/list()
+	for(var/turf/T in turfs_src)
+		refined_src += T
+		refined_src[T] = new/datum/coords
+		var/datum/coords/C = refined_src[T]
+		C.x_pos = (T.x - src_min_x)
+		C.y_pos = (T.y - src_min_y)
+
+	var/list/refined_trg = new/list()
+	for(var/turf/T in turfs_trg)
+		refined_trg += T
+		refined_trg[T] = new/datum/coords
+		var/datum/coords/C = refined_trg[T]
+		C.x_pos = (T.x - trg_min_x)
+		C.y_pos = (T.y - trg_min_y)
+
+	var/list/toupdate = new/list()
+
+	var/copiedobjs = list()
+
+	moving:
+		for(var/turf/T in refined_src)
+			var/datum/coords/C_src = refined_src[T]
+			for(var/turf/B in refined_trg)
+				var/datum/coords/C_trg = refined_trg[B]
+				if(C_src.x_pos == C_trg.x_pos && C_src.y_pos == C_trg.y_pos)
+					var/old_dir1 = T.dir
+					var/old_icon_state1 = T.icon_state
+					var/old_icon1 = T.icon
+
+					if(platingRequired)
+						if(isspaceturf(B))
+							continue moving
+					var/turf/X = new T.type(B)
+					X.dir = old_dir1
+					X.icon_state = old_icon_state1
+					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
+
+					for(var/obj/O in T)
+						copiedobjs += DuplicateObject(O, perfect_copy, newloc = X)
+
+					for(var/mob/M in T)
+						if(!M.move_on_shuttle)
+							continue
+						copiedobjs += DuplicateObject(M, perfect_copy, newloc = X)
+
+					for(var/V in T.vars)
+						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
+							X.vars[V] = T.vars[V]
+
+					toupdate += X
+
+					refined_src -= T
+					refined_trg -= B
+					continue moving
+
+	if(toupdate.len)
+		for(var/turf/simulated/T1 in toupdate)
+			T1.CalculateAdjacentTurfs()
+			SSair.add_to_active(T1,1)
+
+	return copiedobjs

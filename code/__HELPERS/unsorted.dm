@@ -1,11 +1,6 @@
-/*
- * A large number of misc global procs.
- */
-
- /* Get the direction of startObj relative to endObj.
-  * Return values: To the right, 1. Below, 2. To the left, 3. Above, 4. Not found adjacent in cardinal directions, 0.
-  */
-/proc/getRelativeDirection(var/atom/movable/startObj, var/atom/movable/endObj)
+/// Get the direction of startObj relative to endObj.
+/// Return values: To the right, 1. Below, 2. To the left, 3. Above, 4. Not found adjacent in cardinal directions, 0.
+/proc/getRelativeDirection(atom/movable/startObj, atom/movable/endObj)
 	if(endObj.x == startObj.x + 1 && endObj.y == startObj.y)
 		return EAST
 
@@ -20,69 +15,9 @@
 
 	return 0
 
-//Returns the middle-most value
+/// Returns the middle-most value
 /proc/dd_range(low, high, num)
 	return max(low, min(high, num))
-
-//Returns whether or not A is the middle most value
-/proc/InRange(A, lower, upper)
-	if(A < lower)
-		return FALSE
-	if(A > upper)
-		return FALSE
-	return TRUE
-
-
-/proc/get_angle_tgmc(atom/start, atom/end)//For beams.
-	if(!start || !end)
-		CRASH("get_angle_tgmc called for inexisting atoms: [isnull(start) ? "null" : start] to [isnull(end) ? "null" : end].")
-	if(!start.z)
-		start = get_turf(start)
-		if(!start)
-			CRASH("get_angle_tgmc called for inexisting atoms (start): [isnull(start.loc) ? "null loc" : start.loc] [start] to [isnull(end.loc) ? "null loc" : end.loc] [end].") //Atoms are not on turfs.
-	if(!end.z)
-		end = get_turf(end)
-		if(!end)
-			CRASH("get_angle_tgmc called for inexisting atoms (end): [isnull(start.loc) ? "null loc" : start.loc] [start] to [isnull(end.loc) ? "null loc" : end.loc] [end].") //Atoms are not on turfs.
-	var/dy = (32 * end.y + end.pixel_y) - (32 * start.y + start.pixel_y)
-	var/dx = (32 * end.x + end.pixel_x) - (32 * start.x + start.pixel_x)
-	if(!dy)
-		return (dx >= 0) ? 90 : 270
-	. = arctan(dx / dy)
-	if(dy < 0)
-		. += 180
-	else if(dx < 0)
-		. += 360
-
-/proc/Get_Pixel_Angle(y, x) // For getting the angle when animating something's pixel_x and pixel_y
-	if(!y)
-		return (x >= 0)?90:270
-	. = arctan(x / y)
-	if(y<0)
-		. += 180
-	else if(x < 0)
-		. += 360
-
-/proc/is_in_teleport_proof_area(atom/O)
-	if(!O)
-		return FALSE
-	var/area/A = get_area(O)
-	if(!A)
-		return FALSE
-	if(A.tele_proof)
-		return TRUE
-	if(!is_teleport_allowed(O.z))
-		return TRUE
-	else
-		return FALSE
-
-
-
-
-
-
-
-
 
 /// Same as the thing below just for density and without support for atoms.
 /proc/can_line(atom/source, atom/target, length = 5)
@@ -117,16 +52,6 @@
 /// Picks a string of symbols to display as the law number for hacked or ion laws
 /proc/ionnum()
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
-
-/// Format a power value in W, kW, MW, or GW.
-/proc/DisplayPower(powerused)
-	if(powerused < 1000) //Less than a kW
-		return "[powerused] W"
-	else if(powerused < 1000000) //Less than a MW
-		return "[round((powerused * 0.001), 0.01)] kW"
-	else if(powerused < 1000000000) //Less than a GW
-		return "[round((powerused * 0.000001), 0.001)] MW"
-	return "[round((powerused * 0.000000001), 0.0001)] GW"
 
 /proc/get_client_by_ckey(ckey)
 	if(cmptext(copytext(ckey, 1, 2),"@"))
@@ -171,32 +96,11 @@
 		weight += I.w_class
 	return weight
 
-
-
-
-
-
-
-//Takes: Area type as text string or as typepath OR an instance of the area.
-//Returns: A list of all atoms	(objs, turfs, mobs) in areas of that type of that type in the world.
-/proc/get_area_all_atoms(var/areatype)
-	if(!areatype) return null
-	if(istext(areatype)) areatype = text2path(areatype)
-	if(isarea(areatype))
-		var/area/areatemp = areatype
-		areatype = areatemp.type
-
-	var/list/atoms = new/list()
-	for(var/area/N as anything in GLOB.areas)
-		if(istype(N, areatype))
-			for(var/atom/A in N)
-				atoms += A
-	return atoms
-
-/datum/coords //Simple datum for storing coordinates.
-	var/x_pos = null
-	var/y_pos = null
-	var/z_pos = null
+/// Simple datum for storing coordinates.
+/datum/coords
+	var/x_pos
+	var/y_pos
+	var/z_pos
 
 /proc/DuplicateObject(obj/original, perfectcopy = FALSE , sameloc = FALSE, atom/newloc = null)
 	if(!original)
@@ -205,122 +109,31 @@
 	var/obj/O = null
 
 	if(sameloc)
-		O=new original.type(original.loc)
+		O = new original.type(original.loc)
 	else
-		O=new original.type(newloc)
+		O = new original.type(newloc)
 
 	if(perfectcopy)
 		if(O)
-			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group", "comp_lookup", "datum_components")
+			var/static/list/forbidden_vars = list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "power_supply", "contents", "reagents", "stat", "x", "y", "z", "group", "comp_lookup", "datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
 				if(istype(original.vars[V],/list))
 					var/list/L = original.vars[V]
 					O.vars[V] = L.Copy()
 				else if(isdatum(original.vars[V]))
-					continue	// this would reference the original's object, that will break when it is used or deleted.
+					continue // This would reference the original's object, that will break when it is used or deleted.
 				else
 					O.vars[V] = original.vars[V]
 	if(istype(O))
 		O.update_icon()
 	return O
 
-// Я хочу чтобы этот прок умер
-/area/proc/copy_contents_to(area/A , platingRequired = FALSE, perfect_copy = TRUE)
-	//Takes: Area. Optional: If it should copy to areas that don't have plating
-	//Returns: Nothing.
-	//Notes: Attempts to move the contents of one area to another area.
-	//       Movement based on lower left corner. Tiles that do not fit
-	//		 into the new area will not be moved.
-
-	if(!A || !src)
-		return FALSE
-
-	var/list/turfs_src = get_area_turfs(src.type)
-	var/list/turfs_trg = get_area_turfs(A.type)
-
-	var/src_min_x = 0
-	var/src_min_y = 0
-	for(var/turf/T in turfs_src)
-		if(T.x < src_min_x || !src_min_x)
-			src_min_x	= T.x
-		if(T.y < src_min_y || !src_min_y)
-			src_min_y	= T.y
-
-	var/trg_min_x = 0
-	var/trg_min_y = 0
-	for(var/turf/T in turfs_trg)
-		if(T.x < trg_min_x || !trg_min_x)
-			trg_min_x	= T.x
-		if(T.y < trg_min_y || !trg_min_y)
-			trg_min_y	= T.y
-
-	var/list/refined_src = new/list()
-	for(var/turf/T in turfs_src)
-		refined_src += T
-		refined_src[T] = new/datum/coords
-		var/datum/coords/C = refined_src[T]
-		C.x_pos = (T.x - src_min_x)
-		C.y_pos = (T.y - src_min_y)
-
-	var/list/refined_trg = new/list()
-	for(var/turf/T in turfs_trg)
-		refined_trg += T
-		refined_trg[T] = new/datum/coords
-		var/datum/coords/C = refined_trg[T]
-		C.x_pos = (T.x - trg_min_x)
-		C.y_pos = (T.y - trg_min_y)
-
-	var/list/toupdate = new/list()
-
-	var/copiedobjs = list()
-
-
-	moving:
-		for(var/turf/T in refined_src)
-			var/datum/coords/C_src = refined_src[T]
-			for(var/turf/B in refined_trg)
-				var/datum/coords/C_trg = refined_trg[B]
-				if(C_src.x_pos == C_trg.x_pos && C_src.y_pos == C_trg.y_pos)
-					var/old_dir1 = T.dir
-					var/old_icon_state1 = T.icon_state
-					var/old_icon1 = T.icon
-
-					if(platingRequired)
-						if(isspaceturf(B))
-							continue moving
-					var/turf/X = new T.type(B)
-					X.dir = old_dir1
-					X.icon_state = old_icon_state1
-					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
-
-					for(var/obj/O in T)
-						copiedobjs += DuplicateObject(O, perfect_copy, newloc = X)
-
-					for(var/mob/M in T)
-						if(!M.move_on_shuttle)
-							continue
-						copiedobjs += DuplicateObject(M, perfect_copy, newloc = X)
-
-					for(var/V in T.vars)
-						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
-							X.vars[V] = T.vars[V]
-
-					toupdate += X
-
-					refined_src -= T
-					refined_trg -= B
-					continue moving
 
 
 
-	if(toupdate.len)
-		for(var/turf/simulated/T1 in toupdate)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
 
 
-	return copiedobjs
 
 
 

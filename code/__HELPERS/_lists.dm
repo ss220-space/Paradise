@@ -140,7 +140,7 @@
 /proc/listgetindex(var/list/list,index)
 	if(istype(list) && list.len)
 		if(isnum(index))
-			if(InRange(index,1,list.len))
+			if(ISINRANGE(index, 1, list.len))
 				return list[index]
 		else if(index in list)
 			return list[index]
