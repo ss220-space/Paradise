@@ -651,7 +651,9 @@
 			user.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
 		user.drop_item_ground(src)
 
-//clocwork guns
+/**
+ * MARK: Clockwork guns
+ */
 /obj/item/gun/energy/clockwork
 	name = "Clockwork shotgun"
 	ru_names = list(
@@ -691,7 +693,7 @@
 	. = ..()
 	if(!isclocker(user))
 		return
-	.+= span_clockitalic("\n Осталось [cell.charge] заряд[declension_ru(cell.charge, "", "а", "ов")].")
+	.+= span_clockitalic("\n Остал[declension_ru(cell.charge, "ся", "ось", "ось")] [cell.charge] заряд[declension_ru(cell.charge, "", "а", "ов")].")
 
 /obj/item/gun/energy/clockwork/proc/charge()
 	cell.charge = min(cell.charge + charge_rate, cell.maxcharge)
@@ -746,12 +748,12 @@
 	if(!shooter.get_organ(zone))
 		zone = BODY_ZONE_CHEST
 	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
-	shooter.visible_message(span_danger("[src] начинает ярко светится!"))
+	shooter.visible_message(span_danger("[declent_ru(ACCUSATIVE)] начинает ярко светится!"))
 	if(iscultist(shooter))
 		to_chat(shooter, span_clocklarge("Получи, грязный еретик!"))
 	else
 		to_chat(shooter, span_clocklarge("Руки прочь!"))
-	shooter.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Выстрел по самому себе в [zone].")
+	shooter.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Выстрелил себе в [zone.declent_ru(ACCUSATIVE)].")
 	shooter.bleed(BLOOD_VOLUME_NORMAL)
 	shooter.death()
 

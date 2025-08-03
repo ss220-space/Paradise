@@ -117,7 +117,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart/proc/adjust_part(obj/item/part_upper/part, mob/user)
 	if(curse_dial)
-		to_chat(user, span_clockitalic("Сначало почините циферблат!"))
+		balloon_alert(user, "циферблат сломан!")
 		return
 	if(!do_after(user, 5 SECONDS, src))
 		return
@@ -130,16 +130,16 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 /obj/structure/clockwork/functional/heart/proc/summon(obj/item/I, mob/user)
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(GLOB.total_curses > 0)
-		to_chat(user, span_clocklarge("Сердце слишком слабо! Сначало снимите печати!"))
+		balloon_alert(user, "сначало снимите печати")
 		return
 	if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
-		to_chat(user, span_clocklarge("Еще слишком рано, Сын мой..."))
+		balloon_alert(user, "слишком рано...")
 		return
 	if(GLOB.clockwork_power < 250)
-		to_chat(user, span_clocklarge("Вам не хватает энергии!"))
+		balloon_alert(user, "не хватает энергии")
 		return
 	adjust_clockwork_power(-250)
-	visible_message(span_danger("[capitalize(src)] исчезает, и на его месте появляется Великий Ковчег!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] исчезает, и на его месте появляется Великий Ковчег!"))
 	var/area/summon_zone = get_area(src)
 	GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [summon_zone.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
 										ANNOUNCE_CCPARANORMAL_RU,
@@ -158,28 +158,29 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/base_x_throw_distance = 2
 	var/base_y_throw_distance = 2
 	var/throw_dist = 0
-	var/dir_to_center = get_dir(src.loc, did_not_stand_back)
-	var/x_component = abs(did_not_stand_back.x - src.loc.x)
-	var/y_component = abs(did_not_stand_back.y - src.loc.y)
+	var/dir_to_center = get_dir(loc, did_not_stand_back)
+	var/x_component = abs(did_not_stand_back.x - loc.x)
+	var/y_component = abs(did_not_stand_back.y - loc.y)
 	if(istype(did_not_stand_back, /obj/structure/clockwork/functional/heart) || istype(did_not_stand_back, /obj/structure/heart_filler) || istype(did_not_stand_back, /obj/effect/temp_visual/ratvar/reconstruct/heart))
 		return -1
 	if(ISDIAGONALDIR(dir_to_center))
 		throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
-		did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, throw_dist))
+		did_not_stand_back.forceMove(get_ranged_target_turf(loc, dir_to_center, throw_dist))
 	else if(dir_to_center & (NORTH|SOUTH))
 		throw_dist = base_y_throw_distance - y_component + 1
-		did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_y_throw_distance))
+		did_not_stand_back.forceMove(get_ranged_target_turf(loc, dir_to_center, base_y_throw_distance))
 	else if(dir_to_center & (EAST|WEST))
 		throw_dist = base_x_throw_distance - x_component + 1
-		did_not_stand_back.forceMove(get_ranged_target_turf(src.loc, dir_to_center, base_x_throw_distance))
+		did_not_stand_back.forceMove(get_ranged_target_turf(loc, dir_to_center, base_x_throw_distance))
 	return throw_dist
 
 /obj/structure/clockwork/functional/heart/proc/throw_out(atom/movable/did_not_stand_back, throw_dist)
 	if(isliving(did_not_stand_back) && !isclocker(did_not_stand_back))
 		var/mob/living/affected = did_not_stand_back
+		to_chat(affected, span_userdanger("Неведомая сила отталкивает вас!"))
 		affected.Knockdown(6 SECONDS)
 	did_not_stand_back.throw_at(
-		target = get_edge_target_turf(did_not_stand_back, get_dir(src.loc, did_not_stand_back) || pick(GLOB.alldirs)),
+		target = get_edge_target_turf(did_not_stand_back, get_dir(loc, did_not_stand_back) || pick(GLOB.alldirs)),
 		range = throw_dist,
 		speed = 3,
 			force = MOVE_FORCE_VERY_STRONG,
@@ -270,7 +271,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		. = ..()
 		return
 	anchored = TRUE
-	to_chat(dragger, span_clockitalic("Вы пытаетесь толкнуть циферблат, но его что-то удерживает!"))
+	to_chat(dragger, span_clockitalic("Вы пытаетесь толкнуть [declent_ru(ACCUSATIVE)], но его что-то удерживает!"))
 	return
 
 /obj/structure/part_dial/CtrlClick(mob/user)
@@ -281,15 +282,15 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	if(get_dist(user.loc, loc) > 1)
 		return
 	if(!ishuman(user))
-		to_chat(user, span_clockitalic("Вы пытаетесь схватить циферблат, но он слишком тяжелый!"))
+		balloon_alert(user, "слишком тяжелый!")
 		return
-	to_chat(user, span_userdanger("Вы попытались потянуть циферблат, но ваша рука обратилась в пепел!"))
+	to_chat(user, span_userdanger("Вы попытались потянуть [declent_ru(ACCUSATIVE)], но ваша рука обратилась в пепел!"))
 	var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
 	new /obj/effect/decal/cleanable/ash(user.loc)
 
 
-/obj/structure/part_dial/New()
+/obj/structure/part_dial/Initialize(mapload)
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	. = ..()
 
@@ -333,13 +334,13 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		return FALSE
 	if(!ishuman(user))
 		return FALSE
-	to_chat(user, span_userdanger("Вы попытались [is_pull_action ? "потянуть" : "схватить"] деталь, но ваша рука обратилась в пепел!"))
+	to_chat(user, span_userdanger("Вы попытались [is_pull_action ? "потянуть" : "схватить"] [declent_ru(ACCUSATIVE)], но ваша рука обратилась в пепел!"))
 	var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
 	new /obj/effect/decal/cleanable/ash(user.loc)
 	return FALSE
 
-/obj/item/part_upper/New()
+/obj/item/part_upper/Initialize(mapload)
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	return ..()
 
