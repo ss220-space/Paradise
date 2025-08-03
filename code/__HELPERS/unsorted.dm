@@ -538,27 +538,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	return weight
 
 
-///Step-towards method of determining whether one atom can see another. Similar to viewers()
-///note: this is a line of sight algorithm, view() does not do any sort of raycasting and cannot be emulated by it accurately
-/atom/proc/can_see(atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
-	var/turf/current_turf = get_turf(src)
-	var/turf/target_turf = get_turf(target)
-	if(!current_turf || !target_turf)	// nullspace
-		return FALSE
-	if(get_dist(current_turf, target_turf) > length)
-		return FALSE
-	if(current_turf == target_turf)//they are on the same turf, source can see the target
-		return TRUE
-	var/steps = 1
-	current_turf = get_step_towards(current_turf, target_turf)
-	while(current_turf != target_turf)
-		if(steps > length)
-			return FALSE
-		if(IS_OPAQUE_TURF(current_turf))
-			return FALSE
-		current_turf = get_step_towards(current_turf, target_turf)
-		steps++
-	return TRUE
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all areas of that type in the world.
@@ -761,10 +740,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 
 
-/proc/get_cardinal_dir(atom/A, atom/B)
-	var/dx = abs(B.x - A.x)
-	var/dy = abs(B.y - A.y)
-	return get_dir(A, B) & (rand() * (dx+dy) < dy ? 3 : 12)
+
 
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
@@ -1114,13 +1090,7 @@ Standard way to write links -Sayu
 
 	return found
 
-/proc/random_step(atom/movable/AM, steps, chance)
-	var/initial_chance = chance
-	while(steps > 0)
-		if(prob(chance))
-			step(AM, pick(GLOB.alldirs))
-		chance = max(chance - (initial_chance / steps), 0)
-		steps--
+
 
 /proc/get_random_colour(var/simple, var/lower, var/upper)
 	var/colour

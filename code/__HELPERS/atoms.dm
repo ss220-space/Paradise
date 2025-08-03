@@ -8,7 +8,6 @@
 			continue
 		. += checked_atom.contents
 
-
 /// Same as get_all_contents(), but returns a list of atoms of the passed type
 /atom/proc/get_all_contents_type(type)
 	var/list/processing_list = list(src)
@@ -20,7 +19,6 @@
 		if(istype(checked_atom, type))
 			. += checked_atom
 
-
 /// Returns true if the src countain the atom target
 /atom/proc/contains(atom/target)
 	if(!target)
@@ -28,7 +26,6 @@
 	for(var/atom/location = target.loc, location, location = location.loc)
 		if(location == src)
 			return TRUE
-
 
 /// Forces atom to drop all the important items while dereferencing them from their
 /// containers both ways. To be used to preserve important items before mob gib/self-gib.
@@ -77,7 +74,6 @@
 
 		I.forceMove(drop_loc)
 
-
 /**
  * Proc that collects all atoms of passed `path` in our atom contents
  * and returns it in a list()
@@ -95,7 +91,6 @@
 			atoms |= check.collect_all_atoms_of_type(path, blacklist)
 	return atoms
 
-
 /**
  * 	Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
  */
@@ -104,7 +99,6 @@
 	&& (loc.x < TRANSITION_BORDER_EAST) \
 	&& (loc.y > TRANSITION_BORDER_SOUTH) \
 	&& (loc.y < TRANSITION_BORDER_NORTH)
-
 
 /// Returns an x and y value require to reverse the transformations made to center an oversized icon
 /atom/proc/get_oversized_icon_offsets()
@@ -117,7 +111,6 @@
 		"x" = icon_width > world.icon_size && pixel_x != 0 ? (icon_width - world.icon_size) * 0.5 : 0,
 		"y" = icon_height > world.icon_size && pixel_y != 0 ? (icon_height - world.icon_size) * 0.5 : 0,
 	)
-
 
 /**
  * Checks if mover is movable atom and has passed pass_flags.
@@ -135,7 +128,6 @@
 		return FALSE
 	return (mover.pass_flags & passflag)
 
-
 /// Returns a list of all locations (except the area) the movable is within.
 /proc/get_nested_locs(atom/movable/atom_on_location, include_turf = FALSE)
 	. = list()
@@ -147,11 +139,9 @@
 	if(our_turf && include_turf) //At this point, only the turf is left, provided it exists.
 		. += our_turf
 
-
 /// Adds the debris element for projectile impacts.
 /atom/proc/add_debris_element()
 	AddElement(/datum/element/debris, null, -40, 8, 0.7)
-
 
 /// Returns a chosen path that is the closest to a list of matches
 /proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
@@ -184,7 +174,6 @@
 	chosen = matches[chosen]
 	return chosen
 
-
 /// Returns the closest atom of a specific type in a list from a source
 /proc/get_closest_atom(type, list/atom_list, source)
 	var/closest_atom
@@ -202,7 +191,6 @@
 				closest_atom = atom
 	return closest_atom
 
-
 /// Returns the atom type in the specified loc
 /proc/get(atom/loc, type)
 	while(loc)
@@ -211,11 +199,9 @@
 		loc = loc.loc
 	return null
 
-
 /// A do nothing proc
 /proc/pass(...)
 	return
-
 
 /// Similar function to range(), but with no limitations on the distance; will search spiralling outwards from the center
 /proc/spiral_range(dist = 0, center = usr, orange = FALSE)
@@ -236,7 +222,6 @@
 	var/y
 	var/x
 	var/c_dist = 1
-
 
 	while( c_dist <= dist )
 		y = t_center.y + c_dist
@@ -274,7 +259,6 @@
 
 	return atom_list
 
-
 /// Ultra range (no limitations on distance, faster than range for distances > 8); including areas drastically decreases performance
 /proc/urange(dist = 0, atom/center = usr, orange = FALSE, areas = FALSE)
 	if(!dist)
@@ -292,3 +276,41 @@
 		. += checked_turf.contents
 		if(areas)
 			. |= checked_turf.loc
+
+/// Forces the atom to take a step in a random direction
+/proc/random_step(atom/movable/moving_atom, steps, chance)
+	var/initial_chance = chance
+	while(steps > 0)
+		if(prob(chance))
+			step(moving_atom, pick(GLOB.alldirs))
+		chance = max(chance - (initial_chance / steps), 0)
+		steps--
+
+/// Get the cardinal direction between two atoms
+/proc/get_cardinal_dir(atom/start, atom/end)
+	var/dx = abs(end.x - start.x)
+	var/dy = abs(end.y - start.y)
+	return get_dir(start, end) & (rand() * (dx+dy) < dy ? 3 : 12)
+
+/// Step-towards method of determining whether one atom can see another. Similar to viewers()
+/// note: this is a line of sight algorithm, view() does not do any sort of raycasting and cannot be emulated by it accurately
+/atom/proc/can_see(atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
+	var/turf/current_turf = get_turf(src)
+	var/turf/target_turf = get_turf(target)
+	if(!current_turf || !target_turf)	// nullspace
+		return FALSE
+	if(get_dist(current_turf, target_turf) > length)
+		return FALSE
+	if(current_turf == target_turf)//they are on the same turf, source can see the target
+		return TRUE
+	var/steps = 1
+	current_turf = get_step_towards(current_turf, target_turf)
+	while(current_turf != target_turf)
+		if(steps > length)
+			return FALSE
+		if(IS_OPAQUE_TURF(current_turf))
+			return FALSE
+		current_turf = get_step_towards(current_turf, target_turf)
+		steps++
+	return TRUE
+
