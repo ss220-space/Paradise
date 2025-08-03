@@ -767,7 +767,7 @@
 /obj/item/gun/energy/clockwork/sniper
 	name = "clockwork sniper rifle"
 	ru_names = list(
-		NOMINATIVE = "Латунная снайперская винтовка",
+		NOMINATIVE = "латунная снайперская винтовка",
 		GENITIVE = "латунной снайперской винтовки",
 		DATIVE = "латунной снайперской винтовке",
 		ACCUSATIVE = "латунную снайперскую винтовку",
