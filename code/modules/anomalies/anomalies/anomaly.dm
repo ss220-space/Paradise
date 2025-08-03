@@ -364,7 +364,8 @@
 /obj/effect/anomaly/singularity_act()
 	collapse()
 
-/obj/effect/anomaly/tesla_act()
+// Bruh... idk
+/obj/effect/anomaly/zap_act(power, zap_flags)
 	collapse()
 
 /obj/effect/anomaly/ratvar_act()
