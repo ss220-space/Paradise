@@ -4,12 +4,12 @@
 	name = "solar panel"
 	desc = "Солнечная панель. Генерирует электричество при попадании солнечного света."
 	ru_names = list(
-        NOMINATIVE = "солнечная панель",
-        GENITIVE = "солнечной панели",
-        DATIVE = "солнечной панели",
-        ACCUSATIVE = "солнечную панель",
-        INSTRUMENTAL = "солнечной панелью",
-        PREPOSITIONAL = "солнечной панели"
+		NOMINATIVE = "солнечная панель",
+		GENITIVE = "солнечной панели",
+		DATIVE = "солнечной панели",
+		ACCUSATIVE = "солнечную панель",
+		INSTRUMENTAL = "солнечной панелью",
+		PREPOSITIONAL = "солнечной панели"
 	)
 	gender = FEMALE
 	icon = 'icons/obj/engines_and_power/solar_panels.dmi'
@@ -69,6 +69,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
+	balloon_alert(user, "демонтаж...")
 	user.visible_message(
 		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] снимать стекло с [declent_ru(GENITIVE)]."),
 		span_notice("Вы начинаете снимать стекло с [declent_ru(GENITIVE)]...")
@@ -199,14 +200,14 @@
 
 /obj/item/solar_assembly
 	name = "solar panel assembly"
-	desc = "База для сборки солнечной панели. Позволяет собрать солнечную панель и солнечный трекер, если ещё вставить соответствующую плату."
+	desc = "Основание для сборки солнечной панели. Если вмонтировать соответствующую плату, можно собрать солнечный датчик."
 	ru_names = list(
-        NOMINATIVE = "солнечная батарея",
-        GENITIVE = "солнечной батареи",
-        DATIVE = "солнечной батарее",
-        ACCUSATIVE = "солнечную батарею",
-        INSTRUMENTAL = "солнечной батареей",
-        PREPOSITIONAL = "солнечной батарее"
+		NOMINATIVE = "солнечная батарея",
+		GENITIVE = "солнечной батареи",
+		DATIVE = "солнечной батарее",
+		ACCUSATIVE = "солнечную батарею",
+		INSTRUMENTAL = "солнечной батареей",
+		PREPOSITIONAL = "солнечной батарее"
 	)
 	gender = FEMALE
 	icon = 'icons/obj/engines_and_power/solar_panels.dmi'
@@ -230,13 +231,13 @@
 
 /obj/item/solar_assembly/examine(mob/user)
 	. = ..()
-	. += span_notice("Похоже, что она <b>[anchored ? "прикручена" : "не прикручена"]</b>.")
+	. += span_notice("Похоже, что [genderize_ru(gender, "он", "она", "оно", "они")] <b>[anchored ? "прикручен[genderize_ru(gender, "", "а", "о", "ы")]" : "не прикручен[genderize_ru(gender, "", "а", "о", "ы")]"]</b>.")
 	if(tracker)
-		. += span_notice("В ней видно плату солнечного трекера. <b>Её всё ещё можно достать</b>.")
+		. += span_notice("В [genderize_ru(gender, "нём", "ней", "нём", "них")] видно плату солнечного датчика. <b>Её можно достать</b>.")
 	else
-		. += span_notice("В ней видно отсек под плату <i>трекера<i>.")
+		. += span_notice("В [genderize_ru(gender, "нём", "ней", "нём", "них")] видно отсек под плату <i>датчика<i>.")
 	if(anchored)
-		.+= span_notice("Чтобы завершить сборку — наложите <i>стекло</i>.")
+		.+= span_notice("Чтобы завершить сборку —  установите <b><i>стекло</i></b>.")
 
 
 /obj/item/solar_assembly/attackby(obj/item/I, mob/user, params)
@@ -248,7 +249,7 @@
 			return ATTACK_CHAIN_PROCEED
 		var/cached_sound = glass.usesound
 		if(!glass.use(2))
-			balloon_alert(user, "недостаточно сеткла!")
+			user.balloon_alert(user, "недостаточно стекла!")
 			return ATTACK_CHAIN_PROCEED
 		playsound(loc, cached_sound, 50, TRUE)
 		user.visible_message(
@@ -271,11 +272,12 @@
 			balloon_alert(user, "не прикручено!")
 			return ATTACK_CHAIN_PROCEED
 		if(tracker)
-			balloon_alert(user, "занято")
+			balloon_alert(user, "занято!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		tracker = TRUE
+		balloon_alert(user, "установлено")
 		user.visible_message(
 			span_notice("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] плату трекера в солнечную батарею."),
 			span_notice("Вы вставляете плату трекера в солнечную батарею."),
@@ -290,17 +292,19 @@
 	. = TRUE
 	if(!anchored && !isturf(loc))
 		add_fingerprint(user)
-		to_chat(user, span_warning("Вы не можете открутить [declent_ru(ACCUSATIVE)], пока она [ismob(loc) ? "в инвентаре" : "на [loc]"]."))
+		to_chat(user, span_warning("Вы не можете открутить [declent_ru(ACCUSATIVE)], пока она [ismob(loc) ? "в инвентаре" : "на [loc.declent_ru(PREPOSITIONAL)]"]."))
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	set_anchored(!anchored)
 	if(anchored)
+		balloon_alert(user, "прикручено")
 		user.visible_message(
 			span_notice("[user] прикручива[pluralize_ru(user.gender, "ет", "ют")] солнечную батарею к полу."),
 			span_notice("Вы прикручиваете солнечную батарею к полу."),
 		)
 	else
+		balloon_alert(user, "откручено")
 		user.visible_message(
 			span_notice("[user] откручива[pluralize_ru(user.gender, "ет", "ют")] солнечную батарею от пола."),
 			span_notice("Вы откручиваете солнечную батарею от пола."),
@@ -317,8 +321,9 @@
 	var/obj/item/tracker_electronics/electronics = new(drop_location())
 	electronics.add_fingerprint(user)
 	tracker = FALSE
+	balloon_alert(user, "плата извлечена")
 	user.visible_message(
-		span_notice("[user] доста[pluralize_ru(user.gender, "ет", "ют")] плату трекера из солнечной батареи."),
+		span_notice("[user] доста[pluralize_ru(user.gender, "ет", "ют")] плату солнечного датчика из солнечной батареи."),
 		span_notice("Вы достаёте плату трекера из солнечной батареи."),
 	)
 

@@ -7,12 +7,12 @@
 	name = "solar tracker"
 	desc = "Устройство, управляющее углом наклона солнечных панелей в зависимости от направления солнечного света."
 	ru_names = list(
-        NOMINATIVE = "солнечный трекер",
-        GENITIVE = "солнечного трекера",
-        DATIVE = "солнечному трекеру",
-        ACCUSATIVE = "солнечный трекер",
-        INSTRUMENTAL = "солнечным трекером",
-        PREPOSITIONAL = "солнечном трекером"
+		NOMINATIVE = "солнечный датчик",
+		GENITIVE = "солнечного датчика",
+		DATIVE = "солнечному датчику",
+		ACCUSATIVE = "солнечный датчик",
+		INSTRUMENTAL = "солнечным датчиком",
+		PREPOSITIONAL = "солнечном датчке"
 	)
 	gender = MALE
 	icon = 'icons/obj/engines_and_power/solar_panels.dmi'
@@ -73,6 +73,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
+	balloon_alert(user, "демонтаж...")
 	user.visible_message(
 		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] снимать стекло с [declent_ru(GENITIVE)]."),
 		span_notice("Вы начинаете снимать стекло с [declent_ru(GENITIVE)]...")
