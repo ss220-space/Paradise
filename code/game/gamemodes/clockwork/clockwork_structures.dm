@@ -386,7 +386,7 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
-		GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на событие класса \"Divina Sanatio\". Успешное завершения события может привести к угрозе класса \"Разрушитель Миров\".",
+		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии [A.map_name]. Вероятно проявление блюспейс артефакта, способного привести к событию класса \"Разрушитель Миров\".",
 										 ANNOUNCE_CCPARANORMAL_RU,
 										'sound/AI/commandreport.ogg')
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
@@ -405,7 +405,7 @@
 	var/datum/game_mode/gamemode = SSticker.mode
 
 	if(GLOB.heart)
-		to_chat(user, span_clockitalic("Сердце уже призванно в наш мир!"))
+		balloon_alert(user, "сердце уже призвано!")
 		return FALSE
 
 	if(gamemode.clocker_objs.clock_status < RATVAR_NEED_HEART)
@@ -420,9 +420,9 @@
 		to_chat(user, span_cultlarge("Ratvar can only be summoned where the veil is weak - in [english_list(summon_areas)]!"))
 		return FALSE
 	if(!(check_pos()))
-		to_chat(user, span_clocklarge("Недостаточно места вокруг алтаря!"))
+		balloon_alert(user, "недостаточно места!")
 		return FALSE
-	var/confirm_final = tgui_alert(user, "Это действие приведет к созданию сердца, перенести его будет НЕВОЗМОЖНО. Всем еретикам будет выдано ваше местоположение. Вы хотите продолжить?!",
+	var/confirm_final = tgui_alert(user, "Это действие приведет к появлению сердца Ратвара, перенести его будет НЕВОЗМОЖНО. Еретики узнают о ритуале и месте его проведения. Вы хотите продолжить?!",
 	"The power comes...", list("Да воссияет же Ратвар!", "Нет"))
 	if(user)
 		if(confirm_final != "Да воссияет же Ратвар!")
@@ -431,7 +431,7 @@
 		return TRUE
 
 /obj/structure/clockwork/functional/altar/proc/begin_the_ritual()
-	visible_message(span_danger("На месте алтаря появляется огромное сердце!"))
+	visible_message(span_danger("На месте [declent_ru(GENITIVE)] появляется огромное сердце!"))
 	new /obj/structure/clockwork/functional/heart(get_turf(src))
 	qdel(src)
 	return

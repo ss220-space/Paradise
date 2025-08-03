@@ -433,13 +433,10 @@
 /obj/effect/warp_effect/heart
 	var/range = 12
 
-/obj/effect/warp_effect/heart/New()
-	if(GLOB.heart)
-		range = GLOB.heart.pulse_range * 4
-	. = ..()
-
 /obj/effect/warp_effect/heart/Initialize(mapload)
 	. = ..()
+	if(GLOB.heart)
+		range = GLOB.heart.pulse_range * 4
 	var/matrix/M = matrix() * 0.5
 	transform = M
 	animate(src, transform = M * range, time = 0.1 * range SECONDS, alpha = 0)

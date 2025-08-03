@@ -129,7 +129,7 @@
 	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 		if(!clock_mind || !clock_mind.current)
 			continue
-		to_chat(clock_mind.current, span_clock("You and your acolytes have succeeded in preparing the station for the ultimate ritual!"))
+		to_chat(clock_mind.current, span_clock("Вам и другим аколитам удалось подготовить станцию к финальному ритуалу!"))
 
 /datum/clockwork_objectives/proc/succesful_summon()
 	clock_status = RATVAR_HAS_RISEN
@@ -198,7 +198,7 @@
 			ritual_spots += summon
 		sanity++
 	explanation_text = "Призовите Сердце Ратвара, установив свою веру и укрепив ее.\
-	\nПризыв может быть осуществлен только в [english_list(ritual_spots)] - где завеса достаточно слаба, чтобы начать ритуал."
+	\nПризыв может быть осуществлен только в [russian_list(ritual_spots)] - где завеса достаточно слаба, чтобы начать ритуал."
 
 /datum/objective/clockgod/check_completion()
 	if(killed)
