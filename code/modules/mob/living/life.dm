@@ -171,7 +171,7 @@
 	if(!client || !stamina_bar)
 		return
 
-	var/stam_crit_threshold = maxHealth - HEALTH_THRESHOLD_CRIT
+	var/stam_crit_threshold = max_stamina - HEALTH_THRESHOLD_CRIT
 
 	if(stat == DEAD)
 		stamina_bar.icon_state = "stamina_dead"
@@ -182,13 +182,13 @@
 
 	if(shown_stamina_loss >= stam_crit_threshold)
 		stamina_bar.icon_state = "stamina_crit"
-	else if(shown_stamina_loss > maxHealth * 0.8)
+	else if(shown_stamina_loss > max_stamina * 0.8)
 		stamina_bar.icon_state = "stamina_5"
-	else if(shown_stamina_loss > maxHealth * 0.6)
+	else if(shown_stamina_loss > max_stamina * 0.6)
 		stamina_bar.icon_state = "stamina_4"
-	else if(shown_stamina_loss > maxHealth * 0.4)
+	else if(shown_stamina_loss > max_stamina * 0.4)
 		stamina_bar.icon_state = "stamina_3"
-	else if(shown_stamina_loss > maxHealth * 0.2)
+	else if(shown_stamina_loss > max_stamina * 0.2)
 		stamina_bar.icon_state = "stamina_2"
 	else if(shown_stamina_loss > 0)
 		stamina_bar.icon_state = "stamina_1"

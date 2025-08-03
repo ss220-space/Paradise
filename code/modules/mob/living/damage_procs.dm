@@ -755,7 +755,7 @@
 		if(amount <= 0)
 			return STATUS_UPDATE_NONE
 	var/old_stamloss = getStaminaLoss()
-	staminaloss = clamp(round(staminaloss + amount, DAMAGE_PRECISION), 0, get_max_stamina())
+	staminaloss = clamp(round(staminaloss + amount, DAMAGE_PRECISION), 0, MAX_STAMINA_LOSS)
 	if(old_stamloss == getStaminaLoss())
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -784,7 +784,7 @@
 			updatehealth("setStaminaLoss")
 		return STATUS_UPDATE_NONE
 	var/old_stamloss = getStaminaLoss()
-	staminaloss = clamp(round(amount, DAMAGE_PRECISION), 0, get_max_stamina())
+	staminaloss = clamp(round(amount, DAMAGE_PRECISION), 0, MAX_STAMINA_LOSS)
 	if(old_stamloss == getStaminaLoss())
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -796,10 +796,12 @@
 		updatehealth("setStaminaLoss")
 
 
+/// Returns the maximum stamina of the mob with bonuses affecting it
 /mob/living/proc/get_max_stamina()
-	return BASE_MAX_STAMINA_LOSS
+	return max_stamina
 
 
+/// Max stamina MUST be lower than MAX_STAMINA_LOSS otherwise everything will explode
 /mob/living/proc/set_max_stamina(amount)
 	return
 

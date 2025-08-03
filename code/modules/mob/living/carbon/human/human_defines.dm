@@ -71,7 +71,6 @@
 	var/meatleft = 3 //For chef item
 	var/decaylevel = 0 // For rotting bodies
 	var/max_blood = BLOOD_VOLUME_NORMAL // For stuff in the vessel
-	var/max_stamina = BASE_MAX_STAMINA_LOSS
 	var/bleed_rate = 0
 	var/bleedsuppress = 0 //for stopping bloodloss
 

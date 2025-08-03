@@ -41,7 +41,7 @@
 				to_chat(H, span_userdanger("[pick("Вы чувствуете, как ваше сердце замедляется...", "Вы расслабляетесь и замедляете сердцебиение.")]"))
 				H.adjustStaminaLoss(70)
 			if(prob(10))
-				H.adjustStaminaLoss(100)
+				H.adjustStaminaLoss(H.get_max_stamina())
 				H.visible_message(span_warning("[H.declent_ru(NOMINATIVE)] падает в обморок!"), span_userdanger("Вы сдаётесь и чувствуете покой..."))
 				H.AdjustSleeping(10 SECONDS)
 			if(prob(2))

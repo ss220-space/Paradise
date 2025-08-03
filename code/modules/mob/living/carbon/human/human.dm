@@ -22,7 +22,6 @@
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/human)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 	AddElement(/datum/element/strippable, GLOB.strippable_human_items,  TYPE_PROC_REF(/mob/living/carbon/human/, should_strip))
-	AddComponent(/datum/component/nutrition_effects)
 	UpdateAppearance()
 	GLOB.human_list += src
 
@@ -1010,7 +1009,7 @@
 
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
 	if(include_species_change)
-		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
+		set_species(new_dna.species.type, retain_damage = TRUE, transformation = FALSE, keep_missing_bodyparts = TRUE)
 	dna = new_dna.Clone()
 	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
@@ -1066,6 +1065,7 @@
 	wing = (save_appearance && oldspecies) ? oldspecies.wing : dna.species.wing
 
 	maxHealth = dna.species.total_health
+	max_stamina = dna.species.total_stamina
 
 	if(dna.species.language)
 		add_language(dna.species.language)
@@ -1252,6 +1252,9 @@
 
 	if(!delay_icon_update)
 		UpdateAppearance()
+
+	if(!HAS_TRAIT(src, TRAIT_NO_HUNGER) && !HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
+		AddComponent(/datum/component/nutrition_effects)
 
 	if(dna.species)
 		SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
@@ -1749,10 +1752,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 
 
-/mob/living/carbon/human/get_max_stamina()
-	return max_stamina
-
-
 /mob/living/carbon/human/set_max_stamina(amount)
 	max_stamina = max(0, amount)
 
@@ -1761,27 +1760,59 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
-	update_nutrition_level()
+	try_update_nutrition_level()
 
 
 /mob/living/carbon/human/set_nutrition(change, forced)
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
-	update_nutrition_level()
+	try_update_nutrition_level()
 
 
-/mob/living/carbon/human/proc/update_nutrition_level()
-	SEND_SIGNAL(src, COMSIG_HUMAN_NUTRITION_UPDATE, nutrition)
+/mob/living/carbon/human/proc/try_update_nutrition_level()
+	update_nutrition_hud()
+
+	// If nutrition still in current level thresholds we do nothing
+	if(current_nutrition_level && \
+		nutrition > current_nutrition_level.level_decrease_threshold && \
+		nutrition <= current_nutrition_level.level_increase_threshold)
+		return
+
+	switch(nutrition)
+		if(-INFINITY to NUTRITION_LEVEL_HYPOGLYCEMIA)
+			current_nutrition_level = /datum/nutrition_level/hypoglycemia
+		if(NUTRITION_LEVEL_HYPOGLYCEMIA to NUTRITION_LEVEL_STARVING)
+			current_nutrition_level = /datum/nutrition_level/starving
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+			current_nutrition_level = /datum/nutrition_level/hungry
+		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+			current_nutrition_level = /datum/nutrition_level/fed
+		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+			current_nutrition_level = /datum/nutrition_level/well_fed
+		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+			current_nutrition_level = /datum/nutrition_level/full
+		if(NUTRITION_LEVEL_FULL to INFINITY)
+			current_nutrition_level = /datum/nutrition_level/fat
+
+	// If our species shouldn't get bonuses/penalties from nutrition levels, besides default hunger slowdown, we dont interact with component further
+	if(HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
+		update_nutrition_slowdown()
+		return
+
+	SEND_SIGNAL(src, COMSIG_HUMAN_NUTRITION_UPDATE)
 
 
-/// Sets max stamina, tool and movespeed mods based on current nutrition level
-/mob/living/carbon/human/proc/update_nutrition_effects(/datum/nutrition_level/nutrition_level)
-	set_max_stamina(BASE_MAX_STAMINA_LOSS + nutrition_level.max_stamina_bonus)
-	add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = src.dna.species.toolspeedmod + nutrition_level.tool_speed_mod)
-	add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = src.dna.species.surgeryspeedmod + nutrition_level.tool_speed_mod)
-	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = nutrition_level.move_speed_mod)
-	sound_environment_override = nutrition_level.sound_env
+/// Updates nutrition slowdown both for component users and species with TRAIT_NO_NUTRITION_EFFECTS
+/mob/living/carbon/human/proc/update_nutrition_slowdown()
+	if(HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
+		if(nutrition <= 150)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = 3)
+		else
+			remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
+		return
+
+	SEND_SIGNAL(src, COMSIG_HUMAN_NUTRITION_UPDATE_SLOWDOWN)
 
 
 /mob/living/carbon/human/proc/special_post_clone_handling()

@@ -101,6 +101,8 @@
 
 	/// Maximum health of this species
 	var/total_health = 100
+	/// Maximum stamina of this species, MUST be lower than MAX_STAMINA_LOSS
+	var/total_stamina = BASE_MAX_STAMINA
 	/// What type of damage does this species take if it's low on blood?
 	var/blood_damage_type = OXY
 	/// Species default genes

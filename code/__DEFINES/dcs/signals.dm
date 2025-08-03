@@ -1027,8 +1027,10 @@
 #define COMSIG_JOB_RECEIVED "job_received"
 // called after DNA is updated
 #define COMSIG_HUMAN_UPDATE_DNA "human_update_dna"
-/// From /mob/living/carbon/human/proc/update_nutrition_level()
+/// From /mob/living/carbon/human/proc/try_update_nutrition_level()
 #define COMSIG_HUMAN_NUTRITION_UPDATE "human_nutrition_update"
+/// From /mob/living/carbon/human/proc/update_nutrition_slowdown()
+#define COMSIG_HUMAN_NUTRITION_UPDATE_SLOWDOWN "human_nutrition_update_slowdown"
 /// From mob/living/carbon/human/change_body_accessory(): (mob/living/carbon/human/H, body_accessory_style)
 #define COMSIG_HUMAN_CHANGE_BODY_ACCESSORY "human_change_body_accessory"
 	#define COMSIG_HUMAN_NO_CHANGE_APPEARANCE (1<<0)

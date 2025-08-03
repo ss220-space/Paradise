@@ -91,7 +91,7 @@
 		to_chat(user, span_warning("Вы слишком голодны!"))
 		return FALSE
 
-	if(user.getStaminaLoss() + delta * REQ_STAMINA_FOR_STRENGTH_POINT > user.get_max_stamina)
+	if(user.getStaminaLoss() + delta * REQ_STAMINA_FOR_STRENGTH_POINT > MAX_STAMINA_LOSS)
 		to_chat(user, span_warning("Вы слишком устали!"))
 		return FALSE
 
