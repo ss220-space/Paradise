@@ -671,3 +671,41 @@
 		out_ckey = "(Disconnected)"
 
 	return out_ckey
+
+GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
+
+//Version of view() which ignores darkness, because BYOND doesn't have it.
+/proc/dview(range = world.view, center, invis_flags = 0)
+	if(!center)
+		return
+
+	GLOB.dview_mob.loc = center
+
+	GLOB.dview_mob.set_invis_see(invis_flags)
+
+	. = view(range, GLOB.dview_mob)
+	GLOB.dview_mob.loc = null
+
+/mob/dview // TODO: Refactor from TG
+	name = "INTERNAL DVIEW MOB"
+	invisibility = INVISIBILITY_ABSTRACT
+	density = FALSE
+	move_force = 0
+	pull_force = 0
+	move_resist = INFINITY
+	simulated = 0
+
+/mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
+	SHOULD_CALL_PARENT(FALSE)
+
+/mob/dview/Destroy()
+	SHOULD_CALL_PARENT(FALSE)
+	// should never be deleted
+	return QDEL_HINT_LETMELIVE
+
+#define FOR_DVIEW(type, range, center, invis_flags) \
+	GLOB.dview_mob.loc = center; \
+	GLOB.dview_mob.set_invis_see(invis_flags); \
+	for(type in view(range, GLOB.dview_mob))
+
+#define END_FOR_DVIEW GLOB.dview_mob.loc = null

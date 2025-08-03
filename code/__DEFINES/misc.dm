@@ -98,12 +98,7 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
-#define FOR_DVIEW(type, range, center, invis_flags) \
-	GLOB.dview_mob.loc = center; \
-	GLOB.dview_mob.set_invis_see(invis_flags); \
-	for(type in view(range, GLOB.dview_mob))
 
-#define END_FOR_DVIEW GLOB.dview_mob.loc = null
 
 //Turf locational stuff
 #define get_turf(A) (get_step(A, 0))
