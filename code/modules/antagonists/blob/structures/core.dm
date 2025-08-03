@@ -4,7 +4,7 @@
 	icon_state = "blank_blob"
 	desc = "Огромная пульсирующая желтая масса."
 	max_integrity = BLOB_CORE_MAX_HP
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 90)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 90)
 	explosion_block = 6
 	explosion_vertical_block = 5
 	point_return = BLOB_REFUND_CORE_COST

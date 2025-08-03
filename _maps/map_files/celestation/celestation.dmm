@@ -121585,7 +121585,10 @@
 /area/hallway/primary/starboard/south)
 "vZR" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library/checkout{
+	dir = 4;
+	pixel_y = 5
+	},
 /turf/simulated/floor/carpet,
 /area/library)
 "vZS" = (
@@ -132664,7 +132667,10 @@
 /area/quartermaster/lobby)
 "ydI" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	pixel_y = 5;
+	dir = 1
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/library)
 "ydJ" = (

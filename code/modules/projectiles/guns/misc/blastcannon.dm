@@ -10,6 +10,7 @@
 	needs_permit = FALSE
 	clumsy_check = FALSE
 	randomspread = FALSE
+	accuracy = GUN_ACCURACY_MINIMAL
 
 	var/obj/item/transfer_valve/bomb
 
