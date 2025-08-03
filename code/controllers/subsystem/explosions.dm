@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(explosions)
 	var/priority_queue/explosion_queue
 
 	var/reactionary_explosions = FALSE
-	var/multiz_explosions = FALSE
+	var/multiz_explosions = TRUE
 
 	// Explosion sounds cache
 	var/sound/explosion_sound
@@ -34,8 +34,6 @@ SUBSYSTEM_DEF(explosions)
 
 
 /datum/controller/subsystem/explosions/Initialize()
-	if(CONFIG_GET(flag/multiz_explosions))
-		multiz_explosions = TRUE
 	if(CONFIG_GET(flag/reactionary_explosions))
 		reactionary_explosions = TRUE
 	explosion_sound = sound(get_sfx("explosion"))
