@@ -655,9 +655,9 @@
  * MARK: Clockwork guns
  */
 /obj/item/gun/energy/clockwork
-	name = "Clockwork shotgun"
+	name = "clockwork shotgun"
 	ru_names = list(
-		NOMINATIVE = "Латунный дробовик",
+		NOMINATIVE = "латунный дробовик",
 		GENITIVE = "латунного дробовика",
 		DATIVE = "латунному дробовику",
 		ACCUSATIVE = "латунный дробовик",
@@ -747,8 +747,8 @@
 	var/zone = BODY_ZONE_HEAD
 	if(!shooter.get_organ(zone))
 		zone = BODY_ZONE_CHEST
-	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
-	shooter.visible_message(span_danger("[declent_ru(ACCUSATIVE)] начинает ярко светится!"))
+	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
+	shooter.visible_message(span_danger("[declent_ru(ACCUSATIVE)] начинает ярко светиться!"))
 	if(iscultist(shooter))
 		to_chat(shooter, span_clocklarge("Получи, грязный еретик!"))
 	else
@@ -767,16 +767,16 @@
 	newshot()
 
 /obj/item/gun/energy/clockwork/sniper
-	name = "Clockwork sniper rifle"
+	name = "clockwork sniper rifle"
 	ru_names = list(
-		NOMINATIVE = "Латунная снайперская винтовка",
+		NOMINATIVE = "латунная снайперская винтовка",
 		GENITIVE = "латунной снайперской винтовки",
 		DATIVE = "латунной снайперской винтовке",
 		ACCUSATIVE = "латунную снайперскую винтовку",
 		INSTRUMENTAL = "латунной снайперской винтовкой",
 		PREPOSITIONAL = "латунной снайперской винтовке",
 	)
-	desc = "Снайперская винтовка из латуни, с самовосполняющимися за счет энергии Ратвара, патронами. От него исходит ритмичное тиканье."
+	desc = "Снайперская винтовка из латуни, с самовосполняющимися за счет энергии Ратвара, патронами. От неё исходит ритмичное тиканье."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "brasssniper"
 	item_state = "brasssniper"

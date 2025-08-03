@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(gun_and_heart_spells, list(
 #define CLOCK_POWER_REVEAL_HIGH 0.5
 /// Percent clockers to reveal (Highpop)
 #define CLOCK_CREW_REVEAL_HIGH 0.25
-//default power for goal
+/// Default power for goal
 #define CLOCK_BASIC_POWER_GOAL 120
 
 // Text

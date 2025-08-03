@@ -1,4 +1,5 @@
 GLOBAL_LIST_INIT(ratvar_mechas, typesof(/datum/ratvar_mecha))
+
 /datum/ratvar_mecha
 	var/ratvarized_icon = null
 	var/list/mech_types = list(MECH_TYPE_NONE)

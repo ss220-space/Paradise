@@ -2,7 +2,7 @@ GLOBAL_VAR_INIT(total_curses, 3)
 GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart
-	name = "The heart of Ratvar"
+	name = "/The Heart of Ratvar"
 	ru_names = list(
 		NOMINATIVE = "Сердце Ратвара",
 		GENITIVE = "Сердца Ратвара",
@@ -142,8 +142,9 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] исчезает, и на его месте появляется Великий Ковчег!"))
 	var/area/summon_zone = get_area(src)
 	GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [summon_zone.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/commandreport.ogg')
+		ANNOUNCE_CCPARANORMAL_RU,
+		'sound/AI/commandreport.ogg'
+	)
 	new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
 	qdel(src)
 
@@ -193,7 +194,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/bless_to_give = new chosen_blessing(user.loc)
 	user.put_in_hands(bless_to_give)
 	LAZYREMOVE(blessings, chosen_blessing)
-	to_chat(user, span_clockitalic("Благодарю тебя, Сын мой. Прими же этот дар."))
+	to_chat(user, span_clockitalic("Благодарю тебя, сын мой. Прими же этот дар!"))
 	chosen_blessing = null
 	bless_to_give = null
 
