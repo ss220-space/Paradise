@@ -38,7 +38,7 @@
 		if(!user.drop_transfer_item_to_loc(new_magazine, src))
 			return ..()
 		if(magazine)
-			magazine.forceMove(drop_location())
+			magazine.forceMove(get_turf(src))
 			magazine.update_appearance()
 		balloon_alert(user, "заряжено")
 		alarmed = FALSE	// Reset the alarm once a magazine is loaded
@@ -91,6 +91,7 @@
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
+	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3)
@@ -110,6 +111,7 @@
 	can_bayonet = TRUE
 	bayonet_x_offset = 26
 	bayonet_y_offset = 12
+	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
@@ -150,6 +152,7 @@
 	bayonet_x_offset = 25
 	bayonet_y_offset = 12
 	gun_light_overlay = "wt-light"
+	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 1),
@@ -184,6 +187,7 @@
 	burst_size = 3
 	can_bayonet = FALSE
 	gun_light_overlay = "SP-91-RC-light"
+	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
@@ -233,6 +237,7 @@
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
 	fire_delay = 2
+	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 2),
@@ -312,6 +317,7 @@
 	can_suppress = 0
 	burst_size = 4
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
 
 //ARG Assault Rifle//
 /obj/item/gun/projectile/automatic/ar
@@ -328,6 +334,7 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
@@ -351,6 +358,7 @@
 	bayonet_y_offset = 10
 	burst_size = 2
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
@@ -373,6 +381,7 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
+	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 9)
@@ -436,6 +445,7 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1.5
+	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 4)
@@ -462,6 +472,7 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	burst_size = 2
 	can_suppress = 0
+	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6)
@@ -494,6 +505,7 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 2
+	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6)
@@ -516,6 +528,7 @@
 	can_suppress = 0
 	burst_size = 1
 	actions_types = null
+	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 9)
@@ -535,6 +548,7 @@
 	burst_size = 3
 	can_flashlight = TRUE
 	gun_light_overlay = "sfg-light"
+	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 1),
@@ -563,6 +577,7 @@
 	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
 	mag_type = /obj/item/ammo_box/magazine/m52mag
 	can_suppress = 0
+	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),

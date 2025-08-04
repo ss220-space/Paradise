@@ -13,6 +13,7 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
+	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
@@ -38,6 +39,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -1)
 	)
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 //Specter//
@@ -65,6 +67,7 @@
 	can_flashlight = TRUE
 	materials = list(MAT_METAL = 1000)
 	gun_light_overlay = "specter-light"
+	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
@@ -104,6 +107,7 @@
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 	gun_light_overlay = "enforcer-light"
+	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 4),
@@ -160,6 +164,7 @@
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 	gun_light_overlay = "sp8-light"
+	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 5),
@@ -238,6 +243,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -2)
 	)
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/projectile/automatic/pistol/deagle/update_icon_state()
@@ -265,6 +271,7 @@
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 5),

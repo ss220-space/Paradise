@@ -40,6 +40,19 @@
 	volume = 120
 	unintentional_stat_allowed = UNCONSCIOUS
 
+/datum/emote/living/carbon/smoking
+	key = "smoking"
+	key_third_person = "smoked"
+	message = "затягивается и выдыхает облако табачного дыма."
+	message_mime = "беззвучно затягивается и выдыхает облако табачного дыма."
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
+
+/datum/emote/living/carbon/finish_smoking
+	key = "finish_smoking"
+	key_third_person = "finished_smoking"
+	message = "делает сильную затяжку и выкидывает окурок."
+	message_mime = "делает сильную беззвучную затяжку и выкидывает окурок."
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 
 /datum/emote/living/carbon/cough/get_sound(mob/living/carbon/human/user)
 	if(ishuman(user) && user.dna?.species)

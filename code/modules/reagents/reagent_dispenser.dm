@@ -16,7 +16,7 @@
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(. && obj_integrity > 0)
-		if(tank_volume && (damage_flag == "bullet" || damage_flag == "laser"))
+		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
 			boom(FALSE, TRUE)
 
 
@@ -127,9 +127,10 @@
 	..()
 	boom()
 
-/obj/structure/reagent_dispensers/fueltank/tesla_act()
-	..() //extend the zap
-	boom()
+/obj/structure/reagent_dispensers/fueltank/zap_act(power, zap_flags)
+	. = ..() //extend the zap
+	if(ZAP_OBJ_DAMAGE & zap_flags)
+		boom()
 
 /obj/structure/reagent_dispensers/fueltank/examine(mob/user)
 	. = ..()

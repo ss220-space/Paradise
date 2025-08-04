@@ -1125,7 +1125,7 @@
 		tilt(target, from_combat = TRUE)
 		target.visible_message(
 			span_danger("[attacker] толка[pluralize_ru(attacker.gender, "ет", "ют")] [target] в [declent_ru(ACCUSATIVE)]!"),
-			span_userdanger("[attacker] впечатыва[pluralize_ru(attacker.gender, "ет", "ют")] вас в [declent_ru(GENITIVE)]!"),
+			span_userdanger("[attacker] впечатыва[pluralize_ru(attacker.gender, "ет", "ют")] вас в [declent_ru(ACCUSATIVE)]!"),
 			span_danger("Вы слышите громкий хруст.")
 		)
 	else

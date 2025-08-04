@@ -40,6 +40,7 @@
 	var/empty_state = "kineticgun_empty"
 	/// Saved timer that can be overrided by modkits after hitting target.
 	var/recharge_timerid
+	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 

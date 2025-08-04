@@ -22,7 +22,9 @@
 					keybindings,
 					viewrange,
 					ghost_darkness_level,
-					toggles_3
+					toggles_3,
+					screentip_mode,
+					screentip_color
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -57,27 +59,31 @@
 		viewrange = query.item[20]
 		ghost_darkness_level = query.item[21]
 		toggles3 = text2num(query.item[22])
+		screentip_mode = query.item[23]
+		screentip_color = query.item[24]
 
 	qdel(query)
 
 	//Sanitize
-	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
-	UI_style		= sanitize_inlist(UI_style, list(UI_THEME_WHITE, UI_THEME_MIDNIGHT, UI_THEME_PLASMAFIRE, UI_THEME_RETRO, UI_THEME_SLIMECORE, UI_THEME_OPERATIVE), initial(UI_style))
-	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
-	toggles			= sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
-	toggles2		= sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
-	toggles3		= sanitize_integer(toggles3, 0, TOGGLES_3_TOTAL, initial(toggles3))
-	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
-	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
-	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
-	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
+	ooccolor = sanitize_hexcolor(ooccolor, initial(ooccolor))
+	UI_style = sanitize_inlist(UI_style, list(UI_THEME_WHITE, UI_THEME_MIDNIGHT, UI_THEME_PLASMAFIRE, UI_THEME_RETRO, UI_THEME_SLIMECORE, UI_THEME_OPERATIVE), initial(UI_style))
+	default_slot = sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
+	toggles = sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
+	toggles2 = sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
+	toggles3 = sanitize_integer(toggles3, 0, TOGGLES_3_TOTAL, initial(toggles3))
+	sound = sanitize_integer(sound, 0, 65535, initial(sound))
+	UI_style_color = sanitize_hexcolor(UI_style_color, initial(UI_style_color))
+	UI_style_alpha = sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
+	lastchangelog = sanitize_text(lastchangelog, initial(lastchangelog))
 	exp	= sanitize_text(exp, initial(exp))
 	clientfps = sanitize_integer(clientfps, -1, 1000, initial(clientfps))
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
-	discord_id			= sanitize_text(discord_id, initial(discord_id))
-	discord_name		= sanitize_text(discord_name, initial(discord_name))
+	discord_id = sanitize_text(discord_id, initial(discord_id))
+	discord_name = sanitize_text(discord_name, initial(discord_name))
+	screentip_mode = sanitize_integer(screentip_mode, 0, 20, initial(screentip_mode))
+	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
 	return TRUE
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -112,7 +118,9 @@
 					keybindings=:keybindings,
 					viewrange=:viewrange,
 					ghost_darkness_level=:ghost_darkness_level,
-					toggles_3=:toggles3
+					toggles_3=:toggles3,
+					screentip_mode=:screentip_mode,
+					screentip_color=:screentip_color
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -135,6 +143,8 @@
 						"ghost_darkness_level" = ghost_darkness_level,
 						"ckey" = C.ckey,
 						"toggles3" = num2text(toggles3, CEILING(log(10, (TOGGLES_3_TOTAL)), 1)),
+						"screentip_mode" = screentip_mode,
+						"screentip_color" = screentip_color
 					)
 					)
 
