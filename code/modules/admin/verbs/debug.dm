@@ -199,7 +199,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!lst)
 		return
 
-	if(!A || !IsValidSrc(A))
+	if(!A || !is_valid_src(A))
 		to_chat(src, span_warning("Error: callproc_datum(): owner of proc no longer exists."))
 		return
 	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")

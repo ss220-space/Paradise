@@ -1258,7 +1258,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 /// (Generated names do not include file extention.)
 /proc/generate_asset_name(file)
 	return "asset.[md5(fcopy_rsc(file))]"
-	
+
 /**
  * generate an asset for the given icon or the icon of the given appearance for [thing], and send it to any clients in target.
  * Arguments:
@@ -1352,3 +1352,94 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	if(sourceonly)
 		return SSassets.transport.get_asset_url(key)
 	return "<img class='[extra_classes] icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
+
+/atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
+	var/initialpixelx = pixel_x
+	var/initialpixely = pixel_y
+	var/shiftx = rand(-pixelshiftx,pixelshiftx)
+	var/shifty = rand(-pixelshifty,pixelshifty)
+	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
+	pixel_x = initialpixelx
+	pixel_y = initialpixely
+
+/**
+  * Returns a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
+  *
+  * Arguments:
+  * * loc - The atom to look in.
+  * * type - The type to look for.
+  * * check_shift - If true, will exclude atoms whose pixel_x/pixel_y do not match shift_x/shift_y.
+  * * shift_x - If check_shift is true, atoms whose pixel_x is different to this will be excluded.
+  * * shift_y - If check_shift is true, atoms whose pixel_y is different to this will be excluded.
+  */
+/proc/get_atoms_of_type(atom/loc, type, check_shift = FALSE, shift_x = 0, shift_y = 0)
+	. = list()
+	if(!loc)
+		return
+	for(var/atom/A as anything in loc)
+		if(!istype(A, type))
+			continue
+		if(check_shift && !(A.pixel_x == shift_x && A.pixel_y == shift_y))
+			continue
+		. += A
+
+/// Returns a list with pixel_shift values that will shift an object's icon one tile in the direction passed.
+/proc/pixel_shift_dir(dir, amount_x = 32, amount_y = 32)
+	amount_x = min(max(0, amount_x), 32) //No less than 0, no greater than 32.
+	amount_y = min(max(0, amount_x), 32)
+	var/list/shift = list("x" = 0, "y" = 0)
+	switch(dir)
+		if(NORTH)
+			shift["y"] = amount_y
+		if(SOUTH)
+			shift["y"] = -amount_y
+		if(EAST)
+			shift["x"] = amount_x
+		if(WEST)
+			shift["x"] = -amount_x
+		if(NORTHEAST)
+			shift = list("x" = amount_x, "y" = amount_y)
+		if(NORTHWEST)
+			shift = list("x" = -amount_x, "y" = amount_y)
+		if(SOUTHEAST)
+			shift = list("x" = amount_x, "y" = -amount_y)
+		if(SOUTHWEST)
+			shift = list("x" = -amount_x, "y" = -amount_y)
+
+	return shift
+
+/**
+ * Center's an image. Only run this on float overlays and not physical
+ * Requires:
+ * The Image
+ * The x dimension of the icon file used in the image
+ * The y dimension of the icon file used in the image
+ * eg: center_image(image_to_center, 32,32)
+ * eg2: center_image(image_to_center, 96,96)
+**/
+/proc/center_image(image/image_to_center, x_dimension = 0, y_dimension = 0)
+	if(!image_to_center)
+		return
+
+	if(!x_dimension || !y_dimension)
+		return
+
+	if((x_dimension == ICON_SIZE_X) && (y_dimension == ICON_SIZE_Y))
+		return image_to_center
+
+	//Offset the image so that its bottom left corner is shifted this many pixels
+	//This makes it infinitely easier to draw larger inhands/images larger than world.iconsize
+	//but still use them in game
+	var/x_offset = -((x_dimension / ICON_SIZE_X) - 1) * (ICON_SIZE_X * 0.5)
+	var/y_offset = -((y_dimension / ICON_SIZE_Y) - 1) * (ICON_SIZE_Y * 0.5)
+
+	//Correct values under icon_size
+	if(x_dimension < ICON_SIZE_X)
+		x_offset *= -1
+	if(y_dimension < ICON_SIZE_Y)
+		y_offset *= -1
+
+	image_to_center.pixel_w = x_offset
+	image_to_center.pixel_z = y_offset
+
+	return image_to_center

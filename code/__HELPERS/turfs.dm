@@ -339,3 +339,53 @@
 	var/x_pos
 	var/y_pos
 	var/z_pos
+
+/proc/get_distant_turf(turf/T, direction, distance)
+	if(!T || !direction || !distance)
+		return
+
+	var/dest_x = T.x
+	var/dest_y = T.y
+	var/dest_z = T.z
+
+	if(direction & NORTH)
+		dest_y = min(world.maxy, dest_y + distance)
+	if(direction & SOUTH)
+		dest_y = max(0, dest_y - distance)
+	if(direction & EAST)
+		dest_x = min(world.maxy, dest_x + distance)
+	if(direction & WEST)
+		dest_x = max(0, dest_x - distance)
+
+	return locate(dest_x, dest_y, dest_z)
+
+/// Same as the thing below just for density and without support for atoms.
+/proc/can_line(atom/source, atom/target, length = 5)
+	var/turf/current = get_turf(source)
+	var/turf/target_turf = get_turf(target)
+	var/steps = 0
+
+	while(current != target_turf)
+		if(steps > length)
+			return FALSE
+		if(!current)
+			return FALSE
+		if(current.density)
+			return FALSE
+		current = get_step_towards(current, target_turf)
+		steps++
+	return TRUE
+
+/proc/screen_loc_to_turf(text, turf/origin, client/C)
+	if(!text)
+		return null
+	var/tZ = splittext(text, ",")
+	var/tX = splittext(tZ[1], "-")
+	var/tY = text2num(tX[2])
+	tX = splittext(tZ[2], "-")
+	tX = text2num(tX[2])
+	tZ = origin.z
+	var/list/actual_view = getviewsize(C ? C.view : world.view)
+	tX = clamp(origin.x + round(actual_view[1] / 2) - tX, 1, world.maxx)
+	tY = clamp(origin.y + round(actual_view[2] / 2) - tY, 1, world.maxy)
+	return locate(tX, tY, tZ)

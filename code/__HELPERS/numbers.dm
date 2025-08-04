@@ -168,3 +168,12 @@
 
 	var/result = trim("[int2words(integral, decimal_int_units)] [int2words(exp, exp_units)]")
 	return result
+
+/proc/make_bit_triplet()
+	var/list/num_sample  = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
+	var/result = 0
+	for(var/i = 0, i < 3, i++)
+		var/num = pick(num_sample)
+		num_sample -= num
+		result += (1 << num)
+	return result
