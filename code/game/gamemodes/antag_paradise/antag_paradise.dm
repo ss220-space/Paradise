@@ -120,15 +120,19 @@
 
 		if(ROLE_PRISONER_TRAITOR)
 			if(special_antag_amount)
-				for(var/datum/mind/special_antag as anything in antag_possibilities[ROLE_PRISONER_TRAITOR])
-					if(special_antag)
+				if(special_antag)
+					var/prisoners_count = ROLE_PRISONERS_MAX_COUNT // max prisoners count count as 1 antag
+					for(var/datum/mind/special_antag as anything in antag_possibilities[ROLE_PRISONER_TRAITOR])
 						special_antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
 						special_antag.restricted_roles += JOB_TITLE_AI
 						special_antag.restricted_roles -= JOB_TITLE_PRISONER
 						special_antag.special_role = SPECIAL_ROLE_PRISONER_TRAITOR
 						SSjobs.new_prisoners += special_antag.current
 						pre_antags[special_antag] = ROLE_PRISONER_TRAITOR
-				antags_amount--  // 4 prisoners (in max case) count as 1 antag
+						prisoners_count -= 1
+						if(prisoners_count == 0)
+							break
+				antags_amount--
 
 		if(ROLE_DEVIL)
 			if(special_antag_amount)
