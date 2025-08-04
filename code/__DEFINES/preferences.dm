@@ -52,7 +52,7 @@
 #define PREFTOGGLE_2_AFKWATCH						(1<<5) // 32
 #define PREFTOGGLE_2_RUNECHAT						(1<<6) // 64
 #define PREFTOGGLE_2_DEATHMESSAGE					(1<<7) // 128
-// #define PREFTOGGLE_2_EMOTE_BUBBLE					(1<<8) // 256 tgui say(maybe temporary)
+//#define PREFTOGGLE_2_EMOTE_BUBBLE					(1<<8) // 256 tgui say(maybe temporary)
 #define PREFTOGGLE_2_SEE_ITEM_OUTLINES				(1<<9) // 512
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
 #define PREFTOGGLE_2_REVERB_DISABLE					(1<<10) // 1024

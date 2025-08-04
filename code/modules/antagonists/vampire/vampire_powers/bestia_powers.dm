@@ -1822,16 +1822,18 @@
 	return ..()
 
 
-/**
+/*
  * Magic...
  */
 /obj/structure/closet/coffin/vampire/ex_act(severity)
 	return
+
 /obj/structure/closet/coffin/vampire/singularity_act()
 	return
-/obj/structure/closet/coffin/vampire/tesla_act(power)
+	
+// Bruh... idk
+/obj/structure/closet/coffin/vampire/zap_act(power, zap_flags)
 	return
-
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
