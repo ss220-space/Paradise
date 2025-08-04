@@ -2356,6 +2356,7 @@
 #include "code\modules\food_and_drinks\food\foods\seafood.dm"
 #include "code\modules\food_and_drinks\food\foods\side_dishes.dm"
 #include "code\modules\food_and_drinks\food\foods\soups.dm"
+#include "code\modules\food_and_drinks\food\foods\sport_food.dm"
 #include "code\modules\food_and_drinks\item_food\eat_item_list_cloth.dm"
 #include "code\modules\food_and_drinks\item_food\eat_item_list_soap.dm"
 #include "code\modules\food_and_drinks\item_food\eat_item_list_tech.dm"

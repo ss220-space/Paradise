@@ -65,17 +65,12 @@
 		.[nutriment_taste] = amount
 
 
-/datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
-	name = "Белки"
-	id = "protein"
-	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных."
-	diet_flags = DIET_CARN | DIET_OMNI
-
 /datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
 	name = "Растительная масса"
 	id = "plantmatter"
 	description = "Богатые витаминами волокна и натуральные сахара, которые обычно содержатся в свежих продуктах."
 	diet_flags = DIET_HERB | DIET_OMNI
+
 
 /datum/reagent/consumable/nutriment/vitamin
 	name = "Витамины"
@@ -86,10 +81,52 @@
 	brute_heal = 1
 	burn_heal = 1
 
+
 /datum/reagent/consumable/nutriment/vitamin/on_mob_life(mob/living/M)
 	if(M.satiety < 600)
 		M.satiety += 30
+
 	return ..()
+
+
+/datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
+	name = "Белки"
+	id = "protein"
+	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных."
+	diet_flags = DIET_CARN | DIET_OMNI
+
+
+/datum/reagent/consumable/nutriment/protein/bananastrawwberry
+	name = "Протеин (Банан и клубника)"
+	id = "protein_bananastrawwberry"
+	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
+					Содержит пищевую добавку со вкусом банана и клубники."
+	taste_description = "банана с клубникой"
+
+
+/datum/reagent/consumable/nutriment/protein/chocolate
+	name = "Протеин (Шоколад)"
+	id = "protein_chocolate"
+	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
+					Содержит пищевую добавку со вкусом шоколада."
+	taste_description = "шоколада"
+
+
+/datum/reagent/consumable/nutriment/protein/cherry
+	name = "Протеин (Вишня)"
+	id = "protein_cherry"
+	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
+					Содержит пищевую добавку со вкусом вишни."
+	taste_description = "вишни"
+
+
+/datum/reagent/consumable/nutriment/protein/zaza
+	name = "Протеин (Заза)"
+	id = "protein_zaza"
+	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
+					Содержит пищевую добавку со вкусом зазы."
+	taste_description = "зазы"
+
 
 /datum/reagent/consumable/sugar
 	name = "Сахар"
