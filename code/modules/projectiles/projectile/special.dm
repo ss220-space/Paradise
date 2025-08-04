@@ -823,7 +823,7 @@
 			continue
 
 		var/turf/simulated/Floor = Turf
-		F.MakeSlippery(TURF_WET_PERMAFROST, 120 SECONDS)
+		Floor.MakeSlippery(TURF_WET_PERMAFROST, 120 SECONDS)
 		for(var/mob/living/carbon/Liv in Turf)
 			Liv.apply_damage(stamina_damage, STAMINA)
 			Liv.apply_effect(rad_damage, IRRADIATE)

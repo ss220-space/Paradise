@@ -19,7 +19,7 @@
 			var/missle_type = pick(GLOB.magic_missile)
 			var/obj/item/ammo_casing/caseless/rocket/Rocket = new missle_type(get_turf(Carbon))
 			playsound(get_turf(Carbon),'sound/magic/summon_guns.ogg', 50, TRUE)
-			Carbon.put_in_hands(R)
+			Carbon.put_in_hands(Rocket)
 
 	else
 		to_chat(usr, span_danger("Эту магия нельзя использовать вне сектора станции"))
