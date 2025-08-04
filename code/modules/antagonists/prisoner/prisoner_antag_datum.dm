@@ -5,7 +5,7 @@
 	special_role = SPECIAL_ROLE_PRISONER_TRAITOR
 	wiki_page_name = "Prisoner Traitor"
 	russian_wiki_name = "Заключенный Предатель"
-	antag_menu_name = "Предатель заключенный"
+	antag_menu_name = "Заключенный Предатель"
 	give_uplink = FALSE
 
 /datum/antagonist/traitor/prisoner/give_objectives()
