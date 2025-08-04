@@ -316,17 +316,19 @@
 		if(exposed_temperature > T0C + 1500)
 			take_damage(1, BURN, 0, 0)
 
-/obj/structure/grille/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isobj(AM))
+/obj/structure/grille/hitby(atom/movable/atom_movable, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(isobj(atom_movable))
 		if(prob(50) && anchored && !broken)
-			var/obj/O = AM
-			if(O.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
-				var/turf/T = get_turf(src)
-				var/obj/structure/cable/C = T.get_cable_node()
-				if(C)
+			var/obj/obj = atom_movable
+			if(obj.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
+				var/turf/turf = get_turf(src)
+				if(turf.intact)
+					return FALSE
+				var/obj/structure/cable/cable = turf.get_cable_node()
+				if(cable)
 					playsound(src, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
-					tesla_zap(src, 3, C.newavail() * 0.01) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
-					C.add_delayedload(C.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
+					tesla_zap(source = src, zap_range = 3, power = cable.newavail() * 0.01, cutoff = 1e3, zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
+					cable.add_delayedload(cable.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
 	return ..()
 
 /obj/structure/grille/broken // Pre-broken grilles for map placement

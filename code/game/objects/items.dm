@@ -1071,6 +1071,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 
 /obj/item/MouseEntered(location, control, params)
+	. = ..()
 	if(item_flags & (IN_INVENTORY|IN_STORAGE))
 		var/mob/living/user = usr
 		if(user.client.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS)
@@ -1091,6 +1092,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
 	remove_outline()
+	return ..()
 
 
 /obj/item/MouseDrop_T(atom/dropping, mob/user, params)

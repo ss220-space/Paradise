@@ -179,13 +179,13 @@
 
 
 /datum/preference_toggle/toggle_end_of_round_sound
-	name = "Toggle Mute End of Round Sound"
-	description = "Toggles muting the end of round sound"
+	name = "Отключение звука в конце раунда"
+	description = "Отключение звука в конце раунда."
 	preftoggle_bitflag = SOUND_MUTE_END_OF_ROUND
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You have muted the end of round sound."
-	disable_message = "You have unmuted the end of round sound."
+	enable_message = "Вы отключили звук в конце раунда."
+	disable_message = "Вы включили звук в конце раунда."
 	blackbox_message = "Toggle End of Round Sound"
 
 /datum/preference_toggle/toggle_ooc

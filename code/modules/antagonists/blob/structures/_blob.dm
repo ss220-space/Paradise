@@ -260,7 +260,7 @@
 			new /obj/effect/temp_visual/emp(get_turf(src))
 
 
-/obj/structure/blob/tesla_act(power)
+/obj/structure/blob/zap_act(power, zap_flags)
 	if(overmind)
 		if(overmind.blobstrain.tesla_reaction(src, power))
 			take_damage(power * 1.25e-3, BURN, ENERGY)
