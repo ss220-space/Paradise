@@ -298,3 +298,11 @@
 			return WEST
 		else
 			return NORTH
+
+/// Get the dir to the RIGHT of dir if they were on a clock NORTH --> NORTHEAST
+/proc/get_clockwise_dir(dir) // Del this shit
+	. = angle2dir(dir2angle(dir)+45)
+
+/// Get the dir to the LEFT of dir if they were on a clock NORTH --> NORTHWEST
+/proc/get_anticlockwise_dir(dir) // Del this shit
+	. = angle2dir(dir2angle(dir)-45)

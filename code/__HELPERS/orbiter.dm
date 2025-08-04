@@ -73,3 +73,61 @@
 	SpinAnimation(0, 0, parallel = FALSE)
 	// После, потому что сначало надо занулить orbiting дабы худ показался ЧИСТЫЙ
 	SEND_SIGNAL(src, COMSIG_ORBITER_ORBIT_STOP)
+
+/*
+ * This proc gets a list of all "points of interest" (poi's) that can be used by admins to track valuable mobs or atoms (such as the nuke disk).
+ * @param mobs_only if set to TRUE it won't include locations to the returned list
+ * @param skip_mindless if set to TRUE it will skip mindless mobs
+ * @param force_include_bots if set to TRUE it will include bots even if skip_mindless is set to TRUE
+ * @param force_include_cameras if set to TRUE it will include camera eyes even if skip_mindless is set to TRUE
+ * @return returns a list with the found points of interest
+*/
+/proc/getpois(mobs_only = FALSE, skip_mindless = FALSE, force_include_bots = FALSE, force_include_cameras = FALSE)
+	var/list/mobs = sortmobs()
+	var/list/names = list()
+	var/list/pois = list()
+	var/list/namecounts = list()
+
+	for(var/mob/M in mobs)
+		if(skip_mindless && (!M.mind && !M.ckey))
+			if(!(force_include_bots && isbot(M)) && !(force_include_cameras && istype(M, /mob/camera)))
+				continue
+		if(M.client && M.client.holder && M.client.holder.fakekey) //stealthmins
+			continue
+		var/name = M.name
+		if(name in names)
+			namecounts[name]++
+			name = "[name] ([namecounts[name]])"
+		else
+			names.Add(name)
+			namecounts[name] = 1
+		if(M.real_name && M.real_name != M.name)
+			name += " \[[M.real_name]\]"
+		if(M.stat == DEAD)
+			if(istype(M, /mob/dead/observer/))
+				name += " \[ghost\]"
+			else
+				name += " \[dead\]"
+		pois[name] = M
+
+	if(!mobs_only)
+		for(var/atom/A in GLOB.poi_list)
+			if(!A || !A.loc)
+				continue
+			var/name = A.name
+			if(names.Find(name))
+				namecounts[name]++
+				name = "[name] ([namecounts[name]])"
+			else
+				names.Add(name)
+				namecounts[name] = 1
+			pois[name] = A
+
+	return pois
+
+/proc/get_observers()
+	var/list/ghosts = list()
+	for(var/mob/dead/observer/M in GLOB.player_list) // for every observer with a client
+		ghosts += M
+
+	return ghosts
