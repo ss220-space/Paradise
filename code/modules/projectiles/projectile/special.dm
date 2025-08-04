@@ -701,8 +701,8 @@
 	. = ..()
 
 	if(ismob(target))
-		var/mob/M = target
-		M.gib()
+		var/mob/Mob = target
+		Mob.gib()
 
 	new /obj/effect/gibspawner/generic(get_turf(src))
 
@@ -732,14 +732,14 @@
 	damage = 1
 	speed = 0.8
 
-	var/anomaly_TIER2 = list(
+	var/static/list/anomaly_TIER2 = (list(
 		/obj/effect/anomaly/energetic/tier2,
 		/obj/effect/anomaly/bluespace/tier2,
 		/obj/effect/anomaly/atmospheric/tier2,
 		/obj/effect/anomaly/gravitational/tier2,
-		/obj/effect/anomaly/vortex/tier2)
+		/obj/effect/anomaly/vortex/tier2))
 
-	var/anomaly_TIER3 = list(
+	var/static/list/anomaly_TIER3 = list(
 		/obj/effect/anomaly/energetic/tier3,
 		/obj/effect/anomaly/bluespace/tier3,
 		/obj/effect/anomaly/atmospheric/tier3,
@@ -766,9 +766,9 @@
 /obj/projectile/bullet/timemissle/on_hit(atom/target, blocked=0)
 	. = ..()
 
-	var/obj/effect/timestop/T = new
-	T.forceMove(get_turf(src))
-	T.timestop()
+	var/obj/effect/timestop/Time = new
+	Time.forceMove(get_turf(src))
+	Time.timestop()
 
 /obj/projectile/bullet/bananamissle
 	name = "Banana missile"
@@ -778,13 +778,15 @@
 	speed = 0.8
 	forcedodge = 3
 
-/obj/projectile/bullet/bananamissle/on_hit(atom/target, blocked=0)
+/obj/projectile/bullet/bananamissle/on_hit(atom/target, blocked=FALSE)
 	. = ..()
 
-	if(ishuman(target))
-		to_chat(target, "<font color='red' size='6'>HONK</font>")
-		var/mob/living/carbon/human/h_target = target
-		h_target.bananatouched()
+	if(!ishuman(target))
+		return
+
+	to_chat(target, span_redtext("HONK!"))
+	var/mob/living/carbon/human/h_target = target
+	h_target.bananatouched()
 
 /obj/projectile/bullet/hellmissle
 	name = "Hell missile"
@@ -816,13 +818,15 @@
 
 	playsound(target, 'sound/effects/empulse.ogg', 50, TRUE)
 	empulse(target, 7, 15, TRUE)
-	for(var/turf/T in view(range_glu, target))
-		if(isfloorturf(T))
-			var/turf/simulated/F = T
-			F.MakeSlippery(TURF_WET_PERMAFROST, 120 SECONDS)
-			for(var/mob/living/carbon/L in T)
-				L.apply_damage(stamina_damage, STAMINA)
-				L.apply_effect(rad_damage, IRRADIATE)
+	for(var/turf/Turf in view(range_glu, target))
+		if(!isfloorturf(Turf))
+			continue
+
+		var/turf/simulated/Floor = Turf
+		F.MakeSlippery(TURF_WET_PERMAFROST, 120 SECONDS)
+		for(var/mob/living/carbon/Liv in Turf)
+			Liv.apply_damage(stamina_damage, STAMINA)
+			Liv.apply_effect(rad_damage, IRRADIATE)
 
 
 /obj/projectile/limb
