@@ -1,4 +1,4 @@
-//the essential proc to call when an obj must receive damage of any kind.
+/// The essential proc to call when an obj must receive damage of any kind.
 /obj/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	if(QDELETED(src))
 		stack_trace("[src] taking damage after deletion")
@@ -13,7 +13,7 @@
 	. = damage_amount
 	update_integrity(obj_integrity - damage_amount, damage_flag)
 
-///returns the damage value of the attack after processing the obj's various armor protections
+/// Returns the damage value of the attack after processing the obj's various armor protections
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
@@ -73,7 +73,7 @@
 	SHOULD_BE_PURE(TRUE)
 	return round(obj_integrity / max_integrity, 0.01)
 
-///the sound played when the obj is damaged.
+/// The sound played when the obj is damaged.
 /obj/proc/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
@@ -210,11 +210,11 @@
 		qdel(src)
 	return 2
 
-///// ACID
+// MARK: ACID
 
 GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/effects/effects.dmi', "acid"))
 
-///the obj's reaction when touched by acid
+/// The obj's reaction when touched by acid
 /obj/acid_act(acidpwr, acid_volume)
 	if(!(resistance_flags & UNACIDABLE) && acid_volume)
 
@@ -226,7 +226,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 			acid_level = min(acid_level + acidpwr * acid_volume, acid_cap)
 		return 1
 
-///the proc called by the acid subsystem to process the acid that's on the obj
+/// The proc called by the acid subsystem to process the acid that's on the obj
 /obj/proc/acid_processing()
 	. = TRUE
 	if(!(resistance_flags & ACID_PROOF))
@@ -238,12 +238,12 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if(!acid_level)
 		return FALSE
 
-///called when the obj is destroyed by acid.
+/// Called when the obj is destroyed by acid.
 /obj/proc/acid_melt()
 	SSacid.processing -= src
 	deconstruct(FALSE)
 
-//// FIRE
+// MARK: FIRE
 
 /obj/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(isturf(loc))
@@ -261,39 +261,37 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		add_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay)
 		return TRUE
 
-///called when the obj is destroyed by fire
+/// Called when the obj is destroyed by fire
 /obj/proc/burn()
 	if(resistance_flags & ON_FIRE)
 		SSfires.processing -= src
 	deconstruct(FALSE)
 
-///Called when the obj is no longer on fire.
+/// Called when the obj is no longer on fire.
 /obj/proc/extinguish()
 	if(resistance_flags & ON_FIRE)
 		resistance_flags &= ~ON_FIRE
 		cut_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay, TRUE)
 		SSfires.processing -= src
 
-///Called when the obj is hit by a tesla bolt.
-/obj/proc/tesla_act(power)
-	being_shocked = TRUE
-	var/power_bounced = power * 0.5
-	tesla_zap(src, 3, power_bounced)
-	addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 10)
+/// Called when the obj is hit by a tesla bolt.
+/obj/zap_act(power, zap_flags)
+	if(QDELETED(src))
+		return 0
+	ADD_TRAIT(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
+	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
+	return power * 0.5
 
-/obj/proc/reset_shocked()
-	being_shocked = FALSE
-
-//the obj is deconstructed into pieces, whether through careful disassembly or when destroyed.
+/// The obj is deconstructed into pieces, whether through careful disassembly or when destroyed.
 /obj/proc/deconstruct(disassembled = TRUE)
 	SEND_SIGNAL(src, COMSIG_OBJ_DECONSTRUCT, disassembled)
 	qdel(src)
 
-//what happens when the obj's health is below integrity_failure level.
+/// What happens when the obj's health is below integrity_failure level.
 /obj/proc/obj_break(damage_flag)
 	return
 
-///what happens when the obj's integrity reaches zero.
+/// What happens when the obj's integrity reaches zero.
 /obj/proc/obj_destruction(damage_flag)
 	if(damage_flag == ACID)
 		acid_melt()
@@ -302,7 +300,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	else
 		deconstruct(FALSE)
 
-///changes max_integrity while retaining current health percentage, returns TRUE if the obj got broken.
+/// Changes max_integrity while retaining current health percentage, returns TRUE if the obj got broken.
 /obj/proc/modify_max_integrity(new_max, can_break = TRUE, damage_type = BRUTE, new_failure_integrity = null)
 	var/current_integrity = obj_integrity
 	var/current_max = max_integrity
@@ -323,11 +321,12 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		return TRUE
 	return FALSE
 
-///Only tesla coils, vehicles, and grounding rods currently call this because mobs are already targeted over all other objects, but this might be useful for more things later.
+// The surgeon general warns that being buckled to certain objects receiving powerful shocks is greatly hazardous to your health
+/// Only tesla coils, vehicles, and grounding rods currently call this because mobs are already targeted over all other objects, but this might be useful for more things later.
 /obj/proc/zap_buckle_check(strength)
 	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
+		for(var/mob in buckled_mobs)
+			var/mob/living/buckled_mob = mob
 			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
 /obj/handle_flamer_fire(src, damage, delta_time)
