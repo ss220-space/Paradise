@@ -10,6 +10,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/advanced, /obj/item/ammo_casing/energy/laser/pulse , /obj/item/ammo_casing/energy/laser)
 	cell_type = /obj/item/stock_parts/cell/pulse
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/pulse/emp_act(severity)
 	return
@@ -31,6 +32,7 @@
 	can_flashlight = TRUE
 	flight_x_offset = 18
 	flight_y_offset = 12
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/pulse/pistol
 	name = "pulse pistol"
@@ -42,12 +44,14 @@
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/pulse/pistol
 	can_charge = FALSE
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"
 	desc = "A heavy-duty, pulse-based energy weapon."
 	cell_type = /obj/item/stock_parts/cell/infinite
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/pulse/destroyer/attack_self(mob/living/user)
 	to_chat(user, span_danger("[name] has three settings, and they are all DESTROY."))
@@ -64,6 +68,7 @@
 	item_state = "gun"
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/infinite
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/pulse/turret
 	name = "pulse turret gun"
@@ -77,3 +82,4 @@
 	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
+	accuracy = GUN_ACCURACY_SNIPER

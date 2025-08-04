@@ -12,6 +12,7 @@
 	max_capacity = 5
 	projectile_speed = 2
 	projectile_range = 30
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/throw/piecannon/Initialize()

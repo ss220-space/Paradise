@@ -87,7 +87,6 @@
 		remove_status_effect(T);\
 	}
 
-
 /**
  * Checks if we have incapacitating immunity. Godmode always passes this check.
  *
@@ -116,7 +115,6 @@
 		return FALSE
 
 	return TRUE
-
 
 // SCALAR STATUS EFFECTS
 
@@ -171,7 +169,7 @@
 		return
 	SetDisoriented(max(get_disoriented(), amount))
 
-// DIZZY
+// MARK: DIZZY
 
 /**
  * Returns current amount of [dizziness][/datum/status_effect/decaying/dizziness], 0 if none.
@@ -204,7 +202,7 @@
 /mob/living/proc/AdjustDizzy(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetDizzy(directional_bounded_sum(get_dizziness(), amount, bound_lower, bound_upper))
 
-// DROWSY
+// MARK: DROWSY
 
 /**
  * Returns current amount of [drowsiness][/datum/status_effect/decaying/drowsiness], 0 if none.
@@ -237,7 +235,7 @@
 /mob/living/proc/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetDrowsy(directional_bounded_sum(get_drowsiness(), amount, bound_lower, bound_upper))
 
-// DRUNK
+// MARK: DRUNK
 
 /**
  * Returns current amount of [drunkenness][/datum/status_effect/decaying/drunkenness], 0 if none.
@@ -270,8 +268,7 @@
 /mob/living/proc/AdjustDrunk(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetDrunk(directional_bounded_sum(get_drunkenness(), amount, bound_lower, bound_upper))
 
-// DRUGGY
-
+/// DRUGGY
 /mob/living/proc/AmountDruggy()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUGGED)
 
@@ -286,7 +283,7 @@
 /mob/living/proc/AdjustDruggy(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetDruggy(directional_bounded_sum(AmountDruggy(), amount, bound_lower, bound_upper))
 
-// EYE_BLIND
+/// EYE_BLIND
 /mob/living/proc/AmountBlinded()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLINDED)
 
@@ -316,7 +313,7 @@
 /mob/living/proc/AdjustEyeBlurry(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetEyeBlurry(directional_bounded_sum(AmountEyeBlurry(), amount, bound_lower, bound_upper))
 
-// HALLUCINATION
+/// HALLUCINATION
 /mob/living/proc/AmountHallucinate()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HALLUCINATION)
 
@@ -331,7 +328,7 @@
 /mob/living/proc/AdjustHallucinate(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetHallucinate(directional_bounded_sum(AmountHallucinate(), amount, bound_lower, bound_upper))
 
-// JITTER
+/// JITTER
 /mob/living/proc/AmountJitter()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_JITTER)
 
@@ -347,8 +344,7 @@
 /mob/living/proc/AdjustJitter(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
 	SetJitter(directional_bounded_sum(AmountJitter(), amount, bound_lower, bound_upper), force)
 
-// LOSE_BREATH
-
+/// LOSE_BREATH
 /mob/living/proc/AmountLoseBreath()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_LOSE_BREATH)
 
@@ -365,21 +361,18 @@
 /mob/living/proc/AdjustLoseBreath(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetLoseBreath(directional_bounded_sum(AmountLoseBreath(), amount, bound_lower, bound_upper))
 
-// PARALYSE
+/// PARALYSE
 /mob/proc/IsParalyzed()
 	return
 
-
 /mob/living/IsParalyzed()
 	return has_status_effect(STATUS_EFFECT_PARALYZED)
-
 
 /mob/living/proc/AmountParalyzed()
 	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
 	if(P)
 		return P.duration - world.time
 	return 0
-
 
 /mob/living/proc/Paralyse(amount, ignore_canparalyse = FALSE)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_PARALYZE, amount, ignore_canparalyse) & COMPONENT_NO_EFFECT)
@@ -392,7 +385,6 @@
 	else if(amount > 0)
 		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
 	return P
-
 
 /mob/living/proc/SetParalysis(amount, ignore_canparalyse = FALSE)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_PARALYZE, amount, ignore_canparalyse) & COMPONENT_NO_EFFECT)
@@ -410,12 +402,10 @@
 			P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
 	return P
 
-
 /mob/living/proc/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canparalyze = FALSE)
 	return SetParalysis(directional_bounded_sum(AmountParalyzed(), amount, bound_lower, bound_upper), ignore_canparalyze)
 
-
-// SILENT
+/// SILENT
 /mob/living/proc/AmountSilenced()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED)
 
@@ -441,18 +431,15 @@
 /mob/living/proc/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSilence(directional_bounded_sum(AmountSilenced(), amount, bound_lower, bound_upper))
 
-
-// SLEEPING
+/// SLEEPING
 /mob/living/proc/IsSleeping()
 	return has_status_effect(STATUS_EFFECT_SLEEPING)
-
 
 /mob/living/proc/AmountSleeping() //How many deciseconds remain in our sleep
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
 		return S.duration - world.time
 	return 0
-
 
 /mob/living/proc/Sleeping(amount)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_EFFECT)
@@ -465,7 +452,6 @@
 	else if(amount > 0)
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
 	return S
-
 
 /mob/living/proc/SetSleeping(amount)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_EFFECT)
@@ -485,8 +471,8 @@
 			S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
 	return S
 
-
-/mob/living/proc/PermaSleeping() /// used for admin freezing.
+/// Used for admin freezing.
+/mob/living/proc/PermaSleeping()
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, -1) & COMPONENT_NO_EFFECT)
 		return
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
@@ -498,12 +484,10 @@
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, -1)
 	return S
 
-
 /mob/living/proc/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSleeping(directional_bounded_sum(AmountSleeping(), amount, bound_lower, bound_upper))
 
-
-// SLOWED
+/// SLOWED
 /mob/living/proc/IsSlowed()
 	return has_status_effect(STATUS_EFFECT_SLOWED)
 
@@ -531,7 +515,6 @@
 			S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, slowdown_value)
 	return S
 
-
 /mob/living/proc/AdjustSlowedDuration(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
 	if(S)
@@ -542,7 +525,7 @@
 	if(S)
 		S.slowdown_value += intensity
 
-// SLURRING
+/// SLURRING
 /mob/living/proc/AmountSluring()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SLURRING)
 
@@ -557,7 +540,7 @@
 /mob/living/proc/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSlur(directional_bounded_sum(AmountSluring(), amount, bound_lower, bound_upper))
 
-// CULTSLURRING
+/// CULTSLURRING
 /mob/living/proc/AmountCultSlurring()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CULT_SLUR)
 
@@ -572,7 +555,7 @@
 /mob/living/proc/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetCultSlur(directional_bounded_sum(AmountCultSlurring(), amount, bound_lower, bound_upper))
 
-// CLOCKSLURRING
+/// CLOCKSLURRING
 /mob/living/proc/AmountClockSlurring()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CLOCK_CULT_SLUR)
 
@@ -587,21 +570,19 @@
 /mob/living/proc/AdjustClockSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetClockSlur(directional_bounded_sum(AmountClockSlurring(), amount, bound_lower, bound_upper))
 
-/* STUN */
+// MARK: STUN
+
 /mob/proc/IsStunned()
 	return
 
-
 /mob/living/IsStunned() //If we're stunned
 	return has_status_effect(STATUS_EFFECT_STUN)
-
 
 /mob/living/proc/AmountStun() //How many deciseconds remain in our stun
 	var/datum/status_effect/incapacitating/stun/S = IsStunned()
 	if(S)
 		return S.duration - world.time
 	return 0
-
 
 /mob/living/proc/Stun(amount, ignore_canstun = FALSE) //Can't go below remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STUN, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
@@ -614,7 +595,6 @@
 	else if(amount > 0)
 		S = apply_status_effect(STATUS_EFFECT_STUN, amount)
 	return S
-
 
 /mob/living/proc/SetStunned(amount, ignore_canstun = FALSE) //Sets remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STUN, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
@@ -632,7 +612,6 @@
 			S = apply_status_effect(STATUS_EFFECT_STUN, amount)
 	return S
 
-
 /mob/living/proc/AdjustStunned(amount, ignore_canstun = FALSE) //Adds to remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STUN, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
 		return
@@ -645,8 +624,7 @@
 		S = apply_status_effect(STATUS_EFFECT_STUN, amount)
 	return S
 
-
-/* KNOCKDOWN */
+// MARK: KNOCKDOWN
 
 /mob/living/proc/IsKnockdown() //If we're knocked down
 	return has_status_effect(STATUS_EFFECT_KNOCKDOWN)
@@ -657,7 +635,6 @@
 	if(K)
 		return K.duration - world.time
 	return 0
-
 
 /mob/living/proc/Knockdown(amount, ignore_canknockdown = FALSE) //Can't go below remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_KNOCKDOWN, amount, ignore_canknockdown) & COMPONENT_NO_EFFECT)
@@ -670,7 +647,6 @@
 	else if(amount > 0)
 		K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount)
 	return K
-
 
 /mob/living/proc/SetKnockdown(amount, ignore_canknockdown = FALSE) //Sets remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_KNOCKDOWN, amount, ignore_canknockdown) & COMPONENT_NO_EFFECT)
@@ -688,7 +664,6 @@
 			K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount)
 	return K
 
-
 /mob/living/proc/AdjustKnockdown(amount, ignore_canknockdown = FALSE) //Adds to remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_KNOCKDOWN, amount, ignore_canknockdown) & COMPONENT_NO_EFFECT)
 		return
@@ -701,11 +676,10 @@
 		K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount)
 	return K
 
+// MARK: IMMOBILIZED
 
-/* IMMOBILIZED */
 /mob/living/proc/IsImmobilized()
 	return has_status_effect(STATUS_EFFECT_IMMOBILIZED)
-
 
 /mob/living/proc/Immobilize(amount, ignore_canstun = FALSE)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_IMMOBILIZE, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
@@ -718,7 +692,6 @@
 	else if(amount > 0)
 		I = apply_status_effect(STATUS_EFFECT_IMMOBILIZED, amount)
 	return I
-
 
 /mob/living/proc/SetImmobilized(amount, ignore_canstun = FALSE) //Sets remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_IMMOBILIZE, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
@@ -736,7 +709,6 @@
 			I = apply_status_effect(STATUS_EFFECT_IMMOBILIZED, amount)
 	return I
 
-
 /mob/living/proc/AdjustImmobilized(amount, ignore_canstun = FALSE) //Adds to remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_IMMOBILIZE, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
 		return
@@ -749,9 +721,7 @@
 		I = apply_status_effect(STATUS_EFFECT_IMMOBILIZED, amount)
 	return I
 
-
-// STUTTERING
-
+/// STUTTERING
 /mob/living/proc/AmountStuttering()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_STAMMER)
 
@@ -764,12 +734,9 @@
 /mob/living/proc/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE)
 	SetStuttering(directional_bounded_sum(AmountStuttering(), amount, bound_lower, bound_upper), ignore_canstun)
 
-
-// WEAKEN
-
+/// WEAKEN
 /mob/proc/IsWeakened()
 	return
-
 
 /mob/living/IsWeakened()
 	return has_status_effect(STATUS_EFFECT_WEAKENED)
@@ -780,7 +747,6 @@
 	if(P)
 		return P.duration - world.time
 	return 0
-
 
 /mob/living/proc/Weaken(amount, ignore_canweaken = FALSE) //Can't go below remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_WEAKEN, amount, ignore_canweaken) & COMPONENT_NO_EFFECT)
@@ -793,7 +759,6 @@
 	else if(amount > 0)
 		P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
 	return P
-
 
 /mob/living/proc/SetWeakened(amount, ignore_canweaken = FALSE) //Sets remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_WEAKEN, amount, ignore_canweaken) & COMPONENT_NO_EFFECT)
@@ -811,7 +776,6 @@
 			P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
 	return P
 
-
 /mob/living/proc/AdjustWeakened(amount, ignore_canweaken = FALSE) //Adds to remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_WEAKEN, amount, ignore_canweaken) & COMPONENT_NO_EFFECT)
 		return
@@ -823,7 +787,6 @@
 	else if(amount > 0)
 		P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
 	return P
-
 
 /mob/living/proc/AmountDisgust()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DISGUST)
@@ -853,12 +816,9 @@
 /mob/living/proc/CureDeaf()
 	CureIfHasDisability(GLOB.deafblock)
 
-//
-//		DISABILITIES
-//
+// MARK: DISABILITIES
 
-// Blind
-
+/// Blind
 /mob/living/proc/CureBlind(updating = TRUE)
 	. = STATUS_UPDATE_NONE
 	for(var/trait_source in GET_TRAIT_SOURCES(src, TRAIT_BLIND))
@@ -868,23 +828,19 @@
 		CureIfHasDisability(GLOB.blindblock)
 		update_blind_effects()
 
-// Coughing
-
+/// Coughing
 /mob/living/proc/CureCoughing()
 	CureIfHasDisability(GLOB.coughblock)
 
-// Epilepsy
-
+/// Epilepsy
 /mob/living/proc/CureEpilepsy()
 	CureIfHasDisability(GLOB.epilepsyblock)
 
-// Mute
-
+/// Mute
 /mob/living/proc/CureMute()
 	CureIfHasDisability(GLOB.muteblock)
 
-// Nearsighted
-
+/// Nearsighted
 /mob/living/proc/CureNearsighted(updating = TRUE)
 	. = STATUS_UPDATE_NONE
 	for(var/trait_source in GET_TRAIT_SOURCES(src, TRAIT_NEARSIGHTED))
@@ -894,35 +850,31 @@
 		CureIfHasDisability(GLOB.glassesblock)
 		update_nearsighted_effects()
 
-// Nervous
-
+/// Nervous
 /mob/living/proc/CureNervous()
 	CureIfHasDisability(GLOB.nervousblock)
 
-// Tourettes
-
+/// Tourettes
 /mob/living/proc/CureTourettes()
 	CureIfHasDisability(GLOB.twitchblock)
-
 
 /mob/living/proc/CureIfHasDisability(block)
 	if(dna?.GetSEState(block))
 		force_gene_block(block, FALSE)
 
-
-///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.
+/// Unignores all slowdowns that lack the IGNORE_NOSLOW flag.
 /mob/living/proc/unignore_slowdown(source)
 	REMOVE_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)
 	update_movespeed()
 
 
-///Ignores all slowdowns that lack the IGNORE_NOSLOW flag.
+/// Ignores all slowdowns that lack the IGNORE_NOSLOW flag.
 /mob/living/proc/ignore_slowdown(source)
 	ADD_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)
 	update_movespeed()
 
 
-///Ignores specific slowdowns. Accepts a list of slowdowns.
+/// Ignores specific slowdowns. Accepts a list of slowdowns.
 /mob/living/proc/add_movespeed_mod_immunities(source, slowdown_type, update = TRUE)
 	if(islist(slowdown_type))
 		for(var/listed_type in slowdown_type)
@@ -937,7 +889,7 @@
 		update_movespeed()
 
 
-///Unignores specific slowdowns. Accepts a list of slowdowns.
+/// Unignores specific slowdowns. Accepts a list of slowdowns.
 /mob/living/proc/remove_movespeed_mod_immunities(source, slowdown_type, update = TRUE)
 	if(islist(slowdown_type))
 		for(var/listed_type in slowdown_type)
@@ -951,12 +903,10 @@
 	if(update)
 		update_movespeed()
 
-
-///////////////////////////////// FROZEN /////////////////////////////////////
+// MARK: FROZEN
 
 /mob/living/proc/IsFrozen()
 	return has_status_effect(/datum/status_effect/freon)
-
 
 #undef RETURN_STATUS_EFFECT_STRENGTH
 #undef SET_STATUS_EFFECT_STRENGTH

@@ -14,6 +14,7 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
@@ -29,6 +30,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m45
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
 	can_suppress = FALSE
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 //Specter//
@@ -57,6 +59,7 @@
 	can_flashlight = TRUE
 	materials = list(MAT_METAL = 1000)
 	gun_light_overlay = "specter-light"
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/projectile/automatic/pistol/specter/update_gun_skins()
@@ -92,6 +95,7 @@
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 	gun_light_overlay = "enforcer-light"
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_gun_skins()
@@ -149,6 +153,7 @@
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 	gun_light_overlay = "sp8-light"
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/projectile/automatic/pistol/sp8/update_gun_skins()
@@ -214,6 +219,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
 	can_suppress = FALSE
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/projectile/automatic/pistol/deagle/update_icon_state()
@@ -242,3 +248,4 @@
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+	accuracy = GUN_ACCURACY_DEFAULT

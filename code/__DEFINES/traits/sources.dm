@@ -1,5 +1,7 @@
-// This file contains all of the trait sources, or all of the things that grant traits.
-// Several things such as `type` or `ref(src)` may be used in the ADD_TRAIT() macro as the "source", but this file contains all of the defines for immutable static strings.
+/*
+ * This file contains all of the trait sources, or all of the things that grant traits.
+ * Several things such as `type` or `ref(src)` may be used in the ADD_TRAIT() macro as the "source", but this file contains all of the defines for immutable static strings.
+ */
 
 /// The item is magically cursed
 #define CURSED_ITEM_TRAIT(item_type) "cursed_item_[item_type]"
@@ -10,7 +12,7 @@
 /// A trait given by a specific status effect (not sure why we need both but whatever!)
 #define TRAIT_STATUS_EFFECT(effect_id) "[effect_id]-trait"
 
-// common trait sources
+// Common trait sources
 #define GENERIC_TRAIT "generic"
 #define MAGIC_TRAIT "magic"
 #define CULT_TRAIT "cult"
@@ -21,7 +23,7 @@
 #define EYE_DAMAGE "eye_damage"
 
 /// Trait sorce for "was recently shocked by something"
-#define WAS_SHOCKED "was_shocked"
+#define WAS_SHOCKED "was_shocked" // Used together with TRAIT_BEING_SHOCKED instead of flag SHOCKED_2 from the Official Paradise.
 
 /// cannot be removed without admin intervention
 #define ROUNDSTART_TRAIT "roundstart"
@@ -93,9 +95,9 @@
 
 /// Trait associated to being cuffed
 #define HANDCUFFED_TRAIT "handcuffed_trait"
-/// trait associated to not having fine manipulation appendages such as hands
+/// Trait associated to not having fine manipulation appendages such as hands
 #define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades"
-/// trait associated to not having locomotion appendages nor the ability to fly or float
+/// Trait associated to not having locomotion appendages nor the ability to fly or float
 #define LACKING_LOCOMOTION_APPENDAGES_TRAIT "lacking-locomotion-appengades"
 /// Trait associated to wearing a suit
 #define SUIT_TRAIT "suit_trait"
@@ -110,19 +112,19 @@
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 
-/// trait associated to being buckled
+/// Trait associated to being buckled
 #define BUCKLED_TRAIT "buckled"
 
 #define STAMINA_TRAIT "stamina"
 
-/// source trait for /obj/item/mecha_parts/mecha_equipment/cage
+/// Source trait for /obj/item/mecha_parts/mecha_equipment/cage
 #define MECH_SUPRESSED_TRAIT "mech_supress"
 
-/// trait associated to resting
+/// Trait associated to resting
 #define RESTING_TRAIT "resting"
-/// trait associated to a stat value or range of
+/// Trait associated to a stat value or range of
 #define STAT_TRAIT "stat"
-/// trait associated to being held in a chokehold
+/// Trait associated to being held in a chokehold
 #define CHOKEHOLD_TRAIT "chokehold"
 
 #define COCOONED_TRAIT "cocooned_stat"
@@ -145,7 +147,7 @@
 
 #define VENTCRAWLING_TRAIT "ventcrawling"
 
-// sources for trait TRAIT_MOVE_FLYING
+// Sources for trait TRAIT_MOVE_FLYING
 #define ITEM_BROOM_TRAIT "item_broom_trait"
 #define ITEM_GRAV_BOOTS_TRAIT "item_grav_boots_trait"
 #define ITEM_JUMP_BOOTS_TRAIT "item_jump_boots_trait"
@@ -153,15 +155,15 @@
 #define SPELL_LEAP_TRAIT "spell_leap_trait"
 #define SPELL_LUNGE_TRAIT "spell_lunge_trait"
 
-// item trait sources
+// Item trait sources
 #define BROODMOTHER_TONGUE_TRAIT "broodmother_tongue"
 #define SCRYING_ORB_TRAIT "scrying_orb"
 #define EVIL_FAX_TRAIT "evil_fax"
 #define CORGI_HARDSUIT_TRAIT "corgi_hardsuit"
-/// inherited from riding vehicles
+/// Inherited from riding vehicles
 #define VEHICLE_TRAIT "vehicle"
 
-/// blob trait sourses
+/// Blob trait sourses
 #define BLOB_INFECTED_TRAIT "blob_infected"
 
 #define VENDOR_FLATTENING_TRAIT "vendor_flattening"
