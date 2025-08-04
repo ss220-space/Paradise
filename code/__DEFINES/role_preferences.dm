@@ -98,3 +98,5 @@ GLOBAL_LIST_INIT(special_roles, list(
 //	ROLE_MONKEY = /datum/game_mode/monkey, Sooner or later these are going to get ported
 //	ROLE_GANG = /datum/game_mode/gang
 ))
+
+#define ROLE_PRISONERS_MAX_COUNT 4

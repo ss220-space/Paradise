@@ -1,5 +1,4 @@
 #define SALARY_FOR_NISHEBROD 60
-#define ROLE_PRISONERS_MAX_COUNT 4
 
 /datum/job/civilian
 	title = JOB_TITLE_CIVILIAN
