@@ -51,6 +51,10 @@
 			mobs += M
 	return mobs
 
+
+
+
+
 /// For objects that should embed, but make no sense being is_sharp or is_pointed() e.g: rods
 GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	/obj/item/stack/rods,
@@ -65,15 +69,7 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	if(is_type_in_typecache(weapon, GLOB.can_embed_types))
 		return TRUE
 
-
-
-
-
-
-
-
-
-//Whether or not the given item counts as sharp in terms of dealing damage
+/// Whether or not the given item counts as sharp in terms of dealing damage
 /proc/is_sharp(obj/item/item)
 	if(!istype(item))
 		return FALSE
@@ -81,7 +77,16 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 		return TRUE
 	return FALSE
 
-/proc/reverse_direction(var/dir)
+
+
+
+
+
+
+
+
+
+/proc/reverse_direction(dir)
 	switch(dir)
 		if(NORTH)
 			return SOUTH
@@ -104,9 +109,9 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 		if(DOWN)
 			return UP
 
-/*
-Checks if that loc and dir has a item on the wall
-*/
+
+
+/// Checks if that loc and dir has a item on the wall
 GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/machinery/alarm,
 	/obj/item/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
 	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
@@ -146,89 +151,14 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 	return 0
 
 
-/proc/get_angle(atom/a, atom/b)
-	return atan2(b.y - a.y, b.x - a.x)
-
-/proc/atan2(x, y)
-	if(!x && !y) return 0
-	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
-
-/proc/format_text(text)
-	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
-
-/*
-Standard way to write links -Sayu
-*/
-
-/proc/topic_link(var/datum/D, var/arglist, var/content)
-	if(istype(arglist,/list))
-		arglist = list2params(arglist)
-	return "<a href='byond://?src=[D.UID()];[arglist]'>[content]</a>"
 
 
-// This proc is made to check if we can interact or use (directly or in the other way) the specific bodypart
-// Not to check if one clothing blocks access to the other clothing
-// for that we have flags_inv var
-/proc/get_location_accessible(mob/M, location)
-	var/covered_locations	= 0	//based on body_parts_covered
-	var/eyesmouth_covered	= 0	//based on flags_cover
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		for(var/obj/item/clothing/I in list(C.back, C.wear_mask))
-			covered_locations |= I.body_parts_covered
-			eyesmouth_covered |= I.flags_cover
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			for(var/obj/item/I in list(H.wear_suit, H.w_uniform, H.shoes, H.belt, H.gloves, H.glasses, H.head, H.r_ear, H.l_ear, H.neck))
-				covered_locations |= I.body_parts_covered
-				eyesmouth_covered |= I.flags_cover
-	// If we check for mouth or eyes for gods sake use the appropriate flags for THEM!
-	// Not for the face, head e.t.c.
-	// HIDENAME(formerly known as HIDEFACE) flag was made to check if we appear as unknown
-	// HIDEGLASSES(formerly known as HIDEEYES) flag was made, ironically, to check if it hides our GLASSES
-	// not to check if it makes using the fucking mouth/eyes impossible!!!
-	switch(location)
-		if(BODY_ZONE_HEAD)
-			if(covered_locations & HEAD)
-				return FALSE
-		if(BODY_ZONE_PRECISE_EYES)
-			if(eyesmouth_covered & MASKCOVERSEYES || eyesmouth_covered & GLASSESCOVERSEYES || eyesmouth_covered & HEADCOVERSEYES)
-				return FALSE
-		if(BODY_ZONE_PRECISE_MOUTH)
-			if(eyesmouth_covered & HEADCOVERSMOUTH || eyesmouth_covered & MASKCOVERSMOUTH)
-				return FALSE
-		if(BODY_ZONE_CHEST)
-			if(covered_locations & UPPER_TORSO)
-				return FALSE
-		if(BODY_ZONE_PRECISE_GROIN)
-			if(covered_locations & LOWER_TORSO)
-				return FALSE
-		if(BODY_ZONE_L_ARM)
-			if(covered_locations & ARM_LEFT)
-				return FALSE
-		if(BODY_ZONE_R_ARM)
-			if(covered_locations & ARM_RIGHT)
-				return FALSE
-		if(BODY_ZONE_L_LEG)
-			if(covered_locations & LEG_LEFT)
-				return FALSE
-		if(BODY_ZONE_R_LEG)
-			if(covered_locations & LEG_RIGHT)
-				return FALSE
-		if(BODY_ZONE_PRECISE_L_HAND)
-			if(covered_locations & HAND_LEFT)
-				return FALSE
-		if(BODY_ZONE_PRECISE_R_HAND)
-			if(covered_locations & HAND_RIGHT)
-				return FALSE
-		if(BODY_ZONE_PRECISE_L_FOOT)
-			if(covered_locations & FOOT_LEFT)
-				return FALSE
-		if(BODY_ZONE_PRECISE_R_FOOT)
-			if(covered_locations & FOOT_RIGHT)
-				return FALSE
 
-	return TRUE
+
+
+
+
+
 
 
 

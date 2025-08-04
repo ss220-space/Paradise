@@ -81,3 +81,68 @@
 		return
 
 	return TRUE
+
+/**
+ * This proc is made to check if we can interact or use (directly or in the other way) the specific bodypart.
+ * Not to check if one clothing blocks access to the other clothing for that we have flags_inv var.
+ */
+/proc/get_location_accessible(mob/located_mob, location)
+	var/covered_locations	= 0	//based on body_parts_covered
+	var/eyesmouth_covered	= 0	//based on flags_cover
+	if(iscarbon(located_mob))
+		var/mob/living/carbon/clothed_carbon = located_mob
+		for(var/obj/item/clothing/clothes in list(clothed_carbon.back, clothed_carbon.wear_mask))
+			covered_locations |= clothes.body_parts_covered
+			eyesmouth_covered |= clothes.flags_cover
+		if(ishuman(clothed_carbon))
+			var/mob/living/carbon/human/clothed_human = clothed_carbon
+			for(var/obj/item/clothes in list(clothed_human.wear_suit, clothed_human.w_uniform, clothed_human.shoes, clothed_human.belt, clothed_human.gloves, clothed_human.glasses, clothed_human.head, clothed_human.r_ear, clothed_human.l_ear, clothed_human.neck))
+				covered_locations |= clothes.body_parts_covered
+				eyesmouth_covered |= clothes.flags_cover
+	// If we check for mouth or eyes for gods sake use the appropriate flags for THEM!
+	// Not for the face, head e.t.c.
+	// HIDENAME(formerly known as HIDEFACE) flag was made to check if we appear as unknown
+	// HIDEGLASSES(formerly known as HIDEEYES) flag was made, ironically, to check if it hides our GLASSES
+	// not to check if it makes using the fucking mouth/eyes impossible!!!
+	switch(location)
+		if(BODY_ZONE_HEAD)
+			if(covered_locations & HEAD)
+				return FALSE
+		if(BODY_ZONE_PRECISE_EYES)
+			if(eyesmouth_covered & MASKCOVERSEYES || eyesmouth_covered & GLASSESCOVERSEYES || eyesmouth_covered & HEADCOVERSEYES)
+				return FALSE
+		if(BODY_ZONE_PRECISE_MOUTH)
+			if(eyesmouth_covered & HEADCOVERSMOUTH || eyesmouth_covered & MASKCOVERSMOUTH)
+				return FALSE
+		if(BODY_ZONE_CHEST)
+			if(covered_locations & UPPER_TORSO)
+				return FALSE
+		if(BODY_ZONE_PRECISE_GROIN)
+			if(covered_locations & LOWER_TORSO)
+				return FALSE
+		if(BODY_ZONE_L_ARM)
+			if(covered_locations & ARM_LEFT)
+				return FALSE
+		if(BODY_ZONE_R_ARM)
+			if(covered_locations & ARM_RIGHT)
+				return FALSE
+		if(BODY_ZONE_L_LEG)
+			if(covered_locations & LEG_LEFT)
+				return FALSE
+		if(BODY_ZONE_R_LEG)
+			if(covered_locations & LEG_RIGHT)
+				return FALSE
+		if(BODY_ZONE_PRECISE_L_HAND)
+			if(covered_locations & HAND_LEFT)
+				return FALSE
+		if(BODY_ZONE_PRECISE_R_HAND)
+			if(covered_locations & HAND_RIGHT)
+				return FALSE
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			if(covered_locations & FOOT_LEFT)
+				return FALSE
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			if(covered_locations & FOOT_RIGHT)
+				return FALSE
+
+	return TRUE

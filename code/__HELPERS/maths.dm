@@ -215,17 +215,17 @@
 		. += 360
 
 /// Calculate the angle between two points and the west|east coordinate. It is used to determine the angle of particles from TGMC.
-/proc/get_angle_tgmc(atom/start, atom/end)
+/proc/get_angle(atom/start, atom/end)
 	if(!start || !end)
-		CRASH("get_angle_tgmc called for inexisting atoms: [isnull(start) ? "null" : start] to [isnull(end) ? "null" : end].")
+		CRASH("get_angle called for inexisting atoms: [isnull(start) ? "null" : start] to [isnull(end) ? "null" : end].")
 	if(!start.z)
 		start = get_turf(start)
 		if(!start)
-			CRASH("get_angle_tgmc called for inexisting atoms (start): [isnull(start.loc) ? "null loc" : start.loc] [start] to [isnull(end.loc) ? "null loc" : end.loc] [end].") //Atoms are not on turfs.
+			CRASH("get_angle called for inexisting atoms (start): [isnull(start.loc) ? "null loc" : start.loc] [start] to [isnull(end.loc) ? "null loc" : end.loc] [end].") //Atoms are not on turfs.
 	if(!end.z)
 		end = get_turf(end)
 		if(!end)
-			CRASH("get_angle_tgmc called for inexisting atoms (end): [isnull(start.loc) ? "null loc" : start.loc] [start] to [isnull(end.loc) ? "null loc" : end.loc] [end].") //Atoms are not on turfs.
+			CRASH("get_angle called for inexisting atoms (end): [isnull(start.loc) ? "null loc" : start.loc] [start] to [isnull(end.loc) ? "null loc" : end.loc] [end].") //Atoms are not on turfs.
 	var/dy = (32 * end.y + end.pixel_y) - (32 * start.y + start.pixel_y)
 	var/dx = (32 * end.x + end.pixel_x) - (32 * start.x + start.pixel_x)
 	if(!dy)

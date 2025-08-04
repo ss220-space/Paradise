@@ -831,3 +831,7 @@
 		if (ch < 48 || ch > 57) //0-9
 			return FALSE
 	return TRUE
+
+/// Properly format a string of text by using replacetext()
+/proc/format_text(text)
+	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
