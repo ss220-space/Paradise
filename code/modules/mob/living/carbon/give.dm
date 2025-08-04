@@ -242,7 +242,7 @@
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)
 
-	receiver.visible_message(span_notice("[giver] переда[pluralize_ru(giver.gender,"ёт","ют")] [I.declent_ru(ACCUSATIVE)] [receiver]."))
+	receiver.visible_message(span_notice("[giver] переда[pluralize_ru(giver.gender, "ёт", "ют")] [I.declent_ru(ACCUSATIVE)] [receiver]."))
 	receiver.clear_alert("take item [item_UID]")
 
 
