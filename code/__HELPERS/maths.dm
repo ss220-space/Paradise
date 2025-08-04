@@ -235,3 +235,11 @@
 		. += 180
 	else if(dx < 0)
 		. += 360
+
+/// Returns the middle-most value
+/proc/dd_range(low, high, num)
+	return max(low, min(high, num))
+
+/// Makes sure MIDDLE is between LOW and HIGH. If not, it adjusts it. Returns the adjusted value.
+/proc/between(low, middle, high)
+	return max(min(middle, high), low)

@@ -333,3 +333,65 @@
 	if(source.dir == goal_dir || clockwise_source_dir == goal_dir || anticlockwise_source_dir == goal_dir)
 		return TRUE
 	return FALSE
+
+/// Get the direction of startObj relative to endObj.
+/// Return values: To the right, 1. Below, 2. To the left, 3. Above, 4. Not found adjacent in cardinal directions, 0.
+/proc/getRelativeDirection(atom/movable/startObj, atom/movable/endObj)
+	if(endObj.x == startObj.x + 1 && endObj.y == startObj.y)
+		return EAST
+
+	if(endObj.x == startObj.x - 1 && endObj.y == startObj.y)
+		return WEST
+
+	if(endObj.y == startObj.y + 1 && endObj.x == startObj.x)
+		return NORTH
+
+	if(endObj.y == startObj.y - 1 && endObj.x == startObj.x)
+		return SOUTH
+
+	return 0
+
+/// Same as the thing below just for density and without support for atoms.
+/proc/can_line(atom/source, atom/target, length = 5)
+	var/turf/current = get_turf(source)
+	var/turf/target_turf = get_turf(target)
+	var/steps = 0
+
+	while(current != target_turf)
+		if(steps > length)
+			return FALSE
+		if(!current)
+			return FALSE
+		if(current.density)
+			return FALSE
+		current = get_step_towards(current, target_turf)
+		steps++
+	return TRUE
+
+/// Returns 1 if the chain up to the area contains the given typepath 0 otherwise.
+/atom/proc/is_found_within(typepath)
+	var/atom/A = src
+	while(A.loc)
+		if(istype(A.loc, typepath))
+			return 1
+		A = A.loc
+	return 0
+
+/// Will return the contents of an atom recursivly to a depth of 'searchDepth'
+/atom/proc/GetAllContents(searchDepth = 5)
+	var/list/toReturn = list()
+
+	for(var/atom/part in contents)
+		toReturn += part
+		if(part.contents.len && searchDepth)
+			toReturn += part.GetAllContents(searchDepth - 1)
+
+	return toReturn
+
+/// Searches contents of the atom and returns the sum of all w_class of obj/item within
+/atom/proc/GetTotalContentsWeight(searchDepth = 5)
+	var/weight = 0
+	var/list/content = GetAllContents(searchDepth)
+	for(var/obj/item/I in content)
+		weight += I.w_class
+	return weight

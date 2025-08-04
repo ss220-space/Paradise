@@ -1,58 +1,3 @@
-/// Get the direction of startObj relative to endObj.
-/// Return values: To the right, 1. Below, 2. To the left, 3. Above, 4. Not found adjacent in cardinal directions, 0.
-/proc/getRelativeDirection(atom/movable/startObj, atom/movable/endObj)
-	if(endObj.x == startObj.x + 1 && endObj.y == startObj.y)
-		return EAST
-
-	if(endObj.x == startObj.x - 1 && endObj.y == startObj.y)
-		return WEST
-
-	if(endObj.y == startObj.y + 1 && endObj.x == startObj.x)
-		return NORTH
-
-	if(endObj.y == startObj.y - 1 && endObj.x == startObj.x)
-		return SOUTH
-
-	return 0
-
-/// Returns the middle-most value
-/proc/dd_range(low, high, num)
-	return max(low, min(high, num))
-
-/// Same as the thing below just for density and without support for atoms.
-/proc/can_line(atom/source, atom/target, length = 5)
-	var/turf/current = get_turf(source)
-	var/turf/target_turf = get_turf(target)
-	var/steps = 0
-
-	while(current != target_turf)
-		if(steps > length)
-			return FALSE
-		if(!current)
-			return FALSE
-		if(current.density)
-			return FALSE
-		current = get_step_towards(current, target_turf)
-		steps++
-	return TRUE
-
-/// Returns whether or not a player is a guest using their ckey as an input
-/proc/IsGuestKey(key)
-	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
-		return FALSE
-
-	var/i, ch, len = length(key)
-
-	for(i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
-		ch = text2ascii(key, i)
-		if (ch < 48 || ch > 57) //0-9
-			return FALSE
-	return TRUE
-
-/// Picks a string of symbols to display as the law number for hacked or ion laws
-/proc/ionnum()
-	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
-
 /proc/get_client_by_ckey(ckey)
 	if(cmptext(copytext(ckey, 1, 2),"@"))
 		ckey = findStealthKey(ckey)
@@ -64,80 +9,32 @@
 			if(GLOB.stealthminID[P] == txt)
 				return P
 
-/// Returns 1 if the chain up to the area contains the given typepath 0 otherwise.
-/atom/proc/is_found_within(typepath)
-	var/atom/A = src
-	while(A.loc)
-		if(istype(A.loc, typepath))
-			return 1
-		A = A.loc
-	return 0
-
-/// Makes sure MIDDLE is between LOW and HIGH. If not, it adjusts it. Returns the adjusted value.
-/proc/between(low, middle, high)
-	return max(min(middle, high), low)
-
-/// Will return the contents of an atom recursivly to a depth of 'searchDepth'
-/atom/proc/GetAllContents(searchDepth = 5)
-	var/list/toReturn = list()
-
-	for(var/atom/part in contents)
-		toReturn += part
-		if(part.contents.len && searchDepth)
-			toReturn += part.GetAllContents(searchDepth - 1)
-
-	return toReturn
-
-/// Searches contents of the atom and returns the sum of all w_class of obj/item within
-/atom/proc/GetTotalContentsWeight(searchDepth = 5)
-	var/weight = 0
-	var/list/content = GetAllContents(searchDepth)
-	for(var/obj/item/I in content)
-		weight += I.w_class
-	return weight
-
-/// Simple datum for storing coordinates.
-/datum/coords
-	var/x_pos
-	var/y_pos
-	var/z_pos
-
 /proc/DuplicateObject(obj/original, perfectcopy = FALSE , sameloc = FALSE, atom/newloc = null)
 	if(!original)
 		return null
 
-	var/obj/O = null
+	var/obj/obj = null
 
 	if(sameloc)
-		O = new original.type(original.loc)
+		obj = new original.type(original.loc)
 	else
-		O = new original.type(newloc)
+		obj = new original.type(newloc)
 
 	if(perfectcopy)
-		if(O)
+		if(obj)
 			var/static/list/forbidden_vars = list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "power_supply", "contents", "reagents", "stat", "x", "y", "z", "group", "comp_lookup", "datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
 				if(istype(original.vars[V],/list))
-					var/list/L = original.vars[V]
-					O.vars[V] = L.Copy()
+					var/list/list = original.vars[V]
+					obj.vars[V] = list.Copy()
 				else if(isdatum(original.vars[V]))
 					continue // This would reference the original's object, that will break when it is used or deleted.
 				else
-					O.vars[V] = original.vars[V]
-	if(istype(O))
-		O.update_icon()
-	return O
-
-
-
-
-
-
-
-
-
-
+					obj.vars[V] = original.vars[V]
+	if(istype(obj))
+		obj.update_icon()
+	return obj
 
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
@@ -147,14 +44,6 @@
 			. = range(distance,center)
 	return
 
-/proc/oview_or_orange(distance = world.view , center = usr , type)
-	switch(type)
-		if("view")
-			. = oview(distance,center)
-		if("range")
-			. = orange(distance,center)
-	return
-
 /proc/get_mob_with_client_list()
 	var/list/mobs = list()
 	for(var/mob/M in GLOB.mob_list)
@@ -162,92 +51,27 @@
 			mobs += M
 	return mobs
 
-GLOBAL_LIST_INIT(body_zone, list(
-	BODY_ZONE_HEAD = list(NOMINATIVE = "голова", GENITIVE = "головы", DATIVE = "голове", ACCUSATIVE = "голову", INSTRUMENTAL = "головой", PREPOSITIONAL = "голове"),
-    BODY_ZONE_CHEST = list(NOMINATIVE = "грудь", GENITIVE = "груди", DATIVE = "груди", ACCUSATIVE = "грудь", INSTRUMENTAL = "грудью", PREPOSITIONAL = "груди"),
-    BODY_ZONE_L_ARM = list(NOMINATIVE = "левая рука", GENITIVE = "левой руки", DATIVE = "левой руке", ACCUSATIVE = "левую руку", INSTRUMENTAL = "левой рукой", PREPOSITIONAL = "левой руке"),
-    BODY_ZONE_R_ARM = list(NOMINATIVE = "правая рука", GENITIVE = "правой руки", DATIVE = "правой руке", ACCUSATIVE = "правую руку", INSTRUMENTAL = "правой рукой", PREPOSITIONAL = "правой руке"),
-    BODY_ZONE_L_LEG = list(NOMINATIVE = "левая нога", GENITIVE = "левой ноги", DATIVE = "левой ноге", ACCUSATIVE = "левую ногу", INSTRUMENTAL = "левой ногой", PREPOSITIONAL = "левой ноге"),
-    BODY_ZONE_R_LEG = list(NOMINATIVE = "правая нога", GENITIVE = "правой ноги", DATIVE = "правой ноге", ACCUSATIVE = "правую ногу", INSTRUMENTAL = "правой ногой", PREPOSITIONAL = "правой ноге"),
-    BODY_ZONE_TAIL = list(NOMINATIVE = "хвост", GENITIVE = "хвоста", DATIVE = "хвосту", ACCUSATIVE = "хвост", INSTRUMENTAL = "хвостом", PREPOSITIONAL = "хвосте"),
-    BODY_ZONE_WING = list(NOMINATIVE = "крылья", GENITIVE = "крыльев", DATIVE = "крыльям", ACCUSATIVE = "крылья", INSTRUMENTAL = "крыльями", PREPOSITIONAL = "крыльях"),
-    BODY_ZONE_PRECISE_EYES = list(NOMINATIVE = "глаза", GENITIVE = "глаз", DATIVE = "глазам", ACCUSATIVE = "глаза", INSTRUMENTAL = "глазами", PREPOSITIONAL = "глазах"),
-    BODY_ZONE_PRECISE_MOUTH = list(NOMINATIVE = "рот", GENITIVE = "рта", DATIVE = "рту", ACCUSATIVE = "рот", INSTRUMENTAL = "ртом", PREPOSITIONAL = "рте"),
-    BODY_ZONE_PRECISE_GROIN = list(NOMINATIVE = "живот", GENITIVE = "живота", DATIVE = "животу", ACCUSATIVE = "живот", INSTRUMENTAL = "животом", PREPOSITIONAL = "животе"),
-    BODY_ZONE_PRECISE_L_HAND = list(NOMINATIVE = "левая кисть", GENITIVE = "левой кисти", DATIVE = "левой кисти", ACCUSATIVE = "левую кисть", INSTRUMENTAL = "левой кистью", PREPOSITIONAL = "левой кисти"),
-    BODY_ZONE_PRECISE_R_HAND = list(NOMINATIVE = "правая кисть", GENITIVE = "правой кисти", DATIVE = "правой кисти", ACCUSATIVE = "правую кисть", INSTRUMENTAL = "правой кистью", PREPOSITIONAL = "правой кисти"),
-    BODY_ZONE_PRECISE_L_FOOT = list(NOMINATIVE = "левая ступня", GENITIVE = "левой ступни", DATIVE = "левой ступне", ACCUSATIVE = "левую ступню", INSTRUMENTAL = "левой ступнёй", PREPOSITIONAL = "левой ступне"),
-    BODY_ZONE_PRECISE_R_FOOT = list(NOMINATIVE = "правая ступня", GENITIVE = "правой ступни", DATIVE = "правой ступне", ACCUSATIVE = "правую ступню", INSTRUMENTAL = "правой ступнёй", PREPOSITIONAL = "правой ступне")
-))
-
-/proc/parse_zone(zone)
-	switch(zone)
-		if(BODY_ZONE_HEAD)
-			return "голова"
-		if(BODY_ZONE_CHEST)
-			return "грудь"
-		if(BODY_ZONE_L_ARM)
-			return "левая рука"
-		if(BODY_ZONE_R_ARM)
-			return "правая рука"
-		if(BODY_ZONE_L_LEG)
-			return "левая нога"
-		if(BODY_ZONE_R_LEG)
-			return "правая нога"
-		if(BODY_ZONE_TAIL)
-			return "хвост"
-		if(BODY_ZONE_WING)
-			return "крылья"
-		if(BODY_ZONE_PRECISE_EYES)
-			return "глаза"
-		if(BODY_ZONE_PRECISE_MOUTH)
-			return "рот"
-		if(BODY_ZONE_PRECISE_GROIN)
-			return "живот"
-		if(BODY_ZONE_PRECISE_L_HAND)
-			return "левая кисть"
-		if(BODY_ZONE_PRECISE_R_HAND)
-			return "правая кисть"
-		if(BODY_ZONE_PRECISE_L_FOOT)
-			return "левая ступня"
-		if(BODY_ZONE_PRECISE_R_FOOT)
-			return "правая ступня"
-		else
-			stack_trace("Wrong zone input.")
-
-
-
-//Finds the distance between two atoms, in pixels
-//centered = 0 counts from turf edge to edge
-//centered = 1 counts from turf center to turf center
-//of course mathematically this is just adding world.icon_size on again
-/proc/getPixelDistance(var/atom/A, var/atom/B, var/centered = 1)
-	if(!istype(A)||!istype(B))
-		return 0
-	. = bounds_dist(A, B) + sqrt((((A.pixel_x+B.pixel_x)**2) + ((A.pixel_y+B.pixel_y)**2)))
-	if(centered)
-		. += world.icon_size
-
-
-
-/proc/get_turf_or_move(turf/location)
-	return get_turf(location)
-
-
-//For objects that should embed, but make no sense being is_sharp or is_pointed()
-//e.g: rods
+/// For objects that should embed, but make no sense being is_sharp or is_pointed() e.g: rods
 GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	/obj/item/stack/rods,
-	/obj/item/pipe)))
+	/obj/item/pipe
+)))
 
-/proc/can_embed(obj/item/W)
-	if(is_sharp(W))
-		return 1
-	if(is_pointed(W))
-		return 1
+/proc/can_embed(obj/item/weapon)
+	if(is_sharp(weapon))
+		return TRUE
+	if(is_pointed(weapon))
+		return TRUE
+	if(is_type_in_typecache(weapon, GLOB.can_embed_types))
+		return TRUE
 
-	if(is_type_in_typecache(W, GLOB.can_embed_types))
-		return 1
+
+
+
+
+
+
+
 
 //Whether or not the given item counts as sharp in terms of dealing damage
 /proc/is_sharp(obj/item/item)

@@ -333,3 +333,9 @@
 			CHECK_TICK
 
 	return turf_list
+
+/// Simple datum for storing coordinates.
+/datum/coords
+	var/x_pos
+	var/y_pos
+	var/z_pos

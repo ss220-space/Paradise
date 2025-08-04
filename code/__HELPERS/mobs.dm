@@ -943,6 +943,42 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		var/name = "[A.real_name] ([A.modtype?.name] [A.braintype])"
 		borgs[name] = A
 
-	if(borgs.len)
+	if(length(borgs))
 		select = tgui_input_list(user, "Unshackled borg signals detected:", "Borg selection", borgs)
 		return borgs[select]
+
+/proc/parse_zone(zone)
+	switch(zone)
+		if(BODY_ZONE_HEAD)
+			return "голова"
+		if(BODY_ZONE_CHEST)
+			return "грудь"
+		if(BODY_ZONE_L_ARM)
+			return "левая рука"
+		if(BODY_ZONE_R_ARM)
+			return "правая рука"
+		if(BODY_ZONE_L_LEG)
+			return "левая нога"
+		if(BODY_ZONE_R_LEG)
+			return "правая нога"
+		if(BODY_ZONE_TAIL)
+			return "хвост"
+		if(BODY_ZONE_WING)
+			return "крылья"
+		if(BODY_ZONE_PRECISE_EYES)
+			return "глаза"
+		if(BODY_ZONE_PRECISE_MOUTH)
+			return "рот"
+		if(BODY_ZONE_PRECISE_GROIN)
+			return "живот"
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return "левая кисть"
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return "правая кисть"
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return "левая ступня"
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return "правая ступня"
+		else
+			stack_trace("Wrong zone input.")
+			return zone

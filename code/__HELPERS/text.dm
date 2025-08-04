@@ -814,3 +814,20 @@
 	if(ofthree == 0)
 		return "[num]"
 	return "[num / (10 ** (ofthree * 3))][GLOB.si_suffixes[round(length(GLOB.si_suffixes) / 2) + ofthree + 1]]"
+
+/// Picks a string of symbols to display as the law number for hacked or ion laws
+/proc/ionnum()
+	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
+
+/// Returns whether or not a player is a guest using their ckey as an input
+/proc/IsGuestKey(key)
+	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
+		return FALSE
+
+	var/i, ch, len = length(key)
+
+	for(i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
+		ch = text2ascii(key, i)
+		if (ch < 48 || ch > 57) //0-9
+			return FALSE
+	return TRUE
