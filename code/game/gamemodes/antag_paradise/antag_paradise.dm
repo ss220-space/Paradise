@@ -10,7 +10,7 @@
 	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
 	restricted_jobs = list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
 	required_players = 10
-	required_enemies = 1
+	required_enemies = 0
 	forbidden_antag_jobs = list(ROLE_VAMPIRE = list(JOB_TITLE_CHAPLAIN))
 	var/list/protected_jobs_AI = list(JOB_TITLE_CIVILIAN, JOB_TITLE_PRISONER, JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_HOP, JOB_TITLE_CHAPLAIN, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF, JOB_TITLE_BOTANIST, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_JANITOR, JOB_TITLE_LIBRARIAN, JOB_TITLE_EXPLORER)	// Basically all jobs, except AI.
 	var/secondary_protected_species = list(SPECIES_MACNINEPERSON)
@@ -58,7 +58,7 @@
 	antag_possibilities[ROLE_THIEF] = get_alive_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 	antag_possibilities[ROLE_MALF_AI] = get_alive_AIs_for_role(ROLE_MALF_AI)
 	antag_possibilities[ROLE_DEVIL] = get_alive_players_for_role(ROLE_DEVIL)
-	antag_possibilities[ROLE_PRISONER_TRAITOR] = get_alive_players_by_job_for_role(ROLE_PRISONER_TRAITOR, JOB_TITLE_PRISONER)
+	antag_possibilities[ROLE_PRISONER_TRAITOR] = get_alive_players_for_role(ROLE_PRISONER_TRAITOR)
 	roll_antagonists(antag_possibilities)
 	initiate_antags()
 
@@ -122,8 +122,11 @@
 			if(special_antag_amount)
 				for(var/datum/mind/special_antag as anything in antag_possibilities[ROLE_PRISONER_TRAITOR])
 					if(special_antag)
-						special_antag.restricted_roles = restricted_jobs
+						special_antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
+						special_antag.restricted_roles += JOB_TITLE_AI
+						special_antag.restricted_roles -= JOB_TITLE_PRISONER
 						special_antag.special_role = SPECIAL_ROLE_PRISONER_TRAITOR
+						SSjobs.new_prisoners += special_antag.current
 						pre_antags[special_antag] = ROLE_PRISONER_TRAITOR
 				antags_amount--  // 4 prisoners (in max case) count as 1 antag
 
@@ -240,7 +243,7 @@
 	antag_possibilities[ROLE_TRAITOR] =	get_players_for_role(ROLE_TRAITOR)
 	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 	antag_possibilities[ROLE_MALF_AI] = get_players_for_role(ROLE_MALF_AI)
-	antag_possibilities[ROLE_PRISONER_TRAITOR] = get_alive_players_by_job_for_role(ROLE_PRISONER_TRAITOR, JOB_TITLE_PRISONER)
+	antag_possibilities[ROLE_PRISONER_TRAITOR] = get_players_for_role(ROLE_PRISONER_TRAITOR)
 	antag_possibilities[ROLE_DEVIL] =	get_players_for_role(ROLE_DEVIL)
 
 	calculate_antags()
@@ -380,6 +383,9 @@
 			if("malfai")
 				new_list += ROLE_MALF_AI
 				new_list[ROLE_MALF_AI] = check_list[index]
+			if("prisoner")
+				new_list += ROLE_PRISONER_TRAITOR
+				new_list[ROLE_PRISONER_TRAITOR] = check_list[index]
 			if("ninja")
 				new_list += ROLE_NINJA
 				new_list[ROLE_NINJA] = check_list[index]

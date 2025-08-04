@@ -351,6 +351,19 @@
 
 	return candidates
 
+/datum/game_mode/proc/get_players_by_job_for_role(role, req_job_ranks)
+	var/list/candidates = list()
+	for(var/mob/new_player/player in GLOB.player_list)
+		if(!player.client || !player.ready || !player.has_valid_preferences() \
+			|| jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, role) \
+		    || !player_old_enough_antag(player.client, role, null) || player.client.prefs?.skip_antag \
+			|| !(role in player.client.prefs.be_special))
+			continue
+		if(length(req_job_ranks) && !(player.mind.assigned_job in req_job_ranks))
+			continue
+		candidates += player.mind
+	// Shuffle the players list so that it becomes ping-independent.
+	return shuffle(candidates)
 
 /datum/game_mode/proc/get_alive_players_by_job_for_role(role, req_job_ranks)
 	var/list/candidates = list()
