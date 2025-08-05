@@ -752,6 +752,7 @@
 	if(!user || !user.client)
 		return
 
+	var/old_zoomed = zoomed
 	switch(forced_zoom)
 		if(FALSE)
 			zoomed = FALSE
@@ -759,6 +760,9 @@
 			zoomed = TRUE
 		else
 			zoomed = !zoomed
+
+	if(old_zoomed != zoomed) // Send signal only if zoomed state changed!
+		SEND_SIGNAL(src, COMSIG_GUN_ZOOM_TOGGLE, user, zoomed)
 
 	if(zoomed)
 		var/_x = 0

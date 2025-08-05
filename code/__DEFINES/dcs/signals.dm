@@ -991,6 +991,9 @@
 /// Sent from obj/item/gun/toggle_gunlight_verb(): (user)
 #define COMSIG_GUN_LIGHT_TOGGLE "gun_light_toggle"
 
+/// Sent from obj/item/gun/zoom(): (user, zoomed)
+#define COMSIG_GUN_ZOOM_TOGGLE "gun_zoom_toggle"
+
 // /obj/item/grenade signals
 
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override)

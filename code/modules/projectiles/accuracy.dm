@@ -23,6 +23,15 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	var/foots = 100
 	var/other = 100
 
+/datum/gun_accuracy/proc/add_accuracy(delta = 0)
+	head += delta
+	chest += delta
+	arms += delta
+	legs += delta
+	hands += delta
+	foots += delta
+	other += delta
+
 
 /datum/gun_accuracy/proc/getList()
 	return list("head" = head, "chest" = chest, "arms" = arms, "legs" = legs, "hands" = hands, "foots" = foots, "other" = other)

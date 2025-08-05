@@ -59,7 +59,8 @@ GLOBAL_LIST_INIT(huds, list( \
 			M.huds_counter["icons"] -= i
 
 	if (src in M.huds_counter["huds"])
-		if (--M.huds_counter["huds"][src] > 0) // check duplicated huds
+		M.huds_counter["huds"][src] -= 1
+		if (M.huds_counter["huds"][src] > 0) // check duplicated huds
 			return
 		else
 			M.huds_counter["huds"] -= src

@@ -132,13 +132,14 @@
 /obj/item/gun_module/muzzle/compensator/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppress_muzzle_flash = TRUE
 	initial_w_class = target_gun.w_class
-	target_gun.w_class = WEIGHT_CLASS_NORMAL
-	//TODO apply bonus accuracy
+	if(target_gun.w_class < WEIGHT_CLASS_NORMAL)
+		target_gun.w_class = WEIGHT_CLASS_NORMAL
+	target_gun.accuracy.add_accuracy(bonus_accuracy)
 
 /obj/item/gun_module/muzzle/compensator/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppress_muzzle_flash = FALSE
 	target_gun.w_class = initial_w_class
-	//TODO remove bonus accuracy
+	target_gun.accuracy.add_accuracy(-bonus_accuracy)
 
 
 /**
@@ -162,13 +163,19 @@
 	target_gun.build_zooming()
 	if(user.is_in_hands(target_gun))
 		target_gun.ZoomGrantCheck(null, user, ITEM_SLOT_HANDS)
-	//TODO apply bonus accuracy
+	RegisterSignal(target_gun, COMSIG_GUN_ZOOM_TOGGLE, PROC_REF(zoom_toogle))
 
 /obj/item/gun_module/rail/scope/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.zoomable = FALSE
 	target_gun.zoom_amt = old_zoom_amount
 	target_gun.destroy_zooming()
-	//TODO remove bonus accuracy
+	UnregisterSignal(target_gun, COMSIG_GUN_ZOOM_TOGGLE)
+
+/obj/item/gun_module/rail/scope/proc/zoom_toogle()
+	if(gun.zoomed)
+		gun.accuracy.add_accuracy(bonus_accuracy)
+	else
+		gun.accuracy.add_accuracy(-bonus_accuracy)
 
 
 /obj/item/gun_module/rail/scope/collimator
@@ -267,6 +274,7 @@
 
 /obj/item/gun_module/rail/hud
 	var/hud_type
+	var/granted = FALSE
 
 /obj/item/gun_module/rail/hud/on_attach(obj/item/gun/target_gun, mob/user)
 	RegisterSignal(target_gun, COMSIG_ITEM_EQUIPPED, PROC_REF(equip_gun_check))
@@ -289,6 +297,9 @@
 	remove_hud(user)
 
 /obj/item/gun_module/rail/hud/proc/grant_hud(mob/user)
+	if(granted)
+		return
+	granted = TRUE
 	if(islist(hud_type))
 		for(var/new_hud in hud_type)
 			var/datum/atom_hud/hud = GLOB.huds[new_hud]
@@ -298,6 +309,9 @@
 	hud.add_hud_to(user)
 
 /obj/item/gun_module/rail/hud/proc/remove_hud(mob/user)
+	if(!granted)
+		return
+	granted = FALSE
 	if(islist(hud_type))
 		for(var/new_hud in hud_type)
 			var/datum/atom_hud/hud = GLOB.huds[new_hud]
@@ -368,7 +382,6 @@
 /obj/item/gun_module/under/flashlight/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.set_gun_light(internal)
 	RegisterSignal(target_gun, COMSIG_GUN_LIGHT_TOGGLE, PROC_REF(udate_icon_and_overlay))
-	//COMSIG_ITEM_UI_ACTION_CLICK  mob/user, datum/action, leftclick
 
 /obj/item/gun_module/under/flashlight/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.set_gun_light(null)
@@ -445,4 +458,10 @@
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
 	var/bonus_accuracy = 10
-	//TODO add accuracy
+
+
+/obj/item/gun_module/under/hand/angle/on_attach(obj/item/gun/target_gun, mob/user)
+	target_gun.accuracy.add_accuracy(bonus_accuracy)
+
+/obj/item/gun_module/under/hand/angle/on_detach(obj/item/gun/target_gun, mob/user)
+	target_gun.accuracy.add_accuracy(-bonus_accuracy)
