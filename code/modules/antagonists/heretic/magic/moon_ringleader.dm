@@ -22,8 +22,8 @@
 	var/obj/effect/moon_effect = /obj/effect/temp_visual/moon_ringleader
 
 
-/obj/effect/proc_holder/spell/aoe/moon_ringleader/cast(mob/living/caster)
-	new moon_effect(get_turf(caster))
+/obj/effect/proc_holder/spell/aoe/moon_ringleader/cast(list/targets)
+	new moon_effect(get_turf(targets[1]))
 	return ..()
 
 

@@ -149,8 +149,8 @@
 	action_icon_state = "select_class"
 
 
-/obj/effect/proc_holder/spell/vampire/self/specialize/cast(mob/user)
-	ui_interact(user)
+/obj/effect/proc_holder/spell/vampire/self/specialize/cast(list/targets)
+	ui_interact(targets[1])
 
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_state(mob/user)
 	return GLOB.always_state

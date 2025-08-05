@@ -7,13 +7,15 @@
 	action_icon_state = "vampire_claws"
 
 
-/obj/effect/proc_holder/spell/vampire/self/vamp_claws/cast(mob/user)
+/obj/effect/proc_holder/spell/vampire/self/vamp_claws/cast(list/targets)
+	var/mob/living/carbon/human/user = targets[1]
 	if(user.l_hand || user.r_hand)
 		to_chat(user, span_notice("Вы роняете то, что было у вас в руках, и из ваших пальцев вылетают огромные лезвия!"))
 		user.drop_l_hand()
 		user.drop_r_hand()
 	else
 		to_chat(user, span_notice("Из ваших пальцев брызжет кровь!"))
+
 	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc, src)
 	RegisterSignal(user, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dispel))
 	user.put_in_hands(claws)
