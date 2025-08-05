@@ -49,6 +49,8 @@
 	var/list/datum/plane_master_group/master_groups = list()
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
+	///UI for screentips that appear when you mouse over things
+	var/atom/movable/screen/screentip/screentip_text
 
 	/// Think of multiz as a stack of z levels. Each index in that stack has its own group of plane masters
 	/// This variable is the plane offset our mob/client is currently "on"
@@ -73,6 +75,9 @@
 	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
 		plane_master_controllers[controller_instance.name] = controller_instance
+
+	screentip_text = new(null, src)
+	static_inventory += screentip_text
 
 	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(on_plane_increase))
 	RegisterSignal(mymob, COMSIG_MOB_LOGIN, PROC_REF(client_refresh))
@@ -188,6 +193,7 @@
 	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
 
 	mymob = null
+	QDEL_NULL(screentip_text)
 	return ..()
 
 /datum/hud/proc/on_plane_increase(datum/source, old_max_offset, new_max_offset)

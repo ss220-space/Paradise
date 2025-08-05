@@ -5,11 +5,10 @@
 #define SUFFIX 5
 /obj/item/book/codex_gigas
 	name = "Codex Gigas"
-	icon_state ="demonomicon"
+	icon_state = "demonomicon"
+	item_state = "demonomicon"
 	throw_speed = 1
 	throw_range = 10
-	lefthand_file = 'icons/mob/inhands/chaplain_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/chaplain_righthand.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	author = "Силы, находящиеся за пределами вашего понимания"
 	unique = TRUE

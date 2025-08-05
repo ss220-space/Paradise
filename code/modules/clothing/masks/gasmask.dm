@@ -58,7 +58,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	can_toggle = TRUE
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 55)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
@@ -87,7 +87,7 @@
 	)
 	icon_state = "gas_mining"
 	actions_types = list(/datum/action/item_action/adjust)
-	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 20, "acid" = 40)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	can_toggle = TRUE
 
@@ -166,10 +166,10 @@
 	gender = FEMALE
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 2, "energy" = 2, "bomb" = 0, "bio" = 75, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 2, ENERGY = 2, BOMB = 0, BIO = 75, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/mask/gas/plaguedoctor/armoured
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 
 /obj/item/clothing/mask/gas/swat
 	name = "SWAT mask"
@@ -184,7 +184,7 @@
 	)
 	gender = FEMALE
 	icon_state = "swat"
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
@@ -199,7 +199,7 @@
 	)
 	gender = FEMALE
 	icon_state = "swat"
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/mask/gas/clown_hat
@@ -584,7 +584,7 @@
 	)
 	icon_state = "sechailer"
 	item_state = "sechailer"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	flags_inv = HIDENAME
 	flags_cover = MASKCOVERSMOUTH
 	adjusted_flags_inv = HIDENAME
@@ -644,7 +644,7 @@
 		PREPOSITIONAL = "тактическом противогазе СБ"
 	)
 	icon_state = "tactical_mask"
-	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 10, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 10, ACID = 30)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -662,7 +662,7 @@
 		PREPOSITIONAL = "тактическом противогазе ГСБ"
 	)
 	icon_state = "hosmask"
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 10, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -680,7 +680,7 @@
 		PREPOSITIONAL = "тактическом противогазе смотрителя"
 	)
 	icon_state = "wardenmask"
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 10, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -698,7 +698,7 @@
 		PREPOSITIONAL = "тактическом противогазе"
 	)
 	icon_state = "officermask"
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 10, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -717,7 +717,7 @@
 	)
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 10, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE

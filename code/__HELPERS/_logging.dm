@@ -33,8 +33,9 @@ GLOBAL_PROTECT(log_end)
 // don't use this for logging. We have add_type_logs() for this situation
 // you can look all the way down in this file for those procs
 
-/proc/log_admin(text)
-	GLOB.admin_log.Add(text)
+/proc/log_admin(text, skip_glob = FALSE)
+	if(!skip_glob)
+		GLOB.admin_log.Add(text)
 	if(CONFIG_GET(flag/log_admin))
 		WRITE_LOG(GLOB.world_game_log, "ADMIN: [text][GLOB.log_end]")
 

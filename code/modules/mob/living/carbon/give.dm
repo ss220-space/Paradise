@@ -183,7 +183,7 @@
 
 /atom/movable/screen/alert/take_item/Initialize(mapload, mob/living/giver, mob/living/receiver, obj/item/I)
 	. = ..()
-	desc = "[giver] хоч[pluralize_ru(giver.gender,"ет","ют")] передать вам [I.declent_ru(ACCUSATIVE)]. Нажмите чтобы принять!"
+	desc = "[giver] хоч[pluralize_ru(giver.gender, "ет", "ют")] передать вам [I.declent_ru(ACCUSATIVE)]. Нажмите чтобы принять!"
 	giver_UID = giver.UID()
 	receiver_UID = receiver.UID()
 	item_UID = I.UID()
@@ -198,15 +198,19 @@
 /atom/movable/screen/alert/take_item/Destroy()
 	var/mob/living/giver = locateUID(giver_UID)
 	giver.remove_status_effect(STATUS_EFFECT_OFFERING_ITEM)
+
 	return ..()
 
 
 /atom/movable/screen/alert/take_item/proc/cancel_give()
 	SIGNAL_HANDLER
+
 	var/mob/living/giver = locateUID(giver_UID)
 	var/mob/living/receiver = locateUID(receiver_UID)
+
 	to_chat(giver, span_warning("Держите предмет в активной руке для передачи!"))
-	to_chat(receiver, span_warning("[giver] передум[genderize_ru(usr.gender,"ал","ала","ал","ало")] передавать вам [locateUID(item_UID)]."))
+	to_chat(receiver, span_warning("[giver] передум[genderize_ru(giver.gender, "ал", "ала", "ал", "ало")] передавать вам [locateUID(item_UID)]."))
+
 	receiver.clear_alert("take item [item_UID]")
 
 
@@ -214,24 +218,31 @@
 	var/mob/living/receiver = locateUID(receiver_UID)
 	if(receiver.stat != CONSCIOUS)
 		return
+
 	var/obj/item/I = locateUID(item_UID)
 	if(receiver.r_hand && receiver.l_hand)
 		to_chat(receiver, span_warning("Освободите руки для принятия [I.declent_ru(ACCUSATIVE)]!"))
 		return
+
 	var/mob/living/giver = locateUID(giver_UID)
 	if(!giver.Adjacent(receiver))
 		to_chat(receiver, span_warning("Подойдите ближе к [giver] чтобы взять [I.declent_ru(ACCUSATIVE)]!"))
 		return
+
 	if(HAS_TRAIT(I, TRAIT_NODROP))
 		to_chat(giver, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип к вашей руке при попытке передачи!"))
 		to_chat(receiver, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип к руке [giver] когда вы пытались взять!"))
 		return
+
 	UnregisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)) // We don't want these triggering `cancel_give` at this point, since the give is successful.
+
 	giver.drop_item_ground(I)
 	receiver.put_in_hands(I, ignore_anim = FALSE)
+
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)
-	receiver.visible_message(span_notice("[giver] переда[pluralize_ru(usr.gender,"ёт","ют")] [I.declent_ru(ACCUSATIVE)] [receiver]."))
+
+	receiver.visible_message(span_notice("[giver] переда[pluralize_ru(giver.gender, "ёт", "ют")] [I.declent_ru(ACCUSATIVE)] [receiver]."))
 	receiver.clear_alert("take item [item_UID]")
 
 
@@ -242,5 +253,5 @@
 	if(giver in view(3, receiver))
 		var/obj/item/I = locateUID(item_UID)
 		to_chat(giver, span_warning("Вы пытались передать [I.declent_ru(ACCUSATIVE)] [receiver], но [genderize_ru(receiver.gender,"тот отказался","та отказалась","тот отказался","те отказались")]."))
-		to_chat(receiver, span_warning("[giver] прекратил[genderize_ru(usr.gender,"","а","о","и")] попытку передать вам [I.declent_ru(ACCUSATIVE)]."))
+		to_chat(receiver, span_warning("[giver] прекратил[genderize_ru(giver.gender, "", "а", "о", "и")] попытку передать вам [I.declent_ru(ACCUSATIVE)]."))
 	..()

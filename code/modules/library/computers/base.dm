@@ -2,6 +2,15 @@
 
 /obj/machinery/computer/library
 	name = "visitor computer"
+	desc = "Старый библиотечный компьютер с ограниченным функционалом – специально для посетителей книжного храма."
+	ru_names = list(
+		NOMINATIVE = "гостевой компьютер",
+		GENITIVE = "гостевого компьютера",
+		DATIVE = "гостевому компьютеру",
+		ACCUSATIVE = "гостевой компьютер",
+		INSTRUMENTAL = "гостевым компьютером",
+		PREPOSITIONAL = "гостевом компьютере"
+	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "oldcomp"
 	icon_screen = "library"

@@ -9,8 +9,7 @@
 
 	pixel_x = -89
 	pixel_y = -85
-	current_size = 9 //It moves/eats like a max-size singulo, aside from range. --NEO
-	contained = FALSE
+	current_size = 9 // It moves/eats like a max-size singulo, aside from range. --NEO
 	dissipate = FALSE
 	move_self = TRUE
 	grav_pull = 5

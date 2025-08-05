@@ -4,6 +4,7 @@
 	icon_state = "echair0"
 	item_chair = null
 	anchored = TRUE
+	flip_on_buckled_move = FALSE
 	var/obj/item/assembly/shock_kit/part
 	var/last_time = 0
 	var/delay_time = 5 SECONDS

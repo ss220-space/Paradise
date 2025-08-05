@@ -19,7 +19,7 @@
 	max_integrity = 100
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BRUTE)
 				damage_amount *= ALIEN_RESIN_BRUTE_MOD
@@ -126,7 +126,7 @@
 				damage = max_integrity/ALIEN_RESIN_BRUTE_MOD
 			else
 				return ..()
-		if(attack_generic(A, damage, BRUTE, "melee", 0, 100))
+		if(attack_generic(A, damage, BRUTE, MELEE, 0, 100))
 			playsound(loc, 'sound/effects/attackblob.ogg', 50, TRUE)
 
 

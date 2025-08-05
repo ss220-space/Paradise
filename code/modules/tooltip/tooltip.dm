@@ -101,11 +101,14 @@ Notes:
 //Includes sanity.checks
 /proc/openToolTip(mob/user = null, atom/movable/tip_src = null, params = null, title = "", content = "", theme = "")
 	if(istype(user))
-		if(user.client && user.client.tooltips)
+		if(user.client && user.client.tooltips && (user.client.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS))
 			if(!theme && user.client.prefs && user.client.prefs.UI_style)
 				theme = lowertext(user.client.prefs.UI_style)
 			if(!theme)
 				theme = "default"
+			// Strip macros from item names
+			title = replacetext(title, "\proper", "")
+			title = replacetext(title, "\improper", "")
 			user.client.tooltips.show(tip_src, params, title, content, theme)
 
 

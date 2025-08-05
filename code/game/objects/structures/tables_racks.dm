@@ -483,7 +483,7 @@
 	canSmoothWith = null
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 	var/list/debris = list()
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_GLASS_TABLES
@@ -709,7 +709,7 @@
 	canSmoothWith = SMOOTH_GROUP_TABLES
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list("melee" = 10, "bullet" = 30, "laser" = 30, "energy" = 100, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
@@ -853,7 +853,16 @@
  */
 /obj/structure/rack
 	name = "rack"
-	desc = "Different from the Middle Ages version."
+	desc = "Белый крупный стелаж, удобен для хранения различных вещей."
+	ru_names = list(
+		NOMINATIVE = "стеллаж",
+		GENITIVE = "стеллажа",
+		DATIVE = "стеллажу",
+		ACCUSATIVE = "стеллаж",
+		INSTRUMENTAL = "стеллажом",
+		PREPOSITIONAL = "стеллаже"
+	)
+	gender = MALE
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "rack"
 	layer = TABLE_LAYER
@@ -924,7 +933,7 @@
 		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] пинает [src.declent_ru(ACCUSATIVE)]."),
 		span_danger("Вы пинаете [src.declent_ru(ACCUSATIVE)].")
 	)
-	take_damage(rand(4,8), BRUTE, "melee", 1)
+	take_damage(rand(4,8), BRUTE, MELEE, 1)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -1067,9 +1076,19 @@
 
 /obj/item/rack_parts
 	name = "rack parts"
-	desc = "Parts of a rack."
+	desc = "Детали разобранного стелажа."
+	ru_names = list(
+		NOMINATIVE = "детали стеллажа",
+		GENITIVE = "деталей стеллажа",
+		DATIVE = "деталям стеллажа",
+		ACCUSATIVE = "детали стеллажа",
+		INSTRUMENTAL = "деталями стеллажа",
+		PREPOSITIONAL = "деталях стеллажа"
+	)
+	gender = MALE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
+	item_state = "rack_parts"
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)
 	var/building = FALSE

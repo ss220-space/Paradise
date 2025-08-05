@@ -260,7 +260,7 @@
 	new /obj/item/clothing/head/prison(src)
 	new /obj/item/clothing/shoes/prison(src)
 	new /obj/item/card/id/prisoner/random(src)
-	new /obj/item/radio/headset(src)
+	new /obj/item/radio/headset/prisoner(src)
 
 /obj/structure/closet/secure_closet/brig/evidence
 	name = "evidence locker"
