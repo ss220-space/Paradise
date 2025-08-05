@@ -161,7 +161,12 @@
 
 /obj/item/card/id/proc/freeze_linked_account(datum/source)
 	SIGNAL_HANDLER
+
 	var/datum/money_account/acc = get_money_account(associated_account_number)
+
+	if(!acc)
+		return
+		
 	acc.suspended = TRUE
 
 /obj/item/card/id/examine(mob/user)
