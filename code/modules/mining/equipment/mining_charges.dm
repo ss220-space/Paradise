@@ -186,7 +186,7 @@
 	for(var/i in 1 to 2)
 		new /obj/item/grenade/plastic/miningcharge(src)
 	new /obj/item/detonator(src)
-
+	new /obj/item/storage/bag/ore/bigger(src) // <-- Добавлен увеличенный мешок для руды
 
 //MINING CHARGE HACKER
 /obj/item/t_scanner/adv_mining_scanner/syndicate
