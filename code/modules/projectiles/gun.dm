@@ -79,22 +79,12 @@
 		ATTACHMENT_SLOT_UNDER
 	)
 
-
 	var/suppressed = FALSE
 	var/suppress_muzzle_flash = FALSE
 	var/can_suppress = 0
 	var/can_unsuppress = 1
-
-	/// Whether user can attach/detach flashlights to/from this gun.
-	var/can_flashlight = TRUE
 	/// Currently attached flashlight.
 	var/obj/item/flashlight/seclite/gun_light
-	/// Specified icon_state used to show flashlight overlay on this gun.
-	var/gun_light_overlay
-	/// Offsets flashlight's overlay pixel_x by this value.
-	var/flight_x_offset = 0
-	/// Offsets flashlight's overlay pixel_y by this value.
-	var/flight_y_offset = 0
 
 	/// Whether user can attach/detach bayonets to/from this gun.
 	var/can_bayonet = FALSE
@@ -529,6 +519,12 @@
 		set_bayonet(null)
 
 
+/obj/item/gun/projectile/automatic/wt550/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_gunlight))
+		toggle_gunlight()
+		return TRUE
+	return ..()
+
 /obj/item/gun/proc/toggle_gunlight_verb()
 	set name = "Оружейный фонарик"
 	set category = STATPANEL_OBJECT
@@ -552,6 +548,7 @@
 		if(user)
 			to_chat(user, span_notice("Вы переключаете фонарь: [gun_light.on ? "вкл": "выкл"]."))
 	gun_light.set_light_on(gun_light.on)
+	SEND_SIGNAL(src, COMSIG_GUN_LIGHT_TOGGLE, user)
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
 
@@ -670,8 +667,7 @@
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
 		if(module.name == choice)
-			module.detach_without_check(src, user)
-			return TRUE
+			return module.detach_without_check(src, user)
 
 
 /obj/item/gun/proc/reskin_gun(mob/user)

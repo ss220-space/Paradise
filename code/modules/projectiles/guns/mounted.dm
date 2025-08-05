@@ -5,7 +5,6 @@
 	icon_state = "taser"
 	item_state = "armcannonstun4"
 	selfcharge = TRUE
-	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses neural signals instead
 	attachable_allowed = null
 

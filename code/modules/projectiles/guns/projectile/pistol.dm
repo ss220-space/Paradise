@@ -64,9 +64,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/spec_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/spec_magout.ogg'
 	unique_reskin = TRUE
-	can_flashlight = TRUE
 	materials = list(MAT_METAL = 1000)
-	gun_light_overlay = "specter-light"
 	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
@@ -92,10 +90,6 @@
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 
-/obj/item/gun/projectile/automatic/pistol/specter/ui_action_click(mob/user, datum/action/action, leftclick)
-	toggle_gunlight()
-
-
 //Enforcer//
 /obj/item/gun/projectile/automatic/pistol/enforcer
 	name = "Enforcer"
@@ -105,8 +99,6 @@
 	mag_type = /obj/item/ammo_box/magazine/enforcer
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
 	unique_reskin = TRUE
-	can_flashlight = TRUE
-	gun_light_overlay = "enforcer-light"
 	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
@@ -135,9 +127,6 @@
 
 
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/ui_action_click(mob/user, datum/action/action, leftclick)
-	toggle_gunlight()
-
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal/Initialize(mapload)
@@ -162,8 +151,6 @@
 	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
 	origin_tech = "combat=5;materials=2"
 	unique_reskin = TRUE
-	can_flashlight = TRUE
-	gun_light_overlay = "sp8-light"
 	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
@@ -189,9 +176,6 @@
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 
-/obj/item/gun/projectile/automatic/pistol/sp8/ui_action_click(mob/user, datum/action/action, leftclick)
-	toggle_gunlight()
-
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
 	name = "SP-8-T"
@@ -199,7 +183,6 @@
 	desc = "Новейшая разработка для сил защиты активов."
 	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
 	unique_reskin = TRUE
-	can_flashlight = TRUE
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
@@ -218,7 +201,6 @@
 	icon_state = "sp8ar"
 	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
 	unique_reskin = FALSE
-	can_flashlight = TRUE
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),

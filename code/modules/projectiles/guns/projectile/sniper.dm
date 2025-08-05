@@ -22,6 +22,29 @@
 	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
+/obj/item/gun/projectile/automatic/sniper_rifle/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/gun_module/muzzle/suppressor))
+		add_fingerprint(user)
+		var/obj/item/suppressor/suppressor = I
+		if(!can_suppress)
+			balloon_alert(user, "не совместимо!")
+			return ATTACK_CHAIN_PROCEED
+		if(suppressed)
+			balloon_alert(user, "уже установлено!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(suppressor, src))
+			return ..()
+		balloon_alert(user, "установлено")
+		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
+		suppressed = suppressor
+		suppressor.oldsound = fire_sound
+		suppressor.initial_w_class = w_class
+		fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
+		w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
+		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."

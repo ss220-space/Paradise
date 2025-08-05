@@ -132,27 +132,6 @@
 		reload(new_magazine, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/suppressor))
-		add_fingerprint(user)
-		var/obj/item/suppressor/suppressor = I
-		if(!can_suppress)
-			balloon_alert(user, "не совместимо!")
-			return ATTACK_CHAIN_PROCEED
-		if(suppressed)
-			balloon_alert(user, "уже установлено!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(suppressor, src))
-			return ..()
-		balloon_alert(user, "установлено")
-		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
-		suppressed = suppressor
-		suppressor.oldsound = fire_sound
-		suppressor.initial_w_class = w_class
-		fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
-		w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
-		update_icon()
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 	return ..()
 
 

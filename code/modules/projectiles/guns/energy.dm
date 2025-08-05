@@ -4,7 +4,6 @@
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/weapons/energy.dmi'
 	fire_sound_text = "laser blast"
-	gun_light_overlay = "flight"
 	ammo_x_offset = 2
 
 	var/obj/item/stock_parts/cell/cell	//What type of power cell this uses
@@ -343,17 +342,9 @@
 				. += image(icon = icon, icon_state = new_icon_state, pixel_x = ammo_x_offset * (i - 1))
 		else
 			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
-	if(gun_light && gun_light_overlay)
-		var/iconF = gun_light_overlay
-		if(gun_light.on)
-			iconF = "[gun_light_overlay]_on"
-		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 	if(bayonet && bayonet_overlay)
 		. += bayonet_overlay
 
-
-/obj/item/gun/energy/ui_action_click(mob/user, datum/action/action, leftclick)
-	toggle_gunlight()
 
 
 /obj/item/gun/energy/suicide_act(mob/user)

@@ -17,8 +17,6 @@
 	zoom_amt = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
-	flight_x_offset = 17
-	flight_y_offset = 9
 	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
@@ -32,8 +30,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	zoomable = FALSE
 	ammo_x_offset = 2
-	flight_x_offset = 18
-	flight_y_offset = 11
 	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -147,7 +143,6 @@
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	can_flashlight = FALSE
 	max_mod_capacity = 0
 	empty_state = null
 	accuracy = GUN_ACCURACY_RIFLE
@@ -715,10 +710,6 @@
 	modifystate = TRUE
 	shaded_charge = TRUE
 	charge_sections = 3
-	can_flashlight = TRUE
-	gun_light_overlay = "flight"
-	flight_x_offset = 27
-	flight_y_offset = 12
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/dominator/stun,
 		/obj/item/ammo_casing/energy/dominator/paralyzer,
@@ -765,11 +756,6 @@
 	. = list()
 	if(sibyl_mod)
 		. += "[base_icon_state]_[sibyl_mod.auth_id ? "unlocked" : "locked"]"
-	if(gun_light && gun_light_overlay)
-		var/iconF = gun_light_overlay
-		if(gun_light.on)
-			iconF = "[gun_light_overlay]_on"
-		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 
 
 /obj/item/gun/energy/dominator/equipped(mob/user, slot, initial = FALSE)

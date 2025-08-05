@@ -34,9 +34,6 @@
 	icon_state = "pulse_carbine"
 	item_state = "pulse"
 	cell_type = /obj/item/stock_parts/cell/pulse/carbine
-	can_flashlight = TRUE
-	flight_x_offset = 18
-	flight_y_offset = 12
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -90,7 +87,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse)
 	weapon_weight = WEAPON_MEDIUM
-	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 	accuracy = GUN_ACCURACY_SNIPER

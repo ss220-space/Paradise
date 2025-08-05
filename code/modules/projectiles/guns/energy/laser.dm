@@ -9,18 +9,12 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	can_flashlight = TRUE
-	gun_light_overlay = "lasergun_light"
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8)
 	)
 
-/obj/item/gun/energy/laser/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(istype(action, /datum/action/item_action/toggle_gunlight))
-		toggle_gunlight()
-		return TRUE
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"

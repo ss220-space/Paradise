@@ -16,9 +16,6 @@
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = FALSE
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
-	can_flashlight = TRUE
-	flight_x_offset = 15
-	flight_y_offset = 9
 	can_bayonet = TRUE
 	bayonet_x_offset = 20
 	bayonet_y_offset = 12

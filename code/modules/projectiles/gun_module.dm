@@ -13,6 +13,8 @@
 	var/class
 	var/overlay_state = "comp"
 	var/overlay_offset
+	//attached state variables
+	var/obj/item/gun/gun = null
 
 
 /// Try attach module to gun, return TRUE if success
@@ -28,27 +30,30 @@
 	if(gun.attachments_by_slot[slot] != null)
 		to_chat(user, "Слот [gun_module_slot_ru_name(slot)] уже занят другим модулем.")
 		return FALSE
-	attach_without_check(gun, user)
-	return TRUE
+	return attach_without_check(gun, user)
 
 /// Attaching module to gun without check, use try_attach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/attach_without_check(obj/item/gun/target_gun, mob/user)
 	to_chat(user, "You attach [name] to [target_gun.name]")
-	//TODO progressbar
+	if(!do_after(user, 1 SECONDS, target_gun))
+		return FALSE
 	target_gun.attachments_by_slot[slot] = src
 	target_gun.add_attachment_overlay(src)
 	user.drop_transfer_item_to_loc(src, target_gun)
+	gun = target_gun
 	src.on_attach(target_gun, user)
 	return TRUE
 
 /// Detaching module from gun without check, use try_detach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/detach_without_check(obj/item/gun/target_gun, mob/user)
 	to_chat(user, "You detach [name] to [target_gun.name]")
-	//TODO progressbar
+	if(!do_after(user, 1 SECONDS, target_gun))
+		return FALSE
 	target_gun.attachments_by_slot[slot] = null
 	target_gun.remove_attachment_overlay(src)
 	src.on_detach(target_gun, user)
 	user.put_in_hands(src)
+	gun = null
 	return TRUE
 
 /obj/item/gun_module/proc/create_overlay()
@@ -352,17 +357,41 @@
 /obj/item/gun_module/under/flashlight/Initialize(mapload)
 	. = ..()
 	internal = new()
+	internal.forceMove(src)
+	internal.set_light_flags(internal.light_flags | LIGHT_ATTACHED)
 
 /obj/item/gun_module/under/flashlight/attack_self(mob/user)
 	. = ..()
 	internal.attack_self(user)
+	update_icon()
 
 /obj/item/gun_module/under/flashlight/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.set_gun_light(internal)
+	RegisterSignal(target_gun, COMSIG_GUN_LIGHT_TOGGLE, PROC_REF(udate_icon_and_overlay))
+	//COMSIG_ITEM_UI_ACTION_CLICK  mob/user, datum/action, leftclick
 
 /obj/item/gun_module/under/flashlight/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.set_gun_light(null)
 	internal.forceMove(src)
+	internal.set_light_flags(internal.light_flags | LIGHT_ATTACHED)
+	UnregisterSignal(target_gun, COMSIG_GUN_LIGHT_TOGGLE)
+
+/obj/item/gun_module/under/flashlight/proc/udate_icon_and_overlay()
+	SIGNAL_HANDLER
+	if(!gun)
+		return
+	gun.add_attachment_overlay(src)
+
+/obj/item/gun_module/under/flashlight/update_icon_state()
+	if(internal.on)
+		icon_state = "[initial(icon_state)]_on"
+	else
+		icon_state = "[initial(icon_state)]"
+
+/obj/item/gun_module/under/flashlight/create_overlay()
+	if(internal.on)
+		return mutable_appearance(icon, overlay_state + "_on", layer = FLOAT_LAYER - 1)
+	return ..()
 
 /obj/item/gun_module/under/flashlight/pistol
 	name = "pistol underbarrel light"

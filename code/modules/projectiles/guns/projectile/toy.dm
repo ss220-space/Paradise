@@ -53,9 +53,6 @@
 	desc = "A foam shooting version of the Enforcer meant to be used for training new caddets who can't be trusted with rubber bullets."
 	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
-	can_flashlight = TRUE
-	gun_light_overlay = "enforcer-light"
-
 
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot
@@ -63,9 +60,6 @@
 	desc = "RIOT! Meant to be used for training new caddets who can't be trusted with rubber bullets."
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer/riot
 
-
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click(mob/user, datum/action/action, leftclick)
-	toggle_gunlight()
 
 /obj/item/gun/projectile/shotgun/toy
 	name = "foam force shotgun"
