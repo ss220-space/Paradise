@@ -85,7 +85,7 @@
 			if(!goal)
 				to_chat(usr, "Ошибка, цель [goal_id] не найдена!")
 				return
-			 to_chat(usr, "[usr.name] взял дополнительную цель смены [goal_id].")
+			to_chat(usr, "[usr.name] взял дополнительную цель смены [goal_id].")
 			SSaddition_goals.accept_goal(usr, goal)
 		if("complete_goal")
 			SSaddition_goals.complete_current_goal(usr)
