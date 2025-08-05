@@ -15,10 +15,11 @@
 
 	if(!ishuman(target))
 		return NONE
+
 	if(!(user.a_intent == INTENT_DISARM))
 		return NONE
-	var/mob/living/carbon/human/H = target
-	if(!(prob(40) || isthrowingmatart(H?.mind?.martial_art)))
+	var/mob/living/carbon/human/this_is_human = target
+	if(!(prob(40) || isthrowingmatart(this_is_human?.mind?.martial_art)))
 		return NONE
 	H.embed_item_inside(parent, user.zone_selected)
 	
