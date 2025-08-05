@@ -246,6 +246,15 @@
 		/obj/item/lighter/zippo)
 	icon_type = "cigarette"
 	var/cigarette_type = /obj/item/clothing/mask/cigarette
+	var/list/cigpack_diseases = list("Недоношенность", "Онкозаболевания", "Пародонтоз",\
+					"Преждевременное старение", "Ампутация", "Зависимость",\
+					"Импотенция", "Мертворождение", "Смерть в агонии",\
+					"Туберкулёз", "Отмирание органов")
+
+/obj/item/storage/fancy/cigarettes/Initialize(mapload)
+	. = ..()
+	var/cigpack_disease = pick(cigpack_diseases)
+	desc += "\n На упаковке написано: [cigpack_disease]."
 
 /obj/item/storage/fancy/cigarettes/populate_contents()
 	for(var/i = 1 to storage_slots)
