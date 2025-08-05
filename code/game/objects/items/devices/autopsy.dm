@@ -83,15 +83,7 @@
 	if(Adjacent(user))
 		. += span_notice("Вы можете воспользоваться ручкой, чтобы быстро написать отчет.")
 
-/obj/item/autopsy_scanner/attackby(obj/item/used, mob/user, params)
-	if(!is_pen(used))
-		return ..()
-
-	if(!COOLDOWN_FINISHED(src, print_cooldown))
-		user.balloon_alert(user, "идёт печать...")
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	add_fingerprint(user)
+/obj/item/autopsy_scanner/paper_work(mob/user)
 	var/dead_name = tgui_input_text(user, "Укажите имя субъекта", default = target_name, title = "Отчёт патологоанатома", max_length = 60)
 	var/dead_rank = tgui_input_text(user, "Укажите должность субъекта", default = target_rank, title = "Отчёт патологоанатома", max_length = 60)
 	var/dead_tod = tgui_input_text(user, "Укажите время смерти", default = station_time_timestamp("hh:mm", timeofdeath), title = "Отчёт патологоанатома", max_length = 60)
@@ -105,6 +97,17 @@
 	paper.info = "<b><center>[station_name()] – Отчёт патологоанатома</b></center><br><br><b>Имя погибшего:</b> [dead_name]</br><br><b>Должность погибшего:</b> [dead_rank]<br><br><b>Время смерти:</b> [dead_tod]<br><br><b>Причина смерти:</b> [dead_cause]<br><br><b>Химические следы:</b> [dead_chems]<br><br><b>Дополнительные детали:</b> [dead_notes]<br><br><b>Подпись патологоанатома:</b> <span class=\"paper_field\">"
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	user.put_in_hands(paper, ignore_anim = FALSE)
+
+/obj/item/autopsy_scanner/attackby(obj/item/used, mob/user, params)
+	if(!is_pen(used))
+		return ..()
+
+	if(!COOLDOWN_FINISHED(src, print_cooldown))
+		user.balloon_alert(user, "идёт печать...")
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	add_fingerprint(user)
+	paper_work(user)
 
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
