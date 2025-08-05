@@ -1,6 +1,6 @@
 /// Addition goals system
 
-	//States
+//States
 #define AGS_STATE_NOT_STARTED 0
 #define AGS_STATE_IDLE 10
 #define AGS_STATE_GOAL_PREPARE 11
@@ -37,15 +37,15 @@ SUBSYSTEM_DEF(addition_goals)
 	offline_implications = "Addition goals will no longer function."
 	ss_id = "addition_goals"
 	var/goal_state = AGS_STATE_NOT_STARTED
-		//goals stuff
+	//goals stuff
 	var/list/goal_types = list()
 	var/list/available_goals = list()
 	var/datum/addition_goal/current_goal = null
 	var/goals_id_counter = 1
 	var/available_goals_refresh_time = -REFRESH_AVAILABLE_GOALS_COOLDOWN //initially available refresh
-		//shuttle stuff
+	//shuttle stuff
 	var/obj/docking_port/mobile/shuttle
-		//console stuff
+	//console stuff
 	var/list/console_list = list()
 
 
@@ -157,7 +157,7 @@ SUBSYSTEM_DEF(addition_goals)
 /datum/controller/subsystem/addition_goals/proc/add_reward(credits, cargopoints)
 	if(credits > 0)
 		var/datum/money_account/account = GLOB.station_account
-		account.credit(round(credits), "Complete station addition goal", "Addition Goal", account.owner_name)
+		account.credit(round(credits), "Завершение дополнительной цели", "Дополнительная цель", account.owner_name)
 	if(cargopoints > 0)
 		SSshuttle.points += round(cargopoints)
 

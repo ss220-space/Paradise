@@ -22,7 +22,7 @@
 	prisoners_count = rand(3, 5)
 	request_number = "[rand(100, 999)]"
 	name = "Запрос исполнения наказания №[request_number]"
-	description = "Запрос исполнения наказания №[request_number]. На станцию прибудет шаттл с [prisoners_count] заключенными для исполнения наказания."
+	description = "Запрос исполнения наказания №[request_number]. На станцию прибудет шаттл с [prisoners_count] [declension_ru(prisoners_count, "заключенным", "заключенными", "заключенными")] для исполнения наказания."
 
 
 /datum/addition_goal/prisoners/spawn_shuttle_contain(list/turf/shuttle_turfs)
@@ -105,11 +105,11 @@
 	data.complete_reason = "отсидел"
 	if(duration_min < data.duration) {
 		data.complete_percent -= 50
-		data.complete_reason += " меньше чем надо"
+		data.complete_reason += " меньше, чем надо"
 	}
 	if(duration_min > data.duration) {
 		data.complete_percent -= 10
-		data.complete_reason += " больше чем надо"
+		data.complete_reason += " больше, чем надо"
 	}
 	if(data.crimes != crimes) {
 		data.complete_percent -= 10
@@ -119,8 +119,8 @@
 
 /datum/addition_goal/prisoners/format_accept_report(mob/user)
 	var/text = {"<center><b>Запрос на временное заключение</b></center><br>
-		В ваш адрес направлены [prisoners_count] заключенных для отбытия наказания.<br>
-		Прсим произвести заключение в соответствии с нижеуказанным списком:<br>"}
+		В ваш адрес [declension_ru(prisoners_count, "направлен", "напревлены", "направлены")] [prisoners_count] [declension_ru(prisoners_count, "заключенный", "заключенных", "заключенных")] для отбытия наказания.<br>
+		Просим произвести заключение в соответствии с нижеуказанным списком:<br>"}
 	var/number = 1
 	for(var/mob/living/prisoner as anything in prisoners)
 		var/datum/addition_goal_prisoner_data/data = prisoners_data[prisoner.real_name]
@@ -181,7 +181,7 @@
 	else if(reward_cargopoints < 0)
 		report_text += "[reward_number]. Штраф в размере [reward_cargopoints] очков поставки в карго.<br>"
 	system.add_reward(reward_credits, reward_cargopoints)
-	var/paper_content = system.create_paper_content("Отчет о заключении под стражу №[request_number]", report_text, "Официальный документ заверенный печатью Центрального Командования Нанотрейзен")
+	var/paper_content = system.create_paper_content("Отчет о заключении под стражу №[request_number]", report_text, "Официальный документ заверенный печатью Центрального командования Нанотрейзен")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
 
 

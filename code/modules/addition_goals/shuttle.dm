@@ -118,7 +118,7 @@
 /datum/controller/subsystem/addition_goals/proc/teleportate_item_to_location(atom/movable/content, turf/teleport_target)
 	content.forceMove(teleport_target)
 	var/datum/money_account/account = GLOB.station_account
-	account.credit(round(-1000), "Transfer highrisk item to station", "Addition Goal Shuttle", account.owner_name)
+	account.credit(round(-1000), "Транспортировка важного предмета на станцию", "Дополнительная цель", account.owner_name)
 
 
 
@@ -133,7 +133,7 @@
 	var/datum/money_account/account = get_card_account(user)
 	if(!account)
 		return
-	account.credit(round(-credits), "Transfer to station", "Addition Goal Shuttle", account.owner_name)
+	account.credit(round(-credits), "Транспортные расходы", "Дополнительная цель", account.owner_name)
 
 
 

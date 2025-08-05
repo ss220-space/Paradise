@@ -32,7 +32,7 @@
 		if(AGS_DIFFICULTY_HARD)
 			name = "Запрос большой медицинской помощи №[request_number]"
 			patiens_count = rand(8, 10)
-	description = "[name]. На станцию прибудет шаттл с [patiens_count] пациентами для проведения медицинских услуг."
+	description = "[name]. На станцию прибудет шаттл с [patiens_count] [declension_ru(patiens_count, "пациентом", "пациентами", "пациентами")] для проведения медицинских услуг."
 
 /datum/addition_goal/medical_patients/spawn_shuttle_contain(list/turf/shuttle_turfs)
 	spawner = new /obj/effect/mob_spawn/human/addition_goal/medical_patients(shuttle_turfs[1])
@@ -84,7 +84,7 @@
 
 
 /datum/addition_goal/medical_patients/format_accept_report(mob/user)
-	var/text = {"К вам отправлено [patiens_count] больных с соседней психбольницы.<br>
+	var/text = {"К вам [declension_ru(patiens_count, "отправлен", "отправлено", "отправлено")] [patiens_count] [declension_ru(patiens_count, "больной", "больных", "больных")] с соседней психбольницы.<br>
 		Необходимо полностью вылечить пациентов. Будьте осторожны, пациенты буйные.
 		Список пациентов:<br>"}
 	var/number = 1
@@ -125,7 +125,7 @@
 	if(reward_cargopoints > 0)
 		report_text += "[reward_number]. [reward_cargopoints] очков поставки в карго.<br>"
 	system.add_reward(reward_credits, reward_cargopoints)
-	var/paper_content = system.create_paper_content("Отчет о медицинской помощи №[request_number]", report_text, "Официальный документ заверенный печатью Центрального Командования Нанотрейзен")
+	var/paper_content = system.create_paper_content("Отчет о медицинской помощи №[request_number]", report_text, "Официальный документ заверенный печатью Центрального командования Нанотрейзен")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
 
 

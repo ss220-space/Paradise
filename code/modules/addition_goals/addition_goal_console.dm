@@ -5,13 +5,13 @@
 ////////////////////////////////////////
 
 /obj/item/circuitboard/computer/addition_goals
-	board_name = "Addition Goals Console"
+	board_name = "addition goals console"
 	build_path = /obj/machinery/computer/addition_goals
 	origin_tech = "engineering=2;combat=2;bluespace=2" //TODO balance here
 
 
 /obj/machinery/computer/addition_goals
-	name = "Addition Goals Console"
+	name = "addition goals console"
 	desc = "Используется для управления дополнительными целями смены."
 	ru_names = list(
 		NOMINATIVE = "консоль управления дополнительными целями смены",
@@ -85,10 +85,7 @@
 			if(!goal)
 				to_chat(usr, "Ошибка, цель [goal_id] не найдена!")
 				return
-			to_chat(usr, "[usr.name] взял дополнительную цель смены [goal_id]")
+			 to_chat(usr, "[usr.name] взял дополнительную цель смены [goal_id].")
 			SSaddition_goals.accept_goal(usr, goal)
 		if("complete_goal")
 			SSaddition_goals.complete_current_goal(usr)
-		if("call_shuttle")
-			to_chat(usr, "Тестовая реализация!")
-			SSaddition_goals.toggle_shuttle(usr)

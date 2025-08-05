@@ -85,12 +85,12 @@
 			reward_credits += CREDITS_BY_UTILIZATION
 
 /datum/addition_goal/funeral/format_accept_report(mob/user)
-	var/text = {"В ваш адрес направлены [corpse_count] тел(а) для организации процедуры захоронения.<br>
+	var/text = {"В ваш адрес направлены [corpse_count] [declension_ru(corpse_count, "тело", "тела", "тел")] для организации процедуры захоронения.<br>
 		Просим произвести погребение в соответствии с нижеуказанным списком:<br>"}
 	var/number = 1
 	for(var/mob/living/corpse as anything in corpses)
 		var/datum/addition_goal_corpse_data/data = corpse_data[corpse.name]
-		text += "<br>[number]. [data.name] - [data.preffered_method]."
+		text += "<br>[number]. [data.name] – [data.preffered_method]."
 		number++
 	return text
 
@@ -149,7 +149,7 @@
 	if(reward_cargopoints > 0)
 		report_text += "[reward_number]. [reward_cargopoints] очков поставки в карго.<br>"
 	system.add_reward(reward_credits, reward_cargopoints)
-	var/paper_content = system.create_paper_content("Отчет о проведении погребения №[request_number]", report_text, "Официальный документ заверенный печатью Центрального Командования Нанотрейзен")
+	var/paper_content = system.create_paper_content("Отчет о проведении погребения №[request_number]", report_text, "Официальный документ заверенный печатью Центрального командования Нанотрейзен")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
 
 
