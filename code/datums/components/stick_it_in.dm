@@ -18,10 +18,10 @@
 
 	if(!(user.a_intent == INTENT_DISARM))
 		return NONE
-	var/mob/living/carbon/human/this_is_human = target
-	if(!(prob(40) || isthrowingmatart(this_is_human?.mind?.martial_art)))
+	var/mob/living/carbon/human/TARGET_HUMAN = target
+	if(!(prob(40) || isthrowingmatart(TARGET_HUMAN?.mind?.martial_art)))
 		return NONE
-	H.embed_item_inside(parent, user.zone_selected)
+	TARGET_HUMAN.embed_item_inside(parent, user.zone_selected)
 	
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 	
