@@ -135,25 +135,6 @@
 	return ..()
 
 
-// /obj/item/gun/projectile/attack_hand(mob/user)
-// 	if(loc == user)
-// 		if(suppressed && can_unsuppress)
-// 			var/obj/item/suppressor/S = suppressed
-// 			if(user.l_hand != src && user.r_hand != src)
-// 				..()
-// 				return
-
-// 			balloon_alert(user, "глушитель снят!")
-// 			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
-// 			user.put_in_hands(suppressed)
-// 			fire_sound = S.oldsound
-// 			w_class = S.initial_w_class
-// 			suppressed = null
-// 			update_icon()
-// 			return
-// 	..()
-
-
 /obj/item/gun/projectile/attack_self(mob/living/user)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(magazine)

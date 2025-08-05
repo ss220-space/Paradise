@@ -23,7 +23,7 @@
 	icon_state = "executioner"
 	message_to_chat = "Вы читаете историю о кровавой распре, и это пробуждает в вас жажду крови... "
 	descr = "Позволяет быстро вступить в ближний бой с врагом и так же быстро его завершить, используя костяное оружие и артефактный крюк."
-	
+
 	head = /obj/item/clothing/head/helmet/skull
 	mask = /obj/item/clothing/mask/gas/ghostface/true
 	suit_store = /obj/item/twohanded/fireaxe/boneaxe/guillotine/sharped
@@ -49,7 +49,7 @@
 	uniform = /obj/item/clothing/under/syndicate/tacticool
 	accessories = list(/obj/item/clothing/accessory/holster)
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/black 
+	shoes = /obj/item/clothing/shoes/black
 	backpack_contents = list(/obj/item/ammo_box/speedloader/a357 = 2, /obj/item/gun/projectile/revolver = 1)
 
 /datum/outfit/radial_outfit/death_book/killer
@@ -79,16 +79,16 @@
 		/obj/item/flash/cameraflash = 1,
 		/obj/item/twohanded/garrote = 1,
 		/obj/item/card/id/syndicate = 1,
-		/obj/item/suppressor = 1
+		/obj/item/gun_module/muzzle/suppressor = 1
 	 )
-	
+
 /datum/outfit/radial_outfit/death_book/crusher
 	name = "Разрушитель"
 	icon_state = "crusher"
 	message_to_chat = "Вы читаете историю о человеке, который разрушил мир, и это вызывает у вас желание начать сжигать всё вокруг."
 	descr = "Высвободите всю свою ярость с этим набором, наполнив станцию огнём и превратив её в адское пекло. Огнеупорный скафандр защитит вас от жара."
 	force_unequip_slots = ITEM_SLOT_CLOTH_OUTER | ITEM_SLOT_HEAD
-	
+
 	uniform = /obj/item/clothing/under/syndicate/tacticool
 	back = /obj/item/storage/backpack/syndicate
 	belt = /obj/item/storage/belt/grenade/frag
@@ -155,7 +155,7 @@
 
 /datum/outfit/radial_outfit/death_book/plague_inc/post_equip(mob/living/carbon/human/H, visualsOnly)
 	SEND_SIGNAL(H.wear_suit, COMSIG_EQUIP_HOOD)
-	
+
 /datum/outfit/radial_outfit/death_book/plague_inc/can_choise(mob/user)
 	if(locate(/datum/objective/hijack) in user.mind.get_all_objectives())
 		return TRUE

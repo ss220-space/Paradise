@@ -378,7 +378,7 @@
 	req_tech = list("combat" = 6, "engineering" = 5, "syndicate" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 500)
-	build_path = /obj/item/suppressor
+	build_path = /obj/item/gun_module/muzzle/suppressor
 	locked = TRUE
 	category = list("ILLEGAL")
 

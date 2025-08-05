@@ -118762,7 +118762,7 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkredalt"
@@ -165269,7 +165269,7 @@
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/mask/gas/syndicate,
 /obj/item/kitchen/knife/combat/survival,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "yip" = (

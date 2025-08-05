@@ -936,15 +936,15 @@
 /area/tdome/tdome2)
 "iZ" = (
 /obj/structure/table/wood,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /turf/simulated/floor/wood,
 /area/admin)
 "jc" = (
@@ -2537,16 +2537,16 @@
 /area/holodeck/source_theatre)
 "BG" = (
 /obj/structure/table/wood,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /turf/simulated/floor/wood,
 /area/admin)
 "BI" = (

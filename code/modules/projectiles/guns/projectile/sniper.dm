@@ -25,7 +25,7 @@
 /obj/item/gun/projectile/automatic/sniper_rifle/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gun_module/muzzle/suppressor))
 		add_fingerprint(user)
-		var/obj/item/suppressor/suppressor = I
+		var/obj/item/gun_module/muzzle/suppressor/suppressor = I
 		if(!can_suppress)
 			balloon_alert(user, "не совместимо!")
 			return ATTACK_CHAIN_PROCEED

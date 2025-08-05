@@ -318,7 +318,7 @@
 /obj/structure/closet{
 	icon_state = "syndicate"
 	},
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /obj/item/gun/projectile/automatic/proto{
 	pixel_x = 3;
 	pixel_y = -3
@@ -5707,7 +5707,7 @@
 /area/syndicate_mothership)
 "eyW" = (
 /obj/structure/closet/secure_closet/syndicate_officer,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -17413,19 +17413,19 @@
 /area/centcom/zone1)
 "mJv" = (
 /obj/structure/table/wood,
-/obj/item/suppressor{
+/obj/item/gun_module/muzzle/suppressor{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/suppressor{
+/obj/item/gun_module/muzzle/suppressor{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/suppressor{
+/obj/item/gun_module/muzzle/suppressor{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/suppressor{
+/obj/item/gun_module/muzzle/suppressor{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -27017,16 +27017,16 @@
 	name = "Suppressor's";
 	req_access = list(114)
 	},
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -29599,7 +29599,7 @@
 /obj/item/clothing/suit/space/deathsquad/officer/field,
 /obj/item/melee/baseball_bat/homerun/central_command,
 /obj/item/storage/briefcase/sniperbundle,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /obj/item/gun/projectile/automatic/proto{
 	pixel_x = 3;
 	pixel_y = -3
