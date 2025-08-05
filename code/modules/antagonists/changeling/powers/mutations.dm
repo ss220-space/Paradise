@@ -186,8 +186,10 @@
 
 
 /obj/item/melee/changeling/arm_blade/Destroy()
+	. = ..()
+
 	if(!parent_action)
-		return ..()
+		return
 
 	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
 	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
@@ -271,6 +273,7 @@
 	var/datum/action/changeling/weapon/parent_action
 
 
+
 /obj/item/melee/changeling/fleshy_maul/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
@@ -290,8 +293,10 @@
 
 
 /obj/item/melee/changeling/fleshy_maul/Destroy()
+	. = ..()
+
 	if(!parent_action)
-		return ..()
+		return
 
 	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
 	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
