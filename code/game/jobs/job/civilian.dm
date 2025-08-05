@@ -28,7 +28,6 @@
 	shoes = /obj/item/clothing/shoes/black
 
 
-
 /datum/job/civilian/prisoner
 	title = JOB_TITLE_PRISONER
 	flag = JOB_FLAG_PRISONER
