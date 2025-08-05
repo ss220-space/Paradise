@@ -769,8 +769,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/prison_escape
 	name = "Prison Escape"
-	antag_menu_name = "Сбежать с тюрьмы"
-	explanation_text = "Сбежать с тюрьмы и эвакуироваться на шаттле или эвакуационном поде живым и свободным."
+	antag_menu_name = "Сбежать из тюрьмы"
+	explanation_text = "Сбежать из тюрьмы и улететь на шаттле или эвакуационном челноке живым и свободным."
 	needs_target = FALSE
 
 /datum/objective/prison_escape/check_completion()

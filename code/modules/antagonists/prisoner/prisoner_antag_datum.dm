@@ -1,11 +1,11 @@
 // Prisoner antag datum
 /datum/antagonist/traitor/prisoner
-	name = "Prisoner Traitor"
-	job_rank = ROLE_PRISONER_TRAITOR
-	special_role = SPECIAL_ROLE_PRISONER_TRAITOR
-	wiki_page_name = "Prisoner Traitor"
-	russian_wiki_name = "Заключенный Предатель"
-	antag_menu_name = "Заключенный Предатель"
+	name = "Escaping Prisoner"
+	job_rank = ROLE_ESCAPING_PRISONER
+	special_role = SPECIAL_ROLE_ESCAPING_PRISONER
+	wiki_page_name = "Escaping Prisoner"
+	russian_wiki_name = "Бунтовщики"
+	antag_menu_name = "Бунтовщик"
 	give_uplink = FALSE
 
 /datum/antagonist/traitor/prisoner/give_objectives()

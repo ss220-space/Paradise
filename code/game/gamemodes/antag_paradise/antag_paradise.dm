@@ -26,7 +26,7 @@
 		ROLE_CHANGELING = 15,
 		ROLE_HIJACKER = 40,
 		ROLE_MALF_AI = 40,
-		ROLE_PRISONER_TRAITOR = 40,
+		ROLE_ESCAPING_PRISONER = 40,
 		ROLE_DEVIL = 40,
 		ROLE_NINJA = 40,
 	)
@@ -58,7 +58,7 @@
 	antag_possibilities[ROLE_THIEF] = get_alive_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 	antag_possibilities[ROLE_MALF_AI] = get_alive_AIs_for_role(ROLE_MALF_AI)
 	antag_possibilities[ROLE_DEVIL] = get_alive_players_for_role(ROLE_DEVIL)
-	antag_possibilities[ROLE_PRISONER_TRAITOR] = get_alive_players_for_role(ROLE_PRISONER_TRAITOR)
+	antag_possibilities[ROLE_ESCAPING_PRISONER] = get_alive_players_for_role(ROLE_ESCAPING_PRISONER)
 	roll_antagonists(antag_possibilities)
 	initiate_antags()
 
@@ -83,8 +83,8 @@
 		var/list/special_antag_types = list(ROLE_HIJACKER, ROLE_THIEF)
 		if(length(antag_possibilities[ROLE_MALF_AI]))
 			special_antag_types += ROLE_MALF_AI
-		if(length(antag_possibilities[ROLE_PRISONER_TRAITOR]))
-			special_antag_types += ROLE_PRISONER_TRAITOR
+		if(length(antag_possibilities[ROLE_ESCAPING_PRISONER]))
+			special_antag_types += ROLE_ESCAPING_PRISONER
 		special_antag_type = pick(special_antag_types)
 
 	switch(special_antag_type)
@@ -118,18 +118,18 @@
 					pre_antags[special_antag] = ROLE_MALF_AI
 					antags_amount--
 
-		if(ROLE_PRISONER_TRAITOR)
+		if(ROLE_ESCAPING_PRISONER)
 			if(special_antag_amount)
 				var/prisoners_count = ROLE_PRISONERS_MAX_COUNT // max prisoners count count as 1 antag
-				for(var/datum/mind/special_antag as anything in antag_possibilities[ROLE_PRISONER_TRAITOR])
+				for(var/datum/mind/special_antag as anything in antag_possibilities[ROLE_ESCAPING_PRISONER])
 					if(!special_antag)
 						continue
 					special_antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
 					special_antag.restricted_roles += JOB_TITLE_AI
 					special_antag.restricted_roles -= JOB_TITLE_PRISONER
-					special_antag.special_role = SPECIAL_ROLE_PRISONER_TRAITOR
+					special_antag.special_role = SPECIAL_ROLE_ESCAPING_PRISONER
 					SSjobs.new_prisoners += special_antag.current
-					pre_antags[special_antag] = ROLE_PRISONER_TRAITOR
+					pre_antags[special_antag] = ROLE_ESCAPING_PRISONER
 					prisoners_count -= 1
 					if(prisoners_count == 0)
 						break
@@ -248,7 +248,7 @@
 	antag_possibilities[ROLE_TRAITOR] =	get_players_for_role(ROLE_TRAITOR)
 	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 	antag_possibilities[ROLE_MALF_AI] = get_players_for_role(ROLE_MALF_AI)
-	antag_possibilities[ROLE_PRISONER_TRAITOR] = get_players_for_role(ROLE_PRISONER_TRAITOR)
+	antag_possibilities[ROLE_ESCAPING_PRISONER] = get_players_for_role(ROLE_ESCAPING_PRISONER)
 	antag_possibilities[ROLE_DEVIL] =	get_players_for_role(ROLE_DEVIL)
 
 	calculate_antags()
@@ -364,7 +364,7 @@
 				if(roundstart)
 					datum.contractor_pending = new(antag)
 				antag.add_antag_datum(datum)
-			if(ROLE_PRISONER_TRAITOR)
+			if(ROLE_ESCAPING_PRISONER)
 				var/datum/antagonist/traitor/prisoner/datum = new
 				antag.add_antag_datum(datum)
 			if(ROLE_THIEF)
@@ -389,8 +389,8 @@
 				new_list += ROLE_MALF_AI
 				new_list[ROLE_MALF_AI] = check_list[index]
 			if("prisoner")
-				new_list += ROLE_PRISONER_TRAITOR
-				new_list[ROLE_PRISONER_TRAITOR] = check_list[index]
+				new_list += ROLE_ESCAPING_PRISONER
+				new_list[ROLE_ESCAPING_PRISONER] = check_list[index]
 			if("ninja")
 				new_list += ROLE_NINJA
 				new_list[ROLE_NINJA] = check_list[index]
