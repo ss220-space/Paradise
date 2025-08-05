@@ -391,6 +391,8 @@
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, span_warning("[src] flickers out of your hands, too eager to move!"))
 		return
+	if(!do_after(user, 1 SECONDS, user))
+		return
 
 	var/outer_tele_radius = 9
 
