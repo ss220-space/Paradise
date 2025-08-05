@@ -4,8 +4,11 @@
 #define CORPSE_METHOD_UTILIZATION "утилизация тела"
 
 #define CREDITS_BY_CREMATION 2000
+#define CARGOPOINTS_BY_CREMATION 5
 #define CREDITS_BY_SPACE 3000
+#define CARGOPOINTS_BY_SPACE 10
 #define CREDITS_BY_UTILIZATION 1000
+#define CARGOPOINTS_BY_UTILIZATION 2
 
 ////////////////////////////////////////
 // MARK:	Goal datum
@@ -79,10 +82,13 @@
 	switch(data.preffered_method)
 		if(CORPSE_METHOD_CREMATION)
 			reward_credits += CREDITS_BY_CREMATION
+			reward_cargopoints += CARGOPOINTS_BY_CREMATION
 		if(CORPSE_METHOD_SPACE)
 			reward_credits += CREDITS_BY_SPACE
+			reward_cargopoints += CARGOPOINTS_BY_SPACE
 		if(CORPSE_METHOD_UTILIZATION)
 			reward_credits += CREDITS_BY_UTILIZATION
+			reward_cargopoints += CARGOPOINTS_BY_UTILIZATION
 
 /datum/addition_goal/funeral/format_accept_report(mob/user)
 	var/text = {"В ваш адрес направлены [corpse_count] [declension_ru(corpse_count, "тело", "тела", "тел")] для организации процедуры захоронения.<br>

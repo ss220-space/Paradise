@@ -7,7 +7,7 @@
 #define AGS_MIN_CREDITS_PER_PATIEN 3000
 #define AGS_MAX_CREDITS_PER_PATIEN 5000
 #define AGS_MIN_CARGOPOINTS_PER_PATIEN 10
-#define AGS_MAX_CARGOPOINTS_PER_PATIEN 15
+#define AGS_MAX_CARGOPOINTS_PER_PATIEN 20
 
 ////////////////////////////////////////
 // MARK:	Goal datum

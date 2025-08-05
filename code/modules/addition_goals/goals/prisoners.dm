@@ -1,7 +1,7 @@
 // Prisoners addition goal shuttle
 
 #define AGS_CREDITS_PER_PRISONER 5000
-#define AGS_CAPRGOPOINTS_PER_PRISONER 20
+#define AGS_CAPRGOPOINTS_PER_PRISONER 30
 
 /datum/addition_goal/prisoners
 	id = "prisoners"
