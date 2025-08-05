@@ -86,7 +86,7 @@
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	accuracy = GUN_ACCURACY_DEFAULT
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3)
 	)
@@ -145,10 +145,11 @@
 	bayonet_x_offset = 25
 	bayonet_y_offset = 12
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 1),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
 
 
@@ -171,10 +172,11 @@
 	burst_size = 3
 	can_bayonet = FALSE
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
-		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
 
 
@@ -311,10 +313,11 @@
 	burst_size = 3
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
 
 //AK-814 Soviet Assault Rifle
@@ -335,10 +338,11 @@
 	burst_size = 2
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
-		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -5)
 	)
 
 // Bulldog shotgun //
@@ -358,9 +362,11 @@
 	fire_delay = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_SHOTGUN
-	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 9)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -6)
 	)
 
 
@@ -422,9 +428,11 @@
 	burst_size = 3
 	fire_delay = 1.5
 	accuracy = GUN_ACCURACY_SHOTGUN
-	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 4)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 4),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -5)
 	)
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/New()
@@ -451,6 +459,7 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6)
 	)
 
@@ -482,9 +491,10 @@
 	can_suppress = 0
 	burst_size = 2
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4)
 	)
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
@@ -505,9 +515,10 @@
 	burst_size = 1
 	actions_types = null
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 9)
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -2)
 	)
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
@@ -523,10 +534,11 @@
 	mag_type = /obj/item/ammo_box/magazine/sfg9mm
 	burst_size = 3
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 1),
-		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 5)
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
 
 
@@ -545,9 +557,10 @@
 	mag_type = /obj/item/ammo_box/magazine/m52mag
 	can_suppress = 0
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 9)
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7)
 	)
 

@@ -17,10 +17,11 @@
 	burst_size = 1
 	actions_types = null
 	accuracy = GUN_ACCURACY_DEFAULT
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
-		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7)
 	)
 
 /obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)

@@ -8,9 +8,10 @@
 	modifystate = TRUE
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7)
 	)
 
 /obj/item/gun/energy/gun/cyborg
@@ -121,9 +122,10 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9)
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8)
 	)
 
 /obj/item/gun/energy/gun/minigun

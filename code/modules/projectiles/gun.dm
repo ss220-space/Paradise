@@ -375,7 +375,8 @@
 						shoot_live_shot(user, target, TRUE, message)
 					else
 						shoot_live_shot(user, target, FALSE, message)
-				chambered.after_fire()
+				if(chambered)
+					chambered.after_fire()
 			else
 				shoot_with_empty_chamber(user)
 				break
@@ -398,7 +399,8 @@
 					shoot_live_shot(user, target, TRUE, message)
 				else
 					shoot_live_shot(user, target, FALSE, message)
-			chambered.after_fire()
+			if(chambered)
+				chambered.after_fire()
 		else
 			shoot_with_empty_chamber(user)
 			return
@@ -519,7 +521,7 @@
 		set_bayonet(null)
 
 
-/obj/item/gun/projectile/automatic/wt550/ui_action_click(mob/user, datum/action/action, leftclick)
+/obj/item/gun/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_gunlight))
 		toggle_gunlight()
 		return TRUE
