@@ -23,8 +23,9 @@
 	slot_flags = ITEM_SLOT_BELT
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
-	force = 20
-	throwforce = 10
+	force = 30
+	throwforce = 35
+	armour_penetration = 20
 	//wound_bonus = 5
 	//bare_wound_bonus = 15
 	toolspeed = 0.375
