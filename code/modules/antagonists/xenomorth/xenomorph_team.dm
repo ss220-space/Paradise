@@ -113,7 +113,7 @@
 	SSshuttle?.add_hostile_environment(current_queen.current)
 
 /datum/team/xenomorph/proc/evolve_announce(area/loc)
-	GLOB.major_announcement.announce("Зафиксировано изменение организации улья, указывающее на начало трансформации в Императрицу Ксеноморфов. Обнаружено значительное скопление биоугрозы в [loc.name]. Уничтожте огранизм до окончания трансформации любой ценой.",
+	GLOB.major_announcement.announce("Зафиксировано изменение организации улья, указывающее на начало трансформации в Императрицу Ксеноморфов. Обнаружено значительное скопление биоугрозы в [loc.name]. Уничтожьте организм до окончания трансформации любой ценой.",
 									ANNOUNCE_BIOHAZARD_RU,
 									'sound/effects/siren-spooky.ogg'
 	)
