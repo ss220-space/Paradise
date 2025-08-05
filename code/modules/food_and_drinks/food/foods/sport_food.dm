@@ -64,3 +64,127 @@
 	opened = FALSE
 
 
+/obj/item/reagent_containers/food/drinks/protein
+	name = "банка протеина"
+	ru_names = list(
+		NOMINATIVE = "банка протеина",
+		GENITIVE = "банки протеина",
+		DATIVE = "банке протеина",
+		ACCUSATIVE = "банку протеина",
+		INSTRUMENTAL = "банкой протеина",
+		PREPOSITIONAL = "банке протеина",
+	)
+	desc = "Банка наполненная протеиновым порошком. Этот вид протеина был снят с производства. \
+			Если вы встретили его, обратитесь к техподдержке."
+	icon_state = "protein_zaza"
+	item_state = "protein_zaza"
+	volume = 80
+	foodtype = GROSS
+	container_type = NONE
+	list_reagents = list("protein" = 80)
+
+
+/obj/item/reagent_containers/food/drinks/protein/zaza
+	name = "банка протеина (Заза)"
+	ru_names = list(
+		NOMINATIVE = "банка протеина (Заза)",
+		GENITIVE = "банки протеина (Заза)",
+		DATIVE = "банке протеина (Заза)",
+		ACCUSATIVE = "банку протеина (Заза)",
+		INSTRUMENTAL = "банкой протеина (Заза)",
+		PREPOSITIONAL = "банке протеина (Заза)",
+	)
+	desc = "Банка наполненная протеиновым порошком. \
+			На самом деле не отличается от банки протеина со вкусом вишни ничем кроме изображения на этикетке."
+	icon_state = "protein_zaza"
+	item_state = "protein_zaza"
+	list_reagents = list("protein_zaza" = 80)
+
+
+/obj/item/reagent_containers/food/drinks/protein/cherry
+	name = "банка протеина (Вишня)"
+	ru_names = list(
+		NOMINATIVE = "банка протеина (Вишня)",
+		GENITIVE = "банки протеина (Вишня)",
+		DATIVE = "банке протеина (Вишня)",
+		ACCUSATIVE = "банку протеина (Вишня)",
+		INSTRUMENTAL = "банкой протеина (Вишня)",
+		PREPOSITIONAL = "банке протеина (Вишня)",
+	)
+	desc = "Банка наполненная протеиновым порошком со вкусом вишни. \
+			На самом деле не отличается от банки протеина со вкусом Зазы ничем кроме изображения на этикетке."
+	icon_state = "protein_cherry"
+	item_state = "protein_cherry"
+	list_reagents = list("protein_cherry" = 80)
+
+
+/obj/item/reagent_containers/food/drinks/protein/chocolate
+	name = "банка протеина (Шоколад)"
+	ru_names = list(
+		NOMINATIVE = "банка протеина (Шоколад)",
+		GENITIVE = "банки протеина (Шоколад)",
+		DATIVE = "банке протеина (Шоколад)",
+		ACCUSATIVE = "банку протеина (Шоколад)",
+		INSTRUMENTAL = "банкой протеина (Шоколад)",
+		PREPOSITIONAL = "банке протеина (Шоколад)",
+	)
+	desc = "Банка наполненная протеиновым порошком со вкусом шоколада. \
+			Единственный вкус протеинового порошка не вызывающий отвращения при потреблении в неразбавленном виде."
+	icon_state = "protein_chocolate"
+	item_state = "protein_chocolate"
+	list_reagents = list("protein_chocolate" = 80)
+	foodtype = SUGAR
+
+
+/obj/item/reagent_containers/food/drinks/protein/bananastrawwberry
+	name = "банка протеина (Банан и клубника)"
+	ru_names = list(
+		NOMINATIVE = "банка протеина (Банан и клубника)",
+		GENITIVE = "банки протеина (Банан и клубника)",
+		DATIVE = "банке протеина (Банан и клубника)",
+		ACCUSATIVE = "банку протеина (Банан и клубника)",
+		INSTRUMENTAL = "банкой протеина (Банан и клубника)",
+		PREPOSITIONAL = "банке протеина (Банан и клубника)",
+	)
+	desc = "Банка наполненная протеиновым порошком со вкусом банана и клубники. \
+			До ребрендинга вместо банана и клубники была просто клубника."
+	icon_state = "protein_bananastrawwberry"
+	item_state = "protein_bananastrawwberry"
+	list_reagents = list("protein_bananastrawwberry" = 80)
+
+
+/obj/item/reagent_containers/food/drinks/guarana
+	name = "ампула экстракта гуараны"
+	ru_names = list(
+		NOMINATIVE = "ампула экстракта гуараны",
+		GENITIVE = "ампулы экстракта гуараны",
+		DATIVE = "ампуле экстракта гуараны",
+		ACCUSATIVE = "ампулу экстракта гуараны",
+		INSTRUMENTAL = "ампулой экстракта гуараны",
+		PREPOSITIONAL = "ампуле экстракта гуараны",
+	)
+	desc = "Ампула содержащая экстракт гуараны - вещество стимулирующее мышечную активность. \
+			На этикетке нарисована малина, не смотря на то, что в составе нет ничего связанного с ней."
+	icon_state = "guarana_raspberry"
+	item_state = "guarana_raspberry"
+	list_reagents = list("guarana" = 10)
+
+
+/obj/item/reagent_containers/food/drinks/creatine
+	name = "бутылочка креатина"
+	ru_names = list(
+		NOMINATIVE = "бутылочка креатина",
+		GENITIVE = "бутылочкы креатина",
+		DATIVE = "бутылочке креатина",
+		ACCUSATIVE = "бутылочку креатина",
+		INSTRUMENTAL = "бутылочкой креатина",
+		PREPOSITIONAL = "бутылочке креатина",
+	)
+	desc = "Бутылочка содержащая креатин - вещество повышающее скорость развития мышц. \
+			На этикетке нарисована малина, не смотря на то, что в составе нет ничего связанного с ней."
+	icon_state = "creatine"
+	item_state = "creatine"
+	list_reagents = list("kreatin" = 10)
+
+// поменять. Хз что это. Явно не бутылочка.
+

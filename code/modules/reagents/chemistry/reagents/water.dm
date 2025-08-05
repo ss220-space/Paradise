@@ -499,6 +499,31 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
 
 
+/datum/reagent/kreatin
+	name = "Креатин"
+	id = "kreatin"
+	description = "Вещество участвующее в энергетическом обмене в мышечных и нервных клетках."
+	reagent_state = SOLID
+	color = "#dcbf00"
+	taste_description = "соды"
+
+
+/datum/reagent/kreatin/liquid
+	name = "Разбавленный креатин"
+	id = "kreatin_liquid"
+	description = "Смесь воды и креатина."
+	reagent_state = LIQUID
+
+
+/datum/reagent/guarana
+	name = "Экстракт гуараны"
+	id = "guarana"
+	description = "Вещество временно стимулирующее мышечную активность."
+	reagent_state = SOLID
+	color = "#dc3b00"
+	taste_description = "горечи"
+
+
 /datum/reagent/steroids
 	name = "Стероиды"
 	id = "steroids"

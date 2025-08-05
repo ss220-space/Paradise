@@ -94,14 +94,18 @@
 	id = "protein"
 	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных."
 	diet_flags = DIET_CARN | DIET_OMNI
+	var/taste
 
 
 /datum/reagent/consumable/nutriment/protein/bananastrawwberry
 	name = "Протеин (Банан и клубника)"
 	id = "protein_bananastrawwberry"
 	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
-					Содержит пищевую добавку со вкусом банана и клубники."
+					Содержит пищевую добавку со вкусом банана с клубникой."
 	taste_description = "банана с клубникой"
+	taste = "Банан и клубника"
+	reagent_state = SOLID
+	color = "#ff4400"
 
 
 /datum/reagent/consumable/nutriment/protein/chocolate
@@ -110,6 +114,9 @@
 	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
 					Содержит пищевую добавку со вкусом шоколада."
 	taste_description = "шоколада"
+	taste = "Шоколад"
+	reagent_state = SOLID
+	color = "#8e2600"
 
 
 /datum/reagent/consumable/nutriment/protein/cherry
@@ -118,6 +125,9 @@
 	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
 					Содержит пищевую добавку со вкусом вишни."
 	taste_description = "вишни"
+	taste = "Вишня"
+	reagent_state = SOLID
+	color = "#ff0088"
 
 
 /datum/reagent/consumable/nutriment/protein/zaza
@@ -126,6 +136,16 @@
 	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
 					Содержит пищевую добавку со вкусом зазы."
 	taste_description = "зазы"
+	taste = "Заза"
+	reagent_state = SOLID
+	color = "#ff0000"
+
+
+/datum/reagent/consumable/nutriment/protein/cocktail
+	name = "Протеиновый коктейль"
+	id = "protein_cocktail"
+	description = "Коктейль получившийся от смешения протеина с водой или молоком."
+	reagent_state = LIQUID
 
 
 /datum/reagent/consumable/sugar
