@@ -246,7 +246,7 @@
 		/obj/item/lighter/zippo)
 	icon_type = "cigarette"
 	var/cigarette_type = /obj/item/clothing/mask/cigarette
-	var/list/cigpack_diseases = list("недоношенность", "онкозаболевания", "пародонтоз",\
+	var/static/list/cigpack_diseases = list("недоношенность", "онкозаболевания", "пародонтоз",\
 					"преждевременное старение", "ампутация", "зависимость",\
 					"импотенция", "мертворождение", "смерть в агонии",\
 					"туберкулёз", "отмирание органов")
