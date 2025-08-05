@@ -121,14 +121,24 @@
 /datum/component/cleave_attack/proc/on_afterattack(obj/item/item, atom/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag || user.a_intent != INTENT_HARM)
 		return // don't sweep on precise hits or non-harmful intents
+
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		to_chat(user, span_warning("Вы не хотите никому вредить."))
+		return
+
+	if(user.IsLying())
+		return
+
 	perform_sweep(item, target, user, click_parameters)
 
 
 /datum/component/cleave_attack/proc/perform_sweep(obj/item/item, atom/target, mob/living/user, params)
 	if(user.next_move > world.time)
 		return // don't spam it
+
 	if(requires_wielded && !HAS_TRAIT(item, TRAIT_WIELDED))
 		return // if it needs to be wielded, check to make sure it is
+
 	if(istype(item, /obj/item/melee/energy))
 		var/obj/item/melee/energy/energy
 		energy = item
@@ -172,16 +182,21 @@
 	for(var/atom/movable/hit_atom in hit_turf)
 		if(hit_atom == user || hit_atom == target)
 			continue // why are you hitting yourself
+
 		if(!(SEND_SIGNAL(hit_atom, COMSIG_ATOM_CLEAVE_ATTACK, item, user) & ATOM_ALLOW_CLEAVE_ATTACK))
 			if(hit_atom.pass_flags & LETPASSTHROW)
 				continue // if you can throw something over it, you can swing over it too
+
 			if(isliving(hit_atom) && HAS_TRAIT(hit_atom, TRAIT_DWARF)) // cant hit smol people with swing
 				continue
+
 			if(!hit_atom.density)
 				continue
+
 		item.melee_attack_chain(user, hit_atom, params)
 		if(no_multi_hit && isliving(hit_atom))
 			return TRUE
+
 	return FALSE
 
 
