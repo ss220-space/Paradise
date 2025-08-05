@@ -143,7 +143,41 @@
 	// check if telecomms I/O route 1459 is stable
 	//var/telecomms_intact = telecomms_process(recipient_pda.owner, owner, message)
 	var/obj/machinery/message_server/useMS = find_pda_server()
+	if(!can_send_message(message, sender, recipient_pda, useMS))
+		return
 
+	useMS.send_pda_message("[recipient_pda.owner]","[pda.owner]","[message]")
+	tnote.Add(list(list("sent" = 1, "message" = "[html_decode(message)]", "target" = "[recipient_pda.UID()]")))
+	recipient_messenger.tnote.Add(list(list("sent" = 0, "message" = "[html_decode(message)]", "target" = "[pda.UID()]")))
+	show_message_to_ghosts(pda, recipient_pda, message)
+
+	if(!conversations.Find("[recipient_pda.UID()]"))
+		conversations.Add("[recipient_pda.UID()]")
+
+	if(!recipient_messenger.conversations.Find("[pda.UID()]"))
+		recipient_messenger.conversations.Add("[pda.UID()]")
+
+	SStgui.update_uis(src)
+	recipient_messenger.notify("[span_bold("Новое сообщение! Отправитель: [pda.owner][pda.ownjob ? " ([pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[recipient_messenger.UID()];choice=Message;target=[pda.UID()]'>Ответить</a>)")
+	to_chat(sender, "[bicon(pda)] [span_bold("Новое сообщение. Получатель: [recipient_pda.owner][recipient_pda.ownjob ? " ([recipient_pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[UID()];choice=Message;target=[recipient_pda.UID()]'>Отправить ещё сообщение</a>)")
+
+	log_pda_message(message, sender, pda, recipient_pda)
+	if(pda.silent)
+		return
+
+	playsound(pda, 'sound/machines/terminal_success.ogg', 15, TRUE)
+
+
+/datum/data/pda/app/messenger/proc/show_message_to_ghosts(obj/item/pda/pda, obj/item/pda/recipient_pda, message)
+	for(var/mob/mob as anything in GLOB.dead_mob_list)
+		if(!isobserver(mob) || !mob.client || !HASBIT(mob.client.prefs.toggles, PREFTOGGLE_CHAT_GHOSTPDA))
+			continue
+
+		var/ghost_message = "[span_name("[pda.owner]")] ([ghost_follow_link(pda, ghost = mob)]) [span_gamesay("Сообщение на КПК")] --> [span_name("[recipient_pda.owner]")] ([ghost_follow_link(recipient_pda, ghost = mob)]): [span_message("[message]")]"
+		to_chat(mob, "[ghost_message]")
+
+
+/datum/data/pda/app/messenger/proc/can_send_message(message, sender, recipient_pda, useMS)
 	var/turf/sender_pos = sender ? get_turf(sender) : null
 	var/turf/recipient_pos = get_turf(recipient_pda)
 
@@ -187,29 +221,11 @@
 		playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return
 
-	useMS.send_pda_message("[recipient_pda.owner]","[pda.owner]","[message]")
-	tnote.Add(list(list("sent" = 1, "message" = "[html_decode(message)]", "target" = "[recipient_pda.UID()]")))
-	recipient_messenger.tnote.Add(list(list("sent" = 0, "message" = "[html_decode(message)]", "target" = "[pda.UID()]")))
+	return TRUE
 
-	// Show it to ghosts
-	for(var/mob/mob in GLOB.dead_mob_list)
-		if(!isobserver(mob) || !mob.client || !HASBIT(mob.client.prefs.toggles, PREFTOGGLE_CHAT_GHOSTPDA))
-			continue
 
-		var/ghost_message = "[span_name("[pda.owner]")] ([ghost_follow_link(pda, ghost=mob)]) [span_gamesay("Сообщение на КПК")] --> [span_name("[recipient_pda.owner]")] ([ghost_follow_link(recipient_pda, ghost=mob)]): [span_message("[message]")]"
-		to_chat(mob, "[ghost_message]")
-
-	if(!conversations.Find("[recipient_pda.UID()]"))
-		conversations.Add("[recipient_pda.UID()]")
-
-	if(!recipient_messenger.conversations.Find("[pda.UID()]"))
-		recipient_messenger.conversations.Add("[pda.UID()]")
-
-	SStgui.update_uis(src)
-	recipient_messenger.notify("[span_bold("Новое сообщение! Отправитель: [pda.owner][pda.ownjob ? " ([pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[recipient_messenger.UID()];choice=Message;target=[pda.UID()]'>Ответить</a>)")
-	to_chat(sender, "[bicon(pda)] [span_bold("Новое сообщение. Получатель: [recipient_pda.owner][recipient_pda.ownjob ? " ([recipient_pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[UID()];choice=Message;target=[recipient_pda.UID()]'>Отправить ещё сообщение</a>)")
-	log_pda("(PDA: [src.name]) sent \"[message]\" to [recipient_pda.name]", sender)
-
+/datum/data/pda/app/messenger/proc/log_pda_message(message, sender, pda, atom/recipient_pda)
+	log_pda("(PDA: [name]) sent \"[message]\" to [recipient_pda.name]", sender)
 	var/log_message = "sent PDA message \"[message]\" using [pda]"
 	var/receiver
 	if(ishuman(recipient_pda.loc))
@@ -220,10 +236,6 @@
 		log_message = "[log_message] (no holder)"
 
 	add_misc_logs(sender, log_message, receiver)
-	if(pda.silent)
-		return
-
-	playsound(pda, 'sound/machines/terminal_success.ogg', 15, TRUE)
 
 
 /datum/data/pda/app/messenger/proc/available_pdas()
