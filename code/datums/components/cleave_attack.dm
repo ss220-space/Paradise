@@ -126,9 +126,6 @@
 		to_chat(user, span_warning("Вы не хотите никому вредить."))
 		return
 
-	if(user.IsLying())
-		return
-
 	perform_sweep(item, target, user, click_parameters)
 
 
