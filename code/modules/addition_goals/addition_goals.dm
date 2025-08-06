@@ -18,10 +18,14 @@
 #define COMPLETE_GOAL_SHUTTLE_SEND_DELAY 10
 /// Addition goals system shuttle identifier
 #define AGS_SHUTTLE_ID "addition_goal"
+/// Funeral shuttle identifier (for recall if dock is busy)
+#define AGS_FUNERAL_SHUTTLE_ID "funeral"
 /// Centom stationary dock id
 #define AGS_SHUTTLE_CENTCOM_DOCK "addition_goal_dock"
 /// Station stationary dock id
 #define AGS_SHUTTLE_STATION_DOCK "graveyard_church"
+/// Funeral shuttle away stationary dock id
+#define AGS_FUNERAL_SHUTTLE_AWAY_DOCK "graveyard_dock"
 
 
 
@@ -45,6 +49,7 @@ SUBSYSTEM_DEF(addition_goals)
 	var/available_goals_refresh_time = -REFRESH_AVAILABLE_GOALS_COOLDOWN //initially available refresh
 	//shuttle stuff
 	var/obj/docking_port/mobile/shuttle
+	var/obj/docking_port/mobile/funeral_shuttle
 	//console stuff
 	var/list/console_list = list()
 
@@ -65,6 +70,7 @@ SUBSYSTEM_DEF(addition_goals)
 	shuttle = SSshuttle.getShuttle(AGS_SHUTTLE_ID)
 	if(shuttle)
 		RegisterSignal(shuttle, COMSIG_SHUTTLE_DOCK, PROC_REF(on_shuttle_dock))
+	funeral_shuttle = SSshuttle.getShuttle(AGS_FUNERAL_SHUTTLE_ID)
 
 
 /// Fire

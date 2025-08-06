@@ -229,6 +229,8 @@
 	var/last_timer_length
 	/// current shuttle state
 	var/mode = SHUTTLE_IDLE
+	/// force lock shuttle moving
+	var/locked_move = FALSE
 	/// time recharging before ready to launch again
 	var/rechargeTime = 5 SECONDS
 	/// time spent in transit (deciseconds)
@@ -358,6 +360,8 @@
 
 //call the shuttle to destination S
 /obj/docking_port/mobile/proc/request(obj/docking_port/stationary/S)
+	if(locked_move)
+		return FALSE
 
 	if(!check_dock(S))
 		return TRUE

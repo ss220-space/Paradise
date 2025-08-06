@@ -23,11 +23,29 @@
 
 /// Try send shuttle to station (call shuttle)
 /datum/controller/subsystem/addition_goals/proc/send_shuttle_to_station(mob/user)
-	SSshuttle.moveShuttle(shuttle.id, AGS_SHUTTLE_STATION_DOCK, TRUE, user)
+	if(is_funeral_shuttle_on_station())
+		send_funeral_shuttle_away(user)
+		addtimer(CALLBACK(src, PROC_REF(send_shuttle_to_station_now), user), 15 SECONDS)
+	else
+		send_shuttle_to_station_now(user)
+	set_funeral_shuttle_locked(TRUE)
+
+/// Send shuttle to station now without checks (use send_shuttle_to_station for checks)
+/datum/controller/subsystem/addition_goals/proc/send_shuttle_to_station_now(mob/user)
+	SSshuttle.moveShuttle(shuttle.id, AGS_SHUTTLE_STATION_DOCK, timed = TRUE, user = user)
 
 /// Try send shuttle to centrom (return shuttle)
 /datum/controller/subsystem/addition_goals/proc/send_shuttle_to_centcom(mob/user)
-	SSshuttle.moveShuttle(shuttle.id, AGS_SHUTTLE_CENTCOM_DOCK, FALSE, user)
+	SSshuttle.moveShuttle(shuttle.id, AGS_SHUTTLE_CENTCOM_DOCK, timed = FALSE, user = user)
+	set_funeral_shuttle_locked(FALSE)
+
+/// Try send shuttle to centrom (return shuttle)
+/datum/controller/subsystem/addition_goals/proc/send_funeral_shuttle_away(mob/user)
+	SSshuttle.moveShuttle(funeral_shuttle.id, AGS_FUNERAL_SHUTTLE_AWAY_DOCK, timed = TRUE, user = user)
+
+/datum/controller/subsystem/addition_goals/proc/set_funeral_shuttle_locked(locked)
+	funeral_shuttle.locked_move = locked
+
 
 /// Get text where shuttle docked
 /datum/controller/subsystem/addition_goals/proc/get_shuttle_location()
@@ -41,6 +59,15 @@
 			return "На станции"
 		else
 			return shuttle.getStatusText()
+
+/// Check funeral shuttle docked on station
+/datum/controller/subsystem/addition_goals/proc/is_funeral_shuttle_on_station()
+	. = FALSE
+	if(!funeral_shuttle)
+		return
+	var/dock_id = funeral_shuttle.getDockedId()
+	if(dock_id == AGS_SHUTTLE_STATION_DOCK)
+		return TRUE
 
 /// Check shuttle ready to call (docked in centcom sector)
 /datum/controller/subsystem/addition_goals/proc/is_shuttle_in_centcom()
