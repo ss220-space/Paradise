@@ -22,7 +22,7 @@
 /datum/element/halo_attach/Detach(mob/living/carbon/target)
 	. = ..()
 
-	target.remove_overlay(HALO_LAYER)
+	target?.remove_overlay(HALO_LAYER)
 	UnregisterSignal(target, COMSIG_MOB_HALO_GAINED)
 
 

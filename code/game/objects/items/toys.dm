@@ -883,7 +883,7 @@
 	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	interaction()
+	interaction(user)
 
 /obj/item/toy/plushie/rdplushie/update_icon_state()
 	. = ..()
