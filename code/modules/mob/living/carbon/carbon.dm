@@ -910,16 +910,20 @@ so that different stomachs can handle things in different ways VB*/
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
 		add_sight(cyber_eyes.vision_flags)
+
 		if(cyber_eyes.see_in_dark)
 			nightvision = max(nightvision, cyber_eyes.see_in_dark)
+
 		if(cyber_eyes.see_invisible)
 			set_invis_see(min(see_invisible, cyber_eyes.see_invisible))
+
 		if(!isnull(cyber_eyes.lighting_alpha))
 			lighting_alpha = min(lighting_alpha, cyber_eyes.lighting_alpha)
 
-	if(client.eye != src)
-		var/atom/A = client.eye
-		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+	if(client.eye && client.eye != src)
+		var/atom/atom = client.eye
+		
+		if(atom.update_remote_sight(src)) // returns TRUE if we override all other sight updates.
 			return
 
 	if(HAS_TRAIT(src, TRAIT_XRAY))

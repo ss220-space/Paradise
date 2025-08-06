@@ -146,7 +146,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	. = ..()
-	attempt_reload()
+	addtimer(CALLBACK(src, PROC_REF(attempt_reload)), 1)
 
 
 /obj/item/gun/energy/kinetic_accelerator/equipped(mob/user, slot, initial)
