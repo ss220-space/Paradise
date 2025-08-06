@@ -24,7 +24,7 @@
 	//Vars used for the shield component
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
-		/obj/item/ammo_box/strilka310/lionhunter,
+		/obj/item/ammo_box/magazine/strilka310/lionhunter,
 		/obj/item/heretic_labyrinth_handbook,
 		/obj/item/organ, // Bodyparts are often used in rituals.
 		/obj/item/clothing/neck/eldritch_amulet,

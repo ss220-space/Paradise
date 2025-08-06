@@ -52,6 +52,7 @@
 	var/list/datum/mind/headslugs = list()
 	var/list/datum/mind/deathsquad = list()
 	var/list/datum/mind/honksquad = list()
+	var/list/datum/mind/heretics = list()
 	var/list/datum/mind/sst = list()
 	var/list/datum/mind/sit = list()
 	var/list/datum/mind/victims = list()	//Свободные жертвы PREVENT/ASSASINATE целей для PROTECT (или не повтора целей)
@@ -739,6 +740,7 @@
 	. += auto_declare_completion_goon_enthralled()
 	. += auto_declare_completion_devil()
 	. += auto_declare_completion_sintouched()
+	. += auto_declare_completion_heretic()
 	listclearnulls(.)
 
 /datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)

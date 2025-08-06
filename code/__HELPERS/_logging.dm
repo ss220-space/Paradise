@@ -273,6 +273,9 @@ GLOBAL_PROTECT(log_end)
 // * what_done is the full description of the action
 // * custom_level is whether or not to message admins
 /proc/add_attack_logs(atom/user, target, what_done, custom_level)
+	if(!istype(user))
+		return
+
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
 		for(var/t in targets)

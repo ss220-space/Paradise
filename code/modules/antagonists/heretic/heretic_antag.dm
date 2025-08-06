@@ -271,6 +271,7 @@
 
 
 /datum/antagonist/heretic/on_gain()
+	SSticker.mode.heretics |= owner
 	if(!GLOB.heretic_research_tree)
 		GLOB.heretic_research_tree = generate_heretic_research_tree()
 
@@ -282,10 +283,12 @@
 
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
 	RegisterSignal(owner.current, COMSIG_GET_DREAMS, PROC_REF(get_dreams))
+	ADD_TRAIT(owner, TRAIT_BAD_SOUL, HERETIC_TRAIT)
 	return ..()
 
 
 /datum/antagonist/heretic/on_removal()
+	SSticker.mode.changelings -= owner
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		knowledge.on_lose(owner.current, src)

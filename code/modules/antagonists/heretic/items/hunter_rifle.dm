@@ -20,18 +20,22 @@
 	icon = 'icons/obj/weapons/wide_guns.dmi'
 	icon_state = "lionhunter"
 	item_state = "lionhunter"
-	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
+	mag_type = /obj/item/ammo_box/magazine/strilka310/lionhunter
 	fire_sound = 'sound/weapons/gunshots/shot.ogg'
 
 	//SET_BASE_PIXEL(-8, 0)
+
+
+/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/update_icon_state()
+	return
 
 /*
 /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/scope, range_modifier = 3.2)
 */
-
-/obj/item/ammo_box/magazine/internal/boltaction/lionhunter
+/*
+/obj/item/ammo_box/magazine/strilka310/lionhunter
 	name = "внутренний магазин винтовки охотника на львов"
 	ru_names = list(
 		NOMINATIVE = "внутренний магазин винтовки охотника на львов",
@@ -47,7 +51,7 @@
 	armour_penetration = 100
 	max_ammo = 3
 	multiload = TRUE
-
+*/
 
 /obj/item/ammo_casing/strilka310/lionhunter
 	projectile_type = /obj/projectile/bullet/strilka310/lionhunter
@@ -218,7 +222,7 @@
 
 
 // Extra ammunition can be made with a heretic ritual.
-/obj/item/ammo_box/strilka310/lionhunter
+/obj/item/ammo_box/magazine/strilka310/lionhunter
 	name = "обойма (.310 охотник)"
 	ru_names = list(
 		NOMINATIVE = "обойма (.310 охотник)",
@@ -233,6 +237,7 @@
 	icon_state = "310_strip"
 	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter
 	max_ammo = 3
+	multiload = TRUE
 	//multiple_sprites = AMMO_BOX_PER_BULLET
 
 

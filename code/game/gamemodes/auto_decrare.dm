@@ -199,6 +199,46 @@
 			SSblackbox.record_feedback("tally", "sst_success", 1, "FAIL")
 	return text.Join("")
 
+
+/datum/game_mode/proc/auto_declare_completion_heretic()
+	if(!length(heretics))
+		return
+
+	var/list/text = list(span_fontsize2(span_bold("Еретики:<br>")))
+	for(var/datum/mind/heretic in heretics)
+		var/hereticwin = TRUE
+		text += printplayer(heretic) + "<br>"
+		var/all_objectives = heretic.get_all_objectives()
+
+		if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
+			var/count = 1
+			for(var/datum/objective/objective in all_objectives)
+				if(objective.check_completion())
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] [span_greentext("Успех!")]"
+					SSblackbox.record_feedback("nested tally", "heretic_objective", 1, list("[objective.type]", "SUCCESS"))
+				else
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] [span_redtext("Провал!")]"
+					SSblackbox.record_feedback("nested tally", "heretic_objective", 1, list("[objective.type]", "FAIL"))
+					hereticwin = FALSE
+
+				count++
+
+		var/special_role_text
+		if(heretic.special_role)
+			special_role_text = lowertext(heretic.special_role)
+		else
+			special_role_text = "antagonist"
+
+		if(hereticwin)
+			text += span_greentext("<br>[special_role_text] выполнил цели!<br>")
+			SSblackbox.record_feedback("tally", "heretic_success", 1, "SUCCESS")
+		else
+			text += span_redtext("<br>[special_role_text] провалился!<br>")
+			SSblackbox.record_feedback("tally", "heretic_success", 1, "FAIL")
+
+	return text.Join("")
+
+
 /datum/game_mode/proc/auto_declare_completion_sit()
 	if(!length(sit))
 		return

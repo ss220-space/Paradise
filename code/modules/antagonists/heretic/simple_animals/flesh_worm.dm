@@ -92,6 +92,8 @@
 	var/mob/living/segment = new type(drop_location(), FALSE)
 	segment.AddComponent(/datum/component/mob_chain, front = behind, vary_icon_state = TRUE)
 	behind.register_behind(segment)
+	toggle_ai(AI_OFF)
+	can_have_ai = FALSE
 	return segment
 
 

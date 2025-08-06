@@ -525,14 +525,14 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 /// If an antag typepath is passed to `antag_to_check`, will check that, otherwise will use the source type.
 /datum/antagonist/proc/add_team_hud(mob/target, antag_to_check)
 	QDEL_NULL(team_hud_ref)
-/*
+
 	team_hud_ref = WEAKREF(target.add_alt_appearance(
 		/datum/atom_hud/alternate_appearance/basic/has_antagonist,
 		"antag_team_hud_[UID()]",
 		add_antag_hud(target),
 		antag_to_check || type,
 		get_team() && WEAKREF(get_team()),
-	))*/
+	))
 
 	// Add HUDs that they couldn't see before
 	for (var/datum/atom_hud/alternate_appearance/basic/has_antagonist/antag_hud as anything in GLOB.has_antagonist_huds)
