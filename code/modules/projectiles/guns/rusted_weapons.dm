@@ -17,12 +17,11 @@
 	slot_flags = ITEM_SLOT_BACK
 	burst_size = 3
 	fire_delay = 1
-	recoil = 1
 	rusted_weapon = TRUE
 	self_shot_divisor = 3
 	malf_low_bound = 60
 	malf_high_bound = 90
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = list("head" = 90, "chest" = 120, "arms" = 80, "legs" = 80, "hands" = 66, "foots" = 66, "other" = 66, "spread" = 2.5, "recoil" = 32)
 
 
 /obj/item/gun/projectile/automatic/rusted/aksu
@@ -35,8 +34,7 @@
 	origin_tech = "combat=4;materials=3"
 	burst_size = 3
 	fire_delay = 2
-	recoil = 0.8
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = list("head" = 90, "chest" = 120, "arms" = 80, "legs" = 80, "hands" = 66, "foots" = 66, "other" = 66, "spread" = 2.5, "recoil" = 25)
 
 /obj/item/gun/projectile/automatic/rusted/ppsh
 	name = "Rusted PPSh submachine gun"
@@ -51,8 +49,7 @@
 	malf_high_bound = 100
 	burst_size = 5
 	fire_delay = 1.5
-	recoil = 1.2
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = list("head" = 90, "chest" = 120, "arms" = 80, "legs" = 80, "hands" = 66, "foots" = 66, "other" = 66, "spread" = 2.5, "recoil" = 38)
 
 
 //////////// Shotguns

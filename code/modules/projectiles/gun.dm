@@ -26,7 +26,6 @@
 	var/suppressed = 0					//whether or not a message is displayed when fired
 	var/can_suppress = 0
 	var/can_unsuppress = 1
-	var/recoil = 0						//boom boom shake the room
 	var/clumsy_check = 1
 	var/obj/item/ammo_casing/chambered = null
 	var/trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
@@ -176,8 +175,8 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
-	if(recoil)
-		shake_camera(user, recoil + 1, recoil)
+	if(accuracy.recoil)
+		shake_camera(user, 1 + accuracy.recoil/32, accuracy.recoil / 32)
 
 	var/muzzle_range = chambered.muzzle_flash_range
 	var/muzzle_strength = chambered.muzzle_flash_strength

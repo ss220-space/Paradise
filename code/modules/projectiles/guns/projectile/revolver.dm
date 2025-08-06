@@ -204,17 +204,15 @@
 	icon_state = "12garevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	fire_sound = 'sound/weapons/gunshots/1rev12.ogg'
-	recoil = 1
 	fire_delay = 5
-	accuracy = list("spread" = 15)
+	accuracy = list("spread" = 15, "recoil" = 32)
 
 /obj/item/gun/projectile/revolver/golden
 	name = "golden revolver"
 	desc = "This ain't no game, ain't never been no show, And I'll gladly gun down the oldest lady you know. Uses .357 ammo."
 	icon_state = "goldrevolver"
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
-	recoil = 8
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = list("spread" = 15, "recoil" = 4 * 32)
 
 /obj/item/gun/projectile/revolver/nagant
 	name = "nagant revolver"
