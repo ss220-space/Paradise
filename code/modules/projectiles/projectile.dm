@@ -188,7 +188,7 @@
 		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = Angle
 			if(starting)
-				splatter_dir = !isnull(Angle) ? Angle : round(get_angle_tgmc(starting, target_loca), 1)
+				splatter_dir = !isnull(Angle) ? Angle : round(get_angle(starting, target_loca), 1)
 			if(isalien(L) || isfacehugger(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
