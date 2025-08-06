@@ -161,7 +161,7 @@
 	// If fired without aiming or at someone too close, it will do much less
 	damage = 30
 	stamina = 30
-	forcedodge = -1
+	forcedodge = 3
 	//projectile_phasing =  PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 	///The mob that is currently inside the bullet
 	var/mob/stored_mob
