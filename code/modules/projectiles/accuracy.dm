@@ -6,6 +6,8 @@
 #define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
 /// Default accuracy for all projectile weapon
 #define GUN_ACCURACY_DEFAULT new /datum/gun_accuracy/default()
+/// Pistol accuracy (near default)
+#define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
 /// Rifle accuracy (more than default)
 #define GUN_ACCURACY_RIFLE new /datum/gun_accuracy/rifle()
 /// Sniper rifle accuracy (100% hit)
@@ -22,10 +24,12 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	var/hands = 100
 	var/foots = 100
 	var/other = 100
+	var/dual_wield_spread = 24
+	var/spread = 0
 
 
 /datum/gun_accuracy/proc/getList()
-	return list("head" = head, "chest" = chest, "arms" = arms, "legs" = legs, "hands" = hands, "foots" = foots, "other" = other)
+	return list("head" = head, "chest" = chest, "arms" = arms, "legs" = legs, "hands" = hands, "foots" = foots, "other" = other, "spread" = spread, "dual_wield_spread" = dual_wield_spread)
 
 /datum/gun_accuracy/proc/get_accuracy_for(def_zone)
 	switch(def_zone)
@@ -44,7 +48,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 		else
 			return other
 
-/proc/getAccuracy(head = 100, chest = 100, arms = 100, legs = 100, hands = 100, foots = 100, other = 100)
+/proc/getAccuracy(head = 75, chest = 100, arms = 66, legs = 66, hands = 50, foots = 50, other = 50, spread = 0, dual_wield_spread = 24)
 	var/datum/gun_accuracy/acc = new /datum/gun_accuracy()
 	acc.head = head
 	acc.chest = chest
@@ -53,6 +57,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	acc.hands = hands
 	acc.foots = foots
 	acc.other = other
+	acc.spread = spread
+	acc.dual_wield_spread = dual_wield_spread
 	return acc
 
 
@@ -64,6 +70,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	hands = 33
 	foots = 33
 	other = 33
+	dual_wield_spread = 45
+	spread = 7.5
 
 /datum/gun_accuracy/shotgun
 	head = 70
@@ -73,6 +81,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	hands = 40
 	foots = 40
 	other = 40
+	dual_wield_spread = 35
+	spread = 3.5
 
 /datum/gun_accuracy/default
 	head = 75
@@ -82,6 +92,20 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	hands = 50
 	foots = 50
 	other = 50
+	dual_wield_spread = 24
+	spread = 0
+
+/datum/gun_accuracy/pistol
+	head = 75
+	chest = 100
+	arms = 66
+	legs = 66
+	hands = 50
+	foots = 50
+	other = 50
+	dual_wield_spread = 15 // less spread with dual wield, pistol are small item
+	spread = 5
+
 
 /datum/gun_accuracy/rifle
 	head = 90
@@ -91,6 +115,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	hands = 66
 	foots = 66
 	other = 66
+	dual_wield_spread = 24
+	spread = 2.5
 
 // min accuracy on range 12 is 50%, summary accuracy = 50% * 200% = 100%
 /datum/gun_accuracy/sniper
@@ -101,6 +127,9 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	hands = 200
 	foots = 200
 	other = 200
+	///Additional spread when dual wielding.
+	dual_wield_spread = 24
+	spread = 0
 
 
 /obj/projectile/proc/calculate_hit_chance(obj/projectile/projectile, mob/living/target)

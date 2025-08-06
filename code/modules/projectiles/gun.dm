@@ -37,12 +37,9 @@
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
-	///Additional spread when dual wielding.
-	var/dual_wield_spread = 24
 	var/list/restricted_species
 	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
 	var/bolt_open = FALSE
-	var/spread = 0
 	/// Gun accuracy (without distance accuracy)
 	var/datum/gun_accuracy/accuracy = GUN_ACCURACY_DEFAULT
 	var/barrel_dir = EAST // barel direction need for a rotate gun with telekinesis for shot to target (default: matched with tile direction)
@@ -120,7 +117,7 @@
 	else if(!accuracy)
 		accuracy = GUN_ACCURACY_DEFAULT
 	else if(!istype(accuracy, /datum/gun_accuracy))
-		stack_trace("Invalid type [accuracy.type] found in .accuracy during /obj/item/gun Initialize()")
+		stack_trace("Invalid type [accuracy] found in .accuracy during /obj/item/gun Initialize()")
 
 
 /obj/item/gun/Destroy()
@@ -259,7 +256,7 @@
 				continue
 			else if(G.can_trigger_gun(user))
 				if(!HAS_TRAIT(user, TRAIT_BADASS))
-					bonus_spread += dual_wield_spread * G.weapon_weight
+					bonus_spread += accuracy.dual_wield_spread * G.weapon_weight
 				loop_counter++
 				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
@@ -298,8 +295,8 @@
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	var/sprd = 0
 	var/randomized_gun_spread = 0
-	if(spread)
-		randomized_gun_spread =	rand(0,spread)
+	if(accuracy.spread)
+		randomized_gun_spread =	rand(0, accuracy.spread)
 	var/randomized_bonus_spread = rand(0, bonus_spread)
 
 	if (is_tk_grab)
