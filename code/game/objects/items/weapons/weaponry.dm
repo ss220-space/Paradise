@@ -15,6 +15,8 @@
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
+	var/cooldown_pm_msg = 5 SECONDS
+	var/cooldown_status = FALSE
 
 /obj/item/banhammer/suicide_act(mob/user)
 	to_chat(viewers(user), span_suicide("[user] бь[pluralize_ru(user.gender,"ёт","ют")] себя [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] хоч[pluralize_ru(user.gender,"ет","ют")] заблокировать себя!"))
@@ -22,11 +24,16 @@
 
 
 /obj/item/banhammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	to_chat(target, span_danger("<b>Тебя [user] ЗАБАНИЛ БЕЗ ПРИЧИЙНЫ!</b>"))
-	to_chat(user, span_danger("Вы <b>ЗАБАНИЛИ</b> [target]!"))
+	if(!cooldown_status)
+		send_random_fake_pm(target)
+		cooldown_status  = TRUE
+		addtimer(CALLBACK(src, PROC_REF(stop_cooldown)), cooldown_pm_msg)
+
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
+/obj/item/banhammer/proc/stop_cooldown()
+	cooldown_status = FALSE
 
 /obj/item/sord
 	name = "SORD"
