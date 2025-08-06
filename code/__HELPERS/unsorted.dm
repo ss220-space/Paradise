@@ -32,37 +32,6 @@
 		return FALSE
 	return TRUE
 
-
-/proc/get_angle_tgmc(atom/start, atom/end)//For beams.
-	if(!start || !end)
-		CRASH("get_angle_tgmc called for inexisting atoms: [isnull(start) ? "null" : start] to [isnull(end) ? "null" : end].")
-	if(!start.z)
-		start = get_turf(start)
-		if(!start)
-			CRASH("get_angle_tgmc called for inexisting atoms (start): [isnull(start.loc) ? "null loc" : start.loc] [start] to [isnull(end.loc) ? "null loc" : end.loc] [end].") //Atoms are not on turfs.
-	if(!end.z)
-		end = get_turf(end)
-		if(!end)
-			CRASH("get_angle_tgmc called for inexisting atoms (end): [isnull(start.loc) ? "null loc" : start.loc] [start] to [isnull(end.loc) ? "null loc" : end.loc] [end].") //Atoms are not on turfs.
-	var/dy = (32 * end.y + end.pixel_y) - (32 * start.y + start.pixel_y)
-	var/dx = (32 * end.x + end.pixel_x) - (32 * start.x + start.pixel_x)
-	if(!dy)
-		return (dx >= 0) ? 90 : 270
-	. = arctan(dx / dy)
-	if(dy < 0)
-		. += 180
-	else if(dx < 0)
-		. += 360
-
-/proc/Get_Pixel_Angle(y, x) // For getting the angle when animating something's pixel_x and pixel_y
-	if(!y)
-		return (x >= 0)?90:270
-	. = arctan(x / y)
-	if(y<0)
-		. += 180
-	else if(x < 0)
-		. += 360
-
 //Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
 /*
@@ -997,14 +966,6 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 			if(abs(O.pixel_x) <= 10 && abs(O.pixel_y) <= 10)
 				return 1
 	return 0
-
-
-/proc/get_angle(atom/a, atom/b)
-	return atan2(b.y - a.y, b.x - a.x)
-
-/proc/atan2(x, y)
-	if(!x && !y) return 0
-	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
 
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")

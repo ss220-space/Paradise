@@ -39,27 +39,40 @@
 		var/list/duplicates = list()
 		var/list/possible_items = list()
 		var/list/possible_icons = list()
+
 		for(var/obj/item/I in owner.contents)
 			if(istype(I, /obj/item/gripper)) // cogs gripper
-				var/obj/item/gripper/G = I
-				I = G.gripped_item
+				var/obj/item/gripper/gripper = I
+
+				if(!gripper.gripped_item)
+					continue
+				
+				I = gripper.gripped_item
+
 			if(!I.enchants)
 				continue
+
 			if(I.name in items) // in case there are doubles clockslabs
 				duplicates[I.name]++
 				possible_items["[I.name] ([duplicates[I.name]])"] = I
 				var/image/item_image = image(icon = I.icon, icon_state = I.icon_state)
+
 				if(I.enchant_type > NO_SPELL) //cause casting spell is -1
 					item_image.add_overlay("[initial(I.icon_state)]_overlay_[I.enchant_type]")
+
 				possible_icons += list("[I.name] ([duplicates[I.name]])" = item_image)
+
 			else
 				items.Add(I.name)
 				duplicates[I.name] = 1
 				possible_items[I.name] = I
 				var/image/item_image = image(icon = I.icon, icon_state = I.icon_state)
+
 				if(I.enchant_type > NO_SPELL) //cause casting spell is -1
 					item_image.add_overlay("[initial(I.icon_state)]_overlay_[I.enchant_type]")
+
 				possible_icons += list(I.name = item_image)
+
 		if(ishuman(owner))
 			possible_items += "Spell hand"
 			possible_icons += list("Spell hand" = image(icon = 'icons/mob/actions/actions_clockwork.dmi', icon_state = "hand"))
