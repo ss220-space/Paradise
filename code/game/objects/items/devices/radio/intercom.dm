@@ -314,7 +314,7 @@
 		wires.on_cut(i, TRUE)
 
 /obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
-	if((buildstage != INTERCOM_BUILD_WIRED || b_stat) && !wires.is_all_cut())
+	if(!(buildstage == INTERCOM_BUILD_SECURED && b_stat && wires.is_all_cut()))
 		return ..()
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))

@@ -40,6 +40,7 @@
 	var/empty_state = "kineticgun_empty"
 	/// Saved timer that can be overrided by modkits after hitting target.
 	var/recharge_timerid
+	accuracy = GUN_ACCURACY_SNIPER
 
 
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)
@@ -145,7 +146,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	. = ..()
-	attempt_reload()
+	addtimer(CALLBACK(src, PROC_REF(attempt_reload)), 1)
 
 
 /obj/item/gun/energy/kinetic_accelerator/equipped(mob/user, slot, initial)

@@ -91,6 +91,10 @@
 	allowed_roles = list(JOB_TITLE_HOP)
 
 //LABCOATS
+/datum/gear/suit/labcoat
+	index_name = "labcoat"
+	path = /obj/item/clothing/suit/storage/labcoat
+
 /datum/gear/suit/labcoat_emt
 	index_name = "labcoat, paramedic"
 	path = /obj/item/clothing/suit/storage/labcoat/emt

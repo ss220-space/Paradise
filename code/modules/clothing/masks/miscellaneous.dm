@@ -242,7 +242,7 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
 	can_toggle = TRUE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 25, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 25, RAD = 0, FIRE = 0, ACID = 0)
 	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
@@ -715,7 +715,7 @@
 	can_toggle = TRUE
 	strip_delay = 20
 	put_on_delay = 20
-	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.90
 	actions_types = list(/datum/action/item_action/adjust)

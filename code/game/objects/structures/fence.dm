@@ -164,7 +164,7 @@
 /obj/structure/fence/attack_animal(mob/user)
 	. = ..()
 	if(. && !QDELETED(src) && !shock(user, 70))
-		take_damage(rand(5,10), BRUTE, "melee", 1)
+		take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/fence/proc/update_cut_status()
 	if(!cuttable)

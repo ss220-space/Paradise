@@ -87,7 +87,7 @@
 	icon_state = "enviroslacks"
 	item_state = "enviroslacks"
 	item_color = "enviroslacks"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 95, ACID = 95)
 
 /obj/item/clothing/under/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit"
@@ -229,7 +229,7 @@
 	icon_state = "cap_envirosuit"
 	item_state = "cap_envirosuit"
 	item_color = "cap_envirosuit"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 95, ACID = 95)
 
 /obj/item/clothing/under/plasmaman/blueshield
 	name = "blueshield envirosuit"
@@ -245,4 +245,4 @@
 	icon_state = "bs_envirosuit"
 	item_state = "bs_envirosuit"
 	item_color = "bs_envirosuit"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 95, ACID = 95)

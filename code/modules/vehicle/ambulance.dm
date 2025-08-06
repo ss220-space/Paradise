@@ -48,6 +48,7 @@
 	icon = 'icons/obj/vehicles/CargoTrain.dmi'
 	icon_state = "ambulance"
 	anchored = FALSE
+	pull_push_slowdown = 0	// used for transporting lying mobs
 
 /obj/structure/bed/amb_trolley/examine(mob/user)
 	. = ..()

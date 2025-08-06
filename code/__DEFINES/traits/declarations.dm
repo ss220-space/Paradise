@@ -1,14 +1,13 @@
-// This file contains all of the "static" define strings that tie to a trait.
-
 /*
-Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
-*/
+ * This file contains all of the "static" define strings that tie to a trait.
+ * Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
+ */
 
-//atom traits
+// atom traits
 /// Trait used to prevent an atom from component radiation emission (see radioactivity.dm)
 #define TRAIT_BLOCK_RADIATION "block_radiation"
 /// Is this atom being actively shocked? Used to prevent repeated shocks.
-#define TRAIT_BEING_SHOCKED "being_shocked"
+#define TRAIT_BEING_SHOCKED "being_shocked" // Used together with WAS_SHOCKED instead of flag SHOCKED_2 from the Official Paradise.
 
 /// Weather immunities, also protect mobs inside them.
 #define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
@@ -19,7 +18,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOBSTORM_IMMUNE "blobstorm_immune"
 #define TRAIT_WEATHER_IMMUNE "weather_immune" //Immune to ALL weather effects.
 
-//atom/movable traits
+// atom/movable traits
 /// Buckling yourself to objects with this trait won't immobilize you
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
 ///Chasms will be safe to cross if there is something with this trait on it
@@ -33,7 +32,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_SILENT_FOOTSTEPS "silent_footsteps"
 
-//turf traits
+// turf traits
 /// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
 #define TRAIT_TURF_COVERED "turf_covered"
 ///Turf slowdown will be ignored when this trait is added to a turf.
@@ -47,7 +46,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// If a trait is considered as having "coverage" by a meteor shield.
 #define TRAIT_COVERED_BY_METEOR_SHIELD "covered_by_meteor_shield"
 
-//mob traits
+// mob traits
 #define TRAIT_GODMODE "godmode"
 #define TRAIT_PACIFISM "pacifism"
 #define TRAIT_NO_DEATH "nodeath"
@@ -152,7 +151,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// This mob can strip other mobs.
 #define TRAIT_CAN_STRIP "can_strip"
 
-
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"
 
@@ -199,7 +197,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CYBERIMP_IMPROVED "cyberimp_improved"
 
 #define TRAIT_SHRAPNEL "shrapnel"
-
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND "move_ground"
@@ -307,7 +304,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BEING_OFFERED "offered"
 
 #define TRAIT_TOXIC_FUEL_PROTECTED "toxic_fuel_protected"
-
 
 /// Ignore Crew monitor Z levels
 #define TRAIT_MULTIZ_SUIT_SENSORS "multiz_suit_sensors"

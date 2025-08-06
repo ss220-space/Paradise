@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 1000 // мы ОЧЕНЬ хотим пострелять
 	deflect_chance = 0 // никакого рандома
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0) // мех для тестов, не для боя
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0) // мех для тестов, не для боя
 	max_temperature = 15000
 	wreckage = /obj/structure/mecha_wreckage/sidewinder
 	maint_access = TRUE

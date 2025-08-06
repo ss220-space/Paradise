@@ -43,8 +43,11 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/camera/Destroy()
 	GLOB.active_video_cameras -= src
-	camera.c_tag = null
-	QDEL_NULL(camera)
+
+	if(camera) // null until we activate
+		camera.c_tag = null
+		QDEL_NULL(camera)
+
 	return ..()
 
 /obj/item/clothing/accessory/camera/examine(mob/user)
