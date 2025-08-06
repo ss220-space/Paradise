@@ -883,7 +883,7 @@
 	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	interaction()
+	interaction(user)
 
 /obj/item/toy/plushie/rdplushie/update_icon_state()
 	. = ..()
@@ -930,7 +930,7 @@
 /obj/item/toy/plushie/gsbplushie/attack_self(mob/user)
 	. = ..()
 
-	interaction()
+	interaction(user)
 
 /obj/item/toy/plushie/gsbplushie/afterattack(atom/target, mob/user, proximity, flag, params)
 	. = ..()
@@ -938,7 +938,7 @@
 	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	interaction()
+	interaction(user)
 
 /obj/item/toy/plushie/greyplushie
 	name = "Плюшевый грей"
