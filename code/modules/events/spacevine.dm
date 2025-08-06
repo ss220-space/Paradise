@@ -452,6 +452,8 @@
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
 
+	var/del_status = FALSE
+
 
 /obj/structure/spacevine/Initialize(mapload)
 	. = ..()
@@ -463,6 +465,7 @@
 
 
 /obj/structure/spacevine/Destroy()
+	del_status = TRUE
 	for(var/datum/spacevine_mutation/SM in mutations)
 		SM.on_deletion(src)
 	if(master)
@@ -496,6 +499,9 @@
 
 
 /obj/structure/spacevine/proc/wither()
+	if(del_status)
+		return
+
 	for(var/datum/spacevine_mutation/SM in mutations)
 		SM.on_death(src)
 	qdel(src)
