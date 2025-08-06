@@ -33,6 +33,7 @@
 
 	var/mob/living/living_hit = victim
 	living_hit.apply_damage(10, BRUTE/*, wound_bonus = CANT_WOUND*/)
+	caster.apply_status_effect(/datum/status_effect/mansus_bless)
 	if(!iscarbon(victim))
 		return
 

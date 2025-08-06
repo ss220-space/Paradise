@@ -403,3 +403,20 @@
 	name = "Благословение Луны"
 	desc = "Луна одаряет вас своим светом, так-же как когда-то одаряло солнце."
 	icon_state = "moon_hide"
+
+
+/datum/status_effect/mansus_bless
+	id = "Mansus Bless"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 8 SECONDS
+	alert_type = null
+
+
+/datum/status_effect/mansus_bless/tick(seconds_between_ticks)
+	owner.AdjustStunned(-2 SECONDS)
+	owner.AdjustWeakened(-2 SECONDS)
+	owner.AdjustKnockdown(-2 SECONDS)
+	owner.AdjustImmobilized(-2 SECONDS)
+	owner.AdjustParalysis(-2 SECONDS)
+	owner.adjustStaminaLoss(-10)
+	return TRUE
