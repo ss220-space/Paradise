@@ -185,6 +185,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 
+#define isthrowingmatart(A) istype(A, /datum/martial_art/throwing)
+
 GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 	/turf/space,
 	/turf/simulated/floor/chasm,

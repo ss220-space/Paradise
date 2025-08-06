@@ -580,6 +580,7 @@
 #include "code\datums\components\squashable.dm"
 #include "code\datums\components\squeak.dm"
 #include "code\datums\components\stationloving.dm"
+#include "code\datums\components\stick_it_in.dm"
 #include "code\datums\components\surgery_initiator.dm"
 #include "code\datums\components\swarming.dm"
 #include "code\datums\components\transforming.dm"
