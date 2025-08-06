@@ -47,7 +47,7 @@
 				if(!gripper.gripped_item)
 					continue
 				
-				I = G.gripped_item
+				I = gripper.gripped_item
 
 			if(!I.enchants)
 				continue
@@ -56,7 +56,7 @@
 				duplicates[I.name]++
 				possible_items["[I.name] ([duplicates[I.name]])"] = I
 				var/image/item_image = image(icon = I.icon, icon_state = I.icon_state)
-				
+
 				if(I.enchant_type > NO_SPELL) //cause casting spell is -1
 					item_image.add_overlay("[initial(I.icon_state)]_overlay_[I.enchant_type]")
 
