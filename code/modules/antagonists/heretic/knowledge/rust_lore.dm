@@ -213,8 +213,6 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_RESIST_COLD,
 		TRAIT_RESIST_HEAT,
-		TRAIT_RESIST_HEAT,
-		TRAIT_RESIST_COLD,
 		TRAIT_SHOCKIMMUNE,
 		TRAIT_SLEEPIMMUNE,
 		TRAIT_STUNIMMUNE,
@@ -343,6 +341,6 @@
 	need_mob_update += source.adjustStaminaLoss(-base_heal_amt * 4, updating_health = FALSE)
 	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
 		source.blood_volume += base_heal_amt
-		
+
 	if(need_mob_update)
 		source.updatehealth()

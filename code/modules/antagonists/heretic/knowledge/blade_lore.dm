@@ -141,12 +141,12 @@
 	if(!striking_with)
 		return
 
-	// If we made it here, deliver the strike
-	INVOKE_ASYNC(src, PROC_REF(counter_attack), source, attacker, striking_with, attack_text)
-
 	// And reset after a bit
 	riposte_ready = FALSE
 	addtimer(CALLBACK(src, PROC_REF(reset_riposte), source), BLADE_DANCE_COOLDOWN)
+
+	// If we made it here, deliver the strike
+	INVOKE_ASYNC(src, PROC_REF(counter_attack), source, attacker, striking_with, attack_text)
 
 
 /datum/heretic_knowledge/blade_dance/proc/counter_attack(mob/living/carbon/human/source, mob/living/target, obj/item/melee/sickly_blade/weapon, attack_text)
