@@ -356,7 +356,7 @@
 
 /obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()
-	pump(user)
+	addtimer(CALLBACK(src, PROC_REF(pump), user), 1)
 
 /obj/item/gun/projectile/shotgun/automatic/combat
 	name = "combat shotgun"
