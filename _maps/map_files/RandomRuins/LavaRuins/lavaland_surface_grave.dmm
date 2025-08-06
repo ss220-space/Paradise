@@ -4,16 +4,16 @@
 /area/lavaland/surface/outdoors/unexplored)
 "b" = (
 /turf/simulated/wall/mineral/iron,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "c" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "d" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "e" = (
 /obj/structure/stone_tile/burnt,
 /obj/effect/mapping_helpers/no_lava,
@@ -32,19 +32,19 @@
 "g" = (
 /obj/structure/fluff/grave,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "h" = (
 /obj/structure/railing{
 	dir = 6
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "j" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "k" = (
 /obj/structure/stone_tile,
 /obj/effect/mapping_helpers/no_lava,
@@ -69,7 +69,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "o" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -86,7 +86,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "r" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -96,7 +96,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "s" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -105,7 +105,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "t" = (
 /turf/template_noop,
 /area/template_noop)
@@ -114,14 +114,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "x" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "B" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -138,18 +138,18 @@
 	},
 /obj/structure/stone_tile/burnt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "I" = (
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "K" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "M" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -158,7 +158,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "N" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -181,7 +181,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "S" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -195,11 +195,11 @@
 	},
 /obj/structure/stone_tile/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "U" = (
 /obj/structure/katana_grave/basalt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "W" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/mapping_helpers/no_lava,
@@ -210,7 +210,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "Y" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -219,7 +219,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 
 (1,1,1) = {"
 t
