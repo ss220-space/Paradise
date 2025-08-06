@@ -197,7 +197,13 @@
 
 /atom/movable/screen/alert/take_item/Destroy()
 	var/mob/living/giver = locateUID(giver_UID)
+	var/obj/item/I = locateUID(item_UID)
 	giver.remove_status_effect(STATUS_EFFECT_OFFERING_ITEM)
+
+	if(giver)
+		UnregisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
+	if(I)
+		UnregisterSignal(I, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
 
 	return ..()
 
