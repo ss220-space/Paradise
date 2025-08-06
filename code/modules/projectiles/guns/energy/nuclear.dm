@@ -10,7 +10,7 @@
 	ammo_x_offset = 3
 	flight_x_offset = 15
 	flight_y_offset = 10
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
@@ -33,7 +33,7 @@
 	ammo_x_offset = 2
 	charge_sections = 3
 	can_flashlight = FALSE
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_PISTOL_ENERGY
 
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
@@ -52,7 +52,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/dominator/slaughter)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
 	. = ..()
@@ -67,7 +67,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_PISTOL_ENERGY
 
 /obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
 	. = ..()
@@ -118,7 +118,7 @@
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/energy/gun/minigun
 	name = "Laser gatling gun"

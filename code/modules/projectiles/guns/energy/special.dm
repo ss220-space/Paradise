@@ -19,7 +19,7 @@
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -34,7 +34,7 @@
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 // Decloner //
 /obj/item/gun/energy/decloner
@@ -44,7 +44,7 @@
 	origin_tech = "combat=4;materials=4;biotech=5;plasmatech=6"
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_PISTOL_ENERGY
 
 
 /obj/item/gun/energy/decloner/update_icon_state()
@@ -125,7 +125,7 @@
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_PISTOL_ENERGY
 
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
@@ -146,7 +146,7 @@
 	can_flashlight = FALSE
 	max_mod_capacity = 0
 	empty_state = null
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
@@ -157,7 +157,7 @@
 	origin_tech = "combat=4;magnets=4;syndicate=2"
 	suppressed = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/toy
 	name = "toy energy crossbow"
@@ -176,7 +176,7 @@
 	icon_state = "crossbowlarge"
 	origin_tech = null
 	materials = list()
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
@@ -210,7 +210,7 @@
 	force = 12
 	sharp = 1
 	can_charge = FALSE
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
@@ -404,7 +404,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -431,7 +431,7 @@
 	clumsy_check = FALSE
 	selfcharge = TRUE
 	ammo_x_offset = 3
-	accuracy = GUN_ACCURACY_MINIMAL
+	accuracy = GUN_ACCURACY_MINIMAL_ENERGY
 
 /obj/item/gun/energy/toxgun
 	name = "toxin pistol"
@@ -441,7 +441,7 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = TRUE
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 // Energy Sniper //
 /obj/item/gun/energy/sniperrifle
@@ -502,7 +502,7 @@
 
 	var/emagged = FALSE			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
@@ -726,7 +726,7 @@
 	var/is_equipped = FALSE
 	/// Timestamp used for sound effects
 	COOLDOWN_DECLARE(last_sound_effect)
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_PISTOL_ENERGY
 
 
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)

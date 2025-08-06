@@ -14,7 +14,7 @@
 	needs_permit = FALSE
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 
 /obj/item/gun/projectile/automatic/toy/pistol
@@ -29,7 +29,7 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_PISTOL_ENERGY
 
 
 /obj/item/gun/projectile/automatic/toy/pistol/update_icon_state()
@@ -96,7 +96,7 @@
 	fire_sound = 'sound/items/syringeproj.ogg'
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/projectile/automatic/c20r/toy
 	name = "donksoft SMG"
@@ -108,7 +108,7 @@
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/projectile/automatic/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
@@ -123,7 +123,7 @@
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
@@ -137,7 +137,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
 	w_class = WEIGHT_CLASS_SMALL
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_ENERGY
 
 /obj/item/gun/projectile/automatic/sniper_rifle/toy
 	name = "donksoft sniper rifle"

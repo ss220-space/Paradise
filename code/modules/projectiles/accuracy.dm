@@ -1,15 +1,18 @@
 // Accuracy datum for /obj/item/gun
 
-/// Minimal gun accuracy
-#define GUN_ACCURACY_MINIMAL new /datum/gun_accuracy/minimal()
-/// Shotgun accuracy (less than default)
-#define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
 /// Default accuracy for all projectile weapon
 #define GUN_ACCURACY_DEFAULT new /datum/gun_accuracy/default()
+/// Minimal gun accuracy
+#define GUN_ACCURACY_MINIMAL new /datum/gun_accuracy/minimal()
+#define GUN_ACCURACY_MINIMAL_ENERGY new /datum/gun_accuracy/minimal/energy()
+/// Shotgun accuracy (less than default)
+#define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
 /// Pistol accuracy (near default)
 #define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
+#define GUN_ACCURACY_PISTOL_ENERGY new /datum/gun_accuracy/pistol/energy()
 /// Rifle accuracy (more than default)
 #define GUN_ACCURACY_RIFLE new /datum/gun_accuracy/rifle()
+#define GUN_ACCURACY_RIFLE_ENERGY new /datum/gun_accuracy/rifle/energy()
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
@@ -79,6 +82,9 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	spread = 7.5
 	recoil = 5
 
+/datum/gun_accuracy/minimal/energy
+	recoil = 0
+
 /datum/gun_accuracy/shotgun
 	head = 70
 	chest = 100
@@ -115,6 +121,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	spread = 5
 	recoil = 3
 
+/datum/gun_accuracy/pistol/energy
+	recoil = 0
 
 /datum/gun_accuracy/rifle
 	head = 90
@@ -127,6 +135,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	dual_wield_spread = 24
 	spread = 2.5
 	recoil = 8
+/datum/gun_accuracy/rifle/energy
+	recoil = 0
 
 // min accuracy on range 12 is 50%, summary accuracy = 50% * 200% = 100%
 /datum/gun_accuracy/sniper
