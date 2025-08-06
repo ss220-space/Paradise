@@ -22,6 +22,7 @@
 	self_shot_divisor = 3
 	malf_low_bound = 60
 	malf_high_bound = 90
+	accuracy = GUN_ACCURACY_RIFLE
 
 
 /obj/item/gun/projectile/automatic/rusted/aksu
@@ -35,6 +36,7 @@
 	burst_size = 3
 	fire_delay = 2
 	recoil = 0.8
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/projectile/automatic/rusted/ppsh
 	name = "Rusted PPSh submachine gun"
@@ -50,6 +52,7 @@
 	burst_size = 5
 	fire_delay = 1.5
 	recoil = 1.2
+	accuracy = GUN_ACCURACY_RIFLE
 
 
 //////////// Shotguns
@@ -60,6 +63,7 @@
 	self_shot_divisor = 3
 	malf_low_bound = 12
 	malf_high_bound = 24
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 //////////// Revolvers
 

@@ -4,6 +4,7 @@
 	item_flags = NO_MAT_REDEMPTION
 	lefthand_file = 'icons/mob/inhands/staff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staff_righthand.dmi'
+	accuracy = GUN_ACCURACY_SNIPER
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"

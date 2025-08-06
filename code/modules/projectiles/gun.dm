@@ -43,6 +43,8 @@
 	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
 	var/bolt_open = FALSE
 	var/spread = 0
+	/// Gun accuracy (without distance accuracy)
+	var/datum/gun_accuracy/accuracy = GUN_ACCURACY_DEFAULT
 	var/barrel_dir = EAST // barel direction need for a rotate gun with telekinesis for shot to target (default: matched with tile direction)
 	var/randomspread = TRUE
 
@@ -113,6 +115,12 @@
 	if(rusted_weapon)
 		malf_counter = rand(malf_low_bound, malf_high_bound)
 	update_gun_skins()
+	if(islist(accuracy))
+		accuracy = getAccuracy(arglist(accuracy))
+	else if(!accuracy)
+		accuracy = GUN_ACCURACY_DEFAULT
+	else if(!istype(accuracy, /datum/gun_accuracy))
+		stack_trace("Invalid type [accuracy.type] found in .accuracy during /obj/item/gun Initialize()")
 
 
 /obj/item/gun/Destroy()
@@ -137,10 +145,8 @@
 		. += span_notice("Use a pen on it to rename it.")
 	if(bayonet)
 		. += span_notice("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
-		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
-			. += span_notice("[bayonet] looks like it can be [span_bold("unscrewed")] from [src].")
-	else if(can_bayonet)
-		. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
+		if(can_bayonet) // if it has a bayonet and this is false, the bayonet is permanent.
+			. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
 
 
 /obj/item/gun/proc/update_gun_skins()
@@ -324,6 +330,7 @@
 						shoot_live_shot(user, target, TRUE, message)
 					else
 						shoot_live_shot(user, target, FALSE, message)
+				chambered.after_fire()
 			else
 				shoot_with_empty_chamber(user)
 				break
@@ -346,6 +353,7 @@
 					shoot_live_shot(user, target, TRUE, message)
 				else
 					shoot_live_shot(user, target, FALSE, message)
+			chambered.after_fire()
 		else
 			shoot_with_empty_chamber(user)
 			return

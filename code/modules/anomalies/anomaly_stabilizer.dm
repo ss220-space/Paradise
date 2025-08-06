@@ -53,7 +53,7 @@
 	ui_interact(user)
 
 /obj/item/gun/energy/anomaly_stabilizer/newshot()
-	if(!cell)
+	if(!cell || cell.charge < get_req_ecost())
 		return
 
 	chambered = new cur_ammo_type
@@ -61,7 +61,7 @@
 		chambered.newshot()
 
 	var/obj/item/ammo_casing/energy/anomaly/en_chambered = chambered
-	en_chambered.e_cost *= max(1, stability_delta * stability_delta)
+	en_chambered.e_cost = get_req_ecost()
 
 	var/obj/projectile/beam/anomaly/shot = chambered.BB
 	shot.stability_delta = stability_delta
@@ -231,13 +231,20 @@
 
 /obj/item/gun/energy/anomaly_stabilizer/examine(mob/user)
 	. = ..()
-	var/shots = round(cell.charge / (/obj/item/ammo_casing/energy/anomaly::e_cost) / stability_delta / stability_delta)
+	var/shots = round(cell.charge / get_req_ecost())
 	. += span_notice("Индикатор заряда сообщает: [cell.charge]\\[cell.maxcharge].")
 	. += span_notice("Этого хватит на [shots] [declension_ru(shots, "выстрел", "выстрела", "выстрелов")] и изменение стабильности аномалии на [shots * stability_delta] [declension_ru(shots * stability_delta, "единицу", "единицы", "единиц")] при текущих настройках.")
 
+
+/obj/item/gun/energy/anomaly_stabilizer/proc/get_req_ecost()
+	var/cost = /obj/item/ammo_casing/energy/anomaly::e_cost
+	cost *= max(1, stability_delta * stability_delta)
+	return cost
+
+
 /obj/item/gun/energy/anomaly_stabilizer/update_overlays()
 	. = list()
-	if(cell.charge < /obj/item/ammo_casing/energy/anomaly::e_cost)
+	if(cell.charge < get_req_ecost())
 		return
 
 	if(stability_delta < 0)

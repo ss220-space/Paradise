@@ -13,7 +13,7 @@
 	plane = GAME_PLANE
 	resistance_flags = null
 	max_integrity = 300
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/New()
 	..()
@@ -184,7 +184,7 @@
 	active_power_usage = 5000
 	power_channel = EQUIP
 	max_integrity = 300
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/New()
 	..()

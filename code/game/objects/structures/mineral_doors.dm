@@ -8,7 +8,7 @@
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
 	max_integrity = 200
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50)
 	var/initial_state
 	var/state = 0 //closed, 1 == open
 	var/isSwitchingStates = 0
@@ -22,7 +22,7 @@
 	var/damageSound = null
 	var/is_opaque = TRUE
 
-/obj/structure/mineral_door/Initialize()
+/obj/structure/mineral_door/Initialize(mapload)
 	. = ..()
 	initial_state = icon_state
 	air_update_turf(1)
@@ -31,6 +31,9 @@
 	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
+
+/obj/structure/mineral_door/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_SPARKS, -20, 10)
 
 /obj/structure/mineral_door/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
@@ -242,6 +245,9 @@
 	hardness = 1
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
+
+/obj/structure/mineral_door/wood/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
 /obj/structure/mineral_door/wood/paperframe
 	name = "Paperframe door"

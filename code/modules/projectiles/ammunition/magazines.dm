@@ -265,7 +265,6 @@
 	name = "pistol magazine (10mm)"
 	desc = "A gun magazine."
 	icon_state = "9x19p"
-	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
 	max_ammo = 15
@@ -429,7 +428,6 @@
 /obj/item/ammo_box/magazine/smgm45
 	name = "SMG magazine (.45)"
 	icon_state = "c20r45"
-	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 20
@@ -447,7 +445,6 @@
 /obj/item/ammo_box/magazine/m50
 	name = "handgun magazine (.50ae)"
 	icon_state = "50ae"
-	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = ".50ae"
 	max_ammo = 7
@@ -505,7 +502,6 @@
 	desc = "A drum magazine."
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
-	origin_tech = "combat=3"
 	caliber = ".12"
 	max_ammo = 12
 	multiple_sprites = 2
@@ -515,7 +511,6 @@
 	desc = "A cheaply-made drum magazine."
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
-	origin_tech = "combat=2"
 	caliber = ".12"
 	max_ammo = 12
 	multiple_sprites = 2
@@ -654,7 +649,6 @@
 	desc = "Fits experimental laser ammo casings."
 	icon_state = "laser"
 	ammo_type = /obj/item/ammo_casing/laser
-	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
 
@@ -666,7 +660,6 @@
 	desc = "Fits experimental laser ammo casings."
 	icon_state = "lmag"
 	ammo_type = /obj/item/ammo_casing/laser
-	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
 

@@ -26,7 +26,7 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 95, ACID = 70)
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
@@ -94,7 +94,10 @@
 	if(stat & (NOPOWER|BROKEN))
 		set_light_on(FALSE)
 		return
-	set_light_on(active_alarm)
+	if(active_alarm)
+		set_light(1, 0.5, COLOR_RED_LIGHT)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 
 
 /obj/machinery/door/firedoor/extinguish_light(force = FALSE)
@@ -227,10 +230,10 @@
 	switch(animation)
 		if("opening")
 			flick("door_opening", src)
-			playsound(src, 'sound/machines/firedoor.ogg', 60, 1)
+			playsound(src, 'sound/machines/airlock_ext_open.ogg', 30, TRUE)
 		if("closing")
 			flick("door_closing", src)
-			playsound(src, 'sound/machines/firedoor.ogg', 60, 1)
+			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, TRUE)
 
 
 /obj/machinery/door/firedoor/update_icon_state()
