@@ -484,6 +484,7 @@
 	set_opacity(FALSE)
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force = TRUE)
+	UnregisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK)
 	return ..()
 
 
