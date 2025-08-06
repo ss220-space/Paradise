@@ -45,6 +45,9 @@
 	name = "Biodome"
 	icon_state = "dk_yellow"
 
+/area/ruin/powered/lavaland
+	icon_state = "dk_yellow"
+
 /area/ruin/unpowered/syndicate_lava_base
 	name = "Secret Base"
 	icon_state = "dk_yellow"
