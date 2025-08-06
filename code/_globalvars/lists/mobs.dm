@@ -83,3 +83,6 @@ GLOBAL_LIST_INIT(halo_callbacks, list(
 GLOBAL_LIST_EMPTY(wryn_structures)
 
 GLOBAL_LIST_EMPTY(robot_skins)
+
+/// List of all /datum/nutrition_level
+GLOBAL_LIST_EMPTY(nutrition_levels)

@@ -494,7 +494,7 @@
 				return
 
 			var/time_taken = thing.embedded_unsafe_removal_time * thing.w_class
-			
+
 			usr.visible_message(
 				span_warning("[usr] пыта[pluralize_ru(usr.gender, "ет", "ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 				span_notice("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]... (Это займет [time_taken/10] секунд.)"),
@@ -1766,21 +1766,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		nutrition <= current_nutrition_level.level_increase_threshold)
 		return
 
-	switch(nutrition)
-		if(-INFINITY to NUTRITION_LEVEL_HYPOGLYCEMIA)
-			current_nutrition_level = /datum/nutrition_level/hypoglycemia
-		if(NUTRITION_LEVEL_HYPOGLYCEMIA to NUTRITION_LEVEL_STARVING)
-			current_nutrition_level = /datum/nutrition_level/starving
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			current_nutrition_level = /datum/nutrition_level/hungry
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			current_nutrition_level = /datum/nutrition_level/fed
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			current_nutrition_level = /datum/nutrition_level/well_fed
-		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-			current_nutrition_level = /datum/nutrition_level/full
-		if(NUTRITION_LEVEL_FULL to INFINITY)
-			current_nutrition_level = /datum/nutrition_level/fat
+	for(var/nutrition_lvl in GLOB.nutrition_levels)
+		var/datum/nutrition_level/nutrition_level = GLOB.nutrition_levels[nutrition_lvl]
+		if(nutrition > nutrition_level.level_decrease_threshold && \
+			nutrition <= nutrition_level.level_increase_threshold)
+			current_nutrition_level = nutrition_level
+			break
 
 	// If our species shouldn't get bonuses/penalties from nutrition levels, besides default hunger slowdown, we dont interact with component further
 	if(HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
