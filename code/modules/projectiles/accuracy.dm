@@ -80,7 +80,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	other = 33
 	dual_wield_spread = 45
 	spread = 7.5
-	recoil = 5
+	recoil = 16
 
 /datum/gun_accuracy/minimal/energy
 	recoil = 0
@@ -95,7 +95,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	other = 40
 	dual_wield_spread = 35
 	spread = 3.5
-	recoil = 16
+	recoil = 32
 
 /datum/gun_accuracy/default
 	head = 75
@@ -119,7 +119,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	other = 50
 	dual_wield_spread = 15 // less spread with dual wield, pistol are small item
 	spread = 5
-	recoil = 3
+	recoil = 9
 
 /datum/gun_accuracy/pistol/energy
 	recoil = 0
@@ -134,7 +134,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	other = 66
 	dual_wield_spread = 24
 	spread = 2.5
-	recoil = 8
+	recoil = 18
 /datum/gun_accuracy/rifle/energy
 	recoil = 0
 
