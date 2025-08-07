@@ -210,7 +210,7 @@
 					affecting = human.get_organ(BODY_ZONE_HEAD)
 
 			if(affecting)
-				to_chat(human, span_warning("Вы тяжело приземляетесь на [GLOB.body_zone[affecting][ACCUSATIVE]]!"))
+				to_chat(human, span_warning("Вы тяжело приземляетесь на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]!"))
 				human.apply_damage(damage, def_zone = affecting)
 				if(affecting?.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
