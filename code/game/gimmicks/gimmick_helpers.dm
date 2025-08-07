@@ -1,4 +1,3 @@
-
 //very shitcode
 /proc/fake_admin_pm(target, msg = "Привет, есть минутка?", fake_admin_name = "Denchigo", fake_admin_rank = "Админ", type_admin_help = "PM", custom_link = "")
 	. += "<span class='adminhelp' size='3'>-- Click the [fake_admin_rank]'s name to reply --</span>\n"
@@ -10,3 +9,4 @@
 	var/random_admin = pick(subtypesof(/datum/fake_administrator))
 	var/datum/fake_administrator/admin = new random_admin
 	admin.send_random_msg(target)
+

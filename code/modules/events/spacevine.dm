@@ -450,8 +450,7 @@
 	max_integrity = 50
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
-	var/list/mutations = list()
-
+	var/list/mutations = list()	
 
 /obj/structure/spacevine/Initialize(mapload)
 	. = ..()
@@ -496,6 +495,9 @@
 
 
 /obj/structure/spacevine/proc/wither()
+	if(QDELETED(src))
+		return
+
 	for(var/datum/spacevine_mutation/SM in mutations)
 		SM.on_death(src)
 	qdel(src)
