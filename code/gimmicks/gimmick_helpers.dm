@@ -11,12 +11,11 @@ GLOBAL_LIST_EMPTY(cached_fake_admins)
 	. += "<span class='adminhelp' size='3'>-- Click the [fake_admin_rank]'s name to reply --</span>\n"
 	. += chat_box_mhelp(span_mentorhelp("<span class='mentorhelp'>[type_admin_help] from-<b>[fake_admin_rank] <a href='[custom_link]'>[fake_mentor_name]</a></b>:<br><br>[span_emojienabled("[msg]")]<br></span>"))
 	to_chat(target,. , MESSAGE_TYPE_ADMINPM, confidential = TRUE)
-	SEND_SOUND(C, sound('sound/machines/notif1.ogg'))
-		else
+	SEND_SOUND(target, sound('sound/machines/notif1.ogg'))
 
 /proc/send_random_fake_pm(target)
 	if(!GLOB.cached_fake_admins.len)
-		GLOB.cached_fake_admins
+		GLOB.cached_fake_admins = subtypesof(/datum/fake_administrator)
 
 	var/random_admin = pick(GLOB.cached_fake_admins)
 	var/datum/fake_administrator/admin = new random_admin
