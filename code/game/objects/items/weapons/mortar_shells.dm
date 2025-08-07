@@ -23,7 +23,7 @@
 	var/angle = 90 - get_angle(loc, old_loc)
 	pixel_x = cos(angle) * 32 * 6
 	pixel_z = sin(angle) * 32 * 6
-	var/rotation = get_pixel_angle(pixel_z, pixel_x) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
+	var/rotation = delta_to_angle(pixel_z, pixel_x) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
 	transform = matrix().Turn(rotation + 180)
 	layer = FLY_LAYER
 	SET_PLANE_EXPLICIT(src, ABOVE_GAME_PLANE, src)

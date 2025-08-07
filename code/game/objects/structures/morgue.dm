@@ -618,6 +618,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(user)
 			add_attack_logs(user, entity, "Cremated")
 
+		SEND_SIGNAL(entity, COMSIG_LIVING_CREMATED)
+
 		entity.death(gibbed = TRUE)
 
 		if(QDELETED(entity))
