@@ -229,6 +229,9 @@
 
 /obj/effect/proc_holder/spell/hulk_jump/cast(list/targets, mob/living/user)
 	var/failure = 0
+	if(!user)
+		return
+
 	if(ismob(user.loc) || user.incapacitated() || user.buckled)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return

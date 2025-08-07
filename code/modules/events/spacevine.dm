@@ -261,12 +261,14 @@
 	nofun = TRUE
 
 /datum/spacevine_mutation/explosive/on_explosion(explosion_severity, obj/structure/spacevine/holder)
-	if(explosion_severity < 3)
-		qdel(holder)
-	else
-		. = 1
-		spawn(5)
-			holder.wither()
+	if(explosion_severity >= 3)
+		addtimer(CALLBACK(holder, TYPE_PROC_REF(/obj/structure/spacevine, wither)), 5)
+		return 1
+
+	if(QDELETED(holder))
+		return
+
+	qdel(holder)
 
 /datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/item)
 	explosion(holder.loc, 0, 0, severity, 0, 0)
@@ -498,6 +500,10 @@
 /obj/structure/spacevine/proc/wither()
 	for(var/datum/spacevine_mutation/SM in mutations)
 		SM.on_death(src)
+
+	if(QDELETED(src))
+		return
+
 	qdel(src)
 
 
