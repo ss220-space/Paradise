@@ -22,6 +22,7 @@ jobs:
         run: |
           CLEAN_BODY=$(echo '${{ github.event.pull_request.body }}' | sed 's/<!--.*-->//g')
           CLEAN_BODY=$(echo "$CLEAN_BODY" | sed '/^[[:space:]]*$/d')
+          CLEAN_BODY=$'\n'"$CLEAN_BODY"
           echo "CLEAN_BODY<<EOF" >> $GITHUB_OUTPUT
           echo "$CLEAN_BODY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -33,7 +34,7 @@ jobs:
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
-          message: ${{ format('{0}\n{1}',
+          message: ${{ format('{0}{1}',
               (github.event.action == 'closed' &&
                 (github.event.pull_request.merged == true && format('**Изменения из пулл реквеста {0} добавлены в билд.**', github.event.pull_request.number) ||
                 format('**Пулл реквест {0} закрыт.**', github.event.pull_request.number)
