@@ -200,14 +200,14 @@
 
 /obj/item/solar_assembly
 	name = "solar panel assembly"
-	desc = "Основание для сборки солнечной панели. Если вмонтировать соответствующую плату, можно собрать солнечный датчик."
+	desc = "Основание для сборки солнечной панели и солнечного датчика."
 	ru_names = list(
-		NOMINATIVE = "солнечная батарея",
-		GENITIVE = "солнечной батареи",
-		DATIVE = "солнечной батарее",
-		ACCUSATIVE = "солнечную батарею",
-		INSTRUMENTAL = "солнечной батареей",
-		PREPOSITIONAL = "солнечной батарее"
+		NOMINATIVE = "заготовка солнечной панели",
+		GENITIVE = "заготовки солнечной панели",
+		DATIVE = "заготовке солнечной панели",
+		ACCUSATIVE = "заготовку солнечной панели",
+		INSTRUMENTAL = "заготовкой солнечной панели",
+		PREPOSITIONAL = "заготовке солнечной панели"
 	)
 	gender = FEMALE
 	icon = 'icons/obj/engines_and_power/solar_panels.dmi'
@@ -323,8 +323,8 @@
 	tracker = FALSE
 	balloon_alert(user, "плата извлечена")
 	user.visible_message(
-		span_notice("[user] доста[pluralize_ru(user.gender, "ет", "ют")] плату солнечного датчика из солнечной батареи."),
-		span_notice("Вы достаёте плату трекера из солнечной батареи."),
+		span_notice("[user] доста[pluralize_ru(user.gender, "ет", "ют")] плату солнечного датчика из [declent_ru(GENITIVE)]."),
+		span_notice("Вы достаёте плату трекера из [declent_ru(GENITIVE)]."),
 	)
 
 //
