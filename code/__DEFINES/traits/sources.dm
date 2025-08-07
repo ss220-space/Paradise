@@ -181,3 +181,4 @@
 #define DEVIL_CONTRACT_TRAIT "devil_contract"
 
 #define DEVIL_RITUAL_TRAIT "devil_ritual"
+
