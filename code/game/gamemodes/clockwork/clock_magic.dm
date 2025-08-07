@@ -43,6 +43,8 @@
 			if(istype(I, /obj/item/gripper)) // cogs gripper
 				var/obj/item/gripper/G = I
 				I = G.gripped_item
+			if(!I)
+				return
 			if(!I.enchants)
 				continue
 			if(I.name in items) // in case there are doubles clockslabs
