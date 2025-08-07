@@ -19,10 +19,7 @@ jobs:
       - name: Send Discord notification
         uses: tgstation/discord-notify@v3
         if: >
-          steps.secrets_set.outputs.SECRETS_ENABLED &&
-          (github.event.action == 'closed' || github.event.action == 'opened' || github.event.action == 'labeled') &&
-          github.event.pull_request.author_association != 'FIRST_TIMER' &&
-          github.event.pull_request.author_association != 'FIRST_TIME_CONTRIBUTOR'
+          steps.secrets_set.outputs.SECRETS_ENABLED
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
