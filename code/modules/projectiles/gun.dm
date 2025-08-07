@@ -41,6 +41,7 @@
 	var/bolt_open = FALSE
 	/// Gun accuracy (without distance accuracy)
 	var/datum/gun_accuracy/accuracy = GUN_ACCURACY_DEFAULT
+	var/datum/gun_recoil/recoil = null
 	var/barrel_dir = EAST // barel direction need for a rotate gun with telekinesis for shot to target (default: matched with tile direction)
 	var/randomspread = TRUE
 
@@ -175,8 +176,7 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
-	if(accuracy.recoil)
-		shake_camera(user, 1 + accuracy.recoil/32, accuracy.recoil / 32)
+	do_recoil(user, target)
 
 	var/muzzle_range = chambered.muzzle_flash_range
 	var/muzzle_strength = chambered.muzzle_flash_strength

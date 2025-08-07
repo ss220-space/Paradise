@@ -15,6 +15,7 @@
 	pb_knockback = 2
 	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
 	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/I, mob/user, params)
@@ -235,6 +236,7 @@
 /obj/item/gun/projectile/shotgun/riot/short
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
 	accuracy = GUN_ACCURACY_MINIMAL
+	recoil = GUN_RECOIL_MEGA
 
 /obj/item/gun/projectile/shotgun/riot/short/Initialize(mapload)
 	. = ..()
@@ -262,6 +264,7 @@
 	bayonet_y_offset = 13
 	pb_knockback = 0
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
@@ -367,6 +370,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 //Dual Feed Shotgun
 
@@ -381,6 +385,7 @@
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
 	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()

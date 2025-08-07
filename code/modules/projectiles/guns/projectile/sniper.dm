@@ -18,7 +18,8 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = null
-	accuracy = list("head" = 200, "chest" = 200, "arms" = 200, "legs" = 200, "hands" = 200, "foots" = 200, "other" = 200, "dual_wield_spread" = 200, "spread" = 0, recoil = 64)
+	accuracy = GUN_ACCURACY_SNIPER
+	recoil = GUN_RECOIL_MEGA
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
@@ -51,8 +52,8 @@
 	can_unsuppress = FALSE
 	can_suppress = FALSE
 	zoomable = FALSE
-	accuracy = list("head" = 200, "chest" = 200, "arms" = 200, "legs" = 200, "hands" = 200, "foots" = 200, "other" = 200, "dual_wield_spread" = 200, "spread" = 0, recoil = 8)
-
+	accuracy = GUN_ACCURACY_SNIPER
+	recoil = GUN_RECOIL_HIGH
 
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds

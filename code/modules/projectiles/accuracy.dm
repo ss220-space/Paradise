@@ -4,15 +4,12 @@
 #define GUN_ACCURACY_DEFAULT new /datum/gun_accuracy/default()
 /// Minimal gun accuracy
 #define GUN_ACCURACY_MINIMAL new /datum/gun_accuracy/minimal()
-#define GUN_ACCURACY_MINIMAL_ENERGY new /datum/gun_accuracy/minimal/energy()
 /// Shotgun accuracy (less than default)
 #define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
 /// Pistol accuracy (near default)
 #define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
-#define GUN_ACCURACY_PISTOL_ENERGY new /datum/gun_accuracy/pistol/energy()
 /// Rifle accuracy (more than default)
 #define GUN_ACCURACY_RIFLE new /datum/gun_accuracy/rifle()
-#define GUN_ACCURACY_RIFLE_ENERGY new /datum/gun_accuracy/rifle/energy()
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
@@ -31,12 +28,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	var/dual_wield_spread = 24
 	/// Shot spread in ange
 	var/spread = 0
-	/// Gun shot recoil in pixels
-	var/recoil = 0
 
 
 /datum/gun_accuracy/proc/getList()
-	return list("head" = head, "chest" = chest, "arms" = arms, "legs" = legs, "hands" = hands, "foots" = foots, "other" = other, "spread" = spread, "dual_wield_spread" = dual_wield_spread, "recoil" = recoil)
+	return list("head" = head, "chest" = chest, "arms" = arms, "legs" = legs, "hands" = hands, "foots" = foots, "other" = other, "spread" = spread, "dual_wield_spread" = dual_wield_spread)
 
 /datum/gun_accuracy/proc/get_accuracy_for(def_zone)
 	switch(def_zone)
@@ -55,7 +50,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 		else
 			return other
 
-/proc/getAccuracy(head = 75, chest = 100, arms = 66, legs = 66, hands = 50, foots = 50, other = 50, spread = 0, dual_wield_spread = 24, recoil = 0)
+/proc/getAccuracy(head = 75, chest = 100, arms = 66, legs = 66, hands = 50, foots = 50, other = 50, spread = 0, dual_wield_spread = 24)
 	var/datum/gun_accuracy/acc = new /datum/gun_accuracy()
 	acc.head = head
 	acc.chest = chest
@@ -66,7 +61,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	acc.other = other
 	acc.spread = spread
 	acc.dual_wield_spread = dual_wield_spread
-	acc.recoil = recoil
 	return acc
 
 
@@ -79,11 +73,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 33
 	other = 33
 	dual_wield_spread = 45
-	spread = 7.5
-	recoil = 16
-
-/datum/gun_accuracy/minimal/energy
-	recoil = 0
+	spread = 15
 
 /datum/gun_accuracy/shotgun
 	head = 70
@@ -94,8 +84,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 40
 	other = 40
 	dual_wield_spread = 35
-	spread = 3.5
-	recoil = 32
+	spread = 10
 
 /datum/gun_accuracy/default
 	head = 75
@@ -107,7 +96,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	other = 50
 	dual_wield_spread = 24
 	spread = 0
-	recoil = 0
 
 /datum/gun_accuracy/pistol
 	head = 75
@@ -118,11 +106,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 50
 	other = 50
 	dual_wield_spread = 15 // less spread with dual wield, pistol are small item
-	spread = 5
-	recoil = 9
-
-/datum/gun_accuracy/pistol/energy
-	recoil = 0
+	spread = 6
 
 /datum/gun_accuracy/rifle
 	head = 90
@@ -133,10 +117,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 66
 	other = 66
 	dual_wield_spread = 24
-	spread = 2.5
-	recoil = 18
-/datum/gun_accuracy/rifle/energy
-	recoil = 0
+	spread = 4
 
 // min accuracy on range 12 is 50%, summary accuracy = 50% * 200% = 100%
 /datum/gun_accuracy/sniper

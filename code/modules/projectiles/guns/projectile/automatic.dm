@@ -92,6 +92,7 @@
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
@@ -108,6 +109,7 @@
 	bayonet_x_offset = 26
 	bayonet_y_offset = 12
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/c20r/Initialize()
@@ -144,6 +146,7 @@
 	bayonet_y_offset = 12
 	gun_light_overlay = "wt-light"
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
@@ -179,6 +182,7 @@
 	can_bayonet = FALSE
 	gun_light_overlay = "SP-91-RC-light"
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
@@ -207,6 +211,8 @@
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
 	burst_size = 4
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
@@ -224,6 +230,7 @@
 	burst_size = 3
 	fire_delay = 2
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/m90/Initialize(mapload)
@@ -299,6 +306,7 @@
 	burst_size = 4
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 //ARG Assault Rifle//
 /obj/item/gun/projectile/automatic/ar
@@ -316,6 +324,7 @@
 	burst_size = 3
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 //AK-814 Soviet Assault Rifle
 /obj/item/gun/projectile/automatic/ak814
@@ -335,6 +344,7 @@
 	burst_size = 2
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
@@ -353,6 +363,7 @@
 	fire_delay = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
@@ -413,6 +424,7 @@
 	burst_size = 3
 	fire_delay = 1.5
 	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/New()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
@@ -436,6 +448,7 @@
 	burst_size = 2
 	can_suppress = 0
 	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/automatic/cats/update_icon_state()
@@ -465,6 +478,7 @@
 	can_suppress = 0
 	burst_size = 2
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -484,6 +498,7 @@
 	burst_size = 1
 	actions_types = null
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
 	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
@@ -500,6 +515,7 @@
 	can_flashlight = TRUE
 	gun_light_overlay = "sfg-light"
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/sfg/update_icon_state()
@@ -524,4 +540,5 @@
 	mag_type = /obj/item/ammo_box/magazine/m52mag
 	can_suppress = 0
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 

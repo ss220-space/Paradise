@@ -52,7 +52,7 @@
 	cell_type = /obj/item/stock_parts/cell/super
 	restricted_species = list(/datum/species/vox/armalis)
 	sprite_sheets_inhand = list(SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/held.dmi') //Big guns big birds.
-	accuracy = list("recoil" = 32)
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/energy/noisecannon/update_icon_state()
