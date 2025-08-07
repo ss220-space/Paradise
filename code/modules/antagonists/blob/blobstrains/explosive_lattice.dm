@@ -19,7 +19,7 @@
 	return ..()
 
 /datum/blobstrain/reagent/explosive_lattice/on_sporedeath(mob/living/spore)
-	var/obj/effect/temp_visual/explosion/fast/effect = new /obj/effect/temp_visual/explosion/fast(get_turf(spore))
+	var/obj/effect/temp_visual/pka_explosion/effect = new /obj/effect/temp_visual/pka_explosion(get_turf(spore))
 	effect.alpha = 150
 	for(var/mob/living/actor in orange(get_turf(spore), 1))
 		if(ROLE_BLOB in actor.faction) // No friendly fire
@@ -46,7 +46,7 @@
 
 	if(reac_volume >= 10) // If it's not coming from a sporecloud, AOE 'explosion' damage
 		var/epicenter_turf = get_turf(exposed_mob)
-		var/obj/effect/temp_visual/explosion/fast/ex_effect = new /obj/effect/temp_visual/explosion/fast(get_turf(exposed_mob))
+		var/obj/effect/temp_visual/pka_explosion/ex_effect = new /obj/effect/temp_visual/pka_explosion(get_turf(exposed_mob))
 		ex_effect.alpha = 150
 
 		// Total damage to epicenter mob of 0.7*reac_volume, like a mid-tier strain

@@ -35,7 +35,7 @@
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
 	. += span_notice("The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"].")
-	. += span_info("<b>Alt-Click</b> to rotate it.")
+	. += span_notice("<b>Alt-Click</b> to rotate it.")
 
 
 /obj/item/assembly/infra/activate()
@@ -142,7 +142,8 @@
 		return FALSE
 	cooldown = 2
 	pulse(FALSE, triggered)
-	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
+	audible_message("[bicon(src)] *beep* *beep* *beep*", hearing_distance = 3)
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	if(first)
 		qdel(first)
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)

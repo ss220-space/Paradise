@@ -7,8 +7,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/external/head/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
@@ -20,8 +20,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/external/chest/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
@@ -33,8 +33,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/external/groin/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
@@ -46,8 +46,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/external/arm/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
@@ -70,8 +70,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/external/leg/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
@@ -94,8 +94,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/external/foot/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
@@ -118,8 +118,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/external/hand/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
@@ -156,8 +156,8 @@
 	slot = INTERNAL_ORGAN_HEART
 	vital = TRUE
 	status = ORGAN_ROBOT
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/eyes/optical_sensor
 	species_type = /datum/species/machine
@@ -177,8 +177,8 @@
 	status = ORGAN_ROBOT
 //	dead_icon = "camera_broken"
 	weld_proof = 1
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/eyes/optical_sensor/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)
@@ -198,8 +198,8 @@
 		INSTRUMENTAL = "позитронным мозгом",
 		PREPOSITIONAL = "позитронном мозге"
 	)
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain/New()
 	..()
@@ -237,8 +237,8 @@
 	icon_state = "taperecorder_idle"
 	status = ORGAN_ROBOT
 	dead_icon = "taperecorder_empty"
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/ears/microphone/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)

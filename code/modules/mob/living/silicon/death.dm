@@ -10,7 +10,7 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
-	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
+	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, TRUE)
 
 	robogibs(loc)
 
@@ -46,4 +46,4 @@
 	. = ..()
 	if(!gibbed)
 		if(death_sound)
-			playsound(get_turf(src), death_sound, 200, 1)
+			playsound(get_turf(src), death_sound, 200, TRUE)

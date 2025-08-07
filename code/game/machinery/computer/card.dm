@@ -34,6 +34,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/ntspecops,
 		/datum/job/ntspecops/solgovspecops,
 		/datum/job/civilian,
+		/datum/job/civilian/prisoner,
 		/datum/job/syndicateofficer,
 		/datum/job/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work
 	)
@@ -758,7 +759,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 
 /obj/machinery/computer/card/centcom
-	name = "\improper CentComm identification computer"
+	name = "CentComm identification computer"
 	circuit = /obj/item/circuitboard/card/centcom
 	req_access = list(ACCESS_CENT_COMMANDER)
 	change_position_cooldown = -1

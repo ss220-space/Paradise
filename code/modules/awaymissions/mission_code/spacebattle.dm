@@ -1,185 +1,185 @@
 //Spacebattle Areas
 
 /area/awaymission/spacebattle
-	name = "\improper Space Battle"
+	name = "Space Battle"
 	icon_state = "away"
 	requires_power = TRUE
 	report_alerts = FALSE
 
 /area/awaymission/spacebattle/cruiser
-	name = "\improper Nanotrasen Cruiser"
+	name = "Nanotrasen Cruiser"
 
 /area/awaymission/spacebattle/syndicate1
-	name = "\improper Syndicate Assault Ship 1"
+	name = "Syndicate Assault Ship 1"
 
 /area/awaymission/spacebattle/syndicate2
-	name = "\improper Syndicate Assault Ship 2"
+	name = "Syndicate Assault Ship 2"
 
 /area/awaymission/spacebattle/syndicate3
-	name = "\improper Syndicate Assault Ship 3"
+	name = "Syndicate Assault Ship 3"
 
 /area/awaymission/spacebattle/syndicate4
-	name = "\improper Syndicate War Sphere 1"
+	name = "Syndicate War Sphere 1"
 
 /area/awaymission/spacebattle/syndicate5
-	name = "\improper Syndicate War Sphere 2"
+	name = "Syndicate War Sphere 2"
 
 /area/awaymission/spacebattle/syndicate6
-	name = "\improper Syndicate War Sphere 3"
+	name = "Syndicate War Sphere 3"
 
 /area/awaymission/spacebattle/syndicate7
-	name = "\improper Syndicate Fighter"
+	name = "Syndicate Fighter"
 
 /area/awaymission/spacebattle/secret
-	name = "\improper Hidden Chamber"
+	name = "Hidden Chamber"
 
 /area/awaymission/spacebattle/prhallway1
-	name = "\improper Primary Hallway"
+	name = "Primary Hallway"
 
 /area/awaymission/spacebattle/prhallway2
-	name = "\improper Primary Hallway"
+	name = "Primary Hallway"
 
 /area/awaymission/spacebattle/prhallway3
-	name = "\improper Primary Hallway"
+	name = "Primary Hallway"
 	fire = TRUE
 
 /area/awaymission/spacebattle/prhallway4
-	name = "\improper Primary Hallway"
+	name = "Primary Hallway"
 
 /area/awaymission/spacebattle/prhallway5
-	name = "\improper Primary Hallway"
+	name = "Primary Hallway"
 
 /area/awaymission/spacebattle/prhallway6
-	name = "\improper Primary Hallway"
+	name = "Primary Hallway"
 
 /area/awaymission/spacebattle/prhallway7
-	name = "\improper Primary Hallway"
+	name = "Primary Hallway"
 
 /area/awaymission/spacebattle/kitchen
-	name = "\improper Kitchen"
+	name = "Kitchen"
 
 /area/awaymission/spacebattle/medbay
-	name = "\improper MedBay"
+	name = "MedBay"
 
 /area/awaymission/spacebattle/freezing
-	name = "\improper Freezing Room"
+	name = "Freezing Room"
 
 /area/awaymission/spacebattle/server
-	name = "\improper Server Room"
+	name = "Server Room"
 
 /area/awaymission/spacebattle/bridge
-	name = "\improper Bridge"
+	name = "Bridge"
 
 /area/awaymission/spacebattle/space_exit1
-	name = "\improper Space Exit"
+	name = "Space Exit"
 
 /area/awaymission/spacebattle/space_exit2
-	name = "\improper Space Exit"
+	name = "Space Exit"
 
 /area/awaymission/spacebattle/space_exit3
-	name = "\improper Space Exit"
+	name = "Space Exit"
 
 /area/awaymission/spacebattle/space_exit4
-	name = "\improper Space Exit"
+	name = "Space Exit"
 
 /area/awaymission/spacebattle/space_exit5
-	name = "\improper Space Exit"
+	name = "Space Exit"
 
 /area/awaymission/spacebattle/hallway1
-	name = "\improper Hallway"
+	name = "Hallway"
 
 /area/awaymission/spacebattle/hallway2
-	name = "\improper Hallway"
+	name = "Hallway"
 
 /area/awaymission/spacebattle/hallway3
-	name = "\improper Hallway"
+	name = "Hallway"
 
 /area/awaymission/spacebattle/hallway4
-	name = "\improper Hallway"
+	name = "Hallway"
 
 /area/awaymission/spacebattle/hallway5
-	name = "\improper Hallway"
+	name = "Hallway"
 	fire = TRUE
 
 /area/awaymission/spacebattle/hallway6
-	name = "\improper Hallway"
+	name = "Hallway"
 
 /area/awaymission/spacebattle/hallway7
-	name = "\improper Hallway"
+	name = "Hallway"
 
 /area/awaymission/spacebattle/hallway8
-	name = "\improper Hallway"
+	name = "Hallway"
 
 /area/awaymission/spacebattle/hallway9
-	name = "\improper Hallway"
+	name = "Hallway"
 	fire = TRUE
 
 /area/awaymission/spacebattle/hallway10
-	name = "\improper Hallway"
+	name = "Hallway"
 
 /area/awaymission/spacebattle/hallway11
-	name = "\improper Hallway"
+	name = "Hallway"
 	fire = TRUE
 
 /area/awaymission/spacebattle/hallway12
-	name = "\improper Hallway"
+	name = "Hallway"
 	fire = TRUE
 
 /area/awaymission/spacebattle/hallway13
-	name = "\improper Hallway"
+	name = "Hallway"
 
 /area/awaymission/spacebattle/hallway14
-	name = "\improper Hallway"
+	name = "Hallway"
 
 /area/awaymission/spacebattle/engine
-	name = "\improper Engine Room"
+	name = "Engine Room"
 
 /area/awaymission/spacebattle/engineering
-	name = "\improper Engineering"
+	name = "Engineering"
 	fire = TRUE
 
 /area/awaymission/spacebattle/storage
-	name = "\improper Storage"
+	name = "Storage"
 
 /area/awaymission/spacebattle/living
-	name = "\improper Living Room"
+	name = "Living Room"
 	fire = TRUE
 
 /area/awaymission/spacebattle/turret1
-	name = "\improper Turret Room"
+	name = "Turret Room"
 
 /area/awaymission/spacebattle/turret2
-	name = "\improper Turret Room"
+	name = "Turret Room"
 
 /area/awaymission/spacebattle/turret3
-	name = "\improper Turret Room"
+	name = "Turret Room"
 
 /area/awaymission/spacebattle/turret4
-	name = "\improper Turret Room"
+	name = "Turret Room"
 
 /area/awaymission/spacebattle/turret5
-	name = "\improper Turret Room"
+	name = "Turret Room"
 
 /area/awaymission/spacebattle/turret6
-	name = "\improper Turret Room"
+	name = "Turret Room"
 
 /area/awaymission/spacebattle/turret7
-	name = "\improper Turret Room"
+	name = "Turret Room"
 
 /area/awaymission/spacebattle/turret8
-	name = "\improper Turret Room"
+	name = "Turret Room"
 
 /area/awaymission/spacebattle/turret9
-	name = "\improper Turret Room"
+	name = "Turret Room"
 
 /area/awaymission/spacebattle/turret10
-	name = "\improper Turret Room"
+	name = "Turret Room"
 
 /area/awaymission/spacebattle/bsa
-	name = "\improper BSA Chamber"
+	name = "BSA Chamber"
 
 /area/awaymission/spacebattle/sec_storage
-	name = "\improper Secure Storage"
+	name = "Secure Storage"
 
 // Записочки
 
@@ -389,7 +389,7 @@
 	.=..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle
-	damage_coeff = list("brute" = 0.8, "fire" = 0.8, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0.5)
+	damage_coeff = list(BRUTE = 0.8, FIRE = 0.8, TOX = 1, CLONE = 2, STAMINA = 0, OXY = 0.5)
 	melee_damage_type = BURN
 	attack_sound = 'sound/weapons/saberon.ogg'
 
@@ -399,7 +399,7 @@
 	return .
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle
-	damage_coeff = list("brute" = 0.8, "fire" = 0.8, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0)
+	damage_coeff = list(BRUTE = 0.8, FIRE = 0.8, TOX = 1, CLONE = 2, STAMINA = 0, OXY = 0)
 	melee_damage_type = BURN
 	attack_sound = 'sound/weapons/saberon.ogg'
 
@@ -409,7 +409,7 @@
 	return .
 
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle
-	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0.5)
+	damage_coeff = list(BRUTE = 1, FIRE = 1, TOX = 1, CLONE = 2, STAMINA = 0, OXY = 0.5)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle/Initialize()
 	. = ..()
@@ -709,7 +709,7 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/damaged
 	name = "damaged blood-red hardsuit"
 	desc = "Damaged advanced hardsuit designed for work in special operations. There are a many patches visible on the suit. Its mode switcher system looks damaged and forced in travel mode. Property of Gorlex Marauders."
-	armor = list("melee" = 30, "bullet" = 40, "laser" = 20, "energy" = 20, "bomb" = 30, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90)
+	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 50, FIRE = 50, ACID = 90)
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "hardsuit1-syndi"
 	on = TRUE

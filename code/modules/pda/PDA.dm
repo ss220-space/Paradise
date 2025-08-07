@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = DENY_UI_BLOCKED
 	slot_flags = ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_BELT
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
 
@@ -559,13 +559,13 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		A.emp_act(severity)
 
 /obj/item/pda/proc/play_ringtone()
-	var/S
+	var/sound
 
 	if(ttone in ttone_sound)
-		S = ttone_sound[ttone]
+		sound = ttone_sound[ttone]
 	else
-		S = 'sound/machines/twobeep_high.ogg'
-	playsound(loc, S, 50, 1)
+		sound = 'sound/machines/twobeep_high.ogg'
+	playsound(loc, sound, 50, TRUE)
 	for(var/mob/O in hearers(3, loc))
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 

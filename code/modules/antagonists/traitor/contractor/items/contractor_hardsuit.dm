@@ -6,7 +6,7 @@
 	icon_state = "hardsuit0-contractor"
 	item_state = "contractor_helm"
 	item_color = "contractor"
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 90)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 35, BIO = 100, RAD = 100, FIRE = 50, ACID = 90)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/suit/space/hardsuit/contractor
@@ -15,7 +15,7 @@
 	icon_state = "hardsuit-contractor"
 	item_state = "contractor_hardsuit"
 	item_color = "contractor"
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 90)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 35, BIO = 100, RAD = 100, FIRE = 50, ACID = 90)
 	slowdown = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor
@@ -99,7 +99,7 @@
 			hook.toggle_button_on_off()
 			break
 		usr.put_in_hands(scorpion)
-		playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+		playsound(loc, 'sound/mecha/mechmove03.ogg', 50, TRUE)
 		to_chat(usr, "<span class='notice'>You engage the [scorpion].</span>")
 
 /datum/action/item_action/advanced/hook_upgrade/toggle_button_on_off()
@@ -264,7 +264,7 @@
 	to_chat(usr, "<span class='notice'>Turning on the disguise..</span>")
 	sleep(25)
 	usr.visible_message("<span class='warning'>[usr] changes the look of his hardsuit!</span>", "<span class='notice'>[selected_chameleon] selected.</span>")
-	playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
+	playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
 	update_suit()
 	disguise = TRUE
 

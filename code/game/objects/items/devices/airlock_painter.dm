@@ -49,7 +49,7 @@
 /obj/item/airlock_painter/suicide_act(mob/user)
 
 	var/obj/item/organ/internal/lungs/L = user.get_organ_slot(INTERNAL_ORGAN_LUNGS)
-	var/lungs_name = "\improper[L.name]"
+	var/lungs_name = "[L.name]"
 
 	if(L)
 		user.visible_message("<span class='suicide'>[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

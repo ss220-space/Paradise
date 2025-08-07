@@ -17,8 +17,8 @@
 	gender = MALE
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	pickup_sound = 'sound/items/handling/card_pickup.ogg'
-	drop_sound = 'sound/items/handling/card_drop.ogg'
+	drop_sound = 'sound/items/handling/drop/card_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/card_pickup.ogg'
 	var/associated_account_number = 0
 
 	var/list/files = list(  )
@@ -118,7 +118,7 @@
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = ITEM_SLOT_ID
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
 
@@ -161,7 +161,12 @@
 
 /obj/item/card/id/proc/freeze_linked_account(datum/source)
 	SIGNAL_HANDLER
+
 	var/datum/money_account/acc = get_money_account(associated_account_number)
+
+	if(!acc)
+		return
+		
 	acc.suspended = TRUE
 
 /obj/item/card/id/examine(mob/user)
@@ -295,6 +300,7 @@
 		dat += "<img src=large_[I.icon_state].png>"
 		stamped = TRUE
 		to_chat(user, span_notice("You stamp the ID card!"))
+		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/card/id/guest))

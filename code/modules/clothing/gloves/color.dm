@@ -153,7 +153,7 @@
 	)
 	icon_state = "goligloves"
 	item_state = "goligloves"
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 20, FIRE = 50, ACID = 50)
 	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/color/black/ballistic
@@ -161,7 +161,7 @@
 	desc = "Pair of gloves with some protection"
 	icon_state = "armored_gloves"
 	item_state = "armored_gloves"
-	armor = list("melee" = 5, "bullet" = 25, "laser" = 10, "energy" = 5, "bomb" = 5, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 75)
+	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, RAD = 0, FIRE = 75, ACID = 75)
 	can_be_cut = FALSE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
@@ -377,4 +377,4 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 30, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 75, "acid" = 75)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 30, BOMB = 30, BIO = 30, RAD = 30, FIRE = 75, ACID = 75)

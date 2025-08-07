@@ -57,6 +57,7 @@
 #define JOB_FLAG_CIVILIAN			(1<<13)
 #define JOB_FLAG_EXPLORER			(1<<14)
 #define JOB_FLAG_MINING_MEDIC		(1<<15)
+#define JOB_FLAG_PRISONER			(1<<16)
 
 #define JOBCAT_KARMA				(1<<3) // DELETE THIS SHIT!!!
 
@@ -76,6 +77,7 @@
 
 // Assistant
 #define JOB_TITLE_CIVILIAN				"Civilian"
+#define JOB_TITLE_PRISONER				"Prisoner"
 
 // Command (Solo command, not department heads)
 #define JOB_TITLE_CAPTAIN				"Captain"

@@ -55,6 +55,9 @@
 				if(istype(T, /turf/simulated/mineral/random))
 					Spread(T)
 
+/turf/simulated/mineral/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_ROCK, -40, 8, 1)
+
 /turf/simulated/mineral/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/blob_turf_consuming, 2)
@@ -1032,7 +1035,7 @@
 			var/turf/bombturf = get_turf(src)
 			mineralAmt = 0
 			stage = GIBTONITE_DETONATE
-			explosion(bombturf,1,3,5, adminlog = notify_admins, cause = src)
+			explosion(bombturf, 1, 3, 5, adminlog = notify_admins, cause = src)
 
 /turf/simulated/mineral/gibtonite/proc/defuse()
 	if(stage == GIBTONITE_ACTIVE)

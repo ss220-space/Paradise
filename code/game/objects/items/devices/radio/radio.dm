@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(default_internal_channels, list(
 	num2text(MED_FREQ) = list(ACCESS_MEDICAL),
 	num2text(MED_I_FREQ)=list(ACCESS_MEDICAL),
 	num2text(SEC_FREQ) = list(ACCESS_SECURITY),
+	num2text(PRS_FREQ) = list(ACCESS_SECURITY),
 	num2text(SEC_I_FREQ)=list(ACCESS_SECURITY),
 	num2text(SCI_FREQ) = list(ACCESS_RESEARCH),
 	num2text(SUP_FREQ) = list(ACCESS_CARGO),
@@ -598,7 +599,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			. += span_notice("Может быть прикреплено или модифицировано.")
 		else
 			. += span_notice("Не может быть прикреплено или модифицировано.")
-		. += span_info("Используйте <b>Ctrl+Shift+ЛКМ</b>, чтобы переключить динамик.<br/>Используйте <b>Alt+ЛКМ</b>, чтобы переключить микрофон.")
+		. += span_notice("Используйте <b>Ctrl+Shift+ЛКМ</b>, чтобы переключить динамик.<br/>Используйте <b>Alt+ЛКМ</b>, чтобы переключить микрофон.")
 
 /obj/item/radio/click_alt(mob/user)
 	broadcasting = !broadcasting
@@ -849,8 +850,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	icon_state = "red_phone"
 	listening = TRUE
 	broadcasting = FALSE
-	drop_sound = 'sound/items/handling/phone_drop.ogg'
-	pickup_sound = 'sound/items/handling/phone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/phone_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/phone_pickup.ogg'
 	dog_fashion = null
 
 /obj/item/radio/phone/medbay

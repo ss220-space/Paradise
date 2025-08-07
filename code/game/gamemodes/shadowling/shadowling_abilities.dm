@@ -133,7 +133,7 @@
 		revert_cast(user)
 		return
 
-	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 1)
+	playsound(user.loc, 'sound/effects/bamf.ogg', 50, TRUE)
 	// mech supress escape
 	if(HAS_TRAIT_FROM(user, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
 		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
@@ -1043,7 +1043,7 @@
 			continue
 
 		to_chat(target, span_userdanger("Вас поражает молния!"))
-		playsound(target, 'sound/magic/lightningshock.ogg', 50, 1)
+		playsound(target, 'sound/magic/lightningshock.ogg', 50, TRUE)
 		target.Weaken(16 SECONDS)
 		target.take_organ_damage(0, 50)
 		user.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)

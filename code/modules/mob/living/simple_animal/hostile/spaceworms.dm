@@ -9,8 +9,8 @@
 	icon_dead = "spacewormdead"
 	status_flags = 0
 
-	speak_emote = list("screeches")
-	emote_hear = list("screeches")
+	speak_emote = list("визжит")
+	emote_hear = list("визжит")
 
 	response_help  = "touches"
 	response_disarm = "flails at"

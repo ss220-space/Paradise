@@ -268,7 +268,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
-	equip_sound = 'sound/items/handling/generic_equip4.ogg'
+	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING
@@ -703,8 +703,8 @@ BLIND     // can't see anything
 	var/cut_open = FALSE
 	body_parts_covered = FEET
 	slot_flags = ITEM_SLOT_FEET
-	pickup_sound = 'sound/items/handling/shoes_pickup.ogg'
-	drop_sound = 'sound/items/handling/shoes_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/shoes_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/shoes_drop.ogg'
 
 	var/silence_steps = 0
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
@@ -816,9 +816,9 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/suits.dmi'
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	drop_sound = 'sound/items/handling/cloth_drop.ogg'
-	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_CLOTH_OUTER
 	var/blood_overlay_type = "suit"
 	/// Whether suit is currently adjusted, example: shirt is buttoned.
@@ -945,7 +945,7 @@ BLIND     // can't see anything
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -972,7 +972,7 @@ BLIND     // can't see anything
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -1063,10 +1063,10 @@ BLIND     // can't see anything
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
 	slot_flags = ITEM_SLOT_CLOTH_INNER
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
-	drop_sound = 'sound/items/handling/cloth_drop.ogg'
-	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	equip_sound = 'sound/items/handling/equip/jumpsuit_equip.ogg'
+	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cloth_pickup.ogg'
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
@@ -1292,7 +1292,7 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/obj_destruction(damage_flag)
-	if(damage_flag == "bomb" || damage_flag == "melee")
+	if(damage_flag == BOMB || damage_flag == MELEE)
 		var/turf/T = get_turf(src)
 		spawn(1) //so the shred survives potential turf change from the explosion.
 			var/obj/effect/decal/cleanable/shreds/Shreds = new(T)

@@ -372,6 +372,7 @@
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/target)
+	// TODO: TG Double Examine
 	var/list/result = target.examine(src)
 	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
 
@@ -774,7 +775,7 @@
 		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
 		var/mob/living/simple_animal/mouse/host = new choosen_type(vent_found.loc)
 		host.ckey = src.ckey
-		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
+		to_chat(host, span_notice("You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent."))
 	else
 		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
 

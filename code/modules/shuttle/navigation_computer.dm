@@ -360,7 +360,7 @@
 	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/shuttle_docker/console = remote_eye.origin
 
-	playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
+	playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, FALSE)
 
 	var/list/L = list()
 	for(var/V in SSshuttle.stationary)
@@ -370,16 +370,16 @@
 		if(console.jumpto_ports[S.id])
 			L[S.name] = S
 
-	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, 0)
+	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
 	var/selected = tgui_input_list(target, "Choose location to jump to", "Locations", L)
 	if(QDELETED(src) || QDELETED(target) || !isliving(target))
 		return
-	playsound(src, "terminal_type", 25, 0)
+	playsound(src, "terminal_type", 25, FALSE)
 	if(selected)
 		var/turf/T = get_turf(L[selected])
 		if(T)
-			playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
+			playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, FALSE)
 			remote_eye.setLoc(T)
 			to_chat(target, span_notice("Телепорт в [selected]"))
 	else
-		playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
+		playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, FALSE)

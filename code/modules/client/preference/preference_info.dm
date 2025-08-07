@@ -268,7 +268,7 @@ GLOBAL_LIST_EMPTY(preferences_info)
     return GLOB.preference_toggles[/datum/preference_toggle/toggle_auto_dnr]
 
 /datum/preference_info/take_out_of_the_round_without_obj/get_examine_text()
-    return "\n<div class='examine'>[span_info("Вы можете вывести этого игрока из игры не имея соответствующей цели.")]</div>"
+    return "\n<div class='examine'>[span_notice("Вы можете вывести этого игрока из игры не имея соответствующей цели.")]</div>"
 
 /datum/preference_info/pain_blurb/get_preference_toggle()
     return GLOB.preference_toggles[/datum/preference_toggle/pain_blurb]

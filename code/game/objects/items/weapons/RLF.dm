@@ -8,7 +8,7 @@ RLF
 	desc = "A device used to rapidly deploy lollipop."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rlf"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/rlf/afterattack(atom/A, mob/user, proximity, params)
@@ -30,7 +30,7 @@ RLF
 		return
 	var/obj/item/I = new /obj/item/reagent_containers/food/snacks/candy/sucker/lollipop
 	receiver.throw_alert("take item [I.UID()]", /atom/movable/screen/alert/take_item/RLF, alert_args = list(user, receiver, I))
-	to_chat(user, "<span class='info'>You offer lollipop to [receiver].</span>")
+	to_chat(user, span_notice("You offer lollipop to [receiver]."))
 
 /atom/movable/screen/alert/take_item/RLF
 

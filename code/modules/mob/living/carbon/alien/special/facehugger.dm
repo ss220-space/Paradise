@@ -33,8 +33,8 @@
 	layer = MOB_LAYER
 	max_integrity = 100
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
-	equip_sound = 'sound/items/handling/flesh_pickup.ogg'
-	drop_sound = 'sound/items/handling/flesh_drop.ogg'
+	equip_sound = 'sound/items/handling/pickup/flesh_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/flesh_drop.ogg'
 	pickup_sound = 'sound/misc/moist_impact.ogg'
 
 	holder_flags = ALIEN_HOLDER

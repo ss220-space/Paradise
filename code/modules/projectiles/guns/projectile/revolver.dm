@@ -1,5 +1,5 @@
 /obj/item/gun/projectile/revolver
-	name = "\improper .357 revolver"
+	name = ".357 revolver"
 	desc = "A suspicious revolver. Uses .357 ammo."
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
@@ -7,6 +7,7 @@
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
@@ -85,7 +86,7 @@
 		var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
 		C.spin()
 		chamber_round(FALSE)
-		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, 1)
+		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, TRUE)
 		usr.visible_message("[usr] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
 	else
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
@@ -113,6 +114,7 @@
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
 	unique_rename = TRUE
 	unique_reskin = TRUE
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/projectile/revolver/detective/update_gun_skins()
@@ -126,7 +128,7 @@
 
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
-	name = "\improper finger gun"
+	name = "finger gun"
 	desc = "Bang bang bang!"
 	icon_state = "fingergun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
@@ -141,6 +143,7 @@
 	clumsy_check = FALSE //Stole your uplink! Honk!
 	needs_permit = FALSE //go away beepsky
 	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
@@ -190,12 +193,13 @@
 
 
 /obj/item/gun/projectile/revolver/mateba
-	name = "\improper Unica 6 auto-revolver"
+	name = "Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/projectile/revolver/ga12
-	name = "\improper Tkach Ya-Sui GA 12 revolver"
+	name = "Tkach Ya-Sui GA 12 revolver"
 	desc = "An outdated sidearm rarely seen in use by certain PMCs that operate throughout the frontier systems, featuring a three-shell cylinder. Thats right, shell, this one shoots twelve gauge."
 	icon_state = "12garevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ga12
@@ -203,6 +207,7 @@
 	spread = 15
 	recoil = 1
 	fire_delay = 5
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/projectile/revolver/golden
 	name = "golden revolver"
@@ -210,6 +215,7 @@
 	icon_state = "goldrevolver"
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
 	recoil = 8
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/projectile/revolver/nagant
 	name = "nagant revolver"
@@ -218,6 +224,7 @@
 	origin_tech = "combat=3"
 	can_suppress = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/projectile/revolver/c36
 	name = ".36 revolver"
@@ -225,16 +232,18 @@
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev36
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
+	accuracy = GUN_ACCURACY_DEFAULT
 
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.
 
 /obj/item/gun/projectile/revolver/russian
-	name = "\improper Russian revolver"
+	name = "Russian revolver"
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
 	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/rus357
 	var/spun = FALSE
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
 /obj/item/gun/projectile/revolver/russian/Initialize(mapload)
@@ -321,16 +330,18 @@
 		if(chambered)
 			var/obj/item/ammo_casing/AC = chambered
 			if(AC.fire(user, user, firer_source_atom = src))
-				playsound(user, fire_sound, 50, 1)
+				playsound(user, fire_sound, 50, TRUE)
 				var/zone = check_zone(user.zone_selected)
 				if(zone == BODY_ZONE_HEAD || zone == BODY_ZONE_PRECISE_EYES || zone == BODY_ZONE_PRECISE_MOUTH)
 					shoot_self(user, zone)
 				else
 					user.visible_message(span_danger("[user.name] cowardly fires [src] at [user.p_their()] [zone]!"), span_userdanger("You cowardly fire [src] at your [zone]!"), span_italics("You hear a gunshot!"))
+				chambered.after_fire()
 				return
+			chambered.after_fire()
 
 		user.visible_message(span_danger("*click*"))
-		playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+		playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)
@@ -353,6 +364,7 @@
 	desc = "Looks almost like the real thing! Ages 8 and up."
 	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/projectile/revolver/improvised
 	name = "improvised revolver"
@@ -363,7 +375,7 @@
 	fire_sound = 'sound/weapons/gunshots/1rev257.ogg'
 	var/unscrewed = TRUE
 	var/obj/item/weaponcrafting/revolverbarrel/barrel
-
+	accuracy = GUN_ACCURACY_MINIMAL
 
 /obj/item/gun/projectile/revolver/improvised/Initialize(mapload)
 	. = ..()
@@ -498,6 +510,7 @@
 	unique_rename = TRUE
 	unique_reskin = TRUE
 	pb_knockback = 3
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/update_gun_skins()
@@ -531,6 +544,7 @@
 	if(.)
 		weapon_weight = WEAPON_MEDIUM
 		can_holster = TRUE
+		accuracy = GUN_ACCURACY_MINIMAL
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
@@ -572,6 +586,7 @@
 	unique_reskin = FALSE
 	pb_knockback = 0
 	var/slung = FALSE
+	accuracy = GUN_ACCURACY_MINIMAL
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/I, mob/user, params)
@@ -635,6 +650,7 @@
 	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	suppressed = TRUE
 	needs_permit = FALSE //its just a cane beepsky.....
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()

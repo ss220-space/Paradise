@@ -74,7 +74,7 @@ Made by Xhuis
 	required_enemies = 2
 	recommended_enemies = 2
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
 
 /datum/game_mode/shadowling/announce()
 	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
@@ -275,7 +275,7 @@ Made by Xhuis
 				return
 			M.visible_message(span_warning("[M] внезапно раздувается и взрывается!"), \
 							  span_warning(span_bold("AAAAAAAAA[span_fontsize3("AAAAAAAAAAAAA")][span_fontsize4("AAAAAAAAAAAA.....")]")))
-			playsound(M, 'sound/magic/disintegrate.ogg', 100, 1)
+			playsound(M, 'sound/magic/disintegrate.ogg', 100, TRUE)
 			M.gib()
 
 /datum/game_mode/shadowling/proc/check_shadow_victory()

@@ -20,7 +20,7 @@
 	faction = list("hivebot")
 	check_friendly_fire = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	speak_emote = list("states")
+	speak_emote = list("констатирует")
 	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	deathmessage = "blows apart!"
@@ -85,7 +85,7 @@
 	smoke.set_up(amount = 5, location = src.loc)
 	smoke.start()
 	visible_message("<span class='danger'>The [src] warps in!</span>")
-	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)
+	playsound(src.loc, 'sound/effects/empulse.ogg', 25, TRUE)
 
 /mob/living/simple_animal/hostile/hivebot/tele/proc/warpbots()
 	icon_state = "def_radar"

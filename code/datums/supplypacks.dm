@@ -316,7 +316,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/shoes/reflector,
 		/obj/item/clothing/head/helmet/reflector,
 	)
-	required_tech = list("combat" = 8, "materials" = 7) 
+	required_tech = list("combat" = 8, "materials" = 7)
 
 /datum/supply_packs/emergency/highrisk/capt_jet
 	name = "Deluxe Jetpack Crate"
@@ -1560,14 +1560,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/circuitboard/mecha/ripley/main, //TEMPORARY due to lack of circuitboard printer
 					/obj/item/circuitboard/mecha/ripley/peripherals) //TEMPORARY due to lack of circuitboard printer
 	cost = 25
-	containername = "\improper APLU \"Ripley\" circuit crate"
+	containername = "APLU \"Ripley\" circuit crate"
 
 /datum/supply_packs/science/robotics/mecha_odysseus
 	name = "Circuit Crate (Odysseus)"
 	contains = list(/obj/item/circuitboard/mecha/odysseus/peripherals, //TEMPORARY due to lack of circuitboard printer
 					/obj/item/circuitboard/mecha/odysseus/main) //TEMPORARY due to lack of circuitboard printer
 	cost = 55
-	containername = "\improper \"Odysseus\" circuit crate"
+	containername = "\"Odysseus\" circuit crate"
 
 /datum/supply_packs/science/firstaidmachine
 	name = "Machine First Aid Kits Crate"
@@ -2351,13 +2351,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/mob/living/simple_animal/bot/mulebot)
 	cost = 20
 	containertype = /obj/structure/largecrate/mule
-	containername = "\improper MULEbot crate"
+	containername = "MULEbot crate"
 
 /datum/supply_packs/misc/cargo_mon
 	name = "Order Monitors Crate"
 	contains = list(/obj/item/qm_quest_tablet/cargotech, /obj/item/qm_quest_tablet/cargotech, /obj/item/qm_quest_tablet/cargotech)
 	cost = 30
-	containername = "\improper order monitors crate"
+	containername = "order monitors crate"
 
 /datum/supply_packs/misc/watertank
 	name = "Water Tank Crate"

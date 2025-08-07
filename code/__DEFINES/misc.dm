@@ -361,7 +361,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 35
+#define SQL_VERSION 36
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -442,9 +442,8 @@
 #define PARALLAX_LOOP_TIME		25
 
 // Engine types
-#define ENGTYPE_SING 		"Singularity"
-#define ENGTYPE_SM		"Supermatter"
-#define ENGTYPE_TESLA		"Tesla"
+#define ENGTYPE_SING "Сингулярность"
+#define ENGTYPE_TESLA "Тесла"
 
 #define SUMMON_GUNS "guns"
 #define SUMMON_MAGIC "magic"
@@ -524,3 +523,14 @@
 #define ANALYZER_HISTORY_SIZE 30
 #define ANALYZER_HISTORY_MODE_KPA "kpa"
 #define ANALYZER_HISTORY_MODE_MOL "mol"
+
+/// Get the client from the var
+/proc/client_from_var(I)
+	if(ismob(I))
+		var/mob/A = I
+		return A.client
+	if(isclient(I))
+		return I
+	if(istype(I, /datum/mind))
+		var/datum/mind/B = I
+		return B.current.client

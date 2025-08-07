@@ -359,7 +359,7 @@
  */
 /atom/movable/proc/check_pulling(only_pulling = FALSE, z_allowed = FALSE)
 	if(pulling)
-		if(!in_range(src, pulling) || (z != pulling.z && !z_allowed))
+		if(get_dist(src, pulling) > 1 || (z != pulling.z && !z_allowed))
 			stop_pulling()
 		else if(!isturf(loc))
 			stop_pulling()
@@ -1124,19 +1124,6 @@
 
 
 /atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
-	var/list/speed_mods = list()
-	SEND_SIGNAL(thrower, COMSIG_GET_THROW_SPEED_MODIFIERS, speed_mods)
-	for(var/mod in speed_mods)
-		speed *= mod
-
-	var/list/range_deltas = list()
-	if(range > 1)
-		SEND_SIGNAL(thrower, COMSIG_GET_THROW_RANGE_DELTAS, range_deltas)
-		for(var/delta in range_deltas)
-			range += delta
-
-		range = max(0, range)
-
 	if(throwing || !target || HAS_TRAIT(src, TRAIT_NODROP) || speed <= 0)
 		return FALSE
 
@@ -1551,3 +1538,4 @@
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
 	forceMove(holder_obj.loc)
 	qdel(holder_obj)
+

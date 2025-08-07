@@ -19,7 +19,7 @@
 		/obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank,
 		/obj/item/stock_parts/cell, /obj/item/grenade/plastic/c4/ninja)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 30, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 20,ENERGY = 30, BOMB = 30, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	strip_delay = 12
 	permeability_coefficient = 1
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -701,7 +701,7 @@
 					for(var/mob/living/carbon/other_mob in view(7,ninja))
 						if(other_mob == ninja)
 							continue
-						to_chat(other_mob, span_info(random_subtle_text))
+						to_chat(other_mob, span_notice(random_subtle_text))
 			if(2)
 				if(stealth_ambient_chance >= 40)
 					for(var/mob/living/carbon/other_mob in view(7,ninja))

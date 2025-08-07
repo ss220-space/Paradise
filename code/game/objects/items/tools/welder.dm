@@ -18,7 +18,7 @@
 	throw_range = 5
 	hitsound = "swing_hit"
 	w_class = WEIGHT_CLASS_SMALL
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
 	origin_tech = "engineering=1;plasmatech=1"
@@ -26,8 +26,8 @@
 	toolspeed = 1
 	tool_enabled = FALSE
 	usesound = 'sound/items/welder.ogg'
-	drop_sound = 'sound/items/handling/weldingtool_drop.ogg'
-	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/weldingtool_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/weldingtool_pickup.ogg'
 	var/maximum_fuel = 20
 	var/requires_fuel = TRUE //Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier
 	var/refills_over_time = FALSE //Do we regenerate fuel?
@@ -114,7 +114,7 @@
 		damtype = BURN
 		force = force_enabled
 		hitsound = 'sound/items/welder.ogg'
-		playsound(loc, activation_sound, 50, 1)
+		playsound(loc, activation_sound, 50, TRUE)
 		set_light_on(TRUE)
 	else
 		if(!refills_over_time)
@@ -122,7 +122,7 @@
 		damtype = BRUTE
 		force = initial(force)
 		hitsound = "swing_hit"
-		playsound(loc, deactivation_sound, 50, 1)
+		playsound(loc, deactivation_sound, 50, TRUE)
 		set_light_on(FALSE)
 	update_icon()
 	if(ismob(loc))
@@ -186,7 +186,7 @@
 	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
 	if(amount_transferred)
 		to_chat(user, "<span class='notice'>You refuel [src] by [amount_transferred] unit\s.</span>")
-		playsound(src, 'sound/effects/refill.ogg', 50, 1)
+		playsound(src, 'sound/effects/refill.ogg', 50, TRUE)
 		update_icon()
 		return amount_transferred
 	else

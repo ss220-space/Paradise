@@ -232,7 +232,7 @@
 
 	if(GLOB.pacifism_after_gt)
 		var/mob/living/L = user
-		if(!target.Adjacent(src))
+		if(!Adjacent(target))
 			if(selected && selected.is_ranged())
 				if(selected.harmful)
 					to_chat(L, span_warning("Вы не хотите навредить другим живым существам!"))
@@ -259,7 +259,7 @@
 		if(user.mind?.martial_art?.no_guns)
 			to_chat(L, span_warning("[L.mind.martial_art.no_guns_message]"))
 			return
-		if(!target.Adjacent(src))
+		if(!Adjacent(target))
 			selected.action(target, params)
 			return
 		else
@@ -275,7 +275,7 @@
 
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		target = safepick(oview(1, src))
-	if(!melee_can_hit || !isatom(target))
+	if(!melee_can_hit || !isatom(target) || !Adjacent(target))
 		return
 	target.mech_melee_attack(src)
 	melee_can_hit = FALSE
@@ -291,7 +291,7 @@
 	wall_ready = TRUE
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
-	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
+	playsound(src, 'sound/effects/spray2.ogg', 50, TRUE)
 	if(target.reagents)
 		if(target.reagents.get_reagent_amount("atropine") + force < force*2)
 			target.reagents.add_reagent("atropine", force/2)
@@ -364,7 +364,7 @@
 		if(backup.newtonian_move(REVERSE_DIR(movement_dir), instant = TRUE))
 			backup.last_pushoff = world.time
 			if(occupant)
-				to_chat(occupant, span_info("Вы отталкиваетесь от [backup.declent_ru(GENITIVE)]."))
+				to_chat(occupant, span_notice("Вы отталкиваетесь от [backup.declent_ru(GENITIVE)]."))
 		return TRUE
 
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))
@@ -633,7 +633,7 @@
 /obj/mecha/proc/setInternalDamage(int_dam_flag)
 	internal_damage |= int_dam_flag
 	log_append_to_last("Internal damage of type [int_dam_flag].",1)
-	occupant << sound('sound/machines/warning-buzzer.ogg',wait=0)
+	SEND_SOUND(occupant, sound('sound/machines/warning-buzzer.ogg'))
 	diag_hud_set_mechstat()
 
 /obj/mecha/proc/clearInternalDamage(int_dam_flag)
@@ -667,9 +667,9 @@
 	if(. && obj_integrity > 0)
 		spark_system.start()
 		switch(damage_flag)
-			if("fire")
+			if(FIRE)
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL))
-			if("melee")
+			if(MELEE)
 				check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 			else
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
@@ -738,7 +738,7 @@
 		animal_damage = min(animal_damage, 20*user.environment_smash)
 		if(animal_damage)
 			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
-		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
+		attack_generic(user, animal_damage, user.melee_damage_type, MELEE, play_soundeffect)
 		return TRUE
 
 /obj/mecha/blob_act(obj/structure/blob/B)
@@ -834,7 +834,7 @@
 /obj/mecha/emp_act(severity)
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
-		take_damage(30 / severity, BURN, "energy", 1)
+		take_damage(30 / severity, BURN, ENERGY, 1)
 	log_message("EMP detected", 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
@@ -1166,9 +1166,9 @@
 	AI.forceMove(src)
 	occupant = AI
 	update_icon(UPDATE_ICON_STATE)
-	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+	playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 	if(!hasInternalDamage())
-		occupant << sound(nominalsound, volume = 50)
+		SEND_SOUND(occupant, sound(nominalsound, volume = 50))
 	AI.eyeobj?.forceMove(src)
 	AI.eyeobj?.RegisterSignal(src, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/camera/aiEye, update_visibility))
 	AI.controlled_mech = src
@@ -1333,12 +1333,12 @@
 		log_append_to_last("[H] moved in as pilot.")
 		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
-		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 		if(!activated)
-			occupant << sound(longactivationsound, volume = 50)
+			SEND_SOUND(occupant, sound(longactivationsound, volume = 50))
 			activated = TRUE
 		else if(!hasInternalDamage())
-			occupant << sound(nominalsound, volume = 50)
+			SEND_SOUND(occupant, sound(nominalsound, volume = 50))
 		if(state)
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		if(selected)
@@ -1609,7 +1609,7 @@
 			if(0.01 to 0.25)
 				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 3)
 				if(!power_warned)
-					occupant << sound(lowpowersound, volume = 50)
+					SEND_SOUND(occupant, sound(lowpowersound, volume = 50))
 					power_warned = TRUE
 			else
 				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_emptycell)

@@ -20,7 +20,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/extinguisher)
 	slowdown = 1
-	armor = list("melee" = 15, "bullet" = 5, "laser" = 20, "energy" = 10, "bomb" = 20, "bio" = 10, "rad" = 20, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 10, RAD = 20, FIRE = 100, ACID = 50)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -86,7 +86,7 @@
 	name = "bomb hood"
 	desc = "Use in case of bomb."
 	icon_state = "bombsuit"
-	armor = list("melee" = 20, "bullet" = 0, "laser" = 20,"energy" = 10, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
+	armor = list(MELEE = 20, BULLET = 0, LASER = 20,ENERGY = 10, BOMB = 100, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
 	w_class = WEIGHT_CLASS_NORMAL
 	clothing_flags = THICKMATERIAL
 	flags_inv = HIDEHAIR|HIDEMASK|HIDEHEADSETS|HIDEGLASSES
@@ -121,7 +121,7 @@
 	clothing_flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 2
-	armor = list("melee" = 20, "bullet" = 0, "laser" = 20,"energy" = 10, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
+	armor = list(MELEE = 20, BULLET = 0, LASER = 20,ENERGY = 10, BOMB = 100, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -174,7 +174,7 @@
 	clothing_flags = THICKMATERIAL
 	flags_inv = HIDEHAIR|HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 60, "rad" = 100, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 60, RAD = 100, FIRE = 30, ACID = 30)
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = NONE
@@ -202,7 +202,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen)
 	slowdown = 1.5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 60, "rad" = 100, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 60, RAD = 100, FIRE = 30, ACID = 30)
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 60
 	put_on_delay = 60

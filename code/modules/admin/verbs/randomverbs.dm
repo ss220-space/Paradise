@@ -188,7 +188,7 @@
 	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input]\"")
 	to_chat(H, "<span class = specialnotice>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span><span class = 'specialnotice'> [input]</span>")
 
-
+	SEND_SOUND(H, sound('sound/effects/headset_message.ogg'))
 
 
 /client/proc/cmd_admin_godmode(mob/mob as mob in GLOB.mob_list)
@@ -629,12 +629,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 //the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Сообщение Центрального командования" = "Обновление НаноТрейзен.",
-		"Официальное сообщение Синдиката" = "Сообщение Синдиката.",
-		"Сообщение Федерации Космических Волшебников" = "Заколдованное сообщение.",
-		"Официальное сообщение Клана Паука" = "Сообщение Клана Паука.",
-		"Вражеское Сообщение" = "Неизвестное сообщение.",
-		"Свой тип" = "Загадочное сообщение.")
+	var/list/MsgType = list("Сообщение Центрального командования." = "Обновление НаноТрейзен.",
+		"Официальное сообщение Синдиката." = "Сообщение Синдиката.",
+		"Сообщение Федерации Космических Волшебников." = "Заколдованное сообщение.",
+		"Официальное сообщение Клана Паука." = "Сообщение Клана Паука.",
+		"Вражеское сообщение." = "Неизвестное сообщение.",
+		"Свой тип." = "Загадочное сообщение.")
 
 	var/list/MsgSound = list("Уведомление *бип*" = 'sound/misc/notice2.ogg',
 		"Перехвачены вражеские сообщения" = 'sound/AI/intercept.ogg',
@@ -1299,7 +1299,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			continue
 
 		M.audible_message(span_italics("...ваббаджек...ваббаджек..."))
-		playsound(M.loc, 'sound/magic/Staff_Change.ogg', 50, 1, -1)
+		playsound(M.loc, 'sound/magic/Staff_Change.ogg', 50, TRUE, -1)
 		var/name = M.name
 		var/real_name = M.real_name
 

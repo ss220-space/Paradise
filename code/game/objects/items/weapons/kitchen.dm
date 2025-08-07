@@ -31,7 +31,7 @@
 	flags = CONDUCT
 	attack_verb = list("атаковал", "уколол", "ткнул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	sharp = 0
 	var/max_contents = 1
 
@@ -133,16 +133,17 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	throw_speed = 3
 	throw_range = 6
 	materials = list(MAT_METAL=12000)
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 	sharp = TRUE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	embed_chance = 45
 	embedded_ignore_throwspeed_threshold = TRUE
+	embed_disarm = TRUE
 	/// Can this item be attached as a bayonet to the gun?
 	var/bayonet_suitable = FALSE
 	/// Used in combination with throwing martial art, to avoid sharpening checks overhead
@@ -150,12 +151,10 @@
 	/// Same as above
 	var/default_throwforce
 
-
 /obj/item/kitchen/knife/Initialize(mapload)
 	. = ..()
 	default_force = force
-	default_throwforce = throwforce
-
+	default_throwforce = throwforce	
 
 /obj/item/kitchen/knife/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	. = ..()
@@ -215,8 +214,9 @@
 	icon_state = "pknife"
 	item_state = "knife"
 	sharp = 0
-	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
-	drop_sound = 'sound/items/handling/bone_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
+	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/ritual
 	name = "ritual knife"
@@ -224,6 +224,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
 	w_class = WEIGHT_CLASS_NORMAL
+	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
@@ -318,8 +319,8 @@
 		PREPOSITIONAL = "костяном кинжале"
 	)
 	materials = list()
-	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
-	drop_sound = 'sound/items/handling/bone_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
 
 /obj/item/kitchen/knife/combat/survival/bone/eel
 	name = "eel sharpened tail"
@@ -337,6 +338,7 @@
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "eel_sharpened_tail"
+	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"
@@ -344,6 +346,7 @@
 	icon_state = "knife"
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	origin_tech = null
+	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/combat/cyborg/mecha
 	force = 25
@@ -363,9 +366,9 @@
 	materials = list()
 	origin_tech = "biotech=3;combat=2"
 	attack_verb = list("порезал", "уколол")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
-	drop_sound = 'sound/items/handling/bone_drop.ogg'
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
 
 /obj/item/kitchen/knife/glassshiv
 	name = "glass shiv"
@@ -376,9 +379,9 @@
 	throwforce = 8
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("порезал", "уколол")
-	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
-	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
-	drop_sound = 'sound/items/handling/bone_drop.ogg'
+	armor = list(MELEE = 100, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
+	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
 	var/size
 
 
@@ -416,6 +419,7 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("ударил", "огрел")
+	embed_disarm = FALSE
 
 /* Trays moved to /obj/item/storage/bag */
 
@@ -433,6 +437,7 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("ударил")
+	embed_disarm = FALSE
 
 /obj/item/kitchen/mould/bear
 	name = "bear-shaped candy mould"
@@ -487,6 +492,7 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("закатил", "треснул")
+	embed_disarm = FALSE
 
 
 
@@ -503,3 +509,4 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("ударил", "полоснул", "уколол")
+	embed_disarm = FALSE

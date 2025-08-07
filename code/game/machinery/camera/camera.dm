@@ -10,7 +10,7 @@
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50)
 	var/datum/wires/camera/wires = null // Wires datum
 	max_integrity = 100
 	integrity_failure = 50
@@ -101,12 +101,6 @@
 		GLOB.cameranet.addCamera(src)
 
 	cancelCameraAlarm()
-
-/obj/machinery/camera/tesla_act(power)//EMP proof upgrade also makes it tesla immune
-	if(isEmpProof())
-		return
-	..()
-	qdel(src)//to prevent bomb testing camera from exploding over and over forever
 
 /obj/machinery/camera/ex_act(severity)
 	if(invuln)
@@ -325,7 +319,7 @@
 		else
 			visible_message(span_danger("\The [src] [change_msg]!"))
 
-		playsound(loc, toggle_sound, 100, 1)
+		playsound(loc, toggle_sound, 100, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
@@ -340,7 +334,7 @@
 	alarm_on = FALSE
 	SSalarm.cancelAlarm("Camera", get_area(src), src)
 
-/obj/machinery/camera/proc/can_use()
+/obj/machinery/camera/proc/can_use(mob/user)
 	if(!status)
 		return 0
 	if(stat & EMPED)
@@ -439,6 +433,15 @@
 		cam["z"] = 0
 	return cam
 
+
+/obj/machinery/camera/proc/can_AI_see(mob/living/silicon/ai/ai)
+	if(!ai)
+		return TRUE
+
+	var/list/tempnetwork = network & ai.network
+	return tempnetwork.len > 0
+
+
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
@@ -495,6 +498,6 @@
 
 /obj/machinery/camera/mortar/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
 	return
-	
+
 /obj/machinery/camera/mortar/flamer_fire_act(damage)
 	return

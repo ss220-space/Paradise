@@ -1,7 +1,7 @@
 // Rusted Soviet special weapons
 
 /obj/item/gun/projectile/automatic/rusted
-	name = "\improper Rusted gun"
+	name = "Rusted gun"
 	desc = "An old gun, be careful using it."
 	icon_state = "aksu"
 	item_state = "aksu"
@@ -22,10 +22,11 @@
 	self_shot_divisor = 3
 	malf_low_bound = 60
 	malf_high_bound = 90
+	accuracy = GUN_ACCURACY_RIFLE
 
 
 /obj/item/gun/projectile/automatic/rusted/aksu
-	name = "\improper Rusted AKSU assault rifle"
+	name = "Rusted AKSU assault rifle"
 	desc = "An old AK assault rifle favored by Soviet soldiers."
 	icon_state = "aksu"
 	item_state = "aksu"
@@ -35,9 +36,10 @@
 	burst_size = 3
 	fire_delay = 2
 	recoil = 0.8
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/projectile/automatic/rusted/ppsh
-	name = "\improper Rusted PPSh submachine gun"
+	name = "Rusted PPSh submachine gun"
 	desc = "An old submachine gun favored by Soviet soldiers."
 	icon_state = "ppsh"
 	item_state = "ppsh"
@@ -50,6 +52,7 @@
 	burst_size = 5
 	fire_delay = 1.5
 	recoil = 1.2
+	accuracy = GUN_ACCURACY_RIFLE
 
 
 //////////// Shotguns
@@ -60,6 +63,7 @@
 	self_shot_divisor = 3
 	malf_low_bound = 12
 	malf_high_bound = 24
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 //////////// Revolvers
 

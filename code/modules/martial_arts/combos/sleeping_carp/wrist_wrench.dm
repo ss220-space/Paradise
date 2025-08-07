@@ -8,7 +8,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 		target.visible_message("<span class='warning'>[user] grabs [target]'s wrist and wrenches it sideways!</span>", \
 						  "<span class='userdanger'>[user] grabs your wrist and violently wrenches it to the side!</span>")
-		playsound(get_turf(user), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Wrist Wrench", ATKLOG_ALL)
 		if(prob(60))
 			user.say(pick("WRISTY TWIRLY!", "WE FIGHT LIKE MEN!", "YOU DISHONOR YOURSELF!", "POHYAH!", "WHERE IS YOUR BATON NOW?", "SAY UNCLE!"))

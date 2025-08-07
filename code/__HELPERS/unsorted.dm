@@ -21,38 +21,16 @@
 	return 0
 
 //Returns the middle-most value
-/proc/dd_range(var/low, var/high, var/num)
-	return max(low,min(high,num))
+/proc/dd_range(low, high, num)
+	return max(low, min(high, num))
 
 //Returns whether or not A is the middle most value
-/proc/InRange(var/A, var/lower, var/upper)
-	if(A < lower) return 0
-	if(A > upper) return 0
-	return 1
-
-
-/proc/Get_Angle(atom/movable/start,atom/movable/end)//For beams.
-	if(!start || !end) return 0
-	var/dy
-	var/dx
-	dy=(32*end.y+end.pixel_y)-(32*start.y+start.pixel_y)
-	dx=(32*end.x+end.pixel_x)-(32*start.x+start.pixel_x)
-	if(!dy)
-		return (dx>=0)?90:270
-	.=arctan(dx/dy)
-	if(dy<0)
-		.+=180
-	else if(dx<0)
-		.+=360
-
-/proc/Get_Pixel_Angle(var/y, var/x)//for getting the angle when animating something's pixel_x and pixel_y
-	if(!y)
-		return (x>=0)?90:270
-	.=arctan(x/y)
-	if(y<0)
-		.+=180
-	else if(x<0)
-		.+=360
+/proc/InRange(A, lower, upper)
+	if(A < lower)
+		return FALSE
+	if(A > upper)
+		return FALSE
+	return TRUE
 
 //Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
@@ -201,15 +179,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 //Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
 	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
-		return 0
+		return FALSE
 
 	var/i, ch, len = length(key)
 
-	for(i = 7, i <= len, ++i)
+	for(i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
 		ch = text2ascii(key, i)
-		if(ch < 48 || ch > 57)
-			return 0
-	return 1
+		if (ch < 48 || ch > 57) //0-9
+			return FALSE
+	return TRUE
 
 //Ensure the frequency is within bounds of what it should be sending/recieving at
 /proc/sanitize_frequency(var/f, var/low = PUBLIC_LOW_FREQ, var/high = PUBLIC_HIGH_FREQ)
@@ -792,8 +770,8 @@ GLOBAL_LIST_INIT(body_zone, list(
     BODY_ZONE_PRECISE_EYES = list(NOMINATIVE = "глаза", GENITIVE = "глаз", DATIVE = "глазам", ACCUSATIVE = "глаза", INSTRUMENTAL = "глазами", PREPOSITIONAL = "глазах"),
     BODY_ZONE_PRECISE_MOUTH = list(NOMINATIVE = "рот", GENITIVE = "рта", DATIVE = "рту", ACCUSATIVE = "рот", INSTRUMENTAL = "ртом", PREPOSITIONAL = "рте"),
     BODY_ZONE_PRECISE_GROIN = list(NOMINATIVE = "живот", GENITIVE = "живота", DATIVE = "животу", ACCUSATIVE = "живот", INSTRUMENTAL = "животом", PREPOSITIONAL = "животе"),
-    BODY_ZONE_PRECISE_L_HAND = list(NOMINATIVE = "левая ладонь", GENITIVE = "левой ладони", DATIVE = "левой ладони", ACCUSATIVE = "левую ладонь", INSTRUMENTAL = "левой ладонью", PREPOSITIONAL = "левой ладони"),
-    BODY_ZONE_PRECISE_R_HAND = list(NOMINATIVE = "правая ладонь", GENITIVE = "правой ладони", DATIVE = "правой ладони", ACCUSATIVE = "правую ладонь", INSTRUMENTAL = "правой ладонью", PREPOSITIONAL = "правой ладони"),
+    BODY_ZONE_PRECISE_L_HAND = list(NOMINATIVE = "левая кисть", GENITIVE = "левой кисти", DATIVE = "левой кисти", ACCUSATIVE = "левую кисть", INSTRUMENTAL = "левой кистью", PREPOSITIONAL = "левой кисти"),
+    BODY_ZONE_PRECISE_R_HAND = list(NOMINATIVE = "правая кисть", GENITIVE = "правой кисти", DATIVE = "правой кисти", ACCUSATIVE = "правую кисть", INSTRUMENTAL = "правой кистью", PREPOSITIONAL = "правой кисти"),
     BODY_ZONE_PRECISE_L_FOOT = list(NOMINATIVE = "левая ступня", GENITIVE = "левой ступни", DATIVE = "левой ступне", ACCUSATIVE = "левую ступню", INSTRUMENTAL = "левой ступнёй", PREPOSITIONAL = "левой ступне"),
     BODY_ZONE_PRECISE_R_FOOT = list(NOMINATIVE = "правая ступня", GENITIVE = "правой ступни", DATIVE = "правой ступне", ACCUSATIVE = "правую ступню", INSTRUMENTAL = "правой ступнёй", PREPOSITIONAL = "правой ступне")
 ))
@@ -823,9 +801,9 @@ GLOBAL_LIST_INIT(body_zone, list(
 		if(BODY_ZONE_PRECISE_GROIN)
 			return "живот"
 		if(BODY_ZONE_PRECISE_L_HAND)
-			return "левая ладонь"
+			return "левая кисть"
 		if(BODY_ZONE_PRECISE_R_HAND)
-			return "правая ладонь"
+			return "правая кисть"
 		if(BODY_ZONE_PRECISE_L_FOOT)
 			return "левая ступня"
 		if(BODY_ZONE_PRECISE_R_FOOT)
@@ -848,36 +826,37 @@ GLOBAL_LIST_INIT(body_zone, list(
 
 */
 
-/proc/get_turf_pixel(atom/movable/AM)
-	if(!istype(AM))
+/proc/get_turf_pixel(atom/movable/checked_atom)
+	if(!istype(checked_atom))
 		return
 
-	//Find AM's matrix so we can use it's X/Y pixel shifts
-	var/matrix/M = matrix(AM.transform)
+	//Find checked_atom's matrix so we can use it's X/Y pixel shifts
+	var/matrix/matrix = matrix(checked_atom.transform)
 
-	var/pixel_x_offset = AM.pixel_x + M.get_x_shift()
-	var/pixel_y_offset = AM.pixel_y + M.get_y_shift()
+	var/pixel_x_offset = checked_atom.pixel_x + matrix.get_x_shift()
+	var/pixel_y_offset = checked_atom.pixel_y + matrix.get_y_shift()
 
 	//Irregular objects
-	if(AM.bound_height != world.icon_size || AM.bound_width != world.icon_size)
-		var/icon/AMicon = icon(AM.icon, AM.icon_state)
-		pixel_x_offset += ((AMicon.Width()/world.icon_size)-1)*(world.icon_size*0.5)
-		pixel_y_offset += ((AMicon.Height()/world.icon_size)-1)*(world.icon_size*0.5)
-		qdel(AMicon)
+	var/icon/checked_atom_icon = icon(checked_atom.icon, checked_atom.icon_state)
+	var/checked_atom_icon_height = checked_atom_icon.Height()
+	var/checked_atom_icon_width = checked_atom_icon.Width()
+	if(checked_atom_icon_height != world.icon_size || checked_atom_icon_width != world.icon_size)
+		pixel_x_offset += ((checked_atom_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
+		pixel_y_offset += ((checked_atom_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
 
 	//DY and DX
-	var/rough_x = round(round(pixel_x_offset,world.icon_size)/world.icon_size)
-	var/rough_y = round(round(pixel_y_offset,world.icon_size)/world.icon_size)
+	var/rough_x = round(round(pixel_x_offset, world.icon_size) / world.icon_size)
+	var/rough_y = round(round(pixel_y_offset, world.icon_size) / world.icon_size)
 
 	//Find coordinates
-	var/turf/T = get_turf(AM) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
-	if(!T)
+	var/turf/turf = get_turf(checked_atom) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
+	if(!turf)
 		return null
-	var/final_x = clamp(T.x + rough_x, 1, world.maxx)
-	var/final_y = clamp(T.y + rough_y, 1, world.maxy)
+	var/final_x = clamp(turf.x + rough_x, 1, world.maxx)
+	var/final_y = clamp(turf.y + rough_y, 1, world.maxy)
 
 	if(final_x || final_y)
-		return locate(final_x, final_y, T.z)
+		return locate(final_x, final_y, turf.z)
 
 //Finds the distance between two atoms, in pixels
 //centered = 0 counts from turf edge to edge
@@ -917,12 +896,12 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 		return 1
 
 //Whether or not the given item counts as sharp in terms of dealing damage
-/proc/is_sharp(obj/O)
-	if(!O)
-		return 0
-	if(O.sharp)
-		return 1
-	return 0
+/proc/is_sharp(obj/item/item)
+	if(!istype(item))
+		return FALSE
+	if(item.sharp)
+		return TRUE
+	return FALSE
 
 /proc/reverse_direction(var/dir)
 	switch(dir)
@@ -987,14 +966,6 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 			if(abs(O.pixel_x) <= 10 && abs(O.pixel_y) <= 10)
 				return 1
 	return 0
-
-
-/proc/get_angle(atom/a, atom/b)
-	return atan2(b.y - a.y, b.x - a.x)
-
-/proc/atan2(x, y)
-	if(!x && !y) return 0
-	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
 
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")

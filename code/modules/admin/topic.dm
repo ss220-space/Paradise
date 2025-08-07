@@ -17,7 +17,7 @@
 		if(!isclient(C))
 			return
 
-		C << 'sound/effects/adminhelp.ogg'
+		SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 		to_chat(C, span_fontsize4("<span style='color: red;'><b>- AdminHelp Rejected! -</b></span>"), confidential=TRUE)
 		to_chat(C, "<span style='color: red;'><b>Your admin help was rejected.</b></span>", confidential=TRUE)
@@ -397,6 +397,8 @@
 		if(!check_rights(R_SERVER))	return
 
 		var/timer = tgui_input_number(usr, "Enter new shuttle duration (seconds):", "Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft())
+		if(isnull(timer))
+			return
 		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
@@ -1025,6 +1027,8 @@
 		return 0 //we didn't do anything!
 
 	else if(href_list["boot2"])
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 		var/mob/M = locateUID(href_list["boot2"])
 		if(!ismob(M))
 			return
@@ -2398,6 +2402,8 @@
 		C.jumptocoord(x,y,z)
 
 	else if(href_list["adminchecklaws"])
+		if(!check_rights(R_ADMIN|R_MENTOR))
+			return
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
@@ -2543,7 +2549,7 @@
 			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
 				to_chat(H, span_danger("The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned."))
-				SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+				SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 				if(H.client)
 					window_flash(H.client)
 	else if(href_list["FaxReplyTemplate"])
@@ -3486,7 +3492,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				log_and_message_admins("made everything kawaii.")
 				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
-					SEND_SOUND(human, 'sound/AI/animes.ogg')
+					SEND_SOUND(human, sound('sound/AI/animes.ogg'))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
 						var/obj/item/clothing/head/kitty/hat = new
@@ -3858,7 +3864,8 @@
 				return 1
 
 	else if(href_list["viewruntime"])
-		var/datum/error_viewer/error_viewer = locate(href_list["viewruntime"])
+		var/datum/error_viewer/error_viewer = locateUID(href_list["viewruntime"])
+
 		if(!istype(error_viewer))
 			to_chat(usr, span_warning("That runtime viewer no longer exists."), confidential=TRUE)
 			return
@@ -4008,21 +4015,24 @@
 		poll_results_panel(poll, start_index)
 
 	else if(href_list["showrelatedacc"])
-		var/client/C = locate(href_list["client"]) in GLOB.clients
-		if(!C)
+		var/client/client = locateUID(href_list["client"])
+
+		if(!client)
 			to_chat(usr, "No client inside!")
 			return
+
 		var/thing_to_check
+
 		if(href_list["showrelatedacc"] == "cid")
-			thing_to_check = jointext(C.related_accounts_cid, "<br>")
+			thing_to_check = jointext(client.related_accounts_cid, "<br>")
 		else
-			thing_to_check = jointext(C.related_accounts_ip, "<br>")
+			thing_to_check = jointext(client.related_accounts_ip, "<br>")
 
 
 		var/list/dat = list("Related accounts by [uppertext(href_list["showrelatedacc"])]:")
 		dat += thing_to_check
 
-		var/datum/browser/popup = new(usr, "related_[C]", "Related dacc", 420, 300)
+		var/datum/browser/popup = new(usr, "related_[client]", "Related dacc", 420, 300)
 		popup.set_content(dat.Join("<br>"))
 		popup.open(FALSE)
 

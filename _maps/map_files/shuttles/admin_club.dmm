@@ -165,7 +165,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "navybluealt"
@@ -311,7 +311,7 @@
 	},
 /area/shuttle/administration)
 "za" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "navybluealt"
@@ -425,7 +425,7 @@
 	},
 /area/shuttle/administration)
 "FQ" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "navybluealt"

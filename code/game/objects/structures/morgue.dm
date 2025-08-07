@@ -417,7 +417,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/machinery/crematorium/examine(mob/user)
 	. = ..()
-	. += span_info("Используйте <b>гаечный ключ</b> для изменения направления.")
+	. += span_notice("Используйте <b>гаечный ключ</b> для изменения направления.")
 
 
 /obj/machinery/crematorium/update_overlays()
@@ -617,6 +617,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 			entity.emote("scream")
 		if(user)
 			add_attack_logs(user, entity, "Cremated")
+
+		SEND_SIGNAL(entity, COMSIG_LIVING_CREMATED)
 
 		entity.death(gibbed = TRUE)
 

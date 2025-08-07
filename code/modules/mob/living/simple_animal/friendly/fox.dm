@@ -6,10 +6,10 @@
 	icon_living = "fox"
 	icon_dead = "fox_dead"
 	icon_resting = "fox_rest"
-	speak = list("Ack-Ack","Ack-Ack-Ack-Ackawoooo","Geckers","Awoo","Tchoff")
-	speak_emote = list("geckers", "barks")
-	emote_hear = list("howls","barks")
-	emote_see = list("shakes its head", "shivers")
+	speak = list("Ack-Ack", "Ack-Ack-Ack-Ackawoooo", "Geckers", "Awoo", "Tchoff")
+	speak_emote = list("хихикает", "лает", "рявкает")
+	emote_hear = list("хихикает", "лает", "рявкает")
+	emote_see = list("трясёт головой", "дрожит")
 	tts_seed = "Barney"
 	yelp_sound = 'sound/creatures/fox_yelp.ogg' //Used on death.
 	speak_chance = 1

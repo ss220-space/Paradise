@@ -427,7 +427,6 @@
 
 	return if_no_id	//to prevent null-names making the mob unclickable
 
-
 //Gets ID card object from hands only
 /mob/living/carbon/human/proc/get_id_from_hands()
 	var/obj/item/card/id/id = null
@@ -450,7 +449,6 @@
 	dna.species.update_sight(src)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-
 
 ///Calculates the siemens coeff based on clothing and species, can also restart hearts.
 /mob/living/carbon/human/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
@@ -482,22 +480,26 @@
 
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 
-
 /mob/living/carbon/human/Topic(href, href_list)
 	if(in_range(src, usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 
 		if(href_list["embedded_object"])
-			var/obj/item/organ/external/bodypart = locate(href_list["embedded_limb"]) in bodyparts
+			var/obj/item/organ/external/bodypart = locateUID(href_list["embedded_limb"])
+
 			if(QDELETED(bodypart) || !LAZYLEN(bodypart.embedded_objects))
 				return
-			var/obj/item/thing = locate(href_list["embedded_object"]) in bodypart.embedded_objects
-			if(QDELETED(thing) || thing.loc != bodypart) //no item, no limb, or item is not in limb or in the person anymore
+
+			var/obj/item/thing = locateUID(href_list["embedded_object"])
+			if(QDELETED(thing) || thing.loc != bodypart) // no item, no limb, or item is not in limb or in the person anymore
 				return
+
 			var/time_taken = thing.embedded_unsafe_removal_time * thing.w_class
+			
 			usr.visible_message(
-				span_warning("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
-				span_notice("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]... (Это займет [time_taken/10] секунд.)"),
+				span_warning("[usr] пыта[pluralize_ru(usr.gender, "ет", "ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
+				span_notice("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]... (Это займет [time_taken/10] секунд.)"),
 			)
+
 			if(do_after(usr, time_taken, src))
 				if(QDELETED(thing) || QDELETED(bodypart) || thing.loc != bodypart || !LAZYIN(bodypart.embedded_objects, thing))
 					return
@@ -509,11 +511,10 @@
 					if(h_user.has_pain())
 						h_user.emote("scream")
 				usr.visible_message(
-					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]!"),
-					span_notice("Вы успешно извлекли [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
+					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender, "ет", "ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
+					span_notice("Вы успешно извлекли [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 				)
 			return
-
 
 	if(href_list["criminal"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
@@ -712,13 +713,6 @@
 				if(skills)
 					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
 
-	if(href_list["lookitem"])
-		var/obj/item/I = locate(href_list["lookitem"])
-		src.examinate(I)
-
-	if(href_list["lookmob"])
-		var/mob/M = locate(href_list["lookmob"])
-		src.examinate(M)
 	. = ..()
 
 
@@ -781,7 +775,7 @@
 	if(!src.xylophone)
 		visible_message("<span class='warning'>[src] begins playing [p_their()] ribcage like a xylophone. It's quite spooky.</span>","<span class='notice'>You begin to play a spooky refrain on your ribcage.</span>","<span class='warning'>You hear a spooky xylophone melody.</span>")
 		var/song = pick('sound/effects/xylophone1.ogg','sound/effects/xylophone2.ogg','sound/effects/xylophone3.ogg')
-		playsound(loc, song, 50, 1, -1)
+		playsound(loc, song, 50, TRUE, -1)
 		xylophone = 1
 		spawn(1200)
 			xylophone=0

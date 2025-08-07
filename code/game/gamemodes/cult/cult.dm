@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_LAWYER, JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, "Nanotrasen Navy Field Officer", JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE)
+	restricted_jobs = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_LAWYER, JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, "Nanotrasen Navy Field Officer", JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
@@ -240,7 +240,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		for(var/datum/mind/M in cult)
 			if(!M.current || !ishuman(M.current))
 				continue
-			SEND_SOUND(M.current, 'sound/ambience/antag/bloodcult_eyes.ogg')
+			SEND_SOUND(M.current, sound('sound/ambience/antag/bloodcult_eyes.ogg'))
 			to_chat(M.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
 			log_admin("The Blood Cult has risen. The eyes started to glow.")
 			addtimer(CALLBACK(src, PROC_REF(rise), M.current), 20 SECONDS)
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		for(var/datum/mind/M in cult)
 			if(!M.current || !ishuman(M.current))
 				continue
-			SEND_SOUND(M.current, 'sound/ambience/antag/bloodcult_halos.ogg')
+			SEND_SOUND(M.current, sound('sound/ambience/antag/bloodcult_halos.ogg'))
 			to_chat(M.current, span_cultlarge("Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!"))
 			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
 			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)

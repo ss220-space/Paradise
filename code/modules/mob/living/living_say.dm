@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 
 	Busy letters by radio(eng):
-	c e h i l m n p r s t u w x
+	c e h i l m n p r s t u w x z
 
 
 	Busy letters by radio(rus):
@@ -58,6 +58,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":U" = SUP_FREQ_NAME,				"#U" = SUP_FREQ_NAME,			"№U" = SUP_FREQ_NAME,			".U" = SUP_FREQ_NAME,
 	  ":Z" = SRV_FREQ_NAME,				"#Z" = SRV_FREQ_NAME,			"№Z" = SRV_FREQ_NAME,			".Z" = SRV_FREQ_NAME,
 	  ":P" = AI_FREQ_NAME,				"#P" = AI_FREQ_NAME,			"№P" = AI_FREQ_NAME,			".P" = AI_FREQ_NAME,
+	  ":." = PRS_FREQ_NAME,				"#." = PRS_FREQ_NAME,			"№." = PRS_FREQ_NAME,			".." = PRS_FREQ_NAME,
 
 	// Russian text lowercase
 	  ":к" = R_EAR_MODE,				"#к" = R_EAR_MODE,				"№к" = R_EAR_MODE,				".к" = R_EAR_MODE,
@@ -78,6 +79,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":я" = SRV_FREQ_NAME,				"#я" = SRV_FREQ_NAME,			"№я" = SRV_FREQ_NAME,			".я" = SRV_FREQ_NAME,
 	  ":з" = AI_FREQ_NAME,				"#з" = AI_FREQ_NAME,			"№з" = AI_FREQ_NAME,			".з" = AI_FREQ_NAME,
 	  ":ё" = CORDS_MODE,				"#ё" = CORDS_MODE,				"№ё" = CORDS_MODE,				".ё" = CORDS_MODE,
+	  ":ю" = PRS_FREQ_NAME,				"#ю" = PRS_FREQ_NAME,			"№ю" = PRS_FREQ_NAME,			".ю" = PRS_FREQ_NAME,
 
 	// Russian text uppercase
 	  ":К" = R_EAR_MODE,				"#К" = R_EAR_MODE,				"№К" = R_EAR_MODE,				".К" = R_EAR_MODE,
@@ -97,6 +99,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":Я" = SRV_FREQ_NAME,				"#Я" = SRV_FREQ_NAME,			"№Я" = SRV_FREQ_NAME,			".Я" = SRV_FREQ_NAME,
 	  ":З" = AI_FREQ_NAME,				"#З" = AI_FREQ_NAME,			"№З" = AI_FREQ_NAME,			".З" = AI_FREQ_NAME,
 	  ":Ё" = CORDS_MODE,				"#Ё" = CORDS_MODE,				"№Ё" = CORDS_MODE,				".Ё" = CORDS_MODE,
+	  ":Ю" = PRS_FREQ_NAME,				"#Ю" = PRS_FREQ_NAME,			"№Ю" = PRS_FREQ_NAME,			".Ю" = PRS_FREQ_NAME,
 
 	// English symbols no case
 	  ":~" = CORDS_MODE,				"#~" = CORDS_MODE,				"№~" = CORDS_MODE,				".~" = CORDS_MODE,

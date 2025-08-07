@@ -46,7 +46,7 @@ Difficulty: Very Hard
 */
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot
-	name = "\improper Vetus Speculator"
+	name = "Vetus Speculator"
 	desc = "Древний робот, принадлежащий к давно исчезнувшей цивилизации, способен адаптироваться к окружающей среде и всему, что в ней находится, что делает его идеальным бойцом."
 	ru_names = list(
 		NOMINATIVE = "Ветус Спекулятор",
@@ -64,7 +64,7 @@ Difficulty: Very Hard
 	icon_state = "ancient_robot"
 	icon_living = "ancient_robot"
 	friendly = "пристально смотрит"
-	speak_emote = list("ЖУЖЖИТ")
+	speak_emote = list("жужжит")
 	universal_speak = TRUE
 	universal_understand = TRUE
 	armour_penetration = 40
@@ -308,7 +308,7 @@ Difficulty: Very Hard
 	bumped_living.visible_message(span_danger("[declent_ru(NOMINATIVE)] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[declent_ru(NOMINATIVE)] втаптывает вас в землю!"))
 	forceMove(living_turf)
 	var/limb_to_hit = bumped_living.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-	bumped_living.apply_damage(25, BRUTE, limb_to_hit, bumped_living.run_armor_check(limb_to_hit, "melee", null, null, armour_penetration))
+	bumped_living.apply_damage(25, BRUTE, limb_to_hit, bumped_living.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
 	playsound(living_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 	shake_camera(bumped_living, 4, 3)
 	shake_camera(src, 2, 3)
@@ -752,7 +752,7 @@ Difficulty: Very Hard
 	)
 	forceMove(living_turf)
 	var/limb_to_hit = bumped_living.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-	bumped_living.apply_damage(12.5, BRUTE, limb_to_hit, bumped_living.run_armor_check(limb_to_hit, "melee", null, null, armour_penetration))
+	bumped_living.apply_damage(12.5, BRUTE, limb_to_hit, bumped_living.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
 	playsound(living_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 	shake_camera(bumped_living, 4, 3)
 	shake_camera(src, 2, 3)

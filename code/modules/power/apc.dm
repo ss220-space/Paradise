@@ -197,7 +197,7 @@
 
 
 /obj/machinery/power/apc/worn_out
-	name = "\improper Worn out APC"
+	name = "Worn out APC"
 	keep_preset_name = TRUE
 	locked = FALSE
 	lighting_channel = CHANNEL_SETTING_OFF
@@ -236,7 +236,7 @@
 
 /obj/machinery/power/apc/New(turf/loc, direction, building = 0)
 	if(!armor)
-		armor = list("melee" = 20, "bullet" = 20, "laser" = 10, "energy" = 100, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50)
+		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, RAD = 100, FIRE = 90, ACID = 50)
 	..()
 	GLOB.apcs += src
 	GLOB.apcs = sortAtom(GLOB.apcs)
@@ -295,9 +295,9 @@
 		// no-op, keep the name
 	else if(isarea(A) && !areastring)
 		area = A
-		name = "\improper [area.name] APC"
+		name = "[area.name] APC"
 	else
-		name = "\improper [get_area_name(area, TRUE)] APC"
+		name = "[get_area_name(area, TRUE)] APC"
 	area.apc |= src
 	. = ..()
 	if(!mapload)
@@ -792,7 +792,7 @@
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
-		. += span_info("<b>Alt-click</b> to toggle locker.<br/><b>Ctrl-click</b> to toggle power.")
+		. += span_notice("<b>Alt-click</b> to toggle locker.<br/><b>Ctrl-click</b> to toggle power.")
 
 /obj/machinery/power/apc/click_alt(mob/living/carbon/human/H)
 	if(!istype(H))

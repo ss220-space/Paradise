@@ -27,9 +27,9 @@
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
 	slot_flags = ITEM_SLOT_BELT
-	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
-	equip_sound = 'sound/items/handling/backpack_equip.ogg'
-	drop_sound = 'sound/items/handling/backpack_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
+	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
+	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 
 ////////////////////////////////////////
 // MARK:	Trash bag
@@ -50,7 +50,7 @@
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
-	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
+	playsound(loc, 'sound/items/eatfood.ogg', 50, TRUE, -1)
 	return TOXLOSS
 
 
@@ -535,9 +535,21 @@
 ////////////////////////////////////////
 /obj/item/storage/bag/books
 	name = "book bag"
-	desc = "A bag for books."
+	desc = "Красная сумка, предназначенная для удобной транспортировки и хранения книг."
+	ru_names = list(
+		NOMINATIVE = "книжная сумка",
+		GENITIVE = "книжной сумки",
+		DATIVE = "книжной сумке",
+		ACCUSATIVE = "книжную сумку",
+		INSTRUMENTAL = "книжной сумкой",
+		PREPOSITIONAL = "книжной сумке"
+	)
+	gender = FEMALE
 	icon = 'icons/obj/library.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "bookbag"
+	item_state = "bookbag"
 	display_contents_with_number = 0 //This would look really stupid otherwise
 	storage_slots = 7
 	max_combined_w_class = 21
@@ -695,8 +707,8 @@
 	)
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "dangertray"
-	force = 25
-	throwforce = 25.0
+	force = 5
+	throwforce = 25
 	throw_speed = 3
 	throw_range = 7
 	armour_penetration = 15

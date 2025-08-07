@@ -367,8 +367,8 @@
 	throwforce = 0
 	force = 0
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
-	pickup_sound = 'sound/items/handling/accessory_pickup.ogg'
-	drop_sound = 'sound/items/handling/accessory_pickup.ogg'
+	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	var/maxcardlen = 20
 	var/concealed = FALSE
 	var/list/cards = list()

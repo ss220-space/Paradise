@@ -6,7 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 30, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 100)
 	max_integrity = 200
 	integrity_failure = 50
 	var/obj/item/showpiece = null
@@ -81,7 +81,7 @@
 		visible_message(span_danger("The burglar alarm goes off!"))
 		// Play the burglar alarm three times
 		for(var/i = 0, i < 4, i++)
-			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, 0)
+			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, FALSE)
 			sleep(74) // 7.4 seconds long
 
 

@@ -52,25 +52,25 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/mob_throw_hit_sound
 	///Sound used when equipping the item into a valid slot.
 	var/equip_sound = list(
-		'sound/items/handling/generic_equip1.ogg',
-		'sound/items/handling/generic_equip2.ogg',
-		'sound/items/handling/generic_equip3.ogg',
-		'sound/items/handling/generic_equip4.ogg',
-		'sound/items/handling/generic_equip5.ogg',
+		'sound/items/handling/equip/generic_equip1.ogg',
+		'sound/items/handling/equip/generic_equip2.ogg',
+		'sound/items/handling/equip/generic_equip3.ogg',
+		'sound/items/handling/equip/generic_equip4.ogg',
+		'sound/items/handling/equip/generic_equip5.ogg',
 	)
 	///Sound used when picking the item up (into your hands)
 	var/pickup_sound = list(
-		'sound/items/handling/generic_pickup1.ogg',
-		'sound/items/handling/generic_pickup2.ogg',
-		'sound/items/handling/generic_pickup3.ogg',
+		'sound/items/handling/pickup/generic_pickup1.ogg',
+		'sound/items/handling/pickup/generic_pickup2.ogg',
+		'sound/items/handling/pickup/generic_pickup3.ogg',
 	)
 	///Sound used when dropping the item.
 	var/drop_sound = list(
-		'sound/items/handling/generic_drop1.ogg',
-		'sound/items/handling/generic_drop2.ogg',
-		'sound/items/handling/generic_drop3.ogg',
-		'sound/items/handling/generic_drop4.ogg',
-		'sound/items/handling/generic_drop5.ogg',
+		'sound/items/handling/drop/generic_drop1.ogg',
+		'sound/items/handling/drop/generic_drop2.ogg',
+		'sound/items/handling/drop/generic_drop3.ogg',
+		'sound/items/handling/drop/generic_drop4.ogg',
+		'sound/items/handling/drop/generic_drop5.ogg',
 	)
 	///Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE
@@ -212,6 +212,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// How much to offset the item randomly either way alongside Y visually
 	var/ground_offset_y = 0
 
+	var/embed_disarm = FALSE
+
 /obj/item/Initialize(mapload)
 	. = ..()
 
@@ -233,6 +235,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(!move_resist)
 		determine_move_resist()
+
+	if(embed_disarm)
+		AddComponent(/datum/component/stick_it_in)
 
 	add_eatable_component()
 	scatter_item()
@@ -486,11 +491,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				item.do_pickup_animation(user)
 				storage.handle_item_insertion(item, prevent_warning = TRUE)
 			if(success && !failure)
-				playsound(loc, 'sound/items/handling/generic_pickup3.ogg', PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+				playsound(loc, 'sound/items/handling/pickup/generic_pickup3.ogg', PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 				to_chat(user, span_notice("Вы [pick(list("помещаете", "складываете", "кладёте"))] все в [storage.declent_ru(ACCUSATIVE)]."))
 				return ATTACK_CHAIN_BLOCKED_ALL
 			if(success)
-				playsound(loc, 'sound/items/handling/generic_pickup3.ogg', PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+				playsound(loc, 'sound/items/handling/pickup/generic_pickup3.ogg', PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 				to_chat(user, span_notice("Вы [pick(list("помещаете", "складываете", "кладёте"))] что-то в [storage.declent_ru(ACCUSATIVE)]."))
 				return ATTACK_CHAIN_BLOCKED_ALL
 			to_chat(user, span_notice("Вам не удалось ничего взять с помощью [storage.declent_ru(GENITIVE)]."))
@@ -663,7 +668,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				chosen_sound = pick(equip_sound)
 			playsound(src, chosen_sound, EQUIP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 		else if(slot & ITEM_SLOT_POCKETS)
-			playsound(src, 'sound/items/handling/generic_equip3.ogg', EQUIP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+			playsound(src, 'sound/items/handling/equip/generic_equip3.ogg', EQUIP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 		else if(pickup_sound && (slot & ITEM_SLOT_HANDS))
 			var/chosen_sound = pickup_sound
 			if(islist(pickup_sound) && length(pickup_sound))
@@ -1032,6 +1037,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 
 /obj/item/MouseEntered(location, control, params)
+	. = ..()
 	if(item_flags & (IN_INVENTORY|IN_STORAGE))
 		var/mob/living/user = usr
 		if(user.client.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS)
@@ -1052,6 +1058,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
 	remove_outline()
+	return ..()
 
 
 /obj/item/MouseDrop_T(atom/dropping, mob/user, params)

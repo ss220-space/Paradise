@@ -1822,16 +1822,18 @@
 	return ..()
 
 
-/**
+/*
  * Magic...
  */
 /obj/structure/closet/coffin/vampire/ex_act(severity)
 	return
+
 /obj/structure/closet/coffin/vampire/singularity_act()
 	return
-/obj/structure/closet/coffin/vampire/tesla_act(power)
+	
+// Bruh... idk
+/obj/structure/closet/coffin/vampire/zap_act(power, zap_flags)
 	return
-
 
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
@@ -2048,7 +2050,7 @@
 	icon_living = "bat"
 	icon_dead = "bat_dead"
 	icon_gib = "bat_dead"
-	speak_emote = list("rattles")
+	speak_emote = list("визжит", "трещит")
 	move_resist = MOVE_FORCE_NORMAL
 	pull_force = MOVE_FORCE_NORMAL
 	health = 130
@@ -2124,7 +2126,7 @@
 	icon_living = "hellhoundgreater"
 	icon_dead = "hellhound_dead"
 	icon_resting = "hellhoundgreater_sit"
-	speak_emote = list("growls", "roars")
+	speak_emote = list("рычит", "ревёт")
 	attacktext = "терзает"
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG	// no escape
@@ -2220,8 +2222,8 @@
 	icon_dead = "bat_dead"
 	icon_gib = "bat_dead"
 	deathmessage = "падают на землю и выглядят безжизненными!"
-	speak_emote = list("rattles")
-	emote_taunt = list("flutters")
+	speak_emote = list("визжит", "трещит")
+	emote_taunt = list("визжит")
 	taunt_chance = 30
 	move_resist = MOVE_FORCE_NORMAL
 	pull_force = MOVE_FORCE_NORMAL

@@ -19,7 +19,7 @@
 	max_integrity = 100
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BRUTE)
 				damage_amount *= ALIEN_RESIN_BRUTE_MOD
@@ -57,6 +57,9 @@
 	smoothing_groups = SMOOTH_GROUP_ALIEN_WALLS
 	max_integrity = 200
 	smooth = SMOOTH_BITMASK
+
+/obj/structure/alien/resin/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)
 
 /obj/structure/alien/resin/Initialize()
 	air_update_turf(1)
@@ -123,7 +126,7 @@
 				damage = max_integrity/ALIEN_RESIN_BRUTE_MOD
 			else
 				return ..()
-		if(attack_generic(A, damage, BRUTE, "melee", 0, 100))
+		if(attack_generic(A, damage, BRUTE, MELEE, 0, 100))
 			playsound(loc, 'sound/effects/attackblob.ogg', 50, TRUE)
 
 
@@ -516,7 +519,7 @@
 		switch(status)
 			if(BURST)
 				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
-				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+				playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
 				qdel(src)
 				return
 			if(GROWING)

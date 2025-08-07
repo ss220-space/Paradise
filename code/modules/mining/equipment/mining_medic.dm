@@ -2,6 +2,13 @@
 Almost every mining medic related stuff
 */
 
+/obj/machinery/camera/portable/no_ai
+
+
+/obj/machinery/camera/portable/no_ai/can_AI_see(ai)
+	return FALSE
+
+
 /obj/item/clothing/accessory/camera
 	name = "mining camera"
 	desc = "Небольшая нагрудная видеокамера, обладающая массивным датчиком, позволяющим считывать датчики костюма с основной станции. \
@@ -26,7 +33,7 @@ Almost every mining medic related stuff
 	/// Is our camera on
 	var/on = FALSE
 	/// Our portable camera
-	var/obj/machinery/camera/portable/camera
+	var/obj/machinery/camera/portable/no_ai/camera
 	/// Can we see camera from intertainment network?
 	var/news_feed = FALSE
 	/// Main feed network
@@ -36,8 +43,11 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/camera/Destroy()
 	GLOB.active_video_cameras -= src
-	camera.c_tag = null
-	QDEL_NULL(camera)
+
+	if(camera) // null until we activate
+		camera.c_tag = null
+		QDEL_NULL(camera)
+
 	return ..()
 
 /obj/item/clothing/accessory/camera/examine(mob/user)

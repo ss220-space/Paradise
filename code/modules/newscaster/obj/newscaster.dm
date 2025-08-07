@@ -101,6 +101,7 @@
 			/datum/job/ntspecops,
 			/datum/job/ntspecops/solgovspecops,
 			/datum/job/civilian,
+			/datum/job/civilian/prisoner,
 			/datum/job/syndicateofficer
 		)
 
