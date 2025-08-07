@@ -159,6 +159,9 @@ SUBSYSTEM_DEF(garbage)
 			break // Everything else is newer, skip them
 
 		var/datum/D = L[GC_QUEUE_ITEM_REF]
+		if(!D)
+			queue.dequeue()
+			continue
 
 		// If that's all we've got, send er off
 		if (refcount(D) == REFS_WE_EXPECT)

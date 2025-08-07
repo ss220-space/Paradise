@@ -75,7 +75,7 @@ have ways of interacting with a specific mob and control it.
 	. = ..()
 	var/mob/living/living_pawn = pawn
 
-	if(IS_DEAD_OR_INCAP(living_pawn))
+	if(!living_pawn || IS_DEAD_OR_INCAP(living_pawn))
 		return FALSE
 
 ///re-used behavior pattern by monkeys for finding a weapon

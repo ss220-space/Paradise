@@ -417,10 +417,11 @@
 	return new /datum/spell_targeting/self
 
 
-/obj/effect/proc_holder/spell/hulk_mill/cast(list/targets,mob/user = user)
+/obj/effect/proc_holder/spell/hulk_mill/cast(list/targets, mob/user = usr)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
+
 	for(var/i in 1 to 45)
 		if(user.dir == 1)
 			user.setDir(2)

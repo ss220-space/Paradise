@@ -570,6 +570,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/specops)
+"ajx" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/siberia)
 "ajJ" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 1
@@ -978,6 +984,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
+"ata" = (
+/obj/machinery/mineral/labor_claim_console,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/siberia)
 "atf" = (
 /obj/structure/sink{
 	dir = 8;
@@ -3057,6 +3067,10 @@
 	name = "floor"
 	},
 /area/vox_station)
+"bqB" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/shuttle,
+/area/shuttle/siberia)
 "brr" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -4531,6 +4545,11 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
+"cdW" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/addition_goals)
 "ceD" = (
 /obj/machinery/door/airlock/syndicate/command{
 	name = "Teleporter";
@@ -7266,6 +7285,15 @@
 	icon_state = "floorgrime"
 	},
 /area/ninja/holding)
+"duM" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/addition_goals)
 "duS" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -12092,6 +12120,15 @@
 	icon_state = "Dark"
 	},
 /area/centcom/specops)
+"fJx" = (
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/addition_goals)
 "fJz" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
@@ -12640,6 +12677,17 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"fXX" = (
+/obj/docking_port/stationary{
+	id = "addition_goal_dock";
+	name = "Addition Goal Shuttle dock";
+	dwidth = 2;
+	width = 10;
+	height = 7;
+	dir = 4
+	},
+/turf/space,
+/area/space)
 "fXY" = (
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -15010,6 +15058,14 @@
 	icon_state = "neutral"
 	},
 /area/centcom/evac)
+"hkM" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (NORTH)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
 "hls" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/jail)
@@ -24275,6 +24331,16 @@
 	icon_state = "navybluealtstrip"
 	},
 /area/centcom/supply)
+"lCU" = (
+/obj/machinery/flasher{
+	id = "gulagshuttleflasher";
+	pixel_x = 25
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/siberia)
 "lDb" = (
 /obj/machinery/porta_turret/syndicate{
 	pixel_y = 2
@@ -24682,6 +24748,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
+"lLs" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	tag = "icon-propulsion (NORTH)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
 "lLt" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -29689,6 +29762,16 @@
 	},
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/control)
+"nPg" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/reinforced{
+	color = "black"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
 "nPr" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -31542,16 +31625,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
-"oHK" = (
-/obj/machinery/flasher{
-	id = "gulagshuttleflasher";
-	pixel_x = 25
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/siberia)
 "oHO" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -32593,12 +32666,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"peG" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/siberia)
 "peY" = (
 /obj/docking_port/stationary{
 	dir = 2;
@@ -33855,6 +33922,11 @@
 	icon_state = "white"
 	},
 /area/centcom/evac)
+"pOx" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/addition_goals)
 "pOE" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -37261,10 +37333,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
-"rjK" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/shuttle,
-/area/shuttle/siberia)
 "rkx" = (
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
@@ -41291,6 +41359,11 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"sZJ" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/addition_goals)
 "sZK" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
@@ -41419,10 +41492,6 @@
 	icon_state = "ninja_walls_T_alt"
 	},
 /area/shuttle/ninja)
-"tbX" = (
-/obj/machinery/mineral/labor_claim_console,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/shuttle/siberia)
 "tcs" = (
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken7"
@@ -43653,6 +43722,11 @@
 	icon_state = "white"
 	},
 /area/centcom/jail)
+"uan" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/addition_goals)
 "uay" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/junglebush/c,
@@ -43812,6 +43886,23 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone2)
+"ueA" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/obj/docking_port/mobile{
+	alone_shuttle = 1;
+	dir = 8;
+	dwidth = 2;
+	height = 7;
+	id = "addition_goal";
+	name = "Addition Goals Shuttle";
+	port_direction = 8;
+	preferred_direction = 2;
+	roundstart_move = "addition_goal_dock";
+	width = 10
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/addition_goals)
 "ueC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
@@ -51211,6 +51302,14 @@
 	icon_state = "plastitanium"
 	},
 /area/shuttle/syndicate)
+"xuH" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_r";
+	tag = "icon-propulsion_r (NORTH)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
 "xuT" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -74740,7 +74839,7 @@ mVX
 mVX
 mVX
 mVX
-mVX
+fXX
 mVX
 mVX
 mVX
@@ -75238,16 +75337,16 @@ rRS
 rRS
 "}
 (88,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+sZJ
+sZJ
+sZJ
+uan
+uan
+uan
+uan
+pOx
+sZJ
+sZJ
 mVX
 mVX
 mVX
@@ -75495,16 +75594,16 @@ rRS
 rRS
 "}
 (89,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+xuH
+nPg
+duM
+cdW
+cdW
+cdW
+duM
+cdW
+cdW
+sZJ
 mVX
 mVX
 mVX
@@ -75752,16 +75851,16 @@ rRS
 rRS
 "}
 (90,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+lLs
+nPg
+cdW
+cdW
+cdW
+cdW
+cdW
+cdW
+cdW
+uan
 mVX
 mVX
 mVX
@@ -76009,16 +76108,16 @@ rRS
 rRS
 "}
 (91,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+lLs
+nPg
+cdW
+cdW
+cdW
+cdW
+cdW
+cdW
+cdW
+uan
 mVX
 mVX
 mVX
@@ -76266,16 +76365,16 @@ rRS
 rRS
 "}
 (92,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+lLs
+nPg
+cdW
+cdW
+cdW
+cdW
+cdW
+cdW
+cdW
+uan
 mVX
 mVX
 mVX
@@ -76523,16 +76622,16 @@ rRS
 rRS
 "}
 (93,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+hkM
+nPg
+fJx
+cdW
+cdW
+cdW
+fJx
+cdW
+cdW
+sZJ
 mVX
 mVX
 mVX
@@ -76780,16 +76879,16 @@ rRS
 rRS
 "}
 (94,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+sZJ
+sZJ
+sZJ
+uan
+uan
+uan
+uan
+ueA
+sZJ
+sZJ
 mVX
 mVX
 mVX
@@ -79878,7 +79977,7 @@ oJI
 sKg
 lDH
 sKg
-tbX
+ata
 sXM
 prf
 oJI
@@ -80392,9 +80491,9 @@ mMn
 nVS
 maj
 sKg
-rjK
+bqB
 kAJ
-peG
+ajx
 qgA
 sgG
 mVX
@@ -80649,7 +80748,7 @@ sKg
 ogO
 oiv
 ovE
-oHK
+lCU
 tbv
 tbv
 qgA
