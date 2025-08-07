@@ -56,7 +56,7 @@
 
 /datum/fake_administrator/denchigo
 	admin_name = "Denchigo"
-	admin_rank = CA
+	admin_rank = MEGA_CA
 	fake_msgs = list("Ты же понимаешь что это р0?")
 	var/list/special_for_admins = list("Заебал, снят", "Снят нахуй", "Лови аварн")
 
