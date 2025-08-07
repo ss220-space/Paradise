@@ -1,0 +1,31 @@
+name: "Discord PR Notification"
+on:
+  pull_request_target:
+    types: [opened, closed, labeled]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.action != 'labeled' || github.event.label.name == 'Stale' }}
+    steps:
+      - name: "Check for DISCORD_WEBHOOK"
+        id: secrets_set
+        env:
+          ENABLER_SECRET: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          unset SECRET_EXISTS
+          if [ -n "$ENABLER_SECRET" ]; then SECRET_EXISTS=true ; fi
+          echo "SECRETS_ENABLED=$SECRET_EXISTS" >> $GITHUB_OUTPUT
+      - name: Send Discord notification
+        uses: tgstation/discord-notify@v3
+        if: >
+          steps.secrets_set.outputs.SECRETS_ENABLED
+        with:
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
+          message: ${{ github.event.action != 'labeled' && 'GET_ACTION' || format('**Pull Request {0} automatically marked as stale.**', github.event.pull_request.number) }}
+          include_image: false
+          show_author: true
+          avatar_url: https://cdn.discordapp.com/attachments/1284433984666734603/1403044127112958063/1984__.png?ex=68961e2b&is=6894ccab&hm=d7b5275db43299c38cfb4cb9dead55f1d8ec0191a556b8090fd81b11267c9dd0&
+          username: GitHub
+          title_url: "${{ github.event.pull_request.html_url }}"
