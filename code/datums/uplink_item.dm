@@ -1418,7 +1418,7 @@
 
 /datum/uplink_item/stealthy_weapons/scope_x8
 	name = "Оптический прицел х8"
-	desc = "Позволяет целиться с оружия на дальние расстояния и повышает точность."
+	desc = "Повышает точность при стрельбе на большие дистанции."
 	item = /obj/item/gun_module/rail/scope/x8
 	cost = 4
 	surplus = 10
@@ -2378,7 +2378,7 @@
 
 /datum/uplink_item/bundles_TC/gun_mods
 	name = "Набор модулей для оружия"
-	desc = "Коробка, в которой находятся различные модули для апгрейда вашего оружия."
+	desc = "Коробка, в которой находятся различные модули для улучшения вашего оружия."
 	item = /obj/item/storage/box/syndie_kit/gun_mods
 	cost = 10 // silencer 4 TK + 4 other modules
 

@@ -4,6 +4,7 @@
 /obj/item/gun_module
 	name = "unknown gun module"
 	desc = "Неизветный модуль для оружия"
+	gender = MALE
 	icon = 'icons/obj/weapons/attachments.dmi'
 	lefthand_file = 'icons/mob/inhands/attachments_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/attachments_righthand.dmi'
@@ -20,21 +21,21 @@
 /// Try attach module to gun, return TRUE if success
 /obj/item/gun_module/proc/try_attach(obj/item/gun/target_gun, mob/user)
 	if(!istype(target_gun, /obj/item/gun))
-		to_chat(user, "[capitalize(target_gun.declent_ru(NOMINATIVE))] не поддерживает установку модулей.")
+		to_chat(user, "несовместимо с модулями!")
 		return FALSE
 	var/obj/item/gun/gun = target_gun
 	var/allowed = gun.attachable_allowed & class
 	if(!allowed)
-		to_chat(user, "[capitalize(declent_ru(NOMINATIVE))] не может быть установлен на [gun.declent_ru(PREPOSITIONAL)]")
+		to_chat(user, "несовместимое оружие!")
 		return FALSE
 	if(gun.attachments_by_slot[slot] != null)
-		to_chat(user, "Слот [gun_module_slot_ru_name(slot)] уже занят другим модулем.")
+		to_chat(user, "слот для модуля занят!")
 		return FALSE
 	return attach_without_check(gun, user)
 
 /// Attaching module to gun without check, use try_attach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/attach_without_check(obj/item/gun/target_gun, mob/user)
-	to_chat(user, "You attach [name] to [target_gun.name]")
+	to_chat(user, "модуль установлен")
 	if(!do_after(user, 1 SECONDS, target_gun))
 		return FALSE
 	target_gun.attachments_by_slot[slot] = src
@@ -46,7 +47,7 @@
 
 /// Detaching module from gun without check, use try_detach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/detach_without_check(obj/item/gun/target_gun, mob/user)
-	to_chat(user, "You detach [name] to [target_gun.name]")
+	to_chat(user, "модуль снят")
 	if(!do_after(user, 1 SECONDS, target_gun))
 		return FALSE
 	target_gun.attachments_by_slot[slot] = null
@@ -74,7 +75,7 @@
 
 /obj/item/gun_module/muzzle/suppressor
 	name = "suppressor"
-	desc = "Универсальный глушитель для стрелкового оружия Синдиката — максимум скрытности для шпионажа."
+	desc = "Глушитель, совместимый с широким диапазоном огнестрельного оружия. Существенно снижает шум, производимый при выстреле."
 	ru_names = list(
 		NOMINATIVE = "универсальный глушитель",
 		GENITIVE = "универсального глушителя",
@@ -111,7 +112,7 @@
 
 /obj/item/gun_module/muzzle/compensator
 	name = "compensator"
-	desc = "Универсальный компенсатор для стрелкового оружия. Уменьшает пламя при стрельбе с огнестрельного оружия и повышает точность огнестрельного оружия."
+	desc = "Глушитель, совместимый с широким диапазоном огнестрельного оружия. Уменьшает дульную вспышку и отдачу, производимую при выстреле, тем самым повышая точность стрельбы."
 	ru_names = list(
 		NOMINATIVE = "универсальный компенсатор",
 		GENITIVE = "универсального компенсатора",
@@ -180,7 +181,7 @@
 
 /obj/item/gun_module/rail/scope/collimator
 	name = "collimator scope"
-	desc = "Коллиматорный прицел с универсальным креплением, подходит для большинства видов оружия, кроме пистолетов. Позволяет удобнее целиться с оружия и повышает точность стрельбы."
+	desc = "Коллиматорный прицел, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами. Повышает удобство и точность стрельбы."
 	ru_names = list(
 		NOMINATIVE = "коллиматорный прицел",
 		GENITIVE = "коллиматорного прицела",
@@ -200,7 +201,7 @@
 
 /obj/item/gun_module/rail/scope/collimator/pistol
 	name = "pistol collimator scope"
-	desc = "Коллиматорный прицел с креплением для пистолетов. Позволяет удобнее целиться с оружия и повышает точность стрельбы."
+	desc = "Коллиматорный прицел, предназначенный для установки на прицельную планку пистолета. Повышает удобство и точность стрельбы."
 	ru_names = list(
 		NOMINATIVE = "пистолетный коллиматорный прицел",
 		GENITIVE = "пистолетного коллиматорного прицела",
@@ -216,7 +217,7 @@
 
 /obj/item/gun_module/rail/scope/x4
 	name = "optical scope x4"
-	desc = "Оптический прицел с 8-кратным увеличением и универсальным креплением, подходит для большинства видов оружия. Позволяет целиться гораздо дальше."
+	desc = "Оптический прицел с 4-кратным увеличением, предназначенный для установки на прицельную планку стрелкового оружия. Повышает точность при стрельбе на дальние дистанции."
 	ru_names = list(
 		NOMINATIVE = "оптический прицел х4",
 		GENITIVE = "оптического прицела х4",
@@ -235,7 +236,7 @@
 
 /obj/item/gun_module/rail/scope/x8
 	name = "optical scope x8"
-	desc = "Оптический прицел с 8-кратным увеличением и универсальным креплением, подходит для большинства видов оружия. Позволяет целиться гораздо дальше."
+	desc = "Оптический прицел с 8-кратным увеличением, предназначенный для установки на прицельную планку стрелкового оружия. Повышает точность при стрельбе на дальние дистанции."
 	ru_names = list(
 		NOMINATIVE = "оптический прицел х8",
 		GENITIVE = "оптического прицела х8",
@@ -254,7 +255,7 @@
 
 /obj/item/gun_module/rail/scope/x16
 	name = "optical scope x16"
-	desc = "Оптический прицел с 16-кратным увеличением и универсальным креплением, подходит для большинства видов оружия. Позволяет целиться гораздо дальше."
+	desc = "Оптический прицел с 16-кратным увеличением, предназначенный для установки на прицельную планку стрелкового оружия. Повышает точность при стрельбе на дальние дистанции."
 	ru_names = list(
 		NOMINATIVE = "оптический прицел х16",
 		GENITIVE = "оптического прицела х16",
@@ -323,14 +324,14 @@
 
 /obj/item/gun_module/rail/hud/medical
 	name = "med hud scope"
-	desc = "Медицинский худ в виде коллиматорного прицела"
+	desc = "Коллиматорный прицел с медицинским ИЛС, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами. Повышает удобство и точность стрельбы"
 	ru_names = list(
-		NOMINATIVE = "медицинский коллиматор",
-		GENITIVE = "медицинского коллиматора",
-		DATIVE = "медицинскому коллиматору",
-		ACCUSATIVE = "медицинский коллиматор",
-		INSTRUMENTAL = "медицинским коллиматором",
-		PREPOSITIONAL = "медицинском коллиматоре"
+		NOMINATIVE = "коллиматор с медицинским ИЛС",
+		GENITIVE = "коллиматора с медицинским ИЛС",
+		DATIVE = "коллиматору с медицинским ИЛС",
+		ACCUSATIVE = "коллиматорс медицинским ИЛС",
+		INSTRUMENTAL = "коллиматором с медицинским ИЛС",
+		PREPOSITIONAL = "коллиматоре с медицинским ИЛС"
 	)
 	icon_state = "coll_med"
 	item_state = "coll_med"
@@ -342,14 +343,14 @@
 
 /obj/item/gun_module/rail/hud/security
 	name = "security hud scope"
-	desc = "Худ службы безопасности в виде коллиматорного прицела"
+	desc = "Коллиматорный прицел с охранным ИЛС, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами. Повышает удобство и точность стрельбы"
 	ru_names = list(
-		NOMINATIVE = "худ СБ коллиматор",
-		GENITIVE = "худ СБ коллиматора",
-		DATIVE = "худ СБ коллиматору",
-		ACCUSATIVE = "худ СБ коллиматор",
-		INSTRUMENTAL = "худ СБ коллиматором",
-		PREPOSITIONAL = "худ СБ коллиматоре"
+		NOMINATIVE = "коллиматор с охранным ИЛС",
+		GENITIVE = "коллиматора с охранным ИЛС",
+		DATIVE = "коллиматору с охранным ИЛС",
+		ACCUSATIVE = "коллиматор с охранным ИЛС",
+		INSTRUMENTAL = "коллиматором с охранным ИЛС",
+		PREPOSITIONAL = "коллиматоре с охранным ИЛС"
 	)
 	icon_state = "coll_sec"
 	item_state = "coll_sec"
@@ -408,14 +409,14 @@
 
 /obj/item/gun_module/under/flashlight/pistol
 	name = "pistol underbarrel light"
-	desc = "Подствольный фонарик с креплением под пистолеты. Не подходит для винтовок и дробовиков"
+	desc = "Фонарь, предназначенный для установки на цевьё пистолета. Несовместим с другими классами оружия"
 	ru_names = list(
-		NOMINATIVE = "подствольный фонарик для пистолетов",
-		GENITIVE = "подствольного фонарика для пистолетов",
-		DATIVE = "подствольному фонарику для пистолетов",
-		ACCUSATIVE = "подствольный фонарик для пистолетов",
-		INSTRUMENTAL = "подствольным фонариком для пистолетов",
-		PREPOSITIONAL = "подствольном фонарике для пистолетов"
+		NOMINATIVE = "подствольный фонарь для пистолетов",
+		GENITIVE = "подствольного фонаря для пистолетов",
+		DATIVE = "подствольному фонарю для пистолетов",
+		ACCUSATIVE = "подствольный фонарь для пистолетов",
+		INSTRUMENTAL = "подствольным фонарём для пистолетов",
+		PREPOSITIONAL = "подствольном фонаре для пистолетов"
 	)
 	icon_state = "light"
 	item_state = "light"
@@ -425,14 +426,14 @@
 
 /obj/item/gun_module/under/flashlight/rifle
 	name = "rifle underbarrel light"
-	desc = "Подствольный фонарик с креплением под винтовоки и дробовики. Слишком большой для крепления на пистолеты"
+	desc = "Фонарь, предназначенный для установки на цевьё. Несовместим с пистолетами"
 	ru_names = list(
-		NOMINATIVE = "подствольный фонарик для винтовок",
-		GENITIVE = "подствольного фонарика для винтовок",
-		DATIVE = "подствольному фонарику для винтовок",
-		ACCUSATIVE = "подствольный фонарик для винтовок",
-		INSTRUMENTAL = "подствольным фонариком для винтовок",
-		PREPOSITIONAL = "подствольном фонарике для винтовок"
+		NOMINATIVE = "подствольный фонарь",
+		GENITIVE = "подствольного фонаря",
+		DATIVE = "подствольному фонарю",
+		ACCUSATIVE = "подствольный фонарь",
+		INSTRUMENTAL = "подствольным фонарём",
+		PREPOSITIONAL = "подствольном фонаре"
 	)
 	icon_state = "light_s"
 	item_state = "light_s"
@@ -443,7 +444,7 @@
 
 /obj/item/gun_module/under/hand/angle
 	name = "rifle angle hand"
-	desc = "Угловая рукоятка для повышения точности стрельбы с винтовок"
+	desc = "Угловая рукоятка, предназначенная для установки на нижнюю планку цевья. Повышает удобство стрельбы."
 	ru_names = list(
 		NOMINATIVE = "угловая рукоятка",
 		GENITIVE = "угловую рукоятку",
@@ -452,6 +453,7 @@
 		INSTRUMENTAL = "угловой рукояткой",
 		PREPOSITIONAL = "угловой рукоятке"
 	)
+	gender = FEMALE
 	icon_state = "hand_a"
 	item_state = "hand_a"
 	overlay_state = "hand_a_o"

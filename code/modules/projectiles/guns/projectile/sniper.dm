@@ -27,7 +27,7 @@
 		add_fingerprint(user)
 		var/obj/item/gun_module/muzzle/suppressor/suppressor = I
 		if(!can_suppress)
-			balloon_alert(user, "не совместимо!")
+			balloon_alert(user, "несовместимо!")
 			return ATTACK_CHAIN_PROCEED
 		if(suppressed)
 			balloon_alert(user, "уже установлено!")

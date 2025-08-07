@@ -19,13 +19,9 @@
 #define GUN_MODULE_CLASS_RIFLE_UNDER 	(1<<10)
 #define GUN_MODULE_CLASS_SNIPER_UNDER 	(1<<11)
 
-/proc/gun_module_slot_ru_name(slot)
-	switch(slot)
-		if(ATTACHMENT_SLOT_MUZZLE)
-			return "ствол"
-		if(ATTACHMENT_SLOT_RAIL)
-			return "планка"
-		if(ATTACHMENT_SLOT_UNDER)
-			return "нижний обвес"
-		else
-			return "неизвестный слот"
+
+GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
+	ATTACHMENT_SLOT_MUZZLE = "ствол",
+	ATTACHMENT_SLOT_RAIL = "верхняя планка",
+	ATTACHMENT_SLOT_UNDER = "цевьё"
+))

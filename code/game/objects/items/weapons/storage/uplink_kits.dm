@@ -734,12 +734,12 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	name = "Gun upgrade kit"
 	desc = "Коробка, содержащая различные модуля для улучшения оружия."
 	ru_names = list(
-		NOMINATIVE = "набор апгрейда оружия",
-		GENITIVE = "набора апгрейда оружия",
-		DATIVE = "набору апгрейда оружия",
-		ACCUSATIVE = "набор апгрейда оружия",
-		INSTRUMENTAL = "набором апгрейда оружия",
-		PREPOSITIONAL = "наборе апгрейда оружия"
+		NOMINATIVE = "набор оружейных модулей",
+		GENITIVE = "набора оружейных модулей",
+		DATIVE = "набору оружейных модулей",
+		ACCUSATIVE = "набор оружейных модулей",
+		INSTRUMENTAL = "набором оружейных модулей",
+		PREPOSITIONAL = "наборе оружейных модулей"
 	)
 	icon_state = "box_gun_mods"
 	item_state = "box_gun_mods"

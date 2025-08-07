@@ -171,8 +171,9 @@
 	. = ..()
 	for(var/slot in attachment_overlays)
 		var/image/overlay = attachment_overlays[slot]
-		if(overlay)
-			. += overlay
+		if(!overlay)
+			continue
+		. += overlay
 
 /obj/item/gun/proc/add_attachment_overlay(obj/item/gun_module/module)
 	var/image/overlay = module.create_overlay()
@@ -658,15 +659,15 @@
 		if(!attachments_by_slot[slot])
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		choices += module.name
+		choices += module.declent_ru(NOMINATIVE)
 	if(length(choices) == 0)
 		return
-	var/choice = tgui_input_list(user, "Выберите модуль", "Снять модуль", choices, choices[1], 0, GLOB.conscious_state)
+	var/choice = tgui_input_list(user, "Выберите модуль для удаления", "Снять модуль", choices, choices[1], 0, GLOB.conscious_state)
 	for(var/slot in attachments_by_slot)
 		if(!attachments_by_slot[slot])
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		if(module.name == choice)
+		if(module.declent_ru(NOMINATIVE) == choice)
 			return module.detach_without_check(src, user)
 
 
@@ -812,9 +813,10 @@
 /obj/item/gun/proc/destroy_zooming()
 	if(!azoom)
 		return
-	if(!zoomable)
-		QDEL_NULL(azoom)
-		UnregisterSignal(src, COMSIG_ITEM_EQUIPPED)
+	if(zoomable)
+		return
+	QDEL_NULL(azoom)
+	UnregisterSignal(src, COMSIG_ITEM_EQUIPPED)
 
 /**
  * Proc which will be called when the gun receives the `COMSIG_ITEM_EQUIPPED` signal.
