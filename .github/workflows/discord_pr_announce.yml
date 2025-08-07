@@ -46,6 +46,6 @@ jobs:
             )}}
           include_image: false
           show_author: true
-          avatar_url: https://cdn.discordapp.com/attachments/1284433984666734603/1403044127112958063/1984__.png?ex=68961e2b&is=6894ccab&hm=d7b5275db43299c38cfb4cb9dead55f1d8ec0191a556b8090fd81b11267c9dd0&
-          username: GitHub
+          avatar_url: https://cdn.discordapp.com/attachments/1284433984666734603/1403077083076366546/1984.png?ex=68963cdc&is=6894eb5c&hm=7f654bcb85dec940417a6e393b461382e7284d545f8336807bc753a38b040e01&
+          username: Почтальон
           title_url: "${{ github.event.pull_request.html_url }}"
