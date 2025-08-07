@@ -98,7 +98,8 @@
 
 	handle_addiction(M, total_depletion_rate)
 	sate_addiction(M)
-
+	if(!holder)
+		return STATUS_UPDATE_NONE
 	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
 	if(volume <= 0)
 		on_mob_end_metabolize(M)
