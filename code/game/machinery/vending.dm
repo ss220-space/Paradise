@@ -5209,6 +5209,55 @@
 	)
 	refill_canister = /obj/item/vending_refill/protein
 
+/obj/machinery/vending/ammo
+	name = "Раздатчик боеприпасов"
+	ru_names = list(
+		NOMINATIVE = "раздатчик боеприпасов",
+		GENITIVE = "раздатчика боеприпасов",
+		DATIVE = "раздатчику боеприпасов",
+		ACCUSATIVE = "раздатчика боеприпасов",
+		INSTRUMENTAL = "раздатчиком боеприпасов",
+		PREPOSITIONAL = "раздатчике боеприпасов"
+	)
+	desc = "Раздатчик патронов службы безопасности."
+
+	slogan_list = list(
+		"Я не встречал никого умнее пули!",
+		"Когда я скажу 3 то буду стрелять! 3!",
+		"6 выстрелов, более чем достаточно чтобы убить всё, что движется!",
+		"Офицер! Я не могу дышать!"
+	)
+	icon_state = "ammovend_off"
+	panel_overlay = "ammovend_panel"
+	screen_overlay = "ammovend_overlay"
+
+	products = list(
+		/obj/item/ammo_box/magazine/wt550m9  = 8,
+		/obj/item/ammo_box/magazine/enforcer/lethal = 10,
+		/obj/item/ammo_box/magazine/specter/laser = 10,
+		/obj/item/ammo_box/shotgun = 1,
+		/obj/item/ammo_box/shotgun/buck = 2,
+		/obj/item/ammo_box/shotgun/beanbag = 2,
+		/obj/item/ammo_box/shotgun/tranquilizer = 1,
+		/obj/item/ammo_box/magazine/sp91rc = 8,
+		/obj/item/grenade/flashbang = 10,
+		/obj/item/grenade/barrier = 10,
+		/obj/item/grenade/chem_grenade/teargas = 10,
+	)
+	contraband = list(
+		/obj/item/storage/box/flashbangs = 2,
+		/obj/item/storage/box/barrier = 2,
+		/obj/item/storage/box/teargas = 2,
+		/obj/item/ammo_box/a357 = 1,
+	)
+
+	prices = list(
+		/obj/item/storage/box/flashbangs = 100,
+		/obj/item/storage/box/barrier = 70,
+		/obj/item/storage/box/teargas = 100,
+		/obj/item/ammo_box/a357 = 300,
+	)
+
 #undef FLICK_NONE
 #undef FLICK_VEND
 #undef FLICK_DENY
