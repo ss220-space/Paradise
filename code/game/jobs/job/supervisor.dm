@@ -219,19 +219,14 @@
 	pda = /obj/item/pda/heads/blueshield
 	backpack_contents = list(
 		/obj/item/storage/box/deathimp = 1,
-		/obj/item/gun/energy/gun/blueshield = 1
+		/obj/item/gun/energy/gun/blueshield = 1,
+		/obj/item/gun/projectile/automatic/proto = 1,
+		/obj/item/ammo_box/magazine/smgm9mm = 2
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
 	backpack = /obj/item/storage/backpack/blueshield
 	satchel = /obj/item/storage/backpack/satchel_blueshield
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield
-
-/datum/outfit/job/blueshield/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	var/datum/martial_art/cqc/CQC = new
-	CQC.teach(H)
 
 /datum/job/judge
 	title = JOB_TITLE_JUDGE
