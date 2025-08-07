@@ -23,7 +23,16 @@ jobs:
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
-          message: ${{ github.event.action != 'labeled' && 'GET_ACTION' || format('**Pull Request {0} automatically marked as stale.**', github.event.pull_request.number) }}
+          message: ${{
+            format('{0}{1}',
+              (github.event.action == 'closed' &&
+                (github.event.pull_request.merged == true &&
+                  format('**Изменения из пулл реквеста {0} добавлены в билд.**\n', github.event.pull_request.number) ||
+                  format('**Пулл реквест {0} закрыт.**\n', github.event.pull_request.number)) ||
+              github.event.action == 'opened' &&
+                format('**Пулл реквест {0} открыт.**\n', github.event.pull_request.number)),
+              (github.event.pull_request.body || '')
+            )}}
           include_image: false
           show_author: true
           avatar_url: https://cdn.discordapp.com/attachments/1284433984666734603/1403044127112958063/1984__.png?ex=68961e2b&is=6894ccab&hm=d7b5275db43299c38cfb4cb9dead55f1d8ec0191a556b8090fd81b11267c9dd0&
