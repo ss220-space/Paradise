@@ -5212,14 +5212,14 @@
 /obj/machinery/vending/ammo
 	name = "Liberty"
 	ru_names = list(
-		NOMINATIVE = "раздатчик боеприпасов Liberty",
-		GENITIVE = "раздатчика боеприпасов Liberty",
-		DATIVE = "раздатчику боеприпасов Liberty",
+		NOMINATIVE = "торговый автомат Liberty",
+		GENITIVE = "торгового автомата Liberty",
+		DATIVE = "торговому автомату Liberty",
 		ACCUSATIVE = "раздатчика боеприпасов Liberty",
-		INSTRUMENTAL = "раздатчиком боеприпасов Liberty",
-		PREPOSITIONAL = "раздатчике боеприпасов Liberty"
+		INSTRUMENTAL = "торговым автоматом Liberty",
+		PREPOSITIONAL = "торговом автомате Liberty"
 	)
-	desc = "Автомат для выдачи патронов, используемый в оружии службы безопасности."
+	desc = "Боеприпасы для тех, кто стреляет первым."
 
 	slogan_list = list(
 		"Я не встр+ечал ник+ого умн+ее пул+и!",
