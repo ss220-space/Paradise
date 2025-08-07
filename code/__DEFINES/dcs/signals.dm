@@ -851,6 +851,16 @@
 ///from base power_change() when power is restored
 #define COMSIG_MACHINERY_POWER_RESTORED "machinery_power_restored"
 
+// obj/machinery/door_timer signals
+///from obj/machinery/door_timer/timer_start(): (/mob/living/target, crimes, duration_min)
+#define COMSIG_DOOR_TIMER_START "door_timer_start"
+///from obj/machinery/door_timer/timer_end(): (/mob/living/target, crimes, duration_min)
+#define COMSIG_DOOR_TIMER_FINISH "door_timer_finish"
+
+// obj/machinery/crematorium
+///from obj/machinery/crematorium/cremate(): (/mob/living/target)
+#define COMSIG_LIVING_CREMATED "crematorium_cremated_living"
+
 // /obj/item signals
 
 ///from base of obj/item/attack(): (/mob/living/target, /mob/living/user, params, def_zone)
@@ -1018,6 +1028,11 @@
 
 ///sent from mecha action buttons to the mecha they're linked to
 #define COMSIG_MECHA_ACTION_ACTIVATE "mecha_action_activate"
+
+// /obj/docking_port/mobile signals
+
+///from /obj/docking_port/mobile/proc/dock(): (obj/docking_port/stationary/new_dock)
+#define COMSIG_SHUTTLE_DOCK "shuttle_dock"
 
 // /mob/living/carbon/human signals
 
