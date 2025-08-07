@@ -42,7 +42,7 @@
 /obj/item/gun/proc/do_recoil(mob/living/user, atom/target)
 	if(!recoil || !recoil.strength)
 		return
-	var/shot_angle = get_angle_alt(target, user)
+	var/shot_angle = get_angle(target, user)
 	var/rand_angle = (rand() - 0.5) * recoil.angle + shot_angle
 	recoil_camera(user, recoil.strength, recoil.in_duration, recoil.back_duration, rand_angle)
 
