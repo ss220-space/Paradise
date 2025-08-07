@@ -33,17 +33,16 @@ jobs:
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
-          message: |
-            ${{
-              github.event.action == 'closed' && github.event.pull_request.merged == true
-                ? format('**Изменения из пулл реквеста {0} добавлены в билд.**\n{1}',
-                    github.event.pull_request.number,
-                    steps.process_body.outputs.CLEAN_BODY
-                  )
-                : github.event.action == 'closed'
-                  ? format('**Пулл реквест {0} закрыт.**', github.event.pull_request.number)
-                  : format('**Пулл реквест {0} открыт.**', github.event.pull_request.number)
-            }}
+          message: ${{ format('{0}\n{1}',
+              (github.event.action == 'closed' &&
+                (github.event.pull_request.merged == true && format('**Изменения из пулл реквеста {0} добавлены в билд.**', github.event.pull_request.number) ||
+                format('**Пулл реквест {0} закрыт.**', github.event.pull_request.number)
+              ) ||
+              github.event.action == 'opened' &&
+                format('**Пулл реквест {0} открыт.**', github.event.pull_request.number)
+              ),
+            (steps.process_body.outputs.CLEAN_BODY) || ''
+            )}}
           include_image: false
           show_author: true
           avatar_url: https://cdn.discordapp.com/attachments/1284433984666734603/1403044127112958063/1984__.png?ex=68961e2b&is=6894ccab&hm=d7b5275db43299c38cfb4cb9dead55f1d8ec0191a556b8090fd81b11267c9dd0&
