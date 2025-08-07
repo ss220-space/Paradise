@@ -57,7 +57,7 @@
 /datum/fake_administrator/denchigo
 	admin_name = "Denchigo"
 	admin_rank = MEGA_CA
-	fake_msgs = list("Ты же понимаешь что это р0?")
+	fake_msgs = list("Ты же понимаешь что это р0?", "Погнали на БМ")
 	var/list/special_for_admins = list("Заебал, снят", "Снят нахуй", "Лови аварн")
 
 /datum/fake_administrator/denchigo/send_random_msg(target)
