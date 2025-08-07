@@ -259,7 +259,7 @@
 	duration = -1
 	tick_interval = -1
 	/// What species were we before this effect was ever applied on us
-	var/old_species
+	var/datum/old_species
 
 /datum/status_effect/race_swap/on_creation(mob/living/carbon/human/new_owner, datum/species/new_species)
 	. = ..()
@@ -278,7 +278,7 @@
 
 /datum/status_effect/race_swap/be_replaced()
 	var/mob/living/carbon/human/human = owner
-	human.set_species(old_species)
+	human.set_species(old_species.type)
 	return ..()
 
 /datum/status_effect/race_swap/on_remove()
