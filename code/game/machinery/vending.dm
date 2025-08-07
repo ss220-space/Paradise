@@ -5215,7 +5215,7 @@
 		NOMINATIVE = "торговый автомат Liberty",
 		GENITIVE = "торгового автомата Liberty",
 		DATIVE = "торговому автомату Liberty",
-		ACCUSATIVE = "раздатчика боеприпасов Liberty",
+		ACCUSATIVE = "торговый автомат Liberty",
 		INSTRUMENTAL = "торговым автоматом Liberty",
 		PREPOSITIONAL = "торговом автомате Liberty"
 	)
