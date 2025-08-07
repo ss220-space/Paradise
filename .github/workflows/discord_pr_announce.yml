@@ -22,6 +22,10 @@ jobs:
         run: |
           CLEAN_BODY=$(echo '${{ github.event.pull_request.body }}' | sed 's/<!--.*-->//g')
           CLEAN_BODY=$(echo "$CLEAN_BODY" | sed '/^[[:space:]]*$/d')
+          CLEAN_BODY=$(echo "$CLEAN_BODY" | sed -E 's/<img[^>]*src="([^"]*)"[^>]*>/\1/g')
+          CLEAN_BODY=$(echo "$CLEAN_BODY" | sed -E 's/<a[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/[\2](\1)/g')
+          CLEAN_BODY=$(echo "$CLEAN_BODY" | sed 's/<[^>]*>//g')
+          CLEAN_BODY=$(echo "$CLEAN_BODY" | sed '/^[[:space:]]*$/d')
           CLEAN_BODY=$'\n'"$CLEAN_BODY"
           echo "CLEAN_BODY<<EOF" >> $GITHUB_OUTPUT
           echo "$CLEAN_BODY" >> $GITHUB_OUTPUT
