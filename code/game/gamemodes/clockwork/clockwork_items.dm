@@ -748,12 +748,12 @@
 	if(!shooter.get_organ(zone))
 		zone = BODY_ZONE_CHEST
 	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
-	shooter.visible_message(span_danger("[declent_ru(ACCUSATIVE)] начинает ярко светиться!"))
+	shooter.visible_message(span_danger("[declent_ru(NOMINATIVE)] начинает ярко светиться!"))
 	if(iscultist(shooter))
 		to_chat(shooter, span_clocklarge("Получи, грязный еретик!"))
 	else
 		to_chat(shooter, span_clocklarge("Руки прочь!"))
-	shooter.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Выстрелил себе в [zone.declent_ru(ACCUSATIVE)].")
+	shooter.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Выстрелил себе в [GLOB.body_zone[zone][ACCUSATIVE]] из [declent_ru(GENITIVE)].")
 	shooter.bleed(BLOOD_VOLUME_NORMAL)
 	shooter.death()
 
