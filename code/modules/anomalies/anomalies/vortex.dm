@@ -103,6 +103,10 @@
 /obj/effect/anomaly/vortex/process()
 	. = ..()
 
+	if(!loc)
+		qdel(src)
+		return
+
 	for(var/atom/movable/atom in loc.contents)
 		if(!can_move_sth(atom))
 			continue
