@@ -348,8 +348,8 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	return FALSE
 
 /obj/item/part_upper/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
-	return ..()
 
 /obj/item/part_upper/proc/destroy_curse(mob/living/user)
 	if(!GLOB.heart?.curse_upper)
