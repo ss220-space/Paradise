@@ -21,7 +21,7 @@
 
 
 /obj/structure/AIcore/proc/death_alarm()
-	var/obj/item/radio/headset/all_channels/dummy = new /obj/item/radio/headset/all_channels(src)
+	var/obj/item/radio/headset/all_channels/dummy = new(src)
 	var/static/msg = "Внимание! Обнаружено повреждение внутренних систем станционного ИИ. \
 					Требуется срочное вмешательство."
 	var/static/sender = "Автоматическая система оповещений"
@@ -37,7 +37,7 @@
 		return
 
 	for(var/obj/item/pda/pda in GLOB.PDAs)
-		if(pda.ownjob != JOB_TITLE_CAPTAIN && pda.ownjob != JOB_TITLE_CHIEF && pda.ownjob != JOB_TITLE_RD)
+		if(!(pda.ownjob in GLOB.ai_death_alarm_jobs))
 			continue
 
 		var/datum/data/pda/app/messenger/messenger = pda.find_program(/datum/data/pda/app/messenger)
