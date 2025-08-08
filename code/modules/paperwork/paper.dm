@@ -964,7 +964,7 @@
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
 				R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
-				R.fields["last_modifier_level"] = LAW_LEVEL_WARDEN
+				R.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
 				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 		update_all_mob_security_hud()
 		if(fax)
