@@ -39,14 +39,15 @@
 			collar_type = "[initial(collar_type)]_dead"
 		regenerate_icons()
 		return
-	else if(resting || body_position == LYING_DOWN)
+	if(resting || body_position == LYING_DOWN)
 		icon_state = icon_resting
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_rest"
-	else
-		icon_state = icon_living
-		if(collar_type)
-			collar_type = "[initial(collar_type)]"
+		regenerate_icons()
+		return
+	icon_state = icon_living
+	if(collar_type)
+		collar_type = "[initial(collar_type)]"
 	regenerate_icons()
 
 /mob/living/simple_animal/pet/dog/fox/forest

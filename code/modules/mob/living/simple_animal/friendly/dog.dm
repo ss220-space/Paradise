@@ -820,10 +820,9 @@
 			collar_type = "[initial(collar_type)]_dead"
 		regenerate_icons()
 		return
-	else
-		icon_state = icon_living
-		if(collar_type)
-			collar_type = "[initial(collar_type)]"
+	icon_state = icon_living
+	if(collar_type)
+		collar_type = "[initial(collar_type)]"
 	regenerate_icons()
 
 /mob/living/simple_animal/pet/dog/bullterrier
