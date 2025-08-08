@@ -415,7 +415,7 @@
 	keys = list("CtrlR")
 
 /datum/keybinding/mob/toggle_gun_sight/can_use(client/user)
-	return ishuman(user.mob)   //only humans can use sights
+	return ishuman(user.mob) //only humans can use sights
 
 /datum/keybinding/mob/toggle_gun_sight/down(client/user)
 	. = ..()

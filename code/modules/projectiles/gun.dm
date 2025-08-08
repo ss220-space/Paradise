@@ -470,20 +470,6 @@
 			to_chat(user, span_notice("Вы оружию имя \"[name]\". Познакомьтесь со своим новым другом."))
 		return ATTACK_CHAIN_BLOCKED
 
-	// if(istype(I, /obj/item/flashlight/seclite))
-	// 	add_fingerprint(user)
-	// 	if(!can_flashlight)
-	// 		to_chat(user, span_warning("Вы не можете прикрепить [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
-	// 		return ATTACK_CHAIN_PROCEED
-	// 	if(gun_light)
-	// 		to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL )] уже установлен [gun_light.declent_ru(NOMINATIVE)]!"))
-	// 		return ATTACK_CHAIN_PROCEED
-		// if(!user.drop_transfer_item_to_loc(I, src))
-			// return ..()
-		// to_chat(user, span_notice("Вы закрепляете [I.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
-		// set_gun_light(I)
-		// return ATTACK_CHAIN_BLOCKED_ALL
-
 	if(istype(I, /obj/item/kitchen/knife))
 		add_fingerprint(user)
 		var/obj/item/kitchen/knife/knife = I
@@ -512,9 +498,6 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	// if(gun_light && can_flashlight)
-	// 	to_chat(user, span_notice("Вы откручиваете [gun_light] от [declent_ru(ACCUSATIVE)]."))
-	// 	set_gun_light(null)
 	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
 		to_chat(user, span_notice("Вы снимаете [bayonet] с [declent_ru(ACCUSATIVE)]."))
 		set_bayonet(null)
@@ -662,7 +645,7 @@
 		choices += module.declent_ru(NOMINATIVE)
 	if(length(choices) == 0)
 		return
-	var/choice = tgui_input_list(user, "Выберите модуль для удаления", "Снять модуль", choices, choices[1], 0, GLOB.conscious_state)
+	var/choice = tgui_input_list(user, "Выберите модуль, который хотите снять", "Снять модуль", choices, choices[1], 0, GLOB.conscious_state)
 	for(var/slot in attachments_by_slot)
 		if(!attachments_by_slot[slot])
 			continue

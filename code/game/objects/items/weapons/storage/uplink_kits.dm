@@ -731,7 +731,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/melee/ghostface_knife/devil(src)
 
 /obj/item/storage/box/syndie_kit/gun_mods
-	name = "Gun upgrade kit"
+	name = "gun upgrade kit"
 	desc = "Коробка, содержащая различные модуля для улучшения оружия."
 	ru_names = list(
 		NOMINATIVE = "набор оружейных модулей",

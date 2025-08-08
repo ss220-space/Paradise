@@ -2263,15 +2263,15 @@
 		INSTRUMENTAL = "торговым автоматом ModTech",
 		PREPOSITIONAL = "торговом автомате ModTech"
 	)
-	desc = "Раздатчик модулей для оружия службы безопасности."
+	desc = "Торговый автомат с модулями для оружия предназначенный для сотрудников службы безопасности."
 
 	slogan_list = list(
-		"Улучши свое оружие!",
-		"Купи глушитель, будь на стиле!",
-		"Различные прицелы на любой вкус!",
-		"Купи глушитель, соблюдай тишину.",
-		"Почему твой ствол не улучшен?!",
-		"Твоя пушка недостаточно тактическая!"
+		"Улу+чши сво+ё ору+жие!",
+		"Купи+ глуши+тель, будь на сти+ле!",
+		"Разли+чные прице+лы на любо+й вкус!",
+		"Купи+ глуши+тель, соблюда+й тишину+.",
+		"Почему+ тво+й ствол не улу+чен?!",
+		"Твоя+ пу+шка недоста+точно такти+ческая!"
 	)
 
 	icon_state = "attachments_off"
@@ -2282,16 +2282,16 @@
 
 	req_access = list(ACCESS_SECURITY)
 	products = list(
-		/obj/item/gun_module/muzzle/compensator = 3,
-		/obj/item/gun_module/rail/scope/collimator/pistol = 3,
-		/obj/item/gun_module/rail/scope/collimator = 3,
-		/obj/item/gun_module/rail/scope/x4 = 2,
-		/obj/item/gun_module/under/flashlight/pistol = 5,
-		/obj/item/gun_module/under/flashlight/rifle = 3,
-		/obj/item/gun_module/under/hand/angle = 3
+		/obj/item/gun_module/muzzle/compensator = 5,
+		/obj/item/gun_module/rail/scope/collimator/pistol = 5,
+		/obj/item/gun_module/rail/scope/collimator = 5,
+		/obj/item/gun_module/rail/scope/x4 = 3,
+		/obj/item/gun_module/under/flashlight/pistol = 8,
+		/obj/item/gun_module/under/flashlight/rifle = 8,
+		/obj/item/gun_module/under/hand/angle = 5
 	)
 	contraband = list(
-		/obj/item/gun_module/muzzle/suppressor = 2,
+		/obj/item/gun_module/muzzle/suppressor = 3,
 		/obj/item/gun_module/rail/scope/x8 = 1,
 	)
 	prices = list(
@@ -2302,13 +2302,16 @@
 		/obj/item/gun_module/under/flashlight/pistol = 199,
 		/obj/item/gun_module/under/flashlight/rifle = 249,
 		/obj/item/gun_module/under/hand/angle = 399,
-		/obj/item/gun_module/muzzle/suppressor = 399,
-		/obj/item/gun_module/rail/scope/x8 = 999
+		/obj/item/gun_module/muzzle/suppressor = 499,
+		/obj/item/gun_module/rail/scope/x8 = 2999
 	)
 	refill_canister = /obj/item/vending_refill/gun_mods
 
 /obj/machinery/vending/gun_mods/free
-	// all items free, this vending for central command
+	// all items free, this vending for central command and syndicate
+	desc = "Раздатчик с модулями для оружия."
+	req_access = list()
+
 	products = list(
 		/obj/item/gun_module/muzzle/compensator = 5,
 		/obj/item/gun_module/rail/scope/collimator/pistol = 5,

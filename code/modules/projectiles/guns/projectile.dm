@@ -35,12 +35,6 @@
 	else
 		desc = initial(desc)
 
-
-// /obj/item/gun/projectile/update_icon_state()
-// 	if(current_skin)
-// 		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
-// 	else
-// 		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
 /obj/item/gun/projectile/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][sawn_state ? "-sawn" : ""]"

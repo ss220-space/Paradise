@@ -2378,7 +2378,7 @@
 
 /datum/uplink_item/bundles_TC/gun_mods
 	name = "Набор модулей для оружия"
-	desc = "Коробка, в которой находятся различные модули для улучшения вашего оружия."
+	desc = "Коробка, содержащая различные модули для улучшения вашего оружия."
 	item = /obj/item/storage/box/syndie_kit/gun_mods
 	cost = 10 // silencer 4 TK + 4 other modules
 
