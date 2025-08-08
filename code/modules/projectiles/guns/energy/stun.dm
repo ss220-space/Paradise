@@ -26,7 +26,10 @@
 	origin_tech = "combat=4"
 	ammo_x_offset = 2
 	accuracy = GUN_ACCURACY_DEFAULT
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
+	)
 
 /obj/item/gun/energy/gun/advtaser/cyborg
 	name = "cyborg taser"
