@@ -150,7 +150,7 @@
 	slowdown = 0.2
 	var/force_unwielded = 10
 	var/force_wielded = 20
-	accuracy = list("head" = 66, "chest" = 85, "arms" = 50, "legs" = 50, "hands" = 33, "foots" = 33, "other" = 33, "dual_wield_spread" = 45, "spread" = 45)
+	accuracy = list("head" = 66, "chest" = 85, "arms" = 50, "legs" = 50, "hands" = 33, "foots" = 33, "other" = 33, "dual_wield_spread" = 45, "min_spread" = 5, "max_spread" = 45)
 	recoil = GUN_RECOIL_LOW
 
 /obj/item/gun/energy/gun/minigun/Initialize(mapload)

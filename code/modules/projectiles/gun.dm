@@ -293,10 +293,6 @@
 
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	var/sprd = 0
-	var/randomized_gun_spread = 0
-	if(accuracy.spread)
-		randomized_gun_spread =	rand(0, accuracy.spread)
-	var/randomized_bonus_spread = rand(0, bonus_spread)
 
 	if (is_tk_grab)
 		rotate_to_target(target)
@@ -315,9 +311,9 @@
 					break
 			if(chambered)
 				if(randomspread)
-					sprd = round((rand() - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
+					sprd = accuracy.randomize_spread(bonus_spread)
 				else
-					sprd = round((i / burst_size - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
+					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(bonus_spread))
 				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 					shoot_with_empty_chamber(user)
 					break
@@ -340,7 +336,7 @@
 				if(chambered.harmful) // Is the bullet chambered harmful?
 					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 					return
-			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
+			sprd = accuracy.randomize_spread(bonus_spread)
 			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 				shoot_with_empty_chamber(user)
 				return
