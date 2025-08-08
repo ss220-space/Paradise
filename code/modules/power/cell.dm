@@ -30,11 +30,27 @@
 
 /obj/item/stock_parts/cell/rat_shotgun
 	name = "brass power cell"
+	ru_names = list(
+		NOMINATIVE = "латунная батарейка",
+		GENITIVE = "латунной батарейки",
+		DATIVE = "латунной батарейке",
+		ACCUSATIVE = "латунную батарейку",
+		INSTRUMENTAL = "латунной батарейкой",
+		PREPOSITIONAL = "латунной батарейке"
+	)
 	maxcharge = 10
 	desc = "Элемент, вырабатывающий энергию для оружия культистов ратвара, однако бесполезен в других целях. Этот предназначен для дробовика."
 
 /obj/item/stock_parts/cell/rat_sniper
 	name = "brass power cell"
+		ru_names = list(
+		NOMINATIVE = "латунная батарейка",
+		GENITIVE = "латунной батарейки",
+		DATIVE = "латунной батарейке",
+		ACCUSATIVE = "латунную батарейку",
+		INSTRUMENTAL = "латунной батарейкой",
+		PREPOSITIONAL = "латунной батарейке"
+	)
 	maxcharge = 5
 	desc = "Элемент, вырабатывающий энергию для оружия культистов ратвара, однако бесполезен в других целях. Этот предназначен для снайперской винтовки."
 

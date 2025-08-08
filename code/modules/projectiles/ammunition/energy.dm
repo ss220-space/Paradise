@@ -531,6 +531,14 @@
 
 /obj/item/ammo_casing/energy/rat
 	name = "mechanical energy module"
+	ru_names = list(
+		NOMINATIVE = "механическая энергоячейка",
+		GENITIVE = "механической энергоячейки",
+		DATIVE = "механической энергоячейке,
+		ACCUSATIVE = "механическую энергоячейку",
+		INSTRUMENTAL = "механичекой энергоячейкой",
+		PREPOSITIONAL = "механической энергоячейке"
+	)
 	desc = "Несколько шестерней, запитывающих оружие энергией Ратвара."
 	caliber = "ratvar"
 	projectile_type = /obj/projectile/energy/rat
