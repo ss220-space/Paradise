@@ -231,7 +231,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	smoothing_groups = SMOOTH_GROUP_FILLER
 	var/obj/machinery/parent
 	icon = 'icons/effects/blood.dmi'
-	icon_state =  "thisisfuckingstupid"
+	icon_state = "thisisfuckingstupid"
 	alpha = 1
 	mouse_drag_pointer = MOUSE_DROP_POINTER
 	plane = ABOVE_GAME_PLANE
