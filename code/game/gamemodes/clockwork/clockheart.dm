@@ -136,7 +136,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 /obj/structure/clockwork/functional/heart/proc/summon(obj/item/I, mob/user)
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(GLOB.total_curses > 0)
-		balloon_alert(user, "сначало снимите печати")
+		balloon_alert(user, "сначала снимите печати")
 		return
 	if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
 		balloon_alert(user, "слишком рано...")
