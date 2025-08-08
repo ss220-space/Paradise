@@ -346,7 +346,7 @@
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/pet/dog/pug/Frank
-	name = "Фрэнк"
+	name = "Frank"
 	real_name = "Фрэнк"
 	desc = "Мопс, полученный в результате эксперимента учёных в черном. И почему его не забрали?. Похоже, он всем надоел своей болтовней, после чего его лишили дара речи."
 	ru_names = list(

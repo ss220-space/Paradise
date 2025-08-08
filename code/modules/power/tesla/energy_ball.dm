@@ -101,7 +101,7 @@
 		pixel_y = 0
 		shocked_things.Cut(1, length(shocked_things) / 1.3)
 		var/list/shocking_info = list()
-		tesla_zap(source = src, zap_range = 3, power = TESLA_DEFAULT_POWER, shocked_targets = shocking_info)
+		tesla_zap(source = src, zap_range = 3, power = TESLA_DEFAULT_POWER, shocked_targets = shocking_info, zap_flags = ZAP_TESLA_FLAGS)
 
 		pixel_x = -32
 		pixel_y = -32
@@ -109,7 +109,7 @@
 			var/range = rand(1, clamp(length(orbiting_balls), 2, 3))
 			var/list/temp_shock = list()
 			//We zap off the main ball instead of ourselves to make things looks proper
-			tesla_zap(source = src, zap_range = range, power = TESLA_MINI_POWER / 7 * range, shocked_targets = temp_shock)
+			tesla_zap(source = src, zap_range = range, power = TESLA_MINI_POWER / 7 * range, shocked_targets = temp_shock, zap_flags = ZAP_TESLA_FLAGS)
 			shocking_info += temp_shock
 		shocked_things += shocking_info
 
@@ -214,38 +214,38 @@
 
 /// Things that we don't want to shock.
 GLOBAL_LIST_INIT(blacklisted_tesla_types, typecacheof(list(
-	/obj/machinery/atmospherics,
-	/obj/machinery/portable_atmospherics,
-	/obj/machinery/power/emitter,
-	/obj/machinery/field/generator,
-	/mob/living/simple_animal,
-	/obj/machinery/particle_accelerator/control_box,
-	/obj/structure/particle_accelerator/fuel_chamber,
-	/obj/structure/particle_accelerator/particle_emitter/center,
-	/obj/structure/particle_accelerator/particle_emitter/left,
-	/obj/structure/particle_accelerator/particle_emitter/right,
-	/obj/structure/particle_accelerator/power_box,
-	/obj/structure/particle_accelerator/end_cap,
-	/obj/machinery/field/containment,
-	/obj/structure/disposalpipe,
-	/obj/structure/disposaloutlet,
-	// /obj/machinery/disposal/delivery_chute,
-	/obj/machinery/camera,
-	/obj/structure/sign,
-	/obj/machinery/gateway,
-	/obj/structure/lattice,
-	/obj/structure/grille,
-	/obj/structure/cable,
-	/obj/machinery/the_singularitygen/tesla,
-	/obj/machinery/constructable_frame/machine_frame
+		/obj/machinery/atmospherics,
+		/obj/machinery/portable_atmospherics,
+		/obj/machinery/power/emitter,
+		/obj/machinery/field/generator,
+		/mob/living/simple_animal/slime,
+		/obj/machinery/particle_accelerator/control_box,
+		/obj/structure/particle_accelerator/fuel_chamber,
+		/obj/structure/particle_accelerator/particle_emitter/center,
+		/obj/structure/particle_accelerator/particle_emitter/left,
+		/obj/structure/particle_accelerator/particle_emitter/right,
+		/obj/structure/particle_accelerator/power_box,
+		/obj/structure/particle_accelerator/end_cap,
+		/obj/machinery/field/containment,
+		/obj/structure/disposalpipe,
+		/obj/structure/disposaloutlet,
+		// /obj/machinery/disposal/delivery_chute,
+		/obj/machinery/camera,
+		/obj/structure/sign,
+		/obj/machinery/gateway,
+		/obj/structure/lattice,
+		/obj/structure/grille,
+		/obj/structure/cable,
+		/obj/machinery/the_singularitygen/tesla,
+		/obj/machinery/constructable_frame/machine_frame
 	)))
 
 /// Things that we want to shock.
 GLOBAL_LIST_INIT(things_to_shock, typecacheof(list(
-	/obj/machinery,
-	/mob/living,
-	/obj/structure,
-	/obj/vehicle
+		/obj/machinery,
+		/mob/living,
+		/obj/structure,
+		/obj/vehicle
 	)))
 
 /proc/tesla_zap(atom/source, zap_range = 3, power, cutoff = 1e3, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())

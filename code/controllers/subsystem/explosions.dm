@@ -81,10 +81,8 @@ SUBSYSTEM_DEF(explosions)
 				dist += prev_block
 				data.cached_exp_block[total_cords] = prev_block + turf_block
 
-			var/flame_dist = 0
+			var/flame_dist = dist < data.flame_range
 
-			if(dist < data.flame_range)
-				flame_dist = 1
 
 			if(dist < data.devastation_range)		dist = 1
 			else if(dist < data.heavy_impact_range)	dist = 2
