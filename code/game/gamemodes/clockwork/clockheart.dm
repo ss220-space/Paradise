@@ -128,6 +128,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	if(!do_after(user, 5 SECONDS, src))
 		return
 	part.destroy_curse(user)
+	balloon_alert(user, "деталь установлена")
 	GLOB.total_curses --
 	qdel(part)
 	update_icon(UPDATE_OVERLAYS)
@@ -215,7 +216,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	new /obj/item/part_upper/lower(third_part_loc)
 
 /obj/structure/heart_filler
-	name = "The heart of Ratvar"
+	name = "The Heart of Ratvar"
 	ru_names = list(
 		NOMINATIVE = "Сердце Ратвара",
 		GENITIVE = "Сердца Ратвара",
