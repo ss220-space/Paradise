@@ -52,9 +52,9 @@
 
 
 /obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
-    if(istype(action, /datum/action/item_action/toggle_firemode))
-        burst_select()
-        return TRUE
+	if(istype(action, /datum/action/item_action/toggle_firemode))
+		burst_select()
+		return TRUE
 
 /obj/item/gun/projectile/automatic/proc/burst_select()
 	var/mob/living/carbon/human/user = usr
@@ -150,9 +150,11 @@
 	spread = 20
 	actions_types = null
 
-/obj/item/gun/projectile/automatic/wt550/Initialize(mapload)
-    . = ..()
-    AddComponent(/datum/component/automatic_fire, 0.2 SECONDS)
+/obj/item/gun/projectile/automatic/wt550/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
@@ -190,9 +192,11 @@
 	spread = 20
 	actions_types = null
 
-/obj/item/gun/projectile/automatic/sp91rc/Initialize(mapload)
-    . = ..()
-    AddComponent(/datum/component/automatic_fire, 0.2 SECONDS)
+/obj/item/gun/projectile/automatic/sp91rc/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -221,9 +225,11 @@
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
 	burst_size = 1
 
-/obj/item/gun/projectile/automatic/mini_uzi/Initialize(mapload)
-    . = ..()
-    AddComponent(/datum/component/automatic_fire, 0.2 SECONDS)
+/obj/item/gun/projectile/automatic/mini_uzi/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
