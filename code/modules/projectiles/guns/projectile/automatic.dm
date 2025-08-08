@@ -93,6 +93,9 @@
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	accuracy = GUN_ACCURACY_DEFAULT
 
+/obj/item/gun/projectile/automatic/proto/rubber
+	mag_type = /obj/item/ammo_box/magazine/smgm9mm/rubber
+
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
 	name = "C-20r SMG"

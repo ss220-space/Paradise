@@ -574,6 +574,8 @@ This function restores all organs.
 	used_weapon = null,
 )
 	. = ..()
+	if(!physiology)
+		return
 	// Add relevant DR modifiers into blocked value
 	. += physiology.damage_resistance
 	. += dna.species.damage_resistance
@@ -587,7 +589,8 @@ This function restores all organs.
 	used_weapon = null,
 )
 	. = ..()
-
+	if(!physiology)
+		return
 	switch(damagetype)
 		if(BRUTE)
 			. = . * dna.species.brute_mod * physiology.brute_mod

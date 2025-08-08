@@ -207,3 +207,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ischest(A) (istype(A, /obj/item/organ/external/chest))
 
 #define isgroin(A) (istype(A, /obj/item/organ/external/groin))
+
+/// in some situations we can't rely on dynamic typing and use if(statement)
+#define istrue(statement) (statement == TRUE)
