@@ -390,6 +390,19 @@
 	caliber = "9mm"
 	max_ammo = 21
 
+/obj/item/ammo_box/magazine/smgm9mm/rubber
+	name = "magazine SMG (rubber)"
+	desc = "Магазин пистолет-пулемёта SMG, предназначенный для резиновых патронов."
+	ru_names = list(
+		NOMINATIVE = "магазин SMG (резиновый)",
+		GENITIVE = "магазина SMG (резиновый)",
+		DATIVE = "магазину SMG (резиновый)",
+		ACCUSATIVE = "магазина SMG (резиновый)",
+		INSTRUMENTAL = "магазином SMG (резиновый)",
+		PREPOSITIONAL = "магазине SMG (резиновый)"
+	)
+	ammo_type = /obj/item/ammo_casing/rubber9mm
+
 /obj/item/ammo_box/magazine/smgm9mm/ap
 	name = "SMG magazine (Armour Piercing 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/ap
