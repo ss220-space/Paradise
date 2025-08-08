@@ -740,8 +740,9 @@
 		kill_shooter(user)
 		return
 	. = ..()
-	if(enchant_type)
-		remove_enchanted_bullet()
+	if(!enchant_type)
+		return
+	remove_enchanted_bullet()
 
 /obj/item/gun/energy/clockwork/proc/kill_shooter(mob/living/carbon/shooter)
 	var/zone = BODY_ZONE_HEAD
