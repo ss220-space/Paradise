@@ -43,7 +43,7 @@
 
 /obj/item/stock_parts/cell/rat_sniper
 	name = "brass power cell"
-		ru_names = list(
+	ru_names = list(
 		NOMINATIVE = "латунная батарейка",
 		GENITIVE = "латунной батарейки",
 		DATIVE = "латунной батарейке",
