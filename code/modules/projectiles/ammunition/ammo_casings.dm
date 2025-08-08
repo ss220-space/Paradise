@@ -106,7 +106,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c9mm/rubber
-	desc = "Резиновый патрон калибра 9мм."
+	desc = "Резиновый патрон калибра 9 мм."
 	projectile_type = /obj/projectile/bullet/weakbullet2
 
 /obj/item/ammo_casing/c9mm/ap
