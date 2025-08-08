@@ -316,17 +316,21 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	end = get_turf(target_atom)
 	return ..()
 
-/obj/effect/immovablerod/smite/Move()
+/obj/effect/immovablerod/smite/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	if(get_turf(src) == end)
-		// our exit condition: get outta there kowalski
-		var/target_turf = get_ranged_target_turf(src, dir, rand(1, 10))
-		walk(src, 0)
-		exit = new /obj/effect/portal(target_turf, null, null, 2 SECONDS)
-		walk_towards(src, exit, move_delay)
-	else if(locate(exit) in get_turf(src))
+
+	if(locate(exit) in get_turf(src))
 		QDEL_NULL(exit)
 		qdel(src)
+		return
+
+	if(get_turf(src) != end)
+		return
+
+	// our exit condition: get outta there kowalski
+	var/target_turf = get_ranged_target_turf(src, dir, rand(1, 10))
+	exit = new /obj/effect/portal(target_turf, null, null, 2 SECONDS)
+	SSmove_manager.move_towards(src, exit, delay = move_delay)
 
 /**
  * Allows your rod to release restraint level zero and go for a walk.
