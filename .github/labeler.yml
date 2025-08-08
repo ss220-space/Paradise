@@ -1,29 +1,43 @@
-# When the .py is changed
-python:
-- changed-files:
-  - any-glob-to-any-file: '**/*.py'
+'Python':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.py']
 
-# Javascript changes
-javascript:
-- changed-files:
-  - any-glob-to-any-file: '**/*.js'
+'JavaScript':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.js']
 
-# Any .dmi changes
-DMI:
-- changed-files:
-  - any-glob-to-any-file: '**/*.dmi'
+'TypeScript':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.ts', '**/*.tsx']
 
-# Changes to a .dmm
-MAP:
-- changed-files:
-  - any-glob-to-any-file: '**/*.dmm'
+'Rust':
+  - changed-files:
+      - any-glob-to-any-file: ['rust/**']
 
-# Encompasses both the tgui and the tgui-next folder
-TGUI:
-- changed-files:
-  - any-glob-to-any-file: ['tgui/**', 'tgui-next/**']
+'SQL':
+  - changed-files:
+      - any-glob-to-any-file: ['SQL/**']
 
-# Rust changes
-RUST:
-- changed-files:
-  - any-glob-to-any-file: 'rust/**'
+'TGUI':
+  - changed-files:
+      - any-glob-to-any-file: ['tgui/**', 'tgui-next/**']
+
+'Спрайты':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.dmi']
+
+'Изменение карты':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.dmm']
+
+'Изменение конфига':
+  - changed-files:
+      - any-glob-to-any-file: ['config/**']
+
+'Документация':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.md']
+
+'Звук':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.ogg']
