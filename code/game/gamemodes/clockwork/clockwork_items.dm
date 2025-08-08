@@ -699,9 +699,9 @@
 	cell.charge = min(cell.charge + charge_rate, cell.maxcharge)
 
 /obj/item/gun/energy/clockwork/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(charge)), charge_speed, TIMER_LOOP | TIMER_DELETE_ME)
 	enchants = GLOB.gun_and_heart_spells
-	. = ..()
 
 /obj/item/gun/energy/clockwork/update_overlays()
 	if(!enchant_type)
