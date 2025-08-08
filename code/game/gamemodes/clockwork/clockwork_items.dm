@@ -693,7 +693,7 @@
 	. = ..()
 	if(!isclocker(user))
 		return
-	.+= span_clockitalic("\n Остал[declension_ru(cell.charge, "ся", "ось", "ось")] [cell.charge] заряд[declension_ru(cell.charge, "", "а", "ов")].")
+	. += span_clockitalic("\n Остал[declension_ru(cell.charge, "ся", "ось", "ось")] [cell.charge] заряд[declension_ru(cell.charge, "", "а", "ов")].")
 
 /obj/item/gun/energy/clockwork/proc/charge()
 	cell.charge = min(cell.charge + charge_rate, cell.maxcharge)
@@ -704,10 +704,10 @@
 	. = ..()
 
 /obj/item/gun/energy/clockwork/update_overlays()
-	if(enchant_type)
-		. += "[initial(icon_state)]_overlay_[enchant_type]"
-		return
-	. = ..()
+	if(!enchant_type)
+		return ..()
+	. += "[initial(icon_state)]_overlay_[enchant_type]"
+
 
 /obj/item/gun/energy/clockwork/add_enchant()
 	switch(enchant_type)
@@ -1631,8 +1631,9 @@
 		if(!is_rat_act)
 			continue
 		affected.ratvar_act(convert_mecha)
-	if(!isnull(icon_state))
-		animate(src, transform = matrix() * 0.1, time = anim_time)
+	if(isnull(icon_state))
+		return
+	animate(src, transform = matrix() * 0.1, time = anim_time)
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/living_process(target)
 	var/mob/living/living = target
@@ -1692,7 +1693,7 @@
 	duration = 11
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart/process_affected()
-	.=..()
+	. = ..()
 	var/obj/structure/clockwork/functional/heart = locate() in loc
 	if(heart)
 		heart.alpha = 255

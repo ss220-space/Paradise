@@ -1,3 +1,5 @@
+#define SPELL_HAND "Касание Мидаса"
+#define SPELL_HEART "Настроить сердцебиение"
 /datum/action/innate/clockwork/clock_magic //Clockwork magic casting.
 	name = "Prepare Clockwork Magic"
 	button_icon_state = "carve"
@@ -48,7 +50,7 @@
 
 				if(!gripper.gripped_item)
 					continue
-				
+
 				I = gripper.gripped_item
 
 			if(!I.enchants)
@@ -76,12 +78,12 @@
 				possible_icons += list(I.name = item_image)
 
 		if(ishuman(owner))
-			possible_items += "Spell hand"
-			possible_icons += list("Spell hand" = image(icon = 'icons/mob/actions/actions_clockwork.dmi', icon_state = "hand"))
+			possible_items += SPELL_HAND
+			possible_icons += list(SPELL_HAND = image(icon = 'icons/mob/actions/actions_clockwork.dmi', icon_state = "hand"))
 		var/obj/structure/clockwork/functional/heart/have_heart = locate() in range(2)
 		if(have_heart && !have_heart.curse_dial)
-			possible_items += "Heart pulse"
-			possible_icons += list("Heart pulse" = image(icon = 'icons/obj/clockwork.dmi', icon_state = "ratvarpart1"))
+			possible_items += SPELL_HEART
+			possible_icons += list(SPELL_HEART = image(icon = 'icons/obj/clockwork.dmi', icon_state = "ratvarpart1"))
 		var/item_to_enchant
 		if(possible_items.len >= 2)
 			item_to_enchant = show_radial_menu(owner, owner, possible_icons, require_near = TRUE)
@@ -93,10 +95,10 @@
 			if(possible_items.len) // we had a choice but declined
 				return
 			item_to_enchant = null
-		if(item_to_enchant == "Spell hand")
+		if(item_to_enchant == SPELL_HAND)
 			item_to_enchant = null
 			do_midas = TRUE
-		if(item_to_enchant == "Heart pulse")
+		if(item_to_enchant == SPELL_HEART)
 			item_to_enchant = null
 			do_heart = TRUE
 		else

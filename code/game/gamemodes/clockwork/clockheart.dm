@@ -2,7 +2,7 @@ GLOBAL_VAR_INIT(total_curses, 3)
 GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart
-	name = "/The Heart of Ratvar"
+	name = "The Heart of Ratvar"
 	ru_names = list(
 		NOMINATIVE = "Сердце Ратвара",
 		GENITIVE = "Сердца Ратвара",
@@ -29,13 +29,19 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/curse_lower = TRUE
 
 /obj/structure/clockwork/functional/heart/Initialize(mapload)
-	if(!GLOB.heart)
-		GLOB.heart = src
+	if(GLOB.heart)
+		qdel(src)
+		return
 	enchants = GLOB.gun_and_heart_spells
 	alpha = 0
 	new /obj/effect/temp_visual/ratvar/reconstruct/heart(loc)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(throw_everything_back)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(spawn_fillers)), 1 SECONDS)
+	spawn_parts()
+	. = ..()
+
+/obj/structure/clockwork/functional/heart/proc/spawn_fillers()
 	var/list/occupied = list()
 	for(var/direct in GLOB.alldirs)
 		occupied += get_step(src, direct)
@@ -44,11 +50,9 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		var/obj/structure/heart_filler/F = new(filler_loc)
 		F.parent = src
 		fillers += F
-	spawn_parts()
-	. = ..()
 
 /obj/structure/clockwork/functional/heart/update_overlays()
-	.=..()
+	. = ..()
 
 	if(curse_dial)
 		. += "[icon_state]_dialcurse"
@@ -99,7 +103,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	if(!do_after(user, 5 SECONDS, src))
 		return
 	curse_dial = FALSE
-	GLOB.total_curses --
+	GLOB.total_curses--
 	addtimer(CALLBACK(src, PROC_REF(heart_pulse)), 30 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/magic/clockwork/heart_tick_tock.ogg', 100, FALSE, 0, SOUND_FALLOFF_EXPONENT, null, 0, TRUE, TRUE, SOUND_DEFAULT_FALLOFF_DISTANCE, TRUE), 4 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	qdel(dropping)
@@ -155,6 +159,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		if(throw_dist < 0)
 			continue
 		throw_out(did_not_stand_back, throw_dist)
+
 /obj/structure/clockwork/functional/heart/proc/calculate_throw_dist(atom/movable/did_not_stand_back)
 	var/base_x_throw_distance = 2
 	var/base_y_throw_distance = 2
@@ -176,16 +181,17 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	return throw_dist
 
 /obj/structure/clockwork/functional/heart/proc/throw_out(atom/movable/did_not_stand_back, throw_dist)
-	if(isliving(did_not_stand_back) && !isclocker(did_not_stand_back))
-		var/mob/living/affected = did_not_stand_back
-		to_chat(affected, span_userdanger("Неведомая сила отталкивает вас!"))
-		affected.Knockdown(6 SECONDS)
 	did_not_stand_back.throw_at(
 		target = get_edge_target_turf(did_not_stand_back, get_dir(loc, did_not_stand_back) || pick(GLOB.alldirs)),
 		range = throw_dist,
 		speed = 3,
 			force = MOVE_FORCE_VERY_STRONG,
 	)
+	if(!isliving(did_not_stand_back) || isclocker(did_not_stand_back))
+		return
+	var/mob/living/affected = did_not_stand_back
+	to_chat(affected, span_userdanger("Неведомая сила отталкивает вас!"))
+	affected.Knockdown(6 SECONDS)
 
 /obj/structure/clockwork/functional/heart/proc/give_blessing(mob/living/user)
 	if(isnull(blessings))
@@ -269,17 +275,14 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/mob/dragger = moving_atom
 	if(isclocker(dragger))
 		anchored = FALSE
-		. = ..()
-		return
+		return ..()
 	anchored = TRUE
 	to_chat(dragger, span_clockitalic("Вы пытаетесь толкнуть [declent_ru(ACCUSATIVE)], но его что-то удерживает!"))
-	return
 
 /obj/structure/part_dial/CtrlClick(mob/user)
 	if(isclocker(user))
 		anchored = FALSE
-		. = ..()
-		return
+		return ..()
 	if(get_dist(user.loc, loc) > 1)
 		return
 	if(!ishuman(user))
@@ -321,12 +324,12 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 /obj/item/part_upper/CtrlClick(mob/user)
 	if(!check_action(user, TRUE))
 		return
-	.=..()
+	. = ..()
 
 /obj/item/part_upper/attack_hand(mob/user, pickupfireoverride)
 	if(!check_action(user, FALSE))
 		return
-	.=..()
+	. = ..()
 
 /obj/item/part_upper/proc/check_action(mob/living/user, is_pull_action = FALSE)
 	if(isclocker(user))

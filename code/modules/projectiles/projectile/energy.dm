@@ -268,8 +268,7 @@
 	damage = 25
 	if(isclocker(target))
 		target.heal_overall_damage(25, 25, TRUE)
-	. = ..()
-	return
+	return ..()
 
 /obj/projectile/energy/rat/slug/stun
 	name = "brass stun slug"
@@ -294,7 +293,7 @@
 /obj/projectile/energy/rat/snipe/on_hit(atom/target, blocked, hit_zone)
 	if(isclocker(target))
 		return
-	.=..()
+	. = ..()
 
 /obj/projectile/energy/rat/snipe/emp
 	name = "brass sniper EMP bullet"

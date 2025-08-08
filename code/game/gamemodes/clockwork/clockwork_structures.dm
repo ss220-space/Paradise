@@ -396,8 +396,8 @@
 	return ..()
 
 /obj/structure/clockwork/functional/altar/proc/check_pos()
-	for(var/turf/T in range(1, src))
-		if(iswallturf(T))
+	for(var/turf/check_turf in range(1, src))
+		if(iswallturf(check_turf))
 			return FALSE
 	return TRUE
 
