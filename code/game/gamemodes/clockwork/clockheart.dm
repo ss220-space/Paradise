@@ -30,8 +30,9 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart/Initialize(mapload)
 	if(GLOB.heart)
-		qdel(src)
+		qdel(src, TRUE)
 		return
+	GLOB.heart = src
 	enchants = GLOB.gun_and_heart_spells
 	alpha = 0
 	new /obj/effect/temp_visual/ratvar/reconstruct/heart(loc)
@@ -86,10 +87,11 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/clockwork/functional/heart/Destroy(force)
-	for(var/turf/tile in orange(1, src))
-		new /obj/effect/gibspawner/clock(tile)
-	playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
-	GLOB.heart = null
+	if(!force)
+		for(var/turf/tile in orange(1, src))
+			new /obj/effect/gibspawner/clock(tile)
+		playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
+		GLOB.heart = null
 	QDEL_LIST(fillers)
 	. = ..()
 
