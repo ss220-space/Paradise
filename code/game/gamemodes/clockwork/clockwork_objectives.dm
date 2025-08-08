@@ -49,7 +49,7 @@
 			to_chat(M, span_clock("Текущая цель: [obj_summon.explanation_text]"))
 		if(RATVAR_BREAK_SEALS)
 			to_chat(M, span_clock("Необходимо починить сердце, сломав наложенные на него печати. Для этого необходимо найти детали и прикрепить их к сердцу!"))
-			to_chat(M, span_clock("Осталось еще [GLOB.total_curses] печат[declension_ru("ь", "и")]"))
+			to_chat(M, span_clock("Осталось ещё [GLOB.total_curses] печат[declension_ru(GLOB.total_curses, "ь", "и", "ей")]."))
 		if(RATVAR_NEEDS_SUMMONING)
 			to_chat(M, span_clock("Печати разрушены! Время вернуть сердце Ратвару, дабы он смог пройти сквозь Завесу!"))
 			to_chat(M, span_clock("Текущая цель: Пронзите сердце осколком, чтобы вернуть его Ратвару, так он сможет прорвать барьер"))
