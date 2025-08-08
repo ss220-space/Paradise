@@ -218,10 +218,10 @@
 		if(X.key != key && X.key != C.key)
 			if(message_type == MESSAGE_TYPE_MENTORPM)
 				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-					to_chat(X, third_party_message)
+					to_chat(X, third_party_message, MESSAGE_TYPE_MENTORPM)
 			else
 				if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-					to_chat(X, third_party_message)
+					to_chat(X, third_party_message, MESSAGE_TYPE_ADMINPM)
 
 	//Check if the mob being PM'd has any open tickets.
 	var/list/tickets = tickets_system.checkForTicket(C, ticket_id)
@@ -439,8 +439,6 @@
 
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
 		usr.client.cmd_admin_alert_message(about_to_be_banned)
-		if(!check_rights(R_ADMIN))
-			return
 
 	if(href_list["ping"])
 		var/client/C = pms[href_list["ping"]].client
