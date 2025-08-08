@@ -401,7 +401,7 @@
 		INSTRUMENTAL = "магазином SMG (резиновый)",
 		PREPOSITIONAL = "магазине SMG (резиновый)"
 	)
-	ammo_type = /obj/item/ammo_casing/c9mm/rubber
+	ammo_type = /obj/item/ammo_casing/rubber9mm
 
 /obj/item/ammo_box/magazine/smgm9mm/ap
 	name = "SMG magazine (Armour Piercing 9mm)"
