@@ -132,8 +132,8 @@
 /obj/projectile/beam/laser/accelerator/Range()
 	..()
 	damage = min(damage + 4, 80)
-	armour_penetration = min(armour_penetration - tile_dropoff_penetration, 50)
-	forcedodge = min(forcedodge - tile_dropoff_forcedodge, 20)
+	armour_penetration = min(armour_penetration, 50)
+	forcedodge = min(forcedodge, 20)
 
 
 /obj/item/gun/energy/lasercannon/cyborg
