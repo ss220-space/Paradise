@@ -780,7 +780,7 @@
 /mob/living/simple_animal/pet/dog/pug
 	name = "pug"
 	real_name = "мопс"
-	desc = "Это мопс, маленькая смешная безобидная собака."
+	desc = "Это мопс, маленькая, смешная, безобидная собака."
 	ru_names = list(
 		NOMINATIVE = "мопс",
 		GENITIVE = "мопса",

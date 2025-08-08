@@ -1,7 +1,7 @@
 //Foxxy
 /mob/living/simple_animal/pet/dog/fox
 	name = "fox"
-	desc = "Это рыжая лиса. Интересно, как она говорит?"
+	desc = "Это простая рыжая лиса."
 	ru_names = list(
 		NOMINATIVE = "лиса",
 		GENITIVE = "лисы",
@@ -15,7 +15,7 @@
 	icon_living = "fox"
 	icon_dead = "fox_dead"
 	icon_resting = "fox_rest"
-	speak = list("Тяф-тяф", "Фыр-фыр-фр-фр-фыыр", "кхи-кхихи-хихи!", "А-у-у-у-у!", "Фыр-рыр")
+	speak = list("Тяф-тяф", "Фыр-фыр-фр-фр-фыыр", "Кхи-кхихи-хихи!", "А-у-у-у-у!", "Фыр-рыр")
 	speak_emote = list("хихикает", "лает", "рявкает")
 	emote_hear = list("хихикает", "лает", "рявкает")
 	emote_see = list("трясёт головой", "дрожит")
@@ -134,8 +134,8 @@
 
 //Central Command Fox
 /mob/living/simple_animal/pet/dog/fox/alisa
-	name = "Алиса"
-	desc = "Алиса, любимый питомец любого Офицера Специальных Операций. Интересно, что она говорит?"
+	name = "Alisa"
+	desc = "Алиса, любимый питомец любого Офицера Специальных Операций."
 	ru_names = list(
 		NOMINATIVE = "Алиса",
 		GENITIVE = "Алисы",
