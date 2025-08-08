@@ -289,7 +289,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	if(get_dist(user.loc, loc) > 1)
 		return
 	if(!ishuman(user))
-		balloon_alert(user, "слишком тяжелый!")
+		balloon_alert(user, "слишком тяжело!")
 		return
 	to_chat(user, span_userdanger("Вы попытались потянуть [declent_ru(ACCUSATIVE)], но ваша рука обратилась в пепел!"))
 	var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
