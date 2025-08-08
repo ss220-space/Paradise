@@ -177,7 +177,7 @@
 		else
 			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
 			return
-		if(!do_midas && !do_heart)
+		if(!do_midas && !do_heart && !midas_spell)
 			do_midas(owner)
 		if(do_midas)
 			do_midas(owner)
