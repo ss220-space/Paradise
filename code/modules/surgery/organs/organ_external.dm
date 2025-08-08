@@ -1290,7 +1290,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	var/obj/item/organ/external/affecting = limb_owner.get_bodypart(BODY_ZONE_CHEST)
-	affecting.internal_receive_damage(clamp(brute_dam/2, 15, 50), clamp(burn_dam/2, 0, 50)) //Damage the chest based on limb's existing damage
+	affecting.external_receive_damage(clamp(brute_dam/2, 15, 50), clamp(burn_dam/2, 0, 50)) //Damage the chest based on limb's existing damage
 	if(!silent)
 		limb_owner.visible_message(span_danger("<B>[name] [limb_owner] жестоко отсечена!</B>"))
 

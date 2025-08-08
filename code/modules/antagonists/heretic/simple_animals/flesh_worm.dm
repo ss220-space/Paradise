@@ -94,6 +94,7 @@
 	behind.register_behind(segment)
 	toggle_ai(AI_OFF)
 	can_have_ai = FALSE
+	shouldwakeup = FALSE
 	return segment
 
 

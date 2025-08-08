@@ -253,13 +253,15 @@
  * Shrink the chain of mobs into one tile.
  */
 /obj/effect/proc_holder/spell/worm_contract
-	name = "Force Contract"
-	desc = "Forces your body to contract onto a single tile."
+	name = "Сжать тело"
+	desc = "Сжимает ваше тело так, чтобы все его части оказались на одной плитке."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "worm_contract"
 	base_cooldown = 30 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
 	//melee_cooldown_time = 0 SECONDS
 
 
