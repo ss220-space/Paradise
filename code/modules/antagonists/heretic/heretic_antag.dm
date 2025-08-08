@@ -327,6 +327,7 @@
 		COMSIG_LIVING_CULT_SACRIFICED,
 	))
 
+
 /datum/antagonist/heretic/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
 	if(old_body == new_body) // if they were using a temporary body
@@ -334,8 +335,8 @@
 
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
-		knowledge.on_lose(old_body, src)
-		knowledge.on_gain(new_body, src)
+		knowledge.on_lose(old_body, src, TRUE)
+		knowledge.on_gain(new_body, src, TRUE)
 
 /*
  * Signal proc for [COMSIG_MOB_BEFORE_SPELL_CAST] and [COMSIG_MOB_SPELL_ACTIVATED].

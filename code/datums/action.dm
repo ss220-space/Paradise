@@ -751,7 +751,6 @@
 
 //Preset for spells
 /datum/action/spell_action
-	check_flags = 0
 	background_icon_state = "bg_spell"
 	var/recharge_text_color = "#FFFFFF"
 
@@ -766,6 +765,7 @@
 	button_icon_state = spell.action_icon_state
 	background_icon_state = spell.action_background_icon_state
 	button.name = name
+	check_flags |= AB_TRANSFER_MIND
 
 /datum/action/spell_action/Destroy()
 	var/obj/effect/proc_holder/spell/S = target

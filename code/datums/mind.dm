@@ -169,8 +169,6 @@
 	new_character.mind = src	// and link our new body to ourself
 
 	transfer_antag_huds(hud_to_transfer)				// inherit the antag HUD
-	transfer_actions(new_character, old_current)
-
 	if(martial_art)
 		for(var/datum/martial_art/MA in known_martial_arts)
 			MA.reset_combos(old_current)
@@ -183,6 +181,7 @@
 	for(var/datum/antagonist/antag in antag_datums)	// Makes sure all antag datums effects are applied in the new body
 		antag.on_body_transfer(old_current, current)
 
+	transfer_actions(new_character, old_current)
 	if(active)
 		new_character.set_key(key)		// now transfer the key to link the client to our new body
 
@@ -3021,10 +3020,13 @@
 /datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/instance_or_path) //To remove a specific spell from a mind
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
+
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
-		if(spell?.type == instance_or_path)
-			LAZYREMOVE(spell_list, spell)
-			qdel(spell)
+		if(spell?.type != instance_or_path)
+			continue
+
+		LAZYREMOVE(spell_list, spell)
+		qdel(spell)
 
 /datum/mind/proc/deactivate_spell(obj/effect/proc_holder/spell/instance_or_path)
 	if(!ispath(instance_or_path))
@@ -3043,28 +3045,23 @@
 
 
 /datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)
-	transfer_spells(new_character)
-	if(!old_current || !old_current.actions)
+	// transfer_spells(new_character)
+	if(!old_current?.actions)
 		return
 
-	for(var/datum/action/A in old_current.actions)
-		if(!HASBIT(A.check_flags, AB_TRANSFER_MIND))
+	for(var/datum/action/action in old_current.actions)
+		if(!HASBIT(action.check_flags, AB_TRANSFER_MIND))
 			continue
 
-		A.Grant(new_character)
-
-	for(var/datum/action/A in old_current.actions)
-		if(!HASBIT(A.check_flags, AB_TRANSFER_MIND))
-			continue
-
-		A.Remove(old_current)
+		action.Remove(old_current)
+		action.Grant(new_character)
 
 
 /datum/mind/proc/transfer_spells(mob/living/new_character, mob/living/old_current)
 	while(spell_list?.len)
 		var/obj/effect/proc_holder/spell/spell = spell_list[1]
+		new_character.mind.AddSpell(spell)
 		RemoveSpell(spell)
-		new_character.AddSpell(spell)
 
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions)

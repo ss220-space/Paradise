@@ -158,7 +158,12 @@
 	if(isnull(chosen_organ))
 		return FALSE
 
+
 	var/obj/item/organ/picked_organ = organs_we_can_remove[chosen_organ]
+	if(picked_organ.owner != victim)
+		caster.balloon_alert(caster, "Орган уже извлечён!")
+		return FALSE
+
 	if(!istype(picked_organ) || !extraction_checks(picked_organ, hand, victim, caster))
 		return FALSE
 
@@ -205,9 +210,18 @@
 			span_bolddanger("Вы извлекаете [picked_organ.declent_ru(ACCUSATIVE)] из тела [carbon_victim.declent_ru(GENITIVE)]!"),
 		)
 
-	picked_organ.remove(victim)
-	carbon_victim.balloon_alert(caster, "[picked_organ.declent_ru(NOMINATIVE)] ")
+	var/cant = FALSE
+	if(picked_organ.owner != victim)
+		caster.balloon_alert(caster, "Орган уже извлечён!")
+		cant = TRUE
+	else
+		picked_organ.remove(victim)
+		carbon_victim.balloon_alert(caster, "[picked_organ.declent_ru(NOMINATIVE)] ")
+
 	carbon_victim.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_DARK_RED)
+	if(cant)
+		return FALSE
+
 	playsound(victim, 'sound/effects/dismember.ogg', 50, TRUE)
 	if(carbon_victim.stat == CONSCIOUS)
 		carbon_victim.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 15 SECONDS)

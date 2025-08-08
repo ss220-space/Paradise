@@ -32,7 +32,7 @@
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/on_spell_gain(mob/user = usr)
 	. = ..()
-	if(!action.owner)
+	if(!action?.owner)
 		return
 
 	if(isheretic(action.owner))

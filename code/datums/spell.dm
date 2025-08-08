@@ -452,9 +452,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		playMagSound()
 
 	if(prob(critfailchance))
-		critfail(targets)
+		critfail(targets, user)
 	else
-		cast(targets)
+		cast(targets, user)
 
 	after_cast(targets, user)
 

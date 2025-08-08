@@ -63,7 +63,7 @@
  * * user - the heretic which we're applying things to
  * * our_heretic - The antag datum of who gained us. This should never be null.
  */
-/datum/heretic_knowledge/proc/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/proc/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	return
 
 /**
@@ -74,7 +74,7 @@
  * * user - the heretic which we're removing things from
  * * our_heretic - The antag datum of who is losing us. This should never be null.
  */
-/datum/heretic_knowledge/proc/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/proc/on_lose(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	return
 
 /**
@@ -197,16 +197,19 @@
 	return ..()
 
 
-/datum/heretic_knowledge/spell/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/spell/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	// Added spells are tracked on the body, and not the mind,
 	// because we handle heretic mind transfers
 	// via the antag datum (on_gain and on_lose).
-	if(!spell_to_add)
+	if(!spell_to_add || mind_transfer)
 		return
 
 	user.mind.AddSpell(new spell_to_add())
 
-/datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
+	if(mind_transfer)
+		return
+
 	user.mind?.RemoveSpell(spell_to_add)
 
 /**
@@ -277,11 +280,11 @@
 	/// The status effect typepath we apply on people on mansus grasp.
 	var/datum/status_effect/eldritch/mark_type
 
-/datum/heretic_knowledge/mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	RegisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_LIONHUNTER_ON_HIT), PROC_REF(on_mansus_grasp), override = TRUE)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/mark/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/mark/on_lose(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
 
 /**
@@ -341,11 +344,11 @@
 	abstract_parent_type = /datum/heretic_knowledge/blade_upgrade
 	cost = 2
 
-/datum/heretic_knowledge/blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 	RegisterSignal(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK, PROC_REF(on_ranged_eldritch_blade))
 
-/datum/heretic_knowledge/blade_upgrade/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/blade_upgrade/on_lose(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	UnregisterSignal(user, list(COMSIG_HERETIC_BLADE_ATTACK, COMSIG_HERETIC_RANGED_BLADE_ATTACK))
 
 
