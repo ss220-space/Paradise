@@ -53,7 +53,11 @@
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 10),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -10)
+	)
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
 	. = ..()
