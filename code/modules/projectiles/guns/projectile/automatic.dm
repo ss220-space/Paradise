@@ -148,6 +148,7 @@
 	gun_light_overlay = "wt-light"
 	accuracy = GUN_ACCURACY_RIFLE
 	spread = 20
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/wt550/Initialize(mapload)
     . = ..()
@@ -187,6 +188,7 @@
 	gun_light_overlay = "SP-91-RC-light"
 	accuracy = GUN_ACCURACY_RIFLE
 	spread = 20
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/sp91rc/Initialize(mapload)
     . = ..()
