@@ -239,6 +239,14 @@
 
 /obj/projectile/energy/rat/slug
 	name = "brass slug"
+	ru_names = list(
+		NOMINATIVE = "латунная пуля",
+		GENITIVE = "латунной пули",
+		DATIVE = "латунной пуле",
+		ACCUSATIVE = "латунную пулю",
+		INSTRUMENTAL = "латунной пулей",
+		PREPOSITIONAL = "латунной пуле",
+	)
 
 /obj/projectile/energy/rat/slug/on_hit(atom/target, blocked, hit_zone)
 	if(!isclocker(target))
@@ -285,6 +293,14 @@
 
 /obj/projectile/energy/rat/snipe
 	name = "brass sniper bullet"
+	ru_names = list(
+		NOMINATIVE = "латунная пуля",
+		GENITIVE = "латунной пули",
+		DATIVE = "латунной пуле",
+		ACCUSATIVE = "латунную пулю",
+		INSTRUMENTAL = "латунной пулей",
+		PREPOSITIONAL = "латунной пуле",
+	)
 	icon_state = "brassshot"
 	damage = 60
 	armour_penetration = 60
