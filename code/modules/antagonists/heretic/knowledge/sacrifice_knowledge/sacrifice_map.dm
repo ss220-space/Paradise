@@ -46,6 +46,21 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	for_heretic_path = PATH_LOCK
 
 
+/obj/effect/landmark/heretic/moon
+	name = "метка жертвоприношения еретиков пути Луны"
+	for_heretic_path = PATH_MOON
+
+
+/obj/effect/landmark/heretic/cosmic
+	name = "метка жертвоприношения еретиков пути Космоса"
+	for_heretic_path = PATH_COSMIC
+
+
+/obj/effect/landmark/heretic/blade
+	name = "метка жертвоприношения еретиков пути Клинка"
+	for_heretic_path = PATH_BLADE
+
+
 // A fluff signpost object that doesn't teleport you somewhere when you touch it.
 /obj/structure/no_effect_signpost
 	name = "указатель"
