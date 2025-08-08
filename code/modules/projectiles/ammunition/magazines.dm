@@ -349,7 +349,7 @@
 	max_ammo = 30
 
 /obj/item/ammo_box/magazine/wt550m9/update_icon_state()
-	icon_state = "46x30mmt-[round(ammo_count(),4)]"
+	icon_state = "46x30mmt-[round(ammo_count(),6)]"
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
@@ -368,7 +368,7 @@
 	icon_state = "9mm-te"
 	ammo_type = /obj/item/ammo_casing/c9mmte
 	caliber = "9mm TE"
-	max_ammo = 30
+	max_ammo = 20
 
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
 	icon_state = "9mm-te-[round(ammo_count(),5)]"
