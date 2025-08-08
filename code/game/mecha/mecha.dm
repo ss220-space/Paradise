@@ -1307,7 +1307,7 @@
 		to_chat(user, span_warning("You can't enter the exosuit with other creatures attached to you!"))
 		return TRUE
 	if(ratvarized && !isclocker(user))
-		balloon_alert(user, "он запечатан!")
+		balloon_alert(user, "запечатано!")
 		return TRUE
 	visible_message(span_notice("[user] starts to climb into [src]"))
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/mecha, put_in), user)
