@@ -74172,7 +74172,6 @@
 	pixel_x = 32
 	},
 /obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	dir = 5;

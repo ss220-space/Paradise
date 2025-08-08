@@ -272,7 +272,7 @@ SUBSYSTEM_DEF(title)
 	html += {"<a class="menu_button" href='byond://?src=[player.UID()];observe=1'>Наблюдать</a>"}
 	html += {"
 		<hr>
-		<a class="menu_button good" id="be_antag" href='byond://?src=[player.UID()];skip_antag=1'>[viewer.prefs.skip_antag ? "Антагонисты: Выкл." : "Антагонисты: Вкл."]</a>
+		<a class="menu_button good" id="be_antag" href='byond://?src=[player.UID()];skip_antag=1'>[viewer?.prefs.skip_antag ? "Антагонисты: Выкл." : "Антагонисты: Вкл."]</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];show_preferences=1'>Настройка персонажа</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];job_preferences=1'>Выбор профессии</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];game_preferences=1'>Настройки игры</a>
@@ -281,7 +281,7 @@ SUBSYSTEM_DEF(title)
 		<a class="menu_button" href='byond://?src=[player.UID()];poll_panel=1'>Открыть голосование</a>
 	"}
 	// html += "<a class="menu_button" href='byond://?src=[player.UID()];swap_server=1'>Сменить сервер</a>" // TODO: add this after regis merge
-	if(!viewer.prefs.discord_id || (viewer.prefs.discord_id && length(viewer.prefs.discord_id) == 32))
+	if(!viewer?.prefs.discord_id || (viewer?.prefs.discord_id && length(viewer?.prefs.discord_id) == 32))
 		html += {"<a class="menu_button" href='byond://?src=[player.UID()];connect_discord=1'>Привязка Discord</a>"}
 	if(GLOB.join_tos && !viewer.tos_consent)
 		html += {"<a class="menu_button" href='byond://?src=[player.UID()];tos=1'>Политика конфидициальности</a>"}
