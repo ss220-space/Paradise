@@ -177,11 +177,12 @@
 		else
 			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
 			return
-
 		if(do_midas)
 			do_midas(owner)
 		if(do_heart)
 			do_heart(owner)
+		if(!do_midas && !do_heart)
+			do_midas(owner)
 
 /datum/action/innate/clockwork/clock_magic/proc/do_midas(mob/living/owner)
 	if(!do_after(owner, 5 SECONDS, owner))
