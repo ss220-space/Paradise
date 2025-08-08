@@ -1,19 +1,24 @@
 /mob/living/simple_animal/possum
 	name = "possum"
-	desc = "The opossum is a small, scavenging marsupial of the order Didelphimorphia, previously \
-	endemic to the Americas of Earth, but now inexplicably found across settled space. Nobody is \
-	entirely sure how they travel to such disparate locations, with the leading theories including \
-	smuggling, cargo stowaways, fungal spore reproduction, teleportation, or unknown quantum effects."
+	desc = "Мелкая зверушка с планеты Земля. Каким-то образом они стали очень распространены в обитаемой части космоса."
+	ru_names = list(
+		NOMINATIVE = "опоссум",
+		GENITIVE = "опоссума",
+		DATIVE = "опоссуму",
+		ACCUSATIVE = "опоссума",
+		INSTRUMENTAL = "опоссумом",
+		PREPOSITIONAL = "опоссуме"
+	)
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "possum"
 	icon_living = "possum"
 	icon_dead = "possum_dead"
-	icon_resting = "possum_sleep"
-	var/icon_harm = "possum_aaa"
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
-	speak = list("Hsss...", "Hisss...")
+	icon_resting = "possum_rest"
+	var/icon_harm = "possum_scream"
+	response_help  = "гладит"
+	response_disarm = "толкает"
+	response_harm   = "пинает"
+	speak = list("Шшшшш...", "Ссссс...")
 	speak_emote = list("шипит", "бурчит")
 	emote_hear = list("шипит", "бурчит")
 	emote_see = list("трясёт головой", "гоняется за своим хвостом", "дрожит")
@@ -70,13 +75,21 @@
 
 
 /mob/living/simple_animal/possum/Poppy
-	name = "Ключик"
+	name = "Poppy"
 	desc = "Маленький работяга. Его жилетка подчеркивает его рабочие... лапы. Тот ещё трудяга. Очень не любит ассистентов в инженерном отделе. И Полли. Интересно, почему?"
+	ru_names = list(
+		NOMINATIVE = "Ключик",
+		GENITIVE = "Ключика",
+		DATIVE = "Ключику",
+		ACCUSATIVE = "Ключика",
+		INSTRUMENTAL = "Ключиком",
+		PREPOSITIONAL = "Ключике"
+	)
 	icon_state = "possum_poppy"
 	icon_living = "possum_poppy"
 	icon_dead = "possum_poppy_dead"
-	icon_resting = "possum_poppy_sleep"
-	icon_harm = "possum_poppy_aaa"
+	icon_resting = "possum_poppy_rest"
+	icon_harm = "possum_poppy_scream"
 	holder_type = /obj/item/holder/possum/poppy
 	maxHealth = 50
 	health = 50

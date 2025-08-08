@@ -621,8 +621,8 @@ Class Procs:
 	return
 
 /obj/machinery/zap_act(power, zap_flags)
-	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
-		explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 2, adminlog = TRUE, smoke = FALSE, cause = "Random Zap Explosion")
+	if(prob(60) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, adminlog = FALSE, smoke = FALSE)
 		return ..()
 
 	if(!(zap_flags & ZAP_OBJ_DAMAGE))
