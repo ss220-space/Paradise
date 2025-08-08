@@ -192,6 +192,7 @@
 	desc = "Старый служебный пёс. Он давно потерял нюх, однако детектив по-прежнему содержит и заботится о нём."
 	icon_state = "blackdog"
 	icon_living = "blackdog"
+	icon_resting = "blackdog_rest"
 	icon_dead = "blackdog_dead"
 	icon_resting = "blackdog_rest"
 	tts_seed = "Thrall"
