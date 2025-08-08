@@ -12312,37 +12312,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
-"bCM" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Magazines for SMG"
-	},
-/obj/item/ammo_box/magazine/wt550m9{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/ammo_box/magazine/wt550m9{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/ammo_box/magazine/wt550m9{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/item/ammo_box/magazine/wt550m9{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "bCO" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -14891,22 +14860,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "bQd" = (
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Magazines for SP-91-RC";
-	req_access = list(1)
-	},
-/obj/item/ammo_box/magazine/sp91rc{
-	pixel_x = 8
-	},
-/obj/item/ammo_box/magazine/sp91rc{
-	pixel_x = 4
-	},
-/obj/item/ammo_box/magazine/sp91rc,
-/obj/item/ammo_box/magazine/sp91rc{
-	pixel_x = -4
-	},
+/obj/machinery/vending/ammo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18258,18 +18212,9 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "cgc" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/storage/lockbox/mindshield,
-/obj/item/storage/box/chemimp{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/storage/box/trackimp,
-/obj/item/lock_buster,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18532,21 +18477,18 @@
 /area/security/permabrig)
 "chB" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/structure/rack/gunrack,
 /obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = 7
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = 2
+	pixel_x = -7
 	},
 /obj/item/gun/projectile/automatic/sp91rc{
 	pixel_x = -2
 	},
 /obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = -7
+	pixel_x = 2
+	},
+/obj/item/gun/projectile/automatic/sp91rc{
+	pixel_x = 7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -19725,29 +19667,6 @@
 	},
 /turf/space,
 /area/space)
-"coD" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/storage/box/flashbangs,
-/obj/item/storage/box/flashbangs{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/grenade/flashbang{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/grenade/flashbang{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "coE" = (
 /obj/structure/lattice,
 /turf/space,
@@ -42184,6 +42103,13 @@
 	icon_state = "whitered"
 	},
 /area/security/medbay)
+"eyS" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "eyU" = (
 /obj/structure/dispenser/oxygen,
 /obj/item/radio/intercom{
@@ -42805,21 +42731,8 @@
 	},
 /area/hallway/secondary/exit)
 "eGw" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Security SMG's"
-	},
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/wt550,
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/window/reinforced,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/donut/sprinkles,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65906,20 +65819,7 @@
 	},
 /area/hallway/primary/fore)
 "kiM" = (
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/ammo_box/shotgun/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/shotgun/buck,
-/obj/item/ammo_box/shotgun{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Lethal Bullets"
-	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67368,28 +67268,10 @@
 /turf/simulated/wall,
 /area/maintenance/asmaint3)
 "kBw" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
 /obj/structure/cable,
-/obj/item/storage/box/barrier,
-/obj/item/storage/box/barrier{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 6;
-	pixel_y = -6
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79430,27 +79312,25 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "nta" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/storage/box/teargas,
-/obj/item/storage/box/teargas{
-	pixel_x = 3;
-	pixel_y = -3
+/obj/item/lock_buster,
+/obj/item/storage/box/trackimp,
+/obj/item/storage/box/chemimp{
+	pixel_x = 4;
+	pixel_y = 3
 	},
-/obj/item/grenade/chem_grenade/teargas{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/grenade/chem_grenade/teargas{
-	pixel_x = 6;
-	pixel_y = -6
-	},
+/obj/item/storage/lockbox/mindshield,
 /obj/structure/window/reinforced{
-	dir = 4
+	dir = 8
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94024,19 +93904,19 @@
 "qEB" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/window/reinforced,
-/obj/item/ammo_box/shotgun/tranquilizer{
-	pixel_x = -6;
-	pixel_y = 6
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Security SMG's"
 	},
-/obj/item/ammo_box/shotgun/beanbag{
+/obj/item/gun/projectile/automatic/wt550{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/gun/projectile/automatic/wt550{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/ammo_box/shotgun/beanbag,
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/item/gun/projectile/automatic/wt550,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -103092,29 +102972,6 @@
 /obj/item/flag/nt,
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain/bedroom)
-"sKk" = (
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/ammo_box/magazine/enforcer/lethal{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/ammo_box/magazine/enforcer/lethal{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/enforcer/lethal,
-/obj/item/ammo_box/magazine/enforcer/lethal{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Lethal Bullets"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "sKv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -180330,14 +180187,14 @@ pLm
 qhn
 lhS
 uPg
-chB
-bQd
+toP
+toP
 tzh
 lYj
 tzh
-bCM
+eyS
 eGw
-sKk
+kiM
 lhS
 kNt
 tLv
@@ -180851,7 +180708,7 @@ clG
 nfj
 sMb
 wCH
-coD
+bQd
 lhS
 mzW
 lqG
@@ -182132,7 +181989,7 @@ xmw
 tsW
 hOI
 cxk
-kiM
+chB
 qEB
 vYt
 wCH

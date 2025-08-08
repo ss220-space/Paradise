@@ -155,14 +155,6 @@
 /obj/item/ammo_box
 	name = "ammo box (generic)"
 	desc = "Э-э... коробка с патронами?"
-	ru_names = list(
-		NOMINATIVE = "коробка с боеприпасами (универсальная)",
-		GENITIVE = "коробки с боеприпасами (универсальной)",
-		DATIVE = "коробке с боеприпасами (универсальной)",
-		ACCUSATIVE = "коробку с боеприпасами (универсальную)",
-		INSTRUMENTAL = "коробкой с боеприпасами (универсальной)",
-		PREPOSITIONAL = "коробке с боеприпасами (универсальной)"
-	)
 	icon_state = "357"
 	icon = 'icons/obj/weapons/ammo.dmi'
 	origin_tech = "materials=3;combat=3"
