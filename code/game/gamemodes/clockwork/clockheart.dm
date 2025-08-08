@@ -27,6 +27,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/curse_dial = TRUE
 	var/curse_upper = TRUE
 	var/curse_lower = TRUE
+	var/list/spawned_parts = list()
 
 /obj/structure/clockwork/functional/heart/Initialize(mapload)
 	if(GLOB.heart)
@@ -93,6 +94,8 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
 		GLOB.heart = null
 	QDEL_LIST(fillers)
+	QDEL_LIST(spawned_parts)
+	GLOB.total_curses = 3
 	. = ..()
 
 /obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
@@ -211,9 +214,9 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/first_part_loc = get_safe_random_station_turf()
 	var/second_part_loc = get_safe_random_station_turf()
 	var/third_part_loc = get_safe_random_station_turf()
-	new /obj/structure/part_dial(first_part_loc)
-	new /obj/item/part_upper(second_part_loc)
-	new /obj/item/part_upper/lower(third_part_loc)
+	spawned_parts += new /obj/structure/part_dial(first_part_loc)
+	spawned_parts += new /obj/item/part_upper(second_part_loc)
+	spawned_parts += new /obj/item/part_upper/lower(third_part_loc)
 
 /obj/structure/heart_filler
 	name = "The Heart of Ratvar"

@@ -422,8 +422,8 @@
 	if(!(check_pos()))
 		balloon_alert(user, "недостаточно места!")
 		return FALSE
-	var/confirm_final = tgui_alert(user, "Это действие приведет к появлению сердца Ратвара, перенести его будет НЕВОЗМОЖНО. Еретики узнают о ритуале и месте его проведения. Вы хотите продолжить?!",
-	"The power comes...", list("Да воссияет же Ратвар!", "Нет"))
+	var/confirm_final = tgui_alert(user, "Совершив это действие, вы пробудите Сердце Ратвара. Перенос его станет невозможен. Еретики узнают о ритуале и его местоположении. Вы уверены, что хотите продолжить?",
+	"Финал грядет...", list("Да воссияет же Ратвар!", "Нет"))
 	if(user)
 		if(confirm_final != "Да воссияет же Ратвар!")
 			to_chat(user, span_clockitalic("<b>You decide to prepare further before pincing the shard.</b>"))
