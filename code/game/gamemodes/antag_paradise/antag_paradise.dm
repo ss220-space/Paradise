@@ -375,6 +375,9 @@
 			if("devil")
 				new_list += ROLE_DEVIL
 				new_list[ROLE_DEVIL] = check_list[index]
+			if("heretic")
+				new_list += ROLE_HERETIC
+				new_list[ROLE_HERETIC] = check_list[index]
 			else
 				new_list += index
 				new_list[index] = check_list[index]

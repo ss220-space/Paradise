@@ -485,7 +485,8 @@
 		"ninja" = 10,
 		"thief" = 10,
 		"nothing" = 20,
-		"devil" = 10
+		"devil" = 10,
+		"heretic" = 0,
 	)
 
 
