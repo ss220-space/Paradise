@@ -177,7 +177,11 @@
 		else
 			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
 			return
-		if(!do_midas && !do_heart && !midas_spell)
+		if(!do_midas && !do_heart)
+			if(midas_spell)
+				to_chat(owner, "<span class='clockitalic'>You already prepared midas touch!</b></span>")
+				channeling = FALSE
+				return
 			do_midas(owner)
 		if(do_midas)
 			do_midas(owner)
