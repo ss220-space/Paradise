@@ -186,11 +186,16 @@
 
 /datum/effect_system/fluid_spread/foam/set_up(range = 1, amount = DIAMOND_AREA(range), atom/holder, atom/location = null, datum/reagents/carry = null, result_type = null, stop_reactions = FALSE)
 	. = ..()
-	for(var/reagent in banned_reagents)
-		carry.remove_reagent(reagent, carry.total_volume, safety = TRUE)
-	carry?.copy_to(chemholder, carry.total_volume, safety = TRUE)
+
 	if(!isnull(result_type))
 		src.result_type = result_type
+
+	if(!carry)
+		return
+
+	for(var/reagent in banned_reagents)
+		carry.remove_reagent(reagent, carry.total_volume, safety = TRUE)
+	carry.copy_to(chemholder, carry.total_volume, safety = TRUE)
 
 /datum/effect_system/fluid_spread/foam/start(log = FALSE)
 	var/obj/effect/particle_effect/fluid/foam/foam = new effect_type(location, new /datum/fluid_group(amount))
