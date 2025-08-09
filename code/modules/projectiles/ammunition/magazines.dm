@@ -392,6 +392,15 @@
 
 /obj/item/ammo_box/magazine/sp8
 	name = "handgun magazine 40N&R"
+	desc = "Пистолетный магазин снаряженный патронами калибра 40N&R."
+	ru_names = list(
+		NOMINATIVE = "пистолетный магазин (40N&R)",
+		GENITIVE = "пистолетного магазина (40N&R)",
+		DATIVE = "пистолетному магазину (40N&R)",
+		ACCUSATIVE = "пистолетный магазин (40N&R)",
+		INSTRUMENTAL = "пистолетным магазином (40N&R)",
+		PREPOSITIONAL = "пистолетном магазине (40N&R)"
+	)
 	icon_state = "sp8mag"
 	ammo_type = /obj/item/ammo_casing/fortynr
 	max_ammo = 10
@@ -402,6 +411,15 @@
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
+	desc = "Автоматный магазин снаряженный патронами калибра 4.6x30 мм."
+	ru_names = list(
+		NOMINATIVE = "автоматный магазин (4.6x30 мм)",
+		GENITIVE = "автоматного магазина (4.6x30 мм)",
+		DATIVE = "автоматному магазину (4.6x30 мм)",
+		ACCUSATIVE = "автоматный магазин (4.6x30 мм)",
+		INSTRUMENTAL = "автоматным магазином (4.6x30 мм)",
+		PREPOSITIONAL = "автоматном магазине (4.6x30 мм)"
+	)
 	icon_state = "46x30mmt-20"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = "4.6x30mm"
@@ -412,18 +430,54 @@
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
+	desc = "Автоматный магазин снаряженный бронебойными патронами калибра 4.6x30 мм."
+	ru_names = list(
+		NOMINATIVE = "автоматный магазин (бронебойные 4.6x30 мм)",
+		GENITIVE = "автоматного магазина (бронебойные 4.6x30 мм)",
+		DATIVE = "автоматному магазину (бронебойные 4.6x30 мм)",
+		ACCUSATIVE = "автоматный магазин (бронебойные 4.6x30 мм)",
+		INSTRUMENTAL = "автоматным магазином (бронебойные 4.6x30 мм)",
+		PREPOSITIONAL = "автоматном магазине (бронебойные 4.6x30 мм)"
+	)
 	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
 
 /obj/item/ammo_box/magazine/wt550m9/wttx
 	name = "wt550 magazine (Toxin Tipped 4.6x30mm)"
+	desc = "Автоматный магазин снаряженный токсичными патронами калибра 4.6x30 мм."
+	ru_names = list(
+		NOMINATIVE = "автоматный магазин (токсичные 4.6x30 мм)",
+		GENITIVE = "автоматного магазина (токсичные 4.6x30 мм)",
+		DATIVE = "автоматному магазину (токсичные 4.6x30 мм)",
+		ACCUSATIVE = "автоматный магазин (токсичные 4.6x30 мм)",
+		INSTRUMENTAL = "автоматным магазином (токсичные 4.6x30 мм)",
+		PREPOSITIONAL = "автоматном магазине (токсичные 4.6x30 мм)"
+	)
 	ammo_type = /obj/item/ammo_casing/c46x30mm/tox
 
 /obj/item/ammo_box/magazine/wt550m9/wtic
 	name = "wt550 magazine (Incendiary 4.6x30mm)"
+	desc = "Автоматный магазин снаряженный зажигательными патронами калибра 4.6x30 мм."
+	ru_names = list(
+		NOMINATIVE = "автоматный магазин (зажигательные 4.6x30 мм)",
+		GENITIVE = "автоматного магазина (зажигательные 4.6x30 мм)",
+		DATIVE = "автоматному магазину (зажигательные 4.6x30 мм)",
+		ACCUSATIVE = "автоматный магазин (зажигательные 4.6x30 мм)",
+		INSTRUMENTAL = "автоматным магазином (зажигательные 4.6x30 мм)",
+		PREPOSITIONAL = "автоматном магазине (зажигательные 4.6x30 мм)"
+	)
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 
 /obj/item/ammo_box/magazine/sp91rc
 	name = "SP-91-RC magazine (9mm TE)"
+	desc = "Автоматный магазин снаряженный патронами калибра 9 мм TE."
+	ru_names = list(
+		NOMINATIVE = "автоматный магазин (9 мм TE)",
+		GENITIVE = "автоматного магазина (9 мм TE)",
+		DATIVE = "автоматному магазину (9 мм TE)",
+		ACCUSATIVE = "автоматный магазин (9 мм TE)",
+		INSTRUMENTAL = "автоматным магазином (9 мм TE)",
+		PREPOSITIONAL = "автоматном магазине (9 мм TE)"
+	)
 	icon_state = "9mm-te"
 	ammo_type = /obj/item/ammo_casing/c9mmte
 	caliber = "9mm TE"
@@ -434,6 +488,15 @@
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
+	desc = "Коробчатый магазин для пистолета-пулемета UZI снаряженный патронами калибра 9 мм."
+	ru_names = list(
+		NOMINATIVE = "магазин UZI (9 мм)",
+		GENITIVE = "магазина UZI (9 мм)",
+		DATIVE = "магазину UZI (9 мм)",
+		ACCUSATIVE = "магазин UZI(9 мм)",
+		INSTRUMENTAL = "магазином UZI (9 мм)",
+		PREPOSITIONAL = "магазине UZI (9 мм)"
+	)
 	icon_state = "uzi9mm-32"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
@@ -444,6 +507,15 @@
 
 /obj/item/ammo_box/magazine/smgm9mm
 	name = "SMG magazine (9mm)"
+	desc = "Магазин пистолет-пулемёта SMG, предназначенный для патронов калибра 9 мм."
+	ru_names = list(
+		NOMINATIVE = "магазин SMG (9 мм)",
+		GENITIVE = "магазина SMG (9 мм)",
+		DATIVE = "магазину SMG (9 мм)",
+		ACCUSATIVE = "магазина SMG(9 мм)",
+		INSTRUMENTAL = "магазином SMG (9 мм)",
+		PREPOSITIONAL = "магазине SMG (9 мм)"
+	)
 	icon_state = "smg9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
@@ -453,25 +525,52 @@
 	name = "magazine SMG (rubber)"
 	desc = "Магазин пистолет-пулемёта SMG, предназначенный для резиновых патронов."
 	ru_names = list(
-		NOMINATIVE = "магазин SMG (резиновый)",
-		GENITIVE = "магазина SMG (резиновый)",
-		DATIVE = "магазину SMG (резиновый)",
-		ACCUSATIVE = "магазина SMG (резиновый)",
-		INSTRUMENTAL = "магазином SMG (резиновый)",
-		PREPOSITIONAL = "магазине SMG (резиновый)"
+		NOMINATIVE = "магазин SMG (резиновый 9 мм)",
+		GENITIVE = "магазина SMG (резиновый 9 мм)",
+		DATIVE = "магазину SMG (резиновый 9 мм)",
+		ACCUSATIVE = "магазина SMG (резиновый 9 мм)",
+		INSTRUMENTAL = "магазином SMG (резиновый 9 мм)",
+		PREPOSITIONAL = "магазине SMG (резиновый 9 мм)"
 	)
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 
 /obj/item/ammo_box/magazine/smgm9mm/ap
 	name = "SMG magazine (Armour Piercing 9mm)"
+	desc = "Магазин пистолет-пулемёта SMG, предназначенный для бронебойных патронов калибра 9 мм."
+	ru_names = list(
+		NOMINATIVE = "магазин SMG (бронебойный 9 мм)",
+		GENITIVE = "магазина SMG (бронебойный 9 мм)",
+		DATIVE = "магазину SMG (бронебойный 9 мм)",
+		ACCUSATIVE = "магазина SMG (бронебойный 9 мм)",
+		INSTRUMENTAL = "магазином SMG (бронебойный 9 мм)",
+		PREPOSITIONAL = "магазине SMG (бронебойный 9 мм)"
+	)
 	ammo_type = /obj/item/ammo_casing/c9mm/ap
 
 /obj/item/ammo_box/magazine/smgm9mm/toxin
 	name = "SMG magazine (Toxin Tipped 9mm)"
+	desc = "Магазин пистолет-пулемёта SMG, предназначенный для токсичных патронов калибра 9 мм."
+	ru_names = list(
+		NOMINATIVE = "магазин SMG (токсичный 9 мм)",
+		GENITIVE = "магазина SMG (токсичный 9 мм)",
+		DATIVE = "магазину SMG (токсичный 9 мм)",
+		ACCUSATIVE = "магазина SMG (токсичный 9 мм)",
+		INSTRUMENTAL = "магазином SMG (токсичный 9 мм)",
+		PREPOSITIONAL = "магазине SMG (токсичный 9 мм)"
+	)
 	ammo_type = /obj/item/ammo_casing/c9mm/tox
 
 /obj/item/ammo_box/magazine/smgm9mm/fire
 	name = "SMG Magazine (Incendiary 9mm)"
+	desc = "Магазин пистолет-пулемёта SMG, предназначенный для зажигательных патронов калибра 9 мм."
+	ru_names = list(
+		NOMINATIVE = "магазин SMG (зажигательный 9 мм)",
+		GENITIVE = "магазина SMG (зажигательный 9 мм)",
+		DATIVE = "магазину SMG (зажигательный 9 мм)",
+		ACCUSATIVE = "магазина SMG (зажигательный 9 мм)",
+		INSTRUMENTAL = "магазином SMG (зажигательный 9 мм)",
+		PREPOSITIONAL = "магазине SMG (зажигательный 9 мм)"
+	)
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
 
 /obj/item/ammo_box/magazine/smgm9mm/update_icon_state()
@@ -479,6 +578,15 @@
 
 /obj/item/ammo_box/magazine/sfg9mm
 	name = "SFG Magazine (9mm)"
+	desc = "Магазин пистолет-пулемёта SFG-5 SMG, предназначенный для патронов калибра 9 мм."
+	ru_names = list(
+		NOMINATIVE = "магазин SFG-5 SMG (9 мм)",
+		GENITIVE = "магазина SFG-5 SMG (9 мм)",
+		DATIVE = "магазину SFG-5 SMG (9 мм)",
+		ACCUSATIVE = "магазина SFG-5 SMG (9 мм)",
+		INSTRUMENTAL = "магазином SFG-5 SMG (9 мм)",
+		PREPOSITIONAL = "магазине SFG-5 SMG (9 мм)"
+	)
 	icon_state = "sfg5"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
@@ -489,6 +597,15 @@
 
 /obj/item/ammo_box/magazine/pistolm9mm
 	name = "pistol magazine (9mm)"
+	desc = "Магазин пистолета APS, предназначенный для патронов калибра 9 мм."
+	ru_names = list(
+		NOMINATIVE = "магазин APS (9 мм)",
+		GENITIVE = "магазина APS (9 мм)",
+		DATIVE = "магазину APS (9 мм)",
+		ACCUSATIVE = "магазина APS (9 мм)",
+		INSTRUMENTAL = "магазином APS (9 мм)",
+		PREPOSITIONAL = "магазине APS (9 мм)"
+	)
 	icon_state = "9x19p-15"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
@@ -499,6 +616,15 @@
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "SMG magazine (.45)"
+	desc = "Магазин пистолет-пулемёта SMG, предназначенный для патронов калибра .45."
+	ru_names = list(
+		NOMINATIVE = "магазин SMG (.45)",
+		GENITIVE = "магазина SMG (.45)",
+		DATIVE = "магазину SMG (.45)",
+		ACCUSATIVE = "магазина SMG(.45)",
+		INSTRUMENTAL = "магазином SMG (.45)",
+		PREPOSITIONAL = "магазине SMG (.45)"
+	)
 	icon_state = "c20r45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
@@ -509,6 +635,15 @@
 
 /obj/item/ammo_box/magazine/tommygunm45
 	name = "drum magazine (.45)"
+	desc = "Барабанный магазин пистолет-пулемёта SMG, предназначенный для патронов калибра .45."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин SMG (.45)",
+		GENITIVE = "барабанного магазина SMG (.45)",
+		DATIVE = "барабанному магазину SMG (.45)",
+		ACCUSATIVE = "барабанный магазина SMG(.45)",
+		INSTRUMENTAL = "барабанным магазином SMG (.45)",
+		PREPOSITIONAL = "барабанном магазине SMG (.45)"
+	)
 	icon_state = "drum45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
@@ -516,6 +651,15 @@
 
 /obj/item/ammo_box/magazine/m50
 	name = "handgun magazine (.50ae)"
+	desc = "Магазин пистолета \"Desert Eagle\", предназначенный для патронов калибра .50ae."
+	ru_names = list(
+		NOMINATIVE = "магазин Desert Eagle (.50ae)",
+		GENITIVE = "магазина Desert Eagle (.50ae)",
+		DATIVE = "магазину Desert Eagle (.50ae)",
+		ACCUSATIVE = "магазина Desert Eagle (.50ae)",
+		INSTRUMENTAL = "магазином Desert Eagle (.50ae)",
+		PREPOSITIONAL = "магазине Desert Eagle (.50ae)"
+	)
 	icon_state = "50ae"
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = ".50ae"
@@ -524,6 +668,15 @@
 
 /obj/item/ammo_box/magazine/m75
 	name = "specialized magazine (.75)"
+	desc = "Магазин гиро-пистолета, предназначенный для патронов калибра .75"
+	ru_names = list(
+		NOMINATIVE = "магазин гиро-пистолета (.75)",
+		GENITIVE = "магазина гиро-пистолета (.75)",
+		DATIVE = "магазину гиро-пистолета (.75)",
+		ACCUSATIVE = "магазина гиро-пистолета (.75)",
+		INSTRUMENTAL = "магазином гиро-пистолета (.75)",
+		PREPOSITIONAL = "магазине гиро-пистолета (.75)"
+	)
 	icon_state = "75"
 	ammo_type = /obj/item/ammo_casing/caseless/a75
 	caliber = ".75"
@@ -532,6 +685,15 @@
 
 /obj/item/ammo_box/magazine/m556
 	name = "toploader magazine (5.56mm)"
+	desc = "Коробчатый магазин, предназначенный для патронов калибра 5.56 мм."
+	ru_names = list(
+		NOMINATIVE = "автоматный магазин (5.56 мм)",
+		GENITIVE = "автоматного магазина (5.56 мм)",
+		DATIVE = "автоматному магазину (5.56 мм)",
+		ACCUSATIVE = "автоматного магазина (5.56 мм)",
+		INSTRUMENTAL = "автоматным магазином (5.56 мм)",
+		PREPOSITIONAL = "автоматном магазине (5.56 мм)"
+	)
 	icon_state = "5.56m"
 	origin_tech = "combat=5"
 	ammo_type = /obj/item/ammo_casing/a556
@@ -541,6 +703,15 @@
 
 /obj/item/ammo_box/magazine/ak814
 	name = "AK magazine (5.45x39mm)"
+	desc = "Магазин к автомату AK-814, предназначенный для патронов калибра 5.45x39 мм."
+	ru_names = list(
+		NOMINATIVE = "автоматный магазин AK-814 (5.45x39 мм)",
+		GENITIVE = "автоматного магазина AK-814 (5.45x39 мм)",
+		DATIVE = "автоматному магазину AK-814 (5.45x39 мм)",
+		ACCUSATIVE = "автоматного магазина AK-814 (5.45x39 мм)",
+		INSTRUMENTAL = "автоматным магазином AK-814 (5.45x39 мм)",
+		PREPOSITIONAL = "автоматном магазине AK-814 (5.45x39 мм)"
+	)
 	icon_state = "ak814"
 	desc= "A universal magazine for an AK style rifle."
 	origin_tech = "combat=5;syndicate=1"
@@ -551,8 +722,16 @@
 
 /obj/item/ammo_box/magazine/aksu
 	name = "AK magazine (5.45x39mm)"
+	desc = "Магазин к автомату AKSU, предназначенный для патронов калибра 5.45x39 мм."
+	ru_names = list(
+		NOMINATIVE = "автоматный магазин AKSU (5.45x39 мм)",
+		GENITIVE = "автоматного магазина AKSU (5.45x39 мм)",
+		DATIVE = "автоматному магазину AKSU (5.45x39 мм)",
+		ACCUSATIVE = "автоматного магазина AKSU (5.45x39 мм)",
+		INSTRUMENTAL = "автоматным магазином AKSU (5.45x39 мм)",
+		PREPOSITIONAL = "автоматном магазине AKSU (5.45x39 мм)"
+	)
 	icon_state = "ak47mag"
-	desc= "An antique fusty magazine for an AK rifle."
 	origin_tech = "combat=4;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a545/fusty
 	caliber = "5.45x39mm"
@@ -561,6 +740,15 @@
 
 /obj/item/ammo_box/magazine/ppsh
 	name = "PPSh drum (7.62x25mm)"
+	desc = "Магазин к пистолету-пулемету ППШ, предназначенный для патронов калибра 7.62x25 мм."
+	ru_names = list(
+		NOMINATIVE = "магазин ППШ (7.62x25 мм)",
+		GENITIVE = "магазина ППШ (7.62x25 мм)",
+		DATIVE = "магазину ППШ (7.62x25 мм)",
+		ACCUSATIVE = "магазина ППШ (7.62x25 мм)",
+		INSTRUMENTAL = "магазином ППШ (7.62x25 мм)",
+		PREPOSITIONAL = "магазине ППШ (7.62x25 мм)"
+	)
 	icon_state = "ppshDrum"
 	desc= "An antique drum for an PPSh submacnine."
 	origin_tech = "combat=3;syndicate=1"
