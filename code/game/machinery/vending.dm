@@ -2285,7 +2285,7 @@
 		/obj/item/gun_module/muzzle/compensator = 5,
 		/obj/item/gun_module/rail/scope/collimator/pistol = 5,
 		/obj/item/gun_module/rail/scope/collimator = 5,
-		/obj/item/gun_module/rail/scope/x4 = 3,
+		/obj/item/gun_module/rail/scope/x4 = 2,
 		/obj/item/gun_module/under/flashlight/pistol = 8,
 		/obj/item/gun_module/under/flashlight/rifle = 8,
 		/obj/item/gun_module/under/hand/angle = 5
@@ -2298,7 +2298,7 @@
 		/obj/item/gun_module/muzzle/compensator = 299,
 		/obj/item/gun_module/rail/scope/collimator/pistol = 349,
 		/obj/item/gun_module/rail/scope/collimator = 399,
-		/obj/item/gun_module/rail/scope/x4 = 499,
+		/obj/item/gun_module/rail/scope/x4 = 599,
 		/obj/item/gun_module/under/flashlight/pistol = 199,
 		/obj/item/gun_module/under/flashlight/rifle = 249,
 		/obj/item/gun_module/under/hand/angle = 399,
