@@ -86,7 +86,7 @@
 
 	// if the element allowed for new species, they should keep it if already have one, if not - they will get it in set_species()
 	if(!HAS_TRAIT(human, TRAIT_NO_HUNGER) && !HAS_TRAIT(human, TRAIT_NO_NUTRITION_EFFECTS))
-		on_nutrition_level_update()
+		on_nutrition_level_update(human)
 		return
 
 	// we don't change level for TRAIT_NO_HUNGER because it's already handled on trait added
@@ -97,5 +97,5 @@
 	human.sound_environment_override = initial(human.sound_environment_override)
 	// resets all speed mods, because initial nutrition level for all species has no bonuses/penalties
 	nutrition_update_slowdown(human)
-	qdel(src)
+	human.RemoveElement(/datum/element/nutrition_effects)
 
