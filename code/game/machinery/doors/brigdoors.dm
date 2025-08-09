@@ -136,10 +136,12 @@
 	if(R)
 		prisoner = R
 		R.fields["criminal"] = SEC_RECORD_STATUS_INCARCERATED
+		R.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
 		var/mob/living/carbon/human/M = usr
 		var/rank = "UNKNOWN RANK"
 		if(istype(M))
 			var/obj/item/card/id/I = M.get_id_card()
+			R.fields["last_modifier_level"] = I.law_level
 			if(I)
 				rank = I.assignment
 		if(!R.fields["comments"] || !islist(R.fields["comments"])) //copied from security computer code because apparently these need to be initialized
@@ -284,6 +286,7 @@
 	prisoner_time = null
 	if(prisoner)
 		prisoner.fields["criminal"] = SEC_RECORD_STATUS_RELEASED
+		prisoner.fields["last_modifier_level"] = LAW_LEVEL_BASE
 		update_all_mob_security_hud()
 		prisoner = null
 

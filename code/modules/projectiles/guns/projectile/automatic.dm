@@ -45,10 +45,9 @@
 
 
 /obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
-    if(istype(action, /datum/action/item_action/toggle_firemode))
-        burst_select()
-        return TRUE
-    return ..()
+	if(istype(action, /datum/action/item_action/toggle_firemode))
+		burst_select()
+		return TRUE
 
 /obj/item/gun/projectile/automatic/proc/burst_select()
 	var/mob/living/carbon/human/user = usr
@@ -92,7 +91,10 @@
 	)
 
 /obj/item/gun/projectile/automatic/proto/rubber
-	mag_type = /obj/item/ammo_box/magazine/smgm9mm/rubber
+
+/obj/item/gun/projectile/automatic/proto/rubber/Initialize(mapload)
+	magazine = new/obj/item/ammo_box/magazine/smgm9mm/rubber
+	. = ..()
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
@@ -142,12 +144,13 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
-	can_suppress = TRUE
-	burst_size = 2
+	burst_size = 1
 	can_bayonet = TRUE
 	bayonet_x_offset = 25
 	bayonet_y_offset = 12
 	accuracy = GUN_ACCURACY_RIFLE
+	spread = 20
+	actions_types = null
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 1),
@@ -155,9 +158,14 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
 
+/obj/item/gun/projectile/automatic/wt550/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
-	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
+	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
 
 
 //"SP-91-RC//
@@ -171,10 +179,11 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
-	can_suppress = TRUE
-	burst_size = 3
+	burst_size = 1
 	can_bayonet = FALSE
 	accuracy = GUN_ACCURACY_RIFLE
+	spread = 20
+	actions_types = null
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
@@ -182,6 +191,11 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
 
+/obj/item/gun/projectile/automatic/sp91rc/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -196,12 +210,19 @@
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
-	burst_size = 4
+	burst_size = 1
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 14, "y" = 7),
 		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 12)
 	)
+
+/obj/item/gun/projectile/automatic/mini_uzi/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
+
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
