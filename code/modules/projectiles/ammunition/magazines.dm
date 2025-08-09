@@ -1,4 +1,4 @@
-////////////////INTERNAL MAGAZINES//////////////////////
+// MARK: INTERNAL MAGAZINES
 /obj/item/ammo_box/magazine/internal
 	desc = "Oh god, this shouldn't be here!"
 
@@ -257,13 +257,21 @@
 /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
  	max_ammo = 10
 
-///////////EXTERNAL MAGAZINES////////////////
+// MARK: EXTERNAL MAGAZINES
 /obj/item/ammo_box/magazine
 	materials = list(MAT_METAL = 2000)
 
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
-	desc = "A gun magazine."
+	desc = "Пистолетный магазин снаряженный патронами калибра 10 мм. Эти патроны примерно в два раза менее эффективны, чем патроны .357 калибра"
+	ru_names = list(
+		NOMINATIVE = "пистолетный магазин (10 мм)",
+		GENITIVE = "пистолетного магазина (10 мм)",
+		DATIVE = "пистолетному магазину (10 мм)",
+		ACCUSATIVE = "пистолетный магазин (10 мм)",
+		INSTRUMENTAL = "пистолетным магазином (10 мм)",
+		PREPOSITIONAL = "пистолетном магазине (10 мм)"
+	)
 	icon_state = "9x19p"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
@@ -272,20 +280,44 @@
 
 /obj/item/ammo_box/magazine/m10mm/fire
 	name = "pistol magazine (10mm incendiary)"
+	desc = "Пистолетный магазин снаряженный зажигательными патронами калибра 10 мм. Эти патроны поджигают цель при попадании."
+	ru_names = list(
+		NOMINATIVE = "пистолетный магазин (зажигательные 10 мм)",
+		GENITIVE = "пистолетного магазина (зажигательные 10 мм)",
+		DATIVE = "пистолетному магазину (зажигательные 10 мм)",
+		ACCUSATIVE = "пистолетный магазин (зажигательные 10 мм)",
+		INSTRUMENTAL = "пистолетным магазином (зажигательные 10 мм)",
+		PREPOSITIONAL = "пистолетном магазине (зажигательные 10 мм)"
+	)
 	icon_state = "9x19pI"
-	desc = "A gun magazine. Loaded with rounds which ignite the target."
 	ammo_type = /obj/item/ammo_casing/c10mm/fire
 
 /obj/item/ammo_box/magazine/m10mm/hp
 	name = "pistol magazine (10mm HP)"
+	desc = "Пистолетный магазин снаряженный экспансивными патронами калибра 10 мм. Эти патроны наносят намного больше повреждений, чем стандартные, но они совершенно бесполезны против брони."
+	ru_names = list(
+		NOMINATIVE = "пистолетный магазин (экспансивные 10 мм)",
+		GENITIVE = "пистолетного магазина (экспансивные 10 мм)",
+		DATIVE = "пистолетному магазину (экспансивные 10 мм)",
+		ACCUSATIVE = "пистолетный магазин (экспансивные 10 мм)",
+		INSTRUMENTAL = "пистолетным магазином (экспансивные 10 мм)",
+		PREPOSITIONAL = "пистолетном магазине (экспансивные 10 мм)"
+	)
 	icon_state = "9x19pH"
-	desc= "A gun magazine. Loaded with hollow-point rounds, extremely effective against unarmored targets, but nearly useless against protective clothing."
 	ammo_type = /obj/item/ammo_casing/c10mm/hp
 
 /obj/item/ammo_box/magazine/m10mm/ap
 	name = "pistol magazine (10mm AP)"
+	desc = "Пистолетный магазин снаряженный бронебойными патронами калибра 10 мм. Эти патроны наносят немного меньше повреждений, чем стандартные, но обладают высокой пробивной силой."
+	ru_names = list(
+		NOMINATIVE = "пистолетный магазин (бронебойные 10 мм)",
+		GENITIVE = "пистолетного магазина (бронебойные 10 мм)",
+		DATIVE = "пистолетному магазину (бронебойные 10 мм)",
+		ACCUSATIVE = "пистолетный магазин (бронебойные 10 мм)",
+		INSTRUMENTAL = "пистолетным магазином (бронебойные 10 мм)",
+		PREPOSITIONAL = "пистолетном магазине (бронебойные 10 мм)"
+	)
 	icon_state = "9x19pA"
-	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets."
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 
 /obj/item/ammo_box/magazine/m10mm/update_icon_state()
@@ -293,6 +325,15 @@
 
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
+	desc = "Пистолетный магазин снаряженный патронами калибра .45. Эти патроны обладают сильным останавливающим действием, способным сбить с ног большинство целей, однако они не наносят серьёзных повреждений."
+	ru_names = list(
+		NOMINATIVE = "пистолетный магазин (.45)",
+		GENITIVE = "пистолетного магазина (.45)",
+		DATIVE = "пистолетному магазину (.45)",
+		ACCUSATIVE = "пистолетный магазин (.45)",
+		INSTRUMENTAL = "пистолетным магазином (.45)",
+		PREPOSITIONAL = "пистолетном магазине (.45)"
+	)
 	icon_state = "45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
@@ -301,6 +342,15 @@
 
 /obj/item/ammo_box/magazine/enforcer
 	name = "handgun magazine (9mm rubber)"
+	desc = "Пистолетный магазин снаряженный нелетальными патронами калибра 9 мм. Эти патроны обладают хорошим останавливающим действием, способным сбить с ног большинство целей не нанося значительных повреждений."
+	ru_names = list(
+		NOMINATIVE = "пистолетный магазин (нелетальные 9 мм)",
+		GENITIVE = "пистолетного магазина (нелетальные 9 мм)",
+		DATIVE = "пистолетному магазину (нелетальные 9 мм)",
+		ACCUSATIVE = "пистолетный магазин (нелетальные 9 мм)",
+		INSTRUMENTAL = "пистолетным магазином (нелетальные 9 мм)",
+		PREPOSITIONAL = "пистолетном магазине (нелетальные 9 мм)"
+	)
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
@@ -329,6 +379,15 @@
 
 /obj/item/ammo_box/magazine/enforcer/lethal
 	name = "handgun magazine (9mm)"
+	desc = "Пистолетный магазин снаряженный патронами калибра 9 мм. Стандартные патроны для пистолета \"Блюститель\" службы безопасности."
+	ru_names = list(
+		NOMINATIVE = "пистолетный магазин (9 мм)",
+		GENITIVE = "пистолетного магазина (9 мм)",
+		DATIVE = "пистолетному магазину (9 мм)",
+		ACCUSATIVE = "пистолетный магазин (9 мм)",
+		INSTRUMENTAL = "пистолетным магазином (9 мм)",
+		PREPOSITIONAL = "пистолетном магазине (9 мм)"
+	)
 	ammo_type = /obj/item/ammo_casing/c9mm
 
 /obj/item/ammo_box/magazine/sp8
