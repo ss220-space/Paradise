@@ -229,13 +229,22 @@
 	multiplicative_slowdown = HUMAN_CARRY_SLOWDOWN
 	blacklisted_movetypes = FLOATING
 
+
 /datum/movespeed_modifier/temperature
 	variable = TRUE
 	movetypes = GROUND
 	blacklisted_movetypes = (FLYING)
 
+
 /datum/movespeed_modifier/temperature/cold
 	multiplicative_slowdown = -0.2
 
+
 /datum/movespeed_modifier/temperature/hot
 	multiplicative_slowdown = 0.5
+
+
+/datum/movespeed_modifier/afterswing_slowdown
+	variable = TRUE
+	movetypes = GROUND
+	blacklisted_movetypes = (FLOATING|FLYING)

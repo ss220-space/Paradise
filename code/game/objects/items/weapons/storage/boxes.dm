@@ -22,14 +22,6 @@
 /obj/item/storage/box
 	name = "box"
 	desc = "Это обычная коробка."
-	ru_names = list(
-		NOMINATIVE = "коробка",
-		GENITIVE = "коробки",
-		DATIVE = "коробке",
-		ACCUSATIVE = "коробку",
-		INSTRUMENTAL = "коробкой",
-		PREPOSITIONAL = "коробке"
-	)
 	icon_state = "box"
 	item_state = "syringe_kit"
 	resistance_flags = FLAMMABLE

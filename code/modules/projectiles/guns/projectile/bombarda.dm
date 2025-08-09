@@ -12,6 +12,7 @@
 	var/pump_cooldown = 1 SECONDS
 	COOLDOWN_DECLARE(last_pump)
 	accuracy = GUN_ACCURACY_MINIMAL
+	recoil = GUN_RECOIL_MEGA
 
 
 /obj/item/gun/projectile/bombarda/attackby(obj/item/I, mob/user, params)
