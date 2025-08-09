@@ -783,7 +783,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
-		if(H.stat != DEAD && (md5(H.dna.uni_identity) in link.fingerprints))
+		if(H.stat != DEAD && (H.real_name in link.interactors))
 			possible |= H
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)

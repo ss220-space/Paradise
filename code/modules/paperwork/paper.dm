@@ -5,7 +5,16 @@
 
 /obj/item/paper
 	name = "paper"
-	gender = PLURAL
+	desc = "Пустой листок бумаги."
+	ru_names = list(
+		NOMINATIVE = "бумага",
+		GENITIVE = "бумаги",
+		DATIVE = "бумаге",
+		ACCUSATIVE = "бумагу",
+		INSTRUMENTAL = "бумагой",
+		PREPOSITIONAL = "бумаге"
+	)
+	gender = FEMALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
 	item_state = "paper"
@@ -944,6 +953,7 @@
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
 				R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
+				R.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
 				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 		update_all_mob_security_hud()
 	else if(myeffect == "Demote with Bot")
@@ -954,6 +964,7 @@
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
 				R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
+				R.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
 				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 		update_all_mob_security_hud()
 		if(fax)

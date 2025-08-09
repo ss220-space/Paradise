@@ -196,6 +196,7 @@
 
 
 /atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
+	. = ..()
 	if(!QDELETED(src))
 		if(!linked_keybind)
 			openToolTip(usr, src, params, title = name, content = desc, theme = actiontooltipstyle)

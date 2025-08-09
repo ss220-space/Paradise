@@ -116,7 +116,7 @@
 	if(!BB)
 		to_chat(user, span_warning("В гильзе нет пули для нанесения гравировки."))
 		return .
-	if(initial(BB.name) != "bullet")
+	if(initial(BB.name) != BULLET)
 		to_chat(user, span_notice("Вы можете гравировать только металлические пули."))		//because inscribing beanbags is silly
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -148,18 +148,13 @@
 	else
 		H.gunshot_residue = caliber
 
+/obj/item/ammo_casing/proc/after_fire()
+	return
+
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"
 	desc = "Э-э... коробка с патронами?"
-	ru_names = list(
-		NOMINATIVE = "коробка с боеприпасами (универсальная)",
-		GENITIVE = "коробки с боеприпасами (универсальной)",
-		DATIVE = "коробке с боеприпасами (универсальной)",
-		ACCUSATIVE = "коробку с боеприпасами (универсальную)",
-		INSTRUMENTAL = "коробкой с боеприпасами (универсальной)",
-		PREPOSITIONAL = "коробке с боеприпасами (универсальной)"
-	)
 	icon_state = "357"
 	icon = 'icons/obj/weapons/ammo.dmi'
 	origin_tech = "materials=3;combat=3"

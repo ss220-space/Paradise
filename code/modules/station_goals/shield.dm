@@ -237,7 +237,7 @@
 
 		if(meteor_to_destroy.shield_defense(src))
 			Beam(get_turf(meteor_to_destroy), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
-			new /obj/effect/temp_visual/explosion(get_turf(meteor_to_destroy))
+			new /obj/effect/temp_visual/pka_explosion(get_turf(meteor_to_destroy))
 
 		qdel(meteor_to_destroy)
 

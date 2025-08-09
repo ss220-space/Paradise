@@ -313,6 +313,20 @@
 /proc/capitalize(var/t as text)
 	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
 
+//Returns a string depending on number it recieves
+/proc/numeric_ending(num, more, one, three)
+	var/last_digit = num % 10
+	var/last_two_digit = num % 100
+
+	if(last_two_digit >= 11 && last_two_digit <= 14)
+		return more
+	if(last_digit == 1)
+		return one
+	if(last_digit >= 2 && last_digit <= 4)
+		return three
+	else
+		return more
+
 //Centers text by adding spaces to either side of the string.
 /proc/dd_centertext(message, length)
 	var/new_message = message

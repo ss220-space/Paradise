@@ -38,7 +38,7 @@
 		if(!user.drop_transfer_item_to_loc(new_magazine, src))
 			return ..()
 		if(magazine)
-			magazine.forceMove(drop_location())
+			magazine.forceMove(get_turf(src))
 			magazine.update_appearance()
 		balloon_alert(user, "заряжено")
 		alarmed = FALSE	// Reset the alarm once a magazine is loaded
@@ -52,9 +52,9 @@
 
 
 /obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
-    if(istype(action, /datum/action/item_action/toggle_firemode))
-        burst_select()
-        return TRUE
+	if(istype(action, /datum/action/item_action/toggle_firemode))
+		burst_select()
+		return TRUE
 
 /obj/item/gun/projectile/automatic/proc/burst_select()
 	var/mob/living/carbon/human/user = usr
@@ -91,6 +91,13 @@
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
+	accuracy = GUN_ACCURACY_DEFAULT
+
+/obj/item/gun/projectile/automatic/proto/rubber
+
+/obj/item/gun/projectile/automatic/proto/rubber/Initialize(mapload)
+	magazine = new/obj/item/ammo_box/magazine/smgm9mm/rubber
+	. = ..()
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
@@ -106,6 +113,7 @@
 	can_bayonet = TRUE
 	bayonet_x_offset = 26
 	bayonet_y_offset = 12
+	accuracy = GUN_ACCURACY_RIFLE
 
 
 /obj/item/gun/projectile/automatic/c20r/Initialize()
@@ -125,8 +133,8 @@
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
-	name = "security auto rifle"
-	desc = "An outdated personal defense weapon utilized by law enforcement. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
+	name = "WT-550 PDW"
+	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
@@ -136,15 +144,23 @@
 	fire_delay = 2
 	can_suppress = TRUE
 	can_flashlight = TRUE
-	burst_size = 2
+	burst_size = 1
 	can_bayonet = TRUE
 	bayonet_x_offset = 25
 	bayonet_y_offset = 12
 	gun_light_overlay = "wt-light"
+	accuracy = GUN_ACCURACY_RIFLE
+	spread = 20
+	actions_types = null
 
+/obj/item/gun/projectile/automatic/wt550/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
-	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
+	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
 
 /obj/item/gun/projectile/automatic/wt550/update_overlays()
 	. = ..()
@@ -172,10 +188,18 @@
 	fire_delay = 2
 	can_suppress = TRUE
 	can_flashlight = TRUE
-	burst_size = 3
+	burst_size = 1
 	can_bayonet = FALSE
 	gun_light_overlay = "SP-91-RC-light"
+	accuracy = GUN_ACCURACY_RIFLE
+	spread = 20
+	actions_types = null
 
+/obj/item/gun/projectile/automatic/sp91rc/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -202,7 +226,13 @@
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
-	burst_size = 4
+	burst_size = 1
+
+/obj/item/gun/projectile/automatic/mini_uzi/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
@@ -219,6 +249,7 @@
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
 	fire_delay = 2
+	accuracy = GUN_ACCURACY_RIFLE
 
 
 /obj/item/gun/projectile/automatic/m90/Initialize(mapload)
@@ -293,6 +324,7 @@
 	can_suppress = 0
 	burst_size = 4
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
 
 //ARG Assault Rifle//
 /obj/item/gun/projectile/automatic/ar
@@ -309,6 +341,7 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
 
 //AK-814 Soviet Assault Rifle
 /obj/item/gun/projectile/automatic/ak814
@@ -327,6 +360,7 @@
 	bayonet_y_offset = 10
 	burst_size = 2
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
 
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
@@ -344,6 +378,7 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
@@ -403,6 +438,7 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1.5
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/New()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
@@ -425,6 +461,7 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	burst_size = 2
 	can_suppress = 0
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 
 /obj/item/gun/projectile/automatic/cats/update_icon_state()
@@ -453,6 +490,7 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 2
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -471,6 +509,7 @@
 	can_suppress = 0
 	burst_size = 1
 	actions_types = null
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
 	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
@@ -486,6 +525,7 @@
 	burst_size = 3
 	can_flashlight = TRUE
 	gun_light_overlay = "sfg-light"
+	accuracy = GUN_ACCURACY_RIFLE
 
 
 /obj/item/gun/projectile/automatic/sfg/update_icon_state()
@@ -509,4 +549,5 @@
 	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
 	mag_type = /obj/item/ammo_box/magazine/m52mag
 	can_suppress = 0
+	accuracy = GUN_ACCURACY_RIFLE
 

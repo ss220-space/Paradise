@@ -883,7 +883,7 @@
 	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	interaction()
+	interaction(user)
 
 /obj/item/toy/plushie/rdplushie/update_icon_state()
 	. = ..()
@@ -924,13 +924,13 @@
 	"Подмогу в туалет брига!", "Почему над унитазом установлены 3 камеры?")
 
 	playsound(loc, 'sound/items/GSBussy.ogg', 30, TRUE)
-	user.visible_message("[bicon(src)] [span_notice(message)]")
+	visible_message("[bicon(src)] [span_notice(message)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/gsbplushie/attack_self(mob/user)
 	. = ..()
 
-	interaction()
+	interaction(user)
 
 /obj/item/toy/plushie/gsbplushie/afterattack(atom/target, mob/user, proximity, flag, params)
 	. = ..()
@@ -938,7 +938,7 @@
 	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	interaction()
+	interaction(user)
 
 /obj/item/toy/plushie/greyplushie
 	name = "Плюшевый грей"
@@ -1654,7 +1654,10 @@
 	name = "Toy Codex Gigas"
 	desc = "A tool to help you write fictional devils!"
 	icon = 'icons/obj/library.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "demonomicon"
+	item_state = "demonomicon"
 	w_class = WEIGHT_CLASS_SMALL
 	COOLDOWN_DECLARE(cooldown)
 

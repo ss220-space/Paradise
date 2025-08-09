@@ -27,7 +27,7 @@
 
 /obj/structure/Initialize(mapload)
 	if(!armor)
-		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	if(creates_cover && isturf(loc))
 		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
@@ -178,48 +178,48 @@
 
 /obj/structure/proc/structure_shaken()
 
-	for(var/mob/living/M in get_turf(src))
+	for(var/mob/living/mob in get_turf(src))
 
-		if(M.body_position == LYING_DOWN)
-			return //No spamming this on people.
+		if(mob.body_position == LYING_DOWN)
+			continue //No spamming this on people.
 
-		M.Weaken(10 SECONDS)
-		to_chat(M, span_warning("Вы теряете равновесие, когда [declent_ru(NOMINATIVE)] двигается под вами!"))
+		mob.Weaken(10 SECONDS)
+		to_chat(mob, span_warning("Вы теряете равновесие, когда [declent_ru(NOMINATIVE)] двигается под вами!"))
 
 		if(prob(25))
 
 			var/damage = rand(15,30)
-			var/mob/living/carbon/human/H = M
-			if(!istype(H))
-				to_chat(H, span_warning("Вы тяжело приземляетесь!"))
-				M.adjustBruteLoss(damage)
-				return
+			var/mob/living/carbon/human/human = mob
+			if(!istype(human))
+				to_chat(mob, span_warning("Вы тяжело приземляетесь!"))
+				mob.adjustBruteLoss(damage)
+				continue
 
 			var/obj/item/organ/external/affecting
 
 			switch(pick(list("ankle","wrist","head","knee","elbow")))
 				if("ankle")
-					affecting = GLOB.body_zone[pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)][ACCUSATIVE]
+					affecting = human.get_organ(pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 				if("knee")
-					affecting = GLOB.body_zone[pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)][ACCUSATIVE]
+					affecting = human.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 				if("wrist")
-					affecting = GLOB.body_zone[pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)][ACCUSATIVE]
+					affecting = human.get_organ(pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
 				if("elbow")
-					affecting = GLOB.body_zone[pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)][ACCUSATIVE]
+					affecting = human.get_organ(pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 				if("head")
-					affecting = GLOB.body_zone[BODY_ZONE_HEAD][ACCUSATIVE]
+					affecting = human.get_organ(BODY_ZONE_HEAD)
 
 			if(affecting)
-				to_chat(M, span_warning("Вы тяжело приземляетесь на [affecting]!"))
-				H.apply_damage(damage, def_zone = affecting)
+				to_chat(human, span_warning("Вы тяжело приземляетесь на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]!"))
+				human.apply_damage(damage, def_zone = affecting)
 				if(affecting?.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
 			else
-				to_chat(H, span_warning("Вы тяжело приземляетесь!"))
-				H.adjustBruteLoss(damage)
+				to_chat(human, span_warning("Вы тяжело приземляетесь!"))
+				human.adjustBruteLoss(damage)
 
-			H.UpdateDamageIcon()
-	return
+			human.UpdateDamageIcon()
+	return TRUE
 
 /obj/structure/proc/can_touch(mob/living/user)
 	if(!istype(user))
@@ -236,6 +236,9 @@
 		return FALSE
 	return TRUE
 
+/obj/structure/proc/get_climb_text()
+	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на [genderize_ru(gender, "него", "неё", "него", "них")].")
+
 /obj/structure/examine(mob/user)
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
@@ -247,7 +250,7 @@
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += span_notice("\nМожно <b>перетащить</b> кого-то на [declent_ru(GENITIVE)], чтобы через короткое время поместить его на поверхность.")
+		. += get_climb_text()
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -263,6 +266,11 @@
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE
 
+/obj/structure/zap_act(power, zap_flags)
+	if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power * 5e-4, BURN, ENERGY)
+	power -= power * 5e-4 //walls take a lot out of ya
+	. = ..()
 
 /obj/structure/extinguish_light(force = FALSE)
 	if(light_on)
