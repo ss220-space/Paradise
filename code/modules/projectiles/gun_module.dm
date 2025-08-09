@@ -129,6 +129,7 @@
 	var/bonus_accuracy = 10
 	var/initial_w_class
 	var/spread_decrease = 0
+	var/initial_recoil
 
 
 /obj/item/gun_module/muzzle/compensator/on_attach(obj/item/gun/target_gun, mob/user)
@@ -141,6 +142,8 @@
 		return
 	spread_decrease = initial(target_gun.accuracy.max_spread) * 0.30
 	target_gun.accuracy.max_spread = target_gun.accuracy.max_spread - spread_decrease
+	initial_recoil = target_gun.recoil.strength
+	target_gun.recoil.strength = target_gun.recoil.strength * 0.2
 
 /obj/item/gun_module/muzzle/compensator/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppress_muzzle_flash = FALSE
@@ -148,6 +151,8 @@
 	target_gun.accuracy.add_accuracy(-bonus_accuracy)
 	target_gun.accuracy.max_spread += spread_decrease
 	spread_decrease = 0
+	target_gun.recoil.strength = initial_recoil
+	initial_recoil = 0
 
 
 /**
