@@ -88,7 +88,7 @@
 	var/datum/controller/subsystem/tickets/tickets_system
 	// We treat PMs as mentorhelps if we were explicitly so, or if neither
 	// party is an admin.
-	if(type == MENTORHELP || !(check_rights(R_ADMIN|R_MOD, 0, C.mob) || check_rights(R_ADMIN|R_MOD, 0, mob)))
+	if(type == MENTORHELP || !(check_rights(R_ADMIN|R_MOD, FALSE, C.mob) || check_rights(R_ADMIN|R_MOD, FALSE, mob)))
 		send_span = "mentorhelp"
 		receive_span = "mentorhelp"
 		message_type = MESSAGE_TYPE_MENTORPM
@@ -105,10 +105,10 @@
 		// If we didn't find a specific ticket by the target mob, we check for
 		// tickets by the source mob.
 		if(message_type == MESSAGE_TYPE_MENTORPM)
-			if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob))
+			if(check_rights(R_ADMIN|R_MOD|R_MENTOR, FALSE, C.mob))
 				tickets = SSmentor_tickets.checkForTicket(src)
 		else
-			if(check_rights(R_ADMIN|R_MOD, 0, C.mob))
+			if(check_rights(R_ADMIN|R_MOD, FALSE, C.mob))
 				tickets = SStickets.checkForTicket(src)
 
 	//get message text, limit it's length.and clean/escape html
@@ -137,7 +137,7 @@
 		msg = copytext_char(msg, 1, 2048)
 
 	//clean the message if it's not sent by a high-rank admin
-	if(check_rights(R_SERVER|R_DEBUG, 0))
+	if(check_rights(R_SERVER|R_DEBUG, FALSE))
 		//msg = sanitize_censored_patterns(msg)
 		msg = admin_pencode_to_html(msg)
 

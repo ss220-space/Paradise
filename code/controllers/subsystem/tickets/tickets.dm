@@ -185,10 +185,10 @@ SUBSYSTEM_DEF(tickets)
 		return TRUE
 
 /datum/controller/subsystem/tickets/proc/refresh_tickets(list/tickets)
-	for(var/datum/ticket/T in tickets)
+	for(var/datum/ticket/ticket in tickets)
 		for(var/client/client in open_detail_uis)
-			if(client && open_detail_uis[client] == T.ticketNum)
-				showDetailUI(client.mob, T.ticketNum)
+			if(client && open_detail_uis[client] == ticket.ticketNum)
+				showDetailUI(client.mob, ticket.ticketNum)
 
 /datum/controller/subsystem/tickets/proc/addResponse(list/tickets, who, message)
 	var/list/ticket_numbers = list()
@@ -542,15 +542,15 @@ SUBSYSTEM_DEF(tickets)
 			dat += "<i><span class='typing'>[key] is typing</span></i><br />"
 
 	var/found_typing = FALSE
-	for(var/client/X in GLOB.admins)
-		if(ckey(X.ckey) == ckey(T.client_ckey))
+	for(var/client/client as anything in GLOB.admins)
+		if(ckey(client.ckey) == ckey(T.client_ckey))
 			continue
-		if(!check_rights_for(X, rights_needed))
+		if(!check_rights_for(client, rights_needed))
 			continue
-		for(var/key in X.pm_tracker.pms)
+		for(var/key in client.pm_tracker.pms)
 			if(ckey(key) != ckey(T.client_ckey))
 				continue
-			var/datum/pm_convo/convo = X.pm_tracker.pms[key]
+			var/datum/pm_convo/convo = client.pm_tracker.pms[key]
 			if(convo.typing)
 				dat += "<i><span class='typing'>[key] is typing</span></i><br />"
 				found_typing = TRUE
@@ -736,7 +736,7 @@ SUBSYSTEM_DEF(tickets)
 	var/static/list/protected_vars = list(
 		"allTickets"
 	)
-	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
 
