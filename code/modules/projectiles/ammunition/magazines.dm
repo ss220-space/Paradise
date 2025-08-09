@@ -759,7 +759,15 @@
 
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g buckshot slugs)"
-	desc = "A drum magazine."
+	desc = "Барабанный магазин предназначенный для патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин (12х70)",
+		GENITIVE = "барабанного магазина (12х70)",
+		DATIVE = "барабанному магазину (12х70)",
+		ACCUSATIVE = "барабанный магазина (12х70)",
+		INSTRUMENTAL = "барабанным магазином (12х70)",
+		PREPOSITIONAL = "барабанном магазине (12х70)"
+	)
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
 	caliber = ".12"
@@ -768,7 +776,15 @@
 
 /obj/item/ammo_box/magazine/cheap_m12g
 	name = "shotgun magazine (12g buckshot slugs)"
-	desc = "A cheaply-made drum magazine."
+	desc = "Барабанный магазин предназначенный для кртечных патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин (кртечный 12х70)",
+		GENITIVE = "барабанного магазина (кртечный 12х70)",
+		DATIVE = "барабанному магазину (кртечный 12х70)",
+		ACCUSATIVE = "барабанный магазина (кртечный 12х70)",
+		INSTRUMENTAL = "барабанным магазином (кртечный 12х70)",
+		PREPOSITIONAL = "барабанном магазине (кртечный 12х70)"
+	)
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 	caliber = ".12"
@@ -778,37 +794,99 @@
 
 /obj/item/ammo_box/magazine/m12g/slug
 	name = "shotgun magazine (12g slugs)"
+	desc = "Барабанный магазин предназначенный для различных патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин (12х70)",
+		GENITIVE = "барабанного магазина (12х70)",
+		DATIVE = "барабанному магазину (12х70)",
+		ACCUSATIVE = "барабанный магазина (12х70)",
+		INSTRUMENTAL = "барабанным магазином (12х70)",
+		PREPOSITIONAL = "барабанном магазине (12х70)"
+	)
 	icon_state = "m12gb"
 	ammo_type = /obj/item/ammo_casing/shotgun
 
 /obj/item/ammo_box/magazine/m12g/stun
 	name = "shotgun magazine (12g taser slugs)"
+	desc = "Барабанный магазин предназначенный для шоковых патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин (шоковый 12х70)",
+		GENITIVE = "барабанного магазина (шоковый 12х70)",
+		DATIVE = "барабанному магазину (шоковый 12х70)",
+		ACCUSATIVE = "барабанный магазина (шоковый 12х70)",
+		INSTRUMENTAL = "барабанным магазином (шоковый 12х70)",
+		PREPOSITIONAL = "барабанном магазине (шоковый 12х70)"
+	)
 	icon_state = "m12gs"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
 
 /obj/item/ammo_box/magazine/m12g/dragon
 	name = "shotgun magazine (12g dragon's breath)"
+	desc = "Барабанный магазин предназначенный для патронов \"Дыхание дракона\" калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин (дыхание дракона 12х70)",
+		GENITIVE = "барабанного магазина (дыхание дракона 12х70)",
+		DATIVE = "барабанному магазину (дыхание дракона 12х70)",
+		ACCUSATIVE = "барабанный магазина (дыхание дракона 12х70)",
+		INSTRUMENTAL = "барабанным магазином (дыхание дракона 12х70)",
+		PREPOSITIONAL = "барабанном магазине (дыхание дракона 12х70)"
+	)
 	icon_state = "m12gf"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
 
 /obj/item/ammo_box/magazine/m12g/bioterror
 	name = "shotgun magazine (12g bioterror)"
+	desc = "Барабанный магазин предназначенный для патронов \"Биотеррор\" калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин (биотеррор 12х70)",
+		GENITIVE = "барабанного магазина (биотеррор 12х70)",
+		DATIVE = "барабанному магазину (биотеррор 12х70)",
+		ACCUSATIVE = "барабанный магазина (биотеррор 12х70)",
+		INSTRUMENTAL = "барабанным магазином (биотеррор 12х70)",
+		PREPOSITIONAL = "барабанном магазине (биотеррор 12х70)"
+	)
 	icon_state = "m12gt"
 	ammo_type = /obj/item/ammo_casing/shotgun/bioterror
 
 /obj/item/ammo_box/magazine/m12g/breach
 	name = "shotgun magazine (12g breacher slugs)"
+	desc = "Барабанный магазин предназначенный для разрывных патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин (разрывные 12х70)",
+		GENITIVE = "барабанного магазина (разрывные 12х70)",
+		DATIVE = "барабанному магазину (разрывные 12х70)",
+		ACCUSATIVE = "барабанный магазина (разрывные 12х70)",
+		INSTRUMENTAL = "барабанным магазином (разрывные 12х70)",
+		PREPOSITIONAL = "барабанном магазине (разрывные 12х70)"
+	)
 	icon_state = "m12gmt"
 	ammo_type = /obj/item/ammo_casing/shotgun/breaching
 
 /obj/item/ammo_box/magazine/m12g/flechette
 	name = "shotgun magazine (12g flechette)"
+	desc = "Барабанный магазин предназначенный для патронов \"Флешетта\" калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин (флешетты 12х70)",
+		GENITIVE = "барабанного магазина (флешетты 12х70)",
+		DATIVE = "барабанному магазину (флешетты 12х70)",
+		ACCUSATIVE = "барабанный магазина (флешетты 12х70)",
+		INSTRUMENTAL = "барабанным магазином (флешетты 12х70)",
+		PREPOSITIONAL = "барабанном магазине (флешетты 12х70)"
+	)
 	icon_state = "m12gb"
 	ammo_type = /obj/item/ammo_casing/shotgun/flechette
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
 	name = "XL shotgun magazine (12g buckshot slugs)"
-	desc = "An extra large drum magazine."
+	desc = "Увеличенный барабанный магазин предназначенный для усиленных патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "увеличенный барабанный магазин (усиленные 12х70)",
+		GENITIVE = "увеличенного барабанного магазина (усиленные 12х70)",
+		DATIVE = "увеличенному барабанному магазину (усиленные 12х70)",
+		ACCUSATIVE = "увеличенный барабанный магазин (усиленные 12х70)",
+		INSTRUMENTAL = "увеличенным барабанным магазином (усиленные 12х70)",
+		PREPOSITIONAL = "увеличенном барабанном магазине (усиленные 12х70)"
+	)
 	icon_state = "m12gXlBs"
 	w_class = WEIGHT_CLASS_NORMAL
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
@@ -816,26 +894,71 @@
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
 	name = "XL shotgun magazine (12g flechette)"
+	desc = "Увеличенный барабанный магазин предназначенный для патронов \"Флешетта\" калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "увеличенный барабанный магазин (флешетты 12х70)",
+		GENITIVE = "увеличенного барабанного магазина (флешетты 12х70)",
+		DATIVE = "увеличенному барабанному магазину (флешетты 12х70)",
+		ACCUSATIVE = "увеличенный барабанный магазин (флешетты 12х70)",
+		INSTRUMENTAL = "увеличенным барабанным магазином (флешетты 12х70)",
+		PREPOSITIONAL = "увеличенном барабанном магазине (флешетты 12х70)"
+	)
 	icon_state = "m12gXlSl"
 	ammo_type = /obj/item/ammo_casing/shotgun/flechette
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/slug
 	name = "XL shotgun magazine (12g slugs)"
+	desc = "Увеличенный барабанный магазин предназначенный для пулевых патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "увеличенный барабанный магазин (пулевой 12х70)",
+		GENITIVE = "увеличенного барабанного магазина (пулевой 12х70)",
+		DATIVE = "увеличенному барабанному магазину (пулевой 12х70)",
+		ACCUSATIVE = "увеличенный барабанный магазин (пулевой 12х70)",
+		INSTRUMENTAL = "увеличенным барабанным магазином (пулевой 12х70)",
+		PREPOSITIONAL = "увеличенном барабанном магазине (пулевой 12х70)"
+	)
 	icon_state = "m12gXlSl"
 	ammo_type = /obj/item/ammo_casing/shotgun
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
 	name = "XL shotgun magazine (12g dragon's breath)"
+	desc = "Увеличенный барабанный магазин предназначенный для патронов \"Дыхание дракона\" калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "увеличенный барабанный магазин (дыхание дракона 12х70)",
+		GENITIVE = "увеличенного барабанного магазина (дыхание дракона 12х70)",
+		DATIVE = "увеличенному барабанному магазину (дыхание дракона 12х70)",
+		ACCUSATIVE = "увеличенный барабанный магазин (дыхание дракона 12х70)",
+		INSTRUMENTAL = "увеличенным барабанным магазином (дыхание дракона 12х70)",
+		PREPOSITIONAL = "увеличенном барабанном магазине (дыхание дракона 12х70)"
+	)
 	icon_state = "m12gXlDb"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
 
 /obj/item/ammo_box/magazine/toy
 	name = "foam force META magazine"
+	desc = "Магазин предназначенный для пенных патронов."
+	ru_names = list(
+		NOMINATIVE = "магазин пенных патронов",
+		GENITIVE = "магазина пенных патронов",
+		DATIVE = "магазину пенных патронов",
+		ACCUSATIVE = "магазин пенных патронов",
+		INSTRUMENTAL = "магазином пенных патронов",
+		PREPOSITIONAL = "магазине пенных патронов"
+	)
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	caliber = "foam_force"
 
 /obj/item/ammo_box/magazine/toy/smg
 	name = "foam force SMG magazine"
+	desc = "Магазин игрушечного SMG, предназначенный для пенных патронов."
+	ru_names = list(
+		NOMINATIVE = "магазин SMG (пенный патрон)",
+		GENITIVE = "магазина SMG (пенный патрон)",
+		DATIVE = "магазину SMG (пенный патрон)",
+		ACCUSATIVE = "магазин SMG (пенный патрон)",
+		INSTRUMENTAL = "магазином SMG (пенный патрон)",
+		PREPOSITIONAL = "магазине SMG (пенный патрон)"
+	)
 	icon_state = "smg9mm-20"
 	max_ammo = 20
 
@@ -847,6 +970,15 @@
 
 /obj/item/ammo_box/magazine/toy/pistol
 	name = "foam force pistol magazine"
+	desc = "Магазин игрушечного пистолета, предназначенный для пенных патронов."
+	ru_names = list(
+		NOMINATIVE = "магазин пистолета (пенный патрон)",
+		GENITIVE = "магазина пистолета (пенный патрон)",
+		DATIVE = "магазину пистолета (пенный патрон)",
+		ACCUSATIVE = "магазин пистолета (пенный патрон)",
+		INSTRUMENTAL = "магазином пистолета (пенный патрон)",
+		PREPOSITIONAL = "магазине пистолета (пенный патрон)"
+	)
 	icon_state = "9x19p"
 	max_ammo = 8
 	multiple_sprites = 2
@@ -859,6 +991,15 @@
 
 /obj/item/ammo_box/magazine/toy/enforcer
 	name = "foam enforcer magazine"
+	desc = "Магазин игрушечного пистолета \"Блюститель\", предназначенный для пенных патронов."
+	ru_names = list(
+		NOMINATIVE = "магазин пистолета \"Блюститель\" (пенный патрон)",
+		GENITIVE = "магазина пистолета \"Блюститель\" (пенный патрон)",
+		DATIVE = "магазину пистолета \"Блюститель\" (пенный патрон)",
+		ACCUSATIVE = "магазин пистолета \"Блюститель\" (пенный патрон)",
+		INSTRUMENTAL = "магазином пистолета \"Блюститель\" (пенный патрон)",
+		PREPOSITIONAL = "магазине пистолета \"Блюститель\" (пенный патрон)"
+	)
 	icon_state = "enforcer"
 	max_ammo = 8
 	multiple_sprites = 1
@@ -887,6 +1028,15 @@
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"
+	desc = "Магазин игрушечного C-20r SMG, предназначенный для пенных патронов."
+	ru_names = list(
+		NOMINATIVE = "магазин C-20r SMG (пенный патрон)",
+		GENITIVE = "магазина C-20r SMG (пенный патрон)",
+		DATIVE = "магазину C-20r SMG (пенный патрон)",
+		ACCUSATIVE = "магазин C-20r SMG (пенный патрон)",
+		INSTRUMENTAL = "магазином C-20r SMG (пенный патрон)",
+		PREPOSITIONAL = "магазине C-20r SMG (пенный патрон)"
+	)
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 20
 
@@ -895,6 +1045,15 @@
 
 /obj/item/ammo_box/magazine/toy/m762
 	name = "donksoft box magazine"
+	desc = "Магазин игрушечного L6 SAW, предназначенный для пенных патронов."
+	ru_names = list(
+		NOMINATIVE = "магазин L6 SAW (пенный патрон)",
+		GENITIVE = "магазина L6 SAW (пенный патрон)",
+		DATIVE = "магазину L6 SAW (пенный патрон)",
+		ACCUSATIVE = "магазин L6 SAW (пенный патрон)",
+		INSTRUMENTAL = "магазином L6 SAW (пенный патрон)",
+		PREPOSITIONAL = "магазине L6 SAW (пенный патрон)"
+	)
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 100
 
@@ -906,7 +1065,15 @@
 
 /obj/item/ammo_box/magazine/laser
 	name = "encased laser projector magazine"
-	desc = "Fits experimental laser ammo casings."
+	desc = "Коробчатый магазин IK-60, предназначенный для лазерных патронов."
+	ru_names = list(
+		NOMINATIVE = "автоматный магазин IK-60 (лазерный)",
+		GENITIVE = "автоматного магазина IK-60 (лазерный)",
+		DATIVE = "автоматному магазину IK-60 (лазерный)",
+		ACCUSATIVE = "автоматного магазина IK-60 (лазерный)",
+		INSTRUMENTAL = "автоматным магазином IK-60 (лазерный)",
+		PREPOSITIONAL = "автоматном магазине IK-60 (лазерный)"
+	)
 	icon_state = "laser"
 	ammo_type = /obj/item/ammo_casing/laser
 	caliber = "laser"
@@ -917,7 +1084,15 @@
 
 /obj/item/ammo_box/magazine/lr30mag
 	name = "small encased laser projector magazine"
-	desc = "Fits experimental laser ammo casings."
+	desc = "Коробчатый магазин LR-30, предназначенный для лазерных патронов."
+	ru_names = list(
+		NOMINATIVE = "автоматный магазин LR-30 (лазерный)",
+		GENITIVE = "автоматного магазина LR-30 (лазерный)",
+		DATIVE = "автоматному магазину LR-30 (лазерный)",
+		ACCUSATIVE = "автоматного магазина LR-30 (лазерный)",
+		INSTRUMENTAL = "автоматным магазином LR-30 (лазерный)",
+		PREPOSITIONAL = "автоматном магазине LR-30 (лазерный)"
+	)
 	icon_state = "lmag"
 	ammo_type = /obj/item/ammo_casing/laser
 	caliber = "laser"
@@ -933,6 +1108,15 @@
 
 /obj/item/ammo_box/magazine/m52mag
 	name = "M-52 magazine"
+	desc = "Коробчатый магазин M-52, предназначенный для патронов калибра 5.56х45 мм."
+	ru_names = list(
+		NOMINATIVE = "автоматный магазин M-52 (5.56х45 мм)",
+		GENITIVE = "автоматного магазина M-52 (5.56х45 мм)",
+		DATIVE = "автоматному магазину M-52 (5.56х45 мм)",
+		ACCUSATIVE = "автоматного магазина M-52 (5.56х45 мм)",
+		INSTRUMENTAL = "автоматным магазином M-52 (5.56х45 мм)",
+		PREPOSITIONAL = "автоматном магазине M-52 (5.56х45 мм)"
+	)
 	icon_state = "m52_ammo"
 	ammo_type = /obj/item/ammo_casing/mm556x45
 	caliber = "mm55645"
