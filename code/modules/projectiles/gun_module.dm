@@ -21,21 +21,21 @@
 /// Try attach module to gun, return TRUE if success
 /obj/item/gun_module/proc/try_attach(obj/item/gun/target_gun, mob/user)
 	if(!istype(target_gun, /obj/item/gun))
-		to_chat(user, "несовместимо с модулями!")
+		to_chat(user, "Несовместимо с модулями!")
 		return FALSE
 	var/obj/item/gun/gun = target_gun
 	var/allowed = gun.attachable_allowed & class
 	if(!allowed)
-		to_chat(user, "несовместимое оружие!")
+		to_chat(user, "Несовместимое оружие!")
 		return FALSE
 	if(gun.attachments_by_slot[slot] != null)
-		to_chat(user, "слот для модуля занят!")
+		to_chat(user, "Слот для модуля занят!")
 		return FALSE
 	return attach_without_check(gun, user)
 
 /// Attaching module to gun without check, use try_attach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/attach_without_check(obj/item/gun/target_gun, mob/user)
-	to_chat(user, "модуль установлен")
+	to_chat(user, "Модуль установлен")
 	if(!do_after(user, 1 SECONDS, target_gun))
 		return FALSE
 	target_gun.attachments_by_slot[slot] = src
@@ -47,7 +47,7 @@
 
 /// Detaching module from gun without check, use try_detach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/detach_without_check(obj/item/gun/target_gun, mob/user)
-	to_chat(user, "модуль снят")
+	to_chat(user, "Модуль снят")
 	if(!do_after(user, 1 SECONDS, target_gun))
 		return FALSE
 	target_gun.attachments_by_slot[slot] = null
@@ -128,6 +128,7 @@
 	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
 	var/bonus_accuracy = 10
 	var/initial_w_class
+	var/spread_decrease = 0
 
 
 /obj/item/gun_module/muzzle/compensator/on_attach(obj/item/gun/target_gun, mob/user)
@@ -136,11 +137,17 @@
 	if(target_gun.w_class < WEIGHT_CLASS_NORMAL)
 		target_gun.w_class = WEIGHT_CLASS_NORMAL
 	target_gun.accuracy.add_accuracy(bonus_accuracy)
+	if(!target_gun.spread)
+		return
+	spread_decrease = initial(target_gun.spread) * 0.25
+	target_gun.spread = target_gun.spread - spread_decrease
 
 /obj/item/gun_module/muzzle/compensator/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppress_muzzle_flash = FALSE
 	target_gun.w_class = initial_w_class
 	target_gun.accuracy.add_accuracy(-bonus_accuracy)
+	target_gun.spread += spread_decrease
+	spread_decrease = 0
 
 
 /**
@@ -460,10 +467,17 @@
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
 	var/bonus_accuracy = 10
+	var/spread_decrease = 0
 
 
 /obj/item/gun_module/under/hand/angle/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.accuracy.add_accuracy(bonus_accuracy)
+	if(!target_gun.spread)
+		return
+	spread_decrease = initial(target_gun.spread) * 0.25
+	target_gun.spread = target_gun.spread - spread_decrease
 
 /obj/item/gun_module/under/hand/angle/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.accuracy.add_accuracy(-bonus_accuracy)
+	target_gun.spread += spread_decrease
+	spread_decrease = 0

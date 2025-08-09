@@ -12,7 +12,6 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = FALSE
 	can_bayonet = FALSE
 	slot_flags = ITEM_SLOT_BACK
 	burst_size = 3

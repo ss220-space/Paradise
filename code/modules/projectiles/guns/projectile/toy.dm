@@ -9,7 +9,6 @@
 	force = 0
 	throwforce = 0
 	burst_size = 3
-	can_suppress = FALSE
 	clumsy_check = FALSE
 	needs_permit = FALSE
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
@@ -26,7 +25,6 @@
 	can_holster = TRUE
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	can_suppress = FALSE
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
@@ -99,7 +97,6 @@
 	desc = "A bullpup two-round burst toy SMG, designated 'C-20r'. Ages 8 and up."
 	icon = 'icons/obj/weapons/toy.dmi'
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
-	can_suppress = FALSE
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
@@ -116,7 +113,6 @@
 	desc = "A heavily modified toy light machine gun, designated 'L6 SAW'. Ages 8 and up."
 	icon = 'icons/obj/weapons/toy.dmi'
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
-	can_suppress = FALSE
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
@@ -144,7 +140,6 @@
 	desc = "A recoil-operated, semi-automatic donksoft sniper rifle. Perfect to annoy/kill the neighbour’s cat! Ages 8 and up."
 	icon = 'icons/obj/weapons/toy.dmi'
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	can_suppress = FALSE
 	needs_permit = FALSE
 	zoomable = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/sniper_rounds

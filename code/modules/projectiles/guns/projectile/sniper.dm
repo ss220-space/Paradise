@@ -12,7 +12,6 @@
 	fire_delay = 40
 	burst_size = 1
 	origin_tech = "combat=7"
-	can_unsuppress = TRUE
 	can_suppress = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	zoomable = TRUE
@@ -74,8 +73,6 @@
 	weapon_weight = WEAPON_LIGHT
 	fire_delay = 0
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
-	can_unsuppress = FALSE
-	can_suppress = FALSE
 	zoomable = FALSE
 
 
