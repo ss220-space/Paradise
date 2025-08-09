@@ -191,13 +191,19 @@
 	add_overlay(icon(I.icon, I.icon_state, SOUTH))
 	add_overlay("alert_flash")
 	// If either of these atoms are deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
-	RegisterSignal(I, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
-	RegisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(cancel_give))
+	RegisterSignal(I, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give), override = TRUE)
+	RegisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(cancel_give), override = TRUE)
 
 
 /atom/movable/screen/alert/take_item/Destroy()
 	var/mob/living/giver = locateUID(giver_UID)
-	giver.remove_status_effect(STATUS_EFFECT_OFFERING_ITEM)
+	var/obj/item/giving_item = locateUID(item_UID)
+	
+	if(giver)
+		giver.remove_status_effect(STATUS_EFFECT_OFFERING_ITEM)
+		UnregisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
+	if(giving_item)
+		UnregisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
 
 	return ..()
 
@@ -220,6 +226,9 @@
 		return
 
 	var/obj/item/I = locateUID(item_UID)
+	if(!I)
+		return
+
 	if(receiver.r_hand && receiver.l_hand)
 		to_chat(receiver, span_warning("Освободите руки для принятия [I.declent_ru(ACCUSATIVE)]!"))
 		return

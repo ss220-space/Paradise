@@ -4,6 +4,7 @@
 	name = "dog"
 	icon_state = "blackdog"
 	icon_living = "blackdog"
+	icon_resting = "blackdog_rest"
 	icon_dead = "blackdog_dead"
 	response_help  = "pets"
 	response_disarm = "bops"
@@ -778,16 +779,27 @@
 
 /mob/living/simple_animal/pet/dog/pug
 	name = "pug"
-	real_name = "pug"
-	desc = "It's a pug."
+	real_name = "мопс"
+	desc = "Это мопс, маленькая, смешная, безобидная собака."
+	ru_names = list(
+		NOMINATIVE = "мопс",
+		GENITIVE = "мопса",
+		DATIVE = "мопсу",
+		ACCUSATIVE = "мопса",
+		INSTRUMENTAL = "мопсом",
+		PREPOSITIONAL = "мопсе"
+	)
+	gender = MALE
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "pug"
 	icon_living = "pug"
+	icon_resting = "pug_rest"
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/pug = 3)
 	collar_type = "pug"
 	tts_seed = "Kleiner"
 	holder_type = /obj/item/holder/pug
+	collar_type = "pug"
 	maxHealth = 30
 	health = 30
 
@@ -800,6 +812,18 @@
 				for(var/i in list(1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2))
 					dir = i
 					sleep(1)
+
+/mob/living/simple_animal/pet/dog/pug/update_icons()
+	if(stat == DEAD)
+		icon_state = icon_dead
+		if(collar_type)
+			collar_type = "[initial(collar_type)]_dead"
+		regenerate_icons()
+		return
+	icon_state = icon_living
+	if(collar_type)
+		collar_type = "[initial(collar_type)]"
+	regenerate_icons()
 
 /mob/living/simple_animal/pet/dog/bullterrier
 	name = "bullterrier"

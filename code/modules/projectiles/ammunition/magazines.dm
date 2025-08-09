@@ -346,10 +346,10 @@
 	icon_state = "46x30mmt-20"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = "4.6x30mm"
-	max_ammo = 20
+	max_ammo = 30
 
 /obj/item/ammo_box/magazine/wt550m9/update_icon_state()
-	icon_state = "46x30mmt-[round(ammo_count(),4)]"
+	icon_state = "46x30mmt-[round(ammo_count(),6)]"
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
@@ -373,6 +373,11 @@
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
 	icon_state = "9mm-te-[round(ammo_count(),5)]"
 
+/* UZI magazine
+ name = "Пистолет-пулемёт Uzi — магазин 9 мм"
+ desc = "Магазин на 30 патронов калибра 9 мм."
+ TODO Use this name and desc for localisation*/
+
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
 	icon_state = "uzi9mm-32"
@@ -389,6 +394,19 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 21
+
+/obj/item/ammo_box/magazine/smgm9mm/rubber
+	name = "magazine SMG (rubber)"
+	desc = "Магазин пистолет-пулемёта SMG, предназначенный для резиновых патронов."
+	ru_names = list(
+		NOMINATIVE = "магазин SMG (резиновый)",
+		GENITIVE = "магазина SMG (резиновый)",
+		DATIVE = "магазину SMG (резиновый)",
+		ACCUSATIVE = "магазина SMG (резиновый)",
+		INSTRUMENTAL = "магазином SMG (резиновый)",
+		PREPOSITIONAL = "магазине SMG (резиновый)"
+	)
+	ammo_type = /obj/item/ammo_casing/rubber9mm
 
 /obj/item/ammo_box/magazine/smgm9mm/ap
 	name = "SMG magazine (Armour Piercing 9mm)"

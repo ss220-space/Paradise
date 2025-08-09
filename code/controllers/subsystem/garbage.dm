@@ -204,7 +204,7 @@ SUBSYSTEM_DEF(garbage)
 
 				var/message = "## TESTING: GC: -- [text_ref(D)] | [type] was unable to be GC'd --"
 				message = "[message] (ref count of [refcount(D)])"
-				log_world(message)
+				log_qdel(message)
 
 				var/detail = D.dump_harddel_info()
 				if(detail)
@@ -270,7 +270,7 @@ SUBSYSTEM_DEF(garbage)
 #endif
 
 //this is mainly to separate things profile wise.
-/datum/controller/subsystem/garbage/proc/HardDelete(datum/D, need_real_del = FALSE)
+/datum/controller/subsystem/garbage/proc/HardDelete(datum/D, log_harddel = TRUE)
 	++delslasttick
 	++totaldels
 	var/type = D.type
@@ -302,10 +302,11 @@ SUBSYSTEM_DEF(garbage)
 	//Issue with global config not loading can happen when hard deletions happening before config loading
 	if(global.config)
 		threshold = CONFIG_GET(number/hard_deletes_overrun_threshold)
-
+	if(log_harddel)
+		log_qdel("WARNING: [type]([refID]) was harddeleted")
 	if (threshold && (time > threshold SECONDS))
 		if (!(type_info.qdel_flags & QDEL_ITEM_ADMINS_WARNED))
-			log_game("Error: [type]([refID]) took longer than [threshold] seconds to delete (took [round(time/10, 0.1)] seconds to delete)")
+			log_qdel("Error: [type]([refID]) took longer than [threshold] seconds to delete (took [round(time/10, 0.1)] seconds to delete)")
 			message_admins("Error: [type]([refID]) took longer than [threshold] seconds to delete (took [round(time/10, 0.1)] seconds to delete).")
 			type_info.qdel_flags |= QDEL_ITEM_ADMINS_WARNED
 		type_info.hard_deletes_over_threshold++
@@ -380,6 +381,7 @@ SUBSYSTEM_DEF(garbage)
 
 	if(world.time != start_time)
 		trash.slept_destroy++
+		log_qdel("WARNING:[to_delete.type] has sleep in Destroy")
 	else
 		trash.destroy_time += TICK_USAGE_TO_MS(start_tick)
 
@@ -414,7 +416,7 @@ SUBSYSTEM_DEF(garbage)
 			SSgarbage.Queue(to_delete, GC_QUEUE_HARDDELETE)
 			SSdemo.mark_destroyed(to_delete)
 		if (QDEL_HINT_HARDDEL_NOW) //qdel should assume this object won't gc, and hard del it post haste.
-			SSgarbage.HardDelete(to_delete)
+			SSgarbage.HardDelete(to_delete, FALSE)
 			SSdemo.mark_destroyed(to_delete)
 		#ifdef REFERENCE_TRACKING
 		if (QDEL_HINT_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled, display all references to this object, then queue the object for deletion.
@@ -429,6 +431,7 @@ SUBSYSTEM_DEF(garbage)
 			if(!trash.no_hint)
 				testing("WARNING: [to_delete.type] is not returning a qdel hint. It is being placed in the queue. Further instances of this type will also be queued.")
 			#endif
+			log_qdel("WARNING:[to_delete.type] is not returning a qdel hint. It is being placed in the queue. Further instances of this type will also be queued.")
 			trash.no_hint++
 			SSgarbage.Queue(to_delete)
 

@@ -78,7 +78,7 @@
 	animate(src, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter
-	color = null
+	color = "#dffc00"
 	splatter_type = "xsplatter"
 
 /obj/effect/temp_visual/dir_setting/speedbike_trail
