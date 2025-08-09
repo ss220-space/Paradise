@@ -18,7 +18,7 @@
   - changed-files:
       - any-glob-to-any-file: ['tgui/**']
 
-':paintbrush: Спрайты':
+':artist_palette: Спрайты':
   - changed-files:
       - any-glob-to-any-file: ['**/*.dmi']
 
@@ -26,11 +26,11 @@
   - changed-files:
       - any-glob-to-any-file: ['**/*.dmm']
 
-':floppy_disk: Изменение конфига':
+':gear: Изменение конфига':
   - changed-files:
       - any-glob-to-any-file: ['config/**']
 
-':neckbeard: Документация':
+':book: Документация':
   - changed-files:
       - any-glob-to-any-file: ['**/*.md']
 
