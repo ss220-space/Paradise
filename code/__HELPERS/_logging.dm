@@ -139,7 +139,7 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_pda(text, mob/speaker)
 	if(CONFIG_GET(flag/log_pda))
-		WRITE_LOG(GLOB.world_game_log, "PDA: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		WRITE_LOG(GLOB.world_game_log, "[speaker ? "PDA: [speaker.simple_info_line()]:" : "(No sender)"] [html_decode(text)][GLOB.log_end]")
 
 /proc/log_chat(text, mob/speaker)
 	if(CONFIG_GET(flag/log_pda))

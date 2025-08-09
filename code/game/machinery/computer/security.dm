@@ -175,6 +175,7 @@
 	switch(action)
 		if("cleartemp")
 			temp_notice = null
+
 		if("page") // Select Page
 			if(!logged_in)
 				return
@@ -182,6 +183,7 @@
 			current_page = page_num
 			record_general = null
 			record_security = null
+
 		if("view") // View Record
 			if(!logged_in)
 				return
@@ -195,6 +197,7 @@
 			record_general = G
 			record_security = S
 			current_page = SEC_DATA_RECORD
+
 		if("new_general") // New General Record
 			if(!logged_in)
 				return
@@ -216,6 +219,7 @@
 			record_general = G
 			record_security = null
 			current_page = SEC_DATA_RECORD
+
 		if("new_security") // New Security Record
 			if(!logged_in)
 				return
@@ -234,6 +238,7 @@
 			GLOB.data_core.security += S
 			record_security = S
 			update_all_mob_security_hud()
+
 		if("delete_general") // Delete General, Security and Medical Records
 			if(!logged_in)
 				return
@@ -250,6 +255,7 @@
 			update_all_mob_security_hud()
 			current_page = SEC_DATA_R_LIST
 			set_temp("General, Security and Medical records deleted.")
+
 		if("delete_security") // Delete Security Record
 			if(!logged_in)
 				return
@@ -261,6 +267,7 @@
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			set_temp("Security record deleted.")
+
 		if("delete_security_all") // Delete All Security Records
 			if(!logged_in)
 				return
@@ -271,6 +278,7 @@
 			usr.investigate_log("deleted all security records", INVESTIGATE_RECORDS)
 			update_all_mob_security_hud()
 			set_temp("All security records deleted.")
+
 		if("delete_cell_logs") // Delete All Cell Logs
 			if(!logged_in)
 				return
@@ -282,6 +290,7 @@
 			usr.investigate_log("deleted all cell logs", INVESTIGATE_RECORDS)
 			GLOB.cell_logs.Cut()
 			set_temp("All cell logs deleted.")
+
 		if("comment_delete") // Delete Comment
 			if(!logged_in)
 				return
@@ -294,6 +303,7 @@
 				return
 			index = clamp(index, 1, length(comments))
 			comments.Cut(index, index + 1)
+
 		if("print_record")
 			if(!logged_in)
 				return
@@ -333,8 +343,10 @@
 						ui_modal_choice(src, id, question, arguments = arguments, value = arguments["value"], choices = choices)
 					else
 						ui_modal_input(src, id, question, arguments = arguments, value = arguments["value"])
+
 				if("comment_add")
 					ui_modal_input(src, id, "Please enter your message:")
+
 				if("print_cell_log")
 					if(is_printing)
 						return
@@ -352,6 +364,7 @@
 					ui_modal_choice(src, id, "Please select the cell log you would like printed:", choices = choices)
 				else
 					return FALSE
+
 		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			switch(id)
@@ -389,6 +402,7 @@
 						record_security.fields[field] = answer
 					if(record_general && (field in record_general.fields))
 						record_general.fields[field] = answer
+
 				if("criminal_reason")
 					var/status = arguments["status"]
 					if(!record_security || !(status in field_edit_choices["criminal"]))
@@ -397,8 +411,10 @@
 						set_temp("A valid reason must be provided for this status.", "danger")
 						return
 					var/datum/ui_login/state = ui_login_get()
-					if(!set_criminal_status(usr, record_security, status, answer, state.rank, state.access, state.name))
+
+					if(!set_criminal_status(usr, record_security, status, answer, state.rank, state.access, state.name, state.law_level))
 						set_temp("Required permissions to set this criminal status not found!", "danger")
+
 				if("comment_add")
 					var/datum/ui_login/state = ui_login_get()
 					if(!length(answer) || !record_security || !length(state.name))
@@ -492,6 +508,7 @@
 					R.fields["age"] = rand(5, 85)
 				if(4)
 					R.fields["criminal"] = pick(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED)
+					R.fields["last_modifier_level"] = LAW_LEVEL_HOS
 				if(5)
 					R.fields["p_stat"] = pick("*Unconcious*", "Active", "Physically Unfit")
 				if(6)

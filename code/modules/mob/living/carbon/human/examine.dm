@@ -386,12 +386,12 @@
 
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
-			msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] не реагиру[pluralize_ru(gender, "ет", "ют")] на происходящее вокруг и, кажется, сп[pluralize_ru(gender, "ит", "ят")].\n"
+			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] не реагиру[pluralize_ru(gender, "ет", "ют")] на происходящее вокруг и, кажется, сп[pluralize_ru(gender, "ит", "ят")].\n"
 		if(stat == CONSCIOUS)
 			if(getBrainLoss() >= 60)
-				msg += "На [genderize_ru(user.gender, "его", "её", "его", "их")] лице застыло глупое выражение.\n"
+				msg += "На [genderize_ru(gender, "его", "её", "его", "их")] лице застыло глупое выражение.\n"
 			if(health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD)
-				msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] почти без сознания.\n"
+				msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] почти без сознания.\n"
 
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
