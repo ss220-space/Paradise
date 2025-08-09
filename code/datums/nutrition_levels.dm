@@ -1,4 +1,4 @@
-/// Different nutrition levels used by /datum/component/nutrition_effects, currently works only for /mob/living/carbon/human
+/// Different nutrition levels used by /datum/element/nutrition_effects, currently works only for /mob/living/carbon/human
 /datum/nutrition_level
 	/// How much nutrition for the next and previous levels
 	var/level_increase_threshold

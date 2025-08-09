@@ -1245,7 +1245,7 @@
 		UpdateAppearance()
 
 	if(!HAS_TRAIT(src, TRAIT_NO_HUNGER) && !HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
-		AddComponent(/datum/component/nutrition_effects)
+		AddElement(/datum/element/nutrition_effects)
 
 	if(dna.species)
 		SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
@@ -1783,14 +1783,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /// Updates nutrition slowdown both for component users and species with TRAIT_NO_NUTRITION_EFFECTS
 /mob/living/carbon/human/proc/update_nutrition_slowdown()
-	if(HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
-		if(nutrition <= 150)
-			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = 3)
-		else
-			remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
+	if(!HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
+		SEND_SIGNAL(src, COMSIG_HUMAN_NUTRITION_UPDATE_SLOWDOWN)
 		return
 
-	SEND_SIGNAL(src, COMSIG_HUMAN_NUTRITION_UPDATE_SLOWDOWN)
+	if(nutrition <= 150)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = 3)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
 
 /mob/living/carbon/human/proc/special_post_clone_handling()
