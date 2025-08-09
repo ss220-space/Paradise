@@ -52,9 +52,9 @@
 
 
 /obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
-    if(istype(action, /datum/action/item_action/toggle_firemode))
-        burst_select()
-        return TRUE
+	if(istype(action, /datum/action/item_action/toggle_firemode))
+		burst_select()
+		return TRUE
 
 /obj/item/gun/projectile/automatic/proc/burst_select()
 	var/mob/living/carbon/human/user = usr
@@ -93,6 +93,12 @@
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
+
+/obj/item/gun/projectile/automatic/proto/rubber
+
+/obj/item/gun/projectile/automatic/proto/rubber/Initialize(mapload)
+	magazine = new/obj/item/ammo_box/magazine/smgm9mm/rubber
+	. = ..()
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
@@ -140,17 +146,23 @@
 	fire_delay = 2
 	can_suppress = TRUE
 	can_flashlight = TRUE
-	burst_size = 2
+	burst_size = 1
 	can_bayonet = TRUE
 	bayonet_x_offset = 25
 	bayonet_y_offset = 12
 	gun_light_overlay = "wt-light"
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
+	actions_types = null
 	recoil = GUN_RECOIL_MEDIUM
 
+/obj/item/gun/projectile/automatic/wt550/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
-	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
+	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
 
 /obj/item/gun/projectile/automatic/wt550/update_overlays()
 	. = ..()
@@ -178,12 +190,18 @@
 	fire_delay = 2
 	can_suppress = TRUE
 	can_flashlight = TRUE
-	burst_size = 3
+	burst_size = 1
 	can_bayonet = FALSE
 	gun_light_overlay = "SP-91-RC-light"
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
+	actions_types = null
 	recoil = GUN_RECOIL_MEDIUM
 
+/obj/item/gun/projectile/automatic/sp91rc/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -210,9 +228,15 @@
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
-	burst_size = 4
+	burst_size = 1
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
+
+/obj/item/gun/projectile/automatic/mini_uzi/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90

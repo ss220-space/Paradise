@@ -19,7 +19,7 @@
 			C.flash_eyes()
 
 		for(var/i=1, i<=deliveryamt, i++)
-			var/atom/movable/x = new spawner_type
+			var/atom/movable/x = new spawner_type(loc)
 			if(flags & ADMIN_SPAWNED)
 				x.flags |= ADMIN_SPAWNED
 			x.loc = T

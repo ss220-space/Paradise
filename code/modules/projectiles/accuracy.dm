@@ -16,6 +16,7 @@
 GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAULT)
 
+//MARK: Accuracy datum
 /datum/gun_accuracy
 	var/head = 100
 	var/chest = 100
@@ -65,7 +66,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	acc.dual_wield_spread = dual_wield_spread
 	return acc
 
-
+// MARK: Accuracy
 /datum/gun_accuracy/minimal
 	head = 66
 	chest = 85
@@ -111,8 +112,9 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 50
 	other = 50
 	dual_wield_spread = 15 // less spread with dual wield, pistol are small item
-	min_spread = 7
+	min_spread = 6
 	max_spread = 15
+
 
 /datum/gun_accuracy/rifle
 	head = 90
@@ -140,6 +142,22 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	min_spread = 0
 	max_spread = 0
 
+
+// MARK: Specific accuracy
+
+/datum/gun_accuracy/rifle/extend_spread
+	min_spread = 5
+	max_spread = 20
+
+/datum/gun_accuracy/minimal/gatling
+	min_spread = 10
+	max_spread = 45
+
+/datum/gun_accuracy/pistol/extends_spread
+	min_spread = 7
+	max_spread = 20
+
+// MARK: Procs
 
 /datum/gun_accuracy/proc/randomize_spread(bonus_spread)
 	if(!max_spread)

@@ -19,9 +19,11 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	recoil = GUN_RECOIL_HIGH
 
-/obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/automatic_fire, 0.2 SECONDS)
+/obj/item/gun/projectile/automatic/l6_saw/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
