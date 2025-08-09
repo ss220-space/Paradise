@@ -1,29 +1,43 @@
-# When the .py is changed
-python:
-- changed-files:
-  - any-glob-to-any-file: '**/*.py'
+':snake: Python':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.py']
 
-# Javascript changes
-javascript:
-- changed-files:
-  - any-glob-to-any-file: '**/*.js'
+':globe_with_meridians: HTML':
+  - changed-files:
+      - any-glob-to-any-file: ['html/**']
 
-# Any .dmi changes
-DMI:
-- changed-files:
-  - any-glob-to-any-file: '**/*.dmi'
+':crab: Rust':
+  - changed-files:
+      - any-glob-to-any-file: ['rust/**']
 
-# Changes to a .dmm
-MAP:
-- changed-files:
-  - any-glob-to-any-file: '**/*.dmm'
+':cd: SQL':
+  - changed-files:
+      - any-glob-to-any-file: ['SQL/**']
 
-# Encompasses both the tgui and the tgui-next folder
-TGUI:
-- changed-files:
-  - any-glob-to-any-file: ['tgui/**', 'tgui-next/**']
+':computer: TGUI':
+  - changed-files:
+      - any-glob-to-any-file: ['tgui/**']
 
-# Rust changes
-RUST:
-- changed-files:
-  - any-glob-to-any-file: 'rust/**'
+':paintbrush: Спрайты':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.dmi']
+
+':world_map: Изменение карты':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.dmm']
+
+':floppy_disk: Изменение конфига':
+  - changed-files:
+      - any-glob-to-any-file: ['config/**']
+
+':neckbeard: Документация':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.md']
+
+':sound: Звук':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.ogg']
+
+':hammer_and_wrench: Инструменты':
+  - changed-files:
+      - any-glob-to-any-file: ['.github/**', 'tools/**', '.vscode/**', '.bin/**']
