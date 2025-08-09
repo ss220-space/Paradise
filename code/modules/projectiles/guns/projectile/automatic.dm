@@ -48,6 +48,7 @@
 	if(istype(action, /datum/action/item_action/toggle_firemode))
 		burst_select()
 		return TRUE
+	. = ..()
 
 /obj/item/gun/projectile/automatic/proc/burst_select()
 	var/mob/living/carbon/human/user = usr
