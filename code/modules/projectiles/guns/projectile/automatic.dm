@@ -201,11 +201,12 @@
 		return TRUE
 
 
-//Type-U3 Uzi
-// name = "Пистолет-пулемёт Uzi"
-// desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм.
-// Имеет два режима стрельбы: полуавтоматический и с отсечкой по 4 патрона. Совместим с глушителем."
-// TODO Use this name and desc for localisation
+/*Type-U3 Uzi
+name = "Пистолет-пулемёт Uzi"
+desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм.
+Имеет два режима стрельбы: полуавтоматический и с отсечкой по 4 патрона. Совместим с глушителем."
+TODO Use this name and desc for localisation*/
+
 /obj/item/gun/projectile/automatic/mini_uzi
 	name = "''Type U3 Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
