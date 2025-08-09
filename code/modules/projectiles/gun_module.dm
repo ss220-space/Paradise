@@ -137,16 +137,16 @@
 	if(target_gun.w_class < WEIGHT_CLASS_NORMAL)
 		target_gun.w_class = WEIGHT_CLASS_NORMAL
 	target_gun.accuracy.add_accuracy(bonus_accuracy)
-	if(!target_gun.spread)
+	if(!target_gun.accuracy.max_spread)
 		return
-	spread_decrease = initial(target_gun.spread) * 0.25
-	target_gun.spread = target_gun.spread - spread_decrease
+	spread_decrease = initial(target_gun.accuracy.max_spread) * 0.30
+	target_gun.accuracy.max_spread = target_gun.accuracy.max_spread - spread_decrease
 
 /obj/item/gun_module/muzzle/compensator/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppress_muzzle_flash = FALSE
 	target_gun.w_class = initial_w_class
 	target_gun.accuracy.add_accuracy(-bonus_accuracy)
-	target_gun.spread += spread_decrease
+	target_gun.accuracy.max_spread += spread_decrease
 	spread_decrease = 0
 
 
@@ -472,12 +472,12 @@
 
 /obj/item/gun_module/under/hand/angle/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.accuracy.add_accuracy(bonus_accuracy)
-	if(!target_gun.spread)
+	if(!target_gun.accuracy.max_spread)
 		return
-	spread_decrease = initial(target_gun.spread) * 0.25
-	target_gun.spread = target_gun.spread - spread_decrease
+	spread_decrease = initial(target_gun.accuracy.max_spread) * 0.30
+	target_gun.accuracy.max_spread = target_gun.accuracy.max_spread - spread_decrease
 
 /obj/item/gun_module/under/hand/angle/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.accuracy.add_accuracy(-bonus_accuracy)
-	target_gun.spread += spread_decrease
+	target_gun.accuracy.max_spread += spread_decrease
 	spread_decrease = 0
