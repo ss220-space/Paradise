@@ -917,7 +917,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return
 
 	if(client)
-		bot_control_message(r_command, user, signal.data["target"] ? signal.data["target"] : "Неизвестный")
+		bot_control_message(r_command, user, signal.data["target"] ? signal.data["target"] : UNKNOWN_NAME_RUS)
 
 	// process control input
 	switch(r_command)

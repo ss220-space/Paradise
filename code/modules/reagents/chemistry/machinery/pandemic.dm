@@ -91,7 +91,7 @@
 				B.pixel_y = rand(-3, 3)
 				var/path = GetResistancesByIndex(text2num(href_list["create_vaccine"]))
 				var/vaccine_type = path
-				var/vaccine_name = "Неизвестно"
+				var/vaccine_name = UNKNOWN_STATUS_RUS
 
 				if(!ispath(vaccine_type))
 					if(GLOB.archive_diseases[path])
@@ -217,7 +217,7 @@
 
 		var/signature
 		if(tgui_alert(user, "Вы хотите подписать этот документ?", "Подпись", list("Да","Нет")) == "Да")
-			signature = "<span style='font-face: \"[SIGNFONT]\";'><i>[user ? user.real_name : "Неизвестный"]</i></span>"
+			signature = "<span style='font-face: \"[SIGNFONT]\";'><i>[user ? user.real_name : UNKNOWN_NAME_RUS]</i></span>"
 		else
 			signature = "<span class=\"paper_field\"></span>"
 
@@ -289,7 +289,7 @@
 							var/datum/disease/virus/advance/A = D
 							D = GLOB.archive_diseases[A.GetDiseaseID()]
 							if(D)
-								if(D.name == "Неизвестно")
+								if(D.name == UNKNOWN_STATUS_RUS)
 									dat += "<b><a href='byond://?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><br>"
 								else
 									dat += "[D.name] <b><a href='byond://?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><br>"
@@ -325,7 +325,7 @@
 					var/i = 0
 					for(var/type in Blood.data["resistances"])
 						i++
-						var/disease_name = "Неизвестно"
+						var/disease_name = UNKNOWN_STATUS_RUS
 
 						if(!ispath(type))
 							var/datum/disease/virus/advance/A = GLOB.archive_diseases[type]

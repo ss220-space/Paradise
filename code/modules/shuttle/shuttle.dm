@@ -848,7 +848,7 @@
 	var/list/data = list()
 	var/obj/docking_port/mobile/mobile_docking_port = SSshuttle.getShuttle(shuttleId)
 	var/lockdown_check = lockdown_affected && GLOB.full_lockdown
-	data["docked_location"] = mobile_docking_port ? mobile_docking_port.getStatusText() : "Неизвестно"
+	data["docked_location"] = mobile_docking_port ? mobile_docking_port.getStatusText() : UNKNOWN_STATUS_RUS
 	data["timer_str"] = mobile_docking_port ? mobile_docking_port.getTimerStr() : "00:00"
 	if(!mobile_docking_port)
 		data["status"] = "Missing"

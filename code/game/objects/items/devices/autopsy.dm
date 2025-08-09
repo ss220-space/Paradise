@@ -201,7 +201,7 @@
 	if(target_UID != target.UID())
 		target_UID = target.UID()
 		target_name = target.name
-		target_rank = target.get_assignment(if_no_id = "Неизвестный", if_no_job = null)
+		target_rank = target.get_assignment(if_no_id = UNKNOWN_STATUS_RUS, if_no_job = null)
 		wdata.Cut()
 		chemtraces.Cut()
 		timeofdeath = null

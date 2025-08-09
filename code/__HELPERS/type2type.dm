@@ -125,43 +125,43 @@
 /// Turns text into proper directions
 /proc/text2dir(direction)
 	switch(uppertext(direction))
-		if("NORTH")
+		if(DIR_NAME_ENG_NORTH)
 			return 1
-		if("SOUTH")
+		if(DIR_NAME_ENG_SOUTH)
 			return 2
-		if("EAST")
+		if(DIR_NAME_ENG_EAST)
 			return 4
-		if("WEST")
+		if(DIR_NAME_ENG_WEST)
 			return 8
-		if("NORTHEAST")
+		if(DIR_NAME_ENG_NORTHEAST)
 			return 5
-		if("NORTHWEST")
+		if(DIR_NAME_ENG_NORTHWEST)
 			return 9
-		if("SOUTHEAST")
+		if(DIR_NAME_ENG_SOUTHEAST)
 			return 6
-		if("SOUTHWEST")
+		if(DIR_NAME_ENG_SOUTHWEST)
 			return 10
 		else
 	return
 
-// /Turns text into proper directions
+/// Turns text into proper directions
 /proc/text2dir_rus(direction)
 	switch(uppertext(direction))
-		if("СЕВЕР")
+		if(DIR_NAME_RUS_NORTH)
 			return 1
-		if("ЮГ")
+		if(DIR_NAME_RUS_SOUTH)
 			return 2
-		if("ВОСТОК")
+		if(DIR_NAME_RUS_EAST)
 			return 4
-		if("ЗАПАД")
+		if(DIR_NAME_RUS_WEST)
 			return 8
-		if("СЕВЕРО-ВОСТОК")
+		if(DIR_NAME_RUS_NORTHEAST)
 			return 5
-		if("СЕВЕРО-ЗАПАД")
+		if(DIR_NAME_RUS_NORTHWEST)
 			return 9
-		if("ЮГО-ВОСТОК")
+		if(DIR_NAME_RUS_SOUTHEAST)
 			return 6
-		if("ЮГО-ЗАПАД")
+		if(DIR_NAME_RUS_SOUTHWEST)
 			return 10
 		else
 	return

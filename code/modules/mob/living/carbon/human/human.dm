@@ -375,7 +375,7 @@
 
 /// gets name from ID or ID inside PDA or PDA itself
 /// Useful when player do something with computers
-/mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Неизвестный")
+/mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = UNKNOWN_STATUS_RUS)
 	var/name = if_no_id
 	if(wear_id)
 		if(wear_id.GetID())
@@ -391,9 +391,9 @@
 	if(name_override)
 		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDENAME))	//Wearing a mask which hides our face, use id-name if possible
-		return get_id_name("Неизвестный")
+		return get_id_name(UNKNOWN_STATUS_RUS)
 	if(head && (head.flags_inv & HIDENAME))
-		return get_id_name("Неизвестный")		//Likewise for hats
+		return get_id_name(UNKNOWN_STATUS_RUS)		//Likewise for hats
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
 	if(add_id_name && id_name && (id_name != face_name))
@@ -404,7 +404,7 @@
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(!head_organ || head_organ.is_disfigured() || cloneloss > 50 || !real_name || HAS_TRAIT(src, TRAIT_HUSK))	//disfigured. use id-name if possible
-		return "Неизвестный"
+		return UNKNOWN_STATUS_RUS
 	return real_name
 
 
@@ -412,7 +412,7 @@
  * Gets name from ID or PDA itself, ID inside PDA doesn't matter.
  * Useful when player is being seen by other mobs.
  */
-/mob/living/carbon/human/proc/get_id_name(if_no_id = "Неизвестный")
+/mob/living/carbon/human/proc/get_id_name(if_no_id = UNKNOWN_STATUS_RUS)
 	var/obj/item/card/id/id = wear_id?.GetID()
 	if(istype(id))
 		return id.registered_name
@@ -525,7 +525,7 @@
 			var/found_record = 0
 			var/perpname = get_visible_name(add_id_name = FALSE)
 
-			if(perpname != "Неизвестный")
+			if(perpname != UNKNOWN_STATUS_RUS)
 				for(var/datum/data/record/E in GLOB.data_core.general)
 					if(E.fields["name"] == perpname)
 						for(var/datum/data/record/R in GLOB.data_core.security)
