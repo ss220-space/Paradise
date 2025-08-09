@@ -204,7 +204,7 @@ SUBSYSTEM_DEF(garbage)
 
 				var/message = "## TESTING: GC: -- [text_ref(D)] | [type] was unable to be GC'd --"
 				message = "[message] (ref count of [refcount(D)])"
-				log_world(message)
+				log_qdel(message)
 
 				var/detail = D.dump_harddel_info()
 				if(detail)
@@ -380,6 +380,7 @@ SUBSYSTEM_DEF(garbage)
 
 	if(world.time != start_time)
 		trash.slept_destroy++
+		log_qdel("WARNING:[to_delete.type] has sleep in Destroy")
 	else
 		trash.destroy_time += TICK_USAGE_TO_MS(start_tick)
 
@@ -429,6 +430,7 @@ SUBSYSTEM_DEF(garbage)
 			if(!trash.no_hint)
 				testing("WARNING: [to_delete.type] is not returning a qdel hint. It is being placed in the queue. Further instances of this type will also be queued.")
 			#endif
+			log_qdel("WARNING:[to_delete.type] is not returning a qdel hint. It is being placed in the queue. Further instances of this type will also be queued.")
 			trash.no_hint++
 			SSgarbage.Queue(to_delete)
 
