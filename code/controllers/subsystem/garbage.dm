@@ -53,7 +53,7 @@ SUBSYSTEM_DEF(garbage)
 		pass_counts = new(GC_QUEUE_COUNT)
 		fail_counts = new(GC_QUEUE_COUNT)
 		for(var/i in 1 to GC_QUEUE_COUNT)
-			queues[i] = new /queue()
+			queues[i] = list()
 			pass_counts[i] = 0
 			fail_counts[i] = 0
 #endif
@@ -63,8 +63,8 @@ SUBSYSTEM_DEF(garbage)
 	var/list/msg = list()
 	#ifndef PASSIVE_GC
 	var/list/counts = list()
-	for(var/queue/L in queues)
-		counts += L.size()
+	for(var/list/L in queues)
+		counts += length(L)
 	msg += "Queue:[counts.Join(",")] | Del's:[delslasttick] | Soft:[gcedlasttick] |"
 	msg += "GCR:"
 	if(!(delslasttick + gcedlasttick))
@@ -133,8 +133,14 @@ SUBSYSTEM_DEF(garbage)
 		delslasttick = 0
 		gcedlasttick = 0
 	var/cut_off_time = world.time - collection_timeout[level] //ignore entries newer then this
-	var/queue/queue = queues[level]
+	var/list/queue = queues[level]
 	var/static/lastlevel
+	var/static/count = 0
+	if(count) //runtime last run before we could do this.
+		var/c = count
+		count = 0 //so if we runtime on the Cut, we don't try again.
+		var/list/lastqueue = queues[lastlevel]
+		lastqueue.Cut(1, c + 1)
 
 	lastlevel = level
 
@@ -143,13 +149,10 @@ SUBSYSTEM_DEF(garbage)
 
 	//We do this rather then for(var/list/ref_info in queue) because that sort of for loop copies the whole list.
 	//Normally this isn't expensive, but the gc queue can grow to 40k items, and that gets costly/causes overrun.
-	while (!queue.is_empty())
-		if (MC_TICK_CHECK)
-			return
-		var/list/L = queue.peek()
+	for (var/i in 1 to length(queue))
+		var/list/L = queue[i]
 		if (length(L) < GC_QUEUE_ITEM_INDEX_COUNT)
-			queue.dequeue()
-			Queue(L[GC_QUEUE_ITEM_REF], level)
+			count++
 			if (MC_TICK_CHECK)
 				return
 			continue
@@ -157,6 +160,7 @@ SUBSYSTEM_DEF(garbage)
 		var/queued_at_time = L[GC_QUEUE_ITEM_QUEUE_TIME]
 		if(queued_at_time > cut_off_time)
 			break // Everything else is newer, skip them
+		count++
 
 		var/datum/D = L[GC_QUEUE_ITEM_REF]
 		if(!D)
@@ -171,7 +175,6 @@ SUBSYSTEM_DEF(garbage)
 			#ifdef REFERENCE_TRACKING
 			reference_find_on_fail -= text_ref(D) //It's deleted we don't care anymore.
 			#endif
-			queue.dequeue()
 			if (MC_TICK_CHECK)
 				return
 			continue
@@ -224,18 +227,13 @@ SUBSYSTEM_DEF(garbage)
 					if(ref_searching)
 						return //ref searching intentionally cancels all further fires while running so things that hold references don't end up getting deleted, so we want to return here instead of continue
 					#endif
-					queue.dequeue()
-					Queue(D, level)
-					if (MC_TICK_CHECK)
-						return
 					continue
 			if (GC_QUEUE_HARDDELETE)
-				queue.dequeue()
 				HardDelete(D)
 				if (MC_TICK_CHECK)
 					return
 				continue
-		queue.dequeue()
+
 		Queue(D, level+1)
 
 		#ifdef REFERENCE_TRACKING
@@ -245,6 +243,9 @@ SUBSYSTEM_DEF(garbage)
 
 		if (MC_TICK_CHECK)
 			return
+	if (count)
+		queue.Cut(1,count+1)
+		count = 0
 
 #undef REFS_WE_EXPECT
 #else
@@ -265,8 +266,8 @@ SUBSYSTEM_DEF(garbage)
 	if (D.gc_destroyed <= 0)
 		D.gc_destroyed = queue_time
 
-	var/queue/queue = queues[level]
-	queue.enqueue(list(queue_time, D, D.gc_destroyed)) // not += for byond reasons
+	var/list/queue = queues[level]
+	queue[++queue.len] = list(queue_time, D, D.gc_destroyed) // not += for byond reasons
 #endif
 
 //this is mainly to separate things profile wise.
@@ -317,10 +318,7 @@ SUBSYSTEM_DEF(garbage)
 /datum/controller/subsystem/garbage/Recover()
 	if(istype(SSgarbage.queues))
 		for(var/i in 1 to SSgarbage.queues.len)
-			var/queue/queue = SSgarbage.queues[i]
-			var/queue/new_queue = queues[i]
-			while(!queue.is_empty())
-				new_queue.enqueue(queue.dequeue())
+			queues[i] |= SSgarbage.queues[i]
 #endif
 
 
@@ -506,6 +504,7 @@ SUBSYSTEM_DEF(garbage)
 
 /datum/proc/DoSearchVar(potential_container, container_name, search_time, recursion_count, is_special_list)
 	if(recursion_count >= REFSEARCH_RECURSE_LIMIT)
+		log_gc("Recursion limit reached. [container_name]")
 		return
 
 	if(references_to_clear == 0)
@@ -564,7 +563,7 @@ SUBSYSTEM_DEF(garbage)
 				continue
 
 			if(islist(variable))
-				DoSearchVar(variable, "[container_name] \ref[datum_container] -> [varname] (list)", recursion_count - 1, search_time)
+				DoSearchVar(variable, "[container_name] \ref[datum_container] -> [varname] (list)", recursive_limit - 1, search_time)
 
 	else if(islist(potential_container))
 		var/list/potential_cache = potential_container
@@ -591,8 +590,8 @@ SUBSYSTEM_DEF(garbage)
 				// If we find all other refs before it I want to early exit, and if we don't I want to keep searching past it
 				var/ignore_ref = FALSE
 				var/list/queues = SSgarbage.queues
-				for(var/queue/queue in queues)
-					if(potential_cache == queue.peek())
+				for(var/list/queue in queues)
+					if(potential_cache in queue)
 						ignore_ref = TRUE
 						break
 				if(ignore_ref)
@@ -663,13 +662,3 @@ SUBSYSTEM_DEF(garbage)
 	qdel_and_find_ref_if_fail(src, TRUE)
 
 #endif
-
-// Kept outside the ifdef so overrides are easy to implement
-
-/// Return info about us for reference searching purposes
-/// Will be logged as a representation of this datum if it's a part of a search chain
-/datum/proc/ref_search_details()
-	return text_ref(src)
-
-/datum/callback/ref_search_details()
-	return "[text_ref(src)] (obj: [object] proc: [delegate] args: [json_encode(arguments)] user: [user?.resolve() || "null"])"
