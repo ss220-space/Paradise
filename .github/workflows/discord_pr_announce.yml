@@ -40,11 +40,11 @@ jobs:
           title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
           message: ${{ format('{0}{1}',
               (github.event.action == 'closed' &&
-                (github.event.pull_request.merged == true && format('**Изменения из пулл реквеста {0} добавлены в билд.**', github.event.pull_request.number) ||
-                format('**Пулл реквест {0} закрыт.**', github.event.pull_request.number)
+                (github.event.pull_request.merged == true && format('**Изменения из пулл-реквеста №{0} добавлены в билд.**', github.event.pull_request.number) ||
+                format('**Пулл-реквест №{0} закрыт.**', github.event.pull_request.number)
               ) ||
               github.event.action == 'opened' &&
-                format('**Пулл реквест {0} открыт.**', github.event.pull_request.number)
+                format('**Пулл-реквест №{0} открыт.**', github.event.pull_request.number)
               ),
             (steps.process_body.outputs.CLEAN_BODY) || ''
             )}}
