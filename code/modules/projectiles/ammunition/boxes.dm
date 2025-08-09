@@ -5,6 +5,15 @@
 // REVOLVER
 /obj/item/ammo_box/a357
 	name = "ammo box (.357)"
+	desc = "Коробка патронов калибра .357 \"Магнум\". В коробку вмещается 20 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка патронов (.357)",
+		GENITIVE = "коробки патронов (.357)",
+		DATIVE = "коробке патронов (.357)",
+		ACCUSATIVE = "коробку патронов (.357)",
+		INSTRUMENTAL = "коробкой патронов (.357)",
+		PREPOSITIONAL = "коробке патронов (.357)"
+	)
 	icon_state = "357OLD"  // see previous entry for explanation of these vars
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 20
@@ -16,6 +25,15 @@
 
 /obj/item/ammo_box/n762
 	name = "ammo box (7.62x38mm)"
+	desc = "Коробка патронов калибра 7.62x38mm. В коробку вмещается 14 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка патронов (7.62x38mm)",
+		GENITIVE = "коробки патронов (7.62x38mm)",
+		DATIVE = "коробке патронов (7.62x38mm)",
+		ACCUSATIVE = "коробку патронов (7.62x38mm)",
+		INSTRUMENTAL = "коробкой патронов (7.62x38mm)",
+		PREPOSITIONAL = "коробке патронов (7.62x38mm)"
+	)
 	icon_state = "riflebox"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/n762
@@ -24,6 +42,15 @@
 // SHOTGUN
 /obj/item/ammo_box/shotgun
 	name = "ammunition box (Slug)"
+	desc = "Коробка ружейных патронов с цельной пулей. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (цельная пуля)",
+		GENITIVE = "коробки ружейных патронов (цельная пуля)",
+		DATIVE = "коробке ружейных патронов (цельная пуля)",
+		ACCUSATIVE = "коробку ружейных патронов (цельная пуля)",
+		INSTRUMENTAL = "коробкой ружейных патронов (цельная пуля)",
+		PREPOSITIONAL = "коробке ружейных патронов (цельная пуля)"
+	)
 	icon_state = "slugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 7
@@ -31,28 +58,82 @@
 
 /obj/item/ammo_box/shotgun/buck
 	name = "ammunition box (buckshot)"
+	desc = "Коробка ружейных патронов с картечью. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (картечь)",
+		GENITIVE = "коробки ружейных патронов (картечь)",
+		DATIVE = "коробке ружейных патронов (картечь)",
+		ACCUSATIVE = "коробку ружейных патронов (картечь)",
+		INSTRUMENTAL = "коробкой ружейных патронов (картечь)",
+		PREPOSITIONAL = "коробке ружейных патронов (картечь)"
+	)
 	icon_state = "buckshotbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/ammo_box/shotgun/buck/assassination
 	name = "ammunition box (assassination shells)"
+	desc = "Коробка ружейных патронов с шрапнелью, обработанной глушащим токсином. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (шрапнель с глушащим токсином)",
+		GENITIVE = "коробки ружейных патронов (шрапнель с глушащим токсином)",
+		DATIVE = "коробке ружейных патронов (шрапнель с глушащим токсином)",
+		ACCUSATIVE = "коробку ружейных патронов (шрапнель с глушащим токсином)",
+		INSTRUMENTAL = "коробкой ружейных патронов (шрапнель с глушащим токсином)",
+		PREPOSITIONAL = "коробке ружейных патронов (шрапнель с глушащим токсином)"
+	)
 	ammo_type = /obj/item/ammo_casing/shotgun/assassination
 
 /obj/item/ammo_box/shotgun/buck/nuclear
 	name = "elite ammunition box (buckshot)"
+	desc = "Коробка ружейных патронов с крупной картечью. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (крупная картечь)",
+		GENITIVE = "коробки ружейных патронов (крупная картечь)",
+		DATIVE = "коробке ружейных патронов (крупная картечь)",
+		ACCUSATIVE = "коробку ружейных патронов (крупная картечь)",
+		INSTRUMENTAL = "коробкой ружейных патронов (крупная картечь)",
+		PREPOSITIONAL = "коробке ружейных патронов (крупная картечь)"
+	)
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
 
 /obj/item/ammo_box/shotgun/rubbershot
 	name = "ammunition box (rubbershot shells)"
+	desc = "Коробка ружейных патронов с резиновой картечью. Считается нелетальным снаряжением. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (резиновая картечь)",
+		GENITIVE = "коробки ружейных патронов (резиновая картечь)",
+		DATIVE = "коробке ружейных патронов (резиновая картечь)",
+		ACCUSATIVE = "коробку ружейных патронов (резиновая картечь)",
+		INSTRUMENTAL = "коробкой ружейных патронов (резиновая картечь)",
+		PREPOSITIONAL = "коробке ружейных патронов (резиновая картечь)"
+	)
 	icon_state = "rubbershotbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 
 /obj/item/ammo_box/shotgun/rubbershot/dart
 	name = "ammunition box (dart shells)"
+	desc = "Коробка шприцевых ружейных патронов. В каждый патрон-шприц можно влить до 30 юнитов химиката. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (патрон-шприц)",
+		GENITIVE = "коробки ружейных патронов (патрон-шприц)",
+		DATIVE = "коробке ружейных патронов (патрон-шприц)",
+		ACCUSATIVE = "коробку ружейных патронов (патрон-шприц)",
+		INSTRUMENTAL = "коробкой ружейных патронов (патрон-шприц)",
+		PREPOSITIONAL = "коробке ружейных патронов (патрон-шприц)"
+	)
 	ammo_type = /obj/item/ammo_casing/shotgun/dart
 
 /obj/item/ammo_box/shotgun/beanbag
 	name = "ammunition box (beanbag shells)"
+	desc = "Коробка ружейных патронов с нелетальной резиновой пулей. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (резиновая пуля)",
+		GENITIVE = "коробки ружейных патронов (резиновая пуля)",
+		DATIVE = "коробке ружейных патронов (резиновая пуля)",
+		ACCUSATIVE = "коробку ружейных патронов (резиновая пуля)",
+		INSTRUMENTAL = "коробкой ружейных патронов (резиновая пуля)",
+		PREPOSITIONAL = "коробке ружейных патронов (резиновая пуля)"
+	)
 	icon_state = "beanbagbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 
@@ -61,76 +142,211 @@
 
 /obj/item/ammo_box/shotgun/stunslug
 	name = "ammunition box (stun shells)"
+	desc = "Коробка ружейных патронов с электрошоком. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (электрошок)",
+		GENITIVE = "коробки ружейных патронов (электрошок)",
+		DATIVE = "коробке ружейных патронов (электрошок)",
+		ACCUSATIVE = "коробку ружейных патронов (электрошок)",
+		INSTRUMENTAL = "коробкой ружейных патронов (электрошок)",
+		PREPOSITIONAL = "коробке ружейных патронов (электрошок)"
+	)
 	icon_state = "stunslugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
 
 /obj/item/ammo_box/shotgun/breaching
 	name = "ammunition box (breaching shells)"
+	desc = "Коробка ружейных патронов для штурма дверей. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (штурмовые)",
+		GENITIVE = "коробки ружейных патронов (штурмовые)",
+		DATIVE = "коробке ружейных патронов (штурмовые)",
+		ACCUSATIVE = "коробку ружейных патронов (штурмовые)",
+		INSTRUMENTAL = "коробкой ружейных патронов (штурмовые)",
+		PREPOSITIONAL = "коробке ружейных патронов (штурмовые)"
+	)
 	icon_state = "meteorshotbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/breaching
 
 /obj/item/ammo_box/shotgun/pulseslug
 	name = "ammunition box (pulse slugs)"
+	desc = "Коробка ружейных патронов \"импульсная пуля\". В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (импульсная пуля)",
+		GENITIVE = "коробки ружейных патронов (импульсная пуля)",
+		DATIVE = "коробке ружейных патронов (импульсная пуля)",
+		ACCUSATIVE = "коробку ружейных патронов (импульсная пуля)",
+		INSTRUMENTAL = "коробкой ружейных патронов (импульсная пуля)",
+		PREPOSITIONAL = "коробке ружейных патронов (импульсная пуля)"
+	)
 	icon_state = "pulseslugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/pulseslug
 
 /obj/item/ammo_box/shotgun/incendiary
 	name = "ammunition box (incendiary slugs)"
+	desc = "Коробка зажигательных ружейных патронов. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (зажигательные)",
+		GENITIVE = "коробки ружейных патронов (зажигательные)",
+		DATIVE = "коробке ружейных патронов (зажигательные)",
+		ACCUSATIVE = "коробку ружейных патронов (зажигательные)",
+		INSTRUMENTAL = "коробкой ружейных патронов (зажигательные)",
+		PREPOSITIONAL = "коробке ружейных патронов (зажигательные)"
+	)
 	icon_state = "incendiarybox"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary
 
 /obj/item/ammo_box/shotgun/frag12
 	name = "ammunition box (frag-12 slugs)"
+	desc = "Коробка разрывных ружейных патронов. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (разрывная пуля)",
+		GENITIVE = "коробки ружейных патронов (разрывная пуля)",
+		DATIVE = "коробке ружейных патронов (разрывная пуля)",
+		ACCUSATIVE = "коробку ружейных патронов (разрывная пуля)",
+		INSTRUMENTAL = "коробкой ружейных патронов (разрывная пуля)",
+		PREPOSITIONAL = "коробке ружейных патронов (разрывная пуля)"
+	)
 	icon_state = "frag12box"
 	ammo_type = /obj/item/ammo_casing/shotgun/frag12
 
 /obj/item/ammo_box/shotgun/dragonsbreath
 	name = "ammunition box (dragonsbreath)"
+	desc = "Коробка патронов \"Дыхание дракона\" калибра 12g. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (дыхание дракона)",
+		GENITIVE = "коробки ружейных патронов (дыхание дракона)",
+		DATIVE = "коробке ружейных патронов (дыхание дракона)",
+		ACCUSATIVE = "коробку ружейных патронов (дыхание дракона)",
+		INSTRUMENTAL = "коробкой ружейных патронов (дыхание дракона)",
+		PREPOSITIONAL = "коробке ружейных патронов (дыхание дракона)"
+	)
 	icon_state = "dragonsbreathbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
 /obj/item/ammo_box/shotgun/dragonsbreath/nuclear
 	name = "elite ammunition box (dragonsbreath)"
+	desc = "Коробка ружейных патронов \"Дыхание дракона\". В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (дыхание дракона)",
+		GENITIVE = "коробки ружейных патронов (дыхание дракона)",
+		DATIVE = "коробке ружейных патронов (дыхание дракона)",
+		ACCUSATIVE = "коробку ружейных патронов (дыхание дракона)",
+		INSTRUMENTAL = "коробкой ружейных патронов (дыхание дракона)",
+		PREPOSITIONAL = "коробке ружейных патронов (дыхание дракона)"
+	)
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
 
 /obj/item/ammo_box/shotgun/ion
 	name = "ammunition box (ion shells)"
+	desc = "Коробка ружейных патронов с ионными пулями. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (ионная пуля)",
+		GENITIVE = "коробки ружейных патронов (ионная пуля)",
+		DATIVE = "коробке ружейных патронов (ионная пуля)",
+		ACCUSATIVE = "коробку ружейных патронов (ионная пуля)",
+		INSTRUMENTAL = "коробкой ружейных патронов (ионная пуля)",
+		PREPOSITIONAL = "коробке ружейных патронов (ионная пуля)"
+	)
 	icon_state = "ionbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/ion
 
 /obj/item/ammo_box/shotgun/laserslug
 	name = "ammunition box (laser slugs)"
+	desc = "Коробка ружейных патронов \"лазерная пуля\". В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (лазерная пуля)",
+		GENITIVE = "коробки ружейных патронов (лазерная пуля)",
+		DATIVE = "коробке ружейных патронов (лазерная пуля)",
+		ACCUSATIVE = "коробку ружейных патронов (лазерная пуля)",
+		INSTRUMENTAL = "коробкой ружейных патронов (лазерная пуля)",
+		PREPOSITIONAL = "коробке ружейных патронов (лазерная пуля)"
+	)
 	icon_state = "laserslugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/laserslug
 
 /obj/item/ammo_box/shotgun/lasershot
 	name = "ammunition box (laser shots)"
 	icon_state = "laserslugbox"
+	desc = "Коробка ружейных патронов \"лазерная картечь\". В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (лазерная картечь)",
+		GENITIVE = "коробки ружейных патронов (лазерная картечь)",
+		DATIVE = "коробке ружейных патронов (лазерная картечь)",
+		ACCUSATIVE = "коробку ружейных патронов (лазерная картечь)",
+		INSTRUMENTAL = "коробкой ружейных патронов (лазерная картечь)",
+		PREPOSITIONAL = "коробке ружейных патронов (лазерная картечь)"
+	)
 	ammo_type = /obj/item/ammo_casing/shotgun/lasershot
 
 /obj/item/ammo_box/shotgun/bioterror
 	name = "ammunition box (bioterror shells)"
+	desc = "Коробка ружейных патронов \"Биотеррор\". В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (биотеррор)",
+		GENITIVE = "коробки ружейных патронов (биотеррор)",
+		DATIVE = "коробке ружейных патронов (биотеррор)",
+		ACCUSATIVE = "коробку ружейных патронов (биотеррор)",
+		INSTRUMENTAL = "коробкой ружейных патронов (биотеррор)",
+		PREPOSITIONAL = "коробке ружейных патронов (биотеррор)"
+	)
 	icon_state = "bioterrorbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/bioterror
 
 /obj/item/ammo_box/shotgun/tranquilizer
 	name = "ammunition box (tranquilizer darts)"
+	desc = "Коробка ружейных патронов с транквилизатором. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (транквилизатор)",
+		GENITIVE = "коробки ружейных патронов (транквилизатор)",
+		DATIVE = "коробке ружейных патронов (транквилизатор)",
+		ACCUSATIVE = "коробку ружейных патронов (транквилизатор)",
+		INSTRUMENTAL = "коробкой ружейных патронов (транквилизатор)",
+		PREPOSITIONAL = "коробке ружейных патронов (транквилизатор)"
+	)
 	icon_state = "tranquilizerbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
 
 /obj/item/ammo_box/shotgun/flechette
 	name = "ammunition box (flechette)"
+	desc = "Коробка ружейных патронов \"Флешетта\". В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (флешетта)",
+		GENITIVE = "коробки ружейных патронов (флешетта)",
+		DATIVE = "коробке ружейных патронов (флешетта)",
+		ACCUSATIVE = "коробку ружейных патронов (флешетта)",
+		INSTRUMENTAL = "коробкой ружейных патронов (флешетта)",
+		PREPOSITIONAL = "коробке ружейных патронов (флешетта)"
+	)
 	icon_state = "flechettebox"
 	ammo_type = /obj/item/ammo_casing/shotgun/flechette
 
 /obj/item/ammo_box/shotgun/improvised
 	name = "ammunition box (improvised shells)"
+	desc = "Коробка с самодельными патронами. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (самодельная картечь)",
+		GENITIVE = "коробки ружейных патронов (самодельная картечь)",
+		DATIVE = "коробке ружейных патронов (самодельная картечь)",
+		ACCUSATIVE = "коробку ружейных патронов (самодельная картечь)",
+		INSTRUMENTAL = "коробкой ружейных патронов (самодельная картечь)",
+		PREPOSITIONAL = "коробке ружейных патронов (самодельная картечь)"
+	)
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "largebox"
 	ammo_type = /obj/item/ammo_casing/shotgun/improvised
 
 /obj/item/ammo_box/shotgun/improvised/overload
 	name = "ammunition box (overload shells)"
+	desc = "Коробка с самодельными патронами повышенной мощности. В коробке вмещается 7 патронов."
+	ru_names = list(
+		NOMINATIVE = "коробка ружейных патронов (самодельная картечь повышенной мощности)",
+		GENITIVE = "коробки ружейных патронов (самодельная картечь повышенной мощности)",
+		DATIVE = "коробке ружейных патронов (самодельная картечь повышенной мощности)",
+		ACCUSATIVE = "коробку ружейных патронов (самодельная картечь повышенной мощности)",
+		INSTRUMENTAL = "коробкой ружейных патронов (самодельная картечь повышенной мощности)",
+		PREPOSITIONAL = "коробке ружейных патронов (самодельная картечь повышенной мощности)"
+	)
 	ammo_type = /obj/item/ammo_casing/shotgun/improvised/overload
 
 // AUTOMATIC
