@@ -466,7 +466,7 @@
 	overlay_state = "hand_a_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
-	var/bonus_accuracy = 10
+	var/bonus_accuracy = 15
 	var/spread_decrease = 0
 
 
