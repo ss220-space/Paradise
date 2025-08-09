@@ -776,7 +776,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/prison_escape/check_completion()
 	var/list/owners = get_owners()
 
-	for(var/datum/mind/player in owners)
+	for(var/datum/mind/player as anything in owners)
 		// These are mandatory conditions, they should come before the freebie conditions below.
 		if(QDELETED(player.current) || player.current.stat == DEAD || is_special_dead(player.current))
 			return FALSE

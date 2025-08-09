@@ -290,7 +290,7 @@ SUBSYSTEM_DEF(jobs)
 	if(new_malf && AssignRole(new_malf, JOB_TITLE_AI))
 		return TRUE
 
-/datum/controller/subsystem/jobs/proc/fillPrisonersPosition()
+/datum/controller/subsystem/jobs/proc/fill_prisoners_position()
 	var/datum/job/job = GetJob(JOB_TITLE_PRISONER)
 	if(!job)
 		return FALSE
@@ -340,7 +340,7 @@ SUBSYSTEM_DEF(jobs)
 
 	if(length(new_prisoners)) // code to assign traitor prisoner before civs.
 		Debug("DO, Running Traitor Prisoners Check")
-		fillPrisonersPosition()
+		fill_prisoners_position()
 		Debug("DO, Traitor Prisoners Check end")
 
 	//People who wants to be assistants, sure, go on.
