@@ -18,7 +18,7 @@
   - changed-files:
       - any-glob-to-any-file: ['tgui/**']
 
-':artist_palette: Спрайты':
+':art: Спрайты':
   - changed-files:
       - any-glob-to-any-file: ['**/*.dmi']
 
