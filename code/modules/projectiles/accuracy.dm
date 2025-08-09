@@ -76,8 +76,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 33
 	other = 33
 	dual_wield_spread = 45
-	min_spread = 15
-	max_spread = 30
+	max_spread = 15
 
 /datum/gun_accuracy/shotgun
 	head = 70
@@ -88,8 +87,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 40
 	other = 40
 	dual_wield_spread = 35
-	min_spread = 10
-	max_spread = 20
+	max_spread = 15
 
 /datum/gun_accuracy/default
 	head = 75
@@ -112,8 +110,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 50
 	other = 50
 	dual_wield_spread = 15 // less spread with dual wield, pistol are small item
-	min_spread = 6
-	max_spread = 15
+	max_spread = 12
 
 
 /datum/gun_accuracy/rifle
@@ -125,8 +122,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 66
 	other = 66
 	dual_wield_spread = 24
-	min_spread = 3
-	max_spread = 10
+	max_spread = 8
 
 // min accuracy on range 12 is 50%, summary accuracy = 50% * 200% = 100%
 /datum/gun_accuracy/sniper
@@ -146,15 +142,12 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 // MARK: Specific accuracy
 
 /datum/gun_accuracy/rifle/extend_spread
-	min_spread = 5
 	max_spread = 20
 
 /datum/gun_accuracy/minimal/gatling
-	min_spread = 10
-	max_spread = 45
+	max_spread = 40
 
 /datum/gun_accuracy/pistol/extends_spread
-	min_spread = 7
 	max_spread = 20
 
 // MARK: Procs
