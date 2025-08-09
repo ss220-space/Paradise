@@ -18,7 +18,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/teleport)
 	shaded_charge = TRUE
 	var/teleport_target = null
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/energy/telegun/Destroy()
 	teleport_target = null

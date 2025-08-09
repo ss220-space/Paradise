@@ -334,12 +334,12 @@
 		while(!isturf(disk_loc))
 			if(ismob(disk_loc))
 				var/mob/M = disk_loc
-				diskdat += "у [M.real_name] "
+				diskdat += " у [M.real_name]"
 			if(isobj(disk_loc))
 				var/obj/O = disk_loc
-				diskdat += "в [O.declent_ru(DATIVE)]"
+				diskdat += " в [O.declent_ru(DATIVE)]"
 			disk_loc = disk_loc.loc
-		diskdat += "в [disk_loc.loc?.declent_ru(DATIVE)]"
+		diskdat += " в [disk_loc.loc?.declent_ru(DATIVE)]"
 
 
 	if(!diskdat)
@@ -352,7 +352,7 @@
 	dat += "<b>Число выжившего экипажа:</b> [crewcount]<br>"
 
 	dat += "<b>Местоположение ядерной боеголовки:</b> [bombdat]<br>"
-	dat += "<bЮМестоположение диска ядерной аутентификации:</b> [diskdat]<br>"
+	dat += "<b>Местоположение диска ядерной аутентификации:</b> [diskdat]<br>"
 
 	dat += "<br>"
 	var/score_arrested_points = scoreboard.score_arrested * 1000

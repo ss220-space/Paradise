@@ -244,6 +244,15 @@
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/kitchen/knife/butcher/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0.15, \
+		no_multi_hit = TRUE, \
+		swing_sound = "chop_swing_light" \
+	)
+
 /obj/item/kitchen/knife/butcher/sharped
 	desc = "Огромный мясницкий тесак, предназначенный для измельчения мяса. В том числе и клоунов и их субпродуктов. Блестит от заточки."
 
@@ -266,6 +275,16 @@
 	force = 25
 	throwforce = 15
 
+/obj/item/kitchen/knife/butcher/meatcleaver/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		afterswing_slowdown = -0.2, \
+		slowdown_duration = 2 SECONDS, \
+		swing_sound = "chop_swing_light" \
+	)
+
 /obj/item/kitchen/knife/combat
 	name = "combat knife"
 	icon_state = "combatknife"
@@ -278,6 +297,16 @@
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 	bayonet_suitable = TRUE
 	embed_chance = 90
+
+/obj/item/kitchen/knife/combat/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 1.25, \
+		afterswing_slowdown = 0, \
+		no_multi_hit = TRUE, \
+		swing_sound = "knife_swing" \
+	)
 
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"

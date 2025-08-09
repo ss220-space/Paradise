@@ -7,7 +7,7 @@
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
@@ -114,7 +114,7 @@
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
 	unique_rename = TRUE
 	unique_reskin = TRUE
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 
 
 /obj/item/gun/projectile/revolver/detective/update_gun_skins()
@@ -204,18 +204,17 @@
 	icon_state = "12garevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	fire_sound = 'sound/weapons/gunshots/1rev12.ogg'
-	spread = 15
-	recoil = 1
 	fire_delay = 5
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = new /datum/gun_accuracy/pistol/extends_spread()
+	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/revolver/golden
 	name = "golden revolver"
 	desc = "This ain't no game, ain't never been no show, And I'll gladly gun down the oldest lady you know. Uses .357 ammo."
 	icon_state = "goldrevolver"
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
-	recoil = 8
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = new /datum/gun_accuracy/pistol/extends_spread()
+	recoil = GUN_RECOIL_MEGA
 
 /obj/item/gun/projectile/revolver/nagant
 	name = "nagant revolver"
@@ -224,7 +223,7 @@
 	origin_tech = "combat=3"
 	can_suppress = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/projectile/revolver/c36
 	name = ".36 revolver"
@@ -232,7 +231,7 @@
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev36
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.
@@ -243,7 +242,7 @@
 	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/rus357
 	var/spun = FALSE
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 
 
 /obj/item/gun/projectile/revolver/russian/Initialize(mapload)
@@ -364,7 +363,7 @@
 	desc = "Looks almost like the real thing! Ages 8 and up."
 	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/projectile/revolver/improvised
 	name = "improvised revolver"

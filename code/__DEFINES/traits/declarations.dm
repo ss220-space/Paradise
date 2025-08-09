@@ -185,6 +185,8 @@
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands"
 /// Properly wielded two handed item
 #define TRAIT_WIELDED "wielded"
+/// This item is currently performing a cleaving attack
+#define TRAIT_CLEAVING "cleaving"
 /// A transforming item that is actively extended / transformed
 #define TRAIT_TRANSFORM_ACTIVE "active_transform"
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user

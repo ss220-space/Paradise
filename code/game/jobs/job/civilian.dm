@@ -68,6 +68,7 @@
 	if(!record) //record not exists, create record with temporary identifier
 		record = CreateSecurityRecord(human.real_name, -1)
 	record.fields["criminal"] = SEC_RECORD_STATUS_INCARCERATED
+	record.fields["last_modifier_level"] = LAW_LEVEL_MAGISTRATE
 	var/crimes = generate_prisoner_role_crimes()
 	human.mind.store_memory("Меня посадили за: [crimes]")
 	record.fields["comments"] += "Заключён в пермабриг за: [crimes]"
