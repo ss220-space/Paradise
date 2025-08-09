@@ -2009,7 +2009,7 @@
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
-	wieldsound = 'sound/weapons/chainsawstart.ogg'
+	wieldsound = 'sound/weapons/chainsaw_start.ogg'
 	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
 
 /obj/item/twohanded/toy/chainsaw/update_icon_state()

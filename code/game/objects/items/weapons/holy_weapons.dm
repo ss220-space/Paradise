@@ -176,6 +176,15 @@
 	slot_flags = ITEM_SLOT_BACK
 	block_chance = 50
 
+/obj/item/nullrod/staff/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		no_multi_hit = TRUE, \
+		swing_sound = "generic_swing_heavy" \
+	)
+
 /obj/item/nullrod/staff/blue
 	name = "blue holy staff"
 	icon_state = "godstaff-blue"
@@ -195,6 +204,14 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
+
+/obj/item/nullrod/claymore/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		swing_sound = "generic_swing_heavy" \
+	)
 
 /obj/item/nullrod/claymore/darkblade
 	name = "dark blade"
@@ -285,6 +302,15 @@
 	attack_verb = list("рубанул", "порезал", "скосил")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
+/obj/item/nullrod/scythe/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		no_multi_hit = TRUE, \
+		swing_sound = "chop_swing_light" \
+	)
+
 /obj/item/nullrod/scythe/vibro
 	name = "high frequency blade"
 	icon_state = "hfrequency0"
@@ -354,6 +380,15 @@
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("сокрушил", "ударил", "забил", "раздавил")
 
+/obj/item/nullrod/hammmer/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
+
 /obj/item/nullrod/chainsaw
 	name = "chainsaw hand"
 	desc = "Good? Bad? You're the guy with the chainsaw hand."
@@ -369,6 +404,14 @@
 /obj/item/nullrod/chainsaw/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+
+/obj/item/nullrod/chainsaw/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		swing_sound = "chainsaw_swing" \
+	)
 
 /obj/item/nullrod/clown
 	name = "clown dagger"
@@ -432,6 +475,12 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
+/obj/item/nullrod/armblade/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_sound = "blade_swing_light" \
+	)
 
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
@@ -486,6 +535,12 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
+/obj/item/nullrod/tribal_knife/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_sound = "knife_swing" \
+	)
 
 /obj/item/nullrod/tribal_knife/Destroy()
 	STOP_PROCESSING(SSobj, src)
