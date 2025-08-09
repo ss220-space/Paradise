@@ -61403,7 +61403,7 @@
 "nKr" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Space Expedition Storage";
-	req_access = list(18,48,70)
+	req_access = list(18,48,70,78)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -73521,7 +73521,7 @@
 "rdl" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Space Expedition Storage";
-	req_access = list(18,48,70)
+	req_access = list(18,48,70,78)
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-2"

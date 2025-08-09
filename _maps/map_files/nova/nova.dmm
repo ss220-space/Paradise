@@ -30956,7 +30956,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Space Expedition Storage";
-	req_access = list(18,48,70);
+	req_access = list(18,48,70,78);
 	security_level = 1
 	},
 /obj/structure/disposalpipe/segment,

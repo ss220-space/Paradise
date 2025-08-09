@@ -9,7 +9,7 @@
 	supervisors = "the head of personnel"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#e6e6e6"
-	access = list(ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPLORERS, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Tourist","Businessman","Trader","Assistant")
 	outfit = /datum/outfit/job/assistant

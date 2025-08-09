@@ -2031,7 +2031,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Space Expedition Storage";
-	req_access = list(18,48,70)
+	req_access = list(18,48,70,78)
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Exp_lockdown";
@@ -32900,7 +32900,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Space Expedition Storage";
-	req_access = list(18,48,70)
+	req_access = list(18,48,70,78)
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop/expedition)

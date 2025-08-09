@@ -657,29 +657,3 @@
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
 		/obj/item/videocam = 1)
-
-/datum/job/explorer
-	title = JOB_TITLE_EXPLORER
-	flag = JOB_FLAG_EXPLORER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 0
-	spawn_positions = 0
-	supervisors = "the head of personnel"
-	department_head = list(JOB_TITLE_HOP)
-	selection_color = "#d1e8d3"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	outfit = /datum/outfit/job/explorer
-	hidden_from_job_prefs = TRUE
-
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
-
-/datum/outfit/job/explorer
-	// This outfit is never used, because there are no slots for this job.
-	// To get it, you have to go to the HOP and ask for a transfer to it.
-	name = "Explorer"
-	jobtype = /datum/job/explorer
-	uniform = /obj/item/clothing/under/color/random
-	shoes = /obj/item/clothing/shoes/black
