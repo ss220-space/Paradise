@@ -255,6 +255,14 @@
 
 /obj/projectile/energy/rat/slug/emp
 	name = "brass EMP slug"
+	ru_names = list(
+		NOMINATIVE = "латунная ЭМИ пуля",
+		GENITIVE = "латунной ЭМИ пули",
+		DATIVE = "латунной ЭМИ пуле",
+		ACCUSATIVE = "латунную ЭМИ пулю",
+		INSTRUMENTAL = "латунной ЭМИ пулей",
+		PREPOSITIONAL = "латунной ЭМИ пуле",
+	)
 	icon_state = "brassslug_emp"
 	damage = 0
 
@@ -269,6 +277,14 @@
 
 /obj/projectile/energy/rat/slug/heal
 	name = "brass heal slug"
+	ru_names = list(
+		NOMINATIVE = "латунная исцеляющая пуля",
+		GENITIVE = "латунной исцеляющей пули",
+		DATIVE = "латунной исцеляющей пуле",
+		ACCUSATIVE = "латунную исцеляющую пулю",
+		INSTRUMENTAL = "латунной исцеляющей пулей",
+		PREPOSITIONAL = "латунной исцеляющей пуле",
+	)
 	icon_state = "brassslug_heal"
 	damage = 25
 
@@ -280,6 +296,14 @@
 
 /obj/projectile/energy/rat/slug/stun
 	name = "brass stun slug"
+	ru_names = list(
+		NOMINATIVE = "латунная оглушающая пуля",
+		GENITIVE = "латунной оглушающей пули",
+		DATIVE = "латунной оглушающей пуле",
+		ACCUSATIVE = "латунную оглушающую пулю",
+		INSTRUMENTAL = "латунной оглушающей пулей",
+		PREPOSITIONAL = "латунной оглушающей пуле",
+	)
 	icon_state = "brassslug_stun"
 
 /obj/projectile/energy/rat/slug/stun/on_hit(mob/living/target, blocked, hit_zone)
@@ -294,12 +318,12 @@
 /obj/projectile/energy/rat/snipe
 	name = "brass sniper bullet"
 	ru_names = list(
-		NOMINATIVE = "латунная пуля",
-		GENITIVE = "латунной пули",
-		DATIVE = "латунной пуле",
-		ACCUSATIVE = "латунную пулю",
-		INSTRUMENTAL = "латунной пулей",
-		PREPOSITIONAL = "латунной пуле",
+		NOMINATIVE = "латунная снайперская пуля",
+		GENITIVE = "латунной снайперской пули",
+		DATIVE = "латунной снайперской пуле",
+		ACCUSATIVE = "латунную снайперскую пулю",
+		INSTRUMENTAL = "латунной снайперской пулей",
+		PREPOSITIONAL = "латунной снайперской пуле",
 	)
 	icon_state = "brassshot"
 	damage = 60
@@ -313,6 +337,14 @@
 
 /obj/projectile/energy/rat/snipe/emp
 	name = "brass sniper EMP bullet"
+	ru_names = list(
+		NOMINATIVE = "латунная снайперская ЭМИ пуля",
+		GENITIVE = "латунной снайперской ЭМИ пули",
+		DATIVE = "латунной снайперской ЭМИ пуле",
+		ACCUSATIVE = "латунную снайперскую ЭМИ пулю",
+		INSTRUMENTAL = "латунной снайперской ЭМИ пулей",
+		PREPOSITIONAL = "латунной снайперской ЭМИ пуле",
+	)
 	icon_state = "brassshot_emp"
 
 /obj/projectile/energy/rat/snipe/emp/on_hit(atom/target, blocked, hit_zone)
@@ -326,6 +358,14 @@
 
 /obj/projectile/energy/rat/snipe/heal
 	name = "brass sniper heal bullet"
+	ru_names = list(
+		NOMINATIVE = "латунная снайперская исцеляющая пуля",
+		GENITIVE = "латунной снайперской исцеляющей пули",
+		DATIVE = "латунной снайперской исцеляющей пуле",
+		ACCUSATIVE = "латунную снайперскую исцеляющую пулю",
+		INSTRUMENTAL = "латунной снайперской исцеляющей пулей",
+		PREPOSITIONAL = "латунной снайперской исцеляющей пуле",
+	)
 	icon_state = "brassshot_heal"
 	damage = 25
 	stun = 2
@@ -339,6 +379,14 @@
 
 /obj/projectile/energy/rat/snipe/stun
 	name = "brass sniper stun bullet"
+	ru_names = list(
+		NOMINATIVE = "латунная снайперская оглушающая пуля",
+		GENITIVE = "латунной снайперской оглушающей пули",
+		DATIVE = "латунной снайперской оглушающей пуле",
+		ACCUSATIVE = "латунную снайперскую оглушающую пулю",
+		INSTRUMENTAL = "латунной снайперской оглушающей пулей",
+		PREPOSITIONAL = "латунной снайперской оглушающей пуле",
+	)
 	icon_state = "brassshot_stun"
 	damage = 0
 	stun = 15
