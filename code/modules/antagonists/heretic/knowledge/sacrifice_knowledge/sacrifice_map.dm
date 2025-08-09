@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 /area/centcom/heretic_sacrifice
 	name = "Мансус"
 	icon_state = "heretic"
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 	//ambience_index = AMBIENCE_SPOOKY
 	sound_environment = SOUND_ENVIRONMENT_CAVE
 	area_flags = UNIQUE_AREA // | BLOCK_SUICIDE | NO_BOH
@@ -131,6 +131,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 /area/centcom/heretic_sacrifice/void
 	name = "Пустотные Врата Мансуса"
+	use_starlight = TRUE
 	sound_environment = SOUND_ENVIRONMENT_UNDERWATER
 
 
@@ -148,4 +149,27 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 /area/centcom/heretic_sacrifice/lock
 	name = "Врата Мансуса выкованные из ключей"
 	//ambience_index = AMBIENCE_DANGER
+	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC
+
+
+/area/centcom/heretic_sacrifice/cosmic
+	name = "Космические Врата Мансуса"
+	has_gravity = 0
+	sound_environment = SOUND_ENVIRONMENT_PLAIN
+
+
+/area/centcom/heretic_sacrifice/blade
+	name = "Железные Врата Мансуса"
+	use_starlight = TRUE
+	sound_environment = SOUND_ENVIRONMENT_ARENA
+
+
+/area/centcom/heretic_sacrifice/moon
+	name = "Лунные Врата Мансуса"
+	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC
+
+
+/area/centcom/heretic_sacrifice/moon2
+	name = "Немного другие Лунные Врата Мансуса"
+	has_gravity = NEGATIVE_GRAVITY
 	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC
