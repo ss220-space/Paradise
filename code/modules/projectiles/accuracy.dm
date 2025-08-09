@@ -162,8 +162,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 /datum/gun_accuracy/proc/randomize_spread(bonus_spread)
 	if(!max_spread)
 		return round((rand() - 0.5) * bonus_spread)
-	var/random_angle = round(rand(min_spread/2, max_spread/2 + bonus_spread/2))
-	return pick(1,-1) * random_angle
+	var/random_angle = round(rand(min_spread / 2, max_spread / 2 + bonus_spread / 2))
+	return pick(1, -1) * random_angle
 
 
 /obj/projectile/proc/calculate_hit_chance(obj/projectile/projectile, mob/living/target)

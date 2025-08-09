@@ -117,7 +117,7 @@
 	else if(!accuracy)
 		accuracy = GUN_ACCURACY_DEFAULT
 	else if(!istype(accuracy, /datum/gun_accuracy))
-		stack_trace("Invalid type [accuracy] found in .accuracy during /obj/item/gun Initialize()")
+		stack_trace("Invalid type [accuracy.type] found in .accuracy during /obj/item/gun Initialize()")
 
 
 /obj/item/gun/Destroy()

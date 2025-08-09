@@ -56,5 +56,5 @@
 	//get pixels to move the camera in an angle
 	var/mpx = sin(angle) * strength
 	var/mpy = cos(angle) * strength
-	animate(sufferer, pixel_x = oldx+mpx, pixel_y = oldy+mpy, time = duration, flags = ANIMATION_RELATIVE)
+	animate(sufferer, pixel_x = oldx + mpx, pixel_y = oldy+mpy, time = duration, flags = ANIMATION_RELATIVE)
 	animate(pixel_x = oldx, pixel_y = oldy, time = backtime_duration, easing = BACK_EASING)
