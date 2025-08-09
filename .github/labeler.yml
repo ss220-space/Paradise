@@ -1,43 +1,43 @@
-'Python':
+':snake: Python':
   - changed-files:
       - any-glob-to-any-file: ['**/*.py']
 
-'JavaScript':
+':globe_with_meridians: HTML':
   - changed-files:
-      - any-glob-to-any-file: ['**/*.js']
+      - any-glob-to-any-file: ['html/**']
 
-'TypeScript':
-  - changed-files:
-      - any-glob-to-any-file: ['**/*.ts', '**/*.tsx']
-
-'Rust':
+':crab: Rust':
   - changed-files:
       - any-glob-to-any-file: ['rust/**']
 
-'SQL':
+':cd: SQL':
   - changed-files:
       - any-glob-to-any-file: ['SQL/**']
 
-'TGUI':
+':computer: TGUI':
   - changed-files:
-      - any-glob-to-any-file: ['tgui/**', 'tgui-next/**']
+      - any-glob-to-any-file: ['tgui/**']
 
-'Спрайты':
+':paintbrush: Спрайты':
   - changed-files:
       - any-glob-to-any-file: ['**/*.dmi']
 
-'Изменение карты':
+':world_map: Изменение карты':
   - changed-files:
       - any-glob-to-any-file: ['**/*.dmm']
 
-'Изменение конфига':
+':floppy_disk: Изменение конфига':
   - changed-files:
       - any-glob-to-any-file: ['config/**']
 
-'Документация':
+':neckbeard: Документация':
   - changed-files:
       - any-glob-to-any-file: ['**/*.md']
 
-'Звук':
+':sound: Звук':
   - changed-files:
       - any-glob-to-any-file: ['**/*.ogg']
+
+':hammer_and_wrench: Инструменты':
+  - changed-files:
+      - any-glob-to-any-file: ['.github/**', 'tools/**', '.vscode/**', '.bin/**']
