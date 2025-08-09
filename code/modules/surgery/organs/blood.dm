@@ -237,6 +237,9 @@
 		bloodcolor = b_data["blood_color"]
 	return bloodcolor
 
+/mob/living/carbon/alien/get_blood_color()
+	return "#dffc00"
+
 /mob/living/proc/get_blood_data(blood_id)
 	return
 

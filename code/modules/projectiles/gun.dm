@@ -145,10 +145,8 @@
 		. += span_notice("Use a pen on it to rename it.")
 	if(bayonet)
 		. += span_notice("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
-		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
-			. += span_notice("[bayonet] looks like it can be [span_bold("unscrewed")] from [src].")
-	else if(can_bayonet)
-		. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
+		if(can_bayonet) // if it has a bayonet and this is false, the bayonet is permanent.
+			. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
 
 
 /obj/item/gun/proc/update_gun_skins()

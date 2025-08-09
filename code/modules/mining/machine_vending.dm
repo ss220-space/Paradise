@@ -6,6 +6,7 @@
 #define VENDOR_EXPLOSIVES_KIT "Комплект шахтёрских взрывчаток"
 #define VENDOR_CRUSHER_KIT "Комплект крушителя"
 #define VENDOR_CONSCRIPTION_KIT "Стандартный набор шахтёра"
+#define VENDOR_KA_UPGRADE_KIT "Базовый набор улучшений для КА"
 
 /**********************Mining Equipment Vendor**************************/
 
@@ -207,7 +208,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list(VENDOR_EXPLORER_WEBBING, VENDOR_RESONATOR_KIT, VENDOR_MINEBOT_KIT, VENDOR_EXTRACTION_KIT, VENDOR_PLASMA_CUTTER_KIT, VENDOR_EXPLOSIVES_KIT, VENDOR_CRUSHER_KIT, VENDOR_CONSCRIPTION_KIT)
+	var/items = list(VENDOR_EXPLORER_WEBBING, VENDOR_RESONATOR_KIT, VENDOR_MINEBOT_KIT, VENDOR_EXTRACTION_KIT, VENDOR_PLASMA_CUTTER_KIT, VENDOR_EXPLOSIVES_KIT, VENDOR_CRUSHER_KIT, VENDOR_CONSCRIPTION_KIT, VENDOR_KA_UPGRADE_KIT)
 
 	var/selection = tgui_input_list(redeemer, "Выберите снаряжение", "Шахтёрский ваучер", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -242,6 +243,10 @@
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if(VENDOR_CONSCRIPTION_KIT)
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
+		if(VENDOR_KA_UPGRADE_KIT)
+			new /obj/item/borg/upgrade/modkit/cooldown/haste(drop_location)
+			new /obj/item/borg/upgrade/modkit/range(drop_location)
+			new /obj/item/storage/bag/ore/bigger(drop_location)
 
 	qdel(voucher)
 
@@ -441,3 +446,5 @@
 #undef VENDOR_EXPLOSIVES_KIT
 #undef VENDOR_CRUSHER_KIT
 #undef VENDOR_CONSCRIPTION_KIT
+#undef VENDOR_KA_UPGRADE_KIT
+
