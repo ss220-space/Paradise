@@ -21,21 +21,21 @@
 /// Try attach module to gun, return TRUE if success
 /obj/item/gun_module/proc/try_attach(obj/item/gun/target_gun, mob/user)
 	if(!istype(target_gun, /obj/item/gun))
-		to_chat(user, "Несовместимо с модулями!")
+		user.balloon_alert(user, "несовместимо с модулями")
 		return FALSE
 	var/obj/item/gun/gun = target_gun
 	var/allowed = gun.attachable_allowed & class
 	if(!allowed)
-		to_chat(user, "Несовместимое оружие!")
+		user.balloon_alert(user, "несовместимое оружие")
 		return FALSE
 	if(gun.attachments_by_slot[slot] != null)
-		to_chat(user, "Слот для модуля занят!")
+		user.balloon_alert(user, "слот для модуля занят")
 		return FALSE
 	return attach_without_check(gun, user)
 
 /// Attaching module to gun without check, use try_attach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/attach_without_check(obj/item/gun/target_gun, mob/user)
-	to_chat(user, "Модуль установлен")
+	user.balloon_alert(user, "модуль установлен")
 	if(!do_after(user, 1 SECONDS, target_gun))
 		return FALSE
 	target_gun.attachments_by_slot[slot] = src
@@ -47,7 +47,7 @@
 
 /// Detaching module from gun without check, use try_detach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/detach_without_check(obj/item/gun/target_gun, mob/user)
-	to_chat(user, "Модуль снят")
+	user.balloon_alert(user, "модуль снят")
 	if(!do_after(user, 1 SECONDS, target_gun))
 		return FALSE
 	target_gun.attachments_by_slot[slot] = null
