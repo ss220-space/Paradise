@@ -166,17 +166,21 @@
 
 /obj/item/melee/mantisblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
+
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || attack_in_progress || user.a_intent != INTENT_HARM)
 		return .
+
 	var/obj/item/melee/mantisblade/secondsword = user.get_inactive_hand()
 	if(!istype(secondsword, /obj/item/melee/mantisblade))
 		return .
+
 	addtimer(CALLBACK(secondsword, PROC_REF(mantis_attack), target, user, params, def_zone), 0.2 SECONDS)
 
 
 /obj/item/melee/mantisblade/proc/mantis_attack(mob/living/target, mob/living/user, params, def_zone)
 	if(QDELETED(src) || QDELETED(target) || !user.is_in_hands(src) || !user.Adjacent(target))
 		return
+
 	attack_in_progress = TRUE
 	attack(target, user, params, def_zone)
 	attack_in_progress = FALSE
@@ -185,10 +189,13 @@
 
 /obj/item/melee/mantisblade/afterattack(atom/target, mob/user, proximity)
 	. = ..()
+
 	if(!proximity)
 		return
+
 	if(prob(25))
-		do_sparks(rand(1,6), 1, loc)
+		do_sparks(rand(1, 6), 1, loc)
+
 	if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target
 
