@@ -6,7 +6,7 @@
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	ammo_x_offset = 3
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_MINIMAL
 
 /obj/item/gun/energy/shock_revolver
 	name = "tesla revolver"
@@ -16,7 +16,7 @@
 	origin_tech = "combat=4;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/shock_revolver)
 	shaded_charge = TRUE
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_MINIMAL
 
 /obj/item/gun/energy/gun/advtaser
 	name = "hybrid taser"
@@ -25,7 +25,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
 	origin_tech = "combat=4"
 	ammo_x_offset = 2
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_MINIMAL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
@@ -35,7 +35,7 @@
 	name = "cyborg taser"
 	desc = "An integrated hybrid taser that draws directly from a cyborg's power cell. The weapon contains a limiter to prevent the cyborg's power cell from overheating."
 	can_charge = FALSE
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/gun/advtaser/cyborg/newshot()
 	..()
@@ -49,14 +49,14 @@
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 3
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_MINIMAL
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
 	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/cyborg)
 	can_charge = FALSE
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/disabler/cyborg/newshot()
 	..()

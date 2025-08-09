@@ -32,7 +32,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_x_offset = 2
 	charge_sections = 3
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
@@ -72,7 +72,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
@@ -153,7 +153,6 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	throw_range = 0
 	burst_size = 6
-	spread = 45
 	can_charge = FALSE
 	cell_type = /obj/item/stock_parts/cell/laser/gatling
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/light)
@@ -163,7 +162,8 @@
 	slowdown = 0.2
 	var/force_unwielded = 10
 	var/force_wielded = 20
-	accuracy = GUN_ACCURACY_MINIMAL
+	accuracy = new /datum/gun_accuracy/minimal/gatling()
+	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/minigun/Initialize(mapload)

@@ -10,6 +10,8 @@
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
 
+	recoil = GUN_RECOIL_LOW
+
 
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()

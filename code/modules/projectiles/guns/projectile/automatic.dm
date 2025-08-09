@@ -85,7 +85,8 @@
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3)
@@ -117,6 +118,7 @@
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
 		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 6)
 	)
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/c20r/Initialize()
@@ -149,8 +151,7 @@
 	can_bayonet = TRUE
 	bayonet_x_offset = 25
 	bayonet_y_offset = 12
-	accuracy = GUN_ACCURACY_RIFLE
-	spread = 20
+	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	actions_types = null
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -158,6 +159,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/wt550/ComponentInitialize()
 	AddComponent( \
@@ -182,8 +184,7 @@
 	fire_delay = 2
 	burst_size = 1
 	can_bayonet = FALSE
-	accuracy = GUN_ACCURACY_RIFLE
-	spread = 20
+	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	actions_types = null
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -191,6 +192,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/sp91rc/ComponentInitialize()
 	AddComponent( \
@@ -203,7 +205,12 @@
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
 
-//Type-U3 Uzi//
+/*Type-U3 Uzi
+name = "Пистолет-пулемёт Uzi"
+desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм.
+Имеет два режима стрельбы: полуавтоматический и с отсечкой по 4 патрона. Совместим с глушителем."
+TODO Use this name and desc for localisation*/
+
 /obj/item/gun/projectile/automatic/mini_uzi
 	name = "''Type U3 Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
@@ -217,6 +224,8 @@
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 14, "y" = 7),
 		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 12)
 	)
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
 
 /obj/item/gun/projectile/automatic/mini_uzi/ComponentInitialize()
 	AddComponent( \
@@ -246,6 +255,7 @@
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 2),
 		ATTACHMENT_SLOT_RAIL = list("x" = 12, "y" = 7)
 	)
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/m90/Initialize(mapload)
@@ -321,6 +331,7 @@
 	burst_size = 4
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 //ARG Assault Rifle//
 /obj/item/gun/projectile/automatic/ar
@@ -344,6 +355,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
+	recoil = GUN_RECOIL_MEDIUM
 
 //AK-814 Soviet Assault Rifle
 /obj/item/gun/projectile/automatic/ak814
@@ -369,6 +381,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -5)
 	)
+	recoil = GUN_RECOIL_MEDIUM
 
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
@@ -393,6 +406,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 9),
 		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -6)
 	)
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
@@ -459,6 +473,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 4),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -5)
 	)
+	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/New()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
@@ -487,6 +502,7 @@
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6)
 	)
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/automatic/cats/update_icon_state()
@@ -521,6 +537,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4)
 	)
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -545,6 +562,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 9),
 		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -2)
 	)
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
 	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
@@ -565,6 +583,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 5),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/sfg/update_icon_state()
@@ -588,4 +607,5 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 9),
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7)
 	)
+	recoil = GUN_RECOIL_MEDIUM
 

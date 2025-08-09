@@ -387,15 +387,29 @@
 	switch(newdir)
 		if(NORTH)
 			layer = BELOW_MOB_LAYER
-			pixel_x = rand(-3,3)
-			pixel_y = rand(4,6)
+			pixel_x += rand(-3,3)
+			pixel_y += rand(4,6)
 		if(SOUTH)
-			pixel_x = rand(-3,3)
-			pixel_y = rand(-1,1)
+			pixel_x += rand(-3,3)
+			pixel_y += rand(-1,1)
 		else
-			pixel_x = rand(-1,1)
-			pixel_y = rand(-1,1)
+			pixel_x += rand(-1,1)
+			pixel_y += rand(-1,1)
 	return ..()
+
+/obj/effect/temp_visual/dir_setting/firing_effect/sweep_attack
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "big_slash"
+	pixel_x = -32
+	pixel_y = -32
+	duration = 0.3 SECONDS
+
+/obj/effect/temp_visual/dir_setting/firing_effect/sweep_attack/semicircle
+	icon_state = "big_slash_180"
+
+/obj/effect/temp_visual/dir_setting/firing_effect/sweep_attack/full_circle
+	icon_state = "big_slash_360"
+	duration = 0.4 SECONDS
 
 /obj/effect/temp_visual/dir_setting/firing_effect/energy
 	icon_state = "firing_effect_energy"

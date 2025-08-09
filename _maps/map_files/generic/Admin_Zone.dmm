@@ -2246,7 +2246,7 @@
 /area/admin)
 "yL" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/required/chainsaw,
+/obj/item/twohanded/chainsaw_handmade,
 /turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
@@ -2964,7 +2964,7 @@
 /area/admin)
 "Hf" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/required/chainsaw/doomslayer,
+/obj/item/twohanded/chainsaw_handmade/doomslayer,
 /turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},

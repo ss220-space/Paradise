@@ -46,6 +46,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/list/attack_verb
 	/// Sound played when you hit something with the item.
 	var/hitsound
+	/// Used for hit sound cooldown
+	COOLDOWN_DECLARE(sound_cooldown)
 	/// Played when the item is used, for example tools.
 	var/usesound
 	/// Used when yate into a mob.

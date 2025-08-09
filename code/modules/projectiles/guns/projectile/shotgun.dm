@@ -16,6 +16,7 @@
 	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/I, mob/user, params)
@@ -226,6 +227,7 @@
 /obj/item/gun/projectile/shotgun/riot/short
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
 	accuracy = GUN_ACCURACY_MINIMAL
+	recoil = GUN_RECOIL_MEGA
 
 /obj/item/gun/projectile/shotgun/riot/short/Initialize(mapload)
 	. = ..()
@@ -257,6 +259,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 4)
 	)
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
@@ -367,6 +370,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -4)
 	)
+	recoil = GUN_RECOIL_HIGH
 
 //Dual Feed Shotgun
 
@@ -385,6 +389,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7)
 	)
+	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()

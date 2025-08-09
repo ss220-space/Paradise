@@ -24,16 +24,16 @@
 
 	if(!can_use(usr))
 		return
-	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
-	if(!M)
+	var/datum/data/pda/app/messenger/messenger = find_program(/datum/data/pda/app/messenger)
+	if(!messenger)
 		to_chat(usr, span_warning("Cannot use messenger!"))
-	var/list/plist = M.available_pdas()
+	var/list/plist = messenger.available_pdas()
 	if(plist)
 		var/c = tgui_input_list(usr, "Please select a PDA", "Send message", sortList(plist))
 		if(!c) // if the user hasn't selected a PDA file we can't send a message
 			return
 		var/selected = plist[c]
-		M.create_message(usr, selected)
+		messenger.create_message(selected, usr)
 
 /obj/item/pda/silicon/verb/cmd_show_message_log()
 	set category = STATPANEL_AIIM

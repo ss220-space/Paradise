@@ -34,14 +34,12 @@
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
-	///Additional spread when dual wielding.
-	var/dual_wield_spread = 24
 	var/list/restricted_species
 	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
 	var/bolt_open = FALSE
-	var/spread = 0
 	/// Gun accuracy (without distance accuracy)
 	var/datum/gun_accuracy/accuracy = GUN_ACCURACY_DEFAULT
+	var/datum/gun_recoil/recoil = null
 	var/barrel_dir = EAST // barel direction need for a rotate gun with telekinesis for shot to target (default: matched with tile direction)
 	var/randomspread = TRUE
 
@@ -222,8 +220,7 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
-	if(recoil)
-		shake_camera(user, recoil + 1, recoil)
+	do_recoil(user, target)
 
 	var/muzzle_range = chambered.muzzle_flash_range
 	var/muzzle_strength = chambered.muzzle_flash_strength
@@ -303,7 +300,7 @@
 				continue
 			else if(G.can_trigger_gun(user))
 				if(!HAS_TRAIT(user, TRAIT_BADASS))
-					bonus_spread += dual_wield_spread * G.weapon_weight
+					bonus_spread += accuracy.dual_wield_spread * G.weapon_weight
 				loop_counter++
 				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
@@ -341,10 +338,6 @@
 
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	var/sprd = 0
-	var/randomized_gun_spread = 0
-	if(spread)
-		randomized_gun_spread =	rand(0,spread)
-	var/randomized_bonus_spread = rand(0, bonus_spread)
 
 	if (is_tk_grab)
 		rotate_to_target(target)
@@ -363,9 +356,9 @@
 					break
 			if(chambered)
 				if(randomspread)
-					sprd = round((rand() - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
+					sprd = accuracy.randomize_spread(bonus_spread)
 				else
-					sprd = round((i / burst_size - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
+					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(bonus_spread))
 				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 					shoot_with_empty_chamber(user)
 					break
@@ -389,7 +382,7 @@
 				if(chambered.harmful) // Is the bullet chambered harmful?
 					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 					return
-			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
+			sprd = accuracy.randomize_spread(bonus_spread)
 			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 				shoot_with_empty_chamber(user)
 				return

@@ -174,3 +174,12 @@
 #define TAIPAN_HUD_COMMS 		7
 #define TAIPAN_HUD_RD			8
 #define TAIPAN_HUD_CYBORG		9
+
+
+/// MARK: Job lists
+
+GLOBAL_LIST_INIT(ai_death_alarm_jobs, list(
+	JOB_TITLE_CAPTAIN,
+	JOB_TITLE_CHIEF,
+	JOB_TITLE_RD,
+))
