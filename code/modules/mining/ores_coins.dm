@@ -363,7 +363,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/primed = FALSE
 	var/det_time = 10 SECONDS
 	var/quality = GIBTONITE_QUALITY_LOW //How pure this gibtonite is, determines the explosion produced by it and is derived from the det_time of the rock wall it was taken from, higher value = better
-	var/attacher = "НЕИЗВЕСТНЫЙ"
+	var/attacher = UNKNOWN_STATUS_RUS
 	var/datum/wires/explosive/gibtonite/wires
 
 

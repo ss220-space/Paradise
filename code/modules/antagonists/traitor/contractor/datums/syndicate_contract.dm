@@ -1,5 +1,3 @@
-#define DEFAULT_NAME "Неизвестный"
-#define DEFAULT_RANK UNKNOWN_STATUS_RUS
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
 #define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
@@ -133,7 +131,7 @@
 
 	// Fill data
 	var/datum/data/record/R = find_record("name", T.name, GLOB.data_core.general)
-	target_name = "[R?.fields["name"] || T.current?.real_name || DEFAULT_NAME], the [R?.fields["rank"] || T.assigned_role || DEFAULT_RANK]"
+	target_name = "[R?.fields["name"] || T.current?.real_name || UNKNOWN_NAME_RUS], the [R?.fields["rank"] || T.assigned_role || UNKNOWN_STATUS_RUS]"
 	reward_credits = credits_base * rand(credits_lower_mult, credits_upper_mult)
 
 	// Fluff message
@@ -565,13 +563,13 @@
 	// Newscaster story
 	var/datum/data/record/R = find_record("name", contract.target.name, GLOB.data_core.general)
 	var/initials = ""
-	for(var/s in splittext(R?.fields["name"] || M.real_name || DEFAULT_NAME, " "))
+	for(var/s in splittext(R?.fields["name"] || M.real_name || UNKNOWN_NAME_RUS, " "))
 		initials = initials + "[s[1]]."
 
 	var/datum/feed_message/FM = new
 	FM.author = NEWS_CHANNEL_NYX
 	FM.admin_locked = TRUE
-	FM.body = "В системе зафиксирована подозрительная активность, предположительно связанная с Синдикатом. Появились слухи о том, что [R?.fields["rank"] || M?.mind.assigned_role || DEFAULT_RANK] на борту [SSmapping.map_datum.station_name] стал жертвой похищения.\n\n" +\
+	FM.body = "В системе зафиксирована подозрительная активность, предположительно связанная с Синдикатом. Появились слухи о том, что [R?.fields["rank"] || M?.mind.assigned_role || UNKNOWN_STATUS_RUS] на борту [SSmapping.map_datum.station_name] стал жертвой похищения.\n\n" +\
 				"Надёжный источник сообщил следующее: Была найдена записка с инициалами жертвы — \"[initials]\", а также каракулями, гласящими: \"[fluff_message]\""
 	GLOB.news_network.get_channel_by_name("Никс Дейли")?.add_message(FM)
 
@@ -611,8 +609,6 @@
 	extraction_deadline = -1
 	extraction_timer_handle = null
 
-#undef DEFAULT_NAME
-#undef DEFAULT_RANK
 #undef EXTRACTION_PHASE_PREPARE
 #undef EXTRACTION_PHASE_PORTAL
 #undef COMPLETION_NOTIFY_DELAY

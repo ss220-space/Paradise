@@ -6,8 +6,8 @@
 	var/datum/data/record/G = new /datum/data/record()
 	G.fields["name"] = "New Record"
 	G.fields["id"] = text("[]", add_zero(num2hex(rand(1, 1.6777215E7), 2), 6))
-	G.fields["rank"] = "Unassigned"
-	G.fields["real_rank"] = "Unassigned"
+	G.fields["rank"] = NOJOB_STATUS_RUS
+	G.fields["real_rank"] = NOJOB_STATUS_RUS
 	G.fields["sex"] = "Male"
 	G.fields["age"] = UNKNOWN_STATUS_RUS
 	G.fields["fingerprint"] = UNKNOWN_STATUS_RUS

@@ -111,8 +111,8 @@
 		GLOB.cell_logs += P
 
 	var/datum/data/record/G = find_record("name", occupant, GLOB.data_core.general)
-	var/prisoner_drank = "неизвестно"
-	var/prisoner_trank = "неизвестно"
+	var/prisoner_drank = UNKNOWN_STATUS_RUS
+	var/prisoner_trank = UNKNOWN_STATUS_RUS
 	if(G)
 		if(G.fields["rank"])
 			prisoner_drank = G.fields["rank"]
@@ -130,7 +130,7 @@
 	// Announcing it on radio isn't enough, as they're unlikely to have sec radio.
 	notify_prisoner("You have been incarcerated for [timetext] for the crime of: '[crimes]'.")
 
-	if(prisoner_trank != "неизвестно" && prisoner_trank != "Civilian")
+	if(prisoner_trank != UNKNOWN_STATUS_RUS && prisoner_trank != "Civilian")
 		SSjobs.notify_dept_head(prisoner_trank, announcetext)
 
 	if(R)
