@@ -27,8 +27,8 @@
 	var/obj/visual = new /obj/effect/temp_visual/point(source_turf, invisibility)
 
 	/// Set position
-	var/final_x = (pointed_turf.x - source_turf.x) * world.icon_size + pointed_atom.pixel_x
-	var/final_y = (pointed_turf.y - source_turf.y) * world.icon_size + pointed_atom.pixel_y
+	var/final_x = (pointed_turf.x - source_turf.x) * ICON_SIZE_X + pointed_atom.pixel_x
+	var/final_y = (pointed_turf.y - source_turf.y) * ICON_SIZE_Y + pointed_atom.pixel_y
 
 	/// Set rotation
 	var/matrix/rotated_matrix = new()

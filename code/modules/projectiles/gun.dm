@@ -687,15 +687,15 @@
 			if(WEST)
 				_x = -zoom_amt
 
-		user.client.pixel_x = world.icon_size*_x
-		user.client.pixel_y = world.icon_size*_y
+		user.client.pixel_x = ICON_SIZE_X*_x
+		user.client.pixel_y = ICON_SIZE_Y*_y
 
 		for(var/mob/dead/observer/observe in user.inventory_observers)
 			if(!observe.client)
 				LAZYREMOVE(user.inventory_observers, observe)
 				continue
-			observe.client.pixel_x = world.icon_size*_x
-			observe.client.pixel_y = world.icon_size*_y
+			observe.client.pixel_x = ICON_SIZE_X*_x
+			observe.client.pixel_y = ICON_SIZE_Y*_y
 	else
 		user.client.pixel_x = 0
 		user.client.pixel_y = 0
