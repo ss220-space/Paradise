@@ -781,24 +781,24 @@
 	surplus = 0
 
 /datum/uplink_item/dangerous/pistol
-	name = "Пистолет FK-69 \"Стечкин\""
+	name = "Комплект с пистолетом FK-69 \"Стечкин\""
 	desc = "Полностью заряженный пистолет, оснащённый магазином на 8 патронов калибра 10 мм. Обладает большим разнообразием боеприпасов. \
-			Крайне компактный пистолет, который легко помещается в карман. Совместим с глушителем."
-	item = /obj/item/gun/projectile/automatic/pistol
+			Крайне компактный пистолет, который легко помещается в карман. Поставляется с тремя магазинами. Совместим с глушителем."
+	item = /obj/item/storage/box/syndie_kit/stechkin_pistol
 	cost = 20
 
 /datum/uplink_item/dangerous/revolver
-	name = "Револьвер Синдиката .357"
-	desc = "Полностью заряженный револьвер, оснащённый барабаном на 7 патронов \"Магнум\" .357 калибра."
-	item = /obj/item/gun/projectile/revolver
+	name = "Комплект с револьвером Синдиката .357"
+	desc = "Полностью заряженный револьвер, оснащённый барабаном на 7 патронов \"Магнум\" .357 калибра. Поставляется с тремя дополнительными сменными барабанами."
+	item = /obj/item/storage/box/syndie_kit/revolver
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
 
 /datum/uplink_item/dangerous/deagle
-	name = "Пистолет Desert Eagle"
-	desc = "Легендарный пистолет огромной мощности с магазином на 7 патронов калибра .50AE."
-	item = /obj/item/gun/projectile/automatic/pistol/deagle
+	name = "Комплект с пистолетом Desert Eagle"
+	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50AE. Поставляется с тремя дополнительными магазинами и двумя коробками патронов."
+	item = /obj/item/storage/box/syndie_kit/desert_eagle
 	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -829,12 +829,6 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
-/datum/uplink_item/dangerous/rapid
-	name = "Перчатки \"Полярная Звезда\""
-	desc = "Позволяют владельцу наносить удары руками с невероятной скоростью."
-	item = /obj/item/clothing/gloves/fingerless/rapid
-	cost = 16
-
 /datum/uplink_item/dangerous/sniper
 	name = "Снайперская винтовка Bubz FX1000"
 	desc = "Полностью заряженная винтовка со снайперским прицелом, оснащённая магазином на 5 патронов .50 калибра. Совместима с глушителем. \
@@ -846,11 +840,11 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
-	name = "Компактная снайперская винтовка Bubz Mini"
+	name = "Комплект с компактной снайперская винтовкой \"Bubz Mini\""
 	desc = "Полностью заряженная компактная версия оперативной снайперской винтовки без прицела, оснащённая магазином на 4 патрона .50 калибра. \
-			У неё большая убойная сила, но количество патронов ограничено."
-	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
-	cost = 40
+			Поставляется вместе с дополнительным магазином и коробкой патронов."
+	item = /obj/item/storage/box/syndie_kit/compact_sniper
+	cost = 45
 	surplus = 0
 	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -872,6 +866,12 @@
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
+
+/datum/uplink_item/dangerous/rapid
+	name = "Перчатки \"Полярная Звезда\""
+	desc = "Позволяют владельцу наносить удары руками с невероятной скоростью."
+	item = /obj/item/clothing/gloves/fingerless/rapid
+	cost = 16
 
 /datum/uplink_item/dangerous/sword
 	name = "Энергетический меч"
@@ -2256,9 +2256,10 @@
 	surplus = 0
 
 /datum/uplink_item/badass/desert_eagle
-	name = "Пистолет Desert Eagle"
-	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50AE. Полностью покрыт ЗОЛОТОМ, убивайте стильно!"
-	item = /obj/item/gun/projectile/automatic/pistol/deagle/gold
+	name = "Комплект с пистолетом Desert Eagle"
+	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50AE. Полностью покрыт ЗОЛОТОМ, убивайте стильно!. \
+			Поставляется с тремя дополнительными магазинами и двумя коробками патронов."
+	item = /obj/item/storage/box/syndie_kit/desert_eagle_gold
 	cost = 50
 
 /datum/uplink_item/badass/syndiecigs
