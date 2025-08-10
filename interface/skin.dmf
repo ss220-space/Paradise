@@ -349,7 +349,7 @@ window "infobuttons"
 		anchor2 = 83,100
 		font-style = "bold"
 		text-color = #ffffff
-		background-color = #7289da
+		background-color = #5966f3ff
 		saved-params = "is-checked"
 		text = "Discord"
 		command = "discord"
