@@ -136,10 +136,12 @@
 	if(R)
 		prisoner = R
 		R.fields["criminal"] = SEC_RECORD_STATUS_INCARCERATED
+		R.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
 		var/mob/living/carbon/human/M = usr
 		var/rank = "UNKNOWN RANK"
 		if(istype(M))
 			var/obj/item/card/id/I = M.get_id_card()
+			R.fields["last_modifier_level"] = I.law_level
 			if(I)
 				rank = I.assignment
 		if(!R.fields["comments"] || !islist(R.fields["comments"])) //copied from security computer code because apparently these need to be initialized
@@ -149,11 +151,17 @@
 	return 1
 
 /obj/machinery/door_timer/proc/notify_prisoner(notifytext)
-	for(var/mob/living/carbon/human/H in range(4, get_turf(src)))
-		if(occupant == H.name)
-			to_chat(H, "[src] beeps, \"[notifytext]\"")
-			return
+	var/mob/living/carbon/human/human = find_prisoner()
+	if(human)
+		to_chat(human, "[src] beeps, \"[notifytext]\"")
+		return
 	atom_say("[src] beeps, \"[occupant]: [notifytext]\"")
+
+/obj/machinery/door_timer/proc/find_prisoner()
+	for(var/mob/living/carbon/human/human in range(4, get_turf(src)))
+		if(occupant == human.name)
+			return human
+	return null
 
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
@@ -169,8 +177,8 @@
 			return PROCESS_KILL
 		if(timeleft() <= 0)
 			Radio.autosay("Timer has expired. Releasing prisoner.", name, SEC_FREQ_NAME)
-			occupant = CELL_NONE
 			timer_end() // open doors, reset timer, clear status screen
+			occupant = CELL_NONE
 			return PROCESS_KILL
 		update_display()
 	else
@@ -245,6 +253,10 @@
 		monitor.total_joules = 0
 		monitor.on = TRUE
 
+	var/mob/living/carbon/human/human = find_prisoner()
+	if(human)
+		SEND_SIGNAL(human, COMSIG_DOOR_TIMER_START, crimes, prisoner_time)
+
 	return TRUE
 
 
@@ -256,6 +268,13 @@
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 
+	//send signal
+	var/mob/living/carbon/human/human = find_prisoner()
+	if(human)
+		SEND_SIGNAL(human, COMSIG_DOOR_TIMER_FINISH, crimes, prisoner_time)
+	else
+		message_admins("door_timer.timer_end(): not found prisoner [occupant] in cell for send signal")
+
 	// Reset vars
 	occupant = CELL_NONE
 	crimes = CELL_NONE
@@ -264,8 +283,10 @@
 	officer = CELL_NONE
 	releasetime = 0
 	printed = FALSE
+	prisoner_time = null
 	if(prisoner)
 		prisoner.fields["criminal"] = SEC_RECORD_STATUS_RELEASED
+		prisoner.fields["last_modifier_level"] = LAW_LEVEL_BASE
 		update_all_mob_security_hud()
 		prisoner = null
 
@@ -415,7 +436,6 @@
 			crimes = prisoner_charge
 			prisoner_name = null
 			prisoner_charge = null
-			prisoner_time = null
 			timer_start()
 		if("add_timer")
 			if(timing)

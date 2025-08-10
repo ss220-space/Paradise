@@ -136,6 +136,15 @@
 	embed_chance = 70
 	embedded_ignore_throwspeed_threshold = TRUE
 
+/obj/item/hatchet/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0.15, \
+		no_multi_hit = TRUE, \
+		swing_sound = "chop_swing_light" \
+	)
+
 /obj/item/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
@@ -181,6 +190,17 @@
 	var/extend = 1
 	var/swiping = FALSE
 
+/obj/item/scythe/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 1.25, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 0.75, \
+		swing_sound = "chop_swing_light" \
+	)
+
 /obj/item/scythe/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	if(ishuman(user))
@@ -190,28 +210,6 @@
 			affecting.droplimb(1, DROPLIMB_SHARP)
 			playsound(loc, "desceration", 50, TRUE, -1)
 	return BRUTELOSS
-
-
-/obj/item/scythe/pre_attackby(atom/target, mob/living/user, params)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || swiping || !istype(target, /obj/structure/spacevine))
-		return .
-
-	swiping = TRUE
-	var/turf/target_turf = get_turf(target)
-	var/turf/user_turf = get_turf(user)
-	if(target_turf == user_turf)
-		swiping = FALSE
-		return .
-
-	var/dir_to_target = get_dir(user_turf, target_turf)
-	var/static/list/scythe_slash_angles = list(0, 45, 90, -45, -90)
-	for(var/i in scythe_slash_angles)
-		var/turf/close_turf = get_step(user_turf, turn(dir_to_target, i))
-		for(var/obj/structure/spacevine/spacevine in close_turf)
-			if(user.Adjacent(close_turf))
-				melee_attack_chain(user, close_turf, params)
-	swiping = FALSE
 
 
 /obj/item/scythe/tele

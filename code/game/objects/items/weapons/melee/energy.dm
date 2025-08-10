@@ -110,6 +110,13 @@
 	sharp = 1
 	light_color = LIGHT_COLOR_WHITE
 
+/obj/item/melee/energy/axe/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_sound = "chop_swing_light" \
+	)
+
 /obj/item/melee/energy/axe/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] swings the [name] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|FIRELOSS
@@ -130,6 +137,14 @@
 	block_chance = 50
 	sharp = 1
 	var/hacked = FALSE
+
+/obj/item/melee/energy/sword/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0, \
+		swing_sound = "energy_sword_swing" \
+	)
 
 /obj/item/melee/energy/sword/New()
 	..()
@@ -280,6 +295,14 @@
 	throw_range = 1
 	w_class = WEIGHT_CLASS_BULKY //So you can't hide it in your pocket or some such.
 	sharp = 1
+
+/obj/item/melee/energy/blade/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0, \
+		swing_sound = "energy_sword_swing" \
+	)
 
 /obj/item/melee/energy/blade/attack_self(mob/user)
 	return

@@ -10,6 +10,7 @@
 	req_admin_notify = 1
 	is_command = 1
 	access = list() 			//See get_access()
+	law_level = LAW_LEVEL_CAPTAIN
 	minimal_access = list() 	//See get_access()
 	minimal_player_age = 30
 	min_age_type = JOB_MIN_AGE_COMMAND
@@ -73,7 +74,6 @@
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
-	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
@@ -131,7 +131,6 @@
 	is_command = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 21
-	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
@@ -185,7 +184,6 @@
 	is_command = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 21
-	min_age_type = JOB_MIN_AGE_HIGH_ED
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SECURITY
@@ -219,19 +217,14 @@
 	pda = /obj/item/pda/heads/blueshield
 	backpack_contents = list(
 		/obj/item/storage/box/deathimp = 1,
-		/obj/item/gun/energy/gun/blueshield = 1
+		/obj/item/gun/energy/gun/blueshield = 1,
+		/obj/item/gun/projectile/automatic/proto/rubber = 1,
+		/obj/item/ammo_box/magazine/smgm9mm = 2,
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
 	backpack = /obj/item/storage/backpack/blueshield
 	satchel = /obj/item/storage/backpack/satchel_blueshield
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield
-
-/datum/outfit/job/blueshield/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	var/datum/martial_art/cqc/CQC = new
-	CQC.teach(H)
 
 /datum/job/judge
 	title = JOB_TITLE_JUDGE
@@ -258,6 +251,7 @@
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MAGISTRATE)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_LAWYER, ACCESS_MAGISTRATE, ACCESS_HEADS)
+	law_level = LAW_LEVEL_MAGISTRATE
 	alt_titles = list("Judge")
 	outfit = /datum/outfit/job/judge
 	insurance_type = INSURANCE_TYPE_DELUXE
@@ -305,7 +299,6 @@
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	alt_titles = list("Human Resources Agent","Lawyer","Attorney")
 	minimal_player_age = 30
-	min_age_type = JOB_MIN_AGE_HIGH_ED
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW

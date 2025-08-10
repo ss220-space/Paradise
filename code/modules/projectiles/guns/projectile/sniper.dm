@@ -3,7 +3,6 @@
 	desc = "The kind of gun that will leave you crying for mummy before you even realise your leg's missing."
 	icon_state = "sniper"
 	item_state = "sniper"
-	recoil = 2
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
 	fire_sound = 'sound/weapons/gunshots/1sniper.ogg'
@@ -20,6 +19,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = null
 	accuracy = GUN_ACCURACY_SNIPER
+	recoil = GUN_RECOIL_MEGA
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
@@ -46,14 +46,14 @@
 	name = "compact sniper rifle"
 	desc = "A compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
 	icon_state = "snipercompact"
-	recoil = 0
 	weapon_weight = WEAPON_LIGHT
-	fire_delay = 0
+	fire_delay = 2 SECONDS
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
 	can_unsuppress = FALSE
 	can_suppress = FALSE
 	zoomable = FALSE
-
+	accuracy = GUN_ACCURACY_SNIPER
+	recoil = GUN_RECOIL_HIGH
 
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
@@ -225,8 +225,7 @@
 
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	damage = 70
-	stun = 4 SECONDS
-	weaken = 4 SECONDS
+	knockdown = 4 SECONDS
 	armour_penetration = 50
 	breakthings = FALSE
 	dismemberment = 0
