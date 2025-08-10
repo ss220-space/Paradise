@@ -47,12 +47,12 @@
 	desc = "It's some kind of enormous alien weapon, as long as a man is tall."
 	icon_state = "noisecannon"
 	item_state = "noisecannon"
-	recoil = 1
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/sonic)
 	cell_type = /obj/item/stock_parts/cell/super
 	restricted_species = list(/datum/species/vox/armalis)
 	sprite_sheets_inhand = list(SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/held.dmi') //Big guns big birds.
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/energy/noisecannon/update_icon_state()

@@ -192,7 +192,7 @@ SUBSYSTEM_DEF(shuttle)
 		return
 
 	var/area/signal_origin = get_area(user)
-	var/emergency_reason = "\nПричина вызова шаттла:\n\n[call_reason]"
+	var/emergency_reason = "\n\nПричина вызова шаттла:\n[call_reason]"
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		var/extra_minutes = 0
 		var/priority_time = emergencyCallTime * 0.5

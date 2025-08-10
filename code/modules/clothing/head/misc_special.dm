@@ -24,7 +24,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	can_toggle = TRUE
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 60)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60)
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
@@ -124,7 +124,7 @@
 	icon_state = "cake0"
 	base_icon_state = "cake"
 	flags_cover = HEADCOVERSEYES
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	var/on_fire = FALSE
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
@@ -227,7 +227,7 @@
 	icon_state = "soviethelm"
 	item_state = "soviethelm"
 	flags_inv = HIDEHEADSETS|HIDEHAIR
-	armor = list("melee" = 25, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 25, BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 30, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	materials = list(MAT_METAL=2500)
 
 /*
@@ -252,7 +252,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	light_range = 2 //luminosity when on
 
 
@@ -262,7 +262,7 @@
 	icon_state = "hardhat0_reindeer"
 	item_state = "hardhat0_reindeer"
 	item_color = "reindeer"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	light_range = 1 //luminosity when on
 	dog_fashion = /datum/dog_fashion/head/reindeer
 

@@ -310,7 +310,7 @@
 				// Then bring it inside to explode instantly upon landing on a valid turf.
 
 
-	if(Proj.flag != "bullet")
+	if(Proj.flag != BULLET)
 		power += Proj.damage * config_bullet_energy
 		if(!has_been_powered)
 			investigate_log("has been powered for the first time.", INVESTIGATE_ENGINE)
@@ -587,7 +587,7 @@
 
 /obj/machinery/power/supermatter_shard/proc/supermatter_zap()
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = zap_sound_extrarange)
-	tesla_zap(src, 10, max(1000,power * damage / explosion_point))
+	tesla_zap(source = src, zap_range = 10, power = max(1000, power * damage / explosion_point), cutoff = 1e3, zap_flags = ZAP_GENERATES_POWER | ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE)
 
 // SM shard that can't be moved for ruins and gates
 /obj/machinery/power/supermatter_shard/anchored

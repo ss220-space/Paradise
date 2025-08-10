@@ -40,6 +40,7 @@
 	var/empty_state = "kineticgun_empty"
 	/// Saved timer that can be overrided by modkits after hitting target.
 	var/recharge_timerid
+	accuracy = GUN_ACCURACY_SNIPER
 
 
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)
@@ -145,7 +146,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	. = ..()
-	attempt_reload()
+	addtimer(CALLBACK(src, PROC_REF(attempt_reload)), 1)
 
 
 /obj/item/gun/energy/kinetic_accelerator/equipped(mob/user, slot, initial)
@@ -563,7 +564,7 @@
 /obj/item/borg/upgrade/modkit/aoe/projectile_strike(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(stats_stolen)
 		return
-	new /obj/effect/temp_visual/explosion/fast(target_turf)
+	new /obj/effect/temp_visual/pka_explosion(target_turf)
 	if(turf_aoe)
 		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
 			if(ismineralturf(T) && !isancientturf(T))

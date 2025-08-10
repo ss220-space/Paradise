@@ -45,7 +45,7 @@
 	a_intent = INTENT_HARM
 	intent = INTENT_HARM
 	blood_volume = 20
-	blood_color = "#05EE05"
+	blood_color = "#dffc00"
 	attacktext = "прыгает на лицо"
 	attack_sound = 'sound/creatures/facehugger_attack.ogg'
 	attacked_sound = 'sound/creatures/facehugger_attacked.ogg'

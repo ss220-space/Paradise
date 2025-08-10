@@ -52,9 +52,9 @@
 	/// How much stamina damage should be decremented as the bullet moves.
 	var/tile_dropoff_s = 0
 	/// How much armour penetration should be decremented as the bullet moves.
-	var/tile_dropoff_penetration
+	var/tile_dropoff_penetration = 0
 	/// How much forcedodge should be decremented as the bullet moves.
-	var/tile_dropoff_forcedodge
+	var/tile_dropoff_forcedodge = 0
 	/// BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here.
 	var/damage_type = BRUTE
 	/// Determines if the projectile will skip any damage inflictions.
@@ -135,9 +135,9 @@
 		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
 	if(stamina && tile_dropoff_s)
 		stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
-	if(armour_penetration && tile_dropoff_penetration)
-		armour_penetration = max(0, armour_penetration - tile_dropoff_penetration) // as above, but with armour penetration
-	if(forcedodge && tile_dropoff_forcedodge)
+	if(tile_dropoff_penetration)
+		armour_penetration = clamp(armour_penetration - tile_dropoff_penetration, -100, 100)
+	if(tile_dropoff_forcedodge)
 		forcedodge = max(0, forcedodge - tile_dropoff_forcedodge) // as above, but with forcedodge
 	if(range <= 0 && loc)
 		on_range()
@@ -186,13 +186,13 @@
 	var/organ_hit_text = ""
 	if(blocked < 100) // not completely blocked
 		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
-			var/splatter_dir = dir
+			var/splatter_dir = Angle
 			if(starting)
-				splatter_dir = get_dir(starting, target_loca)
+				splatter_dir = !isnull(Angle) ? Angle : round(get_angle(starting, target_loca), 1)
 			if(isalien(L) || isfacehugger(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
-				var/blood_color = "#C80000"
+				var/blood_color = "#A10808"
 				if(ishuman(target))
 					H = target
 					blood_color = H.dna.species.blood_color
@@ -204,7 +204,7 @@
 
 				if(step_over)
 					if(get_splatter_blockage(step_over, target, splatter_dir, target_loca)) //If you can't cross the tile or any of its relevant obstacles...
-						shift = pixel_shift_dir(splatter_dir) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
+						shift = pixel_shift_dir(angle2dir_cardinal(splatter_dir)) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
 					else
 						target_loca = step_over
 					L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
@@ -220,7 +220,7 @@
 			organ_hit_text = "в [GLOB.body_zone[def_zone][ACCUSATIVE]]!"
 
 		if(suppressed)
-			playsound(loc, hitsound, 5, 1, -1)
+			playsound(loc, hitsound, 5, TRUE, -1)
 			to_chat(L, span_userdanger("Вы стреляете из [declent_ru(ACCUSATIVE)] [organ_hit_text]"))
 		else
 			if(hitsound)
@@ -287,9 +287,10 @@
 	var/distance = get_dist(bumped_turf, starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
 	if(!forced_accuracy)
 		if(get_dist(bumped_atom, original) <= 1)
-			def_zone = ran_zone(def_zone, max(100 - (7 * distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+			var/hit_chance = calculate_randomize_def_zone_chance(src, distance)
+			def_zone = ran_zone(def_zone, hit_chance)
 		else
-			def_zone = pick(list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)) // If we were aiming at one target but another one got hit, no accuracy is applied
+			def_zone = ran_zone(def_zone, probability = 0) // If we were aiming at one target but another one got hit, no accuracy is applied
 
 	if(isturf(bumped_atom) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
@@ -309,7 +310,7 @@
 	prehit(bumped_atom)
 
 	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
-	if(permutation == -1 || forcedodge >= 1) // the bullet passes through a dense object!
+	if(permutation == -1 || forcedodge == -1 ||forcedodge >= 1) // the bullet passes through a dense object!
 		if(forcedodge >= 1)
 			forcedodge -= 1
 		loc = bumped_turf
@@ -382,7 +383,7 @@
 			forcemoved = TRUE
 		else if(T != loc)
 			step_towards(src, T)
-		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
+		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER && !isliving(original)))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original)
 	if(QDELETED(src)) //deleted on last move
@@ -418,8 +419,8 @@
 		Angle = round(get_angle(src, current))
 	if(spread)
 		Angle += (rand() - 0.5) * spread
-	if(firer && ismob(firer))
-		hit_crawling_mobs_chance = firer.a_intent == INTENT_HELP ? 0 : 100
+	if(firer && ismob(firer) && firer.a_intent != INTENT_HELP)
+		hit_crawling_mobs_chance =  100
 	// Turn right away
 	var/matrix/M = new
 	M.Turn(Angle)

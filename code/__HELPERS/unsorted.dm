@@ -21,38 +21,16 @@
 	return 0
 
 //Returns the middle-most value
-/proc/dd_range(var/low, var/high, var/num)
-	return max(low,min(high,num))
+/proc/dd_range(low, high, num)
+	return max(low, min(high, num))
 
 //Returns whether or not A is the middle most value
-/proc/InRange(var/A, var/lower, var/upper)
-	if(A < lower) return 0
-	if(A > upper) return 0
-	return 1
-
-
-/proc/Get_Angle(atom/movable/start,atom/movable/end)//For beams.
-	if(!start || !end) return 0
-	var/dy
-	var/dx
-	dy=(32*end.y+end.pixel_y)-(32*start.y+start.pixel_y)
-	dx=(32*end.x+end.pixel_x)-(32*start.x+start.pixel_x)
-	if(!dy)
-		return (dx>=0)?90:270
-	.=arctan(dx/dy)
-	if(dy<0)
-		.+=180
-	else if(dx<0)
-		.+=360
-
-/proc/Get_Pixel_Angle(var/y, var/x)//for getting the angle when animating something's pixel_x and pixel_y
-	if(!y)
-		return (x>=0)?90:270
-	.=arctan(x/y)
-	if(y<0)
-		.+=180
-	else if(x<0)
-		.+=360
+/proc/InRange(A, lower, upper)
+	if(A < lower)
+		return FALSE
+	if(A > upper)
+		return FALSE
+	return TRUE
 
 //Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
@@ -201,15 +179,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 //Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
 	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
-		return 0
+		return FALSE
 
 	var/i, ch, len = length(key)
 
-	for(i = 7, i <= len, ++i)
+	for(i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
 		ch = text2ascii(key, i)
-		if(ch < 48 || ch > 57)
-			return 0
-	return 1
+		if (ch < 48 || ch > 57) //0-9
+			return FALSE
+	return TRUE
 
 //Ensure the frequency is within bounds of what it should be sending/recieving at
 /proc/sanitize_frequency(var/f, var/low = PUBLIC_LOW_FREQ, var/high = PUBLIC_HIGH_FREQ)
@@ -918,12 +896,12 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 		return 1
 
 //Whether or not the given item counts as sharp in terms of dealing damage
-/proc/is_sharp(obj/O)
-	if(!O)
-		return 0
-	if(O.sharp)
-		return 1
-	return 0
+/proc/is_sharp(obj/item/item)
+	if(!istype(item))
+		return FALSE
+	if(item.sharp)
+		return TRUE
+	return FALSE
 
 /proc/reverse_direction(var/dir)
 	switch(dir)
@@ -988,14 +966,6 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 			if(abs(O.pixel_x) <= 10 && abs(O.pixel_y) <= 10)
 				return 1
 	return 0
-
-
-/proc/get_angle(atom/a, atom/b)
-	return atan2(b.y - a.y, b.x - a.x)
-
-/proc/atan2(x, y)
-	if(!x && !y) return 0
-	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
 
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")

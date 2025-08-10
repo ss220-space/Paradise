@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 /datum/game_mode/clockwork
 	name = "Clockwork Cult"
 	config_tag = "clockwork"
-	restricted_jobs = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_LAWYER, JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE)
+	restricted_jobs = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_LAWYER, JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
@@ -290,17 +290,25 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		SEND_SIGNAL(H, COMSIG_MOB_HALO_GAINED)
 
 /datum/game_mode/proc/remove_clocker(datum/mind/clock_mind, show_message = TRUE)
-	if(!(clock_mind in clockwork_cult))
+	if(!clock_mind || !(clock_mind in clockwork_cult))
 		return
+
 	var/mob/clocker = clock_mind.current
+	
+	if(!clocker)
+		return
+
 	clockwork_cult -= clock_mind
 	clocker.faction -= "clockwork_cult"
 	clock_mind.special_role = null
-	for(var/datum/objective/serveclock/O in clock_mind.objectives)
-		clock_mind.objectives -= O
-		qdel(O)
-	for(var/datum/action/innate/clockwork/C in clocker.actions)
-		qdel(C)
+
+	for(var/datum/objective/serveclock/objective in clock_mind.objectives)
+		clock_mind.objectives -= objective
+		qdel(objective)
+
+	for(var/datum/action/innate/clockwork/action in clocker.actions)
+		qdel(action)
+
 	update_clock_icons_removed(clock_mind)
 
 	if(ishuman(clocker))

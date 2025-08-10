@@ -10,7 +10,7 @@
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50)
 	var/datum/wires/camera/wires = null // Wires datum
 	max_integrity = 100
 	integrity_failure = 50
@@ -101,12 +101,6 @@
 		GLOB.cameranet.addCamera(src)
 
 	cancelCameraAlarm()
-
-/obj/machinery/camera/tesla_act(power)//EMP proof upgrade also makes it tesla immune
-	if(isEmpProof())
-		return
-	..()
-	qdel(src)//to prevent bomb testing camera from exploding over and over forever
 
 /obj/machinery/camera/ex_act(severity)
 	if(invuln)
@@ -384,7 +378,7 @@
 /atom/proc/auto_turn()
 	//Automatically turns based on nearby walls.
 	var/turf/simulated/wall/T = null
-	for(var/i = 1, i <= 8; i += i)
+	for(var/i = 1, i <= 8, i += i)
 		T = get_ranged_target_turf(src, i, 1)
 		if(istype(T))
 			//If someone knows a better way to do this, let me know. -Giacom

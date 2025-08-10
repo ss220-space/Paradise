@@ -144,12 +144,12 @@
 	chemical_cost = 10
 	genetic_damage = 10
 	max_genetic_damage = 20
-	weapon_type = /obj/item/melee/arm_blade
-	weapon_check_type = /obj/item/melee/arm_blade
+	weapon_type = /obj/item/melee/changeling/arm_blade
+	weapon_check_type = /obj/item/melee/changeling // so we can't have maul and armblade at the same time
 	weapon_name_simple = "blade"
 
 
-/obj/item/melee/arm_blade
+/obj/item/melee/changeling/arm_blade
 	name = "arm blade"
 	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter"
 	icon_state = "arm_blade"
@@ -171,21 +171,34 @@
 	var/datum/action/changeling/weapon/parent_action
 
 
-/obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
+/obj/item/melee/changeling/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	parent_action = new_parent_action
 
 
-/obj/item/melee/arm_blade/Destroy()
-	if(parent_action)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
-		parent_action = null
-	return ..()
+/obj/item/melee/changeling/arm_blade/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_sound = "blade_swing_light" \
+	)
 
 
-/obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/melee/changeling/arm_blade/Destroy()
+	. = ..()
+
+	if(!parent_action)
+		return
+
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+	parent_action = null
+
+
+/obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+
 	if(!proximity)
 		return
 
@@ -234,31 +247,72 @@
 	chemical_cost = 10
 	genetic_damage = 10
 	max_genetic_damage = 20
-	weapon_type = /obj/item/melee/arm_blade/fleshy_maul
-	weapon_check_type = /obj/item/melee/arm_blade
+	weapon_type = /obj/item/melee/changeling/fleshy_maul
+	weapon_check_type = /obj/item/melee/changeling
 	weapon_name_simple = "maul"
 
-/obj/item/melee/arm_blade/fleshy_maul
+
+/obj/item/melee/changeling/fleshy_maul
 	name = "fleshy maul"
 	desc = "An enormous maul made out of bone and flesh that crushes limbs in the dust"
 	icon_state = "flesh_maul"
 	item_state = "flesh_maul"
+	item_flags = ABSTRACT|DROPDEL
+	slot_flags = NONE
+	w_class = WEIGHT_CLASS_HUGE
 	sharp = FALSE
 	force = 25
 	block_chance = 0
 	armour_penetration = 35
 	hitsound = "swing_hit"
+	throwforce = 0
+	throw_range = 0
+	throw_speed = 0
 	gender = MALE
 	ru_names = list(NOMINATIVE = "молот из плоти", GENITIVE = "молота из плоти", DATIVE = "молоту из плоти", ACCUSATIVE = "молот из плоти", INSTRUMENTAL = "молотом из плоти", PREPOSITIONAL = "молоте из плоти")
+	var/datum/action/changeling/weapon/parent_action
 
-/obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity, params)
+
+
+/obj/item/melee/changeling/fleshy_maul/Initialize(mapload, silent, new_parent_action)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
+	parent_action = new_parent_action
+
+
+/obj/item/melee/changeling/fleshy_maul/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.3, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy", \
+	)
+
+
+/obj/item/melee/changeling/fleshy_maul/Destroy()
+	. = ..()
+
+	if(!parent_action)
+		return
+
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+	parent_action = null
+
+
+/obj/item/melee/changeling/fleshy_maul/afterattack(atom/target, mob/living/user, proximity, params)
+	. = ..()
+
 	if(!proximity)
 		return
 
 	if(isstructure(target))
 		var/obj/structure/S = target
 		if(!QDELETED(S))
-			S.attack_generic(user, 80, BRUTE, "melee", 0)
+			S.attack_generic(user, 80, BRUTE, MELEE, 0)
 
 	else if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
@@ -279,11 +333,13 @@
 			if(O.brute_dam > 20)
 				O.fracture()
 
-/obj/item/melee/arm_blade/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
+
+/obj/item/melee/changeling/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
 	if(target && !iscarbon(hit_atom) && hit_atom.density)
 		target.Weaken(1 SECONDS)
 
-/obj/item/melee/arm_blade/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
+
+/obj/item/melee/changeling/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
 	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
 
 
@@ -646,7 +702,7 @@
 	flags_inv = HIDETAIL
 	item_flags = DROPDEL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90) //No armor at all
 	species_restricted = null
 	faction_restricted = null
 	sprite_sheets = list(
@@ -680,7 +736,7 @@
 	clothing_flags = STOPSPRESSUREDMAGE
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	item_flags = DROPDEL
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90)
 	species_restricted = null
 	faction_restricted = null
 	sprite_sheets = list(
@@ -722,7 +778,7 @@
 	icon_state = "lingarmor"
 	item_flags = DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, RAD = 0, FIRE = 90, ACID = 90)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
@@ -755,7 +811,7 @@
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 	item_flags = DROPDEL
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, RAD = 0, FIRE = 90, ACID = 90)
 	species_restricted = null
 	faction_restricted = null
 

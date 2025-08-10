@@ -10,7 +10,7 @@ GLOBAL_LIST_EMPTY(closets)
 	layer = LOW_ITEM_LAYER	//Prevents items from dropping on turf visually
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60)
 	pass_flags_self = PASSSTRUCTURE|LETPASSCLICKS
 	pull_push_slowdown = 1.3 // Same as a prone mob
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
@@ -483,14 +483,6 @@ GLOBAL_LIST_EMPTY(closets)
 				var/obj/loc_as_obj = loc
 				loc_as_obj.container_resist(L)
 			open()
-
-/obj/structure/closet/tesla_act(var/power)
-	..()
-	visible_message(
-		span_danger("[src] is blown apart by the bolt of electricity!"),
-		span_danger("You hear a metallic screeching sound.")
-	)
-	qdel(src)
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))

@@ -444,12 +444,12 @@
 			if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
 				cleaning = TRUE
 			else
-				return
+				return ATTACK_CHAIN_PROCEED
 		if(istype(W, /obj/item/soap))
 			cleaning = TRUE
 
 		if(!cleaning)
-			return
+			return ATTACK_CHAIN_PROCEED
 		user.visible_message("<span class='notice'>[user] starts to clean the ooze off the disc.</span>", "<span class='notice'>You start to clean the ooze off the disk.</span>")
 		if(do_after(user, 5 SECONDS, src))
 			user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
@@ -458,6 +458,8 @@
 	..()
 	if(is_pen(W) && !HAS_TRAIT(src, TRAIT_CMAGGED))
 		rename_interactive(user, W)
+
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/disk/plantgene/update_name(updates = ALL)
 	. = ..()

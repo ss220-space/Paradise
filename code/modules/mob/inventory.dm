@@ -277,7 +277,7 @@
 		return r_hand
 
 //Returns the flag of the selected hand
-/mob/proc/get_active_item_slot_gand()
+/mob/proc/get_active_item_slot_hand()
 	if(hand)
 		return ITEM_SLOT_HAND_LEFT
 	return ITEM_SLOT_HAND_RIGHT

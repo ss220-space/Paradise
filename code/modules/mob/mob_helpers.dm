@@ -149,29 +149,29 @@
 
 	zone = check_zone(zone)
 
-	if(prob(probability))
+	if(probability > 0 && prob(probability))
 		return zone
 
-	switch(rand(1, 18))	// randomly pick a different zone, or maybe the same one
+	switch(rand(1, 11))	// randomly pick a different zone, or maybe the same one
 		if(1)
 			return BODY_ZONE_HEAD
-		if(2)
+		if(2 to 3)
 			return BODY_ZONE_CHEST
-		if(3 to 4)
+		if(4)
 			return BODY_ZONE_L_ARM
-		if(5 to 6)
+		if(5)
 			return BODY_ZONE_PRECISE_L_HAND
-		if(7 to 8)
+		if(6)
 			return BODY_ZONE_R_ARM
-		if(9 to 10)
+		if(7)
 			return BODY_ZONE_PRECISE_R_HAND
-		if(11 to 12)
+		if(8)
 			return BODY_ZONE_L_LEG
-		if(13 to 14)
+		if(9)
 			return BODY_ZONE_PRECISE_L_FOOT
-		if(15 to 16)
+		if(10)
 			return BODY_ZONE_R_LEG
-		if(17 to 18)
+		if(11)
 			return BODY_ZONE_PRECISE_R_FOOT
 	return zone
 

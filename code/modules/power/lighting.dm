@@ -27,7 +27,7 @@
 	anchored = TRUE
 	layer = 5
 	max_integrity = 50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	/// Construction stage (1 = Empty frame | 2 = Wired frame | 3 = Completed frame)
 	var/stage = STAGE_EMPTY
 	/// Light bulb type
@@ -180,7 +180,7 @@
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
 	max_integrity = 10
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 20
@@ -304,7 +304,7 @@
 
 	if(new_level_number != SEC_LEVEL_EPSILON)
 		return
-		
+
 	fire_mode = FALSE
 	emergency_mode = TRUE
 	on = FALSE
@@ -812,10 +812,13 @@
 	on = TRUE
 	update()
 
-/obj/machinery/light/tesla_act(power, explosive = FALSE)
+/obj/machinery/light/zap_act(power, zap_flags)
+	var/explosive = zap_flags & ZAP_MACHINE_EXPLOSIVE
+	zap_flags &= ~(ZAP_MACHINE_EXPLOSIVE | ZAP_OBJ_DAMAGE)
+	. = ..()
 	if(explosive)
-		explosion(loc,0,0,0,flame_range = 5, adminlog = 0)
-	qdel(src)
+		explosion(src, flame_range = 3, adminlog = FALSE)
+		qdel(src)
 
 // timed process
 // use power

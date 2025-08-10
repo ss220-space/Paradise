@@ -1027,6 +1027,8 @@
 		return 0 //we didn't do anything!
 
 	else if(href_list["boot2"])
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 		var/mob/M = locateUID(href_list["boot2"])
 		if(!ismob(M))
 			return
@@ -2400,6 +2402,8 @@
 		C.jumptocoord(x,y,z)
 
 	else if(href_list["adminchecklaws"])
+		if(!check_rights(R_ADMIN|R_MENTOR))
+			return
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
@@ -3860,7 +3864,8 @@
 				return 1
 
 	else if(href_list["viewruntime"])
-		var/datum/error_viewer/error_viewer = locate(href_list["viewruntime"])
+		var/datum/error_viewer/error_viewer = locateUID(href_list["viewruntime"])
+
 		if(!istype(error_viewer))
 			to_chat(usr, span_warning("That runtime viewer no longer exists."), confidential=TRUE)
 			return
@@ -4010,21 +4015,24 @@
 		poll_results_panel(poll, start_index)
 
 	else if(href_list["showrelatedacc"])
-		var/client/C = locate(href_list["client"]) in GLOB.clients
-		if(!C)
+		var/client/client = locateUID(href_list["client"])
+
+		if(!client)
 			to_chat(usr, "No client inside!")
 			return
+
 		var/thing_to_check
+
 		if(href_list["showrelatedacc"] == "cid")
-			thing_to_check = jointext(C.related_accounts_cid, "<br>")
+			thing_to_check = jointext(client.related_accounts_cid, "<br>")
 		else
-			thing_to_check = jointext(C.related_accounts_ip, "<br>")
+			thing_to_check = jointext(client.related_accounts_ip, "<br>")
 
 
 		var/list/dat = list("Related accounts by [uppertext(href_list["showrelatedacc"])]:")
 		dat += thing_to_check
 
-		var/datum/browser/popup = new(usr, "related_[C]", "Related dacc", 420, 300)
+		var/datum/browser/popup = new(usr, "related_[client]", "Related dacc", 420, 300)
 		popup.set_content(dat.Join("<br>"))
 		popup.open(FALSE)
 

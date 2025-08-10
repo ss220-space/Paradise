@@ -116,9 +116,10 @@
 	/// Total mining points for the Shift.
 	var/total_mining_points = 0
 	var/list/access = list()
+	var/law_level = LAW_LEVEL_BASE
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = ITEM_SLOT_ID
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
 
@@ -161,7 +162,12 @@
 
 /obj/item/card/id/proc/freeze_linked_account(datum/source)
 	SIGNAL_HANDLER
+
 	var/datum/money_account/acc = get_money_account(associated_account_number)
+
+	if(!acc)
+		return
+
 	acc.suspended = TRUE
 
 /obj/item/card/id/examine(mob/user)

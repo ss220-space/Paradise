@@ -183,7 +183,7 @@
 	. = ..()
 	if(ismecha(target))
 		var/obj/mecha/M = target
-		M.take_damage(80, BRUTE, "melee", 1)
+		M.take_damage(80, BRUTE, MELEE, 1)
 
 
 /mob/living/simple_animal/hostile/space_dragon/proc/try_gust()
@@ -355,7 +355,7 @@
 		if(M in hit_list)
 			continue
 		hit_list += M
-		M.take_damage(90, BRUTE, "melee", 1)
+		M.take_damage(90, BRUTE, MELEE, 1)
 
 
 /**

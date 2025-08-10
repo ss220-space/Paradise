@@ -10,6 +10,7 @@
 	var/list/fingerprints_time
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
+	var/list/interactors = list()
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
@@ -846,6 +847,8 @@
 		//Fibers~
 		add_fibers(M)
 
+		if(!(M.real_name in interactors))
+			interactors += M.real_name
 		//He has no prints!
 		if(HAS_TRAIT(M, TRAIT_NO_FINGERPRINTS))
 			if(fingerprintslast != M.key)
@@ -1014,6 +1017,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return transfer_blood_dna(blood_dna)
 
 /obj/item/add_blood(list/blood_dna, color)
+	if(isnull(color))
+		color = "#A10808"
+
 	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
 	if(!..())
 		return FALSE
@@ -1027,6 +1033,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	transfer_blood = rand(2, 4)
 
 /turf/add_blood(list/blood_dna, color)
+	if(isnull(color))
+		color = "#A10808"
+
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
@@ -1216,6 +1225,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/ratvar_act()
 	return
 
+/*
+ * Respond to an electric bolt action on our item
+ *
+ * Default behaviour is to return, we define here to allow for cleaner code later on
+ */
+/atom/proc/zap_act(power, zap_flags)
+	return
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
 /atom/proc/handle_atom_del(atom/A)
@@ -1796,9 +1812,22 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
 
-//Update the screentip to reflect what we're hoverin over
+/// Update the screentip to reflect what we're hovering over
 /atom/MouseEntered(location, control, params)
 	SSmouse_entered.hovers[usr.client] = src
+
+	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	var/screentip_mode = usr.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = MAPTEXT("<span style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[capitalize(src.declent_ru(NOMINATIVE))]</span>")
+
+// This is normal, I assure you. Paradise optimization.
+/atom/MouseExited(location, control, params)
+	usr.hud_used.screentip_text.maptext = ""
 
 /// Fired whenever this atom is the most recent to be hovered over in the tick.
 /// Preferred over MouseEntered if you do not need information such as the position of the mouse.
