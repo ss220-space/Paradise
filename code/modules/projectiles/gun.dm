@@ -70,7 +70,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0)
 	)
 	///List of slots a gun can have.
-	var/list/attachments_by_slot = list(
+	var/list/obj/item/gun_module/attachments_by_slot = list(
 		ATTACHMENT_SLOT_MUZZLE,
 		ATTACHMENT_SLOT_RAIL,
 		ATTACHMENT_SLOT_UNDER
@@ -151,10 +151,31 @@
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
+	if(attachments_by_slot[ATTACHMENT_SLOT_RAIL])
+		. += span_notice("На прицельную планку прикреплен [attachments_by_slot[ATTACHMENT_SLOT_RAIL].declent_ru(NOMINATIVE)].")
+	else if(attachable_allowed & GUN_MODULE_CLASS_RIFLE_RAIL)
+		. += span_notice("Имеет большое крепление для прицелов. Можно установить все виды прицелов.")
+	if(attachable_allowed & GUN_MODULE_CLASS_SHOTGUN_RAIL)
+		. += span_notice("Имеет среднее крепление для прицелов. Подойдут большинство прицелов и коллиматоров.")
+	else if(attachable_allowed & GUN_MODULE_CLASS_PISTOL_RAIL)
+		. += span_notice("Имеет малое крепление для прицелов. Подойдут только маленькие коллиматоры.")
+
+	if(attachments_by_slot[ATTACHMENT_SLOT_MUZZLE])
+		. += span_notice("На ствол прикручен [attachments_by_slot[ATTACHMENT_SLOT_MUZZLE].declent_ru(NOMINATIVE)].")
+	else if(attachable_allowed & GUN_MODULE_CLASS_ANY_MUZZLE)
+		. += span_notice("Имеет нарезы для крепления наствольных модулей.")
+
+	if(attachments_by_slot[ATTACHMENT_SLOT_UNDER])
+		. += span_notice("К цевью прикреплен [attachments_by_slot[ATTACHMENT_SLOT_UNDER].declent_ru(NOMINATIVE)].")
+	else if(attachable_allowed & GUN_MODULE_CLASS_PISTOL_UNDER)
+		. += span_notice("Имеет маленькую планку на цевье для крепление пистолетного фонаря.")
+	else if(attachable_allowed & GUN_MODULE_CLASS_RIFLE_UNDER | attachable_allowed & GUN_MODULE_CLASS_SHOTGUN_UNDER)
+		. += span_notice("Имеет большую планку на цевье для крепление большого фонаря или рукоятки.")
+
 	if(unique_reskin)
-		. += span_notice("Alt-click it to reskin it.")
+		. += span_notice("Используйте Alt-click чтобы выбрать скин.")
 	if(unique_rename)
-		. += span_notice("Use a pen on it to rename it.")
+		. += span_notice("Используйте ручку чтобы переименовать его.")
 	if(bayonet)
 		. += span_notice("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
 		if(can_bayonet) // if it has a bayonet and this is false, the bayonet is permanent.
