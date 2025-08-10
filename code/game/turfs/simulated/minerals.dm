@@ -958,12 +958,6 @@
 	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
-//gibtonite state defines
-#define GIBTONITE_UNSTRUCK 0
-#define GIBTONITE_ACTIVE 1
-#define GIBTONITE_STABLE 2
-#define GIBTONITE_DETONATE 3
-
 // Gibtonite
 /turf/simulated/mineral/gibtonite
 	mineralAmt = 1
