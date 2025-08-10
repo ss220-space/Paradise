@@ -179,9 +179,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	qdel(src)
 
 /obj/item/stack/ore/glass/ex_act(severity)
-	if(severity == EXPLODE_NONE)
-		return
-	qdel(src)
+	if(severity)
+		qdel(src)
 
 /obj/item/stack/ore/glass/basalt
 	name = "volcanic ash"
