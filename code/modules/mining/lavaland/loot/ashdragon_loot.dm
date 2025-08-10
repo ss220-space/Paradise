@@ -75,6 +75,13 @@
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 
+/obj/item/melee/ghost_sword/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_sound = "blade_swing_light" \
+	)
+
 /obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in spirits)
 		G.invisibility = initial(G.invisibility)

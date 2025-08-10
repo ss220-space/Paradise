@@ -16,7 +16,8 @@
 	fire_delay = 1
 	burst_size = 1
 	actions_types = null
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/automatic/l6_saw/ComponentInitialize()
 	AddComponent( \
