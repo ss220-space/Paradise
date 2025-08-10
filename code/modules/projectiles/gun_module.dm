@@ -14,6 +14,7 @@
 	var/class
 	var/overlay_state = "comp"
 	var/overlay_offset
+	var/buffered_overlay = null
 	//attached state variables
 	var/obj/item/gun/gun = null
 
@@ -35,7 +36,6 @@
 
 /// Attaching module to gun without check, use try_attach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/attach_without_check(obj/item/gun/target_gun, mob/user)
-	user.balloon_alert(user, "модуль установлен")
 	if(!do_after(user, 1 SECONDS, target_gun))
 		return FALSE
 	target_gun.attachments_by_slot[slot] = src
@@ -43,11 +43,11 @@
 	user.drop_transfer_item_to_loc(src, target_gun)
 	gun = target_gun
 	src.on_attach(target_gun, user)
+	user.balloon_alert(user, "модуль установлен")
 	return TRUE
 
 /// Detaching module from gun without check, use try_detach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/detach_without_check(obj/item/gun/target_gun, mob/user)
-	user.balloon_alert(user, "модуль снят")
 	if(!do_after(user, 1 SECONDS, target_gun))
 		return FALSE
 	target_gun.attachments_by_slot[slot] = null
@@ -55,10 +55,13 @@
 	src.on_detach(target_gun, user)
 	user.put_in_hands(src)
 	gun = null
+	user.balloon_alert(user, "модуль снят")
 	return TRUE
 
 /obj/item/gun_module/proc/create_overlay()
-	return mutable_appearance(icon, overlay_state, layer = FLOAT_LAYER - 1)
+	if(!buffered_overlay)
+		buffered_overlay = mutable_appearance(icon, overlay_state, layer = FLOAT_LAYER - 1)
+	return buffered_overlay
 
 /obj/item/gun_module/proc/on_attach(obj/item/gun/target_gun, mob/user)
 	return
@@ -112,7 +115,7 @@
 
 /obj/item/gun_module/muzzle/compensator
 	name = "compensator"
-	desc = "Глушитель, совместимый с широким диапазоном огнестрельного оружия. Уменьшает дульную вспышку и отдачу, производимую при выстреле, тем самым повышая точность стрельбы."
+	desc = "Глушитель, совместимый с широким диапазоном огнестрельного оружия. Уменьшает дульную вспышку и отдачу, производимую при выстреле, тем самым немного повышая точность стрельбы."
 	ru_names = list(
 		NOMINATIVE = "универсальный компенсатор",
 		GENITIVE = "универсального компенсатора",
@@ -140,7 +143,7 @@
 	target_gun.accuracy.add_accuracy(bonus_accuracy)
 	if(!target_gun.accuracy.max_spread)
 		return
-	spread_decrease = initial(target_gun.accuracy.max_spread) * 0.30
+	spread_decrease = initial(target_gun.accuracy.max_spread) * 0.15
 	target_gun.accuracy.max_spread = target_gun.accuracy.max_spread - spread_decrease
 	initial_recoil = target_gun.recoil.strength
 	target_gun.recoil.strength = target_gun.recoil.strength * 0.2
@@ -165,9 +168,13 @@
 /obj/item/gun_module/rail/scope
 	/// 'zoom' distance
 	var/zoom_amount = 1
+	var/spread_decrease_mod = 0.50
+	var/movespeed_slowdown = 1.5
 	/// bonus accuracy for gun
 	var/bonus_accuracy = 0
 	var/old_zoom_amount
+	var/spread_decrease
+	var/movespeed_mod
 
 /obj/item/gun_module/rail/scope/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.zoomable = TRUE
@@ -184,11 +191,29 @@
 	target_gun.destroy_zooming()
 	UnregisterSignal(target_gun, COMSIG_GUN_ZOOM_TOGGLE)
 
-/obj/item/gun_module/rail/scope/proc/zoom_toogle()
+/obj/item/gun_module/rail/scope/proc/zoom_toogle(datum/source, mob/user)
 	if(gun.zoomed)
-		gun.accuracy.add_accuracy(bonus_accuracy)
+		on_enter_sight_mode(user)
 	else
-		gun.accuracy.add_accuracy(-bonus_accuracy)
+		on_leave_sight(user)
+
+/obj/item/gun_module/rail/scope/proc/on_enter_sight_mode(mob/user)
+	gun.accuracy.add_accuracy(bonus_accuracy)
+	spread_decrease = initial(gun.accuracy.max_spread) * spread_decrease_mod
+	gun.accuracy.max_spread = max(gun.accuracy.max_spread - spread_decrease, 0)
+	var/mob/living/carbon/human/human = user
+	if(istype(human))
+		movespeed_mod = new /datum/movespeed_modifier/sight_mode(slowdown = movespeed_slowdown)
+		human.add_movespeed_modifier(movespeed_mod)
+
+/obj/item/gun_module/rail/scope/proc/on_leave_sight(mob/user)
+	gun.accuracy.add_accuracy(-bonus_accuracy)
+	gun.accuracy.max_spread += spread_decrease
+	spread_decrease = 0
+	var/mob/living/carbon/human/human = user
+	if(istype(human) && movespeed_mod)
+		human.remove_movespeed_modifier(movespeed_mod)
+		movespeed_mod = null
 
 
 /obj/item/gun_module/rail/scope/collimator
@@ -209,6 +234,8 @@
 	class = GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 3
 	bonus_accuracy = 10
+	spread_decrease_mod = 0.30
+	movespeed_slowdown = 1.3
 
 
 /obj/item/gun_module/rail/scope/collimator/pistol
@@ -244,7 +271,9 @@
 	overlay_offset = list("x" = -5, "y" = 0)
 	class = GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 5
-	bonus_accuracy = 20
+	bonus_accuracy = 10
+	spread_decrease_mod = 0.40
+	movespeed_slowdown = 1.6
 
 /obj/item/gun_module/rail/scope/x8
 	name = "optical scope x8"
@@ -264,6 +293,8 @@
 	class = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 7
 	bonus_accuracy = 30
+	spread_decrease_mod = 0.50
+	movespeed_slowdown = 2
 
 /obj/item/gun_module/rail/scope/x16
 	name = "optical scope x16"
@@ -283,6 +314,8 @@
 	class = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 11
 	bonus_accuracy = 50
+	spread_decrease_mod = 0.75
+	movespeed_slowdown = 2.5
 
 
 /obj/item/gun_module/rail/hud
@@ -336,7 +369,7 @@
 
 /obj/item/gun_module/rail/hud/medical
 	name = "med hud scope"
-	desc = "Коллиматорный прицел с медицинским ИЛС, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами. Повышает удобство и точность стрельбы."
+	desc = "Коллиматорный прицел с медицинским ИЛС, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами."
 	ru_names = list(
 		NOMINATIVE = "коллиматор с медицинским ИЛС",
 		GENITIVE = "коллиматора с медицинским ИЛС",
@@ -355,7 +388,7 @@
 
 /obj/item/gun_module/rail/hud/security
 	name = "security hud scope"
-	desc = "Коллиматорный прицел с охранным ИЛС, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами. Повышает удобство и точность стрельбы."
+	desc = "Коллиматорный прицел с охранным ИЛС, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами."
 	ru_names = list(
 		NOMINATIVE = "коллиматор с охранным ИЛС",
 		GENITIVE = "коллиматора с охранным ИЛС",
@@ -380,6 +413,7 @@
 
 /obj/item/gun_module/under/flashlight
 	var/obj/item/flashlight/seclite/internal
+	var/buffered_overlay_on
 
 /obj/item/gun_module/under/flashlight/Initialize(mapload)
 	. = ..()
@@ -415,9 +449,11 @@
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/gun_module/under/flashlight/create_overlay()
-	if(internal.on)
-		return mutable_appearance(icon, overlay_state + "_on", layer = FLOAT_LAYER - 1)
-	return ..()
+	if(!internal.on)
+		return ..()
+	if(!buffered_overlay_on)
+		buffered_overlay_on = mutable_appearance(icon, overlay_state + "_on", layer = FLOAT_LAYER - 1)
+	return buffered_overlay_on
 
 /obj/item/gun_module/under/flashlight/pistol
 	name = "pistol underbarrel light"

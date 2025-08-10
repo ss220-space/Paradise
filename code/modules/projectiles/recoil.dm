@@ -42,7 +42,7 @@
 /obj/item/gun/proc/do_recoil(mob/living/user, atom/target)
 	if(!recoil || !recoil.strength)
 		return
-	if(gun.zoomed)
+	if(zoomed)
 		return // sights and recoil create visual bugs, disable recoil if we in sight mode.
 	var/shot_angle = get_angle(target, user)
 	var/rand_angle = (rand() - 0.5) * recoil.angle + shot_angle
