@@ -114,6 +114,8 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	icon_state = "heretic"
 	has_gravity = STANDARD_GRAVITY
 	//ambience_index = AMBIENCE_SPOOKY
+	base_lighting_alpha = 0
+	static_lighting = TRUE
 	sound_environment = SOUND_ENVIRONMENT_CAVE
 	area_flags = UNIQUE_AREA // | BLOCK_SUICIDE | NO_BOH
 
@@ -131,7 +133,8 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 /area/centcom/heretic_sacrifice/void
 	name = "Пустотные Врата Мансуса"
-	use_starlight = TRUE
+	base_lighting_color = COLOR_BLUE
+	base_lighting_alpha = 255
 	sound_environment = SOUND_ENVIRONMENT_UNDERWATER
 
 
@@ -160,7 +163,8 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 /area/centcom/heretic_sacrifice/blade
 	name = "Железные Врата Мансуса"
-	use_starlight = TRUE
+	base_lighting_color = COLOR_GREEN
+	base_lighting_alpha = 255
 	sound_environment = SOUND_ENVIRONMENT_ARENA
 
 
@@ -173,3 +177,130 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	name = "Немного другие Лунные Врата Мансуса"
 	has_gravity = NEGATIVE_GRAVITY
 	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC
+
+
+/obj/structure/moon
+	name = "символ правды и луны"
+	ru_names = list(
+		NOMINATIVE = "символ правды и луны",
+		GENITIVE = "символа правды и луны",
+		DATIVE = "символу правды и луны",
+		ACCUSATIVE = "символ правды и луны",
+		INSTRUMENTAL = "символом правды и луны",
+		PREPOSITIONAL = "символе правды и луны",
+	)
+	desc = "Раздробленный на несколько частей символ из неизвестного материала. \
+			Трещины складываются в жуткого вида улыбку, что наводит на мысль, \
+			что этот символ был разбит специально. Но подождите. Почему на моём лице нет трещин? \
+			Что-то не так. Что-то повлияло на мои мысли. Почему я забыл что на моём лице должны быть трещины?"
+	gender = MALE
+	icon = 'icons/obj/eretik_slabs.dmi'
+	icon_state = "moon1"
+	light_color = "#32c3f0"
+	light_range = 4
+
+
+/obj/structure/moon/examine(mob/living/user)
+	. = ..()
+	if(!istype(user))
+		return
+
+	user.AdjustHallucinate(10 SECONDS)
+	user.Confused(3 SECONDS)
+	user.AdjustDruggy(3 SECONDS)
+	if(!prob(30))
+		return
+
+	user.emote(pick("smile", "grin", "yawn", "laugh", "drool"))
+
+
+/obj/structure/moon/star
+	name = "звезда"
+	ru_names = list(
+		NOMINATIVE = "звезда",
+		GENITIVE = "звезды",
+		DATIVE = "звезде",
+		ACCUSATIVE = "звезду",
+		INSTRUMENTAL = "звездой",
+		PREPOSITIONAL = "звезде",
+	)
+	desc = "Символ из неизвестного материала в форме звезды с глазом в центре. \
+			Для чего он предназначен? Кто оставил его здесь? Откуда на моём лице улыбка? \
+			С каждым задаваемым про себя вопросом ваши мысли путаются всё сильнее."
+	gender = FEMALE
+	icon_state = "star"
+	light_range = 3
+	light_power = 3
+
+
+/obj/structure/moon/stars
+	name = "звёзды"
+	ru_names = list(
+		NOMINATIVE = "звёзды",
+		GENITIVE = "звёзд",
+		DATIVE = "звёздам",
+		ACCUSATIVE = "звёзды",
+		INSTRUMENTAL = "звёздами",
+		PREPOSITIONAL = "звёздах",
+	)
+	desc = "Три символа из неизвестного материала в форме звёзд. Почему на них нет глаз? \
+			У звёзд должны быть глаза. У луны должна быть улыбка. Нам лгут. Из-за этого \
+			никто не хочет участвовать в параде."
+	gender = PLURAL
+	icon_state = "stars"
+	light_range = 2
+	light_power = 3
+
+
+/obj/structure/orb
+	name = "жуткая сфера"
+	ru_names = list(
+		NOMINATIVE = "жуткая сфера",
+		GENITIVE = "жуткой сферы",
+		DATIVE = "жуткой сфере",
+		ACCUSATIVE = "жуткую сферу",
+		INSTRUMENTAL = "жуткой сферой",
+		PREPOSITIONAL = "жуткой сфере",
+	)
+	desc = "Жуткая, покрытая трещинами, сфера, состоящая из затвердевшей плоти неизвестного существа. \
+			Щупальца растущие из неё уходят в пол, если это жуткое месиво вообще можно так назвать."
+	gender = FEMALE
+	plane = BELOW_GAME_PLANE
+	icon = 'icons/obj/eretik_slabs64x64x.dmi'
+	icon_state = "light_orb"
+	light_color = "#d48d42"
+	light_range = 10
+	light_power = 3
+
+
+/obj/structure/punji_sticks/bone
+	name = "костяной шип"
+	ru_names = list(
+		NOMINATIVE = "костяной шип",
+		GENITIVE = "костяного шипа",
+		DATIVE = "костяному шипу",
+		ACCUSATIVE = "костяной шип",
+		INSTRUMENTAL = "костяным шипом",
+		PREPOSITIONAL = "костяном шипе",
+	)
+	desc = "Костяной шип ростущий из кучи плоти. Большая часть его поверхности покрыта застывшей кровью, \
+			но остриё по какой-то причине чисто."
+	gender = MALE
+	icon = 'icons/obj/eretik_slabs.dmi'
+	icon_state = "bone"
+
+
+/obj/structure/punji_sticks/spike
+	name = "шипы"
+	ru_names = list(
+		NOMINATIVE = "шипы",
+		GENITIVE = "шипов",
+		DATIVE = "шипам",
+		ACCUSATIVE = "шипы",
+		INSTRUMENTAL = "шипами",
+		PREPOSITIONAL = "шипах",
+	)
+	desc = "Каменные шипы странной формы торчащие откуда-то из под земли."
+	gender = PLURAL
+	icon = 'icons/obj/eretik_slabs.dmi'
+	icon_state = "spike"

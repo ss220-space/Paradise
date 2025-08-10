@@ -413,7 +413,7 @@
 	curse_organs(sac_target)
 
 	// Send 'em to the destination. If the teleport fails, just disembowel them and stop the chain
-	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg'))
+	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', bypass_area_flag = TRUE))
 		disembowel_target(sac_target)
 		return
 
@@ -451,7 +451,7 @@
 		var/obj/item/organ/to_give = new organ_path
 		to_give.safe_replace(sac_target)
 
-	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target), sac_target)
+	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target), sac_target.dna)
 	sac_target.visible_message(span_boldwarning("Несколько органов вылетают из тела [sac_target.declent_ru(GENITIVE)] направляемые таинственной силой!"))
 
 /**
@@ -474,13 +474,14 @@
 	sac_target.apply_necropolis_curse(CURSE_BLINDING | CURSE_GRASPING)
 
 	sac_target.flash_eyes()
+	sac_target.SetSleeping(0 SECONDS)
 	sac_target.EyeBlurry(30 SECONDS)
 	sac_target.Jitter(20 SECONDS)
 	sac_target.Dizzy(20 SECONDS)
 	sac_target.Hallucinate(24 SECONDS)
 	sac_target.emote("scream")
 
-	to_chat(sac_target, span_reallybig(span_purple("Прикосновение Мансус открывается вам!")))
+	//to_chat(sac_target, span_reallybig(span_purple("Прикосновение Мансус открывается вам!")))
 	to_chat(sac_target, span_purple("Вы чувствуете прилив сил! Боритесь чтобывыжить!"))
 	// When it runs out, let them know they're almost home free
 	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
@@ -790,6 +791,15 @@
 
 /obj/projectile/curse_hand
 	name = "проклятая рука"
+	ru_names = list(
+		NOMINATIVE = "проклятая рука",
+		GENITIVE = "проклятой руки",
+		DATIVE = "проклятой руке",
+		ACCUSATIVE = "проклятую руку",
+		INSTRUMENTAL = "проклятой рукой",
+		PREPOSITIONAL = "проклятой руке",
+	)
+	gender = FEMALE
 	icon_state = "cursehand0"
 	base_icon_state = "cursehand"
 	hitsound = 'sound/effects/curse/curse4.ogg'
@@ -799,6 +809,8 @@
 	paralyze = 20
 	speed = 0.5
 	range = 16
+	hit_crawling_mobs_chance = 100
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	var/datum/beam/arm
 	var/handedness = 0
 
@@ -870,13 +882,11 @@
 
 
 /obj/projectile/curse_hand/hel //Used in helbital's impure reagent
-	name = "Прикосновение Хела"
-	damage = 5
+	damage = 10
 	paralyze = 0 //Lets not stun people!
 	speed = 1
 	range = 20
 	color = "#ff7e7e"//Tint it slightly
-
 
 
 /obj/effect/temp_visual/dir_setting/curse

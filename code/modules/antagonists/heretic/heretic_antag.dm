@@ -776,6 +776,29 @@
 
 	knowledge_points += change_num
 
+
+/**
+ * Admin proc for easily adding new sac target.
+ */
+/datum/antagonist/heretic/proc/add_sac_target(admin)
+	var/list/targets = list()
+	for(var/client/client as anything in GLOB.clients)
+		var/mob/mob = client.mob
+		if(!ishuman(mob))
+			continue
+
+		targets[mob.real_name] = mob
+
+	var/target = tgui_input_list(admin, "Выберите новую жертву.", "Добавление жертвы", targets)
+	if(!target)
+		return
+
+	if(!ishuman(targets[target]))
+		to_chat(admin, span_notice("Выбранная цель больше не человек."))
+		return
+
+	add_sacrifice_target(targets[target])
+
 /**
  * Admin proc for giving a heretic a focus.
  */

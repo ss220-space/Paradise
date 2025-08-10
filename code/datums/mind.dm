@@ -520,8 +520,9 @@
 	var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
 	if(heretic_datum)
 		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
-		. += "<a href='byond://?src=[UID()];heretic=add_knowledge_points'>добавить очки ([heretic_datum.knowledge_points])</a>"
-		. += "<a href='byond://?src=[UID()];heretic=add_all_knowledges'>дать все знания</a>"
+		. += "<br><a href='byond://?src=[UID()];heretic=add_knowledge_points'>добавить очки ([heretic_datum.knowledge_points])</a>"
+		. += "<br><a href='byond://?src=[UID()];heretic=add_all_knowledges'>дать все знания</a>"
+		. += "<br><a href='byond://?src=[UID()];heretic=add_sac_target'>добавить жертву</a>"
 		if(!length(heretic_datum.objectives))
 			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];heretic=autoobjectives'>Randomize!</a>"
 
@@ -1970,6 +1971,10 @@
 			if("add_knowledge_points")
 				var/datum/antagonist/heretic/heretic = has_antag_datum(/datum/antagonist/heretic)
 				heretic?.admin_change_points(usr)
+
+			if("add_sac_target")
+				var/datum/antagonist/heretic/heretic = has_antag_datum(/datum/antagonist/heretic)
+				heretic?.add_sac_target(usr)
 
 			if("add_all_knowledges")
 				var/datum/antagonist/heretic/heretic = has_antag_datum(/datum/antagonist/heretic)

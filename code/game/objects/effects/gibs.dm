@@ -91,8 +91,5 @@
 
 
 /obj/effect/gibspawner/human/bodypartless/Initialize(mapload)
-	if(gibdirections.len)
-		return ..()
-
 	gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST), list(SOUTH, SOUTHEAST, SOUTHWEST), list(WEST, NORTHWEST, SOUTHWEST), list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, list())
 	return ..()

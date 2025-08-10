@@ -462,6 +462,35 @@ Returns 1 if the chain up to the area contains the given typepath
 	return locate(x,y,target_atom.z)
 
 
+/proc/get_freeway_ranged_target_turf(atom/target_atom, direction, range, min_range = 0)
+	var/result_loc = get_turf(target_atom)
+	for(var/moved_len = 0; moved_len < range; moved_len++)
+		var/turf/turf = get_ranged_target_turf(target_atom, direction, moved_len + 1)
+
+		var/blocked = iswallturf(turf)
+		var/checked = 0
+		for(var/obj/obj in turf)
+			if(checked++ > 20)
+				break
+
+			if(!obj.density)
+				continue
+
+			blocked = TRUE
+			break
+
+		if(!blocked)
+			result_loc = turf
+			continue
+
+		if(moved_len < min_range)
+			return
+		else
+			break
+
+	return result_loc
+
+
 // returns turf relative to A offset in dx and dy tiles
 // bound to map limits
 /proc/get_offset_target_turf(var/atom/A, var/dx, var/dy)
@@ -900,10 +929,10 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 /proc/is_sharp(obj/item/item)
 	if(!istype(item))
 		return FALSE
-    
+
 	if(item.sharp)
 		return TRUE
-    
+
 	return FALSE
 
 

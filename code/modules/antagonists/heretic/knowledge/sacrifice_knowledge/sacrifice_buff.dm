@@ -46,7 +46,7 @@
 		healing_amount *= 2
 
 	// ...But reach hardcrit and you're done. You now die faster.
-	if (owner.health < HEALTH_THRESHOLD_DEAD)
+	if(owner.health < HEALTH_THRESHOLD_DEAD)
 		if(prob(5))
 			to_chat(owner, span_big(span_purple("Вы долго не протяните...")))
 
@@ -129,16 +129,23 @@
 /// Torment the target with a frightening hand
 /proc/fire_curse_hand(mob/living/carbon/victim, turf/forced_turf, range = 8, projectile_type = /obj/projectile/curse_hand/hel)
 	var/grab_dir = turn(victim.dir, pick(-90, 90, 180, 180)) // Not in front, favour behind
-	var/turf/spawn_turf = get_ranged_target_turf(victim, grab_dir, range)
+	var/turf/spawn_turf = get_freeway_ranged_target_turf(victim, grab_dir, range, 2)
+	for(var/dir as anything in GLOB.cardinal)
+		if(spawn_turf)
+			break
+
+		spawn_turf = get_freeway_ranged_target_turf(victim, dir, range, 2)
+
 	spawn_turf = forced_turf ? forced_turf : spawn_turf
-	if (isnull(spawn_turf))
+	if(isnull(spawn_turf))
 		return
 
 	new /obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, victim.dir)
 	playsound(spawn_turf, 'sound/effects/curse/curse2.ogg', 80, TRUE, -1)
 	var/obj/projectile/hand = new projectile_type(spawn_turf)
+	hand.speed *= 4 / victim.cached_multiplicative_slowdown // Low hp won't be 100% death.
 	hand.preparePixelProjectile(victim, victim, spawn_turf)
-	if (QDELETED(hand)) // safety check if above fails - above has a stack trace if it does fail
+	if(QDELETED(hand)) // safety check if above fails - above has a stack trace if it does fail
 		return
 
 	hand.fire()

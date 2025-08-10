@@ -1501,7 +1501,7 @@
 //Inverse:
 /datum/reagent/inverse/helgrasp
 	name = "Helgrasp"
-	description = "This rare and forbidden concoction is thought to bring you closer to the grasp of the Norse goddess Hel."
+	description = "Считается, что этот редкий и запрещенный напиток поможет вам приблизиться к скандинавской богине Хель."
 	metabolization_rate = 1*REM //This is fast
 	//tox_damage = 0.25
 	//ph = 14
@@ -1510,11 +1510,13 @@
 	//Keeps track of the hand timer so we can cleanup on removal
 	var/list/timer_ids
 
+
 //Warns you about the impenting hands
 /datum/reagent/inverse/helgrasp/on_mob_add(mob/living/affected_mob, amount)
 	. = ..()
-	to_chat(affected_mob, span_hierophant("You hear laughter as malevolent hands apparate before you, eager to drag you down to hell...! Look out!"))
+	to_chat(affected_mob, span_hierophant("Вы слышите смех, когда перед вами появляются жуткие руки, жаждущие утащить вас в ад!.. Берегитесь!"))
 	playsound(affected_mob.loc, 'sound/effects/ahaha.ogg', 80, TRUE, -1) //Very obvious tell so people can be ready
+
 
 //Sends hands after you for your hubris
 /*
@@ -1538,16 +1540,21 @@ Basically, we fill the time between now and 2s from now with hands based off the
 		lag_remainder -= 1
 
 	var/hands = 1
+	if(!seconds_per_tick)
+		return
+
 	var/time = 2 / seconds_per_tick
 	while(hands < seconds_per_tick) //we already made a hand now so start from 1
 		LAZYADD(timer_ids, addtimer(CALLBACK(src, PROC_REF(spawn_hands), affected_mob), (time*hands) SECONDS, TIMER_STOPPABLE)) //keep track of all the timers we set up
 		hands += time
+
 
 /datum/reagent/inverse/helgrasp/proc/spawn_hands(mob/living/carbon/affected_mob)
 	if(!affected_mob && iscarbon(holder.my_atom))//Catch timer
 		affected_mob = holder.my_atom
 
 	fire_curse_hand(affected_mob)
+
 
 //At the end, we clear up any loose hanging timers just in case and spawn any remaining lag_remaining hands all at once.
 /datum/reagent/inverse/helgrasp/on_mob_delete(mob/living/affected_mob)
@@ -1556,12 +1563,15 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	while(lag_remainder > hands)
 		spawn_hands(affected_mob)
 		hands++
+
 	for(var/id in timer_ids) // So that we can be certain that all timers are deleted at the end.
 		deltimer(id)
-	timer_ids.Cut()
+
+	timer_ids?.Cut()
+
 
 /datum/reagent/inverse/helgrasp/heretic
-	name = "Grasp of the Mansus"
-	description = "The Hand of the Mansus is at your neck."
+	name = "Прикосновение Мансуса"
+	description = "Чья-та рука у вашего горла..."
 	metabolization_rate = 1 * REM
 	//tox_damage = 0

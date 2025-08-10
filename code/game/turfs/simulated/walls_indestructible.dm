@@ -280,3 +280,22 @@
 /turf/simulated/wall/indestructible/invisible/view_portal
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	always_lit = TRUE
+
+
+/turf/simulated/wall/indestructible/flesh
+	name = "плоть"
+	ru_names = list(
+		NOMINATIVE = "плоть",
+		GENITIVE = "плоти",
+		DATIVE = "плоти",
+		ACCUSATIVE = "плоть",
+		INSTRUMENTAL = "плотью",
+		PREPOSITIONAL = "плоти",
+	)
+	desc = "Жуткая груда плоти, вероятно всё ещё являющаяся частью какого-то гигантского живого существа. \
+			Но... раз вы её видите... вы внутри?"
+	gender = FEMALE
+	icon = 'icons/turf/walls/flesh.dmi'
+	icon_state = "flesh_wall-0"
+	base_icon_state = "flesh"
+	smooth = NONE

@@ -342,3 +342,39 @@
 
 /turf/simulated/floor/indestructible/view_portal/dense
 	density = TRUE
+
+
+/turf/simulated/floor/indestructible/flesh
+	name = "плоть"
+	ru_names = list(
+		NOMINATIVE = "плоть",
+		GENITIVE = "плоти",
+		DATIVE = "плоти",
+		ACCUSATIVE = "плоть",
+		INSTRUMENTAL = "плотью",
+		PREPOSITIONAL = "плоти",
+	)
+	desc = "Жуткая груда плоти, вероятно всё ещё являющаяся частью какого-то гигантского живого существа. \
+			Но... раз вы её видите... вы внутри?"
+	gender = FEMALE
+	icon = 'icons/turf/floors/flesh_floor.dmi'
+	icon_state = "flesh"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+
+/turf/simulated/floor/indestructible/flesh/Initialize(mapload)
+	. = ..()			//adds some aesthetic randomness to the beach sand
+	icon_state = pick("flesh", "flesh0", "flesh1", "flesh2")
+
+
+/turf/simulated/floor/indestructible/water
+	name = "water"
+	icon = 'icons/misc/beach.dmi'
+	icon_state = "d_seadeep"
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
