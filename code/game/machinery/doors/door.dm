@@ -523,7 +523,7 @@
 	if(!stat) //Opens only powered doors.
 		open() //Open everything!
 
-/obj/machinery/door/ex_act(severity)
+/obj/machinery/door/ex_act(severity, target)
 	//if it blows up a wall it should blow up a door
 	return ..(severity ? min(EXPLODE_DEVASTATE, severity + 1) : EXPLODE_NONE, target)
 
