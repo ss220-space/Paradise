@@ -12,7 +12,7 @@
 	for(var/i = 1 to max(2, rand(tier * 2, tier * 3)))
 		addtimer(CALLBACK(src, PROC_REF(collapse_throws), 0.2 SECONDS))
 
-	explosion(loc, max(-1, tier - 2), max(-1, tier - 1), max(-1, tier), tier + 2)
+	explosion(loc, devastation_range = max(-1, tier - 2), heavy_impact_range = max(-1, tier - 1), light_impact_range = max(-1, tier), flash_range = (tier + 2))
 	. = ..()
 
 /obj/effect/anomaly/gravitational/proc/collapse_throws()

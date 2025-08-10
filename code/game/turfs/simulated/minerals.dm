@@ -1004,9 +1004,9 @@
 		visible_message(span_danger("There was gibtonite inside! It's going to explode!"))
 		var/turf/bombturf = get_turf(src)
 
-		var/notify_admins = 0
+		var/notify_admins = FALSE
 		if(!is_mining_level(z))
-			notify_admins = 1
+			notify_admins = TRUE
 			if(!triggered_by_explosion)
 				message_admins("[key_name_admin(user)] has triggered a gibtonite deposit reaction at [ADMIN_VERBOSEJMP(bombturf)].")
 			else
@@ -1019,7 +1019,7 @@
 
 		countdown(notify_admins)
 
-/turf/simulated/mineral/gibtonite/proc/countdown(notify_admins = 0)
+/turf/simulated/mineral/gibtonite/proc/countdown(notify_admins = FALSE)
 	set waitfor = 0
 	while(istype(src, /turf/simulated/mineral/gibtonite) && stage == GIBTONITE_ACTIVE && det_time > 0 && mineralAmt >= 1)
 		det_time--
@@ -1029,7 +1029,7 @@
 			var/turf/bombturf = get_turf(src)
 			mineralAmt = 0
 			stage = GIBTONITE_DETONATE
-			explosion(bombturf, 1, 3, 5, adminlog = notify_admins, cause = src)
+			explosion(bombturf, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 5, adminlog = notify_admins, cause = src)
 
 /turf/simulated/mineral/gibtonite/proc/defuse()
 	if(stage == GIBTONITE_ACTIVE)
@@ -1051,7 +1051,7 @@
 		var/turf/bombturf = get_turf(src)
 		mineralAmt = 0
 		stage = GIBTONITE_DETONATE
-		explosion(bombturf,1,2,5, adminlog = 0)
+		explosion(bombturf, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 5, adminlog = TRUE, cause = src)
 	if(stage == GIBTONITE_STABLE) //Gibtonite deposit is now benign and extractable. Depending on how close you were to it blowing up before defusing, you get better quality ore.
 		var/obj/item/twohanded/required/gibtonite/gibtonite = new(src)
 		if(det_time <= 0)

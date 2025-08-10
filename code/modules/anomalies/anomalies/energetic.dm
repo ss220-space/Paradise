@@ -39,10 +39,10 @@
 	for(var/i = 1 to rand(collapse_jumps_low, collapse_jumps_high))
 		jump_to_machinery(collapse_shock_damage * 2)
 		do_shock_ex(collapse_shock_range, collapse_shock_damage, TRUE)
-		explosion(loc, -1, -1, -1, tier)
+		explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = -1, flash_range = tier)
 		sleep(0.2 SECONDS)
 
-	explosion(loc, max(-1, tier - 2), max(-1, tier - 1), max(-1, tier), tier + 2)
+	explosion(loc, devastation_range = max(-1, tier - 2), heavy_impact_range = max(-1, tier - 1), light_impact_range = max(-1, tier), flash_range = (tier + 2))
 	if(tier < 3)
 		QDEL_LIST(eballs)
 		return ..()
@@ -352,4 +352,4 @@
 
 /obj/effect/anomaly/energetic/tier4/do_move(dir)
 	. = ..()
-	explosion(get_turf(src), -1, 1, 2, cause = "tier4 energetic anomaly move", adminlog = FALSE)
+	explosion(get_turf(src), devastation_range = -1, heavy_impact_range = 1, light_impact_range = 2, cause = "tier4 energetic anomaly move", adminlog = FALSE)

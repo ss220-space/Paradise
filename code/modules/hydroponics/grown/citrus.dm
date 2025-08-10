@@ -140,23 +140,23 @@
 	switch(seed.potency) //Combustible lemons are alot like IEDs, lots of flame, very little bang.
 		if(0 to 30)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 1, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 1, cause = src)
 			qdel(src)
 		if(31 to 50)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 2, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 2, cause = src)
 			qdel(src)
 		if(51 to 70)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 3, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 3, cause = src)
 			qdel(src)
 		if(71 to 90)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 4, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 4, cause = src)
 			qdel(src)
 		else
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 5, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 5, cause = src)
 			qdel(src)
 
 //3D Orange

@@ -491,7 +491,7 @@ Difficulty: Very Hard
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
-	explosion(get_turf(src), -1, 7, 15, 20)
+	explosion(get_turf(src), devastation_range = -1, heavy_impact_range = 7, light_impact_range = 15, flash_range = 20)
 	health = 0
 	death(allowed = TRUE)
 

@@ -173,7 +173,6 @@
 	if(light_impact_range == 0)
 		corrupt()
 		return
-	//explosion(T, 0, 1, 2, 2)
 	log_admin("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 	message_admins("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 	rigged = FALSE

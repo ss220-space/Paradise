@@ -1614,10 +1614,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(mmi)
 			qdel(mmi)
 
-		explosion(src.loc,1,2,4,flame_range = 2, cause = src)
+		explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 2, cause = src)
 
 	else
-		explosion(src.loc,-1,0,2, cause = src)
+		explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 
 	gib()
 	return

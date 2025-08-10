@@ -221,7 +221,7 @@
 			L.adjust_fire_stacks(3)
 			L.IgniteMob()
 			if(L.getFireLoss() > 50)
-				explosion(L.loc, 0, 0, 0, 0, flame_range = 3)
+				explosion(L.loc, adminlog = FALSE, flame_range = 3)
 				L.AdjustWeakened(1 SECONDS)
 
 /obj/projectile/temp/basilisk/icewing

@@ -166,7 +166,7 @@
 	addtimer(CALLBACK(src, PROC_REF(meteor_explosion), affected_turf), meteor.duration)
 
 /datum/weather/hell/proc/meteor_explosion(turf/affected_turf)
-	explosion(affected_turf, 0, 0, 3, 5, FALSE, FALSE)
+	explosion(affected_turf, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, flash_range = 5, adminlog = FALSE, ignorecap = FALSE)
 	flame_radius(3, affected_turf, 5 SECONDS, BURN_LEVEL_TIER_6, FLAMESHAPE_STAR)
 
 /datum/weather/hell/end()

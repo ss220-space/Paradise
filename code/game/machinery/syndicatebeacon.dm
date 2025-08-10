@@ -105,7 +105,8 @@
 
 /obj/machinery/syndicate_beacon/proc/selfdestruct()
 	selfdestructing = 1
-	spawn() explosion(src.loc, rand(3,8), rand(1,3), 1, 10)
+	spawn()
+	explosion(loc, devastation_range = rand(3, 8), heavy_impact_range = rand(1, 3), light_impact_range = 1, flash_range = 10)
 
 
 

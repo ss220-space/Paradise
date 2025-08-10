@@ -443,7 +443,7 @@
 			smoke.set_up(amount = 3, location = src.loc)
 			smoke.attach(src)
 			smoke.start()
-			explosion(src.loc, -1, 0, 1, 3, 1, 0, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 1, flash_range = 3, adminlog = TRUE, ignorecap = FALSE, cause = src)
 			qdel(src)
 			return
 		if(prob(15)) //Power drain

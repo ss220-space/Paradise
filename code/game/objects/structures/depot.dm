@@ -115,7 +115,7 @@
 		M.gib()
 	for(var/obj/mecha/E in range(30, T))
 		E.take_damage(E.max_integrity)
-	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0)
+	explosion(get_turf(src), devastation_range = 25, heavy_impact_range = 35, light_impact_range = 45, flash_range = 55, adminlog = TRUE, ignorecap = TRUE, silent = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 

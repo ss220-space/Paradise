@@ -149,7 +149,7 @@ SUBSYSTEM_DEF(explosions)
  * - silent: Whether to generate/execute sound effects.
  * - smoke: Whether to generate a smoke cloud provided the explosion is powerful enough to warrant it.
  * - cause: [Optional] The turf that caused the explosion, when different to the origin. Used for logging.
- * - breach: ...
+ * - breach: ... (Is it possible that this is a hole formation and the value is Boolean? -- LittleBoobs)
  * - protect_epicenter: Whether to leave the epicenter turf unaffected by the explosion
  * - explosion_direction: The angle in which the explosion is pointed (for directional explosions.)
  * - explosion_arc: The angle of the arc covered by a directional explosion (if 360 the explosion is non-directional.)
@@ -320,10 +320,10 @@ SUBSYSTEM_DEF(explosions)
 			continue
 		if(istype(array, /obj/machinery/doppler_array))
 			var/obj/machinery/doppler_array/doppler_array = array
-			doppler_array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
+			doppler_array.sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 		if(istype(array, /obj/item/clothing/head/helmet/space/hardsuit/rd))
 			var/obj/item/clothing/head/helmet/space/hardsuit/rd/helm_array = array
-			helm_array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
+			helm_array.sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 
 // Explosion SFX defines...
 /// The probability that a quaking explosion will make the station creak per unit. Maths!
