@@ -185,6 +185,3 @@
 	icon_state = "creatine"
 	item_state = "creatine"
 	list_reagents = list("kreatin" = 10)
-
-// поменять. Хз что это. Явно не бутылочка.
-

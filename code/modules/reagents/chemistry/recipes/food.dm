@@ -212,3 +212,75 @@
 	min_temp = T0C + 480
 	mix_message = "The mixture emits a horrible smell as you heat up the contents. Luckily, enzymes don't stink."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
+
+
+/datum/chemical_reaction/protein_bananastrawwberry_water
+	name = "Разбавление протеина (Банан и клубника)"
+	id = "protein_bananastrawwberry_water"
+	result = "protein_bananastrawwberry_cocktail"
+	required_reagents = list("protein_bananastrawwberry" = 1, "water" = 4)
+	result_amount = 5
+
+
+/datum/chemical_reaction/protein_bananastrawwberry_milk
+	name = "Разбавление протеина (Банан и клубника)"
+	id = "protein_bananastrawwberry_milk"
+	result = "protein_bananastrawwberry_cocktail"
+	required_reagents = list("protein_bananastrawwberry" = 1, "milk" = 4)
+	result_amount = 5
+
+
+/datum/chemical_reaction/protein_chocolate_water
+	name = "Разбавление протеина (Шоколад)"
+	id = "protein_chocolate_water"
+	result = "protein_chocolate_cocktail"
+	required_reagents = list("protein_chocolate" = 1, "water" = 4)
+	result_amount = 5
+
+
+/datum/chemical_reaction/protein_chocolate_milk
+	name = "Разбавление протеина (Шоколад)"
+	id = "protein_chocolate_milk"
+	result = "protein_chocolate_cocktail"
+	required_reagents = list("protein_chocolate" = 1, "milk" = 4)
+	result_amount = 5
+
+
+/datum/chemical_reaction/protein_cherry_water
+	name = "Разбавление протеина (Вишня)"
+	id = "protein_cherry_water"
+	result = "protein_cherry_cocktail"
+	required_reagents = list("protein_cherry" = 1, "water" = 4)
+	result_amount = 5
+
+
+/datum/chemical_reaction/protein_cherry_milk
+	name = "Разбавление протеина (Вишня)"
+	id = "protein_cherry_milk"
+	result = "protein_cherry_cocktail"
+	required_reagents = list("protein_cherry" = 1, "milk" = 4)
+	result_amount = 5
+
+
+/datum/chemical_reaction/protein_zaza_water
+	name = "Разбавление протеина (Заза)"
+	id = "protein_zaza_water"
+	result = "protein_zaza_cocktail"
+	required_reagents = list("protein_zaza" = 1, "water" = 4)
+	result_amount = 5
+
+
+/datum/chemical_reaction/protein_zaza_milk
+	name = "Разбавление протеина (Заза)"
+	id = "protein_zaza_milk"
+	result = "protein_zaza_cocktail"
+	required_reagents = list("protein_zaza" = 1, "milk" = 4)
+	result_amount = 5
+
+
+/datum/chemical_reaction/kreatin_water
+	name = "Разбавление креатина"
+	id = "kreatin_water"
+	result = "kreatin_liquid"
+	required_reagents = list("kreatin" = 3, "water" = 2)
+	result_amount = 5
