@@ -160,6 +160,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
 	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
 
 /obj/item/gun/projectile/automatic/wt550/ComponentInitialize()
 	AddComponent( \
@@ -193,6 +194,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
 	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
 
 /obj/item/gun/projectile/automatic/sp91rc/ComponentInitialize()
 	AddComponent( \
@@ -226,6 +228,7 @@ TODO Use this name and desc for localisation*/
 	)
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/mini_uzi/ComponentInitialize()
 	AddComponent( \
