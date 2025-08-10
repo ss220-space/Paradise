@@ -165,7 +165,7 @@
 
 	language = LANGUAGE_UNATHI
 	default_language = LANGUAGE_UNATHI
-
+	brute_mod = 0.9
 	speed_mod = -0.50
 
 	inherent_traits = list(
