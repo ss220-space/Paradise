@@ -94,74 +94,33 @@
 	id = "protein"
 	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных."
 	diet_flags = DIET_CARN | DIET_OMNI
-	var/no_effect = 180 SECONDS
-	var/effect = 210 SECONDS
-	var/bad_effect = 300 SECONDS
-
-
-/datum/reagent/consumable/nutriment/protein/bananastrawwberry
-	name = "Протеин (Банан и клубника)"
-	id = "protein_bananastrawwberry"
-	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
-					Содержит пищевую добавку со вкусом банана с клубникой."
-	taste_description = "банана с клубникой"
 	reagent_state = SOLID
-	color = "#ff4400"
+	var/status_effect_type = /datum/status_effect/sport_reagents/protein
 
 
-/datum/reagent/consumable/nutriment/protein/bananastrawwberry/cocktail
-	name = "Протеиновый коктейль (Банан и клубника)"
-	id = "protein_bananastrawwberry_cocktail"
+/datum/reagent/consumable/nutriment/protein/on_mob_add(mob/living/user)
+	. = ..()
+	user.apply_status_effect(status_effect_type)
+
+
+/datum/reagent/consumable/nutriment/protein/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_status_effect(status_effect_type)
+
+
+/datum/reagent/consumable/nutriment/protein/liquid
+	name = "Разбавленный протеин"
+	id = "protein_liquid"
 	reagent_state = LIQUID
+	nutriment_factor = 15 * REAGENTS_METABOLISM / 4
+	metabolization_rate = REAGENTS_METABOLISM / 4
+	status_effect_type = /datum/status_effect/sport_reagents/protein/water
 
 
-/datum/reagent/consumable/nutriment/protein/chocolate
-	name = "Протеин (Шоколад)"
-	id = "protein_chocolate"
-	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
-					Содержит пищевую добавку со вкусом шоколада."
-	taste_description = "шоколада"
-	reagent_state = SOLID
-	reagent_state = LIQUID
-	color = "#8e2600"
-
-
-/datum/reagent/consumable/nutriment/protein/chocolate/cocktail
-	name = "Протеиновый коктейль (Шоколад)"
-	id = "protein_chocolate_cocktail"
-	reagent_state = LIQUID
-
-
-/datum/reagent/consumable/nutriment/protein/cherry
-	name = "Протеин (Вишня)"
-	id = "protein_cherry"
-	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
-					Содержит пищевую добавку со вкусом вишни."
-	taste_description = "вишни"
-	reagent_state = SOLID
-	color = "#ff0088"
-
-
-/datum/reagent/consumable/nutriment/protein/cherry/cocktail
-	name = "Протеиновый коктейль (Вишня)"
-	id = "protein_cherry_cocktail"
-	reagent_state = LIQUID
-
-
-/datum/reagent/consumable/nutriment/protein/zaza
-	name = "Протеин (Заза)"
-	id = "protein_zaza"
-	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных. \
-					Содержит пищевую добавку со вкусом зазы."
-	taste_description = "зазы"
-	reagent_state = SOLID
-	color = "#ff0000"
-
-
-/datum/reagent/consumable/nutriment/protein/zaza/cocktail
-	name = "Протеиновый коктейль (Заза)"
-	id = "protein_zaza_cocktail"
-	reagent_state = LIQUID
+/datum/reagent/consumable/nutriment/protein/liquid/milk
+	name = "Разбавленный протеин на молоке"
+	id = "protein_liquid_milk"
+	status_effect_type = /datum/status_effect/sport_reagents/protein/milk
 
 
 /datum/reagent/consumable/sugar

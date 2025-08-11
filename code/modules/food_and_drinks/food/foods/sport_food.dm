@@ -80,7 +80,6 @@
 	item_state = "protein_zaza"
 	volume = 80
 	foodtype = GROSS
-	container_type = NONE
 	list_reagents = list("protein" = 80)
 
 
@@ -98,7 +97,7 @@
 			На самом деле не отличается от банки протеина со вкусом вишни ничем кроме изображения на этикетке."
 	icon_state = "protein_zaza"
 	item_state = "protein_zaza"
-	list_reagents = list("protein_zaza" = 80)
+	list_reagents = list("protein" = 70, "zaza" = 10)
 
 
 /obj/item/reagent_containers/food/drinks/protein/cherry
@@ -115,7 +114,7 @@
 			На самом деле не отличается от банки протеина со вкусом Зазы ничем кроме изображения на этикетке."
 	icon_state = "protein_cherry"
 	item_state = "protein_cherry"
-	list_reagents = list("protein_cherry" = 80)
+	list_reagents = list("protein" = 70, "cherryshake" = 10)
 
 
 /obj/item/reagent_containers/food/drinks/protein/chocolate
@@ -132,11 +131,11 @@
 			Единственный вкус протеинового порошка не вызывающий отвращения при потреблении в неразбавленном виде."
 	icon_state = "protein_chocolate"
 	item_state = "protein_chocolate"
-	list_reagents = list("protein_chocolate" = 80)
+	list_reagents = list("protein" = 70, "chocolate" = 10)
 	foodtype = SUGAR
 
 
-/obj/item/reagent_containers/food/drinks/protein/bananastrawwberry
+/obj/item/reagent_containers/food/drinks/protein/bananastrawberry
 	name = "банка протеина (Банан и клубника)"
 	ru_names = list(
 		NOMINATIVE = "банка протеина (Банан и клубника)",
@@ -148,9 +147,9 @@
 	)
 	desc = "Банка наполненная протеиновым порошком со вкусом банана и клубники. \
 			До ребрендинга вместо банана и клубники была просто клубника."
-	icon_state = "protein_bananastrawwberry"
-	item_state = "protein_bananastrawwberry"
-	list_reagents = list("protein_bananastrawwberry" = 80)
+	icon_state = "protein_bananastrawberry"
+	item_state = "protein_bananastrawberry"
+	list_reagents = list("protein" = 70, "banana" = 5, "strawwberry" = 5)
 
 
 /obj/item/reagent_containers/food/drinks/guarana
@@ -184,4 +183,4 @@
 			На этикетке нарисована малина, не смотря на то, что в составе нет ничего связанного с ней."
 	icon_state = "creatine"
 	item_state = "creatine"
-	list_reagents = list("kreatin" = 10)
+	list_reagents = list("creatine" = 10)
