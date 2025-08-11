@@ -30,6 +30,10 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	invisibility = INVISIBILITY_OBSERVER
 	var/mob/living/carbon/target = null
 
+/obj/effect/hallucination/Destroy(force)
+	target = null
+	. = ..()
+
 /obj/effect/hallucination/singularity_pull()
 	return
 
@@ -56,6 +60,14 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	current_image = GetImage()
 	if(target.client)
 		target.client.images |= current_image
+
+
+/obj/effect/hallucination/simple/Destroy()
+	if(target.client)
+		target.client.images.Remove(current_image)
+	current_image = null
+	active = FALSE
+	return ..()
 
 /obj/effect/hallucination/simple/proc/GetImage()
 	var/image/I = image(image_icon, src, image_state, image_layer, dir = dir)
@@ -87,12 +99,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 /obj/effect/hallucination/simple/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	Show()
-
-/obj/effect/hallucination/simple/Destroy()
-	if(target.client)
-		target.client.images.Remove(current_image)
-	active = FALSE
-	return ..()
 
 #define FAKE_FLOOD_EXPAND_TIME 20
 #define FAKE_FLOOD_MAX_RADIUS 10
@@ -152,7 +158,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	flood_turfs.Cut()
 	if(target.client)
 		target.client.images.Remove(flood_images)
-	target = null
 	QDEL_LIST(flood_images)
 	return ..()
 
@@ -174,6 +179,12 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	//Xeno crawls from nearby vent,jumps at you, and goes back in
 	var/obj/machinery/atmospherics/unary/vent_pump/pump = null
 	var/obj/effect/hallucination/simple/xeno/xeno = null
+
+/obj/effect/hallucination/xeno_attack/Destroy(force)
+	pump = null
+	if(xeno)
+		QDEL_NULL(xeno)
+	. = ..()
 
 /obj/effect/hallucination/xeno_attack/New(loc, mob/living/carbon/T)
 	. = ..()
@@ -199,7 +210,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	sleep(10)
 	if(!xeno)
 		return
-	qdel(xeno)
+	QDEL_NULL(xeno)
 	to_chat(target, "<span class='notice'>[xeno_name] scrambles into the ventilation ducts!</span>")
 	qdel(src)
 
@@ -225,6 +236,12 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	var/obj/machinery/atmospherics/unary/vent_pump/pump = null
 	var/obj/effect/hallucination/simple/borer/borer = null
 
+/obj/effect/hallucination/borer/Destroy(force)
+	pump = null
+	if(borer)
+		QDEL_NULL(borer)
+	. = ..()
+
 /obj/effect/hallucination/borer/New(loc, mob/living/carbon/T)
 	..()
 	target = T
@@ -240,13 +257,13 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				to_chat(T, "<span class='userdanger'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
 				T.Stun(8 SECONDS)
 				sleep(50)
-				qdel(borer)
+				QDEL_NULL(borer)
 				sleep(rand(60, 90))
 				to_chat(T, "<span class='changeling'><i>Primary [rand(1000,9999)] states:</i> [pick("Привет.","Приветик!","Ты теперь мой раб!","Не пытайся избавиться от меня…")]</span>")
 				break
 			sleep(4)
 		if(!QDELETED(borer))
-			qdel(borer)
+			QDEL_NULL(borer)
 	qdel(src)
 
 /obj/effect/hallucination/simple/bubblegum
@@ -259,6 +276,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	var/obj/effect/hallucination/simple/bubblegum/bubblegum
 	var/image/fakebroken
 	var/image/fakerune
+
 
 /obj/effect/hallucination/oh_yeah/New(loc, mob/living/carbon/C)
 	set waitfor = FALSE
@@ -318,6 +336,12 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	//todo Hide where it moved with fake space images
 	var/obj/effect/hallucination/simple/singularity/s = null
 
+/obj/effect/hallucination/singularity_scare/Destroy(force)
+	if(s)
+		QDEL_NULL(s)
+	. = ..()
+
+
 /obj/effect/hallucination/singularity_scare/New(loc, mob/living/carbon/T)
 	. = ..()
 	target = T
@@ -332,7 +356,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		s.Show()
 		s.Eat()
 		addtimer(CALLBACK(src, PROC_REF(wake_and_restore)), rand(50, 100))
-	qdel(s)
+	QDEL_NULL(s)
 
 /obj/effect/hallucination/simple/singularity
 	image_icon = 'icons/effects/224x224.dmi'
@@ -614,7 +638,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 	var/health = 100
 
-
 /obj/effect/fake_attacker/Initialize(mapload, mob/living/carbon/my_target)
 	. = ..()
 	src.my_target = my_target
@@ -625,6 +648,28 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/fake_attacker/Destroy(force)
+	my_target = null
+	if(!QDELETED(weap))
+		QDEL_NULL(weap)
+	if(!QDELETED(stand_icon))
+		QDEL_NULL(stand_icon)
+	if(!QDELETED(currentimage))
+		QDEL_NULL(currentimage)
+	if(!QDELETED(base))
+		QDEL_NULL(base)
+	if(!QDELETED(clone))
+		QDEL_NULL(clone)
+	if(!QDELETED(left))
+		QDEL_NULL(left)
+	if(!QDELETED(right))
+		QDEL_NULL(right)
+	if(!QDELETED(up))
+		QDEL_NULL(up)
+	if(!QDELETED(down))
+		QDEL_NULL(down)
+	. = ..()
 
 
 /obj/effect/fake_attacker/attackby(obj/item/I, mob/user, params)
@@ -657,16 +702,16 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 //	qdel(src.currentimage)
 	switch(dir)
 		if(NORTH)
-			qdel(src.currentimage)
+			qdel(currentimage)
 			currentimage = new /image(up, src)
 		if(SOUTH)
-			qdel(src.currentimage)
+			qdel(currentimage)
 			currentimage = new /image(down, src)
 		if(EAST)
-			qdel(src.currentimage)
+			qdel(currentimage)
 			currentimage = new /image(right, src)
 		if(WEST)
-			qdel(src.currentimage)
+			qdel(currentimage)
 			currentimage = new /image(left, src)
 	my_target << currentimage
 
@@ -758,6 +803,11 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			target.playsound_local(get_turf(B), 'sound/machines/boltsup.ogg', 30, FALSE, 3)
 		sleep(rand(6,12))
 	qdel(src)
+
+/obj/effect/hallucination/bolts/Destroy(force)
+	QDEL_LIST(doors)
+	. = ..()
+
 
 /obj/effect/hallucination/whispers
 
@@ -1037,8 +1087,12 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 							halitem.icon = 'icons/obj/weapons/grenade.dmi'
 							halitem.icon_state = "flashbang1"
 							halitem.name = "Flashbang"
-					if(client) client.screen += halitem
-					addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, halitem), rand(100,250))
+
+					if(client)
+						client.screen += halitem
+
+					addtimer(CALLBACK(src, PROC_REF(clear_halitem)), rand(100, 250))
+
 		if("dangerflash")
 			//Flashes of danger
 			if(!halimage)
@@ -1061,10 +1115,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 
 					if(client)
 						client.images += halimage
-					sleep(rand(40,60)) //Only seen for a brief moment.
-					if(client)
-						client.images -= halimage
-					halimage = null
+					addtimer(CALLBACK(src, PROC_REF(clear_halimage), rand(40, 60)))
+
 		if("death")
 			hal_screwyhud = SCREWYHUD_DEAD
 			SetSleeping(40 SECONDS)
@@ -1080,6 +1132,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			sleep(rand(50,70))
 			hal_screwyhud = SCREWYHUD_NONE
 			SetSleeping(0)
+
 		if("husks")
 			if(!halbody)
 				var/list/possible_points = list()
@@ -1102,7 +1155,28 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 
 					if(client)
 						client.images += halbody
-					spawn(rand(30,50)) //Only seen for a brief moment.
-						if(client)
-							client.images -= halbody
-						halbody = null
+					addtimer(CALLBACK(src, PROC_REF(clear_halbody), rand(30, 50)))
+
+
+/mob/living/proc/clear_halbody()
+	if(!halbody)
+		return
+	if(client)
+		client.images -= halbody
+	QDEL_NULL(halbody)
+
+
+/mob/living/proc/clear_halimage()
+	if(!halimage)
+		return
+	if(client)
+		client.images -= halimage
+	QDEL_NULL(halimage)
+
+
+/mob/living/proc/clear_halitem()
+	if(!halitem)
+		return
+	if(client)
+		client.images -= halitem
+	QDEL_NULL(halitem)

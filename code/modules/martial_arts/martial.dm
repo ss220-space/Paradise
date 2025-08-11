@@ -690,6 +690,9 @@
 	layer = ABOVE_HUD_LAYER
 	var/streak
 
+/atom/movable/screen/combo/Destroy()
+	hud.combo_display = null
+	. = ..()
 
 /atom/movable/screen/combo/proc/clear_streak()
 	cut_overlays()

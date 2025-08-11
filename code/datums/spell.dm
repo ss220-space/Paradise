@@ -298,6 +298,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/Destroy()
 	QDEL_NULL(action)
 	QDEL_NULL(cooldown_handler)
+	QDEL_NULL(custom_handler)
+	QDEL_NULL(targeting)
 	return ..()
 
 
