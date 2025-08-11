@@ -691,7 +691,8 @@
 	var/streak
 
 /atom/movable/screen/combo/Destroy()
-	hud.combo_display = null
+	if(hud)
+		hud.combo_display = null
 	. = ..()
 
 /atom/movable/screen/combo/proc/clear_streak()

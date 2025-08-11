@@ -894,7 +894,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		var/tmp_obj = new O.typepath
 		var/custom_name = tmp_obj:name
 		qdel(tmp_obj)
-		O.name = sanitize(tgui_input_text("Введите название цели:", "Цель", custom_name, MAX_NAME_LEN))
+		O.name = sanitize(tgui_input_text(usr, "Введите название цели:", "Цель", custom_name, MAX_NAME_LEN))
 		if(!O.name)
 			return FALSE
 		steal_target = O

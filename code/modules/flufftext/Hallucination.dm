@@ -718,10 +718,10 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 /obj/effect/fake_attacker/proc/attack_loop()
 	while(1)
-		sleep(rand(5,10))
-		if(src.health < 0 || my_target.stat)
+		sleep(rand(5, 10))
+		if(src.health < 0 || !my_target || my_target.stat)
 			collapse()
-			continue
+			break
 		if(get_dist(src,my_target) > 1)
 			src.dir = get_dir(src,my_target)
 			step_towards(src,my_target)
