@@ -38,6 +38,8 @@
 		if(C!=src && Adjacent(C))
 			choices += C
 
+	if(!length(choices))
+		return FALSE
 	var/mob/living/M = tgui_input_list(src, "Who do you wish to feed on?", , choices)
 	if(!M)
 		return 0
