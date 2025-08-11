@@ -124,7 +124,7 @@
 		record()
 
 #define PLAYBACK_TAPE "Воспроизведение кассеты"
-#define PRINT_TRANSCRIPT "Распечатка транскрипта"
+#define PRINT_TRANSCRIPT "Распечатать стенограмму"
 #define EJECT_TAPE "Достать кассету"
 #define SILENT_MODE "Тихий режим"
 
