@@ -299,7 +299,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	QDEL_NULL(action)
 	QDEL_NULL(cooldown_handler)
 	QDEL_NULL(custom_handler)
-	QDEL_NULL(targeting)
+	targeting = null
 	return ..()
 
 
