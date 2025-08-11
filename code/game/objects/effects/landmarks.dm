@@ -726,11 +726,10 @@
 
 
 /obj/effect/landmark/start_override/New()
-	. = ..()
-	if(!connected_outfit)
-		return
+	if(connected_outfit) // It should be before, because of qdel.
+		GLOB.start_override_outfit = connected_outfit
 
-	GLOB.start_override_outfit = connected_outfit
+	. = ..()
 
 /obj/effect/landmark/start_override/Destroy()
 	connected_outfit = null
@@ -755,4 +754,4 @@
 
 
 /obj/effect/landmark/start_override/prisoner
-	connected_outfit = /datum/outfit/prisoner
+	connected_outfit = /datum/outfit/job/assistant/prisoner

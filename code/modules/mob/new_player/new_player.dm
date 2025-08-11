@@ -410,7 +410,11 @@
 			S = GLOB.spawntypes[spawning_at]
 		if(S && istype(S))
 			if(S.check_job_spawning(rank))
-				character.forceMove(pick(S.turfs))
+				if(length(GLOB.start_override))
+					character.forceMove(pick(GLOB.start_override))
+				else
+					character.forceMove(pick(S.turfs))
+
 				join_message = S.msg
 			else
 				to_chat(character, "Выбранная вами зона появления ([S.display_name]) недоступна для выбранной вами профессии. Вместо этого мы отправляем вас на шаттл Прибытия.")
@@ -422,17 +426,17 @@
 				join_message = "прибыл на станцию"
 		else
 			if(character.mind.assigned_role == JOB_TITLE_PRISONER && length(GLOB.latejoin_prisoner))
-			  if(length(GLOB.start_override))
-				  character.forceMove(pick(GLOB.start_override))
-			  else
-				  character.forceMove(pick(GLOB.latejoin_prisoner))
+				if(length(GLOB.start_override))
+					character.forceMove(pick(GLOB.start_override))
+				else
+					character.forceMove(pick(GLOB.latejoin_prisoner))
 
 				join_message = "очнулся от криогенного сна"
 			else
-			  if(length(GLOB.start_override))
-				  character.forceMove(pick(GLOB.start_override))
-			  else
-				  character.forceMove(pick(GLOB.latejoin))
+				if(length(GLOB.start_override))
+					character.forceMove(pick(GLOB.start_override))
+				else
+					character.forceMove(pick(GLOB.latejoin))
 
 				join_message = "прибыл на станцию"
 
