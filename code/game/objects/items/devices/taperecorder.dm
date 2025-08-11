@@ -26,6 +26,8 @@
 	var/starts_with_tape = TRUE
 	/// Sound loop that plays when recording or playing back.
 	var/datum/looping_sound/tape_recorder_hiss/soundloop
+	/// Sound or loud mode
+	var/silent_mode = FALSE
 
 
 /obj/item/taperecorder/empty
@@ -64,7 +66,7 @@
 
 
 /obj/item/taperecorder/proc/update_sound()
-	if(!playing && !recording)
+	if(!playing && !recording || silent_mode)
 		soundloop.stop()
 	else
 		soundloop.start()
@@ -122,13 +124,19 @@
 		record()
 
 
+/obj/item/taperecorder/proc/toggle_silent_mode(mob/user)
+	silent_mode = !silent_mode
+	balloon_alert(user, "Вы [silent_mode ? "включили" : "выключили"] тихий режим.")
+	playsound(src, 'sound/machines/switch.ogg', 20, FALSE)
+
 /obj/item/taperecorder/click_alt(mob/living/user)
 	if(!mytape)
 		return NONE
 
 	var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
 					"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
-					"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
+					"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]"),
+					"Silent mode" = image(icon = silent_mode ? 'icons/obj/items.dmi' : 'icons/obj/device.dmi' , icon_state = silent_mode ? "earmuffs" : "megaphone")
 					)
 	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 	if(!choice || user.incapacitated())
@@ -140,6 +148,8 @@
 			print_transcript(user)
 		if("Eject Tape")
 			eject(user)
+		if("Silent mode")
+			toggle_silent_mode(user)
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/taperecorder/proc/recorder_say(message, datum/tape_piece/record_datum)
@@ -150,8 +160,7 @@
 	else
 		tts_seed = initial(tts_seed)
 		atom_say_verb = "говорит"
-		atom_say("[message]")
-
+		silent_mode ? balloon_alert(ismob(loc) ? loc : null, "[message]") : atom_say("[message]")
 
 /obj/item/taperecorder/proc/eject(mob/user)
 	if(mytape)
