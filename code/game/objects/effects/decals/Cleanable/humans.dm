@@ -29,6 +29,8 @@
 	var/amount = 5
 	var/dry_timer = 0
 	var/off_floor = FALSE
+	var/max_shone_bloodiness = MAX_SHOE_BLOODINESS
+	var/drying_time = DRYING_TIME
 
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
@@ -46,7 +48,7 @@
 	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
 	if(!.)
-		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
+		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), drying_time * (amount+1), TIMER_STOPPABLE)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -132,7 +134,7 @@
 		else
 			add_blood = bloodiness
 		bloodiness -= add_blood
-		shoes.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, shoes.bloody_shoes[blood_state] + add_blood)
+		shoes.bloody_shoes[blood_state] = min(max_shone_bloodiness, shoes.bloody_shoes[blood_state] + add_blood)
 		if(length(blood_DNA))
 			shoes.add_blood(blood_DNA, basecolor)
 		shoes.blood_state = blood_state
@@ -148,7 +150,7 @@
 		else
 			add_blood = bloodiness
 		bloodiness -= add_blood
-		arrived.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS, arrived.bloody_feet[blood_state] + add_blood)
+		arrived.bloody_feet[blood_state] = min(max_shone_bloodiness, arrived.bloody_feet[blood_state] + add_blood)
 		if(!arrived.feet_blood_DNA)
 			arrived.feet_blood_DNA = list()
 		arrived.blood_state = blood_state

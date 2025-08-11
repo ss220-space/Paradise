@@ -1,3 +1,4 @@
+// MARK: Bombarda
 /obj/item/gun/projectile/bombarda
 	name = "Bombarda"
 	desc = "Hand made analog of grenade launcher. Can fire improvised shells."
@@ -34,11 +35,7 @@
 
 
 /obj/item/gun/projectile/bombarda/update_icon_state()
-	icon_state = "bombarda[chambered ? "" : "_open"]"
-
-
-/obj/item/gun/projectile/bombarda/process_chamber(eject_casing = FALSE, empty_chamber = FALSE)
-	. = ..()
+	icon_state = initial(icon_state) + (chambered ? "" : "_open")
 
 
 /obj/item/gun/projectile/bombarda/chamber_round()
@@ -80,7 +77,28 @@
 	update_icon()
 	return TRUE
 
+// MARK: Security GL
+/obj/item/gun/projectile/bombarda/secgl
+	name = "grenade launcher GL-06"
+	desc = "Однозарядный ручной гранатомёт, разработанный специально для сотрудников службы безопасности. Примеяется для подавления беспорядков с помощью нелетальных боеприпасов. Может запускать 50 мм гранаты."
+	ru_names = list(
+		NOMINATIVE = "ручной гранатомет GL-06",
+		GENITIVE = "ручного гранатомета GL-06",
+		DATIVE = "ручному гранатомету GL-06",
+		ACCUSATIVE = "ручной гранатомет GL-06",
+		INSTRUMENTAL = "ручным гранатометом GL-06",
+		PREPOSITIONAL = "ручном гранатомете GL-06"
+	)
+	icon_state = "secgl"
+	item_state = "secgl"
+	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/secgl
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_HIGH
 
+
+// MARK: Bombarda ammo
 /obj/item/ammo_box/magazine/internal/bombarda
 	name = "bombarda internal magazine"
 	ammo_type = /obj/item/ammo_casing/grenade/improvised
@@ -234,3 +252,282 @@
 	. = ..()
 	if(CONFIG_GET(flag/enable_bombarda_craft))
 		always_availible = TRUE
+
+
+// MARK: Sec GL ammo
+/obj/item/ammo_box/magazine/internal/bombarda/secgl
+	name = "security grenade launcher internal magazine"
+	ammo_type = /obj/item/ammo_casing/grenade/g50mm
+	caliber = "50mm"
+	max_ammo = 1
+	insert_sound = 'sound/weapons/bombarda/load.ogg'
+	remove_sound = 'sound/weapons/bombarda/open.ogg'
+	load_sound = 'sound/weapons/bombarda/load.ogg'
+	start_empty = TRUE
+
+/obj/item/ammo_casing/grenade/g50mm
+	name = "50mm grenade"
+	desc = "Граната калибра 50 мм."
+	icon = 'icons/obj/weapons/bombarda.dmi'
+	icon_state = "secgl_solid"
+	item_state = "secgl_solid"
+	caliber = "50mm"
+	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
+	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
+
+/obj/projectile/grenade/g50mm
+	icon = 'icons/obj/weapons/bombarda.dmi'
+	hitsound = "bullet"
+	hitsound_wall = "ricochet"
+	damage = 5
+	stamina = 15
+	armour_penetration = -30
+
+/obj/item/ammo_box/g50mm
+	icon = 'icons/obj/weapons/bombarda.dmi'
+
+	name = "ammo box (40mm grenades)"
+	icon_state = "secgl_box_gas"
+	ammo_type = /obj/item/ammo_casing/grenade/g50mm/solid
+	max_ammo = 5
+
+
+/obj/item/ammo_casing/grenade/g50mm/solid
+	name = "50mm grenade (rubber slug)"
+	desc = "Граната калибра 50 мм с цельной резиновой пулей. Отлично подходит для нейтрализации активных митингующих из толпы нелетальным способом."
+	projectile_type = /obj/projectile/grenade/g50mm/solid
+	icon_state = "secgl_solid"
+	item_state = "secgl_solid"
+
+/obj/projectile/grenade/g50mm/solid
+	icon_state = "secgl_projectile_solid"
+	damage_type = BRUTE
+	damage = 20
+	tile_dropoff = 1
+	stamina = 120
+	tile_dropoff_s = 5
+	min_stamina = 90
+	armour_penetration = -30
+
+/obj/item/ammo_box/g50mm/solid
+	name = "ammo box (50mm solid)"
+	desc = "Коробка, содержащая гранаты с цельной резиновой пулей калибра 50 мм."
+	ru_names = list(
+		NOMINATIVE = "коробка гранат (50 мм цельная резина)",
+		GENITIVE = "коробки гранат (50 мм цельная резина)",
+		DATIVE = "коробке гранат (50 мм цельная резина)",
+		ACCUSATIVE = "коробку гранат (50 мм цельная резина)",
+		INSTRUMENTAL = "коробкой гранат (50 мм цельная резина)",
+		PREPOSITIONAL = "коробке гранат (50 мм цельная резина)"
+	)
+	ammo_type = /obj/item/ammo_casing/grenade/g50mm/solid
+	icon_state = "secgl_box_solid"
+
+
+/obj/item/ammo_casing/grenade/g50mm/flash
+	name = "50mm grenade (flashbang)"
+	desc = "Граната калибра 50 мм со светошумовой гранатой. Отличная возможность закинуть светошумовую гранату на далекие расстояния."
+	projectile_type = /obj/projectile/grenade/g50mm/flash
+	icon_state = "secgl_flash"
+	item_state = "secgl_flash"
+
+/obj/projectile/grenade/g50mm/flash
+	icon_state = "secgl_porjectile_flash"
+
+/obj/projectile/grenade/g50mm/flash/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	// VFX and SFX
+	do_sparks(rand(5, 9), FALSE, src)
+	playsound(loc, 'sound/effects/bang.ogg', 100, TRUE)
+	new /obj/effect/dummy/lighting_obj(loc, range + 2, 10, light_color, 0.2 SECONDS)
+	// Blob damage
+	for(var/obj/structure/blob/blob in hear(range + 1, loc))
+		var/damage = round(30 / (get_dist(blob, loc) + 1))
+		blob.take_damage(damage, BURN, MELEE, FALSE)
+	// Stunning & damaging mechanic
+	bang(loc, src, 7, direct_bang = FALSE)
+
+/obj/item/ammo_box/g50mm/flash
+	name = "ammo box (50mm flashbang)"
+	desc = "Коробка, содержащая светошумовые гранаты калибра 50 мм."
+	ru_names = list(
+		NOMINATIVE = "коробка гранат (50 мм светошумовая)",
+		GENITIVE = "коробки гранат (50 мм светошумовая)",
+		DATIVE = "коробке гранат (50 мм светошумовая)",
+		ACCUSATIVE = "коробку гранат (50 мм светошумовая)",
+		INSTRUMENTAL = "коробкой гранат (50 мм светошумовая)",
+		PREPOSITIONAL = "коробке гранат (50 мм светошумовая)"
+	)
+	ammo_type = /obj/item/ammo_casing/grenade/g50mm/flash
+	icon_state = "secgl_box_flash"
+
+
+/obj/item/ammo_casing/grenade/g50mm/gas
+	name = "50mm grenade (gatears)"
+	desc = "Граната калибра 50 мм со слезоточивым газом. Позволяет разогнать толпу митингующих без защиты органов дыхания."
+	projectile_type = /obj/projectile/grenade/g50mm/gas
+	icon_state = "secgl_gas"
+	item_state = "secgl_gas"
+
+/obj/projectile/grenade/g50mm/gas
+	icon_state = "secgl_projectile_gas"
+
+/obj/projectile/grenade/g50mm/gas/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	var/obj/item/grenade/grenade = new /obj/item/grenade/chem_grenade/teargas(loc)
+	grenade.prime()
+
+/obj/item/ammo_box/g50mm/gas
+	name = "ammo box (50mm teargas)"
+	desc = "Коробка, содержащая гранаты со слезоточивым газом калибра 50 мм."
+	ru_names = list(
+		NOMINATIVE = "коробка гранат (50 мм слезоточивый газ)",
+		GENITIVE = "коробки гранат (50 мм слезоточивый газ)",
+		DATIVE = "коробке гранат (50 мм слезоточивый газ)",
+		ACCUSATIVE = "коробку гранат (50 мм слезоточивый газ)",
+		INSTRUMENTAL = "коробкой гранат (50 мм слезоточивый газ)",
+		PREPOSITIONAL = "коробке гранат (50 мм слезоточивый газ)"
+	)
+	ammo_type = /obj/item/ammo_casing/grenade/g50mm/gas
+	icon_state = "secgl_box_gas"
+
+
+/obj/item/ammo_casing/grenade/g50mm/barricade
+	name = "50mm grenade (gatears)"
+	desc = "Граната калибра 50 мм со слезоточивым газом. Позволяет разогнать толпу митингующих без защиты органов дыхания."
+	projectile_type = /obj/projectile/grenade/g50mm/barricade
+	icon_state = "secgl_barricade"
+	item_state = "secgl_barricade"
+
+/obj/projectile/grenade/g50mm/barricade
+	icon_state = "secgl_projectile_barricade"
+
+/obj/projectile/grenade/g50mm/barricade/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	var/obj/item/grenade/grenade = new /obj/item/grenade/barrier(loc)
+	grenade.prime()
+
+/obj/item/ammo_box/g50mm/barricade
+	name = "ammo box (50mm barricade)"
+	desc = "Коробка, содержащая гранаты с баррикадой калибра 50 мм."
+	ru_names = list(
+		NOMINATIVE = "коробка гранат (50 мм баррикада)",
+		GENITIVE = "коробки гранат (50 мм баррикада)",
+		DATIVE = "коробке гранат (50 мм баррикада)",
+		ACCUSATIVE = "коробку гранат (50 мм баррикада)",
+		INSTRUMENTAL = "коробкой гранат (50 мм баррикада)",
+		PREPOSITIONAL = "коробке гранат (50 мм баррикада)"
+	)
+	ammo_type = /obj/item/ammo_casing/grenade/g50mm/barricade
+	icon_state = "secgl_box_barricade"
+
+
+/obj/item/ammo_casing/grenade/g50mm/exp
+	name = "50mm grenade (frag)"
+	desc = "Граната калибра 50 мм с осколочной рубашкой. Летальный боеприпас для закидывания на дальнее расстояние."
+	projectile_type = /obj/projectile/grenade/g50mm/exp
+	icon_state = "secgl_exp"
+	item_state = "secgl_exp"
+
+/obj/projectile/grenade/g50mm/exp
+	icon_state = "secgl_projectile_exp"
+
+/obj/projectile/grenade/g50mm/exp/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	var/obj/item/grenade/grenade = new /obj/item/grenade/frag/less(loc)
+	grenade.prime()
+
+/obj/item/grenade/frag/less
+	range = 2
+	max_shrapnel = 3
+	embed_prob = 100
+
+/obj/item/ammo_box/g50mm/exp
+	name = "ammo box (50mm frag)"
+	desc = "Коробка, содержащая осколочные гранаты калибра 50 мм."
+	ru_names = list(
+		NOMINATIVE = "коробка гранат (50 мм осколочные)",
+		GENITIVE = "коробки гранат (50 мм осколочные)",
+		DATIVE = "коробке гранат (50 мм осколочные)",
+		ACCUSATIVE = "коробку гранат (50 мм осколочные)",
+		INSTRUMENTAL = "коробкой гранат (50 мм осколочные)",
+		PREPOSITIONAL = "коробке гранат (50 мм осколочные)"
+	)
+	ammo_type = /obj/item/ammo_casing/grenade/g50mm/exp
+	icon_state = "secgl_box_exp"
+
+
+/obj/item/ammo_casing/grenade/g50mm/paint
+	name = "50mm grenade (paint)"
+	desc = "Граната калибра 50 мм с краской. Граната которая закрашивает цель для его отслеживания."
+	projectile_type = /obj/projectile/grenade/g50mm/paint
+	icon_state = "secgl_paint"
+	item_state = "secgl_paint"
+
+/obj/projectile/grenade/g50mm/paint
+	icon_state = "secgl_projectile_paint"
+
+/obj/projectile/grenade/g50mm/paint/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	var/mob/living/carbon/human/human = target
+	var/obj/effect/decal/cleanable/blood/paint/paint = new(loc)
+	if(istype(human))
+		for(var/i = 0, i < 5, i++)
+			human.add_blood(color = paint.basecolor)
+	for(var/i = 0, i < 10, i++) // tweak for more bloodsteps
+		paint.on_entered(paint, target)
+	qdel(paint)
+
+/obj/item/ammo_box/g50mm/paint
+	name = "ammo box (50mm frag)"
+	desc = "Коробка, содержащая гранаты с краской калибра 50 мм."
+	ru_names = list(
+		NOMINATIVE = "коробка гранат (50 мм краска)",
+		GENITIVE = "коробки гранат (50 мм краска)",
+		DATIVE = "коробке гранат (50 мм краска)",
+		ACCUSATIVE = "коробку гранат (50 мм краска)",
+		INSTRUMENTAL = "коробкой гранат (50 мм краска)",
+		PREPOSITIONAL = "коробке гранат (50 мм краска)"
+	)
+	ammo_type = /obj/item/ammo_casing/grenade/g50mm/paint
+	icon_state = "secgl_box_paint"
+
+
+/obj/effect/decal/cleanable/blood/paint
+	name = "paint"
+	dryname = "dried paint"
+	desc = "Оно густое и липкое. Возможно, кто то разлил тут краску?"
+	drydesc = "Оно сухое и засохшее. Кто-то явно халтурит."
+	ru_names = list(
+		NOMINATIVE = "краска",
+		GENITIVE = "краски",
+		DATIVE = "краске",
+		ACCUSATIVE = "краску",
+		INSTRUMENTAL = "краской",
+		PREPOSITIONAL = "краске"
+	)
+	gender = FEMALE
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "mfloor2"
+	basecolor = "#11ff6c" // Color when wet.
+	amount = 10
+	var/blood_state = BLOOD_STATE_HUMAN
+	max_shone_bloodiness = 1000
+	bloodiness = 1000
+	drying_time = 1
+
+/obj/effect/decal/cleanable/blood/paint/dry()
+	. = ..()
+	ru_names = list(
+		NOMINATIVE = "засохшая краска",
+		GENITIVE = "засохшей краски",
+		DATIVE = "засохшей краске",
+		ACCUSATIVE = "засохшую краску",
+		INSTRUMENTAL = "засохшей краской",
+		PREPOSITIONAL = "засохшей краске"
+	)
+
+/obj/effect/decal/cleanable/blood/paint/replace_decal(obj/effect/decal/cleanable/blood/C)
+	. = ..()
+	if(length(blood_DNA))
+		blood_DNA = list()

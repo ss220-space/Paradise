@@ -82,6 +82,7 @@
 	var/slur = 0
 	var/eyeblur = 0
 	var/drowsy = 0
+	var/min_stamina = 0
 	var/stamina = 0
 	var/jitter = 0
 	var/knockdown = 0
@@ -134,7 +135,7 @@
 	if(damage && tile_dropoff)
 		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
 	if(stamina && tile_dropoff_s)
-		stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
+		stamina = max(min_stamina, stamina - tile_dropoff_s) // as above, but with stamina
 	if(tile_dropoff_penetration)
 		armour_penetration = clamp(armour_penetration - tile_dropoff_penetration, -100, 100)
 	if(tile_dropoff_forcedodge)

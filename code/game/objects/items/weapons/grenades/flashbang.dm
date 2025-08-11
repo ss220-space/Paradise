@@ -38,8 +38,7 @@
   * * flash - Whether to flash (blind)
   * * bang - Whether to bang (deafen)
   */
-/proc/bang(turf/T, atom/A, range = 7, flash = TRUE, bang = TRUE)
-
+/proc/bang(turf/T, atom/A, range = 7, flash = TRUE, bang = TRUE, direct_bang = TRUE)
 	// Flashing mechanic
 	var/source_turf = get_turf(A)
 	for(var/mob/living/M in hearers(range, T))
@@ -67,7 +66,7 @@
 		// Bang
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
-			if(source_turf == mobturf) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
+			if(direct_bang && source_turf == mobturf) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
 				M.Weaken(10 SECONDS)
 			if(!ear_safety)
 				M.apply_damage(15, STAMINA)
