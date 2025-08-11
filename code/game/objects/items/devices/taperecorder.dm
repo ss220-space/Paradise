@@ -126,7 +126,7 @@
 
 /obj/item/taperecorder/proc/toggle_silent_mode(mob/user)
 	silent_mode = !silent_mode
-	balloon_alert(user, "Вы [silent_mode ? "включили" : "выключили"] тихий режим.")
+	balloon_alert(user, "тихий режим [silent_mode ? "включён" : "выключен"]")
 	playsound(src, 'sound/machines/switch.ogg', 20, FALSE)
 
 /obj/item/taperecorder/click_alt(mob/living/user)
