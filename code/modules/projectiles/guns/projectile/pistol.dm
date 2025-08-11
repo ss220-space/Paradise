@@ -62,7 +62,7 @@
 	materials = list(MAT_METAL = 1000)
 	gun_light_overlay = "specter-light"
 	accuracy = GUN_ACCURACY_PISTOL
-	recoil = GUN_RECOIL_LOW
+	recoil = GUN_RECOIL_MIN
 
 
 /obj/item/gun/projectile/automatic/pistol/specter/update_gun_skins()

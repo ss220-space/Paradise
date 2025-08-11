@@ -510,7 +510,7 @@ TODO Use this name and desc for localisation*/
 	can_suppress = 0
 	burst_size = 2
 	accuracy = GUN_ACCURACY_RIFLE
-	recoil = GUN_RECOIL_MEDIUM
+	recoil = GUN_RECOIL_MIN
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -530,7 +530,7 @@ TODO Use this name and desc for localisation*/
 	burst_size = 1
 	actions_types = null
 	accuracy = GUN_ACCURACY_RIFLE
-	recoil = GUN_RECOIL_MEDIUM
+	recoil = GUN_RECOIL_MIN
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
 	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
