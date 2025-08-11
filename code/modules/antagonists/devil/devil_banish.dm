@@ -45,7 +45,7 @@
 	name = BANISH_FORMALDYHIDE
 
 	desc = "Чтобы изгнать дьявола, вы должны ввести в его безжизненное тело бальзамирующую жидкость."
-	law = "Если ваше тело забальзамировано, вы не сможете воскреснуть."
+	law = "Если внутри вас бальзамирующая жидкость, вы не сможете воскреснуть."
 
 /datum/devil_banish/formaldehyde/check_banishment()
 	return owner.reagents?.has_reagent("formaldehyde")
@@ -53,7 +53,7 @@
 /datum/devil_banish/rune
 	name = BANISH_RUNES
 
-	desc = "Этот дьявол воскреснет после смерти, если его рядом не будет руны."
+	desc = "Этот дьявол воскреснет после смерти, если рядом не будет руны."
 	law = "Если ваше тело находится возле руны, вы не сможете воскреснуть."
 
 /datum/devil_banish/rune/check_banishment()

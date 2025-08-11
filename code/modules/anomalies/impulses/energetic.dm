@@ -14,7 +14,7 @@
 	var/obj/effect/anomaly/energetic/anomaly = owner
 
 	var/list/turf/possible_targets = list()
-	var/jumps = scale_by_strenght(jumps_low, jumps_high)
+	var/jumps = scale_by_strength(jumps_low, jumps_high)
 	for(var/turf/turf in orange(jumps, owner))
 		if(get_dist(owner, turf) == jumps)
 			possible_targets.Add(turf)
@@ -28,6 +28,14 @@
 		anomaly.jump(get_step(owner, cur_dir))
 		anomaly.after_move()
 		sleep(2)
+
+	for(var/turf/turf in orange(7, src))
+		if(iswallturf(turf))
+			continue
+
+		anomaly.jump(turf)
+		anomaly.after_move()
+
 
 /datum/anomaly_impulse/move/energ_fastmove/tier1
 	period_low = 5 SECONDS
@@ -66,8 +74,8 @@
 	var/shock_damage_high = 0
 
 /datum/anomaly_impulse/energ_shock_ex/impulse()
-	var/radius = scale_by_strenght(effect_range_low, effect_range_high)
-	var/damage = scale_by_strenght(shock_damage_low, shock_damage_high)
+	var/radius = scale_by_strength(effect_range_low, effect_range_high)
+	var/damage = scale_by_strength(shock_damage_low, shock_damage_high)
 	owner.do_shock_ex(radius, damage, TRUE)
 
 /datum/anomaly_impulse/energ_shock_ex/tier1
@@ -116,7 +124,7 @@
 
 /datum/anomaly_impulse/move/machinery_jump/impulse()
 	var/obj/effect/anomaly/energetic/anomaly = owner
-	anomaly.jump_to_machinery(scale_by_strenght(damage_low, damage_high))
+	anomaly.jump_to_machinery(scale_by_strength(damage_low, damage_high))
 
 /datum/anomaly_impulse/move/machinery_jump/tier1
 	period_low = 15 SECONDS

@@ -85,7 +85,7 @@
 		SPECIES_DRACONOID = "драконид",
 		SPECIES_VOX = "вокс",
 		SPECIES_VOX_ARMALIS = "вокс армалис",
-		SPECIES_VULPKANIN = "вульпакин",
+		SPECIES_VULPKANIN = "вульпканин",
 		SPECIES_WRYN = "врин"
 	)
 	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
@@ -129,9 +129,9 @@
 		//suit/armour storage
 		if(s_store && !skipsuitstorage)
 			if(s_store.blood_DNA)
-				msg += span_warning("На [genderize_ru(gender, "его", "её", "его", "их")] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[pluralize_ru(s_store.gender, "ит", "ят")] [s_store.declent_ru(NOMINATIVE)] [s_store.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+				msg += span_warning("На [genderize_ru(gender, "его", "её", "его", "их")] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[pluralize_ru(s_store.gender, "ит", "ят")] [bicon(s_store)] [s_store.declent_ru(NOMINATIVE)] [s_store.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
 			else
-				msg += "На [genderize_ru(gender, "его", "её", "его", "их")] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[pluralize_ru(s_store.gender, "ит", "ят")] [s_store.declent_ru(NOMINATIVE)].\n"
+				msg += "На [genderize_ru(gender, "его", "её", "его", "их")] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[pluralize_ru(s_store.gender, "ит", "ят")] [bicon(s_store)] [s_store.declent_ru(NOMINATIVE)].\n"
 
 	//back
 	if(back && !(back.item_flags & ABSTRACT))
@@ -225,6 +225,17 @@
 	if(wear_id)
 		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] нос[pluralize_ru(gender, "ит", "ят")] [bicon(wear_id)] [wear_id.declent_ru(ACCUSATIVE)].\n"
 
+	var/rolled_down = FALSE
+	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/jumpsuit = w_uniform
+		rolled_down = jumpsuit.rolled_down
+
+	var/list/strength_list = list()
+	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
+	var/datum/strength_level/strength_level = !strength_list.len ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
+	if((rolled_down || !w_uniform || (w_uniform.item_flags & ABSTRACT)) && (!wear_suit || (wear_suit.item_flags & ABSTRACT)) && strength_level != STRENGTH_LEVEL_DEFAULT)
+		msg += span_notice("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[pluralize_ru(gender, "ит", "ят")] [strength_level.strength_examine][genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
+
 	//Status effects
 	var/status_examines = get_status_effect_examinations()
 	if(status_examines)
@@ -258,44 +269,29 @@
 	var/list/wound_flavor_text = list()
 	for(var/limb_zone in dna.species.has_limbs)
 
-		var/ru_limbs =list(
-			BODY_ZONE_CHEST = "грудь",
-			BODY_ZONE_PRECISE_GROIN = "живот",
-			BODY_ZONE_HEAD = "голова",
-			BODY_ZONE_L_ARM = "левая рука",
-			BODY_ZONE_R_ARM = "правая рука",
-			BODY_ZONE_L_LEG = "левая нога",
-			BODY_ZONE_R_LEG = "правая нога",
-			BODY_ZONE_PRECISE_L_FOOT = "левая ступня",
-			BODY_ZONE_PRECISE_R_FOOT = "правая ступня",
-			BODY_ZONE_PRECISE_L_HAND = "левая кисть",
-			BODY_ZONE_PRECISE_R_HAND = "правая кисть"
-		)
-		var/organ_descriptor = ru_limbs[limb_zone]
-
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[limb_zone]
 
 		if(!bodypart)
-			wound_flavor_text[limb_zone] = span_warning("<b>У [genderize_ru(gender, "него", "неё", "него", "них")] отсутствует [organ_descriptor]!</b>\n")
+			wound_flavor_text[limb_zone] = span_warning("<b>У [genderize_ru(gender, "него", "неё", "него", "них")] отсутствует [GLOB.body_zone[limb_zone][NOMINATIVE]]!</b>\n")
 		else
 			if(!ismachineperson(src) && !skipprostheses)
 				if(bodypart.is_robotic())
-					wound_flavor_text[limb_zone] = span_warning("[genderize_ru(gender, "Его", "Её", "Его", "Их")] [organ_descriptor] роботизированная.\n")
+					wound_flavor_text[limb_zone] = span_warning("[genderize_ru(gender, "Его", "Её", "Его", "Их")] [GLOB.body_zone[limb_zone][NOMINATIVE]] роботизированная.\n")
 
 				else if(bodypart.is_splinted())
-					wound_flavor_text[limb_zone] = span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] наложена шина на [organ_descriptor]!\n")
+					wound_flavor_text[limb_zone] = span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] наложена шина на [GLOB.body_zone[limb_zone][ACCUSATIVE]]!\n")
 
 				else if(!bodypart.properly_attached)
-					wound_flavor_text[limb_zone] = span_warning("[genderize_ru(gender, "Его", "Её", "Его", "Их")] [organ_descriptor] едва держится!\n")
+					wound_flavor_text[limb_zone] = span_warning("[genderize_ru(gender, "Его", "Её", "Его", "Их")] [GLOB.body_zone[limb_zone][NOMINATIVE]] едва держится!\n")
 
 			if(bodypart.open)
 				if(bodypart.is_robotic())
-					msg += span_warning("<b>Технический люк на [ignore_limb_branding(limb_zone)] открыт.</b>\n")
+					msg += span_warning("<b>Технический люк на [GLOB.body_zone[limb_zone][PREPOSITIONAL]] открыт.</b>\n")
 				else
-					msg += span_warning("<b>У [genderize_ru(gender, "него", "неё", "него", "них")] открытый разрез на [ignore_limb_branding(limb_zone)].</b>\n")
+					msg += span_warning("<b>У [genderize_ru(gender, "него", "неё", "него", "них")] открытый разрез на [GLOB.body_zone[limb_zone][PREPOSITIONAL]].</b>\n")
 
 			for(var/obj/item/embed in bodypart.embedded_objects)
-				msg += span_warning("<b>В [genderize_ru(gender, "его", "её", "его", "их")] [ignore_limb_branding(limb_zone)] застрял [bicon(embed)] [embed]!</b>\n")
+				msg += span_warning("<b>В [genderize_ru(gender, "его", "её", "его", "их")] [GLOB.body_zone[limb_zone][PREPOSITIONAL]] застрял [bicon(embed)] [embed.declent_ru(NOMINATIVE)]!</b>\n")
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
@@ -390,12 +386,12 @@
 
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
-			msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] не реагиру[pluralize_ru(gender, "ет", "ют")] на происходящее вокруг и, кажется, сп[pluralize_ru(gender, "ит", "ят")].\n"
+			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] не реагиру[pluralize_ru(gender, "ет", "ют")] на происходящее вокруг и, кажется, сп[pluralize_ru(gender, "ит", "ят")].\n"
 		if(stat == CONSCIOUS)
 			if(getBrainLoss() >= 60)
-				msg += "На [genderize_ru(user.gender, "его", "её", "его", "их")] лице застыло глупое выражение.\n"
+				msg += "На [genderize_ru(gender, "его", "её", "его", "их")] лице застыло глупое выражение.\n"
 			if(health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD)
-				msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] почти без сознания.\n"
+				msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] почти без сознания.\n"
 
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
@@ -557,29 +553,3 @@
 			return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SKILLS
 
 	return FALSE
-
-// Ignores robotic limb branding prefixes like "Morpheus Cybernetics"
-/proc/ignore_limb_branding(limb_zone)
-	switch(limb_zone)
-		if(BODY_ZONE_CHEST)
-			. = "груди"
-		if(BODY_ZONE_PRECISE_GROIN)
-			. = "животе"
-		if(BODY_ZONE_HEAD)
-			. = "голове"
-		if(BODY_ZONE_L_ARM)
-			. = "левой руке"
-		if(BODY_ZONE_R_ARM)
-			. = "правой руке"
-		if(BODY_ZONE_L_LEG)
-			. = "левой ноге"
-		if(BODY_ZONE_R_LEG)
-			. = "правой ноге"
-		if(BODY_ZONE_PRECISE_L_FOOT)
-			. = "левой ступне"
-		if(BODY_ZONE_PRECISE_R_FOOT)
-			. = "правой ступне"
-		if(BODY_ZONE_PRECISE_L_HAND)
-			. = "левой кисти"
-		if(BODY_ZONE_PRECISE_R_HAND)
-			. = "правой кисти"

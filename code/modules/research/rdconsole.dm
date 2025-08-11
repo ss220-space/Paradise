@@ -61,7 +61,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define DECONSTRUCT_POWER 250
 
 /obj/machinery/computer/rdconsole
-	name = "\improper R&D console"
+	name = "R&D console"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -254,7 +254,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/desired_num_sheets = 0
 	if(amount == "custom")
-		desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
+		desired_num_sheets = tgui_input_number(usr, "How many sheets would you like to eject from the machine?", "How much?", 1)
 		if(isnull(desired_num_sheets))
 			desired_num_sheets = 0
 	else
@@ -329,7 +329,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 	if(!pointless)
-		var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
+		var/choice = tgui_alert(usr, "This item does not raise tech levels. Proceed destroying loaded item anyway?", , list("Proceed", "Cancel"))
 		if(choice == "Cancel" || !linked_destroy)
 			return
 
@@ -995,7 +995,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
-	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
+	name = "E.X.P.E.R.I-MENTOR R&D console"
 	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
 	id = 3
 	range = 5

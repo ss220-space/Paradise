@@ -111,7 +111,8 @@ const SelectionView = (props: SelectionViewProps) => {
         fluid
         mb={1}
         placeholder="Search records..."
-        onInput={(e, value) => setSearchText(value)}
+        expensive
+        onChange={setSearchText}
       />
       {formattedRecords.map((r) => (
         <Box key={r}>

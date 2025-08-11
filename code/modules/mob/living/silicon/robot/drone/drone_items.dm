@@ -81,10 +81,10 @@
 			H.AdjustWeakened(-6 SECONDS)
 			if(!H.IsSleeping())
 				H.set_resting(FALSE, instant = TRUE)
-			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			user.visible_message( \
-				span_notice("[user] тряс[pluralize_ru(user.gender,"ет","ут")] [H] пытаясь разбудить [genderize_ru(H.gender,"его","её","его","их")]!"),\
-				span_notice("Вы трясёте [H] пытаясь разбудить [genderize_ru(H.gender,"его","её","его","их")]!"),\
+				span_notice("[user] тряс[pluralize_ru(user.gender,"ет","ут")] [H] пытаясь поднять [genderize_ru(H.gender,"его","её","его","их")]!"),\
+				span_notice("Вы трясёте [H] пытаясь поднять [genderize_ru(H.gender,"его","её","его","их")]!"),\
 				)
 			user.changeNext_move(CLICK_CD_MELEE)
 		return

@@ -28,7 +28,7 @@
 #define DIAG_PATH_HUD 		"23"//Bot path indicators
 #define GLAND_HUD 			"24"//Gland indicators for abductors
 #define THOUGHT_HUD			"25"//Telepathy bubbles
-#define KIDAN_PHEROMONES_HUD	"26"//Kidan pheromones hud
+#define KIDAN_PHEROMONES_HUD	"pheromone_hud" // Kidan pheromones hud
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -102,3 +102,12 @@
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"
+
+/// Takes a string or num view, and converts it to pixel width/height in a list(pixel_width, pixel_height)
+/proc/view_to_pixels(view)
+	if(!view)
+		return list(0, 0)
+	var/list/view_info = getviewsize(view)
+	view_info[1] *= world.icon_size
+	view_info[2] *= world.icon_size
+	return view_info

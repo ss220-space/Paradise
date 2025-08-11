@@ -80,7 +80,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	siemens_strength = 1
 	frequency = ATMOS_VENTSCRUB
@@ -983,17 +983,7 @@
 	switch(buildstage)
 		if(AIR_ALARM_READY)
 			if(I.GetID() || is_pda(I)) // trying to unlock the interface
-				add_fingerprint(user)
-				if(stat & (NOPOWER|BROKEN))
-					to_chat(user, span_warning("It does nothing!"))
-					return ATTACK_CHAIN_PROCEED
-
-				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
-					locked = !locked
-					to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
-					SStgui.update_uis(src)
-					return ATTACK_CHAIN_PROCEED
-				to_chat(user, span_warning("Access denied."))
+				togglelock(user)
 				return ATTACK_CHAIN_PROCEED
 
 		if(AIR_ALARM_BUILDING)
@@ -1103,7 +1093,7 @@
 		new /obj/item/stack/sheet/metal(loc, 2)
 		var/obj/item/I = new /obj/item/airalarm_electronics(loc)
 		if(!disassembled)
-			I.obj_integrity = I.max_integrity * 0.5
+			I.update_integrity(I.max_integrity * 0.5)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
@@ -1118,6 +1108,27 @@
 		if(AIR_ALARM_READY)
 			if(wiresexposed)
 				. += span_notice("The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.")
+
+/obj/machinery/alarm/proc/togglelock(mob/living/user)
+	add_fingerprint(user)
+	if(stat & (NOPOWER|BROKEN))
+		to_chat(user, span_warning("It does nothing!"))
+		return
+	if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
+		locked = !locked
+		to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
+		SStgui.update_uis(src)
+		return
+	to_chat(user, span_warning("Access denied."))
+
+/obj/machinery/alarm/click_alt(mob/living/carbon/human/user)
+	if(!istype(user))
+		return NONE
+	var/obj/item/card/id/card = user.get_id_card()
+	if(!istype(card))
+		return NONE
+	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/alarm/proc/unshort_callback()

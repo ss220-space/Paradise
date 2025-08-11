@@ -270,13 +270,13 @@
 		cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
 		user.visible_message(
-			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] себе <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."),
-			span_notice("Вы раздаёте себе <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")].")
+			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] себе <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
+			span_notice("Вы раздаёте себе <b>[dcard]</b> [declension_ru(dcard, "карту", "карты", "карт")].")
 		)
 	else
 		user.visible_message(
-			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] [target] <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."),
-			span_notice("Вы раздаёте [target] <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")].")
+			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] [target] <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
+			span_notice("Вы раздаёте [target] <b>[dcard]</b> [declension_ru(dcard, "карту", "карты", "карт")].")
 		)
 	INVOKE_ASYNC(cardhand, TYPE_PROC_REF(/atom/movable, throw_at), get_step(target, target.dir), 3, 1, user)
 
@@ -367,8 +367,8 @@
 	throwforce = 0
 	force = 0
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
-	pickup_sound = 'sound/items/handling/accessory_pickup.ogg'
-	drop_sound = 'sound/items/handling/accessory_pickup.ogg'
+	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	var/maxcardlen = 20
 	var/concealed = FALSE
 	var/list/cards = list()
@@ -575,7 +575,7 @@
 		for(var/datum/playingcard/card in cards)
 			to_discard[card.name] = card
 
-		var/discarding = input("Какую карту вы хотите положить?") as null|anything in to_discard
+		var/discarding = tgui_input_list(usr, "Какую карту вы хотите положить?", , to_discard)
 		if(!discarding)
 			continue
 

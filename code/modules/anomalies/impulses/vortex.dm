@@ -11,7 +11,7 @@
 	var/heavy_range_high = 0
 
 /datum/anomaly_impulse/emp/impulse()
-	empulse(owner, scale_by_strenght(heavy_range_low, heavy_range_high), scale_by_strenght(light_range_low, light_range_high))
+	empulse(owner, scale_by_strength(heavy_range_low, heavy_range_high), scale_by_strength(light_range_low, light_range_high))
 
 /datum/anomaly_impulse/emp/tier1
 	period_low = 10 SECONDS
@@ -56,7 +56,7 @@
 
 /datum/anomaly_impulse/superpull/impulse()
 	var/obj/effect/anomaly/vortex/anomaly = owner
-	for(var/i = 1 to scale_by_strenght(pulls_low, pulls_high))
+	for(var/i = 1 to scale_by_strength(pulls_low, pulls_high))
 		anomaly.do_pulls()
 		sleep(2)
 
@@ -98,6 +98,6 @@
 
 /datum/anomaly_impulse/vortex_fastmove/impulse()
 	var/dir = pick(GLOB.alldirs)
-	for(var/i = 1 to scale_by_strenght(range_low, range_high))
+	for(var/i = 1 to scale_by_strength(range_low, range_high))
 		owner.do_move(dir)
 		sleep(2)

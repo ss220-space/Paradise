@@ -7,9 +7,9 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	speak = list("Gah Gah!", "NOOT NOOT!", "NOOT!", "Noot", "noot", "Prah!", "Grah!")
-	speak_emote = list("squawks", "gakkers")
-	emote_hear = list("squawk!", "gakkers!", "noots.","NOOTS!")
-	emote_see = list("shakes its beak.", "flaps it's wings.","preens itself.")
+	speak_emote = list("клекочет", "гогочет")
+	emote_hear = list("кудахчет", "крякает","гогочет")
+	emote_see = list("потрясывает спинкой", "шлёпает себя крыльями", "чистит перья")
 	tts_seed = "Narrator"
 	faction = list("penguin")
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 4)
@@ -52,9 +52,9 @@
 	icon_living = "penguin_elder"
 	icon_dead = "penguin_dead"
 	speak = list("Gah Gah!", "Tekeli-li! Tekeli-li!", "Tekeli-li!", "Teke", "li")
-	speak_emote = list("gibbers", "gakkers")
-	emote_hear = list("whistles!", "gakkers!")
-	emote_see = list("shakes its beak.", "flaps it's wings.","preens itself.")
+	speak_emote = list("бормочет", "гогочет")
+	emote_hear = list("свистит", "гогочет")
+	emote_see = list("потрясывает спинкой", "шлёпает себя крыльями", "чистит перья")
 	faction = list("penguin", "cult")
 
 /mob/living/simple_animal/pet/penguin/eldritch/ComponentInitialize()

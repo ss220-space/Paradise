@@ -16,7 +16,7 @@
 
 
 /obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BURN)
 				damage_amount *= 2
@@ -124,11 +124,11 @@
 	if(ishuman(user))
 		if (user.a_intent == INTENT_HELP)
 			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[genderize_ru(user.gender,"","а","о","и")] брюшко [src.name]."))
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
 			user.do_attack_animation(src, user.dna.species.unarmed.animation_type)
-			playsound(src.loc, user.dna.species.unarmed.attack_sound, 25, 1, -1)
+			playsound(src.loc, user.dna.species.unarmed.attack_sound, 25, TRUE, -1)
 			attack_generic(user, max_integrity/3)
 
 
@@ -210,7 +210,7 @@
 						if(C)
 							S.key = C.key
 							if(S.master_commander)
-								to_chat(S, span_dangerbigger("You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost."))
+								to_chat(S, span_biggerdanger("You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost."))
 							add_game_logs("was made giant spider, master: [S.master_commander ? S.master_commander : "None"]")
 			qdel(src)
 

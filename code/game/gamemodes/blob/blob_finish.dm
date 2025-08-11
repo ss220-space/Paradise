@@ -4,11 +4,13 @@
 	return ..()
 
 /datum/game_mode/proc/start_blob_win()
-	if(GLOB.security_level == SEC_LEVEL_DELTA)
+	if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 		return
 	update_blob_objective()
-	GLOB.event_announcement.Announce("Объект потерян. Причина: распространение биологической угрозы 5-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным из-за высокого уровня заражения. Активация протоколов изоляции.",
-										"Отчёт об объекте [station_name()]")
+	GLOB.major_announcement.announce("Объект потерян. Причина: распространение биологической угрозы 5-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным из-за высокого уровня заражения. Активация протоколов изоляции.",
+									"Отчёт об объекте [station_name()].",
+									'sound/AI/commandreport.ogg'
+	)
 	blob_stage = (delay_blob_end)? BLOB_STAGE_POST_END : BLOB_STAGE_END
 	if(blob_stage == BLOB_STAGE_END)
 		end_game()
@@ -65,7 +67,7 @@
 	var/list/minions = blobs["minions"]
 	if(blob_infected?.len)
 		declare_blob_completion()
-		var/text = "<br/><span style='font-size: 2;'><b>Блоб[(blob_infected.len > 1 ? "ами были" : "ом был")]:</b></pan>"
+		var/list/text = list("<br/><span style='font-size: 2;'><b>Блоб[(blob_infected.len > 1 ? "ами были" : "ом был")]:</b></pan>")
 
 		for(var/datum/mind/blob in blob_infected)
 			text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
@@ -80,8 +82,7 @@
 			for(var/datum/mind/blob in minions)
 				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
-		to_chat(world, text)
-	return TRUE
+		return text.Join("")
 
 
 /datum/game_mode/proc/end_game()

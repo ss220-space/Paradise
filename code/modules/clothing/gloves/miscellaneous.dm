@@ -15,7 +15,7 @@
 
 /obj/item/clothing/gloves/fingerless/weaver
 	name = "weaver chitin gloves"
-	desc = "Серые беспалые перчатки, сделанные из шкуры мёртвого паукообразного, найденного на Лаваленде. Лёгкие и удобные, они позволяют владельцу драться эффективнее в рукопашном бою."
+	desc = "Серые беспалые перчатки, сделанные из шкуры мёртвого паукообразного, найденного на Лазисе. Лёгкие и удобные, они позволяют владельцу драться эффективнее в рукопашном бою."
 	ru_names = list(
 		NOMINATIVE = "перчатки из хитина ткача",
 		GENITIVE = "перчаток из хитина ткача",
@@ -46,7 +46,7 @@
 	var/stamindamage = rand(stamdamage_low, stamdamage_high)
 	if(ishuman(A))
 		user.do_attack_animation(A, "kick")
-		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		var/mob/living/carbon/human/target = A
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		add_attack_logs(user, target, "Melee attacked with weaver gloves")
@@ -84,7 +84,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 25, "bullet" = 5, "laser" = 5, "energy" = 10, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 70)
+	armor = list(MELEE = 25, BULLET = 5, LASER = 5, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 70)
 
 /obj/item/clothing/gloves/combat/riot
 	name = "riot gloves"
@@ -103,7 +103,15 @@
 
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
-	desc = "For when you're expecting to get slapped on the wrist. Offers modest protection to your arms."
+	desc = "На случай, если вы ожидаете удара в руку. Обеспечивает достаточную защиту для ваших рук."
+	ru_names = list(
+		NOMINATIVE = "костяные наручи",
+		GENITIVE = "костяных наручей",
+		DATIVE = "костяным наручам",
+		ACCUSATIVE = "костяные наручи",
+		INSTRUMENTAL = "костяными наручами",
+		PREPOSITIONAL = "костяных наручах"
+	)
 	icon_state = "bracers"
 	item_state = "bracers"
 	item_color = null	//So they don't wash.
@@ -114,7 +122,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 25, "bullet" = 30, "laser" = 20, "energy" = 25, "bomb" = 35, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 25, BULLET = 30, LASER = 20, ENERGY = 25, BOMB = 35, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/gloves/botanic_leather
 	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
@@ -127,7 +135,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
 
 /obj/item/clothing/gloves/batmangloves
 	desc = "Used for handling all things bat related."
@@ -331,8 +339,8 @@
 		var/mob/living/carbon/human/target = A
 		add_attack_logs(user, target, "Melee attacked with razor gloves")
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/armor_block = target.run_armor_check(affecting, "melee")
-		playsound(target.loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+		var/armor_block = target.run_armor_check(affecting, MELEE)
+		playsound(target.loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 
 		target.visible_message("<span class='danger'>[user] cuts [target] with razor gloves!</span>")
 
@@ -348,7 +356,7 @@
 	if(isliving(A))
 		user.do_attack_animation(A, "claw")
 		var/mob/living/living = A
-		playsound(living.loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+		playsound(living.loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 		living.visible_message("<span class='danger'>[user] cuts [living] with razor gloves!</span>")
 		living.apply_damage(damage, BRUTE)
 		return TRUE
@@ -358,7 +366,7 @@
 		user.do_attack_animation(A, "claw")
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.visible_message("<span class='danger'>[user] has hit [obj] with razor gloves!</span>", "<span class='danger'>You hit [obj] with razor gloves!</span>")
-		obj.take_damage(damage, BRUTE, "melee", 1, get_dir(src, user))
+		obj.take_damage(damage, BRUTE, MELEE, 1, get_dir(src, user))
 		return TRUE
 
 /obj/item/clothing/gloves/knuckles
@@ -371,7 +379,7 @@
 	var/knuckle_damage = 5 //additional fists damage
 	var/knock_damage_low = 5 // stamina damage
 	var/knock_damage_high = 10 // min and max
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi')
@@ -393,7 +401,7 @@
 	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage + user.physiology.punch_obj_damage
 	if(ishuman(A))
 		user.do_attack_animation(A, "kick")
-		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		var/mob/living/carbon/human/target = A
 		add_attack_logs(user, target, "Melee attacked with knuckles")
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
@@ -413,7 +421,7 @@
 	if(isliving(A))
 		var/mob/living/living = A
 		user.do_attack_animation(A, "kick")
-		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		living.visible_message("<span class='danger'>[user] smash [living] with knuckles!</span>")
 		living.apply_damage(damage, BRUTE)
 		return TRUE
@@ -423,7 +431,7 @@
 		user.do_attack_animation(A, "kick")
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.visible_message("<span class='danger'>[user] has hit [obj] with knuckles!</span>", "<span class='danger'>You hit [obj] with knuckles!</span>")
-		obj.take_damage(knobj_damage, BRUTE, "melee", 1, get_dir(src, user))
+		obj.take_damage(knobj_damage, BRUTE, MELEE, 1, get_dir(src, user))
 		return TRUE
 
 /obj/item/clothing/gloves/brown_short_gloves
@@ -447,7 +455,7 @@
 	name = "SWAT gloves"
 	icon_state = "swat_gloves"
 	item_state = "nt_swat_gl"
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 75)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 0, RAD = 0, FIRE = 75, ACID = 75)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
@@ -479,7 +487,7 @@
 	)
 	icon_state = "reflector"
 	item_state = "reflector"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
@@ -516,7 +524,7 @@
 	flags_inv = HIDEHEADSETS
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	dog_fashion = null
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 60, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 100)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 60, ENERGY = 60, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
@@ -556,7 +564,7 @@
 	)
 	icon_state = "reflector"
 	item_state = "reflector"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',

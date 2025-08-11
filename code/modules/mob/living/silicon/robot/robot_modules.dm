@@ -447,7 +447,7 @@
 				count_secborgs++
 
 		var/max_secborgs = 2
-		if(GLOB.security_level == SEC_LEVEL_GREEN)
+		if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_GREEN)
 			max_secborgs = 1
 
 		if(count_secborgs >= max_secborgs)
@@ -594,6 +594,8 @@
 	emag = new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
 	var/datum/reagents/R = new/datum/reagents(50)
+	if(emag.reagents)
+		qdel(emag.reagents)
 	emag.reagents = R
 	R.my_atom = emag
 	R.add_reagent("beer2", 50)

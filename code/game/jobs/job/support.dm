@@ -11,7 +11,6 @@
 	selection_color = "#9f8545"
 	access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SEC_DOORS, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SECURITY, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
-	min_age_type = JOB_MIN_AGE_COMMAND
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
 	disabilities_allowed = 0
@@ -455,7 +454,7 @@
 			if(empty_slots < 1)
 				to_chat(owner, span_notice("You have no available slots."))
 				return
-			var/voice_name = input(owner, "Choose a name for slot.", "Mimicking") as text|null
+			var/voice_name = tgui_input_text(owner, "Choose a name for slot.", "Mimicking")
 			if(!voice_name)
 				return
 			var/voice_seed = tgui_input_list(owner, "Choose a voice for slot", "Mimicking", available_voices, owner.tts_seed)

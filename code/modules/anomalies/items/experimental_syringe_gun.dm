@@ -48,7 +48,7 @@
 		synth_speed = 0
 		return
 
-	synth_speed = core.get_strenght() / 30
+	synth_speed = core.get_strength() / 30
 
 /obj/item/gun/syringe/rapidsyringe/experimental/attackby(obj/item/item, mob/user)
 	if(iscorevortex(item))
@@ -128,7 +128,7 @@
 	if(!core)
 		return
 
-	if(syringes.len < max_syringes && prob(core.get_strenght() / 5))
+	if(syringes.len < max_syringes && prob(core.get_strength() / 5))
 		syringes.Add(new /obj/item/reagent_containers/syringe)
 		process_chamber()
 
@@ -154,16 +154,16 @@
 	if(!core)
 		. += span_warning("В [declent_ru(PREPOSITIONAL)] нет ядра!")
 	else
-		. += span_info("В [declent_ru(PREPOSITIONAL)] есть ядро.")
+		. += span_notice("В [declent_ru(PREPOSITIONAL)] есть ядро.")
 
-	. += span_info("Синтезируемые реагенты:")
+	. += span_notice("Синтезируемые реагенты:")
 	for(var/id in synth_reagents)
 		var/datum/reagent/reagent = GLOB.chemical_reagents_list[id]
-		. += span_info(" [reagent.name]: [synth_reagents[id] * synth_speed]")
+		. += span_notice(" [reagent.name]: [synth_reagents[id] * synth_speed]")
 
-	. += span_info("Готовые реагенты:")
+	. += span_notice("Готовые реагенты:")
 	for(var/datum/reagent/reagent in ready_reagents.reagents.reagent_list)
-		. += span_info(" [reagent.name]: [reagent.volume]")
+		. += span_notice(" [reagent.name]: [reagent.volume]")
 
 /obj/item/gun/syringe/rapidsyringe/experimental/suicide_act(mob/living/carbon/human/user)
 	if(!core || HAS_TRAIT(user, TRAIT_NO_BLOOD) || !istype(user))

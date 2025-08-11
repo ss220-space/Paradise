@@ -73,7 +73,7 @@
 
 /obj/machinery/r_n_d/server/process()
 	if(prob(3) && plays_sound)
-		playsound(loc, "computer_ambience", 50, 1)
+		playsound(loc, "computer_ambience", 50, TRUE)
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	switch(environment.temperature)
@@ -252,7 +252,7 @@
 
 
 /obj/machinery/computer/rdservercontrol
-	name = "\improper R&D server controller"
+	name = "R&D server controller"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -299,7 +299,7 @@
 		else if(href_list["data"])
 			screen = 2
 		else if(href_list["logs"])
-			var/awaiting_input = input(usr, "Please input access key", "Security check") as text|null
+			var/awaiting_input = tgui_input_text(usr, "Please input access key", "Security check")
 			if(awaiting_input != temp_server.logs_decryption_key)
 				return
 			screen = 3

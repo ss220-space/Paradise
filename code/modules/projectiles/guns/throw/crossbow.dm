@@ -21,6 +21,7 @@
 	var/range_multiplier = 3
 	var/obj/item/stock_parts/cell/cell = null    // Used for firing superheated rods.
 	var/list/possible_tensions = list(XBOW_TENSION_20, XBOW_TENSION_40, XBOW_TENSION_60, XBOW_TENSION_80, XBOW_TENSION_FULL)
+	accuracy = GUN_ACCURACY_RIFLE
 
 
 /obj/item/gun/throw/crossbow/get_cell()
@@ -60,7 +61,7 @@
 	else
 		. += span_notice("It has an empty mount for a battery cell.")
 	if(src in user)
-		. += span_info("You can <b>Alt-Click</b> to change the draw tension.")
+		. += span_notice("You can <b>Alt-Click</b> to change the draw tension.")
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
@@ -155,7 +156,7 @@
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
-	var/choice = input("Select tension to draw to:", "[src]", XBOW_TENSION_FULL) as null|anything in possible_tensions
+	var/choice = tgui_input_list(usr, "Select tension to draw to:", "[src]", possible_tensions, XBOW_TENSION_FULL)
 	if(!choice || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 

@@ -32,7 +32,7 @@
 	gender = FEMALE
 	icon_state = "captain"
 	item_state = "caphat"
-	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 
@@ -111,7 +111,7 @@
 	)
 	gender = FEMALE
 	icon_state = "hopcap"
-	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/hop
 
 //Nanotrasen Representative
@@ -172,7 +172,7 @@
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/chaplain_hood/armoured
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 /obj/item/clothing/head/hooded/chaplain_hood/no_name
 	name = "dark robe's hood"
@@ -279,7 +279,7 @@
 	gender = FEMALE
 	icon_state = "detective"
 	allowed = list(/obj/item/reagent_containers/food/snacks/candy/candy_corn, /obj/item/pen)
-	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
+	armor = list(MELEE = 25, BULLET = 5, LASER = 25, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/detective
 	muhtar_fashion = /datum/muhtar_fashion/head/detective
 
@@ -329,7 +329,7 @@
 	)
 	icon_state = "beretdurathread"
 	item_color = null
-	armor = list("melee" = 15, "bullet" = 5, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 5)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 5)
 
 //Security
 /obj/item/clothing/head/HoS
@@ -345,7 +345,7 @@
 	)
 	gender = FEMALE
 	icon_state = "hoscap"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	strip_delay = 80
 
 /obj/item/clothing/head/HoS/beret
@@ -376,7 +376,7 @@
 	)
 	gender = FEMALE
 	icon_state = "policehelm"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 60)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 60)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
 
@@ -394,7 +394,7 @@
 	gender = FEMALE
 	icon_state = "customshelm"
 	item_state = "customshelm"
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec
@@ -409,7 +409,7 @@
 		PREPOSITIONAL = "офицерском берете"
 	)
 	icon_state = "beret_officer"
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 	dog_fashion = null
 	muhtar_fashion = /datum/muhtar_fashion/head/beret
@@ -439,7 +439,7 @@
 		PREPOSITIONAL = "берете смотрителя"
 	)
 	icon_state = "beret_warden"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 50)
 
 /obj/item/clothing/head/beret/brigphys
 	name = "brigphys's beret"
@@ -537,7 +537,7 @@
 
 /obj/item/clothing/head/surgery
 	name = "surgical cap"
-	desc = "Шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "хирургическая шапочка",
 		GENITIVE = "хирургической шапочки",
@@ -560,7 +560,7 @@
 
 /obj/item/clothing/head/surgery/purple
 	name = "purple surgical cap"
-	desc = "Фиолетовая шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Фиолетовая шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "фиолетовая хирургическая шапочка",
 		GENITIVE = "фиолетовой хирургической шапочки",
@@ -573,7 +573,7 @@
 
 /obj/item/clothing/head/surgery/blue
 	name = "blue surgical cap"
-	desc = "Голубая шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Голубая шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "голубая хирургическая шапочка",
 		GENITIVE = "голубой хирургической шапочки",
@@ -586,7 +586,7 @@
 
 /obj/item/clothing/head/surgery/green
 	name = "dark green surgical cap"
-	desc = "Тёмно-зелёная шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Тёмно-зелёная шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "тёмно-зелёная хирургическая шапочка",
 		GENITIVE = "тёмно-зелёной хирургической шапочки",
@@ -599,7 +599,7 @@
 
 /obj/item/clothing/head/surgery/lightgreen
 	name = "green surgical cap"
-	desc = "Зелёная шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Зелёная шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "зелёная хирургическая шапочка",
 		GENITIVE = "зелёной хирургической шапочки",
@@ -612,7 +612,7 @@
 
 /obj/item/clothing/head/surgery/black
 	name = "black surgical cap"
-	desc = "Чёрная шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Чёрная шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "чёрная хирургическая шапочка",
 		GENITIVE = "чёрной хирургической шапочки",
@@ -625,7 +625,7 @@
 
 //SolGov
 /obj/item/clothing/head/beret/solgov/command
-	name = "\improper Trans-Solar Federation Lieutenant's beret"
+	name = "Trans-Solar Federation Lieutenant's beret"
 	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель - лейтенант."
 	ru_names = list(
 		NOMINATIVE = "берет лейтенанта ТСФ",
@@ -637,11 +637,11 @@
 	)
 	icon_state = "solgov_beret"
 	dog_fashion = null
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 80
 
 /obj/item/clothing/head/beret/solgov/command/elite
-	name = "\improper Trans-Solar Federation Specops Lieutenant's beret"
+	name = "Trans-Solar Federation Specops Lieutenant's beret"
 	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель принадлежит отделу специальных операций флота."
 	ru_names = list(
 		NOMINATIVE = "берет офицера специальных операций ТСФ",
@@ -651,7 +651,7 @@
 		INSTRUMENTAL = "беретом специальных операций ТСФ",
 		PREPOSITIONAL = "берете специальных операций ТСФ"
 	)
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	icon_state = "solgov_elite_beret"
 
 //Culinary Artist
@@ -671,7 +671,7 @@
 
 /obj/item/clothing/head/surgery/brown
 	name = "brown surgical cap"
-	desc = "Коричневая шапочка, которую носят хирурги во время операций. Защищает ваши внутренние органы от попадания на них волос."
+	desc = "Коричневая шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	ru_names = list(
 		NOMINATIVE = "коричневая хирургическая шапочка",
 		GENITIVE = "коричневой хирургической шапочки",

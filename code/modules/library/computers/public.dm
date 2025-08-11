@@ -76,19 +76,19 @@
 				page_num = clamp(pn, 1, num_pages)
 
 	if(href_list["settitle"])
-		var/newtitle = input("Enter a title to search for:") as text|null
+		var/newtitle = tgui_input_text(usr, "Enter a title to search for:")
 		if(newtitle)
 			query.title = sanitize(newtitle)
 		else
 			query.title = null
 	if(href_list["setcategory"])
-		var/newcategory = input("Choose a category to search for:") in (list("Any") + GLOB.library_section_names)
+		var/newcategory = tgui_input_list(usr, "Choose a category to search for:", (list("Any") + GLOB.library_section_names))
 		if(newcategory == "Any")
 			query.category = null
 		else if(newcategory)
 			query.category = sanitize(newcategory)
 	if(href_list["setauthor"])
-		var/newauthor = input("Enter an author to search for:") as text|null
+		var/newauthor = tgui_input_text(usr, "Enter an author to search for:")
 		if(newauthor)
 			query.author = sanitize(newauthor)
 		else
@@ -118,7 +118,7 @@
 		if(id)
 			var/datum/cachedbook/B = getBookByID(id)
 			if(B)
-				if((input(usr, "Are you sure you want to flag [B.title] as having inappropriate content?", "Flag Book #[B.id]") in list("Yes", "No")) == "Yes")
+				if((tgui_alert(usr, "Are you sure you want to flag [B.title] as having inappropriate content?", "Flag Book #[B.id]", list("Yes", "No"))) == "Yes")
 					GLOB.library_catalog.flag_book_by_id(usr, id)
 
 	add_fingerprint(usr)

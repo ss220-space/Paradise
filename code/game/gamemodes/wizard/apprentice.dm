@@ -57,7 +57,7 @@
 				var/wizard_name_first = pick(GLOB.wizard_first)
 				var/wizard_name_second = pick(GLOB.wizard_second)
 				var/randomname = "[wizard_name_first] [wizard_name_second]"
-				var/newname = sanitize(copytext_char(input(apprentice, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
+				var/newname = tgui_input_text(apprentice, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname, max_length = MAX_NAME_LEN)
 
 				if(!newname)
 					newname = randomname
@@ -246,7 +246,7 @@
 	desc = "Магическая роба прислужника школы пространства, оберегающий владельца от перемещений в агрессивных средах."
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -258,7 +258,7 @@
 	desc = "Магический головной убор робы прислужника школы пространства, оберегающий от перемещений в агрессивных средах."
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
@@ -283,7 +283,7 @@
 	desc = "Магическая роба-саботёра. Стильная и приталенная!"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -295,7 +295,7 @@
 	desc = "Магическая федора-саботёра. Стильная и уважаемая!"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
@@ -334,7 +334,7 @@
 	desc = "Магическая роба последователей школы огня."
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -397,7 +397,7 @@
 	desc = "Магическая роба последователей школы крови."
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
 	magical = TRUE
@@ -493,7 +493,7 @@
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magus(owner), ITEM_SLOT_HEAD)
 
 /datum/magick_school/lavaland
-	name = "Школа Лаваленда"
+	name = "Школа Лазиса"
 	id = "lavaland"
 	desc = "Школа, использующая традиции магии пеплоходцев."
 

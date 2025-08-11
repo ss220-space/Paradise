@@ -30,6 +30,9 @@
 	LAssailant = null
 	GLOB.left_player_list -= src
 
+	if(mind?.current == src)
+		mind.current = null
+
 	return ..()
 
 /mob/Initialize(mapload)
@@ -206,7 +209,7 @@
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
-	var/omsg = replacetext(message, "<b>[src]</b> ", "")
+	var/omsg = replacetext(message, "<b>[capitalize(declent_ru(NOMINATIVE))]</b> ", "")
 	var/list/listening_obj = new
 	for(var/atom/movable/A in view(range, src))
 		if(ismob(A))
@@ -363,13 +366,17 @@
 	set name = "Осмотреть"
 	set category = STATPANEL_IC
 
+	if(!client)
+		return
+
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/target)
+	// TODO: TG Double Examine
 	var/list/result = target.examine(src)
 	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
 
-	to_chat(src, chat_box_examine(result.Join("<br>")), MESSAGE_TYPE_INFO, confidential = TRUE)
+	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 
 /mob/verb/mode()
@@ -747,7 +754,7 @@
 		borer.transfer_personality(usr.client)
 		return
 
-	to_chat(usr, span_notify(message))
+	to_chat(usr, span_notice(message))
 	GLOB.respawnable_list -= usr
 	picked_mob.key = key
 
@@ -768,7 +775,7 @@
 		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
 		var/mob/living/simple_animal/mouse/host = new choosen_type(vent_found.loc)
 		host.ckey = src.ckey
-		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
+		to_chat(host, span_notice("You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent."))
 	else
 		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
 

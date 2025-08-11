@@ -205,11 +205,20 @@
   */
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
+	ru_names = list(
+		NOMINATIVE = "блюспейс сборщик",
+		GENITIVE = "блюспейс сборщика",
+		DATIVE = "блюспейс сборщику",
+		ACCUSATIVE = "блюспейс сборщик",
+		INSTRUMENTAL = "блюспейс сборщиком",
+		PREPOSITIONAL = "блюспейс сборщике"
+	)
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
 	icon_state = "bluespace_tap"	//sprites by Ionward
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -64
+	plane = BELOW_GAME_PLANE
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
 	use_power = NO_POWER_USE	// power usage is handelled manually
@@ -347,7 +356,10 @@
 	else if(input_level > desired_level)
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.event_announcement.Announce("Непредвиденный скачок напряжения во время работы блюспейс-сборщика. Внимание, обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "ВНИМАНИЕ: Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]", "ВНИМАНИЕ: Сбой блюспейс-сборщика.")
+		GLOB.major_announcement.announce("Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]",
+										ANNOUNCE_BLUESPACETAP_RU,
+										'sound/AI/harvester.ogg'
+		)
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0
@@ -446,7 +458,7 @@
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+		user.visible_message(span_warning("[user] переписыва[pluralize_ru(user.gender,"ет","ют")] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

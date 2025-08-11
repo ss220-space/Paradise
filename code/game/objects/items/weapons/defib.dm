@@ -19,7 +19,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi'
 		)
@@ -76,7 +76,7 @@
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
-	. += span_info("Используйте <b>Ctrl + ЛКМ</b>, чтобы взять электроды.")
+	. += span_notice("Используйте <b>Ctrl + ЛКМ</b>, чтобы взять электроды.")
 
 
 /obj/item/defibrillator/proc/update_power()
@@ -443,7 +443,7 @@
 			playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50)
 		else
 			atom_say("Заряд исчерпан.")
-			playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
+			playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, FALSE)
 		update_icon(UPDATE_ICON_STATE)
 	defib.update_icon(UPDATE_ICON_STATE)
 
@@ -463,7 +463,7 @@
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] поднос[pluralize_ru(user.gender, "ит", "ят")] включенные электроды к своей груди! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
 	defib.deductcharge(revivecost)
-	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	return OXYLOSS
 
 
@@ -525,7 +525,7 @@
 
 /obj/item/twohanded/shockpaddles/borg/on_cooldown_expire(obj/item/paddles)
 	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] сообщает: заряд готов."))
-	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
+	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, FALSE)
 	on_cooldown = FALSE
 	update_icon(UPDATE_ICON_STATE)
 

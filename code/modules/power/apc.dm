@@ -197,7 +197,7 @@
 
 
 /obj/machinery/power/apc/worn_out
-	name = "\improper Worn out APC"
+	name = "Worn out APC"
 	keep_preset_name = TRUE
 	locked = FALSE
 	lighting_channel = CHANNEL_SETTING_OFF
@@ -236,7 +236,7 @@
 
 /obj/machinery/power/apc/New(turf/loc, direction, building = 0)
 	if(!armor)
-		armor = list("melee" = 20, "bullet" = 20, "laser" = 10, "energy" = 100, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50)
+		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, RAD = 100, FIRE = 90, ACID = 50)
 	..()
 	GLOB.apcs += src
 	GLOB.apcs = sortAtom(GLOB.apcs)
@@ -260,7 +260,7 @@
 		update_icon()
 		addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
-/obj/machinery/power/apc/Destroy()
+/obj/machinery/power/apc/Destroy(force)
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
 	if(malfai && operating)
@@ -270,7 +270,7 @@
 	area.power_environ = 0
 	area.power_change()
 	if(occupier)
-		malfvacate(1)
+		malfvacate(TRUE)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
 	QDEL_NULL(cog)
@@ -287,6 +287,18 @@
 	terminal.master = src
 
 /obj/machinery/power/apc/Initialize(mapload)
+	var/area/A = get_area(src)
+	//if area isn't specified use current
+	if(keep_preset_name)
+		if(isarea(A))
+			area = A
+		// no-op, keep the name
+	else if(isarea(A) && !areastring)
+		area = A
+		name = "[area.name] APC"
+	else
+		name = "[get_area_name(area, TRUE)] APC"
+	area.apc |= src
 	. = ..()
 	if(!mapload)
 		return
@@ -298,20 +310,7 @@
 		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
 
 	cog = null // Or you can't put it in
-	var/area/A = get_area(src)
 
-
-	//if area isn't specified use current
-	if(keep_preset_name)
-		if(isarea(A))
-			area = A
-		// no-op, keep the name
-	else if(isarea(A) && !areastring)
-		area = A
-		name = "\improper [area.name] APC"
-	else
-		name = "\improper [get_area_name(area, TRUE)] APC"
-	area.apc |= src
 
 	update_icon()
 
@@ -737,7 +736,7 @@
 			span_notice("You have replaced the damaged APC frame with a new one."),
 		)
 		stat &= ~BROKEN
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		if(opened == APC_COVER_OFF)
 			opened = APC_OPENED
 		update_icon()
@@ -793,7 +792,7 @@
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
-		. += span_info("<b>Alt-click</b> to toggle locker.<br/><b>Ctrl-click</b> to toggle power.")
+		. += span_notice("<b>Alt-click</b> to toggle locker.<br/><b>Ctrl-click</b> to toggle power.")
 
 /obj/machinery/power/apc/click_alt(mob/living/carbon/human/H)
 	if(!istype(H))
@@ -1331,7 +1330,7 @@
 	var/datum/action/innate/ai/return_to_core/R = new
 	R.Grant(occupier)
 	occupier.cancel_camera()
-	if((seclevel2num(get_security_level()) == SEC_LEVEL_DELTA) && malf.nuking)
+	if((SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA) && malf.nuking)
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = src //the pinpointer will detect the shunted AI
 
@@ -1344,7 +1343,7 @@
 		occupier.parent.adjustOxyLoss(occupier.getOxyLoss())
 		occupier.parent.cancel_camera()
 		qdel(occupier)
-		if(seclevel2num(get_security_level()) == SEC_LEVEL_DELTA)
+		if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 					if((A.stat != DEAD) && A.nuking)
@@ -1353,7 +1352,8 @@
 		to_chat(occupier, "<span class='danger'>Primary core damaged, unable to return core processes.</span>")
 		if(forced)
 			occupier.loc = loc
-			occupier.death()
+			ASYNC
+				occupier.death()
 			occupier.gib()
 			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				point.the_disk = null //Pinpointers go back to tracking the nuke disk
@@ -1634,6 +1634,11 @@
 
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
 	set_broken()
+
+/obj/machinery/power/apc/zap_act(power, zap_flags)
+	if(obj_integrity <= 0)
+		zap_flags &= ~(ZAP_OBJ_DAMAGE | ZAP_MACHINE_EXPLOSIVE)
+	. = ..()
 
 /obj/machinery/power/apc/disconnect_terminal()
 	if(terminal)

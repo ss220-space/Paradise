@@ -157,6 +157,15 @@
 	required_reagents = list("plasma" = 2, "ethanol" = 1, "sodium" = 1)
 	result_amount = 3
 
+
+/datum/chemical_reaction/steroids
+	name = "Стероиды"
+	id = "steroids"
+	result = "steroids"
+	required_reagents = list("protein" = 2, "oil" = 1, "ethanol" = 1)
+	result_amount = 3
+
+
 /datum/chemical_reaction/saltpetre
 	name = "saltpetre"
 	id = "saltpetre"
@@ -581,7 +590,7 @@
 	mix_message = "The substance quickly shifts colour, cycling from red, to yellow, to green, to blue, and finally settles at a vibrant fuchsia."
 
 /datum/chemical_reaction/jestosterone/on_reaction(datum/reagents/holder, created_volume)
-	playsound(get_turf(holder.my_atom), 'sound/items/bikehorn.ogg', 50, 1)
+	playsound(get_turf(holder.my_atom), 'sound/items/bikehorn.ogg', 50, TRUE)
 
 /datum/chemical_reaction/royal_bee_jelly
 	name = "royal bee jelly"

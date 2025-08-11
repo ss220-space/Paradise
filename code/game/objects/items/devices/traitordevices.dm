@@ -61,7 +61,7 @@ effective or pretty fucking useless.
 			M.Slowed(10 SECONDS)
 			M.Confused(6 SECONDS)
 
-	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
+	playsound(loc, 'sound/misc/interference.ogg', 50, TRUE)
 	charges--
 	to_chat(user,span_notice("Вы активируете [declent_ru(ACCUSATIVE)]. У него осталось [charges] заряд[declension_ru(charges, "", "а", "ов")]."))
 	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)
@@ -411,7 +411,7 @@ effective or pretty fucking useless.
 	for(var/obj/item/thing as anything in user.get_equipped_items(TRUE, TRUE))
 		if(!user.drop_item_ground(thing))
 			qdel(thing)
-	to_chat(user, span_dangerbigger("You teleport into the wall, the teleporter tries to save you, but--"))
+	to_chat(user, span_biggerdanger("You teleport into the wall, the teleporter tries to save you, but--"))
 	user.gib()
 
 

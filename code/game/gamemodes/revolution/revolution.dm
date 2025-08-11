@@ -12,7 +12,7 @@
 /datum/game_mode/revolution
 	name = "revolution"
 	config_tag = "revolution"
-	restricted_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_LAWYER, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOS, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC)
+	restricted_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_LAWYER, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOS, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_PRISONER)
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 3
@@ -50,7 +50,7 @@
 			validtargets += M
 	if(!validtargets.len)
 		to_chat(usr, span_warning("There are no valid targets!"))
-	var/mob/living/carbon/human/target = input("Choose a target for recruitment.", "Targeting") as null|mob in validtargets
+	var/mob/living/carbon/human/target = tgui_input_list(usr, "Choose a target for recruitment.", "Targeting", validtargets)
 	return target
 
 /datum/action/innate/revolution_recruitment/Activate()
@@ -65,7 +65,7 @@
 	if(!recruit)
 		return
 	log_admin("[key_name(usr)] attempted recruitment [key_name(recruit)] into the revolution.", usr)
-	to_chat(usr, span_info("<b>You are trying to recruit [recruit]: </b>"))
+	to_chat(usr, span_notice("<b>You are trying to recruit [recruit]: </b>"))
 	if(ismindshielded(recruit) || (recruit.mind in SSticker.mode.get_living_heads()))
 		to_chat(recruit, span_danger(span_fontsize4("You were asked to join the revolution, but for reasons you did not know, you refused.")))
 		to_chat(usr, span_danger("\The [recruit] does not support the revolution!"))
@@ -152,7 +152,7 @@
 	messages.Add(rev_mind.prepare_announce_objectives())
 	to_chat(rev_mind.current, chat_box_red(messages.Join("<br>")))
 	if(rev_mind.current)
-		SEND_SOUND(rev_mind.current, 'sound/ambience/antag/revolutionary_tide.ogg')
+		SEND_SOUND(rev_mind.current, sound('sound/ambience/antag/revolutionary_tide.ogg'))
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
@@ -235,7 +235,7 @@
 	if(jobban_isbanned(rev_mind.current, ROLE_REV) || jobban_isbanned(rev_mind.current, ROLE_SYNDICATE))
 		replace_jobbanned_player(rev_mind.current, ROLE_REV)
 	if(rev_mind.current)
-		SEND_SOUND(rev_mind.current, 'sound/ambience/antag/revolutionary_tide.ogg')
+		SEND_SOUND(rev_mind.current, sound('sound/ambience/antag/revolutionary_tide.ogg'))
 	return 1
 //////////////////////////////////////////////////////////////////////////////
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.
@@ -295,22 +295,15 @@
 					if((survivor.mind in head_revolutionaries) || (survivor.mind in revolutionaries))
 						num_revs++
 		if(num_survivors)
-			to_chat(world, "[TAB]Command's Approval Rating: <b>[100 - round((num_revs/num_survivors)*100, 0.1)]%</b>") // % of loyal crew
-		var/text = "<br><font size=3><b>The head revolutionaries were:</b></font>"
+			to_chat(world, "[TAB]Command's Approval Rating: [span_bold("[100 - round((num_revs/num_survivors)*100, 0.1)]%")]") // % of loyal crew
+		var/list/text = list(span_bold(span_fontsize3("<br>The head revolutionaries were:</font>")))
 		for(var/datum/mind/headrev in head_revolutionaries)
 			text += printplayer(headrev, 1)
 		text += "<br>"
-		to_chat(world, text)
 
-	if(revolutionaries.len || GAMEMODE_IS_REVOLUTION)
-		var/text = "<br><font size=3><b>The revolutionaries were:</b></font>"
-		for(var/datum/mind/rev in revolutionaries)
-			text += printplayer(rev, 1)
-		text += "<br>"
-		to_chat(world, text)
+		// we dont show the revolutionaries because there are a LOT of them
 
-	if( head_revolutionaries.len || revolutionaries.len || GAMEMODE_IS_REVOLUTION )
-		var/text = "<br><font size=3><b>The heads of staff were:</b></font>"
+		text = list(span_bold(span_fontsize3("<br>The heads of staff were:")))
 		var/list/heads = get_all_heads()
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
@@ -318,7 +311,7 @@
 				text += span_boldannounceooc("Target")
 			text += printplayer(head, 1)
 		text += "<br>"
-		to_chat(world, text)
+		return text.Join("")
 
 
 /datum/game_mode/revolution/set_scoreboard_vars()

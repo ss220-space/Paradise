@@ -204,7 +204,7 @@ SUBSYSTEM_DEF(garbage)
 
 				var/message = "## TESTING: GC: -- [text_ref(D)] | [type] was unable to be GC'd --"
 				message = "[message] (ref count of [refcount(D)])"
-				log_world(message)
+				log_qdel(message)
 
 				var/detail = D.dump_harddel_info()
 				if(detail)
@@ -268,7 +268,7 @@ SUBSYSTEM_DEF(garbage)
 #endif
 
 //this is mainly to separate things profile wise.
-/datum/controller/subsystem/garbage/proc/HardDelete(datum/D, need_real_del = FALSE)
+/datum/controller/subsystem/garbage/proc/HardDelete(datum/D, log_harddel = TRUE)
 	++delslasttick
 	++totaldels
 	var/type = D.type
@@ -300,10 +300,11 @@ SUBSYSTEM_DEF(garbage)
 	//Issue with global config not loading can happen when hard deletions happening before config loading
 	if(global.config)
 		threshold = CONFIG_GET(number/hard_deletes_overrun_threshold)
-
+	if(log_harddel)
+		log_qdel("WARNING: [type]([refID]) was harddeleted")
 	if (threshold && (time > threshold SECONDS))
 		if (!(type_info.qdel_flags & QDEL_ITEM_ADMINS_WARNED))
-			log_game("Error: [type]([refID]) took longer than [threshold] seconds to delete (took [round(time/10, 0.1)] seconds to delete)")
+			log_qdel("Error: [type]([refID]) took longer than [threshold] seconds to delete (took [round(time/10, 0.1)] seconds to delete)")
 			message_admins("Error: [type]([refID]) took longer than [threshold] seconds to delete (took [round(time/10, 0.1)] seconds to delete).")
 			type_info.qdel_flags |= QDEL_ITEM_ADMINS_WARNED
 		type_info.hard_deletes_over_threshold++
@@ -375,6 +376,7 @@ SUBSYSTEM_DEF(garbage)
 
 	if(world.time != start_time)
 		trash.slept_destroy++
+		log_qdel("WARNING:[to_delete.type] has sleep in Destroy")
 	else
 		trash.destroy_time += TICK_USAGE_TO_MS(start_tick)
 
@@ -409,7 +411,7 @@ SUBSYSTEM_DEF(garbage)
 			SSgarbage.Queue(to_delete, GC_QUEUE_HARDDELETE)
 			SSdemo.mark_destroyed(to_delete)
 		if (QDEL_HINT_HARDDEL_NOW) //qdel should assume this object won't gc, and hard del it post haste.
-			SSgarbage.HardDelete(to_delete)
+			SSgarbage.HardDelete(to_delete, FALSE)
 			SSdemo.mark_destroyed(to_delete)
 		#ifdef REFERENCE_TRACKING
 		if (QDEL_HINT_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled, display all references to this object, then queue the object for deletion.
@@ -424,6 +426,7 @@ SUBSYSTEM_DEF(garbage)
 			if(!trash.no_hint)
 				testing("WARNING: [to_delete.type] is not returning a qdel hint. It is being placed in the queue. Further instances of this type will also be queued.")
 			#endif
+			log_qdel("WARNING:[to_delete.type] is not returning a qdel hint. It is being placed in the queue. Further instances of this type will also be queued.")
 			trash.no_hint++
 			SSgarbage.Queue(to_delete)
 
@@ -449,7 +452,7 @@ SUBSYSTEM_DEF(garbage)
 	SSgarbage.update_nextfire(reset_time = TRUE)
 
 /datum/proc/_search_references()
-	log_reftracker("Beginning search for references to a [type], looking for [references_to_clear] refs.")
+	log_gc("Beginning search for references to a [type], looking for [references_to_clear] refs.")
 
 	var/starting_time = world.time
 
@@ -465,43 +468,43 @@ SUBSYSTEM_DEF(garbage)
 		global_vars[key] = global.vars[key]
 
 	DoSearchVar(global_vars, "Native Global", starting_time)
-	log_reftracker("Finished searching native globals")
+	log_gc("Finished searching native globals")
 
 	if(references_to_clear == 0)
 		return
 
 	for(var/datum/thing in world) //atoms (don't beleive it's lies)
 		DoSearchVar(thing, "World -> [thing.type]", starting_time)
-		if(src.references_to_clear == 0)
+		if(references_to_clear == 0)
 			break
 
 	log_gc("Finished searching atoms")
-	if(src.references_to_clear == 0)
+	if(references_to_clear == 0)
 		return
 
 	for(var/datum/thing) //datums
 		DoSearchVar(thing, "Datums -> [thing.type]", starting_time)
-		if(src.references_to_clear == 0)
+		if(references_to_clear == 0)
 			break
 
 	log_gc("Finished searching datums")
-	if(src.references_to_clear == 0)
+	if(references_to_clear == 0)
 		return
 
 	for(var/client/thing) //clients
 		DoSearchVar(thing, "Clients -> [thing.type]", starting_time)
-		if(src.references_to_clear == 0)
+		if(references_to_clear == 0)
 			break
 
 	log_gc("Finished searching clients")
-	if(src.references_to_clear == 0)
+	if(references_to_clear == 0)
 		return
 
 	log_gc("Completed search for references to a [type].")
 
 /datum/proc/DoSearchVar(potential_container, container_name, search_time, recursion_count, is_special_list)
 	if(recursion_count >= REFSEARCH_RECURSE_LIMIT)
-		log_reftracker("Recursion limit reached. [container_name]")
+		log_gc("Recursion limit reached. [container_name]")
 		return
 
 	if(references_to_clear == 0)
@@ -549,13 +552,13 @@ SUBSYSTEM_DEF(garbage)
 					found_refs[varname] = TRUE
 					continue //End early, don't want these logging
 				else
-					log_reftracker("Found [type] [text_ref(src)] in [datum_container.type]'s [datum_container.ref_search_details()] [varname] var. [container_name]")
+					log_gc("Found [type] [text_ref(src)] in [datum_container.type]'s [datum_container.ref_search_details()] [varname] var. [container_name]")
 				#else
-				log_reftracker("Found [type] [text_ref(src)] in [datum_container.type]'s [datum_container.ref_search_details()] [varname] var. [container_name]")
+				log_gc("Found [type] [text_ref(src)] in [datum_container.type]'s [datum_container.ref_search_details()] [varname] var. [container_name]")
 				#endif
 				references_to_clear -= 1
 				if(references_to_clear == 0)
-					log_reftracker("All references to [type] [text_ref(src)] found, exiting.")
+					log_gc("All references to [type] [text_ref(src)] found, exiting.")
 					return
 				continue
 
@@ -578,9 +581,9 @@ SUBSYSTEM_DEF(garbage)
 					found_refs[potential_cache] = TRUE
 					continue
 				else
-					log_reftracker("Found [type] [text_ref(src)] in list [container_name].")
+					log_gc("Found [type] [text_ref(src)] in list [container_name].")
 				#else
-				log_reftracker("Found [type] [text_ref(src)] in list [container_name].")
+				log_gc("Found [type] [text_ref(src)] in list [container_name].")
 				#endif
 				// This is dumb as hell I'm sorry
 				// I don't want the garbage subsystem to count as a ref for the purposes of this number
@@ -592,11 +595,11 @@ SUBSYSTEM_DEF(garbage)
 						ignore_ref = TRUE
 						break
 				if(ignore_ref)
-					log_reftracker("[container_name] does not count as a ref for our count")
+					log_gc("[container_name] does not count as a ref for our count")
 				else
 					references_to_clear -= 1
 				if(references_to_clear == 0)
-					log_reftracker("All references to [type] [text_ref(src)] found, exiting.")
+					log_gc("All references to [type] [text_ref(src)] found, exiting.")
 					return
 
 			if(!isnum(element_in_list) && !is_special_list)
@@ -617,18 +620,18 @@ SUBSYSTEM_DEF(garbage)
 							found_refs[potential_cache] = TRUE
 							continue
 						else
-							log_reftracker("Found [type] [text_ref(src)] in list [container_name]\[[element_in_list]\]")
+							log_gc("Found [type] [text_ref(src)] in list [container_name]\[[element_in_list]\]")
 						#else
-						log_reftracker("Found [type] [text_ref(src)] in list [container_name]\[[element_in_list]\]")
+						log_gc("Found [type] [text_ref(src)] in list [container_name]\[[element_in_list]\]")
 						#endif
 						references_to_clear -= 1
 						if(references_to_clear == 0)
-							log_reftracker("All references to [type] [text_ref(src)] found, exiting.")
+							log_gc("All references to [type] [text_ref(src)] found, exiting.")
 							return
 				catch
 					// So if it goes wrong we kill it
 					is_special_list = TRUE
-					log_reftracker("Curiosity: [container_name] lead to an error when acessing [element_in_list], what is it?")
+					log_gc("Curiosity: [container_name] lead to an error when acessing [element_in_list], what is it?")
 
 #undef REFSEARCH_RECURSE_LIMIT
 

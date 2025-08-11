@@ -27,6 +27,7 @@ To draw a rune, use a ritual dagger.
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // So that runes aren't so hard to click
 	var/visibility = 0
 	var/view_range = 7
+	invisibility = INVISIBILITY_RUNES
 	layer = SIGIL_LAYER
 	color = COLOR_BLOOD_BASE
 
@@ -69,9 +70,9 @@ To draw a rune, use a ritual dagger.
 /obj/effect/rune/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD) //If they're a cultist or a ghost, tell them the effects
-		. += span_info("<b>Name:</b> [cultist_name]")
-		. += span_info("<b>Effects:</b> [capitalize(cultist_desc)]")
-		. += span_info("<b>Required Acolytes:</b> [req_cultists]")
+		. += span_notice("<b>Name:</b> [cultist_name]")
+		. += span_notice("<b>Effects:</b> [capitalize(cultist_desc)]")
+		. += span_notice("<b>Required Acolytes:</b> [req_cultists]")
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> [span_cultitalic(keyword)]"
 
@@ -604,7 +605,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a revived Cultist?", ROLE_CULTIST, TRUE, poll_time = 20 SECONDS, source = /obj/item/melee/cultblade/dagger)
 		if(length(candidates))
 			var/mob/dead/observer/C = pick(candidates)
-			to_chat(mob_to_revive, span_dangerbigger("Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form."))
+			to_chat(mob_to_revive, span_biggerdanger("Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form."))
 			message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(mob_to_revive)]) to replace an AFK player.")
 			mob_to_revive.ghostize(FALSE)
 			mob_to_revive.key = C.key
@@ -612,7 +613,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			fail_invoke()
 			return
 
-	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult.ogg')
+	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, span_cultlarge("\"PASNAR SAVRAE YAM'TOTH. Arise.\""))
 	mob_to_revive.visible_message(span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
 								  span_cultlarge("You awaken suddenly from the void. You're alive!"))
@@ -827,8 +828,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/manifest/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD)
-		. += "<b>Amount of ghosts summoned:</b> [span_cultitalic(ghosts)]"
-		. += "<b>Maximum amount of ghosts:</b> [span_cultitalic(clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit))]"
+		. += "<b>Amount of ghosts summoned:</b> [span_cultitalic("[ghosts]")]"
+		. += "<b>Maximum amount of ghosts:</b> [span_cultitalic("[clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit)]")]"
 		. += "Lowers to a minimum of [minimum_ghost_limit] for each objective accomplished."
 		. += "<b>Всего доступно призывов:</b><span class='cultitalic'> [SSticker.mode.ghost_summons]</span>"
 
@@ -1006,7 +1007,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	used = TRUE
 	color = rgb(255, 0, 0)
 	..()
-	SEND_SOUND(world, 'sound/effects/narsie_summon.ogg')
+	SEND_SOUND(world, sound('sound/effects/narsie_summon.ogg'))
 	to_chat(world, span_cultitalic("<b>The veil... [span_big("is...")] [span_reallybig("TORN!!!--")]</b>"))
 	update_icon(UPDATE_ICON_STATE)
 	var/turf/T = get_turf(src)

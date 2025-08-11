@@ -26,7 +26,7 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 95, ACID = 70)
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
@@ -94,7 +94,10 @@
 	if(stat & (NOPOWER|BROKEN))
 		set_light_on(FALSE)
 		return
-	set_light_on(active_alarm)
+	if(active_alarm)
+		set_light(1, 0.5, COLOR_RED_LIGHT)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 
 
 /obj/machinery/door/firedoor/extinguish_light(force = FALSE)
@@ -227,10 +230,10 @@
 	switch(animation)
 		if("opening")
 			flick("door_opening", src)
-			playsound(src, 'sound/machines/firedoor.ogg', 60, 1)
+			playsound(src, 'sound/machines/airlock_ext_open.ogg', 30, TRUE)
 		if("closing")
 			flick("door_closing", src)
-			playsound(src, 'sound/machines/firedoor.ogg', 60, 1)
+			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, TRUE)
 
 
 /obj/machinery/door/firedoor/update_icon_state()
@@ -302,7 +305,7 @@
 			F.constructionStep = CONSTRUCTION_PANEL_OPEN
 		else
 			F.constructionStep = CONSTRUCTION_WIRES_EXPOSED
-			F.obj_integrity = F.max_integrity * 0.5
+			F.update_integrity(F.max_integrity * 0.5)
 		F.update_icon(UPDATE_ICON_STATE)
 	qdel(src)
 
@@ -363,18 +366,18 @@
 	. = ..()
 	if(our_rcd.checkResource(16, user))
 		to_chat(user, "Deconstructing firelock...")
-		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(16, user))
 				return RCD_ACT_FAILED
-			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed firelock with RCD")
 			qdel(src)
 			return RCD_ACT_SUCCESSFULL
 		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
 		return RCD_ACT_FAILED
 	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this firelock!"))
-	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
 /obj/machinery/door/firedoor/heavy

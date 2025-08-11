@@ -109,6 +109,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
+	remove_the_hud(THOUGHTS_HUD)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
@@ -117,6 +118,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
+	GLOB.respawnable_list -= src
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -330,7 +332,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return TRUE
 
 
-/mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source)
+/mob/dead/observer/proc/notify_cloning(message, sound, atom/source)
 	if(message)
 		to_chat(src, span_ghostalert("[message]"))
 		if(source)
@@ -346,9 +348,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.add_overlay(source)
 				source.layer = old_layer
 				source.plane = old_plane
-	to_chat(src, span_ghostalert("<a href=?src=[UID()];reenter=1>(Нажмите, чтобы вернуться)</a>"))
+	to_chat(src, span_ghostalert("<a href='byond://?src=[UID()];reenter=1>(Нажмите, чтобы вернуться)</a>"))
 	if(sound)
-		src << sound(sound)
+		SEND_SOUND(src, sound(sound))
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
@@ -381,6 +383,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
  * Toggles off all HUDs for the ghost player.
  */
 /mob/dead/observer/proc/toggle_all_huds_off()
+	remove_the_hud(DATA_HUD_DIAGNOSTIC)
 	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
@@ -430,10 +433,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(usr))
 		to_chat(usr, "Не сейчас, вы же не мертвы!")
 		return
-	var/target = tgui_input_list(usr, "Зона для телепортации", "Телепортироваться в локацию", GLOB.ghostteleportlocs)
+	var/target = tgui_input_list(usr, "Зона для телепортации", "Телепортироваться в локацию", SSmapping.ghostteleportlocs)
 	if(!target)
 		return
-	var/area/A = GLOB.ghostteleportlocs[target]
+	var/area/A = SSmapping.ghostteleportlocs[target]
 	teleport(A)
 
 /mob/dead/observer/proc/teleport(area/A)
@@ -612,7 +615,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/mob/living/silicon/ai/A = target
 		. = "<a href='byond://?src=[ghost.UID()];follow=[A.UID()]'>ядро</a>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|<a href='byond://?src=[ghost.UID()];follow=[A.eyeobj.UID()]'>глаз</a>"
+			. += "|<a href='byond://?src=[ghost.UID()];follow=[A.eyeobj.UID()]'>око</a>"
 		return
 	else if(istype(target, /mob/dead/observer))
 		var/mob/dead/observer/O = target
@@ -634,7 +637,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			ManualFollow(target)
 
 	if(href_list["follow"])
-		var/atom/target = locate(href_list["follow"])
+		var/atom/target = locateUID(href_list["follow"])
 		if(target)
 			ManualFollow(target)
 
@@ -742,23 +745,23 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 
 /mob/dead/observer/verb/toggle_ghostsee()
-	set name = "Призрачное зрение"
+	set name = "Видимость призраков"
 	set desc = "Toggles your ability to see things only ghosts can see, like other ghosts"
 	set category = STATPANEL_GHOST
 
 	ghostvision = !(ghostvision)
 	update_sight()
-	to_chat(usr, "Призрачное зрение [(ghostvision?"включено":"выключен")]")
+	to_chat(usr, span_notice("Видимость призраков [(ghostvision?"включена":"отключена")]."))
 
 /mob/dead/observer/verb/pick_darkness()
 	set name = "Освещённость"
 	set desc = "Choose how much darkness you want to see."
 	set category = STATPANEL_GHOST
-	var/list/ghost_darkness_levels = list("Strong Darkness" = LIGHTING_PLANE_ALPHA_VISIBLE,
-											"Darkness" = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE,
-											"Light Darkness" = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE,
-											"No Darkness" = LIGHTING_PLANE_ALPHA_INVISIBLE)
-	var/desired_dark = tgui_input_list(usr, "Choose how much darkness you want to see", "Pick darkness", ghost_darkness_levels)
+	var/list/ghost_darkness_levels = list("Стандартное освещение" = LIGHTING_PLANE_ALPHA_VISIBLE,
+											"Темнее" = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE,
+											"Ярче" = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE,
+											"Полное освещение" = LIGHTING_PLANE_ALPHA_INVISIBLE)
+	var/desired_dark = tgui_input_list(usr, "Выберите, на сколько хорошо вы хотите видеть", "Выбор освещения", ghost_darkness_levels)
 	if(isnull(desired_dark))
 		return
 	if(!client)

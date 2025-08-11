@@ -188,26 +188,20 @@
 
 	if(istype(spawned, /obj/item/storage/box) && length(spawned.contents))
 		for(var/atom/box_item in spawned)
-			target_uplink.purchase_log += "<BIG>[bicon(box_item)]</BIG>"
+			target_uplink.purchase_log += span_fontsize4(bicon(box_item))
 	else
-		target_uplink.purchase_log += "<BIG>[bicon(spawned)]</BIG>"
+		target_uplink.purchase_log += span_fontsize4(bicon(spawned))
 
 	return spawned
-
-/*
-//
-//	UPLINK ITEMS
-//
-*/
-//Work in Progress, job specific antag tools
 
 //Discounts (dynamically filled above)
 
 /datum/uplink_item/discounts
 	category = "Снаряжение со скидкой"
 
-//Job specific gear
-
+/**
+ * MARK: Job Specific Gear
+ */
 /datum/uplink_item/jobspecific
 	category = "Профессиональные предметы"
 	can_discount = FALSE
@@ -596,8 +590,8 @@
 	hijack_only = TRUE
 
 /datum/uplink_item/jobspecific/random_spell_book
-	name = "Случайная книга заклинаний"
-	desc = "Случайная книга заклинаний, которую мы позаимствовали у Федерации Космических Волшебников."
+	name = "Случайный гримуар"
+	desc = "Случайный гримуар, который мы позаимствовали у Федерации Космических Волшебников."
 	item = /obj/item/spellbook/oneuse/random
 	cost = 25
 	job = list(JOB_TITLE_LIBRARIAN)
@@ -770,8 +764,9 @@
 	cost = 12
 	race = list(SPECIES_GREY)
 
-// DANGEROUS WEAPONS
-
+/**
+ * MARK: Dangerous Weapons
+ */
 /datum/uplink_item/dangerous
 	category = "Очень заметное и опасное оружие"
 
@@ -805,14 +800,6 @@
 	desc = "Легендарный пистолет огромной мощности с магазином на 7 патронов калибра .50AE."
 	item = /obj/item/gun/projectile/automatic/pistol/deagle
 	cost = 50
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/dangerous/uzi
-	name = "Пистолет-пулемёт Uzi"
-	desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм. \
-			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 4 патрона. Совместим с глушителем."
-	item = /obj/item/gun/projectile/automatic/mini_uzi
-	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/smg
@@ -956,8 +943,9 @@
 	refundable = TRUE
 	can_discount = TRUE
 
-// SUPPORT AND MECHAS
-
+/**
+ * MARK: Support & Mechas
+ */
 /datum/uplink_item/support
 	category = "Поддержка и механизированные экзоскелеты"
 	surplus = 0
@@ -1022,8 +1010,9 @@
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 
-// Ammunition
-
+/**
+ * MARK: Ammunition
+ */
 /datum/uplink_item/ammo
 	category = "Боеприпасы"
 	surplus = 40
@@ -1122,20 +1111,6 @@
 	desc = "Сумка, содержащая 3 расширенных барабана на 24 патронов калибра 12g: \"Картечь\", \"Дыхание дракона\", \"Флешетта\"."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
 	cost = 45 // normally 90
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/ammo/uzi
-	name = "Пистолет-пулемёт Uzi — магазин 9 мм"
-	desc = "Магазин на 30 патронов калибра 9 мм."
-	item = /obj/item/ammo_box/magazine/uzim9mm
-	cost = 10
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/ammo/uzi_ammobag
-	name = "Пистолет-пулемёт Uzi — сумка с магазинами 9 мм"
-	desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Для тех, кто идёт на серьёзное дело."
-	item = /obj/item/storage/backpack/duffel/syndie/ammo/uzi
-	cost = 70 // normally 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg
@@ -1283,8 +1258,9 @@
 	cost = 4
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// STEALTHY WEAPONS
-
+/**
+ * MARK: Stealthy Weapons
+ */
 /datum/uplink_item/stealthy_weapons
 	category = "Незаметное и тихое оружие"
 
@@ -1346,6 +1322,12 @@
 	desc = "Энергетический кинжал, который в неактивном состоянии выглядит и функционирует как обычная ручка."
 	item = /obj/item/pen/edagger
 	cost = 7
+
+/datum/uplink_item/stealthy_weapons/edagger
+	name = "Скрытый клинок убийцы"
+	desc = "Наручный механизм со скрытым клинком для тайных убийств. Замаскирован под обычные наручи."
+	item = /obj/item/clothing/accessory/armguard/syndicate
+	cost = 20
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Усыпляющая ручка"
@@ -1419,8 +1401,9 @@
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 7
 
-// GRENADES AND EXPLOSIVES
-
+/**
+ * MARK: Grenades & Explosives
+ */
 /datum/uplink_item/explosives
 	category = "Гранаты и взрывчатка"
 
@@ -1605,8 +1588,9 @@
 	item = /obj/item/storage/box/syndie_kit/emp
 	cost = 10
 
-// STEALTHY TOOLS
-
+/**
+ * MARK: Stealthy Tools
+ */
 /datum/uplink_item/stealthy_tools
 	category = "Предметы для маскировки и незаметной работы"
 
@@ -1748,8 +1732,9 @@
 	item = /obj/item/storage/box/syndie_kit/chameleon_counter
 	cost = 6
 
-// Devices and Tools
-
+/**
+ * MARK: Devices & Tools
+ */
 /datum/uplink_item/device_tools
 	category = "Девайсы и инструменты"
 
@@ -2054,8 +2039,9 @@
 	cost = 28
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
-//Space Suits and Hardsuits
-
+/**
+ * MARK: Space Suits & Hardsuits
+ */
 /datum/uplink_item/suits
 	category = "Скафандры и ИКСы"
 	surplus = 40
@@ -2109,8 +2095,9 @@
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// IMPLANTS
-
+/**
+ * MARK: Implants
+ */
 /datum/uplink_item/implants
 	category = "Импланты"
 
@@ -2157,8 +2144,8 @@
 
 /datum/uplink_item/implants/adrenal
 	name = "Адреналиновый имплант"
-	desc = "Имплант, который можно вживить в организм и активировать по желанию. Может быть активирован 3 раза. Избавляет от оглушения и замедления, восстанавливает выносливость. \
-			Кроме того, вы получаете коктейль из стимуляторов, которые лечат вас, ускоряют и делают менее уязвимыми к оглушению."
+	desc = "Имплант, который можно вживить в организм и активировать по желанию. Может быть использован до 2 раз, со временем заряды восстанавливаются, потребляя кровь и питательные вещества носителя. Избавляет от оглушения и замедления, восстанавливает выносливость. \
+			Кроме того, вы получаете коктейль из стимуляторов, которые лечат вас, ускоряют и делают менее уязвимыми к оглушению. Не рекомендуется использовать более двух раз подряд без должного восстановления организма."
 	item = /obj/item/implanter/adrenalin
 	cost = 44
 	can_discount = FALSE
@@ -2195,8 +2182,9 @@
 	cost = 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// Cybernetic Implants
-
+/**
+ * MARK: Cybernetic Implants
+ */
 /datum/uplink_item/cyber_implants
 	category = "Кибернетические импланты"
 	surplus = 0
@@ -2260,8 +2248,9 @@
 	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_TRAITOR)
 
-// POINTLESS BADASSERY
-
+/**
+ * MARK: Pointless Badassery
+ */
 /datum/uplink_item/badass
 	category = "Безделушки"
 	surplus = 0
@@ -2313,8 +2302,9 @@
 	item = /obj/item/syndicate_reverse_card
 	cost = 10
 
-// Bundles and Telecrystals
-
+/**
+ * MARK: Bundles & TC
+ */
 /datum/uplink_item/bundles_TC
 	category = "Наборы и телекристаллы"
 	surplus = 0
@@ -2439,8 +2429,9 @@
 	cost = 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-// Contractor
-
+/**
+ * MARK: Contractor
+ */
 /datum/uplink_item/contractor
 	category = "Контрактник"
 	uplinktypes = list(UPLINK_TYPE_ADMIN)

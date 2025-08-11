@@ -575,8 +575,8 @@
 
 	//Finally, report the full examine_message constructed from the above reports
 	. += span_notice("[examine_message]")
-	. += span_info("You can <b>Alt-Click</b> [src] to open/close its lid.")
-	. += span_info("You can <b>Alt-Shift-Click</b> [src] to enable/disable its light.")
+	. += span_notice("You can <b>Alt-Click</b> [src] to open/close its lid.")
+	. += span_notice("You can <b>Alt-Shift-Click</b> [src] to enable/disable its light.")
 
 
 //////////////////////////////

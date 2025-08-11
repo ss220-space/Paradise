@@ -51,7 +51,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/New()
 	if (!armor)
-		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
+		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 	..()
 
 	if(!pipe_color)
@@ -82,7 +82,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/examine(mob/living/user)
 	. = ..()
 	if((vent_movement & VENTCRAWL_ENTRANCE_ALLOWED) && is_ventcrawler(user))
-		. += span_info("Alt-click to crawl through it.")
+		. += span_notice("Alt-click to crawl through it.")
 
 
 /obj/machinery/atmospherics/set_frequency(new_frequency)
@@ -280,7 +280,7 @@ Pipelines + Other Objects -> Pipe network
 	if(can_unwrench && !(obj_flags & NODECONSTRUCT))
 		var/obj/item/pipe/stored = new(loc, null, null, src)
 		if(!disassembled)
-			stored.obj_integrity = stored.max_integrity * 0.5
+			stored.update_integrity(stored.max_integrity * 0.5)
 		transfer_fingerprints_to(stored)
 	..()
 

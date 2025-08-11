@@ -11,10 +11,9 @@
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
-	brute_mod = 0.9
 	heatmod = 0.8
 	coldmod = 1.2
-	hunger_drain_mod = 1.6
+	hunger_drain_mod = 1.3
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
@@ -120,6 +119,10 @@
 		lash.Grant(H)
 
 
+/datum/species/unathi/gain_muscles(mob/living/target, datum/strength_level/default, max_level, can_become_stronger)
+	..(target, target.gender == FEMALE ? default.next_level : default, max_level, can_become_stronger)
+
+
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	remove_verb(H, list(
@@ -157,12 +160,12 @@
 	name_plural = "Ash Walkers"
 	inherent_factions = list("ashwalker")
 
-	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
-	Они бродят по пустошам Лаваленда, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
+	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
+	Они бродят по пустошам Лазиса, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
 
 	language = LANGUAGE_UNATHI
 	default_language = LANGUAGE_UNATHI
-
+	brute_mod = 0.9
 	speed_mod = -0.50
 
 	inherent_traits = list(
@@ -361,7 +364,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 		var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "Точки интереса", list_of_points)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, owner, \
 							span_warning("Я чувствую, что [selected_poi] [get_direction(selected_poi)]")), 2 SECONDS)
-              
+
 	if(!LAZYLEN(GLOB.lavaland_points_of_interest))
 		to_chat(owner, "Все церемониальные тотемы уничтожены.")
 		return
@@ -379,10 +382,10 @@ They're basically just lizards with all-around marginally better stats and fire 
 		return "уничтожен."
 
 	var/turf/turf = get_turf(selected_poi)
-	
+
 	if(owner.z != turf.z)
 		return "находится где-то далеко отсюда."
-	
+
 	. = "находится где-то на "
 	. += dir2rustext(get_dir(owner.loc, selected_poi.loc))
 	. += "e."

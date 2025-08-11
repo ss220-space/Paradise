@@ -92,12 +92,12 @@ SUBSYSTEM_DEF(cargo_quests)
 		addtimer(CALLBACK(src, PROC_REF(create_new_quest), pick(get_customer_list(quest.customer))), 10 MINUTES)
 	else
 		create_new_quest(pick(get_customer_list(quest.customer)), reroll, quest.quest_difficulty)
-	qdel(quest)
+	QDEL_IN(quest, 0.5 SECONDS)
 
 /datum/controller/subsystem/cargo_quests/proc/create_new_quest(customer, reroll, old_difficulty, easy_mode)
 	var/datum/cargo_quests_storage/new_quest = new()
 	new_quest.customer = customer
-	if(GLOB.security_level > SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() > SEC_LEVEL_RED)
 		easy_mode = TRUE
 	if(reroll && !easy_mode)
 		new_quest.quest_difficulty = old_difficulty

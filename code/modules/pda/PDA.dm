@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = DENY_UI_BLOCKED
 	slot_flags = ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_BELT
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
 
@@ -56,6 +56,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	var/datum/data/pda/utility/scanmode/scanmode = null
 
 	var/lock_code = "" // Lockcode to unlock uplink
+	var/silent = FALSE //To beep or not to beep, that is the question
 	var/honkamt = 0 //How many honks left when infected with honk.exe
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
 	var/detonate = 1 // Can the PDA be blown up?
@@ -115,6 +116,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
  */
 /obj/item/pda/Initialize(mapload)
 	. = ..()
+	silent = TRUE // We don't want to hear the first program start up
 	GLOB.PDAs += src
 	GLOB.PDAs = sortAtom(GLOB.PDAs)
 
@@ -130,6 +132,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	else
 		new /obj/item/pen(src)
 	start_program(find_program(/datum/data/pda/app/main_menu))
+	silent = initial(silent)
 
 
 /obj/item/pda/Destroy()
@@ -259,6 +262,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		to_chat(user, span_notice("You remove the ID from the [name]."))
 		SStgui.update_uis(src)
 	id = null
+	playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 	cartridge?.on_id_updated()
 	request_cartridge?.on_id_updated()
 	update_icon(UPDATE_OVERLAYS)
@@ -291,10 +295,11 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(issilicon(user))
 		return
 
-	if( can_use(user) )
+	if(can_use(user))
 		var/obj/item/pen/O = locate() in src
 		if(O)
 			to_chat(user, span_notice("You remove \the [O] from [src]."))
+			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
@@ -328,6 +333,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		id = I
 		cartridge?.on_id_updated()
 		request_cartridge?.on_id_updated()
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	return FALSE
@@ -437,6 +443,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		SStgui.update_uis(src)
 		if(request_cartridge.radio)
 			request_cartridge.radio.hostpda = src
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/cartridge))
@@ -454,6 +461,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		SStgui.update_uis(src)
 		if(cartridge.radio)
 			cartridge.radio.hostpda = src
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/card/id))
@@ -461,6 +469,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		var/obj/item/card/id/id_card = I
 		if(!id_card.registered_name)
 			to_chat(user, span_warning("The PDA rejects empty ID card."))
+			if(!silent)
+				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 			return ATTACK_CHAIN_PROCEED
 		if(!owner)
 			update_owner_name(id_card.registered_name)
@@ -469,6 +479,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 			update_appearance(UPDATE_NAME)
 			to_chat(user, span_notice("The ID card has been scanned."))
 			SStgui.update_uis(src)
+			if(!silent)
+				playsound(src, 'sound/machines/terminal_success.ogg', 50, TRUE)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		if(!can_use(user))
 			return ATTACK_CHAIN_PROCEED
@@ -488,6 +500,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		pai = I
 		to_chat(user, span_notice("You have inserted the pAI card into the PDA."))
 		SStgui.update_uis(src)
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(is_pen(I))
@@ -546,13 +559,13 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		A.emp_act(severity)
 
 /obj/item/pda/proc/play_ringtone()
-	var/S
+	var/sound
 
 	if(ttone in ttone_sound)
-		S = ttone_sound[ttone]
+		sound = ttone_sound[ttone]
 	else
-		S = 'sound/machines/twobeep.ogg'
-	playsound(loc, S, 50, 1)
+		sound = 'sound/machines/twobeep_high.ogg'
+	playsound(loc, sound, 50, TRUE)
 	for(var/mob/O in hearers(3, loc))
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 

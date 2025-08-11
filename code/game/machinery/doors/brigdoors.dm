@@ -107,7 +107,7 @@
 						<b>Arresting Officer:</b>		[usr.name]<br><hr><br>
 						<small>This log file was generated automatically upon activation of a cell timer.</small>"}
 
-		playsound(C.loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+		playsound(C.loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, TRUE)
 		GLOB.cell_logs += P
 
 	var/datum/data/record/G = find_record("name", occupant, GLOB.data_core.general)
@@ -136,10 +136,12 @@
 	if(R)
 		prisoner = R
 		R.fields["criminal"] = SEC_RECORD_STATUS_INCARCERATED
+		R.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
 		var/mob/living/carbon/human/M = usr
 		var/rank = "UNKNOWN RANK"
 		if(istype(M))
 			var/obj/item/card/id/I = M.get_id_card()
+			R.fields["last_modifier_level"] = I.law_level
 			if(I)
 				rank = I.assignment
 		if(!R.fields["comments"] || !islist(R.fields["comments"])) //copied from security computer code because apparently these need to be initialized
@@ -149,11 +151,17 @@
 	return 1
 
 /obj/machinery/door_timer/proc/notify_prisoner(notifytext)
-	for(var/mob/living/carbon/human/H in range(4, get_turf(src)))
-		if(occupant == H.name)
-			to_chat(H, "[src] beeps, \"[notifytext]\"")
-			return
+	var/mob/living/carbon/human/human = find_prisoner()
+	if(human)
+		to_chat(human, "[src] beeps, \"[notifytext]\"")
+		return
 	atom_say("[src] beeps, \"[occupant]: [notifytext]\"")
+
+/obj/machinery/door_timer/proc/find_prisoner()
+	for(var/mob/living/carbon/human/human in range(4, get_turf(src)))
+		if(occupant == human.name)
+			return human
+	return null
 
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
@@ -168,9 +176,9 @@
 			timer_end()
 			return PROCESS_KILL
 		if(timeleft() <= 0)
-			Radio.autosay("Timer has expired. Releasing prisoner.", name, SEC_FREQ_NAME, list(z))
-			occupant = CELL_NONE
+			Radio.autosay("Timer has expired. Releasing prisoner.", name, SEC_FREQ_NAME)
 			timer_end() // open doors, reset timer, clear status screen
+			occupant = CELL_NONE
 			return PROCESS_KILL
 		update_display()
 	else
@@ -245,6 +253,10 @@
 		monitor.total_joules = 0
 		monitor.on = TRUE
 
+	var/mob/living/carbon/human/human = find_prisoner()
+	if(human)
+		SEND_SIGNAL(human, COMSIG_DOOR_TIMER_START, crimes, prisoner_time)
+
 	return TRUE
 
 
@@ -256,6 +268,13 @@
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 
+	//send signal
+	var/mob/living/carbon/human/human = find_prisoner()
+	if(human)
+		SEND_SIGNAL(human, COMSIG_DOOR_TIMER_FINISH, crimes, prisoner_time)
+	else
+		message_admins("door_timer.timer_end(): not found prisoner [occupant] in cell for send signal")
+
 	// Reset vars
 	occupant = CELL_NONE
 	crimes = CELL_NONE
@@ -264,8 +283,10 @@
 	officer = CELL_NONE
 	releasetime = 0
 	printed = FALSE
+	prisoner_time = null
 	if(prisoner)
 		prisoner.fields["criminal"] = SEC_RECORD_STATUS_RELEASED
+		prisoner.fields["last_modifier_level"] = LAW_LEVEL_BASE
 		update_all_mob_security_hud()
 		prisoner = null
 
@@ -415,15 +436,14 @@
 			crimes = prisoner_charge
 			prisoner_name = null
 			prisoner_charge = null
-			prisoner_time = null
 			timer_start()
 		if("add_timer")
 			if(timing)
-				var/add_reason = sanitize(copytext(input(usr, "Reason:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
+				var/add_reason = tgui_input_text(usr, "Reason:", name, "", max_length = MAX_MESSAGE_LEN)
 				if(!add_reason)
 					to_chat(usr, span_warning("Must specify the reason!"))
 					return FALSE
-				prisoner_time_add = input(usr, "Minutes to add:", name, prisoner_time_add) as num|null
+				prisoner_time_add = tgui_input_number(usr, "Minutes to add:", name, prisoner_time_add)
 				prisoner_time_add = min(max(round(prisoner_time_add), 0), PERMABRIG_TIME)
 				if(!prisoner_time_add)
 					to_chat(usr, span_warning("Must specify the number!"))
@@ -435,7 +455,7 @@
 				timetoset = timetoset + prisoner_time_add
 				releasetime = releasetime + prisoner_time_add
 				var/addtext = isobserver(usr) ? "for: [add_reason]." : "by [usr.name] for: [add_reason]"
-				Radio.autosay("Prisoner [occupant] had their timer increased by [prisoner_time_add / 600] minutes [addtext]", name, SEC_FREQ_NAME, list(z))
+				Radio.autosay("Prisoner [occupant] had their timer increased by [prisoner_time_add / 600] minutes [addtext]", name, SEC_FREQ_NAME)
 				notify_prisoner("Your brig timer has been increased by [prisoner_time_add / 600] minutes for: '[add_reason]'.")
 				var/datum/data/record/R = find_security_record("name", occupant)
 				if(istype(R))
@@ -451,7 +471,7 @@
 					return FALSE
 				releasetime = world.timeofday + timetoset
 				var/resettext = isobserver(usr) ? "for: [reset_reason]." : "by [usr.name] for: [reset_reason]."
-				Radio.autosay("Prisoner [occupant] had their timer reset [resettext]", name, SEC_FREQ_NAME, list(z))
+				Radio.autosay("Prisoner [occupant] had their timer reset [resettext]", name, SEC_FREQ_NAME)
 				notify_prisoner("Your brig timer has been reset for: '[reset_reason]'.")
 				var/datum/data/record/R = find_security_record("name", occupant)
 				if(istype(R))
@@ -462,7 +482,7 @@
 			if(timing)
 				timer_end()
 				var/stoptext = isobserver(usr) ? "from cell control." : "by [usr.name]."
-				Radio.autosay("Timer stopped manually [stoptext]", name, SEC_FREQ_NAME, list(z))
+				Radio.autosay("Timer stopped manually [stoptext]", name, SEC_FREQ_NAME)
 			else
 				. = FALSE
 		if("flash")

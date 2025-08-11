@@ -45,14 +45,14 @@
 	a_intent = INTENT_HARM
 	intent = INTENT_HARM
 	blood_volume = 20
-	blood_color = "#05EE05"
+	blood_color = "#dffc00"
 	attacktext = "прыгает на лицо"
 	attack_sound = 'sound/creatures/facehugger_attack.ogg'
 	attacked_sound = 'sound/creatures/facehugger_attacked.ogg'
 	talk_sound = 'sound/creatures/facehugger_talk.ogg'
 	damaged_sound = 'sound/creatures/facehugger_damaged.ogg'
 	death_sound = 'sound/creatures/facehugger_dies.ogg'
-	speak_emote = list("hisses")
+	speak_emote = list("шипит")
 	stat_attack = UNCONSCIOUS // Necessary for them to attack (zombify) dead humans
 	speed = -0.5
 	holder_type = /obj/item/clothing/mask/facehugger
@@ -252,7 +252,7 @@
 	animation.icon = old_icon
 	animation.master = src
 
-	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 
 	flick(icon_gib, animation)
 	remove_from_dead_mob_list()

@@ -102,7 +102,7 @@
 	gas_type = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
 
 /obj/effect/mine/gas/n2o
-	name = "\improper N2O mine"
+	name = "N2O mine"
 	gas_type = LINDA_SPAWN_N2O
 
 /obj/effect/mine/sound
@@ -110,7 +110,7 @@
 	var/sound = 'sound/items/bikehorn.ogg'
 
 /obj/effect/mine/sound/mineEffect(mob/living/victim)
-	playsound(loc, sound, 100, 1)
+	playsound(loc, sound, 100, TRUE)
 
 /obj/effect/mine/sound/bwoink
 	name = "bwoink mine"
@@ -146,7 +146,7 @@
 	if(!istype(victim) || !victim.client)
 		return
 	to_chat(victim, span_redtext(span_reallybig("RIP AND TEAR")))
-	victim << 'sound/misc/e1m1.ogg'
+	SEND_SOUND(victim, sound('sound/misc/e1m1.ogg'))
 	var/old_color = victim.client.color
 	var/red_splash = list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0)
 	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
@@ -154,7 +154,7 @@
 	spawn(0)
 		new /obj/effect/hallucination/delusion(victim.loc, victim, force_kind = "demon", duration = duration, skip_nearby = 0)
 
-	var/obj/item/twohanded/required/chainsaw/doomslayer/chainsaw = new(victim.loc)
+	var/obj/item/twohanded/chainsaw_handmade/doomslayer/chainsaw = new(victim.loc)
 	ADD_TRAIT(chainsaw, TRAIT_NODROP, CURSED_ITEM_TRAIT(chainsaw.type))
 	chainsaw.item_flags |= DROPDEL
 	victim.drop_l_hand()

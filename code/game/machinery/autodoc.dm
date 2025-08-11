@@ -57,7 +57,7 @@
 
 /obj/machinery/autodoc/examine(mob/user)
 	. = ..()
-	. += span_info("You can rotate [src] by using </b>wrench<b>.")
+	. += span_notice("You can rotate [src] by using </b>wrench<b>.")
 
 
 /obj/machinery/autodoc/update_overlays()

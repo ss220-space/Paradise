@@ -545,8 +545,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
 			holder.big_brother = TRUE
+			if(isobserver(mob))
+				mob.invisibility = INVISIBILITY_BIG_BROTHER
+				mob.see_invisible = SEE_INVISIBLE_BIG_BROTHER
 			createStealthKey()
-		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]")
+		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]", TRUE)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode")
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
@@ -756,7 +759,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		// These smiting types are valid for all living mobs
 		if("Lightning bolt")
 			M.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
-			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
+			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
 			M.adjustFireLoss(75)
 			M.Weaken(10 SECONDS)
 			to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
@@ -867,7 +870,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			H.set_nutrition(NUTRITION_LEVEL_FAT * 2)
 
 		if("Fakebwoink")
-			SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+			SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 
 		if("Nugget")
 			H.Weaken(12 SECONDS, TRUE)
@@ -906,9 +909,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 					pdelay = tgui_input_number(src, "Input pump delay.")
 					oxy_dmg = tgui_input_number(src, "Input oxy damage.")
 				else
-					var/list/strenght = text2numlist(effect_strength, " - ")
-					pdelay = strenght[1]
-					oxy_dmg = strenght[2]
+					var/list/strength = text2numlist(effect_strength, " - ")
+					pdelay = strength[1]
+					oxy_dmg = strength[2]
 				H.curse_high_rp(pdelay*10, oxy_dmg)
 				LAZYADD(H.mind.curses, "high_rp")
 				logmsg = "high rp([pdelay] - [oxy_dmg])"
@@ -1146,6 +1149,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		update_active_keybindings()
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
+		if(isobserver(mob))
+			var/mob/dead/observer/observer = mob
+			observer.update_admin_actions()
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
 		return
 	else
@@ -1323,8 +1329,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(T, chat_box_notice_thick(span_notice("<b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.")))
-	T << 'sound/voice/manup1.ogg'
+	to_chat(T, chat_box_notice_thick(span_notice("[span_fontsize4("<b>Man up.<br> Deal with it.</b>")]<br>Move on.")))
+	SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 
 	log_and_message_admins("told [key_name_log(T)] to man up and deal with it.")
 
@@ -1340,8 +1346,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(confirm == "Yes")
 		for(var/mob/T as mob in GLOB.mob_list)
-			to_chat(T, chat_box_notice_thick(span_notice("<b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.")))
-			T << 'sound/voice/manup1.ogg'
+			to_chat(T, chat_box_notice_thick(span_notice("[span_fontsize4("<b>Man up.<br> Deal with it.</b>")]<br>Move on.")))
+			SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
 		message_admins("[key_name_admin(usr)] told everyone to man up and deal with it.")

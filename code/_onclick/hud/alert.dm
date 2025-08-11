@@ -116,6 +116,7 @@
 
 /atom/movable/screen/alert/MouseExited()
 	closeToolTip(usr)
+	return ..()
 
 /atom/movable/screen/alert/proc/do_timeout(mob/M, category)
 	if(!M || !M.alerts)
@@ -893,7 +894,7 @@
 
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "[span_boldnotice(name)] – [span_info(desc)]")
+		to_chat(usr, "[span_boldnotice(name)] – [span_notice(desc)]")
 		return FALSE
 
 	if(master)

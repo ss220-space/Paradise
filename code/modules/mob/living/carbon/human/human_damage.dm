@@ -59,7 +59,7 @@
 		if(sponge)
 			sponge.damage = clamp(round(sponge.damage + amount, DAMAGE_PRECISION), 0, 120)
 			if(sponge.damage >= 120 && stat != DEAD)
-				visible_message(span_alert("<b>[src]</b> goes limp, [p_their()] facial expression utterly blank."))
+				visible_message(span_alert("<b>[capitalize(declent_ru(NOMINATIVE))]</b> обмяк[genderize_ru(src.gender, "", "ла", "ло", "лии")], [genderize_ru(src.gender, "его","её","его","их")] выражение лица совершенно пустое."))
 				death()
 	if(updating_health)
 		update_stat("adjustBrainLoss")
@@ -75,7 +75,7 @@
 		if(sponge)
 			sponge.damage = clamp(round(amount, DAMAGE_PRECISION), 0, 120)
 			if(sponge.damage >= 120 && stat != DEAD)
-				visible_message(span_alert("<b>[src]</b> goes limp, [p_their()] facial expression utterly blank."))
+				visible_message(span_alert("<b>[capitalize(declent_ru(NOMINATIVE))]</b> обмяк[genderize_ru(src.gender, "", "ла", "ло", "лии")], [genderize_ru(src.gender, "его","её","его","их")] выражение лица совершенно пустое."))
 				death()
 	if(updating_health)
 		update_stat("setBrainLoss")
@@ -298,7 +298,7 @@
 		apply_status_effect(STATUS_EFFECT_VOMIT)
 
 	if(!mind)
-		return . 
+		return .
 
 	for(var/datum/objective/pain_hunter/objective in GLOB.all_objectives)
 		if(mind == objective.target)
@@ -574,6 +574,8 @@ This function restores all organs.
 	used_weapon = null,
 )
 	. = ..()
+	if(!physiology)
+		return
 	// Add relevant DR modifiers into blocked value
 	. += physiology.damage_resistance
 	. += dna.species.damage_resistance
@@ -587,7 +589,8 @@ This function restores all organs.
 	used_weapon = null,
 )
 	. = ..()
-
+	if(!physiology)
+		return
 	switch(damagetype)
 		if(BRUTE)
 			. = . * dna.species.brute_mod * physiology.brute_mod

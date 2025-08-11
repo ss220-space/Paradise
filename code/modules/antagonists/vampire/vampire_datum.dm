@@ -1,3 +1,6 @@
+/// Helper to format the text that gets thrown onto the chem hud element.
+#define FORMAT_BLOODUSABLE_TEXT(bloodusable) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>")
+
 /datum/antagonist/vampire
 	name = "Vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
@@ -60,17 +63,17 @@
 /datum/antagonist/vampire/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
-	messages.Add(span_danger("Вы — вампир!<br>"))
-	messages.Add("Чтобы укусить кого-то, нацельтесь на голову, выберите намерение <b>вреда (4)</b> и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
+	messages.Add(span_danger("Вы — вампир!<br>"))
+	messages.Add("Чтобы укусить кого-то, нацельтесь на голову, выберите намерение <b>вреда (4)</b> и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
 		Вы уязвимы перед святостью, огнём и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
 	return messages
 
 
 /datum/antagonist/vampire/farewell()
 	if(issilicon(owner.current))
-		to_chat(owner.current, span_userdanger("Вы превратились в робота! Вы чувствуете как вампирские силы исчезают…"))
+		to_chat(owner.current, span_userdanger("Вы превратились в робота! Вы чувствуете как вампирские силы исчезают…"))
 	else
-		to_chat(owner.current, span_userdanger("Ваш разум очищен! Вы больше не вампир."))
+		to_chat(owner.current, span_userdanger("Ваш разум очищен! Вы больше не вампир."))
 
 /datum/antagonist/vampire/give_objectives()
 	add_objective(/datum/objective/blood)
@@ -508,8 +511,8 @@
 	var/ay = owner.current.y
 
 	for(var/i = 1 to 20)
-		ax += SSsun.dx
-		ay += SSsun.dy
+		ax += SSsun.dy
+		ay += SSsun.dx
 
 		var/turf/T = locate(round(ax, 0.5), round(ay, 0.5), owner.current.z)
 
@@ -597,7 +600,7 @@
 		hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 		hud.static_inventory += hud.vampire_blood_display
 		hud.show_hud(hud.hud_version)
-	hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
+	hud.vampire_blood_display.maptext = FORMAT_BLOODUSABLE_TEXT(bloodusable)
 
 
 /datum/antagonist/vampire/proc/handle_vampire_cloak()
@@ -711,7 +714,7 @@
 
 /datum/antagonist/mindslave/thrall/greet()
 	var/greet_text = "<b>Вы были очарованы [master.current.real_name]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.</b>"
-	return span_dangerbigger(greet_text)
+	return span_biggerdanger(greet_text)
 
 /datum/antagonist/mindslave/thrall/farewell()
 	if(issilicon(owner.current))
@@ -729,3 +732,6 @@
 	var/mob/living/user = ..()
 	user.faction -= ROLE_VAMPIRE
 	return user
+
+
+#undef FORMAT_BLOODUSABLE_TEXT

@@ -11,7 +11,15 @@
   */
 /obj/machinery/mineral/ore_redemption
 	name = "ore redemption machine"
-	desc = "A machine that accepts ore and instantly transforms it into workable material sheets. Points for ore are generated based on type and can be redeemed at a mining equipment vendor."
+	desc = "Устройство, перерабатывающее руду в готовые листы материалов. Начисляет баллы в зависимости от типа руды, которые можно обменять в раздатчике шахтёрского оборудования."
+	ru_names = list(
+		NOMINATIVE = "печь для руды",
+		GENITIVE = "печи для руды",
+		DATIVE = "печи для руды",
+		ACCUSATIVE = "печь для руды",
+		INSTRUMENTAL = "печью для руды",
+		PREPOSITIONAL = "печи для руды"
+	)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "ore_redemption"
 	density = TRUE
@@ -57,13 +65,14 @@
 	var/datum/research/files
 	/// The currently inserted design disk.
 	var/obj/item/disk/design_disk/inserted_disk
+	var/invalid_material
 	COOLDOWN_DECLARE(messages_cooldown)
 
-/obj/machinery/mineral/ore_redemption/New()
-	..()
-	ore_buffer = list()
+/obj/machinery/mineral/ore_redemption/Initialize(mapload)
+	. = ..()
 	// Components
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
+	ore_buffer = list()
 	files = new /datum/research/smelter(src)
 	// Stock parts
 	component_parts = list()
@@ -80,8 +89,8 @@
 		req_access = list(ACCESS_SYNDICATE)
 		req_access_claim = ACCESS_SYNDICATE
 
-/obj/machinery/mineral/ore_redemption/upgraded/New()
-	..()
+/obj/machinery/mineral/ore_redemption/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -100,8 +109,8 @@
 	req_access = list(ACCESS_FREE_GOLEMS)
 	req_access_claim = ACCESS_FREE_GOLEMS
 
-/obj/machinery/mineral/ore_redemption/golem/New()
-	..()
+/obj/machinery/mineral/ore_redemption/golem/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption/golem(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -118,11 +127,19 @@
   */
 /obj/machinery/mineral/ore_redemption/labor
 	name = "labor camp ore redemption machine"
+	ru_names = list(
+		NOMINATIVE = "каторжная печь для руды",
+		GENITIVE = "каторжной печи для руды",
+		DATIVE = "каторжной печи для руды",
+		ACCUSATIVE = "каторжную печь для руды",
+		INSTRUMENTAL = "каторжной печью для руды",
+		PREPOSITIONAL = "каторжной печи для руды"
+	)
 	req_access = list()
 	anyone_claim = TRUE
 
-/obj/machinery/mineral/ore_redemption/labor/New()
-	..()
+/obj/machinery/mineral/ore_redemption/labor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption/labor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -161,7 +178,7 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
-		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
+		visible_message(span_notice("Индикатор слота ID на [declent_ru(PREPOSITIONAL)] мигает, устройство выдаёт карту и отключается."))
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
@@ -179,13 +196,27 @@
 	var/obj/structure/ore_box/OB = locate() in input
 	if(OB)
 		input = OB
-	// Suck the ore in
-	for(var/obj/item/stack/ore/O in input)
-		if(QDELETED(O))
+	// Sucking the ore inside.
+	for(var/obj/item/stack/ore/ore in input)
+		if(QDELETED(ore))
 			continue
-		ore_buffer |= O
-		O.forceMove(src)
+		ore_buffer |= ore
+		ore.forceMove(src)
 		CHECK_TICK
+	// Sucking materials inside.
+	for(var/obj/item/stack/stack in input)
+		if(QDELETED(stack))
+			return
+		var/signal_flag = SEND_SIGNAL(src, COMSIG_MATERIAL_CONTAINER_ON_INSERT_STACK, stack, stack.amount)
+		if(!(signal_flag & CONTAINER_INSERT_SUCCESS))
+			stack.forceMove(get_step(src, output_dir))
+			invalid_material = TRUE
+		CHECK_TICK
+	// Throwing it away if it doesn't suck.
+	if(invalid_material)
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		atom_say("ОШИБКА: Некорректные материалы.", use_tts = FALSE)
+		invalid_material = FALSE
 	// Process it
 	if(length(ore_buffer))
 		message_sent = FALSE
@@ -224,8 +255,8 @@
 		SStgui.update_uis(src)
 		interact(user)
 		user.visible_message(
-			span_notice("[user] has inserted [I] into [src]."),
-			span_notice("You have inserted [I] into [src]."),
+			span_notice("[user] вставляет [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 		)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -246,7 +277,7 @@
 		return
 	input_dir = turn(input_dir, -90)
 	output_dir = turn(output_dir, -90)
-	to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
+	to_chat(user, span_notice("Вы изменяете настройки ввода/вывода [declent_ru(GENITIVE)]: вход [dir2text(input_dir)], выход [dir2text(output_dir)]."))
 
 /obj/machinery/mineral/ore_redemption/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", I))
@@ -324,13 +355,13 @@
 			if(anyone_claim || (req_access_claim in inserted_id.access))
 				inserted_id.mining_points += points
 				inserted_id.total_mining_points += points
-				to_chat(usr, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[inserted_id.total_mining_points] Mining Points</b> this Shift!</span>")
+				to_chat(usr, span_notice("<b>[points] [declension_ru(points, "очко", "очка","очков")] добычи</b> получено. Всего за смену: <b>[inserted_id.total_mining_points] [declension_ru(inserted_id.total_mining_points, "очко", "очка","очков")]</b>!"))
 				points = 0
 			else
-				to_chat(usr, "<span class='warning'>Required access not found.</span>")
+				to_chat(usr, span_warning("Доступ запрещён."))
 		if("sheet", "alloy")
 			if(!(check_access(inserted_id) || allowed(usr)))
-				to_chat(usr, "<span class='warning'>Required access not found.</span>")
+				to_chat(usr, span_warning("Доступ запрещён."))
 				return FALSE
 			var/id = params["id"]
 			var/amount = round(text2num(params["amount"]))
@@ -370,8 +401,10 @@
 			if(ishuman(usr))
 				inserted_id.forceMove_turf()
 				usr.put_in_hands(inserted_id, ignore_anim = FALSE)
-				usr.visible_message("<span class='notice'>[usr] retrieves [inserted_id] from [src].</span>", \
-									"<span class='notice'>You retrieve [inserted_id] from [src].</span>")
+				usr.visible_message(
+					span_notice("[usr] извлека[pluralize_ru(usr.gender,"ет","ют")] [inserted_id.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
+					span_notice("Вы извлекаете [inserted_id.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].")
+				)
 			else
 				inserted_id.forceMove(get_turf(src))
 			inserted_id = null
@@ -381,15 +414,17 @@
 			if(ishuman(usr))
 				inserted_disk.forceMove_turf()
 				usr.put_in_hands(inserted_disk, ignore_anim = FALSE)
-				usr.visible_message("<span class='notice'>[usr] retrieves [inserted_disk] from [src].</span>", \
-									"<span class='notice'>You retrieve [inserted_disk] from [src].</span>")
+				usr.visible_message(
+					span_notice("[usr] извлека[pluralize_ru(usr.gender,"ет","ют")] [inserted_disk.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
+					span_notice("Вы извлекаете [inserted_disk.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].")
+				)
 			else
 				inserted_disk.forceMove(get_turf(src))
 			inserted_disk = null
 		if("download")
 			if(inserted_disk?.blueprint?.build_type & SMELTER)
 				files.AddDesign2Known(inserted_disk.blueprint)
-				atom_say("Design \"[inserted_disk.blueprint.name]\" downloaded successfully.")
+				atom_say("Чертёж \"[inserted_disk.blueprint.name]\" успешно загружен.")
 		else
 			return FALSE
 	add_fingerprint(usr)
@@ -505,15 +540,17 @@
 	if(!istype(I))
 		return
 	if(inserted_id)
-		to_chat(user, "<span class='warning'>There is already an ID inside!</span>")
+		to_chat(user, span_warning("ID-карта уже вставлена!"))
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return
 	inserted_id = I
 	SStgui.update_uis(src)
 	interact(user)
-	user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>", \
-							"<span class='notice'>You insert [I] into [src].</span>")
+	user.visible_message(
+		span_notice("[user] вставляет [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
+	)
 	return TRUE
 
 /**

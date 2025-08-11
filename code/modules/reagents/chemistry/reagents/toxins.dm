@@ -704,7 +704,7 @@
 			M.Weaken(16 SECONDS)
 		else if(effect <= 7)
 			to_chat(M, span_warning("Вы слышите оглушительный стук собственного сердца!"))
-			M << 'sound/effects/singlebeat.ogg'
+			SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 			M.emote("collapse")
 			update_flags |= M.adjustOxyLoss(8, FALSE)
 			update_flags |= M.adjustToxLoss(3, FALSE)
@@ -1389,7 +1389,7 @@
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
-		affected_mob.electrocute_act(rand(5, 20), "теслиума внутри организма", flags = SHOCK_NOGLOVES)	//SHOCK_NOGLOVES because it's caused from INSIDE of you
+		affected_mob.electrocute_act(rand(5, 20), "теслиума внутри организма", flags = SHOCK_NOGLOVES) //SHOCK_NOGLOVES because it's caused from INSIDE of you
 		playsound(affected_mob, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return ..()
 

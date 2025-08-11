@@ -1,6 +1,7 @@
 /datum/martial_art/synthojitsu
 	name = "Synthojitsu"
 	weight = 4
+	change_musculs = FALSE
 	block_chance = 0
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/synthojitsu/lock, /datum/martial_combo/synthojitsu/overload, /datum/martial_combo/synthojitsu/reanimate)
@@ -19,7 +20,7 @@
 	D.apply_damage(5, BRUTE)
 	objective_damage(A, D, 5, BRUTE)
 	A.adjust_nutrition(-10)
-	playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
+	playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] electrocuted [D]!</span>", \
 					  "<span class='userdanger'>[A] elecrtrocuted you!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
@@ -31,7 +32,7 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	D.apply_damage(30, STAMINA)
 	A.adjust_nutrition(-10)
-	playsound(get_turf(D), 'sound/weapons/contractorbatonhit.ogg', 50, 1, -1)
+	playsound(get_turf(D), 'sound/weapons/contractorbatonhit.ogg', 50, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] tapped [D]!</span>", \
 				  "<span class='userdanger'>[A] tapped you!</span>")
 	return TRUE

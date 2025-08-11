@@ -33,8 +33,9 @@ GLOBAL_PROTECT(log_end)
 // don't use this for logging. We have add_type_logs() for this situation
 // you can look all the way down in this file for those procs
 
-/proc/log_admin(text)
-	GLOB.admin_log.Add(text)
+/proc/log_admin(text, skip_glob = FALSE)
+	if(!skip_glob)
+		GLOB.admin_log.Add(text)
 	if(CONFIG_GET(flag/log_admin))
 		WRITE_LOG(GLOB.world_game_log, "ADMIN: [text][GLOB.log_end]")
 
@@ -138,7 +139,7 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_pda(text, mob/speaker)
 	if(CONFIG_GET(flag/log_pda))
-		WRITE_LOG(GLOB.world_game_log, "PDA: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		WRITE_LOG(GLOB.world_game_log, "[speaker ? "PDA: [speaker.simple_info_line()]:" : "(No sender)"] [html_decode(text)][GLOB.log_end]")
 
 /proc/log_chat(text, mob/speaker)
 	if(CONFIG_GET(flag/log_pda))
@@ -420,3 +421,10 @@ GLOBAL_PROTECT(log_end)
 		return "([AREACOORD(T)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
+
+#if defined(REFERENCE_TRACKING) // Doing it locally
+#define log_reftracker(msg) log_world("## REF SEARCH [msg]")
+
+#else //Not tracking at all
+#define log_reftracker(msg)
+#endif

@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_LAWYER, JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, "Nanotrasen Navy Field Officer", JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE)
+	restricted_jobs = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_LAWYER, JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, "Nanotrasen Navy Field Officer", JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	cult_objs.setup()
 
 	for(var/datum/mind/cult_mind in cult)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
 		var/list/messages = list(CULT_GREETING)
 		to_chat(cult_mind.current, chat_box_red(messages.Join("<br>")))
 		equip_cultist(cult_mind.current)
@@ -206,7 +206,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(cult_mind.current)
 
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
 		add_conversion_logs(cult_mind.current, "converted to the blood cult")
 
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
@@ -240,7 +240,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		for(var/datum/mind/M in cult)
 			if(!M.current || !ishuman(M.current))
 				continue
-			SEND_SOUND(M.current, 'sound/ambience/antag/bloodcult_eyes.ogg')
+			SEND_SOUND(M.current, sound('sound/ambience/antag/bloodcult_eyes.ogg'))
 			to_chat(M.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
 			log_admin("The Blood Cult has risen. The eyes started to glow.")
 			addtimer(CALLBACK(src, PROC_REF(rise), M.current), 20 SECONDS)
@@ -250,11 +250,14 @@ GLOBAL_LIST_EMPTY(all_cults)
 		for(var/datum/mind/M in cult)
 			if(!M.current || !ishuman(M.current))
 				continue
-			SEND_SOUND(M.current, 'sound/ambience/antag/bloodcult_halos.ogg')
+			SEND_SOUND(M.current, sound('sound/ambience/antag/bloodcult_halos.ogg'))
 			to_chat(M.current, span_cultlarge("Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!"))
 			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
 			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
-		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.announce("На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+										ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/commandreport.ogg'
+		)
 		log_game("Blood cult reveal. Powergame allowed.")
 
 
@@ -340,7 +343,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, span_warning(span_fontsize3("The staff managed to stop the cult!")))
 
-	var/endtext
+	var/list/endtext = list()
 	endtext += "<br><b>The cultists' objectives were:</b>"
 	for(var/datum/objective/obj in cult_objs.presummon_objs)
 		endtext += "<br>[obj.explanation_text] - "
@@ -355,7 +358,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		else
 			endtext += "<font color='green'><b>Success!</b></font>"
 
-	to_chat(world, endtext)
+	to_chat(world, endtext.Join(""))
 	..()
 
 

@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		return
 
 	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
-	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
 
 	reqform.info = {"<h3>Syndicate RaMSS 'Taipan' Supply Requisition Form</h3><hr>
@@ -530,7 +530,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		var/obj/item/stack/spacecash/cash = I
 		playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 		data_storage.cash += cash.amount
-		to_chat(user, span_info("You insert [cash] into [src]."))
+		to_chat(user, span_notice("You insert [cash] into [src]."))
 		data_storage.blackmarket_message += "[span_good("+[cash.amount]")]: [user.get_authentification_name()] adds credits to the console.<br>"
 		SStgui.update_uis(src)
 		qdel(cash)
@@ -606,7 +606,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	. = TRUE
 	switch(action)
 		if("withdraw")
-			var/cash_sum = input(usr, "Amount", "How much money do you wish to withdraw") as null|num
+			var/cash_sum = tgui_input_number(usr, "Amount", "How much money do you wish to withdraw")
 			if(cash_sum <= 0 || (!is_public && !is_authorized(usr)) || ..())
 				return
 			if(in_range(usr, src)) //эта проверка нужна чтобы деньги не могли снять при этом отойдя далеко от консоли
@@ -715,7 +715,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			bmmsg_browser.set_content(data_storage.blackmarket_message)
 			bmmsg_browser.open()
 		if("add_money") //Admin button. Used to reward or tax cargo with the money.
-			var/money2add = round(input("Введите сколько кредитов вы хотите добавить") as null|num)
+			var/money2add = round(tgui_input_number(usr, "Введите сколько кредитов вы хотите добавить"))
 			message_admins("[key_name_admin(usr)] added [money2add] credits to the cargo console at [data_storage.cargoarea.name]")
 			log_admin("[key_name_admin(usr)] added [money2add] credits to the cargo console at [data_storage.cargoarea.name]")
 			usr.investigate_log("added [money2add] credits to the cargo console at [data_storage.cargoarea.name]", INVESTIGATE_SYNDIE_CARGO)
@@ -734,7 +734,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		data_storage.cash -= cash_sum
 		playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
 		var/obj/item/stack/spacecash/C = new(drop_location(), cash_sum)
-		to_chat(user, span_info("The machine give you [C]!"))
+		to_chat(user, span_notice("The machine give you [C]!"))
 		var/mob/living/carbon/human/H = user
 		var/name = H.get_authentification_name()
 		data_storage.blackmarket_message += "[span_bad("-[cash_sum]")]: [name] withdraws credits from the console.<br>"

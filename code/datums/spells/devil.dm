@@ -249,7 +249,7 @@
 	dust_animation()
 
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает в огненной вспышке!"))
-	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
+	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 
 	var/obj/effect/dummy/slaughter/s_holder = new(loc)
 
@@ -271,7 +271,7 @@
 	forceMove(get_turf(src))
 
 	visible_message(span_warning("<b>[capitalize(declent_ru(NOMINATIVE))] появляется в огненной вспышке!</b>"))
-	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
+	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
 	addtimer(CALLBACK(src, PROC_REF(fakefireextinguish), TRUE), 1.5 SECONDS)
 
@@ -430,6 +430,8 @@
 
 	base_cooldown = 300 SECONDS
 	var/cast_time = 5 SECONDS
+	var/fail_cooldown = 2 SECONDS
+	var/say_name_prob = 40
 
 	clothes_req = FALSE
 	human_req = FALSE
@@ -454,13 +456,14 @@
 	var/mob/living/carbon/carbon = user
 	var/datum/antagonist/devil/devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
-	carbon.say("INF' [devil.info.truename] NO")
+	if(prob(say_name_prob))
+		carbon.say("INF' [devil.info.truename] NO")
 	playsound(get_turf(carbon), 'sound/magic/narsie_attack.ogg', 100, TRUE)
 
 	human.Knockdown(1 SECONDS)
 
 	if(!do_after(user, cast_time, user, NONE))
-		revert_cast(user)
+		cooldown_handler.recharge_time = world.time + fail_cooldown
 		return
 
 	make_shadow(human, devil)

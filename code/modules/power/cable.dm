@@ -208,11 +208,19 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(powernet && (powernet.avail > 0))		// is it powered?
-		to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>")
-	else
-		to_chat(user, "<span class='danger'>The cable is not powered.</span>")
+	to_chat(user, generate_power_message())
 	shock(user, 5, 0.2)
+
+/obj/structure/cable/proc/generate_power_message()
+	if(powernet && (powernet.avail > 0))
+		return chat_box_examine(span_notice("Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nSurplus: [DisplayPower(surplus())]"))
+	else
+		return span_warning("The cable is not powered.")
+
+/obj/structure/cable/examine(mob/user)
+	. = ..()
+	if(isobserver(user))
+		. += generate_power_message()
 
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE

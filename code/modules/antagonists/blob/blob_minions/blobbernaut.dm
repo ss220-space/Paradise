@@ -17,10 +17,10 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "ударяет"
 	attack_sound = 'sound/effects/blobattack.ogg'
-	verb_say = "gurgles"
-	verb_ask = "demands"
-	verb_exclaim = "roars"
-	verb_yell = "bellows"
+	verb_say = list("тяжело произносит", "бормочет")
+	verb_ask = "вопросительно бормочет"
+	verb_exclaim = "рычит"
+	verb_yell = "ревёт"
 	pressure_resistance = 50
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE

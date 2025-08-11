@@ -8,7 +8,7 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/does_emissive = FALSE
 	var/random_number = FALSE
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 
 /obj/structure/sign/Initialize(mapload)
@@ -75,7 +75,7 @@
 	if(!isturf(loc))
 		return
 
-	var/direction = input("В каком направлении?", "Выбор направления") in list("Север", "Восток", "Юг", "Запад", "Отмена")
+	var/direction = tgui_input_list(usr, "В каком направлении?", "Выбор направления", list("Север", "Восток", "Юг", "Запад", "Отмена"))
 	if(direction == "Отмена")
 		return TRUE // These gotta be true or we stab the sign
 	if(QDELETED(src))

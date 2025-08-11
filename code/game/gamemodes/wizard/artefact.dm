@@ -745,7 +745,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(target && cooldown < world.time)
 		switch(user.zone_selected)
 			if(BODY_ZONE_PRECISE_MOUTH)
-				var/wgw =  sanitize(input(user, "What would you like the victim to say", "Voodoo", null)  as text)
+				var/wgw = tgui_input_text(user, "What would you like the victim to say", "Voodoo", null)
 				target.say(wgw)
 				add_attack_logs(user, target, "force say ([wgw]) with a voodoo doll.")
 				add_say_logs(target, wgw, src)
@@ -783,7 +783,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
-		if(H.stat != DEAD && (md5(H.dna.uni_identity) in link.fingerprints))
+		if(H.stat != DEAD && (H.real_name in link.interactors))
 			possible |= H
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)

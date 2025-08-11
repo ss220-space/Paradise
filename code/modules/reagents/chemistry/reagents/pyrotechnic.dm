@@ -102,10 +102,22 @@
 	var/volume_explosion_radius_modifier = 0
 	var/combustion_temp = T0C + 200
 
+/datum/reagent/proc/toxic_fuel_proof_species(mob/living/carbon/human/H)
+	if(!istype(H))
+		return FALSE // skip check
+
+	if(HAS_TRAIT(H, TRAIT_TOXIC_FUEL_PROTECTED))
+		return TRUE
+
+	return FALSE
+
 /datum/reagent/fuel/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!toxic_fuel_proof_species(M))
+		update_flags |= M.adjustToxLoss(1, FALSE)
 	if(M.on_fire)
 		M.adjust_fire_stacks(0.4)
-	return ..()
+	return ..() | update_flags
 
 /datum/reagent/fuel/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > combustion_temp)
@@ -277,6 +289,8 @@
 	taste_description = "горького воздуха"
 
 /datum/reagent/sorium/reaction_turf(turf/T, volume) // oh no
+	if(volume < 1)
+		return
 	if(prob(75))
 		return
 	if(isspaceturf(T))
@@ -294,6 +308,8 @@
 	taste_description = "горького вакуума"
 
 /datum/reagent/liquid_dark_matter/reaction_turf(turf/T, volume) //Oh gosh, why
+	if(volume < 4)
+		return
 	if(prob(75))
 		return
 	if(isspaceturf(T))

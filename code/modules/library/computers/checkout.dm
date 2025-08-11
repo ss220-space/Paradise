@@ -2,12 +2,21 @@
  * Library Computer
  */
 /obj/machinery/computer/library/checkout
-	name = "Check-In/Out Computer"
+	name = "Library Computer"
+	desc = "Старый библиотечный компьютер, хранящий в своей памяти сотни, если не тысячи, книг."
+	ru_names = list(
+		NOMINATIVE = "библиотечный компьютер",
+		GENITIVE = "библиотечного компьютера",
+		DATIVE = "библиотечному компьютеру",
+		ACCUSATIVE = "библиотечный компьютер",
+		INSTRUMENTAL = "библиотечным компьютером",
+		PREPOSITIONAL = "библиотечном компьютере"
+	)
 	var/arcanecheckout = 0
 	//var/screenstate = 0 // 0 - Main Menu, 1 - Inventory, 2 - Checked Out, 3 - Check Out a Book
 	var/buffer_book
 	var/buffer_mob
-	var/upload_category = "Fiction"
+	var/upload_category = "Художественная"
 	var/list/checkouts = list()
 	var/list/inventory = list()
 	var/checkoutperiod = 5 // In minutes
@@ -195,7 +204,8 @@
 	if(density && !emagged)
 		emagged = 1
 		if(user)
-			to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")
+			to_chat(user, span_notice("Вы обходите ограничения печати компьютера."))
+			balloon_alert(user, "взломано")
 
 
 /obj/machinery/computer/library/checkout/attackby(obj/item/I, mob/user, params)
@@ -206,8 +216,8 @@
 		add_fingerprint(user)
 		var/obj/item/barcodescanner/scanner = I
 		scanner.computer = src
-		to_chat(user, span_notice("The [scanner.name]'s associated machine has been set to [src]."))
-		audible_message("The [name] lets out a low, short blip.", hearing_distance = 2)
+		atom_say("Сканер был успешно привязан.", FALSE)
+		playsound(src, 'sound/machines/ping.ogg', 20)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -237,19 +247,19 @@
 		else
 			page_num = clamp(text2num(href_list["page"]), 1, num_pages)
 	if(href_list["settitle"])
-		var/newtitle = input("Enter a title to search for:") as text|null
+		var/newtitle = tgui_input_text(usr, "Enter a title to search for:")
 		if(newtitle)
 			query.title = sanitize(newtitle)
 		else
 			query.title = null
 	if(href_list["setcategory"])
-		var/newcategory = input("Choose a category to search for:") in (list("Any") + GLOB.library_section_names)
+		var/newcategory = tgui_input_list(usr, "Choose a category to search for:", , list("Any") + GLOB.library_section_names)
 		if(newcategory == "Any")
 			query.category = null
 		else if(newcategory)
 			query.category = sanitize(newcategory)
 	if(href_list["setauthor"])
-		var/newauthor = input("Enter an author to search for:") as text|null
+		var/newauthor = tgui_input_text(usr, "Enter an author to search for:")
 		if(newauthor)
 			query.author = sanitize(newauthor)
 		else
@@ -310,7 +320,7 @@
 		if(id)
 			var/datum/cachedbook/B = getBookByID(id)
 			if(B)
-				if((input(usr, "Are you sure you want to flag [B.title] as having inappropriate content?", "Flag Book #[B.id]") in list("Yes", "No")) == "Yes")
+				if((tgui_alert(usr, "Are you sure you want to flag [B.title] as having inappropriate content?", "Flag Book #[B.id]", list("Yes", "No"))) == "Yes")
 					GLOB.library_catalog.flag_book_by_id(usr, id)
 
 	if(href_list["switchscreen"])
@@ -359,9 +369,9 @@
 		if(checkoutperiod < 1)
 			checkoutperiod = 1
 	if(href_list["editbook"])
-		buffer_book = copytext(sanitize(input("Enter the book's title:") as text|null),1,MAX_MESSAGE_LEN)
+		buffer_book = tgui_input_text(usr, "Enter the book's title:", max_length = MAX_MESSAGE_LEN)
 	if(href_list["editmob"])
-		buffer_mob = copytext(sanitize(input("Enter the recipient's name:") as text|null),1,MAX_NAME_LEN)
+		buffer_mob = tgui_input_text(usr, "Enter the recipient's name:", max_length = MAX_MESSAGE_LEN)
 	if(href_list["checkout"])
 		var/datum/borrowbook/b = new /datum/borrowbook
 		b.bookname = sanitize(buffer_book)
@@ -376,17 +386,17 @@
 		var/obj/item/book/b = locate(href_list["delbook"])
 		inventory.Remove(b)
 	if(href_list["uploadauthor"])
-		var/newauthor = copytext(sanitize(input("Enter the author's name: ") as text|null),1,MAX_MESSAGE_LEN)
+		var/newauthor = tgui_input_text(usr, "Enter the author's name: ", max_length = MAX_MESSAGE_LEN)
 		if(newauthor && scanner)
 			scanner.cache.author = newauthor
 	if(href_list["uploadcategory"])
-		var/newcategory = input("Choose a category: ") in list("Fiction", "Non-Fiction", "Adult", "Reference", "Religion")
+		var/newcategory = tgui_input_list(usr, "Choose a category: ", items = list("Fiction", "Non-Fiction", "Adult", "Reference", "Religion"))
 		if(newcategory)
 			upload_category = newcategory
 	if(href_list["upload"])
 		if(scanner)
 			if(scanner.cache)
-				var/choice = input("Are you certain you wish to upload this title to the Archive?") in list("Confirm", "Abort")
+				var/choice = tgui_alert(usr, "Are you certain you wish to upload this title to the Archive?", , list("Confirm", "Abort"))
 				if(choice == "Confirm")
 					if(!SSdbcore.IsConnected())
 						alert("Connection to Archive has been severed. Aborting.")
@@ -411,7 +421,7 @@
 
 	if(href_list["id"])
 		if(href_list["id"]=="-1")
-			href_list["id"] = input("Enter your order:") as null|num
+			href_list["id"] = tgui_input_number(usr, "Enter your order:")
 			if(!href_list["id"])
 				return
 

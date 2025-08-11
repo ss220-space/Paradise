@@ -27,6 +27,18 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	START_PROCESSING(SSobj, src)
 
+/obj/item/twohanded/required/pyro_claws/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = -0.2, \
+		slowdown_duration = 2 SECONDS, \
+		requires_wielded = TRUE, \
+		swing_sound = "knife_swing" \
+	)
+
 /obj/item/twohanded/required/pyro_claws/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -36,6 +48,8 @@
 		do_sparks(rand(1,6), 1, loc)
 
 /obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+
 	if(!proximity)
 		return
 
@@ -58,7 +72,7 @@
 		user.visible_message(span_warning("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] в шлюз и начина[pluralize_ru(user.gender,"ет","ют")] открывать его!"), \
 							span_warning("Вы начинаете силой открывать шлюз."), \
 							span_warning("Вы слышите металлический скрежет."))
-		playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+		playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
 		if(!do_after(user, 2.5 SECONDS, airlock))
 			return
 
@@ -134,12 +148,12 @@
 		return
 
 	var/obj/item/twohanded/required/pyro_claws/claws = new /obj/item/twohanded/required/pyro_claws
-	var/strenght_mult = core.get_strenght() / 150
-	claws.force = 25 * strenght_mult
-	claws.force_wielded = 25 * strenght_mult
-	claws.armour_penetration = 100 * (1 - 0.6 / strenght_mult)
-	claws.block_chance = 100 * (1 - 0.5 / strenght_mult)
-	claws.toolspeed = 0.5 / strenght_mult
+	var/strength_mult = core.get_strength() / 150
+	claws.force = 25 * strength_mult
+	claws.force_wielded = 25 * strength_mult
+	claws.armour_penetration = 100 * (1 - 0.6 / strength_mult)
+	claws.block_chance = 100 * (1 - 0.5 / strength_mult)
+	claws.toolspeed = 0.5 / strength_mult
 
 	user.visible_message(span_warning("[user] со снопом искр выпуска[pluralize_ru(user.gender,"ет","ют")] [claws.declent_ru(NOMINATIVE)] из запястий!"), \
 						span_notice("Вы выпускаете [claws.declent_ru(NOMINATIVE)] из [declent_ru(GENITIVE)]!"), \
@@ -155,7 +169,7 @@
 		return ..()
 
 	var/obj/item/assembly/signaler/core/I_core = item
-	if(I_core.get_strenght() < 100)
+	if(I_core.get_strength() < 100)
 		user.balloon_alert(user, "ядро слишком слабо")
 		return
 

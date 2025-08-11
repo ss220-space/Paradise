@@ -158,7 +158,7 @@
 		)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/armoured
-		armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+		armor = list(MELEE = 15, BULLET = 60, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 		hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/armoured
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/no_name
@@ -246,7 +246,7 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/reagent_containers/spray/pepper, /obj/item/flashlight, /obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/detective_scanner, /obj/item/taperecorder)
-	armor = list("melee" = 25, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 45)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
@@ -446,7 +446,7 @@
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
-	name = "\improper Internal Affairs jacket"
+	name = "Internal Affairs jacket"
 	desc = "A smooth black jacket."
 	icon_state = "ia_jacket_open"
 	item_state = "ia_jacket_open"
@@ -467,7 +467,7 @@
 		)
 
 /obj/item/clothing/suit/storage/ntrep
-	name = "\improper Nanotrasen Representative jacket"
+	name = "Nanotrasen Representative jacket"
 	desc = "A fancy black jacket; standard issue to Nanotrasen Representatives."
 	icon_state = "ntrep"
 	item_state = "ntrep"
@@ -576,7 +576,16 @@
 // Surgeon
 /obj/item/clothing/suit/apron/surgical
 	name = "surgical apron"
-	desc = "A sterile blue surgical apron."
+	desc = "Стерильный хирургический фартук синего цвета, предназначенный для ношения хирургами в операционных. \
+			Изготовлен из многослойного материала с антисептической пропиткой, оборудован креплениями для хирургических инструментов."
+	ru_names = list(
+		NOMINATIVE = "хирургический фартук",
+		GENITIVE = "хирургического фартука",
+		DATIVE = "хирургическому фартуку",
+		ACCUSATIVE = "хирургический фартук",
+		INSTRUMENTAL = "хирургическим фартуком",
+		PREPOSITIONAL = "хирургическом фартуке"
+	)
 	icon_state = "surgical"
 	item_state = "surgical"
 	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)

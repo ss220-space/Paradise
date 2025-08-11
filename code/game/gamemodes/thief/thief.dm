@@ -6,7 +6,7 @@
 	name = "thief"
 	config_tag = "thief"
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 3
@@ -57,7 +57,7 @@
 	if(!length(thieves))
 		return
 
-	var/text = "<span style='font-size: 2;'><b>Воры в розыске:</b></span><br>"
+	var/list/text = list("<span style='font-size: 2;'><b>Воры в розыске:</b></span><br>")
 	for(var/datum/mind/thief in thieves)
 
 		text += printplayer(thief) + "<br>"
@@ -85,6 +85,5 @@
 			text += "<br><font color='red'><b>Вор провалился.</b></font><br>"
 			SSblackbox.record_feedback("tally", "thief_success", 1, "FAIL")
 
-	to_chat(world, text)
-	return TRUE
+	return text.Join("")
 

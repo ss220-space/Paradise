@@ -265,7 +265,6 @@
 	name = "pistol magazine (10mm)"
 	desc = "A gun magazine."
 	icon_state = "9x19p"
-	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
 	max_ammo = 15
@@ -347,10 +346,10 @@
 	icon_state = "46x30mmt-20"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = "4.6x30mm"
-	max_ammo = 20
+	max_ammo = 30
 
 /obj/item/ammo_box/magazine/wt550m9/update_icon_state()
-	icon_state = "46x30mmt-[round(ammo_count(),4)]"
+	icon_state = "46x30mmt-[round(ammo_count(),6)]"
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
@@ -374,6 +373,11 @@
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
 	icon_state = "9mm-te-[round(ammo_count(),5)]"
 
+/* UZI magazine
+ name = "Пистолет-пулемёт Uzi — магазин 9 мм"
+ desc = "Магазин на 30 патронов калибра 9 мм."
+ TODO Use this name and desc for localisation*/
+
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
 	icon_state = "uzi9mm-32"
@@ -390,6 +394,19 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 21
+
+/obj/item/ammo_box/magazine/smgm9mm/rubber
+	name = "magazine SMG (rubber)"
+	desc = "Магазин пистолет-пулемёта SMG, предназначенный для резиновых патронов."
+	ru_names = list(
+		NOMINATIVE = "магазин SMG (резиновый)",
+		GENITIVE = "магазина SMG (резиновый)",
+		DATIVE = "магазину SMG (резиновый)",
+		ACCUSATIVE = "магазина SMG (резиновый)",
+		INSTRUMENTAL = "магазином SMG (резиновый)",
+		PREPOSITIONAL = "магазине SMG (резиновый)"
+	)
+	ammo_type = /obj/item/ammo_casing/rubber9mm
 
 /obj/item/ammo_box/magazine/smgm9mm/ap
 	name = "SMG magazine (Armour Piercing 9mm)"
@@ -429,7 +446,6 @@
 /obj/item/ammo_box/magazine/smgm45
 	name = "SMG magazine (.45)"
 	icon_state = "c20r45"
-	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 20
@@ -447,7 +463,6 @@
 /obj/item/ammo_box/magazine/m50
 	name = "handgun magazine (.50ae)"
 	icon_state = "50ae"
-	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = ".50ae"
 	max_ammo = 7
@@ -505,7 +520,6 @@
 	desc = "A drum magazine."
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
-	origin_tech = "combat=3"
 	caliber = ".12"
 	max_ammo = 12
 	multiple_sprites = 2
@@ -515,7 +529,6 @@
 	desc = "A cheaply-made drum magazine."
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
-	origin_tech = "combat=2"
 	caliber = ".12"
 	max_ammo = 12
 	multiple_sprites = 2
@@ -552,7 +565,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/flechette
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
-	name = "\improper XL shotgun magazine (12g buckshot slugs)"
+	name = "XL shotgun magazine (12g buckshot slugs)"
 	desc = "An extra large drum magazine."
 	icon_state = "m12gXlBs"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -560,17 +573,17 @@
 	max_ammo = 24
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
-	name = "\improper XL shotgun magazine (12g flechette)"
+	name = "XL shotgun magazine (12g flechette)"
 	icon_state = "m12gXlSl"
 	ammo_type = /obj/item/ammo_casing/shotgun/flechette
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/slug
-	name = "\improper XL shotgun magazine (12g slugs)"
+	name = "XL shotgun magazine (12g slugs)"
 	icon_state = "m12gXlSl"
 	ammo_type = /obj/item/ammo_casing/shotgun
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
-	name = "\improper XL shotgun magazine (12g dragon's breath)"
+	name = "XL shotgun magazine (12g dragon's breath)"
 	icon_state = "m12gXlDb"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
 
@@ -654,7 +667,6 @@
 	desc = "Fits experimental laser ammo casings."
 	icon_state = "laser"
 	ammo_type = /obj/item/ammo_casing/laser
-	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
 
@@ -666,7 +678,6 @@
 	desc = "Fits experimental laser ammo casings."
 	icon_state = "lmag"
 	ammo_type = /obj/item/ammo_casing/laser
-	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
 

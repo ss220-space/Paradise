@@ -360,7 +360,9 @@
 	penetrates_skin = TRUE
 	taste_description = "кучи волос"
 
-/datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, volume)
+/datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(volume < 5)
+		return ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)

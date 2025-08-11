@@ -3,7 +3,7 @@
 	use_power = NO_POWER_USE
 	max_integrity = 250
 	pull_push_slowdown = 1.3
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 60, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 60, ACID = 30)
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | ALLOW_SILICON_REACH
 	var/datum/gas_mixture/air_contents = new
 
@@ -121,13 +121,13 @@
 	return TRUE
 
 
-/obj/machinery/portable_atmospherics/attackby(obj/item/I, mob/user, params)
+/obj/machinery/portable_atmospherics/attackby(obj/item/item, mob/user, params)
 	if((stat & BROKEN) || user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/tank))
+	if(istype(item, /obj/item/tank))
 		add_fingerprint(user)
-		var/obj/item/tank/new_tank = I
+		var/obj/item/tank/new_tank = item
 		if(!new_tank.fillable)
 			to_chat(user, span_warning("The [new_tank.name] is incompatible with [src]."))
 			return ATTACK_CHAIN_PROCEED
@@ -143,9 +143,9 @@
 	return ..()
 
 
-/obj/machinery/portable_atmospherics/wrench_act(mob/user, obj/item/I)
+/obj/machinery/portable_atmospherics/wrench_act(mob/user, obj/item/item)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!item.use_tool(src, user, 0, volume = item.tool_volume))
 		return
 	if(connected_port)
 		disconnect()
@@ -165,12 +165,13 @@
 			to_chat(user, span_notice("Nothing happens."))
 
 
-/obj/machinery/portable_atmospherics/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
-	if(I.force < 10 && !(stat & BROKEN))
+/obj/machinery/portable_atmospherics/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
+	if(item.get_final_force(user) < 10 && !(stat & BROKEN))
 		user.visible_message(
-			span_warning("[user] gently pokes [src] with [I]."),
-			span_warning("You gently poke [src] with [I]."),
+			span_warning("[user] gently pokes [src] with [item]."),
+			span_warning("You gently poke [src] with [item]."),
 		)
 		return ATTACK_CHAIN_BLOCKED
+
 	return ..()
 

@@ -171,6 +171,10 @@
 	to_chat(H, info_text)
 
 
+/datum/species/golem/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default, max_level, FALSE)
+
+
 /datum/species/golem/get_vision_organ(mob/living/carbon/human/user)
 	return NO_VISION_ORGAN
 
@@ -779,7 +783,7 @@
 	activated = TRUE
 	var/mob/living/carbon/human/H = owner
 	H.visible_message(span_warning("[H] начинает вибрировать!"), span_danger("Вы начали заряжать своё блюспейс-ядро…"))
-	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
+	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(teleport), H), 15)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
@@ -896,7 +900,7 @@
 	if(!active)
 		if(world.time > last_honk + honkooldown)
 			active = 1
-			playsound(get_turf(H), 'sound/items/bikehorn.ogg', 50, 1)
+			playsound(get_turf(H), 'sound/items/bikehorn.ogg', 50, TRUE)
 			last_honk = world.time
 			honkooldown = rand(20, 80)
 			active = null

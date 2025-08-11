@@ -44,7 +44,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	if(!check_rights(R_SOUNDS))	return
 
 	log_and_message_admins("played a local sound [S]")
-	playsound(get_turf(src.mob), S, 50, 0, 0)
+	playsound(get_turf(src.mob), S, 50, FALSE, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
@@ -175,7 +175,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input(usr, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)
 	if(!melody)	return
 
 	play_sound(melody)
@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input(usr, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)
 	if(!melody)	return
 
 	var/cvol = 35

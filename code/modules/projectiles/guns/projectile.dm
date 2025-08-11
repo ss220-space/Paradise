@@ -10,6 +10,8 @@
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
 
+	recoil = GUN_RECOIL_LOW
+
 
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()
@@ -221,7 +223,7 @@
 			return OXYLOSS
 	else
 		user.visible_message(span_suicide("[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!"))
-		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
 
 

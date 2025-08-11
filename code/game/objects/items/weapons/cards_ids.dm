@@ -17,8 +17,8 @@
 	gender = MALE
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	pickup_sound = 'sound/items/handling/card_pickup.ogg'
-	drop_sound = 'sound/items/handling/card_drop.ogg'
+	drop_sound = 'sound/items/handling/drop/card_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/card_pickup.ogg'
 	var/associated_account_number = 0
 
 	var/list/files = list(  )
@@ -116,9 +116,10 @@
 	/// Total mining points for the Shift.
 	var/total_mining_points = 0
 	var/list/access = list()
+	var/law_level = LAW_LEVEL_BASE
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = ITEM_SLOT_ID
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
 
@@ -161,7 +162,12 @@
 
 /obj/item/card/id/proc/freeze_linked_account(datum/source)
 	SIGNAL_HANDLER
+
 	var/datum/money_account/acc = get_money_account(associated_account_number)
+
+	if(!acc)
+		return
+
 	acc.suspended = TRUE
 
 /obj/item/card/id/examine(mob/user)
@@ -295,6 +301,7 @@
 		dat += "<img src=large_[I.icon_state].png>"
 		stamped = TRUE
 		to_chat(user, span_notice("You stamp the ID card!"))
+		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/card/id/guest))
@@ -665,37 +672,37 @@
 				var/department_icon = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", departments)
 				switch(department_icon)
 					if("Engineering")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.engineering_positions)
 					if("Medical")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.medical_positions)
 					if("Science")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.science_positions)
 					if("Security")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.security_positions)
 					if("Support")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.support_positions)
 					if("Command")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.command_positions)
 					if("Special")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs()))
 					if("Custom")
 						new_rank = null
 			else if(department != "Civilian")
 				switch(department)
 					if("Engineering")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.engineering_positions)
 					if("Medical")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.medical_positions)
 					if("Science")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.science_positions)
 					if("Security")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.security_positions)
 					if("Support")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.support_positions)
 					if("Command")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.command_positions)
 					if("Special")
-						new_job = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
+						new_job = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs()))
 				new_rank = new_job
 
 			if(!Adjacent(registered_user) || isnull(new_job))
@@ -1097,6 +1104,13 @@
 	icon_state = "mining_medic"
 	item_state = "mining_medic-id"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
+
+/obj/item/card/id/library_owl
+	name = "Slavka ID"
+	registered_name = "Сыч Вячеслав"
+	icon_state = "id"
+	item_state = "card-id"
+	access = list(ACCESS_LIBRARY)
 
 /obj/item/card/id/rainbow
 	name = "Rainbow ID"

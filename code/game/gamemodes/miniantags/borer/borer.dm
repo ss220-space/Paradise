@@ -77,8 +77,8 @@
 		PREPOSITIONAL = "мозговом черве"
 	)
 
-	speak_emote = list("chirrups")
-	emote_hear = list("chirrups")
+	speak_emote = list("щебечет", "стрекочет")
+	emote_hear = list("щебечет", "стрекочет")
 
 	tts_seed = "Gman_e2"
 
@@ -212,7 +212,7 @@
 	status_tab_data[++status_tab_data.len] = list("Evolution points", antag_datum.evo_points)
 
 
-/mob/living/simple_animal/borer/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/borer/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	var/list/message_pieces = parse_languages(message)
 
 	for(var/datum/multilingual_say_piece/S in message_pieces)
@@ -237,7 +237,7 @@
 		return
 
 	if(!sended_message) //If we use "say", it won't ask us to write the message twice.
-		sended_message = stripped_input(src, "Введите сообщение для носителя.", "Borer", "")
+		sended_message = tgui_input_text(src, "Введите сообщение для носителя.", "Borer", "")
 
 	if(!sended_message)
 		return
@@ -278,7 +278,7 @@
 	if(!B)
 		return
 
-	var/input = stripped_input(src, "Введите сообщение для мозгового червя.", "Сообщение", "")
+	var/input = tgui_input_text(src, "Введите сообщение для мозгового червя.", "Сообщение", "")
 	if(!input)
 		return
 
@@ -302,7 +302,7 @@
 		return
 
 	var/mob/living/captive_brain/CB = B.host_brain
-	var/input = stripped_input(src, "Введите сообщение для пленённого разума.", "Сообщение", "")
+	var/input = tgui_input_text(src, "Введите сообщение для пленённого разума.", "Сообщение", "")
 
 	if(!input)
 		return

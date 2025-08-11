@@ -1,18 +1,18 @@
 //Ash storms happen frequently on lavaland. They heavily obscure vision, and cause high fire damage to anyone caught outside.
 /datum/weather/ash_storm
 	name = "ash storm"
-	desc = "An intense atmospheric storm lifts ash off of the planet's surface and billows it down across the area, dealing intense fire damage to the unprotected."
+	desc = "Мощная атмосферная буря поднимает пепел с поверхности планеты, обрушивая его на землю и нанося сильные ожоги незащищённым существам."
 
-	telegraph_message = span_boldwarning("An eerie moan rises on the wind. Sheets of burning ash blacken the horizon. Seek shelter.")
+	telegraph_message = span_boldwarning("Глухой рокот нарастает вдали, превращаясь в оглушительный рёв. Горизонт застилают мрачные волны пепла. Ищите убежище!")
 	telegraph_duration = 30 SECONDS
 	telegraph_overlay = "light_ash"
 
-	weather_message = span_userdanger("<i>Smoldering clouds of scorching ash billow down around you! Get inside!</i>")
+	weather_message = span_userdanger("<i>Раскалённый пепел обжигает кожу! Воздух наполняется гарью – прячьтесь в убежище!</i>")
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 120 SECONDS
 	weather_overlay = "ash_storm"
 
-	end_message = span_boldannounceic("The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.")
+	end_message = span_boldannounceic("Буря отступила, оставив после себя лишь опалённую тишину. Можно выходить...")
 	end_duration = 30 SECONDS
 	end_overlay = "light_ash"
 
@@ -133,12 +133,12 @@
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
 /datum/weather/ash_storm/emberfall
 	name = "emberfall"
-	desc = "A passing ash storm blankets the area in harmless embers."
+	desc = "Проходящая пепельная буря покрывает землю безвредными угольками."
 
-	weather_message = span_notice("Gentle embers waft down around you like grotesque snow. The storm seems to have passed you by...")
+	weather_message = span_notice("Мягкие угольки опадают вокруг, словно уродливый снег. Кажется, буря обошла вас стороной...")
 	weather_overlay = "light_ash"
 
-	end_message = span_notice("The emberfall slows, stops. Another layer of hardened soot to the basalt beneath your feet.")
+	end_message = span_notice("Пеплопад ослабевает и прекращается. Ещё один слой затвердевшей сажи ложится на базальт под ногами.")
 	end_sound = null
 
 	aesthetic = TRUE

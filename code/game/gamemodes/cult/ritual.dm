@@ -26,6 +26,17 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
+/obj/item/melee/cultblade/dagger/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 1.25, \
+		afterswing_slowdown = 0, \
+		no_multi_hit = TRUE, \
+		swing_sound = "knife_swing" \
+	)
+
+
 /obj/item/melee/cultblade/dagger/update_icon_state()
 	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.dagger_icon
@@ -162,8 +173,11 @@
 			return
 		for(var/datum/mind/M in gamemode.cult)
 			if(M.current)
-				SEND_SOUND(M.current, 'sound/ambience/antag/bloodcult_scribe.ogg')
-		GLOB.command_announcement.Announce("Образы внепространственного бога из неизвестного измерения собираются воедино в [A.map_name]. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+				SEND_SOUND(M.current, sound('sound/ambience/antag/bloodcult_scribe.ogg'))
+		GLOB.major_announcement.announce("Образы внепространственного бога из неизвестного измерения собираются воедино в [A.map_name]. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
+										ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/cult_summon.ogg'
+		)
 		log_admin("[key_name_log(user)] started to draw narsie rune!")
 		add_game_logs("started to draw narsie rune at [AREACOORD(user)]", user)
 		for(var/I in spiral_range_turfs(1, user, 1))

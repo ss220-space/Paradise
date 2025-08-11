@@ -87,6 +87,15 @@
 
 /obj/item/cultivator/rake
 	name = "rake"
+	desc = "Их используют, чтобы удалить сорняки или почесать спину."
+	ru_names = list(
+		NOMINATIVE = "грабли",
+		GENITIVE = "граблей",
+		DATIVE = "граблям",
+		ACCUSATIVE = "грабли",
+		INSTRUMENTAL = "граблями",
+		PREPOSITIONAL = "граблях"
+	)
 	icon_state = "rake"
 	toolspeed = 1
 	belt_icon = null
@@ -127,9 +136,18 @@
 	embed_chance = 70
 	embedded_ignore_throwspeed_threshold = TRUE
 
+/obj/item/hatchet/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0.15, \
+		no_multi_hit = TRUE, \
+		swing_sound = "chop_swing_light" \
+	)
+
 /obj/item/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/hatchet/unathiknife
@@ -172,6 +190,17 @@
 	var/extend = 1
 	var/swiping = FALSE
 
+/obj/item/scythe/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 1.25, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 0.75, \
+		swing_sound = "chop_swing_light" \
+	)
+
 /obj/item/scythe/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	if(ishuman(user))
@@ -179,30 +208,8 @@
 		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
-			playsound(loc, "desceration", 50, 1, -1)
+			playsound(loc, "desceration", 50, TRUE, -1)
 	return BRUTELOSS
-
-
-/obj/item/scythe/pre_attackby(atom/target, mob/living/user, params)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || swiping || !istype(target, /obj/structure/spacevine))
-		return .
-
-	swiping = TRUE
-	var/turf/target_turf = get_turf(target)
-	var/turf/user_turf = get_turf(user)
-	if(target_turf == user_turf)
-		swiping = FALSE
-		return .
-
-	var/dir_to_target = get_dir(user_turf, target_turf)
-	var/static/list/scythe_slash_angles = list(0, 45, 90, -45, -90)
-	for(var/i in scythe_slash_angles)
-		var/turf/close_turf = get_step(user_turf, turn(dir_to_target, i))
-		for(var/obj/structure/spacevine/spacevine in close_turf)
-			if(user.Adjacent(close_turf))
-				melee_attack_chain(user, close_turf, params)
-	swiping = FALSE
 
 
 /obj/item/scythe/tele
@@ -229,7 +236,7 @@
 		attack_verb = list("рубанул", "порезал", "скосил")
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		//Extend sound (blade unsheath)
-		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
+		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, TRUE)	//Sound credit to Qat of Freesound.org
 	else
 		to_chat(user, "<span class='notice'>You collapse the scythe, folding it away for easy storage.</span>")
 		slot_flags = ITEM_SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
@@ -238,7 +245,7 @@
 		attack_verb = list("ударил", "ткнул")
 		hitsound = "swing_hit"
 		//Collapse sound (blade sheath)
-		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
+		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, TRUE)		//Sound credit to Q.K. of Freesound.org
 	set_sharpness(extend)
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_speedmods = FALSE)
@@ -264,7 +271,7 @@
 	desc = "Пластиковая канистра для различных жидкостей."
 	ru_names = list(
         NOMINATIVE = "канистра",
-        GENITIVE = "канистри",
+        GENITIVE = "канистры",
         DATIVE = "канистре",
         ACCUSATIVE = "канистру",
         INSTRUMENTAL = "канистрой",
@@ -334,7 +341,7 @@
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится И-ЗИ-Нутриент."
 	ru_names = list(
         NOMINATIVE = "канистра (И-ЗИ-Нутриент)",
-        GENITIVE = "канистри (И-ЗИ-Нутриент)",
+        GENITIVE = "канистры (И-ЗИ-Нутриент)",
         DATIVE = "канистре (И-ЗИ-Нутриент)",
         ACCUSATIVE = "канистру (И-ЗИ-Нутриент)",
         INSTRUMENTAL = "канистрой (И-ЗИ-Нутриент)",
@@ -349,7 +356,7 @@
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Лефт-Фо-Зед."
 	ru_names = list(
         NOMINATIVE = "канистра (Лефт-Фо-Зед)",
-        GENITIVE = "канистри (Лефт-Фо-Зед)",
+        GENITIVE = "канистры (Лефт-Фо-Зед)",
         DATIVE = "канистре (Лефт-Фо-Зед)",
         ACCUSATIVE = "канистру (Лефт-Фо-Зед)",
         INSTRUMENTAL = "канистрой (Лефт-Фо-Зед)",
@@ -364,7 +371,7 @@
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Робаст-Харвест."
 	ru_names = list(
         NOMINATIVE = "канистра (Робаст-Харвест)",
-        GENITIVE = "канистри (Робаст-Харвест)",
+        GENITIVE = "канистры (Робаст-Харвест)",
         DATIVE = "канистре (Робаст-Харвест)",
         ACCUSATIVE = "канистру (Робаст-Харвест)",
         INSTRUMENTAL = "канистрой (Робаст-Харвест)",
@@ -393,7 +400,7 @@
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится атразин."
 	ru_names = list(
         NOMINATIVE = "канистра (Атразин)",
-        GENITIVE = "канистри (Атразин)",
+        GENITIVE = "канистры (Атразин)",
         DATIVE = "канистре (Атразин)",
         ACCUSATIVE = "канистру (Атразин)",
         INSTRUMENTAL = "канистрой (Атразин)",
@@ -408,7 +415,7 @@
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержатся пестициды."
 	ru_names = list(
         NOMINATIVE = "канистра (Пестициды)",
-        GENITIVE = "канистри (Пестициды)",
+        GENITIVE = "канистры (Пестициды)",
         DATIVE = "канистре (Пестициды)",
         ACCUSATIVE = "канистру (Пестициды)",
         INSTRUMENTAL = "канистрой (Пестициды)",

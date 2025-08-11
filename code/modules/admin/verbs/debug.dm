@@ -826,7 +826,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		to_chat(src, span_warning("You can only use this on 516!"))
 		return
 
-	to_chat(src, span_info("You can now right click to use inspect on browsers."))
+	to_chat(src, span_notice("You can now right click to use inspect on browsers."))
 	winset(src, null, list("browser-options" = "+devtools"))
 
 /client/proc/jump_to_ruin()
@@ -863,8 +863,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			O.force_eject_occupant(usr)
 		admin_forcemove(usr, get_turf(landmark))
 
-		to_chat(usr, span_name("[template.name]"))
-		to_chat(usr, span_italics("[template.description]"))
+		var/list/messages = list(
+			span_notice("Jumped to <b>[template.name]</b>:"),
+			span_notice("[template.description]")
+		)
+		to_chat(usr, chat_box_examine(messages.Join("\n")))
 
 		log_admin("[key_name(usr)] jumped to ruin [ruinname]")
 		if(!isobserver(usr))

@@ -19,6 +19,13 @@
 	var/borg_to_spawn
 	var/checking = FALSE
 	var/rolename = "Syndicate Operative"
+	var/image/poll_icon
+	var/poll_icon_file = 'icons/mob/simple_human.dmi'
+	var/poll_icon_state = "syndicate_space_sword"
+
+/obj/item/antag_spawner/nuke_ops/Initialize(mapload)
+	. = ..()
+	poll_icon = image(icon = poll_icon_file, icon_state = poll_icon_state)
 
 /obj/item/antag_spawner/nuke_ops/proc/before_candidate_search(user)
 	return TRUE
@@ -27,7 +34,7 @@
 	if(used)
 		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
 		return FALSE
-	if(!(user.mind in SSticker.mode.syndicates))
+	if(!(user.mind.has_antag_datum(/datum/antagonist/nuclear_operative)))
 		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
 		return FALSE
 	if(checking)
@@ -46,8 +53,7 @@
 	checking = TRUE
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/image/I = new('icons/mob/simple_human.dmi', "syndicate_space_sword")
-	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = I)
+	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = poll_icon)
 	if(LAZYLEN(nuke_candidates))
 		checking = FALSE
 		if(QDELETED(src) || !check_usability(user))
@@ -64,27 +70,10 @@
 /obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 
-	var/agent_number = LAZYLEN(SSticker.mode.syndicates) - 1
-	M.real_name = "[syndicate_name()] Operative #[agent_number]"
-
-	set_syndicate_values(C, M)
-	SSticker.mode.create_syndicate(M.mind)
-	SSticker.mode.equip_syndicate(M, 0)
-	SSticker.mode.update_syndicate_id(M.mind, FALSE)
-
-/obj/item/antag_spawner/nuke_ops/proc/set_syndicate_values(client/C, mob/living/M)
 	M.key = C.key
-
-	SSticker.mode.syndicates += M.mind
-	SSticker.mode.update_synd_icons_added(M.mind)
-
-	M.mind.assigned_role = SPECIAL_ROLE_NUKEOPS
-	M.mind.special_role = SPECIAL_ROLE_NUKEOPS
-	M.mind.offstation_role = TRUE
-
-	M.faction = list("syndicate")
-	SSticker.mode.forge_syndicate_objectives(M.mind)
-	SSticker.mode.greet_syndicate(M.mind)
+	create_syndicate(M.mind)
+	var/datum/antagonist/nuclear_operative/datum = M.mind.add_antag_datum(/datum/antagonist/nuclear_operative/reinf, /datum/team/nuclear_team)
+	datum.equip()
 
 //////SYNDICATE BORG
 /obj/item/antag_spawner/nuke_ops/borg_tele
@@ -95,31 +84,46 @@
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	name = "syndicate assault cyborg teleporter"
 	borg_to_spawn = "Assault"
+	rolename = "Syndicate Assault Cyborg"
+	poll_icon_file = 'icons/mob/robots.dmi'
+	poll_icon_state = "syndie-bloodhound-preview"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	name = "syndicate medical teleporter"
 	borg_to_spawn = "Medical"
+	rolename = "Syndicate Medical Cyborg"
+	poll_icon_file = 'icons/mob/robots.dmi'
+	poll_icon_state = "syndi-medi"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	name = "syndicate saboteur teleporter"
 	borg_to_spawn = "Saboteur"
+	rolename = "Syndicate Saboteur Cyborg"
+	poll_icon_file = 'icons/mob/robots.dmi'
+	poll_icon_state = "syndi-engi-preview"
+
+#define SYNDICATE_CYBORG "Борг Синдиката"
+#define NUCLEAR_OPERATIVE "Ядерный Оперативник"
+#define CANCER_SWITCH_ROLES_CHOICE "Не активировать этот робот-телепортатор"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/before_candidate_search(mob/user)
-	var/switch_roles_choice = input("Would you like to continue playing as an operative or take over as the cyborg? If you play as the cyborg, another player will control your old self.", "Play As") as null|anything in list("Nuclear Operative", "Syndicate Cyborg")
-	if(!switch_roles_choice || !(check_usability(user)))
+	var/switch_roles_choice = tgui_input_list(usr, "Вы хотите продолжить играть за оперативника или стать боргом? Если вы выберете борга, другой игрок займет ваше старое тело.", "Играть за", list(NUCLEAR_OPERATIVE, SYNDICATE_CYBORG, CANCER_SWITCH_ROLES_CHOICE))
+	if(!switch_roles_choice || !(check_usability(user)) || switch_roles_choice == CANCER_SWITCH_ROLES_CHOICE)
 		return FALSE
 
-	if(switch_roles_choice == "Syndicate Cyborg")
+	if(switch_roles_choice == SYNDICATE_CYBORG)
 		switch_roles = TRUE
-		rolename = initial(rolename)
+		rolename = "Syndicate Operative"
 	else
 		switch_roles = FALSE
-		rolename = "Syndicate [borg_to_spawn] Cyborg"
 
 	return TRUE
 
+#undef SYNDICATE_CYBORG
+#undef NUCLEAR_OPERATIVE
+
 /obj/item/antag_spawner/nuke_ops/borg_tele/spawn_antag(client/C, turf/T, datum/mind/user)
-	if(!(user in SSticker.mode.syndicates))
+	if(!(user.has_antag_datum(/datum/antagonist/nuclear_operative)))
 		used = FALSE
 		return
 
@@ -137,8 +141,10 @@
 	if(prob(50))
 		brainfirstname = pick(GLOB.first_names_female)
 		brainopslastname = pick(GLOB.last_names_female)
-	if(syndicate_name())  //the brain inside the syndiborg has the same last name as the other ops.
-		brainopslastname = syndicate_name()
+
+	var/datum/team/nuclear_team/team = GLOB.antagonist_teams[/datum/team/nuclear_team]
+	if(team?.syndicate_name)  //the brain inside the syndiborg has the same last name as the other ops.
+		brainopslastname = team.syndicate_name
 	var/brainopsname = "[brainfirstname] [brainopslastname]"
 
 	R.mmi.name = "[initial(R.mmi.name)]: [brainopsname]"
@@ -146,13 +152,12 @@
 	R.mmi.brainmob.name = brainopsname
 
 	if(!switch_roles)
-		set_syndicate_values(C, R)
+		R.key = C.key
 	else
 		var/mob/living/L = user.current
-		set_syndicate_values(user.current.client, R)
-
+		R.key = user.current.client.key
 		L.key = C.key
-		SSticker.mode.greet_syndicate(L.mind)
+	R.mind.add_antag_datum(/datum/antagonist/nuclear_operative/cyborg, /datum/team/nuclear_team)
 
 ///////////SLAUGHTER DEMON
 
@@ -189,7 +194,7 @@
 		spawn_antag(C, get_turf(src.loc), initial(demon_type.name), user)
 		to_chat(user, "[shatter_msg]")
 		to_chat(user, "[veil_msg]")
-		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
+		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, TRUE)
 		qdel(src)
 	else
 		used = FALSE
@@ -276,7 +281,7 @@
 		spawn_antag(C, get_turf(src.loc), initial(morph_type.name), user)
 		to_chat(user, "[shatter_msg]")
 		to_chat(user, "[veil_msg]")
-		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
+		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, TRUE)
 		qdel(src)
 	else
 		used = FALSE
@@ -301,7 +306,7 @@
 	M.mind.objectives += KillDaCrew
 	var/list/messages = M.mind.prepare_announce_objectives()
 	to_chat(M, chat_box_red(messages.Join("<br>")))
-	M << 'sound/magic/mutate.ogg'
+	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 
 
 ///////////Pulse Demon

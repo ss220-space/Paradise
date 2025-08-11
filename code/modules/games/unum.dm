@@ -1,6 +1,6 @@
 /// A deck of unum cards. Classic.
 /obj/item/deck/unum
-	name = "\improper UNUM! deck"
+	name = "UNUM! deck"
 	desc = "Колода карт UNUM! Правила для домашних ссор не входят в комплект."
 	ru_names = list(
 		NOMINATIVE = "колода карт UNUM",

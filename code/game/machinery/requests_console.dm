@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "req_comp_off"
 	max_integrity = 300
-	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list(MELEE = 70, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90)
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/message_log = list() //List of all messages
 	var/departmentType = 0 		//Bitflag. Zero is reply-only. Map currently uses raw numbers instead of defines.
@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/message = ""
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
-	var/datum/announcement/announcement = new
+	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/requests_console)
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
@@ -49,13 +49,12 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
 	Radio.listening = TRUE
-	Radio.config(list(ENG_FREQ_NAME, MED_FREQ_NAME, SUP_FREQ_NAME, COMM_FREQ_NAME, SCI_FREQ_NAME, SRV_FREQ_NAME, SEC_FREQ_NAME, AI_FREQ_NAME = 0))
+	Radio.config(list(ENG_FREQ_NAME, MED_FREQ_NAME, SUP_FREQ_NAME, COMM_FREQ_NAME, SCI_FREQ_NAME, SRV_FREQ_NAME, SEC_FREQ_NAME, AI_FREQ_NAME = FALSE))
 	Radio.follow_target = src
 	. = ..()
 
-	announcement.title = "[department] announcement"
-	announcement.newscast = FALSE
-	announcement.log = TRUE
+	announcer.config.default_title = "[department] объявление."
+	announcer.config.add_log = TRUE
 
 	name = "[department] Requests Console"
 	GLOB.allRequestConsoles += src
@@ -177,7 +176,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 						priority = RQ_NONEW_MESSAGES
 
 		if("writeAnnouncement")
-			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
+			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE, multiline = TRUE)
 			if(isnull(new_message))
 				return
 			message = new_message
@@ -185,7 +184,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("sendAnnouncement")
 			if(!announcementConsole)
 				return
-			announcement.Announce(message, msg_sanitized = TRUE)
+			if(!announceAuth) // No you don't
+				return
+			announcer.announce(message)
 			reset_message(TRUE)
 
 		if("department")
@@ -295,7 +296,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if(RCS_ANNOUNCE)
 			if(ACCESS_RC_ANNOUNCE in id.GetAccess())
 				announceAuth = TRUE
-				announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
+				announcer.author = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
 				SStgui.update_uis(ui_object)
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 			reset_message()
@@ -315,7 +316,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	msgVerified = ""
 	msgStamped = ""
 	announceAuth = FALSE
-	announcement.announcer = ""
+	announcer.author = ""
 	ship_tag_name = ""
 	ship_tag_index = FALSE
 	if(mainmenu)

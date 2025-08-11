@@ -10,12 +10,13 @@
 	var/list/fingerprints_time
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
+	var/list/interactors = list()
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
-	var/atom_say_verb = "says"
+	var/atom_say_verb = "говорит"
 	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
 	var/bubble_emote_icon = "emote" ///what icon the mob uses for emotebubbles
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
@@ -227,8 +228,10 @@
 		overlays.Cut()
 
 	LAZYNULL(managed_overlays)
-	QDEL_NULL(ai_controller)
-	QDEL_NULL(light)
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
+	if(light)
+		QDEL_NULL(light)
 	if(length(light_sources))
 		light_sources.Cut()
 
@@ -415,10 +418,11 @@
 /atom/proc/examine(mob/user, infix = "", suffix = "")
 	var/f_name = "."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
+		f_name = ", "
 		if(blood_color != "#030303")
-			f_name = span_danger(", в кровавых следах.")
+			f_name += span_danger("в кровавых следах.")
 		else
-			f_name = ", в масляных следах."
+			f_name += "в масляных следах."
 	. = list("[bicon(src)] Это [declent_ru(NOMINATIVE)][f_name] [suffix]")
 	if(desc)
 		. += desc
@@ -626,7 +630,7 @@
 	if(.)
 		return TRUE
 	if(href_list["description_info"])
-		to_chat(usr, span_info("<div class='examine'>[get_description_info()]</div>"))
+		to_chat(usr, span_notice("<div class='examine'>[get_description_info()]</div>"))
 		return TRUE
 	if(href_list["description_antag"])
 		to_chat(usr, span_syndradio("<div class='examine'>[get_description_antag()]</div>"))
@@ -845,6 +849,8 @@
 		//Fibers~
 		add_fibers(M)
 
+		if(!(M.real_name in interactors))
+			interactors += M.real_name
 		//He has no prints!
 		if(HAS_TRAIT(M, TRAIT_NO_FINGERPRINTS))
 			if(fingerprintslast != M.key)
@@ -1013,6 +1019,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return transfer_blood_dna(blood_dna)
 
 /obj/item/add_blood(list/blood_dna, color)
+	if(isnull(color))
+		color = "#A10808"
+
 	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
 	if(!..())
 		return FALSE
@@ -1026,6 +1035,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	transfer_blood = rand(2, 4)
 
 /turf/add_blood(list/blood_dna, color)
+	if(isnull(color))
+		color = "#A10808"
+
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
@@ -1215,6 +1227,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/ratvar_act()
 	return
 
+/*
+ * Respond to an electric bolt action on our item
+ *
+ * Default behaviour is to return, we define here to allow for cleaner code later on
+ */
+/atom/proc/zap_act(power, zap_flags)
+	return
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
 /atom/proc/handle_atom_del(atom/A)
@@ -1228,7 +1247,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	var/list/speech_bubble_hearers = list()
 	for(var/mob/M in get_mobs_in_view(7, src))
-		M.show_message(span_gamesay(span_name("[src]") + " [atom_say_verb], \"[message]\""), 2, null, 1)
+		M.show_message(span_gamesay(span_name("[capitalize(declent_ru(NOMINATIVE))]") + " [pick(atom_say_verb)], \"[message]\""), 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
@@ -1502,7 +1521,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!prompt)
 		prompt = "Что вы хотите написать на этикетке [declent_ru(GENITIVE)]?"
 
-	var/t = input(user, prompt, "Переименование [declent_ru(GENITIVE)]", default_value)  as text | null
+	var/t = tgui_input_text(user, prompt, "Переименование [declent_ru(GENITIVE)]", default_value)
 	if(isnull(t))
 		// user pressed Cancel
 		return null
@@ -1795,9 +1814,22 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
 
-//Update the screentip to reflect what we're hoverin over
+/// Update the screentip to reflect what we're hovering over
 /atom/MouseEntered(location, control, params)
 	SSmouse_entered.hovers[usr.client] = src
+
+	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	var/screentip_mode = usr.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = MAPTEXT("<span style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[capitalize(src.declent_ru(NOMINATIVE))]</span>")
+
+// This is normal, I assure you. Paradise optimization.
+/atom/MouseExited(location, control, params)
+	usr.hud_used.screentip_text.maptext = ""
 
 /// Fired whenever this atom is the most recent to be hovered over in the tick.
 /// Preferred over MouseEntered if you do not need information such as the position of the mouse.

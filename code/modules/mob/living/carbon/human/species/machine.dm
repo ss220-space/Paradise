@@ -15,8 +15,6 @@
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
-	brute_mod = 1 // 100% * 2.28 * 0.66 (robolimbs) ~= 150% // nope
-	burn_mod = 1  // So they take 50% extra damage from brute/burn overall // nope
 	tox_mod = 0
 	clone_mod = 0
 	death_message = "изда%(ёт,ют)% резкие пронзительные звуки и, конвульсивно подёргивая шасси, окончательно отключа%(ет,ют)%ся."
@@ -102,6 +100,7 @@
 		JOB_MIN_AGE_COMMAND = 15,
 	)
 
+
 /datum/species/machine/on_species_gain(mob/living/carbon/human/human)
 	. = ..()
 	var/datum/action/innate/change_monitor/monitor = locate() in human.actions
@@ -120,6 +119,11 @@
 		/mob/living/carbon/human/proc/emote_buzz2,
 		/mob/living/carbon/human/proc/emote_yes,
 		/mob/living/carbon/human/proc/emote_no))
+
+
+/datum/species/machine/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default, max_level, FALSE)
+
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
@@ -196,7 +200,7 @@
 		var/new_style = tgui_input_list(H, "Выберите изображение", "Изменить монитор", hair, head_organ.h_style)
 		if(!new_style)
 			return
-		var/new_color = input("Выберите цвет", "Цвет монитора", head_organ.hair_colour) as null|color
+		var/new_color = tgui_input_color(usr, "Выберите цвет", "Цвет монитора", head_organ.hair_colour)
 
 		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 			to_chat(H, span_warning("Ваша попытка сменить изображения на дисплее была прервана."))

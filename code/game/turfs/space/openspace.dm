@@ -4,7 +4,7 @@
 	icon = 'icons/turf/space.dmi'
 	icon_state = "openspace" //transparent
 	baseturf = /turf/space/openspace
-	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pathing_pass_method = TURF_PATHING_PASS_PROC
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
@@ -185,12 +185,12 @@
 		return RCD_NO_ACT
 	if(our_rcd.useResource(1, user))
 		to_chat(user, "Building Floor...")
-		playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+		playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 		add_attack_logs(user, src, "Constructed floor with RCD")
 		ChangeTurf(our_rcd.floor_type)
 		return RCD_ACT_SUCCESSFULL
 	to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this floor!"))
-	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
 /turf/space/openspace/bullet_act(obj/projectile/P, def_zone)

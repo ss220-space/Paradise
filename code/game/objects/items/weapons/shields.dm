@@ -1,7 +1,7 @@
 /obj/item/shield
 	name = "shield"
 	block_chance = 50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 	obj_integrity = 380
 	max_integrity = 380
 
@@ -84,7 +84,15 @@
 
 /obj/item/shield/riot/goliath
 	name = "goliath shield"
-	desc = "A shield made from interwoven plates of goliath hide."
+	desc = "Щит, сплетённый из пластин шкуры голиафа."
+	ru_names = list(
+		NOMINATIVE = "щит из пластин голиафа",
+		GENITIVE = "щита из пластин голиафа",
+		DATIVE = "щиту из пластин голиафа",
+		ACCUSATIVE = "щит из пластин голиафа",
+		INSTRUMENTAL = "щитом из пластин голиафа",
+		PREPOSITIONAL = "щите из пластин голиафа"
+	)
 	icon_state = "goliath_shield"
 	item_state = "goliath_shield"
 	materials = list()
@@ -187,7 +195,7 @@
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
+	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
 
 	if(active)
 		force = 8

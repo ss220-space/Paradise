@@ -1,7 +1,10 @@
 /datum/event/door_runtime
 
 /datum/event/door_runtime/announce()
-	GLOB.minor_announcement.Announce("Вредоносное программное обеспечение обнаружено в системе контроля шл+юзов. Задействованы протоколы изоляции. Пожалуйста, сохраняйте спокойствие.", "ВНИМАНИЕ: УЯЗВИМОСТЬ СЕТИ.")
+	GLOB.minor_announcement.announce("Вредоносное программное обеспечение обнаружено в системе контроля шл+юзов. Задействованы протоколы изоляции. Пожалуйста, сохраняйте спокойствие.",
+									"Уязвимость сети.",
+									'sound/AI/door_runtimes.ogg'
+	)
 
 /datum/event/door_runtime/start()
 	for(var/obj/machinery/door/D in GLOB.airlocks)
@@ -13,4 +16,7 @@
 	post_status(STATUS_DISPLAY_ALERT, "lockdown")
 
 /datum/event/door_runtime/proc/reboot()
-	GLOB.minor_announcement.Announce("Автоматическая перезагрузка системы завершена. Хорошего вам дня.","ПЕРЕЗАГРУЗКА СЕТИ:")
+	GLOB.minor_announcement.announce("Автоматическая перезагрузка системы завершена. Хорошего вам дня.",
+									"Перезагрузка сети.",
+									'sound/AI/door_runtimes_fix.ogg'
+	)

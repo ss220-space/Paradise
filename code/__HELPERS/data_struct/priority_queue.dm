@@ -23,11 +23,9 @@
 	var/item = top.item
 	heap -= bottom
 	if(!heap.len)
-		qdel(top)
 		return item
 	heap[1] = bottom
 	bubble_down(1)
-	qdel(top)
 	return item
 
 /priority_queue/proc/peek()
@@ -67,3 +65,8 @@
     var/list/temp = heap[a]
     heap[a] = heap[b]
     heap[b] = temp
+
+
+/priority_queue/Destroy(force)
+	..()
+	return QDEL_HINT_IWILLGC

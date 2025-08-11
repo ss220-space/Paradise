@@ -17,7 +17,7 @@
 		if(!isclient(C))
 			return
 
-		C << 'sound/effects/adminhelp.ogg'
+		SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 		to_chat(C, span_fontsize4("<span style='color: red;'><b>- AdminHelp Rejected! -</b></span>"), confidential=TRUE)
 		to_chat(C, "<span style='color: red;'><b>Your admin help was rejected.</b></span>", confidential=TRUE)
@@ -97,6 +97,10 @@
 			if("14")
 				log_admin("[key_name(usr)] has spawned a xemonorphs.")
 				if(!makeAliens())
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
+			if("15")
+				log_admin("[key_name(usr)] has spawned a nuke team.")
+				if(!makeNukeTeam())
 					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
@@ -393,10 +397,12 @@
 		if(!check_rights(R_SERVER))	return
 
 		var/timer = tgui_input_number(usr, "Enter new shuttle duration (seconds):", "Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft())
+		if(isnull(timer))
+			return
 		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
-		GLOB.minor_announcement.Announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination,"минуту","минуты","минут")].")
+		GLOB.minor_announcement.announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")].")
 		message_admins(span_adminnotice("[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds"))
 		href_list["check_antagonist"] = TRUE
 
@@ -1021,6 +1027,8 @@
 		return 0 //we didn't do anything!
 
 	else if(href_list["boot2"])
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 		var/mob/M = locateUID(href_list["boot2"])
 		if(!ismob(M))
 			return
@@ -2394,6 +2402,8 @@
 		C.jumptocoord(x,y,z)
 
 	else if(href_list["adminchecklaws"])
+		if(!check_rights(R_ADMIN|R_MENTOR))
+			return
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
@@ -2498,7 +2508,7 @@
 		P.faxmachineid = fax.UID()
 		P.forceMove(fax.loc)  // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, span_specialnoticebold("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
+			to_chat(H, span_specialnotice("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
 			H.playsound_local(H, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
@@ -2539,7 +2549,7 @@
 			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
 				to_chat(H, span_danger("The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned."))
-				SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+				SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 				if(H.client)
 					window_flash(H.client)
 	else if(href_list["FaxReplyTemplate"])
@@ -2554,21 +2564,21 @@
 		P.name = "Центральное командование - paper"
 		var/stypes = list("Разберитесь с этим сами!","Неразборчивый факс","Факс не подписан","Не сейчас","Вы напрасно тратите наше время", "Продолжайте в том же духе", "Инструкции ОБР")
 		var/stype = tgui_input_list(src.owner, "Какой тип заготовленного письма вы хотите отправить [H]?", "Выберите этот документ", stypes)
-		var/tmsg = "<span style='font-face: \"Verdana\"; color: black;'><center><img src = 'ntlogo.png'><br><br><br><span style='font-size: 18px;'><b>Научная станция NanoTrasen [SSmapping.map_datum.station_short]</b></span><br><br><br><span style='font-size: 4;'>Отчет отдела коммуникаций АКН 'Трурль'</span></center><br><br>"
+		var/tmsg = "<span style='font-face: \"Verdana\"; color: black;'><center><img src = 'ntlogo.png'><br><br><br><span style='font-size: 18px;'><b>Научная станция NanoTrasen [SSmapping.map_datum.station_short]</b></span><br><br><br><span style='font-size: 4;'>Отчет отдела коммуникаций [command_name()]</span></center><br><br>"
 		if(stype == "Разберитесь с этим сами!")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Пожалуйста, действуйте в соответствии со Стандартными Рабочими Процедурами и/или Космическим Законом. Вы полностью обучены справляться с данной ситуацией без вмешательства Центрального Командования.<br><br><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>Пожалуйста, действуйте в соответствии со Стандартными Рабочими Процедурами и/или Космическим Законом. Вы полностью обучены справляться с данной ситуацией без вмешательства Центрального командования.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Неразборчивый факс")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Грамматика, синтаксис и/или типография вашего факса находятся на низком уровне и не позволяют нам понять содержание сообщения.<br><br>Пожалуйста, обратитесь к ближайшему словарю и/или тезаурусу и повторите попытку.<br><br><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>Грамматика, синтаксис и/или типография вашего факса находятся на низком уровне и не позволяют нам понять содержание сообщения.<br><br>Пожалуйста, обратитесь к ближайшему словарю и/или тезаурусу и повторите попытку.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Факс не подписан")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Ваш факс был неправильно подписан, и поэтому мы не можем подтвердить вашу личность.<br><br>Пожалуйста, подпишите свои факсы перед их отправкой, чтобы мы могли вас идентифицировать.<br><br><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>Ваш факс был неправильно подписан, и поэтому мы не можем подтвердить вашу личность.<br><br>Пожалуйста, подпишите свои факсы перед их отправкой, чтобы мы могли вас идентифицировать.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Не сейчас")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Из-за неотложных проблем, связанных с вопросом, превышающим ваш текущий уровень оплаты, мы не можем оказать помощь по любому вопросу, на который ссылается ваш факс.<br><br>Это может быть связано с отключением электроэнергии, бюрократическим аудитом, распространением вредителей, 'Восхождением', быстрым ростом популяции корги или любой другой ситуацией, которая может повлиять на надлежащее функционирование АКН 'Трурль'.<br><br>Пожалуйста, повторите попытку позднее.<br><br><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>Из-за неотложных проблем, связанных с вопросом, превышающим ваш текущий уровень оплаты, мы не можем оказать помощь по любому вопросу, на который ссылается ваш факс.<br><br>Это может быть связано с отключением электроэнергии, бюрократическим аудитом, распространением вредителей, 'Восхождением', быстрым ростом популяции корги или любой другой ситуацией, которая может повлиять на надлежащее функционирование [command_name()].<br><br>Пожалуйста, повторите попытку позднее.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Вы напрасно тратите наше время")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>В интересах предотвращения дальнейшего нерационального использования ресурсов компании, пожалуйста, не тратьте наше время на такую мелкую чушь.<br><br>Пожалуйста, помните, что мы ожидаем, что наши сотрудники будут поддерживать, по крайней мере, полу-достойный уровень профессионализма. Не испытывайте наше терпение.<br><br><i><small>Это автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>В интересах предотвращения дальнейшего нерационального использования ресурсов компании, пожалуйста, не тратьте наше время на такую мелкую чушь.<br><br>Пожалуйста, помните, что мы ожидаем, что наши сотрудники будут поддерживать, по крайней мере, полу-достойный уровень профессионализма. Не испытывайте наше терпение.<br><br><i><small>Это автоматическое сообщение.</i></small>"
 		else if(stype == "Продолжайте в том же духе")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был успешно получено службой регистрации факсов АКН 'Трурль'.<br><br>Мы в АКН 'Трурль' искренне ценим хорошую работу, которую вы здесь проделали, и искренне рекомендуем вам продолжать демонстрировать такую преданность компании.<br><br><i><small>Это точно не автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был успешно получено службой регистрации факсов [command_name()].<br><br>Мы в [command_name()] искренне ценим хорошую работу, которую вы здесь проделали, и искренне рекомендуем вам продолжать демонстрировать такую преданность компании.<br><br><i><small>Это точно не автоматическое сообщение.</i></small>"
 		else if(stype == "Инструкции ОБР")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Пожалуйста, используйте карту, если вы хотите вызвать ОБР.<br><br><i><small>Это автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>Пожалуйста, используйте карту, если вы хотите вызвать ОБР.<br><br><i><small>Это автоматическое сообщение.</i></small>"
 		else
 			return
 		tmsg += "</span>"
@@ -2576,7 +2586,7 @@
 		P.stamp(/obj/item/stamp/centcom)
 		fax.receivefax(P)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, span_specialnoticebold("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
+			to_chat(H, span_specialnotice("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
 			H.playsound_local(H, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]", confidential=TRUE)
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
@@ -2602,26 +2612,35 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(tgui_alert(src.owner, "Accept or Deny ERT request?", "CentComm Response", list("Accept", "Deny")) == "Deny")
+		if(tgui_alert(owner, "Accept or Deny ERT request?", "CentComm Response", list("Accept", "Deny")) == "No")
 			var/mob/living/carbon/human/H = locateUID(href_list["ErtReply"])
 			if(!istype(H))
-				to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon/human"), confidential=TRUE)
-				return
-			if(H.stat != 0)
-				to_chat(usr, span_warning("The person you are trying to contact is not conscious."), confidential=TRUE)
-				return
-			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-				to_chat(usr, span_warning("The person you are trying to contact is not wearing a headset"), confidential=TRUE)
+				to_chat(owner, span_warning("This can only be used on instances of type /mob/living/carbon/human"))
 				return
 
-			var/input = tgui_input_text(src.owner, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "", encode = FALSE)
-			if(!input)	return
+			var/reason = tgui_input_text(owner, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm", multiline = TRUE, encode = FALSE)
+			if(!reason)
+				return
+			var/announce_to_crew = tgui_alert(owner, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"
 			GLOB.ert_request_answered = TRUE
-			to_chat(src.owner, "You sent [input] to [H] via a secure channel.", confidential=TRUE)
-			log_admin("[src.owner] denied [key_name(H)]'s ERT request with the message [input].")
-			to_chat(H, "[span_specialnoticebold("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Your ERT request has been denied for the following reasons: [input].")]")
+			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
+
+			if(announce_to_crew)
+				GLOB.major_announcement.announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
+												ANNOUNCE_ERT_UNAVAIL_RU
+				)
+				return
+
+			if(H.stat != CONSCIOUS)
+				to_chat(owner, span_warning("The person you are trying to contact is not conscious. ERT denied but no message has been sent."))
+				return
+			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
+				to_chat(owner, span_warning("The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent."))
+				return
+			to_chat(owner, span_notice("You sent [reason] to [H] via a secure channel."))
+			to_chat(H, "[span_specialnotice("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]")
 		else
-			src.owner.response_team()
+			owner.response_team()
 
 
 	else if(href_list["AdminFaxView"])
@@ -2680,6 +2699,10 @@
 		var/destination
 		var/notify
 		var/obj/item/paper/P
+
+		if(sender)
+			message_admins("[key_name_admin(owner)] has started replying to a fax message from [key_name_admin(sender)]")
+
 		var/use_letterheard = tgui_alert(usr, "Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",, list("Yes", "No"))
 		switch(use_letterheard)
 			if("Yes")
@@ -2802,7 +2825,7 @@
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
 			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-				to_chat(sender, span_specialnoticebold("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."), confidential=TRUE)
+				to_chat(sender, span_specialnotice("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."), confidential=TRUE)
 				sender.playsound_local(sender, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
@@ -2817,7 +2840,7 @@
 		var/mob/sender = locate(href_list["AdminFaxNotify"])
 		var/mob/living/carbon/human/H = sender
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(sender, span_specialnoticebold("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
+			to_chat(sender, span_specialnotice("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
 			sender.playsound_local(sender, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		return
 	else if(href_list["refreshfaxpanel"])
@@ -3204,7 +3227,7 @@
 					return
 				change_station_name(new_name)
 				log_and_message_admins("renamed the station to: [new_name].")
-				GLOB.event_announcement.Announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
 
 			if("set_centcomm_name")
 				if(!check_rights(R_ADMIN | R_EVENT))
@@ -3221,7 +3244,7 @@
 				var/new_name = new_station_name()
 				change_station_name(new_name)
 				log_and_message_admins("reset the station name.")
-				GLOB.event_announcement.Announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
 
 			if("gravity")
 				if(!(SSticker && SSticker.mode))
@@ -3239,7 +3262,7 @@
 
 				var/gravity_announce = tgui_input_text(usr, "Do you wish to make any global announcement?", "Announcement Text", encode = FALSE)
 				if(gravity_announce)
-					GLOB.event_announcement.Announce("[gravity_announce]")
+					GLOB.minor_announcement.announce("[gravity_announce]")
 
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
 
@@ -3469,7 +3492,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				log_and_message_admins("made everything kawaii.")
 				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
-					SEND_SOUND(human, 'sound/AI/animes.ogg')
+					SEND_SOUND(human, sound('sound/AI/animes.ogg'))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
 						var/obj/item/clothing/head/kitty/hat = new
@@ -3488,7 +3511,7 @@
 					human.name = newname
 					human.real_name = newname
 
-			if("eagles")//
+			if("eagles")
 				if(!you_realy_want_do_this())
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
@@ -3496,7 +3519,9 @@
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				GLOB.event_announcement.Announce("Активирована блокировка управления шл+юзами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.", new_sound = 'sound/AI/commandreport.ogg')
+				GLOB.minor_announcement.announce("Активирована блокировка управления шлю+зами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.",
+												new_sound = 'sound/AI/commandreport.ogg'
+				)
 			if("onlyone")
 				if(!you_realy_want_do_this())
 					return
@@ -3636,37 +3661,11 @@
 				else
 					log_and_message_admins(span_adminnotice("tried starting a Thunderdome match, but no ghosts signed up."))
 
-			if("securitylevel0")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_GREEN)
-				log_and_message_admins(span_notice("change security level to Green."))
+			if("securitylevel")
+				var/level_number = text2num(href_list["number"])
+				SSsecurity_level.set_level(level_number)
+				message_admins(span_notice("[key_name_admin(usr)] change security level to [SSsecurity_level.number_level_to_text(level_number)]."))
 
-			if("securitylevel1")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_BLUE)
-				log_and_message_admins(span_notice("change security level to Blue."))
-			if("securitylevel2")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_RED)
-				log_and_message_admins(span_notice("change security level to Red."))
-			if("securitylevel3")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_GAMMA)
-				log_and_message_admins(span_notice("change security level to Gamma."))
-			if("securitylevel4")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_EPSILON)
-				log_and_message_admins(span_notice("change security level to Epsilon."))
-			if("securitylevel5")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_DELTA)
-				log_and_message_admins(span_notice("change security level to Delta."))
 			if("moveminingshuttle")
 				if(!you_realy_want_do_this())
 					return
@@ -3811,6 +3810,10 @@
 						SSnightshift.can_fire = FALSE
 						SSnightshift.update_nightshift(FALSE, FALSE)
 						to_chat(usr, span_notice("Night shift forced off."), confidential=TRUE)
+
+			if("lavatype")
+				change_lava_type()
+
 			else
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")
@@ -3861,7 +3864,8 @@
 				return 1
 
 	else if(href_list["viewruntime"])
-		var/datum/error_viewer/error_viewer = locate(href_list["viewruntime"])
+		var/datum/error_viewer/error_viewer = locateUID(href_list["viewruntime"])
+
 		if(!istype(error_viewer))
 			to_chat(usr, span_warning("That runtime viewer no longer exists."), confidential=TRUE)
 			return
@@ -4011,21 +4015,24 @@
 		poll_results_panel(poll, start_index)
 
 	else if(href_list["showrelatedacc"])
-		var/client/C = locate(href_list["client"]) in GLOB.clients
-		if(!C)
+		var/client/client = locateUID(href_list["client"])
+
+		if(!client)
 			to_chat(usr, "No client inside!")
 			return
+
 		var/thing_to_check
+
 		if(href_list["showrelatedacc"] == "cid")
-			thing_to_check = jointext(C.related_accounts_cid, "<br>")
+			thing_to_check = jointext(client.related_accounts_cid, "<br>")
 		else
-			thing_to_check = jointext(C.related_accounts_ip, "<br>")
+			thing_to_check = jointext(client.related_accounts_ip, "<br>")
 
 
 		var/list/dat = list("Related accounts by [uppertext(href_list["showrelatedacc"])]:")
 		dat += thing_to_check
 
-		var/datum/browser/popup = new(usr, "related_[C]", "Related dacc", 420, 300)
+		var/datum/browser/popup = new(usr, "related_[client]", "Related dacc", 420, 300)
 		popup.set_content(dat.Join("<br>"))
 		popup.open(FALSE)
 
@@ -4149,7 +4156,7 @@
 	if (playlightning)
 		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
 		sleep(80)
-	GLOB.priority_announcement.Announce(replacetext(announcement, "%STATION%", station_name()))
+	GLOB.major_announcement.announce(replacetext(announcement, "%STATION%", station_name()))
 	if (playlightning)
 		sleep(20)
 		sound_to_playing_players('sound/magic/lightningbolt.ogg')
@@ -4192,3 +4199,22 @@
 	log_admin(msg)
 	message_admins(span_darkmblue(msg))
 	return TRUE
+
+
+/datum/admins/proc/change_lava_type()
+	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+		to_chat(usr, span_warning("Генерация ещё не завершена. Пожалуйста, подождите."))
+		return
+
+	var/list/themes = list()
+	var/list/only_names = list() // Req for tgui_alert
+	for(var/lava_theme in subtypesof(/datum/lavaland_theme))
+		var/datum/lavaland_theme/lavaland_theme_type = lava_theme
+		only_names.Add(lavaland_theme_type.name)
+		themes[lavaland_theme_type.name] = lavaland_theme_type
+
+	var/choosen = tgui_alert(usr, "Выберите тип Лазиса, который вы хотите установить.", "Выбор типа Лазиса", only_names)
+	if(!choosen)
+		return
+
+	set_lazis_type(themes[choosen])

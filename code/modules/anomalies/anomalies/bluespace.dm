@@ -27,15 +27,24 @@
 	if(isliving(target))
 		investigate_log("teleported [key_name_log(target)] to [COORD(target)]", INVESTIGATE_TELEPORTATION)
 
+	var/turf/atom_loc = get_turf(target.loc)
+	if(!atom_loc.is_blocked_turf(exclude_mobs = TRUE))
+		return
+
+	for(var/turf/turf in orange(7, target))
+		if(target.Move(turf))
+			return
+
+
 /obj/effect/anomaly/bluespace/mob_touch_effect(mob/living/mob)
 	..()
-	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
+	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strength() / 100)
 	teleport(mob, radius)
 	return FALSE
 
 /obj/effect/anomaly/bluespace/item_touch_effect(obj/item/item)
 	..()
-	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
+	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strength() / 100)
 	if(isturf(item.loc))
 		teleport(item, radius)
 
@@ -43,7 +52,7 @@
 
 /obj/effect/anomaly/bluespace/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
-	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
+	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strength() / 100)
 	teleport(user, radius)
 
 /obj/effect/anomaly/bluespace/collapse()
@@ -141,7 +150,7 @@
 			return
 
 		mob.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
-		to_chat(mob, span_bluespaceanomaly("Вы слышите страшный треск! Это что... трещит пространство?"))
+		to_chat(mob, span_bluespace_anomaly("Вы слышите страшный треск! Это что... трещит пространство?"))
 
 /obj/effect/anomaly/bluespace/tier3/collapse()
 	new /datum/event/wormholes/anomaly()
@@ -185,7 +194,7 @@
 			continue
 
 		mob.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
-		to_chat(mob, span_bluespaceanomaly("Пространство пало..."))
+		to_chat(mob, span_bluespace_anomaly("Пространство пало..."))
 
 /obj/effect/anomaly/bluespace/tier4/collapse()
 	new /datum/event/wormholes/anomaly()

@@ -80,8 +80,8 @@
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/berry_banned2/on_mob_death(mob/living/M)
-	M << sound('sound/effects/adminhelp.ogg',0,1,0,25)
-	to_chat(M, chat_box_red(span_adminhelp("PM from-<b>Administrator</b>: ТЫ ЗАБАНЕН БЛЯДЬ!!!")))
+	SEND_SOUND(M, sound('sound/effects/adminhelp.ogg', 0, 1, 0, 25))
+	to_chat(M, chat_box_red(span_adminhelp("PM from-<b>Administrator</b>: ТЫ ЗАБАНЕН БЛЯДЬ!!!")), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 	..()
 
 //Blackeye Brew: Chance to make the drinker say greytider-themed things like "ГРЕЙТАЙД ВПЕРЁД!"
@@ -137,7 +137,7 @@
 
 /datum/reagent/consumable/drink/meteor_malt/on_mob_life(mob/living/M)
 	if(prob(25))
-		M << sound('sound/effects/meteorimpact.ogg',0,1,0,25)
+		SEND_SOUND(M, sound('sound/effects/meteorimpact.ogg', wait = 1, volume = 25))
 		shake_camera(M, 3, 1)
 	if(prob(5))
 		var/amount = rand(1, 5)

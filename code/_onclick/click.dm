@@ -272,7 +272,7 @@
 
 /*
 	Middle click
-	Only used for swapping hands
+	Only used for pointing
 */
 /mob/proc/MiddleClickOn(atom/A)
 	pointed(A)
@@ -316,12 +316,6 @@
 		clear_forced_look()
 		return
 	set_forced_look(A, TRUE)
-
-// In case of use break glass
-/*
-/atom/proc/MiddleClick(var/mob/M as mob)
-	return
-*/
 
 /*
 	Shift click
@@ -454,8 +448,14 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	screen_loc = "CENTER"
 
+/atom/movable/screen/click_catcher/MouseEntered(location, control, params)
+	return
+
+/atom/movable/screen/click_catcher/MouseExited(location, control, params)
+	return
+
 #define MAX_SAFE_BYOND_ICON_SCALE_TILES (MAX_SAFE_BYOND_ICON_SCALE_PX / world.icon_size)
-#define MAX_SAFE_BYOND_ICON_SCALE_PX (33 * 32)			//Not using world.icon_size on purpose.
+#define MAX_SAFE_BYOND_ICON_SCALE_PX (33 * 32) //Not using world.icon_size on purpose.
 
 /atom/movable/screen/click_catcher/proc/UpdateGreed(view_size_x = 15, view_size_y = 15)
 	var/icon/newicon = icon('icons/mob/screen_gen.dmi', "catcher")

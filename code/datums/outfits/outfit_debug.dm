@@ -65,7 +65,7 @@
 		INSTRUMENTAL = "ключом шифрования AVD-CNED",
 		PREPOSITIONAL = "ключе шифрования AVD-CNED",
 	)
-	channels = list(ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1) // just in case
+	channels = list(ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PRS_FREQ_NAME = 1, PROC_FREQ_NAME = 1) // just in case
 	syndie = TRUE
 	change_voice = FALSE
 
@@ -137,7 +137,7 @@
 
 /obj/item/clothing/glasses/hud/debug/examine(mob/user)
 	. = ..()
-	. += span_info("Щелкните <b>Alt + ЛКМ</b>, чтобы переключить иксрей.")
+	. += span_notice("Щелкните <b>Alt + ЛКМ</b>, чтобы переключить иксрей.")
 
 /obj/item/clothing/glasses/hud/debug/click_alt(mob/user)
 	if(!ishuman(user))
@@ -249,7 +249,7 @@
 	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
 	to_chat(user, "Установленная скорость работы у [declent_ru(GENITIVE)] - [toolspeed].")
 	balloon_alert(user, "скорость изменена")
-	playsound(src, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
+	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)		//Change the mode
 
 /obj/item/organ/internal/cyberimp/arm/surgery/advanced
 	name = "AVD-CNED surgical toolset implant"

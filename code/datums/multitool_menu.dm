@@ -204,7 +204,7 @@
 	var/message = "Enter an ID tag"
 	var/current_tag = get_tag()
 	var/default = current_tag ? current_tag : ""
-	return reject_bad_text(stripped_input(user=user, message=message, title=title, default=default))
+	return reject_bad_text(tgui_input_text(user, message, title, default))
 
 ////////////////////////////////
 //	Mass driver
@@ -609,7 +609,7 @@
 			if(!length(sensors))
 				service_message("No sensors on this frequency.")
 				return FALSE
-			var/sensor_tag = input(user, "Select a sensor", "Sensors on the frequency") as null|anything in sensors
+			var/sensor_tag = tgui_input_list(user, "Select a sensor", "Sensors on the frequency", sensors)
 			if(!sensor_tag || notify_if_cannot_apply(user))
 				return FALSE
 			add_sensor(sensor_tag)
@@ -639,7 +639,7 @@
 	var/title = "Sensor label"
 	var/message = "Choose a sensor label"
 	var/default = my_holder.sensors[sensor_tag]
-	return reject_bad_text(stripped_input(user=user, message=message, title=title, default=default))
+	return reject_bad_text(tgui_input_text(user, message, title, default))
 
 /datum/multitool_menu/idtag/freq/general_air_control/get_frequency()
 	var/obj/machinery/computer/general_air_control/my_holder = holder

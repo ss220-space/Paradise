@@ -346,7 +346,7 @@
 	. = FALSE
 	if(panel_open)
 		return .
-	if(istype(I, /obj/item/clothing/suit/space) && !suit)
+	if((istype(I, /obj/item/clothing/suit/space) || istype(I, suit_type)) && !suit)
 		. = user.drop_transfer_item_to_loc(I, src)
 		if(.)
 			suit = I
@@ -362,7 +362,7 @@
 		. = user.drop_transfer_item_to_loc(I, src)
 		if(.)
 			magboots = I
-	else if((istype(I, /obj/item/tank)) && !storage)
+	else if((istype(I, /obj/item/tank) || istype(I, storage_type)) && !storage)
 		. = user.drop_transfer_item_to_loc(I, src)
 		if(.)
 			storage = I
@@ -444,7 +444,7 @@
 		locked = FALSE
 		if(uv_super)
 			visible_message(span_warning("[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber."))
-			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, 1)
+			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, TRUE)
 			qdel(helmet)
 			qdel(mask)
 			qdel(magboots)
@@ -461,7 +461,7 @@
 				visible_message(span_notice("[src]'s door slides open. The glowing yellow lights dim to a gentle green."))
 			else
 				visible_message(span_warning("[src]'s door slides open, barraging you with the nauseating smell of charred flesh."))
-			playsound(src, 'sound/machines/airlock_close.ogg', 25, 1)
+			playsound(src, 'sound/machines/airlock_close.ogg', 25, TRUE)
 		if(occupant)
 			dump_contents()
 		update_icon(UPDATE_OVERLAYS)

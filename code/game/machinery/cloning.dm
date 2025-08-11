@@ -85,6 +85,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	Radio = new /obj/item/radio(src)
 	Radio.listening = 0
 	Radio.config(list(MED_FREQ_NAME = 0))
+	Radio.follow_target = src
 
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
@@ -244,10 +245,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/announce_radio_message(message)
 	if(radio_announce)
-		Radio.autosay(message, name, MED_FREQ_NAME, list(z))
+		Radio.autosay(message, name, MED_FREQ_NAME)
 
 /obj/machinery/clonepod/proc/spooky_devil_flavor()
-	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, 1)
+	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, TRUE)
 	mess = TRUE
 	update_icon()
 	connected_message("<font face=\"REBUFFED\" color=#600A0A>Если ты снова попытаешься украсть у Меня, то Я приду за тобой лично.</font>")
@@ -527,8 +528,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
 	if((H.mind in SSticker.mode:revolutionaries) || (H.mind in SSticker.mode:head_revolutionaries))
 		SSticker.mode.update_rev_icons_added() //So the icon actually appears
-	if(H.mind in SSticker.mode.syndicates)
-		SSticker.mode.update_synd_icons_added()
 	if(H.mind in SSticker.mode.cult)
 		SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
 		SSticker.mode.add_cult_actions(H.mind) // And all the actions
@@ -560,7 +559,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		missing_organs.Cut()
 		mess = FALSE
 		new /obj/effect/gibspawner/generic(get_turf(src), occupant)
-		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 		update_icon()
 		return
 
@@ -621,7 +620,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			qdel(occupant)
 
 
-	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 0)
+	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, FALSE)
 	mess = TRUE
 	update_icon()
 
@@ -754,7 +753,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	A load/save dialog will become available in each profile if a disk is inserted.</p><br>
 	<i>A good diskette is a great way to counter aforementioned genetic drift!</i><br>
 	<br>
-	<font size=1>This technology produced under license from Thinktronic Systems, LTD.</font>"}
+	<span style='font-size: 10px;'>This technology produced under license from Thinktronic Systems, LTD.</font>"}
 
 //SOME SCRAPS I GUESS
 /* EMP grenade/spell effect

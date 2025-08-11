@@ -9,11 +9,13 @@
 	dir = WEST	// we are using this to offset acceptdir
 	processing_flags = START_PROCESSING_MANUALLY
 	/// Whether this machine transforms dead mobs into cyborgs
-	var/transform_dead = FALSE
+	var/transform_dead = TRUE
 	/// Whether this machine transforms standing mobs into cyborgs
 	var/transform_standing = TRUE
-	/// How long we have to wait between processing mobs
-	var/cooldown_duration = 1 MINUTES
+	/// How long we have to wait between processing alife mobs
+	var/cooldown_duration = 40 SECONDS
+	/// How long we have to wait between processing dead mobs
+	var/cooldown_duration_dead = 1.2 MINUTES
 	/// The created cyborg's cell
 	var/robot_cell_type = /obj/item/stock_parts/cell/high/plus
 	/// The direction that mobs must be moving in to get transformed
@@ -120,7 +122,7 @@
 		return
 
 	// Activate the cooldown
-	COOLDOWN_START(src, cooldown_timer, cooldown_duration)
+	COOLDOWN_START(src, cooldown_timer, (victim.stat == DEAD)? cooldown_duration_dead : cooldown_duration)
 	begin_processing()
 	update_icon(UPDATE_ICON_STATE)
 
@@ -152,6 +154,7 @@
 /obj/machinery/transformer/mime
 	name = "Mimetech Greyscaler"
 	desc = "Turns anything placed inside black and white."
+	transform_dead = FALSE
 
 
 /obj/machinery/transformer/mime/transformer_bumped(atom/movable/moving_atom)
@@ -185,6 +188,7 @@
 	transform_standing = FALSE
 	dir = EAST
 	acceptdir = WEST
+	transform_dead = FALSE
 
 
 /obj/machinery/transformer/xray/initialize_belts()
@@ -273,6 +277,7 @@
 /obj/machinery/transformer/equipper
 	name = "Auto-equipper 9000"
 	desc = "Either in employ of people who cannot dress themselves, or Wallace and Gromit."
+	transform_dead = FALSE
 	var/selected_outfit = /datum/outfit/job/assistant
 	var/prestrip = TRUE
 
@@ -293,6 +298,7 @@
 /obj/machinery/transformer/transmogrifier
 	name = "species transmogrifier"
 	desc = "As promoted in Calvin & Hobbes!"
+	transform_dead = FALSE
 	var/datum/species/target_species = /datum/species/human
 
 
@@ -306,6 +312,7 @@
 /obj/machinery/transformer/dnascrambler
 	name = "genetic scrambler"
 	desc = "Step right in and become a new you!"
+	transform_dead = FALSE
 
 
 /obj/machinery/transformer/dnascrambler/do_transform(mob/living/carbon/human/victim)
@@ -320,6 +327,7 @@
 /obj/machinery/transformer/gene_applier
 	name = "genetic blueprint applier"
 	desc = "Here begin the clone wars. Upload a template by using a genetics disk on this machine."
+	transform_dead = FALSE
 	var/datum/dna/template
 	var/locked = FALSE // For admins sealing the deal
 
