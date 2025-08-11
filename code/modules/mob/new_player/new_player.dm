@@ -413,15 +413,28 @@
 				join_message = S.msg
 			else
 				to_chat(character, "Выбранная вами зона появления ([S.display_name]) недоступна для выбранной вами профессии. Вместо этого мы отправляем вас на шаттл Прибытия.")
-				character.forceMove(pick(GLOB.latejoin))
+				if(length(GLOB.start_override))
+					character.forceMove(pick(GLOB.start_override))
+				else
+					character.forceMove(pick(GLOB.latejoin))
+
 				join_message = "прибыл на станцию"
 		else
-			character.forceMove(pick(GLOB.latejoin))
+			if(length(GLOB.start_override))
+				character.forceMove(pick(GLOB.start_override))
+			else
+				character.forceMove(pick(GLOB.latejoin))
+
 			join_message = "прибыл на станцию"
 
 	character.lastarea = get_area(loc)
 
-	character = SSjobs.EquipRank(character, rank, 1)					//equips the human
+	if(GLOB.start_override_outfit)
+		var/datum/outfit/outfit_override = new GLOB.start_override_outfit
+		outfit_override.equip(character)
+	else
+		character = SSjobs.EquipRank(character, rank, 1)					//equips the human
+
 	EquipCustomItems(character)
 
 	SSticker.mode.latespawn(character)

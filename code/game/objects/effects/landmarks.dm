@@ -740,3 +740,7 @@
 
 	to_chat(usr, span_boldmessage("Набор вещей, с которым будут появляться все новые игроки обновлен."))
 	GLOB.start_override_outfit = new paths[selected_outfit]
+
+
+/obj/effect/landmark/start_override/prisoner
+	connected_outfit = /datum/outfit/prisoner

@@ -493,7 +493,7 @@ SUBSYSTEM_DEF(jobs)
 		var/obj/mark_spawn = null
 		if(length(GLOB.start_override))
 			mark_spawn = pick(GLOB.start_override)
-			outfit_override = GLOB.start_override_outfit
+			outfit_override = new GLOB.start_override_outfit
 		else
 			for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
 				if(sloc.name != rank)
