@@ -762,6 +762,7 @@
 	max_ammo = 71
 	multiple_sprites = 2
 
+// this drum magazine uses for Buldog, Mastiff and AS-12 Minotaur shotguns
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g buckshot slugs)"
 	desc = "Барабанный магазин предназначенный для патронов калибра 12х70."
@@ -1130,7 +1131,15 @@
 
 /obj/item/ammo_box/magazine/cats12g
 	name = "C.A.T.S. magazine (12g slug)"
-	desc = "Похоже, этот магазин может принять в себя только слаги 12-о калибра."
+	desc = "Барабанный магазин дробовика C.A.T.S., предназначенный для пулевых патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин C.A.T.S. (пулевой 12х70)",
+		GENITIVE = "барабанного магазина C.A.T.S. (пулевой 12х70)",
+		DATIVE = "барабанному магазину C.A.T.S. (пулевой 12х70)",
+		ACCUSATIVE = "барабанный магазина C.A.T.S. (пулевой 12х70)",
+		INSTRUMENTAL = "барабанным магазином C.A.T.S. (пулевой 12х70)",
+		PREPOSITIONAL = "барабанном магазине C.A.T.S. (пулевой 12х70)"
+	)
 	icon_state = "cats_mag_slug"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	multiple_sprites = 2
@@ -1138,32 +1147,72 @@
 
 /obj/item/ammo_box/magazine/cats12g/large
 	name = "C.A.T.S. magazine (12g-slug)-L"
-	desc = "Похоже, в этот расширенный магазин лезут только слаги 12-о калибра."
+	desc = "Увеличенный барабанный магазин дробовика C.A.T.S., предназначенный для пулевых патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "увеличенный барабанный магазин C.A.T.S. (пулевой 12х70)",
+		GENITIVE = "увеличенного барабанного магазина C.A.T.S. (пулевой 12х70)",
+		DATIVE = "увеличенному барабанному магазину C.A.T.S. (пулевой 12х70)",
+		ACCUSATIVE = "увеличенный барабанный магазин C.A.T.S. (пулевой 12х70)",
+		INSTRUMENTAL = "увеличенным барабанным магазином C.A.T.S. (пулевой 12х70)",
+		PREPOSITIONAL = "увеличенном барабанном магазине C.A.T.S. (пулевой 12х70)"
+	)
 	icon_state = "cats_mag_large_slug"
 	max_ammo = 14
 
 /obj/item/ammo_box/magazine/cats12g/beanbang
 	name = "C.A.T.S. magazine (12g-beanbang)"
-	desc = "Похоже, в этот магазин лезут только патроны-погремушки."
+	desc = "Барабанный магазин дробовика C.A.T.S., предназначенный для резиновых патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин C.A.T.S. (резиновая пуля 12х70)",
+		GENITIVE = "барабанного магазина C.A.T.S. (резиновая пуля 12х70)",
+		DATIVE = "барабанному магазину C.A.T.S. (резиновая пуля 12х70)",
+		ACCUSATIVE = "барабанный магазина C.A.T.S. (резиновая пуля 12х70)",
+		INSTRUMENTAL = "барабанным магазином C.A.T.S. (резиновая пуля 12х70)",
+		PREPOSITIONAL = "барабанном магазине C.A.T.S. (резиновая пуля 12х70)"
+	)
 	icon_state = "cats_mag_bean"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 
 /obj/item/ammo_box/magazine/cats12g/beanbang/large
 	name = "C.A.T.S. magazine (12g-beanbang)-L"
-	desc = "Похоже, в этот расширенный магазин лезут только патроны-погремушки."
+	desc = "Увеличенный барабанный магазин дробовика C.A.T.S., предназначенный для резиновых патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "увеличенный барабанный магазин C.A.T.S. (резиновая пуля 12х70)",
+		GENITIVE = "увеличенного барабанного магазина C.A.T.S. (резиновая пуля 12х70)",
+		DATIVE = "увеличенному барабанному магазину C.A.T.S. (резиновая пуля 12х70)",
+		ACCUSATIVE = "увеличенный барабанный магазин C.A.T.S. (резиновая пуля 12х70)",
+		INSTRUMENTAL = "увеличенным барабанным магазином C.A.T.S. (резиновая пуля 12х70)",
+		PREPOSITIONAL = "увеличенном барабанном магазине C.A.T.S. (резиновая пуля 12х70)"
+	)
 	icon_state = "cats_mag_large_bean"
 	max_ammo = 14
 
 /obj/item/ammo_box/magazine/cats12g/universal
 	name = "C.A.T.S. magazine (12g)-U"
-	desc = "Похоже, этот магазин может принять в себя любые патроны 12-о калибра."
+	desc = "Барабанный магазин дробовика C.A.T.S., предназначенный для любых патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "барабанный магазин C.A.T.S. (12х70)",
+		GENITIVE = "барабанного магазина C.A.T.S. (12х70)",
+		DATIVE = "барабанному магазину C.A.T.S. (12х70)",
+		ACCUSATIVE = "барабанный магазина C.A.T.S. (12х70)",
+		INSTRUMENTAL = "барабанным магазином C.A.T.S. (12х70)",
+		PREPOSITIONAL = "барабанном магазине C.A.T.S. (12х70)"
+	)
 	icon_state = "cats_mag"
 	caliber = ".12"
 	ammo_type = null
 
 /obj/item/ammo_box/magazine/cats12g/universal/large
 	name = "C.A.T.S. magazine (12g)-UL"
-	desc = "Похоже, этот расширенный магазин может принять в себя любые патроны 12-о калибра."
+	desc = "Увеличенный барабанный магазин дробовика C.A.T.S., предназначенный для любых патронов калибра 12х70."
+	ru_names = list(
+		NOMINATIVE = "увеличенный барабанный магазин C.A.T.S. (12х70)",
+		GENITIVE = "увеличенного барабанного магазина C.A.T.S. (12х70)",
+		DATIVE = "увеличенному барабанному магазину C.A.T.S. (12х70)",
+		ACCUSATIVE = "увеличенный барабанный магазин C.A.T.S. (12х70)",
+		INSTRUMENTAL = "увеличенным барабанным магазином C.A.T.S. (12х70)",
+		PREPOSITIONAL = "увеличенном барабанном магазине C.A.T.S. (12х70)"
+	)
 	icon_state = "cats_mag_large"
 	max_ammo = 14
 
