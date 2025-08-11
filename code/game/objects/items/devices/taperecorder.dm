@@ -123,6 +123,10 @@
 	else
 		record()
 
+#define PLAYBACK_TAPE "Воспроизведение кассеты"
+#define PRINT_TRANSCRIPT "Распечатка транскрипта"
+#define EJECT_TAPE "Достать кассету"
+#define SILENT_MODE "Тихий режим"
 
 /obj/item/taperecorder/proc/toggle_silent_mode(mob/user)
 	silent_mode = !silent_mode
@@ -133,24 +137,29 @@
 	if(!mytape)
 		return NONE
 
-	var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
-					"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
-					"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]"),
-					"Silent mode" = image(icon = silent_mode ? 'icons/obj/items.dmi' : 'icons/obj/device.dmi' , icon_state = silent_mode ? "earmuffs" : "megaphone")
+	var/list/options = list( PLAYBACK_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
+					PRINT_TRANSCRIPT = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
+					EJECT_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]"),
+					SILENT_MODE = image(icon = silent_mode ? 'icons/obj/items.dmi' : 'icons/obj/device.dmi' , icon_state = silent_mode ? "earmuffs" : "megaphone")
 					)
 	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 	if(!choice || user.incapacitated())
 		return CLICK_ACTION_BLOCKING
 	switch(choice)
-		if("Playback Tape")
+		if(PLAYBACK_TAPE)
 			play(user)
-		if("Print Transcript")
+		if(PRINT_TRANSCRIPT)
 			print_transcript(user)
-		if("Eject Tape")
+		if(EJECT_TAPE)
 			eject(user)
-		if("Silent mode")
+		if(SILENT_MODE)
 			toggle_silent_mode(user)
 	return CLICK_ACTION_SUCCESS
+
+#undef PLAYBACK_TAPE
+#undef PRINT_TRANSCRIPT
+#undef EJECT_TAPE
+#undef SILENT_MODE
 
 /obj/item/taperecorder/proc/recorder_say(message, datum/tape_piece/record_datum)
 	if(record_datum)
