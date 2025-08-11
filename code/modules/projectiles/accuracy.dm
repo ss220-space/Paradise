@@ -30,6 +30,11 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	/// Shot spread in ange
 	var/min_spread = 0
 	var/max_spread = 0
+	var/spread_restore_duration = 0
+	var/spread_increase_step = 0
+	// runtime variables
+	var/current_spread = 0
+	var/last_shot_time = 0
 
 
 /datum/gun_accuracy/proc/getList()
@@ -76,7 +81,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 33
 	other = 33
 	dual_wield_spread = 45
+	min_spread = 5
 	max_spread = 15
+	spread_increase_step = 3
+	spread_restore_duration = 2 SECONDS
 
 /datum/gun_accuracy/shotgun
 	head = 70
@@ -87,7 +95,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 40
 	other = 40
 	dual_wield_spread = 35
-	max_spread = 15
+	min_spread = 5
+	max_spread = 30
+	spread_increase_step = 5
+	spread_restore_duration = 5 SECONDS
 
 /datum/gun_accuracy/default
 	head = 75
@@ -100,6 +111,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	dual_wield_spread = 24
 	min_spread = 0
 	max_spread = 0
+	spread_increase_step = 0
+	spread_restore_duration = 0
 
 /datum/gun_accuracy/pistol
 	head = 75
@@ -110,7 +123,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 50
 	other = 50
 	dual_wield_spread = 15 // less spread with dual wield, pistol are small item
-	max_spread = 12
+	min_spread = 3
+	max_spread = 15
+	spread_increase_step = 3
+	spread_restore_duration = 1 SECONDS
 
 
 /datum/gun_accuracy/rifle
@@ -122,7 +138,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	foots = 66
 	other = 66
 	dual_wield_spread = 24
-	max_spread = 8
+	min_spread = 0
+	max_spread = 12
+	spread_increase_step = 3
+	spread_restore_duration = 1 SECONDS
 
 // min accuracy on range 12 is 50%, summary accuracy = 50% * 200% = 100%
 /datum/gun_accuracy/sniper
@@ -137,26 +156,40 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	dual_wield_spread = 24
 	min_spread = 0
 	max_spread = 0
+	spread_increase_step = 0
+	spread_restore_duration = 0
 
 
 // MARK: Specific accuracy
 
 /datum/gun_accuracy/rifle/extend_spread
-	max_spread = 20
+	min_spread = 5
+	max_spread = 25
 
 /datum/gun_accuracy/minimal/gatling
+	min_spread = 10
 	max_spread = 40
 
 /datum/gun_accuracy/pistol/extends_spread
+	min_spread = 10
 	max_spread = 20
 
 // MARK: Procs
 
 /datum/gun_accuracy/proc/randomize_spread(bonus_spread)
+	// no spread guns
 	if(!max_spread)
 		return round((rand() - 0.5) * bonus_spread)
-	var/random_angle = round(rand(min_spread / 2, max_spread / 2 + bonus_spread / 2))
-	return pick(1, -1) * random_angle
+	// spread increase logic
+	if(spread_increase_step)
+		var/last_shot_elapsed = max(world.time - last_shot_time, 0)
+		if(last_shot_elapsed > spread_restore_duration)
+			current_spread = min_spread
+		else
+			current_spread = min(current_spread + spread_increase_step, max_spread)
+		last_shot_time = world.time
+	// randomize spread
+	return round((rand() - 0.5) * (current_spread + bonus_spread))
 
 
 /obj/projectile/proc/calculate_hit_chance(obj/projectile/projectile, mob/living/target)
