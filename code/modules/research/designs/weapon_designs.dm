@@ -333,6 +333,16 @@
 	build_path = /obj/item/gun_module/rail/hud/security
 	category = list("Weapons")
 
+/datum/design/gun_mod/scope_x8
+	name = "Optical x8 scope"
+	desc = "Optical x8 scope gun module."
+	id = "mod_scope_x8"
+	req_tech = list("combat" = 8, "magnets" = 6, "programming" = 5, "materials" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 500, MAT_GOLD = 750, MAT_URANIUM = 500)
+	build_path = /obj/item/gun_module/rail/scope/x8
+	category = list("Weapons")
+
 
 /////////////////////////////////////////
 ////////////////ILLEGAL//////////////////
