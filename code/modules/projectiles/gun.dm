@@ -356,6 +356,9 @@
 	if(semicd)
 		return
 
+	if(user.buckled)
+		bonus_spread += 45
+
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	var/sprd = 0
 
