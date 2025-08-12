@@ -51,7 +51,6 @@
 #include "code\__DEFINES\cargo.dm"
 #include "code\__DEFINES\cargo_quests.dm"
 #include "code\__DEFINES\chat.dm"
-#include "code\__DEFINES\chat_box_defines.dm"
 #include "code\__DEFINES\cinematic.dm"
 #include "code\__DEFINES\click.dm"
 #include "code\__DEFINES\clockwork.dm"
