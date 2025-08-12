@@ -25369,6 +25369,31 @@
 	},
 /turf/simulated/floor/engine,
 /area/centcom/specops)
+"mbX" = (
+/obj/structure/rack,
+/obj/item/ammo_box/g50mm/flash,
+/obj/item/ammo_box/g50mm/flash,
+/obj/item/ammo_box/g50mm/flash,
+/obj/item/ammo_box/g50mm/gas,
+/obj/item/ammo_box/g50mm/gas,
+/obj/item/ammo_box/g50mm/gas,
+/obj/item/ammo_box/g50mm/paint,
+/obj/item/ammo_box/g50mm/paint,
+/obj/item/ammo_box/g50mm/paint,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/barricade,
+/obj/item/ammo_box/g50mm/barricade,
+/obj/item/ammo_box/g50mm/barricade,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "navybluealt"
+	},
+/area/centcom/specops)
 "mbZ" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/plasmaman/wizard,
@@ -38742,6 +38767,23 @@
 /obj/effect/decal/syndie_logo,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/elite_squad)
+"rRA" = (
+/obj/structure/rack,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "navybluealt"
+	},
+/area/centcom/specops)
 "rRG" = (
 /obj/structure/chair/comfy/lime{
 	dir = 1
@@ -39236,6 +39278,17 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/gamma)
+"sbf" = (
+/obj/structure/rack/gunrack,
+/obj/item/gun/projectile/bombarda/secgl,
+/obj/item/gun/projectile/bombarda/secgl,
+/obj/item/gun/projectile/bombarda/secgl,
+/obj/item/gun/projectile/bombarda/secgl,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "navybluealt"
+	},
+/area/centcom/specops)
 "sbs" = (
 /obj/machinery/vending/shoedispenser{
 	req_access = list(150)
@@ -43319,6 +43372,43 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
+"tPJ" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/rack/holorack,
+/obj/item/gun/projectile/bombarda/secgl,
+/obj/item/gun/projectile/bombarda/secgl,
+/obj/item/gun/projectile/bombarda/secgl,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/gas,
+/obj/item/ammo_box/g50mm/gas,
+/obj/item/ammo_box/g50mm/gas,
+/obj/item/ammo_box/g50mm/paint,
+/obj/item/ammo_box/g50mm/paint,
+/obj/item/ammo_box/g50mm/paint,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/solid,
+/obj/item/ammo_box/g50mm/flash,
+/obj/item/ammo_box/g50mm/flash,
+/obj/item/ammo_box/g50mm/flash,
+/obj/item/ammo_box/g50mm/barricade,
+/obj/item/ammo_box/g50mm/barricade,
+/obj/item/ammo_box/g50mm/barricade,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/obj/item/ammo_box/g50mm/exp,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/supply)
 "tPL" = (
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken4"
@@ -104314,7 +104404,7 @@ wNL
 eFN
 rFC
 lzS
-lzS
+tPJ
 afP
 lzS
 lzS
@@ -106907,9 +106997,9 @@ nAN
 nAN
 nAN
 nAN
-cFn
-hHu
-hHu
+rRA
+sbf
+mbX
 hHu
 fJz
 dyQ
