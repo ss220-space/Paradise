@@ -18,7 +18,7 @@
 	obj_demand.owner = SSticker.mode
 	clocker_goal = round(CLOCK_CREW_REVEAL_HIGH * (length(GLOB.player_list) - SSticker.mode.get_clockers()),1)
 	if(obj_demand.check_completion())
-		ratvar_is_ready()
+		need_heart()
 
 
 /**
