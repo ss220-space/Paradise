@@ -11,6 +11,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	vis_flags = VIS_INHERIT_PLANE
 	var/datum/radial_menu/parent
 
+/atom/movable/screen/radial/Destroy()
+	parent = null
+	. = ..()
+
 /atom/movable/screen/radial/slice
 	icon_state = "radial_slice"
 	var/choice
@@ -284,6 +288,14 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/Destroy()
 	Reset()
 	hide()
+	for(var/atom/movable/screen/radial/element as anything in elements)
+		element.parent = null
+	elements.Cut()
+	close_button = null
+	current_user = null
+	anchor = null
+	screen_center = null
+	menu_holder = null
 	. = ..()
 
 /*

@@ -1517,7 +1517,8 @@
 		dir = dir_in
 
 	if(L && L.client)
-		L.client.RemoveViewMod("mecha")
+		ASYNC
+			L.client.RemoveViewMod("mecha")
 		zoom_mode = FALSE
 
 	if(ishuman(L))

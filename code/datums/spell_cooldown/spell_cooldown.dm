@@ -13,6 +13,7 @@
 
 /datum/spell_cooldown/Destroy()
 	spell_parent = null
+	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
 

@@ -106,6 +106,12 @@
 	addtimer(CALLBACK(src, PROC_REF(Spread)), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
 	addtimer(CALLBACK(src, PROC_REF(Decay)), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)	// Start decaying the plant
 
+/obj/structure/glowshroom/Destroy(force)
+	if(!ispath(myseed))
+		QDEL_NULL(myseed)
+	. = ..()
+
+
 /obj/structure/glowshroom/proc/Spread()
 	//We could be deleted at any point and the timers might not be cleaned up
 	if(QDELETED(src))

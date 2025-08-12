@@ -78,8 +78,6 @@
 	if(connected_holopad)
 		connected_holopad.SetLightsAndPower()
 		connected_holopad = null
-
-
 	return ..()
 
 

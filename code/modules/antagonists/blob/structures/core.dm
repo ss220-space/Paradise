@@ -47,7 +47,7 @@
 	. = ..()
 	owner_overmind.blob_core = src
 
-/obj/structure/blob/special/core/Destroy()
+/obj/structure/blob/special/core/Destroy(force)
 	GLOB.blob_cores -= src
 	SSshuttle?.remove_hostile_environment(src)
 	if(overmind)

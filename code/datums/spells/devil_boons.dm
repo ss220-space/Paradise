@@ -57,9 +57,11 @@
 	)
 
 
-/obj/effect/proc_holder/spell/view_range/Destroy()
+/obj/effect/proc_holder/spell/view_range/Destroy(force)
 	UnregisterSignal(action.owner, COMSIG_LIVING_DEATH)
-	if(selected_view != "default" && !QDELETED(action.owner) && action.owner.client)
+	if(selected_view == "default" || QDELETED(action.owner) || !action.owner.client)
+		return ..()
+	ASYNC
 		action.owner.client.change_view(action.owner.client.prefs.viewrange)
 	return ..()
 
