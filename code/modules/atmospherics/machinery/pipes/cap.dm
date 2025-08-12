@@ -94,7 +94,7 @@
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
-	color = COLOR_RED
+	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/cap/visible/supply
 	name = "supply pipe endcap"
@@ -104,7 +104,7 @@
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
-	color = COLOR_BLUE
+	color = PIPE_COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/cap/hidden
 	level = 1
@@ -121,7 +121,7 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
-	color = COLOR_RED
+	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/cap/hidden/supply
 	name = "supply pipe endcap"
@@ -131,4 +131,4 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
-	color = COLOR_BLUE
+	color = PIPE_COLOR_BLUE

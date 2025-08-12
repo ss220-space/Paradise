@@ -179,36 +179,36 @@
 	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers
-	name="4-way scrubbers pipe manifold"
+	name = "4-way scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map_4way-scrubbers"
 	connect_types = list(3)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
-	color = COLOR_RED
+	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/supply
-	name="4-way air supply pipe manifold"
+	name = "4-way air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map_4way-supply"
 	connect_types = list(2)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
-	color = COLOR_BLUE
+	color = PIPE_COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/yellow
-	color = COLOR_YELLOW
+	color = PIPE_COLOR_YELLOW
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/cyan
-	color = COLOR_CYAN
+	color = PIPE_COLOR_CYAN
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/green
-	color = COLOR_VIBRANT_LIME
+	color = PIPE_COLOR_GREEN
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/purple
-	color = COLOR_PURPLE
+	color = PIPE_COLOR_PURPLE
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden
 	icon_state = "map_4way"
@@ -225,7 +225,7 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
-	color = COLOR_RED
+	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply
 	name="4-way air supply pipe manifold"
@@ -235,16 +235,16 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
-	color = COLOR_BLUE
+	color = PIPE_COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/yellow
-	color = COLOR_YELLOW
+	color = PIPE_COLOR_YELLOW
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/cyan
-	color = COLOR_CYAN
+	color = PIPE_COLOR_CYAN
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/green
-	color = COLOR_VIBRANT_LIME
+	color = PIPE_COLOR_GREEN
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/purple
-	color = COLOR_PURPLE
+	color = PIPE_COLOR_PURPLE

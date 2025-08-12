@@ -176,7 +176,7 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
-	color = COLOR_RED
+	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold/visible/supply
 	name="Air supply pipe manifold"
@@ -186,19 +186,19 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
-	color = COLOR_BLUE
+	color = PIPE_COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow
-	color = COLOR_YELLOW
+	color = PIPE_COLOR_YELLOW
 
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan
-	color = COLOR_CYAN
+	color = PIPE_COLOR_CYAN
 
 /obj/machinery/atmospherics/pipe/manifold/visible/green
-	color = COLOR_VIBRANT_LIME
+	color = PIPE_COLOR_GREEN
 
 /obj/machinery/atmospherics/pipe/manifold/visible/purple
-	color = COLOR_PURPLE
+	color = PIPE_COLOR_PURPLE
 
 /obj/machinery/atmospherics/pipe/manifold/hidden
 	icon_state = "map"
@@ -208,33 +208,33 @@
 	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers
-	name="Scrubbers pipe manifold"
+	name = "Scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map-scrubbers"
 	connect_types = list(3)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
-	color = COLOR_RED
+	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
-	name="Air supply pipe manifold"
+	name = "Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map-supply"
 	connect_types = list(2)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
-	color = COLOR_BLUE
+	color = PIPE_COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/yellow
-	color = COLOR_YELLOW
+	color = PIPE_COLOR_YELLOW
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan
-	color = COLOR_CYAN
+	color = PIPE_COLOR_CYAN
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/green
-	color = COLOR_VIBRANT_LIME
+	color = PIPE_COLOR_GREEN
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/purple
-	color = COLOR_PURPLE
+	color = PIPE_COLOR_PURPLE

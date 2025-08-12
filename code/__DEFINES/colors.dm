@@ -353,26 +353,37 @@
 /// Icon filter that creates gaussian blur
 #define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
 
+// Wire colours (RV666)
+#define	WIRE_COLOR_BLUE "#2020dd"
+#define	WIRE_COLOR_CYAN "#20ddcc"
+#define	WIRE_COLOR_GREEN "#20dd20"
+#define	WIRE_COLOR_ORANGE "#dd7720"
+#define	WIRE_COLOR_PINK "#dd20cc"
+#define	WIRE_COLOR_RED "#dd1010"
+#define	WIRE_COLOR_WHITE "#dddddd"
+#define	WIRE_COLOR_YELLOW "#eebb20"
+
 // Colors related to items used in construction
 #define CABLE_COLOR_BLUE "blue"
-	#define CABLE_HEX_COLOR_BLUE COLOR_STRONG_BLUE
+	#define CABLE_HEX_COLOR_BLUE WIRE_COLOR_BLUE
 #define CABLE_COLOR_BROWN "brown"
 	#define CABLE_HEX_COLOR_BROWN COLOR_ORANGE_BROWN
 #define CABLE_COLOR_CYAN "cyan"
-	#define CABLE_HEX_COLOR_CYAN COLOR_CYAN
+	#define CABLE_HEX_COLOR_CYAN WIRE_COLOR_CYAN
 #define CABLE_COLOR_GREEN "green"
-	#define CABLE_HEX_COLOR_GREEN COLOR_DARK_LIME
+	#define CABLE_HEX_COLOR_GREEN WIRE_COLOR_GREEN
 #define CABLE_COLOR_ORANGE "orange"
-	#define CABLE_HEX_COLOR_ORANGE COLOR_MOSTLY_PURE_ORANGE
+	#define CABLE_HEX_COLOR_ORANGE WIRE_COLOR_ORANGE
 #define CABLE_COLOR_PINK "pink"
-	#define CABLE_HEX_COLOR_PINK COLOR_LIGHT_PINK
+	#define CABLE_HEX_COLOR_PINK WIRE_COLOR_PINK
 #define CABLE_COLOR_RED "red"
-	#define CABLE_HEX_COLOR_RED COLOR_RED
+	#define CABLE_HEX_COLOR_RED WIRE_COLOR_RED
 #define CABLE_COLOR_WHITE "white"
-	#define CABLE_HEX_COLOR_WHITE COLOR_WHITE
+	#define CABLE_HEX_COLOR_WHITE WIRE_COLOR_WHITE
 #define CABLE_COLOR_YELLOW "yellow"
-	#define CABLE_HEX_COLOR_YELLOW COLOR_YELLOW
-//windows affected by Nar'Sie turn this color.
+	#define CABLE_HEX_COLOR_YELLOW WIRE_COLOR_YELLOW
+
+/// Windows affected by Nar'Sie turn this color.
 #define NARSIE_WINDOW_COLOUR "#7D1919"
 
 #define COLOR_CARP_PURPLE "#aba2ff"
@@ -527,7 +538,16 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 #define COLOR_BLOOD_MACHINE "#1f181f"
 #define COLOR_BLOOD_ALIEN "#dffc00"
 
-// Cerestation rocks (shit, del this)
+// Cerestation rocks (DELETE THIS SHIT PLEASE!)
 #define COLOR_ASTEROID_ROCK "#735555"
 #define COLOR_ANCIENT_ROCK "#575757"
 #define COLOR_COLD_ROCK "#575764"
+
+// Pipe colours (RV666)
+#define	PIPE_COLOR_GREY "#dddddd"
+#define	PIPE_COLOR_RED "#dd1010"
+#define	PIPE_COLOR_BLUE "#1010dd"
+#define	PIPE_COLOR_CYAN "#10ddcc"
+#define	PIPE_COLOR_GREEN "#10dd10"
+#define	PIPE_COLOR_YELLOW "#eebb10"
+#define	PIPE_COLOR_PURPLE "#5c1ec0"
