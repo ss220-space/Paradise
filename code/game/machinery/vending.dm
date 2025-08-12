@@ -1104,6 +1104,8 @@
 	for(var/datum/data/vending_product/R in product_records)
 		if(R.amount <= 0) //Try to use a record that actually has something to dump.
 			continue
+		if(R.price > 0) // Don't try not free item
+			continue
 		var/dump_path = R.product_path
 		if(!dump_path)
 			continue
