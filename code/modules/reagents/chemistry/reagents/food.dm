@@ -89,7 +89,7 @@
 	return ..()
 
 
-/datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
+/datum/reagent/consumable/nutriment/protein // Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
 	name = "Белки"
 	id = "protein"
 	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных."
