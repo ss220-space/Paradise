@@ -250,41 +250,63 @@
 		if(70 to INFINITY)	return "elderly"
 		else				return "unknown"
 
-/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name)
+// TODO definise records fields or rewrite
+
+/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name, law_level = LAW_LEVEL_BASE)
 	var/status = criminal_status
-	var/their_name = target_records.fields["name"]
-	var/their_rank = target_records.fields["rank"]
+	var/list/fields = target_records.fields
+	var/their_name = fields["name"]
+	var/their_rank = fields["rank"]
+	var/static/list/protected_levels = list(SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED)
+
 	switch(criminal_status)
-		if("arrest", SEC_RECORD_STATUS_ARREST)
+
+		if(SEC_STATUS_ARREST, SEC_RECORD_STATUS_ARREST)
 			status = SEC_RECORD_STATUS_ARREST
-		if("none", SEC_RECORD_STATUS_NONE)
+
+		if(SEC_STATUS_NONE, SEC_RECORD_STATUS_NONE)
 			status = SEC_RECORD_STATUS_NONE
-		if("execute", SEC_RECORD_STATUS_EXECUTE)
+
+		if(SEC_STATUS_EXECUTE, SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
 				usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			else
-				return 0
-		if("search", SEC_RECORD_STATUS_SEARCH)
+				return FALSE
+
+		if(SEC_STATUS_SEARCH, SEC_RECORD_STATUS_SEARCH)
 			status = SEC_RECORD_STATUS_SEARCH
-		if("monitor", SEC_RECORD_STATUS_MONITOR)
+
+		if(SEC_STATUS_MONITOR, SEC_RECORD_STATUS_MONITOR)
 			status = SEC_RECORD_STATUS_MONITOR
-		if("demote", SEC_RECORD_STATUS_DEMOTE)
+
+		if(SEC_STATUS_DEMOTE, SEC_RECORD_STATUS_DEMOTE)
 			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
 			usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			status = SEC_RECORD_STATUS_DEMOTE
-		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
+
+		if(SEC_STATUS_INCARCERATED, SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
-		if("parolled", SEC_RECORD_STATUS_PAROLLED)
+
+		if(SEC_STATUS_PAROLLED, SEC_RECORD_STATUS_PAROLLED)
 			status = SEC_RECORD_STATUS_PAROLLED
-		if("released", SEC_RECORD_STATUS_RELEASED)
+
+		if(SEC_STATUS_RELEASED, SEC_RECORD_STATUS_RELEASED)
 			status = SEC_RECORD_STATUS_RELEASED
-	target_records.fields["criminal"] = status
+
+	if((fields["criminal"] in protected_levels) && fields["last_modifier_level"] > law_level)
+		if(!user)
+			return
+		to_chat(user, span_warning("Вы не можете изменить криминальный статус. Он установлен кем-то, у кого юридические полномочия выше ваших."))
+		return
+
+	fields["last_modifier_level"] = law_level
+	fields["criminal"] = status
 	log_admin("[key_name_admin(user)] set secstatus of [their_rank] [their_name] to [status], comment: [comment]")
-	target_records.fields["comments"] += "Set to [status] by [user_name || user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
+	fields["comments"] += "Set to [status] by [user_name || user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
 	update_all_mob_security_hud()
-	return 1
+	return TRUE
 
 
 /**

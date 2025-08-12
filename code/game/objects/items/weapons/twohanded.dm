@@ -118,12 +118,25 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
+/obj/item/twohanded/fireaxe/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "chop_swing_heavy" \
+	)
 
 /obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
 /obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity, params)
+	. = ..()
 	if(!proximity)
 		return
 	if(HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
@@ -170,6 +183,18 @@
 	righthand_file = 'icons/mob/inhands/lavaland/lava_items_righthand.dmi'
 	has_speed_harvest = TRUE
 
+/obj/item/twohanded/fireaxe/boneaxe/guillotine/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		swing_sound = "chop_swing_heavy" \
+	)
+
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
 	icon_state = "guillotine[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
@@ -199,6 +224,17 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
+/obj/item/twohanded/fireaxe/energized/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		swing_sound = "chop_swing_heavy" \
+	)
 
 /obj/item/twohanded/fireaxe/energized/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -268,6 +304,16 @@
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple", "yellow", "pink", "orange", "darkblue")
 
+/obj/item/twohanded/dualsaber/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 360, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0, \
+		requires_wielded = TRUE, \
+		swing_sound = "double_energy_swing" \
+	)
 
 /obj/item/twohanded/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_HULK))
@@ -611,14 +657,15 @@
 
 
 // DIY CHAINSAW
-/obj/item/twohanded/required/chainsaw
+/obj/item/twohanded/chainsaw_handmade
 	name = "chainsaw"
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
-	icon_state = "gchainsaw_off"
+	icon_state = "chainsaw_handmade0"
 	flags = CONDUCT
+	w_class = WEIGHT_CLASS_BULKY
 	force = 13
-	var/force_on = 24
-	w_class = WEIGHT_CLASS_HUGE
+	force_unwielded = 13
+	force_wielded = 24
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
@@ -630,47 +677,63 @@
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	actions_types = list(/datum/action/item_action/startchainsaw)
-	var/on = FALSE
+	wielded = FALSE
+	var/datum/looping_sound/chainsaw/soundloop
 
 
-/obj/item/twohanded/required/chainsaw/attack_self(mob/user)
-	on = !on
-	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], [on ? "вы слышите нарастающее гудение." : "цепь останавливается."]")
-	if(on)
-		playsound(loc, 'sound/weapons/chainsawstart.ogg', 50, TRUE)
-	force = on ? force_on : initial(force)
-	throwforce = on ? force_on : initial(throwforce)
-	icon_state = "gchainsaw_[on ? "on" : "off"]"
-
-	if(hitsound == "swing_hit")
-		hitsound = 'sound/weapons/chainsaw.ogg'
-	else
-		hitsound = "swing_hit"
-
-	if(src == user.get_active_hand()) //update inhands
-		user.update_inv_l_hand()
-		user.update_inv_r_hand()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-/obj/item/twohanded/required/chainsaw/attack_hand(mob/user)
+/obj/item/twohanded/chainsaw_handmade/Initialize(mapload)
 	. = ..()
-	force = on ? force_on : initial(force)
-	throwforce = on ? force_on : initial(throwforce)
+	soundloop = new(list(src))
 
-/obj/item/twohanded/required/chainsaw/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+
+/obj/item/twohanded/chainsaw_handmade/ComponentInitialize()
 	. = ..()
-	force = on ? force_on : initial(force)
-	throwforce = on ? force_on : initial(throwforce)
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "chainsaw_swing" \
+	)
 
-/obj/item/twohanded/required/chainsaw/doomslayer
+
+/obj/item/twohanded/chainsaw_handmade/Destroy(force)
+	QDEL_NULL(soundloop)
+	return ..()
+
+
+/obj/item/twohanded/chainsaw_handmade/wield(obj/item/source, mob/living/carbon/user)
+	soundloop.start()
+	hitsound = 'sound/weapons/chainsaw.ogg'
+	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], вы слышите нарастающее гудение.")
+
+
+/obj/item/twohanded/chainsaw_handmade/unwield(obj/item/source, mob/living/carbon/user)
+	soundloop.stop()
+	hitsound = "swing_hit"
+	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
+
+
+/obj/item/twohanded/chainsaw/update_icon_state()
+	icon_state = "chainsaw_handmade[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
+
+/obj/item/twohanded/chainsaw_handmade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return .
+
+
+/obj/item/twohanded/chainsaw_handmade/doomslayer
 	name = "OOOH BABY"
 	desc = span_warning("VRRRRRRR!!!")
 	armour_penetration = 100
-	force_on = 30
+	force_wielded = 30
 
-/obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атакует", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+
+/obj/item/twohanded/chainsaw_handmade/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атакует", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message(span_danger("Дальние атаки только сильнее злят [owner.declent_ru(ACCUSATIVE)]!"), projectile_message = TRUE)
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
@@ -690,9 +753,6 @@
 	w_class = WEIGHT_CLASS_BULKY // can't fit in backpacks
 	force_unwielded = 15 //still pretty robust
 	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
-	hitsound = null // Handled in the snowflaked attack proc
-	wieldsound = 'sound/weapons/chainsawstart.ogg'
-	hitsound = null
 	armour_penetration = 35
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
@@ -700,13 +760,43 @@
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	wielded = FALSE
+	var/datum/looping_sound/chainsaw/soundloop
+
+
+/obj/item/twohanded/chainsaw/Initialize(mapload)
+	. = ..()
+	soundloop = new(list(src))
+
+
+/obj/item/twohanded/chainsaw/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		swing_sound = "chainsaw_swing" \
+	)
+
+
+/obj/item/twohanded/chainsaw/Destroy(force)
+	QDEL_NULL(soundloop)
+	return ..()
 
 
 /obj/item/twohanded/chainsaw/wield(obj/item/source, mob/living/carbon/user)
+	soundloop.start()
+	hitsound = 'sound/weapons/chainsaw.ogg'
+	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], вы слышите нарастающее гудение.")
 	ADD_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
 
 /obj/item/twohanded/chainsaw/unwield(obj/item/source, mob/living/carbon/user)
+	soundloop.stop()
+	hitsound = "swing_hit"
+	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
 	REMOVE_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
 
@@ -719,8 +809,6 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
 
-	//incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
-	playsound(loc, 'sound/weapons/chainsaw.ogg', 100, TRUE, -1)
 	if(!isrobot(target))
 		target.Weaken(2 SECONDS)
 
@@ -746,9 +834,20 @@
 
 /obj/item/twohanded/singularityhammer/Initialize(mapload)
 	. = ..()
-
 	START_PROCESSING(SSobj, src)
 
+/obj/item/twohanded/singularityhammer/ComponentInitialize()
+	. = ..()
+	// hammer, but multi hit allowed for it is a MAGIC weapon
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 360, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
 
 /obj/item/twohanded/singularityhammer/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -764,6 +863,7 @@
 
 
 /obj/item/twohanded/singularityhammer/afterattack(atom/A, mob/user, proximity, params)
+	. = ..()
 	if(!proximity || charged < 5 || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 
@@ -822,6 +922,19 @@
 	//var/charged = 5
 	origin_tech = "combat=4;powerstorage=7"
 
+/obj/item/twohanded/mjollnir/ComponentInitialize()
+	. = ..()
+	// no multi hits since this is pretty much strong weapon already
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
 	target.Stun(4 SECONDS)
@@ -840,7 +953,6 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
 	shock(target)
-
 
 
 /obj/item/twohanded/mjollnir/throw_impact(atom/target, datum/thrownthing/throwingdatum)
@@ -872,6 +984,19 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
+/obj/item/twohanded/knighthammer/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
+
 /obj/item/twohanded/knighthammer/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -885,6 +1010,7 @@
 
 
 /obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity, params)
+	. = ..()
 	if(!proximity)
 		return
 	if(charged == 5)
@@ -1011,7 +1137,6 @@
 	user.apply_damage(rand(user.health / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 
-
 // It's no fun being the lord of all hell if you can't get out of a simple room
 /obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
@@ -1054,65 +1179,6 @@
 /obj/item/twohanded/bamboospear/update_icon_state()
 	icon_state = "bamboo_spear[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-//pyro claws
-/obj/item/twohanded/required/pyro_claws
-	name = "hardplasma energy claws"
-	desc = "The power of the sun, in the claws of your hand."
-	icon_state = "pyro_claws"
-	item_flags = ABSTRACT|DROPDEL
-	force = 25
-	force_wielded = 25
-	damtype = BURN
-	armour_penetration = 40
-	block_chance = 50
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "поцарапал")
-	toolspeed = 0.5
-
-/obj/item/twohanded/required/pyro_claws/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
-	START_PROCESSING(SSobj, src)
-
-/obj/item/twohanded/required/pyro_claws/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/twohanded/required/pyro_claws/process()
-	if(prob(15))
-		do_sparks(rand(1,6), 1, loc)
-
-/obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
-		return
-	if(prob(60))
-		do_sparks(rand(1,6), 1, loc)
-	if(istype(target, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/A = target
-
-		if(!A.requiresID() || A.allowed(user))
-			return
-
-		if(A.locked)
-			to_chat(user, span_notice("Болты шлюза не позволяют его открыть."))
-			return
-
-		if(A.arePowerSystemsOn())
-			user.visible_message(
-				span_warning("[capitalize(user.declent_ru(NOMINATIVE))] вставля[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] в шлюз и пыта[pluralize_ru(user.gender,"ет","ют")]ся его открыть!"),
-				span_warning("Вы начинаете открывать шлюз."),
-				span_warning("Раздаётся скрежет металла.")
-			)
-			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
-			if(!do_after(user, 2.5 SECONDS, A))
-				return
-		user.visible_message(
-			span_warning("[capitalize(user.declent_ru(NOMINATIVE))] открыва[pluralize_ru(user.gender,"ет","ют")] шлюз при помощи [declent_ru(GENITIVE)]!"),
-			span_warning("Вы открывается шлюз."),
-			span_warning("Раздаётся скрежет металла.")
-		)
-		A.open(2)
-
 /obj/item/twohanded/sechammer
 	name = "tactical sledgehammer"
 	desc = "Тяжёлая кувалда, используемая силовыми структурами НаноТрейзен. Удобная эргономичная рукоятка обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, силы удара достаточно, чтобы раздробить любую кость в теле гуманоида."
@@ -1129,7 +1195,7 @@
 	throwforce = 20
 	throw_range = 2
 	w_class = WEIGHT_CLASS_BULKY
-	attack_speed = 16
+	attack_speed = 1.6 SECONDS
 	force_unwielded = 15
 	force_wielded = 35
 	armour_penetration = 40
@@ -1145,6 +1211,19 @@
 
 	var/stamina_drain = 8
 	var/max_stamina_damage = 40
+
+/obj/item/twohanded/sechammer/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 1.75, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
 
 /obj/item/twohanded/sechammer/update_icon_state()
 	icon_state = "sechammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -1163,6 +1242,7 @@
 		return .|ATTACK_CHAIN_BLOCKED
 
 /obj/item/twohanded/sechammer/afterattack(atom/A, mob/living/user, proximity, params)
+	. = ..()
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 	if(iswallturf(A))
@@ -1179,4 +1259,3 @@
 			var/obj/machinery/D = A
 			D.take_damage(extra_door_damage)
 	user.adjustStaminaLoss(stamina_drain)
-	..()

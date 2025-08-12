@@ -462,6 +462,11 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	RegisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK, PROC_REF(on_cleave_attack))
+
+
+/obj/structure/spacevine/proc/on_cleave_attack()
+	return ATOM_ALLOW_CLEAVE_ATTACK // vines don't have density but should still be cleavable
 
 
 /obj/structure/spacevine/Destroy()
@@ -481,6 +486,7 @@
 	set_opacity(FALSE)
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force = TRUE)
+	UnregisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK)
 	return ..()
 
 

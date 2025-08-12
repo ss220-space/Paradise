@@ -257,6 +257,7 @@
 	desc = "It's a pet"
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "fox"
+	slot_flags = ITEM_SLOT_NECK
 
 /obj/item/holder/sloth
 	name = "pet"
@@ -461,3 +462,10 @@
 	desc = "It's a pet"
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "library_owl"
+
+/obj/item/holder/alice
+	name = "Alisa"
+	desc = "fox with beret"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "alisa"
+	slot_flags = ITEM_SLOT_NECK

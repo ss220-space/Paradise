@@ -382,6 +382,13 @@
 	hitsound = 'sound/weapons/rs_slash.ogg'
 	attack_verb = list("плс'л","атк'л","руб'л")
 
+/obj/item/rune_scimmy/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_sound = "blade_swing_light" \
+	)
+
 /obj/item/organ/internal/cyberimp/arm/katana
 	name = "dark shard"
 	desc = "Зловещий металлический осколок, окутанный тёмной энергией."
@@ -491,7 +498,7 @@
 		ATTACK_SHATTER = list(COMBO_STEPS = list(DISARM_SLASH, HARM_SLASH, DISARM_SLASH, HARM_SLASH), COMBO_PROC = PROC_REF(shatter)),
 		)
 
-/obj/item/cursed_katana/Initialize(mapload)
+/obj/item/cursed_katana/ComponentInitialize()
 	. = ..()
 	AddComponent( \
 		/datum/component/combo_attacks, \
@@ -499,6 +506,12 @@
 		max_combo_length = 4, \
 		reset_message = span_notice("принята небоевая стойка"), \
 		can_attack_callback = CALLBACK(src, PROC_REF(can_combo_attack)) \
+	)
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 1.75, \
+		afterswing_slowdown = 0, \
+		swing_sound = "katana_swing" \
 	)
 
 

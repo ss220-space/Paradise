@@ -154,6 +154,10 @@
 
 
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
+	var/obj/structure/window/window = locate() in loc
+	if(window && window.fulltile && window.anchored)
+		return ATTACK_CHAIN_BLOCKED_ALL// don't attack grilles through windows, that's weird and causes too many problems
+
 	if(user.a_intent == INTENT_HARM)
 		// shards help prisoners to escape safely
 		// some day this will move on CONDUCT flag

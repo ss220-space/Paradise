@@ -34,7 +34,7 @@
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_RIFLE
 
 // Decloner //
 /obj/item/gun/energy/decloner
@@ -44,7 +44,7 @@
 	origin_tech = "combat=4;materials=4;biotech=5;plasmatech=6"
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_MINIMAL
 
 
 /obj/item/gun/energy/decloner/update_icon_state()
@@ -125,7 +125,7 @@
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
@@ -726,7 +726,7 @@
 	var/is_equipped = FALSE
 	/// Timestamp used for sound effects
 	COOLDOWN_DECLARE(last_sound_effect)
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 
 
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
@@ -805,7 +805,7 @@
 	var/warned = FALSE
 	var/charging = FALSE
 	var/mob/living/carbon/holder = null
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 	. = ..()
