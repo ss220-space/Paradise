@@ -138,7 +138,7 @@
 /obj/item/gun/Destroy()
 	QDEL_NULL(gun_light)
 	QDEL_NULL(bayonet)
-	for(var/attachment as anything in attachments_by_slot)
+	for(var/attachment in attachments_by_slot)
 		if(!attachments_by_slot[attachment])
 			continue
 		qdel(attachments_by_slot[attachment])
