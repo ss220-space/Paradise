@@ -138,6 +138,10 @@
 /obj/item/gun/Destroy()
 	QDEL_NULL(gun_light)
 	QDEL_NULL(bayonet)
+	for(var/attachment as anything in attachments_by_slot)
+		qdel(attachment)
+	attachments_by_slot.Cut()
+	attachment_overlays.Cut()
 	return ..()
 
 

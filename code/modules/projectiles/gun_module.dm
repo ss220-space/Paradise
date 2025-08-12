@@ -18,6 +18,12 @@
 	//attached state variables
 	var/obj/item/gun/gun = null
 
+/obj/item/gun_module/Destroy()
+	. = ..()
+	gun = null
+	if(buffered_overlay)
+		QDEL_NULL(buffered_overlay)
+
 
 /// Try attach module to gun, return TRUE if success
 /obj/item/gun_module/proc/try_attach(obj/item/gun/target_gun, mob/user)
@@ -414,6 +420,14 @@
 /obj/item/gun_module/under/flashlight
 	var/obj/item/flashlight/seclite/internal
 	var/buffered_overlay_on
+
+
+/obj/item/gun_module/flashlight/Destroy()
+	. = ..()
+	if(buffered_overlay_on)
+		QDEL_NULL(buffered_overlay_on)
+	if(QDELETED(internal))
+		QDEL_NULL(internal)
 
 /obj/item/gun_module/under/flashlight/Initialize(mapload)
 	. = ..()
