@@ -71,7 +71,7 @@
 
 	if(shine_overlay)
 		cut_overlay(shine_overlay)
-		qdel(shine_overlay)
+		QDEL_NULL(shine_overlay)
 
 	var/obj/item/card/id/card = user.get_id_card()
 	if(!card)
