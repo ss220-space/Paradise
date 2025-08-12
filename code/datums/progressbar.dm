@@ -73,6 +73,7 @@
 
 /datum/progressbar/Destroy()
 	if(user)
+		UnregisterSignal(user, list(COMSIG_QDELETING, COMSIG_MOB_LOGOUT, COMSIG_MOB_LOGIN))
 		for(var/pb in user.progressbars[bar_loc])
 			var/datum/progressbar/progress_bar = pb
 			if(progress_bar == src || progress_bar.listindex <= listindex)
@@ -85,9 +86,6 @@
 
 		LAZYREMOVEASSOC(user.progressbars, bar_loc, src)
 		user = null
-
-	if(user_client)
-		clean_user_client()
 
 	bar_loc = null
 
@@ -112,7 +110,7 @@
 
 	if(!user_client) //Disconnected, already gone.
 		return
-	user_client.images -= bar
+	user_client.remove_progressbar(src)
 	user_client = null
 
 
@@ -134,9 +132,17 @@
 /datum/progressbar/proc/add_prog_bar_image_to_client()
 	bar.pixel_y = 0
 	bar.alpha = 0
-	user_client.images += bar
+	user_client.add_progressbar(src)
 	animate(bar, pixel_y = world.icon_size + offset_y + (PROGRESSBAR_HEIGHT * (listindex - 1)), alpha = 255, time = PROGRESSBAR_ANIMATION_TIME, easing = SINE_EASING)
 
+/client/proc/add_progressbar(datum/progressbar/bar)
+	images += bar.bar
+	RegisterSignal(bar, COMSIG_QDELETING, PROC_REF(remove_progressbar))
+
+/client/proc/remove_progressbar(datum/progressbar/bar)
+	SIGNAL_HANDLER
+	images -= bar.bar
+	UnregisterSignal(bar, COMSIG_QDELETING)
 
 ///Updates the progress bar image visually.
 /datum/progressbar/proc/update(progress)
