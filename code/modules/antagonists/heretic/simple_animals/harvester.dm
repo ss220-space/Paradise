@@ -95,9 +95,9 @@
 
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/proc/link_master(mob/self, mob/master)
+	SIGNAL_HANDLER
 	construct_master = master
 	RegisterSignal(construct_master, COMSIG_LIVING_DEATH, PROC_REF(on_master_death))
-	SIGNAL_HANDLER
 
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/proc/on_master_death(mob/self, mob/master)
@@ -111,7 +111,7 @@
 	// They're pretty fragile so this is probably necessary to prevent bullshit deaths.
 	if(user == src)
 		return
-	
+
 	return ..()
 
 
