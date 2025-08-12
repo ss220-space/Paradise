@@ -176,7 +176,7 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
-	color = PIPE_COLOR_RED
+	color = COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold/visible/supply
 	name="Air supply pipe manifold"
@@ -186,19 +186,19 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
-	color = PIPE_COLOR_BLUE
+	color = COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow
-	color = PIPE_COLOR_YELLOW
+	color = COLOR_YELLOW
 
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan
-	color = PIPE_COLOR_CYAN
+	color = COLOR_CYAN
 
 /obj/machinery/atmospherics/pipe/manifold/visible/green
-	color = PIPE_COLOR_GREEN
+	color = COLOR_VIBRANT_LIME
 
 /obj/machinery/atmospherics/pipe/manifold/visible/purple
-	color = PIPE_COLOR_PURPLE
+	color = COLOR_PURPLE
 
 /obj/machinery/atmospherics/pipe/manifold/hidden
 	icon_state = "map"
@@ -215,7 +215,7 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
-	color = PIPE_COLOR_RED
+	color = COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
 	name="Air supply pipe manifold"
@@ -225,16 +225,16 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
-	color = PIPE_COLOR_BLUE
+	color = COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/yellow
-	color = PIPE_COLOR_YELLOW
+	color = COLOR_YELLOW
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan
-	color = PIPE_COLOR_CYAN
+	color = COLOR_CYAN
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/green
-	color = PIPE_COLOR_GREEN
+	color = COLOR_VIBRANT_LIME
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/purple
-	color = PIPE_COLOR_PURPLE
+	color = COLOR_PURPLE

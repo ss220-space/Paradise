@@ -5,7 +5,7 @@
 	belt_icon = "flashbang"
 	origin_tech = "materials=2;combat=3"
 	light_power = 10
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
 
 	var/light_time = 0.2 SECONDS // The duration the area is illuminated
 	var/range = 7 // The range in tiles of the flashbang

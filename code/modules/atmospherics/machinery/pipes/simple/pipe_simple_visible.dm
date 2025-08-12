@@ -13,7 +13,7 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
-	color = PIPE_COLOR_RED
+	color = COLOR_RED
 
 /obj/machinery/atmospherics/pipe/simple/visible/supply
 	name = "Air supply pipe"
@@ -23,19 +23,19 @@
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
-	color = PIPE_COLOR_BLUE
+	color = COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/simple/visible/yellow
-	color = PIPE_COLOR_YELLOW
+	color = COLOR_YELLOW
 
 /obj/machinery/atmospherics/pipe/simple/visible/cyan
-	color = PIPE_COLOR_CYAN
+	color = COLOR_CYAN
 
 /obj/machinery/atmospherics/pipe/simple/visible/green
-	color = PIPE_COLOR_GREEN
+	color = COLOR_VIBRANT_LIME
 
 /obj/machinery/atmospherics/pipe/simple/visible/purple
-	color = PIPE_COLOR_PURPLE
+	color = COLOR_PURPLE
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal
 	name="Universal pipe adapter"

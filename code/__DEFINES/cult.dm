@@ -1,14 +1,12 @@
 // Rune colors, for easy reference
-#define RUNE_COLOR_TALISMAN "#0000FF"
-#define RUNE_COLOR_TELEPORT "#551A8B"
-#define RUNE_COLOR_OFFER "#FFFFFF"
+#define RUNE_COLOR_TALISMAN COLOR_BLUE
+#define RUNE_COLOR_TELEPORT COLOR_DARK_PURPLE
+#define RUNE_COLOR_OFFER COLOR_WHITE
 #define RUNE_COLOR_DARKRED "#7D1717"
 #define RUNE_COLOR_MEDIUMRED "#C80000"
 #define RUNE_COLOR_BURNTORANGE "#CC5500"
-#define RUNE_COLOR_RED "#FF0000"
-#define RUNE_COLOR_LIGHTRED "#FF726F"
-#define RUNE_COLOR_EMP "#4D94FF"
-#define RUNE_COLOR_SUMMON "#00FF00"
+#define RUNE_COLOR_RED COLOR_RED
+#define RUNE_COLOR_SUMMON COLOR_VIBRANT_LIME
 
 #define is_sacrifice_target(A) SSticker.mode?.cult_objs.is_sac_target(A)
 
@@ -58,7 +56,7 @@
 
 // Misc
 #define SOULS_TO_REVIVE 3
-#define BLOODCULT_EYE "#FF0000"
+#define BLOODCULT_EYE COLOR_RED
 #define SUMMON_POSSIBILITIES 3
 #define CULT_CLOTHING list(/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/suit/space/cult, /obj/item/clothing/suit/hooded/cultrobes/cult_shield, \
 						   /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe, /obj/item/clothing/glasses/hud/health/night/cultblind)

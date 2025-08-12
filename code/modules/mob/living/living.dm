@@ -992,7 +992,7 @@
 								TH.color = H.dna.species.blood_color
 
 						else
-							TH.color = "#A10808"
+							TH.color = COLOR_BLOOD_BASE
 
 
 /mob/living/carbon/human/makeTrail(turf/T)

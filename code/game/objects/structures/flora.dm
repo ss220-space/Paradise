@@ -258,12 +258,12 @@
 	if(num == 9)
 		l_range_init = 2
 		l_power_init = 0.6
-		set_light_range_power_color(l_range_init, l_power_init, COLOR_LUMINOL)
+		set_light_range_power_color(l_range_init, l_power_init, LIGHT_COLOR_CYAN)
 		set_light_on(TRUE)
 	else if(num == 20)
 		l_range_init = 2
 		l_power_init = 0.6
-		set_light_range_power_color(l_range_init, l_power_init, COLOR_WHEAT)
+		set_light_range_power_color(l_range_init, l_power_init, LIGHT_COLOR_BRIGHT_YELLOW)
 		set_light_on(TRUE)
 
 

@@ -68,7 +68,7 @@
 	var/obj/item/stock_parts/cell/cell
 	var/datum/wires/mulebot/wires = null
 	var/bloodiness = 0
-	var/currentBloodColor = "#A10808"
+	var/currentBloodColor = COLOR_BLOOD_BASE
 	var/currentDNA = null
 
 

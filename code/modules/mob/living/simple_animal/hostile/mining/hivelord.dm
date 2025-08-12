@@ -129,7 +129,7 @@
 	icon_living = "bloodbrood"
 	icon_aggro = "bloodbrood"
 	attacktext = "пронзает"
-	color = "#A10808"
+	color = COLOR_BLOOD_BASE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death(gibbed)
 	if(can_die() && loc)

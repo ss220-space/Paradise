@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	desc = "You REALLY shouldn't follow these.."
 	gender = PLURAL
 	random_icon_states = null
-	basecolor = "#A10808"
+	basecolor = COLOR_BLOOD_BASE
 	var/entered_dirs = 0
 	var/exited_dirs = 0
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
