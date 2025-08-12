@@ -485,6 +485,7 @@
 		to_chat(l_target, span_warning("Вы насквозь промокли!"))
 
 	target.clean_blood()
+	SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, 10)
 
 
 /obj/machinery/shower/process()

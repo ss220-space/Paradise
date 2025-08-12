@@ -113,6 +113,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	else if(istype(A, /obj/item/clothing/shoes))
 		var/obj/item/clothing/shoes/S = A
 		FP.blood_state = S.blood_state
+		FP.reset_dry_time(S.blood_dry_duration)
 		FP.bloodiness = S.bloody_shoes[S.blood_state] - BLOOD_LOSS_IN_SPREAD
 		FP.basecolor = S.blood_color
 		if(S.blood_DNA)

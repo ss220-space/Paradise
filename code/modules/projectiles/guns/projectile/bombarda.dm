@@ -466,17 +466,21 @@
 
 /obj/projectile/grenade/g50mm/paint
 	icon_state = "secgl_projectile_paint"
+	var/paint_color = "#e99518"
 
 /obj/projectile/grenade/g50mm/paint/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
-	var/mob/living/carbon/human/human = target
 	var/obj/effect/decal/cleanable/blood/paint/paint = new(loc)
+	paint.basecolor = paint_color
+	paint.update_icon()
+	var/mob/living/carbon/human/human = target
 	if(istype(human))
-		for(var/i = 0, i < 5, i++)
-			human.add_blood(color = paint.basecolor)
-	for(var/i = 0, i < 10, i++) // tweak for more bloodsteps
-		paint.on_entered(paint, target)
-	qdel(paint)
+		human.add_blood(human.get_blood_dna_list(), color = paint_color)
+		var/datum/component/paint_splatter/component = human.GetComponent(/datum/component/paint_splatter)
+		if(component)
+			component.restart_live_timer()
+			return
+		human.AddComponent(/datum/component/paint_splatter, color = paint_color, amount = 25, chance = 50, duration = 60 SECONDS)
 
 /obj/item/ammo_box/g50mm/paint
 	name = "ammo box (50mm frag)"
@@ -507,16 +511,37 @@
 		PREPOSITIONAL = "краске"
 	)
 	gender = FEMALE
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "mfloor2"
-	basecolor = "#11ff6c" // Color when wet.
-	amount = 10
-	var/blood_state = BLOOD_STATE_HUMAN
-	max_shone_bloodiness = 1000
-	bloodiness = 1000
-	drying_time = 1
+	blood_state = BLOOD_STATE_NOT_BLOODY
+	//drying_time = 1
 
 /obj/effect/decal/cleanable/blood/paint/dry()
+	. = ..()
+	ru_names = list(
+		NOMINATIVE = "краска",
+		GENITIVE = "краски",
+		DATIVE = "краске",
+		ACCUSATIVE = "краску",
+		INSTRUMENTAL = "краской",
+		PREPOSITIONAL = "краске"
+	)
+
+/obj/effect/decal/cleanable/blood/drip/paint
+	name = "paint"
+	dryname = "dried paint"
+	desc = "Оно густое и липкое. Возможно, кто то разлил тут краску?"
+	drydesc = "Оно сухое и засохшее. Кто-то явно халтурит."
+	ru_names = list(
+		NOMINATIVE = "капли краска",
+		GENITIVE = "капель краски",
+		DATIVE = "каплям краски",
+		ACCUSATIVE = "капли краски",
+		INSTRUMENTAL = "каплями краски",
+		PREPOSITIONAL = "каплях краски"
+	)
+	blood_state = BLOOD_STATE_NOT_BLOODY
+	//drying_time = 1
+
+/obj/effect/decal/cleanable/blood/drip/paint/dry()
 	. = ..()
 	ru_names = list(
 		NOMINATIVE = "засохшая краска",
@@ -526,8 +551,3 @@
 		INSTRUMENTAL = "засохшей краской",
 		PREPOSITIONAL = "засохшей краске"
 	)
-
-/obj/effect/decal/cleanable/blood/paint/replace_decal(obj/effect/decal/cleanable/blood/C)
-	. = ..()
-	if(length(blood_DNA))
-		blood_DNA = list()

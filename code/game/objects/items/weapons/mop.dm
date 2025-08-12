@@ -54,6 +54,7 @@
 		for(var/obj/effect/O in A)
 			if(O.is_cleanable())
 				qdel(O)
+		SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, 5)
 	reagents.reaction(A, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
