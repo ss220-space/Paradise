@@ -502,6 +502,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 /datum/reagent/status_effect
 	id = "status_effect"
 	metabolization_rate = REAGENTS_METABOLISM / 4
+	/// Type of status effect that applys on reagent add, and deleats on reagent deleat.
 	var/status_effect_type
 
 

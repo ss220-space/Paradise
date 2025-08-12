@@ -95,6 +95,7 @@
 	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных."
 	diet_flags = DIET_CARN | DIET_OMNI
 	reagent_state = SOLID
+	/// Type of status effect that applys on reagent add, and deleats on reagent deleat.
 	var/status_effect_type = /datum/status_effect/sport_reagents/protein
 
 
