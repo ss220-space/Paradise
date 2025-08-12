@@ -139,7 +139,9 @@
 	QDEL_NULL(gun_light)
 	QDEL_NULL(bayonet)
 	for(var/attachment as anything in attachments_by_slot)
-		qdel(attachment)
+		if(!attachments_by_slot[attachment])
+			continue
+		qdel(attachments_by_slot[attachment])
 	attachments_by_slot.Cut()
 	attachment_overlays.Cut()
 	if(accuracy)
