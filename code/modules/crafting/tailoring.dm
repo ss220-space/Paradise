@@ -496,3 +496,22 @@
 /datum/crafting_recipe/hudsunthermalremoval/monocle
 	result = /obj/item/clothing/glasses/monocle
 	reqs = list(/obj/item/clothing/glasses/thermal/monothermal = 1)
+
+/datum/crafting_recipe/bloodredsunglasses
+	name = "Suspicious sunglasses"
+	result = /obj/item/clothing/glasses/bloodred/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/bloodred = 1,
+				/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/stack/cable_coil = 5
+				)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/bloodredsunglasses/removal
+	name = "Suspicious glasses flash protection removal"
+	result = /obj/item/clothing/glasses/bloodred
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/bloodred/sunglasses = 1)
+	category = CAT_CLOTHING

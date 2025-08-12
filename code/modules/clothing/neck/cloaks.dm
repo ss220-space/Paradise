@@ -126,3 +126,17 @@
 	desc = "Hole, a blackhole on your back!"
 	icon_state = "spacecloak"
 	item_state = "spacecloak"
+
+/obj/item/clothing/neck/cloak/bloodred
+	name = "black halfcloak"
+	desc = "Чёрный плащ с красными оттенками"
+	ru_names = list(
+		NOMINATIVE = "чёрный полуплащ",
+		GENITIVE = "чёрного полуплаща",
+		DATIVE = "чёрному полуплащу",
+		ACCUSATIVE = "чёрный полуплащ",
+		INSTRUMENTAL = "чёрным полуплащом",
+		PREPOSITIONAL = "чёрном полуплаще"
+	)
+	icon_state = "syndiecloak"
+	item_state = "syndiecloak"

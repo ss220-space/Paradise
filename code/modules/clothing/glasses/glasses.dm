@@ -872,3 +872,35 @@
 /obj/item/clothing/glasses/heart/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
+
+/obj/item/clothing/glasses/bloodred
+	name = "red glasses"
+	desc = "Очки с красными линзами, помогающие от бессоницы отсчением синего спектра цвета."
+	ru_names = list(
+		NOMINATIVE = "красные очки",
+		GENITIVE = "красных очков",
+		DATIVE = "красным очкам",
+		ACCUSATIVE = "красные очки",
+		INSTRUMENTAL = "красными очками",
+		PREPOSITIONAL = "красных очках"
+	)
+	icon_state = "syndieglasses"
+	item_state = "syndieglasses"
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/eyes.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi'
+	)
+
+/obj/item/clothing/glasses/bloodred/sunglasses
+	desc = "Очки с тёмно-красными линзами, помогающие от бессоницы отсечением синего спектра цвета. Эта пара защищает еще и от ярких вспышек."
+	icon_state = "sunsyndieglasses"
+	item_state = "sunsyndieglasses"
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint_up = 1

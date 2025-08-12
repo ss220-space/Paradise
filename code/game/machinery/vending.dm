@@ -3420,7 +3420,9 @@
 					/obj/item/clothing/under/syndicate/blackops_civ = 1,
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/under/soviet = 1,
-					/obj/item/storage/belt/fannypack/black = 1)
+					/obj/item/storage/belt/fannypack/black = 1,
+					/obj/item/clothing/glasses/bloodred = 3,
+					/obj/item/clothing/neck/cloak/bloodred = 3)
 
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,
 				   /obj/item/clothing/head/mailman = 1,
