@@ -66,10 +66,7 @@
 
 
 /obj/item/taperecorder/proc/update_sound()
-	if(silent_mode)
-		return
-	
-	if(!playing && !recording)
+	if(!playing && !recording || silent_mode)
 		soundloop.stop()
 	else
 		soundloop.start()
