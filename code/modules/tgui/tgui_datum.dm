@@ -68,10 +68,12 @@
 		src.window_size = list(ui_x, ui_y)
 
 /datum/tgui/Destroy(force)
+	SStgui.on_close(src)
 	user = null
 	state = null
 	src_object = null
-	window.locked_by = null
+	window.release_lock()
+	window.close(FALSE)
 	window = null
 	. = ..()
 
