@@ -898,29 +898,6 @@ The _flatIcons list is a cache for generated icon files.
 				swapped = 1
 	return result
 
-//Interface for using DrawBox() to draw 1 pixel on a coordinate.
-//Returns the same icon specifed in the argument, but with the pixel drawn
-/proc/DrawPixel(var/icon/I,var/colour,var/drawX,var/drawY)
-	if(!I)
-		return 0
-	var/Iwidth = I.Width()
-	var/Iheight = I.Height()
-	if(drawX > Iwidth || drawX <= 0)
-		return 0
-	if(drawY > Iheight || drawY <= 0)
-		return 0
-	I.DrawBox(colour,drawX, drawY)
-	return I
-
-//Interface for easy drawing of one pixel on an atom.
-/atom/proc/DrawPixelOn(var/colour, var/drawX, var/drawY)
-	var/icon/I = new(icon)
-	var/icon/J = DrawPixel(I, colour, drawX, drawY)
-	if(J) //Only set the icon if it succeeded, the icon without the pixel is 1000x better than a black square.
-		icon = J
-		return J
-	return 0
-
 //Hook, override to run code on- wait this is images
 //Images have dir without being an atom, so they get their own definition.
 //Lame.
@@ -1258,7 +1235,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 /// (Generated names do not include file extention.)
 /proc/generate_asset_name(file)
 	return "asset.[md5(fcopy_rsc(file))]"
-	
+
 /**
  * generate an asset for the given icon or the icon of the given appearance for [thing], and send it to any clients in target.
  * Arguments:
@@ -1352,3 +1329,57 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	if(sourceonly)
 		return SSassets.transport.get_asset_url(key)
 	return "<img class='[extra_classes] icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
+
+#define CACHED_WIDTH_INDEX "width"
+#define CACHED_HEIGHT_INDEX "height"
+
+/atom/proc/get_cached_width()
+	if (isnull(icon))
+		return 0
+	var/list/dimensions = get_icon_dimensions(icon)
+	return dimensions[CACHED_WIDTH_INDEX]
+
+/atom/proc/get_cached_height()
+	if (isnull(icon))
+		return 0
+	var/list/dimensions = get_icon_dimensions(icon)
+	return dimensions[CACHED_HEIGHT_INDEX]
+
+#undef CACHED_WIDTH_INDEX
+#undef CACHED_HEIGHT_INDEX
+
+/**
+ * Center's an image. Only run this on float overlays and not physical
+ * Requires:
+ * The Image
+ * The x dimension of the icon file used in the image
+ * The y dimension of the icon file used in the image
+ * eg: center_image(image_to_center, 32,32)
+ * eg2: center_image(image_to_center, 96,96)
+**/
+/proc/center_image(image/image_to_center, x_dimension = 0, y_dimension = 0)
+	if(!image_to_center)
+		return
+
+	if(!x_dimension || !y_dimension)
+		return
+
+	if((x_dimension == ICON_SIZE_X) && (y_dimension == ICON_SIZE_Y))
+		return image_to_center
+
+	//Offset the image so that its bottom left corner is shifted this many pixels
+	//This makes it infinitely easier to draw larger inhands/images larger than world.iconsize
+	//but still use them in game
+	var/x_offset = -((x_dimension / ICON_SIZE_X) - 1) * (ICON_SIZE_X * 0.5)
+	var/y_offset = -((y_dimension / ICON_SIZE_Y) - 1) * (ICON_SIZE_Y * 0.5)
+
+	//Correct values under icon_size
+	if(x_dimension < ICON_SIZE_X)
+		x_offset *= -1
+	if(y_dimension < ICON_SIZE_Y)
+		y_offset *= -1
+
+	image_to_center.pixel_w = x_offset
+	image_to_center.pixel_z = y_offset
+
+	return image_to_center

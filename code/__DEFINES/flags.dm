@@ -27,7 +27,9 @@
 #define AA_TARGET_SEE_APPEARANCE (1<<0)
 #define AA_MATCH_TARGET_OVERLAYS (1<<1)
 /// Does the supermatter skip over this atom?
-#define SUPERMATTER_IGNORES (1 << 8)
+#define SUPERMATTER_IGNORES (1<<8)
+/// This atom always returns its turf in get_turf_pixel instead of the turf from its offsets
+#define IGNORE_TURF_PIXEL_OFFSET (1<<9)
 
 
 // Update flags for [/atom/proc/update_appearance]
