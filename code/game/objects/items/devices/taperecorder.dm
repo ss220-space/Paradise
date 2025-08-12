@@ -169,7 +169,10 @@
 	else
 		tts_seed = initial(tts_seed)
 		atom_say_verb = "говорит"
-		silent_mode ? balloon_alert(ismob(loc) ? loc : null, "[message]") : atom_say("[message]")
+		if(silent_mode)
+			balloon_alert(ismob(loc) ? loc : null, "[message]")
+			return
+		atom_say("[message]")
 
 /obj/item/taperecorder/proc/eject(mob/user)
 	if(mytape)
