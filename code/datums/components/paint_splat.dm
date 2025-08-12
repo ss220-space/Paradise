@@ -54,7 +54,6 @@
 
 
 // MARK: Signals processors
-
 /datum/component/paint_splatter/proc/on_move(datum/source)
 	SIGNAL_HANDLER
 	var/turf/parent_turf = get_turf(source)
@@ -79,7 +78,6 @@
 
 
 // MARK: Logic procs
-
 /datum/component/paint_splatter/proc/create_paint_splatter(turf/location)
 	var/obj/effect/decal/cleanable/blood/drip/paint/paint = new(location)
 	paint.basecolor = paint_color

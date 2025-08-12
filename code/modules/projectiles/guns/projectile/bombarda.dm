@@ -267,6 +267,14 @@
 
 /obj/item/ammo_casing/grenade/g50mm
 	name = "50mm grenade"
+	ru_names = list(
+		NOMINATIVE = "граната (50 мм)",
+		GENITIVE = "гранаты (50 мм)",
+		DATIVE = "гранате (50 мм)",
+		ACCUSATIVE = "гранату (50 мм)",
+		INSTRUMENTAL = "гранатой (50 мм)",
+		PREPOSITIONAL = "гранате (50 мм)"
+	)
 	desc = "Граната калибра 50 мм."
 	icon = 'icons/obj/weapons/bombarda.dmi'
 	icon_state = "secgl_solid"
@@ -287,6 +295,14 @@
 	icon = 'icons/obj/weapons/bombarda.dmi'
 
 	name = "ammo box (40mm grenades)"
+	ru_names = list(
+		NOMINATIVE = "коробка гранат (50 мм)",
+		GENITIVE = "коробки гранат (50 мм)",
+		DATIVE = "коробке гранат (50 мм)",
+		ACCUSATIVE = "коробку гранат (50 мм)",
+		INSTRUMENTAL = "коробкой гранат (50 мм)",
+		PREPOSITIONAL = "коробке гранат (50 мм)"
+	)
 	icon_state = "secgl_box_gas"
 	ammo_type = /obj/item/ammo_casing/grenade/g50mm/solid
 	max_ammo = 5
@@ -294,6 +310,14 @@
 
 /obj/item/ammo_casing/grenade/g50mm/solid
 	name = "50mm grenade (rubber slug)"
+	ru_names = list(
+		NOMINATIVE = "граната (50 мм цельная резина)",
+		GENITIVE = "гранаты (50 мм цельная резина)",
+		DATIVE = "гранате (50 мм цельная резина)",
+		ACCUSATIVE = "гранату (50 мм цельная резина)",
+		INSTRUMENTAL = "гранатой (50 мм цельная резина)",
+		PREPOSITIONAL = "гранате (50 мм цельная резина)"
+	)
 	desc = "Граната калибра 50 мм с цельной резиновой пулей. Отлично подходит для нейтрализации активных митингующих из толпы нелетальным способом."
 	projectile_type = /obj/projectile/grenade/g50mm/solid
 	icon_state = "secgl_solid"
@@ -326,6 +350,14 @@
 
 /obj/item/ammo_casing/grenade/g50mm/flash
 	name = "50mm grenade (flashbang)"
+	ru_names = list(
+		NOMINATIVE = "граната (50 мм светошумовая)",
+		GENITIVE = "гранаты (50 мм светошумовая)",
+		DATIVE = "гранате (50 мм светошумовая)",
+		ACCUSATIVE = "гранату (50 мм светошумовая)",
+		INSTRUMENTAL = "гранатой (50 мм светошумовая)",
+		PREPOSITIONAL = "гранате (50 мм светошумовая)"
+	)
 	desc = "Граната калибра 50 мм со светошумовой гранатой. Отличная возможность закинуть светошумовую гранату на далекие расстояния."
 	projectile_type = /obj/projectile/grenade/g50mm/flash
 	icon_state = "secgl_flash"
@@ -364,6 +396,14 @@
 
 /obj/item/ammo_casing/grenade/g50mm/gas
 	name = "50mm grenade (gatears)"
+	ru_names = list(
+		NOMINATIVE = "граната (50 мм слезоточивый газ)",
+		GENITIVE = "гранаты (50 мм слезоточивый газ)",
+		DATIVE = "гранате (50 мм слезоточивый газ)",
+		ACCUSATIVE = "гранату (50 мм слезоточивый газ)",
+		INSTRUMENTAL = "гранатой (50 мм слезоточивый газ)",
+		PREPOSITIONAL = "гранате (50 мм слезоточивый газ)"
+	)
 	desc = "Граната калибра 50 мм со слезоточивым газом. Позволяет разогнать толпу митингующих без защиты органов дыхания."
 	projectile_type = /obj/projectile/grenade/g50mm/gas
 	icon_state = "secgl_gas"
@@ -393,7 +433,15 @@
 
 
 /obj/item/ammo_casing/grenade/g50mm/barricade
-	name = "50mm grenade (gatears)"
+	name = "50mm grenade (barricade)"
+	ru_names = list(
+		NOMINATIVE = "граната (50 мм баррикада)",
+		GENITIVE = "гранаты (50 мм баррикада)",
+		DATIVE = "гранате (50 мм баррикада)",
+		ACCUSATIVE = "гранату (50 мм баррикада)",
+		INSTRUMENTAL = "гранатой (50 мм баррикада)",
+		PREPOSITIONAL = "гранате (50 мм баррикада)"
+	)
 	desc = "Граната калибра 50 мм со слезоточивым газом. Позволяет разогнать толпу митингующих без защиты органов дыхания."
 	projectile_type = /obj/projectile/grenade/g50mm/barricade
 	icon_state = "secgl_barricade"
@@ -424,6 +472,14 @@
 
 /obj/item/ammo_casing/grenade/g50mm/exp
 	name = "50mm grenade (frag)"
+	ru_names = list(
+		NOMINATIVE = "граната (50 мм осколочная)",
+		GENITIVE = "гранаты (50 мм осколочная)",
+		DATIVE = "гранате (50 мм осколочная)",
+		ACCUSATIVE = "гранату (50 мм осколочная)",
+		INSTRUMENTAL = "гранатой (50 мм осколочная)",
+		PREPOSITIONAL = "гранате (50 мм осколочная)"
+	)
 	desc = "Граната калибра 50 мм с осколочной рубашкой. Летальный боеприпас для закидывания на дальнее расстояние."
 	projectile_type = /obj/projectile/grenade/g50mm/exp
 	icon_state = "secgl_exp"
@@ -459,6 +515,14 @@
 
 /obj/item/ammo_casing/grenade/g50mm/paint
 	name = "50mm grenade (paint)"
+	ru_names = list(
+		NOMINATIVE = "граната (50 мм краска)",
+		GENITIVE = "гранаты (50 мм краска)",
+		DATIVE = "гранате (50 мм краска)",
+		ACCUSATIVE = "гранату (50 мм краска)",
+		INSTRUMENTAL = "гранатой (50 мм краска)",
+		PREPOSITIONAL = "гранате (50 мм краска)"
+	)
 	desc = "Граната калибра 50 мм с краской. Граната которая закрашивает цель для его отслеживания."
 	projectile_type = /obj/projectile/grenade/g50mm/paint
 	icon_state = "secgl_paint"
@@ -500,8 +564,8 @@
 /obj/effect/decal/cleanable/blood/paint
 	name = "paint"
 	dryname = "dried paint"
-	desc = "Оно густое и липкое. Возможно, кто то разлил тут краску?"
-	drydesc = "Оно сухое и засохшее. Кто-то явно халтурит."
+	desc = "Она густая и липкая. Возможно, кто то разлил тут краску?"
+	drydesc = "Она сухая и засохшая. Кто-то явно халтурит."
 	ru_names = list(
 		NOMINATIVE = "краска",
 		GENITIVE = "краски",

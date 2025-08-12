@@ -113,6 +113,15 @@
 
 /obj/structure/closet/secure_closet/security_grenade_launcher
 	name = "security grenade launcher cabinet"
+	ru_names = list(
+		NOMINATIVE = "шкаф гранатомета GL-06",
+		GENITIVE = "шкафа гранатомета GL-06",
+		DATIVE = "шкафу гранатомета GL-06",
+		ACCUSATIVE = "шкаф гранатомета GL-06",
+		INSTRUMENTAL = "шкафом гранатомета GL-06",
+		PREPOSITIONAL = "шкафе гранатомета GL-06"
+	)
+	desc = "Защищенный шкаф для хранения гранатомета GL-06 и боеприпасов к нему. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
 	icon = 'icons/obj/guncabinet.dmi'
 	icon_state = "guncabinet"
