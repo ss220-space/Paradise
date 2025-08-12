@@ -40,6 +40,11 @@
 			return
 		set_light(l_on = TRUE)
 		update_icon(UPDATE_ICON_STATE)
+	else
+		bloom_icon_state = ""
+		exposure_icon_state = ""
+		update_bloom()
+
 
 
 /obj/machinery/floodlight/examine(mob/user)
@@ -95,6 +100,7 @@
 		to_chat(user, span_notice("You turn off the light."))
 		set_light(l_on = FALSE)
 		glow_icon_state = ""
+		exposure_icon_state = ""
 		update_bloom()
 	else
 		if(!cell)
@@ -110,6 +116,7 @@
 		to_chat(user, span_notice("You turn on the light."))
 		set_light(l_on = TRUE)
 		glow_icon_state = "flood_emission"
+		exposure_icon_state = "circle"
 		update_bloom()
 	update_icon(UPDATE_ICON_STATE)
 
