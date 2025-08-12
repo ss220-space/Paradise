@@ -708,7 +708,6 @@ BLIND     // can't see anything
 
 	var/silence_steps = 0
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
-	var/blood_dry_duration = 5 MINUTES
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 
 	permeability_coefficient = 0.50

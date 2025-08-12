@@ -85,7 +85,8 @@
 	paint.basecolor = paint_color
 	paint.update_icon()
 
-/datum/component/paint_splatter/proc/restart_live_timer()
+/datum/component/paint_splatter/proc/restart_live_timer(amount = 10)
 	if(remove_timer)
 		deltimer(remove_timer)
+	paint_amount += amount
 	remove_timer = addtimer(CALLBACK(src, PROC_REF(on_finish_live_time)), live_duration, TIMER_UNIQUE | TIMER_STOPPABLE)

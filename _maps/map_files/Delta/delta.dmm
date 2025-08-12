@@ -67272,6 +67272,7 @@
 	pixel_y = -26
 	},
 /obj/structure/cable,
+/obj/structure/closet/secure_closet/security_grenade_launcher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

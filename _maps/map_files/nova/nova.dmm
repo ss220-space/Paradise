@@ -62386,6 +62386,7 @@
 	},
 /area/hallway/primary/command/west)
 "jhf" = (
+/obj/structure/closet/secure_closet/security_grenade_launcher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

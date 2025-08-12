@@ -57,12 +57,6 @@
 	if(!QDELING(src))
 		AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/decal/cleanable/blood/proc/reset_dry_time(drying_time)
-	src.drying_time = drying_time
-	if(dry_timer)
-		deltimer(dry_timer)
-	dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), drying_time * (amount+1), TIMER_STOPPABLE)
-
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
@@ -141,7 +135,6 @@
 			add_blood = bloodiness
 		bloodiness -= add_blood
 		shoes.bloody_shoes[blood_state] = min(max_shone_bloodiness, shoes.bloody_shoes[blood_state] + add_blood)
-		shoes.blood_dry_duration = drying_time
 		if(length(blood_DNA))
 			shoes.add_blood(blood_DNA, basecolor)
 		shoes.blood_state = blood_state

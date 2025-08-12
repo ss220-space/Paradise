@@ -478,12 +478,12 @@
 		human.add_blood(human.get_blood_dna_list(), color = paint_color)
 		var/datum/component/paint_splatter/component = human.GetComponent(/datum/component/paint_splatter)
 		if(component)
-			component.restart_live_timer()
+			component.restart_live_timer(amount = 25)
 			return
 		human.AddComponent(/datum/component/paint_splatter, color = paint_color, amount = 25, chance = 50, duration = 60 SECONDS)
 
 /obj/item/ammo_box/g50mm/paint
-	name = "ammo box (50mm frag)"
+	name = "ammo box (50mm paint)"
 	desc = "Коробка, содержащая гранаты с краской калибра 50 мм."
 	ru_names = list(
 		NOMINATIVE = "коробка гранат (50 мм краска)",

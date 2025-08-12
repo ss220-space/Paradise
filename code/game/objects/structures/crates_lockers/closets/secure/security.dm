@@ -111,6 +111,23 @@
 /obj/structure/closet/secure_closet/pilot_sniper/populate_contents()
 	new /obj/item/gun/energy/sniperrifle/pod_pilot(src)
 
+/obj/structure/closet/secure_closet/security_grenade_launcher
+	name = "security grenade launcher cabinet"
+	req_access = list(ACCESS_ARMORY)
+	icon = 'icons/obj/guncabinet.dmi'
+	icon_state = "guncabinet"
+
+/obj/structure/closet/secure_closet/security_grenade_launcher/populate_contents()
+	new /obj/item/gun/projectile/bombarda/secgl(src)
+	new /obj/item/ammo_box/g50mm/solid(src)
+	new /obj/item/ammo_box/g50mm/solid(src)
+	new /obj/item/ammo_box/g50mm/flash(src)
+	new /obj/item/ammo_box/g50mm/flash(src)
+	new /obj/item/ammo_box/g50mm/gas(src)
+	new /obj/item/ammo_box/g50mm/barricade(src)
+	new /obj/item/ammo_box/g50mm/paint(src)
+
+
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
 	req_access = list(ACCESS_SECURITY)
