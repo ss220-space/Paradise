@@ -41,7 +41,7 @@
 		set_light(l_on = TRUE)
 		update_icon(UPDATE_ICON_STATE)
 	else
-		bloom_icon_state = ""
+		glow_icon_state = ""
 		exposure_icon_state = ""
 		update_bloom()
 
