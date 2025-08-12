@@ -65,7 +65,7 @@
 	)
 
 /mob/living/simple_animal/hostile/gorilla/Destroy()
-	reset_behavior(play_emote = FALSE)
+	INVOKE_ASYNC(src, PROC_REF(reset_behavior), play_emote = FALSE)
 	LAZYCLEARLIST(crates_in_hand)
 	QDEL_NULL(gorilla_toggle)
 	return ..()
