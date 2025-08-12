@@ -883,7 +883,7 @@
 	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	interaction()
+	interaction(user)
 
 /obj/item/toy/plushie/rdplushie/update_icon_state()
 	. = ..()
@@ -924,13 +924,13 @@
 	"Подмогу в туалет брига!", "Почему над унитазом установлены 3 камеры?")
 
 	playsound(loc, 'sound/items/GSBussy.ogg', 30, TRUE)
-	user.visible_message("[bicon(src)] [span_notice(message)]")
+	visible_message("[bicon(src)] [span_notice(message)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/gsbplushie/attack_self(mob/user)
 	. = ..()
 
-	interaction()
+	interaction(user)
 
 /obj/item/toy/plushie/gsbplushie/afterattack(atom/target, mob/user, proximity, flag, params)
 	. = ..()
@@ -938,7 +938,7 @@
 	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	interaction()
+	interaction(user)
 
 /obj/item/toy/plushie/greyplushie
 	name = "Плюшевый грей"
@@ -2009,7 +2009,7 @@
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
-	wieldsound = 'sound/weapons/chainsawstart.ogg'
+	wieldsound = 'sound/weapons/chainsaw_start.ogg'
 	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
 
 /obj/item/twohanded/toy/chainsaw/update_icon_state()

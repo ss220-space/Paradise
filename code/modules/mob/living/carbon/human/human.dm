@@ -427,7 +427,6 @@
 
 	return if_no_id	//to prevent null-names making the mob unclickable
 
-
 //Gets ID card object from hands only
 /mob/living/carbon/human/proc/get_id_from_hands()
 	var/obj/item/card/id/id = null
@@ -450,7 +449,6 @@
 	dna.species.update_sight(src)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-
 
 ///Calculates the siemens coeff based on clothing and species, can also restart hearts.
 /mob/living/carbon/human/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
@@ -482,7 +480,6 @@
 
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 
-
 /mob/living/carbon/human/Topic(href, href_list)
 	if(in_range(src, usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 
@@ -497,10 +494,12 @@
 				return
 
 			var/time_taken = thing.embedded_unsafe_removal_time * thing.w_class
+
 			usr.visible_message(
-				span_warning("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
-				span_notice("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]... (Это займет [time_taken/10] секунд.)"),
+				span_warning("[usr] пыта[pluralize_ru(usr.gender, "ет", "ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
+				span_notice("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]... (Это займет [time_taken/10] секунд.)"),
 			)
+
 			if(do_after(usr, time_taken, src))
 				if(QDELETED(thing) || QDELETED(bodypart) || thing.loc != bodypart || !LAZYIN(bodypart.embedded_objects, thing))
 					return
@@ -512,11 +511,10 @@
 					if(h_user.has_pain())
 						h_user.emote("scream")
 				usr.visible_message(
-					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]!"),
-					span_notice("Вы успешно извлекли [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
+					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender, "ет", "ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
+					span_notice("Вы успешно извлекли [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 				)
 			return
-
 
 	if(href_list["criminal"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
@@ -544,15 +542,20 @@
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
 									else
 										var/rank
+										var/law_level = LAW_LEVEL_BASE
 										if(ishuman(usr))
 											var/mob/living/carbon/human/U = usr
 											rank = U.get_assignment()
+											var/obj/item/card/id/cart =  U.get_id_card()
+											law_level = is_id_card(cart)? cart.law_level : LAW_LEVEL_BASE
 										else if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
 											rank = "[U.modtype?.name] [U.braintype]"
+											law_level = LAW_LEVEL_BASE
 										else if(isAI(usr))
 											rank = JOB_TITLE_AI
-										set_criminal_status(usr, R, setcriminal, t1, rank)
+											law_level = LAW_LEVEL_BASE
+										set_criminal_status(usr, R, setcriminal, t1, rank, law_level = law_level)
 								break // Git out of the securiy records loop!
 						if(found_record)
 							break // Git out of the general records

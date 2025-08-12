@@ -96,6 +96,10 @@
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"
+/// from /datum/component/cleave_attack/perform_sweep(): (atom/target, obj/item/item, mob/living/user, params)
+#define COMSIG_ATOM_CLEAVE_ATTACK "atom_cleave_attack"
+	// allows cleave attack to hit things it normally wouldn't
+	#define ATOM_ALLOW_CLEAVE_ATTACK (1<<0)
 ///from base of atom/attack_hulk(): (/mob/living/carbon/human)
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/animal_attack(): (/mob/user)
@@ -650,6 +654,12 @@
 	/// Return if the mob cannot speak.
 	#define COMPONENT_CANNOT_SPEAK (1<<0)
 
+/// from /datum/component/singularity/proc/can_move(), as well as /obj/singularity/energy_ball/proc/can_move()
+/// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
+#define COMSIG_ATOM_SINGULARITY_TRY_MOVE "atom_singularity_try_move"
+	/// When returned from `COMSIG_ATOM_SINGULARITY_TRY_MOVE`, the singularity will move to that turf
+	#define SINGULARITY_TRY_MOVE_BLOCK (1 << 0)
+
 ///called on /living when someone starts pulling (atom/movable/pulled, state, force)
 #define COMSIG_LIVING_START_PULL "living_start_pull"
 ///called on /living when someone is pulled (mob/living/puller)
@@ -845,6 +855,16 @@
 ///from base power_change() when power is restored
 #define COMSIG_MACHINERY_POWER_RESTORED "machinery_power_restored"
 
+// obj/machinery/door_timer signals
+///from obj/machinery/door_timer/timer_start(): (/mob/living/target, crimes, duration_min)
+#define COMSIG_DOOR_TIMER_START "door_timer_start"
+///from obj/machinery/door_timer/timer_end(): (/mob/living/target, crimes, duration_min)
+#define COMSIG_DOOR_TIMER_FINISH "door_timer_finish"
+
+// obj/machinery/crematorium
+///from obj/machinery/crematorium/cremate(): (/mob/living/target)
+#define COMSIG_LIVING_CREMATED "crematorium_cremated_living"
+
 // /obj/item signals
 
 ///from base of obj/item/attack(): (/mob/living/target, /mob/living/user, params, def_zone)
@@ -1012,6 +1032,11 @@
 
 ///sent from mecha action buttons to the mecha they're linked to
 #define COMSIG_MECHA_ACTION_ACTIVATE "mecha_action_activate"
+
+// /obj/docking_port/mobile signals
+
+///from /obj/docking_port/mobile/proc/dock(): (obj/docking_port/stationary/new_dock)
+#define COMSIG_SHUTTLE_DOCK "shuttle_dock"
 
 // /mob/living/carbon/human signals
 

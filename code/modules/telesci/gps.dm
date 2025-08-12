@@ -43,6 +43,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/Destroy()
 	GLOB.GPS_list.Remove(src)
 	GLOB.poi_list.Remove(src)
+	locked_location = null
+	parent = null
 	return ..()
 
 /obj/item/gps/update_overlays()
@@ -258,7 +260,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		// I assume it's faster to color,tag and OR the turf in, rather
 		// then checking if its there
 		T.color = RANDOM_COLOUR
-		T.maptext = "[T.x],[T.y],[T.z]"
+		T.maptext = MAPTEXT("[T.x],[T.y],[T.z]")
 		tagged |= T
 
 /obj/item/gps/visible_debug/proc/clear()

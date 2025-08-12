@@ -67,6 +67,14 @@
 	if(ui_x && ui_y)
 		src.window_size = list(ui_x, ui_y)
 
+/datum/tgui/Destroy(force)
+	user = null
+	state = null
+	src_object = null
+	window.locked_by = null
+	window = null
+	. = ..()
+
 /**
  * public
  *
@@ -308,7 +316,7 @@
 	// Pass act type messages to ui_act
 	if(type && copytext(type, 1, 5) == "act/")
 		process_status()
-		if(src_object.ui_act(copytext(type, 5), payload, src, state))
+		if(src_object.ui_act(copytext(type, 5), payload, src, state) && src_object)
 			SStgui.update_uis(src_object)
 		return FALSE
 	switch(type)

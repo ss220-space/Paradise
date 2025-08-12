@@ -1051,8 +1051,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(make_tough)
 		tough = TRUE
 	else
-		brute_mod = 0.66
-		burn_mod = 0.66
 		dismember_at_max_damage = TRUE
 
 	// Robot parts also lack bones

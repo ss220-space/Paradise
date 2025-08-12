@@ -387,6 +387,19 @@
 	. = ..()
 	enchants = GLOB.hammer_spells
 
+/obj/item/twohanded/clock_hammer/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
+
 /obj/item/twohanded/clock_hammer/update_icon_state()
 	icon_state = "clock_hammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
@@ -488,6 +501,15 @@
 	. = ..()
 	enchants = GLOB.sword_spells
 
+/obj/item/melee/clock_sword/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		afterswing_slowdown = 0, \
+		swing_sound = "blade_swing_light" \
+	)
+
 /obj/item/melee/clock_sword/update_overlays()
 	. = ..()
 	if(enchant_type)
@@ -558,7 +580,7 @@
 			to_chat(user, span_warning("You tear through [human]'s skin releasing the blood from [human.p_their()] [bodypart.name]!"))
 			playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
 			human.setBlood(max(human.blood_volume - 100, 0))
-			var/splatter_dir = get_angle_tgmc(user, human)
+			var/splatter_dir = get_angle(user, human)
 			blood_color = human.dna.species.blood_color
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(human.drop_location(), splatter_dir, blood_color)
 			human.emote("scream")

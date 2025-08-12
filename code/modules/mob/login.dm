@@ -30,7 +30,7 @@
 		return FALSE
 
 	canon_client = client
-	
+
 	add_to_player_list()
 	GLOB.left_player_list -= src
 

@@ -32,7 +32,7 @@
 
 	/// Set rotation
 	var/matrix/rotated_matrix = new()
-	rotated_matrix.TurnTo(0, Get_Pixel_Angle(-final_y, -final_x))
+	rotated_matrix.TurnTo(0, delta_to_angle(-final_x, -final_y))
 	visual.transform = rotated_matrix
 
 	animate(visual, pixel_x = final_x, pixel_y = final_y, time = 0.5 SECONDS, easing = QUAD_EASING)
@@ -94,6 +94,7 @@
 
 /atom/movable/proc/clear_point_bubble(obj/effect/thought_bubble)
 	LAZYREMOVE(update_on_z, thought_bubble)
+	vis_contents -= thought_bubble
 	qdel(thought_bubble)
 
 /obj/effect/temp_visual/point

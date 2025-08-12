@@ -240,8 +240,10 @@
 		overlays.Cut()
 
 	LAZYNULL(managed_overlays)
-	QDEL_NULL(ai_controller)
-	QDEL_NULL(light)
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
+	if(light)
+		QDEL_NULL(light)
 	if(length(light_sources))
 		light_sources.Cut()
 
@@ -1237,6 +1239,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/ratvar_act()
 	return
 
+/*
+ * Respond to an electric bolt action on our item
+ *
+ * Default behaviour is to return, we define here to allow for cleaner code later on
+ */
+/atom/proc/zap_act(power, zap_flags)
+	return
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
 /atom/proc/handle_atom_del(atom/A)
@@ -1817,9 +1826,22 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
 
-//Update the screentip to reflect what we're hoverin over
+/// Update the screentip to reflect what we're hovering over
 /atom/MouseEntered(location, control, params)
 	SSmouse_entered.hovers[usr.client] = src
+
+	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	var/screentip_mode = usr.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = MAPTEXT("<span style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[capitalize(src.declent_ru(NOMINATIVE))]</span>")
+
+// This is normal, I assure you. Paradise optimization.
+/atom/MouseExited(location, control, params)
+	usr.hud_used.screentip_text.maptext = ""
 
 /// Fired whenever this atom is the most recent to be hovered over in the tick.
 /// Preferred over MouseEntered if you do not need information such as the position of the mouse.

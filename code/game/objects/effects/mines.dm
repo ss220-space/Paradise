@@ -154,7 +154,7 @@
 	spawn(0)
 		new /obj/effect/hallucination/delusion(victim.loc, victim, force_kind = "demon", duration = duration, skip_nearby = 0)
 
-	var/obj/item/twohanded/required/chainsaw/doomslayer/chainsaw = new(victim.loc)
+	var/obj/item/twohanded/chainsaw_handmade/doomslayer/chainsaw = new(victim.loc)
 	ADD_TRAIT(chainsaw, TRAIT_NODROP, CURSED_ITEM_TRAIT(chainsaw.type))
 	chainsaw.item_flags |= DROPDEL
 	victim.drop_l_hand()
