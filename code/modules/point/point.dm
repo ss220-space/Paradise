@@ -94,6 +94,7 @@
 
 /atom/movable/proc/clear_point_bubble(obj/effect/thought_bubble)
 	LAZYREMOVE(update_on_z, thought_bubble)
+	vis_contents -= thought_bubble
 	qdel(thought_bubble)
 
 /obj/effect/temp_visual/point

@@ -234,7 +234,7 @@
 	var/bloodcolor = "#A10808"
 	var/list/b_data = get_blood_data(get_blood_id())
 	if(b_data)
-		bloodcolor = b_data["blood_color"]
+		bloodcolor = b_data["blood_color"] || "#A10808"
 	return bloodcolor
 
 /mob/living/carbon/alien/get_blood_color()

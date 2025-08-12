@@ -633,7 +633,7 @@
 			var/input_subtype
 			switch(input_type)
 				if("Предмет")
-					input_subtype = tgui_alert("Какой тип доступности предмета?" , "Определение Доступности Предмета" , "Сложнодоступен" , "Доступен" , "Коллекционный")
+					input_subtype = tgui_alert(usr, "Какой тип доступности предмета?" , "Определение Доступности Предмета" , "Сложнодоступен" , "Доступен" , "Коллекционный")
 					switch(input_subtype)
 						if("Сложнодоступен")
 							for(var/datum/theft_objective/theft as anything in (GLOB.potential_theft_objectives_hard|GLOB.potential_theft_objectives))

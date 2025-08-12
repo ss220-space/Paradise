@@ -247,7 +247,7 @@
 		else
 			page_num = clamp(text2num(href_list["page"]), 1, num_pages)
 	if(href_list["settitle"])
-		var/newtitle = tgui_input_text("Enter a title to search for:")
+		var/newtitle = tgui_input_text(usr, "Enter a title to search for:")
 		if(newtitle)
 			query.title = sanitize(newtitle)
 		else
