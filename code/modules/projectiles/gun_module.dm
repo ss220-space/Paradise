@@ -422,7 +422,7 @@
 	var/buffered_overlay_on
 
 
-/obj/item/gun_module/flashlight/Destroy()
+/obj/item/gun_module/under/flashlight/Destroy()
 	. = ..()
 	if(buffered_overlay_on)
 		QDEL_NULL(buffered_overlay_on)

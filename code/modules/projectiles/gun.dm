@@ -142,6 +142,10 @@
 		qdel(attachment)
 	attachments_by_slot.Cut()
 	attachment_overlays.Cut()
+	if(accuracy)
+		QDEL_NULL(accuracy)
+	if(recoil)
+		QDEL_NULL(recoil)
 	return ..()
 
 
