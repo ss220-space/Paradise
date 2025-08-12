@@ -1242,7 +1242,7 @@
 			continue
 
 		return
-	
+
 	current_canvas.painting_metadata.md5 = md5
 	if(!current_canvas.painting_metadata.tags)
 		current_canvas.painting_metadata.tags = list(persistence_id)
