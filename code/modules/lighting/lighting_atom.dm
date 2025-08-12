@@ -152,7 +152,7 @@
 	if(glow_icon && glow_icon_state)
 		add_glow_overlay()
 
-	if(exposure_icon && exposure_icon_state)
+	if(exposure_icon && exposure_icon_state && (light_color != ""))
 		add_exposure_overlay()
 
 /atom/proc/add_glow_overlay()

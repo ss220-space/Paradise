@@ -10,8 +10,6 @@
 					toggles,
 					toggles_2,
 					sound,
-					light,
-					glowlevel,
 					volume_mixer,
 					lastchangelog,
 					exp,
@@ -26,7 +24,9 @@
 					ghost_darkness_level,
 					toggles_3,
 					screentip_mode,
-					screentip_color
+					screentip_color,
+					light,
+					glowlevel,
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -124,7 +124,9 @@
 					ghost_darkness_level=:ghost_darkness_level,
 					toggles_3=:toggles3,
 					screentip_mode=:screentip_mode,
-					screentip_color=:screentip_color
+					screentip_color=:screentip_color,
+					light=:light,
+					glowlevel=:glowlevel,
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -138,8 +140,6 @@
 						"toggles2" = num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1)),
 						"atklog" = atklog,
 						"sound" = sound,
-						"light" = light,
-						"glowlevel" = glowlevel,
 						"volume_mixer" = serialize_volume_mixer(volume_mixer),
 						"lastchangelog" = lastchangelog,
 						"clientfps" = clientfps,
@@ -150,7 +150,9 @@
 						"ckey" = C.ckey,
 						"toggles3" = num2text(toggles3, CEILING(log(10, (TOGGLES_3_TOTAL)), 1)),
 						"screentip_mode" = screentip_mode,
-						"screentip_color" = screentip_color
+						"screentip_color" = screentip_color,
+						"light" = light,
+						"glowlevel" = glowlevel
 					)
 					)
 
