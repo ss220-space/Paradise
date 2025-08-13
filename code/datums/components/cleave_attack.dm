@@ -1,4 +1,6 @@
 /datum/component/cleave_attack
+	/// We can toggle the component ON and OFF with item action, by default its ON
+	var/toggled = TRUE
 	/// Size of the attack arc in degrees
 	var/arc_size
 	/// Make this TRUE for two-handed weapons like axes
@@ -44,6 +46,9 @@
 	src.cleave_end_callback = cleave_end_callback
 	src.swing_sound = swing_sound
 	set_cleave_effect(cleave_effect) // set it based on arc size if an effect wasn't specified
+
+	var/obj/item/parent_item = parent
+	new /datum/action/item_action/toggle_cleave_attack(parent_item)
 
 
 /datum/component/cleave_attack/InheritComponent(
@@ -119,6 +124,9 @@
 
 
 /datum/component/cleave_attack/proc/on_afterattack(obj/item/item, atom/target, mob/user, proximity_flag, click_parameters)
+	if(!toggled)
+		return
+
 	if(proximity_flag || user.a_intent != INTENT_HARM)
 		return // don't sweep on precise hits or non-harmful intents
 
@@ -199,4 +207,11 @@
 
 /datum/component/cleave_attack/Destroy(force)
 	cleave_end_callback = null
+
+	var/obj/item/parent_item = parent
+	if(parent_item.actions)
+		var/toggle = locate(/datum/action/item_action/toggle_cleave_attack) in parent_item.actions
+		parent_item.actions -= toggle
+		qdel(toggle)
+
 	return ..()
