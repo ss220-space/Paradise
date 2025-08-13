@@ -17,6 +17,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	pixel_x = -32
 	pixel_y = -32
 	layer = ABOVE_ALL_MOB_LAYER
+	max_integrity = 3000
 	var/list/obj/structure/fillers = list()
 	var/pulse_range = 3
 	mouse_drag_pointer = MOUSE_DROP_POINTER
@@ -79,6 +80,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart/proc/heart_pulse()
 	if(!curse_dial)
+		obj_integrity = max(obj_integrity + 300, max_integrity)
 		enchanted_before = TRUE
 		select_pulse()
 		new /obj/effect/temp_visual/pulse(src.loc)
