@@ -153,9 +153,9 @@ const GuideSection = () => {
           <span style={hereticRed}>принесите их в жертву</span> чтобы получить
           &nbsp;
           <span style={hereticBlue}>очки знаний</span>. Мансус принимает{' '}
-          <b>ТОЛЬКО</b>
-          тех, на кого указало Живое Сердце.&nbsp;
-          <span style={hereticRed}>Живое Сердце</span>.
+          <b> ТОЛЬКО</b>
+          тех, на кого указало
+          <span style={hereticRed}> Живое Сердце</span>.
         </Stack.Item>
         <Stack.Item>
           - Сделайте себе <span style={hereticYellow}>амулет</span> чтобы иметь
