@@ -332,6 +332,7 @@
 	if(A)
 		on = FALSE
 		LAZYREMOVE(A.lights_cache, src)
+	UnregisterSignal(SSsecurity_level, list(COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, COMSIG_SECURITY_LEVEL_CHANGED))
 	return ..()
 
 

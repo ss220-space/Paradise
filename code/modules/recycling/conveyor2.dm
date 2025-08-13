@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		var/image/arrow = image('icons/mob/screen_gen.dmi', loc, "arrow", POINT_LAYER)
 		SET_PLANE(arrow, GAME_PLANE, loc)
 		flick_overlay(arrow, clients, 2.5 SECONDS)
-		animate(arrow, pixel_x = (belt_switch.x - x) * world.icon_size + belt_switch.pixel_x, pixel_y = (belt_switch.y - y) * world.icon_size + belt_switch.pixel_y, time = 0.5 SECONDS, easing = QUAD_EASING)	// yonked from point code
+		animate(arrow, pixel_x = (belt_switch.x - x) * ICON_SIZE_X + belt_switch.pixel_x, pixel_y = (belt_switch.y - y) * ICON_SIZE_Y + belt_switch.pixel_y, time = 0.5 SECONDS, easing = QUAD_EASING)	// yonked from point code
 	if(!switch_found)
 		to_chat(user, span_warning("This conveyor is linked to the switch out of your current view."))
 

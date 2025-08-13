@@ -45,6 +45,10 @@
 	base_pixel_x = pixel_x
 	base_pixel_y = pixel_y
 
+/obj/item/gem/Destroy()
+	cut_overlay(shine_overlay)
+	QDEL_NULL(shine_overlay)
+	. = ..()
 
 /obj/item/gem/attackby(obj/item/item, mob/living/user, params) //Stolen directly from geysers, removed the internal gps
 	if(!istype(item, /obj/item/mining_scanner) && !istype(item, /obj/item/t_scanner/adv_mining_scanner))
@@ -67,7 +71,7 @@
 
 	if(shine_overlay)
 		cut_overlay(shine_overlay)
-		qdel(shine_overlay)
+		QDEL_NULL(shine_overlay)
 
 	var/obj/item/card/id/card = user.get_id_card()
 	if(!card)
@@ -291,6 +295,7 @@
 
 /obj/item/gem/purple/Destroy(force)
 	if(force)
+		QDEL_NULL(internal)
 		. = ..()
 	else
 		return QDEL_HINT_LETMELIVE

@@ -188,6 +188,7 @@
 	wind_up_timer = null
 	nightvisionicon = null
 	devilsouldisplay = null
+	combo_display = null
 
 	QDEL_LIST_ASSOC_VAL(master_groups)
 	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
