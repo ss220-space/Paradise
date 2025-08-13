@@ -387,19 +387,6 @@
 	. = ..()
 	enchants = GLOB.hammer_spells
 
-/obj/item/twohanded/clock_hammer/ComponentInitialize()
-	. = ..()
-	AddComponent( \
-		/datum/component/cleave_attack, \
-		arc_size = 180, \
-		swing_speed_mod = 2.5, \
-		afterswing_slowdown = 0.3, \
-		slowdown_duration = 1 SECONDS, \
-		requires_wielded = TRUE, \
-		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
-	)
-
 /obj/item/twohanded/clock_hammer/update_icon_state()
 	icon_state = "clock_hammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
@@ -500,15 +487,6 @@
 /obj/item/melee/clock_sword/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.sword_spells
-
-/obj/item/melee/clock_sword/ComponentInitialize()
-	. = ..()
-	AddComponent( \
-		/datum/component/cleave_attack, \
-		arc_size = 180, \
-		afterswing_slowdown = 0, \
-		swing_sound = "blade_swing_light" \
-	)
 
 /obj/item/melee/clock_sword/update_overlays()
 	. = ..()
@@ -1114,7 +1092,7 @@
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	armor = list(melee = 45, bullet = 65, laser = 10, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 		)
 
 /obj/item/clothing/head/helmet/clockwork_fake
