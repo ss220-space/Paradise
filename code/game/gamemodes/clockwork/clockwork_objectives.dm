@@ -86,7 +86,7 @@
 				if(!obj_demand.check_completion())
 					to_chat(clock_mind.current, span_clock("But there's still more tasks to do."))
 				else
-					ratvar_is_ready()
+					need_heart()
 		adjust_clockwork_power(-0.6*power_goal)
 
 /datum/clockwork_objectives/proc/beacon_check()
