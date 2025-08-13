@@ -287,7 +287,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(MARKINGS_LAYER)
 
 	//Base icon.
-	var/icon/markings_standing = icon("icon" = 'icons/mob/clothing/body_accessory.dmi', "icon_state" = "accessory_none_s")
+	var/icon/markings_standing = icon("icon" = 'icons/mob/mob.dmi', "icon_state" = "accessory_none_s")
 
 	//Body markings.
 	var/obj/item/organ/external/chest/chest_organ = get_organ(BODY_ZONE_CHEST)
