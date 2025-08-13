@@ -1639,7 +1639,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi')
+	sprite_sheets = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/jumpsuit.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
