@@ -498,7 +498,7 @@
 /obj/effect/mob_spawn/human/corpse/usspconscript
 	mob_type = /mob/living/carbon/human
 	name = "USSP conscript corpse"
-	icon = 'icons/mob/clothing/uniform.dmi'
+	icon = 'icons/mob/clothing/jumpsuit.dmi'
 	icon_state = "soviet_s"
 	mob_name = "Unknown"
 	random = TRUE
