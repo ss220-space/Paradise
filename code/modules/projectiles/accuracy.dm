@@ -8,13 +8,18 @@
 #define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
 /// Pistol accuracy (near default)
 #define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
+/// Uplink pistol accuracy (better than normal pistols)
+#define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
 /// Rifle accuracy (more than default)
 #define GUN_ACCURACY_RIFLE new /datum/gun_accuracy/rifle()
+/// Laser rifle accuracy (default but lesser spread)
+#define GUN_ACCURACY_RIFLE_LASER new /datum/gun_accuracy/rifle/laser()
+/// Uplink rifles accuracy (better than default rifles)
+#define GUN_ACCURACY_RIFLE_UPLINK new /datum/gun_accuracy/rifle/uplink()
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
 GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
-GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAULT)
 
 //MARK: Accuracy datum
 /datum/gun_accuracy
@@ -98,7 +103,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	min_spread = 5
 	max_spread = 30
 	spread_increase_step = 5
-	spread_restore_duration = 5 SECONDS
+	spread_restore_duration = 1 SECONDS
 
 /datum/gun_accuracy/default
 	head = 75
@@ -128,6 +133,18 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	spread_increase_step = 3
 	spread_restore_duration = 1 SECONDS
 
+/datum/gun_accuracy/pistol/uplink
+	head = 80
+	chest = 100
+	arms = 75
+	legs = 75
+	hands = 60
+	foots = 60
+	other = 60
+	min_spread = 2
+	max_spread = 10
+	spread_increase_step = 2
+	spread_restore_duration = 1 SECONDS
 
 /datum/gun_accuracy/rifle
 	head = 90
@@ -140,8 +157,27 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	dual_wield_spread = 24
 	min_spread = 0
 	max_spread = 12
-	spread_increase_step = 3
+	spread_increase_step = 2
 	spread_restore_duration = 1 SECONDS
+
+/datum/gun_accuracy/rifle/laser
+	max_spread = 6
+
+/datum/gun_accuracy/rifle/uplink
+	head = 95
+	chest = 150
+	arms = 85
+	legs = 85
+	hands = 75
+	foots = 75
+	other = 75
+	min_spread = 1
+	max_spread = 8
+	spread_increase_step = 1
+	spread_restore_duration = 1 SECONDS
+
+/datum/gun_accuracy/rifle/laser
+	max_spread = 6
 
 // min accuracy on range 12 is 50%, summary accuracy = 50% * 200% = 100%
 /datum/gun_accuracy/sniper
@@ -172,7 +208,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 
 /datum/gun_accuracy/pistol/extends_spread
 	min_spread = 10
-	max_spread = 20
+	max_spread = 23
 
 // MARK: Procs
 

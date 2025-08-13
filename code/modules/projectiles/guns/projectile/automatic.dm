@@ -114,7 +114,7 @@
 	can_bayonet = TRUE
 	bayonet_x_offset = 26
 	bayonet_y_offset = 12
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	recoil = GUN_RECOIL_MEDIUM
 
 
@@ -261,7 +261,7 @@ TODO Use this name and desc for localisation*/
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
 	fire_delay = 2
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	recoil = GUN_RECOIL_MEDIUM
 
 
@@ -509,7 +509,7 @@ TODO Use this name and desc for localisation*/
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 2
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 	recoil = GUN_RECOIL_MIN
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
@@ -529,7 +529,7 @@ TODO Use this name and desc for localisation*/
 	can_suppress = 0
 	burst_size = 1
 	actions_types = null
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 	recoil = GUN_RECOIL_MIN
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()

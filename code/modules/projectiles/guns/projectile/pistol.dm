@@ -14,7 +14,7 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_LOW
 
 
@@ -31,7 +31,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m45
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
 	can_suppress = FALSE
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_LOW
 
 
@@ -224,7 +224,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
 	can_suppress = FALSE
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_HIGH
 
 
@@ -254,5 +254,5 @@
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEDIUM

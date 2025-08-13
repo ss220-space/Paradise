@@ -33,7 +33,7 @@
 	desc = "An integrated hybrid taser that draws directly from a cyborg's power cell. The weapon contains a limiter to prevent the cyborg's power cell from overheating."
 	can_flashlight = FALSE
 	can_charge = FALSE
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 /obj/item/gun/energy/gun/advtaser/cyborg/newshot()
 	..()
@@ -54,7 +54,7 @@
 	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/cyborg)
 	can_charge = FALSE
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 /obj/item/gun/energy/disabler/cyborg/newshot()
 	..()
