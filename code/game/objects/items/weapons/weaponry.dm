@@ -359,7 +359,7 @@
 		// Covers: revenant, bot/mulebot, hostile/statue, hostile/megafauna, goliath
 		return .
 	if(!homerun_always_charged)
-		target.Weaken(1 SECONDS)
+		target.Knockdown(1 SECONDS)
 	next_throw_time = world.time + 10 SECONDS
 
 
