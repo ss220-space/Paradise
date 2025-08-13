@@ -31,24 +31,12 @@
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
-	sprite_sheets_inhand = list(SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
+	sprite_sheets_inhand = list(SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/gloves.dmi') // To stop skrell stabbing themselves in the head
 
 
 /obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-
-
-/obj/item/melee/cultblade/ComponentInitialize()
-	. = ..()
-	AddComponent( \
-		/datum/component/cleave_attack, \
-		arc_size = 180, \
-		swing_speed_mod = 2, \
-		afterswing_slowdown = 0.25, \
-		slowdown_duration = 0.75 SECONDS, \
-		swing_sound = "blade_swing_heavy" \
-	)
 
 
 /obj/item/melee/cultblade/update_icon_state()
@@ -149,7 +137,7 @@
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 		)
 
 /obj/item/clothing/suit/space/cult
