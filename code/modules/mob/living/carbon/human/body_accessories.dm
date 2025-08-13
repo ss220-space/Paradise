@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 
 //Tails
 /datum/body_accessory/tail
-	icon = 'icons/mob/clothing/body_accessory.dmi'
+	icon = 'icons/mob/mob.dmi'
 	animated_icon = 'icons/mob/clothing/body_accessory.dmi'
 	blend_mode = ICON_ADD
 	icon_state = "null"
