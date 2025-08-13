@@ -74,14 +74,14 @@ MEDICAL
 	examine_extensions = EXAMINE_HUD_MEDICAL
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/health/night
@@ -125,14 +125,14 @@ MEDICAL
 	actions_types = list(/datum/action/item_action/toggle)
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/health/tajblind/sunglasses
@@ -170,9 +170,9 @@ MEDICAL
 	icon_state = "monohudmed"
 	item_state = "monohud"
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi'
 	)
 
 /*
@@ -187,14 +187,14 @@ DIAGNOSTIC
 	HUDType = DATA_HUD_DIAGNOSTIC
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/diagnostic/patch
@@ -265,9 +265,9 @@ DIAGNOSTIC
 	icon_state = "monohuddiag"
 	item_state = "monohud"
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi'
 	)
 
 /*
@@ -284,14 +284,14 @@ SECURITY
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/security/patch
@@ -326,14 +326,14 @@ SECURITY
 	tint = 1
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 	)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/heart
@@ -356,14 +356,14 @@ SECURITY
 	actions_types = list(/datum/action/item_action/toggle)
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 	)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/tacticool/attack_self(mob/user)
@@ -399,12 +399,12 @@ SECURITY
 	actions_types = list(/datum/action/item_action/toggle)
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/tajblind/attack_self(mob/user)
@@ -433,9 +433,9 @@ SECURITY
 	icon_state = "monohudsec"
 	item_state = "monohud"
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi'
 	)
 
 /*
@@ -449,14 +449,14 @@ HYDROPONIC
 	HUDType = DATA_HUD_HYDROPONIC
 	examine_extensions = EXAMINE_HUD_BOTANY
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/hydroponic/patch
@@ -526,9 +526,9 @@ HYDROPONIC
 	icon_state = "monohudhydro"
 	item_state = "monohud"
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi'
 	)
 
 /*
@@ -543,14 +543,14 @@ SKILLS
 	HUDType = DATA_HUD_SECURITY_BASIC
 	examine_extensions = EXAMINE_HUD_SKILLS
 	sprite_sheets = list(
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_GREY  = 'icons/mob/clothing/species/grey/eyes.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_GREY  = 'icons/mob/clothing/species/grey/glasses.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 	)
 
 /obj/item/clothing/glasses/hud/skills/patch
@@ -575,14 +575,14 @@ SKILLS
 	tint = 1
 	prescription_upgradable = TRUE
 	sprite_sheets = list(
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_GREY  = 'icons/mob/clothing/species/grey/eyes.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_GREY  = 'icons/mob/clothing/species/grey/glasses.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 	)
 
 /obj/item/clothing/glasses/hud/skills/tajblind
@@ -635,14 +635,14 @@ SKILLS
 	icon_state = "sunhudcap"
 	item_state = "sunhudcap"
 	sprite_sheets = list(
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_GREY  = 'icons/mob/clothing/species/grey/eyes.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_GREY  = 'icons/mob/clothing/species/grey/glasses.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 	)
 
 /obj/item/clothing/glasses/hud/blueshield/attack_self(mob/user)
@@ -684,7 +684,7 @@ SKILLS
 	icon_state = "monohudskill"
 	item_state = "monohud"
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi'
 	)

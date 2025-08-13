@@ -3,14 +3,14 @@
 /obj/item/clothing/accessory/necklace/gem
 	name = "gem necklace"
 	desc = "A simple necklace with a slot for gem."
-	icon = 'icons/obj/clothing/jewelry.dmi'
+	icon = 'icons/obj/clothing/ties.dmi'
 	icon_state = "gem_necklace"
 	item_state = "gem_necklace"
 	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_ACCESSORY //trust me, I am 100% triplechecked this
 	allow_duplicates = FALSE
 	var/obj/item/gem/gem = null
 	onmob_sheets = list(
-		ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/jewelry.dmi'
+		ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/accessory.dmi'
 	)
 	var/dragon_power = FALSE //user get additional bonuses for using draconic amber
 	light_on = FALSE
@@ -189,11 +189,11 @@
 /obj/item/clothing/gloves/jewelry_bracers
 	name = "gem bracers"
 	desc = "A simple golden bracers with a slot for gems."
-	icon = 'icons/obj/clothing/jewelry.dmi'
+	icon = 'icons/obj/clothing/ties.dmi'
 	icon_state = "gem_bracers"
 	item_state = "gem_bracers"
 	onmob_sheets = list(
-		ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/jewelry.dmi'
+		ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/accessory.dmi'
 	)
 	var/obj/item/gem/gem = null
 	transfer_prints = TRUE

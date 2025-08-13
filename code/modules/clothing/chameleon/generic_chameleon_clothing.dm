@@ -84,14 +84,14 @@ do { \
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/glasses.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi',
 	)
 
 
