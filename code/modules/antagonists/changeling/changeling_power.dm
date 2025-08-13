@@ -1,6 +1,7 @@
 /// List of all items changeling can get through his powers. Update if needed.
 GLOBAL_LIST_INIT(changeling_mutations, list(
-	/obj/item/melee/arm_blade,
+	/obj/item/melee/changeling/arm_blade,
+	/obj/item/melee/changeling/fleshy_maul,
 	/obj/item/gun/magic/tentacle,
 	/obj/item/shield/changeling,
 	/obj/item/clothing/suit/space/changeling,

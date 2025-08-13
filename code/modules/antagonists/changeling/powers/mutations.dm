@@ -144,12 +144,12 @@
 	chemical_cost = 10
 	genetic_damage = 10
 	max_genetic_damage = 20
-	weapon_type = /obj/item/melee/arm_blade
-	weapon_check_type = /obj/item/melee/arm_blade
+	weapon_type = /obj/item/melee/changeling/arm_blade
+	weapon_check_type = /obj/item/melee/changeling // so we can't have maul and armblade at the same time
 	weapon_name_simple = "blade"
 
 
-/obj/item/melee/arm_blade
+/obj/item/melee/changeling/arm_blade
 	name = "arm blade"
 	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter"
 	icon_state = "arm_blade"
@@ -171,21 +171,34 @@
 	var/datum/action/changeling/weapon/parent_action
 
 
-/obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
+/obj/item/melee/changeling/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	parent_action = new_parent_action
 
 
-/obj/item/melee/arm_blade/Destroy()
-	if(parent_action)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
-		parent_action = null
-	return ..()
+/obj/item/melee/changeling/arm_blade/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_sound = "blade_swing_light" \
+	)
 
 
-/obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/melee/changeling/arm_blade/Destroy()
+	. = ..()
+
+	if(!parent_action)
+		return
+
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+	parent_action = null
+
+
+/obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+
 	if(!proximity)
 		return
 
@@ -234,24 +247,65 @@
 	chemical_cost = 10
 	genetic_damage = 10
 	max_genetic_damage = 20
-	weapon_type = /obj/item/melee/arm_blade/fleshy_maul
-	weapon_check_type = /obj/item/melee/arm_blade
+	weapon_type = /obj/item/melee/changeling/fleshy_maul
+	weapon_check_type = /obj/item/melee/changeling
 	weapon_name_simple = "maul"
 
-/obj/item/melee/arm_blade/fleshy_maul
+
+/obj/item/melee/changeling/fleshy_maul
 	name = "fleshy maul"
 	desc = "An enormous maul made out of bone and flesh that crushes limbs in the dust"
 	icon_state = "flesh_maul"
 	item_state = "flesh_maul"
+	item_flags = ABSTRACT|DROPDEL
+	slot_flags = NONE
+	w_class = WEIGHT_CLASS_HUGE
 	sharp = FALSE
 	force = 25
 	block_chance = 0
 	armour_penetration = 35
 	hitsound = "swing_hit"
+	throwforce = 0
+	throw_range = 0
+	throw_speed = 0
 	gender = MALE
 	ru_names = list(NOMINATIVE = "молот из плоти", GENITIVE = "молота из плоти", DATIVE = "молоту из плоти", ACCUSATIVE = "молот из плоти", INSTRUMENTAL = "молотом из плоти", PREPOSITIONAL = "молоте из плоти")
+	var/datum/action/changeling/weapon/parent_action
 
-/obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity, params)
+
+
+/obj/item/melee/changeling/fleshy_maul/Initialize(mapload, silent, new_parent_action)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
+	parent_action = new_parent_action
+
+
+/obj/item/melee/changeling/fleshy_maul/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.3, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy", \
+	)
+
+
+/obj/item/melee/changeling/fleshy_maul/Destroy()
+	. = ..()
+
+	if(!parent_action)
+		return
+
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+	parent_action = null
+
+
+/obj/item/melee/changeling/fleshy_maul/afterattack(atom/target, mob/living/user, proximity, params)
+	. = ..()
+
 	if(!proximity)
 		return
 
@@ -279,11 +333,13 @@
 			if(O.brute_dam > 20)
 				O.fracture()
 
-/obj/item/melee/arm_blade/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
+
+/obj/item/melee/changeling/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
 	if(target && !iscarbon(hit_atom) && hit_atom.density)
 		target.Weaken(1 SECONDS)
 
-/obj/item/melee/arm_blade/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
+
+/obj/item/melee/changeling/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
 	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
 
 
