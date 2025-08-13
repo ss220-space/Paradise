@@ -89,7 +89,7 @@
 	item_state = "o_suit"
 	item_color = "orange"
 
-/obj/item/clothing/under/color/orange/prison 
+/obj/item/clothing/under/color/orange/prison
 	name = "old prison jumpsuit"
 	ru_names = list(
 		NOMINATIVE = "старый тюремный комбинезон",
@@ -99,7 +99,7 @@
 		INSTRUMENTAL = "старым тюремным комбинезоном",
 		PREPOSITIONAL = "старом тюремном комбинезоне"
 	)
-	desc = "Старая одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания." 
+	desc = "Старая одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
 	icon_state = "orange"
 	item_state = "o_suit"
 	item_color = "orange"
@@ -163,12 +163,12 @@
 	item_color = "psyche"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/jumpsuit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/jumpsuit.dmi'
 		)
 
 /obj/item/clothing/under/color/lightblue

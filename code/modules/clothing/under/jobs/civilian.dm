@@ -179,14 +179,14 @@
 	item_state = "g_suit"
 	item_color = "hydroponicsf"
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/jumpsuit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/jumpsuit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/jumpsuit.dmi'
 		)
 
 /obj/item/clothing/under/rank/internalaffairs

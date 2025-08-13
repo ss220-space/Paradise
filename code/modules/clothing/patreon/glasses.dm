@@ -9,12 +9,12 @@
 	item_state = "gar"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/glasses.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 		)
 
 
