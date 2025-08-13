@@ -1690,7 +1690,7 @@
 	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi')
+	sprite_sheets = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/jumpsuit.dmi')
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kikeridress"
 	item_state = "kikeridress"
