@@ -10,7 +10,7 @@
 	ammo_x_offset = 3
 	flight_x_offset = 15
 	flight_y_offset = 10
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
@@ -118,7 +118,7 @@
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 /obj/item/gun/energy/gun/minigun
 	name = "Laser gatling gun"

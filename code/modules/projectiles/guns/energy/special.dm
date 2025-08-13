@@ -19,7 +19,7 @@
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -34,7 +34,7 @@
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 // Decloner //
 /obj/item/gun/energy/decloner
@@ -106,6 +106,7 @@
 	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
 	selfcharge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -502,7 +503,7 @@
 
 	var/emagged = FALSE			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
@@ -783,7 +784,7 @@
 	cell_type = /obj/item/stock_parts/cell/emittergun
 	ammo_type = list(/obj/item/ammo_casing/energy/emittergun)
 	can_charge = TRUE
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_MINIMAL
 
 // Shield breaker //
 
