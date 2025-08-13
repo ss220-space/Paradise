@@ -692,6 +692,12 @@
 #define COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK "living_check_incapacitate"
 	#define COMPONENT_NO_EFFECT (1<<0) //For all of them
 
+///From base of mob/living/MobBump() (mob/living)
+#define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
+
+///From mob/living/carbon/human/update_inv_back()
+#define	COMSIG_HUMAN_UPDATE_BACK "human_update_back"
+
 /// Sent to a mob grabbing another mob: (mob/living/grabbing)
 #define COMSIG_LIVING_GRAB "living_grab"
 	// Return COMPONENT_CANCEL_ATTACK_CHAIN to stop the grab
@@ -1450,3 +1456,7 @@
 	#define CONTAINER_INSERT_FAILED (1<<1)
 
 #define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"
+
+//Reagent
+///from base of atom/expose_reagents(): (/list, /datum/reagents, chemholder, volume_modifier)
+#define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
