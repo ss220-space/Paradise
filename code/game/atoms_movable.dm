@@ -501,14 +501,12 @@
 
 	var/list/new_locs
 	if(is_multi_tile && isturf(newloc))
+		var/dx = newloc.x
+		var/dy = newloc.y
+		var/dz = newloc.z
 		new_locs = block(
-			newloc.x,
-			newloc.y,
-			newloc.z,
-			min(world.maxx, newloc.x + (CEILING(bound_width / ICON_SIZE_X, 1) - 1)),
-			min(world.maxy, newloc.y + (CEILING(bound_height / ICON_SIZE_Y, 1) - 1)),
-			newloc.z
-		)	// If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
+			dx + ceil(bound_width / ICON_SIZE_X), dy + ceil(bound_height / ICON_SIZE_Y), dz
+		) // If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
 		for(var/atom/entering_loc as anything in new_locs)
 			if(!entering_loc.Enter(src))
 				return .
@@ -846,13 +844,12 @@
 
 		if(!same_loc)
 			if(is_multi_tile && isturf(destination))
+				var/dx = destination.x
+				var/dy = destination.y
+				var/dz = destination.z
 				var/list/new_locs = block(
-					destination.x,
-					destination.y,
-					destination.z,
-					min(world.maxx, destination.x + (CEILING(bound_width / ICON_SIZE_X, 1) - 1)),
-					min(world.maxy, destination.y + (CEILING(bound_height / ICON_SIZE_Y, 1) - 1)),
-					destination.z
+					dx, dy, dz,
+					dx + ROUND_UP(bound_width / ICON_SIZE_X), dy + ROUND_UP(bound_height / ICON_SIZE_Y), dz
 				)
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, destarea)

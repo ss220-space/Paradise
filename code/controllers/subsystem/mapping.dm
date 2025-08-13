@@ -577,15 +577,16 @@ SUBSYSTEM_DEF(mapping)
 	var/my_z = GLOB.space_manager.add_new_zlevel(RESERVED_ZONE+" #[num_of_res_levels]", linkage = UNAFFECTED, traits = list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC, RESERVED_LEVEL))
 	UNTIL(!clearing_reserved_turfs) //regardless, lets add a check just in case.
 	clearing_reserved_turfs = TRUE //This operation will likely clear any existing reservations, so lets make sure nothing tries to make one while we're doing it.
-	var/turf/A = get_turf(locate(SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, my_z))
-	var/turf/B = get_turf(locate(world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, my_z))
-	var/block = block(A, B)
-	for(var/turf/T in block)
+	var/list/reserved_block = block(
+		SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, my_z,
+		world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, my_z
+	)
+	for(var/turf/T as anything in reserved_block)
 		// No need to empty() these, because it's world init and they're already /turf/space.
 		T.turf_flags |= UNUSED_RESERVATION_TURF
 		CHECK_TICK
 
-	unused_turfs["[my_z]"] = block
+	unused_turfs["[my_z]"] = reserved_block
 	reservation_ready["[my_z]"] = TRUE
 	clearing_reserved_turfs = FALSE
 
