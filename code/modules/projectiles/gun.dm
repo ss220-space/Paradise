@@ -123,6 +123,8 @@
 /obj/item/gun/Destroy()
 	QDEL_NULL(gun_light)
 	QDEL_NULL(bayonet)
+	QDEL_NULL(accuracy)
+	QDEL_NULL(recoil)
 	return ..()
 
 
