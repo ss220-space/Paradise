@@ -808,7 +808,7 @@
 	assignedrole = "Space Bar Patron"
 
 /obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user)
-	var/despawn = tgui_alert(usr, "Вернуться в криосон? (Внимание, ваш персонаж будет удалён!)", "Выход", list("Да", "Нет"))
+	var/despawn = tgui_alert("Вернуться в криосон? (Внимание, ваш персонаж будет удалён!)", "Выход", list("Да", "Нет"))
 	if(despawn == "Нет" || !loc || !Adjacent(user))
 		return
 	user.visible_message(span_notice("[user.name] возвращается в криокамеру..."))
@@ -850,7 +850,7 @@
 /obj/effect/mob_spawn/human/corpse/tacticool
 	mob_type = /mob/living/carbon/human
 	name = "Tacticool corpse"
-	icon = 'icons/mob/clothing/uniform.dmi'
+	icon = 'icons/mob/clothing/jumpsuit.dmi'
 	icon_state = "tactifool_s"
 	mob_name = "Unknown"
 	random = TRUE

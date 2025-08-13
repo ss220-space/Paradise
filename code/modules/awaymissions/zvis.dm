@@ -242,17 +242,17 @@
 	var/width = radius + (distance * frustrum)
 	switch(dir)
 		if(NORTH)
-			pixel_x = -width * ICON_SIZE_X
-			pixel_y = ICON_SIZE_Y
+			pixel_x = -width * world.icon_size
+			pixel_y = world.icon_size
 		if(SOUTH)
-			pixel_x = -width * ICON_SIZE_X
-			pixel_y = -distance * ICON_SIZE_Y - ICON_SIZE_Y
+			pixel_x = -width * world.icon_size
+			pixel_y = -distance * world.icon_size - world.icon_size
 		if(WEST)
-			pixel_x = -distance * ICON_SIZE_X - ICON_SIZE_X
-			pixel_y = -width * ICON_SIZE_Y
+			pixel_x = -distance * world.icon_size - world.icon_size
+			pixel_y = -width * world.icon_size
 		if(EAST)
-			pixel_x = ICON_SIZE_X
-			pixel_y = -width * ICON_SIZE_Y
+			pixel_x = world.icon_size
+			pixel_y = -width * world.icon_size
 
 /obj/effect/visual_portal/Bumped(atom/movable/moving_atom)
 	. = ..()
