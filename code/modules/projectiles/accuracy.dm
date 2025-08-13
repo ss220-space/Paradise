@@ -14,7 +14,6 @@
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
 GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
-GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAULT)
 
 //MARK: Accuracy datum
 /datum/gun_accuracy
