@@ -311,6 +311,13 @@
 	icon_state = "darkredcorners"
 	},
 /area/syndicate_mothership/elite_squad)
+"aeI" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "aeQ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
@@ -323,6 +330,13 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
+"afN" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "afP" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/supply)
@@ -681,6 +695,11 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
+"alD" = (
+/turf/simulated/wall/indestructible/flesh{
+	icon_state = "flesh_wall-9"
+	},
+/area/centcom/heretic_sacrifice/flesh)
 "alF" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -1401,6 +1420,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
+"aCb" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "aCe" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -1438,6 +1467,13 @@
 /obj/item/flag/nt,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone3)
+"aCX" = (
+/obj/structure/flora/junglebush/large,
+/obj/structure/decorative_structures/corpse{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "aDf" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/red/line{
@@ -2056,6 +2092,15 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
+"aPB" = (
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "aPL" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2459,6 +2504,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/supply)
+"bbr" = (
+/obj/structure/decorative_structures/corpse{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/flesh,
+/area/centcom/heretic_sacrifice/flesh)
 "bbv" = (
 /obj/item/gun/energy/sniperrifle,
 /obj/item/gun/energy/sniperrifle,
@@ -2484,6 +2535,10 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
+"bbG" = (
+/obj/structure/bookcase,
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "bbR" = (
 /obj/machinery/light{
 	dir = 1
@@ -2529,6 +2584,10 @@
 	icon_state = "podfloor_dark"
 	},
 /area/shuttle/administration)
+"bcH" = (
+/obj/structure/flora/ausbushes/grassybush,
+/turf/simulated/wall/indestructible/invisible,
+/area/centcom/heretic_sacrifice/blade)
 "bdh" = (
 /obj/structure/chair,
 /obj/effect/landmark/voxstart,
@@ -2810,6 +2869,11 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/syndicate_mothership/control)
+"bjd" = (
+/turf/simulated/wall/indestructible/flesh{
+	icon_state = "flesh_wall-3"
+	},
+/area/centcom/heretic_sacrifice/flesh)
 "bje" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -2948,6 +3012,16 @@
 	icon_state = "white"
 	},
 /area/centcom/zone1)
+"blG" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "blN" = (
 /obj/effect/turf_decal/number/number_1{
 	dir = 4
@@ -3067,6 +3141,14 @@
 	name = "floor"
 	},
 /area/vox_station)
+"bqn" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/ash,
+/obj/structure/torch_holder/mapping{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "bqB" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/shuttle,
@@ -3098,6 +3180,10 @@
 	icon_state = "white"
 	},
 /area/centcom/jail)
+"bsi" = (
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "bsK" = (
 /obj/item/reagent_containers/food/drinks/bottle/vodka{
 	pixel_x = -8;
@@ -3109,6 +3195,9 @@
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
+"btm" = (
+/turf/simulated/wall/indestructible/invisible,
+/area/centcom/heretic_sacrifice/cosmic)
 "btN" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -3315,6 +3404,14 @@
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
+"byk" = (
+/obj/item/organ/external/foot,
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/decorative_structures/corpse{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "byz" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -3636,6 +3733,11 @@
 	tag = "icon-stage_stairs"
 	},
 /area/ninja/holding)
+"bDS" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/flora/rock/lava1,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "bDZ" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
@@ -3968,6 +4070,12 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"bPD" = (
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/lock)
 "bPG" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/siding/yellow{
@@ -4361,6 +4469,14 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
+"bXJ" = (
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/block/cracked,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "bYb" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/indestructible/snow,
@@ -4502,6 +4618,12 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
+"cct" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 5
+	},
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/void)
 "ccA" = (
 /obj/machinery/porta_turret/syndicate,
 /obj/structure/lattice/catwalk,
@@ -4545,6 +4667,15 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
+"cdI" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "cdW" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
@@ -4642,6 +4773,24 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/jail)
+"cgd" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 10;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/punji_sticks/spike,
+/obj/item/organ/external/leg,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "cgt" = (
 /obj/structure/chair/sofa{
 	dir = 6
@@ -5308,6 +5457,10 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/vox,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
+"ctT" = (
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "cuf" = (
 /obj/machinery/vending/cigarette/free,
 /obj/structure/curtain/black{
@@ -5420,6 +5573,14 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
+"cxv" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "cxA" = (
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
@@ -5550,6 +5711,13 @@
 	name = "floor"
 	},
 /area/vox_station)
+"cyq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flashlight/flare/glowstick/yellow{
+	on = 1
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "cyz" = (
 /obj/structure/window/reinforced/tinted{
 	dir = 1
@@ -5618,6 +5786,10 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/supplypod/loading/four)
+"cAh" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel,
+/area/centcom/heretic_sacrifice/rust)
 "cAA" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel{
@@ -5634,6 +5806,21 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/supplypod/loading/three)
+"cBi" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "cBk" = (
 /obj/structure/sign/poster/official/ue_no,
 /turf/simulated/wall/indestructible/sandstone,
@@ -5746,6 +5933,15 @@
 	icon_state = "floorgrime"
 	},
 /area/ninja/holding)
+"cEz" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "cEE" = (
 /obj/structure/table/wood,
 /obj/item/toy/figure/librarian,
@@ -5968,6 +6164,10 @@
 	name = "floor"
 	},
 /area/vox_station)
+"cJO" = (
+/obj/effect/landmark/heretic/flesh,
+/turf/simulated/floor/indestructible/flesh,
+/area/centcom/heretic_sacrifice/flesh)
 "cKq" = (
 /obj/structure/falsewall/reinforced,
 /turf/simulated/wall/indestructible/reinforced,
@@ -6402,6 +6602,14 @@
 /obj/item/shard,
 /turf/simulated/floor/indestructible/asteroid,
 /area/ninja/outside)
+"cVe" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/center,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "cVs" = (
 /obj/structure/closet/crate{
 	icon_state = "crateopen";
@@ -6485,6 +6693,30 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
+"cXS" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
+"cYa" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "cYf" = (
 /obj/structure/closet/crate/freezer{
 	desc = "A crate.";
@@ -6579,6 +6811,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/supply)
+"cZn" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 10;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "cZK" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "applebush"
@@ -6643,6 +6886,12 @@
 	icon_state = "darkyellowcornersalt"
 	},
 /area/syndicate_mothership/cargo)
+"dbu" = (
+/obj/structure/moon{
+	icon_state = "moon3"
+	},
+/turf/simulated/floor/indestructible/water,
+/area/centcom/heretic_sacrifice/moon)
 "dbO" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -6681,6 +6930,10 @@
 	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
+"ddn" = (
+/obj/structure/flora/junglebush/large,
+/turf/simulated/wall/indestructible/invisible,
+/area/centcom/heretic_sacrifice/blade)
 "ddG" = (
 /obj/structure/table/glass,
 /obj/effect/turf_decal/siding{
@@ -6769,6 +7022,13 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/jail)
+"dfo" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/flora/rock/lava1,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/landmark/heretic,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "dfs" = (
 /turf/simulated/floor/indestructible/beach/coastline{
 	dir = 1;
@@ -6919,6 +7179,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
+"dkb" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "dkg" = (
 /obj/structure/reagent_dispensers/beerkeg{
 	desc = "Собственность Шерлока Субботина"
@@ -6943,6 +7210,10 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"dlC" = (
+/obj/effect/landmark/heretic/void,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/heretic_sacrifice/void)
 "dlL" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel{
@@ -7736,6 +8007,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"dDT" = (
+/obj/structure/flora/junglebush/large,
+/obj/item/kitchen/knife/combat,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "dDW" = (
 /obj/structure/window/reinforced{
 	layer = 2.9
@@ -7866,6 +8143,9 @@
 	icon_state = "podfloor_dark"
 	},
 /area/shuttle/administration)
+"dFY" = (
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/cosmic)
 "dGr" = (
 /obj/item/skeleton/r_arm,
 /turf/simulated/floor/shuttle/objective_check/vox,
@@ -8008,6 +8288,14 @@
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
 /area/ninja/outside)
+"dJW" = (
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "dJX" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -8027,6 +8315,12 @@
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
 /area/ninja/outside)
+"dKW" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "dLC" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -8146,6 +8440,11 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/supply)
+"dOz" = (
+/obj/structure/stone_tile/block,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "dPr" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -8198,6 +8497,10 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/syndicate_mothership/jail)
+"dQN" = (
+/obj/structure/flora/ausbushes/grassybush,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "dQQ" = (
 /obj/structure/closet/secure_closet/cabinet/bar/random_drinks{
 	layer = 3.5
@@ -8378,6 +8681,10 @@
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
+"dUX" = (
+/obj/structure/girder,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "dVa" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/airlock/centcom{
@@ -8582,6 +8889,16 @@
 "dZA" = (
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"dZW" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 10;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "eao" = (
 /obj/structure/window/reinforced,
 /obj/item/flag/species/kidan,
@@ -8988,6 +9305,16 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone2)
+"ehb" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "ehk" = (
 /obj/structure/sign/poster/contraband/revolver{
 	pixel_y = -32
@@ -9258,6 +9585,13 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
+"eqH" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "eqJ" = (
 /obj/structure/railing{
 	dir = 8
@@ -9411,6 +9745,11 @@
 /obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/centcom/zone3)
+"etB" = (
+/obj/structure/punji_sticks/bone,
+/obj/item/organ/external/foot,
+/turf/simulated/floor/indestructible/flesh,
+/area/centcom/heretic_sacrifice/flesh)
 "etK" = (
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
@@ -9465,6 +9804,12 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/ninja/outpost)
+"euO" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5";
+	tag = "icon-wood-broken5"
+	},
+/area/centcom/heretic_sacrifice/lock)
 "euY" = (
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	frequency = 1331;
@@ -9580,6 +9925,9 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"exP" = (
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/heretic_sacrifice/void)
 "eyb" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/zone2)
@@ -9610,6 +9958,10 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"eyN" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "eyZ" = (
 /obj/item/flag/ninja,
 /obj/effect/turf_decal/siding/wood{
@@ -9862,6 +10214,19 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/supplypod/loading/four)
+"eGZ" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 150;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9;
+	opacity = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5";
+	tag = "icon-wood-broken5"
+	},
+/area/centcom/heretic_sacrifice/lock)
 "eHj" = (
 /obj/item/storage/firstaid/ancient{
 	pixel_x = 3;
@@ -10152,6 +10517,10 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
+"eOP" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/wall/indestructible/invisible,
+/area/centcom/heretic_sacrifice/blade)
 "eOT" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -10455,6 +10824,9 @@
 	},
 /turf/simulated/floor/carpet/blue,
 /area/ninja/outpost)
+"eTZ" = (
+/turf/simulated/wall/indestructible/mineral_rock,
+/area/centcom/heretic_sacrifice/rust)
 "eUc" = (
 /obj/item/melee/energy_katana{
 	desc = "Ныне - сломанная собственность синдиката";
@@ -10585,6 +10957,9 @@
 "eYl" = (
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
+"eYm" = (
+/turf/simulated/wall/indestructible,
+/area/centcom/heretic_sacrifice/lock)
 "eYE" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -10603,6 +10978,12 @@
 	icon_state = "darkyellowcornersalt"
 	},
 /area/centcom/zone3)
+"eZj" = (
+/obj/structure/moon{
+	icon_state = "moon4"
+	},
+/turf/simulated/floor/indestructible/water,
+/area/centcom/heretic_sacrifice/moon)
 "eZq" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -10754,6 +11135,11 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"fer" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/stack/ore/glass/basalt,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "feu" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10909,6 +11295,17 @@
 	icon_state = "freezerfloor"
 	},
 /area/centcom/jail)
+"fhU" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "fhX" = (
 /obj/machinery/chem_heater,
 /turf/simulated/floor/plasteel{
@@ -12053,6 +12450,11 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
+"fHd" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "fHe" = (
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
@@ -12079,6 +12481,9 @@
 	icon_state = "darkgrey"
 	},
 /area/syndicate_mothership)
+"fHX" = (
+/turf/simulated/wall/indestructible,
+/area/centcom/heretic_sacrifice/flesh)
 "fHZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -12120,6 +12525,12 @@
 	icon_state = "Dark"
 	},
 /area/centcom/specops)
+"fJr" = (
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 10
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/lock)
 "fJx" = (
 /obj/machinery/light/spot{
 	dir = 4;
@@ -12339,6 +12750,16 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/zone3)
+"fOS" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "fPf" = (
 /obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo2";
@@ -12491,6 +12912,16 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
+"fSa" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 9;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "fSW" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -13102,6 +13533,9 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"geV" = (
+/turf/space,
+/area/centcom/heretic_sacrifice/cosmic)
 "geW" = (
 /obj/item/clothing/glasses/meson{
 	pixel_x = -6;
@@ -13313,6 +13747,12 @@
 	icon_state = "white"
 	},
 /area/centcom/specops)
+"gki" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/heretic/rust,
+/turf/simulated/floor/plasteel,
+/area/centcom/heretic_sacrifice/rust)
 "gkO" = (
 /obj/effect/turf_decal{
 	icon_state = "golden_stripes"
@@ -13627,6 +14067,10 @@
 	},
 /turf/simulated/floor/glass,
 /area/centcom/bridge)
+"gts" = (
+/obj/structure/moon/stars,
+/turf/simulated/floor/indestructible/water,
+/area/centcom/heretic_sacrifice/moon2)
 "gtw" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/syndicate,
@@ -13665,6 +14109,10 @@
 	icon_state = "darkyellowcornersalt"
 	},
 /area/centcom/zone3)
+"guo" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/wall/indestructible/invisible,
+/area/centcom/heretic_sacrifice/blade)
 "guv" = (
 /obj/machinery/vending/dinnerware{
 	req_access = list(102)
@@ -13761,6 +14209,20 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
+"gyp" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "gyV" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -13999,6 +14461,13 @@
 	icon_state = "Dark"
 	},
 /area/shuttle/funeral)
+"gEk" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "gEA" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood/corner{
@@ -14007,6 +14476,13 @@
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/simulated/floor/carpet/green,
 /area/ninja/outpost)
+"gEU" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/torch_holder/mapping{
+	dir = 1
+	},
+/turf/simulated/floor/plating/ironsand,
+/area/centcom/heretic_sacrifice/rust)
 "gFq" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444"
@@ -14074,6 +14550,9 @@
 	icon_state = "white"
 	},
 /area/centcom/zone1)
+"gGx" = (
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/rust)
 "gGM" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -14156,6 +14635,12 @@
 	icon_state = "podfloor_dark"
 	},
 /area/shuttle/administration)
+"gJc" = (
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/lock)
 "gJg" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small,
@@ -14258,6 +14743,10 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone1)
+"gMi" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "gMj" = (
 /obj/machinery/light{
 	dir = 4
@@ -14276,6 +14765,10 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
+"gMA" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/rust)
 "gMB" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -14514,6 +15007,15 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"gSW" = (
+/turf/simulated/wall/indestructible/flesh{
+	icon_state = "flesh_wall-5"
+	},
+/area/centcom/heretic_sacrifice/flesh)
+"gTh" = (
+/obj/structure/moon/stars,
+/turf/simulated/floor/indestructible/water,
+/area/centcom/heretic_sacrifice/moon)
 "gTs" = (
 /obj/machinery/atm{
 	pixel_y = -32
@@ -14685,6 +15187,10 @@
 	icon_state = "asteroid"
 	},
 /area/centcom/evac)
+"gYK" = (
+/obj/structure/flora/junglebush/c,
+/turf/simulated/wall/indestructible/invisible,
+/area/centcom/heretic_sacrifice/blade)
 "gYQ" = (
 /obj/item/book/manual/sop_command,
 /obj/item/book/manual/sop_engineering,
@@ -14914,6 +15420,20 @@
 	icon_state = "rampbottom"
 	},
 /area/ninja/outpost)
+"her" = (
+/obj/structure/target_stake{
+	icon = 'icons/obj/lighting.dmi';
+	icon_state = "lantern";
+	density = 0;
+	light_color = "#FFBF00";
+	light_range = 6;
+	name = "Street lamp"
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
+	},
+/area/centcom/heretic_sacrifice/lock)
 "heZ" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo7"
@@ -15103,6 +15623,10 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"hmv" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/centcom/heretic_sacrifice/rust)
 "hmB" = (
 /obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel{
@@ -15204,6 +15728,19 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/centcom/jail)
+"hqj" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5";
+	tag = "icon-wood-broken5"
+	},
+/area/centcom/heretic_sacrifice/lock)
 "hqm" = (
 /obj/effect/turf_decal/tile{
 	alpha = 128;
@@ -15499,6 +16036,10 @@
 	icon_state = "Dark"
 	},
 /area/shuttle/funeral)
+"hwV" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/rust)
 "hwZ" = (
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_x = -32
@@ -16328,6 +16869,13 @@
 /obj/structure/rack/gunrack,
 /turf/simulated/floor/mineral/bananium,
 /area/centcom/specops)
+"hUM" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "hVd" = (
 /obj/structure/chair{
 	dir = 4
@@ -16461,6 +17009,15 @@
 	icon_state = "white"
 	},
 /area/shuttle/administration)
+"iaA" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "ibs" = (
 /obj/structure/marker_beacon{
 	icon_state = "markerburgundy-on"
@@ -16558,6 +17115,13 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
+"ieF" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "ieK" = (
 /obj/structure/chair/comfy/red{
 	dir = 8
@@ -17044,6 +17608,9 @@
 /obj/item/storage/firstaid/toxin,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
+"iqF" = (
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "iqP" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
 /turf/simulated/floor/plasteel{
@@ -17678,6 +18245,20 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/syndicate_elite)
+"iDB" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "iDG" = (
 /obj/machinery/porta_turret/centcom/pulse{
 	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -17899,6 +18480,9 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"iIc" = (
+/turf/simulated/wall/indestructible/invisible,
+/area/centcom/heretic_sacrifice/blade)
 "iIo" = (
 /obj/effect/turf_decal/arrows/white{
 	dir = 4;
@@ -18269,6 +18853,12 @@
 	icon_state = "fancy-wood-cherry"
 	},
 /area/shuttle/trade/sol)
+"iTa" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
+	},
+/area/centcom/heretic_sacrifice/lock)
 "iTe" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -18969,6 +19559,17 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
+"jkV" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "jkW" = (
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_3)
@@ -19119,6 +19720,13 @@
 	icon_state = "alien12"
 	},
 /area/abductor_ship)
+"jnt" = (
+/obj/structure/bookcase,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
+	},
+/area/centcom/heretic_sacrifice/lock)
 "jnx" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -19530,6 +20138,22 @@
 	},
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
+"jya" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 10;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "jyl" = (
 /obj/machinery/vending/snack,
 /obj/machinery/light/small{
@@ -19683,6 +20307,11 @@
 	icon_state = "rampbottom"
 	},
 /area/centcom/supply)
+"jAZ" = (
+/turf/simulated/wall/indestructible/flesh{
+	icon_state = "flesh_wall-10"
+	},
+/area/centcom/heretic_sacrifice/flesh)
 "jBc" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -20287,6 +20916,14 @@
 	icon_state = "darkredcorners"
 	},
 /area/centcom/specops)
+"jMS" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "jNh" = (
 /obj/effect/turf_decal{
 	dir = 6;
@@ -20482,6 +21119,12 @@
 	name = "floor"
 	},
 /area/syndicate_mothership/outside)
+"jSf" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "jSw" = (
 /turf/simulated/wall/indestructible/rock,
 /area/ninja/holding)
@@ -20515,6 +21158,16 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
+"jTH" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "jTW" = (
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/structure/mirror{
@@ -20693,6 +21346,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"jYF" = (
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/heretic/cosmic,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "jYK" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -20706,6 +21368,20 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"jYP" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 5;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "jYQ" = (
 /turf/simulated/wall/indestructible/abductor{
 	icon_state = "alien11"
@@ -20820,6 +21496,10 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"kct" = (
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/rust)
 "kcI" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo18"
@@ -20994,6 +21674,9 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership/infteam)
+"kfV" = (
+/turf/simulated/wall/indestructible/reinforced,
+/area/centcom/heretic_sacrifice/rust)
 "kgk" = (
 /obj/machinery/door/airlock/hatch{
 	drain_act_protected = 1;
@@ -21340,6 +22023,12 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
+"knf" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "knt" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8;
@@ -21347,6 +22036,16 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/shuttle/trade/sol)
+"knB" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/obj/effect/turf_decal/siding/wood/pallet,
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/lock)
 "knF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -21545,6 +22244,10 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"kqC" = (
+/obj/structure/moon/star,
+/turf/simulated/floor/indestructible/water,
+/area/centcom/heretic_sacrifice/moon2)
 "kqD" = (
 /obj/structure/dresser,
 /turf/simulated/floor/carpet,
@@ -21588,6 +22291,18 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"krM" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/target_stake{
+	icon = 'icons/obj/lighting.dmi';
+	icon_state = "lantern";
+	density = 0;
+	light_color = "#FFBF00";
+	light_range = 6;
+	name = "Street lamp"
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "kse" = (
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
@@ -21597,6 +22312,13 @@
 	icon_state = "light-fancy-wood"
 	},
 /area/centcom/specops)
+"ksp" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "ksB" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood/corner{
@@ -21668,6 +22390,15 @@
 /obj/structure/bed/abductor,
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
+"kuO" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "kuU" = (
 /obj/machinery/door/airlock/shuttle/glass{
 	id_tag = "s_docking_airlock"
@@ -21719,6 +22450,13 @@
 	icon_state = "alien8"
 	},
 /area/abductor_ship)
+"kwi" = (
+/obj/structure/stone_tile/surrounding/cracked,
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center,
+/obj/effect/landmark/heretic/ash,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "kwn" = (
 /obj/structure/falsewall/reinforced,
 /turf/simulated/floor/plasteel{
@@ -22137,6 +22875,11 @@
 	},
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
+"kII" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/rust)
 "kIP" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -22964,6 +23707,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
+"kXA" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "kXF" = (
 /obj/machinery/door_control{
 	color = "#ffcccc";
@@ -23322,6 +24072,11 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
+"lfj" = (
+/obj/structure/flora/junglebush/large,
+/obj/item/melee/claymore,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "lfz" = (
 /obj/effect/turf_decal{
 	dir = 6;
@@ -23587,6 +24342,22 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
+"lln" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 6;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "llv" = (
 /obj/structure/fans/tiny/invisible,
 /obj/machinery/light{
@@ -24101,6 +24872,13 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate_mothership/control)
+"lxG" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "lxP" = (
 /obj/machinery/door/window/brigdoor{
 	color = "#00f700";
@@ -24127,6 +24905,10 @@
 /obj/machinery/vending/syndisnack,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
+"lyt" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/wall/indestructible/invisible,
+/area/centcom/heretic_sacrifice/blade)
 "lyB" = (
 /obj/machinery/door_control{
 	id = "syndicate_elite";
@@ -24235,6 +25017,23 @@
 	},
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
+"lAq" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 6;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/punji_sticks/spike,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "lAH" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -24430,6 +25229,13 @@
 	},
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"lFc" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "lFm" = (
 /obj/machinery/light/small{
 	brightness_range = 6;
@@ -24799,6 +25605,10 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"lMM" = (
+/obj/item/pickaxe,
+/turf/simulated/floor/plating/ironsand,
+/area/centcom/heretic_sacrifice/rust)
 "lMP" = (
 /obj/machinery/vending/suitdispenser,
 /turf/simulated/floor/wood,
@@ -25019,6 +25829,10 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
+"lTc" = (
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "lTg" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -25151,6 +25965,11 @@
 	icon_state = "light-fancy-wood"
 	},
 /area/syndicate_mothership/control)
+"lWS" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "lWT" = (
 /obj/effect/landmark/abductor/agent{
 	team = 2
@@ -26184,6 +27003,12 @@
 	icon_state = "darkgrey"
 	},
 /area/centcom/zone2)
+"msD" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
+	},
+/area/centcom/heretic_sacrifice/lock)
 "msN" = (
 /obj/structure/table,
 /obj/item/storage/box/syndidonkpockets,
@@ -26663,6 +27488,17 @@
 	icon_state = "white"
 	},
 /area/centcom/specops)
+"mCU" = (
+/obj/structure/target_stake{
+	icon = 'icons/obj/lighting.dmi';
+	icon_state = "lantern";
+	density = 0;
+	light_color = "#FFBF00";
+	light_range = 6;
+	name = "Street lamp"
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "mDk" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
@@ -26947,6 +27783,9 @@
 	},
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
+"mGR" = (
+/turf/simulated/floor/indestructible/flesh,
+/area/centcom/heretic_sacrifice/flesh)
 "mHE" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 1
@@ -27329,6 +28168,19 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"mRN" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 150;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9;
+	opacity = 1
+	},
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "mRR" = (
 /obj/item/radio/intercom/specops{
 	pixel_x = 32
@@ -27433,6 +28285,9 @@
 	icon_state = "navybluealtstrip"
 	},
 /area/centcom/specops)
+"mTB" = (
+/turf/simulated/wall/indestructible,
+/area/centcom/heretic_sacrifice/cosmic)
 "mTD" = (
 /obj/effect/turf_decal/caution/stand_clear/red,
 /turf/simulated/floor/plasteel{
@@ -27581,6 +28436,11 @@
 "mVX" = (
 /turf/space,
 /area/space)
+"mWb" = (
+/obj/structure/window/full/shuttle,
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "mWl" = (
 /obj/machinery/syndiepad/receivepad,
 /turf/simulated/floor/carpet,
@@ -27713,6 +28573,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"mXy" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "mXR" = (
 /obj/item/kitchen/utensil/fork{
 	pixel_x = 7
@@ -28403,6 +29272,18 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/ninja/outpost)
+"nlR" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 10;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/punji_sticks/spike,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "nlT" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
@@ -28424,6 +29305,35 @@
 	icon_state = "white"
 	},
 /area/centcom/jail)
+"nlX" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 5;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
+"nmn" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 220;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9;
+	opacity = 1
+	},
+/obj/effect/bump_teleporter{
+	id = "eretikk1";
+	id_target = "eretikk2"
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "nmE" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -28531,6 +29441,9 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"not" = (
+/turf/simulated/wall/indestructible/reinforced/rusted,
+/area/centcom/heretic_sacrifice/rust)
 "nov" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/portable_atmospherics/canister/sleeping_agent{
@@ -29035,6 +29948,13 @@
 	name = "floor"
 	},
 /area/syndicate_mothership/elite_squad)
+"nze" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "nzn" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -29627,6 +30547,12 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/engine,
 /area/centcom/specops)
+"nLV" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/centcom/heretic_sacrifice/rust)
 "nMb" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/central_command/archive/station_reports,
@@ -29723,6 +30649,10 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"nNf" = (
+/obj/effect/decal/snow/clean/edge,
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/void)
 "nNi" = (
 /obj/structure/table/reinforced,
 /obj/machinery/processor{
@@ -29762,6 +30692,12 @@
 	},
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/control)
+"nOP" = (
+/obj/structure/moon{
+	icon_state = "moon2"
+	},
+/turf/simulated/floor/indestructible/water,
+/area/centcom/heretic_sacrifice/moon)
 "nPg" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
@@ -29932,6 +30868,10 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/indestructible/beach/sand,
 /area/syndicate_mothership/outside)
+"nSX" = (
+/obj/effect/landmark/heretic/lock,
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "nTJ" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/pod_4)
@@ -29982,6 +30922,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
+"nUN" = (
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "nVd" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/flashlight/lamp/green{
@@ -30514,6 +31457,16 @@
 	tag = "icon-stage_stairs"
 	},
 /area/centcom/evac)
+"ofp" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "ofy" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -30680,6 +31633,11 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/cargo)
+"ojE" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/rust)
 "okh" = (
 /obj/structure/flora/tree/jungle,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -30999,6 +31957,16 @@
 /obj/machinery/chem_dispenser/beer/upgraded,
 /turf/simulated/floor/carpet/black,
 /area/shuttle/administration)
+"orO" = (
+/obj/structure/flora/tree/jungle/small,
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "osm" = (
 /obj/structure/kitchenspike,
 /obj/effect/turf_decal/tile/neutral{
@@ -31120,6 +32088,20 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
+"oui" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 220;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9;
+	opacity = 1
+	},
+/obj/effect/bump_teleporter{
+	id = "eretik2";
+	id_target = "eretik1"
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "ouC" = (
 /obj/structure/closet/secure_closet/engineering_electrical{
 	req_access = list(159)
@@ -31313,6 +32295,16 @@
 	icon_state = "darkgrey"
 	},
 /area/syndicate_mothership)
+"oxu" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 5;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "oxw" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/security_space_law,
@@ -31760,6 +32752,16 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
+"oKg" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 6;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "oKt" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -32137,6 +33139,12 @@
 "oQV" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/mining)
+"oRe" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
+	},
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/void)
 "oRh" = (
 /obj/machinery/door/airlock/syndicate/cargo/glass{
 	name = "Cargo shuttle control room";
@@ -32531,6 +33539,15 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/supplypod/loading/two)
+"paJ" = (
+/obj/structure/stone_tile/bone,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/structure/torch_holder/mapping,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "pbe" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
@@ -32787,6 +33804,9 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"pkC" = (
+/turf/simulated/wall/indestructible/invisible,
+/area/centcom/heretic_sacrifice/moon)
 "pkS" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -32978,6 +33998,14 @@
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
+"pqt" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/torch_holder/mapping{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/centcom/heretic_sacrifice/rust)
 "pqv" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -33227,6 +34255,9 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/elite_squad)
+"puX" = (
+/turf/simulated/floor/plating/ironsand,
+/area/centcom/heretic_sacrifice/rust)
 "puY" = (
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_4)
@@ -33399,6 +34430,9 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
+"pzC" = (
+/turf/simulated/floor/indestructible/water,
+/area/centcom/heretic_sacrifice/moon)
 "pzN" = (
 /obj/effect/turf_decal/arrows{
 	dir = 4
@@ -33459,6 +34493,13 @@
 	icon_state = "darkjail"
 	},
 /area/syndicate_mothership/jail)
+"pBd" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/torch_holder/mapping{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "pBp" = (
 /obj/machinery/door_control/secure{
 	id = "CC_Armory_ARG";
@@ -33739,6 +34780,21 @@
 	icon_state = "darkfull"
 	},
 /area/centcom/jail)
+"pJc" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 10;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "pJe" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/surgery{
@@ -33927,6 +34983,11 @@
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/addition_goals)
+"pOC" = (
+/turf/simulated/wall/indestructible/flesh{
+	icon_state = "flesh_wall-6"
+	},
+/area/centcom/heretic_sacrifice/flesh)
 "pOE" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -34072,6 +35133,20 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/elite_squad)
+"pRZ" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 220;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9;
+	opacity = 1
+	},
+/obj/effect/bump_teleporter{
+	id = "eretik1";
+	id_target = "eretik2"
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "pSe" = (
 /obj/structure/closet/secure_closet/engineering_electrical{
 	req_access = list(159)
@@ -34410,6 +35485,22 @@
 	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
+"pXE" = (
+/obj/structure/flora/tree/jungle,
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "pXQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants,
@@ -34690,6 +35781,11 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"qfL" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/flora/rock/lava1,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "qfN" = (
 /obj/effect/turf_decal/loading_area/white{
 	dir = 8
@@ -35602,6 +36698,13 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/nt_droppod)
+"qAi" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "qAI" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -36024,6 +37127,9 @@
 /obj/machinery/light,
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
+"qHt" = (
+/turf/simulated/floor/indestructible/asteroid,
+/area/centcom/heretic_sacrifice/cosmic)
 "qHC" = (
 /obj/item/deck/cards/syndicate{
 	pixel_x = -6;
@@ -36369,6 +37475,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/supply)
+"qOB" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "qOC" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -36591,6 +37702,12 @@
 /obj/item/toy/plushie/blue_fox,
 /turf/simulated/floor/plating/airless,
 /area/centcom/zone1)
+"qXc" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 10
+	},
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/void)
 "qXw" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -36779,6 +37896,9 @@
 	icon_state = "darkbluecornersalt"
 	},
 /area/syndicate_mothership/elite_squad)
+"qZx" = (
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "qZO" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/vox_station)
@@ -36820,6 +37940,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/funeral)
+"rbc" = (
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/lock)
 "rbh" = (
 /obj/machinery/computer/cryopod{
 	pixel_y = -32;
@@ -37395,6 +38521,9 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
+"rlI" = (
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/void)
 "rlQ" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -37843,6 +38972,10 @@
 	icon_state = "neutral"
 	},
 /area/centcom/evac)
+"rws" = (
+/obj/structure/lattice,
+/turf/simulated/floor/indestructible/asteroid,
+/area/centcom/heretic_sacrifice/cosmic)
 "rwu" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
@@ -37975,6 +39108,13 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
+"rzW" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "rAb" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 8
@@ -38116,6 +39256,20 @@
 	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
+"rDg" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 220;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9;
+	opacity = 1
+	},
+/obj/effect/bump_teleporter{
+	id = "eretikk2";
+	id_target = "eretikk1"
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "rDm" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/item/paper_bin{
@@ -38166,6 +39320,14 @@
 	},
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"rEt" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/torch_holder/mapping{
+	dir = 1
+	},
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/plating/ironsand,
+/area/centcom/heretic_sacrifice/rust)
 "rFb" = (
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_2)
@@ -38206,6 +39368,16 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"rGo" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "rGt" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -38540,6 +39712,14 @@
 /obj/structure/bush,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"rLX" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/item/stack/ore/glass/basalt,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "rMa" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 8;
@@ -38980,6 +40160,9 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/centcom/zone1)
+"rVn" = (
+/turf/simulated/wall/indestructible/invisible,
+/area/centcom/heretic_sacrifice/void)
 "rVB" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -39042,6 +40225,13 @@
 /obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
+"rWv" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "rWE" = (
 /obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -39075,6 +40265,16 @@
 	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
+"rXA" = (
+/obj/structure/flora/junglebush/large,
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "rXF" = (
 /obj/machinery/light{
 	dir = 4
@@ -39172,6 +40372,13 @@
 /obj/structure/window/full/shuttle/gray,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
+"rZF" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "saq" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Supply Pods Load 1";
@@ -39365,6 +40572,11 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"sfB" = (
+/obj/structure/stone_tile/surrounding/cracked,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "sfK" = (
 /obj/machinery/vending/cigarette/free,
 /obj/effect/turf_decal/tile/neutral{
@@ -39516,6 +40728,13 @@
 	icon_state = "dark"
 	},
 /area/shuttle/syndicate)
+"siJ" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
+	},
+/area/centcom/heretic_sacrifice/lock)
 "siN" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -39631,6 +40850,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"smD" = (
+/obj/item/flashlight/flare/glowstick/yellow{
+	on = 1
+	},
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/cosmic)
 "smH" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo7"
@@ -39649,6 +40874,10 @@
 	icon_state = "warnwhite"
 	},
 /area/centcom/zone1)
+"sna" = (
+/obj/structure/lattice/catwalk,
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/cosmic)
 "snn" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo8"
@@ -39924,6 +41153,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
+"ssF" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/flora/rock/lava1,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "ssL" = (
 /obj/structure/closet/secure_closet/security,
 /obj/item/clothing/mask/balaclava,
@@ -40541,6 +41776,12 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
+"sIO" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 1
+	},
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/void)
 "sIQ" = (
 /obj/machinery/door_control/secure{
 	id = "CC_Supply_Pods";
@@ -40772,6 +42013,10 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
+"sQm" = (
+/obj/structure/decorative_structures/corpse,
+/turf/simulated/floor/indestructible/flesh,
+/area/centcom/heretic_sacrifice/flesh)
 "sQx" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/indestructible/snow,
@@ -40939,6 +42184,27 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/jail)
+"sSO" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "sST" = (
 /obj/structure/closet/crate/syndicate{
 	pixel_y = -2
@@ -41755,11 +43021,31 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/centcom/zone3)
+"tjg" = (
+/obj/structure/orb,
+/turf/simulated/floor/indestructible/flesh,
+/area/centcom/heretic_sacrifice/flesh)
 "tjm" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/syndicate_sit)
+"tjv" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 5;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "tjx" = (
 /obj/machinery/conveyor/inverted{
 	dir = 5;
@@ -42177,6 +43463,10 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"tqU" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/ironsand,
+/area/centcom/heretic_sacrifice/rust)
 "trm" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -42263,6 +43553,13 @@
 /obj/item/flag/syndi,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/control)
+"ttA" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "ttE" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
@@ -42343,6 +43640,10 @@
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"twi" = (
+/obj/structure/flora/junglebush/b,
+/turf/simulated/wall/indestructible/invisible,
+/area/centcom/heretic_sacrifice/blade)
 "twp" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/spacepod,
 /obj/effect/turf_decal/delivery,
@@ -42770,6 +44071,12 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate_mothership/cargo)
+"tEE" = (
+/obj/structure/decorative_structures/corpse{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/flesh,
+/area/centcom/heretic_sacrifice/flesh)
 "tEN" = (
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -42886,6 +44193,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
+"tGN" = (
+/obj/effect/turf_decal/siding/wood/pallet,
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/lock)
 "tHm" = (
 /obj/structure/chair{
 	dir = 1
@@ -43085,6 +44396,37 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
+"tKG" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
+"tKL" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 10;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "tKP" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -43634,6 +44976,13 @@
 "tYd" = (
 /turf/simulated/wall/indestructible/reinforced/rusted,
 /area/vox_station)
+"tYf" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "tYh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -43667,6 +45016,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
+"tYM" = (
+/obj/item/organ/external/arm,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "tZe" = (
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
@@ -43952,6 +45305,13 @@
 	icon_state = "darkyellowalt"
 	},
 /area/centcom/zone3)
+"ufF" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/burnt,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "ufP" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup,
@@ -44007,6 +45367,9 @@
 "ugH" = (
 /turf/simulated/floor/light/colour_cycle/dancefloor_a,
 /area/centcom/zone1)
+"ugJ" = (
+/turf/simulated/wall/indestructible,
+/area/centcom/heretic_sacrifice/ash)
 "ugK" = (
 /obj/machinery/light,
 /obj/machinery/photocopier,
@@ -44081,6 +45444,16 @@
 	icon_state = "warndarkgreyred"
 	},
 /area/syndicate_mothership)
+"uhB" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 150;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9;
+	opacity = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "uhK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
@@ -44721,6 +46094,21 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"uvN" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 5;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "uvO" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -45021,6 +46409,9 @@
 /obj/item/pen/multi/fountain,
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
+"uDu" = (
+/turf/simulated/floor/indestructible/water,
+/area/centcom/heretic_sacrifice/moon2)
 "uDD" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular,
@@ -45242,6 +46633,9 @@
 /obj/item/flag/nt,
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
+"uIh" = (
+/turf/simulated/wall/indestructible,
+/area/centcom/heretic_sacrifice/void)
 "uIy" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -45251,6 +46645,21 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"uJf" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "uJn" = (
 /obj/structure/sign/directions/cargo{
 	dir = 4;
@@ -45296,6 +46705,13 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"uKD" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "uKU" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
 /obj/machinery/door/poddoor/shutters/preopen/invincible{
@@ -45335,6 +46751,11 @@
 	icon_state = "warnwhite"
 	},
 /area/centcom/zone1)
+"uLb" = (
+/obj/structure/moon,
+/obj/effect/landmark/heretic/moon,
+/turf/simulated/floor/indestructible/water,
+/area/centcom/heretic_sacrifice/moon)
 "uLd" = (
 /obj/structure/shuttle/engine/platform{
 	dir = 1;
@@ -45486,6 +46907,10 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/cargo)
+"uME" = (
+/obj/structure/lattice,
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/cosmic)
 "uMQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -45680,6 +47105,9 @@
 	icon_state = "Dark"
 	},
 /area/shuttle/funeral)
+"uPU" = (
+/turf/simulated/wall/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "uQe" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes/brflowers,
@@ -45795,6 +47223,11 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"uSz" = (
+/obj/structure/stone_tile/surrounding/cracked,
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "uSA" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -45956,6 +47389,22 @@
 	icon_state = "warning"
 	},
 /area/shuttle/escape)
+"uVw" = (
+/obj/structure/flora/tree/jungle/small,
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "uVO" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -46007,6 +47456,16 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
+"uWX" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/structure/torch_holder/mapping{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "uXk" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -46075,6 +47534,10 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
+"vae" = (
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/plating/ironsand,
+/area/centcom/heretic_sacrifice/rust)
 "van" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -47027,6 +48490,10 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/specops)
+"vxM" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/lock)
 "vxN" = (
 /obj/item/clothing/head/bearpelt,
 /obj/item/xenos_claw,
@@ -47055,6 +48522,14 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"vxW" = (
+/obj/structure/stone_tile/block/burnt,
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/obj/item/stack/ore/glass/basalt,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "vxY" = (
 /obj/structure/fence/door{
 	color = "#b0b7c6";
@@ -47107,6 +48582,10 @@
 	icon_state = "white"
 	},
 /area/centcom/zone1)
+"vyM" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "vza" = (
 /obj/machinery/status_display/supply_display{
 	pixel_y = 32
@@ -47322,6 +48801,10 @@
 	icon_state = "plastitanium"
 	},
 /area/shuttle/syndicate)
+"vFd" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "vFy" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -47347,6 +48830,12 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"vGK" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
+	},
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/void)
 "vGX" = (
 /obj/item/flashlight/lamp/green{
 	icon = 'icons/obj/library.dmi';
@@ -47463,6 +48952,9 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/bridge)
+"vJn" = (
+/turf/simulated/mineral/random/volcanic/hard/double,
+/area/centcom/heretic_sacrifice/ash)
 "vJp" = (
 /obj/machinery/vending/wallmed{
 	name = "Custom Emergency NanoMed";
@@ -47592,6 +49084,21 @@
 /obj/item/storage/box/zipties,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
+"vMf" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 9;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "vMj" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -47752,6 +49259,19 @@
 "vPe" = (
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
+"vPl" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "vPm" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/carpet,
@@ -47848,6 +49368,11 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"vQr" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/plating/ironsand,
+/area/centcom/heretic_sacrifice/rust)
 "vRi" = (
 /obj/machinery/computer/mech_bay_power_console,
 /obj/effect/decal/cleanable/dirt,
@@ -48160,6 +49685,9 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"vYN" = (
+/turf/simulated/wall/indestructible,
+/area/centcom/heretic_sacrifice/moon)
 "vYT" = (
 /obj/machinery/door_control/secure{
 	id = "SIT_outside";
@@ -48229,6 +49757,16 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"vZH" = (
+/turf/simulated/wall/indestructible,
+/area/centcom/heretic_sacrifice/rust)
+"way" = (
+/obj/structure/torch_holder/mapping{
+	dir = 4
+	},
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/plating/ironsand,
+/area/centcom/heretic_sacrifice/rust)
 "waz" = (
 /obj/structure/window/reinforced{
 	layer = 2.9
@@ -48400,6 +49938,10 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/zone1)
+"wef" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "weC" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	id_tag = "senior_o_shutters"
@@ -48907,6 +50449,14 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"wsb" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "wsI" = (
 /obj/structure/curtain/black{
 	pixel_y = -32
@@ -49412,6 +50962,16 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
+"wEp" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "wEu" = (
 /obj/machinery/light{
 	dir = 4
@@ -49519,6 +51079,12 @@
 /obj/structure/lattice,
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/syndicate)
+"wIY" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "wJl" = (
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
@@ -49570,6 +51136,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
+"wKA" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "wKR" = (
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	frequency = 1331;
@@ -49590,6 +51163,14 @@
 /obj/structure/window/reinforced/tinted,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
+"wLd" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "wLl" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -49717,6 +51298,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"wOj" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/centcom/heretic_sacrifice/blade)
 "wOy" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -49793,6 +51383,13 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
+"wRe" = (
+/obj/structure/stone_tile/block/burnt,
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/centcom/heretic_sacrifice/ash)
 "wRu" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -50236,6 +51833,10 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone1)
+"xag" = (
+/obj/effect/landmark/heretic/blade,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/heretic_sacrifice/blade)
 "xak" = (
 /obj/machinery/light{
 	dir = 1
@@ -50383,6 +51984,10 @@
 	icon_state = "plastitanium"
 	},
 /area/shuttle/syndicate)
+"xby" = (
+/obj/structure/grille,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "xbE" = (
 /obj/effect/turf_decal/number/number_2{
 	dir = 8
@@ -50534,6 +52139,11 @@
 	icon_state = "rampbottom"
 	},
 /area/centcom/supply)
+"xej" = (
+/obj/structure/window/full/shuttle,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/indestructible/plating,
+/area/centcom/heretic_sacrifice/cosmic)
 "xeR" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Emergency Response Team";
@@ -50691,6 +52301,13 @@
 	icon_state = "darkyellowalt"
 	},
 /area/centcom/supply)
+"xhO" = (
+/obj/structure/lattice/catwalk,
+/obj/item/flashlight/flare/glowstick/yellow{
+	on = 1
+	},
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/cosmic)
 "xhP" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
@@ -50709,6 +52326,13 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/bridge)
+"xhW" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "xie" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -51416,6 +53040,18 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"xwQ" = (
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 100;
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/lock)
 "xwS" = (
 /obj/effect/turf_decal{
 	do_not_delete_me = 1;
@@ -51608,6 +53244,11 @@
 	icon_state = "freezerfloor"
 	},
 /area/syndicate_mothership)
+"xBw" = (
+/turf/simulated/wall/indestructible/flesh{
+	icon_state = "flesh_wall-12"
+	},
+/area/centcom/heretic_sacrifice/flesh)
 "xBA" = (
 /obj/structure/lattice,
 /turf/simulated/floor/shuttle/transparent_floor{
@@ -51639,6 +53280,9 @@
 /obj/effect/landmark/syndicate_spawn,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
+"xBW" = (
+/turf/simulated/wall/indestructible/boss,
+/area/centcom/heretic_sacrifice/ash)
 "xCi" = (
 /obj/machinery/porta_turret/syndicate,
 /obj/structure/lattice/catwalk,
@@ -51986,6 +53630,13 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/syndicate_mothership/control)
+"xJS" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "xJZ" = (
 /obj/structure/railing{
 	dir = 8;
@@ -52233,6 +53884,17 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/cargo)
+"xQi" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "xQp" = (
 /obj/effect/turf_decal/box/white/corners{
 	dir = 4
@@ -52465,6 +54127,10 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/vox)
+"xXS" = (
+/obj/structure/punji_sticks/bone,
+/turf/simulated/floor/indestructible/flesh,
+/area/centcom/heretic_sacrifice/flesh)
 "xYl" = (
 /obj/machinery/vending/snack/free,
 /obj/machinery/light{
@@ -60431,46 +62097,46 @@ rRS
 rRS
 "}
 (30,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
 mVX
 mVX
 mVX
@@ -60688,46 +62354,46 @@ rRS
 rRS
 "}
 (31,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+vJn
+vJn
+xBW
+xBW
+xBW
+vJn
+vJn
+xBW
+xBW
+xBW
+xBW
+vJn
+eYm
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -60945,46 +62611,46 @@ rRS
 rRS
 "}
 (32,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+vJn
+hUM
+uKD
+uKD
+uWX
+xhW
+ttA
+ttA
+ttA
+xJS
+rWv
+vJn
+eYm
+bbG
+oui
+uhB
+hqj
+vxM
+vxM
+mCU
+iqF
+iqF
+iqF
+vxM
+iqF
+bbG
+mCU
+iqF
+vxM
+bPD
+iqF
+iqF
+vxM
+vxM
+vxM
+iqF
+iqF
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -61202,46 +62868,46 @@ rRS
 rRS
 "}
 (33,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+xBW
+gEk
+vxW
+ehb
+xQi
+cxv
+vPl
+kuO
+bDS
+knf
+fHd
+xBW
+eYm
+bbG
+rDg
+uhB
+cEz
+iqF
+vxM
+vxM
+vxM
+iTa
+vxM
+iqF
+iqF
+bbG
+vxM
+vxM
+fJr
+rbc
+msD
+bbG
+bbG
+bbG
+bbG
+mCU
+vxM
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -61459,46 +63125,46 @@ rRS
 rRS
 "}
 (34,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+xBW
+gEk
+rzW
+nUN
+ofp
+wsb
+rGo
+fhU
+tYf
+nUN
+paJ
+xBW
+eYm
+bbG
+bbG
+bbG
+bbG
+bbG
+iqF
+bbG
+bbG
+iqF
+iqF
+bbG
+bbG
+bbG
+iqF
+iqF
+bbG
+bbG
+bbG
+bbG
+tGN
+rbc
+iqF
+siJ
+vxM
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -61716,46 +63382,46 @@ rRS
 rRS
 "}
 (35,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+vJn
+lFc
+blG
+dKW
+bDS
+wRe
+ssF
+jkV
+jTH
+kXA
+qOB
+vJn
+eYm
+bbG
+vxM
+vxM
+euO
+bbG
+vxM
+iqF
+iqF
+vxM
+vxM
+vxM
+iqF
+euO
+vxM
+iqF
+bbG
+bPD
+gJc
+bbG
+fJr
+iqF
+vxM
+vxM
+vxM
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -61973,46 +63639,46 @@ rRS
 rRS
 "}
 (36,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+vJn
+vFd
+vFd
+dJW
+cVe
+ieF
+kwi
+nze
+bXJ
+rLX
+lWS
+vJn
+eYm
+bbG
+iqF
+bbG
+vxM
+bbG
+tGN
+vxM
+bbG
+nSX
+iqF
+bbG
+vxM
+vxM
+vxM
+vxM
+bbG
+siJ
+fJr
+bbG
+vxM
+msD
+bbG
+bbG
+bbG
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -62230,46 +63896,46 @@ rRS
 rRS
 "}
 (37,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+xBW
+pBd
+lWS
+vFd
+jMS
+dfo
+wKA
+cXS
+dkb
+qfL
+rZF
+vJn
+eYm
+bbG
+iqF
+bbG
+vxM
+tGN
+gJc
+fJr
+bbG
+iqF
+msD
+bbG
+iqF
+bbG
+vxM
+vxM
+bbG
+iqF
+iqF
+iqF
+vxM
+iqF
+iqF
+vxM
+vxM
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -62487,46 +64153,46 @@ rRS
 rRS
 "}
 (38,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+vJn
+vFd
+vFd
+sfB
+wIY
+wLd
+vFd
+ksp
+wef
+mXy
+dOz
+xBW
+eYm
+bbG
+iqF
+bbG
+vxM
+bbG
+rbc
+bPD
+iqF
+vxM
+vxM
+iqF
+iqF
+bbG
+vxM
+vxM
+bbG
+iqF
+vxM
+vxM
+iqF
+iqF
+mCU
+euO
+iqF
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -62744,46 +64410,46 @@ rRS
 rRS
 "}
 (39,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+vJn
+vFd
+wEp
+ufF
+nUN
+jSf
+dOz
+fer
+ksp
+eqH
+qOB
+xBW
+eYm
+bbG
+msD
+bbG
+iqF
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+iqF
+bbG
+bbG
+krM
+vxM
+bbG
+vxM
+iqF
+bbG
+tGN
+rbc
+bbG
+bbG
+bbG
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -63001,46 +64667,46 @@ rRS
 rRS
 "}
 (40,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+xBW
+vFd
+cdI
+uSz
+aPB
+bDS
+gEk
+vFd
+vFd
+vFd
+vFd
+xBW
+eYm
+bbG
+iqF
+bbG
+iqF
+her
+iqF
+vxM
+vxM
+vxM
+bbG
+vxM
+rbc
+tGN
+vxM
+iqF
+vxM
+vxM
+vxM
+bbG
+vxM
+rbc
+knB
+eGZ
+pRZ
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -63258,46 +64924,46 @@ rRS
 rRS
 "}
 (41,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+xBW
+vFd
+ksp
+lxG
+kXA
+kXA
+qOB
+vFd
+bqn
+vFd
+vFd
+vJn
+eYm
+bbG
+iqF
+vxM
+iqF
+vxM
+iqF
+iqF
+iqF
+iqF
+bbG
+euO
+tGN
+gJc
+bPD
+fJr
+iqF
+iqF
+vxM
+bbG
+iTa
+vxM
+xwQ
+mRN
+nmn
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -63515,46 +65181,46 @@ rRS
 rRS
 "}
 (42,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+vJn
+vJn
+xBW
+xBW
+vJn
+vJn
+xBW
+xBW
+xBW
+xBW
+vJn
+vJn
+eYm
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+jnt
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+bbG
+eYm
 mVX
 mVX
 mVX
@@ -63772,46 +65438,46 @@ rRS
 rRS
 "}
 (43,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+ugJ
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
+eYm
 mVX
 mVX
 mVX
@@ -64029,46 +65695,46 @@ rRS
 rRS
 "}
 (44,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+uPU
+lyt
+lyt
+twi
+lyt
+lyt
+iIc
+eOP
+twi
+gYK
+ddn
+gYK
+lyt
+vZH
+kfV
+kfV
+kfV
+not
+not
+eTZ
+not
+not
+kfV
+not
+kfV
+not
+vZH
 mVX
 mVX
 mVX
@@ -64286,46 +65952,46 @@ rRS
 rRS
 "}
 (45,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+dFY
+dFY
+dFY
+dFY
+dFY
+dFY
+dFY
+dFY
+dFY
+dFY
+btm
+uPU
+lyt
+pXE
+tKL
+iaA
+rXA
+iaA
+iaA
+fOS
+iaA
+iaA
+cBi
+ddn
+vZH
+not
+tqU
+eTZ
+not
+eTZ
+tqU
+tqU
+not
+eTZ
+tqU
+tqU
+eTZ
+vZH
 mVX
 mVX
 mVX
@@ -64543,46 +66209,46 @@ rRS
 rRS
 "}
 (46,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+dFY
+uME
+dFY
+dFY
+mWb
+dFY
+sna
+smD
+dFY
+dFY
+btm
+uPU
+bcH
+iaA
+qZx
+pJc
+uvN
+lTc
+qZx
+vyM
+cgd
+nlX
+fOS
+bcH
+vZH
+kfV
+tqU
+puX
+eTZ
+not
+rEt
+tqU
+puX
+hwV
+puX
+puX
+eTZ
+vZH
 mVX
 mVX
 mVX
@@ -64800,46 +66466,46 @@ rRS
 rRS
 "}
 (47,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+dFY
+sna
+geV
+dFY
+uME
+dFY
+ctT
+xby
+uME
+dFY
+btm
+uPU
+gYK
+iaA
+vyM
+tYM
+cZn
+tjv
+qZx
+qZx
+qZx
+qZx
+iaA
+ddn
+vZH
+not
+puX
+tqU
+tqU
+puX
+lMM
+puX
+nLV
+puX
+way
+not
+eTZ
+vZH
 mVX
 mVX
 mVX
@@ -65057,46 +66723,46 @@ rRS
 rRS
 "}
 (48,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+dFY
+smD
+geV
+geV
+cyq
+rws
+gMi
+dFY
+dFY
+dFY
+btm
+uPU
+ddn
+iaA
+aCX
+qZx
+qZx
+qZx
+jya
+jYP
+qZx
+qZx
+rXA
+lyt
+vZH
+not
+puX
+puX
+puX
+puX
+hwV
+hwV
+puX
+puX
+not
+eTZ
+not
+vZH
 mVX
 mVX
 mVX
@@ -65314,46 +66980,46 @@ rRS
 rRS
 "}
 (49,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+dFY
+dFY
+geV
+dUX
+geV
+jYF
+qAi
+aeI
+dFY
+dFY
+btm
+uPU
+lyt
+iaA
+oKg
+oxu
+qZx
+xag
+qZx
+gyp
+oxu
+vyM
+iaA
+lyt
+vZH
+not
+vae
+puX
+tqU
+gMA
+gki
+hwV
+cAh
+vae
+eTZ
+puX
+not
+vZH
 mVX
 mVX
 mVX
@@ -65571,46 +67237,46 @@ rRS
 rRS
 "}
 (50,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+dFY
+geV
+geV
+geV
+uME
+dUX
+cyq
+afN
+sna
+dFY
+btm
+uPU
+lyt
+tKG
+wOj
+aCb
+dQN
+eyN
+qZx
+dZW
+uJf
+qZx
+iaA
+guo
+vZH
+not
+tqU
+puX
+puX
+tqU
+tqU
+cAh
+kct
+puX
+puX
+tqU
+not
+vZH
 mVX
 mVX
 mVX
@@ -65828,46 +67494,46 @@ rRS
 rRS
 "}
 (51,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+dFY
+dFY
+geV
+xhO
+gMi
+qHt
+rws
+xej
+uME
+smD
+btm
+uPU
+iIc
+orO
+dZW
+iDB
+oxu
+qZx
+qZx
+qZx
+cYa
+lfj
+iaA
+gYK
+vZH
+kfV
+puX
+not
+gEU
+puX
+hmv
+puX
+puX
+puX
+gGx
+tqU
+not
+vZH
 mVX
 mVX
 mVX
@@ -66085,46 +67751,46 @@ rRS
 rRS
 "}
 (52,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+uME
+dFY
+dFY
+dFY
+bsi
+uME
+dFY
+rws
+xby
+dFY
+btm
+uPU
+iIc
+iaA
+qZx
+nlR
+fSa
+qZx
+qZx
+byk
+cYa
+qZx
+fOS
+bcH
+vZH
+not
+puX
+puX
+puX
+kII
+puX
+puX
+puX
+ojE
+pqt
+puX
+not
+vZH
 mVX
 mVX
 mVX
@@ -66342,46 +68008,46 @@ rRS
 rRS
 "}
 (53,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+dFY
+dFY
+dFY
+dFY
+uME
+dFY
+smD
+dFY
+sna
+dFY
+btm
+uPU
+lyt
+iaA
+vyM
+qZx
+qZx
+dDT
+qZx
+lAq
+vMf
+qZx
+iaA
+lyt
+vZH
+not
+eTZ
+puX
+vQr
+puX
+puX
+puX
+puX
+eTZ
+not
+not
+kfV
+vZH
 mVX
 mVX
 mVX
@@ -66599,46 +68265,46 @@ rRS
 rRS
 "}
 (54,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+dFY
+dFY
+dFY
+dFY
+dFY
+dFY
+dFY
+dFY
+dFY
+dFY
+btm
+uPU
+iIc
+uVw
+iaA
+fOS
+iaA
+iaA
+lln
+sSO
+iaA
+fOS
+cBi
+ddn
+vZH
+kfV
+tqU
+tqU
+puX
+not
+tqU
+tqU
+eTZ
+eTZ
+eTZ
+eTZ
+not
+vZH
 mVX
 mVX
 mVX
@@ -66856,46 +68522,46 @@ rRS
 rRS
 "}
 (55,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+mTB
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+btm
+uPU
+twi
+iIc
+ddn
+iIc
+iIc
+eOP
+lyt
+gYK
+ddn
+iIc
+iIc
+eOP
+vZH
+kfV
+kfV
+not
+not
+not
+eTZ
+eTZ
+not
+eTZ
+eTZ
+eTZ
+kfV
+vZH
 mVX
 mVX
 mVX
@@ -67113,46 +68779,46 @@ rRS
 rRS
 "}
 (56,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
 mVX
 mVX
 mVX
@@ -67370,46 +69036,46 @@ rRS
 rRS
 "}
 (57,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+pOC
+bjd
+bjd
+bjd
+bjd
+bjd
+bjd
+bjd
+bjd
+bjd
+bjd
+gSW
+vYN
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+uIh
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -67627,46 +69293,46 @@ rRS
 rRS
 "}
 (58,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+xBw
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+xBw
+vYN
+pkC
+uDu
+uDu
+uDu
+pzC
+gTh
+pzC
+pzC
+pzC
+pzC
+pzC
+pkC
+uIh
+rVn
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -67884,46 +69550,46 @@ rRS
 rRS
 "}
 (59,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+xBw
+sQm
+mGR
+mGR
+xXS
+mGR
+mGR
+mGR
+mGR
+etB
+mGR
+xBw
+vYN
+pkC
+uDu
+kqC
+uDu
+pzC
+pzC
+pzC
+uDu
+uDu
+uDu
+pzC
+pkC
+uIh
+rVn
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -68141,46 +69807,46 @@ rRS
 rRS
 "}
 (60,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+xBw
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+xBw
+vYN
+pkC
+uDu
+uDu
+uDu
+pzC
+pzC
+pzC
+uDu
+kqC
+uDu
+pzC
+pkC
+uIh
+rVn
+rlI
+rlI
+rlI
+oRe
+oRe
+oRe
+rlI
+rlI
+rlI
+rlI
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -68398,46 +70064,46 @@ rRS
 rRS
 "}
 (61,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+xBw
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+xBw
+vYN
+pkC
+pzC
+pzC
+pzC
+pzC
+pzC
+pzC
+uDu
+uDu
+uDu
+pzC
+pkC
+uIh
+rVn
+rlI
+rlI
+nNf
+exP
+exP
+exP
+cct
+rlI
+rlI
+rlI
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -68655,46 +70321,46 @@ rRS
 rRS
 "}
 (62,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+xBw
+mGR
+mGR
+mGR
+mGR
+cJO
+tjg
+mGR
+mGR
+mGR
+mGR
+xBw
+vYN
+pkC
+pzC
+pzC
+pzC
+pzC
+uLb
+dbu
+pzC
+pzC
+pzC
+pzC
+pkC
+uIh
+rVn
+rlI
+rlI
+nNf
+exP
+dlC
+exP
+exP
+sIO
+rlI
+rlI
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -68912,46 +70578,46 @@ rRS
 rRS
 "}
 (63,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+xBw
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+tEE
+mGR
+xBw
+vYN
+pkC
+pzC
+pzC
+pzC
+pzC
+nOP
+eZj
+pzC
+pzC
+pzC
+gTh
+pkC
+uIh
+rVn
+rlI
+rlI
+nNf
+exP
+exP
+exP
+exP
+sIO
+rlI
+rlI
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -69169,46 +70835,46 @@ rRS
 rRS
 "}
 (64,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+xBw
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+xBw
+vYN
+pkC
+pzC
+gts
+uDu
+uDu
+pzC
+pzC
+pzC
+pzC
+pzC
+pzC
+pkC
+uIh
+rVn
+rlI
+rlI
+rlI
+qXc
+exP
+exP
+exP
+sIO
+rlI
+rlI
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -69426,46 +71092,46 @@ rRS
 rRS
 "}
 (65,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+xBw
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+xXS
+mGR
+xBw
+vYN
+pkC
+pzC
+uDu
+kqC
+uDu
+pzC
+pzC
+pzC
+uDu
+uDu
+uDu
+pkC
+uIh
+rVn
+rlI
+rlI
+rlI
+rlI
+vGK
+vGK
+vGK
+rlI
+rlI
+rlI
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -69683,46 +71349,46 @@ rRS
 rRS
 "}
 (66,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+xBw
+mGR
+etB
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+xBw
+vYN
+pkC
+pzC
+uDu
+uDu
+uDu
+pzC
+pzC
+pzC
+uDu
+kqC
+uDu
+pkC
+uIh
+rVn
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -69940,46 +71606,46 @@ rRS
 rRS
 "}
 (67,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+xBw
+mGR
+mGR
+mGR
+bbr
+mGR
+mGR
+mGR
+mGR
+mGR
+mGR
+xBw
+vYN
+pkC
+pzC
+pzC
+pzC
+pzC
+gTh
+pzC
+pzC
+uDu
+uDu
+uDu
+pkC
+uIh
+rVn
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rlI
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -70197,46 +71863,46 @@ rRS
 rRS
 "}
 (68,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+jAZ
+bjd
+bjd
+bjd
+bjd
+bjd
+bjd
+bjd
+bjd
+bjd
+bjd
+alD
+vYN
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+pkC
+uIh
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+rVn
+uIh
 mVX
 mVX
 mVX
@@ -70454,46 +72120,46 @@ rRS
 rRS
 "}
 (69,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+fHX
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+vYN
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
+uIh
 mVX
 mVX
 mVX
