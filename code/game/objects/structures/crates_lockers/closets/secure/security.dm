@@ -128,13 +128,13 @@
 
 /obj/structure/closet/secure_closet/security_grenade_launcher/populate_contents()
 	new /obj/item/gun/projectile/bombarda/secgl(src)
-	new /obj/item/ammo_box/g50mm/solid(src)
-	new /obj/item/ammo_box/g50mm/solid(src)
-	new /obj/item/ammo_box/g50mm/flash(src)
-	new /obj/item/ammo_box/g50mm/flash(src)
-	new /obj/item/ammo_box/g50mm/gas(src)
-	new /obj/item/ammo_box/g50mm/barricade(src)
-	new /obj/item/ammo_box/g50mm/paint(src)
+	new /obj/item/ammo_box/secgl/solid(src)
+	new /obj/item/ammo_box/secgl/solid(src)
+	new /obj/item/ammo_box/secgl/flash(src)
+	new /obj/item/ammo_box/secgl/flash(src)
+	new /obj/item/ammo_box/secgl/gas(src)
+	new /obj/item/ammo_box/secgl/barricade(src)
+	new /obj/item/ammo_box/secgl/paint(src)
 
 
 /obj/structure/closet/secure_closet/security

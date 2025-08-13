@@ -80,7 +80,7 @@
 // MARK: Security GL
 /obj/item/gun/projectile/bombarda/secgl
 	name = "grenade launcher GL-06"
-	desc = "Однозарядный ручной гранатомёт, разработанный специально для сотрудников службы безопасности. Примеяется для подавления беспорядков с помощью нелетальных боеприпасов. Может запускать 50 мм гранаты."
+	desc = "Однозарядный ручной гранатомёт, разработанный специально для сотрудников службы безопасности. Примеяется для подавления беспорядков с помощью нелетальных боеприпасов. Может запускать 40 мм гранаты."
 	ru_names = list(
 		NOMINATIVE = "ручной гранатомет GL-06",
 		GENITIVE = "ручного гранатомета GL-06",
@@ -257,33 +257,33 @@
 // MARK: Sec GL ammo
 /obj/item/ammo_box/magazine/internal/bombarda/secgl
 	name = "security grenade launcher internal magazine"
-	ammo_type = /obj/item/ammo_casing/grenade/g50mm
-	caliber = "50mm"
+	ammo_type = /obj/item/ammo_casing/grenade/a40mm
+	caliber = "40mm"
 	max_ammo = 1
 	insert_sound = 'sound/weapons/bombarda/load.ogg'
 	remove_sound = 'sound/weapons/bombarda/open.ogg'
 	load_sound = 'sound/weapons/bombarda/load.ogg'
 	start_empty = TRUE
 
-/obj/item/ammo_casing/grenade/g50mm
-	name = "50mm grenade"
+/obj/item/ammo_casing/grenade/a40mm/secgl
+	name = "40mm grenade"
 	ru_names = list(
-		NOMINATIVE = "граната (50 мм)",
-		GENITIVE = "гранаты (50 мм)",
-		DATIVE = "гранате (50 мм)",
-		ACCUSATIVE = "гранату (50 мм)",
-		INSTRUMENTAL = "гранатой (50 мм)",
-		PREPOSITIONAL = "гранате (50 мм)"
+		NOMINATIVE = "граната (40 мм)",
+		GENITIVE = "гранаты (40 мм)",
+		DATIVE = "гранате (40 мм)",
+		ACCUSATIVE = "гранату (40 мм)",
+		INSTRUMENTAL = "гранатой (40 мм)",
+		PREPOSITIONAL = "гранате (40 мм)"
 	)
-	desc = "Граната калибра 50 мм."
+	desc = "Граната калибра 40 мм."
 	icon = 'icons/obj/weapons/bombarda.dmi'
 	icon_state = "secgl_solid"
 	item_state = "secgl_solid"
-	caliber = "50mm"
+	caliber = "40mm"
 	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 
-/obj/projectile/grenade/g50mm
+/obj/projectile/grenade/a40mm/secgl
 	icon = 'icons/obj/weapons/bombarda.dmi'
 	hitsound = "bullet"
 	hitsound_wall = "ricochet"
@@ -291,39 +291,30 @@
 	stamina = 15
 	armour_penetration = -30
 
-/obj/item/ammo_box/g50mm
+/obj/item/ammo_box/secgl
 	icon = 'icons/obj/weapons/bombarda.dmi'
-
-	name = "ammo box (40mm grenades)"
-	ru_names = list(
-		NOMINATIVE = "коробка гранат (50 мм)",
-		GENITIVE = "коробки гранат (50 мм)",
-		DATIVE = "коробке гранат (50 мм)",
-		ACCUSATIVE = "коробку гранат (50 мм)",
-		INSTRUMENTAL = "коробкой гранат (50 мм)",
-		PREPOSITIONAL = "коробке гранат (50 мм)"
-	)
 	icon_state = "secgl_box_gas"
-	ammo_type = /obj/item/ammo_casing/grenade/g50mm/solid
-	max_ammo = 5
+	ammo_type = /obj/item/ammo_casing/grenade/a40mm
+	max_ammo = 4
 
 
-/obj/item/ammo_casing/grenade/g50mm/solid
-	name = "50mm grenade (rubber slug)"
+
+/obj/item/ammo_casing/grenade/a40mm/secgl/solid
+	name = "40mm grenade (rubber slug)"
 	ru_names = list(
-		NOMINATIVE = "граната (50 мм цельная резина)",
-		GENITIVE = "гранаты (50 мм цельная резина)",
-		DATIVE = "гранате (50 мм цельная резина)",
-		ACCUSATIVE = "гранату (50 мм цельная резина)",
-		INSTRUMENTAL = "гранатой (50 мм цельная резина)",
-		PREPOSITIONAL = "гранате (50 мм цельная резина)"
+		NOMINATIVE = "граната (40 мм цельная резина)",
+		GENITIVE = "гранаты (40 мм цельная резина)",
+		DATIVE = "гранате (40 мм цельная резина)",
+		ACCUSATIVE = "гранату (40 мм цельная резина)",
+		INSTRUMENTAL = "гранатой (40 мм цельная резина)",
+		PREPOSITIONAL = "гранате (40 мм цельная резина)"
 	)
-	desc = "Граната калибра 50 мм с цельной резиновой пулей. Отлично подходит для нейтрализации активных митингующих из толпы нелетальным способом."
-	projectile_type = /obj/projectile/grenade/g50mm/solid
+	desc = "Граната калибра 40 мм с цельной резиновой пулей. Отлично подходит для нейтрализации активных митингующих из толпы нелетальным способом."
+	projectile_type = /obj/projectile/grenade/a40mm/secgl/solid
 	icon_state = "secgl_solid"
 	item_state = "secgl_solid"
 
-/obj/projectile/grenade/g50mm/solid
+/obj/projectile/grenade/a40mm/secgl/solid
 	icon_state = "secgl_projectile_solid"
 	damage_type = BRUTE
 	damage = 20
@@ -333,40 +324,40 @@
 	min_stamina = 90
 	armour_penetration = -30
 
-/obj/item/ammo_box/g50mm/solid
-	name = "ammo box (50mm solid)"
-	desc = "Коробка, содержащая гранаты с цельной резиновой пулей калибра 50 мм."
+/obj/item/ammo_box/secgl/solid
+	name = "ammo box (40mm solid)"
+	desc = "Коробка, содержащая гранаты с цельной резиновой пулей калибра 40 мм."
 	ru_names = list(
-		NOMINATIVE = "коробка гранат (50 мм цельная резина)",
-		GENITIVE = "коробки гранат (50 мм цельная резина)",
-		DATIVE = "коробке гранат (50 мм цельная резина)",
-		ACCUSATIVE = "коробку гранат (50 мм цельная резина)",
-		INSTRUMENTAL = "коробкой гранат (50 мм цельная резина)",
-		PREPOSITIONAL = "коробке гранат (50 мм цельная резина)"
+		NOMINATIVE = "коробка гранат (40 мм цельная резина)",
+		GENITIVE = "коробки гранат (40 мм цельная резина)",
+		DATIVE = "коробке гранат (40 мм цельная резина)",
+		ACCUSATIVE = "коробку гранат (40 мм цельная резина)",
+		INSTRUMENTAL = "коробкой гранат (40 мм цельная резина)",
+		PREPOSITIONAL = "коробке гранат (40 мм цельная резина)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/g50mm/solid
+	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/solid
 	icon_state = "secgl_box_solid"
 
 
-/obj/item/ammo_casing/grenade/g50mm/flash
-	name = "50mm grenade (flashbang)"
+/obj/item/ammo_casing/grenade/a40mm/secgl/flash
+	name = "40mm grenade (flashbang)"
 	ru_names = list(
-		NOMINATIVE = "граната (50 мм светошумовая)",
-		GENITIVE = "гранаты (50 мм светошумовая)",
-		DATIVE = "гранате (50 мм светошумовая)",
-		ACCUSATIVE = "гранату (50 мм светошумовая)",
-		INSTRUMENTAL = "гранатой (50 мм светошумовая)",
-		PREPOSITIONAL = "гранате (50 мм светошумовая)"
+		NOMINATIVE = "граната (40 мм светошумовая)",
+		GENITIVE = "гранаты (40 мм светошумовая)",
+		DATIVE = "гранате (40 мм светошумовая)",
+		ACCUSATIVE = "гранату (40 мм светошумовая)",
+		INSTRUMENTAL = "гранатой (40 мм светошумовая)",
+		PREPOSITIONAL = "гранате (40 мм светошумовая)"
 	)
-	desc = "Граната калибра 50 мм со светошумовой гранатой. Отличная возможность закинуть светошумовую гранату на далекие расстояния."
-	projectile_type = /obj/projectile/grenade/g50mm/flash
+	desc = "Граната калибра 40 мм со светошумовой гранатой. Отличная возможность закинуть светошумовую гранату на далекие расстояния."
+	projectile_type = /obj/projectile/grenade/a40mm/secgl/flash
 	icon_state = "secgl_flash"
 	item_state = "secgl_flash"
 
-/obj/projectile/grenade/g50mm/flash
+/obj/projectile/grenade/a40mm/secgl/flash
 	icon_state = "secgl_porjectile_flash"
 
-/obj/projectile/grenade/g50mm/flash/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/grenade/a40mm/secgl/flash/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	// VFX and SFX
 	do_sparks(rand(5, 9), FALSE, src)
@@ -379,116 +370,116 @@
 	// Stunning & damaging mechanic
 	bang(loc, src, 7, direct_bang = FALSE)
 
-/obj/item/ammo_box/g50mm/flash
-	name = "ammo box (50mm flashbang)"
-	desc = "Коробка, содержащая светошумовые гранаты калибра 50 мм."
+/obj/item/ammo_box/secgl/flash
+	name = "ammo box (40mm flashbang)"
+	desc = "Коробка, содержащая светошумовые гранаты калибра 40 мм."
 	ru_names = list(
-		NOMINATIVE = "коробка гранат (50 мм светошумовая)",
-		GENITIVE = "коробки гранат (50 мм светошумовая)",
-		DATIVE = "коробке гранат (50 мм светошумовая)",
-		ACCUSATIVE = "коробку гранат (50 мм светошумовая)",
-		INSTRUMENTAL = "коробкой гранат (50 мм светошумовая)",
-		PREPOSITIONAL = "коробке гранат (50 мм светошумовая)"
+		NOMINATIVE = "коробка гранат (40 мм светошумовая)",
+		GENITIVE = "коробки гранат (40 мм светошумовая)",
+		DATIVE = "коробке гранат (40 мм светошумовая)",
+		ACCUSATIVE = "коробку гранат (40 мм светошумовая)",
+		INSTRUMENTAL = "коробкой гранат (40 мм светошумовая)",
+		PREPOSITIONAL = "коробке гранат (40 мм светошумовая)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/g50mm/flash
+	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/flash
 	icon_state = "secgl_box_flash"
 
 
-/obj/item/ammo_casing/grenade/g50mm/gas
-	name = "50mm grenade (gatears)"
+/obj/item/ammo_casing/grenade/a40mm/secgl/gas
+	name = "40mm grenade (gatears)"
 	ru_names = list(
-		NOMINATIVE = "граната (50 мм слезоточивый газ)",
-		GENITIVE = "гранаты (50 мм слезоточивый газ)",
-		DATIVE = "гранате (50 мм слезоточивый газ)",
-		ACCUSATIVE = "гранату (50 мм слезоточивый газ)",
-		INSTRUMENTAL = "гранатой (50 мм слезоточивый газ)",
-		PREPOSITIONAL = "гранате (50 мм слезоточивый газ)"
+		NOMINATIVE = "граната (40 мм слезоточивый газ)",
+		GENITIVE = "гранаты (40 мм слезоточивый газ)",
+		DATIVE = "гранате (40 мм слезоточивый газ)",
+		ACCUSATIVE = "гранату (40 мм слезоточивый газ)",
+		INSTRUMENTAL = "гранатой (40 мм слезоточивый газ)",
+		PREPOSITIONAL = "гранате (40 мм слезоточивый газ)"
 	)
-	desc = "Граната калибра 50 мм со слезоточивым газом. Позволяет разогнать толпу митингующих без защиты органов дыхания."
-	projectile_type = /obj/projectile/grenade/g50mm/gas
+	desc = "Граната калибра 40 мм со слезоточивым газом. Позволяет разогнать толпу митингующих без защиты органов дыхания."
+	projectile_type = /obj/projectile/grenade/a40mm/secgl/gas
 	icon_state = "secgl_gas"
 	item_state = "secgl_gas"
 
-/obj/projectile/grenade/g50mm/gas
+/obj/projectile/grenade/a40mm/secgl/gas
 	icon_state = "secgl_projectile_gas"
 
-/obj/projectile/grenade/g50mm/gas/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/grenade/a40mm/secgl/gas/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	var/obj/item/grenade/grenade = new /obj/item/grenade/chem_grenade/teargas(loc)
 	grenade.prime()
 
-/obj/item/ammo_box/g50mm/gas
-	name = "ammo box (50mm teargas)"
-	desc = "Коробка, содержащая гранаты со слезоточивым газом калибра 50 мм."
+/obj/item/ammo_box/secgl/gas
+	name = "ammo box (40mm teargas)"
+	desc = "Коробка, содержащая гранаты со слезоточивым газом калибра 40 мм."
 	ru_names = list(
-		NOMINATIVE = "коробка гранат (50 мм слезоточивый газ)",
-		GENITIVE = "коробки гранат (50 мм слезоточивый газ)",
-		DATIVE = "коробке гранат (50 мм слезоточивый газ)",
-		ACCUSATIVE = "коробку гранат (50 мм слезоточивый газ)",
-		INSTRUMENTAL = "коробкой гранат (50 мм слезоточивый газ)",
-		PREPOSITIONAL = "коробке гранат (50 мм слезоточивый газ)"
+		NOMINATIVE = "коробка гранат (40 мм слезоточивый газ)",
+		GENITIVE = "коробки гранат (40 мм слезоточивый газ)",
+		DATIVE = "коробке гранат (40 мм слезоточивый газ)",
+		ACCUSATIVE = "коробку гранат (40 мм слезоточивый газ)",
+		INSTRUMENTAL = "коробкой гранат (40 мм слезоточивый газ)",
+		PREPOSITIONAL = "коробке гранат (40 мм слезоточивый газ)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/g50mm/gas
+	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/gas
 	icon_state = "secgl_box_gas"
 
 
-/obj/item/ammo_casing/grenade/g50mm/barricade
-	name = "50mm grenade (barricade)"
+/obj/item/ammo_casing/grenade/a40mm/secgl/barricade
+	name = "40mm grenade (barricade)"
 	ru_names = list(
-		NOMINATIVE = "граната (50 мм баррикада)",
-		GENITIVE = "гранаты (50 мм баррикада)",
-		DATIVE = "гранате (50 мм баррикада)",
-		ACCUSATIVE = "гранату (50 мм баррикада)",
-		INSTRUMENTAL = "гранатой (50 мм баррикада)",
-		PREPOSITIONAL = "гранате (50 мм баррикада)"
+		NOMINATIVE = "граната (40 мм баррикада)",
+		GENITIVE = "гранаты (40 мм баррикада)",
+		DATIVE = "гранате (40 мм баррикада)",
+		ACCUSATIVE = "гранату (40 мм баррикада)",
+		INSTRUMENTAL = "гранатой (40 мм баррикада)",
+		PREPOSITIONAL = "гранате (40 мм баррикада)"
 	)
-	desc = "Граната калибра 50 мм со слезоточивым газом. Позволяет разогнать толпу митингующих без защиты органов дыхания."
-	projectile_type = /obj/projectile/grenade/g50mm/barricade
+	desc = "Граната калибра 40 мм со слезоточивым газом. Позволяет разогнать толпу митингующих без защиты органов дыхания."
+	projectile_type = /obj/projectile/grenade/a40mm/secgl/barricade
 	icon_state = "secgl_barricade"
 	item_state = "secgl_barricade"
 
-/obj/projectile/grenade/g50mm/barricade
+/obj/projectile/grenade/a40mm/secgl/barricade
 	icon_state = "secgl_projectile_barricade"
 
-/obj/projectile/grenade/g50mm/barricade/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/grenade/a40mm/secgl/barricade/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	var/obj/item/grenade/grenade = new /obj/item/grenade/barrier(loc)
 	grenade.prime()
 
-/obj/item/ammo_box/g50mm/barricade
-	name = "ammo box (50mm barricade)"
-	desc = "Коробка, содержащая гранаты с баррикадой калибра 50 мм."
+/obj/item/ammo_box/secgl/barricade
+	name = "ammo box (40mm barricade)"
+	desc = "Коробка, содержащая гранаты с баррикадой калибра 40 мм."
 	ru_names = list(
-		NOMINATIVE = "коробка гранат (50 мм баррикада)",
-		GENITIVE = "коробки гранат (50 мм баррикада)",
-		DATIVE = "коробке гранат (50 мм баррикада)",
-		ACCUSATIVE = "коробку гранат (50 мм баррикада)",
-		INSTRUMENTAL = "коробкой гранат (50 мм баррикада)",
-		PREPOSITIONAL = "коробке гранат (50 мм баррикада)"
+		NOMINATIVE = "коробка гранат (40 мм баррикада)",
+		GENITIVE = "коробки гранат (40 мм баррикада)",
+		DATIVE = "коробке гранат (40 мм баррикада)",
+		ACCUSATIVE = "коробку гранат (40 мм баррикада)",
+		INSTRUMENTAL = "коробкой гранат (40 мм баррикада)",
+		PREPOSITIONAL = "коробке гранат (40 мм баррикада)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/g50mm/barricade
+	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/barricade
 	icon_state = "secgl_box_barricade"
 
 
-/obj/item/ammo_casing/grenade/g50mm/exp
-	name = "50mm grenade (frag)"
+/obj/item/ammo_casing/grenade/a40mm/secgl/exp
+	name = "40mm grenade (frag)"
 	ru_names = list(
-		NOMINATIVE = "граната (50 мм осколочная)",
-		GENITIVE = "гранаты (50 мм осколочная)",
-		DATIVE = "гранате (50 мм осколочная)",
-		ACCUSATIVE = "гранату (50 мм осколочная)",
-		INSTRUMENTAL = "гранатой (50 мм осколочная)",
-		PREPOSITIONAL = "гранате (50 мм осколочная)"
+		NOMINATIVE = "граната (40 мм осколочная)",
+		GENITIVE = "гранаты (40 мм осколочная)",
+		DATIVE = "гранате (40 мм осколочная)",
+		ACCUSATIVE = "гранату (40 мм осколочная)",
+		INSTRUMENTAL = "гранатой (40 мм осколочная)",
+		PREPOSITIONAL = "гранате (40 мм осколочная)"
 	)
-	desc = "Граната калибра 50 мм с осколочной рубашкой. Летальный боеприпас для закидывания на дальнее расстояние."
-	projectile_type = /obj/projectile/grenade/g50mm/exp
+	desc = "Граната калибра 40 мм с осколочной рубашкой. Летальный боеприпас для закидывания на дальнее расстояние."
+	projectile_type = /obj/projectile/grenade/a40mm/secgl/exp
 	icon_state = "secgl_exp"
 	item_state = "secgl_exp"
 
-/obj/projectile/grenade/g50mm/exp
+/obj/projectile/grenade/a40mm/secgl/exp
 	icon_state = "secgl_projectile_exp"
 
-/obj/projectile/grenade/g50mm/exp/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/grenade/a40mm/secgl/exp/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	var/obj/item/grenade/grenade = new /obj/item/grenade/frag/less(loc)
 	grenade.prime()
@@ -498,41 +489,41 @@
 	max_shrapnel = 3
 	embed_prob = 100
 
-/obj/item/ammo_box/g50mm/exp
-	name = "ammo box (50mm frag)"
-	desc = "Коробка, содержащая осколочные гранаты калибра 50 мм."
+/obj/item/ammo_box/secgl/exp
+	name = "ammo box (40mm frag)"
+	desc = "Коробка, содержащая осколочные гранаты калибра 40 мм."
 	ru_names = list(
-		NOMINATIVE = "коробка гранат (50 мм осколочные)",
-		GENITIVE = "коробки гранат (50 мм осколочные)",
-		DATIVE = "коробке гранат (50 мм осколочные)",
-		ACCUSATIVE = "коробку гранат (50 мм осколочные)",
-		INSTRUMENTAL = "коробкой гранат (50 мм осколочные)",
-		PREPOSITIONAL = "коробке гранат (50 мм осколочные)"
+		NOMINATIVE = "коробка гранат (40 мм осколочные)",
+		GENITIVE = "коробки гранат (40 мм осколочные)",
+		DATIVE = "коробке гранат (40 мм осколочные)",
+		ACCUSATIVE = "коробку гранат (40 мм осколочные)",
+		INSTRUMENTAL = "коробкой гранат (40 мм осколочные)",
+		PREPOSITIONAL = "коробке гранат (40 мм осколочные)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/g50mm/exp
+	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/exp
 	icon_state = "secgl_box_exp"
 
 
-/obj/item/ammo_casing/grenade/g50mm/paint
-	name = "50mm grenade (paint)"
+/obj/item/ammo_casing/grenade/a40mm/secgl/paint
+	name = "40mm grenade (paint)"
 	ru_names = list(
-		NOMINATIVE = "граната (50 мм краска)",
-		GENITIVE = "гранаты (50 мм краска)",
-		DATIVE = "гранате (50 мм краска)",
-		ACCUSATIVE = "гранату (50 мм краска)",
-		INSTRUMENTAL = "гранатой (50 мм краска)",
-		PREPOSITIONAL = "гранате (50 мм краска)"
+		NOMINATIVE = "граната (40 мм краска)",
+		GENITIVE = "гранаты (40 мм краска)",
+		DATIVE = "гранате (40 мм краска)",
+		ACCUSATIVE = "гранату (40 мм краска)",
+		INSTRUMENTAL = "гранатой (40 мм краска)",
+		PREPOSITIONAL = "гранате (40 мм краска)"
 	)
-	desc = "Граната калибра 50 мм с краской. Граната которая закрашивает цель для его отслеживания."
-	projectile_type = /obj/projectile/grenade/g50mm/paint
+	desc = "Граната калибра 40 мм с краской. Граната которая закрашивает цель для его отслеживания."
+	projectile_type = /obj/projectile/grenade/a40mm/secgl/paint
 	icon_state = "secgl_paint"
 	item_state = "secgl_paint"
 
-/obj/projectile/grenade/g50mm/paint
+/obj/projectile/grenade/a40mm/secgl/paint
 	icon_state = "secgl_projectile_paint"
 	var/paint_color = "#e99518"
 
-/obj/projectile/grenade/g50mm/paint/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/grenade/a40mm/secgl/paint/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	var/obj/effect/decal/cleanable/blood/paint/paint = new(loc)
 	paint.basecolor = paint_color
@@ -546,18 +537,18 @@
 			return
 		human.AddComponent(/datum/component/paint_splatter, color = paint_color, amount = 25, chance = 50, duration = 60 SECONDS)
 
-/obj/item/ammo_box/g50mm/paint
-	name = "ammo box (50mm paint)"
-	desc = "Коробка, содержащая гранаты с краской калибра 50 мм."
+/obj/item/ammo_box/secgl/paint
+	name = "ammo box (40mm paint)"
+	desc = "Коробка, содержащая гранаты с краской калибра 40 мм."
 	ru_names = list(
-		NOMINATIVE = "коробка гранат (50 мм краска)",
-		GENITIVE = "коробки гранат (50 мм краска)",
-		DATIVE = "коробке гранат (50 мм краска)",
-		ACCUSATIVE = "коробку гранат (50 мм краска)",
-		INSTRUMENTAL = "коробкой гранат (50 мм краска)",
-		PREPOSITIONAL = "коробке гранат (50 мм краска)"
+		NOMINATIVE = "коробка гранат (40 мм краска)",
+		GENITIVE = "коробки гранат (40 мм краска)",
+		DATIVE = "коробке гранат (40 мм краска)",
+		ACCUSATIVE = "коробку гранат (40 мм краска)",
+		INSTRUMENTAL = "коробкой гранат (40 мм краска)",
+		PREPOSITIONAL = "коробке гранат (40 мм краска)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/g50mm/paint
+	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/paint
 	icon_state = "secgl_box_paint"
 
 
