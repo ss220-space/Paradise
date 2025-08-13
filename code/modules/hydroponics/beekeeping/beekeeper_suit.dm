@@ -6,7 +6,7 @@
 	item_state = "beekeeper"
 	clothing_flags = THICKMATERIAL
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 		)
 
 /obj/item/clothing/suit/beekeeper_suit
