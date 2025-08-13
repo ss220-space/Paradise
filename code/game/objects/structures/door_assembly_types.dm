@@ -146,20 +146,20 @@
 /obj/structure/door_assembly/multi_tile/Initialize(mapload)
 	. = ..()
 	if(dir in list(EAST, WEST))
-		bound_width = width * world.icon_size
-		bound_height = world.icon_size
+		bound_width = width * ICON_SIZE_X
+		bound_height = ICON_SIZE_Y
 	else
-		bound_width = world.icon_size
-		bound_height = width * world.icon_size
+		bound_width = ICON_SIZE_X
+		bound_height = width * ICON_SIZE_Y
 
 /obj/structure/door_assembly/multi_tile/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(dir in list(EAST, WEST))
-		bound_width = width * world.icon_size
-		bound_height = world.icon_size
+		bound_width = width * ICON_SIZE_X
+		bound_height = ICON_SIZE_Y
 	else
-		bound_width = world.icon_size
-		bound_height = width * world.icon_size
+		bound_width = ICON_SIZE_X
+		bound_height = width * ICON_SIZE_Y
 
 /obj/structure/door_assembly/door_assembly_cult
 	name = "cult airlock assembly"

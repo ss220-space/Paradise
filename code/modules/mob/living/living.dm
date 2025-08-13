@@ -2077,9 +2077,7 @@
 
 /// Returns what the body_position_pixel_y_offset should be if the current size were `value`
 /mob/living/proc/get_pixel_y_offset_standing(value)
-	var/icon/living_icon = icon(icon)
-	var/height = living_icon.Height()
-	return (value-1) * height * 0.5
+	return (value-1) * get_cached_height() * 0.5
 
 
 /mob/living/proc/toggle_resting()

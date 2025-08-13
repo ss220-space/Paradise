@@ -47,7 +47,7 @@
 	desc = "A compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
 	icon_state = "snipercompact"
 	weapon_weight = WEAPON_LIGHT
-	fire_delay = 0
+	fire_delay = 2 SECONDS
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
 	can_unsuppress = FALSE
 	can_suppress = FALSE
@@ -225,8 +225,7 @@
 
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	damage = 70
-	stun = 4 SECONDS
-	weaken = 4 SECONDS
+	knockdown = 4 SECONDS
 	armour_penetration = 50
 	breakthings = FALSE
 	dismemberment = 0

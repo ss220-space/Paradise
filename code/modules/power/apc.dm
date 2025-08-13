@@ -260,7 +260,7 @@
 		update_icon()
 		addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
-/obj/machinery/power/apc/Destroy()
+/obj/machinery/power/apc/Destroy(force)
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
 	if(malfai && operating)
@@ -270,7 +270,7 @@
 	area.power_environ = 0
 	area.power_change()
 	if(occupier)
-		malfvacate(1)
+		malfvacate(TRUE)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
 	QDEL_NULL(cog)
@@ -1352,7 +1352,8 @@
 		to_chat(occupier, "<span class='danger'>Primary core damaged, unable to return core processes.</span>")
 		if(forced)
 			occupier.loc = loc
-			occupier.death()
+			ASYNC
+				occupier.death()
 			occupier.gib()
 			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				point.the_disk = null //Pinpointers go back to tracking the nuke disk

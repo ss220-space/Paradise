@@ -9,8 +9,6 @@
 	language = LANGUAGE_KIDAN
 	unarmed_type = /datum/unarmed_attack/claws
 
-	brute_mod = 0.8
-	tox_mod = 1.7
 
 	inherent_traits = list(
 		TRAIT_HAS_REGENERATION,

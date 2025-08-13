@@ -286,8 +286,8 @@
 	if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
 		return .
 	//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-	I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-	I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+	I.pixel_x = clamp(text2num(click_params["icon-x"]) - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
+	I.pixel_y = clamp(text2num(click_params["icon-y"]) - (ICON_SIZE_Y / 2), - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 	item_placed(I)
 
 
@@ -985,7 +985,7 @@
 		if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
 			return TRUE
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-		our_gun.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
+		our_gun.pixel_x = clamp(text2num(click_params["icon-x"]) - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
 		our_gun.pixel_y = 0
 		return TRUE
 
