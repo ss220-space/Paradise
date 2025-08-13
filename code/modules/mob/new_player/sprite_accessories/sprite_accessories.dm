@@ -87,7 +87,7 @@
 /* HEAD ACCESSORY */
 
 /datum/sprite_accessory/head_accessory
-	icon = 'icons/mob/clothing/body_accessory.dmi'
+	icon = 'icons/mob/mob.dmi'
 	species_allowed = list(SPECIES_UNATHI, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_MACNINEPERSON)
 	icon_state = "accessory_none"
 	var/over_hair
