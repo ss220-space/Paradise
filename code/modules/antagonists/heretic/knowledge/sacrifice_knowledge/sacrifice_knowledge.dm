@@ -348,8 +348,8 @@
 	if(!our_heretic)
 		CRASH("[type] - begin_sacrifice was called, and no heretic [heretic_mind ? "antag datum":"mind"] could be found!")
 
-	if(!LAZYLEN(GLOB.heretic_sacrifice_landmarks))
-		CRASH("[type] - begin_sacrifice was called, but no heretic sacrifice landmarks were found!")
+	//if(!LAZYLEN(GLOB.heretic_sacrifice_landmarks))
+		//CRASH("[type] - begin_sacrifice was called, but no heretic sacrifice landmarks were found!")
 
 	var/obj/effect/landmark/heretic/destination_landmark = GLOB.heretic_sacrifice_landmarks[our_heretic.heretic_path] || GLOB.heretic_sacrifice_landmarks[PATH_START]
 	//if(!destination_landmark)
@@ -659,7 +659,7 @@
 		span_userdanger("Вашей органы насильно вырваны из тела теневыми руками!")
 	)
 
-	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target), sac_target)
+	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target), sac_target.dna)
 
 #undef SACRIFICE_SLEEP_DURATION
 #undef SACRIFICE_REALM_DURATION
