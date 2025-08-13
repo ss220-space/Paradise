@@ -287,7 +287,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(MARKINGS_LAYER)
 
 	//Base icon.
-	var/icon/markings_standing = icon("icon" = 'icons/mob/clothing/body_accessory.dmi', "icon_state" = "accessory_none_s")
+	var/icon/markings_standing = icon("icon" = 'icons/mob/mob.dmi', "icon_state" = "accessory_none_s")
 
 	//Body markings.
 	var/obj/item/organ/external/chest/chest_organ = get_organ(BODY_ZONE_CHEST)
@@ -333,7 +333,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	//base icons
-	var/icon/head_accessory_standing = icon('icons/mob/clothing/body_accessory.dmi', "accessory_none_s")
+	var/icon/head_accessory_standing = icon('icons/mob/mob.dmi', "accessory_none_s")
 	var/icon/head_accessory_s = icon(head_accessory.icon, "[head_accessory.icon_state]_s")
 	if(head_accessory.do_colouration)
 		head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
@@ -1024,7 +1024,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 			if(istype(bodypart_tail.body_accessory, /datum/body_accessory/tail) && bodypart_tail.dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
-				var/icon/under = new/icon("icon" = 'icons/mob/clothing/body_accessory.dmi', "icon_state" = "accessory_none_s")
+				var/icon/under = new/icon("icon" = 'icons/mob/mob.dmi',, "icon_state" = "accessory_none_s")
 				under.Insert(new/icon(accessory_s, dir=SOUTH), dir=SOUTH)
 				under.Insert(new/icon(accessory_s, dir=EAST), dir=EAST)
 				under.Insert(new/icon(accessory_s, dir=WEST), dir=WEST)
@@ -1036,7 +1036,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 				// Creates a blank icon, and copies accessory_s' north direction sprite into it
 				// before passing that to the tail layer that overlays uniforms and such.
-				var/icon/over = new/icon("icon" = 'icons/mob/clothing/body_accessory.dmi', "icon_state" = "accessory_none_s")
+				var/icon/over = new/icon("icon" = 'icons/mob/mob.dmi',, "icon_state" = "accessory_none_s")
 				over.Insert(new/icon(accessory_s, dir=NORTH), dir=NORTH)
 
 				var/mutable_appearance/tail = mutable_appearance(over, layer = -TAIL_LAYER)

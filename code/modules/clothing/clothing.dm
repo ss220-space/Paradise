@@ -203,13 +203,13 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/ears.dmi',
-		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/ears.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/ears.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/ears.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/ears.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/ears.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/ears.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/ear_right.dmi',
+		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/ear_right.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/ear_right.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/ear_right.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/ear_right.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/ear_right.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/ear_right.dmi'
 		) //We read you loud and skree-er.
 
 
@@ -288,11 +288,11 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/glasses.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/glasses.dmi'
 		)
 
 /*
@@ -1069,18 +1069,18 @@ BLIND     // can't see anything
 	pickup_sound =  'sound/items/handling/pickup/cloth_pickup.ogg'
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/uniform.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/uniform.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/uniform.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/jumpsuit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/jumpsuit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/jumpsuit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/jumpsuit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/jumpsuit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/jumpsuit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/jumpsuit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/jumpsuit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/jumpsuit.dmi'
 		)
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode

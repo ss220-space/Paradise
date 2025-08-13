@@ -34,10 +34,10 @@
 	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	species_restricted = list(SPECIES_UNATHI)
 	sprite_sheets = list(
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/head.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
@@ -157,7 +157,7 @@
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list(SPECIES_VOX)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/jumpsuit.dmi'
 		)
 
 /obj/item/clothing/under/vox/vox_casual
@@ -176,7 +176,7 @@
 	item_state = "vox-casual-2"
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/jumpsuit.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/suit.dmi'
 		)
 
@@ -203,8 +203,8 @@
 	icon = 'icons/obj/clothing/species/vox/shoes.dmi'
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/feet.dmi',
-		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/feet.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/shoes.dmi'
 		)
 
 /obj/item/clothing/shoes/magboots/vox/toggle_magpulse(mob/living/user, silent = FALSE)
