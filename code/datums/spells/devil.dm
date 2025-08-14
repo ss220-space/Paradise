@@ -441,7 +441,7 @@
 
 	base_cooldown = 300 SECONDS
 	var/cast_time = 5 SECONDS
-	var/fail_cooldown = 2 SECONDS
+	var/fail_cooldown = 5 SECONDS
 	var/say_name_prob = 40
 
 	clothes_req = FALSE
@@ -469,13 +469,13 @@
 
 	if(prob(say_name_prob))
 		carbon.say("INF' [devil.info.truename] NO")
+	playsound(get_turf(carbon), 'sound/magic/narsie_attack.ogg', 100, TRUE)
+	human.Knockdown(1 SECONDS)
 
 	if(!do_after(user, cast_time, user, NONE))
 		cooldown_handler.recharge_time = world.time + fail_cooldown
 		return
 
-	playsound(get_turf(carbon), 'sound/magic/narsie_attack.ogg', 100, TRUE)
-	human.Knockdown(1 SECONDS)
 	make_shadow(human, devil)
 
 /datum/objective/assassinate/shadow_kill
@@ -494,7 +494,9 @@
 	LAZYADD(human.mind.objectives, kill)
 	LAZYADD(human.faction, "hell")
 
-	human.mind.prepare_announce_objectives()
+	var/list/messages = human.mind.prepare_announce_objectives()
+	to_chat(human, chat_box_red(messages.Join("<br>")))
+
 	LAZYOR(devil.shadows, human.mind)
 	playsound(human, 'sound/magic/mutate.ogg', 100, TRUE)
 
