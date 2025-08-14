@@ -409,13 +409,6 @@
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/devil_fire/cast(list/targets, mob/user = usr)
-	var/obj/item/clothing/suit/straight_jacket/jacket = user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
-	if(istype(jacket))
-		user.temporarily_remove_item_from_inventory(jacket, force = TRUE)
-		user.visible_message(span_warning("Смирительная рубашка [user] сгорает в адском пламени!"), \
-							span_warning("Вы испепеляете сковывающую вас смирительную рубашку!"))
-		qdel(jacket)
-
 	for(var/mob/living/living in targets)
 		living.Slowed(slow_time)
 
