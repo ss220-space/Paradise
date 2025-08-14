@@ -467,6 +467,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(gene.is_active(src))
 			var/underlay = gene.OnDrawUnderlays(src, g)
+			if(underlay == "catears_s")
+				update_felinide_ears(gene)
+				continue
+
 			if(underlay)
 				standing.underlays += underlay
 				add_image = TRUE
@@ -484,6 +488,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[MUTATIONS_LAYER] = standing
 	apply_overlay(MUTATIONS_LAYER)
 
+/mob/living/carbon/human/proc/update_felinide_ears(datum/dna/gene/disability/catears/ears_gene)
+	var/mutable_appearance/felinide_ears = mutable_appearance('icons/effects/genetics.dmi', layer = -OVER_HEAD_LAYER)
+	var/painted_ears = ears_gene.paint_felinide_ears(src)
+	felinide_ears.underlays += painted_ears
+	overlays_standing[FELINIDE_EARS_LAYER] = felinide_ears
+	apply_overlay(FELINIDE_EARS_LAYER)
 
 /mob/living/carbon/human/update_fire()
 	remove_overlay(FIRE_LAYER)
