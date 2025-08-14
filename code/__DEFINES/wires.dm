@@ -81,3 +81,7 @@
 #define WIRE_WASHER_HACK "Hack"
 #define WIRE_WASHER_DISABLE "Disable"
 
+// MODsuits
+#define WIRE_HACK "Hack"
+#define WIRE_DISABLE "Disable"
+#define WIRE_INTERFACE "Interface"

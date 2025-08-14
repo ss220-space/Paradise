@@ -1845,6 +1845,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_RESEARCH
 	required_tech = list("materials" = 6, "combat" = 6, "biotech" = 6, "powerstorage" = 5)
 
+/datum/supply_packs/science/mod_core
+	name = "Ящик ядер \"МОД\""
+	contains = list(/obj/item/mod/core/standard,
+					/obj/item/mod/core/standard,
+					/obj/item/mod/core/standard,
+					/obj/item/mod/core/standard)
+	cost = 50
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "\improper MOD core crate"
+	access = ACCESS_ROBOTICS
+	announce_beacons = list("Research Division" = list("Robotics"))
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////

@@ -258,7 +258,8 @@
 		/obj/item/door_remote,
 		/obj/item/stamp,
 		/obj/item/sensor_device/advanced,
-		/obj/item/qm_quest_tablet
+		/obj/item/qm_quest_tablet,
+		/obj/item/mod/control,
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -387,6 +388,10 @@
 			var/obj/item/pda/P = I
 			QDEL_NULL(P.id)
 			qdel(P)
+			continue
+		if(istype(I, /obj/item/storage/backpack/modstorage)) //Best place for me to put it.
+			var/obj/item/storage/backpack/modstorage/M = I
+			M.forceMove(M.source)
 			continue
 
 		var/preserve = should_preserve_item(I)
