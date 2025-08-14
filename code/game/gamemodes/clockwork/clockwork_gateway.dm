@@ -36,6 +36,7 @@
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
 				to_chat(clock_mind.current, span_clocklarge("The Ark has fallen!"))
+				SSticker.mode.clocker_objs.need_heart()
 	if(countdown)
 		qdel(countdown)
 		countdown = null

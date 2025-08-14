@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			if(!clocker_objs.obj_demand.check_completion())
 				to_chat(M.current, span_clock("But there's still more tasks to do."))
 			else
-				clocker_objs.ratvar_is_ready()
+				clocker_objs.need_heart()
 	if((clocker_players >= crew_reveal_number) && !crew_reveal)
 		crew_reveal = TRUE
 		for(var/datum/mind/M in clockwork_cult)
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		return
 
 	var/mob/clocker = clock_mind.current
-	
+
 	if(!clocker)
 		return
 
