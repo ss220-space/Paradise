@@ -384,6 +384,7 @@
 	tts_seed		= sanitize_inlist(tts_seed, SStts.tts_seeds, initial(tts_seed))
 	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
 	custom_emotes = init_custom_emotes(custom_emotes_tmp)
+	can_be_antagonist = sanitize
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
