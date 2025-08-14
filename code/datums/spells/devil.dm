@@ -156,6 +156,10 @@
 		if(!mind.current)
 			continue
 		LAZYADDASSOC(mobs, mind.current.real_name, mind)
+
+	if(!mobs)
+		return
+
 	var/datum/mind/soul = mobs[tgui_input_list(user, "Кому вы хотите вернуть душу?", "Вернуть душу", mobs)]
 
 	if(!soul)
@@ -405,6 +409,13 @@
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/devil_fire/cast(list/targets, mob/user = usr)
+	var/obj/item/clothing/suit/straight_jacket/jacket = user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
+	if(istype(jacket))
+		user.temporarily_remove_item_from_inventory(jacket, force = TRUE)
+		user.visible_message(span_warning("Смирительная рубашка [user] сгорает в адском пламени!"), \
+							span_warning("Вы испепеляете сковывающую вас смирительную рубашку!"))
+		qdel(jacket)
+
 	for(var/mob/living/living in targets)
 		living.Slowed(slow_time)
 
@@ -458,14 +469,13 @@
 
 	if(prob(say_name_prob))
 		carbon.say("INF' [devil.info.truename] NO")
-	playsound(get_turf(carbon), 'sound/magic/narsie_attack.ogg', 100, TRUE)
-
-	human.Knockdown(1 SECONDS)
 
 	if(!do_after(user, cast_time, user, NONE))
 		cooldown_handler.recharge_time = world.time + fail_cooldown
 		return
 
+	playsound(get_turf(carbon), 'sound/magic/narsie_attack.ogg', 100, TRUE)
+	human.Knockdown(1 SECONDS)
 	make_shadow(human, devil)
 
 /datum/objective/assassinate/shadow_kill
