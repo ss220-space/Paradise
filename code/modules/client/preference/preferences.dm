@@ -1173,6 +1173,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_PARAPLEGIA, "Параплегия")
 	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_APHASIA))
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_APHASIA, "Афазия")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_CATEARS))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_CATEARS, "Кошачьи уши")
 
 	HTML += {"</ul>
 		<a href=\"byond://?_src_=prefs;task=close;preference=disabilities\">\[Принять\]</a>
@@ -2975,7 +2977,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	if((disabilities & DISABILITY_FLAG_APHASIA) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_APHASIA))
 		character.force_gene_block(GLOB.aphasiablock, TRUE, TRUE)
-
+	if((disabilities & DISABILITY_FLAG_CATEARS) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_CATEARS))
+		character.force_gene_block(GLOB.cat_earsblock, TRUE, TRUE)
 	character.dna.species.handle_dna(character)
 
 	if(character.dna.dirtySE)

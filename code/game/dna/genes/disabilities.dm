@@ -402,3 +402,17 @@
 	to_chat(source, span_notice("Вы пытаетесь что-то сказать, но не можете произнести ни слова на этом языке."))
 
 	return COMPONENT_PREVENT_SPEAKING
+
+/datum/dna/gene/disability/catears
+	name = "Кошачьи уши"
+	desc = "Вызывает рост кошачьих ушей у вас из головы."
+	activation_message = list("Из вашей головы вырастают кошачьи уши.")
+	deactivation_message = list("Ваши кошачьи уши отпадают.")
+
+/datum/dna/gene/disability/catears/New()
+	..()
+	block = GLOB.cat_earsblock
+
+
+/datum/dna/gene/disability/catears/OnDrawUnderlays(mob/M, g)
+	return "kitty_s"
