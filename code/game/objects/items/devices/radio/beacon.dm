@@ -286,7 +286,7 @@
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
 								/obj/item/clothing/mask/holo_cigar = 1),                                    // 10 TK
 			"Griefsky" = list(	"Name" = "Набор \"Грифски\"", // 130-220 ТК
-								"Desc" = "Набор, содержащий пИИ синдиката и четыре не объединяемых меча, для создания Грифски.",
+								"Desc" = "Набор, содержащий детали для сборки Грифски.",
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
 								/obj/item/melee/energy/sword = 4,											// 160 ТК
 								/obj/item/card/id/syndicate = 1,											// 10 ТК
