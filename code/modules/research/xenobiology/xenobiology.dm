@@ -529,7 +529,7 @@
 		return
 	..()
 	if(!istype(O))
-		to_chat(user, "<span class='warning'>The potion can only be used on items!</span>")
+		to_chat(user, "<span class='warning'>The potion can only be used on items or vehicles!</span>")
 		return
 	if(SEND_SIGNAL(O, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
 		return
