@@ -416,15 +416,17 @@
 /datum/dna/gene/disability/catears/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	ADD_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
+	mutant.update_felinide_ears()
 	mutant.update_body(TRUE)
 
 /datum/dna/gene/disability/catears/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	REMOVE_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
+	mutant.update_felinide_ears()
 	mutant.update_body(TRUE)
 
-/datum/dna/gene/disability/catears/OnDrawUnderlays(mob/M, g)
-	return "catears_s"
+// /datum/dna/gene/disability/catears/OnDrawUnderlays(mob/M, g)
+//	return "catears_s"
 
 /datum/dna/gene/disability/catears/proc/paint_felinide_ears(mob/living/carbon/human/human)
     var/inner_state = "catearsinner"
