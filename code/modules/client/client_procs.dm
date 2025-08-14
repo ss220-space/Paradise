@@ -353,15 +353,7 @@
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_notice("У вас есть непрочитанные сообщения в журнале обновлений."), confidential=TRUE)
-		winset(src, "infobuttons.changelog", "font-style=bold")
-
-	// Karma is disabled
-	/*
-	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
-		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
-	else
-		to_chat(src,"<span class='notice'>You have enabled karma gains.")
-	*/
+		//winset(src, "infobuttons.changelog", "font-style=bold")
 
 	if(show_update_prompt)
 		show_update_notice()
