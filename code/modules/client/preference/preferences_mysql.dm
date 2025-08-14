@@ -538,6 +538,7 @@
 												uplink_pref=:uplink_pref,
 												tts_seed=:tts_seed,
 												custom_emotes=:custom_emotes
+												can_be_antagonist=:can_be_antagonist
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -603,6 +604,7 @@
 													"uplink_pref" = uplink_pref,
 													"tts_seed" = tts_seed,
 													"custom_emotes" = json_encode(custom_emotes),
+													"can_be_antagonist" = can_be_antagonist,
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
