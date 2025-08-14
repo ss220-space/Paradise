@@ -410,7 +410,7 @@
 	deactivation_message = list("Ваши кошачьи уши отпадают.")
 
 /datum/dna/gene/disability/catears/New()
-	..()
+	. = ..()
 	block = GLOB.cat_earsblock
 
 /datum/dna/gene/disability/catears/activate(mob/living/carbon/human/mutant, flags)
