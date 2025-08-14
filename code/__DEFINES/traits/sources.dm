@@ -183,5 +183,3 @@
 #define DEVIL_RITUAL_TRAIT "devil_ritual"
 
 #define MODSUIT_TRAIT "modsuit_trait"
-
-#define WISHGRANTER_TRAIT "wishgranter_trait"
