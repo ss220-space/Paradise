@@ -75,7 +75,7 @@
 /*
  * Makes a check if power or beacon has been completed.
  *
- * The clockers check is in check_clock_size
+ * The clockers check is in check_clock_reveal()
  */
 /datum/clockwork_objectives/proc/power_check()
 	if(GLOB.clockwork_power >= power_goal && !obj_demand.power_get)
