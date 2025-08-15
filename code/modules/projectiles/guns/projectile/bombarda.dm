@@ -115,6 +115,7 @@
 	recoil = GUN_RECOIL_HIGH
 
 
+// MARK: M79
 /obj/item/gun/projectile/bombarda/secgl/m79
 	name = "grenade launcher M79"
 	desc = "Классический однозарядный ручной гранатомёт, разработанный в 1961 году. Использует 40 мм гранаты."
@@ -286,7 +287,7 @@
 		always_availible = TRUE
 
 
-// MARK: Sec GL ammo
+// MARK: 40mm ammo
 /obj/item/ammo_box/magazine/internal/bombarda/secgl
 	name = "security grenade launcher internal magazine"
 	ammo_type = /obj/item/ammo_casing/grenade/a40mm
