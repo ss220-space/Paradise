@@ -92,7 +92,7 @@
 /datum/reagent/consumable/nutriment/protein // Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
 	name = "Белки"
 	id = "protein"
-	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных."
+	description = "Вещество, которое обычно содержится в мясе и крови животных."
 	diet_flags = DIET_CARN | DIET_OMNI
 	reagent_state = SOLID
 	/// Type of status effect that applys on reagent add, and deleats on reagent deleat.
