@@ -2226,7 +2226,7 @@
 	name = "Клинки богомола"
 	desc = "Коробка, содержащая 2 клинка богомола. Поставляются в комплекте с саморазрушающимися автоимплантерами."
 	item = /obj/item/storage/box/syndie_kit/mantisblade
-	cost = 48
+	cost = 56
 	surplus = 90
 	uplinktypes = list()
 
