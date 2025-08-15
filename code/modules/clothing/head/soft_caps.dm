@@ -169,3 +169,20 @@
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "solgovcelitesoft"
 	item_color = "solgovcelite"
+
+/obj/item/clothing/head/tchaikowsky
+	species_restricted = list(SPECIES_HUMAN)
+	dog_fashion = null
+	var/flipped = TRUE
+
+/obj/item/clothing/head/tchaikowsky/baseballcap
+	name = "baseball cap (blue)"
+	desc = "blank"
+	icon_state = "baseball_blue"
+	item_state = "baseball_blue"
+
+/obj/item/clothing/head/tchaikowsky/baseballcap/brown
+	name = "baseball cap (brown)"
+	desc = "blank"
+	icon_state = "baseball_brown"
+	item_state = "baseball_brown"
