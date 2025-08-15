@@ -4,28 +4,31 @@
 
 #define EXOTIC_BLEED_MULTIPLIER 4 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
 
+/// Natural bleed regeneration size (units per 2 sec)
+#define BLOOD_REGENERATION 0.1
+
 // Blood level damage constants
 /// Damage for blood volume from BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE
-#define BLOOD_PALE_DAMAGE 1
+#define BLOOD_PALE_DAMAGE 2
 /// Damage for blood volume from BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE
-#define BLOOD_OKAY_DAMAGE 2
+#define BLOOD_OKAY_DAMAGE 4
 /// Damage for blood volume from BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY
-#define BLOOD_BAD_DAMAGE 4
+#define BLOOD_BAD_DAMAGE 5
 /// Damage for blood volume from BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD
-#define BLOOD_SURVIVE_DAMAGE 6
+#define BLOOD_SURVIVE_DAMAGE 8
 
 // Bledding calculation constants
-/// Bleeding per embedded item
-#define EMBEDDED_ITEM_BLEEDING 0.25
+/// Bleeding per embedded item (units per 2 sec)
+#define EMBEDDED_ITEM_BLEEDING 0.5
 /// Required brute damage for bledding
-#define BODYPART_BRUTE_FOR_BLEEDING 20
-/// Bleeding coefficient for calculate bodypart bleeding from brute damage (0.26 bleeding for 20 brute)
-#define BODYPART_BLEEDING_BRUTE_MOD 0.013
-/// Open bodypart bleeding
-#define OPEN_BODYPART_BLEEDING 0.5
-/// Internal bleeding size
+#define BODYPART_BRUTE_FOR_BLEEDING 15
+/// Bleeding coefficient for calculate bodypart bleeding from brute damage (basic 0.013: 0.26 bleeding for 20 brute)
+#define BODYPART_BLEEDING_BRUTE_MOD 0.04
+/// Open bodypart bleeding (units per 2 sec)
+#define OPEN_BODYPART_BLEEDING 1.5
+/// Internal bleeding size (units per 2 sec)
 #define BODYPART_INTERNAL_BLEEDING 0.5
-/// Decrease bleeding size if no wounds
+/// Decrease bleeding size if no wounds (units per 2 sec)
 #define BLEEDING_DECREASE 0.5
 
 
@@ -51,7 +54,7 @@
 		return
 	// regenerate blood VERY slowly
 	if(!HAS_TRAIT(src, TRAIT_NO_BLOOD_RESTORE) && blood_volume < BLOOD_VOLUME_NORMAL)
-		AdjustBlood(0.1)
+		AdjustBlood(BLOOD_REGENERATION)
 	apply_current_blood_level_effect()
 	calculate_current_bleeding()
 
@@ -477,6 +480,7 @@
 		oil.off_floor = TRUE
 		oil.layer = BELOW_MOB_LAYER
 
+#undef BLOOD_REGENERATION
 #undef BLOOD_PALE_DAMAGE
 #undef BLOOD_OKAY_DAMAGE
 #undef BLOOD_BAD_DAMAGE
