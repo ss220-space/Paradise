@@ -20,6 +20,7 @@
 
 
 /obj/item/clothing/ears/headphones/Destroy()
+	UnregisterSignal(src, list(COMSIG_SONG_START, COMSIG_SONG_END))
 	QDEL_NULL(song)
 	return ..()
 
