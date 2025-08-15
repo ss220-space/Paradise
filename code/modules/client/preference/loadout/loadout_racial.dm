@@ -141,9 +141,9 @@
 
 /datum/gear/racial/dreesses/New()
 	..()
-	var/list/dreesses = list(/obj/item/clothing/under/tchaikowsky/dress,
+	var/list/formdresses = list(/obj/item/clothing/under/tchaikowsky/dress,
 							/obj/item/clothing/under/tchaikowsky/dress/black)
-	gear_tweaks += new /datum/gear_tweak/path(dreesses, src, TRUE)
+	gear_tweaks += new /datum/gear_tweak/path(formdresses, src, TRUE)
 
 /datum/gear/racial/baseball
 	index_name = "baseball uniform"
