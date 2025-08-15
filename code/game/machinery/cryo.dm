@@ -27,6 +27,7 @@
 	on = FALSE
 	vent_movement = VENTCRAWL_CAN_SEE
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	flags = PREVENT_CLICK_UNDER | IGNORE_TURF_PIXEL_OFFSET
 	var/temperature_archived
 	var/mob/living/carbon/occupant
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.

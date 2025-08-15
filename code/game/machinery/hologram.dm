@@ -81,6 +81,12 @@ GLOBAL_LIST_EMPTY(holopads)
 
 	for(var/I in masters)
 		clear_holo(I)
+
+	QDEL_LIST_ASSOC(holorays)
+	QDEL_LIST(holo_calls)
+	masters.Cut()
+	outgoing_call = null
+	ray = null
 	GLOB.holopads -= src
 	return ..()
 
