@@ -148,7 +148,11 @@
 	icon_state = "bone_axe0"
 	name = "bone axe"
 	desc = "Большой и мощный топор, созданный из нескольких остро заточенных костяных пластин, грубо связанных вместе. Создан из монстров, путём убийства монстров, для убийства монстров."
-	ru_names = list(
+	force_wielded = 23
+	needs_permit = TRUE
+
+/obj/item/twohanded/fireaxe/boneaxe/get_ru_names()
+	return list(
 		NOMINATIVE = "костяной топор",
 		GENITIVE = "костяного топора",
 		DATIVE = "костяному топору",
@@ -156,8 +160,7 @@
 		INSTRUMENTAL = "костяным топором",
 		PREPOSITIONAL = "костяном топоре"
 	)
-	force_wielded = 23
-	needs_permit = TRUE
+	
 
 /obj/item/twohanded/fireaxe/boneaxe/update_icon_state()
 	icon_state = "bone_axe[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -165,14 +168,6 @@
 /obj/item/twohanded/fireaxe/boneaxe/guillotine
 	name = "guillotine"
 	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ."
-	ru_names = list(
-		NOMINATIVE = "гильотина",
-		GENITIVE = "гильотины",
-		DATIVE = "гильотине",
-		ACCUSATIVE = "гильотину",
-		INSTRUMENTAL = "гильотиной",
-		PREPOSITIONAL = "гильотине"
-	)
 	icon_state = "guillotine0"
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	force_unwielded = 7
@@ -182,6 +177,16 @@
 	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/lava_items_righthand.dmi'
 	has_speed_harvest = TRUE
+
+/obj/item/twohanded/fireaxe/boneaxe/guillotine/get_ru_names()
+	return list(
+		NOMINATIVE = "гильотина",
+		GENITIVE = "гильотины",
+		DATIVE = "гильотине",
+		ACCUSATIVE = "гильотину",
+		INSTRUMENTAL = "гильотиной",
+		PREPOSITIONAL = "гильотине"
+	)
 
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/ComponentInitialize()
 	. = ..()
@@ -418,14 +423,6 @@
 	icon_state = "spearglass0"
 	name = "spear"
 	desc = "Оружие древней конструкции, хоть и изготовленное небрежно, но всё ещё остаётся смертоносным."
-	ru_names = list(
-		NOMINATIVE = "копьё",
-		GENITIVE = "копья",
-		DATIVE = "копью",
-		ACCUSATIVE = "копьё",
-		INSTRUMENTAL = "копьём",
-		PREPOSITIONAL = "копье"
-	)
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
@@ -446,6 +443,16 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
 	var/icon_prefix = "spearglass"
+
+/obj/item/twohanded/spear/get_ru_names()
+	return list(
+		NOMINATIVE = "копьё",
+		GENITIVE = "копья",
+		DATIVE = "копью",
+		ACCUSATIVE = "копьё",
+		INSTRUMENTAL = "копьём",
+		PREPOSITIONAL = "копье"
+	)
 
 
 /obj/item/twohanded/spear/update_icon_state()
@@ -486,14 +493,6 @@
 	icon_state = "bone_spear0"
 	name = "bone spear"
 	desc = "Небрежно изготовленное, но смертоносное оружие. Венец современных технологий."
-	ru_names = list(
-		NOMINATIVE = "костяное копьё",
-		GENITIVE = "костяного копья",
-		DATIVE = "костяному копью",
-		ACCUSATIVE = "костяное копьё",
-		INSTRUMENTAL = "костяным копьём",
-		PREPOSITIONAL = "костяном копье"
-	)
 	force = 11
 	force_unwielded = 11
 	force_wielded = 20					//I have no idea how to balance
@@ -501,11 +500,28 @@
 	armour_penetration = 15				//Enhanced armor piercing
 	icon_prefix = "bone_spear"
 
+/obj/item/twohanded/spear/bonespear/get_ru_names()
+	return list(
+		NOMINATIVE = "костяное копьё",
+		GENITIVE = "костяного копья",
+		DATIVE = "костяному копью",
+		ACCUSATIVE = "костяное копьё",
+		INSTRUMENTAL = "костяным копьём",
+		PREPOSITIONAL = "костяном копье"
+	)
+
 /obj/item/twohanded/spear/bonespear/chitinspear //like a mix of a bone spear and bone axe, but more like a bone spear. And better.
 	icon_state = "chitin_spear0"
 	name = "chitin spear"
 	desc = "Тщательно изготовленное копьё с острым краем, похожее на нагинату, отлично подходит как для рубящих ударов, так и для метания."
-	ru_names = list(
+	force = 14
+	force_unwielded = 14
+	force_wielded = 24 // I have no idea about balance too
+	throwforce = 26
+	icon_prefix = "chitin_spear"
+
+/obj/item/twohanded/spear/bonespear/chitinspear/get_ru_names()
+	return list(
 		NOMINATIVE = "хитиновое копьё",
 		GENITIVE = "хитинового копья",
 		DATIVE = "хитиновому копью",
@@ -513,23 +529,10 @@
 		INSTRUMENTAL = "хитиновым копьём",
 		PREPOSITIONAL = "хитиновом копье"
 	)
-	force = 14
-	force_unwielded = 14
-	force_wielded = 24 // I have no idea about balance too
-	throwforce = 26
-	icon_prefix = "chitin_spear"
 
 /obj/item/twohanded/spear/bonespear/her_biting_embrace
 	name = "her biting embrace"
 	desc = "Качественно созданное копьё, украшенное церемониальными узорами и использующее хвост донного угря в качестве наконечника. Настоящее произведение первобытного оружейного искусства."
-	ru_names = list(
-		NOMINATIVE = "копьё \"Её Обжигающие Объятия\"",
-		GENITIVE = "копья \"Её Обжигающие Объятия\"",
-		DATIVE = "копью \"Её Обжигающие Объятия\"",
-		ACCUSATIVE = "копьё \"Её Обжигающие Объятия\"",
-		INSTRUMENTAL = "копьём \"Её Обжигающие Объятия\"",
-		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\""
-	) //holy fuck
 	icon_state = "her_biting_embrace0"
 	icon_prefix = "her_biting_embrace"
 	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'
@@ -538,6 +541,16 @@
 	force_unwielded = 16
 	force_wielded = 28 // I have no idea about balance too
 	throwforce = 45
+
+/obj/item/twohanded/spear/bonespear/her_biting_embrace/get_ru_names()
+	return list(
+		NOMINATIVE = "копьё \"Её Обжигающие Объятия\"",
+		GENITIVE = "копья \"Её Обжигающие Объятия\"",
+		DATIVE = "копью \"Её Обжигающие Объятия\"",
+		ACCUSATIVE = "копьё \"Её Обжигающие Объятия\"",
+		INSTRUMENTAL = "копьём \"Её Обжигающие Объятия\"",
+		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\""
+	)
 
 /obj/item/twohanded/spear/bonespear/her_biting_embrace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
 	. = ..()
@@ -617,7 +630,14 @@
 /obj/structure/headspear
 	name = "head on a spear"
 	desc = "Какое варварство."
-	ru_names = list(
+	icon_state = "headspear"
+	density = FALSE
+	anchored = TRUE
+	var/obj/item/organ/external/head/mounted_head = null
+	var/obj/item/twohanded/spear/contained_spear = null
+
+/obj/structure/headspear/get_ru_names()
+	return list(
 		NOMINATIVE = "голова на копье",
 		GENITIVE = "головы на копье",
 		DATIVE = "голове на копье",
@@ -625,11 +645,6 @@
 		INSTRUMENTAL = "головой на копье",
 		PREPOSITIONAL = "голове на копье"
 	)
-	icon_state = "headspear"
-	density = FALSE
-	anchored = TRUE
-	var/obj/item/organ/external/head/mounted_head = null
-	var/obj/item/twohanded/spear/contained_spear = null
 
 /obj/structure/headspear/Destroy()
 	if(!obj_integrity)
@@ -1064,14 +1079,6 @@
 /obj/item/twohanded/pitchfork/demonic
 	name = "demonic pitchfork"
 	desc = "Красные вилы. Похоже, это инструмент дьявола."
-	ru_names = list(
-		NOMINATIVE = "демонические вилы",
-		GENITIVE = "демонических вил",
-		DATIVE = "демоническим вилам",
-		ACCUSATIVE = "демонические вилы",
-		INSTRUMENTAL = "демоническими вилами",
-		PREPOSITIONAL = "демонических вилах"
-	)
 	force = 19
 	throwforce = 24
 	force_unwielded = 19
@@ -1084,6 +1091,16 @@
 	siemens_coefficient = 0
 	light_color = COLOR_SOFT_RED
 	gender = PLURAL
+
+/obj/item/twohanded/pitchfork/demonic/get_ru_names()
+	return list(
+		NOMINATIVE = "демонические вилы",
+		GENITIVE = "демонических вил",
+		DATIVE = "демоническим вилам",
+		ACCUSATIVE = "демонические вилы",
+		INSTRUMENTAL = "демоническими вилами",
+		PREPOSITIONAL = "демонических вилах"
+	)
 
 /obj/item/twohanded/pitchfork/demonic/greater
 	force = 24
@@ -1182,14 +1199,6 @@
 /obj/item/twohanded/sechammer
 	name = "tactical sledgehammer"
 	desc = "Тяжёлая кувалда, используемая силовыми структурами НаноТрейзен. Удобная эргономичная рукоятка обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, силы удара достаточно, чтобы раздробить любую кость в теле гуманоида."
-	ru_names = list(
-		NOMINATIVE = "тактическая кувалда",
-		GENITIVE = "тактической кувалды",
-		DATIVE = "тактической кувалде",
-		ACCUSATIVE = "тактическую кувалду",
-		INSTRUMENTAL = "тактической кувалдой",
-		PREPOSITIONAL = "тактической кувалде"
-	)
 	gender = FEMALE
 	icon_state = "sechammer0"
 	throwforce = 20
@@ -1211,6 +1220,16 @@
 
 	var/stamina_drain = 8
 	var/max_stamina_damage = 40
+
+/obj/item/twohanded/sechammer/get_ru_names()
+	return list(
+		NOMINATIVE = "тактическая кувалда",
+		GENITIVE = "тактической кувалды",
+		DATIVE = "тактической кувалде",
+		ACCUSATIVE = "тактическую кувалду",
+		INSTRUMENTAL = "тактической кувалдой",
+		PREPOSITIONAL = "тактической кувалде"
+	)
 
 /obj/item/twohanded/sechammer/ComponentInitialize()
 	. = ..()

@@ -3,14 +3,6 @@
 /obj/machinery/computer/operating
 	name = "operating computer"
 	desc = "Высокотехнологичный медицинский компьютер, используемый для контролирования процесса хиругических операций."
-	ru_names = list(
-		NOMINATIVE = "операционный компьютер",
-		GENITIVE = "операционного компьютера",
-		DATIVE = "операционному компьютеру",
-		ACCUSATIVE = "операционный компьютер",
-		INSTRUMENTAL = "операционным компьютером",
-		PREPOSITIONAL = "операционном компьютере"
-	)
 	density = TRUE
 	anchored = TRUE
 	icon_keyboard = "med_key"
@@ -31,6 +23,16 @@
 	/// about the mob - use `table.patient` instead.
 	var/mob/living/carbon/currentPatient
 	var/patientStatusHolder //Hold the last instance of table.patient.status. When table.patient.status no longer matches this variable, the computer should tell the doctor
+
+/obj/machinery/computer/operating/get_ru_names()
+	return list(
+		NOMINATIVE = "операционный компьютер",
+		GENITIVE = "операционного компьютера",
+		DATIVE = "операционному компьютеру",
+		ACCUSATIVE = "операционный компьютер",
+		INSTRUMENTAL = "операционным компьютером",
+		PREPOSITIONAL = "операционном компьютере"
+	)
 
 /obj/machinery/computer/operating/New()
 	..()

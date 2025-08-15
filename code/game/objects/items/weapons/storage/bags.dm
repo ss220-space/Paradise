@@ -133,14 +133,6 @@
 /obj/item/storage/bag/ore
 	name = "mining satchel"
 	desc = "Эта малютка может хранить и переносить руду."
-	ru_names = list(
-		NOMINATIVE = "шахтёрская сумка",
-		GENITIVE = "шахтёрской сумки",
-		DATIVE = "шахтёрской сумке",
-		ACCUSATIVE = "шахтёрскую сумку",
-		INSTRUMENTAL = "шахтёрской сумкой",
-		PREPOSITIONAL = "шахтёрской сумке"
-	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
@@ -152,10 +144,24 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/stack/ore)
 
+/obj/item/storage/bag/ore/get_ru_names()
+	return list(
+		NOMINATIVE = "шахтёрская сумка",
+		GENITIVE = "шахтёрской сумки",
+		DATIVE = "шахтёрской сумке",
+		ACCUSATIVE = "шахтёрскую сумку",
+		INSTRUMENTAL = "шахтёрской сумкой",
+		PREPOSITIONAL = "шахтёрской сумке"
+	)
+
 /obj/item/storage/bag/ore/bigger
 	name = "industrial mining satchel"
 	desc = "Усовершенствованная версия с дополнительными карманами для руды."
-	ru_names = list(
+	icon_state = "satchel_better"
+	storage_slots = 16 //little better
+
+/obj/item/storage/bag/ore/bigger/get_ru_names()
+	return list(
 		NOMINATIVE = "промышленная шахтёрская сумка",
 		GENITIVE = "промышленной шахтёрской сумки",
 		DATIVE = "промышленной шахтёрской сумке",
@@ -163,8 +169,6 @@
 		INSTRUMENTAL = "промышленной шахтёрской сумкой",
 		PREPOSITIONAL = "промышленной шахтёрской сумке"
 	)
-	icon_state = "satchel_better"
-	storage_slots = 16 //little better
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
@@ -178,7 +182,13 @@
 /obj/item/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
 	desc = "Революционное решение – бесконечное хранилище для руды с защитой от сбоев."
-	ru_names = list(
+	storage_slots = INFINITY
+	max_combined_w_class = INFINITY
+	origin_tech = "bluespace=4;materials=3;engineering=3"
+	icon_state = "satchel_bspace"
+
+/obj/item/storage/bag/ore/holding/get_ru_names()
+	return list(
 		NOMINATIVE = "шахтёрская сумка хранения",
 		GENITIVE = "шахтёрской сумки хранения",
 		DATIVE = "шахтёрской сумке хранения",
@@ -186,10 +196,6 @@
 		INSTRUMENTAL = "шахтёрской сумкой хранения",
 		PREPOSITIONAL = "шахтёрской сумке хранения"
 	)
-	storage_slots = INFINITY
-	max_combined_w_class = INFINITY
-	origin_tech = "bluespace=4;materials=3;engineering=3"
-	icon_state = "satchel_bspace"
 
 /obj/item/storage/bag/ore/holding/cyborg
 	name = "cyborg mining satchel of holding"
@@ -203,14 +209,6 @@
 /obj/item/storage/bag/gem
 	name = "gem satchel"
 	desc = "Вы ожидали чего-то более стильного, как в мультфильмах про грабителей."
-	ru_names = list(
-		NOMINATIVE = "сумка для самоцветов",
-		GENITIVE = "сумки для самоцветов",
-		DATIVE = "сумке для самоцветов",
-		ACCUSATIVE = "сумку для самоцветов",
-		INSTRUMENTAL = "сумкой для самоцветов",
-		PREPOSITIONAL = "сумке для самоцветов"
-	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "gem_satchel"
 	slot_flags = ITEM_SLOT_BELT
@@ -221,6 +219,15 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/gem)
 
+/obj/item/storage/bag/gem/get_ru_names()
+	return list(
+		NOMINATIVE = "сумка для самоцветов",
+		GENITIVE = "сумки для самоцветов",
+		DATIVE = "сумке для самоцветов",
+		ACCUSATIVE = "сумку для самоцветов",
+		INSTRUMENTAL = "сумкой для самоцветов",
+		PREPOSITIONAL = "сумке для самоцветов"
+	)
 
 /obj/item/storage/bag/gem/cyborg
 	name = "cyborg gem satchel"
@@ -235,14 +242,6 @@
 ////////////////////////////////////////
 /obj/item/storage/bag/kaboom // bag that can hold plastic explosions(used only for emagged mining borg)
 	name = "Charge Deployment System"
-	ru_names = list(
-		NOMINATIVE = "Система Размещения Зарядов",
-		GENITIVE = "Системы Размещения Зарядов",
-		DATIVE = "Системе Размещения Зарядов",
-		ACCUSATIVE = "Систему Размещения Зарядов",
-		INSTRUMENTAL = "Системой Размещения Зарядов",
-		PREPOSITIONAL = "Системе Размещения Зарядов"
-	)
 	desc = "Система Размещения Зарядов. Способна автоматически устанавливать выбранную взрывчатку."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "bomb_satchel"
@@ -258,6 +257,16 @@
 	var/obj/item/grenade/plastic/miningcharge/nextbombbutmining = null
 	var/obj/item/grenade/plastic/nextchosen = null
 	var/bombs_left = 0
+
+/obj/item/storage/bag/kaboom/get_ru_names()
+	return list(
+		NOMINATIVE = "Система Размещения Зарядов",
+		GENITIVE = "Системы Размещения Зарядов",
+		DATIVE = "Системе Размещения Зарядов",
+		ACCUSATIVE = "Систему Размещения Зарядов",
+		INSTRUMENTAL = "Системой Размещения Зарядов",
+		PREPOSITIONAL = "Системе Размещения Зарядов"
+	)
 
 /obj/item/storage/bag/kaboom/proc/bombradialmenu(mob/user)
 	if(!LAZYLEN(contents))
@@ -536,14 +545,6 @@
 /obj/item/storage/bag/books
 	name = "book bag"
 	desc = "Красная сумка, предназначенная для удобной транспортировки и хранения книг."
-	ru_names = list(
-		NOMINATIVE = "книжная сумка",
-		GENITIVE = "книжной сумки",
-		DATIVE = "книжной сумке",
-		ACCUSATIVE = "книжную сумку",
-		INSTRUMENTAL = "книжной сумкой",
-		PREPOSITIONAL = "книжной сумке"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/library.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
@@ -557,6 +558,16 @@
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
 	can_hold = list(/obj/item/book, /obj/item/storage/bible, /obj/item/tome, /obj/item/spellbook)
 	resistance_flags = FLAMMABLE
+
+/obj/item/storage/bag/books/get_ru_names()
+	return list(
+		NOMINATIVE = "книжная сумка",
+		GENITIVE = "книжной сумки",
+		DATIVE = "книжной сумке",
+		ACCUSATIVE = "книжную сумку",
+		INSTRUMENTAL = "книжной сумкой",
+		PREPOSITIONAL = "книжной сумке"
+	)
 
 ////////////////////////////////////////
 // MARK:	Construction bag
@@ -697,14 +708,6 @@
 /obj/item/storage/bag/dangertray
 	name = "tray"
 	desc = "Металлический поднос для еды с острыми как бритва краями."
-	ru_names = list(
-		NOMINATIVE = "поднос",
-		GENITIVE = "подноса",
-		DATIVE = "подносу",
-		ACCUSATIVE = "поднос",
-		INSTRUMENTAL = "подносом",
-		PREPOSITIONAL = "подносе"
-	)
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "dangertray"
 	force = 5
@@ -716,6 +719,16 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
+
+/obj/item/storage/bag/dangertray/get_ru_names()
+	return list(
+		NOMINATIVE = "поднос",
+		GENITIVE = "подноса",
+		DATIVE = "подносу",
+		ACCUSATIVE = "поднос",
+		INSTRUMENTAL = "подносом",
+		PREPOSITIONAL = "подносе"
+	)
 
 
 /obj/item/storage/bag/dangertray/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -781,14 +794,6 @@
 /obj/item/storage/bag/medpouch
 	name = "medicinal pouch"
 	desc = "Небольшой мешочек для хранения трав, припарок, наживки и мелких предметов."
-	ru_names = list(
-		NOMINATIVE = "лекарственный мешочек",
-		GENITIVE = "лекарственного мешочка",
-		DATIVE = "лекарственному мешочку",
-		ACCUSATIVE = "лекарственный мешочек",
-		INSTRUMENTAL = "лекарственным мешочком",
-		PREPOSITIONAL = "лекарственном мешочке"
-	)
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "pouch_ash"
 	storage_slots = 40
@@ -801,17 +806,19 @@
 					/obj/item/stack/sheet/razor_sharp_teeth,
 			)
 
+/obj/item/storage/bag/medpouch/get_ru_names()
+	return list(
+		NOMINATIVE = "лекарственный мешочек",
+		GENITIVE = "лекарственного мешочка",
+		DATIVE = "лекарственному мешочку",
+		ACCUSATIVE = "лекарственный мешочек",
+		INSTRUMENTAL = "лекарственным мешочком",
+		PREPOSITIONAL = "лекарственном мешочке"
+	)
+
 /obj/item/storage/bag/medpouch/fishing
 	name = "fishing pouch"
 	desc = "Небольшой мешочек для хранения различной наживки и частей рыб."
-	ru_names = list(
-		NOMINATIVE = "рыболовный мешочек",
-		GENITIVE = "рыболовного мешочка",
-		DATIVE = "рыболовному мешочку",
-		ACCUSATIVE = "рыболовный мешочек",
-		INSTRUMENTAL = "рыболовным мешочком",
-		PREPOSITIONAL = "рыболовном мешочке"
-	)
 	icon_state = "fishpouch_ash"
 	storage_slots = 40
 	max_combined_w_class = 200
@@ -820,3 +827,13 @@
 					/obj/item/stack/sheet/cartilage_plate,
 					/obj/item/stack/sheet/razor_sharp_teeth,
 			)
+
+/obj/item/storage/bag/medpouch/fishing/get_ru_names()
+	return list(
+		NOMINATIVE = "рыболовный мешочек",
+		GENITIVE = "рыболовного мешочка",
+		DATIVE = "рыболовному мешочку",
+		ACCUSATIVE = "рыболовный мешочек",
+		INSTRUMENTAL = "рыболовным мешочком",
+		PREPOSITIONAL = "рыболовном мешочке"
+	)

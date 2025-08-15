@@ -2,14 +2,6 @@
 /obj/structure/spawner/lavaland
 	name = "necropolis tendril"
 	desc = "Мерзкий отросток скверны, проросший из глубин. Из него выползают чудовища."
-	ru_names = list(
-		NOMINATIVE = "щупальце некрополя",
-		GENITIVE = "щупальца некрополя",
-		DATIVE = "щупальцу некрополя",
-		ACCUSATIVE = "щупальце некрополя",
-		INSTRUMENTAL = "щупальцем некрополя",
-		PREPOSITIONAL = "щупальце некрополя"
-	)
 
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "tendril"
@@ -30,6 +22,16 @@
 	scanner_taggable = TRUE
 	mob_gps_id = "WT"
 	spawner_gps_id = "Necropolis Tendril"
+
+/obj/structure/spawner/lavaland/get_ru_names()
+	return list(
+		NOMINATIVE = "щупальце некрополя",
+		GENITIVE = "щупальца некрополя",
+		DATIVE = "щупальцу некрополя",
+		ACCUSATIVE = "щупальце некрополя",
+		INSTRUMENTAL = "щупальцем некрополя",
+		PREPOSITIONAL = "щупальце некрополя"
+	)
 
 /obj/structure/spawner/lavaland/goliath
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
@@ -112,7 +114,15 @@ GLOBAL_LIST_EMPTY(tendrils)
 /obj/effect/collapse
 	name = "collapsing necropolis tendril"
 	desc = "Отойди подальше!"
-	ru_names = list(
+	layer = TABLE_LAYER
+	icon = 'icons/mob/nest.dmi'
+	icon_state = "tendril"
+	anchored = TRUE
+	density = TRUE
+	var/obj/effect/light_emitter/tendril/emitted_light
+
+/obj/effect/collapse/get_ru_names()
+	return list(
 		NOMINATIVE = "разрушающееся щупальце некрополя",
 		GENITIVE = "разрушающегося щупальца некрополя",
 		DATIVE = "разрушающемуся щупальцу некрополя",
@@ -120,12 +130,6 @@ GLOBAL_LIST_EMPTY(tendrils)
 		INSTRUMENTAL = "разрушающимся щупальцем некрополя",
 		PREPOSITIONAL = "разрушающемся щупальце некрополя"
 	)
-	layer = TABLE_LAYER
-	icon = 'icons/mob/nest.dmi'
-	icon_state = "tendril"
-	anchored = TRUE
-	density = TRUE
-	var/obj/effect/light_emitter/tendril/emitted_light
 
 /obj/effect/collapse/Initialize(mapload)
 	. = ..()

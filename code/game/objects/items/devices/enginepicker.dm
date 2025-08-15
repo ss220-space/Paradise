@@ -1,7 +1,14 @@
 /obj/item/enginepicker
 	name = "Bluespace Engine Delivery Device"
 	desc = "Система доставки двигателя, основанная на блюспейс-технологиях. Есть возможность выбрать только один вариант. Устройство самоуничтожается после использования."
-	ru_names = list(
+	icon = 'icons/obj/device.dmi'
+	icon_state = "enginepicker"
+
+	var/list/list_enginebeacons
+	var/isactive = FALSE
+
+/obj/item/enginepicker/get_ru_names()
+	return list(
 		NOMINATIVE = "Блюспейс устройство доставки двигателя",
 		GENITIVE = "Блюспейс устройства доставки двигателя",
 		DATIVE = "Блюспейс устройству доставки двигателя",
@@ -9,14 +16,9 @@
 		INSTRUMENTAL = "Блюспейс устройством доставки двигателя",
 		PREPOSITIONAL = "Блюспейс устройстве доставки двигателя"
 	)
-	icon = 'icons/obj/device.dmi'
-	icon_state = "enginepicker"
-
-	var/list/list_enginebeacons = list()
-	var/isactive = FALSE
 
 /obj/item/enginepicker/Destroy()
-	list_enginebeacons.Cut()
+	LAZYCLEARLIST(list_enginebeacons)
 	return ..()
 
 /obj/item/enginepicker/attack_self(mob/living/carbon/user)
@@ -41,7 +43,7 @@
 	LAZYCLEARLIST(list_enginebeacons)
 	for(var/obj/item/radio/beacon/engine/B in GLOB.engine_beacon_list)
 		if(B && !QDELETED(B))	//This ensures that the input pop-up won't have any qdeleted beacons
-			list_enginebeacons += B
+			LAZYADD(list_enginebeacons, B)
 
 //Spawns and logs / announces the appropriate engine based on the choice made
 /obj/item/enginepicker/proc/processchoice(var/obj/item/radio/beacon/engine/choice, mob/living/carbon/user)

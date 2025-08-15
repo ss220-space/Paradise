@@ -30,14 +30,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/machinery/tcomms
 	name = "Telecommunications Device"
 	desc = "Если вы это видите, составьте баг-репорт в Discord."
-	ru_names = list(
-		NOMINATIVE = "устройство телекоммуникаций",
-		GENITIVE = "устройства телекоммуникаций",
-		DATIVE = "устройству телекоммуникаций",
-		ACCUSATIVE = "устройство телекоммуникаций",
-		INSTRUMENTAL = "устройством телекоммуникаций",
-		PREPOSITIONAL = "устройстве телекоммуникаций"
-	)
 	icon = 'icons/obj/machines/tcomms.dmi'
 	icon_state = "error"
 	density = TRUE
@@ -50,6 +42,16 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/active = TRUE
 	/// Has the machine been hit by an ionospheric anomaly
 	var/ion = FALSE
+
+/obj/machinery/tcomms/get_ru_names()
+	return list(
+		NOMINATIVE = "устройство телекоммуникаций",
+		GENITIVE = "устройства телекоммуникаций",
+		DATIVE = "устройству телекоммуникаций",
+		ACCUSATIVE = "устройство телекоммуникаций",
+		INSTRUMENTAL = "устройством телекоммуникаций",
+		PREPOSITIONAL = "устройстве телекоммуникаций"
+	)
 
 /**
   * Base Initializer
@@ -441,7 +443,9 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/item/paper/tcommskey
 	name = "Telecommunications linkage password"
 	desc = "Памятка, содержащая коды для изменения конфигурации телекоммуникационных систем."
-	ru_names = list(
+
+/obj/item/paper/tcommskey/get_ru_names()
+	return list(
 		NOMINATIVE = "\"Пароль привязки телекоммуникаций\"",
 		GENITIVE = "\"Пароль привязки телекоммуникаций\"",
 		DATIVE = "\"Пароль привязки телекоммуникаций\"",

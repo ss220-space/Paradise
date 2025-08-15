@@ -66,6 +66,8 @@
 
 /turf/space/ComponentInitialize()
 	. = ..()
+	if(!is_station_level(z))
+		return
 	AddComponent(/datum/component/blob_turf_consuming, 4)
 
 /turf/space/BeforeChange()

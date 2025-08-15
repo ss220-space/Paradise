@@ -581,14 +581,6 @@
 /obj/item/gun/magic/skull_gun
 	name = "infected skull"
 	desc = "Деформированный череп, передающий могильную лихорадку."
-	ru_names = list(
-        NOMINATIVE = "заражённый череп",
-        GENITIVE = "заражённого черепа",
-        DATIVE = "заражённому черепу",
-        ACCUSATIVE = "заражённый череп",
-        INSTRUMENTAL = "заражённым черепом",
-        PREPOSITIONAL = "заражённом черепе"
-    )
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ashen_skull"
 	item_state = "ashen_skull"
@@ -605,6 +597,15 @@
 	throw_speed = 0
 	var/obj/effect/proc_holder/spell/vampire/self/infected_trophy/parent_spell
 
+/obj/item/gun/magic/skull_gun/get_ru_names()
+	return list(
+		NOMINATIVE = "заражённый череп",
+		GENITIVE = "заражённого черепа",
+		DATIVE = "заражённому черепу",
+		ACCUSATIVE = "заражённый череп",
+		INSTRUMENTAL = "заражённым черепом",
+		PREPOSITIONAL = "заражённом черепе"
+	)
 
 /obj/item/gun/magic/skull_gun/Initialize(mapload, spell)
 	. = ..()
@@ -629,30 +630,23 @@
 /obj/item/ammo_casing/magic/skull_gun_casing
 	name = "skull gun casing"
 	desc = "Что это за..."
-	ru_names = list(
-    NOMINATIVE = "гильза для черепного пистолета",
-    GENITIVE = "гильзы для черепного пистолета",
-    DATIVE = "гильзе для черепного пистолета",
-    ACCUSATIVE = "гильзу для черепного пистолета",
-    INSTRUMENTAL = "гильзой для черепного пистолета",
-    PREPOSITIONAL = "гильзе для черепного пистолета"
-	)
 	icon_state = "skulls"
 	projectile_type = /obj/projectile/skull_projectile
 	muzzle_flash_effect = null
 	caliber = "skulls"
 
+/obj/item/ammo_casing/magic/skull_gun_casing/get_ru_names()
+	return list(
+		NOMINATIVE = "гильза для черепного пистолета",
+		GENITIVE = "гильзы для черепного пистолета",
+		DATIVE = "гильзе для черепного пистолета",
+		ACCUSATIVE = "гильзу для черепного пистолета",
+		INSTRUMENTAL = "гильзой для черепного пистолета",
+		PREPOSITIONAL = "гильзе для черепного пистолета"
+	)
 
 /obj/projectile/skull_projectile
 	name = "infected skull"
-	ru_names = list(
-        NOMINATIVE = "заражённый череп",
-        GENITIVE = "заражённого черепа",
-        DATIVE = "заражённому черепу",
-        ACCUSATIVE = "заражённый череп",
-        INSTRUMENTAL = "заражённым черепом",
-        PREPOSITIONAL = "заражённом черепе"
-    )
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ashen_skull"
 	pass_flags = PASSTABLE | PASSGRILLE | PASSFENCE
@@ -662,6 +656,16 @@
 	armour_penetration = 100
 	damage_type = BRUTE
 	hitsound = null
+
+/obj/projectile/skull_projectile/get_ru_names()
+	return list(
+		NOMINATIVE = "заражённый череп",
+		GENITIVE = "заражённого черепа",
+		DATIVE = "заражённому черепу",
+		ACCUSATIVE = "заражённый череп",
+		INSTRUMENTAL = "заражённым черепом",
+		PREPOSITIONAL = "заражённом черепе"
+	)
 
 
 /obj/projectile/skull_projectile/Destroy()
@@ -1453,14 +1457,6 @@
 /obj/structure/closet/coffin/vampire
 	name = "mysterious coffin"
 	desc = "Даже при взгляде на этот гроб волосы встают дыбом."
-	ru_names = list(
-            NOMINATIVE = "таинственный гроб",
-            GENITIVE = "таинственного гроба",
-            DATIVE = "таинственному гробу",
-            ACCUSATIVE = "таинственный гроб",
-            INSTRUMENTAL = "таинственным гробом",
-            PREPOSITIONAL = "таинственном гробе"
-    )
 	max_integrity = 500
 	color = "#7F0000"
 	anchored = TRUE
@@ -1473,7 +1469,7 @@
 	var/obj/machinery/portable_atmospherics/canister/air/interior_tank
 	var/no_manipulation = FALSE
 	/// UIDs of brave ones who ignore warnings and will loose their blood
-	var/list/lightheaded = list()
+	var/list/lightheaded
 	var/mob/living/carbon/human/human_vampire
 
 	var/heal_brute = 4
@@ -1491,6 +1487,16 @@
 
 	var/fullpower_unlocked = FALSE
 	var/fullpower_heal_done = FALSE
+
+/obj/structure/closet/coffin/vampire/get_ru_names()
+	return list(
+		NOMINATIVE = "таинственный гроб",
+		GENITIVE = "таинственного гроба",
+		DATIVE = "таинственному гробу",
+		ACCUSATIVE = "таинственный гроб",
+		INSTRUMENTAL = "таинственным гробом",
+		PREPOSITIONAL = "таинственном гробе"
+	)
 
 
 /obj/structure/closet/coffin/vampire/Initialize(mapload, mob/living/carbon/human/_human_vampire)
@@ -1515,7 +1521,7 @@
 		playsound(loc, 'sound/objects/coffin_break.ogg', 50, TRUE)
 		vampire_revenge()
 		human_vampire = null
-	lightheaded.Cut()
+	LAZYCLEARLIST(lightheaded)
 	QDEL_NULL(interior_tank)
 	QDEL_NULL(interior_air)
 	return ..()
@@ -1796,10 +1802,10 @@
 
 	var/user_UID = user.UID()
 	if(!(user_UID in lightheaded))
-		lightheaded += user_UID
+		LAZYADD(lightheaded, user_UID)
 		to_chat(user, span_warning("Вы чувствуете, что это не очень хорошая идея..."))
 	else
-		lightheaded -= user_UID
+		LAZYREMOVE(lightheaded, user_UID)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(user))
 		user.Weaken(10 SECONDS)	// well, you were warned!
 		user.Jitter(20 SECONDS)
