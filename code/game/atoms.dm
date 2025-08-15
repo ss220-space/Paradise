@@ -10,7 +10,7 @@
 	var/list/fingerprints_time
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
-	var/list/interactors = list()
+	var/list/interactors
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
@@ -850,7 +850,8 @@
 		add_fibers(M)
 
 		if(!(M.real_name in interactors))
-			interactors += M.real_name
+			LAZYADD(interactors, M.real_name)
+
 		//He has no prints!
 		if(HAS_TRAIT(M, TRAIT_NO_FINGERPRINTS))
 			if(fingerprintslast != M.key)
@@ -1848,11 +1849,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/add_gravity(id, gravity_delta)
 	if(id in gravity_sources)
 		gravity_sources[id] = 0
-
-	gravity_sources[id] += gravity_delta
+	else
+		LAZYADDASSOC(gravity_sources, id, gravity_delta)
 
 	if(!gravity_sources[id])
-		gravity_sources.Remove(id)
+		LAZYREMOVE(gravity_sources, id)
 
 	if(!isliving(src))
 		return
@@ -1861,19 +1862,21 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	M.refresh_gravity()
 
 /atom/proc/remove_gravity_source(id)
-	gravity_sources.Remove(id)
+	LAZYREMOVE(gravity_sources, id)
 	if(isliving(src))
 		var/mob/living/M = src
 		M.refresh_gravity()
 
 /atom/proc/add_ignored_gravity_source(id)
 	if(!(id in ignored_gravity_sources))
-		ignored_gravity_sources[id] = 1
+		LAZYADDASSOC(ignored_gravity_sources, id, 1)
 	else
 		ignored_gravity_sources[id]++
 
 /atom/proc/remove_ignored_gravity_source(id)
-	ignored_gravity_sources[id]--
+	if(id in ignored_gravity_sources)
+		ignored_gravity_sources[id]--
+
 	if(!ignored_gravity_sources[id])
 		ignored_gravity_sources.Remove(id)
 
