@@ -524,8 +524,8 @@
 	#define COMPONENT_BLOCK_INTENT_TOGGLE (1<<0)
 
 #define COMSIG_MOB_MOVE_INTENT_TOGGLED "mob_move_intent_toggled"
-
-#define COMSIG_COMBINE_MESSAGE_FOR_HEARER "mob_combine_message"
+// from /mob/proc/combine_message (&msg)
+#define COMSIG_COMBINE_MESSAGE_FOR_HEARER "combine_message_for_hearer"
 
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"
