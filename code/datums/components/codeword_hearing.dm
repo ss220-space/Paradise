@@ -19,7 +19,7 @@
 	var/source
 
 /datum/component/codeword_hearing/Initialize(regex/codeword_regex, highlight_span_class, component_source)
-	if(!ismovable(parent))
+	if(!ismob(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	replace_regex = codeword_regex
@@ -43,10 +43,10 @@
 
 	return ..()
 
-/datum/component/codeword_hearing/proc/handle_hearing(atom/movable/source, message)
+/datum/component/codeword_hearing/proc/handle_hearing(mob/source, message)
 	SIGNAL_HANDLER
-	
-	var/mob/living/owner = parent
+
+	var/mob/living/owner = source
 
 	if(!istype(owner))
 		return
