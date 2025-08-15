@@ -7,3 +7,4 @@
 #define COMSIG_TRY_CONSUME_TURF "try_consume_turf"
 	/// Component blocks consuming
 	#define COMPONENT_CAN_CONSUME (1<<0)
+	#define COMPONENT_CANT_CONSUME (1<<1)

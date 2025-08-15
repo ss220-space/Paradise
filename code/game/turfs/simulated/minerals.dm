@@ -1,3 +1,6 @@
+#define MINERAL_TYPE_BASE "base"
+#define MINERAL_TYPE_ANCIENT "ancient"
+#define MINERAL_TYPE_ANCIENT_OUTER "ancient_outer"
 /**********************Mineral deposits**************************/
 
 /turf/simulated/mineral //wall piece
@@ -31,7 +34,7 @@
 	var/hardness = 1 //how hard the material is, we'll have to have more powerful stuff if we want to blast harder materials.
 	/// Typecache of all the instruments allowed to dig us.
 	/// Populated in [/turf/simulated/mineral/proc/generate_picks()].
-	var/list/allowed_picks_typecache
+	var/static/list/list/allowed_picks_typecache = list()
 	COOLDOWN_DECLARE(last_act)
 
 /turf/simulated/mineral/get_ru_names()
@@ -66,10 +69,12 @@
 
 /// Generates typecache of tools allowed to dig this mineral
 /turf/simulated/mineral/proc/generate_picks()
-	allowed_picks_typecache = typecacheof(list(
+	if(!allowed_picks_typecache[MINERAL_TYPE_BASE])
+		allowed_picks_typecache[MINERAL_TYPE_BASE] = typecacheof(list(
 		/obj/item/pickaxe,
 		/obj/item/pen/survival,
 	))
+	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_BASE]
 
 
 /turf/simulated/mineral/proc/Spread(turf/T)
@@ -242,9 +247,11 @@
 
 
 /turf/simulated/mineral/ancient/generate_picks()
-	allowed_picks_typecache = typecacheof(list(
+	if(!allowed_picks_typecache[MINERAL_TYPE_ANCIENT])
+		allowed_picks_typecache[MINERAL_TYPE_ANCIENT] = typecacheof(list(
 		/obj/item/pickaxe,
 	))
+	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT]
 
 
 /turf/simulated/mineral/ancient/burn_down()
@@ -287,12 +294,14 @@
 
 
 /turf/simulated/mineral/ancient/outer/generate_picks()
-	allowed_picks_typecache = typecacheof(list(
+	if(!allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER])
+		allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER] = typecacheof(list(
 		/obj/item/pickaxe/drill/jackhammer,
 		/obj/item/pickaxe/diamond,
 		/obj/item/pickaxe/drill/cyborg/diamond,
 		/obj/item/pickaxe/drill/diamonddrill,
 	))
+	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER]
 
 
 /turf/simulated/mineral/ancient/outer/ex_act(severity)
@@ -1226,3 +1235,7 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
+
+#undef MINERAL_TYPE_BASE
+#undef MINERAL_TYPE_ANCIENT
+#undef MINERAL_TYPE_ANCIENT_OUTER

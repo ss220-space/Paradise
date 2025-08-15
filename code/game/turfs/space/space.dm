@@ -65,7 +65,6 @@
 	return INITIALIZE_HINT_NORMAL
 
 /turf/space/ComponentInitialize()
-	. = ..()
 	if(!is_station_level(z))
 		return
 	AddComponent(/datum/component/blob_turf_consuming, 4)
