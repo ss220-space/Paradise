@@ -750,15 +750,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "m79 grenade launcher crate"
 	required_tech = list("combat" = 6, "materials" = 3)
 
-
-/datum/supply_packs/security/armory/m79
-	name = "M79 Grenade Launcher Crate"
-	contains = list(/obj/item/gun/projectile/bombarda/secgl/m79,
-					/obj/item/gun/projectile/bombarda/secgl/m79)
-	cost = 80
-	containername = "m79 grenade launcher crate"
-	required_tech = list("combat" = 6, "materials" = 3)
-
 /datum/supply_packs/security/armory/grenades40mm_nonlethal
 	name = "40mm non-lethal grenade boxes crate"
 	contains = list(
