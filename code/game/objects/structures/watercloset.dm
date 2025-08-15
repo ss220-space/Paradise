@@ -88,14 +88,37 @@
 			span_userdanger("[grabber] starts to give you a swirlie..."),
 		)
 		swirlie = victim
-		if(do_after(grabber, 3 SECONDS, src, NONE) && grabber.pulling == victim)
-			victim.visible_message(
-				span_danger("[grabber] gives [victim] a swirlie!"),
-				span_userdanger("[grabber] gives [victim] a swirlie!"),
-				span_italics("You hear a toilet flushing."),
-			)
-			if(!victim.internal)
-				victim.adjustOxyLoss(5)
+		var/prev_angle = victim.lying_angle
+		var/oldx = victim.pixel_x
+		var/oldy = victim.pixel_y
+		var/swirlie_x = 0
+		var/swirlie_y = 24
+		var/swirlie_y_down = 14
+		victim.set_lying_angle(180)
+		animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y, time = 0.8 SECONDS)
+		if(!do_after(grabber, 1 SECONDS, src, NONE) || grabber.pulling != victim)
+			animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
+			victim.set_lying_angle(prev_angle)
+			swirlie = null
+			return
+		animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y_down, time = 2 SECONDS)
+		if(!do_after(grabber, 2 SECONDS, src, NONE) || grabber.pulling != victim)
+			animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
+			victim.set_lying_angle(prev_angle)
+			swirlie = null
+			return
+		// success toilet swirlie
+		//TODO sound here
+		victim.visible_message(
+			span_danger("[grabber] gives [victim] a swirlie!"),
+			span_userdanger("[grabber] gives [victim] a swirlie!"),
+			span_italics("You hear a toilet flushing."),
+		)
+		if(!victim.internal)
+			victim.adjustOxyLoss(15)
+		victim.SetEyeBlurry(5 SECONDS)
+		animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
+		victim.set_lying_angle(prev_angle)
 		swirlie = null
 	else
 		playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
