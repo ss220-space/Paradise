@@ -44,8 +44,10 @@
 	return ..()
 
 /datum/component/codeword_hearing/proc/handle_hearing(atom/movable/source, message)
-	var/mob/living/owner = parent
+	SIGNAL_HANDLER
 	
+	var/mob/living/owner = parent
+
 	if(!istype(owner))
 		return
 
