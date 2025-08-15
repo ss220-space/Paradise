@@ -10,32 +10,37 @@
 	can_holster = FALSE
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
-	var/pump_cooldown = 1 SECONDS
+	var/pump_cooldown = 0.5 SECONDS
 	COOLDOWN_DECLARE(last_pump)
 	accuracy = GUN_ACCURACY_MINIMAL
 	recoil = GUN_RECOIL_MEGA
+	var/opened = FALSE
 
 
-/obj/item/gun/projectile/bombarda/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
+/obj/item/gun/projectile/bombarda/attackby(obj/item/item, mob/user, params)
+	if(istype(item, /obj/item/ammo_box) || istype(item, /obj/item/ammo_casing))
 		add_fingerprint(user)
+		if(!opened)
+			balloon_alert(user, "необходимо открыть")
+			return ATTACK_CHAIN_PROCEED
 		if(chambered)
 			balloon_alert(user, "уже заряжено!")
 			return ATTACK_CHAIN_PROCEED
-		var/loaded = magazine.reload(I, user, silent = TRUE)
+		var/loaded = magazine.reload(item, user, silent = TRUE)
 		if(loaded)
-			chambered = magazine.get_round()
 			balloon_alert(user, "заряжено")
-			update_icon()
 			return ATTACK_CHAIN_BLOCKED_ALL
 		balloon_alert(user, "не удалось!")
 		return ATTACK_CHAIN_PROCEED
-
 	return ..()
 
 
 /obj/item/gun/projectile/bombarda/update_icon_state()
-	icon_state = initial(icon_state) + (chambered ? "" : "_open")
+	icon_state = initial(icon_state) + (opened ?  "_open" : "")
+
+
+/obj/item/gun/projectile/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
+	..(FALSE, FALSE)
 
 
 /obj/item/gun/projectile/bombarda/chamber_round()
@@ -45,6 +50,8 @@
 /obj/item/gun/projectile/bombarda/can_shoot(mob/user)
 	if(!chambered)
 		return FALSE
+	if(opened)
+		return FALSE
 	return (chambered.BB ? TRUE : FALSE)
 
 
@@ -52,14 +59,18 @@
 	if(!COOLDOWN_FINISHED(src, last_pump))
 		return
 	COOLDOWN_START(src, last_pump, pump_cooldown)
-	pump(user)
-
-
-/obj/item/gun/projectile/bombarda/proc/pump(mob/user)
 	add_fingerprint(user)
-	var/was_chambered = FALSE
+	if(opened)
+		close_pump(user)
+		return
+	open_pump(user)
+
+
+/obj/item/gun/projectile/bombarda/proc/open_pump(mob/user)
+	if(opened)
+		return FALSE
+	opened = TRUE
 	if(chambered)
-		was_chambered = TRUE
 		chambered.forceMove(drop_location())
 		chambered.SpinAnimation(5, 1)
 		chambered.pixel_x = rand(-10, 10)
@@ -67,15 +78,21 @@
 		chambered.setDir(pick(GLOB.alldirs))
 		playsound(chambered.loc, chambered.casing_drop_sound, 60, TRUE)
 		chambered = null
-	if(!magazine.ammo_count())
-		if(was_chambered)
-			playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
-			update_icon()
-		return FALSE
 	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
-	chambered = magazine.get_round()
 	update_icon()
 	return TRUE
+
+
+/obj/item/gun/projectile/bombarda/proc/close_pump(mob/user)
+	if(!opened)
+		return FALSE
+	opened = FALSE
+	if(!chambered)
+		chambered = magazine.get_round()
+	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
+	update_icon()
+	return TRUE
+
 
 // MARK: Security GL
 /obj/item/gun/projectile/bombarda/secgl
@@ -94,8 +111,23 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/secgl
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
+
+
+/obj/item/gun/projectile/bombarda/secgl/m79
+	name = "grenade launcher M79"
+	desc = "Классический однозарядный ручной гранатомёт, разработанный в 1961 году. Использует 40 мм гранаты."
+	ru_names = list(
+		NOMINATIVE = "ручной гранатомет M79",
+		GENITIVE = "ручного гранатомета M79",
+		DATIVE = "ручному гранатомету M79",
+		ACCUSATIVE = "ручной гранатомет M79",
+		INSTRUMENTAL = "ручным гранатометом M79",
+		PREPOSITIONAL = "ручном гранатомете M79"
+	)
+	icon_state = "m79"
+	item_state = "m79"
 
 
 // MARK: Bombarda ammo
