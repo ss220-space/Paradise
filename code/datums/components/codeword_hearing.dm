@@ -46,13 +46,8 @@
 /datum/component/codeword_hearing/proc/handle_hearing(mob/source, message)
 	SIGNAL_HANDLER
 
-	var/mob/living/owner = source
-
-	if(!istype(owner))
-		return
-
-	// don't skip codewords when owner speaks
-	if(!owner.can_hear())
+	// don't skip codewords when source speaks
+	if(!source.can_hear())
 		return
 
 	*message = replace_regex.Replace(*message, "<span class='[span_class]'>$1</span>")
