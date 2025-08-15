@@ -134,12 +134,12 @@
 						   /obj/item/clothing/under/tchaikowsky/evening_dress/cyan)
 	gear_tweaks += new /datum/gear_tweak/path(eveningdresses, src, TRUE)
 
-/datum/gear/racial/dresses
+/datum/gear/racial/formaldress
 	index_name = "Formal dress"
 	path = /obj/item/clothing/under/tchaikowsky/dress
 	whitelisted_species = list(SPECIES_HUMAN)
 
-/datum/gear/racial/dreesses/New()
+/datum/gear/racial/formaldress/New()
 	..()
 	var/list/formdresses = list(/obj/item/clothing/under/tchaikowsky/dress,
 							/obj/item/clothing/under/tchaikowsky/dress/black)

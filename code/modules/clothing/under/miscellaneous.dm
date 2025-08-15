@@ -1373,7 +1373,7 @@
 
 /obj/item/clothing/under/tchaikowsky/sechighwaist
 	name = "security high waist outfit"
-	desc = "blank"
+	desc = "Униформа Службы Безопасности с завышенной талией."
 	icon_state = "high_waist_sec"
 	item_state = "high_waist_sec"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
@@ -1381,44 +1381,43 @@
 
 /obj/item/clothing/under/tchaikowsky/dress
 	name = "formal blue dress"
-	desc = "blank"
+	desc = "Синее платье, которое обычно носят секретарши важных представителей корпораций."
 	icon_state = "formal_dress_blue"
 	item_state = "formal_dress_blue"
 	can_adjust = TRUE
 
 /obj/item/clothing/under/tchaikowsky/dress/black
 	name = "formal black dress"
-	desc = "blank"
+	desc = "Черное платье, которое обычно носят секретарши важных представителей корпораций."
 	icon_state = "formal_dress_black"
 	item_state = "formal_dress_black"
 	can_adjust = TRUE
 
 /obj/item/clothing/under/tchaikowsky/highwaistpants
 	name = "hight waist pants"
-	desc = "blank"
+	desc = "Штаны с завышенной талией. Идут в комплекте с черной рубашкой!"
 	icon_state = "high_waist_pants"
 	item_state = "high_waist_pants"
 
 /obj/item/clothing/under/tchaikowsky/evening_dress
 	name = "evening dress (black)"
-	desc = "blank"
+	desc = "Платье для официальных мероприятий"
 	icon_state = "evening_dress_black"
 	item_state = "evening_dress_black"
 
 /obj/item/clothing/under/tchaikowsky/evening_dress/cyan
 	name = "evening dress (cyan)"
-	desc = "blank"
 	icon_state = "evening_dress_cyan"
 	item_state = "evening_dress_cyan"
 
 /obj/item/clothing/under/tchaikowsky/baseball
 	name = "baseball uniform (blue)"
-	desc = "blank"
+	desc = "Бейсбольная униформа синего цвета. Мерч бейсбольной команды NanoTrasen."
 	icon_state = "baseball_uniform_blue"
 	item_state = "baseball_uniform_blue"
 
 /obj/item/clothing/under/tchaikowsky/baseball/brown
 	name = "baseball uniform (brown)"
-	desc = "blank"
+	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды Cybersun Ind."
 	icon_state = "baseball_uniform_brown"
 	item_state = "baseball_uniform_brown"

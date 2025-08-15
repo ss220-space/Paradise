@@ -177,12 +177,12 @@
 
 /obj/item/clothing/head/tchaikowsky/baseballcap
 	name = "baseball cap (blue)"
-	desc = "blank"
+	desc = "Бейсболка синего цвета. Мерч команды NanoTrasen."
 	icon_state = "baseball_blue"
 	item_state = "baseball_blue"
 
 /obj/item/clothing/head/tchaikowsky/baseballcap/brown
 	name = "baseball cap (brown)"
-	desc = "blank"
+	desc = "Бейсболка коричневого цвета. Мерч команды Cybersun Ind."
 	icon_state = "baseball_brown"
 	item_state = "baseball_brown"
