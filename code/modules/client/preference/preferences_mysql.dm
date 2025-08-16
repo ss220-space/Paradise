@@ -26,7 +26,7 @@
 					screentip_mode,
 					screentip_color,
 					light,
-					glowlevel,
+					glowlevel
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -126,7 +126,7 @@
 					screentip_mode=:screentip_mode,
 					screentip_color=:screentip_color,
 					light=:light,
-					glowlevel=:glowlevel,
+					glowlevel=:glowlevel
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
