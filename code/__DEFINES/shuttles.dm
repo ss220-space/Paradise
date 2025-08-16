@@ -33,6 +33,7 @@
 
 // Shuttle return values
 #define SHUTTLE_CAN_DOCK "can_dock"
+#define SHUTTLE_LOCKED "shuttle_locked"
 #define SHUTTLE_NOT_A_DOCKING_PORT "not_a_docking_port"
 #define SHUTTLE_DWIDTH_TOO_LARGE "docking_width_too_large"
 #define SHUTTLE_WIDTH_TOO_LARGE "width_too_large"

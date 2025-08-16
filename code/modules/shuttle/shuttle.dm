@@ -317,6 +317,8 @@
 
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
+	if(locked_move)
+		return SHUTTLE_LOCKED
 	if(!istype(S))
 		return SHUTTLE_NOT_A_DOCKING_PORT
 	if(istype(S, /obj/docking_port/stationary/transit))
@@ -344,6 +346,8 @@
 
 /obj/docking_port/mobile/proc/check_dock(obj/docking_port/stationary/S)
 	var/status = canDock(S)
+	if(status == SHUTTLE_LOCKED)
+		return FALSE
 	if(status == SHUTTLE_CAN_DOCK)
 		return TRUE
 	else if(status == SHUTTLE_ALREADY_DOCKED)
