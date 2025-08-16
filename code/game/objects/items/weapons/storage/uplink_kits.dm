@@ -737,7 +737,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/compact_sniper
 	name = "compact sniper rifle kit"
-	desc = "Коробка, содержащая компактную снайперскую винтовку Bubz Mini, дополнительный магазин, и коробку патронов."
+	desc = "Коробка, содержащая компактную снайперскую винтовку \"Bubz Mini\", дополнительный магазин, и коробку патронов."
 	ru_names = list(
 		NOMINATIVE = "набор \"Компактная снайперская винтовка\"",
 		GENITIVE = "набора \"Компактная снайперская винтовка\"",
