@@ -38,8 +38,8 @@
 	var/list/data = list(
 		"pixel_x" = source.pixel_x,
 		"pixel_y" = source.pixel_y,
-		"max_shift_x" = (initial(source.pixel_x) + world.icon_size / 2),
-		"max_shift_y" = (initial(source.pixel_y) + world.icon_size / 2),
+		"max_shift_x" = (initial(source.pixel_x) + (ICON_SIZE_X / 2)),
+		"max_shift_y" = (initial(source.pixel_y) + (ICON_SIZE_Y / 2)),
 		"random_drop_on" = random_drop_on,
 	)
 	return data
@@ -57,7 +57,7 @@
 	if(!isturf(source.loc) || usr.incapacitated() || !in_range(usr, source) || source.anchored || source.density)
 		return
 
-	var/shift_max = world.icon_size / 2
+	var/shift_max = ICON_SIZE_ALL / 2
 	var/shift_limit_x = initial(source.pixel_x) + shift_max
 	var/shift_limit_y = initial(source.pixel_y) + shift_max
 

@@ -17,7 +17,7 @@
 		if(O.CanAtmosPass(T, vertical))
 			continue
 		can_pass = FALSE
-		if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
+		if(O.BlockSuperconductivity())	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
 			atmos_supeconductivity |= direction
 			T.atmos_supeconductivity |= reverse_direction
 			return FALSE				//no need to keep going, we got all we asked

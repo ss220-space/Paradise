@@ -1974,7 +1974,12 @@
 /obj/item/toy/russian_revolver/trick_revolver
 	name = ".357 revolver"
 	desc = "Подозрительный револьвер. В нём используются патроны .357 калибра."
-	ru_names = list(
+	icon_state = "revolver"
+	max_shots = 1
+	var/fake_bullets = 0
+
+/obj/item/toy/russian_revolver/trick_revolver/get_ru_names()
+	return list(
 		NOMINATIVE = "револьвер .357 калибра",
 		GENITIVE = "револьвера .357 калибра",
 		DATIVE = "револьверу .357 калибра",
@@ -1982,9 +1987,6 @@
 		INSTRUMENTAL = "револьвером .357 калибра",
 		PREPOSITIONAL = "револьвере .357 калибра"
 	)
-	icon_state = "revolver"
-	max_shots = 1
-	var/fake_bullets = 0
 
 /obj/item/toy/russian_revolver/trick_revolver/New()
 	..()

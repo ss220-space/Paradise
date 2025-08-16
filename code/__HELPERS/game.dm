@@ -241,35 +241,49 @@
 					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 	return .
 
-/proc/inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)
-	var/turf/T
-	if(X1==X2)
-		if(Y1==Y2)
-			return 1 //Light cannot be blocked on same tile
+//Used when converting pixels to tiles to make them accurate
+#define OFFSET_X (0.5 / ICON_SIZE_X)
+#define OFFSET_Y (0.5 / ICON_SIZE_Y)
+
+///Calculate if two atoms are in sight, returns TRUE or FALSE
+/proc/inLineOfSight(X1, Y1, X2, Y2, Z = 1, PX1 = 16.5, PY1 = 16.5, PX2 = 16.5, PY2 = 16.5)
+	var/turf/current_turf
+	if(X1 == X2)
+		if(Y1 == Y2)
+			return TRUE //Light cannot be blocked on same tile
 		else
-			var/s = SIMPLE_SIGN(Y2-Y1)
-			Y1+=s
-			while(Y1!=Y2)
-				T=locate(X1,Y1,Z)
-				if(IS_OPAQUE_TURF(T))
+			var/sign = SIGN(Y2-Y1)
+			Y1 += sign
+			while(Y1 != Y2)
+				current_turf = locate(X1, Y1, Z)
+				if(IS_OPAQUE_TURF(current_turf))
 					return FALSE
-				Y1+=s
+				Y1 += sign
 	else
-		var/m=(32*(Y2-Y1)+(PY2-PY1))/(32*(X2-X1)+(PX2-PX1))
-		var/b=(Y1+PY1/32-0.015625)-m*(X1+PX1/32-0.015625) //In tiles
-		var/signX = SIMPLE_SIGN(X2-X1)
-		var/signY = SIMPLE_SIGN(Y2-Y1)
-		if(X1<X2)
-			b+=m
-		while(X1!=X2 || Y1!=Y2)
-			if(round(m*X1+b-Y1))
-				Y1+=signY //Line exits tile vertically
+		//This looks scary but we're just calculating a linear function (y = mx + b)
+
+		//m = y/x
+		var/m = (ICON_SIZE_Y*(Y2-Y1) + (PY2-PY1)) / (ICON_SIZE_X*(X2-X1) + (PX2-PX1))//In pixels
+
+		//b = y - mx
+		var/b = (Y1 + PY1/ICON_SIZE_Y - OFFSET_Y) - m*(X1 + PX1/ICON_SIZE_X - OFFSET_X)//In tiles
+
+		var/signX = SIGN(X2-X1)
+		var/signY = SIGN(Y2-Y1)
+		if(X1 < X2)
+			b += m
+		while(X1 != X2 || Y1 != Y2)
+			if(round(m*X1 + b - Y1)) // Basically, if y >= mx+b
+				Y1 += signY //Line exits tile vertically
 			else
-				X1+=signX //Line exits tile horizontally
-			T=locate(X1,Y1,Z)
-			if(IS_OPAQUE_TURF(T))
+				X1 += signX //Line exits tile horizontally
+			current_turf = locate(X1, Y1, Z)
+			if(IS_OPAQUE_TURF(current_turf))
 				return FALSE
 	return TRUE
+
+#undef OFFSET_X
+#undef OFFSET_Y
 
 /proc/isInSight(atom/A, atom/B)
 	var/turf/Aturf = get_turf(A)
