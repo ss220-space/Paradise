@@ -4,7 +4,7 @@
 	screen_loc = "TOP,LEFT"
 	maptext_height = 480
 	maptext_width = 480
-	maptext_y = -40
+	maptext_y = -15
 	maptext = ""
 
 /atom/movable/screen/screentip/Initialize(mapload, _hud)
