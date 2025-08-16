@@ -1,3 +1,6 @@
+/// Helper to format the text that gets thrown onto the chem hud element.
+#define FORMAT_CHEM_CHARGES_TEXT(charges) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(charges)]</font></div>")
+
 /// Time before changeling can revive himself.
 #define LING_FAKEDEATH_TIME					60 SECONDS
 /// The lowest value of genetic_damage [/datum/antagonist/changeling/process()] can take it to while dead.
@@ -120,7 +123,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 /datum/antagonist/changeling/greet()
 	..()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/ling_aler.ogg')
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_aler.ogg'))
 	//to_chat(owner.current, span_changeling("Remember: you get all of the absorbed DNA points from other changelings if you absorb them."))
 
 
@@ -129,7 +132,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(owner.current, span_userdanger("You have been robotized!"))
 		to_chat(owner.current, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
 	else
-		to_chat(owner.current, "<FONT color='red' size = 3><B>You lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>")
+		to_chat(owner.current, span_fontsize3("<span style='color: red;'><b>You lose your powers! You are no longer a changeling and are stuck in your current form!</b></span>"))
 
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
@@ -152,6 +155,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			give_power(new power_type, user)
 
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
+	RegisterSignal(user, COMSIG_MOB_ALTCLICKON, PROC_REF(on_click_sting))
+	//COMSIG_MOB_MIDDLECLICKON not yet implemented, please remove all MiddleClick fuckery after adding here.
 
 	var/mob/living/carbon/carbon_user = user
 	if(!istype(carbon_user))
@@ -252,7 +257,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/mob/living/carbon/human/h_owner = owner.current
 	if(h_owner.hud_used?.lingchemdisplay)
 		h_owner.hud_used.lingchemdisplay.invisibility = 0
-		h_owner.hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(chem_charges)]</font></div>"
+		h_owner.hud_used.lingchemdisplay.maptext = FORMAT_CHEM_CHARGES_TEXT(chem_charges)
 
 	if(h_owner.stat == DEAD)
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage * 0.5)
@@ -261,6 +266,27 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	else // Not dead? no chem/genetic_damage caps.
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 		genetic_damage = max(0, genetic_damage - 1)
+
+/**
+ * Signal proc for [COMSIG_MOB_MIDDLECLICKON](not yet) and [COMSIG_MOB_ALTCLICKON].
+ * Allows the changeling to sting people with a click.
+ */
+/datum/antagonist/changeling/proc/on_click_sting(mob/living/ling, atom/clicked)
+	SIGNAL_HANDLER
+
+	// nothing to handle
+	if(!chosen_sting)
+		return
+	if(!isliving(ling) || clicked == ling || ling.stat != CONSCIOUS)
+		return
+	// actual ling stings do pathfinding to determine whether the target's "in range".
+	// however, this is "close enough" preliminary checks to not block click
+	if(!isliving(clicked) || !in_range(ling, clicked))
+		return
+
+	INVOKE_ASYNC(chosen_sting, TYPE_PROC_REF(/datum/action/changeling, try_to_sting), ling, clicked)
+
+	return COMSIG_MOB_CANCEL_CLICKON
 
 
 /**
@@ -628,3 +654,5 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/changeling)
 
+
+#undef FORMAT_CHEM_CHARGES_TEXT

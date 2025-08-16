@@ -198,7 +198,7 @@ GLOBAL_LIST_EMPTY(overminds)
 	add_say_logs(src, message, language = "BLOB")
 
 	var/message_a = say_quote(message)
-	var/rendered = span_big(span_blob("<b>\[Blob Telepathy\] <span class='name'>[name]</span>(<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [message_a], [message]"))
+	var/rendered = span_big(span_blob("<b>\[Blob Telepathy\] [span_name(name)](<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [message_a], [message]"))
 	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, src)
 
 /mob/camera/blob/proc/add_points(points)

@@ -8,17 +8,9 @@
 	pixel_x = SUPPLYPOD_X_OFFSET //2x2 sprite
 	layer = BELOW_OBJ_LAYER //So that the crate inside doesn't appear underneath
 	can_weld_shut = FALSE
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	anchored = TRUE //So it cant slide around after landing
 	density = FALSE
-	ru_names = list(
-		NOMINATIVE = "капсула снабжения",
-		GENITIVE = "капсулы снабжения",
-		DATIVE = "капсуле снабжения",
-		ACCUSATIVE = "капсулу снабжения",
-		INSTRUMENTAL = "капсулой снабжения",
-		PREPOSITIONAL = "капсуле снабжения"
-	)
 	///List of bitflags for supply pods, see: code\__DEFINES\obj_flags.dm
 	var/pod_flags = NONE
 
@@ -56,9 +48,19 @@
 	var/obj/effect/supplypod_rubble/rubble
 	var/obj/effect/engineglow/glow_effect
 	var/effectShrapnel = FALSE
-	var/shrapnel_type = /obj/item/projectile/shrapnel
+	var/shrapnel_type = /obj/projectile/shrapnel
 	var/shrapnel_magnitude = 3
 	var/list/reverse_option_list = list(MOB_OPTION=FALSE, UNANCHORED_OPTION=FALSE, ANCHORED_OPTION=FALSE, MECHA_OPTION=FALSE)
+
+/obj/structure/closet/supplypod/get_ru_names()
+	return list(
+		NOMINATIVE = "капсула снабжения",
+		GENITIVE = "капсулы снабжения",
+		DATIVE = "капсуле снабжения",
+		ACCUSATIVE = "капсулу снабжения",
+		INSTRUMENTAL = "капсулой снабжения",
+		PREPOSITIONAL = "капсуле снабжения"
+	)
 
 /obj/structure/closet/supplypod/bluespacepod
 	style = /datum/pod_style/advanced
@@ -91,7 +93,9 @@
 	stay_after_drop = TRUE
 	leavingSound = 'sound/effects/podwoosh.ogg'
 	reverse_option_list = list(MOB_OPTION=TRUE, UNANCHORED_OPTION=FALSE, ANCHORED_OPTION=FALSE, MECHA_OPTION=FALSE)
-	ru_names = list(
+
+/obj/structure/closet/supplypod/extractionpod/get_ru_names()
+	return list(
 		NOMINATIVE = "капсула эвакуации Синдиката",
 		GENITIVE = "капсулы эвакуации Синдиката",
 		DATIVE = "капсуле эвакуации Синдиката",
@@ -178,7 +182,9 @@
 	explosionSize = list(0,0,0,0)
 	style = /datum/pod_style/syndicate
 	specialised = TRUE
-	ru_names = list(
+
+/obj/structure/closet/supplypod/back_to_station/get_ru_names()
+	return list(
 		NOMINATIVE = "кроваво-красная капсула снабжения",
 		GENITIVE = "кроваво-красной капсулы снабжения",
 		DATIVE = "кроваво-красной капсуле снабжения",
@@ -196,7 +202,9 @@
 	specialised = TRUE
 	delays = list(POD_TRANSIT = 2.6 SECONDS, POD_FALLING = 0.4 SECONDS)
 	effectMissile = TRUE
-	ru_names = list(
+
+/obj/structure/closet/supplypod/deadmatch_missile/get_ru_names()
+	return list(
 		NOMINATIVE = "крылатая ракета",
 		GENITIVE = "крылатой ракеты",
 		DATIVE = "крылатой ракете",
@@ -650,7 +658,9 @@
 	pixel_x = SUPPLYPOD_X_OFFSET
 	var/foreground = "rubble_fg"
 	var/verticle_offset = 0
-	ru_names = list(
+
+/obj/effect/supplypod_rubble/get_ru_names()
+	return list(
 		NOMINATIVE = "обломки",
 		GENITIVE = "обломков",
 		DATIVE = "обломкам",
@@ -710,7 +720,9 @@
 	var/obj/structure/closet/supplypod/pod //The supplyPod that will be landing ontop of this pod_landingzone
 	var/obj/effect/pod_landingzone_effect/helper
 	var/list/smoke_effects = new /list(13)
-	ru_names = list(
+
+/obj/effect/pod_landingzone/get_ru_names()
+	return list(
 		NOMINATIVE = "индикатор зоны приземления",
 		GENITIVE = "индикатора зоны приземления",
 		DATIVE = "индикатору зоны приземления",
@@ -768,7 +780,7 @@
 	var/angle = effectCircle ? rand(0,360) : rand(70,110) //The angle that we can come in from
 	pod.pixel_x = cos(angle)*32*length(smoke_effects) //Use some ADVANCED MATHEMATICS to set the animated pod's position to somewhere on the edge of a circle with the center being the pod_landingzone
 	pod.pixel_z = sin(angle)*32*length(smoke_effects)
-	var/rotation = get_pixel_angle(pod.pixel_z, pod.pixel_x) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
+	var/rotation = delta_to_angle(pod.pixel_x, pod.pixel_z) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
 	setupSmoke(rotation)
 	pod.transform = matrix().Turn(rotation)
 	pod.layer = FLY_LAYER
@@ -802,6 +814,7 @@
 	for (var/obj/effect/supplypod_smoke/smoke_part in smoke_effects)
 		animate(smoke_part, alpha = 0, time = 20, flags = ANIMATION_PARALLEL)
 		animate(smoke_part.get_filter("smoke_blur"), size = 6, time = 15, easing = CUBIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
+	smoke_effects = null
 
 /obj/effect/pod_landingzone/ex_act(severity)
 	return FALSE

@@ -10,7 +10,16 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/lurker
 	name = "Lurker of Terror"
-	desc = "An ominous-looking gray spider. It seems to blend into webs, making it hard to see."
+	desc = "Зловещего вида серый паук. Кажется, что он сливается с паутиной, из-за чего его трудно увидеть."
+	ru_names = list(
+		NOMINATIVE = "Наблюдатель Ужаса",
+		GENITIVE = "Наблюдателя Ужаса",
+		DATIVE = "Наблюдателю Ужаса",
+		ACCUSATIVE = "Наблюдателя Ужаса",
+		INSTRUMENTAL = "Наблюдателем Ужаса",
+		PREPOSITIONAL = "Наблюдателе Ужаса",
+	)
+	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_gray"
 	icon_living = "terror_gray"
@@ -55,7 +64,7 @@
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
 		armour_penetration = initial(armour_penetration)
-		visible_message("<span class='danger'>[src] bites [target]!</span>")
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] кусает [target.declent_ru(ACCUSATIVE)]!"))
 
 	. = ..() //eat victim
 
@@ -79,7 +88,15 @@
 /obj/structure/spider/terrorweb/gray
 	alpha = 80
 	name = "transparent web"
-	desc = "This web is partly transparent, making it harder to see, and easier to get caught by."
+	desc = "Эта паутина частично прозрачна, поэтому её труднее увидеть и легче попасться."
+	ru_names = list(
+		NOMINATIVE = "прозрачная паутина",
+		GENITIVE = "прозрачной паутины",
+		DATIVE = "прозрачной паутине",
+		ACCUSATIVE = "прозрачную паутину",
+		INSTRUMENTAL = "прозрачной паутиной",
+		PREPOSITIONAL = "прозрачной паутине",
+	)
 
 /obj/structure/spider/terrorweb/gray/web_special_ability(mob/living/carbon/C) //super deadly web
 	if(istype(C))

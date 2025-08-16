@@ -60,25 +60,37 @@
 	questinfo["name"] = name
 	generate_flavour()
 	questinfo["desc"] = desc
-	questinfo["icon"] = path2assetID(mech)
+	var/obj/mecha/selected_mech = selected.mech_type
+	questinfo["icon"] = selected_mech.icon
+	questinfo["icon_state"] = selected_mech.icon_state
 	choosen_mech = selected.mech_type //тут мы выбираем меха из заготовок
 	questinfo["modules"] = list()
 	maximum_cash = rand(round(0.75 * selected.cash_reward), round(1.25 * selected.cash_reward))
 	if(length(selected.wanted_modules))
 		var/list/weapons = selected.wanted_modules
-		for(var/i in 1 to rand(1, selected.max_modules))
-			var/the_choosen_one = list(pick_n_take(weapons))
-			choosen_modules += the_choosen_one
+		var/rand_module_amount = rand(1, selected.max_modules)
+		for(var/i in 1 to rand_module_amount)
+			var/the_choosen_one = pick_n_take(weapons)
+			var/obj/item/mecha_parts/mecha_equipment/required = LAZYACCESS(selected.related_modules, the_choosen_one)
+			if(required && !(required in choosen_modules))
+				LAZYREMOVE(weapons, required)
+				LAZYADD(choosen_modules, required)
+				if(rand_module_amount < selected.max_modules)
+					LAZYADD(choosen_modules, the_choosen_one)
+					rand_module_amount += 1
+			else
+				LAZYADD(choosen_modules, the_choosen_one)
+
 		for(var/i in choosen_modules)
 			modules_amount++
 			var/list/newmodule = list()
 			var/obj/module = new i
 			newmodule["id"] = modules_amount
-			newmodule["icon"] = path2assetID(i)
+			newmodule["icon"] = module.icon
+			newmodule["icon_state"] = module.icon_state
 			newmodule["name"] = capitalize(module.name)
 			questinfo["modules"] += list(newmodule)
 			qdel(module)
-
 
 /datum/roboquest/proc/generate_flavour()
 	var/list/working = list("Поступил заказ от правительства колонии [pick("Гаусс", "Кита Эпсилон", "Тартессос")] на приобретение стандартного экзокостюма типа [name]. Запрошенные спецификации вы можете увидеть на консоли.",
@@ -87,19 +99,19 @@
 		"В связи с аварией, произошедшей на борту [new_station_name()] на ближайшую к ней станцию был отправлен заказ на создание экзокостюма типа [name].",
 		"Для испытания прототипа новой [pick("импульсной", "лазерной", "инфразвуковой", "плазменной")] винтовки требуется старый или списанный экзокостюм класса [name]. Наличие модулей значения не имеет, но мы щедро покроем расходы.",
 		"В ходе тестирования новой версии автоматизированного ИИ на борту ИКН \"Икар\" произошло ОТРЕДАКТИРОВАНО. Для восстановления структурной целостности судна необходим экзокостюм класса [name]. Обеспечение меха модулями вознаграждается сверху.",
-		"Отдел корпоративных поставок на борту АКН Трурль столкнулся с нехваткой грузовых экзокостюмов типа [name]. Заказ на пополение соответствующих экзокостюмов был отправлен всем действующим станциям.",
+		"Отдел корпоративных поставок на борту [command_name()] столкнулся с нехваткой грузовых экзокостюмов типа [name]. Заказ на пополение соответствующих экзокостюмов был отправлен всем действующим станциям.",
 		"На связи ваши коллеги из Einstein Engines. У нас образовалась нехватка экзачей после того, как наше транспортное судно пропало недалеко от вашей станции, так что нам нужна срочная замена. Необходим [name]. Сделаете?",
 		"Отдел по связям с общественностью Shellguard Amunitions отправляет контактному лицу стандартный корпоративный заказ на экзокостюм типа [name]. Детали контракта засекречены согласно регламенту У-[rand(100, 999)]-67 .",
 		"РАСШИФРОВКА ПЕРЕДАЧИ... Приветствуем, агент. Данный заказ был отправлен вам по зашифрованной передаче. Для выполнения задачи нам необходим [name]. Оплата заказа будет осуществлена через подставные счета, так что вам ничего не угрожает.",
 		"Официальный заказ Республики Элизиум. требования для удовлетворения условий контракта - доставка экзокостюма типа [name]. По завершении заказа и выполнения дополнительных требований вас будет ожидать до [maximum_cash] кредитов.",
-		"Эээ.. Привет? Эта штука работает? Эээ.. в общем, если оно работает, это сообщество свободных шахтеров. В общем.. нам нужен [name]. Мы готовы хорошо заплатить! П-пожалуйста, нам очень нужен этот мех, или мы обречены...",
+		"Эээ.. Привет? Эта штука работает? Эээ.. в общем, если оно работает, это сообщество свободных шахтёров. В общем.. нам нужен [name]. Мы готовы хорошо заплатить! П-пожалуйста, нам очень нужен этот мех, или мы обречены...",
 	)
 	var/list/medical = list("Корпорация Vey-med производит ревизию своих лицензированных экзокостюмов. Согласно договору об аренде экзокостюмов типа [name] вы обязаны отослать один из образцов для сверки с контрольной группой. Оплату расходов берет на себя ваша корпорация.",
 		"Поступил срочный заказ от [new_station_name()]. В ходе проведения эксперимента по ОТРЕДАКТИРОВАНО произошёл инцидент, приведший к различным травмам более чем у [rand(2, 10)] человек. Для облечения работы медицинских отрядов был оставлен срочный заказ на [name].",
 		"В связи с аварией, произошедшей на борту [new_station_name()] на ближайшую к ней станцию был отправлен заказ на создание экзокостюма типа [name].",
 		"ВНИМАНИЕ. ПРОИЗОШЛА ВСПЫШКА БИОЛОГИЧЕСКОЙ УГРОЗЫ УРОВНЯ 7 НА БОРТУ [new_station_name()]. ДЛЯ ПОДДЕРЖАНИЯ КАРАНТИНА БЫЛ ОСТАВЛЕН ЗАПРОС НА ДОСТАВКУ ЭКЗОКОСТЮМА ТИПА [name].",
-		"Отдел корпоративных поставок на борту АКН Трурль столкнулся с нехваткой медицинских экзокостюмов типа [name]. Заказ на пополение соответствующих экзокостюмов был отправлен всем действующим станциям.",
-		"Один из добывающих аванпостов на поверхности Лазис-Адракс оставил срочный запрос на поставку медицинского экзокостюма типа [name] после того, как один из шахтёров приманил опасную фауну к аванпосту, что привело к гибели более [rand(2-15)] шахтеров.",
+		"Отдел корпоративных поставок на борту [command_name()] столкнулся с нехваткой медицинских экзокостюмов типа [name]. Заказ на пополение соответствующих экзокостюмов был отправлен всем действующим станциям.",
+		"Один из добывающих аванпостов на поверхности Лазис-Адракс оставил срочный запрос на поставку медицинского экзокостюма типа [name] после того, как один из шахтёров приманил опасную фауну к аванпосту, что привело к гибели более [rand(2-15)] шахтёров.",
 		"Поступил заказ от правительства колонии [pick("Гаусс", "Кита Эпсилон", "Тартессос")] на приобретение стандартного экзокостюма типа [name]. Запрошенные спецификации вы можете увидеть на консоли.",
 	)
 	var/list/combat = list("Поступил заказ от правительства колонии [pick("Гаусс", "Кита Эпсилон", "Тартессос")] на приобретение стандартного экзокостюма типа [name]. Запрошенные спецификации вы можете увидеть на консоли.",
@@ -158,7 +170,7 @@
 /datum/roboshop_item/bluespace_core
 	name = "bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	visual_item = /obj/item/assembly/signaler/anomaly/bluespace
+	visual_item = /obj/item/assembly/signaler/core/bluespace/tier3
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
 
 /datum/roboshop_item/advanced_roboquest_pad
@@ -200,7 +212,7 @@
 	cost = list("working" = 0, "medical" = 0, "security" = 6, "robo" = 0)
 
 /datum/roboshop_item/experimental_parts
-	name = "\improper experimental parts"
+	name = "experimental parts"
 	path = /obj/item/storage/part_replacer/bluespace/experimental
 	visual_item = /obj/item/storage/box/stockparts/experimental_parts
 	cost = list("working" = 2, "medical" = 2, "security" = 2, "robo" = 0)

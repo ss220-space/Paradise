@@ -96,19 +96,19 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 	switch(.["class"])
 		if(VV_TEXT)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, encode = FALSE, trim = FALSE)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, max_length = MAX_BOOK_MESSAGE_LEN, encode = FALSE, trim = FALSE) //TGUI can not comprehend 1eN, don't use scientific notation
 			if(.["value"] == null)
 				.["class"] = null
 				return
 		if(VV_MESSAGE)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, multiline = TRUE, encode = FALSE, trim = FALSE)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE, encode = FALSE, trim = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_NUM)
-			.["value"] = tgui_input_number(src, "Введите число:", "Число", current_value, max_value = INFINITY)
+			.["value"] = tgui_input_number(src, "Введите число:", "Число", current_value, max_value = INFINITY, min_value = -INFINITY, round_value = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -585,7 +585,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 		names = sortList(names)
 
-		variable = input("Which var?","Var") as null|anything in names
+		variable = tgui_input_list(usr, "Which var?", "Var", names)
 		if(!variable)
 			return
 

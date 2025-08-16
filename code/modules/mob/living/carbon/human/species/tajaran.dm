@@ -46,7 +46,7 @@
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/tajaran,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/tajaran,
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/tajaran,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/tajaran

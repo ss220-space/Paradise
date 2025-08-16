@@ -36,7 +36,7 @@
 /obj/structure/cult/functional
 	max_integrity = 100
 	var/cooldowntime = 0
-	var/death_message = "<span class='danger'>The structure falls apart.</span>" //The message shown when the structure is destroyed
+	var/death_message = span_danger("The structure falls apart.") //The message shown when the structure is destroyed
 	var/death_sound = 'sound/items/bikehorn.ogg'
 	var/heathen_message = "You're a huge nerd, go away. Also, a coder forgot to put a message here."
 	var/selection_title = "Oops"
@@ -61,8 +61,8 @@
 /obj/structure/cult/functional/examine(mob/user)
 	. = ..()
 	if(iscultist(user) && cooldowntime > world.time)
-		. += "<span class='cult'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>"
-	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
+		. += span_cult("The magic in [src] is weak, it will be ready to use again in [get_ETA()].")
+	. += span_notice("[src] is [anchored ? "":"not "]secured to the floor.")
 
 
 /obj/structure/cult/functional/update_icon_state()
@@ -88,16 +88,16 @@
 		to_chat(user, "[heathen_message]")
 		return
 	if(invisibility)
-		to_chat(user, "<span class='cultitalic'>The magic in [src] is being channeled into Redspace, reveal the structure first!</span>")
+		to_chat(user, span_cultitalic("The magic in [src] is being channeled into Redspace, reveal the structure first!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_HULK))
-		to_chat(user, "<span class='danger'>You cannot seem to manipulate this structure with your bulky hands!</span>")
+		to_chat(user, span_danger("You cannot seem to manipulate this structure with your bulky hands!"))
 		return
 	if(!anchored)
-		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with a dagger first.</span>")
+		to_chat(user, span_cultitalic("You need to anchor [src] to the floor with a dagger first."))
 		return
 	if(cooldowntime > world.time)
-		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>")
+		to_chat(user, span_cultitalic("The magic in [src] is weak, it will be ready to use again in [get_ETA()]."))
 		return
 
 	var/choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
@@ -127,7 +127,7 @@
 
 /obj/structure/cult/functional/cult_conceal()
 	set_density(FALSE)
-	visible_message("<span class='danger'>[src] fades away.</span>")
+	visible_message(span_danger("[src] fades away."))
 	invisibility = INVISIBILITY_HIDDEN_RUNES
 	alpha = 100 //To help ghosts distinguish hidden objs
 	light_range = 0
@@ -137,7 +137,7 @@
 /obj/structure/cult/functional/cult_reveal()
 	set_density(initial(density))
 	invisibility = 0
-	visible_message("<span class='danger'>[src] suddenly appears!</span>")
+	visible_message(span_danger("[src] suddenly appears!"))
 	alpha = initial(alpha)
 	light_range = initial(light_range)
 	light_power = initial(light_power)
@@ -148,12 +148,12 @@
 	desc = "A bloodstained altar dedicated to a cult."
 	icon_state = "altar"
 	max_integrity = 150 //Sturdy
-	death_message = "<span class='danger'>The altar breaks into splinters, releasing a cascade of spirits into the air!</span>"
+	death_message = span_danger("The altar breaks into splinters, releasing a cascade of spirits into the air!")
 	death_sound = 'sound/effects/altar_break.ogg'
-	heathen_message = "<span class='warning'>There is a foreboding aura to the altar and you want nothing to do with it.</span>"
+	heathen_message = span_warning("There is a foreboding aura to the altar and you want nothing to do with it.")
 	selection_prompt = "You study the rituals on the altar..."
 	selection_title = "Altar"
-	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with a %ITEM%!</span>"
+	creation_message = span_cultitalic("You kneel before the altar and your faith is rewarded with a %ITEM%!")
 	choosable_items = list("Eldritch Whetstone" = /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater,
 							"Construct Shell" = /obj/structure/constructshell)
 
@@ -165,12 +165,12 @@
 	light_range = 2
 	light_color = LIGHT_COLOR_LAVA
 	max_integrity = 300 //Made of metal
-	death_message = "<span class='danger'>The forge falls apart, its lava cooling and winking away!</span>"
+	death_message = span_danger("The forge falls apart, its lava cooling and winking away!")
 	death_sound = 'sound/effects/forge_destroy.ogg'
-	heathen_message = "<span class='warning'>Your hand feels like it's melting off as you try to touch the forge.</span>"
+	heathen_message = span_warning("Your hand feels like it's melting off as you try to touch the forge.")
 	selection_prompt = "You study the schematics etched on the forge..."
 	selection_title = "Forge"
-	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating a %ITEM%!</span>"
+	creation_message = span_cultitalic("You work the forge as dark knowledge guides your hands, creating a %ITEM%!")
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe,
 							"Mirror Shield" = /obj/item/shield/mirror)
 
@@ -219,7 +219,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	light_range = 1.5
 	light_color = LIGHT_COLOR_RED
 	max_integrity = 50 //Very fragile
-	death_message = "<span class='danger'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
+	death_message = span_danger("The pylon's crystal vibrates and glows fiercely before violently shattering!")
 	death_sound = 'sound/effects/pylon_shatter.ogg'
 	/// Length of the cooldown in between tile corruptions. Doubled if no turfs are found.
 	var/corruption_cooldown_duration = 5 SECONDS
@@ -323,12 +323,12 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	light_range = 1.5
 	light_color = LIGHT_COLOR_FIRE
 	max_integrity = 125 //Slightly sturdy
-	death_message = "<span class='danger'>The desk breaks apart, its books falling to the floor.</span>"
+	death_message = span_danger("The desk breaks apart, its books falling to the floor.")
 	death_sound = 'sound/effects/wood_break.ogg'
-	heathen_message = "<span class='cultlarge'>What do you hope to seek?</span>"
+	heathen_message = span_cultlarge("What do you hope to seek?")
 	selection_prompt = "You flip through the black pages of the archives..."
 	selection_title = "Archives"
-	creation_message = "<span class='cultitalic'>You invoke the dark magic of the tomes creating a %ITEM%!</span>"
+	creation_message = span_cultitalic("You invoke the dark magic of the tomes creating a %ITEM%!")
 	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind,
 							"Veil Shifter" = /obj/item/cult_shift) //Add void torch to veil shifter spawn
 

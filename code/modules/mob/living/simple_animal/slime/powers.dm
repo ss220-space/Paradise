@@ -1,4 +1,4 @@
-#define SIZE_DOESNT_MATTER 	-1
+#define SIZE_DOESNT_MATTER	-1
 #define BABIES_ONLY			0
 #define ADULTS_ONLY			1
 
@@ -27,7 +27,7 @@
 		return 1
 
 /mob/living/simple_animal/slime/verb/Feed()
-	set category = "Slime"
+	set category = STATPANEL_SLIME
 	set desc = "This will let you feed on any valid creature in the surrounding area. This should also be used to halt the feeding process."
 
 	if(stat)
@@ -38,7 +38,9 @@
 		if(C!=src && Adjacent(C))
 			choices += C
 
-	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|choices
+	if(!length(choices))
+		return FALSE
+	var/mob/living/M = tgui_input_list(src, "Who do you wish to feed on?", , choices)
 	if(!M)
 		return 0
 	if(CanFeedon(M))
@@ -46,7 +48,7 @@
 		return 1
 
 /datum/action/innate/slime/feed
-	name = "Feed"
+	name = "Поглощать"
 	button_icon_state = "slimeeat"
 
 
@@ -130,7 +132,7 @@
 		buckled.unbuckle_mob(src,force=TRUE)
 
 /mob/living/simple_animal/slime/verb/Evolve()
-	set category = "Slime"
+	set category = STATPANEL_SLIME
 	set desc = "This will let you evolve slime."
 
 	if(stat)
@@ -172,7 +174,7 @@
 			to_chat(src, "<i>I am not ready to evolve yet...</i>")
 
 /datum/action/innate/slime/evolve
-	name = "Evolve"
+	name = "Эволюция"
 	button_icon_state = "slimegrow"
 	needs_growth = GROWTH_NEEDED
 
@@ -184,7 +186,7 @@
 		A.Grant(S)
 
 /mob/living/simple_animal/slime/verb/Reproduce()
-	set category = "Slime"
+	set category = STATPANEL_SLIME
 	set desc = "This will make you split into four Slimes."
 
 	if(stat)
@@ -282,7 +284,7 @@
 	SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
 
 /datum/action/innate/slime/reproduce
-	name = "Reproduce"
+	name = "Размножиться"
 	button_icon_state = "slimesplit"
 	needs_growth = GROWTH_NEEDED
 	needs_split = SPLIT_NEEDED

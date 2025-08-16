@@ -85,10 +85,9 @@
 //		VERBS & PROCS		//
 //////////////////////////////
 
-/obj/machinery/fishtank/AltClick(mob/user)
-	if(!Adjacent(user))
-		return ..()
+/obj/machinery/fishtank/click_alt(mob/user)
 	toggle_lid(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/fishtank/AltShiftClick(mob/user)
@@ -98,15 +97,15 @@
 
 
 /obj/machinery/fishtank/verb/toggle_lid_verb()
-	set name = "Toggle Tank Lid"
-	set category = "Object"
+	set name = "Крышка аквариума"
+	set category = STATPANEL_OBJECT
 	set src in view(1)
 	toggle_lid(usr)
 
 
 /obj/machinery/fishtank/verb/toggle_light_verb()
-	set name = "Toggle Tank Light"
-	set category = "Object"
+	set name = "Освещение аквариума"
+	set category = STATPANEL_OBJECT
 	set src in view(1)
 	toggle_light(usr)
 
@@ -341,7 +340,7 @@
 	var/duds = 0
 	while(egg_count > 0)							//Loop until you've harvested all the eggs
 		var/obj/item/fish_eggs/egg = pick(egg_list)	//Select an egg at random
-		if(egg != /obj/item/fish_eggs) 				// Don't harvest duds
+		if(egg != /obj/item/fish_eggs)				// Don't harvest duds
 			egg = new egg(get_turf(user))			//Spawn the egg at the user's feet
 			if(fish_bag?.can_be_inserted(egg))
 				fish_bag.handle_item_insertion(egg)
@@ -576,8 +575,8 @@
 
 	//Finally, report the full examine_message constructed from the above reports
 	. += span_notice("[examine_message]")
-	. += span_info("You can <b>Alt-Click</b> [src] to open/close its lid.")
-	. += span_info("You can <b>Alt-Shift-Click</b> [src] to enable/disable its light.")
+	. += span_notice("You can <b>Alt-Click</b> [src] to open/close its lid.")
+	. += span_notice("You can <b>Alt-Shift-Click</b> [src] to enable/disable its light.")
 
 
 //////////////////////////////

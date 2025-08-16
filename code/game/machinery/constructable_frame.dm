@@ -353,15 +353,16 @@ to destroy them and players will be able to make replacements.
 		"SecTech" =								/obj/machinery/vending/security,
 		"CritterCare" =							/obj/machinery/vending/crittercare,
 		"Departament Security ClothesMate" =	/obj/machinery/vending/clothing/departament/security,
-		"Departament Medical ClothesMate" = 	/obj/machinery/vending/clothing/departament/medical,
+		"Departament Medical ClothesMate" =	/obj/machinery/vending/clothing/departament/medical,
 		"Departament Engineering ClothesMate" = /obj/machinery/vending/clothing/departament/engineering,
 		"Departament Science ClothesMate" =		/obj/machinery/vending/clothing/departament/science,
 		"Departament Cargo ClothesMate" =		/obj/machinery/vending/clothing/departament/cargo,
 		"Departament Law ClothesMate" =			/obj/machinery/vending/clothing/departament/law,
 		"Service Departament ClothesMate Botanical" = /obj/machinery/vending/clothing/departament/service/botanical,
-		"Service Departament ClothesMate Chaplain" 	= /obj/machinery/vending/clothing/departament/service/chaplain,
+		"Service Departament ClothesMate Chaplain"	= /obj/machinery/vending/clothing/departament/service/chaplain,
 		"RoboFriends" =                         /obj/machinery/vending/pai,
-		"Customat" =						 	/obj/machinery/customat,)
+		"Customat" =							/obj/machinery/customat,
+		"Автомат спортивного питания" =			/obj/machinery/vending/protein,)
 
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
@@ -895,7 +896,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor/quadratic = 5)
 
 /obj/item/circuitboard/clonescanner
-	board_name = "\improper DNA Scanner"
+	board_name = "DNA Scanner"
 	build_path = /obj/machinery/dna_scannernew
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"
@@ -1187,3 +1188,14 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/vendor/plasmamate/Initialize(mapload)
 	. = ..()
 	set_type("PlasmaMate")
+
+/obj/item/circuitboard/anomaly_generator
+	board_name = "генератор аномалий"
+	build_path = /obj/machinery/power/anomaly_generator
+	board_type = "machine"
+	origin_tech = "programming=1;bluespace=3"
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/capacitor = 2
+	)

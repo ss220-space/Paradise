@@ -22,7 +22,7 @@
 				continue
 			qdel(I)
 
-		to_chat(H, "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>")
+		to_chat(H, "<b>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</b>")
 
 		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), ITEM_SLOT_EAR_LEFT)
 		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball(H), ITEM_SLOT_HAND_RIGHT)
@@ -87,6 +87,6 @@
 			to_chat(A, "<span class='warning'>You're not part of the dodgeball game, sorry!</span>")
 			return
 		else
-			playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
+			playsound(src, 'sound/items/dodgeball.ogg', 50, TRUE)
 			visible_message("<span class='danger'>[H] HAS BEEN ELIMINATED!</span>")
 			H.melt()

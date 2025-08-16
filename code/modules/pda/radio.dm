@@ -1,13 +1,13 @@
 //TODO convert this crap over to proper radios or find a way to utilize regualr radios for this object, this thing needs to go.
 
 /obj/item/integrated_radio
-	name = "\improper PDA radio module"
+	name = "PDA radio module"
 	desc = "An electronic radio system of Nanotrasen origin."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "power_mod"
 	var/obj/item/pda/hostpda = null
 	var/list/botlist = null		// list of bots
-	var/mob/living/simple_animal/bot/active 	// the active bot; if null, show bot list
+	var/mob/living/simple_animal/bot/active	// the active bot; if null, show bot list
 	var/list/botstatus			// the status signal sent by the bot
 	var/bot_type				//The type of bot it is.
 	var/bot_filter				//Determines which radio filter to use.
@@ -126,7 +126,7 @@
 
 		if("setdest")
 			if(GLOB.deliverybeacons)
-				var/dest = input("Select Bot Destination", "Mulebot [active.suffix] Interlink", active.destination) as null|anything in GLOB.deliverybeacontags
+				var/dest = tgui_input_list(usr, "Select Bot Destination", "Mulebot [active.suffix] Interlink", GLOB.deliverybeacontags, active.destination)
 				if(dest)
 					post_signal(control_freq, "command", "target", "active", active, "destination", dest, s_filter = RADIO_MULEBOT)
 
@@ -185,7 +185,7 @@
 
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	var/turf/T = get_turf(src)
-	GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+	GLOB.lastsignalers.Add("[time] <b>:</b> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]")
 
 	var/datum/signal/signal = new
 	signal.source = src

@@ -9,13 +9,13 @@
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
 	max_integrity = 350
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70)
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	pass_flags_self = PASSDOOR
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
-	/// Is it currently in the process of opening or closing.
+	/// Is it currently in the process of opening, closing or being tampered
 	var/operating = NONE
 	var/autoclose = 0
 	/// Whether the door detects things and mobs in its way and reopen or crushes them.
@@ -78,11 +78,11 @@
 /obj/machinery/door/proc/update_dir()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
+			bound_width = width * ICON_SIZE_X
+			bound_height = ICON_SIZE_Y
 		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
+			bound_width = ICON_SIZE_X
+			bound_height = width * ICON_SIZE_Y
 
 /obj/machinery/door/Initialize()
 	air_update_turf(1)
@@ -141,11 +141,11 @@
 
 	if(width > 1)
 		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
+			bound_width = width * ICON_SIZE_X
+			bound_height = ICON_SIZE_Y
 		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
+			bound_width = ICON_SIZE_X
+			bound_height = width * ICON_SIZE_Y
 
 
 /obj/machinery/door/CanAllowThrough(atom/movable/mover, border_dir)
@@ -530,3 +530,7 @@
 
 /obj/machinery/door/get_explosion_block()
 	return density ? real_explosion_block : 0
+
+/obj/machinery/door/zap_act(power, zap_flags)
+	zap_flags &= ~ZAP_OBJ_DAMAGE
+	. = ..()

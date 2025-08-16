@@ -37,7 +37,7 @@
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
-		AltClickOn(A)
+		A.borg_click_alt(src)
 		return
 	if(modifiers["ctrl"])
 		CtrlClickOn(A)
@@ -117,8 +117,6 @@
 	A.BorgShiftClick(src)
 /mob/living/silicon/robot/CtrlClickOn(atom/A)
 	A.BorgCtrlClick(src)
-/mob/living/silicon/robot/AltClickOn(atom/A)
-	A.BorgAltClick(src)
 /mob/living/silicon/robot/CtrlShiftClickOn(atom/A)
 	A.BorgCtrlShiftClick(src)
 /mob/living/silicon/robot/AltShiftClickOn(atom/A)
@@ -133,8 +131,8 @@
 /atom/proc/BorgCtrlClick(mob/living/silicon/robot/user) //forward to human click if not overriden
 	CtrlClick(user)
 
-/atom/proc/BorgAltClick(mob/living/silicon/robot/user)
-	AltClick(user)
+/atom/proc/borg_click_alt(mob/living/silicon/robot/user)
+	user.base_click_alt(src)
 	return
 
 /atom/proc/BorgCtrlShiftClick(mob/user) // Examines
@@ -154,8 +152,8 @@
 /obj/machinery/door/airlock/BorgCtrlClick(mob/living/silicon/robot/user) // Bolts doors. Forwards to AI code.
 	AICtrlClick(user)
 
-/obj/machinery/door/airlock/BorgAltClick(mob/living/silicon/robot/user) // Eletrifies doors. Forwards to AI code.
-	AIAltClick(user)
+/obj/machinery/door/airlock/borg_click_alt(mob/living/silicon/robot/user) // Eletrifies doors. Forwards to AI code.
+	ai_click_alt(user)
 
 /obj/machinery/door/airlock/BorgAltShiftClick(mob/living/silicon/robot/user)  // Enables emergency override on doors! Forwards to AI code.
 	AIAltShiftClick(user)
@@ -172,7 +170,7 @@
 /obj/machinery/ai_slipper/BorgCtrlClick(mob/living/silicon/robot/user) //Turns liquid dispenser on or off
 	ToggleOn()
 
-/obj/machinery/ai_slipper/BorgAltClick(mob/living/silicon/robot/user) //Dispenses liquid if on
+/obj/machinery/ai_slipper/borg_click_alt(mob/living/silicon/robot/user) //Dispenses liquid if on
 	Activate()
 
 
@@ -181,8 +179,8 @@
 /obj/machinery/turretid/BorgCtrlClick(mob/living/silicon/robot/user) //turret control on/off. Forwards to AI code.
 	AICtrlClick(user)
 
-/obj/machinery/turretid/BorgAltClick(mob/living/silicon/robot/user) //turret lethal on/off. Forwards to AI code.
-	AIAltClick(user)
+/obj/machinery/turretid/borg_click_alt(mob/living/silicon/robot/user) //turret lethal on/off. Forwards to AI code.
+	ai_click_alt(user)
 
 /*
 	As with AI, these are not used in click code,

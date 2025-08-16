@@ -27,10 +27,10 @@
 
 #define AIRLOCK_SECURITY_NONE			0 //Normal airlock				//Wires are not secured
 #define AIRLOCK_SECURITY_METAL			1 //Medium security airlock		//There is a simple metal over wires (use welder)
-#define AIRLOCK_SECURITY_PLASTEEL_I_S	2 								//Sliced inner plating (use crowbar), jumps to 0
-#define AIRLOCK_SECURITY_PLASTEEL_I		3 								//Removed outer plating, second layer here (use welder)
-#define AIRLOCK_SECURITY_PLASTEEL_O_S	4 								//Sliced outer plating (use crowbar)
-#define AIRLOCK_SECURITY_PLASTEEL_O		5 								//There is first layer of plasteel (use welder)
+#define AIRLOCK_SECURITY_PLASTEEL_I_S	2								//Sliced inner plating (use crowbar), jumps to 0
+#define AIRLOCK_SECURITY_PLASTEEL_I		3								//Removed outer plating, second layer here (use welder)
+#define AIRLOCK_SECURITY_PLASTEEL_O_S	4								//Sliced outer plating (use crowbar)
+#define AIRLOCK_SECURITY_PLASTEEL_O		5								//There is first layer of plasteel (use welder)
 #define AIRLOCK_SECURITY_PLASTEEL		6 //Max security airlock		//Fully secured wires (use wirecutters to remove grille, that is electrified)
 
 #define AIRLOCK_INTEGRITY_N			 300 // Normal airlock integrity
@@ -59,6 +59,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	assemblytype = /obj/structure/door_assembly
 	siemens_strength = 1
 	smoothing_groups = SMOOTH_GROUP_AIRLOCK
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
@@ -152,11 +153,11 @@ About the new airlock wires panel:
 		airlock_material = "glass"
 
 	if(security_level > AIRLOCK_SECURITY_METAL)
-		obj_integrity = normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER
 		max_integrity = normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER
+		update_integrity(normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER)
 	else
-		obj_integrity = normal_integrity
 		max_integrity = normal_integrity
+		update_integrity(normal_integrity)
 
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
@@ -200,6 +201,11 @@ About the new airlock wires panel:
 		note = null
 		update_icon()
 
+/obj/machinery/door/airlock/MouseDrop_T(atom/dropping, mob/user, params)
+	. = ..()
+
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of airlocks & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(user))
@@ -832,7 +838,7 @@ About the new airlock wires panel:
 	if(ishuman(user) && prob(40) && density)
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60 && Adjacent(user))
-			playsound(loc, 'sound/effects/bang.ogg', 25, 1)
+			playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
 				visible_message(span_warning("[user] headbutts the airlock."))
 				H.Weaken(10 SECONDS)
@@ -1223,7 +1229,7 @@ About the new airlock wires panel:
 				span_notice("You begin repairing the airlock..."), \
 				span_italics("You hear welding."))
 			if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
-				obj_integrity = max_integrity
+				update_integrity(max_integrity)
 				stat &= ~BROKEN
 				user.visible_message(span_notice("[user.name] has repaired [src]."), \
 					span_notice("You finish repairing the airlock."))
@@ -1277,13 +1283,13 @@ About the new airlock wires panel:
 		if(!F.wielded)
 			to_chat(user, span_warning("You need to be wielding the fire axe to do that!"))
 			return
-		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
+		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
 		if(do_after(user, 5 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
 	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
-		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, 1) //scary
+		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, TRUE) //scary
 		if(do_after(user, 4 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density) // faster because of ITS A MECH
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
@@ -1296,7 +1302,7 @@ About the new airlock wires panel:
 		to_chat(user, span_warning("The airlock's motors resist your efforts to force it!"))
 		return
 
-	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
+	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
 	if(do_after(user, 5 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 		to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 
@@ -1322,6 +1328,7 @@ About the new airlock wires panel:
 	if(!density)
 		return TRUE
 
+	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN, forced)
 	operating = DOOR_OPENING
 	update_icon(AIRLOCK_OPENING, TRUE)
 	sleep(1)
@@ -1564,7 +1571,7 @@ About the new airlock wires panel:
 
 		if(!disassembled)
 			if(DA)
-				DA.obj_integrity = DA.max_integrity * 0.5
+				DA.update_integrity(DA.max_integrity * 0.5)
 		if(user)
 			to_chat(user, span_notice("You remove the airlock electronics."))
 
@@ -1612,12 +1619,12 @@ About the new airlock wires panel:
 	if(!wirecutters_used)
 		if (ishuman(user) && (user.a_intent == INTENT_GRAB)) //grab that note
 			user.visible_message(span_notice("[user] removes [note] from [src]."), span_notice("You remove [note] from [src]."))
-			playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
+			playsound(src, 'sound/items/poster_ripped.ogg', 50, TRUE)
 		else
 			return FALSE
 	else
 		user.visible_message(span_notice("[user] cuts down [note] from [src]."), span_notice("You remove [note] from [src]."))
-		playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
+		playsound(src, 'sound/items/wirecutter.ogg', 50, TRUE)
 	note.add_fingerprint(user)
 	add_misc_logs(user, "removed [note] from", src)
 	note.forceMove_turf()
@@ -1667,18 +1674,18 @@ About the new airlock wires panel:
 	. = ..()
 	if(our_rcd.checkResource(20, user))
 		to_chat(user, "Deconstructing airlock...")
-		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(20, user))
 				return RCD_ACT_FAILED
-			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed airlock with RCD")
 			qdel(src)
 			return RCD_ACT_SUCCESSFULL
 		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
 		return RCD_ACT_FAILED
 	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this airlock!"))
-	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
 /obj/machinery/door/airlock/proc/ai_control_callback()

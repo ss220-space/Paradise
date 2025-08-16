@@ -1,12 +1,12 @@
 /client/proc/admin_memo()
 	set name = "Memo"
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	if(!check_rights(R_SERVER))
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>", confidential=TRUE)
+		to_chat(src, span_danger("Failed to establish database connection."), confidential=TRUE)
 		return
-	var/memotask = input(usr,"Choose task.","Memo") in list("Show","Write","Edit","Remove")
+	var/memotask = tgui_input_list(usr, "Choose task.", "Memo", list("Show", "Write", "Edit", "Remove"))
 	if(!memotask)
 		return
 	admin_memo_output(memotask)
@@ -17,7 +17,7 @@
 	if(!task)
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>", confidential=TRUE)
+		to_chat(src, span_danger("Failed to establish database connection."), confidential=TRUE)
 		return
 	switch(task)
 		if("Write")
@@ -36,7 +36,7 @@
 				return
 
 			qdel(query_memocheck)
-			var/memotext = input(src, "Write your Memo", "Memo") as message
+			var/memotext = tgui_input_text(src, "Write your Memo", "Memo", multiline = TRUE)
 			if(!memotext)
 				return
 
@@ -73,7 +73,7 @@
 				to_chat(src, "No memos found in database.", confidential=TRUE)
 				return
 
-			var/target_ckey = input(src, "Select whose memo to edit", "Select memo") as null|anything in memolist
+			var/target_ckey = tgui_input_list(src, "Select whose memo to edit", "Select memo", memolist)
 			if(!target_ckey)
 				return
 
@@ -88,7 +88,7 @@
 
 			if(query_memofind.NextRow())
 				var/old_memo = query_memofind.item[1]
-				var/new_memo = input("Input new memo", "New Memo", "[old_memo]", null) as message
+				var/new_memo = tgui_input_text(usr, "Input new memo", "New Memo", "[old_memo]", null, multiline = TRUE)
 				if(!new_memo)
 					qdel(query_memofind)
 					return
@@ -130,10 +130,10 @@
 				var/memotext = query_memoshow.item[2]
 				var/timestamp = query_memoshow.item[3]
 				var/last_editor = query_memoshow.item[4]
-				output += "<span class='memo'>Memo by <span class='prefix'>[ckey]</span> on [timestamp]"
+				output += span_memo("Memo by [span_prefix(ckey)] on [timestamp]")
 				if(last_editor)
-					output += "<br><span class='memoedit'>Last edit by [last_editor] <a href='byond://?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</A></span>"
-				output += "<br>[memotext]</span><br>"
+					output += span_memoedit("<br>Last edit by [last_editor] <a href='byond://?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</a>")
+				output += span_memo("<br>[memotext]<br>")
 			if(output)
 				to_chat(src, output, confidential=TRUE)
 			else if(!silent)
@@ -156,7 +156,7 @@
 				to_chat(src, "No memos found in database.", confidential=TRUE)
 				return
 
-			var/target_ckey = input(src, "Select whose memo to delete", "Select memo") as null|anything in memolist
+			var/target_ckey = tgui_input_list(src, "Select whose memo to delete", "Select memo", memolist)
 			if(!target_ckey)
 				return
 

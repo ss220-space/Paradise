@@ -67,8 +67,8 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(vehicle_moved))
 	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(vehicle_bump))
 	RegisterSignal(parent, COMSIG_BUCKLED_CAN_Z_MOVE, PROC_REF(riding_can_z_move))
-	RegisterSignals(parent, GLOB.movement_type_addtrait_signals, PROC_REF(on_movement_type_trait_gain))
-	RegisterSignals(parent, GLOB.movement_type_removetrait_signals, PROC_REF(on_movement_type_trait_loss))
+	RegisterSignal(parent, GLOB.movement_type_addtrait_signals, PROC_REF(on_movement_type_trait_gain))
+	RegisterSignal(parent, GLOB.movement_type_removetrait_signals, PROC_REF(on_movement_type_trait_loss))
 	//RegisterSignal(parent, COMSIG_SUPERMATTER_CONSUMED, PROC_REF(on_entered_supermatter))
 	if(!can_force_unbuckle)
 		RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(force_unbuckle))
@@ -288,7 +288,7 @@
 
 /datum/component/riding/proc/Process_Spacemove(direction, continuous_move)
 	var/atom/movable/AM = parent
-	return override_allow_spacemove || AM.has_gravity()
+	return override_allow_spacemove || !AM.no_gravity()
 
 /// currently replicated from ridable because we need this behavior here too, see if we can deal with that
 /datum/component/riding/proc/unequip_buckle_inhands(mob/living/carbon/user)

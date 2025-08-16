@@ -23,6 +23,7 @@ SUBSYSTEM_DEF(fluids)
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_GAME|RUNLEVEL_POSTGAME
 	priority = FIRE_PRIORITY_FLUIDS
+	init_order = INIT_ORDER_FLUIDS
 
 	// Fluid spread processing:
 	/// The amount of time (in deciseconds) before a fluid node is created and when it spreads.

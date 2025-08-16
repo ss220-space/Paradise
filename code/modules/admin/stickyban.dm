@@ -157,16 +157,13 @@
 		banhtml += "<br /><hr />\n"
 		banhtml += stickyban_gethtml(ckey,ban)
 
-	var/html = {"<meta charset="UTF-8">
-	<head>
-		<title>Sticky Bans</title>
-	</head>
-	<body>
+	var/html = {"
 		<h2>All Sticky Bans:</h2> <a href='byond://?_src_=holder;stickyban=add'>\[+\]</a><br>
 		[banhtml]
-	</body>
 	"}
-	usr << browse(html,"window=stickybans;size=700x400")
+	var/datum/browser/popup = new(usr, "stickybans", "Sticky Bans", 700, 400)
+	popup.set_content(html)
+	popup.open(FALSE)
 
 /proc/get_stickyban_from_ckey(var/ckey)
 	if(!ckey)
@@ -203,7 +200,7 @@
 
 /client/proc/stickybanpanel()
 	set name = "Sticky Ban Panel"
-	set category = "Admin.Ban"
+	set category = STATPANEL_ADMIN_BAN
 
 	if(!check_rights(R_BAN))
 		return

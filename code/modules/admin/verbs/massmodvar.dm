@@ -1,5 +1,5 @@
 /client/proc/cmd_mass_modify_object_variables(atom/A, var/var_name)
-	set category = "Admin.Debug"
+	set category = STATPANEL_ADMIN_DEBUG
 	set name = "Mass Edit Variables"
 	set desc="(target) Edit all instances of a target item's variables"
 
@@ -224,7 +224,7 @@
 			CHECK_TICK
 
 	else if(ispath(T, /obj/machinery))
-		for(var/obj/machinery/thing in GLOB.machines)
+		for(var/obj/machinery/thing in SSmachines.get_by_type(/obj/machinery))
 			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK

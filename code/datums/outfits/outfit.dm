@@ -34,6 +34,56 @@
 
 	var/can_be_admin_equipped = TRUE // Set to FALSE if your outfit requires runtime parameters
 
+	var/calc_used_slots = FALSE
+	var/used_slots = NONE
+
+	//I'm sorry for the my cringe.
+	var/datum/component/component_to_add = null
+	var/list/component_args = list()
+
+/datum/outfit/New(...)
+
+	if(!calc_used_slots)
+		return
+	if(back)
+		used_slots |= ITEM_SLOT_BACK
+	if(uniform)
+		used_slots |= ITEM_SLOT_CLOTH_INNER
+	if(suit)
+		used_slots |= ITEM_SLOT_CLOTH_OUTER
+	if(belt)
+		used_slots |= ITEM_SLOT_BELT
+	if(gloves)
+		used_slots |= ITEM_SLOT_GLOVES
+	if(shoes)
+		used_slots |= ITEM_SLOT_FEET
+	if(head)
+		used_slots |= ITEM_SLOT_HEAD
+	if(mask)
+		used_slots |= ITEM_SLOT_MASK
+	if(neck)
+		used_slots |= ITEM_SLOT_NECK
+	if(l_ear)
+		used_slots |= ITEM_SLOT_EAR_LEFT
+	if(r_ear)
+		used_slots |= ITEM_SLOT_EAR_RIGHT
+	if(glasses)
+		used_slots |= ITEM_SLOT_EYES
+	if(id)
+		used_slots |= ITEM_SLOT_ID
+	if(suit_store)
+		used_slots |= ITEM_SLOT_SUITSTORE
+	if(l_hand)
+		used_slots |= ITEM_SLOT_HAND_LEFT
+	if(r_hand)
+		used_slots |= ITEM_SLOT_HAND_RIGHT
+	if(pda)
+		used_slots |= ITEM_SLOT_PDA
+	if(l_pocket)
+		used_slots |= ITEM_SLOT_POCKET_LEFT
+	if(r_pocket)
+		used_slots |= ITEM_SLOT_POCKET_RIGHT
+
 /datum/outfit/naked
 	name = "Naked"
 
@@ -46,6 +96,8 @@
 	var/obj/item/I = new path(H)
 	if(QDELETED(I))
 		return
+	if(component_to_add)
+		I.RawAddComponent((list(component_to_add) + component_args))
 	if(collect_not_del)
 		H.equip_or_collect(I, slot)
 	else
@@ -55,7 +107,11 @@
 	//to be overriden for toggling internals, id binding, access etc
 	return
 
-/datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, datum/component/prom_component = null, list/comp_args = list())
+	if(!isnull(prom_component))
+		component_to_add = prom_component
+	if(LAZYLEN(comp_args))
+		component_args = comp_args
 	pre_equip(H, visualsOnly)
 
 	//Start with backpack,suit,uniform for additional slots
@@ -87,18 +143,24 @@
 		equip_item(H, id, ITEM_SLOT_ID)
 	if(suit_store)
 		equip_item(H, suit_store, ITEM_SLOT_SUITSTORE)
-
 	if(l_hand)
-		H.equip_to_slot_if_possible(new l_hand(H.loc), ITEM_SLOT_HAND_LEFT, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
+		var/obj/item/prom_L = new l_hand(H.loc)
+		if(component_to_add)
+			prom_L.RawAddComponent((list(component_to_add) + component_args))
+		H.equip_to_slot_if_possible(prom_L, ITEM_SLOT_HAND_LEFT, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
 	if(r_hand)
-		H.equip_to_slot_if_possible(new r_hand(H.loc), ITEM_SLOT_HAND_RIGHT, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
-
-	if(pda)
+		var/obj/item/prom_R = new r_hand(H.loc)
+		if(component_to_add)
+			prom_R.RawAddComponent((list(component_to_add) + component_args))
+		H.equip_to_slot_if_possible(prom_R, ITEM_SLOT_HAND_RIGHT, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
+	if(pda) 
 		equip_item(H, pda, ITEM_SLOT_PDA)
 
 	if(uniform)
 		for(var/path in accessories)
 			var/obj/item/clothing/accessory/accessory = new path(H.w_uniform)
+			if(component_to_add)
+				accessory.RawAddComponent((list(component_to_add) + component_args))
 			if(!H.w_uniform.attach_accessory(accessory))
 				stack_trace("Accessory ([accessory.type]) was not able to attach on jumpsuit ([H.w_uniform.type])")
 				qdel(accessory)
@@ -119,10 +181,15 @@
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
 			for(var/i in 1 to number)
-				H.equip_or_collect(new path(H), ITEM_SLOT_BACKPACK)
+				var/obj/item/prom = new path(H)
+				if(component_to_add)
+					prom.RawAddComponent((list(component_to_add) + component_args))
+				H.equip_or_collect(prom, ITEM_SLOT_BACKPACK)
 
 		for(var/path in cybernetic_implants)
-			new path(H)	// Just creating internal organ inside a human forcing it to call insert() proc.
+			var/obj/item/prom = new path(H)	// Just creating internal organ inside a human forcing it to call insert() proc.
+			if(component_to_add)
+				prom.RawAddComponent((list(component_to_add) + component_args))
 
 	post_equip(H, visualsOnly)
 
@@ -135,6 +202,8 @@
 	if(implants)
 		for(var/path in implants)	// Implantation is required here, bcs below we have a ToggleHelmet() hardsuit proc that is based on the isertmindshielded() proc.
 			var/obj/item/implant/I = new path(H)
+			if(component_to_add)
+				I.RawAddComponent((list(component_to_add) + component_args))
 			I.implant(H, null)
 
 	if(!H.head && toggle_helmet)

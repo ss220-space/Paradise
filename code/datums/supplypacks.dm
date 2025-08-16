@@ -307,6 +307,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/clothing/suit/armor/reactive/teleport)
 	required_tech = list("combat" = 8, "bluespace" = 5)
 
+/datum/supply_packs/emergency/highrisk/reflect_kit
+	name = "Reflector Armor Kit Crate"
+	access = ACCESS_ARMORY
+	contains = list(
+		/obj/item/clothing/suit/armor/reflector,
+		/obj/item/clothing/gloves/reflector,
+		/obj/item/clothing/shoes/reflector,
+		/obj/item/clothing/head/helmet/reflector,
+	)
+	required_tech = list("combat" = 8, "materials" = 7)
+
 /datum/supply_packs/emergency/highrisk/capt_jet
 	name = "Deluxe Jetpack Crate"
 	access = ACCESS_CAPTAIN
@@ -821,7 +832,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/officerpack // Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
 	name = "Officer Starter Pack"
-	contains = 	list(/obj/item/clothing/suit/armor/vest/security,
+	contains =	list(/obj/item/clothing/suit/armor/vest/security,
 				/obj/item/radio/headset/headset_sec/alt,
 				/obj/item/clothing/head/soft/sec,
 				/obj/item/reagent_containers/spray/pepper,
@@ -869,7 +880,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/mask/breath)
 	cost = 130
 	containertype = /obj/structure/closet/crate/engineering
-	required_tech = list("toxins" = 6, "plasma" = 4)
+	required_tech = list("toxins" = 6, "plasmatech" = 4)
 	containername = "Engineering Hardsuit Crate"
 	access = ACCESS_ATMOSPHERICS
 
@@ -1144,8 +1155,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/station_goal/shield_sat
 	name = "Shield Generator Satellite"
-	cost = 200
+	cost = 100
 	contains = list(
+					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield
@@ -1548,14 +1560,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/circuitboard/mecha/ripley/main, //TEMPORARY due to lack of circuitboard printer
 					/obj/item/circuitboard/mecha/ripley/peripherals) //TEMPORARY due to lack of circuitboard printer
 	cost = 25
-	containername = "\improper APLU \"Ripley\" circuit crate"
+	containername = "APLU \"Ripley\" circuit crate"
 
 /datum/supply_packs/science/robotics/mecha_odysseus
 	name = "Circuit Crate (Odysseus)"
 	contains = list(/obj/item/circuitboard/mecha/odysseus/peripherals, //TEMPORARY due to lack of circuitboard printer
 					/obj/item/circuitboard/mecha/odysseus/main) //TEMPORARY due to lack of circuitboard printer
 	cost = 55
-	containername = "\improper \"Odysseus\" circuit crate"
+	containername = "\"Odysseus\" circuit crate"
 
 /datum/supply_packs/science/firstaidmachine
 	name = "Machine First Aid Kits Crate"
@@ -2071,11 +2083,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter/gosling
 	containername = "gosling crate"
 
-/datum/supply_packs/organic/hamster
-	name = "Hamster Crate"
+/datum/supply_packs/organic/wooly_mouse
+	name = "Wooly mouse Crate"
 	cost = 50
-	containertype = /obj/structure/closet/critter/hamster
-	containername = "hamster crate"
+	containertype = /obj/structure/closet/critter/wooly_mouse
+	containername = "wooly mouse crate"
 
 /datum/supply_packs/organic/frog
 	name = "Frog Crate"
@@ -2339,13 +2351,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/mob/living/simple_animal/bot/mulebot)
 	cost = 20
 	containertype = /obj/structure/largecrate/mule
-	containername = "\improper MULEbot crate"
+	containername = "MULEbot crate"
 
 /datum/supply_packs/misc/cargo_mon
 	name = "Order Monitors Crate"
 	contains = list(/obj/item/qm_quest_tablet/cargotech, /obj/item/qm_quest_tablet/cargotech, /obj/item/qm_quest_tablet/cargotech)
 	cost = 30
-	containername = "\improper order monitors crate"
+	containername = "order monitors crate"
 
 /datum/supply_packs/misc/watertank
 	name = "Water Tank Crate"
@@ -2408,6 +2420,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
+
+/datum/supply_packs/misc/barber_kit
+	name = "Barber kit"
+	contains = list(/obj/item/storage/box/barber,
+					/obj/item/clothing/under/barber,
+					/obj/item/clothing/under/barber/skirt,
+					/obj/item/razor,
+					/obj/item/storage/box/lip_stick)
+	cost = 10
+	containername = "barber kit crate"
 
 /datum/supply_packs/misc/patriotic
 	name = "Patriotic Crate"

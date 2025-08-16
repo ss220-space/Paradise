@@ -1,4 +1,3 @@
-GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newscast = 0)) // Why the hell are captain announcements minor
 /datum/job/captain
 	title = JOB_TITLE_CAPTAIN
 	flag = JOB_FLAG_CAPTAIN
@@ -10,8 +9,9 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	selection_color = "#6691ff"
 	req_admin_notify = 1
 	is_command = 1
-	access = list() 			//See get_access()
-	minimal_access = list() 	//See get_access()
+	access = list()			//See get_access()
+	law_level = LAW_LEVEL_CAPTAIN
+	minimal_access = list()	//See get_access()
 	minimal_player_age = 30
 	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
@@ -30,7 +30,8 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
-	GLOB.captain_announcement.Announce("Экипажу станции, капитан [H.real_name] взош[genderize_ru(H.gender, "ёл", "ла", "ло", "ли")] на борт!")
+	// Why the hell are captain announcements minor
+	GLOB.minor_announcement.announce("Всему экипажу! Капитан [H.real_name] взош[genderize_ru(H.gender, "ёл", "ла", "ло", "ли")] на борт!")
 
 /datum/outfit/job/captain
 	name = "Captain"
@@ -40,7 +41,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/caphat
 	l_ear = /obj/item/radio/headset/heads/captain/alt
-	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/blueshield/cap
 	id = /obj/item/card/id/gold
 	l_pocket = /obj/item/lighter/zippo/cap
 	pda = /obj/item/pda/captain
@@ -73,7 +74,6 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
-	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
@@ -131,7 +131,6 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	is_command = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 21
-	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
@@ -185,7 +184,6 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	is_command = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 21
-	min_age_type = JOB_MIN_AGE_HIGH_ED
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SECURITY
@@ -219,19 +217,14 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	pda = /obj/item/pda/heads/blueshield
 	backpack_contents = list(
 		/obj/item/storage/box/deathimp = 1,
-		/obj/item/gun/energy/gun/blueshield = 1
+		/obj/item/gun/energy/gun/blueshield = 1,
+		/obj/item/gun/projectile/automatic/proto/rubber = 1,
+		/obj/item/ammo_box/magazine/smgm9mm = 2,
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
 	backpack = /obj/item/storage/backpack/blueshield
 	satchel = /obj/item/storage/backpack/satchel_blueshield
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield
-
-/datum/outfit/job/blueshield/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	var/datum/martial_art/cqc/CQC = new
-	CQC.teach(H)
 
 /datum/job/judge
 	title = JOB_TITLE_JUDGE
@@ -258,6 +251,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MAGISTRATE)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_LAWYER, ACCESS_MAGISTRATE, ACCESS_HEADS)
+	law_level = LAW_LEVEL_MAGISTRATE
 	alt_titles = list("Judge")
 	outfit = /datum/outfit/job/judge
 	insurance_type = INSURANCE_TYPE_DELUXE
@@ -305,7 +299,6 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	alt_titles = list("Human Resources Agent","Lawyer","Attorney")
 	minimal_player_age = 30
-	min_age_type = JOB_MIN_AGE_HIGH_ED
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW

@@ -18,8 +18,8 @@
 	melee_damage_upper = 12
 	attacktext = "атакует"
 	attack_sound = 'sound/weapons/bite.ogg'
-	emote_taunt = list("growls")
-	speak_emote = list("creaks")
+	emote_taunt = list("рычит")
+	speak_emote = list("скрипит")
 	taunt_chance = 30
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -98,7 +98,7 @@
 		trigger()
 	return ..()
 
-/mob/living/simple_animal/hostile/mimic/crate/LoseTarget()
+/mob/living/simple_animal/hostile/mimic/crate/lose_target()
 	..()
 	icon_state = initial(icon_state)
 
@@ -146,7 +146,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 
 /mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(mob/owner)
 	if(owner != creator)
-		LoseTarget()
+		lose_target()
 		creator = owner
 		faction |= "\ref[owner]"
 

@@ -48,14 +48,6 @@
 /obj/item/twohanded/required/vamp_claws
 	name = "vampiric claws"
 	desc = "Пара древних когтей из живой крови, они кажутся текучими и в то же время твердыми."
-	ru_names = list(
-    NOMINATIVE = "вампирические когти",
-    GENITIVE = "вампирических когтей",
-    DATIVE = "вампирическим когтям",
-    ACCUSATIVE = "вампирические когти",
-    INSTRUMENTAL = "вампирическими когтями",
-    PREPOSITIONAL = "вампирических когтях"
-	)
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "vamp_claws"
 	w_class = WEIGHT_CLASS_BULKY
@@ -74,6 +66,15 @@
 	var/blood_absorbed_amount = 5
 	var/obj/effect/proc_holder/spell/vampire/self/vamp_claws/parent_spell
 
+/obj/item/twohanded/required/vamp_claws/get_ru_names()
+	return list(
+		NOMINATIVE = "вампирические когти",
+		GENITIVE = "вампирических когтей",
+		DATIVE = "вампирическим когтям",
+		ACCUSATIVE = "вампирические когти",
+		INSTRUMENTAL = "вампирическими когтями",
+		PREPOSITIONAL = "вампирических когтях"
+	)
 
 /obj/item/twohanded/required/vamp_claws/Initialize(mapload, new_parent_spell)
 	. = ..()
@@ -273,20 +274,22 @@
 /obj/structure/blood_barrier
 	name = "blood barrier"
 	desc = "Гротескная структура из кристаллизованной крови. Она медленно тает..."
-	ru_names = list(
-    NOMINATIVE = "кровавый барьер",
-    GENITIVE = "кровавого барьера",
-    DATIVE = "кровавому барьеру",
-    ACCUSATIVE = "кровавый барьер",
-    INSTRUMENTAL = "кровавым барьером",
-    PREPOSITIONAL = "о кровавом барьере"
-	)
 	max_integrity = 100
 	icon_state = "blood_barrier"
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
 	opacity = FALSE
+
+/obj/structure/blood_barrier/get_ru_names()
+	return list(
+		NOMINATIVE = "кровавый барьер",
+		GENITIVE = "кровавого барьера",
+		DATIVE = "кровавому барьеру",
+		ACCUSATIVE = "кровавый барьер",
+		INSTRUMENTAL = "кровавым барьером",
+		PREPOSITIONAL = "о кровавом барьере"
+	)
 
 
 /obj/structure/blood_barrier/Initialize(mapload)
@@ -382,7 +385,7 @@
 	for(var/mob/living/carbon/human/H as anything in targets)
 		targets_by_name[H.real_name] = H
 
-	var/target_name = input(user, "Лицо для поиска", "Запах крови") in targets_by_name
+	var/target_name = tgui_input_list(user, "Лицо для поиска", "Запах крови", targets_by_name)
 	if(!target_name)
 		return
 

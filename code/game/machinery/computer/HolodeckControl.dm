@@ -21,47 +21,47 @@
 		return 1
 
 	user.set_machine(src)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 
-	dat += "<B>Holodeck Control System</B><BR>"
-	dat += "<HR>Current Loaded Programs:<BR>"
+	dat += "<b>Holodeck Control System</b><br>"
+	dat += "<hr>Current Loaded Programs:<br>"
 
-	dat += "<a href='byond://?src=[UID()];emptycourt=1'>((Empty Court)</font>)</A><BR>"
-	dat += "<a href='byond://?src=[UID()];boxingcourt=1'>((Boxing Court)</font>)</A><BR>"
-	dat += "<a href='byond://?src=[UID()];basketball=1'>((Basketball Court)</font>)</A><BR>"
-	dat += "<a href='byond://?src=[UID()];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
-	dat += "<a href='byond://?src=[UID()];beach=1'>((Beach)</font>)</A><BR>"
-	dat += "<a href='byond://?src=[UID()];desert=1'>((Desert)</font>)</A><BR>"
-	dat += "<a href='byond://?src=[UID()];space=1'>((Space)</font>)</A><BR>"
-	dat += "<a href='byond://?src=[UID()];picnicarea=1'>((Picnic Area)</font>)</A><BR>"
-	dat += "<a href='byond://?src=[UID()];snowfield=1'>((Snow Field)</font>)</A><BR>"
-	dat += "<a href='byond://?src=[UID()];theatre=1'>((Theatre)</font>)</A><BR>"
-	dat += "<a href='byond://?src=[UID()];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
-	dat += "<a href='byond://?src=[UID()];knightarena=1'>((Knight Arena)</font>)</A><BR>"
-//		dat += "<a href='byond://?src=[UID()];turnoff=1'>((Shutdown System)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];emptycourt=1'>((Empty Court))</a><br>"
+	dat += "<a href='byond://?src=[UID()];boxingcourt=1'>((Boxing Court))</a><br>"
+	dat += "<a href='byond://?src=[UID()];basketball=1'>((Basketball Court))</br><br>"
+	dat += "<a href='byond://?src=[UID()];thunderdomecourt=1'>((Thunderdome Court))</a><br>"
+	dat += "<a href='byond://?src=[UID()];beach=1'>((Beach))</a><br>"
+	dat += "<a href='byond://?src=[UID()];desert=1'>((Desert))</a><br>"
+	dat += "<a href='byond://?src=[UID()];space=1'>((Space))</a><br>"
+	dat += "<a href='byond://?src=[UID()];picnicarea=1'>((Picnic Area))</a><br>"
+	dat += "<a href='byond://?src=[UID()];snowfield=1'>((Snow Field))</a><br>"
+	dat += "<a href='byond://?src=[UID()];theatre=1'>((Theatre))</a><br>"
+	dat += "<a href='byond://?src=[UID()];meetinghall=1'>((Meeting Hall))</a><br>"
+	dat += "<a href='byond://?src=[UID()];knightarena=1'>((Knight Arena))</a><br>"
+//		dat += "<a href='byond://?src=[UID()];turnoff=1'>((Shutdown System))</a><br>"
 
-	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<BR>"
+	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<br>"
 
 	if(emagged)
-/*			dat += "<a href='byond://?src=[UID()];burntest=1'>(<font color=red>Begin Atmospheric Burn Simulation</font>)</A><BR>"
-		dat += "Ensure the holodeck is empty before testing.<BR>"
-		dat += "<BR>"*/
-		dat += "<a href='byond://?src=[UID()];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</A><BR>"
-		dat += "Ensure the holodeck is empty before testing.<BR>"
-		dat += "<BR>"
+/*			dat += "<a href='byond://?src=[UID()];burntest=1'>(<span style='color: red;' color=red>Begin Atmospheric Burn Simulation</span>)</a><br>"
+		dat += "Ensure the holodeck is empty before testing.<br>"
+		dat += "<br>"*/
+		dat += "<a href='byond://?src=[UID()];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</a><br>"
+		dat += "Ensure the holodeck is empty before testing.<br>"
+		dat += "<br>"
 		if(issilicon(user))
-			dat += "<a href='byond://?src=[UID()];AIoverride=1'>(<font color=green>Re-Enable Safety Protocols?</font>)</A><BR>"
-		dat += "Safety Protocols are <font color=red> DISABLED </font><BR>"
+			dat += "<a href='byond://?src=[UID()];AIoverride=1'>(<font color=green>Re-Enable Safety Protocols?</font>)</a><br>"
+		dat += "Safety Protocols are <font color=red> DISABLED </font><br>"
 	else
 		if(issilicon(user))
-			dat += "<a href='byond://?src=[UID()];AIoverride=1'>(<font color=red>Override Safety Protocols?</font>)</A><BR>"
-		dat += "<BR>"
-		dat += "Safety Protocols are <font color=green> ENABLED </font><BR>"
+			dat += "<a href='byond://?src=[UID()];AIoverride=1'>(<font color=red>Override Safety Protocols?</font>)</a><br>"
+		dat += "<br>"
+		dat += "Safety Protocols are <font color=green> ENABLED </font><br>"
 
 	var/datum/browser/popup = new(user, "holodeck_computer", name, 400, 500)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "computer")
+	popup.open(TRUE)
+	onclose(user, "holodeck_computer")
 	return
 
 /obj/machinery/computer/HolodeckControl/Topic(href, href_list)
@@ -552,10 +552,10 @@
 
 	if((mover.throwing && mover.throwing.thrower && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)) || prob(50))
 		mover.forceMove(get_turf(src))
-		visible_message(span_notice("Swish! [mover] lands in [src]."))
+		visible_message(span_notice("Вжух! [mover.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
 
 	else
-		visible_message(span_alert("[mover] bounces off of [src]'s rim!"))
+		visible_message(span_alert("[mover.declent_ru(NOMINATIVE)] отскакивает от края [declent_ru(GENITIVE)]!"))
 
 	return FALSE
 
@@ -563,6 +563,33 @@
 /obj/structure/holohoop/has_prints()
 	return FALSE
 
+
+/obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(!isitem(mover) || isprojectile(mover) || !mover.throwing || mover.pass_flags == PASSEVERYTHING)
+		return
+
+	if(prob(50))
+		visible_message(span_alert("[mover.declent_ru(NOMINATIVE)] отскакивает от края [src.declent_ru(GENITIVE)]!"))
+		return FALSE
+
+	mover.forceMove(loc)
+	visible_message(span_notice("Вжух! [mover.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
+	return FALSE
+
+
+/obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(!isitem(AM) || isprojectile(AM))
+		return ..()
+
+	if(prob(50) && (!throwingdatum || !throwingdatum.thrower || !HAS_TRAIT(throwingdatum.thrower, TRAIT_BADASS)))
+		visible_message(span_danger("[AM.declent_ru(NOMINATIVE)] отскакивает от края [src.declent_ru(GENITIVE)]!"))
+		return ..()
+
+	AM.forceMove(get_turf(src))
+	visible_message(span_warning("Вжух! [AM.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
+	return
 
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"

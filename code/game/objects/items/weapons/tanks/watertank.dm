@@ -10,7 +10,7 @@
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
 	var/obj/item/noz
@@ -30,8 +30,8 @@
 		return TRUE
 
 /obj/item/watertank/verb/toggle_mister()
-	set name = "Toggle Mister"
-	set category = "Object"
+	set name = "Вынуть шланг"
+	set category = STATPANEL_OBJECT
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -315,8 +315,9 @@
 		if(!Adj|| !istype(target, /turf))
 			return
 		if(metal_synthesis_cooldown < 5)
-			var/obj/effect/particle_effect/foam/F = new /obj/effect/particle_effect/foam(get_turf(target), 1)
-			F.amount = 0
+			var/datum/effect_system/fluid_spread/foam/metal/s = new()
+			s.set_up(amount = 0, location = get_turf(target))
+			s.start()
 			metal_synthesis_cooldown++
 			spawn(100)
 				if(src)
@@ -334,9 +335,9 @@
 	pass_flags = PASSTABLE
 
 /obj/effect/nanofrost_container/proc/Smoke()
-	var/datum/effect_system/smoke_spread/freezing/S = new
-	S.set_up(6, 0, loc, null, 1)
-	S.start()
+	var/datum/effect_system/fluid_spread/smoke/freezing/smoke = new
+	smoke.set_up(amount = 6, location = loc, blast_radius = 2)
+	smoke.start()
 	var/obj/effect/decal/cleanable/flour/F = new /obj/effect/decal/cleanable/flour(src.loc)
 	F.color = "#B2FFFF"
 	F.name = "nanofrost residue"

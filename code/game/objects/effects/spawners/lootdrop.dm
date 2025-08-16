@@ -48,9 +48,9 @@
 
 	//table data:
 	//-----------
-	//aft maintenance: 		24 items, 18 spots 2 extra (28/08/2014)
-	//asmaint: 				16 items, 11 spots 0 extra (08/08/2014)
-	//asmaint2:			 	36 items, 26 spots 2 extra (28/08/2014)
+	//aft maintenance:		24 items, 18 spots 2 extra (28/08/2014)
+	//asmaint:				16 items, 11 spots 0 extra (08/08/2014)
+	//asmaint2:				36 items, 26 spots 2 extra (28/08/2014)
 	//fpmaint:				5  items,  4 spots 0 extra (08/08/2014)
 	//fpmaint2:				12 items, 11 spots 2 extra (28/08/2014)
 	//fsmaint:				0  items,  0 spots 0 extra (08/08/2014)
@@ -285,7 +285,7 @@
 	lootcount = 8
 	loot = list(
 		/obj/item/mmi/robotic_brain = 50,
-		/obj/item/assembly/signaler/anomaly = 50,
+		/obj/item/assembly/signaler/core/tier2 = 50,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 50,
 		/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 50,
 		/obj/item/autoimplanter/old = 50,
@@ -302,11 +302,11 @@
 		/obj/item/slime_extract/adamantine = 50,
 		/obj/item/slime_extract/rainbow = 50,
 		/obj/item/slime_extract/sepia = 50,
-		/obj/item/assembly/signaler/anomaly/vortex = 50,
-		/obj/item/assembly/signaler/anomaly/bluespace = 50,
-		/obj/item/assembly/signaler/anomaly/flux = 50,
-		/obj/item/assembly/signaler/anomaly/grav = 50,
-		/obj/item/assembly/signaler/anomaly/pyro = 50,
+		/obj/item/assembly/signaler/core/vortex/tier2 = 50,
+		/obj/item/assembly/signaler/core/bluespace/tier2 = 50,
+		/obj/item/assembly/signaler/core/energetic/tier2 = 50,
+		/obj/item/assembly/signaler/core/gravitational/tier2 = 50,
+		/obj/item/assembly/signaler/core/atmospheric/tier2 = 50,
 		/obj/item/t_scanner/science = 50,
 		/obj/item/t_scanner/experimental = 5)
 

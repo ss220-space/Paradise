@@ -1,5 +1,5 @@
-import { useLocalState } from '../../backend';
+import { useState } from 'react';
 
-export const useCompact = (context) => useLocalState(context, 'compact', false);
+export const useCompact = () => useState(false);
 
-export const useTab = (context) => useLocalState(context, 'tab', 1);
+export const useTab = () => useState(1);

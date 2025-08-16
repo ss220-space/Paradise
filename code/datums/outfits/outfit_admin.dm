@@ -69,7 +69,7 @@
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1
 	)
 
-	var/id_access = "Syndicate Operative"
+	var/id_access = SYNDICATE_AGENT
 	var/uplink_uses = 100
 
 /datum/outfit/admin/syndicate/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -84,12 +84,13 @@
 	var/obj/item/radio/uplink/U = H.r_store
 	if(istype(U))
 		U.hidden_uplink.uplink_owner = "[H.key]"
-		U.hidden_uplink.uses = uplink_uses
+		if(!isnull(uplink_uses))
+			U.hidden_uplink.uses = uplink_uses
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
 		R.set_frequency(SYND_FREQ)
-	H.faction += "syndicate"
+	H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate_infiltrator
 	name = "Syndicate Infiltrator"
@@ -98,44 +99,8 @@
 	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
 	H.sec_hud_set_ID()
 	if(!visualsOnly)
-		H.faction += "syndicate"
+		H.faction |= "syndicate"
 
-/datum/outfit/admin/syndicate/operative
-	name = "Syndicate Nuclear Operative"
-	toggle_helmet = TRUE
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
-	belt = /obj/item/storage/belt/military
-	mask = /obj/item/clothing/mask/gas/syndicate
-	l_ear = /obj/item/radio/headset/syndicate/alt
-	glasses = /obj/item/clothing/glasses/night
-	shoes = /obj/item/clothing/shoes/magboots/syndie
-	r_pocket = /obj/item/radio/uplink/nuclear
-	l_pocket = /obj/item/pinpointer/advpinpointer
-	l_hand = /obj/item/tank/jetpack/oxygen/harness
-
-	backpack_contents = list(
-		/obj/item/storage/box/survival_syndi = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
-		/obj/item/ammo_box/magazine/m10mm = 1,
-		/obj/item/crowbar/red = 1,
-		/obj/item/grenade/plastic/c4 = 1,
-		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
-		/obj/item/flashlight = 1,
-		/obj/item/clothing/shoes/combat = 1
-	)
-
-/datum/outfit/admin/syndicate/operative/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/implant/explosive/E = new(H)
-	E.implant(H)
-
-
-/datum/outfit/admin/syndicate/operative/freedom
-	name = "Syndicate Freedom Operative"
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 
 /datum/outfit/admin/syndicate_strike_team
 	name = "Syndicate Strike Team Commando"
@@ -203,7 +168,7 @@
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	uplink_uses = 200
-	id_access = "Syndicate Agent"
+	id_access = SYNDICATE_AGENT
 
 	implants = list(
 		/obj/item/implant/dust
@@ -290,6 +255,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Special Reaction Team Member"), "Special Reaction Team Member")
+		I.law_level = LAW_LEVEL_RESPONSE_TEAM
 	H.sec_hud_set_ID()
 
 
@@ -324,6 +290,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain")
+		I.law_level = LAW_LEVEL_CENTCOMM
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/nt_diplomat
@@ -607,7 +574,7 @@
 
 	var/obj/item/pda/PDA = H.wear_pda
 	if(istype(PDA))
-		PDA.owner = H.real_name
+		PDA.update_owner_name(H.real_name)
 		PDA.ownjob = JOB_TITLE_MIME
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
 

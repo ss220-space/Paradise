@@ -22,6 +22,8 @@
 		return FALSE
 	if(isobj(target))
 		var/obj/O = target
+		if(ismecha(O) || isspacepod(O)) //no fun allowed
+			return FALSE
 		if(!O.anchored)
 			if(length(chassis.cargo) < chassis.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
@@ -85,7 +87,7 @@
 
 //This is pretty much just for the death-ripley
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
-	name = "\improper KILL CLAMP"
+	name = "KILL CLAMP"
 	desc = "They won't know what clamped them!"
 	energy_drain = 0
 
@@ -106,8 +108,8 @@
 							span_userdanger("[chassis] destroys [target] in an unholy fury."))
 		M.gib()
 	/*if(chassis.occupant.a_intent == INTENT_DISARM)
-		target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off.</span>",
-							"<span class='userdanger'>[chassis] rips [target]'s arms off.</span>")*/
+		target.visible_message(span_danger("[chassis] rips [target]'s arms off."),
+							span_userdanger("[chassis] rips [target]'s arms off."))*/
 	else
 		step_away(M,chassis)
 		target.visible_message("[chassis] tosses [target] like a piece of paper.")
@@ -170,8 +172,8 @@
 	if(check_area?.type in rcd_holder.areas_blacklist)
 		to_chat(chassis.occupant, span_warning("Something prevents you from using [rcd_holder] in here..."))
 		return FALSE
-	playsound(chassis, 'sound/machines/click.ogg', 50, 1)
-	chassis.can_move = world.time + 2 SECONDS 	// We don't move while we build
+	playsound(chassis, 'sound/machines/click.ogg', 50, TRUE)
+	chassis.can_move = world.time + 2 SECONDS	// We don't move while we build
 	var/rcd_act_result = target.rcd_act(chassis.occupant, rcd_holder, rcd_holder.mode)
 	if(rcd_act_result == RCD_NO_ACT) //if our rcd_act was not implemented/impossible to do - we can move again
 		chassis.can_move = 0
@@ -212,7 +214,7 @@
 			occupant_message("Switched RCD to Construct Windows.")
 		if(RCD_MODE_FIRELOCK)
 			occupant_message("Switched RCD to Construct Firelock.")
-	playsound(get_turf(chassis), 'sound/effects/pop.ogg', 50, 0)
+	playsound(get_turf(chassis), 'sound/effects/pop.ogg', 50, FALSE)
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Topic(href,href_list)
 	..()
@@ -431,7 +433,7 @@
 		return
 	if(href_list["cut"])
 		if(cable && cable.amount)
-			var/m = round(input(chassis.occupant,"Please specify the length of cable to cut","Cut cable",min(cable.amount,30)) as num, 1)
+			var/m = round(tgui_input_number(chassis.occupant, "Please specify the length of cable to cut", "Cut cable", min(cable.amount,30)), 1)
 			m = min(m, cable.amount)
 			if(m)
 				use_cable(m)
@@ -521,7 +523,7 @@
 		var/obj/structure/reagent_dispensers/watertank/WT = target
 		WT.reagents.trans_to(src, 1000)
 		occupant_message(span_notice("Extinguisher refilled."))
-		playsound(chassis, 'sound/effects/refill.ogg', 50, 1, -6)
+		playsound(chassis, 'sound/effects/refill.ogg', 50, TRUE, -6)
 	else
 		if(reagents.total_volume > 0)
 			playsound(chassis, 'sound/effects/extinguish.ogg', 75, 1, -3)

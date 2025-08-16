@@ -11,7 +11,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.event_announcement.Announce("Что это за хуйня?!", "ВНИМАНИЕ: ОБЩАЯ ТРЕВОГА.")
+	GLOB.minor_announcement.announce("Что это за хуйня?!",
+									"Общая тревога!"
+	)
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
@@ -74,7 +76,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		update_appearance(UPDATE_NAME)
 
 	if(notify)
-		notify_ghosts("Приближается [name]!", enter_link="<a href=?src=[UID()];follow=1>(Click to follow)</a>", source = src, action = NOTIFY_FOLLOW)
+		notify_ghosts("Приближается [name]!", enter_link="<a href=?src=[UID()];follow=1>(Следовать)</a>", source = src, action = NOTIFY_FOLLOW)
 
 	if(SSaugury)
 		SSaugury.register_doom(src, 2000)
@@ -314,17 +316,21 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	end = get_turf(target_atom)
 	return ..()
 
-/obj/effect/immovablerod/smite/Move()
+/obj/effect/immovablerod/smite/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	if(get_turf(src) == end)
-		// our exit condition: get outta there kowalski
-		var/target_turf = get_ranged_target_turf(src, dir, rand(1, 10))
-		walk(src, 0)
-		exit = new /obj/effect/portal(target_turf, null, null, 2 SECONDS)
-		walk_towards(src, exit, move_delay)
-	else if(locate(exit) in get_turf(src))
+
+	if(locate(exit) in get_turf(src))
 		QDEL_NULL(exit)
 		qdel(src)
+		return
+
+	if(get_turf(src) != end)
+		return
+
+	// our exit condition: get outta there kowalski
+	var/target_turf = get_ranged_target_turf(src, dir, rand(1, 10))
+	exit = new /obj/effect/portal(target_turf, null, null, 2 SECONDS)
+	SSmove_manager.move_towards(src, exit, delay = move_delay)
 
 /**
  * Allows your rod to release restraint level zero and go for a walk.

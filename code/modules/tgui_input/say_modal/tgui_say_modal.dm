@@ -59,6 +59,7 @@
 	winset(client, "tgui_say", "pos=848,500;size=275,30;is-visible=0;")
 	window.send_message("props", list(
 		"lightMode" = (client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
+		"scale" = (client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE),
 		"maxLength" = MAX_MESSAGE_LEN,
 	))
 	stop_thinking()
@@ -106,15 +107,15 @@
 			close()
 			return TRUE
 		if("thinking")
-			if(payload["visible"] == TRUE)
+			if(payload?["visible"] == TRUE)
 				start_thinking()
 				return TRUE
-			if(payload["visible"] == FALSE)
+			if(payload?["visible"] == FALSE)
 				stop_thinking()
 				return TRUE
 			return FALSE
 		if("typing")
-			start_typing(payload["isMeChannel"])
+			start_typing(payload?["isMeChannel"])
 			return TRUE
 		if("entry")
 			handle_entry(payload)

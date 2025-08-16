@@ -72,7 +72,7 @@
 		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/drask,
 		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/drask,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/drask, //5 darksight.
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/drask,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/drask,
 	)
 
@@ -89,6 +89,7 @@
 		JOB_MIN_AGE_COMMAND = 50,
 	)
 
+
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
@@ -104,6 +105,11 @@
 
 	add_verb(human, /mob/living/carbon/human/proc/emote_hum)
 
+
+/datum/species/drask/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, STRENGTH_LEVEL_IDEAL, STRENGTH_LEVEL_SUPERHUMAN)
+
+
 /datum/species/drask/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
 
@@ -114,9 +120,6 @@
 
 /datum/species/drask/handle_life(mob/living/carbon/human/human)
 	. = ..()
-
-	if(human.stat == DEAD)
-		return
 
 	if(human.bodytemperature < TCRYO)
 		var/update = NONE
@@ -137,10 +140,10 @@
 		if("salglu_solution")
 			if(prob(33))
 				H.heal_overall_damage(1, 1, updating_health = FALSE)
-				
+
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
 			return FALSE
-			
+
 	return ..()
 
 /datum/action/innate/drask
@@ -154,7 +157,7 @@
 	return .
 
 /datum/action/innate/drask/coma
-	name = "Enter coma"
+	name = "Кома"
 	desc = "Постепенно вводит в состояние комы, понижает температуру тела. Повторная активация способности позволит прервать вход в кому, либо выйти из нее."
 
 	button_icon_state = "heal"

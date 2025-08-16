@@ -1,5 +1,5 @@
 /obj/item/stamp
-	name = "\improper rubber stamp"
+	name = "rubber stamp"
 	desc = "A rubber stamp for stamping important documents."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "stamp-ok"
@@ -22,7 +22,8 @@
 
 
 /obj/item/stamp/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")
+	user.visible_message(span_suicide("[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead."))
+	playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 	return OXYLOSS
 
 /obj/item/stamp/qm
@@ -79,12 +80,12 @@
 	dye_color = DYE_CMO
 
 /obj/item/stamp/granted
-	name = "\improper GRANTED rubber stamp"
+	name = "GRANTED rubber stamp"
 	icon_state = "stamp-ok"
 	item_color = "qm"
 
 /obj/item/stamp/denied
-	name = "\improper DENIED rubber stamp"
+	name = "DENIED rubber stamp"
 	icon_state = "stamp-deny"
 	item_color = "redcoat"
 	dye_color = DYE_REDCOAT

@@ -114,7 +114,7 @@
 	tint = 1
 
 /obj/item/clothing/glasses/meson/heart
-	name = "\improper Heart Meson Glasses"
+	name = "Heart Meson Glasses"
 	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
 	icon_state = "heart_meson"
 	item_state = "heart_meson"
@@ -160,7 +160,11 @@
 /obj/item/clothing/glasses/meson/visor
 	name = "Meson Optical Visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
-	ru_names = list(
+	icon_state = "mesonvisor"
+	item_state = "mesonvisor"
+
+/obj/item/clothing/glasses/meson/visor/get_ru_names()
+	return list(
 		NOMINATIVE = "мезонный оптический визор",
 		GENITIVE = "мезонного оптического визора",
 		DATIVE = "мезонному оптическому визору",
@@ -168,8 +172,17 @@
 		INSTRUMENTAL = "мезонным оптическим визором",
 		PREPOSITIONAL = "мезонном оптическом визоре"
 	)
-	icon_state = "mesonvisor"
-	item_state = "mesonvisor"
+
+/obj/item/clothing/glasses/meson/monocle
+	name = "Meson Monocle Scanner"
+	desc = "Моноколь со встроенным мезонным сканером."
+	icon_state = "monomeson"
+	item_state = "monohud"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"
@@ -180,7 +193,7 @@
 	prescription_upgradable = FALSE
 	examine_extensions = EXAMINE_HUD_SCIENCE
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -206,7 +219,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/science/heart
-	name = "\improper Heart Science Glasses"
+	name = "Heart Science Glasses"
 	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
 	icon_state = "heart_science"
 	item_state = "heart_science"
@@ -214,7 +227,11 @@
 /obj/item/clothing/glasses/science/visor
 	name = "Science Optical Visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
-	ru_names = list(
+	icon_state = "sciencevisor"
+	item_state = "sciencevisor"
+
+/obj/item/clothing/glasses/science/visor/get_ru_names()
+	return list(
 		NOMINATIVE = "научный оптический визор",
 		GENITIVE = "научного оптического визора",
 		DATIVE = "научному оптическому визору",
@@ -222,8 +239,17 @@
 		INSTRUMENTAL = "научным оптическим визором",
 		PREPOSITIONAL = "научном оптическом визоре"
 	)
-	icon_state = "sciencevisor"
-	item_state = "sciencevisor"
+
+/obj/item/clothing/glasses/science/monocle
+	name = "Science HUD monocle"
+	desc = "Моноколь со встроенным научным ИЛС."
+	icon_state = "monohudsci"
+	item_state = "monohud"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"
@@ -281,7 +307,7 @@
 	name = "monocle"
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
-	item_state = "headset" // lol
+	item_state = "monohud"
 	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
@@ -465,22 +491,21 @@
 /obj/item/clothing/glasses/sunglasses/yeah
 	name = "agreeable glasses"
 	desc = "H.C Limited edition."
-	var/punused = FALSE
+	COOLDOWN_DECLARE(use_cooldown)
 	actions_types = list(/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH)
 
 /obj/item/clothing/glasses/sunglasses/yeah/attack_self(mob/user)
 	pun(user)
 
 /obj/item/clothing/glasses/sunglasses/yeah/proc/pun(mob/user)
-	if(punused) // one per round..
+	if(!COOLDOWN_FINISHED(src, use_cooldown))
 		to_chat(user, "The moment is gone.")
 		return
 
-	punused = TRUE
 	playsound(loc, 'sound/misc/yeah.ogg', 100, FALSE)
-	user.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
-	if(HAS_TRAIT(user, TRAIT_BADASS)) //unless you're badass
-		addtimer(VARSET_CALLBACK(src, punused, FALSE), 5 MINUTES)
+	user.visible_message(span_biggerdanger("YEEEAAAAAHHHHHHHHHHHHH!!"))
+
+	COOLDOWN_START(src, use_cooldown, 5 MINUTES)
 
 
 /obj/item/clothing/glasses/sunglasses/reagent
@@ -648,6 +673,17 @@
 	desc = "A monocle thermal."
 	icon_state = "thermoncle"
 	flags_cover = null //doesn't protect eyes because it's a monocle, duh
+
+/obj/item/clothing/glasses/thermal/monothermal
+	name = "Thermal Monocle Scanner"
+	desc = "Моноколь со встроенным термальным сканером."
+	icon_state = "monothermal"
+	item_state = "monohud"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)
 
 /obj/item/clothing/glasses/thermal/eyepatch
 	name = "Optical Thermal Eyepatch"

@@ -9,6 +9,7 @@
 		INSTRUMENTAL = "распылителем",
 		PREPOSITIONAL = "распылителе"
 	)
+	gender = MALE
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
 	item_state = "cleaner"
@@ -55,7 +56,7 @@
 	var/contents_log = reagents.reagent_list.Join(", ")
 	INVOKE_ASYNC(src, PROC_REF(spray), A)
 
-	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
+	playsound(loc, 'sound/effects/spray2.ogg', 50, TRUE, -6)
 	user.changeNext_move(delay)
 	user.newtonian_move(get_dir(A, user))
 
@@ -186,7 +187,7 @@
 
 /obj/item/reagent_containers/spray/cleaner/tactical
 	name = "Tactical cleaner"
-	desc = "Бутылочка из прочнейшего тёмно-синего пластика, наверху которой прикреплён распылитель, оборудованный коллиматорным прицелом и глушителем. Разработано Уборочно-Силовыми Структурами Нанотрейзен для ЗАЧИСТКИ и контроля грязи в помещениях. Порадуйте своего внутреннего тактикульщика!"
+	desc = "Бутылочка из прочнейшего тёмно-синего пластика, наверху которой прикреплён распылитель, оборудованный коллиматорным прицелом и глушителем. Разработано Уборочно-Силовыми Структурами НаноТрейзен для ЗАЧИСТКИ и контроля грязи в помещениях. Порадуйте своего внутреннего тактикульщика!"
 	ru_names = list(
 		NOMINATIVE = "тактический распылитель",
 		GENITIVE = "тактическего распылителя",

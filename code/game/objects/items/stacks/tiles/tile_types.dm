@@ -69,6 +69,8 @@
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
 	resistance_flags = FLAMMABLE
+	energy_type = /datum/robot_energy_storage/wood
+	cost = 1
 
 /obj/item/stack/tile/wood/dark
 	name = "dark wood floor tiles"
@@ -117,9 +119,6 @@
 	singular_name = "fancy light oak wood floor tile"
 	icon_state = "tile-wood-fancy-light"
 	turf_type = /turf/simulated/floor/wood/fancy/light
-
-/obj/item/stack/tile/wood/cyborg
-	is_cyborg = 1
 
 // CARPETS
 /obj/item/stack/tile/carpet
@@ -236,12 +235,10 @@
 	flags = CONDUCT
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
-
-/obj/item/stack/tile/plasteel/cyborg
-	is_cyborg = 1
-
+	energy_type = /datum/robot_energy_storage/metal
+	cost = 1
 // LIGHT
 /obj/item/stack/tile/light
 	name = "light tiles"
@@ -321,7 +318,7 @@
 	desc = "Tightly-pressed brass tiles. They emit minute vibration in your hand."
 	icon_state = "tile_goldfancy"
 	turf_type = /turf/simulated/floor/clockwork
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/tile/harsie
@@ -330,5 +327,5 @@
 	desc = "dark tiles. You dont feel good about this."
 	icon_state = "tile_basalt"
 	turf_type = /turf/simulated/floor/engine/cult
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF

@@ -49,7 +49,7 @@
 	if(!charging || (stat & (BROKEN|NOPOWER)))
 		return
 
-	var/newlevel = 	round(charging.percent() * 4 / 100)
+	var/newlevel =	round(charging.percent() * 4 / 100)
 	. += "ccharger-o[newlevel]"
 
 
@@ -64,7 +64,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(stat & BROKEN)
 			to_chat(user, span_warning("[src] is broken!"))
@@ -177,7 +177,7 @@
 
 
 /obj/machinery/cell_charger/proc/check_level()
-	var/newlevel = 	round(charging.percent() * 4 / 100)
+	var/newlevel =	round(charging.percent() * 4 / 100)
 	if(chargelevel != newlevel)
 		chargelevel = newlevel
 		return TRUE

@@ -9,6 +9,7 @@
 	can_charge = 0
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
 	var/variable_charges = 1
+	accuracy = GUN_ACCURACY_SNIPER
 
 /obj/item/gun/magic/wand/Initialize()
 	if(prob(75) && variable_charges) //25% chance of listed max charges, 50% chance of 1/2 max charges, 25% chance of 1/3 max charges
@@ -58,7 +59,7 @@
 
 /obj/item/gun/magic/wand/proc/zap_self(mob/living/user)
 	user.visible_message("<span class='danger'>[user] zaps [user.p_them()]self with [src].</span>")
-	playsound(user, fire_sound, 50, 1)
+	playsound(user, fire_sound, 50, TRUE)
 	add_attack_logs(null, user, "zapped [user.p_them()]self with a [src]", ATKLOG_ALL)
 
 /////////////////////////////////////
@@ -135,8 +136,8 @@
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
 	do_teleport(user, user, 10)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(10, 0, user.loc)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 10, location = user.loc)
 	smoke.start()
 	charges--
 	..()

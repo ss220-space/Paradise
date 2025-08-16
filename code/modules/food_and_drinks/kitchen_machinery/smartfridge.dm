@@ -4,16 +4,8 @@
   * Stores items of a specified type.
   */
 /obj/machinery/smartfridge
-	name = "\improper SmartFridge"
+	name = "SmartFridge"
 	desc = "Это холодильник. Он умный. Просто удивительно, да?"
-	ru_names = list(
-		NOMINATIVE = "холодильник SmartFridge",
-		GENITIVE = "холодильника SmartFridge",
-		DATIVE = "холодильнику SmartFridge",
-		ACCUSATIVE = "холодильник SmartFridge",
-		INSTRUMENTAL = "холодильником SmartFridge",
-		PREPOSITIONAL = "холодильнике SmartFridge"
-	)
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "smartfridge"
 	layer = 2.9
@@ -61,6 +53,15 @@
 	/// Default light power, when on.
 	var/light_power_on = 0.5
 
+/obj/machinery/smartfridge/get_ru_names()
+	return list(
+		NOMINATIVE = "холодильник SmartFridge",
+		GENITIVE = "холодильника SmartFridge",
+		DATIVE = "холодильнику SmartFridge",
+		ACCUSATIVE = "холодильник SmartFridge",
+		INSTRUMENTAL = "холодильником SmartFridge",
+		PREPOSITIONAL = "холодильнике SmartFridge"
+	)
 
 /obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
@@ -454,9 +455,13 @@
   * # Syndie Fridge
   */
 /obj/machinery/smartfridge/syndie
-	name = "\improper Suspicious SmartFridge"
+	name = "Suspicious SmartFridge"
 	desc = "Это холодильник. Он умный. Подозрительно умный."
-	ru_names = list(
+	icon_state = "smartfridge-syndie"
+	contents_overlay = "smartfridge-syndie"
+
+/obj/machinery/smartfridge/syndie/get_ru_names()
+	return list(
 		NOMINATIVE = "подозрительный холодильник SmartFridge",
 		GENITIVE = "подозрительного холодильника SmartFridge",
 		DATIVE = "подозрительному холодильнику SmartFridge",
@@ -464,9 +469,6 @@
 		INSTRUMENTAL = "подозрительным холодильником SmartFridge",
 		PREPOSITIONAL = "подозрительном холодильнике SmartFridge"
 	)
-	icon_state = "smartfridge-syndie"
-	contents_overlay = "smartfridge-syndie"
-
 
 /**
   * # Secure Fridge
@@ -494,9 +496,14 @@
   * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/vending/hydroseeds].
   */
 /obj/machinery/smartfridge/seeds
-	name = "\improper Seed Storage"
+	name = "Seed Storage"
 	desc = "Это холодильник, предназначенный для растений и их плодов."
-	ru_names = list(
+	icon = 'icons/obj/machines/vending.dmi'
+	icon_state = "seeds_off"
+	base_icon_state = "seeds"
+	
+/obj/machinery/smartfridge/seeds/get_ru_names()
+	return list(
 		NOMINATIVE = "ботанический холодильник",
 		GENITIVE = "ботанического холодильника",
 		DATIVE = "ботаническому холодильнику",
@@ -504,9 +511,6 @@
 		INSTRUMENTAL = "ботаническим холодильником",
 		PREPOSITIONAL = "ботаническом холодильнике"
 	)
-	icon = 'icons/obj/machines/vending.dmi'
-	icon_state = "seeds_off"
-	base_icon_state = "seeds"
 
 
 /obj/machinery/smartfridge/seeds/Initialize(mapload)
@@ -543,9 +547,12 @@
   * Medical variant of the [Smart Fridge][/obj/machinery/smartfridge].
   */
 /obj/machinery/smartfridge/medbay
-	name = "\improper Refrigerated Medicine Storage"
+	name = "Refrigerated Medicine Storage"
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
-	ru_names = list(
+	icon_state = "smartfridge" //To fix the icon in the map editor.
+
+/obj/machinery/smartfridge/medbay/get_ru_names()
+	return list(
 		NOMINATIVE = "медицинский холодильник",
 		GENITIVE = "медицинского холодильника",
 		DATIVE = "медицинскому холодильнику",
@@ -553,7 +560,6 @@
 		INSTRUMENTAL = "медицинским холодильником",
 		PREPOSITIONAL = "медицинском холодильнике"
 	)
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 
 /obj/machinery/smartfridge/medbay/Initialize(mapload)
 	. = ..()
@@ -576,9 +582,12 @@
   * Secure, Xenobiology variant of the [Smart Fridge][/obj/machinery/smartfridge].
   */
 /obj/machinery/smartfridge/secure/extract
-	name = "\improper Slime Extract Storage"
+	name = "Slime Extract Storage"
 	desc = "Это холодильник, предназначенный для хранения слаймовых экстрактов."
-	ru_names = list(
+	req_access = list(ACCESS_RESEARCH)
+
+/obj/machinery/smartfridge/secure/extract/get_ru_names()
+	return list(
 		NOMINATIVE = "холодильник для слаймовых экстрактов",
 		GENITIVE = "холодильника для слаймовых экстрактов",
 		DATIVE = "холодильнику для слаймовых экстрактов",
@@ -586,7 +595,6 @@
 		INSTRUMENTAL = "холодильником для слаймовых экстрактов",
 		PREPOSITIONAL = "холодильнике для слаймовых экстрактов"
 	)
-	req_access = list(ACCESS_RESEARCH)
 
 /obj/machinery/smartfridge/secure/extract/syndie
 	icon_state = "smartfridge-syndie"
@@ -630,9 +638,13 @@
   * Secure, Chemistry variant of the [Smart Fridge][/obj/machinery/smartfridge].
   */
 /obj/machinery/smartfridge/secure/chemistry
-	name = "\improper Smart Chemical Storage"
+	name = "Smart Chemical Storage"
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
-	ru_names = list(
+	icon_state = "smartfridge" //To fix the icon in the map editor.
+	req_access = list(ACCESS_CHEMISTRY)
+
+/obj/machinery/smartfridge/secure/chemistry/get_ru_names()
+	return list(
 		NOMINATIVE = "химический холодильник",
 		GENITIVE = "химического холодильника",
 		DATIVE = "химическому холодильнику",
@@ -640,9 +652,6 @@
 		INSTRUMENTAL = "химическим холодильником",
 		PREPOSITIONAL = "химическом холодильнике"
 	)
-	icon_state = "smartfridge" //To fix the icon in the map editor.
-	req_access = list(ACCESS_CHEMISTRY)
-
 
 /obj/machinery/smartfridge/secure/chemistry/Initialize(mapload)
 	. = ..()
@@ -682,9 +691,14 @@
 
 /obj/machinery/smartfridge/secure/medbay/organ
 
-	name = "\improper Secure Refrigerated Organ Storage"
+	name = "Secure Refrigerated Organ Storage"
 	desc = "Это холодильник, предназначенный для хранения органов, конечностей, имплантов и капельниц."
-	ru_names = list(
+	req_access = list(ACCESS_SURGERY)
+	opacity = TRUE
+	contents_overlay = "smartfridge-organ"
+
+/obj/machinery/smartfridge/secure/medbay/organ/get_ru_names()
+	return list(
 		NOMINATIVE = "холодильник для органов",
 		GENITIVE = "холодильника для органов",
 		DATIVE = "холодильнику для органов",
@@ -692,10 +706,6 @@
 		INSTRUMENTAL = "холодильником для органов",
 		PREPOSITIONAL = "холодильнике для органов"
 	)
-	req_access = list(ACCESS_SURGERY)
-	opacity = TRUE
-	contents_overlay = "smartfridge-organ"
-
 
 /obj/machinery/smartfridge/secure/medbay/organ/Initialize(mapload)
 	. = ..()
@@ -717,7 +727,14 @@
 /obj/machinery/smartfridge/disks
 	name = "disk compartmentalizer"
 	desc = "Машина, предназначенная для хранения различного рода дискет."
-	ru_names = list(
+	icon_state = "disktoaster_off"
+	base_icon_state = "disktoaster"
+	pass_flags = PASSTABLE
+	visible_contents = FALSE
+	icon_lightmask = "disktoaster"
+
+/obj/machinery/smartfridge/disks/get_ru_names()
+	return list(
 		NOMINATIVE = "хранилище для дискет",
 		GENITIVE = "хранилища для дискет",
 		DATIVE = "хранилищу для дискет",
@@ -725,12 +742,6 @@
 		INSTRUMENTAL = "хранилищем для дискет",
 		PREPOSITIONAL = "хранилище для дискет"
 	)
-	icon_state = "disktoaster_off"
-	base_icon_state = "disktoaster"
-	pass_flags = PASSTABLE
-	visible_contents = FALSE
-	icon_lightmask = "disktoaster"
-
 
 /obj/machinery/smartfridge/disks/Initialize(mapload)
 	. = ..()
@@ -760,9 +771,14 @@
   * Comes with some items.
   */
 /obj/machinery/smartfridge/secure/chemistry/virology
-	name = "\improper Smart Virus Storage"
+	name = "Smart Virus Storage"
 	desc = "Это холодильник, предназначенный для хранения образцов вирусов."
-	ru_names = list(
+	icon_state = "smartfridge"
+	req_access = list(ACCESS_VIROLOGY)
+	icon_addon = "smartfridge-viro-overlay"
+
+/obj/machinery/smartfridge/secure/chemistry/virology/get_ru_names()
+	return list(
 		NOMINATIVE = "холодильник для вирусных образцов",
 		GENITIVE = "холодильника для вирусных образцов",
 		DATIVE = "холодильнику для вирусных образцов",
@@ -770,9 +786,6 @@
 		INSTRUMENTAL = "холодильником для вирусных образцов",
 		PREPOSITIONAL = "холодильнике для вирусных образцов"
 	)
-	icon_state = "smartfridge"
-	req_access = list(ACCESS_VIROLOGY)
-	icon_addon = "smartfridge-viro-overlay"
 
 /obj/machinery/smartfridge/secure/chemistry/virology/Initialize(mapload)
 	. = ..()
@@ -821,9 +834,11 @@
   * Drink variant of the [Smart Fridge][/obj/machinery/smartfridge].
   */
 /obj/machinery/smartfridge/drinks
-	name = "\improper Drink Showcase"
+	name = "Drink Showcase"
 	desc = "Это холодильник, предназначенный для хранения напитков."
-	ru_names = list(
+
+/obj/machinery/smartfridge/drinks/get_ru_names()
+	return list(
 		NOMINATIVE = "холодильник для напитков",
 		GENITIVE = "холодильника для напитков",
 		DATIVE = "холодильнику для напитков",
@@ -846,9 +861,11 @@
   * Dish variant of the [Smart Fridge][/obj/machinery/smartfridge].
   */
 /obj/machinery/smartfridge/dish
-	name = "\improper Dish Showcase"
+	name = "Dish Showcase"
 	desc = "Это холодильник, предназначенный для хранения органов, конечностей, имплантов и капельниц."
-	ru_names = list(
+
+/obj/machinery/smartfridge/dish/get_ru_names()
+	return list(
 		NOMINATIVE = "холодильник для еды",
 		GENITIVE = "холодильника для еды",
 		DATIVE = "холодильнику для еды",
@@ -876,14 +893,6 @@
 	name = "drying rack"
 	desc = "A wooden contraption, used to dry plant products, food and leather."
 	desc = "Деревянная стойка, предназначенная для просушки растительных продуктов, еды и кожи."
-	ru_names = list(
-		NOMINATIVE = "сушильная стойка",
-		GENITIVE = "сушильной стойки",
-		DATIVE = "сушильной стойке",
-		ACCUSATIVE = "сушильную стойку",
-		INSTRUMENTAL = "сушильной стойкой",
-		PREPOSITIONAL = "сушильной стойке"
-	)
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "drying-rack_off"
 	use_power = IDLE_POWER_USE
@@ -894,6 +903,16 @@
 	var/primitive = FALSE //used for energy consuming stuff
 	var/drying_timer = 0
 	icon_lightmask = null
+
+/obj/machinery/smartfridge/drying_rack/get_ru_names()
+	return list(
+		NOMINATIVE = "сушильная стойка",
+		GENITIVE = "сушильной стойки",
+		DATIVE = "сушильной стойке",
+		ACCUSATIVE = "сушильную стойку",
+		INSTRUMENTAL = "сушильной стойкой",
+		PREPOSITIONAL = "сушильной стойке"
+	)
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
 	. = ..()
@@ -1022,14 +1041,6 @@
 /obj/machinery/smartfridge/drying_rack/ash
 	name = "primitive drying rack"
 	desc = "Примитивная самодельная сушилка, предназначенная для просушки растительных продуктов, еды и кожи."
-	ru_names = list(
-		NOMINATIVE = "примитивная сушилка",
-		GENITIVE = "примитивной сушилки",
-		DATIVE = "примитивной сушилке",
-		ACCUSATIVE = "примитивную сушилку",
-		INSTRUMENTAL = "примитивной сушилкой",
-		PREPOSITIONAL = "примитивной сушилке",
-	)
 	gender = FEMALE
 	icon_state = "primitive-drying-rack"
 	use_power = NO_POWER_USE
@@ -1039,6 +1050,16 @@
 	active_power_usage = 0
 	drying_timer = 8
 	primitive = TRUE
+
+/obj/machinery/smartfridge/drying_rack/ash/get_ru_names()
+	return list(
+		NOMINATIVE = "примитивная сушилка",
+		GENITIVE = "примитивной сушилки",
+		DATIVE = "примитивной сушилке",
+		ACCUSATIVE = "примитивную сушилку",
+		INSTRUMENTAL = "примитивной сушилкой",
+		PREPOSITIONAL = "примитивной сушилке",
+	)
 
 /obj/machinery/smartfridge/drying_rack/ash/update_overlays()
 	overlays.Cut()

@@ -167,8 +167,7 @@
 					category += "_[cat]"
 				else
 					category = cat
-
-		var/newitem = list("name" = item.name, "desc" = item.desc, "cost" = item.cost, "icon" = path2assetID(path), "path" = path, "emagOnly" = item.emag_only)
+		var/newitem = list("name" = item.name, "desc" = item.desc, "cost" = item.cost, "icon" = item.icon_file, "icon_state" = item.icon_file, "path" = path, "emagOnly" = item.emag_only)
 		newshop[category] += list(newitem)
 		qdel(item)
 
@@ -228,12 +227,6 @@
 	data["shopItems"] = shop_items
 	return data
 
-/obj/machinery/computer/roboquest/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/roboquest),
-		get_asset_datum(/datum/asset/spritesheet/roboquest_large)
-	)
-
 /obj/machinery/computer/roboquest/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
@@ -277,7 +270,7 @@
 				var/list/L = list() // List of avaliable telepads
 				var/list/areaindex = list() // Telepad area location
 				var/atom/quantum
-				for(var/obj/machinery/telepad_cargo/R in GLOB.machines)
+				for(var/obj/machinery/telepad_cargo/R in SSmachines.get_by_type(/obj/machinery/telepad_cargo))
 					if(R.stage)
 						continue
 					var/turf/T = get_turf(R)
@@ -346,7 +339,7 @@
 			addtimer(VARSET_CALLBACK(src, print_delayed, FALSE), 10 SECONDS)
 
 /obj/machinery/computer/roboquest/proc/print_task(datum/roboquest/quest)
-	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	var/obj/item/paper/paper = new(get_turf(src))
 	paper.header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr noshade size='4'>"
 	paper.info = "<center> <h2> Mecha request form </h2> </center>"
@@ -358,7 +351,7 @@
 		paper.info += "<li> [i["name"]]</li><br>"
 	paper.info += "<br><b> Initial reward:</b> [quest.maximum_cash] credits"
 	paper.info += "<p><b>Mecha request accepted by:</b> [currentID.registered_name] - [currentID.rank] at [station_time_timestamp()].</p></ul>"
-	paper.info += "<hr><center><small><i>The request has been approved and certified by NAS Trurl.</i></small></center>"
+	paper.info += "<hr><center><small><i>The request has been approved and certified by [command_name()].</i></small></center>"
 	var/obj/item/stamp/centcom/stamp = new()
 	paper.stamp(stamp)
 	paper.update_icon()

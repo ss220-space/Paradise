@@ -253,7 +253,7 @@
 	var/area/A = candidate_zones[difficulty]
 	extraction_zone = A
 	chosen_difficulty = difficulty
-	explanation_text = "Kidnap [S.target_name] by any means and extract them in [A.map_name] using your Contractor Uplink. You will earn [S.reward_tc[difficulty]] telecrystals and [S.reward_credits] credits upon completion. Your reward will be severely reduced if your target is dead."
+	explanation_text = "Похитьте [S.target_name] любым способом и экспортируйте его в локацию \"[A.map_name]\" с помощью аплинка. По завершении контракта вы заработаете [S.reward_tc[difficulty]] телекристалл[declension_ru(S.reward_tc[difficulty], "", "а", "ов")] и [S.reward_credits] кредит[declension_ru(S.reward_credits, "", "а", "ов")]. Награда будет значительно уменьшена, если ваша цель окажется мёртвой."
 	return TRUE
 
 /**

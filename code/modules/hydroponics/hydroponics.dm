@@ -126,10 +126,9 @@
 	return connected
 
 
-/obj/machinery/hydroponics/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
+/obj/machinery/hydroponics/click_alt(mob/living/user)
 	toggle_lid(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
@@ -141,14 +140,14 @@
 	update_state()
 
 
-/obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
+/obj/machinery/hydroponics/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(!myseed)
 		return ..()
-	if(istype(Proj, /obj/item/projectile/energy/floragamma))
+	if(istype(Proj, /obj/projectile/energy/floragamma))
 		make_grow()
-	else if(istype(Proj, /obj/item/projectile/energy/florabeta))
+	else if(istype(Proj, /obj/projectile/energy/florabeta))
 		myseed.on_floragun_beta_act()
-	else if(istype(Proj, /obj/item/projectile/energy/floraalpha) && !lid_closed)
+	else if(istype(Proj, /obj/projectile/energy/floraalpha) && !lid_closed)
 		plantdies()
 	else
 		return ..()
@@ -953,6 +952,24 @@
 		myseed.variant_prompt(user, src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
+	if(istype(I, /obj/item/conductive_organ))
+		add_fingerprint(user)
+		if(!myseed)
+			balloon_alert(user, "внутри нет семян!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		user.visible_message(
+			span_notice("[user] аккуратно втира[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы аккуратно втираете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		)
+		yieldmod = 1.7
+		waterlevel = maxwater
+		nutrilevel = maxnutri
+		plant_hud_set_nutrient()
+		plant_hud_set_water()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 
@@ -1121,19 +1138,19 @@
 /obj/machinery/hydroponics/proc/send_plant_details(mob/user)
 	var/list/msg = list()
 	if(myseed)
-		msg += "*** <B>[myseed.plantname]</B> ***" //Carn: now reports the plants growing, not the seeds.
+		msg += "*** <b>[myseed.plantname]</b> ***" //Carn: now reports the plants growing, not the seeds.
 		msg += "- Plant Age: <span class='notice'>[age]</span>"
 		var/list/text_string = myseed.get_analyzer_text()
 		if(text_string)
 			msg += text_string
 	else
-		msg += "<B>No plant found.</B>"
+		msg += "<b>No plant found.</b>"
 	msg += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
 	msg += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
 	msg += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
 	msg += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
 	msg += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
-	to_chat(user, msg.Join("\n"))
+	to_chat(user, chat_box_examine(msg.Join("\n")))
 
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.

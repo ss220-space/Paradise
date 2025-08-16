@@ -37,7 +37,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
 	body_parts_covered = HEAD
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
 	flags_inv = NONE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -63,7 +63,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL|WING
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/magic/staff/frost)
 	slowdown = FALSE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
 	flags_inv = NONE
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -103,9 +103,9 @@
 			new /obj/effect/snow(T)
 
 /obj/item/ammo_casing/magic/frost
-	projectile_type = /obj/item/projectile/magic/frost
+	projectile_type = /obj/projectile/magic/frost
 
-/obj/item/projectile/magic/frost
+/obj/projectile/magic/frost
 	name = "bolt of frost"
 	icon_state = "ice_2"
 	hitsound = 'sound/effects/hit_on_shattered_glass.ogg'
@@ -113,13 +113,13 @@
 	armour_penetration = 100
 	flag = "magic"
 
-/obj/item/projectile/magic/frost/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/magic/frost/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/victim = target
 		freeze(victim)
 
-/obj/item/projectile/magic/frost/proc/freeze(mob/living/target)
+/obj/projectile/magic/frost/proc/freeze(mob/living/target)
 	target.apply_status_effect(/datum/status_effect/freon/frost)
 
 /datum/status_effect/freon/frost

@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 		var/isactive = t.fields["p_stat"]
 		var/department = 0
-		var/depthead = 0 			// Department Heads will be placed at the top of their lists.
+		var/depthead = 0			// Department Heads will be placed at the top of their lists.
 		if(real_rank in GLOB.command_positions)
 			heads[++heads.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
@@ -192,27 +192,22 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		medical += M
 
 		//Security Record
-		var/datum/data/record/S = new()
-		S.fields["id"]			= id
-		S.fields["name"]		= H.real_name
-		S.fields["criminal"]	= "None"
-		S.fields["mi_crim"]		= "None"
-		S.fields["mi_crim_d"]	= "No minor crime convictions."
-		S.fields["ma_crim"]		= "None"
-		S.fields["ma_crim_d"]	= "No major crime convictions."
-		S.fields["notes"]		= "No notes."
+		var/datum/data/record/S = find_security_record("name", H.real_name)
+		if(S) //records exists, set correct id and name
+			S.name = text("Security Record #[id]")
+			S.fields["id"] = id
+		else //create new record
+			S = CreateSecurityRecord(H.real_name, id)
 		if(H.sec_record && !jobban_isbanned(H, "Records"))
 			S.fields["notes"] = H.sec_record
 		else
 			S.fields["notes"] = "Дополнительная информация отсутствует."
-		LAZYINITLIST(S.fields["comments"])
-		security += S
 
 		//Locked Record
 		var/datum/data/record/L = new()
 		L.fields["id"]			= md5("[H.real_name][H.mind.assigned_role]")
 		L.fields["name"]		= H.real_name
-		L.fields["rank"] 		= H.mind.assigned_role
+		L.fields["rank"]		= H.mind.assigned_role
 		L.fields["age"]			= H.age
 		L.fields["sex"]			= capitalize(H.gender)
 		L.fields["blood_type"]	= H.dna.blood_type
@@ -411,6 +406,9 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(JOB_TITLE_MINER)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "explorer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "explorer"), ICON_UNDERLAY)
+		if(JOB_TITLE_MINING_MEDIC)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "mining_medic_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 		if("Lawyer")
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "internalaffairs_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
@@ -523,6 +521,9 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "syndicate_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
+		if(JOB_TITLE_PRISONER)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "orange_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange"), ICON_UNDERLAY)
 		else if(H.mind && (H.mind.assigned_role in get_all_centcom_jobs()))
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)

@@ -38,13 +38,13 @@
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
 		to_chat(user, "<span class='notice'>[src] is still active!</span>")
-		return 0
+		return FALSE
 	if(istype(check, /obj/item/reagent_containers/food/snacks))
-		return 1
+		return TRUE
 	if(has_specials && checkSpecials(check))
 		return TRUE
 	to_chat(user, "<span class ='notice'>You can only process food!</span>")
-	return 0
+	return FALSE
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
 	copyto.color = foodcolor
@@ -54,7 +54,7 @@
 
 /obj/machinery/cooker/proc/turnoff(obj/item/olditem)
 	icon_state = officon
-	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	on = 0
 	qdel(olditem)
 	return
@@ -68,9 +68,10 @@
 	setRegents(props, burnt)
 	if(user && (user in viewers(5, src)))
 		to_chat(user, span_warning("You smell burning coming from the [src]!"))
-	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
-	smoke.set_up(5, 0, src)
+	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new // burning things makes smoke!
+	smoke.set_up(amount = 5, location = src)
 	smoke.start()
+
 	if(prob(firechance))
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(drop_turf)
 		oil.name = "fat"

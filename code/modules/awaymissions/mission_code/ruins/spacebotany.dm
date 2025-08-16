@@ -56,7 +56,7 @@
     can_hide = TRUE
     xenobiology_spawned = FALSE
     aggro_vision_range = 6
-    damage_coeff = list("brute" = 1, "fire" = -0.1, "tox" = 0, "clone" = 0, "stamina" = 0, "oxy" = 0)
+    damage_coeff = list(BRUTE = 1, FIRE = -0.1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
 /mob/living/simple_animal/hostile/killertomato/spacebotany/ComponentInitialize()
 	AddComponent( \
@@ -75,7 +75,7 @@
 	icon_dead = "palm"
 	icon_gib = "palm"
 	aggro_vision_range = 3
-	damage_coeff = list("brute" = 1, "fire" = 0.5, "tox" = 0, "clone" = 0, "stamina" = 0, "oxy" = 0)
+	damage_coeff = list(BRUTE = 1, FIRE = 0.5, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	obj_damage = 0
 
 /mob/living/simple_animal/hostile/tree/jungle
@@ -86,5 +86,5 @@
 	icon_dead = "tree2"
 	icon_gib = "tree2"
 	aggro_vision_range = 3
-	damage_coeff = list("brute" = 0.3, "fire" = 2, "tox" = 0, "clone" = 0, "stamina" = 0, "oxy" = 0)
+	damage_coeff = list(BRUTE = 0.3, FIRE = 2, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	obj_damage = 0

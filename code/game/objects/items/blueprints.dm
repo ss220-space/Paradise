@@ -27,7 +27,7 @@
 
 /obj/item/areaeditor/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	user << browse(null, "window=blueprints")
+	close_window(user, "blueprints")
 
 
 /obj/item/areaeditor/proc/interact_prints(mob/user)
@@ -50,7 +50,7 @@
 	if(..())
 		return TRUE
 	if(usr != loc)
-		usr << browse(null, "window=blueprints")
+		close_window(usr, "blueprints")
 		return TRUE
 	if(href_list["create_area"])
 		if(currently_used)

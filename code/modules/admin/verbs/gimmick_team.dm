@@ -2,7 +2,7 @@
 // Spawns a group of player-controlled mobs with an outfit specified by the admin, at their location.
 
 /client/proc/gimmick_team()
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Отправить Гиммик тим"
 	set desc = "Спавнит команду игроков в выбранной экипировке."
 	if(!check_rights(R_EVENT))
@@ -85,8 +85,8 @@
 		if(dresscode != "Naked")
 			H.equipOutfit(dresscode, FALSE)
 
-		to_chat(H, "<BR><span class='danger'><B>[themission]</B></span>")
-		H.mind.store_memory("<B>[themission]</B><BR><BR>")
+		to_chat(H, "<br><span class='danger'><b>[themission]</b></span>")
+		H.mind.store_memory("<b>[themission]</b><br><br>")
 
 		if(is_syndicate)
 			SSticker.mode.traitors |= H.mind //Adds them to extra antag list

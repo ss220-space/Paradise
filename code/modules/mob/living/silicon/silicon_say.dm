@@ -12,7 +12,7 @@
 		if(!is_component_functioning("radio"))
 			to_chat(src, "<span class='warning'>Your radio isn't functional at this time.</span>")
 			return FALSE
-		if(message_mode == "general")
+		if(message_mode == PUB_FREQ_NAME)
 			message_mode = null
 		return radio.talk_into(src,message_pieces,message_mode,verb)
 
@@ -20,7 +20,7 @@
 /mob/living/silicon/ai/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
 		return TRUE
-	if(message_mode == "department")
+	if(message_mode == DEPARTMENT_FREQ_NAME)
 		used_radios += aiRadio
 		return holopad_talk(message_pieces, verb)
 	else if(message_mode)
@@ -28,7 +28,7 @@
 		if(aiRadio.disabledAi || aiRestorePowerRoutine || stat)
 			to_chat(src, "<span class='danger'>System Error - Transceiver Disabled.</span>")
 			return FALSE
-		if(message_mode == "general")
+		if(message_mode == PUB_FREQ_NAME)
 			message_mode = null
 		return aiRadio.talk_into(src, message_pieces, message_mode, verb)
 
@@ -36,11 +36,11 @@
 /mob/living/silicon/pai/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
 		return TRUE
-	else if(message_mode == "whisper")
+	else if(message_mode == WHISPER_CHANNEL)
 		whisper_say(message_pieces)
 		return TRUE
 	else if(message_mode)
-		if(message_mode == "general")
+		if(message_mode == PUB_FREQ_NAME)
 			message_mode = null
 		used_radios += radio
 		return radio.talk_into(src, message_pieces, message_mode, verb)
@@ -59,10 +59,10 @@
 
 /mob/living/silicon/say_understands(mob/other, datum/language/speaking = null)
 	//These only pertain to common. Languages are handled by mob/say_understands()
-	if(..())
-		return TRUE
-	else
-		return iscarbon(other) || issilicon(other) || isbot(other) || isbrain(other)
+	if(!speaking && ismob(other))
+		if(iscarbon(other) || issilicon(other) || isbot(other) || isbrain(other))
+			return TRUE
+	return ..()
 
 
 //For holopads only. Usable by AI.
@@ -75,7 +75,7 @@
 		var/message_clean = combine_message(message_pieces, src)
 		message_clean = replace_characters(message_clean, list("+"))
 
-		var/message = verb_message(message_pieces, message_clean, verb)
+		var/message = verb_message(message_pieces, message_clean, src, genderize_decode(src, verb))
 		var/message_tts = combine_message_tts(message_pieces, src)
 
 		if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
@@ -83,7 +83,7 @@
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE)
 		log_debug("holopad_talk(): [message_clean]")
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
-			M.hear_holopad_talk(message_pieces, verb, src, H)
+			M.hear_holopad_talk(message_pieces, genderize_decode(src, verb), src, H)
 		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [message]</span></i>")
 	else
 		to_chat(src, "No holopad connected.")

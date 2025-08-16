@@ -61,7 +61,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define DECONSTRUCT_POWER 250
 
 /obj/machinery/computer/rdconsole
-	name = "\improper R&D console"
+	name = "R&D console"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -140,7 +140,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
-	for(var/obj/machinery/r_n_d/server/centcom/C in GLOB.machines)
+	for(var/obj/machinery/r_n_d/server/centcom/C in SSmachines.get_by_type(/obj/machinery/r_n_d/server/centcom))
 		files.push_data(C.files)
 
 /obj/machinery/computer/rdconsole/proc/Maximize()
@@ -165,7 +165,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		id = 0027
 		update_icon()
 	if(!id)
-		for(var/obj/machinery/r_n_d/server/centcom/S in GLOB.machines)
+		for(var/obj/machinery/r_n_d/server/centcom/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server/centcom))
 			S.initialize_serv()
 			break
 
@@ -232,7 +232,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list()
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+			to_chat(user, span_notice("You disable the security protocols"))
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
@@ -254,7 +254,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/desired_num_sheets = 0
 	if(amount == "custom")
-		desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
+		desired_num_sheets = tgui_input_number(usr, "How many sheets would you like to eject from the machine?", "How much?", 1)
 		if(isnull(desired_num_sheets))
 			desired_num_sheets = 0
 	else
@@ -280,7 +280,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!sync)
 		return
 	clear_wait_message()
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 		var/server_processed = FALSE
 		if(S.disabled)
 			continue
@@ -313,11 +313,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(linked_destroy.busy)
-		to_chat(user, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+		to_chat(user, span_danger("[linked_destroy] is busy at the moment."))
 		return
 
 	if(!linked_destroy.loaded_item)
-		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+		to_chat(user, span_danger("[linked_destroy] appears to be empty."))
 		return
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
@@ -329,7 +329,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 	if(!pointless)
-		var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
+		var/choice = tgui_alert(usr, "This item does not raise tech levels. Proceed destroying loaded item anyway?", , list("Proceed", "Cancel"))
 		if(choice == "Cancel" || !linked_destroy)
 			return
 
@@ -359,7 +359,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
-			to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+			to_chat(usr, span_danger("[linked_destroy] appears to be empty."))
 		else
 			var/tech_log
 			for(var/T in temp_tech)
@@ -397,23 +397,23 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
 	if(!machine)
-		to_chat(usr, "<span class='danger'>No linked device detected.</span>")
+		to_chat(usr, span_danger("No linked device detected."))
 		return
 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
 
 	if(!is_lathe && !is_imprinter)
-		to_chat(usr, "<span class='danger'>Unexpected linked device type.</span>")
+		to_chat(usr, span_danger("Unexpected linked device type."))
 		return
 
 	if(machine.busy)
-		to_chat(usr, "<span class='danger'>[machine] is busy at the moment.</span>")
+		to_chat(usr, span_danger("[machine] is busy at the moment."))
 		return
 
 	var/datum/design/being_built = files.known_designs[design_id]
 	if(!being_built)
-		to_chat(usr, "<span class='danger'>Unknown design specified.</span>")
+		to_chat(usr, span_danger("Unknown design specified."))
 		return
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
@@ -472,7 +472,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	addtimer(CALLBACK(src, PROC_REF(finish_machine), usr, amount, enough_materials, machine, being_built, coeff), time_to_construct)
 
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 		if(S.disabled)
 			continue
 		if(syndicate != S.syndicate)
@@ -622,7 +622,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("eject_item") //Eject the item inside the destructive analyzer.
 			if(linked_destroy)
 				if(linked_destroy.busy)
-					to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+					to_chat(usr, span_danger("[linked_destroy] is busy at the moment."))
 
 				else if(linked_destroy.loaded_item)
 					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
@@ -645,7 +645,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+				to_chat(usr, span_danger("You must connect to the network first!"))
 			else
 				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
 				griefProtection() //Putting this here because I dont trust the sync process
@@ -739,7 +739,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(..())
 		return 1
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return TRUE
 	ui_interact(user)
@@ -995,7 +995,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
-	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
+	name = "E.X.P.E.R.I-MENTOR R&D console"
 	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
 	id = 3
 	range = 5

@@ -1,19 +1,21 @@
 /client
-		//////////////////////
-		//BLACK MAGIC THINGS//
-		//////////////////////
+	/// Client is casted to /datum so that we're able to use datum variables, search for clients through datums, and not need to duplicate code for GCing
 	parent_type = /datum
 		////////////////
 		//ADMIN THINGS//
 		////////////////
-	/// hides the byond verb panel as we use our own custom version
+
+	/// Hides the byond verb panel as we use our own custom version.
 	show_verb_panel = FALSE
 	var/datum/admins/holder = null
 
-	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
-	var/last_message_count = 0 //contains a number of how many times a message identical to last_message was sent.
-	var/last_message_time = 0 //holds the last time (based on world.time) a message was sent
-	var/datum/pm_tracker/pm_tracker = new()
+	/// Contains the last message sent by this client - used to protect against copy-paste spamming.
+	var/last_message = ""
+	/// Contains a number of how many times a message identical to last_message was sent.
+	var/last_message_count = 0
+	/// Holds the last time (based on world.time) a message was sent.
+	var/last_message_time = 0
+	var/datum/pm_tracker/pm_tracker
 
 		/////////
 		//OTHER//
@@ -204,6 +206,9 @@
 	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset
 	var/list/completed_asset_jobs = list()
 
+	/// If this client has any windows scaling applied
+	var/window_scaling
+
 	/*
 	ASSET SENDING
 	*/
@@ -212,8 +217,10 @@
 	/// The ID of the last asset job that was properly finished
 	var/last_completed_asset_job = 0
 
-	/// Our object window datum. It stores info about and handles behavior for the object tab
-	var/datum/object_window_info/obj_window
+	/// Loot panel for the client
+	var/datum/lootpanel/loot_panel
+
+	var/tgui_panel_theme = "dark"
 
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))

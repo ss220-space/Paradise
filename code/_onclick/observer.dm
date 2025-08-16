@@ -4,10 +4,21 @@
 		// But we return here since we don't want to do regular dblclick handling
 		return
 
+	var/list/modifiers = params2list(params)
+	if(modifiers["middle"])
+		return
+
+	if(modifiers["shift"])
+		return
+
 	if(can_reenter_corpse && mind && mind.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)
 			return									// seems legit.
+
+	if(istype(A, /mob/living) && orbit_menu?.auto_observe)
+		var/mob/living/eye_mob = A
+		do_observe(eye_mob)
 
 	// Follow !!ALL OF THE THINGS!!
 	if(istype(A, /atom/movable) && A != src)

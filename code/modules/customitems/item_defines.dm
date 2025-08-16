@@ -197,14 +197,24 @@
 
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
-	desc = "An assorted set of exchangable parts for a wheelchair."
+	desc = "Набор деталей для инвалидной коляски."
 	icon_state = "modkit"
 	var/new_icon_state = "vox_wheelchair"
 	var/new_overlay = "vox_wheelchair_overlay"
 	var/new_name = "vox wheelchair"
-	var/new_desc = "A luxurious Vox Wheelchair, weathered from use."
+	var/new_desc = "Роскошная инвалидная коляска, когда-то принадлежавшая воксу."
 
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/structure/chair/wheelchair/target, mob/user, proximity, params)
+/obj/item/fluff/rapid_wheelchair_kit/get_ru_names()
+	return list(
+		NOMINATIVE = "комплект модификаций для инвалидной коляски",
+		GENITIVE = "комплекта модификаций для инвалидной коляски",
+		DATIVE = "комплекту модификаций для инвалидной коляски",
+		ACCUSATIVE = "комплект модификаций для инвалидной коляски",
+		INSTRUMENTAL = "комплектом модификаций для инвалидной коляски",
+		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски"
+	)
+
+/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -212,7 +222,7 @@
 		target.on_skin_apply(src, user)
 		return
 
-	to_chat(user, span_warning("You cannot modify [target]!"))
+	to_chat(user, span_warning("Вы не можете модифицировать [target.declent_ru(ACCUSATIVE)]!"))
 
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
@@ -452,7 +462,7 @@
 
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
-		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, TRUE)
 		to_chat(user, "<span class='notice'>You modify [target] with [src].</span>")
 		H.update_inv_head()
 		qdel(target)
@@ -729,7 +739,7 @@
 			icon_state = new_state["icon_state"]
 			state = choice
 			to_chat(user, "You adjust the helmet.")
-			playsound(src.loc, "[toggle_sound]", 100, 0, 4)
+			playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
 			user.update_inv_head()
 			return 1
 
@@ -864,8 +874,8 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 
 /obj/item/clothing/suit/fluff/kluys/verb/toggle()
-	set name = "Toggle Nanofibre Mode"
-	set category = "Object"
+	set name = "Режим наноткани"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -901,7 +911,7 @@
 	sprite_sheets = null
 
 /obj/item/clothing/suit/fluff/stobarico_greatcoat // Stobarico: F.U.R.R.Y
-	name = "\improper F.U.R.R.Y's Nanotrasen Greatcoat"
+	name = "F.U.R.R.Y's Nanotrasen Greatcoat"
 	desc = "A greatcoat with Nanotrasen colors."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "stobarico_jacket"
@@ -1074,7 +1084,7 @@
 	adjust_flavour = "unzip"
 
 //////////// Uniforms ////////////
-/obj/item/clothing/under/fluff/counterfeitguise_uniform 	// thatdanguy23 : Rissa Williams
+/obj/item/clothing/under/fluff/counterfeitguise_uniform	// thatdanguy23 : Rissa Williams
 	icon = 'icons/obj/custom_items.dmi'
 	name = "Rissa's hand-me-downs"
 	desc = "An old, hand-me-down baggy sweater and sweatpants combo. A label on the neck reads 'RISSA' in scruffy handwriting."
@@ -1159,8 +1169,8 @@
 
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
-	set name = "Toggle Jumpsuit Zipper"
-	set category = "Object"
+	set name = "Молния костюма"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -1619,7 +1629,7 @@
 	icon_state = "ps_horns"
 
 /obj/item/storage/backpack/fluff/hiking //Pineapple Salad: Dan Jello
-	name = "\improper Fancy Hiking Pack"
+	name = "Fancy Hiking Pack"
 	desc = "A black and red hiking pack with some nice little accessories."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "danpack"

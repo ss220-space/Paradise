@@ -5,19 +5,19 @@
 #define TOX			"tox"
 #define OXY			"oxy"
 #define CLONE		"clone"
-#define STAMINA 	"stamina"
+#define STAMINA	"stamina"
 #define BRAIN		"brain"
 
 //damage flags
-#define MELEE 		"melee"
-#define BULLET 		"bullet"
-#define LASER 		"laser"
-#define ENERGY 		"energy"
-#define BOMB 		"bomb"
-#define BIO 		"bio"
-#define RAD 		"rad"
-#define FIRE 		"fire"
-#define ACID 		"acid"
+#define MELEE		"melee"
+#define BULLET		"bullet"
+#define LASER		"laser"
+#define ENERGY		"energy"
+#define BOMB		"bomb"
+#define BIO		"bio"
+#define RAD		"rad"
+#define FIRE		"fire"
+#define ACID		"acid"
 #define MAGIC		"magic"
 
 /// All armors
@@ -94,6 +94,7 @@
 #define ATTACK_EFFECT_KICK		"kick"
 #define ATTACK_EFFECT_SMASH		"smash"
 #define ATTACK_EFFECT_CLAW		"claw"
+#define ATTACK_EFFECT_SLASH	"slash"
 #define ATTACK_EFFECT_DISARM	"disarm"
 #define ATTACK_EFFECT_BITE		"bite"
 #define ATTACK_EFFECT_MECHFIRE	"mech_fire"
@@ -104,9 +105,29 @@
 #define INTENT_HOTKEY_LEFT  "left"
 #define INTENT_HOTKEY_RIGHT "right"
 
+//His Grace.
+#define HIS_GRACE_SATIATED 0 //He hungers not. If bloodthirst is set to this, His Grace is asleep.
+#define HIS_GRACE_PECKISH 20 //Slightly hungry.
+#define HIS_GRACE_HUNGRY 60 //Getting closer. Increases damage up to a minimum of 20.
+#define HIS_GRACE_FAMISHED 100 //Dangerous. Increases damage up to a minimum of 25 and cannot be dropped.
+#define HIS_GRACE_STARVING 120 //Incredibly close to breaking loose. Increases damage up to a minimum of 30.
+#define HIS_GRACE_CONSUME_OWNER 140 //His Grace consumes His owner at this point and becomes aggressive.
+#define HIS_GRACE_FALL_ASLEEP 160 //If it reaches this point, He falls asleep and resets.
+
+#define HIS_GRACE_FORCE_BONUS 4 //How much force is gained per kill.
+#define HIS_GRACE_PEN_BONUS 50 //How much pen is given at awakening.
+#define HIS_GRACE_ASCEND_BONUS 15 //How much extra force is given at ascend
+
+#define HIS_GRACE_ASCENDING_REQ 20 //How many to consume before ascending
+
+//His Grace tiers
+#define HIS_GRACE_DORMANT    /datum/grace_tier/dormant
+#define HIS_GRACE_AWAKENED   /datum/grace_tier/awakened
+#define HIS_GRACE_ASCENDED   /datum/grace_tier/ascended
+
 //Embedded objects
-#define EMBEDDED_PAIN_CHANCE 					15	//Chance for embedded objects to cause pain (damage user)
-#define EMBEDDED_ITEM_FALLOUT 					5	//Chance for embedded object to fall out (causing pain but removing the object)
+#define EMBEDDED_PAIN_CHANCE					15	//Chance for embedded objects to cause pain (damage user)
+#define EMBEDDED_ITEM_FALLOUT					5	//Chance for embedded object to fall out (causing pain but removing the object)
 #define EMBED_CHANCE							45	//Chance for an object to embed into somebody when thrown (if it's sharp)
 #define EMBEDDED_PAIN_MULTIPLIER				2	//Coefficient of multiplication for the damage the item does while embedded (this*item.w_class)
 #define EMBEDDED_FALL_PAIN_MULTIPLIER			5	//Coefficient of multiplication for the damage the item does when it falls out (this*item.w_class)
@@ -183,8 +204,10 @@
 /// Gun is shooting.
 #define AUTOFIRE_STAT_FIRING (1<<2)
 
+/// called in /datum/component/automatic_fire/proc/on_mouse_down: (client/clicker, atom/target, turf/location, control, params)
 #define COMSIG_AUTOFIRE_ONMOUSEDOWN "autofire_onmousedown"
 	#define COMPONENT_AUTOFIRE_ONMOUSEDOWN_BYPASS (1<<0)
+/// called in /datum/component/automatic_fire/proc/process_shot(): (atom/target, mob/living/shooter, allow_akimbo, params)
 #define COMSIG_AUTOFIRE_SHOT "autofire_shot"
 	#define COMPONENT_AUTOFIRE_SHOT_SUCCESS (1<<0)
 

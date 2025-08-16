@@ -1,6 +1,16 @@
 /obj/item/autoimplanter
 	name = "autoimplanter"
-	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. It has a slot to insert implants and a screwdriver slot for removing accidentally added implants."
+	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. \
+			It has a slot to insert implants and a screwdriver slot for removing accidentally added implants."
+	ru_names = list(
+		NOMINATIVE = "автоимплантер",
+		GENITIVE = "автоимплантера",
+		DATIVE = "автоимплантеру",
+		ACCUSATIVE = "автоимплантер",
+		INSTRUMENTAL = "автоимплантером",
+		PREPOSITIONAL = "автоимплантере"
+	)
+	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-autoimplanter"
 	item_state = "walkietalkie"//left as this so as to intentionally not have inhands

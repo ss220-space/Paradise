@@ -81,6 +81,12 @@ GLOBAL_LIST_EMPTY(holopads)
 
 	for(var/I in masters)
 		clear_holo(I)
+
+	QDEL_LIST_ASSOC(holorays)
+	QDEL_LIST(holo_calls)
+	masters.Cut()
+	outgoing_call = null
+	ray = null
 	GLOB.holopads -= src
 	return ..()
 
@@ -164,12 +170,10 @@ GLOBAL_LIST_EMPTY(holopads)
 	user.set_machine(src)
 	interact(user)
 
-/obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
-	if(..())
-		return
+/obj/machinery/hologram/holopad/click_alt(mob/living/carbon/human/user)
 	if(isAI(user))
 		hangup_all_calls()
-		return
+		return CLICK_ACTION_SUCCESS
 
 //Stop ringing the AI!!
 /obj/machinery/hologram/holopad/proc/hangup_all_calls()
@@ -231,7 +235,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, span_info("Your presence is requested at <a href='byond://?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>."))
+				to_chat(AI, span_notice("Your presence is requested at <a href='byond://?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>."))
 		else
 			temp = "A request for AI presence was already sent recently.<br>"
 			temp += "<a href='byond://?src=[UID()];mainmenu=1'>Main Menu</a>"

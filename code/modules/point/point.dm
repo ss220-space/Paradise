@@ -25,7 +25,17 @@
 
 	SEND_SIGNAL(src, COMSIG_MOB_POINTED, pointed_atom)
 	var/obj/visual = new /obj/effect/temp_visual/point(source_turf, invisibility)
-	animate(visual, pixel_x = (pointed_turf.x - source_turf.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (pointed_turf.y - source_turf.y) * world.icon_size + pointed_atom.pixel_y, time = 0.5 SECONDS, easing = QUAD_EASING)
+
+	/// Set position
+	var/final_x = (pointed_turf.x - source_turf.x) * ICON_SIZE_X + pointed_atom.pixel_x
+	var/final_y = (pointed_turf.y - source_turf.y) * ICON_SIZE_Y + pointed_atom.pixel_y
+
+	/// Set rotation
+	var/matrix/rotated_matrix = new()
+	rotated_matrix.TurnTo(0, delta_to_angle(-final_x, -final_y))
+	visual.transform = rotated_matrix
+
+	animate(visual, pixel_x = final_x, pixel_y = final_y, time = 0.5 SECONDS, easing = QUAD_EASING)
 
 
 /**
@@ -84,6 +94,7 @@
 
 /atom/movable/proc/clear_point_bubble(obj/effect/thought_bubble)
 	LAZYREMOVE(update_on_z, thought_bubble)
+	vis_contents -= thought_bubble
 	qdel(thought_bubble)
 
 /obj/effect/temp_visual/point
@@ -119,8 +130,8 @@
  * tab when walking nearby "Object"-verbed things
  */
 /mob/verb/pointed(atom/target as mob|obj|turf in view(client.view, src))
-	set name = "Point To"
-	set category = "IC"
+	set name = "Указать на"
+	set category = STATPANEL_IC
 
 	if(next_move >= world.time || !Master.current_runlevel) //No usage until subsystems initialized properly.
 		return

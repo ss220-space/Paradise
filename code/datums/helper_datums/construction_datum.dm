@@ -53,7 +53,7 @@
 			return 0
 		else
 			C.use(4)
-			playsound(holder, C.usesound, 50, 1)
+			playsound(holder, C.usesound, 50, TRUE)
 	else if(isstack(used_atom))
 		var/obj/item/stack/S = used_atom
 		if(S.get_amount() < 5)
@@ -87,9 +87,12 @@
 			if(istype(task))
 				task.unit_completed()
 
-		new result(get_turf(holder))
+		after_spawn_result(new result(get_turf(holder)))
 		spawn()
 			qdel(holder)
+	return
+
+/datum/construction/proc/after_spawn_result(atom/A)
 	return
 
 /datum/construction/proc/set_desc(index as num)

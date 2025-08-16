@@ -16,16 +16,16 @@
 	name = "tail razorblade implant"
 	desc = "Razor sharp blade designed to be hidden inside the tail. Traditional design of House Eshie'Ssharahss, sold at every corner of the Empire."
 	var/datum/action/innate/tail_cut/implant_ability = new
-
+	var/biological = FALSE								// Used in examine
 	var/activated = FALSE
-	var/slash_strength = 35 							// Implant damage
+	var/slash_strength = 35							// Implant damage
 	var/stamina_damage = 0								// Stamina damage to others
 	var/self_stamina_damage = 5							// Stamina damage to self
 	var/damage_type = BRUTE								// BRUTE or BURN
 	var/slash_sound = 'sound/weapons/bladeslice.ogg'	// A sound plays when you hit someone with tail_cut
 	sound_on = 'sound/weapons/blade_dark_unsheath.ogg'	// Activation sound
 	sound_off = 'sound/weapons/blade_dark_sheath.ogg'	// Deactivation sound
-	icon_state = "tailimplant_blade" 					// All tailblades sprites by @baldek
+	icon_state = "tailimplant_blade"					// All tailblades sprites by @baldek
 	origin_tech = "materials=6;combat=5;biotech=5;programming=3;syndicate=3;"
 
 // NT tail laserblade
@@ -120,6 +120,29 @@
 	else
 		icon_state = "[initial(icon_state)]"
 
+//organic buff
+/obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade
+	name = "tail tumour"
+	desc = "Небольшая странноватая опухоль, находящаяся в хвосте. На удивление, не делает ничего страшного, но значительно увеличивает мощность удара хвостом."
+	ru_names = list(
+		NOMINATIVE = "хвостовая опухоль",
+		GENITIVE = "хвостовой опухоли",
+		DATIVE = "хвостовой опухоли",
+		ACCUSATIVE = "хвостовую опухоль",
+		INSTRUMENTAL = "хвостовой опухолью",
+		PREPOSITIONAL = "хвостовом сгустке"
+	)
+	icon_state = "roro core"
+	slash_strength = 0
+	stamina_damage = 24
+	activated = TRUE
+	actions_types = null
+	emp_proof = TRUE
+	slash_sound = 'sound/weapons/slash.ogg'
+	biological = TRUE
+
+/obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade/update_icon_state()
+	return
 
 /datum/action/innate/tail_cut
 	name = "Взмах хвостом"

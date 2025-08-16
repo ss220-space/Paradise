@@ -242,6 +242,11 @@
 	build_path = /obj/machinery/computer/arcade/orion_trail
 	origin_tech = "programming=1"
 
+/obj/item/circuitboard/arcade/slotmachine
+	board_name = "Slotmachine"
+	build_path = /obj/machinery/computer/slot_machine
+	origin_tech = "programming=1"
+
 /obj/item/circuitboard/solar_control
 	board_name = "Solar Control"
 	build_path = /obj/machinery/power/solar_control
@@ -535,7 +540,7 @@
 
 
 // Construction | Deconstruction
-#define STATE_EMPTY 	 1 // Add a circuitboard		   | Weld to destroy
+#define STATE_EMPTY	 1 // Add a circuitboard		   | Weld to destroy
 #define STATE_CIRCUIT	 2 // Screwdriver the cover closed | Crowbar the circuit
 #define STATE_NOWIRES	 3 // Add wires					   | Screwdriver the cover open
 #define STATE_WIRES		 4 // Add glass					   | Remove wires
@@ -550,6 +555,7 @@
 	max_integrity = 100
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | NEED_DEXTERITY
 
 
 /obj/structure/computerframe/Initialize(mapload, obj/item/circuitboard/circuit)
@@ -607,16 +613,12 @@
 	return ..()
 
 
-/obj/structure/computerframe/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
+/obj/structure/computerframe/click_alt(mob/user)
 	if(anchored)
 		to_chat(user, span_warning("The frame is anchored to the floor!"))
-		return
+		return CLICK_ACTION_BLOCKING
 	setDir(turn(dir, 90))
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/structure/computerframe/obj_break(damage_flag)
@@ -701,7 +703,10 @@
 				return
 
 			to_chat(user, span_notice("You connect the monitor."))
-			new circuit.build_path(get_turf(src), src)
+			if(circuit.build_path)
+				new circuit.build_path(get_turf(src), src)
+			else
+				to_chat(user, span_warning("You connect the monitor, but it doesn't work. Maybe the circuit is broken?"))
 
 
 /obj/structure/computerframe/wirecutter_act(mob/living/user, obj/item/I)
@@ -819,7 +824,7 @@
 	..()
 	computer.abductor = TRUE
 	computer.max_integrity = 400
-	computer.obj_integrity = 400
+	computer.update_integrity(400)
 
 
 /obj/structure/computerframe/abductor/drop_computer_materials(location)

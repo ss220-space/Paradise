@@ -27,7 +27,7 @@ $nanotrasen: #384e68;
   );
   @include meta.load-css(
     '../components/ImageButton.scss',
-    $with: ('color-default': darken($nanotrasen, 15%))
+    $with: ('color-default': color.adjust($nanotrasen, $lightness: -15%))
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',

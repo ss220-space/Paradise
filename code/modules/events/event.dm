@@ -1,7 +1,7 @@
 /datum/event_meta
-	var/name 		= ""
+	var/name		= ""
 	/// Whether or not the event is available for random selection at all.
-	var/enabled 	= TRUE
+	var/enabled	= TRUE
 	/// The base weight of this event. A zero means it may never fire, but see get_weight()
 	var/weight
 	/// The minimum weight that this event will have. Only used if non-zero.
@@ -50,7 +50,8 @@
 		return ..(active_with_role)
 	return 0*/
 
-/datum/event	//NOTE: Times are measured in master controller ticks!
+/// NOTE: Times are measured in master controller ticks!
+/datum/event
 	/// The human-readable name of the event
 	var/name
 	var/processing = 1
@@ -193,7 +194,7 @@
 	event_meta = EM
 	severity = event_meta.severity
 	src.forced = forced
-  
+
 	if(forced)
 		admin_setup()
 
@@ -209,7 +210,7 @@
 
 	if (alertadmins)
 		message_admins(span_warning("[forced? "Зафоршенное" : "Случайное"] событие сработает через 10 секунд: [EM.name] ([type]) (<a href='byond://?src=[UID()];cancel=1'>ОТМЕНИТЬ</a>)"))
-	
+
 	addtimer(CALLBACK(src, PROC_REF(run_event), skeleton), 10 SECONDS)
 	..()
 
@@ -233,7 +234,7 @@
 		if(!triggering)
 			to_chat(usr, span_admin("Событие уже началось. Его уже поздно отменять"))
 			return
-		
+
 		if(!forced && tgui_alert(usr, "Вы хотите, чтобы через 60 секунд было выбрано другое событие из этой категории (события, созданные не через панель событий или подсистему, считаются мажорными)?", "", list("Да", "Нет")) == "Да")
 			reroll_event_in_category()
 

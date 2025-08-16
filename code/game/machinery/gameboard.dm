@@ -70,7 +70,7 @@
 	for(var/mob/user in viewers(world.view, src))			// I don't know who you are.
 		if(user.client && user.machine == src)				// I will look for you,
 			user.unset_machine()							// I will find you,
-			user << browse(null, "window=SpessChess")	// And I will kill you.
+			close_window(user, "SpessChess")				// And I will kill you.
 
 /obj/machinery/gameboard/Topic(href, list/href_list)
 	. = ..()
@@ -82,7 +82,7 @@
 		if(cooling_down)
 			message_admins("Too many checkmates on chessboard, possible HREF exploits: [ADMIN_LOOKUPFLW(usr)]")
 			return
-		visible_message(span_info("[span_name("[src.name]")] beeps, \"WINNER!\""))
+		visible_message(span_notice("[span_name("[src.name]")] beeps, \"WINNER!\""))
 		new prize(get_turf(src), 80)
 		close_game()
 		cooling_down = 1

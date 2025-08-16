@@ -17,8 +17,8 @@
 
 	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Pulse demons take damage from nothing
 
-	emote_hear = list("vibrates", "sizzles")
-	speak_emote = list("modulates")
+	emote_hear = list("вибрирует", "шипит")
+	speak_emote = list("трещит", "потрёскивает", "шипит")
 
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "pulsedem"
@@ -268,7 +268,7 @@
 	drainpower.owner = mind
 	tampermach.owner = mind
 	greeting.Add(mind.prepare_announce_objectives(FALSE))
-	greeting.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Pulse_Demon\">Электродемон</a></span>")
+	greeting.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Pulse_Demon\">Электродемон</a>"))
 	to_chat(src, chat_box_yellow(greeting.Join("<br>")))
 	SSticker.mode.traitors |= mind
 	return
@@ -418,38 +418,38 @@
 		update_controlling_area()
 
 /mob/living/simple_animal/demon/pulse_demon/move_up()
-	set name = "Move Upwards"
-	set category = "IC"
+	set name = "Подняться"
+	set category = STATPANEL_IC
 
 	var/turf/current_turf = get_turf(src)
 	if(!locate(/obj/structure/cable/multiz) in current_turf)
-		to_chat(src, "<span class='warning'>You need to be on multi z cable hub to move up and down!</span>")
+		to_chat(src, span_warning("You need to be on multi z cable hub to move up and down!"))
 		return FALSE
 
 	var/turf/turf_to_check = GET_TURF_ABOVE(current_turf)
 	if(!(can_exit_cable || locate(/obj/structure/cable/multiz) in turf_to_check))
-		to_chat(src, "<span class='warning'>There isn't a connected cable to be moved on!</span>")
+		to_chat(src, span_warning("There isn't a connected cable to be moved on!"))
 		return FALSE
 
 	if(zMove(UP, z_move_flags = ZMOVE_FEEDBACK|ZMOVE_IGNORE_OBSTACLES))
-		to_chat(src, "<span class='notice'>You move upwards.</span>")
+		to_chat(src, span_notice("You move upwards."))
 
 /mob/living/simple_animal/demon/pulse_demon/move_down()
-	set name = "Move Down"
-	set category = "IC"
+	set name = "Опуститься"
+	set category = STATPANEL_IC
 
 	var/turf/current_turf = get_turf(src)
 	if(!locate(/obj/structure/cable/multiz) in current_turf)
-		to_chat(src, "<span class='warning'>You need to be on multi z cable hub to move up and down!</span>")
+		to_chat(src, span_warning("You need to be on multi z cable hub to move up and down!"))
 		return
 
 	var/turf/turf_to_check = GET_TURF_BELOW(current_turf)
 	if(!(can_exit_cable || locate(/obj/structure/cable/multiz) in turf_to_check))
-		to_chat(src, "<span class='warning'>There isn't a connected cable to be moved on!</span>")
+		to_chat(src, span_warning("There isn't a connected cable to be moved on!"))
 		return FALSE
 
 	if(zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK|ZMOVE_IGNORE_OBSTACLES))
-		to_chat(src, "<span class='notice'>You move down.</span>")
+		to_chat(src, span_notice("You move down."))
 
 // signal to replace relaymove where or when? // Never, actually just manage your code instead
 /obj/machinery/power/relaymove(mob/user, dir)
@@ -584,10 +584,10 @@
 		current_robot.say(message, null, FALSE, ignore_speech_problems, ignore_atmospherics, ignore_languages)
 		return TRUE
 
-	var/message_mode = parse_message_mode(message, "headset")
+	var/message_mode = parse_message_mode(message, HEADSET_MODE)
 
 	if(message_mode)
-		if(message_mode == "headset")
+		if(message_mode == HEADSET_MODE)
 			message = copytext(message, 2)
 		else
 			message = copytext(message, 3)
@@ -630,15 +630,17 @@
 	emote("me", message = "[pick(emote_hear)]")
 	return TRUE
 
-/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
+/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
-	for(var/mob/M in get_mobs_in_view(7, src))
-		if(M.see_invisible < invisibility)
+	for(var/mob/mob in get_mobs_in_view(7, src))
+		if(mob.see_invisible < invisibility)
 			continue //can't view the invisible
+		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+			continue
 		var/msg = message
-		if(self_message && M == src)
+		if(self_message && mob == src)
 			msg = self_message
-		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
+		mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs
@@ -821,13 +823,13 @@
 	. = ..()
 	if(checkpass(mover))
 		return TRUE
-	if(istype(mover, /obj/item/projectile/ion))
+	if(istype(mover, /obj/projectile/ion))
 		return FALSE
 
-/mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/item/projectile/proj)
-	if(istype(proj, /obj/item/projectile/ion))
+/mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/projectile/proj)
+	if(istype(proj, /obj/projectile/ion))
 		return ..()
-	visible_message(span_warning("[proj] goes right through [src]!"))
+	visible_message(span_warning("[proj] goes right through [src]!"), projectile_message = TRUE)
 
 /mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
@@ -848,6 +850,7 @@
 	return FALSE
 
 /mob/living/simple_animal/demon/pulse_demon/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	return
 
 /mob/living/simple_animal/demon/pulse_demon/experience_pressure_difference()

@@ -6,7 +6,7 @@
 	name = "space heater"
 	desc = "Made by Space Amish using traditional space techniques, this heater is guaranteed not to set the station on fire."
 	max_integrity = 250
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 10)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 10)
 	var/obj/item/stock_parts/cell/cell
 	var/on = 0
 	var/open = 0
@@ -58,7 +58,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(!open)
 			to_chat(user, span_warning("The hatch must be open to insert a power cell."))
@@ -89,7 +89,7 @@
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 	update_icon()
 	if(!open && user.machine == src)
-		user << browse(null, "window=spaceheater")
+		close_window(user, "spaceheater")
 		user.unset_machine()
 
 /obj/machinery/space_heater/attack_hand(mob/user as mob)
@@ -101,21 +101,23 @@
 		var/dat
 		dat = "Power cell: "
 		if(cell)
-			dat += "<A href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=cellremove'>Installed</a><br>"
 		else
-			dat += "<A href='byond://?src=[UID()];op=cellinstall'>Removed</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=cellinstall'>Removed</a><br>"
 
-		dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>"
+		dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<br><br>"
 
 		dat += "Set Temperature: "
 
-		dat += "<a href='byond://?src=[UID()];op=temp;val=-5'>-</A>"
+		dat += "<a href='byond://?src=[UID()];op=temp;val=-5'>-</a>"
 
 		dat += " [set_temperature]&deg;C "
-		dat += "<a href='byond://?src=[UID()];op=temp;val=5'>+</A><BR>"
+		dat += "<a href='byond://?src=[UID()];op=temp;val=5'>+</a><br>"
 
 		user.set_machine(src)
-		user << browse({"<meta charset="UTF-8"><HEAD><TITLE>Space Heater Control Panel</TITLE></HEAD><TT>[dat]</TT>"}, "window=spaceheater")
+		var/datum/browser/popup = new(user, "spaceheater", "Space Heater Control Panel")
+		popup.set_content("<tt>[dat]</tt>")
+		popup.open(TRUE)
 		onclose(user, "spaceheater")
 
 	else
@@ -161,7 +163,7 @@
 
 		updateDialog()
 	else
-		usr << browse(null, "window=spaceheater")
+		close_window(usr, "spaceheater")
 		usr.unset_machine()
 	return
 

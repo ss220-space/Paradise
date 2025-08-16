@@ -14,6 +14,8 @@
 	weapon_weight = WEAPON_HEAVY
 	pb_knockback = 2
 	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
+	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/I, mob/user, params)
@@ -72,7 +74,7 @@
 /obj/item/gun/projectile/shotgun/examine(mob/user)
 	. = ..()
 	if(chambered)
-		. += "<span class='notice'>A [chambered.BB ? "live" : "spent"] one is in the chamber.</span>"
+		. += span_notice("A [chambered.BB ? "live" : "spent"] one is in the chamber.")
 
 /obj/item/gun/projectile/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
@@ -137,13 +139,22 @@
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
 			afterattack(user, user)
-			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+			user.visible_message(
+				span_danger("\The [src] goes off!"),
+				span_danger("\The [src] goes off in your face!")
+			)
 			return
 		else
 			afterattack(user, user)
-			user.visible_message("The [src] goes click!", "<span class='notice'>The [src] you are holding goes click.</span>")
+			user.visible_message(
+				"The [src] goes click!",
+				span_notice("The [src] you are holding goes click.")
+			)
 	if(magazine.ammo_count())	//Spill the mag onto the floor
-		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
+		user.visible_message(
+			span_danger("[user.name] opens [src] up and the shells go goes flying around!"),
+			span_userdanger("You open [src] up and the shells go goes flying everywhere!!")
+		)
 		while(get_ammo(FALSE) > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round(0)
@@ -152,7 +163,10 @@
 				CB.update_icon()
 
 	if(do_after(user, 3 SECONDS, src))
-		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
+		user.visible_message(
+			"[user] shortens \the [src]!",
+			span_notice("You shorten \the [src].")
+		)
 		post_sawoff()
 		return 1
 
@@ -166,6 +180,7 @@
 	slot_flags &= ~ITEM_SLOT_BACK    //you can't sling it on your back
 	slot_flags |= ITEM_SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
+	accuracy = GUN_ACCURACY_MINIMAL
 	magazine.max_ammo = 3
 	update_icon()
 
@@ -180,13 +195,13 @@
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
 			afterattack(user, user)
-			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+			user.visible_message(span_danger("\The [src] goes off!"), span_danger("\The [src] goes off in your face!"))
 			return
 		else
 			afterattack(user, user)
-			user.visible_message("The [src] goes click!", "<span class='notice'>The [src] you are holding goes click.</span>")
+			user.visible_message("The [src] goes click!", span_notice("The [src] you are holding goes click."))
 	if(magazine.ammo_count())	//Spill the mag onto the floor
-		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
+		user.visible_message(span_danger("[user.name] opens [src] up and the shells go goes flying around!"), span_userdanger("You open [src] up and the shells go goes flying everywhere!!"))
 		while(get_ammo() > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round(0)
@@ -196,7 +211,7 @@
 
 	if(do_after(user, 3 SECONDS, src))
 		qdel(A)
-		user.visible_message("<span class='notice'>[user] lengthens [src]!</span>", "<span class='notice'>You lengthen [src].</span>")
+		user.visible_message(span_notice("[user] lengthens [src]!"), span_notice("You lengthen [src]."))
 		post_unsaw(user)
 		return 1
 
@@ -220,6 +235,8 @@
 
 /obj/item/gun/projectile/shotgun/riot/short
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
+	accuracy = GUN_ACCURACY_MINIMAL
+	recoil = GUN_RECOIL_MEGA
 
 /obj/item/gun/projectile/shotgun/riot/short/Initialize(mapload)
 	. = ..()
@@ -234,7 +251,7 @@
 ///////////////////////
 
 /obj/item/gun/projectile/shotgun/boltaction
-	name = "\improper Mosin Nagant"
+	name = "Mosin Nagant"
 	desc = "This piece of junk looks like something that could have been used 700 years ago. Has a bayonet lug for attaching a knife."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
@@ -246,6 +263,8 @@
 	bayonet_x_offset = 27
 	bayonet_y_offset = 13
 	pb_knockback = 0
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
@@ -279,7 +298,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The bolt is [bolt_open ? "open" : "closed"].</span>"
+	. += span_notice("The bolt is [bolt_open ? "open" : "closed"].")
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted
 	name = "enchanted bolt action rifle"
@@ -313,7 +332,7 @@
 		discard_gun(user)
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/proc/discard_gun(mob/living/user)
-	user.visible_message("<span class='warning'>[user] tosses aside the spent rifle!</span>")
+	user.visible_message(span_warning("[user] tosses aside the spent rifle!"))
 	user.throw_item(pick(oview(7, get_turf(user))))
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage
@@ -340,7 +359,7 @@
 
 /obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()
-	pump(user)
+	addtimer(CALLBACK(src, PROC_REF(pump), user), 1)
 
 /obj/item/gun/projectile/shotgun/automatic/combat
 	name = "combat shotgun"
@@ -350,6 +369,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 //Dual Feed Shotgun
 
@@ -363,6 +384,8 @@
 	var/toggled = 0
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
+	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()
@@ -385,12 +408,10 @@
 		balloon_alert(user, "переключено на первый ствол")
 	else
 		balloon_alert(user, "переключено на второй ствол")
-	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
+	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)
-	. = ..()
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
-		return
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/click_alt(mob/living/user)
 	pump()
+	return CLICK_ACTION_SUCCESS
 
 // DOUBLE BARRELED SHOTGUN, IMPROVISED SHOTGUN, and CANE SHOTGUN are in revolver.dm

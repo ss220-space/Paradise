@@ -36,7 +36,7 @@
 	maxHealth = 20
 	health = 20
 
-	emote_taunt = list("wails")
+	emote_taunt = list("воет")
 	taunt_chance = 20
 
 	harm_intent_damage = 10
@@ -75,16 +75,25 @@
 
 /mob/living/simple_animal/hostile/skeleton
 	name = "reanimated skeleton"
-	desc = "A real bonefied skeleton, doesn't seem like it wants to socialize."
+	desc = "Настоящий костлявый скелет, не похоже, что он хочет общаться."
+	ru_names = list(
+		NOMINATIVE = "оживший скелет",
+		GENITIVE = "ожившего скелета",
+		DATIVE = "ожившему скелету",
+		ACCUSATIVE = "ожившего скелета",
+		INSTRUMENTAL = "ожившим скелетом",
+		PREPOSITIONAL = "ожившем скелете"
+	)
+	gender = MALE
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "skeleton"
 	icon_living = "skeleton"
 	turns_per_move = 5
-	response_help = "shakes hands with"
-	response_disarm = "shoves"
-	response_harm = "hits"
-	speak_emote = list("rattles")
-	emote_see = list("rattles")
+	response_help = "пожимает руку"
+	response_disarm = "толкает"
+	response_harm = "бьёт"
+	speak_emote = list("бряцает", "трещит")
+	emote_see = list("бряцает", "трещит")
 	a_intent = INTENT_HARM
 	maxHealth = 40
 	health = 40
@@ -103,7 +112,7 @@
 	faction = list("undead")
 	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	deathmessage = "collapses into a pile of bones!"
+	deathmessage = "превращается в груду костей!"
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/remains/human)
 
@@ -169,7 +178,7 @@
 /mob/living/simple_animal/hostile/zombie/whiteship
 	speak = list("RAWR!","Rawr!","GRR!","Growl!")
 	speak_chance = 1
-	speak_emote = list("growls","roars")
+	speak_emote = list("рычит", "ревёт")
 
 	faction = list("zombie")
 	icon_living = "zombie2_s"
@@ -203,7 +212,7 @@
 		/obj/item/clothing/shoes/centcom,
 		/obj/item/clothing/under/suit_jacket/charcoal,
 		/obj/effect/decal/cleanable/blood/gibs,
-		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/effect/particle_effect/fluid/smoke/vomiting,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 	)
@@ -235,7 +244,7 @@
 		/obj/item/gun/energy/dominator/sibyl,
 		/obj/item/clothing/accessory/head_strip/lawyers_badge,
 		/obj/effect/decal/cleanable/blood/gibs,
-		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/effect/particle_effect/fluid/smoke/vomiting,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 	)
@@ -257,7 +266,7 @@
 		/obj/item/clothing/glasses/eyepatch,
 		/obj/item/melee/energy/sword/pirate,
 		/obj/effect/decal/cleanable/blood/gibs,
-		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/effect/particle_effect/fluid/smoke/vomiting,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping
 	)

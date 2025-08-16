@@ -7,7 +7,7 @@
 		wooden container filled with 18th century coinage in the middle of a \
 		lavawracked hellscape? It is clearly a mystery."
 
-	var/unpickable = FALSE 	 //If TRUE these won't be placed automatically (can still be forced or loaded with another ruin)
+	var/unpickable = FALSE	 //If TRUE these won't be placed automatically (can still be forced or loaded with another ruin)
 	var/always_place = FALSE //Will skip the whole weighting process and just plop this down, ideally you want the ruins of this kind to have no cost.
 	var/placement_weight = 1 //How often should this ruin appear
 	var/cost = 0 //Cost in ruin budget placement system
@@ -22,9 +22,13 @@
 /datum/map_template/ruin/New()
 	if(!name && id)
 		name = id
-
+	check_specials()
 	mappath = prefix + suffix
 	..(path = mappath)
+
+
+/datum/map_template/ruin/proc/check_specials()
+	return
 
 /datum/map_template/ruin/proc/try_to_place(z, allowed_areas)
 	var/sanity = PLACEMENT_TRIES

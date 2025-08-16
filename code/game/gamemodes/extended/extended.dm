@@ -5,8 +5,8 @@
 
 
 /datum/game_mode/announce()
-	to_chat(world, "<B>The current game mode is - Extended Role-Playing!</B>")
-	to_chat(world, "<B>Just have fun and role-play!</B>")
+	to_chat(world, "<b>The current game mode is - Extended Role-Playing!</b>")
+	to_chat(world, "<b>Just have fun and role-play!</b>")
 
 
 /datum/game_mode/extended/pre_setup()

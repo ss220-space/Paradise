@@ -4,6 +4,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
 	item_state = "flashlight"
+	gender = MALE
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -49,7 +50,7 @@
 		to_chat(user, "You cannot turn the light on while in this [user.loc].")	//To prevent some lighting anomalities.
 		return FALSE
 	on = !on
-	playsound(user, togglesound, 100, 1)
+	playsound(user, togglesound, 100, TRUE)
 	update_brightness()
 	update_equipped_item(update_speedmods = FALSE)
 	return TRUE
@@ -124,13 +125,23 @@
 
 /obj/item/flashlight/seclite
 	name = "seclite"
-	desc = "A robust flashlight used by security."
+	desc = "Надежный фонарик, используемый службой безопасности."
 	icon_state = "seclite"
 	item_state = "seclite"
 	belt_icon = "seclite"
 	force = 9 // Not as good as a stun baton.
 	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
+
+/obj/item/flashlight/seclite/get_ru_names()
+	return list(
+		NOMINATIVE = "фонарик",
+		GENITIVE = "фонарика",
+		DATIVE = "фонарику",
+		ACCUSATIVE = "фонарик",
+		INSTRUMENTAL = "фонариком",
+		PREPOSITIONAL = "фонарике"
+	)
 
 /obj/item/flashlight/sectaclight
 	name = "security tactical flashlight"
@@ -229,6 +240,12 @@
 /obj/item/flashlight/flare/get_heat()
 	return on * 1000
 
+/obj/item/flashlight/flare/proc/turn_on()
+	on = TRUE
+	update_brightness()
+	force = on_damage
+	damtype = FIRE
+
 /obj/item/flashlight/flare/proc/turn_off()
 	on = FALSE
 	force = initial(force)
@@ -253,6 +270,33 @@
 			force = on_damage
 			damtype = BURN
 		START_PROCESSING(SSobj, src)
+
+/obj/item/flashlight/flare/on/Initialize()
+	. = ..()
+	turn_on()
+
+//Special flare subtype for the illumination flare shell
+//Acts like a flare, just even stronger, and set length
+/obj/item/flashlight/flare/on/illumination
+	name = "illumination flare"
+	desc = "It's really bright, and unreachable."
+	icon_state = "" //No sprite
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	light_range = 7
+
+/obj/item/flashlight/flare/on/illumination/Initialize()
+	. = ..()
+	fuel = rand(5.0 MINUTES, 6.0 MINUTES) // Approximately half the effective duration of a flare, but justified since it's invincible
+
+/obj/item/flashlight/flare/on/illumination/update_icon()
+	. = ..(NONE)
+
+/obj/item/flashlight/flare/on/illumination/turn_off()
+	..()
+	qdel(src)
+
+/obj/item/flashlight/flare/on/illumination/ex_act(severity)
+	return //Nope
 
 
 // GLOWSTICKS
@@ -348,15 +392,25 @@
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
-	desc = "A torch fashioned from some leaves and a log."
+	desc = "Простейший факел, сделанный из листьев, намотанных на древесину."
 	w_class = WEIGHT_CLASS_BULKY
-	light_range = 7
+	light_range = 6
 	icon_state = "torch"
 	item_state = "torch"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
+
+/obj/item/flashlight/flare/torch/get_ru_names()
+	return list(
+		NOMINATIVE = "факел",
+		GENITIVE = "факела",
+		DATIVE = "факелу",
+		ACCUSATIVE = "факел",
+		INSTRUMENTAL = "факелом",
+		PREPOSITIONAL = "факеле",
+	)
 
 /obj/item/flashlight/slime
 	gender = PLURAL

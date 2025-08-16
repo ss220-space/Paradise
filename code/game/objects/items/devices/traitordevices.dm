@@ -16,7 +16,7 @@ effective or pretty fucking useless.
 
 /obj/item/batterer
 	name = "mind batterer"
-	desc = "A strange device with twin antennas."
+	desc = "Странное устройство с двумя антеннами."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "batterer"
 	throwforce = 5
@@ -29,17 +29,27 @@ effective or pretty fucking useless.
 
 	var/charges = 3
 
+/obj/item/batterer/get_ru_names()
+	return list(
+		NOMINATIVE = "подавитель разума",
+		GENITIVE = "подавителя разума",
+		DATIVE = "подавителю разума",
+		ACCUSATIVE = "подавитель разума",
+		INSTRUMENTAL = "подавителем разума",
+		PREPOSITIONAL = "подавителе разума"
+	)
+
 
 /obj/item/batterer/examine(mob/user)
 	. = ..()
-	. += span_notice("[src] has [charges] charges left.")
+	. += span_notice("У [declent_ru(GENITIVE)] осталось [charges] заряд[declension_ru(charges, "", "а", "ов")].")
 
 
 /obj/item/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!user)
 		return
 	if(charges == 0)
-		to_chat(user, span_danger("The mind batterer is out of charge!"))
+		balloon_alert(user, "заряд закончился!")
 		return
 
 	for(var/mob/living/carbon/human/M in orange (10, user))
@@ -47,15 +57,15 @@ effective or pretty fucking useless.
 			M.Weaken(rand(2,6) SECONDS)
 			M.apply_damage(rand(35, 60), STAMINA)
 			add_attack_logs(user, M, "Stunned with [src]")
-			to_chat(M, span_danger("You feel a tremendous, paralyzing wave flood your mind."))
+			to_chat(M, span_danger("Вы чувствуете, как мощная, парализующая волна захлёстывает ваш разум."))
 		else
-			to_chat(M, span_danger("You feel a sudden, electric jolt travel through your head."))
+			to_chat(M, span_danger("Вы чувствуете, как будто мощный электрический ток пронзает вашу голову."))
 			M.Slowed(10 SECONDS)
 			M.Confused(6 SECONDS)
 
-	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
+	playsound(loc, 'sound/misc/interference.ogg', 50, TRUE)
 	charges--
-	to_chat(user,span_notice("You trigger [src]. It has [charges] charges left."))
+	to_chat(user,span_notice("Вы активируете [declent_ru(ACCUSATIVE)]. У него осталось [charges] заряд[declension_ru(charges, "", "а", "ов")]."))
 	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)
 
 
@@ -78,10 +88,10 @@ effective or pretty fucking useless.
 
 /obj/item/rad_laser
 	name = "Health Analyzer"
+	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта. К концу сканера прикреплён необычный микролазер."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health2"
 	item_state = "healthanalyzer"
-	desc = "A hand-held body scanner able to distinguish vital signs of the subject. A strange microlaser is hooked on to the scanning end."
 	flags = CONDUCT
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
@@ -95,6 +105,16 @@ effective or pretty fucking useless.
 	var/wavelength = 10 // time it takes for the radiation to kick in, in seconds
 	var/used = 0 // is it cooling down?
 
+/obj/item/rad_laser/get_ru_names()
+	return list(
+		NOMINATIVE = "анализатор здоровья",
+		GENITIVE = "анализатора здоровья",
+		DATIVE = "анализатору здоровья",
+		ACCUSATIVE = "анализатор здоровья",
+		INSTRUMENTAL = "анализатором здоровья",
+		PREPOSITIONAL = "анализаторе здоровья"
+	)
+
 
 /obj/item/rad_laser/update_icon_state()
 	icon_state = used ? "health1" : "health2"
@@ -102,12 +122,12 @@ effective or pretty fucking useless.
 
 /obj/item/rad_laser/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(used)
-		to_chat(user, span_warning("The radioactive microlaser is still recharging."))
+		balloon_alert(user, "идёт перезарядка!")
 		return ATTACK_CHAIN_PROCEED
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "Irradiated by [src]")
-	user.visible_message(span_notice("[user] analyzes [target]'s vitals."))
+	user.visible_message(span_notice("[user] анализиру[pluralize_ru(user.gender, "ет", "ют")] жизненные показатели [target]."))
 	var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 	used = TRUE
 	update_icon(UPDATE_ICON_STATE)
@@ -137,13 +157,13 @@ effective or pretty fucking useless.
 	user.set_machine(src)
 
 	var/cooldown = round(max(10,((intensity*8)-(wavelength/2))+(intensity*2)))
-	var/dat = {"<meta charset="UTF-8">
-	Radiation Intensity: <a href='byond://?src=[UID()];radint=-5'>-</A><a href='byond://?src=[UID()];radint=-1'>-</A> [intensity] <a href='byond://?src=[UID()];radint=1'>+</A><a href='byond://?src=[UID()];radint=5'>+</A><BR>
-	Radiation Wavelength: <a href='byond://?src=[UID()];radwav=-5'>-</A><a href='byond://?src=[UID()];radwav=-1'>-</A> [(wavelength+(intensity*4))] <a href='byond://?src=[UID()];radwav=1'>+</A><a href='byond://?src=[UID()];radwav=5'>+</A><BR>
-	Laser Cooldown: [cooldown] Seconds<BR>
+	var/dat = {"
+	Интенсивность излучения: <a href='byond://?src=[UID()];radint=-5'>-</a><a href='byond://?src=[UID()];radint=-1'>-</a> [intensity] <a href='byond://?src=[UID()];radint=1'>+</a><a href='byond://?src=[UID()];radint=5'>+</a><br>
+	Длина волны излучения: <a href='byond://?src=[UID()];radwav=-5'>-</a><a href='byond://?src=[UID()];radwav=-1'>-</a> [(wavelength+(intensity*4))] <a href='byond://?src=[UID()];radwav=1'>+</a><a href='byond://?src=[UID()];radwav=5'>+</a><br>
+	Время перезарядки излучателя: [cooldown] секунд<br>
 	"}
 
-	var/datum/browser/popup = new(user, "radlaser", "Radioactive Microlaser Interface", 400, 240)
+	var/datum/browser/popup = new(user, "radlaser", "Интерфейс радиационного излучателя", 400, 240)
 	popup.set_content(dat)
 	popup.open()
 
@@ -395,7 +415,7 @@ effective or pretty fucking useless.
 	for(var/obj/item/thing as anything in user.get_equipped_items(TRUE, TRUE))
 		if(!user.drop_item_ground(thing))
 			qdel(thing)
-	to_chat(user, span_dangerbigger("You teleport into the wall, the teleporter tries to save you, but--"))
+	to_chat(user, span_biggerdanger("You teleport into the wall, the teleporter tries to save you, but--"))
 	user.gib()
 
 

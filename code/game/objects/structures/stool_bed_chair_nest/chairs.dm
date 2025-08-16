@@ -9,13 +9,15 @@
 	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
-	pull_push_slowdown = 0.5
+	pull_push_slowdown = 1.5
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
 	var/movable = FALSE // For mobility checks
 	var/propelled = FALSE // Check for fire-extinguisher-driven chairs
 	var/comfort = 0.3
+	var/flip_on_buckled_move = TRUE
 
 /obj/structure/chair/narsie_act()
 	if(prob(20))
@@ -31,7 +33,22 @@
 /obj/structure/chair/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	handle_rotation()
+	if(flip_on_buckled_move && has_buckled_mobs() && item_chair)
+		addtimer(CALLBACK(src, PROC_REF(flip_buckled_mobs)), 1)
 
+/obj/structure/chair/proc/flip_buckled_mobs()
+	var/flipped = TRUE
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		var/mob/living/carbon/carbon = buckled_mob
+		if(istype(carbon) && carbon.handcuffed)
+			flipped = FALSE
+			continue
+		buckled_mob.Weaken(1 SECONDS)
+		unbuckle_mob(buckled_mob, force = TRUE)
+	if(!flipped)
+		return
+	new item_chair(drop_location())
+	qdel(src)
 
 /obj/structure/chair/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -136,7 +153,7 @@
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
-	. += span_info("You can <b>Alt-Click</b> [src] to rotate it.")
+	. += span_notice("Вы можете <b>Alt-ЛКМ</b> по [declent_ru(DATIVE)] чтобы повернуть его.")
 
 
 /obj/structure/chair/proc/rotate(mob/living/user)
@@ -152,8 +169,9 @@
 	return TRUE
 
 
-/obj/structure/chair/AltClick(mob/living/user)
+/obj/structure/chair/click_alt(mob/living/user)
 	rotate(user)
+	return CLICK_ACTION_SUCCESS
 
 
 // CHAIR TYPES
@@ -186,6 +204,7 @@
 	item_chair = null
 	comfort = 0.6
 	var/image/armrest = null
+	flip_on_buckled_move = FALSE
 
 /obj/structure/chair/comfy/Initialize(mapload)
 	armrest = GetArmrest()
@@ -262,6 +281,8 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
+	pull_push_slowdown = 0.5
+	flip_on_buckled_move = FALSE
 
 
 /obj/structure/chair/office/Bump(atom/bumped_atom)
@@ -297,6 +318,7 @@
 	item_chair = null
 	comfort = 0.6
 	var/mutable_appearance/armrest
+	flip_on_buckled_move = FALSE
 
 /obj/structure/chair/sofa/Initialize(mapload)
 	armrest = GetArmrest()
@@ -508,6 +530,7 @@
 	icon_state = "chairold"
 	item_chair = null
 	comfort = 0
+	flip_on_buckled_move = FALSE
 
 // Brass chair
 /obj/structure/chair/brass
@@ -519,6 +542,7 @@
 	item_chair = null
 	comfort = 0.2
 	var/turns = 0
+	flip_on_buckled_move = FALSE
 
 /obj/structure/chair/brass/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -534,12 +558,7 @@
 /obj/structure/chair/brass/ratvar_act()
 	return
 
-/obj/structure/chair/brass/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
+/obj/structure/chair/brass/click_alt(mob/living/user)
 	add_fingerprint(user)
 	turns = 0
 	if(!isprocessing)
@@ -550,6 +569,7 @@
 		user.visible_message(span_notice("[user] stops [src]'s uncontrollable spinning."), \
 		span_notice("You grab [src] and stop its wild spinning."))
 		STOP_PROCESSING(SSfastprocess, src)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/chair/brass/fake
 	name = "brass chair"
@@ -566,3 +586,38 @@
 
 /obj/structure/chair/comfy/abductor/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "alien_chair_armrest")
+
+/obj/structure/chair/comfy/mouse
+	name = "Кресло Господина Мышкина"
+	desc = "Очень дорогое красное кресло из натуральной кожи. Сделано специально по заказу Господина Мышкина."
+	icon_state = "mouse_chair"
+	anchored = TRUE
+	max_integrity = 375
+	buildstacktype = null
+
+/obj/structure/chair/comfy/mouse/get_ru_names()
+	return list(
+		NOMINATIVE = "кресло господина Мышкина",
+		GENITIVE = "кресла господина Мышкина",
+		DATIVE = "креслу господина Мышкина",
+		ACCUSATIVE = "кресло господина Мышкина",
+		INSTRUMENTAL = "креслом господина Мышкина",
+		PREPOSITIONAL = "кресле господина Мышкина"
+	)
+
+/obj/structure/chair/comfy/mouse/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "mouse_chair_armrest")
+
+/obj/structure/chair/comfy/mouse/is_buckle_possible(mob/living/target, mob/living/user, force, check_loc)
+	. = ..()
+	if(!istype(target, /mob/living/simple_animal/mouse/wooly/rep))
+		target.visible_message(
+			span_warning("[target.declent_ru(NOMINATIVE)] слишком велик для [declent_ru(GENITIVE)]!"),
+			span_userdanger("[src] слишком мало для вас!"),
+		)
+		return FALSE
+
+/obj/structure/chair/comfy/mouse/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	to_chat(user, span_warning("Вы не можете осмелиться разобрать это дорогущее кресло!"))
+	return

@@ -9,8 +9,8 @@
 	var/list/datum/mind/pre_changelings = list()
 
 /datum/game_mode/thief/changeling/announce()
-	to_chat(world, "<B>The current game mode is - Thief+Changeling!</B>")
-	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров и генокрадов. Не дайте генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</B>")
+	to_chat(world, "<b>The current game mode is - Thief+Changeling!</b>")
+	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров и генокрадов. Не дайте генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</b>")
 
 
 /datum/game_mode/thief/changeling/pre_setup()

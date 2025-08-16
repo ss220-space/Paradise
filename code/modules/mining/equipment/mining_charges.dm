@@ -1,7 +1,15 @@
 /****************Mining Charges****************/
 /obj/item/grenade/plastic/miningcharge
 	name = "industrial mining charge"
-	desc = "Used to make big holes in rocks. Only works on rocks!"
+	desc = "Применяется для создания больших отверстий в породе. Эффективно только при работе с камнем!"
+	ru_names = list(
+		NOMINATIVE = "промышленный шахтёрский заряд",
+		GENITIVE = "промышленного шахтёрского заряда",
+		DATIVE = "промышленному шахтёрскому заряду",
+		ACCUSATIVE = "промышленный шахтёрский заряд",
+		INSTRUMENTAL = "промышленным шахтёрским зарядом",
+		PREPOSITIONAL = "промышленном шахтёрском заряде"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining-charge-2"
 	item_state = "charge_indust"
@@ -19,9 +27,9 @@
 /obj/item/grenade/plastic/miningcharge/examine(mob/user)
 	. = ..()
 	if(hacked)
-		. += span_warning("Its wiring is haphazardly changed.")
+		. += span_warning("Его проводка была небрежно изменена.")
 	if(timer_off)
-		. += span_notice("The mining charge is connected to a detonator.")
+		. += span_notice("Шахтёрский заряд подключён к детонатору.")
 
 /obj/item/grenade/plastic/miningcharge/Initialize()
 	. = ..()
@@ -34,7 +42,7 @@
 /obj/item/grenade/plastic/miningcharge/afterattack(atom/movable/AM, mob/user, flag, params)
 	if(ismineralturf(AM) || hacked)
 		if(isancientturf(AM) && !hacked)
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(span_notice("Эта порода, кажется, устойчива ко всем инструментам, кроме кирок!"))
 			return
 		if(timer_off) //override original proc for plastic explosions
 			if(!flag)
@@ -48,7 +56,7 @@
 				src.target = AM
 				loc = null
 				if(hacked)
-					message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)]")
+					message_admins("[ADMIN_LOOKUPFLW(user)] planted [src] on [target.name] at [ADMIN_COORDJMP(target)]")
 					add_game_logs("planted [name] on [target.name] at [COORD(target)]", user)
 				installed = TRUE
 				target.add_overlay(image_overlay)
@@ -81,9 +89,9 @@
 		explode()
 		return
 	var/turf/simulated/mineral/location = get_turf(target)
-	var/datum/effect_system/smoke_spread/S = new
-	S.set_up(smoke_amount,0,location,null)
-	S.start()
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = smoke_amount, location = location)
+	smoke.start()
 	//location.attempt_drill(null,TRUE,3) //orange says it doesnt include the actual middle
 	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))
 		var/distance = get_dist_euclidean(location, rock)
@@ -103,7 +111,7 @@
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
 				ears.internal_receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
-			to_chat(C, span_warning("<font size='2'><b>You are knocked down by the power of the mining charge!</font></b>"))
+			to_chat(C, span_userdanger("Вас сбивает с ног мощь горнодобывающего заряда!"))
 	qdel(src)
 
 /obj/item/grenade/plastic/miningcharge/proc/explode() //c4 code
@@ -125,6 +133,9 @@
 		M.gib()
 	qdel(src)
 
+/obj/item/grenade/plastic/update_icon_state()
+	return //Remove plastic icon_state change logic override
+
 
 /obj/item/grenade/plastic/miningcharge/proc/override_safety()
 	hacked = TRUE
@@ -139,7 +150,15 @@
 
 /obj/item/grenade/plastic/miningcharge/lesser
 	name = "mining charge"
-	desc = "A mining charge. This one seems less powerful than industrial. Only works on rocks!"
+	desc = "Заряд для шахтёрских работ. Этот кажется менее мощным, чем промышленный. Работает только на породе!"
+	ru_names = list(
+		NOMINATIVE = "шахтёрский заряд",
+		GENITIVE = "шахтёрского заряда",
+		DATIVE = "шахтёрскому заряду",
+		ACCUSATIVE = "шахтёрский заряд",
+		INSTRUMENTAL = "шахтёрским зарядом",
+		PREPOSITIONAL = "шахтёрском заряде"
+	)
 	icon_state = "mining-charge-1"
 	item_state = "charge_lesser"
 	smoke_amount = 1
@@ -147,24 +166,36 @@
 
 /obj/item/grenade/plastic/miningcharge/mega
 	name = "experimental mining charge"
-	desc = "A mining charge. This one seems much more powerful than normal!"
+	desc = "Заряд для шахтёрских работ. Этот кажется значительно мощнее обычного!"
+	ru_names = list(
+		NOMINATIVE = "экспериментальный шахтёрский заряд",
+		GENITIVE = "экспериментального шахтёрского заряда",
+		DATIVE = "экспериментальному шахтёрскому заряду",
+		ACCUSATIVE = "экспериментальный шахтёрский заряд",
+		INSTRUMENTAL = "экспериментальным шахтёрским зарядом",
+		PREPOSITIONAL = "экспериментальном шахтёрском заряде"
+	)
 	icon_state = "mining-charge-3"
 	item_state = "charge_mega"
 	smoke_amount = 5
 	boom_sizes = list(4,6,8) //did you see the price? It has to be better..
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
-	for(var/i in 1 to 4)
-		new /obj/item/grenade/plastic/miningcharge/lesser(src)
 	for(var/i in 1 to 2)
+		new /obj/item/grenade/plastic/miningcharge/mega(src)
+	for(var/i in 1 to 4)
 		new /obj/item/grenade/plastic/miningcharge(src)
+	for(var/i in 1 to 5)
+		new /obj/item/grenade/plastic/miningcharge/lesser(src)
 	new /obj/item/detonator(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/storage/bag/ore/bigger(src)
 
 
 //MINING CHARGE HACKER
 /obj/item/t_scanner/adv_mining_scanner/syndicate
 	var/charges = 6
-	description_antag = "This scanner has an extra port for overriding mining charge safeties."
+	description_antag = "Это устройство имеет дополнительный порт, который позволяет обойти меры безопасности шахтёрских зарядов."
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(istype(target,/obj/item/grenade/plastic/miningcharge))
@@ -176,17 +207,25 @@
 			balloon_alert(user, "заряды закончились!")
 			return
 		charge.override_safety()
-		visible_message(span_warning("Sparks fly out of [src]!"), span_notice("You override [src], disabling its safeties."))
-		playsound(src, "sparks", 50, 1)
+		visible_message(span_warning("Из [declent_ru(GENITIVE)] летят искры!"), span_notice("Вы перегружаете [declent_ru(ACCUSATIVE)], отключая его защиту."))
+		playsound(src, "sparks", 50, TRUE)
 		charges--
 		if(charges <= 0)
-			to_chat(user ,span_warning("[src]'s internal battery for overriding mining charges has run dry!"))
+			to_chat(user , span_warning("Внутренняя батарея [declent_ru(GENITIVE)], предназначенная для перегрузки шахтёрских зарядов, разрядилась!"))
 
 // MINING CHARGES DETONATOR
 
 /obj/item/detonator
 	name = "mining charge detonator"
-	desc = "A specialized mining device designed for controlled demolition operations using mining explosives."
+	desc = "Специализированное устройство для контролируемых подрывных работ с использованием шахтёрских зарядов."
+	ru_names = list(
+		NOMINATIVE = "детонатор шахтёрских зарядов",
+		GENITIVE = "детонатора шахтёрских зарядов",
+		DATIVE = "детонатору шахтёрских зарядов",
+		ACCUSATIVE = "детонатор шахтёрских зарядов",
+		INSTRUMENTAL = "детонатором шахтёрских зарядов",
+		PREPOSITIONAL = "детонаторе шахтёрских зарядов"
+	)
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Detonator-0"
@@ -196,9 +235,9 @@
 /obj/item/detonator/examine(mob/user)
 	. = ..()
 	if(bombs.len)
-		. += "<span class='notice'>List of synched bombs:</span>"
+		. += span_notice("Список синхронизированных зарядов:")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			. += "<span class='notice'>[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"]."
+			. += span_notice("[bicon(charge)] [capitalize(charge.declent_ru(NOMINATIVE))]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
 
 
 /obj/item/detonator/update_icon_state()
@@ -214,7 +253,7 @@
 		balloon_alert(user, "активация взрывчатки...")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
 			if(QDELETED(charge))
-				to_chat(user, span_notice("Can't reach [charge]. Deleting from the list..."))
+				to_chat(user, span_notice("Не удаётся найти [charge.declent_ru(ACCUSATIVE)]. Удаление из списка..."))
 				bombs -= charge
 				return
 			if(charge.installed)

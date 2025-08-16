@@ -128,8 +128,8 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 
 
-/obj/item/seeds/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
-	if(istype(Proj, /obj/item/projectile/energy/florabeta))
+/obj/item/seeds/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
+	if(istype(Proj, /obj/projectile/energy/florabeta))
 		on_floragun_beta_act()
 	else
 		return ..()
@@ -335,10 +335,10 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 	if(istype(I, /obj/item/plant_analyzer))
 		add_fingerprint(user)
-		to_chat(user, "[span_info("This is the ")][span_name("[name]")]")
+		to_chat(user, "[span_notice("This is the ")][span_name("[name]")]")
 		var/advanced_info = get_analyzer_text()
 		if(advanced_info)
-			to_chat(user, span_info("[advanced_info]"))
+			to_chat(user, span_notice("[advanced_info]"))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

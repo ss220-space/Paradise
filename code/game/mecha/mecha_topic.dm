@@ -4,36 +4,8 @@
 ////////////////////////////////////
 
 /obj/mecha/proc/get_stats_html()
-	var/output = {"<html>
-						<meta charset="UTF-8">
-						<head><title>[name] data</title>
-						<style>
-						body {color: #00ff00; background: #000000; font-family:"Lucida Console",monospace; font-size: 12px;}
-						hr {border: 1px solid #0f0; color: #0f0; background-color: #0f0;}
-						a {padding:2px 5px;;color:#0f0;}
-						.wr {margin-bottom: 5px;}
-						.header {cursor:pointer;}
-						.open, .closed {background: #32CD32; color:#000; padding:1px 2px;}
-						.links a {margin-bottom: 2px;padding-top:3px;}
-						.visible {display: block;}
-						.hidden {display: none;}
-						</style>
-						<script language='javascript' type='text/javascript'>
-						[JS_BYJAX]
-						[JS_DROPDOWNS]
-						function ticker() {
-						    setInterval(function(){
-						        window.location='byond://?src=[UID()]&update_content=1';
-						    }, 1000);
-						}
-
-						window.onload = function() {
-							dropdowns();
-							ticker();
-						}
-						</script>
-						</head>
-						<body>
+	var/output = {"
+						<div id='uid_container' data-uid='[UID()]' style='display:none'></div>
 						<div id='content'>
 						[get_stats_part()]
 						</div>
@@ -44,11 +16,12 @@
 						<div id='commands'>
 						[get_commands()]
 						</div>
-						</body>
-						</html>
 					 "}
 	return output
 
+/obj/mecha/proc/config_dropdown(datum/browser/popup)
+	popup.add_script("mech_stat", 'html/js/mech_stat.js')
+	popup.add_stylesheet("mech_stat_style", 'html/css/mech_stat.css')
 
 /obj/mecha/proc/report_internal_damage()
 	var/output = null
@@ -162,12 +135,11 @@
 
 
 /obj/mecha/proc/get_log_html()
-	var/output = {"<html><meta charset="UTF-8"><head><title>[name] Log</title></head><body style='font: 13px 'Courier', monospace;'>"}
+	var/output = ""
 	for(var/list/entry in log)
 		output += {"<div style='font-weight: bold;'>[time2text(entry["time"],"DDD MMM DD hh:mm:ss")] 2555</div>
 						<div style='margin-left:15px; margin-bottom:10px;'>[entry["message"]]</div>
 						"}
-	output += "</body></html>"
 	return output
 
 /obj/mecha/proc/get_log_tgui()
@@ -181,16 +153,7 @@
 
 /obj/mecha/proc/output_access_dialog(obj/item/card/id/id_card, mob/user)
 	if(!id_card || !user) return
-	var/output = {"<html>
-						<meta charset="UTF-8">
-						<head><style>
-						h1 {font-size:15px;margin-bottom:4px;}
-						body {color: #00ff00; background: #000000; font-family:"Courier New", Courier, monospace; font-size: 12px;}
-						a {color:#0f0;}
-						</style>
-						</head>
-						<body>
-						<h1>Following keycodes are present in this system:</h1>"}
+	var/output = {"	<h1>Following keycodes are present in this system:</h1>"}
 	for(var/a in operation_req_access)
 		output += "[get_access_desc(a)] - <a href='byond://?src=[UID()];del_req_access=[a];user=\ref[user];id_card=\ref[id_card]'>Delete</a><br>"
 
@@ -205,28 +168,25 @@
 
 	output += "<a href='byond://?src=[UID()];add_all_req_access=1;user=\ref[user];id_card=\ref[id_card]'><br><b>Add All</b></a><br>"
 	output += "<hr><a href='byond://?src=[UID()];finish_req_access=1;user=\ref[user]'>Finish</a> <font color='red'>(Warning! The ID upload panel will be locked. It can be unlocked only through Exosuit Interface.)</font>"
-	output += "</body></html>"
-	user << browse(output, "window=exosuit_add_access")
+	var/datum/browser/popup = new(user, "exosuit_add_access", "Add Access")
+	popup.include_default_stylesheet = FALSE
+	popup.set_content(output)
+	popup.add_stylesheet("access_dialog", 'html/css/access_dialog.css')
+	popup.open(TRUE)
 	onclose(user, "exosuit_add_access")
 	return
 
 /obj/mecha/proc/output_maintenance_dialog(obj/item/card/id/id_card,mob/user)
 	if(!id_card || !user) return
-	var/output = {"<html>
-						<meta charset="UTF-8">
-						<head>
-						<style>
-						body {color: #00ff00; background: #000000; font-family:"Courier New", Courier, monospace; font-size: 12px;}
-						a {padding:2px 5px; background:#32CD32;color:#000;display:block;margin:2px;text-align:center;text-decoration:none;}
-						</style>
-						</head>
-						<body>
-						[add_req_access?"<a href='byond://?src=[UID()];req_access=1;id_card=\ref[id_card];user=\ref[user]'>Edit operation keycodes</a>":null]
+	var/output = {"						[add_req_access?"<a href='byond://?src=[UID()];req_access=1;id_card=\ref[id_card];user=\ref[user]'>Edit operation keycodes</a>":null]
 						[maint_access?"<a href='byond://?src=[UID()];maint_access=1;id_card=\ref[id_card];user=\ref[user]'>Initiate/Stop maintenance protocol</a>":null]
 						[(state>0) ?"<a href='byond://?src=[UID()];set_internal_tank_valve=1;user=\ref[user]'>Set Cabin Air Pressure</a>":null]
-						</body>
-						</html>"}
-	user << browse(output, "window=exosuit_maint_console")
+						"}
+	var/datum/browser/popup = new(user, "exosuit_maint_console", "Maint console")
+	popup.include_default_stylesheet = FALSE
+	popup.set_content(output)
+	popup.add_stylesheet("access_dialog", 'html/css/maint_console.css')
+	popup.open(TRUE)
 	onclose(user, "exosuit_maint_console")
 	return
 
@@ -305,12 +265,15 @@
 		return
 	if(href_list["view_log"])
 		if(usr != occupant)	return
-		occupant << browse(get_log_html(), "window=exosuit_log")
+		var/datum/browser/popup = new(occupant, "exosuit_log", "[name] Log")
+		popup.set_content(get_log_html())
+		popup.add_stylesheet("exosuit_log", 'html/css/exosuit_log.css')
+		popup.open(TRUE)
 		onclose(occupant, "exosuit_log")
 		return
 	if(href_list["change_name"])
 		if(usr != occupant)	return
-		var/newname = strip_html_simple(input(occupant,"Choose new exosuit name","Rename exosuit",initial(name)) as text, MAX_NAME_LEN)
+		var/newname = strip_html_simple(tgui_input_text(occupant, "Choose new exosuit name", "Rename exosuit", initial(name)), MAX_NAME_LEN)
 		if(newname && trim(newname))
 			name = newname
 			add_misc_logs(occupant, "has renamed an exosuit [newname]")
@@ -354,7 +317,7 @@
 		if(!in_range(src, usr))	return
 		var/mob/user = afilter.getMob("user")
 		if(user)
-			var/new_pressure = input(user,"Input new output pressure","Pressure setting",internal_tank_valve) as num
+			var/new_pressure = tgui_input_number(user, "Input new output pressure", "Pressure setting", internal_tank_valve)
 			if(new_pressure)
 				internal_tank_valve = new_pressure
 				to_chat(user, "The internal pressure valve has been set to [internal_tank_valve]kPa.")
@@ -388,7 +351,7 @@
 		if(!in_range(src, usr))	return
 		add_req_access = FALSE
 		var/mob/user = afilter.getMob("user")
-		user << browse(null,"window=exosuit_add_access")
+		close_window(user, "exosuit_add_access")
 		return
 	if(href_list["dna_lock"])
 		if(usr != occupant)
@@ -415,7 +378,6 @@
 			else
 				occupant_message("<font color='red'>Recalibration failed.</font>")
 				log_message("Recalibration of coordination system failed with 1 error.",1)
-
 	if(href_list["drop_from_cargo"])
 		var/atom/movable/cargo_thing = locateUID(href_list["drop_from_cargo"])
 		if(istype(cargo_thing) && (cargo_thing in cargo))
@@ -423,15 +385,4 @@
 			cargo_thing.forceMove(loc)
 			cargo -= cargo_thing
 			log_message("Unloaded [cargo_thing]. Cargo compartment capacity: [cargo_capacity - length(cargo)]")
-
-	//debug
-	/*
-	if(href_list["debug"])
-		if(href_list["set_i_dam"])
-			setInternalDamage(afilter.getNum("set_i_dam"))
-		if(href_list["clear_i_dam"])
-			clearInternalDamage(afilter.getNum("clear_i_dam"))
-		return
-	*/
-
 	return

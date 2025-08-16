@@ -9,7 +9,7 @@
 	normal_step_energy_drain = 3
 	max_integrity = 200
 	deflect_chance = 30
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 30, "bio" = 0, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 50, FIRE = 100, ACID = 100)
 	max_temperature = 25000
 	infra_luminosity = 3
 	maint_access = TRUE
@@ -19,7 +19,6 @@
 	force = 15
 	phase_state = "phazon-phase"
 	max_equip = 3
-
 	mech_type = MECH_TYPE_PHAZON
 
 /obj/mecha/combat/phazon/GrantActions(mob/living/user, human_occupant = 0)

@@ -102,10 +102,22 @@
 	var/volume_explosion_radius_modifier = 0
 	var/combustion_temp = T0C + 200
 
+/datum/reagent/proc/toxic_fuel_proof_species(mob/living/carbon/human/H)
+	if(!istype(H))
+		return FALSE // skip check
+
+	if(HAS_TRAIT(H, TRAIT_TOXIC_FUEL_PROTECTED))
+		return TRUE
+
+	return FALSE
+
 /datum/reagent/fuel/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!toxic_fuel_proof_species(M))
+		update_flags |= M.adjustToxLoss(1, FALSE)
 	if(M.on_fire)
 		M.adjust_fire_stacks(0.4)
-	return ..()
+	return ..() | update_flags
 
 /datum/reagent/fuel/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > combustion_temp)
@@ -175,6 +187,13 @@
 	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
+
+/datum/reagent/plasma/reaction_turf(turf/simulated/T, volume)
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(volume)
+	T.reagents.add_reagent("plasma", volume)
 
 
 /datum/reagent/thermite
@@ -270,6 +289,8 @@
 	taste_description = "горького воздуха"
 
 /datum/reagent/sorium/reaction_turf(turf/T, volume) // oh no
+	if(volume < 1)
+		return
 	if(prob(75))
 		return
 	if(isspaceturf(T))
@@ -287,6 +308,8 @@
 	taste_description = "горького вакуума"
 
 /datum/reagent/liquid_dark_matter/reaction_turf(turf/T, volume) //Oh gosh, why
+	if(volume < 4)
+		return
 	if(prob(75))
 		return
 	if(isspaceturf(T))
@@ -319,6 +342,13 @@
 	penetrates_skin = TRUE
 	taste_description = "соли"
 
+/datum/reagent/flash_powder/reaction_turf(turf/simulated/T, volume)
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(volume)
+	T.reagents.add_reagent("flash_powder", volume)
+
 /datum/reagent/smoke_powder
 	name = "Дымный порошок"
 	id = "smoke_powder"
@@ -326,6 +356,13 @@
 	reagent_state = LIQUID
 	color = "#808080"
 	taste_description = "дыма"
+
+/datum/reagent/smoke_powder/reaction_turf(turf/simulated/T, volume)
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(volume)
+	T.reagents.add_reagent("smoke_powder", 10)
 
 /datum/reagent/sonic_powder
 	name = "Звуковой порошок"
@@ -335,6 +372,13 @@
 	color = "#0000FF"
 	penetrates_skin = TRUE
 	taste_description = "шума"
+
+/datum/reagent/sonic_powder/reaction_turf(turf/simulated/T, volume)
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(volume)
+	T.reagents.add_reagent("sonic_powder", volume)
 
 /datum/reagent/cryostylane
 	name = "Криостилан"
@@ -416,26 +460,13 @@
 	var/cooling_temperature = 3 // more effective than water
 	taste_description = "пены для огнетушителей"
 
-/datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-// Put out fire
-	if(method == REAGENT_TOUCH)
-		M.adjust_fire_stacks(-10) // more effective than water
-
 /datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
 	O.extinguish()
 
 /datum/reagent/firefighting_foam/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
 		return
-	var/CT = cooling_temperature
 	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-(CT*1000), lowertemp.temperature / CT), TCMB)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
 
 /datum/reagent/plasma_dust
 	name = "Плазменная пыль"
@@ -466,3 +497,10 @@
 		M.adjust_fire_stacks(volume / 5)
 		return
 	..()
+
+/datum/reagent/plasma_dust/reaction_turf(turf/simulated/T, volume)
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(volume)
+	T.reagents.add_reagent("plasma_dust", volume)

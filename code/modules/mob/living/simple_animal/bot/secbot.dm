@@ -2,7 +2,7 @@
 #define SPEAK_COOLDOWN 10 SECONDS
 
 /mob/living/simple_animal/bot/secbot
-	name = "\improper Securitron"
+	name = "Securitron"
 	desc = "Маленький охранный робот. Он выглядит абсолютно спокойным."
 	ru_names = list(
 		NOMINATIVE = "охранный робот",
@@ -23,7 +23,7 @@
 
 	allow_pai = FALSE
 
-	radio_channel = "Security" //Security channel
+	radio_channel = SEC_FREQ_NAME
 	bot_type = SEC_BOT
 	bot_filter = RADIO_SECBOT
 	model = "Securitron"
@@ -97,7 +97,7 @@
 		INSTRUMENTAL = "Офицером Пингски",
 		PREPOSITIONAL = "Офицере Пингски",
 	)
-	radio_channel = "AI Private"
+	radio_channel = AI_FREQ_NAME
 
 
 /mob/living/simple_animal/bot/secbot/ofitser
@@ -314,8 +314,8 @@
 		icon_state = "[base_icon][on]"
 
 
-/mob/living/simple_animal/bot/secbot/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj ,/obj/item/projectile/beam) || istype(Proj,/obj/item/projectile/bullet))
+/mob/living/simple_animal/bot/secbot/bullet_act(obj/projectile/Proj)
+	if(istype(Proj ,/obj/projectile/beam) || istype(Proj,/obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health)
 				retaliate(Proj.firer)
@@ -361,14 +361,14 @@
 	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] надел стяжки на [C]!"),
 					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] надел на вас стяжки!"))
 
-	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
+	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, FALSE)
 	back_to_idle()
 
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	if(harmbaton)
-		playsound(loc, 'sound/weapons/genhit1.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/genhit1.ogg', 50, TRUE, -1)
 	do_attack_animation(C)
 	icon_state = "[base_icon]-c"
 	addtimer(VARSET_CALLBACK(src, icon_state, "[base_icon][on]"), 0.2 SECONDS)
@@ -410,8 +410,8 @@
 
 
 /mob/living/simple_animal/bot/secbot/verb/toggle_flashing_lights()
-	set name = "Toggle Flashing Lights"
-	set category = "Object"
+	set name = "Вкл/выкл фонарик"
+	set category = STATPANEL_OBJECT
 	set src = usr
 
 	flashing_lights = !flashing_lights
@@ -540,7 +540,7 @@
 			target = C
 			oldtarget_name = C.name
 			speak("Вижу преступника! Уровень опасности - <b>[threatlevel]</b>!")
-			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, 0)
+			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, FALSE)
 			visible_message("<b>[capitalize(declent_ru(NOMINATIVE))]</b> указывает на [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))

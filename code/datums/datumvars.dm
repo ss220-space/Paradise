@@ -20,7 +20,7 @@
 	var/static/list/protected_vars = list(
 		"lastKnownIP", "computer_id", "attack_log_old"
 	)
-	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
 
@@ -28,7 +28,7 @@
 	var/static/list/protected_vars = list(
 		"address", "chatOutput", "computer_id", "connection", "jbh", "pm_tracker", "related_accounts_cid", "related_accounts_ip", "watchlisted"
 	)
-	if(!check_rights(R_ADMIN, FALSE, mob) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
 
@@ -56,23 +56,23 @@
 /datum/proc/vv_get_dropdown()
 	. = list()
 	. += "---"
-	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
-	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
-	.["Jump to Object"] = "?_src_=vars;jump_to=[UID()]"
-	.["Delete"] = "?_src_=vars;delete=[UID()]"
-	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
-	.["Add Component/Element"] = "?_src_=vars;addcomponent=[UID()]"
-	.["Remove Component/Element"] = "?_src_=vars;removecomponent=[UID()]"
-	.["Mass Remove Component/Element"] = "?_src_=vars;removecomponent_mass=[UID()]"
+	.["Call Proc"] = "byond://?_src_=vars;proc_call=[UID()]"
+	.["Mark Object"] = "byond://?_src_=vars;mark_object=[UID()]"
+	.["Jump to Object"] = "byond://?_src_=vars;jump_to=[UID()]"
+	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
+	.["Add Component/Element"] = "byond://?_src_=vars;addcomponent=[UID()]"
+	.["Remove Component/Element"] = "byond://?_src_=vars;removecomponent=[UID()]"
+	.["Mass Remove Component/Element"] = "byond://?_src_=vars;removecomponent_mass=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
 	. = list()
 	. += "---"
-	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
-	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
-	.["Delete"] = "?_src_=vars;delete=[UID()]"
-	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
+	.["Call Proc"] = "byond://?_src_=vars;proc_call=[UID()]"
+	.["Mark Object"] = "byond://?_src_=vars;mark_object=[UID()]"
+	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/proc/debug_variables(datum/D in world)
@@ -114,7 +114,6 @@
 			hash = md5(A.icon)
 			hash = md5(hash + A.icon_state)
 			usr << browse_rsc(sprite, "vv[hash].png")
-			
 	title = "[D]"
 	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
 
@@ -145,7 +144,7 @@
 		else
 			atomsnowflake += "<a href='byond://?_src_=vars;datumedit=[refid];varnameedit=name'><b id='name'>[D]</b></a>"
 			atomsnowflake += "<br><font size='1'><a href='byond://?_src_=vars;rotatedatum=[refid];rotatedir=left'><<</a> <a href='byond://?_src_=vars;datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(A.dir) || A.dir]</a> <a href='byond://?_src_=vars;rotatedatum=[refid];rotatedir=right'>>></a></font>"
-	
+
 	else if("name" in D.vars)
 		atomsnowflake += "<a href='byond://?_src_=vars;datumedit=[refid];varnameedit=name'><b id='name'>[D]</b></a>"
 	else
@@ -213,6 +212,8 @@
 	sleep(1) // Without a sleep here, VV sometimes disconnects clients
 
 
+	var/ui_scale = usr.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE
+
 	var/list/variable_html = list()
 	if(islist)
 		var/list/L = D
@@ -242,6 +243,7 @@
 				font-family: "Courier New", monospace;
 				font-size: 8pt;
 			}
+		[!ui_scale && window_scaling ? "<style>body {zoom: [100 / window_scaling]%;}</style>" : ""]
 		</style>
 	</head>
 	<body onload='selectTextField()' onkeydown='return handle_keydown()' onkeyup='handle_keyup()'>
@@ -463,7 +465,11 @@
 </html>
 	"}
 
-	usr << browse(html, "window=variables[refid];size=475x650")
+	var/size_string = "size=475x650";
+	if(ui_scale && window_scaling)
+		size_string = "size=[475 * window_scaling]x[650 * window_scaling]"
+
+	src << browse(html, "window=variables[refid];[size_string]")
 
 /client/proc/vv_update_display(datum/D, span, content)
 	src << output("[span]:[content]", "variables[D.UID()].browser:replace_span")
@@ -1313,7 +1319,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living", confidential=TRUE)
 			return
 		var/list/possibleverbs = list()
-		possibleverbs += "Cancel" 								// One for the top...
+		possibleverbs += "Cancel"								// One for the top...
 		possibleverbs += typesof(/mob/proc,/mob/verb,/mob/living/proc,/mob/living/verb)
 		switch(H.type)
 			if(/mob/living/carbon/human)
@@ -1323,7 +1329,7 @@
 			if(/mob/living/silicon/ai)
 				possibleverbs += typesof(/mob/living/silicon/proc,/mob/living/silicon/ai/proc,/mob/living/silicon/ai/verb)
 		possibleverbs -= H.verbs
-		possibleverbs += "Cancel" 								// ...And one for the bottom
+		possibleverbs += "Cancel"								// ...And one for the bottom
 
 		var/verb = tgui_input_list(usr, "Select a verb!", "Verbs", possibleverbs, null)
 		if(!H)
@@ -1415,7 +1421,7 @@
 
 		var/Text = href_list["adjustDamage"]
 
-		var/amount = tgui_input_number(usr, "Deal how much damage to mob? (Negative values here heal)", "Adjust [Text]loss", 0)
+		var/amount = tgui_input_number(usr, "Deal how much damage to mob? (Negative values here heal)", "Adjust [Text]loss", 0, 1000, -1000)
 
 		if(!L)
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)

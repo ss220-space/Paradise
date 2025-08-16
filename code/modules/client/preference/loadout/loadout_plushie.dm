@@ -1,5 +1,5 @@
 /datum/gear/plushie
-	sort_category = "Plushie"
+	sort_category = "Игрушки"
 	subtype_path = /datum/gear/plushie
 	cost = 1
 
@@ -45,13 +45,13 @@
 
 /datum/gear/plushie/plasmamanplushie
 	index_name = "Plasmaman Plushie, select"
-	display_name = "Plasmaman Plushie"
+	display_name = "Плюшевый плазмолюд"
 	path = /obj/item/toy/plushie/plasmamanplushie
 
 /datum/gear/plushie/plasmamanplushie/New()
 	..()
 	var/list/plasmamans = list(/obj/item/toy/plushie/plasmamanplushie,
-					  		/obj/item/toy/plushie/plasmamanplushie/standart/sindie,
+					 		/obj/item/toy/plushie/plasmamanplushie/standart/sindie,
 							/obj/item/toy/plushie/plasmamanplushie/standart/doctor,
 							/obj/item/toy/plushie/plasmamanplushie/standart/brigmed,
 							/obj/item/toy/plushie/plasmamanplushie/standart/chemist,
@@ -122,6 +122,11 @@
 /datum/gear/plushie/hampter_ert_squad
 	index_name = "Hampter, ERT"
 	path = /obj/item/toy/plushie/hampter/ert_squad
+	cost = 1
+
+/datum/gear/plushie/blahaj
+	index_name = "Shark Plushie"
+	path = /obj/item/toy/plushie/blahaj
 	cost = 1
 
 

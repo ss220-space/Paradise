@@ -62,11 +62,9 @@
 	else
 		GLOB.powermonitor_repository.remove_from_cache(src)
 
-/obj/machinery/computer/monitor/proc/find_powernet()
-	var/obj/structure/cable/attached = null
+/obj/machinery/proc/find_powernet()
 	var/turf/T = loc
-	if(isturf(T))
-		attached = locate() in T
+	var/obj/structure/cable/attached = T.get_cable_node()
 	if(attached)
 		return attached.powernet
 

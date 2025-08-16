@@ -1,5 +1,5 @@
 /mob/living/simple_animal/bot/honkbot
-	name = "\improper honkbot"
+	name = "honkbot"
 	desc = "Маленький робот. У него есть гудок. Он счастлив."
 	ru_names = list(
 		NOMINATIVE = "хонкобот",
@@ -17,7 +17,7 @@
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	pass_flags = PASSMOB|PASSFLAPS
-	radio_channel = "Service" //Service
+	radio_channel = SRV_FREQ_NAME
 	bot_type = HONK_BOT
 	bot_filter = RADIO_HONKBOT
 	model = "Honkbot"
@@ -96,15 +96,15 @@
 	dat += hack(user)
 	dat += showpai(user)
 	dat += text({"
-	<TT><B>Панель управления Хонкоматической Клоуновой Единицей v1.0.7</B></TT><BR><BR>
-	Состояние: []<BR>
-	Управление поведением [locked ? "заблокировано" : "разблокировано"]<BR>
-	Панель технического обслуживания [open ? "открыта" : "закрыта"]<BR>"},
+	<tt><b>Панель управления Хонкоматической Клоуновой Единицей v1.0.7</b></tt><br><br>
+	Состояние: []<br>
+	Управление поведением [locked ? "заблокировано" : "разблокировано"]<br>
+	Панель технического обслуживания [open ? "открыта" : "закрыта"]<br>"},
 
-	"<a href='byond://?src=[UID()];power=1'>[on ? "Включён" : "Выключен"]</A>")
+	"<a href='byond://?src=[UID()];power=1'>[on ? "Включён" : "Выключен"]</a>")
 
 	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Режим патрулирования: <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "Да" : "Нет"]</A><BR>"
+		dat += "Режим патрулирования: <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "Да" : "Нет"]</a><br>"
 
 	return	dat
 
@@ -133,8 +133,8 @@
 		update_icon()
 
 
-/mob/living/simple_animal/bot/honkbot/bullet_act(obj/item/projectile/Proj)
-	if((istype(Proj,/obj/item/projectile/beam)) || (istype(Proj,/obj/item/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
+/mob/living/simple_animal/bot/honkbot/bullet_act(obj/projectile/Proj)
+	if((istype(Proj,/obj/projectile/beam)) || (istype(Proj,/obj/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
 		retaliate(Proj.firer)
 	..()
 
@@ -171,7 +171,7 @@
 			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 	else if(emagged == 2) //emagged honkbots will spam short and memorable sounds.
 		if(!spam_flag)
-			playsound(src, "honkbot_e", 50, 0)
+			playsound(src, "honkbot_e", 50, FALSE)
 			spam_flag = TRUE // prevent spam
 			icon_state = "honkbot-e"
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)

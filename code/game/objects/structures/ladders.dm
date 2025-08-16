@@ -73,7 +73,7 @@
 
 /obj/structure/ladder/singularity_pull()
 	if(!(resistance_flags & INDESTRUCTIBLE))
-		visible_message("<span class='danger'>[src] is torn to pieces by the gravitational pull!</span>")
+		visible_message(span_danger("[src] is torn to pieces by the gravitational pull!"))
 		qdel(src)
 
 /obj/structure/ladder/proc/travel(going_up, mob/user, is_ghost, obj/structure/ladder/ladder)
@@ -159,9 +159,15 @@
 
 /obj/structure/ladder/proc/show_fluff_message(going_up, mob/user)
 	if(going_up)
-		user.visible_message("[user] climbs up [src].","<span class='notice'>You climb up [src].</span>")
+		user.visible_message(
+			"[user] climbs up [src].",
+			span_notice("You climb up [src].")
+		)
 	else
-		user.visible_message("[user] climbs down [src].","<span class='notice'>You climb down [src].</span>")
+		user.visible_message(
+			"[user] climbs down [src].",
+			span_notice("You climb down [src].")
+		)
 
 
 // Indestructible away mission ladders which link based on a mapped ID and height value rather than X/Y/Z.
@@ -217,9 +223,15 @@
 
 /obj/structure/ladder/unbreakable/dive_point/buoy/show_fluff_message(going_up, mob/user)
 	if(going_up)
-		user.visible_message("[user] swims up [src].","<span class='notice'>You swim up [src].</span>")
+		user.visible_message(
+			"[user] swims up [src].",
+			span_notice("You swim up [src].")
+		)
 	else
-		user.visible_message("[user] swims down [src].","<span class='notice'>You swim down [src].</span>")
+		user.visible_message(
+			"[user] swims down [src].",
+			span_notice("You swim down [src].")
+		)
 
 /obj/structure/ladder/unbreakable/dive_point/anchor
 	name = "diving point anchor"

@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(ticker)
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "ticker"
 
-	/// Time the world started, relative to world.time
+	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
 	/// Time that the round started
 	var/time_game_started = 0
@@ -19,6 +19,8 @@ SUBSYSTEM_DEF(ticker)
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
 	var/force_start = FALSE
+	/// Do we want to crew members to start on the shuttle?
+	var/shuttle_start = FALSE
 	/// Do we want to force-end as soon as we can
 	var/force_ending = FALSE
 	/// Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o
@@ -84,7 +86,7 @@ SUBSYSTEM_DEF(ticker)
 	login_music = choose_lobby_music()
 
 	if(!login_music)
-		to_chat(world, span_boldwarning("Could not load lobby music.")) //yogs end
+		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
 
 	randomtips = file2list("strings/tips.txt")
 	memetips = file2list("strings/sillytips.txt")
@@ -96,9 +98,9 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (CONFIG_GET(number/pregame_timestart) SECONDS)
-			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
-			to_chat(world, "Please, setup your character and select ready. Game will start in [CONFIG_GET(number/pregame_timestart)] seconds")
-			current_state = GAME_STATE_PREGAME
+			to_chat(world, span_darkmblue("<b>Добро пожаловать в предыгровое лобби!</b>"))
+			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [CONFIG_GET(number/pregame_timestart)] секунд.")
+			change_state(GAME_STATE_PREGAME)
 			fire() // TG says this is a good idea
 		if(GAME_STATE_PREGAME)
 			if(!SSticker.ticker_going) // This has to be referenced like this, and I dont know why. If you dont put SSticker. it will break
@@ -115,11 +117,11 @@ SUBSYSTEM_DEF(ticker)
 				tipped = TRUE
 
 			if(pregame_timeleft <= 0 || force_start)
-				current_state = GAME_STATE_SETTING_UP
+				change_state(GAME_STATE_SETTING_UP)
 				Master.SetRunLevel(RUNLEVEL_SETUP)
 		if(GAME_STATE_SETTING_UP)
 			if(!setup()) // Setup failed
-				current_state = GAME_STATE_STARTUP
+				change_state(GAME_STATE_STARTUP)
 				Master.SetRunLevel(RUNLEVEL_LOBBY)
 		if(GAME_STATE_PLAYING)
 			delay_end = FALSE // reset this in case round start was delayed
@@ -136,9 +138,9 @@ SUBSYSTEM_DEF(ticker)
 			else
 				game_finished |= mode.check_finished()
 			if(game_finished || force_ending)
-				current_state = GAME_STATE_FINISHED
+				change_state(GAME_STATE_FINISHED)
 		if(GAME_STATE_FINISHED)
-			current_state = GAME_STATE_FINISHED
+			change_state(GAME_STATE_FINISHED)
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
 
@@ -167,7 +169,7 @@ SUBSYSTEM_DEF(ticker)
 					else
 						SSmapping.next_map = SSmapping.map_datum
 			if(SSmapping.next_map)
-				to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
+				to_chat(world, "<b>Следующая карта – [SSmapping.next_map.name]!</b>")
 
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
@@ -190,9 +192,9 @@ SUBSYSTEM_DEF(ticker)
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
 		if(!length(runnable_modes))
-			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
+			to_chat(world, "<b>Unable to choose playable game mode.</b> Reverting to pre-game lobby.")
 			force_start = FALSE
-			current_state = GAME_STATE_PREGAME
+			change_state(GAME_STATE_PREGAME)
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			return FALSE
 		if(GLOB.secret_force_mode != "secret")
@@ -208,9 +210,9 @@ SUBSYSTEM_DEF(ticker)
 		mode = config.pick_mode(GLOB.master_mode)
 
 	if(!mode.can_start())
-		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] players needed. Reverting to pre-game lobby.")
+		to_chat(world, "<b>Unable to start [mode.name].</b> Not enough players, [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] players needed. Reverting to pre-game lobby.")
 		mode = null
-		current_state = GAME_STATE_PREGAME
+		change_state(GAME_STATE_PREGAME)
 		force_start = FALSE
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 
@@ -237,7 +239,7 @@ SUBSYSTEM_DEF(ticker)
 
 		var/has_antags = (length(P.client.prefs.be_special) > 0)
 		if(!P.client.prefs.check_any_job())
-			to_chat(P, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+			to_chat(P, span_danger("You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences."))
 			if(has_antags)
 				// We add these to a list so we can deal with them as a batch later
 				flagged_antag_rollers |= P.ckey
@@ -248,8 +250,8 @@ SUBSYSTEM_DEF(ticker)
 	can_continue = mode.pre_setup() //Setup special modes
 	if(!can_continue)
 		QDEL_NULL(mode)
-		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
-		current_state = GAME_STATE_PREGAME
+		to_chat(world, "<b>Error setting up [GLOB.master_mode].</b> Reverting to pre-game lobby.")
+		change_state(GAME_STATE_PREGAME)
 		force_start = FALSE
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
@@ -271,8 +273,8 @@ SUBSYSTEM_DEF(ticker)
 		for(var/datum/game_mode/M in runnable_modes)
 			modes += M.name
 		modes = sortList(modes)
-		to_chat(world, "<B>The current game mode is - Secret!</B>")
-		to_chat(world, "<B>Possibilities:</B> [english_list(modes)]")
+		to_chat(world, "<b>Текущий режим игры – Скрыт!</b>")
+		to_chat(world, "<b>Возможные варианты:</b> [russian_list(modes)]")
 	else
 		mode.announce()
 
@@ -287,10 +289,15 @@ SUBSYSTEM_DEF(ticker)
 
 	// Gather everyones minds
 	for(var/mob/living/player in GLOB.player_list)
-		if(player.mind)
-			minds += player.mind
+		if(!player.mind)
+			continue
+
+		minds += player.mind
 
 	watch = start_watch()
+	if(prob(5))
+		SSticker.shuttle_start = TRUE
+
 	equip_characters() // Apply outfits and loadouts to the characters
 	log_debug("Equipping characters took [stop_watch(watch)]s")
 
@@ -299,7 +306,7 @@ SUBSYSTEM_DEF(ticker)
 	log_debug("Manifest creation took [stop_watch(watch)]s")
 
 	// Update the MC and state to game playing
-	current_state = GAME_STATE_PLAYING
+	change_state(GAME_STATE_PLAYING)
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	// Generate the list of empty playable AI cores in the world
@@ -345,11 +352,11 @@ SUBSYSTEM_DEF(ticker)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
-	to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
+	to_chat(world, span_darkmblue("<b>Приятной игры!</b>"))
 	SEND_SOUND(world, sound('sound/AI/welcome.ogg'))
 
 	if(SSholiday.holidays)
-		to_chat(world, "<span class='darkmblue'>and...</span>")
+		to_chat(world, span_darkmblue("and..."))
 		for(var/holidayname in SSholiday.holidays)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
@@ -441,7 +448,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(!station_missed)	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
-			if(M.stat != DEAD && !(issilicon(M) && override == "AI malfunction"))
+			if(M.stat != DEAD && !(issilicon(M) && override == MALF_AI))
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 					M.ghostize()
@@ -456,14 +463,12 @@ SUBSYSTEM_DEF(ticker)
 	//Now animate the cinematic
 	switch(station_missed)
 		if(1)	//nuke was nearby but (mostly) missed
-			if(mode && !override)
-				override = mode.name
 
 			switch(override)
-				if("nuclear emergency") //Nuke wasn't on station when it blew up
+				if(SYNDICATE_NUKE) //Nuke wasn't on station when it blew up
 					play_cinematic(/datum/cinematic/nuke/ops_miss, world)
 
-				if("fake") //The round isn't over, we're just freaking people out for fun
+				if(FAKE_NUKE) //The round isn't over, we're just freaking people out for fun
 					play_cinematic(/datum/cinematic/nuke/fake, world)
 
 				else
@@ -476,19 +481,18 @@ SUBSYSTEM_DEF(ticker)
 			if(mode && !override)
 				override = mode.name
 			switch(override)
-				if("nuclear emergency") //Nuke Ops successfully bombed the station
+				if(SYNDICATE_NUKE) //Nuke Ops successfully bombed the station
 					play_cinematic(/datum/cinematic/nuke/ops_victory, world)
 
-				if("AI malfunction") //Malf (screen,explosion,summary)
+				if(MALF_AI) //Malf (screen,explosion,summary)
 					play_cinematic(/datum/cinematic/malf, world)
-
-				if("blob") //Station nuked (nuke,explosion,summary)
-					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
 
 				else //Station nuked (nuke,explosion,summary)
 					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
 
-
+/datum/controller/subsystem/ticker/proc/change_state(new_state)
+	current_state = new_state
+	SEND_SIGNAL(src, COMSIG_TICKER_GAME_STATE_CHANGED, new_state)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)
@@ -533,7 +537,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, "<span class='purple'><b>Совет раунда: </b>[html_encode(m)]</span>")
+		to_chat(world, chat_box_purple(span_purple("<b>Совет раунда: </b>[html_encode(m)]")))
 
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
@@ -545,26 +549,33 @@ SUBSYSTEM_DEF(ticker)
 	ending_station_state.count()
 	var/station_integrity = min(round( 100.0 *  GLOB.start_state.score(ending_station_state), 0.1), 100.0)
 
-	to_chat(world, "<BR>[TAB]Shift Duration: <B>[SHIFT_TIME_TEXT()]</B>")
-	to_chat(world, "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>")
-	to_chat(world, "<BR>")
+	var/list/end_of_round_info = list()
+	end_of_round_info += "<br>[TAB]Shift Duration: <b>[SHIFT_TIME_TEXT()]</b>"
+	end_of_round_info += "<br>[TAB]Station Integrity: <b>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</b>"
+	end_of_round_info += "<br>"
 
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
 		var/ai_ckey = safe_get_ckey(aiPlayer)
 
-		if(aiPlayer.stat != 2)
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws at the end of the game were:</b>")
+		if(aiPlayer.stat != DEAD)
+			end_of_round_info += "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws at the end of the game were:</b>"
 		else
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws when it was deactivated were:</b>")
-		aiPlayer.show_laws(TRUE)
+			end_of_round_info += "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws when it was deactivated were:</b>"
 
-		if(aiPlayer.connected_robots.len)
-			var/robolist = "<b>The AI's loyal minions were:</b> "
+		aiPlayer.laws_sanity_check()
+
+		for(var/datum/ai_law/law as anything in aiPlayer.laws.sorted_laws)
+			if(law == aiPlayer.laws.zeroth_law)
+				end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+			else
+				end_of_round_info += "[law.get_index()]. [law.law]"
+
+		if(length(aiPlayer.connected_robots))
+			end_of_round_info += "<b>The AI's loyal minions were:</b> "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				var/robo_ckey = safe_get_ckey(robo)
-				robolist += "[robo.name][robo.stat ? " (Deactivated)" : ""] (Played by: [robo_ckey])"
-			to_chat(world, "[robolist]")
+				end_of_round_info += "[robo.name][robo.stat ? " (Deactivated)" : ""] (Played by: [robo_ckey])"
 
 	var/dronecount = 0
 
@@ -577,39 +588,43 @@ SUBSYSTEM_DEF(ticker)
 		var/robo_ckey = safe_get_ckey(robo)
 
 		if(!robo.connected_ai)
-			if(robo.stat != 2)
-				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) survived as an AI-less borg! Its laws were:</b>")
+			if(robo.stat != DEAD)
+				end_of_round_info += "<b>[robo.name] (Played by: [robo_ckey]) survived as an AI-less borg! Its laws were:</b>"
 			else
-				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")
+				end_of_round_info += "<b>[robo.name] (Played by: [robo_ckey]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>"
 
-			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
-				robo.laws.show_laws(world)
+			robo.laws_sanity_check()
+			for(var/datum/ai_law/law as anything in robo.laws.sorted_laws)
+				if(law == robo.laws.zeroth_law)
+					end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+				else
+					end_of_round_info += "[law.get_index()]. [law.law]"
 
 	if(dronecount)
-		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
+		end_of_round_info += "<b>There [dronecount > 1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount > 1 ? "drones" : "drone"] this round.</b>"
 
-	if(mode.eventmiscs.len)
-		var/emobtext = ""
+	if(length(mode.eventmiscs))
 		for(var/datum/mind/eventmind in mode.eventmiscs)
-			emobtext += printeventplayer(eventmind)
-			emobtext += "<br>"
-			emobtext += printobjectives(eventmind)
-			emobtext += "<br>"
-		emobtext += "<br>"
-		to_chat(world, emobtext)
+			end_of_round_info += printeventplayer(eventmind)
+			end_of_round_info += printobjectives(eventmind)
+		end_of_round_info += "<br>"
+
+	for(var/team_type in GLOB.antagonist_teams)
+		var/datum/team/team = GLOB.antagonist_teams[team_type]
+		end_of_round_info += team.declare_completion()
 
 	mode.declare_completion()//To declare normal completion.
 
-	//calls auto_declare_completion_* for all modes
-	for(var/handler in typesof(/datum/game_mode/proc))
-		if(findtext("[handler]","auto_declare_completion_"))
-			call(mode, handler)()
+	end_of_round_info += mode.get_end_of_round_antagonist_statistics()
 
 	// Display the scoreboard window
 	score.scoreboard()
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()
+
+	SSpersistent_data.save()
+	to_chat(world, end_of_round_info.Join("<br>"))
 
 	if(toggle_pacifism)
 		GLOB.pacifism_after_gt = TRUE
@@ -645,24 +660,24 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Public Station Announcements"
-	newChannel.author = "Automated Announcement Listing"
+	newChannel.channel_name = NEWS_CHANNEL_STATION
+	newChannel.author = EDITOR_STATION
 	newChannel.icon = "bullhorn"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Nyx Daily"
-	newChannel.author = "CentComm Minister of Information"
+	newChannel.channel_name = NEWS_CHANNEL_NYX
+	newChannel.author = EDITOR_NYX
 	newChannel.icon = "meteor"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "The Gibson Gazette"
-	newChannel.author = "Editor Mike Hammers"
+	newChannel.channel_name = NEWS_CHANNEL_GIB
+	newChannel.author = EDITOR_GIB
 	newChannel.icon = "star"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
@@ -701,10 +716,15 @@ SUBSYSTEM_DEF(ticker)
 	if(end_string)
 		end_state = end_string
 
-	// Play a haha funny noise
+	// Play a haha funny noise for those who want to hear it :)
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
-	world << sound(round_end_sound, volume = 80)
+
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.client.prefs.sound & SOUND_MUTE_END_OF_ROUND)
+			continue
+		SEND_SOUND(mob, round_end_sound)
+
 	sleep(sound_length)
 
 	world.Reboot()

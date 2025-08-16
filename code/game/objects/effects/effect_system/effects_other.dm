@@ -51,7 +51,7 @@
 /datum/effect_system/trail_follow/generate_effect()
 	if(!check_conditions())
 		return stop()
-	if(oldposition && !(oldposition == get_turf(holder)) && (!oldposition.has_gravity() || !nograv_required))
+	if(oldposition && !(oldposition == get_turf(holder)) && (oldposition.no_gravity() || !nograv_required))
 		var/obj/effect/new_effect = new effect_type(oldposition)
 		set_dir(new_effect)
 		if(fade && fadetype)
@@ -96,7 +96,7 @@
 /datum/effect_system/trail_follow/spacepod/generate_effect()
 	if(!check_conditions())
 		return stop()
-	if(oldposition && !(oldposition == get_turf(holder)) && (!oldposition.has_gravity() || !nograv_required))
+	if(oldposition && !(oldposition == get_turf(holder)) && (oldposition.no_gravity() || !nograv_required))
 		// spacepod loc is always southwest corner of 4x4 space
 		var/turf/our_turf = holder.loc
 		var/loc1
@@ -139,7 +139,7 @@
 
 //Reagent-based explosion effect
 /datum/effect_system/reagents_explosion
-	var/amount 						// TNT equivalent
+	var/amount						// TNT equivalent
 	var/flashing = 0			// does explosion creates flash effect?
 	var/flashing_factor = 0		// factor of how powerful the flash effect relatively to the explosion
 

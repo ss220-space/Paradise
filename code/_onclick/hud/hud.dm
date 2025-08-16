@@ -9,7 +9,7 @@
 
 	var/hud_shown = TRUE			//Used for the HUD toggle (F12)
 	var/hud_version = 1				//Current displayed version of the HUD
-	var/inventory_shown = TRUE		//the inventory
+	var/inventory_shown = FALSE		//Equipped item inventory
 	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
 
 	var/atom/movable/screen/lingchemdisplay
@@ -49,12 +49,18 @@
 	var/list/datum/plane_master_group/master_groups = list()
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
+	///UI for screentips that appear when you mouse over things
+	var/atom/movable/screen/screentip/screentip_text
 
 	/// Think of multiz as a stack of z levels. Each index in that stack has its own group of plane masters
 	/// This variable is the plane offset our mob/client is currently "on"
 	/// We use it to track what we should show/not show
 	/// Goes from 0 to the max (z level stack size - 1)
 	var/current_plane_offset = 0
+
+	/// The BYOND version of the client that was last logged into this mob.
+	/// Currently used to rebuild all plane master groups when going between 515<->516.
+	var/last_byond_version
 
 /datum/hud/New(mob/owner)
 	mymob = owner
@@ -70,6 +76,9 @@
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
 		plane_master_controllers[controller_instance.name] = controller_instance
 
+	screentip_text = new(null, src)
+	static_inventory += screentip_text
+
 	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(on_plane_increase))
 	RegisterSignal(mymob, COMSIG_MOB_LOGIN, PROC_REF(client_refresh))
 	RegisterSignal(mymob, COMSIG_MOB_LOGOUT, PROC_REF(clear_client))
@@ -77,6 +86,19 @@
 	update_sightflags(mymob, mymob.sight, NONE)
 
 /datum/hud/proc/client_refresh(datum/source)
+	SIGNAL_HANDLER
+	var/client/client = mymob.canon_client
+	var/new_byond_version = client.byond_version
+	#if MIN_COMPILER_VERSION > 515
+		#warn Fully change default relay_loc to "1,1", rather than changing it based on client version
+	#endif
+	if(!isnull(last_byond_version) && new_byond_version != last_byond_version)
+		var/new_relay_loc = (new_byond_version > 515) ? "1,1" : "CENTER"
+		for(var/group_key as anything in master_groups)
+			var/datum/plane_master_group/group = master_groups[group_key]
+			group.relay_loc = new_relay_loc
+			group.rebuild_hud()
+	last_byond_version = new_byond_version
 	RegisterSignal(mymob.client, COMSIG_CLIENT_SET_EYE, PROC_REF(on_eye_change), TRUE)
 	on_eye_change(null, null, mymob.client.eye)
 
@@ -166,11 +188,13 @@
 	wind_up_timer = null
 	nightvisionicon = null
 	devilsouldisplay = null
+	combo_display = null
 
 	QDEL_LIST_ASSOC_VAL(master_groups)
 	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
 
 	mymob = null
+	QDEL_NULL(screentip_text)
 	return ..()
 
 /datum/hud/proc/on_plane_increase(datum/source, old_max_offset, new_max_offset)
@@ -212,14 +236,16 @@
 	update_sight()
 	SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
 
-/datum/hud/proc/show_hud(version = 0)
+/datum/hud/proc/show_hud(version = 0, mob/viewmob)
 	if(!ismob(mymob))
 		return FALSE
 
-	if(!mymob.client)
+	var/mob/screenmob = viewmob || mymob
+	if(!screenmob.client)
 		return FALSE
 
-	mymob.client.screen = list()
+	screenmob.client.clear_screen()
+	screenmob.client.apply_clickcatcher()
 
 	var/display_hud_version = version
 	if(!display_hud_version)	//If 0 or blank, display the next hud version
@@ -231,15 +257,15 @@
 		if(HUD_STYLE_STANDARD)	//Default HUD
 			hud_shown = TRUE	//Governs behavior of other procs
 			if(static_inventory.len)
-				mymob.client.screen += static_inventory
-			if(toggleable_inventory.len && inventory_shown)
-				mymob.client.screen += toggleable_inventory
+				screenmob.client.screen += static_inventory
+			if(toggleable_inventory.len && screenmob.hud_used && screenmob.hud_used.inventory_shown)
+				screenmob.client.screen += toggleable_inventory
 			if(hotkeybuttons.len && !hotkey_ui_hidden)
-				mymob.client.screen += hotkeybuttons
+				screenmob.client.screen += hotkeybuttons
 			if(infodisplay.len)
-				mymob.client.screen += infodisplay
+				screenmob.client.screen += infodisplay
 
-			mymob.client.screen += hide_actions_toggle
+			screenmob.client.screen += hide_actions_toggle
 
 			if(action_intent)
 				action_intent.screen_loc = initial(action_intent.screen_loc) //Restore intent selection to the original position
@@ -248,40 +274,43 @@
 		if(HUD_STYLE_REDUCED)	//Reduced HUD
 			hud_shown = FALSE	//Governs behavior of other procs
 			if(static_inventory.len)
-				mymob.client.screen -= static_inventory
+				screenmob.client.screen -= static_inventory
 			if(toggleable_inventory.len)
-				mymob.client.screen -= toggleable_inventory
+				screenmob.client.screen -= toggleable_inventory
 			if(hotkeybuttons.len)
-				mymob.client.screen -= hotkeybuttons
+				screenmob.client.screen -= hotkeybuttons
 			if(infodisplay.len)
-				mymob.client.screen += infodisplay
+				screenmob.client.screen += infodisplay
 
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
 			for(var/atom/movable/screen/inventory/hand/hand_box as anything in hand_slots)
-				mymob.client.screen += hand_box	//we want the hands to be visible
+				screenmob.client.screen += hand_box	//we want the hands to be visible
 			if(action_intent)
-				mymob.client.screen += action_intent		//we want the intent switcher visible
+				screenmob.client.screen += action_intent		//we want the intent switcher visible
 				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
 			. = FALSE
 
 		if(HUD_STYLE_NOHUD)	//No HUD
 			hud_shown = FALSE	//Governs behavior of other procs
 			if(static_inventory.len)
-				mymob.client.screen -= static_inventory
+				screenmob.client.screen -= static_inventory
 			if(toggleable_inventory.len)
-				mymob.client.screen -= toggleable_inventory
+				screenmob.client.screen -= toggleable_inventory
 			if(hotkeybuttons.len)
-				mymob.client.screen -= hotkeybuttons
+				screenmob.client.screen -= hotkeybuttons
 			if(infodisplay.len)
-				mymob.client.screen -= infodisplay
+				screenmob.client.screen -= infodisplay
 			. = FALSE
 
 	hud_version = display_hud_version
-	persistent_inventory_update()
-	mymob.update_action_buttons(1)
+	persistent_inventory_update(screenmob)
+	mymob.update_action_buttons(TRUE)
 	reorganize_alerts()
 	reload_fullscreen()
-	update_parallax_pref()
+	if(screenmob == mymob)
+		update_parallax_pref(screenmob)
+	else
+		viewmob.hud_used.update_parallax_pref()
 	plane_masters_update()
 
 	SEND_SIGNAL(mymob, COMSIG_MOB_HUD_REFRESHED, src)
@@ -295,11 +324,11 @@
 		group.refresh_hud()
 
 
-/datum/hud/human/show_hud(version = 0)
+/datum/hud/human/show_hud(version = 0, mob/viewmob)
 	. = ..()
 	if(!.)
 		return
-	hidden_inventory_update()
+	hidden_inventory_update(viewmob)
 
 
 /datum/hud/robot/show_hud(version = 0)
@@ -313,7 +342,7 @@
 	return
 
 
-/datum/hud/proc/persistent_inventory_update()
+/datum/hud/proc/persistent_inventory_update(mob/viewer)
 	return
 
 
@@ -324,9 +353,9 @@
 
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(usr, "<span class ='info'>Switched HUD mode. Press F12 to toggle.</span>")
+		to_chat(usr, span_notice("Изменён режим HUD. Переключение – клавиша F12."))
 	else
-		to_chat(usr, "<span class ='warning'>This mob type does not use a HUD.</span>")
+		to_chat(usr, span_warning("У этого типа существ нет HUD."))
 
 
 /datum/hud/proc/update_locked_slots()

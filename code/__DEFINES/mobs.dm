@@ -109,23 +109,29 @@
 #define SLIME_EVOLUTION_THRESHOLD_EVOLVE 50
 #define SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN 100
 
-#define SLIME_BABY 		"baby"
-#define SLIME_ADULT 	"adult"
-#define SLIME_OLD 		"old"
-#define SLIME_ELDER 	"elder"
-#define SLIME_SLIMEMAN 	"slimeman"
+#define SLIME_BABY		"baby"
+#define SLIME_ADULT	"adult"
+#define SLIME_OLD		"old"
+#define SLIME_ELDER	"elder"
+#define SLIME_SLIMEMAN	"slimeman"
 
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
 
 //Slime commands defines
-#define SLIME_FRIENDSHIP_FOLLOW 			3 //Min friendship to order it to follow
-#define SLIME_FRIENDSHIP_STOPEAT 			5 //Min friendship to order it to stop eating someone
+#define SLIME_FRIENDSHIP_FOLLOW			3 //Min friendship to order it to follow
+#define SLIME_FRIENDSHIP_STOPEAT			5 //Min friendship to order it to stop eating someone
 #define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //Min friendship to order it to stop eating someone without it losing friendship
 #define SLIME_FRIENDSHIP_STOPCHASE			4 //Min friendship to order it to stop chasing someone (their target)
 #define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
 #define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
 #define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
+
+//Spiders ai states
+#define SPINNING_WEB 1
+#define LAYING_EGGS 2
+#define MOVING_TO_TARGET 3
+#define SPINNING_COCOON 4
 
 //Hostile simple animals
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
@@ -238,8 +244,8 @@
 #define SPECIES_GOLEM_PLASMA "Плазменный Голем"
 #define SPECIES_GOLEM_DIAMOND "Алмазный Голем"
 #define SPECIES_GOLEM_GOLD "Золотой Голем"
-#define SPECIES_GOLEM_SILVER "Серебрянный Голем"
-#define SPECIES_GOLEM_PLASTEEL "Пласталиевый Голем"
+#define SPECIES_GOLEM_SILVER "Серебряный Голем"
+#define SPECIES_GOLEM_PLASTEEL "Пласталевый Голем"
 #define SPECIES_GOLEM_TITANIUM "Титановый Голем"
 #define SPECIES_GOLEM_PLASTITANIUM "Пластитановый Голем"
 #define SPECIES_GOLEM_ALLOY "Голем из инопланетных сплавов"
@@ -285,7 +291,10 @@
 #define SPECIES_VULPKANIN "Vulpkanin"
 #define SPECIES_WRYN "Wryn"
 
-#define isanimal(A)		(istype((A), /mob/living/simple_animal))
+// not race
+#define SPECIES_OTHER "Other"
+
+#define isanimal(A)		(istype((A), /mob/living/simple_animal) || istype(A, /mob/living/basic))
 #define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
@@ -294,12 +303,17 @@
 #define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
-#define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
+#define ishostile(A)	(istype(A, /mob/living/simple_animal/hostile))
 #define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
 #define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
-#define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
+#define isdemon(A)			(istype((A), /mob/living/simple_animal/demon))
 #define ismorph(A)		(istype((A), /mob/living/simple_animal/hostile/morph))
 #define isborer(A)		(istype((A), /mob/living/simple_animal/borer))
+#define isairmob(A)		(istype(A, /mob/living/simple_animal/hostile/airmob))
+#define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
+#define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
+#define ismarauder(A)	(istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
+
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
@@ -315,8 +329,6 @@
 #define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
 #define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
-
-#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
 
 #define isAIEye(A)		(istype((A), /mob/camera/aiEye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
@@ -337,7 +349,7 @@
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
-#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user)
+#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
 
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \
@@ -388,8 +400,12 @@
 /// Mob is lying down, usually associated with lying_angle values of 90 or 270.
 #define LYING_DOWN 1
 
+#define IS_HORIZONTAL(x) (x.body_position == LYING_DOWN)
+
 ///How much a mob's sprite should be moved when they're lying down
 #define PIXEL_Y_OFFSET_LYING -6
+///How much a mob's sprite should be moved when they're lying up (on the ceiling)
+#define PIXEL_Y_OFFSET_LYING_REVERSED 6
 
 // Slip flags, also known as lube flags
 /// The mob will not slip if they're walking intent
@@ -416,7 +432,7 @@
 
 #define PULL_LYING_MOB_SLOWDOWN 1.3
 #define PUSH_STANDING_MOB_SLOWDOWN 1.3
-#define HUMAN_CARRY_SLOWDOWN 0.6
+#define HUMAN_CARRY_SLOWDOWN 1.18  // PULL_LYING_MOB_SLOWDOWN / 1.1 = 1.18(18) ~ 1.18
 
 #define ACTIVE_HAND_RIGHT 0
 #define ACTIVE_HAND_LEFT 1
@@ -431,14 +447,14 @@
 #define DEVOUR_TIME_ANIMAL (3 SECONDS)
 
 
-//Flags used by the flags parameter of electrocute act.
-///Makes it so that the shock doesn't take gloves into account.
+// Flags used by the flags parameter of electrocute act.
+/// Makes it so that the shock doesn't take gloves into account.
 #define SHOCK_NOGLOVES (1<<0)
-///Used when the shock is from a tesla bolt.
+/// Used when the shock is from a tesla bolt.
 #define SHOCK_TESLA (1<<1)
-///Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
+/// Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
 #define SHOCK_ILLUSION (1<<2)
-///The shock doesn't stun.
+/// The shock doesn't stun.
 #define SHOCK_NOSTUN (1<<3)
 /// No default message is sent from the shock
 #define SHOCK_SUPPRESS_MESSAGE (1<<4)
@@ -449,6 +465,18 @@
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
 
+// tesla_zap
+#define ZAP_MACHINE_EXPLOSIVE (1<<0)
+#define ZAP_ALLOW_DUPLICATES (1<<1)
+#define ZAP_OBJ_DAMAGE (1<<2)
+#define ZAP_MOB_DAMAGE (1<<3)
+#define ZAP_MOB_STUN (1<<4)
+#define ZAP_GENERATES_POWER (1<<5)
+
+#define ZAP_DEFAULT_FLAGS ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+#define ZAP_TESLA_FLAGS ZAP_DEFAULT_FLAGS | ZAP_MACHINE_EXPLOSIVE
+#define ZAP_FUSION_FLAGS ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN
+#define ZAP_SUPERMATTER_FLAGS ZAP_GENERATES_POWER
 
 /// Vomit defines
 #define VOMIT_NUTRITION_LOSS	10
@@ -467,3 +495,44 @@
 
 /// Eyes examine time mod
 #define EXAMINE_INSTANT	0 // 0 seconds
+
+// Incapacitated ignore flags for [/proc/incapacitated()].
+// They also used at interaction_flags_c var.
+/// If the incapacitated will ignore a mob in restraints
+#define INC_IGNORE_RESTRAINED (1<<0)
+/// If the incapacitated will ignore a mob being agressively grabbed
+#define INC_IGNORE_GRABBED (1<<1)
+
+/// If reading is required to perform action (can't read a book if you are illiterate)
+#define NEED_LITERACY (1<<0)
+/// If incapacitated doesn't needed to be checked.
+#define BYPASS_INCAPACITATED (1<<1)
+/// If other mobs (monkeys, aliens, etc) can perform action (can't use computers if you are a monkey)
+#define NEED_DEXTERITY (1<<2)
+/// If hands are required to perform action (can't use objects that require hands if you are a cyborg)
+#define NEED_HANDS (1<<3)
+/// If telekinesis is forbidden to perform action from a distance (ex. canisters are blacklisted from telekinesis manipulation)
+#define FORBID_TELEKINESIS_REACH (1<<4)
+/// If silicons are allowed to perform action from a distance (silicons can operate airlocks from far away)
+#define ALLOW_SILICON_REACH (1<<5)
+/// If resting on the floor is allowed to perform action (pAIs can play music while resting)
+#define ALLOW_RESTING (1<<6)
+/// If this is accessible to creatures with ventcrawl capabilities
+#define NEED_VENTCRAWL (1<<7)
+/// Skips adjacency checks
+#define BYPASS_ADJACENCY (1<<8)
+/// Skips recursive loc checks
+#define NOT_INSIDE_TARGET (1<<9)
+/// Checks for base adjacency, but silences the error
+#define SILENT_ADJACENCY (1<<10)
+/// Allows pAIs to perform an action
+#define ALLOW_PAI (1<<11)
+
+///Squash flags. For squashable element
+
+///Whether or not the squashing requires the squashed mob to be lying down
+#define SQUASHED_SHOULD_BE_DOWN (1<<0)
+///Whether or not to gib when the squashed mob is moved over
+#define SQUASHED_SHOULD_BE_GIBBED (1<<0)
+
+#define MINING_FACTIONS list("mining", "boss")

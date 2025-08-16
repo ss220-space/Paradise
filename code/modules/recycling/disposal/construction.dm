@@ -106,20 +106,20 @@
 
 /obj/structure/disposalconstruct/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.")
+	. += span_notice("<b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.")
 
 
 // flip and rotate verbs
 /obj/structure/disposalconstruct/verb/rotate_verb()
-	set category = "Object"
-	set name = "Rotate Pipe"
+	set category = STATPANEL_OBJECT
+	set name = "Повернуть трубу"
 	set src in view(1)
 	rotate(usr)
 
 
-/obj/structure/disposalconstruct/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate(user)
+/obj/structure/disposalconstruct/click_alt(mob/user)
+	rotate(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /// Rotates construct 90 degrees counter-clockwise
@@ -138,8 +138,8 @@
 
 
 /obj/structure/disposalconstruct/verb/flip_verb()
-	set category = "Object"
-	set name = "Flip Pipe"
+	set category = STATPANEL_OBJECT
+	set name = "Перевернуть трубу"
 	set src in view(1)
 	flip(usr)
 

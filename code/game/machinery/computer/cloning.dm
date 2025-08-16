@@ -4,14 +4,6 @@
 /obj/machinery/computer/cloning
 	name = "biomass pod console"
 	desc = "Консоль для управления капсулой клонирования."
-	ru_names = list(
-		NOMINATIVE = "консоль капсулы клонирования",
-		GENITIVE = "консоли капсулы клонирования",
-		DATIVE = "консоли капсулы клонирования",
-		ACCUSATIVE = "консоль капсулы клонирования",
-		INSTRUMENTAL = "консолью капсулы клонирования",
-		PREPOSITIONAL = "консоли капсулы клонирования"
-	)
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
@@ -33,6 +25,16 @@
 	var/scan_mode = 1
 
 	light_color = LIGHT_COLOR_DARKBLUE
+
+/obj/machinery/computer/cloning/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль капсулы клонирования",
+		GENITIVE = "консоли капсулы клонирования",
+		DATIVE = "консоли капсулы клонирования",
+		ACCUSATIVE = "консоль капсулы клонирования",
+		INSTRUMENTAL = "консолью капсулы клонирования",
+		PREPOSITIONAL = "консоли капсулы клонирования"
+	)
 
 /obj/machinery/computer/cloning/Initialize()
 	. = ..()
@@ -208,11 +210,11 @@
 			if(pod.efficiency > 5)
 				canpodautoprocess = 1
 
-			var/status = "режим ожидания"
+			var/status = "idle"
 			if(pod.mess)
-				status = "неопознанный объект"
+				status = "mess"
 			else if(pod.occupant && !(pod.stat & NOPOWER))
-				status = "клонирование"
+				status = "cloning"
 			tempods.Add(list(list(
 				"pod" = "\ref[pod]",
 				"name" = sanitize(capitalize(pod.name)),

@@ -15,18 +15,18 @@
 	if(interact_check(user))
 		return
 
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 	switch(screenstate)
 		if(0)
 
 			dat += {"<h2>Search Settings</h2><br />
-				<a href='byond://?src=[UID()];settitle=1'>Filter by Title: [query.title]</A><br />
-				<a href='byond://?src=[UID()];setcategory=1'>Filter by Category: [query.category]</A><br />
-				<a href='byond://?src=[UID()];setauthor=1'>Filter by Author: [query.author]</A><br />
-				<a href='byond://?src=[UID()];search=1'>\[Start Search\]</A><br />"}
+				<a href='byond://?src=[UID()];settitle=1'>Filter by Title: [query.title]</a><br />
+				<a href='byond://?src=[UID()];setcategory=1'>Filter by Category: [query.category]</a><br />
+				<a href='byond://?src=[UID()];setauthor=1'>Filter by Author: [query.author]</a><br />
+				<a href='byond://?src=[UID()];search=1'>\[Start Search\]</a><br />"}
 		if(1)
 			if(!SSdbcore.IsConnected())
-				dat += "<font color=red><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</font><br />"
+				dat += "<span style='color: red;'><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</span><br />"
 			else if(num_results == 0)
 				dat += "<em>No results found.</em>"
 			else
@@ -52,18 +52,18 @@
 						<td>[CB.title]</td>
 						<td>[CB.category]</td>
 						<td>[CB.id]</td>
-						<td><A href="?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</A></td>
+						<td><A href="byond://?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</a></td>
 					</tr>"}
 
 				dat += "</table><br />[pagelist]"
-			dat += "<a href='byond://?src=[UID()];back=1'>\[Go Back\]</A><br />"
+			dat += "<a href='byond://?src=[UID()];back=1'>\[Go Back\]</a><br />"
 	var/datum/browser/B = new /datum/browser(user, "library", "Library Visitor")
 	B.set_content(dat)
 	B.open()
 
 /obj/machinery/computer/library/public/Topic(href, href_list)
 	if(..())
-		usr << browse(null, "window=publiclibrary")
+		close_window(usr, "publiclibrary")
 		onclose(usr, "publiclibrary")
 		return
 
@@ -76,19 +76,19 @@
 				page_num = clamp(pn, 1, num_pages)
 
 	if(href_list["settitle"])
-		var/newtitle = input("Enter a title to search for:") as text|null
+		var/newtitle = tgui_input_text(usr, "Enter a title to search for:")
 		if(newtitle)
 			query.title = sanitize(newtitle)
 		else
 			query.title = null
 	if(href_list["setcategory"])
-		var/newcategory = input("Choose a category to search for:") in (list("Any") + GLOB.library_section_names)
+		var/newcategory = tgui_input_list(usr, "Choose a category to search for:", (list("Any") + GLOB.library_section_names))
 		if(newcategory == "Any")
 			query.category = null
 		else if(newcategory)
 			query.category = sanitize(newcategory)
 	if(href_list["setauthor"])
-		var/newauthor = input("Enter an author to search for:") as text|null
+		var/newauthor = tgui_input_text(usr, "Enter an author to search for:")
 		if(newauthor)
 			query.author = sanitize(newauthor)
 		else
@@ -118,7 +118,7 @@
 		if(id)
 			var/datum/cachedbook/B = getBookByID(id)
 			if(B)
-				if((input(usr, "Are you sure you want to flag [B.title] as having inappropriate content?", "Flag Book #[B.id]") in list("Yes", "No")) == "Yes")
+				if((tgui_alert(usr, "Are you sure you want to flag [B.title] as having inappropriate content?", "Flag Book #[B.id]", list("Yes", "No"))) == "Yes")
 					GLOB.library_catalog.flag_book_by_id(usr, id)
 
 	add_fingerprint(usr)

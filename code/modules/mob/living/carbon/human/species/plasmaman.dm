@@ -29,9 +29,8 @@
 
 	breathid = "tox"
 
-	brute_mod = 0.9
-	burn_mod = 1.5
-	heatmod = 1.5
+	burn_mod = 1.2
+	heatmod = 1.2
 
 	//Has default darksight of 2.
 
@@ -48,7 +47,7 @@
 		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/plasmaman,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/plasmaman,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/plasmaman,
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/plasmaman,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman
@@ -149,6 +148,9 @@
 		if(JOB_TITLE_MINER)
 			O = new /datum/outfit/plasmaman/mining
 
+		if(JOB_TITLE_MINING_MEDIC)
+			O = new /datum/outfit/plasmaman/mining_medic
+
 		if(JOB_TITLE_DOCTOR, JOB_TITLE_INTERN)
 			O = new /datum/outfit/plasmaman/medical
 
@@ -240,8 +242,6 @@
 				P.Extinguish(H)
 	H.update_fire()
 	..()
-	if(H.stat == DEAD)
-		return
 	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
 		H.reagents.add_reagent("pure_plasma", 5)
 
@@ -252,7 +252,7 @@
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	switch(R.id)
 		if("plasma")
-			H.heal_overall_damage(0.25, 0.25)
+			H.heal_overall_damage(0.5, 0.5)
 			H.adjust_alien_plasma(20)
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 			return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman

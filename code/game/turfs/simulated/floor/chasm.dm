@@ -1,6 +1,6 @@
 /turf/simulated/floor/chasm
 	name = "chasm"
-	desc = "Watch your step."
+	desc = "Смотри куда идёшь."
 	baseturf = /turf/simulated/floor/chasm
 	smooth = SMOOTH_BITMASK
 	icon = 'icons/turf/floors/Chasms.dmi'
@@ -16,6 +16,16 @@
 	barefootstep = null
 	clawfootstep = null
 	heavyfootstep = null
+
+/turf/simulated/floor/chasm/get_ru_names()
+	return list(
+		NOMINATIVE = "пропасть",
+		GENITIVE = "пропасти",
+		DATIVE = "пропасти",
+		ACCUSATIVE = "пропасть",
+		INSTRUMENTAL = "пропастью",
+		PREPOSITIONAL = "пропасти"
+	)
 
 
 /turf/simulated/floor/chasm/Initialize(mapload)
@@ -91,8 +101,8 @@
 		new /obj/structure/lattice/catwalk/fireproof(src)
 		return .|ATTACK_CHAIN_SUCCESS
 
-	if(istype(I, /obj/item/twohanded/fishingrod))
-		var/obj/item/twohanded/fishingrod/rod = I
+	if(istype(I, /obj/item/twohanded/fishing_rod))
+		var/obj/item/twohanded/fishing_rod/rod = I
 		if(!HAS_TRAIT(rod, TRAIT_WIELDED))
 			to_chat(user, span_warning("Для того чтобы начать ловлю следует взять удочку в обе руки!"))
 			return .
@@ -116,12 +126,12 @@
 		var/mob/fish = pick(fishing_contents)
 		var/obj/effect/abstract/chasm_storage/pool = fish.loc
 		pool.get_fish(fish, user.loc)
-		to_chat(user, span_boldnotice("Попался [fish.name]!"))
+		to_chat(user, span_boldnotice("Попался [fish.declent_ru(NOMINATIVE)]!"))
 		playsound(rod, 'sound/effects/fishing_rod_catch.ogg', 30)
 		return .|ATTACK_CHAIN_SUCCESS
 
 
-/turf/simulated/floor/chasm/proc/rod_checks(obj/item/twohanded/fishingrod/rod)
+/turf/simulated/floor/chasm/proc/rod_checks(obj/item/twohanded/fishing_rod/rod)
 	return HAS_TRAIT(rod, TRAIT_WIELDED)
 
 
@@ -192,6 +202,13 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
 
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize(mapload)
+	. = ..()
+	GLOB.lazis_primary_turfs |= src
+
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Destroy()
+	GLOB.lazis_primary_turfs -= src
+	. = ..()
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD

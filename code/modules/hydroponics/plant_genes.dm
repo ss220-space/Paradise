@@ -235,7 +235,7 @@
 	// Also splashes everything in target turf with reagents and applies other trait effects (teleporting, etc) to the target by on_squash.
 	// For code, see grown.dm
 	name = "Liquid Contents"
-	examine_line = "<span class='info'>It has a lot of liquid contents inside.</span>"
+	examine_line = span_notice("It has a lot of liquid contents inside.")
 	origin_tech = list("biotech" = 5)
 	dangerous = TRUE
 
@@ -244,7 +244,7 @@
 	// Applies other trait effects (teleporting, etc) to the target by on_slip.
 	name = "Slippery Skin"
 	rate = 0.1
-	examine_line = "<span class='info'>It has a very slippery skin.</span>"
+	examine_line = span_notice("It has a very slippery skin.")
 	dangerous = TRUE
 
 /datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/our_plant)
@@ -325,7 +325,7 @@
 	// Adds (20+potency)*rate light range and potency*rate light_power to products.
 	name = "Bioluminescence"
 	rate = 0.02
-	examine_line = "<span class='info'>It emits a soft glow.</span>"
+	examine_line = span_notice("It emits a soft glow.")
 	trait_id = "glow"
 	var/glow_color = "#C3E381"
 
@@ -513,15 +513,15 @@
 	dangerous = TRUE
 
 /datum/plant_gene/trait/smoke/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	var/datum/effect_system/smoke_spread/chem/S = new
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
-	S.set_up(G.reagents, splat_location)
 	var/reglist = ""
 	for(var/datum/reagent/R in G.reagents.reagent_list)
 		reglist += "[R.name] [R.volume], "
 	target.investigate_log("started a chemical smoke, squashing [G]. [reglist]")
-	addtimer(CALLBACK(S, TYPE_PROC_REF(/datum/effect_system/smoke_spread/chem, start), smoke_amount), 1 * rand(1, 8), TIMER_STOPPABLE | TIMER_DELETE_ME)
+	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+	smoke.set_up(amount = smoke_amount, location = splat_location, carry = G.reagents)
+	addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/fluid_spread/smoke/chem, start)), 1 * rand(1, 8), TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 /datum/plant_gene/trait/fire_resistance // Lavaland
 	name = "Fire Resistance"

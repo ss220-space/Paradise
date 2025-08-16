@@ -108,12 +108,12 @@
 	open_bag(user)
 
 
-/obj/item/shared_storage/AltClick(mob/user)
+/obj/item/shared_storage/click_alt(mob/user)
 	if(!bag || !iscarbon(user) || loc != user)
-		return ..()
+		return NONE
 
 	open_bag(user)
-
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/shared_storage/attack_hand(mob/living/carbon/user)
@@ -127,14 +127,14 @@
 
 /obj/item/book_of_babel
 	name = "Book of Babel"
-	desc = "Древнейший фолиант, написанный в бесчисленном множестве языков."
+	desc = "Древнейший фолиант, написанный на бесчисленном множестве языков."
 	ru_names = list(
-		NOMINATIVE = "книга Вавилона",
-		GENITIVE = "книги Вавилона",
-		DATIVE = "книге Вавилона",
-		ACCUSATIVE = "книгу Вавилона",
-		INSTRUMENTAL = "книгой Вавилона",
-		PREPOSITIONAL = "книге Вавилона"
+		NOMINATIVE = "Вавилонская книга",
+		GENITIVE = "Вавилонской книги",
+		DATIVE = "Вавилонской книге",
+		ACCUSATIVE = "Вавилонскую книгу",
+		INSTRUMENTAL = "Вавилонской книгой",
+		PREPOSITIONAL = "Вавилонской книге"
 	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book1"
@@ -150,7 +150,7 @@
 
 		return
 
-	to_chat(user, "Вы упоённо пролистываете страницы книги, вбирая в себя знания всех существующих языков во Вселенной. К сожалению, [declent_ru(NOMINATIVE)] не выдерживает такого напора и рассыпается в прах. Ой...")
+	to_chat(user, "Вы упоённо пролистываете страницы книги, впитывая в себя знания всех существующих языков во Вселенной. К сожалению, [declent_ru(NOMINATIVE)] не выдерживает такого напора и рассыпается в прах. Ой...")
 	user.grant_all_babel_languages()
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	user.temporarily_remove_item_from_inventory(src)
@@ -299,7 +299,7 @@
 	else
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 
-		balloon_alert("дух возвращён")
+		balloon_alert(user, "дух возвращён")
 		wisp.stop_orbit()
 		wisp.forceMove(src)
 		set_light_on(TRUE)
@@ -374,15 +374,15 @@
 		balloon_alert(user, "куб искрится и шипит.")
 		return
 	if(do_after(user, 1.5 SECONDS, user))
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(1, 0, user.loc)
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(amount = 1, location = user.loc)
 		smoke.start()
 
 		user.forceMove(get_turf(linked))
 		SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
-		var/datum/effect_system/smoke_spread/smoke2 = new
-		smoke2.set_up(1, 0, user.loc)
+		var/datum/effect_system/fluid_spread/smoke/smoke2 = new
+		smoke2.set_up(amount = 1, location = user.loc)
 		smoke2.start()
 	else
 		balloon_alert(user, "прервано из-за движения")
@@ -440,13 +440,21 @@
 		INSTRUMENTAL = "крюком",
 		PREPOSITIONAL = "крюке"
 	)
-	projectile_type = /obj/item/projectile/hook
+	projectile_type = /obj/projectile/hook
 	caliber = "hook"
 	icon_state = "hook"
 	muzzle_flash_effect = null
 
-/obj/item/projectile/hook
+/obj/projectile/hook
 	name = "hook"
+	ru_names = list(
+		NOMINATIVE = "крюк",
+		GENITIVE = "крюка",
+		DATIVE = "крюку",
+		ACCUSATIVE = "крюк",
+		INSTRUMENTAL = "крюком",
+		PREPOSITIONAL = "крюке"
+	)
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	pass_flags = PASSTABLE
@@ -456,24 +464,24 @@
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 2 SECONDS
 
-/obj/item/projectile/hook/fire(setAngle)
+/obj/projectile/hook/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)
 	..()
 	//TODO: root the firer until the chain returns
 
-/obj/item/projectile/hook/on_hit(atom/target)
+/obj/projectile/hook/on_hit(atom/target)
 	. = ..()
 	if(isliving(target))
 		var/turf/firer_turf = get_turf(firer)
 		var/mob/living/L = target
 		if(!L.anchored && L.loc)
-			L.visible_message(span_danger("[firer] зацепля[pluralize_ru(firer, "ет", "ют")] [L] [declent_ru(INSTRUMENTAL)]!"))
+			L.visible_message(span_danger("[firer] зацепля[pluralize_ru(firer, "ет", "ют")] [L.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
 			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src)) // Ensures the hook does not hit the target multiple times
 			L.forceMove(firer_turf)
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 
-/obj/item/projectile/hook/Destroy()
+/obj/projectile/hook/Destroy()
 	QDEL_NULL(chain)
 	return ..()
 
@@ -483,12 +491,12 @@
 	name = "Immortality Talisman"
 	desc = "Таинственный талисман, способный даровать неуязвимость."
 	ru_names = list(
-		NOMINATIVE = "Талисман Бессмертия",
-		GENITIVE = "Талисмана Бессмертия",
-		DATIVE = "Талисману Бессмертия",
-		ACCUSATIVE = "Талисман Бессмертия",
-		INSTRUMENTAL = "Талисманом Бессмертия",
-		PREPOSITIONAL = "Талисмане Бессмертия"
+		NOMINATIVE = "талисман бессмертия",
+		GENITIVE = "талисмана бессмертия",
+		DATIVE = "талисману бессмертия",
+		ACCUSATIVE = "талисман бессмертия",
+		INSTRUMENTAL = "талисманом бессмертия",
+		PREPOSITIONAL = "талисмане бессмертия"
 	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "talisman"
@@ -498,7 +506,7 @@
 
 
 /datum/action/item_action/immortality
-	name = "Immortality"
+	name = "Бессмертие"
 
 
 /obj/item/immortality_talisman/Destroy(force)
@@ -522,7 +530,7 @@
 	user.visible_message(span_danger("[user] исчеза[pluralize_ru(user, "ет", "ют")] из реальности, оставляя после себя дыру в пространстве!"))
 
 	var/obj/effect/immortality_talisman/effect = new(source_turf)
-	effect.name = "hole in reality"
+	effect.name = "дыра в пространстве"
 	effect.desc = "Подозрительно походит на силуэт [user.name]."
 	effect.setDir(user.dir)
 	user.forceMove(effect)

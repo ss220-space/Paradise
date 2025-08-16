@@ -50,7 +50,7 @@
 
 /obj/effect/step_trigger/message/Trigger(mob/M)
 	if(M.client)
-		to_chat(M, "<span class='info'>[message]</span>")
+		to_chat(M, span_notice("[message]"))
 		if(once)
 			qdel(src)
 
@@ -166,13 +166,14 @@
 		s.start()
 
 	if(entersmoke)
-		var/datum/effect_system/smoke_spread/s = new
-		s.set_up(4, 1, src, 0)
-		s.start()
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(amount = 4, location = src)
+		smoke.start()
+
 	if(exitsmoke)
-		var/datum/effect_system/smoke_spread/s = new
-		s.set_up(4, 1, dest, 0)
-		s.start()
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(amount = 4, location = dest)
+		smoke.start()
 
 	uses--
 	if(uses == 0)

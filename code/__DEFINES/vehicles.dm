@@ -45,3 +45,5 @@
 
 /// The vehicle being ridden requires pixel offsets for all directions
 #define RIDING_OFFSET_ALL "ALL"
+
+#define COMSIG_VEHICLE_MOVE "vehicle_move"

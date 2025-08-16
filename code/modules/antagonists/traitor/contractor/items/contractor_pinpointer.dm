@@ -1,6 +1,6 @@
 /obj/item/pinpointer/crew/contractor
 	name = "contractor pinpointer"
-	desc = "A handheld tracking device that points to crew without needing suit sensors at the cost of accuracy."
+	desc = "Портативное устройство слежения, которое указывает на членов экипажа, не используя датчики костюма, ценой снижения точности."
 	icon_state = "pinoff_contractor"
 	item_state = "pinoff_contractor"
 	icon_off = "pinoff_contractor"
@@ -13,6 +13,16 @@
 	var/min_range = 15
 	/// The first person to have used the item. If this is set already, no one else can use it.
 	var/mob/owner
+
+/obj/item/pinpointer/crew/contractor/get_ru_names()
+	return list(
+		NOMINATIVE = "целеуказатель Контрактника",
+		GENITIVE = "целеуказателя Контрактника",
+		DATIVE = "целеуказателю Контрактника",
+		ACCUSATIVE = "целеуказатель Контрактника",
+		INSTRUMENTAL = "целеуказателем Контрактника",
+		PREPOSITIONAL = "целеуказателе Контрактника"
+	)
 
 
 /obj/item/pinpointer/crew/contractor/update_icon_state()
@@ -43,10 +53,10 @@
 /obj/item/pinpointer/crew/contractor/cycle(mob/user, silent = FALSE)
 	if(owner)
 		if(owner != user)
-			to_chat(user, span_warning("[src] refuses to do anything."))
+			balloon_alert(user, "устройство не отвечает!")
 			return
 	else
 		owner = user
-		to_chat(user, span_notice("[src] now recognizes you as its sole user."))
+		to_chat(user, span_notice("Теперь [declent_ru(NOMINATIVE)] признаёт вас своим единственным пользователем."))
 	return ..()
 

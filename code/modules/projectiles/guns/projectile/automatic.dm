@@ -38,7 +38,7 @@
 		if(!user.drop_transfer_item_to_loc(new_magazine, src))
 			return ..()
 		if(magazine)
-			magazine.forceMove(drop_location())
+			magazine.forceMove(get_turf(src))
 			magazine.update_appearance()
 		balloon_alert(user, "заряжено")
 		alarmed = FALSE	// Reset the alarm once a magazine is loaded
@@ -52,9 +52,9 @@
 
 
 /obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
-    if(istype(action, /datum/action/item_action/toggle_firemode))
-        burst_select()
-        return TRUE
+	if(istype(action, /datum/action/item_action/toggle_firemode))
+		burst_select()
+		return TRUE
 
 /obj/item/gun/projectile/automatic/proc/burst_select()
 	var/mob/living/carbon/human/user = usr
@@ -68,7 +68,7 @@
 		fire_delay = initial(fire_delay)
 		balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
 
-	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
+	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -85,16 +85,24 @@
 
 //Saber SMG//
 /obj/item/gun/projectile/automatic/proto
-	name = "\improper Nanotrasen Saber SMG"
+	name = "Nanotrasen Saber SMG"
 	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
+
+/obj/item/gun/projectile/automatic/proto/rubber
+
+/obj/item/gun/projectile/automatic/proto/rubber/Initialize(mapload)
+	magazine = new/obj/item/ammo_box/magazine/smgm9mm/rubber
+	. = ..()
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
-	name = "\improper C-20r SMG"
+	name = "C-20r SMG"
 	desc = "A two-round burst .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
 	item_state = "c20r"
@@ -106,6 +114,8 @@
 	can_bayonet = TRUE
 	bayonet_x_offset = 26
 	bayonet_y_offset = 12
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/c20r/Initialize()
@@ -125,8 +135,8 @@
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
-	name = "security auto rifle"
-	desc = "An outdated personal defense weapon utilized by law enforcement. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
+	name = "WT-550 PDW"
+	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
@@ -136,15 +146,24 @@
 	fire_delay = 2
 	can_suppress = TRUE
 	can_flashlight = TRUE
-	burst_size = 2
+	burst_size = 1
 	can_bayonet = TRUE
 	bayonet_x_offset = 25
 	bayonet_y_offset = 12
 	gun_light_overlay = "wt-light"
+	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
+	actions_types = null
+	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
 
+/obj/item/gun/projectile/automatic/wt550/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
-	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
+	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
 
 /obj/item/gun/projectile/automatic/wt550/update_overlays()
 	. = ..()
@@ -172,10 +191,19 @@
 	fire_delay = 2
 	can_suppress = TRUE
 	can_flashlight = TRUE
-	burst_size = 3
+	burst_size = 1
 	can_bayonet = FALSE
 	gun_light_overlay = "SP-91-RC-light"
+	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
+	actions_types = null
+	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
 
+/obj/item/gun/projectile/automatic/sp91rc/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -194,19 +222,33 @@
 		return TRUE
 
 
-//Type-U3 Uzi//
+/*Type-U3 Uzi
+name = "Пистолет-пулемёт Uzi"
+desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм.
+Имеет два режима стрельбы: полуавтоматический и с отсечкой по 4 патрона. Совместим с глушителем."
+TODO Use this name and desc for localisation*/
+
 /obj/item/gun/projectile/automatic/mini_uzi
-	name = "\improper ''Type U3 Uzi"
+	name = "''Type U3 Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	icon_state = "mini-uzi"
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
-	burst_size = 4
+	burst_size = 1
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
+	actions_types = null
+
+/obj/item/gun/projectile/automatic/mini_uzi/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
-	name = "\improper M-90gl Carbine"
+	name = "M-90gl Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
 	item_state = "m90-4"
@@ -219,6 +261,8 @@
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
 	fire_delay = 2
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/m90/Initialize(mapload)
@@ -276,12 +320,12 @@
 		if(1)
 			select = 0
 			balloon_alert(user, "подствольный гранатомёт")
-	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
+	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
 
 //Tommy Gun//
 /obj/item/gun/projectile/automatic/tommygun
-	name = "\improper Thompson SMG"
+	name = "Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
 	icon_state = "tommygun"
 	item_state = "shotgun"
@@ -293,6 +337,8 @@
 	can_suppress = 0
 	burst_size = 4
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 //ARG Assault Rifle//
 /obj/item/gun/projectile/automatic/ar
@@ -309,10 +355,12 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 //AK-814 Soviet Assault Rifle
 /obj/item/gun/projectile/automatic/ak814
-	name = "\improper AK-814 assault rifle"
+	name = "AK-814 assault rifle"
 	desc = "A modern AK assault rifle favored by elite Soviet soldiers."
 	icon_state = "ak814"
 	item_state = "ak814"
@@ -327,10 +375,12 @@
 	bayonet_y_offset = 10
 	burst_size = 2
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
-	name = "\improper 'Bulldog' Shotgun"
+	name = "'Bulldog' Shotgun"
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 12/24-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
@@ -344,10 +394,12 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
+	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
-	name = "\improper 'Mastiff' Shotgun"
+	name = "'Mastiff' Shotgun"
 	desc = "A cheap copy of famous mag-fed semi-automatic 'Bulldog' shotgun used by multiple pirate groups. A critical duplication failure has made it impossible to use the original drum magazines, so do not lose them."
 	mag_type = /obj/item/ammo_box/magazine/cheap_m12g
 	color = COLOR_ASSEMBLY_BROWN
@@ -389,7 +441,7 @@
 
 //AS-12 Minotaur//
 /obj/item/gun/projectile/automatic/shotgun/minotaur
-	name = "\improper AS-12 'Minotaur' Shotgun"
+	name = "AS-12 'Minotaur' Shotgun"
 	desc = "Smooth, powerful, highly illegal. The newest full auto shotgun available at the market, utilizes standard 12g drum mags. Property of Gorlex Marauders."
 	icon_state = "minotaur"
 	item_state = "minotaur"
@@ -403,6 +455,8 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1.5
+	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/New()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
@@ -415,7 +469,7 @@
 //Combat Automatic Tactical Shotgun//
 
 /obj/item/gun/projectile/automatic/cats
-	name = "\improper C.A.T. Shotgun"
+	name = "C.A.T. Shotgun"
 	desc = "Terra Light Armories - Combat Automatic Tactical Shotgun - мощный автоматический дробовик, в основном используемый силами Транс-Солнечной Федерации. Производится корпорацией Terra Industries."
 	icon_state = "tla_cats"
 	item_state = "arg"
@@ -425,6 +479,8 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	burst_size = 2
 	can_suppress = 0
+	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/automatic/cats/update_icon_state()
@@ -441,7 +497,7 @@
 
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
-	name = "\improper IK-60 Laser Carbine"
+	name = "IK-60 Laser Carbine"
 	desc = "A short, compact carbine like rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lasercarbine"
 	item_state = "laser"
@@ -453,12 +509,14 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 2
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
 
 /obj/item/gun/projectile/automatic/lr30
-	name = "\improper LR-30 Laser Rifle"
+	name = "LR-30 Laser Rifle"
 	desc = "A compact rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lr30"
 	item_state = "lr30"
@@ -471,6 +529,8 @@
 	can_suppress = 0
 	burst_size = 1
 	actions_types = null
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
 	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
@@ -486,6 +546,8 @@
 	burst_size = 3
 	can_flashlight = TRUE
 	gun_light_overlay = "sfg-light"
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/sfg/update_icon_state()
@@ -509,4 +571,6 @@
 	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
 	mag_type = /obj/item/ammo_box/magazine/m52mag
 	can_suppress = 0
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 

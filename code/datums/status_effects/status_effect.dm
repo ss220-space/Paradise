@@ -74,6 +74,7 @@
 		owner.clear_alert(id)
 		LAZYREMOVE(owner.status_effects, src)
 		on_remove()
+		SEND_SIGNAL(owner, COMSIG_MOB_STATUS_EFFECT_ENDED, type)
 		owner = null
 	if(linked_alert)
 		linked_alert.attached_effect = null
@@ -193,8 +194,8 @@
 ////////////////
 
 /atom/movable/screen/alert/status_effect
-	name = "Curse of Mundanity"
-	desc = "You don't feel any different..."
+	name = "Проклятие Обыденности"
+	desc = "Вы не чувствуете никаких изменений..."
 	var/datum/status_effect/attached_effect
 
 /atom/movable/screen/alert/status_effect/Destroy()
@@ -392,13 +393,12 @@
 		return FALSE
 	status_overlay = mutable_appearance(overlay_file, "[overlay_state][stacks]")
 	status_underlay = mutable_appearance(underlay_file, "[underlay_state][stacks]")
-	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
-	var/icon_height = I.Height()
+	var/icon_height = owner.get_cached_height()
 	status_overlay.pixel_x = -owner.pixel_x
 	status_overlay.pixel_y = FLOOR(icon_height * 0.25, 1)
-	status_overlay.transform = matrix() * (icon_height/world.icon_size) //scale the status's overlay size based on the target's icon size
+	status_overlay.transform = matrix() * (icon_height / ICON_SIZE_Y) //scale the status's overlay size based on the target's icon size
 	status_underlay.pixel_x = -owner.pixel_x
-	status_underlay.transform = matrix() * (icon_height/world.icon_size) * 3
+	status_underlay.transform = matrix() * (icon_height / ICON_SIZE_Y) * 3
 	status_underlay.alpha = 40
 	owner.add_overlay(status_overlay)
 	owner.underlays += status_underlay

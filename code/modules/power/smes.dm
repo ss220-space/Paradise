@@ -17,13 +17,13 @@
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
 
-	var/input_attempt = TRUE 		// 1 = attempting to charge, 0 = not attempting to charge
-	var/inputting = TRUE 			// 1 = actually inputting, 0 = not inputting
-	var/input_level = 50000 		// amount of power the SMES attempts to charge by
-	var/input_level_max = 200000 	// cap on input_level
-	var/input_available = 0 		// amount of charge available from input last tick
+	var/input_attempt = TRUE		// 1 = attempting to charge, 0 = not attempting to charge
+	var/inputting = TRUE			// 1 = actually inputting, 0 = not inputting
+	var/input_level = 50000		// amount of power the SMES attempts to charge by
+	var/input_level_max = 200000	// cap on input_level
+	var/input_available = 0		// amount of charge available from input last tick
 
-	var/output_attempt = TRUE 		// 1 = attempting to output, 0 = not attempting to output
+	var/output_attempt = TRUE		// 1 = attempting to output, 0 = not attempting to output
 	var/outputting = TRUE			// 1 = actually outputting, 0 = not outputting
 	var/output_level = 50000		// amount of power the SMES attempts to output
 	var/output_level_max = 200000	// cap on output_level
@@ -439,8 +439,8 @@
 			for(var/mob/M in viewers(src))
 				M.show_message("<span class='warning'>The [src.name] is making strange noises!</span>", 3, "<span class='warning'>You hear sizzling electronics.</span>", 2)
 			sleep(10*pick(4,5,6,7,10,14))
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(3, 0, src.loc)
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(amount = 3, location = src.loc)
 			smoke.attach(src)
 			smoke.start()
 			explosion(src.loc, -1, 0, 1, 3, 1, 0, cause = src)
@@ -453,8 +453,8 @@
 			else
 				emp_act(2)
 		if(prob(5)) //smoke only
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(3, 0, src.loc)
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(amount = 3, location = src.loc)
 			smoke.attach(src)
 			smoke.start()
 

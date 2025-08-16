@@ -1,6 +1,6 @@
-#define RANDOM_SHOTS "Wrath"
-#define BLAST "Retribution"
-#define DIR_SHOTS "Lament"
+#define RANDOM_SHOTS "Гнев"
+#define BLAST "Возмездие"
+#define DIR_SHOTS "Плач"
 /*
 
 COLOSSUS
@@ -26,7 +26,15 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus
 	name = "colossus"
-	desc = "A monstrous creature protected by heavy shielding."
+	desc = "Чудовищное существо, защищённое тяжёлой бронёй."
+	ru_names = list(
+		NOMINATIVE = "Колосс",
+		GENITIVE = "Колосса",
+		DATIVE = "Колоссу",
+		ACCUSATIVE = "Колосса",
+		INSTRUMENTAL = "Колоссом",
+		PREPOSITIONAL = "Колоссе"
+	)
 	health = 2500
 	maxHealth = 2500
 	attacktext = "осуждает"
@@ -34,9 +42,9 @@ Difficulty: Very Hard
 	icon_state = "eva"
 	icon_living = "eva"
 	icon_dead = ""
-	friendly = "stares down"
+	friendly = "пристально смотрит"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
-	speak_emote = list("roars")
+	speak_emote = list("рычит")
 	tts_seed = "Mannoroth"
 	armour_penetration = 40
 	melee_damage_lower = 40
@@ -53,7 +61,7 @@ Difficulty: Very Hard
 	score_type = COLOSSUS_SCORE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
-	deathmessage = "disintegrates, leaving a glowing core in its wake."
+	deathmessage = "распадается, оставляя после себя светящееся ядро."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/colossus
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
@@ -75,35 +83,35 @@ Difficulty: Very Hard
 		H.RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, easy_anti_cheese))
 
 /datum/action/innate/megafauna_attack/spiral_attack
-	name = "Spiral Shots"
+	name = "Спиральные выстрелы"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = "<span class='colossus'>You are now firing in a spiral.</span>"
+	chosen_message = span_colossus("Вы стреляете по спирали.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
-	name = "All Directions"
+	name = "Во всех направлениях"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "at_shield2"
-	chosen_message = "<span class='colossus'>You are now firing in all directions.</span>"
+	chosen_message = span_colossus("Вы стреляете во всех направлениях.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
-	name = "Shotgun Fire"
+	name = "Выстрел дробью"
 	icon_icon = 'icons/obj/weapons/projectile.dmi'
 	button_icon_state = "shotgun"
-	chosen_message = "<span class='colossus'>You are now firing shotgun shots where you aim.</span>"
+	chosen_message = span_colossus("Вы выстрелите дробью туда, куда нажмёте.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
-	name = "Alternating Shots"
+	name = "Чередующиеся выстрелы"
 	icon_icon = 'icons/obj/weapons/projectile.dmi'
 	button_icon_state = "pistol"
-	chosen_message = "<span class='colossus'>You are now firing in alternating cardinal directions.</span>"
+	chosen_message = span_colossus("Вы стреляете в чередующихся кардинальных направлениях.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
-	. = ..(("<span class='colossus'><b>[uppertext(message)]</b></span>"), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
+	. = ..((span_colossus("<b>[uppertext(message)]</b>")), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/enrage()
 	. = ..()
@@ -134,7 +142,7 @@ Difficulty: Very Hard
 
 	if(target_trying_to_cheese_us(target))
 		if(move_to_delay == initial(move_to_delay))
-			say("You can't dodge")
+			say("Ты не сможешь уклониться")
 		ranged_cooldown = world.time + 30
 		telegraph()
 		dir_shots(GLOB.alldirs)
@@ -184,13 +192,13 @@ Difficulty: Very Hard
 	telegraph()
 	if(health < maxHealth/3)
 		return double_spiral()
-	say("Judgement.")
+	say("Суд")
 	telegraph()
 	SLEEP_CHECK_DEATH(src, 3.5 SECONDS)
 	return spiral_shoot()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
-	say("Die.")
+	say("Умри")
 	telegraph()
 	SLEEP_CHECK_DEATH(src, 3.5 SECONDS)
 	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE)
@@ -219,7 +227,7 @@ Difficulty: Very Hard
 	if(QDELETED(marker) || marker == loc)
 		return
 	var/turf/startloc = get_turf(src)
-	var/obj/item/projectile/P = new /obj/item/projectile/colossus(startloc)
+	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
 	P.preparePixelProjectile(marker, marker, src)
 	P.firer = src
 	if(target)
@@ -247,7 +255,7 @@ Difficulty: Very Hard
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))
-	var/angle_to_target = Get_Angle(src, target_turf)
+	var/angle_to_target = get_angle(src, target_turf)
 	if(isnum(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
@@ -274,7 +282,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack()
 	icon_state = "eva_attack"
-	say("PERISH MORTAL!")
+	say("ПОГИБНИ, СМЕРТНЫЙ!")
 	telegraph()
 	ranged_cooldown = world.time + 20 SECONDS // Yeah let us NOT have people get triple attacked
 	SLEEP_CHECK_DEATH(src, 3.5 SECONDS) //run
@@ -309,12 +317,12 @@ Difficulty: Very Hard
 
 
 /mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
-	visible_message("<span class='colossus'>[src] disintegrates [L]!</span>")
+	visible_message(span_colossus("[declent_ru(NOMINATIVE)] дезинтегрирует [L.declent_ru(ACCUSATIVE)]!"))
 	L.dust()
 
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
-	desc = "A shimmering forcefield protecting the colossus."
+	desc = "Мерцающее силовое поле, защищающее колосса."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
@@ -327,7 +335,7 @@ Difficulty: Very Hard
 	target = new_target
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, orbit), target, 0, FALSE, 0, 0, FALSE, TRUE)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/projectile/P)
 	if(!stat)
 		var/obj/effect/temp_visual/at_shield/AT = new /obj/effect/temp_visual/at_shield(loc, src)
 		var/random_x = rand(-32, 32)
@@ -338,8 +346,16 @@ Difficulty: Very Hard
 	return ..()
 
 
-/obj/item/projectile/colossus
-	name ="death bolt"
+/obj/projectile/colossus
+	name = "смертоносный заряд"
+	ru_names = list(
+		NOMINATIVE = "смертоносный заряд",
+		GENITIVE = "смертоносного заряда",
+		DATIVE = "смертоносному заряду",
+		ACCUSATIVE = "смертоносный заряд",
+		INSTRUMENTAL = "смертоносным зарядом",
+		PREPOSITIONAL = "смертоносном заряде"
+	)
 	icon_state= "chronobolt"
 	damage = 25
 	armour_penetration = 100
@@ -348,7 +364,7 @@ Difficulty: Very Hard
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
 
-/obj/item/projectile/colossus/on_hit(atom/target, blocked = 0)
+/obj/projectile/colossus/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(isturf(target) || isobj(target))
 		target.ex_act(2)

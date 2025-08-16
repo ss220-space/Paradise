@@ -143,30 +143,30 @@
 	var/t
 
 	if(locked && !ai)
-		t = {"<TT><B>Navigation Beacon</B><HR><BR>
-<i>(swipe card to unlock controls)</i><BR>
-Location: [location ? location : "(none)"]</A><BR>
-Transponder Codes:<UL>"}
+		t = {"<tt><b>Navigation Beacon</b><hr><br>
+<i>(swipe card to unlock controls)</i><br>
+Location: [location ? location : "(none)"]</a><br>
+Transponder Codes:<ul>"}
 
 		for(var/key in codes)
-			t += "<LI>[key] ... [codes[key]]"
-		t+= "<UL></TT>"
+			t += "<li>[key] ... [codes[key]]"
+		t+= "<ul></tt>"
 
 	else
 
-		t = {"<TT><B>Navigation Beacon</B><HR><BR>
-<i>(swipe card to lock controls)</i><BR>
+		t = {"<tt><b>Navigation Beacon</b><hr><br>
+<i>(swipe card to lock controls)</i><br>
 
-<HR>
-Location: <A href='byond://?src=[UID()];locedit=1'>[location ? location : "None"]</A><BR>
-Transponder Codes:<UL>"}
+<hr>
+Location: <a href='byond://?src=[UID()];locedit=1'>[location ? location : "None"]</a><br>
+Transponder Codes:<ul>"}
 
 		for(var/key in codes)
-			t += "<LI>[key] ... [codes[key]]"
-			t += "	<A href='byond://?src=[UID()];edit=1;code=[key]'>Edit</A>"
-			t += "	<A href='byond://?src=[UID()];delete=1;code=[key]'>Delete</A><BR>"
-		t += "	<A href='byond://?src=[UID()];add=1;'>Add New</A><BR>"
-		t+= "<UL></TT>"
+			t += "<li>[key] ... [codes[key]]"
+			t += "	<a href='byond://?src=[UID()];edit=1;code=[key]'>Edit</a>"
+			t += "	<a href='byond://?src=[UID()];delete=1;code=[key]'>Delete</a><br>"
+		t += "	<a href='byond://?src=[UID()];add=1;'>Add New</a><br>"
+		t+= "<ul></tt>"
 
 	var/datum/browser/popup = new(user, "navbeacon", "Navigation Beacon", 300, 400)
 	popup.set_content(t)

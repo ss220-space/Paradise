@@ -116,7 +116,7 @@
 		TED.pass_mind(M)
 
 
-/obj/item/projectile/energy/chrono_beam
+/obj/projectile/energy/chrono_beam
 	name = "eradication beam"
 	icon_state = "chronobolt"
 	range = CHRONO_BEAM_RANGE
@@ -124,21 +124,25 @@
 	nodamage = TRUE
 	var/obj/item/gun/energy/chrono_gun/gun = null
 
-/obj/item/projectile/energy/chrono_beam/fire()
+/obj/projectile/energy/chrono_beam/Destroy()
+	gun = null
+	. = ..()
+
+/obj/projectile/energy/chrono_beam/fire()
 	gun = firer.get_active_hand()
 	if(istype(gun))
 		return ..()
 	else
 		return 0
 
-/obj/item/projectile/energy/chrono_beam/on_hit(atom/target)
+/obj/projectile/energy/chrono_beam/on_hit(atom/target)
 	if(target && gun && isliving(target))
 		var/obj/structure/chrono_field/F = new(target.loc, target, gun)
 		gun.field_connect(F)
 
 /obj/item/ammo_casing/energy/chrono_beam
 	name = "eradication beam"
-	projectile_type = /obj/item/projectile/energy/chrono_beam
+	projectile_type = /obj/projectile/energy/chrono_beam
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_color = null
 	icon_state = "chronobolt"
@@ -177,7 +181,7 @@
 		mob_underlay = mutable_appearance(cached_icon, "frame1")
 		update_icon(UPDATE_ICON_STATE)
 
-		desc = initial(desc) + "<br><span class='info'>It appears to contain [target.name].</span>"
+		desc = initial(desc) + span_notice("<br>It appears to contain [target.name].")
 	START_PROCESSING(SSobj, src)
 	return ..()
 
@@ -231,9 +235,9 @@
 		qdel(src)
 
 
-/obj/structure/chrono_field/bullet_act(obj/item/projectile/P)
-	if(istype(P, /obj/item/projectile/energy/chrono_beam))
-		var/obj/item/projectile/energy/chrono_beam/beam = P
+/obj/structure/chrono_field/bullet_act(obj/projectile/P)
+	if(istype(P, /obj/projectile/energy/chrono_beam))
+		var/obj/projectile/energy/chrono_beam/beam = P
 		var/obj/item/gun/energy/chrono_gun/Pgun = beam.gun
 		if(Pgun && istype(Pgun))
 			Pgun.field_connect(src)

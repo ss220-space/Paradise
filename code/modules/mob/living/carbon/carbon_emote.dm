@@ -40,6 +40,19 @@
 	volume = 120
 	unintentional_stat_allowed = UNCONSCIOUS
 
+/datum/emote/living/carbon/smoking
+	key = "smoking"
+	key_third_person = "smoked"
+	message = "затягивается и выдыхает облако табачного дыма."
+	message_mime = "беззвучно затягивается и выдыхает облако табачного дыма."
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
+
+/datum/emote/living/carbon/finish_smoking
+	key = "finish_smoking"
+	key_third_person = "finished_smoking"
+	message = "делает сильную затяжку и выкидывает окурок."
+	message_mime = "делает сильную беззвучную затяжку и выкидывает окурок."
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 
 /datum/emote/living/carbon/cough/get_sound(mob/living/carbon/human/user)
 	if(ishuman(user) && user.dna?.species)
@@ -244,14 +257,14 @@
 			grabbed_mob = user.pulling
 
 	if(!held_item && !grabbed_mob)
-		to_chat(user, span_warning("You need something in your hand to use this emote!"))
+		user.balloon_alert(user, "вы ничего не держите!")
 		return TRUE
 
 	if(held_item)
 		if(held_item.item_flags & ABSTRACT)
-			to_chat(user, span_warning("You cannot twirl [held_item.name]!"))
+			user.balloon_alert(user, "неподходящий предмет!")
 			return TRUE
-		message = "верт%(ит,ят)% [held_item.name] в руках!"
+		message = "верт%(ит,ят)% [held_item.declent_ru(ACCUSATIVE)] в руках!"
 	else if(grabbed_mob)
 		message = "крут%(ит,ят)% <b>[grabbed_mob.name]</b>, удерживая [genderize_ru(grabbed_mob.gender, "его", "её", "его", "их")] в захвате!"
 		grabbed_mob.spin(32, 1)

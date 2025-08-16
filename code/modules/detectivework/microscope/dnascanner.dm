@@ -93,8 +93,9 @@
 	swab = null
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/dnaforensics/AltClick(mob/user)
+/obj/machinery/dnaforensics/click_alt(mob/user)
 	remove_sample(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/dnaforensics/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(usr == over_object)

@@ -30,21 +30,19 @@
 	var/turf/T = get_turf(holder.my_atom)
 	if(!T)
 		return
-	
-	var/color = mix_color_from_reagents(holder.reagent_list)
 
-	T.visible_message(span_warning("The solution generates a strong vapor!"))
-	new /obj/effect/particle_effect/chem_smoke/small(T, color)
+	T.visible_message(span_warning("Раствор образует сильный пар!"))
+
+	var/datum/reagents/reagents_list = new (amount * reagents.len)
+	for(var/reagent in reagents)
+		reagents_list.add_reagent(reagent, amount)
+
+	var/datum/effect_system/fluid_spread/smoke/chem/quick/vapor/smoke = new
+	smoke.attach(T)
+	smoke.set_up(range = radius, location = T, carry = reagents_list, silent = TRUE)
+	smoke.start()
+
 	playsound(T, 'sound/effects/smoke.ogg', 50, TRUE, -3)
-
-	for(var/mob/living/carbon/carbon in view(radius, T))
-		if(!carbon.can_breathe_gas())
-			continue
-		carbon.emote("gasp")
-		if(amount >= 60)
-			carbon.AdjustLoseBreath(2 SECONDS)
-		for(var/local_reagent in reagents)
-			carbon.reagents.add_reagent(local_reagent, REAGENT_EVAPORATION(amount))
 
 /datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE, gold_core_spawn = FALSE)
 	if(holder && holder.my_atom)
@@ -68,25 +66,25 @@
 			C.flash_eyes()
 
 		for(var/i in 1 to amount_to_spawn)
-			var/mob/living/simple_animal/S
+			var/mob/living/spawned_mob
 			if(random)
-				S = create_random_mob(get_turf(holder.my_atom), mob_class)
+				spawned_mob = create_random_mob(get_turf(holder.my_atom), mob_class)
 			else
-				S = new mob_class(get_turf(holder.my_atom))//Spawn our specific mob_class
+				spawned_mob = new mob_class(get_turf(holder.my_atom))//Spawn our specific mob_class
 			if(gold_core_spawn) //For tracking xenobiology mobs
-				S.xenobiology_spawned = TRUE
-			S.faction |= mob_faction
+				spawned_mob.xenobiology_spawned = TRUE
+			spawned_mob.faction |= mob_faction
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
-					step(S, pick(NORTH, SOUTH, EAST, WEST))
+					step(spawned_mob, pick(NORTH, SOUTH, EAST, WEST))
 
 /proc/goonchem_vortex(turf/T, setting_type, volume)
 	if(setting_type)
 		new /obj/effect/temp_visual/implosion(T)
-		playsound(T, 'sound/effects/whoosh.ogg', 25, 1) //credit to Robinhood76 of Freesound.org for this.
+		playsound(T, 'sound/effects/whoosh.ogg', 25, TRUE) //credit to Robinhood76 of Freesound.org for this.
 	else
-		new /obj/effect/temp_visual/shockwave(T)
-		playsound(T, 'sound/effects/bang.ogg', 25, 1)
+		new /obj/effect/temp_visual/shockwave_old(T)
+		playsound(T, 'sound/effects/bang.ogg', 25, TRUE)
 	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
 		if(iseffect(X))
 			continue  //stop pulling smoke and hotspots please
@@ -104,10 +102,10 @@
 /proc/goonchem_vortex_weak(turf/T, setting_type, volume)
 	if(setting_type)
 		new /obj/effect/temp_visual/implosion(T)
-		playsound(T, 'sound/effects/whoosh.ogg', 25, 1) //credit to Robinhood76 of Freesound.org for this.
+		playsound(T, 'sound/effects/whoosh.ogg', 25, TRUE) //credit to Robinhood76 of Freesound.org for this.
 	else
-		new /obj/effect/temp_visual/shockwave(T)
-		playsound(T, 'sound/effects/bang.ogg', 25, 1)
+		new /obj/effect/temp_visual/shockwave_old(T)
+		playsound(T, 'sound/effects/bang.ogg', 25, TRUE)
 	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
 		if(iseffect(X))
 			continue  //stop pulling smoke and hotspots please

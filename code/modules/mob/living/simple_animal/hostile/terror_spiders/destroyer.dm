@@ -9,7 +9,15 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/destroyer
 	name = "Destroyer of Terror"
-	desc = "An ominous-looking spider, colored brown like the dirt it crawled out of. Its forearms have sharp digging claws."
+	desc = "Зловещего вида паук, коричневый, как земля, из которой он выполз. На предплечьях имеются острые когти."
+	ru_names = list(
+		NOMINATIVE = "Разрушитель Ужаса",
+		GENITIVE = "Разрушителя Ужаса",
+		DATIVE = "Разрушителю Ужаса",
+		ACCUSATIVE = "Разрушителя Ужаса",
+		INSTRUMENTAL = "Разрушителем Ужаса",
+		PREPOSITIONAL = "Разрушителе Ужаса",
+	)
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_brown"
 	icon_living = "terror_brown"

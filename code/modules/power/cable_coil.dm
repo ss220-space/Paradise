@@ -14,7 +14,6 @@
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
 	color = WIRE_COLOR_RED
 	desc = "A coil of power cable."
-	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
 	full_w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
@@ -48,7 +47,7 @@
 	update_weight()
 
 
-/obj/item/stack/cable_coil/split_stack()
+/obj/item/stack/cable_coil/split()
 	var/obj/item/stack/cable_coil/C = ..()
 	C.color = color
 	return C
@@ -151,7 +150,7 @@
 				if(!use(10))
 					to_chat(user, span_warning("You don't have enough [src] to make cable restraints!"))
 					return
-				playsound(T, usesound, 50, 1)
+				playsound(T, usesound, 50, TRUE)
 				to_chat(user, span_notice("You place hub cable onto the floor."))
 				var/obj/structure/cable/multiz/multicable = new(T)
 				multicable.cable_color(color)
@@ -465,10 +464,12 @@
 
 /obj/item/stack/cable_coil/cyborg
 	name = "cyborg cable coil"
-	is_cyborg = 1
+	is_cyborg = TRUE
+	energy_type = /datum/robot_energy_storage/wire
+	cost = 1
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
-	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
+	var/cablecolor = tgui_input_list(user, "Pick a cable color.", "Cable Color", list("red", "yellow", "green", "blue", "pink", "orange", "cyan", "white"))
 	color = cablecolor
 	update_icon()
 

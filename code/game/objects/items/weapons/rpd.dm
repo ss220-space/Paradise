@@ -23,7 +23,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "engineering=4;materials=2"
 	var/datum/effect_system/spark_spread/spark_system
@@ -80,9 +80,9 @@
 
 /obj/item/rpd/proc/activate_rpd(delay) //Maybe makes sparks and activates cooldown if there is a delay
 	if(alt_sound && prob(3))
-		playsound(src, alt_sound, 50, 1)
+		playsound(src, alt_sound, 50, TRUE)
 	else
-		playsound(src, primary_sound, 50, 1)
+		playsound(src, primary_sound, 50, TRUE)
 	if(prob(15) && !ranged)
 		spark_system.start()
 	if(delay)
@@ -188,13 +188,9 @@
 		get_asset_datum(/datum/asset/spritesheet/rpd)
 	)
 
-/obj/item/rpd/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/item/rpd/click_alt(mob/living/user)
 	radial_menu(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/rpd/ui_data(mob/user)
 	var/list/data = list()

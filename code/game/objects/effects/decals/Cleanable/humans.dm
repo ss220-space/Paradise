@@ -3,8 +3,8 @@
 /obj/effect/decal/cleanable/blood
 	name = "blood"
 	var/dryname = "dried blood"
-	desc = "It's thick and gooey. Perhaps it's the chef's cooking?"
-	var/drydesc = "It's dry and crusty. Someone is not doing their job."
+	desc = "Оно густое и липкое. Возможно, это шедевр местного повара?"
+	var/drydesc = "Оно сухое и засохшее. Кто-то явно халтурит."
 	gender = PLURAL
 	density = FALSE
 	anchored = TRUE
@@ -21,7 +21,25 @@
 	var/amount = 5
 	var/dry_timer = 0
 	var/off_floor = FALSE
+	var/is_dry = FALSE
 
+
+/obj/effect/decal/cleanable/blood/get_ru_names_cached() //we can't cache this now
+	return is_dry? list(
+		NOMINATIVE = "засохшая кровь",
+		GENITIVE = "засохшей крови",
+		DATIVE = "засохшей крови",
+		ACCUSATIVE = "засохшую кровь",
+		INSTRUMENTAL = "засохшей кровью",
+		PREPOSITIONAL = "засохшей крови"
+	): list(
+		NOMINATIVE = "кровь",
+		GENITIVE = "крови",
+		DATIVE = "крови",
+		ACCUSATIVE = "кровь",
+		INSTRUMENTAL = "кровью",
+		PREPOSITIONAL = "крови"
+	)
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	if(C.blood_DNA)
@@ -64,6 +82,7 @@
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
 	desc = drydesc
+	is_dry = TRUE
 	color = adjust_brightness(color, -50)
 	amount = 0
 
@@ -75,7 +94,7 @@
 			return
 		var/taken = rand(1,amount)
 		amount -= taken
-		to_chat(user, "<span class='notice'>You get some of \the [src] on your hands.</span>")
+		to_chat(user, span_notice("Вы взяли немного [src.declent_ru(GENITIVE)] в руки."))
 		if(!user.blood_DNA)
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()
@@ -152,7 +171,7 @@
 
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"
-	desc = "It's red."
+	desc = "Оно красное."
 	gender = PLURAL
 	icon = 'icons/effects/drip.dmi'
 	icon_state = "1"
@@ -161,6 +180,16 @@
 	bloodiness = 0
 	var/drips = 1
 
+/obj/effect/decal/cleanable/blood/drip/get_ru_names()
+	return list(
+		NOMINATIVE = "капли крови",
+		GENITIVE = "капель крови",
+		DATIVE = "каплям крови",
+		ACCUSATIVE = "капли крови",
+		INSTRUMENTAL = "каплями крови",
+		PREPOSITIONAL = "каплях крови"
+	)
+
 /obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
 	return TRUE
 
@@ -168,7 +197,7 @@
 	name = "blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	desc = "Your instincts say you shouldn't be following these."
+	desc = "Ваши инстинкты подсказывают, что не стоит идти этим путём."
 	gender = PLURAL
 	density = FALSE
 	layer = TURF_LAYER
@@ -176,12 +205,22 @@
 	blood_DNA = list()
 	var/list/existing_dirs = list()
 
+/obj/effect/decal/cleanable/trail_holder/get_ru_names()
+	return list(
+		NOMINATIVE = "кровь",
+		GENITIVE = "крови",
+		DATIVE = "крови",
+		ACCUSATIVE = "кровь",
+		INSTRUMENTAL = "кровью",
+		PREPOSITIONAL = "крови"
+	)
+
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
 	return TRUE
 
 /obj/effect/decal/cleanable/blood/writing
 	icon_state = "tracks"
-	desc = "It looks like a writing in blood."
+	desc = "Это похоже на надпись кровью."
 	gender = NEUTER
 	random_icon_states = list("writing1", "writing2", "writing3", "writing4", "writing5")
 	amount = 0
@@ -198,11 +237,11 @@
 
 /obj/effect/decal/cleanable/blood/writing/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It reads: <font color='[basecolor]'>\"[message]\"<font></span>"
+	. += span_notice("Надпись гласит: <font color='[basecolor]'>\"[message]\"<font>")
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
-	desc = "They look bloody and gruesome."
+	desc = "Кто-то или что-то явно было разорвано на части."
 	gender = PLURAL
 	density = FALSE
 	anchored = TRUE
@@ -211,14 +250,30 @@
 	icon_state = "gib2"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE
+	scoop_reagents = list("liquidgibs" = 5)
 	mergeable_decal = FALSE
 	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
+
+/obj/effect/decal/cleanable/blood/gibs/get_ru_names()
+	return list(
+		NOMINATIVE = "кровавое месиво",
+		GENITIVE = "кровавого месива",
+		DATIVE = "кровавому месиву",
+		ACCUSATIVE = "кровавое месиво",
+		INSTRUMENTAL = "кровавым месивом",
+		PREPOSITIONAL = "кровавом месиве"
+	)
 
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
+
+/obj/effect/decal/cleanable/blood/gibs/Destroy()
+	if(giblets)
+		QDEL_NULL(giblets)
+	. = ..()
 
 
 /obj/effect/decal/cleanable/blood/gibs/proc/on_pipe_eject(datum/source, direction)
@@ -267,7 +322,7 @@
 
 /obj/effect/decal/cleanable/blood/gibs/core
 	random_icon_states = list("gibmid1", "gibmid2", "gibmid3")
-	scoop_reagents = list("liquidgibs" = 5)
+	scoop_reagents = list("liquidgibs" = 15)
 
 
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...

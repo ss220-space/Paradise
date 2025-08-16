@@ -4,43 +4,42 @@
 // Do not remove this functionality without good reason, cough reagent_containers cough.
 // -Sayu
 
-
 /obj/item/storage
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = BLOCKS_LIGHT
-	///No message on putting items in
+	interaction_flags_click = ALLOW_RESTING | FORBID_TELEKINESIS_REACH
+	/// No message on putting items in
 	var/silent = FALSE
-	///List of objects which this item can store (if set, it can't store anything else)
+	/// List of objects which this item can store (if set, it can't store anything else)
 	var/list/can_hold = list()
 	/// List of objects that can be stored, regardless of w_class
 	var/list/w_class_override = list()
-	///List of objects which this item can't store (in effect only if can_hold isn't set)
+	/// List of objects which this item can't store (in effect only if can_hold isn't set)
 	var/list/cant_hold = list()
-	///Max size of objects that this object can store (in effect only if can_hold isn't set)
+	/// Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_w_class = WEIGHT_CLASS_SMALL
-	///Min size of objects that this object can store (in effect only if can_hold isn't set)
+	/// Min size of objects that this object can store (in effect only if can_hold isn't set)
 	var/min_w_class
-	///The sum of the w_classes of all the items in this storage item.
+	/// The sum of the w_classes of all the items in this storage item.
 	var/max_combined_w_class = 14
 	var/storage_slots = 7
-	///The number of storage slots in this container.
+	/// The number of storage slots in this container.
 	var/atom/movable/screen/storage/boxes = null
 	var/atom/movable/screen/close/closer = null
-	///Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
+	/// Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
 	var/use_to_pickup
-	///Set this to make the storage item group contents of the same type and display them as a number.
+	/// Set this to make the storage item group contents of the same type and display them as a number.
 	var/display_contents_with_number
-	///Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
+	/// Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
 	var/allow_quick_empty
-	///Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
+	/// Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/allow_quick_gather
-	///FALSE = pick one at a time, TRUE = pick all on tile
+	/// FALSE = pick one at a time, TRUE = pick all on tile
 	var/pickup_all_on_tile = TRUE
-	///Sound played when used. null for no sound.
+	/// Sound played when used. `null` for no sound.
 	var/use_sound = "rustle"
-
 	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
 	var/foldable = null
 	/// How much of the stack item do you get.
@@ -99,6 +98,16 @@
 			continue
 		hide_from(player)
 
+/obj/item/storage/proc/dump_storage(mob/user, obj/item/storage/target)
+	if(!length(contents) || (HAS_TRAIT(user, TRAIT_RESTRAINED)) || (HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) || src == target)
+		return
+	for(var/obj/item/thing in contents)
+		if(!target.can_be_inserted(thing))
+			continue
+		if(!do_after(user, 0.3 SECONDS, target = user))
+			break
+		playsound(loc, "rustle", 50, TRUE, -5)
+		target.handle_item_insertion(thing, user)
 
 /obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!isliving(usr))
@@ -114,10 +123,16 @@
 		open(user)
 		return FALSE
 
-	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || isfloorturf(over_object)) \
+	if(isstorage(over_object))
+		var/obj/item/storage = over_object
+		if(!(storage.item_flags & IN_STORAGE))
+			dump_storage(user, over_object)
+			return
+
+	if((!istype(src, /obj/item/storage/lockbox) && (istable(over_object) || isfloorturf(over_object)) \
 		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
 
-		if(tgui_alert(user, "Empty [src] onto [over_object]?", "Confirm", list("Yes", "No")) != "Yes")
+		if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
 			return FALSE
 
 		if(!user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))
@@ -126,8 +141,8 @@
 		close(user)
 		user.face_atom(over_object)
 		user.visible_message(
-			span_notice("[user] empties [src] onto [over_object]."),
-			span_notice("You empty [src] onto [over_object]."),
+			span_notice("[user] опустоша[pluralize_ru(user.gender, "ет", "ют")] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы опустошаете содержимое [declent_ru(ACCUSATIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
 		)
 		var/turf/object_turf = get_turf(over_object)
 		for(var/obj/item/item in src)
@@ -139,14 +154,12 @@
 	return ..()
 
 
-/obj/item/storage/AltClick(mob/user)
-	if((ishuman(user) || issilicon(user)) \
-	&& Adjacent(user) && !user.incapacitated() \
-	&& !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		open(user)
-
-	else if(isobserver(user))
+/obj/item/storage/click_alt(mob/user)
+	if(isobserver(user))
 		show_to(user)
+		return CLICK_ACTION_SUCCESS
+	open(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()
@@ -184,6 +197,12 @@
 	user.s_active = src
 	LAZYOR(mobs_viewing, user)
 
+	for(var/mob/dead/observer/observe in user.inventory_observers)
+		if(!observe.client)
+			LAZYREMOVE(user.inventory_observers, observe)
+			continue
+		show_to(observe)
+
 /obj/item/storage/proc/hide_from(mob/user)
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	if(!user.client)
@@ -194,6 +213,11 @@
 	if(user.s_active == src)
 		user.s_active = null
 
+	for(var/mob/dead/observer/observe in user.inventory_observers)
+		if(!observe.client)
+			LAZYREMOVE(user.inventory_observers, observe)
+			continue
+		hide_from(observe)
 
 /obj/item/storage/proc/hide_from_all_viewers()
 	if(!LAZYLEN(mobs_viewing))
@@ -203,8 +227,7 @@
 
 
 /obj/item/storage/proc/update_viewers()
-	for(var/_M in mobs_viewing)
-		var/mob/M = _M
+	for(var/mob/M as anything in mobs_viewing)
 		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
 			continue
 		hide_from(M)
@@ -217,8 +240,8 @@
 	if(user.s_active)
 		user.s_active.close(user)
 
-	if(user.hud_used.is_shown_robot_modules())
-		user.hud_used.toggle_show_robot_modules()
+	if(user?.hud_used?.is_shown_robot_modules())
+		user?.hud_used?.toggle_show_robot_modules()
 
 	show_to(user)
 
@@ -334,23 +357,23 @@
 		// Its ok to move items to/from nullspace, since its not a player action
 		if(item_turf && storage_turf && !in_range(item_turf, storage_turf))
 			if(!stop_messages)
-				to_chat(usr, "<span class='warning'>[src] is too far from [W]!</span>")
+				usr.balloon_alert(usr, "слишком далеко!")
 			return FALSE
 
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
+			usr.balloon_alert(usr, "нет места!")
 		return FALSE //Storage item is full
 
 	if(can_hold.len)
 		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
+				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[pluralize_ru(gender, "ит", "ят")] для [W.declent_ru(GENITIVE)]!"))
 			return FALSE
 
 	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
+			to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[pluralize_ru(gender, "ит", "ят")] для [W.declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	if(W.w_class > max_w_class)
@@ -358,7 +381,7 @@
 			return TRUE
 
 		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[W] is too big for [src].</span>")
+			usr.balloon_alert(usr, "слишком большой объект!")
 		return FALSE
 
 	if(W.w_class < min_w_class)
@@ -366,7 +389,7 @@
 			return TRUE
 
 		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[W] is too small for [src].</span>")
+			usr.balloon_alert(usr, "слишком маленький объект!")
 		return FALSE
 
 	var/sum_w_class = W.w_class
@@ -375,26 +398,27 @@
 
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[src] is full, make some space.</span>")
+			usr.balloon_alert(usr, "нет места!")
 		return FALSE
 
 	if(W.w_class >= w_class && (isstorage(W)))
 		if(!istype(src, /obj/item/storage/backpack/holding))	//bohs should be able to hold backpacks again. The override for putting a boh in a boh is in backpack.dm.
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>")
+				usr.balloon_alert(usr, "слишком большой объект!")
 			return FALSE //To prevent the stacking of same sized storage items.
 
 	if(HAS_TRAIT(W, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
-		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
+		usr.balloon_alert(usr, "не получается выпустить!")
 		return FALSE
 
 	// item unequip delay
 	if(usr && W.equip_delay_self > 0 && W.loc == usr && !usr.is_general_slot(usr.get_slot_by_item(W)))
 		usr.visible_message(
-			span_notice("[usr] начинает снимать [W.name]..."),
-			span_notice("Вы начинаете снимать [W.name]..."),
+			span_notice("[usr] начина[pluralize_ru(usr.gender, "ет", "ют")] снимать [W.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете снимать [W.declent_ru(ACCUSATIVE)]."),
 		)
-		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [W.name] было прервано!")))
+		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_on_max = TRUE))
+			usr.balloon_alert(usr, "снятие прервано!")
 			return FALSE
 
 		if(!usr.can_unEquip(W))
@@ -433,16 +457,23 @@
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
+
+		for(var/mob/dead/observer/observe in usr.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(usr.inventory_observers, observe)
+				continue
+			observe.client.screen -= W
+
 		add_fingerprint(usr)
 
 		if(!prevent_warning && !istype(W, /obj/item/gun/energy/kinetic_accelerator/crossbow))
 			for(var/mob/M in viewers(usr, null))
 				if(M == usr)
-					to_chat(usr, "<span class='notice'>You put [W] into [src].</span>")
+					to_chat(usr, span_notice("Вы помещаете [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
-					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
+					M.show_message(span_notice("[usr] помеща[pluralize_ru(usr.gender, "ет", "ют")] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 				else if(W && W.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
-					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
+					M.show_message(span_notice("[usr] помеща[pluralize_ru(usr.gender, "ет", "ют")] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 
 		orient2hud(usr)
 		if(usr.s_active)
@@ -459,8 +490,9 @@
 	if(!istype(W))
 		return FALSE
 
-	for(var/_M in mobs_viewing)
-		var/mob/M = _M
+	W.item_flags &= ~IN_STORAGE
+
+	for(var/mob/M as anything in mobs_viewing)
 		if((M.s_active == src) && M.client)
 			M.client.screen -= W
 
@@ -561,19 +593,19 @@
 	return ..()
 
 /obj/item/storage/verb/toggle_gathering_mode()
-	set name = "Switch Gathering Method"
-	set category = "Object"
+	set name = "Режим сбора"
+	set category = STATPANEL_OBJECT
 
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
 		if(TRUE)
-			to_chat(usr, "[src] now picks up all items in a tile at once.")
+			to_chat(usr, "[capitalize(declent_ru(NOMINATIVE))] теперь будет собирать все предметы с тайла за раз.")
 		if(FALSE)
-			to_chat(usr, "[src] now picks up one item at a time.")
+			to_chat(usr, "[capitalize(declent_ru(NOMINATIVE))] теперь будет собирать один предмет с тайла за раз")
 
 /obj/item/storage/verb/quick_empty()
-	set name = "Empty Contents"
-	set category = "Object"
+	set name = "Выбросить содержимое"
+	set category = STATPANEL_OBJECT
 
 	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -586,6 +618,11 @@
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, T)
 		CHECK_TICK
+
+/obj/item/storage/proc/force_drop_inventory()
+	var/turf/T = get_turf(src)
+	for(var/obj/item/I in contents)
+		remove_from_storage(I, T)
 
 /**
   * Populates the container with items
@@ -621,7 +658,7 @@
 
 /obj/item/storage/proc/fold(mob/user)
 	if(length(contents))
-		to_chat(user, "<span class='warning'>You can't fold this [name] with items still inside!</span>")
+		user.balloon_alert(user, "внутри что-то есть!")
 		return
 	if(!ispath(foldable))
 		return
@@ -634,8 +671,7 @@
 			found = TRUE
 	if(!found)	// User is too far away
 		return
-
-	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	user.balloon_alert(user, "сложено")
 	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
 	user.put_in_hands(I)
 	qdel(src)

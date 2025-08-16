@@ -94,8 +94,8 @@
 /client/proc/watchlist_show(search)
 	if(!check_rights(R_ADMIN))
 		return
-	var/output = {"<meta charset="UTF-8">"}
-	output += "<!DOCTYPE html><form method='GET' name='search' action='?'>\
+	var/output = ""
+	output += "<form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='watchsearch' value='[search]'>\
 	<input type='submit' value='Search'></form>"
@@ -122,7 +122,10 @@
 		if(last_editor)
 			output += " <font size='2'>Last edit by [last_editor] <a href='byond://?_src_=holder;watcheditlog=[ckey]'>(Click here to see edit log)</a></font>"
 		output += "<br>[reason]<hr style='background:#000000; border:0; height:1px'>"
-	usr << browse(output, "window=watchwin;size=900x500")
+	var/datum/browser/popup = new(usr, "watchwin", "Watch list", 900, 500)
+	popup.set_content(output)
+	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
+	popup.open(FALSE)
 	qdel(query_watchlist)
 
 /proc/check_watchlist(target_ckey)

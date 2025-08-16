@@ -28,6 +28,8 @@
 	QDEL_NULL(mode)
 	QDEL_LIST(modeswitch_buttons)
 	QDEL_LIST(dirswitch_buttons)
+	modebutton = null
+	dirbutton = null
 	return ..()
 
 /datum/click_intercept/buildmode/create_buttons()
@@ -68,7 +70,7 @@
 	else
 		close_switchstates()
 		open_modeswitch()
-	
+
 /datum/click_intercept/buildmode/proc/open_modeswitch()
 	switch_state = BM_SWITCHSTATE_MODE
 	holder.screen += modeswitch_buttons
@@ -83,7 +85,7 @@
 	else
 		close_switchstates()
 		open_dirswitch()
-	
+
 /datum/click_intercept/buildmode/proc/open_dirswitch()
 	switch_state = BM_SWITCHSTATE_DIR
 	holder.screen += dirswitch_buttons
@@ -111,7 +113,7 @@
 
 /proc/togglebuildmode(mob/M in GLOB.player_list)
 	set name = "Toggle Build Mode"
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 
 	if(M.client)
 		if(istype(M.client.click_intercept, /datum/click_intercept/buildmode))
@@ -122,7 +124,7 @@
 			new/datum/click_intercept/buildmode(M.client)
 			message_admins("[key_name_admin(usr)] has entered build mode.")
 			log_admin("[key_name(usr)] has entered build mode.")
-	
+
 #undef BM_SWITCHSTATE_NONE
 #undef BM_SWITCHSTATE_MODE
 #undef BM_SWITCHSTATE_DIR

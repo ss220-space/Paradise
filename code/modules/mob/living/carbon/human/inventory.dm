@@ -168,7 +168,7 @@
 		wear_suit = null
 		if(!QDELETED(src))
 			wear_suit_update(I)
-			if(I.breakouttime) //when unequipping a straightjacket
+			if(I.breakout_time) //when unequipping a straightjacket
 				REMOVE_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 	else if(I == w_uniform)
@@ -314,6 +314,15 @@
 	I.pixel_x = initial(I.pixel_x)
 	I.pixel_y = initial(I.pixel_y)
 	I.screen_loc = null
+	if(client)
+		client.screen -= I
+
+	for(var/mob/dead/observer/observe as anything in inventory_observers)
+		if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
+			observe.client.screen -= I
+		else
+			LAZYREMOVE(inventory_observers, observe)
+
 	I.forceMove(src)
 	I.layer = ABOVE_HUD_LAYER
 	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
@@ -391,7 +400,7 @@
 		if(ITEM_SLOT_CLOTH_OUTER)
 			wear_suit = I
 			wear_suit_update(I)
-			if(I.breakouttime) //when equipping a straightjacket
+			if(I.breakout_time) //when equipping a straightjacket
 				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 		if(ITEM_SLOT_CLOTH_INNER)
@@ -416,7 +425,10 @@
 					temporarily_remove_item_from_inventory(I)
 				I.forceMove(back)
 			else
+				I.item_flags &= ~IN_STORAGE
 				I.forceMove(drop_location())
+
+			I.item_flags |= IN_STORAGE
 
 		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = w_uniform

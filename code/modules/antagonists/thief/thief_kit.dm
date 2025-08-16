@@ -117,7 +117,7 @@
 		if("undoKit")
 			undoKit(params["item"])
 
-/obj/item/thief_kit/proc/openKit(var/mob/user)
+/obj/item/thief_kit/proc/openKit(mob/user)
 	if(uses >= possible_uses)
 		var/obj/item/storage/box/thief_kit/kit = new(src)
 
@@ -126,7 +126,7 @@
 				kit.contents.Add(new item_type(src))
 
 		user.put_in_hands(kit)
-		kit.AltClick(user)
+		kit.open(user)
 		SStgui.close_uis(src)
 		qdel(src)
 	else

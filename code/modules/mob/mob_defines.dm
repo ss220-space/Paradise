@@ -93,11 +93,12 @@
 	var/list/datum/language/languages
 	/// For reagents that grant language knowlege.
 	var/list/temporary_languages
-	var/list/speak_emote = list()   // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
-	var/verb_say = "says"
-	var/verb_ask = "asks"
-	var/verb_exclaim = list("exclaims", "shouts")
-	var/verb_yell = "yells"
+	/// Verb used when speaking phrases (e.g. "states", "chirps", "beeps"). Appears before speak messages. Defaults to 'say' if speak_emote is null.
+	var/list/speak_emote = list()
+	var/verb_say = "говорит"
+	var/verb_ask = "спрашивает"
+	var/verb_exclaim = list("восклицает", "выкрикивает")
+	var/verb_yell = "кричит"
 	/// Define emote default type, EMOTE_VISIBLE for seen emotes, EMOTE_AUDIBLE for heard emotes.
 	var/emote_type = EMOTE_VISIBLE
 	var/gunshot_residue
@@ -137,6 +138,8 @@
 	var/list/mapobjs
 
 	var/in_throw_mode = FALSE
+
+	var/can_strip = TRUE
 
 	// See /datum/emote
 
@@ -224,8 +227,6 @@
 	//Ghosted var, set only if a player has manually ghosted out of this mob.
 	var/player_ghosted = 0
 
-	var/turf/listed_turf = null  //the current turf being examined in the stat panel
-
 	var/list/active_genes
 
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
@@ -256,6 +257,7 @@
 	var/last_emote = null
 
 	var/ghost_orbiting = 0
+	var/list/inventory_observers = null
 
 	/// List of movement speed modifiers applying to this mob
 	var/list/movespeed_modification //Lazy list, see mob_movespeed.dm

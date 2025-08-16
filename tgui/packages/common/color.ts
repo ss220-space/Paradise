@@ -19,8 +19,34 @@ export class Color {
     this.a = a;
   }
 
-  toString() {
-    return `rgba(${this.r | 0}, ${this.g | 0}, ${this.b | 0}, ${this.a | 0})`;
+  toString(): string {
+    // Alpha component needs to permit fractional values, so cannot use |
+    let alpha = this.a;
+    if (typeof alpha === 'string') {
+      alpha = Number.parseFloat(this.a as any);
+    }
+    if (Number.isNaN(alpha)) {
+      alpha = 1;
+    }
+    return `rgba(${this.r | 0}, ${this.g | 0}, ${this.b | 0}, ${alpha})`;
+  }
+
+  /**  Darkens a color by a given percent. Returns a color, which can have toString called to get it's rgba() css value. */
+  darken(percent: number): Color {
+    const scaled = percent / 100;
+
+    return new Color(
+      this.r - this.r * scaled,
+      this.g - this.g * scaled,
+      this.b - this.b * scaled,
+      this.a
+    );
+  }
+
+  /** Brightens a color by a given percent. Returns a color, which can have toString called to get it's rgba() css value. */
+  lighten(percent: number): Color {
+    // No point in rewriting code we already have.
+    return this.darken(-percent);
   }
 
   /**
@@ -28,9 +54,9 @@ export class Color {
    */
   static fromHex(hex: string): Color {
     return new Color(
-      parseInt(hex.substr(1, 2), 16),
-      parseInt(hex.substr(3, 2), 16),
-      parseInt(hex.substr(5, 2), 16)
+      Number.parseInt(hex.slice(1, 3), 16),
+      Number.parseInt(hex.slice(3, 5), 16),
+      Number.parseInt(hex.slice(5, 7), 16)
     );
   }
 
@@ -50,7 +76,7 @@ export class Color {
    * Loops up the color in the provided list of colors
    * with linear interpolation.
    */
-  static lookup(value: number, colors: Color[] = []): Color {
+  static lookup(value: number, colors: Color[]): Color {
     const len = colors.length;
     if (len < 2) {
       throw new Error('Needs at least two colors!');
@@ -67,7 +93,6 @@ export class Color {
     return Color.lerp(colors[index], colors[index + 1], ratio);
   }
 }
-
 /*
  * MIT License
  * https://github.com/omgovich/react-colorful/

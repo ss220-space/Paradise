@@ -60,6 +60,8 @@
 	if(!open)
 		to_chat(user, span_warning("Open the service panel first."))
 		return .
+	if(l_hacking)
+		return .
 	to_chat(user, span_notice("Now attempting to reset internal memory, please hold..."))
 	l_hacking = TRUE
 	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume) || !open)
@@ -109,7 +111,7 @@
 
 	if(istype(weapon, /obj/item/melee/energy/blade))
 		do_sparks(5, 0, loc)
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE)
 		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(user)
 			to_chat(user, "You slice through the lock on [src].")
@@ -117,9 +119,9 @@
 		to_chat(user, "You short out the lock on [src].")
 
 
-/obj/item/storage/secure/AltClick(mob/living/user)
+/obj/item/storage/secure/click_alt(mob/living/user)
 	if(!try_to_open(user))
-		return FALSE
+		return CLICK_ACTION_BLOCKING
 	return ..()
 
 /obj/item/storage/secure/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
@@ -132,7 +134,7 @@
 		return TRUE
 	if(locked)
 		add_fingerprint(usr)
-		to_chat(usr, "<span class='warning'>It's locked!</span>")
+		to_chat(usr, span_warning("It's locked!"))
 		return FALSE
 	return TRUE
 
@@ -219,6 +221,7 @@
 	item_state = "sec-case"
 	flags = CONDUCT
 	hitsound = "swing_hit"
+	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
 	throw_speed = 2
 	throw_range = 4
@@ -231,7 +234,7 @@
 	if((loc == user) && locked)
 		to_chat(usr, "<span class='warning'>[src] is locked and cannot be opened!</span>")
 	else if((loc == user) && !locked)
-		playsound(loc, "rustle", 50, 1, -5)
+		playsound(loc, 'sound/effects/briefcase.ogg', 50, TRUE, -5)
 		user.s_active?.close(user) //Close and re-open
 		show_to(user)
 	else
@@ -242,6 +245,12 @@
 		orient2hud(user)
 	add_fingerprint(user)
 	return
+
+/obj/item/storage/secure/briefcase/captian
+
+/obj/item/storage/secure/briefcase/captian/populate_contents()
+	new /obj/item/card/id/captains_spare(src)
+
 
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/storage/secure/briefcase/syndie

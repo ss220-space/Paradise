@@ -15,7 +15,6 @@
 	status_flags = NONE //no default canpush
 	pass_flags = PASSFLAPS
 	AI_delay_max = 0 SECONDS
-
 	speak_emote = list("констатирует")
 	tts_seed = null
 	friendly = "утыкается в"
@@ -89,7 +88,7 @@
 	/// Which channels can the bot listen to.
 	var/list/radio_config = null
 	/// The bot's default radio channel.
-	var/radio_channel = "Common"
+	var/radio_channel = PUB_FREQ_NAME
 	/// Set to `TRUE` make bot automatically patrol.
 	var/auto_patrol = FALSE
 	/// This is turf to navigate to (location of beacon).
@@ -158,7 +157,7 @@
 	var/mob/living/simple_animal/bot/B = loc
 	if(istype(B))
 		if(!B.radio_config)
-			B.radio_config = list("AI Private" = 1)
+			B.radio_config = list(AI_FREQ_NAME = 1)
 			if(!(B.radio_channel in B.radio_config)) // put it first so it's the :h channel
 				B.radio_config.Insert(1, "[B.radio_channel]")
 				B.radio_config["[B.radio_channel]"] = 1
@@ -265,7 +264,7 @@
 		QDEL_NULL(path_hud)
 		path_hud = null
 
- 	GLOB.bots_list -= src
+	GLOB.bots_list -= src
 
 	QDEL_NULL(path)
 	QDEL_NULL(Radio)
@@ -375,7 +374,7 @@
 	user.do_attack_animation(src)
 	apply_damage(user.attack_damage, BRUTE)
 	visible_message(span_danger("[user] руб[pluralize_ru(user.gender, "ит", "ят")] [declent_ru(GENITIVE)]!"))
-	playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+	playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
@@ -522,7 +521,7 @@
 	)
 
 
-/mob/living/simple_animal/bot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/bullet_act(obj/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		if(prob(75) && Proj.damage > 0)
 			do_sparks(5, 1, src)
@@ -593,7 +592,7 @@
 	if(!on || !message)
 		return
 	if(channel)
-		Radio.autosay(message, name, channel == "headset" ? null : channel)
+		Radio.autosay(message, name, channel == HEADSET_MODE ? null : channel)
 	else
 		say(message)
 
@@ -1174,10 +1173,10 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 /mob/living/simple_animal/bot/proc/hack(mob/user)
 	var/hack
 	if(issilicon(user) || user.can_admin_interact()) //Allows silicons or admins to toggle the emag status of a bot.
-		hack += "[emagged == 2 ? "Программное обеспечение взломано! Устройство может вести себя опасно или нестабильно." : "Устройство работает в нормальном режиме. Отключить протоколы безопасности?"]<BR>"
-		hack += "Протоколы безопасности: <a href='byond://?src=[UID()];operation=hack'>[emagged ? span_bad("Отключены") : "Включены"]</A><BR>"
+		hack += "[emagged == 2 ? "Программное обеспечение взломано! Устройство может вести себя опасно или нестабильно." : "Устройство работает в нормальном режиме. Отключить протоколы безопасности?"]<br>"
+		hack += "Протоколы безопасности: <a href='byond://?src=[UID()];operation=hack'>[emagged ? span_bad("Отключены") : "Включены"]</a><br>"
 	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
-		hack += "Удалённое радиоуправление: <a href='byond://?src=[UID()];operation=remote'>[remote_disabled ? "Отключено" : "Включено"]</A><BR>"
+		hack += "Удалённое радиоуправление: <a href='byond://?src=[UID()];operation=remote'>[remote_disabled ? "Отключено" : "Включено"]</a><br>"
 	return hack
 
 
@@ -1188,15 +1187,15 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			eject += "Состояние ПИИ: "
 			if(paicard)
 				if(client)
-					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Активирован</A>"
+					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Активирован</a>"
 				else
-					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Отключён</A>"
+					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Отключён</a>"
 			else if(!allow_pai || key)
 				eject += "Нет доступа"
 			else
 				eject += "Отсутствует"
-			eject += "<BR>"
-		eject += "<BR>"
+			eject += "<br>"
+		eject += "<br>"
 	return eject
 
 
@@ -1264,8 +1263,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 
 /mob/living/simple_animal/bot/verb/show_laws()
-	set name = "Show Directives"
-	set category = "IC"
+	set name = "Набор законов"
+	set category = STATPANEL_IC
 
 	to_chat(src, "<b>Набор законов:</b>")
 	if(paicard && paicard.pai && paicard.pai.master && paicard.pai.pai_law0)
@@ -1298,11 +1297,11 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /mob/living/simple_animal/bot/handle_message_mode(message_mode, message, verb, speaking, used_radios)
 	switch(message_mode)
-		if("intercom")
+		if(INTERCOM_MODE)
 			for(var/obj/item/radio/intercom/I in view(1, src))
 				I.talk_into(src, message, null, verb, speaking)
 				used_radios += I
-		if("headset")
+		if(HEADSET_MODE)
 			Radio.talk_into(src, message, null, verb, speaking)
 			used_radios += Radio
 		else

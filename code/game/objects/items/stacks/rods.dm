@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 		// stack was moved into another one on the pile
 		new_item = locate() in user.loc
 	visible_message("<span class='notice'>[user.name] shapes [src] into metal with [I]!</span>", \
-				 	"<span class='notice'>You shape [src] into metal with [I]!</span>", \
+					"<span class='notice'>You shape [src] into metal with [I]!</span>", \
 					"<span class='warning'>You hear welding.</span>")
 	var/replace = user.is_in_inactive_hand(src)
 	use(2)
@@ -75,8 +75,11 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 
 /obj/item/stack/rods/cyborg
 	materials = list()
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/rods
+	energy_type = /datum/robot_energy_storage/metal
+	merge_type = /obj/item/stack/rods
+	cost = 2
 
 /obj/item/stack/rods/cyborg/update_icon_state()
 	return // icon_state should always be a full stack of rods.

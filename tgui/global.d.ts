@@ -191,4 +191,9 @@ interface Window {
   Byond: ByondType;
   __store__: Store<unknown, AnyAction>;
   __augmentStack__: (store: Store) => StackAugmentor;
+
+  // 516 byondstorage API.
+  hubStorage: Storage;
+  domainStorage: Storage;
+  serverStorage: Storage;
 }

@@ -17,6 +17,22 @@
 	/// If we render into a critical plane master, or not
 	var/critical_target = FALSE
 
+/client/proc/on_render_plane_relay_qdeleted(atom/movable/render_plane_relay/source)
+	SIGNAL_HANDLER
+	if(!istype(source))
+		return
+	screen.RemoveAll(source)
+	UnregisterSignal(source, COMSIG_QDELETING)
+
+/client/proc/register_render_plane_relay(atom/movable/render_plane_relay/relay)
+	if(!istype(relay))
+		return
+	var/exist_check = (relay in screen)
+	screen += relay
+	if(exist_check)
+		return
+	RegisterSignal(relay, COMSIG_QDELETING, PROC_REF(on_render_plane_relay_qdeleted), override = TRUE)
+
 /**
  * ## Rendering plate
  *
@@ -76,6 +92,10 @@
 		<br>We apply a displacement effect from the gravity pulse plane too, so we can warp the game world."
 	plane = RENDER_PLANE_GAME
 	render_relay_planes = list(RENDER_PLANE_MASTER)
+
+/atom/movable/screen/plane_master/rendering_plate/game_plate/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	add_filter("displace", 1, displacement_map_filter(render_source = OFFSET_RENDER_TARGET(GRAVITY_PULSE_RENDER_TARGET, offset), size = 10))
 
 // Blackness renders weird when you view down openspace, because of transforms and borders and such
 // This is a consequence of not using lummy's grouped transparency, but I couldn't get that to work without totally fucking up
@@ -281,7 +301,7 @@
 	// Relays are sometimes generated early, before huds have a mob to display stuff to
 	// That's what this is for
 	if(show_to)
-		show_to.screen += relay
+		show_to.register_render_plane_relay(relay)
 	if(offsetting_flags & OFFSET_RELAYS_MATCH_HIGHEST && home.our_hud)
 		offset_relay(relay, home.our_hud.current_plane_offset)
 	return relay

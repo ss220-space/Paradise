@@ -25,7 +25,10 @@
 
 /datum/data/pda/app/request_console/Destroy()
 	selected_console = null
-	LAZYNULL(possible_consoles)
+	for(var/obj/machinery/requests_console/console as anything in possible_consoles)
+		console.connected_apps -= src
+	QDEL_NULL(possible_consoles)
+	QDEL_NULL(consoles_mute)
 	. = ..()
 
 /datum/data/pda/app/request_console/proc/on_rc_destroyed(datum/source)

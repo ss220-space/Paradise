@@ -16,6 +16,8 @@
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	VAR_PRIVATE/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
+	interaction_flags_click = BYPASS_ADJACENCY
+	flags = NO_SCREENTIPS
 	/**
 	 * Map name assigned to this object.
 	 * Automatically set by /client/proc/add_obj_to_map.
@@ -29,11 +31,14 @@
 	 * But for now, this works.
 	 */
 	var/del_on_map_removal = TRUE
+	/// If FALSE, this will not be cleared when calling /client/clear_screen()
+	var/clear_with_screen = TRUE
 
 /atom/movable/screen/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
-	if(hud_owner && istype(hud_owner))
-		hud = hud_owner
+	if(isnull(hud_owner)) //some screens set their hud owners on /new, this prevents overriding them with null post atoms init
+		return
+	set_new_hud(hud_owner)
 
 /atom/movable/screen/Destroy()
 	master = null
@@ -42,6 +47,21 @@
 
 /atom/movable/screen/proc/component_click(atom/movable/screen/component_button/component, params)
 	return
+
+///setter used to set our new hud
+/atom/movable/screen/proc/set_new_hud(datum/hud/hud_owner)
+	if(hud)
+		UnregisterSignal(hud, COMSIG_QDELETING)
+	if(isnull(hud_owner))
+		hud = null
+		return
+	hud = hud_owner
+	RegisterSignal(hud, COMSIG_QDELETING, PROC_REF(on_hud_delete))
+
+/atom/movable/screen/proc/on_hud_delete(datum/source)
+	SIGNAL_HANDLER
+
+	set_new_hud(hud_owner = null)
 
 /atom/movable/screen/text
 	icon = null
@@ -80,7 +100,7 @@
 	screen_loc = ui_acti
 
 /atom/movable/screen/act_intent/Click(location, control, params)
-	if(ishuman(usr))
+	if(ishuman(usr) || isdevil(usr))
 		var/_x = text2num(params2list(params)["icon-x"])
 		var/_y = text2num(params2list(params)["icon-y"])
 		if(_x<=16 && _y<=16)
@@ -293,28 +313,30 @@
 		return TRUE
 
 	if(PL["alt"])
-		AltClick(usr, choice)
+		click_alt(usr, choice)
 		return
 
 	return set_selected_zone(choice)
 
-/atom/movable/screen/zone_sel/AltClick(mob/user, choice)
+/atom/movable/screen/zone_sel/click_alt(mob/user, choice)
 
 	if(user.next_click > world.time || user.next_move > world.time)
-		return FALSE
+		return CLICK_ACTION_BLOCKING
 	user.changeNext_click(1)
 
 	var/obj/item/holding_item = user.get_active_hand()
 	var/old_selecting = selecting
 	if(!istype(holding_item))
-		return FALSE
+		return CLICK_ACTION_BLOCKING
 	if(!set_selected_zone(choice, FALSE))
-		return FALSE
+		return CLICK_ACTION_BLOCKING
 	holding_item.melee_attack_chain(user, user)
 	set_selected_zone(old_selecting, FALSE)
+	return CLICK_ACTION_SUCCESS
 
 
 /atom/movable/screen/zone_sel/MouseEntered(location, control, params)
+	. = ..()
 	MouseMove(location, control, params)
 
 
@@ -348,6 +370,7 @@
 	if(!isobserver(usr) && hovering)
 		cut_overlay(hover_overlays_cache[hovering])
 		hovering = null
+	return ..()
 
 
 /atom/movable/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
@@ -450,6 +473,9 @@
 	screen_loc = ui_crafting
 
 /atom/movable/screen/craft/Click()
+	if(isobserver(usr))
+		return
+
 	var/mob/living/M = usr
 	M.OpenCraftingMenu()
 
@@ -470,7 +496,7 @@
 	var/image/object_overlay
 
 /atom/movable/screen/inventory/MouseEntered(location, control, params)
-	..()
+	. = ..()
 	add_overlays()
 
 /atom/movable/screen/inventory/MouseExited(location, control, params)

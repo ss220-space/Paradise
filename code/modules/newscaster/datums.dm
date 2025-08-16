@@ -130,7 +130,7 @@
   * * user - The user
   * * scanned_user - The user's identifying information on the newscaster
   */
-/datum/feed_channel/proc/can_publish(mob/user, scanned_user = "Unknown")
+/datum/feed_channel/proc/can_publish(mob/user, scanned_user = "Неизвестный")
 	return (!frozen && (is_public || (author == scanned_user))) || user?.can_admin_interact()
 
 /**
@@ -140,7 +140,7 @@
   * * user - The user
   * * scanned_user - The user's identifying information on the newscaster
   */
-/datum/feed_channel/proc/can_modify(mob/user, scanned_user = "Unknown")
+/datum/feed_channel/proc/can_modify(mob/user, scanned_user = "Неизвестный")
 	return (!frozen && author == scanned_user) || user?.can_admin_interact()
 
 /**
@@ -168,7 +168,7 @@
 	ASSERT(istype(M))
 
 	if(!length(M.title))
-		M.title = "[channel_name] Story #[length(messages) + 1]"
+		M.title = "\"[channel_name]\" - Публикация №[length(messages) + 1]"
 	LAZYADD(messages, M)
 	GLOB.news_network.stories += M
 	// Update all newscaster TGUIs
@@ -183,5 +183,5 @@
   */
 /datum/feed_channel/proc/get_announce_text(title)
 	if(length(title))
-		return "Свежие новости от [channel_name]: [title]"
-	return "Свежие новости от [channel_name]"
+		return "Свежие новости от канала \"[channel_name]\": [title]"
+	return "Свежие новости от канала \"[channel_name]\""

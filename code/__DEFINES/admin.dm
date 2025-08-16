@@ -54,6 +54,7 @@
 #define ADMIN_VV(atom,display) "<a href='byond://?_src_=vars;Vars=[atom.UID()]'>[display]</a>"
 #define ADMIN_SM(user,display) "<a href='byond://?_src_=holder;subtlemessage=[user.UID()]'>[display]</a>"
 #define ADMIN_TP(user,display) "<a href='byond://?_src_=holder;traitor=[user.UID()]'>[display]</a>"
+#define ADMIN_OBS(user, display) "<a href='byond://?_src_=holder;observeinventory=[user.UID()]'>[display]</a>"
 #define ADMIN_ALERT(user, display) "<a href='byond://?_src_=holder;adminalert=[user.UID()]'>[display]</a>"
 #define ADMIN_BSA(user,display) "<a href='byond://?_src_=holder;BlueSpaceArtillery=[user.UID()]'>[display]</a>"
 #define ADMIN_CENTCOM_REPLY(user,display) "<a href='byond://?_src_=holder;CentcommReply=[user.UID()]'>[display]</a>"

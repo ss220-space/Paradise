@@ -8,7 +8,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 		to_chat(src, span_userdanger("Игра ещё не началась!"))
 		return
 	if(GLOB.sent_strike_team)
-		to_chat(src, span_userdanger("Центральное Командование уже отправило один отряд."))
+		to_chat(src, span_userdanger("Центральное командование уже отправило один отряд."))
 		if(tgui_alert(src, "Вы хотите послать ещё один?","Подтверждение", list("Да","Нет")) != "Да")
 			return
 	else if(tgui_alert(src, "Вы хотите отправить отряд смерти Центрального Коммандования? После согласия это необратимо.", "Подтверждение", list("Да","Нет")) != "Да")
@@ -25,13 +25,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				return
 
 	// Find the nuclear auth code
-	var/nuke_code
-	var/temp_code
-	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
-		temp_code = text2num(N.r_code)
-		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
-			nuke_code = N.r_code
-			break
+	var/nuke_code = GLOB.nuke_codes[/obj/machinery/nuclearbomb]
 
 	// Find ghosts willing to be DS
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
@@ -88,8 +82,8 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				SSticker.mode.deathsquad |= R.mind
 				R.key = ghost_mob.key
 				if(nuke_code)
-					R.mind.store_memory("<B>Коды от боеголовки:</B> <span class='warning'>[nuke_code].</span>")
-				R.mind.store_memory("<B>Миссия:</B> <span class='warning'>[input].</span>")
+					R.mind.store_memory("<b>Коды от боеголовки:</b> <span class='warning'>[nuke_code].</span>")
+				R.mind.store_memory("<b>Миссия:</b> <span class='warning'>[input].</span>")
 				to_chat(R, span_userdanger("Вы борг отдела Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: <span class='danger'>[input]</span>"))
 			else
 				var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
@@ -99,9 +93,9 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				new_commando.update_action_buttons_icon()
 				new_commando.change_voice()
 				if(nuke_code)
-					new_commando.mind.store_memory("<B>Коды от боеголовки:</B> <span class='warning'>[nuke_code].</span>")
-				new_commando.mind.store_memory("<B>Миссия:</B> <span class='warning'>[input].</span>")
-				to_chat(new_commando, span_userdanger("Вы [is_leader ? "<B>КОМАНДИР</B>" : "боец"] отряда Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: <span class='danger'>[input]</span>"))
+					new_commando.mind.store_memory("<b>Коды от боеголовки:</b> <span class='warning'>[nuke_code].</span>")
+				new_commando.mind.store_memory("<b>Миссия:</b> <span class='warning'>[input].</span>")
+				to_chat(new_commando, span_userdanger("Вы [is_leader ? "<b>КОМАНДИР</b>" : "боец"] отряда Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: <span class='danger'>[input]</span>"))
 
 			is_leader = FALSE
 			commando_number--
@@ -120,8 +114,8 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 			#3 Не оставляй свидетелей.<br>\
 			Ты полностью экипирован и подготовлен к миссии — перед отправкой на шаттле Специальных операций\
 			севернее, убедись, что все бойцы готовы.\
-			Фактическая цель миссии будет передана тебе Центральным Командованием через гарнитуру.<br>\
-			Если это будет сочтено уместным, Центральное Командование также позволит членам твоей команды экипироваться штурмовыми мехами для миссии. \
+			Фактическая цель миссии будет передана тебе Центральным командованием через гарнитуру.<br>\
+			Если это будет сочтено уместным, Центральное командование также позволит членам твоей команды экипироваться штурмовыми мехами для миссии. \
 			Ты найдешь оружейную с ними на западе от твоей позиции.  \
 			Когда будешь готов к отправке, используй консоль специального оперативного шаттла и переключи двери корпуса через другую консоль.</p>\
 			<p>В случае, если команда не выполнит поставленную задачу вовремя или не найдет другого способа её выполнить, ниже приведены инструкции по эксплуатации ядерного устройства Nanotrasen. \

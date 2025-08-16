@@ -16,7 +16,6 @@
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
 	minimal_player_age = 21
-	min_age_type = JOB_MIN_AGE_COMMAND
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_MEDICAL
 	disabilities_allowed = 0
@@ -113,7 +112,6 @@
 	jobtype = /datum/job/doctor/intern
 
 	uniform = /obj/item/clothing/under/rank/medical/intern
-	l_pocket = /obj/item/paper/deltainfo
 	id = /obj/item/card/id/medical/intern
 	l_hand = /obj/item/storage/firstaid/o2
 	backpack_contents = list(
@@ -273,6 +271,7 @@
 	id = /obj/item/card/id/genetics
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/geneticist
+	l_pocket = /obj/item/dna_notepad
 
 	backpack = /obj/item/storage/backpack/genetics
 	satchel = /obj/item/storage/backpack/satchel_gen

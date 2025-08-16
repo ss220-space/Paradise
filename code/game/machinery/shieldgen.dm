@@ -531,7 +531,7 @@
 	cleanup(8)
 	return ..()
 
-/obj/machinery/shieldwallgen/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/shieldwallgen/bullet_act(obj/projectile/Proj)
 	storedpower -= Proj.damage
 	..()
 	return
@@ -584,7 +584,7 @@
 			gen_secondary.storedpower -=10
 
 
-/obj/machinery/shieldwall/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/shieldwall/bullet_act(obj/projectile/Proj)
 	if(needs_power)
 		var/obj/machinery/shieldwallgen/G
 		if(prob(50))
@@ -676,7 +676,7 @@
 		phaseout()
 
 
-/obj/machinery/shieldwall/syndicate/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/shieldwall/syndicate/bullet_act(obj/projectile/Proj)
 	phaseout()
 	return ..()
 

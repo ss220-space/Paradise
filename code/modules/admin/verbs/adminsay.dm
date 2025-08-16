@@ -19,11 +19,11 @@
 		if(check_rights(R_ADMIN|R_MOD, 0, C.mob))
 			// Lets see if this admin was pinged in the asay message
 			if(findtext(msg, "@[C.ckey]") || findtext(msg, "@[C.key]")) // Check ckey and key, so you can type @AffectedArc07 or @affectedarc07
-				SEND_SOUND(C, 'sound/misc/ping.ogg')
+				SEND_SOUND(C, sound('sound/misc/ping.ogg'))
 				msg = replacetext(msg, "@[C.ckey]", "<font color='red'>@[C.ckey]</font>")
 				msg = replacetext(msg, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 
-			msg = "<span class='emoji_enabled'>[msg]</span>"
+			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
@@ -60,7 +60,7 @@
 					display_name = "[holder.fakekey]/([key])"
 				else
 					display_name = holder.fakekey
-			msg = "<span class='emoji_enabled'>[msg]</span>"
+			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
@@ -71,7 +71,7 @@
 		cmd_mentor_say(msg)
 
 /client/proc/toggle_mentor_chat()
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 	set name = "Toggle Mentor Chat"
 	set desc = "Toggle whether mentors have access to the msay command"
 
@@ -133,7 +133,7 @@
 					display_name = "[holder.fakekey]/([key])"
 				else
 					display_name = holder.fakekey
-			msg = "<span class='emoji_enabled'>[msg]</span>"
+			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='[check_rights(R_ADMIN, FALSE) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

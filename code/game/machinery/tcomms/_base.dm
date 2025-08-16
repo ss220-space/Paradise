@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/machinery/tcomms
 	name = "Telecommunications Device"
-	desc = "Someone forgot to say what this thingy does. Please yell at a coder"
+	desc = "Если вы это видите, составьте баг-репорт в Discord."
 	icon = 'icons/obj/machines/tcomms.dmi'
 	icon_state = "error"
 	density = TRUE
@@ -37,11 +37,21 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 500
 	/// Network ID used for names + auto linkage
-	var/network_id = "None"
+	var/network_id = "Нет"
 	/// Is the machine active
 	var/active = TRUE
 	/// Has the machine been hit by an ionospheric anomaly
 	var/ion = FALSE
+
+/obj/machinery/tcomms/get_ru_names()
+	return list(
+		NOMINATIVE = "устройство телекоммуникаций",
+		GENITIVE = "устройства телекоммуникаций",
+		DATIVE = "устройству телекоммуникаций",
+		ACCUSATIVE = "устройство телекоммуникаций",
+		INSTRUMENTAL = "устройством телекоммуникаций",
+		PREPOSITIONAL = "устройстве телекоммуникаций"
+	)
 
 /**
   * Base Initializer
@@ -136,7 +146,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	if(active)
 		active = FALSE
 		// This needs a timer because otherwise its on the shuttle Z and the message is missed
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), span_warning("Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.")), 5)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), span_warning("Оборудование радиосвязи на [declent_ru(NOMINATIVE)] было перегружено мощным блюспейс-воздействием. Пожалуйста, перезагрузите устройство.")), 5)
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -175,11 +185,11 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /datum/tcomms_message
 	/// Who sent the message
-	var/sender_name = "Error"
+	var/sender_name = "Ошибка"
 	/// What job are they
-	var/sender_job = "Error"
-	/// What rank are they
-	var/sender_rank = "Error"
+	var/sender_job = "Ошибка"
+	/// What rank are they (this is used for formatting)
+	var/sender_rank = "Ошибка"
 	/// Pieces of the message
 	var/list/message_pieces = list()
 	/// Source Z-level
@@ -193,20 +203,22 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	/// Origin of the signal
 	var/datum/radio_frequency/connection
 	/// Who sent it
-	var/mob/sender
+	var/atom/movable/sender
 	/// The radio it was sent from
 	var/obj/item/radio/radio
 	/// The signal data (See defines/radio.dm)
 	var/data
 	/// Verbage used
-	var/verbage = "says"
+	var/verbage = "говор%(ит,ят)%"
 	/// Follow target for AI use
 	var/atom/follow_target = null
 	/// Is this signal meant to be rejected
 	var/reject = FALSE
 	/// Voice name if the person doesnt have a name (diona, alien, etc)
 	var/vname
-	/// List of all channels this can be sent or recieved on
+	/// sender_name before modify_message modifies it, because it introduces html tags.
+	var/pre_modify_name
+	/// List of all channels this can be sent or received on
 	var/list/zlevels = list()
 	/// Should this signal be re-broadcasted (Can be modified by NTTC, defaults to TRUE)
 	var/pass = TRUE
@@ -323,12 +335,12 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
   /* ###### Organize the receivers into categories for displaying the message ###### */
 
-  	// Understood the message:
-	var/list/heard_masked 	= list() // masked name or no real name
-	var/list/heard_normal 	= list() // normal message
+ 	// Understood the message:
+	var/list/heard_masked	= list() // masked name or no real name
+	var/list/heard_normal	= list() // normal message
 
 	// Did not understand the message:
-	var/list/heard_voice 	= list() // voice message	(ie "chimpers")
+	var/list/heard_voice	= list() // voice message	(ie "chimpers")
 	var/list/heard_garbled	= list() // garbled message (ie "f*c* **u, **i*er!")
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
@@ -379,26 +391,26 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	 /* ###### Send the message ###### */
 
 
-	  	/* --- Process all the mobs that heard a masked voice (understood) --- */
+	 	/* --- Process all the mobs that heard a masked voice (understood) --- */
 
 		if(length(heard_masked))
 			for(var/M in heard_masked)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.sender_name, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard the voice normally (understood) --- */
 
 		if(length(heard_normal))
 			for(var/M in heard_normal)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.sender_name, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard the voice normally (did not understand) --- */
 
 		if(length(heard_voice))
 			for(var/M in heard_voice)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender,0, tcm.vname, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.vname, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard a garbled voice (did not understand) --- */
 			// Displays garbled message (ie "f*c* **u, **i*er!")
@@ -406,7 +418,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		if(length(heard_garbled))
 			for(var/M in heard_garbled)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, tcm.vname, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, tcm.vname, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 
 		/* --- Complete gibberish. Usually happens when there's a compressed message --- */
@@ -414,7 +426,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		if(length(heard_gibberish))
 			for(var/M in heard_gibberish)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 	return TRUE
 
@@ -430,6 +442,17 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/item/paper/tcommskey
 	name = "Telecommunications linkage password"
+	desc = "Памятка, содержащая коды для изменения конфигурации телекоммуникационных систем."
+
+/obj/item/paper/tcommskey/get_ru_names()
+	return list(
+		NOMINATIVE = "\"Пароль привязки телекоммуникаций\"",
+		GENITIVE = "\"Пароль привязки телекоммуникаций\"",
+		DATIVE = "\"Пароль привязки телекоммуникаций\"",
+		ACCUSATIVE = "\"Пароль привязки телекоммуникаций\"",
+		INSTRUMENTAL = "\"Пароль привязки телекоммуникаций\"",
+		PREPOSITIONAL = "\"Пароль привязки телекоммуникаций\""
+	)
 
 /**
   * Password Paper Initializer
@@ -448,11 +471,13 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/item/paper/tcommskey/LateInitialize(mapload)
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-		if(C.network_id == "STATION-CORE")
-			info = "<center><h2>Telecommunications Key</h2></center>\n\t<br>The station core linkage password is '[C.link_password]'.<br>Should this paper be misplaced or destroyed, fear not, as the password is visible under the core linkage section. Should you wish to modify this password, it can be modified from the core."
+		if(C.network_id == "СТАНЦИЯ-ЯДРО")
+			info = "<center><h2>Пароль привязки телекоммуникаций</h2></center>\n\t<br>Пароль для привязки к станционному ядру: \"[C.link_password]\".<br> \
+			Если эта записка будет утеряна или уничтожена, вы всегда можете найти пароль во вкладке \"Привязка к ядру\".<br> \
+			Если вы захотите сменить пароль, это можно сделать с помощью конфигурации ядра телекоммуникаций."
 			info_links = info
 			update_icon(UPDATE_ICON_STATE)
-			// Save time, even though there should only be one STATION-CORE in the world
+			// Save time, even though there should only be one СТАНЦИЯ-ЯДРО in the world
 			break
 	return ..()
 

@@ -16,8 +16,8 @@
 	var/required_num_players_for_apprentice = 25	//Each additional number of players above the minimum, a new apprentice is added
 
 /datum/game_mode/wizard/announce()
-	to_chat(world, "<B>The current game mode is - Wizard!</B>")
-	to_chat(world, "<B>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</B>")
+	to_chat(world, "<b>The current game mode is - Wizard!</b>")
+	to_chat(world, "<b>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</b>")
 
 /datum/game_mode/wizard/can_start()
 	if(!..())
@@ -89,9 +89,9 @@
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your magical powers fading away...</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been turned into a robot! You can feel your magical powers fading away..."))
 		else
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard.</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been brainwashed! You are no longer a wizard."))
 		SSticker.mode.update_wiz_icons_removed(wizard_mind)
 	else if(wizard_mind in apprentices)
 		SSticker.mode.apprentices -= wizard_mind
@@ -100,9 +100,9 @@
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your magical powers fading away...</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been turned into a robot! You can feel your magical powers fading away..."))
 		else
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard-apprentice.</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been brainwashed! You are no longer a wizard-apprentice."))
 		SSticker.mode.update_wiz_icons_removed(wizard_mind)
 
 /datum/game_mode/proc/update_wiz_icons_added(datum/mind/wiz_mind)
@@ -136,7 +136,7 @@
 	var/wizard_name_first = pick(GLOB.wizard_first)
 	var/wizard_name_second = pick(GLOB.wizard_second)
 	var/randomname = "[wizard_name_first] [wizard_name_second]"
-	var/newname = sanitize(copytext_char(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
+	var/newname = tgui_input_text(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname, max_length = MAX_NAME_LEN)
 
 	if(!newname)
 		newname = randomname
@@ -156,10 +156,10 @@
 	addtimer(CALLBACK(wizard.current, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	var/list/messages = list()
 	if(you_are)
-		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
+		messages.Add(span_danger("You are the Space Wizard!"))
 	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
 	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
-	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Wizard\">Маг</a></span>")
+	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Wizard\">Маг</a>"))
 	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
 	return
 
@@ -207,7 +207,7 @@
 	to_chat(wizard_mob, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
 	to_chat(wizard_mob, "The spellbook is bound to you, and others cannot use it.")
 	to_chat(wizard_mob, "In your pockets you will find a teleport scroll. Use it as needed.")
-	wizard_mob.mind.store_memory("<B>Remember:</B> do not forget to prepare your spells.")
+	wizard_mob.mind.store_memory("<b>Remember:</b> do not forget to prepare your spells.")
 	wizard_mob.update_icons()
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return TRUE
@@ -254,10 +254,10 @@
 
 
 
-	to_chat(wizard_mob, "<span class='notice'>Вы найдёте набор из доступных закинаний в вашем магическом учебнике.</span>")
-	to_chat(wizard_mob, "<span class='notice'>Магический учебник привязан к вам, другие не могут ей воспользоваться.</span>")
-	to_chat(wizard_mob, "<span class='notice'>В карманах вы найдёте свиток телепортации. Используйте его при необходимости.</span>")
-	wizard_mob.mind.store_memory("<B>Помните:</B> не забудьте выбрать предпочитаемый набор.")
+	to_chat(wizard_mob, span_notice("Вы найдёте набор из доступных закинаний в вашем магическом учебнике."))
+	to_chat(wizard_mob, span_notice("Магический учебник привязан к вам, другие не могут ей воспользоваться."))
+	to_chat(wizard_mob, span_notice("В карманах вы найдёте свиток телепортации. Используйте его при необходимости."))
+	wizard_mob.mind.store_memory("<b>Помните:</b> не забудьте выбрать предпочитаемый набор.")
 	wizard_mob.update_icons()
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return TRUE
@@ -298,24 +298,24 @@
 /datum/game_mode/wizard/declare_completion(var/ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "wizard loss - wizard killed"
-		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] [(apprentices.len>1)?"and apprentices":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
+		to_chat(world, span_warning(span_bold(span_fontsize3(" The wizard[(wizards.len>1)?"s":""] [(apprentices.len>1)?"and apprentices":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!"))))
 	..()
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_wizard()
 	if(wizards.len)
-		var/text = "<br><font size=3><b>the wizards/witches were:</b></font>"
+		var/list/text = list(span_bold(span_fontsize3("<br>the wizards/witches were:")))
 
 		for(var/datum/mind/wizard in wizards)
 
-			text += "<br><b>[wizard.get_display_key()]</b> was <b>[wizard.name]</b> ("
+			text += "<br>[span_bold(wizard.get_display_key())] was [span_bold(wizard.name)] ("
 			if(wizard.current)
 				if(wizard.current.stat == DEAD)
 					text += "died"
 				else
 					text += "survived"
 				if(wizard.current.real_name != wizard.name)
-					text += " as <b>[wizard.current.real_name]</b>"
+					text += " as [span_bold(wizard.current.real_name)]"
 			else
 				text += "body destroyed"
 			text += ")"
@@ -324,22 +324,22 @@
 			var/wizardwin = 1
 			for(var/datum/objective/objective in wizard.objectives)
 				if(objective.check_completion())
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
 					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
 					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "FAIL"))
 					wizardwin = 0
 				count++
 
 			if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
-				text += "<br><font color='green'><B>The wizard was successful!</B></font>"
+				text += "<br><font color='green'><b>The wizard was successful!</b></font>"
 				SSblackbox.record_feedback("tally", "wizard_success", 1, "SUCCESS")
 			else
-				text += "<br><font color='red'><B>The wizard has failed!</B></font>"
+				text += "<br><font color='red'><b>The wizard has failed!</b></font>"
 				SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
 			if(LAZYLEN(wizard.spell_list))
-				text += "<br><B>[wizard.name] used the following spells: </B>"
+				text += "<br><b>[wizard.name] used the following spells: </b>"
 				var/i = 1
 				for(var/obj/effect/proc_holder/spell/spell as anything in wizard.spell_list)
 					text += "[spell.name]"
@@ -349,7 +349,7 @@
 			text += "<br>"
 
 		if(apprentices.len)
-			text += "<br><font size=3><b>the wizards/witches apprentices were:</b></font>"
+			text += span_bold(span_fontsize3("<br>the wizards/witches apprentices were:"))
 			for(var/datum/mind/apprentice in apprentices)
 				text += "<br><b>[apprentice.get_display_key()]</b> was <b>[apprentice.name]</b> ("
 				if(apprentice.current)
@@ -367,24 +367,23 @@
 				var/wizardwin = 1
 				for(var/datum/objective/objective in apprentice.objectives)
 					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
 						SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "FAIL"))
 						wizardwin = 0
 					count++
 
 				if(apprentice.current && apprentice.current.stat!=DEAD && wizardwin)
-					text += "<br><font color='green'><B>The wizard was successful!</B></font>"
+					text += "<br><font color='green'><b>The wizard was successful!</b></font>"
 					SSblackbox.record_feedback("tally", "wizard_success", 1, "SUCCESS")
 				else
-					text += "<br><font color='red'><B>The wizard has failed!</B></font>"
+					text += "<br><font color='red'><b>The wizard has failed!</b></font>"
 					SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
 				text += "<br>"
 
-		to_chat(world, text)
-	return 1
+		return text.Join("")
 
 //OTHER PROCS
 

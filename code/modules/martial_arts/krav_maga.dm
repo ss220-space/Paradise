@@ -1,7 +1,8 @@
 /datum/martial_art/krav_maga
 	name = "Krav Maga"
 	has_dirslash = FALSE
-	weight = 8 //Higher weight, since you can choose to put on or take off the gloves
+	change_musculs = FALSE
+	weight = 9 //Higher weight, since you can choose to put on or take off the gloves
 	var/datum/action/neck_chop/neckchop = new/datum/action/neck_chop()
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
@@ -112,10 +113,10 @@
 
 	if(picked_hit_type == "kicks" || picked_hit_type == "stomps")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, 1, -1)
+		playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	else
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	return TRUE
@@ -135,11 +136,11 @@
 					A.put_in_hands(I, ignore_anim = FALSE)
 		D.visible_message("<span class='danger'>[A] has disarmed [D]!</span>", \
 							"<span class='userdanger'>[A] has disarmed [D]!</span>")
-		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", \
 							"<span class='userdanger'>[A] attempted to disarm [D]!</span>")
-		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 	return TRUE
 
 //Krav Maga Gloves

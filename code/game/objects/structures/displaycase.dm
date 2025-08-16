@@ -6,7 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 30, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 100)
 	max_integrity = 200
 	integrity_failure = 50
 	var/obj/item/showpiece = null
@@ -38,11 +38,11 @@
 /obj/structure/displaycase/examine(mob/user)
 	. = ..()
 	if(alert)
-		. += "<span class='notice'>Hooked up with an anti-theft system.</span>"
+		. += span_notice("Hooked up with an anti-theft system.")
 	if(showpiece)
-		. += "<span class='notice'>There's [showpiece] inside.</span>"
+		. += span_notice("There's [showpiece] inside.")
 	if(trophy_message)
-		. += "<span class='notice'>The plaque reads:\n [trophy_message]</span>"
+		. += span_notice("The plaque reads:\n [trophy_message]")
 
 /obj/structure/displaycase/proc/dump()
 	if(showpiece)
@@ -78,10 +78,10 @@
 	if(alert && is_station_contact(z))
 		var/area/alarmed = get_area(src)
 		alarmed.burglaralert(src)
-		visible_message("<span class='danger'>The burglar alarm goes off!</span>")
+		visible_message(span_danger("The burglar alarm goes off!"))
 		// Play the burglar alarm three times
 		for(var/i = 0, i < 4, i++)
-			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, 0)
+			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, FALSE)
 			sleep(74) // 7.4 seconds long
 
 
@@ -131,7 +131,7 @@
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You replace [src]'s glass panel."))
 		broken = FALSE
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -161,15 +161,15 @@
 		return
 	if(broken)
 		if(showpiece)
-			to_chat(user, "<span class='notice'>Remove the displayed object first.</span>")
+			to_chat(user, span_notice("Remove the displayed object first."))
 		if(I.use_tool(src, user, 0, volume = I.tool_volume))
-			to_chat(user, "<span class='notice'>You remove the destroyed case</span>")
+			to_chat(user, span_notice("You remove the destroyed case"))
 			qdel(src)
 	else
-		to_chat(user, "<span class='notice'>You start to [open ? "close":"open"] [src].</span>")
+		to_chat(user, span_notice("You start to [open ? "close":"open"] [src]."))
 		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 			return
-		to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
+		to_chat(user,  span_notice("You [open ? "close":"open"] [src]."))
 		toggle_lock(user)
 
 /obj/structure/displaycase/welder_act(mob/user, obj/item/I)
@@ -184,7 +184,7 @@
 /obj/structure/displaycase/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(showpiece && (broken || open))
-		to_chat(user, "<span class='notice'>You deactivate the hover field built into the case.</span>")
+		to_chat(user, span_notice("You deactivate the hover field built into the case."))
 		dump()
 		add_fingerprint(user)
 		update_icon(UPDATE_OVERLAYS)
@@ -194,7 +194,7 @@
 		if(!Adjacent(user))
 			return
 		add_fingerprint(user)
-		user.visible_message("<span class='danger'>[user] kicks the display case.</span>")
+		user.visible_message(span_danger("[user] kicks the display case."))
 		user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 		take_damage(2)
 
@@ -285,6 +285,11 @@
 	desc = "A glass lab container for storing interesting creatures."
 	start_showpiece_type = /obj/item/clothing/mask/facehugger/lamarr
 	req_access = list(ACCESS_RD)
+
+/obj/structure/displaycase/labcage/dump()
+	var/obj/item/clothing/mask/facehugger/hugger = showpiece
+	. = ..()
+	hugger?.check_mob_inside()
 
 /obj/structure/displaycase/stechkin
 	name = "officer's display case"

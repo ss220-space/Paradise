@@ -8,13 +8,13 @@ describe('ChannelIterator', () => {
   });
 
   it('should cycle through channels properly', () => {
-    expect(channelIterator.current()).toBe('Say');
-    expect(channelIterator.next()).toBe('Radio');
-    expect(channelIterator.next()).toBe('Whisper');
-    expect(channelIterator.next()).toBe('Me');
+    expect(channelIterator.current()).toBe('Сказать');
+    expect(channelIterator.next()).toBe('Радио');
+    expect(channelIterator.next()).toBe('Шёпот');
+    expect(channelIterator.next()).toBe('Эмоция');
     expect(channelIterator.next()).toBe('OOC');
     expect(channelIterator.next()).toBe('LOOC');
-    expect(channelIterator.next()).toBe('Say'); // Admin, Mentor, and Dsay are blacklisted so should be skipped
+    expect(channelIterator.next()).toBe('Сказать'); // Admin, Mentor, and Dsay are blacklisted so should be skipped
   });
 
   it('should set a channel properly', () => {
@@ -23,17 +23,17 @@ describe('ChannelIterator', () => {
   });
 
   it('should return true when current channel is "Say"', () => {
-    channelIterator.set('Say');
+    channelIterator.set('Сказать');
     expect(channelIterator.isSay()).toBe(true);
   });
 
   it('should return false when current channel is not "Say"', () => {
-    channelIterator.set('Radio');
+    channelIterator.set('Радио');
     expect(channelIterator.isSay()).toBe(false);
   });
 
   it('should return true when current channel is visible', () => {
-    channelIterator.set('Say');
+    channelIterator.set('Сказать');
     expect(channelIterator.isVisible()).toBe(true);
   });
 

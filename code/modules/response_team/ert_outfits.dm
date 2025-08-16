@@ -11,6 +11,7 @@
 	W.registered_name = H.real_name
 	W.name = "[H.real_name]'s ID Card ([rt_job])"
 	W.access = get_centcom_access(W.assignment)
+	W.law_level = LAW_LEVEL_RESPONSE_TEAM
 	W.photo = get_id_photo(H)
 	if(H.mind && H.mind.initial_account && H.mind.initial_account.account_number)
 		W.associated_account_number = H.mind.initial_account.account_number
@@ -18,7 +19,7 @@
 /datum/outfit/job/centcom/response_team/imprint_pda(mob/living/carbon/human/H)
 	var/obj/item/pda/PDA = H.wear_pda
 	if(istype(PDA))
-		PDA.owner = H.real_name
+		PDA.update_owner_name(H.real_name)
 		PDA.ownjob = rt_assignment
 		PDA.ownrank = rt_assignment
 		PDA.update_appearance(UPDATE_NAME)

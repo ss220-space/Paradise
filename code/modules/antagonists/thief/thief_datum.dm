@@ -51,7 +51,7 @@
 
 /datum/antagonist/thief/greet()
 	var/list/messages = list()
-	SEND_SOUND(owner.current, 'sound/ambience/antag/thiefalert.ogg')
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/thiefalert.ogg'))
 	messages.Add(span_userdanger("Вы член гильдии воров!"))
 	messages.Add(span_danger("Гильдия воров прислала новые заказы для кражи. Пора заняться старым добрым ремеслом, пока цели не украли конкуренты!"))
 	return messages
@@ -61,7 +61,7 @@
 		to_chat(owner.current, span_userdanger("Вы киборгизированы!"))
 		to_chat(owner.current, span_danger("Вы должны подчиняться своим законам и подчиняться мастеру ИИ. Ваши цели более недействительны."))
 	else
-		to_chat(owner.current, "<FONT color='red' size = 3><B>Вы встали на праведный путь и Гильдия Воров изгнала вас! Вы больше не вор!</B></FONT>")
+		to_chat(owner.current, span_fontsize3("<span style='color: red;'><b>Вы встали на праведный путь и Гильдия Воров изгнала вас! Вы больше не вор!</b></span>"))
 
 
 /datum/antagonist/thief/finalize_antag()

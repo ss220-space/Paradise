@@ -32,6 +32,10 @@
 ///from [/obj/structure/closet/supplypod/proc/preOpen]:
 #define COMSIG_SUPPLYPOD_LANDED "supplypodgoboom"
 
+#define COMSIG_MORTAR_DETONATE "mortar_prime"
 
 /// from  /datum/surgery_step/proc/initiate() : (&time)
 #define COMSIG_SURGERY_STEP_INIT "surgery_step_init"
+
+
+#define COMSIG_DISPOSAL_INJECT "disposal_inject"

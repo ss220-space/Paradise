@@ -10,14 +10,6 @@
 /obj/machinery/computer/med_data //TODO:SANITY
 	name = "medical records console"
 	desc = "Консоль, подключённая к станционной базе данных. Позволяет просматривать и редактировать медицинские записи членов экипажа."
-	ru_names = list(
-		NOMINATIVE = "консоль медицинских записей",
-		GENITIVE = "консоли медицинских записей",
-		DATIVE = "консоли медицинских записей",
-		ACCUSATIVE = "консоль медицинских записей",
-		INSTRUMENTAL = "консолью медицинских записей",
-		PREPOSITIONAL = "консоли медицинских записей"
-	)
 	icon_keyboard = "med_key"
 	icon_screen = "medcomp"
 	req_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
@@ -32,6 +24,16 @@
 	var/static/list/field_edit_choices
 
 	light_color = LIGHT_COLOR_DARKBLUE
+
+/obj/machinery/computer/med_data/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль медицинских записей",
+		GENITIVE = "консоли медицинских записей",
+		DATIVE = "консоли медицинских записей",
+		ACCUSATIVE = "консоль медицинских записей",
+		INSTRUMENTAL = "консолью медицинских записей",
+		PREPOSITIONAL = "консоли медицинских записей"
+	)
 
 /obj/machinery/computer/med_data/Initialize()
 	. = ..()
@@ -357,7 +359,7 @@
 						if(!active1)
 							return
 
-						var/datum/species/species = active1.fields["species"]
+						var/datum/species/species = GLOB.all_species[active1.fields["species"]]
 						var/new_age = text2num(answer)
 						var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
 						if(new_age < age_limits[SPECIES_AGE_MIN] || new_age > age_limits[SPECIES_AGE_MAX])
@@ -368,7 +370,7 @@
 
 					if(istype(active2) && (field in active2.fields))
 						active2.fields[field] = answer
-					else if(istype(active1) && (field in active1.fields))
+					if(istype(active1) && (field in active1.fields))
 						active1.fields[field] = answer
 				if("add_comment")
 					var/datum/ui_login/state = ui_login_get()
@@ -470,7 +472,13 @@
 /obj/machinery/computer/med_data/laptop
 	name = "medical laptop"
 	desc = "Дешёвый ноутбук, произведённый Nanotrasen."
-	ru_names = list(
+	icon_state = "laptop"
+	icon_keyboard = "laptop_key"
+	icon_screen = "medlaptop"
+	density = FALSE
+
+/obj/machinery/computer/med_data/laptop/get_ru_names()
+	return list(
 		NOMINATIVE = "медицинский ноутбук",
 		GENITIVE = "медицинского ноутбука",
 		DATIVE = "медицинскому ноутбуку",
@@ -478,10 +486,6 @@
 		INSTRUMENTAL = "медицинским ноутбуком",
 		PREPOSITIONAL = "медицинском ноутбуке"
 	)
-	icon_state = "laptop"
-	icon_keyboard = "laptop_key"
-	icon_screen = "medlaptop"
-	density = FALSE
 
 #undef MED_DATA_R_LIST
 #undef MED_DATA_MAINT

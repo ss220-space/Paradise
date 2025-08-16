@@ -16,7 +16,6 @@
 	var/det_time = 5 SECONDS
 	var/display_timer = TRUE
 
-
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		prime()

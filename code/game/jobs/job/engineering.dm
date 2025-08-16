@@ -18,7 +18,6 @@
 			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
 			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM)
 	minimal_player_age = 21
-	min_age_type = JOB_MIN_AGE_COMMAND
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_ENGINEERING
 	disabilities_allowed = 0
@@ -119,7 +118,6 @@
 	jobtype = /datum/job/engineer/trainee
 
 	uniform = /obj/item/clothing/under/rank/engineer/trainee
-	l_pocket = /obj/item/paper/deltainfo
 	id = /obj/item/card/id/engineering/trainee
 	gloves = /obj/item/clothing/gloves/color/orange
 

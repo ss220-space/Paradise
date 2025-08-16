@@ -22,7 +22,7 @@
 			if("extract")
 				var/error_message = current_contract?.start_extraction_process(ui_host(), user)
 				if(length(error_message))
-					to_chat(user, "<span class='warning'>[error_message]</span>")
+					to_chat(user, span_warning("[error_message]"))
 			if("claim")
 				claim_tc(user)
 			if("activate")
@@ -32,7 +32,7 @@
 					return
 				C.initiate(user, difficulty)
 			if("abort")
-				current_contract?.fail("Aborted by agent.")
+				current_contract?.fail("Отменено агентом.")
 			if("purchase")
 				var/datum/rep_purchase/P = locateUID(params["uid"])
 				if(!istype(P) || !(P in purchases) || rep < P.cost)
@@ -54,7 +54,7 @@
 /datum/contractor_hub/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Contractor", "Syndicate Contractor Uplink")
+		ui = new(user, src, "Contractor", "Аплинк Контрактника")
 		ui.open()
 
 /datum/contractor_hub/ui_data(mob/user)

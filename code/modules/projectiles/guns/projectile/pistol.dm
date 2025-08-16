@@ -14,6 +14,8 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
 
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
@@ -22,13 +24,67 @@
 
 //M1911//
 /obj/item/gun/projectile/automatic/pistol/m1911
-	name = "\improper M1911"
+	name = "M1911"
 	desc = "A classic .45 handgun with a small magazine capacity."
 	icon_state = "m1911"
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
 	can_suppress = FALSE
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
+
+
+//Specter//
+/obj/item/gun/projectile/automatic/pistol/specter
+	name = "Specter"
+	desc = "Современный пистолет \"Спектр\", модернизирован для возможности стрельбы лазерными патронами. Поставляется только силовым структурам Нанотрейзен."
+	ru_names = list(
+		NOMINATIVE = "Спектр",
+		GENITIVE = "Спектра",
+		DATIVE = "Спектру",
+		ACCUSATIVE = "Спектр",
+		INSTRUMENTAL = "Спектром",
+		PREPOSITIONAL = "Спектре"
+	)
+	icon_state = "specter"
+	item_state = "specter"
+	force = 10
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=4;materials=2"
+	mag_type = /obj/item/ammo_box/magazine/specter
+	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/spec_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/spec_magout.ogg'
+	unique_reskin = TRUE
+	can_suppress = FALSE
+	can_flashlight = TRUE
+	materials = list(MAT_METAL = 1000)
+	gun_light_overlay = "specter-light"
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
+
+
+/obj/item/gun/projectile/automatic/pistol/specter/update_gun_skins()
+	add_skin("Grey slide", "specter")
+	add_skin("Red slide", "specter_red")
+	add_skin("Green slide", "specter_green")
+	add_skin("Tan slide", "specter_tan")
+	add_skin("Green Handle", "specter_greengrip")
+	add_skin("Tan Handle", "specter_tangrip")
+	add_skin("Red Handle", "specter_redgrip")
+
+
+/obj/item/gun/projectile/automatic/pistol/specter/update_icon_state()
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+
+
+/obj/item/gun/projectile/automatic/pistol/specter/ui_action_click(mob/user, datum/action/action, leftclick)
+	toggle_gunlight()
+
 
 //Enforcer//
 /obj/item/gun/projectile/automatic/pistol/enforcer
@@ -42,6 +98,8 @@
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 	gun_light_overlay = "enforcer-light"
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
 
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_gun_skins()
@@ -99,6 +157,8 @@
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 	gun_light_overlay = "sp8-light"
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
 
 
 /obj/item/gun/projectile/automatic/pistol/sp8/update_gun_skins()
@@ -164,6 +224,8 @@
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
 	can_suppress = FALSE
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/automatic/pistol/deagle/update_icon_state()
@@ -192,3 +254,5 @@
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_MEDIUM

@@ -212,11 +212,21 @@
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/syndisauce
-	name = "\improper Chef Excellence's Special Sauce"
-	desc = "A potent sauce extracted from the potent amanita mushrooms. Death never tasted quite so delicious."
+	name = "Chef Excellence's Special Sauce"
+	desc = "Этот ароматный соус, приготовленный из мухоморов, просто восхитителен! Смерть никогда не была такой приятной на вкус."
 	list_reagents = list("amanitin" = 50)
 	possible_states = list()
 	log_eating = TRUE
+
+/obj/item/reagent_containers/food/condiment/syndisauce/get_ru_names()
+	return list(
+		NOMINATIVE = "элитарный соус шефа",
+		GENITIVE = "элитарного соуса шефа",
+		DATIVE = "элитарному соусу шефа",
+		ACCUSATIVE = "элитарный соус шефа",
+		INSTRUMENTAL = "элитарным соусом шефа",
+		PREPOSITIONAL = "элитарном соусе шефа"
+	)
 
 //Tomato sauce
 /obj/item/reagent_containers/food/condiment/tomatosauce

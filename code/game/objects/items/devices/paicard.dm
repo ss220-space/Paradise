@@ -15,11 +15,20 @@
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	COOLDOWN_DECLARE(ping_cooldown)
-	ru_names = list(NOMINATIVE = "интелкарта пИИ", GENITIVE = "интелкарты пИИ", DATIVE = "интелкарте пИИ", ACCUSATIVE = "интелкарту пИИ", INSTRUMENTAL = "интелкартой пИИ", PREPOSITIONAL = "интелкарте пИИ")
 	/// for Syndicate pAI type
 	var/is_syndicate_type = FALSE
 	var/obj/item/paicard_upgrade/upgrade
 	var/list/upgrades = list()
+
+/obj/item/paicard/get_ru_names()
+	return list(
+		NOMINATIVE = "интелкарта пИИ", 
+		GENITIVE = "интелкарты пИИ", 
+		DATIVE = "интелкарте пИИ", 
+		ACCUSATIVE = "интелкарту пИИ", 
+		INSTRUMENTAL = "интелкартой пИИ", 
+		PREPOSITIONAL = "интелкарте пИИ"
+	)
 
 /obj/item/paicard/syndicate // Only seems that it is syndicard
 	name = "syndicate personal AI device"
@@ -44,102 +53,7 @@
 	if(!in_range(src, user) || (pai && (pai == user)))
 		return
 	user.set_machine(src)
-	var/dat = {"
-		<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
-		<html>
-			<meta charset="UTF-8">
-			<head>
-				<style>
-					body {
-					    margin-top:5px;
-					    font-family:Verdana;
-					    color:white;
-					    font-size:13px;
-					    background-image:url('uiBackground.png');
-					    background-repeat:repeat-x;
-					    background-color:#272727;
-						background-position:center top;
-					}
-					table {
-					    font-size:13px;
-					    margin-left:-2px;
-					}
-					table.request {
-					    border-collapse:collapse;
-					}
-					table.desc {
-					    border-collapse:collapse;
-					    font-size:13px;
-					    border: 1px solid #161616;
-					    width:100%;
-					}
-					table.download {
-					    border-collapse:collapse;
-					    font-size:13px;
-					    border: 1px solid #161616;
-					    width:100%;
-					}
-					tr.d0 td, tr.d0 th {
-					    background-color: #506070;
-					    color: white;
-					}
-					tr.d1 td, tr.d1 th {
-					    background-color: #708090;
-					    color: white;
-					}
-					tr.d2 td {
-					    background-color: #00FF00;
-					    color: white;
-					    text-align:center;
-					}
-					td.button {
-					    border: 1px solid #161616;
-					    background-color: #40628a;
-					}
-					td.button {
-					    border: 1px solid #161616;
-					    background-color: #40628a;
-					    text-align: center;
-					}
-					td.button_red {
-					    border: 1px solid #161616;
-					    background-color: #B04040;
-					    text-align: center;
-					}
-					td.download {
-					    border: 1px solid #161616;
-					    background-color: #40628a;
-					    text-align: center;
-					}
-					th {
-					    text-align:left;
-					    width:125px;
-					}
-					td.request {
-					    width:140px;
-					    vertical-align:top;
-					}
-					td.radio {
-					    width:90px;
-					    vertical-align:top;
-					}
-					td.request {
-					    vertical-align:top;
-					}
-					a {
-					    color:#4477E0;
-					}
-					a.button {
-					    color:white;
-					    text-decoration: none;
-					}
-					h2 {
-					    font-size:15px;
-					}
-				</style>
-			</head>
-			<body>
-	"}
+	var/dat = ""
 
 	if(pai)
 		dat += {"
@@ -233,7 +147,10 @@
 				<br>
 				<p>Each time this button is pressed, a request will be sent out to any available personalities. Check back often give plenty of time for personalities to respond. This process could take anywhere from 15 seconds to several minutes, depending on the available personalities' timeliness.</p>
 			"}
-	user << browse(dat, "window=paicard")
+	var/datum/browser/popup = new(user, "paicard", "PAI cart")
+	popup.set_content(dat)
+	popup.add_stylesheet("paicard", 'html/css/pai_cart.css')
+	popup.open(TRUE)
 	onclose(user, "paicard")
 	return
 
@@ -246,7 +163,7 @@
 
 	if(pai)
 		if(!in_range(src, U))
-			U << browse(null, "window=paicard")
+			close_window(U, "paicard")
 			usr.unset_machine()
 			return
 
@@ -303,7 +220,7 @@
 			to_chat(pai, span_notice("Дополнительные дерективы: <br>[pai.pai_laws]"))
 	attack_self(usr)
 
-// 		WIRE_SIGNAL = 1
+//		WIRE_SIGNAL = 1
 //		WIRE_RECEIVE = 2
 //		WIRE_TRANSMIT = 4
 
@@ -385,7 +302,7 @@
 
 /obj/item/paicard/proc/softping()
 	if(COOLDOWN_FINISHED(src, ping_cooldown))
-		playsound(get_turf(src), 'sound/items/posiping.ogg', 50, 0)
+		playsound(get_turf(src), 'sound/items/posiping.ogg', 50, FALSE)
 		COOLDOWN_START(src, ping_cooldown, 20 SECONDS)
 
 

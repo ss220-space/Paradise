@@ -26,7 +26,7 @@
 	screen_alert_ref = WEAKREF(user.throw_alert(ALERT_UNPOSSESS_OBJECT, /atom/movable/screen/alert/unpossess_object))
 
 /datum/component/object_possession/RegisterWithParent()
-	RegisterSignals(parent, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE), PROC_REF(on_move))
+	RegisterSignal(parent, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE), PROC_REF(on_move))
 	RegisterSignal(parent, COMSIG_MOB_GHOSTIZE, PROC_REF(end_possession))
 
 /datum/component/object_possession/UnregisterFromParent()
@@ -61,7 +61,7 @@
 	if(issingularity(target) && CONFIG_GET(flag/forbid_singulo_possession))
 		to_chat(parent, "[target] сопротивляется вашему контролю.", confidential = TRUE)
 		return FALSE
-        
+
 	var/mob/user = parent
 
 	stashed_name = user.real_name

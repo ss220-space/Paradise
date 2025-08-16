@@ -1,5 +1,5 @@
 /obj/machinery/reagentgrinder
-	name = "\improper All-In-One Grinder"
+	name = "All-In-One Grinder"
 	desc = "Измельчает, дробит, разжижает и извлекает вещества из предметов, помещённых внутрь. Ради всего святого, не суйте туда свои пальцы."
 	ru_names = list(
 		NOMINATIVE = "универсальный блендер",
@@ -110,20 +110,15 @@
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
 	if(in_range(src, user))
-		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы активировать.<br>Используйте <b>Alt + Shift + ЛКМ</b>, чтобы удалить содержимое")
+		. += span_notice("Используйте <b>Alt + ЛКМ</b>, чтобы активировать.<br>Используйте <b>Alt + Shift + ЛКМ</b>, чтобы удалить содержимое")
 
-/obj/machinery/reagentgrinder/AltClick(mob/living/carbon/human/human)
-	if(!istype(human) || !human.Adjacent(src))
-		return
-
-	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
-		return
-
+/obj/machinery/reagentgrinder/click_alt(mob/living/carbon/human/human)
 	if(operating)
-		return
+		return NONE
 
 	add_fingerprint(human)
 	grind()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/reagentgrinder/CtrlShiftClick(mob/living/carbon/human/human)
 	if(!istype(human) || !human.Adjacent(src))
@@ -301,16 +296,16 @@
 
 		if(!operating)
 				for (var/obj/item/O in holdingitems)
-						processing_chamber += "\A [O.declent_ru(NOMINATIVE)]<BR>"
+						processing_chamber += "\A [O.declent_ru(NOMINATIVE)]<br>"
 
 				if (!processing_chamber)
 						is_chamber_empty = 1
 						processing_chamber = "Ничего."
 				if (!beaker)
-						beaker_contents = "<B>Ёмкость не установлена.</B><br>"
+						beaker_contents = "<b>Ёмкость не установлена.</b><br>"
 				else
 						is_beaker_ready = 1
-						beaker_contents = "<B>Содержимое ёмкости:</B><br>"
+						beaker_contents = "<b>Содержимое ёмкости:</b><br>"
 						var/anything = 0
 						for(var/datum/reagent/R in beaker.reagents.reagent_list)
 								anything = 1
@@ -325,12 +320,12 @@
 		[beaker_contents]<hr>
 		"}
 				if (is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-						dat += "<a href='byond://?src=[src.UID()];action=grind'>Измельчить</a><BR>"
-						dat += "<a href='byond://?src=[src.UID()];action=juice'>Выжать</a><BR><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=grind'>Измельчить</a><br>"
+						dat += "<a href='byond://?src=[src.UID()];action=juice'>Выжать</a><br><br>"
 				if(holdingitems && holdingitems.len > 0)
-						dat += "<a href='byond://?src=[src.UID()];action=eject'>Вынуть содержимое камеры</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=eject'>Вынуть содержимое камеры</a><br>"
 				if (beaker)
-						dat += "<a href='byond://?src=[src.UID()];action=detach'>Извлечь ёмкость</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=detach'>Извлечь ёмкость</a><br>"
 		else
 				dat += "Пожалуйста, подождите..."
 
@@ -465,7 +460,7 @@
 				return
 		if (!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
 				return
-		playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
+		playsound(src.loc, 'sound/machines/blender.ogg', 50, TRUE)
 		var/offset = prob(50) ? -2 : 2
 		animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
 		operating = 1

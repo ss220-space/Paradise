@@ -119,8 +119,8 @@
 	var/mob/living/silicon/robot/R = target_loc
 	if(R && R.cell)
 		var/datum/reagents/RG = reagent_list[mode]
-		if(!refill_borghypo(RG, reagent_ids[mode], R)) 	//If the storage is not full recharge reagents and drain power.
-			for(var/i in 1 to reagent_list.len)     	//if active mode is full loop through the list and fill the first one that is not full
+		if(!refill_borghypo(RG, reagent_ids[mode], R))	//If the storage is not full recharge reagents and drain power.
+			for(var/i in 1 to reagent_list.len)    	//if active mode is full loop through the list and fill the first one that is not full
 				RG = reagent_list[i]
 				if(refill_borghypo(RG, reagent_ids[i], R))
 					break
@@ -170,7 +170,7 @@
 	var/contained = injected.name
 	var/trans = our_reagents.trans_to(target, amount_per_transfer_from_this)
 	add_attack_logs(user, target, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")]. В хранилище осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества."))
+	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")]. В хранилище осталось ещё <b>[our_reagents.total_volume]</b> единиц[declension_ru(our_reagents.total_volume, "а", "ы", "")] вещества."))
 
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
@@ -184,7 +184,7 @@
 	var/choice = show_radial_menu(user, src, choices)
 	if(!choice)
 		return 0
-	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
+	playsound(loc, 'sound/effects/pop.ogg', 50, FALSE)
 	mode = choices.Find(choice)
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
@@ -249,7 +249,7 @@
 
 /obj/item/reagent_containers/borghypo/emagged
 	name = "ERR3NU1l_INJ3C70R"
-	desc = "Этот инъектор будет впрыскивать смертоносные химикаты в каждого, кому не посчастливилось оказаться врагом Синдиката. Кто бы мог подумать, что роботы Нанотрейзен способы синтезировать такое?"
+	desc = "Этот инъектор будет впрыскивать смертоносные химикаты в каждого, кому не посчастливилось оказаться врагом Синдиката. Кто бы мог подумать, что роботы НаноТрейзен способы синтезировать такое?"
 	ru_names = list(
         NOMINATIVE = "0ШNBK4_IИБ3KT0Я",
         GENITIVE = "0ШNBK4_IИБ3KT0Я",

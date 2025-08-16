@@ -35,7 +35,7 @@
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
 	. += span_notice("The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"].")
-	. += span_info("<b>Alt-Click</b> to rotate it.")
+	. += span_notice("<b>Alt-Click</b> to rotate it.")
 
 
 /obj/item/assembly/infra/activate()
@@ -142,7 +142,8 @@
 		return FALSE
 	cooldown = 2
 	pulse(FALSE, triggered)
-	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
+	audible_message("[bicon(src)] *beep* *beep* *beep*", hearing_distance = 3)
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	if(first)
 		qdel(first)
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
@@ -152,13 +153,13 @@
 	if(!secured)
 		return
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><TT><B>Infrared Laser</B>
-				<B>Status</B>: [on ? "<a href='byond://?src=[UID()];state=0'>On</A>" : "<a href='byond://?src=[UID()];state=1'>Off</A>"]<BR>
-				<B>Visibility</B>: [visible ? "<a href='byond://?src=[UID()];visible=0'>Visible</A>" : "<a href='byond://?src=[UID()];visible=1'>Invisible</A>"]<BR>
-				<B>Current Direction</B>: <a href='byond://?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</A><BR>
-				</TT>
-				<BR><BR><a href='byond://?src=[UID()];refresh=1'>Refresh</A>
-				<BR><BR><a href='byond://?src=[UID()];close=1'>Close</A>"}
+	var/dat = {"<tt><b>Infrared Laser</b>
+				<b>Status</b>: [on ? "<a href='byond://?src=[UID()];state=0'>On</a>" : "<a href='byond://?src=[UID()];state=1'>Off</a>"]<br>
+				<b>Visibility</b>: [visible ? "<a href='byond://?src=[UID()];visible=0'>Visible</a>" : "<a href='byond://?src=[UID()];visible=1'>Invisible</a>"]<br>
+				<b>Current Direction</b>: <a href='byond://?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</a><br>
+				</tt>
+				<br><br><a href='byond://?src=[UID()];refresh=1'>Refresh</a>
+				<br><br><a href='byond://?src=[UID()];close=1'>Close</a>"}
 	var/datum/browser/popup = new(user, "infra", name, 400, 400, src)
 	popup.set_content(dat)
 	popup.open()
@@ -167,7 +168,7 @@
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
-		usr << browse(null, "window=infra")
+		close_window(usr, "infra")
 		onclose(usr, "infra")
 		return
 	if(href_list["state"])
@@ -180,21 +181,20 @@
 	if(href_list["rotate"])
 		rotate(usr)
 	if(href_list["close"])
-		usr << browse(null, "window=infra")
+		close_window(usr, "infra")
 		return
 	if(usr)
 		attack_self(usr)
 
 
-/obj/item/assembly/infra/AltClick(mob/user)
-	if(!Adjacent(user))
-		return ..()
+/obj/item/assembly/infra/click_alt(mob/user)
 	rotate(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/assembly/infra/verb/rotate_verb()
-	set name = "Rotate Infrared Laser"
-	set category = "Object"
+	set name = "Повернуть"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	rotate(usr)

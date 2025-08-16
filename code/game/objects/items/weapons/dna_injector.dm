@@ -84,7 +84,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
-	target.apply_effect(rand(20 / (damage_coeff  ** 2), 50 / (damage_coeff  ** 2)), IRRADIATE, 0, 1)
 
 	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_NO_DNA))
 		return .
@@ -122,6 +121,8 @@
 		)
 	else
 		to_chat(user, span_notice("You inject yourself with [src]."))
+
+	target.apply_effect(rand(20 / (damage_coeff  ** 2), 50 / (damage_coeff  ** 2)), IRRADIATE, 0, 1)
 
 	add_attack_logs(user, target, attack_log, ATKLOG_ALL)
 	used = TRUE

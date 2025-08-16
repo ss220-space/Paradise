@@ -6,6 +6,9 @@
 #define CAT_ROBOT	"Robots"
 #define CAT_MISC	"Misc"
 #define CAT_PRIMAL  "Tribal"
+#define CAT_ARMOR "Tribal Armor"
+#define CAT_WEAPONS "Tribal Weaponry"
+#define CAT_MISC2 "Tribal Misc"
 #define CAT_DECORATIONS	"Decorations"
 #define CAT_DECORATION	"Decorations"
 #define CAT_HOLIDAY	"Holiday"
@@ -32,5 +35,6 @@
 #define RECIPE_OVEN			"Oven"
 #define RECIPE_GRILL		"Grill"
 #define RECIPE_CANDY		"Candy"
+#define RECIPE_TRIBAL_OVEN	"tribal_oven"
 
 #define RECIPE_FAIL		null

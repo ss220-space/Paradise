@@ -70,7 +70,7 @@
 
 /obj/item/flamethrower/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, span_warning("[S] can't hold [src] while it's lit!"))
 		return FALSE
 	else
 		return TRUE
@@ -85,7 +85,7 @@
 			var/turflist = get_line(user, target_turf)
 			add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
 			flame_turf(turflist)
-			playsound(src, 'sound/weapons/gunshots/1flamethr.ogg', 50, 1)
+			playsound(src, 'sound/weapons/gunshots/1flamethr.ogg', 50, TRUE)
 
 
 /obj/item/flamethrower/attackby(obj/item/I, mob/user, params)
@@ -146,7 +146,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	status = !status
-	to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
+	to_chat(user, span_notice("[igniter] is now [status ? "secured" : "unsecured"]!"))
 	update_icon()
 
 /obj/item/flamethrower/return_analyzable_air()
@@ -157,32 +157,29 @@
 /obj/item/flamethrower/attack_self(mob/user)
 	toggle_igniter(user)
 
-/obj/item/flamethrower/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(ptank)
-		ptank.forceMove_turf()
-		user.put_in_hands(ptank, ignore_anim = FALSE)
-		ptank = null
-		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
-		update_icon()
+/obj/item/flamethrower/click_alt(mob/living/user)
+	if(!ptank)
+		return NONE
+	ptank.forceMove_turf()
+	user.put_in_hands(ptank, ignore_anim = FALSE)
+	ptank = null
+	to_chat(user, span_notice("You remove the plasma tank from [src]!"))
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/flamethrower/examine(mob/user)
 	. = ..()
 	if(ptank)
-		. += "<span class='notice'>[src] has \a [ptank] attached. Alt-click to remove it.</span>"
+		. += span_notice("[src] has \a [ptank] attached. Alt-click to remove it.")
 
 /obj/item/flamethrower/proc/toggle_igniter(mob/user)
 	if(!ptank)
-		to_chat(user, "<span class='notice'>Attach a plasma tank first!</span>")
+		to_chat(user, span_notice("Attach a plasma tank first!"))
 		return
 	if(!status)
-		to_chat(user, "<span class='notice'>Secure the igniter first!</span>")
+		to_chat(user, span_notice("Secure the igniter first!"))
 		return
-	to_chat(user, "<span class='notice'>You [lit ? "extinguish" : "ignite"] [src]!</span>")
+	to_chat(user, span_notice("You [lit ? "extinguish" : "ignite"] [src]!"))
 	lit = !lit
 	if(lit)
 		START_PROCESSING(SSobj, src)
@@ -262,9 +259,9 @@
 
 
 /obj/item/flamethrower/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	var/obj/item/projectile/P = hitby
+	var/obj/projectile/P = hitby
 	if(ptank && damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
-		owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
+		owner.visible_message(span_danger("[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!"))
 		var/turf/target_turf = get_turf(owner)
 		add_game_logs("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]", owner)
 		igniter.ignite_turf(src,target_turf, release_amount = 100)

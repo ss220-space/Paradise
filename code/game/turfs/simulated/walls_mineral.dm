@@ -2,10 +2,13 @@
 	name = "mineral wall"
 	desc = "This shouldn't exist"
 	icon_state = ""
-	var/last_event = 0
-	var/active = null
 	canSmoothWith = null
 	smooth = SMOOTH_TRUE
+	var/last_event = 0
+	var/active = null
+
+/turf/simulated/wall/mineral/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_ROCK, -40, 5, 1)
 
 /turf/simulated/wall/mineral/shuttleRotate(rotation)
 	return // This override is needed to properly rotate the object when on a shuttle that is rotated.
@@ -136,12 +139,12 @@
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-/turf/simulated/wall/mineral/plasma/bullet_act(var/obj/item/projectile/Proj)
+/turf/simulated/wall/mineral/plasma/bullet_act(var/obj/projectile/Proj)
 	if(Proj.damage == 0)//lasertag guns and so on don't set off plasma anymore. can't use nodamage here because lasertag guns actually don't have it.
 		return
-	if(istype(Proj,/obj/item/projectile/beam))
+	if(istype(Proj,/obj/projectile/beam))
 		PlasmaBurn(2500)
-	else if(istype(Proj,/obj/item/projectile/ion))
+	else if(istype(Proj,/obj/projectile/ion))
 		PlasmaBurn(500)
 	..()
 
@@ -168,6 +171,8 @@
 	hardness = 70
 	explosion_block = 0
 
+/turf/simulated/wall/mineral/wood/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
 /turf/simulated/wall/mineral/wood/try_decon(obj/item/I, mob/user, params)
 	if(is_sharp(I) && I.force)

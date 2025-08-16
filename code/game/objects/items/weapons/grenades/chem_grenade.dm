@@ -137,9 +137,9 @@
 
 
 /obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	var/obj/item/projectile/P = hitby
+	var/obj/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
-		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
+		owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], setting it off! What a shot!"))
 		add_attack_logs(P.firer, owner, "A projectile ([hitby]) detonated a grenade held", ATKLOG_FEW)
 		prime()
 		return 1 //It hit the grenade, not them
@@ -154,13 +154,13 @@
 			label = " ([labeler.label])"
 			update_appearance(UPDATE_NAME)
 			to_chat(user, span_notice("You apply new label to [src]."))
-			playsound(user.loc, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
+			playsound(user.loc, 'sound/items/handling/pickup/component_pickup.ogg', 20, TRUE)
 			return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 		label = null
 		update_appearance(UPDATE_NAME)
 		to_chat(user, span_notice("You remove the label from [src]."))
-		playsound(user.loc, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
+		playsound(user.loc, 'sound/items/handling/pickup/component_pickup.ogg', 20, TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 	switch(stage)
@@ -471,7 +471,7 @@
 			unit_spread += 25
 		else
 			unit_spread = 5
-	to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
+	to_chat(user, span_notice("You set the time release to [unit_spread] units per detonation."))
 
 /obj/item/grenade/chem_grenade/adv_release/prime(mob/user)
 	if(stage != READY)

@@ -138,13 +138,13 @@
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
 	new_corgi.key = key
 
-	to_chat(new_corgi, "<B>You are now a Corgi. Yap Yap!</B>")
+	to_chat(new_corgi, "<b>You are now a Corgi. Yap Yap!</b>")
 	qdel(src)
 
 /mob/living/carbon/human/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in mobtypes
+	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a type", mobtypes)
 
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
@@ -170,7 +170,7 @@
 /mob/proc/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in mobtypes
+	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a type", mobtypes)
 
 	var/mob/new_mob = new mobpath(src.loc)
 
@@ -203,7 +203,7 @@
 	pai.real_name = name
 	card.name = name
 
-	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
+	to_chat(pai, "<b>You have become a pAI! Your name is [pai.name].</b>")
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src)
 
 /mob/proc/gorillize(gorilla_type = "Normal", message = TRUE)
@@ -282,7 +282,7 @@
 		/mob/living/simple_animal/goose,
 		/mob/living/simple_animal/hostile/gorilla/cargo_domestic,
 		/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge,
-		/mob/living/simple_animal/mouse/hamster,
+		/mob/living/simple_animal/mouse/wooly,
 		/mob/living/simple_animal/mouse/rat,
 		/mob/living/simple_animal/parrot,
 		/mob/living/simple_animal/pet/cat,

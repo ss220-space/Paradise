@@ -10,11 +10,11 @@
 	var/shuttlePortId = ""
 	var/shuttlePortName = "custom location"
 	var/list/jumpto_ports = list() //list of ports to jump to
-	var/access_station = TRUE 		//can we park near station?
+	var/access_station = TRUE		//can we park near station?
 	var/access_admin_zone = FALSE	//can we park on Admin z_lvls?
 	var/access_mining = FALSE		//can we park on Lavaland z_lvl?
-	var/access_taipan = FALSE 		//can we park on Taipan z_lvl?
-	var/access_away = FALSE 		//can we park on Away_Mission z_lvl?
+	var/access_taipan = FALSE		//can we park on Taipan z_lvl?
+	var/access_away = FALSE		//can we park on Away_Mission z_lvl?
 	var/access_derelict = FALSE		//can we park in Unexplored Space?
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
@@ -64,7 +64,7 @@
 	if(jumpto_ports.len)
 		jump_action = new /datum/action/innate/camera_jump/shuttle_docker
 	..()
-	/* 	//technically working but some icons are buggy as shit and either don't rotate or rotate wrong :
+	/*	//technically working but some icons are buggy as shit and either don't rotate or rotate wrong :
 		//namely shuttle walls, shuttle windows, shuttle engines and buckled mobs
 	if(rotate_action)
 		rotate_action.target = user
@@ -324,7 +324,7 @@
 	return TRUE
 
 /datum/action/innate/shuttledocker_rotate
-	name = "Rotate"
+	name = "Повернуть"
 	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
@@ -337,7 +337,7 @@
 	origin.rotateLandingSpot()
 
 /datum/action/innate/shuttledocker_place
-	name = "Place"
+	name = "Выбрать место"
 	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
 	button_icon_state = "mech_zoom_off"
 
@@ -350,7 +350,7 @@
 	origin.placeLandingSpot(target)
 
 /datum/action/innate/camera_jump/shuttle_docker
-	name = "Jump to Location"
+	name = "Телепорт в локацию"
 	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/shuttle_docker/Activate()
@@ -360,7 +360,7 @@
 	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/shuttle_docker/console = remote_eye.origin
 
-	playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
+	playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, FALSE)
 
 	var/list/L = list()
 	for(var/V in SSshuttle.stationary)
@@ -370,16 +370,16 @@
 		if(console.jumpto_ports[S.id])
 			L[S.name] = S
 
-	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, 0)
+	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
 	var/selected = tgui_input_list(target, "Choose location to jump to", "Locations", L)
 	if(QDELETED(src) || QDELETED(target) || !isliving(target))
 		return
-	playsound(src, "terminal_type", 25, 0)
+	playsound(src, "terminal_type", 25, FALSE)
 	if(selected)
 		var/turf/T = get_turf(L[selected])
 		if(T)
-			playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
+			playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, FALSE)
 			remote_eye.setLoc(T)
-			to_chat(target, "<span class='notice'>Jumped to [selected]</span>")
+			to_chat(target, span_notice("Телепорт в [selected]"))
 	else
-		playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
+		playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, FALSE)

@@ -10,6 +10,8 @@
 
 #define CLICKCATCHER_PLANE -30
 
+#define GRAVITY_PULSE_PLANE -26 //Needs to be behind space, otherwise it blocks space, lol
+#define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
 
 #define PLANE_SPACE -25
 #define PLANE_SPACE_PARALLAX -20
@@ -19,7 +21,8 @@
 #define FLOOR_PLANE -10
 
 #define WALL_PLANE -9
-#define GAME_PLANE -8
+#define BELOW_GAME_PLANE -8
+#define GAME_PLANE -7
 
 #define ABOVE_GAME_PLANE -2
 

@@ -18,8 +18,8 @@
 	origin_tech = "magnets=1;engineering=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
 
 	var/bomb_name = "bomb" // used for naming bombs / mines
 
@@ -128,9 +128,11 @@
 		if(assembly.secured)
 			to_chat(user, span_warning("The [assembly.name] should not be secured."))
 			return ATTACK_CHAIN_PROCEED
+
 		if(secured)
 			to_chat(user, span_warning("The [name] should not be secured."))
 			return ATTACK_CHAIN_PROCEED
+
 		attach_assembly(assembly, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

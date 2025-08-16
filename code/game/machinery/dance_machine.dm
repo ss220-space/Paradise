@@ -13,10 +13,10 @@
 	var/list/spotlights = list()
 	var/list/sparkles = list()
 	var/static/list/songs = list(
-		new /datum/track("Engineering's Basic Beat", 					'sound/misc/disco.ogg', 	600, 	5),
-		new /datum/track("Engineering's Domination Dance", 				'sound/misc/e1m1.ogg', 		950, 	6),
-		new /datum/track("Engineering's Superiority Shimmy", 			'sound/misc/paradox.ogg', 	2400, 	4),
-		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770, 	5),
+		new /datum/track("Engineering's Basic Beat",					'sound/misc/disco.ogg',	600,	5),
+		new /datum/track("Engineering's Domination Dance",				'sound/misc/e1m1.ogg',		950,	6),
+		new /datum/track("Engineering's Superiority Shimmy",			'sound/misc/paradox.ogg',	2400,	4),
+		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770,	5),
 		)
 	var/datum/track/selection = null
 
@@ -69,7 +69,7 @@
 	else if(anchored)
 		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
-	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
+	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 
 
 /obj/machinery/disco/update_icon_state()
@@ -102,21 +102,21 @@
 	user.set_machine(src)
 	var/list/dat = list()
 	dat +="<div class='statusDisplay' style='text-align:center'>"
-	dat += "<b><a href='byond://?src=[UID()];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></A><br>"
+	dat += "<b><a href='byond://?src=[UID()];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></a><br>"
 	dat += "</div><br>"
-	dat += "<a href='byond://?src=[UID()];action=select'> Select Track</A><br>"
+	dat += "<a href='byond://?src=[UID()];action=select'> Select Track</a><br>"
 	dat += "Track Selected: [selection.song_name]<br>"
 	dat += "Track Length: [DisplayTimeText(selection.song_length)]<br><br>"
 	dat += "<br>DJ's Soundboard:<b><br>"
 	dat +="<div class='statusDisplay'><div style='text-align:center'>"
-	dat += "<a href='byond://?src=[UID()];action=horn'>Air Horn</A>  "
-	dat += "<a href='byond://?src=[UID()];action=alert'>Station Alert</A>  "
-	dat += "<a href='byond://?src=[UID()];action=siren'>Warning Siren</A>  "
-	dat += "<a href='byond://?src=[UID()];action=honk'>Honk</A><br>"
-	dat += "<a href='byond://?src=[UID()];action=pump'>Shotgun Pump</A>"
-	dat += "<a href='byond://?src=[UID()];action=pop'>Gunshot</A>"
-	dat += "<a href='byond://?src=[UID()];action=saber'>Esword</A>"
-	dat += "<a href='byond://?src=[UID()];action=harm'>Harm Alarm</A>"
+	dat += "<a href='byond://?src=[UID()];action=horn'>Air Horn</a>  "
+	dat += "<a href='byond://?src=[UID()];action=alert'>Station Alert</a>  "
+	dat += "<a href='byond://?src=[UID()];action=siren'>Warning Siren</a>  "
+	dat += "<a href='byond://?src=[UID()];action=honk'>Honk</a><br>"
+	dat += "<a href='byond://?src=[UID()];action=pump'>Shotgun Pump</a>"
+	dat += "<a href='byond://?src=[UID()];action=pop'>Gunshot</a>"
+	dat += "<a href='byond://?src=[UID()];action=saber'>Esword</a>"
+	dat += "<a href='byond://?src=[UID()];action=harm'>Harm Alarm</a>"
 	var/datum/browser/popup = new(user, "vending", "Radiance Dance Machine - Mark IV", 400, 350)
 	popup.set_content(dat.Join())
 	popup.open()
@@ -133,7 +133,7 @@
 			if(!active)
 				if(stop > world.time)
 					to_chat(usr, span_warning("Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)]."))
-					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
+					playsound(src, 'sound/misc/compiler-failure.ogg', 50, TRUE)
 					return
 				active = TRUE
 				update_icon()
@@ -152,7 +152,7 @@
 			var/list/available = list()
 			for(var/datum/track/S in songs)
 				available[S.song_name] = S
-			var/selected = input(usr, "Choose your song", "Track:") as null|anything in available
+			var/selected = tgui_input_list(usr, "Choose your song", "Track:", available)
 			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
 				return
 			selection = available[selected]
@@ -179,7 +179,7 @@
 		to_chat(usr, span_warning("The device is not able to play more DJ sounds at this time."))
 		return
 	charge -= 5
-	playsound(src, S, 300, 1)
+	playsound(src, S, 300, TRUE)
 
 /obj/machinery/disco/proc/dance_setup()
 	stop = world.time + selection.song_length
@@ -467,14 +467,17 @@
 /obj/machinery/disco/process()
 	if(charge < 35)
 		charge += 1
+
 	if(world.time < stop && active)
 		var/sound/song_played = sound(selection.song_path)
 
-		for(var/mob/M in range(10,src))
-			if(!M.client || M.client.prefs.sound & SOUND_DISCO)
-				if(!(M in rangers))
-					rangers[M] = TRUE
-					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
+		for(var/mob/mob in range(10, src))
+			if(LAZYIN(rangers, mob) || !HASBIT(mob.client?.prefs.sound, SOUND_DISCO))
+				continue
+
+			rangers[mob] = TRUE
+			mob.playsound_local(get_turf(mob), null, 100, channel = CHANNEL_JUKEBOX, sound = song_played, use_reverb = FALSE)
+
 		for(var/mob/mob as anything in rangers)
 			var/mob/living/l_mob = mob
 			if(get_dist(src, mob) > 10)

@@ -7,14 +7,6 @@
 /obj/machinery/sleeper
 	name = "Sleeper"
 	desc = "Медицинское устройство, предназначеное для стабилизации пациентов. Позволяет вводить ограниченный набор веществ в организм субъекта."
-	ru_names = list(
-		NOMINATIVE = "слипер",
-		GENITIVE = "слипера",
-		DATIVE = "слиперу",
-		ACCUSATIVE = "слипер",
-		INSTRUMENTAL = "слипером",
-		PREPOSITIONAL = "слипере"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
@@ -37,6 +29,16 @@
 	active_power_usage = 2500
 
 	light_color = LIGHT_COLOR_CYAN
+
+/obj/machinery/sleeper/get_ru_names()
+	return list(
+		NOMINATIVE = "слипер",
+		GENITIVE = "слипера",
+		DATIVE = "слиперу",
+		ACCUSATIVE = "слипер",
+		INSTRUMENTAL = "слипером",
+		PREPOSITIONAL = "слипере"
+	)
 
 
 /obj/machinery/sleeper/New()
@@ -103,7 +105,7 @@
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
-		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
+		. += span_notice("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
 
 /obj/machinery/sleeper/process()
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
@@ -475,7 +477,7 @@
 
 /obj/machinery/sleeper/verb/eject()
 	set name = "Извлечь пациента"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
@@ -489,7 +491,7 @@
 
 /obj/machinery/sleeper/verb/remove_beaker()
 	set name = "Достать ёмкость"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(usr))
@@ -567,7 +569,7 @@
 
 /obj/machinery/sleeper/verb/move_inside()
 	set name = "Залезть внутрь"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled)
 		return

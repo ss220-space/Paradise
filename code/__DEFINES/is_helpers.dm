@@ -1,3 +1,9 @@
+// simple is_type and similar inline helpers
+#define in_range(source, user) (get_dist(source, user) <= 1 && (get_step(source, 0)?:z) == (get_step(user, 0)?:z))
+
+/// Within given range, but not counting z-levels
+#define IN_GIVEN_RANGE(source, other, given_range) (get_dist(source, other) <= given_range && (get_step(source, 0)?:z) == (get_step(other, 0)?:z))
+
 // Atoms
 #define isatom(A) (isloc(A))
 
@@ -15,6 +21,9 @@
 
 #define isbrain(A) (istype(A, /mob/living/carbon/brain))
 
+// basic mobs
+#define isbasicmob(A) (istype(A, /mob/living/basic))
+
 // Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))
 
@@ -23,6 +32,8 @@
 #define isalien(A) (istype(A, /mob/living/carbon/alien))
 
 #define isdevil(A) (istype(A, /mob/living/carbon/true_devil))
+
+#define isascendeddevil(A) (istype(A, /mob/living/carbon/true_devil/ascended))
 
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
 
@@ -33,6 +44,8 @@
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
 #define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
+#define isfacehugger(A) (istype(A, /mob/living/simple_animal/hostile/facehugger))
+#define isfacehugger_mask(A) (istype(A, /obj/item/clothing/mask/facehugger) && !istype(A, /obj/item/clothing/mask/facehugger/toy))
 
 // Simple animals
 // #define issimple_animal(A) (istype(A, /mob/living/simple_animal)) use isanimal(A) instead
@@ -60,6 +73,8 @@
 
 #define issupplypod(A) (istype(A, /obj/structure/closet/supplypod))
 
+#define ismortarcasing(A) (istype(A, /obj/item/mortar_shell))
+
 #define isammocasing(A) (istype(A, /obj/item/ammo_casing))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
@@ -76,21 +91,33 @@
 
 #define isvehicle(A) (istype(A, /obj/vehicle))
 
-#define isprojectile(A) (istype(A, /obj/item/projectile))
+#define isprojectile(A) (istype(A, /obj/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
+
+#define isbaton(A) (istype(A, /obj/item/melee/baton))
 
 #define is_pen(W) (istype(W, /obj/item/pen))
 
 #define is_pda(W) (istype(W, /obj/item/pda))
 
+#define is_id_card(W) (istype(W, /obj/item/card/id))
+
 #define isradio(A) istype(A, /obj/item/radio)
+
+#define isflower(A) istype(A, /obj/item/twohanded/required/kirbyplants)
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
 #define is_internal_organ(A) istype(A, /obj/item/organ/internal)
 
 #define	is_organ(A)			istype((A), /obj/item/organ)
+
+#define isbluespacecrystal(A) istype(A, /obj/item/stack/ore/bluespace_crystal)
+
+#define issyringe(A) istype(A, /obj/item/reagent_containers/syringe)
+
+#define isglassreagentcontainer(A) istype(A, /obj/item/reagent_containers/glass)
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -118,6 +145,10 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isprox(O) (istype(O, /obj/item/assembly/prox_sensor))
 #define issignaler(O) (istype(O, /obj/item/assembly/signaler))
 #define istimer(O) (istype(O, /obj/item/assembly/timer))
+#define iscoret1(O) (istype(O, /obj/item/assembly/signaler/core) && O.tier == 1)
+#define iscoret2(O) (istype(O, /obj/item/assembly/signaler/core) && O.tier == 2)
+#define iscoret3(O) (istype(O, /obj/item/assembly/signaler/core) && O.tier == 3)
+#define iscell(O) (istype(O, /obj/item/stock_parts/cell)) // Not assembly, but neaely.
 
 
 //Turfs
@@ -147,11 +178,14 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 //Structures
 #define isstructure(A) (istype(A, /obj/structure))
+#define istable(A) (istype(A, /obj/structure/table))
 
 // Misc
 #define isclient(A) istype(A, /client)
 
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
+
+#define isthrowingmatart(A) istype(A, /datum/martial_art/throwing)
 
 GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 	/turf/space,
@@ -164,4 +198,15 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_ventcrawler(A) (HAS_TRAIT(A, TRAIT_VENTCRAWLER_NUDE) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALWAYS) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ITEM_BASED) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALIEN))
 
-#define is_multi_tile_object(atom) (atom.bound_width > world.icon_size || atom.bound_height > world.icon_size)
+#define is_multi_tile_object(atom) (atom.bound_width > ICON_SIZE_X || atom.bound_height > ICON_SIZE_Y)
+
+#define is_proximity(A) istype(A, /obj/effect/abstract/proximity_checker)
+
+#define is_light(A) istype(A, /atom/movable/lighting_object)
+
+#define ischest(A) (istype(A, /obj/item/organ/external/chest))
+
+#define isgroin(A) (istype(A, /obj/item/organ/external/groin))
+
+/// in some situations we can't rely on dynamic typing and use if(statement)
+#define istrue(statement) (statement == TRUE)

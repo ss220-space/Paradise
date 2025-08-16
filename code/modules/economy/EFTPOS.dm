@@ -43,9 +43,10 @@
 	return
 
 
-/obj/item/paper/check/AltClick(mob/living/carbon/human/user)
+/obj/item/paper/check/click_alt(mob/living/carbon/human/user)
 	if(ishuman(user) && user.is_in_hands(src))
 		to_chat(user, span_warning("Paper is too small! You fail to fold [src] into the shape of a plane!"))
+		return CLICK_ACTION_BLOCKING
 
 
 /obj/item/eftpos/Initialize(mapload)
@@ -60,7 +61,7 @@
 	return ..()
 
 /obj/item/eftpos/proc/print_check(mob/user)
-	playsound(src, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(src, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	num_check++
 	var/obj/item/paper/check/ch = new(drop_location())
 	ch.name = "Receipt: [machine_name]"
@@ -76,7 +77,7 @@
 	user.put_in_hands(ch, ignore_anim = FALSE)
 
 /obj/item/eftpos/proc/print_reference(mob/user)
-	playsound(src, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(src, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	var/obj/item/paper/check/ref = new(drop_location())
 	ref.name = "Reference: [machine_name]"
 	ref.info = {"<tt><b><big>EFTPOS Reference</big></b> <br>
@@ -91,7 +92,7 @@
 	if(!location)
 		return
 
-	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
+	for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
 		if(DB.z == location.z)
 			linked_db = DB
 			break
@@ -179,14 +180,14 @@
 				return
 			last_change = world.timeofday
 			if(access_code)
-				var/attempt_code = tgui_input_number(user, "Re-enter the current EFTPOS access code:", "Confirm old EFTPOS code", max_value = 9999, min_value = 1000)
+				var/attempt_code = tgui_input_number(user, "Re-enter the current EFTPOS access code:", "Confirm old EFTPOS code", max_value = 999999, min_value = 1000)
 				if(!Adjacent(user))
 					return
 				if(attempt_code != access_code)
 					to_chat(user, "[bicon(src)]<span class='notice'> Incorrect code entered.</span>")
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 0)
 					return
-			var/trycode = tgui_input_number(user, "Enter a new access code for this device:", "Enter new EFTPOS code", max_value = 9999, min_value = 1000)
+			var/trycode = tgui_input_number(user, "Enter a new access code for this device:", "Enter new EFTPOS code", max_value = 999999, min_value = 1000)
 			if(!Adjacent(user) || !isnull(trycode))
 				return
 			access_code = trycode
@@ -282,7 +283,7 @@
 
 	if(emagged)
 		to_chat(user, "[bicon(src)]<span class='warning'>  Client Error #423 Device Locked. Contact NanoTrasen IT support.</span>")
-		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 1)
+		playsound(src, 'sound/machines/terminal_alert.ogg', 50, TRUE)
 		return
 
 	if(!linked_db)
@@ -312,12 +313,12 @@
 			card_account = attempt_account_access(id_card.associated_account_number, attempt_pin, 2)
 		if(!card_account || card_account.suspended)
 			to_chat(user, "[bicon(src)]<span class='warning'> Server Error #403 Unable To Access Account. Check security settings and try again.</span>")
-			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal_alert.ogg', 50, FALSE)
 			return during_paid = FALSE
 
 		if(transaction_amount > card_account.money)
 			to_chat(user, "[bicon(src)]<span class='warning'> Client Error #402 Payment Was Declined. You don't have that much money.</span>")
-			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal_alert.ogg', 50, FALSE)
 			return during_paid = FALSE
 
 		var/transSuccess = card_account.charge(transaction_amount, linked_account, transaction_purpose, machine_name, card_account.owner_name)
@@ -325,7 +326,7 @@
 			transaction_paid = 1
 			during_paid = FALSE
 			visible_message("[bicon(src)] The [src] chimes.")
-			playsound(src, 'sound/machines/chime.ogg', 50, 0)
+			playsound(src, 'sound/machines/chime.ogg', 50, FALSE)
 	else
 		to_chat(user, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support.</span>")
-		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_alert.ogg', 50, FALSE)

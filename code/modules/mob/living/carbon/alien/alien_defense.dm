@@ -19,7 +19,7 @@
 
 			if(on_fire)
 				M.visible_message(span_warning("[M] trying to extinguish [src.name]!"), span_warning("You trying to extinguish [src.name]!"))
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				adjust_fire_stacks(-0.5)
 			else
 				M.visible_message(span_notice("[M.name] nuzzles [src] trying to wake it up!"))
@@ -31,12 +31,12 @@
 			..()
 			if(drop_from_active_hand())
 				M.visible_message(span_danger("[M.name] disarms [src.name]!"))
-			playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 		if(INTENT_HARM)
 			..()
 			visible_message(span_danger("[M] has slashed at [src]!"), span_userdanger("[M] has slashed at [src]!"))
-			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			adjustBruteLoss(M.attack_damage)
 			add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
 
@@ -80,3 +80,11 @@
 		adjustBruteLoss(damage)
 		add_attack_logs(M, src, "Slime'd for [damage] damage")
 
+
+/mob/living/carbon/xenomorph/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	. = ..()
+	switch(fire.fire_variant)
+		if(FIRE_VARIANT_TYPE_B) //Armor Shredding Greenfire
+			fire.set_on_fire(src) //Deals an extra proc of fire when you're crossing it. 30 damage per tile crossed, plus 15 per Process().
+			SetSlowed(1 SECONDS, (SLOWDOWN_AMT_GREENFIRE))
+			to_chat(src, span_danger("We feel pieces of our exoskeleton fusing with the viscous fluid below and tearing off as we struggle to move through the flames!"))

@@ -60,6 +60,8 @@
 	var/fluff = 0
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
+	/// If our accessory is can be pickable? Used in "proc/generate_valid_markings"
+	var/pickable = TRUE
 
 /* HAIR */
 

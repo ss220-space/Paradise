@@ -14,7 +14,7 @@
 	depotarea = get_area(src)
 	if(istype(depotarea))
 		depotarea.reactor = src
-		for(var/obj/machinery/porta_turret/syndicate/T in GLOB.machines)
+		for(var/obj/machinery/porta_turret/syndicate/T in SSmachines.get_by_type(/obj/machinery/porta_turret/syndicate))
 			if(z == T.z && get_dist(T, loc) <= 50)
 				if(!istype(T.depotarea))
 					T.depotarea = depotarea
@@ -30,7 +30,7 @@
 
 /obj/structure/fusionreactor/ex_act(severity)
 	if(severity < 3)
-		obj_integrity = 0
+		update_integrity(0)
 		healthcheck()
 
 /obj/structure/fusionreactor/proc/healthcheck()
@@ -41,7 +41,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='danger'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
+	to_chat(user, span_danger("You try to screwdriver open [src], but accidentally release some radiation!"))
 	if(prob(50))
 		empulse(src, 4, 10, TRUE, "[user] screwed with [name]")
 	else
@@ -52,7 +52,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>The [src] is too well secured to the floor.</span>")
+	to_chat(user, span_notice("The [src] is too well secured to the floor."))
 
 /obj/structure/fusionreactor/proc/overload(containment_failure = FALSE, skip_qdel = FALSE)
 	if(has_overloaded)
@@ -62,7 +62,7 @@
 		depotarea.activate_self_destruct("Fusion reactor cracked open. Core loose!", TRUE)
 	var/obj/effect/overload/O = new /obj/effect/overload(get_turf(src))
 	if(containment_failure)
-		playsound(loc, 'sound/machines/alarm.ogg', 100, 0, 0)
+		playsound(loc, 'sound/machines/alarm.ogg', 100, FALSE, 0)
 		O.deliberate = TRUE
 		O.max_cycles = 6
 	if(!skip_qdel)
@@ -97,7 +97,7 @@
 	var/turf/T = get_turf(src)
 	if(cycles < max_cycles)
 		if(!deliberate)
-			playsound(loc, beepsound, 50, 0)
+			playsound(loc, beepsound, 50, FALSE)
 		cycles++
 		return
 
@@ -115,7 +115,7 @@
 		M.gib()
 	for(var/obj/mecha/E in range(30, T))
 		E.take_damage(E.max_integrity)
-	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0, 0)
+	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0)
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 

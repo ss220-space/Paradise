@@ -6,8 +6,8 @@
 	item_state = ""	//no inhands
 	slot_flags = ITEM_SLOT_ACCESSORY
 	w_class = WEIGHT_CLASS_SMALL
-	pickup_sound = 'sound/items/handling/accessory_pickup.ogg'
-	drop_sound = 'sound/items/handling/accessory_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the tie may be attached to
 	var/obj/item/clothing/under/has_suit
@@ -162,7 +162,7 @@
 
 /// Additional info when examine accessory on the suit
 /obj/item/clothing/accessory/proc/attached_examine(mob/user)
-	return span_notice("\A [src] is attached to it.")
+	return span_notice("К нему прикреплен [bicon(src)] [declent_ru(NOMINATIVE)].")
 
 
 /obj/item/clothing/accessory/blue
@@ -295,7 +295,7 @@
 /obj/item/clothing/accessory/medal/gold/captain/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
-	
+
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist."
@@ -524,8 +524,8 @@
 
 //For the holobadge hotkey
 /obj/item/clothing/accessory/holobadge/verb/holobadge_verb()
-	set name = "Holobadge"
-	set category = "Object"
+	set name = "Показать значок"
+	set category = STATPANEL_OBJECT
 	set src in usr
 	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -637,19 +637,39 @@
 
 /obj/item/clothing/accessory/necklace/skullcodpiece
 	name = "skull codpiece"
-	desc = "A skull shaped ornament, intended to protect the important things in life."
+	desc = "Украшение в виде черепа, которое предназначено для защиты самого важного в жизни."
 	icon_state = "skull"
 	item_state = "skull"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
 	allow_duplicates = FALSE
+
+/obj/item/clothing/accessory/necklace/skullcodpiece/get_ru_names()
+	return list(
+		NOMINATIVE = "костяной гульфик",
+		GENITIVE = "костяного гульфика",
+		DATIVE = "костяному гульфику",
+		ACCUSATIVE = "костяной гульфик",
+		INSTRUMENTAL = "костяным гульфиком",
+		PREPOSITIONAL = "костяном гульфике"
+	)
 
 /obj/item/clothing/accessory/necklace/talisman
 	name = "bone talisman"
-	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
+	desc = "Талисман охотника – многие верят, что он дарует защиту от старых богов тем, кто его носит."
 	icon_state = "talisman"
 	item_state = "talisman"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
 	allow_duplicates = FALSE
+
+/obj/item/clothing/accessory/necklace/talisman/get_ru_names()
+	return list(
+		NOMINATIVE = "костяной талисман",
+		GENITIVE = "костяного талисмана",
+		DATIVE = "костяному талисману",
+		ACCUSATIVE = "костяной талисман",
+		INSTRUMENTAL = "костяным талисманом",
+		PREPOSITIONAL = "костяном талисмане"
+	)
 
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
@@ -983,19 +1003,19 @@
 	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
 	if(istype(M) && src == M.pcollar && M.stat != DEAD)
 		return
-	var/announce_channel = "Common"			// Channel toggler for mobs, who dies in specific locations.
+	var/announce_channel = PUB_FREQ			// Channel toggler for mobs, who dies in specific locations.
 	var/area/t = get_area(M)
 	var/obj/item/radio/headset/all_channels/a = new /obj/item/radio/headset/all_channels(src)
 	if(M.z == level_name_to_num(RAMSS_TAIPAN))
-		announce_channel = "SyndTaipan"		// Taipan channel for Руж.
+		announce_channel = SYND_TAIPAN_FREQ		// Taipan channel for Руж.
 	else if(istype(t, /area/centcom))
-		announce_channel = "Response Team"	// For animals who dare to infiltrate CC.
+		announce_channel = ERT_FREQ	// For animals who dare to infiltrate CC.
 	else if(istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) || istype(t, /area/shuttle/syndicate_sit))
-		announce_channel = "SyndTeam"		// Just to be sure ...
+		announce_channel = SYNDTEAM_FREQ		// Just to be sure ...
 	else if(istype(t, /area/ninja))
-		announce_channel = "Spider Clan"	// Even ninja may have a little pet.
+		announce_channel = NINJA_FREQ	// Even ninja may have a little pet.
 	else if(istype(t, /area/ussp_centcom))
-		announce_channel = "Soviet"			// MISHA, FU!
+		announce_channel = SOV_FREQ			// MISHA, FU!
 	else if((M.z == level_name_to_num(CENTCOMM) || z == level_name_to_num(ADMIN_ZONE)) && SSticker.current_state != GAME_STATE_FINISHED)
 		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
 		qdel(a)
@@ -1027,7 +1047,7 @@
 
 /obj/item/clothing/accessory/head_strip
 	name = "captain's strip"
-	desc = "Плотно сшитая круглая нашивка из синего бархата с позолотой, по центру красуется логотип корпорации Nanotrasen прошитый золотыми металлическими нитями. Награда выданная центральным командованием за выдающиеся управление станцией."
+	desc = "Плотно сшитая круглая нашивка из синего бархата с позолотой, по центру красуется логотип корпорации Nanotrasen прошитый золотыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся управление станцией."
 	icon_state = "capstrip"
 	item_state = "capstrip"
 	var/strip_bubble_icon = "CAP"
@@ -1074,14 +1094,14 @@
 
 /obj/item/clothing/accessory/head_strip/rd
 	name = "Research Director's strip"
-	desc = "Плотно сшитая круглая нашивка из фиолетового бархата, по центру красуется логотип корпорации Nanotrasen прошитый розоватыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи в области исследований."
+	desc = "Плотно сшитая круглая нашивка из фиолетового бархата, по центру красуется логотип корпорации Nanotrasen прошитый розоватыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи в области исследований."
 	icon_state = "rdstrip"
 	item_state = "rdstrip"
 	strip_bubble_icon = "RD"
 
 /obj/item/clothing/accessory/head_strip/ce
 	name = "Chief Engineer's strip"
-	desc = "Плотно сшитая круглая нашивка из серо-желтого бархата, по центру красуется логотип корпорации Nanotrasen прошитый голубыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи в области инженерии."
+	desc = "Плотно сшитая круглая нашивка из серо-желтого бархата, по центру красуется логотип корпорации Nanotrasen прошитый голубыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи в области инженерии."
 	icon_state = "cestrip"
 	item_state = "cestrip"
 	strip_bubble_icon = "CE"
@@ -1095,42 +1115,42 @@
 
 /obj/item/clothing/accessory/head_strip/cmo
 	name = "Chief Medical Officer's strip"
-	desc = "Плотно сшитая круглая нашивка из голубого бархата, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи в области медицины."
+	desc = "Плотно сшитая круглая нашивка из голубого бархата, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи в области медицины."
 	icon_state = "cmostrip"
 	item_state = "cmostrip"
 	strip_bubble_icon = "CMO"
 
 /obj/item/clothing/accessory/head_strip/hop
 	name = "Head of Personnel's strip"
-	desc = "Плотно сшитая круглая нашивка из синего бархата с красной окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся управление персоналом."
+	desc = "Плотно сшитая круглая нашивка из синего бархата с красной окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся управление персоналом."
 	icon_state = "hopstrip"
 	item_state = "hopstrip"
 	strip_bubble_icon = "HOP"
 
 /obj/item/clothing/accessory/head_strip/hos
 	name = "Head of Security's strip"
-	desc = "Плотно сшитая круглая нашивка из черно-красного бархата, по центру красуется логотип корпорации Nanotrasen прошитый бело-красными металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи при службе на корпорацию. "
+	desc = "Плотно сшитая круглая нашивка из черно-красного бархата, по центру красуется логотип корпорации Nanotrasen прошитый бело-красными металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи при службе на корпорацию. "
 	icon_state = "hosstrip"
 	item_state = "hosstrip"
 	strip_bubble_icon = "HOS"
 
 /obj/item/clothing/accessory/head_strip/qm
 	name = "Quatermaster's strip"
-	desc = "Плотно сшитая круглая нашивка из коричневого бархата, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи в области логистики и погрузки."
+	desc = "Плотно сшитая круглая нашивка из коричневого бархата, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи в области логистики и погрузки."
 	icon_state = "qmstrip"
 	item_state = "qmstrip"
 	strip_bubble_icon = "QM"
 
 /obj/item/clothing/accessory/head_strip/bs
 	name = "Blueshield's strip"
-	desc = "Плотно сшитая круглая нашивка из синего бархата с темно-синей окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи при службе на корпорацию."
+	desc = "Плотно сшитая круглая нашивка из синего бархата с темно-синей окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи при службе на корпорацию."
 	icon_state = "bsstrip"
 	item_state = "bsstrip"
 	strip_bubble_icon = "BS"
 
 /obj/item/clothing/accessory/head_strip/ntr
 	name = "NanoTrasen Representative's strip"
-	desc = "Плотно сшитая круглая нашивка из чёрного бархата с золотистой окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся заслуги при службе на корпорацию."
+	desc = "Плотно сшитая круглая нашивка из чёрного бархата с золотистой окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся заслуги при службе на корпорацию."
 	icon_state = "ntrstrip"
 	item_state = "ntrstrip"
 	strip_bubble_icon = "NTR"
@@ -1159,7 +1179,12 @@
 /obj/item/clothing/accessory/head_strip/greytide
 	name = "GreyTide strip"
 	desc = "Плотно сшитая круглая нашивка серого цвета с расположенным в центре противогазом."
-	ru_names = list(
+	icon_state = "greytstrip"
+	item_state = "greytstrip"
+	strip_bubble_icon = "greyt"
+
+/obj/item/clothing/accessory/head_strip/greytide/get_ru_names()
+	return list(
 		NOMINATIVE = "нашивка \"GreyTide\"",
 		GENITIVE = "нашивки \"GreyTide\"",
 		DATIVE = "нашивке \"GreyTide\"",
@@ -1167,9 +1192,6 @@
 		INSTRUMENTAL = "нашивкой \"GreyTide\"",
 		PREPOSITIONAL = "нашивке \"GreyTide\""
 	)
-	icon_state = "greytstrip"
-	item_state = "greytstrip"
-	strip_bubble_icon = "greyt"
 
 /obj/item/clothing/accessory/head_strip/lawyers_badge
 	name = "attorney's badge"

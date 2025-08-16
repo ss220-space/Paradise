@@ -15,6 +15,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | NEED_DEXTERITY
 	/// Whether the GPS is on.
 	var/tracking = TRUE
 	/// The tag that is visible to other GPSes.
@@ -42,6 +43,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/Destroy()
 	GLOB.GPS_list.Remove(src)
 	GLOB.poi_list.Remove(src)
+	locked_location = null
+	parent = null
 	return ..()
 
 /obj/item/gps/update_overlays()
@@ -56,27 +59,21 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
-/obj/item/gps/AltClick(mob/living/user)
-	if(!Adjacent(user))
-		return
-	if(!iscarbon(usr) && !isrobot(usr))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/item/gps/click_alt(mob/living/user)
 	toggle_gps(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/gps/proc/toggle_gps(mob/living/user)
 	if(emped)
-		to_chat(user, "<span class='warning'>It's busted!</span>")
+		to_chat(user, span_warning("Оно сломано!"))
 		return
 
 	tracking = !tracking
 	update_icon(UPDATE_OVERLAYS)
 	if(tracking)
-		to_chat(user, "[src] is now tracking, and visible to other GPS devices.")
+		to_chat(user, "[capitalize(src.declent_ru(NOMINATIVE))] теперь отслеживается и виден другим GPS устройствам.")
 	else
-		to_chat(user, "[src] is no longer tracking, or visible to other GPS devices.")
+		to_chat(user, "[capitalize(src.declent_ru(NOMINATIVE))] больше не отслеживается и не виден другим GPS устройствам.")
 	SStgui.update_uis(src)
 
 /obj/item/gps/ui_data(mob/user)
@@ -263,7 +260,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		// I assume it's faster to color,tag and OR the turf in, rather
 		// then checking if its there
 		T.color = RANDOM_COLOUR
-		T.maptext = "[T.x],[T.y],[T.z]"
+		T.maptext = MAPTEXT("[T.x],[T.y],[T.z]")
 		tagged |= T
 
 /obj/item/gps/visible_debug/proc/clear()
@@ -291,11 +288,11 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	if(istype(I, /obj/item/gpsupgrade))
 		add_fingerprint(user)
 		if(upgraded)
-			to_chat(user, span_warning("The [name] is already upgraded."))
+			to_chat(user, span_warning("[capitalize(src.declent_ru(NOMINATIVE))] уже улучшен."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You have upgraded [src]."))
+		to_chat(user, span_notice("Вы улучшили [src.declent_ru(ACCUSATIVE)]."))
 		upgraded = TRUE
 		SStgui.update_uis(src)
 		qdel(I)

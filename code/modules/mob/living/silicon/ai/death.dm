@@ -19,18 +19,14 @@
 		GLOB.disable_robotics_consoles = FALSE
 
 	if(nuking)
-		set_security_level("red")
+		SSsecurity_level.set_level(SEC_LEVEL_RED)
 		nuking = 0
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = null //Point back to the disk.
 
 	if(doomsday_device)
 		doomsday_device.timing = 0
-		SSshuttle.emergencyNoEscape = FALSE
-		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
-			SSshuttle.emergency.mode = SHUTTLE_DOCKED
-			SSshuttle.emergency.timer = world.time + 3 MINUTES
-			GLOB.priority_announcement.Announce("Вредоносное окружение устранено. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.", "Приоритетное оповещение.", 'sound/AI/shuttledock.ogg')
+		SSshuttle.remove_hostile_environment(doomsday_device, 'sound/AI/eshuttle_dock.ogg')
 		qdel(doomsday_device)
 
 	if(explosive)

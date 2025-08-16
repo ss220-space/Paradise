@@ -56,6 +56,11 @@
 	. = ..()
 	. += generate_integrity_message()
 
+
+/obj/vehicle/zap_act(power, zap_flags)
+	zap_buckle_check(power)
+	return ..()
+
 /// Returns a readable string of the vehicle's health for examining. Overridden by subtypes who want to be more verbose with their health messages.
 /obj/vehicle/proc/generate_integrity_message()
 	var/examine_text = ""
@@ -142,6 +147,8 @@
 	return FALSE
 
 /obj/vehicle/proc/after_move(direction)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_VEHICLE_MOVE, direction)
 	return
 
 /obj/vehicle/proc/add_control_flags(mob/controller, flags)

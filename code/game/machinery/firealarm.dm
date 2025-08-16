@@ -37,8 +37,6 @@ GLOBAL_LIST_EMPTY(firealarms)
 /obj/machinery/firealarm/Initialize(mapload, direction, building)
 	. = ..()
 
-	GLOB.firealarms += src
-
 	if(building)
 		buildstage = FIRE_ALARM_FRAME
 		wiresexposed = TRUE
@@ -50,12 +48,15 @@ GLOBAL_LIST_EMPTY(firealarms)
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)
+
+	if(is_station_contact(z))
+		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
+
 	update_fire_light()
 	update_icon()
 
 
 /obj/machinery/firealarm/Destroy()
-	GLOB.firealarms -= src
 	LAZYREMOVE(GLOB.station_fire_alarms["[z]"], src)
 	LAZYREMOVE(myArea.firealarms, src)
 	return ..()
@@ -85,7 +86,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 		return
 
 	var/area/area = get_area(src)
-	if(area.fire)
+	if(area?.fire)
 		icon_state = "firealarm_alarming"
 		return
 	if(!detecting)
@@ -104,7 +105,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 
 	if(is_station_contact(z) && show_alert_level)
 
-		. += "overlay_[get_security_level()]"
+		. += "overlay_[SSsecurity_level.get_current_level_as_text()]"
 		underlays += emissive_appearance(icon, "firealarm_overlay_lightmask", src)
 
 	if(!wiresexposed)
@@ -116,7 +117,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 		emagged = TRUE
 		if(user)
 			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag [src], disabling its thermal sensors."))
-		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
 	..()
@@ -150,7 +151,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 					to_chat(user, span_warning("You need more cable for this!"))
 					return ATTACK_CHAIN_PROCEED
 				buildstage = FIRE_ALARM_READY
-				playsound(get_turf(src), I.usesound, 50, 1)
+				playsound(get_turf(src), I.usesound, 50, TRUE)
 				to_chat(user, span_notice("You wire [src]!"))
 				update_icon()
 				return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -261,7 +262,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 		if(!(stat & BROKEN))
 			var/obj/item/I = new /obj/item/firealarm_electronics(loc)
 			if(!disassembled)
-				I.obj_integrity = I.max_integrity * 0.5
+				I.update_integrity(I.max_integrity * 0.5)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
@@ -271,7 +272,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 		set_light_on(FALSE)
 		return
 
-	if(GLOB.security_level == SEC_LEVEL_EPSILON)
+	if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_EPSILON)
 		set_light(2, 1, COLOR_WHITE, TRUE)
 		return
 
@@ -280,6 +281,11 @@ GLOBAL_LIST_EMPTY(firealarms)
 	else
 		set_light_on(FALSE)
 
+/obj/machinery/firealarm/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
+	SIGNAL_HANDLER
+
+	update_icon()
+	update_fire_light()
 
 /obj/machinery/firealarm/power_change(forced = FALSE)
 	. = ..()
@@ -327,7 +333,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 				. += "<span class='notice'>The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.</span>"
 				. += "<span class='notice'>The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.</span>"
 
-	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
+	. += "It shows the alert level as: <b><u>[capitalize(SSsecurity_level.get_current_level_as_text())]</u></b>."
 
 
 /obj/machinery/firealarm/proc/reset()

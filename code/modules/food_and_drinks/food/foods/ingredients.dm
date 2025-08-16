@@ -41,6 +41,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/cheesewheel
 	name = "cheese wheel"
 	desc = "A big wheel of delicious Cheddar."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "cheesewheel"
 	slice_path = /obj/item/reagent_containers/food/snacks/cheesewedge
 	slices_num = 5
@@ -52,6 +53,7 @@
 /obj/item/reagent_containers/food/snacks/cheesewedge
 	name = "cheese wedge"
 	desc = "A wedge of delicious Cheddar. The cheese wheel it was cut from can't have gone far."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "cheesewedge"
 	filling_color = "#FFF700"
 	tastes = list("cheese" = 1)
@@ -60,6 +62,7 @@
 /obj/item/reagent_containers/food/snacks/weirdcheesewedge
 	name = "weird cheese"
 	desc = "Some kind of... gooey, messy, gloopy thing. Similar to cheese, but only in the broad sense of the word."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "weirdcheesewedge"
 	filling_color = "#00FF33"
 	list_reagents = list("mercury" = 5, "lsd" = 5, "ethanol" = 5, "weird_cheese" = 5)
@@ -91,14 +94,14 @@
 	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/cucumberslice
- 	name = "cucumber slice"
- 	desc = "A slice from a cucumber."
- 	icon_state = "cucumberslice"
- 	filling_color = "#00DB00"
- 	bitesize = 6
- 	list_reagents = list("kelotane" = 1)
- 	tastes = list("cucumber" = 1)
- 	foodtype = VEGETABLES
+	name = "cucumber slice"
+	desc = "A slice from a cucumber."
+	icon_state = "cucumberslice"
+	filling_color = "#00DB00"
+	bitesize = 6
+	list_reagents = list("kelotane" = 1)
+	tastes = list("cucumber" = 1)
+	foodtype = VEGETABLES
 
 
 /obj/item/reagent_containers/food/snacks/cucumberslice/attackby(obj/item/I, mob/user, params)

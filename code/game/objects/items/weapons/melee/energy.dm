@@ -12,7 +12,7 @@
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	item_flags = NOSHARPENING
 	toolspeed = 1
@@ -110,6 +110,13 @@
 	sharp = 1
 	light_color = LIGHT_COLOR_WHITE
 
+/obj/item/melee/energy/axe/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_sound = "chop_swing_light" \
+	)
+
 /obj/item/melee/energy/axe/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] swings the [name] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|FIRELOSS
@@ -130,6 +137,14 @@
 	block_chance = 50
 	sharp = 1
 	var/hacked = FALSE
+
+/obj/item/melee/energy/sword/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0, \
+		swing_sound = "energy_sword_swing" \
+	)
 
 /obj/item/melee/energy/sword/New()
 	..()
@@ -250,12 +265,12 @@
 	if(!.) // they did not block the attack
 		return
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
-			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"), projectile_message = TRUE)
 			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
 			return TRUE
-		owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+		owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"), projectile_message = TRUE)
 		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
 		return -1
 	return TRUE
@@ -280,6 +295,14 @@
 	throw_range = 1
 	w_class = WEIGHT_CLASS_BULKY //So you can't hide it in your pocket or some such.
 	sharp = 1
+
+/obj/item/melee/energy/blade/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0, \
+		swing_sound = "energy_sword_swing" \
+	)
 
 /obj/item/melee/energy/blade/attack_self(mob/user)
 	return

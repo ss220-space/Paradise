@@ -1,24 +1,24 @@
-#define MELEE_MODE 			"CqC"		//Spawn people with only melee things
-#define RANGED_MODE		 	"Ranged"		//Spawn people with only ranged things
-#define MIXED_MODE 			"Mixed"		//Spawn people with melee and ranged things
-#define DEFAULT_TIME_LIMIT 	5 MINUTES //Time-to-Live of participants (default - 5 minutes)
+#define MELEE_MODE			"CqC"		//Spawn people with only melee things
+#define RANGED_MODE			"Ranged"		//Spawn people with only ranged things
+#define MIXED_MODE			"Mixed"		//Spawn people with melee and ranged things
+#define DEFAULT_TIME_LIMIT	5 MINUTES //Time-to-Live of participants (default - 5 minutes)
 #define ARENA_COOLDOWN		5 MINUTES //After which time thunderdome will be once again allowed to use
 #define CQC_ARENA_RADIUS	6 //how much tiles away from a center players will spawn
 #define RANGED_ARENA_RADIUS	10
 #define VOTING_POLL_TIME	10 SECONDS
-#define MAX_PLAYERS_COUNT 	16
-#define MIN_PLAYERS_COUNT 	2
+#define MAX_PLAYERS_COUNT	16
+#define MIN_PLAYERS_COUNT	2
 #define SPAWN_COEFFICENT	0.85 //how many (polled * spawn_coefficent) players will go brawling
 #define PICK_PENALTY		10 SECONDS //Prevents fast handed guys from picking polls twice in a row.
 // Uncomment this if you want to mess up with thunderdome alone
 /*
 #define THUND_TESTING
 #ifdef THUND_TESTING
-#define DEFAULT_TIME_LIMIT 	30 SECONDS
-#define ARENA_COOLDOWN 		30 SECONDS
-#define VOTING_POLL_TIME 	10 SECONDS
-#define MIN_PLAYERS_COUNT 	1
-#define PICK_PENALTY 		0
+#define DEFAULT_TIME_LIMIT	30 SECONDS
+#define ARENA_COOLDOWN		30 SECONDS
+#define VOTING_POLL_TIME	10 SECONDS
+#define MIN_PLAYERS_COUNT	1
+#define PICK_PENALTY		0
 #endif
 */
 GLOBAL_DATUM_INIT(thunderdome_battle, /datum/mini_game/thunderdome_battle, new())
@@ -194,7 +194,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		mob.melt()
 
 	for(var/obj/A in zone)
-		if(istype(A, /obj/machinery/door/poddoor) || istype(A, /obj/minigame_anchor/thunderdome_poller))
+		if(istype(A, /obj/machinery/door/poddoor) || istype(A, /obj/minigame_anchor/thunderdome_poller) || istype(A, /obj/structure/sink/puddle) || istype(A, /obj/structure/table/reinforced))
 			continue
 		qdel(A)
 

@@ -1,7 +1,7 @@
 /obj/item/shield
 	name = "shield"
 	block_chance = 50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 	obj_integrity = 380
 	max_integrity = 380
 
@@ -11,8 +11,8 @@
 	. = ..()
 	if(.)
 		var/damage_type = BRUTE
-		if(istype(hitby, /obj/item/projectile))
-			var/obj/item/projectile/P = hitby
+		if(istype(hitby, /obj/projectile))
+			var/obj/projectile/P = hitby
 			if(P.shield_buster)
 				take_damage(180, damage_type, sound_effect = FALSE) //2 shots for tele, 3 for riot
 		if(isobj(hitby))
@@ -84,7 +84,7 @@
 
 /obj/item/shield/riot/goliath
 	name = "goliath shield"
-	desc = "A shield made from interwoven plates of goliath hide."
+	desc = "Щит, сплетённый из пластин шкуры голиафа."
 	icon_state = "goliath_shield"
 	item_state = "goliath_shield"
 	materials = list()
@@ -92,6 +92,16 @@
 	block_chance = 45
 	obj_integrity = 380
 	max_integrity = 380
+
+/obj/item/shield/riot/goliath/get_ru_names()
+	return list(
+		NOMINATIVE = "щит из пластин голиафа",
+		GENITIVE = "щита из пластин голиафа",
+		DATIVE = "щиту из пластин голиафа",
+		ACCUSATIVE = "щит из пластин голиафа",
+		INSTRUMENTAL = "щитом из пластин голиафа",
+		PREPOSITIONAL = "щите из пластин голиафа"
+	)
 
 /obj/item/shield/energy
 	name = "energy combat shield"
@@ -107,8 +117,8 @@
 	var/active = 0
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	if(istype(hitby, /obj/item/projectile))
-		var/obj/item/projectile/P = hitby
+	if(istype(hitby, /obj/projectile))
+		var/obj/projectile/P = hitby
 		if(P.shield_buster && active)
 			toggle(owner, TRUE)
 			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")
@@ -187,7 +197,7 @@
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
+	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
 
 	if(active)
 		force = 8

@@ -72,7 +72,7 @@
 	return locate(target.x + round(gaussian(0, distro) * (dy+2)/8, 1), target.y + round(gaussian(0, distro) * (dx+2)/8, 1), target.z)
 
 
-/obj/item/projectile/proc/preparePixelProjectile(atom/target, turf/targloc, mob/living/user, params, spread)
+/obj/projectile/proc/preparePixelProjectile(atom/target, turf/targloc, mob/living/user, params, spread)
 	var/turf/curloc = get_turf(user)
 
 	/*
@@ -104,14 +104,14 @@
 
 			//Split Y+Pixel_Y up into list(Y, Pixel_Y)
 			var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-			var/x = (text2num(screen_loc_X[1]) - 1) * world.icon_size + text2num(screen_loc_X[2])
-			var/y = (text2num(screen_loc_Y[1]) - 1) * world.icon_size + text2num(screen_loc_Y[2])
+			var/x = (text2num(screen_loc_X[1]) - 1) * ICON_SIZE_X + text2num(screen_loc_X[2])
+			var/y = (text2num(screen_loc_Y[1]) - 1) * ICON_SIZE_Y + text2num(screen_loc_Y[2])
 
 			//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
 			var/list/screenview = getviewsize(user.client.view)
 
-			var/ox = round((screenview[1] * world.icon_size) / 2) - user.client.pixel_x //"origin" x
-			var/oy = round((screenview[2] * world.icon_size) / 2) - user.client.pixel_y //"origin" y
+			var/ox = round((screenview[1] * ICON_SIZE_X) / 2) - user.client.pixel_x //"origin" x
+			var/oy = round((screenview[2] * ICON_SIZE_Y) / 2) - user.client.pixel_y //"origin" y
 			var/angle = ATAN2(y - oy, x - ox)
 			Angle = angle
 	if(spread)

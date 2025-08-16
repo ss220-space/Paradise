@@ -9,16 +9,16 @@
 	var/finished = FALSE
 
 
-/obj/structure/reflector/bullet_act(obj/item/projectile/P)
+/obj/structure/reflector/bullet_act(obj/projectile/P)
 	var/turf/reflector_turf = get_turf(src)
 	var/turf/reflect_turf
-	if(!istype(P, /obj/item/projectile/beam))
+	if(!istype(P, /obj/projectile/beam))
 		return ..()
 	var/new_dir = get_reflection(dir, P.dir)
 	if(new_dir)
 		reflect_turf = get_step(reflect_turf, new_dir)
 	else
-		visible_message("<span class='notice'>[src] is hit by [P]!</span>")
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] поражён[genderize_ru(gender,"","а","о","ы")] [P.declent_ru(INSTRUMENTAL)]!"), projectile_message = TRUE)
 		new_dir = 0
 		return ..() //Hits as normal, explodes or emps or whatever
 
@@ -96,7 +96,7 @@
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(!I.use_tool(src, user, 80, volume = I.tool_volume))
 		return
-	playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
+	playsound(user, 'sound/items/Ratchet.ogg', 50, TRUE)
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
 	new /obj/item/stack/sheet/metal(src.loc, 5)
 	qdel(src)
@@ -123,8 +123,8 @@
 
 
 /obj/structure/reflector/verb/rotate()
-	set name = "Rotate"
-	set category = "Object"
+	set name = "Повернуть"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -137,10 +137,9 @@
 	return TRUE
 
 
-/obj/structure/reflector/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
+/obj/structure/reflector/click_alt(mob/user)
 	rotate()
+	return CLICK_ACTION_SUCCESS
 
 
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX

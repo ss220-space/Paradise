@@ -67,6 +67,15 @@
 	if(ui_x && ui_y)
 		src.window_size = list(ui_x, ui_y)
 
+/datum/tgui/Destroy(force)
+	user = null
+	state = null
+	src_object = null
+	window?.release_lock()
+	window?.close(TRUE)
+	window = null
+	. = ..()
+
 /**
  * public
  *
@@ -217,13 +226,16 @@
 	json_data["config"] = list(
 		"title" = title,
 		"status" = status,
-		"interface" = interface,
+		"interface" = list(
+			"name" = interface
+		),
 		"refreshing" = refreshing,
 		"window" = list(
 			"key" = window_key,
 			"size" = window_size,
 			"fancy" = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_FANCYUI),
-			"locked" = FALSE,
+			"locked" = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_FANCYUI),
+			"scale" = (user.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE),
 		),
 		"client" = list(
 			"ckey" = user.client?.ckey,
@@ -240,9 +252,9 @@
 	var/data = custom_data || with_data && src_object.ui_data(user)
 	if(data)
 		json_data["data"] = data
-		
+
 	var/static_data = with_static_data && src_object.ui_static_data(user)
-	
+
 	if(static_data)
 		json_data["static_data"] = static_data
 
@@ -305,7 +317,7 @@
 	// Pass act type messages to ui_act
 	if(type && copytext(type, 1, 5) == "act/")
 		process_status()
-		if(src_object.ui_act(copytext(type, 5), payload, src, state))
+		if(src_object.ui_act(copytext(type, 5), payload, src, state) && src_object)
 			SStgui.update_uis(src_object)
 		return FALSE
 	switch(type)

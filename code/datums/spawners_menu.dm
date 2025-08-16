@@ -12,7 +12,7 @@
 /datum/spawners_menu/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "SpawnersMenu", "Spawners Menu")
+		ui = new(user, src, "SpawnersMenu", "Роли призраков")
 		ui.open()
 
 /datum/spawners_menu/ui_data(mob/user)
@@ -26,6 +26,10 @@
 		this["fluff"] = ""
 		this["uids"] = list()
 		for(var/spawner_obj in GLOB.mob_spawners[spawner])//each spawner can contain multiple actual spawners, we use only one desc/info
+			if(isliving(spawner_obj))
+				var/mob/living/mob = spawner_obj
+				if(mob.stat == DEAD)
+					continue
 			this["uids"] += "\ref[spawner_obj]"
 			if(!this["desc"])	//haven't set descriptions yet
 				if(istype(spawner_obj, /obj/effect/mob_spawn))

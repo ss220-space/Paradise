@@ -10,7 +10,7 @@
 	pass_flags_self = PASSBLOB
 	layer = BELOW_MOB_LAYER
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 	creates_cover = TRUE
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP // stops blob mobs from falling on multiz.
 	max_integrity = BLOB_REGULAR_MAX_HP
@@ -72,7 +72,7 @@
 		overmind.blobs_legit -= src  //if it was in the legit blobs list, it isn't now
 		overmind = null
 	if(isturf(loc)) //Necessary because Expand() is screwed up and spawns a blob and then deletes it
-		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 	return ..()
 
 /obj/structure/blob/obj_destruction(damage_flag)
@@ -127,7 +127,7 @@
 
 
 /obj/structure/blob/proc/RegenHealth()
-	obj_integrity = min(max_integrity, obj_integrity + health_regen)
+	repair_damage(health_regen)
 	update_blob()
 
 
@@ -260,7 +260,7 @@
 			new /obj/effect/temp_visual/emp(get_turf(src))
 
 
-/obj/structure/blob/tesla_act(power)
+/obj/structure/blob/zap_act(power, zap_flags)
 	if(overmind)
 		if(overmind.blobstrain.tesla_reaction(src, power))
 			take_damage(power * 1.25e-3, BURN, ENERGY)

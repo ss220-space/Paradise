@@ -24,7 +24,7 @@
 	pass_open_check = TRUE
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
-	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
+	var/projectile_type = /obj/projectile/bullet/dart/syringe
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
 
@@ -71,6 +71,8 @@
 		L = target
 		if(!L.can_inject(user, TRUE))
 			return
+
+	SEND_SIGNAL(target, COMSIG_LIVING_TRY_SYRINGE, user)
 
 	switch(mode)
 		if(SYRINGE_DRAW)
@@ -183,6 +185,11 @@
 				injoverlay = "inject"
 		. += injoverlay
 		update_equipped_item(update_speedmods = FALSE)
+
+/obj/item/reagent_containers/syringe/traitor_random/Initialize(mapload)
+	list_reagents = list()
+	list_reagents[pick_list("chemistry_tools.json", "traitor_poison_bottle")] = volume
+	. = ..()
 
 
 /obj/item/reagent_containers/syringe/antiviral
@@ -344,3 +351,17 @@
 	amount_per_transfer_from_this = 50
 	volume = 50
 	list_reagents = list("toxin" = 15, "pancuronium" = 10, "cyanide" = 5, "facid" = 10, "fluorine" = 10)
+
+
+/obj/item/reagent_containers/syringe/steroids
+	name = "Syringe (Стероиды)"
+	desc = "Шприц с опасным для здоровья веществом, которое способствует быстрому увеличению мышечной массы."
+	ru_names = list(
+        NOMINATIVE = "шприц (Стероиды)",
+        GENITIVE = "шприца (Стероиды)",
+        DATIVE = "шприцу (Стероиды)",
+        ACCUSATIVE = "шприц (Стероиды)",
+        INSTRUMENTAL = "шприцем (Стероиды)",
+        PREPOSITIONAL = "шприце (Стероиды)"
+	)
+	list_reagents = list("steroids" = 15)

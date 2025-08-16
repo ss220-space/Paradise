@@ -18,7 +18,7 @@
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Установить объём перемещения"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(!ishuman(usr) && !isrobot(usr))
@@ -28,7 +28,7 @@
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
 		default = amount_per_transfer_from_this
-	var/N = input("Объём перемещения отсюда:", "[declent_ru(NOMINATIVE)]", default) as null|anything in possible_transfer_amounts
+	var/N = tgui_input_list(usr, "Объём перемещения отсюда:", "[declent_ru(NOMINATIVE)]", possible_transfer_amounts, default)
 
 	if(!N)
 		return
@@ -43,14 +43,14 @@
 	amount_per_transfer_from_this = N
 	to_chat(usr, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[pluralize_ru(gender, "ет", "ут")] перемещать по <b>[N]</b> единиц[declension_ru(N, "у", "ы", "")] вещества за раз."))
 
-/obj/item/reagent_containers/AltClick(mob/user)
-	if(Adjacent(user))
-		set_APTFT()
+/obj/item/reagent_containers/click_alt(mob/user)
+	set_APTFT()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/reagent_containers/verb/empty()
 
 	set name = "Вылить содержимое"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

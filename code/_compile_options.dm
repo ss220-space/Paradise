@@ -13,10 +13,12 @@
 
 ///Used to find the sources of harddels, quite laggy, don't be surpised if it freezes your client for a good while
 //#define REFERENCE_TRACKING
+//#define REFERENCE_TRACKING_DEBUG
+
 #ifdef REFERENCE_TRACKING
 #warn Reference tracking is enabled
 ///Run a lookup on things hard deleting by default.
-//#define GC_FAILURE_HARD_LOOKUP
+#define GC_FAILURE_HARD_LOOKUP
 #ifdef GC_FAILURE_HARD_LOOKUP
 //Ensures all early assets can actually load early
 #define DO_NOT_DEFER_ASSETS
@@ -40,7 +42,7 @@
 #define MAX_PAPER_MESSAGE_LEN 4096
 #define MAX_PAPER_FIELDS 50
 #define MAX_BOOK_MESSAGE_LEN 9216
-#define MAX_NAME_LEN 50 	//diona names can get loooooooong
+#define MAX_NAME_LEN 50	//diona names can get loooooooong
 
 /// Removes characters incompatible with file names.
 #define SANITIZE_FILENAME(text) (GLOB.filename_forbidden_chars.Replace(text, ""))

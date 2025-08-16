@@ -163,7 +163,9 @@ mob
 			// Send the icon to src's local cache
 			src<<browse_rsc(getFlatIcon(src), iconName)
 			// Display the icon in their browser
-			src<<browse("<body bgcolor='#000000'><p><img src='[iconName]'></p></body>")
+			var/datum/browser/popup = new(src, "icon", "Icon")
+			popup.set_content("<p><img src='[iconName]'></p>")
+			popup.open(FALSE)
 
 		Output_Icon()
 			set name = "2. Output Icon"
@@ -896,29 +898,6 @@ The _flatIcons list is a cache for generated icon files.
 				swapped = 1
 	return result
 
-//Interface for using DrawBox() to draw 1 pixel on a coordinate.
-//Returns the same icon specifed in the argument, but with the pixel drawn
-/proc/DrawPixel(var/icon/I,var/colour,var/drawX,var/drawY)
-	if(!I)
-		return 0
-	var/Iwidth = I.Width()
-	var/Iheight = I.Height()
-	if(drawX > Iwidth || drawX <= 0)
-		return 0
-	if(drawY > Iheight || drawY <= 0)
-		return 0
-	I.DrawBox(colour,drawX, drawY)
-	return I
-
-//Interface for easy drawing of one pixel on an atom.
-/atom/proc/DrawPixelOn(var/colour, var/drawX, var/drawY)
-	var/icon/I = new(icon)
-	var/icon/J = DrawPixel(I, colour, drawX, drawY)
-	if(J) //Only set the icon if it succeeded, the icon without the pixel is 1000x better than a black square.
-		icon = J
-		return J
-	return 0
-
 //Hook, override to run code on- wait this is images
 //Images have dir without being an atom, so they get their own definition.
 //Lame.
@@ -1166,6 +1145,8 @@ GLOBAL_LIST_EMPTY(bicon_cache)
  * * moving - whether or not to use a moving state for the given icon
  * * sourceonly - if TRUE, only generate the asset and send back the asset url, instead of tags that display the icon to players
  * * extra_classes - string of extra css classes to use when returning the icon string
+ *
+ * You may also call is icon2html
  */
 /proc/icon2asset(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE, extra_classes = null)
 	if(!thing)
@@ -1248,3 +1229,157 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	var/icon/I = getFlatIcon(thing)
 	return icon2asset(I, target)
+
+/// Generate a filename for this asset
+/// The same asset will always lead to the same asset name
+/// (Generated names do not include file extention.)
+/proc/generate_asset_name(file)
+	return "asset.[md5(fcopy_rsc(file))]"
+
+/**
+ * generate an asset for the given icon or the icon of the given appearance for [thing], and send it to any clients in target.
+ * Arguments:
+ * * thing - either a /icon object, or an object that has an appearance (atom, image, mutable_appearance).
+ * * target - either a reference to or a list of references to /client's or mobs with clients
+ * * icon_state - string to force a particular icon_state for the icon to be used
+ * * dir - dir number to force a particular direction for the icon to be used
+ * * frame - what frame of the icon_state's animation for the icon being used
+ * * moving - whether or not to use a moving state for the given icon
+ * * sourceonly - if TRUE, only generate the asset and send back the asset url, instead of tags that display the icon to players
+ * * extra_clases - string of extra css classes to use when returning the icon string
+ * * keyonly - if TRUE, only returns the asset key to use get_asset_url manually. Overrides sourceonly.
+ */
+/proc/icon2html(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE, extra_classes = null, keyonly = FALSE)
+	if (!thing)
+		return
+
+	var/key
+	var/icon/icon2collapse = thing
+
+	if (!target)
+		return
+	if (target == world)
+		target = GLOB.clients
+
+	var/list/targets
+	if (!islist(target))
+		targets = list(target)
+	else
+		targets = target
+	if(!length(targets))
+		return
+
+	//check if the given object is associated with a dmi file in the icons folder. if it is then we dont need to do a lot of work
+	//for asset generation to get around byond limitations
+	var/icon_path = get_icon_dmi_path(thing)
+
+	if (!isicon(icon2collapse))
+		if (isfile(thing)) //special snowflake
+			var/name = "[generate_asset_name(thing)].png"
+			if (!SSassets.cache[name])
+				SSassets.transport.register_asset(name, thing)
+			for (var/thing2 in targets)
+				SSassets.transport.send_assets(thing2, name)
+			if(keyonly)
+				return name
+			if(sourceonly)
+				return SSassets.transport.get_asset_url(name)
+			return "<img class='[extra_classes] icon icon-misc' src='[SSassets.transport.get_asset_url(name)]'>"
+
+		//its either an atom, image, or mutable_appearance, we want its icon var
+		icon2collapse = thing.icon
+
+		if (isnull(icon_state))
+			icon_state = thing.icon_state
+			//Despite casting to atom, this code path supports mutable appearances, so let's be nice to them
+			if(isnull(icon_state))
+				icon_state = initial(thing.icon_state)
+				if (isnull(dir))
+					dir = initial(thing.dir)
+
+		if (isnull(dir))
+			dir = thing.dir
+
+		// Commented out because this is seemingly our source of bad icon operations
+		/* if (ishuman(thing)) // Shitty workaround for a BYOND issue.
+			var/icon/temp = icon2collapse
+			icon2collapse = icon()
+			icon2collapse.Insert(temp, dir = SOUTH)
+			dir = SOUTH*/
+	else
+		if (isnull(dir))
+			dir = SOUTH
+		if (isnull(icon_state))
+			icon_state = ""
+
+	icon2collapse = icon(icon2collapse, icon_state, dir, frame, moving)
+
+	var/list/name_and_ref = generate_and_hash_rsc_file(icon2collapse, icon_path)//pretend that tuples exist
+
+	var/rsc_ref = name_and_ref[1] //weird object thats not even readable to the debugger, represents a reference to the icons rsc entry
+	var/file_hash = name_and_ref[2]
+	key = "[name_and_ref[3]].png"
+
+	if(!SSassets.cache[key])
+		SSassets.transport.register_asset(key, rsc_ref, file_hash, icon_path)
+	for (var/client_target in targets)
+		SSassets.transport.send_assets(client_target, key)
+	if(keyonly)
+		return key
+	if(sourceonly)
+		return SSassets.transport.get_asset_url(key)
+	return "<img class='[extra_classes] icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
+
+#define CACHED_WIDTH_INDEX "width"
+#define CACHED_HEIGHT_INDEX "height"
+
+/atom/proc/get_cached_width()
+	if (isnull(icon))
+		return 0
+	var/list/dimensions = get_icon_dimensions(icon)
+	return dimensions[CACHED_WIDTH_INDEX]
+
+/atom/proc/get_cached_height()
+	if (isnull(icon))
+		return 0
+	var/list/dimensions = get_icon_dimensions(icon)
+	return dimensions[CACHED_HEIGHT_INDEX]
+
+#undef CACHED_WIDTH_INDEX
+#undef CACHED_HEIGHT_INDEX
+
+/**
+ * Center's an image. Only run this on float overlays and not physical
+ * Requires:
+ * The Image
+ * The x dimension of the icon file used in the image
+ * The y dimension of the icon file used in the image
+ * eg: center_image(image_to_center, 32,32)
+ * eg2: center_image(image_to_center, 96,96)
+**/
+/proc/center_image(image/image_to_center, x_dimension = 0, y_dimension = 0)
+	if(!image_to_center)
+		return
+
+	if(!x_dimension || !y_dimension)
+		return
+
+	if((x_dimension == ICON_SIZE_X) && (y_dimension == ICON_SIZE_Y))
+		return image_to_center
+
+	//Offset the image so that its bottom left corner is shifted this many pixels
+	//This makes it infinitely easier to draw larger inhands/images larger than world.iconsize
+	//but still use them in game
+	var/x_offset = -((x_dimension / ICON_SIZE_X) - 1) * (ICON_SIZE_X * 0.5)
+	var/y_offset = -((y_dimension / ICON_SIZE_Y) - 1) * (ICON_SIZE_Y * 0.5)
+
+	//Correct values under icon_size
+	if(x_dimension < ICON_SIZE_X)
+		x_offset *= -1
+	if(y_dimension < ICON_SIZE_Y)
+		y_offset *= -1
+
+	image_to_center.pixel_w = x_offset
+	image_to_center.pixel_z = y_offset
+
+	return image_to_center

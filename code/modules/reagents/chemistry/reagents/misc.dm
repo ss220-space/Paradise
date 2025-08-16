@@ -209,9 +209,9 @@
 			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
 
 		fireflash(T, min(max(0, volume / 40), 8))
-		var/datum/effect_system/smoke_spread/bad/BS = new
-		BS.set_up(1, 0, T)
-		BS.start()
+		var/datum/effect_system/fluid_spread/smoke/bad/smoke = new
+		smoke.set_up(amount = 1, location = T)
+		smoke.start()
 		if(!QDELETED(old_holder))
 			old_holder.add_reagent("ash", round(volume * 0.5))
 
@@ -360,7 +360,9 @@
 	penetrates_skin = TRUE
 	taste_description = "кучи волос"
 
-/datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, volume)
+/datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(volume < 5)
+		return ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
@@ -600,7 +602,7 @@
 	taste_description = "эволюции"
 
 /datum/reagent/plantnutriment/robustharvestnutriment
-	name = "Робастный-Урожай"
+	name = "Робаст-Харвест"
 	id = "robustharvestnutriment"
 	description = "Очень мощное питательное вещество, предотвращающее мутацию растений."
 	color = "#9D9D00" // RBG: 157, 157, 0
@@ -716,52 +718,16 @@
 		M.add_language(LANGUAGE_MONKEY_HUMAN)
 	return ..()
 
-/datum/reagent/admin_cleaner
-	name = "WD-2381"
-	color = "#da9eda"
-	description = "Супер-пузырьковое чистящее средство, предназначенное для очистки всех предметов. Или, ну, всего, что не прикручено. Или прикуручено, если уж на то пошло. Другими словами: если вы это видите, как вы это заполучили?"
+/datum/reagent/bugmilk
+	name = "Пепельное молоко"
+	id = "bugmilk"
+	description = "Молочная субстанция, вырабатываемая некоторыми видами на Лазис Ардакс. Весьма вкусное."
+	reagent_state = LIQUID
+	color = "#e4dac5"
+	taste_description = "густого молока"
+	metabolization_rate = 2 * REAGENTS_METABOLISM
 
-/datum/reagent/admin_cleaner/organic
-	name = "WD-2381-MOB"
-	id = "admincleaner_mob"
-	description = "Бутылочка со странными нанитами, мгновенно пожирающими тела, как живые, так и мёртвые, а также органы."
-
-/datum/reagent/admin_cleaner/organic/reaction_mob(mob/living/M, method, volume, show_message)
-	. = ..()
-	if(method == REAGENT_TOUCH)
-		M.dust()
-
-/datum/reagent/admin_cleaner/organic/reaction_obj(obj/O, volume)
-	if(is_organ(O))
-		qdel(O)
-	if(istype(O, /obj/effect/decal/cleanable/blood) || istype(O, /obj/effect/decal/cleanable/vomit))
-		qdel(O)
-	if(istype(O, /obj/item/mmi))
-		qdel(O)
-
-/datum/reagent/admin_cleaner/item
-	name = "WD-2381-ITM"
-	id = "admincleaner_item"
-	description = "Бутылочка со странными нанитами, которые мгновенно пожирают предметы, оставляя всё остальное нетронутым."
-
-/datum/reagent/admin_cleaner/item/reaction_obj(obj/O, volume)
-	if(isitem(O) && !istype(O, /obj/item/grenade/clusterbuster/segment))
-		qdel(O)
-
-/datum/reagent/admin_cleaner/all
-	name = "WD-2381-ALL"
-	id = "admincleaner_all"
-	description = "Невероятно опасный набор нанитов, созданный Уборщиками Синдиката, которые пожирают всё, к чему прикасаются."
-
-/datum/reagent/admin_cleaner/all/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/item/grenade/clusterbuster/segment))
-		// don't clear clusterbang segments
-		// I'm allowed to make this hack because this is admin only anyway
-		return
-	if(!iseffect(O))
-		qdel(O)
-
-/datum/reagent/admin_cleaner/all/reaction_mob(mob/living/M, method, volume, show_message)
-	. = ..()
-	if(method == REAGENT_TOUCH)
-		M.dust()
+/datum/reagent/bugmilk/on_mob_life(mob/living/M)
+	M.reagents.add_reagent("cream", 0.4)
+	M.reagents.add_reagent("salglu_solution", 0,4)
+	return ..()

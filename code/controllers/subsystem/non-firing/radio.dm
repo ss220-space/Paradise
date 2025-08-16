@@ -4,33 +4,34 @@ SUBSYSTEM_DEF(radio)
 	ss_id = "radio"
 
 	var/list/radiochannels = list(
-	"Common"		= PUB_FREQ,
-	"Science"		= SCI_FREQ,
-	"Command"		= COMM_FREQ,
-	"Procedure"		= PROC_FREQ,
-	"Medical"		= MED_FREQ,
-	"Engineering"	= ENG_FREQ,
-	"Security" 		= SEC_FREQ,
-	"Response Team" = ERT_FREQ,
-	"Special Ops" 	= DTH_FREQ,
-	"Syndicate" 	= SYND_FREQ,
-	"SyndTaipan" 	= SYND_TAIPAN_FREQ,
-	"SyndTeam" 		= SYNDTEAM_FREQ,
-	"Soviet"		= SOV_FREQ,
-	"Supply" 		= SUP_FREQ,
-	"Service" 		= SRV_FREQ,
-	"AI Private"	= AI_FREQ,
-	"Medical(I)"	= MED_I_FREQ,
-	"Security(I)"	= SEC_I_FREQ,
-	"Spy Spider"	= SPY_SPIDER_FREQ,
-	"Spider Clan"	= NINJA_FREQ,
-	"Alpha wave"	= EVENT_ALPHA_FREQ,
-	"Beta wave"		= EVENT_BETA_FREQ,
-	"Gamma wave"	= EVENT_GAMMA_FREQ
+	"Общий"					= PUB_FREQ,
+	"Наука"					= SCI_FREQ,
+	"Командование"			= COMM_FREQ,
+	"Юриспруденция"			= PROC_FREQ,
+	"Медицина"				= MED_FREQ,
+	"Инженерия"				= ENG_FREQ,
+	"Безопасность"			= SEC_FREQ,
+	"Заключенные"			= PRS_FREQ,
+	"ОБР"					= ERT_FREQ,
+	"ССО"					= DTH_FREQ,
+	"Синдикат"				= SYND_FREQ,
+	"СиндиТайпан"			= SYND_TAIPAN_FREQ,
+	"СиндиДОС"				= SYNDTEAM_FREQ,
+	"СССП"					= SOV_FREQ,
+	"Снабжение"			= SUP_FREQ,
+	"Обслуживание"			= SRV_FREQ,
+	"ИИ"					= AI_FREQ,
+	"Медицина (ИТК)"		= MED_I_FREQ,
+	"Безопасность (ИТК)"	= SEC_I_FREQ,
+	"Жучок"					= SPY_SPIDER_FREQ,
+	"Клан Паука"			= NINJA_FREQ,
+	"Альфа частота"			= EVENT_ALPHA_FREQ,
+	"Бета частота"			= EVENT_BETA_FREQ,
+	"Гамма частота"			= EVENT_GAMMA_FREQ
 	)
 	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
 	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ, SYND_TAIPAN_FREQ)
-	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ)
+	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, PRS_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ)
 	var/list/syndicate_blacklist = list(SPY_SPIDER_FREQ, EVENT_ALPHA_FREQ, EVENT_BETA_FREQ, EVENT_GAMMA_FREQ)	//list of frequencies syndicate headset can't hear
 	var/list/datum/radio_frequency/frequencies = list()
 
@@ -59,6 +60,8 @@ SUBSYSTEM_DEF(radio)
 			return "airadio"
 		if(SEC_FREQ)
 			return "secradio"
+		if(PRS_FREQ)
+			return "prisradio"
 		if(ENG_FREQ)
 			return "engradio"
 		if(SCI_FREQ)

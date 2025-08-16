@@ -77,19 +77,24 @@
 	if(!isnull(cached_fexists))
 		if(!cached_fexists)
 			return
+
 	else if(!fexists(soundfile))
 		valid_files[filename] = FALSE
 		return
+
 	else
 		valid_files[filename] = TRUE
 	// and play
 	var/turf/source = get_turf(parent)
+
 	if((world.time - MUSICIAN_HEARCHECK_MINDELAY) > last_hearcheck)
 		do_hearcheck()
+
 	var/sound/music_played = sound(soundfile)
-	for(var/i in hearing_mobs)
-		var/mob/M = i
-		if(!(M.client?.prefs?.sound & SOUND_INSTRUMENTS))
+
+	for(var/mob/mob as anything in hearing_mobs)
+		if(!HASBIT(mob.client?.prefs?.sound, SOUND_INSTRUMENTS))
 			continue
-		M.playsound_local(source, null, volume * using_instrument.volume_multiplier, S = music_played)
+
+		mob.playsound_local(source, null, volume * using_instrument.volume_multiplier, sound = music_played)
 		// Could do environment and echo later but not for now

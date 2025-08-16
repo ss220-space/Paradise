@@ -2,6 +2,7 @@
 /obj/item/camera_bug
 	name = "camera bug"
 	desc = "Для незаконного слежения через сеть камер наблюдения."
+	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state	= "camera_bug"
 	w_class		= WEIGHT_CLASS_TINY
@@ -11,6 +12,16 @@
 	origin_tech = "syndicate=1;engineering=3"
 	/// Integrated camera console to serve UI data
 	var/obj/machinery/computer/security/camera_bug/integrated_console
+
+/obj/item/camera_bug/get_ru_names()
+	return list(
+		NOMINATIVE = "переносной монитор",
+		GENITIVE = "переносного монитора",
+		DATIVE = "переносному монитору",
+		ACCUSATIVE = "переносной монитор",
+		INSTRUMENTAL = "переносным монитором",
+		PREPOSITIONAL = "переносном мониторе"
+	)
 
 /obj/machinery/computer/security/camera_bug
 	name = "invasive camera utility"

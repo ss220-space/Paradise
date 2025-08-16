@@ -16,9 +16,9 @@
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_LAWYER, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_LAWYER, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
 	/// Basically all jobs, except AI.
-	var/list/protected_jobs_AI = list(JOB_TITLE_CIVILIAN, JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_HOP, JOB_TITLE_CHAPLAIN, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF, JOB_TITLE_BOTANIST, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_JANITOR, JOB_TITLE_LIBRARIAN, JOB_TITLE_EXPLORER)
+	var/list/protected_jobs_AI = list(JOB_TITLE_CIVILIAN, JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_HOP, JOB_TITLE_CHAPLAIN, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF, JOB_TITLE_BOTANIST, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_JANITOR, JOB_TITLE_LIBRARIAN, JOB_TITLE_EXPLORER)
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
@@ -31,8 +31,8 @@
 
 
 /datum/game_mode/traitor/announce()
-	to_chat(world, "<B>The current game mode is - Traitor!</B>")
-	to_chat(world, "<B>There is a syndicate traitor on the station. Do not let the traitor succeed!</B>")
+	to_chat(world, "<b>The current game mode is - Traitor!</b>")
+	to_chat(world, "<b>There is a syndicate traitor on the station. Do not let the traitor succeed!</b>")
 
 
 /datum/game_mode/traitor/pre_setup()
@@ -87,7 +87,7 @@
 /datum/game_mode/traitor/post_setup()
 	for(var/datum/mind/traitor in pre_traitors)
 		var/datum/antagonist/traitor/new_antag = new
-		new_antag.is_contractor = TRUE
+		new_antag.contractor_pending = new(traitor)
 		addtimer(CALLBACK(traitor, TYPE_PROC_REF(/datum/mind, add_antag_datum), new_antag), rand(1 SECONDS, 10 SECONDS))
 	if(pre_malf_AI)
 		addtimer(CALLBACK(pre_malf_AI, TYPE_PROC_REF(/datum/mind, add_antag_datum), /datum/antagonist/malf_ai), rand(1 SECONDS, 10 SECONDS))
@@ -112,7 +112,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(length(traitors))
-		var/text = "<FONT size = 2><B>The traitors were:</B></FONT><br>"
+		var/list/text = list(span_fontsize2(span_bold("The traitors were:<br>")))
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = TRUE
 			text += printplayer(traitor) + "<br>"
@@ -120,6 +120,7 @@
 			var/TC_uses = 0
 			var/used_uplink = FALSE
 			var/purchases = ""
+
 			for(var/obj/item/uplink/uplink in GLOB.world_uplinks)
 				if(uplink?.uplink_owner && uplink.uplink_owner == traitor.key)
 					TC_uses += uplink.used_TC
@@ -135,14 +136,14 @@
 				var/count = 1
 				for(var/datum/objective/objective in all_objectives)
 					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
 						if(istype(objective, /datum/objective/steal))
 							var/datum/objective/steal/steal_objective = objective
 							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [steal_objective.steal_target]", "SUCCESS"))
 						else
 							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						if(istype(objective, /datum/objective/steal))
 							var/datum/objective/steal/steal_objective = objective
 							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [steal_objective.steal_target]", "FAIL"))
@@ -170,37 +171,36 @@
 					// Result
 					var/result = ""
 					if(s_contract.status == CONTRACT_STATUS_COMPLETED)
-						result = "<font color='green'><B>Success!</B></font>"
+						result = "<font color='green'><b>Success!</b></font>"
 					else if(s_contract.status != CONTRACT_STATUS_INACTIVE)
 						result = "<font color='red'>Fail.</font>"
-					text += "<br><font color='orange'><B>Contract #[count]</B></font>: Kidnap and extract [s_contract.target_name] at [display_locations]. [result]"
+					text += "<br><font color='orange'><b>Contract #[count]</b></font>: Kidnap and extract [s_contract.target_name] at [display_locations]. [result]"
 					count++
-				text += "<br><font color='orange'><B>[earned_tc] TC were earned from the contracts.</B></font>"
+				text += "<br><font color='orange'><b>[earned_tc] TC were earned from the contracts.</b></font>"
 
 			if(traitorwin)
-				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font><br>"
+				text += "<br><font color='green'><b>The [special_role_text] was successful!</b></font><br>"
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
 			else
-				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font><br>"
+				text += "<br><font color='red'><b>The [special_role_text] has failed!</b></font><br>"
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
 
 		if(length(SSticker.mode.implanted))
-			text += "<br><br><FONT size = 2><B>The mindslaves were:</B></FONT><br>"
+			text += "<br><br><span style='font-size: 2;'><b>The mindslaves were:</b></span><br>"
 			for(var/datum/mind/mindslave in SSticker.mode.implanted)
 				text += printplayer(mindslave)
 				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
 				text += " (slaved by: <b>[master_mind.current]</b>)<br>"
 
 		if(length(SSticker.mode.support))
-			text += "<br><br><FONT size = 2><B>The Contractor Support Units were:</B></FONT><br>"
+			text += "<br><br><span style='font-size: 2;'><b>The Contractor Support Units were:</b></span><br>"
 			for(var/datum/mind/csu in SSticker.mode.support)
 				text += "[printplayer(csu)]<br>"
 
 		var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 		var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-		text += "<br><br><b>The code phrases were:</b> <span class='danger'>[phrases]</span><br>\
-					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
+		text += "<br><br><b>The code phrases were:</b> [span_danger(phrases)]<br>\
+					<b>The code responses were:</b> [span_danger(responses)]<br><br>"
 
-		to_chat(world, text)
-	return TRUE
+		return text.Join("")

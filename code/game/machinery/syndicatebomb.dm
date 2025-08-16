@@ -21,7 +21,7 @@
 
 	var/can_unanchor = TRUE
 
-	var/open_panel = FALSE 	//are the wires exposed?
+	var/open_panel = FALSE	//are the wires exposed?
 	var/active = FALSE		//is the bomb counting down?
 	var/defused = FALSE		//is the bomb capable of exploding?
 	var/obj/item/bombcore/payload = /obj/item/bombcore
@@ -85,7 +85,7 @@
 			payload.defuse()
 
 /obj/machinery/syndicatebomb/New()
-	wires 	= new(src)
+	wires	= new(src)
 	if(payload)
 		payload = new payload(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -259,7 +259,7 @@
 	playsound(loc, 'sound/machines/click.ogg', 30, 1)
 
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
-	var/new_timer = input(user, "Please set the timer.", "Timer", "[timer_set]") as num
+	var/new_timer = tgui_input_number(user, "Please set the timer.", "Timer", "[timer_set]")
 	if(can_interact(user)) //No running off and setting bombs from across the station
 		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
 		loc.visible_message(span_notice("[bicon(src)] timer set for [timer_set] seconds."))
@@ -371,7 +371,7 @@
 	qdel(src)
 
 /obj/item/bombcore/proc/defuse()
-//Note: 	Because of how var/defused is used you shouldn't override this UNLESS you intend to set the var to 0 or
+//Note:	Because of how var/defused is used you shouldn't override this UNLESS you intend to set the var to 0 or
 //			otherwise remove the core/reset the wires before the end of defuse(). It will repeatedly be called otherwise.
 
 ///Bomb Core Subtypes///
@@ -443,7 +443,7 @@
 
 /obj/item/bombcore/badmin/summon/clown
 	summon_path = /mob/living/simple_animal/hostile/retaliate/clown
-	amt_summon 	= 100
+	amt_summon	= 100
 
 /obj/item/bombcore/badmin/summon/clown/defuse()
 	playsound(src.loc, 'sound/misc/sadtrombone.ogg', 50)
@@ -549,7 +549,7 @@
 				reactants += S.reagents
 
 	if(!chem_splash(get_turf(src), spread_range, reactants, temp_boost))
-		playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
+		playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
 		return // The Explosion didn't do anything. No need to log, or disappear.
 
 	if(adminlog)
@@ -703,7 +703,7 @@
 
 /obj/item/syndicatedetonator/attack_self(mob/user)
 	if(timer < world.time)
-		for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
+		for(var/obj/machinery/syndicatebomb/B in SSmachines.get_by_type(/obj/machinery/syndicatebomb))
 			if(B.active)
 				B.detonation_timer = world.time + BUTTON_DELAY
 				detonated++

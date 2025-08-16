@@ -1,22 +1,24 @@
 /*
-/mob/living/carbon/human/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/carbon/human/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	..(message, sanitize = sanitize, ignore_speech_problems = ignore_speech_problems, ignore_atmospherics = ignore_atmospherics)	//ohgod we should really be passing a datum here.
 */
 
 /mob/living/carbon/human/GetAltName()
 	if(name != GetVoice())
-		return " (as [get_id_name("Unknown")])"
+		return " (как [get_id_name("Unknown")])"
 	return ..()
 
 
-/mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
+/mob/living/carbon/human/say_understands(atom/movable/other, datum/language/speaking = null)
 	if(dna?.species?.can_understand(other))
 		return TRUE
 
-	//These only pertain to common. Languages are handled by mob/say_understands()
-	if(!speaking)
-		if(isnymph(other) && LAZYLEN(other.languages) >= 2)	//They've sucked down some blood and can speak common now.
-			return TRUE
+	// These only pertain to common. Languages are handled by mob/say_understands()
+	if(!speaking && ismob(other))
+		if(isnymph(other))
+			var/mob/nymph = other
+			if(length(nymph.languages) >= 2) // They've sucked down some blood and can speak common now.
+				return TRUE
 		if(issilicon(other) || isbot(other) || isbrain(other) || isslime(other))
 			return TRUE
 
@@ -95,7 +97,7 @@
 	if(TRAIT_NO_VOCAL_CORDS in dna?.species.inherent_traits)
 		return FALSE
 
-	// how do species that don't breathe talk? magic, that's what.
+	// How do species that don't breathe talk? magic, that's what.
 	var/breathes = !HAS_TRAIT(src, TRAIT_NO_BREATH)
 	var/obj/item/organ/internal/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 	if((breathes && !lungs) || (breathes && lungs && lungs.is_dead()))
@@ -207,13 +209,13 @@
 
 /mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
-		if("intercom")
+		if(INTERCOM_MODE)
 			for(var/obj/item/radio/intercom/I in view(1, src))
 				spawn(0)
 					I.talk_into(src, message_pieces, null, verb)
 				used_radios += I
 
-		if("headset")
+		if(HEADSET_MODE)
 			var/obj/item/radio/R = null
 			if(isradio(l_ear))
 				R = l_ear
@@ -227,7 +229,7 @@
 				if(R.talk_into(src, message_pieces, null, verb))
 					return FALSE
 
-		if("right ear")
+		if(R_EAR_MODE)
 			var/obj/item/radio/R
 			if(isradio(r_hand))
 				R = r_hand
@@ -237,7 +239,7 @@
 				used_radios += R
 				R.talk_into(src, message_pieces, null, verb)
 
-		if("left ear")
+		if(L_EAR_MODE)
 			var/obj/item/radio/R
 			if(isradio(l_hand))
 				R = l_hand
@@ -247,7 +249,7 @@
 				used_radios += R
 				R.talk_into(src, message_pieces, null, verb)
 
-		if("whisper")
+		if(WHISPER_CHANNEL)
 			whisper_say(message_pieces)
 			return TRUE
 

@@ -1,7 +1,7 @@
 /client/proc/one_click_antag()
 	set name = "Create Antagonist"
 	set desc = "Auto-create an antagonist of your choice"
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 
 	if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -12,7 +12,7 @@
 
 /datum/admins/proc/one_click_antag()
 
-	var/dat = {"<meta charset="UTF-8"><B>One-click Antagonist</B><br>
+	var/dat = {"<b>One-click Antagonist</b><br>
 		<a href='byond://?src=[UID()];makeAntag=1'>Make Traitors</a><br>
 		<a href='byond://?src=[UID()];makeAntag=2'>Make Changelings</a><br>
 		<a href='byond://?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
@@ -25,8 +25,13 @@
 		<a href='byond://?src=[UID()];makeAntag=10'>Make Space Ninja (Requires Ghosts)</a><br>
 		<a href='byond://?src=[UID()];makeAntag=11'>Make Thieves</a><br>
 		<a href='byond://?src=[UID()];makeAntag=12'>Make Blobs</a><br>
+		<a href='byond://?src=[UID()];makeAntag=13'>Make Terror Spiders</a><br>
+		<a href='byond://?src=[UID()];makeAntag=14'>Make Aliens</a><br>
+		<a href='byond://?src=[UID()];makeAntag=15'>Make Nuke Team</a><br>
 		"}
-	usr << browse(dat, "window=oneclickantag;size=400x400")
+	var/datum/browser/popup = new(usr, "oneclickantag", "One-click Antagonist", 400, 400)
+	popup.set_content(dat)
+	popup.open(FALSE)
 	return
 
 /datum/admins/proc/CandCheck(var/role = null, var/mob/living/carbon/human/M, var/datum/game_mode/temp = null)
@@ -112,7 +117,7 @@
 
 	var/antnum = tgui_input_number(owner, "Сколько вы хотите создать? Введите 0 для отмены.","Кол-во:", 0)
 	if(!antnum || antnum <= 0)
-		return
+		return FALSE
 	log_admin("[key_name(owner)] tried making [antnum] blobs with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] blobs with One-Click-Antag")
 	var/result = FALSE
@@ -121,6 +126,18 @@
 			result = SSticker?.mode?.make_blobs(antnum)
 		if("С помощью мышек")
 			result = SSticker?.mode?.make_blobized_mouses(antnum)
+	return result
+
+/datum/admins/proc/makeTerrorSpiders()
+
+	var/antnum = tgui_input_number(owner, "Сколько вы хотите создать? Введите 0 для отмены.","Кол-во:", 0, min_value = 0)
+	if(!antnum)
+		return FALSE
+	log_admin("[key_name(owner)] tried making [antnum] terror spiders with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] terror spiders with One-Click-Antag")
+	var/result = FALSE
+	var/type = tgui_input_list(usr, "Выберите тип паука", "Тип паука", SPAWN_TERROR_TYPES)
+	result = create_terror_spiders(type, antnum)
 	return result
 
 /datum/admins/proc/makeRevs()
@@ -236,85 +253,46 @@
 /datum/admins/proc/makeNukeTeam()
 
 	var/list/mob/candidates = list()
-	var/mob/theghost = null
-	var/time_passed = world.time
 
-	var/antnum = tgui_input_number(owner, "How many nuclear operative you want to create? Enter 0 to cancel.", "Amount:", 0)
+	var/antnum = tgui_input_number(owner, "Сколько ядерных оперативников вы хотите создать? Введите 0 для отмены.", "Количество:", 0)
+
 	if(!antnum || antnum <= 0)
-		return
+		return FALSE
+
 	log_admin("[key_name(owner)] tried making a [antnum] person Nuke Op Team with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a [antnum] person Nuke Op Team with One-Click-Antag")
 
-	for(var/mob/G in GLOB.respawnable_list)
-		if(istype(G) && G.client && (ROLE_OPERATIVE in G.client.prefs.be_special))
-			if(!jobban_isbanned(G, "operative") && !jobban_isbanned(G, "Syndicate"))
-				if(player_old_enough_antag(G.client,ROLE_OPERATIVE))
-					spawn(0)
-						switch(tgui_alert(G, "Do you wish to be considered for a nuke team being sent in?", "Please answer in 30 seconds!", list("Yes", "No")))
-							if("Yes")
-								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
-									return
-								candidates += G
-							if("No")
-								return
-							else
-								return
+	candidates = SSghost_spawns.poll_candidates("Вы хотите стать ядерным оперативником?", ROLE_OPERATIVE, TRUE, 1 MINUTES, role_cleanname = "Ядерного оперативника", source = image('icons/mob/simple_human.dmi', "syndicate_space_sword"))
 
-	sleep(300)
+	if(!candidates.len)
+		return FALSE
 
-	if(candidates.len)
-		var/agentcount = 0
+	var/datum/team/nuclear_team/team = GLOB.antagonist_teams[/datum/team/nuclear_team]
+	var/has_team = !!team
 
-		for(var/i = 0, i<antnum,i++)
-			shuffle(candidates) //More shuffles means more randoms
-			for(var/mob/j in candidates)
-				if(!j || !j.client)
-					candidates.Remove(j)
-					continue
+	if(!has_team)
+		team = new
 
-				theghost = candidates
-				candidates.Remove(theghost)
+	for(var/i = 1, i <= antnum, i++)
+		var/spawnpos = i
 
-				var/mob/living/carbon/human/new_character=makeBody(theghost)
-				new_character.mind.make_Nuke()
+		if(spawnpos > GLOB.nukespawn.len)
+			spawnpos = 2
 
-				agentcount++
+		var/mob/mob = pick_n_take(candidates)
+		var/mob/living/carbon/human/human = new /mob/living/carbon/human(GLOB.nukespawn[spawnpos])
+		human.key = mob.key
+		create_syndicate(human.mind)
+		team.add_member(human.mind)
+		var/datum/antagonist/nuclear_operative/datum = human.mind.has_antag_datum(/datum/antagonist/nuclear_operative)
+		datum.equip()
 
-		if(agentcount < 1)
-			return 0
+	if(has_team)
+		return TRUE
 
-		var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
-		var/obj/effect/landmark/closet_spawn = locate("landmark*Nuclear-Closet")
-
-		var/nuke_code = rand(10000, 99999)
-
-		if(nuke_spawn)
-			var/obj/item/paper/P = new
-			P.info = "Sadly, the Syndicate could not get you a nuclear bomb.  We have, however, acquired the arming code for the station's onboard nuke.  The nuclear authorization code is: <b>[nuke_code]</b>"
-			P.name = "nuclear bomb code and instructions"
-			P.loc = nuke_spawn.loc
-
-		if(closet_spawn)
-			new /obj/structure/closet/syndicate/nuclear(closet_spawn.loc)
-
-		for(var/datum/mind/synd_mind in SSticker.mode.syndicates)
-			if(synd_mind.current)
-				if(synd_mind.current.client)
-					for(var/image/I in synd_mind.current.client.images)
-						if(I.icon_state == "synd")
-							qdel(I)
-
-		for(var/datum/mind/synd_mind in SSticker.mode.syndicates)
-			if(synd_mind.current)
-				if(synd_mind.current.client)
-					for(var/datum/mind/synd_mind_1 in SSticker.mode.syndicates)
-						if(synd_mind_1.current)
-							var/I = image('icons/mob/mob.dmi', loc = synd_mind_1.current, icon_state = "synd")
-							synd_mind.current.client.images += I
-
-		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
-			bomb.r_code = nuke_code						// All the nukes are set to this code.
-	return 1
+	team.scale_telecrystals()
+	team.share_telecrystals()
+	return TRUE
 
 //Abductors
 /datum/admins/proc/makeAbductorTeam()
@@ -330,18 +308,12 @@
 	return 1
 
 /datum/admins/proc/makeAliens()
-	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
 
-	var/antnum = tgui_input_number(owner, "How many aliens you want to create? Enter 0 to cancel.", "Amount:", 0)
+	var/antnum = tgui_input_number(owner, "Сколько ксеноморфов создать? Введите 0 для отмены.","Количество:", 0)
 	if(!antnum || antnum <= 0)
 		return
-	log_admin("[key_name(owner)] tried making Aliens with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making Aliens with One-Click-Antag")
-
-	E.spawncount = antnum
-	// TODO The fact we have to do this rather than just have events start
-	// when we ask them to, is bad.
-	E.processing = TRUE
+	log_and_message_admins("tried making Aliens with One-Click-Antag")
+	spawn_aliens(antnum)
 	return TRUE
 
 

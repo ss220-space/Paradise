@@ -214,6 +214,7 @@
 	name = "Философия смерти"
 	desc = "Эта книга переплетена вручную и украшена по краям позолотой. Видно, что ее создатель не сомневался в ее важности."
 	icon_state = "demonomicon"
+	item_state = "demonomicon"
 	author = "Немрис Мудрый"
 	title = "Философия смерти"
 	unique = TRUE
@@ -243,7 +244,7 @@
 		ever_opened = TRUE
 		if(prob(10))
 			to_chat(usr, "<span class='danger'> HOW DARE YOU DISTURB THE DEAD?! </span>")
-			new /obj/effect/particle_effect/smoke(get_turf(src))
+			new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 			new /mob/living/simple_animal/hostile/carp/lostsoul(get_turf(src))
 
 /obj/structure/pit/closed/graveyard_loot/populate_contents()
@@ -257,7 +258,7 @@
 	if(spawn_mob)
 		new spawn_mob(src.loc)
 		spawn_mob = null
-		new /obj/effect/particle_effect/smoke(get_turf(src))
+		new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 
 /obj/structure/closet/coffin/graveyard_loot/populate_contents()
 	var/medal = pick(/obj/item/clothing/accessory/medal, /obj/item/clothing/accessory/medal/fluff/elo, /obj/item/clothing/accessory/medal/heart)

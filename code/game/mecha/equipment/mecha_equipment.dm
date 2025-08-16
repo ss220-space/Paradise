@@ -43,12 +43,12 @@
 	if(chassis)
 		chassis.occupant_message(span_danger("The [src] is destroyed!"))
 		chassis.log_append_to_last("[src] is destroyed.",1)
-		if(istype(src, /obj/item/mecha_parts/mecha_equipment/weapon))
-			chassis.occupant << sound(chassis.weapdestrsound, volume = 50)
-		else
-			chassis.occupant << sound(chassis.critdestrsound, volume = 50)
+		SEND_SOUND(chassis.occupant, sound(get_destroy_sound(), volume = 50))
 		detach(chassis)
 	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/proc/get_destroy_sound()
+	return chassis.critdestrsound
 
 /obj/item/mecha_parts/mecha_equipment/proc/critfail()
 	if(chassis)
@@ -125,7 +125,7 @@
 	chassis.use_power(energy_drain)
 	. = do_after(chassis.occupant, equip_cooldown, target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, category = DA_CAT_TOOL)
 	set_ready_state(TRUE)
-	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
+	if(!chassis ||	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/do_after_mecha(atom/target, delay)
@@ -133,7 +133,7 @@
 		return
 	var/C = chassis.loc
 	. = do_after(chassis.occupant, delay, target, category = DA_CAT_TOOL)
-	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
+	if(!chassis ||	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)

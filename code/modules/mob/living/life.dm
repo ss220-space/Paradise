@@ -69,10 +69,10 @@
 				var/view = client ? client.maxview() : world.view
 				if(get_dist(src, A) > view || !(src in viewers(view, A)))
 					clear_forced_look(TRUE)
-					to_chat(src, span_notice("Your direction target has left your view, you are no longer facing anything."))
+					to_chat(src, span_notice("Цель направления покинула ваше поле зрения, вы больше никуда не направлены."))
 			else
 				clear_forced_look(TRUE)
-				to_chat(src, span_notice("Your direction target has left your view, you are no longer facing anything."))
+				to_chat(src, span_notice("Цель направления покинула ваше поле зрения, вы больше никуда не направлены."))
 		// Make sure it didn't get cleared
 		if(forced_look)
 			setDir()
@@ -105,6 +105,7 @@
 		D.stage_act()
 
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
+	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, environment)
 	return
 
 //this updates all special effects: mainly stamina
@@ -222,7 +223,7 @@
 		livingdoll.icon_state = "living[severity]"
 		if(!livingdoll.filtered)
 			var/icon/mob_mask = icon(icon, icon_state)
-			if(mob_mask.Height() > world.icon_size || mob_mask.Width() > world.icon_size)
+			if(get_cached_height() > ICON_SIZE_Y || get_cached_width() > ICON_SIZE_X)
 				var/health_doll_icon_state = health_doll_icon ? health_doll_icon : "megasprite"
 				mob_mask = icon('icons/mob/screen_gen.dmi', health_doll_icon_state) //swap to something generic if they have no special doll
 			livingdoll.add_filter("mob_shape_mask", 1, alpha_mask_filter(icon = mob_mask))
@@ -235,24 +236,42 @@
 
 
 /mob/living/proc/handle_gravity(seconds_per_tick, times_fired)
-	if(gravity_state > STANDARD_GRAVITY)
+	if(abs(gravity_state) > STANDARD_GRAVITY)
 		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)
+
+
+/mob/living/carbon/handle_gravity(seconds_per_tick, times_fired)
+	. = ..()
+	if(gravity_state < HIGH_GRAVITY_SLOWDOWN)
+		remove_movespeed_modifier(/datum/movespeed_modifier/high_gravity)
+
+	if(gravity_state < GRAVITY_CANT_STAY)
+		REMOVE_TRAIT(src, TRAIT_FLOORED, GRAVITATION_TRAIT)
+		return
+
+	if(!buckled)
+		ADD_TRAIT(src, TRAIT_FLOORED, GRAVITATION_TRAIT)
 
 
 /mob/living/proc/gravity_animate()
 	if(!get_filter("gravity"))
 		add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
+
 	animate(get_filter("gravity"), y = 1, time = 10, loop = -1)
 	animate(y = 0, time = 10)
 
 
 /mob/living/proc/handle_high_gravity(gravity, seconds_per_tick, times_fired)
-	if(gravity < GRAVITY_DAMAGE_THRESHOLD) //Aka gravity values of 3 or more
+	if(abs(gravity) < HIGH_GRAVITY_SLOWDOWN)
 		return
 
-	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
-	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
+	add_movespeed_modifier(/datum/movespeed_modifier/high_gravity)
 
+	if(abs(gravity) < GRAVITY_DAMAGE_THRESHOLD) //Aka gravity values of 3 or more
+		return
+
+	var/grav_strength = abs(gravity) - GRAVITY_DAMAGE_THRESHOLD
+	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
 
 /// Updates grabbed victim status effects.
 /mob/living/proc/pull_on_life()

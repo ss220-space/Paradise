@@ -86,7 +86,7 @@
 		s_busy = FALSE
 		return
 	if (phase > NINJA_INIT_LOCK_PHASE && (ninja.stat == DEAD || ninja.health <= 0))
-		to_chat(ninja, span_danger("<B>FÄAL ï¿½Rrï¿½R</B>: 344--93#ï¿½&&21 BRï¿½ï¿½N |/|/aVï¿½ PATT$RN <B>RED</B>\nA-A-aBï¿½rTï¿½NG..."))
+		to_chat(ninja, span_danger("<b>FÄAL ï¿½Rrï¿½R</b>: 344--93#ï¿½&&21 BRï¿½ï¿½N |/|/aVï¿½ PATT$RN <b>RED</b>\nA-A-aBï¿½rTï¿½NG..."))
 		unlock_suit()
 		s_busy = FALSE
 		return
@@ -170,7 +170,7 @@
 			if(disguise_active)
 				restore_form()			//This count's too
 			if(spirited)
-				cancel_spirit_form() 	//And another one!
+				cancel_spirit_form()	//And another one!
 			var/datum/action/item_action/action
 			for(action in ninja.actions)
 				if(action.action_initialisation_text)

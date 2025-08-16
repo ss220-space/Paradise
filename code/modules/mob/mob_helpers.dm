@@ -149,29 +149,29 @@
 
 	zone = check_zone(zone)
 
-	if(prob(probability))
+	if(probability > 0 && prob(probability))
 		return zone
 
-	switch(rand(1, 18))	// randomly pick a different zone, or maybe the same one
+	switch(rand(1, 11))	// randomly pick a different zone, or maybe the same one
 		if(1)
 			return BODY_ZONE_HEAD
-		if(2)
+		if(2 to 3)
 			return BODY_ZONE_CHEST
-		if(3 to 4)
+		if(4)
 			return BODY_ZONE_L_ARM
-		if(5 to 6)
+		if(5)
 			return BODY_ZONE_PRECISE_L_HAND
-		if(7 to 8)
+		if(6)
 			return BODY_ZONE_R_ARM
-		if(9 to 10)
+		if(7)
 			return BODY_ZONE_PRECISE_R_HAND
-		if(11 to 12)
+		if(8)
 			return BODY_ZONE_L_LEG
-		if(13 to 14)
+		if(9)
 			return BODY_ZONE_PRECISE_L_FOOT
-		if(15 to 16)
+		if(10)
 			return BODY_ZONE_R_LEG
-		if(17 to 18)
+		if(11)
 			return BODY_ZONE_PRECISE_R_FOOT
 	return zone
 
@@ -338,8 +338,8 @@
 	var/client/C = M.client
 	var/oldx = C.pixel_x
 	var/oldy = C.pixel_y
-	var/max = strength * world.icon_size
-	var/min = -(strength * world.icon_size)
+	var/max = strength * ICON_SIZE_ALL
+	var/min = -(strength * ICON_SIZE_ALL)
 
 	for(var/i in 0 to duration - 1)
 		if(i == 0)
@@ -387,7 +387,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	set hidden = 1
 
 	if(can_change_intents)
-		if(ishuman(src) || isalienadult(src) || isbrain(src))
+		if(ishuman(src) || isalienadult(src) || isbrain(src) || isdevil(src))
 			switch(input)
 				if(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 					a_intent = input
@@ -414,8 +414,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 
 /mob/living/verb/mob_sleep()
-	set name = "Sleep"
-	set category = "IC"
+	set name = "Спать"
+	set category = STATPANEL_IC
 
 	if(IsSleeping())
 		to_chat(src, "<span class='notice'>Вы уже спите.</span>")
@@ -475,7 +475,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				var/mob/dead/observer/DM
 				if(isobserver(subject))
 					DM = subject
-				if(check_rights(R_ADMIN|R_MOD, FALSE, M)) 							// What admins see
+				if(check_rights(R_ADMIN|R_MOD, FALSE, M))							// What admins see
 					lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
 				else
 					if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)	// If the person is actually observer they have the option to be anonymous
@@ -492,7 +492,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		if(O.client)
 			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>")
 			if(ghost_sound)
-				O << sound(ghost_sound)
+				SEND_SOUND(O, sound(ghost_sound))
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)
@@ -574,7 +574,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			else if( search_pda && is_pda(A) )
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
-					PDA.owner = newname
+					PDA.update_owner_name(newname)
 					PDA.name = "PDA-[newname] ([PDA.ownjob])"
 					if(!search_id)	break
 					search_pda = 0

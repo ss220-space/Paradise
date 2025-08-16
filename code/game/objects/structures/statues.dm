@@ -57,8 +57,10 @@
 /obj/structure/statue/attack_hand(mob/living/user)
 	. = ..()
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.visible_message("[user] rubs some dust off from the [name]'s surface.", \
-						 "<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
+	user.visible_message(
+		"[user] rubs some dust off from the [name]'s surface.",
+		span_notice("You rub some dust off from the [name]'s surface.")
+	)
 
 /obj/structure/statue/CanAtmosPass(turf/T, vertical)
 	return !density
@@ -117,12 +119,12 @@
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-/obj/structure/statue/plasma/bullet_act(obj/item/projectile/P)
+/obj/structure/statue/plasma/bullet_act(obj/projectile/P)
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
 			if(P.firer)
 				add_attack_logs(P.firer, src, "Ignited by firing with [P.name]", ATKLOG_FEW)
-				investigate_log("was <span class='warning'>ignited</span> by [key_name_log(P.firer)] with [P.name]",INVESTIGATE_ATMOS)
+				investigate_log("was [span_warning("ignited")] by [key_name_log(P.firer)] with [P.name]",INVESTIGATE_ATMOS)
 			else
 				message_admins("A plasma statue was ignited with [P.name] at [ADMIN_COORDJMP(loc)]. No known firer.")
 				add_game_logs("A plasma statue was ignited with [P.name] at [COORD(loc)]. No known firer.")
@@ -133,7 +135,7 @@
 /obj/structure/statue/plasma/attackby(obj/item/I, mob/user, params)
 	if(I.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
-		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		ignite(I.get_heat())
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
@@ -143,11 +145,13 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
-						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
-						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+	user.visible_message(
+		span_danger("[user] sets [src] on fire!"),
+		span_danger("[src] disintegrates into a cloud of plasma!"),
+		span_warning("You hear a 'whoompf' and a roar.")
+	)
 	add_attack_logs(user, src, "ignited using [I]", ATKLOG_FEW)
-	investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+	investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 	ignite(2500)
 
 /obj/structure/statue/plasma/proc/PlasmaBurn()
@@ -261,7 +265,7 @@
 /obj/structure/statue/bananium/proc/honk()
 	if(!spam_flag)
 		spam_flag = 1
-		playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
+		playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE)
 		spawn(20)
 			spam_flag = 0
 
@@ -293,17 +297,14 @@
 /obj/structure/statue/tranquillite/mime
 	name = "statue of a mime"
 	icon_state = "mime"
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 
-/obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/structure/statue/tranquillite/mime/click_alt(mob/user)//has 4 dirs
 	if(anchored)
-		to_chat(user, "It is fastened to the floor!")
-		return
+		to_chat(user, span_warning("It is fastened to the floor!"))
+		return CLICK_ACTION_BLOCKING
 	setDir(turn(dir, 90))
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/statue/tranquillite/mime/unique
 	name = "статуя гордости пантомимы"
@@ -375,7 +376,7 @@
 /obj/structure/statue/furukai
 	name = "София Вайт"
 	desc = "Загадочная девушка, ныне одна из множества офицеров синдиката. Получившая столь высокую позицию не за связи, а за свои способности. \
-			Движимая местью за потерю родной сестры из-за коррупционных верхушек Нанотрейзен, она вступила в Синдикат,  \
+			Движимая местью за потерю родной сестры из-за коррупционных верхушек НаноТрейзен, она вступила в Синдикат,  \
 			где стала известна и как способный агент и как отличный инженер. Хоть ее позывной и отсылал на пушистых, в душе она их ненавидела..."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "furukai"
@@ -526,7 +527,7 @@
 			to_chat(user, span_warning("The [name] is completely intact."))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You patch some of the damage on [src] with [I]."))
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

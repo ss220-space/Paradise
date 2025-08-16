@@ -14,27 +14,12 @@
 	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_TRAITOR
-	show_in_orbit = FALSE
-	antag_menu_name = "Контрактор"
-	/// How many telecrystals a traitor must forfeit to become a contractor.
-	var/tc_cost = 100
-	/// How long a traitor's chance to become a contractor lasts before going away. In deciseconds.
-	var/offer_duration = 10 MINUTES
-	/// world.time at which the offer will expire.
-	var/offer_deadline = -1
-	/// indicates whether the offer to become a contractor was given to the player by the admin
-	var/is_admin_forced = FALSE
+	antag_menu_name = "Контрактник"
 	/// The associated contractor uplink. Only present if the offer was accepted.
 	var/obj/item/contractor_uplink/contractor_uplink = null
-	/// Show if the offer was accepted.
-	var/offer_accepted = FALSE
 
 
 /datum/antagonist/contractor/Destroy(force)
-	var/datum/antagonist/traitor/traitor_datum = owner?.has_antag_datum(/datum/antagonist/traitor)
-	if(traitor_datum)
-		traitor_datum.hidden_uplink?.contractor = null
-
 	if(contractor_uplink)
 		contractor_uplink.hub?.owner = null
 		contractor_uplink.hub?.contractor_uplink = null
@@ -59,24 +44,16 @@
 
 	var/obj/item/uplink/hidden/hidden_uplink = traitor_datum.hidden_uplink
 	if(!hidden_uplink)
-		stack_trace("Potential contractor [owner] spawned without a hidden uplink!")
+		stack_trace("Сontractor [owner] spawned without a hidden uplink!")
 		return
-
-	hidden_uplink.contractor = src
-	offer_deadline = world.time + offer_duration
 
 
 /datum/antagonist/contractor/greet()
 	// Greet them with the unique message
 	var/list/messages = list()
-	var/greet_text = "Contractors forfeit [tc_cost] telecrystals for the privilege of taking on kidnapping contracts for credit and TC payouts that can add up to more than the normal starting amount of TC.<br>"\
-	 + "If you are interested, simply access your hidden uplink and select the \"Contracting Opportunity\" tab for more information.<br>"
-	messages.Add("<b><font size=4 color=red>You have been offered a chance to become a Contractor.</font></b><br>")
-	messages.Add("<font color=red>[greet_text]</font>")
-	if(!is_admin_forced)
-		messages.Add("<b><i><font color=red>Hurry up. You are not the only one who received this offer. Their number is limited. \
-        			If other traitors accept all offers before you, you will not be able to accept one of them.</font></i></b>")
-	messages.Add("<b><i><font color=red>This offer will expire in 10 minutes starting now (expiry time: <u>[station_time_timestamp(time = offer_deadline)]</u>).</font></i></b>")
+	var/greet_text = "Вы приняли предложение. Выполняйте контракты, получайте теллекристаллы и докажите, что ваши наниматели в вас не ошиблись."
+	messages.Add(span_fontsize4(span_red("<b>Вы Контрактник.</b><br>")))
+	messages.Add(span_red("[greet_text]"))
 	return messages
 
 /datum/antagonist/contractor/on_gain()
@@ -88,49 +65,11 @@
 	var/list/messages = list()
 	messages.Add(greet())
 	apply_innate_effects()
-	messages.Add(finalize_antag())
-	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Contractor\">Контрактор</span>")
+	finalize_antag()
+	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Contractor\">Контрактор"))
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
 	return TRUE
 
-/**
-  * Accepts the offer to be a contractor if possible.
-  */
-/datum/antagonist/contractor/proc/become_contractor(mob/living/carbon/human/user, obj/item/uplink/uplink)
-	if(contractor_uplink || !istype(user))
-		return
-
-	var/offers_availability_check = !(SSticker?.mode?.contractor_accepted < CONTRACTOR_MAX_ACCEPTED || is_admin_forced)
-	if(uplink.uses < tc_cost || world.time >= offer_deadline || offers_availability_check)
-		var/reason = (uplink.uses < tc_cost) ? \
-			"you have insufficient telecrystals ([tc_cost] needed in total)" : \
-			(offers_availability_check) ? \
-			"all offers have already been accepted by other traitors": \
-			"the deadline has passed"
-		to_chat(user, span_warning("You can no longer become a contractor as [reason]."))
-		return
-
-	// Give the kit
-	var/obj/item/storage/box/syndie_kit/contractor/contractor_kit = new(user)
-	user.put_in_hands(contractor_kit)
-	contractor_uplink = locate(/obj/item/contractor_uplink, contractor_kit)
-	contractor_uplink.hub = new(user.mind, contractor_uplink)
-
-	// Update AntagHUD icon
-	remove_antag_hud(owner.current)
-	add_antag_hud(owner.current)
-
-	// Remove the TC
-	uplink.uses -= tc_cost
-
-	show_in_orbit = TRUE
-	offer_accepted = TRUE
-
-	if(!is_admin_forced)
-		SSticker?.mode?.contractor_accepted++
-
-/datum/antagonist/contractor/check_anatag_menu_ability()
-	return offer_accepted

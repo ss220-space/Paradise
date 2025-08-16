@@ -6,6 +6,7 @@
 	devour_time = 2 SECONDS
 	icon_state = "alienh_s"
 	caste_movement_delay = -1
+	role_text = "Вы - Охотник. Ваша основная задача - добыча носителей для заражения их грудоломами."
 	var/invisibility_cost = 5
 
 
@@ -64,7 +65,7 @@
 	body_position_pixel_y_offset = -32
 	update_icons()
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, LEAPING_TRAIT) //Throwing itself doesn't protect mobs against lava (because gulag).
-	var/updated_speed = (!has_gravity() || !target.has_gravity()) ? LEAP_SPEED_NO_GRAVITY : LEAP_SPEED_DEFAULT
+	var/updated_speed = (no_gravity() || target.no_gravity()) ? LEAP_SPEED_NO_GRAVITY : LEAP_SPEED_DEFAULT
 	throw_at(target, MAX_ALIEN_LEAP_DIST, updated_speed, src, FALSE, TRUE, callback = CALLBACK(src, PROC_REF(leap_end)))
 
 #undef MAX_ALIEN_LEAP_DIST

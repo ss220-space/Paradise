@@ -1,5 +1,6 @@
 /datum/orbit_menu
 	var/mob/dead/observer/owner
+	var/auto_observe = FALSE
 
 /datum/orbit_menu/New(mob/dead/observer/new_owner)
 	if(!istype(new_owner))
@@ -22,20 +23,64 @@
 
 	switch(action)
 		if("orbit")
-			var/ref = params["ref"]
+			handle_orbit_action(params)
+			return TRUE
 
-			var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
-			if(poi == null)
-				. = TRUE
-				return
-			owner.ManualFollow(poi)
-			. = TRUE
 		if("refresh")
 			update_static_data(owner, ui)
-			. = TRUE
+			return TRUE
+
+		if("toggle_observe")
+			toggle_auto_observe()
+			return TRUE
+	return FALSE
+
+/datum/orbit_menu/proc/handle_orbit_action(list/params)
+	var/ref = params["ref"]
+	var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
+	
+	if(!poi)
+		return
+
+	var/atom/movable/cached_target = owner.orbiting
+	owner.orbiting = null
+	owner.reset_perspective(null)
+	owner.orbiting = cached_target
+
+	if(auto_observe)
+		var/mob/eye_mob = poi
+		if(istype(eye_mob) && eye_mob.client)
+			owner.handle_when_autoobserve_move()
+			owner.do_observe(eye_mob)
+		else
+			owner.handle_when_autoobserve_move()
+			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока! Показать инвентарь <b>невозможно</b>."))
+
+	owner.ManualFollow(poi)
+
+/datum/orbit_menu/proc/toggle_auto_observe()
+	auto_observe = !auto_observe
+
+	if(!owner.orbiting)
+		owner.handle_when_autoobserve_move()
+		return
+
+	if(auto_observe)
+		var/mob/eye_mob = owner.orbiting
+		if(istype(eye_mob) && eye_mob.client)
+			owner.do_observe(eye_mob)
+			return
+		else
+			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока. Показать инвентарь <b>невозможно</b>."))
+
+	var/atom/movable/eye_mob = owner.orbiting
+	owner.orbiting = null
+	owner.handle_when_autoobserve_move()
+	owner.orbiting = eye_mob
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
+	data["auto_observe"] = auto_observe
 	return data
 
 /datum/orbit_menu/ui_static_data(mob/user)
@@ -50,7 +95,7 @@
 	var/list/npcs = list()
 	var/length_of_ghosts = length(get_observers())
 
-	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
+	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = TRUE)
 	for(var/name in pois)
 		var/mob/M = pois[name]
 		if(name == null)
@@ -91,15 +136,10 @@
 				var/datum/mind/mind = M.mind
 				var/list/other_antags = list()
 
-				if(GLOB.ts_spiderlist.len && M.ckey)
-					var/list/spider_minds = list()
-					for(var/datum/mind/spider_mind in SSticker.mode.terror_spiders)
-						if(!QDELETED(spider_mind.current))
-							spider_minds |= spider_mind
-					other_antags += list(
-						"Пауки Ужаса ([spider_minds.len])" = (mind in SSticker.mode.terror_spiders),
-					)
-
+				for(var/team_type in GLOB.antagonist_teams)
+					var/datum/team/team = GLOB.antagonist_teams[team_type]
+					if(!team.need_antag_hud)
+						other_antags += list("[team.name] — ([team.alife_members_count()])" = (mind in team.members))
 				if(user.antagHUD)
 					// If a mind is many antags at once, we'll display all of them, each
 					// under their own antag sub-section.
@@ -114,6 +154,10 @@
 						antag_serialized["antag"] = A.name
 						antagonists += list(antag_serialized)
 
+					for(var/team_type in GLOB.antagonist_teams)
+						var/datum/team/team = GLOB.antagonist_teams[team_type]
+						if(team.need_antag_hud)
+							other_antags += list("[team.name] — ([team.alife_members_count()])" = (mind in team.members))
 					// Not-very-datumized antags follow
 					// Associative list of antag name => whether this mind is this antag
 					if(SSticker && SSticker.mode)
@@ -123,7 +167,6 @@
 							"Демоны — ([length(SSticker.mode.demons)])" = (mind in SSticker.mode.demons),
 							"Ивент роли — ([length(SSticker.mode.eventmiscs)])" = (mind in SSticker.mode.eventmiscs),
 							"Культисты [SSticker.cultdat.entity_name] — ([length(SSticker.mode.cult)])" = (mind in SSticker.mode.cult),
-							"Ядерные оперативники — ([length(SSticker.mode.syndicates)])" = (mind in SSticker.mode.syndicates),
 							"Культисты Ратвара — ([length(SSticker.mode.clockwork_cult)])" = (mind in SSticker.mode.clockwork_cult),
 							"Революционеры — ([length(SSticker.mode.revolutionaries)])" = (mind in SSticker.mode.revolutionaries),
 							"Главы революции — ([length(SSticker.mode.head_revolutionaries)])" = (mind in SSticker.mode.head_revolutionaries),
@@ -131,7 +174,6 @@
 							"Тени — ([length(SSticker.mode.shadows)])" = (mind in SSticker.mode.shadows),
 							"Маги — ([length(SSticker.mode.wizards)])" = (mind in SSticker.mode.wizards),
 							"Ученики магов — ([length(SSticker.mode.apprentices)])" = (mind in SSticker.mode.apprentices),
-							"Ксеноморфы — ([length(SSticker.mode.xenos)])" = (mind in SSticker.mode.xenos),
 							"Торговцы — ([length(SSticker.mode.traders)])" = (mind in SSticker.mode.traders),
 							"Морфы — ([length(SSticker.mode.morphs)])" = (mind in SSticker.mode.morphs),
 							"Свармеры — ([length(SSticker.mode.swarmers)])" = (mind in SSticker.mode.swarmers),

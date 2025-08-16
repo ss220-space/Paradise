@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(explosions)
 	var/priority_queue/explosion_queue
 
 	var/reactionary_explosions = FALSE
-	var/multiz_explosions = FALSE
+	var/multiz_explosions = TRUE
 
 	// Explosion sounds cache
 	var/sound/explosion_sound
@@ -34,8 +34,6 @@ SUBSYSTEM_DEF(explosions)
 
 
 /datum/controller/subsystem/explosions/Initialize()
-	if(CONFIG_GET(flag/multiz_explosions))
-		multiz_explosions = TRUE
 	if(CONFIG_GET(flag/reactionary_explosions))
 		reactionary_explosions = TRUE
 	explosion_sound = sound(get_sfx("explosion"))
@@ -83,15 +81,13 @@ SUBSYSTEM_DEF(explosions)
 				dist += prev_block
 				data.cached_exp_block[total_cords] = prev_block + turf_block
 
-			var/flame_dist = 0
+			var/flame_dist = dist < data.flame_range
 
-			if(dist < data.flame_range)
-				flame_dist = 1
 
 			if(dist < data.devastation_range)		dist = 1
 			else if(dist < data.heavy_impact_range)	dist = 2
 			else if(dist < data.light_impact_range)	dist = 3
-			else 									dist = 0
+			else									dist = 0
 
 			//------- TURF FIRES -------
 
@@ -146,7 +142,26 @@ SUBSYSTEM_DEF(explosions)
 
 	return TRUE
 
-
+/**
+ * Makes a given turf explode.
+ *
+ * Arguments:
+ * - [origin][/turf]: The turf that's exploding.
+ * - devastation_range: The range at which the effects of the explosion are at their strongest.
+ * - heavy_impact_range: The range at which the effects of the explosion are relatively severe.
+ * - light_impact_range: The range at which the effects of the explosion are relatively weak.
+ * - flash_range: The range at which the explosion flashes people.
+ * - adminlog: Whether to log the explosion/report it to the administration.
+ * - ignorecap: Whether to ignore the relevant bombcap. Defaults to FALSE.
+ * - flame_range: The range at which the explosion should produce hotspots.
+ * - silent: Whether to generate/execute sound effects.
+ * - smoke: Whether to generate a smoke cloud provided the explosion is powerful enough to warrant it.
+ * - cause: [Optional] The turf that caused the explosion, when different to the origin. Used for logging.
+ * - breach: ...
+ * - protect_epicenter: Whether to leave the epicenter turf unaffected by the explosion
+ * - explosion_direction: The angle in which the explosion is pointed (for directional explosions.)
+ * - explosion_arc: The angle of the arc covered by a directional explosion (if 360 the explosion is non-directional.)
+ */
 /proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, cause, breach, protect_epicenter = FALSE, explosion_direction = 0, explosion_arc = 360)
 	SSexplosions.explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, cause, breach, protect_epicenter, explosion_direction, explosion_arc)
 
@@ -245,14 +260,15 @@ SUBSYSTEM_DEF(explosions)
 
 
 /datum/explosion_data/proc/create_effect(smoke)
-	if(heavy_impact_range > 1)
-		var/datum/effect_system/explosion/E
-		if(smoke)
-			E = new /datum/effect_system/explosion/smoke
-		else
-			E = new
-		E.set_up(epicenter)
-		E.start()
+	if(devastation_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, TRUE)
+	else if(heavy_impact_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, FALSE)
+	else if(light_impact_range > 0)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, TRUE, FALSE)
+
+	if(max_range >= 6 || heavy_impact_range)
+		new /obj/effect/temp_visual/shockwave(epicenter, max_range)
 
 /datum/explosion_data/proc/enqueue_affected_turfs(reactionary_explosions)
 	var/list/affected_turfs = prepare_explosion_turfs(max_range, epicenter, protect_epicenter, explosion_direction, explosion_arc, multiz_explosion, min_z, max_z)
@@ -342,18 +358,18 @@ SUBSYSTEM_DEF(explosions)
 				baseshakeamount = sqrt((orig_max_distance - dist) * 0.1)
 			// If inside the blast radius + world.view - 2
 			if(dist <= round(max_range + world.view - 2, 1))
-				M.playsound_local(epicenter, null, 100, 1, frequency, S = SSexplosions.explosion_sound)
+				M.playsound_local(epicenter, null, 100, TRUE, frequency, sound = SSexplosions.explosion_sound)
 				if(baseshakeamount > 0)
 					shake_camera(M, 25, clamp(baseshakeamount, 0, 10))
 			// You hear a far explosion if you're outside the blast radius. Small bombs shouldn't be heard all over the station.
 			else if(dist <= far_dist)
 				var/far_volume = clamp(far_dist / 2, FAR_LOWER, FAR_UPPER) // Volume is based on explosion size and dist
 				if(creaking_explosion)
-					M.playsound_local(epicenter, null, far_volume, 1, frequency, S = SSexplosions.creaking_explosion_sound, distance_multiplier = 0)
+					M.playsound_local(epicenter, null, far_volume, 1, frequency, sound = SSexplosions.creaking_explosion_sound, distance_multiplier = 0)
 				else if(prob(PROB_SOUND)) // Sound variety during meteor storm/tesloose/other bad event
-					M.playsound_local(epicenter, null, far_volume, 1, frequency, S = SSexplosions.far_explosion_sound, distance_multiplier = 0) // Far sound
+					M.playsound_local(epicenter, null, far_volume, 1, frequency, sound = SSexplosions.far_explosion_sound, distance_multiplier = 0) // Far sound
 				else
-					M.playsound_local(epicenter, null, far_volume, 1, frequency, S = SSexplosions.explosion_echo_sound, distance_multiplier = 0) // Echo sound
+					M.playsound_local(epicenter, null, far_volume, 1, frequency, sound = SSexplosions.explosion_echo_sound, distance_multiplier = 0) // Echo sound
 
 				if(baseshakeamount > 0 || devastation_range)
 					if(!baseshakeamount) // Devastating explosions rock the station and ground
@@ -365,7 +381,7 @@ SUBSYSTEM_DEF(explosions)
 					baseshakeamount = devastation_range
 					shake_camera(M, 10, clamp(baseshakeamount * 0.25, 0, SHAKE_CLAMP))
 					echo_volume = 60
-				M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = SSexplosions.explosion_echo_sound, distance_multiplier = 0)
+				M.playsound_local(epicenter, null, echo_volume, 1, frequency, sound = SSexplosions.explosion_echo_sound, distance_multiplier = 0)
 
 			if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
 				addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, SSexplosions.hull_creaking_sound, 0), CREAK_DELAY)

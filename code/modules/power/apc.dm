@@ -197,7 +197,7 @@
 
 
 /obj/machinery/power/apc/worn_out
-	name = "\improper Worn out APC"
+	name = "Worn out APC"
 	keep_preset_name = TRUE
 	locked = FALSE
 	lighting_channel = CHANNEL_SETTING_OFF
@@ -236,7 +236,7 @@
 
 /obj/machinery/power/apc/New(turf/loc, direction, building = 0)
 	if(!armor)
-		armor = list("melee" = 20, "bullet" = 20, "laser" = 10, "energy" = 100, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50)
+		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, RAD = 100, FIRE = 90, ACID = 50)
 	..()
 	GLOB.apcs += src
 	GLOB.apcs = sortAtom(GLOB.apcs)
@@ -260,7 +260,7 @@
 		update_icon()
 		addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
-/obj/machinery/power/apc/Destroy()
+/obj/machinery/power/apc/Destroy(force)
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
 	if(malfai && operating)
@@ -270,7 +270,7 @@
 	area.power_environ = 0
 	area.power_change()
 	if(occupier)
-		malfvacate(1)
+		malfvacate(TRUE)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
 	QDEL_NULL(cog)
@@ -287,6 +287,18 @@
 	terminal.master = src
 
 /obj/machinery/power/apc/Initialize(mapload)
+	var/area/A = get_area(src)
+	//if area isn't specified use current
+	if(keep_preset_name)
+		if(isarea(A))
+			area = A
+		// no-op, keep the name
+	else if(isarea(A) && !areastring)
+		area = A
+		name = "[area.name] APC"
+	else
+		name = "[get_area_name(area, TRUE)] APC"
+	area.apc |= src
 	. = ..()
 	if(!mapload)
 		return
@@ -295,23 +307,10 @@
 	if(cell_type)
 		cell = new/obj/item/stock_parts/cell/upgraded(src)
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
-		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
+		cell.charge = start_charge * cell.maxcharge / 100		// (convert percentage to actual value)
 
 	cog = null // Or you can't put it in
-	var/area/A = get_area(src)
 
-
-	//if area isn't specified use current
-	if(keep_preset_name)
-		if(isarea(A))
-			area = A
-		// no-op, keep the name
-	else if(isarea(A) && !areastring)
-		area = A
-		name = "\improper [area.name] APC"
-	else
-		name = "\improper [get_area_name(area, TRUE)] APC"
-	area.apc |= src
 
 	update_icon()
 
@@ -386,7 +385,7 @@
 		status_overlays_environ[3] = image(icon, "apco2-2")
 		status_overlays_environ[4] = image(icon, "apco2-3")
 
-	var/update = check_updates() 		//returns 0 if no need to update icons.
+	var/update = check_updates()		//returns 0 if no need to update icons.
 						// 1 if we need to update the icon_state
 						// 2 if we need to update the overlays
 	if(!update && !force_update)
@@ -584,7 +583,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stock_parts/cell))	// trying to put a cell inside
+	if(iscell(I))	// trying to put a cell inside
 		add_fingerprint(user)
 		if(opened == APC_CLOSED)
 			to_chat(user, span_warning("You should open the APC cover to insert a power cell."))
@@ -737,7 +736,7 @@
 			span_notice("You have replaced the damaged APC frame with a new one."),
 		)
 		stat &= ~BROKEN
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		if(opened == APC_COVER_OFF)
 			opened = APC_OPENED
 		update_icon()
@@ -793,22 +792,19 @@
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
-		. += "<span class='info'>Alt-click to toggle locker.<br/>Ctrl-click to toggle power.</span>"
+		. += span_notice("<b>Alt-click</b> to toggle locker.<br/><b>Ctrl-click</b> to toggle power.")
 
-/obj/machinery/power/apc/AltClick(mob/user)
-	var/mob/living/carbon/human/human = user
-	if(!istype(human) || human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(!Adjacent(human) || (get_turf(user) != user.loc))
-		return
-
-	var/obj/item/card/id/card = human.get_id_card()
+/obj/machinery/power/apc/click_alt(mob/living/carbon/human/H)
+	if(!istype(H))
+		return NONE
+	var/obj/item/card/id/card = H.get_id_card()
 	if(!istype(card))
-		return
+		return NONE
 
-	add_fingerprint(user)
-	togglelock(user)
+	add_fingerprint(H)
+	togglelock(H)
+	return CLICK_ACTION_SUCCESS
+
 
 /obj/machinery/power/apc/CtrlClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
@@ -1334,7 +1330,7 @@
 	var/datum/action/innate/ai/return_to_core/R = new
 	R.Grant(occupier)
 	occupier.cancel_camera()
-	if((seclevel2num(get_security_level()) == SEC_LEVEL_DELTA) && malf.nuking)
+	if((SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA) && malf.nuking)
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = src //the pinpointer will detect the shunted AI
 
@@ -1347,7 +1343,7 @@
 		occupier.parent.adjustOxyLoss(occupier.getOxyLoss())
 		occupier.parent.cancel_camera()
 		qdel(occupier)
-		if(seclevel2num(get_security_level()) == SEC_LEVEL_DELTA)
+		if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 					if((A.stat != DEAD) && A.nuking)
@@ -1356,7 +1352,8 @@
 		to_chat(occupier, "<span class='danger'>Primary core damaged, unable to return core processes.</span>")
 		if(forced)
 			occupier.loc = loc
-			occupier.death()
+			ASYNC
+				occupier.death()
 			occupier.gib()
 			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				point.the_disk = null //Pinpointers go back to tracking the nuke disk
@@ -1371,8 +1368,8 @@
 				cell.corrupt()
 				malfhack = TRUE
 				update_icon()
-				var/datum/effect_system/smoke_spread/smoke = new
-				smoke.set_up(3, 0, loc)
+				var/datum/effect_system/fluid_spread/smoke/smoke = new
+				smoke.set_up(amount = 3, location = loc)
 				smoke.attach(src)
 				smoke.start()
 				do_sparks(3, 1, src)
@@ -1638,6 +1635,11 @@
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
 	set_broken()
 
+/obj/machinery/power/apc/zap_act(power, zap_flags)
+	if(obj_integrity <= 0)
+		zap_flags &= ~(ZAP_OBJ_DAMAGE | ZAP_MACHINE_EXPLOSIVE)
+	. = ..()
+
 /obj/machinery/power/apc/disconnect_terminal()
 	if(terminal)
 		terminal.master = null
@@ -1704,6 +1706,33 @@
 		aidisabled = FALSE
 		updateDialog()
 
+/obj/machinery/power/apc/proc/is_channel_on(chan = EQUIP)
+	var/channel_type
+	switch(chan)
+		if(EQUIP)
+			channel_type = equipment_channel
+
+		if(LIGHT)
+			channel_type = lighting_channel
+
+		if(ENVIRON)
+			channel_type = environment_channel
+
+	return channel_type == CHANNEL_SETTING_ON || channel_type == CHANNEL_SETTING_AUTO_ON
+
+/obj/machinery/power/apc/proc/is_channel_force_on(chan = EQUIP)
+	var/channel_type
+	switch(chan)
+		if(EQUIP)
+			channel_type = equipment_channel
+
+		if(LIGHT)
+			channel_type = lighting_channel
+
+		if(ENVIRON)
+			channel_type = environment_channel
+
+	return channel_type == CHANNEL_SETTING_ON
 
 #undef UPSTATE_CELL_IN
 #undef UPSTATE_OPENED1

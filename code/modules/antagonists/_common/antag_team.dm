@@ -12,9 +12,12 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/list/members
 	/// A list of objectives which all team members share.
 	var/list/objectives
+	/// A list of special objectives which some team members have.
+	var/list/special_objectives
 	/// Type of antag datum members of this team have. Also given to new members added by admins.
 	var/antag_datum_type
-
+	/// Is antag hud need to see this team in orbit
+	var/need_antag_hud = TRUE
 
 /datum/team/New(list/starting_members)
 	..()
@@ -24,7 +27,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		starting_members = list(starting_members)
 	for(var/datum/mind/M as anything in starting_members)
 		add_member(M)
-	GLOB.antagonist_teams += src
+	GLOB.antagonist_teams[type] = src
 
 
 /datum/team/Destroy(force = FALSE)
@@ -32,7 +35,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		remove_member(member)
 	QDEL_LIST(objectives)
 	members.Cut()
-	GLOB.antagonist_teams -= src
+	GLOB.antagonist_teams -= type
 	return ..()
 
 
@@ -41,12 +44,22 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  *
  * Generally this should ONLY be called by `add_antag_datum()` to ensure proper order of operations.
  */
-/datum/team/proc/add_member(datum/mind/new_member)
+/datum/team/proc/add_member(datum/mind/new_member, add_objectives = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 	var/datum/antagonist/team_antag = get_antag_datum_from_member(new_member)
 	members |= new_member
-	team_antag.objectives |= objectives
+	if(add_objectives && team_antag)
+		team_antag.objectives |= objectives
 
+/**
+ * Return count of alife `members`.
+ */
+/datum/team/proc/alife_members_count()
+	var/count = 0
+	for(var/datum/mind/mind in members)
+		if(!QDELETED(mind?.current) && mind.current.stat != DEAD)
+			count++
+	return count
 
 /**
  * Removes `member` from this team.
@@ -63,12 +76,12 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  */
 /datum/team/proc/admin_add_member(mob/user)
 	var/list/valid_minds = list()
-	for(var/mob/living/carbon/human/player in GLOB.player_list)
+	for(var/mob/player in GLOB.player_list)
 		if(!player.mind || (player.mind in members))
 			continue
 		valid_minds[player.real_name] = player.mind
 
-	var/name = input(user, "Choose a player to add to this team", "Add Team Member") as null|anything in valid_minds
+	var/name = tgui_input_list(user, "Choose a player to add to this team", "Add Team Member", valid_minds)
 	if(!name)
 		to_chat(user, span_warning("No suitable humanoid targets found!"))
 		return
@@ -80,11 +93,11 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /**
  * Adds a team objective to each member's matching antag datum.
  */
-/datum/team/proc/add_objective_to_members(datum/objective/objective)
-	for(var/datum/mind/member as anything in members)
+/datum/team/proc/add_objective_to_members(datum/objective/objective, list/member_blacklist)
+	for(var/datum/mind/member as anything in (members - member_blacklist))
 		var/datum/antagonist/antag = get_antag_datum_from_member(member)
 		antag.objectives |= objective
-
+	objectives |= objective
 
 /**
  * Remove a team objective from each member's matching antag datum.
@@ -108,14 +121,14 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 	// If no matching antag datum was found, give them one.
 	if(antag_datum_type)
-		member.add_antag_datum(antag_datum_type, src)
+		return member.add_antag_datum(antag_datum_type, src)
 
 
 /**
  * Allows admins to send a message to all members of this team.
  */
 /datum/team/proc/admin_communicate(mob/user)
-	var/message = input(user, "Enter a message to send to the team:", "Team Message") as text|null
+	var/message = tgui_input_text(user, "Enter a message to send to the team:", "Team Message")
 	if(!message)
 		return
 
@@ -130,7 +143,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  * Allows admins to add a team objective.
  */
 /datum/team/proc/admin_add_objective(mob/user)
-	var/selected = input("Select an objective type:", "Objective Type") as null|anything in GLOB.admin_objective_list
+	var/selected = tgui_input_list(usr, "Select an objective type:", "Objective Type", GLOB.admin_objective_list)
 	if(!selected)
 		return
 
@@ -157,7 +170,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  * Allows admins to rename the team.
  */
 /datum/team/proc/admin_rename_team(mob/user)
-	var/team_name = stripped_input(user, "Enter a new name for the team:", "Rename Team")
+	var/team_name = tgui_input_text(user, "Enter a new name for the team:", "Rename Team")
 	if(!team_name)
 		return
 
@@ -175,6 +188,13 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	remove_member(member)
 
 
+/datum/team/proc/set_scoreboard_vars()
+	return
+
+/datum/team/proc/get_scoreboard_stats()
+	return ""
+
+
 /**
  * Used for running team specific admin commands.
  */
@@ -189,6 +209,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			c_back.Invoke(usr)
 			return
 
+	admin_topic(href_list["team_command"])
+
 
 /**
  * A list of team-specific admin commands for this team. Should be in the form of `"command" = CALLBACK(x, PROC_REF(some_proc))`.
@@ -196,7 +218,11 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/proc/get_admin_commands()
 	return list()
 
+/datum/team/proc/get_admin_texts()
+	return list()
 
+/datum/team/proc/admin_topic(command)
+	return
 /**
  * Opens a window which lists the teams for the round.
  */
@@ -218,7 +244,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!length(GLOB.antagonist_teams))
 		content += "There are currently no antag teams."
 
-	for(var/datum/team/check_team as anything in GLOB.antagonist_teams)
+	for(var/team_type as anything in GLOB.antagonist_teams)
+		var/datum/team/check_team = GLOB.antagonist_teams[team_type]
 		content += "<h3>[check_team.name] - [check_team.type]</h3>"
 		content += "<a href='byond://?_src_=holder;team_command=rename_team;team=[check_team.UID()]'>Rename Team</a>"
 		content += "<a href='byond://?_src_=holder;team_command=delete_team;team=[check_team.UID()]'>Delete Team</a>"
@@ -226,8 +253,13 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 		for(var/command in check_team.get_admin_commands())
 			// _src_ is T.UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
-			content += "<a href='byond://?_src_=[check_team.UID()];command=[command]'>[command]</a>"
+			content += "<a href='byond://?_src_=holder;command=[command]'>[command]</a>"
+		for(var/text in check_team.get_admin_texts())
+			content += text
 		content += "<br><br>Objectives:<br><ol>"
+
+		for(var/datum/objective/objective as anything in check_team.special_objectives)
+			content += "<li>[objective.explanation_text]</li>"
 
 		for(var/datum/objective/objective as anything in check_team.objectives)
 			content += "<li>[objective.explanation_text] - <a href='byond://?_src_=holder;team_command=remove_objective;team=[check_team.UID()];objective=[objective.UID()]'>Remove</a></li>"
@@ -239,6 +271,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			content += "<li>[member.name] - <a href='byond://?_src_=holder;team_command=view_member;team=[check_team.UID()];member=[member.UID()]'>Show Player Panel</a>"
 			content += "<a href='byond://?_src_=holder;team_command=remove_member;team=[check_team.UID()];member=[member.UID()]'>Remove Member</a></li>"
 		content += "</ol><a href='byond://?_src_=holder;team_command=admin_add_member;team=[check_team.UID()]'>Add Member</a><hr>"
-
+		content += "<hr>"
 	return content.Join()
 
+/datum/team/proc/declare_completion()
+	return

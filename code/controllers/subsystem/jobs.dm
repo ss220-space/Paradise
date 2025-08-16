@@ -38,7 +38,7 @@ SUBSYSTEM_DEF(jobs)
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
-		to_chat(world, "<span class='warning'>Ошибка выдачи профессий, датумы профессий не найдены.</span>")
+		to_chat(world, span_warning("Ошибка выдачи профессий, датумы профессий не найдены."))
 		return
 
 	for(var/J in all_jobs)
@@ -174,6 +174,9 @@ SUBSYSTEM_DEF(jobs)
 			continue
 
 		if(istype(job, GetJob(JOB_TITLE_CIVILIAN))) // We don't want to give him assistant, that's boring!
+			continue
+
+		if(istype(job, GetJob(JOB_TITLE_PRISONER))) //If you want a prisoner position, select it!
 			continue
 
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
@@ -429,7 +432,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, JOB_TITLE_CIVILIAN)
 		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
-			to_chat(player, "<span class='danger'>Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot.</span>")
+			to_chat(player, span_danger("Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot."))
 			player.ready = 0
 			unassigned -= player
 
@@ -451,8 +454,8 @@ SUBSYSTEM_DEF(jobs)
 
 		CreateMoneyAccount(H, rank, job)
 	var/list/L = list()
-	L.Add("<B>Вы <span class='red'>[alt_title ? alt_title : rank]</span>.</B>")
-	L.Add("<b>На этой должности вы отвечаете непосредственно перед <span class='red'>[replacetext(job.supervisors,"the ","")]</span>. Особые обстоятельства могут это изменить.</b>")
+	L.Add("<b>Вы [span_red(alt_title ? alt_title : rank)].</b>")
+	L.Add("<b>На этой должности вы отвечаете непосредственно перед [span_red(replacetext(job.supervisors,"the ",""))]. Особые обстоятельства могут это изменить.</b>")
 	L.Add("<b>Для получения дополнительной информации о работе на станции, см. <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
 	if(job.is_service)
 		L.Add("<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
@@ -493,37 +496,42 @@ SUBSYSTEM_DEF(jobs)
 		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
 			if(sloc.name != rank)
 				continue
+
 			if(locate(/mob/living) in sloc.loc)
 				continue
+
 			mark_spawn = sloc
 			break
+
 		if(!mark_spawn)
 			mark_spawn = locate("start*[rank]") // use old stype
+
 		if(!mark_spawn) // No spawn, then spawn on latejoin mark
 			log_runtime(EXCEPTION("No landmark start for [rank]."))
-			mark_spawn = pick(GLOB.latejoin)
-		if(!mark_spawn) // still no spawn, fall back to the arrivals shuttle
-			var/list/turf/possible_turfs = list()
-			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival/station))
-				if(TS.density)
-					continue
-				for(var/obj/O in TS)
-					if(O.density)
-						continue
-				possible_turfs += TS
-			mark_spawn = pick(possible_turfs)
+			if(rank == JOB_TITLE_PRISONER)
+				mark_spawn = pick(GLOB.latejoin_prisoner)
+			else
+				mark_spawn = pick(GLOB.latejoin)
+
+		if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
+			if(rank == JOB_TITLE_PRISONER)
+				mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
+			else
+				mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station)
 
 		if(isturf(mark_spawn))
 			turf_spawn = mark_spawn
+
 		else if(istype(mark_spawn, /obj/effect/landmark/start) && isturf(mark_spawn.loc))
 			turf_spawn = mark_spawn.loc
+
 		else
 			message_admins("Couldn't find spawnpoint for [H] [ADMIN_COORDJMP(H)]. Notify mapper about it.")
 
 		if(turf_spawn)
 			H.forceMove(turf_spawn)
 			// Moving wheelchair if they have one
-			if(H.buckled && istype(H.buckled, /obj/structure/chair/wheelchair))
+			if(H.buckled && istype(H.buckled, /obj/vehicle/ridden/wheelchair))
 				H.buckled.forceMove(H.loc)
 				H.buckled.dir = H.dir
 
@@ -549,10 +557,27 @@ SUBSYSTEM_DEF(jobs)
 			var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
 			var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
 			if(!l_foot && !r_foot || (H.client.prefs.disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(H.dna.species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
-				var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(H.loc)
+				var/obj/vehicle/ridden/wheelchair/W = new /obj/vehicle/ridden/wheelchair(H.loc)
 				W.buckle_mob(H, TRUE)
 	return H
 
+/datum/controller/subsystem/jobs/proc/get_random_area_turf_for_spawn(area_type)
+	var/list/turf/possible_turfs = list()
+	var/list/turf/possible_but_bad_turfs = list() // Used if too many people for shattle.
+	for(var/turf/TS in get_area_turfs(area_type))
+		if(TS.density)
+			continue
+		var/bad_turf = FALSE
+		for(var/obj/O in TS)
+			if(!O.density)
+				continue
+			bad_turf = TRUE
+			possible_but_bad_turfs += TS
+			break
+		if(bad_turf)
+			continue
+		possible_turfs += TS
+	return possible_turfs.len ? pick(possible_turfs) : pick(possible_but_bad_turfs)
 
 /datum/controller/subsystem/jobs/proc/LoadJobsFile(jobsfile, highpop) //ran during round setup, reads info from jobs.txt -- Urist
 	if(!CONFIG_GET(flag/load_jobs_from_txt))
@@ -682,7 +707,7 @@ SUBSYSTEM_DEF(jobs)
 			H.mind.initial_account.insurance = INSURANCE_NT_SPECIAL
 
 	spawn(0)
-		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
+		to_chat(H, span_boldnotice("Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]"))
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
@@ -753,7 +778,7 @@ SUBSYSTEM_DEF(jobs)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
 	if(PM && PM.can_receive())
-		PM.notify("<b>Автоматическое Оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
+		PM.notify("<b>Автоматическое оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
 
 /datum/controller/subsystem/jobs/proc/notify_by_name(target_name, antext)
 	// Used to notify a specific crew member based on their real_name
@@ -768,7 +793,7 @@ SUBSYSTEM_DEF(jobs)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
 	if(PM && PM.can_receive())
-		PM.notify("<b>Автоматическое Оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
+		PM.notify("<b>Автоматическое оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
 
 /datum/controller/subsystem/jobs/proc/format_job_change_records(centcom)
 	var/list/formatted = list()
@@ -878,25 +903,25 @@ SUBSYSTEM_DEF(jobs)
 			added_living += minutes
 
 			if(announce)
-				to_chat(C.mob, "<span class='notice'>You got: [minutes] Living EXP!</span>")
+				to_chat(C.mob, span_notice("You got: [minutes] Living EXP!"))
 
 			for(var/category in GLOB.exp_jobsmap)
 				if(GLOB.exp_jobsmap[category]["titles"])
 					if(myrole in GLOB.exp_jobsmap[category]["titles"])
 						play_records[C.ckey][category] += minutes
 						if(announce)
-							to_chat(C.mob, "<span class='notice'>You got: [minutes] [category] EXP!</span>")
+							to_chat(C.mob, span_notice("You got: [minutes] [category] EXP!"))
 
 			if(C.mob.mind.special_role)
 				play_records[C.ckey][EXP_TYPE_SPECIAL] += minutes
 				if(announce)
-					to_chat(C.mob, "<span class='notice'>You got: [minutes] Special EXP!</span>")
+					to_chat(C.mob, span_notice("You got: [minutes] Special EXP!"))
 
 		else if(isobserver(C.mob))
 			play_records[C.ckey][EXP_TYPE_GHOST] += minutes
 			added_ghost += minutes
 			if(announce)
-				to_chat(C.mob, "<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+				to_chat(C.mob, span_notice("You got: [minutes] Ghost EXP!"))
 		else
 			continue
 

@@ -97,6 +97,8 @@
 	///is the mob currently ascending or descending through z levels?
 	var/currently_z_moving
 
+	/// Whether a user will face atoms on entering them with a mouse. Despite being a mob variable, it is here for performance
+	var/face_mouse = FALSE
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -201,7 +203,7 @@
 	var/static/list/not_falsey_edits = list(NAMEOF_STATIC(src, bound_width) = TRUE, NAMEOF_STATIC(src, bound_height) = TRUE)
 	if(banned_edits[var_name])
 		return FALSE //PLEASE no.
-	if(careful_edits[var_name] && (var_value % world.icon_size) != 0)
+	if(careful_edits[var_name] && (var_value % ICON_SIZE_ALL) != 0)
 		return FALSE
 	if(not_falsey_edits[var_name] && !var_value)
 		return FALSE
@@ -263,6 +265,7 @@
 
 //Handles special effects on teleporting. Overload for some items if you want to do so.
 /atom/movable/proc/on_teleported()
+	SEND_SIGNAL(src, COMSIG_ATOM_TELEPORT_ACT)
 	return
 
 
@@ -298,8 +301,8 @@
 		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(!supress_message)
 			pulled_mob.visible_message(
-				span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob]!"),
-				span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
+				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
+				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
 			)
 		pulled_mob.LAssailant = iscarbon(src) ? src : null
 	return TRUE
@@ -356,7 +359,7 @@
  */
 /atom/movable/proc/check_pulling(only_pulling = FALSE, z_allowed = FALSE)
 	if(pulling)
-		if(!in_range(src, pulling) || (z != pulling.z && !z_allowed))
+		if(get_dist(src, pulling) > 1 || (z != pulling.z && !z_allowed))
 			stop_pulling()
 		else if(!isturf(loc))
 			stop_pulling()
@@ -376,13 +379,13 @@
 		return FALSE
 	if(anchored)
 		if(!supress_message && ismob(puller))
-			to_chat(puller, span_warning("Похоже, [name] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!"))
+			to_chat(puller, span_warning("Похоже, [declent_ru(NOMINATIVE)] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!"))
 		return FALSE
 	if(throwing || move_resist == INFINITY)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(!supress_message && ismob(puller))
-			to_chat(puller, span_warning("[name] слишком тяжел[genderize_ru(src.gender,"ый","ая","ое","ые")]!"))
+			to_chat(puller, span_warning("[capitalize(declent_ru(NOMINATIVE))] слишком тяжел[genderize_ru(src.gender,"ый","ая","ое","ые")]!"))
 		return FALSE
 	return TRUE
 
@@ -481,7 +484,7 @@
 	if(!direct)
 		direct = get_dir(src, newloc)
 
-	if(set_dir_on_move && dir != direct && update_dir)
+	if(set_dir_on_move && dir != direct && update_dir && !face_mouse) //for facing direction on harm - face_mouse
 		setDir(direct)
 
 	var/is_multi_tile = is_multi_tile_object(src)
@@ -502,8 +505,8 @@
 			newloc.x,
 			newloc.y,
 			newloc.z,
-			min(world.maxx, newloc.x + (CEILING(bound_width / world.icon_size, 1) - 1)),
-			min(world.maxy, newloc.y + (CEILING(bound_height / world.icon_size, 1) - 1)),
+			min(world.maxx, newloc.x + (CEILING(bound_width / ICON_SIZE_X, 1) - 1)),
+			min(world.maxy, newloc.y + (CEILING(bound_height / ICON_SIZE_Y, 1) - 1)),
 			newloc.z
 		)	// If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
 		for(var/atom/entering_loc as anything in new_locs)
@@ -614,7 +617,7 @@
 						. = Move(get_step(src, SOUTH), SOUTH)
 
 			if(moving_diagonally == SECOND_DIAG_STEP)
-				if(!. && set_dir_on_move && update_dir)
+				if(!. && set_dir_on_move && !face_mouse)
 					setDir(first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
@@ -667,12 +670,17 @@
 	move_speed = world.time - l_move_time
 	l_move_time = world.time
 
-	if(set_dir_on_move && dir != direct && update_dir)
+	if(set_dir_on_move && !face_mouse)
 		setDir(direct)
 
 	// movement failed due to buckled mob(s)
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, glide_size_override))
 		. = FALSE
+
+	var/area/area = get_area(src)
+	if(!no_gravity() && get_gravity() < 0 && area.outdoors && !iswallturf(src)) // If no ceiling above us with antigravity, fall up in space.
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, fall_up_in_space))
+		return FALSE
 
 	if(currently_z_moving)
 		if(. && loc == newloc)
@@ -842,8 +850,8 @@
 					destination.x,
 					destination.y,
 					destination.z,
-					min(world.maxx, destination.x + (CEILING(bound_width / world.icon_size, 1) - 1)),
-					min(world.maxy, destination.y + (CEILING(bound_height / world.icon_size, 1) - 1)),
+					min(world.maxx, destination.x + (CEILING(bound_width / ICON_SIZE_X, 1) - 1)),
+					min(world.maxy, destination.y + (CEILING(bound_height / ICON_SIZE_Y, 1) - 1)),
 					destination.z
 				)
 				if(old_area && old_area != destarea)
@@ -934,6 +942,18 @@
 				moved_mov.check_pulling(TRUE)
 	return TRUE
 
+/*
+ * Attempts to move using zMove if direction is UP or DOWN, step if not
+ *
+ * Args:
+ * direction: The direction to go
+ * z_move_flags: bitflags used for checks in zMove and can_z_move
+*/
+/atom/movable/proc/try_step_multiz(direction, z_move_flags = ZMOVE_FLIGHT_FLAGS)
+	if(direction == UP || direction == DOWN)
+		return zMove(direction, null, z_move_flags)
+	return step(src, direction)
+
 
 /// Returns a list of movables that should also be affected when src moves through zlevels, and src.
 /atom/movable/proc/get_z_move_affected(z_move_flags)
@@ -979,20 +999,20 @@
 		destination = get_step_multiz(start, direction)
 		if(!destination)
 			if(z_move_flags & ZMOVE_FEEDBACK)
-				to_chat(rider || src, span_warning("There's nowhere to go in that direction!"))
+				to_chat(rider || src, span_warning("В этом направлении некуда идти!"))
 			return FALSE
-	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & (FLYING|FLOATING)) || !has_gravity(start)))
+	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & (FLYING|FLOATING)) || no_gravity(start)))
 		return FALSE
-	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && !(movement_type & (FLYING|FLOATING)) && has_gravity(start))
+	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && !(movement_type & (FLYING|FLOATING)) && !no_gravity(start))
 		if(z_move_flags & ZMOVE_FEEDBACK)
 			if(rider)
-				to_chat(rider, span_notice("[src] is not capable of flight."))
+				to_chat(rider, span_notice("[capitalize(declent_ru(NOMINATIVE))] не способен к полёту."))
 			else
-				to_chat(src, span_notice("You are not Superman."))
+				to_chat(src, span_notice("Вы не Супермен."))
 		return FALSE
 	if((!(z_move_flags & ZMOVE_IGNORE_OBSTACLES) && !(start.zPassOut(direction) && destination.zPassIn(direction))) || (!(z_move_flags & ZMOVE_ALLOW_ANCHORED) && anchored))
 		if(z_move_flags & ZMOVE_FEEDBACK)
-			to_chat(rider || src, span_warning("You couldn't move there!"))
+			to_chat(rider || src, span_warning("Ты не можешь туда переместиться!"))
 		return FALSE
 	return destination //used by some child types checks and zMove()
 
@@ -1049,7 +1069,7 @@
  * * continuous_move - If this check is coming from something in the context of already drifting
  */
 /atom/movable/proc/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
-	if(has_gravity())
+	if(!no_gravity())
 		return TRUE
 
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir, continuous_move) & COMSIG_MOVABLE_STOP_SPACEMOVE)
@@ -1164,8 +1184,20 @@
 	SSthrowing.processing[src] = thrown_thing
 	thrown_thing.tick()
 
+	update_icon()
 	return TRUE
 
+/atom/movable/proc/random_throw(range_low = 0, range_high = 5, speed = 4)
+	var/list/turf/targets = list()
+	for(var/turf/T in range(range_high, src))
+		if(get_dist(T, src) >= range_low && get_dist(T, src) <= range_high)
+			targets.Add(T)
+
+	if(targets.len == 0)
+		return FALSE
+
+	var/turf/target = pick(targets)
+	return throw_at(target, get_dist(src, target), speed)
 
 //Overlays
 /atom/movable/overlay
@@ -1205,12 +1237,12 @@
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
-		visible_message(span_warning("[src] сильно толка[pluralize_ru(gender,"ет","ют")] [AM]!"), span_warning("Вы сильно толкаете [AM]!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] сильно толка[pluralize_ru(gender,"ет","ют")] [AM.declent_ru(ACCUSATIVE)]!"), span_warning("Вы сильно толкаете [AM.declent_ru(ACCUSATIVE)]!"))
 
 /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
-		visible_message(span_danger("[src] сокруша[pluralize_ru(gender,"ет","ют")] [AM]!"), span_danger("Вы сокрушили [AM]!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сокруша[pluralize_ru(gender,"ет","ют")] [AM.declent_ru(ACCUSATIVE)]!"), span_danger("Вы сокрушили [AM.declent_ru(ACCUSATIVE)]!"))
 
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -1286,12 +1318,12 @@
 	// we will register on turf to avoid image changes with attacked_atom transforms
 	var/turf/image_loc = get_turf(attacked_atom)
 	if(visual_effect_icon)
-		attack_image = image(icon = 'icons/effects/effects.dmi', icon_state = visual_effect_icon)
+		attack_image = image('icons/effects/effects.dmi', image_loc, visual_effect_icon, attacked_atom.layer + 0.1)
 		if(ismob(src) && ismob(attacked_atom))
 			var/mob/attacker = src
 			attack_image.color = attacker.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
 	else if(used_item)
-		attack_image = image(icon = used_item)
+		attack_image = image(icon = used_item, loc = image_loc, layer = attacked_atom.layer + 0.1)
 		// Scale the icon.
 		attack_image.transform *= 0.4
 		// The icon should not rotate.
@@ -1324,10 +1356,10 @@
 		if(viewer.client && (viewer.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK))
 			viewing += viewer.client
 
-	var/atom/movable/flick_visual/attack = attacked_atom.flick_overlay_view(attack_image, 0.7 SECONDS)
+	flick_overlay(attack_image, viewing, 0.7 SECONDS)
 	var/matrix/initial_transform = new(transform)
 	// And animate the attack!
-	animate(attack, alpha = 175, transform = initial_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS)
+	animate(attack_image, alpha = 175, transform = initial_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS)
 	animate(time = 0.1 SECONDS)
 	animate(alpha = 0, time = 0.3 SECONDS, easing = (CIRCULAR_EASING|EASE_OUT))
 
@@ -1380,13 +1412,13 @@
 	var/target = isturf(loc) ? src : gourmet
 
 	gourmet.setDir(get_dir(gourmet, src))
-	gourmet.visible_message(span_danger("[gourmet.name] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [name]!"))
+	gourmet.visible_message(span_danger("[capitalize(gourmet.declent_ru(NOMINATIVE))] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [capitalize(declent_ru(ACCUSATIVE))]!"))
 
-	if(!do_after(gourmet, get_devour_time(gourmet), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [name]!")))
-		gourmet.visible_message(span_notice("[gourmet.name] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [name]!"))
+	if(!do_after(gourmet, get_devour_time(gourmet), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [capitalize(declent_ru(ACCUSATIVE))]!")))
+		gourmet.visible_message(span_notice("[capitalize(gourmet.declent_ru(NOMINATIVE))] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [capitalize(declent_ru(ACCUSATIVE))]!"))
 		return FALSE
 
-	gourmet.visible_message(span_danger("[gourmet.name] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [name]!"))
+	gourmet.visible_message(span_danger("[capitalize(gourmet.declent_ru(NOMINATIVE))] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [capitalize(declent_ru(ACCUSATIVE))]!"))
 
 	if(victim.mind)
 		add_attack_logs(gourmet, src, "Devoured")
@@ -1460,7 +1492,50 @@
 /atom/movable/vv_get_dropdown()
 	. = ..()
 	if(!GetComponent(/datum/component/deadchat_control))
-		.["Give deadchat control"] = "?_src_=vars;grantdeadchatcontrol=[UID()]"
+		.["Give deadchat control"] = "byond://?_src_=vars;grantdeadchatcontrol=[UID()]"
 	else
-		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
+		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
+
+
+/atom/movable/proc/fall_up_in_space()
+	visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] улетает вверх под воздействием отрицательной гравитации!"),
+					span_userdanger("Вы улетаете вверх под воздействием отрицательной гравитации!"))
+	if(ishuman(src))
+		var/mob/living/carbon/human/dropped_human = src
+		if(dropped_human.stat != DEAD && dropped_human.IsVocal() && prob(25))
+			playsound(dropped_human, 'sound/effects/wilhelm_scream.ogg', 150)
+
+	if(isliving(src))
+		var/mob/living/M = src
+		M.Weaken(32 SECONDS) // Keep them from moving during the duration of the extraction
+		M.buckled?.unbuckle_mob(force = TRUE) // Unbuckle them to prevent anchoring problems
+	else
+		set_anchored(TRUE)
+		ADD_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
+
+	var/obj/effect/extraction_holder/holder_obj = new(loc)
+	holder_obj.appearance = appearance
+	forceMove(holder_obj)
+	animate(holder_obj, pixel_z = 1000, time = 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(finish_falling_up_in_space), holder_obj), 3 SECONDS)
+
+/atom/movable/proc/finish_falling_up_in_space(obj/holder_obj)
+	if(ishuman(src))
+		var/mob/living/carbon/human/L = src
+		L.SetParalysis(0)
+		L.SetDrowsy(0)
+		L.SetSleeping(0)
+		L.SetWeakened(0)
+
+	var/turf/target_space_turf = get_random_reachable_space_turf()
+	holder_obj.forceMove(pick(target_space_turf))
+	holder_obj.pixel_z = -1000
+	animate(holder_obj, pixel_z = 0, time = 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(free_the_fallen), holder_obj), 3 SECONDS)
+
+/atom/movable/proc/free_the_fallen(obj/holder_obj)
+	set_anchored(FALSE) // An item has to be unanchored to be extracted in the first place.
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
+	forceMove(holder_obj.loc)
+	qdel(holder_obj)
 

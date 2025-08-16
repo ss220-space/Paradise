@@ -111,6 +111,11 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			r_hand.screen_loc = ui_rhand
 			client.screen += r_hand
+			for(var/mob/dead/observer/observe as anything in inventory_observers)
+				if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
+					observe.client.screen += r_hand
+				else
+					LAZYREMOVE(inventory_observers, observe)
 
 		var/t_state = r_hand.item_state ? r_hand.item_state : r_hand.icon_state
 
@@ -132,6 +137,11 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			l_hand.screen_loc = ui_lhand
 			client.screen += l_hand
+			for(var/mob/dead/observer/observe as anything in inventory_observers)
+				if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
+					observe.client.screen += l_hand
+				else
+					LAZYREMOVE(inventory_observers, observe)
 
 		var/t_state = l_hand.item_state ? l_hand.item_state : l_hand.icon_state
 
@@ -153,11 +163,26 @@
 	if(!client || !hud_used || !hud_used.hud_shown)
 		return
 
-	client.screen += worn_item
 	if(togleable_inventory && !hud_used.inventory_shown)
 		return
+
+	client.screen += worn_item
 	worn_item.screen_loc = ui_screen_loc
 
+	update_observer_view(worn_item, togleable_inventory)
+
+/mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
+	for(var/mob/dead/observer/observe as anything in inventory_observers)
+		if(!observe.client || observe.client.eye != src || !observe.do_observe_target != src)
+			LAZYREMOVE(inventory_observers, observe)
+			continue
+
+		if(!observe.hud_used)
+			continue
+
+		if(inventory && !observe.hud_used.inventory_shown)
+			continue
+		observe.client.screen += worn_item
 
 /mob/living/carbon/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
@@ -192,7 +217,7 @@
 /// Takes a list of mutable appearances
 /// Returns a list in the form:
 /// 1 - a list of all mutable appearances that would need to be updated to change planes in the event of a z layer change, alnongside the commands required
-/// 	to properly track parents to update
+///	to properly track parents to update
 /// 2 - a list of all parents that will require updating
 /proc/build_planeed_apperance_queue(list/mutable_appearance/appearances)
 	var/list/queue

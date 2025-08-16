@@ -194,7 +194,7 @@ GLOBAL_LIST_EMPTY(pillars_by_z)
 	if(!mapload)
 		update_multi_z(our_turf)
 
-/datum/element/turf_z_transparency/Detach(datum/source, force)
+/datum/element/turf_z_transparency/Detach(datum/source)
 	. = ..()
 	var/turf/our_turf = source
 	clear_multiz(our_turf)

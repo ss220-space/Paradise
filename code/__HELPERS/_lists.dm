@@ -235,9 +235,7 @@
 
 //Removes any null entries from the list
 /proc/listclearnulls(list/list)
-	if(istype(list))
-		while(null in list)
-			list -= null
+	list?.RemoveAll(null)
 	return
 
 /*

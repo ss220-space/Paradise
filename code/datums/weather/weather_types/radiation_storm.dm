@@ -4,9 +4,9 @@
 	desc = "A cloud of intense radiation passes through the area dealing rad damage to those who are unprotected."
 
 	telegraph_duration = 400
-	telegraph_message = "<span class='danger'>The air begins to grow warm.</span>"
+	telegraph_message = span_danger("The air begins to grow warm.")
 
-	weather_message = "<span class='userdanger'><i>You feel waves of heat wash over you! Find shelter!</i></span>"
+	weather_message = span_userdanger("<i>You feel waves of heat wash over you! Find shelter!</i>")
 	weather_overlay = "ash_storm"
 	weather_duration_lower = 600
 	weather_duration_upper = 1500
@@ -14,7 +14,7 @@
 	weather_sound = 'sound/misc/bloblarm.ogg'
 
 	end_duration = 100
-	end_message = "<span class='notice'>The air seems to be cooling off again.</span>"
+	end_message = span_notice("The air seems to be cooling off again.")
 	var/pre_maint_all_access
 	area_type = /area
 	protected_areas = list(/area/maintenance, /area/turret_protected/ai_upload, /area/turret_protected/ai_upload_foyer,
@@ -23,12 +23,17 @@
 
 	immunity_type = TRAIT_RADSTORM_IMMUNE
 
+/datum/weather/rad_storm/endless
+	weather_duration_upper = 10 HOURS
+
 /datum/weather/rad_storm/telegraph()
 	..()
 	status_alarm(TRUE)
-	pre_maint_all_access = GLOB.maint_all_access
-	if(!GLOB.maint_all_access)
-		make_maint_all_access()
+	pre_maint_all_access = SSmapping.maint_all_access
+	if(SSmapping.maint_all_access)
+		return
+
+	SSmapping.make_maint_all_access()
 
 
 /datum/weather/rad_storm/can_weather_act(mob/living/mob_to_check)
@@ -56,14 +61,21 @@
 			randmutg(target)
 	target.check_genes(MUTCHK_FORCED)
 
-
 /datum/weather/rad_storm/end()
 	if(..())
 		return
-	GLOB.priority_announcement.Announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
+
 	status_alarm(FALSE)
-	if(!pre_maint_all_access)
-		revoke_maint_all_access()
+	if(pre_maint_all_access)
+		GLOB.minor_announcement.announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места. Доступ к дверям будет немедленно восстановлен.",
+										ANNOUNCE_ANOMALY_RU
+		)
+		return
+
+	GLOB.minor_announcement.announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.",
+									ANNOUNCE_ANOMALY_RU
+	)
+	addtimer(CALLBACK(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, revoke_maint_all_access)), 10 SECONDS) // Bit of time to get out / break into somewhere.
 
 /datum/weather/rad_storm/proc/status_alarm(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
 	if(active)

@@ -18,6 +18,8 @@
 				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] logged out - No active admins, [admincounter[2]] non-admin staff, [admincounter[3]] inactive staff.")
 
 	..()
+
 	become_uncliented()
 	update_morgue()
+
 	return TRUE

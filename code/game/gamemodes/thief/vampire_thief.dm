@@ -10,8 +10,8 @@
 
 
 /datum/game_mode/vampire/thief/announce()
-	to_chat(world, "<B>The current game mode is - Vampire+Thief!</B>")
-	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров и вампиров. Не дайте вампирам достичь успеха и не допустите кражу дорогостоящего оборудования!</B>")
+	to_chat(world, "<b>The current game mode is - Vampire+Thief!</b>")
+	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров и вампиров. Не дайте вампирам достичь успеха и не допустите кражу дорогостоящего оборудования!</b>")
 
 
 /datum/game_mode/vampire/thief/pre_setup()

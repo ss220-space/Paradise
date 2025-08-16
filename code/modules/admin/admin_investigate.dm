@@ -8,7 +8,7 @@
 //ADMINVERBS
 /client/proc/investigate_show()
 	set name = "Investigate"
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	if(!check_rights(R_ADMIN))
 		return
 
@@ -60,7 +60,9 @@
 		if("hrefs")				//persistant logs and stuff
 			if(config && CONFIG_GET(flag/log_hrefs))
 				if(GLOB.world_href_log)
-					src << browse(wrap_file(GLOB.world_href_log), "window=investigate[selected];size=800x300")
+					var/datum/browser/popup = new(src, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
+					popup.set_content(wrap_file(GLOB.world_href_log))
+					popup.open(FALSE)
 				else
 					to_chat(src, "<font color='red'>Error: admin_investigate: No href logfile found.</font>")
 					return
@@ -73,5 +75,7 @@
 			if(!fexists(F))
 				to_chat(src, "<class span='danger'>No [selected] logfile was found.</span>")
 				return
-			F = {"<meta charset="UTF-8">"} + wrap_file2text(F)
-			src << browse(F,"window=investigate[selected];size=800x300")
+			F = wrap_file2text(F)
+			var/datum/browser/popup = new(src, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
+			popup.set_content(F)
+			popup.open(FALSE)

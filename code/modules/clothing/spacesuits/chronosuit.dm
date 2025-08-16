@@ -4,7 +4,7 @@
 	icon_state = "chronohelmet"
 	item_state = "chronohelmet"
 	slowdown = 1
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 30, "bio" = 90, "rad" = 90, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 60, BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
@@ -25,7 +25,7 @@
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
 	actions_types = list(/datum/action/item_action/toggle)
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 30, "bio" = 90, "rad" = 90, "fire" = 100, "acid" = 1000)
+	armor = list(MELEE = 60, BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 1000)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null
@@ -100,9 +100,9 @@
 					user.forceMove(to_turf)
 					if(user.client)
 						if(camera)
-							user.client.eye = camera
+							user.client.set_eye(camera)
 						else
-							user.client.eye = user
+							user.client.set_eye(user)
 				qdel(holder)
 			else if(user)
 				user.forceMove(from_turf)
@@ -198,7 +198,7 @@
 		if(user == holder)
 			if(user.client && user.client.eye != src)
 				src.loc = get_turf(user)
-				user.client.eye = src
+				user.client.set_eye(src)
 			var/step = get_step(src, direction)
 			if(step)
 				if(isspaceturf(step))
@@ -214,5 +214,5 @@
 		if(holder.remote_control == src)
 			holder.remote_control = null
 		if(holder.client && (holder.client.eye == src))
-			holder.client.eye = holder
+			holder.client.set_eye(holder)
 	return ..()

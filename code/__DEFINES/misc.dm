@@ -98,8 +98,6 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
-#define in_range(source, user)		(get_dist(source, user) <= 1)
-
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
 	GLOB.dview_mob.set_invis_see(invis_flags); \
@@ -134,8 +132,8 @@
 
 // Metal foam states
 // teehee no one will find these here
-#define MFOAM_ALUMINUM 	1
-#define MFOAM_IRON 		2
+#define MFOAM_ALUMINUM	1
+#define MFOAM_IRON		2
 
 //Carbon Overlays Indexes/////////
 #define MUTANTRACE_LAYER		45
@@ -183,7 +181,7 @@
 #define SLEEP_LAYER				3
 #define FROZEN_LAYER			2
 #define SSD_LAYER				1
-#define TOTAL_LAYERS 			46
+#define TOTAL_LAYERS			46
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -226,19 +224,19 @@
 	The color on the left is the one used as the actual color of the wire, but it doesn't look good when written.
 	So, we need to replace the name to something that looks better.
 */
-#define LIST_COLOR_RENAME 				\
+#define LIST_COLOR_RENAME				\
 	list(								\
 		"rebeccapurple" = "dark purple",\
 		"darkslategrey" = "dark grey",	\
 		"darkolivegreen"= "dark green",	\
 		"darkslateblue" = "dark blue",	\
-		"darkkhaki" 	= "khaki",		\
-		"darkseagreen" 	= "light green",\
-		"midnightblue" 	= "blue",		\
-		"lightgrey" 	= "light grey",	\
-		"darkgrey" 		= "dark grey",	\
-		"steelblue" 	= "blue",		\
-		"goldenrod"	 	= "gold"		\
+		"darkkhaki"	= "khaki",		\
+		"darkseagreen"	= "light green",\
+		"midnightblue"	= "blue",		\
+		"lightgrey"	= "light grey",	\
+		"darkgrey"		= "dark grey",	\
+		"steelblue"	= "blue",		\
+		"goldenrod"		= "gold"		\
 	)
 
 /// Pure Black and white colorblindness. Every species except Vulpkanins and Tajarans will have this.
@@ -263,9 +261,9 @@
 		"red"		= "darkolivegreen",	\
 		"green"		= "darkslategrey",	\
 		"orange"	= "goldenrod",		\
-		"yellow"	= "goldenrod", 		\
+		"yellow"	= "goldenrod",		\
 		"brown"		= "darkolivegreen",	\
-		"gold"		= "goldenrod", 		\
+		"gold"		= "goldenrod",		\
 		"cyan"		= "steelblue",		\
 		"magenta"	= "blue",			\
 		"purple"	= "darkslategrey",	\
@@ -363,7 +361,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 34
+#define SQL_VERSION 36
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -395,15 +393,15 @@
 #define DEFIB_TIME_LOSS (60 SECONDS)
 
 //different types of atom colorations
-#define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
-#define TEMPORARY_COLOUR_PRIORITY 	2 //e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
-#define WASHABLE_COLOUR_PRIORITY 	3 //color splashed onto an atom (e.g. paint on turf)
-#define FIXED_COLOUR_PRIORITY 		4 //color inherent to the atom (e.g. blob color)
+#define ADMIN_COLOUR_PRIORITY		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
+#define TEMPORARY_COLOUR_PRIORITY	2 //e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
+#define WASHABLE_COLOUR_PRIORITY	3 //color splashed onto an atom (e.g. paint on turf)
+#define FIXED_COLOUR_PRIORITY		4 //color inherent to the atom (e.g. blob color)
 #define COLOUR_PRIORITY_AMOUNT 4 //how many priority levels there are.
 
 //Cleaning tool strength
 // 1 is also a valid cleaning strength but completely unused so left undefined
-#define CLEAN_WEAK 			2
+#define CLEAN_WEAK			2
 #define CLEAN_MEDIUM		3 // Acceptable tools
 #define CLEAN_STRONG		4 // Industrial strength
 #define CLEAN_IMPRESSIVE	5 // Cleaning strong enough your granny would be proud
@@ -444,9 +442,8 @@
 #define PARALLAX_LOOP_TIME		25
 
 // Engine types
-#define ENGTYPE_SING 		"Singularity"
-#define ENGTYPE_SM		"Supermatter"
-#define ENGTYPE_TESLA		"Tesla"
+#define ENGTYPE_SING "Сингулярность"
+#define ENGTYPE_TESLA "Тесла"
 
 #define SUMMON_GUNS "guns"
 #define SUMMON_MAGIC "magic"
@@ -506,7 +503,10 @@
 #define MECH_TYPE_OLD_DURAND	(1<<12)
 #define MECH_TYPE_DARK_GYGAX	(1<<13)
 
-
+/// Lavaland types
+#define LAVALAND_TYPE_LAVA	(1<<0)
+#define	LAVALAND_TYPE_PLASMA	(1<<1)
+#define	LAVALAND_TYPE_CHASM	(1<<2)
 
 // Deadchat control defines
 
@@ -516,3 +516,21 @@
 #define DEADCHAT_ANARCHY_MODE (1<<1)
 /// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
 #define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)
+
+// GAS ANALYZER
+#define ANALYZER_MODE_SURROUNDINGS 0
+#define ANALYZER_MODE_TARGET 1
+#define ANALYZER_HISTORY_SIZE 30
+#define ANALYZER_HISTORY_MODE_KPA "kpa"
+#define ANALYZER_HISTORY_MODE_MOL "mol"
+
+/// Get the client from the var
+/proc/client_from_var(I)
+	if(ismob(I))
+		var/mob/A = I
+		return A.client
+	if(isclient(I))
+		return I
+	if(istype(I, /datum/mind))
+		var/datum/mind/B = I
+		return B.current.client

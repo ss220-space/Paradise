@@ -6,6 +6,7 @@
 /obj/item/reagent_containers/food/snacks/spaghetti
 	name = "spaghetti"
 	desc = "A bundle of raw spaghetti."
+	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "spaghetti"
 	filling_color = "#EDDD00"
@@ -16,6 +17,7 @@
 /obj/item/reagent_containers/food/snacks/macaroni
 	name = "macaroni twists"
 	desc = "These are little twists of raw macaroni."
+	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "macaroni"
 	filling_color = "#EDDD00"
@@ -31,6 +33,7 @@
 /obj/item/reagent_containers/food/snacks/boiledspaghetti
 	name = "boiled spaghetti"
 	desc = "A plain dish of noodles. This sucks."
+	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "spaghettiboiled"
 	trash = /obj/item/trash/plate
@@ -42,6 +45,7 @@
 /obj/item/reagent_containers/food/snacks/pastatomato
 	name = "spaghetti"
 	desc = "Spaghetti and crushed tomatoes. Just like your abusive father used to make!"
+	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "pastatomato"
 	trash = /obj/item/trash/plate
@@ -54,6 +58,7 @@
 /obj/item/reagent_containers/food/snacks/meatballspaghetti
 	name = "spaghetti & meatballs"
 	desc = "Now thats a nice'a meatball!"
+	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "meatballspaghetti"
 	trash = /obj/item/trash/plate
@@ -65,6 +70,7 @@
 /obj/item/reagent_containers/food/snacks/spesslaw
 	name = "spesslaw"
 	desc = "A lawyer's favourite."
+	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "spesslaw"
 	filling_color = "#DE4545"
@@ -76,6 +82,7 @@
 /obj/item/reagent_containers/food/snacks/macncheese
 	name = "mac 'n' cheese"
 	desc = "One of the most comforting foods in the world. Apparently."
+	w_class = WEIGHT_CLASS_SMALL
 	trash = /obj/item/trash/snack_bowl
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "macncheese"
@@ -87,6 +94,7 @@
 /obj/item/reagent_containers/food/snacks/lasagna
 	name = "Lasagna"
 	desc = "Tajara are supposed to love to eat this, but the tomato really doesn't work well."
+	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "lasagna"
 	filling_color = "#E18712"
@@ -97,6 +105,7 @@
 /obj/item/reagent_containers/food/snacks/chowmein
 	name = "Chowmein"
 	desc = "Nihao!"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "chowmein"
 	trash = /obj/item/trash/plate
 	list_reagents = list("nutriment" = 6, "protein" = 6)
@@ -107,6 +116,7 @@
 /obj/item/reagent_containers/food/snacks/beefnoodles
 	name = "Beef noodles"
 	desc = "So simple, but so yummy!"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "beefnoodles"
 	trash = /obj/item/trash/snack_bowl
 	list_reagents = list("nutriment" = 3, "protein" = 5, "plantmatter" = 3)

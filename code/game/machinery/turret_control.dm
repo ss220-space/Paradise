@@ -14,6 +14,7 @@
 	anchored = TRUE
 	density = FALSE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	interaction_flags_click = ALLOW_SILICON_REACH
 	var/enabled = FALSE
 	var/lethal = FALSE
 	var/lethal_is_configurable = TRUE
@@ -26,9 +27,9 @@
 	var/check_weapons = FALSE	//checks if it can shoot people that have a weapon they aren't authorized to have
 	var/check_access = TRUE	//if this is active, the turret shoots everything that does not meet the access requirements
 	var/check_anomalies = TRUE	//checks if it can shoot at unidentified lifeforms (ie xenos)
-	var/check_synth = FALSE 	//if active, will shoot at anything not an AI or cyborg
+	var/check_synth = FALSE	//if active, will shoot at anything not an AI or cyborg
 	var/check_borgs = FALSE //if TRUE, target all cyborgs.
-	var/ailock = FALSE 	//Silicons cannot use this
+	var/ailock = FALSE	//Silicons cannot use this
 
 	var/syndicate = FALSE
 	var/faction = "" // Turret controls can only access turrets that are in the same faction

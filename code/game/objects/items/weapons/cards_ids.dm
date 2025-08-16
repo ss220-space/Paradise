@@ -14,10 +14,11 @@
 /obj/item/card
 	name = "card"
 	desc = "A card."
+	gender = MALE
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	pickup_sound = 'sound/items/handling/card_pickup.ogg'
-	drop_sound = 'sound/items/handling/card_drop.ogg'
+	drop_sound = 'sound/items/handling/drop/card_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/card_pickup.ogg'
 	var/associated_account_number = 0
 
 	var/list/files = list(  )
@@ -73,13 +74,22 @@
 	A.emag_act(user)
 
 /obj/item/card/cmag
-	desc = "It's a card coated in a slurry of electromagnetic bananium."
+	desc = "Это карта, покрытая жидкостью из электромагнитного бананиума."
 	name = "jestographic sequencer"
 	icon_state = "cmag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 
+/obj/item/card/cmag/get_ru_names()
+	return list(
+		NOMINATIVE = "шутографический считыватель",
+		GENITIVE = "шутографического считывателя",
+		DATIVE = "шутографическому считывателю",
+		ACCUSATIVE = "шутографический считыватель",
+		INSTRUMENTAL = "шутографическим считывателем",
+		PREPOSITIONAL = "шутографическом считывателе"
+	)
 
 /obj/item/card/cmag/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
@@ -107,9 +117,10 @@
 	/// Total mining points for the Shift.
 	var/total_mining_points = 0
 	var/list/access = list()
+	var/law_level = LAW_LEVEL_BASE
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = ITEM_SLOT_ID
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
 
@@ -140,10 +151,25 @@
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT, PROC_REF(freeze_linked_account))
 	spawn(30)
 		if(ishuman(loc) && blood_type == "\[UNSET\]")
 			var/mob/living/carbon/human/H = loc
 			SetOwnerInfo(H)
+
+/obj/item/card/id/Destroy()
+	UnregisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT)
+	. = ..()
+
+/obj/item/card/id/proc/freeze_linked_account(datum/source)
+	SIGNAL_HANDLER
+
+	var/datum/money_account/acc = get_money_account(associated_account_number)
+
+	if(!acc)
+		return
+
+	acc.suspended = TRUE
 
 /obj/item/card/id/examine(mob/user)
 	. = ..()
@@ -197,14 +223,14 @@
 	var/photo_front = "'data:image/png;base64,[icon2base64(icon(photo, dir = SOUTH))]'"
 	var/photo_side = "'data:image/png;base64,[icon2base64(icon(photo, dir = WEST))]'"
 
-	dat = {"<meta charset="UTF-8"><table><tr><td>
-	Name: [registered_name]</A><BR>
-	Sex: [sex]</A><BR>
-	Age: [age]</A><BR>
-	Rank: [assignment]</A><BR>
-	Fingerprint: [fingerprint_hash]</A><BR>
-	Blood Type: [blood_type]<BR>
-	DNA Hash: [dna_hash]<BR><BR>
+	dat = {"<table><tr><td>
+	Name: [registered_name]</a><br>
+	Sex: [sex]</a><br>
+	Age: [age]</a><br>
+	Rank: [assignment]</a><br>
+	Fingerprint: [fingerprint_hash]</a><br>
+	Blood Type: [blood_type]<br>
+	DNA Hash: [dna_hash]<br><br>
 	<td align = center valign = top>Photo:<br><img src=[photo_front] height=80 width=80 border=4>
 	<img src=[photo_side] height=80 width=80 border=4></td></tr></table>"}
 
@@ -276,6 +302,7 @@
 		dat += "<img src=large_[I.icon_state].png>"
 		stamped = TRUE
 		to_chat(user, span_notice("You stamp the ID card!"))
+		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/card/id/guest))
@@ -302,8 +329,8 @@
 
 
 /obj/item/card/id/verb/remove_guest_pass()
-	set name = "Remove Guest Pass"
-	set category = "Object"
+	set name = "Убрать гостевой пропуск"
+	set category = STATPANEL_OBJECT
 	set src in range(0)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -407,6 +434,7 @@
 							"ERT_engineering",
 							"ERT_medical",
 							"ERT_janitorial",
+							"mining_medic",
 						)
 
 /obj/item/card/id/syndicate/anyone
@@ -645,37 +673,37 @@
 				var/department_icon = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", departments)
 				switch(department_icon)
 					if("Engineering")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.engineering_positions)
 					if("Medical")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.medical_positions)
 					if("Science")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.science_positions)
 					if("Security")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.security_positions)
 					if("Support")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.support_positions)
 					if("Command")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.command_positions)
 					if("Special")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
+						new_rank = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs()))
 					if("Custom")
 						new_rank = null
 			else if(department != "Civilian")
 				switch(department)
 					if("Engineering")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.engineering_positions)
 					if("Medical")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.medical_positions)
 					if("Science")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.science_positions)
 					if("Security")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.security_positions)
 					if("Support")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.support_positions)
 					if("Command")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+						new_job = tgui_input_list(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", GLOB.command_positions)
 					if("Special")
-						new_job = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
+						new_job = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs()))
 				new_rank = new_job
 
 			if(!Adjacent(registered_user) || isnull(new_job))
@@ -729,12 +757,6 @@
 			to_chat(registered_user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
 	RebuildHTML()
 
-/obj/item/card/id/syndicate/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/id_card)
-	)
-
-
 /obj/item/card/id/syndicate/ui_data(mob/user)
 	var/list/data = list()
 	data["registered_name"] = registered_name
@@ -756,6 +778,7 @@
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
 	var/list/data = list()
+	data["id_icon"] = icon
 	data["appearances"] = appearances
 	return data
 
@@ -1076,6 +1099,20 @@
 	item_state = "card-id"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/mining_medic
+	name = "Mining Medic ID"
+	registered_name = "Mining Medic"
+	icon_state = "mining_medic"
+	item_state = "mining_medic-id"
+	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
+
+/obj/item/card/id/library_owl
+	name = "Slavka ID"
+	registered_name = "Сыч Вячеслав"
+	icon_state = "id"
+	item_state = "card-id"
+	access = list(ACCESS_LIBRARY)
+
 /obj/item/card/id/rainbow
 	name = "Rainbow ID"
 	icon_state = "rainbow"
@@ -1228,7 +1265,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security", "cadet","medical", "intern","research", "student","cargo","engineering", "trainee","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
+	return list("data","id","gold","silver","security", "cadet","medical", "intern","research", "student","cargo", "mining_medic","engineering", "trainee","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
@@ -1270,5 +1307,7 @@
 			return "Thunderdome Red"
 		if("TDgreen")
 			return "Thunderdome Green"
+		if("mining_medic")
+			return "Mining Medic"
 		else
 			return capitalize(skin)

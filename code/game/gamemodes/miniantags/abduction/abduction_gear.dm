@@ -14,15 +14,15 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(/obj/item/abductor, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = VEST_STEALTH
 	var/stealth_active = 0
 	var/combat_cooldown = 10
 	var/datum/icon_snapshot/disguise
-	var/stealth_armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70)
-	var/combat_armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 90, "acid" = 90)
+	var/stealth_armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70)
+	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 90, ACID = 90)
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
@@ -117,7 +117,7 @@
 /obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
 	if(ishuman(loc))
 		if(combat_cooldown != initial(combat_cooldown))
-			to_chat(loc, "<span class='warning'>Combat injection is still recharging.</span>")
+			to_chat(loc, span_warning("Combat injection is still recharging."))
 			return
 		var/mob/living/carbon/human/M = loc
 		M.adjustStaminaLoss(-75)
@@ -135,7 +135,7 @@
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.vest == src)
 			C.vest = null
 			break
@@ -147,7 +147,7 @@
 /obj/item/proc/AbductorCheck(user)
 	if(isabductor(user))
 		return TRUE
-	to_chat(user, "<span class='warning'>You can't figure how this works!</span>")
+	to_chat(user, span_warning("You can't figure how this works!"))
 	return FALSE
 
 /obj/item/abductor/proc/ScientistCheck(user)
@@ -158,7 +158,7 @@
 	var/datum/species/abductor/S = H.dna.species
 	if(S.scientist)
 		return TRUE
-	to_chat(user, "<span class='warning'>You're not trained to use this!</span>")
+	to_chat(user, span_warning("You're not trained to use this!"))
 	return FALSE
 
 /obj/item/abductor/gizmo
@@ -184,7 +184,7 @@
 	if(!ScientistCheck(user))
 		return
 	if(!console)
-		to_chat(user, "<span class='warning'>The device is not linked to a console!</span>")
+		to_chat(user, span_warning("The device is not linked to a console!"))
 		return
 
 	if(mode == GIZMO_SCAN)
@@ -192,7 +192,7 @@
 	else
 		mode = GIZMO_SCAN
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, "<span class='notice'>You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
+	to_chat(user, span_notice("You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE"))
 
 
 /obj/item/abductor/gizmo/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -217,7 +217,7 @@
 	if(!ScientistCheck(user))
 		return
 	if(!console)
-		to_chat(user, "<span class='warning'>The device is not linked to console!</span>")
+		to_chat(user, span_warning("The device is not linked to console!"))
 		return
 
 	switch(mode)
@@ -229,16 +229,16 @@
 /obj/item/abductor/gizmo/proc/scan(atom/target, mob/living/user)
 	if(ishuman(target))
 		console.AddSnapshot(target)
-		to_chat(user, "<span class='notice'>You scan [target] and add [target.p_them()] to the database.</span>")
+		to_chat(user, span_notice("You scan [target] and add [target.p_them()] to the database."))
 
 /obj/item/abductor/gizmo/proc/mark(atom/target, mob/living/user)
 	if(marked == target)
-		to_chat(user, "<span class='warning'>This specimen is already marked!</span>")
+		to_chat(user, span_warning("This specimen is already marked!"))
 		return
 	if(ishuman(target))
 		if(isabductor(target))
 			marked = target
-			to_chat(user, "<span class='notice'>You mark [target] for future retrieval.</span>")
+			to_chat(user, span_notice("You mark [target] for future retrieval."))
 		else
 			prepare(target,user)
 	else
@@ -246,12 +246,12 @@
 
 /obj/item/abductor/gizmo/proc/prepare(atom/target, mob/living/user)
 	if(get_dist(target,user)>1)
-		to_chat(user, "<span class='warning'>You need to be next to the specimen to prepare it for transport!</span>")
+		to_chat(user, span_warning("You need to be next to the specimen to prepare it for transport!"))
 		return
-	to_chat(user, "<span class='notice'>You begin preparing [target] for transport...</span>")
+	to_chat(user, span_notice("You begin preparing [target] for transport..."))
 	if(do_after(user, 10 SECONDS, target))
 		marked = target
-		to_chat(user, "<span class='notice'>You finish preparing [target] for transport.</span>")
+		to_chat(user, span_notice("You finish preparing [target] for transport."))
 
 /obj/item/abductor/gizmo/Destroy()
 	if(console)
@@ -291,7 +291,7 @@
 	for(M in view(2,targloc))
 		if(M == user)
 			continue
-		to_chat(user, "<span class='notice'>You silence [M]'s radio devices.</span>")
+		to_chat(user, span_notice("You silence [M]'s radio devices."))
 		radio_off_mob(M)
 
 /obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
@@ -328,7 +328,7 @@
 	else
 		mode = MIND_DEVICE_MESSAGE
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, "<span class='notice'>You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE</span>")
+	to_chat(user, span_notice("You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE"))
 
 /obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, params)
 	if(!ScientistCheck(user))
@@ -345,13 +345,13 @@
 		var/mob/living/carbon/C = target
 		var/obj/item/organ/internal/heart/gland/G = C.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(!istype(G))
-			to_chat(user, "<span class='warning'>Your target does not have an experimental gland!</span>")
+			to_chat(user, span_warning("Your target does not have an experimental gland!"))
 			return
 		if(!G.mind_control_uses)
-			to_chat(user, "<span class='warning'>Your target's gland is spent!</span>")
+			to_chat(user, span_warning("Your target's gland is spent!"))
 			return
 		if(G.active_mind_control)
-			to_chat(user, "<span class='warning'>Your target is already under a mind-controlling influence!</span>")
+			to_chat(user, span_warning("Your target is already under a mind-controlling influence!"))
 			return
 
 		var/command = tgui_input_text(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
@@ -366,13 +366,13 @@
 			return
 
 		G.mind_control(command, user)
-		to_chat(user, "<span class='notice'>You send the command to your target.</span>")
+		to_chat(user, span_notice("You send the command to your target."))
 
 /obj/item/abductor/mind_device/proc/mind_message(atom/target, mob/living/user)
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
-			to_chat(user, "<span class='warning'>Your target is dead!</span>")
+			to_chat(user, span_warning("Your target is dead!"))
 			return
 		var/message = tgui_input_text(user, "Write a message to send to your target's brain.", "Enter message")
 		if(!message)
@@ -380,8 +380,8 @@
 		if(QDELETED(L) || L.stat == DEAD)
 			return
 
-		to_chat(L, "<span class='italics'>You hear a voice in your head saying: </span><span class='abductor'>[message]</span>")
-		to_chat(user, "<span class='notice'>You send the message to your target.</span>")
+		to_chat(L, "[span_italics("You hear a voice in your head saying:")] [span_abductor(message)]")
+		to_chat(user, span_notice("You send the message to your target."))
 		add_say_logs(user, message, L, "Mind device")
 
 /obj/item/gun/energy/alien
@@ -423,8 +423,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/paper/abductor/update_icon_state()
 	return
 
-/obj/item/paper/abductor/AltClick()
-	return
+/obj/item/paper/abductor/click_alt()
+	return NONE
 
 
 #define BATON_STUN 0
@@ -636,7 +636,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "hard-light energy field"
 	desc = "A hard-light field restraining the hands."
 	icon_state = "cuff_white" // Needs sprite
-	breakouttime = 450
+	breakout_time = 450
 	trashtype = /obj/item/restraints/handcuffs/energy/used
 	origin_tech = "materials=4;magnets=5;abductor=2"
 
@@ -645,8 +645,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_flags = DROPDEL
 
 /obj/item/restraints/handcuffs/energy/used/dropped(mob/user, slot, silent = FALSE)
-	user.visible_message("<span class='danger'>[src] restraining [user] breaks in a discharge of energy!</span>", \
-							"<span class='userdanger'>[src] restraining [user] breaks in a discharge of energy!</span>")
+	user.visible_message(span_danger("[src] restraining [user] breaks in a discharge of energy!"), \
+							span_userdanger("[src] restraining [user] breaks in a discharge of energy!"))
 	do_sparks(4, 0, user.loc)
 	. = ..()
 
@@ -831,7 +831,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/applicator/abductor
 	name = "alien mender"
-	desc = "Hidden behind a high-tech look is a time-tested mechanism"
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Выполнено из прочного инопланетного материала."
 	origin_tech = "materials=2;biotech=3;abductor=2"
 	icon_state = "alien_mender_empty"
 	item_state = "alien_mender"
@@ -839,6 +839,16 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	emagged = TRUE
 	ignore_flags = TRUE
 	var/base_icon = "alien_mender_brute"
+
+/obj/item/reagent_containers/applicator/abductor/get_ru_names()
+	return list(
+        NOMINATIVE = "инопланетный авто-мендер",
+        GENITIVE = "инопланетного авто-мендера",
+        DATIVE = "инопланетному авто-мендеру",
+        ACCUSATIVE = "инопланетный авто-мендер",
+        INSTRUMENTAL = "инопланетным авто-мендером",
+        PREPOSITIONAL = "инопланетном авто-мендере"
+	)
 
 /obj/item/reagent_containers/applicator/abductor/update_icon_state()
 	var/reag_pct = round((reagents.total_volume / volume) * 100)
@@ -852,51 +862,144 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/applicator/abductor/brute
 	name = "alien brute mender"
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления механических повреждений. Выполнено из прочного инопланетного материала."
 	base_icon = "alien_mender_brute"
 	list_reagents = list("styptic_powder" = 200)
 
+/obj/item/reagent_containers/applicator/abductor/brute/get_ru_names()
+	return list(
+        NOMINATIVE = "инопланетный авто-мендер (Мех. Повреждения)",
+        GENITIVE = "инопланетного авто-мендера (Мех. Повреждения)",
+        DATIVE = "инопланетному авто-мендеру (Мех. Повреждения)",
+        ACCUSATIVE = "инопланетный авто-мендер (Мех. Повреждения)",
+        INSTRUMENTAL = "инопланетным авто-мендером (Мех. Повреждения)",
+        PREPOSITIONAL = "инопланетном авто-мендере (Мех. Повреждения)"
+	)
+
 /obj/item/reagent_containers/applicator/abductor/burn
 	name = "alien burn mender"
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления термических повреждений. Выполнено из прочного инопланетного материала."
 	base_icon = "alien_mender_burn"
 	list_reagents = list("silver_sulfadiazine" = 200)
 
+/obj/item/reagent_containers/applicator/abductor/burn/get_ru_names()
+	return list(
+        NOMINATIVE = "инопланетный авто-мендер (Терм. Повреждения)",
+        GENITIVE = "инопланетного авто-мендера (Терм. Повреждения)",
+        DATIVE = "инопланетному авто-мендеру (Терм. Повреждения)",
+        ACCUSATIVE = "инопланетный авто-мендер (Терм. Повреждения)",
+        INSTRUMENTAL = "инопланетным авто-мендером (Терм. Повреждения)",
+        PREPOSITIONAL = "инопланетном авто-мендере (Терм. Повреждения)"
+	)
+
 /obj/item/reagent_containers/glass/bottle/abductor
 	name = "alien bottle"
-	desc = "A durable bottle, made from alien alloy"
+	desc = "Прочная бутылка, сделанная из инопланетного материала."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=4"
 	icon_state = "alien_bottle"
 	item_state = "alien_bottle"
 	volume = 50
 
+/obj/item/reagent_containers/glass/bottle/abductor/get_ru_names()
+	return list(
+        NOMINATIVE = "инопланетная бутылка",
+        GENITIVE = "инопланетной бутылки",
+        DATIVE = "инопланетной бутылке",
+        ACCUSATIVE = "инопланетную бутылку",
+        INSTRUMENTAL = "инопланетной бутылкой",
+        PREPOSITIONAL = "инопланетной бутылке"
+	)
+
 /obj/item/reagent_containers/glass/bottle/abductor/rezadone
 	name = "rezadone bottle"
 	list_reagents = list("rezadone" = 50)
+
+/obj/item/reagent_containers/glass/bottle/abductor/rezadone/get_ru_names()
+	return list(
+        NOMINATIVE = "инопланетная бутылка (Резадон)",
+        GENITIVE = "инопланетной бутылки (Резадон)",
+        DATIVE = "инопланетной бутылке (Резадон)",
+        ACCUSATIVE = "инопланетную бутылку (Резадон)",
+        INSTRUMENTAL = "инопланетной бутылкой (Резадон)",
+        PREPOSITIONAL = "инопланетной бутылке (Резадон)"
+	)
 
 /obj/item/reagent_containers/glass/bottle/abductor/epinephrine
 	name = "epinephrine bottle"
 	list_reagents = list("epinephrine" = 50)
 
+/obj/item/reagent_containers/glass/bottle/abductor/epinephrine/get_ru_names()
+	return list(
+        NOMINATIVE = "инопланетная бутылка (Эпинефрин)",
+        GENITIVE = "инопланетной бутылки (Эпинефрин)",
+        DATIVE = "инопланетной бутылке (Эпинефрин)",
+        ACCUSATIVE = "инопланетную бутылку (Эпинефрин)",
+        INSTRUMENTAL = "инопланетной бутылкой (Эпинефрин)",
+        PREPOSITIONAL = "инопланетной бутылке (Эпинефрин)"
+	)
+
 /obj/item/reagent_containers/glass/bottle/abductor/salgu
 	name = "saline-glucose solution bottle"
 	list_reagents = list("salglu_solution" = 50)
+
+/obj/item/reagent_containers/glass/bottle/abductor/salgu/get_ru_names()
+	return list(
+        NOMINATIVE = "инопланетная бутылка (Физиологический раствор)",
+        GENITIVE = "инопланетной бутылки (Физиологический раствор)",
+        DATIVE = "инопланетной бутылке (Физиологический раствор)",
+        ACCUSATIVE = "инопланетную бутылку (Физиологический раствор)",
+        INSTRUMENTAL = "инопланетной бутылкой (Физиологический раствор)",
+        PREPOSITIONAL = "инопланетной бутылке (Физиологический раствор)"
+	)
 
 /obj/item/reagent_containers/glass/bottle/abductor/oculine
 	name = "oculine bottle"
 	list_reagents = list("oculine" = 50)
 
+/obj/item/reagent_containers/glass/bottle/abductor/oculine/get_ru_names()
+	return list(
+        NOMINATIVE = "инопланетная бутылка (Окулин)",
+        GENITIVE = "инопланетной бутылки (Окулин)",
+        DATIVE = "инопланетной бутылке (Окулин)",
+        ACCUSATIVE = "инопланетную бутылку (Окулин)",
+        INSTRUMENTAL = "инопланетной бутылкой (Окулин)",
+        PREPOSITIONAL = "инопланетной бутылке (Окулин)"
+	)
+
 /obj/item/reagent_containers/glass/bottle/abductor/pen_acid
 	name = "pentetic acid bottle"
 	list_reagents = list("pen_acid" = 50)
 
+/obj/item/reagent_containers/glass/bottle/abductor/pen_acid/get_ru_names()
+	return list(
+        NOMINATIVE = "инопланетная бутылка (Пентетовая кислота)",
+        GENITIVE = "инопланетной бутылки (Пентетовая кислота)",
+        DATIVE = "инопланетной бутылке (Пентетовая кислота)",
+        ACCUSATIVE = "инопланетную бутылку (Пентетовая кислота)",
+        INSTRUMENTAL = "инопланетной бутылкой (Пентетовая кислота)",
+        PREPOSITIONAL = "инопланетной бутылке (Пентетовая кислота)"
+	)
+
 /obj/item/healthanalyzer/abductor
 	name = "alien health analyzer"
+	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта. Выполнен из прочного инопланетного материала."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=4;biotech=4;abductor=2"
 	advanced = TRUE
 	icon_state = "alien_hscanner"
 	item_state = "alien_hscanner"
-	desc = "Why its interface looks so familiar?"
+	theme = "abductor"
+
+/obj/item/healthanalyzer/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетный анализатор здоровья",
+		GENITIVE = "инопланетного анализатора здоровья",
+		DATIVE = "инопланетному анализатору здоровья",
+		ACCUSATIVE = "инопланетный анализатор здоровья",
+		INSTRUMENTAL = "инопланетным анализатором здоровья",
+		PREPOSITIONAL = "инопланетном анализаторе здоровья"
+	)
 
 /obj/item/storage/firstaid_abductor
 	name = "alien medkit"

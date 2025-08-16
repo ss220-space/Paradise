@@ -13,7 +13,7 @@
 	model = "Guardian"
 	icon = 'icons/obj/mecha/mecha.dmi'
 	icon_state = "darkgygax"
-	radio_channel = "Syndicate"
+	radio_channel = SYND_FREQ_NAME
 	health = 300
 	maxHealth = 300
 	declare_arrests = FALSE
@@ -175,8 +175,8 @@
 	if(lastfired && world.time - lastfired < shot_delay)
 		return
 	lastfired = world.time
-	var/obj/item/projectile/P = new projectile(loc)
-	playsound(loc, shoot_sound, 100, 1)
+	var/obj/projectile/P = new projectile(loc)
+	playsound(loc, shoot_sound, 100, TRUE)
 	P.current = loc
 	P.starting = loc
 	P.firer = src
@@ -202,7 +202,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
-	projectile = /obj/item/projectile/bullet/a40mm
+	projectile = /obj/projectile/bullet/a40mm
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/emp_act(severity)

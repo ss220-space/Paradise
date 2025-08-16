@@ -47,9 +47,9 @@
 	return pick(valid_picks)
 
 /proc/random_hair_style(
-	gender, 
-	datum/species/species, 
-	datum/robolimb/robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"], 
+	gender,
+	datum/species/species,
+	datum/robolimb/robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"],
 	mob/living/carbon/human/human
 	)
 	var/h_style = "Bald"
@@ -133,6 +133,8 @@
 		if(gender == S.unsuitable_gender)	// If the marking isn't allowed for the user's gender, skip.
 			continue
 		if(!(species in S.species_allowed))	// If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+			continue
+		if(!S.pickable) //If our markings are unpickable in normal ways, skip it
 			continue
 		if(location == "tail")
 			if(!body_accessory)
@@ -248,41 +250,63 @@
 		if(70 to INFINITY)	return "elderly"
 		else				return "unknown"
 
-/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name)
+// TODO definise records fields or rewrite
+
+/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name, law_level = LAW_LEVEL_BASE)
 	var/status = criminal_status
-	var/their_name = target_records.fields["name"]
-	var/their_rank = target_records.fields["rank"]
+	var/list/fields = target_records.fields
+	var/their_name = fields["name"]
+	var/their_rank = fields["rank"]
+	var/static/list/protected_levels = list(SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED)
+
 	switch(criminal_status)
-		if("arrest", SEC_RECORD_STATUS_ARREST)
+
+		if(SEC_STATUS_ARREST, SEC_RECORD_STATUS_ARREST)
 			status = SEC_RECORD_STATUS_ARREST
-		if("none", SEC_RECORD_STATUS_NONE)
+
+		if(SEC_STATUS_NONE, SEC_RECORD_STATUS_NONE)
 			status = SEC_RECORD_STATUS_NONE
-		if("execute", SEC_RECORD_STATUS_EXECUTE)
+
+		if(SEC_STATUS_EXECUTE, SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
 				usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			else
-				return 0
-		if("search", SEC_RECORD_STATUS_SEARCH)
+				return FALSE
+
+		if(SEC_STATUS_SEARCH, SEC_RECORD_STATUS_SEARCH)
 			status = SEC_RECORD_STATUS_SEARCH
-		if("monitor", SEC_RECORD_STATUS_MONITOR)
+
+		if(SEC_STATUS_MONITOR, SEC_RECORD_STATUS_MONITOR)
 			status = SEC_RECORD_STATUS_MONITOR
-		if("demote", SEC_RECORD_STATUS_DEMOTE)
+
+		if(SEC_STATUS_DEMOTE, SEC_RECORD_STATUS_DEMOTE)
 			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
 			usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			status = SEC_RECORD_STATUS_DEMOTE
-		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
+
+		if(SEC_STATUS_INCARCERATED, SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
-		if("parolled", SEC_RECORD_STATUS_PAROLLED)
+
+		if(SEC_STATUS_PAROLLED, SEC_RECORD_STATUS_PAROLLED)
 			status = SEC_RECORD_STATUS_PAROLLED
-		if("released", SEC_RECORD_STATUS_RELEASED)
+
+		if(SEC_STATUS_RELEASED, SEC_RECORD_STATUS_RELEASED)
 			status = SEC_RECORD_STATUS_RELEASED
-	target_records.fields["criminal"] = status
+
+	if((fields["criminal"] in protected_levels) && fields["last_modifier_level"] > law_level)
+		if(!user)
+			return
+		to_chat(user, span_warning("Вы не можете изменить криминальный статус. Он установлен кем-то, у кого юридические полномочия выше ваших."))
+		return
+
+	fields["last_modifier_level"] = law_level
+	fields["criminal"] = status
 	log_admin("[key_name_admin(user)] set secstatus of [their_rank] [their_name] to [status], comment: [comment]")
-	target_records.fields["comments"] += "Set to [status] by [user_name || user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
+	fields["comments"] += "Set to [status] by [user_name || user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
 	update_all_mob_security_hud()
-	return 1
+	return TRUE
 
 
 /**
@@ -484,7 +508,7 @@
 			if(DEAD)
 				status = "<font color='red'><b>Dead</b></font>"
 		health_description = "Status = [status]"
-		health_description += "<BR>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
+		health_description += "<br>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
 	else
 		health_description = "This mob type has no health to speak of."
 
@@ -500,7 +524,7 @@
 	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
+	to_chat(user, "(<a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")]) ([ADMIN_OBS(M, "OBS")])")
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
@@ -534,16 +558,19 @@
 	if(!client.next_mouse_macro_warning) // Log once
 		log_and_message_admins("attempted to use a mouse macro: [verbused] [html_encode(params)]")
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
-		usr << 'sound/misc/sadtrombone.ogg'
+		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
 		client.next_mouse_macro_warning = world.time + 600
+
 /mob/verb/ClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".click"
 	LogMouseMacro(".click", params)
+
 /mob/verb/DblClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".dblclick"
 	LogMouseMacro(".dblclick", params)
+
 /mob/verb/MouseSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".mouse"
@@ -588,14 +615,20 @@
 					mob_spawn_meancritters += T
 				if(FRIENDLY_SPAWN)
 					mob_spawn_nicecritters += T
+		for(var/mob/living/basic/basic_mob as anything in typesof(/mob/living/basic))
+			switch(initial(basic_mob.gold_core_spawnable))
+				if(HOSTILE_SPAWN)
+					mob_spawn_meancritters += basic_mob
+				if(FRIENDLY_SPAWN)
+					mob_spawn_nicecritters += basic_mob
 
 	var/chosen
 	if(mob_class == FRIENDLY_SPAWN)
 		chosen = pick(mob_spawn_nicecritters)
 	else
 		chosen = pick(mob_spawn_meancritters)
-	var/mob/living/simple_animal/C = new chosen(spawn_location)
-	return C
+	var/mob/living/spawned_mob = new chosen(spawn_location)
+	return spawned_mob
 
 //determines the job of a mob, taking into account job transfers
 /proc/determine_role(mob/living/P)
@@ -605,8 +638,8 @@
 	return M.playtime_role ? M.playtime_role : M.assigned_role	//returns current role
 
 /**	checks the security force on station and returns a list of numbers, of the form:
- * 	total, active, dead, antag
- * 	where active is defined as conscious (STAT = 0) and not an antag
+ *	total, active, dead, antag
+ *	where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
 	var/sec_positions = GLOB.security_positions - JOB_TITLE_JUDGE - JOB_TITLE_BRIGDOC

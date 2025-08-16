@@ -10,17 +10,17 @@
 	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	force = 5
-	throwforce = 7
+	force = 15
+	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
-	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
-	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/crowbar_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("атаковал", "ударил", "огрел")
 	toolspeed = 1
 
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
 
 /obj/item/crowbar/Initialize(mapload)
@@ -30,7 +30,6 @@
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"
-	force = 8
 
 /obj/item/crowbar/red/sec
 	icon_state = "crowbar_sec"
@@ -58,7 +57,7 @@
 /obj/item/crowbar/large
 	name = "crowbar"
 	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
-	force = 12
+	force = 20
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
 	throw_range = 3
@@ -71,7 +70,6 @@
 	name = "hydraulic crowbar"
 	desc = "A hydraulic prying tool, compact but powerful. Designed to replace crowbar in construction cyborgs."
 	usesound = 'sound/items/jaws_pry.ogg'
-	force = 10
 	toolspeed = 0.5
 
 /obj/item/crowbar/power
@@ -83,10 +81,18 @@
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2"
 	usesound = 'sound/items/jaws_pry.ogg'
-	force = 15
 	toolspeed = 0.25
-	ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/airlock_open_time = 100 // Time required to open powered airlocks
+
+/obj/item/crowbar/power/get_ru_names()
+	return list(
+		NOMINATIVE = "челюсти жизни", 
+		GENITIVE = "челюстей жизни", 
+		DATIVE = "челюстям жизни", 
+		ACCUSATIVE = "челюсти жизни", 
+		INSTRUMENTAL = "челюстями жизни", 
+		PREPOSITIONAL = "челюстях жизни"
+	)
 
 /obj/item/crowbar/power/Initialize(mapload)
 	. = ..()
@@ -94,11 +100,11 @@
 
 /obj/item/crowbar/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] помеща[pluralize_ru(user.gender,"ет","ют")] свою голову между лезвиями [src.declent_ru(GENITIVE)]. Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] использовать [src.declent_ru(ACCUSATIVE)] для самоубийства!</span>")
-	playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
+	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/crowbar/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
+	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, TRUE)
 	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
 	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
 	qdel(src)
