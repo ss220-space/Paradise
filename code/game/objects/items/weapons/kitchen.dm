@@ -444,6 +444,62 @@
 	throwforce = 11
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/kitchen/knife/ghostface_knife
+	name = "knife"
+	desc = "Очень острый нож. Судя по потёртостям и засохшей крови, он совсем не валялся без дела."
+	icon = 'icons/obj/items.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	icon_state = "ghostface_knife"
+	force = 34
+	armour_penetration = 70
+	block_chance = 30
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 34
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
+	throw_speed = 3
+	throw_range = 6
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
+	sharp = TRUE
+
+/obj/item/kitchen/knife/ghostface_knife/get_ru_names()
+	return list(
+		NOMINATIVE = "старый нож",
+		GENITIVE = "старого ножа",
+		DATIVE = "старому ножу",
+		ACCUSATIVE = "старый нож",
+		INSTRUMENTAL = "старым ножом",
+		PREPOSITIONAL = "старом ноже"
+	)
+
+/obj/item/kitchen/knife/ghostface_knife/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = -0.3, \
+		slowdown_duration = 3 SECONDS, \
+		swing_sound = "knife_swing" \
+	)
+
+/obj/item/kitchen/knife/ghostface_knife/devil
+	name = "old knife"
+	desc = "Странный нож с, тем не менее, крайне острым лезвием. Судя по характерным потёртостям и засохшей крови, он явно не валялся без дела."
+	icon_state = "devil_ghostface_knife"
+
+/obj/item/kitchen/knife/ghostface_knife/devil/get_ru_names()
+	return list(
+		NOMINATIVE = "старый ржавый нож",
+		GENITIVE = "старого ржавого ножа",
+		DATIVE = "старому ржавому ножу",
+		ACCUSATIVE = "старый ржавый нож",
+		INSTRUMENTAL = "старым ржавым ножом",
+		PREPOSITIONAL = "старом ржавом ноже"
+	)
+
+
 /*
  * Rolling Pins
  */
