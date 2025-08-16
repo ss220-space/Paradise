@@ -391,7 +391,7 @@
 										'sound/AI/commandreport.ogg')
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
-		begin_the_ritual()
+		begin_the_ritual(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
@@ -430,9 +430,11 @@
 			return FALSE
 		return TRUE
 
-/obj/structure/clockwork/functional/altar/proc/begin_the_ritual()
+/obj/structure/clockwork/functional/altar/proc/begin_the_ritual(mob/user)
 	visible_message(span_danger("На месте [declent_ru(GENITIVE)] появляется огромное сердце!"))
 	new /obj/structure/clockwork/functional/heart(get_turf(src))
+	var/clockpointer = new /obj/item/pinpointer/clock(get_turf(user))
+	user.put_in_hands(clockpointer)
 	qdel(src)
 	return
 

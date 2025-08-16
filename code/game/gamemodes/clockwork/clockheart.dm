@@ -34,6 +34,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	if(GLOB.heart)
 		qdel(src, TRUE)
 		return
+	GLOB.poi_list += src
 	GLOB.heart = src
 	enchants = GLOB.gun_and_heart_spells
 	alpha = 0
@@ -162,8 +163,11 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		ANNOUNCE_CCPARANORMAL_RU,
 		'sound/AI/commandreport.ogg'
 	)
-	new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
-	qdel(src)
+	var/obj/structure/clockwork/functional/celestial_gateway/gateway = new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
+	for(var/obj/structure/heart_filler/filler as anything in fillers)
+		filler.parent = gateway
+		filler.name = gateway.name
+	gateway.fillers = fillers
 
 /obj/structure/clockwork/functional/heart/proc/throw_everything_back()
 	var/throw_dist
@@ -227,14 +231,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/heart_filler
 	name = "The Heart of Ratvar"
-	ru_names = list(
-		NOMINATIVE = "Сердце Ратвара",
-		GENITIVE = "Сердца Ратвара",
-		DATIVE = "Сердцу Ратвара",
-		ACCUSATIVE = "Сердце Ратвара",
-		INSTRUMENTAL = "Сердцем Ратвара",
-		PREPOSITIONAL = "Сердце Ратвара",
-	)
 	desc = "Огромный механизм из латуни, напоминающий сердце. От его громкого тиканья у вас начинает болеть голова..."
 	density = TRUE
 	anchored = TRUE
@@ -309,7 +305,9 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/part_dial/Initialize(mapload)
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+	GLOB.poi_list += src
 	. = ..()
+
 
 /obj/structure/part_dial/proc/pulse()
 	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
@@ -359,6 +357,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/item/part_upper/Initialize(mapload)
 	. = ..()
+	GLOB.poi_list += src
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 
 /obj/item/part_upper/proc/destroy_curse(mob/living/user)

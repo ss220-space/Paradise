@@ -12,13 +12,14 @@
 	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
-
+	layer = ABOVE_ALL_MOB_LAYER + 0.1
 	var/seconds_until_activation = 0
 	var/first_sound_played = FALSE
 	var/second_sound_played = FALSE
 	var/third_sound_played = FALSE
 	var/purpose_fulfilled = FALSE
 	var/obj/effect/countdown/clockworkgate/countdown
+	var/list/obj/structure/fillers = list()
 
 /obj/structure/clockwork/functional/celestial_gateway/Initialize(mapload)
 	. = ..()
@@ -44,6 +45,10 @@
 	GLOB.ark_of_the_clockwork_justiciar = null
 	for(var/mob/M as anything in GLOB.mob_list)
 		M.stop_sound_channel(CHANNEL_JUSTICAR_ARK)
+	qdel(fillers)
+	var/obj/structure/clockwork/functional/heart/heart = locate() in loc
+	if(heart)
+		qdel(heart)
 	. = ..()
 
 /obj/structure/clockwork/functional/celestial_gateway/deconstruct(disassembled)
@@ -114,7 +119,7 @@
 	for(var/turf/simulated/wall/W in RANGE_TURFS(2, src))
 		W.dismantle_wall()
 	for(var/obj/O in orange(1, src))
-		if(!O.pulledby && !iseffect(O) && O.density)
+		if(!O.pulledby && !iseffect(O) && O.density && !istype(O, /obj/structure/heart_filler) && !istype(O, /obj/structure/clockwork/functional/heart))
 			if(!step_away(O, src, 2) || get_dist(O, src) < 2)
 				O.take_damage(50, BURN, BOMB)
 			O.update_icon()
