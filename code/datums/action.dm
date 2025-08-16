@@ -616,7 +616,7 @@
 
 /datum/action/item_action/toggle_cleave_attack
 	name = "Переключить режим атаки со взмахом"
-	check_flags = 0
+	check_flags = NONE
 	attack_self = FALSE
 
 
