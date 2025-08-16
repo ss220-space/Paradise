@@ -181,8 +181,27 @@
 	icon_state = "baseball_blue"
 	item_state = "baseball_blue"
 
+/obj/item/clothing/head/tchaikowsky/baseballcap/get_ru_names()
+	return list(
+		NOMINATIVE = "бейсболка синего цвета",
+		GENITIVE = "бейсболки синего цвета",
+		DATIVE = "бейсболке синего цвета",
+		ACCUSATIVE = "бейсболку синего цвета",
+		INSTRUMENTAL = "бейсболкой синего цвета",
+		PREPOSITIONAL = "бейсболке синего цвета"
+	)
 /obj/item/clothing/head/tchaikowsky/baseballcap/brown
 	name = "baseball cap (brown)"
 	desc = "Бейсболка коричневого цвета. Мерч команды Cybersun Ind."
 	icon_state = "baseball_brown"
 	item_state = "baseball_brown"
+
+/obj/item/clothing/head/tchaikowsky/baseballcap/brown/get_ru_names()
+	return list(
+		NOMINATIVE = "бейсболка коричневого цвета",
+		GENITIVE = "бейсболки коричневого цвета",
+		DATIVE = "бейсболке коричневого цвета",
+		ACCUSATIVE = "бейсболку коричневого цвета",
+		INSTRUMENTAL = "бейсболкой коричневого цвета",
+		PREPOSITIONAL = "бейсболке коричневого цвета"
+	)

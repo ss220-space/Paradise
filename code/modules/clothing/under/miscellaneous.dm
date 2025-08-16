@@ -1401,12 +1401,32 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	can_adjust = TRUE
 
+/obj/item/clothing/under/tchaikowsky/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа с завышенной талией",
+		GENITIVE = "униформы с завышенной талией",
+		DATIVE = "униформе с завышенной талией",
+		ACCUSATIVE = "униформу с завышенной талией",
+		INSTRUMENTAL = "униформой с завышенной талией",
+		PREPOSITIONAL = "униформе с завышенной талией"
+	)
+
 /obj/item/clothing/under/tchaikowsky/dress
 	name = "formal blue dress"
 	desc = "Синее платье, которое обычно носят секретарши важных представителей корпораций."
 	icon_state = "formal_dress_blue"
 	item_state = "formal_dress_blue"
 	can_adjust = TRUE
+
+/obj/item/clothing/under/tchaikowsky/dress/get_ru_names()
+	return list(
+		NOMINATIVE = "синее платье",
+		GENITIVE = "синего платья",
+		DATIVE = "синему платью",
+		ACCUSATIVE = "синее платье",
+		INSTRUMENTAL = "синим платьем",
+		PREPOSITIONAL = "синем платье"
+	)
 
 /obj/item/clothing/under/tchaikowsky/dress/black
 	name = "formal black dress"
@@ -1415,11 +1435,31 @@
 	item_state = "formal_dress_black"
 	can_adjust = TRUE
 
+/obj/item/clothing/under/tchaikowsky/dress/black/get_ru_names()
+	return list(
+		NOMINATIVE = "черное платье",
+		GENITIVE = "черного платья",
+		DATIVE = "черному платью",
+		ACCUSATIVE = "черное платье",
+		INSTRUMENTAL = "черным платьем",
+		PREPOSITIONAL = "черном платье"
+	)
+
 /obj/item/clothing/under/tchaikowsky/highwaistpants
 	name = "hight waist pants"
 	desc = "Штаны с завышенной талией. Идут в комплекте с черной рубашкой!"
 	icon_state = "high_waist_pants"
 	item_state = "high_waist_pants"
+
+/obj/item/clothing/under/tchaikowsky/high_waist_pants/get_ru_names()
+	return list(
+		NOMINATIVE = "штаны с завышенной талией",
+		GENITIVE = "штанов с завышенной талией",
+		DATIVE = "штанам с завышенной талией",
+		ACCUSATIVE = "штаны с завышенной талией	",
+		INSTRUMENTAL = "штанами с завышенной талией",
+		PREPOSITIONAL = "штанах с завышенной талией"
+	)
 
 /obj/item/clothing/under/tchaikowsky/evening_dress
 	name = "evening dress (black)"
@@ -1427,10 +1467,30 @@
 	icon_state = "evening_dress_black"
 	item_state = "evening_dress_black"
 
+/obj/item/clothing/under/tchaikowsky/evening_dress/get_ru_names()
+	return list(
+		NOMINATIVE = "черное платье",
+		GENITIVE = "черного платья",
+		DATIVE = "черному платью",
+		ACCUSATIVE = "черное платье",
+		INSTRUMENTAL = "черным платьем",
+		PREPOSITIONAL = "черном платье"
+	)
+
 /obj/item/clothing/under/tchaikowsky/evening_dress/cyan
 	name = "evening dress (cyan)"
 	icon_state = "evening_dress_cyan"
 	item_state = "evening_dress_cyan"
+
+/obj/item/clothing/under/tchaikowsky/evening_dress/cyan/get_ru_names()
+	return list(
+		NOMINATIVE = "сине-зелёное платье",
+		GENITIVE = "сине-зелёного платья",
+		DATIVE = "сине-зелёному платью",
+		ACCUSATIVE = "сине-зелёное платье",
+		INSTRUMENTAL = "сине-зелёным платьем",
+		PREPOSITIONAL = "сине-зелёном платье"
+	)
 
 /obj/item/clothing/under/tchaikowsky/baseball
 	name = "baseball uniform (blue)"
@@ -1438,8 +1498,28 @@
 	icon_state = "baseball_uniform_blue"
 	item_state = "baseball_uniform_blue"
 
+/obj/item/clothing/under/tchaikowsky/baseball/get_ru_names()
+	return list(
+		NOMINATIVE = "бейсбольная униформа синего цвета",
+		GENITIVE = "бейсбольной униформы синего цвета",
+		DATIVE = "бейсбольной униформе синего цвета",
+		ACCUSATIVE = "бейсбольную униформу синего цвета",
+		INSTRUMENTAL = "бейсбольной униформой синего цвета",
+		PREPOSITIONAL = "бейсбольной униформе синего цвета"
+	)
+
 /obj/item/clothing/under/tchaikowsky/baseball/brown
 	name = "baseball uniform (brown)"
 	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды Cybersun Ind."
 	icon_state = "baseball_uniform_brown"
 	item_state = "baseball_uniform_brown"
+
+/obj/item/clothing/under/tchaikowsky/baseball/brown/get_ru_names()
+	return list(
+		NOMINATIVE = "бейсбольная униформа коричневого цвета",
+		GENITIVE = "бейсбольной униформы коричневого цвета",
+		DATIVE = "бейсбольной униформе коричневого цвета",
+		ACCUSATIVE = "бейсбольную униформу коричневого цвета",
+		INSTRUMENTAL = "бейсбольной униформой коричневого цвета",
+		PREPOSITIONAL = "бейсбольной униформе коричневого цвета"
+	)
