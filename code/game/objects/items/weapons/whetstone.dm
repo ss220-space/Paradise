@@ -15,7 +15,7 @@
 	/// Maximum force sharpening items with the whetstone can result in.
 	var/max = 30
 	/// The prefix a whetstone applies when an item is sharpened with it.
-	var/prefix = "sharpened"
+	var/prefix = "Острое"
 	/// If TRUE, the whetstone will only sharpen already sharp items.
 	var/requires_sharpness = TRUE
 
@@ -106,7 +106,7 @@
 	desc = "Каменный блок, который заточит ваше оружие острее, чем Эйнштейн на аддералле."
 	increment = 200
 	max = 200
-	prefix = "super-sharpened"
+	prefix = "Крайне острое"
 	requires_sharpness = FALSE
 	claws_increment = 200
 
