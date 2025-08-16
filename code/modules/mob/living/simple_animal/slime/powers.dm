@@ -1,4 +1,4 @@
-#define SIZE_DOESNT_MATTER 	-1
+#define SIZE_DOESNT_MATTER	-1
 #define BABIES_ONLY			0
 #define ADULTS_ONLY			1
 

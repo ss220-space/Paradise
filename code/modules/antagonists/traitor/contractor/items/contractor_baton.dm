@@ -7,14 +7,6 @@
 /obj/item/melee/baton/telescopic/contractor
 	name = "contractor baton"
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
-	ru_names = list(
-		NOMINATIVE = "дубинка контрактника",
-		GENITIVE = "дубинки контрактника",
-		DATIVE = "дубинке контрактника",
-		ACCUSATIVE = "дубинку контрактника",
-		INSTRUMENTAL = "дубинкой контрактника",
-		PREPOSITIONAL = "дубинке контрактника"
-	)
 	icon_state = "contractor_baton"
 	affect_cyborgs = TRUE
 	affect_bots = TRUE
@@ -32,6 +24,16 @@
 	var/list/upgrades
 	/// Current amount of cuffs left, used with cuffs upgrade.
 	var/cuffs_amount = 0
+
+/obj/item/melee/baton/telescopic/contractor/get_ru_names()
+	return list(
+		NOMINATIVE = "дубинка контрактника",
+		GENITIVE = "дубинки контрактника",
+		DATIVE = "дубинке контрактника",
+		ACCUSATIVE = "дубинку контрактника",
+		INSTRUMENTAL = "дубинкой контрактника",
+		PREPOSITIONAL = "дубинке контрактника"
+	)
 
 
 /obj/item/melee/baton/telescopic/contractor/examine(mob/user)
@@ -160,7 +162,11 @@
 /obj/item/baton_upgrade/cuff
 	name = "handcuff upgrade"
 	desc = "Позволяет заряжать стяжки, которые будут автоматически надеваться на цель после удара дубинкой."
-	ru_names = list(
+	icon_state = "cuff_upgrade"
+	upgrade_examine = "автоматически связывает цель, если она истощена. Сначала необходимо зарядить стяжками"
+
+/obj/item/baton_upgrade/cuff/get_ru_names()
+	return list(
 		NOMINATIVE = "модуль \"Стяжки\"",
 		GENITIVE = "модуля \"Стяжки\"",
 		DATIVE = "модулю \"Стяжки\"",
@@ -168,14 +174,16 @@
 		INSTRUMENTAL = "модулем \"Стяжки\"",
 		PREPOSITIONAL = "модуле \"Стяжки\""
 	)
-	icon_state = "cuff_upgrade"
-	upgrade_examine = "автоматически связывает цель, если она истощена. Сначала необходимо зарядить стяжками"
 
 
 /obj/item/baton_upgrade/mute
 	name = "mute upgrade"
 	desc = "Удар дубинкой по цели заставит ее замолчать на короткое время."
-	ru_names = list(
+	icon_state = "mute_upgrade"
+	upgrade_examine = "лишает жертву способности говорить на некоторое время"
+
+/obj/item/baton_upgrade/mute/get_ru_names()
+	return list(
 		NOMINATIVE = "модуль \"Безмолвие\"",
 		GENITIVE = "модуля \"Безмолвие\"",
 		DATIVE = "модулю \"Безмолвие\"",
@@ -183,14 +191,15 @@
 		INSTRUMENTAL = "модулем \"Безмолвие\"",
 		PREPOSITIONAL = "модуле \"Безмолвие\""
 	)
-	icon_state = "mute_upgrade"
-	upgrade_examine = "лишает жертву способности говорить на некоторое время"
-
 
 /obj/item/baton_upgrade/focus
 	name = "focus upgrade"
 	desc = "Удар дубинкой по цели, если она является объектом вашего контракта, приведёт к дополнительному истощению."
-	ru_names = list(
+	icon_state = "focus_upgrade"
+	upgrade_examine = "позволяет нанести дополнительный ущерб цели вашего текущего контракта"
+
+/obj/item/baton_upgrade/focus/get_ru_names()
+	return list(
 		NOMINATIVE = "модуль \"Фокусировка\"",
 		GENITIVE = "модуля \"Фокусировка\"",
 		DATIVE = "модулю \"Фокусировка\"",
@@ -198,14 +207,15 @@
 		INSTRUMENTAL = "модулем \"Фокусировка\"",
 		PREPOSITIONAL = "модуле \"Фокусировка\""
 	)
-	icon_state = "focus_upgrade"
-	upgrade_examine = "позволяет нанести дополнительный ущерб цели вашего текущего контракта"
-
 
 /obj/item/baton_upgrade/antidrop
 	name = "antidrop upgrade"
 	desc = "Этот модуль фиксирует дубинку, не позволяя выронить её из рук ни при каких обстоятельствах."
-	ru_names = list(
+	icon_state = "antidrop_upgrade"
+	upgrade_examine = "позволяет держать в руках дубинку, невзирая на происходящее с вами"
+
+/obj/item/baton_upgrade/antidrop/get_ru_names()
+	return list(
 		NOMINATIVE = "модуль \"Защита от выпадения\"",
 		GENITIVE = "модуля \"Защита от выпадения\"",
 		DATIVE = "модулю \"Защита от выпадения\"",
@@ -213,9 +223,6 @@
 		INSTRUMENTAL = "модулем \"Защита от выпадения\"",
 		PREPOSITIONAL = "модуле \"Защита от выпадения\""
 	)
-	icon_state = "antidrop_upgrade"
-	upgrade_examine = "позволяет держать в руках дубинку, невзирая на происходящее с вами"
-
 
 #undef UPGRADE_MUTE
 #undef UPGRADE_CUFFS

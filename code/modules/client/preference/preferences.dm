@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_DEMON = 21,
 	ROLE_SENTIENT = 21,
 	ROLE_ELITE = 21,
-// 	ROLE_GANG = 21,
+//	ROLE_GANG = 21,
 	ROLE_BORER = 21,
 	ROLE_NINJA = 21,
 	ROLE_GSPIDER = 21,
@@ -71,10 +71,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
-#define TAB_CHAR 	0
-#define TAB_GAME 	1
-#define TAB_SPEC 	2
-#define TAB_KEYS 	3
+#define TAB_CHAR	0
+#define TAB_GAME	1
+#define TAB_SPEC	2
+#define TAB_KEYS	3
 #define TAB_TOGGLES 4
 
 /datum/preferences

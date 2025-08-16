@@ -453,7 +453,12 @@
 /obj/item/CQC_manual
 	name = "old manual"
 	desc = "Небольшая книжка чёрного цвета. Это подробное руководство по тактике рукопашного боя."
-	ru_names = list(
+	icon = 'icons/obj/library.dmi'
+	icon_state = "cqcmanual"
+	item_state = "cqcmanual"
+
+/obj/item/CQC_manual/get_ru_names()
+	return list(
 		NOMINATIVE = "старое руководство",
 		GENITIVE = "старого руководства",
 		DATIVE = "старому руководству",
@@ -461,9 +466,6 @@
 		INSTRUMENTAL = "старым руководством",
 		PREPOSITIONAL = "старом руководстве"
 	)
-	icon = 'icons/obj/library.dmi'
-	icon_state = "cqcmanual"
-	item_state = "cqcmanual"
 
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
@@ -492,7 +494,13 @@
 /obj/item/CQC_manual/chef
 	name = "CQC Upgrade implant"
 	desc = "Небольшой шприц, содержащий в себе имплант. Даёт вам запомнить то, что вы всегда забываете."
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/items.dmi'
+	icon_state = "implanter1"
+	item_state = "syringe_0"
+
+/obj/item/CQC_manual/chef/get_ru_names()
+	return list(
 		NOMINATIVE = "имплант улучшения CQC",
 		GENITIVE = "импланта улучшения CQC",
 		DATIVE = "импланту улучшения CQC",
@@ -500,10 +508,6 @@
 		INSTRUMENTAL = "имплантом улучшения CQC",
 		PREPOSITIONAL = "импланте улучшения CQC"
 	)
-	gender = MALE
-	icon = 'icons/obj/items.dmi'
-	icon_state = "implanter1"
-	item_state = "syringe_0"
 
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
 	if(!istype(user))
@@ -547,7 +551,13 @@
 /obj/item/mr_chang_technique
 	name = "\"Aggressive Marketing Technique\""
 	desc = "Лишь беглый взгляд по обложке этого журнала принёс вам 23 кредита чистой прибыли! О как!"
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/library.dmi'
+	icon_state = "mr_cheng_manual"
+	item_state = "mr_cheng_manual"
+
+/obj/item/mr_chang_technique/get_ru_names()
+	return list(
 		NOMINATIVE = "журнал \"Техника Агрессивного Маркетинга\"",
 		GENITIVE = "журнала \"Техника Агрессивного Маркетинга\"",
 		DATIVE = "журналу \"Техника Агрессивного Маркетинга\"",
@@ -555,10 +565,6 @@
 		INSTRUMENTAL = "журналом \"Техника Агрессивного Маркетинга\"",
 		PREPOSITIONAL = "журнале \"Техника Агрессивного Маркетинга\""
 	)
-	gender = MALE
-	icon = 'icons/obj/library.dmi'
-	icon_state = "mr_cheng_manual"
-	item_state = "mr_cheng_manual"
 
 /obj/item/mr_chang_technique/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
@@ -575,7 +581,13 @@
 /obj/item/throwing_manual
 	name = "Commandos knife techniques manual"
 	desc = "Тонкая чёрная книжка. На обложке изображён мужчина с ножами в руках. \nСодержит руководство по изучению техники владения ножами с наглядной демонстрацией применения приёмов."
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/library.dmi'
+	icon_state = "throwingknives"
+	item_state = "throwingknives"
+
+/obj/item/throwing_manual/get_ru_names()
+	return list(
 		NOMINATIVE = "мануал \"Курс Техники метания ножей молодого Десантника\"",
 		GENITIVE = "мануала \"Курс Техники метания ножей молодого Десантника\"",
 		DATIVE = "мануалу \"Курс Техники метания ножей молодого Десантника\"",
@@ -583,10 +595,6 @@
 		INSTRUMENTAL = "Мануалом \"Курс Техники метания ножей молодого Десантника\"",
 		PREPOSITIONAL = "Мануале \"Курс Техники метания ножей молодого Десантника\""
 	)
-	gender = MALE
-	icon = 'icons/obj/library.dmi'
-	icon_state = "throwingknives"
-	item_state = "throwingknives"
 
 /obj/item/throwing_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)

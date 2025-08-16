@@ -85,13 +85,14 @@
 	icon_state = "syndie_rapier"
 	item_state = "syndie_rapier"
 	origin_tech = "combat=5;biotech=5;syndicate=4"
+	force = 22
 	materials = null
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 
 /obj/item/melee/rapier/syndie/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/after_attack/attack_effect_sleep, 30, 10 SECONDS)
+	AddElement(/datum/element/after_attack/attack_effect_sleep, 45, 5 SECONDS)
 
 
 /obj/item/melee/rapier/centcomm

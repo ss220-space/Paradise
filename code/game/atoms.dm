@@ -10,7 +10,7 @@
 	var/list/fingerprints_time
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
-	var/list/interactors = list()
+	var/list/interactors
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
@@ -144,6 +144,13 @@
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
+	var/list/names = ru_names
+
+	if(names && !GLOB.cached_ru_names[type])
+		GLOB.cached_ru_names[type] = names
+
+	ru_names = null
+
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED
@@ -850,7 +857,8 @@
 		add_fibers(M)
 
 		if(!(M.real_name in interactors))
-			interactors += M.real_name
+			LAZYADD(interactors, M.real_name)
+
 		//He has no prints!
 		if(HAS_TRAIT(M, TRAIT_NO_FINGERPRINTS))
 			if(fingerprintslast != M.key)
@@ -1480,6 +1488,18 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			color = C
 			return
 
+/atom/proc/get_ru_names()
+	return
+
+/atom/proc/get_ru_names_cached()
+	var/list/names = GLOB.cached_ru_names[type]
+	if(names)
+		return names
+	names = get_ru_names()
+	if(names)
+		GLOB.cached_ru_names[type] = names
+		return names
+	return
 
 /** Call this when you want to present a renaming prompt to the user.
 
@@ -1550,14 +1570,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(actually_rename)
 		if(t == "")
-			if(ru_names)
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[initial(ru_names[i])]"
+			ru_names = get_ru_names_cached()
 			name = "[initial(name)]"
 		else
-			if(ru_names)
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[initial(ru_names[i])] - [t]"
+			if(!ru_names)
+				var/list/names =  get_ru_names_cached()
+				ru_names = names? names.Copy() : list()
+			for(var/i = 1; i <= 6; i++)
+				ru_names[i] = "[ru_names[i] || name] - [t]"
 			name = "[prefix][t]"
 	return t
 
@@ -1565,7 +1585,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 // Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
 // ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 /atom/proc/declent_ru(case_id, list/ru_names_override)
-	var/list/list_to_use = ru_names_override || ru_names
+	var/list/list_to_use = ru_names_override || ru_names || get_ru_names_cached()
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
 	return name
@@ -1825,7 +1845,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 
 	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-	active_hud.screentip_text.maptext = MAPTEXT("<span style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[capitalize(src.declent_ru(NOMINATIVE))]</span>")
+	active_hud.screentip_text.maptext = MAPTEXT("<span style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[src.declent_ru(NOMINATIVE)]</span>")
 
 // This is normal, I assure you. Paradise optimization.
 /atom/MouseExited(location, control, params)
@@ -1848,11 +1868,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/add_gravity(id, gravity_delta)
 	if(id in gravity_sources)
 		gravity_sources[id] = 0
-
-	gravity_sources[id] += gravity_delta
+	else
+		LAZYADDASSOC(gravity_sources, id, gravity_delta)
 
 	if(!gravity_sources[id])
-		gravity_sources.Remove(id)
+		LAZYREMOVE(gravity_sources, id)
 
 	if(!isliving(src))
 		return
@@ -1861,19 +1881,21 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	M.refresh_gravity()
 
 /atom/proc/remove_gravity_source(id)
-	gravity_sources.Remove(id)
+	LAZYREMOVE(gravity_sources, id)
 	if(isliving(src))
 		var/mob/living/M = src
 		M.refresh_gravity()
 
 /atom/proc/add_ignored_gravity_source(id)
 	if(!(id in ignored_gravity_sources))
-		ignored_gravity_sources[id] = 1
+		LAZYADDASSOC(ignored_gravity_sources, id, 1)
 	else
 		ignored_gravity_sources[id]++
 
 /atom/proc/remove_ignored_gravity_source(id)
-	ignored_gravity_sources[id]--
+	if(id in ignored_gravity_sources)
+		ignored_gravity_sources[id]--
+
 	if(!ignored_gravity_sources[id])
 		ignored_gravity_sources.Remove(id)
 
