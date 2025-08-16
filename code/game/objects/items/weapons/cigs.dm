@@ -243,12 +243,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(!ru_names)
 		ru_names = get_ru_names_cached()
 
-	ru_names[NOMINATIVE] = "прикуренная " + ru_names[NOMINATIVE]
-	ru_names[GENITIVE] = "прикуренной " + ru_names[GENITIVE]
-	ru_names[DATIVE] = "прикуренной " + ru_names[DATIVE]
-	ru_names[ACCUSATIVE] = "прикуренную " + ru_names[ACCUSATIVE]
-	ru_names[INSTRUMENTAL] = "прикуренной " + ru_names[INSTRUMENTAL]
-	ru_names[PREPOSITIONAL] = "прикуренной " + ru_names[PREPOSITIONAL]
+	ru_names = list(
+		NOMINATIVE = "[lit ? "прикуренная " : ""]сигарета",
+		GENITIVE = "[lit ? "прикуренной " : ""]сигареты",
+		DATIVE = "[lit ? "прикуренной " : ""]сигарете",
+		ACCUSATIVE = "[lit ? "прикуренную " : ""]сигарету",
+		INSTRUMENTAL = "[lit ? "прикуренной " : ""]сигаретой",
+		PREPOSITIONAL = "[lit ? "прикуренной " : ""]сигарете"
+	)
 
 /obj/item/clothing/mask/cigarette/get_heat()
 	return lit * 1000
