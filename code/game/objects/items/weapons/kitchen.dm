@@ -229,7 +229,15 @@
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
 	desc = "Огромный мясницкий тесак, предназначенный для измельчения мяса. В том числе и клоунов и их субпродуктов."
-	ru_names = list(
+	icon_state = "butch"
+	flags = CONDUCT
+	force = 15
+	throwforce = 8
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/kitchen/knife/butcher/get_ru_names()
+	return list(
 		NOMINATIVE = "мясницкий тесак",
 		GENITIVE = "мясницкого тесака",
 		DATIVE = "мясницкому тесаку",
@@ -237,12 +245,6 @@
 		INSTRUMENTAL = "мясницким тесаком",
 		PREPOSITIONAL = "мясницком тесаке"
 	)
-	icon_state = "butch"
-	flags = CONDUCT
-	force = 15
-	throwforce = 8
-	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/kitchen/knife/butcher/ComponentInitialize()
 	. = ..()
@@ -262,7 +264,13 @@
 
 /obj/item/kitchen/knife/butcher/meatcleaver
 	name = "meat cleaver"
-	ru_names = list(
+	icon_state = "mcleaver"
+	item_state = "mcleaver"
+	force = 25
+	throwforce = 15
+
+/obj/item/kitchen/knife/butcher/meatcleaver/get_ru_names()
+	return list(
 		NOMINATIVE = "тесак для мяса",
 		GENITIVE = "тесака для мяса",
 		DATIVE = "тесаку для мяса",
@@ -270,10 +278,6 @@
 		INSTRUMENTAL = "тесаком для мяса",
 		PREPOSITIONAL = "тесаке для мяса"
 	)
-	icon_state = "mcleaver"
-	item_state = "mcleaver"
-	force = 25
-	throwforce = 15
 
 /obj/item/kitchen/knife/butcher/meatcleaver/ComponentInitialize()
 	. = ..()
@@ -313,7 +317,11 @@
 	icon_state = "survivalknife"
 	belt_icon = "survival_knife"
 	desc = "Охотничий нож повышенной прочности."
-	ru_names = list(
+	force = 15
+	throwforce = 15
+
+/obj/item/kitchen/knife/combat/survival/get_ru_names()
+	return list(
 		NOMINATIVE = "нож для выживания",
 		GENITIVE = "ножа для выживания",
 		DATIVE = "ножу для выживания",
@@ -321,8 +329,6 @@
 		INSTRUMENTAL = "ножом для выживания",
 		PREPOSITIONAL = "ноже для выживания"
 	)
-	force = 15
-	throwforce = 15
 
 /obj/item/kitchen/knife/combat/throwing
 	name = "throwing knife"
@@ -339,7 +345,12 @@
 	icon_state = "bone_dagger"
 	belt_icon = "bone_dagger"
 	desc = "Острая кость – минимум для выживания."
-	ru_names = list(
+	materials = list()
+	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
+
+/obj/item/kitchen/knife/combat/survival/bone/get_ru_names()
+	return list(
 		NOMINATIVE = "костяной кинжал",
 		GENITIVE = "костяного кинжала",
 		DATIVE = "костяному кинжалу",
@@ -347,14 +358,19 @@
 		INSTRUMENTAL = "костяным кинжалом",
 		PREPOSITIONAL = "костяном кинжале"
 	)
-	materials = list()
-	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
 
 /obj/item/kitchen/knife/combat/survival/bone/eel
 	name = "eel sharpened tail"
 	desc = "Бритвенно-острый хвост донного угля, аккуратно отделённый от основного тела рыбы. Из такого выйдет отличный нож или наконечник для копья."
-	ru_names = list(
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "eel_sharpened_tail"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "eel_sharpened_tail"
+	embed_disarm = FALSE
+
+/obj/item/kitchen/knife/combat/survival/bone/eel/get_ru_names()
+	return list(
 		NOMINATIVE = "хвост донного угря",
 		GENITIVE = "хвоста донного угря",
 		DATIVE = "хвосту донного угря",
@@ -362,12 +378,6 @@
 		INSTRUMENTAL = "хвостом донного угря",
 		PREPOSITIONAL = "хвосте донного угря"
 	)
-	icon = 'icons/obj/lavaland/lava_fishing.dmi'
-	icon_state = "eel_sharpened_tail"
-	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
-	item_state = "eel_sharpened_tail"
-	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"

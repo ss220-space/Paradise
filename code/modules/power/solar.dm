@@ -59,7 +59,7 @@
 		S.set_anchored(TRUE)
 	S.loc = src
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
-		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
+		max_integrity *= 2								 //this need to be placed here, because panels already on the map don't have an assembly linked to
 		update_integrity(max_integrity)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -573,7 +573,7 @@
 
 	//manual tracking and set a rotation speed
 	if(track == TRACKER_TIMED && trackrate && nexttime <= world.time) //every time we need to increase/decrease the angle by 1?...
-		targetdir = (targetdir + trackrate / abs(trackrate) + 360) % 360 	//... do it
+		targetdir = (targetdir + trackrate / abs(trackrate) + 360) % 360	//... do it
 		nexttime += 36000 / abs(trackrate) //reset the counter for the next 1?
 		cdir = targetdir
 		set_panels(cdir)

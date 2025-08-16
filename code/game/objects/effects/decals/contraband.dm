@@ -5,7 +5,15 @@
 
 /obj/item/poster
 	name = "rolled-up poster"
-	ru_names = list(
+	desc = "Постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах НаноТрейзен."
+	icon = 'icons/obj/contraband.dmi'
+	force = 0
+	resistance_flags = FLAMMABLE
+	var/poster_type
+	var/obj/structure/sign/poster/poster_structure
+
+/obj/item/poster/get_ru_names()
+	return list(
 		NOMINATIVE = "свёрнутый постер",
 		GENITIVE = "свёрнутого постера",
 		DATIVE = "свёрнутому постеру",
@@ -13,12 +21,6 @@
 		INSTRUMENTAL = "свёрнутым постером",
 		PREPOSITIONAL = "свёрнутом постере"
 	)
-	desc = "Постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах НаноТрейзен."
-	icon = 'icons/obj/contraband.dmi'
-	force = 0
-	resistance_flags = FLAMMABLE
-	var/poster_type
-	var/obj/structure/sign/poster/poster_structure
 
 /obj/item/poster/Initialize(mapload, obj/structure/sign/poster/new_poster_structure)
 	. = ..()
@@ -65,14 +67,6 @@
 
 /obj/structure/sign/poster
 	name = "poster"
-	ru_names = list(
-		NOMINATIVE = "постер",
-		GENITIVE = "постера",
-		DATIVE = "постеру",
-		ACCUSATIVE = "постер",
-		INSTRUMENTAL = "постером",
-		PREPOSITIONAL = "постере"
-	)
 	desc = "Большой лист устойчивой к космическим условиям печатной бумаги."
 	icon = 'icons/obj/contraband.dmi'
 	anchored = TRUE
@@ -84,6 +78,16 @@
 	var/poster_item_name = "hypothetical poster"
 	var/poster_item_desc = "This hypothetical poster item should not exist, let's be honest here."
 	var/poster_item_icon_state = "rolled_poster"
+
+/obj/structure/sign/poster/get_ru_names()
+	return list(
+		NOMINATIVE = "постер",
+		GENITIVE = "постера",
+		DATIVE = "постеру",
+		ACCUSATIVE = "постер",
+		INSTRUMENTAL = "постером",
+		PREPOSITIONAL = "постере"
+	)
 
 /obj/structure/sign/poster/Initialize(mapload)
 	. = ..()
@@ -211,7 +215,10 @@
 	ruined = TRUE
 	icon_state = "poster_ripped"
 	name = "ripped poster"
-	ru_names = list(
+	desc = "Вы не можете разобрать, что было изображено на постере. Он испорчен."
+
+/obj/structure/sign/poster/ripped/get_ru_names()
+	return list(
 		NOMINATIVE = "порванный постер",
 		GENITIVE = "порванного постера",
 		DATIVE = "порванному постеру",
@@ -219,7 +226,6 @@
 		INSTRUMENTAL = "порванным постером",
 		PREPOSITIONAL = "порванном постере"
 	)
-	desc = "Вы не можете разобрать, что было изображено на постере. Он испорчен."
 
 /obj/structure/sign/poster/random
 	name = "random poster" // could even be ripped
@@ -230,7 +236,11 @@
 //contraband posters
 /obj/structure/sign/poster/contraband
 	poster_item_name = "contraband poster"
-	ru_names = list(
+	poster_item_desc = "Этот постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах НаноТрейзен."
+	poster_item_icon_state = "rolled_poster"
+
+/obj/structure/sign/poster/contraband/get_ru_names()
+	return list(
 		NOMINATIVE = "контрабандный постер",
 		GENITIVE = "контрабандного постера",
 		DATIVE = "контрабандному постеру",
@@ -238,8 +248,6 @@
 		INSTRUMENTAL = "контрабандным постером",
 		PREPOSITIONAL = "контрабандном постере"
 	)
-	poster_item_desc = "Этот постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах НаноТрейзен."
-	poster_item_icon_state = "rolled_poster"
 
 /obj/structure/sign/poster/contraband/random
 	name = "random contraband poster"
@@ -460,7 +468,11 @@
 //official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
-	ru_names = list(
+	poster_item_desc = "Официальный постер от НаноТрейзен, призванный воспитывать покорную и послушную рабочую силу. Оснащён передовой клеевой основой для удобного крепления на любую вертикальную поверхность."
+	poster_item_icon_state = "rolled_poster_legit"
+
+/obj/structure/sign/poster/official/get_ru_names()
+	return list(
 		NOMINATIVE = "мотивационный постер",
 		GENITIVE = "мотивационного постера",
 		DATIVE = "мотивационному постеру",
@@ -468,8 +480,6 @@
 		INSTRUMENTAL = "мотивационным постером",
 		PREPOSITIONAL = "мотивационном постере"
 	)
-	poster_item_desc = "Официальный постер от НаноТрейзен, призванный воспитывать покорную и послушную рабочую силу. Оснащён передовой клеевой основой для удобного крепления на любую вертикальную поверхность."
-	poster_item_icon_state = "rolled_poster_legit"
 
 /obj/structure/sign/poster/official/random
 	name = "random official poster"
@@ -744,7 +754,11 @@
 
 /obj/structure/sign/poster/secret
 	poster_item_name = "Secret poster"
-	ru_names = list(
+	poster_item_desc = "Крайне Секретный постер."
+	poster_item_icon_state = "rolled_poster"
+
+/obj/structure/sign/poster/secret/get_ru_names()
+	return list(
 		NOMINATIVE = "секретный постер",
 		GENITIVE = "секретного постера",
 		DATIVE = "секретному постеру",
@@ -752,8 +766,6 @@
 		INSTRUMENTAL = "секретным постером",
 		PREPOSITIONAL = "секретном постере"
 	)
-	poster_item_desc = "Крайне Секретный постер."
-	poster_item_icon_state = "rolled_poster"
 
 /obj/structure/sign/poster/secret/lady
 	name = "Девушка-учёный"

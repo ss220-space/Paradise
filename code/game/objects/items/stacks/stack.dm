@@ -1,8 +1,8 @@
 /* Stack type objects!
  * Contains:
- * 		Stacks
- * 		Recipe datum
- * 		Recipe list datum
+ *		Stacks
+ *		Recipe datum
+ *		Recipe list datum
  */
 
 /*

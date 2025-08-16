@@ -36,7 +36,7 @@
 	action_icon_state = "glare"
 
 	selection_activated_message		= span_notice("Вы приготовились к тому, что ваши глаза станут ослепительно яркими! <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message 	= span_notice("Ваши глаза расслабляются... пока что.")
+	selection_deactivated_message	= span_notice("Ваши глаза расслабляются... пока что.")
 	need_active_overlay = TRUE
 
 

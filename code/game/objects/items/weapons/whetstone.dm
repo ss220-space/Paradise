@@ -1,14 +1,6 @@
 /obj/item/whetstone
 	name = "whetstone"
 	desc = "Каменный брусок для заточки инструментов."
-	ru_names = list(
-		NOMINATIVE = "точильный камень",
-		GENITIVE = "точильного камня",
-		DATIVE = "точильному камню",
-		ACCUSATIVE = "точильный камень",
-		INSTRUMENTAL = "точильным камнем",
-		PREPOSITIONAL = "точильном камне"
-	)
 	gender = MALE
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "whetstone"
@@ -26,6 +18,16 @@
 	var/prefix = "sharpened"
 	/// If TRUE, the whetstone will only sharpen already sharp items.
 	var/requires_sharpness = TRUE
+
+/obj/item/whetstone/get_ru_names()
+	return list(
+		NOMINATIVE = "точильный камень",
+		GENITIVE = "точильного камня",
+		DATIVE = "точильному камню",
+		ACCUSATIVE = "точильный камень",
+		INSTRUMENTAL = "точильным камнем",
+		PREPOSITIONAL = "точильном камне"
+	)
 
 
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
@@ -102,7 +104,14 @@
 /obj/item/whetstone/super
 	name = "super whetstone block"
 	desc = "Каменный блок, который заточит ваше оружие острее, чем Эйнштейн на аддералле."
-	ru_names = list(
+	increment = 200
+	max = 200
+	prefix = "super-sharpened"
+	requires_sharpness = FALSE
+	claws_increment = 200
+
+/obj/item/whetstone/super/get_ru_names()
+	return list(
 		NOMINATIVE = "суперточильный блок",
 		GENITIVE = "суперточильного блока",
 		DATIVE = "суперточильному блоку",
@@ -110,23 +119,10 @@
 		INSTRUMENTAL = "суперточильным блоком",
 		PREPOSITIONAL = "суперточильном блоке"
 	)
-	increment = 200
-	max = 200
-	prefix = "super-sharpened"
-	requires_sharpness = FALSE
-	claws_increment = 200
 
 /obj/item/whetstone/crab_shell
 	name = "sturdy crab shell"
 	desc = "Маленький панцирь пепельного рака, подходящий для заточки оружия или когтей. Достаточно крепкий для того, чтобы им можно пользоваться несколько раз."
-	ru_names = list(
-		NOMINATIVE = "панцирь пепельного рака",
-		GENITIVE = "панциря пепельного рака",
-		DATIVE = "панцирю пепельного рака",
-		ACCUSATIVE = "панцирь пепельного рака",
-		INSTRUMENTAL = "панцирем пепельного рака",
-		PREPOSITIONAL = "панцире пепельного рака"
-	)
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "crab_shell"
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
@@ -134,3 +130,14 @@
 	item_state = "crab_shell"
 	increment = 2
 	uses = 2
+
+
+/obj/item/whetstone/crab_shell/get_ru_names()
+	return list(
+		NOMINATIVE = "панцирь пепельного рака",
+		GENITIVE = "панциря пепельного рака",
+		DATIVE = "панцирю пепельного рака",
+		ACCUSATIVE = "панцирь пепельного рака",
+		INSTRUMENTAL = "панцирем пепельного рака",
+		PREPOSITIONAL = "панцире пепельного рака"
+	)

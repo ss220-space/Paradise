@@ -170,7 +170,7 @@
 			if(disguise_active)
 				restore_form()			//This count's too
 			if(spirited)
-				cancel_spirit_form() 	//And another one!
+				cancel_spirit_form()	//And another one!
 			var/datum/action/item_action/action
 			for(action in ninja.actions)
 				if(action.action_initialisation_text)

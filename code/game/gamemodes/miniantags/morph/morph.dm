@@ -4,14 +4,6 @@
 
 /mob/living/simple_animal/hostile/morph
 	name = "morph"
-	ru_names = list(
-		NOMINATIVE = "морф",
-		GENITIVE = "морфа",
-		DATIVE = "морфу",
-		ACCUSATIVE = "морфа",
-		INSTRUMENTAL = "морфом",
-		PREPOSITIONAL = "морфе"
-	)
 	real_name = "morph"
 	desc = "Отвратительная пульсирующая масса плоти."
 	speak_emote = list("булькает", "клокочет")
@@ -73,6 +65,15 @@
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
 
+/mob/living/simple_animal/hostile/morph/get_ru_names()
+	return list(
+		NOMINATIVE = "морф",
+		GENITIVE = "морфа",
+		DATIVE = "морфу",
+		ACCUSATIVE = "морфа",
+		INSTRUMENTAL = "морфом",
+		PREPOSITIONAL = "морфе"
+	)
 
 /mob/living/simple_animal/hostile/morph/proc/check_morphs()
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
@@ -124,7 +125,11 @@
 
 /mob/living/simple_animal/hostile/morph/wizard
 	name = "magical morph"
-	ru_names = list(
+	real_name = "magical morph"
+	desc = "Отвратительная пульсирующая масса плоти. Выглядит несколько... магически."
+
+/mob/living/simple_animal/hostile/morph/wizard/get_ru_names()
+	return list(
 		NOMINATIVE = "магический морф",
 		GENITIVE = "магического морфа",
 		DATIVE = "магическому морфу",
@@ -132,8 +137,6 @@
 		INSTRUMENTAL = "магическим морфом",
 		PREPOSITIONAL = "магическом морфе"
 	)
-	real_name = "magical morph"
-	desc = "Отвратительная пульсирующая масса плоти. Выглядит несколько... магически."
 
 /mob/living/simple_animal/hostile/morph/wizard/New()
 	. = ..()

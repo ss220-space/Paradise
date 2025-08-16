@@ -16,7 +16,14 @@
 /obj/item/clothing/gloves/fingerless/weaver
 	name = "weaver chitin gloves"
 	desc = "Серые беспалые перчатки, сделанные из шкуры мёртвого паукообразного, найденного на Лазисе. Лёгкие и удобные, они позволяют владельцу драться эффективнее в рукопашном бою."
-	ru_names = list(
+	icon_state = "weaver_chitin"
+	item_state = "weaver_chitin"
+	extra_knock_chance = 20
+	var/stamdamage_low = 10
+	var/stamdamage_high = 15
+
+/obj/item/clothing/gloves/fingerless/weaver/get_ru_names()
+	return list(
 		NOMINATIVE = "перчатки из хитина ткача",
 		GENITIVE = "перчаток из хитина ткача",
 		DATIVE = "перчаткам из хитина ткача",
@@ -24,11 +31,6 @@
 		INSTRUMENTAL = "перчатками из хитина ткача",
 		PREPOSITIONAL = "перчатках из хитина ткача"
 	)
-	icon_state = "weaver_chitin"
-	item_state = "weaver_chitin"
-	extra_knock_chance = 20
-	var/stamdamage_low = 10
-	var/stamdamage_high = 15
 
 /obj/item/clothing/gloves/fingerless/weaver/Touch(atom/A, proximity)
 	. = FALSE
@@ -104,14 +106,6 @@
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
 	desc = "На случай, если вы ожидаете удара в руку. Обеспечивает достаточную защиту для ваших рук."
-	ru_names = list(
-		NOMINATIVE = "костяные наручи",
-		GENITIVE = "костяных наручей",
-		DATIVE = "костяным наручам",
-		ACCUSATIVE = "костяные наручи",
-		INSTRUMENTAL = "костяными наручами",
-		PREPOSITIONAL = "костяных наручах"
-	)
 	icon_state = "bracers"
 	item_state = "bracers"
 	item_color = null	//So they don't wash.
@@ -123,6 +117,16 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor = list(MELEE = 25, BULLET = 30, LASER = 20, ENERGY = 25, BOMB = 35, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+
+/obj/item/clothing/gloves/bracer/get_ru_names()
+	return list(
+		NOMINATIVE = "костяные наручи",
+		GENITIVE = "костяных наручей",
+		DATIVE = "костяным наручам",
+		ACCUSATIVE = "костяные наручи",
+		INSTRUMENTAL = "костяными наручами",
+		PREPOSITIONAL = "костяных наручах"
+	)
 
 /obj/item/clothing/gloves/botanic_leather
 	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
@@ -159,7 +163,13 @@
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
 	desc = "Эти перчатки не защитят ваших врагов от электрического удара."
-	ru_names = list(
+	gender = PLURAL
+	var/obj/item/stock_parts/cell/cell = null
+	var/stun_strength = 2 SECONDS
+	var/stun_cost = 1500
+
+/obj/item/clothing/gloves/color/yellow/stun/get_ru_names()
+	return list(
 		NOMINATIVE = "оглушающие перчатки",
 		GENITIVE = "оглушающих перчаток",
 		DATIVE = "оглушающим перчаткам",
@@ -167,10 +177,6 @@
 		INSTRUMENTAL = "оглушающими перчатками",
 		PREPOSITIONAL = "оглушающих перчатках"
 	)
-	gender = PLURAL
-	var/obj/item/stock_parts/cell/cell = null
-	var/stun_strength = 2 SECONDS
-	var/stun_cost = 1500
 
 /obj/item/clothing/gloves/color/yellow/stun/get_cell()
 	return cell
@@ -477,14 +483,6 @@
 /obj/item/clothing/gloves/reflector
 	name = "reflector gloves"
 	desc = "Высокотехнологичные перчатки, изготовленные из светоотражающего материала, предназначены для отражения энергетических лучей. Носить их — настоящее испытание для рук!"
-	ru_names = list(
-		NOMINATIVE = "рефлекторные перчатки",
-		GENITIVE = "рефлекторных перчаток",
-		DATIVE = "рефлекторнным перчаткам",
-		ACCUSATIVE = "рефлекторнные перчатки",
-		INSTRUMENTAL = "рефлекторными перчатками",
-		PREPOSITIONAL = "рефлекторных перчатках"
-	)
 	icon_state = "reflector"
 	item_state = "reflector"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
@@ -502,6 +500,16 @@
 	var/list/reflect_zones = list(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
 	var/hit_reflect_chance = 50
 
+/obj/item/clothing/gloves/reflector/get_ru_names()
+	return list(
+		NOMINATIVE = "рефлекторные перчатки",
+		GENITIVE = "рефлекторных перчаток",
+		DATIVE = "рефлекторнным перчаткам",
+		ACCUSATIVE = "рефлекторнные перчатки",
+		INSTRUMENTAL = "рефлекторными перчатками",
+		PREPOSITIONAL = "рефлекторных перчатках"
+	)
+
 /obj/item/clothing/gloves/reflector/IsReflect(def_zone)
 	if(!(def_zone in reflect_zones))
 		return FALSE
@@ -511,14 +519,6 @@
 /obj/item/clothing/head/helmet/reflector
 	name = "reflector hat"
 	desc = "Высокотехнологичная шляпа, изготовленная из светоотражающего материала, предназначена для отражения энергетических лучей. В неё встроен защитный визор, который обладает повышенной устойчивостью к кислотам."
-	ru_names = list(
-		NOMINATIVE = "рефлекторная шляпа",
-		GENITIVE = "рефлекторную шляпу",
-		DATIVE = "рефлекторной шляпе",
-		ACCUSATIVE = "рефлекторную шляпу",
-		INSTRUMENTAL = "рефлекторной шляпой",
-		PREPOSITIONAL = "рефлекторной шляпе"
-	)
 	icon_state = "reflector"
 	item_state = "reflector"
 	flags_inv = HIDEHEADSETS
@@ -545,6 +545,16 @@
 	var/list/reflect_zones = list(BODY_ZONE_HEAD)
 	var/hit_reflect_chance = 50
 
+/obj/item/clothing/head/helmet/reflector/get_ru_names()
+	return list(
+		NOMINATIVE = "рефлекторная шляпа",
+		GENITIVE = "рефлекторную шляпу",
+		DATIVE = "рефлекторной шляпе",
+		ACCUSATIVE = "рефлекторную шляпу",
+		INSTRUMENTAL = "рефлекторной шляпой",
+		PREPOSITIONAL = "рефлекторной шляпе"
+	)
+
 /obj/item/clothing/head/helmet/reflector/IsReflect(def_zone)
 	if(!(def_zone in reflect_zones))
 		return FALSE
@@ -554,14 +564,6 @@
 /obj/item/clothing/shoes/reflector
 	name = "reflector boots"
 	desc = "Высокотехнологичные ботинки, изготовленные из светоотражающего материала, предназначены для отражения энергетических лучей. Довольно лёгкая, но не очень удобная обувь."
-	ru_names = list(
-		NOMINATIVE = "рефлекторные ботинки",
-		GENITIVE = "рефлекторных ботинок",
-		DATIVE = "рефлекторным ботинкам",
-		ACCUSATIVE = "рефлекторные ботинки",
-		INSTRUMENTAL = "рефлекторными ботинками",
-		PREPOSITIONAL = "рефлекторных ботинках"
-	)
 	icon_state = "reflector"
 	item_state = "reflector"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
@@ -581,6 +583,16 @@
 		)
 	var/list/reflect_zones = list(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	var/hit_reflect_chance = 50
+
+/obj/item/clothing/shoes/reflector/get_ru_names()
+	return list(
+		NOMINATIVE = "рефлекторные ботинки",
+		GENITIVE = "рефлекторных ботинок",
+		DATIVE = "рефлекторным ботинкам",
+		ACCUSATIVE = "рефлекторные ботинки",
+		INSTRUMENTAL = "рефлекторными ботинками",
+		PREPOSITIONAL = "рефлекторных ботинках"
+	)
 
 /obj/item/clothing/shoes/reflector/IsReflect(def_zone)
 	if(!(def_zone in reflect_zones))

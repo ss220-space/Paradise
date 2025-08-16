@@ -50,7 +50,7 @@
 	if(!user || !user.client)
 		return
 	var/client/sufferer = user.client
-	strength *= world.icon_size
+	strength *= ICON_SIZE_ALL
 	var/oldx = sufferer.pixel_x
 	var/oldy = sufferer.pixel_y
 	//get pixels to move the camera in an angle

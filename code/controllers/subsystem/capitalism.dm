@@ -10,20 +10,20 @@ SUBSYSTEM_DEF(capitalism)
 	flags = SS_BACKGROUND
 
 	//This separation is necessary for tests and in general so that it is pleasant
-	var/datum/money_account/base_account 	= null //the account that receives money for orders and vending machines
+	var/datum/money_account/base_account	= null //the account that receives money for orders and vending machines
 	var/datum/money_account/payment_account = null //The account from which the salary is deducted badguy
 
 	//Attention. Statistics for greentext
 	//And why did I make tabs?...
-	var/total_salary_payment = 0 	//How much money was spent on salaries
-	var/total_station_bounty = 0 	//How much money did the money from the cargo bring to the station account
-	var/total_cargo_bounty 	= 0 	//How much money was credited to the cargo account from the tasks
-	var/total_personal_bounty = 0 	//How much money was distributed to the beggars
-	var/income_vedromat = 0 		//Income from vending machines
-	var/default_counter = 0 		//The counter for the number of defaults, I definitely won't make a joke
+	var/total_salary_payment = 0	//How much money was spent on salaries
+	var/total_station_bounty = 0	//How much money did the money from the cargo bring to the station account
+	var/total_cargo_bounty	= 0	//How much money was credited to the cargo account from the tasks
+	var/total_personal_bounty = 0	//How much money was distributed to the beggars
+	var/income_vedromat = 0		//Income from vending machines
+	var/default_counter = 0		//The counter for the number of defaults, I definitely won't make a joke
 
-	var/list/complited_goals = list() 	//It is necessary not to pay again for the goal, gagaga
-	var/default_status = FALSE 			//TRUE if the default is in effect at the station, you can do it in the future, for example, as a cargo modifier
+	var/list/complited_goals = list()	//It is necessary not to pay again for the goal, gagaga
+	var/default_status = FALSE			//TRUE if the default is in effect at the station, you can do it in the future, for example, as a cargo modifier
 
 /datum/controller/subsystem/capitalism/Initialize()
 	accounts_init()
@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(capitalism)
 
 /datum/controller/subsystem/capitalism/proc/salary_account_init()
 	base_account = GLOB.station_account		//The account that the bounty goes to, the money for the goal and the money from the machines.
-	payment_account = GLOB.station_account 	//GLOB.CC_account 	//This is the account from which money is debited for salary. Made for catsmile tests
+	payment_account = GLOB.station_account	//GLOB.CC_account	//This is the account from which money is debited for salary. Made for catsmile tests
 
 	if(!GLOB.vendor_account)
 		GLOB.vendor_account = base_account //:catsmile:
@@ -144,9 +144,9 @@ SUBSYSTEM_DEF(capitalism)
 
 // In short, as for beggars, but for departments
 /datum/controller/subsystem/capitalism/proc/smart_departament_payment(var/list/keys_departament, var/money)
-	. = FALSE 							//If nothing is paid to anyone
-	var/list_payment_account = list() 	//which people should I pay
-	var/bounty = 0 						//What kind of money for each department
+	. = FALSE							//If nothing is paid to anyone
+	var/list_payment_account = list()	//which people should I pay
+	var/bounty = 0						//What kind of money for each department
 	total_personal_bounty += money
 	var/datum/money_account/account = base_account
 
