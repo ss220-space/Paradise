@@ -366,14 +366,6 @@
 /obj/item/clothing/head/shapka_pepega
 	name = "frog hat"
 	desc = "Милая шапочка в виде головы лягушки, окутывающая голову. Мило, мягко и приятно!"
-	ru_names = list(
-		NOMINATIVE = "лягушачья шапка",
-		GENITIVE = "лягушачьей шапки",
-		DATIVE = "лягушачьей шапке",
-		ACCUSATIVE = "лягушачью шапку",
-		INSTRUMENTAL = "лягушачьей шапкой",
-		PREPOSITIONAL = "лягушачьей шапке"
-	)
 	icon_state = "shapka_pepega"
 	item_state = "shapka_pepega"
 	sprite_sheets = list(
@@ -387,3 +379,13 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 	flags_inv = HIDEHEADSETS|HIDEHAIR
+
+/obj/item/clothing/head/shapka_pepega/get_ru_names()
+	return list(
+		NOMINATIVE = "лягушачья шапка",
+		GENITIVE = "лягушачьей шапки",
+		DATIVE = "лягушачьей шапке",
+		ACCUSATIVE = "лягушачью шапку",
+		INSTRUMENTAL = "лягушачьей шапкой",
+		PREPOSITIONAL = "лягушачьей шапке"
+	)

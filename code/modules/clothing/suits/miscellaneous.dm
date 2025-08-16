@@ -1635,14 +1635,6 @@
 
 /obj/item/clothing/suit/hooded/ghostfacesuit
 	name = "Ghostface suit"
-	ru_names = list(
-		NOMINATIVE = "чёрный балахон",
-		GENITIVE = "чёрного балахона",
-		DATIVE = "чёрному балахону",
-		ACCUSATIVE = "чёрный балахон",
-		INSTRUMENTAL = "чёрным балахоном",
-		PREPOSITIONAL = "чёрном балахоне"
-	)
 	desc = "Чёрный, просторный балахон, что может навеивать смутные напоминания о чём-то."
 	icon_state = "ghostface_suit"
 	item_state = "ghostface_suit"
@@ -1655,19 +1647,21 @@
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
+/obj/item/clothing/suit/hooded/ghostfacesuit/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрный балахон",
+		GENITIVE = "чёрного балахона",
+		DATIVE = "чёрному балахону",
+		ACCUSATIVE = "чёрный балахон",
+		INSTRUMENTAL = "чёрным балахоном",
+		PREPOSITIONAL = "чёрном балахоне"
+	)
+
 /obj/item/clothing/suit/hooded/update_icon_state()
 	return
 
 /obj/item/clothing/head/hooded/ghostface
 	name = "Ghostface hood"
-	ru_names = list(
-		NOMINATIVE = "чёрный капюшон",
-		GENITIVE = "чёрного капюшона",
-		DATIVE = "чёрному капюшону",
-		ACCUSATIVE = "чёрный капюшон",
-		INSTRUMENTAL = "чёрным капюшоном",
-		PREPOSITIONAL = "чёрном капюшоне"
-	)
 	desc = "Чёрный капюшон. Он вам что-то точно напоминает..."
 	icon_state = "ghostface_hood"
 	item_state = "ghostface"
@@ -1678,12 +1672,26 @@
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
+/obj/item/clothing/head/hooded/ghostface/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрный капюшон",
+		GENITIVE = "чёрного капюшона",
+		DATIVE = "чёрному капюшону",
+		ACCUSATIVE = "чёрный капюшон",
+		INSTRUMENTAL = "чёрным капюшоном",
+		PREPOSITIONAL = "чёрном капюшоне"
+	)
+
 /obj/item/clothing/head/hooded/ghostface/true
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/devil
 	desc = "Чёрный с прожилками красного просторный балахон, что может навеивать смутные напоминания о чём-то."
-	ru_names = list(
+	icon_state = "devil_ghostface_suit"
+	item_state = "devil_ghostface_suit"
+
+/obj/item/clothing/suit/hooded/ghostfacesuit/devil/get_ru_names()
+	return list(
 		NOMINATIVE = "кроваво-чёрный балахон",
 		GENITIVE = "кроваво-чёрного балахона",
 		DATIVE = "кроваво-чёрному балахону",
@@ -1691,8 +1699,6 @@
 		INSTRUMENTAL = "кроваво-чёрным балахоном",
 		PREPOSITIONAL = "кроваво-чёрном балахоне"
 	)
-	icon_state = "devil_ghostface_suit"
-	item_state = "devil_ghostface_suit"
 
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/true
@@ -1706,14 +1712,6 @@
 /obj/item/clothing/suit/hooded/penguin_costume
 	name = "penguin suit"
 	desc = "Глупый и забавный полноразмерный костюм пингвина."
-	ru_names = list(
-		NOMINATIVE = "костюм пингвина",
-		GENITIVE = "костюма пингвина",
-		DATIVE = "костюму пингвина",
-		ACCUSATIVE = "костюм пингвина",
-		INSTRUMENTAL = "костюмом пингвина",
-		PREPOSITIONAL = "костюме пингвина"
-	)
 	icon_state = "penguin"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|TAIL
 	hide_tail_by_species = list(
@@ -1735,17 +1733,19 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		)
 
+/obj/item/clothing/suit/hooded/penguin_costume/get_ru_names()
+	return list(
+		NOMINATIVE = "костюм пингвина",
+		GENITIVE = "костюма пингвина",
+		DATIVE = "костюму пингвина",
+		ACCUSATIVE = "костюм пингвина",
+		INSTRUMENTAL = "костюмом пингвина",
+		PREPOSITIONAL = "костюме пингвина"
+	)
+
 /obj/item/clothing/head/hooded/penguin_hood
 	name = "penguin hood"
 	desc = "Капюшон от костюма пингвина."
-	ru_names = list(
-		NOMINATIVE = "капюшон костюма пингвина",
-		GENITIVE = "капюшона костюма пингвина",
-		DATIVE = "капюшону костюма пингвина",
-		ACCUSATIVE = "капюшон костюма пингвина",
-		INSTRUMENTAL = "капюшоном костюмома пингвина",
-		PREPOSITIONAL = "капюшоне костюма пингвина"
-	)
 	icon_state = "penguin"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHEADSETS|HIDEHAIR
@@ -1757,3 +1757,13 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/head.dmi'
 		)
+
+/obj/item/clothing/head/hooded/penguin_hood/get_ru_names()
+	return list(
+		NOMINATIVE = "капюшон костюма пингвина",
+		GENITIVE = "капюшона костюма пингвина",
+		DATIVE = "капюшону костюма пингвина",
+		ACCUSATIVE = "капюшон костюма пингвина",
+		INSTRUMENTAL = "капюшоном костюмома пингвина",
+		PREPOSITIONAL = "капюшоне костюма пингвина"
+	)

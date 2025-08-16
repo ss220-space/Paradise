@@ -7,14 +7,6 @@
 /obj/machinery/sleeper
 	name = "Sleeper"
 	desc = "Медицинское устройство, предназначеное для стабилизации пациентов. Позволяет вводить ограниченный набор веществ в организм субъекта."
-	ru_names = list(
-		NOMINATIVE = "слипер",
-		GENITIVE = "слипера",
-		DATIVE = "слиперу",
-		ACCUSATIVE = "слипер",
-		INSTRUMENTAL = "слипером",
-		PREPOSITIONAL = "слипере"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
@@ -37,6 +29,16 @@
 	active_power_usage = 2500
 
 	light_color = LIGHT_COLOR_CYAN
+
+/obj/machinery/sleeper/get_ru_names()
+	return list(
+		NOMINATIVE = "слипер",
+		GENITIVE = "слипера",
+		DATIVE = "слиперу",
+		ACCUSATIVE = "слипер",
+		INSTRUMENTAL = "слипером",
+		PREPOSITIONAL = "слипере"
+	)
 
 
 /obj/machinery/sleeper/New()

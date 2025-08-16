@@ -208,14 +208,6 @@
 	name = "baguette"
 	desc = "Bon appetit!"
 	w_class = WEIGHT_CLASS_NORMAL
-	ru_names = list(
-		NOMINATIVE = "багет",
-		GENITIVE = "багета",
-		DATIVE = "багету",
-		ACCUSATIVE = "багет",
-		INSTRUMENTAL = "багетом",
-		PREPOSITIONAL = "багете"
-	)
 	icon_state = "baguette"
 	item_state = "baguette"
 	filling_color = "#E3D796"
@@ -224,6 +216,16 @@
 	tastes = list("bread" = 2)
 	foodtype = GRAIN
 	slot_flags = ITEM_SLOT_BELT
+
+/obj/item/reagent_containers/food/snacks/baguette/get_ru_names()	
+	return list(
+		NOMINATIVE = "багет",
+		GENITIVE = "багета",
+		DATIVE = "багету",
+		ACCUSATIVE = "багет",
+		INSTRUMENTAL = "багетом",
+		PREPOSITIONAL = "багете"
+	)
 
 /obj/item/reagent_containers/food/snacks/baguette/combat
 	sharp = TRUE

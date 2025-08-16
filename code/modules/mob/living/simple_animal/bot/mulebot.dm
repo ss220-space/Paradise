@@ -2,7 +2,7 @@
 // Navigates via floor navbeacons
 // Remote Controlled from QM's PDA
 
-#define SIGH 	0
+#define SIGH	0
 #define ANNOYED 1
 #define DELIGHT 2
 

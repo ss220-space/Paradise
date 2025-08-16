@@ -447,7 +447,7 @@
 		status = data["status"]
 	if(islist(data["dna"]))
 		// The only thing the official proc does is
-	 	//instantiate the list and call this proc
+		//instantiate the list and call this proc
 		dna.deserialize(data["dna"])
 		..()
 

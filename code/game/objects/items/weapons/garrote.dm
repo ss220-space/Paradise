@@ -1,7 +1,7 @@
 /*
  * Contains:
- * 	Traitor fiber wire
- * 	Improvised garrotes
+ *	Traitor fiber wire
+ *	Improvised garrotes
  */
 
 /obj/item/twohanded/garrote // 12TC traitor item

@@ -291,7 +291,7 @@
 #define COMSIG_CLICK "atom_click"
 ///from base of atom/ShiftClick(): (/mob)
 #define COMSIG_CLICK_SHIFT "shift_click"
-	#define COMPONENT_ALLOW_EXAMINATE (1<<0) 							//Allows the user to examinate regardless of client.eye.
+	#define COMPONENT_ALLOW_EXAMINATE (1<<0)							//Allows the user to examinate regardless of client.eye.
 ///from base of atom/CtrlClickOn(): (/mob)
 #define COMSIG_CLICK_CTRL "ctrl_click"
 ///from base of atom/base_click_alt(): (/mob)
@@ -525,6 +525,9 @@
 
 #define COMSIG_MOB_MOVE_INTENT_TOGGLED "mob_move_intent_toggled"
 
+/// from /mob/proc/combine_message (&msg)
+#define COMSIG_COMBINE_MESSAGE_FOR_HEARER "combine_message_for_hearer"
+
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT (1<<0)
@@ -701,10 +704,10 @@
 	#define COMPONENT_CANT_TRACK (1<<0)
 
 /// Source: /mob/living/AdjustBlood(amount)
-#define COMSIG_LIVING_BLOOD_ADJUST 		"living_blood_adjust"
+#define COMSIG_LIVING_BLOOD_ADJUST		"living_blood_adjust"
 	#define COMPONENT_PREVENT_BLOODLOSS	(1<<0)
 /// Source: /mob/living/AdjustBlood(amount)
-#define COMSIG_LIVING_BLOOD_ADJUSTED 	"living_blood_adjusted"
+#define COMSIG_LIVING_BLOOD_ADJUSTED	"living_blood_adjusted"
 /// Source: /mob/living/setBlood(amount)
 #define COMSIG_LIVING_EARLY_SET_BLOOD	"living_early_set_blood"
 /// Source: /mob/living/setBlood(amount)
@@ -1081,7 +1084,7 @@
 // /datum/song signals
 
 ///sent to the instrument when a song starts playing
-#define COMSIG_SONG_START 	"song_start"
+#define COMSIG_SONG_START	"song_start"
 ///sent to the instrument when a song stops playing
 #define COMSIG_SONG_END		"song_end"
 

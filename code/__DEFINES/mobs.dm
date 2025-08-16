@@ -109,18 +109,18 @@
 #define SLIME_EVOLUTION_THRESHOLD_EVOLVE 50
 #define SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN 100
 
-#define SLIME_BABY 		"baby"
-#define SLIME_ADULT 	"adult"
-#define SLIME_OLD 		"old"
-#define SLIME_ELDER 	"elder"
-#define SLIME_SLIMEMAN 	"slimeman"
+#define SLIME_BABY		"baby"
+#define SLIME_ADULT	"adult"
+#define SLIME_OLD		"old"
+#define SLIME_ELDER	"elder"
+#define SLIME_SLIMEMAN	"slimeman"
 
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
 
 //Slime commands defines
-#define SLIME_FRIENDSHIP_FOLLOW 			3 //Min friendship to order it to follow
-#define SLIME_FRIENDSHIP_STOPEAT 			5 //Min friendship to order it to stop eating someone
+#define SLIME_FRIENDSHIP_FOLLOW			3 //Min friendship to order it to follow
+#define SLIME_FRIENDSHIP_STOPEAT			5 //Min friendship to order it to stop eating someone
 #define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //Min friendship to order it to stop eating someone without it losing friendship
 #define SLIME_FRIENDSHIP_STOPCHASE			4 //Min friendship to order it to stop chasing someone (their target)
 #define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
@@ -303,16 +303,16 @@
 #define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
-#define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
+#define ishostile(A)	(istype(A, /mob/living/simple_animal/hostile))
 #define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
 #define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
-#define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
+#define isdemon(A)			(istype((A), /mob/living/simple_animal/demon))
 #define ismorph(A)		(istype((A), /mob/living/simple_animal/hostile/morph))
 #define isborer(A)		(istype((A), /mob/living/simple_animal/borer))
 #define isairmob(A)		(istype(A, /mob/living/simple_animal/hostile/airmob))
 #define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 #define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
-#define ismarauder(A) 	(istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
+#define ismarauder(A)	(istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
 
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))

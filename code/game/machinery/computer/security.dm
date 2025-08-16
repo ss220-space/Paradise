@@ -121,15 +121,15 @@
 				if(record_general && GLOB.data_core.general.Find(record_general))
 					var/list/gen_fields = record_general.fields
 					general["fields"] = list(
-						SEC_FIELD("Name", 				gen_fields["name"], 		"name",			FALSE),
-						SEC_FIELD("ID", 				gen_fields["id"], 			"id",			TRUE),
-						SEC_FIELD("Sex", 				gen_fields["sex"], 			"sex",			FALSE),
-						SEC_FIELD("Age", 				gen_fields["age"], 			"age",			TRUE),
-						SEC_FIELD("Assignment", 		gen_fields["rank"], 		null,			FALSE),
-						SEC_FIELD("Fingerprint", 		gen_fields["fingerprint"], 	"fingerprint",	TRUE),
-						SEC_FIELD("Physical Status", 	gen_fields["p_stat"], 		null,			FALSE),
-						SEC_FIELD("Mental Status", 		gen_fields["m_stat"], 		null,			TRUE),
-						SEC_FIELD("Important Notes", 	gen_fields["notes"], 		null,			FALSE),
+						SEC_FIELD("Name",				gen_fields["name"],		"name",			FALSE),
+						SEC_FIELD("ID",				gen_fields["id"],			"id",			TRUE),
+						SEC_FIELD("Sex",				gen_fields["sex"],			"sex",			FALSE),
+						SEC_FIELD("Age",				gen_fields["age"],			"age",			TRUE),
+						SEC_FIELD("Assignment",		gen_fields["rank"],		null,			FALSE),
+						SEC_FIELD("Fingerprint",		gen_fields["fingerprint"],	"fingerprint",	TRUE),
+						SEC_FIELD("Physical Status",	gen_fields["p_stat"],		null,			FALSE),
+						SEC_FIELD("Mental Status",		gen_fields["m_stat"],		null,			TRUE),
+						SEC_FIELD("Important Notes",	gen_fields["notes"],		null,			FALSE),
 					)
 					general["photos"] = list(
 						gen_fields["photo-south"],
@@ -145,12 +145,12 @@
 				if(record_security && GLOB.data_core.security.Find(record_security))
 					var/list/sec_fields = record_security.fields
 					security["fields"] = list(
-						SEC_FIELD("Criminal Status", 	sec_fields["criminal"], 	"criminal", 	TRUE),
-						SEC_FIELD("Minor Crimes", 		sec_fields["mi_crim"], 		"mi_crim", 		FALSE),
-						SEC_FIELD("Details", 			sec_fields["mi_crim_d"], 	"mi_crim_d", 	TRUE),
-						SEC_FIELD("Major Crimes", 		sec_fields["ma_crim"], 		"ma_crim", 		FALSE),
-						SEC_FIELD("Details", 			sec_fields["ma_crim_d"], 	"ma_crim_d", 	TRUE),
-						SEC_FIELD("Important Notes", 	sec_fields["notes"], 		null, 			FALSE),
+						SEC_FIELD("Criminal Status",	sec_fields["criminal"],	"criminal",	TRUE),
+						SEC_FIELD("Minor Crimes",		sec_fields["mi_crim"],		"mi_crim",		FALSE),
+						SEC_FIELD("Details",			sec_fields["mi_crim_d"],	"mi_crim_d",	TRUE),
+						SEC_FIELD("Major Crimes",		sec_fields["ma_crim"],		"ma_crim",		FALSE),
+						SEC_FIELD("Details",			sec_fields["ma_crim_d"],	"ma_crim_d",	TRUE),
+						SEC_FIELD("Important Notes",	sec_fields["notes"],		null,			FALSE),
 					)
 					if(!islist(sec_fields["comments"]))
 						sec_fields["comments"] = list()
