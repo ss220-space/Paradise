@@ -97,14 +97,6 @@
 /obj/item/case_with_bipki
 	name = "bipki case"
 	desc = "Легендарный чемодан с бипками! Стоп, а что такое бипки?"
-	ru_names = list(
-		NOMINATIVE = "чемодан с бипками",
-		GENITIVE = "чемодана с бипками",
-		DATIVE = "чемодану с бипками",
-		ACCUSATIVE = "чемодан с бипками",
-		INSTRUMENTAL = "чемоданом с бипками",
-		PREPOSITIONAL = "чемодане с бипками"
-	)
 	icon = 'icons/obj/beebki.dmi'
 	icon_state = "briefcase_bipki"
 	item_state = "briefcase"
@@ -113,6 +105,16 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	var/opened = FALSE
+
+/obj/item/case_with_bipki/get_ru_names()
+	return list(
+		NOMINATIVE = "чемодан с бипками",
+		GENITIVE = "чемодана с бипками",
+		DATIVE = "чемодану с бипками",
+		ACCUSATIVE = "чемодан с бипками",
+		INSTRUMENTAL = "чемоданом с бипками",
+		PREPOSITIONAL = "чемодане с бипками"
+	)
 
 /obj/item/case_with_bipki/attack_self(mob/user)
 	. = ..()

@@ -71,9 +71,9 @@
 	accessories = list(/obj/item/clothing/accessory/holster)
 	backpack_contents = list(
 		/obj/item/stamp/chameleon = 1,
-	 	/obj/item/gun/projectile/automatic/pistol = 1,
-	  	/obj/item/ammo_box/magazine/m10mm = 3,
-	  	/obj/item/pen/fakesign = 1,
+		/obj/item/gun/projectile/automatic/pistol = 1,
+	 	/obj/item/ammo_box/magazine/m10mm = 3,
+	 	/obj/item/pen/fakesign = 1,
 		/obj/item/storage/box/syndie_kit/knives_kit = 1,
 		/obj/item/flashlight/emp = 1,
 		/obj/item/flash/cameraflash = 1,
@@ -99,7 +99,7 @@
 	backpack_contents = list(
 		/obj/item/tank/internals/plasma = 5,
 		/obj/item/pickaxe/drill/jackhammer/phantom = 1,
-	  	/obj/item/grenade/clusterbuster/inferno = 1,
+	 	/obj/item/grenade/clusterbuster/inferno = 1,
 		/obj/item/flamethrower/full/tank = 1
 		)
 
