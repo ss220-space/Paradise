@@ -7,12 +7,11 @@
 
 /**
  * Arguments:
- * - number: number of sparks
+ * - number: number of sparks.
  * - cardinal_only: cardinals, bool, do the sparks only move in cardinal directions?
  * - source: source of the sparks.
  */
 /proc/do_sparks(number, cardinal_only, source)
-
 	var/datum/effect_system/spark_spread/sparks = new
 	sparks.set_up(number, cardinal_only, source)
 	sparks.autocleanup = TRUE
