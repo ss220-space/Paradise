@@ -41,14 +41,8 @@
 	if(msg == "")
 		. = ""
 		return
-
-	if(isliving(src))
-		for(var/datum/component/codeword_hearing/hearing_datum in GetComponents(/datum/component/codeword_hearing))
-			var/tmp_msg = hearing_datum.handle_hearing(msg)
-			if(!tmp_msg)
-				continue
-			msg = tmp_msg
-			//log_debug(msg)
+	
+	SEND_SIGNAL(src, COMSIG_COMBINE_MESSAGE_FOR_HEARER, &msg)
 
 	return trim(msg)
 
