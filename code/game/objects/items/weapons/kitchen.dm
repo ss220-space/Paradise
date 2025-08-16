@@ -154,7 +154,7 @@
 /obj/item/kitchen/knife/Initialize(mapload)
 	. = ..()
 	default_force = force
-	default_throwforce = throwforce	
+	default_throwforce = throwforce
 
 /obj/item/kitchen/knife/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	. = ..()
@@ -170,7 +170,7 @@
 
 /obj/item/kitchen/knife/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
 	. = ..()
-	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, 1)
+	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, TRUE)
 
 
 /obj/item/kitchen/knife/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
