@@ -737,7 +737,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/compact_sniper
 	name = "compact sniper rifle kit"
-	desc = "Коробка, содержащая компактную снайперскую винтовку Bubz Mini, дополнительный магазин, и коробку патронов."
+	desc = "Коробка, содержащая компактную снайперскую винтовку \"Bubz Mini\", дополнительный магазин, и коробку патронов."
 	ru_names = list(
 		NOMINATIVE = "набор \"Компактная снайперская винтовка\"",
 		GENITIVE = "набора \"Компактная снайперская винтовка\"",
@@ -775,7 +775,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/desert_eagle
 	name = "desert eagle kit"
-	desc = "Коробка, содержащая Пустынный Орёл, три дополнительных магазина, и две коробки с патронами калибра .50AE."
+	desc = "Коробка, содержащая \"Пустынный Орёл\", три дополнительных магазина, и две коробки с патронами калибра .50AE."
 	ru_names = list(
 		NOMINATIVE = "набор \"Пустынный Орёл\"",
 		GENITIVE = "набора \"Пустынный Орёл\"",
@@ -795,7 +795,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/desert_eagle_gold
 	name = "golden desert eagle kit"
-	desc = "Коробка, содержащая золотой Пустынный Орёл, три дополнительных магазина, и две коробки с патронами калибра .50AE."
+	desc = "Коробка, содержащая золотой \"Пустынный Орёл\", три дополнительных магазина, и две коробки с патронами калибра .50AE."
 	ru_names = list(
 		NOMINATIVE = "набор \"золотой Пустынный Орёл\"",
 		GENITIVE = "набора \"золотой Пустынный Орёл\"",
@@ -813,7 +813,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/stechkin_pistol
 	name = "stechkin pistol kit"
-	desc = "Коробка, содержащая пистолет FK-69 Стечкин, и три дополнительных магазина."
+	desc = "Коробка, содержащая пистолет \"FK-69 Стечкин\", и три дополнительных магазина."
 	ru_names = list(
 		NOMINATIVE = "набор \"FK-69 Стечкин\"",
 		GENITIVE = "набора \"FK-69 Стечкин\"",
