@@ -15,11 +15,20 @@
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	COOLDOWN_DECLARE(ping_cooldown)
-	ru_names = list(NOMINATIVE = "интелкарта пИИ", GENITIVE = "интелкарты пИИ", DATIVE = "интелкарте пИИ", ACCUSATIVE = "интелкарту пИИ", INSTRUMENTAL = "интелкартой пИИ", PREPOSITIONAL = "интелкарте пИИ")
 	/// for Syndicate pAI type
 	var/is_syndicate_type = FALSE
 	var/obj/item/paicard_upgrade/upgrade
 	var/list/upgrades = list()
+
+/obj/item/paicard/get_ru_names()
+	return list(
+		NOMINATIVE = "интелкарта пИИ", 
+		GENITIVE = "интелкарты пИИ", 
+		DATIVE = "интелкарте пИИ", 
+		ACCUSATIVE = "интелкарту пИИ", 
+		INSTRUMENTAL = "интелкартой пИИ", 
+		PREPOSITIONAL = "интелкарте пИИ"
+	)
 
 /obj/item/paicard/syndicate // Only seems that it is syndicard
 	name = "syndicate personal AI device"

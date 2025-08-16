@@ -1,14 +1,6 @@
 /obj/item/storage/bible
 	name = "bible"
 	desc = "Многократно прислоняйте к голове."
-	ru_names = list(
-		NOMINATIVE = "Библия",
-		GENITIVE = "Библии",
-		DATIVE = "Библии",
-		ACCUSATIVE = "Библию",
-		INSTRUMENTAL = "Библией",
-		PREPOSITIONAL = "Библии"
-	)
 	gender = FEMALE
 	lefthand_file = 'icons/mob/inhands/chaplain_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/chaplain_righthand.dmi'
@@ -45,6 +37,16 @@
 		"Грин текст" =			list("state" = "greentext",	  	"inhand" = "greentext"),
 	)
 
+/obj/item/storage/bible/get_ru_names()
+	return list(
+		NOMINATIVE = "Библия",
+		GENITIVE = "Библии",
+		DATIVE = "Библии",
+		ACCUSATIVE = "Библию",
+		INSTRUMENTAL = "Библией",
+		PREPOSITIONAL = "Библии"
+	)
+
 /obj/item/storage/bible/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] смотр[pluralize_ru(user.gender, "ит", "ят")] в [declent_ru(ACCUSATIVE)] и пыта[pluralize_ru(user.gender, "ет", "ют")]ся превзойти собственное понимание Вселенной!"))
 	user.dust()
@@ -65,7 +67,10 @@
 /obj/item/storage/bible/booze
 	name = "bible"
 	desc = "Многократно прислоняйте к голове."
-	ru_names = list(
+	icon_state ="bible"
+
+/obj/item/storage/bible/booze/get_ru_names()
+	return list(
 		NOMINATIVE = "Библия",
 		GENITIVE = "Библии",
 		DATIVE = "Библии",
@@ -73,7 +78,6 @@
 		INSTRUMENTAL = "Библией",
 		PREPOSITIONAL = "Библии"
 	)
-	icon_state ="bible"
 
 /obj/item/storage/bible/booze/populate_contents()
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)

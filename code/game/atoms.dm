@@ -144,6 +144,12 @@
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
+	var/list/names = ru_names
+
+	if(names && !GLOB.cached_ru_names[type])
+		GLOB.cached_ru_names[type] = names
+		ru_names = null
+
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED
@@ -1481,6 +1487,18 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			color = C
 			return
 
+/atom/proc/get_ru_names()
+	return
+
+/atom/proc/get_ru_names_cached()
+	var/list/names = GLOB.cached_ru_names[type]
+	if(names)
+		return names
+	names = get_ru_names()
+	if(names)
+		GLOB.cached_ru_names[type] = names
+		return names
+	return
 
 /** Call this when you want to present a renaming prompt to the user.
 
@@ -1551,14 +1569,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(actually_rename)
 		if(t == "")
-			if(ru_names)
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[initial(ru_names[i])]"
+			ru_names = get_ru_names_cached()
 			name = "[initial(name)]"
 		else
-			if(ru_names)
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[initial(ru_names[i])] - [t]"
+			if(!ru_names)
+				var/list/names =  get_ru_names_cached()
+				ru_names = names? names.Copy() : list()
+			for(var/i = 1; i <= 6; i++)
+				ru_names[i] = "[ru_names[i] || name] - [t]"
 			name = "[prefix][t]"
 	return t
 
@@ -1566,7 +1584,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 // Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
 // ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 /atom/proc/declent_ru(case_id, list/ru_names_override)
-	var/list/list_to_use = ru_names_override || ru_names
+	var/list/list_to_use = ru_names_override || ru_names || get_ru_names_cached()
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
 	return name

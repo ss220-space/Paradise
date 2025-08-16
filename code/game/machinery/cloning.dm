@@ -25,14 +25,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	anchored = TRUE
 	name = "experimental biomass pod"
 	desc = "Капсула, предназначенная для искусственного выращивания органической ткани. Оборудована электронным замком. Выглядит жутковато."
-	ru_names = list(
-		NOMINATIVE = "капсула клонирования",
-		GENITIVE = "капсулы клонирования",
-		DATIVE = "капсуле клонирования",
-		ACCUSATIVE = "капсулу клонирования",
-		INSTRUMENTAL = "капсулой клонирования",
-		PREPOSITIONAL = "капсуле клонирования"
-	)
 	density = TRUE
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "pod_idle"
@@ -55,11 +47,21 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	var/obj/effect/countdown/clonepod/countdown
 
-	var/list/brine_types = list("corazone", "perfluorodecalin", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
+	var/static/list/brine_types = list("corazone", "perfluorodecalin", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
 	var/list/missing_organs
 	var/organs_number = 0
 
 	light_color = LIGHT_COLOR_PURE_GREEN
+
+/obj/machinery/clonepod/get_ru_names()
+	return list(
+		NOMINATIVE = "капсула клонирования",
+		GENITIVE = "капсулы клонирования",
+		DATIVE = "капсуле клонирования",
+		ACCUSATIVE = "капсулу клонирования",
+		INSTRUMENTAL = "капсулой клонирования",
+		PREPOSITIONAL = "капсуле клонирования"
+	)
 
 
 /obj/machinery/clonepod/power_change(forced = FALSE)
@@ -148,7 +150,12 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/item/disk/data
 	name = "Cloning Data Disk"
 	desc = "Дискета, предназначенная для хранения данных ДНК-кода гуманоида."
-	ru_names = list(
+	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
+	var/datum/dna2/record/buf = null
+	var/read_only = FALSE //Well,it's still a floppy disk
+
+/obj/item/disk/data/get_ru_names()
+	return list(
 		NOMINATIVE = "ДНК-дискета",
 		GENITIVE = "ДНК-дискеты",
 		DATIVE = "ДНК-дискете",
@@ -156,9 +163,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		INSTRUMENTAL = "ДНК-дискетой",
 		PREPOSITIONAL = "ДНК-дискете"
 	)
-	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
-	var/datum/dna2/record/buf = null
-	var/read_only = FALSE //Well,it's still a floppy disk
 
 /obj/item/disk/data/proc/initialize()
 	buf = new
@@ -713,7 +717,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/item/storage/box/disks
 	name = "Diskette Box"
 	desc = "Коробка для хранения дискет."
-	ru_names = list(
+	icon_state = "disk_kit"
+
+/obj/item/storage/box/disks/get_ru_names()
+	return list(
 		NOMINATIVE = "коробка с дискетами",
 		GENITIVE = "коробки с дискетами",
 		DATIVE = "коробке с дискетами",
@@ -721,7 +728,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		INSTRUMENTAL = "коробкой с дискетами",
 		PREPOSITIONAL = "коробке с дискетами"
 	)
-	icon_state = "disk_kit"
 
 /obj/item/storage/box/disks/populate_contents()
 	for(var/I in 1 to 7)

@@ -19,14 +19,6 @@
 /obj/machinery/computer/communications
 	name = "communications console"
 	desc = "Консоль, с помощью которой капитан может связаться с Центральным командованием или изменить уровень угрозы. Она так-же позволяет командному составу вызвать эвакуационный шаттл."
-	ru_names = list(
-		NOMINATIVE = "консоль связи",
-		GENITIVE = "консоли связи",
-		DATIVE = "консоли связи",
-		ACCUSATIVE = "консоль связи",
-		INSTRUMENTAL = "консолью связи",
-		PREPOSITIONAL = "консоли связи",
-	)
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
 	req_access = list(ACCESS_HEADS)
@@ -53,6 +45,15 @@
 
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
+/obj/machinery/computer/communications/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль связи",
+		GENITIVE = "консоли связи",
+		DATIVE = "консоли связи",
+		ACCUSATIVE = "консоль связи",
+		INSTRUMENTAL = "консолью связи",
+		PREPOSITIONAL = "консоли связи",
+	)
 
 /obj/machinery/computer/communications/New()
 	GLOB.shuttle_caller_list += src

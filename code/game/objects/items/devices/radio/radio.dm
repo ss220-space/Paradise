@@ -21,17 +21,34 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	num2text(MED_I_FREQ) = list(ACCESS_MEDICAL)
 ))
 
+GLOBAL_LIST_INIT(default_security_channels, list(
+	num2text(PUB_FREQ) = list(),
+	num2text(SEC_I_FREQ) = list(ACCESS_SECURITY)
+))
+
+GLOBAL_LIST_INIT(default_syndicate_channels, list(
+	num2text(SYND_FREQ) = list(ACCESS_SYNDICATE),
+	num2text(SYND_TAIPAN_FREQ) = list(ACCESS_SYNDICATE)
+))
+
+GLOBAL_LIST_INIT(default_pirate_channels, list(
+		num2text(PUB_FREQ) = list(),
+		num2text(AI_FREQ)  = list(),
+		num2text(COMM_FREQ) = list(),
+		num2text(ENG_FREQ) = list(),
+		num2text(PRS_FREQ) = list(),
+		num2text(MED_FREQ) = list(),
+		num2text(MED_I_FREQ)= list(),
+		num2text(SEC_FREQ) = list(),
+		num2text(SEC_I_FREQ) = list(),
+		num2text(SCI_FREQ) = list(),
+		num2text(SUP_FREQ) = list(),
+		num2text(SRV_FREQ) = list()
+))
+
 /obj/item/radio
 	name = "shortwave radio"
 	desc = "Базовая портативная рация, способная взаимодействовать с локальными телекоммуникационными сетями."
-	ru_names = list(
-		NOMINATIVE = "коротковолновая рация",
-		GENITIVE = "коротковолновой рации",
-		DATIVE = "коротковолновой рации",
-		ACCUSATIVE = "коротковолновую рацию",
-		INSTRUMENTAL = "коротковолновой рацией",
-		PREPOSITIONAL = "коротковолновой рации"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "walkietalkie"
@@ -90,6 +107,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/requires_tcomms = FALSE // Does this device require tcomms to work.If TRUE it wont function at all without tcomms. If FALSE, it will work without tcomms, just slowly
 	var/instant = FALSE // Should this device instantly communicate if there isnt tcomms
 
+/obj/item/radio/get_ru_names()
+	return list(
+		NOMINATIVE = "коротковолновая рация",
+		GENITIVE = "коротковолновой рации",
+		DATIVE = "коротковолновой рации",
+		ACCUSATIVE = "коротковолновую рацию",
+		INSTRUMENTAL = "коротковолновой рацией",
+		PREPOSITIONAL = "коротковолновой рации"
+	)
 
 /obj/item/radio/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -101,7 +127,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	..()
 	wires = new(src)
 
-	internal_channels = GLOB.default_internal_channels.Copy()
+	internal_channels = GLOB.default_internal_channels
 	GLOB.global_radios |= src
 
 /obj/item/radio/Destroy()
@@ -330,7 +356,12 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/sec
 	name = "security shortwave radio"
 	desc = "Базовая портативная рация, способная взаимодействовать с локальными телекоммуникационными сетями. Специальная модель для сотрудников службы безопасности."
-	ru_names = list(
+	icon_state = "walkietalkie_sec"
+	item_state = "walkietalkie_sec"
+	frequency = SEC_FREQ
+
+/obj/item/radio/sec/get_ru_names()
+	return list(
 		NOMINATIVE = "коротковолновая рация СБ",
 		GENITIVE = "коротковолновой рации СБ",
 		DATIVE = "коротковолновой рации СБ",
@@ -338,9 +369,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		INSTRUMENTAL = "коротковолновой рацией СБ",
 		PREPOSITIONAL = "коротковолновой рации СБ"
 	)
-	icon_state = "walkietalkie_sec"
-	item_state = "walkietalkie_sec"
-	frequency = SEC_FREQ
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/radio/proc/handle_message_mode(mob/living/M as mob, list/message_pieces, message_mode)
@@ -674,14 +702,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/borg
 	name = "Cyborg Radio"
 	desc = "Радио-компонент, предназначенный для использования в роботизированных системах."
-	ru_names = list(
-		NOMINATIVE = "рация робота",
-		GENITIVE = "рации робота",
-		DATIVE = "рации робота",
-		ACCUSATIVE = "рацию робота",
-		INSTRUMENTAL = "рацией робота",
-		PREPOSITIONAL = "рации робота"
-	)
 	icon = 'icons/obj/robot_component.dmi' // Cyborgs radio icons should look like the component.
 	icon_state = "radio"
 	has_loudspeaker = TRUE
@@ -691,6 +711,16 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	freqlock = TRUE // don't let cyborgs change the default channel of their internal radio away from common
 	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
 	var/obj/item/encryptionkey/keyslot // Borg radios can handle a single encryption key
+
+/obj/item/radio/borg/get_ru_names()
+	return list(
+		NOMINATIVE = "рация робота",
+		GENITIVE = "рации робота",
+		DATIVE = "рации робота",
+		ACCUSATIVE = "рацию робота",
+		INSTRUMENTAL = "рацией робота",
+		PREPOSITIONAL = "рации робота"
+	)
 
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
@@ -837,14 +867,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/phone
 	name = "phone"
 	desc = "Телефон, подключённый к внутренней системе связи станции. Несколько старомодно для 26 века."
-	ru_names = list(
-		NOMINATIVE = "телефон",
-		GENITIVE = "телефона",
-		DATIVE = "телефону",
-		ACCUSATIVE = "телефон",
-		INSTRUMENTAL = "телефоном",
-		PREPOSITIONAL = "телефоне"
-	)
 	gender = MALE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
@@ -854,10 +876,23 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	pickup_sound = 'sound/items/handling/pickup/phone_pickup.ogg'
 	dog_fashion = null
 
+/obj/item/radio/phone/get_ru_names()
+	return list(
+		NOMINATIVE = "телефон",
+		GENITIVE = "телефона",
+		DATIVE = "телефону",
+		ACCUSATIVE = "телефон",
+		INSTRUMENTAL = "телефоном",
+		PREPOSITIONAL = "телефоне"
+	)
+
 /obj/item/radio/phone/medbay
 	name = "medbay phone"
 	desc = "Телефон, настроенный на медицинскую частоту системы связи станции. Дзинь."
-	ru_names = list(
+	frequency = MED_I_FREQ
+
+/obj/item/radio/phone/medbay/get_ru_names()
+	return list(
 		NOMINATIVE = "медицинский телефон",
 		GENITIVE = "медицинского телефона",
 		DATIVE = "медицинскому телефону",
@@ -865,11 +900,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		INSTRUMENTAL = "медицинским телефоном",
 		PREPOSITIONAL = "медицинском телефоне"
 	)
-	frequency = MED_I_FREQ
 
 /obj/item/radio/phone/medbay/New()
 	..()
-	internal_channels = GLOB.default_medbay_channels.Copy()
+	internal_channels = GLOB.default_medbay_channels
 
 /obj/item/radio/bot
 	tts_seed = null
@@ -877,7 +911,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/phone/ussp
 	name = "Red phone"
 	desc = "Телефон, подключённый к частоте СССП в пределах сектора."
-	ru_names = list(
+	has_loudspeaker = TRUE
+	frequency = SOV_FREQ
+
+/obj/item/radio/phone/ussp/get_ru_names()
+	return list(
 		NOMINATIVE = "красный телефон",
 		GENITIVE = "красного телефона",
 		DATIVE = "красному телефону",
@@ -885,5 +923,3 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		INSTRUMENTAL = "красным телефоном",
 		PREPOSITIONAL = "красном телефоне"
 	)
-	has_loudspeaker = TRUE
-	frequency = SOV_FREQ

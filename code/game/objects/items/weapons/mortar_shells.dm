@@ -20,9 +20,9 @@
 /obj/item/mortar_shell/proc/detonate(turf/detonate_turf)
 	var/old_loc = loc
 	forceMove(detonate_turf)
-	var/angle = 90 - get_angle(loc, old_loc)
-	pixel_x = cos(angle) * 32 * 6
-	pixel_z = sin(angle) * 32 * 6
+	var/angle = get_angle(loc, old_loc)
+	pixel_x = cos(angle) * ICON_SIZE_X * 6
+	pixel_z = sin(angle) * ICON_SIZE_Y * 6
 	var/rotation = delta_to_angle(pixel_x, pixel_z) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
 	transform = matrix().Turn(rotation + 180)
 	layer = FLY_LAYER

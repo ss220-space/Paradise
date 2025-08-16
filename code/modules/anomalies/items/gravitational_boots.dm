@@ -2,14 +2,6 @@
 
 /obj/item/clothing/shoes/magboots/gravity
 	name = "gravitational boots"
-	ru_names = list(
-		NOMINATIVE = "гравитационные ботинки", \
-		GENITIVE = "гравитационных ботинок", \
-		DATIVE = "гравитационным ботинкам", \
-		ACCUSATIVE = "гравитационные ботинки", \
-		INSTRUMENTAL = "гравитационными ботинками", \
-		PREPOSITIONAL = "гравитационных ботинках"
-	)
 	desc = "Эти экспериментальные магбутсы обходят замедление обычных, за счёт миниатюрных гравитационных в подошвах. \
 			К сожалению, для работы им необходимо ядро гравитационной аномалии."
 	gender = PLURAL
@@ -30,6 +22,16 @@
 	var/obj/item/assembly/signaler/core/gravitational/core = null
 	var/obj/item/stock_parts/cell/cell = null
 
+
+/obj/item/clothing/shoes/magboots/gravity/get_ru_names()
+	return list(
+		NOMINATIVE = "гравитационные ботинки", \
+		GENITIVE = "гравитационных ботинок", \
+		DATIVE = "гравитационным ботинкам", \
+		ACCUSATIVE = "гравитационные ботинки", \
+		INSTRUMENTAL = "гравитационными ботинками", \
+		PREPOSITIONAL = "гравитационных ботинках"
+	)
 
 /obj/item/clothing/shoes/magboots/gravity/Initialize()
 	. = ..()

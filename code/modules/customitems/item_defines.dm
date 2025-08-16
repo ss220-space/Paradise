@@ -198,7 +198,14 @@
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
 	desc = "Набор деталей для инвалидной коляски."
-	ru_names = list(
+	icon_state = "modkit"
+	var/new_icon_state = "vox_wheelchair"
+	var/new_overlay = "vox_wheelchair_overlay"
+	var/new_name = "vox wheelchair"
+	var/new_desc = "Роскошная инвалидная коляска, когда-то принадлежавшая воксу."
+
+/obj/item/fluff/rapid_wheelchair_kit/get_ru_names()
+	return list(
 		NOMINATIVE = "комплект модификаций для инвалидной коляски",
 		GENITIVE = "комплекта модификаций для инвалидной коляски",
 		DATIVE = "комплекту модификаций для инвалидной коляски",
@@ -206,11 +213,6 @@
 		INSTRUMENTAL = "комплектом модификаций для инвалидной коляски",
 		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски"
 	)
-	icon_state = "modkit"
-	var/new_icon_state = "vox_wheelchair"
-	var/new_overlay = "vox_wheelchair_overlay"
-	var/new_name = "vox wheelchair"
-	var/new_desc = "Роскошная инвалидная коляска, когда-то принадлежавшая воксу."
 
 /obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
