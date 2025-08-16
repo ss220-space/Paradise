@@ -480,7 +480,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
  * Displayed at the start of roundend_category section, default to roundend_category header.
  */
 /datum/antagonist/proc/roundend_report_header()
-	return 	span_header("The [roundend_category] were:<br>")
+	return	span_header("The [roundend_category] were:<br>")
 
 
 /**

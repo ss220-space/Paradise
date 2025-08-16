@@ -160,14 +160,6 @@
 /obj/structure/bonfire
 	name = "bonfire"
 	desc = "Для приготовления пищи, включая жарку, копчение, обугливание, запекание, поджаривание, тушение, обжиг, плавление, а иногда и для сжигания вещей."
-	ru_names = list(
-		NOMINATIVE = "костёр",
-		GENITIVE = "костра",
-		DATIVE = "костру",
-		ACCUSATIVE = "костёр",
-		INSTRUMENTAL = "костром",
-		PREPOSITIONAL = "костре"
-	)
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "bonfire"
 	density = FALSE
@@ -178,6 +170,16 @@
 	var/burning = FALSE
 	var/lighter // Who lit the fucking thing
 	var/fire_stack_strength = 5
+
+/obj/structure/bonfire/get_ru_names()
+	return list(
+		NOMINATIVE = "костёр",
+		GENITIVE = "костра",
+		DATIVE = "костру",
+		ACCUSATIVE = "костёр",
+		INSTRUMENTAL = "костром",
+		PREPOSITIONAL = "костре"
+	)
 
 /obj/structure/bonfire/dense
 	density = TRUE

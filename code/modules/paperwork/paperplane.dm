@@ -71,7 +71,7 @@
 		to_chat(user, span_warning("You should unfold [src] before changing it."))
 		return ATTACK_CHAIN_PROCEED
 
-	if(istype(I, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane
+	if(istype(I, /obj/item/stamp))	//we don't randomize stamps on a paperplane
 		add_fingerprint(user)
 		internal_paper.attackby(I, user, params) //spoofed attack to update internal paper.
 		update_icon(UPDATE_OVERLAYS)

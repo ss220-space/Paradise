@@ -106,7 +106,21 @@
 /obj/item/clothing/shoes/magboots/clown
 	name = "clown shoes"
 	desc = "Это обычные башмаки клоуна. Чёрт возьми, они такие огромные! Сбоку мигает красная лампочка."
-	ru_names = list(
+	icon_state = "clownmag0"
+	base_icon_state = "clownmag"
+	item_state = "clown_shoes"
+	slowdown = SHOES_SLOWDOWN + 1
+	slowdown_active = SHOES_SLOWDOWN + 1
+	slowdown_passive = SHOES_SLOWDOWN + 1
+	magpulse_name = "honk-powered traction system"
+	item_color = "clown"
+	origin_tech = "magnets=4;syndicate=2"
+	pickup_sound = 'sound/items/handling/pickup/shoes_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/shoes_drop.ogg'
+	var/enabled_waddle = TRUE
+
+/obj/item/clothing/shoes/magboots/clown/get_ru_names()
+	return list(
 		NOMINATIVE = "клоунские башмаки",
 		GENITIVE = "клоунских башмаков",
 		DATIVE = "клоунским башмакам",
@@ -114,18 +128,6 @@
 		INSTRUMENTAL = "клоунскими башмаками",
 		PREPOSITIONAL = "клоунских башмаках"
 	)
-	icon_state = "clownmag0"
-	base_icon_state = "clownmag"
-	item_state = "clown_shoes"
-	slowdown = SHOES_SLOWDOWN+1
-	slowdown_active = SHOES_SLOWDOWN+1
-	slowdown_passive = SHOES_SLOWDOWN+1
-	magpulse_name = "honk-powered traction system"
-	item_color = "clown"
-	origin_tech = "magnets=4;syndicate=2"
-	pickup_sound = 'sound/items/handling/pickup/shoes_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/shoes_drop.ogg'
-	var/enabled_waddle = TRUE
 
 /obj/item/clothing/shoes/magboots/clown/Initialize(mapload)
 	. = ..()

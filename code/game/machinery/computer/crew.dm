@@ -1,14 +1,6 @@
 /obj/machinery/computer/crew
 	name = "crew monitoring computer"
 	desc = "Консоль, используемая для контроля активных датчиков состояния здоровья, встроенных в униформу большинства членов экипажа."
-	ru_names = list(
-		NOMINATIVE = "консоль наблюдения за экипажем",
-		GENITIVE = "консоли наблюдения за экипажем",
-		DATIVE = "консоли наблюдения за экипажем",
-		ACCUSATIVE = "консоль наблюдения за экипажем",
-		INSTRUMENTAL = "консолью наблюдения за экипажем",
-		PREPOSITIONAL = "консоли наблюдения за экипажем"
-	)
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	use_power = IDLE_POWER_USE
@@ -17,6 +9,16 @@
 	light_color = LIGHT_COLOR_DARKBLUE
 	circuit = /obj/item/circuitboard/crew
 	var/datum/ui_module/crew_monitor/crew_monitor
+
+/obj/machinery/computer/crew/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль наблюдения за экипажем",
+		GENITIVE = "консоли наблюдения за экипажем",
+		DATIVE = "консоли наблюдения за экипажем",
+		ACCUSATIVE = "консоль наблюдения за экипажем",
+		INSTRUMENTAL = "консолью наблюдения за экипажем",
+		PREPOSITIONAL = "консоли наблюдения за экипажем"
+	)
 
 /obj/machinery/computer/crew/New()
 	crew_monitor = new(src)

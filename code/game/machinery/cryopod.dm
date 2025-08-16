@@ -199,14 +199,6 @@
 /obj/machinery/cryopod
 	name = "cryogenic freezer"
 	desc = "A man-sized pod for entering suspended animation."
-	ru_names = list(
-		NOMINATIVE = "криогенный морозильник",
-		GENITIVE = "криогенного морозильника",
-		DATIVE = "криогенному морозильнику",
-		ACCUSATIVE = "криогенный морозильник",
-		INSTRUMENTAL = "криогенным морозильником",
-		PREPOSITIONAL = "криогенном морозильнике"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
@@ -219,7 +211,6 @@
 	var/on_store_name = "Система криохранения"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
 	var/allow_occupant_types = list(/mob/living/carbon/human)
-	var/disallow_occupant_types = list()
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
 	// 15 minutes-ish safe period before being despawned.
@@ -233,7 +224,7 @@
 	var/last_no_computer_message = 0
 
 	// These items are preserved when the process() despawn proc occurs.
-	var/list/preserve_items = list(
+	var/static/list/preserve_items = list(
 		/obj/item/hand_tele,
 		/obj/item/card/id/captains_spare,
 		/obj/item/aicard,
@@ -261,9 +252,20 @@
 		/obj/item/qm_quest_tablet
 	)
 	// These items will NOT be preserved
-	var/list/do_not_preserve_items = list (
+	var/static/list/do_not_preserve_items = list (
 		/obj/item/mmi/robotic_brain
 	)
+
+/obj/machinery/cryopod/get_ru_names()
+	return list(
+		NOMINATIVE = "криогенный морозильник",
+		GENITIVE = "криогенного морозильника",
+		DATIVE = "криогенному морозильнику",
+		ACCUSATIVE = "криогенный морозильник",
+		INSTRUMENTAL = "криогенным морозильником",
+		PREPOSITIONAL = "криогенном морозильнике"
+	)
+	
 
 //////
 //Syndie cryopod.
@@ -316,10 +318,6 @@
 			break
 
 	if(!correct_type) return 0
-
-	for(var/type in disallow_occupant_types)
-		if(istype(M, type))
-			return 0
 
 	return 1
 
@@ -739,7 +737,6 @@
 	on_store_name = "Robotic Storage Oversight"
 	on_enter_occupant_message = "The storage unit broadcasts a sleep signal to you. Your systems start to shut down, and you enter low-power mode."
 	allow_occupant_types = list(/mob/living/silicon/robot)
-	disallow_occupant_types = list()
 
 
 /obj/machinery/cryopod/robot/despawn_occupant()

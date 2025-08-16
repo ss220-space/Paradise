@@ -167,8 +167,17 @@
 	throw_range = 0
 	throw_speed = 0
 	gender = FEMALE
-	ru_names = list(NOMINATIVE = "рука-клинок", GENITIVE = "руки-клинка", DATIVE = "руке-клинку", ACCUSATIVE = "руку-клинок", INSTRUMENTAL = "рукой-клинком", PREPOSITIONAL = "руке-клинке")
 	var/datum/action/changeling/weapon/parent_action
+
+/obj/item/melee/changeling/arm_blade/get_ru_names()
+	return list(
+		NOMINATIVE = "рука-клинок", 
+		GENITIVE = "руки-клинка", 
+		DATIVE = "руке-клинку", 
+		ACCUSATIVE = "руку-клинок", 
+		INSTRUMENTAL = "рукой-клинком",
+		PREPOSITIONAL = "руке-клинке"
+	)
 
 
 /obj/item/melee/changeling/arm_blade/Initialize(mapload, silent, new_parent_action)
@@ -269,10 +278,17 @@
 	throw_range = 0
 	throw_speed = 0
 	gender = MALE
-	ru_names = list(NOMINATIVE = "молот из плоти", GENITIVE = "молота из плоти", DATIVE = "молоту из плоти", ACCUSATIVE = "молот из плоти", INSTRUMENTAL = "молотом из плоти", PREPOSITIONAL = "молоте из плоти")
 	var/datum/action/changeling/weapon/parent_action
 
-
+/obj/item/melee/changeling/fleshy_maul/get_ru_names()
+	return list(
+		NOMINATIVE = "молот из плоти", 
+		GENITIVE = "молота из плоти", 
+		DATIVE = "молоту из плоти", 
+		ACCUSATIVE = "молот из плоти", 
+		INSTRUMENTAL = "молотом из плоти", 
+		PREPOSITIONAL = "молоте из плоти"
+	)
 
 /obj/item/melee/changeling/fleshy_maul/Initialize(mapload, silent, new_parent_action)
 	. = ..()

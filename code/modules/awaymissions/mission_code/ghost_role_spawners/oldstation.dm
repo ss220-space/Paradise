@@ -2,14 +2,6 @@
 
 /obj/effect/mob_spawn/human/oldstation
 	name = "old cryogenics pod"
-	ru_names = list(
-		NOMINATIVE = "старая криогенная капсула",
-		GENITIVE = "старой криогенной капсулы",
-		DATIVE = "старой криогенной капсуле",
-		ACCUSATIVE = "старую криогенную капсулу",
-		INSTRUMENTAL = "старой криогенной капсулой",
-		PREPOSITIONAL = "старой криогенной капсуле"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
 	description = "Работайте в команде с другими выжившими на борту древней разрушенной космической станции."
@@ -22,6 +14,16 @@
 	pickable_species = list(SPECIES_HUMAN)
 	mob_species = /datum/species/human
 	assignedrole = "Ancient Crew"
+
+/obj/effect/mob_spawn/human/oldstation/get_ru_names()
+	return list(
+		NOMINATIVE = "старая криогенная капсула",
+		GENITIVE = "старой криогенной капсулы",
+		DATIVE = "старой криогенной капсуле",
+		ACCUSATIVE = "старую криогенную капсулу",
+		INSTRUMENTAL = "старой криогенной капсулой",
+		PREPOSITIONAL = "старой криогенной капсуле"
+	)
 
 /obj/effect/mob_spawn/human/oldstation/oldsec
 	desc = "Гудящая криокапсула. Вы едва можете разглядеть форму службы безопасности под слоем намерзшего льда. Машина пытается разбудить своего пассажира."
@@ -62,7 +64,11 @@
 /obj/structure/showcase/machinery/oldpod
 	name = "damaged cryogenic pod"
 	desc = "Повреждённая криогенная капсула, давно забытая временем, как и её бывший пассажир..."
-	ru_names = list(
+	icon = 'icons/obj/machines/cryogenic2.dmi'
+	icon_state = "sleeper-open"
+
+/obj/structure/showcase/machinery/oldpod/get_ru_names()
+	return list(
 		NOMINATIVE = "повреждённая криогенная капсула",
 		GENITIVE = "повреждённой криогенной капсулы",
 		DATIVE = "повреждённой криогенной капсуле",
@@ -70,13 +76,13 @@
 		INSTRUMENTAL = "повреждённой криогенной капсулой",
 		PREPOSITIONAL = "повреждённой криогенной капсуле"
 	)
-	icon = 'icons/obj/machines/cryogenic2.dmi'
-	icon_state = "sleeper-open"
 
 /obj/structure/showcase/machinery/oldpod/used
 	name = "Открытая криогенная капсула"
 	desc = "Криогенная капсула, которая недавно выпустила своего пассажира. Капсула кажется неработоспособной."
-	ru_names = list(
+
+/obj/structure/showcase/machinery/oldpod/used/get_ru_names()
+	return list(
 		NOMINATIVE = "открытая криогенная капсула",
 		GENITIVE = "открытой криогенной капсулы",
 		DATIVE = "открытой криогенной капсуле",
