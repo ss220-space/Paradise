@@ -676,14 +676,6 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	icon_state = "bone"
 	singular_name = "bone"
 	desc = "Кто-то выпил их молоко."
-	ru_names = list(
-		NOMINATIVE = "кости",
-		GENITIVE = "костей",
-		DATIVE = "костям",
-		ACCUSATIVE = "кости",
-		INSTRUMENTAL = "костями",
-		PREPOSITIONAL = "костях"
-	)
 	force = 7
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -691,17 +683,19 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
 
+/obj/item/stack/sheet/bone/get_ru_names()
+	return list(
+		NOMINATIVE = "кости",
+		GENITIVE = "костей",
+		DATIVE = "костям",
+		ACCUSATIVE = "кости",
+		INSTRUMENTAL = "костями",
+		PREPOSITIONAL = "костях"
+	)
+
 /obj/item/stack/sheet/razor_sharp_teeth
 	name = "razor sharp teeth"
 	desc = "Бритвенно-острые зубы, добытые из пасти лавового хищника. Прекрасно подходят для стрел."
-	ru_names = list(
-		NOMINATIVE = "бритвенно-острые зубы",
-		GENITIVE = "бритвенно-острых зубов",
-		DATIVE = "бритвенно-острым зубам",
-		ACCUSATIVE = "бритвенно-острые зубы",
-		INSTRUMENTAL = "бритвенно-острыми зубами",
-		PREPOSITIONAL = "бритвенно-острых зубах"
-	)
 	gender = PLURAL
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "razor_sharp_teeth"
@@ -714,6 +708,16 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	throw_range = 7
 	throwforce = 15
 	origin_tech = "materials=4;biotech=5"
+
+/obj/item/stack/sheet/razor_sharp_teeth/get_ru_names()
+	return list(
+		NOMINATIVE = "бритвенно-острые зубы",
+		GENITIVE = "бритвенно-острых зубов",
+		DATIVE = "бритвенно-острым зубам",
+		ACCUSATIVE = "бритвенно-острые зубы",
+		INSTRUMENTAL = "бритвенно-острыми зубами",
+		PREPOSITIONAL = "бритвенно-острых зубах"
+	)
 
 /*
  * Plastic

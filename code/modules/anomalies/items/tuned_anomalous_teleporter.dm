@@ -1,13 +1,5 @@
 /obj/item/assembly/tuned_anomalous_teleporter
 	name = "tuned anomalous teleporter"
-	ru_names = list(
-		NOMINATIVE = "настраеваемый аномальный телепортер", \
-		GENITIVE = "настраеваемого аномального телепортера", \
-		DATIVE = "настраеваемому аномальному телепортеру", \
-		ACCUSATIVE = "настраеваемый аномальный телепортер", \
-		INSTRUMENTAL = "настраеваемым аномальным телепортером", \
-		PREPOSITIONAL = "настраеваемом аномальном телепортере"
-	)
 	desc = "Портативный настраиваемый телепортер использующий ядро блюспейс аномалии для телепортации пользователя в \
 			выбранном направлении."
 	icon = 'icons/obj/weapons/techrelic.dmi'
@@ -43,6 +35,16 @@
 
 	COOLDOWN_DECLARE(tuned_anomalous_teleporter_cooldown) // declare cooldown for teleportations
 	COOLDOWN_DECLARE(emp_cooldown) // declare cooldown for EMP
+
+/obj/item/assembly/tuned_anomalous_teleporter/get_ru_names()
+	return list(
+		NOMINATIVE = "настраеваемый аномальный телепортер", \
+		GENITIVE = "настраеваемого аномального телепортера", \
+		DATIVE = "настраеваемому аномальному телепортеру", \
+		ACCUSATIVE = "настраеваемый аномальный телепортер", \
+		INSTRUMENTAL = "настраеваемым аномальным телепортером", \
+		PREPOSITIONAL = "настраеваемом аномальном телепортере"
+	)
 
 /obj/item/assembly/tuned_anomalous_teleporter/Initialize(mapload)
 	. = ..()

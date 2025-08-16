@@ -1,14 +1,6 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass
 	name = "shot glass"
 	desc = "Небольшая рюмка, из которой обычно пьют алкоголь малыми объёмами."
-	ru_names = list(
-        NOMINATIVE = "рюмка",
-        GENITIVE = "рюмки",
-        DATIVE = "рюмке",
-        ACCUSATIVE = "рюмку",
-        INSTRUMENTAL = "рюмкой",
-        PREPOSITIONAL = "рюмке"
-	)
 	gender = FEMALE
 	icon_state = "shotglass"
 	custom_fire_overlay = "shotglass_fire"
@@ -18,6 +10,16 @@
 	var/light_intensity = 2
 	light_color = LIGHT_COLOR_LIGHTBLUE
 	resistance_flags = FLAMMABLE
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/get_ru_names()
+	return list(
+        NOMINATIVE = "рюмка",
+        GENITIVE = "рюмки",
+        DATIVE = "рюмке",
+        ACCUSATIVE = "рюмку",
+        INSTRUMENTAL = "рюмкой",
+        PREPOSITIONAL = "рюмке"
+	)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
 	if(!isShotFlammable() && (resistance_flags & ON_FIRE))

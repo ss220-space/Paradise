@@ -102,7 +102,7 @@
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
 	var/shaved = FALSE
-	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
+	var/nofur = FALSE		//Corgis that have risen past the material plane of existence.
 	tts_seed = "Stetmann"
 	holder_type = /obj/item/holder/corgi
 
@@ -401,7 +401,7 @@
 /mob/living/simple_animal/pet/dog/corgi/Ian/proc/read_memory()
 	if(fexists("data/npc_saves/Ian.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Ian.sav")
-		S["age"] 		>> age
+		S["age"]		>> age
 		S["record_age"]	>> record_age
 		S["saved_head"] >> saved_head
 		fdel("data/npc_saves/Ian.sav")

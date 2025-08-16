@@ -139,7 +139,7 @@
 
 //Reagent-based explosion effect
 /datum/effect_system/reagents_explosion
-	var/amount 						// TNT equivalent
+	var/amount						// TNT equivalent
 	var/flashing = 0			// does explosion creates flash effect?
 	var/flashing_factor = 0		// factor of how powerful the flash effect relatively to the explosion
 

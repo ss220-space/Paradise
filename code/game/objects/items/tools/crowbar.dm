@@ -82,8 +82,17 @@
 	origin_tech = "materials=2;engineering=2"
 	usesound = 'sound/items/jaws_pry.ogg'
 	toolspeed = 0.25
-	ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/airlock_open_time = 100 // Time required to open powered airlocks
+
+/obj/item/crowbar/power/get_ru_names()
+	return list(
+		NOMINATIVE = "челюсти жизни", 
+		GENITIVE = "челюстей жизни", 
+		DATIVE = "челюстям жизни", 
+		ACCUSATIVE = "челюсти жизни", 
+		INSTRUMENTAL = "челюстями жизни", 
+		PREPOSITIONAL = "челюстях жизни"
+	)
 
 /obj/item/crowbar/power/Initialize(mapload)
 	. = ..()

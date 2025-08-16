@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/damage_protection = 0
 	var/emp_protection = FALSE
 	var/has_transform_animation = FALSE
- 	/// Value incoming brute damage to borgs is mutiplied by.
+	/// Value incoming brute damage to borgs is mutiplied by.
 	var/brute_mod = 1
 	/// Value incoming burn damage to borgs is multiplied by.
 	var/burn_mod = 1

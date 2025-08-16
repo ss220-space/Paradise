@@ -5,14 +5,6 @@
 /mob/living/carbon/true_devil
 	name = "True Devil"
 	desc = "Сгусток адской энергии, смутно напоминающий гуманоида."
-	ru_names = list(
-		NOMINATIVE = "истинный Дьявол",
-		GENITIVE = "истинного Дьявола",
-		DATIVE = "истинному Дьяволу",
-		ACCUSATIVE = "истинного Дьявола",
-		INSTRUMENTAL = "истинным Дьяволом",
-		PREPOSITIONAL = "истинном Дьяволе"
-	)
 	icon = 'icons/mob/32x64.dmi'
 	icon_state = "true_devil"
 	gender = NEUTER
@@ -31,6 +23,16 @@
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 	hud_type = /datum/hud/devil
 	tts_seed = "Mannoroth"
+
+/mob/living/carbon/true_devil/get_ru_names()
+	return list(
+		NOMINATIVE = "истинный Дьявол",
+		GENITIVE = "истинного Дьявола",
+		DATIVE = "истинному Дьяволу",
+		ACCUSATIVE = "истинного Дьявола",
+		INSTRUMENTAL = "истинным Дьяволом",
+		PREPOSITIONAL = "истинном Дьяволе"
+	)
 
 
 /mob/living/carbon/true_devil/ascended

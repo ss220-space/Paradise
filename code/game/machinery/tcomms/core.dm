@@ -16,14 +16,6 @@
 			связь между внутренними и внешними сетями. Представляет собой телекоммуникационную стойку, \
 			содержащую модули передачи данных, антенные усилители и интерфейсы для подключения к радиочастотным гарнитурам персонала. \
 			Поддерживает работу всех доступных частот, включая каналы связи отделов и защищённые частоты ЦК."
-	ru_names = list(
-		NOMINATIVE = "ядро телекоммуникаций",
-		GENITIVE = "ядра телекоммуникаций",
-		DATIVE = "ядру телекоммуникаций",
-		ACCUSATIVE = "ядро телекоммуникаций",
-		INSTRUMENTAL = "ядром телекоммуникаций",
-		PREPOSITIONAL = "ядре телекоммуникаций"
-	)
 	gender = NEUTER
 	icon_state = "core"
 	// This starts as off so you cant make cores as hot spares
@@ -38,6 +30,16 @@
 	var/link_password
 	/// What tab of the UI were currently on
 	var/ui_tab = UI_TAB_CONFIG
+
+/obj/machinery/tcomms/core/get_ru_names()
+	return list(
+		NOMINATIVE = "ядро телекоммуникаций",
+		GENITIVE = "ядра телекоммуникаций",
+		DATIVE = "ядру телекоммуникаций",
+		ACCUSATIVE = "ядро телекоммуникаций",
+		INSTRUMENTAL = "ядром телекоммуникаций",
+		PREPOSITIONAL = "ядре телекоммуникаций"
+	)
 
 /**
   * Initializer for the core.

@@ -61,7 +61,7 @@
 	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
- 	return
+	return
 
 /obj/machinery/door/poddoor/try_to_crowbar(mob/user, obj/item/I)
 	if(!density)

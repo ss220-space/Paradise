@@ -1,4 +1,4 @@
-#define GAS_O2 	(1 << 0)
+#define GAS_O2	(1 << 0)
 #define GAS_N2	(1 << 1)
 #define GAS_PL	(1 << 2)
 #define GAS_CO2	(1 << 3)
@@ -131,10 +131,10 @@
 #define TANK_LEAK_PRESSURE					(30.*ONE_ATMOSPHERE)	//Tank starts leaking
 #define TANK_RUPTURE_PRESSURE				(40.*ONE_ATMOSPHERE)	//Tank spills all contents into atmosphere
 #define TANK_FRAGMENT_PRESSURE				(50.*ONE_ATMOSPHERE)	//Boom 3x3 base explosion
-#define TANK_FRAGMENT_SCALE	    			(10.*ONE_ATMOSPHERE)	//+1 for each SCALE kPa aboe threshold
-#define TANK_MAX_RELEASE_PRESSURE 			(ONE_ATMOSPHERE * 3)
-#define TANK_MIN_RELEASE_PRESSURE 			0
-#define TANK_DEFAULT_RELEASE_PRESSURE 		16
+#define TANK_FRAGMENT_SCALE	   			(10.*ONE_ATMOSPHERE)	//+1 for each SCALE kPa aboe threshold
+#define TANK_MAX_RELEASE_PRESSURE			(ONE_ATMOSPHERE * 3)
+#define TANK_MIN_RELEASE_PRESSURE			0
+#define TANK_DEFAULT_RELEASE_PRESSURE		16
 
 // Atmos alarm defines
 #define ATMOS_ALARM_NONE					0

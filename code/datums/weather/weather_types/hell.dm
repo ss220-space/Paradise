@@ -182,14 +182,6 @@
 /obj/structure/hell_rift
 	name = "hell rift"
 	desc = "Разлом, позволяющий адским существам проникнуть в этот мир."
-	ru_names = list(
-		NOMINATIVE = "адский разлом",
-		GENITIVE = "адского разлома",
-		DATIVE = "адскому разлому",
-		ACCUSATIVE = "адский разлом",
-		INSTRUMENTAL = "адским разломом",
-		PREPOSITIONAL = "адском разломе"
-	)
 	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
 	max_integrity = 300
 	icon = 'icons/obj/carp_rift.dmi'
@@ -202,6 +194,16 @@
 	plane = OBJ_LAYER
 	var/imps_count = 0
 	var/timer_id
+
+/obj/structure/hell_rift/get_ru_names()
+	return list(
+		NOMINATIVE = "адский разлом",
+		GENITIVE = "адского разлома",
+		DATIVE = "адскому разлому",
+		ACCUSATIVE = "адский разлом",
+		INSTRUMENTAL = "адским разломом",
+		PREPOSITIONAL = "адском разломе"
+	)
 
 /obj/structure/hell_rift/ComponentInitialize()
 	. = ..()

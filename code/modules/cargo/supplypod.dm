@@ -11,14 +11,6 @@
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	anchored = TRUE //So it cant slide around after landing
 	density = FALSE
-	ru_names = list(
-		NOMINATIVE = "капсула снабжения",
-		GENITIVE = "капсулы снабжения",
-		DATIVE = "капсуле снабжения",
-		ACCUSATIVE = "капсулу снабжения",
-		INSTRUMENTAL = "капсулой снабжения",
-		PREPOSITIONAL = "капсуле снабжения"
-	)
 	///List of bitflags for supply pods, see: code\__DEFINES\obj_flags.dm
 	var/pod_flags = NONE
 
@@ -60,6 +52,16 @@
 	var/shrapnel_magnitude = 3
 	var/list/reverse_option_list = list(MOB_OPTION=FALSE, UNANCHORED_OPTION=FALSE, ANCHORED_OPTION=FALSE, MECHA_OPTION=FALSE)
 
+/obj/structure/closet/supplypod/get_ru_names()
+	return list(
+		NOMINATIVE = "капсула снабжения",
+		GENITIVE = "капсулы снабжения",
+		DATIVE = "капсуле снабжения",
+		ACCUSATIVE = "капсулу снабжения",
+		INSTRUMENTAL = "капсулой снабжения",
+		PREPOSITIONAL = "капсуле снабжения"
+	)
+
 /obj/structure/closet/supplypod/bluespacepod
 	style = /datum/pod_style/advanced
 	bluespace = TRUE
@@ -91,7 +93,9 @@
 	stay_after_drop = TRUE
 	leavingSound = 'sound/effects/podwoosh.ogg'
 	reverse_option_list = list(MOB_OPTION=TRUE, UNANCHORED_OPTION=FALSE, ANCHORED_OPTION=FALSE, MECHA_OPTION=FALSE)
-	ru_names = list(
+
+/obj/structure/closet/supplypod/extractionpod/get_ru_names()
+	return list(
 		NOMINATIVE = "капсула эвакуации Синдиката",
 		GENITIVE = "капсулы эвакуации Синдиката",
 		DATIVE = "капсуле эвакуации Синдиката",
@@ -178,7 +182,9 @@
 	explosionSize = list(0,0,0,0)
 	style = /datum/pod_style/syndicate
 	specialised = TRUE
-	ru_names = list(
+
+/obj/structure/closet/supplypod/back_to_station/get_ru_names()
+	return list(
 		NOMINATIVE = "кроваво-красная капсула снабжения",
 		GENITIVE = "кроваво-красной капсулы снабжения",
 		DATIVE = "кроваво-красной капсуле снабжения",
@@ -196,7 +202,9 @@
 	specialised = TRUE
 	delays = list(POD_TRANSIT = 2.6 SECONDS, POD_FALLING = 0.4 SECONDS)
 	effectMissile = TRUE
-	ru_names = list(
+
+/obj/structure/closet/supplypod/deadmatch_missile/get_ru_names()
+	return list(
 		NOMINATIVE = "крылатая ракета",
 		GENITIVE = "крылатой ракеты",
 		DATIVE = "крылатой ракете",
@@ -650,7 +658,9 @@
 	pixel_x = SUPPLYPOD_X_OFFSET
 	var/foreground = "rubble_fg"
 	var/verticle_offset = 0
-	ru_names = list(
+
+/obj/effect/supplypod_rubble/get_ru_names()
+	return list(
 		NOMINATIVE = "обломки",
 		GENITIVE = "обломков",
 		DATIVE = "обломкам",
@@ -710,7 +720,9 @@
 	var/obj/structure/closet/supplypod/pod //The supplyPod that will be landing ontop of this pod_landingzone
 	var/obj/effect/pod_landingzone_effect/helper
 	var/list/smoke_effects = new /list(13)
-	ru_names = list(
+
+/obj/effect/pod_landingzone/get_ru_names()
+	return list(
 		NOMINATIVE = "индикатор зоны приземления",
 		GENITIVE = "индикатора зоны приземления",
 		DATIVE = "индикатору зоны приземления",

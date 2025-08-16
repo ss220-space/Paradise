@@ -5,7 +5,12 @@
   */
 /obj/effect/contractor_flare
 	name = "contractor extraction flare"
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "flare-contractor-on"
+
+/obj/effect/contractor_flare/get_ru_names()
+	return list(
 		NOMINATIVE = "сигнальная ракета контрактника",
 		GENITIVE = "сигнальной ракеты контрактника",
 		DATIVE = "сигнальной ракете контрактника",
@@ -13,9 +18,6 @@
 		INSTRUMENTAL = "сигнальной ракетой контрактника",
 		PREPOSITIONAL = "сигнальной ракете контрактника"
 	)
-	gender = MALE
-	icon = 'icons/obj/lighting.dmi'
-	icon_state = "flare-contractor-on"
 
 /obj/effect/contractor_flare/New()
 	..()
@@ -43,14 +45,6 @@
   */
 /obj/effect/portal/redspace/contractor
 	name = "suspicious portal"
-	ru_names = list(
-		NOMINATIVE = "подозрительный портал",
-		GENITIVE = "подозрительного портала",
-		DATIVE = "подозрительному порталу",
-		ACCUSATIVE = "подозрительный портал",
-		INSTRUMENTAL = "подозрительным порталом",
-		PREPOSITIONAL = "подозрительном портале"
-	)
 	icon_state = "portal-syndicate"
 	/// The contract associated with this portal.
 	var/datum/syndicate_contract/contract = null
@@ -58,6 +52,16 @@
 	var/datum/mind/contractor_mind = null
 	/// The mind of the kidnapping target. Prevents non-targets from taking the portal.
 	var/datum/mind/target_mind = null
+
+/obj/effect/portal/redspace/contractor/get_ru_names()
+	return list(
+		NOMINATIVE = "подозрительный портал",
+		GENITIVE = "подозрительного портала",
+		DATIVE = "подозрительному порталу",
+		ACCUSATIVE = "подозрительный портал",
+		INSTRUMENTAL = "подозрительным порталом",
+		PREPOSITIONAL = "подозрительном портале"
+	)
 
 
 /obj/effect/portal/redspace/contractor/can_teleport(atom/movable/A, silent = FALSE)

@@ -729,14 +729,6 @@
 /obj/item/spellbook
 	name = "spell book"
 	desc = "Легендарная книга заклинаний, используемая могущественными магами."
-	ru_names = list(
-		NOMINATIVE = "книга заклинаний",
-		GENITIVE = "книги заклинаний",
-		DATIVE = "книге заклинаний",
-		ACCUSATIVE = "книгу заклинаний",
-		INSTRUMENTAL = "книгой заклинаний",
-		PREPOSITIONAL = "книге заклинаний"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/library.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
@@ -756,10 +748,20 @@
 	var/mob/living/carbon/human/owner
 	var/list/datum/spellbook_entry/entries = list()
 	var/list/categories = list()
-	var/list/main_categories = list("Spells", "Magical Items", "Loadouts")
-	var/list/spell_categories = list("Offensive", "Defensive", "Mobility", "Assistance", "Rituals")
-	var/list/item_categories = list("Artefacts", "Spell books", "Weapons and Armors", "Staves", "Summons")
-	var/list/loadout_categories = list("Standard", "Unique")
+	var/static/list/main_categories = list("Spells", "Magical Items", "Loadouts")
+	var/static/list/spell_categories = list("Offensive", "Defensive", "Mobility", "Assistance", "Rituals")
+	var/static/list/item_categories = list("Artefacts", "Spell books", "Weapons and Armors", "Staves", "Summons")
+	var/static/list/loadout_categories = list("Standard", "Unique")
+
+/obj/item/spellbook/get_ru_names()
+	return list(
+		NOMINATIVE = "книга заклинаний",
+		GENITIVE = "книги заклинаний",
+		DATIVE = "книге заклинаний",
+		ACCUSATIVE = "книгу заклинаний",
+		INSTRUMENTAL = "книгой заклинаний",
+		PREPOSITIONAL = "книге заклинаний"
+	)
 
 /obj/item/spellbook/proc/initialize()
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon - /datum/spellbook_entry/loadout
@@ -1015,7 +1017,11 @@
 	var/used = 0
 	skip_refunds = TRUE
 	name = "spellbook of "
-	ru_names = list(
+	uses = 1
+	desc = "Эту шаблонную книгу заклинаний не должно было видеть ни одно живое существо..."
+
+/obj/item/spellbook/oneuse/get_ru_names()
+	return list(
 		NOMINATIVE = "гримуар ",
 		GENITIVE = "гримуара ",
 		DATIVE = "гримуару ",
@@ -1023,9 +1029,6 @@
 		INSTRUMENTAL = "гримуаром ",
 		PREPOSITIONAL = "гримуаре "
 	)
-	uses = 1
-	desc = "Эту шаблонную книгу заклинаний не должно было видеть ни одно живое существо..."
-
 
 /obj/item/spellbook/oneuse/magic_charge_act(mob/user)
 	. = NONE
@@ -1046,13 +1049,16 @@
 /obj/item/spellbook/oneuse/New()
 	..()
 	name += spellname
-	if(ru_names)
-		ru_names[NOMINATIVE] += spellname_ru
-		ru_names[GENITIVE] += spellname_ru
-		ru_names[DATIVE] += spellname_ru
-		ru_names[ACCUSATIVE] += spellname_ru
-		ru_names[INSTRUMENTAL] += spellname_ru
-		ru_names[PREPOSITIONAL] += spellname_ru
+
+	if(!ru_names)
+		ru_names = get_ru_names_cached()
+
+	ru_names[NOMINATIVE] += spellname_ru
+	ru_names[GENITIVE] += spellname_ru
+	ru_names[DATIVE] += spellname_ru
+	ru_names[ACCUSATIVE] += spellname_ru
+	ru_names[INSTRUMENTAL] += spellname_ru
+	ru_names[PREPOSITIONAL] += spellname_ru
 
 /obj/item/spellbook/oneuse/initialize() //No need to init
 	return
@@ -1157,15 +1163,15 @@
 		if("charge")
 			spellname_ru = "Заряда"
 
-	if(ru_names)
-		ru_names[NOMINATIVE] = "гримуар " + spellname_ru
-		ru_names[GENITIVE] = "гримуара " + spellname_ru
-		ru_names[DATIVE] = "гримуару" + spellname_ru
-		ru_names[ACCUSATIVE] = "гримуар " + spellname_ru
-		ru_names[INSTRUMENTAL] = "гримуаром " + spellname_ru
-		ru_names[PREPOSITIONAL] = "гримуаре " + spellname_ru
+	if(!ru_names)
+		ru_names = list()
 
-
+	ru_names[NOMINATIVE] = "гримуар " + spellname_ru
+	ru_names[GENITIVE] = "гримуара " + spellname_ru
+	ru_names[DATIVE] = "гримуару" + spellname_ru
+	ru_names[ACCUSATIVE] = "гримуар " + spellname_ru
+	ru_names[INSTRUMENTAL] = "гримуаром " + spellname_ru
+	ru_names[PREPOSITIONAL] = "гримуаре " + spellname_ru
 
 /obj/item/spellbook/oneuse/mindswap/recoil(mob/user)
 	..()

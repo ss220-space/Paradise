@@ -2403,7 +2403,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/clothing/shoes/combat,                                        // 0 TK
 					/obj/item/clothing/accessory/holster,                                   // 5 TK
 					/obj/item/clothing/head/beret,                                          // 0 TK
-					/obj/item/clothing/accessory/scarf/red,                                	// 0 TK
+					/obj/item/clothing/accessory/scarf/red,                               	// 0 TK
 					/obj/item/encryptionkey/syndicate,										// 0-2 TK
 					/obj/item/clothing/mask/holo_cigar,                                     // 10 TK
 					)

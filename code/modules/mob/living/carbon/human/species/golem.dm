@@ -78,10 +78,10 @@
 	var/golem_colour = rgb(170, 170, 170)
 	var/info_text = "Будучи <span class='danger'>железным големом</span>, вы не обладаете отличительными особенностями."
 	var/random_eligible = TRUE
-	var/prefix = "Железн" 		// неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
+	var/prefix = "Железн"		// неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	var/prefix_type = 1			// Тип гендеризации префикса для более гладких переводов. 1-й = "-ый", 2-й = "-ой", 3-й = ""
 
-	var/gender_name = MALE 	// Пол для имени голема. Default - мужской
+	var/gender_name = MALE	// Пол для имени голема. Default - мужской
 	var/chance_name_male = 80	// Шанс на выпадение пола для имени
 	var/chance_name_female = 60
 	var/chance_name_neuter = 5
@@ -137,8 +137,8 @@
 					golem_surname = pick(GLOB.first_names_female)
 				else
 					golem_surname = pick(GLOB.last_names_female)
-		 	if (NEUTER)
-			 	golem_surname = pick("Нечто", "Чудо") //Средний пол голема
+			if (NEUTER)
+				golem_surname = pick("Нечто", "Чудо") //Средний пол голема
 
 	//устанавливаем окончание прилагательных префиксов (золотой мужик теперь золотОЙ, а не золотЫЙ)
 	var/end_pr
@@ -936,9 +936,9 @@
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), ITEM_SLOT_HEAD)
-	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), ITEM_SLOT_POCKET_RIGHT)
-	H.equip_to_slot_or_del(new 	/obj/item/cane(H), ITEM_SLOT_HAND_LEFT)
+	H.equip_to_slot_or_del(new	/obj/item/clothing/head/beret(H), ITEM_SLOT_HEAD)
+	H.equip_to_slot_or_del(new	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), ITEM_SLOT_POCKET_RIGHT)
+	H.equip_to_slot_or_del(new	/obj/item/cane(H), ITEM_SLOT_HAND_LEFT)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))

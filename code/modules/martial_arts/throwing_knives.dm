@@ -14,7 +14,9 @@
 		/obj/item/kitchen/knife/butcher/meatcleaver,
 		/obj/item/kitchen/knife/carrotshiv,
 		/obj/item/kitchen/knife/glassshiv,
-		/obj/item/kitchen/knife/glassshiv/plasma
+		/obj/item/kitchen/knife/glassshiv/plasma,
+		/obj/item/kitchen/knife/ghostface_knife,
+		/obj/item/kitchen/knife/ghostface_knife/devil
 	)
 	var/knife_embed_chance = 100
 	var/knife_bonus_damage = 5
@@ -62,7 +64,7 @@
 	return FALSE
 
 /datum/martial_art/throwing/explaination_footer(user)
-	to_chat(user, "[span_notice("Работает с ножами")]: Боевой, шахтёрский, костяной, метательный, кухонный, тесак, заточка из стекла, заточка из морковки")
+	to_chat(user, "[span_notice("Работает с ножами")]: Боевой, шахтёрский, костяной, метательный, кухонный, тесак, заточка из стекла, заточка из морковки, нож гоустфейса, нож дьявольского гоустфейса")
 	to_chat(user, "[span_notice("Урон")]: +5 урона от бросков и ударов ножей")
 	to_chat(user, "[span_notice("Застревание")]: Ножи застревают в жертве со 100% вероятностью")
 	to_chat(user, "[span_notice("Блок")]: 50% блока мили атак, пока в руках есть нож")

@@ -128,7 +128,7 @@ Variable Breakdown (For Mappers):
 		allowAtomsOnSpace - A Boolean for if we allow atoms to spawn on space tiles
 
 		clusterCheckFlags flags:
-			CLUSTER_CHECK_NONE	0 			   //No checks are done, cluster as much as possible
+			CLUSTER_CHECK_NONE	0			   //No checks are done, cluster as much as possible
 			CLUSTER_CHECK_DIFFERENT_TURFS	2  //Don't let turfs of DIFFERENT types cluster
 			CLUSTER_CHECK_DIFFERENT_ATOMS	4  //Don't let atoms of DIFFERENT types cluster
 			CLUSTER_CHECK_SAME_TURFS		8  //Don't let turfs of the SAME type cluster
