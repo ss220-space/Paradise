@@ -148,7 +148,8 @@
 
 	if(names && !GLOB.cached_ru_names[type])
 		GLOB.cached_ru_names[type] = names
-		ru_names = null
+		
+	ru_names = null
 
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")

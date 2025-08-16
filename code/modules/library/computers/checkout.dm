@@ -3,15 +3,6 @@
  */
 /obj/machinery/computer/library/checkout
 	name = "Library Computer"
-	desc = "Старый библиотечный компьютер, хранящий в своей памяти сотни, если не тысячи, книг."
-	ru_names = list(
-		NOMINATIVE = "библиотечный компьютер",
-		GENITIVE = "библиотечного компьютера",
-		DATIVE = "библиотечному компьютеру",
-		ACCUSATIVE = "библиотечный компьютер",
-		INSTRUMENTAL = "библиотечным компьютером",
-		PREPOSITIONAL = "библиотечном компьютере"
-	)
 	var/arcanecheckout = 0
 	//var/screenstate = 0 // 0 - Main Menu, 1 - Inventory, 2 - Checked Out, 3 - Check Out a Book
 	var/buffer_book
@@ -25,12 +16,22 @@
 	var/bibledelay = 0 // LOL NO SPAM (1 minute delay) -- Doohl
 	var/booklist
 
-/obj/machinery/computer/library/checkout/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/library/checkout/get_ru_names()
+	return list(
+		NOMINATIVE = "библиотечный компьютер",
+		GENITIVE = "библиотечного компьютера",
+		DATIVE = "библиотечному компьютеру",
+		ACCUSATIVE = "библиотечный компьютер",
+		INSTRUMENTAL = "библиотечным компьютером",
+		PREPOSITIONAL = "библиотечном компьютере"
+	)
+
+/obj/machinery/computer/library/checkout/attack_hand(mob/user)
 	if(..())
 		return
 	interact(user)
 
-/obj/machinery/computer/library/checkout/interact(var/mob/user)
+/obj/machinery/computer/library/checkout/interact(mob/user)
 	if(interact_check(user))
 		return
 
@@ -477,7 +478,7 @@
  * Library Scanner
  */
 
-/obj/machinery/computer/library/checkout/proc/make_external_book(var/datum/cachedbook/newbook)
+/obj/machinery/computer/library/checkout/proc/make_external_book(datum/cachedbook/newbook)
 	if(!newbook || !newbook.id)
 		return
 	var/obj/item/book/B = new newbook.path(loc)

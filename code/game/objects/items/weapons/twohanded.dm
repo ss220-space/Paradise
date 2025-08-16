@@ -1,13 +1,13 @@
 /* Two-handed Weapons
  * Contains:
- * 		Twohanded
+ *		Twohanded
  *		Fireaxe
  *		Double-Bladed Energy Swords
  *		Spears
  *		Kidan spear
  *		Chainsaw
  *		Singularity hammer
- * 		Mjolnnir
+ *		Mjolnnir
  *		Knighthammer
  *      Pyro Claws
  */

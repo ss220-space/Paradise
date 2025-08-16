@@ -287,7 +287,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(clonemind.damnation_type) //Can't clone the damned.
 		playsound('sound/hallucinations/veryfar_noise.ogg', 50, 0)
 		malfunction()
- 		return -1 // so that the record gets flushed out
+		return -1 // so that the record gets flushed out
 	*/
 
 	if(biomass >= CLONE_BIOMASS)
@@ -539,8 +539,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			SSticker.mode.rise(H)
 			if(SSticker.mode.cult_ascendant)
 				SSticker.mode.ascend(H)
- 	if((H.mind in SSticker.mode.shadowling_thralls) || (H.mind in SSticker.mode.shadows))
- 		SSticker.mode.update_shadow_icons_added(H.mind)
+	if((H.mind in SSticker.mode.shadowling_thralls) || (H.mind in SSticker.mode.shadows))
+		SSticker.mode.update_shadow_icons_added(H.mind)
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)

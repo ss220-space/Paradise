@@ -1,6 +1,6 @@
 /* Beds... get your mind out of the gutter, they're for sleeping!
  * Contains:
- * 		Beds
+ *		Beds
  *		Roller beds
  *		Dog Beds
  */

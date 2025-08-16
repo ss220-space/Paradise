@@ -86,7 +86,7 @@
 	// To be filled out at compile time
 	var/list/products	= list()	// For each, use the following pattern:
 	var/list/contraband	= list()	// list(/type/path = amount,/type/path2 = amount2)
-	var/list/premium 	= list()	// No specified amount = only one in stock
+	var/list/premium	= list()	// No specified amount = only one in stock
 	var/list/prices     = list()	// Prices for each item, list(/type/path = price), items not in the list don't have a price.
 
 	// List of vending_product items available.
@@ -1815,7 +1815,7 @@
 	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow = 10,   //Congrats, you unlocked the +18 setting!
 					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
 					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
-  					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
+ 					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
 					  /obj/item/ammo_box/foambox/riot = 20,
 					  /obj/item/toy/katana = 10,
 					  /obj/item/twohanded/dualsaber/toy = 5,
@@ -3737,17 +3737,17 @@
 		/obj/item/clothing/head/soft/sec/corp	= 10,
 		/obj/item/clothing/head/beret/sec		= 10,
 		/obj/item/clothing/head/beret/sec/black	= 10,
-		/obj/item/clothing/head/officer		 	= 10,
+		/obj/item/clothing/head/officer			= 10,
 		/obj/item/clothing/head/beret/brigphys  = 5,
 		/obj/item/clothing/head/soft/brigphys   = 5,
 		/obj/item/clothing/head/helmet/lightweighthelmet = 10,
 
 		/obj/item/clothing/under/rank/security			= 10,
-		/obj/item/clothing/under/rank/security/skirt 	= 10,
-		/obj/item/clothing/under/rank/security/formal 	= 5,
-		/obj/item/clothing/under/rank/security/corp 	= 5,
-		/obj/item/clothing/under/rank/security2 		= 5,
-		/obj/item/clothing/under/rank/dispatch 			= 5,
+		/obj/item/clothing/under/rank/security/skirt	= 10,
+		/obj/item/clothing/under/rank/security/formal	= 5,
+		/obj/item/clothing/under/rank/security/corp	= 5,
+		/obj/item/clothing/under/rank/security2		= 5,
+		/obj/item/clothing/under/rank/dispatch			= 5,
 
 		/obj/item/clothing/suit/tracksuit/red				= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/security	= 5,
@@ -3755,41 +3755,41 @@
 		/obj/item/clothing/suit/armor/vest/sec_rps	= 5,
 		/obj/item/clothing/suit/armor/secjacket = 5,
 
-		/obj/item/clothing/mask/balaclava 		= 10,
-		/obj/item/clothing/mask/bandana/red 	= 10,
-		/obj/item/clothing/mask/bandana/black 	= 10,
-		/obj/item/clothing/mask/secscarf 		= 10,
+		/obj/item/clothing/mask/balaclava		= 10,
+		/obj/item/clothing/mask/bandana/red	= 10,
+		/obj/item/clothing/mask/bandana/black	= 10,
+		/obj/item/clothing/mask/secscarf		= 10,
 
 		/obj/item/clothing/gloves/color/black	= 10,
 		/obj/item/clothing/gloves/color/red	= 10,
 
-		/obj/item/clothing/shoes/jackboots 				= 10,
-		/obj/item/clothing/shoes/jackboots/jacksandals 	= 10,
-		/obj/item/clothing/shoes/jackboots/cross 		= 10,
+		/obj/item/clothing/shoes/jackboots				= 10,
+		/obj/item/clothing/shoes/jackboots/jacksandals	= 10,
+		/obj/item/clothing/shoes/jackboots/cross		= 10,
 
 		/obj/item/radio/headset/headset_sec		= 10, //No EARBANGPROTECT. Hehe...
 
 		/obj/item/clothing/glasses/hud/security/sunglasses/tacticool = 5,
 
-		/obj/item/clothing/accessory/scarf/black 	= 10,
-		/obj/item/clothing/accessory/scarf/red 		= 10,
+		/obj/item/clothing/accessory/scarf/black	= 10,
+		/obj/item/clothing/accessory/scarf/red		= 10,
 		/obj/item/clothing/neck/poncho/security     = 10,
 		/obj/item/clothing/neck/cloak/security      = 10,
-		/obj/item/clothing/accessory/armband/sec 	= 10,
+		/obj/item/clothing/accessory/armband/sec	= 10,
 
-		/obj/item/storage/backpack/security 		= 5,
-		/obj/item/storage/backpack/satchel_sec 		= 5,
-		/obj/item/storage/backpack/duffel/security 	= 5,
+		/obj/item/storage/backpack/security		= 5,
+		/obj/item/storage/backpack/satchel_sec		= 5,
+		/obj/item/storage/backpack/duffel/security	= 5,
 
 		//For trainings
 		/obj/item/clothing/under/shorts/red			= 10,
 		/obj/item/clothing/under/shorts/black		= 5,
-		/obj/item/clothing/under/pants/red 			= 10,
-		/obj/item/clothing/under/pants/track 		= 5,
+		/obj/item/clothing/under/pants/red			= 10,
+		/obj/item/clothing/under/pants/track		= 5,
 
 		//For brig physician
 		/obj/item/clothing/under/rank/security/brigphys = 3,
-		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
+		/obj/item/clothing/under/rank/security/brigphys/skirt	= 3,
 		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
 		/obj/item/clothing/suit/storage/brigdoc = 3,
 		/obj/item/clothing/under/rank/security/brigmedical = 3,
@@ -3823,57 +3823,57 @@
 
 	req_access = list(ACCESS_MEDICAL)
 	products = list(
-		/obj/item/clothing/head/beret/med  			= 10,
+		/obj/item/clothing/head/beret/med 			= 10,
 		/obj/item/clothing/head/soft/paramedic		= 5,
-		/obj/item/clothing/head/surgery/purple 		= 10,
-		/obj/item/clothing/head/surgery/blue 		= 10,
-		/obj/item/clothing/head/surgery/green 		= 10,
-		/obj/item/clothing/head/surgery/lightgreen 	= 10,
-		/obj/item/clothing/head/surgery/black 		= 10,
-		/obj/item/clothing/head/headmirror 			= 10,
+		/obj/item/clothing/head/surgery/purple		= 10,
+		/obj/item/clothing/head/surgery/blue		= 10,
+		/obj/item/clothing/head/surgery/green		= 10,
+		/obj/item/clothing/head/surgery/lightgreen	= 10,
+		/obj/item/clothing/head/surgery/black		= 10,
+		/obj/item/clothing/head/headmirror			= 10,
 
-		/obj/item/clothing/under/rank/medical 				= 10,
-		/obj/item/clothing/under/rank/medical/skirt 		= 10,
-		/obj/item/clothing/under/rank/medical/intern 		= 10,
-		/obj/item/clothing/under/rank/medical/intern/skirt 	= 10,
-		/obj/item/clothing/under/rank/medical/intern/assistant 			= 10,
-		/obj/item/clothing/under/rank/medical/intern/assistant/skirt 	= 10,
-		/obj/item/clothing/under/rank/medical/blue 			= 10,
-		/obj/item/clothing/under/rank/medical/green 		= 10,
-		/obj/item/clothing/under/rank/medical/purple 		= 10,
-		/obj/item/clothing/under/rank/medical/lightgreen 	= 10,
-		/obj/item/clothing/under/medigown 					= 10,
+		/obj/item/clothing/under/rank/medical				= 10,
+		/obj/item/clothing/under/rank/medical/skirt		= 10,
+		/obj/item/clothing/under/rank/medical/intern		= 10,
+		/obj/item/clothing/under/rank/medical/intern/skirt	= 10,
+		/obj/item/clothing/under/rank/medical/intern/assistant			= 10,
+		/obj/item/clothing/under/rank/medical/intern/assistant/skirt	= 10,
+		/obj/item/clothing/under/rank/medical/blue			= 10,
+		/obj/item/clothing/under/rank/medical/green		= 10,
+		/obj/item/clothing/under/rank/medical/purple		= 10,
+		/obj/item/clothing/under/rank/medical/lightgreen	= 10,
+		/obj/item/clothing/under/medigown					= 10,
 		/obj/item/clothing/under/rank/nursesuit				= 10,
 		/obj/item/clothing/under/rank/nurse					= 10,
 		/obj/item/clothing/under/rank/orderly				= 10,
 		/obj/item/clothing/under/rank/medical/paramedic		= 5,
 		/obj/item/clothing/under/rank/medical/paramedic/skirt			= 5,
 
-		/obj/item/clothing/suit/storage/labcoat 	= 10,
+		/obj/item/clothing/suit/storage/labcoat	= 10,
 		/obj/item/clothing/suit/storage/suragi_jacket/medic = 10,
-		/obj/item/clothing/suit/apron/surgical 		= 10,
-		/obj/item/clothing/suit/storage/fr_jacket 	= 5,
+		/obj/item/clothing/suit/apron/surgical		= 10,
+		/obj/item/clothing/suit/storage/fr_jacket	= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/medical	= 5,
 
-		/obj/item/clothing/mask/surgical 		= 10,
+		/obj/item/clothing/mask/surgical		= 10,
 
-		/obj/item/clothing/gloves/color/latex 	= 10,
+		/obj/item/clothing/gloves/color/latex	= 10,
 		/obj/item/clothing/gloves/color/latex/nitrile	= 10,
 
-		/obj/item/clothing/shoes/white 			= 10,
-		/obj/item/clothing/shoes/sandal/white 	= 10,
+		/obj/item/clothing/shoes/white			= 10,
+		/obj/item/clothing/shoes/sandal/white	= 10,
 
-		/obj/item/radio/headset/headset_med 	= 10,
+		/obj/item/radio/headset/headset_med	= 10,
 
-		/obj/item/clothing/accessory/scarf/white 		= 10,
-		/obj/item/clothing/accessory/scarf/lightblue 	= 10,
+		/obj/item/clothing/accessory/scarf/white		= 10,
+		/obj/item/clothing/accessory/scarf/lightblue	= 10,
 		/obj/item/clothing/accessory/stethoscope		= 10,
-		/obj/item/clothing/accessory/armband/med 		= 10,
-		/obj/item/clothing/accessory/armband/medgreen 	= 10,
+		/obj/item/clothing/accessory/armband/med		= 10,
+		/obj/item/clothing/accessory/armband/medgreen	= 10,
 
-		/obj/item/storage/backpack/satchel_med 		= 5,
-		/obj/item/storage/backpack/medic 			= 5,
-		/obj/item/storage/backpack/duffel/medical 	= 5,
+		/obj/item/storage/backpack/satchel_med		= 5,
+		/obj/item/storage/backpack/medic			= 5,
+		/obj/item/storage/backpack/duffel/medical	= 5,
 
 		/obj/item/clothing/under/rank/virologist	= 2,
 		/obj/item/clothing/under/rank/virologist/skirt = 2,
@@ -3886,8 +3886,8 @@
 		/obj/item/clothing/under/rank/chemist		= 2,
 		/obj/item/clothing/under/rank/chemist/skirt	= 2,
 		/obj/item/clothing/suit/storage/labcoat/chemist = 2,
-		/obj/item/clothing/suit/storage/suragi_jacket/chem 	= 2,
-		/obj/item/storage/backpack/satchel_chem 	= 2,
+		/obj/item/clothing/suit/storage/suragi_jacket/chem	= 2,
+		/obj/item/storage/backpack/satchel_chem	= 2,
 		/obj/item/storage/backpack/chemistry		= 2,
 		/obj/item/storage/backpack/duffel/chemistry	= 2,
 
@@ -3895,7 +3895,7 @@
 		/obj/item/clothing/under/rank/geneticist/skirt = 2,
 		/obj/item/clothing/suit/storage/labcoat/genetics = 2,
 		/obj/item/clothing/suit/storage/suragi_jacket/genetics = 2,
-		/obj/item/storage/backpack/satchel_gen 		= 2,
+		/obj/item/storage/backpack/satchel_gen		= 2,
 		/obj/item/storage/backpack/genetics			= 2,
 		/obj/item/storage/backpack/duffel/genetics	= 2,
 
@@ -3903,8 +3903,8 @@
 		/obj/item/clothing/under/rank/psych/turtleneck	= 2,
 		/obj/item/clothing/under/rank/psych/skirt	= 2,
 
-		/obj/item/clothing/suit/storage/labcoat/mortician 	= 2,
-		/obj/item/clothing/under/rank/medical/mortician  	= 2,
+		/obj/item/clothing/suit/storage/labcoat/mortician	= 2,
+		/obj/item/clothing/under/rank/medical/mortician 	= 2,
 		)
 
 
@@ -3949,16 +3949,16 @@
 		/obj/item/clothing/suit/hooded/wintercoat/engineering = 5,
 
 		/obj/item/clothing/mask/gas  = 10,
-		/obj/item/clothing/mask/bandana/red 	= 10,
-		/obj/item/clothing/mask/bandana/orange 	= 10,
-		/obj/item/clothing/mask/bandana/red 	= 10,
+		/obj/item/clothing/mask/bandana/red	= 10,
+		/obj/item/clothing/mask/bandana/orange	= 10,
+		/obj/item/clothing/mask/bandana/red	= 10,
 
 		/obj/item/clothing/gloves/color/orange	= 10,
 		/obj/item/clothing/gloves/color/fyellow = 3,
 
-		/obj/item/clothing/shoes/workboots 		= 10,
+		/obj/item/clothing/shoes/workboots		= 10,
 
-		/obj/item/radio/headset/headset_eng 	= 10,
+		/obj/item/radio/headset/headset_eng	= 10,
 
 		/obj/item/clothing/accessory/scarf/yellow	= 10,
 		/obj/item/clothing/accessory/scarf/orange	= 10,
@@ -4013,32 +4013,32 @@
 		/obj/item/clothing/under/rank/scientist/student/assistant/skirt = 10,
 
 		/obj/item/clothing/suit/storage/labcoat/science = 10,
-		/obj/item/clothing/suit/storage/labcoat 		= 10,
+		/obj/item/clothing/suit/storage/labcoat		= 10,
 		/obj/item/clothing/suit/storage/suragi_jacket/sci = 5,
 		/obj/item/clothing/suit/hooded/wintercoat/medical/science = 5,
 
-		/obj/item/clothing/gloves/color/latex 	= 10,
-		/obj/item/clothing/gloves/color/white 	= 10,
-		/obj/item/clothing/gloves/color/purple 	= 10,
+		/obj/item/clothing/gloves/color/latex	= 10,
+		/obj/item/clothing/gloves/color/white	= 10,
+		/obj/item/clothing/gloves/color/purple	= 10,
 
-		/obj/item/clothing/shoes/white 			= 10,
-		/obj/item/clothing/shoes/slippers 		= 10,
-		/obj/item/clothing/shoes/sandal/white 	= 10,
+		/obj/item/clothing/shoes/white			= 10,
+		/obj/item/clothing/shoes/slippers		= 10,
+		/obj/item/clothing/shoes/sandal/white	= 10,
 
-		/obj/item/radio/headset/headset_sci 		= 10,
+		/obj/item/radio/headset/headset_sci		= 10,
 		/obj/item/clothing/accessory/armband/science = 10,
-		/obj/item/clothing/accessory/armband/yb 	= 10,
-		/obj/item/clothing/accessory/scarf/purple 	= 10,
+		/obj/item/clothing/accessory/armband/yb	= 10,
+		/obj/item/clothing/accessory/scarf/purple	= 10,
 
-		/obj/item/storage/backpack/science 			= 5,
-		/obj/item/storage/backpack/satchel_tox 		= 5,
-		/obj/item/storage/backpack/duffel/science 	= 5,
+		/obj/item/storage/backpack/science			= 5,
+		/obj/item/storage/backpack/satchel_tox		= 5,
+		/obj/item/storage/backpack/duffel/science	= 5,
 
-		/obj/item/clothing/head/soft/black 		= 10,
-		/obj/item/clothing/under/rank/roboticist 	= 10,
+		/obj/item/clothing/head/soft/black		= 10,
+		/obj/item/clothing/under/rank/roboticist	= 10,
 		/obj/item/clothing/under/rank/roboticist/skirt = 10,
-		/obj/item/clothing/gloves/fingerless 	= 10,
-		/obj/item/clothing/shoes/black 			= 10,
+		/obj/item/clothing/gloves/fingerless	= 10,
+		/obj/item/clothing/shoes/black			= 10,
 		)
 
 
@@ -4069,26 +4069,26 @@
 	products = list(
 		/obj/item/clothing/head/soft = 10,
 
-		/obj/item/clothing/under/rank/cargotech 		= 10,
-		/obj/item/clothing/under/rank/cargotech/skirt 	= 10,
+		/obj/item/clothing/under/rank/cargotech		= 10,
+		/obj/item/clothing/under/rank/cargotech/skirt	= 10,
 		/obj/item/clothing/under/rank/cargotech/alt		= 5,
-		/obj/item/clothing/under/rank/miner/lavaland 	= 10,
-		/obj/item/clothing/under/overalls 				= 10,
+		/obj/item/clothing/under/rank/miner/lavaland	= 10,
+		/obj/item/clothing/under/overalls				= 10,
 		/obj/item/clothing/under/rank/miner/alt			= 5,
 
 
-		/obj/item/clothing/mask/bandana/black 	= 10,
-		/obj/item/clothing/mask/bandana/orange 	= 10,
+		/obj/item/clothing/mask/bandana/black	= 10,
+		/obj/item/clothing/mask/bandana/orange	= 10,
 
 		/obj/item/clothing/gloves/color/brown/cargo = 10,
 		/obj/item/clothing/gloves/color/light_brown = 10,
-		/obj/item/clothing/gloves/fingerless 	= 10,
-		/obj/item/clothing/gloves/color/black 	= 10,
+		/obj/item/clothing/gloves/fingerless	= 10,
+		/obj/item/clothing/gloves/color/black	= 10,
 
 		/obj/item/clothing/shoes/brown = 10,
 		/obj/item/clothing/shoes/workboots/mining = 10,
-		/obj/item/clothing/shoes/jackboots 				= 10,
-		/obj/item/clothing/shoes/jackboots/jacksandals 	= 10,
+		/obj/item/clothing/shoes/jackboots				= 10,
+		/obj/item/clothing/shoes/jackboots/jacksandals	= 10,
 
 		/obj/item/radio/headset/headset_cargo = 10,
 
@@ -4099,8 +4099,8 @@
 		/obj/item/storage/backpack/satchel_explorer = 5,
 		/obj/item/storage/backpack/duffel = 5,
 
-		/obj/item/clothing/under/pants/tan 		= 10,
-		/obj/item/clothing/under/pants/track 	= 10,
+		/obj/item/clothing/under/pants/tan		= 10,
+		/obj/item/clothing/under/pants/track	= 10,
 
 		/obj/item/clothing/suit/storage/cargotech = 5,
 
@@ -4142,7 +4142,7 @@
 		/obj/item/clothing/under/lawyer/bluesuit = 10,
 		/obj/item/clothing/under/lawyer/purpsuit = 10,
 		/obj/item/clothing/under/lawyer/oldman = 10,
-		/obj/item/clothing/under/blackskirt 	= 10,
+		/obj/item/clothing/under/blackskirt	= 10,
 
 		/obj/item/clothing/suit/storage/internalaffairs  = 10,
 		/obj/item/clothing/suit/storage/lawyer/bluejacket = 5,
@@ -4156,23 +4156,23 @@
 		/obj/item/clothing/under/suit_jacket/burgundy = 5,
 		/obj/item/clothing/under/suit_jacket/charcoal = 5,
 
-		/obj/item/clothing/gloves/color/white 	= 10,
+		/obj/item/clothing/gloves/color/white	= 10,
 		/obj/item/clothing/gloves/fingerless	= 10,
 
-		/obj/item/clothing/shoes/laceup  		= 10,
-		/obj/item/clothing/shoes/centcom 		= 10,
-		/obj/item/clothing/shoes/brown 			= 10,
-		/obj/item/clothing/shoes/sandal/fancy 	= 10,
+		/obj/item/clothing/shoes/laceup 		= 10,
+		/obj/item/clothing/shoes/centcom		= 10,
+		/obj/item/clothing/shoes/brown			= 10,
+		/obj/item/clothing/shoes/sandal/fancy	= 10,
 
-		/obj/item/radio/headset/headset_iaa  	= 10,
+		/obj/item/radio/headset/headset_iaa 	= 10,
 
 
-		/obj/item/clothing/accessory/blue 		= 10,
-		/obj/item/clothing/accessory/red 		= 10,
-		/obj/item/clothing/accessory/black 		= 10,
+		/obj/item/clothing/accessory/blue		= 10,
+		/obj/item/clothing/accessory/red		= 10,
+		/obj/item/clothing/accessory/black		= 10,
 		/obj/item/clothing/accessory/waistcoat	= 5,
 
-		/obj/item/storage/backpack/satchel 	= 10,
+		/obj/item/storage/backpack/satchel	= 10,
 		/obj/item/storage/briefcase			= 5,
 		)
 
@@ -5396,7 +5396,7 @@
 	)
 
 /obj/machinery/vending/ammo/get_ru_names()
-	return 	list(
+	return	list(
 		NOMINATIVE = "торговый автомат Liberty",
 		GENITIVE = "торгового автомата Liberty",
 		DATIVE = "торговому автомату Liberty",

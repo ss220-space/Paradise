@@ -629,8 +629,8 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
 	var/static/list/phrase_list = list(
 
-								"halt" 			= "HALT! HALT! HALT! HALT!",
-								"bobby" 		= "Stop in the name of the Law.",
+								"halt"			= "HALT! HALT! HALT! HALT!",
+								"bobby"		= "Stop in the name of the Law.",
 								"compliance"	= "Compliance is in your best interest.",
 								"justice"		= "Prepare for justice!",
 								"running"		= "Running will only increase your sentence.",

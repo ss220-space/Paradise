@@ -1,11 +1,11 @@
 #define MARTIAL_COMBO_FAIL				0		// If the combo failed
 #define MARTIAL_COMBO_CONTINUE			1		// If the combo should continue
 #define MARTIAL_COMBO_DONE				2		// If the combo is successful and done
-#define MARTIAL_COMBO_DONE_NO_CLEAR 	3		// If the combo is successful and done but the others should have a chance to finish
+#define MARTIAL_COMBO_DONE_NO_CLEAR	3		// If the combo is successful and done but the others should have a chance to finish
 #define MARTIAL_COMBO_DONE_BASIC_HIT	4		// If the combo should do a basic hit after it's done
 #define MARTIAL_COMBO_DONE_CLEAR_COMBOS	5		// If the combo should do a basic hit after it's done
 
-#define MARTIAL_ARTS_CANNOT_USE 	-1
+#define MARTIAL_ARTS_CANNOT_USE	-1
 
 #define MARTIAL_COMBO_STEP_HARM		"Harm"
 #define MARTIAL_COMBO_STEP_DISARM	"Disarm"
@@ -13,10 +13,10 @@
 #define MARTIAL_COMBO_STEP_HELP		"Help"
 
 GLOBAL_LIST_INIT(martial_combo_step_message, list(
-	MARTIAL_COMBO_STEP_HARM = 	span_red("Harm"),
+	MARTIAL_COMBO_STEP_HARM =	span_red("Harm"),
 	MARTIAL_COMBO_STEP_DISARM = span_blue("Disarm"),
-	MARTIAL_COMBO_STEP_GRAB = 	span_yellow("Grab"),
-	MARTIAL_COMBO_STEP_HELP = 	span_green("Help"),
+	MARTIAL_COMBO_STEP_GRAB =	span_yellow("Grab"),
+	MARTIAL_COMBO_STEP_HELP =	span_green("Help"),
 ))
 
 // A check used for all act types. Such as disarm_act

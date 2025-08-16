@@ -684,7 +684,7 @@
 		var/datum/antagonist/vampire/vampire = firer.mind?.has_antag_datum(/datum/antagonist/vampire)
 		var/obj/effect/proc_holder/spell/vampire/self/infected_trophy/infected_trophy = locate() in firer.mind?.spell_list
 		if(vampire && infected_trophy)
-			range += vampire.get_trophies(INTERNAL_ORGAN_EYES) 	// 15 MAX
+			range += vampire.get_trophies(INTERNAL_ORGAN_EYES)	// 15 MAX
 			var/datum/spell_handler/vampire/handler = infected_trophy.custom_handler
 			var/blood_cost = handler.calculate_blood_cost(vampire)
 			vampire.bloodusable -= blood_cost
@@ -2064,7 +2064,7 @@
 	force_threshold = 3	// little protection
 	melee_damage_lower = 10
 	melee_damage_upper = 15
-	armour_penetration = 50 	// default security armor is useless
+	armour_penetration = 50	// default security armor is useless
 	pass_flags = PASSTABLE | PASSFENCE | PASSGRILLE
 
 
@@ -2077,11 +2077,11 @@
 		return
 
 	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
-	health += t_hearts * 20 												// 250 MAX
+	health += t_hearts * 20												// 250 MAX
 	maxHealth += t_hearts * 20
-	melee_damage_lower += round(t_hearts / 2) 								// 13 MAX
+	melee_damage_lower += round(t_hearts / 2)								// 13 MAX
 	melee_damage_upper += t_hearts											// 21 MAX
-	force_threshold += t_hearts * 2 										// 15 MAX
+	force_threshold += t_hearts * 2										// 15 MAX
 	set_varspeed(speed - vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05)	// 30% MAX
 
 
@@ -2260,7 +2260,7 @@
 		return
 
 	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
-	health += t_hearts * 10 												// 140 MAX
+	health += t_hearts * 10												// 140 MAX
 	maxHealth += t_hearts * 10
 	melee_damage_lower += round(t_hearts / 2)								// 11 MAX
 	melee_damage_upper += t_hearts											// 16 MAX

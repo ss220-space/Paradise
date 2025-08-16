@@ -73,7 +73,7 @@
 		issuccessful = TRUE
 
 	if(issuccessful)
-		clearturf(T) 	//qdels all items / gibs all mobs on the turf. Let's not have an SM shard spawn on top of a poor sod.
+		clearturf(T)	//qdels all items / gibs all mobs on the turf. Let's not have an SM shard spawn on top of a poor sod.
 		new G(T)		//Spawns the switch-selected engine on the chosen beacon's turf
 
 		var/ailist[] = list()

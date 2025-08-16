@@ -813,10 +813,10 @@ BODY SCANNERS
 
 	var/mob/living/carbon/human/H = M
 	var/fake_oxy = max(rand(1,40), H.getOxyLoss(), (300 - (H.getToxLoss() + H.getFireLoss() + H.getBruteLoss())))
-	var/OX = H.getOxyLoss() > 50 	? 	"<b>[H.getOxyLoss()]</b>" 		: H.getOxyLoss()
-	var/TX = H.getToxLoss() > 50 	? 	"<b>[H.getToxLoss()]</b>" 		: H.getToxLoss()
-	var/BU = H.getFireLoss() > 50 	? 	"<b>[H.getFireLoss()]</b>" 		: H.getFireLoss()
-	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
+	var/OX = H.getOxyLoss() > 50	?	"<b>[H.getOxyLoss()]</b>"		: H.getOxyLoss()
+	var/TX = H.getToxLoss() > 50	?	"<b>[H.getToxLoss()]</b>"		: H.getToxLoss()
+	var/BU = H.getFireLoss() > 50	?	"<b>[H.getFireLoss()]</b>"		: H.getFireLoss()
+	var/BR = H.getBruteLoss() > 50	?	"<b>[H.getBruteLoss()]</b>"	: H.getBruteLoss()
 	var/DNR = !H.ghost_can_reenter()
 	if(H.stat == DEAD)
 		if(DNR)
@@ -825,7 +825,7 @@ BODY SCANNERS
 			scan_data += "Состояние: [span_danger("Смерть")]"
 	else //Если живой или отключка
 		if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
-			OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
+			OX = fake_oxy > 50			?	"<b>[fake_oxy]</b>"			: fake_oxy
 			scan_data += "Состояние: [span_danger("Смерть")]"
 		else
 			scan_data += "Состояние: [H.stat > 1 ? span_danger("Смерть") : (H.health > 0 ? "[H.health]%" : span_danger("[H.health]%"))]"

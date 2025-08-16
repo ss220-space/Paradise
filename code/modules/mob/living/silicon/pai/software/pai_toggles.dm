@@ -45,7 +45,7 @@
 	toggle_software = TRUE
 
 /datum/pai_software/translator/toggle(mob/living/silicon/pai/user)
-	// 	Galactic Common, Sol Common, Tradeband, Gutter and Trinary are added with New() and are therefore the current default, always active languages
+	//	Galactic Common, Sol Common, Tradeband, Gutter and Trinary are added with New() and are therefore the current default, always active languages
 	user.translator_on = !user.translator_on
 	if(user.translator_on)
 		user.add_language(LANGUAGE_UNATHI)
