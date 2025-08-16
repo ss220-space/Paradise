@@ -42,7 +42,7 @@
 #define MAX_PAPER_MESSAGE_LEN 4096
 #define MAX_PAPER_FIELDS 50
 #define MAX_BOOK_MESSAGE_LEN 9216
-#define MAX_NAME_LEN 50 	//diona names can get loooooooong
+#define MAX_NAME_LEN 50	//diona names can get loooooooong
 
 /// Removes characters incompatible with file names.
 #define SANITIZE_FILENAME(text) (GLOB.filename_forbidden_chars.Replace(text, ""))

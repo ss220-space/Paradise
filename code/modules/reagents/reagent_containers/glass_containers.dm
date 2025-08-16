@@ -146,7 +146,7 @@
 		ACCUSATIVE = "мерный стакан",
 		INSTRUMENTAL = "мерным стаканом",
 		PREPOSITIONAL = "мерном стакане"
- 	)
+	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
@@ -285,7 +285,7 @@
 		ACCUSATIVE = "большой мерный стакан",
 		INSTRUMENTAL = "большим мерным стаканом",
 		PREPOSITIONAL = "большом мерном стакане"
- 	)
+	)
 	icon_state = "beakerlarge"
 	belt_icon = "large_beaker"
 	materials = list(MAT_GLASS=2500)
@@ -304,7 +304,7 @@
 		ACCUSATIVE = "пробирку",
 		INSTRUMENTAL = "пробиркой",
 		PREPOSITIONAL = "пробирке"
- 	)
+	)
 	icon_state = "vial"
 	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
@@ -324,7 +324,7 @@
 		ACCUSATIVE = "пластиковый пакетик",
 		INSTRUMENTAL = "пластиковым пакетиком",
 		PREPOSITIONAL = "пластиковом пакетике"
- 	)
+	)
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = null
@@ -342,7 +342,7 @@
 		ACCUSATIVE = "пластиковый пакетик (Термит)",
 		INSTRUMENTAL = "пластиковым пакетиком (Термит)",
 		PREPOSITIONAL = "пластиковом пакетике (Термит)"
- 	)
+	)
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 25
 	possible_transfer_amounts = null
@@ -361,7 +361,7 @@
 		ACCUSATIVE = "криостазиный мерный стакан",
 		INSTRUMENTAL = "криостазиным мерным стаканом",
 		PREPOSITIONAL = "криостазином мерном стакане"
- 	)
+	)
 	icon_state = "beakernoreact"
 	materials = list(MAT_METAL=3000)
 	volume = 50
@@ -384,7 +384,7 @@
 		ACCUSATIVE = "блюспейс мерный стакан",
 		INSTRUMENTAL = "блюспейс мерным стаканом",
 		PREPOSITIONAL = "блюспейс мерном стакане"
- 	)
+	)
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
@@ -419,7 +419,7 @@
 		ACCUSATIVE = "металлическое ведро",
 		INSTRUMENTAL = "металлическим ведром",
 		PREPOSITIONAL = "металлическом ведре"
- 	)
+	)
 	gender = NEUTER
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
@@ -516,7 +516,7 @@
 		ACCUSATIVE = "деревянное ведро",
 		INSTRUMENTAL = "деревянным ведром",
 		PREPOSITIONAL = "деревянном ведре"
- 	)
+	)
 	icon_state = "woodbucket"
 	item_state = "woodbucket"
 	materials = null
@@ -539,7 +539,7 @@
 		ACCUSATIVE = "бутылку воды",
 		INSTRUMENTAL = "бутылкой воды",
 		PREPOSITIONAL = "бутылке воды"
- 	)
+	)
 	gender = FEMALE
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "smallbottle"
@@ -561,7 +561,7 @@
 		ACCUSATIVE = "большую бутылку воды",
 		INSTRUMENTAL = "большой бутылкой воды",
 		PREPOSITIONAL = "большой бутылке воды"
- 	)
+	)
 	icon_state = "largebottle"
 	materials = list(MAT_GLASS = 0)
 	list_reagents = list("water" = 100)
@@ -581,7 +581,7 @@
 		ACCUSATIVE = "миску для животных",
 		INSTRUMENTAL = "миской для животных",
 		PREPOSITIONAL = "миске для животных"
- 	)
+	)
 	gender = FEMALE
 	icon = 'icons/obj/pet_bowl.dmi'
 	icon_state = "petbowl"

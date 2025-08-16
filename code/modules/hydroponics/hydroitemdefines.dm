@@ -18,14 +18,6 @@
 /obj/item/reagent_containers/spray/weedspray // -- Skie
 	name = "weed spray"
 	desc = "Распылитель средства от сорняков - атразина."
-	ru_names = list(
-		NOMINATIVE = "распылитель средства от сорняков",
-		GENITIVE = "распылителя средства от сорняков",
-		DATIVE = "распылителю средства от сорняков",
-		ACCUSATIVE = "распылитель средства от сорняков",
-		INSTRUMENTAL = "распылителем средства от сорняков",
-		PREPOSITIONAL = "распылителе средства от сорняков"
-	)
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "weedspray"
 	item_state = "plantbgone"
@@ -38,6 +30,16 @@
 	throw_range = 10
 	list_reagents = list("atrazine" = 100)
 
+/obj/item/reagent_containers/spray/weedspray/get_ru_names()
+	return list(
+		NOMINATIVE = "распылитель средства от сорняков",
+		GENITIVE = "распылителя средства от сорняков",
+		DATIVE = "распылителю средства от сорняков",
+		ACCUSATIVE = "распылитель средства от сорняков",
+		INSTRUMENTAL = "распылителем средства от сорняков",
+		PREPOSITIONAL = "распылителе средства от сорняков"
+	)
+
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] жадно вдыха[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)]! Кажется, что это попытка самоубийства!"))
 	return TOXLOSS
@@ -45,14 +47,6 @@
 /obj/item/reagent_containers/spray/pestspray // -- Skie
 	name = "pest spray"
 	desc = "Распылитель пестицидов для уничтожения вредителей."
-	ru_names = list(
-		NOMINATIVE = "распылитель пестицидов",
-		GENITIVE = "распылителя пестицидов",
-		DATIVE = "распылителю пестицидов",
-		ACCUSATIVE = "распылитель пестицидов",
-		INSTRUMENTAL = "распылителем пестицидов",
-		PREPOSITIONAL = "распылителе пестицидов"
-	)
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "pestspray"
 	item_state = "plantbgone"
@@ -64,6 +58,16 @@
 	throw_speed = 3
 	throw_range = 10
 	list_reagents = list("pestkiller" = 100)
+
+/obj/item/reagent_containers/spray/pestspray/get_ru_names()
+	return list(
+		NOMINATIVE = "распылитель пестицидов",
+		GENITIVE = "распылителя пестицидов",
+		DATIVE = "распылителю пестицидов",
+		ACCUSATIVE = "распылитель пестицидов",
+		INSTRUMENTAL = "распылителем пестицидов",
+		PREPOSITIONAL = "распылителе пестицидов"
+	)
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] жадно вдыха[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)]! Кажется, что это попытка самоубийства!"))
@@ -85,17 +89,10 @@
 	attack_verb = list("полоснул", "порезал", "поцарапал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
+
 /obj/item/cultivator/rake
 	name = "rake"
 	desc = "Их используют, чтобы удалить сорняки или почесать спину."
-	ru_names = list(
-		NOMINATIVE = "грабли",
-		GENITIVE = "граблей",
-		DATIVE = "граблям",
-		ACCUSATIVE = "грабли",
-		INSTRUMENTAL = "граблями",
-		PREPOSITIONAL = "граблях"
-	)
 	icon_state = "rake"
 	toolspeed = 1
 	belt_icon = null
@@ -105,6 +102,16 @@
 	materials = null
 	flags = NONE
 	resistance_flags = FLAMMABLE
+
+/obj/item/cultivator/rake/get_ru_names()
+	return list(
+		NOMINATIVE = "грабли",
+		GENITIVE = "граблей",
+		DATIVE = "граблям",
+		ACCUSATIVE = "грабли",
+		INSTRUMENTAL = "граблями",
+		PREPOSITIONAL = "граблях"
+	)
 
 /obj/item/cultivator/wooden
 	icon_state = "cultivator_wooden"
@@ -269,14 +276,6 @@
 /obj/item/reagent_containers/glass/bottle/nutrient
 	name = "jug of nutrient"
 	desc = "Пластиковая канистра для различных жидкостей."
-	ru_names = list(
-        NOMINATIVE = "канистра",
-        GENITIVE = "канистры",
-        DATIVE = "канистре",
-        ACCUSATIVE = "канистру",
-        INSTRUMENTAL = "канистрой",
-        PREPOSITIONAL = "канистре"
-	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug"
 	item_state = "plastic_jug"
@@ -289,6 +288,16 @@
 	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
 	force = 0.2
 	throwforce = 0.2
+
+/obj/item/reagent_containers/glass/bottle/nutrient/get_ru_names()
+	return list(
+        NOMINATIVE = "канистра",
+        GENITIVE = "канистры",
+        DATIVE = "канистре",
+        ACCUSATIVE = "канистру",
+        INSTRUMENTAL = "канистрой",
+        PREPOSITIONAL = "канистре"
+	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/New()
 	..()
@@ -339,7 +348,12 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится И-ЗИ-Нутриент."
-	ru_names = list(
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "plastic_jug_ez"
+	list_reagents = list("eznutriment" = 80)
+
+/obj/item/reagent_containers/glass/bottle/nutrient/ez/get_ru_names()
+	return list(
         NOMINATIVE = "канистра (И-ЗИ-Нутриент)",
         GENITIVE = "канистры (И-ЗИ-Нутриент)",
         DATIVE = "канистре (И-ЗИ-Нутриент)",
@@ -347,14 +361,16 @@
         INSTRUMENTAL = "канистрой (И-ЗИ-Нутриент)",
         PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)"
 	)
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "plastic_jug_ez"
-	list_reagents = list("eznutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Лефт-Фо-Зед."
-	ru_names = list(
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "plastic_jug_l4z"
+	list_reagents = list("left4zednutriment" = 80)
+
+/obj/item/reagent_containers/glass/bottle/nutrient/l4z/get_ru_names()
+	return list(
         NOMINATIVE = "канистра (Лефт-Фо-Зед)",
         GENITIVE = "канистры (Лефт-Фо-Зед)",
         DATIVE = "канистре (Лефт-Фо-Зед)",
@@ -362,14 +378,16 @@
         INSTRUMENTAL = "канистрой (Лефт-Фо-Зед)",
         PREPOSITIONAL = "канистре (Лефт-Фо-Зед)"
 	)
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "plastic_jug_l4z"
-	list_reagents = list("left4zednutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Робаст-Харвест."
-	ru_names = list(
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "plastic_jug_rh"
+	list_reagents = list("robustharvestnutriment" = 80)
+
+/obj/item/reagent_containers/glass/bottle/nutrient/rh/get_ru_names()
+	return list(
         NOMINATIVE = "канистра (Робаст-Харвест)",
         GENITIVE = "канистры (Робаст-Харвест)",
         DATIVE = "канистре (Робаст-Харвест)",
@@ -377,9 +395,6 @@
         INSTRUMENTAL = "канистрой (Робаст-Харвест)",
         PREPOSITIONAL = "канистре (Робаст-Харвест)"
 	)
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "plastic_jug_rh"
-	list_reagents = list("robustharvestnutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
 	icon = 'icons/obj/chemical.dmi'
@@ -398,7 +413,12 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
 	name = "jug of weed killer"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится атразин."
-	ru_names = list(
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "plastic_jug_wk"
+	list_reagents = list("atrazine" = 80)
+
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller/get_ru_names()
+	return list(
         NOMINATIVE = "канистра (Атразин)",
         GENITIVE = "канистры (Атразин)",
         DATIVE = "канистре (Атразин)",
@@ -406,14 +426,16 @@
         INSTRUMENTAL = "канистрой (Атразин)",
         PREPOSITIONAL = "канистре (Атразин)"
 	)
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "plastic_jug_wk"
-	list_reagents = list("atrazine" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
 	name = "jug of pest spray"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержатся пестициды."
-	ru_names = list(
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "plastic_jug_pk"
+	list_reagents = list("pestkiller" = 80)
+
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller/get_ru_names()
+	return list(
         NOMINATIVE = "канистра (Пестициды)",
         GENITIVE = "канистры (Пестициды)",
         DATIVE = "канистре (Пестициды)",
@@ -421,21 +443,10 @@
         INSTRUMENTAL = "канистрой (Пестициды)",
         PREPOSITIONAL = "канистре (Пестициды)"
 	)
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "plastic_jug_pk"
-	list_reagents = list("pestkiller" = 80)
 
 /obj/item/conductive_organ
 	name = "conductive organ"
 	desc = "небольшой желтоватый мешочек, добываемый из лавового панцирника. Является мощным удобрением, значительно повышающим урожай и уровень нутриментов растения."
-	ru_names = list(
-		NOMINATIVE = "проводящий орган",
-		GENITIVE = "проводящего органа",
-		DATIVE = "проводящему органу",
-		ACCUSATIVE = "проводящий орган",
-		INSTRUMENTAL = "проводящим органом",
-		PREPOSITIONAL = "проводящем органе",
-	)
 	gender = MALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "conductive_organ"
@@ -444,3 +455,13 @@
 	item_state = "acid_bladder" //yeah
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=6"
+
+/obj/item/conductive_organ/get_ru_names()
+	return list(
+		NOMINATIVE = "проводящий орган",
+		GENITIVE = "проводящего органа",
+		DATIVE = "проводящему органу",
+		ACCUSATIVE = "проводящий орган",
+		INSTRUMENTAL = "проводящим органом",
+		PREPOSITIONAL = "проводящем органе",
+	)

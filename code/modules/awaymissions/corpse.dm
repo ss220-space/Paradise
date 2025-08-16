@@ -450,7 +450,7 @@
 /obj/effect/mob_spawn/mouse
 	name = "sleeper"
 	mob_name = "space mouse"
-	mob_type = 	/mob/living/simple_animal/mouse
+	mob_type =	/mob/living/simple_animal/mouse
 	death = FALSE
 	roundstart = FALSE
 	icon = 'icons/obj/machines/cryogenic2.dmi'
@@ -460,7 +460,7 @@
 /obj/effect/mob_spawn/cow
 	name = "sleeper"
 	mob_name = "space cow"
-	mob_type = 	/mob/living/simple_animal/cow
+	mob_type =	/mob/living/simple_animal/cow
 	death = FALSE
 	roundstart = FALSE
 	mob_gender = FEMALE
