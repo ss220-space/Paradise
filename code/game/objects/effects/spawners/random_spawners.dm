@@ -407,3 +407,15 @@
 		/datum/nothing = 60,
 		/obj/item/clothing/head/scorched_skull = 40
 	)
+
+/obj/effect/spawner/random_spawners/mod
+	name = "MOD module spawner"
+	icon_state = "circuit"
+
+/obj/effect/spawner/random_spawners/mod/maint
+	name = "maint MOD module spawner"
+	result = list(
+		/obj/item/mod/module/springlock = 2,
+		/obj/item/mod/module/balloon = 1,
+		/obj/item/mod/module/stamp = 1
+	)
