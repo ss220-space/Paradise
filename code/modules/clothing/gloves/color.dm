@@ -4,14 +4,6 @@
 /obj/item/clothing/gloves/color/yellow
 	name = "insulated gloves"
 	desc = "These gloves will protect the wearer from electric shock."
-	ru_names = list(
-		NOMINATIVE = "изоляционные перчатки",
-		GENITIVE = "изоляционных перчаток",
-		DATIVE = "изоляционным перчаткам",
-		ACCUSATIVE = "изоляционные перчатки",
-		INSTRUMENTAL = "изоляционными перчатками",
-		PREPOSITIONAL = "изоляционных перчатках"
-	)
 	icon_state = "yellow"
 	item_state = "ygloves"
 	belt_icon = "ygloves"
@@ -19,6 +11,16 @@
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
+
+/obj/item/clothing/gloves/color/yellow/get_ru_names()
+	return list(
+		NOMINATIVE = "изоляционные перчатки",
+		GENITIVE = "изоляционных перчаток",
+		DATIVE = "изоляционным перчаткам",
+		ACCUSATIVE = "изоляционные перчатки",
+		INSTRUMENTAL = "изоляционными перчатками",
+		PREPOSITIONAL = "изоляционных перчатках"
+	)
 
 /obj/item/clothing/gloves/color/yellow/power
 	description_antag = "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
@@ -72,7 +74,7 @@
 		. += span_notice("They don't feel like rubber...")
 
 
-/obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
+/obj/item/clothing/gloves/color/fyellow	 //Cheap Chinese Crap
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	name = "budget insulated gloves"
 	icon_state = "fyellow"
@@ -143,7 +145,13 @@
 /obj/item/clothing/gloves/color/black/goliath
 	name = "goliath gloves"
 	desc = "Примитивные перчатки, которые облегчают переноску."
-	ru_names = list(
+	icon_state = "goligloves"
+	item_state = "goligloves"
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 20, FIRE = 50, ACID = 50)
+	can_be_cut = FALSE
+
+/obj/item/clothing/gloves/color/black/goliath/get_ru_names()
+	return list(
 		NOMINATIVE = "перчатки из шкуры голиафа",
 		GENITIVE = "перчаток из шкуры голиафа",
 		DATIVE = "перчаткам из шкуры голиафа",
@@ -151,10 +159,6 @@
 		INSTRUMENTAL = "перчатками из шкуры голиафа",
 		PREPOSITIONAL = "перчатках из шкуры голиафа"
 	)
-	icon_state = "goligloves"
-	item_state = "goligloves"
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 20, FIRE = 50, ACID = 50)
-	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/color/black/ballistic
 	name = "armored gloves"
@@ -260,14 +264,6 @@
 	name = "latex gloves"
 	desc = "Дешёвые стерильные перчатки белого цвета, изготовленные из латекса. \
 			Обеспечивают защиту от биологических загрязнений и практически не пропускают вредные вещества."
-	ru_names = list(
-		NOMINATIVE = "латексные перчатки",
-		GENITIVE = "латексных перчаток",
-		DATIVE = "латексным перчаткам",
-		ACCUSATIVE = "латексные перчатки",
-		INSTRUMENTAL = "латексными перчатками",
-		PREPOSITIONAL = "латексных перчатках"
-	)
 	icon_state = "latex"
 	item_state = "lgloves"
 	belt_icon = "latex_gloves"
@@ -278,12 +274,29 @@
 	resistance_flags = NONE
 	clothing_traits = list(TRAIT_QUICK_CARRY)
 
+/obj/item/clothing/gloves/color/latex/get_ru_names()
+	return list(
+		NOMINATIVE = "латексные перчатки",
+		GENITIVE = "латексных перчаток",
+		DATIVE = "латексным перчаткам",
+		ACCUSATIVE = "латексные перчатки",
+		INSTRUMENTAL = "латексными перчатками",
+		PREPOSITIONAL = "латексных перчатках"
+	)
+
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
 	desc = "Высокопрочные стерильные перчатки, изготовленные из синтетического нитрила. \
 			Обеспечивают защиту от биологических загрязнений и практически не пропускают вредные вещества. \
 			Обычно используются врачами и криминалистами."
-	ru_names = list(
+	icon_state = "nitrile"
+	item_state = "nitrile"
+	transfer_prints = FALSE
+	item_color = "medical"
+	clothing_traits = list(TRAIT_QUICKER_CARRY)
+
+/obj/item/clothing/gloves/color/latex/nitrile/get_ru_names()
+	return list(
 		NOMINATIVE = "нитриловые перчатки",
 		GENITIVE = "нитриловых перчаток",
 		DATIVE = "нитриловым перчаткам",
@@ -291,18 +304,19 @@
 		INSTRUMENTAL = "нитриловыми перчатками",
 		PREPOSITIONAL = "нитриловых перчатках"
 	)
-	icon_state = "nitrile"
-	item_state = "nitrile"
-	transfer_prints = FALSE
-	item_color = "medical"
-	clothing_traits = list(TRAIT_QUICKER_CARRY)
 
 /obj/item/clothing/gloves/color/latex/modified
 	name = "modified medical gloves"
 	desc = "Передовые медицинские перчатки, созданные из сверхтонкого гибридного полимера, сочетающего эластичность латекса и прочность нитрила. \
 			Обеспечивают защиту от биологических загрязнений и практически не пропускают вредные вещества. \
 			Обеспечивают удобство и повышенную точность при проведении хирургических операций."
-	ru_names = list(
+	icon_state = "modified"
+	item_state = "modified"
+	item_color = "modified"
+	surgeryspeedmod = -0.3
+
+/obj/item/clothing/gloves/color/latex/modified/get_ru_names()
+	return list(
 		NOMINATIVE = "модифицированные медицинские перчатки",
 		GENITIVE = "модифицированных медицинских перчаток",
 		DATIVE = "модифицированным медицинским перчаткам",
@@ -310,17 +324,20 @@
 		INSTRUMENTAL = "модифицированными медицинскими перчатками",
 		PREPOSITIONAL = "модифицированных медицинских перчатках"
 	)
-	icon_state = "modified"
-	item_state = "modified"
-	item_color = "modified"
-	surgeryspeedmod = -0.3
 
 /obj/item/clothing/gloves/color/latex/inugami
 	name = "medical gloves Inugami"
 	desc = "Перчатки медицинского назначения серии Inugami — прототип, разработанный для использования хирургами. \
 			Изготовлены из полимерного материала, обеспечивающего защиту от биологических загрязнений и практически не пропускающего вредные вещества. \
 			Оснащены встроенными наночипами, существенно повышающими скорость выполнения хирургических операций."
-	ru_names = list(
+	icon_state = "inugami_gl"
+	item_state = "inugami_gl"
+	item_color = null
+	surgery_step_time = 0.5 SECONDS
+	surgery_germ_chance = 50
+
+/obj/item/clothing/gloves/color/latex/inugami/get_ru_names()
+	return list(
 		NOMINATIVE = "медицинские перчатки Inugami",
 		GENITIVE = "медицинских перчаток Inugami",
 		DATIVE = "медицинским перчаткам Inugami",
@@ -328,11 +345,6 @@
 		INSTRUMENTAL = "медицинскими перчатками Inugami",
 		PREPOSITIONAL = "медицинских перчатках Inugami",
 	)
-	icon_state = "inugami_gl"
-	item_state = "inugami_gl"
-	item_color = null
-	surgery_step_time = 0.5 SECONDS
-	surgery_germ_chance = 50
 
 /obj/item/clothing/gloves/color/latex/inugami/ComponentInitialize()
 	. = ..()

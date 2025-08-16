@@ -1,10 +1,10 @@
 // Tool tools
-#define TOOL_CROWBAR 		"crowbar"
+#define TOOL_CROWBAR		"crowbar"
 #define TOOL_MULTITOOL		"multitool"
-#define TOOL_SCREWDRIVER 	"screwdriver"
-#define TOOL_WIRECUTTER 	"wirecutter"
-#define TOOL_WRENCH 		"wrench"
-#define TOOL_WELDER 		"welder"
+#define TOOL_SCREWDRIVER	"screwdriver"
+#define TOOL_WIRECUTTER	"wirecutter"
+#define TOOL_WRENCH		"wrench"
+#define TOOL_WELDER		"welder"
 #define TOOL_ANALYZER		"analyzer"
 
 // Surgery tools
@@ -71,4 +71,4 @@ GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 
 //Generic tool messages that don't correspond to any particular tool
 #define TOOL_ATTEMPT_DISMANTLE_MESSAGE	    user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] разбирать [declent_ru(ACCUSATIVE)] при помощи [I]..."), span_notice("Вы начинаете разборку [src] при помощи [I]..."), span_warning("Слышны звуки работы с инструментом."))
-#define TOOL_DISMANTLE_SUCCESS_MESSAGE  	user.visible_message(span_notice("[user] демонтиру[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"), span_notice("Вы демонтировали [declent_ru(ACCUSATIVE)]!"), span_warning("Слышны звуки работы с инструментом."))
+#define TOOL_DISMANTLE_SUCCESS_MESSAGE 	user.visible_message(span_notice("[user] демонтиру[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"), span_notice("Вы демонтировали [declent_ru(ACCUSATIVE)]!"), span_warning("Слышны звуки работы с инструментом."))

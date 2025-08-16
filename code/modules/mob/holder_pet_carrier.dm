@@ -87,7 +87,7 @@
 	contains_pet = TRUE
 	update_appearance(UPDATE_OVERLAYS|UPDATE_NAME|UPDATE_DESC)
 
-	to_chat(user, 	span_notice("Вы поместили [target.name] в [name]."))
+	to_chat(user,	span_notice("Вы поместили [target.name] в [name]."))
 	to_chat(target, span_notice("[user.name] поместил[genderize_ru(user.gender,"","а","о","и")] вас в [name]."))
 	return TRUE
 

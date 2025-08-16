@@ -68,14 +68,6 @@
 	name = "cortical borer"
 	real_name = "мозговой червь"
 	desc = "Маленькое дрожащее существо, похожее на слизня."
-	ru_names = list(
-		NOMINATIVE = "мозговой червь",
-		GENITIVE = "мозгового червя",
-		DATIVE = "мозговому червю",
-		ACCUSATIVE = "мозгового червя",
-		INSTRUMENTAL = "мозговым червём",
-		PREPOSITIONAL = "мозговом черве"
-	)
 
 	speak_emote = list("щебечет", "стрекочет")
 	emote_hear = list("щебечет", "стрекочет")
@@ -149,6 +141,17 @@
 
 	var/obj/effect/proc_holder/spell/borer_infest/infest_spell = new
 	var/obj/effect/proc_holder/spell/borer_dominate/dominate_spell = new
+
+/mob/living/simple_animal/borer/get_ru_names()
+	return list(
+		NOMINATIVE = "мозговой червь",
+		GENITIVE = "мозгового червя",
+		DATIVE = "мозговому червю",
+		ACCUSATIVE = "мозгового червя",
+		INSTRUMENTAL = "мозговым червём",
+		PREPOSITIONAL = "мозговом черве"
+	)
+
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	antag_datum.borer_rank = new BORER_RANK_YOUNG(src)

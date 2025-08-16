@@ -854,14 +854,6 @@
 /obj/structure/rack
 	name = "rack"
 	desc = "Белый крупный стелаж, удобен для хранения различных вещей."
-	ru_names = list(
-		NOMINATIVE = "стеллаж",
-		GENITIVE = "стеллажа",
-		DATIVE = "стеллажу",
-		ACCUSATIVE = "стеллаж",
-		INSTRUMENTAL = "стеллажом",
-		PREPOSITIONAL = "стеллаже"
-	)
 	gender = MALE
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "rack"
@@ -871,6 +863,16 @@
 	pass_flags_self = LETPASSTHROW //You can throw objects over this, despite it's density.
 	max_integrity = 20
 	var/wooden_version = FALSE
+
+/obj/structure/rack/get_ru_names()
+	return list(
+		NOMINATIVE = "стеллаж",
+		GENITIVE = "стеллажа",
+		DATIVE = "стеллажу",
+		ACCUSATIVE = "стеллаж",
+		INSTRUMENTAL = "стеллажом",
+		PREPOSITIONAL = "стеллаже"
+	)
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
@@ -1077,14 +1079,6 @@
 /obj/item/rack_parts
 	name = "rack parts"
 	desc = "Детали разобранного стелажа."
-	ru_names = list(
-		NOMINATIVE = "детали стеллажа",
-		GENITIVE = "деталей стеллажа",
-		DATIVE = "деталям стеллажа",
-		ACCUSATIVE = "детали стеллажа",
-		INSTRUMENTAL = "деталями стеллажа",
-		PREPOSITIONAL = "деталях стеллажа"
-	)
 	gender = MALE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
@@ -1092,6 +1086,16 @@
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)
 	var/building = FALSE
+
+/obj/item/rack_parts/get_ru_names()
+	return list(
+		NOMINATIVE = "детали стеллажа",
+		GENITIVE = "деталей стеллажа",
+		DATIVE = "деталям стеллажа",
+		ACCUSATIVE = "детали стеллажа",
+		INSTRUMENTAL = "деталями стеллажа",
+		PREPOSITIONAL = "деталях стеллажа"
+	)
 
 /obj/item/rack_parts/wrench_act(mob/user, obj/item/I)
 	. = TRUE

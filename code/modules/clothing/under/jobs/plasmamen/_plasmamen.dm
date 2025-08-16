@@ -1,14 +1,6 @@
 /obj/item/clothing/under/plasmaman
 	name = "plasma envirosuit"
 	desc = "Специализированный костюм, позволяющий плазменным формам жизни существовать в обогащённой кислородом среде. Внутри установлен экстренный автоматический огнетушитель на случай возгорания. Не подходит для космоса."
-	ru_names = list(
-		NOMINATIVE = "защитный костюм плазмолюда",
-		GENITIVE = "защитного костюма плазмолюда",
-		DATIVE = "защитному костюму плазмолюда",
-		ACCUSATIVE = "защитный костюм плазмолюда",
-		INSTRUMENTAL = "защитным костюмом плазмолюда",
-		PREPOSITIONAL = "защитном костюме плазмолюда"
-	)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 95, ACID = 95)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	strip_delay = 200
@@ -22,6 +14,17 @@
 	item_state = "plasmaman"
 	item_color = "plasmaman"
 	can_adjust = FALSE
+
+/obj/item/clothing/under/plasmaman/get_ru_names()
+	return list(
+		NOMINATIVE = "защитный костюм плазмолюда",
+		GENITIVE = "защитного костюма плазмолюда",
+		DATIVE = "защитному костюму плазмолюда",
+		ACCUSATIVE = "защитный костюм плазмолюда",
+		INSTRUMENTAL = "защитным костюмом плазмолюда",
+		PREPOSITIONAL = "защитном костюме плазмолюда"
+	)
+	
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()
@@ -68,7 +71,11 @@
 /obj/item/extinguisher_refill
 	name = "envirosuit extinguisher cartridge"
 	desc = "Картридж, заполненный противопожарной смесью. Используется для заправки встроенного огнетушителя в защитных костюмах плазмолюдов."
-	ru_names = list(
+	icon_state = "plasmarefill"
+	icon = 'icons/obj/device.dmi'
+
+/obj/item/extinguisher_refill/get_ru_names()
+	return list(
 		NOMINATIVE = "картридж пополнения встроенного огнетушителя",
 		GENITIVE = "картриджа пополнения встроенного огнетушителя",
 		DATIVE = "картриджу пополнения встроенного огнетушителя",
@@ -76,5 +83,3 @@
 		INSTRUMENTAL = "картриджем пополнения встроенного огнетушителя",
 		PREPOSITIONAL = "картридже пополнения встроенного огнетушителя"
 	)
-	icon_state = "plasmarefill"
-	icon = 'icons/obj/device.dmi'

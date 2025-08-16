@@ -638,8 +638,8 @@
 	return M.playtime_role ? M.playtime_role : M.assigned_role	//returns current role
 
 /**	checks the security force on station and returns a list of numbers, of the form:
- * 	total, active, dead, antag
- * 	where active is defined as conscious (STAT = 0) and not an antag
+ *	total, active, dead, antag
+ *	where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
 	var/sec_positions = GLOB.security_positions - JOB_TITLE_JUDGE - JOB_TITLE_BRIGDOC
