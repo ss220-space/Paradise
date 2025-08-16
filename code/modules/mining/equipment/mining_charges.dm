@@ -181,11 +181,15 @@
 	boom_sizes = list(4,6,8) //did you see the price? It has to be better..
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
-	for(var/i in 1 to 4)
-		new /obj/item/grenade/plastic/miningcharge/lesser(src)
 	for(var/i in 1 to 2)
+		new /obj/item/grenade/plastic/miningcharge/mega(src)
+	for(var/i in 1 to 4)
 		new /obj/item/grenade/plastic/miningcharge(src)
+	for(var/i in 1 to 5)
+		new /obj/item/grenade/plastic/miningcharge/lesser(src)
 	new /obj/item/detonator(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/storage/bag/ore/bigger(src)
 
 
 //MINING CHARGE HACKER

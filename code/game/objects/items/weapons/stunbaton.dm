@@ -15,14 +15,14 @@
 	active = FALSE
 	allows_stun_in_harm = TRUE
 	force_say_chance = 50
-	stamina_damage = 55
+	stamina_damage = 45
 	knockdown_time = 5 SECONDS
 	clumsy_knockdown_time = 15 SECONDS
 	cooldown = 2.5 SECONDS
 	on_stun_sound = 'sound/weapons/egloves.ogg'
 	on_stun_volume = 50
 	/// Time passed between a hit and knockdown effect.
-	var/knockdown_delay_time = 2 SECONDS
+	var/knockdown_delay_time = 4 SECONDS
 	/// Chance for the baton to stun when thrown at someone.
 	var/throw_stun_chance = 50
 	/// Cell to use, can be a path, to start loaded.

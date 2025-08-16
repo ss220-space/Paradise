@@ -163,6 +163,8 @@ Class Procs:
 	end_processing()
 	return ..()
 
+/obj/machinery/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -621,8 +623,8 @@ Class Procs:
 	return
 
 /obj/machinery/zap_act(power, zap_flags)
-	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
-		explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 2, adminlog = TRUE, smoke = FALSE, cause = "Random Zap Explosion")
+	if(prob(60) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, adminlog = FALSE, smoke = FALSE)
 		return ..()
 
 	if(!(zap_flags & ZAP_OBJ_DAMAGE))

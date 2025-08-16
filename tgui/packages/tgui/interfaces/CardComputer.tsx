@@ -8,6 +8,7 @@ import {
   Tabs,
   Stack,
   Icon,
+  Dropdown,
 } from '../components';
 import { Window } from '../layouts';
 import { Access, AccessList } from './common/AccessList';
@@ -128,6 +129,9 @@ type CardComputerData = {
   selectedAccess: number[];
   records: JobRecord[];
   people_dept: DepRecord[];
+  law_levels: Record<string, number>;
+  possible_law_levels: string[];
+  law_level: number;
 };
 
 type Skin = {
@@ -629,27 +633,43 @@ export const CardComputer = (props: unknown) => {
         bodyBlock = <CardComputerNoCard />;
       } else {
         bodyBlock = (
-          <AccessList
-            accesses={data.regions}
-            selectedList={data.selectedAccess}
-            accessMod={(ref) =>
-              act('set', {
-                access: ref,
-              })
-            }
-            grantAll={() => act('grant_all')}
-            denyAll={() => act('clear_all')}
-            grantDep={(ref) =>
-              act('grant_region', {
-                region: ref,
-              })
-            }
-            denyDep={(ref) =>
-              act('deny_region', {
-                region: ref,
-              })
-            }
-          />
+          <>
+            <Box height={'70%'}>
+              <AccessList
+                accesses={data.regions}
+                selectedList={data.selectedAccess}
+                accessMod={(ref) =>
+                  act('set', {
+                    access: ref,
+                  })
+                }
+                grantAll={() => act('grant_all')}
+                denyAll={() => act('clear_all')}
+                grantDep={(ref) =>
+                  act('grant_region', {
+                    region: ref,
+                  })
+                }
+                denyDep={(ref) =>
+                  act('deny_region', {
+                    region: ref,
+                  })
+                }
+              />
+            </Box>
+            <Section title="Юридические полномочия" mt={1}>
+              <Dropdown
+                options={data.possible_law_levels}
+                onSelected={(value) =>
+                  act('set_law_level', { level: data.law_levels[value] })
+                }
+                selected={Object.keys(data.law_levels).find(
+                  (value, index, obj) =>
+                    data.law_levels[value] === data.law_level
+                )}
+              />
+            </Section>
+          </>
         );
       }
       break;

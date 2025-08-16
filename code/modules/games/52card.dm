@@ -7,7 +7,12 @@
 /obj/item/deck/cards
 	name = "deck of cards"
 	desc = "Простая колода игральных карт."
-	ru_names = list(
+	gender = FEMALE
+	icon_state = "deck_nanotrasen_full"
+	card_style = "nanotrasen"
+
+/obj/item/deck/cards/get_ru_names()
+	return list(
 		NOMINATIVE = "колода карт",
 		GENITIVE = "колоды карт",
 		DATIVE = "колоде карт",
@@ -15,10 +20,6 @@
 		INSTRUMENTAL = "колодой карт",
 		PREPOSITIONAL = "колоде карт"
 	)
-	gender = FEMALE
-	icon_state = "deck_nanotrasen_full"
-	card_style = "nanotrasen"
-
 
 /obj/item/deck/cards/build_deck()
 	var/list/ru_name = list(
@@ -81,7 +82,12 @@
 /obj/item/deck/cards/doublecards
 	name = "double deck of cards"
 	desc = "Простая колода игральных карт. Удвоенная. Может быть, играть с такой будет в два раза интереснее?"
-	ru_names = list(
+	icon_state = "deck_double_nanotrasen_full"
+	deck_size = 2
+	deck_style = "double"
+
+/obj/item/deck/cards/doublecards/get_ru_names()
+	return list(
 		NOMINATIVE = "двойная колода карт",
 		GENITIVE = "двойной колоды карт",
 		DATIVE = "двойной колоде карт",
@@ -89,22 +95,11 @@
 		INSTRUMENTAL = "двойной колодой карт",
 		PREPOSITIONAL = "двойной колоде карт"
 	)
-	icon_state = "deck_double_nanotrasen_full"
-	deck_size = 2
-	deck_style = "double"
 
 
 /obj/item/deck/cards/syndicate
 	name = "suspicious looking deck of cards"
 	desc = "Колода тёмно-красных игральных карт. Они кажутся необычно жёсткими."
-	ru_names = list(
-		NOMINATIVE = "подозрительная колода карт",
-		GENITIVE = "подозрительной колоды карт",
-		DATIVE = "подозрительной колоде карт",
-		ACCUSATIVE = "подозрительную колоду карт",
-		INSTRUMENTAL = "подозрительной колодой карт",
-		PREPOSITIONAL = "подозрительной колоде карт"
-	)
 	icon_state = "deck_syndicate_full"
 	card_style = "syndicate"
 	card_hitsound = 'sound/weapons/bladeslice.ogg'
@@ -114,6 +109,16 @@
 	card_attack_verb = list("атаковал", "полоснул", "порезал")
 	card_resistance_flags = NONE
 	sharp = TRUE
+
+/obj/item/deck/cards/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "подозрительная колода карт",
+		GENITIVE = "подозрительной колоды карт",
+		DATIVE = "подозрительной колоде карт",
+		ACCUSATIVE = "подозрительную колоду карт",
+		INSTRUMENTAL = "подозрительной колодой карт",
+		PREPOSITIONAL = "подозрительной колоде карт"
+	)
 
 /obj/item/deck/cards/syndicate/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	name = "[whetstone.prefix] [name]"
@@ -135,7 +140,12 @@
 /obj/item/deck/cards/tiny
 	name = "deck of tiny cards"
 	desc = "Простая колода миниатюрных игральных карт."
-	ru_names = list(
+	icon_state = "deck"
+	card_style = "simple"
+	simple_deck = TRUE
+
+/obj/item/deck/cards/tiny/get_ru_names()
+	return list(
 		NOMINATIVE = "колода миниатюрных карт",
 		GENITIVE = "колоды миниатюрных карт",
 		DATIVE = "колоде миниатюрных карт",
@@ -143,10 +153,6 @@
 		INSTRUMENTAL = "колодой миниатюрных карт",
 		PREPOSITIONAL = "колоде миниатюрных карт"
 	)
-	icon_state = "deck"
-	card_style = "simple"
-	simple_deck = TRUE
-
 
 /obj/item/deck/cards/tiny/update_icon_state()
 	return
@@ -155,7 +161,11 @@
 /obj/item/deck/cards/tiny/doublecards
 	name = "double deck of tiny cards"
 	desc = "Простая колода миниатюрных игральных карт. Удвоенная. Может быть, играть с такой будет в два раза интереснее?"
-	ru_names = list(
+	icon_state = "doubledeck"
+	deck_size = 2
+
+/obj/item/deck/cards/tiny/doublecards/get_ru_names()
+	return list(
 		NOMINATIVE = "двойная колода миниатюрных карт",
 		GENITIVE = "двойной колоды миниатюрных карт",
 		DATIVE = "двойной колоде миниатюрных карт",
@@ -163,6 +173,3 @@
 		INSTRUMENTAL = "двойной колодой миниатюрных карт",
 		PREPOSITIONAL = "двойной колоде миниатюрных карт"
 	)
-	icon_state = "doubledeck"
-	deck_size = 2
-

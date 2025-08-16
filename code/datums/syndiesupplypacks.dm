@@ -2195,9 +2195,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Syndicate 'PayDay' Bundle"
 	contains = list(
 		/obj/item/implanter/freedom/prototype,
-		/obj/item/gun/projectile/revolver,
-		/obj/item/ammo_box/speedloader/a357,
-		/obj/item/ammo_box/speedloader/a357,
+		/obj/item/gun/projectile/automatic/mini_uzi,
+		/obj/item/ammo_box/magazine/uzim9mm,
+		/obj/item/ammo_box/magazine/uzim9mm,
 		/obj/item/card/emag,
 		/obj/item/jammer,
 		/obj/item/card/id/syndicate,
@@ -2403,7 +2403,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/clothing/shoes/combat,                                        // 0 TK
 					/obj/item/clothing/accessory/holster,                                   // 5 TK
 					/obj/item/clothing/head/beret,                                          // 0 TK
-					/obj/item/clothing/accessory/scarf/red,                                	// 0 TK
+					/obj/item/clothing/accessory/scarf/red,                               	// 0 TK
 					/obj/item/encryptionkey/syndicate,										// 0-2 TK
 					/obj/item/clothing/mask/holo_cigar,                                     // 10 TK
 					)

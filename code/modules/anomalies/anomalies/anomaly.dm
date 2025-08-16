@@ -5,14 +5,6 @@
 /obj/effect/anomaly
 	name = "аномалия"
 	desc = "Загадочная аномалия. Обычно такую можно наблюдать только в станционном секторе."
-	ru_names = list(
-		NOMINATIVE = "аномалия", \
-		GENITIVE = "аномалии", \
-		DATIVE = "аномалии", \
-		ACCUSATIVE = "аномалию", \
-		INSTRUMENTAL = "аномалией", \
-		PREPOSITIONAL = "аномалии"
-	)
 	icon_state = "bhole3"
 	gender = FEMALE
 	anchored = TRUE
@@ -53,6 +45,16 @@
 	var/obj/effect/warp_effect/supermatter/warp
 	/// If FALSE, there won't be warp effect.
 	var/has_warp = FALSE
+
+/obj/effect/anomaly/get_ru_names()
+	return list(
+		NOMINATIVE = "аномалия", \
+		GENITIVE = "аномалии", \
+		DATIVE = "аномалии", \
+		ACCUSATIVE = "аномалию", \
+		INSTRUMENTAL = "аномалией", \
+		PREPOSITIONAL = "аномалии"
+	)
 
 /obj/effect/anomaly/proc/size_by_strength(cur_strength)
 	if(!cur_strength)

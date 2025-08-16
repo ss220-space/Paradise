@@ -5,14 +5,6 @@
 /obj/item/twohanded/fishing_rod
 	name = "ol' reliable"
 	desc = "Старая, видавшая виды удочка. Если она прослужила так долго и ещё не развалилась - вам точно не следует волноваться о её надёжности."
-	ru_names = list(
-		NOMINATIVE = "удочка",
-		GENITIVE = "удочки",
-		DATIVE = "удочке",
-		ACCUSATIVE = "удочку",
-		INSTRUMENTAL = "удочкой",
-		PREPOSITIONAL = "удочке"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'
@@ -36,10 +28,25 @@
 	var/throw_sound = 'sound/objects/fishing_rod_throw.ogg'
 	var/catch_sound = 'sound/objects/fishing_rod_catch.ogg'
 
+/obj/item/twohanded/fishing_rod/get_ru_names()
+	return list(
+		NOMINATIVE = "удочка",
+		GENITIVE = "удочки",
+		DATIVE = "удочке",
+		ACCUSATIVE = "удочку",
+		INSTRUMENTAL = "удочкой",
+		PREPOSITIONAL = "удочке"
+	)
+
 /obj/item/twohanded/fishing_rod/tribal
 	name = "fishing rod"
 	desc = "Примитивная костяная удочка, использующая сухожилия наблюдателя в качестве высокопрочной лески. Не совсем понятно, почему эта \"леска\" не плавится в лаве."
-	ru_names = list(
+	icon_state = "tribal_rod"
+	item_state = "tribal_rod"
+
+
+/obj/item/twohanded/fishing_rod/tribal/get_ru_names()
+	return list(
 		NOMINATIVE = "примитивная удочка",
 		GENITIVE = "примитивной удочки",
 		DATIVE = "примитивной удочке",
@@ -47,8 +54,6 @@
 		INSTRUMENTAL = "примитивной удочкой",
 		PREPOSITIONAL = "примитивной удочке"
 	)
-	icon_state = "tribal_rod"
-	item_state = "tribal_rod"
 
 /obj/item/twohanded/fishing_rod/Destroy()
 	. = ..()

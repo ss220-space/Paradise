@@ -126,7 +126,15 @@
 /obj/item/flashlight/seclite
 	name = "seclite"
 	desc = "Надежный фонарик, используемый службой безопасности."
-	ru_names = list(
+	icon_state = "seclite"
+	item_state = "seclite"
+	belt_icon = "seclite"
+	force = 9 // Not as good as a stun baton.
+	light_range = 5 // A little better than the standard flashlight.
+	hitsound = 'sound/weapons/genhit1.ogg'
+
+/obj/item/flashlight/seclite/get_ru_names()
+	return list(
 		NOMINATIVE = "фонарик",
 		GENITIVE = "фонарика",
 		DATIVE = "фонарику",
@@ -134,12 +142,6 @@
 		INSTRUMENTAL = "фонариком",
 		PREPOSITIONAL = "фонарике"
 	)
-	icon_state = "seclite"
-	item_state = "seclite"
-	belt_icon = "seclite"
-	force = 9 // Not as good as a stun baton.
-	light_range = 5 // A little better than the standard flashlight.
-	hitsound = 'sound/weapons/genhit1.ogg'
 
 /obj/item/flashlight/sectaclight
 	name = "security tactical flashlight"
@@ -391,14 +393,6 @@
 /obj/item/flashlight/flare/torch
 	name = "torch"
 	desc = "Простейший факел, сделанный из листьев, намотанных на древесину."
-	ru_names = list(
-		NOMINATIVE = "факел",
-		GENITIVE = "факела",
-		DATIVE = "факелу",
-		ACCUSATIVE = "факел",
-		INSTRUMENTAL = "факелом",
-		PREPOSITIONAL = "факеле",
-	)
 	w_class = WEIGHT_CLASS_BULKY
 	light_range = 6
 	icon_state = "torch"
@@ -407,6 +401,16 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
+
+/obj/item/flashlight/flare/torch/get_ru_names()
+	return list(
+		NOMINATIVE = "факел",
+		GENITIVE = "факела",
+		DATIVE = "факелу",
+		ACCUSATIVE = "факел",
+		INSTRUMENTAL = "факелом",
+		PREPOSITIONAL = "факеле",
+	)
 
 /obj/item/flashlight/slime
 	gender = PLURAL

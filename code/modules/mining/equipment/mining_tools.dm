@@ -31,6 +31,16 @@
 	toolspeed = 0.8
 
 
+/obj/item/pickaxe/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		no_multi_hit = TRUE, \
+		swing_sound = "chop_swing_light" \
+	)
+
+
 /obj/item/pickaxe/emergency
 	name = "emergency disembarkation tool"
 	desc = "Кирка, предназначенная для спасения из затруднительных ситуаций."
@@ -247,6 +257,17 @@
 	hitsound = 'sound/effects/Shovel_hitting_sound.ogg'
 	usesound = 'sound/effects/shovel_dig.ogg'
 	toolspeed = 0.8
+
+
+/obj/item/shovel/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0.15, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_light" \
+	)
+
 
 /obj/item/shovel/spade
 	name = "spade"

@@ -290,17 +290,25 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		SEND_SIGNAL(H, COMSIG_MOB_HALO_GAINED)
 
 /datum/game_mode/proc/remove_clocker(datum/mind/clock_mind, show_message = TRUE)
-	if(!(clock_mind in clockwork_cult))
+	if(!clock_mind || !(clock_mind in clockwork_cult))
 		return
+
 	var/mob/clocker = clock_mind.current
+	
+	if(!clocker)
+		return
+
 	clockwork_cult -= clock_mind
 	clocker.faction -= "clockwork_cult"
 	clock_mind.special_role = null
-	for(var/datum/objective/serveclock/O in clock_mind.objectives)
-		clock_mind.objectives -= O
-		qdel(O)
-	for(var/datum/action/innate/clockwork/C in clocker.actions)
-		qdel(C)
+
+	for(var/datum/objective/serveclock/objective in clock_mind.objectives)
+		clock_mind.objectives -= objective
+		qdel(objective)
+
+	for(var/datum/action/innate/clockwork/action in clocker.actions)
+		qdel(action)
+
 	update_clock_icons_removed(clock_mind)
 
 	if(ishuman(clocker))

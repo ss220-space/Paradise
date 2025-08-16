@@ -80,11 +80,11 @@
 /obj/machinery/door/proc/update_dir()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
+			bound_width = width * ICON_SIZE_X
+			bound_height = ICON_SIZE_Y
 		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
+			bound_width = ICON_SIZE_X
+			bound_height = width * ICON_SIZE_Y
 
 /obj/machinery/door/Destroy()
 	set_density(FALSE)
@@ -139,11 +139,11 @@
 
 	if(width > 1)
 		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
+			bound_width = width * ICON_SIZE_X
+			bound_height = ICON_SIZE_Y
 		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
+			bound_width = ICON_SIZE_X
+			bound_height = width * ICON_SIZE_Y
 
 
 /obj/machinery/door/CanAllowThrough(atom/movable/mover, border_dir)

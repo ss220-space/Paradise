@@ -1,14 +1,6 @@
 /obj/item/storage/box/syndie_kit/contractor
 	name = "contractor kit"
 	desc = "Коробка с вещами, предназначенными Контрактникам Синдиката."
-	ru_names = list(
-		NOMINATIVE = "набор контрактника",
-		GENITIVE = "набора контрактника",
-		DATIVE = "набору контрактника",
-		ACCUSATIVE = "набор контрактника",
-		INSTRUMENTAL = "набором контрактника",
-		PREPOSITIONAL = "наборе контрактника"
-	)
 	// Settings
 	/// Amount of random items to be added to the contractor kit.
 	/// See [/obj/item/storage/box/syndie_kit/contractor/var/item_list] for the available items.
@@ -42,6 +34,16 @@
 		/obj/item/implanter/freedom,
 	)
 
+/obj/item/storage/box/syndie_kit/contractor/get_ru_names()
+	return list(
+		NOMINATIVE = "набор контрактника",
+		GENITIVE = "набора контрактника",
+		DATIVE = "набору контрактника",
+		ACCUSATIVE = "набор контрактника",
+		INSTRUMENTAL = "набором контрактника",
+		PREPOSITIONAL = "наборе контрактника"
+	)
+
 
 /obj/item/storage/box/syndie_kit/contractor/populate_contents()
 	new /obj/item/paper/contractor_guide(src)
@@ -56,7 +58,8 @@
 /obj/item/storage/box/syndie_kit/contractor_loadout
 	name = "contractor standard loadout box"
 	desc = "Стандартная коробка, входящая в комплект поставки для Контрактника."
-	ru_names = list(
+/obj/item/storage/box/syndie_kit/contractor_loadout/get_ru_names()
+	return list(
 		NOMINATIVE = "стандартный набор контрактника",
 		GENITIVE = "стандартного набора контрактника",
 		DATIVE = "стандартному набору контрактника",

@@ -1,14 +1,6 @@
 /obj/item/extinguisher
 	name = "fire extinguisher"
 	desc = "Традиционный красный огнетушитель."
-	ru_names = list(
-		NOMINATIVE = "огнетушитель",
-		GENITIVE = "огнетушителя",
-		DATIVE = "огнетушителю",
-		ACCUSATIVE = "огнетушитель",
-		INSTRUMENTAL = "огнетушителем",
-		PREPOSITIONAL = "огнетушителе"
-	)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "fire_extinguisher0"
 	base_icon_state = "fire_extinguisher"
@@ -40,18 +32,19 @@
 	/// Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled.
 	var/cooling_power = 2
 
+/obj/item/extinguisher/get_ru_names()
+	return list(
+		NOMINATIVE = "огнетушитель",
+		GENITIVE = "огнетушителя",
+		DATIVE = "огнетушителю",
+		ACCUSATIVE = "огнетушитель",
+		INSTRUMENTAL = "огнетушителем",
+		PREPOSITIONAL = "огнетушителе"
+	)
 
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
 	desc = "Лёгкая и компактная модель огнетушителя в фиберглассовом корпусе."
-	ru_names = list(
-		NOMINATIVE = "карманный огнетушитель",
-		GENITIVE = "карманного огнетушителя",
-		DATIVE = "карманному огнетушителю",
-		ACCUSATIVE = "карманный огнетушитель",
-		INSTRUMENTAL = "карманным огнетушителем",
-		PREPOSITIONAL = "карманном огнетушителе"
-	)
 	icon_state = "miniFE0"
 	base_icon_state = "miniFE"
 	item_state = "miniFE"
@@ -63,6 +56,16 @@
 	materials = list()
 	max_water = 30
 	dog_fashion = null
+
+/obj/item/extinguisher/mini/get_ru_names()
+	return list(
+		NOMINATIVE = "карманный огнетушитель",
+		GENITIVE = "карманного огнетушителя",
+		DATIVE = "карманному огнетушителю",
+		ACCUSATIVE = "карманный огнетушитель",
+		INSTRUMENTAL = "карманным огнетушителем",
+		PREPOSITIONAL = "карманном огнетушителе"
+	)
 
 
 /obj/item/extinguisher/Initialize(mapload)

@@ -166,11 +166,20 @@
 #define CYBORG							"Cyborg"
 
 #define TAIPAN_HUD_SCIENTIST	1
-#define TAIPAN_HUD_MEDIC 		2
+#define TAIPAN_HUD_MEDIC		2
 #define TAIPAN_HUD_BOTANIST		3
 #define TAIPAN_HUD_CARGO		4
 #define TAIPAN_HUD_CHEF			5
 #define TAIPAN_HUD_ENGINEER		6
-#define TAIPAN_HUD_COMMS 		7
+#define TAIPAN_HUD_COMMS		7
 #define TAIPAN_HUD_RD			8
 #define TAIPAN_HUD_CYBORG		9
+
+
+/// MARK: Job lists
+
+GLOBAL_LIST_INIT(ai_death_alarm_jobs, list(
+	JOB_TITLE_CAPTAIN,
+	JOB_TITLE_CHIEF,
+	JOB_TITLE_RD,
+))

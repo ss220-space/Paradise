@@ -27,10 +27,10 @@
 
 #define AIRLOCK_SECURITY_NONE			0 //Normal airlock				//Wires are not secured
 #define AIRLOCK_SECURITY_METAL			1 //Medium security airlock		//There is a simple metal over wires (use welder)
-#define AIRLOCK_SECURITY_PLASTEEL_I_S	2 								//Sliced inner plating (use crowbar), jumps to 0
-#define AIRLOCK_SECURITY_PLASTEEL_I		3 								//Removed outer plating, second layer here (use welder)
-#define AIRLOCK_SECURITY_PLASTEEL_O_S	4 								//Sliced outer plating (use crowbar)
-#define AIRLOCK_SECURITY_PLASTEEL_O		5 								//There is first layer of plasteel (use welder)
+#define AIRLOCK_SECURITY_PLASTEEL_I_S	2								//Sliced inner plating (use crowbar), jumps to 0
+#define AIRLOCK_SECURITY_PLASTEEL_I		3								//Removed outer plating, second layer here (use welder)
+#define AIRLOCK_SECURITY_PLASTEEL_O_S	4								//Sliced outer plating (use crowbar)
+#define AIRLOCK_SECURITY_PLASTEEL_O		5								//There is first layer of plasteel (use welder)
 #define AIRLOCK_SECURITY_PLASTEEL		6 //Max security airlock		//Fully secured wires (use wirecutters to remove grille, that is electrified)
 
 #define AIRLOCK_INTEGRITY_N			 300 // Normal airlock integrity

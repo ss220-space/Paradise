@@ -10,11 +10,11 @@
 	var/shuttlePortId = ""
 	var/shuttlePortName = "custom location"
 	var/list/jumpto_ports = list() //list of ports to jump to
-	var/access_station = TRUE 		//can we park near station?
+	var/access_station = TRUE		//can we park near station?
 	var/access_admin_zone = FALSE	//can we park on Admin z_lvls?
 	var/access_mining = FALSE		//can we park on Lavaland z_lvl?
-	var/access_taipan = FALSE 		//can we park on Taipan z_lvl?
-	var/access_away = FALSE 		//can we park on Away_Mission z_lvl?
+	var/access_taipan = FALSE		//can we park on Taipan z_lvl?
+	var/access_away = FALSE		//can we park on Away_Mission z_lvl?
 	var/access_derelict = FALSE		//can we park in Unexplored Space?
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
@@ -64,7 +64,7 @@
 	if(jumpto_ports.len)
 		jump_action = new /datum/action/innate/camera_jump/shuttle_docker
 	..()
-	/* 	//technically working but some icons are buggy as shit and either don't rotate or rotate wrong :
+	/*	//technically working but some icons are buggy as shit and either don't rotate or rotate wrong :
 		//namely shuttle walls, shuttle windows, shuttle engines and buckled mobs
 	if(rotate_action)
 		rotate_action.target = user

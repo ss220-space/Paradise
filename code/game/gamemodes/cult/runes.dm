@@ -828,8 +828,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/manifest/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD)
-		. += "<b>Amount of ghosts summoned:</b> [span_cultitalic(ghosts)]"
-		. += "<b>Maximum amount of ghosts:</b> [span_cultitalic(clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit))]"
+		. += "<b>Amount of ghosts summoned:</b> [span_cultitalic("[ghosts]")]"
+		. += "<b>Maximum amount of ghosts:</b> [span_cultitalic("[clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit)]")]"
 		. += "Lowers to a minimum of [minimum_ghost_limit] for each objective accomplished."
 		. += "<b>Всего доступно призывов:</b><span class='cultitalic'> [SSticker.mode.ghost_summons]</span>"
 

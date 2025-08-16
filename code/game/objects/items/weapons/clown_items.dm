@@ -1,6 +1,6 @@
 /* Clown Items
  * Contains:
- * 		Banana Peels
+ *		Banana Peels
  *		Soap
  *		Bike Horns
  */

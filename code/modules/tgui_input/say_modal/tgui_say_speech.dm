@@ -2,8 +2,8 @@
  * Delegates the speech to the proper channel.
  *
  * Arguments:
- * 	entry - the text to broadcast
- * 	channel - the channel to broadcast in
+ *	entry - the text to broadcast
+ *	channel - the channel to broadcast in
  * Returns:
  *  boolean - on success or failure
  */

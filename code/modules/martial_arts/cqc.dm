@@ -3,6 +3,7 @@
 	weight = 7
 	block_chance = 75
 	has_explaination_verb = TRUE
+	has_dirslash = FALSE
 	grab_speed = 2 SECONDS
 	grab_resist_chances = list(
 		MARTIAL_GRAB_AGGRESSIVE = 40,

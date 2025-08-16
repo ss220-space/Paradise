@@ -43,6 +43,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/Destroy()
 	GLOB.GPS_list.Remove(src)
 	GLOB.poi_list.Remove(src)
+	locked_location = null
+	parent = null
 	return ..()
 
 /obj/item/gps/update_overlays()

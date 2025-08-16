@@ -58,6 +58,18 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/chaplain,
 		/datum/job/officer,
 	)
+
+	var/static/list/law_levels  = list(
+		"Минимальные" = LAW_LEVEL_BASE,
+		"Офицер СБ" = LAW_LEVEL_SEC,
+		"Варден" = LAW_LEVEL_WARDEN,
+		"ГСБ" = LAW_LEVEL_HOS,
+		"Капитан" = LAW_LEVEL_CAPTAIN,
+		"Магистрат" = LAW_LEVEL_MAGISTRATE,
+		"ОБР" = LAW_LEVEL_RESPONSE_TEAM,
+		"Офицер ЦК" = LAW_LEVEL_CENTCOMM,
+	)
+	var/max_law_level = LAW_LEVEL_MAGISTRATE
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
 
@@ -315,6 +327,20 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		ui = new(user, src, "CardComputer", name)
 		ui.open()
 
+/obj/machinery/computer/card/ui_static_data(mob/user)
+	var/list/data = list()
+	data["law_levels"] = law_levels
+	data["possible_law_levels"] = list()
+	var/possible_laws = data["possible_law_levels"]
+
+	for(var/level in law_levels)
+		var/current_level = law_levels[level]
+		if(current_level > max_law_level)
+			continue
+		possible_laws += level
+
+	return data
+
 /obj/machinery/computer/card/ui_data(mob/user)
 	var/list/data = list()
 	data["mode"] = mode
@@ -331,6 +357,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	data["target_dept"] = target_dept
 	data["iscentcom"] = is_centcom()
 	data["isadmin"] = user.can_admin_interact()
+
+	data["law_level"] = modify ? modify.law_level : LAW_LEVEL_BASE
 
 	switch(mode)
 		if(IDCOMPUTER_SCREEN_TRANSFER) // JOB TRANSFER
@@ -481,6 +509,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[oldrank]\" to \"[temp_t]\".")
 			else
 				var/list/access = list()
+				var/law_level = modify.law_level
 				if(is_centcom() && islist(get_centcom_access(t1)))
 					access = get_centcom_access(t1)
 				else
@@ -504,6 +533,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							return
 
 					access = jobdatum.get_access()
+					law_level = jobdatum.law_level
 
 				var/jobnamedata = modify.getRankAndAssignment()
 				add_game_logs("([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", usr)
@@ -529,6 +559,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				modify.access = access
 				modify.rank = t1
 				modify.assignment = assignment
+				modify.law_level = law_level
 				SSjobs.account_job_transfer(modify.registered_name, t1)
 
 			regenerate_id_name()
@@ -717,6 +748,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("grant_all")
 			modify.access |= get_all_accesses()
 			return
+		if("grant_all")
+			modify.access |= get_all_accesses()
+			return
+		if("set_law_level")
+			var/level = params["level"]
+			modify.law_level = level
+			return
 
 		// JOB SLOT MANAGEMENT functions
 
@@ -765,6 +803,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	change_position_cooldown = -1
 	blacklisted_full = list()
 	blacklisted_partial = list()
+	max_law_level = LAW_LEVEL_CENTCOMM
 
 /obj/machinery/computer/card/centcom/is_centcom()
 	return TRUE

@@ -46,12 +46,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/list/attack_verb
 	/// Sound played when you hit something with the item.
 	var/hitsound
+	/// Used for hit sound cooldown
+	COOLDOWN_DECLARE(sound_cooldown)
 	/// Played when the item is used, for example tools.
 	var/usesound
 	/// Used when yate into a mob.
 	var/mob_throw_hit_sound
 	///Sound used when equipping the item into a valid slot.
-	var/equip_sound = list(
+	var/equip_sound
+	var/static/list/base_equip_sounds = list(
 		'sound/items/handling/equip/generic_equip1.ogg',
 		'sound/items/handling/equip/generic_equip2.ogg',
 		'sound/items/handling/equip/generic_equip3.ogg',
@@ -59,13 +62,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		'sound/items/handling/equip/generic_equip5.ogg',
 	)
 	///Sound used when picking the item up (into your hands)
-	var/pickup_sound = list(
+	var/pickup_sound
+	var/static/list/base_pickup_sounds = list(
 		'sound/items/handling/pickup/generic_pickup1.ogg',
 		'sound/items/handling/pickup/generic_pickup2.ogg',
 		'sound/items/handling/pickup/generic_pickup3.ogg',
 	)
 	///Sound used when dropping the item.
-	var/drop_sound = list(
+	var/drop_sound
+	var/static/list/base_drop_sounds = list(
 		'sound/items/handling/drop/generic_drop1.ogg',
 		'sound/items/handling/drop/generic_drop2.ogg',
 		'sound/items/handling/drop/generic_drop3.ogg',
@@ -212,6 +217,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// How much to offset the item randomly either way alongside Y visually
 	var/ground_offset_y = 0
 
+	var/embed_disarm = FALSE
+
 /obj/item/Initialize(mapload)
 	. = ..()
 
@@ -234,12 +241,24 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!move_resist)
 		determine_move_resist()
 
+	if(embed_disarm)
+		AddComponent(/datum/component/stick_it_in)
+
 	add_eatable_component()
 	scatter_item()
 
 
 /obj/item/proc/add_eatable_component()
 	AddComponent(/datum/component/eatable)
+
+/obj/item/proc/get_equip_sound()
+	return equip_sound || pick(base_equip_sounds)
+
+/obj/item/proc/get_pickup_sound()
+	return pickup_sound || pick(base_pickup_sounds)
+
+/obj/item/proc/get_drop_sound()
+	return drop_sound || pick(base_drop_sounds)
 
 /obj/item/proc/determine_move_resist()
 	switch(w_class)
@@ -573,6 +592,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	remove_outline()
 
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user, slot)
+	var/drop_sound = get_drop_sound()
 	if(!silent && !(item_flags & ABSTRACT) && drop_sound)
 		var/chosen_sound = drop_sound
 		if(islist(drop_sound) && length(drop_sound))
@@ -657,6 +677,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	item_flags |= IN_INVENTORY
 
 	if(!initial && !(item_flags & ABSTRACT))
+		var/equip_sound = get_equip_sound()
+		var/pickup_sound = get_pickup_sound()
 		if(equip_sound && !user.is_general_slot(slot))
 			var/chosen_sound = equip_sound
 			if(islist(equip_sound) && length(equip_sound))
@@ -953,7 +975,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			playsound(living, 'sound/weapons/throwtap.ogg', volume, TRUE, -1)
 
 	else
-		playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		playsound(src, get_drop_sound(), YEET_SOUND_VOLUME, ignore_walls = FALSE)
 
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force, dodgeable)
