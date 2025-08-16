@@ -1,14 +1,6 @@
 /obj/structure/fermenting_barrel
 	name = "wooden barrel"
 	desc = "Большая дубовая бочка. Можно использовать для брожения фруктов или просто хранения жидкостей."
-	ru_names = list(
-		NOMINATIVE = "деревянная бочка",
-		GENITIVE = "деревянной бочки",
-		DATIVE = "деревянной бочке",
-		ACCUSATIVE = "деревянную бочку",
-		INSTRUMENTAL = "деревянной бочкой",
-		PREPOSITIONAL = "деревянной бочке"
-	)
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "barrel"
 	density = TRUE
@@ -18,6 +10,16 @@
 	max_integrity = 300
 	var/open = FALSE
 	var/speed_multiplier = 1 //How fast it distills. Defaults to 100% (1.0). Lower is better.
+
+/obj/structure/fermenting_barrel/get_ru_names()
+	return list(
+		NOMINATIVE = "деревянная бочка",
+		GENITIVE = "деревянной бочки",
+		DATIVE = "деревянной бочке",
+		ACCUSATIVE = "деревянную бочку",
+		INSTRUMENTAL = "деревянной бочкой",
+		PREPOSITIONAL = "деревянной бочке"
+	)
 
 /obj/structure/fermenting_barrel/Initialize(mapload)
 	create_reagents(300) //Bluespace beakers, but without the portability or efficiency in circuits.

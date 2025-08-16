@@ -82,7 +82,7 @@
 
 
 #define REQ_STAMINA_FOR_STRENGTH_POINT		25
-#define REQ_NUTRITION_FOR_STRENGTH_POINT 	25
+#define REQ_NUTRITION_FOR_STRENGTH_POINT	25
 #define MIN_NUTRITION_FOR_STRENGTH_CHANGE	NUTRITION_LEVEL_STARVING
 
 /datum/component/muscles/proc/try_add_strength_points(mob/living/user, delta)

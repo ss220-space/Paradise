@@ -124,7 +124,15 @@
 /obj/item/melee/katana/basalt
 	name = "basalt katana"
 	desc = "Катана, изготовленная из закалённого базальта, представляет особую опасность для обитателей Лазиса."
-	ru_names = list(
+	icon_state = "basalt_katana"
+	item_state = "basalt_katana"
+	force = 30
+	block_chance = 30
+	var/faction_bonus_force = 30
+	var/nemesis_factions = list("mining", "boss")
+
+/obj/item/melee/katana/basalt/get_ru_names()
+	return list(
 		NOMINATIVE = "базальтовая катана",
 		GENITIVE = "базальтовой катаны",
 		DATIVE = "базальтовой катане",
@@ -132,12 +140,6 @@
 		INSTRUMENTAL = "базальтовой катаной",
 		PREPOSITIONAL = "базальтовой катане"
 	)
-	icon_state = "basalt_katana"
-	item_state = "basalt_katana"
-	force = 30
-	block_chance = 30
-	var/faction_bonus_force = 30
-	var/nemesis_factions = list("mining", "boss")
 
 
 /obj/item/melee/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -465,14 +467,6 @@
 /obj/item/melee/claymore/bone
 	name = "bone sword"
 	desc = "Зубчатые костяные обломки привязаны к тому, что выглядит как бедренная кость голиафа."
-	ru_names = list(
-		NOMINATIVE = "костяной меч",
-		GENITIVE = "костяного меча",
-		DATIVE = "костяному мечу",
-		ACCUSATIVE = "костяной меч",
-		INSTRUMENTAL = "костяным мечом",
-		PREPOSITIONAL = "костяном мече"
-	)
 	icon_state = "bone_sword"
 	item_state = "bone_sword"
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
@@ -481,6 +475,16 @@
 	armour_penetration = 15
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
+
+/obj/item/melee/claymore/bone/get_ru_names()
+	return list(
+		NOMINATIVE = "костяной меч",
+		GENITIVE = "костяного меча",
+		DATIVE = "костяному мечу",
+		ACCUSATIVE = "костяной меч",
+		INSTRUMENTAL = "костяным мечом",
+		PREPOSITIONAL = "костяном мече"
+	)
 
 /obj/item/melee/claymore/bone/ComponentInitialize()
 	. = ..()
@@ -496,14 +500,6 @@
 /obj/item/melee/nutcracker
 	name = "nutcracker"
 	desc = "Простейшая дубина из кости. Воплощение силы первобытного разума и природной мощи. Настоящая классика."
-	ru_names = list(
-		NOMINATIVE = "колотушка",
-		GENITIVE = "колотушки",
-		DATIVE = "колотушке",
-		ACCUSATIVE = "колотушку",
-		INSTRUMENTAL = "колотушкой",
-		PREPOSITIONAL = "колотушке"
-	)
 	icon_state = "nutcracker"
 	item_state = "nutcracker"
 	gender = FEMALE
@@ -513,6 +509,16 @@
 	throwforce = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	var/stamina_damage = 22
+
+/obj/item/melee/nutcracker/get_ru_names()
+	return list(
+		NOMINATIVE = "колотушка",
+		GENITIVE = "колотушки",
+		DATIVE = "колотушке",
+		ACCUSATIVE = "колотушку",
+		INSTRUMENTAL = "колотушкой",
+		PREPOSITIONAL = "колотушке"
+	)
 
 /obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity, params, status)
 	if(!isliving(target) || !proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -540,14 +546,6 @@
 /obj/item/melee/ghostface_knife
 	name = "Knife"
 	desc = "Очень острый нож. Судя по потёртостям и засохшей крови, он совсем не валялся без дела."
-	ru_names = list(
-		NOMINATIVE = "старый нож",
-		GENITIVE = "старого ножа",
-		DATIVE = "старому ножу",
-		ACCUSATIVE = "старый нож",
-		INSTRUMENTAL = "старым ножом",
-		PREPOSITIONAL = "старом ноже"
-	)
 	icon_state = "ghostface_knife"
 	force = 34
 	armour_penetration = 70
@@ -562,6 +560,16 @@
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
 	sharp = TRUE
 
+/obj/item/melee/ghostface_knife/get_ru_names()
+	return list(
+		NOMINATIVE = "старый нож",
+		GENITIVE = "старого ножа",
+		DATIVE = "старому ножу",
+		ACCUSATIVE = "старый нож",
+		INSTRUMENTAL = "старым ножом",
+		PREPOSITIONAL = "старом ноже"
+	)
+
 /obj/item/melee/ghostface_knife/ComponentInitialize()
 	. = ..()
 	AddComponent( \
@@ -575,7 +583,10 @@
 /obj/item/melee/ghostface_knife/devil
 	name = "Old knife"
 	desc = "Странный нож с, тем не менее, крайне острым лезвием. Судя по характерным потёртостям и засохшей крови, он явно не валялся без дела."
-	ru_names = list(
+	icon_state = "devil_ghostface_knife"
+
+/obj/item/melee/ghostface_knife/devil/get_ru_names()
+	return list(
 		NOMINATIVE = "старый ржавый нож",
 		GENITIVE = "старого ржавого ножа",
 		DATIVE = "старому ржавому ножу",
@@ -583,4 +594,3 @@
 		INSTRUMENTAL = "старым ржавым ножом",
 		PREPOSITIONAL = "старом ржавом ноже"
 	)
-	icon_state = "devil_ghostface_knife"

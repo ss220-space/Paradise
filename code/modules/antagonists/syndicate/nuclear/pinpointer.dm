@@ -1,16 +1,16 @@
-#define MODE_OFF 	0
-#define MODE_DISK 	1
-#define MODE_NUKE 	2
-#define MODE_ADV 	3
-#define MODE_SHIP 	4
+#define MODE_OFF	0
+#define MODE_DISK	1
+#define MODE_NUKE	2
+#define MODE_ADV	3
+#define MODE_SHIP	4
 #define MODE_OPERATIVE 5
-#define MODE_CREW 	6
-#define MODE_NINJA 	7
-#define MODE_THIEF 	8
+#define MODE_CREW	6
+#define MODE_NINJA	7
+#define MODE_THIEF	8
 #define MODE_TENDRIL 9
-#define SETTING_DISK 		0
-#define SETTING_LOCATION 	1
-#define SETTING_OBJECT 		2
+#define SETTING_DISK		0
+#define SETTING_LOCATION	1
+#define SETTING_OBJECT		2
 
 /obj/item/pinpointer
 	name = "pinpointer"

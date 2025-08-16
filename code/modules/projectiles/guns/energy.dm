@@ -393,7 +393,7 @@
 		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
-			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
+			if(R.cell.use(shot.e_cost))		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
 
 

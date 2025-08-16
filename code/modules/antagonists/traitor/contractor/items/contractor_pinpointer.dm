@@ -1,14 +1,6 @@
 /obj/item/pinpointer/crew/contractor
 	name = "contractor pinpointer"
 	desc = "Портативное устройство слежения, которое указывает на членов экипажа, не используя датчики костюма, ценой снижения точности."
-	ru_names = list(
-		NOMINATIVE = "целеуказатель Контрактника",
-		GENITIVE = "целеуказателя Контрактника",
-		DATIVE = "целеуказателю Контрактника",
-		ACCUSATIVE = "целеуказатель Контрактника",
-		INSTRUMENTAL = "целеуказателем Контрактника",
-		PREPOSITIONAL = "целеуказателе Контрактника"
-	)
 	icon_state = "pinoff_contractor"
 	item_state = "pinoff_contractor"
 	icon_off = "pinoff_contractor"
@@ -21,6 +13,16 @@
 	var/min_range = 15
 	/// The first person to have used the item. If this is set already, no one else can use it.
 	var/mob/owner
+
+/obj/item/pinpointer/crew/contractor/get_ru_names()
+	return list(
+		NOMINATIVE = "целеуказатель Контрактника",
+		GENITIVE = "целеуказателя Контрактника",
+		DATIVE = "целеуказателю Контрактника",
+		ACCUSATIVE = "целеуказатель Контрактника",
+		INSTRUMENTAL = "целеуказателем Контрактника",
+		PREPOSITIONAL = "целеуказателе Контрактника"
+	)
 
 
 /obj/item/pinpointer/crew/contractor/update_icon_state()

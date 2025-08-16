@@ -3,14 +3,6 @@
 	desc = "Продвинутое устройство предназначенное для сканирования аномалий. \
 			Выводит достаточно полную информацию о сканируемой аномалии. \
 			Может сканировать аномалии на расстоянии."
-	ru_names = list(
-		NOMINATIVE = "сканер аномалий", \
-		GENITIVE = "сканера аномалий", \
-		DATIVE = "сканеру аномалий", \
-		ACCUSATIVE = "сканер аномалий", \
-		INSTRUMENTAL = "сканером аномалий", \
-		PREPOSITIONAL = "сканере аномалий"
-	)
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -21,7 +13,17 @@
 	/// Title of scan window.
 	var/scan_title = "ERROR_NO_DATA"
 	/// Anomaly info in scan window.
-	var/scan_data= list()
+	var/scan_data
+
+/obj/item/anomaly_analyzer/get_ru_names()
+	return list(
+		NOMINATIVE = "сканер аномалий", \
+		GENITIVE = "сканера аномалий", \
+		DATIVE = "сканеру аномалий", \
+		ACCUSATIVE = "сканер аномалий", \
+		INSTRUMENTAL = "сканером аномалий", \
+		PREPOSITIONAL = "сканере аномалий"
+	)
 
 /obj/effect/anomaly/proc/get_data()
 	var/list/scan_data = list()
@@ -57,7 +59,7 @@
 
 /obj/item/anomaly_analyzer/proc/show(mob/user)
 	var/datum/browser/popup = new(user, "anomalyscanner", scan_title, 500, 600)
-	popup.set_content(chat_box_yellow("[jointext(scan_data, "<br>")]"))
+	popup.set_content(chat_box_yellow("[jointext(scan_data || list(), "<br>")]"))
 	popup.open(no_focus = 1)
 
 /obj/item/anomaly_analyzer/attack_self(mob/user)
