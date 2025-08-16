@@ -136,6 +136,7 @@ GLOBAL_LIST(ui_logins)
 			state.name = state.id.registered_name
 			state.rank = state.id.assignment
 			state.access = state.id.access
+			state.law_level = state.id.law_level
 		else
 			to_chat(usr, span_warning("Отказано в доступе."))
 			return
@@ -152,6 +153,7 @@ GLOBAL_LIST(ui_logins)
 	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
 		state.name = "*ЗАСЕКРЕЧЕНО*"
 		state.rank = "Защищённый канал ЦентКома"
+		state.law_level = LAW_LEVEL_CENTCOMM
 		state.access = get_all_accesses() + get_all_centcom_access()
 
 	state.logged_in = TRUE
@@ -216,6 +218,7 @@ GLOBAL_LIST(ui_logins)
 	var/name = ""
 	var/rank = ""
 	var/list/access = null
+	var/law_level = LAW_LEVEL_BASE
 	var/logged_in = FALSE
 
 /datum/ui_login/New(id, name, rank, access)

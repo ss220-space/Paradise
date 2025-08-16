@@ -1,14 +1,6 @@
 /turf/simulated/floor/chasm
 	name = "chasm"
 	desc = "Смотри куда идёшь."
-	ru_names = list(
-		NOMINATIVE = "пропасть",
-		GENITIVE = "пропасти",
-		DATIVE = "пропасти",
-		ACCUSATIVE = "пропасть",
-		INSTRUMENTAL = "пропастью",
-		PREPOSITIONAL = "пропасти"
-	)
 	baseturf = /turf/simulated/floor/chasm
 	smooth = SMOOTH_BITMASK
 	icon = 'icons/turf/floors/Chasms.dmi'
@@ -24,6 +16,16 @@
 	barefootstep = null
 	clawfootstep = null
 	heavyfootstep = null
+
+/turf/simulated/floor/chasm/get_ru_names()
+	return list(
+		NOMINATIVE = "пропасть",
+		GENITIVE = "пропасти",
+		DATIVE = "пропасти",
+		ACCUSATIVE = "пропасть",
+		INSTRUMENTAL = "пропастью",
+		PREPOSITIONAL = "пропасти"
+	)
 
 
 /turf/simulated/floor/chasm/Initialize(mapload)

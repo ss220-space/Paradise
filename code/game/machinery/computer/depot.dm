@@ -399,18 +399,18 @@
 	var/obj/effect/portal/redspace/myportal2
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
-	var/blocked = FALSE 		//Блокирует кнопки телепортера если TRUE
+	var/blocked = FALSE		//Блокирует кнопки телепортера если TRUE
 	var/last_opened_time = null	//Время когда в последний раз было открыто меню выбора телепорта
 	var/last_opener = null		//Последний открывший меню выбора телепорта
 	var/timeout = 300			//Время в течении которого никто не может использовать консоль пока кто то выбирает телепорт
 	var/is_cooldown = FALSE		//На кулдауне ли мы?
-	var/wait_time = 0 			//Сколько осталось до конца кулдауна.
+	var/wait_time = 0			//Сколько осталось до конца кулдауна.
 	var/lifespan = 300			//Сколько будут жить созданные порталы прежде чем удалиться
 
 /obj/machinery/computer/syndicate_depot/teleporter/taipan
 	req_access = list(154)
 	circuit = /obj/item/circuitboard/syndicate_teleporter
-	armor = list("melee" = 0, "bullet" = 100, "laser" = 40, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
+	armor = list(MELEE = 0, BULLET = 100, LASER = 40, ENERGY = 0, BOMB = 20, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
 
 /obj/machinery/computer/syndicate_depot/teleporter/Initialize(mapload)
 	..()

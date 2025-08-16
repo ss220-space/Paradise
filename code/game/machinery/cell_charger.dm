@@ -49,7 +49,7 @@
 	if(!charging || (stat & (BROKEN|NOPOWER)))
 		return
 
-	var/newlevel = 	round(charging.percent() * 4 / 100)
+	var/newlevel =	round(charging.percent() * 4 / 100)
 	. += "ccharger-o[newlevel]"
 
 
@@ -177,7 +177,7 @@
 
 
 /obj/machinery/cell_charger/proc/check_level()
-	var/newlevel = 	round(charging.percent() * 4 / 100)
+	var/newlevel =	round(charging.percent() * 4 / 100)
 	if(chargelevel != newlevel)
 		chargelevel = newlevel
 		return TRUE

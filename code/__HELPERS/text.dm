@@ -313,6 +313,20 @@
 /proc/capitalize(var/t as text)
 	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
 
+//Returns a string depending on number it recieves
+/proc/numeric_ending(num, more, one, three)
+	var/last_digit = num % 10
+	var/last_two_digit = num % 100
+
+	if(last_two_digit >= 11 && last_two_digit <= 14)
+		return more
+	if(last_digit == 1)
+		return one
+	if(last_digit >= 2 && last_digit <= 4)
+		return three
+	else
+		return more
+
 //Centers text by adding spaces to either side of the string.
 /proc/dd_centertext(message, length)
 	var/new_message = message
@@ -511,24 +525,24 @@
 		text = replacetext(text, "\[/large\]",	"</font>")
 
 	if(istype(P, /obj/item/toy/crayon) || !format) // If it is a crayon, and he still tries to use these, make them empty!
-		text = replacetext(text, "\[*\]", 		"")
+		text = replacetext(text, "\[*\]",		"")
 		text = replacetext(text, "\[hr\]",		"")
-		text = replacetext(text, "\[small\]", 	"")
-		text = replacetext(text, "\[/small\]", 	"")
-		text = replacetext(text, "\[list\]", 	"")
-		text = replacetext(text, "\[/list\]", 	"")
-		text = replacetext(text, "\[table\]", 	"")
-		text = replacetext(text, "\[/table\]", 	"")
-		text = replacetext(text, "\[row\]", 	"")
-		text = replacetext(text, "\[cell\]", 	"")
-		text = replacetext(text, "\[logo\]", 	"")
-		text = replacetext(text, "\[slogo\]", 	"")
-		text = replacetext(text, "\[time\]", 	"")
-		text = replacetext(text, "\[date\]", 	"")
+		text = replacetext(text, "\[small\]",	"")
+		text = replacetext(text, "\[/small\]",	"")
+		text = replacetext(text, "\[list\]",	"")
+		text = replacetext(text, "\[/list\]",	"")
+		text = replacetext(text, "\[table\]",	"")
+		text = replacetext(text, "\[/table\]",	"")
+		text = replacetext(text, "\[row\]",	"")
+		text = replacetext(text, "\[cell\]",	"")
+		text = replacetext(text, "\[logo\]",	"")
+		text = replacetext(text, "\[slogo\]",	"")
+		text = replacetext(text, "\[time\]",	"")
+		text = replacetext(text, "\[date\]",	"")
 		text = replacetext(text, "\[station\]", "")
 	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
-	else 	// They are using "not a crayon" - formatting is OK and such
+	else	// They are using "not a crayon" - formatting is OK and such
 		text = replacetext(text, "\[*\]",		"<li>")
 		text = replacetext(text, "\[hr\]",		"<hr>")
 		text = replacetext(text, "\[small\]",	"<font size = \"1\">")

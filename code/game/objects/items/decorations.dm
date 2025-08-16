@@ -335,7 +335,7 @@
 	..()
 
 /obj/structure/decorative_structures/corpse/attack_hand(mob/living/user)
-	take_damage(pick(2,3), BRUTE, "melee")
+	take_damage(pick(2,3), BRUTE, MELEE)
 	playsound(src, (pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')), 20, 0)
 	user.visible_message(span_danger("You punched something viscous! You hear a slimy sound."))
 

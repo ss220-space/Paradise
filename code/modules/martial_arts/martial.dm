@@ -157,7 +157,7 @@
 		return FALSE
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, "melee")
+	var/armor_block = D.run_armor_check(affecting, MELEE)
 
 	playsound(D.loc, attack.attack_sound, 25, TRUE, -1)
 	D.visible_message(span_danger("[A] has [atk_verb] [D]!"), \
@@ -453,7 +453,12 @@
 /obj/item/CQC_manual
 	name = "old manual"
 	desc = "Небольшая книжка чёрного цвета. Это подробное руководство по тактике рукопашного боя."
-	ru_names = list(
+	icon = 'icons/obj/library.dmi'
+	icon_state = "cqcmanual"
+	item_state = "cqcmanual"
+
+/obj/item/CQC_manual/get_ru_names()
+	return list(
 		NOMINATIVE = "старое руководство",
 		GENITIVE = "старого руководства",
 		DATIVE = "старому руководству",
@@ -461,8 +466,6 @@
 		INSTRUMENTAL = "старым руководством",
 		PREPOSITIONAL = "старом руководстве"
 	)
-	icon = 'icons/obj/library.dmi'
-	icon_state = "cqcmanual"
 
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
@@ -491,7 +494,13 @@
 /obj/item/CQC_manual/chef
 	name = "CQC Upgrade implant"
 	desc = "Небольшой шприц, содержащий в себе имплант. Даёт вам запомнить то, что вы всегда забываете."
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/items.dmi'
+	icon_state = "implanter1"
+	item_state = "syringe_0"
+
+/obj/item/CQC_manual/chef/get_ru_names()
+	return list(
 		NOMINATIVE = "имплант улучшения CQC",
 		GENITIVE = "импланта улучшения CQC",
 		DATIVE = "импланту улучшения CQC",
@@ -499,9 +508,6 @@
 		INSTRUMENTAL = "имплантом улучшения CQC",
 		PREPOSITIONAL = "импланте улучшения CQC"
 	)
-	icon = 'icons/obj/items.dmi'
-	icon_state = "implanter1"
-	item_state = "syringe_0"
 
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
 	if(!istype(user))
@@ -543,10 +549,22 @@
 
 
 /obj/item/mr_chang_technique
-	name = "«Aggressive Marketing Technique»"
-	desc = "Even a sneak peek on a cover of this magazine just made you 23 credit of clear profit! Wow!"
+	name = "\"Aggressive Marketing Technique\""
+	desc = "Лишь беглый взгляд по обложке этого журнала принёс вам 23 кредита чистой прибыли! О как!"
+	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state = "mr_cheng_manual"
+	item_state = "mr_cheng_manual"
+
+/obj/item/mr_chang_technique/get_ru_names()
+	return list(
+		NOMINATIVE = "журнал \"Техника Агрессивного Маркетинга\"",
+		GENITIVE = "журнала \"Техника Агрессивного Маркетинга\"",
+		DATIVE = "журналу \"Техника Агрессивного Маркетинга\"",
+		ACCUSATIVE = "журнал \"Техника Агрессивного Маркетинга\"",
+		INSTRUMENTAL = "журналом \"Техника Агрессивного Маркетинга\"",
+		PREPOSITIONAL = "журнале \"Техника Агрессивного Маркетинга\""
+	)
 
 /obj/item/mr_chang_technique/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
@@ -562,9 +580,21 @@
 
 /obj/item/throwing_manual
 	name = "Commandos knife techniques manual"
-	desc = "This is a thin black book. On the front there is a picture of a man with knives. \nContains a guide for learning the commandos knife technique with a visual representation of the application of the techniques."
+	desc = "Тонкая чёрная книжка. На обложке изображён мужчина с ножами в руках. \nСодержит руководство по изучению техники владения ножами с наглядной демонстрацией применения приёмов."
+	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state = "throwingknives"
+	item_state = "throwingknives"
+
+/obj/item/throwing_manual/get_ru_names()
+	return list(
+		NOMINATIVE = "мануал \"Курс Техники метания ножей молодого Десантника\"",
+		GENITIVE = "мануала \"Курс Техники метания ножей молодого Десантника\"",
+		DATIVE = "мануалу \"Курс Техники метания ножей молодого Десантника\"",
+		ACCUSATIVE = "мануал \"Курс Техники метания ножей молодого Десантника\"",
+		INSTRUMENTAL = "Мануалом \"Курс Техники метания ножей молодого Десантника\"",
+		PREPOSITIONAL = "Мануале \"Курс Техники метания ножей молодого Десантника\""
+	)
 
 /obj/item/throwing_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
@@ -668,6 +698,10 @@
 	layer = ABOVE_HUD_LAYER
 	var/streak
 
+/atom/movable/screen/combo/Destroy()
+	if(hud)
+		hud.combo_display = null
+	. = ..()
 
 /atom/movable/screen/combo/proc/clear_streak()
 	cut_overlays()

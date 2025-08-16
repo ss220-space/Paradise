@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_DEMON = 21,
 	ROLE_SENTIENT = 21,
 	ROLE_ELITE = 21,
-// 	ROLE_GANG = 21,
+//	ROLE_GANG = 21,
 	ROLE_BORER = 21,
 	ROLE_NINJA = 21,
 	ROLE_GSPIDER = 21,
@@ -71,10 +71,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
-#define TAB_CHAR 	0
-#define TAB_GAME 	1
-#define TAB_SPEC 	2
-#define TAB_KEYS 	3
+#define TAB_CHAR	0
+#define TAB_GAME	1
+#define TAB_SPEC	2
+#define TAB_KEYS	3
 #define TAB_TOGGLES 4
 
 /datum/preferences
@@ -244,9 +244,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/loadout_gear = list()
 	var/list/tgui_loadout_gear = list()
 	var/list/choosen_gears = list()
-	// Parallax
+	/// Parallax
 	var/parallax = PARALLAX_HIGH
 	var/multiz_detail = MULTIZ_DETAIL_DEFAULT
+
+	/// Screentip Mode, in pixels. 8 is small, 15 is mega big, 0 is off.
+	var/screentip_mode = 8
+	/// Color of screentips at top of screen
+	var/screentip_color = "#deefff"
 
 	var/discord_id = null
 	var/discord_name = null
@@ -604,6 +609,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Настройки интерфейса</h2>"
 			dat += "<b>Настройки пользовательского интерфейса:</b><br>"
+			dat += "<b>Всплывающая подсказка:</b> <a href='byond://?_src_=prefs;preference=screentip_mode'>[(screentip_mode == 0) ? "Выключить" : "[screentip_mode]px"]</a><br>"
+			dat += "<b>Цвет всплывающей подсказки:</b> <span style='border: 1px solid #161616; background-color: [screentip_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='byond://?_src_=prefs;preference=screentip_color'><b>Изменить</b></a><br>"
 			dat += " – <b>Прозрачность:</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " – <b>Цвет:</b> <a href='byond://?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
 			dat += " – <b>Стиль интерфейса:</b> <a href='byond://?_src_=prefs;preference=ui'><b>[ui_theme_to_russian(UI_style)]</b></a><br>"
@@ -850,7 +857,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				rank = "<a href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
 			else
 				rank = job.title
-			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != "Civilian"))
+			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN) || (job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER))
 				rank = "<font class='text-muted'>[GetPlayerAltTitle(job)]</font>"
 			lastJob = job
 			if(jobban_isbanned(user, job.title))
@@ -878,7 +885,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				html += "<b><span class='[color]'>[rank]</span></b>"
 			else
 				html += "<span class='[color]'>[rank]</span>"
-			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != "Civilian"))
+			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN))
+				html += "</td><td></td></tr>"
+				continue
+			if((job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER))
 				html += "</td><td></td></tr>"
 				continue
 
@@ -913,8 +923,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			html += "<a class='nobg' href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
-			if(job.title == "Civilian")//Civilian is special
+			if(job.title == JOB_TITLE_CIVILIAN)//Civilian is special
 				if(job_support_low & JOB_FLAG_CIVILIAN)
+					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>ДА</span></a>"
+				else
+					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
+				html += "</td></tr>"
+				// index += 1
+				// html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+				continue
+			if(job.title == JOB_TITLE_PRISONER)//Prisoner is special
+				if(job_support_low & JOB_FLAG_PRISONER)
 					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>ДА</span></a>"
 				else
 					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
@@ -1097,7 +1116,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if(role == "Civilian")
+	if(role == JOB_TITLE_CIVILIAN || role == JOB_TITLE_PRISONER)
 		if(job_support_low & job.flag)
 			job_support_low &= ~job.flag
 		else
@@ -1223,7 +1242,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if(role == "Civilian")
+	if(role == JOB_TITLE_CIVILIAN)
 		if(job_support_low & job.flag)
 			job_support_low &= ~job.flag
 		else
@@ -2424,6 +2443,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("tgui_strip_menu")
 					toggles2 ^= PREFTOGGLE_2_BIG_STRIP_MENU
+
+				if("screentip_mode")
+					var/desired_screentip_mode = tgui_input_number(user, "Выберите размер всплывающей подсказки. Чтобы отключить всплывающие подсказки, установите значение 0. (Рекомендуемое значение от 8 до 15)", "Размер всплывающей подсказки", screentip_mode, 20, 0)
+					if(isnull(desired_screentip_mode))
+						return
+					screentip_mode = desired_screentip_mode
+
+				if("screentip_color")
+					var/screentip_color_new = tgui_input_color(user, "Выберите цвет всплывающей подсказки", "Игровые настройки", screentip_color)
+					if(isnull(screentip_color_new))
+						return
+					screentip_color = screentip_color_new
 
 				if("vote_popup")
 					toggles2 ^= PREFTOGGLE_2_DISABLE_VOTE_POPUPS

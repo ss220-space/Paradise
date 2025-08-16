@@ -7,7 +7,15 @@
 /obj/item/nuke_core
 	name = "plutonium core"
 	desc = "Чрезвычайно радиоактивно. Надевайте защитные очки."
-	ru_names = list(
+	icon = 'icons/obj/nuke_tools.dmi'
+	icon_state = "plutonium_core"
+	item_state = "plutoniumcore"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/cooldown = 0
+	var/pulseicon = "plutonium_core_pulse"
+
+/obj/item/nuke_core/get_ru_names()
+	return list(
 		NOMINATIVE = "плутониевое ядро",
 		GENITIVE = "плутониевого ядра",
 		DATIVE = "плутониевому ядру",
@@ -15,12 +23,6 @@
 		INSTRUMENTAL = "плутониевым ядром",
 		PREPOSITIONAL = "плутониевом ядре"
 	)
-	icon = 'icons/obj/nuke_tools.dmi'
-	icon_state = "plutonium_core"
-	item_state = "plutoniumcore"
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	var/cooldown = 0
-	var/pulseicon = "plutonium_core_pulse"
 
 /obj/item/nuke_core/Initialize()
 	. = ..()
@@ -58,14 +60,6 @@
 /obj/item/nuke_core_container
 	name = "nuke core container"
 	desc = "Прочный контейнер для радиоактивных объектов."
-	ru_names = list(
-		NOMINATIVE = "контейнер для ядерного ядра",
-		GENITIVE = "контейнера для ядерного ядра",
-		DATIVE = "контейнеру для ядерного ядра",
-		ACCUSATIVE = "контейнер для ядерного ядра",
-		INSTRUMENTAL = "контейнером для ядерного ядра",
-		PREPOSITIONAL = "контейнере для ядерного ядра"
-	)
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "core_container_empty"
 	item_state = "metal"
@@ -74,6 +68,16 @@
 	var/dented = FALSE
 	var/cracked = FALSE
 	var/sealed = FALSE
+
+/obj/item/nuke_core_container/get_ru_names()
+	return list(
+		NOMINATIVE = "контейнер для ядерного ядра",
+		GENITIVE = "контейнера для ядерного ядра",
+		DATIVE = "контейнеру для ядерного ядра",
+		ACCUSATIVE = "контейнер для ядерного ядра",
+		INSTRUMENTAL = "контейнером для ядерного ядра",
+		PREPOSITIONAL = "контейнере для ядерного ядра"
+	)
 
 /obj/item/nuke_core_container/Destroy()
 	QDEL_NULL(core)
@@ -215,7 +219,11 @@
 /obj/item/nuke_core/supermatter_sliver
 	name = "supermatter sliver"
 	desc = "Крошечный, крайне нестабильный осколок кристалла суперматерии. Не трогать без защиты!"
-	ru_names = list(
+	icon_state = "supermatter_sliver"
+	pulseicon = "supermatter_sliver_pulse"
+
+/obj/item/nuke_core/supermatter_sliver/get_ru_names()
+	return list(
 		NOMINATIVE = "осколок суперматерии",
 		GENITIVE = "осколка суперматерии",
 		DATIVE = "осколку суперматерии",
@@ -223,8 +231,6 @@
 		INSTRUMENTAL = "осколком суперматерии",
 		PREPOSITIONAL = "осколке суперматерии"
 	)
-	icon_state = "supermatter_sliver"
-	pulseicon = "supermatter_sliver_pulse"
 
 /obj/item/nuke_core/supermatter_sliver/Initialize()
 	. = ..()
@@ -311,7 +317,10 @@
 /obj/item/nuke_core_container/supermatter
 	name = "supermatter bin"
 	desc = "Небольшая ёмкость, выделяющая инертную смесь гипер-ноблия при герметизации, позволяя безопасно хранить осколки суперматерии."
-	ru_names = list(
+	var/obj/item/nuke_core/supermatter_sliver/sliver
+
+/obj/item/nuke_core_container/supermatter/get_ru_names()
+	return list(
 		NOMINATIVE = "контейнер для суперматерии",
 		GENITIVE = "контейнера для суперматерии",
 		DATIVE = "контейнеру для суперматерии",
@@ -319,7 +328,6 @@
 		INSTRUMENTAL = "контейнером для суперматерии",
 		PREPOSITIONAL = "контейнере для суперматерии"
 	)
-	var/obj/item/nuke_core/supermatter_sliver/sliver
 
 /obj/item/nuke_core_container/supermatter/Destroy()
 	QDEL_NULL(sliver)
@@ -430,7 +438,15 @@
 /obj/item/scalpel/supermatter
 	name = "supermatter scalpel"
 	desc = "Скальпель с хрупким наконечником из конденсированного газа гипер-ноблия, леденяще холодным на ощупь, способный безопасно откалывать осколки от кристалла суперматерии."
-	ru_names = list(
+	icon = 'icons/obj/nuke_tools.dmi'
+	icon_state = "supermatter_scalpel"
+	toolspeed = 0.5
+	damtype = BURN
+	usesound = 'sound/weapons/bladeslice.ogg'
+	var/uses_left
+
+/obj/item/scalpel/supermatter/get_ru_names()
+	return list(
 		NOMINATIVE = "скальпель для суперматерии",
 		GENITIVE = "скальпеля для суперматерии",
 		DATIVE = "скальпелю для суперматерии",
@@ -438,12 +454,6 @@
 		INSTRUMENTAL = "скальпелем для суперматерии",
 		PREPOSITIONAL = "скальпеле для суперматерии"
 	)
-	icon = 'icons/obj/nuke_tools.dmi'
-	icon_state = "supermatter_scalpel"
-	toolspeed = 0.5
-	damtype = BURN
-	usesound = 'sound/weapons/bladeslice.ogg'
-	var/uses_left
 
 /obj/item/scalpel/supermatter/Initialize()
 	. = ..()
@@ -452,14 +462,6 @@
 /obj/item/retractor/supermatter
 	name = "supermatter extraction tongs"
 	desc = "Щипцы из конденсированного газа гипер-ноблия, леденяще холодные на ощупь, способные безопасно удерживать осколки суперматерии."
-	ru_names = list(
-		NOMINATIVE = "щипцы для суперматерии",
-		GENITIVE = "щипцов для суперматерии",
-		DATIVE = "щипцам для суперматерии",
-		ACCUSATIVE = "щипцы для суперматерии",
-		INSTRUMENTAL = "щипцами для суперматерии",
-		PREPOSITIONAL = "щипцах для суперматерии"
-	)
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_tongs"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -468,6 +470,16 @@
 	toolspeed = 0.75
 	damtype = BURN
 	var/obj/item/nuke_core/supermatter_sliver/sliver
+
+/obj/item/retractor/supermatter/get_ru_names()
+	return list(
+		NOMINATIVE = "щипцы для суперматерии",
+		GENITIVE = "щипцов для суперматерии",
+		DATIVE = "щипцам для суперматерии",
+		ACCUSATIVE = "щипцы для суперматерии",
+		INSTRUMENTAL = "щипцами для суперматерии",
+		PREPOSITIONAL = "щипцах для суперматерии"
+	)
 
 /obj/item/retractor/supermatter/Destroy()
 	QDEL_NULL(sliver)

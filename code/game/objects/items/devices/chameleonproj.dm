@@ -1,13 +1,5 @@
 /obj/item/chameleon
 	name = "chameleon projector"
-	ru_names = list(
-		NOMINATIVE = "\"Хамелеон\"-проектор",
-		GENITIVE = "\"Хамелеон\"-проектора",
-		DATIVE = "\"Хамелеон\"-проектору",
-		ACCUSATIVE = "\"Хамелеон\"-проектор",
-		INSTRUMENTAL = "\"Хамелеон\"-проектором",
-		PREPOSITIONAL = "\"Хамелеон\"-проекторе"
-	)
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
@@ -22,6 +14,16 @@
 	var/can_use = TRUE
 	var/obj/effect/dummy/chameleon/active_dummy = null
 	var/saved_appearance = null
+
+/obj/item/chameleon/get_ru_names()
+	return list(
+		NOMINATIVE = "\"Хамелеон\"-проектор",
+		GENITIVE = "\"Хамелеон\"-проектора",
+		DATIVE = "\"Хамелеон\"-проектору",
+		ACCUSATIVE = "\"Хамелеон\"-проектор",
+		INSTRUMENTAL = "\"Хамелеон\"-проектором",
+		PREPOSITIONAL = "\"Хамелеон\"-проекторе"
+	)
 
 /obj/item/chameleon/Initialize(mapload)
 	. = ..()

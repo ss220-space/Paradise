@@ -24,9 +24,9 @@ SUBSYSTEM_DEF(events)
 	var/list/finished_events = list()
 	var/list/allEvents
 	var/list/event_containers = list(
-			EVENT_LEVEL_MUNDANE 	= new/datum/event_container/mundane,
+			EVENT_LEVEL_MUNDANE	= new/datum/event_container/mundane,
 			EVENT_LEVEL_MODERATE	= new/datum/event_container/moderate,
-			EVENT_LEVEL_MAJOR 		= new/datum/event_container/major
+			EVENT_LEVEL_MAJOR		= new/datum/event_container/major
 		)
 
 	var/datum/event_meta/new_event = new
@@ -203,7 +203,7 @@ SUBSYSTEM_DEF(events)
 	if(..())
 		return
 
-	if (!check_rights(R_EVENT))
+	if(!check_rights(R_EVENT))
 		return
 
 	if(href_list["toggle_report"])

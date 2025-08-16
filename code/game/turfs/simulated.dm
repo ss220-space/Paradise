@@ -10,6 +10,13 @@
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 
+/turf/simulated/Initialize(mapload)
+	. = ..()
+	add_debris_element()
+
+/turf/simulated/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+
 /turf/simulated/proc/break_tile()
 	return
 

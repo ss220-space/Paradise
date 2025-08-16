@@ -7,6 +7,8 @@
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = HEAT_CAPACITY_VACUUM
 
+	flags = NO_SCREENTIPS
+
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
@@ -63,7 +65,8 @@
 	return INITIALIZE_HINT_NORMAL
 
 /turf/space/ComponentInitialize()
-	. = ..()
+	if(!is_station_level(z))
+		return
 	AddComponent(/datum/component/blob_turf_consuming, 4)
 
 /turf/space/BeforeChange()

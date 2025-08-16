@@ -1,6 +1,6 @@
 /datum/species
 	var/name                     // Species name.
-	var/name_plural 			 // Pluralized name (since "[name]s" is not always valid)
+	var/name_plural			 // Pluralized name (since "[name]s" is not always valid)
 	var/a = "a"					 // the "a" or "an" in "a Vulpkanin" or "an Abductor", use with singular version
 
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
@@ -585,7 +585,7 @@
 			return FALSE
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/armor_block = target.run_armor_check(affecting, "melee")
+		var/armor_block = target.run_armor_check(affecting, MELEE)
 
 		// Contract diseases
 
@@ -649,7 +649,7 @@
 				var/obj/item/clothing/gloves/gloves = user.gloves
 				extra_knock_chance = gloves.extra_knock_chance
 		if(randn <= 10 + extra_knock_chance)
-			target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, "melee"))
+			target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!"))
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)

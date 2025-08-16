@@ -9,6 +9,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi
@@ -17,11 +19,14 @@
 	icon_state = "bulldog"
 	item_state = "bulldog"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg
 	desc = "A 6-shot grenade launcher."
 	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_grenadelnchr"
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_LOW
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self()
 	return
@@ -37,6 +42,7 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
+	accuracy = GUN_ACCURACY_PISTOL
 
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
@@ -62,6 +68,8 @@
 	fire_delay = 0
 	select = 0
 	actions_types = null
+	accuracy = GUN_ACCURACY_DEFAULT
+	recoil = null
 
 
 /obj/item/gun/projectile/automatic/speargun/update_icon_state()
@@ -109,6 +117,8 @@
 	can_holster = FALSE
 	flags = CONDUCT
 	show_live_rounds = FALSE
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)

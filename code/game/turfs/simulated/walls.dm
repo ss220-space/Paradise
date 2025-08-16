@@ -68,8 +68,12 @@
 		fixed_underlay = string_assoc_list(fixed_underlay)
 		underlays += underlay_appearance
 
+/turf/simulated/wall/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_SPARKS, -40, 8, 1)
+
 /turf/simulated/wall/ComponentInitialize()
-	. = ..()
+	if(!is_station_level(z))
+		return
 	AddComponent(/datum/component/blob_turf_consuming, 2)
 
 /turf/simulated/wall/MouseDrop_T(atom/dropping, mob/user, params)

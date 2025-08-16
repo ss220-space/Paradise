@@ -255,6 +255,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Special Reaction Team Member"), "Special Reaction Team Member")
+		I.law_level = LAW_LEVEL_RESPONSE_TEAM
 	H.sec_hud_set_ID()
 
 
@@ -289,6 +290,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain")
+		I.law_level = LAW_LEVEL_CENTCOMM
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/nt_diplomat

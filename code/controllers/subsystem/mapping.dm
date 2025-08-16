@@ -241,7 +241,8 @@ SUBSYSTEM_DEF(mapping)
 		var/packetlen = length(packet)
 		while(packetlen)
 			if(MC_TICK_CHECK)
-				lists_to_reserve.Cut(1, index)
+				if(index)
+					lists_to_reserve.Cut(1, index)
 				return
 			var/turf/T = packet[packetlen]
 			T.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
@@ -329,6 +330,7 @@ SUBSYSTEM_DEF(mapping)
 		/obj/effect/landmark/join_late_cryo,
 		/obj/effect/landmark/join_late_cyborg,
 		/obj/effect/landmark/join_late_gateway,
+		/obj/effect/landmark/join_late_prisoner,
 		/obj/effect/landmark/observer_start
 		)
 

@@ -598,14 +598,6 @@
 /obj/item/mecha_parts/mecha_equipment/cage
 	name = "SCS 3 Cage"
 	desc = "Модуль для экзокостюмов, используемый для задержании преступников."
-	ru_names = list(
-	    NOMINATIVE = "модуль \"Клетка SCS-3\"",
-	    GENITIVE = "модуля \"Клетка SCS-3\"",
-	    DATIVE = "модулю \"Клетка SCS-3\"",
-	    ACCUSATIVE = "модуль \"Клетка SCS-3\"",
-	    INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
-	    PREPOSITIONAL = "модулю \"Клетка SCS-3\""
-	)
 	icon_state = "mecha_cage"
 	origin_tech = "combat=6;materials=5"
 	equip_cooldown = 3 SECONDS
@@ -622,6 +614,16 @@
 	///wacky case
 	var/current_stage
 	var/obj/effect/supress/supress_effect
+
+/obj/item/mecha_parts/mecha_equipment/cage/get_ru_names()
+	return list(
+	    NOMINATIVE = "модуль \"Клетка SCS-3\"",
+	    GENITIVE = "модуля \"Клетка SCS-3\"",
+	    DATIVE = "модулю \"Клетка SCS-3\"",
+	    ACCUSATIVE = "модуль \"Клетка SCS-3\"",
+	    INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
+	    PREPOSITIONAL = "модулю \"Клетка SCS-3\""
+	)
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
 	if(..())
@@ -870,7 +872,14 @@
 /obj/effect/supress
 	name = "Mech claws"
 	desc = "Пара мощных механических клешней. Такие могут запросто схватить гуманоида, не дав ему возможности выбраться."
-	ru_names = list(
+	icon = 'icons/misc/supress_effect.dmi'
+	icon_state = "effect_on_doll"
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = ABOVE_GAME_PLANE
+
+/obj/effect/supress/get_ru_names()
+	return list(
 	    NOMINATIVE = "механические клешни",
 	    GENITIVE = "механических клешней",
 	    DATIVE = "механическим клешням",
@@ -878,8 +887,3 @@
 	    INSTRUMENTAL = "механическими клешнями",
 	    PREPOSITIONAL = "механических клешней"
 	)
-	icon = 'icons/misc/supress_effect.dmi'
-	icon_state = "effect_on_doll"
-	anchored = TRUE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	plane = ABOVE_GAME_PLANE

@@ -590,8 +590,8 @@
 	hijack_only = TRUE
 
 /datum/uplink_item/jobspecific/random_spell_book
-	name = "Случайная книга заклинаний"
-	desc = "Случайная книга заклинаний, которую мы позаимствовали у Федерации Космических Волшебников."
+	name = "Случайный гримуар"
+	desc = "Случайный гримуар, который мы позаимствовали у Федерации Космических Волшебников."
 	item = /obj/item/spellbook/oneuse/random
 	cost = 25
 	job = list(JOB_TITLE_LIBRARIAN)
@@ -800,14 +800,6 @@
 	desc = "Легендарный пистолет огромной мощности с магазином на 7 патронов калибра .50AE."
 	item = /obj/item/gun/projectile/automatic/pistol/deagle
 	cost = 50
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/dangerous/uzi
-	name = "Пистолет-пулемёт Uzi"
-	desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм. \
-			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 4 патрона. Совместим с глушителем."
-	item = /obj/item/gun/projectile/automatic/mini_uzi
-	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/smg
@@ -1119,20 +1111,6 @@
 	desc = "Сумка, содержащая 3 расширенных барабана на 24 патронов калибра 12g: \"Картечь\", \"Дыхание дракона\", \"Флешетта\"."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
 	cost = 45 // normally 90
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/ammo/uzi
-	name = "Пистолет-пулемёт Uzi — магазин 9 мм"
-	desc = "Магазин на 30 патронов калибра 9 мм."
-	item = /obj/item/ammo_box/magazine/uzim9mm
-	cost = 10
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/ammo/uzi_ammobag
-	name = "Пистолет-пулемёт Uzi — сумка с магазинами 9 мм"
-	desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Для тех, кто идёт на серьёзное дело."
-	item = /obj/item/storage/backpack/duffel/syndie/ammo/uzi
-	cost = 70 // normally 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg
@@ -2166,8 +2144,8 @@
 
 /datum/uplink_item/implants/adrenal
 	name = "Адреналиновый имплант"
-	desc = "Имплант, который можно вживить в организм и активировать по желанию. Может быть активирован 3 раза. Избавляет от оглушения и замедления, восстанавливает выносливость. \
-			Кроме того, вы получаете коктейль из стимуляторов, которые лечат вас, ускоряют и делают менее уязвимыми к оглушению."
+	desc = "Имплант, который можно вживить в организм и активировать по желанию. Может быть использован до 2 раз, со временем заряды восстанавливаются, потребляя кровь и питательные вещества носителя. Избавляет от оглушения и замедления, восстанавливает выносливость. \
+			Кроме того, вы получаете коктейль из стимуляторов, которые лечат вас, ускоряют и делают менее уязвимыми к оглушению. Не рекомендуется использовать более двух раз подряд без должного восстановления организма."
 	item = /obj/item/implanter/adrenalin
 	cost = 44
 	can_discount = FALSE
@@ -2248,7 +2226,7 @@
 	name = "Клинки богомола"
 	desc = "Коробка, содержащая 2 клинка богомола. Поставляются в комплекте с саморазрушающимися автоимплантерами."
 	item = /obj/item/storage/box/syndie_kit/mantisblade
-	cost = 57
+	cost = 56
 	surplus = 90
 	uplinktypes = list()
 

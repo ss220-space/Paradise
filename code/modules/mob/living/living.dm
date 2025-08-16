@@ -516,19 +516,21 @@
 
 /// Special projectiles handling for living mobs
 /mob/living/proc/projectile_allow_through(obj/projectile/projectile, border_dir)
-	// default behavior for generic mobs
-	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))
-		return !density
 	// DEAD mobs are fine to skip if they are not dense or lying
-	if(stat == DEAD)
+	if(stat == DEAD && projectile.original != src)
 		return !density || body_position == LYING_DOWN
 	// always hitting dense/standing mobs
 	if(density || body_position == STANDING_UP)
-		return FALSE
+		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+		return !prob(def_zone_hit_chance)
+	//if this is clicked target in lying down
+	if(projectile.original == src)
+		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+		return !prob(def_zone_hit_chance)
 	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
-	if(projectile.hit_crawling_mobs_chance > 0 && projectile.hit_crawling_mobs_chance <= 100)
-		return !prob(projectile.hit_crawling_mobs_chance)
-	return TRUE
+	var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+	var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
+	return !prob(total_hit_chance)
 
 
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
@@ -2075,9 +2077,7 @@
 
 /// Returns what the body_position_pixel_y_offset should be if the current size were `value`
 /mob/living/proc/get_pixel_y_offset_standing(value)
-	var/icon/living_icon = icon(icon)
-	var/height = living_icon.Height()
-	return (value-1) * height * 0.5
+	return (value-1) * get_cached_height() * 0.5
 
 
 /mob/living/proc/toggle_resting()
@@ -2276,7 +2276,7 @@
 	if(enable)
 		if(stat == DEAD)	// dead mobs are skipped, unless we are removing SSD status
 			return FALSE
-		if(!mind.active || (ckey && ckey[1] == "@")) 	// aghosting will do this, we want to avoid SSDing admemes
+		if(!mind.active || (ckey && ckey[1] == "@"))	// aghosting will do this, we want to avoid SSDing admemes
 			return FALSE
 		if(!isnull(player_logged))	// already in SSD, return TRUE and we are done
 			return TRUE
