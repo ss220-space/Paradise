@@ -1,14 +1,6 @@
 /obj/mecha/makeshift
 	desc = "Шкафчик с украденными проводами, распорками, электроникой и сервоприводами шлюза, грубо собранными во что-то, напоминающее меха."
 	name = "Locker Mech"
-	ru_names = list(
-		NOMINATIVE = "Шкафомех",
-		GENITIVE = "Шкафомеха",
-		DATIVE = "Шкафомеху",
-		ACCUSATIVE = "Шкафомеха",
-		INSTRUMENTAL = "Шкафомехом",
-		PREPOSITIONAL = "Шкафомехе"
-	)
 	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "lockermech"
 	initial_icon = "lockermech"
@@ -25,6 +17,16 @@
 
 	mech_type = MECH_TYPE_LOCKER
 
+/obj/mecha/makeshift/get_ru_names()
+	return list(
+		NOMINATIVE = "Шкафомех",
+		GENITIVE = "Шкафомеха",
+		DATIVE = "Шкафомеху",
+		ACCUSATIVE = "Шкафомеха",
+		INSTRUMENTAL = "Шкафомехом",
+		PREPOSITIONAL = "Шкафомехе"
+	)
+
 
 /obj/mecha/makeshift/Destroy()
 	new /obj/structure/closet(loc)
@@ -33,14 +35,6 @@
 /obj/mecha/combat/lockersyndie
 	desc = "Шкафчик с украденными проводами, распорками, электроникой и сервоприводами шлюза, грубо собранными во что-то, напоминающее меха. Окрашен в темно-красный цвет."
 	name = "Syndie Locker Mech"
-	ru_names = list(
-		NOMINATIVE = "Синди-Шкафомех",
-		GENITIVE = "Синди-Шкафомеха",
-		DATIVE = "Синди-Шкафомеху",
-		ACCUSATIVE = "Синди-Шкафомеха",
-		INSTRUMENTAL = "Синди-Шкафомехом",
-		PREPOSITIONAL = "Синди-Шкафомехе"
-	)
 	gender = MALE
 	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "syndielockermech"
@@ -56,6 +50,15 @@
 	max_equip = 4
 	wreckage = null
 
+/obj/mecha/combat/lockersyndie/get_ru_names()
+	return list(
+		NOMINATIVE = "Синди-Шкафомех",
+		GENITIVE = "Синди-Шкафомеха",
+		DATIVE = "Синди-Шкафомеху",
+		ACCUSATIVE = "Синди-Шкафомеха",
+		INSTRUMENTAL = "Синди-Шкафомехом",
+		PREPOSITIONAL = "Синди-Шкафомехе"
+	)
 
 /obj/mecha/combat/lockersyndie/add_cell()
 	cell = new /obj/item/stock_parts/cell/high/slime(src)
@@ -83,14 +86,6 @@
 /obj/item/mecha_drop
 	name = "mechadrop tool"
 	desc = "Простой инструмент, всего с одной кнопкой."
-	ru_names = list(
-		NOMINATIVE = "инструмент для доставки меха",
-		GENITIVE = "инструмента для доставки меха",
-		DATIVE = "инструменту для доставки меха",
-		ACCUSATIVE = "инструмент для доставки меха",
-		INSTRUMENTAL = "инструментом для доставки меха",
-		PREPOSITIONAL = "инструменте для доставки меха"
-	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pointer"
 	item_state = "pen"
@@ -98,6 +93,16 @@
 	var/obj/mecha/summon_mecha
 	var/list/summon_sound = 'sound/items/bikehorn.ogg'
 	var/used = FALSE
+
+/obj/item/mecha_drop/get_ru_names()
+	return list(
+		NOMINATIVE = "инструмент для доставки меха",
+		GENITIVE = "инструмента для доставки меха",
+		DATIVE = "инструменту для доставки меха",
+		ACCUSATIVE = "инструмент для доставки меха",
+		INSTRUMENTAL = "инструментом для доставки меха",
+		PREPOSITIONAL = "инструменте для доставки меха"
+	)
 
 /obj/item/mecha_drop/New()
 	. = ..()

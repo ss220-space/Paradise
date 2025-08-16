@@ -2078,9 +2078,7 @@
 
 /// Returns what the body_position_pixel_y_offset should be if the current size were `value`
 /mob/living/proc/get_pixel_y_offset_standing(value)
-	var/icon/living_icon = icon(icon)
-	var/height = living_icon.Height()
-	return (value-1) * height * 0.5
+	return (value-1) * get_cached_height() * 0.5
 
 
 /mob/living/proc/toggle_resting()
@@ -2279,7 +2277,7 @@
 	if(enable)
 		if(stat == DEAD)	// dead mobs are skipped, unless we are removing SSD status
 			return FALSE
-		if(!mind.active || (ckey && ckey[1] == "@")) 	// aghosting will do this, we want to avoid SSDing admemes
+		if(!mind.active || (ckey && ckey[1] == "@"))	// aghosting will do this, we want to avoid SSDing admemes
 			return FALSE
 		if(!isnull(player_logged))	// already in SSD, return TRUE and we are done
 			return TRUE
