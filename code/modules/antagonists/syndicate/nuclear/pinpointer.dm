@@ -830,6 +830,16 @@
 	var/obj/item/part_upper/upper = null
 	var/obj/item/part_upper/lower/lower = null
 
+/obj/item/pinpointer/clock/get_ru_names()
+	return list(
+		NOMINATIVE = "часовой целеуказатель",
+		GENITIVE = "часового целеуказателя",
+		DATIVE = "часовому целеуказателю",
+		ACCUSATIVE = "часовой целеуказатель",
+		INSTRUMENTAL = "часовым целеуказателем",
+		PREPOSITIONAL = "часовом целеуказателе",
+	)
+
 /obj/item/pinpointer/clock/process()
 	switch(mode)
 		if(MODE_DIAL)

@@ -677,15 +677,7 @@
  * MARK: Clockwork guns
  */
 /obj/item/gun/energy/clockwork
-	name = "clockwork shotgun"
-	ru_names = list(
-		NOMINATIVE = "латунный дробовик",
-		GENITIVE = "латунного дробовика",
-		DATIVE = "латунному дробовику",
-		ACCUSATIVE = "латунный дробовик",
-		INSTRUMENTAL = "латунным дробовиком",
-		PREPOSITIONAL = "латунном дробовике",
-	)
+	name = "clockwork shotgun"=
 	desc = "Дробовик из латуни с самовосполняющимися за счет энергии Ратвара патронами. От него исходит ритмичное тиканье."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "brassshotgun"
@@ -710,6 +702,16 @@
 	var/stun_bullet = /obj/item/ammo_casing/energy/rat/slug/stun
 	isclockwork = TRUE
 	blocks_emissive = FALSE
+
+/obj/item/gun/energy/clockwork/get_ru_names()
+	return list(
+		NOMINATIVE = "латунный дробовик",
+		GENITIVE = "латунного дробовика",
+		DATIVE = "латунному дробовику",
+		ACCUSATIVE = "латунный дробовик",
+		INSTRUMENTAL = "латунным дробовиком",
+		PREPOSITIONAL = "латунном дробовике",
+	)
 
 /obj/item/gun/energy/clockwork/examine(mob/user)
 	. = ..()
@@ -791,14 +793,6 @@
 
 /obj/item/gun/energy/clockwork/sniper
 	name = "clockwork sniper rifle"
-	ru_names = list(
-		NOMINATIVE = "латунная снайперская винтовка",
-		GENITIVE = "латунной снайперской винтовки",
-		DATIVE = "латунной снайперской винтовке",
-		ACCUSATIVE = "латунную снайперскую винтовку",
-		INSTRUMENTAL = "латунной снайперской винтовкой",
-		PREPOSITIONAL = "латунной снайперской винтовке",
-	)
 	desc = "Снайперская винтовка из латуни с самовосполняющимися за счет энергии Ратвара патронами. От неё исходит ритмичное тиканье."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "brasssniper"
@@ -823,6 +817,15 @@
 	heal_bullet = /obj/item/ammo_casing/energy/rat/snipe/heal
 	stun_bullet =/obj/item/ammo_casing/energy/rat/snipe/stun
 
+/obj/item/gun/energy/clockwork/sniper/get_ru_names()
+	return list(
+		NOMINATIVE = "латунная снайперская винтовка",
+		GENITIVE = "латунной снайперской винтовки",
+		DATIVE = "латунной снайперской винтовке",
+		ACCUSATIVE = "латунную снайперскую винтовку",
+		INSTRUMENTAL = "латунной снайперской винтовкой",
+		PREPOSITIONAL = "латунной снайперской винтовке",
+	)
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe

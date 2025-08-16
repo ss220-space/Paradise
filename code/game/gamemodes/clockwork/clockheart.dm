@@ -3,14 +3,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart
 	name = "The Heart of Ratvar"
-	ru_names = list(
-		NOMINATIVE = "Сердце Ратвара",
-		GENITIVE = "Сердца Ратвара",
-		DATIVE = "Сердцу Ратвара",
-		ACCUSATIVE = "Сердце Ратвара",
-		INSTRUMENTAL = "Сердцем Ратвара",
-		PREPOSITIONAL = "Сердце Ратвара",
-	)
 	desc = "Огромный механизм из латуни, напоминающий сердце. От его громкого тиканья у вас начинает болеть голова..."
 	icon = 'icons/obj/clockheart.dmi'
 	icon_state = "heart"
@@ -29,6 +21,16 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/curse_upper = TRUE
 	var/curse_lower = TRUE
 	var/list/spawned_parts = list()
+
+/obj/structure/clockwork/functional/heart/get_ru_names()
+	return list(
+		NOMINATIVE = "Сердце Ратвара",
+		GENITIVE = "Сердца Ратвара",
+		DATIVE = "Сердцу Ратвара",
+		ACCUSATIVE = "Сердце Ратвара",
+		INSTRUMENTAL = "Сердцем Ратвара",
+		PREPOSITIONAL = "Сердце Ратвара",
+	)
 
 /obj/structure/clockwork/functional/heart/Initialize(mapload)
 	if(GLOB.heart)
@@ -242,6 +244,9 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	mouse_drag_pointer = MOUSE_DROP_POINTER
 	plane = ABOVE_GAME_PLANE
 
+/obj/structure/heart_filler/get_ru_names()
+	return parent.get_ru_names()
+
 /obj/structure/heart_filler/Destroy()
 	parent = null
 	return ..()
@@ -263,7 +268,15 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/part_dial
 	name = "big brass dial"
-	ru_names = list(
+	desc = "Большой циферблат из латуни."
+	icon ='icons/obj/clockwork.dmi'
+	icon_state = "ratvarpart1"
+	density = TRUE
+	resistance_flags = INDESTRUCTIBLE
+	mouse_drag_pointer = MOUSE_DRAG_POINTER
+
+/obj/structure/part_dial/get_ru_names()
+	return list(
 		NOMINATIVE = "большой латунный циферблат",
 		GENITIVE = "большого латунного циферблата",
 		DATIVE = "большому латунному циферблату",
@@ -271,12 +284,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		INSTRUMENTAL = "большим латунным циферблатом",
 		PREPOSITIONAL = "большом латунном циферблате",
 	)
-	desc = "Большой циферблат из латуни."
-	icon ='icons/obj/clockwork.dmi'
-	icon_state = "ratvarpart1"
-	density = TRUE
-	resistance_flags = INDESTRUCTIBLE
-	mouse_drag_pointer = MOUSE_DRAG_POINTER
 
 /obj/structure/part_dial/Bumped(atom/movable/moving_atom)
 	if(!ismob(moving_atom))
@@ -314,14 +321,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/item/part_upper
 	name = "brass component"
-	ru_names = list(
-		NOMINATIVE = "латунная деталь",
-		GENITIVE = "латунной детали",
-		DATIVE = "латунной детали",
-		ACCUSATIVE = "латунную деталь",
-		INSTRUMENTAL = "латунной деталью",
-		PREPOSITIONAL = "латунной детали",
-	)
+
 	desc = "Странная деталь из латуни."
 	icon ='icons/obj/clockwork.dmi'
 	icon_state = "ratvarpart2"
@@ -331,6 +331,16 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	w_class = WEIGHT_CLASS_BULKY
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
+/obj/item/part_upper/get_ru_names()
+	return list(
+		NOMINATIVE = "латунная деталь",
+		GENITIVE = "латунной детали",
+		DATIVE = "латунной детали",
+		ACCUSATIVE = "латунную деталь",
+		INSTRUMENTAL = "латунной деталью",
+		PREPOSITIONAL = "латунной детали",
+	)
 
 /obj/item/part_upper/CtrlClick(mob/user)
 	if(!check_action(user, TRUE))
