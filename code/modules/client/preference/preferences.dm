@@ -188,6 +188,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	//Special role pref
 	var/uplink_pref = PREF_UPLINK_PDA
 
+	/// Can this character be antagonist.
+	var/can_be_antagonist = TRUE
+
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 2
 
@@ -542,6 +545,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<br><b>Носки:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[socks]</a>"
 			dat += "<br><b>Сумка на спину:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[backbag]</a><br><br>"
+			dat += "<b>Может ли персонаж быть антагонистом? (Если нет, при выпадении роли, будет выбран персонаж у которого эта настройка включена)</b> <a href='byond://?_src_=prefs;preference=can_be_antagonust;task=input'>[can_be_antagonist ? "Да" : "Нет"]</a><br>"
 			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Меню выбора снаряжения</a><br>"
 
 			dat += "</td></tr></table>"
@@ -2185,6 +2189,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/new_uplink_pref = tgui_input_list(user, "Выберите желаемое местонахождение аплинка", "Местонахождение аплинка", list(PREF_UPLINK_PDA, PREF_UPLINK_HEADSET))
 					if(new_uplink_pref)
 						uplink_pref = new_uplink_pref
+
+				if("can_be_antagonist")
+					var/new_can_be_antagonist = tgui_input_list(user, "Выберите, может ли текущий персонаж быть антагонистом. Если у выбранного в начале игры персонажа эта опция отключена, при выпадении антагониста будет выбран случайный ваш персонаж, у которого она включена. Если она отключена у всех, выбранный персонаж останется.", \
+																"Может ли быть антагонистом", list("Да", "Нет"))
+					if(new_can_be_antagonist)
+						can_be_antagonist = new_can_be_antagonist == "Да" ? 1 : 0
 
 				if("tts_seed")
 					var/static/list/explorer_users = list()
