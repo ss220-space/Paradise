@@ -44,6 +44,13 @@
 	if(pooled)
 		src.pool_index = TGUI_WINDOW_INDEX(id)
 
+/datum/tgui_window/Destroy(force)
+	locked_by = null
+	subscriber_object = null
+	client.tgui_windows[id] = null
+	client = null
+	. = ..()
+
 /**
  * public
  *

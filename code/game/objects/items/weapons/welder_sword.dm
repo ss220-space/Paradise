@@ -1,14 +1,6 @@
 /obj/item/weldingtool/sword
 	name = "welding sword"
 	desc = "Сварочный аппарат, кустарно модифицированный каким-то умельцем. Судя по всему, автор этого творения черпал вдохновение от энергетических мечей."
-	ru_names = list(
-		NOMINATIVE = "сварочный меч",
-		GENITIVE = "сварочного меча",
-		DATIVE = "сварочному мечу",
-		ACCUSATIVE = "сварочный меч",
-		INSTRUMENTAL = "сварочным мечом",
-		PREPOSITIONAL = "сварочном мече"
-	)
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
@@ -26,6 +18,16 @@
 	origin_tech = "combat=3;magnets=4;plasmatech=5;"
 	/// Сan be combined with other similar item
 	var/combinable = TRUE
+
+/obj/item/weldingtool/sword/get_ru_names()
+	return list(
+		NOMINATIVE = "сварочный меч",
+		GENITIVE = "сварочного меча",
+		DATIVE = "сварочному мечу",
+		ACCUSATIVE = "сварочный меч",
+		INSTRUMENTAL = "сварочным мечом",
+		PREPOSITIONAL = "сварочном мече"
+	)
 
 
 /obj/item/weldingtool/sword/toggle_welder(turn_off)
@@ -82,14 +84,6 @@
 /obj/item/weldingtool/sword/double
 	name = "double-bladed welding sword"
 	desc = "Два кустарно модифицированных сварочных аппарата, скреплённых вместе, образуя некое подобие двойного энергетического меча. Настоящее чудо ассистентской мысли."
-	ru_names = list(
-		NOMINATIVE = "двойной сварочный меч",
-		GENITIVE = "двойного сварочного меча",
-		DATIVE = "двойному сварочному мечу",
-		ACCUSATIVE = "двойной сварочный меч",
-		INSTRUMENTAL = "двойным сварочным мечом",
-		PREPOSITIONAL = "двойном сварочном мече"
-	)
 	icon_state = "fuelsworddouble"
 	item_state = "fuelsworddouble"
 	lefthand_file = 'icons/mob/inhands/twohanded_lefthand.dmi'
@@ -101,6 +95,16 @@
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	origin_tech = "combat=5;magnets=5;plasmatech=6;"
 	combinable = FALSE
+
+/obj/item/weldingtool/sword/double/get_ru_names()
+	return list(
+		NOMINATIVE = "двойной сварочный меч",
+		GENITIVE = "двойного сварочного меча",
+		DATIVE = "двойному сварочному мечу",
+		ACCUSATIVE = "двойной сварочный меч",
+		INSTRUMENTAL = "двойным сварочным мечом",
+		PREPOSITIONAL = "двойном сварочном мече"
+	)
 
 /obj/item/weldingtool/sword/double/ComponentInitialize()
 	AddComponent(/datum/component/two_handed, \

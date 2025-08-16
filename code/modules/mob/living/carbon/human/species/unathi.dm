@@ -11,10 +11,9 @@
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
-	brute_mod = 0.9
 	heatmod = 0.8
 	coldmod = 1.2
-	hunger_drain_mod = 1.6
+	hunger_drain_mod = 1.3
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
@@ -166,7 +165,7 @@
 
 	language = LANGUAGE_UNATHI
 	default_language = LANGUAGE_UNATHI
-
+	brute_mod = 0.9
 	speed_mod = -0.50
 
 	inherent_traits = list(

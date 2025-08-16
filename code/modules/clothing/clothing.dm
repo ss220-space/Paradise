@@ -238,6 +238,14 @@
 	/// UID of the original ear ite
 	var/original_ear_UID
 
+/obj/item/clothing/ears/offear/get_equip_sound()
+	return
+
+/obj/item/clothing/ears/offear/get_pickup_sound()
+	return
+
+/obj/item/clothing/ears/offear/get_drop_sound()
+	return
 
 /obj/item/clothing/ears/offear/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
