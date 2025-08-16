@@ -6,4 +6,5 @@
 /// Signal sent by a blob when it try expand
 #define COMSIG_TRY_CONSUME_TURF "try_consume_turf"
 	/// Component blocks consuming
-	#define COMPONENT_CANT_CONSUME (1<<0)
+	#define COMPONENT_CAN_CONSUME (1<<0)
+	#define COMPONENT_CANT_CONSUME (1<<1)

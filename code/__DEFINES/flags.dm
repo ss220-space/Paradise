@@ -49,21 +49,21 @@
 #define REAGENT_NOREACT			1
 
 //Species clothing flags
-#define HAS_UNDERWEAR 	1
-#define HAS_UNDERSHIRT 	2
+#define HAS_UNDERWEAR	1
+#define HAS_UNDERSHIRT	2
 #define HAS_SOCKS		4
 
 //Species Body Flags
 #define HAS_HEAD_ACCESSORY	(1<<0)
-#define HAS_TAIL 			(1<<1)
+#define HAS_TAIL			(1<<1)
 #define TAIL_OVERLAPPED		(1<<2)
-#define HAS_SKIN_TONE 		(1<<3)
+#define HAS_SKIN_TONE		(1<<3)
 #define HAS_ICON_SKIN_TONE	(1<<4)
 #define HAS_SKIN_COLOR		(1<<5)
 #define HAS_HEAD_MARKINGS	(1<<6)
 #define HAS_BODY_MARKINGS	(1<<7)
 #define HAS_TAIL_MARKINGS	(1<<8)
-#define TAIL_WAGGING    	(1<<9)
+#define TAIL_WAGGING   	(1<<9)
 #define NO_EYES				(1<<10)
 #define HAS_ALT_HEADS		(1<<11)
 #define HAS_WING			(1<<12)
@@ -174,18 +174,18 @@
 #define NO_MALF_EFFECT	(1<<8) //So malf cannot blow certain things
 #define NO_MOUSTACHING	(1<<9) //Saves from super hairgrowium shenanigans
 
-#define MEAT 		(1<<0)
-#define VEGETABLES 	(1<<1)
-#define RAW 		(1<<2)
-#define JUNKFOOD 	(1<<3)
-#define GRAIN 		(1<<4)
-#define FRUIT 		(1<<5)
-#define DAIRY 		(1<<6)
-#define FRIED 		(1<<7)
-#define ALCOHOL 	(1<<8)
-#define SUGAR 		(1<<9)
-#define EGG 		(1<<10)
-#define GROSS 		(1<<11)
+#define MEAT		(1<<0)
+#define VEGETABLES	(1<<1)
+#define RAW		(1<<2)
+#define JUNKFOOD	(1<<3)
+#define GRAIN		(1<<4)
+#define FRUIT		(1<<5)
+#define DAIRY		(1<<6)
+#define FRIED		(1<<7)
+#define ALCOHOL	(1<<8)
+#define SUGAR		(1<<9)
+#define EGG		(1<<10)
+#define GROSS		(1<<11)
 #define TOXIC		(1<<12)
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))

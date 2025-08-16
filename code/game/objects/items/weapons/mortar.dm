@@ -391,7 +391,6 @@
 	icon = 'icons/obj/structures/mortar.dmi'
 	icon_state = "mortar_m402_carry"
 	item_state = "mortar_m402_carry"
-	ru_names = list()
 	lefthand_file = 'icons/mob/inhands/items_by_map/jungle_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_by_map/jungle_righthand.dmi'
 	resistance_flags = ACID_PROOF

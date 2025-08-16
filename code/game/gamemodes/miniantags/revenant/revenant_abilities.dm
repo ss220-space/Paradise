@@ -42,7 +42,7 @@
 		return
 
 	var/mob_UID = target.UID()
-	if(mob_UID in drained_mobs)
+	if(LAZYIN(drained_mobs, mob_UID))
 		to_chat(src, span_revenwarning("Душа [target] мертва и пуста."))
 		return
 
@@ -101,7 +101,7 @@
 						to_chat(src, span_revenboldnotice("Совершенство души [target] увеличило ваш максимальный уровень эссенции. Ваш новый максимум эссенции: [essence_regen_cap]."))
 					to_chat(src, span_revennotice("Душа [target] значительно ослабла и больше не даст эссенции в ближайшее время."))
 					target.visible_message(span_warning("[target] пада[pluralize_ru(target.gender,"ет","ют")] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, приближаясь..."))
-					drained_mobs.Add(mob_UID)
+					LAZYADD(drained_mobs, mob_UID)
 					add_attack_logs(src, target, "revenant harvested soul")
 					target.death()
 				else

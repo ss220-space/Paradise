@@ -3,14 +3,6 @@
 
 /turf/simulated/floor/plating/asteroid
 	name = "asteroid sand"
-	ru_names = list(
-		NOMINATIVE = "астероидный песок",
-		GENITIVE = "астероидного песка",
-		DATIVE = "астероидному песку",
-		ACCUSATIVE = "астероидный песок",
-		INSTRUMENTAL = "астероидным песком",
-		PREPOSITIONAL = "астероидном песке"
-	)
 	gender = PLURAL
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
@@ -26,6 +18,16 @@
 	var/dug
 	///Chance to dig up a worm
 	var/worm_chance = 30
+
+/turf/simulated/floor/plating/asteroid/get_ru_names()
+	return list(
+		NOMINATIVE = "астероидный песок",
+		GENITIVE = "астероидного песка",
+		DATIVE = "астероидному песку",
+		ACCUSATIVE = "астероидный песок",
+		INSTRUMENTAL = "астероидным песком",
+		PREPOSITIONAL = "астероидном песке"
+	)
 
 /turf/simulated/floor/plating/asteroid/Initialize(mapload)
 	var/proper_name = name
@@ -141,7 +143,15 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
 	desc = "Выглядит горячим."
-	ru_names = list(
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt
+	icon_state = "basalt"
+	icon_plating = "basalt"
+	environment_type = "basalt"
+	floor_variance = 15
+	digResult = /obj/item/stack/ore/glass/basalt
+
+/turf/simulated/floor/plating/asteroid/basalt/get_ru_names()
+	return list(
 		NOMINATIVE = "вулканический пол",
 		GENITIVE = "вулканического пола",
 		DATIVE = "вулканическому полу",
@@ -149,12 +159,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 		INSTRUMENTAL = "вулканическим полом",
 		PREPOSITIONAL = "вулканическом поле"
 	)
-	baseturf = /turf/simulated/floor/plating/asteroid/basalt
-	icon_state = "basalt"
-	icon_plating = "basalt"
-	environment_type = "basalt"
-	floor_variance = 15
-	digResult = /obj/item/stack/ore/glass/basalt
 
 /turf/simulated/floor/plating/asteroid/basalt/refill_dug()
 	. = ..()
@@ -229,14 +233,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/snow
 	gender = PLURAL
 	name = "snow"
-	ru_names = list(
-		NOMINATIVE = "снег",
-		GENITIVE = "снега",
-		DATIVE = "снегу",
-		ACCUSATIVE = "снег",
-		INSTRUMENTAL = "снегом",
-		PREPOSITIONAL = "снеге"
-	)
 	desc = "Выглядит холодным."
 	icon = 'icons/turf/snow.dmi'
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
@@ -247,6 +243,16 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	environment_type = "snow"
 	planetary_atmos = TRUE
 	digResult = /obj/item/stack/sheet/mineral/snow
+
+/turf/simulated/floor/plating/asteroid/snow/get_ru_names()
+	return list(
+		NOMINATIVE = "снег",
+		GENITIVE = "снега",
+		DATIVE = "снегу",
+		ACCUSATIVE = "снег",
+		INSTRUMENTAL = "снегом",
+		PREPOSITIONAL = "снеге"
+	)
 
 /turf/simulated/floor/plating/asteroid/snow/broken_states()
 	return list("snow_dug")

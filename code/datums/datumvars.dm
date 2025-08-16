@@ -1319,7 +1319,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living", confidential=TRUE)
 			return
 		var/list/possibleverbs = list()
-		possibleverbs += "Cancel" 								// One for the top...
+		possibleverbs += "Cancel"								// One for the top...
 		possibleverbs += typesof(/mob/proc,/mob/verb,/mob/living/proc,/mob/living/verb)
 		switch(H.type)
 			if(/mob/living/carbon/human)
@@ -1329,7 +1329,7 @@
 			if(/mob/living/silicon/ai)
 				possibleverbs += typesof(/mob/living/silicon/proc,/mob/living/silicon/ai/proc,/mob/living/silicon/ai/verb)
 		possibleverbs -= H.verbs
-		possibleverbs += "Cancel" 								// ...And one for the bottom
+		possibleverbs += "Cancel"								// ...And one for the bottom
 
 		var/verb = tgui_input_list(usr, "Select a verb!", "Verbs", possibleverbs, null)
 		if(!H)

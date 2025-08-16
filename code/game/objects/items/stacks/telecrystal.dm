@@ -1,14 +1,6 @@
 /obj/item/stack/telecrystal
 	name = "telecrystal"
 	desc = "Кажется, что он переполнен загадочной и притягательной энергией."
-	ru_names = list(
-		NOMINATIVE = "телекристалл",
-		GENITIVE = "телекристалла",
-		DATIVE = "телекристаллу",
-		ACCUSATIVE = "телекристалл",
-		INSTRUMENTAL = "телекристаллом",
-		PREPOSITIONAL = "телекристалле"
-	)
 	gender = MALE
 	description_antag = "Телекристалл можно активировать, используя на устройствах с активным аплинком."
 	singular_name = "telecrystal"
@@ -19,6 +11,15 @@
 	item_flags = NOBLUDGEON
 	origin_tech = "materials=6"
 
+/obj/item/stack/telecrystal/get_ru_names()
+	return list(
+		NOMINATIVE = "телекристалл",
+		GENITIVE = "телекристалла",
+		DATIVE = "телекристаллу",
+		ACCUSATIVE = "телекристалл",
+		INSTRUMENTAL = "телекристаллом",
+		PREPOSITIONAL = "телекристалле"
+	)
 
 /obj/item/stack/telecrystal/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
