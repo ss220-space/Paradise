@@ -808,6 +808,7 @@
 	desc = "Странные часы, чьи стрелки показывают на осколки сердца древнего божества"
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_pointer"
+	item_state = "clock_pointer"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_PDA|ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
