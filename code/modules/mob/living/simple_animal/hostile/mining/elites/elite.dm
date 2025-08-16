@@ -219,7 +219,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/times_won = 0
 	var/list/mob/living/carbon/human/activators
 	var/mob/living/simple_animal/hostile/asteroid/elite/mychild = null
-	var/gps
 	///List of all potentially spawned elites
 	var/potentialspawns = list(
 		/mob/living/simple_animal/hostile/asteroid/elite/broodmother,
@@ -312,14 +311,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
-/obj/structure/elite_tumor/Initialize(mapload)
-	. = ..()
-	gps = new /obj/item/gps/internal/tumor(src)
-	START_PROCESSING(SSobj, src)
-
 /obj/structure/elite_tumor/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	QDEL_NULL(gps)
 	invaders.Cut()
 	for(var/mob/living/carbon/human/activator in activators)
 		clear_activator(activator)
@@ -547,13 +540,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return TRUE
 	if(isliving(mover) || isprojectile(mover))
 		return FALSE
-
-
-/obj/item/gps/internal/tumor
-	icon_state = null
-	gpstag = "Cancerous Signal"
-	desc = "Ghosts in a fauna? That's cancerous!"
-	invisibility = 100
 
 #undef TUMOR_INACTIVE
 #undef TUMOR_ACTIVE
