@@ -677,7 +677,7 @@
  * MARK: Clockwork guns
  */
 /obj/item/gun/energy/clockwork
-	name = "clockwork shotgun"=
+	name = "clockwork shotgun"
 	desc = "Дробовик из латуни с самовосполняющимися за счет энергии Ратвара патронами. От него исходит ритмичное тиканье."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "brassshotgun"
