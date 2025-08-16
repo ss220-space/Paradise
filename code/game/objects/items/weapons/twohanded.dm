@@ -160,7 +160,7 @@
 		INSTRUMENTAL = "костяным топором",
 		PREPOSITIONAL = "костяном топоре"
 	)
-	
+
 
 /obj/item/twohanded/fireaxe/boneaxe/update_icon_state()
 	icon_state = "bone_axe[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -760,14 +760,6 @@
 /obj/item/twohanded/chainsaw
 	icon_state = "chainsaw0"
 	name = "Chainsaw"
-	ru_names = list(
-		NOMINATIVE = "бензопила",
-		GENITIVE = "бензопилы",
-		DATIVE = "бензопиле",
-		ACCUSATIVE = "бензопилу",
-		INSTRUMENTAL = "бензопилой",
-		PREPOSITIONAL = "бензопиле"
-	)
 	desc = "Идеально чтобы рубить деревья или ваших коллег."
 	force = 15
 	throwforce = 15
@@ -775,7 +767,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_BULKY // can't fit in backpacks
 	force_unwielded = 15 //still pretty robust
-	force_wielded = 45  //you'll gouge their eye out! Or a limb...maybe even their entire body!
+	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
 	armour_penetration = 35
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
@@ -785,6 +777,15 @@
 	wielded = FALSE
 	var/datum/looping_sound/chainsaw/soundloop
 
+/obj/item/twohanded/chainsaw/get_ru_names()
+	return list(
+		NOMINATIVE = "бензопила",
+		GENITIVE = "бензопилы",
+		DATIVE = "бензопиле",
+		ACCUSATIVE = "бензопилу",
+		INSTRUMENTAL = "бензопилой",
+		PREPOSITIONAL = "бензопиле"
+	)
 
 /obj/item/twohanded/chainsaw/Initialize(mapload)
 	. = ..()
@@ -833,14 +834,14 @@
 		return .
 
 	if(!isrobot(target))
-		target.Knockdown(1 SECONDS)
+		target.Knockdown(2 SECONDS)
 	if(!ishuman(target))
 		return
 	var/mob/living/carbon/human/amputee = target
 	var/obj/item/organ/external/target_limb = amputee.get_organ(user.zone_selected)
-	var/damage_cap = 55
+	var/damage_cap = 60
 	if(target_limb == BODY_ZONE_HEAD)
-		damage_cap = 75
+		damage_cap = 85
 	if(!target_limb.brute_dam >= damage_cap)
 		return
 	target_limb.droplimb()
