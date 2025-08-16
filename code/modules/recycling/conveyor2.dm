@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "conveyor_map"
 	base_icon_state = "conveyor"
-	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
+	layer = CONVEYOR_LAYER		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
 	processing_flags = START_PROCESSING_MANUALLY
 	/// The current state of the switch.

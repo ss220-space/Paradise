@@ -673,7 +673,20 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/voodoo
 	name = "wicker doll"
 	desc = "Выглядит зловеще."
-	ru_names = list(
+	gender = FEMALE
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "voodoo"
+	item_state = "electronic"
+	var/mob/living/carbon/human/target = null
+	var/list/mob/living/carbon/human/possible
+	var/obj/item/link = null
+	var/cooldown_time = 3 SECONDS
+	COOLDOWN_DECLARE(cooldown)
+	max_integrity = 10
+	resistance_flags = FLAMMABLE
+
+/obj/item/voodoo/get_ru_names()
+	return list(
 		NOMINATIVE = "плетёная кукла",
 		GENITIVE = "плетёной куклы",
 		DATIVE = "плетёной кукле",
@@ -681,18 +694,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 		INSTRUMENTAL = "плетёной куклой",
 		PREPOSITIONAL = "плетёной кукле"
 	)
-	gender = FEMALE
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "voodoo"
-	item_state = "electronic"
-	var/mob/living/carbon/human/target = null
-	var/list/mob/living/carbon/human/possible = list()
-	var/obj/item/link = null
-	var/cooldown_time = 3 SECONDS
-	COOLDOWN_DECLARE(cooldown)
-	max_integrity = 10
-	resistance_flags = FLAMMABLE
-
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && COOLDOWN_FINISHED(src, cooldown))
@@ -729,7 +730,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		user.unset_machine()
 
 /obj/item/voodoo/attack_self(mob/user as mob)
-	if(!target && possible.len)
+	if(!target && LAZYLEN(possible))
 		target = tgui_input_list(user, "Select your victim!", "Voodoo", possible)
 		return
 
@@ -778,13 +779,15 @@ GLOBAL_LIST_EMPTY(multiverse)
 		cooldown = world.time + cooldown_time
 
 /obj/item/voodoo/proc/update_targets()
-	possible = list()
+	LAZYCLEARLIST(possible)
+
 	if(!link)
 		return
+
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
 		if(H.stat != DEAD && (H.real_name in link.interactors))
-			possible |= H
+			LAZYOR(possible, H)
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
 	if(prob(50) || force)

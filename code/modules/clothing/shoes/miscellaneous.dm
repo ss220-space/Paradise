@@ -447,7 +447,14 @@
 /obj/item/clothing/shoes/footwraps/goliath
 	name = "goliath hide footwraps"
 	desc = "Эти обмотки, изготовленные из шкуры голиафа, подарят вашим ступням ощущение уюта и безопасности, оставаясь при этом дышащими и лёгкими."
-	ru_names = list(
+	icon_state = "footwraps_goliath"
+	item_state = "footwraps_goliath"
+	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 10, ACID = 0)
+	resistance_flags = FIRE_PROOF
+	paintable = FALSE
+
+/obj/item/clothing/shoes/footwraps/goliath/get_ru_names()
+	return list(
 		NOMINATIVE = "обмотки из шкуры голиафа",
 		GENITIVE = "обмоток из шкуры голиафа",
 		DATIVE = "обмоткам из шкуры голиафа",
@@ -455,16 +462,18 @@
 		INSTRUMENTAL = "обмотками из шкуры голиафа",
 		PREPOSITIONAL = "обмотках из шкуры голиафа"
 	)
-	icon_state = "footwraps_goliath"
-	item_state = "footwraps_goliath"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 10, ACID = 0)
-	resistance_flags = FIRE_PROOF
-	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/dragon
 	name = "ash drake hide footwraps"
 	desc = "Эти обмотки, изготовленные из шкуры пепельного дракона, обеспечат вам комфорт и безопасность ваших ног, оставаясь при этом лёгкими и дышащими."
-	ru_names = list(
+	icon_state = "footwraps_dragon"
+	item_state = "footwraps_dragon"
+	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 10, BOMB = 0, BIO = 10, RAD = 0, FIRE = 15, ACID = 0)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	paintable = FALSE
+
+/obj/item/clothing/shoes/footwraps/dragon/get_ru_names()	
+	return list(
 		NOMINATIVE = "обмотки из шкуры пепельного дракона",
 		GENITIVE = "обмоток из шкуры пепельного дракона",
 		DATIVE = "обмоткам из шкуры пепельного дракона",
@@ -472,11 +481,6 @@
 		INSTRUMENTAL = "обмотками из шкуры пепельного дракона",
 		PREPOSITIONAL = "обмотках из шкуры пепельного дракона"
 	)
-	icon_state = "footwraps_dragon"
-	item_state = "footwraps_dragon"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 10, BOMB = 0, BIO = 10, RAD = 0, FIRE = 15, ACID = 0)
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	paintable = FALSE
 
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
@@ -541,14 +545,6 @@
 /obj/item/clothing/shoes/bhop/clown
 	name = "clown shoes"
 	desc = "Стандартные клоунские башмаки. Чёрт возьми, они такие огромные! Чтобы включить амортизаторы для ходьбы вразвалочку, используйте <b>Ctrl</b>!"
-	ru_names = list(
-		NOMINATIVE = "клоунские башмаки",
-		GENITIVE = "клоунских башмаков",
-		DATIVE = "клоунским башмакам",
-		ACCUSATIVE = "клоунские башмаки",
-		INSTRUMENTAL = "клоунскими башмаками",
-		PREPOSITIONAL = "клоунских башмаках"
-	)
 	icon_state = "clown"
 	item_state = "clown_shoes"
 	description_antag = "Эти ботинки снабжены специальным механизмом для прыжков, работающим на основе технологии \"хонк-спейс\", позволяя выполнять захватывающие акробатические трюки!"
@@ -557,6 +553,16 @@
 	actions_types = list(/datum/action/item_action/bhop/clown)
 	var/enabled_waddle = TRUE
 	jumpdistance = 7//-1 from to see the actual distance, e.g 7 goes over 6 tiles
+
+/obj/item/clothing/shoes/bhop/clown/get_ru_names()
+	return list(
+		NOMINATIVE = "клоунские башмаки",
+		GENITIVE = "клоунских башмаков",
+		DATIVE = "клоунским башмакам",
+		ACCUSATIVE = "клоунские башмаки",
+		INSTRUMENTAL = "клоунскими башмаками",
+		PREPOSITIONAL = "клоунских башмаках"
+	)
 
 /obj/item/clothing/shoes/bhop/clown/ui_action_click(mob/user, datum/action/action, leftclick)
 	user.emote("flip")

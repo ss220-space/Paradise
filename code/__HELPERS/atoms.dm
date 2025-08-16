@@ -94,7 +94,7 @@
 			atoms |= check.collect_all_atoms_of_type(path, blacklist)
 	return atoms
 /**
- * 	Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
+ *	Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
  */
 /proc/is_location_within_transition_boundaries(atom/loc)
 	return (loc.x > TRANSITION_BORDER_WEST) \

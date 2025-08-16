@@ -9,7 +9,7 @@
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
-	var/health = 100 	//A mob's health
+	var/health = 100	//A mob's health
 
 	var/datum/middleClickOverride/middleClickOverride
 

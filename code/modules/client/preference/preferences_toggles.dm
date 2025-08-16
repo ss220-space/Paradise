@@ -436,23 +436,23 @@
 	user.prefs.save_preferences(user)
 
 // /datum/preference_toggle/special_toggle/toggle_adminsound_mutes
-// 	name = "Manage Admin Sound Mutes"
-// 	description = "Manage admins that you wont hear played audio from"
-// 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-// 	blackbox_message = "MC tabs toggled"
+//	name = "Manage Admin Sound Mutes"
+//	description = "Manage admins that you wont hear played audio from"
+//	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+//	blackbox_message = "MC tabs toggled"
 
 // /datum/preference_toggle/special_toggle/toggle_adminsound_mutes/set_toggles(client/user)
-// 	if(!length(user.prefs.admin_sound_ckey_ignore))
-// 		to_chat(usr, "You have no admins with muted sounds.")
-// 		return
+//	if(!length(user.prefs.admin_sound_ckey_ignore))
+//		to_chat(usr, "You have no admins with muted sounds.")
+//		return
 
-// 	var/choice = tgui_input_list(usr, "Select an admin to unmute sounds from.", "Pick an admin", user.prefs.admin_sound_ckey_ignore)
-// 	if(!choice)
-// 		return
+//	var/choice = tgui_input_list(usr, "Select an admin to unmute sounds from.", "Pick an admin", user.prefs.admin_sound_ckey_ignore)
+//	if(!choice)
+//		return
 
-// 	user.prefs.admin_sound_ckey_ignore -= choice
-// 	to_chat(usr, "Теперь вы будете слышать sounds from <code>[choice]</code> again.")
-// 	return ..()
+//	user.prefs.admin_sound_ckey_ignore -= choice
+//	to_chat(usr, "Теперь вы будете слышать sounds from <code>[choice]</code> again.")
+//	return ..()
 
 /datum/preference_toggle/special_toggle/set_ooc_color
 	name = "Цвет OOC-сообщений"
@@ -574,20 +574,20 @@
 	blackbox_message = "Toggle Vote Popup"
 
 // /datum/preference_toggle/toggle_emote_indicator
-// 	name = "Toggle Emote Typing Indicator"
-// 	description = "Toggles showing an indicator when you are typing an emote."
-// 	preftoggle_bitflag = PREFTOGGLE_2_EMOTE_BUBBLE
-// 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-// 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-// 	enable_message = "You will now  display a typing indicator for emotes."
-// 	disable_message = "You will no longer  display a typing indicator for emotes."
-// 	blackbox_message = "Toggle Typing Indicator (Emote)"
+//	name = "Toggle Emote Typing Indicator"
+//	description = "Toggles showing an indicator when you are typing an emote."
+//	preftoggle_bitflag = PREFTOGGLE_2_EMOTE_BUBBLE
+//	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+//	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+//	enable_message = "You will now  display a typing indicator for emotes."
+//	disable_message = "You will no longer  display a typing indicator for emotes."
+//	blackbox_message = "Toggle Typing Indicator (Emote)"
 
 // /datum/preference_toggle/toggle_emote_indicator/set_toggles(client/user)
-// 	. = ..()
-// 	if(user.prefs.toggles & PREFTOGGLE_SHOW_TYPING)
-// 		if(istype(usr))
-// 			usr.set_typing_emote_indicator(FALSE)
+//	. = ..()
+//	if(user.prefs.toggles & PREFTOGGLE_SHOW_TYPING)
+//		if(istype(usr))
+//			usr.set_typing_emote_indicator(FALSE)
 
 /datum/preference_toggle/toggle_tgui_input
 	name = "TGUI-ввод"

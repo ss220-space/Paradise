@@ -1,14 +1,6 @@
 /obj/item/soap
 	name = "soap"
 	desc = "Дешёвый кусок мыла. Он даже ничем не пахнет."
-	ru_names = list(
-		NOMINATIVE = "мыло",
-		GENITIVE = "мыла",
-		DATIVE = "мылу",
-		ACCUSATIVE = "мыло",
-		INSTRUMENTAL = "мылом",
-		PREPOSITIONAL = "мыле"
-	)
 	gender = NEUTER
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "soap"
@@ -22,6 +14,16 @@
 	throw_range = 20
 	item_flags = SKIP_ATTACK_MESSAGE
 	var/cleanspeed = 50 //slower than mop
+
+/obj/item/soap/get_ru_names()
+	return list(
+		NOMINATIVE = "мыло",
+		GENITIVE = "мыла",
+		DATIVE = "мылу",
+		ACCUSATIVE = "мыло",
+		INSTRUMENTAL = "мылом",
+		PREPOSITIONAL = "мыле"
+	)
 
 /obj/item/soap/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
@@ -216,7 +218,11 @@
 /obj/item/soap/ducttape
 	name = "duct-taped soap"
 	desc = "Домашний кусок мыла. Он похож на заклееные изолентой ошмётки... Оно точно сможет что-то отмыть?"
-	ru_names = list(
+	icon_state = "soapgibs"
+	item_state = "soapgibs"
+
+/obj/item/soap/ducttape/get_ru_names()
+	return list(
 		NOMINATIVE = "мыло в изоленте",
 		GENITIVE = "мыла в изоленте",
 		DATIVE = "мылу в изоленте",
@@ -224,8 +230,6 @@
 		INSTRUMENTAL = "мылом в изоленте",
 		PREPOSITIONAL = "мыле в изоленте"
 	)
-	icon_state = "soapgibs"
-	item_state = "soapgibs"
 
 /obj/item/soap/ducttape/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity) return

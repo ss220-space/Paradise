@@ -129,10 +129,6 @@
 	ComponentInitialize()
 	return INITIALIZE_HINT_NORMAL
 
-/turf/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/blob_turf_consuming, 0)
-
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
 	if(!changing_turf)

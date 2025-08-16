@@ -264,7 +264,7 @@
 		QDEL_NULL(path_hud)
 		path_hud = null
 
- 	GLOB.bots_list -= src
+	GLOB.bots_list -= src
 
 	QDEL_NULL(path)
 	QDEL_NULL(Radio)

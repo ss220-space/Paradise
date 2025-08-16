@@ -1,6 +1,6 @@
 /datum/event/carp_migration
 	announceWhen	= 50
-	endWhen 		= 900
+	endWhen		= 900
 
 	var/list/spawned_mobs = list(
     /mob/living/simple_animal/hostile/carp = 95,
@@ -25,7 +25,7 @@
 	if(severity == EVENT_LEVEL_MAJOR)
 		spawn_fish(GLOB.landmarks_list.len)
 	else if(severity == EVENT_LEVEL_MODERATE)
-		spawn_fish(rand(4, 6)) 			//12 to 30 carp, in small groups
+		spawn_fish(rand(4, 6))			//12 to 30 carp, in small groups
 	else
 		spawn_fish(rand(1, 3), 1, 2)	//1 to 6 carp, alone or in pairs
 

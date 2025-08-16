@@ -828,8 +828,8 @@ This applies to all STANDARD station areas
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/atmos/distribution
- 	name = "Atmospherics Distribution Loop"
- 	icon_state = "atmos"
+	name = "Atmospherics Distribution Loop"
+	icon_state = "atmos"
 
 /area/atmos/break_room
 	name = "Atmospherics Foyer"

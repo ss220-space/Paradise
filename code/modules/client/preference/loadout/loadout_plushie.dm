@@ -51,7 +51,7 @@
 /datum/gear/plushie/plasmamanplushie/New()
 	..()
 	var/list/plasmamans = list(/obj/item/toy/plushie/plasmamanplushie,
-					  		/obj/item/toy/plushie/plasmamanplushie/standart/sindie,
+					 		/obj/item/toy/plushie/plasmamanplushie/standart/sindie,
 							/obj/item/toy/plushie/plasmamanplushie/standart/doctor,
 							/obj/item/toy/plushie/plasmamanplushie/standart/brigmed,
 							/obj/item/toy/plushie/plasmamanplushie/standart/chemist,

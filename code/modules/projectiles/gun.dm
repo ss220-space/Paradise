@@ -37,7 +37,7 @@
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
-	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
+	var/ninja_weapon = FALSE			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
 	var/bolt_open = FALSE
 	/// Gun accuracy (without distance accuracy)
 	var/datum/gun_accuracy/accuracy = GUN_ACCURACY_DEFAULT
@@ -123,6 +123,8 @@
 /obj/item/gun/Destroy()
 	QDEL_NULL(gun_light)
 	QDEL_NULL(bayonet)
+	QDEL_NULL(accuracy)
+	QDEL_NULL(recoil)
 	return ..()
 
 

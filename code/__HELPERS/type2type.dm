@@ -1,7 +1,7 @@
 /*
  * Holds procs designed to change one type of value, into another.
  * Contains:
- * 			file2list
+ *			file2list
  *			file2list
  *			angle2dir
  *			angle2text
