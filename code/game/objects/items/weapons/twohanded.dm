@@ -842,7 +842,7 @@
 	var/damage_cap = 60
 	if(target_limb == BODY_ZONE_HEAD)
 		damage_cap = 85
-	if(!target_limb.brute_dam >= damage_cap)
+	if(!(target_limb.brute_dam >= damage_cap))
 		return
 	target_limb.droplimb()
 
