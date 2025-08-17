@@ -21,21 +21,21 @@
 
 	/// Associative list of accociative lists of bible variants, used for the radial menu
 	var/static/list/bible_variants = list(
-		"Библия" =				list("state" = "bible",			"inhand" = "bible"),
-		"Коран" =				list("state" = "koran",			"inhand" = "koran"),
-		"Скрапбук" =			list("state" = "scrapbook",		"inhand" = "scrapbook"),
-		"Крипер" =				list("state" = "creeper",		"inhand" = "creeper"),
-		"Белая Библия" =		list("state" = "white",			"inhand" = "white"),
-		"Благодатный огонь" =	list("state" = "holylight",		"inhand" = "somebiblebook"),
-		"Красная обложка" =		list("state" = "athiest",	 	"inhand" = "atheist"),
-		"Том" =					list("state" = "tome",		 	"inhand" = "somebiblebook"),
-		"Король в Жёлтом" =	list("state" = "kingyellow", 	"inhand" = "kingyellow"),
-		"Итакуа" =				list("state" = "ithaqua",	 	"inhand" = "ithaqua"),
-		"Саентология" =			list("state" = "scientology",	"inhand" = "scientology"),
-		"Плавленная Библия" =	list("state" = "melted",	 	"inhand" = "melted"),
-		"Некрономикон" =		list("state" = "necronomicon",	"inhand" = "necronomicon"),
-		"Грин текст" =			list("state" = "greentext",	 	"inhand" = "greentext"),
-	)
+		"Библия" =				list("state" = "bible",		 			"inhand" = "bible"),
+		"Коран" =				list("state" = "bible_koran",		 	"inhand" = "koran"),
+		"Скрапбук" =			list("state" = "bible_scrapbook",	 	"inhand" = "scrapbook"),
+		"Крипер" =				list("state" = "bible_creeper",	 		"inhand" = "creeper"),
+		"Белая Библия" =		list("state" = "bible_white",		 	"inhand" = "white"),
+		"Благодатный огонь" =	list("state" = "bible_holylight",	 	"inhand" = "somebiblebook"),
+		"Красная обложка" =		list("state" = "bible_atheist",	  		"inhand" = "atheist"),
+		"Том" =					list("state" = "bible_tome",		  	"inhand" = "somebiblebook"),
+		"Король в Жёлтом" = 	list("state" = "bible_kingyellow",  	"inhand" = "kingyellow"),
+		"Итакуа" =				list("state" = "bible_ithaqua",	  		"inhand" = "ithaqua"),
+		"Саентология" =			list("state" = "bible_scientology", 	"inhand" = "scientology"),
+		"Плавленная Библия" =	list("state" = "bible_melted",	  		"inhand" = "melted"),
+		"Некрономикон" =	 	list("state" = "bible_necronomicon",	"inhand" = "necronomicon"),
+		"Грин текст" =			list("state" = "bible_greentext",	  	"inhand" = "greentext"),
+)
 
 /obj/item/storage/bible/get_ru_names()
 	return list(
