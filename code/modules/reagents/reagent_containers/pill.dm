@@ -98,7 +98,7 @@
 	list_reagents = list("initropidril" = 50)
 
 /obj/item/reagent_containers/food/pill/initropidril/get_ru_names()
-		return list(
+	return list(
         NOMINATIVE = "таблетка (Инитропидрил)",
         GENITIVE = "таблетки (Инитропидрил)",
         DATIVE = "таблетке (Инитропидрил)",
@@ -384,12 +384,12 @@
 	icon_state = "pill19"
 	list_reagents = list("mannitol" = 20)
 
-	/obj/item/reagent_containers/food/pill/mannitol/get_ru_names()
-		return list(
-        NOMINATIVE = "таблетка (Маннитол)",
-        GENITIVE = "таблетки (Маннитол)",
-        DATIVE = "таблетке (Маннитол)",
-        ACCUSATIVE = "таблетку (Маннитол)",
-        INSTRUMENTAL = "таблеткой (Маннитол)",
-        PREPOSITIONAL = "таблетке (Маннитол)"
+/obj/item/reagent_containers/food/pill/mannitol/get_ru_names()
+	return list(
+		NOMINATIVE = "таблетка (Маннитол)",
+		GENITIVE = "таблетки (Маннитол)",
+		DATIVE = "таблетке (Маннитол)",
+		ACCUSATIVE = "таблетку (Маннитол)",
+		INSTRUMENTAL = "таблеткой (Маннитол)",
+		PREPOSITIONAL = "таблетке (Маннитол)"
 	)
