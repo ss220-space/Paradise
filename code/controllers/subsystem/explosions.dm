@@ -87,7 +87,7 @@ SUBSYSTEM_DEF(explosions)
 			if(dist < data.devastation_range)		dist = 1
 			else if(dist < data.heavy_impact_range)	dist = 2
 			else if(dist < data.light_impact_range)	dist = 3
-			else 									dist = 0
+			else									dist = 0
 
 			//------- TURF FIRES -------
 

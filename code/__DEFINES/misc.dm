@@ -132,8 +132,8 @@
 
 // Metal foam states
 // teehee no one will find these here
-#define MFOAM_ALUMINUM 	1
-#define MFOAM_IRON 		2
+#define MFOAM_ALUMINUM	1
+#define MFOAM_IRON		2
 
 //Carbon Overlays Indexes/////////
 #define MUTANTRACE_LAYER		45
@@ -181,7 +181,7 @@
 #define SLEEP_LAYER				3
 #define FROZEN_LAYER			2
 #define SSD_LAYER				1
-#define TOTAL_LAYERS 			46
+#define TOTAL_LAYERS			46
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -224,19 +224,19 @@
 	The color on the left is the one used as the actual color of the wire, but it doesn't look good when written.
 	So, we need to replace the name to something that looks better.
 */
-#define LIST_COLOR_RENAME 				\
+#define LIST_COLOR_RENAME				\
 	list(								\
 		"rebeccapurple" = "dark purple",\
 		"darkslategrey" = "dark grey",	\
 		"darkolivegreen"= "dark green",	\
 		"darkslateblue" = "dark blue",	\
-		"darkkhaki" 	= "khaki",		\
-		"darkseagreen" 	= "light green",\
-		"midnightblue" 	= "blue",		\
-		"lightgrey" 	= "light grey",	\
-		"darkgrey" 		= "dark grey",	\
-		"steelblue" 	= "blue",		\
-		"goldenrod"	 	= "gold"		\
+		"darkkhaki"	= "khaki",		\
+		"darkseagreen"	= "light green",\
+		"midnightblue"	= "blue",		\
+		"lightgrey"	= "light grey",	\
+		"darkgrey"		= "dark grey",	\
+		"steelblue"	= "blue",		\
+		"goldenrod"		= "gold"		\
 	)
 
 /// Pure Black and white colorblindness. Every species except Vulpkanins and Tajarans will have this.
@@ -261,9 +261,9 @@
 		"red"		= "darkolivegreen",	\
 		"green"		= "darkslategrey",	\
 		"orange"	= "goldenrod",		\
-		"yellow"	= "goldenrod", 		\
+		"yellow"	= "goldenrod",		\
 		"brown"		= "darkolivegreen",	\
-		"gold"		= "goldenrod", 		\
+		"gold"		= "goldenrod",		\
 		"cyan"		= "steelblue",		\
 		"magenta"	= "blue",			\
 		"purple"	= "darkslategrey",	\
@@ -393,15 +393,15 @@
 #define DEFIB_TIME_LOSS (60 SECONDS)
 
 //different types of atom colorations
-#define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
-#define TEMPORARY_COLOUR_PRIORITY 	2 //e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
-#define WASHABLE_COLOUR_PRIORITY 	3 //color splashed onto an atom (e.g. paint on turf)
-#define FIXED_COLOUR_PRIORITY 		4 //color inherent to the atom (e.g. blob color)
+#define ADMIN_COLOUR_PRIORITY		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
+#define TEMPORARY_COLOUR_PRIORITY	2 //e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
+#define WASHABLE_COLOUR_PRIORITY	3 //color splashed onto an atom (e.g. paint on turf)
+#define FIXED_COLOUR_PRIORITY		4 //color inherent to the atom (e.g. blob color)
 #define COLOUR_PRIORITY_AMOUNT 4 //how many priority levels there are.
 
 //Cleaning tool strength
 // 1 is also a valid cleaning strength but completely unused so left undefined
-#define CLEAN_WEAK 			2
+#define CLEAN_WEAK			2
 #define CLEAN_MEDIUM		3 // Acceptable tools
 #define CLEAN_STRONG		4 // Industrial strength
 #define CLEAN_IMPRESSIVE	5 // Cleaning strong enough your granny would be proud

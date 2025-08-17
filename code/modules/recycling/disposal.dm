@@ -486,7 +486,7 @@
 	if((stat & (NOPOWER|BROKEN)) || mode == UNSCREWED)
 		return
 
-	// 	check for items in disposal - occupied light
+	//	check for items in disposal - occupied light
 	if(length(contents))
 		. += "dispover-full"
 		underlays += emissive_appearance(icon, "dispover-full", src)

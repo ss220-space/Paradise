@@ -6,14 +6,6 @@
 /obj/item/contractor_uplink
 	name = "contractor uplink"
 	desc = "Устройство, выданное Синдикатом, для работы с контрактами в полевых условиях."
-	ru_names = list(
-		NOMINATIVE = "аплинк контрактника",
-		GENITIVE = "аплинка контрактника",
-		DATIVE = "аплинку контрактнику",
-		ACCUSATIVE = "аплинк контрактника",
-		INSTRUMENTAL = "аплинком контрактником",
-		PREPOSITIONAL = "аплинке контрактнике"
-	)
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "contractor_uplink"
@@ -22,6 +14,16 @@
 	origin_tech = "programming=5;syndicate=4" // Hackerman encryption
 	/// The Contractor Hub associated with this uplink.
 	var/datum/contractor_hub/hub = null
+
+/obj/item/contractor_uplink/get_ru_names()
+	return list(
+		NOMINATIVE = "аплинк контрактника",
+		GENITIVE = "аплинка контрактника",
+		DATIVE = "аплинку контрактнику",
+		ACCUSATIVE = "аплинк контрактника",
+		INSTRUMENTAL = "аплинком контрактником",
+		PREPOSITIONAL = "аплинке контрактнике"
+	)
 
 /obj/item/contractor_uplink/Destroy()
 	// Right now, one uplink = one hub so this is fine.

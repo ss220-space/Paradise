@@ -160,7 +160,11 @@
 /obj/item/clothing/glasses/meson/visor
 	name = "Meson Optical Visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
-	ru_names = list(
+	icon_state = "mesonvisor"
+	item_state = "mesonvisor"
+
+/obj/item/clothing/glasses/meson/visor/get_ru_names()
+	return list(
 		NOMINATIVE = "мезонный оптический визор",
 		GENITIVE = "мезонного оптического визора",
 		DATIVE = "мезонному оптическому визору",
@@ -168,8 +172,6 @@
 		INSTRUMENTAL = "мезонным оптическим визором",
 		PREPOSITIONAL = "мезонном оптическом визоре"
 	)
-	icon_state = "mesonvisor"
-	item_state = "mesonvisor"
 
 /obj/item/clothing/glasses/meson/monocle
 	name = "Meson Monocle Scanner"
@@ -225,7 +227,11 @@
 /obj/item/clothing/glasses/science/visor
 	name = "Science Optical Visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
-	ru_names = list(
+	icon_state = "sciencevisor"
+	item_state = "sciencevisor"
+
+/obj/item/clothing/glasses/science/visor/get_ru_names()
+	return list(
 		NOMINATIVE = "научный оптический визор",
 		GENITIVE = "научного оптического визора",
 		DATIVE = "научному оптическому визору",
@@ -233,8 +239,6 @@
 		INSTRUMENTAL = "научным оптическим визором",
 		PREPOSITIONAL = "научном оптическом визоре"
 	)
-	icon_state = "sciencevisor"
-	item_state = "sciencevisor"
 
 /obj/item/clothing/glasses/science/monocle
 	name = "Science HUD monocle"

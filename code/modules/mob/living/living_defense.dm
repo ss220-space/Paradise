@@ -254,7 +254,7 @@
 
 /mob/living/proc/WetMob(wet_type = /datum/status_effect/stacking/wet)
 	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
-	return 	effect?.WetMob()
+	return	effect?.WetMob()
 
 
 /mob/living/proc/adjust_wet_stacks(add_wet_stacks, wet_type = /datum/status_effect/stacking/wet) //Adjusting the amount of fire_stacks we have on person

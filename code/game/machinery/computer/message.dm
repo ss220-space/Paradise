@@ -15,7 +15,7 @@
 	var/defaultmsg = span_notice("Welcome. Please select an option.")
 	var/rebootmsg = span_warning("%$&(�: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!")
 	//Computer properties
-	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
+	var/screen = 0		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg
 	var/emag = 0		// When it is emagged.
 	var/message = span_notice("System bootup complete. Please select an option.")	// The message that shows on the main menu.
@@ -25,7 +25,7 @@
 	var/customsender = "System Administrator"
 	var/obj/item/pda/customrecepient = null
 	var/customjob		= "Admin"
-	var/custommessage 	= "This is a test, please ignore."
+	var/custommessage	= "This is a test, please ignore."
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
@@ -221,7 +221,7 @@
 		if(4)
 
 			var/index = 0
-			/* 	data_rc_msg
+			/*	data_rc_msg
 				X												 - 5%
 				var/rec_dpt = "Unspecified" //name of the person - 15%
 				var/send_dpt = "Unspecified" //name of the sender- 15%
@@ -267,10 +267,10 @@
 	src.emag = 0
 
 /obj/machinery/computer/message_monitor/proc/ResetMessage()
-	customsender 	= "System Administrator"
+	customsender	= "System Administrator"
 	customrecepient = null
-	custommessage 	= "This is a test, please ignore."
-	customjob 		= "Admin"
+	custommessage	= "This is a test, please ignore."
+	customjob		= "Admin"
 
 /obj/machinery/computer/message_monitor/Topic(href, href_list)
 	if(..(href, href_list))
@@ -396,7 +396,7 @@
 
 					//Select Your Name
 					if("Sender")
-						customsender 	= tgui_input_text(usr, "Please enter the sender's name.")
+						customsender	= tgui_input_text(usr, "Please enter the sender's name.")
 
 					//Select Receiver
 					if("Recepient")
@@ -415,7 +415,7 @@
 
 					//Enter custom job
 					if("RecJob")
-						customjob	 	= tgui_input_text(usr, "Please enter the sender's job.")
+						customjob		= tgui_input_text(usr, "Please enter the sender's job.")
 
 					//Enter message
 					if("Message")

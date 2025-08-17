@@ -158,6 +158,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	RegisterSignal(user, COMSIG_MOB_ALTCLICKON, PROC_REF(on_click_sting))
 	//COMSIG_MOB_MIDDLECLICKON not yet implemented, please remove all MiddleClick fuckery after adding here.
 
+	ADD_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
+
 	var/mob/living/carbon/carbon_user = user
 	if(!istype(carbon_user))
 		return
@@ -190,7 +192,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	remove_changeling_mutations(user)
 	remove_unnatural_languages(user)
-	UnregisterSignal(user, COMSIG_MOB_DEATH)
+	UnregisterSignal(user, list(COMSIG_MOB_DEATH, COMSIG_MOB_ALTCLICKON))
+	REMOVE_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
 
 	// If there's a mob_override, this is a body transfer, and therefore we should only remove their powers from the old body.
 	if(mob_override)

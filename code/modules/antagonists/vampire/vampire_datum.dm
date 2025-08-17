@@ -116,6 +116,7 @@
 			//slaved.serv -= mob_override.mind
 			//slaved.leave_serv_hud(mob_override.mind)
 			//.mind.som = null
+	ADD_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
 
 	user.AddElement( \
 		/datum/element/pref_viewer, \
@@ -134,6 +135,8 @@
 
 	if(!mob_override)	// mob override means body transfer
 		remove_all_powers()
+
+	REMOVE_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
 
 	if(!transformation)
 		user.faction -= ROLE_VAMPIRE

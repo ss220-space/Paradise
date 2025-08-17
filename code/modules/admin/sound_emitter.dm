@@ -9,14 +9,6 @@
 /obj/effect/sound_emitter
 	name = "sound emitter"
 	desc = "Издаёт звуки, наверное."
-	ru_names = list(
-		NOMINATIVE = "излучатель звука",
-		GENITIVE = "излучателя звука",
-		DATIVE = "излучателю звука",
-		ACCUSATIVE = "излучатель звука",
-		INSTRUMENTAL = "излучателем звука",
-		PREPOSITIONAL = "излучателе звука",
-	)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield2"
 	invisibility = INVISIBILITY_OBSERVER
@@ -31,6 +23,16 @@
 	var/emitter_range = SOUND_EMITTER_ZLEVEL //The range this emitter's sound is heard at; this isn't a number, but a string (see the defines above)
 	var/list/hearing_mobs
 	var/started = FALSE
+
+/obj/effect/sound_emitter/get_ru_names()
+	return list(
+		NOMINATIVE = "излучатель звука",
+		GENITIVE = "излучателя звука",
+		DATIVE = "излучателю звука",
+		ACCUSATIVE = "излучатель звука",
+		INSTRUMENTAL = "излучателем звука",
+		PREPOSITIONAL = "излучателе звука",
+	)
 
 /obj/effect/sound_emitter/Destroy(force)
 	. = ..()

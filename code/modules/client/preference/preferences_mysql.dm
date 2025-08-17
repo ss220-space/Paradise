@@ -239,7 +239,7 @@
 					hair_gradient_offset,
 					hair_gradient_colour,
 					hair_gradient_alpha
-				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
+					FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
 					 ))

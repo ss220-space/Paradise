@@ -399,12 +399,12 @@
 	var/obj/effect/portal/redspace/myportal2
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
-	var/blocked = FALSE 		//Блокирует кнопки телепортера если TRUE
+	var/blocked = FALSE		//Блокирует кнопки телепортера если TRUE
 	var/last_opened_time = null	//Время когда в последний раз было открыто меню выбора телепорта
 	var/last_opener = null		//Последний открывший меню выбора телепорта
 	var/timeout = 300			//Время в течении которого никто не может использовать консоль пока кто то выбирает телепорт
 	var/is_cooldown = FALSE		//На кулдауне ли мы?
-	var/wait_time = 0 			//Сколько осталось до конца кулдауна.
+	var/wait_time = 0			//Сколько осталось до конца кулдауна.
 	var/lifespan = 300			//Сколько будут жить созданные порталы прежде чем удалиться
 
 /obj/machinery/computer/syndicate_depot/teleporter/taipan

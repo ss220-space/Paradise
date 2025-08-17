@@ -1,14 +1,6 @@
 /obj/item/storage/bible
 	name = "bible"
 	desc = "Многократно прислоняйте к голове."
-	ru_names = list(
-		NOMINATIVE = "Библия",
-		GENITIVE = "Библии",
-		DATIVE = "Библии",
-		ACCUSATIVE = "Библию",
-		INSTRUMENTAL = "Библией",
-		PREPOSITIONAL = "Библии"
-	)
 	gender = FEMALE
 	lefthand_file = 'icons/mob/inhands/chaplain_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/chaplain_righthand.dmi'
@@ -43,6 +35,15 @@
 		"Плавленная Библия" =	list("state" = "bible_melted",	  		"inhand" = "melted"),
 		"Некрономикон" =	 	list("state" = "bible_necronomicon",	"inhand" = "necronomicon"),
 		"Грин текст" =			list("state" = "bible_greentext",	  	"inhand" = "greentext"),
+
+/obj/item/storage/bible/get_ru_names()
+	return list(
+		NOMINATIVE = "Библия",
+		GENITIVE = "Библии",
+		DATIVE = "Библии",
+		ACCUSATIVE = "Библию",
+		INSTRUMENTAL = "Библией",
+		PREPOSITIONAL = "Библии"
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
@@ -65,7 +66,10 @@
 /obj/item/storage/bible/booze
 	name = "bible"
 	desc = "Многократно прислоняйте к голове."
-	ru_names = list(
+	icon_state ="bible"
+
+/obj/item/storage/bible/booze/get_ru_names()
+	return list(
 		NOMINATIVE = "Библия",
 		GENITIVE = "Библии",
 		DATIVE = "Библии",
@@ -73,7 +77,6 @@
 		INSTRUMENTAL = "Библией",
 		PREPOSITIONAL = "Библии"
 	)
-	icon_state ="bible"
 
 /obj/item/storage/bible/booze/populate_contents()
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)

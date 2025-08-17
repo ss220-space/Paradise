@@ -76,7 +76,13 @@
 /obj/item/card/cmag
 	desc = "Это карта, покрытая жидкостью из электромагнитного бананиума."
 	name = "jestographic sequencer"
-	ru_names = list(
+	icon_state = "cmag"
+	item_state = "card-id"
+	origin_tech = "magnets=2;syndicate=2"
+	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
+
+/obj/item/card/cmag/get_ru_names()
+	return list(
 		NOMINATIVE = "шутографический считыватель",
 		GENITIVE = "шутографического считывателя",
 		DATIVE = "шутографическому считывателю",
@@ -84,11 +90,6 @@
 		INSTRUMENTAL = "шутографическим считывателем",
 		PREPOSITIONAL = "шутографическом считывателе"
 	)
-	icon_state = "cmag"
-	item_state = "card-id"
-	origin_tech = "magnets=2;syndicate=2"
-	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
-
 
 /obj/item/card/cmag/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
