@@ -77,6 +77,8 @@
 					var/mob/living/carbon/C = M
 					var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 					if(istype(ears))
+						if(HAS_TRAIT(M, TRAIT_WEAK_EARS))
+							ears.internal_receive_damage(10)
 						ears.internal_receive_damage(5)
 						if(ears.damage >= 15)
 							to_chat(M, span_warning("Your ears start to ring badly!"))

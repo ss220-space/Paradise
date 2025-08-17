@@ -525,6 +525,9 @@
 
 #define COMSIG_MOB_MOVE_INTENT_TOGGLED "mob_move_intent_toggled"
 
+/// from /mob/proc/combine_message (&msg)
+#define COMSIG_COMBINE_MESSAGE_FOR_HEARER "combine_message_for_hearer"
+
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT (1<<0)
@@ -1454,3 +1457,6 @@
 	#define CONTAINER_INSERT_FAILED (1<<1)
 
 #define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"
+
+#define COMSIG_SAY_YOUR_NAME "say_your_name"
+	#define SAY_NAME_BLOCK (1<<1)

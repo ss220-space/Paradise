@@ -52,7 +52,6 @@ Difficulty: Medium
 	wander = FALSE
 	del_on_death = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
-	internal_type = /obj/item/gps/internal/miner
 	medal_type = BOSS_MEDAL_MINER
 	var/obj/item/melee/energy/cleaving_saw/miner_saw
 	var/time_until_next_transform = 0
@@ -69,12 +68,6 @@ Difficulty: Medium
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
 							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
 							   /datum/action/innate/megafauna_attack/transform_weapon)
-
-/obj/item/gps/internal/miner
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "The sweet blood, oh, it sings to me."
-	invisibility = INVISIBILITY_ABSTRACT
 
 /* New costume */
 

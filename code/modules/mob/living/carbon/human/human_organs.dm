@@ -77,7 +77,7 @@
 				if(!drop_item_ground(r_hand))
 					continue
 
-			custom_emote(EMOTE_VISIBLE, "броса[pluralize_ru(gender,"ет","ют")] предмет, который держал[genderize_ru(gender,"","а","о","и")] держали, [genderize_ru(gender,"его","её","его","их")] [bodypart.declent_ru(NOMINATIVE)] выход[pluralize_ru(bodypart.gender,"ит","ят")] из строя!")
+			custom_emote(EMOTE_VISIBLE, "броса[pluralize_ru(gender,"ет","ют")] предмет, который держал[genderize_ru(gender,"","а","о","и")], [genderize_ru(gender,"его","её","его","их")] [bodypart.declent_ru(NOMINATIVE)] выход[pluralize_ru(bodypart.gender,"ит","ят")] из строя!")
 
 			do_sparks(5, FALSE, src)
 
