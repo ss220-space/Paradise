@@ -58,6 +58,7 @@
 		INSTRUMENTAL = "ХимМастером 3000",
 		PREPOSITIONAL = "ХимМастере 3000"
 	)
+
 /obj/machinery/chem_master/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
@@ -283,6 +284,8 @@
 			var/production_mode_key = params["production_mode"]
 			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
 			if(isnull(M))
+				return
+			if(M.set_name == CUSTOM_NAME_DISABLED)
 				return
 			var/new_name = sanitize(params["name"])
 			// Allow name to be set to empty
@@ -535,7 +538,7 @@
 	condi = TRUE
 
 /obj/machinery/chem_master/condimaster/get_ru_names()
-	return ru_names = list(
+	return list(
 		NOMINATIVE = "КондиМастер 3000",
 		GENITIVE = "КондиМастера 3000",
 		DATIVE = "КондиМастеру 3000",
@@ -608,20 +611,8 @@
 	var/medicine_name = set_name
 	var/count = set_items_amount
 	var/amount_per_item = clamp(reagents.total_volume / count, 0, max_units_per_item)
-	var/list/temp_ru_names = null
-
-	if(medicine_name == "")
+	if(!isnull(medicine_name) && length(medicine_name) <= 0)
 		medicine_name = get_base_placeholder_name(reagents, amount_per_item)
-
-	if(medicine_name)
-		temp_ru_names = list(
-			NOMINATIVE = medicine_name,
-			GENITIVE = medicine_name,
-			DATIVE = medicine_name,
-			ACCUSATIVE = medicine_name,
-			INSTRUMENTAL = medicine_name,
-			PREPOSITIONAL = medicine_name
-		)
 
 	var/data = list("count" = count)
 	for(var/i in 1 to count)
@@ -630,20 +621,15 @@
 			return
 
 		var/obj/item/reagent_containers/P = new item_type(location)
-
 		if(!isnull(medicine_name))
 			P.name = "[name_suffix][medicine_name]"
-			if(P.ru_names)
-				for(var/j = 1; j <= 6; j++)
-					P.ru_names[j] = "[P.ru_names[j]] - [medicine_name]"
-			else
-				P.ru_names = temp_ru_names.Copy()
-					
-		P.pixel_x = rand(-7, 7)
+			P.chem_master_made = TRUE
+		P.pixel_x = rand(-7, 7) // Random position
 		P.pixel_y = rand(-7, 7)
 		configure_item(data, reagents, P)
 		reagents.trans_to(P, amount_per_item)
 
+		// Load the items into the bottle if there's one loaded
 		if(istype(S) && S.can_be_inserted(P, TRUE))
 			P.forceMove(S)
 
@@ -654,7 +640,7 @@
 	item_type = /obj/item/reagent_containers/food/pill
 	max_items_amount = MAX_MULTI_AMOUNT
 	max_units_per_item = MAX_UNITS_PER_PILL
-	name_suffix = "pill - "
+	name_suffix = "Таблетка - "
 	sprite_mask = "pill"
 	sprites_amount = MAX_PILL_SPRITE
 
@@ -665,7 +651,7 @@
 	item_type = /obj/item/reagent_containers/food/pill/patch
 	max_items_amount = MAX_MULTI_AMOUNT
 	max_units_per_item = MAX_UNITS_PER_PATCH
-	name_suffix = "patch - "
+	name_suffix = "Пластырь - "
 	sprite_mask = "bandaid"
 	sprites_amount = MAX_PATCH_SPRITE
 
@@ -695,7 +681,7 @@
 
 	max_items_amount = 5
 	max_units_per_item = 50
-	name_suffix = "bottle - "
+	name_suffix = "Бутылка - "
 
 /datum/chemical_production_mode/bottles/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
 	return reagents.get_master_reagent_name()
@@ -717,7 +703,7 @@
 	item_type = /obj/item/reagent_containers/food/condiment/pack
 	max_items_amount = 10
 	max_units_per_item = 10
-	name_suffix = "pack - "
+	name_suffix = "Упаковка - "
 
 /datum/chemical_production_mode/condiment_packs/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
 	return reagents.get_master_reagent_name()
