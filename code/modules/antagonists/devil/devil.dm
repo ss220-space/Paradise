@@ -229,10 +229,29 @@
 	init_obligation()
 	init_ban()
 
+	RegisterSignal(owner.current, COMSIG_SAY_YOUR_NAME, PROC_REF(on_say_your_name))
+
 	update_hud()
 	info.banish.link_banish(owner.current)
 	LAZYADD(owner.current.faction, "hell")
 	ADD_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
+
+/datum/antagonist/devil/proc/on_say_your_name(mob/living/target, mob/living/sender)
+	SIGNAL_HANDLER
+
+	if(!istype(target) || !istype(sender))
+		return
+
+	if(!prob(BAD_EFFECT_CHANCE))
+		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob, say), "[info.truename]")
+		return SAY_NAME_BLOCK
+
+	sender.adjust_fire_stacks(10)
+	sender.adjustFireLoss(50)
+	sender.IgniteMob()
+	to_chat(sender, span_warningbig("Ты не в силах узнать мое имя, глупый ангел."))
+	to_chat(target, span_warning("Кто-то пытася силой заставить вас сказать свое настоящее имя, но вы смогли защититься."))
+
 
 /datum/antagonist/devil/remove_innate_effects()
 	. = ..()
@@ -241,6 +260,8 @@
 	REMOVE_TRAIT(owner.current, TRAIT_ABSOLUTE_VIRUSIMMUNE, DEVIL_TRAIT)
 	REMOVE_TRAIT(owner.current, TRAIT_HEALS_FROM_HELL_RIFTS, DEVIL_TRAIT)
 	REMOVE_TRAIT(owner.current, TRAIT_RESIST_HEAT, DEVIL_TRAIT)
+
+	UnregisterSignal(owner.current, COMSIG_SAY_YOUR_NAME)
 
 	remove_spells()
 	remove_hud()

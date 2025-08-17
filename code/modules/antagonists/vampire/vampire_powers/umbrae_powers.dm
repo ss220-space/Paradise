@@ -64,20 +64,21 @@
 /obj/item/restraints/legcuffs/beartrap/shadow_snare
 	name = "shadow snare"
 	desc = "Почти прозрачная ловушка, которая тает в тени."
-	ru_names = list(
-        NOMINATIVE = "теневая ловушка",
-        GENITIVE = "теневой ловушки",
-        DATIVE = "теневой ловушке",
-        ACCUSATIVE = "теневую ловушку",
-        INSTRUMENTAL = "теневой ловушкой",
-        PREPOSITIONAL = "теневой ловушке"
-    )
 	alpha = 60
 	armed = TRUE
 	anchored = TRUE
 	breakout_time = 5 SECONDS
 	item_flags = DROPDEL
 
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/get_ru_names()
+	return list(
+			NOMINATIVE = "теневая ловушка",
+			GENITIVE = "теневой ловушки",
+			DATIVE = "теневой ловушке",
+			ACCUSATIVE = "теневую ловушку",
+			INSTRUMENTAL = "теневой ловушкой",
+			PREPOSITIONAL = "теневой ловушке"
+		)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/Initialize(mapload)
 	. = ..()
@@ -231,14 +232,6 @@
 /obj/structure/shadow_anchor
 	name = "shadow anchor"
 	desc = "При взгляде на эту штуку вам становится не по себе..."
-	ru_names = list(
-        NOMINATIVE = "теневой якорь",
-        GENITIVE = "теневого якоря",
-        DATIVE = "теневому якорю",
-        ACCUSATIVE = "теневой якорь",
-        INSTRUMENTAL = "теневым якорем",
-        PREPOSITIONAL = "теневом якоре"
-    )
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "pylon"
 	alpha = 120
@@ -248,6 +241,15 @@
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
+/obj/structure/shadow_anchor/get_ru_names()
+	return list(
+			NOMINATIVE = "теневой якорь",
+			GENITIVE = "теневого якоря",
+			DATIVE = "теневому якорю",
+			ACCUSATIVE = "теневой якорь",
+			INSTRUMENTAL = "теневым якорем",
+			PREPOSITIONAL = "теневом якоре"
+		)
 
 /obj/effect/proc_holder/spell/vampire/dark_passage
 	name = "Шаг в тень"

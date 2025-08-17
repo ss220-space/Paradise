@@ -590,7 +590,13 @@
 /obj/structure/chair/comfy/mouse
 	name = "Кресло Господина Мышкина"
 	desc = "Очень дорогое красное кресло из натуральной кожи. Сделано специально по заказу Господина Мышкина."
-	ru_names = list(
+	icon_state = "mouse_chair"
+	anchored = TRUE
+	max_integrity = 375
+	buildstacktype = null
+
+/obj/structure/chair/comfy/mouse/get_ru_names()
+	return list(
 		NOMINATIVE = "кресло господина Мышкина",
 		GENITIVE = "кресла господина Мышкина",
 		DATIVE = "креслу господина Мышкина",
@@ -598,10 +604,6 @@
 		INSTRUMENTAL = "креслом господина Мышкина",
 		PREPOSITIONAL = "кресле господина Мышкина"
 	)
-	icon_state = "mouse_chair"
-	anchored = TRUE
-	max_integrity = 375
-	buildstacktype = null
 
 /obj/structure/chair/comfy/mouse/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "mouse_chair_armrest")

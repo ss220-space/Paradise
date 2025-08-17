@@ -1,7 +1,7 @@
 /datum/event_meta
-	var/name 		= ""
+	var/name		= ""
 	/// Whether or not the event is available for random selection at all.
-	var/enabled 	= TRUE
+	var/enabled	= TRUE
 	/// The base weight of this event. A zero means it may never fire, but see get_weight()
 	var/weight
 	/// The minimum weight that this event will have. Only used if non-zero.

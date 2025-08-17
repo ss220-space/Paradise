@@ -1,9 +1,9 @@
-#define MODE_CKEY 	 		"По игроку"
-#define MODE_POINTER 		"По указателю"
+#define MODE_CKEY			"По игроку"
+#define MODE_POINTER		"По указателю"
 #define WARNING_MESSAGE		span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом...")
-#define DEFAULT_DAMAGE 		100
-#define DEFAULT_RADIUS 		3
-#define DEFAULT_DELAY 		3
+#define DEFAULT_DAMAGE		100
+#define DEFAULT_RADIUS		3
+#define DEFAULT_DELAY		3
 
 /client/proc/drop_lightning_bolt()
 	set category = STATPANEL_ADMIN_FUN

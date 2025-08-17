@@ -99,11 +99,11 @@
 	y_offset = -1
 	see_hidden = TRUE
 	resistance_flags = INDESTRUCTIBLE
-	access_station = TRUE 		//can we park near station?
+	access_station = TRUE		//can we park near station?
 	access_admin_zone = FALSE	//can we park on Admin z_lvls?
 	access_mining = FALSE		//can we park on Lavaland z_lvl?
-	access_taipan = FALSE 		//can we park on Taipan z_lvl?
-	access_away = FALSE 		//can we park on Away_Mission z_lvl?
+	access_taipan = FALSE		//can we park on Taipan z_lvl?
+	access_away = FALSE		//can we park on Away_Mission z_lvl?
 	access_derelict = FALSE		//can we park in Unexplored Space?
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst

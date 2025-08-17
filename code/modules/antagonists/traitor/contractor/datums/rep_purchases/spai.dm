@@ -13,7 +13,11 @@
 
 /obj/item/storage/box/contractor/spai_kit
 	name = "Boxed Contractor SPAI"
-	ru_names = list(
+	gender = MALE
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/contractor/spai_kit/get_ru_names()
+	return list(
 		NOMINATIVE = "набор СПИИ Контрактника",
 		GENITIVE = "набора СПИИ Контрактника",
 		DATIVE = "набору СПИИ Контрактника",
@@ -21,8 +25,6 @@
 		INSTRUMENTAL = "набором СПИИ Контрактника",
 		PREPOSITIONAL = "наборе СПИИ Контрактника"
 	)
-	gender = MALE
-	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/contractor/spai_kit/populate_contents()
 	new /obj/item/paicard(src)

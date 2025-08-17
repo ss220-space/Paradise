@@ -17,7 +17,7 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "ударяет"
 	attack_sound = 'sound/weapons/genhit1.ogg'
-	deathmessage = 	"падает на землю!"
+	deathmessage =	"падает на землю!"
 	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
 	speed = BLOBMOB_ZOMBIE_SPEED_MOD
