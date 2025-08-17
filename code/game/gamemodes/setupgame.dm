@@ -45,7 +45,6 @@
 	// fake empty genes
 	GLOB.fakeblock1				= getAssignedBlock("", numsToAssign)
 	GLOB.fakeblock2				= getAssignedBlock("", numsToAssign)
-	GLOB.fakeblock3				= getAssignedBlock("", numsToAssign)
 
 	// Bay muts
 	GLOB.breathlessblock		= getAssignedBlock("BREATHLESS", numsToAssign,		DNA_HARD_BOUNDS,		good = TRUE)
@@ -100,6 +99,7 @@
 	GLOB.auld_imperial_block	= getAssignedBlock("AULD_IMPERIAL", numsToAssign)
 	GLOB.paraplegiablock		= getAssignedBlock("PARAPLEGIA", numsToAssign)
 	GLOB.aphasiablock			= getAssignedBlock("APHASIA", numsToAssign)
+	GLOB.cat_earsblock			= getAssignedBlock("CATEARS", numsToAssign)
 
 	//
 	// Static Blocks

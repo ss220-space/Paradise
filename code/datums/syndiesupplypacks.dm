@@ -2410,3 +2410,18 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
+
+
+/datum/syndie_supply_packs/syndicate_special/ocelot
+	name = "Набор \"Грифски\""
+	contains = list(/obj/item/paicard/syndicate,
+					/obj/item/card/id/syndicate,
+					/obj/item/encryptionkey/syndicate,
+					/obj/item/melee/energy/sword,
+					/obj/item/melee/energy/sword,
+					/obj/item/melee/energy/sword,											
+					/obj/item/melee/energy/sword,
+					)
+	cost = 30000
+	containertype = /obj/structure/closet/crate/secure/syndicate
+	containername = "crate"

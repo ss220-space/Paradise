@@ -71796,12 +71796,6 @@
 "lKa" = (
 /turf/simulated/wall/r_wall/rust,
 /area/maintenance/asmaint4)
-"lKb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/turf/simulated/wall/r_wall,
-/area/toxins/xenobiology)
 "lKm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -110040,10 +110034,6 @@
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "unM" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Warden's Office";
-	req_access = list(3)
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -110063,6 +110053,10 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security{
+	req_access = list(3);
+	name = "Warden's Office"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -152234,7 +152228,7 @@ seF
 kHF
 dkt
 xnO
-lKb
+oOo
 cIM
 udm
 cOM
