@@ -163,6 +163,8 @@ Class Procs:
 	end_processing()
 	return ..()
 
+/obj/machinery/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.

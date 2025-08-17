@@ -176,4 +176,3 @@
 
 /// Adds the debris element for projectile impacts.
 /atom/proc/add_debris_element()
-	AddElement(/datum/element/debris, null, -40, 8, 0.7)
