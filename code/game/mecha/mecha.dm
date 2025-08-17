@@ -266,7 +266,7 @@
 			if(L.a_intent == INTENT_HELP) // point blank shooting
 				selected.action(target, params)
 				return
-	else if(selected && selected.is_melee())
+	else if(selected && selected.is_melee() && (Adjacent(target) || istype(selected, /obj/item/mecha_parts/mecha_equipment/rcd)))
 		if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
 			to_chat(L, span_warning("Вы не хотите навредить другим живым существам!!"))
 			return
