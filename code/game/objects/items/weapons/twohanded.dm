@@ -160,7 +160,7 @@
 		INSTRUMENTAL = "костяным топором",
 		PREPOSITIONAL = "костяном топоре"
 	)
-	
+
 
 /obj/item/twohanded/fireaxe/boneaxe/update_icon_state()
 	icon_state = "bone_axe[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -760,7 +760,7 @@
 /obj/item/twohanded/chainsaw
 	icon_state = "chainsaw0"
 	name = "Chainsaw"
-	desc = "Perfect for felling trees or fellow spacemen."
+	desc = "Идеально чтобы рубить деревья или ваших коллег."
 	force = 15
 	throwforce = 15
 	throw_speed = 1
@@ -777,6 +777,15 @@
 	wielded = FALSE
 	var/datum/looping_sound/chainsaw/soundloop
 
+/obj/item/twohanded/chainsaw/get_ru_names()
+	return list(
+		NOMINATIVE = "бензопила",
+		GENITIVE = "бензопилы",
+		DATIVE = "бензопиле",
+		ACCUSATIVE = "бензопилу",
+		INSTRUMENTAL = "бензопилой",
+		PREPOSITIONAL = "бензопиле"
+	)
 
 /obj/item/twohanded/chainsaw/Initialize(mapload)
 	. = ..()
@@ -825,7 +834,17 @@
 		return .
 
 	if(!isrobot(target))
-		target.Weaken(2 SECONDS)
+		target.Knockdown(2 SECONDS)
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/amputee = target
+	var/obj/item/organ/external/target_limb = amputee.get_organ(user.zone_selected)
+	var/damage_cap = 60
+	if(target_limb == BODY_ZONE_HEAD)
+		damage_cap = 85
+	if(!(target_limb.brute_dam >= damage_cap))
+		return
+	target_limb.droplimb()
 
 
 // SINGULOHAMMER
