@@ -447,7 +447,7 @@
 
 /obj/structure/sign/poster/contraband/bad_guy
 	name = "Плохой парень"
-	desc = "Время курить. На постере изображён парень с сигаретой, который призывает людей курить на работе."
+	desc = "Перекур. На постере изображён парень с сигаретой, который призывает людей курить на работе."
 	icon_state = "poster39"
 
 /obj/structure/sign/poster/contraband/ninja

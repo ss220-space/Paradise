@@ -360,9 +360,8 @@
 		// No throwing mobs that have higher than normal move_resist.
 		// Covers: revenant, bot/mulebot, hostile/statue, hostile/megafauna, goliath
 		return .
-	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	if(!homerun_always_charged)
-		INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, rand(1, 2), 7, user)
+		target.Knockdown(1 SECONDS)
 	next_throw_time = world.time + 10 SECONDS
 
 

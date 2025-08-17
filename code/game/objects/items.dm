@@ -1351,7 +1351,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /// Default item sharpening effect.
 /// Return `FALSE` to stop sharpening.
 /obj/item/proc/sharpen_act(obj/item/whetstone/whetstone, mob/user)
-	name = "[whetstone.prefix] [name]"
+	desc = "[initial(desc)] [span_boldwarning("[whetstone.prefix]!")]"
 	force = clamp(force + whetstone.increment, 0, whetstone.max)
 	throwforce = clamp(throwforce + whetstone.increment, 0, whetstone.max)
 	set_sharpness(TRUE)

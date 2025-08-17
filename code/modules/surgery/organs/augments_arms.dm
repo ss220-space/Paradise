@@ -339,6 +339,7 @@
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "syndie_mantis")
 	icon_state = "syndie_mantis"
+	emp_proof = TRUE
 
 
 /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l
