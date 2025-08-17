@@ -243,7 +243,7 @@
 		return
 
 	if(!prob(BAD_EFFECT_CHANCE))
-		target.say("[info.truename]")
+		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob, say), "[info.truename]")
 		return SAY_NAME_BLOCK
 
 	sender.adjust_fire_stacks(10)
