@@ -13,14 +13,6 @@
 /obj/machinery/chem_master
 	name = "ChemMaster 3000"
 	desc = "Химическое оборудование, предназначенное для преобразования реагентов в таблетки, пластыри и бутылки."
-	ru_names = list(
-		NOMINATIVE = "ХимМастер 3000",
-		GENITIVE = "ХимМастера 3000",
-		DATIVE = "ХимМастеру 3000",
-		ACCUSATIVE = "ХимМастер 3000",
-		INSTRUMENTAL = "ХимМастером 3000",
-		PREPOSITIONAL = "ХимМастере 3000"
-	)
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -57,6 +49,15 @@
 	var/list/datum/chemical_production_mode/production_modes = list()
 	var/static/list/bottle_styles
 
+/obj/machinery/chem_master/get_ru_names()
+	return list(
+		NOMINATIVE = "ХимМастер 3000",
+		GENITIVE = "ХимМастера 3000",
+		DATIVE = "ХимМастеру 3000",
+		ACCUSATIVE = "ХимМастер 3000",
+		INSTRUMENTAL = "ХимМастером 3000",
+		PREPOSITIONAL = "ХимМастере 3000"
+	)
 /obj/machinery/chem_master/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
@@ -282,8 +283,6 @@
 			var/production_mode_key = params["production_mode"]
 			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
 			if(isnull(M))
-				return
-			if(M.set_name == CUSTOM_NAME_DISABLED)
 				return
 			var/new_name = sanitize(params["name"])
 			// Allow name to be set to empty
@@ -533,7 +532,10 @@
 /obj/machinery/chem_master/condimaster
 	name = "CondiMaster 3000"
 	desc = "Химическое оборудование, специализированное под кулинарные нужды. Позволяет создавать пакеты со специями или бутыли, как вы того пожелаете."
-	ru_names = list(
+	condi = TRUE
+
+/obj/machinery/chem_master/condimaster/get_ru_names()
+	return ru_names = list(
 		NOMINATIVE = "КондиМастер 3000",
 		GENITIVE = "КондиМастера 3000",
 		DATIVE = "КондиМастеру 3000",
@@ -541,7 +543,6 @@
 		INSTRUMENTAL = "КондиМастером 3000",
 		PREPOSITIONAL = "КондиМастере 3000"
 	)
-	condi = TRUE
 
 /obj/machinery/chem_master/condimaster/Initialize(mapload)
 	. = ..()
@@ -607,7 +608,9 @@
 	var/medicine_name = set_name
 	var/count = set_items_amount
 	var/amount_per_item = clamp(reagents.total_volume / count, 0, max_units_per_item)
-	if(!isnull(medicine_name) && length(medicine_name) <= 0)
+	var/list/temp_ru_names = null
+	
+	if(medicine_name == "")
 		medicine_name = get_base_placeholder_name(reagents, amount_per_item)
 
 	var/data = list("count" = count)
@@ -617,17 +620,30 @@
 			return
 
 		var/obj/item/reagent_containers/P = new item_type(location)
+
 		if(!isnull(medicine_name))
 			P.name = "[name_suffix][medicine_name]"
 			if(P.ru_names)
 				for(var/j = 1; j <= 6; j++)
 					P.ru_names[j] = "[P.ru_names[j]] - [medicine_name]"
-		P.pixel_x = rand(-7, 7) // Random position
+			else if (temp_ru_names)
+				P.ru_names = temp_ru_names
+			else
+				P.ru_names = list(
+						NOMINATIVE = medicine_name,
+						GENITIVE = medicine_name,
+						DATIVE = medicine_name,
+						ACCUSATIVE = medicine_name,
+						INSTRUMENTAL = medicine_name,
+						PREPOSITIONAL = medicine_name
+					)
+				temp_ru_names = P.ru_names
+					
+		P.pixel_x = rand(-7, 7)
 		P.pixel_y = rand(-7, 7)
 		configure_item(data, reagents, P)
 		reagents.trans_to(P, amount_per_item)
 
-		// Load the items into the bottle if there's one loaded
 		if(istype(S) && S.can_be_inserted(P, TRUE))
 			P.forceMove(S)
 
