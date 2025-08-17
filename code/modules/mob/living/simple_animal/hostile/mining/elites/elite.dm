@@ -327,6 +327,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] вызван в [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
+/obj/structure/elite_tumor/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
 /obj/structure/elite_tumor/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	invaders.Cut()
