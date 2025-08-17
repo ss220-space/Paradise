@@ -179,6 +179,10 @@
 	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 190)
 
 
+/obj/effect/visible_heretic_influence/get_examine_time()
+	return 0.5 SECONDS
+
+
 /obj/effect/heretic_influence
 	name = "раскол реальности"
 	icon = 'icons/effects/eldritch.dmi'

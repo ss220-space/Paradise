@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/blood_siphon
 	name = "Вампиризм"
 	desc = "Заклинание, которое лечит ваши раны и наносит урон врагу. \
-			Есть вероятность, что серьезные повреждения (вроди переломов) \
+			Есть вероятность, что серьезные повреждения (вроде переломов) \
 			также смогут передаться."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"

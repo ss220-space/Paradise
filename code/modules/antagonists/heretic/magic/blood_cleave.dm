@@ -49,7 +49,7 @@
 
 		//var/obj/item/organ/external/bodypart = pick(victim.bodyparts)
 		victim.apply_damage(20, BURN/*, wound_bonus = CANT_WOUND*/)
-		victim.vomit(0, VOMIT_BLOOD)
+		victim.vomit(0, VOMIT_BLOOD, 2 SECONDS)
 
 		new /obj/effect/temp_visual/cleave(get_turf(victim))
 
