@@ -29,7 +29,6 @@
 		COMSIG_MOB_APPLY_DAMAGE,
 		COMSIG_SIMPLE_ANIMAL_ATTACKEDBY,
 		COMSIG_ATOM_HITBY), PROC_REF(cancel_states))
-	RegisterSignal(parent, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(cancel_stealth))
 
 
 /datum/component/ninja_states_breaker/UnregisterFromParent()
@@ -44,8 +43,7 @@
 		COMSIG_MOB_ITEM_ATTACK,
 		COMSIG_MOB_APPLY_DAMAGE,
 		COMSIG_SIMPLE_ANIMAL_ATTACKEDBY,
-		COMSIG_ATOM_HITBY,
-		COMSIG_LIVING_UNARMED_ATTACK))
+		COMSIG_ATOM_HITBY))
 
 /// Собственно код выключающий сам инвиз и хамелион режимы костюма
 /datum/component/ninja_states_breaker/proc/cancel_states()
@@ -54,8 +52,3 @@
 		my_suit.cancel_stealth()
 	if(my_suit.disguise_active)
 		my_suit.restore_form()
-
-/// Отключает только инвиз при любых действиях рукой
-/datum/component/ninja_states_breaker/proc/cancel_stealth()
-	if(my_suit.stealth)
-		my_suit.cancel_stealth()
