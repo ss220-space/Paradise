@@ -169,7 +169,7 @@
 #define OVER_MASK_LAYER			16	//Select-layer rendering.
 #define HEAD_LAYER				15
 #define OVER_HEAD_LAYER			14
-#define FELINIDE_EARS_LAYER		13
+#define MUTANT_EARS_LAYER		13
 #define COLLAR_LAYER			12
 #define HANDCUFF_LAYER			11
 #define LEGCUFF_LAYER			10
