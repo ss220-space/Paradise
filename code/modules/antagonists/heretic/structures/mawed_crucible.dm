@@ -1,14 +1,6 @@
 // The mawed crucible, a heretic structure that can create potions from bodyparts and organs.
 /obj/structure/destructible/eldritch_crucible
 	name = "Котёл Страданий"
-	ru_names = list(
-		NOMINATIVE = "Котёл Страданий",
-		GENITIVE = "Котла Страданий",
-		DATIVE = "Котлу Страданий",
-		ACCUSATIVE = "Котёл Страданий",
-		INSTRUMENTAL = "Котлом Страданий",
-		PREPOSITIONAL = "Котле Страданий",
-	)
 	desc = "Глубокий чугунный котёл, удерживаемый стальными шипами. \
 			Смотря на мерзкий экстракт внутри, вы чувствуете как ваш разум наполняется ужасными идеями."
 	icon = 'icons/obj/eldritch.dmi'
@@ -27,6 +19,18 @@
 	var/struct_in_use = FALSE
 	///Cooldown for the crucible to create mass from the eldritch
 	COOLDOWN_DECLARE(refill_cooldown)
+
+
+/obj/structure/destructible/eldritch_crucible/get_ru_names()
+	return list(
+		NOMINATIVE = "Котёл Страданий",
+		GENITIVE = "Котла Страданий",
+		DATIVE = "Котлу Страданий",
+		ACCUSATIVE = "Котёл Страданий",
+		INSTRUMENTAL = "Котлом Страданий",
+		PREPOSITIONAL = "Котле Страданий",
+	)
+
 
 /obj/structure/destructible/eldritch_crucible/Initialize(mapload)
 	. = ..()
@@ -311,7 +315,14 @@
 
 /obj/item/eldritch_potion/crucible_soul
 	name = "Зелье Блуждающей Души"
-	ru_names = list(
+	desc = "Стеклянная бутылка с ярко-оранжевой полупрозрачной жидкостью."
+	icon_state = "crucible_soul"
+	status_effect = /datum/status_effect/crucible_soul
+	crucible_tip = "Позволяет проходить сквозь стены. После окончания действия вы телепортируетесь в исходное местоположение. Длится 15 секунд."
+
+
+/obj/item/eldritch_potion/crucible_soul/get_ru_names()
+	return list(
 		NOMINATIVE = "Зелье Блуждающей Души",
 		GENITIVE = "Зелья Блуждающей Души",
 		DATIVE = "Зелью Блуждающей Души",
@@ -319,15 +330,18 @@
 		INSTRUMENTAL = "Зельем Блуждающей Души",
 		PREPOSITIONAL = "Зелье Блуждающей Души",
 	)
-	desc = "Стеклянная бутылка с ярко-оранжевой полупрозрачной жидкостью."
-	icon_state = "crucible_soul"
-	status_effect = /datum/status_effect/crucible_soul
-	crucible_tip = "Позволяет проходить сквозь стены. После окончания действия вы телепортируетесь в исходное местоположение. Длится 15 секунд."
 
 
 /obj/item/eldritch_potion/duskndawn
 	name = "Зелье Заката и Рассвета"
-	ru_names = list(
+	desc = "Стеклянная бутылка с мутно-желтой жидкостью. Содержимое то появляется, то исчезает."
+	icon_state = "clarity"
+	status_effect = /datum/status_effect/duskndawn
+	crucible_tip = "Позволяет видеть сквозь преграды. Длится 90 секунд."
+
+
+/obj/item/eldritch_potion/duskndawn/get_ru_names()
+	return list(
 		NOMINATIVE = "Зелье Заката и Рассвета",
 		GENITIVE = "Зелья Заката и Рассвета",
 		DATIVE = "Зелью Заката и Рассвета",
@@ -335,15 +349,20 @@
 		INSTRUMENTAL = "Зельем Заката и Рассвета",
 		PREPOSITIONAL = "Зелье Заката и Рассвета",
 	)
-	desc = "Стеклянная бутылка с мутно-желтой жидкостью. Содержимое то появляется, то исчезает."
-	icon_state = "clarity"
-	status_effect = /datum/status_effect/duskndawn
-	crucible_tip = "Позволяет видеть сквозь преграды. Длится 90 секунд."
 
 
 /obj/item/eldritch_potion/wounded
 	name = "Зелье Раненого Солдата"
-	ru_names = list(
+	desc = "Стеклянный бутылек, содержащая бесцветную темную жидкость."
+	icon_state = "marshal"
+	status_effect = /datum/status_effect/marshal
+	crucible_tip = "Постепенно исцеляет полученные вами раны. Переломы и внутренние кровотечения заживут. \
+					Чем серьезнее раны, тем сильнее заживление. Кроме того, предотвращает замедление от повреждений. \
+					Длится 60 секунд."
+
+
+/obj/item/eldritch_potion/wounded/get_ru_names()
+	return list(
 		NOMINATIVE = "Зелье Раненого Солдата",
 		GENITIVE = "Зелья Раненого Солдата",
 		DATIVE = "Зелью Раненого Солдата",
@@ -351,9 +370,3 @@
 		INSTRUMENTAL = "Зельем Раненого Солдата",
 		PREPOSITIONAL = "Зелье Раненого Солдата",
 	)
-	desc = "Стеклянный бутылек, содержащая бесцветную темную жидкость."
-	icon_state = "marshal"
-	status_effect = /datum/status_effect/marshal
-	crucible_tip = "Постепенно исцеляет полученные вами раны. Переломы и внутренние кровотечения заживут. \
-					Чем серьезнее раны, тем сильнее заживление. Кроме того, предотвращает замедление от повреждений. \
-					Длится 60 секунд."

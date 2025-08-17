@@ -9,6 +9,7 @@
 	move_resist = INFINITY
 	anchored = TRUE
 
+
 /obj/effect/add_debris_element() // They're not hittable, and prevents recursions.
 	return
 

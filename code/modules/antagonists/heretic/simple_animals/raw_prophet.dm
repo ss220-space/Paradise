@@ -5,14 +5,6 @@
  */
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
 	name = "Пророк Сырости"
-	ru_names = list(
-		NOMINATIVE = "Пророк Сырости",
-		GENITIVE = "Пророка Сырости",
-		DATIVE = "Пророку Сырости",
-		ACCUSATIVE = "Пророка Сырости",
-		INSTRUMENTAL = "Пророком Сырости",
-		PREPOSITIONAL = "Пророке Сырости",
-	)
 	real_name = "Пророк Сырости"
 	desc = "Мерзость, сшитая из нескольких отрубленных рук и глаза."
 	gender = MALE
@@ -29,6 +21,17 @@
 		/obj/effect/proc_holder/spell/ethereal_jaunt/ash/long = null,
 		/obj/effect/proc_holder/spell/remotetalk/eldritch = null,
 		/obj/effect/proc_holder/spell/view_range/expand_sight = null,
+	)
+
+
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/get_ru_names()
+	return list(
+		NOMINATIVE = "Пророк Сырости",
+		GENITIVE = "Пророка Сырости",
+		DATIVE = "Пророку Сырости",
+		ACCUSATIVE = "Пророка Сырости",
+		INSTRUMENTAL = "Пророком Сырости",
+		PREPOSITIONAL = "Пророке Сырости",
 	)
 
 

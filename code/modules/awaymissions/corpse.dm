@@ -45,6 +45,7 @@
 	var/min_hours = 0 //Минимальное количество часов для игры на гост роли
 	var/exp_type = EXP_TYPE_LIVING
 	var/respawn_cooldown = 0
+	var/list/faction
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	var/mob/dead/observer/O = user

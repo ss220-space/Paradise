@@ -1,13 +1,5 @@
 /mob/living/simple_animal/hostile/heretic_summon/fire_shark
 	name = "Огненная Акула"
-	ru_names = list(
-		NOMINATIVE = "Огненная Акула",
-		GENITIVE = "Огненной Акулы",
-		DATIVE = "Огненной Акуле",
-		ACCUSATIVE = "Огненную Акулу",
-		INSTRUMENTAL = "Огненной Акулой",
-		PREPOSITIONAL = "Огненной Акуле",
-	)
 	real_name = "Огненная Акула"
 	desc = "Это жуткая карликовая космическая акула."
 	icon_state = "fire_shark"
@@ -30,6 +22,17 @@
 	del_on_death = TRUE
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 	//initial_language_holder = /datum/language_holder/carp/hear_common
+
+
+/mob/living/simple_animal/hostile/heretic_summon/fire_shark/get_ru_names()
+	return list(
+		NOMINATIVE = "Огненная Акула",
+		GENITIVE = "Огненной Акулы",
+		DATIVE = "Огненной Акуле",
+		ACCUSATIVE = "Огненную Акулу",
+		INSTRUMENTAL = "Огненной Акулой",
+		PREPOSITIONAL = "Огненной Акуле",
+	)
 
 
 /mob/living/simple_animal/hostile/heretic_summon/fire_shark/Initialize(mapload)

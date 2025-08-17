@@ -59,7 +59,7 @@
 	new /obj/effect/temp_visual/destabilising_tear(our_turf)
 	qdel(src)
 
-	
+
 /obj/structure/lock_tear/attack_ghost(mob/user)
 	. = ..()
 	ghost_to_monster(user)
@@ -107,14 +107,6 @@
 
 /obj/effect/temp_visual/destabilising_tear
 	name = "нестабильный разлом"
-	ru_names = list(
-		NOMINATIVE = "нестабильный разлом",
-		GENITIVE = "нестабильного разлома",
-		DATIVE = "нестабильному разлому",
-		ACCUSATIVE = "нестабильный разлом",
-		INSTRUMENTAL = "нестабильным разломом",
-		PREPOSITIONAL = "нестабильном разломе",
-	)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "bhole3"
 	color = COLOR_VOID_PURPLE
@@ -122,6 +114,18 @@
 	light_range = 20
 	layer = ABOVE_NORMAL_TURF_LAYER
 	duration = 1 SECONDS
+
+
+/obj/effect/temp_visual/destabilising_tear/get_ru_names()
+	return list(
+		NOMINATIVE = "нестабильный разлом",
+		GENITIVE = "нестабильного разлома",
+		DATIVE = "нестабильному разлому",
+		ACCUSATIVE = "нестабильный разлом",
+		INSTRUMENTAL = "нестабильным разломом",
+		PREPOSITIONAL = "нестабильном разломе",
+	)
+
 
 /obj/effect/temp_visual/destabilising_tear/Initialize(mapload)
 	. = ..()

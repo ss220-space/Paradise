@@ -1,6 +1,13 @@
 /obj/effect/forcefield/wizard/heretic
 	name = "страницы карты лабиринта"
-	ru_names = list(
+	desc = "Множество листов бумаги летающих в воздухе, отпугивающих язычников с невероятной силой."
+	gender = PLURAL
+	icon_state = "lintel"
+	lifetime = 8 SECONDS
+
+
+/obj/effect/forcefield/wizard/heretic/get_ru_names()
+	return list(
 		NOMINATIVE = "страницы карты лабиринта",
 		GENITIVE = "страниц карты лабиринта",
 		DATIVE = "страницам карты лабиринта",
@@ -8,10 +15,6 @@
 		INSTRUMENTAL = "страницами карты лабиринта",
 		PREPOSITIONAL = "страницах карты лабиринта",
 	)
-	desc = "Множество листов бумаги летающих в воздухе, отпугивающих язычников с невероятной силой."
-	gender = PLURAL
-	icon_state = "lintel"
-	lifetime = 8 SECONDS
 
 
 /obj/effect/forcefield/wizard/heretic/Destroy(force)
@@ -35,14 +38,6 @@
 ///A heretic item that spawns a barrier at the clicked turf, 3 uses
 /obj/item/heretic_labyrinth_handbook
 	name = "справочник по лабиринту"
-	ru_names = list(
-		NOMINATIVE = "справочник по лабиринту",
-		GENITIVE = "справочника по лабиринту",
-		DATIVE = "справочнику по лабиринту",
-		ACCUSATIVE = "справочник по лабиринту",
-		INSTRUMENTAL = "справочником по лабиринту",
-		PREPOSITIONAL = "справочнике по лабиринту",
-	)
 	desc = "Книга, содержащая законы и правила Лабиринта. Её страницы извиваются и дёргаются, пытаясь вырваться наружу."
 	gender = MALE
 	icon = 'icons/obj/library.dmi'
@@ -62,6 +57,17 @@
 	var/barrier_type = /obj/effect/forcefield/wizard/heretic
 	///how many uses do we have left
 	var/uses = 3
+
+
+/obj/item/heretic_labyrinth_handbook/get_ru_names()
+	return list(
+		NOMINATIVE = "справочник по лабиринту",
+		GENITIVE = "справочника по лабиринту",
+		DATIVE = "справочнику по лабиринту",
+		ACCUSATIVE = "справочник по лабиринту",
+		INSTRUMENTAL = "справочником по лабиринту",
+		PREPOSITIONAL = "справочнике по лабиринту",
+	)
 
 
 /obj/item/heretic_labyrinth_handbook/examine(mob/user)

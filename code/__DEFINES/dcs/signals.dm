@@ -1287,7 +1287,7 @@
 ///from base of atom/mech_melee_attack(): (obj/vehicle/sealed/mecha/mecha_attacker, mob/living/user)
 #define COMSIG_ATOM_ATTACK_MECH "atom_attack_mech"
 /// From the base of /datum/component/callouts/proc/callout_picker(mob/user, atom/clicked_atom): (datum/callout_option/callout, atom/target)
-#define COMSIG_MOB_CREATED_CALLOUT "mob_created_callout"
+//#define COMSIG_MOB_CREATED_CALLOUT "mob_created_callout"
 /// called once a mindshield is implanted: (mob/user)
 #define COMSIG_MINDSHIELD_IMPLANTED "mindshield_implanted"
 	/// Are we the reason for deconversion?

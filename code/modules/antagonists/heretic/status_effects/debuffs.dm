@@ -130,7 +130,7 @@
 
 /atom/movable/screen/alert/status_effect/star_mark
 	name = "Звёздная Метка"
-	desc = "Кольцо над головой не позволяет вам входить в космические поля или телепортироваться через космические руны..."
+	desc = "Кольцо над головой не позволяет вам входить в космические поля или телепортироваться через звёздные руны..."
 	icon_state = "star_mark"
 
 /datum/status_effect/star_mark/on_creation(mob/living/new_owner, mob/living/new_spell_caster)

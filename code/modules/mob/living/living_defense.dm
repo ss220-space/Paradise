@@ -560,6 +560,23 @@
 /mob/living/proc/cult_self_harm(damage)
 	return FALSE
 
+
+/mob/living/proc/faction_check_living(mob/living/target, exact_match)
+	if(!exact_match)
+		return faction_check(faction, target.faction, FALSE)
+
+	var/list/faction_src = LAZYCOPY(faction)
+	var/list/faction_target = LAZYCOPY(target.faction)
+	if(!("[UID()]" in faction_target)) //if they don't have our ref faction, remove it from our factions list.
+		faction_src -= "[UID()]" //if we don't do this, we'll never have an exact match.
+
+	if(!("[target.UID()]" in faction_src))
+		faction_target -= "[target.UID()]" //same thing here.
+
+	return faction_check(faction_src, faction_target, TRUE)
+
+
+
 /mob/living/RangedAttack(atom/A, params) //Player firing
 	if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		return

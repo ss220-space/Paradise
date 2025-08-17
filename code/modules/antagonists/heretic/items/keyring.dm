@@ -1,13 +1,5 @@
 /obj/effect/lock_portal
 	name = "трещина в реальности"
-	ru_names = list(
-		NOMINATIVE = "трещина в реальности",
-		GENITIVE = "трещины в реальности",
-		DATIVE = "трещине в реальности",
-		ACCUSATIVE = "трещину в реальности",
-		INSTRUMENTAL = "трещиной в реальности",
-		PREPOSITIONAL = "трещине в реальности",
-	)
 	desc = "Трещина в реальности, невероятно глубокая. На неё больно смотреть. Определённо небезопасна."
 	gender = FEMALE
 	icon = 'icons/effects/eldritch.dmi'
@@ -26,6 +18,17 @@
 	var/obj/machinery/door/our_airlock
 	/// if true the heretic is teleported to a random airlock, nonheretics are sent to the target
 	var/inverted = FALSE
+
+
+/obj/effect/lock_portal/get_ru_names()
+	return list(
+		NOMINATIVE = "трещина в реальности",
+		GENITIVE = "трещины в реальности",
+		DATIVE = "трещине в реальности",
+		ACCUSATIVE = "трещину в реальности",
+		INSTRUMENTAL = "трещиной в реальности",
+		PREPOSITIONAL = "трещине в реальности",
+	)
 
 
 /obj/effect/lock_portal/Initialize(mapload, target, invert = FALSE)

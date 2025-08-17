@@ -2,14 +2,6 @@
 // Heals heretics, harms non-heretics. Pretty much identical.
 /obj/item/reagent_containers/glass/beaker/eldritch
 	name = "флакон с жуткой эссенцией"
-	ru_names = list(
-		NOMINATIVE = "флакон с жуткой эссенцией",
-		GENITIVE = "флакона с жуткой эссенцией",
-		DATIVE = "флакону с жуткой эссенцией",
-		ACCUSATIVE = "флакон с жуткой эссенцией",
-		INSTRUMENTAL = "флаконом с жуткой эссенцией",
-		PREPOSITIONAL = "флаконе с жуткой эссенцией"
-	)
 	desc = "Токсичен для людей с ограниченным мышлением, но освежает тех, кто обладает знаниями о запредельном."
 	gender = MALE
 	icon = 'icons/obj/eldritch.dmi'
@@ -17,17 +9,20 @@
 	list_reagents = list(/datum/reagent/eldritch = 50)
 
 
+/obj/item/reagent_containers/glass/beaker/eldritch/get_ru_names()
+	return list(
+		NOMINATIVE = "флакон с жуткой эссенцией",
+		GENITIVE = "флакона с жуткой эссенцией",
+		DATIVE = "флакону с жуткой эссенцией",
+		ACCUSATIVE = "флакон с жуткой эссенцией",
+		INSTRUMENTAL = "флаконом с жуткой эссенцией",
+		PREPOSITIONAL = "флаконе с жуткой эссенцией"
+	)
+
+
 // Unique bottle that lets you instantly draw blood from a victim
 /obj/item/reagent_containers/glass/phylactery
 	name = "проклятая филактерия"
-	ru_names = list(
-		NOMINATIVE = "проклятая филактерия",
-		GENITIVE = "проклятой филактерии",
-		DATIVE = "проклятой филактерии",
-		ACCUSATIVE = "проклятую филактерию",
-		INSTRUMENTAL = "проклятой филактерией",
-		PREPOSITIONAL = "проклятой филактерии"
-	)
 	desc = "Используется для кражи крови у будущих жертв."
 	gender = FEMALE
 	icon = 'icons/obj/eldritch.dmi'
@@ -38,6 +33,17 @@
 	volume = 10
 	/// Cooldown before you can steal blood again
 	COOLDOWN_DECLARE(drain_cooldown)
+
+
+/obj/item/reagent_containers/glass/phylactery/get_ru_names()
+	return list(
+		NOMINATIVE = "проклятая филактерия",
+		GENITIVE = "проклятой филактерии",
+		DATIVE = "проклятой филактерии",
+		ACCUSATIVE = "проклятую филактерию",
+		INSTRUMENTAL = "проклятой филактерией",
+		PREPOSITIONAL = "проклятой филактерии"
+	)
 
 
 /obj/item/reagent_containers/glass/phylactery/afterattack(obj/target, mob/user, proximity, params)
@@ -90,7 +96,15 @@
 // Funny potion that is basically an aheal. The downside is that it puts you to sleep for a minute.
 /obj/item/ether
 	name = "душа нерожденного младенца"
-	ru_names = list(
+	desc = "Флакон с тошнотворной, густой зелёной жидкостью. Полностью восстанавливает организм, \
+			а затем погружает в крепкий сон на целую минуту."
+	gender = FEMALE
+	icon = 'icons/obj/eldritch.dmi'
+	icon_state = "poison_flask"
+
+
+/obj/item/ether/get_ru_names()
+	return list(
 		NOMINATIVE = "душа нерожденного младенца",
 		GENITIVE = "души нерожденного младенца",
 		DATIVE = "душе нерожденного младенца",
@@ -98,11 +112,6 @@
 		INSTRUMENTAL = "душой нерожденного младенца",
 		PREPOSITIONAL = "душе нерожденного младенца"
 	)
-	desc = "Флакон с тошнотворной, густой зелёной жидкостью. Полностью восстанавливает организм, \
-			а затем погружает в крепкий сон на целую минуту."
-	gender = FEMALE
-	icon = 'icons/obj/eldritch.dmi'
-	icon_state = "poison_flask"
 
 
 /obj/item/ether/attack_self(mob/living/user, modifiers)

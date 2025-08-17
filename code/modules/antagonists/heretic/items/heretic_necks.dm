@@ -1,6 +1,14 @@
 /obj/item/clothing/neck/heretic_focus
 	name = "янтарный амулет"
-	ru_names = list(
+	desc = "Янтарный кристалл, связанный с потусторонним миром. Если не смотреть на амулет, он начинает подрагивать."
+	gender = MALE
+	icon_state = "eldritch_necklace"
+	w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FIRE_PROOF
+
+
+/obj/item/clothing/neck/heretic_focus/get_ru_names()
+	return list(
 		NOMINATIVE = "янтарный амулет",
 		GENITIVE = "янтарного амулета",
 		DATIVE = "янтарному амулету",
@@ -8,11 +16,6 @@
 		INSTRUMENTAL = "янтарным амулетом",
 		PREPOSITIONAL = "янтарном амулете",
 	)
-	desc = "Янтарный кристалл, связанный с потусторонним миром. Если не смотреть на амулет, он начинает подрагивать."
-	gender = MALE
-	icon_state = "eldritch_necklace"
-	w_class = WEIGHT_CLASS_SMALL
-	resistance_flags = FIRE_PROOF
 
 
 /obj/item/clothing/neck/heretic_focus/Initialize(mapload)
@@ -22,14 +25,6 @@
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion
 	name = "кровавый амулет"
-	ru_names = list(
-		NOMINATIVE = "кровавый амулет",
-		GENITIVE = "кровавого амулета",
-		DATIVE = "кровавому амулету",
-		ACCUSATIVE = "кровавый амулет",
-		INSTRUMENTAL = "кровавым амулетом",
-		PREPOSITIONAL = "кровавом амулете",
-	)
 	desc = "Кроваво-красное фокусирующее стекло, обеспечивающее связь с потусторонним миром и даже чем-то похуже. \
 			Рубиновый глаз постоянно дёргается и смотрит во все стороны. Кажется, будто он беззвучно кричит..."
 	gender = MALE
@@ -38,6 +33,17 @@
 	var/datum/component/component
 	/// If active or not, used to add and remove its cult and heretic buffs.
 	var/active = FALSE
+
+
+/obj/item/clothing/neck/heretic_focus/crimson_medallion/get_ru_names()
+	return list(
+		NOMINATIVE = "кровавый амулет",
+		GENITIVE = "кровавого амулета",
+		DATIVE = "кровавому амулету",
+		ACCUSATIVE = "кровавый амулет",
+		INSTRUMENTAL = "кровавым амулетом",
+		PREPOSITIONAL = "кровавом амулете",
+	)
 
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/equipped(mob/living/user, slot)
@@ -146,14 +152,6 @@
 
 /obj/item/clothing/neck/eldritch_amulet
 	name = "жуткий тёплый медальон"
-	ru_names = list(
-		NOMINATIVE = "жуткий тёплый медальон",
-		GENITIVE = "жуткого тёплого медальона",
-		DATIVE = "жуткому тёплому медальону",
-		ACCUSATIVE = "жуткий тёплый медальон",
-		INSTRUMENTAL = "жутким тёплым медальоном",
-		PREPOSITIONAL = "жутком тёплом медальоне",
-	)
 	desc = "Странный медальон. Сквозь кристаллическую поверхность виден таинственный мир. \
 			Вы видите своё бьющееся сердце среди тысяч других."
 	gender = MALE
@@ -163,6 +161,17 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// A secondary clothing trait only applied to heretics.
 	var/heretic_only_trait = TRAIT_THERMAL_VISION
+
+
+/obj/item/clothing/neck/eldritch_amulet/get_ru_names()
+	return list(
+		NOMINATIVE = "жуткий тёплый медальон",
+		GENITIVE = "жуткого тёплого медальона",
+		DATIVE = "жуткому тёплому медальону",
+		ACCUSATIVE = "жуткий тёплый медальон",
+		INSTRUMENTAL = "жутким тёплым медальоном",
+		PREPOSITIONAL = "жутком тёплом медальоне",
+	)
 
 
 /obj/item/clothing/neck/eldritch_amulet/Initialize(mapload)
@@ -191,7 +200,16 @@
 // The amulet conversion tool used by moon heretics
 /obj/item/clothing/neck/heretic_focus/moon_amulet
 	name = "амулет лунного света"
-	ru_names = list(
+	desc = "Частица разума, души и луны. От простого взгляда на неё кружится голова. Вы слышите шепот полный смеха и радости."
+	icon = 'icons/obj/eldritch.dmi'
+	icon_state = "moon_amulette"
+	w_class = WEIGHT_CLASS_SMALL
+	// How much damage does this item do to the targets sanity?
+	var/sanity_damage = 20
+
+
+/obj/item/clothing/neck/heretic_focus/moon_amulet/get_ru_names()
+	return list(
 		NOMINATIVE = "амулет лунного света",
 		GENITIVE = "амулета лунного света",
 		DATIVE = "амулету лунного света",
@@ -199,12 +217,6 @@
 		INSTRUMENTAL = "амулетом лунного света",
 		PREPOSITIONAL = "амулете лунного света",
 	)
-	desc = "Частица разума, души и луны. От простого взгляда на неё кружится голова. Вы слышите шепот полный смеха и радости."
-	icon = 'icons/obj/eldritch.dmi'
-	icon_state = "moon_amulette"
-	w_class = WEIGHT_CLASS_SMALL
-	// How much damage does this item do to the targets sanity?
-	var/sanity_damage = 20
 
 
 /obj/item/clothing/neck/heretic_focus/moon_amulet/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

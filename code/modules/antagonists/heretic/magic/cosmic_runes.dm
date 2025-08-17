@@ -63,14 +63,6 @@
 /// A rune that allows you to teleport to the location of a linked rune.
 /obj/effect/cosmic_rune
 	name = "звёздная руна"
-	ru_names = list(
-		NOMINATIVE = "звёздная руна",
-		GENITIVE = "звёздной руны",
-		DATIVE = "звёздной руне",
-		ACCUSATIVE = "звёздную руну",
-		INSTRUMENTAL = "звёздной руной",
-		PREPOSITIONAL = "звёздной руне",
-	)
 	gender = FEMALE
 	desc = "Странная руна, способная мгновенно переносить людей в другое место."
 	anchored = TRUE
@@ -83,6 +75,17 @@
 	var/datum/weakref/linked_rune
 	/// Effect for when someone teleports
 	var/obj/effect/rune_effect = /obj/effect/temp_visual/rune_light
+
+
+/obj/effect/cosmic_rune/get_ru_names()
+	return list(
+		NOMINATIVE = "звёздная руна",
+		GENITIVE = "звёздной руны",
+		DATIVE = "звёздной руне",
+		ACCUSATIVE = "звёздную руну",
+		INSTRUMENTAL = "звёздной руной",
+		PREPOSITIONAL = "звёздной руне",
+	)
 
 
 /obj/effect/cosmic_rune/Initialize(mapload)
@@ -170,7 +173,16 @@
 
 /obj/effect/temp_visual/cosmic_rune_fade
 	name = "звёздная руна"
-	ru_names = list(
+	icon = 'icons/obj/hand_of_god_structures.dmi'
+	icon_state = "cosmic_rune_fade"
+	plane = FLOOR_PLANE
+	layer = CLEANABLES_LAYER
+	anchored = TRUE
+	duration = 5
+
+
+/obj/effect/temp_visual/cosmic_rune_fade/get_ru_names()
+	return list(
 		NOMINATIVE = "звёздная руна",
 		GENITIVE = "звёздной руны",
 		DATIVE = "звёздной руне",
@@ -178,12 +190,6 @@
 		INSTRUMENTAL = "звёздной руной",
 		PREPOSITIONAL = "звёздной руне",
 	)
-	icon = 'icons/obj/hand_of_god_structures.dmi'
-	icon_state = "cosmic_rune_fade"
-	plane = FLOOR_PLANE
-	layer = CLEANABLES_LAYER
-	anchored = TRUE
-	duration = 5
 
 
 /obj/effect/temp_visual/cosmic_rune_fade/Initialize(mapload)
@@ -195,7 +201,16 @@
 
 /obj/effect/temp_visual/rune_light
 	name = "звёздная руна"
-	ru_names = list(
+	icon = 'icons/obj/hand_of_god_structures.dmi'
+	icon_state = "cosmic_rune_light"
+	plane = FLOOR_PLANE
+	layer = CLEANABLES_LAYER
+	anchored = TRUE
+	duration = 5
+
+
+/obj/effect/temp_visual/rune_light/get_ru_names()
+	return list(
 		NOMINATIVE = "звёздная руна",
 		GENITIVE = "звёздной руны",
 		DATIVE = "звёздной руне",
@@ -203,12 +218,6 @@
 		INSTRUMENTAL = "звёздной руной",
 		PREPOSITIONAL = "звёздной руне",
 	)
-	icon = 'icons/obj/hand_of_god_structures.dmi'
-	icon_state = "cosmic_rune_light"
-	plane = FLOOR_PLANE
-	layer = CLEANABLES_LAYER
-	anchored = TRUE
-	duration = 5
 
 
 /obj/effect/temp_visual/rune_light/Initialize(mapload)

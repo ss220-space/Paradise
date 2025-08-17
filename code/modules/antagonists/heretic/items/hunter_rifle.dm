@@ -6,14 +6,6 @@
 // releasing a homing, very damaging projectile
 /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter
 	name = "винтовка охотника на львов"
-	ru_names = list(
-		NOMINATIVE = "винтовка охотника на львов",
-		GENITIVE = "винтовки охотника на львов",
-		DATIVE = "винтовке охотника на львов",
-		ACCUSATIVE = "винтовку охотника на львов",
-		INSTRUMENTAL = "винтовкой охотника на львов",
-		PREPOSITIONAL = "винтовке охотника на львов",
-	)
 	desc = "Старинное ружье, выглядящее безупречно, несмотря на то, что оно явно очень старое."
 	gender = FEMALE
 	slot_flags = ITEM_SLOT_BACK
@@ -24,6 +16,17 @@
 	fire_sound = 'sound/weapons/gunshots/shot.ogg'
 
 	//SET_BASE_PIXEL(-8, 0)
+
+
+/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/get_ru_names()
+	return list(
+		NOMINATIVE = "винтовка охотника на львов",
+		GENITIVE = "винтовки охотника на львов",
+		DATIVE = "винтовке охотника на львов",
+		ACCUSATIVE = "винтовку охотника на львов",
+		INSTRUMENTAL = "винтовкой охотника на львов",
+		PREPOSITIONAL = "винтовке охотника на львов",
+	)
 
 
 /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/update_icon_state()
@@ -224,14 +227,6 @@
 // Extra ammunition can be made with a heretic ritual.
 /obj/item/ammo_box/magazine/strilka310/lionhunter
 	name = "обойма (.310 охотник)"
-	ru_names = list(
-		NOMINATIVE = "обойма (.310 охотник)",
-		GENITIVE = "обоймы (.310 охотник)",
-		DATIVE = "обойме (.310 охотник)",
-		ACCUSATIVE = "обойму (.310 охотник)",
-		INSTRUMENTAL = "обоймой (.310 охотник)",
-		PREPOSITIONAL = "обойме (.310 охотник)",
-	)
 	desc = "Обойма с загадочными, необычными патронами. Она не подходит к обычным баллистическим винтовкам."
 	gender = FEMALE
 	icon_state = "310_strip"
@@ -239,6 +234,17 @@
 	max_ammo = 3
 	multiload = TRUE
 	//multiple_sprites = AMMO_BOX_PER_BULLET
+
+
+/obj/item/ammo_box/magazine/strilka310/lionhunter/get_ru_names()
+	return list(
+		NOMINATIVE = "обойма (.310 охотник)",
+		GENITIVE = "обоймы (.310 охотник)",
+		DATIVE = "обойме (.310 охотник)",
+		ACCUSATIVE = "обойму (.310 охотник)",
+		INSTRUMENTAL = "обоймой (.310 охотник)",
+		PREPOSITIONAL = "обойме (.310 охотник)",
+	)
 
 
 /obj/effect/temp_visual/bullet_target

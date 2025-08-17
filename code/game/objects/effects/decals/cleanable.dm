@@ -29,7 +29,7 @@
 		queue_smooth(src)
 		queue_smooth_neighbors(src)
 
-	if (is_mopped)
+	if(is_mopped)
 		ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
 
 

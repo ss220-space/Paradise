@@ -1,13 +1,5 @@
 /mob/living/simple_animal/hostile/construct/harvester/heretic
 	name = "Ржавый Жнец"
-	ru_names = list(
-		NOMINATIVE = "Ржавый Жнец",
-		GENITIVE = "Ржавого Жнеца",
-		DATIVE = "Ржавому Жнецу",
-		ACCUSATIVE = "Ржавого Жнеца",
-		INSTRUMENTAL = "Ржавым Жнецом",
-		PREPOSITIONAL = "Ржавом Жнеце"
-	)
 	desc = "Длинный, тонкий, ветхий конструкт, изначально созданный, чтобы возвестить о возвышении Нар'Си, \
 			но затем оскверненный и заржавевший под натиском сил Мансуса."
 	icon_state = "harvester"
@@ -28,6 +20,17 @@
 	playstyle_string = span_bold("Вы — Ржавый Жнец, созданный для служения Нар'Си, извращенный для исполнения воли Мансуса. \
 								Вы хрупки и слабы, но вы разрываете культистов (только) на части при каждой атаке. \
 								Следуйте приказам своего Хозяина!")
+
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/get_ru_names()
+	return list(
+		NOMINATIVE = "Ржавый Жнец",
+		GENITIVE = "Ржавого Жнеца",
+		DATIVE = "Ржавому Жнецу",
+		ACCUSATIVE = "Ржавого Жнеца",
+		INSTRUMENTAL = "Ржавым Жнецом",
+		PREPOSITIONAL = "Ржавом Жнеце"
+	)
 
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/Initialize(mapload)

@@ -62,14 +62,6 @@
 
 /obj/item/coin/eldritch
 	name = "жуткая монета"
-	ru_names = list(
-		NOMINATIVE = "жуткая монета",
-		GENITIVE = "жуткой монеты",
-		DATIVE = "жуткой монете",
-		ACCUSATIVE = "жуткую монету",
-		INSTRUMENTAL = "жуткой монетой",
-		PREPOSITIONAL = "жуткой монете",
-	)
 	desc = "Удивительно тяжёлая, богато украшенная монета. Рисунки на гранях постоянно меняются."
 	gender = FEMALE
 	icon_state = "coin_heretic"
@@ -80,6 +72,17 @@
 	//material_flags = NONE
 	/// The range at which airlocks are effected.
 	var/airlock_range = 5
+
+
+/obj/item/coin/eldritch/get_ru_names()
+	return list(
+		NOMINATIVE = "жуткая монета",
+		GENITIVE = "жуткой монеты",
+		DATIVE = "жуткой монете",
+		ACCUSATIVE = "жуткую монету",
+		INSTRUMENTAL = "жуткой монетой",
+		PREPOSITIONAL = "жуткой монете",
+	)
 
 
 /obj/item/coin/eldritch/attack_self(mob/user)

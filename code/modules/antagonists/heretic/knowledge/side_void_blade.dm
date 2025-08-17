@@ -116,14 +116,6 @@
 /// The "hand" "weapon" used by shattered risen
 /obj/item/mutant_hand/shattered_risen
 	name = "месиво костяных осколков"
-	ru_names = list(
-		NOMINATIVE = "месиво костяных осколков",
-		GENITIVE = "месива костяных осколков",
-		DATIVE = "месиву костяных осколков",
-		ACCUSATIVE = "месиво костяных осколков",
-		INSTRUMENTAL = "месивом костяных осколков",
-		PREPOSITIONAL = "месиве костяных осколков",
-	)
 	desc = "То, что когда-то было обычным человеческим кулаком, \
 			теперь является месивом из острых костяных осколков."
 	color = "#001aff"
@@ -133,6 +125,17 @@
 	//bare_wound_bonus = 15
 	//demolition_mod = 1.5
 	sharp = TRUE
+
+
+/obj/item/mutant_hand/shattered_risen/get_ru_names()
+	return list(
+		NOMINATIVE = "месиво костяных осколков",
+		GENITIVE = "месива костяных осколков",
+		DATIVE = "месиву костяных осколков",
+		ACCUSATIVE = "месиво костяных осколков",
+		INSTRUMENTAL = "месивом костяных осколков",
+		PREPOSITIONAL = "месиве костяных осколков",
+	)
 
 
 /datum/heretic_knowledge/rune_carver

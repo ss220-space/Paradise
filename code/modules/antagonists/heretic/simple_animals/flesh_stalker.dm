@@ -1,14 +1,6 @@
 /// Durable ambush mob with an EMP ability
 /mob/living/simple_animal/hostile/heretic_summon/stalker
 	name = "Ловец Плоти"
-	ru_names = list(
-		NOMINATIVE = "Ловец Плоти",
-		GENITIVE = "Ловца Плоти",
-		DATIVE = "Ловцу Плоти",
-		ACCUSATIVE = "Ловца Плоти",
-		INSTRUMENTAL = "Ловцом Плоти",
-		PREPOSITIONAL = "Ловце Плоти",
-	)
 	real_name = "Ловец Плоти"
 	desc = "Мерзость, слепленная из разрозненных человеческих останков."
 	gender = MALE
@@ -25,6 +17,17 @@
 		/obj/effect/proc_holder/spell/emplosion/eldritch = BB_GENERIC_ACTION,
 		/obj/effect/proc_holder/spell/ethereal_jaunt/ash = null,
 		/obj/effect/proc_holder/spell/shapeshift/eldritch = BB_SHAPESHIFT_ACTION,
+	)
+
+
+/mob/living/simple_animal/hostile/heretic_summon/stalker/get_ru_names()
+	return list(
+		NOMINATIVE = "Ловец Плоти",
+		GENITIVE = "Ловца Плоти",
+		DATIVE = "Ловцу Плоти",
+		ACCUSATIVE = "Ловца Плоти",
+		INSTRUMENTAL = "Ловцом Плоти",
+		PREPOSITIONAL = "Ловце Плоти",
 	)
 
 

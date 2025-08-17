@@ -1,14 +1,6 @@
 /// Scout and assassin who can appear and disappear from glass surfaces. Damaged by being examined.
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror
 	name = "Горничная в Зеркале"
-	ru_names = list(
-		NOMINATIVE = "Горничная в Зеркале",
-		GENITIVE = "Горничную в Зеркале",
-		DATIVE = "Горничной в Зеркале",
-		ACCUSATIVE = "Горничную в Зеркале",
-		INSTRUMENTAL = "Горничной в Зеркале",
-		PREPOSITIONAL = "Горничной в Зеркале",
-	)
 	real_name = "Горничная в Зеркале"
 	desc = "Плавающий, струящийся поток холодного воздуха. При постороннем взгляде, начинает слегка мерцать."
 	gender = FEMALE
@@ -31,6 +23,17 @@
 	var/recent_examine_damage_cooldown = 10 SECONDS
 	/// A list of REFs to people who recently examined us
 	var/list/recent_examiner_refs = list()
+
+
+/mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/get_ru_names()
+	return list(
+		NOMINATIVE = "Горничная в Зеркале",
+		GENITIVE = "Горничную в Зеркале",
+		DATIVE = "Горничной в Зеркале",
+		ACCUSATIVE = "Горничную в Зеркале",
+		INSTRUMENTAL = "Горничной в Зеркале",
+		PREPOSITIONAL = "Горничной в Зеркале",
+	)
 
 
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/Initialize(mapload)

@@ -39,7 +39,7 @@
 /datum/pet_command/proc/add_new_friend(mob/living/tamer)
 	RegisterSignal(tamer, COMSIG_MOB_SAY, PROC_REF(respond_to_command))
 	RegisterSignal(tamer, COMSIG_MOB_AUTOMUTE_CHECK, PROC_REF(waive_automute))
-	RegisterSignal(tamer, COMSIG_MOB_CREATED_CALLOUT, PROC_REF(respond_to_callout))
+	//RegisterSignal(tamer, COMSIG_MOB_CREATED_CALLOUT, PROC_REF(respond_to_callout))
 	if(!requires_pointing)
 		return
 
@@ -50,7 +50,7 @@
 	UnregisterSignal(unfriended, list(
 		COMSIG_MOB_SAY,
 		COMSIG_MOB_AUTOMUTE_CHECK,
-		COMSIG_MOB_CREATED_CALLOUT,
+		//COMSIG_MOB_CREATED_CALLOUT,
 		COMSIG_MOB_POINTED,
 	))
 
@@ -66,47 +66,49 @@
 /datum/pet_command/proc/respond_to_command(mob/living/speaker, speech_args)
 	SIGNAL_HANDLER
 	var/mob/living/parent = weak_parent.resolve()
-	if (!parent)
+	if(!parent)
 		return
 
-	if (!can_see(parent, speaker, sense_radius)) // Basically the same rules as hearing
+	if(!can_see(parent, speaker, sense_radius)) // Basically the same rules as hearing
 		return
 
 	var/spoken_text = speech_args[SPEECH_MESSAGE]
-	if (!find_command_in_text(spoken_text))
+	if(!find_command_in_text(spoken_text))
 		return
 
 	try_activate_command(commander = speaker, radial_command = FALSE)
 
 /// Respond to a callout
+/*
 /datum/pet_command/proc/respond_to_callout(mob/living/speaker, datum/callout_option/callout, atom/target)
 	SIGNAL_HANDLER
 
-	if (isnull(callout_type) || !ispath(callout, callout_type))
+	if(isnull(callout_type) || !ispath(callout, callout_type))
 		return
 
 	var/mob/living/parent = weak_parent.resolve()
-	if (!parent)
+	if(!parent)
 		return
 
-	if (!valid_callout_target(speaker, callout, target))
+	if(!valid_callout_target(speaker, callout, target))
 		var/found_new_target = FALSE
 		for (var/atom/new_target in range(2, target))
-			if (!valid_callout_target(speaker, callout, new_target))
+			if(!valid_callout_target(speaker, callout, new_target))
 				continue
 
 			target = new_target
 			found_new_target = TRUE
 
-		if (!found_new_target)
+		if(!found_new_target)
 			return
 
-	if (try_activate_command(commander = speaker, radial_command = FALSE))
+	if(try_activate_command(commander = speaker, radial_command = FALSE))
 		look_for_target(parent, target)
 
 /// Does this callout with this target trigger this command?
 /datum/pet_command/proc/valid_callout_target(mob/living/speaker, datum/callout_option/callout, atom/target)
 	return TRUE
+*/
 
 /**
  * Returns true if we find any of our spoken commands in the text.
@@ -114,7 +116,7 @@
  */
 /datum/pet_command/proc/find_command_in_text(spoken_text, check_verbosity = FALSE)
 	for (var/command as anything in speech_commands)
-		if (!findtext(spoken_text, command))
+		if(!findtext(spoken_text, command))
 			continue
 
 		if(check_verbosity && length(spoken_text) > length(command) + MAX_NAME_LEN)
@@ -156,10 +158,10 @@
 	if(!pet_able_to_respond())
 		return FALSE
 
-	if (parent.ai_controller.blackboard[BB_CURRENT_PET_TARGET] == potential_target) // That's already our target
+	if(parent.ai_controller.blackboard[BB_CURRENT_PET_TARGET] == potential_target) // That's already our target
 		return FALSE
 
-	if (!can_see(parent, potential_target, sense_radius))
+	if(!can_see(parent, potential_target, sense_radius))
 		return FALSE
 
 	parent.ai_controller.CancelActions()
@@ -172,7 +174,7 @@
 
 	parent.ai_controller.CancelActions() // Stop whatever you're doing and do this instead
 	parent.ai_controller.set_blackboard_key(BB_ACTIVE_PET_COMMAND, src)
-	if (command_feedback)
+	if(command_feedback)
 		parent.balloon_alert_to_viewers("[command_feedback]") // If we get a nicer runechat way to do this, refactor this
 
 	if(!radial_command)
@@ -212,7 +214,7 @@
 
 /// Provide information about how to display this command in a radial menu
 /datum/pet_command/proc/provide_radial_data()
-	if (hidden)
+	if(hidden)
 		return
 
 	var/datum/radial_menu_choice/choice = new()
@@ -232,7 +234,7 @@
 /// Target the pointed atom for actions
 /datum/pet_command/proc/on_target_set(mob/living/friend, atom/potential_target)
 	var/mob/living/parent = weak_parent.resolve()
-	if (!parent)
+	if(!parent)
 		return FALSE
 
 	parent.ai_controller.CancelActions()

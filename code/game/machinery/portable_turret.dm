@@ -85,6 +85,8 @@
 	/// List of some inserted gun data. Used to setup new gun.
 	var/list/old_gun_data = list()
 
+	var/faction = "default"
+
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()

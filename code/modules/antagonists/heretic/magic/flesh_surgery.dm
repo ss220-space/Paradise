@@ -250,14 +250,6 @@
 
 /obj/item/melee/touch_attack/flesh_surgery
 	name = "рука покрытая плотью"
-	ru_names = list(
-		NOMINATIVE = "рука покрытая плотью",
-		GENITIVE = "руки покрытой плотью",
-		DATIVE = "руке покрытой плотью",
-		ACCUSATIVE = "руку покрытую плотью",
-		INSTRUMENTAL = "рукой покрытой плотью",
-		PREPOSITIONAL = "руке покрытой плотью",
-	)
 	desc = "Лечить не так приятно, как убивать." // TF2
 	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "disintegrate"
@@ -269,3 +261,14 @@
 	var/monster_brute_healing = 10
 	/// If used on a heretic mob, how much burn do we heal
 	var/monster_burn_healing = 5
+
+
+/obj/item/melee/touch_attack/flesh_surgery/get_ru_names()
+	return list(
+		NOMINATIVE = "рука покрытая плотью",
+		GENITIVE = "руки покрытой плотью",
+		DATIVE = "руке покрытой плотью",
+		ACCUSATIVE = "руку покрытую плотью",
+		INSTRUMENTAL = "рукой покрытой плотью",
+		PREPOSITIONAL = "руке покрытой плотью",
+	)

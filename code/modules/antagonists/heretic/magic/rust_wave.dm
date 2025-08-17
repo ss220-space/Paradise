@@ -107,14 +107,6 @@
 
 /obj/projectile/magic/aoe/rust_wave
 	name = "сгусток ржавчины"
-	ru_names = list(
-		NOMINATIVE = "сгусток ржавчины",
-		GENITIVE = "сгустка ржавчины",
-		DATIVE = "сгустку ржавчины",
-		ACCUSATIVE = "сгусток ржавчины",
-		INSTRUMENTAL = "сгустком ржавчины",
-		PREPOSITIONAL = "сгустке ржавчины",
-	)
 	gender = MALE
 	icon_state = "eldritch_projectile"
 	alpha = 180
@@ -125,6 +117,17 @@
 	ignored_factions = list(FACTION_HERETIC)
 	range = 15
 	speed = 1
+
+
+/obj/projectile/magic/aoe/rust_wave/get_ru_names()
+	return list(
+		NOMINATIVE = "сгусток ржавчины",
+		GENITIVE = "сгустка ржавчины",
+		DATIVE = "сгустку ржавчины",
+		ACCUSATIVE = "сгусток ржавчины",
+		INSTRUMENTAL = "сгустком ржавчины",
+		PREPOSITIONAL = "сгустке ржавчины",
+	)
 
 
 /obj/projectile/magic/aoe/rust_wave/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)

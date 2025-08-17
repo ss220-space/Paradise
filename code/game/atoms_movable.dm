@@ -14,8 +14,6 @@
 	var/throw_range = 7
 	var/no_spin_thrown = FALSE
 	var/throwforce = 0
-	/// The list of factions this atom belongs to
-	var/list/faction
 
 	/// Mob, who currently pulling/grabbing us
 	var/mob/living/pulledby
@@ -1544,23 +1542,3 @@
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
 	forceMove(holder_obj.loc)
 	qdel(holder_obj)
-
-
-/**
- * Check if the other atom/movable has any factions the same as us. Defined at the atom/movable level so it can be defined for just about anything.
- *
- * If exact match is set, then all our factions must match exactly
- */
-/atom/movable/proc/faction_check_atom(atom/movable/target, exact_match)
-	if(!exact_match)
-		return faction_check(faction, target.faction, FALSE)
-
-	var/list/faction_src = LAZYCOPY(faction)
-	var/list/faction_target = LAZYCOPY(target.faction)
-	if(!("[UID()]" in faction_target)) //if they don't have our ref faction, remove it from our factions list.
-		faction_src -= "[UID()]" //if we don't do this, we'll never have an exact match.
-
-	if(!("[target.UID()]" in faction_src))
-		faction_target -= "[target.UID()]" //same thing here.
-
-	return faction_check(faction_src, faction_target, TRUE)

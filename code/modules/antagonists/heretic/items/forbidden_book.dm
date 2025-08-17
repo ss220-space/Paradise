@@ -1,14 +1,6 @@
 // Ye old forbidden book, the Кодекс Истезания.
 /obj/item/codex_cicatrix
 	name = "Кодекс Истезания"
-	ru_names = list(
-		NOMINATIVE = "Кодекс Истезания",
-		GENITIVE = "Кодекса Истезания",
-		DATIVE = "Кодексу Истезания",
-		ACCUSATIVE = "Кодекс Истезания",
-		INSTRUMENTAL = "Кодексом Истезания",
-		PREPOSITIONAL = "Кодексе Истезания",
-	)
 	desc = "Этот увесистый том полон загадочных каракулей и невероятных схем. \
 			Согласно легенде, его можно расшифровать, раскрыв тайны завесы между мирами."
 	gender = MALE
@@ -23,6 +15,17 @@
 	var/drain_speed = 10 SECONDS
 	/// How fast we can draw runes
 	var/draw_speed = 8 SECONDS
+
+
+/obj/item/codex_cicatrix/get_ru_names()
+	return list(
+		NOMINATIVE = "Кодекс Истезания",
+		GENITIVE = "Кодекса Истезания",
+		DATIVE = "Кодексу Истезания",
+		ACCUSATIVE = "Кодекс Истезания",
+		INSTRUMENTAL = "Кодексом Истезания",
+		PREPOSITIONAL = "Кодексе Истезания",
+	)
 
 
 /obj/item/codex_cicatrix/Initialize(mapload)
@@ -98,14 +101,6 @@
 // Upgraded version of the Кодекс Истезания that allows us to cast curses
 /obj/item/codex_cicatrix/morbus // I'm morbing all over
 	name = "Кодекс Морбус"
-	ru_names = list(
-		NOMINATIVE = "Кодекс Морбус",
-		GENITIVE = "Кодекса Морбус",
-		DATIVE = "Кодексу Морбус",
-		ACCUSATIVE = "Кодекс Морбус",
-		INSTRUMENTAL = "Кодексом Морбус",
-		PREPOSITIONAL = "Кодексе Морбус",
-	)
 	desc = "Ужасная, рваная книга, покрытая моргающими глазами. Вы понятия не имеете, как правильно держать её, \
 			и, честно говоря, не уверены, стоит ли вообще."
 	base_icon_state = "book_morbus"
@@ -114,6 +109,17 @@
 	draw_speed = 5 SECONDS
 	/// List of mobs we've cursed with transmutation. When the codex is destroyed all those curses become undone
 	var/list/transmuted_victims = list()
+
+
+/obj/item/codex_cicatrix/morbus/get_ru_names()
+	return list(
+		NOMINATIVE = "Кодекс Морбус",
+		GENITIVE = "Кодекса Морбус",
+		DATIVE = "Кодексу Морбус",
+		ACCUSATIVE = "Кодекс Морбус",
+		INSTRUMENTAL = "Кодексом Морбус",
+		PREPOSITIONAL = "Кодексе Морбус",
+	)
 
 
 /obj/item/codex_cicatrix/morbus/examine(mob/user)

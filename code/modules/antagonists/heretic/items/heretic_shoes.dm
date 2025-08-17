@@ -1,6 +1,14 @@
 /obj/item/clothing/shoes/greaves_of_the_prophet
 	name = "поножи пророка"
-	ru_names = list(
+	desc = "Грубые, изношенные железные башмаки. Кажется, что они прочнее, чем земля, по которой в них ходят. \
+			Они покрыты тонким слоем ржавчины, и всё же, её вид почему-то успокивает вас."
+	gender = PLURAL
+	icon_state = "hereticgreaves"
+	resistance_flags = ACID_PROOF | FIRE_PROOF | LAVA_PROOF
+
+
+/obj/item/clothing/shoes/greaves_of_the_prophet/get_ru_names()
+	return list(
 		NOMINATIVE = "поножи пророка",
 		GENITIVE = "понож пророка",
 		DATIVE = "поножам пророка",
@@ -8,11 +16,6 @@
 		INSTRUMENTAL = "поножами пророка",
 		PREPOSITIONAL = "поножах пророка",
 	)
-	desc = "Грубые, изношенные железные башмаки. Кажется, что они прочнее, чем земля, по которой в них ходят. \
-			Они покрыты тонким слоем ржавчины, и всё же, её вид почему-то успокивает вас."
-	gender = PLURAL
-	icon_state = "hereticgreaves"
-	resistance_flags = ACID_PROOF | FIRE_PROOF | LAVA_PROOF
 
 
 /obj/item/clothing/shoes/greaves_of_the_prophet/Initialize(mapload)

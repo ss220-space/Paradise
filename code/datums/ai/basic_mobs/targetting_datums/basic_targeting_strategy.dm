@@ -85,7 +85,7 @@
 	if(controller.blackboard[BB_ALWAYS_IGNORE_FACTION] || controller.blackboard[BB_TEMPORARILY_IGNORE_FACTION])
 		return FALSE
 
-	return living_mob.faction_check_atom(the_target, exact_match = check_factions_exactly)
+	return living_mob.faction_check_living(the_target, exact_match = check_factions_exactly)
 
 /// Subtype more forgiving for items.
 /// Careful, this can go wrong and keep a mob hyper-focused on an item it can't lose aggro on

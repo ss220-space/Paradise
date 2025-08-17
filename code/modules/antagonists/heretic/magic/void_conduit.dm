@@ -26,14 +26,6 @@
 
 /obj/structure/void_conduit
 	name = "врата в пустоту"
-	ru_names = list(
-		NOMINATIVE = "врата в пустоту",
-		GENITIVE = "врат в пустоту",
-		DATIVE = "вратам в пустоту",
-		ACCUSATIVE = "врата в пустоту",
-		INSTRUMENTAL = "вратами в пустоту",
-		PREPOSITIONAL = "вратах в пустоту",
-	)
 	desc = "Открытые врата, ведущие в небытие. Испускают импульсы, под которые вам не хотелось бы попасть."
 	gender = PLURAL
 	icon = 'icons/effects/effects.dmi'
@@ -50,6 +42,17 @@
 	var/timerid
 	///Audio loop for the rift being alive
 	var/datum/looping_sound/void_conduit/soundloop
+
+
+/obj/structure/void_conduit/get_ru_names()
+	return list(
+		NOMINATIVE = "врата в пустоту",
+		GENITIVE = "врат в пустоту",
+		DATIVE = "вратам в пустоту",
+		ACCUSATIVE = "врата в пустоту",
+		INSTRUMENTAL = "вратами в пустоту",
+		PREPOSITIONAL = "вратах в пустоту",
+	)
 
 
 /obj/structure/void_conduit/Initialize(mapload)

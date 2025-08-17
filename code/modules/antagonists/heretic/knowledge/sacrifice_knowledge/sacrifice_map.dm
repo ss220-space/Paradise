@@ -181,14 +181,6 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 /obj/structure/moon
 	name = "символ правды и луны"
-	ru_names = list(
-		NOMINATIVE = "символ правды и луны",
-		GENITIVE = "символа правды и луны",
-		DATIVE = "символу правды и луны",
-		ACCUSATIVE = "символ правды и луны",
-		INSTRUMENTAL = "символом правды и луны",
-		PREPOSITIONAL = "символе правды и луны",
-	)
 	desc = "Раздробленный на несколько частей символ из неизвестного материала. \
 			Трещины складываются в жуткого вида улыбку, что наводит на мысль, \
 			что этот символ был разбит специально. Но подождите. Почему на моём лице нет трещин? \
@@ -198,6 +190,17 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	icon_state = "moon1"
 	light_color = "#32c3f0"
 	light_range = 4
+
+
+/obj/structure/moon/get_ru_names()
+	return list(
+		NOMINATIVE = "символ правды и луны",
+		GENITIVE = "символа правды и луны",
+		DATIVE = "символу правды и луны",
+		ACCUSATIVE = "символ правды и луны",
+		INSTRUMENTAL = "символом правды и луны",
+		PREPOSITIONAL = "символе правды и луны",
+	)
 
 
 /obj/structure/moon/examine(mob/living/user)
@@ -216,14 +219,6 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 /obj/structure/moon/star
 	name = "звезда"
-	ru_names = list(
-		NOMINATIVE = "звезда",
-		GENITIVE = "звезды",
-		DATIVE = "звезде",
-		ACCUSATIVE = "звезду",
-		INSTRUMENTAL = "звездой",
-		PREPOSITIONAL = "звезде",
-	)
 	desc = "Символ из неизвестного материала в форме звезды с глазом в центре. \
 			Для чего он предназначен? Кто оставил его здесь? Откуда на моём лице улыбка? \
 			С каждым задаваемым про себя вопросом ваши мысли путаются всё сильнее."
@@ -233,16 +228,19 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	light_power = 3
 
 
+/obj/structure/moon/star/get_ru_names()
+	return list(
+		NOMINATIVE = "звезда",
+		GENITIVE = "звезды",
+		DATIVE = "звезде",
+		ACCUSATIVE = "звезду",
+		INSTRUMENTAL = "звездой",
+		PREPOSITIONAL = "звезде",
+	)
+
+
 /obj/structure/moon/stars
 	name = "звёзды"
-	ru_names = list(
-		NOMINATIVE = "звёзды",
-		GENITIVE = "звёзд",
-		DATIVE = "звёздам",
-		ACCUSATIVE = "звёзды",
-		INSTRUMENTAL = "звёздами",
-		PREPOSITIONAL = "звёздах",
-	)
 	desc = "Три символа из неизвестного материала в форме звёзд. Почему на них нет глаз? \
 			У звёзд должны быть глаза. У луны должна быть улыбка. Нам лгут. Из-за этого \
 			никто не хочет участвовать в параде."
@@ -252,16 +250,19 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	light_power = 3
 
 
+/obj/structure/moon/stars/get_ru_names()
+	return list(
+		NOMINATIVE = "звёзды",
+		GENITIVE = "звёзд",
+		DATIVE = "звёздам",
+		ACCUSATIVE = "звёзды",
+		INSTRUMENTAL = "звёздами",
+		PREPOSITIONAL = "звёздах",
+	)
+
+
 /obj/structure/orb
 	name = "жуткая сфера"
-	ru_names = list(
-		NOMINATIVE = "жуткая сфера",
-		GENITIVE = "жуткой сферы",
-		DATIVE = "жуткой сфере",
-		ACCUSATIVE = "жуткую сферу",
-		INSTRUMENTAL = "жуткой сферой",
-		PREPOSITIONAL = "жуткой сфере",
-	)
 	desc = "Жуткая, покрытая трещинами, сфера, состоящая из затвердевшей плоти неизвестного существа. \
 			Щупальца растущие из неё уходят в пол, если это жуткое месиво вообще можно так назвать."
 	gender = FEMALE
@@ -273,16 +274,19 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	light_power = 3
 
 
+/obj/structure/orb/get_ru_names()
+	return list(
+		NOMINATIVE = "жуткая сфера",
+		GENITIVE = "жуткой сферы",
+		DATIVE = "жуткой сфере",
+		ACCUSATIVE = "жуткую сферу",
+		INSTRUMENTAL = "жуткой сферой",
+		PREPOSITIONAL = "жуткой сфере",
+	)
+
+
 /obj/structure/punji_sticks/bone
 	name = "костяной шип"
-	ru_names = list(
-		NOMINATIVE = "костяной шип",
-		GENITIVE = "костяного шипа",
-		DATIVE = "костяному шипу",
-		ACCUSATIVE = "костяной шип",
-		INSTRUMENTAL = "костяным шипом",
-		PREPOSITIONAL = "костяном шипе",
-	)
 	desc = "Костяной шип ростущий из кучи плоти. Большая часть его поверхности покрыта застывшей кровью, \
 			но остриё по какой-то причине чисто."
 	gender = MALE
@@ -290,9 +294,27 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	icon_state = "bone"
 
 
+/obj/structure/punji_sticks/bone/get_ru_names()
+	return list(
+		NOMINATIVE = "костяной шип",
+		GENITIVE = "костяного шипа",
+		DATIVE = "костяному шипу",
+		ACCUSATIVE = "костяной шип",
+		INSTRUMENTAL = "костяным шипом",
+		PREPOSITIONAL = "костяном шипе",
+	)
+
+
 /obj/structure/punji_sticks/spike
 	name = "шипы"
-	ru_names = list(
+	desc = "Каменные шипы странной формы торчащие откуда-то из под земли."
+	gender = PLURAL
+	icon = 'icons/obj/eretik_slabs.dmi'
+	icon_state = "spike"
+
+
+/obj/structure/punji_sticks/spike/get_ru_names()
+	return list(
 		NOMINATIVE = "шипы",
 		GENITIVE = "шипов",
 		DATIVE = "шипам",
@@ -300,7 +322,3 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 		INSTRUMENTAL = "шипами",
 		PREPOSITIONAL = "шипах",
 	)
-	desc = "Каменные шипы странной формы торчащие откуда-то из под земли."
-	gender = PLURAL
-	icon = 'icons/obj/eretik_slabs.dmi'
-	icon_state = "spike"

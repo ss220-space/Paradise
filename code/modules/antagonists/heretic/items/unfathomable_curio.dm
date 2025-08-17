@@ -2,14 +2,6 @@
 
 /obj/item/storage/belt/unfathomable_curio
 	name = "непостижимая диковинка"
-	ru_names = list(
-		NOMINATIVE = "непостижимая диковинка",
-		GENITIVE = "непостижимой диковинки",
-		DATIVE = "непостижимой диковинке",
-		ACCUSATIVE = "непостижимую диковинку",
-		INSTRUMENTAL = "непостижимой диковинкой",
-		PREPOSITIONAL = "непостижимой диковинке",
-	)
 	desc = "Оно. Оно оглядывается назад. Оно смотрит в прошлое. \
 			Оно заглядывает внутрь. Оно видит. Оно прячется. Оно открывается."
 	gender = FEMALE
@@ -44,6 +36,17 @@
 	var/recharge_start_delay = 30 SECONDS
 	var/charge_increment_delay = 30 SECONDS
 	var/charge_recovery = 1
+
+
+/obj/item/storage/belt/unfathomable_curio/get_ru_names()
+	return list(
+		NOMINATIVE = "непостижимая диковинка",
+		GENITIVE = "непостижимой диковинки",
+		DATIVE = "непостижимой диковинке",
+		ACCUSATIVE = "непостижимую диковинку",
+		INSTRUMENTAL = "непостижимой диковинкой",
+		PREPOSITIONAL = "непостижимой диковинке",
+	)
 
 
 /obj/item/storage/belt/unfathomable_curio/Initialize(mapload)

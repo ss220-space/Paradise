@@ -234,6 +234,7 @@
 	var/id = null
 	var/triggered = FALSE
 	var/safety_z_check = TRUE
+	var/list/faction
 
 
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner/Initialize(mapload)

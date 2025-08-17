@@ -1,13 +1,5 @@
 /mob/living/simple_animal/hostile/heretic_summon/star_gazer
 	name = "Звёздный Глашатай"
-	ru_names = list(
-		NOMINATIVE = "Звёздный Глашатай",
-		GENITIVE = "Звёздного Глашатая",
-		DATIVE = "Звёздному Глашатаю",
-		ACCUSATIVE = "Звёздного Глашатая",
-		INSTRUMENTAL = "Звёздным Глашатаем",
-		PREPOSITIONAL = "Звёздном Глашатае",
-	)
 	desc = "Существо, которому поручено следить за звездами."
 	gender = MALE
 	icon = 'icons/mob/96x96eldritch_mobs.dmi'
@@ -43,6 +35,17 @@
 	layer = LARGE_MOB_LAYER
 
 	ai_controller = /datum/ai_controller/basic_controller/star_gazer
+
+
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer/get_ru_names()
+	return list(
+		NOMINATIVE = "Звёздный Глашатай",
+		GENITIVE = "Звёздного Глашатая",
+		DATIVE = "Звёздному Глашатаю",
+		ACCUSATIVE = "Звёздного Глашатая",
+		INSTRUMENTAL = "Звёздным Глашатаем",
+		PREPOSITIONAL = "Звёздном Глашатае",
+	)
 
 
 /mob/living/simple_animal/hostile/heretic_summon/star_gazer/Initialize(mapload)

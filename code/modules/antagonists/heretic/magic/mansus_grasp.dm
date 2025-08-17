@@ -85,14 +85,6 @@
 
 /obj/item/melee/touch_attack/mansus_fist
 	name = "Прикосновение Мансуса"
-	ru_names = list(
-		NOMINATIVE = "Прикосновение Мансуса",
-		GENITIVE = "Прикосновения Мансуса",
-		DATIVE = "Прикосновению Мансуса",
-		ACCUSATIVE = "Прикосновение Мансуса",
-		INSTRUMENTAL = "Прикосновением Мансуса",
-		PREPOSITIONAL = "Прикосновении Мансуса",
-	)
 	desc = "Ваша рука пропитана зловещей аурой, способной искажать реальнось. \
 			Вызывает нокдаун, лёгкие ушибы и значительный урон выносливости. \
 			По мере того, как вы расширяете свои знания о Мансусе, она приобретает дополнительные эффекты."
@@ -101,6 +93,17 @@
 	item_state = "mansus"
 	catchphrase = "Р'СКР ПР'ВД'!"
 	var/mode = TRUE
+
+
+/obj/item/melee/touch_attack/mansus_fist/get_ru_names()
+	return list(
+		NOMINATIVE = "Прикосновение Мансуса",
+		GENITIVE = "Прикосновения Мансуса",
+		DATIVE = "Прикосновению Мансуса",
+		ACCUSATIVE = "Прикосновение Мансуса",
+		INSTRUMENTAL = "Прикосновением Мансуса",
+		PREPOSITIONAL = "Прикосновении Мансуса",
+	)
 
 
 /obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)

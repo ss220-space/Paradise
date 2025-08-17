@@ -3,14 +3,6 @@
  */
 /mob/living/simple_animal/hostile/heretic_summon/ash_spirit
 	name = "Дух Пепла"
-	ru_names = list(
-		NOMINATIVE = "Дух Пепла",
-		GENITIVE = "Духа Пепла",
-		DATIVE = "Духу Пепла",
-		ACCUSATIVE = "Духа Пепла",
-		INSTRUMENTAL = "Духом Пепла",
-		PREPOSITIONAL = "Духе Пепла",
-	)
 	real_name = "Эшель"
 	gender = MALE
 	desc = "Живое облако пепла."
@@ -21,6 +13,18 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 	sight = SEE_TURFS
+
+
+/mob/living/simple_animal/hostile/heretic_summon/ash_spirit/get_ru_names()
+	return list(
+		NOMINATIVE = "Дух Пепла",
+		GENITIVE = "Духа Пепла",
+		DATIVE = "Духу Пепла",
+		ACCUSATIVE = "Духа Пепла",
+		INSTRUMENTAL = "Духом Пепла",
+		PREPOSITIONAL = "Духе Пепла",
+	)
+
 
 /mob/living/simple_animal/hostile/heretic_summon/ash_spirit/Initialize(mapload)
 	. = ..()

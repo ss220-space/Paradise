@@ -1,14 +1,6 @@
 /// The heretic's rune, which they use to complete transmutation rituals.
 /obj/effect/decal/heretic_rune
 	name = "Руна Трансформации"
-	ru_names = list(
-		NOMINATIVE = "Руна Трансформации",
-		GENITIVE = "Руны Трансформации",
-		DATIVE = "Руне Трансформации",
-		ACCUSATIVE = "Руну Трансформации",
-		INSTRUMENTAL = "Руной Трансформации",
-		PREPOSITIONAL = "Руне Трансформации"
-	)
 	desc = "Жуткий круг фигур и рун изображенный на полу, заполненный густой черной как смоль жидкостью. Выглядит довольно маленьким."
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "main1"
@@ -18,6 +10,17 @@
 	layer = ABOVE_CLEANABLES_LAYER
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
 	var/is_in_use = FALSE
+
+
+/obj/effect/decal/heretic_rune/get_ru_names()
+	return list(
+		NOMINATIVE = "Руна Трансформации",
+		GENITIVE = "Руны Трансформации",
+		DATIVE = "Руне Трансформации",
+		ACCUSATIVE = "Руну Трансформации",
+		INSTRUMENTAL = "Руной Трансформации",
+		PREPOSITIONAL = "Руне Трансформации"
+	)
 
 
 /obj/effect/decal/heretic_rune/Initialize(mapload)

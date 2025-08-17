@@ -1,14 +1,6 @@
 // The spooky "void" / "abyssal" / "madness" mask for heretics.
 /obj/item/clothing/mask/madness_mask
 	name = "маска безумия"
-	ru_names = list(
-		NOMINATIVE = "маска безумия",
-		GENITIVE = "маски безумия",
-		DATIVE = "маске безумия",
-		ACCUSATIVE = "маску безумия",
-		INSTRUMENTAL = "маской безумия",
-		PREPOSITIONAL = "маске безумия",
-	)
 	desc = "Маска, созданная из страданий. Когда вы смотрите в щели для глаз, Нечто смотрит оттуда на вас."
 	gender = FEMALE
 	icon_state = "mad_mask"
@@ -20,6 +12,17 @@
 	//flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	///Who is wearing this
 	var/mob/living/carbon/human/local_user
+
+
+/obj/item/clothing/mask/madness_mask/get_ru_names()
+	return list(
+		NOMINATIVE = "маска безумия",
+		GENITIVE = "маски безумия",
+		DATIVE = "маске безумия",
+		ACCUSATIVE = "маску безумия",
+		INSTRUMENTAL = "маской безумия",
+		PREPOSITIONAL = "маске безумия",
+	)
 
 
 /obj/item/clothing/mask/madness_mask/Destroy()

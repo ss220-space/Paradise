@@ -5,14 +5,6 @@
 /// The "Terror of the Night" / Armsy, a large worm made of multiple bodyparts that occupies multiple tiles
 /mob/living/simple_animal/hostile/heretic_summon/armsy
 	name = "Лорд Ночи"
-	ru_names = list(
-		NOMINATIVE = "Лорд Ночи",
-		GENITIVE = "Лорда Ночи",
-		DATIVE = "Лорду Ночи",
-		ACCUSATIVE = "Лорда Ночи",
-		INSTRUMENTAL = "Лордом Ночи",
-		PREPOSITIONAL = "Лорде Ночи",
-	)
 	real_name = "Повелитель Распада"
 	desc = "Мерзость, созданная из десятков отрубленных и изуродованных конечностей, цепляющихся друг за друга."
 	gender = MALE
@@ -36,6 +28,19 @@
 	var/stacks_to_grow = 5
 	///Currently eaten arms
 	var/current_stacks = 0
+
+
+/mob/living/simple_animal/hostile/heretic_summon/armsy/get_ru_names()
+	return list(
+		NOMINATIVE = "Лорд Ночи",
+		GENITIVE = "Лорда Ночи",
+		DATIVE = "Лорду Ночи",
+		ACCUSATIVE = "Лорда Ночи",
+		INSTRUMENTAL = "Лордом Ночи",
+		PREPOSITIONAL = "Лорде Ночи",
+	)
+
+
 /*
  * Arguments
  * * spawn_bodyparts - whether we spawn additional armsy bodies until we reach length.

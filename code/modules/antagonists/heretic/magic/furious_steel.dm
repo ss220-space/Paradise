@@ -140,14 +140,6 @@
 
 /obj/projectile/floating_blade
 	name = "клинок"
-	ru_names = list(
-		NOMINATIVE = "клинок",
-		GENITIVE = "клинка",
-		DATIVE = "клинку",
-		ACCUSATIVE = "клинок",
-		INSTRUMENTAL = "клинком",
-		PREPOSITIONAL = "клинке"
-	)
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "dio_knife"
 	speed = 0.5
@@ -159,6 +151,17 @@
 	pass_flags = PASSTABLE | PASSFLAPS
 	/// Color applied as an outline filter on init
 	var/outline_color = "#f8f8ff"
+
+
+/obj/projectile/floating_blade/get_ru_names()
+	return list(
+		NOMINATIVE = "клинок",
+		GENITIVE = "клинка",
+		DATIVE = "клинку",
+		ACCUSATIVE = "клинок",
+		INSTRUMENTAL = "клинком",
+		PREPOSITIONAL = "клинке"
+	)
 
 
 /obj/projectile/floating_blade/Initialize(mapload)
@@ -187,7 +190,15 @@
 
 /obj/projectile/floating_blade/haunted
 	name = "ритуальный клинок"
-	ru_names = list(
+	icon = 'icons/obj/weapons/khopesh.dmi'
+	icon_state = "render"
+	damage = 35
+	//wound_bonus = 25
+	outline_color = "#D7CBCA"
+
+
+/obj/projectile/floating_blade/haunted/get_ru_names()
+	return list(
 		NOMINATIVE = "ритуальный клинок",
 		GENITIVE = "ритуального клинка",
 		DATIVE = "ритуальному клинку",
@@ -195,11 +206,6 @@
 		INSTRUMENTAL = "ритуальным клинком",
 		PREPOSITIONAL = "ритуальном клинке"
 	)
-	icon = 'icons/obj/weapons/khopesh.dmi'
-	icon_state = "render"
-	damage = 35
-	//wound_bonus = 25
-	outline_color = "#D7CBCA"
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/solo

@@ -1,14 +1,6 @@
 // The rune carver, a heretic knife that can draw rune traps.
 /obj/item/melee/rune_carver
 	name = "разделочный нож"
-	ru_names = list(
-		NOMINATIVE = "разделочный нож",
-		GENITIVE = "разделочного ножа",
-		DATIVE = "разделочному ножу",
-		ACCUSATIVE = "разделочный нож",
-		INSTRUMENTAL = "разделочным ножом",
-		PREPOSITIONAL = "разделочном ноже",
-	)
 	desc = "Небольшой нож из холодной стали, чистый и совершенный. Его острота может прорезать даже титан - \
 			но лишь немногие способны пробудить опасности, таящиеся под реальностью."
 	gender = MALE
@@ -33,6 +25,17 @@
 	var/list/datum/weakref/current_runes = list()
 	/// Turfs that you cannot draw carvings on
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/space, /turf/space/openspace, /turf/simulated/floor/lava, /turf/simulated/floor/chasm))
+
+
+/obj/item/melee/rune_carver/get_ru_names()
+	return list(
+		NOMINATIVE = "разделочный нож",
+		GENITIVE = "разделочного ножа",
+		DATIVE = "разделочному ножу",
+		ACCUSATIVE = "разделочный нож",
+		INSTRUMENTAL = "разделочным ножом",
+		PREPOSITIONAL = "разделочном ноже",
+	)
 
 /*
 /datum/embedding/rune_carver
@@ -183,14 +186,6 @@
 // The actual rune traps the knife draws.
 /obj/structure/trap/eldritch
 	name = "древние письмена"
-	ru_names = list(
-		NOMINATIVE = "древние письмена",
-		GENITIVE = "древних символов", // "древних письмен" sounds bad
-		DATIVE = "древним письменм",
-		ACCUSATIVE = "древние письмена",
-		INSTRUMENTAL = "древними письменами",
-		PREPOSITIONAL = "древних письменах",
-	)
 	desc = "Множество неизвестных символов, они напоминают вам о давно минувших днях..."
 	gender = PLURAL
 	icon = 'icons/obj/hand_of_god_structures.dmi'
@@ -199,6 +194,17 @@
 	var/carver_tip
 	/// Reference to trap owner mob
 	var/datum/weakref/owner
+
+
+/obj/structure/trap/eldritch/get_ru_names()
+	return list(
+		NOMINATIVE = "древние письмена",
+		GENITIVE = "древних символов", // "древних письмен" sounds bad
+		DATIVE = "древним письменм",
+		ACCUSATIVE = "древние письмена",
+		INSTRUMENTAL = "древними письменами",
+		PREPOSITIONAL = "древних письменах",
+	)
 
 
 /obj/structure/trap/eldritch/Initialize(mapload, new_owner)
@@ -235,7 +241,16 @@
 
 /obj/structure/trap/eldritch/alert
 	name = "Руна Предупреждения"
-	ru_names = list(
+	gender = FEMALE
+	icon_state = "alert_rune"
+	alpha = 10
+	time_between_triggers = 5 SECONDS
+	sparks = FALSE
+	carver_tip = "Почти невидимая руна, которая, оповещает создавшего ее о том, кто и где на нее наступил."
+
+
+/obj/structure/trap/eldritch/alert/get_ru_names()
+	return list(
 		NOMINATIVE = "Руна Предупреждения",
 		GENITIVE = "Руны Предупреждения",
 		DATIVE = "Руне Предупреждения",
@@ -243,12 +258,6 @@
 		INSTRUMENTAL = "Руной Предупреждения",
 		PREPOSITIONAL = "Руне Предупреждения",
 	)
-	gender = FEMALE
-	icon_state = "alert_rune"
-	alpha = 10
-	time_between_triggers = 5 SECONDS
-	sparks = FALSE
-	carver_tip = "Почти невидимая руна, которая, оповещает создавшего ее о том, кто и где на нее наступил."
 
 
 /obj/structure/trap/eldritch/alert/trap_effect(mob/living/victim)
@@ -262,7 +271,15 @@
 
 /obj/structure/trap/eldritch/tentacle
 	name = "Руна Удержания"
-	ru_names = list(
+	gender = FEMALE
+	icon_state = "tentacle_rune"
+	time_between_triggers = 45 SECONDS
+	charges = 1
+	carver_tip = "При наступании наносит значительные повреждения ногам и оглушает жертву на 5 секунд. Имеет 1 заряд."
+
+
+/obj/structure/trap/eldritch/tentacle/get_ru_names()
+	return list(
 		NOMINATIVE = "Руна Удержания",
 		GENITIVE = "Руны Удержания",
 		DATIVE = "Руне Удержания",
@@ -270,11 +287,6 @@
 		INSTRUMENTAL = "Руной Удержания",
 		PREPOSITIONAL = "Руне Удержания",
 	)
-	gender = FEMALE
-	icon_state = "tentacle_rune"
-	time_between_triggers = 45 SECONDS
-	charges = 1
-	carver_tip = "При наступании наносит значительные повреждения ногам и оглушает жертву на 5 секунд. Имеет 1 заряд."
 
 
 /obj/structure/trap/eldritch/tentacle/trap_effect(mob/living/victim)
@@ -290,7 +302,15 @@
 
 /obj/structure/trap/eldritch/mad
 	name = "Руна Безумия"
-	ru_names = list(
+	gender = FEMALE
+	icon_state = "madness_rune"
+	time_between_triggers = 20 SECONDS
+	charges = 2
+	carver_tip = "При наступании, наносит жертве сильный урон выносливости, слепоту и дает различные недуги. Имеет 2 заряда."
+
+
+/obj/structure/trap/eldritch/mad/get_ru_names()
+	return list(
 		NOMINATIVE = "Руна Безумия",
 		GENITIVE = "Руны Безумия",
 		DATIVE = "Руне Безумия",
@@ -298,11 +318,6 @@
 		INSTRUMENTAL = "Руной Безумия",
 		PREPOSITIONAL = "Руне Безумия",
 	)
-	gender = FEMALE
-	icon_state = "madness_rune"
-	time_between_triggers = 20 SECONDS
-	charges = 2
-	carver_tip = "При наступании, наносит жертве сильный урон выносливости, слепоту и дает различные недуги. Имеет 2 заряда."
 
 
 /obj/structure/trap/eldritch/mad/trap_effect(mob/living/victim)

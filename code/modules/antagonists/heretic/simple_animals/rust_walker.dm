@@ -1,14 +1,6 @@
 /// Pretty simple mob which creates areas of rust and has a rust-creating projectile spell
 /mob/living/simple_animal/hostile/heretic_summon/rust_walker
 	name = "Ржавый Странник"
-	ru_names = list(
-		NOMINATIVE = "Ржавый Странник",
-		GENITIVE = "Ржавого Странника",
-		DATIVE = "Ржавому Страннику",
-		ACCUSATIVE = "Ржавого Странника",
-		INSTRUMENTAL = "Ржавым Странником",
-		PREPOSITIONAL = "Ржавом Страннике",
-	)
 	real_name = "Ржавчик"
 	gender = MALE
 	desc = "Скрежещущая, лязгающая конструкция, высасывающая жизнь из своего окружения."
@@ -22,6 +14,17 @@
 	sight = SEE_TURFS
 	speed = 1
 	ai_controller = /datum/ai_controller/basic_controller/rust_walker
+
+
+/mob/living/simple_animal/hostile/heretic_summon/rust_walker/get_ru_names()
+	return list(
+		NOMINATIVE = "Ржавый Странник",
+		GENITIVE = "Ржавого Странника",
+		DATIVE = "Ржавому Страннику",
+		ACCUSATIVE = "Ржавого Странника",
+		INSTRUMENTAL = "Ржавым Странником",
+		PREPOSITIONAL = "Ржавом Страннике",
+	)
 
 
 /mob/living/simple_animal/hostile/heretic_summon/rust_walker/Initialize(mapload)

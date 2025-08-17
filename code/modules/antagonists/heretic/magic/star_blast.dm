@@ -24,14 +24,6 @@
 
 /obj/projectile/magic/star_ball
 	name = "звёздный диск"
-	ru_names = list(
-		NOMINATIVE = "звёздный диск",
-		GENITIVE = "звёздного диска",
-		DATIVE = "звёздному диску",
-		ACCUSATIVE = "звёздный диск",
-		INSTRUMENTAL = "звёздным диском",
-		PREPOSITIONAL = "звёзднои диске",
-	)
 	gender = MALE
 	icon_state = "star_ball"
 	damage = 20
@@ -43,6 +35,17 @@
 	var/obj/effect/explosion_effect = /obj/effect/temp_visual/cosmic_explosion
 	/// The range at which people will get marked with a star mark.
 	var/star_mark_range = 3
+
+
+/obj/projectile/magic/star_ball/get_ru_names()
+	return list(
+		NOMINATIVE = "звёздный диск",
+		GENITIVE = "звёздного диска",
+		DATIVE = "звёздному диску",
+		ACCUSATIVE = "звёздный диск",
+		INSTRUMENTAL = "звёздным диском",
+		PREPOSITIONAL = "звёзднои диске",
+	)
 
 
 /obj/projectile/magic/star_ball/Initialize(mapload)
@@ -64,7 +67,7 @@
 	playsound(get_turf(src), 'sound/magic/cosmic_energy.ogg', 50, FALSE)
 	for(var/turf/cast_turf as anything in get_turfs())
 		new /obj/effect/forcefield/cosmic_field(cast_turf)
-		
+
 	return ..()
 
 

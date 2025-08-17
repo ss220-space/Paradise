@@ -11,6 +11,9 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 		alternate_appearances.Remove(possible_key)
 		qdel(alternate_appearance)
+		if(!alternate_appearances.len)
+			qdel(alternate_appearances)
+
 		break
 
 

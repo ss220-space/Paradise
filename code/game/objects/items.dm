@@ -131,6 +131,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/datum/muhtar_fashion/muhtar_fashion = null
 	var/datum/snake_fashion/snake_fashion = null
 
+	var/list/faction
+
 	/// UID of a /mob that threw the item.
 	var/thrownby
 

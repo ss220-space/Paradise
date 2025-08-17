@@ -149,7 +149,16 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 
 /turf/simulated/wall/indestructible/heretic_wall
 	name = "жуткая стена"
-	ru_names = list(
+	desc = "Стена, не дающая овцам сбежать от волка. \
+			Она излучает злобную энергию — трогать её, вероятно, неразумно."
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "eldritch_forcewall"
+	opacity = FALSE
+	pass_flags_self = NONE // No PASSCLOSEDTURF because only arena victors are allowed to go in or out
+
+
+/turf/simulated/wall/indestructible/heretic_wall/get_ru_names()
+	return list(
 		NOMINATIVE = "жуткая стена",
 		GENITIVE = "жуткой стены",
 		DATIVE = "жуткой стене",
@@ -157,12 +166,6 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 		INSTRUMENTAL = "жуткой стеной",
 		PREPOSITIONAL = "жуткой стене",
 	)
-	desc = "Стена, не дающая овцам сбежать от волка. \
-			Она излучает злобную энергию — трогать её, вероятно, неразумно."
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "eldritch_forcewall"
-	opacity = FALSE
-	pass_flags_self = NONE // No PASSCLOSEDTURF because only arena victors are allowed to go in or out
 
 
 /turf/simulated/wall/indestructible/heretic_wall/CanAllowThrough(atom/movable/mover, border_dir)

@@ -34,6 +34,8 @@
 	var/syndicate = FALSE
 
 	req_access = list(ACCESS_AI_UPLOAD)
+	var/faction = "default"
+
 
 /obj/machinery/turretid/stun
 	enabled = TRUE

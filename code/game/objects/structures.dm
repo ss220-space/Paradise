@@ -14,6 +14,7 @@
 	var/extinguish_timer_id
 	var/break_sound
 	var/break_message
+	var/list/faction
 
 /obj/structure/New()
 	..()

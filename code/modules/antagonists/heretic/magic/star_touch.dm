@@ -85,7 +85,15 @@
 
 /obj/item/melee/touch_attack/star_touch
 	name = "звёздное касание"
-	ru_names = list(
+	desc = "Зловещая аура, искажающая реальность вокруг себя. \
+			Заставляет людей со звёздной меткой заснуть на 4 секунды, а людей без звёздной метки — получить её."
+	icon = 'icons/obj/weapons/hand.dmi'
+	icon_state = "star"
+	item_state = "star"
+
+
+/obj/item/melee/touch_attack/star_touch/get_ru_names()
+	return list(
 		NOMINATIVE = "звёздное касание",
 		GENITIVE = "звёздного касания",
 		DATIVE = "звёздному касанию",
@@ -93,11 +101,6 @@
 		INSTRUMENTAL = "звёздным касанием",
 		PREPOSITIONAL = "звёздном касании"
 	)
-	desc = "Зловещая аура, искажающая реальность вокруг себя. \
-			Заставляет людей со звёздной меткой заснуть на 4 секунды, а людей без звёздной метки — получить её."
-	icon = 'icons/obj/weapons/hand.dmi'
-	icon_state = "star"
-	item_state = "star"
 
 
 /obj/item/melee/touch_attack/star_touch/Initialize(mapload)

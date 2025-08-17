@@ -1,7 +1,15 @@
 // "Floating ghost blade" effect for blade heretics
 /obj/effect/floating_blade
 	name = "клинок"
-	ru_names = list(
+	icon = 'icons/effects/eldritch.dmi'
+	icon_state = "dio_knife"
+	layer = MOB_LAYER
+	/// The color the knife glows around it.
+	var/glow_color = "#ececff"
+
+
+/obj/effect/floating_blade/get_ru_names()
+	return list(
 		NOMINATIVE = "клинок",
 		GENITIVE = "клинка",
 		DATIVE = "клинку",
@@ -9,11 +17,6 @@
 		INSTRUMENTAL = "клинком",
 		PREPOSITIONAL = "клинке"
 	)
-	icon = 'icons/effects/eldritch.dmi'
-	icon_state = "dio_knife"
-	layer = MOB_LAYER
-	/// The color the knife glows around it.
-	var/glow_color = "#ececff"
 
 
 /obj/effect/floating_blade/Initialize(mapload)

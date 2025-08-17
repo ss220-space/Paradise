@@ -5,14 +5,6 @@
 
 /obj/item/melee/cultblade/haunted
 	name = "призрачный меч"
-	ru_names = list(
-		NOMINATIVE = "призрачный меч",
-		GENITIVE = "призрачного меча",
-		DATIVE = "призрачному мечу",
-		ACCUSATIVE = "призрачный меч",
-		INSTRUMENTAL = "призрачным мечом",
-		PREPOSITIONAL = "призрачнои мече",
-	)
 	desc = "Жуткий меч с клинком, который не чёрный, а скорей вообще не существует. \
 			Он светится яростной, сдержанной зелёной энергией."
 	icon_state = "hauntedblade"
@@ -94,6 +86,17 @@
 		) ,
 	)
 	actions_types = list(/datum/action/item_action/haunted_blade)
+
+
+/obj/item/melee/cultblade/haunted/get_ru_names()
+	return list(
+		NOMINATIVE = "призрачный меч",
+		GENITIVE = "призрачного меча",
+		DATIVE = "призрачному мечу",
+		ACCUSATIVE = "призрачный меч",
+		INSTRUMENTAL = "призрачным мечом",
+		PREPOSITIONAL = "призрачнои мече",
+	)
 
 
 /obj/item/melee/cultblade/haunted/examine(mob/user)

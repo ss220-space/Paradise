@@ -78,7 +78,16 @@
 
 /obj/effect/visible_heretic_influence
 	name = "раскол реальности"
-	ru_names = list(
+	icon = 'icons/effects/eldritch.dmi'
+	icon_state = "pierced_illusion"
+	anchored = TRUE
+	//interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND|INTERACT_ATOM_NO_FINGERPRINT_INTERACT
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	alpha = 0
+
+
+/obj/effect/visible_heretic_influence/get_ru_names()
+	return list(
 		NOMINATIVE = "раскол реальности",
 		GENITIVE = "раскола реальности",
 		DATIVE = "расколу реальности",
@@ -86,12 +95,6 @@
 		INSTRUMENTAL = "расколом реальности",
 		PREPOSITIONAL = "расколе реальности",
 	)
-	icon = 'icons/effects/eldritch.dmi'
-	icon_state = "pierced_illusion"
-	anchored = TRUE
-	//interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND|INTERACT_ATOM_NO_FINGERPRINT_INTERACT
-	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	alpha = 0
 
 
 /obj/effect/visible_heretic_influence/Initialize(mapload)
@@ -178,14 +181,6 @@
 
 /obj/effect/heretic_influence
 	name = "раскол реальности"
-	ru_names = list(
-		NOMINATIVE = "раскол реальности",
-		GENITIVE = "раскола реальности",
-		DATIVE = "расколу реальности",
-		ACCUSATIVE = "раскол реальности",
-		INSTRUMENTAL = "расколом реальности",
-		PREPOSITIONAL = "расколе реальности",
-	)
 	icon = 'icons/effects/eldritch.dmi'
 	anchored = TRUE
 	//interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND|INTERACT_ATOM_NO_FINGERPRINT_INTERACT
@@ -195,6 +190,17 @@
 	var/being_drained = FALSE
 	/// The icon state applied to the image created for this influence.
 	var/real_icon_state = "reality_smash"
+
+
+/obj/effect/heretic_influence/get_ru_names()
+	return list(
+		NOMINATIVE = "раскол реальности",
+		GENITIVE = "раскола реальности",
+		DATIVE = "расколу реальности",
+		ACCUSATIVE = "раскол реальности",
+		INSTRUMENTAL = "расколом реальности",
+		PREPOSITIONAL = "расколе реальности",
+	)
 
 
 /obj/effect/heretic_influence/Initialize(mapload)

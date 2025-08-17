@@ -1,14 +1,6 @@
 
 /obj/item/melee/sickly_blade
 	name = "серповидный клинок"
-	ru_names = list(
-		NOMINATIVE = "серповидный клинок",
-		GENITIVE = "серповидного клинка",
-		DATIVE = "серповидному клинку",
-		ACCUSATIVE = "серповидный клинок",
-		INSTRUMENTAL = "серповидным клинком",
-		PREPOSITIONAL = "серповидном клинке",
-	)
 	desc = "Болезненно-зелёный клинок в форме полумесяца, украшенный реалистичным декоративным глазом. \
 			Возможно даже слишком реалистичным... Стоп, он что, моргнул?"
 	gender = MALE
@@ -39,6 +31,17 @@
 	var/escape_attempts = 0
 	/// Timer that resets your escape_attempts back to 0
 	var/escape_timer
+
+
+/obj/item/melee/sickly_blade/get_ru_names()
+	return list(
+		NOMINATIVE = "серповидный клинок",
+		GENITIVE = "серповидного клинка",
+		DATIVE = "серповидному клинку",
+		ACCUSATIVE = "серповидный клинок",
+		INSTRUMENTAL = "серповидным клинком",
+		PREPOSITIONAL = "серповидном клинке",
+	)
 
 
 /obj/item/melee/sickly_blade/Initialize(mapload)
@@ -148,14 +151,6 @@
 // Path of Rust's blade
 /obj/item/melee/sickly_blade/rust
 	name = "ржавый клинок"
-	ru_names = list(
-		NOMINATIVE = "ржавый клинок",
-		GENITIVE = "ржавого клинка",
-		DATIVE = "ржавому клинку",
-		ACCUSATIVE = "ржавый клинок",
-		INSTRUMENTAL = "ржавым клинком",
-		PREPOSITIONAL = "ржавом клинке",
-	)
 	desc = "Этот серповидный клинок обветшал и покрывается ржавчиной. \
 			Он всё ещё опасен, способный разрывать плоть ржавыми зазубринами."
 	icon_state = "rust_blade"
@@ -163,17 +158,20 @@
 	after_use_message = "Ржавые Холмы слышат ваш зов..."
 
 
+/obj/item/melee/sickly_blade/rust/get_ru_names()
+	return list(
+		NOMINATIVE = "ржавый клинок",
+		GENITIVE = "ржавого клинка",
+		DATIVE = "ржавому клинку",
+		ACCUSATIVE = "ржавый клинок",
+		INSTRUMENTAL = "ржавым клинком",
+		PREPOSITIONAL = "ржавом клинке",
+	)
+
+
 // Path of Ash's blade
 /obj/item/melee/sickly_blade/ash
 	name = "клинок пепла"
-	ru_names = list(
-		NOMINATIVE = "клинок пепла",
-		GENITIVE = "клинка пепла",
-		DATIVE = "клинку пепла",
-		ACCUSATIVE = "клинок пепла",
-		INSTRUMENTAL = "клинком пепла",
-		PREPOSITIONAL = "клинке пепла",
-	)
 	desc = "Полурасплавленный и необработанный, кусок металла, покрытый в пеплом и шлаком. \
 			Незаконченный, он выглядит как нечто большее, чем он есть."
 	icon_state = "ash_blade"
@@ -182,10 +180,29 @@
 	resistance_flags = FIRE_PROOF
 
 
+/obj/item/melee/sickly_blade/ash/get_ru_names()
+	return list(
+		NOMINATIVE = "клинок пепла",
+		GENITIVE = "клинка пепла",
+		DATIVE = "клинку пепла",
+		ACCUSATIVE = "клинок пепла",
+		INSTRUMENTAL = "клинком пепла",
+		PREPOSITIONAL = "клинке пепла",
+	)
+
+
 // Path of Flesh's blade
 /obj/item/melee/sickly_blade/flesh
 	name = "кровавый клинок"
-	ru_names = list(
+	desc = "Полумесяц, рожденный из изуродованной плоти существа. \
+			Он постоянно чувствует боль и стремится передать свои страдания другим."
+	icon_state = "flesh_blade"
+	item_state = "flesh_blade"
+	after_use_message = "Маршал слышит ваш зов..."
+
+
+/obj/item/melee/sickly_blade/flesh/get_ru_names()
+	return list(
 		NOMINATIVE = "кровавый клинок",
 		GENITIVE = "кровавого клинка",
 		DATIVE = "кровавому клинку",
@@ -193,11 +210,6 @@
 		INSTRUMENTAL = "кровавым клинком",
 		PREPOSITIONAL = "кровавом клинке",
 	)
-	desc = "Полумесяц, рожденный из изуродованной плоти существа. \
-			Он постоянно чувствует боль и стремится передать свои страдания другим."
-	icon_state = "flesh_blade"
-	item_state = "flesh_blade"
-	after_use_message = "Маршал слышит ваш зов..."
 
 
 /obj/item/melee/sickly_blade/flesh/Initialize(mapload)
@@ -218,14 +230,6 @@
 // Path of Void's blade
 /obj/item/melee/sickly_blade/void
 	name = "клинок пустоты"
-	ru_names = list(
-		NOMINATIVE = "клинок пустоты",
-		GENITIVE = "клинка пустоты",
-		DATIVE = "клинку пустоты",
-		ACCUSATIVE = "клинок пустоты",
-		INSTRUMENTAL = "клинком пустоты",
-		PREPOSITIONAL = "клинке пустоты",
-	)
 	desc = "Этот клинок, не состоит из какого-либо материала. \
 			Это настоящее воплощение пустоты и хаоса."
 	icon_state = "void_blade"
@@ -233,18 +237,21 @@
 	after_use_message = "Аристократ слышит ваш зов..."
 
 
+/obj/item/melee/sickly_blade/void/get_ru_names()
+	return list(
+		NOMINATIVE = "клинок пустоты",
+		GENITIVE = "клинка пустоты",
+		DATIVE = "клинку пустоты",
+		ACCUSATIVE = "клинок пустоты",
+		INSTRUMENTAL = "клинком пустоты",
+		PREPOSITIONAL = "клинке пустоты",
+	)
+
+
 // Path of the Blade's... blade.
 // Opting for /dark instead of /blade to avoid "sickly_blade/blade".
 /obj/item/melee/sickly_blade/dark
 	name = "повреждённый клинок"
-	ru_names = list(
-		NOMINATIVE = "повреждённый клинок",
-		GENITIVE = "повреждённого клинка",
-		DATIVE = "повреждённому клинку",
-		ACCUSATIVE = "повреждённый клинок",
-		INSTRUMENTAL = "повреждённым клинком",
-		PREPOSITIONAL = "повреждённом клинке",
-	)
 	desc = "Клинок доблестного война, расколотый и разорванный. \
 			Царапины на серебре навеки связывают его с темной целью."
 	icon_state = "dark_blade"
@@ -253,6 +260,17 @@
 	after_use_message = "Чемпион слышит ваш зов..."
 	///If our blade is currently infused with the mansus grasp
 	var/infused = FALSE
+
+
+/obj/item/melee/sickly_blade/dark/get_ru_names()
+	return list(
+		NOMINATIVE = "повреждённый клинок",
+		GENITIVE = "повреждённого клинка",
+		DATIVE = "повреждённому клинку",
+		ACCUSATIVE = "повреждённый клинок",
+		INSTRUMENTAL = "повреждённым клинком",
+		PREPOSITIONAL = "повреждённом клинке",
+	)
 
 
 /obj/item/melee/sickly_blade/dark/afterattack(atom/target, mob/user, list/modifiers, list/attack_modifiers)
@@ -311,14 +329,6 @@
 // Path of Cosmos's blade
 /obj/item/melee/sickly_blade/cosmic
 	name = "космический клинок"
-	ru_names = list(
-		NOMINATIVE = "космический клинок",
-		GENITIVE = "космического клинка",
-		DATIVE = "космическому клинку",
-		ACCUSATIVE = "космический клинок",
-		INSTRUMENTAL = "космическим клинком",
-		PREPOSITIONAL = "космическом клинке",
-	)
 	desc = "Частица небесного резонанса, оформившаяся в клинок сотканный из звёздного света. \
 			Радужный изгнанник, прокладывающий сияющие тропы, отчаянно стремящийся к единению."
 	icon_state = "cosmic_blade"
@@ -326,17 +336,20 @@
 	after_use_message = "Звёздный Глашатай слышит ваш зов..."
 
 
+/obj/item/melee/sickly_blade/cosmic/get_ru_names()
+	return list(
+		NOMINATIVE = "космический клинок",
+		GENITIVE = "космического клинка",
+		DATIVE = "космическому клинку",
+		ACCUSATIVE = "космический клинок",
+		INSTRUMENTAL = "космическим клинком",
+		PREPOSITIONAL = "космическом клинке",
+	)
+
+
 // Path of Knock's blade
 /obj/item/melee/sickly_blade/lock
 	name = "клинок - ключ"
-	ru_names = list(
-		NOMINATIVE = "клинок - ключ",
-		GENITIVE = "клинка - ключа",
-		DATIVE = "клинку - ключу",
-		ACCUSATIVE = "клинок - ключ",
-		INSTRUMENTAL = "клинком - ключом",
-		PREPOSITIONAL = "клинке - ключе",
-	)
 	desc = "И клинок и ключ. Ключ от чего? \
 			Какие великие врата он открывает?"
 	icon_state = "key_blade"
@@ -347,17 +360,20 @@
 	toolspeed = 1.3
 
 
+/obj/item/melee/sickly_blade/lock/get_ru_names()
+	return list(
+		NOMINATIVE = "клинок - ключ",
+		GENITIVE = "клинка - ключа",
+		DATIVE = "клинку - ключу",
+		ACCUSATIVE = "клинок - ключ",
+		INSTRUMENTAL = "клинком - ключом",
+		PREPOSITIONAL = "клинке - ключе",
+	)
+
+
 // Path of Moon's blade
 /obj/item/melee/sickly_blade/moon
 	name = "лунный клинок"
-	ru_names = list(
-		NOMINATIVE = "лунный клинок",
-		GENITIVE = "лунного клинка",
-		DATIVE = "лунному клинку",
-		ACCUSATIVE = "лунный клинок",
-		INSTRUMENTAL = "лунным клинком",
-		PREPOSITIONAL = "лунном клинке",
-	)
 	desc = "Железный клинок, отражающий правду земли: однажды все присоединяются к параду. \
 			Параду, приносящему радость, вызывающему улыбки на лицах людей, хотят они того или нет."
 	icon_state = "moon_blade"
@@ -365,19 +381,22 @@
 	after_use_message = "Луна слышит ваш зов..."
 
 
+/obj/item/melee/sickly_blade/moon/get_ru_names()
+	return list(
+		NOMINATIVE = "лунный клинок",
+		GENITIVE = "лунного клинка",
+		DATIVE = "лунному клинку",
+		ACCUSATIVE = "лунный клинок",
+		INSTRUMENTAL = "лунным клинком",
+		PREPOSITIONAL = "лунном клинке",
+	)
+
+
 // Path of Nar'Sie's blade
 // What!? This blade is given to cultists as an altar item when they sacrifice a heretic.
 // It is also given to the heretic themself if they sacrifice a cultist.
 /obj/item/melee/sickly_blade/cursed
 	name = "проклятый клинок"
-	ru_names = list(
-		NOMINATIVE = "проклятый клинок",
-		GENITIVE = "проклятого клинка",
-		DATIVE = "проклятому клинку",
-		ACCUSATIVE = "проклятый клинок",
-		INSTRUMENTAL = "проклятым клинком",
-		PREPOSITIONAL = "проклятом клинке",
-	)
 	desc = "Тёмный клинок, обречённый вечно кровоточить. В постоянной борьбе между тьмой и \
 			сверхъестественным он вынужден признать любого владельца своим хозяином. \
 			С роговицы глаза на его рукояти капает кровь, но пронзительный взгляд всё равно неотрывно \
@@ -390,6 +409,17 @@
 	armour_penetration = 35
 	icon_state = "cursed_blade"
 	item_state = "cursed_blade"
+
+
+/obj/item/melee/sickly_blade/cursed/get_ru_names()
+	return list(
+		NOMINATIVE = "проклятый клинок",
+		GENITIVE = "проклятого клинка",
+		DATIVE = "проклятому клинку",
+		ACCUSATIVE = "проклятый клинок",
+		INSTRUMENTAL = "проклятым клинком",
+		PREPOSITIONAL = "проклятом клинке",
+	)
 
 
 /obj/item/melee/sickly_blade/cursed/Initialize(mapload)
@@ -463,7 +493,14 @@
 // Weaker blade variant given to people so they can participate in the heretic arena spell
 /obj/item/melee/sickly_blade/training
 	name = "несовершенный клинок"
-	ru_names = list(
+	desc = "Клинок, дарованный из жалости тем, кто не может принять истину. \
+			Пусть он станет благословением в то короткое время, что он рядом с вами."
+	force = 17
+	armour_penetration = 0
+
+
+/obj/item/melee/sickly_blade/training/get_ru_names()
+	return list(
 		NOMINATIVE = "несовершенный клинок",
 		GENITIVE = "несовершенного клинка",
 		DATIVE = "несовершенному клинку",
@@ -471,10 +508,6 @@
 		INSTRUMENTAL = "несовершенным клинком",
 		PREPOSITIONAL = "несовершенном клинке",
 	)
-	desc = "Клинок, дарованный из жалости тем, кто не может принять истину. \
-			Пусть он станет благословением в то короткое время, что он рядом с вами."
-	force = 17
-	armour_penetration = 0
 
 
 /obj/item/melee/sickly_blade/training/check_usability(mob/living/user)

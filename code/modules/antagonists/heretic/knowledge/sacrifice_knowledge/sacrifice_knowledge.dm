@@ -143,6 +143,9 @@
 		if(possible_target.current.stat == DEAD)
 			continue
 
+		if(!is_station_level(possible_target.current.z))
+			continue
+
 		valid_targets += possible_target
 
 	if(!length(valid_targets))
@@ -791,14 +794,6 @@
 
 /obj/projectile/curse_hand
 	name = "проклятая рука"
-	ru_names = list(
-		NOMINATIVE = "проклятая рука",
-		GENITIVE = "проклятой руки",
-		DATIVE = "проклятой руке",
-		ACCUSATIVE = "проклятую руку",
-		INSTRUMENTAL = "проклятой рукой",
-		PREPOSITIONAL = "проклятой руке",
-	)
 	gender = FEMALE
 	icon_state = "cursehand0"
 	base_icon_state = "cursehand"
@@ -813,6 +808,17 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	var/datum/beam/arm
 	var/handedness = 0
+
+
+/obj/projectile/curse_hand/get_ru_names()
+	return list(
+		NOMINATIVE = "проклятая рука",
+		GENITIVE = "проклятой руки",
+		DATIVE = "проклятой руке",
+		ACCUSATIVE = "проклятую руку",
+		INSTRUMENTAL = "проклятой рукой",
+		PREPOSITIONAL = "проклятой руке",
+	)
 
 
 /obj/projectile/curse_hand/Initialize(mapload)

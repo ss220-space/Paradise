@@ -1,14 +1,6 @@
 /// Renders you unable to see people who were heretics at the time that this organ is gained
 /obj/item/organ/internal/eyes/corrupt
 	name = "искаженные сферы"
-	ru_names = list(
-		NOMINATIVE = "искажённые сферы",
-		GENITIVE = "искажённых сфер",
-		DATIVE = "искажённым сферам",
-		ACCUSATIVE = "искажённые сферы",
-		INSTRUMENTAL = "искажёнными сферами",
-		PREPOSITIONAL = "искажённых сферах"
-	)
 	desc = "Эти глаза увидели то, чего им видеть не следовало."
 	gender = PLURAL
 	icon_state = "eyes_voidwalker"
@@ -19,6 +11,17 @@
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// The override images we are applying
 	var/list/hallucinations
+
+
+/obj/item/organ/internal/eyes/corrupt/get_ru_names()
+	return list(
+		NOMINATIVE = "искажённые сферы",
+		GENITIVE = "искажённых сфер",
+		DATIVE = "искажённым сферам",
+		ACCUSATIVE = "искажённые сферы",
+		INSTRUMENTAL = "искажёнными сферами",
+		PREPOSITIONAL = "искажённых сферах"
+	)
 
 
 /obj/item/organ/internal/eyes/corrupt/Initialize(mapload)
@@ -60,7 +63,13 @@
 /// Sometimes speak in incomprehensible tongues
 /obj/item/organ/internal/vocal_cords/corrupt
 	name = "искаженные голосовые связки"
-	ru_names = list(
+	desc = "Эти только лгут."
+	gender = PLURAL
+	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
+
+
+/obj/item/organ/internal/vocal_cords/corrupt/get_ru_names()
+	return list(
 		NOMINATIVE = "искажённые голосовые связки",
 		GENITIVE = "искажённых голосовых связок",
 		DATIVE = "искажённым голосовым связкам",
@@ -68,9 +77,6 @@
 		INSTRUMENTAL = "искажёнными голосовыми связками",
 		PREPOSITIONAL = "искажённых голосовых связках"
 	)
-	desc = "Эти только лгут."
-	gender = PLURAL
-	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 
 
 /obj/item/organ/internal/vocal_cords/corrupt/Initialize(mapload)
@@ -102,14 +108,6 @@
 /// Randomly secretes alcohol or hallucinogens when you're drinking something
 /obj/item/organ/internal/liver/corrupt
 	name = "искаженная печень"
-	ru_names = list(
-		NOMINATIVE = "искажённая печень",
-		GENITIVE = "искажённой печени",
-		DATIVE = "искажённой печени",
-		ACCUSATIVE = "искажённую печень", 
-		INSTRUMENTAL = "искажённой печенью",
-		PREPOSITIONAL = "искажённой печени"
-	)
 	desc = "После увиденного вам действительно захочется выпить."
 	gender = FEMALE
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
@@ -118,6 +116,17 @@
 	/// What extra ingredients can we add?
 	var/list/extra_ingredients = list(
 		"rum", "vodka", "whiskey", "ale", "beer", "laughter", "bath_salts", "lsd", "krokodil"
+	)
+
+
+/obj/item/organ/internal/liver/corrupt/get_ru_names()
+	return list(
+		NOMINATIVE = "искажённая печень",
+		GENITIVE = "искажённой печени",
+		DATIVE = "искажённой печени",
+		ACCUSATIVE = "искажённую печень",
+		INSTRUMENTAL = "искажённой печенью",
+		PREPOSITIONAL = "искажённой печени"
 	)
 
 
@@ -157,7 +166,14 @@
 /// Occasionally bombards you with spooky hands and lets everyone hear your pulse.
 /obj/item/organ/internal/heart/corrupt
 	name = "искажённое сердце"
-	ru_names = list(
+	desc = "Какая порча распространяется вместе с кровью?"
+	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
+	/// How long until the next heart?
+	COOLDOWN_DECLARE(hand_cooldown)
+
+
+/obj/item/organ/internal/heart/corrupt/get_ru_names()
+	return list(
 		NOMINATIVE = "искажённое сердце",
 		GENITIVE = "искажённого сердца",
 		DATIVE = "искажённому сердцу",
@@ -165,10 +181,6 @@
 		INSTRUMENTAL = "искажённым сердцем",
 		PREPOSITIONAL = "искажённом сердце"
 	)
-	desc = "Какая порча распространяется вместе с кровью?"
-	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
-	/// How long until the next heart?
-	COOLDOWN_DECLARE(hand_cooldown)
 
 
 /obj/item/organ/internal/heart/corrupt/Initialize(mapload)
@@ -188,14 +200,6 @@
 /// Sometimes cough out some kind of dangerous gas
 /obj/item/organ/internal/lungs/corrupt
 	name = "искаженные лёгкие"
-	ru_names = list(
-		NOMINATIVE = "искажённые лёгкие",
-		GENITIVE = "искажённых лёгких",
-		DATIVE = "искажённым лёгким",
-		ACCUSATIVE = "искажённые лёгкие",
-		INSTRUMENTAL = "искажёнными лёгкими",
-		PREPOSITIONAL = "искажённых лёгких"
-	)
 	desc = "Некоторые вещи ДОЛЖНЫ утонуть в смоле."
 	gender = PLURAL
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
@@ -209,6 +213,17 @@
 		/datum/gas/miasma = 50,
 		/datum/gas/plasma = 20,
 	)*/
+
+
+/obj/item/organ/internal/lungs/corrupt/get_ru_names()
+	return list(
+		NOMINATIVE = "искажённые лёгкие",
+		GENITIVE = "искажённых лёгких",
+		DATIVE = "искажённым лёгким",
+		ACCUSATIVE = "искажённые лёгкие",
+		INSTRUMENTAL = "искажёнными лёгкими",
+		PREPOSITIONAL = "искажённых лёгких"
+	)
 
 
 /obj/item/organ/internal/lungs/corrupt/Initialize(mapload)
@@ -237,7 +252,15 @@
 /// It's full of worms
 /obj/item/organ/internal/appendix/corrupt
 	name = "искажённый аппендикс"
-	ru_names = list(
+	desc = "Какая темная космическая сила вообще может захотеть испортить аппендикс?"
+	gender = MALE
+	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
+	/// How likely are we to spawn worms?
+	var/worm_chance = 2
+
+
+/obj/item/organ/internal/appendix/corrupt/get_ru_names()
+	return list(
 		NOMINATIVE = "искажённый аппендикс",
 		GENITIVE = "искажённого аппендикса",
 		DATIVE = "искажённому аппендиксу",
@@ -245,11 +268,6 @@
 		INSTRUMENTAL = "искажённым аппендиксом",
 		PREPOSITIONAL = "искажённом аппендиксе"
 	)
-	desc = "Какая темная космическая сила вообще может захотеть испортить аппендикс?"
-	gender = MALE
-	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
-	/// How likely are we to spawn worms?
-	var/worm_chance = 2
 
 
 /obj/item/organ/internal/appendix/corrupt/Initialize(mapload)

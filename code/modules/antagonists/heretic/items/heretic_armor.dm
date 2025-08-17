@@ -1,14 +1,6 @@
 // Eldritch armor. Looks cool, hood lets you cast heretic spells.
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "зловещий капюшон"
-	ru_names = list(
-		NOMINATIVE = "зловещий капюшон",
-		GENITIVE = "зловещего капюшона",
-		DATIVE = "зловещему капюшону",
-		ACCUSATIVE = "зловещий капюшон",
-		INSTRUMENTAL = "зловещим капюшоном",
-		PREPOSITIONAL = "зловещем капюшоне",
-	)
 	gender = MALE
 	desc = "Рваный, покрытый пылью капюшон. Внутри виднеются жуткие глаза."
 	icon = 'icons/obj/clothing/helmet.dmi'
@@ -29,6 +21,17 @@
 	)
 
 
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/get_ru_names()
+	return list(
+		NOMINATIVE = "зловещий капюшон",
+		GENITIVE = "зловещего капюшона",
+		DATIVE = "зловещему капюшону",
+		ACCUSATIVE = "зловещий капюшон",
+		INSTRUMENTAL = "зловещим капюшоном",
+		PREPOSITIONAL = "зловещем капюшоне",
+	)
+
+
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/heretic_focus)
@@ -36,14 +39,6 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch
 	name = "зловещая броня"
-	ru_names = list(
-		NOMINATIVE = "зловещая броня",
-		GENITIVE = "зловещей брони",
-		DATIVE = "зловещей броне",
-		ACCUSATIVE = "зловещую броню",
-		INSTRUMENTAL = "зловещей бронёй",
-		PREPOSITIONAL = "зловещей броне",
-	)
 	desc = "Рваная, пыльная мантия. Внутри — видны жуткие глаза."
 	gender = FEMALE
 	icon_state = "eldritch_armor"
@@ -64,6 +59,17 @@
 	)
 
 
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/get_ru_names()
+	return list(
+		NOMINATIVE = "зловещая броня",
+		GENITIVE = "зловещей брони",
+		DATIVE = "зловещей броне",
+		ACCUSATIVE = "зловещую броню",
+		INSTRUMENTAL = "зловещей бронёй",
+		PREPOSITIONAL = "зловещей броне",
+	)
+
+
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/examine(mob/user)
 	. = ..()
 	if(!isheretic(user))
@@ -77,14 +83,6 @@
 // Плащ Пустоты. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
 	name = "капюшон пустоты"
-	ru_names = list(
-		NOMINATIVE = "капюшон пустоты",
-		GENITIVE = "капюшона пустоты",
-		DATIVE = "капюшону пустоты",
-		ACCUSATIVE = "капюшон пустоты",
-		INSTRUMENTAL = "капюшоном пустоты",
-		PREPOSITIONAL = "капюшоне пустоты"
-	)
 	desc = "Чёрный, как смола, не отражающий свет. Покрытый рунами. \
 			С каждой вспышкой вы теряете понимание того, что видите."
 	icon = 'icons/obj/clothing/helmet.dmi'
@@ -104,6 +102,17 @@
 	)
 
 
+/obj/item/clothing/head/hooded/cult_hoodie/void/get_ru_names()
+	return list(
+		NOMINATIVE = "капюшон пустоты",
+		GENITIVE = "капюшона пустоты",
+		DATIVE = "капюшону пустоты",
+		ACCUSATIVE = "капюшон пустоты",
+		INSTRUMENTAL = "капюшоном пустоты",
+		PREPOSITIONAL = "капюшоне пустоты"
+	)
+
+
 /obj/item/clothing/head/hooded/cult_hoodie/void/Initialize(mapload)
 	. = ..()
 	add_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), INNATE_TRAIT)
@@ -111,14 +120,6 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void
 	name = "плащ пустоты"
-	ru_names = list(
-		NOMINATIVE = "плащ пустоты",
-		GENITIVE = "плаща пустоты",
-		DATIVE = "плащу пустоты",
-		ACCUSATIVE = "плащ пустоты",
-		INSTRUMENTAL = "плащом пустоты",
-		PREPOSITIONAL = "плаще пустоты"
-	)
 	desc = "Чёрный, как смола, не отражающий свет. Покрытый рунами. \
 			С каждой вспышкой вы теряете понимание того, что видите."
 	icon_state = "void_cloak"
@@ -138,6 +139,17 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+	)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/void/get_ru_names()
+	return list(
+		NOMINATIVE = "плащ пустоты",
+		GENITIVE = "плаща пустоты",
+		DATIVE = "плащу пустоты",
+		ACCUSATIVE = "плащ пустоты",
+		INSTRUMENTAL = "плащом пустоты",
+		PREPOSITIONAL = "плаще пустоты"
 	)
 
 
