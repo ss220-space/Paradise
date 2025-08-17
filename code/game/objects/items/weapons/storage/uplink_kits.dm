@@ -793,3 +793,108 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/suit/hooded/ghostfacesuit/devil/true(src)
 	new /obj/item/clothing/mask/gas/ghostface/true/devil(src)
 	new /obj/item/kitchen/knife/ghostface_knife/devil(src)
+
+/obj/item/storage/box/syndie_kit/compact_sniper
+	name = "compact sniper rifle kit"
+	desc = "Коробка, содержащая компактную снайперскую винтовку \"Bubz Mini\", дополнительный магазин, и коробку патронов."
+
+/obj/item/storage/box/syndie_kit/compact_sniper/get_ru_names()
+	return list(
+		NOMINATIVE = "набор \"Компактная снайперская винтовка\"",
+		GENITIVE = "набора \"Компактная снайперская винтовка\"",
+		DATIVE = "набору \"Компактная снайперская винтовка\"",
+		ACCUSATIVE = "набор \"Компактная снайперская винтовка\"",
+		INSTRUMENTAL = "набором \"Компактная снайперская винтовка\"",
+		PREPOSITIONAL = "наборе \"Компактная снайперская винтовка\""
+	)
+
+/obj/item/storage/box/syndie_kit/compact_sniper/populate_contents()
+	new /obj/item/gun/projectile/automatic/sniper_rifle/compact(src)
+	new /obj/item/ammo_box/magazine/sniper_rounds/compact(src)
+	new /obj/item/ammo_box/sniper_rounds_compact(src)
+
+/obj/item/storage/box/syndie_kit/revolver
+	name = "revolver ocelot kit"
+	desc = "Коробка, содержащая револьвер и три сменных барабана .357 калибра."
+
+/obj/item/storage/box/syndie_kit/revolver/get_ru_names()
+	return list(
+		NOMINATIVE = "набор \"Револьвер Оцелот\"",
+		GENITIVE = "набора \"Револьвер Оцелот\"",
+		DATIVE = "набору \"Револьвер Оцелот\"",
+		ACCUSATIVE = "набор \"Револьвер Оцелот\"",
+		INSTRUMENTAL = "набором \"Револьвер Оцелот\"",
+		PREPOSITIONAL = "наборе \"Револьвер Оцелот\""
+	)
+
+/obj/item/storage/box/syndie_kit/revolver/populate_contents()
+	new /obj/item/gun/projectile/revolver(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+
+/obj/item/storage/box/syndie_kit/desert_eagle
+	name = "desert eagle kit"
+	desc = "Коробка, содержащая \"Пустынный Орёл\", три дополнительных магазина, и две коробки с патронами калибра .50AE."
+
+/obj/item/storage/box/syndie_kit/desert_eagle/get_ru_names()
+	return list(
+		NOMINATIVE = "набор \"Пустынный Орёл\"",
+		GENITIVE = "набора \"Пустынный Орёл\"",
+		DATIVE = "набору \"Пустынный Орёл\"",
+		ACCUSATIVE = "набор \"Пустынный Орёл\"",
+		INSTRUMENTAL = "набором \"Пустынный Орёл\"",
+		PREPOSITIONAL = "наборе \"Пустынный Орёл\""
+	)
+
+/obj/item/storage/box/syndie_kit/desert_eagle/populate_contents()
+	new	/obj/item/gun/projectile/automatic/pistol/deagle(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/m50(src)
+	new /obj/item/ammo_box/m50(src)
+
+/obj/item/storage/box/syndie_kit/desert_eagle_gold
+	name = "golden desert eagle kit"
+	desc = "Коробка, содержащая золотой \"Пустынный Орёл\", три дополнительных магазина, и две коробки с патронами калибра .50AE."
+
+/obj/item/storage/box/syndie_kit/desert_eagle_gold/get_ru_names()
+	return list(
+		NOMINATIVE = "набор \"золотой Пустынный Орёл\"",
+		GENITIVE = "набора \"золотой Пустынный Орёл\"",
+		DATIVE = "набору \"золотой Пустынный Орёл\"",
+		ACCUSATIVE = "набор \"золотой Пустынный Орёл\"",
+		INSTRUMENTAL = "набором \"золотой Пустынный Орёл\"",
+		PREPOSITIONAL = "наборе \"золотой Пустынный Орёл\""
+	)
+
+/obj/item/storage/box/syndie_kit/desert_eagle_gold/populate_contents()
+	new	/obj/item/gun/projectile/automatic/pistol/deagle/gold(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/m50(src)
+	new /obj/item/ammo_box/m50(src)
+
+/obj/item/storage/box/syndie_kit/stechkin_pistol
+	name = "stechkin pistol kit"
+	desc = "Коробка, содержащая пистолет \"FK-69 Стечкин\", и три дополнительных магазина."
+
+/obj/item/storage/box/syndie_kit/stechkin_pistol/get_ru_names()
+	return list(
+		NOMINATIVE = "набор \"FK-69 Стечкин\"",
+		GENITIVE = "набора \"FK-69 Стечкин\"",
+		DATIVE = "набору \"FK-69 Стечкин\"",
+		ACCUSATIVE = "набор \"FK-69 Стечкин\"",
+		INSTRUMENTAL = "набором \"FK-69 Стечкин\"",
+		PREPOSITIONAL = "наборе \"FK-69 Стечкин\""
+	)
+
+/obj/item/storage/box/syndie_kit/stechkin_pistol/populate_contents()
+	new	/obj/item/gun/projectile/automatic/pistol(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+
+
