@@ -464,7 +464,7 @@
 		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
 		// These are in life cycles, so double the time that's stated.
 		L.Knockdown(3 SECONDS)
-		L.apply_damage(30, STAMINA)
+		L.apply_damage(55, STAMINA)
 		if(!ismindshielded(L))
 			L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 		L.flash_eyes(1, TRUE)
