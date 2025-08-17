@@ -700,7 +700,7 @@
 			"Крысы в техах шумят что ле...?")
 		switch(rand(1,3))
 			if(1)
-				for(var/mob/living/carbon/other_mob in view(7,ninja))
+				for(var/mob/living/carbon/other_mob in view(7, ninja))
 					if(other_mob == ninja)
 						continue
 					to_chat(other_mob, span_notice(random_subtle_text))
