@@ -302,6 +302,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "diff"
+version = "0.1.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "56254986775e3233ffa9c4d7d3faaf6d36a2c09d30b20687e9f88bc8bafc16c8"
+
+[[package]]
 name = "dmm-tools"
 version = "0.1.0"
 source = "git+https://github.com/SpaceManiac/SpacemanDMM?rev=6c5a751516ae0e8add4b2aa4388a1e84e96e7082#6c5a751516ae0e8add4b2aa4388a1e84e96e7082"
@@ -1012,6 +1018,7 @@ dependencies = [
  "base64",
  "byondapi",
  "chrono",
+ "diff",
  "dmm-tools",
  "dreammaker",
  "eyre",
