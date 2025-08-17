@@ -173,9 +173,8 @@
 		to_chat(chassis.occupant, span_warning("Something prevents you from using [rcd_holder] in here..."))
 		return FALSE
 	playsound(chassis, 'sound/machines/click.ogg', 50, TRUE)
-	chassis.can_move = world.time + 2 SECONDS	// We don't move while we build
-	var/rcd_act_result = target.rcd_act(chassis.occupant, rcd_holder, rcd_holder.mode)
-	if(rcd_act_result == RCD_NO_ACT) //if our rcd_act was not implemented/impossible to do - we can move again
+	chassis.can_move = world.time + 5 SECONDS	// We don't move while we build
+	if(target.rcd_act(chassis.occupant, rcd_holder, rcd_holder.mode))
 		chassis.can_move = 0
 
 /obj/item/mecha_parts/mecha_equipment/rcd/proc/check_menu(mob/living/carbon/user)
