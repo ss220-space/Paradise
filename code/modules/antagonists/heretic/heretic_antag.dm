@@ -917,13 +917,15 @@
 	if(feast_of_owls)
 		return FALSE // We sold our ambition for immediate power :/
 
+	/*
 	for(var/datum/objective/must_be_done as anything in objectives)
 		if(must_be_done.check_completion())
 			continue
 
 		return FALSE
+	*/
 
-	return TRUE
+	return total_sacrifices == all_sac_targets.len
 
 /**
  * Helper to determine if a Heretic

@@ -246,8 +246,7 @@
 		sacrifice.apply_status_effect(/datum/status_effect/heretic_curse, user)
 		return
 
-
-	heretic_datum.knowledge_points += 1
+	heretic_datum.knowledge_points += 2
 	grant_reward(user, sacrifice, loc)
 	// easier to read
 	var/rewards_given = heretic_datum.rewards_given
