@@ -35,6 +35,7 @@
 		"Плавленная Библия" =	list("state" = "bible_melted",	  		"inhand" = "melted"),
 		"Некрономикон" =	 	list("state" = "bible_necronomicon",	"inhand" = "necronomicon"),
 		"Грин текст" =			list("state" = "bible_greentext",	  	"inhand" = "greentext"),
+)
 
 /obj/item/storage/bible/get_ru_names()
 	return list(
