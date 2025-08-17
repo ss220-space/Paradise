@@ -609,9 +609,19 @@
 	var/count = set_items_amount
 	var/amount_per_item = clamp(reagents.total_volume / count, 0, max_units_per_item)
 	var/list/temp_ru_names = null
-	
+
 	if(medicine_name == "")
 		medicine_name = get_base_placeholder_name(reagents, amount_per_item)
+
+	if(medicine_name)
+		temp_ru_names = list(
+			NOMINATIVE = medicine_name,
+			GENITIVE = medicine_name,
+			DATIVE = medicine_name,
+			ACCUSATIVE = medicine_name,
+			INSTRUMENTAL = medicine_name,
+			PREPOSITIONAL = medicine_name
+		)
 
 	var/data = list("count" = count)
 	for(var/i in 1 to count)
@@ -626,18 +636,8 @@
 			if(P.ru_names)
 				for(var/j = 1; j <= 6; j++)
 					P.ru_names[j] = "[P.ru_names[j]] - [medicine_name]"
-			else if (temp_ru_names)
-				P.ru_names = temp_ru_names
 			else
-				P.ru_names = list(
-						NOMINATIVE = medicine_name,
-						GENITIVE = medicine_name,
-						DATIVE = medicine_name,
-						ACCUSATIVE = medicine_name,
-						INSTRUMENTAL = medicine_name,
-						PREPOSITIONAL = medicine_name
-					)
-				temp_ru_names = P.ru_names
+				P.ru_names = temp_ru_names.Copy()
 					
 		P.pixel_x = rand(-7, 7)
 		P.pixel_y = rand(-7, 7)
