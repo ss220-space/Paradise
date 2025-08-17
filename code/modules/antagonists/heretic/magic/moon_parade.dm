@@ -89,7 +89,7 @@
 
 	RegisterSignal(victim, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, PROC_REF(moon_block_move))
 	RegisterSignal(victim, COMSIG_QDELETING, PROC_REF(clear_mob))
-	victim.AddComponent(/datum/component/leash, src, distance = 1)
+	victim.AddComponent(/datum/component/leash, firer, distance = 1)
 	mobs_hit += victim
 	victim.cause_hallucination(/datum/hallucination/delusion/preset/moon, name)
 	victim.Hallucinate(60 SECONDS)

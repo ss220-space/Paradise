@@ -54,7 +54,9 @@
 	src.force_teleport_out_effect = force_teleport_out_effect
 	src.force_teleport_in_effect = force_teleport_in_effect
 
-	RegisterSignal(owner, COMSIG_QDELETING, PROC_REF(on_owner_qdel))
+	RegisterSignal(owner, COMSIG_QDELETING, PROC_REF(end))
+	RegisterSignal(owner, COMSIG_MOB_DEATH, PROC_REF(end))
+	RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(end))
 
 	var/static/list/container_connections = list(
 		COMSIG_MOVABLE_MOVED = PROC_REF(on_owner_moved),
@@ -78,7 +80,7 @@
 	check_distance()
 
 
-/datum/component/leash/proc/on_owner_qdel()
+/datum/component/leash/proc/end()
 	SIGNAL_HANDLER
 	PRIVATE_PROC(TRUE)
 
@@ -104,7 +106,7 @@
 		return NONE
 
 	if (ismob(source))
-		source.balloon_alert(source, "слишком далеко!")
+		source.balloon_alert(source, "далеко от ведущего!")
 
 	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
