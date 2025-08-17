@@ -247,6 +247,7 @@
 		return SAY_NAME_BLOCK
 
 	sender.adjust_fire_stacks(10)
+	sender.adjustFireLoss(50)
 	sender.IgniteMob()
 	to_chat(sender, span_warningbig("Ты не в силах узнать мое имя, глупый ангел."))
 	to_chat(target, span_warning("Кто-то пытася силой заставить вас сказать свое настоящее имя, но вы смогли защититься."))
