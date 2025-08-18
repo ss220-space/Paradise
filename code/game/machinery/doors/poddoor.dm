@@ -1,6 +1,6 @@
 /obj/machinery/door/poddoor
 	name = "blast door"
-	desc = "A heavy duty blast door that opens mechanically."
+	desc = "Многослойная защитная конструкция, состоящая из внешней стальной плиты, демпфирующего слоя из композитных материалов и внутреннего герметичного контура. Оснащена реечно-шестерёнчатым механизмом открывания с гидравлическим приводом, способным функционировать в условиях деформации проёма. Обеспечивает защиту от ударной волны, осколков и радиационного излучения. Время полного закрытия: 3-2 секунды."
 	icon = 'icons/obj/doors/blastdoor.dmi'
 	icon_state = "closed"
 	layer = BLASTDOOR_LAYER
@@ -16,6 +16,15 @@
 	var/id_tag
 	var/protected = 1
 
+/obj/machinery/door/poddoor/get_ru_names()
+	ru_names = list(
+		NOMINATIVE = "противовзрывная гермодверь",
+		GENITIVE = "противовзрывной гермодвери",
+		DATIVE = "противовзрывной гермодвери",
+		ACCUSATIVE = "противовзрывную гермодверь",
+		INSTRUMENTAL = "противовзрывной гермодверью",
+		PREPOSITIONAL = "противовзрывной гермодвери"
+	)
 
 /obj/machinery/door/poddoor/preopen
 	icon_state = "open"
@@ -24,10 +33,19 @@
 
 /obj/machinery/door/poddoor/impassable
 	name = "reinforced blast door"
-	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
+	desc = "Многослойная сверхпрочная защитная конструкция, состоящая из внешней пластитановой плиты, демпфирующего слоя из композитных материалов и внутреннего герметичного контура. Оснащена реечно-шестерёнчатым механизмом открывания с гидравлическим приводом, способным функционировать в условиях деформации проёма. Обеспечивает защиту от ударной волны, осколков и радиационного излучения. Время полного закрытия: 3-2 секунды. Предназначена для объектов с повышенными требованиями к безопасности."
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	hackable = FALSE
 
+/obj/machinery/door/poddoor/impassable/get_ru_names()
+	ru_names = list(
+		NOMINATIVE = "усиленная противовзрывная гермодверь",
+		GENITIVE = "усиленной противовзрывной гермодвери",
+		DATIVE = "усиленной противовзрывной гермодвери",
+		ACCUSATIVE = "усиленную противовзрывную гермодверь",
+		INSTRUMENTAL = "усиленной противовзрывной гермодверью",
+		PREPOSITIONAL = "усиленной противовзрывной гермодвери"
+	)
 
 /obj/machinery/door/poddoor/impassable/unhittable
 	obj_flags = IGNORE_HITS
