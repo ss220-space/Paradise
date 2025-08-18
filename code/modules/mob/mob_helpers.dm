@@ -186,9 +186,9 @@
 /proc/stars(text, probability = 25)
 	return RUSTLIB_CALL(random_replace, text, probability, "*")
 
-/proc/stars_all(list/message_pieces, pr = 25)
-	for(var/datum/multilingual_say_piece/S in message_pieces)
-		S.message = stars(S.message, pr)
+/proc/stars_all(list/message_pieces, probability = 25)
+	for(var/datum/multilingual_say_piece/piece in message_pieces)
+		piece.message = stars(piece.message, probability)
 
 /proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
