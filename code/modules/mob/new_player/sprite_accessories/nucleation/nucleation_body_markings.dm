@@ -13,7 +13,7 @@
 
 /datum/sprite_accessory/body_markings/nucleation/crystal_comb
 	name = "Crystal Comb"
-	icon_state = "crystale_comb"
+	icon_state = "crystal_comb"
 
 /datum/sprite_accessory/body_markings/nucleation/crystal_ribs
 	name = "Crystal Ribs"
