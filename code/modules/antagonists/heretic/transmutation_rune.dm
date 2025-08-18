@@ -209,7 +209,7 @@
 	// Some rituals may remove atoms from the selected_atoms list, and not consume them.
 	var/list/initial_selected_atoms = selected_atoms.Copy()
 	for(var/atom/to_disappear as anything in selected_atoms)
-		to_disappear.alpha_set(0, ALPHA_SOURCE_HERETIC)
+		to_disappear.alpha = 0
 
 	// All the components have been invisibled, time to actually do the ritual. Call on_finished_recipe
 	// (Note: on_finished_recipe may sleep in the case of some rituals like summons, which expect ghost candidates.)
@@ -225,7 +225,7 @@
 		if(QDELETED(to_appear))
 			continue
 
-		to_appear.alpha_set(1, ALPHA_SOURCE_HERETIC)
+		to_appear.alpha = 1
 
 	// And finally, give some user feedback
 	// No feedback is given on failure here -

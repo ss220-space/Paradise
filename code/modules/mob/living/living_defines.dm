@@ -166,3 +166,6 @@
 
 	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
 	var/xenobiology_spawned = FALSE
+
+	/// List of alpha changelog from various sources
+	var/list/alphas = list(ALPHA_SOURCE_DEFAULT = 1)

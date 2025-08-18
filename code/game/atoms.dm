@@ -114,8 +114,6 @@
 	var/datum/ai_controller/ai_controller
 
 	var/list/alternate_appearances
-	/// List of alpha changelog from various sources
-	var/list/alphas = list(ALPHA_SOURCE_DEFAULT = 1)
 	var/drag_start
 
 
@@ -1859,7 +1857,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 
 	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-	active_hud.screentip_text.maptext = MAPTEXT("<span style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[src.declent_ru(NOMINATIVE)]</span>")
+	active_hud.screentip_text.maptext = MAPTEXT("<span style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[capitalize(src.declent_ru(NOMINATIVE))]</span>")
 
 // This is normal, I assure you. Paradise optimization.
 /atom/MouseExited(location, control, params)
