@@ -408,6 +408,7 @@
 		return
 
 	// The target disconnected or something, we shouldn't bother sending them along.
+	sac_target.grab_ghost()
 	if(!sac_target.client || !sac_target.mind)
 		disembowel_target(sac_target)
 		return

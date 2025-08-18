@@ -106,7 +106,7 @@
 	effect_icon_state = "emark3"
 
 /datum/status_effect/eldritch/rust/on_effect()
-	owner.Disgust(100)
+	owner.AdjustDisgust(50 STATUS_EFFECT_CONSTANT)
 	owner.Confused(10 SECONDS)
 	return ..()
 

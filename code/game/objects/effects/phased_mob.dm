@@ -10,7 +10,7 @@
 	/// The delay between moves while jaunted
 	var/movedelay = 0
 	/// The speed of movement while jaunted
-	var/movespeed = 0
+	var/movespeed = 2
 	/// Image we show to our jaunter so they can see where they are
 	var/image/position_indicator
 	/// Icon we draw our position indicator from
