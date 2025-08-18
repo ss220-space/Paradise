@@ -33,9 +33,10 @@ fn random_replace(
 
         if do_replace {
             output.push(replacement_char);
-        } else {
-            output.push(ch);
+            continue;
         }
+
+        output.push(ch);
     }
 
     Ok(ByondValue::try_from(output)?)
