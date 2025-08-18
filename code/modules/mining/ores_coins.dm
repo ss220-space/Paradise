@@ -527,11 +527,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 
 /obj/item/stack/ore/ex_act(severity, target)
-	if(!severity)
+	if(!severity || severity <= EXPLODE_HEAVY)
 		return
-
-	if(severity >= EXPLODE_HEAVY)
-		qdel(src)
+	qdel(src)
 
 
 /*****************************Coin********************************/
