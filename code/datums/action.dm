@@ -618,13 +618,13 @@
 	name = "Переключить режим атаки со взмахом"
 	check_flags = NONE
 	attack_self = FALSE
+	var/toggled = TRUE
 
 
 /datum/action/item_action/toggle_cleave_attack/UpdateButtonIcon()
 	. = ..()
 	button.icon = 'icons/mob/actions/actions.dmi'
-	var/datum/component/cleave_attack/component = target.GetComponent(/datum/component/cleave_attack)
-	if(component && component.toggled)
+	if(toggled)
 		button.icon_state = "bg_default_on"
 	else
 		button.icon_state = "bg_default"
@@ -634,11 +634,10 @@
 	if(!..())
 		return
 
-	var/datum/component/cleave_attack/component = target.GetComponent(/datum/component/cleave_attack)
-	if(component)
-		component.toggled = !component.toggled
-		UpdateButtonIcon()
-		to_chat(usr, span_notice("Вы [component.toggled ? "включаете" : "отключаете"] атаку со взмахом."))
+	toggled = !toggled
+	SEND_SIGNAL(target, COMSIG_TOGGLE_CLEAVE_ATTACK)
+	UpdateButtonIcon()
+	to_chat(usr, span_notice("Вы [toggled ? "включаете" : "отключаете"] атаку со взмахом."))
 
 
 // Jump boots
