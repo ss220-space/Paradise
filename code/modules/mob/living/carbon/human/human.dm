@@ -1794,8 +1794,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(nutrition <= 150)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = 3)
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
+		return
+
+	remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
 
 /mob/living/carbon/human/proc/special_post_clone_handling()
