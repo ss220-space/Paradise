@@ -33747,7 +33747,6 @@
 /obj/item/storage/toolbox/syndicate{
 	pixel_y = 9
 	},
-/obj/item/melee/energy/axe,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
