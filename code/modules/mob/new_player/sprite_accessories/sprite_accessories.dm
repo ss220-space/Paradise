@@ -101,7 +101,7 @@
 
 /datum/sprite_accessory/body_markings
 	icon = 'icons/mob/sprite_accessories/human/human_body_markings.dmi'
-	species_allowed = list(SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_VULPKANIN, SPECIES_MACNINEPERSON, SPECIES_VOX, SPECIES_KIDAN, SPECIES_MOTH)
+	species_allowed = list(SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_VULPKANIN, SPECIES_MACNINEPERSON, SPECIES_VOX, SPECIES_KIDAN, SPECIES_MOTH, SPECIES_NUCLEATION)
 	icon_state = "accessory_none"
 	marking_location = "body"
 
