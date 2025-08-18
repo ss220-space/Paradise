@@ -560,11 +560,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 /// For effects that are meant to mask all others for technical reasons.
 #define CLIENT_COLOR_OVERRIDE_PRIORITY 7
 
-// Luma coefficients suggested for HDTVs. If you change these, make sure they add up to 1.
-#define LUMA_R 0.213
-#define LUMA_G 0.715
-#define LUMA_B 0.072
-
 // Color matrix utilities.
 #define COLOR_MATRIX_ADD(C) list(COLOR_RED, COLOR_GREEN, COLOR_BLUE, C)
 #define COLOR_MATRIX_OVERLAY(C) list(COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, C)
