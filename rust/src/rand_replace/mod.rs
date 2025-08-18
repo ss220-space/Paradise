@@ -1,8 +1,6 @@
 use byondapi::value::ByondValue;
 use eyre::OptionExt;
-use rand::rngs::SmallRng;
-use rand::Rng;
-use rand::SeedableRng;
+use rand::{rngs::SmallRng, Rng, SeedableRng};
 use std::cell::RefCell;
 
 thread_local! {
