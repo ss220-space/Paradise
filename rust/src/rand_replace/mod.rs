@@ -23,21 +23,23 @@ fn random_replace(
 
     let mut output = String::with_capacity(input.len());
 
-    for ch in input.chars() {
-        if ch == ' ' {
+    RNG.with(|rng| {
+        let mut rng = rng.borrow_mut();
+
+        for ch in input.chars() {
+            if ch == ' ' {
+                output.push(ch);
+                continue;
+            }
+
+            if rng.random::<f32>() < chance_val {
+                output.push(replacement_char);
+                continue;
+            }
+
             output.push(ch);
-            continue;
         }
-
-        let do_replace = RNG.with(|rng| rng.borrow_mut().random_bool(chance_val.into()));
-
-        if do_replace {
-            output.push(replacement_char);
-            continue;
-        }
-
-        output.push(ch);
-    }
+    });
 
     Ok(ByondValue::try_from(output)?)
 }
