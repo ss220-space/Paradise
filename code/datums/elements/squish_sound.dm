@@ -1,4 +1,4 @@
-///Plays a sound when walked into, lower sounding if the person walking into it has light stepping.
+///Plays a sound when walked into.
 /datum/element/squish_sound
 	element_flags = ELEMENT_BESPOKE
 	id_arg_index = 2
@@ -22,6 +22,6 @@
 	playsound(
 		source = source,
 		soundin = sound_to_play,
-		vol = 50,
+		vol = 30,
 		vary = TRUE,
 	)
