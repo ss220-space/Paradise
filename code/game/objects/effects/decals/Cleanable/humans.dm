@@ -17,7 +17,7 @@
 	var/base_icon = 'icons/effects/blood.dmi'
 	var/blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
-	var/basecolor = COLOR_BLOOD_BASE
+	var/basecolor = BLOOD_COLOR_RED
 	var/amount = 5
 	var/dry_timer = 0
 	var/off_floor = FALSE

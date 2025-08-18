@@ -78,7 +78,7 @@
 	animate(src, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter
-	color = COLOR_BLOOD_ALIEN
+	color = BLOOD_COLOR_XENO
 	splatter_type = "xsplatter"
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter/Initialize(mapload, angle, blood_color = color)
