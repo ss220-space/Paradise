@@ -3,7 +3,7 @@
 
 /obj/machinery/biogenerator
 	name = "biogenerator"
-	desc = "Converts plants into biomass, which can be used to construct useful items."
+	desc = "Делает биомассу из растений, которую можно использовать для производства полезных вещей."
 	icon = 'icons/obj/machines/biogenerator.dmi'
 	icon_state = "biogen-empty"
 	density = TRUE
@@ -29,7 +29,18 @@
 	/// A list which holds all categories and items the biogenator has available. Used with the UI to save having to rebuild this every time someone opens it.
 	var/list/product_list = list()
 	/// The [/datum/design]'s categories which can be produced by this machine and can be uploaded via a disk.
-	var/static/list/categories = list("Food", "Botany Chemicals", "Organic Materials", "Leather and Cloth")
+	var/static/list/categories = list("Еда", "Ботанические химикаты", "Органические материалы", "Кожа и ткань")
+
+/obj/machinery/biogenerator/get_ru_names()
+	return list(
+		NOMINATIVE = "биогенератор",
+		GENITIVE = "биогенератора",
+		DATIVE = "биогенератору",
+		ACCUSATIVE = "биогенератор",
+		INSTRUMENTAL = "биогенератором",
+		PREPOSITIONAL = "биогенераторе"
+	)
+
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
@@ -102,7 +113,7 @@
 		return ..()
 
 	if(processing)
-		to_chat(user, span_warning("The [name] is currently processing."))
+		user.balloon_alert(user, "биогенератор работает!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(exchange_parts(user, I))
@@ -111,15 +122,15 @@
 	add_fingerprint(user)
 	if(istype(I, /obj/item/reagent_containers/glass))
 		if(panel_open)
-			to_chat(user, span_warning("Close the maintenance panel first."))
+			user.balloon_alert(user, "панель техобслуживания открыта!")
 			return ATTACK_CHAIN_PROCEED
 		if(container)
-			to_chat(user, span_warning("The [name] already has [container] inserted."))
+			user.balloon_alert(user, "ёмкость уже вставлена!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		container = I
-		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		to_chat(user, span_notice("Вы вставили [I.declent_ru(ACCUSATIVE)] into [declent_ru(ACCUSATIVE)]."))
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -127,7 +138,7 @@
 	if(istype(I, /obj/item/storage/bag/plants))
 		var/obj/item/storage/bag/plants/bag = I
 		if(length(stored_plants) >= max_storable_plants)
-			to_chat(user, span_warning("The [name] cannot hold any more plants."))
+			user.balloon_alert(user, "растения не вмещаются!")
 			return ATTACK_CHAIN_PROCEED
 		for(var/obj/item/reagent_containers/food/snacks/grown/grown in bag.contents)
 			if(length(stored_plants) >= max_storable_plants)
@@ -136,29 +147,29 @@
 			grown.add_fingerprint(user)
 			stored_plants += grown
 		if(length(stored_plants) < max_storable_plants)
-			to_chat(user, span_notice("You have emptied [bag] into [src]."))
+			user.balloon_alert(user, "растения помещены")
 		else
-			to_chat(user, span_notice("You have filled [src] to its capacity."))
+			user.balloon_alert(user, "растения помещены до предела")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
 		if(length(stored_plants) >= max_storable_plants)
-			to_chat(user, span_warning("The [name] cannot hold any more plants."))
+			user.balloon_alert(user, "растение не вмещается!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		stored_plants += I
-		to_chat(user, span_notice("You have added [I] into [src]."))
+		user.balloon_alert(user, "растение помещено")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/disk/design_disk))
 		var/obj/item/disk/design_disk/disk = I
 		user.visible_message(
-			span_notice("[user] starts to load the data from [disk] into [src]."),
-			span_notice("You start to load the data from [disk] into [src]..."),
-			span_italics("You hear the chatter of a floppy drive."),
+			span_notice("[user] начинает загружать данные с [disk.declent_ru(GENITIVE)] на [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете загружать данные с [disk.declent_ru(GENITIVE)] на [declent_ru(ACCUSATIVE)]..."),
+			span_italics("Вы слышите постукивание дисковода."),
 		)
 		processing = TRUE
 		SStgui.update_uis(src)
@@ -168,14 +179,14 @@
 			return ATTACK_CHAIN_PROCEED
 		processing = FALSE
 		if(files.AddDesign2Known(disk.blueprint))
-			to_chat(user, span_notice("You have added new data to [src]'s schematics."))
+			user.balloon_alert(user, "данные добавлены")
 			update_ui_product_list()
 		else
-			to_chat(user, span_warning("The data from [disk] is already known by [src]."))
+			user.balloon_alert(user, "данные уже известны!")
 			SStgui.update_uis(src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	to_chat(user, span_warning("You cannot put [I] into [src]."))
+	user.balloon_alert(user, "нельзя поместить!")
 	return ATTACK_CHAIN_PROCEED
 
 
@@ -212,7 +223,7 @@
 /obj/machinery/biogenerator/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Biogenerator", "Biogenerator")
+		ui = new(user, src, "Biogenerator", "Биогенератор")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -263,7 +274,7 @@
 	if(stat & (NOPOWER | BROKEN))
 		return
 	if(processing)
-		to_chat(user, "<span class='warning'>[src] is currently processing!</span>")
+		user.balloon_alert(user, "биогенератор работает!")
 		return
 
 	processing = TRUE
