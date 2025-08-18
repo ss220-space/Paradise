@@ -233,11 +233,11 @@
 
 /obj/structure/morgue/ex_act(severity)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			ex_act_effect(severity)
-		if(2)
+		if(EXPLODE_HEAVY)
 			ex_act_effect(severity, 50)
-		if(3)
+		if(EXPLODE_LIGHT)
 			ex_act_effect(severity, 5)
 
 
@@ -667,11 +667,11 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/machinery/crematorium/ex_act(severity)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			ex_act_effect(severity)
-		if(2)
+		if(EXPLODE_HEAVY)
 			ex_act_effect(severity, 50)
-		if(3)
+		if(EXPLODE_LIGHT)
 			ex_act_effect(severity, 5)
 
 

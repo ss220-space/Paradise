@@ -90,14 +90,14 @@
 
 /obj/ex_act(severity, target)
 	if(resistance_flags & (INDESTRUCTIBLE))
-		return FALSE
+		return
 
 	. = ..() //contents explosion
 	if(QDELETED(src))
-		return TRUE
+		return
 	if(target == src)
 		take_damage(INFINITY, BRUTE, BOMB, 0)
-		return TRUE
+		return
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			take_damage(INFINITY, BRUTE, BOMB, 0)
@@ -105,8 +105,6 @@
 			take_damage(rand(100, 250), BRUTE, BOMB, 0)
 		if(EXPLODE_LIGHT)
 			take_damage(rand(10, 90), BRUTE, BOMB, 0)
-
-	return TRUE
 
 /obj/bullet_act(obj/projectile/P)
 	. = ..()

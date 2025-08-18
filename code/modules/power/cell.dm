@@ -196,10 +196,10 @@
 	..()
 	if(!QDELETED(src))
 		switch(severity)
-			if(2)
+			if(EXPLODE_HEAVY)
 				if(prob(50))
 					corrupt()
-			if(3)
+			if(EXPLODE_LIGHT)
 				if(prob(25))
 					corrupt()
 

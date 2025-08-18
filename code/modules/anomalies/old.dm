@@ -89,7 +89,7 @@
 	return
 
 /obj/effect/old_anomaly/ex_act(severity)
-	if(severity == EXPLODE_DEVASTATE)
+	if(severity >= EXPLODE_DEVASTATE)
 		qdel(src)
 
 /obj/effect/old_anomaly/proc/anomalyNeutralize()

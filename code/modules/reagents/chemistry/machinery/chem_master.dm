@@ -101,7 +101,7 @@
 		. += span_notice("Панель техобслуживания открыта.")
 
 /obj/machinery/chem_master/ex_act(severity)
-	if(severity < 3)
+	if(severity <= EXPLODE_LIGHT)
 		if(beaker)
 			beaker.ex_act(severity)
 		if(loaded_pill_bottle)

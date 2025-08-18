@@ -159,7 +159,7 @@
 	return
 
 /turf/simulated/floor/vines/ex_act(severity)
-	if(severity < 3)
+	if(severity > EXPLODE_LIGHT)
 		ChangeTurf(baseturf)
 
 /turf/simulated/floor/vines/narsie_act()

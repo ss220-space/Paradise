@@ -233,9 +233,9 @@
 
 /turf/simulated/floor/engine/ex_act(severity)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			ChangeTurf(baseturf)
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(50))
 				ChangeTurf(baseturf)
 

@@ -57,11 +57,11 @@
 	var/b_loss = null
 	var/f_loss = null
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			gib()
 			return
 
-		if(2.0)
+		if(EXPLODE_HEAVY)
 
 			b_loss += 60
 
@@ -69,7 +69,7 @@
 
 			AdjustDeaf(120 SECONDS)
 
-		if(3.0)
+		if(EXPLODE_LIGHT)
 			b_loss += 30
 			if(prob(50))
 				Paralyse(2 SECONDS)

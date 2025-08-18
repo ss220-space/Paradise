@@ -207,17 +207,17 @@
 /turf/simulated/mineral/ex_act(severity)
 	..()
 	switch(severity)
-		if(3)
+		if(EXPLODE_LIGHT)
 			if (prob(75))
 				attempt_drill(null,TRUE,2)
 			else if(prob(90))
 				attempt_drill(null,TRUE,1)
-		if(2)
+		if(EXPLODE_HEAVY)
 			if (prob(90))
 				attempt_drill(null,TRUE,2)
 			else
 				attempt_drill(null,TRUE,1)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			attempt_drill(null,TRUE,3)
 
 /turf/simulated/mineral/blob_consume()
@@ -266,12 +266,12 @@
 
 /turf/simulated/mineral/ancient/ex_act(severity)
 	switch(severity)
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(75))
 				gets_drilled(null, 1)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			gets_drilled(null, 1)
 	return TRUE
 

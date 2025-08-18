@@ -680,12 +680,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	..()
 
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			gib()
-		if(2.0)
+		if(EXPLODE_HEAVY)
 			if(stat != 2)
 				apply_damages(60, 60)
-		if(3.0)
+		if(EXPLODE_LIGHT)
 			if(stat != 2)
 				apply_damage(30)
 

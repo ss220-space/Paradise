@@ -571,13 +571,13 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(25)
 
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(10)
 
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Goto()
@@ -760,13 +760,13 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(25)
 
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(10)
 
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/MeleeAction(patience = TRUE)

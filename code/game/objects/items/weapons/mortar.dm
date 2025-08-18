@@ -283,7 +283,7 @@
 
 /obj/structure/mortar/ex_act(severity)
 	switch(severity)
-		if(2 to INFINITY)
+		if(EXPLODE_HEAVY to INFINITY)
 			qdel(src)
 
 /obj/effect/mortar_effect
@@ -405,8 +405,9 @@
 
 /obj/item/mortar_kit/ex_act(severity)
 	switch(severity)
-		if(2 to INFINITY)
+		if(EXPLODE_HEAVY to INFINITY)
 			deconstruct(FALSE)
+
 /obj/item/mortar_kit/select_skin(new_skin)
 	. = ..()
 	var/new_icon_state
