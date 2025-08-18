@@ -527,7 +527,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 
 /obj/item/stack/ore/ex_act(severity, target)
-	if(severity >= EXPLODE_DEVASTATE)
+	if(!severity)
+		return
+
+	if(severity >= EXPLODE_HEAVY)
 		qdel(src)
 
 
