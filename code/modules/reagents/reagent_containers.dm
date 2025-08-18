@@ -15,6 +15,12 @@
 	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
 	var/temperature_max = 10000
 	var/pass_open_check = FALSE // Pass open check in empty verb
+	var/chem_master_made = FALSE
+
+/obj/item/reagent_containers/get_ru_names_cached()
+	if(chem_master_made)
+		return
+	return ..()
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Установить объём перемещения"
