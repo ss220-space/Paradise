@@ -45,7 +45,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		if(!map_data)
 			map_data = wrap_file2text(dmm_file)
 
-		if(!length(map_data))
+		if(!LAZYLEN(map_data))
 			throw EXCEPTION("Map path '[fname]' does not exist!")
 
 	if(!x_offset)
@@ -75,11 +75,11 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				var/key = dmmRegex.group[1]
 				if(grid_models[key]) // Duplicate model keys are ignored in DMMs
 					continue
-				if(key_len != length(key))
+				if(key_len != LAZYLEN(key))
 					if(!key_len)
-						key_len = length(key)
+						key_len = LAZYLEN(key)
 					else
-						throw EXCEPTION("Inconsistent key length in DMM")
+						throw EXCEPTION("Inconsistent key LAZYLEN in DMM")
 				if(!measureOnly)
 					grid_models[key] = dmmRegex.group[2]
 
@@ -110,18 +110,18 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				var/list/gridLines = splittext(dmmRegex.group[6], "\n")
 
 				var/leadingBlanks = 0
-				while(leadingBlanks < length(gridLines) && gridLines[++leadingBlanks] == "")
+				while(leadingBlanks < LAZYLEN(gridLines) && gridLines[++leadingBlanks] == "")
 				if(leadingBlanks > 1)
 					gridLines.Cut(1, leadingBlanks) // Remove all leading blank lines.
 
-				if(!length(gridLines)) // Skip it if only blank lines exist.
+				if(!LAZYLEN(gridLines)) // Skip it if only blank lines exist.
 					continue
 
-				if(length(gridLines) && gridLines[length(gridLines)] == "")
-					gridLines.Cut(length(gridLines)) // Remove only one blank line at the end.
+				if(LAZYLEN(gridLines) && gridLines[LAZYLEN(gridLines)] == "")
+					gridLines.Cut(LAZYLEN(gridLines)) // Remove only one blank line at the end.
 
 				bounds[MAP_MINY] = min(bounds[MAP_MINY], ycrd)
-				ycrd += length(gridLines) - 1 // Start at the top and work down
+				ycrd += LAZYLEN(gridLines) - 1 // Start at the top and work down
 
 				if(!shouldCropMap && ycrd > world.maxy)
 					if(!measureOnly)
@@ -133,12 +133,12 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				var/maxx = xcrdStart
 				if(measureOnly)
 					for(var/line in gridLines)
-						maxx = max(maxx, xcrdStart + length(line) / key_len - 1)
+						maxx = max(maxx, xcrdStart + LAZYLEN(line) / key_len - 1)
 				else
 					for(var/line in gridLines)
 						if(ycrd <= world.maxy && ycrd >= 1)
 							xcrd = xcrdStart
-							for(var/tpos = 1 to (length(line) - key_len + 1) step key_len)
+							for(var/tpos = 1 to (LAZYLEN(line) - key_len + 1) step key_len)
 								if(xcrd > world.maxx)
 									if(shouldCropMap)
 										break
@@ -242,7 +242,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			var/list/fields = list()
 
 			if(variables_start) // if there's any variable
-				full_def = copytext(full_def, variables_start + 1, length(full_def)) // removing the last '}'
+				full_def = copytext(full_def, variables_start + 1, LAZYLEN(full_def)) // removing the last '}'
 				fields = readlist(full_def, ";")
 
 				for(var/I in fields)
@@ -431,11 +431,11 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 	// Check for list
 	else if(copytext(value_text, 1, 5) == "list")
-		. = readlist(copytext(value_text, 6, length(value_text)))
+		. = readlist(copytext(value_text, 6, LAZYLEN(value_text)))
 
 	// Check for file
 	else if(copytext(value_text, 1, 2) == "'")
-		. = wrap_file(copytext(value_text, 2, length(value_text)))
+		. = wrap_file(copytext(value_text, 2, LAZYLEN(value_text)))
 
 	// Check for path
 	else if(ispath(text2path(value_text)))
