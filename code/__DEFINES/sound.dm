@@ -14,12 +14,8 @@
 #define CHANNEL_RADIO_NOISE 1012 // radio headset noise
 #define CHANNEL_BOSS_MUSIC 1011
 #define CHANNEL_INTERACTION_SOUNDS 1010	// item pickup/equip/drop sounds
-
-#define USER_VOLUME(M, C) M?.client?.prefs?.get_channel_volume(C)
-
-//THIS SHOULD ALWAYS BE THE LOWEST ONE!
-//KEEP IT UPDATED
-
+// THIS SHOULD ALWAYS BE THE LOWEST ONE!
+// KEEP IT UPDATED
 #define CHANNEL_HIGHEST_AVAILABLE 1009
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
@@ -186,3 +182,5 @@
  */
 #define CALCULATE_SOUND_VOLUME(volume, distance, max_distance, falloff_distance, falloff_exponent)\
 	((max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * volume)
+
+#define USER_VOLUME(M, C) M?.client?.prefs?.get_channel_volume(C)
