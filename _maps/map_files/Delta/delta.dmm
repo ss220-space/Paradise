@@ -61804,6 +61804,10 @@
 /obj/structure/sign/poster/contraband/grey_tide{
 	pixel_y = -30
 	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "jkc" = (
@@ -67079,8 +67083,8 @@
 /turf/simulated/wall/r_wall,
 /area/engineering/break_room)
 "kAT" = (
-/obj/structure/barricade/wooden,
 /obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
@@ -68255,10 +68259,12 @@
 	},
 /area/toxins/launch)
 "kPW" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/barricade/wooden/crude,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint3)
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/maintenance/tourist)
 "kQx" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -75900,11 +75906,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/perma)
 "mIC" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/safe/floor,
-/obj/item/gun/projectile/revolver/doublebarrel/improvised,
-/turf/simulated/floor/wood,
-/area/maintenance/tourist)
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/crew_quarters/theatre)
 "mIO" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -81920,11 +81924,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/north)
-"obE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/bar/dark,
-/turf/simulated/floor/wood,
-/area/crew_quarters/theatre)
 "obR" = (
 /obj/machinery/light,
 /obj/item/radio/intercom{
@@ -89005,6 +89004,11 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/bridge/meeting_room)
 "pFI" = (
+/obj/item/gun/projectile/revolver/doublebarrel/improvised,
+/obj/structure/safe/floor,
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/steel,
+/obj/item/clothing/head/helmet/buckhelm,
+/obj/item/clothing/suit/armor/makeshift_armor,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7";
 	tag = "icon-wood-broken7"
@@ -144461,7 +144465,7 @@ ePn
 nGj
 hsp
 pxR
-ete
+kPW
 jjY
 hsp
 hsp
@@ -144717,7 +144721,7 @@ jAR
 tfW
 uex
 hsp
-mIC
+xrC
 xrC
 wUr
 gLo
@@ -145514,8 +145518,8 @@ nLj
 nLj
 bCK
 dYv
-kWY
-kWY
+mIC
+mIC
 coE
 coE
 coE
@@ -145772,7 +145776,7 @@ kJr
 kDr
 wdH
 mmm
-kWY
+mIC
 coE
 aaq
 dZq
@@ -146276,7 +146280,7 @@ lQT
 pKP
 ocD
 scD
-obE
+sMF
 nVa
 gAD
 sMF
@@ -146286,7 +146290,7 @@ ubu
 rUS
 wdH
 wSJ
-kWY
+mIC
 coE
 coE
 coE
@@ -146800,7 +146804,7 @@ uKQ
 hbO
 wdH
 mxr
-kWY
+mIC
 coE
 aaq
 dZq
@@ -147056,8 +147060,8 @@ wOn
 uJw
 eLB
 wdH
-kWY
-kWY
+mIC
+mIC
 coE
 coE
 coE
@@ -149371,8 +149375,8 @@ kBv
 kBv
 kBv
 kBv
-kPW
-kPW
+kps
+kps
 aaq
 aaq
 tKX
@@ -149886,7 +149890,7 @@ pmu
 szQ
 jHw
 szQ
-kPW
+kps
 coE
 coE
 tKX
@@ -150914,7 +150918,7 @@ cIM
 oOo
 fvu
 pzS
-kPW
+kps
 coE
 aaq
 tKX
@@ -151171,7 +151175,7 @@ gWm
 oOo
 gmH
 pmu
-kPW
+kps
 coE
 coE
 tKX
@@ -151685,7 +151689,7 @@ cIM
 oOo
 sAK
 pzS
-kPW
+kps
 aaq
 coE
 tKX
@@ -152425,7 +152429,7 @@ jFg
 mDe
 qUe
 ufD
-qUe
+cbC
 lpm
 lpm
 yaQ
@@ -152713,7 +152717,7 @@ oOo
 fvu
 pmu
 pzS
-kPW
+kps
 aaq
 aaq
 tKX
@@ -152970,7 +152974,7 @@ oOo
 fvu
 iLJ
 pzS
-kPW
+kps
 aaq
 aaq
 tKX
@@ -153226,8 +153230,8 @@ rAM
 oOo
 fvu
 lpC
-kPW
-kPW
+kps
+kps
 coE
 coE
 tKX
