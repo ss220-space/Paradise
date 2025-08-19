@@ -14,6 +14,7 @@
 	beacon_goal = 3 + round(length(GLOB.player_list)*0.1) // 3 + all crew* 0.1
 	obj_summon.owner = SSticker.mode
 	obj_demand.owner = SSticker.mode
+	set_clocker_goal()
 	if(obj_demand.check_completion())
 		ratvar_is_ready()
 
