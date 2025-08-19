@@ -165,7 +165,8 @@
 	item_state = "gauze"
 	origin_tech = "biotech=2"
 	heal_brute = 10
-	stop_bleeding = 1800
+	var/bleedsuppress = 1.5
+	stop_bleeding = 180 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
 
@@ -206,14 +207,17 @@
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
 
+	if(!do_after(user, 3 SECONDS, target))
+		return .
+
 	if(!use(1))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
 
 	affecting.germ_level = 0
 
-	if(stop_bleeding && !target.bleedsuppress)	//so you can't stack bleed suppression
-		target.suppress_bloodloss(stop_bleeding)
+	if(stop_bleeding && affecting.bleeding_amount > affecting.bleedsuppress)	//so you can't stack bleed suppression
+		affecting.suppress_bloodloss(user, target, bleedsuppress, stop_bleeding)
 
 	human_heal(target, user)
 	target.UpdateDamageIcon()

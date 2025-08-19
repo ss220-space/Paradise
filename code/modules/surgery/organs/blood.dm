@@ -48,6 +48,25 @@
 	if(stat != DEAD && bleed_rate)
 		to_chat(src, span_warning("Кровь просачивается через вашу повязку."))
 
+/obj/item/organ/external/proc/suppress_bloodloss(mob/living/user, mob/living/carbon/human/target, amount, duration)
+	var/calculated_bleeding = max(0, bleeding_amount - bleedsuppress)
+	if(calculated_bleeding <= 0)
+		return
+	var/suppress_amount = calculated_bleeding
+	if(calculated_bleeding > amount)
+		suppress_amount = amount
+		to_chat(user, span_warning("Повязка уменьшает кровотечение на [declent_ru(PREPOSITIONAL)] у [target], но не может полностью остановить его."))
+	else
+		to_chat(user, span_warning("Повязка временно останавливает кровотечение на [declent_ru(PREPOSITIONAL)] у [target]."))
+	bleedsuppress += suppress_amount
+	addtimer(CALLBACK(src, PROC_REF(resume_bleeding), target, suppress_amount), duration)
+
+/obj/item/organ/external/proc/resume_bleeding(mob/living/carbon/human/target, amount)
+	bleedsuppress -= amount
+	if(target.stat != DEAD && (bleeding_amount - bleedsuppress) > 0)
+		to_chat(target, span_warning("Кровь просачивается через вашу повязку."))
+
+
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
 	if(HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
@@ -113,16 +132,17 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(bodypart.is_robotic())
 			continue
-		current_bleed += bodypart.bleeding_amount
+		if(bodypart.has_internal_bleeding())
+			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
 		if(bodypart.bleeding_amount > 0)
 			bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - BLEEDING_DECREASE)
+		var/bodypart_bleeding = max(bodypart.bleeding_amount - bodypart.bleedsuppress, 0)
+		current_bleed += bodypart_bleeding
 		var/embedded_length = LAZYLEN(bodypart.embedded_objects)
-		if(embedded_length)
+		if(embedded_length && bodypart.bleedsuppress > 0)
 			current_bleed += EMBEDDED_ITEM_BLEEDING * embedded_length
 		if(bodypart.open)
 			current_bleed += OPEN_BODYPART_BLEEDING
-		if(bodypart.has_internal_bleeding())
-			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
 	// calculate bleed rate with regenretion and current bleed
 	bleed_rate = current_bleed
 	// calculate addition bleeding from reagents

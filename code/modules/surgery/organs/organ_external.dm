@@ -104,6 +104,11 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 
+	/// How many bleeding stopped
+	var/bleedsuppress = 0
+	/// Timer for stop blood loss
+	var/bleedsuppress_timer = null
+
 
 /obj/item/organ/external/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
@@ -1206,7 +1211,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(total_damage < 10) //small amounts of damage aren't infectable
 			return FALSE
 
-		if(owner && owner.bleedsuppress && total_damage < 25)
+		if(owner && !owner.bleed_rate && total_damage < 25)
 			return FALSE
 
 		var/dam_coef = round(total_damage / 10)

@@ -376,10 +376,13 @@
 	if(istype(vampire_datum) && vampire_datum.draining)
 		msg += span_warning("<b>[genderize_ru(gender, "Он", "Она", "Оно", "Они")] впил[genderize_ru(gender, "ся", "ась", "ось", "ись")] своими клыками в шею [vampire_datum.draining].\n</b>")
 
-	if(bleedsuppress)
-		msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то.\n")
-	else if(bleed_rate)
-		msg += span_warning("<b>[genderize_ru(gender, "Он", "Она", "Оно", "Они")] кровоточ[pluralize_ru(gender, "ит", "ат")]!</b>\n")
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(!bodypart.bleeding_amount)
+			continue
+		if(bodypart.bleeding_amount > bodypart.bleedsuppress)
+			msg += span_warning("<b>У [genderize_ru(gender, "него", "неё", "него", "них")] кровоточ[pluralize_ru(gender, "ит", "ат")] [bodypart.declent_ru(NOMINATIVE)]!</b>\n")
+		else if (bodypart.bleedsuppress)
+			msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] [bodypart.declent_ru(NOMINATIVE)] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то.\n")
 
 	if(reagents.has_reagent("teslium"))
 		msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] излуча[pluralize_ru(gender, "ет", "ют")] мягкое голубое свечение!\n")
