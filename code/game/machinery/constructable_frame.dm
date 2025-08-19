@@ -353,15 +353,15 @@ to destroy them and players will be able to make replacements.
 		"SecTech" =								/obj/machinery/vending/security,
 		"CritterCare" =							/obj/machinery/vending/crittercare,
 		"Departament Security ClothesMate" =	/obj/machinery/vending/clothing/departament/security,
-		"Departament Medical ClothesMate" = 	/obj/machinery/vending/clothing/departament/medical,
+		"Departament Medical ClothesMate" =	/obj/machinery/vending/clothing/departament/medical,
 		"Departament Engineering ClothesMate" = /obj/machinery/vending/clothing/departament/engineering,
 		"Departament Science ClothesMate" =		/obj/machinery/vending/clothing/departament/science,
 		"Departament Cargo ClothesMate" =		/obj/machinery/vending/clothing/departament/cargo,
 		"Departament Law ClothesMate" =			/obj/machinery/vending/clothing/departament/law,
 		"Service Departament ClothesMate Botanical" = /obj/machinery/vending/clothing/departament/service/botanical,
-		"Service Departament ClothesMate Chaplain" 	= /obj/machinery/vending/clothing/departament/service/chaplain,
+		"Service Departament ClothesMate Chaplain"	= /obj/machinery/vending/clothing/departament/service/chaplain,
 		"RoboFriends" =                         /obj/machinery/vending/pai,
-		"Customat" =						 	/obj/machinery/customat,
+		"Customat" =							/obj/machinery/customat,
 		"Автомат спортивного питания" =			/obj/machinery/vending/protein,)
 
 	var/static/list/unique_vendors = list(

@@ -41,14 +41,8 @@
 	if(msg == "")
 		. = ""
 		return
-
-	if(isliving(src))
-		for(var/datum/component/codeword_hearing/hearing_datum in GetComponents(/datum/component/codeword_hearing))
-			var/tmp_msg = hearing_datum.handle_hearing(msg)
-			if(!tmp_msg)
-				continue
-			msg = tmp_msg
-			//log_debug(msg)
+	
+	SEND_SIGNAL(src, COMSIG_COMBINE_MESSAGE_FOR_HEARER, &msg)
 
 	return trim(msg)
 
@@ -312,7 +306,7 @@
 		effect = SOUND_EFFECT_RADIO_ROBOT
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, speaker.tts_seed, TRUE, effect)
 
-	var/rendered = span_gamesay("[span_name(name)] + [message]")
+	var/rendered = span_gamesay("[span_name(name)] [message]")
 	to_chat(src, rendered)
 
 

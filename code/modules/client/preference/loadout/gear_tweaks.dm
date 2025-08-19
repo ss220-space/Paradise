@@ -117,7 +117,8 @@
 	var/atom/item = new path(src)
 	tgui_data["icon_file"] = item.icon
 	tgui_data["icon_state"] = item.icon_state
-	tgui_data["name"] = item.ru_names ? item.ru_names[1] : item.name
+	var/list/names = item.ru_names || item.get_ru_names_cached()
+	tgui_data["name"] = names ? names[NOMINATIVE] : item.name
 	return tgui_data
 
 /datum/gear_tweak/path/tweak_gear_data(metadata, datum/gear_data/gear_data)

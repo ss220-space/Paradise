@@ -37,7 +37,7 @@
 			animate(ninja, alpha = NINJA_ALPHA_INVISIBILITY, time = 6)
 			ninja.alpha_set(standartize_alpha(NINJA_ALPHA_INVISIBILITY), ALPHA_SOURCE_NINJA)
 			new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(ninja), ninja.dir)
-			ninja.visible_message(span_warning("[ninja.name] расстворил[genderize_ru(ninja.gender, "ся", "ась", "ось", "ись") ] в воздухе!"), span_notice("Теперь вас невозможно увидеть невооружённым глазом. Ровно как и стандартными оптическими приборами. Нагрузка костюма начала увеличиваться..."))
+			ninja.visible_message(span_warning("[ninja.name] расстворил[genderize_ru(ninja.gender, "ся", "ась", "ось", "ись") ] в воздухе!"), span_notice("Теперь вас практически невозможно увидеть невооружённым глазом. Ровно как и стандартными оптическими приборами. Нагрузка костюма начала увеличиваться..."))
 			ninja.AddComponent(/datum/component/ninja_states_breaker, src)
 			if(auto_smoke)
 				if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)

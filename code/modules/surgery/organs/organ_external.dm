@@ -290,8 +290,8 @@
 
 	if(!forced)
 		if(tough)
-			brute = max(0, brute - 5)
-			burn = max(0, burn - 4)
+			brute = max(0, brute - 2)
+			burn = max(0, burn - 2)
 
 		if(brute <= 0 && burn <= 0)
 			return FALSE

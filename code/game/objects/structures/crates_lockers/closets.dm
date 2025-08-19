@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(closets)
 		// therefore solving the issue on mapload. During rounds, everything will happen as normal
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	update_icon() // Set it to the right icon if needed
-	populate_contents() // Spawn all its stuff
+	populate_contents()
 
 // Override this to spawn your things in. This lets you use probabilities, and also doesnt cause init overrides
 /obj/structure/closet/proc/populate_contents()
