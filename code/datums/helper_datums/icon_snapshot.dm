@@ -22,7 +22,7 @@
 	name = target_mob.name
 	icon = target_mob.icon
 	icon_state = target_mob.icon_state
-	examine_text = target_mob.examine()
+	examine_text = target_mob.examine(target_mob)
 	overlays = target_mob.get_overlays_copy(list(L_HAND_LAYER,R_HAND_LAYER))
 	var/obj/item/id_slot_item = GetIdCard(target_mob)
 	if(istype(id_slot_item, /obj/item/card/id))

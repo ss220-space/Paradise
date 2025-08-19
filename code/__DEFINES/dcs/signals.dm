@@ -1453,3 +1453,6 @@
 	#define CONTAINER_INSERT_FAILED (1<<1)
 
 #define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"
+
+#define COMSIG_SAY_YOUR_NAME "say_your_name"
+	#define SAY_NAME_BLOCK (1<<1)

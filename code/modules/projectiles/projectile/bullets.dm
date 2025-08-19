@@ -20,6 +20,9 @@
 	armour_penetration = 40
 	damage = 30
 
+/obj/projectile/bullet/desert_eagle
+	stamina = 30
+
 /obj/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	ru_names = list(
