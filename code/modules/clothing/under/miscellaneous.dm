@@ -1494,7 +1494,7 @@
 
 /obj/item/clothing/under/tchaikowsky/baseball
 	name = "baseball uniform (blue)"
-	desc = "Бейсбольная униформа синего цвета. Мерч бейсбольной команды "Нанотрейзен Лейкерс"."
+	desc = "Бейсбольная униформа синего цвета. Мерч бейсбольной команды Нанотрейзен Лейкерс."
 	icon_state = "baseball_uniform_blue"
 	item_state = "baseball_uniform_blue"
 
@@ -1510,7 +1510,7 @@
 
 /obj/item/clothing/under/tchaikowsky/baseball/brown
 	name = "baseball uniform (brown)"
-	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды "Киберсан Инд."."
+	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды Киберсан Инд."
 	icon_state = "baseball_uniform_brown"
 	item_state = "baseball_uniform_brown"
 
