@@ -127,7 +127,7 @@
 		if(isroboticorgan(part))
 			continue
 
-		part.heal_damage(max(0.2, part.brute_dam / 10) * seconds_between_ticks, max(0.2, part.burn_dam / 10) * seconds_between_ticks)
+		part.heal_damage(max(2, part.brute_dam / 20) * seconds_between_ticks, max(2, part.burn_dam / 20) * seconds_between_ticks)
 
 
 /atom/movable/screen/alert/status_effect/crucible_soul

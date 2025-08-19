@@ -12,9 +12,9 @@
 	density = TRUE
 	gender = MALE
 	///How much mass this currently holds
-	var/current_mass = 3
+	var/current_mass = 10
 	///Maximum amount of mass
-	var/max_mass = 3
+	var/max_mass = 10
 	///Check to see if it is currently being used.
 	var/struct_in_use = FALSE
 	///Cooldown for the crucible to create mass from the eldritch
@@ -37,6 +37,7 @@
 	break_message = span_warning("[declent_ru(NOMINATIVE)] с грохотом разваливается!")
 	START_PROCESSING(SSobj, src)
 
+
 /obj/structure/destructible/eldritch_crucible/process(seconds_per_tick)
 	if(COOLDOWN_TIMELEFT(src, refill_cooldown))
 		return
@@ -44,10 +45,11 @@
 	if(current_mass >= max_mass)
 		return
 
-	COOLDOWN_START(src, refill_cooldown, 30 SECONDS)
+	COOLDOWN_START(src, refill_cooldown, 15 SECONDS)
 	current_mass++
 	playsound(src, 'sound/items/eatfood.ogg', 100, TRUE)
 	update_appearance(UPDATE_ICON_STATE)
+
 
 /obj/structure/destructible/eldritch_crucible/Destroy(force)
 	// Create a spillage if we were destroyed with leftover mass
@@ -65,6 +67,7 @@
 		playsound(our_turf, 'sound/effects/bubbles/bubbles2.ogg', 50, TRUE)
 
 	return ..()
+
 
 /obj/structure/destructible/eldritch_crucible/examine(mob/user)
 	. = ..()
@@ -86,11 +89,13 @@
 		var/potion_string = span_notice(initial(potion.name) + " - " + initial(potion.crucible_tip))
 		. += potion_string
 
+
 /obj/structure/destructible/eldritch_crucible/examine_status(mob/user)
 	if(IS_HERETIC_OR_MONSTER(user) || isobserver(user))
 		return span_notice("Он цел на <b>[round(obj_integrity * 100 / max_integrity)]%</b>.")
 
 	return ..()
+
 
 // no breaky herety thingy
 /obj/structure/destructible/eldritch_crucible/rust_heretic_act()

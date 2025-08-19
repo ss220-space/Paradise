@@ -188,7 +188,7 @@
 	if(!prob(chance) || !istype(target))
 		return
 
-	target.Confused(5 SECONDS)
+	target.Confused(25 SECONDS)
 
 
 /datum/heretic_knowledge/spell/caretaker_refuge
