@@ -485,15 +485,6 @@
 
 /obj/item/clothing/head/helmet/biker
 	name = "Motorcycle helmet"
-	/obj/item/clothing/head/helmet/biker/get_ru_names()
-	return list(
-		NOMINATIVE = "мотоциклетный шлем",
-		GENITIVE = "мотоциклетный шлем",
-		DATIVE = "мотоциклетному шлему",
-		ACCUSATIVE = "мотоциклетный шлем",
-		INSTRUMENTAL = "мотоциклетным шлемом",
-		PREPOSITIONAL = "мотоциклетном шлеме"
-	)
 	desc = "Самый обычный мотоциклетный шлем."
 	armor = list(MELEE = 45, BULLET = 10, LASER = 10, ENERGY = 30, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 0)
 	icon_state = "biker"
@@ -519,3 +510,13 @@
 	. = ..()
 	var/mutable_appearance/biker_overlay = mutable_appearance(icon='icons/obj/clothing/hats.dmi', icon_state = "biker_overlay")
 	. += biker_overlay
+
+/obj/item/clothing/head/helmet/biker/get_ru_names()
+	return list(
+		NOMINATIVE = "мотоциклетный шлем",
+		GENITIVE = "мотоциклетный шлем",
+		DATIVE = "мотоциклетному шлему",
+		ACCUSATIVE = "мотоциклетный шлем",
+		INSTRUMENTAL = "мотоциклетным шлемом",
+		PREPOSITIONAL = "мотоциклетном шлеме"
+	)
