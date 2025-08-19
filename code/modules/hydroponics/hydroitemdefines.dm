@@ -215,7 +215,7 @@
 		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
-			playsound(loc, "desceration", 50, TRUE, -1)
+			playsound(loc, SFX_DESECRATION, 50, TRUE, -1)
 	return BRUTELOSS
 
 

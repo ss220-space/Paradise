@@ -90,7 +90,7 @@
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
-	
+
 	var/list/cameras = get_available_cameras()
 	data["cameras"] = list()
 	for(var/i in cameras)
@@ -134,7 +134,7 @@
 
 	if(action == "switch_camera")
 		var/obj/machinery/camera/selected_camera = locateUID(params["camera"])
-		
+
 		if(isnull(selected_camera))
 			to_chat(usr, span_warning("ОШИБКА. Камера не найдена."))
 			return
@@ -142,7 +142,7 @@
 		active_camera?.computers_watched_by -= src
 		active_camera = selected_camera
 		active_camera.computers_watched_by += src
-		playsound(src, get_sfx("terminal_type"), 25, FALSE)
+		playsound(src, SFX_TERMINAL_TYPE, 25, FALSE)
 
 		if(isnull(active_camera))
 			return TRUE

@@ -542,7 +542,7 @@ BODY SCANNERS
 			return TRUE
 
 	SStgui.update_uis(src)
-	playsound(loc, "terminal_type", 25, TRUE)
+	playsound(loc, SFX_TERMINAL_TYPE, 25, TRUE)
 	return TRUE
 
 /obj/item/healthanalyzer/ui_data(mob/user)

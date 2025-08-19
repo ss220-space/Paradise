@@ -704,7 +704,7 @@
 	drop_sound = 'sound/items/handling/drop/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
-	use_sound = "patchpack"
+	use_sound = SFX_PATCHPACK
 
 /obj/item/storage/box/matches/get_ru_names()
 	return list(

@@ -525,7 +525,7 @@
 	storage_slots = 50
 	max_combined_w_class = 50
 	display_contents_with_number = TRUE
-	use_sound = "pillbottle"
+	use_sound = SFX_PILLBOTTLE
 	pickup_sound = 'sound/items/handling/pickup/pillbottle_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/pillbottle_drop.ogg'
 	var/base_name = ""
@@ -619,7 +619,7 @@
 	desc = "Небольшой коробок, предназначенный для хранения медицинских пластырей."
 	icon_state = "patch_pack"
 	belt_icon = "patch_pack"
-	use_sound = "patchpack"
+	use_sound = SFX_PATCHPACK
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
 	wrapper_state = "patch_pack_wrap"
