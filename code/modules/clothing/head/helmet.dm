@@ -485,7 +485,7 @@
 
 /obj/item/clothing/head/helmet/biker
 	name = "Motorcycle helmet"
-	/obj/item/clothing/under/tchaikowsky/get_ru_names()
+	/obj/item/clothing/head/helmet/biker/get_ru_names()
 	return list(
 		NOMINATIVE = "мотоциклетный шлем",
 		GENITIVE = "мотоциклетный шлем",
