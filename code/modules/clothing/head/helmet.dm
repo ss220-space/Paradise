@@ -485,10 +485,19 @@
 
 /obj/item/clothing/head/helmet/biker
 	name = "Motorcycle helmet"
+	ru_names = list(
+		NOMINATIVE = "мотоциклетный шлем",
+		GENITIVE = "мотоциклетный шлем",
+		DATIVE = "мотоциклетному шлему",
+		ACCUSATIVE = "мотоциклетный шлем",
+		INSTRUMENTAL = "мотоциклетным шлемом",
+		PREPOSITIONAL = "мотоциклетном шлеме"
+	)
 	desc = "Самый обычный мотоциклетный шлем."
-	armor = list(MELEE = 25, BULLET = 10, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 0)
+	armor = list(MELEE = 45, BULLET = 10, LASER = 10, ENERGY = 30, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 0)
 	icon_state = "biker"
 	item_state = "biker"
+	flash_protect = FLASH_PROTECTION_FLASH
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	color = "#161515"
