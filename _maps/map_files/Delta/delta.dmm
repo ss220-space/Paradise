@@ -119758,11 +119758,6 @@
 	icon_state = "white"
 	},
 /area/medical/research/nhallway)
-"wEK" = (
-/obj/structure/girder,
-/obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/maintenance/engineering)
 "wEM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -152428,7 +152423,7 @@ iJV
 xBS
 jFg
 mDe
-wEK
+qUe
 ufD
 qUe
 lpm
