@@ -14,10 +14,16 @@
 	beacon_goal = 3 + round(length(GLOB.player_list)*0.1) // 3 + all crew* 0.1
 	obj_summon.owner = SSticker.mode
 	obj_demand.owner = SSticker.mode
-	clocker_goal = round(CLOCK_CREW_REVEAL_HIGH * (length(GLOB.player_list) - SSticker.mode.get_clockers()),1)
 	if(obj_demand.check_completion())
 		ratvar_is_ready()
 
+/datum/clockwork_objectives/proc/set_clocker_goal()
+	var/players = length(GLOB.player_list)
+	var/clockers = SSticker.mode.get_clockers()
+	var/reveal_percent = CLOCK_CREW_REVEAL_LOW
+	if(players >= CLOCK_POPULATION_THRESHOLD)
+		reveal_percent = CLOCK_CREW_REVEAL_HIGH
+	clocker_goal = round(reveal_percent * (players - clockers),1)
 
 /**
   * Called by cultists/cult constructs checking their objectives
