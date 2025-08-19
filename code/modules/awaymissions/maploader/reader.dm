@@ -79,7 +79,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 					if(!key_len)
 						key_len = LAZYLEN(key)
 					else
-						throw EXCEPTION("Inconsistent key LAZYLEN in DMM")
+						throw EXCEPTION("Inconsistent key length in DMM")
 				if(!measureOnly)
 					grid_models[key] = dmmRegex.group[2]
 
