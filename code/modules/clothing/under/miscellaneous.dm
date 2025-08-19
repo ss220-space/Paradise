@@ -1394,8 +1394,8 @@
 	species_restricted = list(SPECIES_HUMAN)
 
 /obj/item/clothing/under/tchaikowsky/sechighwaist
-	name = "security high waist outfit"
-	desc = "Униформа Службы Безопасности с завышенной талией."
+	name = "security high waist female uniform"
+	desc = "Женская униформа Службы Безопасности с завышенной талией."
 	icon_state = "high_waist_sec"
 	item_state = "high_waist_sec"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
@@ -1437,17 +1437,17 @@
 
 /obj/item/clothing/under/tchaikowsky/dress/black/get_ru_names()
 	return list(
-		NOMINATIVE = "черное платье",
-		GENITIVE = "черного платья",
-		DATIVE = "черному платью",
-		ACCUSATIVE = "черное платье",
-		INSTRUMENTAL = "черным платьем",
-		PREPOSITIONAL = "черном платье"
+		NOMINATIVE = "чёрное платье",
+		GENITIVE = "чёрного платья",
+		DATIVE = "чёрному платью",
+		ACCUSATIVE = "чёрное платье",
+		INSTRUMENTAL = "чёрным платьем",
+		PREPOSITIONAL = "чёрном платье"
 	)
 
 /obj/item/clothing/under/tchaikowsky/highwaistpants
 	name = "hight waist pants"
-	desc = "Штаны с завышенной талией. Идут в комплекте с черной рубашкой!"
+	desc = "Женские штаны с завышенной талией. Идут в комплекте с чёрной рубашкой!"
 	icon_state = "high_waist_pants"
 	item_state = "high_waist_pants"
 
@@ -1469,12 +1469,12 @@
 
 /obj/item/clothing/under/tchaikowsky/evening_dress/get_ru_names()
 	return list(
-		NOMINATIVE = "черное платье",
-		GENITIVE = "черного платья",
-		DATIVE = "черному платью",
-		ACCUSATIVE = "черное платье",
-		INSTRUMENTAL = "черным платьем",
-		PREPOSITIONAL = "черном платье"
+		NOMINATIVE = "чёрное платье",
+		GENITIVE = "чёрного платья",
+		DATIVE = "чёрному платью",
+		ACCUSATIVE = "чёрное платье",
+		INSTRUMENTAL = "чёрным платьем",
+		PREPOSITIONAL = "чёрном платье"
 	)
 
 /obj/item/clothing/under/tchaikowsky/evening_dress/cyan
@@ -1494,32 +1494,32 @@
 
 /obj/item/clothing/under/tchaikowsky/baseball
 	name = "baseball uniform (blue)"
-	desc = "Бейсбольная униформа синего цвета. Мерч бейсбольной команды NanoTrasen."
+	desc = "Бейсбольная униформа синего цвета. Мерч бейсбольной команды "Нанотрейзен Лейкерс"."
 	icon_state = "baseball_uniform_blue"
 	item_state = "baseball_uniform_blue"
 
 /obj/item/clothing/under/tchaikowsky/baseball/get_ru_names()
 	return list(
-		NOMINATIVE = "бейсбольная униформа синего цвета",
-		GENITIVE = "бейсбольной униформы синего цвета",
-		DATIVE = "бейсбольной униформе синего цвета",
-		ACCUSATIVE = "бейсбольную униформу синего цвета",
-		INSTRUMENTAL = "бейсбольной униформой синего цвета",
-		PREPOSITIONAL = "бейсбольной униформе синего цвета"
+		NOMINATIVE = "синяя бейсбольная униформа",
+		GENITIVE = "синей бейсбольной униформы",
+		DATIVE = "синей бейсбольной униформе",
+		ACCUSATIVE = "синюю бейсбольную униформу",
+		INSTRUMENTAL = "синей бейсбольной униформой",
+		PREPOSITIONAL = "синей бейсбольной униформе"
 	)
 
 /obj/item/clothing/under/tchaikowsky/baseball/brown
 	name = "baseball uniform (brown)"
-	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды Cybersun Ind."
+	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды "Киберсан Инд."."
 	icon_state = "baseball_uniform_brown"
 	item_state = "baseball_uniform_brown"
 
 /obj/item/clothing/under/tchaikowsky/baseball/brown/get_ru_names()
 	return list(
-		NOMINATIVE = "бейсбольная униформа коричневого цвета",
-		GENITIVE = "бейсбольной униформы коричневого цвета",
-		DATIVE = "бейсбольной униформе коричневого цвета",
-		ACCUSATIVE = "бейсбольную униформу коричневого цвета",
-		INSTRUMENTAL = "бейсбольной униформой коричневого цвета",
-		PREPOSITIONAL = "бейсбольной униформе коричневого цвета"
+		NOMINATIVE = "коричневая бейсбольная униформа",
+		GENITIVE = "коричневой бейсбольной униформы",
+		DATIVE = "коричневой бейсбольной униформе",
+		ACCUSATIVE = "коричневую бейсбольную униформу",
+		INSTRUMENTAL = "коричневой бейсбольной униформой",
+		PREPOSITIONAL = "коричневой бейсбольной униформе"
 	)
