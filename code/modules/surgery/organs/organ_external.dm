@@ -415,11 +415,13 @@
 					droplimb(clean = FALSE, disintegrate = DROPLIMB_BURN, silent = silent)
 
 	if(brute > MIN_BRUTE_DAMAGE_FOR_BLEEDING)
-		var/bleeding = brute * BRUTE_DAMAGE_TO_BLEEDING_MOD
-		if(sharp)
-			bleeding = bleeding * 2
-		bleeding_amount += round(bleeding, BLEEDING_PRECISION)
-		bleeding_amount = min(bleeding_amount, max_bleeding_amount)
+		var/bleeding_probe = min(100, 25 + brute * 2.5)
+		if(sharp || prob(bleeding_probe))
+			var/bleeding = brute * BRUTE_DAMAGE_TO_BLEEDING_MOD
+			if(sharp)
+				bleeding = bleeding * 2
+			bleeding_amount += round(bleeding, BLEEDING_PRECISION)
+			bleeding_amount = min(bleeding_amount, max_bleeding_amount)
 
 	if(updating_health && (QDELETED(src) || loc != organ_owner || brute_dam != brute_was || burn_dam != burn_was))
 		organ_owner?.updatehealth("limb receive damage")
