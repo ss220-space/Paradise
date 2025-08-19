@@ -2412,7 +2412,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "crate"
 
 
-/datum/syndie_supply_packs/syndicate_special/ocelot
+/datum/syndie_supply_packs/syndicate_special/griefsky
 	name = "Набор \"Грифски\""
 	contains = list(/obj/item/paicard/syndicate,
 					/obj/item/card/id/syndicate,
