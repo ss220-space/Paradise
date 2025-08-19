@@ -160,7 +160,7 @@
 
 
 /obj/machinery/chem_dispenser/ex_act(severity)
-	if(severity <= EXPLODE_LIGHT)
+	if(severity > EXPLODE_LIGHT)
 		if(beaker)
 			beaker.ex_act(severity)
 		..()
