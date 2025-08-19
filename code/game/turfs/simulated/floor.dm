@@ -69,15 +69,17 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/ex_act(severity)
 	if(is_shielded())
 		return
+
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			ChangeTurf(baseturf)
 		if(EXPLODE_HEAVY)
-			switch(pick(1,2;75,3))
+			switch(rand(1, 3))
 				if(1)
 					spawn(0)
 						ReplaceWithLattice()
-						if(prob(33)) new /obj/item/stack/sheet/metal(src)
+						if(prob(33))
+							new /obj/item/stack/sheet/metal(src)
 				if(2)
 					ChangeTurf(baseturf)
 				if(3)
@@ -85,12 +87,14 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 						break_tile_to_plating()
 					else
 						break_tile()
-					hotspot_expose(1000,CELL_VOLUME)
-					if(prob(33)) new /obj/item/stack/sheet/metal(src)
+					hotspot_expose(1000, CELL_VOLUME)
+					if(prob(33))
+						new /obj/item/stack/sheet/metal(src)
 		if(EXPLODE_LIGHT)
 			if(prob(50))
 				break_tile()
-				hotspot_expose(1000,CELL_VOLUME)
+				hotspot_expose(1000, CELL_VOLUME)
+
 	return
 
 /turf/simulated/floor/burn_down()
