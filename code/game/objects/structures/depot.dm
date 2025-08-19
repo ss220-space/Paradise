@@ -28,7 +28,7 @@
 		depotarea.reactor = null
 	return ..()
 
-/obj/structure/fusionreactor/ex_act(severity)
+/obj/structure/fusionreactor/ex_act(severity, target)
 	if(severity >= EXPLODE_HEAVY)
 		update_integrity(0)
 		healthcheck()
@@ -119,5 +119,5 @@
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
-/obj/effect/overload/ex_act(severity)
+/obj/effect/overload/ex_act(severity, target)
 	return

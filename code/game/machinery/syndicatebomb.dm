@@ -353,7 +353,7 @@
 	var/range_flame = 17
 	var/admin_log = TRUE
 
-/obj/item/bombcore/ex_act(severity) //Little boom can chain a big boom
+/obj/item/bombcore/ex_act(severity, target) //Little boom can chain a big boom
 	detonate()
 
 
@@ -477,7 +477,7 @@
 	var/pulse_number = 1 //Since one EMP wont destroy anything other then consoles and IPCS, here is an option to have multiple pulses when dentonating. DO NOT USE THIS WITH REALLY LARGE AREAS
 	var/adminlogged = FALSE //If it exploded once, don't do it again.
 
-/obj/item/bombcore/emp/ex_act(severity) //It's an EMP bomb, not a chemical explosive
+/obj/item/bombcore/emp/ex_act(severity, target) //It's an EMP bomb, not a chemical explosive
 	return
 
 /obj/item/bombcore/emp/burn()
@@ -677,7 +677,7 @@
 	return FALSE
 
 
-/obj/item/bombcore/toxins/ex_act(severity) //No chain reactions, the explosion only occurs when gas mixes
+/obj/item/bombcore/toxins/ex_act(severity, target) //No chain reactions, the explosion only occurs when gas mixes
 	return
 
 /obj/item/bombcore/toxins/burn()

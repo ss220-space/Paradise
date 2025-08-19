@@ -35,7 +35,7 @@
 /obj/machinery/shield/CanAtmosPass(turf/T, vertical)
 	return !density
 
-/obj/machinery/shield/ex_act(severity)
+/obj/machinery/shield/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			if(prob(75))
@@ -186,7 +186,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	return
 
-/obj/machinery/shieldgen/ex_act(severity)
+/obj/machinery/shieldgen/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			health -= 75
@@ -596,7 +596,7 @@
 	return
 
 
-/obj/machinery/shieldwall/ex_act(severity)
+/obj/machinery/shieldwall/ex_act(severity, target)
 	if(needs_power)
 		var/obj/machinery/shieldwallgen/G
 		switch(severity)
@@ -606,20 +606,19 @@
 				else
 					G = gen_secondary
 				G.storedpower -= 200
-
 			if(EXPLODE_HEAVY) //medium boom
 				if(prob(50))
 					G = gen_primary
 				else
 					G = gen_secondary
 				G.storedpower -= 50
-
 			if(EXPLODE_LIGHT) //lil boom
 				if(prob(50))
 					G = gen_primary
 				else
 					G = gen_secondary
 				G.storedpower -= 20
+
 	return
 
 
@@ -680,7 +679,7 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/ex_act(severity)
+/obj/machinery/shieldwall/syndicate/ex_act(severity, target)
 	phaseout()
 	return ..()
 

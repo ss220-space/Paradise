@@ -57,7 +57,7 @@
 		if(isliving(target) && !target.Adjacent(targets_from) && ranged_cooldown <= world.time)//No more being shot at point blank or spammed with RNG beams
 			OpenFire(target)
 
-/mob/living/simple_animal/hostile/asteroid/basilisk/ex_act(severity)
+/mob/living/simple_animal/hostile/asteroid/basilisk/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			gib()

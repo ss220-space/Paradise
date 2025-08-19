@@ -526,7 +526,7 @@
 	pixel_y = -16
 	pixel_x = -16
 
-/obj/effect/warp_effect/ex_act(severity)
+/obj/effect/warp_effect/ex_act(severity, target)
 	return
 
 /obj/effect/warp_effect/singularity_act()

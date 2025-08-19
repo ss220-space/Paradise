@@ -179,7 +179,7 @@
 /turf/attack_robot(mob/user)
 	user.Move_Pulled(src)
 
-/turf/ex_act(severity)
+/turf/ex_act(severity, target)
 	return FALSE
 
 /turf/proc/blob_consume()

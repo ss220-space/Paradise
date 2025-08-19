@@ -625,7 +625,7 @@
 		return
 	default_unfasten_wrench(user, I, time = 60)
 
-/obj/machinery/vending/ex_act(severity)
+/obj/machinery/vending/ex_act(severity, target)
 	. = ..()
 	if(QDELETED(src) || (resistance_flags & INDESTRUCTIBLE) || tilted || !tiltable)
 		return

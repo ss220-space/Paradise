@@ -159,11 +159,11 @@
 	recharge_counter++
 
 
-/obj/machinery/chem_dispenser/ex_act(severity)
+/obj/machinery/chem_dispenser/ex_act(severity, target)
 	if(severity > EXPLODE_LIGHT)
 		if(beaker)
-			beaker.ex_act(severity)
-		..()
+			beaker.ex_act(severity, target)
+		return ..()
 
 /obj/machinery/chem_dispenser/handle_atom_del(atom/A)
 	..()

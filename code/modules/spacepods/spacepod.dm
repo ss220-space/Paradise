@@ -315,7 +315,7 @@
 		update_icons()
 
 
-/obj/spacepod/ex_act(severity)
+/obj/spacepod/ex_act(severity, target)
 	occupant_sanity_check()
 	switch(severity)
 		if(EXPLODE_DEVASTATE)

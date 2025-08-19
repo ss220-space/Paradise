@@ -146,7 +146,8 @@
 /mob/living/simple_animal/ex_act(severity, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return
-	..()
+
+	. = ..()
 	var/bomb_armor = getarmor(attack_flag = BOMB)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)

@@ -516,7 +516,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	threat = 5
 
 
-/obj/effect/meteor/space_dust/ex_act(severity)
+/obj/effect/meteor/space_dust/ex_act(severity, target)
 	qdel(src)
 
 

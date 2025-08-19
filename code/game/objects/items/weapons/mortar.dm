@@ -281,7 +281,7 @@
 	mortar.name = src.name
 	qdel(src)
 
-/obj/structure/mortar/ex_act(severity)
+/obj/structure/mortar/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_HEAVY to INFINITY)
 			qdel(src)
@@ -403,7 +403,7 @@
 	. = ..()
 	select_skin(skin)
 
-/obj/item/mortar_kit/ex_act(severity)
+/obj/item/mortar_kit/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_HEAVY to INFINITY)
 			deconstruct(FALSE)

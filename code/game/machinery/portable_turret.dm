@@ -486,9 +486,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(!enabled)
 				enabled = TRUE
 
-	..()
+	return ..()
 
-/obj/machinery/porta_turret/ex_act(severity)
+/obj/machinery/porta_turret/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			qdel(src)

@@ -37,7 +37,7 @@
 /obj/effect/experience_pressure_difference()
 	return
 
-/obj/effect/ex_act(severity)
+/obj/effect/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			qdel(src)
@@ -93,7 +93,7 @@
 /obj/effect/abstract/ratvar_act()
 	return
 
-/obj/effect/abstract/ex_act(severity)
+/obj/effect/abstract/ex_act(severity, target)
 	return
 
 /obj/effect/abstract/blob_act()

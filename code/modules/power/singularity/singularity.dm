@@ -96,7 +96,7 @@
 /obj/singularity/blob_act(obj/structure/blob/B)
 	return
 
-/obj/singularity/ex_act(severity)
+/obj/singularity/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			if(current_size <= STAGE_TWO)
@@ -109,6 +109,7 @@
 			energy -= round(((energy+1)/3),1)
 		if(EXPLODE_LIGHT)
 			energy -= round(((energy+1)/4),1)
+
 	return
 
 

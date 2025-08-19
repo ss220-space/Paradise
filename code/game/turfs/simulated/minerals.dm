@@ -204,8 +204,8 @@
 /turf/simulated/mineral/acid_melt()
 	ChangeTurf(baseturf)
 
-/turf/simulated/mineral/ex_act(severity)
-	..()
+/turf/simulated/mineral/ex_act(severity, target)
+	. = ..()
 	switch(severity)
 		if(EXPLODE_LIGHT)
 			if (prob(75))
@@ -264,7 +264,7 @@
 /turf/simulated/mineral/ancient/acid_act(acidpwr, acid_volume)
 	return
 
-/turf/simulated/mineral/ancient/ex_act(severity)
+/turf/simulated/mineral/ancient/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_LIGHT)
 			return
@@ -273,6 +273,7 @@
 				gets_drilled(null, 1)
 		if(EXPLODE_DEVASTATE)
 			gets_drilled(null, 1)
+
 	return TRUE
 
 /turf/simulated/mineral/ancient/outer
@@ -305,7 +306,7 @@
 	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER]
 
 
-/turf/simulated/mineral/ancient/outer/ex_act(severity)
+/turf/simulated/mineral/ancient/outer/ex_act(severity, target)
 	return
 
 /turf/simulated/mineral/random

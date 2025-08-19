@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/proc/burnt_states()
 	return list("floorscorched1", "floorscorched2")
 
-/turf/simulated/floor/ex_act(severity)
+/turf/simulated/floor/ex_act(severity, target)
 	if(is_shielded())
 		return
 

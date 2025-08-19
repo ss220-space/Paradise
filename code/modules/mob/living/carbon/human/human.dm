@@ -319,7 +319,7 @@
 	burnloss = ex_armor_reduction(burnloss, armor)
 	take_overall_damage(bruteloss, burnloss, used_weapon = "Explosive Blast")
 
-	..()
+	return ..()
 
 /mob/living/carbon/human/proc/process_dismember(limbs_affected)
 	var/list/valid_limbs = bodyparts.Copy()

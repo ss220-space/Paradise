@@ -701,7 +701,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
 
-/mob/living/silicon/robot/ex_act(severity)
+/mob/living/silicon/robot/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)

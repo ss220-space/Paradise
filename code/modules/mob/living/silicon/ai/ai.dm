@@ -676,8 +676,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(2)
 				ai_call_shuttle()
 
-/mob/living/silicon/ai/ex_act(severity)
-	..()
+/mob/living/silicon/ai/ex_act(severity, target)
+	. = ..()
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)

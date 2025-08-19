@@ -155,10 +155,8 @@
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(250)
-
 		if(EXPLODE_HEAVY)
 			adjustBruteLoss(100)
-
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(50)
 

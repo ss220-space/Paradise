@@ -237,7 +237,7 @@ Difficulty: Very Hard
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
 	beam_it_up()
 
-/obj/effect/vetus_laser/ex_act(severity)
+/obj/effect/vetus_laser/ex_act(severity, target)
 	return
 
 /obj/effect/vetus_laser/proc/beam_it_up()
@@ -573,10 +573,8 @@ Difficulty: Very Hard
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(25)
-
 		if(EXPLODE_HEAVY)
 			adjustBruteLoss(10)
-
 		if(EXPLODE_LIGHT)
 			return
 
@@ -762,10 +760,8 @@ Difficulty: Very Hard
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(25)
-
 		if(EXPLODE_HEAVY)
 			adjustBruteLoss(10)
-
 		if(EXPLODE_LIGHT)
 			return
 

@@ -292,7 +292,7 @@
 	var/list/obj/connected = list(owner) + owner.eballs
 	Beam(pick(connected), icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 
-/obj/effect/energy_ball/ex_act(severity)
+/obj/effect/energy_ball/ex_act(severity, target)
 	return
 
 /obj/effect/energy_ball/CanAllowThrough(atom/movable/mover, border_dir)

@@ -158,7 +158,7 @@
 /turf/simulated/floor/vines/break_tile_to_plating()
 	return
 
-/turf/simulated/floor/vines/ex_act(severity)
+/turf/simulated/floor/vines/ex_act(severity, target)
 	if(severity > EXPLODE_LIGHT)
 		ChangeTurf(baseturf)
 
@@ -779,7 +779,7 @@
 		if(remaining_spreads == 0 || !spread_search)
 			break
 
-/obj/structure/spacevine/ex_act(severity)
+/obj/structure/spacevine/ex_act(severity, target)
 	var/i
 	for(var/datum/spacevine_mutation/SM in mutations)
 		i += SM.on_explosion(severity, src)

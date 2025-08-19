@@ -396,12 +396,12 @@
 	setDir(turn(dir, -90))
 
 
-/obj/machinery/sleeper/ex_act(severity)
+/obj/machinery/sleeper/ex_act(severity, target)
 	if(filtering)
 		toggle_filter()
 	if(occupant)
-		occupant.ex_act(severity)
-	..()
+		occupant.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/sleeper/handle_atom_del(atom/A)
 	..()

@@ -98,6 +98,7 @@
 	if(target == src)
 		take_damage(INFINITY, BRUTE, BOMB, 0)
 		return
+
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			take_damage(INFINITY, BRUTE, BOMB, 0)

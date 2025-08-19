@@ -88,7 +88,7 @@
 /obj/effect/old_anomaly/proc/detonate()
 	return
 
-/obj/effect/old_anomaly/ex_act(severity)
+/obj/effect/old_anomaly/ex_act(severity, target)
 	if(severity >= EXPLODE_DEVASTATE)
 		qdel(src)
 

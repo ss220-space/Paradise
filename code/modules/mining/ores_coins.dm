@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	to_chat(C, span_userdanger("Песок попал в глаза! Боль невыносима!"))
 	qdel(src)
 
-/obj/item/stack/ore/glass/ex_act(severity)
+/obj/item/stack/ore/glass/ex_act(severity, target)
 	if(!severity)
 		return
 

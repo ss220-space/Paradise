@@ -74,7 +74,7 @@
 			icon_state = "clockwork_gateway_closing"
 
 
-/obj/structure/clockwork/functional/celestial_gateway/ex_act(severity)
+/obj/structure/clockwork/functional/celestial_gateway/ex_act(severity, target)
 	var/damage = max((obj_integrity * 0.7) / severity, 100)
 	take_damage(damage, BRUTE, BOMB, 0)
 

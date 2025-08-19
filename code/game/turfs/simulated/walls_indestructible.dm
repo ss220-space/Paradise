@@ -17,7 +17,7 @@
 /turf/simulated/wall/indestructible/welder_act()
 	return
 
-/turf/simulated/wall/indestructible/ex_act(severity)
+/turf/simulated/wall/indestructible/ex_act(severity, target)
 	return
 
 /turf/simulated/wall/indestructible/blob_act(obj/structure/blob/B)

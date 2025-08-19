@@ -122,7 +122,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/blob_act(obj/structure/blob/B)
 	return
 
-/obj/structure/safe/ex_act(severity)
+/obj/structure/safe/ex_act(severity, target)
 	return
 
 /obj/structure/safe/examine_status(mob/user)
@@ -470,7 +470,7 @@ GLOBAL_LIST_EMPTY(safes)
 		INSTRUMENTAL = "напольным сейфом",
 		PREPOSITIONAL = "напольном сейфе"
 	)
-	
+
 
 /obj/structure/safe/floor/Initialize()
 	. = ..()

@@ -10,7 +10,7 @@
 	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый защищать вас."
 	var/toggle = FALSE
 
-/mob/living/simple_animal/hostile/guardian/protector/ex_act(severity)
+/mob/living/simple_animal/hostile/guardian/protector/ex_act(severity, target)
 	if(severity >= EXPLODE_DEVASTATE)
 		adjustBruteLoss(400) //if in protector mode, will do 20 damage and not actually necessarily kill the summoner
 	else

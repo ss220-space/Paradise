@@ -816,7 +816,7 @@
 		animate(smoke_part.get_filter("smoke_blur"), size = 6, time = 15, easing = CUBIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
 	smoke_effects = null
 
-/obj/effect/pod_landingzone/ex_act(severity)
+/obj/effect/pod_landingzone/ex_act(severity, target)
 	return FALSE
 
 /obj/effect/pod_landingzone/proc/endLaunch()
