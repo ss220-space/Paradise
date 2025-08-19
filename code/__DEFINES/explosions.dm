@@ -17,8 +17,3 @@
 #define GIBTONITE_STABLE 2
 /// Gibtonite will now explode
 #define GIBTONITE_DETONATE 3
-
-
-
-
-
