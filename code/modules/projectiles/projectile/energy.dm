@@ -47,7 +47,6 @@
 		return
 	var/mob/living/carbon/carbon = target
 	if(HAS_TRAIT(carbon, TRAIT_HULK))
-		carbon.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		return
 	if(carbon.status_flags & CANWEAKEN)
 		addtimer(CALLBACK(carbon, TYPE_PROC_REF(/mob/living/carbon, Jitter), jitter), 0.5 SECONDS)
