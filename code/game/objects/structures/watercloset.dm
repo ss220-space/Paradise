@@ -79,41 +79,50 @@
 		return .
 	var/mob/living/victim = grabbed_thing
 	if(victim.loc != get_turf(src))
-		to_chat(grabber, span_warning("[victim] needs to be on [src]!"))
+		to_chat(grabber, span_warning("[victim] должен быть на [declent_ru(PREPOSITIONAL)]!"))
 		return .
 	add_fingerprint(grabber)
 	if(open && !swirlie)
-		victim.visible_message(
-			span_danger("[grabber] starts to give [victim] a swirlie!"),
-			span_userdanger("[grabber] starts to give you a swirlie..."),
-		)
 		swirlie = victim
 		var/prev_angle = victim.lying_angle
 		var/oldx = victim.pixel_x
 		var/oldy = victim.pixel_y
 		var/swirlie_x = 0
 		var/swirlie_y = 24
-		var/swirlie_y_down = 14
+		var/swirlie_y_down = 8
 		victim.set_lying_angle(180)
+		victim.visible_message(
+			span_danger("[grabber] поднимает [victim] над унитазом!"),
+			span_userdanger("[grabber] поднимает вас над унитазом!"),
+		)
 		animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y, time = 0.8 SECONDS)
+		if(!do_after(grabber, 0.8 SECONDS, src, NONE) || grabber.pulling != victim)
+			animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
+			victim.set_lying_angle(prev_angle)
+			swirlie = null
+			return
+		victim.visible_message(
+			span_danger("[grabber] начинает окунать голову [victim] в унитаз!"),
+			span_userdanger("[grabber] начинает окунать вашу голову в унитаз..."),
+		)
+		animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y_down, time = 1.2 SECONDS)
+		if(!do_after(grabber, 1.2 SECONDS, src, NONE) || grabber.pulling != victim)
+			animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
+			victim.set_lying_angle(prev_angle)
+			swirlie = null
+			return
+		victim.visible_message(
+			span_danger("[grabber] окунает голову [victim] в унитаз!"),
+			span_userdanger("[grabber] окунает вашу голову в унитаз!"),
+			span_italics("Вы слышите звук смыва унитаза."),
+		)
+		playsound(loc, 'sound/items/toilet_flush.ogg', 80, TRUE)
 		if(!do_after(grabber, 1 SECONDS, src, NONE) || grabber.pulling != victim)
 			animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
 			victim.set_lying_angle(prev_angle)
 			swirlie = null
 			return
-		animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y_down, time = 2 SECONDS)
-		if(!do_after(grabber, 2 SECONDS, src, NONE) || grabber.pulling != victim)
-			animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
-			victim.set_lying_angle(prev_angle)
-			swirlie = null
-			return
 		// success toilet swirlie
-		//TODO sound here
-		victim.visible_message(
-			span_danger("[grabber] gives [victim] a swirlie!"),
-			span_userdanger("[grabber] gives [victim] a swirlie!"),
-			span_italics("You hear a toilet flushing."),
-		)
 		if(!victim.internal)
 			victim.adjustOxyLoss(15)
 		victim.SetEyeBlurry(5 SECONDS)
@@ -123,8 +132,8 @@
 	else
 		playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
 		victim.visible_message(
-			span_danger("[grabber] slams [victim.name] into [src]!"),
-			span_userdanger("[grabber] slams you into [src]!"),
+			span_danger("[grabber] бьет [victim.name] головой об [declent_ru(NOMINATIVE)]!"),
+			span_userdanger("[grabber] бьет вас головой об [declent_ru(NOMINATIVE)]!"),
 		)
 		victim.adjustBruteLoss(5)
 
