@@ -96,6 +96,10 @@
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"
+/// from /datum/component/cleave_attack/perform_sweep(): (atom/target, obj/item/item, mob/living/user, params)
+#define COMSIG_ATOM_CLEAVE_ATTACK "atom_cleave_attack"
+	// allows cleave attack to hit things it normally wouldn't
+	#define ATOM_ALLOW_CLEAVE_ATTACK (1<<0)
 ///from base of atom/attack_hulk(): (/mob/living/carbon/human)
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/animal_attack(): (/mob/user)
@@ -287,7 +291,7 @@
 #define COMSIG_CLICK "atom_click"
 ///from base of atom/ShiftClick(): (/mob)
 #define COMSIG_CLICK_SHIFT "shift_click"
-	#define COMPONENT_ALLOW_EXAMINATE (1<<0) 							//Allows the user to examinate regardless of client.eye.
+	#define COMPONENT_ALLOW_EXAMINATE (1<<0)							//Allows the user to examinate regardless of client.eye.
 ///from base of atom/CtrlClickOn(): (/mob)
 #define COMSIG_CLICK_CTRL "ctrl_click"
 ///from base of atom/base_click_alt(): (/mob)
@@ -521,6 +525,9 @@
 
 #define COMSIG_MOB_MOVE_INTENT_TOGGLED "mob_move_intent_toggled"
 
+/// from /mob/proc/combine_message (&msg)
+#define COMSIG_COMBINE_MESSAGE_FOR_HEARER "combine_message_for_hearer"
+
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT (1<<0)
@@ -697,10 +704,10 @@
 	#define COMPONENT_CANT_TRACK (1<<0)
 
 /// Source: /mob/living/AdjustBlood(amount)
-#define COMSIG_LIVING_BLOOD_ADJUST 		"living_blood_adjust"
+#define COMSIG_LIVING_BLOOD_ADJUST		"living_blood_adjust"
 	#define COMPONENT_PREVENT_BLOODLOSS	(1<<0)
 /// Source: /mob/living/AdjustBlood(amount)
-#define COMSIG_LIVING_BLOOD_ADJUSTED 	"living_blood_adjusted"
+#define COMSIG_LIVING_BLOOD_ADJUSTED	"living_blood_adjusted"
 /// Source: /mob/living/setBlood(amount)
 #define COMSIG_LIVING_EARLY_SET_BLOOD	"living_early_set_blood"
 /// Source: /mob/living/setBlood(amount)
@@ -850,6 +857,16 @@
 #define COMSIG_MACHINERY_POWER_LOST "machinery_power_lost"
 ///from base power_change() when power is restored
 #define COMSIG_MACHINERY_POWER_RESTORED "machinery_power_restored"
+
+// obj/machinery/door_timer signals
+///from obj/machinery/door_timer/timer_start(): (/mob/living/target, crimes, duration_min)
+#define COMSIG_DOOR_TIMER_START "door_timer_start"
+///from obj/machinery/door_timer/timer_end(): (/mob/living/target, crimes, duration_min)
+#define COMSIG_DOOR_TIMER_FINISH "door_timer_finish"
+
+// obj/machinery/crematorium
+///from obj/machinery/crematorium/cremate(): (/mob/living/target)
+#define COMSIG_LIVING_CREMATED "crematorium_cremated_living"
 
 // /obj/item signals
 
@@ -1019,6 +1036,11 @@
 ///sent from mecha action buttons to the mecha they're linked to
 #define COMSIG_MECHA_ACTION_ACTIVATE "mecha_action_activate"
 
+// /obj/docking_port/mobile signals
+
+///from /obj/docking_port/mobile/proc/dock(): (obj/docking_port/stationary/new_dock)
+#define COMSIG_SHUTTLE_DOCK "shuttle_dock"
+
 // /mob/living/carbon/human signals
 
 ///from mob/living/carbon/human/UnarmedAttack(): (atom/target, proximity)
@@ -1062,7 +1084,7 @@
 // /datum/song signals
 
 ///sent to the instrument when a song starts playing
-#define COMSIG_SONG_START 	"song_start"
+#define COMSIG_SONG_START	"song_start"
 ///sent to the instrument when a song stops playing
 #define COMSIG_SONG_END		"song_end"
 
@@ -1431,3 +1453,6 @@
 	#define CONTAINER_INSERT_FAILED (1<<1)
 
 #define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"
+
+#define COMSIG_SAY_YOUR_NAME "say_your_name"
+	#define SAY_NAME_BLOCK (1<<1)

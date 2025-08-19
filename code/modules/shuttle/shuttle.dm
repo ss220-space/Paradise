@@ -229,6 +229,8 @@
 	var/last_timer_length
 	/// current shuttle state
 	var/mode = SHUTTLE_IDLE
+	/// force lock shuttle moving
+	var/locked_move = FALSE
 	/// time recharging before ready to launch again
 	var/rechargeTime = 5 SECONDS
 	/// time spent in transit (deciseconds)
@@ -315,6 +317,8 @@
 
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
+	if(locked_move)
+		return SHUTTLE_LOCKED
 	if(!istype(S))
 		return SHUTTLE_NOT_A_DOCKING_PORT
 	if(istype(S, /obj/docking_port/stationary/transit))
@@ -342,6 +346,8 @@
 
 /obj/docking_port/mobile/proc/check_dock(obj/docking_port/stationary/S)
 	var/status = canDock(S)
+	if(status == SHUTTLE_LOCKED)
+		return FALSE
 	if(status == SHUTTLE_CAN_DOCK)
 		return TRUE
 	else if(status == SHUTTLE_ALREADY_DOCKED)
@@ -358,6 +364,8 @@
 
 //call the shuttle to destination S
 /obj/docking_port/mobile/proc/request(obj/docking_port/stationary/S)
+	if(locked_move)
+		return FALSE
 
 	if(!check_dock(S))
 		return TRUE
@@ -467,12 +475,13 @@
 
 	return ripple_turfs
 
-/// this is the main proc. It instantly moves our mobile port to stationary port S1
+/// this is the main proc. It instantly moves our mobile port to stationary port new_dock
 /// it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
 /obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/new_dock, force = FALSE, transit = FALSE)
 	// Crashing this ship with NO SURVIVORS
 	if(new_dock.get_docked() == src)
 		remove_ripples()
+		SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock)
 		return DOCKING_SUCCESS
 
 	if(!force)
@@ -597,6 +606,7 @@
 			W.update_audio()
 
 	unlockPortDoors(new_dock)
+	SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
 	var/static/list/blacklisted_turf_types = typecacheof(GLOB.blacklisted_turf_types_for_transit)
@@ -1022,8 +1032,8 @@
 	space_turfs_only = FALSE
 	access_admin_zone = TRUE	//can we park on Admin z_lvls?
 	access_mining = TRUE		//can we park on Lavaland z_lvl?
-	access_taipan = TRUE 		//can we park on Taipan z_lvl?
-	access_away = TRUE 		//can we park on Away_Mission z_lvl?
+	access_taipan = TRUE		//can we park on Taipan z_lvl?
+	access_away = TRUE		//can we park on Away_Mission z_lvl?
 	access_derelict = TRUE		//can we park in Unexplored Space?
 
 /obj/machinery/computer/shuttle/trade

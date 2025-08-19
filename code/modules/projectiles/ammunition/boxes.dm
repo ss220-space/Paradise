@@ -7,7 +7,7 @@
 	name = "ammo box (.357)"
 	icon_state = "357OLD"  // see previous entry for explanation of these vars
 	ammo_type = /obj/item/ammo_casing/a357
-	max_ammo = 20
+	max_ammo = 21
 
 
 /obj/item/ammo_box/a357/update_icon_state()
@@ -227,6 +227,20 @@
 	icon_state = "9mmTEbox"
 	ammo_type = /obj/item/ammo_casing/c9mmte
 	max_ammo = 60
+
+/obj/item/ammo_box/m50
+	name = "ammo box (.50AE)"
+	icon_state = "ammobox_50AE"
+	ammo_type = /obj/item/ammo_casing/a50
+	max_ammo = 21
+	ru_names = list(
+		NOMINATIVE = "коробка патронов (.50AE)",
+		GENITIVE = "коробки патронов (.50AE)",
+		DATIVE = "коробке патронов (.50AE)",
+		ACCUSATIVE = "коробку патронов (.50AE)",
+		INSTRUMENTAL = "коробкой патронов (.50AE)",
+		PREPOSITIONAL = "коробке патронов (.50AE)"
+	)
 
 // MISC
 /obj/item/ammo_box/a40mm

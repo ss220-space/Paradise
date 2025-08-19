@@ -13,14 +13,6 @@
 /obj/machinery/chem_master
 	name = "ChemMaster 3000"
 	desc = "Химическое оборудование, предназначенное для преобразования реагентов в таблетки, пластыри и бутылки."
-	ru_names = list(
-		NOMINATIVE = "ХимМастер 3000",
-		GENITIVE = "ХимМастера 3000",
-		DATIVE = "ХимМастеру 3000",
-		ACCUSATIVE = "ХимМастер 3000",
-		INSTRUMENTAL = "ХимМастером 3000",
-		PREPOSITIONAL = "ХимМастере 3000"
-	)
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -56,6 +48,16 @@
 	)
 	var/list/datum/chemical_production_mode/production_modes = list()
 	var/static/list/bottle_styles
+
+/obj/machinery/chem_master/get_ru_names()
+	return list(
+		NOMINATIVE = "ХимМастер 3000",
+		GENITIVE = "ХимМастера 3000",
+		DATIVE = "ХимМастеру 3000",
+		ACCUSATIVE = "ХимМастер 3000",
+		INSTRUMENTAL = "ХимМастером 3000",
+		PREPOSITIONAL = "ХимМастере 3000"
+	)
 
 /obj/machinery/chem_master/Initialize(mapload)
 	. = ..()
@@ -533,7 +535,10 @@
 /obj/machinery/chem_master/condimaster
 	name = "CondiMaster 3000"
 	desc = "Химическое оборудование, специализированное под кулинарные нужды. Позволяет создавать пакеты со специями или бутыли, как вы того пожелаете."
-	ru_names = list(
+	condi = TRUE
+
+/obj/machinery/chem_master/condimaster/get_ru_names()
+	return list(
 		NOMINATIVE = "КондиМастер 3000",
 		GENITIVE = "КондиМастера 3000",
 		DATIVE = "КондиМастеру 3000",
@@ -541,7 +546,6 @@
 		INSTRUMENTAL = "КондиМастером 3000",
 		PREPOSITIONAL = "КондиМастере 3000"
 	)
-	condi = TRUE
 
 /obj/machinery/chem_master/condimaster/Initialize(mapload)
 	. = ..()
@@ -619,9 +623,7 @@
 		var/obj/item/reagent_containers/P = new item_type(location)
 		if(!isnull(medicine_name))
 			P.name = "[name_suffix][medicine_name]"
-			if(P.ru_names)
-				for(var/j = 1; j <= 6; j++)
-					P.ru_names[j] = "[P.ru_names[j]] - [medicine_name]"
+			P.chem_master_made = TRUE
 		P.pixel_x = rand(-7, 7) // Random position
 		P.pixel_y = rand(-7, 7)
 		configure_item(data, reagents, P)
@@ -638,7 +640,7 @@
 	item_type = /obj/item/reagent_containers/food/pill
 	max_items_amount = MAX_MULTI_AMOUNT
 	max_units_per_item = MAX_UNITS_PER_PILL
-	name_suffix = "pill - "
+	name_suffix = "Таблетка - "
 	sprite_mask = "pill"
 	sprites_amount = MAX_PILL_SPRITE
 
@@ -649,7 +651,7 @@
 	item_type = /obj/item/reagent_containers/food/pill/patch
 	max_items_amount = MAX_MULTI_AMOUNT
 	max_units_per_item = MAX_UNITS_PER_PATCH
-	name_suffix = "patch - "
+	name_suffix = "Пластырь - "
 	sprite_mask = "bandaid"
 	sprites_amount = MAX_PATCH_SPRITE
 
@@ -679,7 +681,7 @@
 
 	max_items_amount = 5
 	max_units_per_item = 50
-	name_suffix = "bottle - "
+	name_suffix = "Бутылка - "
 
 /datum/chemical_production_mode/bottles/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
 	return reagents.get_master_reagent_name()
@@ -701,7 +703,7 @@
 	item_type = /obj/item/reagent_containers/food/condiment/pack
 	max_items_amount = 10
 	max_units_per_item = 10
-	name_suffix = "pack - "
+	name_suffix = "Упаковка - "
 
 /datum/chemical_production_mode/condiment_packs/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
 	return reagents.get_master_reagent_name()

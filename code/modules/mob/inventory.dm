@@ -277,7 +277,7 @@
 		return r_hand
 
 //Returns the flag of the selected hand
-/mob/proc/get_active_item_slot_gand()
+/mob/proc/get_active_item_slot_hand()
 	if(hand)
 		return ITEM_SLOT_HAND_LEFT
 	return ITEM_SLOT_HAND_RIGHT
@@ -508,7 +508,7 @@
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
 
-	var/shift_max = world.icon_size / 2
+	var/shift_max = ICON_SIZE_X / 2
 	var/shift_limit_x = initial(pixel_x) + shift_max
 	var/shift_limit_y = initial(pixel_y) + shift_max
 	var/shift_x

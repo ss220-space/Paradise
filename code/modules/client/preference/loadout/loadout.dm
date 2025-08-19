@@ -47,7 +47,8 @@ GLOBAL_LIST_EMPTY(gear_datums)
 
 /datum/gear/proc/get_display_name()
 	var/atom/item = new path(src)
-	return capitalize((display_name == /datum/gear::display_name)? (item.ru_names ? item.ru_names[1] : item.name) : display_name)
+	var/list/names = item.ru_names || item.get_ru_names_cached()
+	return capitalize((display_name == /datum/gear::display_name)? (names ? names[NOMINATIVE] : item.name) : display_name)
 
 /datum/gear_data
 	var/path

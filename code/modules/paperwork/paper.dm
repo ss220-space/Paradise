@@ -36,7 +36,7 @@
 	pickup_sound =  'sound/items/handling/pickup/paper_pickup.ogg'
 	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
-	var/footer 	//The bottom stuff before the stamp but after the body
+	var/footer	//The bottom stuff before the stamp but after the body
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
 	var/fields = 0		//Amount of user created fields
@@ -953,6 +953,7 @@
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
 				R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
+				R.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
 				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 		update_all_mob_security_hud()
 	else if(myeffect == "Demote with Bot")
@@ -963,6 +964,7 @@
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
 				R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
+				R.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
 				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 		update_all_mob_security_hud()
 		if(fax)

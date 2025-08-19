@@ -52,9 +52,9 @@
 	/// How much stamina damage should be decremented as the bullet moves.
 	var/tile_dropoff_s = 0
 	/// How much armour penetration should be decremented as the bullet moves.
-	var/tile_dropoff_penetration
+	var/tile_dropoff_penetration = 0
 	/// How much forcedodge should be decremented as the bullet moves.
-	var/tile_dropoff_forcedodge
+	var/tile_dropoff_forcedodge = 0
 	/// BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here.
 	var/damage_type = BRUTE
 	/// Determines if the projectile will skip any damage inflictions.
@@ -135,9 +135,9 @@
 		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
 	if(stamina && tile_dropoff_s)
 		stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
-	if(armour_penetration && tile_dropoff_penetration)
-		armour_penetration = max(0, armour_penetration - tile_dropoff_penetration) // as above, but with armour penetration
-	if(forcedodge && tile_dropoff_forcedodge)
+	if(tile_dropoff_penetration)
+		armour_penetration = clamp(armour_penetration - tile_dropoff_penetration, -100, 100)
+	if(tile_dropoff_forcedodge)
 		forcedodge = max(0, forcedodge - tile_dropoff_forcedodge) // as above, but with forcedodge
 	if(range <= 0 && loc)
 		on_range()
@@ -188,7 +188,7 @@
 		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = Angle
 			if(starting)
-				splatter_dir = !isnull(Angle) ? Angle : round(get_angle_tgmc(starting, target_loca), 1)
+				splatter_dir = !isnull(Angle) ? Angle : round(get_angle(starting, target_loca), 1)
 			if(isalien(L) || isfacehugger(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
@@ -252,7 +252,7 @@
  * Checks whether the place we want to splatter blood is blocked (i.e. by windows).
  */
 /obj/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca)
-	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
+	var/turf/step_cardinal = !(splatter_dir in GLOB.cardinal) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
 
 	if(step_over.density && !step_over.CanPass(target, get_dir(step_over, target))) //Preliminary simple check.
 		return TRUE
@@ -310,7 +310,7 @@
 	prehit(bumped_atom)
 
 	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
-	if(permutation == -1 || forcedodge >= 1) // the bullet passes through a dense object!
+	if(permutation == -1 || forcedodge == -1 ||forcedodge >= 1) // the bullet passes through a dense object!
 		if(forcedodge >= 1)
 			forcedodge -= 1
 		loc = bumped_turf
@@ -488,10 +488,10 @@
 
 
 /obj/projectile/proc/check_ricochet_flag(atom/A)
-	if((flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
+	if((flag == ENERGY || flag == LASER) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 
-	if((flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
+	if((flag == BOMB || flag == BULLET) && (A.flags_ricochet & RICOCHET_HARD))
 		return TRUE
 
 	return FALSE

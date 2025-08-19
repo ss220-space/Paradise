@@ -57,7 +57,6 @@ Difficulty: Very Hard
 	del_on_death = TRUE
 	universal_speak = TRUE
 	tts_seed = null
-	internal_type = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
@@ -256,7 +255,7 @@ Difficulty: Very Hard
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))
-	var/angle_to_target = get_angle_tgmc(src, target_turf)
+	var/angle_to_target = get_angle(src, target_turf)
 	if(isnum(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
@@ -369,12 +368,6 @@ Difficulty: Very Hard
 	. = ..()
 	if(isturf(target) || isobj(target))
 		target.ex_act(2)
-
-/obj/item/gps/internal/colossus
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "Get in the fucking robot."
-	invisibility = INVISIBILITY_ABSTRACT
 
 #undef RANDOM_SHOTS
 #undef BLAST
