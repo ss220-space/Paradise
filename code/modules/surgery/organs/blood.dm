@@ -8,28 +8,32 @@
 #define BLOOD_REGENERATION 0.1
 
 // Blood level damage constants
-/// Damage for blood volume from BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE
-#define BLOOD_PALE_DAMAGE 2
+/// Damage for blood volume from BLOOD_VOLUME_PALE to BLOOD_VOLUM5E_SAFE
+#define BLOOD_PALE_DAMAGE 1
 /// Damage for blood volume from BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE
-#define BLOOD_OKAY_DAMAGE 4
+#define BLOOD_OKAY_DAMAGE 2
 /// Damage for blood volume from BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY
-#define BLOOD_BAD_DAMAGE 5
+#define BLOOD_BAD_DAMAGE 4
 /// Damage for blood volume from BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD
 #define BLOOD_SURVIVE_DAMAGE 8
 
 // Bledding calculation constants
 /// Bleeding per embedded item (units per 2 sec)
-#define EMBEDDED_ITEM_BLEEDING 0.5
-/// Required brute damage for bledding
-#define BODYPART_BRUTE_FOR_BLEEDING 15
-/// Bleeding coefficient for calculate bodypart bleeding from brute damage (basic 0.013: 0.26 bleeding for 20 brute)
-#define BODYPART_BLEEDING_BRUTE_MOD 0.04
+#define EMBEDDED_ITEM_BLEEDING 0.3
 /// Open bodypart bleeding (units per 2 sec)
-#define OPEN_BODYPART_BLEEDING 1.5
+#define OPEN_BODYPART_BLEEDING 0.75
 /// Internal bleeding size (units per 2 sec)
 #define BODYPART_INTERNAL_BLEEDING 0.5
+
 /// Decrease bleeding size if no wounds (units per 2 sec)
-#define BLEEDING_DECREASE 0.5
+#define BLEEDING_DECREASE 0.01
+
+/// Minimal brute damage for add bleeding
+#define MIN_BRUTE_DAMAGE_FOR_BLEEDING 10
+/// Brute damage to bleeding calculation coefficient
+#define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.05
+/// Heal damage to bleeding reduction calculation coefficient
+#define HEAL_DAMAGE_TO_BLEEDING_MOD 0.01
 
 
 /mob/living/carbon/human/proc/suppress_bloodloss(amount)
@@ -109,18 +113,18 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(bodypart.is_robotic())
 			continue
-		var/brutedamage = bodypart.brute_dam
+		current_bleed += bodypart.bleeding_amount
+		if(bodypart.bleeding_amount > 0)
+			bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - BLEEDING_DECREASE)
 		var/embedded_length = LAZYLEN(bodypart.embedded_objects)
 		if(embedded_length)
 			current_bleed += EMBEDDED_ITEM_BLEEDING * embedded_length
-		if(brutedamage >= BODYPART_BRUTE_FOR_BLEEDING)
-			current_bleed += (brutedamage * BODYPART_BLEEDING_BRUTE_MOD)
 		if(bodypart.open)
 			current_bleed += OPEN_BODYPART_BLEEDING
 		if(bodypart.has_internal_bleeding())
 			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
 	// calculate bleed rate with regenretion and current bleed
-	bleed_rate = max(bleed_rate - BLEEDING_DECREASE, current_bleed)
+	bleed_rate = current_bleed
 	// calculate addition bleeding from reagents
 	var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //heparin worsens existing bleeding
 	// apply internal bleeding
@@ -486,7 +490,5 @@
 #undef BLOOD_BAD_DAMAGE
 #undef BLOOD_SURVIVE_DAMAGE
 #undef EMBEDDED_ITEM_BLEEDING
-#undef BODYPART_BRUTE_FOR_BLEEDING
-#undef BODYPART_BLEEDING_BRUTE_MOD
 #undef OPEN_BODYPART_BLEEDING
 #undef BLEEDING_DECREASE

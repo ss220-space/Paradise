@@ -18,6 +18,7 @@
 	icon_name = "torso"
 	max_damage = 100
 	min_broken_damage = 35
+	max_bleeding_amount = 5
 	w_class = WEIGHT_CLASS_HUGE
 	limb_body_flag = UPPER_TORSO
 	vital = TRUE
@@ -54,6 +55,7 @@
 	icon_name = "groin"
 	max_damage = 100
 	min_broken_damage = 35
+	max_bleeding_amount = 5
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	limb_body_flag = LOWER_TORSO
 	vital = TRUE
@@ -77,6 +79,7 @@
 	limb_zone = BODY_ZONE_L_ARM
 	max_damage = 50
 	min_broken_damage = 30
+	max_bleeding_amount = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	limb_body_flag = ARM_LEFT
 	parent_organ_zone = BODY_ZONE_CHEST
@@ -127,6 +130,7 @@
 	limb_zone = BODY_ZONE_L_LEG
 	max_damage = 50
 	min_broken_damage = 30
+	max_bleeding_amount = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	limb_body_flag = LEG_LEFT
 	icon_position = LEFT
@@ -222,6 +226,7 @@
 	icon_name = "l_foot"
 	limb_zone = BODY_ZONE_PRECISE_L_FOOT
 	max_damage = 30
+	max_bleeding_amount = 1.5
 	min_broken_damage = 15
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = FOOT_LEFT
@@ -363,6 +368,7 @@
 	limb_zone = BODY_ZONE_PRECISE_L_HAND
 	max_damage = 30
 	min_broken_damage = 15
+	max_bleeding_amount = 1.5
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = HAND_LEFT
 	parent_organ_zone = BODY_ZONE_L_ARM
@@ -467,6 +473,7 @@
 	icon_name = "head"
 	max_damage = 75
 	min_broken_damage = 35
+	max_bleeding_amount = 4
 	w_class = WEIGHT_CLASS_NORMAL
 	limb_body_flag = HEAD
 	parent_organ_zone = BODY_ZONE_CHEST
@@ -593,6 +600,7 @@
 	icon_name = "tail"
 	max_damage = 30
 	min_broken_damage = 15
+	max_bleeding_amount = 1.5
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = TAIL
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
@@ -702,6 +710,7 @@
 	limb_zone = BODY_ZONE_WING
 	max_damage = 30
 	min_broken_damage = 15
+	max_bleeding_amount = 0
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = WING
 	parent_organ_zone = BODY_ZONE_CHEST

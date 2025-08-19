@@ -414,6 +414,13 @@
 				if(!limb_dropped && original_burn && prob(original_burn / 2))
 					droplimb(clean = FALSE, disintegrate = DROPLIMB_BURN, silent = silent)
 
+	if(brute > MIN_BRUTE_DAMAGE_FOR_BLEEDING)
+		var/bleeding = brute * BRUTE_DAMAGE_TO_BLEEDING_MOD
+		if(sharp)
+			bleeding = bleeding * 2
+		bleeding_amount += round(bleeding, BLEEDING_PRECISION)
+		bleeding_amount = min(bleeding_amount, max_bleeding_amount)
+
 	if(updating_health && (QDELETED(src) || loc != organ_owner || brute_dam != brute_was || burn_dam != burn_was))
 		organ_owner?.updatehealth("limb receive damage")
 
@@ -434,6 +441,13 @@
 	if(internal)
 		mend_fracture()
 		stop_internal_bleeding()
+
+	if(brute > 0 && bleeding_amount > 0)
+		var/bleeding_heal = brute * HEAL_DAMAGE_TO_BLEEDING_MOD
+		bleeding_amount -= round(bleeding_heal, BLEEDING_PRECISION)
+		bleeding_amount = max(bleeding_amount, 0)
+
+	brute = HEAL_DAMAGE_TO_BLEEDING_MOD
 
 	if(updating_health)
 		owner.updatehealth("limb heal damage")

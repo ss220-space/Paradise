@@ -24,6 +24,11 @@
 	/// Basically organ max health.
 	var/max_damage
 
+	/// Current bleeding amount
+	var/bleeding_amount = 0
+	/// Maximum of bleeding amount for this organ
+	var/max_bleeding_amount = 0
+
 	/// Defined body zone of parent organ.
 	var/parent_organ_zone = BODY_ZONE_CHEST
 	/// Data saved for autopsy scanner
@@ -137,6 +142,7 @@
 		return FALSE
 
 	damage = max_damage
+	bleeding_amount = 0
 	status |= ORGAN_DEAD
 	STOP_PROCESSING(SSobj, src)
 
@@ -177,6 +183,8 @@
 		to_chat(user, span_notice("Вы устраняете повреждения на [declent_ru(PREPOSITIONAL)] с помощью [nanopaste.declent_ru(GENITIVE)]."))
 		rejuvenate()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	//TODO остановление кровотечения с помощью бинтов
 
 	return ..()
 
