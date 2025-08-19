@@ -132,6 +132,20 @@
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
 
+//C-20rm Full auto//
+/obj/item/gun/projectile/automatic/c20r/auto
+	name = "C-20rm Full-Auto SMG"
+	desc = "A full-auto .45 SMG, modification of 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
+	fire_delay = 1.5
+	burst_size = 1
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
+	actions_types = null
+
+/obj/item/gun/projectile/automatic/c20r/auto/ComponentInitialize()
+	..()
+	AddComponent(/datum/component/automatic_fire, 0.15 SECONDS)
+
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
