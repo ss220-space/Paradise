@@ -132,15 +132,25 @@
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
 
-//C-20rm Full auto//
+//C-20rm Full auto
 /obj/item/gun/projectile/automatic/c20r/auto
 	name = "C-20rm Full-Auto SMG"
-	desc = "A full-auto .45 SMG, modification of 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
+	desc = "Автоматический пистолет-пулемет под .45 калибр. Новейшая модификация пистолет-пулемета 'C-20r' ."
 	fire_delay = 1.5
 	burst_size = 1
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
 	actions_types = null
+
+/obj/item/gun/projectile/automatic/c20r/auto/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет-пулемет C-20rm",
+		GENITIVE = "пистолет-пулемета C-20rm",
+		DATIVE = "пистолет-пулемету C-20rm",
+		ACCUSATIVE = "пистолет-пулемету C-20rm",
+		INSTRUMENTAL = "пистолет-пулеметом C-20rm",
+		PREPOSITIONAL = "пистолет-пулемете C-20rm"
+	)
 
 /obj/item/gun/projectile/automatic/c20r/auto/ComponentInitialize()
 	..()
