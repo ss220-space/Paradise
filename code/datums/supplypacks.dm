@@ -2360,7 +2360,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
 					/obj/item/clothing/under/burial,
 					/obj/item/clothing/under/burial,
-					/obj/item/book/codex_gigas)
+					/obj/item/book/codex_gigas,
+					)
 	cost = 40
 	containername = "religious supplies crate"
 
