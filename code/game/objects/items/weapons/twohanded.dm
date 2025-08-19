@@ -128,7 +128,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "chop_swing_heavy" \
+		swing_sound = SFX_CHOP_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
@@ -197,7 +197,7 @@
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "chop_swing_heavy" \
+		swing_sound = SFX_CHOP_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
@@ -238,7 +238,7 @@
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "chop_swing_heavy" \
+		swing_sound = SFX_CHOP_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/fireaxe/energized/Destroy()
@@ -317,7 +317,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0, \
 		requires_wielded = TRUE, \
-		swing_sound = "double_energy_swing" \
+		swing_sound = SFX_DOUBLE_ENERGY_SWING \
 	)
 
 /obj/item/twohanded/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
@@ -710,7 +710,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "chainsaw_swing" \
+		swing_sound = SFX_CHAINSAW_SWING \
 	)
 
 
@@ -801,7 +801,7 @@
 		afterswing_slowdown = 0.3, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "chainsaw_swing" \
+		swing_sound = SFX_CHAINSAW_SWING \
 	)
 
 
@@ -880,7 +880,7 @@
 		afterswing_slowdown = 0.3, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/singularityhammer/Destroy()
@@ -967,7 +967,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
@@ -1028,7 +1028,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/knighthammer/Destroy()
@@ -1260,7 +1260,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/sechammer/update_icon_state()

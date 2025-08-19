@@ -171,10 +171,10 @@
 
 /obj/item/melee/changeling/arm_blade/get_ru_names()
 	return list(
-		NOMINATIVE = "рука-клинок", 
-		GENITIVE = "руки-клинка", 
-		DATIVE = "руке-клинку", 
-		ACCUSATIVE = "руку-клинок", 
+		NOMINATIVE = "рука-клинок",
+		GENITIVE = "руки-клинка",
+		DATIVE = "руке-клинку",
+		ACCUSATIVE = "руку-клинок",
 		INSTRUMENTAL = "рукой-клинком",
 		PREPOSITIONAL = "руке-клинке"
 	)
@@ -190,7 +190,7 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_sound = "blade_swing_light" \
+		swing_sound = SFX_BLADE_SWING_LIGHT \
 	)
 
 
@@ -282,11 +282,11 @@
 
 /obj/item/melee/changeling/fleshy_maul/get_ru_names()
 	return list(
-		NOMINATIVE = "молот из плоти", 
-		GENITIVE = "молота из плоти", 
-		DATIVE = "молоту из плоти", 
-		ACCUSATIVE = "молот из плоти", 
-		INSTRUMENTAL = "молотом из плоти", 
+		NOMINATIVE = "молот из плоти",
+		GENITIVE = "молота из плоти",
+		DATIVE = "молоту из плоти",
+		ACCUSATIVE = "молот из плоти",
+		INSTRUMENTAL = "молотом из плоти",
 		PREPOSITIONAL = "молоте из плоти"
 	)
 
@@ -304,7 +304,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0.3, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy", \
+		swing_sound = SFX_BLUNT_SWING_HEAVY, \
 	)
 
 

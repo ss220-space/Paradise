@@ -47,7 +47,7 @@
 						leg.fracture()
 						break
 			else if(prob(30))
-				playsound(src, "bonebreak", 10, TRUE)
+				playsound(src, SFX_BONEBREAK, 10, TRUE)
 
 		// If we sooo weak to pull or push something, except items or tiny mobs, get stamina damage
 		var/weak_mob = FALSE

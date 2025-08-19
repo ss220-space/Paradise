@@ -252,7 +252,7 @@
 		/datum/component/cleave_attack, \
 		afterswing_slowdown = 0.15, \
 		no_multi_hit = TRUE, \
-		swing_sound = "chop_swing_light" \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
 
 /obj/item/kitchen/knife/butcher/sharped
@@ -286,7 +286,7 @@
 		arc_size = 180, \
 		afterswing_slowdown = -0.2, \
 		slowdown_duration = 2 SECONDS, \
-		swing_sound = "chop_swing_light" \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
 
 /obj/item/kitchen/knife/combat
@@ -309,7 +309,7 @@
 		swing_speed_mod = 1.25, \
 		afterswing_slowdown = 0, \
 		no_multi_hit = TRUE, \
-		swing_sound = "knife_swing" \
+		swing_sound = SFX_KNIFE_SWING \
 	)
 
 /obj/item/kitchen/knife/combat/survival
@@ -481,7 +481,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = -0.3, \
 		slowdown_duration = 3 SECONDS, \
-		swing_sound = "knife_swing" \
+		swing_sound = SFX_KNIFE_SWING \
 	)
 
 /obj/item/kitchen/knife/ghostface_knife/devil

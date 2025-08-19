@@ -231,6 +231,7 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_BULLET_MISS "bullet_miss"
 #define SFX_CAN_OPEN "can_open"
 #define SFX_CLOWN_STEP "clown_step"
+// stop
 #define SFX_DESECRATION "desecration"
 #define SFX_EXPLOSION "explosion"
 #define SFX_EXPLOSION_CREAKING "explosion_creaking"

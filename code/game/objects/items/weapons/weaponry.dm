@@ -74,7 +74,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 0.75 SECONDS, \
-		swing_sound = "blade_swing_heavy" \
+		swing_sound = SFX_BLADE_SWING_HEAVY \
 	)
 
 /obj/item/melee/claymore/suicide_act(mob/user)
@@ -114,7 +114,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 1.75, \
 		afterswing_slowdown = 0, \
-		swing_sound = "katana_swing" \
+		swing_sound = SFX_KATANA_SWING \
 	)
 
 /obj/item/melee/katana/suicide_act(mob/user)
@@ -259,7 +259,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 2, \
 		no_multi_hit = TRUE, \
-		swing_sound = "generic_swing_heavy" \
+		swing_sound = SFX_GENERIC_SWING_HEAVY \
 	)
 
 /obj/item/melee/baseball_bat/homerun
@@ -493,7 +493,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 0.75 SECONDS, \
-		swing_sound = "blade_swing_light" \
+		swing_sound = SFX_BLADE_SWING_LIGHT \
 	)
 
 /obj/item/melee/nutcracker

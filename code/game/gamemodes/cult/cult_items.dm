@@ -47,7 +47,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 0.75 SECONDS, \
-		swing_sound = "blade_swing_heavy" \
+		swing_sound = SFX_BLADE_SWING_HEAVY \
 	)
 
 
