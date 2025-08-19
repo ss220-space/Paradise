@@ -70,7 +70,12 @@
 /obj/item/holosign_creator/janitor
 	name = "Janitorial Holosign projector"
 	desc = "Удобный голографический проектор, отображающий знак уборщика."
-	ru_names = list(
+	belt_icon = "sign_projector"
+	holosign_type = /obj/structure/holosign/wetsign
+	var/wet_enabled = TRUE
+
+/obj/item/holosign_creator/janitor/get_ru_names()
+	return list(
 		NOMINATIVE = "голо-проектор уборщика",
 		GENITIVE = "голо-проектора уборщика",
 		DATIVE = "голо-проектору уборщика",
@@ -78,9 +83,6 @@
 		INSTRUMENTAL = "голо-проектором уборщика",
 		PREPOSITIONAL = "голо-проекторе уборщика"
 	)
-	belt_icon = "sign_projector"
-	holosign_type = /obj/structure/holosign/wetsign
-	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/click_alt(mob/living/user)
 	wet_enabled = !wet_enabled
@@ -108,14 +110,6 @@
 /obj/item/holosign_creator/security
 	name = "security holobarrier projector"
 	desc = "Голографический проектор, который создаёт голографические барьеры службы безопасности."
-	ru_names = list(
-		NOMINATIVE = "голо-проектор службы безопасности",
-		GENITIVE = "голо-проектора службы безопасности",
-		DATIVE = "голо-проектору службы безопасности",
-		ACCUSATIVE = "голо-проектор службы безопасности",
-		INSTRUMENTAL = "голо-проектором службы безопасности",
-		PREPOSITIONAL = "голо-проекторе службы безопасности"
-	)
 	icon_state = "signmaker_sec"
 	item_state = "signmaker_sec"
 	belt_icon = "security_sign_projector"
@@ -123,10 +117,27 @@
 	creation_time = 30
 	max_signs = 6
 
+/obj/item/holosign_creator/security/get_ru_names()
+	return list(
+		NOMINATIVE = "голо-проектор службы безопасности",
+		GENITIVE = "голо-проектора службы безопасности",
+		DATIVE = "голо-проектору службы безопасности",
+		ACCUSATIVE = "голо-проектор службы безопасности",
+		INSTRUMENTAL = "голо-проектором службы безопасности",
+		PREPOSITIONAL = "голо-проекторе службы безопасности"
+	)
+
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"
 	desc = "Голографический проектор, который создаёт инженерные голографические барьеры."
-	ru_names = list(
+	icon_state = "signmaker_engi"
+	item_state = "signmaker_engi"
+	holosign_type = /obj/structure/holosign/barrier/engineering
+	creation_time = 30
+	max_signs = 6
+
+/obj/item/holosign_creator/engineering/get_ru_names()
+	return list(
 		NOMINATIVE = "инженерный голо-проектор",
 		GENITIVE = "инженерного голо-проектора",
 		DATIVE = "инженерному голо-проектору",
@@ -134,44 +145,43 @@
 		INSTRUMENTAL = "инженерным голо-проектором",
 		PREPOSITIONAL = "инженерном голо-проекторе"
 	)
-	icon_state = "signmaker_engi"
-	item_state = "signmaker_engi"
-	holosign_type = /obj/structure/holosign/barrier/engineering
-	creation_time = 30
-	max_signs = 6
 
 /obj/item/holosign_creator/atmos
 	name = "ATMOS holofan projector"
 	desc = "Голографический проектор, создающий голографические барьеры, препятствующие изменению атмосферы."
-	ru_names = list(
-		NOMINATIVE = "атмосферный голо-проектор",
-		GENITIVE = "атмосферного голо-проектора",
-		DATIVE = "атмосферному голо-проектору",
-		ACCUSATIVE = "атмосферный голо-проектор",
-		INSTRUMENTAL = "атмосферным голо-проектором",
-		PREPOSITIONAL = "атмосферном голо-проекторе"
-	)
 	icon_state = "signmaker_engi"
 	item_state = "signmaker_engi"
 	holosign_type = /obj/structure/holosign/barrier/atmos
 	creation_time = 0
 	max_signs = 3
 
+/obj/item/holosign_creator/atmos/get_ru_names()
+	return list(
+		NOMINATIVE = "атмосферный голо-проектор",
+		GENITIVE = "атмосферного голо-проектора",
+		DATIVE = "атмосферному голо-проектору",
+		ACCUSATIVE = "атмосферный голо-проектор",
+		INSTRUMENTAL = "атмосферным голо-проектором",
+		PREPOSITIONAL = "атмосферном голо-проекторе"
+	) 
+
 /obj/item/holosign_creator/cyborg
 	name = "Energy Barrier Projector"
 	desc = "Голографический проектор, создающий хрупкие энергетические поля."
-	ru_names = list(
+	creation_time = 15
+	max_signs = 9
+	holosign_type = /obj/structure/holosign/barrier/cyborg
+	var/shock = 0
+
+/obj/item/holosign_creator/cyborg/get_ru_names()
+	return list(
 		NOMINATIVE = "проектор энерго-барьера",
 		GENITIVE = "проектора энерго-барьера",
 		DATIVE = "проектору энерго-барьера",
 		ACCUSATIVE = "проектор энерго-барьера",
 		INSTRUMENTAL = "проектором энерго-барьера",
 		PREPOSITIONAL = "проекторе энерго-барьера"
-	)
-	creation_time = 15
-	max_signs = 9
-	holosign_type = /obj/structure/holosign/barrier/cyborg
-	var/shock = 0
+	) 
 
 /obj/item/holosign_creator/cyborg/attack_self(mob/user)
 	if(isrobot(user))

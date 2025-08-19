@@ -32,11 +32,11 @@
 	name = "воздушная проекция [target.declent_ru(GENITIVE)]"
 	desc = "Уплотненная смесь газов, принявшая форму [target.declent_ru(GENITIVE)]."
 
-	ru_names = list(NOMINATIVE = 	"воздушная проекция [target.declent_ru(GENITIVE)]", \
-					GENITIVE = 		"воздушной проекции [target.declent_ru(GENITIVE)]", \
-					DATIVE = 		"воздушной проекции [target.declent_ru(GENITIVE)]", \
-					ACCUSATIVE = 	"воздушную проекцию [target.declent_ru(GENITIVE)]", \
-					INSTRUMENTAL = 	"воздушной проекцей [target.declent_ru(GENITIVE)]", \
+	ru_names = list(NOMINATIVE =	"воздушная проекция [target.declent_ru(GENITIVE)]", \
+					GENITIVE =		"воздушной проекции [target.declent_ru(GENITIVE)]", \
+					DATIVE =		"воздушной проекции [target.declent_ru(GENITIVE)]", \
+					ACCUSATIVE =	"воздушную проекцию [target.declent_ru(GENITIVE)]", \
+					INSTRUMENTAL =	"воздушной проекцей [target.declent_ru(GENITIVE)]", \
 					PREPOSITIONAL = "воздушной проекции [target.declent_ru(GENITIVE)]")
 
 	armor = list(MELEE = target.getarmor(attack_flag = MELEE), BULLET = target.getarmor(attack_flag = BULLET), \

@@ -1,13 +1,5 @@
 /mob/living/simple_animal/demon/slaughter
 	name = "slaughter demon"
-	ru_names = list(
-		NOMINATIVE = "демон резни",
-		GENITIVE = "демона резни",
-		DATIVE = "демону резни",
-		ACCUSATIVE = "демона резни",
-		INSTRUMENTAL = "демоном резни",
-		PREPOSITIONAL = "демоне резни"
-	)
 	real_name = "slaughter demon"
 	desc = "Огромное угрожающее существо, покрытое бронированной чёрной чешуёй. Вам стоит бежать!"
 	speak = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")
@@ -19,8 +11,7 @@
 	var/feast_sound = 'sound/misc/demon_consume.ogg'
 	var/devoured = 0
 
-	var/list/consumed_mobs = list()
-	var/list/nearby_mortals = list()
+	var/list/consumed_mobs
 
 	var/cooldown = 0
 	var/gorecooldown = 0
@@ -31,6 +22,16 @@
 						<b>Если вы тащите мёртвое или находящееся в критическом состоянии существо, когда входите в лужу крови, он последует за вами, что позволит вам поглотить его.</b><br> \
 						<b>Вы двигаетесь быстро, покидая лужу крови, но материальный мир скоро лишит вас сил и сделает медлительным.</b>"
 
+
+/mob/living/simple_animal/demon/slaughter/get_ru_names()
+	return list(
+		NOMINATIVE = "демон резни",
+		GENITIVE = "демона резни",
+		DATIVE = "демону резни",
+		ACCUSATIVE = "демона резни",
+		INSTRUMENTAL = "демоном резни",
+		PREPOSITIONAL = "демоне резни"
+	)
 
 /mob/living/simple_animal/demon/slaughter/Initialize(mapload)
 	. = ..()
@@ -45,8 +46,12 @@
 
 /mob/living/simple_animal/demon/slaughter/Destroy()
 	// Only execute the below if we successfully died
-	for(var/mob/living/M in consumed_mobs)
-		release_consumed(M)
+
+	if(!consumed_mobs)
+		return ..()
+
+	for(var/mob/living/mob as anything in consumed_mobs)
+		release_consumed(mob)
 	. = ..()
 
 
@@ -79,7 +84,9 @@
 	icon_state = "innards"
 	name = "pile of viscera"
 	desc = "Омерзительная масса из разорванной плоти и органов."
-	ru_names = list(
+
+/obj/effect/decal/cleanable/blood/innards/get_ru_names()
+	return list(
 		NOMINATIVE = "кровавое месиво",
 		GENITIVE = "кровавого месива",
 		DATIVE = "кровавому месиву",
@@ -88,24 +95,14 @@
 		PREPOSITIONAL = "кровавом месиве"
 	)
 
-
-/mob/living/simple_animal/demon/slaughter/proc/release_consumed(mob/living/M)
-	M.forceMove(get_turf(src))
-
+/mob/living/simple_animal/demon/slaughter/proc/release_consumed(mob/living/consumed)
+	consumed?.forceMove(get_turf(src))
 
 // Cult slaughter demon
 /mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbinger of the slaughter"
 	real_name = "harbinger of the Slaughter"
 	desc = "Ужасное существо, обитающее за гранью здравого смысла."
-	ru_names = list(
-		NOMINATIVE = "вестник резни",
-		GENITIVE = "вестника резни",
-		DATIVE = "вестнику резни",
-		ACCUSATIVE = "вестника резни",
-		INSTRUMENTAL = "вестником резни",
-		PREPOSITIONAL = "вестнике резни"
-	)
 	maxHealth = 500
 	health = 500
 	melee_damage_upper = 60
@@ -117,6 +114,16 @@
 							Использование способности снова рядом с лужей крови позволит вам выйти из неё. Вы быстры, сильны и почти неуязвимы. Если вы тащите мёртвое или без сознания тело \
 							в лужу крови, вы поглотите его через некоторое время и полностью восстановите здоровье. Вы можете использовать способность \"Чувствовать Жертв\" на вкладке Культиста, \
 							чтобы найти случайного живого еретика.</b>"
+
+/mob/living/simple_animal/demon/slaughter/cult/get_ru_names()
+	return list(
+		NOMINATIVE = "вестник резни",
+		GENITIVE = "вестника резни",
+		DATIVE = "вестнику резни",
+		ACCUSATIVE = "вестника резни",
+		INSTRUMENTAL = "вестником резни",
+		PREPOSITIONAL = "вестнике резни"
+	)
 
 /mob/living/simple_animal/demon/slaughter/cult/attempt_objectives()
 	return
@@ -233,14 +240,6 @@
 	// The laughter demon! It's everyone's best friend! It just wants to hug
 	// them so much, it wants to hug everyone at once!
 	name = "laughter demon"
-	ru_names = list(
-		NOMINATIVE = "демон смеха",
-		GENITIVE = "демона смеха",
-		DATIVE = "демону смеха",
-		ACCUSATIVE = "демона смеха",
-		INSTRUMENTAL = "демоном смеха",
-		PREPOSITIONAL = "демоне смеха"
-	)
 	real_name = "laughter demon"
 	desc = "Огромное милое существо, покрытое броней с розовыми бантиками."
 	speak_emote = list("хихикает", "смеётся", "посмеивается")
@@ -266,6 +265,17 @@
 						<font color='#FF69B4'><b>Вы можете использовать способность \"Кровавый путь\", чтобы перемещаться через милые лужи крови, появляясь и исчезая по своему желанию.</b></font><br> \
 						<font color='#FF69B4'><b>Если вы тащите кого-то в лужу крови – они получат порцию вашего веселья и обнимашек. Вы быстро двигаетесь и восстанавливаетесь в лужах крови, но будьте осторожны: слишком много серьёзности может ослабить вас!</b></font><br> \
 						<font color='#FF69B4'><b>Помните: смех — это ваше оружие, а объятия — ваш стиль. ДЕЛАЙТЕ МИР ЯРЧЕ И СМЕШНЕЕ!</b></font>"
+
+/mob/living/simple_animal/demon/slaughter/laughter/get_ru_names()
+	return list(
+		NOMINATIVE = "демон смеха",
+		GENITIVE = "демона смеха",
+		DATIVE = "демону смеха",
+		ACCUSATIVE = "демона смеха",
+		INSTRUMENTAL = "демоном смеха",
+		PREPOSITIONAL = "демоне смеха"
+	)
+
 
 /mob/living/simple_animal/demon/slaughter/laughter/release_consumed(mob/living/M)
 	if(M.revive())

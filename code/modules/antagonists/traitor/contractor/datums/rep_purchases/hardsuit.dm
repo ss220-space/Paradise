@@ -12,7 +12,13 @@
 
 /obj/item/storage/box/contractor/hardsuit
 	name = "Boxed Contractor Hardsuit"
-	ru_names = list(
+	gender = MALE
+	icon_state = "box_of_doom"
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/contractor/hardsuit/get_ru_names()
+	return list(
 		NOMINATIVE = "набор ИКС Контрактника",
 		GENITIVE = "набора ИКС Контрактника",
 		DATIVE = "набору ИКС Контрактника",
@@ -20,10 +26,6 @@
 		INSTRUMENTAL = "набором ИКС Контрактника",
 		PREPOSITIONAL = "наборе ИКС Контрактника"
 	)
-	gender = MALE
-	icon_state = "box_of_doom"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
-	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/contractor/hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/contractor(src)

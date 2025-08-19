@@ -108,8 +108,8 @@
 	. = ..()
 	add_verb(H, list(/mob/living/carbon/human/proc/emote_click,
 					/mob/living/carbon/human/proc/emote_clack,
-			   		/mob/living/carbon/human/proc/emote_wiggle,
-			   		/mob/living/carbon/human/proc/emote_wave_k))
+			  		/mob/living/carbon/human/proc/emote_wiggle,
+			  		/mob/living/carbon/human/proc/emote_wave_k))
 	remove_verb(H, list(
 		/mob/living/carbon/human/verb/emote_pale,
 		/mob/living/carbon/human/verb/emote_blink,

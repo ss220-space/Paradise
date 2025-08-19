@@ -124,7 +124,15 @@
 /obj/item/melee/katana/basalt
 	name = "basalt katana"
 	desc = "Катана, изготовленная из закалённого базальта, представляет особую опасность для обитателей Лазиса."
-	ru_names = list(
+	icon_state = "basalt_katana"
+	item_state = "basalt_katana"
+	force = 30
+	block_chance = 30
+	var/faction_bonus_force = 30
+	var/nemesis_factions = list("mining", "boss")
+
+/obj/item/melee/katana/basalt/get_ru_names()
+	return list(
 		NOMINATIVE = "базальтовая катана",
 		GENITIVE = "базальтовой катаны",
 		DATIVE = "базальтовой катане",
@@ -132,12 +140,6 @@
 		INSTRUMENTAL = "базальтовой катаной",
 		PREPOSITIONAL = "базальтовой катане"
 	)
-	icon_state = "basalt_katana"
-	item_state = "basalt_katana"
-	force = 30
-	block_chance = 30
-	var/faction_bonus_force = 30
-	var/nemesis_factions = list("mining", "boss")
 
 
 /obj/item/melee/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -358,9 +360,8 @@
 		// No throwing mobs that have higher than normal move_resist.
 		// Covers: revenant, bot/mulebot, hostile/statue, hostile/megafauna, goliath
 		return .
-	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	if(!homerun_always_charged)
-		INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, rand(1, 2), 7, user)
+		target.Knockdown(1 SECONDS)
 	next_throw_time = world.time + 10 SECONDS
 
 
@@ -465,14 +466,6 @@
 /obj/item/melee/claymore/bone
 	name = "bone sword"
 	desc = "Зубчатые костяные обломки привязаны к тому, что выглядит как бедренная кость голиафа."
-	ru_names = list(
-		NOMINATIVE = "костяной меч",
-		GENITIVE = "костяного меча",
-		DATIVE = "костяному мечу",
-		ACCUSATIVE = "костяной меч",
-		INSTRUMENTAL = "костяным мечом",
-		PREPOSITIONAL = "костяном мече"
-	)
 	icon_state = "bone_sword"
 	item_state = "bone_sword"
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
@@ -481,6 +474,16 @@
 	armour_penetration = 15
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
+
+/obj/item/melee/claymore/bone/get_ru_names()
+	return list(
+		NOMINATIVE = "костяной меч",
+		GENITIVE = "костяного меча",
+		DATIVE = "костяному мечу",
+		ACCUSATIVE = "костяной меч",
+		INSTRUMENTAL = "костяным мечом",
+		PREPOSITIONAL = "костяном мече"
+	)
 
 /obj/item/melee/claymore/bone/ComponentInitialize()
 	. = ..()
@@ -496,14 +499,6 @@
 /obj/item/melee/nutcracker
 	name = "nutcracker"
 	desc = "Простейшая дубина из кости. Воплощение силы первобытного разума и природной мощи. Настоящая классика."
-	ru_names = list(
-		NOMINATIVE = "колотушка",
-		GENITIVE = "колотушки",
-		DATIVE = "колотушке",
-		ACCUSATIVE = "колотушку",
-		INSTRUMENTAL = "колотушкой",
-		PREPOSITIONAL = "колотушке"
-	)
 	icon_state = "nutcracker"
 	item_state = "nutcracker"
 	gender = FEMALE
@@ -513,6 +508,16 @@
 	throwforce = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	var/stamina_damage = 22
+
+/obj/item/melee/nutcracker/get_ru_names()
+	return list(
+		NOMINATIVE = "колотушка",
+		GENITIVE = "колотушки",
+		DATIVE = "колотушке",
+		ACCUSATIVE = "колотушку",
+		INSTRUMENTAL = "колотушкой",
+		PREPOSITIONAL = "колотушке"
+	)
 
 /obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity, params, status)
 	if(!isliving(target) || !proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -536,51 +541,3 @@
 		human_victim.apply_damage(stamina_damage, STAMINA, blocked = victim.getarmor(user.zone_selected, MELEE))
 		if(prob(30))
 			human_victim.Knockdown(3 SECONDS)
-
-/obj/item/melee/ghostface_knife
-	name = "Knife"
-	desc = "Очень острый нож. Судя по потёртостям и засохшей крови, он совсем не валялся без дела."
-	ru_names = list(
-		NOMINATIVE = "старый нож",
-		GENITIVE = "старого ножа",
-		DATIVE = "старому ножу",
-		ACCUSATIVE = "старый нож",
-		INSTRUMENTAL = "старым ножом",
-		PREPOSITIONAL = "старом ноже"
-	)
-	icon_state = "ghostface_knife"
-	force = 34
-	armour_penetration = 70
-	block_chance = 30
-	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 34
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
-	throw_speed = 3
-	throw_range = 6
-	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
-	sharp = TRUE
-
-/obj/item/melee/ghostface_knife/ComponentInitialize()
-	. = ..()
-	AddComponent( \
-		/datum/component/cleave_attack, \
-		swing_speed_mod = 2, \
-		afterswing_slowdown = -0.3, \
-		slowdown_duration = 3 SECONDS, \
-		swing_sound = "knife_swing" \
-	)
-
-/obj/item/melee/ghostface_knife/devil
-	name = "Old knife"
-	desc = "Странный нож с, тем не менее, крайне острым лезвием. Судя по характерным потёртостям и засохшей крови, он явно не валялся без дела."
-	ru_names = list(
-		NOMINATIVE = "старый ржавый нож",
-		GENITIVE = "старого ржавого ножа",
-		DATIVE = "старому ржавому ножу",
-		ACCUSATIVE = "старый ржавый нож",
-		INSTRUMENTAL = "старым ржавым ножом",
-		PREPOSITIONAL = "старом ржавом ноже"
-	)
-	icon_state = "devil_ghostface_knife"

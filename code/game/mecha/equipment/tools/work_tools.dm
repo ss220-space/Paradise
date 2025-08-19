@@ -173,7 +173,7 @@
 		to_chat(chassis.occupant, span_warning("Something prevents you from using [rcd_holder] in here..."))
 		return FALSE
 	playsound(chassis, 'sound/machines/click.ogg', 50, TRUE)
-	chassis.can_move = world.time + 2 SECONDS 	// We don't move while we build
+	chassis.can_move = world.time + 2 SECONDS	// We don't move while we build
 	var/rcd_act_result = target.rcd_act(chassis.occupant, rcd_holder, rcd_holder.mode)
 	if(rcd_act_result == RCD_NO_ACT) //if our rcd_act was not implemented/impossible to do - we can move again
 		chassis.can_move = 0

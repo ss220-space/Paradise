@@ -1,14 +1,6 @@
 //pyro claws
 /obj/item/twohanded/required/pyro_claws
 	name = "hardplasma energy claws"
-	ru_names = list(
-		NOMINATIVE = "энергокогти", \
-		GENITIVE = "энергокогтей", \
-		DATIVE = "энергокогтям", \
-		ACCUSATIVE = "энергокогти", \
-		INSTRUMENTAL = "энергокогтями", \
-		PREPOSITIONAL = "энергокогтях"
-	)
 	desc = "Мощь солнца, в моих когтях!"
 	gender = PLURAL
 	icon_state = "pyro_claws"
@@ -21,6 +13,16 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
 	toolspeed = 0.5
+
+/obj/item/twohanded/required/pyro_claws/get_ru_names()
+	return list(
+		NOMINATIVE = "энергокогти", \
+		GENITIVE = "энергокогтей", \
+		DATIVE = "энергокогтям", \
+		ACCUSATIVE = "энергокогти", \
+		INSTRUMENTAL = "энергокогтями", \
+		PREPOSITIONAL = "энергокогтях"
+	)
 
 /obj/item/twohanded/required/pyro_claws/Initialize(mapload)
 	. = ..()
@@ -90,14 +92,6 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "fusion gauntlets"
-	ru_names = list(
-		NOMINATIVE = "плавящие перчатки", \
-		GENITIVE = "плавящих перчаток", \
-		DATIVE = "плавящим перчаткам", \
-		ACCUSATIVE = "плавящие перчатки", \
-		INSTRUMENTAL = "плавящими перчатками", \
-		PREPOSITIONAL = "плавящих перчатках"
-	)
 	desc = "Перчатки разработаенные Cybersun Industries после того, как один из солдат прикрепил ядро атмосферной аномалии ​​к \
 			энергетическому мечу, и нашел результат весьма эффективными."
 	gender = PLURAL
@@ -109,6 +103,16 @@
 	var/on_cooldown = FALSE
 	var/used = FALSE
 	var/obj/item/assembly/signaler/core/atmospheric/core
+
+/obj/item/clothing/gloves/color/black/pyro_claws/get_ru_names()
+	return list(
+		NOMINATIVE = "плавящие перчатки", \
+		GENITIVE = "плавящих перчаток", \
+		DATIVE = "плавящим перчаткам", \
+		ACCUSATIVE = "плавящие перчатки", \
+		INSTRUMENTAL = "плавящими перчатками", \
+		PREPOSITIONAL = "плавящих перчатках"
+	)
 
 /obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
 	QDEL_NULL(core)

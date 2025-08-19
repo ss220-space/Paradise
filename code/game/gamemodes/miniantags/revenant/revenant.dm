@@ -9,14 +9,6 @@
 /mob/living/simple_animal/revenant
 	name = "revenant"
 	desc = "Злобный дух."
-	ru_names = list(
-		NOMINATIVE = "ревенант",
-		GENITIVE = "ревенанта",
-		DATIVE = "ревенанту",
-		ACCUSATIVE = "ревенанта",
-		INSTRUMENTAL = "ревенантом",
-		PREPOSITIONAL = "ревенанте"
-	)
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "revenant_idle"
 	var/icon_idle = "revenant_idle"
@@ -59,9 +51,18 @@
 	var/inhibited = 0 //If the revenant's abilities are blocked by a chaplain's power.
 	var/essence_drained = 0 //How much essence the revenant has drained.
 	var/draining = 0 //If the revenant is draining someone.
-	var/list/drained_mobs = list() //Cannot harvest the same mob twice
+	var/list/drained_mobs //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
 
+/mob/living/simple_animal/revenant/get_ru_names()
+	return list(
+		NOMINATIVE = "ревенант",
+		GENITIVE = "ревенанта",
+		DATIVE = "ревенанту",
+		ACCUSATIVE = "ревенанта",
+		INSTRUMENTAL = "ревенантом",
+		PREPOSITIONAL = "ревенанте"
+	)
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
@@ -411,14 +412,6 @@
 /obj/item/ectoplasm/revenant
 	name = "glimmering residue"
 	desc = "Куча мелкой синей пыли. Вокруг неё вьются тонкие фиолетовые туманные завитки."
-	ru_names = list(
-		NOMINATIVE = "фантомная пыль",
-		GENITIVE = "фантомной пыли",
-		DATIVE = "фантомной пыли",
-		ACCUSATIVE = "фантомную пыль",
-		INSTRUMENTAL = "фантомной пылью",
-		PREPOSITIONAL = "фантомной пыли"
-	)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "revenantEctoplasm"
 	w_class = WEIGHT_CLASS_SMALL
@@ -428,6 +421,15 @@
 	var/inert = FALSE
 	var/client/client_to_revive
 
+/obj/item/ectoplasm/revenant/get_ru_names()
+	return list(
+		NOMINATIVE = "фантомная пыль",
+		GENITIVE = "фантомной пыли",
+		DATIVE = "фантомной пыли",
+		ACCUSATIVE = "фантомную пыль",
+		INSTRUMENTAL = "фантомной пылью",
+		PREPOSITIONAL = "фантомной пыли"
+	)
 
 /obj/item/ectoplasm/revenant/New()
 	..()

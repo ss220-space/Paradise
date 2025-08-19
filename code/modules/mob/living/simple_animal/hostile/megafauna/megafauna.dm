@@ -69,10 +69,6 @@
 		minbodytemp = 0, \
 	)
 
-/mob/living/simple_animal/hostile/megafauna/Destroy()
-	QDEL_NULL(internal_gps)
-	return ..()
-
 /mob/living/simple_animal/hostile/megafauna/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if(target)
 		DestroySurroundings() //So they can path through chasms.

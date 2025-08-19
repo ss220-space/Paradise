@@ -85,7 +85,7 @@
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/read_memory()
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
-	S["family"] 			>> family
+	S["family"]			>> family
 
 	if(isnull(family))
 		family = list()

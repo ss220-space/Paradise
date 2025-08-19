@@ -5,19 +5,19 @@
 #define TOX			"tox"
 #define OXY			"oxy"
 #define CLONE		"clone"
-#define STAMINA 	"stamina"
+#define STAMINA	"stamina"
 #define BRAIN		"brain"
 
 //damage flags
-#define MELEE 		"melee"
-#define BULLET 		"bullet"
-#define LASER 		"laser"
-#define ENERGY 		"energy"
-#define BOMB 		"bomb"
-#define BIO 		"bio"
-#define RAD 		"rad"
-#define FIRE 		"fire"
-#define ACID 		"acid"
+#define MELEE		"melee"
+#define BULLET		"bullet"
+#define LASER		"laser"
+#define ENERGY		"energy"
+#define BOMB		"bomb"
+#define BIO		"bio"
+#define RAD		"rad"
+#define FIRE		"fire"
+#define ACID		"acid"
 #define MAGIC		"magic"
 
 /// All armors
@@ -94,7 +94,7 @@
 #define ATTACK_EFFECT_KICK		"kick"
 #define ATTACK_EFFECT_SMASH		"smash"
 #define ATTACK_EFFECT_CLAW		"claw"
-#define ATTACK_EFFECT_SLASH 	"slash"
+#define ATTACK_EFFECT_SLASH	"slash"
 #define ATTACK_EFFECT_DISARM	"disarm"
 #define ATTACK_EFFECT_BITE		"bite"
 #define ATTACK_EFFECT_MECHFIRE	"mech_fire"
@@ -126,8 +126,8 @@
 #define HIS_GRACE_ASCENDED   /datum/grace_tier/ascended
 
 //Embedded objects
-#define EMBEDDED_PAIN_CHANCE 					15	//Chance for embedded objects to cause pain (damage user)
-#define EMBEDDED_ITEM_FALLOUT 					5	//Chance for embedded object to fall out (causing pain but removing the object)
+#define EMBEDDED_PAIN_CHANCE					15	//Chance for embedded objects to cause pain (damage user)
+#define EMBEDDED_ITEM_FALLOUT					5	//Chance for embedded object to fall out (causing pain but removing the object)
 #define EMBED_CHANCE							45	//Chance for an object to embed into somebody when thrown (if it's sharp)
 #define EMBEDDED_PAIN_MULTIPLIER				2	//Coefficient of multiplication for the damage the item does while embedded (this*item.w_class)
 #define EMBEDDED_FALL_PAIN_MULTIPLIER			5	//Coefficient of multiplication for the damage the item does when it falls out (this*item.w_class)
