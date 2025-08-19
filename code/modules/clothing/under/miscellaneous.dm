@@ -1430,7 +1430,7 @@
 
 /obj/item/clothing/under/tchaikowsky/dress/black
 	name = "formal black dress"
-	desc = "Черное платье, которое обычно носят секретарши важных представителей корпораций."
+	desc = "Чёрное платье, которое обычно носят секретарши важных представителей корпораций."
 	icon_state = "formal_dress_black"
 	item_state = "formal_dress_black"
 	can_adjust = TRUE
