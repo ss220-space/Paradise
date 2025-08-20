@@ -1,41 +1,46 @@
 GLOBAL_LIST_EMPTY(cached_songs)
 
-/*! playsound
-
-playsound is a proc used to play a 3D sound in a specific range. This uses SOUND_RANGE + extra_range to determine that.
-source - Origin of sound
-soundin - Either a file, or a string that can be used to get an SFX
-vol - The volume of the sound, excluding falloff and pressure affection.
-vary - bool that determines if the sound changes pitch every time it plays
-extrarange - modifier for sound range. This gets added on top of SOUND_RANGE
-falloff_exponent - Rate of falloff for the audio. Higher means quicker drop to low volume. Should generally be over 1 to indicate a quick dive to 0 rather than a slow dive.
-frequency - playback speed of audio
-channel - The channel the sound is played at
-pressure_affected - Whether or not difference in pressure affects the sound (E.g. if you can hear in space)
-ignore_walls - Whether or not the sound can pass through walls.
-falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
-
-*/
-
+/**
+ * playsound is a proc used to play a 3D sound in a specific range. This uses SOUND_RANGE + extra_range to determine that.
+ *
+ * Arguments:
+ * * source - Origin of sound.
+ * * soundin - Either a file, or a string that can be used to get an SFX.
+ * * vol - The volume of the sound, excluding falloff and pressure affection.
+ * * vary - bool that determines if the sound changes pitch every time it plays.
+ * * extrarange - modifier for sound range. This gets added on top of SOUND_RANGE.
+ * * falloff_exponent - Rate of falloff for the audio. Higher means quicker drop to low volume. Should generally be over 1 to indicate a quick dive to 0 rather than a slow dive.
+ * * frequency - playback speed of audio.
+ * * channel - The channel the sound is played at.
+ * * pressure_affected - Whether or not difference in pressure affects the sound (E.g. if you can hear in space).
+ * * ignore_walls - Whether or not the sound can pass through walls.
+ * * falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
+ */
 /proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
 	if(isarea(source))
-		error("[source] is an area and is trying to make the sound: [soundin]")
-		return
+		CRASH("playsound(): source is an area")
+
+	if(islist(soundin))
+		CRASH("playsound(): soundin attempted to pass a list! Consider using pick()")
+
+	if(!soundin)
+		CRASH("playsound(): no soundin passed")
+
+	if(vol < SOUND_AUDIBLE_VOLUME_MIN) // never let sound go below SOUND_AUDIBLE_VOLUME_MIN or bad things will happen
+		CRASH("playsound(): volume below SOUND_AUDIBLE_VOLUME_MIN. [vol] < [SOUND_AUDIBLE_VOLUME_MIN]")
 
 	var/turf/turf_source = get_turf(source)
-
-	if(!turf_source \
-	|| !SSsounds.channel_list \
-	|| vol < SOUND_AUDIBLE_VOLUME_MIN)
+	if(!turf_source) // || !SSsounds.channel_list || vol < SOUND_AUDIBLE_VOLUME_MIN
 		return
 
 	// allocate a channel if necessary now so its the same for everyone
 	channel = channel || SSsounds.random_available_channel()
 
 	// Looping through the player list has the added bonus of working for mobs inside containers
-	var/sound/sound = sound(get_sfx(soundin))
+	var/sound/sound = isdatum(soundin) ? soundin : sound(get_sfx(soundin))
 	var/maxdistance = SOUND_RANGE + extrarange
 	var/source_z = turf_source.z
+
 	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
 	var/audible_distance = CALCULATE_MAX_SOUND_AUDIBLE_DISTANCE(vol, maxdistance, falloff_distance, falloff_exponent)
 
@@ -60,6 +65,25 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(get_dist(listening_mob, turf_source) <= audible_distance)
 			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound, maxdistance, falloff_distance, 1, use_reverb)
 
+/**
+ * Plays a sound with a specific point of origin for src mob
+ * Affected by pressure, distance, terrain and environment (see arguments)
+ *
+ * Arguments:
+ * * turf_source - The turf our sound originates from, if this is not a turf, the sound is played with no spatial audio
+ * * soundin - Either a file, or a string that can be used to get an SFX.
+ * * vol - The volume of the sound, excluding falloff and pressure affection.
+ * * vary - bool that determines if the sound changes pitch every time it plays.
+ * * frequency - playback speed of audio.
+ * * falloff_exponent - Rate of falloff for the audio. Higher means quicker drop to low volume. Should generally be over 1 to indicate a quick dive to 0 rather than a slow dive.
+ * * channel - Optional: The channel the sound is played at.
+ * * pressure_affected - bool Whether or not difference in pressure affects the sound (E.g. if you can hear in space).
+ * * sound - Optional: Will default to soundin when absent
+ * * max_distance - number, determines the maximum distance of our sound
+ * * falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
+ * * distance_multiplier - Default 1, multiplies the maximum distance of our sound
+ * * use_reverb - bool default TRUE, determines if our sound has reverb
+ */
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/sound, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE)
 	if(!client || !can_hear())
 		return
@@ -70,10 +94,10 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	sound.wait = wait
 	sound.channel = channel || SSsounds.random_available_channel()
 	sound.volume = vol
-	sound.environment = SOUND_ENVIRONMENT_NONE
+	//sound.environment = SOUND_ENVIRONMENT_NONE
 
 	if(vary)
-		if(islist(vary))
+		if(islist(vary)) // ???
 			sound.frequency = rand(vary[1], vary[2])
 		else if(frequency)
 			sound.frequency = frequency
@@ -83,10 +107,10 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/distance = 0
 
 	if(isturf(turf_source))
-		var/turf/T = get_turf(src)
+		var/turf/turf_loc = get_turf(src)
 
 		// sound volume falloff with distance
-		distance = get_dist(T, turf_source) * distance_multiplier
+		distance = get_dist(turf_loc, turf_source) * distance_multiplier
 
 		if(max_distance) // If theres no max_distance we're not a 3D sound, so no falloff.
 			sound.volume -= CALCULATE_SOUND_VOLUME(vol, distance, max_distance, falloff_distance, falloff_exponent)
@@ -94,7 +118,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(pressure_affected)
 			//Atmosphere affects sound
 			var/pressure_factor = 1
-			var/datum/gas_mixture/hearer_env = T.return_air()
+			var/datum/gas_mixture/hearer_env = turf_loc.return_air()
 			var/datum/gas_mixture/source_env = turf_source.return_air()
 
 			if(hearer_env && source_env)
@@ -113,12 +137,13 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(sound.volume <= SOUND_AUDIBLE_VOLUME_MIN)
 			return // No sound
 
-		var/dx = turf_source.x - T.x // Hearing from the right/left
+		var/dx = turf_source.x - turf_loc.x // Hearing from the right/left
 		sound.x = dx * distance_multiplier
-		var/dz = turf_source.y - T.y // Hearing from infront/behind
+		var/dz = turf_source.y - turf_loc.y // Hearing from infront/behind
 		sound.z = dz * distance_multiplier
-		// The y value is for above your head, but there is no ceiling in 2d spessmens.
-		sound.y = 1
+		var/dy = (turf_source.z - turf_loc.z) * 5 * distance_multiplier // Hearing from  above / below, multiplied by 5 because we assume height is further along coords.
+		sound.y = dy
+
 		sound.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
 
 		// Sounds can't have their own environment. A sound'sound environment will be:
@@ -127,19 +152,18 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(sound_environment_override != SOUND_ENVIRONMENT_NONE)
 			sound.environment = sound_environment_override
 		else
-			var/area/A = get_area(src)
-			sound.environment = A.sound_environment
+			var/area/area = get_area(src)
+			sound.environment = area.sound_environment
 
 		// I really don't understand why we have a function to turn off the reverberation of sounds and who the fuck might need it.
 		// A person would rather turn off ambient, etc., than turn off reverberation. It's garbage.
 		// I've commented it out in case there's a psycho who needs it. – LittleBoobs
-
 		//if(!(client?.prefs?.toggles2 & PREFTOGGLE_2_REVERB_DISABLE))
 
-		if(!use_reverb || sound_to_use.environment == SOUND_ENVIRONMENT_NONE)
-			sound_to_use.echo ||= new /list(18)
-			sound_to_use.echo[3] = -10000
-			sound_to_use.echo[4] = -10000
+		if(!use_reverb || sound.environment == SOUND_ENVIRONMENT_NONE)
+			sound.echo ||= new /list(18)
+			sound.echo[3] = -10000
+			sound.echo[4] = -10000
 
 	sound.volume *= USER_VOLUME(src, CHANNEL_GENERAL)
 	if(channel)
@@ -204,9 +228,13 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		tgui_panel?.play_music(url, SSticker.login_music_data)
 		to_chat(src, span_notice("Сейчас играет: [SSticker.login_music_data["title_link"]]"))
 
-
+/// get a random frequency.
 /proc/get_rand_frequency()
-	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.
+	return rand(32000, 55000)
+
+/// get_rand_frequency but lower range.
+/proc/get_rand_frequency_low_range()
+	return rand(38000, 45000)
 
 /// Used to convert a SFX define into a .ogg so we can add some variance to sounds. If soundin is already a .ogg, we simply return it
 /proc/get_sfx(soundin)
