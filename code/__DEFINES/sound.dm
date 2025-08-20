@@ -188,16 +188,16 @@
 	((max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * volume)
 
 /**
- * # assoc list of datum by key
+ * Assoc list of datum by key.
+ * Initialized in SSsounds init.
  * k = SFX_KEY (see below)
  * v = singleton sound_effect datum ref
- * Initialized in SSsounds init
  */
 GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 
 /**
  * List of all of our sound keys.
- * Used with /datum/sound_effect as the key
+ * Used with /datum/sound_effect as the key.
  * See code\game\sound_keys\sound_keys.dm
  */
 #define SFX_PATCHPACK "patchpack"
@@ -210,7 +210,6 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_BOXING "boxing"
 #define SFX_U_FSCREAM "u_fscream"
 #define SFX_U_MSCREAM "u_mscream"
-// Swings.
 #define SFX_BLADE_SCIFI_SWING "blade_scifi_swing"
 #define SFX_BLADE_SWING_HEAVY "blade_swing_heavy"
 #define SFX_BLADE_SWING_LIGHT "blade_swing_light"
