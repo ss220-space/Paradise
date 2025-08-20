@@ -10,9 +10,6 @@
 	pixel_x = -16
 	layer = 9
 
-/obj/structure/flora/tree/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/seethrough, get_seethrough_map())
 
 /// Return a see_through_map, examples in seethrough.dm
 /obj/structure/flora/tree/proc/get_seethrough_map()
