@@ -79,7 +79,7 @@
 		return .
 	var/mob/living/victim = grabbed_thing
 	if(victim.loc != get_turf(src))
-		to_chat(grabber, span_warning("[victim] должен быть на [declent_ru(PREPOSITIONAL)]!"))
+		to_chat(grabber, span_warning("[victim] долж[genderize_ru(victim.gender, "ен", "на", "но", "ны")] быть на [declent_ru(PREPOSITIONAL)]!"))
 		return .
 	add_fingerprint(grabber)
 	if(open && !swirlie)
@@ -92,8 +92,8 @@
 		var/swirlie_y_down = 8
 		victim.set_lying_angle(180)
 		victim.visible_message(
-			span_danger("[grabber] поднимает [victim] над унитазом!"),
-			span_userdanger("[grabber] поднимает вас над унитазом!"),
+			span_danger("[grabber] поднима[genderize_ru(victim.gender, "ет", "ет", "ет", "ют")] [victim] над унитазом!"),
+			span_userdanger("[grabber] поднима[genderize_ru(victim.gender, "ет", "ет", "ет", "ют")] вас над унитазом!"),
 		)
 		animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y, time = 0.8 SECONDS)
 		if(!do_after(grabber, 0.8 SECONDS, src, NONE) || grabber.pulling != victim)
@@ -102,8 +102,8 @@
 			swirlie = null
 			return
 		victim.visible_message(
-			span_danger("[grabber] начинает окунать голову [victim] в унитаз!"),
-			span_userdanger("[grabber] начинает окунать вашу голову в унитаз..."),
+			span_danger("[grabber] начина[genderize_ru(victim.gender, "ет", "ет", "ет", "ют")] окунать голову [victim] в унитаз!"),
+			span_userdanger("[grabber] начина[genderize_ru(victim.gender, "ет", "ет", "ет", "ют")] окунать вашу голову в унитаз..."),
 		)
 		animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y_down, time = 1.2 SECONDS)
 		if(!do_after(grabber, 1.2 SECONDS, src, NONE) || grabber.pulling != victim)
@@ -112,8 +112,8 @@
 			swirlie = null
 			return
 		victim.visible_message(
-			span_danger("[grabber] окунает голову [victim] в унитаз!"),
-			span_userdanger("[grabber] окунает вашу голову в унитаз!"),
+			span_danger("[grabber] окуна[genderize_ru(victim.gender, "ет", "ет", "ет", "ют")] голову [victim] в унитаз!"),
+			span_userdanger("[grabber] окуна[genderize_ru(victim.gender, "ет", "ет", "ет", "ют")] вашу голову в унитаз!"),
 			span_italics("Вы слышите звук смыва унитаза."),
 		)
 		playsound(loc, 'sound/items/toilet_flush.ogg', 80, TRUE)
@@ -132,8 +132,8 @@
 	else
 		playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
 		victim.visible_message(
-			span_danger("[grabber] бьет [victim.name] головой об [declent_ru(NOMINATIVE)]!"),
-			span_userdanger("[grabber] бьет вас головой об [declent_ru(NOMINATIVE)]!"),
+			span_danger("[grabber] бь[genderize_ru(victim.gender, "ет", "ет", "ет", "ют")] [victim] головой об [declent_ru(NOMINATIVE)]!"),
+			span_userdanger("[grabber] бь[genderize_ru(victim.gender, "ет", "ет", "ет", "ют")] вас головой об [declent_ru(NOMINATIVE)]!"),
 		)
 		victim.adjustBruteLoss(5)
 
