@@ -17,6 +17,7 @@
 	var/stop_bleeding = 0
 	var/bleedsuppress = 0
 	var/healverb = "bandage"
+	var/use_duration = 3 SECONDS
 
 
 /obj/item/stack/medical/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -71,7 +72,13 @@
 			if(affecting_rechecked.is_robotic())
 				to_chat(human_target, span_danger("This can't be used on a robotic limb."))
 				return .
-
+		else
+			user.visible_message(
+				span_notice("[user] применяет [declent_ru(NOMINATIVE)] на [human_target]."),
+				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
+			)
+			if(use_duration && !do_after(user, use_duration, human_target))
+				return .
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(isanimal(target))
@@ -170,7 +177,6 @@
 	stop_bleeding = 180 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
-	var/use_duration = 3 SECONDS
 
 /obj/item/stack/medical/bruise_pack/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -209,9 +215,6 @@
 	if(affecting.open != ORGAN_CLOSED)
 		to_chat(user, span_danger("The [affecting.name] is cut open, you'll need more than a bandage!"))
 		. &= ~ATTACK_CHAIN_SUCCESS
-		return .
-
-	if(use_duration && !do_after(user, use_duration, target))
 		return .
 
 	if(!use(1))
@@ -272,6 +275,7 @@
 	heal_brute = 25
 	stop_bleeding = 0
 	use_duration = 0
+	use_duration = 1.5 SECONDS
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
 	return
@@ -292,6 +296,7 @@
 	use_duration = 0
 	amount = 12
 	max_amount = 12
+	use_duration = 0.7 SECONDS
 
 /obj/item/stack/medical/bruise_pack/extended/update_icon_state()
 	return
@@ -351,6 +356,7 @@
 	item_state = "burnkit"
 	belt_icon = "advanced_burn_kit"
 	heal_burn = 25
+	use_duration = 1.5 SECONDS
 
 /obj/item/stack/medical/ointment/advanced/update_icon_state()
 	return
@@ -368,6 +374,7 @@
 	heal_burn = 30
 	amount = 12
 	max_amount = 12
+	use_duration = 0.7 SECONDS
 
 /obj/item/stack/medical/ointment/extended/update_icon_state()
 	return
@@ -414,9 +421,9 @@
 	item_state = "splint"
 	unique_handling = TRUE
 	self_delay = 10 SECONDS
+	use_duration = 3 SECONDS
 	energy_type = /datum/robot_energy_storage/splint
 	cost = 1
-	var/other_delay = 0
 	var/static/list/available_splint_zones = list(
 		BODY_ZONE_L_ARM,
 		BODY_ZONE_R_ARM,
@@ -453,7 +460,7 @@
 		to_chat(user, span_notice("You remove the splint from [target]'s [bodypart_name]."))
 		return .
 
-	if((target == user && self_delay > 0) || (target != user && other_delay > 0))
+	if((target == user && self_delay > 0) || (target != user && use_duration > 0))
 		user.visible_message(
 			span_notice("[user] starts to apply [src] to [target == user ? "[user.p_their()]" : "[target]'s"] [bodypart_name]."),
 			span_notice("You start to apply [src] to [target == user ? "your" : "[target]'s"] [bodypart_name]."),
@@ -463,7 +470,7 @@
 	if(target == user && !do_after(user, self_delay, target, NONE))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
-	else if(!do_after(user, other_delay, target, NONE))
+	else if(use_duration && !do_after(user, use_duration, target, NONE))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
 
@@ -482,7 +489,7 @@
 /obj/item/stack/medical/splint/tribal
 	name = "tribal splints"
 	icon_state = "tribal_splint"
-	other_delay = 5 SECONDS
+	use_duration = 5 SECONDS
 
 /obj/item/stack/medical/splint/tribal/get_ru_names()
 	return list(
@@ -499,7 +506,7 @@
 	name = "makeshift splints"
 	desc = "Makeshift splint for fixing bones. Better than nothing and more based than others."
 	icon_state = "makeshift_splint"
-	other_delay = 3 SECONDS
+	use_duration = 5 SECONDS
 	self_delay = 15 SECONDS
 
 
@@ -518,7 +525,7 @@
 	stop_bleeding = 0
 	var/bleeding_heal = 2
 	var/damage = 10
-	var/use_duration = 5 SECONDS
+	use_duration = 5 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
 
@@ -542,13 +549,6 @@
 	if(!affecting.bleeding_amount)
 		user.balloon_alert(user, "нечего зашивать!")
 		. &= ~ATTACK_CHAIN_SUCCESS
-		return .
-
-	user.visible_message(
-		span_notice("[user] начинает зашивать рану на [affecting.declent_ru(PREPOSITIONAL)] у [target] с помощью [declent_ru(NOMINATIVE)]."),
-		span_notice("Вы начинаете зашивать рану на [affecting.declent_ru(PREPOSITIONAL)] у [target] с помощью [declent_ru(NOMINATIVE)]..."),
-	)
-	if(!do_after(user, use_duration, target))
 		return .
 
 	if(!use(1))
