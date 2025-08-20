@@ -514,7 +514,7 @@
 /obj/item/clothing/head/helmet/biker/get_ru_names()
 	return list(
 		NOMINATIVE = "мотоциклетный шлем",
-		GENITIVE = "мотоциклетный шлем",
+		GENITIVE = "мотоциклетного шлема",
 		DATIVE = "мотоциклетному шлему",
 		ACCUSATIVE = "мотоциклетный шлем",
 		INSTRUMENTAL = "мотоциклетным шлемом",
