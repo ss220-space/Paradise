@@ -77,6 +77,9 @@
 	pixel_x = -32
 	icon = 'icons/obj/flora/jungletreesmall.dmi'
 
+/obj/structure/flora/tree/jungle/small/get_seethrough_map()
+	return SEE_THROUGH_MAP_DEFAULT
+
 //grass
 /obj/structure/flora/grass
 	name = "grass"
