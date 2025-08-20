@@ -3,7 +3,6 @@
 	var/alarmed = FALSE
 	var/select = 1
 	can_tactical = TRUE
-	can_suppress = 1
 	can_holster = FALSE
 	burst_size = 3
 	fire_delay = 2
@@ -11,7 +10,7 @@
 
 
 /obj/item/gun/projectile/automatic/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
 
 /obj/item/gun/projectile/automatic/update_overlays()
@@ -20,12 +19,6 @@
 		. += "[initial(icon_state)]semi"
 	if(select == 1)
 		. += "[initial(icon_state)]burst"
-
-	if(gun_light && gun_light_overlay)
-		var/iconF = gun_light_overlay
-		if(gun_light.on)
-			iconF = "[gun_light_overlay]_on"
-		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 
 
 /obj/item/gun/projectile/automatic/attackby(obj/item/I, mob/user, params)
@@ -55,6 +48,7 @@
 	if(istype(action, /datum/action/item_action/toggle_firemode))
 		burst_select()
 		return TRUE
+	. = ..()
 
 /obj/item/gun/projectile/automatic/proc/burst_select()
 	var/mob/living/carbon/human/user = usr
@@ -93,6 +87,10 @@
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3)
+	)
 
 /obj/item/gun/projectile/automatic/proto/rubber
 
@@ -115,6 +113,11 @@
 	bayonet_x_offset = 26
 	bayonet_y_offset = 12
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 6)
+	)
 	recoil = GUN_RECOIL_MEDIUM
 
 
@@ -129,7 +132,7 @@
 
 
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
-	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
 
 
 
@@ -144,15 +147,18 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
-	can_suppress = TRUE
-	can_flashlight = TRUE
 	burst_size = 1
 	can_bayonet = TRUE
 	bayonet_x_offset = 25
 	bayonet_y_offset = 12
-	gun_light_overlay = "wt-light"
 	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	actions_types = null
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+	)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
 
@@ -165,18 +171,6 @@
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
 
-/obj/item/gun/projectile/automatic/wt550/update_overlays()
-	. = ..()
-	if(suppressed)
-		. += image(icon = icon, icon_state = "wt-sp_supp", pixel_x = 3)
-
-
-/obj/item/gun/projectile/automatic/wt550/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(..())
-		return TRUE
-	if(istype(action, /datum/action/item_action/toggle_gunlight))
-		toggle_gunlight()
-		return TRUE
 
 //"SP-91-RC//
 /obj/item/gun/projectile/automatic/sp91rc
@@ -189,13 +183,16 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
-	can_suppress = TRUE
-	can_flashlight = TRUE
 	burst_size = 1
 	can_bayonet = FALSE
-	gun_light_overlay = "SP-91-RC-light"
 	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	actions_types = null
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+	)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
 
@@ -208,18 +205,6 @@
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
-
-/obj/item/gun/projectile/automatic/sp91rc/update_overlays()
-	. = ..()
-	if(suppressed)
-		. += image(icon = icon, icon_state = "wt-sp_supp", pixel_x = 3)
-
-/obj/item/gun/projectile/automatic/sp91rc/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(..())
-		return TRUE
-	if(istype(action, /datum/action/item_action/toggle_gunlight))
-		toggle_gunlight()
-		return TRUE
 
 
 /*Type-U3 Uzi
@@ -236,6 +221,11 @@ TODO Use this name and desc for localisation*/
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
 	burst_size = 1
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 14, "y" = 7),
+		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 12)
+	)
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
 	actions_types = null
@@ -245,6 +235,7 @@ TODO Use this name and desc for localisation*/
 		/datum/component/automatic_fire, \
 		 0.2 SECONDS \
 		 )
+
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
@@ -262,6 +253,11 @@ TODO Use this name and desc for localisation*/
 	burst_size = 3
 	fire_delay = 2
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 12, "y" = 7)
+	)
 	recoil = GUN_RECOIL_MEDIUM
 
 
@@ -291,7 +287,7 @@ TODO Use this name and desc for localisation*/
 
 
 /obj/item/gun/projectile/automatic/m90/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 	if(magazine)
 		item_state = "m90-[CEILING(get_ammo(FALSE)/7.5, 1)]"
 	else
@@ -356,6 +352,12 @@ TODO Use this name and desc for localisation*/
 	burst_size = 3
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+	)
 	recoil = GUN_RECOIL_MEDIUM
 
 //AK-814 Soviet Assault Rifle
@@ -376,6 +378,12 @@ TODO Use this name and desc for localisation*/
 	burst_size = 2
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -5)
+	)
 	recoil = GUN_RECOIL_MEDIUM
 
 // Bulldog shotgun //
@@ -395,6 +403,12 @@ TODO Use this name and desc for localisation*/
 	fire_delay = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_SHOTGUN
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -6)
+	)
 	recoil = GUN_RECOIL_HIGH
 
 
@@ -456,6 +470,12 @@ TODO Use this name and desc for localisation*/
 	burst_size = 3
 	fire_delay = 1.5
 	accuracy = GUN_ACCURACY_SHOTGUN
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 4),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -5)
+	)
 	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/New()
@@ -480,6 +500,11 @@ TODO Use this name and desc for localisation*/
 	burst_size = 2
 	can_suppress = 0
 	accuracy = GUN_ACCURACY_SHOTGUN
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6)
+	)
 	recoil = GUN_RECOIL_HIGH
 
 
@@ -510,6 +535,11 @@ TODO Use this name and desc for localisation*/
 	can_suppress = 0
 	burst_size = 2
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4)
+	)
 	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
@@ -530,6 +560,11 @@ TODO Use this name and desc for localisation*/
 	burst_size = 1
 	actions_types = null
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -2)
+	)
 	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
@@ -544,22 +579,19 @@ TODO Use this name and desc for localisation*/
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/sfg9mm
 	burst_size = 3
-	can_flashlight = TRUE
-	gun_light_overlay = "sfg-light"
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+	)
 	recoil = GUN_RECOIL_MEDIUM
 
 
 /obj/item/gun/projectile/automatic/sfg/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 
-
-/obj/item/gun/projectile/automatic/sfg/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(..())
-		return TRUE
-	if(istype(action, /datum/action/item_action/toggle_gunlight))
-		toggle_gunlight()
-		return TRUE
 
 //Aussec Armory M-52
 
@@ -572,5 +604,11 @@ TODO Use this name and desc for localisation*/
 	mag_type = /obj/item/ammo_box/magazine/m52mag
 	can_suppress = 0
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7)
+	)
 	recoil = GUN_RECOIL_MEDIUM
 

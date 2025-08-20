@@ -351,6 +351,7 @@ to destroy them and players will be able to make replacements.
 		"Robco Tool Maker" =					/obj/machinery/vending/engineering,
 		"BODA" =								/obj/machinery/vending/sovietsoda,
 		"SecTech" =								/obj/machinery/vending/security,
+		"ModTech" =								/obj/machinery/vending/gun_mods,
 		"CritterCare" =							/obj/machinery/vending/crittercare,
 		"Departament Security ClothesMate" =	/obj/machinery/vending/clothing/departament/security,
 		"Departament Medical ClothesMate" =	/obj/machinery/vending/clothing/departament/medical,
