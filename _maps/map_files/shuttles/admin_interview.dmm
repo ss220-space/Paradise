@@ -273,7 +273,7 @@
 	name = "SRT bulletproof vest"
 	},
 /obj/item/shield/riot/tele,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /obj/item/CQC_manual,
 /obj/item/implanter/mindshield/ert,
 /obj/item/card/id/centcom{
@@ -1016,7 +1016,7 @@
 	name = "SRT bulletproof vest"
 	},
 /obj/item/shield/riot/tele,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /obj/item/CQC_manual,
 /obj/item/implanter/mindshield/ert,
 /obj/item/card/id/centcom{
@@ -1155,7 +1155,7 @@
 	name = "SRT bulletproof vest"
 	},
 /obj/item/shield/riot/tele,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /obj/item/CQC_manual,
 /obj/item/implanter/mindshield/ert,
 /obj/item/card/id/centcom{

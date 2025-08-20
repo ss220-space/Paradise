@@ -14,7 +14,6 @@
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
 GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
-GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAULT)
 
 //MARK: Accuracy datum
 /datum/gun_accuracy
@@ -30,6 +29,15 @@ GLOBAL_DATUM_INIT(gun_accuracy_default, /datum/gun_accuracy, GUN_ACCURACY_DEFAUL
 	/// Shot spread in ange
 	var/min_spread = 0
 	var/max_spread = 0
+
+/datum/gun_accuracy/proc/add_accuracy(delta = 0)
+	head += delta
+	chest += delta
+	arms += delta
+	legs += delta
+	hands += delta
+	foots += delta
+	other += delta
 
 
 /datum/gun_accuracy/proc/getList()

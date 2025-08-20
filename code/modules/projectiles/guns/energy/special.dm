@@ -17,8 +17,6 @@
 	zoom_amt = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
-	flight_x_offset = 17
-	flight_y_offset = 9
 	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
@@ -32,9 +30,12 @@
 	slot_flags = ITEM_SLOT_BELT
 	zoomable = FALSE
 	ammo_x_offset = 2
-	flight_x_offset = 18
-	flight_y_offset = 11
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4)
+	)
 
 // Decloner //
 /obj/item/gun/energy/decloner
@@ -143,10 +144,10 @@
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	can_flashlight = FALSE
 	max_mod_capacity = 0
 	empty_state = null
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
@@ -405,6 +406,7 @@
 	force = 60
 	origin_tech = "combat=7;magnets=6"
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -432,6 +434,7 @@
 	selfcharge = TRUE
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_MINIMAL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/toxgun
 	name = "toxin pistol"
@@ -442,6 +445,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 // Energy Sniper //
 /obj/item/gun/energy/sniperrifle
@@ -459,6 +463,7 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = TRUE
 	accuracy = GUN_ACCURACY_SNIPER
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/sniperrifle/pod_pilot
 	name = "LSR-39 Queen blade"
@@ -503,6 +508,7 @@
 	var/emagged = FALSE			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
@@ -683,6 +689,7 @@
 	ammo_x_offset = 3
 	var/mimic_type = /obj/item/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
 	accuracy = GUN_ACCURACY_DEFAULT
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/mimicgun/newshot()
 	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
@@ -705,10 +712,6 @@
 	modifystate = TRUE
 	shaded_charge = TRUE
 	charge_sections = 3
-	can_flashlight = TRUE
-	gun_light_overlay = "flight"
-	flight_x_offset = 27
-	flight_y_offset = 12
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/dominator/stun,
 		/obj/item/ammo_casing/energy/dominator/paralyzer,
@@ -727,6 +730,11 @@
 	/// Timestamp used for sound effects
 	COOLDOWN_DECLARE(last_sound_effect)
 	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8)
+	)
 
 
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
@@ -751,11 +759,6 @@
 	. = list()
 	if(sibyl_mod)
 		. += "[base_icon_state]_[sibyl_mod.auth_id ? "unlocked" : "locked"]"
-	if(gun_light && gun_light_overlay)
-		var/iconF = gun_light_overlay
-		if(gun_light.on)
-			iconF = "[gun_light_overlay]_on"
-		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 
 
 /obj/item/gun/energy/dominator/equipped(mob/user, slot, initial = FALSE)
@@ -784,6 +787,10 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/emittergun)
 	can_charge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
+	)
 
 // Shield breaker //
 
@@ -806,6 +813,7 @@
 	var/charging = FALSE
 	var/mob/living/carbon/holder = null
 	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 	. = ..()
