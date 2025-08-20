@@ -1,7 +1,7 @@
 /obj/item/stack/medical
 	name = "medical pack"
 	singular_name = "medical pack"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/medicine/packs.dmi'
 	amount = 6
 	max_amount = 6
 	w_class = WEIGHT_CLASS_TINY
@@ -12,9 +12,10 @@
 	max_integrity = 40
 	var/heal_brute = 0
 	var/heal_burn = 0
-	var/self_delay = 20
+	var/self_delay = 2 SECONDS
 	var/unique_handling = FALSE //some things give a special prompt, do we want to bypass some checks in parent?
 	var/stop_bleeding = 0
+	var/bleedsuppress = 0
 	var/healverb = "bandage"
 
 
@@ -155,20 +156,21 @@
 		H.UpdateDamageIcon()
 
 
-//Bruise Packs//
+// MARK: Bruise Packs
 
 /obj/item/stack/medical/bruise_pack
 	name = "roll of gauze"
 	singular_name = "gauze length"
 	desc = "Some sterile gauze to wrap around bloody stumps."
-	icon_state = "gauze"
+	icon_state = "gauze_3"
 	item_state = "gauze"
 	origin_tech = "biotech=2"
 	heal_brute = 10
-	var/bleedsuppress = 1.5
+	bleedsuppress = 1.5
 	stop_bleeding = 180 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
+	var/use_duration = 3 SECONDS
 
 /obj/item/stack/medical/bruise_pack/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -191,6 +193,8 @@
 
 	return ..()
 
+/obj/item/stack/medical/bruise_pack/update_icon_state()
+	icon_state = "gauze_[amount >= 5 ? 3 : (amount >= 3 ? 2 : 1)]"
 
 /obj/item/stack/medical/bruise_pack/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -207,7 +211,7 @@
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
 
-	if(!do_after(user, 3 SECONDS, target))
+	if(use_duration && !do_after(user, use_duration, target))
 		return .
 
 	if(!use(1))
@@ -221,6 +225,7 @@
 
 	human_heal(target, user)
 	target.UpdateDamageIcon()
+	update_icon()
 
 
 /obj/item/stack/medical/bruise_pack/improvised
@@ -228,6 +233,34 @@
 	singular_name = "improvised gauze"
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
 	stop_bleeding = 900
+	icon_state = "gauze_imp_3"
+
+/obj/item/stack/medical/bruise_pack/improvised/update_icon_state()
+	icon_state = "gauze_imp_[amount >= 5 ? 3 : (amount >= 3 ? 2 : 1)]"
+
+/obj/item/stack/medical/bruise_pack/military
+	name = "emergency bandage"
+	singular_name = "emergency bandage"
+	desc = "A sterile military-grade hemostatic bandage for rapid bleeding control in combat situations. Contains clotting agents and is designed for single-use application."
+	icon_state = "bandage"
+	item_state = "gauze"
+	origin_tech = "biotech=2;combat=1"
+	amount = 1
+	max_amount = 1
+	heal_brute = 15
+	bleedsuppress = 5
+	stop_bleeding = 300 SECONDS
+	energy_type = /datum/robot_energy_storage/medical
+	cost = 1
+	use_duration = 1.5 SECONDS
+
+/obj/item/stack/medical/bruise_pack/military/attackby(obj/item/I, mob/user, params)
+	if(is_sharp(I))
+		return ATTACK_CHAIN_PROCEED
+	return ..()
+
+/obj/item/stack/medical/bruise_pack/military/update_icon_state()
+	return
 
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
@@ -238,6 +271,10 @@
 	belt_icon = "advanced_trauma_kit"
 	heal_brute = 25
 	stop_bleeding = 0
+	use_duration = 0
+
+/obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
+	return
 
 
 /obj/item/stack/medical/bruise_pack/advanced/syndicate
@@ -252,18 +289,22 @@
 	belt_icon = "advanced_trauma_kit"
 	heal_brute = 30
 	stop_bleeding = 0
+	use_duration = 0
 	amount = 12
 	max_amount = 12
 
-//Ointment//
+/obj/item/stack/medical/bruise_pack/extended/update_icon_state()
+	return
 
+
+// MARK: Ointment
 
 /obj/item/stack/medical/ointment
 	name = "ointment"
 	desc = "Used to treat those nasty burns."
 	gender = PLURAL
 	singular_name = "ointment"
-	icon_state = "ointment"
+	icon_state = "ointment_3"
 	origin_tech = "biotech=2"
 	healverb = "salve"
 	heal_burn = 10
@@ -296,6 +337,10 @@
 	affecting.germ_level = 0
 	human_heal(target, user)
 	target.UpdateDamageIcon()
+	update_icon()
+
+/obj/item/stack/medical/ointment/update_icon_state()
+	icon_state = "ointment_[amount >= 5 ? 3 : (amount >= 3 ? 2 : 1)]"
 
 
 /obj/item/stack/medical/ointment/advanced
@@ -306,6 +351,9 @@
 	item_state = "burnkit"
 	belt_icon = "advanced_burn_kit"
 	heal_burn = 25
+
+/obj/item/stack/medical/ointment/advanced/update_icon_state()
+	return
 
 /obj/item/stack/medical/ointment/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -321,7 +369,12 @@
 	amount = 12
 	max_amount = 12
 
-//Medical Herbs//
+/obj/item/stack/medical/ointment/extended/update_icon_state()
+	return
+
+
+// MARK: Medical Herbs
+
 /obj/item/stack/medical/bruise_pack/comfrey
 	name = "Comfrey leaf"
 	singular_name = "Comfrey leaf"
@@ -335,6 +388,9 @@
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
 	hitsound = 'sound/misc/moist_impact.ogg'
 
+/obj/item/stack/medical/bruise_pack/comfrey/update_icon_state()
+	return
+
 
 /obj/item/stack/medical/ointment/aloe
 	name = "Aloe Vera leaf"
@@ -345,7 +401,12 @@
 	color = "#4CC5C7"
 	heal_burn = 12
 
-// Splints
+/obj/item/stack/medical/ointment/aloe/update_icon_state()
+	return
+
+
+// MARK: Splints
+
 /obj/item/stack/medical/splint
 	name = "medical splints"
 	singular_name = "medical splint"
@@ -440,4 +501,65 @@
 	icon_state = "makeshift_splint"
 	other_delay = 3 SECONDS
 	self_delay = 15 SECONDS
+
+
+// MARK: Suture
+
+/obj/item/stack/medical/suture
+	name = "suture kit"
+	singular_name = "suture thread"
+	desc = "A sterile surgical suture kit for stitching wounds and stopping bleeding."
+	icon_state = "suture_3"
+	item_state = "suture"
+	origin_tech = "biotech=3"
+	amount = 3
+	max_amount = 3
+	heal_brute = 0
+	stop_bleeding = 0
+	var/bleeding_heal = 2
+	var/damage = 10
+	var/use_duration = 5 SECONDS
+	energy_type = /datum/robot_energy_storage/medical
+	cost = 1
+
+/obj/item/stack/medical/suture/update_icon_state()
+	icon_state = "suture_[amount ? amount : 1]"
+
+/obj/item/stack/medical/suture/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
+		return .
+
+	if(!get_amount())
+		to_chat(user, span_danger("Not enough suture kit!"))
+		return ATTACK_CHAIN_PROCEED
+
+	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+	if(affecting.open != ORGAN_CLOSED)
+		to_chat(user, span_danger("The [affecting.name] is cut open, you'll need more than a suture kit!"))
+		. &= ~ATTACK_CHAIN_SUCCESS
+		return .
+	if(!affecting.bleeding_amount)
+		user.balloon_alert(user, "нечего зашивать!")
+		. &= ~ATTACK_CHAIN_SUCCESS
+		return .
+
+	user.visible_message(
+		span_notice("[user] начинает зашивать рану на [affecting.declent_ru(PREPOSITIONAL)] у [target] с помощью [declent_ru(NOMINATIVE)]."),
+		span_notice("Вы начинаете зашивать рану на [affecting.declent_ru(PREPOSITIONAL)] у [target] с помощью [declent_ru(NOMINATIVE)]..."),
+	)
+	if(!do_after(user, use_duration, target))
+		return .
+
+	if(!use(1))
+		. &= ~ATTACK_CHAIN_SUCCESS
+		return .
+
+	affecting.germ_level = 0
+	if(affecting.bleeding_amount > 0)	//so you can't stack bleed suppression
+		affecting.heal_bleeding(user, target, bleeding_heal, damage)
+		target.updatehealth("[name] heal")
+	user.balloon_alert(user, "зашито!")
+	target.UpdateDamageIcon()
+	update_icon()
 

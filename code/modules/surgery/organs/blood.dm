@@ -31,22 +31,10 @@
 /// Minimal brute damage for add bleeding
 #define MIN_BRUTE_DAMAGE_FOR_BLEEDING 10
 /// Brute damage to bleeding calculation coefficient
-#define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.05
+#define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.075
 /// Heal damage to bleeding reduction calculation coefficient
 #define HEAL_DAMAGE_TO_BLEEDING_MOD 0.01
 
-
-/mob/living/carbon/human/proc/suppress_bloodloss(amount)
-	if(bleedsuppress)
-		return
-	else
-		bleedsuppress = TRUE
-		addtimer(CALLBACK(src, PROC_REF(resume_bleeding)), amount)
-
-/mob/living/carbon/human/proc/resume_bleeding()
-	bleedsuppress = FALSE
-	if(stat != DEAD && bleed_rate)
-		to_chat(src, span_warning("Кровь просачивается через вашу повязку."))
 
 /obj/item/organ/external/proc/suppress_bloodloss(mob/living/user, mob/living/carbon/human/target, amount, duration)
 	var/calculated_bleeding = max(0, bleeding_amount - bleedsuppress)
@@ -65,6 +53,15 @@
 	bleedsuppress -= amount
 	if(target.stat != DEAD && (bleeding_amount - bleedsuppress) > 0)
 		to_chat(target, span_warning("Кровь просачивается через вашу повязку."))
+
+
+/obj/item/organ/external/proc/heal_bleeding(mob/living/user, mob/living/carbon/human/target, bleeding_heal_amount, brute_damage)
+	bleeding_amount = max(0, bleeding_amount - bleeding_heal_amount)
+	take_damage(brute_damage, BRUTE, sound_effect = FALSE)
+	if(!bleeding_amount)
+		to_chat(user, span_warning("Кровотечение на [declent_ru(PREPOSITIONAL)] у [target] полностью остановлено."))
+		return
+	to_chat(user, span_warning("Кровотечение на [declent_ru(PREPOSITIONAL)] у [target] немного ослабло."))
 
 
 // Takes care blood loss and regeneration
