@@ -1591,6 +1591,7 @@
 #include "code\game\objects\structures\transit_tubes\transit_tube_pod.dm"
 #include "code\game\sound\sound.dm"
 #include "code\game\sound\sound_keys\sound_keys.dm"
+#include "code\game\sound\sound_keys\sound_keys_assoc.dm"
 #include "code\game\turfs\baseturf.dm"
 #include "code\game\turfs\simulated.dm"
 #include "code\game\turfs\turf.dm"
