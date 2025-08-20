@@ -85,14 +85,6 @@
 /obj/item/shield/riot/goliath
 	name = "goliath shield"
 	desc = "Щит, сплетённый из пластин шкуры голиафа."
-	ru_names = list(
-		NOMINATIVE = "щит из пластин голиафа",
-		GENITIVE = "щита из пластин голиафа",
-		DATIVE = "щиту из пластин голиафа",
-		ACCUSATIVE = "щит из пластин голиафа",
-		INSTRUMENTAL = "щитом из пластин голиафа",
-		PREPOSITIONAL = "щите из пластин голиафа"
-	)
 	icon_state = "goliath_shield"
 	item_state = "goliath_shield"
 	materials = list()
@@ -100,6 +92,16 @@
 	block_chance = 45
 	obj_integrity = 380
 	max_integrity = 380
+
+/obj/item/shield/riot/goliath/get_ru_names()
+	return list(
+		NOMINATIVE = "щит из пластин голиафа",
+		GENITIVE = "щита из пластин голиафа",
+		DATIVE = "щиту из пластин голиафа",
+		ACCUSATIVE = "щит из пластин голиафа",
+		INSTRUMENTAL = "щитом из пластин голиафа",
+		PREPOSITIONAL = "щите из пластин голиафа"
+	)
 
 /obj/item/shield/energy
 	name = "energy combat shield"

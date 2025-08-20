@@ -77,7 +77,6 @@ Difficulty: Hard
 	var/maximum_enraged_healing = 500
 	/// Enraged healing recived
 	var/enraged_healing = 0
-	internal_type = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
 	deathmessage = "погружается в лужу крови, покидая битву. Вы победили... на сей раз."
@@ -86,12 +85,6 @@ Difficulty: Hard
 							   /datum/action/innate/megafauna_attack/hallucination_charge,
 							   /datum/action/innate/megafauna_attack/hallucination_surround,
 							   /datum/action/innate/megafauna_attack/blood_warp)
-
-/obj/item/gps/internal/bubblegum
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "You're not quite sure how a signal can be bloody."
-	invisibility = INVISIBILITY_ABSTRACT
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()

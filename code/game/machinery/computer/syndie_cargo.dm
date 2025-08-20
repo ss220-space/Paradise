@@ -148,7 +148,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	var/blackmarket_message = null	//Remarks from Black Market on how well you checked the last order.
 /***************************
 Возможные статусы для телепадов
-	"Pads not linked!" 	// Статус только что построенной консоли.
+	"Pads not linked!"	// Статус только что построенной консоли.
 	"Pads on cooldown"
 	"Pads ready"
 **************************/
@@ -171,7 +171,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	var/sold_atoms = ""
 
 /datum/syndie_data_storage/proc/sync()
-	linked_pads = list() 	// Обнуление на случай повторной синхронизации.
+	linked_pads = list()	// Обнуление на случай повторной синхронизации.
 	receiving_pads = list() // Мы же не хотим два одинаковых обьекта в одном списке
 	pads_cooldown = 0
 	for(var/obj/machinery/syndiepad/P in GLOB.syndiepads)

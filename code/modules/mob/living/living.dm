@@ -2276,7 +2276,7 @@
 	if(enable)
 		if(stat == DEAD)	// dead mobs are skipped, unless we are removing SSD status
 			return FALSE
-		if(!mind.active || (ckey && ckey[1] == "@")) 	// aghosting will do this, we want to avoid SSDing admemes
+		if(!mind.active || (ckey && ckey[1] == "@"))	// aghosting will do this, we want to avoid SSDing admemes
 			return FALSE
 		if(!isnull(player_logged))	// already in SSD, return TRUE and we are done
 			return TRUE

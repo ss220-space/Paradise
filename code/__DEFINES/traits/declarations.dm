@@ -232,6 +232,7 @@
 #define TRAIT_NEARSIGHTED "nearsighted"
 #define TRAIT_BLIND "blind"
 #define TRAIT_COLORBLIND "colorblind"
+#define TRAIT_WEAK_EARS "weak_ears"
 
 // old species traits
 /// This human mob doesn't bleed

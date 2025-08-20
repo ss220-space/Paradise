@@ -638,7 +638,13 @@
 /obj/item/clothing/accessory/necklace/skullcodpiece
 	name = "skull codpiece"
 	desc = "Украшение в виде черепа, которое предназначено для защиты самого важного в жизни."
-	ru_names = list(
+	icon_state = "skull"
+	item_state = "skull"
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
+	allow_duplicates = FALSE
+
+/obj/item/clothing/accessory/necklace/skullcodpiece/get_ru_names()
+	return list(
 		NOMINATIVE = "костяной гульфик",
 		GENITIVE = "костяного гульфика",
 		DATIVE = "костяному гульфику",
@@ -646,15 +652,17 @@
 		INSTRUMENTAL = "костяным гульфиком",
 		PREPOSITIONAL = "костяном гульфике"
 	)
-	icon_state = "skull"
-	item_state = "skull"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
-	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
 	name = "bone talisman"
 	desc = "Талисман охотника – многие верят, что он дарует защиту от старых богов тем, кто его носит."
-	ru_names = list(
+	icon_state = "talisman"
+	item_state = "talisman"
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
+	allow_duplicates = FALSE
+
+/obj/item/clothing/accessory/necklace/talisman/get_ru_names()
+	return list(
 		NOMINATIVE = "костяной талисман",
 		GENITIVE = "костяного талисмана",
 		DATIVE = "костяному талисману",
@@ -662,10 +670,6 @@
 		INSTRUMENTAL = "костяным талисманом",
 		PREPOSITIONAL = "костяном талисмане"
 	)
-	icon_state = "talisman"
-	item_state = "talisman"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
-	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
@@ -1175,7 +1179,12 @@
 /obj/item/clothing/accessory/head_strip/greytide
 	name = "GreyTide strip"
 	desc = "Плотно сшитая круглая нашивка серого цвета с расположенным в центре противогазом."
-	ru_names = list(
+	icon_state = "greytstrip"
+	item_state = "greytstrip"
+	strip_bubble_icon = "greyt"
+
+/obj/item/clothing/accessory/head_strip/greytide/get_ru_names()
+	return list(
 		NOMINATIVE = "нашивка \"GreyTide\"",
 		GENITIVE = "нашивки \"GreyTide\"",
 		DATIVE = "нашивке \"GreyTide\"",
@@ -1183,9 +1192,6 @@
 		INSTRUMENTAL = "нашивкой \"GreyTide\"",
 		PREPOSITIONAL = "нашивке \"GreyTide\""
 	)
-	icon_state = "greytstrip"
-	item_state = "greytstrip"
-	strip_bubble_icon = "greyt"
 
 /obj/item/clothing/accessory/head_strip/lawyers_badge
 	name = "attorney's badge"

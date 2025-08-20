@@ -78,7 +78,7 @@
 	/// The space ninja's headset
 	var/obj/item/radio/headset/ninja/n_headset
 	/// The space ninja's backpack
-	var/obj/item/radio/headset/ninja/n_backpack
+	var/obj/item/storage/backpack/ninja/n_backpack
 	/// The space ninja's chameleon id card
 	/// used only to fake sechuds while using chameleon
 	var/obj/item/card/id/ninja/n_id_card
@@ -590,6 +590,9 @@
 	if(!istype(ninja.wear_mask, /obj/item/clothing/mask/gas/space_ninja))
 		to_chat(ninja, "[span_userdanger("ERROR")]: 110223 UNABLE TO LOCATE NINJA MASK\nABORTING...")
 		return FALSE
+	if(!istype(ninja.back, /obj/item/storage/backpack/ninja))
+		to_chat(ninja, "[span_userdanger("ERROR")]: 110223 UNABLE TO LOCATE NINJA BACKPACK\nABORTING...")
+		return FALSE
 	toggle_ninja_nodrop(src)
 	n_hood = ninja.head
 	toggle_ninja_nodrop(n_hood)
@@ -597,6 +600,8 @@
 	toggle_ninja_nodrop(n_shoes)
 	n_gloves = ninja.gloves
 	toggle_ninja_nodrop(n_gloves)
+	n_backpack = ninja.back
+	toggle_ninja_nodrop(n_backpack)
 	n_mask = ninja.wear_mask
 	//Записываем маску к очкам, чтобы менять ей визуал, вместе с режимами очков
 	var/obj/item/clothing/glasses/ninja/wear_glasses = ninja.glasses
@@ -695,13 +700,10 @@
 			"Крысы в техах шумят что ле...?")
 		switch(rand(1,3))
 			if(1)
-				if(stealth_ambient_chance >= 15)
-					spark_system.start()
-				else
-					for(var/mob/living/carbon/other_mob in view(7,ninja))
-						if(other_mob == ninja)
-							continue
-						to_chat(other_mob, span_notice(random_subtle_text))
+				for(var/mob/living/carbon/other_mob in view(7, ninja))
+					if(other_mob == ninja)
+						continue
+					to_chat(other_mob, span_notice(random_subtle_text))
 			if(2)
 				if(stealth_ambient_chance >= 40)
 					for(var/mob/living/carbon/other_mob in view(7,ninja))
