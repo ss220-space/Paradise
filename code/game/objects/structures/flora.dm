@@ -15,12 +15,9 @@
 /obj/structure/flora/tree/proc/get_seethrough_map()
 	return SEE_THROUGH_MAP_DEFAULT
 
-//trees cant see through
+
 /obj/structure/flora/tree/ComponentInitialize()
 	AddComponent(/datum/component/seethrough, get_seethrough_map())
-
-/obj/structure/flora/tree/cant_see_through/ComponentInitialize()
-	return
 
 
 /obj/structure/flora/tree/add_debris_element()
