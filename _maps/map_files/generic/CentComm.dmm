@@ -2099,7 +2099,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "aPL" = (
 /turf/simulated/floor/plasteel{
@@ -3736,7 +3736,7 @@
 "bDS" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/flora/rock/lava1,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "bDZ" = (
 /obj/machinery/light,
@@ -4674,7 +4674,7 @@
 /obj/structure/stone_tile/burnt{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "cdW" = (
 /turf/simulated/floor/plasteel{
@@ -6701,7 +6701,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "cYa" = (
 /obj/effect/turf_decal/siding/green{
@@ -7184,7 +7184,7 @@
 /obj/structure/stone_tile/block/burnt{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "dkg" = (
 /obj/structure/reagent_dispensers/beerkeg{
@@ -8319,7 +8319,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "dLC" = (
 /obj/machinery/light/small{
@@ -9313,7 +9313,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "ehk" = (
 /obj/structure/sign/poster/contraband/revolver{
@@ -9590,7 +9590,7 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "eqJ" = (
 /obj/structure/railing{
@@ -17120,7 +17120,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "ieK" = (
 /obj/structure/chair/comfy/red{
@@ -21123,7 +21123,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "jSw" = (
 /turf/simulated/wall/indestructible/rock,
@@ -22027,7 +22027,7 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "knt" = (
 /obj/effect/turf_decal/siding/wood{
@@ -22397,7 +22397,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "kuU" = (
 /obj/machinery/door/airlock/shuttle/glass{
@@ -22455,7 +22455,7 @@
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center,
 /obj/effect/landmark/heretic/ash,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "kwn" = (
 /obj/structure/falsewall/reinforced,
@@ -28580,7 +28580,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "mXR" = (
 /obj/item/kitchen/utensil/fork{
@@ -29953,7 +29953,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "nzn" = (
 /obj/effect/turf_decal/siding/wood{
@@ -30923,7 +30923,7 @@
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "nUN" = (
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "nVd" = (
 /obj/structure/table/wood/fancy/black,
@@ -31465,7 +31465,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "ofy" = (
 /turf/simulated/floor/plasteel{
@@ -39113,7 +39113,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/surrounding_tile/burnt,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "rAb" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
@@ -44981,7 +44981,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/block,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "tYh" = (
 /obj/effect/turf_decal/stripes/line{
@@ -45310,7 +45310,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/burnt,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "ufP" = (
 /obj/structure/table/wood/fancy/black,
@@ -47226,7 +47226,7 @@
 "uSz" = (
 /obj/structure/stone_tile/surrounding/cracked,
 /obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "uSA" = (
 /obj/machinery/door/firedoor,
@@ -48528,7 +48528,7 @@
 	dir = 1
 	},
 /obj/item/stack/ore/glass/basalt,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "vxY" = (
 /obj/structure/fence/door{
@@ -49940,7 +49940,7 @@
 /area/centcom/zone1)
 "wef" = (
 /obj/structure/stone_tile/slab/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "weC" = (
 /obj/machinery/door/poddoor/shutters/invincible{
@@ -51083,7 +51083,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "wJl" = (
 /turf/simulated/floor/shuttle/objective_check{
@@ -51141,7 +51141,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "wKR" = (
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
@@ -51388,7 +51388,7 @@
 /obj/structure/stone_tile/block/burnt{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/lava,
 /area/centcom/heretic_sacrifice/ash)
 "wRu" = (
 /turf/simulated/floor/plasteel{
