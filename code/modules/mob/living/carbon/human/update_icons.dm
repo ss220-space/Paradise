@@ -500,10 +500,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_fire()
 	remove_overlay(FIRE_LAYER)
 	if(on_fire || HAS_TRAIT(src, TRAIT_FAKE_FIRE))
+		var/fire_icon_state = "[is_monkeybasic(src) ? "monkey" : "human"]_fire"
 		if(!overlays_standing[FIRE_LAYER])
-			overlays_standing[FIRE_LAYER] = mutable_appearance(FIRE_DMI(src), icon_state = "Standing", layer = -FIRE_LAYER)
+			overlays_standing[FIRE_LAYER] = mutable_appearance('icons/mob/OnFire.dmi', icon_state = fire_icon_state, layer = -FIRE_LAYER)
 	apply_overlay(FIRE_LAYER)
-
 
 /* --------------------------------------- */
 //For legacy support.
