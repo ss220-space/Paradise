@@ -6,12 +6,12 @@
 	has_explaination_verb = TRUE
 	var/stun_on_cooldown = FALSE
 
-/datum/martial_art/mr_chang/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I)
+/datum/martial_art/mr_chang/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I)
 	//Stunning discounts!
 	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(INC_IGNORE_GRABBED) && defender.a_intent == INTENT_DISARM && !stun_on_cooldown)
-		defender.visible_message("<span class='warning'>[defender] intercept attack of [attacker]!</span>")
+		defender.visible_message(span_warning("[defender] intercept attack of [attacker]!"))
 		attacker.forceMove(defender.loc)
-		attacker.apply_damage(200, STAMINA)
+		attacker.Knockdown(2 SECONDS)
 		stun_on_cooldown = TRUE
 		defender.SpinAnimation(10,1)
 		attacker.SpinAnimation(10,1)
@@ -25,8 +25,7 @@
 						'sound/weapons/mr_chang/mr_chang_5.mp3')
 		playsound(get_turf(defender), sound, 50, TRUE, -1)
 
-		spawn(4 SECONDS)
-			stun_on_cooldown = FALSE
+		addtimer(VARSET_CALLBACK(src, stun_on_cooldown, FALSE), 10 SECONDS)
 		return TRUE
 
 /datum/martial_art/mr_chang/explaination_header(user)
