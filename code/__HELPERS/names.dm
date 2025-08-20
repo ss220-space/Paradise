@@ -49,10 +49,25 @@ GLOBAL_VAR(station_name)
 	update_world_name()
 
 /proc/update_world_name()
+	/// Replacing Russian station_name with English station_name, because the Byond hub does not work with Cyrillic.
+	var/static/list/station_translations = list(
+		"ИСН Керберос" = "NSS Kerberos",
+		"ИСН Селестион" = "NSS Selestion",
+		"ИСН Фаррагус" = "NSS Farragus",
+		"ИСН Кибериада" = "NSS Cyberiad",
+		"ИСН Нова" = "NSS Nova",
+		"ШОН Мальта" = "NMC Malta",
+		"ИСН Туррим" = "NSS Turrim"
+	)
+
+	var/current_station_name = station_name()
+	if(station_translations[current_station_name])
+		current_station_name = station_translations[current_station_name]
+
 	if(config && CONFIG_GET(string/servername))
-		world.name = "[CONFIG_GET(string/servername)] — [station_name()]"
+		world.name = "[CONFIG_GET(string/servername)] — [current_station_name]"
 	else
-		world.name = station_name()
+		world.name = current_station_name
 
 /proc/new_station_name()
 	var/random = rand(1,5)

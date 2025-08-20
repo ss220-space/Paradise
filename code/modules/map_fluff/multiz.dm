@@ -11,9 +11,9 @@
 	linkage = SELFLOOPING
 	space_ruins_levels = 3
 
-	station_name  = "Multiz Debug Station"
+	station_name = "Multiz Debug Station"
 	station_short = "Multiz"
-	dock_name     = "THE multiz"
-	company_name  = "BadMan"
+	dock_name = "THE multiz"
+	company_name = "BadMan"
 	company_short = "BM"
-	starsys_name  = "Dull Star"
+	starsys_name = "Dull Star"
