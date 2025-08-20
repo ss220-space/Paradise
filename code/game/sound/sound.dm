@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(cached_songs)
 		CRASH("playsound(): volume below SOUND_AUDIBLE_VOLUME_MIN. [vol] < [SOUND_AUDIBLE_VOLUME_MIN]")
 
 	var/turf/turf_source = get_turf(source)
-	if(!turf_source) // || !SSsounds.channel_list || vol < SOUND_AUDIBLE_VOLUME_MIN
+	if(!turf_source)
 		return
 
 	// allocate a channel if necessary now so its the same for everyone
