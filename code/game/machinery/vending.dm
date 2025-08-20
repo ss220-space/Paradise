@@ -1110,6 +1110,8 @@
 	for(var/datum/data/vending_product/R in product_records)
 		if(R.amount <= 0) //Try to use a record that actually has something to dump.
 			continue
+		if(R.price > 0) // Don't try not free item
+			continue
 		var/dump_path = R.product_path
 		if(!dump_path)
 			continue
@@ -2291,6 +2293,81 @@
 		INSTRUMENTAL = "ваучером",
 		PREPOSITIONAL = "ваучере"
 	)
+
+
+/obj/machinery/vending/gun_mods
+	name = "ModTech"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат ModTech",
+		GENITIVE = "торгового автомата ModTech",
+		DATIVE = "торговому автомату ModTech",
+		ACCUSATIVE = "торговый автомат ModTech",
+		INSTRUMENTAL = "торговым автоматом ModTech",
+		PREPOSITIONAL = "торговом автомате ModTech"
+	)
+	desc = "Торговый автомат с модулями для оружия, предназначенный для сотрудников службы безопасности."
+
+	slogan_list = list(
+		"Улу+чши сво+ё ору+жие!",
+		"Купи+ глуши+тель, будь на сти+ле!",
+		"Разли+чные прице+лы на любо+й вкус!",
+		"Купи+ глуши+тель, соблюда+й тишину+.",
+		"Почему+ тво+й ствол не улу+чен?!",
+		"Твоя+ пу+шка недоста+точно такти+ческая!"
+	)
+
+	icon_state = "attachments_off"
+	panel_overlay = "attachments_panel"
+	screen_overlay = "attachments"
+	broken_overlay = "attachments_broken"
+	deny_overlay = "attachments_deny"
+
+	req_access = list(ACCESS_SECURITY)
+	products = list(
+		/obj/item/gun_module/muzzle/compensator = 8,
+		/obj/item/gun_module/rail/scope/collimator/pistol = 8,
+		/obj/item/gun_module/rail/scope/collimator = 5,
+		/obj/item/gun_module/under/flashlight/pistol = 10,
+		/obj/item/gun_module/under/flashlight/rifle = 10,
+		/obj/item/gun_module/under/hand/angle = 5
+	)
+	contraband = list(
+		/obj/item/gun_module/muzzle/suppressor = 3,
+		/obj/item/gun_module/rail/scope/x4 = 3,
+	)
+	prices = list(
+		/obj/item/gun_module/muzzle/compensator = 349,
+		/obj/item/gun_module/rail/scope/collimator/pistol = 399,
+		/obj/item/gun_module/rail/scope/collimator = 499,
+		/obj/item/gun_module/under/flashlight/pistol = 199,
+		/obj/item/gun_module/under/flashlight/rifle = 249,
+		/obj/item/gun_module/under/hand/angle = 499,
+		/obj/item/gun_module/muzzle/suppressor = 499,
+		/obj/item/gun_module/rail/scope/x4 = 4999,
+	)
+	refill_canister = /obj/item/vending_refill/gun_mods
+
+/obj/machinery/vending/gun_mods/free
+	// all items free, this vending for central command and syndicate
+	desc = "Раздатчик с модулями для оружия."
+	req_access = list()
+
+	products = list(
+		/obj/item/gun_module/muzzle/compensator = 5,
+		/obj/item/gun_module/rail/scope/collimator/pistol = 5,
+		/obj/item/gun_module/rail/scope/collimator = 5,
+		/obj/item/gun_module/rail/scope/x4 = 5,
+		/obj/item/gun_module/rail/hud/medical = 5,
+		/obj/item/gun_module/rail/hud/security = 5,
+		/obj/item/gun_module/under/flashlight/pistol = 5,
+		/obj/item/gun_module/under/flashlight/rifle = 5,
+		/obj/item/gun_module/under/hand/angle = 5,
+		/obj/item/gun_module/muzzle/suppressor = 5,
+		/obj/item/gun_module/rail/scope/x8 = 5,
+		/obj/item/gun_module/rail/scope/x16 = 3,
+	)
+	contraband = list()
+	prices = list()
 
 /obj/machinery/vending/hydronutrients
 	name = "NutriMax"
@@ -4409,7 +4486,7 @@
 		/obj/item/gun/energy/ionrifle/carbine = 1,
 		/obj/item/gun/projectile/automatic/lasercarbine = 3,
 		/obj/item/ammo_box/magazine/laser = 6,
-		/obj/item/suppressor = 4,
+		/obj/item/gun_module/muzzle/suppressor = 4,
 		/obj/item/ammo_box/speedloader/shotgun = 4,
 		/obj/item/gun/projectile/automatic/sfg = 3,
 		/obj/item/ammo_box/magazine/sfg9mm = 6,

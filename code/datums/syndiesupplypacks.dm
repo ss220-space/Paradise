@@ -210,9 +210,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(/obj/item/gun/projectile/automatic/pistol,
 					/obj/item/gun/projectile/automatic/pistol,
 					/obj/item/gun/projectile/automatic/pistol,
-					/obj/item/suppressor,
-					/obj/item/suppressor,
-					/obj/item/suppressor)
+					/obj/item/gun_module/muzzle/suppressor,
+					/obj/item/gun_module/muzzle/suppressor,
+					/obj/item/gun_module/muzzle/suppressor)
 	cost = 2500
 	containername = "Stechkin Pistol Crate"
 
@@ -2152,7 +2152,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/glasses/hud/security/chameleon,
 		/obj/item/pen/fancy/bomb,
 		/obj/item/gun/projectile/automatic/pistol,
-		/obj/item/suppressor,
+		/obj/item/gun_module/muzzle/suppressor,
 		/obj/item/ammo_box/magazine/m10mm,
 		/obj/item/ammo_box/magazine/m10mm/hp,
 		/obj/item/ammo_box/magazine/m10mm/ap,

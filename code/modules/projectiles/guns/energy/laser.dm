@@ -9,14 +9,13 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	can_flashlight = TRUE
-	gun_light_overlay = "lasergun_light"
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5)
+	)
 
-/obj/item/gun/energy/laser/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(istype(action, /datum/action/item_action/toggle_gunlight))
-		toggle_gunlight()
-		return TRUE
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -28,6 +27,7 @@
 	clumsy_check = 0
 	needs_permit = FALSE
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"
@@ -36,6 +36,7 @@
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
@@ -50,6 +51,7 @@
 	unique_reskin = TRUE
 	var/high_risk = TRUE
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/captain/Initialize(mapload, ...)
 	. = ..()
@@ -80,6 +82,7 @@
 	can_charge = FALSE
 	origin_tech = null
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/cyborg/newshot()
 	..()
@@ -93,6 +96,11 @@
 	desc = "A laser gun equipped with a refraction kit that spreads bolts."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	accuracy = GUN_ACCURACY_SHOTGUN
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5)
+	)
 
 ///Laser Cannon
 
@@ -111,6 +119,11 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7)
+	)
 
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/projectile/beam/laser/accelerator
@@ -137,6 +150,7 @@
 
 
 /obj/item/gun/energy/lasercannon/cyborg
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/lasercannon/cyborg/newshot()
 	..()
@@ -152,6 +166,11 @@
 	origin_tech = "combat=6;materials=4;magnets=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7)
+	)
 
 /obj/item/gun/energy/immolator
 	name = "Immolator laser gun"
@@ -162,6 +181,11 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7)
+	)
 
 /obj/item/gun/energy/immolator/multi
 	name = "multi lens immolator cannon"
@@ -182,6 +206,7 @@
 /obj/item/gun/energy/immolator/multi/cyborg
 	name = "cyborg immolator cannon"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/scatter/cyborg, /obj/item/ammo_casing/energy/immolator/strong/cyborg) // scatter is default, because it is more useful
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 ////////Laser Tag////////////////////
@@ -197,6 +222,7 @@
 	ammo_x_offset = 2
 	selfcharge = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/tag/blue
 	icon_state = "bluetag"

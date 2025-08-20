@@ -25463,7 +25463,7 @@
 "jrh" = (
 /obj/structure/closet,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/storage/toolbox/syndicate = 1, /obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1, /obj/item/deck/cards/syndicate = 1, /obj/item/storage/secure/briefcase/syndie = 1, /obj/item/toy/syndicateballoon = 1, /obj/item/soap/syndie = 1, /obj/item/clothing/under/syndicate = 1, /obj/item/clothing/under/syndicate/tacticool = 1, /obj/item/clothing/mask/gas/syndicate = 1, /obj/item/suppressor = 1, /obj/item/coin/antagtoken/syndicate = 1, /obj/item/storage/box/syndie_kit/cutouts = 1)
+	result = list(/obj/item/storage/toolbox/syndicate = 1, /obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1, /obj/item/deck/cards/syndicate = 1, /obj/item/storage/secure/briefcase/syndie = 1, /obj/item/toy/syndicateballoon = 1, /obj/item/soap/syndie = 1, /obj/item/clothing/under/syndicate = 1, /obj/item/clothing/under/syndicate/tacticool = 1, /obj/item/clothing/mask/gas/syndicate = 1, /obj/item/gun_module/muzzle/suppressor = 1, /obj/item/coin/antagtoken/syndicate = 1, /obj/item/storage/box/syndie_kit/cutouts = 1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -56034,11 +56034,11 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "uBb" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
+/obj/machinery/vending/gun_mods,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"

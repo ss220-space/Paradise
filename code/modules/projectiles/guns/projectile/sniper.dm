@@ -11,7 +11,6 @@
 	fire_delay = 40
 	burst_size = 1
 	origin_tech = "combat=7"
-	can_unsuppress = TRUE
 	can_suppress = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	zoomable = TRUE
@@ -19,7 +18,31 @@
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = null
 	accuracy = GUN_ACCURACY_SNIPER
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_MEGA
+
+/obj/item/gun/projectile/automatic/sniper_rifle/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/gun_module/muzzle/suppressor))
+		add_fingerprint(user)
+		var/obj/item/gun_module/muzzle/suppressor/suppressor = I
+		if(!can_suppress)
+			balloon_alert(user, "несовместимо!")
+			return ATTACK_CHAIN_PROCEED
+		if(suppressed)
+			balloon_alert(user, "уже установлено!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(suppressor, src))
+			return ..()
+		balloon_alert(user, "установлено")
+		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
+		suppressed = suppressor
+		suppressor.oldsound = fire_sound
+		suppressor.initial_w_class = w_class
+		fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
+		w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
+		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
@@ -49,8 +72,6 @@
 	weapon_weight = WEAPON_LIGHT
 	fire_delay = 2 SECONDS
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
-	can_unsuppress = FALSE
-	can_suppress = FALSE
 	zoomable = FALSE
 	accuracy = GUN_ACCURACY_SNIPER
 	recoil = GUN_RECOIL_HIGH
