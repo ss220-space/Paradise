@@ -56,7 +56,8 @@
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
-	visor_flags_inv = HIDEGLASSES
+	toggleable_flags_cover = MASKCOVERSEYES
+	toggleable_flags_inv = HIDEGLASSES
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/mask/gas/welding/get_ru_names()
@@ -114,7 +115,7 @@
 		INSTRUMENTAL = "противогазом исследователя",
 		PREPOSITIONAL = "противогазе исследователя"
 	)
-	
+
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)

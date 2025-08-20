@@ -88,6 +88,9 @@
 	var/turf/simulated/t_loc = get_turf(src)
 	SEND_SIGNAL(t_loc, COMSIG_TURF_MAKE_DRY, TURF_WET_WATER, TRUE, INFINITY)
 
+/obj/item/clothing/shoes/galoshes/dry/lightweight /// for red janitor ert.
+	slowdown = 0
+
 /obj/item/clothing/shoes/clown_shoes
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
 	name = "clown shoes"
@@ -472,7 +475,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	paintable = FALSE
 
-/obj/item/clothing/shoes/footwraps/dragon/get_ru_names()	
+/obj/item/clothing/shoes/footwraps/dragon/get_ru_names()
 	return list(
 		NOMINATIVE = "обмотки из шкуры пепельного дракона",
 		GENITIVE = "обмоток из шкуры пепельного дракона",
