@@ -203,14 +203,6 @@
 	flick("[icon_state]_active", src)
 	playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 
-	// - We temporarily make all of our chosen atoms invisible, as some rituals may sleep,
-	// and we don't want people to be able to run off with ritual items.
-	// - We make a duplicate list here to ensure that all atoms are correctly un-invisibled by the end.
-	// Some rituals may remove atoms from the selected_atoms list, and not consume them.
-	var/list/initial_selected_atoms = selected_atoms.Copy()
-	for(var/atom/to_disappear as anything in selected_atoms)
-		to_disappear.alpha = 0
-
 	// All the components have been invisibled, time to actually do the ritual. Call on_finished_recipe
 	// (Note: on_finished_recipe may sleep in the case of some rituals like summons, which expect ghost candidates.)
 	// - If the ritual was success (Returned TRUE), proceede to clean up the atoms involved in the ritual. The result has already been spawned by this point.
@@ -219,13 +211,6 @@
 
 	if(ritual_result)
 		ritual.cleanup_atoms(selected_atoms)
-
-	// Clean up done, re-appear anything that hasn't been deleted.
-	for(var/atom/to_appear as anything in initial_selected_atoms)
-		if(QDELETED(to_appear))
-			continue
-
-		to_appear.alpha = 1
 
 	// And finally, give some user feedback
 	// No feedback is given on failure here -
