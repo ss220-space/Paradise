@@ -13,7 +13,13 @@
 /datum/sound_effect/proc/return_sfx()
 	return pick(file_paths)
 
-// TODO: SORT ALL THE EFFECTS SOUNDS BY INDIVIDUAL FOLDERS INSIDE THE EFFECTS FOLDER – LittleBoobs
+/**
+ * TODO:
+ * 1. SORT ALL THE EFFECTS SOUNDS BY INDIVIDUAL FOLDERS INSIDE THE EFFECTS FOLDER
+ * 2. TRANSFER EVERYTHING TO SFX
+ * 3. PORTING SFX FROM TG
+ * – LittleBoobs
+ */
 
 /datum/sound_effect/patchpack
 	key = SFX_PATCHPACK
