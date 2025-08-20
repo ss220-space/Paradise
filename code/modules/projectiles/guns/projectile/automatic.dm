@@ -134,8 +134,8 @@
 
 //C-20rm Full auto
 /obj/item/gun/projectile/automatic/c20r/auto
-	name = "C-20rm Full-Auto SMG"
-	desc = "Автоматический пистолет-пулемет под .45 калибр. Новейшая модификация пистолет-пулемета 'C-20r' ."
+	name = "C-20rm SMG"
+	desc = "Новейшая модификация автоматического пистолет-пулемета \"C-20r\" под .45 калибр."
 	fire_delay = 1.5
 	burst_size = 1
 	accuracy = GUN_ACCURACY_PISTOL
