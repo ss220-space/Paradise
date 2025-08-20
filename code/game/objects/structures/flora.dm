@@ -65,6 +65,9 @@
 	pixel_x = -48
 	pixel_y = -20
 
+	get_seethrough_map()
+		return SEE_THROUGH_MAP_DEFAULT_TWO_TALL
+
 /obj/structure/flora/tree/jungle/Initialize(mapload)
 	icon_state = "[icon_state][rand(1, 6)]"
 	. = ..()
