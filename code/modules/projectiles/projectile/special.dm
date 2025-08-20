@@ -416,7 +416,7 @@
 		PREPOSITIONAL = "блюспейс-луче"
 	)
 	icon_state = "spark"
-	hitsound = "sparks"
+	hitsound = SFX_SPARKS
 	damage = 0
 	color = "#33CCFF"
 	nodamage = TRUE

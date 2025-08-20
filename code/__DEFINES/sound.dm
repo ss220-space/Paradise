@@ -225,12 +225,11 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_KATANA_SWING "katana_swing"
 #define SFX_KNIFE_SWING "knife_swing"
 #define SFX_RAPIER_SWING "rapier_swing"
-// Below is a list copied from TG, most of their defines are empty. But there are also used ones there.
+// Below is a list copied from TG, most of their defines are empty (without datum and sounds). But there are also those used by us.
 #define SFX_BODYFALL "bodyfall"
 #define SFX_BULLET_MISS "bullet_miss"
 #define SFX_CAN_OPEN "can_open"
 #define SFX_CLOWN_STEP "clown_step"
-// stop
 #define SFX_DESECRATION "desecration"
 #define SFX_EXPLOSION "explosion"
 #define SFX_EXPLOSION_CREAKING "explosion_creaking"

@@ -538,7 +538,7 @@
 /obj/structure/table/glass/proc/table_shatter(mob/living/L)
 	visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] разбивается!"), span_danger("Вы слышите, как бьется стекло"))
 	var/turf/T = get_turf(src)
-	playsound(T, "shatter", 50, TRUE)
+	playsound(T, SFX_SHATTER, 50, TRUE)
 	for(var/I in debris)
 		var/atom/movable/AM = I
 		AM.forceMove(T)
@@ -565,7 +565,7 @@
 			return
 		else
 			var/turf/T = get_turf(src)
-			playsound(T, "shatter", 50, TRUE)
+			playsound(T, SFX_SHATTER, 50, TRUE)
 			for(var/X in debris)
 				var/atom/movable/AM = X
 				AM.forceMove(T)

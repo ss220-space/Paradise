@@ -202,7 +202,7 @@ BODY SCANNERS
 		burnt = TRUE
 		on = FALSE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
-		playsound(loc, "sparks", 50, TRUE, 5)
+		playsound(loc, SFX_SPARKS, 50, TRUE, 5)
 		spark_system.start()
 
 

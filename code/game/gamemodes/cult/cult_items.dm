@@ -431,7 +431,7 @@
 		uses--
 		var/turf/destination = pick(turfs)
 		update_icon(UPDATE_ICON_STATE)
-		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
@@ -445,7 +445,7 @@
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	else
 		to_chat(C, span_danger("The veil cannot be torn here!"))

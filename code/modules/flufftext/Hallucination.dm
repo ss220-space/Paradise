@@ -400,7 +400,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				if(prob(75))
 					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/pierce.ogg', 25, TRUE), rand(10,20))
 				else
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, "ricochet", 25, TRUE), rand(10,20))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, SFX_RICOCHET, 25, TRUE), rand(10,20))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
 			target.playsound_local(null, get_sfx(SFX_BODYFALL), 25, TRUE)
 		if(4) //Stunprod + cablecuff

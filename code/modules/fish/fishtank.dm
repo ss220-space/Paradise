@@ -684,7 +684,7 @@
 	if(QDELETED(src))
 		return
 	if(!disassembled)
-		playsound(src, "shatter", 70, TRUE)
+		playsound(src, SFX_SHATTER, 70, TRUE)
 		for(var/i in 1 to shard_count)	//Produce the appropriate number of glass shards
 			var/obj/item/shard/S = new /obj/item/shard(get_turf(src))
 			transfer_fingerprints_to(S)

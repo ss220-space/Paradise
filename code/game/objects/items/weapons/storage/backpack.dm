@@ -30,7 +30,7 @@
 /obj/item/storage/backpack/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
-		playsound(loc, "rustle", 50, TRUE, -5)
+		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 
 
 /obj/item/storage/backpack/examine(mob/user)
