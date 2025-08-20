@@ -12,7 +12,7 @@
 	speak_emote = list("мурлычет", "мяукает")
 	emote_hear = list("мурлычет", "мяукает")
 	emote_see = list("трясёт головой", "дрожит", "вылизывается")
-	var/meow_sound = 'sound/creatures/cat_meow.ogg'	//Used in emote.
+	var/meow_sound = SFX_CAT_MEOW //Used in emote.
 	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
