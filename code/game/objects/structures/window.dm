@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	layer = ABOVE_OBJ_LAYER //Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE
-	flags = ON_BORDER
+	flags = ON_BORDER | NO_SCREENTIPS
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	can_be_unanchored = TRUE
 	set_dir_on_move = FALSE
@@ -38,7 +38,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
-	flags = NO_SCREENTIPS
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
@@ -769,7 +768,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	dir = FULLTILE_WINDOW_DIR
 	level = 3
 	fulltile = TRUE
-	flags = PREVENT_CLICK_UNDER
+	flags = PREVENT_CLICK_UNDER | NO_SCREENTIPS
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/window/full/CanAtmosPass(turf/T, vertical)
@@ -1059,7 +1058,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 100
 	fulltile = TRUE
-	flags = PREVENT_CLICK_UNDER
+	flags = PREVENT_CLICK_UNDER | NO_SCREENTIPS
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
@@ -1183,7 +1182,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
 	fulltile = TRUE
-	flags = PREVENT_CLICK_UNDER
+	flags = PREVENT_CLICK_UNDER | NO_SCREENTIPS
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 120
 	level = 3
@@ -1196,7 +1195,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
 	fulltile = TRUE
-	flags = PREVENT_CLICK_UNDER
+	flags = PREVENT_CLICK_UNDER | NO_SCREENTIPS
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 120
 	level = 3
