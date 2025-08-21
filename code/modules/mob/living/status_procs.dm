@@ -431,6 +431,37 @@
 /mob/living/proc/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSilence(directional_bounded_sum(AmountSilenced(), amount, bound_lower, bound_upper))
 
+/* UNCONSCIOUS */
+/mob/living/proc/is_unconscious() //If we're unconscious
+	return has_status_effect(/datum/status_effect/incapacitating/unconscious)
+
+/mob/living/proc/amount_unconscious() //How many deciseconds remain in our unconsciousness
+	var/datum/status_effect/incapacitating/unconscious/effect = is_unconscious()
+	if(effect)
+		return effect.duration - world.time
+	return FALSE
+
+/mob/living/proc/unconscious(amount, ignore_canstun = FALSE) //Can't go below remaining duration
+	return set_unconscious(amount, ignore_canstun)
+
+/mob/living/proc/set_unconscious(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
+		return
+	if(check_incapacitating_immunity(CANUNCONSCIOUS, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/unconscious/effect = is_unconscious()
+	if(amount <= 0)
+		if(effect)
+			qdel(effect)
+	else if(effect)
+		effect.duration = world.time + amount
+	else
+		effect = apply_status_effect(/datum/status_effect/incapacitating/unconscious, amount)
+	return effect
+
+/mob/living/proc/adjust_unconscious(amount, ignore_canstun = FALSE, bound_lower = 0, bound_upper = INFINITY) //Adds to remaining duration
+	return set_unconscious(directional_bounded_sum(amount_unconscious(), amount, bound_lower, bound_upper), ignore_canstun)
+
 /// SLEEPING
 /mob/living/proc/IsSleeping()
 	return has_status_effect(STATUS_EFFECT_SLEEPING)

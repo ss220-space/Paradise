@@ -64,7 +64,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "R&D console"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
-	light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_LAVENDER
 	circuit = /obj/item/circuitboard/rdconsole
 	var/datum/research/files							//Stores all the collected research data.
 	var/obj/item/disk/tech_disk/t_disk = null	//Stores the technology disk.

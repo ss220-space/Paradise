@@ -646,6 +646,7 @@
 	med_hud_set_status()
 	update_health_hud()
 	update_stamina_hud()
+	update_nutrition_hud()
 	update_damage_hud()
 	if(should_log)
 		log_debug("[src] update_stat([reason][HAS_TRAIT(src, TRAIT_GODMODE) ? ", GODMODE" : ""])")
@@ -992,7 +993,7 @@
 								TH.color = H.dna.species.blood_color
 
 						else
-							TH.color = "#A10808"
+							TH.color = BLOOD_COLOR_RED
 
 
 /mob/living/carbon/human/makeTrail(turf/T)
@@ -1119,7 +1120,7 @@
 		if(ishuman(src))
 			var/mob/living/carbon/human/human = src
 			. *= human.physiology.grab_resist_mod
-		. = round(. * (1 - (clamp(getStaminaLoss(), 0, maxHealth) / maxHealth)))
+		. = round(. * (1 - (clamp(getStaminaLoss(), 0, get_max_stamina()) / get_max_stamina())))
 	else if(. < 0)
 		. = 0
 		stack_trace("Wrong resist chance passed to get_resist_chance(), defaulting to zero.")

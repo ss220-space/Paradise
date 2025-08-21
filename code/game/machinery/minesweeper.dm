@@ -15,7 +15,7 @@
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
-	light_color = LIGHT_COLOR_LIGHTBLUE
+	light_color = LIGHT_COLOR_BLUE
 	tts_seed = "Livsy"
 	token_price = 10
 	/// Livsy says after win

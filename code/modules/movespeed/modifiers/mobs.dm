@@ -229,6 +229,14 @@
 	multiplicative_slowdown = HUMAN_CARRY_SLOWDOWN
 	blacklisted_movetypes = FLOATING
 
+/datum/movespeed_modifier/sight_mode
+	multiplicative_slowdown = 1.5
+	blacklisted_movetypes = FLOATING
+
+/datum/movespeed_modifier/sight_mode/New(slowdown = 1.5)
+	. = ..()
+	multiplicative_slowdown = slowdown
+
 
 /datum/movespeed_modifier/temperature
 	variable = TRUE

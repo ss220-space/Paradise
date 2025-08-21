@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	var/list/missing_organs
 	var/organs_number = 0
 
-	light_color = LIGHT_COLOR_PURE_GREEN
+	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 
 /obj/machinery/clonepod/get_ru_names()
 	return list(

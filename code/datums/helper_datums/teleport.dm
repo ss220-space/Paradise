@@ -1,9 +1,10 @@
 //wrapper
-/proc/do_teleport(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null, bypass_area_flag=FALSE)
+// Set *ignore_bluespace_interference* to TRUE if you don't want your teleportation to be affected by BoH, SoH and other bluespace stuff
+/proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE)
 	var/datum/teleport/instant/science/D = new
 	if(D.start(arglist(args)))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/teleport
 	var/atom/movable/teleatom //atom to teleport
@@ -17,71 +18,71 @@
 	var/ignore_area_flag = FALSE
 
 
-/datum/teleport/proc/start(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null, bypass_area_flag=FALSE)
+/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE)
 	if(!initTeleport(arglist(args)))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
-/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag=FALSE)
+/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE)
 	if(!setTeleatom(ateleatom))
-		return 0
+		return FALSE
 	if(!setDestination(adestination))
-		return 0
-	if(!setPrecision(aprecision))
-		return 0
-	setEffects(aeffectin,aeffectout)
+		return FALSE
+	if(!setPrecision(aprecision, ignore_bluespace_interference))
+		return FALSE
+	setEffects(aeffectin, aeffectout)
 	setForceTeleport(afteleport)
-	setSounds(asoundin,asoundout)
+	setSounds(asoundin, asoundout)
 	ignore_area_flag = bypass_area_flag
-	return 1
+	return TRUE
 
 //must succeed
-/datum/teleport/proc/setPrecision(aprecision)
+/datum/teleport/proc/setPrecision(aprecision, ignore_bluespace_interference)
 	if(isnum(aprecision))
 		precision = aprecision
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 //must succeed
 /datum/teleport/proc/setDestination(atom/adestination)
 	if(istype(adestination))
 		destination = adestination
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 //must succeed in most cases
 /datum/teleport/proc/setTeleatom(atom/movable/ateleatom)
 	if(iseffect(ateleatom) && !istype(ateleatom, /obj/effect/dummy/chameleon) && !istype(ateleatom, /obj/effect/anomaly))
 		qdel(ateleatom)
-		return 0
+		return FALSE
 	if(istype(ateleatom))
 		teleatom = ateleatom
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 //custom effects must be properly set up first for instant-type teleports
 //optional
-/datum/teleport/proc/setEffects(datum/effect_system/aeffectin=null,datum/effect_system/aeffectout=null)
+/datum/teleport/proc/setEffects(datum/effect_system/aeffectin = null, datum/effect_system/aeffectout = null)
 	effectin = istype(aeffectin) ? aeffectin : null
 	effectout = istype(aeffectout) ? aeffectout : null
-	return 1
+	return TRUE
 
 //optional
 /datum/teleport/proc/setForceTeleport(afteleport)
 	force_teleport = afteleport
-	return 1
+	return TRUE
 
 //optional
-/datum/teleport/proc/setSounds(asoundin=null,asoundout=null)
+/datum/teleport/proc/setSounds(asoundin = null, asoundout = null)
 	soundin = isfile(asoundin) ? asoundin : null
 	soundout = isfile(asoundout) ? asoundout : null
-	return 1
+	return TRUE
 
 //placeholder
 /datum/teleport/proc/teleportChecks()
-	return 1
+	return TRUE
 
-/datum/teleport/proc/playSpecials(atom/location,datum/effect_system/effect,sound)
+/datum/teleport/proc/playSpecials(atom/location, datum/effect_system/effect, sound)
 	if(location)
 		if(effect)
 			spawn(-1)
@@ -91,7 +92,7 @@
 		if(sound)
 			spawn(-1)
 				src = null
-				playsound(location,sound,60,1)
+				playsound(location, sound, 60, TRUE)
 	return
 
 //do the monkey dance
@@ -106,7 +107,7 @@
 		var/center = get_turf(destination)
 		if(!center)
 			center = destination
-		for(var/turf/T in range(precision,center))
+		for(var/turf/T in range(precision, center))
 			posturfs.Add(T)
 		destturf = safepick(posturfs)
 	else
@@ -151,58 +152,64 @@
 /datum/teleport/proc/teleport()
 	if(teleportChecks())
 		return doTeleport()
-	return 0
+	return FALSE
 
-/datum/teleport/instant/start(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null)
+/datum/teleport/instant/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null)
 	if(..())
 		if(teleport())
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 
 /datum/teleport/instant/science
 
-/datum/teleport/instant/science/setEffects(datum/effect_system/aeffectin,datum/effect_system/aeffectout)
-	if(aeffectin==null || aeffectout==null)
+/datum/teleport/instant/science/setEffects(datum/effect_system/aeffectin, datum/effect_system/aeffectout)
+	if(aeffectin == null || aeffectout == null)
 		var/datum/effect_system/spark_spread/aeffect = new
 		aeffect.set_up(5, 1, teleatom)
 		effectin = effectin || aeffect
 		effectout = effectout || aeffect
-		return 1
+		return TRUE
 	else
 		return ..()
 
-/datum/teleport/instant/science/setPrecision(aprecision)
+/datum/teleport/instant/science/setPrecision(aprecision, ignore_bluespace_interference)
 	..()
 	if(!is_admin_level(destination.z))
+		if(ignore_bluespace_interference)
+			return TRUE
+
 		if(istype(teleatom, /obj/item/storage/backpack/holding))
 			precision = rand(1, 100)
 
 		var/list/bagholding = teleatom.search_contents_for(/obj/item/storage/backpack/holding)
 		if(bagholding.len)
-			precision = max(rand(1, 100)*bagholding.len, 100)
+			precision = max(rand(1, 100) * bagholding.len, 100)
 			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
+
 		var/list/beltholding = teleatom.search_contents_for(/obj/item/storage/belt/bluespace)
 		if(beltholding.len)
-			precision = max(rand(1, 100)*beltholding.len, 100)
+			precision = max(rand(1, 100) * beltholding.len, 100)
 			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your belt of holding interferes with the teleport!</span>")
+
 		var/list/trashbagholding = teleatom.search_contents_for(/obj/item/storage/bag/trash/bluespace)
 		if(trashbagholding.len)
-			precision = max(rand(1, 100)*trashbagholding.len, 100)
+			precision = max(rand(1, 100) * trashbagholding.len, 100)
 			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your trashbag of holding interferes with the teleport!</span>")
+
 		var/list/miningsatholding = teleatom.search_contents_for(/obj/item/storage/bag/ore/holding)
 		if(miningsatholding.len)
-			precision = max(rand(1, 100)*miningsatholding.len, 100)
+			precision = max(rand(1, 100) * miningsatholding.len, 100)
 			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your mining satchel of holding interferes with the teleport!</span>")
-	return 1
+	return TRUE
 
 // Random safe location finder
 /proc/find_safe_turf(zlevel, list/zlevels)

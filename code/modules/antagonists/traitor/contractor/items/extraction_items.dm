@@ -39,57 +39,6 @@
 
 
 /**
-  * # Contractor Extraction Portal
-  *
-  * Used to extract contract targets and send them to the Syndicate jail for a few minutes.
-  */
-/obj/effect/portal/redspace/contractor
-	name = "suspicious portal"
-	icon_state = "portal-syndicate"
-	/// The contract associated with this portal.
-	var/datum/syndicate_contract/contract = null
-	/// The mind of the contractor. Used to tell them they shouldn't be taking the portal.
-	var/datum/mind/contractor_mind = null
-	/// The mind of the kidnapping target. Prevents non-targets from taking the portal.
-	var/datum/mind/target_mind = null
-
-/obj/effect/portal/redspace/contractor/get_ru_names()
-	return list(
-		NOMINATIVE = "подозрительный портал",
-		GENITIVE = "подозрительного портала",
-		DATIVE = "подозрительному порталу",
-		ACCUSATIVE = "подозрительный портал",
-		INSTRUMENTAL = "подозрительным порталом",
-		PREPOSITIONAL = "подозрительном портале"
-	)
-
-
-/obj/effect/portal/redspace/contractor/can_teleport(atom/movable/A, silent = FALSE)
-	var/mob/living/M = A
-	if(!istype(M))
-		return FALSE
-	if(M == usr && M.mind == contractor_mind)
-		if(!silent)
-			to_chat(M, span_warning("Портал здесь для того, чтобы эвакуировать цель контракта, а не вас!"))
-		return FALSE
-	if(M.mind != target_mind)
-		if(usr?.mind == contractor_mind) // Contractor shoving a non-target into the portal
-			if(!silent)
-				to_chat(M, span_warning("Почему-то вы не уверены, что [M] — именно та цель, которую вам нужно эвакуировать."))
-			return FALSE
-		else if(usr == M) // Non-target trying to enter the portal
-			if(!silent)
-				to_chat(M, span_warning("Почему-то вы не уверены, что это хорошая идея."))
-			return FALSE
-		return FALSE
-	return ..()
-
-/obj/effect/portal/redspace/contractor/teleport(atom/movable/M)
-	. = ..()
-	if(.)
-		contract.target_received(M, src)
-
-/**
   * # Prisoner Belongings Closet
   *
   * Cannot be opened. Contains the belongings of all kidnapped targets.

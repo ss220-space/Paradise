@@ -11617,9 +11617,8 @@
 	},
 /area/quartermaster/storage)
 "bzT" = (
-/obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -67272,6 +67271,7 @@
 	pixel_y = -26
 	},
 /obj/structure/cable,
+/obj/structure/closet/secure_closet/security_grenade_launcher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71796,12 +71796,6 @@
 "lKa" = (
 /turf/simulated/wall/r_wall/rust,
 /area/maintenance/asmaint4)
-"lKb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/turf/simulated/wall/r_wall,
-/area/toxins/xenobiology)
 "lKm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -78335,11 +78329,7 @@
 /turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "nji" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "njj" = (
@@ -95458,8 +95448,8 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = 28
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/machinery/vending/gun_mods,
 /turf/simulated/floor/plasteel,
 /area/security/customs)
 "qXe" = (
@@ -99456,8 +99446,7 @@
 /area/toxins/test_area)
 "rSm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -110040,10 +110029,6 @@
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "unM" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Warden's Office";
-	req_access = list(3)
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -110063,6 +110048,10 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security{
+	req_access = list(3);
+	name = "Warden's Office"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -152234,7 +152223,7 @@ seF
 kHF
 dkt
 xnO
-lKb
+oOo
 cIM
 udm
 cOM
