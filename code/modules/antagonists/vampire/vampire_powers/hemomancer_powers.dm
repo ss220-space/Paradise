@@ -349,6 +349,10 @@
 	sound_in = 'sound/misc/enter_blood.ogg'
 	sound_out = 'sound/misc/exit_blood.ogg'
 
+/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool/cast(list/targets, mob/user = usr)
+	if(user.buckled)
+		user.buckled.unbuckle_mob(user, force- TRUE)
+	. = ..()
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool/after_spell_init()
 	update_vampire_spell_name()
