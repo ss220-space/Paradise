@@ -79,7 +79,6 @@ Difficulty: Very Hard
 	del_on_death = TRUE
 	loot = list(/obj/structure/closet/crate/necropolis/ancient)
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
-	internal_type = /obj/item/gps/internal/ancient
 	medal_type = BOSS_MEDAL_ROBOT
 	score_type = ROBOT_SCORE
 	deathmessage = "взрывается дождём из сплавов"
@@ -132,12 +131,6 @@ Difficulty: Very Hard
 	QDEL_NULL(BL)
 	QDEL_NULL(beam)
 	return ..()
-
-/obj/item/gps/internal/ancient
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "ERROR_NULL_ENTRY"
-	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/death(gibbed, allowed = FALSE)
 	if(allowed)

@@ -18,7 +18,7 @@
 	return 0
 
 /datum/ai_law/sixsixsix/get_index()
-	return 	666
+	return	666
 
 
 /datum/ai_laws

@@ -13,9 +13,9 @@ Arrow direction - where to pod will move
 	--->		|		|		 <---
 
 	4			8		4			8
-  	 ---		/\	  ---		   /\
+ 	 ---		/\	  ---		   /\
 	|			|		|			|
-   \/		  ---	 	\/			---
+   \/		  ---		\/			---
 
 */
 /obj/structure/transit_tube/station

@@ -10,16 +10,20 @@
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
-	can_suppress = TRUE
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
+		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7)
+	)
 
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
-	icon_state = "[initial(icon_state)][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 
 //M1911//
@@ -30,7 +34,12 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
-	can_suppress = FALSE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 6),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -1)
+	)
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
 
@@ -57,12 +66,14 @@
 	magin_sound = 'sound/weapons/gun_interactions/spec_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/spec_magout.ogg'
 	unique_reskin = TRUE
-	can_suppress = FALSE
-	can_flashlight = TRUE
 	materials = list(MAT_METAL = 1000)
-	gun_light_overlay = "specter-light"
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
+	)
 
 
 /obj/item/gun/projectile/automatic/pistol/specter/update_gun_skins()
@@ -82,10 +93,6 @@
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 
-/obj/item/gun/projectile/automatic/pistol/specter/ui_action_click(mob/user, datum/action/action, leftclick)
-	toggle_gunlight()
-
-
 //Enforcer//
 /obj/item/gun/projectile/automatic/pistol/enforcer
 	name = "Enforcer"
@@ -94,12 +101,15 @@
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
-	can_suppress = TRUE
 	unique_reskin = TRUE
-	can_flashlight = TRUE
-	gun_light_overlay = "enforcer-light"
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 4),
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
+	)
 
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_gun_skins()
@@ -120,14 +130,6 @@
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/update_overlays()
-	. = ..()
-	if(suppressed)
-		. += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
-
-
-/obj/item/gun/projectile/automatic/pistol/enforcer/ui_action_click(mob/user, datum/action/action, leftclick)
-	toggle_gunlight()
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 
@@ -142,7 +144,6 @@
 	desc = "Стандартный дешевый пистолет для сотрудников службы безопасности."
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
-	can_suppress = TRUE
 
 //SP8 Pistol OBR and Warden//
 /obj/item/gun/projectile/automatic/pistol/sp8
@@ -153,12 +154,15 @@
 	mag_type = /obj/item/ammo_box/magazine/sp8
 	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
 	origin_tech = "combat=5;materials=2"
-	can_suppress = TRUE
 	unique_reskin = TRUE
-	can_flashlight = TRUE
-	gun_light_overlay = "sp8-light"
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 5),
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
+	)
 
 
 /obj/item/gun/projectile/automatic/pistol/sp8/update_gun_skins()
@@ -177,24 +181,18 @@
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 
-/obj/item/gun/projectile/automatic/pistol/sp8/update_overlays()
-	. = ..()
-	if(suppressed)
-		. += image(icon = icon, icon_state = "sp8_supp")
-
-
-/obj/item/gun/projectile/automatic/pistol/sp8/ui_action_click(mob/user, datum/action/action, leftclick)
-	toggle_gunlight()
-
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
 	name = "SP-8-T"
 	icon_state = "sp8t_dust"
 	desc = "Новейшая разработка для сил защиты активов."
 	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
-	can_suppress = FALSE
 	unique_reskin = TRUE
-	can_flashlight = TRUE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
+	)
 
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t/update_gun_skins()
@@ -207,9 +205,12 @@
 	desc = "Пистолет сил защиты активов оснащённый ДТК."
 	icon_state = "sp8ar"
 	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
-	can_suppress = FALSE
 	unique_reskin = FALSE
-	can_flashlight = TRUE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
+	)
 
 
 //Desert Eagle//
@@ -223,7 +224,12 @@
 	fire_sound = 'sound/weapons/gunshots/1deagle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
-	can_suppress = FALSE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 4),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -2)
+	)
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
 
@@ -250,9 +256,13 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
-	can_suppress = TRUE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 5),
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 8)
+	)

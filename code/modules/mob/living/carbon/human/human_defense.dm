@@ -695,7 +695,7 @@ emp_act
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[M] ударил[genderize_ru(M.gender, "", "а", "о", "и")] [src]!"), \
- 				span_userdanger("[M] ударил[genderize_ru(M.gender, "", "а", "о", "и")] [src]!"))
+				span_userdanger("[M] ударил[genderize_ru(M.gender, "", "а", "о", "и")] [src]!"))
 
 			apply_damage(damage, BRUTE, affecting, armor_block, TRUE)
 			add_attack_logs(M, src, "Alien attacked")

@@ -8,6 +8,7 @@
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
@@ -221,7 +222,6 @@
 	desc = "An old model of revolver that originated in Russia. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
 	origin_tech = "combat=3"
-	can_suppress = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	accuracy = GUN_ACCURACY_PISTOL
 
@@ -510,6 +510,7 @@
 	unique_reskin = TRUE
 	pb_knockback = 3
 	accuracy = GUN_ACCURACY_SHOTGUN
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/update_gun_skins()

@@ -706,21 +706,21 @@
 	data["emagged"] = emagged
 	data["modes"] = list(
 		AALARM_MODE_SCRUBBING   = list("name"="Filtering",   "desc"="Scrubs out contaminants", "id" = AALARM_MODE_SCRUBBING),\
-		AALARM_MODE_VENTING		= list("name"="Draught", 	 "desc"="Siphons out air while replacing", "id" = AALARM_MODE_VENTING),\
+		AALARM_MODE_VENTING		= list("name"="Draught",	 "desc"="Siphons out air while replacing", "id" = AALARM_MODE_VENTING),\
 		AALARM_MODE_PANIC       = list("name"="Panic Siphon","desc"="Siphons air out of the room quickly", "id" = AALARM_MODE_PANIC),\
 		AALARM_MODE_REPLACEMENT = list("name"="Cycle",       "desc"="Siphons air before replacing", "id" = AALARM_MODE_REPLACEMENT),\
 		AALARM_MODE_SIPHON	    = list("name"="Siphon",		 "desc"="Siphons air out of the room", "id" = AALARM_MODE_SIPHON),\
 		AALARM_MODE_CONTAMINATED= list("name"="Contaminated","desc"="Scrubs out all contaminants quickly", "id" = AALARM_MODE_CONTAMINATED),\
 		AALARM_MODE_REFILL      = list("name"="Refill",      "desc"="Triples vent output", "id" = AALARM_MODE_REFILL),\
 		AALARM_MODE_OFF         = list("name"="Off",         "desc"="Shuts off vents and scrubbers", "id" = AALARM_MODE_OFF),\
-		AALARM_MODE_FLOOD 		= list("name"="Flood", 		 "desc"="Shuts off scrubbers and opens vents", 	"emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
+		AALARM_MODE_FLOOD		= list("name"="Flood",		 "desc"="Shuts off scrubbers and opens vents",	"emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
 	)
 	data["mode"] = mode
 	data["presets"] = list(
-		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),\
-		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for nitrogen only", "id" = AALARM_PRESET_VOX),\
-		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers", "id" = AALARM_PRESET_COLDROOM),\
-		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER)
+		AALARM_PRESET_HUMAN		= list("name"="Human",    	 "desc"="Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),\
+		AALARM_PRESET_VOX		= list("name"="Vox",      	 "desc"="Checks for nitrogen only", "id" = AALARM_PRESET_VOX),\
+		AALARM_PRESET_COLDROOM	= list("name"="Coldroom",	 "desc"="For freezers", "id" = AALARM_PRESET_COLDROOM),\
+		AALARM_PRESET_SERVER	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER)
 	)
 	data["preset"] = preset
 

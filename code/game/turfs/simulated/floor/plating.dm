@@ -177,10 +177,6 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/simulated/floor/engine/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/blob_turf_consuming, 3)
-
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
 

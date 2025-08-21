@@ -106,7 +106,7 @@
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	user.SetConfused(0)
-	user.adjustStaminaLoss(-100)
+	user.setStaminaLoss(0)
 	user.set_resting(FALSE, instant = TRUE)
 	user.get_up(instant = TRUE)
 	to_chat(user, span_notice("Вы наполняете свое тело чистой кровью и снимаете все обездвиживающие эффекты."))

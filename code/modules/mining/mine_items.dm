@@ -76,6 +76,7 @@
 	new /obj/item/shovel(src)
 	new /obj/item/pickaxe/mini(src)
 	new /obj/item/flashlight/seclite(src)
+	new /obj/item/gun_module/under/flashlight/rifle(src)
 	new /obj/item/storage/bag/plants(src)
 	new /obj/item/storage/bag/gem(src)
 	new /obj/item/storage/bag/ore(src)

@@ -214,7 +214,12 @@
 /obj/item/reagent_containers/food/condiment/syndisauce
 	name = "Chef Excellence's Special Sauce"
 	desc = "Этот ароматный соус, приготовленный из мухоморов, просто восхитителен! Смерть никогда не была такой приятной на вкус."
-	ru_names = list(
+	list_reagents = list("amanitin" = 50)
+	possible_states = list()
+	log_eating = TRUE
+
+/obj/item/reagent_containers/food/condiment/syndisauce/get_ru_names()
+	return list(
 		NOMINATIVE = "элитарный соус шефа",
 		GENITIVE = "элитарного соуса шефа",
 		DATIVE = "элитарному соусу шефа",
@@ -222,9 +227,6 @@
 		INSTRUMENTAL = "элитарным соусом шефа",
 		PREPOSITIONAL = "элитарном соусе шефа"
 	)
-	list_reagents = list("amanitin" = 50)
-	possible_states = list()
-	log_eating = TRUE
 
 //Tomato sauce
 /obj/item/reagent_containers/food/condiment/tomatosauce

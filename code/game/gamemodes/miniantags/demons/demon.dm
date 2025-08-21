@@ -4,14 +4,6 @@
 
 /mob/living/simple_animal/demon
 	name = "a generic demon"
-	ru_names = list(
-		NOMINATIVE = "обычный демон",
-		GENITIVE = "обычного демона",
-		DATIVE = "обычному демону",
-		ACCUSATIVE = "обычного демона",
-		INSTRUMENTAL = "обычным демоном",
-		PREPOSITIONAL = "обычном демоне"
-	)
 	desc = "Если вы это видите, составьте баг-репорт в Discord."
 	speak_emote = list("клокочет", "урчит", "булькает")
 	emote_hear = list("визжит", "воет")
@@ -43,6 +35,15 @@
 	var/playstyle_string
 	var/datum/action/innate/demon/whisper/whisper_action
 
+/mob/living/simple_animal/demon/get_ru_names()
+	return list(
+		NOMINATIVE = "обычный демон",
+		GENITIVE = "обычного демона",
+		DATIVE = "обычному демону",
+		ACCUSATIVE = "обычного демона",
+		INSTRUMENTAL = "обычным демоном",
+		PREPOSITIONAL = "обычном демоне"
+	)
 
 /mob/living/simple_animal/demon/Initialize(mapload)
 	. = ..()
@@ -104,7 +105,13 @@
 
 /obj/item/organ/internal/heart/demon
 	name = "demon heart"
-	ru_names = list(
+	desc = "Оно всё ещё яростно бьётся, излучая ауру абсолютной ненависти."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "demon_heart"
+	origin_tech = "combat=5;biotech=7"
+
+/obj/item/organ/internal/heart/demon/get_ru_names()
+	return list(
 		NOMINATIVE = "демоническое сердце",
 		GENITIVE = "демонического сердца",
 		DATIVE = "демоническому сердцу",
@@ -112,10 +119,6 @@
 		INSTRUMENTAL = "демоническим сердцем",
 		PREPOSITIONAL = "демоническом сердце"
 	)
-	desc = "Оно всё ещё яростно бьётся, излучая ауру абсолютной ненависти."
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "demon_heart"
-	origin_tech = "combat=5;biotech=7"
 
 
 /obj/item/organ/internal/heart/demon/update_icon_state()

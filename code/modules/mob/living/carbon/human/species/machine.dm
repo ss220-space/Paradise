@@ -31,6 +31,7 @@
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_NO_GERMS,
 		TRAIT_NO_DECAY,	// computers that don't decay? What a lie!
+		TRAIT_NO_NUTRITION_EFFECTS,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
@@ -51,8 +52,6 @@
 	male_sneeze_sound = list('sound/effects/mob_effects/machine_sneeze.ogg')
 	female_sneeze_sound = list('sound/effects/mob_effects/f_machine_sneeze.ogg')
 	butt_sprite = "machine"
-
-	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
 	hunger_type = "machine"
 
 	has_organ = list(
