@@ -689,6 +689,8 @@
 #define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
 ///from base of mob/living/Immobilize() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
+///from base of mob/living/unconscious() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
 ///from base of mob/living/Paralyze() (amount, ignore_canparalyse)
 #define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
@@ -1469,3 +1471,10 @@
 
 #define COMSIG_SAY_YOUR_NAME "say_your_name"
 	#define SAY_NAME_BLOCK (1<<1)
+
+/// From /obj/structure/closet/supplypod/proc/preReturn()
+#define COMSIG_SUPPLYPOD_PRE_RETURN "supply_pod_pre_return"
+/// From /obj/structure/closet/supplypod/proc/on_enter()
+#define COMSIG_SUPPLYPOD_ENTERED "supply_pod_entered"
+/// From /obj/structure/closet/supplypod/proc/on_exit()
+#define COMSIG_SUPPLYPOD_EXITED "supply_pod_exited"

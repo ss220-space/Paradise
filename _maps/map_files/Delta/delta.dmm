@@ -11617,9 +11617,8 @@
 	},
 /area/quartermaster/storage)
 "bzT" = (
-/obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -78330,11 +78329,7 @@
 /turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "nji" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "njj" = (
@@ -99451,8 +99446,7 @@
 /area/toxins/test_area)
 "rSm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},

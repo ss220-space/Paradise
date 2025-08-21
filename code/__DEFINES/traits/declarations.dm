@@ -341,3 +341,6 @@
 #define TRAIT_NOT_TURRET_GUN "not_turret_gun"
 
 #define TRAIT_BALD "bald"
+
+/// Anti stun reagent in blood
+#define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"

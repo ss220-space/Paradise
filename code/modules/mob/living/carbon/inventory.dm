@@ -360,15 +360,6 @@
 	. |= list(l_hand, r_hand)
 
 
-/mob/living/carbon/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
-	var/list/items = ..()
-	if(wear_suit)
-		items += wear_suit
-	if(head)
-		items += head
-	return items
-
-
 /mob/living/carbon/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
 	. = ..()
 	if(wear_suit)

@@ -290,7 +290,9 @@
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
 								/obj/item/melee/energy/sword = 4,											// 160 ТК
 								/obj/item/card/id/syndicate = 1,											// 10 ТК
-								/obj/item/paicard/syndicate = 1,)											// 37 TK
+								/obj/item/paicard/syndicate = 1,										    // 37 TK
+								/obj/item/storage/belt/military/traitor = 1,                                // 2 TK
+								/obj/item/storage/toolbox/syndisuper = 1,)                                  // 8 TK
 	)
 
 

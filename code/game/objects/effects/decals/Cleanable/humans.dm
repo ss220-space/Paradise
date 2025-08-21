@@ -256,6 +256,8 @@
 	mergeable_decal = FALSE
 	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
+	/// Do these gibs produce squishy sounds?
+	var/squishy = TRUE
 
 /obj/effect/decal/cleanable/blood/gibs/get_ru_names()
 	return list(
@@ -271,6 +273,8 @@
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
+	if(squishy)
+		AddElement(/datum/element/squish_sound)
 
 /obj/effect/decal/cleanable/blood/gibs/Destroy()
 	if(giblets)
