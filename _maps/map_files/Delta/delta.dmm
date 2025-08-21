@@ -67272,6 +67272,7 @@
 	pixel_y = -26
 	},
 /obj/structure/cable,
+/obj/structure/closet/secure_closet/security_grenade_launcher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -95452,8 +95453,8 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = 28
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/machinery/vending/gun_mods,
 /turf/simulated/floor/plasteel,
 /area/security/customs)
 "qXe" = (

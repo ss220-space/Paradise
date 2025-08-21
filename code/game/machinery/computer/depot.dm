@@ -11,7 +11,7 @@
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "tcboss"
-	light_color = LIGHT_COLOR_PURE_CYAN
+	light_color = LIGHT_COLOR_ELECTRIC_CYAN
 	req_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	var/window_height = 400 // should be roughly 100 per section. Allow extra space for the lockout alert.

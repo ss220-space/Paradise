@@ -1012,6 +1012,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!do_after(user, 4 SECONDS, source))
 		return
 	clean_blood()
+	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, 5)
 	acid_level = 0
 	user.visible_message(
 		span_notice("[user] мо[pluralize_ru(user.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)]."),

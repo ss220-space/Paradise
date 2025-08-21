@@ -417,6 +417,7 @@
 /datum/action/item_action/activate/enchant/New(Target)
 	..()
 	UpdateButtonIcon()
+
 /datum/action/item_action/halt
 	name = "СТОЯТЬ!"
 
@@ -611,6 +612,33 @@
 
 /datum/action/item_action/remove_badge
 	name = "Снять голобейдж"
+
+
+/datum/action/item_action/toggle_cleave_attack
+	name = "Переключить режим атаки со взмахом"
+	check_flags = NONE
+	attack_self = FALSE
+	var/toggled = TRUE
+
+
+/datum/action/item_action/toggle_cleave_attack/UpdateButtonIcon()
+	. = ..()
+	button.icon = 'icons/mob/actions/actions.dmi'
+	if(toggled)
+		button.icon_state = "bg_default_on"
+	else
+		button.icon_state = "bg_default"
+
+
+/datum/action/item_action/toggle_cleave_attack/Trigger(left_click = TRUE)
+	if(!..())
+		return
+
+	toggled = !toggled
+	SEND_SIGNAL(target, COMSIG_TOGGLE_CLEAVE_ATTACK)
+	UpdateButtonIcon()
+	to_chat(usr, span_notice("Вы [toggled ? "включаете" : "отключаете"] атаку со взмахом."))
+
 
 // Jump boots
 /datum/action/item_action/bhop

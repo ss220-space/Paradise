@@ -300,7 +300,7 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
 	needs_permit = TRUE
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
 
 
 /obj/item/twohanded/dualsaber/Initialize(mapload)
@@ -1108,7 +1108,7 @@
 	light_range = 3
 	light_power = 6
 	siemens_coefficient = 0
-	light_color = COLOR_SOFT_RED
+	light_color = LIGHT_COLOR_FLARE
 	gender = PLURAL
 
 /obj/item/twohanded/pitchfork/demonic/get_ru_names()

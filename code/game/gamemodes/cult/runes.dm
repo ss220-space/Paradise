@@ -925,8 +925,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	qdel(shield)
 	ghosts--
 	if(new_human)
-		new_human.visible_message(span_warning("[new_human] suddenly dissolves into bones and ashes."),
-								span_cultlarge("Your link to the world fades. Your form breaks apart."))
+		new_human.visible_message(
+			span_warning("[new_human] suddenly dissolves into bones and ashes."),
+			span_cultlarge("Your link to the world fades. Your form breaks apart.")
+		)
 		for(var/obj/item/I in new_human.get_all_slots())
 			new_human.drop_item_ground(I)
 		SSticker.mode.remove_cultist(new_human.mind, FALSE)

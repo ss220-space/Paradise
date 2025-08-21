@@ -796,6 +796,20 @@
 		updatehealth("setStaminaLoss")
 
 
+/// Returns the maximum stamina of the mob with bonuses affecting it
+/mob/living/proc/get_max_stamina()
+	return max_stamina
+
+
+/// Max stamina MUST be lower than MAX_STAMINA_LOSS otherwise everything will explode
+/mob/living/proc/set_max_stamina(amount)
+	if(amount > MAX_STAMINA_LOSS)
+		max_stamina = MAX_STAMINA_LOSS
+		return
+
+	max_stamina = max(0, amount)
+
+
 /// Maxhealth var getter
 /mob/living/proc/getMaxHealth()
 	return maxHealth
