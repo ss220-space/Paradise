@@ -995,7 +995,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(b_data)
 		basecolor = b_data["blood_color"]
 	else
-		basecolor = "#A10808"
+		basecolor = BLOOD_COLOR_RED
 	update_icon()
 
 /obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
@@ -1004,7 +1004,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(b_data)
 		basecolor = b_data["blood_color"]
 	else
-		basecolor = "#A10808"
+		basecolor = BLOOD_COLOR_RED
 	update_icon()
 
 //to add blood dna info to the object's blood_DNA list
@@ -1022,7 +1022,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/list/blood_dna = M.get_blood_dna_list()
 	if(!blood_dna)
 		return FALSE
-	var/bloodcolor = "#A10808"
+	var/bloodcolor = BLOOD_COLOR_RED
 	var/list/b_data = M.get_blood_data(M.get_blood_id())
 	if(b_data)
 		bloodcolor = b_data["blood_color"]
@@ -1038,7 +1038,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /obj/item/add_blood(list/blood_dna, color)
 	if(isnull(color))
-		color = "#A10808"
+		color = BLOOD_COLOR_RED
 
 	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
 	if(!..())
@@ -1054,7 +1054,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /turf/add_blood(list/blood_dna, color)
 	if(isnull(color))
-		color = "#A10808"
+		color = BLOOD_COLOR_RED
 
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
 	if(!B)

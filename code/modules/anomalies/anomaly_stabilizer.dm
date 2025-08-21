@@ -8,7 +8,6 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "pistol_base"
 	gender = MALE
-	gun_light_overlay = "flight"
 	can_add_sibyl_system = FALSE
 	origin_tech = "programming=3;magnets=3"
 	cell_type = /obj/item/stock_parts/cell/high

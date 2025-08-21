@@ -139,7 +139,7 @@
 	name = "eldritch wall"
 	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "m_shield_cult"
-	light_color = LIGHT_COLOR_PURE_RED
+	light_color = LIGHT_COLOR_INTENSE_RED
 
 
 /obj/effect/forcefield/holy

@@ -199,6 +199,7 @@
 	target_types += /obj/effect/decal/cleanable/ash
 	target_types += /obj/effect/decal/cleanable/greenglow
 	target_types += /obj/effect/decal/cleanable/dirt
+	target_types += /obj/effect/decal/cleanable/blood/paint
 
 	if(blood)
 		target_types += /obj/effect/decal/cleanable/blood/xeno/

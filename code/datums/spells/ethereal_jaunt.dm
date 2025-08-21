@@ -35,6 +35,10 @@
 	// mech supress escape
 	if(HAS_TRAIT_FROM(target, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
 		target.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
+
+	if(target.buckled)
+		target.buckled.unbuckle_mob(target, TRUE)
+
 	ADD_TRAIT(target, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	var/turf/mobloc = get_turf(target)
 	var/obj/effect/dummy/spell_jaunt/holder = new jaunt_type_path(mobloc)

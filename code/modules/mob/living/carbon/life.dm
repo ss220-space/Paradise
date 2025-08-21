@@ -207,7 +207,9 @@
 	if(!internal)
 		update_action_buttons_icon()
 		return
-
+	if(!istype(internal))
+		internal = null
+		return
 	return internal.remove_air_volume(volume_needed)
 
 

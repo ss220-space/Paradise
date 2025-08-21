@@ -16,9 +16,6 @@
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = FALSE
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
-	can_flashlight = TRUE
-	flight_x_offset = 15
-	flight_y_offset = 9
 	can_bayonet = TRUE
 	bayonet_x_offset = 20
 	bayonet_y_offset = 12
@@ -41,6 +38,10 @@
 	/// Saved timer that can be overrided by modkits after hitting target.
 	var/recharge_timerid
 	accuracy = GUN_ACCURACY_SNIPER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+	)
 
 
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)

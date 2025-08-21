@@ -23,7 +23,7 @@
 	desc = "A floating crystal that hums with an unearthly energy."
 	icon_state = "pylon"
 	light_range = 1.5
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 
 /obj/structure/cult/archives
 	name = "Desk"
@@ -217,7 +217,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	desc = "A floating crystal that slowly heals those faithful to a cult."
 	icon_state = "pylon"
 	light_range = 1.5
-	light_color = LIGHT_COLOR_RED
+	light_color = LIGHT_COLOR_FLARE
 	max_integrity = 50 //Very fragile
 	death_message = span_danger("The pylon's crystal vibrates and glows fiercely before violently shattering!")
 	death_sound = 'sound/effects/pylon_shatter.ogg'
