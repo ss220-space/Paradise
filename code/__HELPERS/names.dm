@@ -42,14 +42,17 @@ GLOBAL_VAR(religion_name)
 
 GLOBAL_VAR(station_name)
 /proc/station_name()
-	return GLOB.station_name? GLOB.station_name : SSmapping.map_datum.station_name
+	return GLOB.station_name ? GLOB.station_name : SSmapping.map_datum.station_name
+
+/proc/change_station_name(designation)
+	GLOB.station_name = designation
 
 GLOBAL_VAR(english_station_name)
 /proc/english_station_name()
 	return GLOB.english_station_name ? GLOB.english_station_name : (SSmapping.map_datum.english_station_name ? SSmapping.map_datum.english_station_name : SSmapping.map_datum.station_name)
 
-/proc/change_station_name(designation)
-	GLOB.station_name = designation
+/proc/change_english_station_name(designation)
+	GLOB.english_station_name = designation
 	update_world_name()
 
 /proc/update_world_name()
