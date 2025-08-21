@@ -29,7 +29,8 @@
 #define DISABILITY_FLAG_APHASIA (1<<17)
 #define DISABILITY_FLAG_CATEARS (1<<18)
 
-#define DISABILITY_MAX (1<<19 - 1)
+// При добавлении новых дизабилити, увеличивать данное значение
+#define DISABILITY_MAX ((1<<19) - 1)
 
 
 //Nutrition levels for humans. No idea where else to put it
