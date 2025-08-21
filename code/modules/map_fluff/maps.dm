@@ -10,6 +10,8 @@
 	var/space_ruins_levels = null //null for default number of ruins. use it to override. Can be used to neglect lagging from multi-z station.
 
 	var/station_name = "BAD Station"
+	/// It is necessary for the correct name in the Byond hub.
+	var/english_station_name = null // Default station_name, see english_station_name()
 	var/station_short = "Baddy"
 	var/dock_name = "THE PirateBay"
 	var/company_name = "BadMan"

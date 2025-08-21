@@ -44,26 +44,17 @@ GLOBAL_VAR(station_name)
 /proc/station_name()
 	return GLOB.station_name? GLOB.station_name : SSmapping.map_datum.station_name
 
+GLOBAL_VAR(english_station_name)
+/proc/english_station_name()
+	return GLOB.english_station_name ? GLOB.english_station_name : (SSmapping.map_datum.english_station_name ? SSmapping.map_datum.english_station_name : SSmapping.map_datum.station_name)
+
 /proc/change_station_name(designation)
 	GLOB.station_name = designation
 	update_world_name()
 
 /proc/update_world_name()
-	/// Replacing Russian station_name with English station_name, because the Byond hub does not work with Cyrillic.
-	var/static/list/station_translations = list(
-		"ИСН Керберос" = "NSS Kerberos",
-		"ИСН Селестион" = "NSS Selestion",
-		"ИСН Фаррагус" = "NSS Farragus",
-		"ИСН Кибериада" = "NSS Cyberiad",
-		"ИСН Нова" = "NSS Nova",
-		"ШОН Мальта" = "NMC Malta",
-		"ИСН Туррим" = "NSS Turrim"
-	)
-
-	var/current_station_name = station_name()
-	if(station_translations[current_station_name])
-		current_station_name = station_translations[current_station_name]
-
+	// We use english_station_name() to display correctly in the Byond hub.
+	var/current_station_name = english_station_name()
 	if(config && CONFIG_GET(string/servername))
 		world.name = "[CONFIG_GET(string/servername)] — [current_station_name]"
 	else

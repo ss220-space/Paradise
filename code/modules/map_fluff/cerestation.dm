@@ -7,6 +7,7 @@
 	lavaland_path = "_maps/map_files/cerestation/Lavaland.dmm"
 
 	station_name = "ИСН Фаррагус"
+	english_station_name = "NSS Farragus"
 	station_short = "Фаррагус"
 	dock_name = "АКН Трурль"
 	company_name = "НаноТрейзен"

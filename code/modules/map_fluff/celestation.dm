@@ -12,6 +12,7 @@
 	)
 	space_ruins_levels = 0
 	station_name = "ИСН Селестион"
+	english_station_name = "NSS Selestion"
 	station_short = "Селестиа"
 	dock_name = "АКН Трурль"
 	company_name = "НаноТрейзен"
