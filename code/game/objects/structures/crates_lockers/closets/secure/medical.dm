@@ -98,7 +98,7 @@
 /obj/item/storage/pill_bottle/psychiatrist
 	name = "psychiatrist's pill bottle"
 	desc = "Contains various pills to calm or sedate patients."
-	wrapper_color = COLOR_PALE_BTL_GREEN
+	wrapper_color = COLOR_IRISH_GREEN
 
 // Why the hell is this in the closets folder?
 /obj/item/storage/pill_bottle/psychiatrist/populate_contents()

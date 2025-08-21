@@ -130,7 +130,7 @@
 	light_on = FALSE
 	light_range = 1.5
 	light_power = 1
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 
 
 /obj/item/clothing/head/cakehat/process()

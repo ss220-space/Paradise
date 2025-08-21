@@ -936,15 +936,15 @@
 /area/tdome/tdome2)
 "iZ" = (
 /obj/structure/table/wood,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /turf/simulated/floor/wood,
 /area/admin)
 "jc" = (
@@ -2140,6 +2140,10 @@
 /obj/item/gun/projectile/automatic/toy/pistol,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
+"xn" = (
+/obj/machinery/vending/gun_mods/free,
+/turf/simulated/floor/carpet,
+/area/admin)
 "xo" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -2533,16 +2537,16 @@
 /area/holodeck/source_theatre)
 "BG" = (
 /obj/structure/table/wood,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
-/obj/item/suppressor/specialoffer,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /turf/simulated/floor/wood,
 /area/admin)
 "BI" = (
@@ -4751,8 +4755,8 @@ kD
 gA
 sZ
 aU
-ZG
-ZG
+xn
+xn
 wP
 ui
 Us
