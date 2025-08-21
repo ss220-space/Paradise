@@ -24,11 +24,11 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!iscarbon(target) && !isanimal(target))
-		to_chat(user, span_danger("The [name] cannot be applied to [target]!"))
+		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] не может быть применен к [target]!"))
 		return .
 
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, span_danger("You don't have the dexterity to do this!"))
+		to_chat(user, span_danger("Вам не хватает навыков чтобы использовать [declent_ru(NOMINATIVE)]!"))
 		return .
 
 	if(ishuman(target))
@@ -37,44 +37,44 @@
 		var/obj/item/organ/external/affecting = human_target.get_organ(selected_zone)
 
 		if(isgolem(human_target))
-			to_chat(user, span_danger("This can't be used on golems!"))
+			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя оприменить на големах!"))
 			return .
 
 		if(human_target.covered_with_thick_material(selected_zone))
-			to_chat(user, span_danger("There is no thin material to inject into."))
+			to_chat(user, span_danger("Здесь слишком толстый слой материала для применения [declent_ru(NOMINATIVE)]."))
 			return .
 
 		if(!affecting)
-			to_chat(user, span_danger("That limb is missing!"))
+			to_chat(user, span_danger("Часть тела отсутствует!"))
 			return .
 
 		if(affecting.is_robotic())
-			to_chat(user, span_danger("This can't be used on a robotic limb."))
+			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
 			return .
 
 		if(human_target == user && !unique_handling)
 			user.visible_message(
-				span_notice("[human_target] starts to apply [src] on [human_target.p_themselves()]."),
-				span_notice("You start to apply [src] on yourself..."),
+				span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять [declension_ru(NOMINATIVE)] на себе."),
+				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на себе..."),
 			)
 			if(!do_after(human_target, self_delay, human_target, NONE))
 				return .
 
 			var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
 			if(!affecting_rechecked)
-				to_chat(human_target, span_danger("That limb is missing!"))
+				to_chat(human_target, span_danger("Часть тела отсутствует!"))
 				return .
 
 			if(human_target.covered_with_thick_material(selected_zone))
-				to_chat(human_target, span_danger("There is no thin material to inject into."))
+				to_chat(human_target, span_danger("Здесь слишком толстый слой материала для применения [declent_ru(NOMINATIVE)]."))
 				return .
 
 			if(affecting_rechecked.is_robotic())
-				to_chat(human_target, span_danger("This can't be used on a robotic limb."))
+				to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
 				return .
 		else
 			user.visible_message(
-				span_notice("[user] применяет [declent_ru(NOMINATIVE)] на [human_target]."),
+				span_notice("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [human_target]."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
 			)
 			if(use_duration && !do_after(user, use_duration, human_target))
@@ -84,20 +84,20 @@
 	if(isanimal(target))
 		var/mob/living/simple_animal/critter = target
 		if(!(critter.healable))
-			to_chat(user, span_danger("You cannot use [src] on [critter]!"))
+			to_chat(user, span_danger("Вы не можете использовать [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]!"))
 			return .
 		if (critter.health == critter.maxHealth)
-			to_chat(user, span_danger("[critter] is at full health."))
+			to_chat(user, span_danger("[capitalize(critter.declent_ru(NOMINATIVE))] полностью здоров."))
 			return .
 		if(heal_brute < 1)
-			to_chat(user, span_danger("[src] won't help [critter] at all."))
+			to_chat(user, span_danger("[capitalize(critter.declent_ru(NOMINATIVE))] никак не поможет [critter.declent_ru(DATIVE)]."))
 			return .
 		if(!use(1))
 			return .
 		critter.heal_organ_damage(heal_brute, heal_burn)
 		user.visible_message(
-			span_green("[user] applies [src] on [critter]."),
-			span_green("You apply [src] on [critter]."),
+			span_green("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]."),
+			span_green("Вы применяете [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]."),
 		)
 
 		return .|ATTACK_CHAIN_SUCCESS
@@ -107,17 +107,18 @@
 
 	target.heal_organ_damage(heal_brute, heal_burn)
 	user.visible_message(
-		span_green("[user] applies [src] on [target]."),
-		span_green("You apply [src] on [target]."),
+		span_green("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] к [target]."),
+		span_green("Вы применяете [declent_ru(NOMINATIVE)] к [target]."),
 	)
 	return .|ATTACK_CHAIN_SUCCESS
 
 
-/obj/item/stack/medical/proc/human_heal(mob/living/carbon/human/H, mob/user)
-	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
-	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
-						 "<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
-
+/obj/item/stack/medical/proc/human_heal(mob/living/carbon/human/target, mob/user)
+	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+	user.visible_message(
+		span_green("[user] использу[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
+		span_green("Вы используете [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
+	)
 	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
 	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
 	var/nrembrute = rembrute
@@ -134,33 +135,35 @@
 		achildlist = affecting.children.Copy()
 	var/parenthealed = FALSE
 	while(rembrute + remburn > 0) // Don't bother if there's not enough leftover heal
-		var/obj/item/organ/external/E
+		var/obj/item/organ/external/organ
 		if(LAZYLEN(achildlist))
-			E = pick_n_take(achildlist) // Pick a random children and then remove it from the list
+			organ = pick_n_take(achildlist) // Pick a random children and then remove it from the list
 		else if(affecting.parent && !parenthealed) // If there's a parent and no healing attempt was made on it
-			E = affecting.parent
+			organ = affecting.parent
 			parenthealed = TRUE
 		else
 			break // If the organ have no child left and no parent / parent healed, break
-		if(E.is_robotic() || E.open) // Ignore robotic or open limb
+		if(organ.is_robotic() || organ.open) // Ignore robotic or open limb
 			continue
-		else if(!E.brute_dam && !E.burn_dam) // Ignore undamaged limb
+		else if(!organ.brute_dam && !organ.burn_dam) // Ignore undamaged limb
 			continue
-		nrembrute = max(0, rembrute - E.brute_dam) // Deduct the healed damage from the remain
-		nremburn = max(0, remburn - E.burn_dam)
-		var/brute_was = E.brute_dam
-		var/burn_was = E.burn_dam
-		update_damage_icon |= E.heal_damage(rembrute, remburn, updating_health = FALSE)
-		if(E.brute_dam != brute_was || E.burn_dam != burn_was)
+		nrembrute = max(0, rembrute - organ.brute_dam) // Deduct the healed damage from the remain
+		nremburn = max(0, remburn - organ.burn_dam)
+		var/brute_was = organ.brute_dam
+		var/burn_was = organ.burn_dam
+		update_damage_icon |= organ.heal_damage(rembrute, remburn, updating_health = FALSE)
+		if(organ.brute_dam != brute_was || organ.burn_dam != burn_was)
 			should_update_health = TRUE
 		rembrute = nrembrute
 		remburn = nremburn
-		user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
-							 "<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
+		user.visible_message(
+			span_green("[user] обрабатыва[pluralize_ru(user.gender,"ет","ют")] раны на [organ.declent_ru(ACCUSATIVE)] [target] остатками медикаментов."),
+			span_green("Вы обрабатываете раны на [organ.declent_ru(ACCUSATIVE)] [target] остатками медикаментов."),
+		)
 	if(should_update_health)
-		H.updatehealth("[name] heal")
+		target.updatehealth("[name] heal")
 	if(update_damage_icon)
-		H.UpdateDamageIcon()
+		target.UpdateDamageIcon()
 
 
 // MARK: Bruise Packs
@@ -175,28 +178,28 @@
 	heal_brute = 10
 	bleedsuppress = 1.5
 	stop_bleeding = 180 SECONDS
+	use_duration = 3 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
 
 /obj/item/stack/medical/bruise_pack/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
 
-/obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+/obj/item/stack/medical/bruise_pack/attackby(obj/item/item, mob/user, params)
+	if(is_sharp(item))
 		add_fingerprint(user)
 		var/atom/drop_loc = drop_location()
 		if(!use(2))
-			to_chat(user, span_warning("You need at least two gauzes to do this!"))
+			to_chat(user, span_warning("Вам нужно минимум 2 кусочка бинтов чтобы сделать это!"))
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/stack/sheet/cloth/cloth = new(drop_loc)
 		cloth.add_fingerprint(user)
 		user.visible_message(
-			span_notice("[user] cuts [src] into pieces of cloth with [I]."),
-			span_notice("You cut [src] into pieces of cloth with [I]."),
-			span_italics("You hear cutting."),
+			span_notice("[user] разрезает [declent_ru(ACCUSATIVE)] на куски ткани при помощи [item.declent_ru(INSTRUMENTAL)]."),
+			span_notice("Вы разрезаете [declent_ru(ACCUSATIVE)] на куски ткани при помощи [item.declent_ru(INSTRUMENTAL)]."),
+			span_italics("Слышно звук разрезания."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
-
 	return ..()
 
 /obj/item/stack/medical/bruise_pack/update_icon_state()
@@ -206,26 +209,20 @@
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
 		return .
-
 	if(!get_amount())
-		to_chat(user, span_danger("Not enough medical supplies!"))
+		to_chat(user, span_danger("Не хватает медикаментов!"))
 		return ATTACK_CHAIN_PROCEED
-
 	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
 	if(affecting.open != ORGAN_CLOSED)
-		to_chat(user, span_danger("The [affecting.name] is cut open, you'll need more than a bandage!"))
+		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, тут уже не помочь бинтами!"))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
-
 	if(!use(1))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
-
 	affecting.germ_level = 0
-
 	if(stop_bleeding && affecting.bleeding_amount > affecting.bleedsuppress)	//so you can't stack bleed suppression
 		affecting.suppress_bloodloss(user, target, bleedsuppress, stop_bleeding)
-
 	human_heal(target, user)
 	target.UpdateDamageIcon()
 	update_icon()
@@ -235,7 +232,7 @@
 	name = "improvised gauze"
 	singular_name = "improvised gauze"
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
-	stop_bleeding = 900
+	stop_bleeding = 90 SECONDS
 	icon_state = "gauze_imp_3"
 
 /obj/item/stack/medical/bruise_pack/improvised/update_icon_state()
@@ -244,7 +241,7 @@
 /obj/item/stack/medical/bruise_pack/military
 	name = "emergency bandage"
 	singular_name = "emergency bandage"
-	desc = "A sterile military-grade hemostatic bandage for rapid bleeding control in combat situations. Contains clotting agents and is designed for single-use application."
+	desc = "Комплект стерильных бинтов в удобной упаковке для быстрой остановки кровотечения."
 	icon_state = "bandage"
 	item_state = "gauze"
 	origin_tech = "biotech=2;combat=1"
@@ -255,7 +252,17 @@
 	stop_bleeding = 300 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
-	use_duration = 1.5 SECONDS
+	use_duration = 1 SECONDS
+
+/obj/item/stack/medical/bruise_pack/military/get_ru_names()
+	return list(
+		NOMINATIVE = "перевязочный пакет",
+		GENITIVE = "перевязочного пакета",
+		DATIVE = "перевязочному пакету",
+		ACCUSATIVE = "перевязочный пакет",
+		INSTRUMENTAL = "перевязочным пакетом",
+		PREPOSITIONAL = "перевязочном пакете"
+	)
 
 /obj/item/stack/medical/bruise_pack/military/attackby(obj/item/I, mob/user, params)
 	if(is_sharp(I))
@@ -275,7 +282,7 @@
 	heal_brute = 25
 	stop_bleeding = 0
 	use_duration = 0
-	use_duration = 1.5 SECONDS
+	use_duration = 2 SECONDS
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
 	return
@@ -331,7 +338,7 @@
 
 	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
 	if(affecting.open != ORGAN_CLOSED)
-		to_chat(user, span_danger("The [affecting.name] is cut open, you'll need more than some ointment!"))
+		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, тут уже не помочь мазью!"))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
 
@@ -515,7 +522,7 @@
 /obj/item/stack/medical/suture
 	name = "suture kit"
 	singular_name = "suture thread"
-	desc = "A sterile surgical suture kit for stitching wounds and stopping bleeding."
+	desc = "Набор с хирургической игрой и специальной нитью для сшивания ран. Останавливает кровотечение, но лучше использовать под обезбаливающими."
 	icon_state = "suture_3"
 	item_state = "suture"
 	origin_tech = "biotech=3"
@@ -529,6 +536,16 @@
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
 
+/obj/item/stack/medical/suture/get_ru_names()
+	return list(
+		NOMINATIVE = "набор для зашивания ран",
+		GENITIVE = "набора для зашивания ран",
+		DATIVE = "набору для зашивания ран",
+		ACCUSATIVE = "набор для зашивания ран",
+		INSTRUMENTAL = "набором для зашивания ран",
+		PREPOSITIONAL = "наборе для зашивания ран"
+	)
+
 /obj/item/stack/medical/suture/update_icon_state()
 	icon_state = "suture_[amount ? amount : 1]"
 
@@ -538,12 +555,12 @@
 		return .
 
 	if(!get_amount())
-		to_chat(user, span_danger("Not enough suture kit!"))
+		to_chat(user, span_danger("Не хватает ниток!"))
 		return ATTACK_CHAIN_PROCEED
 
 	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
 	if(affecting.open != ORGAN_CLOSED)
-		to_chat(user, span_danger("The [affecting.name] is cut open, you'll need more than a suture kit!"))
+		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, это уже не сшить без помощи хирургических инструментов!"))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
 	if(!affecting.bleeding_amount)
