@@ -1249,7 +1249,7 @@
 	if(!delay_icon_update)
 		UpdateAppearance()
 
-	var/species_check = dna.species
+	var/species_check = !!dna.species
 
 	SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
 
