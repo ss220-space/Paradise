@@ -1249,14 +1249,14 @@
 	if(!delay_icon_update)
 		UpdateAppearance()
 
+	var/species_check = dna.species
+
+	SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
+
 	if(!HAS_TRAIT(src, TRAIT_NO_HUNGER) && !HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
 		AddElement(/datum/element/nutrition_effects)
 
-	if(dna.species)
-		SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
-		return TRUE
-	else
-		return FALSE
+	return species_check
 
 
 /mob/living/carbon/human/get_default_language()
