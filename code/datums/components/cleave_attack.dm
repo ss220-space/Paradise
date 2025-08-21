@@ -214,5 +214,5 @@
 /datum/component/cleave_attack/Destroy(force)
 	cleave_end_callback = null
 	if(toggle_action)
-		qdel(toggle_action)
+		QDEL_NULL(toggle_action)
 	return ..()
