@@ -418,6 +418,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/vending_refill/security)
 	containername = "SecTech supply crate"
 
+/datum/supply_packs/security/vending/security_mods
+	name = "ModTech Supply Crate"
+	cost = 20
+	contains = list(/obj/item/vending_refill/gun_mods)
+	containername = "ModTech supply crate"
+
 ////// Armor: Basic
 
 /datum/supply_packs/security/justiceinbound

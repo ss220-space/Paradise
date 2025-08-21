@@ -83832,13 +83832,11 @@
 	},
 /area/crew_quarters/fitness)
 "oQa" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22"
-	},
 /obj/structure/cable/orange,
 /obj/machinery/power/apc{
 	pixel_y = -28
 	},
+/obj/machinery/vending/gun_mods,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"

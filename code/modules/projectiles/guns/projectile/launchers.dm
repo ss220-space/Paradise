@@ -10,6 +10,7 @@
 	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_HIGH
 
 
@@ -43,6 +44,7 @@
 	fire_delay = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
@@ -61,7 +63,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "combat=4;engineering=4"
 	force = 10
-	can_suppress = FALSE
 	mag_type = /obj/item/ammo_box/magazine/internal/speargun
 	fire_sound = 'sound/weapons/genhit.ogg'
 	burst_size = 1
@@ -69,6 +70,7 @@
 	select = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_DEFAULT
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = null
 
 
@@ -118,6 +120,7 @@
 	flags = CONDUCT
 	show_live_rounds = FALSE
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_MEDIUM
 
 

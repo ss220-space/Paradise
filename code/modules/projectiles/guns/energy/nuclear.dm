@@ -6,14 +6,17 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
 	modifystate = TRUE
-	can_flashlight = TRUE
 	ammo_x_offset = 3
-	flight_x_offset = 15
-	flight_y_offset = 10
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7)
+	)
 
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/cyborg/newshot()
 	..()
@@ -27,13 +30,10 @@
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
-	gun_light_overlay = "mini-light"
-	flight_x_offset = 0
-	flight_y_offset = 0
 	ammo_x_offset = 2
 	charge_sections = 3
-	can_flashlight = FALSE
 	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
@@ -53,6 +53,11 @@
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 10),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -10)
+	)
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
 	. = ..()
@@ -68,6 +73,7 @@
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
 	. = ..()
@@ -84,6 +90,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/pdw9/ert
 
@@ -102,10 +109,10 @@
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
-	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 	accuracy = GUN_ACCURACY_SNIPER
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/nuclear
 	name = "advanced energy gun"
@@ -119,6 +126,11 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8)
+	)
 
 /obj/item/gun/energy/gun/minigun
 	name = "Laser gatling gun"
@@ -152,6 +164,7 @@
 	var/force_wielded = 20
 	accuracy = new /datum/gun_accuracy/minimal/gatling()
 	recoil = GUN_RECOIL_LOW
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/minigun/Initialize(mapload)
 	. = ..()
