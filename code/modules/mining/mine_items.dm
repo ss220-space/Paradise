@@ -76,6 +76,7 @@
 	new /obj/item/shovel(src)
 	new /obj/item/pickaxe/mini(src)
 	new /obj/item/flashlight/seclite(src)
+	new /obj/item/gun_module/under/flashlight/rifle(src)
 	new /obj/item/storage/bag/plants(src)
 	new /obj/item/storage/bag/gem(src)
 	new /obj/item/storage/bag/ore(src)
@@ -149,7 +150,7 @@
 	item_state = "lantern"
 	belt_icon = "lantern"
 	light_range = 6		// luminosity when on
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 	light_system = MOVABLE_LIGHT
 	var/obj/item/gem/inserted_gem = null
 	var/mutable_appearance/lantern_light_overlay
@@ -189,7 +190,7 @@
 		on = !on
 	cut_overlay(lantern_light_overlay)
 	if(!inserted_gem)
-		set_light_color(LIGHT_COLOR_YELLOW)
+		set_light_color(LIGHT_COLOR_DIM_YELLOW)
 		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi',"lantern_light", color = light_color)
 	else
 		set_light_color(inserted_gem.light_color)

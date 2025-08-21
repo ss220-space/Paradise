@@ -35,8 +35,8 @@
 	var/static/list/pill_bottle_wrappers = list(
 		COLOR_RED_LIGHT = "Red",
 		COLOR_GREEN = "Green",
-		COLOR_PALE_BTL_GREEN = "Pale Green",
-		COLOR_CYAN_BLUE = "Light Blue",
+		COLOR_IRISH_GREEN = "Irish Green",
+		COLOR_DARK_CYAN = "Dark Cyan",
 		COLOR_TEAL = "Teal",
 		COLOR_YELLOW = "Yellow",
 		COLOR_ORANGE = "Orange",

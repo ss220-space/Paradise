@@ -108,7 +108,6 @@
 		check_vampire_upgrade(announce = FALSE)
 		user.faction |= ROLE_VAMPIRE
 		user.dna?.species?.hunger_type = "vampire"
-		user.dna?.species?.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 		//goon vampire slaves code
 		//if(mob_override.mind.som)
 			//var/datum/mindslaves/slaved = mob_override.mind.som
@@ -146,7 +145,6 @@
 			hud.remove_vampire_hud()
 
 		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
-		user.dna?.species?.hunger_icon = initial(user.dna.species.hunger_icon)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 

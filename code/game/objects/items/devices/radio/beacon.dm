@@ -141,7 +141,7 @@
 								/obj/item/clothing/glasses/hud/security/chameleon = 1,						// 10 TK
 								/obj/item/pen/fancy/bomb = 1,												// 30 TK
 								/obj/item/gun/projectile/automatic/pistol = 1,								// 20 TK
-								/obj/item/suppressor = 1,													// 5 TK
+								/obj/item/gun_module/muzzle/suppressor = 1,													// 5 TK
 								/obj/item/ammo_box/magazine/m10mm = 1,										// 2.5 TK
 								/obj/item/ammo_box/magazine/m10mm/hp = 1,									// 5 TK
 								/obj/item/ammo_box/magazine/m10mm/ap = 2,									// 10 TK

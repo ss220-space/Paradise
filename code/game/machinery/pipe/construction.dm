@@ -35,11 +35,11 @@
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/visible/supply) || istype(make_from, /obj/machinery/atmospherics/pipe/simple/hidden/supply))
 			src.pipe_type = PIPE_SUPPLY_STRAIGHT + is_bent
 			connect_types = list(2)
-			src.color = PIPE_COLOR_BLUE
+			src.color = COLOR_BLUE
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/visible/scrubbers) || istype(make_from, /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers))
 			src.pipe_type = PIPE_SCRUBBERS_STRAIGHT + is_bent
 			connect_types = list(3)
-			src.color = PIPE_COLOR_RED
+			src.color = COLOR_RED
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/visible/universal) || istype(make_from, /obj/machinery/atmospherics/pipe/simple/hidden/universal))
 			src.pipe_type = PIPE_UNIVERSAL
 			connect_types = list(1,2,3)
@@ -50,11 +50,11 @@
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold/visible/supply) || istype(make_from, /obj/machinery/atmospherics/pipe/manifold/hidden/supply))
 			src.pipe_type = PIPE_SUPPLY_MANIFOLD
 			connect_types = list(2)
-			src.color = PIPE_COLOR_BLUE
+			src.color = COLOR_BLUE
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers) || istype(make_from, /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers))
 			src.pipe_type = PIPE_SCRUBBERS_MANIFOLD
 			connect_types = list(3)
-			src.color = PIPE_COLOR_RED
+			src.color = COLOR_RED
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold))
 			src.pipe_type = PIPE_MANIFOLD
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/vent_pump))
@@ -84,11 +84,11 @@
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w/visible/supply) || istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply))
 			src.pipe_type = PIPE_SUPPLY_MANIFOLD4W
 			connect_types = list(2)
-			src.color = PIPE_COLOR_BLUE
+			src.color = COLOR_BLUE
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers) || istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers))
 			src.pipe_type = PIPE_SCRUBBERS_MANIFOLD4W
 			connect_types = list(3)
-			src.color = PIPE_COLOR_RED
+			src.color = COLOR_RED
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w))
 			src.pipe_type = PIPE_MANIFOLD4W
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/multiz))
@@ -96,11 +96,11 @@
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap/visible/supply) || istype(make_from, /obj/machinery/atmospherics/pipe/cap/hidden/supply))
 			src.pipe_type = PIPE_SUPPLY_CAP
 			connect_types = list(2)
-			src.color = PIPE_COLOR_BLUE
+			src.color = COLOR_BLUE
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap/visible/scrubbers) || istype(make_from, /obj/machinery/atmospherics/pipe/cap/hidden/scrubbers))
 			src.pipe_type = PIPE_SCRUBBERS_CAP
 			connect_types = list(3)
-			src.color = PIPE_COLOR_RED
+			src.color = COLOR_RED
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap))
 			src.pipe_type = PIPE_CAP
 
@@ -127,10 +127,10 @@
 		src.dir = dir
 		if(pipe_type == PIPE_SUPPLY_STRAIGHT || pipe_type == PIPE_SUPPLY_BENT || pipe_type == PIPE_SUPPLY_MANIFOLD || pipe_type == PIPE_SUPPLY_MANIFOLD4W || pipe_type == PIPE_SUPPLY_CAP)
 			connect_types = list(2)
-			src.color = PIPE_COLOR_BLUE
+			src.color = COLOR_BLUE
 		else if(pipe_type == PIPE_SCRUBBERS_STRAIGHT || pipe_type == PIPE_SCRUBBERS_BENT || pipe_type == PIPE_SCRUBBERS_MANIFOLD || pipe_type == PIPE_SCRUBBERS_MANIFOLD4W || pipe_type == PIPE_SCRUBBERS_CAP)
 			connect_types = list(3)
-			src.color = PIPE_COLOR_RED
+			src.color = COLOR_RED
 		else if(pipe_type == PIPE_UNIVERSAL)
 			connect_types = list(1,2,3)
 
