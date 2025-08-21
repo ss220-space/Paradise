@@ -545,7 +545,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<br><b>Носки:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[socks]</a>"
 			dat += "<br><b>Сумка на спину:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[backbag]</a><br><br>"
-			dat += "<b>Может ли персонаж быть антагонистом? (Если нет, при выпадении роли, будет выбран персонаж у которого эта настройка включена)</b> <a href='byond://?_src_=prefs;preference=can_be_antagonist;task=input'>[can_be_antagonist ? "Да" : "Нет"]</a><br><br>"
+			dat += "<b>Может ли персонаж быть антагонистом?</b> <a href='byond://?_src_=prefs;preference=can_be_antagonist;task=input'>[can_be_antagonist ? "Да" : "Нет"]</a><br><br>"
 			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Меню выбора снаряжения</a><br>"
 
 			dat += "</td></tr></table>"
@@ -3057,8 +3057,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 /// Get random charecter with can_be_antagonist on. If no such characters, don't change current.
 /datum/preferences/proc/get_possible_antagonist()
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
-		"ckey" = parent.ckey
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot, can_be_antagonist FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+		"ckey" = parent.ckey,
 	))
 
 	if(!query.warn_execute(async = FALSE)) // Dont async this. Youll make roundstart slow.
@@ -3067,7 +3067,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	var/list/saves = list()
 	while(query.NextRow())
-		var/cur_can_be_antagonist = query.item[63]
+		var/cur_can_be_antagonist = query.item[2]
 		if(!cur_can_be_antagonist)
 			continue
 
