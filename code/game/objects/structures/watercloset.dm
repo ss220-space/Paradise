@@ -1,5 +1,9 @@
 //todo: toothbrushes, and some sort of "toilet-filthinator" for the hos
 
+#define STASH_CHOICE "Спрятать предмет"
+#define DISCONNECT_CHOICE "Отсоеденить"
+#define CONNECT_CHOICE "Подключить"
+#define ROTATE_CHOICE "Крутить"
 
 /obj/structure/toilet
 	name = "toilet"
@@ -154,14 +158,16 @@
 	if(istype(item, /obj/item/reagent_containers))
 		add_fingerprint(user)
 		if(!open)
-			to_chat(user, span_warning("Вы не можете заполнить [item.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)] пока он закрыт."))
+			balloon_alert(user, "нужно открыть")
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/reagent_containers/container = item
 		if(!container.is_refillable())
 			to_chat(user, span_warning("[capitalize(container.declent_ru(NOMINATIVE))] не предназначен для повторного заполнения."))
+			balloon_alert(user, "не удалось")
 			return ATTACK_CHAIN_PROCEED
 		if(container.reagents.holder_full())
 			to_chat(user, span_warning("[capitalize(container.declent_ru(NOMINATIVE))] уже полный..."))
+			balloon_alert(user, "уже полный")
 			return ATTACK_CHAIN_PROCEED
 		container.reagents.add_reagent("toiletwater", min(container.volume - container.reagents.total_volume, container.amount_per_transfer_from_this))
 		to_chat(user, span_notice("Вы заполняете [container.declent_ru(NOMINATIVE)] из [declent_ru(GENITIVE)]."))
@@ -183,7 +189,7 @@
 	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, TRUE)
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
 		user.visible_message(
-			span_notice("[user] [cistern ? "поставил крышку на место" : "снял крышку с бачка"]!"),
+			span_notice("[user] [cistern ? "поставил[genderize_ru(user.gender, "", "а", "о", "и")] крышку на место" : "снял[pluralize_ru(user.gender,"","и")] крышку с бачка"]!"),
 			span_notice("Вы [cistern ? "поставили крышку на место" : "сняли крышку с бачка"]!"),
 			span_italics("Вы слышите скрип фарфора."))
 		cistern = !cistern
@@ -196,35 +202,45 @@
 		return
 	var/choices = list()
 	if(cistern)
-		choices += "Спрятать предмет"
+		choices += STASH_CHOICE
 	if(anchored)
-		choices += "Отсоеденить"
+		choices += DISCONNECT_CHOICE
 	else
-		choices += "Подключить"
-		choices += "Крутить"
+		choices += CONNECT_CHOICE
+		choices += ROTATE_CHOICE
 
 	var/response = tgui_input_list(user, "Что вы хотите сделать?", "[declent_ru(NOMINATIVE)]", choices)
 	if(!Adjacent(user) || !response)	//moved away or cancelled
 		return
 	switch(response)
-		if("Спрятать предмет")
+		if(STASH_CHOICE)
 			stash_goods(item, user)
-		if("Отсоеденить")
-			user.visible_message(span_notice("[user] начинает отсоединять [declent_ru(NOMINATIVE)]."), span_notice("Вы начинаете отсоединять [declent_ru(NOMINATIVE)]..."))
+		if(DISCONNECT_CHOICE)
+			user.visible_message(
+				span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] отсоединять [declent_ru(NOMINATIVE)]."),
+				span_notice("Вы начинаете отсоединять [declent_ru(NOMINATIVE)]..."))
 			if(item.use_tool(src, user, 40, volume = item.tool_volume))
 				if(!loc || !anchored)
 					return
-				user.visible_message(span_notice("[user] отсоединяет [declent_ru(NOMINATIVE)]!"), span_notice("Вы отсоединили [declent_ru(NOMINATIVE)]!"))
+				user.visible_message(
+					span_notice("[user] отсоединя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)]!"),
+					span_notice("Вы отсоединили [declent_ru(NOMINATIVE)]!"))
+				balloon_alert(user, "отсоединено")
 				set_anchored(FALSE)
-		if("Подключить")
-			user.visible_message(span_notice("[user] начинает подключать [declent_ru(NOMINATIVE)]."), span_notice("Вы начинаете подключать [declent_ru(NOMINATIVE)]..."))
+		if(CONNECT_CHOICE)
+			user.visible_message(
+				span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] подключать [declent_ru(NOMINATIVE)]."),
+				span_notice("Вы начинаете подключать [declent_ru(NOMINATIVE)]..."))
 			if(item.use_tool(src, user, 40, volume = item.tool_volume))
 				if(!loc || anchored)
 					return
-				user.visible_message(span_notice("[user] начинаете подключать [declent_ru(NOMINATIVE)]!"), span_notice("Вы подключили [declent_ru(NOMINATIVE)]!"))
+				user.visible_message(
+					span_notice("[user] подключил[pluralize_ru(user.gender,"","и")] [declent_ru(NOMINATIVE)]!"),
+					span_notice("Вы подключили [declent_ru(NOMINATIVE)]!"))
+				balloon_alert(user, "соединено")
 				set_anchored(TRUE)
-		if("Крутить")
-			var/list/dir_choices = list("Север" = NORTH, "Восток" = EAST, "Юг" = SOUTH, "ЗЗапад" = WEST)
+		if(ROTATE_CHOICE)
+			var/list/dir_choices = list("Север" = NORTH, "Восток" = EAST, "Юг" = SOUTH, "Запад" = WEST)
 			var/selected = tgui_input_list(user, "Выберите направление соединения.", "Направление соединения", dir_choices)
 			dir = dir_choices[selected]
 	update_icon()
@@ -233,13 +249,13 @@
 	if(!item)
 		return
 	if(item.w_class > WEIGHT_CLASS_NORMAL) // if item size > 3
-		to_chat(user, span_warning("[capitalize(item.declent_ru(NOMINATIVE))] не помещается!"))
+		balloon_alert(user, "не помещается")
 		return
 	if(w_items + item.w_class > WEIGHT_CLASS_HUGE) // if item size > 5
-		to_chat(user, span_warning("Бачок уже полон!"))
+		balloon_alert(user, "бачок уже полон")
 		return
 	if(!user.drop_transfer_item_to_loc(item, src))
-		to_chat(user, span_warning("[capitalize(item.declent_ru(NOMINATIVE))] прилип к вашей руке, вы не можете положить его в бачок!"))
+		balloon_alert(user, "не удалось")
 		return
 	w_items += item.w_class
 	to_chat(user, span_notice("Вы осторожно поместили [item.declent_ru(ACCUSATIVE)] внутрь бачка."))
@@ -889,3 +905,8 @@
 		qdel(src)
 		if(prob(50))
 			new /obj/item/stack/sheet/cardboard(T)
+
+#undef STASH_CHOICE
+#undef DISCONNECT_CHOICE
+#undef CONNECT_CHOICE
+#undef ROTATE_CHOICE
