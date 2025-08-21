@@ -301,7 +301,7 @@
 
 	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 		missing -= bodypart.limb_zone
-		var/status
+		var/status = ""
 		var/brutedamage = bodypart.brute_dam
 		var/burndamage = bodypart.burn_dam
 
@@ -323,6 +323,23 @@
 			if(40 to INFINITY)
 				status += "сло[pluralize_ru(bodypart.gender, "ит", "ят")]ся кусками обожённой плоти"
 
+		if(bodypart.bleeding_amount)
+			if(brutedamage > 0 && burndamage > 0)
+				status += ", "
+			var/high_bleeding = bodypart.bleeding_amount > HIGH_BLEEDING_VALUE
+			var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
+			if(suppressed)
+				status += " перевязан[genderize_ru(bodypart.gender, "", "а", "о", "ы")] чем-то окровавленным"
+			else if(high_bleeding)
+				status += " обильно кровоточ[pluralize_ru(gender, "ит", "ат")]"
+			else
+				status += " кровоточ[pluralize_ru(gender, "ит", "ат")]"
+		else
+			if(bodypart.bleedsuppress)
+				if(brutedamage > 0 && burndamage > 0)
+					status += ", "
+				status += " перевязан[genderize_ru(bodypart.gender, "", "а", "о", "ы")] чем-то"
+
 		if(bodypart.status & ORGAN_MUTATED)
 			status = "выгляд[pluralize_ru(bodypart.gender, "ит", "ят")] неестественно"
 
@@ -337,8 +354,6 @@
 	for(var/t in missing)
 		status_list += span_boldannounceic("У вас отсутствует [parse_zone(t)]!")
 
-	if(H.bleed_rate)
-		status_list += span_danger("У вас кровотечение!")
 	if(staminaloss)
 		if(staminaloss > 30)
 			status_list += span_danger("Вы истощены!")
@@ -922,7 +937,7 @@ so that different stomachs can handle things in different ways VB*/
 
 	if(client.eye && client.eye != src)
 		var/atom/atom = client.eye
-		
+
 		if(atom.update_remote_sight(src)) // returns TRUE if we override all other sight updates.
 			return
 
