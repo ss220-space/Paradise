@@ -4,15 +4,17 @@
 	weight = 6
 	combos = list(/datum/martial_combo/mr_chang/steal_card)
 	has_explaination_verb = TRUE
-	var/stun_on_cooldown = FALSE
+	var/cooldown = 10 SECONDS
+	COOLDOWN_DECLARE(last_use)
 
 /datum/martial_art/mr_chang/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I)
 	//Stunning discounts!
-	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(INC_IGNORE_GRABBED) && defender.a_intent == INTENT_DISARM && !stun_on_cooldown)
+	if(!COOLDOWN_FINISHED(src, last_use))
+		return
+	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(INC_IGNORE_GRABBED) && defender.a_intent == INTENT_DISARM)
 		defender.visible_message(span_warning("[defender] перехватывает атаку [attacker]!"))
 		attacker.forceMove(defender.loc)
 		attacker.Knockdown(2 SECONDS)
-		stun_on_cooldown = TRUE
 		defender.SpinAnimation(10,1)
 		attacker.SpinAnimation(10,1)
 		add_attack_logs(defender, attacker, "Intercepted attack with [src]: Stunning discounts!")
@@ -25,7 +27,7 @@
 						'sound/weapons/mr_chang/mr_chang_5.mp3')
 		playsound(get_turf(defender), sound, 50, TRUE, -1)
 
-		addtimer(VARSET_CALLBACK(src, stun_on_cooldown, FALSE), 10 SECONDS)
+		COOLDOWN_START(src, last_use, cooldown)
 		return TRUE
 
 /datum/martial_art/mr_chang/explaination_header(user)
