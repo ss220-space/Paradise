@@ -85387,6 +85387,7 @@
 /obj/structure/sign/poster/contraband/fun_police{
 	pixel_x = 32
 	},
+/obj/structure/closet/secure_closet/security_grenade_launcher,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"

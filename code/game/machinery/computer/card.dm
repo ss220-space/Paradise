@@ -15,7 +15,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	icon_screen = "id"
 	req_access = list(ACCESS_CHANGE_IDS)
 	circuit = /obj/item/circuitboard/card
-	light_color = LIGHT_COLOR_LIGHTBLUE
+	light_color = LIGHT_COLOR_BLUE
 	var/obj/item/card/id/scan = null
 	var/obj/item/card/id/modify = null
 	var/mode = IDCOMPUTER_SCREEN_TRANSFER
@@ -819,7 +819,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	name = "security management console"
 	target_dept = TARGET_DEPT_SEC
 	icon_screen = "idhos"
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 	req_access = list(ACCESS_HOS)
 	circuit = /obj/item/circuitboard/card/minor/hos
 
@@ -827,7 +827,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	name = "supply management console"
 	target_dept = TARGET_DEPT_SUP
 	icon_screen = "idqm"
-	light_color = COLOR_BROWN_ORANGE
+	light_color = COLOR_DARK_MODERATE_ORANGE
 	req_access = list(ACCESS_QM)
 	circuit = /obj/item/circuitboard/card/minor/qm
 

@@ -8,7 +8,7 @@
 	volume = 15
 	materials = list(MAT_GLASS=100)
 	var/light_intensity = 2
-	light_color = LIGHT_COLOR_LIGHTBLUE
+	light_color = LIGHT_COLOR_BLUE
 	resistance_flags = FLAMMABLE
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/get_ru_names()

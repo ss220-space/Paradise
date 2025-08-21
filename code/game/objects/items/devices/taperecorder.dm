@@ -26,6 +26,8 @@
 	var/starts_with_tape = TRUE
 	/// Sound loop that plays when recording or playing back.
 	var/datum/looping_sound/tape_recorder_hiss/soundloop
+	/// Sound or loud mode
+	var/silent_mode = FALSE
 
 
 /obj/item/taperecorder/empty
@@ -64,7 +66,7 @@
 
 
 /obj/item/taperecorder/proc/update_sound()
-	if(!playing && !recording)
+	if(!playing && !recording || silent_mode)
 		soundloop.stop()
 	else
 		soundloop.start()
@@ -121,26 +123,44 @@
 	else
 		record()
 
+#define PLAYBACK_TAPE "Воспроизведение кассеты"
+#define PRINT_TRANSCRIPT "Распечатать стенограмму"
+#define EJECT_TAPE "Достать кассету"
+#define SILENT_MODE "Тихий режим"
+
+/obj/item/taperecorder/proc/toggle_silent_mode(mob/user)
+	silent_mode = !silent_mode
+	update_sound()
+	balloon_alert(user, "тихий режим [silent_mode ? "включён" : "выключен"]")
+	playsound(src, 'sound/machines/switch.ogg', 20, FALSE)
 
 /obj/item/taperecorder/click_alt(mob/living/user)
 	if(!mytape)
 		return NONE
 
-	var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
-					"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
-					"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
+	var/list/options = list( PLAYBACK_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
+					PRINT_TRANSCRIPT = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
+					EJECT_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]"),
+					SILENT_MODE = image(icon = silent_mode ? 'icons/obj/items.dmi' : 'icons/obj/device.dmi' , icon_state = silent_mode ? "earmuffs" : "megaphone")
 					)
 	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 	if(!choice || user.incapacitated())
 		return CLICK_ACTION_BLOCKING
 	switch(choice)
-		if("Playback Tape")
+		if(PLAYBACK_TAPE)
 			play(user)
-		if("Print Transcript")
+		if(PRINT_TRANSCRIPT)
 			print_transcript(user)
-		if("Eject Tape")
+		if(EJECT_TAPE)
 			eject(user)
+		if(SILENT_MODE)
+			toggle_silent_mode(user)
 	return CLICK_ACTION_SUCCESS
+
+#undef PLAYBACK_TAPE
+#undef PRINT_TRANSCRIPT
+#undef EJECT_TAPE
+#undef SILENT_MODE
 
 /obj/item/taperecorder/proc/recorder_say(message, datum/tape_piece/record_datum)
 	if(record_datum)
@@ -150,8 +170,10 @@
 	else
 		tts_seed = initial(tts_seed)
 		atom_say_verb = "говорит"
+		if(silent_mode)
+			balloon_alert(ismob(loc) ? loc : null, "[message]")
+			return
 		atom_say("[message]")
-
 
 /obj/item/taperecorder/proc/eject(mob/user)
 	if(mytape)

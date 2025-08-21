@@ -9,11 +9,13 @@
 	var/linkage = CROSSLINKED
 	var/space_ruins_levels = null //null for default number of ruins. use it to override. Can be used to neglect lagging from multi-z station.
 
-	var/station_name  = "BAD Station"
+	var/station_name = "BAD Station"
+	/// It is necessary for the correct name in the Byond hub.
+	var/english_station_name = null
 	var/station_short = "Baddy"
-	var/dock_name     = "THE PirateBay"
-	var/company_name  = "BadMan"
+	var/dock_name = "THE PirateBay"
+	var/company_name = "BadMan"
 	var/company_short = "BM"
-	var/starsys_name  = "Dull Star"
+	var/starsys_name = "Dull Star"
 	/// URL to the maps webmap
 	var/webmap_url

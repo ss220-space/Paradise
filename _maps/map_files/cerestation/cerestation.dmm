@@ -50251,6 +50251,12 @@
 	icon_state = "blue"
 	},
 /area/hallway/primary/starboard/north)
+"kEz" = (
+/obj/structure/closet/secure_closet/security_grenade_launcher,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/armory)
 "kEA" = (
 /obj/machinery/door/airlock/research{
 	name = "Kill Chamber";
@@ -119964,7 +119970,7 @@ chw
 ioE
 bqI
 sky
-ioE
+kEz
 loh
 ioE
 akW
@@ -120478,7 +120484,7 @@ eNg
 ioE
 iOG
 qYf
-ioE
+kEz
 fcB
 ioE
 eZu

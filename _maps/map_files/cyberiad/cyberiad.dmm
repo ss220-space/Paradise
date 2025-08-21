@@ -72864,6 +72864,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/security/hos)
+"oOa" = (
+/obj/structure/closet/secure_closet/security_grenade_launcher,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "oOl" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -116839,7 +116845,7 @@ aiv
 sqj
 qzT
 kKX
-qzT
+oOa
 mTj
 aiv
 ugf
