@@ -1389,3 +1389,21 @@
 	new suit(loc)
 	qdel(src)
 
+/obj/item/clothing/under/chad
+	name = "Chad suit"
+	desc = "Должно быть абсолютно очевидным - перед вами настоящая легенда."
+	over_shoes = TRUE
+	can_adjust = FALSE
+	icon_state = "chadsuit"
+	item_state = "chadsuit"
+	species_restricted = list(SPECIES_HUMAN)
+
+/obj/item/clothing/under/chad/get_ru_names()
+	return list(
+		NOMINATIVE = "костюм гигачада",
+		GENITIVE = "костюма гигачада",
+		DATIVE = "костюму гигачада",
+		ACCUSATIVE = "костюм гигачада",
+		INSTRUMENTAL = "костюмом гигачада",
+		PREPOSITIONAL = "костюме гигачада"
+	)
