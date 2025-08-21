@@ -11,7 +11,7 @@
 
 	var/station_name = "BAD Station"
 	/// It is necessary for the correct name in the Byond hub.
-	var/english_station_name = null // Default station_name, see english_station_name()
+	var/english_station_name = null
 	var/station_short = "Baddy"
 	var/dock_name = "THE PirateBay"
 	var/company_name = "BadMan"
