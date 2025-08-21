@@ -89,66 +89,76 @@
 /obj/structure/toilet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
-		return .
+		return
 	var/mob/living/victim = grabbed_thing
 	if(victim.loc != get_turf(src))
 		to_chat(grabber, span_warning("[victim] долж[pluralize_ru(victim.gender, "ен", "ны")] быть на [declent_ru(PREPOSITIONAL)]!"))
-		return .
+		return
 	add_fingerprint(grabber)
 	if(open && !swirlie)
-		swirlie = victim
-		var/prev_angle = victim.lying_angle
-		var/oldx = victim.pixel_x
-		var/oldy = victim.pixel_y
-		var/swirlie_x = 0
-		var/swirlie_y = 24
-		var/swirlie_y_down = 8
-		victim.set_lying_angle(180)
-		victim.visible_message(
-			span_danger("[grabber] поднима[pluralize_ru(grabber.gender, "ет", "ют")] [victim] над унитазом!"),
-			span_userdanger("[grabber] поднима[pluralize_ru(grabber.gender, "ет", "ют")] вас над унитазом!"),
-		)
-		animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y, time = 0.8 SECONDS)
-		if(!do_after(grabber, 0.8 SECONDS, src, NONE) || grabber.pulling != victim)
-			animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
-			victim.set_lying_angle(prev_angle)
-			swirlie = null
-			return
-		victim.visible_message(
-			span_danger("[grabber] начина[pluralize_ru(grabber.gender, "ет", "ют")] окунать голову [victim] в унитаз!"),
-			span_userdanger("[grabber] начина[pluralize_ru(grabber.gender, "ет", "ют")] окунать вашу голову в унитаз..."),
-		)
-		animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y_down, time = 1.2 SECONDS)
-		if(!do_after(grabber, 1.2 SECONDS, src, NONE) || grabber.pulling != victim)
-			animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
-			victim.set_lying_angle(prev_angle)
-			swirlie = null
-			return
-		victim.visible_message(
-			span_danger("[grabber] окуна[pluralize_ru(grabber.gender, "ет", "ют")] голову [victim] в унитаз!"),
-			span_userdanger("[grabber] окуна[pluralize_ru(grabber.gender, "ет", "ют")] вашу голову в унитаз!"),
-			span_italics("Вы слышите звук смыва унитаза."),
-		)
-		playsound(loc, 'sound/items/toilet_flush.ogg', 80, TRUE)
-		if(!do_after(grabber, 1 SECONDS, src, NONE) || grabber.pulling != victim)
-			animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
-			victim.set_lying_angle(prev_angle)
-			swirlie = null
-			return
-		// success toilet swirlie
-		if(!victim.internal)
-			victim.adjustOxyLoss(15)
-		victim.SetEyeBlurry(5 SECONDS)
-		animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
-		victim.set_lying_angle(prev_angle)
-		swirlie = null
-	else
-		playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
-		victim.visible_message(
-			span_danger("[grabber] бь[pluralize_ru(grabber.gender, "ет", "ют")] [victim] головой об [declent_ru(NOMINATIVE)]!"),
-			span_userdanger("[grabber] бь[pluralize_ru(grabber.gender, "ет", "ют")] вас головой об [declent_ru(NOMINATIVE)]!"),
-		)
-		victim.adjustBruteLoss(5)
+		do_swirlie(grabber, victim)
+		return
+	do_smash_into_toilet(grabber, victim)
+
+
+/obj/structure/toilet/proc/do_swirlie(mob/living/grabber, var/mob/living/victim)
+	swirlie = victim
+	var/prev_angle = victim.lying_angle
+	var/oldx = victim.pixel_x
+	var/oldy = victim.pixel_y
+	var/swirlie_x = 0
+	var/swirlie_y = 24
+	var/swirlie_y_down = 8
+	// begin up victim
+	victim.set_lying_angle(180)
+	victim.visible_message(
+		span_danger("[grabber] поднима[pluralize_ru(grabber.gender, "ет", "ют")] [victim] над унитазом!"),
+		span_userdanger("[grabber] поднима[pluralize_ru(grabber.gender, "ет", "ют")] вас над унитазом!"),
+	)
+	animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y, time = 0.8 SECONDS)
+	if(!do_after(grabber, 0.8 SECONDS, src, NONE) || grabber.pulling != victim)
+		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
+		return
+	// begin move down into toilet
+	victim.visible_message(
+		span_danger("[grabber] начина[pluralize_ru(grabber.gender, "ет", "ют")] окунать голову [victim] в унитаз!"),
+		span_userdanger("[grabber] начина[pluralize_ru(grabber.gender, "ет", "ют")] окунать вашу голову в унитаз..."),
+	)
+	animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y_down, time = 1.2 SECONDS)
+	if(!do_after(grabber, 1.2 SECONDS, src, NONE) || grabber.pulling != victim)
+		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
+		return
+	// begin flushing water with victim
+	victim.visible_message(
+		span_danger("[grabber] окуна[pluralize_ru(grabber.gender, "ет", "ют")] голову [victim] в унитаз!"),
+		span_userdanger("[grabber] окуна[pluralize_ru(grabber.gender, "ет", "ют")] вашу голову в унитаз!"),
+		span_italics("Вы слышите звук смыва унитаза."),
+	)
+	playsound(loc, 'sound/items/toilet_flush.ogg', 80, TRUE)
+	if(!do_after(grabber, 1 SECONDS, src, NONE) || grabber.pulling != victim)
+		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
+		return
+	// success toilet swirlie
+	apply_swirlie_effect(grabber, victim)
+	cancel_swirlie_act(victim, oldx, oldy, prev_angle)
+
+/obj/structure/toilet/proc/cancel_swirlie_act(var/mob/living/victim, oldx, oldy, prev_angle)
+	animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
+	victim.set_lying_angle(prev_angle)
+	swirlie = null
+
+/obj/structure/toilet/proc/apply_swirlie_effect(mob/living/grabber, var/mob/living/victim)
+	if(!victim.internal)
+		victim.adjustOxyLoss(15)
+	victim.SetEyeBlurry(5 SECONDS)
+
+/obj/structure/toilet/proc/do_smash_into_toilet(mob/living/grabber, var/mob/living/victim)
+	playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
+	victim.visible_message(
+		span_danger("[grabber] бь[pluralize_ru(grabber.gender, "ет", "ют")] [victim] головой об [declent_ru(NOMINATIVE)]!"),
+		span_userdanger("[grabber] бь[pluralize_ru(grabber.gender, "ет", "ют")] вас головой об [declent_ru(NOMINATIVE)]!"),
+	)
+	victim.adjustBruteLoss(5)
 
 
 /obj/structure/toilet/attackby(obj/item/item, mob/user, params)
