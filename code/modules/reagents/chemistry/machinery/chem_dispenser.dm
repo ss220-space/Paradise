@@ -66,8 +66,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null)
 	RefreshParts()
 
-/obj/machinery/chem_dispenser/supgraded/New()
-	..()
+/obj/machinery/chem_dispenser/supgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
@@ -492,8 +492,8 @@
 	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water")
 	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
 
-/obj/machinery/chem_dispenser/botanical/New()
-	..()
+/obj/machinery/chem_dispenser/botanical/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -504,8 +504,8 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-/obj/machinery/chem_dispenser/botanical/upgraded/New()
-	..()
+/obj/machinery/chem_dispenser/botanical/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)

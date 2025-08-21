@@ -53,7 +53,7 @@
 	var/generation_bombs = MINESWEEPER_BOMBS
 	var/ui_width = MINESWEEPER_WIDTH
 
-/obj/machinery/arcade/minesweeper/New()
+/obj/machinery/arcade/minesweeper/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	component_parts = list()
