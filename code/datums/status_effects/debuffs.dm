@@ -749,6 +749,18 @@
 	return ..()
 
 
+//UNCONSCIOUS
+/datum/status_effect/incapacitating/unconscious
+	id = "unconscious"
+	needs_update_stat = TRUE
+	traits_to_apply = list(TRAIT_KNOCKEDOUT)
+
+
+/datum/status_effect/incapacitating/unconscious/tick(seconds_between_ticks)
+	if(owner.getStaminaLoss())
+		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
+
+
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
@@ -1335,3 +1347,5 @@
 	duration = 5 SECONDS
 	alert_type = null
 	status_type = STATUS_EFFECT_REPLACE
+
+
