@@ -1890,7 +1890,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	while(meatleft > 0)
 		new dna.species.meat_type(loc)
 		meatleft--
-	
+
 	visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] разделывает [declent_ru(ACCUSATIVE)]."))
 	gib()
 	return TRUE

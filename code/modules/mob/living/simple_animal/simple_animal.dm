@@ -11,7 +11,7 @@
 
 	hud_type = /datum/hud/simple_animal
 
-	var/atom/target
+	var/mob/living/target
 	var/icon_living = ""
 	var/icon_dead = ""
 	var/icon_resting = ""
