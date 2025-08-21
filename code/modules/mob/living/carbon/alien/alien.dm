@@ -120,7 +120,7 @@
 /mob/living/carbon/alien/say_quote(var/message, var/datum/language/speaking = null)
 	var/ending = copytext(message, length(message))
 
-	if(speaking && (speaking.name != "Galactic Common")) 						//this is so adminbooze xenos speaking common have their custom verbs,
+	if(speaking && (speaking.name != "Galactic Common"))						//this is so adminbooze xenos speaking common have their custom verbs,
 		return genderize_decode(src, speaking.get_spoken_verb(ending))          //and use normal verbs for their own languages and non-common languages
 	else
 		return ..()

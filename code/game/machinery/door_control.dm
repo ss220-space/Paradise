@@ -31,7 +31,7 @@
 	/// FALSE is closed, TRUE is open.
 	var/desiredstate = FALSE
 	/**
-	Bitflag, 	1= open
+	Bitflag,	1= open
 				2= idscan,
 				4= bolts
 				8= shock

@@ -48,9 +48,9 @@
 					// var/list/play_records = params2list(C.prefs.exp)
 					// var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
 					// if(livingtime > 600) // 10 hours * 60 min
-					// 	to_chat(C, "<span class='danger'><BIG><b>[reason]</b></BIG></span>")
-					// 	del(C)
-					// 	return
+					//	to_chat(C, "<span class='danger'><BIG><b>[reason]</b></BIG></span>")
+					//	del(C)
+					//	return
 					AddBan(C.ckey, C.computer_id, reason, "SyndiCat", 0, 0, C.mob.lastKnownIP)
 					to_chat(C, "<span class='danger'><BIG><b>You have been banned by SyndiCat.\nReason: [reason].</b></BIG></span>")
 					to_chat(C, "<span class='red'>This is a permanent ban.</span>")

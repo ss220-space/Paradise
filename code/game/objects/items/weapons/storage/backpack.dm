@@ -639,7 +639,7 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/gun/projectile/automatic/c20r(src)
-	new /obj/item/suppressor/specialoffer(src)
+	new /obj/item/gun_module/muzzle/suppressor(src)
 
 /obj/item/storage/backpack/duffel/syndie/bulldogbundle
 	desc = "A large duffel bag containing a Bulldog, some drums, and a pair of thermal imaging glasses."

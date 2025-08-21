@@ -2,7 +2,11 @@
 /obj/item/deck/unum
 	name = "UNUM! deck"
 	desc = "Колода карт UNUM! Правила для домашних ссор не входят в комплект."
-	ru_names = list(
+	icon_state = "deck_unum_full"
+	card_style = "unum"
+
+/obj/item/deck/unum/get_ru_names()
+	return list(
 		NOMINATIVE = "колода карт UNUM",
 		GENITIVE = "колоды карт UNUM",
 		DATIVE = "колоде карт UNUM",
@@ -10,9 +14,6 @@
 		INSTRUMENTAL = "колодой карт UNUM",
 		PREPOSITIONAL = "колоде карт UNUM"
 	)
-	icon_state = "deck_unum_full"
-	card_style = "unum"
-
 
 /obj/item/deck/unum/build_deck()
 	var/list/ru_color = list(

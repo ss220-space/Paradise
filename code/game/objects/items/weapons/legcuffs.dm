@@ -350,7 +350,12 @@
 /obj/item/restraints/legcuffs/bola/sinew
 	name = "skull bola"
 	desc = "Это примитивное метательное оружие, созданное из останков врагов, может показаться ненадёжным, но оно демонстрирует поразительную эффективность."
-	ru_names = list(
+	icon_state = "bola_watcher"
+	item_state = "bola_watcher"
+	reusable = FALSE
+
+/obj/item/restraints/legcuffs/bola/sinew/get_ru_names()
+	return list(
 		NOMINATIVE = "бола из черепов",
 		GENITIVE = "болы из черепов",
 		DATIVE = "боле из черепов",
@@ -358,10 +363,6 @@
 		INSTRUMENTAL = "болой из черепов",
 		PREPOSITIONAL = "боле из черепов"
 	)
-	icon_state = "bola_watcher"
-	item_state = "bola_watcher"
-	reusable = FALSE
-
 
 /obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/carbon/user, slot, silent = FALSE)
 	. = ..()

@@ -24,14 +24,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window
 	name = "window"
 	desc = "Иногда окно – это просто окно."
-	ru_names = list(
-		NOMINATIVE = "окно",
-		GENITIVE = "окна",
-		DATIVE = "окну",
-		ACCUSATIVE = "окно",
-		INSTRUMENTAL = "окном",
-		PREPOSITIONAL = "окне"
-	)
 	icon_state = "window"
 	density = TRUE
 	pass_flags_self = PASSGLASS
@@ -64,6 +56,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 	/// If we added a leaning component to ourselves
 	var/added_leaning = FALSE
+
+/obj/structure/window/get_ru_names()
+	return list(
+		NOMINATIVE = "окно",
+		GENITIVE = "окна",
+		DATIVE = "окну",
+		ACCUSATIVE = "окно",
+		INSTRUMENTAL = "окном",
+		PREPOSITIONAL = "окне"
+	)
 
 
 /obj/structure/window/Initialize(mapload, direct)
@@ -536,14 +538,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/reinforced
 	name = "reinforced window"
 	desc = "Выглядит довольно прочным. Потребуется несколько сильных ударов, чтобы разбить его."
-	ru_names = list(
-		NOMINATIVE = "укреплённое окно",
-		GENITIVE = "укреплённого окна",
-		DATIVE = "укреплённому окну",
-		ACCUSATIVE = "укреплённое окно",
-		INSTRUMENTAL = "укреплённым окном",
-		PREPOSITIONAL = "укреплённом окне"
-	)
 	icon_state = "rwindow"
 	reinf = TRUE
 	cancolor = TRUE
@@ -553,10 +547,24 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 
+/obj/structure/window/reinforced/get_ru_names()
+	return list(
+		NOMINATIVE = "укреплённое окно",
+		GENITIVE = "укреплённого окна",
+		DATIVE = "укреплённому окну",
+		ACCUSATIVE = "укреплённое окно",
+		INSTRUMENTAL = "укреплённым окном",
+		PREPOSITIONAL = "укреплённом окне"
+	)
+
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	desc = "Выглядит довольно прочным и непрозрачным. Потребуется несколько сильных ударов, чтобы разбить его."
-	ru_names = list(
+	icon_state = "twindow"
+	opacity = TRUE
+
+/obj/structure/window/reinforced/tinted/get_ru_names()
+	return list(
 		NOMINATIVE = "тонированное окно",
 		GENITIVE = "тонированного окна",
 		DATIVE = "тонированному окну",
@@ -564,13 +572,15 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		INSTRUMENTAL = "тонированным окном",
 		PREPOSITIONAL = "тонированном окне"
 	)
-	icon_state = "twindow"
-	opacity = TRUE
 
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	desc = "Выглядит довольно прочным и покрытым инеем. Кажется, для разрушения потребуется меньше ударов, чем для обычного укреплённого окна."
-	ru_names = list(
+	icon_state = "fwindow"
+	max_integrity = 30
+
+/obj/structure/window/reinforced/tinted/frosted/get_ru_names()
+	return list(
 		NOMINATIVE = "матовое окно",
 		GENITIVE = "матового окна",
 		DATIVE = "матовому окну",
@@ -578,13 +588,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		INSTRUMENTAL = "матовым окном",
 		PREPOSITIONAL = "матовом окне"
 	)
-	icon_state = "fwindow"
-	max_integrity = 30
 
 /obj/structure/window/reinforced/polarized
 	name = "electrochromic window"
 	desc = "Регулирует прозрачность при подаче напряжения. Потребуется несколько сильных ударов, чтобы разбить его."
-	ru_names = list(
+	var/id
+	var/original_color
+	var/ispolzovano
+
+/obj/structure/window/reinforced/polarized/get_ru_names()
+	return list(
 		NOMINATIVE = "электрохромное окно",
 		GENITIVE = "электрохромного окна",
 		DATIVE = "электрохромному окну",
@@ -592,9 +605,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		INSTRUMENTAL = "электрохромным окном",
 		PREPOSITIONAL = "электрохромном окне"
 	)
-	var/id
-	var/original_color
-	var/ispolzovano
 
 /obj/structure/window/reinforced/polarized/proc/toggle()
 	if(!ispolzovano)
@@ -612,7 +622,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "light0"
 	desc = "Пульт дистанционного управления для поляризованных окон."
-	ru_names = list(
+	anchored = TRUE
+	var/range = 7
+	var/id = 0
+	var/active = 0
+
+/obj/machinery/button/windowtint/get_ru_names()
+	return list(
 		NOMINATIVE = "контроллер тонировки окон",
 		GENITIVE = "контроллера тонировки окон",
 		DATIVE = "контроллеру тонировки окон",
@@ -620,10 +636,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		INSTRUMENTAL = "контроллером тонировки окон",
 		PREPOSITIONAL = "контроллере тонировки окон"
 	)
-	anchored = TRUE
-	var/range = 7
-	var/id = 0
-	var/active = 0
 
 /obj/machinery/button/windowtint/attack_hand(mob/user)
 	if(..())
@@ -676,14 +688,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/plasmabasic
 	name = "plasma window"
 	desc = "Окно из плазменно-силикатного сплава. Выглядит невероятно прочным и огнестойким."
-	ru_names = list(
-		NOMINATIVE = "плазменное окно",
-		GENITIVE = "плазменного окна",
-		DATIVE = "плазменному окну",
-		ACCUSATIVE = "плазменное окно",
-		INSTRUMENTAL = "плазменным окном",
-		PREPOSITIONAL = "плазменном окне"
-	)
 	icon_state = "plasmawindow"
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmaglass
@@ -692,20 +696,22 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 
+/obj/structure/window/plasmabasic/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменное окно",
+		GENITIVE = "плазменного окна",
+		DATIVE = "плазменному окну",
+		ACCUSATIVE = "плазменное окно",
+		INSTRUMENTAL = "плазменным окном",
+		PREPOSITIONAL = "плазменном окне"
+	)
+
 /obj/structure/window/plasmabasic/BlockSuperconductivity()
 	return 1
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
 	desc = "Окно из плазменно-стеклянного сплава с усиливающими стержнями. Выглядит практически нерушимым и абсолютно огнестойким."
-	ru_names = list(
-		NOMINATIVE = "укреплённое плазменное окно",
-		GENITIVE = "укреплённого плазменного окна",
-		DATIVE = "укреплённому плазменному окну",
-		ACCUSATIVE = "укреплённое плазменное окно",
-		INSTRUMENTAL = "укреплённым плазменным окном",
-		PREPOSITIONAL = "укреплённом плазменном окне"
-	)
 	icon_state = "plasmarwindow"
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
@@ -716,6 +722,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	damage_deflection = 21
 
+/obj/structure/window/plasmareinforced/get_ru_names()
+	return list(
+		NOMINATIVE = "укреплённое плазменное окно",
+		GENITIVE = "укреплённого плазменного окна",
+		DATIVE = "укреплённому плазменному окну",
+		ACCUSATIVE = "укреплённое плазменное окно",
+		INSTRUMENTAL = "укреплённым плазменным окном",
+		PREPOSITIONAL = "укреплённом плазменном окне"
+	)
+
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
 
@@ -725,14 +741,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/abductor
 	name = "alien window"
 	desc = "Окно из инопланетного сплава. Похоже, способно восстанавливать любые повреждения."
-	ru_names = list(
-		NOMINATIVE = "инопланетное окно",
-		GENITIVE = "инопланетного окна",
-		DATIVE = "инопланетному окну",
-		ACCUSATIVE = "инопланетное окно",
-		INSTRUMENTAL = "инопланетным окном",
-		PREPOSITIONAL = "инопланетном окне"
-	)
 	icon_state = "alwindow"
 	shardtype = /obj/item/shard
 	glass_type = /obj/item/stack/sheet/abductorglass
@@ -740,6 +748,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 150
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+
+/obj/structure/window/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетное окно",
+		GENITIVE = "инопланетного окна",
+		DATIVE = "инопланетному окну",
+		ACCUSATIVE = "инопланетное окно",
+		INSTRUMENTAL = "инопланетным окном",
+		PREPOSITIONAL = "инопланетном окне"
+	)
 
 /obj/structure/window/abductor/Initialize(mapload, direct)
 	..()
@@ -772,14 +790,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
 	desc = "Окно из плазменно-силикатного сплава. Выглядит невероятно прочным и огнестойким."
-	ru_names = list(
-		NOMINATIVE = "плазменное окно",
-		GENITIVE = "плазменного окна",
-		DATIVE = "плазменному окну",
-		ACCUSATIVE = "плазменное окно",
-		INSTRUMENTAL = "плазменным окном",
-		PREPOSITIONAL = "плазменном окне"
-	)
 	icon = 'icons/obj/smooth_structures/plasma_window.dmi'
 	icon_state = "plasma_window-0"
 	base_icon_state = "plasma_window"
@@ -793,17 +803,19 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 
+/obj/structure/window/full/plasmabasic/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменное окно",
+		GENITIVE = "плазменного окна",
+		DATIVE = "плазменному окну",
+		ACCUSATIVE = "плазменное окно",
+		INSTRUMENTAL = "плазменным окном",
+		PREPOSITIONAL = "плазменном окне"
+	)
+
 /obj/structure/window/full/paperframe
 	name = "Paperframe Window"
 	desc = "Его чистый и простой дизайн примиряет вас с вашими демонами."
-	ru_names = list(
-		NOMINATIVE = "окно с бумажной рамой",
-		GENITIVE = "окна с бумажной рамой",
-		DATIVE = "окну с бумажной рамой",
-		ACCUSATIVE = "окно с бумажной рамой",
-		INSTRUMENTAL = "окном с бумажной рамой",
-		PREPOSITIONAL = "окне с бумажной рамой"
-	)
 	icon = 'icons/obj/smooth_structures/paperframe.dmi'
 	icon_state = "paperframe-0"
 	base_icon_state = "paperframe"
@@ -813,17 +825,19 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	canSmoothWith = SMOOTH_GROUP_PAPERFRAME
 	cancolor = FALSE
 
+/obj/structure/window/full/paperframe/get_ru_names()
+	return list(
+		NOMINATIVE = "окно с бумажной рамой",
+		GENITIVE = "окна с бумажной рамой",
+		DATIVE = "окну с бумажной рамой",
+		ACCUSATIVE = "окно с бумажной рамой",
+		INSTRUMENTAL = "окном с бумажной рамой",
+		PREPOSITIONAL = "окне с бумажной рамой"
+	)
+
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
 	desc = "Окно из плазменно-стеклянного сплава с усиливающими стержнями. Выглядит практически нерушимым и абсолютно огнестойким."
-	ru_names = list(
-		NOMINATIVE = "укреплённое плазменное окно",
-		GENITIVE = "укреплённого плазменного окна",
-		DATIVE = "укреплённому плазменному окну",
-		ACCUSATIVE = "укреплённое плазменное окно",
-		INSTRUMENTAL = "укреплённым плазменным окном",
-		PREPOSITIONAL = "укреплённом плазменном окне"
-	)
 	icon = 'icons/obj/smooth_structures/rplasma_window.dmi'
 	icon_state = "rplasma_window-0"
 	base_icon_state = "rplasma_window"
@@ -837,6 +851,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 
+/obj/structure/window/full/plasmareinforced/get_ru_names()
+	return list(
+		NOMINATIVE = "укреплённое плазменное окно",
+		GENITIVE = "укреплённого плазменного окна",
+		DATIVE = "укреплённому плазменному окну",
+		ACCUSATIVE = "укреплённое плазменное окно",
+		INSTRUMENTAL = "укреплённым плазменным окном",
+		PREPOSITIONAL = "укреплённом плазменном окне"
+	)
+
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
 
@@ -846,14 +870,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
 	desc = "Выглядит довольно прочным. Потребуется несколько сильных ударов, чтобы разбить его."
-	ru_names = list(
-		NOMINATIVE = "укреплённое окно",
-		GENITIVE = "укреплённого окна",
-		DATIVE = "укреплённому окну",
-		ACCUSATIVE = "укреплённое окно",
-		INSTRUMENTAL = "укреплённым окном",
-		PREPOSITIONAL = "укреплённом окне"
-	)
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 	icon_state = "reinforced_window-0"
 	base_icon_state = "reinforced_window"
@@ -868,10 +884,27 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	glass_type = /obj/item/stack/sheet/rglass
 	cancolor = TRUE
 
+/obj/structure/window/full/reinforced/get_ru_names()
+	return list(
+		NOMINATIVE = "укреплённое окно",
+		GENITIVE = "укреплённого окна",
+		DATIVE = "укреплённому окну",
+		ACCUSATIVE = "укреплённое окно",
+		INSTRUMENTAL = "укреплённым окном",
+		PREPOSITIONAL = "укреплённом окне"
+	)
+
+
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
 	desc = "Выглядит довольно прочным и непрозрачным. Потребуется несколько сильных ударов, чтобы разбить его."
-	ru_names = list(
+	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
+	icon_state = "tinted_window-0"
+	base_icon_state = "tinted_window"
+	opacity = TRUE
+
+/obj/structure/window/full/reinforced/tinted/get_ru_names()
+	return list(
 		NOMINATIVE = "тонированное окно",
 		GENITIVE = "тонированного окна",
 		DATIVE = "тонированному окну",
@@ -879,15 +912,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		INSTRUMENTAL = "тонированным окном",
 		PREPOSITIONAL = "тонированном окне"
 	)
-	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
-	icon_state = "tinted_window-0"
-	base_icon_state = "tinted_window"
-	opacity = TRUE
 
 /obj/structure/window/full/reinforced/polarized
 	name = "electrochromic window"
 	desc = "Регулирует прозрачность при подаче напряжения. Потребуется несколько сильных ударов, чтобы разбить его."
-	ru_names = list(
+	var/id
+	var/original_color
+	var/ispolzovano
+
+/obj/structure/window/full/reinforced/polarized/get_ru_names()
+	return list(
 		NOMINATIVE = "электрохромное окно",
 		GENITIVE = "электрохромного окна",
 		DATIVE = "электрохромному окну",
@@ -895,9 +929,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		INSTRUMENTAL = "электрохромным окном",
 		PREPOSITIONAL = "электрохромном окне"
 	)
-	var/id
-	var/original_color
-	var/ispolzovano
 
 /obj/structure/window/full/reinforced/polarized/proc/toggle()
 	if(!ispolzovano)
@@ -920,14 +951,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/full/abductor
 	name = "alien window"
 	desc = "Окно из инопланетного сплава. Похоже, способно восстанавливать любые повреждения."
-	ru_names = list(
-		NOMINATIVE = "инопланетное окно",
-		GENITIVE = "инопланетного окна",
-		DATIVE = "инопланетному окну",
-		ACCUSATIVE = "инопланетное окно",
-		INSTRUMENTAL = "инопланетным окном",
-		PREPOSITIONAL = "инопланетном окне"
-	)
 	icon = 'icons/obj/smooth_structures/alien_window.dmi'
 	icon_state = "al_window"
 	base_icon_state = "alien_window"
@@ -941,6 +964,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
 
+/obj/structure/window/full/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетное окно",
+		GENITIVE = "инопланетного окна",
+		DATIVE = "инопланетному окну",
+		ACCUSATIVE = "инопланетное окно",
+		INSTRUMENTAL = "инопланетным окном",
+		PREPOSITIONAL = "инопланетном окне"
+	)
+
 /obj/structure/window/full/abductor/Initialize(mapload, direct)
 	..()
 	AddComponent(/datum/component/obj_regenerate)
@@ -948,14 +981,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/full/shuttle
 	name = "shuttle window"
 	desc = "Укреплённое окно с системой герметизации."
-	ru_names = list(
-		NOMINATIVE = "окно шаттла",
-		GENITIVE = "окна шаттла",
-		DATIVE = "окну шаттла",
-		ACCUSATIVE = "окно шаттла",
-		INSTRUMENTAL = "окном шаттла",
-		PREPOSITIONAL = "окне шаттла"
-	)
 	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
 	icon_state = "shuttle_window-0"
 	base_icon_state = "shuttle_window"
@@ -969,6 +994,15 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE
 	glass_type = /obj/item/stack/sheet/titaniumglass
 
+/obj/structure/window/full/shuttle/get_ru_names()
+	return list(
+		NOMINATIVE = "окно шаттла",
+		GENITIVE = "окна шаттла",
+		DATIVE = "окну шаттла",
+		ACCUSATIVE = "окно шаттла",
+		INSTRUMENTAL = "окном шаттла",
+		PREPOSITIONAL = "окне шаттла"
+	)
 /obj/structure/window/full/shuttle/narsie_act()
 	color = "#3C3434"
 
@@ -978,7 +1012,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/full/shuttle/gray
 	name = "shuttle window"
 	desc = "Укреплённое окно с системой герметизации."
-	ru_names = list(
+	icon = 'icons/obj/smooth_structures/shuttle_window_gray.dmi'
+	icon_state = "shuttle_window_gray"
+	base_icon_state = "shuttle_window_gray"
+
+/obj/structure/window/full/shuttle/gray/get_ru_names()
+	return list(
 		NOMINATIVE = "окно шаттла",
 		GENITIVE = "окна шаттла",
 		DATIVE = "окну шаттла",
@@ -986,17 +1025,20 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		INSTRUMENTAL = "окном шаттла",
 		PREPOSITIONAL = "окне шаттла"
 	)
-	icon = 'icons/obj/smooth_structures/shuttle_window_gray.dmi'
-	icon_state = "shuttle_window_gray"
-	base_icon_state = "shuttle_window_gray"
-
 /obj/structure/window/full/shuttle/gray/tinted
 	opacity = TRUE
 
 /obj/structure/window/full/shuttle/ninja
 	name = "High-Tech shuttle window"
 	desc = "Укреплённое окно шаттла с системой герметизации."
-	ru_names = list(
+	icon = 'icons/obj/smooth_structures/shuttle_window_ninja.dmi'
+	icon_state = "shuttle_window_ninja-0"
+	base_icon_state = "shuttle_window_ninja"
+	armor = list(MELEE = 50, BULLET = 30, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+
+
+/obj/structure/window/full/shuttle/ninja/get_ru_names()
+	return list(
 		NOMINATIVE = "высокотехнологичное окно шаттла",
 		GENITIVE = "высокотехнологичного окна шаттла",
 		DATIVE = "высокотехнологичному окну шаттла",
@@ -1004,25 +1046,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		INSTRUMENTAL = "высокотехнологичным окном шаттла",
 		PREPOSITIONAL = "высокотехнологичном окне шаттла"
 	)
-	icon = 'icons/obj/smooth_structures/shuttle_window_ninja.dmi'
-	icon_state = "shuttle_window_ninja-0"
-	base_icon_state = "shuttle_window_ninja"
-	armor = list(MELEE = 50, BULLET = 30, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
-
 /obj/structure/window/full/shuttle/ninja/tinted
 	opacity = TRUE
 
 /obj/structure/window/plastitanium
 	name = "plastitanium window"
 	desc = "Зловещего вида окно из плазмы и титана."
-	ru_names = list(
-		NOMINATIVE = "пластитановое окно",
-		GENITIVE = "пластитанового окна",
-		DATIVE = "пластитановому окну",
-		ACCUSATIVE = "пластитановое окно",
-		INSTRUMENTAL = "пластитановым окном",
-		PREPOSITIONAL = "пластитановом окне"
-	)
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 	icon_state = "plastitanium_window"
 	base_icon_state = "plastitanium_window"
@@ -1041,17 +1070,19 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	glass_amount = 2
 
+/obj/structure/window/plastitanium/get_ru_names()
+	return list(
+		NOMINATIVE = "пластитановое окно",
+		GENITIVE = "пластитанового окна",
+		DATIVE = "пластитановому окну",
+		ACCUSATIVE = "пластитановое окно",
+		INSTRUMENTAL = "пластитановым окном",
+		PREPOSITIONAL = "пластитановом окне"
+	)
+
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"
 	desc = "Тонкое, как бумага, но укреплённое полупрозрачное латунное окно."
-	ru_names = list(
-		NOMINATIVE = "латунное окно",
-		GENITIVE = "латунного окна",
-		DATIVE = "латунному окну",
-		ACCUSATIVE = "латунное окно",
-		INSTRUMENTAL = "латунным окном",
-		PREPOSITIONAL = "латунном окне"
-	)
 	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -1063,10 +1094,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	cancolor = FALSE
 	var/made_glow = FALSE
 
-/obj/structure/window/reinforced/clockworkfake
-	name = "brass window"
-	desc = "Тонкое, как бумага, но укреплённое полупрозрачное латунное окно. Выглядит потускневшим."
-	ru_names = list(
+/obj/structure/window/reinforced/clockwork/get_ru_names()
+	return list(
 		NOMINATIVE = "латунное окно",
 		GENITIVE = "латунного окна",
 		DATIVE = "латунному окну",
@@ -1074,6 +1103,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		INSTRUMENTAL = "латунным окном",
 		PREPOSITIONAL = "латунном окне"
 	)
+
+/obj/structure/window/reinforced/clockworkfake
+	name = "brass window"
+	desc = "Тонкое, как бумага, но укреплённое полупрозрачное латунное окно. Выглядит потускневшим."
 	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -1084,6 +1117,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	reinf = FALSE
 	cancolor = FALSE
 	var/made_glow = FALSE
+
+/obj/structure/window/reinforced/clockworkfake/get_ru_names()
+	return list(
+		NOMINATIVE = "латунное окно",
+		GENITIVE = "латунного окна",
+		DATIVE = "латунному окну",
+		ACCUSATIVE = "латунное окно",
+		INSTRUMENTAL = "латунным окном",
+		PREPOSITIONAL = "латунном окне"
+	)
 
 /obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)
 	. = ..()

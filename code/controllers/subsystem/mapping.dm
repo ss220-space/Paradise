@@ -183,7 +183,8 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Skipping lavaland ruins...")
 
 	// Create transit/reserve area for shuttle to fly in and out
-	initialize_reserved_level()
+	var/base_transit_z = add_reservation_zlevel()
+	initialize_reserved_level(base_transit_z)
 	// End creating z-levels
 	// Re-sort again all areas
 	require_area_resort()
@@ -559,9 +560,9 @@ SUBSYSTEM_DEF(mapping)
 			if(reserve.reserve(width, height, z_size, i))
 				return reserve
 		//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
-		var/datum/space_level/newReserved = add_reservation_zlevel()
-		initialize_reserved_level(newReserved.zpos)
-		if(reserve.reserve(width, height, z_size, newReserved.zpos))
+		var/new_reserved_z = add_reservation_zlevel()
+		initialize_reserved_level(new_reserved_z)
+		if(reserve.reserve(width, height, z_size, new_reserved_z))
 			return reserve
 	else
 		if(!check_level_trait(z_reservation, RESERVED_LEVEL))
@@ -572,21 +573,28 @@ SUBSYSTEM_DEF(mapping)
 	QDEL_NULL(reserve)
 
 //This is not for wiping reserved levels, use wipe_reservations() for that.
-/datum/controller/subsystem/mapping/proc/initialize_reserved_level()
-	num_of_res_levels++
-	var/my_z = GLOB.space_manager.add_new_zlevel(RESERVED_ZONE+" #[num_of_res_levels]", linkage = UNAFFECTED, traits = list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC, RESERVED_LEVEL))
+/datum/controller/subsystem/mapping/proc/initialize_reserved_level(z)
 	UNTIL(!clearing_reserved_turfs) //regardless, lets add a check just in case.
 	clearing_reserved_turfs = TRUE //This operation will likely clear any existing reservations, so lets make sure nothing tries to make one while we're doing it.
-	var/turf/A = get_turf(locate(SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, my_z))
-	var/turf/B = get_turf(locate(world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, my_z))
-	var/block = block(A, B)
-	for(var/turf/T in block)
-		// No need to empty() these, because it's world init and they're already /turf/space.
-		T.turf_flags |= UNUSED_RESERVATION_TURF
+	if(!check_level_trait(z, RESERVED_LEVEL))
+		clearing_reserved_turfs = FALSE
+		CRASH("Invalid z level prepared for reservations.")
+	var/list/reserved_block = block(
+		SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, z,
+		world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, z
+	)
+	for(var/turf/T as anything in reserved_block)
+		// No need to empty() these, because they just got created and are already /turf/open/space/basic.
+		T.turf_flags = UNUSED_RESERVATION_TURF
+		T.blocks_air = TRUE
 		CHECK_TICK
 
-	unused_turfs["[my_z]"] = block
-	reservation_ready["[my_z]"] = TRUE
+	// Gotta create these suckers if we've not done so already
+	if(SSatoms.initialized)
+		SSatoms.InitializeAtoms(Z_TURFS(z))
+
+	unused_turfs["[z]"] = reserved_block
+	reservation_ready["[z]"] = TRUE
 	clearing_reserved_turfs = FALSE
 
 /// Schedules a group of turfs to be handed back to the reservation system's control

@@ -41,6 +41,15 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	var/current_spread = 0
 	var/last_shot_time = 0
 
+/datum/gun_accuracy/proc/add_accuracy(delta = 0)
+	head += delta
+	chest += delta
+	arms += delta
+	legs += delta
+	hands += delta
+	foots += delta
+	other += delta
+
 
 /datum/gun_accuracy/proc/getList()
 	return list("head" = head, "chest" = chest, "arms" = arms, "legs" = legs, "hands" = hands, "foots" = foots, "other" = other, "min_spread" = min_spread, "max_spread" = max_spread, "dual_wield_spread" = dual_wield_spread)
