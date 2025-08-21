@@ -55,7 +55,7 @@
 		if(prob(50))
 			temptext = "<span style='color: red;'><i><b>Двойной агент. Ты планировал предать нас с самого начала. Позвольте нам отплатить за услугу тем же.</b></i></span>"
 			src.updateUsrDialog()
-			INVOKE_ASYNC(src, PROC_REF(selfdestruct))
+			addtimer(CALLBACK(src, PROC_REF(selfdestruct)), rand(50, 200))
 			return
 		if(ishuman(M))
 			var/mob/living/carbon/human/N = M
@@ -105,7 +105,6 @@
 
 /obj/machinery/syndicate_beacon/proc/selfdestruct()
 	selfdestructing = TRUE
-	sleep(rand(50,200))
 	explosion(loc, devastation_range = rand(3, 8), heavy_impact_range = rand(1, 3), light_impact_range = 1, flash_range = 10)
 
 
