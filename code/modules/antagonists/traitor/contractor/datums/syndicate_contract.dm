@@ -656,7 +656,7 @@
 		GLOB.news_network.get_channel_by_name("Никс Дейли")?.add_message(second_news_message)
 
 	for(var/obj/machinery/newscaster/newscaster as anything in GLOB.allNewscasters)
-		newscaster .alert_news(NEWS_CHANNEL_NYX)
+		newscaster.alert_news(NEWS_CHANNEL_NYX)
 
 	prisoner_timer_handle = null
 	GLOB.prisoner_belongings.prisoners[victim] = null
