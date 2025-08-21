@@ -55,12 +55,14 @@
 			var/obj/effect/decal/cleanable/C = locate() in target
 			qdel(C)
 			target.clean_blood()
+			SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, 5)
 
 /obj/item/soap/proc/clean_turf(turf/simulated/T)
 	T.clean_blood()
 	for(var/obj/effect/O in T)
 		if(O.is_cleanable())
 			qdel(O)
+	SEND_SIGNAL(T, COMSIG_COMPONENT_CLEAN_ACT, 5)
 
 
 /obj/item/soap/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

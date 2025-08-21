@@ -11,10 +11,11 @@
 	list(STATION_LEVEL = "Second Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_DOWN, ZTRAIT_BASETURF = /turf/simulated/openspace)
 	)
 	space_ruins_levels = 0
-	station_name  = "ИСН Селестион"
+	station_name = "ИСН Селестион"
+	english_station_name = "NSS Selestion"
 	station_short = "Селестиа"
-	dock_name     = "АКН Трурль"
-	company_name  = "НаноТрейзен"
+	dock_name = "АКН Трурль"
+	company_name = "НаноТрейзен"
 	company_short = "НТ"
-	starsys_name  = "Эпсилон Лукуста"
+	starsys_name = "Эпсилон Лукуста"
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/celestation/"

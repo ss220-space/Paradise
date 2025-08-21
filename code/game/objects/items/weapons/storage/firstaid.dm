@@ -515,7 +515,7 @@
 	gender = MALE
 	icon_state = "pill_canister"
 	icon = 'icons/obj/chemical.dmi'
-	item_state = "contsolid"
+	item_state = "pill_canister"
 	belt_icon = "pill_bottle"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(/obj/item/reagent_containers/food/pill)
@@ -618,7 +618,10 @@
 	name = "patch pack"
 	desc = "Небольшой коробок, предназначенный для хранения медицинских пластырей."
 	icon_state = "patch_pack"
+	item_state = "patch_pack"
 	belt_icon = "patch_pack"
+	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/drop/generic_drop1.ogg'
 	use_sound = "patchpack"
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()

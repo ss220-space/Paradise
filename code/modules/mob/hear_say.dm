@@ -306,7 +306,7 @@
 		effect = SOUND_EFFECT_RADIO_ROBOT
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, speaker.tts_seed, TRUE, effect)
 
-	var/rendered = span_gamesay("[span_name(name)] + [message]")
+	var/rendered = span_gamesay("[span_name(name)] [message]")
 	to_chat(src, rendered)
 
 

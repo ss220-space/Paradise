@@ -187,7 +187,7 @@
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
 	color = "#7D1E20"
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = COLOR_SOFT_RED
 	light_range = 8
 	anchored = TRUE
 	density = FALSE

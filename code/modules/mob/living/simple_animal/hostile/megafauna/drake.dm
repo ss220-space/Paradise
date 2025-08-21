@@ -65,7 +65,6 @@ Difficulty: Medium
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = NONE
 	var/player_cooldown = 0
-	internal_type = /obj/item/gps/internal/dragon
 	medal_type = BOSS_MEDAL_DRAKE
 	score_type = DRAKE_SCORE
 	deathmessage = "распадается в кучу костей, его плоть осыпается."
@@ -110,12 +109,6 @@ Difficulty: Medium
 	button_icon_state = "lavastaff_warn"
 	chosen_message = span_colossus("Вы пикируете и обрушиваете лаву на цель.")
 	chosen_attack_num = 4
-
-/obj/item/gps/internal/dragon
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "Here there be dragons."
-	invisibility = INVISIBILITY_ABSTRACT
 
 /mob/living/simple_animal/hostile/megafauna/dragon/OpenFire()
 	if(swooping)

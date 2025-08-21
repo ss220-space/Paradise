@@ -30,6 +30,7 @@
 	shockbull = TRUE
 	nodamage = TRUE
 	weaken = 0.2 SECONDS
+	confused = 1.5 SECONDS
 	stamina = 15
 	stutter = 8 SECONDS
 	jitter = 30 SECONDS
@@ -41,13 +42,23 @@
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		do_sparks(1, 1, src)
-	else if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(HAS_TRAIT(C, TRAIT_HULK))
-			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		else if(C.status_flags & CANWEAKEN)
-			spawn(5)
-				C.Jitter(jitter)
+		return
+	if(!iscarbon(target))
+		return
+	var/mob/living/carbon/carbon = target
+	if(HAS_TRAIT(carbon, TRAIT_HULK))
+		return
+	if(carbon.status_flags & CANWEAKEN)
+		addtimer(CALLBACK(carbon, TYPE_PROC_REF(/mob/living/carbon, Jitter), jitter), 0.5 SECONDS)
+
+/obj/projectile/energy/electrode/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
+	var/weaken_effect = weaken
+	var/confused_effect = confused
+	if(HAS_TRAIT(target, TRAIT_ANTI_STUN_REAGENT))
+		weaken_effect = 0
+	else
+		confused_effect = 0
+	return target.apply_effects(blocked, stun, weaken_effect, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused_effect)
 
 /obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, 1, src)
