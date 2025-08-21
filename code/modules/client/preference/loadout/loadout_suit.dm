@@ -302,4 +302,3 @@
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
 	
-	
