@@ -650,7 +650,6 @@
 	return
 
 /atom/proc/ex_act(severity, target)
-	set waitfor = FALSE
 	return
 
 /**
