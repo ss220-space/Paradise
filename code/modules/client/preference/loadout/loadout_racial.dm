@@ -117,7 +117,7 @@
 	path = /obj/item/clothing/under/chad
 	whitelisted_species = list(SPECIES_HUMAN)
 
-/datum/gear/racial/chad_s
+/datum/gear/racial/chad_shoes
 	index_name = "Chad shoes"
 	path = /obj/item/clothing/shoes/chad
 	whitelisted_species = list(SPECIES_HUMAN)
