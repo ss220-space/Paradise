@@ -275,6 +275,42 @@
 	else
 		..()
 
+/obj/item/toy/crayon/bloodred
+    name = "кроваво-красный мелок"
+    desc = "Мелок, основаный на ред-спейс технологии. Выглядит так, будто сделан из крови. Более питательный, чем обычный мелок."
+    icon_state = "crayonred"
+    colour = "#501010"
+    colourName = "bloodred"
+    uses = 0
+    dye_color = "#501010"
+
+    attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+        if(target != user)
+            return ..()
+        . = ATTACK_CHAIN_PROCEED
+        playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
+        to_chat(user, span_notice("Вы кусаете [name]. На вкус как кровь!"))
+        user.adjust_nutrition(10)
+        return .
+
+/obj/item/toy/crayon/bloodred/afterattack(atom/target, mob/user, proximity, params)
+    if(!proximity) return
+    if(busy) return
+    if(is_type_in_list(target, validSurfaces))
+        var/temp = "rune"
+        if(letters.Find(drawtype))
+            temp = "letter"
+        else if(graffiti.Find(drawtype))
+            temp = "graffiti"
+        to_chat(user, span_notice("Вы начинаете рисовать [temp] кровью на [target.name]."))
+        busy = TRUE
+        if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
+            var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target, colour, drawtype, temp)
+            C.add_hiddenprint(user)
+            C.blood_graffiti = TRUE
+            to_chat(user, span_notice("Вы закончили рисовать [temp] кровью."))
+        busy = FALSE
+
 
 //Spraycan stuff
 

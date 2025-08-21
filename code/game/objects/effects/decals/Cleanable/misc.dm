@@ -304,3 +304,13 @@
 /obj/effect/decal/cleanable/devil/update_desc()
 	. = ..()
 	desc = "[initial(desc)][devil ? " На руне видна подпись: <b>[devil.info?.truename]</b>." : null]"
+
+/obj/effect/decal/cleanable/crayon
+    var/blood_graffiti = FALSE
+
+    examine(mob/user)
+        . = ..()
+        if(blood_graffiti)
+            if(length(.))
+                .[2] = "<span class='examine'>Данное граффити выглядит будто создано из крови.</span>"
+        return .
