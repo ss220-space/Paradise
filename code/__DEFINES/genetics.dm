@@ -29,6 +29,8 @@
 #define DISABILITY_FLAG_APHASIA (1<<17)
 #define DISABILITY_FLAG_CATEARS (1<<18)
 
+#define DISABILITY_MAX (1<<19 - 1)
+
 
 //Nutrition levels for humans. No idea where else to put it
 #define NUTRITION_LEVEL_FAT 600
