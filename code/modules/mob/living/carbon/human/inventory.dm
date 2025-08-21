@@ -626,6 +626,22 @@
 			items += s_store
 	return items
 
+/**
+ * Used to return a list of equipped items on a human mob; does not by default include held items, see include_flags
+ *
+ * Argument(s):
+ * * Optional - include_flags, (see obj.flags.dm) describes which optional things to include or not (pockets, accessories, held items)
+ */
+
+/mob/living/carbon/human/get_equipped_items(include_flags = NONE)
+	var/list/items = ..()
+	if(!(include_flags & INCLUDE_POCKETS))
+		items -= list(l_store, r_store, s_store)
+	if((include_flags & INCLUDE_ACCESSORIES) && w_uniform)
+		var/obj/item/clothing/under/worn_under = w_uniform
+		items += worn_under.accessories
+	return items
+
 
 /mob/living/carbon/human/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
 	. = ..()

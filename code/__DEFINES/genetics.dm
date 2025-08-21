@@ -29,6 +29,9 @@
 #define DISABILITY_FLAG_APHASIA (1<<17)
 #define DISABILITY_FLAG_CATEARS (1<<18)
 
+// If you add new disability, modify this value
+#define DISABILITY_MAX ((1<<19) - 1)
+
 
 // Nutrition levels for humans. No idea where else to put it
 // Number stands for the upper limit, reaching the number increases the nutrition level (349 - LEVEL_FED, 350 -> WELL_FED)
