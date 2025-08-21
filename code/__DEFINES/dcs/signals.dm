@@ -1081,6 +1081,7 @@
 #define COMSIG_HUMAN_REGENERATE_ICONS "human_regenerate_icons"
 ///From /mob/living/carbon/human/proc/set_species(): (datum/species/old_species)
 #define COMSIG_HUMAN_SPECIES_CHANGED "human_species_changed"
+	#define COMPONENT_HAS_ELEMENT (1<<0)
 /// Source: /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
 #define COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT "human_early_handle_environment"
 
