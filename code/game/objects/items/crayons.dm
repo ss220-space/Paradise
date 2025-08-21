@@ -278,7 +278,7 @@
 /obj/item/toy/crayon/bloodred
     name = "кроваво-красный мелок"
     desc = "Мелок, основаный на ред-спейс технологии. Выглядит так, будто сделан из крови. Более питательный, чем обычный мелок."
-    icon_state = "crayonred"
+    icon_state = "crayonbloodred"
     colour = "#501010"
     colourName = "bloodred"
     uses = 0
