@@ -815,7 +815,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/gun_module/rail/scope/collimator(src)
 	new /obj/item/gun_module/rail/scope/x4(src)
 	new /obj/item/gun_module/under/hand/angle(src)
-  
+
 /obj/item/storage/box/syndie_kit/compact_sniper
 	name = "compact sniper rifle kit"
 	desc = "Коробка, содержащая компактную снайперскую винтовку \"Bubz Mini\", дополнительный магазин, и коробку патронов."
@@ -918,3 +918,21 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
+
+	/obj/item/storage/box/syndie_kit/adrenalin_kit
+	name = "adrenalin kit"
+	desc = "Коробка, содержащая адреналиновый имплант и кроваво-красный мелок."
+
+/obj/item/storage/box/syndie_kit/adrenalin_kit/get_ru_names()
+	return list(
+		NOMINATIVE = "набор адреналинового импланта",
+		GENITIVE = "набора адреналинового импланта",
+		DATIVE = "набору адреналинового импланта",
+		ACCUSATIVE = "набор адреналинового импланта",
+		INSTRUMENTAL = "набором адреналинового импланта",
+		PREPOSITIONAL = "наборе адреналинового импланта"
+	)
+
+/obj/item/storage/box/syndie_kit/adrenalin_kit/populate_contents()
+	new	/obj/item/implanter/adrenalin(src)
+	new /obj/item/toy/crayon/bloodred(src)
