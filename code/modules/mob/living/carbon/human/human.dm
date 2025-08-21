@@ -1251,9 +1251,10 @@
 
 	var/species_check = !!dna.species
 
-	SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
 
-	if(!HAS_TRAIT(src, TRAIT_NO_HUNGER) && !HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
+	if(!HAS_TRAIT(src, TRAIT_NO_HUNGER) && !HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS) \
+		&& !(signal_result & COMPONENT_HAS_ELEMENT))
 		AddElement(/datum/element/nutrition_effects)
 
 	return species_check
