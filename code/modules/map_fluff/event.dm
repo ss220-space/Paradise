@@ -1,20 +1,3 @@
-/*
-/datum/map/event
-	name = "Station Name"
-	map_path = "_maps/map_files/event/Station/yourstation.dmm"
-	Lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
-
-	station_name = "Ingame Station name (in Russian)"
-	english_station_name = "Ingame Station name (in English for Byond Hub)"
-	station_short = "Ingame Station name short (in Russian)"
-	dock_name = "АКН Трурль"
-	company_name = "НаноТрейзен"
-	company_short = "НТ"
-	starsys_name = "Эпсилон Лукуста"
-	webmap_url = "Optional"
-	admin_only = TRUE
-*/
-
 /datum/map/towerstation
 	name = "Towerstation"
 	map_path = "_maps/map_files/event/Station/towerstation.dmm"
