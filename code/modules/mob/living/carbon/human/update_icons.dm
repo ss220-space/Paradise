@@ -965,7 +965,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(back.sprite_sheets?[dna.species.name])
 			standing.icon = back.sprite_sheets[dna.species.name]
 
-		overlays_standing[BACK_LAYER] = standing
+		var/list/back_overlays = list(standing)
+
+		SEND_SIGNAL(src, COMSIG_HUMAN_UPDATE_BACK, back_overlays)
+
+		overlays_standing[BACK_LAYER] = back_overlays
 
 	apply_overlay(BACK_LAYER)
 

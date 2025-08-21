@@ -54,6 +54,9 @@
 	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
 		return FALSE // This is sota the goto stop mobs from moving var
 
+	if(mob.throwing && mob.throwing.block_movement)
+		return FALSE
+
 	if(!isliving(mob))
 		if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE, new_loc, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_NON_LIVING_MOVE)
 			return FALSE
