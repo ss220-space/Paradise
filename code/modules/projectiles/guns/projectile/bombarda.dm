@@ -39,7 +39,7 @@
 	icon_state = initial(icon_state) + (opened ?  "_open" : "")
 
 
-/obj/item/gun/projectile/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
+/obj/item/gun/projectile/bombarda/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	..(FALSE, FALSE)
 
 
