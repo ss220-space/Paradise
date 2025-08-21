@@ -166,6 +166,11 @@
 		target.UpdateDamageIcon()
 
 
+/obj/item/stack/medical/bruise_pack/advanced/can_merge(obj/item/stack/check, inhand)
+	if(src.type != check.type)
+		return FALSE //exclude subtypes
+	. = ..()
+
 // MARK: Bruise Packs
 
 /obj/item/stack/medical/bruise_pack
