@@ -307,7 +307,7 @@
 	else if(!ismob(contract.target.current))
 		invalidate()
 		return
-	uplink.message_holder("Агент, мы получили сигнал эвакуации. Системы помех блюспейс транспорту на борту НСС [SSmapping.map_datum.station_name], были саботированы. "\
+	uplink.message_holder("Агент, мы получили сигнал эвакуации. Системы помех, мешающих навигации в секторе станции НСС [SSmapping.map_datum.station_name], были саботированы. "\
 				   + "Мы направляем эвакуационную капсулу на место вашей сигнальной ракеты. Поместите цель в капсулу, чтобы завершить процесс эвакуации.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
 	launch_extraction_pod(get_turf(flare))
