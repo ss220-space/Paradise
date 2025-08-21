@@ -267,9 +267,6 @@
 	if(get_dist(shooter, target) <= 0)
 		target = get_step(shooter, shooter.dir) //Shoot in the direction faced if the mouse is on the same tile as we are.
 		target_loc = target
-	else if(!in_view_range(shooter, target))
-		stop_autofiring() //Elvis has left the building.
-		return FALSE
 
 	shooter.face_atom(target)
 	var/next_delay = autofire_shot_delay
@@ -340,7 +337,8 @@
 	var/bonus_spread = 0
 	if(isgun(akimbo_gun) && weapon_weight < WEAPON_MEDIUM && allow_akimbo)
 		if(akimbo_gun.weapon_weight < WEAPON_MEDIUM && akimbo_gun.can_trigger_gun(shooter))
-			bonus_spread = accuracy.dual_wield_spread
+			if(!HAS_TRAIT(shooter, TRAIT_BADASS))
+				bonus_spread = accuracy.dual_wield_spread
 			addtimer(CALLBACK(akimbo_gun, TYPE_PROC_REF(/obj/item/gun, process_fire), target, shooter, TRUE, params, null, bonus_spread), 1)
 	process_fire(target, shooter, TRUE, params, null, bonus_spread)
 

@@ -794,6 +794,28 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/mask/gas/ghostface/true/devil(src)
 	new /obj/item/kitchen/knife/ghostface_knife/devil(src)
 
+/obj/item/storage/box/syndie_kit/gun_mods
+	name = "gun upgrade kit"
+	desc = "Коробка, содержащая различные модуля для улучшения оружия."
+	ru_names = list(
+		NOMINATIVE = "набор оружейных модулей",
+		GENITIVE = "набора оружейных модулей",
+		DATIVE = "набору оружейных модулей",
+		ACCUSATIVE = "набор оружейных модулей",
+		INSTRUMENTAL = "набором оружейных модулей",
+		PREPOSITIONAL = "наборе оружейных модулей"
+	)
+	icon_state = "box_gun_mods"
+	item_state = "box_gun_mods"
+
+/obj/item/storage/box/syndie_kit/gun_mods/populate_contents()
+	new /obj/item/gun_module/muzzle/suppressor(src)
+	new /obj/item/gun_module/muzzle/compensator(src)
+	new /obj/item/gun_module/rail/scope/collimator/pistol(src)
+	new /obj/item/gun_module/rail/scope/collimator(src)
+	new /obj/item/gun_module/rail/scope/x4(src)
+	new /obj/item/gun_module/under/hand/angle(src)
+  
 /obj/item/storage/box/syndie_kit/compact_sniper
 	name = "compact sniper rifle kit"
 	desc = "Коробка, содержащая компактную снайперскую винтовку \"Bubz Mini\", дополнительный магазин, и коробку патронов."
@@ -896,5 +918,3 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
-
-

@@ -656,7 +656,6 @@
 
 		// nutrition decrease
 		if(nutrition >= 0 && stat != DEAD)
-			handle_nutrition_alerts()
 			// THEY HUNGER
 			var/hunger_rate = is_vamp ? HUNGER_FACTOR_VAMPIRE : HUNGER_FACTOR * dna.species.hunger_drain_mod * physiology.hunger_mod
 			if(satiety > 0)
@@ -861,33 +860,6 @@
 
 #undef BODYPART_PAIN_REDUCTION
 
-
-/mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	var/new_hunger
-	switch(nutrition)
-		if(NUTRITION_LEVEL_FULL to INFINITY)
-			new_hunger = "fat"
-		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-			new_hunger = "full"
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			new_hunger = "well_fed"
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			new_hunger = "fed"
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			new_hunger = "hungry"
-		else
-			new_hunger = "starving"
-
-	if(HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
-		new_hunger = "full"
-
-	if(dna.species.hunger_type)
-		new_hunger += "/[dna.species.hunger_type]"
-
-	if(dna.species.hunger_level != new_hunger)
-		dna.species.hunger_level = new_hunger
-		throw_alert(ALERT_NUTRITION, text2path("/atom/movable/screen/alert/hunger/[new_hunger]"), icon_override = dna.species.hunger_icon)
-		med_hud_set_status()
 
 /mob/living/carbon/human/proc/handle_embedded_objects()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)

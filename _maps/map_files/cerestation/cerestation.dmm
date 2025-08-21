@@ -459,7 +459,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -47751,7 +47751,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/dispenser/oxygen,
+/obj/machinery/vending/gun_mods,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -55339,6 +55339,12 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
+"maz" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/security/seceqstorage)
 "maB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -118414,7 +118420,7 @@ bsL
 bAj
 bKt
 era
-qCe
+maz
 rJj
 jwM
 uaP

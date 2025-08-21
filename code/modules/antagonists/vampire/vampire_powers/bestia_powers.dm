@@ -669,6 +669,9 @@
 
 
 /obj/projectile/skull_projectile/Destroy()
+	var/obj/item/gun/magic/skull_gun/skull_gun = locate() in firer
+	if(skull_gun)
+		qdel(skull_gun)
 	QDEL_NULL(chain)
 	return ..()
 
@@ -676,10 +679,6 @@
 /obj/projectile/skull_projectile/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "sendbeam", time = INFINITY, maxdistance = INFINITY)
-
-		var/obj/item/gun/magic/skull_gun/skull_gun = locate() in firer
-		if(skull_gun)
-			qdel(skull_gun)
 
 		var/datum/antagonist/vampire/vampire = firer.mind?.has_antag_datum(/datum/antagonist/vampire)
 		var/obj/effect/proc_holder/spell/vampire/self/infected_trophy/infected_trophy = locate() in firer.mind?.spell_list
@@ -1836,7 +1835,7 @@
 
 /obj/structure/closet/coffin/vampire/singularity_act()
 	return
-	
+
 // Bruh... idk
 /obj/structure/closet/coffin/vampire/zap_act(power, zap_flags)
 	return

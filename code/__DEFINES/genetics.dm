@@ -30,7 +30,9 @@
 #define DISABILITY_FLAG_CATEARS (1<<18)
 
 
-//Nutrition levels for humans. No idea where else to put it
+// Nutrition levels for humans. No idea where else to put it
+// Number stands for the upper limit, reaching the number increases the nutrition level (349 - LEVEL_FED, 350 -> WELL_FED)
+// except for the number NUTRITION_LEVEL_FAT - its just FAT + 50 additional nutrition and NUTRITION_LEVEL_ZERO is just 0 nutrition
 #define NUTRITION_LEVEL_FAT 600
 #define NUTRITION_LEVEL_FULL 550
 #define NUTRITION_LEVEL_WELL_FED 450
@@ -38,7 +40,7 @@
 #define NUTRITION_LEVEL_HUNGRY 250
 #define NUTRITION_LEVEL_STARVING 150
 #define NUTRITION_LEVEL_HYPOGLYCEMIA 100
-#define NUTRITION_LEVEL_CURSED 0
+#define NUTRITION_LEVEL_ZERO 0
 
 //Used as an upper limit for species that continuously gain nutriment
 #define NUTRITION_LEVEL_ALMOST_FULL 535

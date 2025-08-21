@@ -280,6 +280,9 @@
 #define TRAIT_EMBEDIMMUNE "embed_immunity"
 /// This human mob will never suffer from the malnutrition
 #define TRAIT_NO_HUNGER "no_hunger"
+/// This human mob will not obtain additional bonuses/penalties from nutrition level (look at /datum/element/nutrition_effects)
+/// Used by these who still has hunger unlike TRAIT_NO_HUNGER
+#define TRAIT_NO_NUTRITION_EFFECTS "no_nutrition_effects"
 /// This human mob can repats surgeris attempts indefinitely
 #define TRAIT_MASTER_SURGEON "master_surgeon"
 /// Prohibits the installation of robotic limbs, cybernetic organs, augments

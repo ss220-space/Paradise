@@ -62,6 +62,8 @@
 
 /// Maximum amount of staminaloss, living mob can have.
 #define MAX_STAMINA_LOSS 120
+/// Base amount of max stamina living mob can have
+#define BASE_MAX_STAMINA 100
 
 //Grab levels
 #define GRAB_PASSIVE 0
