@@ -276,7 +276,7 @@
 		..()
 
 /obj/item/toy/crayon/bloodred
-    name = "кроваво-красный мелок"
+    name = "blood-red crayon"
     desc = "Мелок, основаный на ред-спейс технологии. Выглядит так, будто сделан из крови. Более питательный, чем обычный мелок."
     icon_state = "crayonbloodred"
     colour = "#501010"
@@ -292,6 +292,16 @@
         to_chat(user, span_notice("Вы кусаете [name]. На вкус как кровь!"))
         user.adjust_nutrition(10)
         return .
+
+/obj/item/toy/crayon/bloodred/get_ru_names()
+    return list(
+        NOMINATIVE = "кроваво-красный мелок",
+        GENITIVE = "кроваво-красного мелка",
+        DATIVE = "кроваво-красному мелку",
+        ACCUSATIVE = "кроваво-красный мелок",
+        INSTRUMENTAL = "кроваво-красным мелком",
+        PREPOSITIONAL = "кроваво-красном мелке"
+    )
 
 /obj/item/toy/crayon/bloodred/afterattack(atom/target, mob/user, proximity, params)
     if(!proximity) return
