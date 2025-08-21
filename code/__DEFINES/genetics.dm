@@ -29,7 +29,7 @@
 #define DISABILITY_FLAG_APHASIA (1<<17)
 #define DISABILITY_FLAG_CATEARS (1<<18)
 
-// При добавлении новых дизабилити, увеличивать данное значение
+// If you add new disability, modify this value
 #define DISABILITY_MAX ((1<<19) - 1)
 
 
