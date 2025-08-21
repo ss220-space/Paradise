@@ -790,7 +790,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(!EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return FALSE
 
-	for(var/datum/mind/player in owners)
+	for(var/datum/mind/player as anything in owners)
 		// Fails traitors if they are in the security area
 		var/area/location = get_area(player.current)
 		if(istype(location, /area/security))
