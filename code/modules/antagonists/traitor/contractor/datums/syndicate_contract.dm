@@ -634,8 +634,8 @@
 	// Newscaster story
 	var/datum/data/record/record = find_record("name", contract.target.name, GLOB.data_core.general)
 	var/initials = ""
-	for(var/str in splittext(record ?.fields["name"] || victim.real_name || DEFAULT_NAME, " "))
-		initials = initials + "[str[1]]."
+	for(var/string in splittext(record?.fields["name"] || victim.real_name || DEFAULT_NAME, " "))
+		initials = initials + "[string[1]]."
 
 	var/datum/feed_message/news_message = new
 	news_message.author = NEWS_CHANNEL_NYX
