@@ -8,10 +8,10 @@
 	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_NO_HUNGER) || HAS_TRAIT(target, TRAIT_NO_NUTRITION_EFFECTS))
 		return ELEMENT_INCOMPATIBLE
 
-	RegisterSignal(target, COMSIG_LIVING_LIFE, PROC_REF(on_life))
-	RegisterSignal(target, COMSIG_HUMAN_NUTRITION_UPDATE, PROC_REF(on_nutrition_level_update))
-	RegisterSignal(target, COMSIG_HUMAN_NUTRITION_UPDATE_SLOWDOWN, PROC_REF(nutrition_update_slowdown))
-	RegisterSignal(target, COMSIG_HUMAN_SPECIES_CHANGED, PROC_REF(on_species_changed))
+	RegisterSignal(target, COMSIG_LIVING_LIFE, PROC_REF(on_life), override = TRUE)
+	RegisterSignal(target, COMSIG_HUMAN_NUTRITION_UPDATE, PROC_REF(on_nutrition_level_update), override = TRUE)
+	RegisterSignal(target, COMSIG_HUMAN_NUTRITION_UPDATE_SLOWDOWN, PROC_REF(nutrition_update_slowdown), override = TRUE)
+	RegisterSignal(target, COMSIG_HUMAN_SPECIES_CHANGED, PROC_REF(on_species_changed), override = TRUE)
 
 
 /datum/element/nutrition_effects/Detach(datum/source)
