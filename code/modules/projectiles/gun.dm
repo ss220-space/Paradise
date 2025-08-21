@@ -333,6 +333,9 @@
 					bonus_spread += accuracy.dual_wield_spread * G.weapon_weight
 				loop_counter++
 				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
+	//CLOWN CHECK
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		bonus_spread += 45
 
 	process_fire(target,user,1,params, null, bonus_spread)
 

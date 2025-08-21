@@ -3227,8 +3227,18 @@
 					/obj/item/clothing/head/fez = 10,
 					/obj/item/clothing/head/beret = 10)
 	contraband = list(/obj/item/clothing/head/bearpelt = 5,
-					/obj/item/clothing/head/helmet/biker = 3)
+					/obj/item/clothing/head/helmet/biker = 1)
 	premium = list(/obj/item/clothing/head/soft/rainbow = 1)
+	prices = list(
+					/obj/item/clothing/head/bowlerhat = 39,
+					/obj/item/clothing/head/beaverhat = 39,
+					/obj/item/clothing/head/boaterhat = 39,
+					/obj/item/clothing/head/fedora = 39,
+					/obj/item/clothing/head/fez = 39,
+					/obj/item/clothing/head/beret = 39,
+					/obj/item/clothing/head/bearpelt = 99,
+					/obj/item/clothing/head/helmet/biker = 499
+	)
 	refill_canister = /obj/item/vending_refill/hatdispenser
 
 /obj/machinery/vending/hatdispenser/get_ru_names()
