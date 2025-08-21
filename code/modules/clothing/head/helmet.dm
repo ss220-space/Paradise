@@ -316,14 +316,6 @@
 /obj/item/clothing/head/helmet/skull
 	name = "skull helmet"
 	desc = "Этот шлем, который выглядит устрашающе и походит на племенной, кажется не очень удобным."
-	ru_names = list(
-		NOMINATIVE = "костяной шлем",
-		GENITIVE = "костяного шлема",
-		DATIVE = "костяному шлему",
-		ACCUSATIVE = "костяной шлем",
-		INSTRUMENTAL = "костяным шлемом",
-		PREPOSITIONAL = "костяном шлеме"
-	)
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDENAME
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 45, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -331,17 +323,27 @@
 	item_state = "skull"
 	strip_delay = 100
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-    	SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
-    	)
+			SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+			SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
+		)
+
+/obj/item/clothing/head/helmet/skull/get_ru_names()
+	return list(
+		NOMINATIVE = "костяной шлем",
+		GENITIVE = "костяного шлема",
+		DATIVE = "костяному шлему",
+		ACCUSATIVE = "костяной шлем",
+		INSTRUMENTAL = "костяным шлемом",
+		PREPOSITIONAL = "костяном шлеме"
+	)
 
 /obj/item/clothing/head/helmet/skull/Yorick
 	name = "Йорик"
 	desc = "Бедный Йорик..."
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-    	SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
-    	)
+			SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+			SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
+		)
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"

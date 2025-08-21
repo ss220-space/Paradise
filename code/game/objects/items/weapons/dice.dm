@@ -1,7 +1,13 @@
 /obj/item/storage/pill_bottle/dice
 	name = "dice pack"
 	desc = "Мешочек с игральными костями внутри."
-	ru_names = list(
+	icon = 'icons/obj/dice.dmi'
+	icon_state = "dicebag"
+	can_hold = list(/obj/item/dice)
+	allow_wrap = FALSE
+
+/obj/item/storage/pill_bottle/dice/get_ru_names()
+	return list(
         NOMINATIVE = "мешок игральных костей",
         GENITIVE = "мешка игральных костей",
         DATIVE = "мешку игральных костей",
@@ -9,11 +15,6 @@
         INSTRUMENTAL = "мешком игральных костей",
         PREPOSITIONAL = "мешке игральных костей"
 	)
-	icon = 'icons/obj/dice.dmi'
-	icon_state = "dicebag"
-	can_hold = list(/obj/item/dice)
-	allow_wrap = FALSE
-
 
 /obj/item/storage/pill_bottle/dice/populate_contents()
 	var/special_die = pick("1", "2", "fudge", "00", "100")
@@ -58,14 +59,6 @@
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
 	name = "dice"
 	desc = "Кость с шестью гранями. Непримечательна и проста в обращении."
-	ru_names = list(
-		NOMINATIVE = "игральная кость",
-		GENITIVE = "игральной кости",
-		DATIVE = "игральной кости",
-		ACCUSATIVE = "игральную кость",
-		INSTRUMENTAL = "игральной костью",
-		PREPOSITIONAL = "игральной кости"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
@@ -77,6 +70,16 @@
 
 	var/rigged = DICE_NOT_RIGGED
 	var/rigged_value
+
+/obj/item/dice/get_ru_names()
+	return list(
+		NOMINATIVE = "игральная кость",
+		GENITIVE = "игральной кости",
+		DATIVE = "игральной кости",
+		ACCUSATIVE = "игральную кость",
+		INSTRUMENTAL = "игральной костью",
+		PREPOSITIONAL = "игральной кости"
+	)
 
 
 /obj/item/dice/Initialize(mapload)

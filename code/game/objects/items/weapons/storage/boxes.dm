@@ -34,7 +34,14 @@
 /obj/item/storage/box/large
 	name = "large box"
 	desc = "Это крайне вместительная коробка."
-	ru_names = list(
+	icon_state = "largebox"
+	w_class = 4 // Big, bulky.
+	foldable_amt = 4
+	storage_slots = 21
+	max_combined_w_class = 42 // 21*2
+
+/obj/item/storage/box/large/get_ru_names()
+	return list(
 		NOMINATIVE = "большая коробка",
 		GENITIVE = "большой коробки",
 		DATIVE = "большой коробке",
@@ -42,11 +49,6 @@
 		INSTRUMENTAL = "большой коробкой",
 		PREPOSITIONAL = "большой коробке"
 	)
-	icon_state = "largebox"
-	w_class = 4 // Big, bulky.
-	foldable_amt = 4
-	storage_slots = 21
-	max_combined_w_class = 42 // 21*2
 
 /obj/item/storage/box/survival
 	icon_state = "box_civ"
@@ -388,7 +390,10 @@
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
 	desc = "<b>Инструкция:</b> <i>Разогрейте в микроволновой печи. Если продукт не употреблять в течение семи минут, он остынет.</i>"
-	ru_names = list(
+	icon_state = "donk_kit"
+
+/obj/item/storage/box/donkpockets/get_ru_names()
+	return list(
 		NOMINATIVE = "коробка с Донк-покетами",
 		GENITIVE = "коробки с Донк-покетами",
 		DATIVE = "коробке с Донк-покетами",
@@ -396,7 +401,6 @@
 		INSTRUMENTAL = "коробкой с Донк-покетами",
 		PREPOSITIONAL = "коробке с Донк-покетами"
 	)
-	icon_state = "donk_kit"
 
 /obj/item/storage/box/donkpockets/populate_contents()
 	for(var/I in 1 to 6)
@@ -405,7 +409,10 @@
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
 	desc = "Эта коробка кажется немного тёплой на ощупь."
-	ru_names = list(
+	icon_state = "donk_kit"
+
+/obj/item/storage/box/syndidonkpockets/get_ru_names()
+	return list(
 		NOMINATIVE = "коробка с Донк-покетами",
 		GENITIVE = "коробки с Донк-покетами",
 		DATIVE = "коробке с Донк-покетами",
@@ -413,7 +420,6 @@
 		INSTRUMENTAL = "коробкой с Донк-покетами",
 		PREPOSITIONAL = "коробке с Донк-покетами"
 	)
-	icon_state = "donk_kit"
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
 	for(var/I in 1 to 6)
@@ -686,14 +692,6 @@
 /obj/item/storage/box/matches
 	name = "matchbox"
 	desc = "Маленький коробок плазменных спичек почти премиум-класса."
-	ru_names = list(
-		NOMINATIVE = "коробок спичек",
-		GENITIVE = "коробка спичек",
-		DATIVE = "коробку спичек",
-		ACCUSATIVE = "коробок спичек",
-		INSTRUMENTAL = "коробком спичек",
-		PREPOSITIONAL = "коробке спичек"
-	)
 	gender = MALE
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
@@ -707,6 +705,16 @@
 	pickup_sound =  'sound/items/handling/pickup/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
 	use_sound = "patchpack"
+
+/obj/item/storage/box/matches/get_ru_names()
+	return list(
+		NOMINATIVE = "коробок спичек",
+		GENITIVE = "коробка спичек",
+		DATIVE = "коробку спичек",
+		ACCUSATIVE = "коробок спичек",
+		INSTRUMENTAL = "коробком спичек",
+		PREPOSITIONAL = "коробке спичек"
+	)
 
 /obj/item/storage/box/matches/populate_contents()
 	for(var/i in 1 to storage_slots)
@@ -1503,7 +1511,10 @@
 /obj/item/storage/box/specter_kit
 	name = "набор Спектр"
 	desc = "Коробка, содержащая пистолет \"Спектр\", кобуру и 2 обоймы парализующих патронов."
-	ru_names = list(
+	icon_state = "box_specter"
+
+/obj/item/storage/box/specter_kit/get_ru_names()
+	return list(
 		NOMINATIVE = "набор Спектр",
 		GENITIVE = "набора Спектр",
 		DATIVE = "набору Спектр",
@@ -1511,7 +1522,6 @@
 		INSTRUMENTAL = "набором Спектр",
 		PREPOSITIONAL = "наборе Спектр"
 	)
-	icon_state = "box_specter"
 
 /obj/item/storage/box/specter_kit/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/specter(src)

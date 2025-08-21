@@ -8,9 +8,9 @@
 #define NO_GRAVITY_SPEED (0.15 SECONDS)
 #define GRAVITY_SPEED (0.4 SECONDS)
 
-#define POD_MISC_LOCK_DOOR 		"Блокировка дверей"
-#define POD_MISC_POD_DOORS 		"Шлюз отсека"
-#define POD_MISC_UNLOAD_CARGO 	"Сбросить груз"
+#define POD_MISC_LOCK_DOOR		"Блокировка дверей"
+#define POD_MISC_POD_DOORS		"Шлюз отсека"
+#define POD_MISC_UNLOAD_CARGO	"Сбросить груз"
 #define POD_MISC_CHECK_SEAT		"Проверить под сиденьем"
 #define POD_MISC_LOCATOR_SKAN   "Сканировать сектор"
 

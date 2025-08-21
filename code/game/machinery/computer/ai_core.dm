@@ -10,12 +10,12 @@
 	var/obj/item/circuitboard/aicore/circuit = null
 	var/obj/item/mmi/brain = null
 
-/obj/structure/AIcore/Destroy()
+/obj/structure/AIcore/Destroy(force)
 	QDEL_NULL(laws)
 	QDEL_NULL(circuit)
 	QDEL_NULL(brain)
 	if(state == AI_READY_CORE)
-		death_alarm()
+		INVOKE_ASYNC(src, PROC_REF(death_alarm))
 
 	return ..()
 

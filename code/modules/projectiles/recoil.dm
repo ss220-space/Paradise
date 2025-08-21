@@ -42,6 +42,8 @@
 /obj/item/gun/proc/do_recoil(mob/living/user, atom/target)
 	if(!recoil || !recoil.strength)
 		return
+	if(zoomed)
+		return // sights and recoil create visual bugs, disable recoil if we in sight mode.
 	var/shot_angle = get_angle(target, user)
 	var/rand_angle = (rand() - 0.5) * recoil.angle + shot_angle
 	recoil_camera(user, recoil.strength, recoil.in_duration, recoil.back_duration, rand_angle)
@@ -50,7 +52,7 @@
 	if(!user || !user.client)
 		return
 	var/client/sufferer = user.client
-	strength *= world.icon_size
+	strength *= ICON_SIZE_ALL
 	var/oldx = sufferer.pixel_x
 	var/oldy = sufferer.pixel_y
 	//get pixels to move the camera in an angle

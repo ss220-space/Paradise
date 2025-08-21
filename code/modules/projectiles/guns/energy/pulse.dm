@@ -11,11 +11,17 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/advanced, /obj/item/ammo_casing/energy/laser/pulse , /obj/item/ammo_casing/energy/laser)
 	cell_type = /obj/item/stock_parts/cell/pulse
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4)
+	)
 
 /obj/item/gun/energy/pulse/emp_act(severity)
 	return
 
 /obj/item/gun/energy/pulse/cyborg
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/pulse/cyborg/newshot()
 	..()
@@ -29,10 +35,12 @@
 	icon_state = "pulse_carbine"
 	item_state = "pulse"
 	cell_type = /obj/item/stock_parts/cell/pulse/carbine
-	can_flashlight = TRUE
-	flight_x_offset = 18
-	flight_y_offset = 12
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4)
+	)
 
 /obj/item/gun/energy/pulse/pistol
 	name = "pulse pistol"
@@ -45,6 +53,7 @@
 	cell_type = /obj/item/stock_parts/cell/pulse/pistol
 	can_charge = FALSE
 	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"
@@ -69,6 +78,7 @@
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/infinite
 	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/pulse/turret
 	name = "pulse turret gun"
@@ -79,7 +89,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse)
 	weapon_weight = WEAPON_MEDIUM
-	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 	accuracy = GUN_ACCURACY_SNIPER
+	attachable_allowed = GUN_MODULE_CLASS_NONE

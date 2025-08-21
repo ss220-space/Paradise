@@ -547,7 +547,7 @@
 	icon_state = "sink"
 	desc = "A sink used for washing one's hands and face."
 	anchored = TRUE
-	var/busy = 0 	//Something's being washed at the moment
+	var/busy = 0	//Something's being washed at the moment
 	var/can_move = 1	//if the sink can be disconnected and moved
 	var/can_rotate = 1	//if the sink can be rotated to face alternate directions
 
@@ -705,7 +705,13 @@
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
 	desc = "Неглубокий водоём с мутноватой водой. Идеален для мытья рук, полива грядок и философских размышлений о том, кто в нём купался до вас."
-	ru_names = list(
+	icon_state = "puddle"
+	can_move = 0
+	can_rotate = 0
+	resistance_flags = UNACIDABLE
+
+/obj/structure/sink/puddle/get_ru_names()
+	return list(
 		NOMINATIVE = "пруд",
 		GENITIVE = "пруда",
 		DATIVE = "пруду",
@@ -713,10 +719,6 @@
 		INSTRUMENTAL = "прудом",
 		PREPOSITIONAL = "пруде"
 	)
-	icon_state = "puddle"
-	can_move = 0
-	can_rotate = 0
-	resistance_flags = UNACIDABLE
 
 /obj/structure/sink/puddle/Initialize(mapload)
 	. = ..()

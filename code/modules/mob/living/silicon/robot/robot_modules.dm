@@ -594,6 +594,8 @@
 	emag = new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
 	var/datum/reagents/R = new/datum/reagents(50)
+	if(emag.reagents)
+		qdel(emag.reagents)
 	emag.reagents = R
 	R.my_atom = emag
 	R.add_reagent("beer2", 50)

@@ -17,7 +17,8 @@
 //ninja alpha defines
 #define NINJA_ALPHA_NORMAL 255
 #define NINJA_ALPHA_SPIRIT_FORM 64
-#define NINJA_ALPHA_INVISIBILITY 0
+// not actually invisible anymore
+#define NINJA_ALPHA_INVISIBILITY 20
 
 //ninja suit tgui related flags
 #define NINJA_TGUI_MAIN_SCREEN_STATE 0
