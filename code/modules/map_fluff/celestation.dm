@@ -19,3 +19,4 @@
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/celestation/"
+	admin_only = TRUE
