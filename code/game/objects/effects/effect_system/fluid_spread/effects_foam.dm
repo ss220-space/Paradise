@@ -172,7 +172,7 @@
 	/// What type of thing the foam should leave behind when it dissipates.
 	var/atom/movable/result_type = null
 
-	var/list/banned_reagents = list("smoke_powder", "fluorosurfactant", "stimulants")
+	var/static/list/banned_reagents = list("smoke_powder", "fluorosurfactant", "stimulants")
 
 
 /datum/effect_system/fluid_spread/foam/New()
@@ -346,14 +346,6 @@
 /obj/structure/foamedmetal
 	name = "foamed metal"
 	desc = "Легкая стена из вспененного металла"
-	ru_names = list(
-		NOMINATIVE = "пенометалл",
-		GENITIVE = "пенометалла",
-		DATIVE = "пенометаллу",
-		ACCUSATIVE = "пенометалл",
-		INSTRUMENTAL = "пенометаллом",
-		PREPOSITIONAL = "пенометалле",
-	)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "metalfoam"
 	density = TRUE
@@ -364,6 +356,16 @@
 	gender = PLURAL
 	max_integrity = 20
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+
+/obj/structure/foamedmetal/get_ru_names()
+	return list(
+		NOMINATIVE = "пенометалл",
+		GENITIVE = "пенометалла",
+		DATIVE = "пенометаллу",
+		ACCUSATIVE = "пенометалл",
+		INSTRUMENTAL = "пенометаллом",
+		PREPOSITIONAL = "пенометалле",
+	)
 
 /obj/structure/foamedmetal/Initialize(mapload)
 	. = ..()
@@ -402,7 +404,15 @@
 /// Atmos Backpack Resin, transparent, prevents atmos and filters the air
 /obj/structure/foamedmetal/resin
 	name = "ATMOS Resin"
-	ru_names = list(
+	desc = "Легкая прозрачная смола, используемая для тушения пожаров, очистки воздуха от токсинов и восстановления безопасной температуры воздуха."
+	opacity = FALSE
+	icon_state = "atmos_resin"
+	alpha = 120
+	max_integrity = 10
+	pass_flags_self = PASSGLASS
+
+/obj/structure/foamedmetal/resin/get_ru_names()
+	return list(
 		NOMINATIVE = "атмосферная смола",
 		GENITIVE = "атмосферной смолы",
 		DATIVE = "атмосферной смоле",
@@ -410,12 +420,6 @@
 		INSTRUMENTAL = "атмосферной смолой",
 		PREPOSITIONAL = "атмосферной смоле",
 	)
-	desc = "Легкая прозрачная смола, используемая для тушения пожаров, очистки воздуха от токсинов и восстановления безопасной температуры воздуха."
-	opacity = FALSE
-	icon_state = "atmos_resin"
-	alpha = 120
-	max_integrity = 10
-	pass_flags_self = PASSGLASS
 
 /obj/structure/foamedmetal/resin/Initialize(mapload)
 	. = ..()

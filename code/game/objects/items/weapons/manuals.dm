@@ -25,10 +25,8 @@
 	/// book title in ru_names
 	var/manual_title_ru = ""
 
-/obj/item/book/manual/Initialize(mapload)
-	. = ..()
-	name = "manual \"[manual_title]\""
-	ru_names = list(
+/obj/item/book/manual/get_ru_names()
+	return list(
 		NOMINATIVE = "руководство \"[manual_title_ru]\"",
 		GENITIVE = "руководства \"[manual_title_ru]\"",
 		DATIVE = "руководству \"[manual_title_ru]\"",
@@ -36,6 +34,10 @@
 		INSTRUMENTAL = "руководством \"[manual_title_ru]\"",
 		PREPOSITIONAL = "руководстве \"[manual_title_ru]\""
 	)
+
+/obj/item/book/manual/Initialize(mapload)
+	. = ..()
+	name = "manual \"[manual_title]\""
 	title = manual_title_ru
 	if(!wiki_title || !CONFIG_GET(string/wikiurl)) //it means, manual doesnt rely on wiki, or we dont have wiki
 		return

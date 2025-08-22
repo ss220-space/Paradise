@@ -36,7 +36,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	var/cost = 0
 
 //////////////////////////////////////
-//			    Prizes		    	//
+//			    Prizes		   	//
 //////////////////////////////////////
 
 /datum/prize_item/balloon

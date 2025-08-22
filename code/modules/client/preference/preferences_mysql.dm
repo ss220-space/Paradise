@@ -239,7 +239,7 @@
 					hair_gradient_offset,
 					hair_gradient_colour,
 					hair_gradient_alpha
-				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
+					FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
 					 ))
@@ -398,7 +398,7 @@
 	job_karma_high = sanitize_integer(job_karma_high, 0, 65535, initial(job_karma_high))
 	job_karma_med = sanitize_integer(job_karma_med, 0, 65535, initial(job_karma_med))
 	job_karma_low = sanitize_integer(job_karma_low, 0, 65535, initial(job_karma_low))
-	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
+	disabilities = sanitize_integer(disabilities, 0, DISABILITY_MAX, initial(disabilities))
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))

@@ -96,10 +96,12 @@
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"
-/// from /datum/component/cleave_attack/perform_sweep(): (atom/target, obj/item/item, mob/living/user, params)
+/// from /datum/component/cleave_attack/proc/hit_atoms_on_turf(): (atom/target, obj/item, mob/user)
 #define COMSIG_ATOM_CLEAVE_ATTACK "atom_cleave_attack"
 	// allows cleave attack to hit things it normally wouldn't
 	#define ATOM_ALLOW_CLEAVE_ATTACK (1<<0)
+/// from /datum/action/item_action/toggle_cleave_attack/Trigger
+#define COMSIG_TOGGLE_CLEAVE_ATTACK "toggle_cleave_attack"
 ///from base of atom/attack_hulk(): (/mob/living/carbon/human)
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/animal_attack(): (/mob/user)
@@ -291,7 +293,7 @@
 #define COMSIG_CLICK "atom_click"
 ///from base of atom/ShiftClick(): (/mob)
 #define COMSIG_CLICK_SHIFT "shift_click"
-	#define COMPONENT_ALLOW_EXAMINATE (1<<0) 							//Allows the user to examinate regardless of client.eye.
+	#define COMPONENT_ALLOW_EXAMINATE (1<<0)							//Allows the user to examinate regardless of client.eye.
 ///from base of atom/CtrlClickOn(): (/mob)
 #define COMSIG_CLICK_CTRL "ctrl_click"
 ///from base of atom/base_click_alt(): (/mob)
@@ -525,6 +527,9 @@
 
 #define COMSIG_MOB_MOVE_INTENT_TOGGLED "mob_move_intent_toggled"
 
+/// from /mob/proc/combine_message (&msg)
+#define COMSIG_COMBINE_MESSAGE_FOR_HEARER "combine_message_for_hearer"
+
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT (1<<0)
@@ -684,6 +689,8 @@
 #define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
 ///from base of mob/living/Immobilize() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
+///from base of mob/living/unconscious() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
 ///from base of mob/living/Paralyze() (amount, ignore_canparalyse)
 #define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
@@ -701,10 +708,10 @@
 	#define COMPONENT_CANT_TRACK (1<<0)
 
 /// Source: /mob/living/AdjustBlood(amount)
-#define COMSIG_LIVING_BLOOD_ADJUST 		"living_blood_adjust"
+#define COMSIG_LIVING_BLOOD_ADJUST		"living_blood_adjust"
 	#define COMPONENT_PREVENT_BLOODLOSS	(1<<0)
 /// Source: /mob/living/AdjustBlood(amount)
-#define COMSIG_LIVING_BLOOD_ADJUSTED 	"living_blood_adjusted"
+#define COMSIG_LIVING_BLOOD_ADJUSTED	"living_blood_adjusted"
 /// Source: /mob/living/setBlood(amount)
 #define COMSIG_LIVING_EARLY_SET_BLOOD	"living_early_set_blood"
 /// Source: /mob/living/setBlood(amount)
@@ -1001,6 +1008,13 @@
 ///called in /obj/item/gun/process_fire (user, target)
 #define COMSIG_GUN_FIRED "gun_fired"
 
+
+/// Sent from obj/item/gun/toggle_gunlight_verb(): (user)
+#define COMSIG_GUN_LIGHT_TOGGLE "gun_light_toggle"
+
+/// Sent from obj/item/gun/zoom(): (user, zoomed)
+#define COMSIG_GUN_ZOOM_TOGGLE "gun_zoom_toggle"
+
 // /obj/item/grenade signals
 
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override)
@@ -1052,6 +1066,10 @@
 #define COMSIG_JOB_RECEIVED "job_received"
 // called after DNA is updated
 #define COMSIG_HUMAN_UPDATE_DNA "human_update_dna"
+/// From /mob/living/carbon/human/proc/try_update_nutrition_level()
+#define COMSIG_HUMAN_NUTRITION_UPDATE "human_nutrition_update"
+/// From /mob/living/carbon/human/proc/update_nutrition_slowdown()
+#define COMSIG_HUMAN_NUTRITION_UPDATE_SLOWDOWN "human_nutrition_update_slowdown"
 /// From mob/living/carbon/human/change_body_accessory(): (mob/living/carbon/human/H, body_accessory_style)
 #define COMSIG_HUMAN_CHANGE_BODY_ACCESSORY "human_change_body_accessory"
 	#define COMSIG_HUMAN_NO_CHANGE_APPEARANCE (1<<0)
@@ -1081,7 +1099,7 @@
 // /datum/song signals
 
 ///sent to the instrument when a song starts playing
-#define COMSIG_SONG_START 	"song_start"
+#define COMSIG_SONG_START	"song_start"
 ///sent to the instrument when a song stops playing
 #define COMSIG_SONG_END		"song_end"
 
@@ -1450,3 +1468,13 @@
 	#define CONTAINER_INSERT_FAILED (1<<1)
 
 #define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"
+
+#define COMSIG_SAY_YOUR_NAME "say_your_name"
+	#define SAY_NAME_BLOCK (1<<1)
+
+/// From /obj/structure/closet/supplypod/proc/preReturn()
+#define COMSIG_SUPPLYPOD_PRE_RETURN "supply_pod_pre_return"
+/// From /obj/structure/closet/supplypod/proc/on_enter()
+#define COMSIG_SUPPLYPOD_ENTERED "supply_pod_entered"
+/// From /obj/structure/closet/supplypod/proc/on_exit()
+#define COMSIG_SUPPLYPOD_EXITED "supply_pod_exited"

@@ -12,7 +12,7 @@
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
-	color = WIRE_COLOR_RED
+	color = CABLE_HEX_COLOR_RED
 	desc = "A coil of power cable."
 	w_class = WEIGHT_CLASS_SMALL
 	full_w_class = WEIGHT_CLASS_SMALL
@@ -26,14 +26,14 @@
 	toolspeed = 1
 
 	var/static/list/wire_colors = list(
-		WIRE_COLOR_BLUE = "blue",
-		WIRE_COLOR_CYAN = "cyan",
-		WIRE_COLOR_GREEN = "green",
-		WIRE_COLOR_ORANGE = "orange",
-		WIRE_COLOR_PINK = "pink",
-		WIRE_COLOR_RED = "red",
-		WIRE_COLOR_WHITE = "white",
-		WIRE_COLOR_YELLOW = "yellow"
+		CABLE_HEX_COLOR_BLUE = "blue",
+		CABLE_HEX_COLOR_CYAN = "cyan",
+		CABLE_HEX_COLOR_GREEN = "green",
+		CABLE_HEX_COLOR_ORANGE = "orange",
+		CABLE_HEX_COLOR_PINK = "pink",
+		CABLE_HEX_COLOR_RED = "red",
+		CABLE_HEX_COLOR_WHITE = "white",
+		CABLE_HEX_COLOR_YELLOW = "yellow"
 	)
 
 
@@ -63,7 +63,7 @@
 
 /obj/item/stack/cable_coil/update_icon_state()
 	if(!color)
-		color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_ORANGE, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+		color = pick(CABLE_HEX_COLOR_RED, CABLE_HEX_COLOR_BLUE, CABLE_HEX_COLOR_GREEN, CABLE_HEX_COLOR_ORANGE, CABLE_HEX_COLOR_WHITE, CABLE_HEX_COLOR_PINK, CABLE_HEX_COLOR_YELLOW, CABLE_HEX_COLOR_CYAN)
 	if(amount == 1)
 		icon_state = "coil1"
 	else if(amount == 2)
@@ -121,19 +121,19 @@
 				var/obj/item/restraints/handcuffs/cable/cablecuff = new(T)
 				var/text_color
 				switch(color)
-					if(WIRE_COLOR_BLUE)
+					if(CABLE_HEX_COLOR_BLUE)
 						text_color = "blue"
-					if(WIRE_COLOR_CYAN)
+					if(CABLE_HEX_COLOR_CYAN)
 						text_color = "cyan"
-					if(WIRE_COLOR_GREEN)
+					if(CABLE_HEX_COLOR_GREEN)
 						text_color = "green"
-					if(WIRE_COLOR_ORANGE)
+					if(CABLE_HEX_COLOR_ORANGE)
 						text_color = "orange"
-					if(WIRE_COLOR_PINK)
+					if(CABLE_HEX_COLOR_PINK)
 						text_color = "pink"
-					if(WIRE_COLOR_RED)
+					if(CABLE_HEX_COLOR_RED)
 						text_color = "red"
-					if(WIRE_COLOR_YELLOW)
+					if(CABLE_HEX_COLOR_YELLOW)
 						text_color = "yellow"
 					else
 						text_color = "white"
@@ -424,42 +424,42 @@
 	. = ..(mapload, rand(1,2), merge, cable_color)
 
 /obj/item/stack/cable_coil/yellow
-	color = WIRE_COLOR_YELLOW
+	color = CABLE_HEX_COLOR_YELLOW
 
 /obj/item/stack/cable_coil/blue
-	color = WIRE_COLOR_BLUE
+	color = CABLE_HEX_COLOR_BLUE
 
 /obj/item/stack/cable_coil/green
-	color = WIRE_COLOR_GREEN
+	color = CABLE_HEX_COLOR_GREEN
 
 /obj/item/stack/cable_coil/pink
-	color = WIRE_COLOR_PINK
+	color = CABLE_HEX_COLOR_PINK
 
 /obj/item/stack/cable_coil/orange
-	color = WIRE_COLOR_ORANGE
+	color = CABLE_HEX_COLOR_ORANGE
 
 /obj/item/stack/cable_coil/cyan
-	color = WIRE_COLOR_CYAN
+	color = CABLE_HEX_COLOR_CYAN
 
 /obj/item/stack/cable_coil/white
-	color = WIRE_COLOR_WHITE
+	color = CABLE_HEX_COLOR_WHITE
 
 /obj/item/stack/cable_coil/random/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
-	var/random_color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+	var/random_color = pick(CABLE_HEX_COLOR_RED, CABLE_HEX_COLOR_BLUE, CABLE_HEX_COLOR_GREEN, CABLE_HEX_COLOR_WHITE, CABLE_HEX_COLOR_PINK, CABLE_HEX_COLOR_YELLOW, CABLE_HEX_COLOR_CYAN)
 	. = ..(mapload, new_amount, merge, random_color)
 
 /obj/item/stack/cable_coil/proc/cable_color(colorC)
 	if(!colorC)
-		color = WIRE_COLOR_RED
+		color = CABLE_HEX_COLOR_RED
 	else if(colorC == "rainbow")
 		color = color_rainbow()
 	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
-		color = WIRE_COLOR_ORANGE
+		color = CABLE_HEX_COLOR_ORANGE
 	else
 		color = colorC
 
 /obj/item/stack/cable_coil/proc/color_rainbow()
-	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+	color = pick(CABLE_HEX_COLOR_RED, CABLE_HEX_COLOR_BLUE, CABLE_HEX_COLOR_GREEN, CABLE_HEX_COLOR_PINK, CABLE_HEX_COLOR_YELLOW, CABLE_HEX_COLOR_CYAN)
 	return color
 
 /obj/item/stack/cable_coil/cyborg

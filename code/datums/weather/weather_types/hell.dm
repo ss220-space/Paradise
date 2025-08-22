@@ -182,7 +182,21 @@
 /obj/structure/hell_rift
 	name = "hell rift"
 	desc = "Разлом, позволяющий адским существам проникнуть в этот мир."
-	ru_names = list(
+	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
+	max_integrity = 300
+	icon = 'icons/obj/carp_rift.dmi'
+	icon_state = "carp_rift_carpspawn"
+	color = "#7D1E20"
+	light_color = COLOR_SOFT_RED
+	light_range = 8
+	anchored = TRUE
+	density = FALSE
+	plane = OBJ_LAYER
+	var/imps_count = 0
+	var/timer_id
+
+/obj/structure/hell_rift/get_ru_names()
+	return list(
 		NOMINATIVE = "адский разлом",
 		GENITIVE = "адского разлома",
 		DATIVE = "адскому разлому",
@@ -190,18 +204,6 @@
 		INSTRUMENTAL = "адским разломом",
 		PREPOSITIONAL = "адском разломе"
 	)
-	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
-	max_integrity = 300
-	icon = 'icons/obj/carp_rift.dmi'
-	icon_state = "carp_rift_carpspawn"
-	color = "#7D1E20"
-	light_color = LIGHT_COLOR_DARKRED
-	light_range = 8
-	anchored = TRUE
-	density = FALSE
-	plane = OBJ_LAYER
-	var/imps_count = 0
-	var/timer_id
 
 /obj/structure/hell_rift/ComponentInitialize()
 	. = ..()

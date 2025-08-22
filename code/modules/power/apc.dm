@@ -307,7 +307,7 @@
 	if(cell_type)
 		cell = new/obj/item/stock_parts/cell/upgraded(src)
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
-		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
+		cell.charge = start_charge * cell.maxcharge / 100		// (convert percentage to actual value)
 
 	cog = null // Or you can't put it in
 
@@ -385,7 +385,7 @@
 		status_overlays_environ[3] = image(icon, "apco2-2")
 		status_overlays_environ[4] = image(icon, "apco2-3")
 
-	var/update = check_updates() 		//returns 0 if no need to update icons.
+	var/update = check_updates()		//returns 0 if no need to update icons.
 						// 1 if we need to update the icon_state
 						// 2 if we need to update the overlays
 	if(!update && !force_update)
@@ -395,16 +395,16 @@
 		if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2|UPSTATE_BROKE))
 			set_light_on(FALSE)
 		else if(update_state & UPSTATE_BLUESCREEN)
-			set_light(2, 1, COLOR_CYAN_BLUE, l_on = TRUE)
+			set_light(2, 1, LIGHT_COLOR_DARK_BLUE, l_on = TRUE)
 		else if(!(stat & (UPSTATE_MAINT|UPSTATE_BROKE)) && (update_state & UPSTATE_ALLGOOD))
 			var/color
 			switch(charging)
 				if(APC_NOT_CHARGING)
-					color = COLOR_APC_RED
+					color = COLOR_SOFT_RED
 				if(APC_IS_CHARGING)
-					color = COLOR_APC_BLUE
+					color = LIGHT_COLOR_BLUE
 				if(APC_FULLY_CHARGED)
-					color = COLOR_APC_GREEN
+					color = LIGHT_COLOR_GREEN
 			set_light(2, 0.5, color, l_on = TRUE)
 		else
 			set_light_on(FALSE)

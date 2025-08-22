@@ -161,7 +161,12 @@
 
 /obj/projectile/magic/demonic_grasp
 	name = "demonic grasp"
-	ru_names = list(
+	// parry this you filthy casual
+	reflectability = REFLECTABILITY_NEVER
+	icon_state = null
+
+/obj/projectile/magic/demonic_grasp/get_ru_names()
+	return list(
             NOMINATIVE = "демоническая хватка",
             GENITIVE = "демонической хватки",
             DATIVE = "демонической хватке",
@@ -169,10 +174,6 @@
             INSTRUMENTAL = "демонической хваткой",
             PREPOSITIONAL = "демонической хватке"
         )
-	// parry this you filthy casual
-	reflectability = REFLECTABILITY_NEVER
-	icon_state = null
-
 
 /obj/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
 	. = ..()

@@ -18,14 +18,14 @@
 	var/datum/action/innate/tail_cut/implant_ability = new
 	var/biological = FALSE								// Used in examine
 	var/activated = FALSE
-	var/slash_strength = 35 							// Implant damage
+	var/slash_strength = 35							// Implant damage
 	var/stamina_damage = 0								// Stamina damage to others
 	var/self_stamina_damage = 5							// Stamina damage to self
 	var/damage_type = BRUTE								// BRUTE or BURN
 	var/slash_sound = 'sound/weapons/bladeslice.ogg'	// A sound plays when you hit someone with tail_cut
 	sound_on = 'sound/weapons/blade_dark_unsheath.ogg'	// Activation sound
 	sound_off = 'sound/weapons/blade_dark_sheath.ogg'	// Deactivation sound
-	icon_state = "tailimplant_blade" 					// All tailblades sprites by @baldek
+	icon_state = "tailimplant_blade"					// All tailblades sprites by @baldek
 	origin_tech = "materials=6;combat=5;biotech=5;programming=3;syndicate=3;"
 
 // NT tail laserblade

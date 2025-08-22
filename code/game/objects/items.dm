@@ -53,7 +53,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Used when yate into a mob.
 	var/mob_throw_hit_sound
 	///Sound used when equipping the item into a valid slot.
-	var/equip_sound = list(
+	var/equip_sound
+	var/static/list/base_equip_sounds = list(
 		'sound/items/handling/equip/generic_equip1.ogg',
 		'sound/items/handling/equip/generic_equip2.ogg',
 		'sound/items/handling/equip/generic_equip3.ogg',
@@ -61,13 +62,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		'sound/items/handling/equip/generic_equip5.ogg',
 	)
 	///Sound used when picking the item up (into your hands)
-	var/pickup_sound = list(
+	var/pickup_sound
+	var/static/list/base_pickup_sounds = list(
 		'sound/items/handling/pickup/generic_pickup1.ogg',
 		'sound/items/handling/pickup/generic_pickup2.ogg',
 		'sound/items/handling/pickup/generic_pickup3.ogg',
 	)
 	///Sound used when dropping the item.
-	var/drop_sound = list(
+	var/drop_sound
+	var/static/list/base_drop_sounds = list(
 		'sound/items/handling/drop/generic_drop1.ogg',
 		'sound/items/handling/drop/generic_drop2.ogg',
 		'sound/items/handling/drop/generic_drop3.ogg',
@@ -247,6 +250,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/proc/add_eatable_component()
 	AddComponent(/datum/component/eatable)
+
+/obj/item/proc/get_equip_sound()
+	return equip_sound || pick(base_equip_sounds)
+
+/obj/item/proc/get_pickup_sound()
+	return pickup_sound || pick(base_pickup_sounds)
+
+/obj/item/proc/get_drop_sound()
+	return drop_sound || pick(base_drop_sounds)
 
 /obj/item/proc/determine_move_resist()
 	switch(w_class)
@@ -580,6 +592,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	remove_outline()
 
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user, slot)
+	var/drop_sound = get_drop_sound()
 	if(!silent && !(item_flags & ABSTRACT) && drop_sound)
 		var/chosen_sound = drop_sound
 		if(islist(drop_sound) && length(drop_sound))
@@ -664,6 +677,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	item_flags |= IN_INVENTORY
 
 	if(!initial && !(item_flags & ABSTRACT))
+		var/equip_sound = get_equip_sound()
+		var/pickup_sound = get_pickup_sound()
 		if(equip_sound && !user.is_general_slot(slot))
 			var/chosen_sound = equip_sound
 			if(islist(equip_sound) && length(equip_sound))
@@ -768,13 +783,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return container.handle_item_insertion(src)
 
 	if(drop_on_fail)
-		if(src in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(src in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			user.drop_item_ground(src)
 		else
 			forceMove(drop_location())
 
 	else if(qdel_on_fail)
-		if(src in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(src in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 
@@ -960,7 +975,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			playsound(living, 'sound/weapons/throwtap.ogg', volume, TRUE, -1)
 
 	else
-		playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		playsound(src, get_drop_sound(), YEET_SOUND_VOLUME, ignore_walls = FALSE)
 
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force, dodgeable)
@@ -997,6 +1012,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!do_after(user, 4 SECONDS, source))
 		return
 	clean_blood()
+	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, 5)
 	acid_level = 0
 	user.visible_message(
 		span_notice("[user] мо[pluralize_ru(user.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)]."),
@@ -1336,7 +1352,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /// Default item sharpening effect.
 /// Return `FALSE` to stop sharpening.
 /obj/item/proc/sharpen_act(obj/item/whetstone/whetstone, mob/user)
-	name = "[whetstone.prefix] [name]"
+	desc = "[initial(desc)] [span_boldwarning("[whetstone.prefix]!")]"
 	force = clamp(force + whetstone.increment, 0, whetstone.max)
 	throwforce = clamp(throwforce + whetstone.increment, 0, whetstone.max)
 	set_sharpness(TRUE)

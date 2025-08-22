@@ -278,9 +278,9 @@
 	icon_state = "cult_sharpener"
 	increment = 5
 	max = 40
-	prefix = "darkened"
 	claws_increment = 4
-
+	gender = MALE
+	prefix = "Потемневшее"
 
 /obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[!uses ? "_used" : ""]"

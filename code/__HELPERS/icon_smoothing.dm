@@ -35,8 +35,8 @@
 
 #define NULLTURF_BORDER 123456789
 
-#define DEFAULT_UNDERLAY_ICON 			'icons/turf/floors.dmi'
-#define DEFAULT_UNDERLAY_ICON_STATE 	"plating"
+#define DEFAULT_UNDERLAY_ICON			'icons/turf/floors.dmi'
+#define DEFAULT_UNDERLAY_ICON_STATE	"plating"
 #define DEFAULT_UNDERLAY_IMAGE			image(DEFAULT_UNDERLAY_ICON, DEFAULT_UNDERLAY_ICON_STATE)
 
 GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
