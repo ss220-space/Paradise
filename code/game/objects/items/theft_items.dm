@@ -83,7 +83,7 @@
 	QDEL_NULL(core)
 	return ..()
 
-/obj/item/nuke_core_container/ex_act(severity)
+/obj/item/nuke_core_container/ex_act(severity, target)
 	if(!sealed) //core now immune to blast if not used yet
 		return
 	if(!isturf(loc)) //if in hands/backpack, can't be cracked open

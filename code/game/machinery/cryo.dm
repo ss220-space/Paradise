@@ -116,12 +116,12 @@
 	QDEL_NULL(occupant_overlay)
 	return ..()
 
-/obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity)
+/obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity, target)
 	if(occupant)
-		occupant.ex_act(severity)
+		occupant.ex_act(severity, target)
 	if(beaker)
-		beaker.ex_act(severity)
-	..()
+		beaker.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/handle_atom_del(atom/A)
 	..()

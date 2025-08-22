@@ -303,13 +303,13 @@
 /obj/machinery/dna_scannernew/force_eject_occupant(mob/target)
 	go_out(null, TRUE)
 
-/obj/machinery/dna_scannernew/ex_act(severity)
+/obj/machinery/dna_scannernew/ex_act(severity, target)
 	if(occupant)
 		occupant.ex_act(severity)
-	..()
+	return ..()
 
 /obj/machinery/dna_scannernew/handle_atom_del(atom/A)
-	..()
+	. = ..()
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()

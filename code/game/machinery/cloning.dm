@@ -652,8 +652,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(prob(100/(severity*efficiency))) malfunction()
 	..()
 
-/obj/machinery/clonepod/ex_act(severity)
-	..()
+/obj/machinery/clonepod/ex_act(severity, target)
+	. = ..()
 	if(!QDELETED(src) && occupant)
 		go_out()
 

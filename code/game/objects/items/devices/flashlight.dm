@@ -295,7 +295,7 @@
 	..()
 	qdel(src)
 
-/obj/item/flashlight/flare/on/illumination/ex_act(severity)
+/obj/item/flashlight/flare/on/illumination/ex_act(severity, target)
 	return //Nope
 
 

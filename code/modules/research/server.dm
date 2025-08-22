@@ -104,10 +104,10 @@
 
 /obj/machinery/r_n_d/server/emp_act(severity)
 	griefProtection()
-	..()
+	return ..()
 
 
-/obj/machinery/r_n_d/server/ex_act(severity)
+/obj/machinery/r_n_d/server/ex_act(severity, target)
 	griefProtection()
 	return ..()
 

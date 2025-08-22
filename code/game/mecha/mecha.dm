@@ -766,7 +766,7 @@
 	if(prob(deflect_chance))
 		severity++
 		log_message("Armor saved, changing severity to [severity]")
-	..()
+	. = ..()
 	severity++
 	for(var/X in equipment)
 		var/obj/item/mecha_parts/mecha_equipment/ME = X

@@ -56,7 +56,7 @@
 				M.speak = rampant_speeches.Copy()
 				M.speak_chance = 15
 			else
-				explosion(upriser.loc, -1, 1, 2, 4, 0)
+				explosion(upriser.loc, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 2, flash_range = 4, adminlog = FALSE)
 				qdel(upriser)
 
 		kill()
