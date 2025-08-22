@@ -1804,10 +1804,10 @@
 /obj/item/clothing/suit/storage/zazalord/get_ru_names()
 	return list(
 		NOMINATIVE = "заза-лорд бомбер",
-		GENITIVE = "заза-лорда бомбера",
-		DATIVE = "заза-лорду бомберу",
-		ACCUSATIVE = "заза-лорда бомбера",
-		INSTRUMENTAL = "заза-лордом бомбером",
-		PREPOSITIONAL = "заза-лорде  бомбере"
+		GENITIVE = "заза-лорд бомбера",
+		DATIVE = "заза-лорд бомберу",
+		ACCUSATIVE = "заза-лорд бомбера",
+		INSTRUMENTAL = "заза-лорд бомбером",
+		PREPOSITIONAL = "заза-лорд бомбере"
 	)
 
