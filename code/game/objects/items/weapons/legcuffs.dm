@@ -303,14 +303,18 @@
 		return TRUE
 
 	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(vamp && HAS_TRAIT_FROM(target, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+	if(vamp && HAS_TRAIT_FROM(target, TRAIT_DEFLECT_BOLAS, VAMPIRE_TRAIT))
 		if(vamp.bloodusable)
 			vamp.bloodusable = max(vamp.bloodusable - 10, 0)
 			target.visible_message(span_danger("[target] deflects [src]!"),
 									span_notice("You deflect [src], it costs you 10 usable blood."))
 			return TRUE
 
-		REMOVE_TRAIT(target, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+		REMOVE_TRAIT(target, TRAIT_DEFLECT_BOLAS, VAMPIRE_TRAIT)
+
+	if(HAS_TRAIT(target, TRAIT_DEFLECT_BOLAS))
+		target.visible_message(span_danger("[target] deflects [src]!"))
+		return TRUE
 
 	target.visible_message(span_danger("[src] ensnares [target]!"))
 	to_chat(target, span_userdanger("[src] ensnares you!"))

@@ -24,10 +24,18 @@
 
 /datum/status_effect/his_grace/on_apply()
 	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, HIS_GRACE_TRAIT)
+	ADD_TRAIT(owner, TRAIT_DEFLECT_BOLAS, HIS_GRACE_TRAIT)
+	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	owner.move_resist = MOVE_FORCE_STRONG
 	return ..()
 
 /datum/status_effect/his_grace/on_remove()
 	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	REMOVE_TRAIT(owner, TRAIT_PUSHIMMUNE, HIS_GRACE_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_DEFLECT_BOLAS, HIS_GRACE_TRAIT)
+	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	owner.move_resist = MOVE_FORCE_DEFAULT
 
 /datum/status_effect/his_grace/tick(seconds_between_ticks)
 	var/mob/living/carbon/human/human = owner

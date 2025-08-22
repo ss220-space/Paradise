@@ -662,7 +662,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.move_resist > user.pull_force)
 			return FALSE
-		if(!(target.status_flags & CANPUSH))
+		if(!(target.status_flags & CANPUSH) || HAS_TRAIT(target, TRAIT_PUSHIMMUNE))
 			return FALSE
 		if(target.anchored)
 			return FALSE
