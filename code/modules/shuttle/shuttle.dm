@@ -162,11 +162,6 @@
 
 	var/lock_shuttle_doors = FALSE
 
-/obj/docking_port/stationary/Initialize(mapload)
-	. = ..()
-	if(!mapload)
-		register()
-
 // Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
 /obj/docking_port/stationary/whiteship
 	dwidth = 8
