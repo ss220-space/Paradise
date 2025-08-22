@@ -1391,7 +1391,7 @@
 
 /obj/item/clothing/under/chad
 	name = "Chad suit"
-	desc = "Должно быть абсолютно очевидным - перед вами настоящая легенда."
+	desc = "Должно быть абсолютно очевидным – перед вами настоящая легенда."
 	over_shoes = TRUE
 	can_adjust = FALSE
 	icon_state = "chadsuit"
@@ -1400,10 +1400,10 @@
 
 /obj/item/clothing/under/chad/get_ru_names()
 	return list(
-		NOMINATIVE = "костюм гигачада",
-		GENITIVE = "костюма гигачада",
-		DATIVE = "костюму гигачада",
-		ACCUSATIVE = "костюм гигачада",
-		INSTRUMENTAL = "костюмом гигачада",
-		PREPOSITIONAL = "костюме гигачада"
+		NOMINATIVE = "костюм Гигачада",
+		GENITIVE = "костюма Гигачада",
+		DATIVE = "костюму Гигачада",
+		ACCUSATIVE = "костюм Гигачада",
+		INSTRUMENTAL = "костюмом Гигачада",
+		PREPOSITIONAL = "костюме Гигачада"
 	)

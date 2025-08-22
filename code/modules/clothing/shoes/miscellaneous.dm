@@ -657,10 +657,10 @@
 
 /obj/item/clothing/shoes/chad/get_ru_names()
 	return list(
-		NOMINATIVE = "сапоги гигачада",
-		GENITIVE = "сапога гигачада",
-		DATIVE = "сапогу гигачада",
-		ACCUSATIVE = "сапоги гигачада",
-		INSTRUMENTAL = "сапогами гигачада",
-		PREPOSITIONAL = "сапогах гигачада"
+		NOMINATIVE = "сапоги Гигачада",
+		GENITIVE = "сапога Гигачада",
+		DATIVE = "сапогу Гигачада",
+		ACCUSATIVE = "сапоги Гигачада",
+		INSTRUMENTAL = "сапогами Гигачада",
+		PREPOSITIONAL = "сапогах Гигачада"
 	)
