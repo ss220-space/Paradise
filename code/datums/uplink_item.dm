@@ -1391,7 +1391,14 @@
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Универсальный глушитель"
 	desc = "Обеспечивает повышенную скрытность, заглушая звуки выстрелов."
-	item = /obj/item/suppressor
+	item = /obj/item/gun_module/muzzle/suppressor
+	cost = 4
+	surplus = 10
+
+/datum/uplink_item/stealthy_weapons/scope_x8
+	name = "Оптический прицел х8"
+	desc = "Повышает точность при стрельбе на большие дистанции."
+	item = /obj/item/gun_module/rail/scope/x8
 	cost = 4
 	surplus = 10
 
@@ -2348,6 +2355,12 @@
 	item = /obj/item/storage/briefcase/sniperbundle
 	cost = 110 // normally 135
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/bundles_TC/gun_mods
+	name = "Набор модулей для оружия"
+	desc = "Коробка, содержащая различные модули для улучшения вашего оружия."
+	item = /obj/item/storage/box/syndie_kit/gun_mods
+	cost = 10 // silencer 4 TK + 4 other modules
 
 /datum/uplink_item/bundles_TC/cyborg_maint
 	name = "Набор для починки роботов"

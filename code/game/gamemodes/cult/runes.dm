@@ -29,7 +29,7 @@ To draw a rune, use a ritual dagger.
 	var/view_range = 7
 	invisibility = INVISIBILITY_RUNES
 	layer = SIGIL_LAYER
-	color = COLOR_BLOOD_BASE
+	color = RUNE_COLOR_RED
 
 	/// What is said by cultists when the rune is invoked
 	var/invocation = "Aiy ele-mayo!"
@@ -56,7 +56,7 @@ To draw a rune, use a ritual dagger.
 	/// How much damage cultists take when invoking it (This includes constructs)
 	var/invoke_damage = 0
 	/// The color of the rune. (Based on species blood color)
-	var/rune_blood_color = COLOR_BLOOD_BASE
+	var/rune_blood_color = RUNE_COLOR_RED
 
 /obj/effect/rune/New(loc, set_keyword)
 	..()
@@ -258,6 +258,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_desc = "offers non-cultists on top of it to the Dark One, either converting or sacrificing them. Sacrifices with a soul will result in a captured soulshard. This can be done with brains as well."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "offering"
+	color = RUNE_COLOR_OFFER
 	req_cultists = 1
 	allow_excess_invokers = TRUE
 	rune_in_use = FALSE
@@ -296,6 +297,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	rune_in_use = TRUE
+	color = RUNE_COLOR_DARKRED
+
 	var/mob/living/L = pick(offer_targets)
 	if(!CONFIG_GET(number/can_cult_convert) && !is_sacrifice_target(L.mind))
 		fail_invoke()
@@ -416,6 +419,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_desc = "warps everything above it to another chosen teleport rune."
 	invocation = "Сас'со к'арта форбичи!"
 	icon_state = "teleport"
+	color = RUNE_COLOR_TELEPORT
 	req_keyword = TRUE
 	light_power = 4
 	var/obj/effect/temp_visual/cult/portal/inner_portal //The portal "hint" for off-station teleportations
@@ -542,6 +546,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_desc = "allows cultists to prepare greater amounts of blood magic at far less of a cost."
 	invocation = "H'drak v'loso, mir'kanas verbot!"
 	icon_state = "empower"
+	color = RUNE_COLOR_TALISMAN
 	construct_invoke = FALSE
 
 /obj/effect/rune/empower/invoke(list/invokers)
@@ -556,6 +561,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_desc = "requires a dead, mindless, or inactive cultist placed upon the rune. For each three bodies sacrificed to the dark patron, one body will be mended and their mind awoken"
 	invocation = "Pasnar val'keriam usinar. Savrae ines amutan. Yam'toth remium il'tarat!" //Depends on the name of the user - see below
 	icon_state = "revive"
+	color = RUNE_COLOR_MEDIUMRED
 	var/static/sacrifices_used = -SOULS_TO_REVIVE // Cultists get one "free" revive
 
 /obj/effect/rune/raise_dead/examine(mob/user)
@@ -647,6 +653,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_desc = "when invoked makes a temporary wall to block passage. Can be destroyed by brute force. Can be invoked again to reverse this."
 	invocation = "Khari'd! Eske'te tannin!"
 	icon_state = "barrier"
+	color = RUNE_COLOR_DARKRED
 	///The barrier summoned by the rune when invoked. Tracked as a variable to prevent refreshing the barrier's integrity. shieldgen.dm
 	var/obj/machinery/shield/cult/barrier/B
 
@@ -684,6 +691,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	req_cultists = 2
 	invoke_damage = 10
 	icon_state = "summon"
+	color = RUNE_COLOR_SUMMON
 
 /obj/effect/rune/summon/invoke(list/invokers)
 	var/mob/living/user = invokers[1]
@@ -738,6 +746,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage. Requires 2 invokers channeling the rune."
 	invocation = "Dedo ol'btoh!"
 	icon_state = "blood_boil"
+	color = RUNE_COLOR_BURNTORANGE
 	light_color = LIGHT_COLOR_LAVA
 	req_cultists = 2
 	invoke_damage = 15
@@ -820,6 +829,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invocation = "Gal'h'rfikk harfrandid mud'gib!" //how the fuck do you pronounce this
 	icon_state = "spirit_realm"
 	construct_invoke = FALSE
+	color = RUNE_COLOR_DARKRED
 	var/mob/dead/observer/ghost = null //The cult ghost of the user
 	var/default_ghost_limit = 4 //Lowered by the amount of cult objectives done
 	var/minimum_ghost_limit = 2 //But cant go lower than this
@@ -915,8 +925,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	qdel(shield)
 	ghosts--
 	if(new_human)
-		new_human.visible_message(span_warning("[new_human] suddenly dissolves into bones and ashes."),
-								  span_cultlarge("Your link to the world fades. Your form breaks apart."))
+		new_human.visible_message(
+			span_warning("[new_human] suddenly dissolves into bones and ashes."),
+			span_cultlarge("Your link to the world fades. Your form breaks apart.")
+		)
 		for(var/obj/item/I in new_human.get_all_slots())
 			new_human.drop_item_ground(I)
 		SSticker.mode.remove_cultist(new_human.mind, FALSE)
@@ -965,6 +977,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
 	req_cultists = 9
 	icon = 'icons/effects/96x96.dmi'
+	color = RUNE_COLOR_DARKRED
 	icon_state = "rune_large"
 	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
 	pixel_y = -32

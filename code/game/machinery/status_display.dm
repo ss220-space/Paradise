@@ -3,34 +3,34 @@ GLOBAL_LIST_EMPTY(status_displays)
 GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	"" = COLOR_GRAY,
 	"outline" = COLOR_GRAY,
-	"ai_awesome" = COLOR_DEEP_SKY_BLUE,
-	"ai_beer" = COLOR_DEEP_SKY_BLUE,
-	"ai_bsod" = COLOR_CYAN_BLUE,
-	"ai_confused" = COLOR_DEEP_SKY_BLUE,
-	"ai_dwarf" = COLOR_DEEP_SKY_BLUE,
-	"ai_facepalm" = COLOR_WHEAT,
+	"ai_awesome" = COLOR_DISPLAY_BLUE,
+	"ai_beer" = COLOR_DISPLAY_BLUE,
+	"ai_bsod" = COLOR_DISPLAY_PURPLE,
+	"ai_confused" = COLOR_DISPLAY_BLUE,
+	"ai_dwarf" = COLOR_DISPLAY_BLUE,
+	"ai_facepalm" = COLOR_DISPLAY_YELLOW,
 	"ai_fishtank" = COLOR_BLUE_LIGHT,
-	"ai_friend" = COLOR_TITANIUM,
-	"ai_happy" = COLOR_DEEP_SKY_BLUE,
-	"ai_neutral" = COLOR_DEEP_SKY_BLUE,
+	"ai_friend" = COLOR_VERY_LIGHT_GRAY,
+	"ai_happy" = COLOR_DISPLAY_BLUE,
+	"ai_neutral" = COLOR_DISPLAY_BLUE,
 	"ai_off" = COLOR_GRAY,
-	"ai_plump" = COLOR_DEEP_SKY_BLUE,
-	"ai_sad" = COLOR_DEEP_SKY_BLUE,
-	"ai_surprised" = COLOR_DEEP_SKY_BLUE,
+	"ai_plump" = COLOR_DISPLAY_BLUE,
+	"ai_sad" = COLOR_DISPLAY_BLUE,
+	"ai_surprised" = COLOR_DISPLAY_BLUE,
 	"ai_tribunal" = COLOR_WHITE,
 	"ai_tribunal_malf" = COLOR_WHITE,
 	"ai_trollface" = COLOR_BLUE_LIGHT,
-	"ai_unsure" = COLOR_DEEP_SKY_BLUE,
+	"ai_unsure" = COLOR_DISPLAY_BLUE,
 	"ai_urist" = COLOR_BLUE_LIGHT,
-	"ai_veryhappy" = COLOR_DEEP_SKY_BLUE,
+	"ai_veryhappy" = COLOR_DISPLAY_BLUE,
 	"biohazard" = COLOR_RED_LIGHT,
-	"default" = COLOR_CYAN_BLUE,
+	"default" = COLOR_DISPLAY_PURPLE,
 	"lockdown" = COLOR_YELLOW,
 	"redalert" = COLOR_RED_LIGHT,
-	"gammaalert" = COLOR_YELLOW_GRAY,
+	"gammaalert" = COLOR_GOLD,
 	"deltaalert" = COLOR_ORANGE,
-	"epsilonalert" = COLOR_WHEAT,
-	"radiation" = COLOR_YELLOW_GRAY
+	"epsilonalert" = COLOR_DISPLAY_YELLOW,
+	"radiation" = COLOR_DISPLAY_GREEN
 ))
 
 // Status display
@@ -267,7 +267,7 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 			lum += 0.4
 		if(index2)
 			lum += 0.4
-		set_light(1, lum, (SSshuttle.emergency && SSshuttle.emergency.timer) ? COLOR_SUN : COLOR_LIGHT_CYAN, l_on = TRUE)
+		set_light(1, lum, (SSshuttle.emergency && SSshuttle.emergency.timer) ? COLOR_DISPLAY_ORANGE : COLOR_DISPLAY_BLUE, l_on = TRUE)
 
 GLOBAL_LIST_EMPTY(ai_displays)
 

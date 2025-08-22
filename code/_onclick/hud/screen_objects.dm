@@ -742,6 +742,12 @@
 	icon_state = "stamina0"
 	screen_loc = ui_stamina
 
+/atom/movable/screen/nutrition_bar
+	name = "nutrition"
+	icon = 'icons/hud/screen_hunger.dmi'
+	icon_state = "default_full"
+	screen_loc = ui_nutrition
+
 /atom/movable/screen/healths/alien
 	icon = 'icons/mob/screen_alien.dmi'
 	screen_loc = ui_alien_health
