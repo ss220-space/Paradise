@@ -235,13 +235,14 @@
 	meal.death()
 	playsound(meal, 'sound/weapons/bladeslice.ogg', 75, TRUE)
 	playsound(loc, 'sound/goonstation/misc/burp_alien.ogg', 50, FALSE)
-	meal.forceMove(src)
 
 	var/datum/mind/mind = meal.mind
 	if(!mind || mind.madeby_sentience_potion)
-		meal.visible_message(span_his_grace("[declent_ru(NOMINATIVE)] не получает насыщения от подобной пищи. Он недоволен!"))
+		meal.visible_message(span_his_grace("[capitalize(declent_ru(NOMINATIVE))] не получа[pluralize_ru(gender, "ет", "ют")] насыщения от подобной пищи. [capitalize(declent_ru(NOMINATIVE))] недоволен!"))
+		meal.forceMove(src)
 		return
 
+	meal.forceMove(src)
 	force_bonus += HIS_GRACE_FORCE_BONUS
 	prev_bloodthirst = bloodthirst
 	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER)

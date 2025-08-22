@@ -88,7 +88,7 @@
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
-	desc = "Тяжёлая бола, напитанная тёмной магией. При попадании опрокинет и замедлит вашу жертву. Не подействует на других культистов."
+	desc = "Тяжёлая бола, наполненная тёмной магией. При попадании она опрокинет и замедлит вашу цель, но не повлияет на других культистов."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
@@ -108,7 +108,7 @@
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
-		hit_atom.visible_message(span_warning("[declent_ru(NOMINATIVE)] отскакивает от [hit_atom], отброшенная невидимой силой!"))
+		hit_atom.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] отскакивает от [hit_atom.declent_ru(GENITIVE)], отброшенная невидимой силой!"))
 		return
 	. = ..()
 
