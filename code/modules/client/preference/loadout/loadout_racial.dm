@@ -119,12 +119,12 @@
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/racial/highwaistpants
-	index_name = "High waist pants"
+	index_name = "high waist pants"
 	path = /obj/item/clothing/under/tchaikowsky/highwaistpants
 	whitelisted_species = list(SPECIES_HUMAN)
 
 /datum/gear/racial/eveningdress
-	index_name = "Evening dress"
+	index_name = "evening dress"
 	path = /obj/item/clothing/under/tchaikowsky/evening_dress
 	whitelisted_species = list(SPECIES_HUMAN)
 
@@ -135,7 +135,7 @@
 	gear_tweaks += new /datum/gear_tweak/path(eveningdresses, src, TRUE)
 
 /datum/gear/racial/formaldress
-	index_name = "Formal dress"
+	index_name = "formal dress"
 	path = /obj/item/clothing/under/tchaikowsky/dress
 	whitelisted_species = list(SPECIES_HUMAN)
 
@@ -157,7 +157,7 @@
 	gear_tweaks += new /datum/gear_tweak/path(baseballuniform, src, TRUE)
 
 /datum/gear/racial/baseballcap
-	index_name = "Baseball cap"
+	index_name = "baseball cap"
 	path = /obj/item/clothing/head/tchaikowsky/baseballcap
 	whitelisted_species = list(SPECIES_HUMAN)
 
