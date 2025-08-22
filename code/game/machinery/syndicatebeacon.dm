@@ -55,7 +55,7 @@
 		if(prob(50))
 			temptext = "<span style='color: red;'><i><b>Двойной агент. Ты планировал предать нас с самого начала. Позвольте нам отплатить за услугу тем же.</b></i></span>"
 			src.updateUsrDialog()
-			addtimer(CALLBACK(src, PROC_REF(selfdestruct)), rand(50, 200))
+			addtimer(CALLBACK(src, PROC_REF(selfdestruct)), rand(5 SECONDS, 20 SECONDS))
 			return
 		if(ishuman(M))
 			var/mob/living/carbon/human/N = M
