@@ -2193,10 +2193,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						uplink_pref = new_uplink_pref
 
 				if("can_be_antagonist")
-					var/new_can_be_antagonist = tgui_input_list(user, "Выберите, может ли текущий персонаж быть антагонистом. Если у выбранного в начале игры персонажа эта опция отключена, при выпадении антагониста будет выбран случайный ваш персонаж, у которого она включена. Если она отключена у всех, выбранный персонаж останется.", \
-																"Может ли быть антагонистом", list("Да", "Нет"))
-					if(new_can_be_antagonist)
-						can_be_antagonist = new_can_be_antagonist == "Да" ? 1 : 0
+					can_be_antagonist = tgui_alert(user, "Выберите, может ли текущий персонаж быть антагонистом. Если у выбранного в начале игры персонажа эта опция отключена, при выпадении антагониста будет выбран случайный ваш персонаж, у которого она включена. Если она отключена у всех, выбранный персонаж останется.", \
+																"Может ли быть антагонистом", list("Да", "Нет")) == "Да"
 
 				if("tts_seed")
 					var/static/list/explorer_users = list()
@@ -3060,8 +3058,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 /// Get random charecter with can_be_antagonist on. If no such characters, don't change current.
 /datum/preferences/proc/get_possible_antagonist()
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot, can_be_antagonist FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey AND can_be_antagonist=:req_can_be_antagonist ORDER BY slot", list(
 		"ckey" = parent.ckey,
+		"req_can_be_antagonist" = 1,
 	))
 
 	if(!query.warn_execute(async = FALSE)) // Dont async this. Youll make roundstart slow.
@@ -3070,10 +3069,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	var/list/saves = list()
 	while(query.NextRow())
-		var/cur_can_be_antagonist = query.item[2]
-		if(!cur_can_be_antagonist)
-			continue
-
 		saves += text2num(query.item[1])
 
 	qdel(query)
