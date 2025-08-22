@@ -44,7 +44,7 @@
 		if(!reagents.total_volume)
 			return
 		if(user != C)
-			user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] капать что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
+			user.visible_message(span_danger("[user] начина[pluralize_ru(user.gender, "ет", "ют")] капать что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
 			if(!do_after(user, 3 SECONDS, C, NONE))
 				return
 		if(ishuman(target))
@@ -69,7 +69,7 @@
 				to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[declension_ru(to_transfer, "у", "ы", "")] вещества, используя [declent_ru(ACCUSATIVE)]."))
 				return
 
-		user.visible_message(span_notice("[user] закапыва[pluralize_ru(user.gender, "ет", "ют")] что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_danger("[user] закапыва[pluralize_ru(user.gender, "ет", "ют")] что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
 		reagents.reaction(C, REAGENT_TOUCH)
 
 		var/list/injected = list()
