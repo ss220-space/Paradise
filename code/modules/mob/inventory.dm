@@ -86,14 +86,14 @@
 			return TRUE
 
 	if(drop_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			drop_item_ground(I)
 		else
 			I.forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			temporarily_remove_item_from_inventory(I, force = TRUE)
 		qdel(I)
 
@@ -124,14 +124,14 @@
 		return TRUE
 
 	if(drop_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			drop_item_ground(I)
 		else
 			I.forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			temporarily_remove_item_from_inventory(I, force = TRUE)
 		qdel(I)
 
@@ -185,14 +185,14 @@
 
 	if(!I.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated))
 		if(drop_on_fail)
-			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+			if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 				drop_item_ground(I)
 			else
 				I.forceMove(drop_location())
 			return FALSE
 
 		if(qdel_on_fail)
-			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+			if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 				temporarily_remove_item_from_inventory(I, force = TRUE)
 			qdel(I)
 
@@ -672,17 +672,13 @@
 	return processing_list
 
 /// Collects all items in possibly equipped slots.
-/mob/proc/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
+/mob/proc/get_equipped_items(include_flags = NONE)
 	var/list/items = list()
-	if(back)
-		items += back
-	if(wear_mask)
-		items += wear_mask
-	if(include_hands)
-		if(l_hand)
-			items += l_hand
-		if(r_hand)
-			items += r_hand
+	for(var/obj/item/item_contents in contents)
+		if(item_contents.item_flags & IN_INVENTORY)
+			items += item_contents
+	if (!(include_flags & INCLUDE_HELD))
+		items -= list(r_hand, l_hand)
 	return items
 
 
@@ -790,3 +786,10 @@
 	. = list()
 	for(var/obj/item/I in (get_item_by_slot(ITEM_SLOT_HAND_LEFT) || get_item_by_slot(ITEM_SLOT_HAND_RIGHT)))
 		. |= drop_item_ground(I)
+
+/// Returns a list of things that the provided mob has, including any storage-capable implants.
+/mob/living/proc/gather_belongings(accessories = TRUE, recursive = TRUE)
+	var/list/belongings = get_all_gear(accessories, recursive)
+	for (var/obj/item/implant/storage/internal_bag in contents)
+		belongings += internal_bag.contents
+	return belongings

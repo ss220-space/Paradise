@@ -6,7 +6,7 @@
 
 	icon_keyboard = "security_key"
 	icon_screen = "cameras"
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 	circuit = /obj/item/circuitboard/camera
 
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page

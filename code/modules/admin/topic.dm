@@ -3229,6 +3229,19 @@
 				log_and_message_admins("renamed the station to: [new_name].")
 				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
 
+			if("set_english_station_name")
+				if(!check_rights(R_ADMIN | R_EVENT))
+					return
+
+				if(!you_realy_want_do_this())
+					return
+
+				var/new_english_name = tgui_input_text(usr, "Пожалуйста, введите новое название станции НА АНГЛИЙСКОМ для отображения в Byond hub.", "Что?", "", encode = FALSE)
+				if(!new_english_name)
+					return
+				change_english_station_name(new_english_name)
+				log_and_message_admins("renamed the station in the Byond hub to: [new_english_name].")
+
 			if("set_centcomm_name")
 				if(!check_rights(R_ADMIN | R_EVENT))
 					return

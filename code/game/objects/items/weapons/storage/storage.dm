@@ -354,8 +354,9 @@
 	if(usr)
 		var/turf/item_turf = get_turf(W)
 		var/turf/storage_turf = get_turf(src)
+		var/turf/user_turf = get_turf(usr)
 		// Its ok to move items to/from nullspace, since its not a player action
-		if(item_turf && storage_turf && !in_range(item_turf, storage_turf))
+		if(item_turf && storage_turf && (!in_range(storage_turf, user_turf) || !in_range(item_turf, user_turf)))
 			if(!stop_messages)
 				usr.balloon_alert(usr, "слишком далеко!")
 			return FALSE

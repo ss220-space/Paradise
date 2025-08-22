@@ -35,28 +35,28 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/d2 = 1
 	plane = GAME_PLANE
 	layer = WIRE_LAYER //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
-	color = WIRE_COLOR_RED
+	color = CABLE_HEX_COLOR_RED
 
 /obj/structure/cable/yellow
-	color = WIRE_COLOR_YELLOW
+	color = CABLE_HEX_COLOR_YELLOW
 
 /obj/structure/cable/green
-	color = WIRE_COLOR_GREEN
+	color = CABLE_HEX_COLOR_GREEN
 
 /obj/structure/cable/blue
-	color = WIRE_COLOR_BLUE
+	color = CABLE_HEX_COLOR_BLUE
 
 /obj/structure/cable/pink
-	color = WIRE_COLOR_PINK
+	color = CABLE_HEX_COLOR_PINK
 
 /obj/structure/cable/orange
-	color = WIRE_COLOR_ORANGE
+	color = CABLE_HEX_COLOR_ORANGE
 
 /obj/structure/cable/cyan
-	color = WIRE_COLOR_CYAN
+	color = CABLE_HEX_COLOR_CYAN
 
 /obj/structure/cable/white
-	color = WIRE_COLOR_WHITE
+	color = CABLE_HEX_COLOR_WHITE
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
@@ -253,16 +253,16 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/cable_color(colorC)
 	if(!colorC)
-		color = WIRE_COLOR_RED
+		color = CABLE_HEX_COLOR_RED
 	else if(colorC == "rainbow")
 		color = color_rainbow()
 	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
-		color = WIRE_COLOR_ORANGE
+		color = CABLE_HEX_COLOR_ORANGE
 	else
 		color = colorC
 
 /obj/structure/cable/proc/color_rainbow()
-	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+	color = pick(CABLE_HEX_COLOR_RED, CABLE_HEX_COLOR_BLUE, CABLE_HEX_COLOR_GREEN, CABLE_HEX_COLOR_PINK, CABLE_HEX_COLOR_YELLOW, CABLE_HEX_COLOR_CYAN)
 	return color
 
 /////////////////////////////////////////////////

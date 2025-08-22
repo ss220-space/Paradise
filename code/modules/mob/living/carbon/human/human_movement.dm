@@ -204,7 +204,7 @@
 			remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 
 		update_fractures_slowdown()
-		update_hunger_slowdown()
+		update_nutrition_slowdown()
 		update_fat_slowdown()
 
 

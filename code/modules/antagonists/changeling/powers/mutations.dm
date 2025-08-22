@@ -239,7 +239,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
-		if(O.brute_dam >= 50)
+		if(O && O.brute_dam >= 50)
 			O.droplimb()
 
 

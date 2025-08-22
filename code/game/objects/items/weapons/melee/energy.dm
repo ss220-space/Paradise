@@ -20,7 +20,7 @@
 	light_range = 2
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
 
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -108,7 +108,7 @@
 	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	attack_verb_on = list()
 	sharp = 1
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
 
 /obj/item/melee/energy/axe/ComponentInitialize()
 	. = ..()
@@ -183,7 +183,7 @@
 	hitcost = 75 //Costs more than a standard cyborg esword
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
 	tool_behaviour = TOOL_SAW
 
 /obj/item/melee/energy/sword/cyborg/saw/New()
@@ -281,7 +281,7 @@
 	desc = "Arrrr matey."
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 
 /obj/item/melee/energy/blade
 	name = "energy blade"

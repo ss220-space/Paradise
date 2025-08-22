@@ -35,7 +35,7 @@
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
 
 /obj/machinery/atmospherics/unary/cryo_cell/get_ru_names()
 	return list(
@@ -543,7 +543,7 @@
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	color = "red"//force the icon to red
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 
 /obj/machinery/atmospherics/unary/cryo_cell/ratvar_act()
 	go_out()

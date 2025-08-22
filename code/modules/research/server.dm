@@ -255,7 +255,7 @@
 	name = "R&D server controller"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
-	light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_LAVENDER
 	circuit = /obj/item/circuitboard/rdservercontrol
 	var/screen = 0
 	var/obj/machinery/r_n_d/server/temp_server

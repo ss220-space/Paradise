@@ -28,7 +28,7 @@
 	/// For records in pai
 	var/atom/movable/parent
 
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 
 /obj/machinery/computer/secure_data/Initialize(mapload)
 	. = ..()
