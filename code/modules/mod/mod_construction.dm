@@ -116,12 +116,12 @@
 		ru_names = get_ru_names_cached()
 
 	ru_names = list(
-		NOMINATIVE = ru_names[NOMINATIVE] + " модели \"[used_theme.name]\"",
-		GENITIVE = ru_names[GENITIVE] + " модели \"[used_theme.name]\"",
-		DATIVE = ru_names[DATIVE] + " модели \"[used_theme.name]\"",
-		ACCUSATIVE = ru_names[ACCUSATIVE] + " модели \"[used_theme.name]\"",
-		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " модели \"[used_theme.name]\"",
-		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " модели \"[used_theme.name]\""
+		NOMINATIVE = ru_names[NOMINATIVE] + " [used_theme.name] модели",
+		GENITIVE = ru_names[GENITIVE] + " [used_theme.name] модели",
+		DATIVE = ru_names[DATIVE] + " [used_theme.name] модели",
+		ACCUSATIVE = ru_names[ACCUSATIVE] + " [used_theme.name] модели",
+		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [used_theme.name] модели",
+		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [used_theme.name] модели"
 	)
 
 	desc = "[desc] [used_theme.desc]"
