@@ -1081,6 +1081,7 @@
 #define COMSIG_HUMAN_REGENERATE_ICONS "human_regenerate_icons"
 ///From /mob/living/carbon/human/proc/set_species(): (datum/species/old_species)
 #define COMSIG_HUMAN_SPECIES_CHANGED "human_species_changed"
+	#define COMPONENT_HAS_ELEMENT (1<<0)
 /// Source: /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
 #define COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT "human_early_handle_environment"
 
@@ -1478,3 +1479,6 @@
 #define COMSIG_SUPPLYPOD_ENTERED "supply_pod_entered"
 /// From /obj/structure/closet/supplypod/proc/on_exit()
 #define COMSIG_SUPPLYPOD_EXITED "supply_pod_exited"
+/// From /obj/structure/closet/supplypod/extractionpod/MouseDrop_T()
+#define COMSIG_SUPPLYPOD_CLIMB_CHECK "climb_check"
+	#define COMPONENT_CLIMB (1<<0)
