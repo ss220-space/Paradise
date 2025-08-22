@@ -1082,9 +1082,10 @@
 		return FALSE
 
 	for(var/mob/living/living in used_things)
-		if(living.stat != DEAD)
-			invoker.balloon_alert(invoker, "существа должны быть мертвы!")
-			return FALSE
+		if(living.stat == DEAD)
+			continue
+		invoker.balloon_alert(invoker, "существа должны быть мертвы!")
+		return FALSE
 
 	return TRUE
 
@@ -1092,8 +1093,9 @@
 	LAZYADD(invokers, invoker)
 
 	for(var/mob/living/carbon/human/human in invokers)
-		if(!HAS_TRAIT(invoker, TRAIT_RESIST_COLD))
-			ADD_TRAIT(invoker, TRAIT_RESIST_COLD, name)
+		if(HAS_TRAIT(invoker, TRAIT_RESIST_COLD))
+			continue
+		ADD_TRAIT(invoker, TRAIT_RESIST_COLD, name)
 
 	return RITUAL_SUCCESSFUL
 
@@ -1109,5 +1111,3 @@
 		var/turf/turf = human.loc
 		new /obj/effect/hotspot(turf)
 		turf.hotspot_expose(700, 50, 1)
-
-	return
