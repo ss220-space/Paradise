@@ -625,7 +625,7 @@
 		return
 	default_unfasten_wrench(user, I, time = 60)
 
-/obj/machinery/vending/ex_act(severity)
+/obj/machinery/vending/ex_act(severity, target)
 	. = ..()
 	if(QDELETED(src) || (resistance_flags & INDESTRUCTIBLE) || tilted || !tiltable)
 		return
@@ -3227,8 +3227,18 @@
 					/obj/item/clothing/head/fez = 10,
 					/obj/item/clothing/head/beret = 10)
 	contraband = list(/obj/item/clothing/head/bearpelt = 5,
-					/obj/item/clothing/head/helmet/biker = 3)
+					/obj/item/clothing/head/helmet/biker = 1)
 	premium = list(/obj/item/clothing/head/soft/rainbow = 1)
+	prices = list(
+					/obj/item/clothing/head/bowlerhat = 39,
+					/obj/item/clothing/head/beaverhat = 39,
+					/obj/item/clothing/head/boaterhat = 39,
+					/obj/item/clothing/head/fedora = 39,
+					/obj/item/clothing/head/fez = 39,
+					/obj/item/clothing/head/beret = 39,
+					/obj/item/clothing/head/bearpelt = 99,
+					/obj/item/clothing/head/helmet/biker = 499
+	)
 	refill_canister = /obj/item/vending_refill/hatdispenser
 
 /obj/machinery/vending/hatdispenser/get_ru_names()
@@ -3552,7 +3562,8 @@
 					/obj/item/clothing/neck/mantle = 2,
 					/obj/item/clothing/neck/mantle/old = 1,
 					/obj/item/clothing/neck/mantle/regal = 2,
-					/obj/item/clothing/neck/cloak/grey = 1)
+					/obj/item/clothing/neck/cloak/grey = 1,
+					/obj/item/clothing/suit/storage/bomber = 4)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
 					/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
@@ -3566,7 +3577,8 @@
 				   /obj/item/clothing/head/mailman = 1,
 				   /obj/item/clothing/under/rank/mailman = 1,
 				   /obj/item/clothing/suit/jacket/leather = 1,
-				   /obj/item/clothing/under/pants/mustangjeans = 1)
+				   /obj/item/clothing/under/pants/mustangjeans = 1,
+				   /obj/item/clothing/suit/storage/zazalord = 1)
 
 	refill_canister = /obj/item/vending_refill/clothing
 

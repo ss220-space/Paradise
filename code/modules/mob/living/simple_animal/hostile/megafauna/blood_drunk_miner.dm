@@ -257,7 +257,7 @@ Difficulty: Medium
 		return FALSE
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity, target)
 	if(dash())
 		return
 	return ..()

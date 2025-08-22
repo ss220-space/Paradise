@@ -395,15 +395,15 @@
 	. = ..()
 	if(flashing_lights)
 		switch(light_color)
-			if(LIGHT_COLOR_PURE_RED)
-				light_color = LIGHT_COLOR_PURE_BLUE
-			if(LIGHT_COLOR_PURE_BLUE)
-				light_color = LIGHT_COLOR_PURE_RED
+			if(LIGHT_COLOR_INTENSE_RED)
+				light_color = LIGHT_COLOR_BLUE
+			if(LIGHT_COLOR_BLUE)
+				light_color = LIGHT_COLOR_INTENSE_RED
 			else
-				light_color = LIGHT_COLOR_PURE_RED
+				light_color = LIGHT_COLOR_INTENSE_RED
 		set_light_color(light_color)
 	else if(prev_flashing_lights)
-		light_color = LIGHT_COLOR_WHITE
+		light_color = COLOR_WHITE
 		set_light_color(light_color)
 
 	prev_flashing_lights = flashing_lights

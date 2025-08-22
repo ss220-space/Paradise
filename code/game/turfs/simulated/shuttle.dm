@@ -24,7 +24,7 @@
 /turf/simulated/wall/shuttle/welder_act()
 	return
 
-/turf/simulated/wall/shuttle/ex_act(severity)
+/turf/simulated/wall/shuttle/ex_act(severity, target)
 	return
 
 /turf/simulated/wall/shuttle/blob_act(obj/structure/blob/B)

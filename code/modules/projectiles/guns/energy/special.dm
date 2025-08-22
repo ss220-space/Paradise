@@ -17,7 +17,7 @@
 	zoom_amt = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -30,7 +30,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	zoomable = FALSE
 	ammo_x_offset = 2
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
@@ -107,6 +107,7 @@
 	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
 	selfcharge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -507,7 +508,7 @@
 
 	var/emagged = FALSE			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
@@ -786,7 +787,7 @@
 	cell_type = /obj/item/stock_parts/cell/emittergun
 	ammo_type = list(/obj/item/ammo_casing/energy/emittergun)
 	can_charge = TRUE
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_MINIMAL
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)

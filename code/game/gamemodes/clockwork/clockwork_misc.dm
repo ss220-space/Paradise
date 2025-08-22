@@ -88,6 +88,7 @@
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7")
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	mergeable_decal = FALSE
+	squishy = FALSE
 
 /obj/effect/decal/cleanable/blood/gibs/clock/can_bloodcrawl_in()
 	return FALSE
@@ -101,7 +102,7 @@
 /obj/effect/decal/cleanable/blood/gibs/clock/dry()
 	return
 
-/obj/effect/decal/cleanable/blood/gibs/clock/streak(var/list/directions)
+/obj/effect/decal/cleanable/blood/gibs/clock/streak(list/directions)
 	set waitfor = FALSE
 	var/direction = pick(directions)
 	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)

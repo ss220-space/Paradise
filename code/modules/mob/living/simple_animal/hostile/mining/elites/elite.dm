@@ -122,10 +122,8 @@
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(75)
-
 		if(EXPLODE_HEAVY)
 			adjustBruteLoss(50)
-
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(25)
 
@@ -556,7 +554,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
-	light_color = LIGHT_COLOR_PURE_RED
+	light_color = LIGHT_COLOR_INTENSE_RED
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_HIERO_VORTEX
 	smoothing_groups = SMOOTH_GROUP_HIERO_VORTEX

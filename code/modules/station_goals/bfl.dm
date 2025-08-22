@@ -677,5 +677,5 @@
 	if(.)
 		playsound(src, 'sound/weapons/sear.ogg', 50, TRUE, -4)
 
-/obj/effect/bfl_laser/ex_act(severity)
+/obj/effect/bfl_laser/ex_act(severity, target)
 	return

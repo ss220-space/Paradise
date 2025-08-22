@@ -624,8 +624,8 @@
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
 
-/mob/living/ex_act(severity)
-	..()
+/mob/living/ex_act(severity, target)
+	. = ..()
 	flash_eyes()
 
 /mob/living/acid_act(acidpwr, acid_volume)
@@ -993,7 +993,7 @@
 								TH.color = H.dna.species.blood_color
 
 						else
-							TH.color = "#A10808"
+							TH.color = BLOOD_COLOR_RED
 
 
 /mob/living/carbon/human/makeTrail(turf/T)

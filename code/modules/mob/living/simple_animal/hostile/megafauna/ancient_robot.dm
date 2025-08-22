@@ -230,7 +230,7 @@ Difficulty: Very Hard
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
 	beam_it_up()
 
-/obj/effect/vetus_laser/ex_act(severity)
+/obj/effect/vetus_laser/ex_act(severity, target)
 	return
 
 /obj/effect/vetus_laser/proc/beam_it_up()
@@ -484,7 +484,7 @@ Difficulty: Very Hard
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
-	explosion(get_turf(src), -1, 7, 15, 20)
+	explosion(get_turf(src), devastation_range = -1, heavy_impact_range = 7, light_impact_range = 15, flash_range = 20)
 	health = 0
 	death(allowed = TRUE)
 
@@ -564,13 +564,11 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(25)
-
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(10)
-
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Goto()
@@ -753,13 +751,11 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(25)
-
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(10)
-
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/MeleeAction(patience = TRUE)

@@ -283,7 +283,7 @@
 	announce = new /obj/item/radio/intercom(src)
 	announce.follow_target = src
 	icon_state = base_icon_state
-	set_light(1, 1, COLOR_LIGHT_GREEN)
+	set_light(1, 1, COLOR_GREEN)
 	find_control_computer()
 
 

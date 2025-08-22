@@ -36,7 +36,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
-	blood_color = COLOR_BLOOD_MACHINE
+	blood_color = BLOOD_COLOR_MACHINE
 	flesh_color = "#AAAAAA"
 
 	//Default styles for created mobs.

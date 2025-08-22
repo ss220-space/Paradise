@@ -515,6 +515,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /obj/machinery/washing_machine/proc/wash_cycle_end()
 	for(var/atom/movable/thing as anything in contents)
 		thing.clean_blood()
+		SEND_SIGNAL(thing, COMSIG_COMPONENT_CLEAN_ACT, 20)
 		thing.machine_wash(src)
 
 	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
