@@ -141,19 +141,18 @@
 	..()
 	if(H.reagents.get_reagent_amount("zessulblood") < 5)	//unique unathi chemical, heals over time and increases shock reduction for 20
 		H.reagents.add_reagent("zessulblood", 1)
-	if(!isashwalker(H))
-		switch(H.bodytemperature)
-			if(200 to 260)
-				H.EyeBlurry(6 SECONDS)
-				if(prob(5))
-					to_chat(H, span_danger("Здесь холодно, голова раскалывается..."))
-			if(0 to 200)
-				H.AdjustDrowsy(6 SECONDS)
-				//"anabiosis. unathi falls asleep if body temp is too low" (с) captainnelly
-				//sorry Nelly, no anabiosis for ya without proper temperature regulation system
-				if(prob(5) && H.bodytemperature <= 170)
-					H.AdjustSleeping(4 SECONDS)
-					to_chat(H, span_danger("Слишком холодно, я засыпаю..."))
+	switch(H.bodytemperature)
+		if(200 to 260)
+			H.EyeBlurry(6 SECONDS)
+			if(prob(5))
+				to_chat(H, span_danger("Здесь холодно, голова раскалывается..."))
+		if(0 to 200)
+			H.AdjustDrowsy(6 SECONDS)
+			//"anabiosis. unathi falls asleep if body temp is too low" (с) captainnelly
+			//sorry Nelly, no anabiosis for ya without proper temperature regulation system
+			if(prob(5) && H.bodytemperature <= 170)
+				H.AdjustSleeping(4 SECONDS)
+				to_chat(H, span_danger("Слишком холодно, я засыпаю..."))
 
 
 /datum/species/unathi/ashwalker
