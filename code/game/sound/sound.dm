@@ -186,10 +186,9 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	if(!sound)
 		sound = sound(get_sfx(soundin))
 
-	for(var/m in GLOB.player_list)
-		if(ismob(m) && !isnewplayer(m))
-			var/mob/M = m
-			M.playsound_local(M, null, volume, vary, frequency, null, channel, pressure_affected, sound)
+	for(var/mob/mob in GLOB.player_list)
+		if(!isnewplayer(mob))
+			mob.playsound_local(mob, null, volume, vary, frequency, null, channel, pressure_affected, sound)
 
 
 /mob/proc/stop_sound_channel(chan)

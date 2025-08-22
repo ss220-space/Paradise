@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(sounds)
 	var/text_channel = num2text(channel)
 	var/using = using_channels[text_channel]
 	using_channels -= text_channel
-	if(using != TRUE) // datum channel
+	if(!istrue(using)) // datum channel
 		using_channels_by_datum[using] -= channel
 		if(!length(using_channels_by_datum[using]))
 			using_channels_by_datum -= using
@@ -162,7 +162,9 @@ SUBSYSTEM_DEF(sounds)
 /datum/controller/subsystem/sounds/proc/init_sound_keys()
 	for(var/datum/sound_effect/sfx as anything in subtypesof(/datum/sound_effect))
 		// this is for the assoc subtype
-		if(!isnull(sfx.key))
-			GLOB.sfx_datum_by_key[sfx.key] = new sfx()
+		if(isnull(sfx.key))
+			continue
+
+		GLOB.sfx_datum_by_key[sfx.key] = new sfx()
 
 #undef DATUMLESS

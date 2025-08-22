@@ -70,7 +70,7 @@
 
 	var/extension = copytext(path,-4,0)
 	if( !fexists(path) || !(extension in valid_extensions) )
-		to_chat(src, "<font color='red'>Error: browse_files(): File not found/Invalid file([path]).</font>")
+		to_chat(src, span_red("Error: browse_files(): File not found/Invalid file([path])."))
 		return
 
 	return path
@@ -88,7 +88,7 @@
 /client/proc/file_spam_check()
 	var/time_to_wait = GLOB.fileaccess_timer - world.time
 	if(time_to_wait > 0)
-		to_chat(src, "<font color='red'>Error: file_spam_check(): Spam. Please wait [DisplayTimeText(time_to_wait)].</font>")
+		to_chat(src, span_red("Error: file_spam_check(): Spam. Please wait [DisplayTimeText(time_to_wait)]."))
 		return TRUE
 	var/delay = FTPDELAY
 	if(holder)
@@ -111,22 +111,30 @@
 	while(jobs.len)
 		var/current_dir = pop(jobs)
 		var/list/new_filenames = flist(current_dir)
+
 		for(var/new_filename in new_filenames)
 			// if filename ends in / it is a directory, append to currdir
 			if(findtext(new_filename, "/", -1))
 				jobs += "[current_dir][new_filename]"
 				continue
-			// filename extension filtering
-			if(extensions_filter)
-				if(islist(extensions_filter))
-					for(var/allowed_extension in extensions_filter)
-						if(endswith(new_filename, allowed_extension))
-							filenames += "[current_dir][new_filename]"
-							break
-				else if(endswith(new_filename, extensions_filter))
-					filenames += "[current_dir][new_filename]"
-			else
+
+			// if no extension filter, add filename and continue
+			if(!extensions_filter)
 				filenames += "[current_dir][new_filename]"
+				continue
+
+			// handle list of extensions
+			if(islist(extensions_filter))
+				for(var/allowed_extension in extensions_filter)
+					if(endswith(new_filename, allowed_extension))
+						filenames += "[current_dir][new_filename]"
+						break
+				continue
+
+			// handle single extension
+			if(endswith(new_filename, extensions_filter))
+				filenames += "[current_dir][new_filename]"
+
 	return filenames
 
 /// Returns the md5 of a file at a given path.
