@@ -196,7 +196,7 @@
 #define STATUS_UPDATE_NEARSIGHTED (1<<4)
 
 #define STATUS_UPDATE_NONE 0
-#define STATUS_UPDATE_ALL (~0)
+#define STATUS_UPDATE_ALL ALL
 
 // Incorporeal movement
 #define INCORPOREAL_NONE 0

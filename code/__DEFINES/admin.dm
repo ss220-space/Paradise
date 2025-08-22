@@ -8,7 +8,7 @@
 #define MUTE_DEADCHAT	(1<<4)
 #define MUTE_TTS		(1<<5)
 #define MUTE_EMOTE		(1<<6)
-#define MUTE_ALL		(~0)
+#define MUTE_ALL		ALL
 
 //Number of identical messages required to get the spam-prevention automute thing to trigger warnings and automutes
 #define SPAM_TRIGGER_WARNING 5
