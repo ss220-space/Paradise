@@ -15,12 +15,12 @@
 	icon_state = "frame"
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_BRIG)
-	anchored = TRUE    		// can't pick it up
+	anchored = TRUE   		// can't pick it up
 	density = FALSE			// can walk through it.
-	layer = 4 				// above all glasses and other things
-	var/id = null     		// id of door it controls.
+	layer = 4				// above all glasses and other things
+	var/id = null    		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
-	var/timing = 0    		// boolean, true/1 timer is on, false/0 means it's not timing
+	var/timing = 0   		// boolean, true/1 timer is on, false/0 means it's not timing
 	var/picture_state		// icon_state of alert picture, if not displaying text/numbers
 	var/list/obj/machinery/targets = list()
 	var/timetoset = 0		// Used to set releasetime upon starting the timer

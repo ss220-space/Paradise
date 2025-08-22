@@ -594,6 +594,8 @@
 	emag = new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
 	var/datum/reagents/R = new/datum/reagents(50)
+	if(emag.reagents)
+		qdel(emag.reagents)
 	emag.reagents = R
 	R.my_atom = emag
 	R.add_reagent("beer2", 50)
@@ -903,6 +905,7 @@
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel(src)
+	modules += new /obj/item/storage/bag/kaboom/cyborg/saboteur(src)
 	emag = null
 
 	fix_modules()

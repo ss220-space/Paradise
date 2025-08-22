@@ -1,5 +1,5 @@
 /datum/event/abductor
-	var/for_players = 30 		//Количество людей для спавна доп. команды
+	var/for_players = 30		//Количество людей для спавна доп. команды
 	var/datum/game_mode/abduction/game_mode_ref
 
 /datum/event/abductor/start()

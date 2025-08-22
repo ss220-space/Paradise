@@ -54,25 +54,25 @@
 #undef ACCURACY
 
 
-/proc/get_turf_in_angle(angle, turf/starting, increments)
+/proc/get_turf_in_angle(angle, turf/starting, increments = 1)
 	var/pixel_x = 0
 	var/pixel_y = 0
 	for(var/i in 1 to increments)
-		pixel_x += sin(angle)+16*sin(angle)*2
-		pixel_y += cos(angle)+16*cos(angle)*2
+		pixel_x += sin(angle)+(ICON_SIZE_X/2)*sin(angle)*2
+		pixel_y += cos(angle)+(ICON_SIZE_Y/2)*cos(angle)*2
 	var/new_x = starting.x
 	var/new_y = starting.y
-	while(pixel_x > 16)
-		pixel_x -= 32
+	while(pixel_x > (ICON_SIZE_X/2))
+		pixel_x -= ICON_SIZE_X
 		new_x++
-	while(pixel_x < -16)
-		pixel_x += 32
+	while(pixel_x < -(ICON_SIZE_X/2))
+		pixel_x += ICON_SIZE_X
 		new_x--
-	while(pixel_y > 16)
-		pixel_y -= 32
+	while(pixel_y > (ICON_SIZE_Y/2))
+		pixel_y -= ICON_SIZE_Y
 		new_y++
-	while(pixel_y < -16)
-		pixel_y += 32
+	while(pixel_y < -(ICON_SIZE_Y/2))
+		pixel_y += ICON_SIZE_Y
 		new_y--
 	new_x = clamp(new_x, 0, world.maxx)
 	new_y = clamp(new_y, 0, world.maxy)
@@ -133,8 +133,8 @@
 /proc/get_angle(atom/movable/start, atom/movable/end)
 	if(!start || !end)
 		return 0
-	var/dy =(ICON_SIZE_Y * end.y + end.pixel_y) - (ICON_SIZE_Y * start.y + start.pixel_y)
-	var/dx =(ICON_SIZE_X * end.x + end.pixel_x) - (ICON_SIZE_X * start.x + start.pixel_x)
+	var/dy = (ICON_SIZE_Y * end.y + end.pixel_y) - (ICON_SIZE_Y * start.y + start.pixel_y)
+	var/dx = (ICON_SIZE_X * end.x + end.pixel_x) - (ICON_SIZE_X * start.x + start.pixel_x)
 	return delta_to_angle(dx, dy)
 
 /// Calculate the angle produced by a pair of x and y deltas

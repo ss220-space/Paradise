@@ -2,7 +2,7 @@
 // Navigates via floor navbeacons
 // Remote Controlled from QM's PDA
 
-#define SIGH 	0
+#define SIGH	0
 #define ANNOYED 1
 #define DELIGHT 2
 
@@ -68,7 +68,7 @@
 	var/obj/item/stock_parts/cell/cell
 	var/datum/wires/mulebot/wires = null
 	var/bloodiness = 0
-	var/currentBloodColor = "#A10808"
+	var/currentBloodColor = BLOOD_COLOR_RED
 	var/currentDNA = null
 
 

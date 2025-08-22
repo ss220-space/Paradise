@@ -20,7 +20,7 @@ jobs:
       - name: Process PR body
         id: process_body
         run: |
-          CLEAN_BODY=$(echo '${{ github.event.pull_request.body }}' | sed 's/<!--.*-->//g')
+          CLEAN_BODY=$(echo '${{ github.event.pull_request.body }}' | sed '/<!--/,/-->/d')
           CLEAN_BODY=$(echo "$CLEAN_BODY" | sed '/^[[:space:]]*$/d')
           CLEAN_BODY=$(echo "$CLEAN_BODY" | sed -E 's/<img[^>]*src="([^"]*)"[^>]*>/\1/g')
           CLEAN_BODY=$(echo "$CLEAN_BODY" | sed -E 's/<a[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/[\2](\1)/g')

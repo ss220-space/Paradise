@@ -433,13 +433,13 @@
 		return .
 
 	var/alien_trait = HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALIEN)
-	if(alien_trait && length(get_equipped_items(include_hands = TRUE)))
+	if(alien_trait && length(get_equipped_items(INCLUDE_HELD)))
 		if(provide_feedback)
 			balloon_alert(src, "ваши руки заняты!")
 		return FALSE
 
 	if(!alien_trait && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ITEM_BASED) && HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && \
-		!HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS) && length(get_equipped_items(include_pockets = TRUE, include_hands = TRUE)))
+		!HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS) && length(get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD)))
 		if(provide_feedback)
 			balloon_alert(src, "ваши предметы мешают!")
 		return FALSE
@@ -922,7 +922,7 @@ so that different stomachs can handle things in different ways VB*/
 
 	if(client.eye && client.eye != src)
 		var/atom/atom = client.eye
-		
+
 		if(atom.update_remote_sight(src)) // returns TRUE if we override all other sight updates.
 			return
 

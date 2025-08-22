@@ -47,7 +47,7 @@
 		return FALSE
 	if(istype(target, /atom/movable))
 		var/atom/movable/AM = target
-		if(AM.bound_height > world.icon_size || AM.bound_width > world.icon_size)
+		if(AM.bound_height > ICON_SIZE_Y || AM.bound_width > ICON_SIZE_X)
 			return FALSE // No multitile structures
 	if(user != target && ismorph(target))
 		return FALSE

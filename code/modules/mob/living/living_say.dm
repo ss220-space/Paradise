@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":n" = SCI_FREQ_NAME,				"#n" = SCI_FREQ_NAME,			"№n" = SCI_FREQ_NAME,			".n" = SCI_FREQ_NAME,
 	  ":m" = MED_FREQ_NAME,				"#m" = MED_FREQ_NAME,			"№m" = MED_FREQ_NAME,			".m" = MED_FREQ_NAME,
 	  ":x" = PROC_FREQ_NAME,			"#x" = PROC_FREQ_NAME,			"№x" = PROC_FREQ_NAME,			".x" = PROC_FREQ_NAME,
-	  ":e" = ENG_FREQ_NAME, 			"#e" = ENG_FREQ_NAME,			"№e" = ENG_FREQ_NAME,			".e" = ENG_FREQ_NAME,
+	  ":e" = ENG_FREQ_NAME,			"#e" = ENG_FREQ_NAME,			"№e" = ENG_FREQ_NAME,			".e" = ENG_FREQ_NAME,
 	  ":s" = SEC_FREQ_NAME,				"#s" = SEC_FREQ_NAME,			"№s" = SEC_FREQ_NAME,			".s" = SEC_FREQ_NAME,
 	  ":w" = WHISPER_CHANNEL,			"#w" = WHISPER_CHANNEL,			"№w" = WHISPER_CHANNEL,			".w" = WHISPER_CHANNEL,
 	  ":t" = SYND_FREQ_NAME,			"#t" = SYND_FREQ_NAME,			"№t" = SYND_FREQ_NAME,			".t" = SYND_FREQ_NAME,
@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":т" = SCI_FREQ_NAME,				"#т" = SCI_FREQ_NAME,			"№т" = SCI_FREQ_NAME,			".т" = SCI_FREQ_NAME,
 	  ":ь" = MED_FREQ_NAME,				"#ь" = MED_FREQ_NAME,			"№ь" = MED_FREQ_NAME,			".ь" = MED_FREQ_NAME,
 	  ":ч" = PROC_FREQ_NAME,			"#ч" = PROC_FREQ_NAME,			"№ч" = PROC_FREQ_NAME,			".ч" = PROC_FREQ_NAME,
-	  ":у" = ENG_FREQ_NAME, 			"#у" = ENG_FREQ_NAME,			"№у" = ENG_FREQ_NAME,			".у" = ENG_FREQ_NAME,
+	  ":у" = ENG_FREQ_NAME,			"#у" = ENG_FREQ_NAME,			"№у" = ENG_FREQ_NAME,			".у" = ENG_FREQ_NAME,
 	  ":ы" = SEC_FREQ_NAME,				"#ы" = SEC_FREQ_NAME,			"№ы" = SEC_FREQ_NAME,			".ы" = SEC_FREQ_NAME,
 	  ":ц" = WHISPER_CHANNEL,			"#ц" = WHISPER_CHANNEL,			"№ц" = WHISPER_CHANNEL,			".ц" = WHISPER_CHANNEL,
 	  ":е" = SYND_FREQ_NAME,			"#е" = SYND_FREQ_NAME,			"№е" = SYND_FREQ_NAME,			".е" = SYND_FREQ_NAME,
@@ -111,9 +111,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		// None yet.
 
 	// Special symbols only (that means that they don't have/use an english/russian analogue)
- 	  ":*" = NINJA_FREQ_NAME,			"#*" = NINJA_FREQ_NAME,			"№*" = NINJA_FREQ_NAME,			".*" = NINJA_FREQ_NAME,
-	  ":$" = ERT_FREQ_NAME,				"#$" = ERT_FREQ_NAME, 			"№$" = ERT_FREQ_NAME,			".$" = ERT_FREQ_NAME,
-  	  ":_" = SYNDTEAM_FREQ_NAME,		"#_" = SYNDTEAM_FREQ_NAME,		"№_" = SYNDTEAM_FREQ_NAME,		"._" = SYNDTEAM_FREQ_NAME,
+	  ":*" = NINJA_FREQ_NAME,			"#*" = NINJA_FREQ_NAME,			"№*" = NINJA_FREQ_NAME,			".*" = NINJA_FREQ_NAME,
+	  ":$" = ERT_FREQ_NAME,				"#$" = ERT_FREQ_NAME,			"№$" = ERT_FREQ_NAME,			".$" = ERT_FREQ_NAME,
+ 	  ":_" = SYNDTEAM_FREQ_NAME,		"#_" = SYNDTEAM_FREQ_NAME,		"№_" = SYNDTEAM_FREQ_NAME,		"._" = SYNDTEAM_FREQ_NAME,
 	  ":-" = DTH_FREQ_NAME,				"#-" = DTH_FREQ_NAME,			"№-" = DTH_FREQ_NAME,			".-" = DTH_FREQ_NAME,
 	  ":+" = SPEC_FREQ_NAME,			"#+" = SPEC_FREQ_NAME,			"№+" = SPEC_FREQ_NAME,			".+" = SPEC_FREQ_NAME //activate radio-specific special functions
 ))

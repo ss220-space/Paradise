@@ -59,7 +59,7 @@
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(parent, TRAIT_STRONG_MUSCLES))
-		strength_level = /datum/strength_level/ideal
+		strength_level = strength_level == STRENGTH_LEVEL_SUPERHUMAN ? STRENGTH_LEVEL_SUPERHUMAN : /datum/strength_level/ideal
 
 	if(HAS_TRAIT(parent, TRAIT_WEAK_MUSCULS))
 		strength_level = /datum/strength_level/weak
@@ -82,7 +82,7 @@
 
 
 #define REQ_STAMINA_FOR_STRENGTH_POINT		25
-#define REQ_NUTRITION_FOR_STRENGTH_POINT 	25
+#define REQ_NUTRITION_FOR_STRENGTH_POINT	25
 #define MIN_NUTRITION_FOR_STRENGTH_CHANGE	NUTRITION_LEVEL_STARVING
 
 /datum/component/muscles/proc/try_add_strength_points(mob/living/user, delta)
@@ -124,7 +124,7 @@
 		return
 
 	strength_points -= strength_level.strength_req_to_upgrade
-	strength_level = new strength_level.next_level()
+	strength_level = strength_level.next_level
 	user.update_body(TRUE)
 
 

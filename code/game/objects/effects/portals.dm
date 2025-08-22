@@ -56,7 +56,7 @@
 	for(var/obj/effect/portal/other_portal in loc)
 		if(other_portal != src)
 			QDEL_IN(other_portal, 0)
-			stack_trace("More than one portal has been opened in [atom_loc_line(loc)]") 	// YEAH, FIX IT SOMEONE!
+			stack_trace("More than one portal has been opened in [atom_loc_line(loc)]")	// YEAH, FIX IT SOMEONE!
 
 	if(lifespan > 0)
 		QDEL_IN(src, lifespan)

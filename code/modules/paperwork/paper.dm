@@ -36,7 +36,7 @@
 	pickup_sound =  'sound/items/handling/pickup/paper_pickup.ogg'
 	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
-	var/footer 	//The bottom stuff before the stamp but after the body
+	var/footer	//The bottom stuff before the stamp but after the body
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
 	var/fields = 0		//Amount of user created fields

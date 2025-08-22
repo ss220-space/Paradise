@@ -395,8 +395,8 @@
 	if(move_prob > PROBABILITY_OFFSET && prob(move_prob) && (move_resist != INFINITY) && (!anchored && (max_force >= (move_resist * MOVE_FORCE_PUSH_RATIO))) || (anchored && (max_force >= (move_resist * MOVE_FORCE_FORCEPUSH_RATIO))))
 		// Feature disabled until issue with effect stacking will be resolved
 		// if (iscarbon(src) && pressure_difference > 50)
-		// 	var/mob/living/carbon/carbon = src
-		// 	carbon.AdjustWeakened(6 SECONDS)
+		//	var/mob/living/carbon/carbon = src
+		//	carbon.AdjustWeakened(6 SECONDS)
 		step(src, direction)
 		last_high_pressure_movement_air_cycle = SSair.times_fired
 
@@ -439,12 +439,12 @@
 	var/list/cached_turf_list = turf_list // cache for super speed
 
 	for(var/turf/simulated/T in cached_turf_list)
-		A.oxygen 			+= T.air.oxygen
+		A.oxygen			+= T.air.oxygen
 		A.carbon_dioxide	+= T.air.carbon_dioxide
-		A.nitrogen 			+= T.air.nitrogen
-		A.toxins 			+= T.air.toxins
-		A.sleeping_agent 	+= T.air.sleeping_agent
-		A.agent_b 			+= T.air.agent_b
+		A.nitrogen			+= T.air.nitrogen
+		A.toxins			+= T.air.toxins
+		A.sleeping_agent	+= T.air.sleeping_agent
+		A.agent_b			+= T.air.agent_b
 
 	var/turflen = length(cached_turf_list)
 

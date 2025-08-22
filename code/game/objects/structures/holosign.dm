@@ -3,7 +3,14 @@
 
 /obj/structure/holosign
 	name = "holo sign"
-	ru_names = list(
+	icon = 'icons/effects/effects.dmi'
+	anchored = TRUE
+	max_integrity = 1
+	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	var/obj/item/projector
+
+/obj/structure/holosign/get_ru_names()
+	return list(
 		NOMINATIVE = "голографическая табличка",
 		GENITIVE = "голографической таблички",
 		DATIVE = "голографической табличке",
@@ -11,11 +18,6 @@
 		INSTRUMENTAL = "голографической табличкой",
 		PREPOSITIONAL = "голографической табличке"
 	)
-	icon = 'icons/effects/effects.dmi'
-	anchored = TRUE
-	max_integrity = 1
-	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
-	var/obj/item/projector
 
 /obj/structure/holosign/Initialize(mapload, source_projector)
 	. = ..()
@@ -60,7 +62,10 @@
 /obj/structure/holosign/wetsign
 	name = "wet floor sign"
 	desc = "Слова пролетают мимо, как будто они ничего не значат."
-	ru_names = list(
+	icon_state = "holosign"
+
+/obj/structure/holosign/wetsign/get_ru_names()
+	return list(
 		NOMINATIVE = "знак мокрого пола",
 		GENITIVE = "знака мокрого пола",
 		DATIVE = "знаку мокрого пола",
@@ -68,7 +73,6 @@
 		INSTRUMENTAL = "знаком мокрого пола",
 		PREPOSITIONAL = "знаке мокрого пола"
 	)
-	icon_state = "holosign"
 
 /obj/structure/holosign/wetsign/proc/wet_timer_start(obj/item/holosign_creator/HS_C)
 	addtimer(CALLBACK(src, PROC_REF(wet_timer_finish), HS_C), 82 SECONDS, TIMER_UNIQUE)
@@ -107,7 +111,14 @@
 /obj/structure/holosign/barrier
 	name = "holo barrier"
 	desc = "Небольшое голографическое препятствие, преодолеть которое можно только пешком."
-	ru_names = list(
+	icon_state = "holosign_sec"
+	pass_flags_self = PASSTABLE|PASSGRILLE|PASSGLASS|LETPASSTHROW
+	density = TRUE
+	max_integrity = 20
+	var/allow_walk = TRUE //can we pass through it on walk intent
+
+/obj/structure/holosign/barrier/get_ru_names()
+	return list(
 		NOMINATIVE = "голографический барьер",
 		GENITIVE = "голографического барьера",
 		DATIVE = "голографическому барьеру",
@@ -115,11 +126,6 @@
 		INSTRUMENTAL = "голографическим барьером",
 		PREPOSITIONAL = "голографическом барьере"
 	)
-	icon_state = "holosign_sec"
-	pass_flags_self = PASSTABLE|PASSGRILLE|PASSGLASS|LETPASSTHROW
-	density = TRUE
-	max_integrity = 20
-	var/allow_walk = TRUE //can we pass through it on walk intent
 
 
 /obj/structure/holosign/barrier/CanAllowThrough(atom/movable/mover, border_dir)
@@ -142,7 +148,15 @@
 /obj/structure/holosign/barrier/atmos
 	name = "holo firelock"
 	desc = "Голографический барьер, похожий на пожарный шлюз. Он не препятствует прохождению твёрдых предметов, но не позволяет газу проникать внутрь."
-	ru_names = list(
+	icon_state = "holo_firelock"
+	density = FALSE
+	layer = ABOVE_MOB_LAYER
+	anchored = TRUE
+	layer = ABOVE_MOB_LAYER
+	alpha = 150
+
+/obj/structure/holosign/barrier/atmos/get_ru_names()
+	return list(
 		NOMINATIVE = "голографический пожарный шлюз",
 		GENITIVE = "голографического пожарного шлюза",
 		DATIVE = "голографическому пожарному шлюзу",
@@ -150,12 +164,6 @@
 		INSTRUMENTAL = "голографическим пожарным шлюзом",
 		PREPOSITIONAL = "голографическом пожарном шлюзе"
 	)
-	icon_state = "holo_firelock"
-	density = FALSE
-	layer = ABOVE_MOB_LAYER
-	anchored = TRUE
-	layer = ABOVE_MOB_LAYER
-	alpha = 150
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()
@@ -172,7 +180,12 @@
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
 	desc = "Хрупкое энергетическое поле, которое блокирует движение. Отлично защищает от смертоносных снарядов."
-	ru_names = list(
+	density = TRUE
+	max_integrity = 10
+	allow_walk = FALSE
+
+/obj/structure/holosign/barrier/cyborg/get_ru_names()
+	return list(
 		NOMINATIVE = "энергетический барьер",
 		GENITIVE = "энергетического барьера",
 		DATIVE = "энергетическому барьеру",
@@ -180,9 +193,6 @@
 		INSTRUMENTAL = "энергетическим барьером",
 		PREPOSITIONAL = "энергетическом барьере"
 	)
-	density = TRUE
-	max_integrity = 10
-	allow_walk = FALSE
 
 /obj/structure/holosign/barrier/cyborg/bullet_act(obj/projectile/P)
 	take_damage((P.damage / 5) , BRUTE, MELEE, 1)	//Doesn't really matter what damage flag it is.
@@ -194,7 +204,11 @@
 /obj/structure/holosign/barrier/cyborg/hacked
 	name = "Charged Energy Field"
 	desc = "Мощный энергетический барьер, который блокирует движение. От него исходит энергия."
-	ru_names = list(
+	max_integrity = 20
+	COOLDOWN_DECLARE(shock_cooldown)
+
+/obj/structure/holosign/barrier/cyborg/hacked/get_ru_names()
+	return list(
 		NOMINATIVE = "заряженный энергетический барьер",
 		GENITIVE = "заряженного энергетического барьера",
 		DATIVE = "заряженному энергетическому барьеру",
@@ -202,8 +216,6 @@
 		INSTRUMENTAL = "заряженным энергетическим барьером",
 		PREPOSITIONAL = "заряженном энергетическом барьере"
 	)
-	max_integrity = 20
-	COOLDOWN_DECLARE(shock_cooldown)
 
 
 /obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/projectile/P)

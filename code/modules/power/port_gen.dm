@@ -116,7 +116,7 @@
 	var/max_power_output = 5	//The maximum power setting without emagging.
 	var/max_safe_output = 4		// For UI use, maximal output that won't cause overheat.
 	var/time_per_sheet = 96		//fuel efficiency - how long 1 sheet lasts at power level 1
-	var/max_sheets = 100 		//max capacity of the hopper
+	var/max_sheets = 100		//max capacity of the hopper
 	var/max_temperature = 300	//max temperature before overheating increases
 	var/temperature_gain = 50	//how much the temperature increases per power output level, in degrees per level
 

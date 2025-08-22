@@ -14,7 +14,7 @@
 
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()
-	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= HEALTH_THRESHOLD_CRIT)
+	if(stam > DAMAGE_PRECISION && (max_stamina - stam) <= HEALTH_THRESHOLD_CRIT)
 		if(!stat)
 			enter_stamcrit()
 	else if(IsStamcrited())

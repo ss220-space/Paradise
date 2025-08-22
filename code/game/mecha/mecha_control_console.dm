@@ -3,7 +3,7 @@
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"
-	light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_LAVENDER
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()

@@ -19,7 +19,7 @@
 	var/timer_id = null
 	var/reg_name = null
 
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
 	light_range_on = 2
 
 
