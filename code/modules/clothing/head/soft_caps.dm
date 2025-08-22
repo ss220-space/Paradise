@@ -192,7 +192,7 @@
 	)
 /obj/item/clothing/head/tchaikowsky/baseballcap/brown
 	name = "baseball cap (brown)"
-	desc = "Бейсболка коричневого цвета. Мерч команды \"Киберсан Инд\""."
+	desc = "Бейсболка коричневого цвета. Мерч команды \"Киберсан Инд\"."
 	icon_state = "baseball_brown"
 	item_state = "baseball_brown"
 
