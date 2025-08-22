@@ -99,16 +99,17 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(issignaler(I))
+		var/obj/item/assembly/signaler/signaler = I
 		add_fingerprint(user)
 		if(sig)
 			to_chat(user, span_warning("Сигнальное устройство уже подключено к этому [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
-		if(sig.secured)
+		if(signaler.secured)
 			to_chat(user, span_warning("Сигнально устройство не должно быть прикручено."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		sig = I
+		sig = signaler
 		to_chat(user, span_notice("Вы просовываете [sig] под нажимную пластину и подсоединяете запал."))
 		desc += "[span_warning("\nК нему подсоединено сигнальное устройство.")]"
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -126,12 +127,14 @@
 		IED.forceMove(get_turf(src))
 		IED = null
 		to_chat(user, span_notice("Вы снимаете СВУ с [declent_ru(GENITIVE)]."))
+		desc = initial(desc)
 		return
 
 	if(sig)
 		sig.forceMove(get_turf(src))
 		sig = null
 		to_chat(user, span_notice("Вы снимаете сигнальное устройство с [declent_ru(GENITIVE)]."))
+		desc = initial(desc)
 		return
 
 
