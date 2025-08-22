@@ -210,3 +210,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 /// in some situations we can't rely on dynamic typing and use if(statement)
 #define istrue(statement) (statement == TRUE)
+
+#define isbeachwater(A) (istype(A, /turf/simulated/floor/beach/water))
+#define isbeachwaterindestructible(A) (istype(A, /turf/simulated/floor/indestructible/beach/water))

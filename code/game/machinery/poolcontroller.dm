@@ -36,29 +36,31 @@
 		contents_loop = range(srange, src)
 
 	for(var/turf/turf in contents_loop)
-		if(istype(turf, /turf/simulated/floor/beach/water))
+		if(isbeachwater(turf))
 			var/turf/simulated/floor/beach/water/water = turf
 			water.linkedcontroller = src
 			linkedturfs += turf
 			continue
 
-		if(istype(turf, /turf/simulated/floor/indestructible/beach/water))
+		if(isbeachwaterindestructible(turf))
 			var/turf/simulated/floor/indestructible/beach/water/water = turf
 			water.linkedcontroller = src
 			linkedturfs += turf
 
 /obj/machinery/poolcontroller/Destroy()
 	for(var/turf in linkedturfs)
-		if(istype(turf, /turf/simulated/floor/beach/water))
+		if(isbeachwater(turf))
 			var/turf/simulated/floor/beach/water/water = turf
 			if(water.linkedcontroller == src)
 				water.linkedcontroller = null
+			linkedturfs -= turf
 			continue
 
-		if(istype(turf, /turf/simulated/floor/indestructible/beach/water))
+		if(isbeachwaterindestructible(turf))
 			var/turf/simulated/floor/indestructible/beach/water/water = turf
 			if(water.linkedcontroller == src)
 				water.linkedcontroller = null
+			linkedturfs -= turf
 
 	return ..()
 
