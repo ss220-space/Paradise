@@ -1263,6 +1263,7 @@
 #include "code\game\objects\items\changestone.dm"
 #include "code\game\objects\items\contraband.dm"
 #include "code\game\objects\items\control_wand.dm"
+#include "code\game\objects\items\craft_blueprints.dm"
 #include "code\game\objects\items\crayons.dm"
 #include "code\game\objects\items\decorations.dm"
 #include "code\game\objects\items\dehy_carp.dm"
