@@ -294,7 +294,7 @@
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
 
 /datum/gear/suit/bomber
-	index_name = "heart-shaped glasses, color"
+	index_name = "bomber"
 	path = /obj/item/clothing/suit/storage/bomber
 	cost = 1
 
