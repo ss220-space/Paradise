@@ -10,7 +10,7 @@
 	speak_emote = list("квакает", "куакает", "квуакает")
 	emote_hear = list("квакает", "куакает", "квуакает")
 	emote_see = list("расслаблено лежит", "издаёт гортанные звуки", "лупает глазками")
-	var/scream_sound = list ('sound/creatures/frog_scream_1.ogg','sound/creatures/frog_scream_2.ogg','sound/creatures/frog_scream_3.ogg')
+	var/scream_sound = SFX_FROG_WARCRY
 	talk_sound = list('sound/creatures/frog_talk1.ogg', 'sound/creatures/frog_talk2.ogg')
 	damaged_sound = list('sound/creatures/frog_damaged.ogg')
 	death_sound = 'sound/creatures/frog_death.ogg'
