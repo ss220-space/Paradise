@@ -319,6 +319,8 @@
 
 	RegisterSignal(pod, COMSIG_SUPPLYPOD_ENTERED, PROC_REF(enter_check))
 	RegisterSignal(pod, COMSIG_SUPPLYPOD_PRE_RETURN, PROC_REF(on_sypplypod_pre_return))
+	RegisterSignal(pod, COMSIG_SUPPLYPOD_CLIMB_CHECK, PROC_REF(on_climb))
+	RegisterSignal(pod, COMSIG_QDELETING, PROC_REF(on_qdel))
 
 	pod.stay_after_drop = TRUE
 	pod.reversing = TRUE
@@ -326,11 +328,31 @@
 
 	new /obj/effect/pod_landingzone(empty_pod_turf, pod)
 
+/datum/syndicate_contract/proc/on_qdel(atom/source)
+	SIGNAL_HANDLER
+	UnregisterSignal(pod, list(COMSIG_SUPPLYPOD_ENTERED, COMSIG_SUPPLYPOD_PRE_RETURN, COMSIG_SUPPLYPOD_CLIMB_CHECK, COMSIG_QDELETING))
+	pod = null
+
 /datum/syndicate_contract/proc/on_sypplypod_pre_return(obj/structure/closet/supplypod/pod)
 	SIGNAL_HANDLER
 	var/list/cords = pod.reverse_dropoff_coords
 	spawn_food(locate(cords[1], cords[2], cords[3]))
 	UnregisterSignal(pod, COMSIG_SUPPLYPOD_PRE_RETURN)
+
+/datum/syndicate_contract/proc/on_climb(atom/source, mob/living/victim, mob/living/user)
+	SIGNAL_HANDLER
+	if(!user || !istype(user))
+		return
+
+	if(!check_target(victim))
+		source.balloon_alert(user, "неподходящая цель!")
+		return
+
+	if(user == victim)
+		to_chat(user, span_warning("Вы не хотите лезть в непонятную капсулу с символикой Синдиката!"))
+		return
+
+	return COMPONENT_CLIMB
 
 
 /datum/syndicate_contract/proc/check_target(mob/living/sent_mob)
@@ -494,11 +516,12 @@
 	tank.toggle_internals(human, TRUE)
 
 /datum/syndicate_contract/proc/spawn_food(turf/spawn_turf)
+	var/turf/food_turf = pick(RANGE_TURFS(1, spawn_turf) - spawn_turf)
 	var/bread_type = (prob(10)) && /obj/item/reagent_containers/food/snacks/breadslice/moldy \
 	|| /obj/item/reagent_containers/food/snacks/breadslice/stale
 	// Supply them with some chow. How generous is the Syndicate?
-	var/obj/item/reagent_containers/food/snacks/breadslice/food = new bread_type(spawn_turf)
-	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(spawn_turf)
+	var/obj/item/reagent_containers/food/snacks/breadslice/food = new bread_type(food_turf)
+	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(food_turf)
 	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
 	temp_objs = list(food, drink)
 

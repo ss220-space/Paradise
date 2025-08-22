@@ -360,6 +360,12 @@
 	else
 		icon_state = "bomb_satchel"
 
+/obj/item/storage/bag/kaboom/cyborg/saboteur
+
+/obj/item/storage/bag/kaboom/cyborg/saboteur/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/plastic/x4(src)
+
 ////////////////////////////////////////
 // MARK:	Plant bag
 ////////////////////////////////////////

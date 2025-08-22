@@ -905,6 +905,7 @@
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel(src)
+	modules += new /obj/item/storage/bag/kaboom/cyborg/saboteur(src)
 	emag = null
 
 	fix_modules()
