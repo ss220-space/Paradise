@@ -24,8 +24,8 @@ SUBSYSTEM_DEF(statpanels)
 		var/datum/map/cached = SSmapping.next_map
 		var/round_time = world.time - SSticker.time_game_started
 		global_data = list(
-			list("Карта:", SSmapping.map_datum?.station_short ? SSmapping.map_datum?.station_short : "Загрузка..."),
-			cached ? list("Следующая карта:", "[cached.station_short]") : null,
+			list("Карта:", SSmapping.map_datum?.station_name ? SSmapping.map_datum?.station_name : "Загрузка..."),
+			cached ? list("Следующая карта:", "[cached.station_name]") : null,
 			list("ID раунда:", "[GLOB.round_id ? GLOB.round_id : "NULL"]"),
 			list("Серверное время:", "[time2text(world.timeofday, "DD-MM-YYYY hh:mm:ss")]"),
 			list("[SSticker.time_game_started ? "Длительность раунда" : "Длительность лобби"]:", "[round_time > MIDNIGHT_ROLLOVER ? "[round(round_time / MIDNIGHT_ROLLOVER)]:[roundtime2text()]" : roundtime2text()]"),
