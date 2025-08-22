@@ -1,15 +1,10 @@
+#define MINERAL_TYPE_BASE "base"
+#define MINERAL_TYPE_ANCIENT "ancient"
+#define MINERAL_TYPE_ANCIENT_OUTER "ancient_outer"
 /**********************Mineral deposits**************************/
 
 /turf/simulated/mineral //wall piece
 	name = "rock"
-	ru_names = list(
-		NOMINATIVE = "камень",
-		GENITIVE = "камня",
-		DATIVE = "камню",
-		ACCUSATIVE = "камень",
-		INSTRUMENTAL = "камнем",
-		PREPOSITIONAL = "камне"
-	)
 	icon = 'icons/turf/smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
@@ -39,8 +34,18 @@
 	var/hardness = 1 //how hard the material is, we'll have to have more powerful stuff if we want to blast harder materials.
 	/// Typecache of all the instruments allowed to dig us.
 	/// Populated in [/turf/simulated/mineral/proc/generate_picks()].
-	var/list/allowed_picks_typecache
+	var/static/list/list/allowed_picks_typecache = list()
 	COOLDOWN_DECLARE(last_act)
+
+/turf/simulated/mineral/get_ru_names()
+	return list(
+		NOMINATIVE = "камень",
+		GENITIVE = "камня",
+		DATIVE = "камню",
+		ACCUSATIVE = "камень",
+		INSTRUMENTAL = "камнем",
+		PREPOSITIONAL = "камне"
+	)
 
 
 /turf/simulated/mineral/Initialize(mapload)
@@ -59,15 +64,18 @@
 	AddElement(/datum/element/debris, DEBRIS_ROCK, -40, 8, 1)
 
 /turf/simulated/mineral/ComponentInitialize()
-	. = ..()
+	if(!is_station_level(z))
+		return
 	AddComponent(/datum/component/blob_turf_consuming, 2)
 
 /// Generates typecache of tools allowed to dig this mineral
 /turf/simulated/mineral/proc/generate_picks()
-	allowed_picks_typecache = typecacheof(list(
+	if(!allowed_picks_typecache[MINERAL_TYPE_BASE])
+		allowed_picks_typecache[MINERAL_TYPE_BASE] = typecacheof(list(
 		/obj/item/pickaxe,
 		/obj/item/pen/survival,
 	))
+	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_BASE]
 
 
 /turf/simulated/mineral/proc/Spread(turf/T)
@@ -196,20 +204,20 @@
 /turf/simulated/mineral/acid_melt()
 	ChangeTurf(baseturf)
 
-/turf/simulated/mineral/ex_act(severity)
-	..()
+/turf/simulated/mineral/ex_act(severity, target)
+	. = ..()
 	switch(severity)
-		if(3)
+		if(EXPLODE_LIGHT)
 			if (prob(75))
 				attempt_drill(null,TRUE,2)
 			else if(prob(90))
 				attempt_drill(null,TRUE,1)
-		if(2)
+		if(EXPLODE_HEAVY)
 			if (prob(90))
 				attempt_drill(null,TRUE,2)
 			else
 				attempt_drill(null,TRUE,1)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			attempt_drill(null,TRUE,3)
 
 /turf/simulated/mineral/blob_consume()
@@ -218,14 +226,6 @@
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "Редкий астероидный камень, устойчивый ко всем инструментам, кроме кирок!"
-	ru_names = list(
-		NOMINATIVE = "древний камень",
-		GENITIVE = "древнего камня",
-		DATIVE = "древнему камню",
-		ACCUSATIVE = "древний камень",
-		INSTRUMENTAL = "древним камнем",
-		PREPOSITIONAL = "древнем камне"
-	)
 	smooth = SMOOTH_BITMASK
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
@@ -236,11 +236,23 @@
 	mineralType = /obj/item/stack/ore/glass/basalt/ancient
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient
 
+/turf/simulated/mineral/ancient/get_ru_names()
+	return list(
+		NOMINATIVE = "древний камень",
+		GENITIVE = "древнего камня",
+		DATIVE = "древнему камню",
+		ACCUSATIVE = "древний камень",
+		INSTRUMENTAL = "древним камнем",
+		PREPOSITIONAL = "древнем камне"
+	)
+
 
 /turf/simulated/mineral/ancient/generate_picks()
-	allowed_picks_typecache = typecacheof(list(
+	if(!allowed_picks_typecache[MINERAL_TYPE_ANCIENT])
+		allowed_picks_typecache[MINERAL_TYPE_ANCIENT] = typecacheof(list(
 		/obj/item/pickaxe,
 	))
+	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT]
 
 
 /turf/simulated/mineral/ancient/burn_down()
@@ -252,21 +264,28 @@
 /turf/simulated/mineral/ancient/acid_act(acidpwr, acid_volume)
 	return
 
-/turf/simulated/mineral/ancient/ex_act(severity)
+/turf/simulated/mineral/ancient/ex_act(severity, target)
 	switch(severity)
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(75))
 				gets_drilled(null, 1)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			gets_drilled(null, 1)
+
 	return TRUE
 
 /turf/simulated/mineral/ancient/outer
 	name = "cold ancient rock"
 	desc = "Редкий плотный астероидный камень, неуязвимый для всего, кроме алмазных и звуковых инструментов! Не может быть использован для создания порталов в ад."
-	ru_names = list(
+	mine_time = 15 SECONDS
+	color = COLOR_COLD_ROCK
+	temperature = TCMB
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
+
+/turf/simulated/mineral/ancient/outer/get_ru_names()
+	return list(
 		NOMINATIVE = "холодный древний камень",
 		GENITIVE = "холодного древнего камня",
 		DATIVE = "холодному древнему камню",
@@ -274,22 +293,20 @@
 		INSTRUMENTAL = "холодным древним камнем",
 		PREPOSITIONAL = "холодном древнем камне"
 	)
-	mine_time = 15 SECONDS
-	color = COLOR_COLD_ROCK
-	temperature = TCMB
-	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
 
 
 /turf/simulated/mineral/ancient/outer/generate_picks()
-	allowed_picks_typecache = typecacheof(list(
+	if(!allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER])
+		allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER] = typecacheof(list(
 		/obj/item/pickaxe/drill/jackhammer,
 		/obj/item/pickaxe/diamond,
 		/obj/item/pickaxe/drill/cyborg/diamond,
 		/obj/item/pickaxe/drill/diamonddrill,
 	))
+	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER]
 
 
-/turf/simulated/mineral/ancient/outer/ex_act(severity)
+/turf/simulated/mineral/ancient/outer/ex_act(severity, target)
 	return
 
 /turf/simulated/mineral/random
@@ -390,14 +407,6 @@
 
 /turf/simulated/mineral/random/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
-		NOMINATIVE = "закалённый базальт",
-		GENITIVE = "закалённого базальта",
-		DATIVE = "закалённому базальту",
-		ACCUSATIVE = "закалённый базальт",
-		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
-	)
 	icon_state = "smoothrocks_hard-0"
 	icon = 'icons/turf/smoothrocks_hard.dmi'
 	base_icon_state = "smoothrocks_hard"
@@ -409,16 +418,18 @@
 		/turf/simulated/mineral/plasma/volcanic/hard = 20, /turf/simulated/mineral/bscrystal/volcanic/hard = 2, /turf/simulated/mineral/gibtonite/volcanic/hard = 4,
 		/turf/simulated/mineral/iron/volcanic/hard = 40, /turf/simulated/mineral/gem/volcanic/hard = 2)
 
+/turf/simulated/mineral/random/volcanic/hard/get_ru_names()
+	return list(
+		NOMINATIVE = "закалённый базальт",
+		GENITIVE = "закалённого базальта",
+		DATIVE = "закалённому базальту",
+		ACCUSATIVE = "закалённый базальт",
+		INSTRUMENTAL = "закалённым базальтом",
+		PREPOSITIONAL = "закалённом базальте"
+	)
+
 /turf/simulated/mineral/random/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
-		NOMINATIVE = "закалённый вулканический базальт",
-		GENITIVE = "закалённого вулканического базальта",
-		DATIVE = "закалённому вулканическому базальту",
-		ACCUSATIVE = "закалённый вулканический базальт",
-		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
-	)
 	icon_state = "smoothrocks_volcanic-0"
 	icon = 'icons/turf/smoothrocks_volcanic.dmi'
 	base_icon_state = "smoothrocks_volcanic"
@@ -430,6 +441,16 @@
 		/turf/simulated/mineral/plasma/volcanic/hard/double = 25, /turf/simulated/mineral/bscrystal/volcanic/hard/double = 3, /turf/simulated/mineral/gibtonite/volcanic/hard/double = 4,
 		/turf/simulated/mineral/iron/volcanic/hard/double = 45, /turf/simulated/mineral/gem/volcanic/hard/double = 5, /turf/simulated/mineral/clown/volcanic/hard/double = 2,
 		/turf/simulated/mineral/mime/volcanic/hard/double = 2)
+
+/turf/simulated/mineral/random/volcanic/hard/double/get_ru_names()
+	return list(
+		NOMINATIVE = "закалённый вулканический базальт",
+		GENITIVE = "закалённого вулканического базальта",
+		DATIVE = "закалённому вулканическому базальту",
+		ACCUSATIVE = "закалённый вулканический базальт",
+		INSTRUMENTAL = "закалённым вулканическим базальтом",
+		PREPOSITIONAL = "закалённом вулканическом базальте"
+	)
 
 /turf/simulated/mineral/random/volcanic/hard/double/high_chance
 	icon_state = "rock_highchance"
@@ -458,7 +479,12 @@
 
 /turf/simulated/mineral/iron/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/iron/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -466,13 +492,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/iron/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/iron/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -480,9 +508,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 /turf/simulated/mineral/uranium
 	mineralType = /obj/item/stack/ore/uranium
@@ -501,7 +526,12 @@
 
 /turf/simulated/mineral/uranium/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/uranium/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -509,13 +539,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/uranium/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/uranium/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -523,9 +555,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 /turf/simulated/mineral/diamond
 	mineralType = /obj/item/stack/ore/diamond
@@ -544,7 +573,12 @@
 
 /turf/simulated/mineral/diamond/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/diamond/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -552,13 +586,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/diamond/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/diamond/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -566,9 +602,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 /turf/simulated/mineral/gold
 	mineralType = /obj/item/stack/ore/gold
@@ -587,7 +620,12 @@
 
 /turf/simulated/mineral/gold/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/gold/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -595,13 +633,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/gold/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/gold/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -609,9 +649,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 /turf/simulated/mineral/silver
 	mineralType = /obj/item/stack/ore/silver
@@ -630,7 +667,12 @@
 
 /turf/simulated/mineral/silver/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/silver/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -638,13 +680,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/silver/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/silver/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -652,9 +696,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 /turf/simulated/mineral/titanium
 	mineralType = /obj/item/stack/ore/titanium
@@ -673,7 +714,12 @@
 
 /turf/simulated/mineral/titanium/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/titanium/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -681,13 +727,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/titanium/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/titanium/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -695,9 +743,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 /turf/simulated/mineral/plasma
 	mineralType = /obj/item/stack/ore/plasma
@@ -716,7 +761,12 @@
 
 /turf/simulated/mineral/plasma/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/plasma/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -724,13 +774,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/plasma/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/plasma/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -738,9 +790,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 /turf/simulated/mineral/clown
 	mineralType = /obj/item/stack/ore/bananium
@@ -760,7 +809,12 @@
 
 /turf/simulated/mineral/clown/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/clown/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -768,13 +822,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/clown/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/clown/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -782,9 +838,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 /turf/simulated/mineral/mime
 	mineralType = /obj/item/stack/ore/tranquillite
@@ -804,7 +857,12 @@
 
 /turf/simulated/mineral/mime/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/mime/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -812,13 +870,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/mime/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/mime/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -826,9 +886,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 /turf/simulated/mineral/bscrystal
 	mineralType = /obj/item/stack/ore/bluespace_crystal
@@ -848,7 +905,12 @@
 
 /turf/simulated/mineral/bscrystal/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/bscrystal/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -856,13 +918,16 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/bscrystal/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+
+/turf/simulated/mineral/bscrystal/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -870,9 +935,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 /turf/simulated/mineral/gem
 	mineralType = /obj/item/gem/random
@@ -891,7 +953,12 @@
 
 /turf/simulated/mineral/gem/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/gem/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -899,13 +966,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/gem/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/gem/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -913,9 +982,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 /turf/simulated/mineral/volcanic
 	environment_type = "basalt"
@@ -933,7 +999,11 @@
 
 /turf/simulated/mineral/volcanic/lava_land_surface/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+
+/turf/simulated/mineral/volcanic/lava_land_surface/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -941,12 +1011,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
 
 /turf/simulated/mineral/volcanic/lava_land_surface/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/volcanic/lava_land_surface/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -954,15 +1027,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
-
-//gibtonite state defines
-#define GIBTONITE_UNSTRUCK 0
-#define GIBTONITE_ACTIVE 1
-#define GIBTONITE_STABLE 2
-#define GIBTONITE_DETONATE 3
 
 // Gibtonite
 /turf/simulated/mineral/gibtonite
@@ -1010,9 +1074,9 @@
 		visible_message(span_danger("There was gibtonite inside! It's going to explode!"))
 		var/turf/bombturf = get_turf(src)
 
-		var/notify_admins = 0
+		var/notify_admins = FALSE
 		if(!is_mining_level(z))
-			notify_admins = 1
+			notify_admins = TRUE
 			if(!triggered_by_explosion)
 				message_admins("[key_name_admin(user)] has triggered a gibtonite deposit reaction at [ADMIN_VERBOSEJMP(bombturf)].")
 			else
@@ -1025,7 +1089,7 @@
 
 		countdown(notify_admins)
 
-/turf/simulated/mineral/gibtonite/proc/countdown(notify_admins = 0)
+/turf/simulated/mineral/gibtonite/proc/countdown(notify_admins = FALSE)
 	set waitfor = 0
 	while(istype(src, /turf/simulated/mineral/gibtonite) && stage == GIBTONITE_ACTIVE && det_time > 0 && mineralAmt >= 1)
 		det_time--
@@ -1035,7 +1099,7 @@
 			var/turf/bombturf = get_turf(src)
 			mineralAmt = 0
 			stage = GIBTONITE_DETONATE
-			explosion(bombturf, 1, 3, 5, adminlog = notify_admins, cause = src)
+			explosion(bombturf, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 5, adminlog = notify_admins, cause = src)
 
 /turf/simulated/mineral/gibtonite/proc/defuse()
 	if(stage == GIBTONITE_ACTIVE)
@@ -1057,7 +1121,7 @@
 		var/turf/bombturf = get_turf(src)
 		mineralAmt = 0
 		stage = GIBTONITE_DETONATE
-		explosion(bombturf,1,2,5, adminlog = 0)
+		explosion(bombturf, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 5, adminlog = TRUE, cause = src)
 	if(stage == GIBTONITE_STABLE) //Gibtonite deposit is now benign and extractable. Depending on how close you were to it blowing up before defusing, you get better quality ore.
 		var/obj/item/twohanded/required/gibtonite/gibtonite = new(src)
 		if(det_time <= 0)
@@ -1081,7 +1145,12 @@
 
 /turf/simulated/mineral/gibtonite/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/gibtonite/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -1089,13 +1158,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/gibtonite/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/gibtonite/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -1103,9 +1174,6 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
 
 #undef GIBTONITE_UNSTRUCK
 #undef GIBTONITE_ACTIVE
@@ -1134,7 +1202,12 @@
 
 /turf/simulated/mineral/magmite/volcanic/hard
 	name = "hardened basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
+	hardness = 2
+
+/turf/simulated/mineral/magmite/volcanic/hard/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -1142,13 +1215,15 @@
 		INSTRUMENTAL = "закалённым базальтом",
 		PREPOSITIONAL = "закалённом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_hard.dmi'
-	base_icon_state = "smoothrocks_hard"
-	hardness = 2
 
 /turf/simulated/mineral/magmite/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	ru_names = list(
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
+	hardness = 3
+
+/turf/simulated/mineral/magmite/volcanic/hard/double/get_ru_names()
+	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -1156,6 +1231,7 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
-	icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	base_icon_state = "smoothrocks_volcanic"
-	hardness = 3
+
+#undef MINERAL_TYPE_BASE
+#undef MINERAL_TYPE_ANCIENT
+#undef MINERAL_TYPE_ANCIENT_OUTER

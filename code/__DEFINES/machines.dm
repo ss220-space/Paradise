@@ -32,9 +32,9 @@
 #define PROTOLATHE		(1<<1)	//New stuff. Uses glass/metal/chemicals
 #define	AUTOLATHE		(1<<2)	//Uses glass/metal only.
 #define CRAFTLATHE		(1<<3)	//Uses fuck if I know. For use eventually.
-#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
-#define PODFAB			(1<<5) 	//Used by the spacepod part fabricator. Same idea as the mechfab
-#define BIOGENERATOR	(1<<6) 	//Uses biomass
+#define MECHFAB			(1<<4)	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define PODFAB			(1<<5)	//Used by the spacepod part fabricator. Same idea as the mechfab
+#define BIOGENERATOR	(1<<6)	//Uses biomass
 #define SMELTER			(1<<7) //uses various minerals
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 

@@ -143,6 +143,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	embed_chance = 45
 	embedded_ignore_throwspeed_threshold = TRUE
+	embed_disarm = TRUE
 	/// Can this item be attached as a bayonet to the gun?
 	var/bayonet_suitable = FALSE
 	/// Used in combination with throwing martial art, to avoid sharpening checks overhead
@@ -150,12 +151,10 @@
 	/// Same as above
 	var/default_throwforce
 
-
 /obj/item/kitchen/knife/Initialize(mapload)
 	. = ..()
 	default_force = force
 	default_throwforce = throwforce
-
 
 /obj/item/kitchen/knife/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	. = ..()
@@ -171,7 +170,7 @@
 
 /obj/item/kitchen/knife/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
 	. = ..()
-	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, 1)
+	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, TRUE)
 
 
 /obj/item/kitchen/knife/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -217,6 +216,7 @@
 	sharp = 0
 	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
+	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/ritual
 	name = "ritual knife"
@@ -224,11 +224,20 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
 	w_class = WEIGHT_CLASS_NORMAL
+	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
 	desc = "Огромный мясницкий тесак, предназначенный для измельчения мяса. В том числе и клоунов и их субпродуктов."
-	ru_names = list(
+	icon_state = "butch"
+	flags = CONDUCT
+	force = 15
+	throwforce = 8
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/kitchen/knife/butcher/get_ru_names()
+	return list(
 		NOMINATIVE = "мясницкий тесак",
 		GENITIVE = "мясницкого тесака",
 		DATIVE = "мясницкому тесаку",
@@ -236,12 +245,15 @@
 		INSTRUMENTAL = "мясницким тесаком",
 		PREPOSITIONAL = "мясницком тесаке"
 	)
-	icon_state = "butch"
-	flags = CONDUCT
-	force = 15
-	throwforce = 8
-	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
-	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/kitchen/knife/butcher/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0.15, \
+		no_multi_hit = TRUE, \
+		swing_sound = "chop_swing_light" \
+	)
 
 /obj/item/kitchen/knife/butcher/sharped
 	desc = "Огромный мясницкий тесак, предназначенный для измельчения мяса. В том числе и клоунов и их субпродуктов. Блестит от заточки."
@@ -252,7 +264,13 @@
 
 /obj/item/kitchen/knife/butcher/meatcleaver
 	name = "meat cleaver"
-	ru_names = list(
+	icon_state = "mcleaver"
+	item_state = "mcleaver"
+	force = 25
+	throwforce = 15
+
+/obj/item/kitchen/knife/butcher/meatcleaver/get_ru_names()
+	return list(
 		NOMINATIVE = "тесак для мяса",
 		GENITIVE = "тесака для мяса",
 		DATIVE = "тесаку для мяса",
@@ -260,10 +278,16 @@
 		INSTRUMENTAL = "тесаком для мяса",
 		PREPOSITIONAL = "тесаке для мяса"
 	)
-	icon_state = "mcleaver"
-	item_state = "mcleaver"
-	force = 25
-	throwforce = 15
+
+/obj/item/kitchen/knife/butcher/meatcleaver/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		afterswing_slowdown = -0.2, \
+		slowdown_duration = 2 SECONDS, \
+		swing_sound = "chop_swing_light" \
+	)
 
 /obj/item/kitchen/knife/combat
 	name = "combat knife"
@@ -278,12 +302,26 @@
 	bayonet_suitable = TRUE
 	embed_chance = 90
 
+/obj/item/kitchen/knife/combat/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 1.25, \
+		afterswing_slowdown = 0, \
+		no_multi_hit = TRUE, \
+		swing_sound = "knife_swing" \
+	)
+
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"
 	icon_state = "survivalknife"
 	belt_icon = "survival_knife"
 	desc = "Охотничий нож повышенной прочности."
-	ru_names = list(
+	force = 15
+	throwforce = 15
+
+/obj/item/kitchen/knife/combat/survival/get_ru_names()
+	return list(
 		NOMINATIVE = "нож для выживания",
 		GENITIVE = "ножа для выживания",
 		DATIVE = "ножу для выживания",
@@ -291,8 +329,6 @@
 		INSTRUMENTAL = "ножом для выживания",
 		PREPOSITIONAL = "ноже для выживания"
 	)
-	force = 15
-	throwforce = 15
 
 /obj/item/kitchen/knife/combat/throwing
 	name = "throwing knife"
@@ -309,7 +345,12 @@
 	icon_state = "bone_dagger"
 	belt_icon = "bone_dagger"
 	desc = "Острая кость – минимум для выживания."
-	ru_names = list(
+	materials = list()
+	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
+
+/obj/item/kitchen/knife/combat/survival/bone/get_ru_names()
+	return list(
 		NOMINATIVE = "костяной кинжал",
 		GENITIVE = "костяного кинжала",
 		DATIVE = "костяному кинжалу",
@@ -317,14 +358,19 @@
 		INSTRUMENTAL = "костяным кинжалом",
 		PREPOSITIONAL = "костяном кинжале"
 	)
-	materials = list()
-	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
 
 /obj/item/kitchen/knife/combat/survival/bone/eel
 	name = "eel sharpened tail"
 	desc = "Бритвенно-острый хвост донного угля, аккуратно отделённый от основного тела рыбы. Из такого выйдет отличный нож или наконечник для копья."
-	ru_names = list(
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "eel_sharpened_tail"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "eel_sharpened_tail"
+	embed_disarm = FALSE
+
+/obj/item/kitchen/knife/combat/survival/bone/eel/get_ru_names()
+	return list(
 		NOMINATIVE = "хвост донного угря",
 		GENITIVE = "хвоста донного угря",
 		DATIVE = "хвосту донного угря",
@@ -332,11 +378,6 @@
 		INSTRUMENTAL = "хвостом донного угря",
 		PREPOSITIONAL = "хвосте донного угря"
 	)
-	icon = 'icons/obj/lavaland/lava_fishing.dmi'
-	icon_state = "eel_sharpened_tail"
-	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
-	item_state = "eel_sharpened_tail"
 
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"
@@ -344,6 +385,7 @@
 	icon_state = "knife"
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	origin_tech = null
+	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/combat/cyborg/mecha
 	force = 25
@@ -402,6 +444,62 @@
 	throwforce = 11
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/kitchen/knife/ghostface_knife
+	name = "knife"
+	desc = "Очень острый нож. Судя по потёртостям и засохшей крови, он совсем не валялся без дела."
+	icon = 'icons/obj/items.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	icon_state = "ghostface_knife"
+	force = 34
+	armour_penetration = 70
+	block_chance = 30
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 34
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
+	throw_speed = 3
+	throw_range = 6
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
+	sharp = TRUE
+
+/obj/item/kitchen/knife/ghostface_knife/get_ru_names()
+	return list(
+		NOMINATIVE = "старый нож",
+		GENITIVE = "старого ножа",
+		DATIVE = "старому ножу",
+		ACCUSATIVE = "старый нож",
+		INSTRUMENTAL = "старым ножом",
+		PREPOSITIONAL = "старом ноже"
+	)
+
+/obj/item/kitchen/knife/ghostface_knife/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = -0.3, \
+		slowdown_duration = 3 SECONDS, \
+		swing_sound = "knife_swing" \
+	)
+
+/obj/item/kitchen/knife/ghostface_knife/devil
+	name = "old knife"
+	desc = "Странный нож с, тем не менее, крайне острым лезвием. Судя по характерным потёртостям и засохшей крови, он явно не валялся без дела."
+	icon_state = "devil_ghostface_knife"
+
+/obj/item/kitchen/knife/ghostface_knife/devil/get_ru_names()
+	return list(
+		NOMINATIVE = "старый ржавый нож",
+		GENITIVE = "старого ржавого ножа",
+		DATIVE = "старому ржавому ножу",
+		ACCUSATIVE = "старый ржавый нож",
+		INSTRUMENTAL = "старым ржавым ножом",
+		PREPOSITIONAL = "старом ржавом ноже"
+	)
+
+
 /*
  * Rolling Pins
  */
@@ -416,6 +514,7 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("ударил", "огрел")
+	embed_disarm = FALSE
 
 /* Trays moved to /obj/item/storage/bag */
 
@@ -433,6 +532,7 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("ударил")
+	embed_disarm = FALSE
 
 /obj/item/kitchen/mould/bear
 	name = "bear-shaped candy mould"
@@ -487,6 +587,7 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("закатил", "треснул")
+	embed_disarm = FALSE
 
 
 
@@ -503,3 +604,4 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("ударил", "полоснул", "уколол")
+	embed_disarm = FALSE

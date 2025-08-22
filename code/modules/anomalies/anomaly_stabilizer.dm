@@ -2,21 +2,12 @@
 	name = "стабилизатор аномалий"
 	desc = "Продвинутое устройство, предназначенное для стабилизации аномалий. \
 			Имеет две ячейки для ядер аномалий."
-	ru_names = list(
-		NOMINATIVE = "стабилизатор аномалий", \
-		GENITIVE = "стабилизатора аномалий", \
-		DATIVE = "стабилизатору аномалий", \
-		ACCUSATIVE = "стабилизатор аномалий", \
-		INSTRUMENTAL = "стабилизатором аномалий", \
-		PREPOSITIONAL = "стабилизаторе аномалий"
-	)
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
 	icon_state = "pistol_base_item"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "pistol_base"
 	gender = MALE
-	gun_light_overlay = "flight"
 	can_add_sibyl_system = FALSE
 	origin_tech = "programming=3;magnets=3"
 	cell_type = /obj/item/stock_parts/cell/high
@@ -43,6 +34,16 @@
 	var/weaken_time = 0
 	/// If true, tgui will show more info about this anomaly_stabilizer.
 	var/full_info = FALSE
+
+/obj/item/gun/energy/anomaly_stabilizer/get_ru_names()
+	return list(
+		NOMINATIVE = "стабилизатор аномалий", \
+		GENITIVE = "стабилизатора аномалий", \
+		DATIVE = "стабилизатору аномалий", \
+		ACCUSATIVE = "стабилизатор аномалий", \
+		INSTRUMENTAL = "стабилизатором аномалий", \
+		PREPOSITIONAL = "стабилизаторе аномалий"
+	)
 
 /obj/item/gun/energy/anomaly_stabilizer/Initialize(mapload, ...)
 	. = ..()

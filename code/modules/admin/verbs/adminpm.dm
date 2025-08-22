@@ -80,34 +80,6 @@
 			adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
 
-	//get message text, limit it's length.and clean/escape html
-	if(!msg)
-		set_typing(C, TRUE)
-		msg = tgui_input_text(src, "Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", multiline = TRUE, encode = FALSE)
-		msg = handleDiscordEmojis(msg)
-		set_typing(C, FALSE)
-
-		if(!msg)
-			return
-		if(!C)
-			if(holder)
-				to_chat(src, span_danger("Error: Admin-PM: Client not found."), confidential=TRUE)
-			else
-				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
-			return
-
-	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
-		return
-
-	//clean the message if it's not sent by a high-rank admin
-	if(!check_rights(R_SERVER|R_DEBUG,0))
-		msg = sanitize_simple(copytext(msg,1,MAX_MESSAGE_LEN))
-		msg = sanitize_censored_patterns(msg)
-		if(!msg)
-			return
-	else
-		msg = admin_pencode_to_html(msg)
-
 	var/send_span
 	var/receive_span
 	var/send_pm_type = " "
@@ -116,7 +88,7 @@
 	var/datum/controller/subsystem/tickets/tickets_system
 	// We treat PMs as mentorhelps if we were explicitly so, or if neither
 	// party is an admin.
-	if(type == MENTORHELP || !(check_rights(R_ADMIN|R_MOD, 0, C.mob) || check_rights(R_ADMIN|R_MOD, 0, mob)))
+	if(type == MENTORHELP || !(check_rights(R_ADMIN|R_MOD, FALSE, C.mob) || check_rights(R_ADMIN|R_MOD, FALSE, mob)))
 		send_span = "mentorhelp"
 		receive_span = "mentorhelp"
 		message_type = MESSAGE_TYPE_MENTORPM
@@ -127,8 +99,50 @@
 		message_type = MESSAGE_TYPE_ADMINPM
 		tickets_system = SStickets
 
+	//Check if the mob being PM'd has any open tickets.
+	var/list/tickets = tickets_system.checkForTicket(C, ticket_id)
+	if(!length(tickets))
+		// If we didn't find a specific ticket by the target mob, we check for
+		// tickets by the source mob.
+		if(message_type == MESSAGE_TYPE_MENTORPM)
+			if(check_rights(R_ADMIN|R_MOD|R_MENTOR, FALSE, C.mob))
+				tickets = SSmentor_tickets.checkForTicket(src)
+		else
+			if(check_rights(R_ADMIN|R_MOD, FALSE, C.mob))
+				tickets = SStickets.checkForTicket(src)
+
+	//get message text, limit it's length.and clean/escape html
+	if(!msg)
+		set_typing(C, TRUE)
+		tickets_system.refresh_tickets(tickets)
+		msg = tgui_input_text(src, "Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", multiline = TRUE, encode = FALSE)
+		msg = handleDiscordEmojis(msg)
+		set_typing(C, FALSE)
+
+		if(!msg)
+			tickets_system.refresh_tickets(tickets)
+			return
+		if(!C)
+			if(holder)
+				to_chat(src, span_danger("Error: Admin-PM: Client not found."), confidential=TRUE)
+			else
+				adminhelp(msg) //admin we are replying to has vanished, adminhelp instead
+			return
+
+	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
+		return
+
+	// Limit msg length
+	if(!check_rights(R_ADMIN, FALSE))
+		msg = copytext_char(msg, 1, 2048)
+
+	//clean the message if it's not sent by a high-rank admin
+	if(check_rights(R_SERVER|R_DEBUG, FALSE))
+		//msg = sanitize_censored_patterns(msg)
+		msg = admin_pencode_to_html(msg)
 
 	if(holder)
+		//PMs sent from admins and mods display their rank
 		send_pm_type = holder.rank + " "
 		receive_pm_type = holder.rank
 
@@ -152,10 +166,10 @@
 			spawn(0) //so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
-				var/reply = tgui_input_text(C, msg,"[receive_pm_type] [type] from-[sendername]", multiline = TRUE, encode = FALSE) //show message and await a reply
+				var/reply = tgui_input_text(C, msg, "[receive_pm_type] [type] from-[sendername]", multiline = TRUE, encode = FALSE) //show message and await a reply
 				if(C && reply)
 					if(sender)
-						C.cmd_admin_pm(sender,reply) //sender is still about, let's reply to them
+						C.cmd_admin_pm(sender, reply) //sender is still about, let's reply to them
 					else
 						adminhelp(reply) //sender has left, adminhelp instead
 				return
@@ -218,26 +232,10 @@
 		if(X.key != key && X.key != C.key)
 			if(message_type == MESSAGE_TYPE_MENTORPM)
 				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-					to_chat(X, third_party_message)
+					to_chat(X, third_party_message, MESSAGE_TYPE_MENTORPM)
 			else
 				if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-					to_chat(X, third_party_message)
-
-	//Check if the mob being PM'd has any open tickets.
-	var/list/tickets = tickets_system.checkForTicket(C, ticket_id)
-
-	if(length(tickets))
-		tickets_system.addResponse(tickets, src, msg)
-		return
-
-	// If we didn't find a specific ticket by the target mob, we check for
-	// tickets by the source mob.
-	if(message_type == MESSAGE_TYPE_MENTORPM)
-		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob))
-			tickets = SSmentor_tickets.checkForTicket(src)
-	else
-		if(check_rights(R_ADMIN|R_MOD, 0, C.mob))
-			tickets = SStickets.checkForTicket(src)
+					to_chat(X, third_party_message, MESSAGE_TYPE_ADMINPM)
 
 	if(length(tickets))
 		tickets_system.addResponse(tickets, src, msg)
@@ -287,7 +285,8 @@
 		return
 	var/datum/pm_convo/convo = target.pm_tracker.pms[key]
 	if(!convo)
-		return
+		convo = new /datum/pm_convo(src)
+		target.pm_tracker.pms[key] = convo
 	convo.typing = value
 	if(target.pm_tracker.open && target.pm_tracker.current_title == key)
 		target.pm_tracker.show_ui(target.mob)
@@ -439,8 +438,6 @@
 
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
 		usr.client.cmd_admin_alert_message(about_to_be_banned)
-		if(!check_rights(R_ADMIN))
-			return
 
 	if(href_list["ping"])
 		var/client/C = pms[href_list["ping"]].client

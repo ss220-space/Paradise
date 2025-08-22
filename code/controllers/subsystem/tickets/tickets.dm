@@ -41,6 +41,8 @@ SUBSYSTEM_DEF(tickets)
 
 	var/ticketCounter = 1
 
+	/// Who has what tickets open? Maps client -> open ticket number.
+	var/list/open_detail_uis = list()
 
 /datum/controller/subsystem/tickets/Initialize()
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Отклонено! -</b></font>",
@@ -54,12 +56,10 @@ SUBSYSTEM_DEF(tickets)
 		var/report
 		for(var/num in stales)
 			report += "[num], "
-		message_staff("<span class='[span_class]'>Тикет [report] был открыт [TICKET_TIMEOUT / 600] минут. Меняю статус на «Просрочен».</span>")
-
+		message_staff("<span class='[span_class]'>Тикет [report] был открыт [TICKET_TIMEOUT / (60 SECONDS)] минут. Меняю статус на «Просрочен».</span>")
 
 /datum/controller/subsystem/tickets/get_stat_details()
 	return "Tickets: [LAZYLEN(allTickets)]"
-
 
 /datum/controller/subsystem/tickets/proc/checkStaleness()
 	var/stales = list()
@@ -184,11 +184,18 @@ SUBSYSTEM_DEF(tickets)
 		open_ticket_count_updated()
 		return TRUE
 
+/datum/controller/subsystem/tickets/proc/refresh_tickets(list/tickets)
+	for(var/datum/ticket/ticket in tickets)
+		for(var/client/client in open_detail_uis)
+			if(client && open_detail_uis[client] == ticket.ticketNum)
+				showDetailUI(client.mob, ticket.ticketNum)
+
 /datum/controller/subsystem/tickets/proc/addResponse(list/tickets, who, message)
 	var/list/ticket_numbers = list()
 	for(var/datum/ticket/T in tickets)
 		ticket_numbers += T.ticketNum
 		T.addResponse(who, message)
+	refresh_tickets(tickets)
 
 /datum/controller/subsystem/tickets/proc/convert_to_other_ticket(ticketId)
 	if(!check_rights(rights_needed))
@@ -312,7 +319,7 @@ SUBSYSTEM_DEF(tickets)
 	for(var/datum/ticket/T in allTickets)
 		if(T.client_ckey == C.ckey && (T.ticketState == TICKET_OPEN || T.ticketState == TICKET_STALE))
 			tickets += T
-	if(tickets.len)
+	if(length(tickets))
 		return tickets
 	return FALSE
 
@@ -443,17 +450,14 @@ SUBSYSTEM_DEF(tickets)
 /datum/ticket_response/proc/to_string()
 	return "[response_user]: [response_text]"
 
-/*
-
-UI STUFF
-
-*/
-
+/**
+ * MARK: UI STUFF
+ */
 /datum/controller/subsystem/tickets/proc/returnUI(tab = TICKET_OPEN)
 	set name = "Open Ticket Interface"
 	set category = STATPANEL_ADMIN_TICKETS
 
-//dat
+	//dat
 	var/trStyle = "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"
 	var/tdStyleleft = "border-top:2px solid; border-bottom:2px solid; width:150px; text-align:center;"
 	var/tdStyle = "border-top:2px solid; border-bottom:2px solid;"
@@ -503,9 +507,11 @@ UI STUFF
 /datum/controller/subsystem/tickets/proc/showUI(mob/user, tab)
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	dat += returnUI(tab)
-	var/datum/browser/popup = new(user, ticket_system_name, ticket_system_name, 1400, 600)
+	var/datum/browser/popup = new(user, ticket_system_name, ticket_system_name, 1400, 800)
 	popup.set_content(dat)
 	popup.open()
+	// This isn't the detail tab, stop listening for the user's typing.
+	open_detail_uis -= user.client
 
 /datum/controller/subsystem/tickets/proc/showDetailUI(mob/user, ticketID)
 	var/datum/ticket/T = allTickets[ticketID]
@@ -519,7 +525,8 @@ UI STUFF
 
 	dat += "<h3>[T.client_ckey] / [T.mobControlled] opened this [ticket_name] at [T.ingame_time_opened] at location [T.locationSent]</h3>"
 	dat += "<h4>Ticket Status: [status]"
-	dat += "<table style='width:950px; border: 3px solid;'>"
+	dat += "<div id='msgs' style='width:950px; border: 3px solid; overflow-y: scroll; height: 350px;'>"
+	dat += "<table style='width:100%;'>"
 	dat += "<tr><td>[makeUrlMessage(T, one_line = TRUE)]</td></tr>"
 
 	if(length(T.ticket_responses) > 1)
@@ -527,7 +534,31 @@ UI STUFF
 			var/datum/ticket_response/TR = T.ticket_responses[i]
 			dat += "<tr><td>[TR.to_string()]</td></tr>"
 
-	dat += "</table><br /><br />"
+	dat += "</table></div>"
+	var/client/C = get_client_by_ckey(T.client_ckey)
+	for(var/key in C?.pm_tracker.pms)
+		var/datum/pm_convo/convo = C.pm_tracker.pms[key]
+		if(convo.typing)
+			dat += "<i><span class='typing'>[key] is typing</span></i><br />"
+
+	var/found_typing = FALSE
+	for(var/client/client as anything in GLOB.admins)
+		if(ckey(client.ckey) == ckey(T.client_ckey))
+			continue
+		if(!check_rights_for(client, rights_needed))
+			continue
+		for(var/key in client.pm_tracker.pms)
+			if(ckey(key) != ckey(T.client_ckey))
+				continue
+			var/datum/pm_convo/convo = client.pm_tracker.pms[key]
+			if(convo.typing)
+				dat += "<i><span class='typing'>[key] is typing</span></i><br />"
+				found_typing = TRUE
+				break
+		if(found_typing)
+			break
+
+	dat += "<br />"
 	dat += "<a href='byond://?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, 0) ? "<a href='byond://?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='byond://?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
 
 	if(!T.staffAssigned)
@@ -545,9 +576,19 @@ UI STUFF
 	dat += "<a href='byond://?src=[UID()];detailclose=[T.ticketNum]'>Close Ticket</a>"
 	dat += "<a href='byond://?src=[UID()];convert_ticket=[T.ticketNum]'>Convert Ticket</a>"
 
-	var/datum/browser/popup = new(user, "[ticket_system_name]detail", "[ticket_system_name] #[T.ticketNum]", 1000, 600)
+	var/datum/browser/popup = new(user, "[ticket_system_name]detail", "[ticket_system_name] #[T.ticketNum]", 1000, 800, src)
+	popup.add_head_content(@{"<script type='text/javascript'>
+		window.onload = function () {
+			var msgs = document.getElementById('msgs');
+			msgs.scrollTop = msgs.scrollHeight;
+		}
+		</script>"})
 	popup.set_content(dat)
 	popup.open()
+	open_detail_uis[user.client] = T.ticketNum
+
+/datum/controller/subsystem/tickets/proc/onCloseDetailUI(mob/user)
+	open_detail_uis -= user.client
 
 /datum/controller/subsystem/tickets/proc/userDetailUI(mob/user)
 //dat
@@ -562,7 +603,7 @@ UI STUFF
 			dat += "<tr><td>[TR.to_string()]</td></tr>"
 	dat += "</table>"
 
-	var/datum/browser/popup = new(user, "[ticket_system_name]userticketsdetail", ticket_system_name, 1000, 600)
+	var/datum/browser/popup = new(user, "[ticket_system_name]userticketsdetail", ticket_system_name, 1000, 800)
 	popup.set_content(dat)
 	popup.open()
 
@@ -594,6 +635,8 @@ UI STUFF
 	message_adminTicket(chat_box_ahelp(msg), important)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)
+	if(!check_rights(rights_needed))
+		return
 
 	if(href_list["refresh"])
 		showUI(usr)
@@ -668,7 +711,10 @@ UI STUFF
 		else
 			usr.client.resolveAllAdminTickets()
 
-/datum/controller/subsystem/tickets/proc/takeTicket(var/index)
+	if(href_list["close"])
+		onCloseDetailUI(usr)
+
+/datum/controller/subsystem/tickets/proc/takeTicket(index)
 	if(assignStaffToTicket(usr.client, index))
 		if(span_class == "mentorhelp")
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) взял [ticket_name] номер [index]</span>")
@@ -690,10 +736,9 @@ UI STUFF
 	var/static/list/protected_vars = list(
 		"allTickets"
 	)
-	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
-
 
 /datum/controller/subsystem/tickets/proc/open_ticket_count_updated()
 	var/ticket_count = 0

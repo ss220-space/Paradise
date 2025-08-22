@@ -126,7 +126,7 @@
 	else
 		location = get_atom_on_turf(src)
 	if(location)
-		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], cause = src)
+		explosion(location, devastation_range = boom_sizes[1], heavy_impact_range = boom_sizes[2], light_impact_range = boom_sizes[3], cause = src)
 		location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target
@@ -181,11 +181,15 @@
 	boom_sizes = list(4,6,8) //did you see the price? It has to be better..
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
-	for(var/i in 1 to 4)
-		new /obj/item/grenade/plastic/miningcharge/lesser(src)
 	for(var/i in 1 to 2)
+		new /obj/item/grenade/plastic/miningcharge/mega(src)
+	for(var/i in 1 to 4)
 		new /obj/item/grenade/plastic/miningcharge(src)
+	for(var/i in 1 to 5)
+		new /obj/item/grenade/plastic/miningcharge/lesser(src)
 	new /obj/item/detonator(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/storage/bag/ore/bigger(src)
 
 
 //MINING CHARGE HACKER

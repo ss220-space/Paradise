@@ -78,11 +78,11 @@
 /obj/machinery/door/proc/update_dir()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
+			bound_width = width * ICON_SIZE_X
+			bound_height = ICON_SIZE_Y
 		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
+			bound_width = ICON_SIZE_X
+			bound_height = width * ICON_SIZE_Y
 
 /obj/machinery/door/Initialize()
 	air_update_turf(1)
@@ -141,11 +141,11 @@
 
 	if(width > 1)
 		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
+			bound_width = width * ICON_SIZE_X
+			bound_height = ICON_SIZE_Y
 		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
+			bound_width = ICON_SIZE_X
+			bound_height = width * ICON_SIZE_Y
 
 
 /obj/machinery/door/CanAllowThrough(atom/movable/mover, border_dir)
@@ -523,9 +523,9 @@
 	if(!stat) //Opens only powered doors.
 		open() //Open everything!
 
-/obj/machinery/door/ex_act(severity)
+/obj/machinery/door/ex_act(severity, target)
 	//if it blows up a wall it should blow up a door
-	..(severity ? max(1, severity - 1) : 0)
+	return ..(severity ? min(EXPLODE_DEVASTATE, severity + 1) : EXPLODE_NONE, target)
 
 
 /obj/machinery/door/get_explosion_block()

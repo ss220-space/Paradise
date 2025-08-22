@@ -529,19 +529,19 @@
 		return
 	..()
 	if(!istype(O))
-		to_chat(user, "<span class='warning'>The potion can only be used on items or vehicles!</span>")
+		to_chat(user, span_warning("The potion can only be used on items!"))
 		return
 	if(SEND_SIGNAL(O, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
 		return
 	if(isitem(O))
 		var/obj/item/I = O
 		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN) || (I.item_flags & SPEEDPOTION_APPLIED))
-			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
+			to_chat(user, span_warning("[I] can't be made any faster!"))
 			return ..()
 		if(isclothing(O))
 			var/obj/item/clothing/cloth = O
 			if(cloth.clothing_flags & FIXED_SLOWDOWN)
-				to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
+				to_chat(user, span_warning("[I] can't be made any faster!</span>"))
 				return
 		I.slowdown /= 2
 		I.item_flags |= SPEEDPOTION_APPLIED
@@ -556,7 +556,7 @@
 
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	O.add_atom_colour(COLOR_RED, WASHABLE_COLOUR_PRIORITY)
-	to_chat(user, "<span class='notice'>You slather the red gunk over [O], making it faster.</span>")
+	to_chat(user, span_notice("You slather the red gunk over [O], making it faster.</span>"))
 	qdel(src)
 
 

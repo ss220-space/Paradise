@@ -28,6 +28,7 @@
 	var/ready_to_fire = FALSE
 	var/slowdown_when_ready = 2
 	accuracy = GUN_ACCURACY_DEFAULT
+	recoil = null
 
 /obj/item/gun/projectile/bow/ashen //better than wooden
 	name = "bone bow"

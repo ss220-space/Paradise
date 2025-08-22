@@ -202,7 +202,7 @@
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
-	explosion(get_turf(src), 0, 1, 5, 5, cause = src)
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 5, flash_range = 5, cause = src)
 	qdel(src)
 
 
@@ -563,7 +563,10 @@
 /obj/structure/closet/crate/wooden //i'm sure hope this won't be used as cheese strat to obtain cargo points
 	name = "wooden crate"
 	desc = "Ящик, сделанный из дерева."
-	ru_names = list(
+	icon_state = "wooden_crate"
+
+/obj/structure/closet/crate/wooden/get_ru_names()
+	return list(
 		NOMINATIVE = "деревянный ящик",
 		GENITIVE = "деревянного ящика",
 		DATIVE = "деревянному ящику",
@@ -571,7 +574,6 @@
 		INSTRUMENTAL = "деревянным ящиком",
 		PREPOSITIONAL = "деревянном ящике"
 	)
-	icon_state = "wooden_crate"
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()

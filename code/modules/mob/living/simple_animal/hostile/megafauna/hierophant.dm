@@ -66,7 +66,6 @@ Difficulty: Hard
 	loot = list(/obj/item/hierophant_club, /obj/item/gem/purple)
 	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman, /obj/item/gem/purple)
 	wander = FALSE
-	internal_type = /obj/item/gps/internal/hierophant
 	medal_type = BOSS_MEDAL_HIEROPHANT
 	score_type = HIEROPHANT_SCORE
 	del_on_death = TRUE
@@ -869,10 +868,3 @@ Difficulty: Hard
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
-
-/obj/item/gps/internal/hierophant
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "Heed its words."
-	invisibility = INVISIBILITY_ABSTRACT

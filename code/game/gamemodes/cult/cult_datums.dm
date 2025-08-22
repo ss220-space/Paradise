@@ -141,7 +141,7 @@
 	tome_icon = "deathtome"
 	dagger_icon = "death_dagger"
 	sword_icon = "death_blade"
-	construct_glow = LIGHT_COLOR_DARKRED
+	construct_glow = COLOR_SOFT_RED
 	apocalypse_cinema = /datum/cinematic/cult_arm_reaper
 
 	entity_name = "The Reaper"

@@ -2,7 +2,7 @@
 // Navigates via floor navbeacons
 // Remote Controlled from QM's PDA
 
-#define SIGH 	0
+#define SIGH	0
 #define ANNOYED 1
 #define DELIGHT 2
 
@@ -68,7 +68,7 @@
 	var/obj/item/stock_parts/cell/cell
 	var/datum/wires/mulebot/wires = null
 	var/bloodiness = 0
-	var/currentBloodColor = "#A10808"
+	var/currentBloodColor = BLOOD_COLOR_RED
 	var/currentDNA = null
 
 
@@ -249,15 +249,15 @@
 		. += load_overlay
 
 
-/mob/living/simple_animal/bot/mulebot/ex_act(severity)
+/mob/living/simple_animal/bot/mulebot/ex_act(severity, target)
 	unload(0)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			qdel(src)
-		if(2)
-			for(var/i = 1; i < 3; i++)
-				wires.cut_random()
-		if(3)
+		if(EXPLODE_HEAVY)
+			wires.cut_random()
+			wires.cut_random()
+		if(EXPLODE_LIGHT)
 			wires.cut_random()
 
 

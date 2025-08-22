@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	new /obj/item/stack/sheet/metal(location, 5)
 	new /obj/item/shard(location)
 	new /obj/item/shard(location)
-	explosion(location, 0, 0, 1, cause = "Emagged slotmachine self-destroy")
+	explosion(location, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, adminlog = TRUE, cause = "Emagged slotmachine self-destroy")
 
 
 /datum/slotmachine_prize/minimal
