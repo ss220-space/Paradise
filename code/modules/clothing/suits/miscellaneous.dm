@@ -1797,7 +1797,7 @@
 
 /obj/item/clothing/suit/storage/zazalord
 	name = "Zaza lord svag bomber"
-	desc = "Бомбер выпущеный ограниченым тиражём корпорации Robust Softdrinks в рамках рекламной компании нового напитка Заза. Выдавался за собранные крышки от бутылок."
+	desc = "Бомбер, выпущенный ограниченным тиражом корпорацией \"Robust Softdrinks\" в рамках рекламной компании нового напитка \"Заза\". Выдавался за собранные крышки от бутылок."
 	icon_state = "hoody_zaza"
 	item_state = "hoody_zaza"
 	
