@@ -10,43 +10,47 @@
 #define MUTE_EMOTE		(1<<6)
 #define MUTE_ALL		ALL
 
-//Number of identical messages required to get the spam-prevention automute thing to trigger warnings and automutes
+/// Number of identical messages required before the spam-prevention will warn you to stfu
 #define SPAM_TRIGGER_WARNING 5
+/// Number of identical messages required before the spam-prevention will automute you
 #define SPAM_TRIGGER_AUTOMUTE 10
 
 //Some constants for DB_Ban
-#define BANTYPE_PERMA		1
-#define BANTYPE_TEMP		2
-#define BANTYPE_JOB_PERMA	3
-#define BANTYPE_JOB_TEMP	4
-#define BANTYPE_ANY_FULLBAN	5 //used to locate stuff to unban.
-#define BANTYPE_APPEARANCE  6
-#define BANTYPE_ADMIN_PERMA	7
-#define BANTYPE_ADMIN_TEMP	8
+#define BANTYPE_PERMA 1
+#define BANTYPE_TEMP 2
+#define BANTYPE_JOB_PERMA 3
+#define BANTYPE_JOB_TEMP 4
+/// Used to locate stuff to unban.
+#define BANTYPE_ANY_FULLBAN 5
+#define BANTYPE_APPEARANCE 6
+#define BANTYPE_ADMIN_PERMA 7
+#define BANTYPE_ADMIN_TEMP 8
 
 //Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions
-#define R_BUILDMODE		(1<<0)
-#define R_ADMIN			(1<<1)
-#define R_BAN			(1<<2)
-#define R_EVENT			(1<<3)
-#define R_SERVER		(1<<4)
-#define R_DEBUG			(1<<5)
-#define R_POSSESS		(1<<6)
-#define R_PERMISSIONS	(1<<7)
-#define R_STEALTH		(1<<8)
-#define R_REJUVINATE	(1<<9)
-#define R_VAREDIT		(1<<10)
-#define R_SOUNDS		(1<<11)
-#define R_SPAWN			(1<<12)
-#define R_MOD			(1<<13)
-#define R_MENTOR		(1<<14)
-#define R_PROCCALL		(1<<15)
-#define R_VIEWRUNTIMES	(1<<16)
+#define R_BUILDMODE (1<<0)
+#define R_ADMIN (1<<1)
+#define R_BAN (1<<2)
+#define R_EVENT (1<<3)
+#define R_SERVER (1<<4)
+#define R_DEBUG (1<<5)
+#define R_POSSESS (1<<6)
+#define R_PERMISSIONS (1<<7)
+#define R_STEALTH (1<<8)
+#define R_REJUVINATE (1<<9)
+#define R_VAREDIT (1<<10)
+#define R_SOUNDS (1<<11)
+#define R_SPAWN (1<<12)
+#define R_MOD (1<<13)
+#define R_MENTOR (1<<14)
+#define R_PROCCALL (1<<15)
+#define R_VIEWRUNTIMES (1<<16)
 
-#define R_MAXPERMISSION (1<<16)//This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+/// This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION (1<<16)
 
-#define R_HOST			(~0) // Sum of all permissions to allow easy setting
+/// Sum of all permissions to allow easy setting.
+#define R_HOST (~0)
 
 #define ADMIN_QUE(user,display) "<a href='byond://?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
 #define ADMIN_FLW(user,display) "<a href='byond://?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]</a>"
@@ -74,6 +78,6 @@
 #define BAN_HOURS * 60
 #define BAN_DAYS BAN_HOURS * 24
 
-/// Used in logging uses of admin verbs (and sometimes some non-admin or debug verbs) to the blackbox
+/// Used in logging uses of admin verbs (and sometimes some non-admin or debug verbs) to the blackbox.
 /// Only pass it a string key, the verb being used.
 #define BLACKBOX_LOG_ADMIN_VERB(the_verb) SSblackbox.record_feedback("tally", "admin_verb", 1, the_verb)
