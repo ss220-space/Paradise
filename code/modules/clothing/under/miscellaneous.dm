@@ -1463,7 +1463,7 @@
 
 /obj/item/clothing/under/tchaikowsky/evening_dress
 	name = "evening dress (black)"
-	desc = "Платье для официальных мероприятий"
+	desc = "Платье для официальных мероприятий."
 	icon_state = "evening_dress_black"
 	item_state = "evening_dress_black"
 
