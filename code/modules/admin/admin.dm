@@ -319,7 +319,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
 	popup.open(TRUE)
 	onclose(usr, "adminplayeropts")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Player Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Show Player Panel")
 
 
 /datum/player_info/var/author // admin who authored the information
@@ -426,7 +426,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			return FALSE
 
 	if(result)
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Reboot World") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+		BLACKBOX_LOG_ADMIN_VERB("Reboot World")
 		var/init_by = "Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]."
 		switch(result)
 
@@ -470,7 +470,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(announcement)
 		to_chat(world, "<span class='warning'><big><b>[announcement]</b></big></span>")
 	SSticker.force_ending = TRUE
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("End Round")
 	SSticker.mode_result = "admin ended"
 
 
@@ -494,7 +494,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			window_flash(clients_to_alert)
 			if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
 				SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Announce")
 
 /datum/admins/proc/toggleooc()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -506,7 +506,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	toggle_ooc()
 	log_and_message_admins("toggled OOC.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle OOC")
 
 /datum/admins/proc/togglelooc()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -523,7 +523,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	else
 		to_chat(world, "<b>The LOOC channel has been globally disabled!</b>")
 	log_and_message_admins("toggled LOOC.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle LOOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle LOOC")
 
 /datum/admins/proc/toggledsay()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -540,7 +540,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	else
 		to_chat(world, "<b>Deadchat has been globally disabled!</b>")
 	log_and_message_admins("toggled deadchat.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deadchat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Deadchat")
 
 /datum/admins/proc/toggleoocdead()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -556,7 +556,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	else
 		to_chat(world, "<b>Dead OOC has been globally disabled!</b>")
 	log_and_message_admins("toggled Dead OOC.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Dead OOC")
 
 /datum/admins/proc/toggleemoji()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -568,7 +568,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	CONFIG_SET(flag/disable_ooc_emoji, !CONFIG_GET(flag/disable_ooc_emoji))
 
 	log_and_message_admins("toggled OOC Emoji.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC Emoji")
+	BLACKBOX_LOG_ADMIN_VERB("Toggle OOC Emoji")
 
 /datum/admins/proc/startnow()
 	set category = STATPANEL_SERVER
@@ -593,7 +593,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
 		message_admins("<span class='darkmblue'>[usr.key] has started the game.[msg]</span>")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Game") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+		BLACKBOX_LOG_ADMIN_VERB("Start Game")
 		return 1
 	else
 		to_chat(usr, "<span style='color: red;'>Error: Start Now: Game has already started.</span>", confidential=TRUE)
@@ -615,7 +615,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<b>New players may now enter the game.</b>")
 	log_and_message_admins("toggled new player game entering.")
 	world.update_status()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Entering")
 
 /datum/admins/proc/toggleAI()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -632,7 +632,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<b>The AI job is chooseable now.</b>")
 	log_and_message_admins("toggled AI allowed.")
 	world.update_status()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle AI") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle AI")
 
 /datum/admins/proc/toggleaban()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -649,7 +649,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<b>You may no longer respawn :(</b>")
 	log_and_message_admins("toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].")
 	world.update_status()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Respawn")
 
 /datum/admins/proc/delay()
 	set category = STATPANEL_SERVER
@@ -674,7 +674,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		SSticker.ticker_going = TRUE
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Delay")
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
@@ -864,7 +864,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		A.flags |= ADMIN_SPAWNED
 
 	log_and_message_admins("spawned [chosen] at [COORD(usr)][LAZYLEN(arguments) > 1 ? " with parameters [print_single_line(arguments)]": ""]")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")
 
 
 /datum/admins/proc/show_traitor_panel(var/mob/M in GLOB.mob_list)
@@ -883,7 +883,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	M.mind.edit_memory()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Traitor Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Show Traitor Panel")
 
 /datum/admins/proc/toggleguests()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -899,7 +899,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	else
 		to_chat(world, "<b>Guests may now enter the game.</b>")
 	log_and_message_admins("toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Guests") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Guests")
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
@@ -1011,7 +1011,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
 
 		log_and_message_admins("has put [frommob.ckey] in control of [tomob.name].")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
+		BLACKBOX_LOG_ADMIN_VERB("Ghost Drag")
 
 		tomob.ckey = frommob.ckey
 		qdel(frommob)
@@ -1036,7 +1036,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			tomob.ghostize(0)
 
 		log_and_message_admins("has put [frommob.ckey] in control of [tomob.name].")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
+		BLACKBOX_LOG_ADMIN_VERB("Ghost Drag")
 
 		tomob.ckey = frommob.ckey
 		qdel(frommob)
@@ -1055,7 +1055,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			return TRUE
 
 		log_and_message_admins("has put [frommob.ckey] in control of an empty AI core.")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
+		BLACKBOX_LOG_ADMIN_VERB("Ghost Drag")
 
 		var/transfer_key = frommob.key // frommob is qdel'd in frommob.AIize()
 		var/mob/living/silicon/ai/ai_character = frommob.AIize()
@@ -1159,4 +1159,4 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SStitle.set_title_html(new_html)
 
 	message_admins("[key_name_admin(usr)] has changed the title screen HTML.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Change Title Screen")
+	BLACKBOX_LOG_ADMIN_VERB("Change Title Screen")
