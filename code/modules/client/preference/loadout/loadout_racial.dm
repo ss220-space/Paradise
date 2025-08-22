@@ -113,7 +113,7 @@
 	whitelisted_species = list(SPECIES_HUMAN)
 
 /datum/gear/racial/seccie
-	index_name = "Seccie clothes"
+	index_name = "seccie clothes"
 	path = /obj/item/clothing/under/tchaikowsky/sechighwaist
 	whitelisted_species = list(SPECIES_HUMAN)
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
