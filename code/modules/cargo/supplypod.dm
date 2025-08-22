@@ -561,8 +561,8 @@
 	return ..()
 
 /obj/structure/closet/supplypod/MouseDrop_T(atom/movable/O, mob/living/user, params)
-	if(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, O, user) & COMPONENT_NO_CLIMB)
-		return
+	if(!(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, O, user) & COMPONENT_CLIMB))
+		return ..()
 
 	to_chat(user, span_notice("Вы начинаетезаталкивать"))
 	user.visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] начинает запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),

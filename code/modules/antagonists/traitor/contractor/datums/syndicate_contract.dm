@@ -342,15 +342,17 @@
 /datum/syndicate_contract/proc/on_climb(atom/source, mob/living/victim, mob/living/user)
 	SIGNAL_HANDLER
 	if(!user || !istype(user))
-		return COMPONENT_NO_CLIMB
+		return
 
 	if(!check_target(victim))
 		source.balloon_alert(user, "неподходящая цель!")
-		return COMPONENT_NO_CLIMB
+		return
 
 	if(user == victim)
 		to_chat(user, span_warning("Вы не хотите лезть в непонятную капсулу с символикой Синдиката!"))
-		return COMPONENT_NO_CLIMB
+		return
+
+	return COMPONENT_CLIMB
 
 
 /datum/syndicate_contract/proc/check_target(mob/living/sent_mob)

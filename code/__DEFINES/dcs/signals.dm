@@ -1481,4 +1481,4 @@
 #define COMSIG_SUPPLYPOD_EXITED "supply_pod_exited"
 /// From /obj/structure/closet/supplypod/extractionpod/MouseDrop_T()
 #define COMSIG_SUPPLYPOD_CLIMB_CHECK "climb_check"
-	#define COMPONENT_NO_CLIMB (1<<0)
+	#define COMPONENT_CLIMB (1<<0)
