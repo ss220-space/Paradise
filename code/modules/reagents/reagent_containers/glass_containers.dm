@@ -672,3 +672,4 @@
 	else
 		reagents.remove_any(1)
 		playsound(pet.loc, 'sound/items/drink.ogg', rand(10, 30), TRUE)
+

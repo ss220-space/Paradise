@@ -180,3 +180,4 @@
 
 	var/contained = english_list(injected)
 	add_attack_logs(user, target, "Injected with [src] containing ([contained])")
+
