@@ -243,13 +243,7 @@
 	for(var/i in 1 to num_explosions)
 		var/radius = rand(min_explosion_radius, max_explosion_radius)
 		var/epicenter = pick_n_take(turfs_in_range)
-		explosion(
-			epicenter,
-			light_impact_range = radius,
-			flash_range = radius,
-			flame_range =  radius,
-			cause = "Bluespace rift event \"[event_meta.name]\""
-		)
+		explosion(epicenter, light_impact_range = radius, flash_range = radius, flame_range =  radius, cause = "Bluespace rift event \"[event_meta.name]\"")
 
 /datum/event/bluespace_rift_event/explosions/end()
 	..()

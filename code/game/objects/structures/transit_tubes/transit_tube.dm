@@ -35,7 +35,7 @@
 	return ..()
 
 // When destroyed by explosions, properly handle contents.
-/obj/structure/transit_tube/ex_act(severity)
+/obj/structure/transit_tube/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			for(var/atom/movable/AM in contents)

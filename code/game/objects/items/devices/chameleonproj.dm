@@ -134,11 +134,11 @@
 /obj/effect/dummy/chameleon/attack_alien()
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/ex_act(severity) //no longer bomb-proof
+/obj/effect/dummy/chameleon/ex_act(severity, target) //no longer bomb-proof
 	for(var/mob/M in src)
 		to_chat(M, span_danger("Your chameleon projector deactivates."))
 		spawn()
-			M.ex_act(severity)
+			M.ex_act(severity, target)
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/bullet_act()

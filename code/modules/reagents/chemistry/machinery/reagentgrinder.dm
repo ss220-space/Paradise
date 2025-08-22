@@ -160,10 +160,10 @@
 	QDEL_NULL(beaker)
 	return ..()
 
-/obj/machinery/reagentgrinder/ex_act(severity)
+/obj/machinery/reagentgrinder/ex_act(severity, target)
 	if(beaker)
-		beaker.ex_act(severity)
-	..()
+		beaker.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/reagentgrinder/handle_atom_del(atom/A)
 	if(A == beaker)

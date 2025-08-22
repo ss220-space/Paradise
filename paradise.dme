@@ -73,6 +73,7 @@
 #include "code\__DEFINES\dye_keys.dm"
 #include "code\__DEFINES\emotes_defines.dm"
 #include "code\__DEFINES\ert.dm"
+#include "code\__DEFINES\explosions.dm"
 #include "code\__DEFINES\flags.dm"
 #include "code\__DEFINES\flamer_fire.dm"
 #include "code\__DEFINES\fonts.dm"

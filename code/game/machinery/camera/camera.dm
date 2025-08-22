@@ -102,10 +102,10 @@
 
 	cancelCameraAlarm()
 
-/obj/machinery/camera/ex_act(severity)
+/obj/machinery/camera/ex_act(severity, target)
 	if(invuln)
 		return
-	..()
+	return ..()
 
 /obj/machinery/camera/proc/setViewRange(num = 7)
 	view_range = num

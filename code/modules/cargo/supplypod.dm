@@ -424,7 +424,7 @@
 			target_living.adjustBruteLoss(damage)
 	var/explosion_sum = B[1] + B[2] + B[3] + B[4]
 	if (explosion_sum != 0) //If the explosion list isn't all zeroes, call an explosion
-		explosion(turf_underneath, B[1], B[2], B[3], flame_range = B[4], silent = effectQuiet, ignorecap = istype(src, /obj/structure/closet/supplypod/centcompod), cause = src) //less advanced equipment than bluespace pod, so larger explosion when landing
+		explosion(turf_underneath, devastation_range = B[1], heavy_impact_range = B[2], light_impact_range = B[3], flame_range = B[4], silent = effectQuiet, ignorecap = istype(src, /obj/structure/closet/supplypod/centcompod), cause = src) //less advanced equipment than bluespace pod, so larger explosion when landing
 	else if (!effectQuiet && !(pod_flags & FIRST_SOUNDS)) //If our explosion list IS all zeroes, we still make a nice explosion sound (unless the effectQuiet var is true)
 		playsound(src, "explosion", landingSound ? soundVolume * 0.25 : soundVolume, TRUE)
 	if (landingSound)
@@ -854,7 +854,7 @@
 		animate(smoke_part.get_filter("smoke_blur"), size = 6, time = 15, easing = CUBIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
 	smoke_effects = null
 
-/obj/effect/pod_landingzone/ex_act(severity)
+/obj/effect/pod_landingzone/ex_act(severity, target)
 	return FALSE
 
 /obj/effect/pod_landingzone/proc/endLaunch()

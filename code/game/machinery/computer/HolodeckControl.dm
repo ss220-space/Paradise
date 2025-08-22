@@ -189,11 +189,11 @@
 
 /obj/machinery/computer/HolodeckControl/emp_act(severity)
 	emergencyShutdown()
-	..()
+	return ..()
 
-/obj/machinery/computer/HolodeckControl/ex_act(severity)
+/obj/machinery/computer/HolodeckControl/ex_act(severity, target)
 	emergencyShutdown()
-	..()
+	return ..()
 
 /obj/machinery/computer/HolodeckControl/blob_act(obj/structure/blob/B)
 	emergencyShutdown()
