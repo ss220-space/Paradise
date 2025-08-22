@@ -95,7 +95,7 @@
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 		add_game_logs("has rigged a beartrap with an IED.", user)
 		to_chat(user, span_notice("Вы просовываете [IED] под нажимную пластину и подсоединяете запал."))
-		desc += "\n[span_warning("К нему подсоединена взрывчатка!")]"
+		update_desc()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(issignaler(I))
@@ -111,7 +111,7 @@
 			return ..()
 		sig = signaler
 		to_chat(user, span_notice("Вы просовываете [sig] под нажимную пластину и подсоединяете запал."))
-		desc += "[span_warning("\nК нему подсоединено сигнальное устройство.")]"
+		update_desc()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -127,16 +127,25 @@
 		IED.forceMove(get_turf(src))
 		IED = null
 		to_chat(user, span_notice("Вы снимаете СВУ с [declent_ru(GENITIVE)]."))
-		desc = initial(desc)
+		update_desc()
 		return
 
 	if(sig)
 		sig.forceMove(get_turf(src))
 		sig = null
 		to_chat(user, span_notice("Вы снимаете сигнальное устройство с [declent_ru(GENITIVE)]."))
-		desc = initial(desc)
+		update_desc()
 		return
 
+
+/obj/item/restraints/legcuffs/beartrap/update_desc(updates = ALL)
+	. = ..()
+	desc = initial(desc)
+	if(IED)
+		desc += "\n[span_warning("К нему подсоединена взрывчатка!")]"
+
+	if(sig)
+		desc += "\n[span_warning("К нему подсоединено сигнальное устройство.")]"
 
 /obj/item/restraints/legcuffs/beartrap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
