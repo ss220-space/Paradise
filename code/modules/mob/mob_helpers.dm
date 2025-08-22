@@ -183,30 +183,12 @@
 	return FALSE
 
 
-/proc/stars(n, pr)
-	if(pr == null)
-		pr = 25
-	if(pr <= 0)
-		return null
-	else
-		if(pr >= 100)
-			return n
-	var/te = n
-	var/t = ""
-	n = length_char(n)
-	var/p = null
-	p = 1
-	while(p <= n)
-		if((copytext_char(te, p, p + 1) == " " || prob(pr)))
-			t = text("[][]", t, copytext_char(te, p, p + 1))
-		else
-			t = text("[]*", t)
-		p++
-	return t
+/proc/stars(text, probability = 25)
+	return RUSTLIB_CALL(random_replace, text, probability, "*")
 
-/proc/stars_all(list/message_pieces, pr)
-	for(var/datum/multilingual_say_piece/S in message_pieces)
-		S.message = stars(S.message, pr)
+/proc/stars_all(list/message_pieces, probability = 25)
+	for(var/datum/multilingual_say_piece/piece in message_pieces)
+		piece.message = stars(piece.message, probability)
 
 /proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)

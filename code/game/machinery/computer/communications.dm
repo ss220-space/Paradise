@@ -43,7 +43,7 @@
 
 	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/comms_console)
 
-	light_color = LIGHT_COLOR_LIGHTBLUE
+	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/communications/get_ru_names()
 	return list(

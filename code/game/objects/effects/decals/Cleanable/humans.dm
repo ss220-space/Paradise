@@ -17,11 +17,13 @@
 	var/base_icon = 'icons/effects/blood.dmi'
 	var/blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
-	var/basecolor = "#A10808" // Color when wet.
+	var/basecolor = BLOOD_COLOR_RED
 	var/amount = 5
 	var/dry_timer = 0
 	var/off_floor = FALSE
 	var/is_dry = FALSE
+	var/max_shone_bloodiness = MAX_SHOE_BLOODINESS
+	var/drying_time = DRYING_TIME
 
 
 /obj/effect/decal/cleanable/blood/get_ru_names_cached() //we can't cache this now
@@ -56,7 +58,7 @@
 	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
 	if(!.)
-		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
+		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), drying_time * (amount+1), TIMER_STOPPABLE)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -135,7 +137,7 @@
 		else
 			add_blood = bloodiness
 		bloodiness -= add_blood
-		shoes.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, shoes.bloody_shoes[blood_state] + add_blood)
+		shoes.bloody_shoes[blood_state] = min(max_shone_bloodiness, shoes.bloody_shoes[blood_state] + add_blood)
 		if(length(blood_DNA))
 			shoes.add_blood(blood_DNA, basecolor)
 		shoes.blood_state = blood_state
@@ -151,7 +153,7 @@
 		else
 			add_blood = bloodiness
 		bloodiness -= add_blood
-		arrived.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS, arrived.bloody_feet[blood_state] + add_blood)
+		arrived.bloody_feet[blood_state] = min(max_shone_bloodiness, arrived.bloody_feet[blood_state] + add_blood)
 		if(!arrived.feet_blood_DNA)
 			arrived.feet_blood_DNA = list()
 		arrived.blood_state = blood_state
@@ -254,6 +256,8 @@
 	mergeable_decal = FALSE
 	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
+	/// Do these gibs produce squishy sounds?
+	var/squishy = TRUE
 
 /obj/effect/decal/cleanable/blood/gibs/get_ru_names()
 	return list(
@@ -269,6 +273,8 @@
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
+	if(squishy)
+		AddElement(/datum/element/squish_sound)
 
 /obj/effect/decal/cleanable/blood/gibs/Destroy()
 	if(giblets)

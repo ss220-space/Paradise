@@ -1,3 +1,5 @@
+/// Minimal recoil
+#define GUN_RECOIL_MIN new /datum/gun_recoil/minimal()
 /// Low recoil
 #define GUN_RECOIL_LOW new /datum/gun_recoil/low()
 /// Medium recoil
@@ -17,6 +19,11 @@
 	var/back_duration
 	/// Recoil angle randomization value
 	var/angle = 45
+
+/datum/gun_recoil/minimal
+	strength = 0.1
+	in_duration = 0.5
+	back_duration = 0.8
 
 /datum/gun_recoil/low
 	strength = 0.25
@@ -42,6 +49,8 @@
 /obj/item/gun/proc/do_recoil(mob/living/user, atom/target)
 	if(!recoil || !recoil.strength)
 		return
+	if(zoomed)
+		return // sights and recoil create visual bugs, disable recoil if we in sight mode.
 	var/shot_angle = get_angle(target, user)
 	var/rand_angle = (rand() - 0.5) * recoil.angle + shot_angle
 	recoil_camera(user, recoil.strength, recoil.in_duration, recoil.back_duration, rand_angle)

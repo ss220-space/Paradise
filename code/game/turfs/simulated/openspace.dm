@@ -6,7 +6,6 @@
 	baseturf = /turf/simulated/openspace
 	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pathing_pass_method = TURF_PATHING_PASS_PROC
-	flags = NO_SCREENTIPS
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
 

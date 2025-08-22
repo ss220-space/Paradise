@@ -793,7 +793,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			H.reagents.add_reagent("ice", 40)
 			logmsg = "cold."
 		if("Hunger")
-			H.set_nutrition(NUTRITION_LEVEL_CURSED)
+			H.set_nutrition(NUTRITION_LEVEL_ZERO)
 			logmsg = "starvation."
 		if("Cluwne")
 			H.makeCluwne()
