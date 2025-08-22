@@ -10,6 +10,8 @@
 	var/place_icon = "put_blueprint"
 	w_class = WEIGHT_CLASS_NORMAL
 
+	/// Placing state
+	var/placed_on_table = FALSE
 	/// Crafting item name
 	var/crafting_name = "none"
 	/// Crafting item path
@@ -35,10 +37,18 @@
 /obj/item/craft_blueprints/Initialize(mapload)
 	. = ..()
 	update_desc()
+	RegisterSignal(src, COMSIG_ITEM_PLACED_ON_TABLE, PROC_REF(on_table_place))
+
+
+/obj/item/craft_blueprints/Destroy()
+	. = ..()
+	UnregisterSignal(COMSIG_ITEM_PLACED_ON_TABLE)
+
 
 /obj/item/craft_blueprints/update_desc(updates)
 	. = ..()
 	desc = "[initial(desc)] \"[crafting_name]\""
+
 
 /obj/item/craft_blueprints/examine(mob/user)
 	update_desc()
@@ -53,6 +63,26 @@
 		for(var/component in components)
 			required_components_text += "[component] x[components[component]] "
 		. += span_notice(required_components_text)
+
+
+/obj/item/craft_blueprints/proc/on_table_place(datum/source, mob/user)
+	SIGNAL_HANDLER
+	to_chat(user, span_notice("Вы разворачиваете [declent_ru(NOMINATIVE)] на столе."))
+	placed_on_table = TRUE
+	icon_state = place_icon
+	pixel_x = 0
+	pixel_y = 0
+
+/obj/item/craft_blueprints/update_icon(updates)
+	. = ..()
+	icon_state = placed_on_table ? place_icon : initial(icon_state)
+
+/obj/item/craft_blueprints/attack_hand(mob/user, pickupfireoverride)
+	if(placed_on_table)
+		to_chat(user, span_notice("Вы используете [declent_ru(NOMINATIVE)]."))
+		// TODO use logic here
+		return FALSE
+	. = ..()
 
 
 
