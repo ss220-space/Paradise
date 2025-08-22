@@ -560,7 +560,7 @@
 	reverse_dropoff_coords = list(picked_turf.x, picked_turf.y, picked_turf.z)
 	return ..()
 
-/obj/structure/closet/supplypod/extractionpod/MouseDrop_T(atom/movable/O, mob/living/user, params)
+/obj/structure/closet/supplypod/MouseDrop_T(atom/movable/O, mob/living/user, params)
 	if(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, O, user) & COMPONENT_NO_CLIMB)
 		return
 
