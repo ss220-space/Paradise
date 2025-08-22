@@ -21,6 +21,7 @@
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
+	var/nutrition_value = 5
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide."))
@@ -108,14 +109,17 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(ishuman(user) && !user.check_has_mouth())
-		to_chat(user, span_warning("You do not have a mouth!"))
+		to_chat(user, span_warning("Вы не имеете рта!"))
 		return .
 
 	var/huffable = istype(src, /obj/item/toy/crayon/spraycan)
 	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
-	to_chat(user, span_notice("YYou take a [huffable ? "huff" : "bite"] of the [name]. Delicious!"))
+	if(istype(src, /obj/item/toy/crayon/bloodred))
+		to_chat(user, span_notice("Вы откусываете кроваво-красный мелок. На вкус как кровь. У вас остается металлический привкус на языке."))
+	else
+		to_chat(user, span_notice("Вы [huffable ? "делаете затяжку" : "откусываете кусочек"] от [name]. Вкусно!"))
 	if(!isvampire(user))
-		user.adjust_nutrition(5)
+		user.adjust_nutrition(nutrition_value)
 
 	if(!uses)
 		return .
@@ -125,7 +129,7 @@
 	uses -= 5
 	if(uses <= 0)
 		. = ATTACK_CHAIN_BLOCKED_ALL
-		to_chat(user, span_warning("There is no more of [huffable ? "paint in " : ""][name] left!"))
+		to_chat(user, span_warning("[huffable ? "В баллончике больше ничего не осталось!" : "В [name] больше ничего не осталось!"]"))
 		qdel(src)
 
 
@@ -276,22 +280,14 @@
 		..()
 
 /obj/item/toy/crayon/bloodred
-    name = "blood-red crayon"
-    desc = "Мелок, основаный на ред-спейс технологии. Выглядит так, будто сделан из крови. Более питательный, чем обычный мелок."
-    icon_state = "crayonbloodred"
-    colour = "#501010"
-    colourName = "bloodred"
-    uses = 0
-    dye_color = "#501010"
-
-/obj/item/toy/crayon/bloodred/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
-	if(target != user)
-		return ..()
-	. = ATTACK_CHAIN_PROCEED
-	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
-	to_chat(user, span_notice("Вы кусаете [name]. На вкус как кровь!"))
-	user.adjust_nutrition(10)
-	return .
+	name = "blood-red crayon"
+	desc = "Мелок, основаный на редспейс-технологии. Выглядит так, будто сделан из крови. Более питательный, чем обычный мелок."
+	icon_state = "crayonbloodred"
+	colour = "#501010"
+	colourName = "bloodred"
+	uses = 0
+	dye_color = "#501010"
+	nutrition_value = 10
 
 /obj/item/toy/crayon/bloodred/get_ru_names()
     return list(
@@ -304,22 +300,23 @@
     )
 
 /obj/item/toy/crayon/bloodred/afterattack(atom/target, mob/user, proximity, params)
-    if(!proximity) return
-    if(busy) return
-    if(is_type_in_list(target, validSurfaces))
-        var/temp = "rune"
-        if(letters.Find(drawtype))
-            temp = "letter"
-        else if(graffiti.Find(drawtype))
-            temp = "graffiti"
-        to_chat(user, span_notice("Вы начинаете рисовать [temp] кровью на [target.name]."))
-        busy = TRUE
-        if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
-            var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target, colour, drawtype, temp)
-            C.add_hiddenprint(user)
-            C.blood_graffiti = TRUE
-            to_chat(user, span_notice("Вы закончили рисовать [temp] кровью."))
-        busy = FALSE
+	if(!proximity) return
+	if(busy) return
+	if(is_type_in_list(target, validSurfaces))
+		var/temp = "rune"
+		if(letters.Find(drawtype))
+			temp = "letter"
+		else if(graffiti.Find(drawtype))
+			temp = "graffiti"
+		to_chat(user, span_notice("Вы начинаете рисовать [temp] кровью на [target.name]."))
+		busy = TRUE
+		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
+			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target, colour, drawtype, temp)
+			C.add_hiddenprint(user)
+			C.blood_graffiti = TRUE
+			C.update_desc()
+			to_chat(user, span_notice("Вы закончили рисовать [temp] кровью."))
+		busy = FALSE
 
 
 //Spraycan stuff

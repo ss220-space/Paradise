@@ -306,11 +306,11 @@
 	desc = "[initial(desc)][devil ? " На руне видна подпись: <b>[devil.info?.truename]</b>." : null]"
 
 /obj/effect/decal/cleanable/crayon
-    var/blood_graffiti = FALSE
+	var/blood_graffiti = FALSE
 
-/obj/effect/decal/cleanable/crayon/examine(mob/user)
-    . = ..()
-    if(blood_graffiti)
-        if(length(.))
-            .[2] = "<span class='examine'>Данное граффити выглядит будто создано из крови.</span>"
-    return .
+/obj/effect/decal/cleanable/crayon/update_desc()
+	. = ..()
+	if(blood_graffiti)
+		desc = "An odd collection of symbols drawn in what seems to be blood."
+	else
+		desc = initial(desc)
