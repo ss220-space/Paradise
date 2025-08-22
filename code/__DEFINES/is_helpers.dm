@@ -212,4 +212,4 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define istrue(statement) (statement == TRUE)
 
 #define isbeachwater(A) (istype(A, /turf/simulated/floor/beach/water))
-#define isbeachwaterindestructible(A) (istype(A, /turf/simulated/floor/indestructible/beach/water))
+#define isbeachwater_i(A) (istype(A, /turf/simulated/floor/indestructible/beach/water))

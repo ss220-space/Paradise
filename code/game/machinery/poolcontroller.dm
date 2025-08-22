@@ -42,26 +42,17 @@
 			linkedturfs += turf
 			continue
 
-		if(isbeachwaterindestructible(turf))
+		if(isbeachwater_i(turf))
 			var/turf/simulated/floor/indestructible/beach/water/water = turf
 			water.linkedcontroller = src
 			linkedturfs += turf
 
 /obj/machinery/poolcontroller/Destroy()
 	for(var/turf in linkedturfs)
-		if(isbeachwater(turf))
-			var/turf/simulated/floor/beach/water/water = turf
-			if(water.linkedcontroller == src)
-				water.linkedcontroller = null
-			linkedturfs -= turf
-			continue
+		if((isbeachwater(turf) || isbeachwater_i(turf)) && turf:linkedcontroller == src)
+			turf:linkedcontroller = null
 
-		if(isbeachwaterindestructible(turf))
-			var/turf/simulated/floor/indestructible/beach/water/water = turf
-			if(water.linkedcontroller == src)
-				water.linkedcontroller = null
-			linkedturfs -= turf
-
+	linkedturfs.Cut()
 	return ..()
 
 /obj/machinery/poolcontroller/invisible/Initialize(mapload)
