@@ -1771,7 +1771,7 @@
 
 /obj/item/clothing/suit/storage/bomber
 	name = "bomber"
-	desc = "Тёплая толстовка"
+	desc = "Тёплая толстовка."
 	icon_state = "hoody_undershirt"
 	item_state = "hoody_undershirt"
 	color = "#ffffffff"
