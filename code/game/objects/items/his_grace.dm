@@ -162,7 +162,7 @@
 		drowse()
 		return
 	if(bloodthirst < HIS_GRACE_CONSUME_OWNER && !ascended)
-		adjust_bloodthirst((1 + FLOOR(LAZYLEN(contents) * 0.3, 1)) * seconds_per_tick) //Maybe adjust this?
+		adjust_bloodthirst((1 + FLOOR(count_player_victims() * 0.3, 1)) * seconds_per_tick) //Maybe adjust this?
 	else
 		adjust_bloodthirst(1 * seconds_per_tick) //don't cool off rapidly once we're at the point where His Grace consumes all.
 	var/mob/living/master = get_atom_on_turf(src, /mob/living)
@@ -229,16 +229,23 @@
 /obj/item/his_grace/proc/consume(mob/living/meal) //Here's your dinner, Mr. Grace.
 	if(!meal)
 		return
+
 	meal.visible_message(span_warning("[declent_ru(NOMINATIVE)] открывается нараспашку и пожирает [meal]!"), span_his_grace("[span_big("[declent_ru(NOMINATIVE)] пожирает вас!")]"))
 	meal.adjustBruteLoss(200)
 	meal.death()
 	playsound(meal, 'sound/weapons/bladeslice.ogg', 75, TRUE)
 	playsound(loc, 'sound/goonstation/misc/burp_alien.ogg', 50, FALSE)
 	meal.forceMove(src)
+
+	var/datum/mind/mind = meal.mind
+	if(!mind || mind.madeby_sentience_potion)
+		meal.visible_message(span_his_grace("[declent_ru(NOMINATIVE)] не получает насыщения от подобной пищи. Он недоволен!"))
+		return
+
 	force_bonus += HIS_GRACE_FORCE_BONUS
 	prev_bloodthirst = bloodthirst
 	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER)
-		bloodthirst = max(round(LAZYLEN(contents)/2), 1) //Never fully sated, and His hunger will only grow.
+		bloodthirst = max(round(count_player_victims() / 2), 1) //Never fully sated, and His hunger will only grow.
 	else
 		bloodthirst = HIS_GRACE_CONSUME_OWNER
 	try_update_tier()
