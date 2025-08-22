@@ -45,7 +45,7 @@
 	a_intent = INTENT_HARM
 	intent = INTENT_HARM
 	blood_volume = 20
-	blood_color = "#dffc00"
+	blood_color = BLOOD_COLOR_XENO
 	attacktext = "прыгает на лицо"
 	attack_sound = 'sound/creatures/facehugger_attack.ogg'
 	attacked_sound = 'sound/creatures/facehugger_attacked.ogg'
@@ -56,7 +56,6 @@
 	stat_attack = UNCONSCIOUS // Necessary for them to attack (zombify) dead humans
 	speed = -0.5
 	holder_type = /obj/item/clothing/mask/facehugger
-	blood_color = COLOR_LIGHT_GREEN
 	gold_core_spawnable = FALSE
 	faction = list("alien")
 	use_pathfinding = TRUE

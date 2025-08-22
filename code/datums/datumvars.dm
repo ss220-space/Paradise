@@ -1374,7 +1374,7 @@
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
 			return
 
-		if(locateUID(new_organ) in M.internal_organs)
+		if(locate(new_organ) in M.internal_organs)
 			to_chat(usr, "Mob already has that organ.", confidential=TRUE)
 			return
 		new new_organ(M)

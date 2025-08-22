@@ -164,7 +164,7 @@
 
 /datum/dog_fashion/head/reindeer/apply(mob/living/simple_animal/pet/dog/D)
 	..()
-	D.set_light_range_power_color(2, 2, LIGHT_COLOR_RED)
+	D.set_light_range_power_color(2, 2, COLOR_SOFT_RED)
 
 /datum/dog_fashion/head/sombrero
 	name = "Segnor REAL_NAME"

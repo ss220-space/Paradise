@@ -208,7 +208,7 @@
 	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers
-	name="Scrubbers pipe manifold"
+	name = "Scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map-scrubbers"
 	connect_types = list(3)
@@ -218,7 +218,7 @@
 	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
-	name="Air supply pipe manifold"
+	name = "Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map-supply"
 	connect_types = list(2)

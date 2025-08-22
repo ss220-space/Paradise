@@ -389,7 +389,7 @@
 	desc = "Призывает огненные волны в радиусе заклинания."
 	action_icon_state = "explosion_old"
 
-	base_cooldown = 10 SECONDS
+	base_cooldown = 15 SECONDS
 	aoe_range = 10
 	invocation = "Che? non ' stimiti te faccende del inferno!"
 	invocation_type = "shout"
@@ -409,6 +409,14 @@
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/devil_fire/cast(list/targets, mob/user = usr)
+	var/obj/item/clothing/suit/straight_jacket/jacket = user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
+
+	if(istype(jacket))
+		user.temporarily_remove_item_from_inventory(jacket, force = TRUE)
+		user.visible_message(span_warning("[jacket.declent_ru(NOMINATIVE)] сгорает в адском пламени!"), \
+							span_warning("Вы испепеляете сковывающую вас [jacket.declent_ru(ACCUSATIVE)]!"))
+		qdel(jacket)
+
 	for(var/mob/living/living in targets)
 		living.Slowed(slow_time)
 

@@ -1628,7 +1628,7 @@
 	},
 /obj/item/ammo_box/magazine/m10mm,
 /obj/item/ammo_box/magazine/m10mm,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
