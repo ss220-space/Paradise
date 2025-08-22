@@ -226,7 +226,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	if(config && CONFIG_GET(string/servername))
 		s += "<b>[CONFIG_GET(string/servername)]</b> &#8212; "
-	s += "<b>[station_name()]</b> "
+	s += "<b>[english_station_name()]</b> "
 	if(config && CONFIG_GET(string/githuburl))
 		s+= "([GLOB.game_version])"
 

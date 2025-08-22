@@ -295,7 +295,7 @@
 	..()
 	qdel(src)
 
-/obj/item/flashlight/flare/on/illumination/ex_act(severity)
+/obj/item/flashlight/flare/on/illumination/ex_act(severity, target)
 	return //Nope
 
 
@@ -337,7 +337,7 @@
 
 /obj/item/flashlight/flare/glowstick/red
 	name = "red glowstick"
-	color = LIGHT_COLOR_RED
+	color = COLOR_SOFT_RED
 	chemglow_sprite_type = "red"
 
 /obj/item/flashlight/flare/glowstick/green
@@ -355,7 +355,7 @@
 
 /obj/item/flashlight/flare/glowstick/yellow
 	name = "yellow glowstick"
-	color = LIGHT_COLOR_YELLOW
+	color = LIGHT_COLOR_DIM_YELLOW
 	chemglow_sprite_type = "yellow"
 
 /obj/item/flashlight/flare/glowstick/pink

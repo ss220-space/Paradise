@@ -109,8 +109,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	P.info += "</table><hr/>\
 	<em>Printed at [station_time_timestamp()].</em>"
 
-/obj/machinery/doppler_array/proc/sense_explosion(var/x0,var/y0,var/z0,var/devastation_range,var/heavy_impact_range,var/light_impact_range,
-												  var/took,var/orig_dev_range,var/orig_heavy_range,var/orig_light_range)
+/obj/machinery/doppler_array/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 	if(stat & NOPOWER)
 		return
 	if(z != z0)
@@ -160,7 +159,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		toxins_tech.level = tmp_tech
 		messages += "Toxins technology level upgraded to [toxins_tech.level]. Swipe a technology disk to save data."
 	for(var/message in messages)
-		atom_say(message)
+		atom_say(message, use_tts = FALSE)
 
 
 /obj/machinery/doppler_array/update_icon_state()

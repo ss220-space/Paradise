@@ -1767,3 +1767,47 @@
 		INSTRUMENTAL = "капюшоном костюмома пингвина",
 		PREPOSITIONAL = "капюшоне костюма пингвина"
 	)
+
+
+/obj/item/clothing/suit/storage/bomber
+	name = "bomber"
+	desc = "Тёплая толстовка."
+	icon_state = "hoody_undershirt"
+	item_state = "hoody_undershirt"
+	color = "#ffffffff"
+	
+/obj/item/clothing/suit/storage/bomber/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/clothing/suit/storage/bomber/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
+
+/obj/item/clothing/suit/storage/bomber/get_ru_names()
+	return list(
+		NOMINATIVE = "толстовка",
+		GENITIVE = "толстовки",
+		DATIVE = "толстовке",
+		ACCUSATIVE = "толстовку",
+		INSTRUMENTAL = "толстовкой",
+		PREPOSITIONAL = "толстовке"
+	)
+
+/obj/item/clothing/suit/storage/zazalord
+	name = "zaza-lord swag bomber"
+	desc = "Бомбер, выпущенный ограниченным тиражом корпорацией \"Robust Softdrinks\" в рамках рекламной компании нового напитка \"Заза\". Выдавался за собранные крышки от бутылок."
+	icon_state = "hoody_zaza"
+	item_state = "hoody_zaza"
+	
+/obj/item/clothing/suit/storage/zazalord/get_ru_names()
+	return list(
+		NOMINATIVE = "заза-лорд бомбер",
+		GENITIVE = "заза-лорд бомбера",
+		DATIVE = "заза-лорд бомберу",
+		ACCUSATIVE = "заза-лорд бомбера",
+		INSTRUMENTAL = "заза-лорд бомбером",
+		PREPOSITIONAL = "заза-лорд бомбере"
+	)
+

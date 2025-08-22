@@ -383,7 +383,7 @@
 	var/obj/item/bombcore/large/explosive_wall/bombcore = new(get_turf(src))
 	bombcore.detonate()
 
-/turf/simulated/wall/mineral/plastitanium/explosive/ex_act(severity)
+/turf/simulated/wall/mineral/plastitanium/explosive/ex_act(severity, target)
 	return
 
 //have to copypaste this code

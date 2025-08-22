@@ -112,7 +112,7 @@
 	can_bayonet = TRUE
 	bayonet_x_offset = 26
 	bayonet_y_offset = 12
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
@@ -252,7 +252,7 @@ TODO Use this name and desc for localisation*/
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
 	fire_delay = 2
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 2),
@@ -534,13 +534,13 @@ TODO Use this name and desc for localisation*/
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 2
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4)
 	)
-	recoil = GUN_RECOIL_MEDIUM
+	recoil = GUN_RECOIL_MIN
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -559,13 +559,13 @@ TODO Use this name and desc for localisation*/
 	can_suppress = 0
 	burst_size = 1
 	actions_types = null
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 9),
 		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -2)
 	)
-	recoil = GUN_RECOIL_MEDIUM
+	recoil = GUN_RECOIL_MIN
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
 	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"

@@ -622,6 +622,8 @@
 	if(n_gloves)
 		toggle_ninja_nodrop(n_gloves)
 		n_gloves.draining = FALSE
+	if(n_backpack)
+		toggle_ninja_nodrop(n_backpack)
 	if(n_mask)
 		toggle_ninja_nodrop(n_mask)
 
@@ -726,4 +728,5 @@
 	QDEL_NULL(n_shoes)
 	QDEL_NULL(n_mask)
 	QDEL_NULL(n_scarf)
+	QDEL_NULL(n_backpack)
 	QDEL_NULL(src)

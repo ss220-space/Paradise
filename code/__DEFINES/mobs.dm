@@ -81,6 +81,9 @@
 #define ORGANIC 1
 #define SYNTHETIC 2
 
+// Reagent tag flags, define reagent behaviour (now use only for anti-stun reagents)
+#define REAGENT_TAG_ANTI_STUN (1<<0)
+
 // Appearance change flags
 #define APPEARANCE_UPDATE_DNA (1<<0)
 #define APPEARANCE_RACE	(1<<1|APPEARANCE_UPDATE_DNA)

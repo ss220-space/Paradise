@@ -87,6 +87,7 @@
 					<br>
 					<b>Renames</b><br>
 					<a href='byond://?src=[UID()];secretsfun=set_station_name'>Rename Station Name</a><br>
+					<a href='byond://?src=[UID()];secretsfun=set_english_station_name'>Rename Station Name in Byond hub</a><br>
 					<a href='byond://?src=[UID()];secretsfun=reset_station_name'>Reset Station Name</a><br>
 					<a href='byond://?src=[UID()];secretsfun=set_centcomm_name'>Rename Central Comand</a><br>
 					<br>
