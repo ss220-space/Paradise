@@ -73,7 +73,7 @@
 			return
 
 		flinged_sword.forceMove(get_turf(loccer))
-		flinged_sword.visible_message(span_alert("[flinged_sword.declent_ru(NOMINATIVE)] вырывается из хватки [loccer.declent_ru(GENITIVE)]!"))	
+		flinged_sword.visible_message(span_alert("[flinged_sword.declent_ru(NOMINATIVE)] вырывается из хватки [loccer.declent_ru(GENITIVE)]!"))
 
 	if(isitem(sword_loc))
 		flinged_sword.forceMove(get_turf(sword_loc))
@@ -81,7 +81,7 @@
 
 	if(iscloset(sword_loc))
 		var/obj/structure/closet/sword_closet = sword_loc
-		if(!(sword_closet.open(force = prob(5)/*, action.owner, special_effects = TRUE*/)))
+		if(!(sword_closet.open()))
 			sword_closet.container_resist(action.owner)
 
 		flinged_sword.visible_message(span_alert("[flinged_sword.declent_ru(NOMINATIVE)] вырывается из [sword_closet.declent_ru(GENITIVE)]!"))

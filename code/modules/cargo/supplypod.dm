@@ -593,7 +593,7 @@
 	after_open(null, FALSE)
 
 
-/obj/structure/closet/supplypod/open()
+/obj/structure/closet/supplypod/open(force = FALSE)
 	return
 
 
