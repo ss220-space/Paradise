@@ -3562,7 +3562,7 @@
 					/obj/item/clothing/neck/mantle = 2,
 					/obj/item/clothing/neck/mantle/old = 1,
 					/obj/item/clothing/neck/mantle/regal = 2,
-					/obj/item/clothing/neck/cloak/grey = 1
+					/obj/item/clothing/neck/cloak/grey = 1,
 					/obj/item/clothing/suit/storage/bomber = 4)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
