@@ -2,13 +2,23 @@
 
 /obj/item/bodybag
 	name = "body bag"
-	desc = "A folded bag designed for the storage and transportation of cadavers."
+	desc = "Сложенный мешок, предназначенный для хранения и транспортировки трупов."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_folded"
 	item_state = "bodybag"
 	w_class = WEIGHT_CLASS_SMALL
 	///Stored path we use for spawning a new body bag entity when unfolded.
 	var/unfoldedbag_path = /obj/structure/closet/body_bag
+
+/obj/item/bodybag/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок для трупов",
+		GENITIVE = "мешка для трупов",
+		DATIVE = "мешку для трупов",
+		ACCUSATIVE = "мешок для трупов",
+		INSTRUMENTAL = "мешком для трупов",
+		PREPOSITIONAL = "мешке для трупов"
+	)
 
 /obj/item/bodybag/attack_self(mob/user)
 	if(loc == user)
@@ -38,7 +48,7 @@
 
 /obj/item/bodybag/suicide_act(mob/living/user)
 	if(isfloorturf(user.loc))
-		user.visible_message(span_suicide("[user] is crawling into [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+		user.visible_message(span_suicide("[user] заполза[pluralize_ru(user.gender, "ет", "ют")] в [declent_ru(NOMINATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
 		var/obj/structure/closet/body_bag/R = new unfoldedbag_path(user.loc)
 		R.add_fingerprint(user)
 		qdel(src)
@@ -48,7 +58,7 @@
 
 /obj/structure/closet/body_bag
 	name = "body bag"
-	desc = "A plastic bag designed for the storage and transportation of cadavers."
+	desc = "Пластиковый мешок, предназначенный для хранения и транспортировки трупов."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_closed"
 	icon_closed = "bodybag_closed"
@@ -63,6 +73,17 @@
 	ignore_density_closed = TRUE
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
+
+
+/obj/structure/closet/body_bag/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок для трупов",
+		GENITIVE = "мешка для трупов",
+		DATIVE = "мешку для трупов",
+		ACCUSATIVE = "мешок для трупов",
+		INSTRUMENTAL = "мешком для трупов",
+		PREPOSITIONAL = "мешке для трупов"
+	)
 
 
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
@@ -80,7 +101,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
-	to_chat(user, span_notice("You cut the tag off the bodybag."))
+	to_chat(user, span_notice("Вы срезаете бирку с [declent_ru(GENITIVE)]."))
 	name = initial(name)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -111,7 +132,7 @@
 	if(!istype(the_folder))
 		return
 	if(opened)
-		to_chat(the_folder, span_warning("You wrestle with [src], but it won't fold while unzipped."))
+		to_chat(the_folder, span_warning("Вы пытаетесь сложить [declent_ru(NOMINATIVE)], но он не сгибается в расстёгнутом виде."))
 		return
 	if(length(contents))
 		return
@@ -125,8 +146,8 @@
 /obj/structure/closet/body_bag/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
 		usr.visible_message(
-			span_notice("[usr] folds up [src]."),
-			span_notice("You fold up [src]."),
+			span_notice("[usr] складывает [declent_ru(NOMINATIVE)]."),
+			span_notice("Вы складываете [declent_ru(NOMINATIVE)]."),
 		)
 		perform_fold(usr)
 		qdel(src)
@@ -135,8 +156,8 @@
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
 		if(attempt_fold(usr))
 			usr.visible_message(
-				span_notice("[usr] folds up [src]."),
-				span_notice("You fold up [src]."),
+				span_notice("[usr] складывает [declent_ru(NOMINATIVE)]."),
+				span_notice("Вы складываете [declent_ru(NOMINATIVE)]."),
 			)
 			perform_fold(usr)
 			qdel(src)
@@ -153,7 +174,7 @@
 	// Make it possible to escape from bodybags in morgues and crematoriums
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/machinery/crematorium)))
 		if(!open())
-			to_chat(user, "<span class='notice'>It won't budge!</span>")
+			to_chat(user, span_notice("Не поддаётся!"))
 
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
 	return FALSE //Can't be weldled under any circumstances.
@@ -161,14 +182,24 @@
 
 /obj/item/bodybag/biohazard
 	name = "biohazard bodybag"
-	desc = "A folded bag designed for the storage and transportation of infected cadavers."
+	desc = "Сложенный мешок, предназначенный для хранения и транспортировки инфицированных трупов."
 	icon_state = "bodybag_biohazard_folded"
 	item_state = "bodybag_biohazard"
 	unfoldedbag_path = /obj/structure/closet/body_bag/biohazard
 
+/obj/item/bodybag/biohazard/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок для инфицированных трупов",
+		GENITIVE = "мешка для инфицированных трупов",
+		DATIVE = "мешку для инфицированных трупов",
+		ACCUSATIVE = "мешок для инфицированных трупов",
+		INSTRUMENTAL = "мешком для инфицированных трупов",
+		PREPOSITIONAL = "мешке для инфицированных трупов"
+	)
+
 /obj/structure/closet/body_bag/biohazard
 	name = "biohazard body bag"
-	desc = "A plastic bag designed for the storage and transportation of infected cadavers."
+	desc = "Пластиковый мешок, предназначенный для хранения и транспортировки инфицированных трупов."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_biohazard_closed"
 	icon_closed = "bodybag_biohazard_closed"
@@ -176,25 +207,46 @@
 	foldedbag_path = /obj/item/bodybag/biohazard
 
 
+/obj/structure/closet/body_bag/biohazard/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок для инфицированных трупов",
+		GENITIVE = "мешка для инфицированных трупов",
+		DATIVE = "мешку для инфицированных трупов",
+		ACCUSATIVE = "мешок для инфицированных трупов",
+		INSTRUMENTAL = "мешком для инфицированных трупов",
+		PREPOSITIONAL = "мешке для инфицированных трупов"
+	)
+
 /obj/item/bodybag/bluespace
 	name = "bluespace body bag"
-	desc = "A folded bluespace body bag designed for the storage and transportation of cadavers."
+	desc = "Сложенный блюспейс мешок, предназначенный для хранения и транспортировки трупов."
 	icon_state = "bluebag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/bluespace
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NO_MAT_REDEMPTION
 
+/obj/item/bodybag/bluespace/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс мешок для трупов",
+		GENITIVE = "блюспейс мешка для трупов",
+		DATIVE = "блюспейс мешку для трупов",
+		ACCUSATIVE = "блюспейс мешок для трупов",
+		INSTRUMENTAL = "блюспейс мешком для трупов",
+		PREPOSITIONAL = "блюспейс мешке для трупов"
+	)
+
+
 /obj/item/bodybag/bluespace/examine(mob/user)
 	. = ..()
 	if(contents.len)
-		var/s = contents.len == 1 ? "" : "s"
-		. += span_notice("You can make out the shape[s] of [contents.len] object[s] through the fabric.")
+		var/contents_number = contents.len
+		. += span_notice("Вы можете разглядеть форм[declension_ru(contents_number, "у", "ы", "ы")] [contents_number] объект[declension_ru(contents_number, "а", "ов", "ов")] через ткань.")
 
 /obj/item/bodybag/bluespace/Destroy()
 	for(var/atom/movable/A in contents)
 		A.forceMove(get_turf(src))
 		if(isliving(A))
-			to_chat(A, span_notice("You suddenly feel the space around you torn apart! You're free!"))
+			to_chat(A, span_notice("Вы внезапно чувствуете, как пространство вокруг вас рвётся на части! Вы свободны!"))
 	return ..()
 
 /obj/item/bodybag/bluespace/deploy_bodybag(mob/user, atom/location)
@@ -202,7 +254,7 @@
 	for(var/atom/movable/inside in contents)
 		inside.forceMove(item_bag)
 		if(isliving(inside))
-			to_chat(inside, span_notice("You suddenly feel air around you! You're free!"))
+			to_chat(inside, span_notice("Вы внезапно ощущаете свежий воздух вокруг! Вы свободны!"))
 	item_bag.open(user)
 	item_bag.add_fingerprint(user)
 	item_bag.foldedbag_instance = src
@@ -213,29 +265,41 @@
 /obj/item/bodybag/bluespace/container_resist(mob/living/user)
 	var/breakout_time = 10 SECONDS
 	if(user.incapacitated())
-		to_chat(user, span_warning("You can't get out while you're restrained like this!"))
+		to_chat(user, span_warning("Вы не можете выбраться, будучи связанным!"))
 		return
 	user.changeNext_move(breakout_time)
 	user.last_special = world.time + (breakout_time)
-	to_chat(user, span_notice("You claw at the fabric of [src], trying to tear it open..."))
-	to_chat(loc, span_warning("Someone starts trying to break free of [src]!"))
+	to_chat(user, span_notice("Вы вцепляетесь в ткань [declent_ru(GENITIVE)], пытаясь разорвать её..."))
+	to_chat(loc, span_warning("Кто-то пытается выбраться из [declent_ru(GENITIVE)]!"))
 	if(!do_after(user, 12 SECONDS, src))
 		return
 	// you are still in the bag? time to go unless you KO'd, honey!
 	// if they escape during this time and you rebag them the timer is still clocking down and does NOT reset so they can very easily get out.
 	if(user.incapacitated())
-		to_chat(loc, span_warning("The pressure subsides. It seems that they've stopped resisting..."))
+		to_chat(loc, span_warning("Давление ослабевает. Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] переста[genderize_ru(user.gender, "л", "ла", "ло", "ли")] сопротивляться..."))
 		return
-	loc.visible_message(span_warning("[user] suddenly appears in front of [loc]!"), span_userdanger("[user] breaks free of [src]!"))
+	loc.visible_message(span_warning("[user] внезапно появляется перед [loc.declent_ru(INSTRUMENTAL)]!"), span_userdanger("[user] вырывается из [declent_ru(GENITIVE)]!"))
 	qdel(src)
 
 /obj/structure/closet/body_bag/bluespace
 	name = "bluespace body bag"
-	desc = "A bluespace body bag designed for the storage and transportation of cadavers."
+	desc = "Блюспейс мешок, предназначенный для хранения и транспортировки трупов."
 	icon_state = "bluebag_closed"
 	icon_closed = "bluebag_closed"
 	icon_opened = "bluebag_open"
 	foldedbag_path = /obj/item/bodybag/bluespace
+
+
+/obj/structure/closet/body_bag/bluespace/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс мешок для трупов",
+		GENITIVE = "блюспейс мешка для трупов",
+		DATIVE = "блюспейс мешку для трупов",
+		ACCUSATIVE = "блюспейс мешок для трупов",
+		INSTRUMENTAL = "блюспейс мешком для трупов",
+		PREPOSITIONAL = "блюспейс мешке для трупов"
+	)
+
 
 /obj/structure/closet/body_bag/bluespace/attempt_fold(mob/living/carbon/human/the_folder)
 	. = FALSE
@@ -244,28 +308,28 @@
 		return
 
 	if(opened)
-		to_chat(the_folder, span_warning("You wrestle with [src], but it won't fold while unzipped."))
+		to_chat(the_folder, span_warning("Вы пытаетесь сложить [declent_ru(NOMINATIVE)], но он не сгибается в расстёгнутом виде."))
 		return
 
 	if(the_folder.in_contents_of(src))
-		to_chat(the_folder, span_warning("You can't fold [src] while you're inside of it!"))
+		to_chat(the_folder, span_warning("Вы не можете сложить [declent_ru(NOMINATIVE)], находясь внутри него!"))
 		return
 
 	for(var/obj/item/bodybag/bluespace/B in src)
-		to_chat(the_folder, span_warning("You can't recursively fold bluespace body bags!") )
+		to_chat(the_folder, span_warning("Вы не можете сложить блюспейс мешки друг в друга!") )
 		return
 
 	return TRUE
 
 
 /obj/structure/closet/body_bag/bluespace/perform_fold(mob/living/carbon/human/the_folder)
-	visible_message(span_notice("[the_folder] folds up [src]."))
+	visible_message(span_notice("[the_folder] складывает [declent_ru(NOMINATIVE)]."))
 	var/obj/item/bodybag/folding_bodybag = new foldedbag_path
 	var/max_weight_of_contents = initial(folding_bodybag.w_class)
 	for(var/atom/movable/content as anything in contents)
 		content.forceMove(folding_bodybag)
 		if(isliving(content))
-			to_chat(content, span_userdanger("You're suddenly forced into a tiny, compressed space!"))
+			to_chat(content, span_userdanger("Внезапно вы оказываетесь сложены в крохотное сжатое пространство!"))
 		if(HAS_TRAIT(content, TRAIT_DWARF))
 			max_weight_of_contents = max(WEIGHT_CLASS_NORMAL, max_weight_of_contents)
 			continue
