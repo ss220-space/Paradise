@@ -35,15 +35,15 @@
 /obj/machinery/shield/CanAtmosPass(turf/T, vertical)
 	return !density
 
-/obj/machinery/shield/ex_act(severity)
+/obj/machinery/shield/ex_act(severity, target)
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			if(prob(75))
 				qdel(src)
-		if(2.0)
+		if(EXPLODE_HEAVY)
 			if(prob(50))
 				qdel(src)
-		if(3.0)
+		if(EXPLODE_LIGHT)
 			if(prob(25))
 				qdel(src)
 
@@ -186,17 +186,17 @@
 	update_icon(UPDATE_ICON_STATE)
 	return
 
-/obj/machinery/shieldgen/ex_act(severity)
+/obj/machinery/shieldgen/ex_act(severity, target)
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			health -= 75
 			checkhp()
-		if(2.0)
+		if(EXPLODE_HEAVY)
 			health -= 30
 			if(prob(15))
 				malfunction = TRUE
 			checkhp()
-		if(3.0)
+		if(EXPLODE_LIGHT)
 			health -= 10
 			checkhp()
 	return
@@ -596,30 +596,29 @@
 	return
 
 
-/obj/machinery/shieldwall/ex_act(severity)
+/obj/machinery/shieldwall/ex_act(severity, target)
 	if(needs_power)
 		var/obj/machinery/shieldwallgen/G
 		switch(severity)
-			if(1.0) //big boom
+			if(EXPLODE_DEVASTATE) //big boom
 				if(prob(50))
 					G = gen_primary
 				else
 					G = gen_secondary
 				G.storedpower -= 200
-
-			if(2.0) //medium boom
+			if(EXPLODE_HEAVY) //medium boom
 				if(prob(50))
 					G = gen_primary
 				else
 					G = gen_secondary
 				G.storedpower -= 50
-
-			if(3.0) //lil boom
+			if(EXPLODE_LIGHT) //lil boom
 				if(prob(50))
 					G = gen_primary
 				else
 					G = gen_secondary
 				G.storedpower -= 20
+
 	return
 
 
@@ -680,7 +679,7 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/ex_act(severity)
+/obj/machinery/shieldwall/syndicate/ex_act(severity, target)
 	phaseout()
 	return ..()
 

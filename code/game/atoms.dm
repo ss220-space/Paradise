@@ -655,7 +655,7 @@
 /atom/proc/relaymove(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_RELAYMOVE, user)
 
-/atom/proc/ex_act()
+/atom/proc/ex_act(severity, target)
 	return
 
 /**

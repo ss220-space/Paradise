@@ -252,7 +252,7 @@
 			boom_warning = FALSE
 
 	if(H.bodytemperature > 850 && H.on_fire && prob(25))
-		explosion(get_turf(H), 1, 2, 4, flame_range = 5, cause = H)
+		explosion(get_turf(H), devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 5, cause = H)
 		add_attack_logs(H, null, "exploded", ATKLOG_FEW)
 		if(H)
 			H.gib()

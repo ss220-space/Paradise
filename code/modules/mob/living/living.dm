@@ -624,12 +624,13 @@
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
 
-/mob/living/ex_act(severity)
+/mob/living/ex_act(severity, target)
 	if(HAS_TRAIT(src, TRAIT_BOMBIMMUNE))
 		return FALSE
-
+    
 	. = ..()
 	flash_eyes()
+
 
 /mob/living/acid_act(acidpwr, acid_volume)
 	take_organ_damage(acidpwr * min(1, acid_volume * 0.1))

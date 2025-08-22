@@ -625,7 +625,7 @@
 		return
 	default_unfasten_wrench(user, I, time = 60)
 
-/obj/machinery/vending/ex_act(severity)
+/obj/machinery/vending/ex_act(severity, target)
 	. = ..()
 	if(QDELETED(src) || (resistance_flags & INDESTRUCTIBLE) || tilted || !tiltable)
 		return
@@ -3562,7 +3562,8 @@
 					/obj/item/clothing/neck/mantle = 2,
 					/obj/item/clothing/neck/mantle/old = 1,
 					/obj/item/clothing/neck/mantle/regal = 2,
-					/obj/item/clothing/neck/cloak/grey = 1)
+					/obj/item/clothing/neck/cloak/grey = 1,
+					/obj/item/clothing/suit/storage/bomber = 4)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
 					/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
@@ -3576,7 +3577,8 @@
 				   /obj/item/clothing/head/mailman = 1,
 				   /obj/item/clothing/under/rank/mailman = 1,
 				   /obj/item/clothing/suit/jacket/leather = 1,
-				   /obj/item/clothing/under/pants/mustangjeans = 1)
+				   /obj/item/clothing/under/pants/mustangjeans = 1,
+				   /obj/item/clothing/suit/storage/zazalord = 1)
 
 	refill_canister = /obj/item/vending_refill/clothing
 

@@ -76,13 +76,13 @@
 			M.forceMove(src.loc)
 	return 1
 
-/obj/machinery/recharge_station/ex_act(severity)
+/obj/machinery/recharge_station/ex_act(severity, target)
 	if(occupant)
-		occupant.ex_act(severity)
-	..()
+		occupant.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/recharge_station/handle_atom_del(atom/A)
-	..()
+	. = ..()
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()

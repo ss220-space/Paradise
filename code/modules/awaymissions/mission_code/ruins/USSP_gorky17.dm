@@ -572,7 +572,7 @@
 		message_admins(adminlog)
 		add_game_logs(adminlog)
 	var/center = get_turf(src)
-	explosion(center, range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, ignorecap = 1, cause = fingerprintslast)
+	explosion(center, devastation_range = 20, heavy_impact_range = 35, light_impact_range = 45, adminlog = TRUE, ignorecap = TRUE, flame_range = 50, cause = fingerprintslast)
 	delete_unnecessary(center)
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)

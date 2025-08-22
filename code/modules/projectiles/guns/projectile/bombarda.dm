@@ -191,14 +191,14 @@
 
 /obj/projectile/grenade/improvised/exp_shot/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
-	explosion(loc, -1, -1, 2, flame_range = 3, cause = src)
+	explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 3, cause = src)
 
 /obj/projectile/grenade/improvised/flame_shot
 	icon_state = "flame_shot"
 
 /obj/projectile/grenade/improvised/flame_shot/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
-	explosion(loc, 0, 0, 0, flame_range = 8, cause = src)
+	explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 0, flame_range = 8, cause = src)
 	fireflash(loc, 2, 682)
 
 /obj/projectile/grenade/improvised/smoke_shot
