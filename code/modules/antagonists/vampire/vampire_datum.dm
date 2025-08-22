@@ -108,7 +108,6 @@
 		check_vampire_upgrade(announce = FALSE)
 		user.faction |= ROLE_VAMPIRE
 		user.dna?.species?.hunger_type = "vampire"
-		user.dna?.species?.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 		//goon vampire slaves code
 		//if(mob_override.mind.som)
 			//var/datum/mindslaves/slaved = mob_override.mind.som
@@ -116,6 +115,7 @@
 			//slaved.serv -= mob_override.mind
 			//slaved.leave_serv_hud(mob_override.mind)
 			//.mind.som = null
+	ADD_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
 
 	user.AddElement( \
 		/datum/element/pref_viewer, \
@@ -135,6 +135,8 @@
 	if(!mob_override)	// mob override means body transfer
 		remove_all_powers()
 
+	REMOVE_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
+
 	if(!transformation)
 		user.faction -= ROLE_VAMPIRE
 
@@ -143,7 +145,6 @@
 			hud.remove_vampire_hud()
 
 		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
-		user.dna?.species?.hunger_icon = initial(user.dna.species.hunger_icon)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 

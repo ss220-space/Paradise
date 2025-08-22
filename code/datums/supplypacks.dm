@@ -5,7 +5,7 @@
 //BIG NOTE: Don't add living things to crates, that's bad, it will break the shuttle.
 //NEW NOTE: Do NOT set the price of any crates below 7 points. Doing so allows infinite points.
 
-// Supply Groups
+// MARK: Supply Groups
 #define SUPPLY_EMERGENCY 1
 #define SUPPLY_SECURITY 2
 #define SUPPLY_ENGINEER 3
@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 ////// Use the sections to keep things tidy please /Malkevin
 
 //////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Emergency ///////////////////////////////////////
+// MARK: Emergency
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_packs/emergency	// Section header - use these to set default supply group and crate type for sections
@@ -519,7 +519,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 //////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Security ////////////////////////////////////////
+// MARK: Security
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_packs/security
@@ -579,6 +579,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с оборудованием для плеловодства пополнения SecTech",
 		PREPOSITIONAL = "ящике с оборудованием для плеловодства пополнения SecTech"
 	)
+
+/datum/supply_packs/security/vending/security_mods
+	name = "ModTech Supply Crate"
+	cost = 20
+	contains = list(/obj/item/vending_refill/gun_mods)
+	containername = "ModTech supply crate"
 
 ////// Armor: Basic
 
@@ -1144,6 +1150,27 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике оружейных ваучеров"
 	)
 
+/datum/supply_packs/security/armory/m79
+	name = "M79 Grenade Launcher Crate"
+	contains = list(/obj/item/gun/projectile/bombarda/secgl/m79,
+					/obj/item/gun/projectile/bombarda/secgl/m79)
+	cost = 80
+	containername = "m79 grenade launcher crate"
+	required_tech = list("combat" = 6, "materials" = 3)
+
+/datum/supply_packs/security/armory/grenades40mm_nonlethal
+	name = "40mm non-lethal grenade boxes crate"
+	contains = list(
+		/obj/item/ammo_box/secgl/solid,
+		/obj/item/ammo_box/secgl/flash,
+		/obj/item/ammo_box/secgl/gas,
+		/obj/item/ammo_box/secgl/barricade,
+		/obj/item/ammo_box/secgl/paint
+	)
+	cost = 50
+	containername = "40mm non-lethal grenade boxes crate"
+	required_tech = list("combat" = 5, "materials" = 3)
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
@@ -1334,7 +1361,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 
 //////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Engineering /////////////////////////////////////
+// MARK: Engineering
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_packs/engineering
@@ -2028,7 +2055,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Дискета технологий (Токсикология)"
 
 //////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Medical /////////////////////////////////////////
+// MARK: Medical
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_packs/medical
@@ -2428,7 +2455,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 
 //////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Science /////////////////////////////////////////
+// MARK: Science
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_packs/science
@@ -2962,7 +2989,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 
 //////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Organic /////////////////////////////////////////
+// MARK: Organic
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_packs/organic
@@ -3794,7 +3821,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 //////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Materials ///////////////////////////////////////
+// MARK: Materials
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_packs/materials
@@ -3925,7 +3952,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 //////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Miscellaneous ///////////////////////////////////
+// MARK: Miscellaneous
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_packs/misc
@@ -4716,7 +4743,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 
 //////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Vending /////////////////////////////////////////
+// MARK: Vending
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_packs/vending
@@ -5067,7 +5094,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 //////////////////////////////////////////////////////////////////////////////
-//////////////////////////// CONTRABAND SUPPLY ///////////////////////////////////
+// MARK: CONTRABAND SUPPLY
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_packs/contraband

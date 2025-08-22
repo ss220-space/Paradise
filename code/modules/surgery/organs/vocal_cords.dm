@@ -334,6 +334,8 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 			/*if(L.mind && L.mind.devilinfo)
 				L.say("[L.mind.devilinfo.truename]")
 			else*/
+			if(SEND_SIGNAL(L, COMSIG_SAY_YOUR_NAME, owner) && SAY_NAME_BLOCK)
+				continue
 			L.say("[L.real_name]")
 		next_command = world.time + cooldown_meme
 

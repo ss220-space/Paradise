@@ -3,14 +3,6 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass
 	name = "glass"
 	desc = "Стеклянный стакан, из таких обычно пьют. Постарайтесь не разбить его."
-	ru_names = list(
-        NOMINATIVE = "стакан",
-        GENITIVE = "стакана",
-        DATIVE = "стакану",
-        ACCUSATIVE = "стакан",
-        INSTRUMENTAL = "стаканом",
-        PREPOSITIONAL = "стакане"
-	)
 	icon_state = "glass_empty"
 	item_state = "drinking_glass"
 	amount_per_transfer_from_this = 10
@@ -22,6 +14,16 @@
 	resistance_flags = ACID_PROOF
 	drop_sound = 'sound/items/handling/drop/drinkglass_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/drinkglass_pickup.ogg'
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/get_ru_names()
+	return list(
+        NOMINATIVE = "стакан",
+        GENITIVE = "стакана",
+        DATIVE = "стакану",
+        ACCUSATIVE = "стакан",
+        INSTRUMENTAL = "стаканом",
+        PREPOSITIONAL = "стакане"
+	)
 
 /obj/item/reagent_containers/food/drinks/set_APTFT()
 	set hidden = FALSE

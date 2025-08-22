@@ -15,8 +15,6 @@
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
-	brute_mod = 1 // 100% * 2.28 * 0.66 (robolimbs) ~= 150% // nope
-	burn_mod = 1  // So they take 50% extra damage from brute/burn overall // nope
 	tox_mod = 0
 	clone_mod = 0
 	death_message = "изда%(ёт,ют)% резкие пронзительные звуки и, конвульсивно подёргивая шасси, окончательно отключа%(ет,ют)%ся."
@@ -33,11 +31,12 @@
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_NO_GERMS,
 		TRAIT_NO_DECAY,	// computers that don't decay? What a lie!
+		TRAIT_NO_NUTRITION_EFFECTS,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
-	blood_color = COLOR_BLOOD_MACHINE
+	blood_color = BLOOD_COLOR_MACHINE
 	flesh_color = "#AAAAAA"
 
 	//Default styles for created mobs.
@@ -53,8 +52,6 @@
 	male_sneeze_sound = list('sound/effects/mob_effects/machine_sneeze.ogg')
 	female_sneeze_sound = list('sound/effects/mob_effects/f_machine_sneeze.ogg')
 	butt_sprite = "machine"
-
-	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
 	hunger_type = "machine"
 
 	has_organ = list(

@@ -41,6 +41,7 @@
 
 /datum/cargo_quests_storage/Destroy(force)
 	QDEL_LIST(current_quests)
+	SScargo_quests.quest_storages -= src
 	customer = null
 	. = ..()
 

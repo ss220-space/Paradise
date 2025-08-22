@@ -95,7 +95,7 @@
 	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/try_to_activate_door(mob/user)
- 	return
+	return
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/try_to_crowbar(mob/user, obj/item/I)
 		to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")

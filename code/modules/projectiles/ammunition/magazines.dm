@@ -255,7 +255,7 @@
 	max_ammo = 5
 
 /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
- 	max_ammo = 10
+	max_ammo = 10
 
 ///////////EXTERNAL MAGAZINES////////////////
 /obj/item/ammo_box/magazine
@@ -372,6 +372,11 @@
 
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
 	icon_state = "9mm-te-[round(ammo_count(),5)]"
+
+/* UZI magazine
+ name = "Пистолет-пулемёт Uzi — магазин 9 мм"
+ desc = "Магазин на 30 патронов калибра 9 мм."
+ TODO Use this name and desc for localisation*/
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"

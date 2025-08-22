@@ -107,7 +107,7 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/emag_act(mob/user)
 	..()
-	light_color = LIGHT_COLOR_PURE_RED //if you see a red one. RUN!!
+	light_color = LIGHT_COLOR_INTENSE_RED //if you see a red one. RUN!!
 
 
 /mob/living/simple_animal/bot/secbot/griefsky/secbot_crossed(mob/living/carbon/arrived)

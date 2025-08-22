@@ -39,6 +39,18 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
+/obj/item/melee/cultblade/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 0.75 SECONDS, \
+		swing_sound = "blade_swing_heavy" \
+	)
+
+
 /obj/item/melee/cultblade/update_icon_state()
 	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.sword_icon
@@ -266,9 +278,9 @@
 	icon_state = "cult_sharpener"
 	increment = 5
 	max = 40
-	prefix = "darkened"
 	claws_increment = 4
-
+	gender = MALE
+	prefix = "Потемневшее"
 
 /obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[!uses ? "_used" : ""]"

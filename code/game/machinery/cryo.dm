@@ -6,14 +6,6 @@
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
 	desc = "Медицинское устройство, представляющее из себя высокую капсулу, напичканную датчиками и сканерами. Судя по всему, она понижает температуру тела субъекта внутри."
-	ru_names = list(
-		NOMINATIVE = "криогенная капсула",
-		GENITIVE = "криогенной капсулы",
-		DATIVE = "криогенной капсуле",
-		ACCUSATIVE = "криогенную капсулу",
-		INSTRUMENTAL = "криогенной капсулой",
-		PREPOSITIONAL = "криогенной капсуле"
-	)
 	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "pod0"
 	density = TRUE
@@ -27,6 +19,7 @@
 	on = FALSE
 	vent_movement = VENTCRAWL_CAN_SEE
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	flags = PREVENT_CLICK_UNDER | IGNORE_TURF_PIXEL_OFFSET
 	var/temperature_archived
 	var/mob/living/carbon/occupant
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
@@ -42,7 +35,17 @@
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
+
+/obj/machinery/atmospherics/unary/cryo_cell/get_ru_names()
+	return list(
+		NOMINATIVE = "криогенная капсула",
+		GENITIVE = "криогенной капсулы",
+		DATIVE = "криогенной капсуле",
+		ACCUSATIVE = "криогенную капсулу",
+		INSTRUMENTAL = "криогенной капсулой",
+		PREPOSITIONAL = "криогенной капсуле"
+	)
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change(forced = FALSE)
@@ -540,7 +543,7 @@
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	color = "red"//force the icon to red
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 
 /obj/machinery/atmospherics/unary/cryo_cell/ratvar_act()
 	go_out()

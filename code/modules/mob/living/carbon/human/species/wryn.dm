@@ -237,15 +237,15 @@
 		..()
 
 /mob/living/carbon/human/proc/adjustWax(amount)
- 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
- 	if(!glands) return
- 	glands.wax = clamp(glands.wax + amount, 0, 75)
- 	return 1
+	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+	if(!glands) return
+	glands.wax = clamp(glands.wax + amount, 0, 75)
+	return 1
 
 /mob/living/carbon/human/proc/getWax()
- 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
- 	if(!glands) return 0
- 	return glands.wax
+	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+	if(!glands) return 0
+	return glands.wax
 
 /mob/living/carbon/human/proc/toggle_producing()
 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
@@ -254,5 +254,5 @@
 		glands.producing = !glands.producing
 
 /mob/living/carbon/human/proc/get_producing()
- 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
- 	return glands ? glands.producing : FALSE
+	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+	return glands ? glands.producing : FALSE
