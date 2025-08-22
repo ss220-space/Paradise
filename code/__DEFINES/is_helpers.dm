@@ -210,3 +210,95 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 /// in some situations we can't rely on dynamic typing and use if(statement)
 #define istrue(statement) (statement == TRUE)
+
+#define isanimal(A)		(istype((A), /mob/living/simple_animal) || istype(A, /mob/living/basic))
+#define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))
+#define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
+#define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
+#define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
+#define isbot(A)		(istype((A), /mob/living/simple_animal/bot))
+#define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
+#define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
+#define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
+#define ishostile(A)	(istype(A, /mob/living/simple_animal/hostile))
+#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
+#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
+#define isdemon(A)			(istype((A), /mob/living/simple_animal/demon))
+#define ismorph(A)		(istype((A), /mob/living/simple_animal/hostile/morph))
+#define isborer(A)		(istype((A), /mob/living/simple_animal/borer))
+#define isairmob(A)		(istype(A, /mob/living/simple_animal/hostile/airmob))
+#define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
+#define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
+#define ismarauder(A)	(istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
+
+
+#define issilicon(A)	(istype((A), /mob/living/silicon))
+#define isAI(A)			(istype((A), /mob/living/silicon/ai))
+#define isrobot(A)		(istype((A), /mob/living/silicon/robot))
+#define ispAI(A)		(istype((A), /mob/living/silicon/pai))
+#define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
+#define iscogscarab(A)	(istype((A), /mob/living/silicon/robot/cogscarab))
+
+// For the tcomms monitor
+#define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
+#define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))
+#define ispathslime(A)		(ispath(A, /mob/living/simple_animal/slime))
+#define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
+#define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
+#define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
+
+#define isAIEye(A)		(istype((A), /mob/camera/aiEye))
+#define isovermind(A)	(istype((A), /mob/camera/blob))
+
+#define isminion(A)		(istype((A), /mob/living/simple_animal/hostile/blob_minion))
+#define isblobbernaut(M) istype((M), /mob/living/simple_animal/hostile/blob_minion/blobbernaut)
+
+#define isSpirit(A)		(istype((A), /mob/spirit))
+#define ismask(A)		(istype((A), /mob/spirit/mask))
+
+#define isobserver(A)	(istype((A), /mob/dead/observer))
+
+#define isnewplayer(A)  (istype((A), /mob/new_player))
+
+#define isexternalorgan(A)		(istype((A), /obj/item/organ/external))
+
+#define hasorgans(A)	(iscarbon(A))
+
+#define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
+
+#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
+
+// Locations
+#define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
+
+//Human sub-species
+#define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
+#define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
+#define isabductor(A) (is_species(A, /datum/species/abductor))
+#define isgolem(A) (is_species(A, /datum/species/golem))
+#define isfarwa(A) (is_species(A, /datum/species/monkey/tajaran))
+#define iswolpin(A) (is_species(A, /datum/species/monkey/vulpkanin))
+#define isneara(A) (is_species(A, /datum/species/monkey/skrell))
+#define isstok(A) (is_species(A, /datum/species/monkey/unathi))
+#define isplasmaman(A) (is_species(A, /datum/species/plasmaman))
+#define isshadowperson(A) (is_species(A, /datum/species/shadow))
+#define isskeleton(A) (is_species(A, /datum/species/skeleton))
+#define ishumanbasic(A) (is_species(A, /datum/species/human))
+#define isunathi(A) (is_species(A, /datum/species/unathi))
+#define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
+#define isashwalkershaman(A) (is_species(A, /datum/species/unathi/ashwalker/shaman))
+#define isdraconid(A) (is_species(A, /datum/species/unathi/draconid))
+#define istajaran(A) (is_species(A, /datum/species/tajaran))
+#define isvulpkanin(A) (is_species(A, /datum/species/vulpkanin))
+#define isskrell(A) (is_species(A, /datum/species/skrell))
+#define isvox(A) (is_species(A, /datum/species/vox))
+#define isvoxarmalis(A) (is_species(A, /datum/species/vox/armalis))
+#define iskidan(A) (is_species(A, /datum/species/kidan))
+#define isslimeperson(A) (is_species(A, /datum/species/slime))
+#define isnucleation(A) (is_species(A, /datum/species/nucleation))
+#define isgrey(A) (is_species(A, /datum/species/grey))
+#define isdiona(A) (is_species(A, /datum/species/diona))
+#define ismachineperson(A) (is_species(A, /datum/species/machine))
+#define isdrask(A) (is_species(A, /datum/species/drask))
+#define iswryn(A) (is_species(A, /datum/species/wryn))
+#define ismoth(A) (is_species(A, /datum/species/moth))
