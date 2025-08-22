@@ -35,26 +35,31 @@
 	if(!linked_area)
 		contents_loop = range(srange, src)
 
-	for(var/turf/T in contents_loop)
-		if(istype(T, /turf/simulated/floor/beach/water))
-			var/turf/simulated/floor/beach/water/W = T
-			W.linkedcontroller = src
-			linkedturfs += T
-		else if(istype(T, /turf/simulated/floor/indestructible/beach/water))
-			var/turf/simulated/floor/indestructible/beach/water/W = T
-			W.linkedcontroller = src
-			linkedturfs += T
+	for(var/turf/turf in contents_loop)
+		if(istype(turf, /turf/simulated/floor/beach/water))
+			var/turf/simulated/floor/beach/water/water = turf
+			water.linkedcontroller = src
+			linkedturfs += turf
+			continue
+
+		if(istype(turf, /turf/simulated/floor/indestructible/beach/water))
+			var/turf/simulated/floor/indestructible/beach/water/water = turf
+			water.linkedcontroller = src
+			linkedturfs += turf
 
 /obj/machinery/poolcontroller/Destroy()
-	for(var/T in linkedturfs)
-		if(istype(T, /turf/simulated/floor/beach/water))
-			var/turf/simulated/floor/beach/water/W = T
-			if(W.linkedcontroller == src)
-				W.linkedcontroller = null
-		else if(istype(T, /turf/simulated/floor/indestructible/beach/water))
-			var/turf/simulated/floor/indestructible/beach/water/W = T
-			if(W.linkedcontroller == src)
-				W.linkedcontroller = null
+	for(var/turf in linkedturfs)
+		if(istype(turf, /turf/simulated/floor/beach/water))
+			var/turf/simulated/floor/beach/water/water = turf
+			if(water.linkedcontroller == src)
+				water.linkedcontroller = null
+			continue
+
+		if(istype(turf, /turf/simulated/floor/indestructible/beach/water))
+			var/turf/simulated/floor/indestructible/beach/water/water = turf
+			if(water.linkedcontroller == src)
+				water.linkedcontroller = null
+
 	return ..()
 
 /obj/machinery/poolcontroller/invisible/Initialize(mapload)

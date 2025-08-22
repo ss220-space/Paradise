@@ -342,6 +342,11 @@
 	. = ..()
 	style = new()
 
+/obj/item/clothing/gloves/boxing/Destroy()
+	QDEL_NULL(style)
+
+	return ..()
+
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
@@ -363,6 +368,11 @@
 /obj/item/storage/belt/champion/wrestling/Initialize(mapload)
 	. = ..()
 	style = new()
+
+/obj/item/storage/belt/champion/wrestling/Destroy()
+	QDEL_NULL(style)
+
+	return ..()
 
 /obj/item/storage/belt/champion/wrestling/true
 	name = "Пояс Истинного Чемпиона"

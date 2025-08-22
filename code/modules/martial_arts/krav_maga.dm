@@ -154,6 +154,11 @@
 	. = ..()
 	style = new()
 
+/obj/item/clothing/gloves/color/black/krav_maga/Destroy()
+	QDEL_NULL(style)
+
+	return ..()
+
 /obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)

@@ -333,9 +333,9 @@
 /obj/machinery/gibber/autogibber/Initialize(mapload)
 	. = ..()
 
-	var/turf/T = get_step(src, acceptdir)
-	if(istype(T))
-		lturf = T
+	var/turf/turf = get_step(src, acceptdir)
+	if(istype(turf))
+		lturf = turf
 
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/gibber(null)
