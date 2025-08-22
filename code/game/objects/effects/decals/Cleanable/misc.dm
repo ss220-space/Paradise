@@ -308,9 +308,9 @@
 /obj/effect/decal/cleanable/crayon
     var/blood_graffiti = FALSE
 
-    examine(mob/user)
-        . = ..()
-        if(blood_graffiti)
-            if(length(.))
-                .[2] = "<span class='examine'>Данное граффити выглядит будто создано из крови.</span>"
-        return .
+/obj/effect/decal/cleanable/crayon/examine(mob/user)
+    . = ..()
+    if(blood_graffiti)
+        if(length(.))
+            .[2] = "<span class='examine'>Данное граффити выглядит будто создано из крови.</span>"
+    return .

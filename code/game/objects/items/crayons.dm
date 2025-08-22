@@ -284,14 +284,14 @@
     uses = 0
     dye_color = "#501010"
 
-    attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
-        if(target != user)
-            return ..()
-        . = ATTACK_CHAIN_PROCEED
-        playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
-        to_chat(user, span_notice("Вы кусаете [name]. На вкус как кровь!"))
-        user.adjust_nutrition(10)
-        return .
+/obj/item/toy/crayon/bloodred/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target != user)
+		return ..()
+	. = ATTACK_CHAIN_PROCEED
+	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
+	to_chat(user, span_notice("Вы кусаете [name]. На вкус как кровь!"))
+	user.adjust_nutrition(10)
+	return .
 
 /obj/item/toy/crayon/bloodred/get_ru_names()
     return list(
