@@ -22,8 +22,8 @@
 	return TRUE
 
 /datum/action/item_action/mod/deploy
-	name = "Развернуть модсьют"
-	desc = "ЛКМ - развернуть или свернуть все компоненты модсьюта. СКМ - развернуть/свернуть определенный компонент. "
+	name = "Развернуть модульный костюм"
+	desc = "ЛКМ - развернуть или свернуть все компоненты модульного костюма. СКМ - развернуть/свернуть определенный компонент. "
 	button_icon_state = "deploy"
 
 /datum/action/item_action/mod/deploy/Trigger(left_click, attack_self)
@@ -37,8 +37,8 @@
 		mod.choose_deploy(usr)
 
 /datum/action/item_action/mod/activate
-	name = "Активировать модсьют"
-	desc = "ЛКМ - активировать модсьют с необходимостью дополнительного подтверждения. СКМ - быстрая активация модсьюта."
+	name = "Активировать модульный костюм"
+	desc = "ЛКМ - активировать модульный костюм с необходимостью дополнительного подтверждения. СКМ - мгновенная активация."
 	button_icon_state = "activate"
 	/// First time clicking this will set it to TRUE, second time will activate it.
 	var/ready = FALSE
@@ -65,7 +65,7 @@
 
 /datum/action/item_action/mod/module
 	name = "Активировать модуль"
-	desc = "Активировать модуль модсьюта."
+	desc = "Активировать модуль модульного костюма."
 	button_icon_state = "module"
 
 /datum/action/item_action/mod/module/Trigger(left_click, attack_self)
@@ -76,8 +76,8 @@
 	mod.quick_module(usr)
 
 /datum/action/item_action/mod/panel
-	name = "Панель управления модсьюта"
-	desc = "Включить панель управления модсьютом."
+	name = "Панель управления модульного костюма"
+	desc = "Включить панель управления модульным костюмом."
 	button_icon_state = "panel"
 
 /datum/action/item_action/mod/panel/Trigger(left_click, attack_self)

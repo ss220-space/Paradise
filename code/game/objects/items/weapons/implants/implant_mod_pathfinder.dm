@@ -1,6 +1,6 @@
 /obj/item/implant/mod
 	name = "MOD pathfinder bio-chip"
-	desc = "Данный био-чип позволяет пользователю вызвать к себе модсьют в любое время."
+	desc = "Данный био-чип позволяет пользователю вызвать к себе модульный костюм в любое время."
 	implant_data = /datum/implant_fluff/pathfinder
 	actions_types = list(/datum/action/item_action/mod_recall)
 	/// The pathfinder module we are linked to
@@ -41,22 +41,22 @@
 /obj/item/implant/mod/proc/recall()
 	target = get_turf(imp_in)
 	if(!module?.mod)
-		balloon_alert(imp_in, "Модуль не присоединен к модсьюту!")
+		balloon_alert(imp_in, "Модуль не присоединен к модульному костюму!")
 		return FALSE
 	if(module.mod.open)
-		balloon_alert(imp_in, "Модсьют раскрыт!")
+		balloon_alert(imp_in, "модульный костюм раскрыт!")
 		return FALSE
 	if(length(path))
-		balloon_alert(imp_in, "Модсьют уже в пути!")
+		balloon_alert(imp_in, "модульный костюм уже в пути!")
 		return FALSE
 	if(ismob(get_atom_on_turf(module.mod)))
-		balloon_alert(imp_in, "Модсьют на ком-то надет!")
+		balloon_alert(imp_in, "модульный костюм на ком-то надет!")
 		return FALSE
 	if(module.mod.loc != get_turf(module.mod))
-		balloon_alert(imp_in, "Модсьют внутри хранилища!")
+		balloon_alert(imp_in, "модульный костюм внутри хранилища!")
 		return FALSE
 	if(module.z != z || get_dist(imp_in, module.mod) > 150)
-		balloon_alert(imp_in, "Модсьют слишком далеко!")
+		balloon_alert(imp_in, "модульный костюм слишком далеко!")
 		return FALSE
 	if(!ishuman(imp_in)) //Need to be specific
 		balloon_alert(imp_in, "Ошибка! Неизвестное существо.")
@@ -66,7 +66,7 @@
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
 		balloon_alert(H, "Невозможно расчитать путь.")
 		return FALSE
-	balloon_alert(H, "Модсьют в пути!")
+	balloon_alert(H, "модульный костюм в пути!")
 	animate(module.mod, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
 	module.mod.add_overlay(jet_icon)
 	RegisterSignal(module.mod, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
@@ -85,7 +85,7 @@
 	module.mod.transform = matrix()
 	UnregisterSignal(module.mod, COMSIG_MOVABLE_MOVED)
 	if(!successful)
-		balloon_alert(imp_in, "Связь с модсьютом потеряна.")
+		balloon_alert(imp_in, "Связь с модульным костюмом потеряна.")
 		path = list() //Stopping endless end_recall with luck.
 
 /obj/item/implant/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
@@ -155,8 +155,8 @@
 	path.Cut(1, 2)
 
 /datum/action/item_action/mod_recall
-	name = "Вызов Модсьюта"
-	desc = "Призовите модсьют к себе из любого места на станции."
+	name = "Вызов модульного костюма"
+	desc = "Призовите модульный костюм к себе из любого места на станции."
 	use_itemicon = FALSE
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "recall"
@@ -178,7 +178,7 @@
 		return
 	var/obj/item/implant/mod/implant = target
 	if(!COOLDOWN_FINISHED(src, recall_cooldown))
-		to_chat(usr, span_warning("On cooldown!"))
+		balloon_alert(usr, "на перезарядке!")
 		return
 	if(implant.recall())
 		COOLDOWN_START(src, recall_cooldown, 15 SECONDS)
