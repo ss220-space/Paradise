@@ -562,16 +562,16 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	var/turf/epicenter = mob.loc
 	var/list/choices = list("Маленькая бомба", "Средняя бомба", "Большая бомба", "Настраиваемая бомба")
-	var/choice = tgui_input_list(src, "Взрыв какого размера вы хотели бы произвести? ПРИМЕЧАНИЕ. Вы можете сделать все это в IC поле (используя крылатые ракеты!) с помощью кнопки Event/Launch Supplypod.", items = choices)
+	var/choice = tgui_input_list(src, "Взрыв какого размера вы хотели бы произвести? ПРИМЕЧАНИЕ: Вы можете сделать все это в IC поле (используя крылатые ракеты!) с помощью кнопки Event/Launch Supplypod.", items = choices)
 	switch(choice)
 		if(null)
 			return 0
 		if("Маленькая бомба")
-			explosion(epicenter, 1, 2, 3, 3, cause = "Admin Drop Bomb")
+			explosion(epicenter, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 3, flash_range = 3, cause = "Admin Drop Bomb")
 		if("Средняя бомба")
-			explosion(epicenter, 2, 3, 4, 4, cause = "Admin Drop Bomb")
+			explosion(epicenter, devastation_range = 2, heavy_impact_range = 3, light_impact_range = 4, flash_range = 4, cause = "Admin Drop Bomb")
 		if("Большая бомба")
-			explosion(epicenter, 3, 5, 7, 5, cause = "Admin Drop Bomb")
+			explosion(epicenter, devastation_range = 3, heavy_impact_range = 5, light_impact_range = 7, flash_range = 5, cause = "Admin Drop Bomb")
 		if("Настраиваемая бомба")
 			var/devastation_range = tgui_input_number(src, "Дальность тотального разрушения. (в тайлах):", "Настраиваемая бомба", max_value = 255)
 			if(isnull(devastation_range))
@@ -585,7 +585,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			var/flash_range = tgui_input_number(src, "Дальность вспышки. (в тайлах):", "Настраиваемая бомба", max_value = 255)
 			if(isnull(flash_range))
 				return
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "Admin Drop Bomb")
+			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = TRUE, cause = "Admin Drop Bomb")
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

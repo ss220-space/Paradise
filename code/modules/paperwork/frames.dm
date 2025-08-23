@@ -311,7 +311,7 @@
 	else
 		..()
 
-/obj/structure/sign/picture_frame/ex_act(severity)
+/obj/structure/sign/picture_frame/ex_act(severity, target)
 	explode()
 	..(severity)
 

@@ -178,9 +178,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	to_chat(C, span_userdanger("Песок попал в глаза! Боль невыносима!"))
 	qdel(src)
 
-/obj/item/stack/ore/glass/ex_act(severity)
-	if(severity == EXPLODE_NONE)
+/obj/item/stack/ore/glass/ex_act(severity, target)
+	if(!severity)
 		return
+
 	qdel(src)
 
 /obj/item/stack/ore/glass/basalt
@@ -516,17 +517,17 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		if(primed)
 			switch(quality)
 				if(GIBTONITE_QUALITY_HIGH)
-					explosion(loc, 2, 4, 9, adminlog = notify_admins, cause = src)
+					explosion(loc, devastation_range = 2, heavy_impact_range = 4, light_impact_range = 9, adminlog = notify_admins, cause = src)
 				if(GIBTONITE_QUALITY_MEDIUM)
-					explosion(loc, 1, 2, 5, adminlog = notify_admins, cause = src)
+					explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 5, adminlog = notify_admins, cause = src)
 				if(GIBTONITE_QUALITY_LOW)
-					explosion(loc, -1, 1, 3, adminlog = notify_admins, cause = src)
+					explosion(loc, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, adminlog = notify_admins, cause = src)
 			if(!QDELETED(src))
 				qdel(src)
 
 
-/obj/item/stack/ore/ex_act(severity)
-	if(!severity || severity >= 2)
+/obj/item/stack/ore/ex_act(severity, target)
+	if(!severity || severity <= EXPLODE_HEAVY)
 		return
 	qdel(src)
 

@@ -21,6 +21,9 @@
 //skips preceding invalid characters
 #define hex2num(X) text2num(X, 16)
 
+/// Stringifies whatever you put into it.
+#define STRINGIFY(argument) #argument
+
 /// Until a condition is true, sleep
 #define UNTIL(X) while(!(X)) stoplag()
 

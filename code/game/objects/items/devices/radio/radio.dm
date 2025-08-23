@@ -162,7 +162,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 		if(T)
 			T.hotspot_expose(700,125)
-			explosion(T, -1, -1, 2, 3, cause = src)
+			explosion(T, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3, cause = src)
 		qdel(src)
 	else
 		hidden_uplink.trigger(user)

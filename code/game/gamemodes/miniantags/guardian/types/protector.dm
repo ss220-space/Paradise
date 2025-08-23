@@ -10,11 +10,11 @@
 	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый защищать вас."
 	var/toggle = FALSE
 
-/mob/living/simple_animal/hostile/guardian/protector/ex_act(severity)
-	if(severity == 1)
-		adjustBruteLoss(400) //технически, в режиме защиты вам плевать даже на гиб. Ваш хозяин получит всего 20 урона.
+/mob/living/simple_animal/hostile/guardian/protector/ex_act(severity, target)
+	if(severity >= EXPLODE_DEVASTATE)
+		adjustBruteLoss(400) //if in protector mode, will do 20 damage and not actually necessarily kill the summoner
 	else
-		..()
+		. = ..()
 	if(toggle)
 		visible_message(span_danger("Взрыв отражается от энергетического щита [src]!")) //FLEX
 

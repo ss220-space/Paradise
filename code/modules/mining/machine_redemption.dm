@@ -296,9 +296,9 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/mineral/ore_redemption/ex_act(severity)
+/obj/machinery/mineral/ore_redemption/ex_act(severity, target)
 	do_sparks(5, TRUE, src)
-	..()
+	return ..()
 
 // UI
 /obj/machinery/mineral/ore_redemption/ui_data(mob/user)

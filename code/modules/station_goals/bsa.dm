@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /datum/bluespace_cannon_fire_mode/proc/create_explosion(mob/user, turf/impact_turf)
 	message_admins("[key_name_admin(user)] has launched an artillery strike with power=([power[1]],[power[2]],[power[3]]) into [ADMIN_COORDJMP(impact_turf)].")
 	log_admin("[key_name_log(user)] has launched an artillery strike with power=([power[1]],[power[2]],[power[3]]) mode into [COORD(impact_turf)].") // Line below handles logging the explosion to disk
-	explosion(impact_turf, power[1], power[2], power[3], cause = "Bluespace artillery strike")
+	explosion(impact_turf, devastation_range = power[1], heavy_impact_range = power[2], light_impact_range = power[3], cause = "Bluespace artillery strike")
 
 
 /datum/bluespace_cannon_fire_mode/power

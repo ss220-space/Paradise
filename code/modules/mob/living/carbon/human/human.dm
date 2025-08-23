@@ -274,7 +274,7 @@
 	var/limbs_affected = 0
 
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			if(prob(ex_armor_reduction(100, armor)) && armor < 100)
 				gib()
 				return FALSE
@@ -282,7 +282,7 @@
 				bruteloss += 500
 				limbs_affected = pick(2,3,4)
 
-		if(2)
+		if(EXPLODE_HEAVY)
 			bruteloss += 60
 			burnloss += 60
 			limbs_affected = pick(1, 2, 3)
@@ -293,7 +293,7 @@
 				if(istype(ears))
 					ears.internal_receive_damage(ex_armor_reduction(30, armor))
 
-		if(3)
+		if(EXPLODE_LIGHT)
 			bruteloss += 30
 			limbs_affected = pick(0, 1)
 
@@ -319,7 +319,7 @@
 	burnloss = ex_armor_reduction(burnloss, armor)
 	take_overall_damage(bruteloss, burnloss, used_weapon = "Explosive Blast")
 
-	..()
+	return ..()
 
 /mob/living/carbon/human/proc/process_dismember(limbs_affected)
 	var/list/valid_limbs = bodyparts.Copy()

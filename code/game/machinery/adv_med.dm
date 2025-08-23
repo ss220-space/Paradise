@@ -238,10 +238,10 @@
 /obj/machinery/bodyscanner/force_eject_occupant(mob/target)
 	go_out()
 
-/obj/machinery/bodyscanner/ex_act(severity)
+/obj/machinery/bodyscanner/ex_act(severity, target)
 	if(occupant)
-		occupant.ex_act(severity)
-	..()
+		occupant.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/bodyscanner/handle_atom_del(atom/A)
 	..()
