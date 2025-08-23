@@ -287,6 +287,12 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
 
+#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
+
+#define iswraith(A)		(istype(A, /mob/living/simple_animal/hostile/construct/wraith))
+
+#define isrevenant(A)		(istype(A, /mob/living/simple_animal/revenant))
+
 // Locations
 #define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
 
@@ -321,4 +327,4 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
-
+#define ismonkey(A)		(istype(A, /datum/species/monkey))
