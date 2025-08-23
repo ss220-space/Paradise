@@ -194,6 +194,29 @@
 		p.scribble = photocopy.scribble
 	return p
 
+/obj/machinery/photocopier/proc/blueprintcopy(obj/item/craft_blueprints/original)
+	if(!original.copy_type)
+		balloon_alert(usr, "невозможно копировать!")
+		return null
+
+	if(toner < original.required_toner)
+		balloon_alert(usr, "недостаточно чернил!")
+		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
+		return null
+	total_copies++
+
+	var/obj/item/craft_blueprints/copy = new original.copy_type(loc)
+	copy.name = original.name
+	copy.crafting_name = original.crafting_name
+	copy.crafting_item = original.crafting_item
+	copy.tools = original.tools
+	copy.components = original.components
+	copy.craft_duration = original.craft_duration
+	copy.crafting_name = original.crafting_name
+	copy.copy_type = null
+	copy.pixel_x = rand(-10, 10)
+	copy.pixel_y = rand(-10, 10)
+	return copy
 
 /obj/machinery/photocopier/proc/copyass(scanning = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
@@ -380,6 +403,14 @@
 			if(!copyass())
 				break
 			toner -= 5
+	else if(istype(C, /obj/item/craft_blueprints))
+		var/obj/item/craft_blueprints/original = C
+		for(var/i in copies to 1 step -1)
+			if(!blueprintcopy(original))
+				break
+			toner -= original.required_toner
+			use_power(active_power_usage)
+			sleep(PHOTOCOPIER_DELAY)
 	else
 		balloon_alert(usr, "нельзя отсканировать!")
 		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлеч[genderize_ru(copyitem.gender, "ён", "ена", "ено", "ены")]."))
@@ -596,7 +627,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
+	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle) || istype(I, /obj/item/craft_blueprints))
 		add_fingerprint(user)
 		if(copyitem)
 			balloon_alert(user, "ксерокс занят!")

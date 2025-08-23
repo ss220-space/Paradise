@@ -25,7 +25,7 @@
 	/// Copy in printer type, if null - can not copy
 	var/obj/item/craft_blueprints/copy_type = /obj/item/craft_blueprints/copy
 	/// Requred toner in percent
-	var/required_toner = 40
+	var/required_toner = 10
 
 
 /obj/item/craft_blueprints/copy
@@ -123,6 +123,7 @@
 
 
 // MARK: Crafting mechanic
+// TODO обещаю отрефакторить попозже c:
 
 /obj/item/craft_blueprints/proc/try_craft_item(mob/user)
 	var/list/surroundings = get_surroundings(user)
