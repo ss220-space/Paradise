@@ -120,7 +120,7 @@
 	var/pb_knockback = 0
 
 
-/obj/item/gun/Initialize()
+/obj/item/gun/Initialize(mapload)
 	. = ..()
 	appearance_flags |= KEEP_TOGETHER
 	build_zooming()

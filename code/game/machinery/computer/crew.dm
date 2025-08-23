@@ -20,9 +20,9 @@
 		PREPOSITIONAL = "консоли наблюдения за экипажем"
 	)
 
-/obj/machinery/computer/crew/New()
+/obj/machinery/computer/crew/Initialize(mapload)
+	. = ..()
 	crew_monitor = new(src)
-	..()
 
 /obj/machinery/computer/crew/Destroy()
 	QDEL_NULL(crew_monitor)

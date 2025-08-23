@@ -74,7 +74,7 @@
 	var/matter_type = /obj/item/rcd_ammo
 	var/matter_type_large = /obj/item/rcd_ammo/large
 
-/obj/item/rcd/Initialize()
+/obj/item/rcd/Initialize(mapload)
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
@@ -461,7 +461,7 @@
 	matter = RCD_MATTER_500
 	canRwall = TRUE
 
-/obj/item/rcd/combat/Initialize()
+/obj/item/rcd/combat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 

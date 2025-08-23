@@ -41,8 +41,8 @@
 /obj/machinery/chem_dispenser/get_cell()
 	return cell
 
-/obj/machinery/chem_dispenser/New()
-	..()
+/obj/machinery/chem_dispenser/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -54,8 +54,8 @@
 	dispensable_reagents = sortAssoc(dispensable_reagents)
 	RefreshParts()
 
-/obj/machinery/chem_dispenser/upgraded/New()
-	..()
+/obj/machinery/chem_dispenser/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -66,8 +66,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null)
 	RefreshParts()
 
-/obj/machinery/chem_dispenser/supgraded/New()
-	..()
+/obj/machinery/chem_dispenser/supgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
@@ -107,8 +107,8 @@
 		"diethylamine")
 	upgrade_reagents = list()
 
-/obj/machinery/chem_dispenser/mutagensaltpeter/New()
-	..()
+/obj/machinery/chem_dispenser/mutagensaltpeter/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
@@ -397,8 +397,8 @@
 	var/list/hackedupgrade_reagents = list("zaza") //I possess zaza
 	is_drink = TRUE
 
-/obj/machinery/chem_dispenser/soda/New()
-	..()
+/obj/machinery/chem_dispenser/soda/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -409,8 +409,8 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-/obj/machinery/chem_dispenser/soda/upgraded/New()
-	..()
+/obj/machinery/chem_dispenser/soda/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -452,8 +452,8 @@
 	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "noalco_beer")
 	is_drink = TRUE
 
-/obj/machinery/chem_dispenser/beer/New()
-	..()
+/obj/machinery/chem_dispenser/beer/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -464,8 +464,8 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-/obj/machinery/chem_dispenser/beer/upgraded/New()
-	..()
+/obj/machinery/chem_dispenser/beer/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -492,8 +492,8 @@
 	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water")
 	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
 
-/obj/machinery/chem_dispenser/botanical/New()
-	..()
+/obj/machinery/chem_dispenser/botanical/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -504,8 +504,8 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-/obj/machinery/chem_dispenser/botanical/upgraded/New()
-	..()
+/obj/machinery/chem_dispenser/botanical/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
@@ -543,7 +543,7 @@
 	var/efficiency = 0.2
 	var/recharge_rate = 1 // Keep this as an integer
 
-/obj/item/handheld_chem_dispenser/Initialize()
+/obj/item/handheld_chem_dispenser/Initialize(mapload)
 	. = ..()
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
