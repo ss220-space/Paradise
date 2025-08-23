@@ -179,7 +179,7 @@
 /turf/attack_robot(mob/user)
 	user.Move_Pulled(src)
 
-/turf/ex_act(severity)
+/turf/ex_act(severity, target)
 	return FALSE
 
 /turf/proc/blob_consume()
@@ -201,15 +201,15 @@
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_all_pipes(user, src)
 
-/turf/bullet_act(obj/projectile/Proj)
-	if(istype(Proj, /obj/projectile/beam/pulse))
-		src.ex_act(2)
+/turf/bullet_act(obj/projectile/proj)
+	if(istype(proj, /obj/projectile/beam/pulse))
+		ex_act(2)
 	..()
 	return FALSE
 
-/turf/bullet_act(obj/projectile/Proj)
-	if(istype(Proj, /obj/projectile/bullet/gyro))
-		explosion(src, -1, 0, 2, cause = Proj)
+/turf/bullet_act(obj/projectile/proj)
+	if(istype(proj, /obj/projectile/bullet/gyro))
+		explosion(src, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = proj)
 	..()
 	return FALSE
 

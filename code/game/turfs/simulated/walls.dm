@@ -172,20 +172,25 @@
 	new sheet_type(src, sheet_amount)
 	new /obj/item/stack/sheet/metal(src)
 
-/turf/simulated/wall/ex_act(severity)
+/turf/simulated/wall/ex_act(severity, target)
+	if(target == src)
+		dismantle_wall(1, TRUE)
+		return TRUE
+
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			ChangeTurf(baseturf)
-			return
-		if(2.0)
-			if(prob(50))
-				take_damage(rand(150, 250))
-			else
-				dismantle_wall(1, 1)
-		if(3.0)
-			take_damage(rand(0, 250))
-		else
-	return
+			return TRUE
+		if(EXPLODE_HEAVY)
+			dismantle_wall(prob(50), TRUE)
+		if(EXPLODE_LIGHT)
+			if(prob(hardness))
+				dismantle_wall(0, TRUE)
+
+	if(!density)
+		return ..()
+
+	return TRUE
 
 /turf/simulated/wall/blob_act(obj/structure/blob/B)
 	add_dent(WALL_DENT_HIT)

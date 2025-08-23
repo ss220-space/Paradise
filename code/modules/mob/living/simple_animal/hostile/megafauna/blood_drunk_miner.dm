@@ -136,7 +136,7 @@ Difficulty: Medium
 		user.SetConfused(0)
 		user.SetImmobilized(0)
 		user.SetKnockdown(0)
-		user.adjustStaminaLoss(-100)
+		user.setStaminaLoss(0)
 		user.set_resting(FALSE, instant = TRUE)
 		user.get_up(instant = TRUE)
 	else
@@ -257,7 +257,7 @@ Difficulty: Medium
 		return FALSE
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity, target)
 	if(dash())
 		return
 	return ..()

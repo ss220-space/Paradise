@@ -14,7 +14,7 @@
 	density = TRUE
 
 	var/temptext = ""
-	var/selfdestructing = 0
+	var/selfdestructing = FALSE
 	var/charges = 1
 
 /obj/machinery/syndicate_beacon/attack_hand(var/mob/user as mob)
@@ -55,7 +55,7 @@
 		if(prob(50))
 			temptext = "<span style='color: red;'><i><b>Двойной агент. Ты планировал предать нас с самого начала. Позвольте нам отплатить за услугу тем же.</b></i></span>"
 			src.updateUsrDialog()
-			spawn(rand(50,200)) selfdestruct()
+			addtimer(CALLBACK(src, PROC_REF(selfdestruct)), rand(5 SECONDS, 20 SECONDS))
 			return
 		if(ishuman(M))
 			var/mob/living/carbon/human/N = M
@@ -104,8 +104,8 @@
 
 
 /obj/machinery/syndicate_beacon/proc/selfdestruct()
-	selfdestructing = 1
-	spawn() explosion(src.loc, rand(3,8), rand(1,3), 1, 10)
+	selfdestructing = TRUE
+	explosion(loc, devastation_range = rand(3, 8), heavy_impact_range = rand(1, 3), light_impact_range = 1, flash_range = 10)
 
 
 

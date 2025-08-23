@@ -21,7 +21,7 @@
 	light_system = MOVABLE_LIGHT
 	light_range = 2
 	light_power = 1
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = COLOR_SOFT_RED
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 
@@ -144,7 +144,7 @@
 	damage = 25
 	damage_type = BURN
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = COLOR_SOFT_RED
 
 /obj/projectile/beam/specter/disabler
 	name = "specter paralyzer beam"
@@ -175,7 +175,7 @@
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	hitsound_wall = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_DARKBLUE
+	light_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/projectile/beam/pulse/on_hit(var/atom/target, var/blocked = 0)
 	if(istype(target, /turf) || isstructure(target) || ismachinery(target))
@@ -232,7 +232,7 @@
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 	log_override = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_DARKBLUE
+	light_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/projectile/beam/lasertag/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -259,7 +259,7 @@
 	icon_state = "laser"
 	suit_types = list(/obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = COLOR_SOFT_RED
 
 /obj/projectile/beam/lasertag/bluetag
 	icon_state = "bluelaser"
@@ -324,7 +324,7 @@
 	flag = LASER
 	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = COLOR_SOFT_RED
 
 /obj/projectile/beam/immolator
 	name = "immolation beam"
@@ -403,12 +403,12 @@
 /obj/projectile/beam/instakill/blue
 	icon_state = "blue_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_DARKBLUE
+	light_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/projectile/beam/instakill/red
 	icon_state = "red_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = COLOR_SOFT_RED
 
 /obj/projectile/beam/instakill/on_hit(atom/target)
 	. = ..()
@@ -535,4 +535,4 @@
 	)
 	icon_state = "laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED

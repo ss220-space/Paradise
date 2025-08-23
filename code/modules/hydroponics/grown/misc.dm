@@ -155,7 +155,7 @@
 	if(!QDELETED(src))
 		qdel(src)
 
-/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/ex_act(severity)
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/ex_act(severity, target)
 	qdel(src) //Ensuring that it's deleted by its own explosion. Also prevents mass chain reaction with piles of cherry bombs
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/proc/prime()

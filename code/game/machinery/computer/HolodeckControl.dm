@@ -174,8 +174,8 @@
 			to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
 		src.updateUsrDialog()
 
-/obj/machinery/computer/HolodeckControl/New()
-	..()
+/obj/machinery/computer/HolodeckControl/Initialize(mapload)
+	. = ..()
 	linkedholodeck = locate(/area/holodeck/alphadeck)
 	//if(linkedholodeck)
 	//	target = locate(/area/holodeck/source_emptycourt)
@@ -189,11 +189,11 @@
 
 /obj/machinery/computer/HolodeckControl/emp_act(severity)
 	emergencyShutdown()
-	..()
+	return ..()
 
-/obj/machinery/computer/HolodeckControl/ex_act(severity)
+/obj/machinery/computer/HolodeckControl/ex_act(severity, target)
 	emergencyShutdown()
-	..()
+	return ..()
 
 /obj/machinery/computer/HolodeckControl/blob_act(obj/structure/blob/B)
 	emergencyShutdown()
@@ -450,11 +450,11 @@
 	var/active = 0
 
 /obj/item/holo/esword/green/New()
-	..()
+	. = ..()
 	item_color = "green"
 
 /obj/item/holo/esword/red/New()
-	..()
+	. = ..()
 	item_color = "red"
 
 /obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
@@ -463,7 +463,7 @@
 	return 0
 
 /obj/item/holo/esword/New()
-	..()
+	. = ..()
 	item_color = pick("red","blue","green","purple")
 
 

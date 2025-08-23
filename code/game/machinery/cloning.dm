@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	var/list/missing_organs
 	var/organs_number = 0
 
-	light_color = LIGHT_COLOR_PURE_GREEN
+	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 
 /obj/machinery/clonepod/get_ru_names()
 	return list(
@@ -75,8 +75,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/biomass
 	biomass = CLONE_BIOMASS
 
-/obj/machinery/clonepod/New()
-	..()
+/obj/machinery/clonepod/Initialize(mapload)
+	. = ..()
 
 	if(is_taipan(z)) //Синдидоступ и никаких анонсов о клонированных при сборке на тайпане
 		radio_announce = FALSE
@@ -106,8 +106,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	RefreshParts()
 	update_icon()
 
-/obj/machinery/clonepod/upgraded/New()
-	..()
+/obj/machinery/clonepod/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	read_only = TRUE
 
 /obj/item/disk/data/demo/New()
-	..()
+	. = ..()
 	initialize()
 	buf.types=DNA2_BUF_UE|DNA2_BUF_UI
 	//data = "066000033000000000AF00330660FF4DB002690"
@@ -197,7 +197,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	read_only = 1
 
 /obj/item/disk/data/monkey/New()
-	..()
+	. = ..()
 	initialize()
 	buf.types=DNA2_BUF_SE
 	var/list/new_SE=list(0x098,0x3E8,0x403,0x44C,0x39F,0x4B0,0x59D,0x514,0x5FC,0x578,0x5DC,0x640,0x6A4)
@@ -208,7 +208,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 //Disk stuff.
 /obj/item/disk/data/New()
-	..()
+	. = ..()
 	var/diskcolor = pick(0,1,2)
 	icon_state = "datadisk[diskcolor]"
 
@@ -652,8 +652,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(prob(100/(severity*efficiency))) malfunction()
 	..()
 
-/obj/machinery/clonepod/ex_act(severity)
-	..()
+/obj/machinery/clonepod/ex_act(severity, target)
+	. = ..()
 	if(!QDELETED(src) && occupant)
 		go_out()
 
