@@ -96,19 +96,20 @@
 /obj/singularity/blob_act(obj/structure/blob/B)
 	return
 
-/obj/singularity/ex_act(severity)
+/obj/singularity/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			if(current_size <= STAGE_TWO)
 				investigate_log("has been destroyed by a heavy explosion.", INVESTIGATE_ENGINE)
 				qdel(src)
 				return
 			else
 				energy -= round(((energy+1)/2),1)
-		if(2)
+		if(EXPLODE_HEAVY)
 			energy -= round(((energy+1)/3),1)
-		if(3)
+		if(EXPLODE_LIGHT)
 			energy -= round(((energy+1)/4),1)
+
 	return
 
 
@@ -505,7 +506,7 @@
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
 	var/dist = max((current_size - 2),1)
-	explosion(src.loc,(dist),(dist*2),(dist*4), cause = "Another singularity")
+	explosion(loc, devastation_range = (dist), heavy_impact_range = (dist*2), light_impact_range = (dist*4), cause = "Another singularity")
 	qdel(src)
 	return(gain)
 

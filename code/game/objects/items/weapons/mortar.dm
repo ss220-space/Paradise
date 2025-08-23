@@ -281,9 +281,9 @@
 	mortar.name = src.name
 	qdel(src)
 
-/obj/structure/mortar/ex_act(severity)
+/obj/structure/mortar/ex_act(severity, target)
 	switch(severity)
-		if(2 to INFINITY)
+		if(EXPLODE_HEAVY to INFINITY)
 			qdel(src)
 
 /obj/effect/mortar_effect
@@ -403,10 +403,11 @@
 	. = ..()
 	select_skin(skin)
 
-/obj/item/mortar_kit/ex_act(severity)
+/obj/item/mortar_kit/ex_act(severity, target)
 	switch(severity)
-		if(2 to INFINITY)
+		if(EXPLODE_HEAVY to INFINITY)
 			deconstruct(FALSE)
+
 /obj/item/mortar_kit/select_skin(new_skin)
 	. = ..()
 	var/new_icon_state

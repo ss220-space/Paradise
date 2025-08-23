@@ -61,7 +61,7 @@
 /obj/item/grenade/iedcasing/prime() //Blowing that can up
 	. = ..()
 	update_mob()
-	explosion(loc, -1, -1, 2, flame_range = 4, cause = src)	// small explosion, plus a very large fireball.
+	explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 4, cause = src) // small explosion, plus a very large fireball.
 	qdel(src)
 
 /obj/item/grenade/iedcasing/examine(mob/user)
@@ -198,7 +198,7 @@
 
 /obj/item/grenade/iedsatchel/prime()
 	update_mob()
-	explosion(loc, -1, -1, 2, flame_range = 4, cause = src)
+	explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 4, cause = src)
 	if(target)
 		if(istype(target, /obj/machinery/door/airlock))
 			var/obj/machinery/door/airlock/T = target

@@ -90,6 +90,6 @@
 	var/turf/turf = get_turf(human)
 
 	human.visible_message(span_warning("Тело [human] взрывается, оставляя после себя множество микроскопических кристаллов!"))
-	explosion(turf, 0, 0, 3, 6, cause = human) // Create a small explosion burst upon death
+	explosion(turf, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, flash_range = 6, cause = human) // Create a small explosion burst upon death
 
 	qdel(human)

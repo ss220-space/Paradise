@@ -11,4 +11,14 @@ byondapi = "0.4.7"
 eyre = "0.6.12"
 slotmap = "1.0.7"
 base64 = "0.22.1"
+chrono = "0.4.41"
+dmmtools = { git = "https://github.com/SpaceManiac/SpacemanDMM", rev = "6c5a751516ae0e8add4b2aa4388a1e84e96e7082", package = "dmm-tools" }
+dreammaker = { git = "https://github.com/SpaceManiac/SpacemanDMM", rev = "6c5a751516ae0e8add4b2aa4388a1e84e96e7082", package = "dreammaker" }
+fxhash = "0.2.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0" }
+walkdir = "2.5.0"
+regex = "1.10.5"
 rand = "0.9.2"
+itertools = "0.10.5"
+diff = "0.1"

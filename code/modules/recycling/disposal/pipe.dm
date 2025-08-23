@@ -167,7 +167,7 @@
 
 
 // pipe affected by explosion
-/obj/structure/disposalpipe/ex_act(severity)
+/obj/structure/disposalpipe/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			deconstruct(disassembled = FALSE)

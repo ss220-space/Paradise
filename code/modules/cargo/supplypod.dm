@@ -446,7 +446,7 @@
 			target_living.adjustBruteLoss(damage)
 	var/explosion_sum = B[1] + B[2] + B[3] + B[4]
 	if (explosion_sum != 0) //If the explosion list isn't all zeroes, call an explosion
-		explosion(turf_underneath, B[1], B[2], B[3], flame_range = B[4], silent = effectQuiet, ignorecap = istype(src, /obj/structure/closet/supplypod/centcompod), cause = src) //less advanced equipment than bluespace pod, so larger explosion when landing
+		explosion(turf_underneath, devastation_range = B[1], heavy_impact_range = B[2], light_impact_range = B[3], flame_range = B[4], silent = effectQuiet, ignorecap = istype(src, /obj/structure/closet/supplypod/centcompod), cause = src) //less advanced equipment than bluespace pod, so larger explosion when landing
 	else if (!effectQuiet && !(pod_flags & FIRST_SOUNDS)) //If our explosion list IS all zeroes, we still make a nice explosion sound (unless the effectQuiet var is true)
 		playsound(src, "explosion", landingSound ? soundVolume * 0.25 : soundVolume, TRUE)
 	if (landingSound)
@@ -582,9 +582,34 @@
 	reverse_dropoff_coords = list(picked_turf.x, picked_turf.y, picked_turf.z)
 	return ..()
 
+/obj/structure/closet/supplypod/MouseDrop_T(atom/movable/O, mob/living/user, params)
+	if(!(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, O, user) & COMPONENT_CLIMB))
+		return ..()
+
+	to_chat(user, span_notice("Вы начинаетезаталкивать"))
+	user.visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] начинает запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+						span_notice("Вы начинаете запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+
+	if(!do_after(user, 5 SECONDS, src))
+		return
+
+	. = ..()
+
+	if(!.)
+		return
+
+	O.forceMove(get_turf(src))
+
+
 /obj/structure/closet/supplypod/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE
 	set_density(FALSE)
+	update_appearance()
+	after_open(null, FALSE)
+
+/obj/structure/closet/supplypod/extractionpod/setOpened()
+	opened = TRUE
+	set_density(TRUE)
 	update_appearance()
 	after_open(null, FALSE)
 
@@ -851,7 +876,7 @@
 		animate(smoke_part.get_filter("smoke_blur"), size = 6, time = 15, easing = CUBIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
 	smoke_effects = null
 
-/obj/effect/pod_landingzone/ex_act(severity)
+/obj/effect/pod_landingzone/ex_act(severity, target)
 	return FALSE
 
 /obj/effect/pod_landingzone/proc/endLaunch()

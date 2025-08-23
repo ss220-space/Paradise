@@ -32,7 +32,7 @@
 		qdel(src)
 
 
-/atom/movable/emissive_blocker/ex_act(severity)
+/atom/movable/emissive_blocker/ex_act(severity, target)
 	return FALSE
 
 
