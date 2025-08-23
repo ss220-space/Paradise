@@ -3722,6 +3722,9 @@
 				shuttle_start()
 
 			if("borg_skins")
+				if(!check_rights(R_SKINS))
+					return
+
 				if(!you_realy_want_do_this())
 					return
 				GLOB.all_robot_skins_permited = !GLOB.all_robot_skins_permited
@@ -3733,7 +3736,8 @@
 				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
 
 	else if(href_list["secretsadmin"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/ok = 0
 		switch(href_list["secretsadmin"])

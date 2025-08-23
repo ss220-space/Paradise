@@ -15,7 +15,7 @@
 	dat += "<hr>"
 	switch(current_tab)
 		if(0) // Debug
-			if(check_rights(R_ADMIN,0))
+			if(check_rights(R_ADMIN, FALSE))
 				dat += {"
 						<center><b><h2>Admin Secrets</h2></b>
 						<b>Game</b><br>
@@ -25,7 +25,7 @@
 						<a href='byond://?src=[UID()];secretsadmin=night_shift_set'>Set Night Shift Mode</a><br>
 						<a href='byond://?src=[UID()];secretsadmin=lavatype'>Изменить тип Лазиса</a><br>
 						<b>Bombs</b><br>
-						[check_rights(R_SERVER, 0) ? "&nbsp;&nbsp;<a href='byond://?src=[UID()];secretsfun=togglebombcap'>Toggle bomb cap</a><br>" : "<br>"]
+						[check_rights(R_SERVER,  FALSE) ? "&nbsp;&nbsp;<a href='byond://?src=[UID()];secretsfun=togglebombcap'>Toggle bomb cap</a><br>" : "<br>"]
 						<b>Lists</b><br>
 						<a href='byond://?src=[UID()];secretsadmin=list_signalers'>Show last [length(GLOB.lastsignalers)] signalers</a>&nbsp;&nbsp;
 						<a href='byond://?src=[UID()];secretsadmin=list_lawchanges'>Show last [length(GLOB.lawchanges)] law changes</a><br>
@@ -42,10 +42,10 @@
 						</center>
 					"}
 
-			else if(check_rights(R_SERVER,0)) //only add this if admin secrets are unavailiable; otherwise, it's added inline
+			else if(check_rights(R_SERVER, FALSE)) //only add this if admin secrets are unavailiable; otherwise, it's added inline
 				dat += "<center><b>Bomb cap: </b><a href='byond://?src=[UID()];secretsfun=togglebombcap'>Toggle bomb cap</a><br></center>"
 				dat += "<br>"
-			if(check_rights(R_DEBUG,0))
+			if(check_rights(R_DEBUG, FALSE))
 				dat += {"
 					<center>
 					<b>Security Level Elevated</b><br>
@@ -63,7 +63,7 @@
 					"}
 
 		if(1)
-			if(check_rights((R_EVENT|R_SERVER),0))
+			if(check_rights((R_EVENT|R_SERVER), FALSE))
 				var/security_levels_data = ""
 				for (var/level_name in SSsecurity_level.available_levels)
 					var/datum/security_level/this_level = SSsecurity_level.available_levels[level_name]
@@ -96,7 +96,7 @@
 					<a href='byond://?src=[UID()];secretsfun=shuttle_start'>Переключить старт с шаттла</a><br>
 					</center>"}
 		if(2)
-			if(check_rights((R_SERVER|R_EVENT),0))
+			if(check_rights((R_SERVER|R_EVENT), FALSE))
 				dat += {"
 					<center>
 					<h2><b>OOC Events</b></h2>
@@ -111,6 +111,15 @@
 					<a href='byond://?src=[UID()];secretsfun=armotyreset3'>Set Armory to 3 option</a><br><br>
 					<b>Clothing</b><br>"}
 					*/
+			if(check_rights(R_SKINS, FALSE))
+				dat += {"
+					<center>
+					<b>Borg Skin Permision</b><br>
+					<br>
+					<a href='byond://?src=[UID()];secretsfun=borg_skins'>Toggle global borg skin permision(now [GLOB.all_robot_skins_permited? "ON":"OFF"])</a><br>
+					<br>
+					</center>
+					"}
 				dat+={"<b>Clothes</b><br>
 					<a href='byond://?src=[UID()];secretsfun=sec_clothes'>Remove 'internal' clothing</a>&nbsp;&nbsp;
 					<a href='byond://?src=[UID()];secretsfun=sec_all_clothes'>Remove ALL clothing</a><br>
@@ -130,7 +139,6 @@
 					<a href='byond://?src=[UID()];secretsfun=customportal'>Spawn a custom portal storm</a><br>
 					<a href='byond://?src=[UID()];secretsfun=mass_mindswap'>Mass mindswap</a><br>
 					<b>Misc</b><br>
-					<a href='byond://?src=[UID()];secretsfun=borg_skins'>Toggle global borg skin permision(now [GLOB.all_robot_skins_permited? "ON":"OFF"])</a><br>
 					<a href='byond://?src=[UID()];secretsfun=sec_classic1'>Remove firesuits, grilles, and pods</a>&nbsp;&nbsp;
 					<a href='byond://?src=[UID()];secretsfun=tripleAI'>Triple AI mode (needs to be used in the lobby)</a><br>
 					<a href='byond://?src=[UID()];secretsfun=flicklights'>Ghost Mode</a>&nbsp;&nbsp;
