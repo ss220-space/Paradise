@@ -88,7 +88,7 @@
 	if(istype(I, /obj/item/grenade/iedcasing))	//Let's get explosive.
 		add_fingerprint(user)
 		if(IED)
-			to_chat(user, span_warning("[IED.declent_ru(NOMINATIVE)] уже прикреплен[genderize_ru(IED.gender, "", "а", "о", "ы")] к [declent_ru(DATIVE)]!"))
+			to_chat(user, span_warning("[capitalize(IED.declent_ru(NOMINATIVE))] уже прикреплен[genderize_ru(IED.gender, "", "а", "о", "ы")] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
