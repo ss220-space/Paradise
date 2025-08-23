@@ -42,7 +42,7 @@
 		PREPOSITIONAL = "голокарте станции"
 	)
 
-/obj/machinery/station_map/Initialize()
+/obj/machinery/station_map/Initialize(mapload)
 	if(!current_z_level)
 		current_z_level = loc.z
 	SSholomaps.station_holomaps += src

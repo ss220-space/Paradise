@@ -9,13 +9,10 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	max_integrity = 200
 
-/obj/machinery/shield/New()
+/obj/machinery/shield/Initialize(mapload)
+	. = ..()
 	dir = pick(NORTH, SOUTH, EAST, WEST)
-	..()
-
-/obj/machinery/shield/Initialize()
 	air_update_turf(1)
-	..()
 
 /obj/machinery/shield/Destroy()
 	set_opacity(FALSE)
@@ -85,7 +82,7 @@
 	/// The rune that created the shield itself. Used to delete the rune when the shield is destroyed.
 	var/obj/effect/rune/parent_rune
 
-/obj/machinery/shield/cult/barrier/Initialize()
+/obj/machinery/shield/cult/barrier/Initialize(mapload)
 	. = ..()
 	invisibility = INVISIBILITY_ABSTRACT
 

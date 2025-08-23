@@ -39,8 +39,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/one_door_interior //For square airlocks, if you set this then a) only one door will spawn, and b) you can choose if the door should go opposite to how it normally goes. Please use the define
 	var/one_door_exterior //See above
 
-/obj/effect/spawner/airlock/Initialize()
-	..()
+/obj/effect/spawner/airlock/Initialize(mapload)
+	. = ..()
 	forceMove(locate(x + 1, y + 1, z)) //Needs to move because our icon_state implies we are one turf to the northeast, when we're not
 	opposite_interior_direction = turn(interior_direction, 180) //Do it this way (instead of setting it directly) to avoid code mishaps
 	interior_direction_cw = turn(interior_direction, 90)
@@ -52,10 +52,13 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	id_to_link = "[UID()]" //We want unique IDs, this will give us a unique ID
 	var/turf/turf_interior = get_airlock_location(interior_direction)
 	var/turf/turf_exterior = get_airlock_location(exterior_direction)
+
 	handle_door_creation(turf_interior, TRUE, one_door_interior)
 	handle_door_creation(turf_exterior, FALSE, one_door_exterior)
 	handle_pipes_creation(turf_interior)
+
 	handle_control_placement()
+
 	qdel(src)
 
 /obj/effect/spawner/airlock/proc/get_airlock_location(desired_direction) //Finds a turf to place an airlock and returns it, this turf will be in the middle of the relevant wall

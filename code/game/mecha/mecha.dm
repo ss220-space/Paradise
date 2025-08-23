@@ -129,7 +129,7 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-/obj/mecha/Initialize()
+/obj/mecha/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_WEATHER_IMMUNE, INNATE_TRAIT)
 	icon_state += "-open"

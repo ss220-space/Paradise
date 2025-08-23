@@ -320,7 +320,7 @@
 	var/SynMelee //Лут с милишников
 	var/SynRange //Лут с дальников
 
-/mob/living/simple_animal/hostile/syndicate/Initialize()
+/mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	var/rollforloot = rand(1,50) //Лучшего варианта я не нашел
 	switch(rollforloot)
 		if(1 to 8) // 16%
@@ -354,7 +354,7 @@
 			synmobdrop = /obj/item/ammo_casing/c10mm
 	. = ..()
 
-/mob/living/simple_animal/hostile/syndicate/Initialize()
+/mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	switch(rand(1,33))
 		if(1) // 3%
 			SynSpace = /obj/item/clothing/suit/space/hardsuit/syndi
@@ -362,7 +362,7 @@
 			SynSpace = /obj/item/ammo_casing/c10mm
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/melee/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/Initialize(mapload)
 	switch(rand(1,100))
 		if(1) // 1%
 			SynMelee = /obj/item/melee/energy/sword/saber
@@ -372,7 +372,7 @@
 			SynMelee = /obj/item/ammo_casing/c10mm
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/ranged/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/Initialize(mapload)
 	switch(rand(rand(1,100)))
 		if(25 to 35) // 10%
 			SynRange = /obj/item/ammo_box/magazine/m10mm
@@ -386,14 +386,14 @@
 			SynRange = /obj/item/gun/projectile/automatic/c20r
 		else
 			SynRange = /obj/item/ammo_casing/c10mm
-	.=..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle
 	damage_coeff = list(BRUTE = 0.8, FIRE = 0.8, TOX = 1, CLONE = 2, STAMINA = 0, OXY = 0.5)
 	melee_damage_type = BURN
 	attack_sound = 'sound/weapons/saberon.ogg'
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynMelee)
 	return .
@@ -403,7 +403,7 @@
 	melee_damage_type = BURN
 	attack_sound = 'sound/weapons/saberon.ogg'
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynMelee, SynSpace)
 	return .
@@ -411,14 +411,14 @@
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle
 	damage_coeff = list(BRUTE = 1, FIRE = 1, TOX = 1, CLONE = 2, STAMINA = 0, OXY = 0.5)
 
-/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynRange)
 	return .
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynRange, SynSpace)
 	return .
@@ -557,7 +557,7 @@
 		/obj/item/toy/crayon/white,
 		)
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/Initialize(mapload)
 	l_pocket = pick(pocketloot)
 	r_pocket = pick(pocketloot)
 	return ..()
@@ -582,7 +582,7 @@
 	gloves = /obj/item/clothing/gloves/fingerless
 	back = /obj/item/storage/backpack/satchel_sec
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/security/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/security/Initialize(mapload)
 	var/secgun = rand(1,10)
 	switch(secgun)
 		if(1 to 7) //70%
@@ -667,7 +667,7 @@
 	id = /obj/item/card/id/medical
 	back = /obj/item/storage/backpack/satchel_med
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/medic/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/medic/Initialize(mapload)
 	backpack_contents = list(
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/pill_bottle/random_drug_bottle = 1,
@@ -688,7 +688,7 @@
 	gloves = /obj/item/clothing/gloves/fingerless
 	back = /obj/item/storage/backpack/satchel
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer/Initialize(mapload)
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/pill/patch/silver_sulf/small = 1,
 		/obj/item/reagent_containers/food/pill/patch/styptic/small = 1,

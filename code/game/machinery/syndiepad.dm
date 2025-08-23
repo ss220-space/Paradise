@@ -39,8 +39,8 @@
 	target_id = "syndie_cargo_receive" //админский синдипад отправляющий посылки
 	allow_humans = TRUE
 
-/obj/machinery/syndiepad/Initialize()
-	..()
+/obj/machinery/syndiepad/Initialize(mapload)
+	. = ..()
 	GLOB.syndiepads += src
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad/syndiepad(null)
