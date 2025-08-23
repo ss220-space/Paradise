@@ -17,8 +17,8 @@
 	go_out()
 	return ..()
 
-/obj/machinery/recharge_station/New()
-	..()
+/obj/machinery/recharge_station/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -28,8 +28,8 @@
 	RefreshParts()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/recharge_station/ert/New()
-	..()
+/obj/machinery/recharge_station/ert/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -38,8 +38,8 @@
 	component_parts += new /obj/item/stock_parts/cell/super(null)
 	RefreshParts()
 
-/obj/machinery/recharge_station/upgraded/New()
-	..()
+/obj/machinery/recharge_station/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)

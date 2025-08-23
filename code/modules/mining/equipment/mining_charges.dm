@@ -31,7 +31,7 @@
 	if(timer_off)
 		. += span_notice("Шахтёрский заряд подключён к детонатору.")
 
-/obj/item/grenade/plastic/miningcharge/Initialize()
+/obj/item/grenade/plastic/miningcharge/Initialize(mapload)
 	. = ..()
 	image_overlay = mutable_appearance(icon, "[icon_state]_active", ON_EDGED_TURF_LAYER)
 

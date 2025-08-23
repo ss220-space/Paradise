@@ -36,12 +36,9 @@ log transactions
 	var/view_screen = DEFAULT_SCREEN
 	var/lastprint = 0 // Printer needs time to cooldown
 
-/obj/machinery/atm/New()
-	..()
-	machine_id = "[station_name()] RT #[GLOB.num_financial_terminals++]"
-
-/obj/machinery/atm/Initialize()
+/obj/machinery/atm/Initialize(mapload)
 	. = ..()
+	machine_id = "[station_name()] RT #[GLOB.num_financial_terminals++]"
 	reconnect_database()
 	update_icon()
 

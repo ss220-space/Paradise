@@ -36,7 +36,7 @@
 
 	ai_controller = /datum/ai_controller/basic_controller/cockroach
 
-/mob/living/basic/cockroach/Initialize()
+/mob/living/basic/cockroach/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/death_drops, list(/obj/effect/decal/cleanable/insectguts))
 	AddComponent(/datum/component/squashable, squash_chance = 30, squash_damage = 1)
@@ -95,7 +95,7 @@
 	faction = list("hostile")
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/glockroach
 
-/mob/living/basic/cockroach/glockroach/Initialize()
+/mob/living/basic/cockroach/glockroach/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/ranged_attacks, /obj/item/ammo_casing/caseless/glockroach, 'sound/weapons/gunshots/gunshot3.ogg')
 
@@ -134,7 +134,7 @@
 	faction = list("hostile")
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/hauberoach
 
-/mob/living/basic/cockroach/hauberoach/Initialize()
+/mob/living/basic/cockroach/hauberoach/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, min_damage = 10, max_damage = 15, flags = (CALTROP_BYPASS_SHOES))
 	AddComponent( \

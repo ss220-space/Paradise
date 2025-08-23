@@ -386,12 +386,12 @@
 	var/datum/action/innate/cult/blood_spell/source
 	var/max_charges
 
-/obj/item/melee/blood_magic/New(loc, spell)
-	if(has_source)
+/obj/item/melee/blood_magic/Initialize(mapload, spell)
+	. = ..()
+	if(spell && has_source)
 		source = spell
 		uses = source.charges
 		health_cost = source.health_cost
-	..()
 
 /obj/item/melee/blood_magic/Destroy()
 	if(has_source && !QDELETED(source))

@@ -162,7 +162,7 @@ BODY SCANNERS
 	origin_tech = "combat=3;magnets=5;biotech=5"
 
 
-/obj/item/t_scanner/security/Initialize()
+/obj/item/t_scanner/security/Initialize(mapload)
 	. = ..()
 	//Sets up a spark system
 	spark_system = new /datum/effect_system/spark_spread

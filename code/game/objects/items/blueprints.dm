@@ -267,7 +267,7 @@
 
 //Blueprint Subtypes
 
-/obj/item/areaeditor/blueprints/ce/Initialize()
+/obj/item/areaeditor/blueprints/ce/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 

@@ -67,8 +67,8 @@
 		. += span_notice("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.")
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
@@ -80,8 +80,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
