@@ -2547,6 +2547,7 @@
 #include "code\modules\martial_arts\combos\mimejutsu\silencer.dm"
 #include "code\modules\martial_arts\combos\mimejutsu\silent_palm.dm"
 #include "code\modules\martial_arts\combos\mrchang\steal_card.dm"
+#include "code\modules\martial_arts\combos\mrchang\stunning_discounts.dm"
 #include "code\modules\martial_arts\combos\plasma_fist\plasma_fist.dm"
 #include "code\modules\martial_arts\combos\plasma_fist\throwback.dm"
 #include "code\modules\martial_arts\combos\plasma_fist\tornado_sweep.dm"

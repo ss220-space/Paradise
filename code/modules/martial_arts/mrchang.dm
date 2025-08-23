@@ -2,39 +2,13 @@
 /datum/martial_art/mr_chang
 	name = "Mr. Chang's Aggressive Marketing"
 	weight = 6
-	combos = list(/datum/martial_combo/mr_chang/steal_card)
+	combos = list(/datum/martial_combo/mr_chang/steal_card, /datum/martial_combo/mr_chang/stunning_discounts)
 	has_explaination_verb = TRUE
-	var/cooldown = 10 SECONDS
-	COOLDOWN_DECLARE(last_use)
-
-/datum/martial_art/mr_chang/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I)
-	//Stunning discounts!
-	if(!COOLDOWN_FINISHED(src, last_use))
-		return
-	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(INC_IGNORE_GRABBED) && defender.a_intent == INTENT_DISARM)
-		defender.visible_message(span_warning("[defender] перехватывает атаку [attacker]!"))
-		attacker.forceMove(defender.loc)
-		attacker.Knockdown(2 SECONDS)
-		defender.SpinAnimation(10,1)
-		attacker.SpinAnimation(10,1)
-		add_attack_logs(defender, attacker, "Intercepted attack with [src]: Stunning discounts!")
-		var/msg = pick("Сногсшибательные скидки!", "От скидок кругом голова!", "Предложение — хоть стой, хоть падай!", \
-					"Пол тоже продаётся!", "С вас 350000 кредитов!", "Вы за это заплатите!")
-		defender.say(msg)
-
-		var/sound = pick('sound/weapons/mr_chang/mr_chang_1.mp3', 'sound/weapons/mr_chang/mr_chang_2.mp3', \
-						'sound/weapons/mr_chang/mr_chang_3.mp3', 'sound/weapons/mr_chang/mr_chang_4.mp3', \
-						'sound/weapons/mr_chang/mr_chang_5.mp3')
-		playsound(get_turf(defender), sound, 50, TRUE, -1)
-
-		COOLDOWN_START(src, last_use, cooldown)
-		return TRUE
 
 /datum/martial_art/mr_chang/explaination_header(user)
 	to_chat(user, "<b><i>\nПринимая позу лотоса, вы начинаете медитацию. Знания Мистера Чанга наполнаяют ваш разум.</i></b>")
 
 /datum/martial_art/mr_chang/explaination_footer(user)
-	to_chat(user, "<span class='notice'>Stunning discounts!</span>: Включенный интент Disarm и режим броска позволяют перехватить атаку в ближнем бою по себе и перебросить через себя атакующего на пол, опрокинув неприятеля в стаминакрит. Перезарядка: 4 секунды.")
 	to_chat(user, "<span class='notice'>Business lunch</span>: Глутамат натрия теперь восстанавливает 0,75 ожогового/физического урона. (Содержится в малом количестве в еде Mr. Chang)")
 	to_chat(user, "<span class='notice'>TAKEYOMONEY</span>: Пачка купюр при броске наносит урон, пропорциональный толщине пачки.")
 	to_chat(user, "<span class='notice'>Change please!</span>: Монеты при броске имеют шанс в 30% застрять в теле жертвы, нанося малый периодический урон")
