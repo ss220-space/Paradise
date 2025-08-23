@@ -234,7 +234,7 @@
 	apply_preset(1) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
-/obj/machinery/alarm/Initialize()
+/obj/machinery/alarm/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане

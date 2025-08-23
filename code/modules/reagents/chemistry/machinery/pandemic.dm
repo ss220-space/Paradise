@@ -27,8 +27,8 @@
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
 
-/obj/machinery/computer/pandemic/New()
-	..()
+/obj/machinery/computer/pandemic/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/machinery/computer/pandemic/set_broken()

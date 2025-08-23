@@ -608,7 +608,7 @@
 	maxHealth = 60
 	health = 60
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/void/Initialize()
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_AI_BAGATTACK, INNATE_TRAIT)
 
@@ -716,7 +716,7 @@
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
-	explosion(get_turf(src), 0, 1, 4, 7, cause = src)
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 4, flash_range = 7, cause = src)
 	death()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(var/atom/movable/target)

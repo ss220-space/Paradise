@@ -182,6 +182,6 @@
 	throw_range = 3
 	throw_speed = 2
 
-/obj/item/shredded_paper/Initialize()
+/obj/item/shredded_paper/Initialize(mapload)
 	. = ..()
 	if(prob(65)) color = pick("#7c7c7c","#e7e4e4", "#aeacc9")

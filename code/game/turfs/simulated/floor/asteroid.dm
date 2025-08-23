@@ -76,16 +76,17 @@
 /turf/simulated/floor/plating/asteroid/remove_plating()
 	return
 
-/turf/simulated/floor/plating/asteroid/ex_act(severity)
+/turf/simulated/floor/plating/asteroid/ex_act(severity, target)
 	if(!can_dig())
 		return
+
 	switch(severity)
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(20))
 				getDug()
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			getDug()
 
 
