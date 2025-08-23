@@ -2729,6 +2729,7 @@
 					/obj/item/clothing/mask/gas/ghostface = 10,
 					/obj/item/clothing/mask/gas/ghostface/devil = 10,
 					/obj/item/clothing/head/shapka_pepega = 5,
+					/obj/item/clothing/head/carp_hat = 5,
 					/obj/item/clothing/accessory/armguard = 10)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					/obj/item/clothing/head/powdered_wig = 1,
@@ -2880,6 +2881,7 @@
 					/obj/item/clothing/mask/gas/ghostface = 50,
 					/obj/item/clothing/mask/gas/ghostface/devil = 50,
 					/obj/item/clothing/head/shapka_pepega = 50,
+					/obj/item/clothing/head/carp_hat = 50,
 					/obj/item/clothing/accessory/armguard = 50)
 
 	refill_canister = /obj/item/vending_refill/autodrobe
