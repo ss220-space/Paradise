@@ -1,5 +1,5 @@
 // Do not attemtp to remove the blank string from the server arg. It will break DB saving.
-/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server = "", checkrights = 1)
+/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, checkrights = 1)
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!SSdbcore.IsConnected())
@@ -53,10 +53,6 @@
 	else if(usr && (usr.ckey == ckey(adminckey))) // Don't ckeyize special note sources
 		adminckey = ckey(adminckey)
 
-	if(!server)
-		if(config && CONFIG_GET(string/servername))
-			server = CONFIG_GET(string/servername)
-
 	var/datum/db_query/query_noteadd = SSdbcore.NewQuery({"
 		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime)
 		VALUES (:targetckey, NOW(), :notetext, :adminkey, :server, :crewnum)
@@ -64,7 +60,7 @@
 		"targetckey" = target_ckey,
 		"notetext" = notetext,
 		"adminkey" = adminckey,
-		"server" = server,
+		"server" = CONFIG_GET(string/instance_id),
 		"crewnum" = crew_number
 	))
 	if(!query_noteadd.warn_execute())

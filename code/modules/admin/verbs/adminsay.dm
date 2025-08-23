@@ -8,6 +8,14 @@
 	if(!msg)
 		return
 
+	// Do this up here before it gets sent to everyone & emoji'd
+	if(SSredis.connected)
+		var/list/data = list()
+		data["author"] = usr.ckey
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = html_decode(msg)
+		SSredis.publish("byond.asay", json_encode(data))
+
 	msg = handleDiscordEmojis(msg)
 
 	var/datum/say/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
@@ -49,6 +57,14 @@
 	GLOB.msays += msay
 	if(!msg)
 		return
+
+	// Do this up here before it gets sent to everyone & emoji'd
+	if(SSredis.connected)
+		var/list/data = list()
+		data["author"] = usr.ckey
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = html_decode(msg)
+		SSredis.publish("byond.msay", json_encode(data))
 
 	msg = handleDiscordEmojis(msg)
 

@@ -196,6 +196,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_npcpool_suspension,
 	/client/proc/debug_atom_init,
 	/client/proc/debugstatpanel,
+	/client/proc/view_instances,
 	/client/proc/allow_browser_inspect, // XSS prevention
 	/client/proc/change_title_screen_html
 ))
