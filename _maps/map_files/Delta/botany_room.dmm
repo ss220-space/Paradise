@@ -132,6 +132,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
+"gE" = (
+/obj/structure/grille/broken,
+/obj/structure/window/reinforced,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
 "gM" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -426,6 +435,9 @@
 /area/maintenance/garden)
 "vu" = (
 /obj/machinery/vending/hydronutrients,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/maintenance/garden)
 "wg" = (
@@ -435,6 +447,12 @@
 	dir = 8;
 	icon_state = "barber"
 	},
+/area/maintenance/garden)
+"wh" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating,
 /area/maintenance/garden)
 "wk" = (
 /turf/simulated/floor/grass,
@@ -532,6 +550,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "AI" = (
@@ -611,6 +630,9 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/vending/hydroseeds,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5";
 	tag = "icon-wood-broken5"
@@ -843,7 +865,13 @@
 /area/maintenance/garden)
 "Uv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/window/reinforced,
+/obj/structure/grille/broken,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/barricade/wooden{
+	layer = 3.5
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "UN" = (
@@ -864,6 +892,11 @@
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue (NORTHEAST)"
 	},
+/area/maintenance/garden)
+"Vl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
 /area/maintenance/garden)
 "Vy" = (
 /obj/effect/decal/warning_stripes/southeast,
@@ -1056,7 +1089,7 @@ qr
 qr
 qr
 qr
-Kb
+gE
 Kb
 Oh
 NG
@@ -1089,7 +1122,7 @@ qr
 qr
 qr
 Cj
-BQ
+wh
 Yd
 IC
 nM
@@ -1122,7 +1155,7 @@ qr
 qr
 WQ
 Cj
-dR
+Vl
 OT
 Ho
 qr
@@ -1216,7 +1249,7 @@ qr
 qr
 qr
 qr
-WQ
+tl
 Cj
 xb
 jh
