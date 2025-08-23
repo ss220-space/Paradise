@@ -203,6 +203,7 @@
 		balloon_alert(usr, "недостаточно чернил!")
 		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 		return null
+
 	total_copies++
 
 	var/obj/item/craft_blueprints/copy = new original.copy_type(loc)
