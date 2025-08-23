@@ -1,0 +1,75 @@
+"ai" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/blood/tracks,/turf/simulated/floor/plating,/area/template_noop)
+"ct" = (/obj/structure/cable{icon_state = "1-2"},/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/effect/landmark/tiles/burnturf,/obj/item/shard,/obj/effect/decal/cleanable/glass,/turf/simulated/floor/plating,/area/template_noop)
+"cR" = (/obj/effect/spawner/random_spawners/fungus_70,/turf/simulated/wall,/area/template_noop)
+"dM" = (/turf/simulated/floor/plating,/area/template_noop)
+"dQ" = (/obj/structure/grille/broken,/obj/effect/spawner/lootdrop/maintenance,/obj/effect/landmark/tiles/burnturf,/turf/simulated/floor/plating/airless,/area/template_noop)
+"ee" = (/obj/effect/spawner/window,/obj/structure/barricade/wooden/crude,/turf/simulated/floor/plating,/area/template_noop)
+"gF" = (/obj/structure/holosign/barrier/atmos,/turf/simulated/floor/plating,/area/template_noop)
+"iM" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 6},/turf/template_noop,/area/template_noop)
+"iT" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 8},/turf/simulated/wall/rust,/area/template_noop)
+"iY" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/turf/template_noop,/area/template_noop)
+"jh" = (/obj/structure/cable{icon_state = "1-2"},/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/effect/landmark/tiles/burnturf,/turf/simulated/floor/plating,/area/template_noop)
+"lh" = (/obj/structure/lattice,/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 6},/turf/space,/area/template_noop)
+"mf" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating,/area/template_noop)
+"oJ" = (/obj/structure/lattice/catwalk,/turf/space,/area/template_noop)
+"rj" = (/obj/structure/grille/broken,/obj/effect/landmark/tiles/burnturf,/turf/simulated/floor/plating/airless,/area/template_noop)
+"rG" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/template_noop)
+"tV" = (/obj/structure/lattice,/turf/simulated/wall/rust,/area/template_noop)
+"wC" = (/obj/effect/landmark/tiles/burnturf,/obj/effect/map_effect/marker_helper/submap_def/delta/maints_med_viro_passage/closed,/turf/simulated/floor/plating/airless,/area/template_noop)
+"xH" = (/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/cable{icon_state = "1-2"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/effect/decal/warning_stripes/south,/obj/machinery/door/firedoor,/obj/structure/barricade/wooden,/turf/simulated/floor/plating,/area/template_noop)
+"xV" = (/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_med_viro_passage,/turf/template_noop,/area/template_noop)
+"yE" = (/obj/effect/landmark/tiles/burnturf,/turf/simulated/floor/plating/airless,/area/template_noop)
+"Dq" = (/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/cable{icon_state = "1-2"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/effect/decal/warning_stripes/south,/obj/machinery/door/firedoor,/turf/simulated/floor/plating,/area/template_noop)
+"FE" = (/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_med_viro_passage,/turf/simulated/wall/rust,/area/template_noop)
+"Ge" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/template_noop)
+"IW" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 8},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/turf/template_noop,/area/template_noop)
+"Ja" = (/obj/structure/bed,/obj/item/bedsheet/red,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "neutralcorner"},/area/template_noop)
+"KU" = (/obj/structure/disposalpipe/segment,/obj/structure/cable{icon_state = "1-2"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plating,/area/template_noop)
+"Mq" = (/obj/structure/holosign/barrier/engineering,/obj/effect/landmark/tiles/damageturf,/turf/simulated/floor/plasteel{icon_state = "neutralcorner"},/area/template_noop)
+"Mw" = (/obj/effect/decal/cleanable/dirt,/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/cable{icon_state = "1-2"},/obj/effect/landmark/tiles/burnturf,/turf/simulated/floor/plating,/area/template_noop)
+"MO" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/template_noop)
+"NX" = (/obj/structure/lattice,/turf/space,/area/template_noop)
+"Om" = (/obj/effect/landmark/tiles/burnturf,/obj/effect/decal/cleanable/blood/tracks,/turf/simulated/floor/plating/airless,/area/template_noop)
+"OA" = (/obj/effect/map_effect/marker_helper/submap_def/delta/maints_med_viro_passage/space,/turf/space,/area/template_noop)
+"OX" = (/turf/space,/area/template_noop)
+"PP" = (/turf/simulated/wall/rust,/area/template_noop)
+"Qa" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/glass,/turf/simulated/floor/plating,/area/template_noop)
+"Rj" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/turf/simulated/wall,/area/template_noop)
+"Ro" = (/obj/effect/decal/warning_stripes/south,/obj/machinery/door/firedoor,/turf/simulated/floor/plating,/area/template_noop)
+"Tu" = (/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/cable{icon_state = "1-2"},/turf/simulated/floor/plating,/area/template_noop)
+"UL" = (/obj/effect/decal/cleanable/blood/tracks,/turf/simulated/floor/plating,/area/template_noop)
+"VO" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/template_noop)
+"WF" = (/obj/effect/decal/warning_stripes/south,/obj/machinery/door/firedoor,/obj/structure/barricade/wooden,/turf/simulated/floor/plating,/area/template_noop)
+"WP" = (/obj/structure/cable{icon_state = "1-2"},/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plating,/area/template_noop)
+"Zw" = (/turf/template_noop,/area/template_noop)
+
+(1,1,1) = {"
+IWZwZwZwZwZwZwiYZwiTcRcRxHWFcRcRRjZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwPPNXcRKUMOcRyEPPZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwNXOXrGWPdMcRyEoJZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwNXOXVOctULeeNXyEZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwNXOXVOQaaieeOXNXZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwNXOXgFwCOmeeOXNXZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwdQNXgFjhULcROXNXZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwPPyEGeMwULcRNXNXZwZwZwZwZwZwZwZwZwZwZw
+xVZwZwZwZwZwZwiMZwFErjcRTumfcRdQlhZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+iTcRcRDqRoMqJaRjZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+PPNXcRWPdMcRPPPPZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+NXOXcRgFgFcRyEPPZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+OXOXOXOXOXOXyEoJZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+OXOXOXOXOXOXNXyEZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+NXOXOXOAOXOXOXNXZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+rjNXOXOXOXOXOXOXZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+tVyEcRgFgFcRNXOXZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+FErjcRWPdMcRdQlhZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+ZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZwZw
+"}

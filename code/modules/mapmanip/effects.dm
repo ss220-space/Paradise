@@ -37,3 +37,11 @@
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = "mapmanip_submap_edge"
 	color = "#ff00cc"
+
+/obj/effect/map_effect/marker_helper/submap_def
+	icon = 'icons/effects/mapping_helpers.dmi'
+	icon_state = "submap_definition"
+
+/obj/effect/map_effect/marker_helper/submap_def/Initialize(mapload)
+	log_game("Подкарта '[name]' загружена на координатах: [x], [y], [z]")
+	return ..()
