@@ -206,10 +206,6 @@
 		INSTRUMENTAL = "кроваво-красной капсулой снабжения",
 		PREPOSITIONAL = "кроваво-красной капсуле снабжения"
 	)
-	bluespace = TRUE
-	explosionSize = list(0,0,0,0)
-	style = /datum/pod_style/syndicate
-	specialised = TRUE
 
 /obj/structure/closet/supplypod/deadmatch_missile
 	name = "cruise missile"
@@ -230,12 +226,6 @@
 		INSTRUMENTAL = "крылатой ракете",
 		PREPOSITIONAL = "крылатой ракетой"
 	)
-	style = /datum/pod_style/missile/syndicate
-	explosionSize = list(0,1,2,2)
-	effectShrapnel = TRUE
-	specialised = TRUE
-	delays = list(POD_TRANSIT = 2.6 SECONDS, POD_FALLING = 0.4 SECONDS)
-	effectMissile = TRUE
 
 
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
