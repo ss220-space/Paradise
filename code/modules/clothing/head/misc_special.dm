@@ -405,7 +405,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
-	flags_inv = HIDEHEADSETS|HIDEHAIR
+	flags_inv = HIDEHEADSETS|HIDEHEADHAIR
 
 /obj/item/clothing/head/carp_hat/get_ru_names()
 	return list(
