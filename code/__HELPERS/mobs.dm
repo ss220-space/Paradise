@@ -486,9 +486,9 @@
 	//Location
 	if(isturf(position))
 		if(isarea(position.loc))
-			location_description = "([subject.loc == position ? "at coordinates " : "in [position.loc] at coordinates "] [position.x], [position.y], [position.z] in area <b>[position.loc]</b>)"
+			location_description = "[subject.loc == position ? "at coordinates " : "in [position.loc] at coordinates "] [position.x], [position.y], [position.z] in area <b>[position.loc]</b>"
 		else
-			location_description = "([subject.loc == position ? "at coordinates " : "in [position.loc] at coordinates "] [position.x], [position.y], [position.z])"
+			location_description = "[subject.loc == position ? "at coordinates " : "in [position.loc] at coordinates "] [position.x], [position.y], [position.z]"
 
 	//Job + antagonist
 	if(subject.mind)
@@ -514,9 +514,9 @@
 			if(CONSCIOUS)
 				status = "Alive"
 			if(UNCONSCIOUS)
-				status = "<span class='orange'><b>Unconscious</b></span>"
+				status = span_bold(span_orange("Unconscious"))
 			if(DEAD)
-				status = "<span class='red'><b>Dead</b></span>"
+				status = span_bold(span_red("Dead"))
 		health_description = "Status: [status]"
 		health_description += "<br>Brute: [lifer.getBruteLoss()] – Burn: [lifer.getFireLoss()] – Toxin: [lifer.getToxLoss()] – Suffocation: [lifer.getOxyLoss()]"
 		health_description += "<br>Brain: [lifer.getBrainLoss()] – Stamina: [lifer.getStaminaLoss()] – Clone: [lifer.getCloneLoss()]"
@@ -528,7 +528,7 @@
 		if(MALE, FEMALE, PLURAL)
 			gender_description = "[subject.gender]"
 		else
-			gender_description = "<span class='red'><b>[subject.gender]</b></span>"
+			gender_description = "[span_bold(span_red(subject.gender))]"
 
 	//Full Output
 	var/exportable_text = "[span_bold("Info about [subject.name]:")]<br>"
@@ -539,9 +539,9 @@
 	exportable_text += "Name: [span_bold(subject.name)] - Real Name: [subject.real_name] - Mind Name: [subject.mind?"[subject.mind.name]":""]<br>"
 	exportable_text += "Location is [location_description]<br>"
 	exportable_text += "[special_role_description]<br>"
-	exportable_text += "(<a href='byond://?src=[usr.UID()];priv_msg=[subject.client?.ckey]'>PM</a>) ([ADMIN_PP(subject,"PP")]) ([ADMIN_VV(subject,"VV")]) ([ADMIN_TP(subject,"TP")]) ([ADMIN_SM(subject,"SM")]) ([ADMIN_FLW(subject,"FLW")]) ([ADMIN_OBS(subject, "OBS")])"
+	exportable_text += ADMIN_FULLMONTY_NONAME(subject)
 
-	to_chat(user, chat_box_regular(exportable_text), confidential = TRUE)
+	to_chat(user, chat_box_examine(exportable_text), confidential = TRUE)
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
