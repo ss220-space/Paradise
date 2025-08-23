@@ -42,6 +42,7 @@
 	return L
 
 /datum/sprite_accessory
+	var/visible_over_uniform = FALSE
 	var/icon				//the icon file the accessory is located in
 	var/icon_state			//the icon_state of the accessory
 	var/name				//the preview name of the accessory
