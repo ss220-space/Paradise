@@ -58,9 +58,9 @@
 		else if(M.rating > 3)
 			max_potency = 95
 		else
-			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95,100 	 Clamps at 100
+			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95,100	 Clamps at 100
 
-		max_yield = min(initial(max_yield) + (M.rating*2), 10) // 4,6,8,10 	Clamps at 10
+		max_yield = min(initial(max_yield) + (M.rating*2), 10) // 4,6,8,10	Clamps at 10
 
 	for(var/obj/item/stock_parts/scanning_module/SM in component_parts)
 		if(SM.rating > 3) //If you create t5 parts I'm a step ahead mwahahaha!
@@ -73,7 +73,7 @@
 	for(var/obj/item/stock_parts/micro_laser/ML in component_parts)
 		var/weed_rate_mod = ML.rating * 2.5
 		min_weed_rate = max(FLOOR(10-weed_rate_mod, 1), 0) // 7,5,2,0	Clamps at 0 and 10	You want this low
-		min_weed_chance = max(67-(ML.rating*16), 0)  // 48,35,19,3,0 	Clamps at 0 and 67	You want this low
+		min_weed_chance = max(67-(ML.rating*16), 0)  // 48,35,19,3,0	Clamps at 0 and 67	You want this low
 	for(var/obj/item/circuitboard/plantgenes/vaultcheck in component_parts)
 		if(istype(vaultcheck, /obj/item/circuitboard/plantgenes/vault)) // TRAIT_DUMB BOTANY TUTS
 			max_potency = 100
@@ -444,12 +444,12 @@
 			if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
 				cleaning = TRUE
 			else
-				return
+				return ATTACK_CHAIN_PROCEED
 		if(istype(W, /obj/item/soap))
 			cleaning = TRUE
 
 		if(!cleaning)
-			return
+			return ATTACK_CHAIN_PROCEED
 		user.visible_message("<span class='notice'>[user] starts to clean the ooze off the disc.</span>", "<span class='notice'>You start to clean the ooze off the disk.</span>")
 		if(do_after(user, 5 SECONDS, src))
 			user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
@@ -458,6 +458,8 @@
 	..()
 	if(is_pen(W) && !HAS_TRAIT(src, TRAIT_CMAGGED))
 		rename_interactive(user, W)
+
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/disk/plantgene/update_name(updates = ALL)
 	. = ..()

@@ -66,7 +66,6 @@ Difficulty: Hard
 	loot = list(/obj/item/hierophant_club, /obj/item/gem/purple)
 	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman, /obj/item/gem/purple)
 	wander = FALSE
-	internal_type = /obj/item/gps/internal/hierophant
 	medal_type = BOSS_MEDAL_HIEROPHANT
 	score_type = HIEROPHANT_SCORE
 	del_on_death = TRUE
@@ -789,7 +788,7 @@ Difficulty: Hard
 		playsound(L,'sound/weapons/sear.ogg', 50, TRUE, -4)
 		to_chat(L, span_userdanger("Вас поражает [declent_ru(ACCUSATIVE)]!"))
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_TAIL, BODY_ZONE_WING))
-		var/armor = L.run_armor_check(limb_to_hit, "melee", "Ваша броня поглощает [declent_ru(ACCUSATIVE)]!", "Ваша броня частично блокирует [declent_ru(ACCUSATIVE)]!", 50, "Ваша броня была пробита [declent_ru(INSTRUMENTAL)]!")
+		var/armor = L.run_armor_check(limb_to_hit, MELEE, "Ваша броня поглощает [declent_ru(ACCUSATIVE)]!", "Ваша броня частично блокирует [declent_ru(ACCUSATIVE)]!", 50, "Ваша броня была пробита [declent_ru(INSTRUMENTAL)]!")
 		L.apply_damage(damage, BURN, limb_to_hit, armor)
 		if(ishostile(L))
 			var/mob/living/simple_animal/hostile/H = L //mobs find and damage you...
@@ -869,10 +868,3 @@ Difficulty: Hard
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
-
-/obj/item/gps/internal/hierophant
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "Heed its words."
-	invisibility = INVISIBILITY_ABSTRACT

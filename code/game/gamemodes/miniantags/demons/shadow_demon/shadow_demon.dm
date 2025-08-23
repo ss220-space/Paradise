@@ -1,13 +1,5 @@
 /mob/living/simple_animal/demon/shadow
 	name = "shadow demon"
-	ru_names = list(
-		NOMINATIVE = "теневой демон",
-		GENITIVE = "теневого демона",
-		DATIVE = "теневому демону",
-		ACCUSATIVE = "теневого демона",
-		INSTRUMENTAL = "теневым демоном",
-		PREPOSITIONAL = "теневом демоне"
-	)
 	desc = "Существо, которое едва ощутимо. Вы чувствуете, как его взгляд пронзает вас."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "shadow_demon"
@@ -23,6 +15,15 @@
 	var/wrapping = FALSE
 	var/list/wrapped_victims
 
+/mob/living/simple_animal/demon/shadow/get_ru_names()
+	return list(
+		NOMINATIVE = "теневой демон",
+		GENITIVE = "теневого демона",
+		DATIVE = "теневому демону",
+		ACCUSATIVE = "теневого демона",
+		INSTRUMENTAL = "теневым демоном",
+		PREPOSITIONAL = "теневом демоне"
+	)
 
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
 	. = ..()
@@ -114,14 +115,6 @@
 /obj/structure/shadowcocoon
 	name = "shadowy cocoon"
 	desc = "Объект, завёрнутый в густую, почти осязаемую тьму. Его поверхность дрожит и переливается, словно живая, а вокруг него клубится непроглядный мрак."
-	ru_names = list(
-		NOMINATIVE = "теневой кокон",
-		GENITIVE = "теневого кокона",
-		DATIVE = "теневому кокону",
-		ACCUSATIVE = "теневой кокон",
-		INSTRUMENTAL = "теневым коконом",
-		PREPOSITIONAL = "теневом коконе"
-	)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shadowcocoon"
 	light_power = -4
@@ -134,6 +127,15 @@
 	/// Will we play hallucination sounds or not
 	var/silent = TRUE
 
+/obj/structure/shadowcocoon/get_ru_names()
+	return list(
+		NOMINATIVE = "теневой кокон",
+		GENITIVE = "теневого кокона",
+		DATIVE = "теневому кокону",
+		ACCUSATIVE = "теневой кокон",
+		INSTRUMENTAL = "теневым коконом",
+		PREPOSITIONAL = "теневом коконе"
+	)
 
 /obj/structure/shadowcocoon/Initialize(mapload)
 	. = ..()
@@ -214,7 +216,14 @@
 
 /obj/projectile/magic/shadow_hand
 	name = "shadow hand"
-	ru_names = list(
+	icon_state = "shadow_hand"
+	plane = FLOOR_PLANE
+	speed = 1
+	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
+	var/hit = FALSE
+
+/obj/projectile/magic/shadow_hand/get_ru_names()
+	return list(
 		NOMINATIVE = "теневая рука",
 		GENITIVE = "теневой руки",
 		DATIVE = "теневой руке",
@@ -222,12 +231,6 @@
 		INSTRUMENTAL = "теневой рукой",
 		PREPOSITIONAL = "теневой руке"
 	)
-	icon_state = "shadow_hand"
-	plane = FLOOR_PLANE
-	speed = 1
-	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
-	var/hit = FALSE
-
 
 /obj/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
@@ -253,7 +256,11 @@
 
 /obj/item/organ/internal/heart/demon/shadow
 	name = "heart of darkness"
-	ru_names = list(
+	desc = "Оно всё ещё яростно бьётся, излучая ауру страха."
+	color = COLOR_BLACK
+
+/obj/item/organ/internal/heart/demon/shadow/get_ru_names()
+	return list(
 		NOMINATIVE = "сердце тьмы",
 		GENITIVE = "сердца тьмы",
 		DATIVE = "сердцу тьмы",
@@ -261,9 +268,6 @@
 		INSTRUMENTAL = "сердцем тьмы",
 		PREPOSITIONAL = "сердце тьмы"
 	)
-	desc = "Оно всё ещё яростно бьётся, излучая ауру страха."
-	color = COLOR_BLACK
-
 
 /obj/item/organ/internal/heart/demon/shadow/attack_self(mob/living/user)
 	. = ..()
@@ -286,7 +290,7 @@
 		return
 
 	var/list/messages = list()
-	messages.Add(span_fontsize3(span_red("Вы — Теневой Демон.</font><br></b>")))
+	messages.Add(span_fontsize3(span_red("Вы — Теневой Демон.<br></b>")))
 	messages.Add("<b>Вы — ужасное существо из иного измерения. У вас две цели: выжить и поджидать неосторожную добычу.</b>")
 	messages.Add("<b>Вы можете использовать способность \"Теневой Путь\" рядом с тёмными участками, появляясь и исчезая на станции по своему желанию.</b>")
 	messages.Add("<b>Ваша способность \"Теневой Захват\" позволяет вам притягивать живую добычу или притягиваться к объектам. Также она гасит все источники света в зоне удара.</b>")

@@ -28,6 +28,8 @@
 	QDEL_NULL(mode)
 	QDEL_LIST(modeswitch_buttons)
 	QDEL_LIST(dirswitch_buttons)
+	modebutton = null
+	dirbutton = null
 	return ..()
 
 /datum/click_intercept/buildmode/create_buttons()

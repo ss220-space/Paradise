@@ -52,7 +52,6 @@ Difficulty: Medium
 	wander = FALSE
 	del_on_death = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
-	internal_type = /obj/item/gps/internal/miner
 	medal_type = BOSS_MEDAL_MINER
 	var/obj/item/melee/energy/cleaving_saw/miner_saw
 	var/time_until_next_transform = 0
@@ -70,12 +69,6 @@ Difficulty: Medium
 							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
 							   /datum/action/innate/megafauna_attack/transform_weapon)
 
-/obj/item/gps/internal/miner
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "The sweet blood, oh, it sings to me."
-	invisibility = INVISIBILITY_ABSTRACT
-
 /* New costume */
 
 /obj/item/clothing/suit/hooded/explorer/blood
@@ -89,7 +82,7 @@ Difficulty: Medium
 		INSTRUMENTAL = "усиленным костюмом исследователя",
 		PREPOSITIONAL = "усиленном костюме исследователя"
 	)
-	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
 	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
 
@@ -104,7 +97,7 @@ Difficulty: Medium
 		INSTRUMENTAL = "усиленным капюшоном исследователя",
 		PREPOSITIONAL = "усиленном капюшоне исследователя"
 	)
-	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)
 	.=..()
@@ -143,7 +136,7 @@ Difficulty: Medium
 		user.SetConfused(0)
 		user.SetImmobilized(0)
 		user.SetKnockdown(0)
-		user.adjustStaminaLoss(-100)
+		user.setStaminaLoss(0)
 		user.set_resting(FALSE, instant = TRUE)
 		user.get_up(instant = TRUE)
 	else
@@ -264,7 +257,7 @@ Difficulty: Medium
 		return FALSE
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity, target)
 	if(dash())
 		return
 	return ..()

@@ -17,7 +17,7 @@
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	req_access = list(ACCESS_ENGINE)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
 	//RCD for the borgs or not?
@@ -447,7 +447,7 @@
  * Called in `/obj/item/rcd/proc/detonate_pulse()` via callback.
  */
 /obj/item/rcd/proc/detonate_pulse_explode()
-	explosion(src, 0, 0, 3, 1, flame_range = 1, cause = "AI detonate RCD")
+	explosion(src, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, flame_range = 1, adminlog = TRUE, cause = "AI detonate RCD")
 	qdel(src)
 
 /obj/item/rcd/preloaded

@@ -340,7 +340,7 @@
 	var/duds = 0
 	while(egg_count > 0)							//Loop until you've harvested all the eggs
 		var/obj/item/fish_eggs/egg = pick(egg_list)	//Select an egg at random
-		if(egg != /obj/item/fish_eggs) 				// Don't harvest duds
+		if(egg != /obj/item/fish_eggs)				// Don't harvest duds
 			egg = new egg(get_turf(user))			//Spawn the egg at the user's feet
 			if(fish_bag?.can_be_inserted(egg))
 				fish_bag.handle_item_insertion(egg)

@@ -10,23 +10,32 @@
 	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
-	var/contained = 1 //Are we going to move around?
-	var/energy = 100 //How strong are we?
-	var/dissipate = 1 //Do we lose energy over time?
+	/// How strong are we?
+	var/energy = 100
+	/// Do we lose energy over time?
+	var/dissipate = TRUE
 	var/dissipate_delay = 10
 	var/dissipate_track = 0
-	var/dissipate_strength = 1 //How much energy do we lose?
-	var/move_self = 1 //Do we move on our own?
-	var/grav_pull = 4 //How many tiles out do we pull?
-	move_resist = INFINITY	//no, you don't get to push the singulo. Not even you OP wizard gateway statues
-	var/consume_range = 0 //How many tiles out do we eat
-	var/event_chance = 15 //Prob for event each tick
-	var/target = null //its target. moves towards the target if it has one
-	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
+	/// How much energy do we lose?
+	var/dissipate_strength = 1
+	/// Do we move on our own?
+	var/move_self = TRUE
+	/// How many tiles out do we pull?
+	var/grav_pull = 4
+	/// No, you don't get to push the singulo. Not even you OP wizard gateway statues
+	move_resist = INFINITY
+	/// How many tiles out do we eat
+	var/consume_range = 0
+	/// Prob for event each tick
+	var/event_chance = 15
+	/// Its target. moves towards the target if it has one
+	var/target = null
+	/// Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
+	var/last_failed_movement = 0
 	var/last_warning
-	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
+	/// If the singularity has eaten a supermatter shard and can go to stage six
+	var/consumedSupermatter = FALSE
 	var/warps_projectiles = TRUE
-	allow_spin = 0
 	var/obj/effect/warp_effect/supermatter/warp
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
@@ -87,19 +96,20 @@
 /obj/singularity/blob_act(obj/structure/blob/B)
 	return
 
-/obj/singularity/ex_act(severity)
+/obj/singularity/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			if(current_size <= STAGE_TWO)
 				investigate_log("has been destroyed by a heavy explosion.", INVESTIGATE_ENGINE)
 				qdel(src)
 				return
 			else
 				energy -= round(((energy+1)/2),1)
-		if(2)
+		if(EXPLODE_HEAVY)
 			energy -= round(((energy+1)/3),1)
-		if(3)
+		if(EXPLODE_LIGHT)
 			energy -= round(((energy+1)/4),1)
+
 	return
 
 
@@ -496,7 +506,7 @@
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
 	var/dist = max((current_size - 2),1)
-	explosion(src.loc,(dist),(dist*2),(dist*4), cause = "Another singularity")
+	explosion(loc, devastation_range = (dist), heavy_impact_range = (dist*2), light_impact_range = (dist*4), cause = "Another singularity")
 	qdel(src)
 	return(gain)
 

@@ -65,7 +65,6 @@ Difficulty: Medium
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = NONE
 	var/player_cooldown = 0
-	internal_type = /obj/item/gps/internal/dragon
 	medal_type = BOSS_MEDAL_DRAKE
 	score_type = DRAKE_SCORE
 	deathmessage = "распадается в кучу костей, его плоть осыпается."
@@ -110,12 +109,6 @@ Difficulty: Medium
 	button_icon_state = "lavastaff_warn"
 	chosen_message = span_colossus("Вы пикируете и обрушиваете лаву на цель.")
 	chosen_attack_num = 4
-
-/obj/item/gps/internal/dragon
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "Here there be dragons."
-	invisibility = INVISIBILITY_ABSTRACT
 
 /mob/living/simple_animal/hostile/megafauna/dragon/OpenFire()
 	if(swooping)
@@ -311,7 +304,7 @@ Difficulty: Medium
 			if(M in hit_list)
 				continue
 			hit_list += M
-			M.take_damage(45, BRUTE, "melee", 1)
+			M.take_damage(45, BRUTE, MELEE, 1)
 		sleep(1.5)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/swoop_attack(lava_arena = FALSE, atom/movable/manual_target, var/swoop_cooldown = 30)
@@ -395,7 +388,7 @@ Difficulty: Medium
 				L.throw_at(throwtarget, 3)
 				visible_message(span_warning("[capitalize(L.declent_ru(NOMINATIVE))] отбрасывается в сторону от [declent_ru(ACCUSATIVE)]!"))
 	for(var/obj/mecha/M in orange(1, src))
-		M.take_damage(75, BRUTE, "melee", 1)
+		M.take_damage(75, BRUTE, MELEE, 1)
 
 	for(var/mob/M in range(7, src))
 		shake_camera(M, 15, 1)
@@ -408,9 +401,9 @@ Difficulty: Medium
 		arena_escape_enrage()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/ex_act(severity, target)
-	if(severity == EXPLODE_LIGHT)
-		return
-	..()
+	if(severity <= EXPLODE_LIGHT)
+		return FALSE
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(
 	amount = 0,
@@ -476,7 +469,7 @@ Difficulty: Medium
 
 	// deals damage to mechs
 	for(var/obj/mecha/M in T.contents)
-		M.take_damage(45, BRUTE, "melee", 1)
+		M.take_damage(45, BRUTE, MELEE, 1)
 
 	// changes turf to lava temporarily
 	if(!T.density && !islava(T))

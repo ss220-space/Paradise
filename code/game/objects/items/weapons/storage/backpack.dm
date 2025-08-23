@@ -65,7 +65,7 @@
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
 	cant_hold = list(/obj/item/storage/backpack/holding)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
 
 
 /obj/item/storage/backpack/holding/attackby(obj/item/I, mob/user, params)
@@ -121,8 +121,8 @@
 	item_state = "holdingsat"
 
 /obj/item/storage/backpack/holding/singularity_act(current_size)
-	var/dist = max((current_size - 2),1)
-	explosion(src.loc,(dist),(dist*2),(dist*4), cause = "into singularity")
+	var/dist = max((current_size - 2), 1)
+	explosion(loc, devastation_range = (dist), heavy_impact_range = (dist*2), light_impact_range = (dist*4), cause = "into singularity")
 
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
@@ -570,6 +570,11 @@
 	for(var/i in 1 to 9)
 		new /obj/item/ammo_box/magazine/m556(src)
 
+/* UZI ammobag
+name = "Пистолет-пулемёт Uzi — сумка с магазинами 9 мм"
+desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Для тех, кто идёт на серьёзное дело."
+TODO Use this name and desc for localisation*/
+
 /obj/item/storage/backpack/duffel/syndie/ammo/uzi
     desc = "A large duffel bag, packed to the brim with Type U3 Uzi magazines"
 
@@ -634,7 +639,7 @@
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/gun/projectile/automatic/c20r(src)
-	new /obj/item/suppressor/specialoffer(src)
+	new /obj/item/gun_module/muzzle/suppressor(src)
 
 /obj/item/storage/backpack/duffel/syndie/bulldogbundle
 	desc = "A large duffel bag containing a Bulldog, some drums, and a pair of thermal imaging glasses."

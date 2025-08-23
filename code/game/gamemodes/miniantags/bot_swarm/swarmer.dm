@@ -142,14 +142,12 @@
 
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
 	var/image/holder = hud_list[DIAG_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
+	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
 	holder.icon_state = "huddiag[RoundDiagBar(health / maxHealth)]"
 
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_status()
 	var/image/holder = hud_list[DIAG_STAT_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
+	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
 	holder.icon_state = "hudstat"
 
 /mob/living/simple_animal/hostile/swarmer/get_status_tab_items()
@@ -675,7 +673,7 @@
 		return
 
 	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE, -1)
-	arrived.electrocute_act(5, "электрической ловушки", flags = SHOCK_NOGLOVES)
+	arrived.electrocute_act(100, "электрической ловушки", flags = SHOCK_NOGLOVES | SHOCK_ILLUSION) // Remove the Swarmer mode pls
 	if(isrobot(arrived) || ismachineperson(arrived))
 		arrived.Weaken(10 SECONDS)
 	qdel(src)

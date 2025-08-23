@@ -1,3 +1,6 @@
+/// Helper to format the text that gets thrown onto the chem hud element.
+#define FORMAT_BLOODUSABLE_TEXT(bloodusable) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>")
+
 /datum/antagonist/vampire
 	name = "Vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
@@ -105,7 +108,6 @@
 		check_vampire_upgrade(announce = FALSE)
 		user.faction |= ROLE_VAMPIRE
 		user.dna?.species?.hunger_type = "vampire"
-		user.dna?.species?.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 		//goon vampire slaves code
 		//if(mob_override.mind.som)
 			//var/datum/mindslaves/slaved = mob_override.mind.som
@@ -113,6 +115,7 @@
 			//slaved.serv -= mob_override.mind
 			//slaved.leave_serv_hud(mob_override.mind)
 			//.mind.som = null
+	ADD_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
 
 	user.AddElement( \
 		/datum/element/pref_viewer, \
@@ -132,6 +135,8 @@
 	if(!mob_override)	// mob override means body transfer
 		remove_all_powers()
 
+	REMOVE_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
+
 	if(!transformation)
 		user.faction -= ROLE_VAMPIRE
 
@@ -140,7 +145,6 @@
 			hud.remove_vampire_hud()
 
 		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
-		user.dna?.species?.hunger_icon = initial(user.dna.species.hunger_icon)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 
@@ -597,7 +601,7 @@
 		hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 		hud.static_inventory += hud.vampire_blood_display
 		hud.show_hud(hud.hud_version)
-	hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
+	hud.vampire_blood_display.maptext = FORMAT_BLOODUSABLE_TEXT(bloodusable)
 
 
 /datum/antagonist/vampire/proc/handle_vampire_cloak()
@@ -729,3 +733,6 @@
 	var/mob/living/user = ..()
 	user.faction -= ROLE_VAMPIRE
 	return user
+
+
+#undef FORMAT_BLOODUSABLE_TEXT

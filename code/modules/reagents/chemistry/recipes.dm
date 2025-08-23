@@ -83,7 +83,7 @@
 		new /obj/effect/temp_visual/implosion(T)
 		playsound(T, 'sound/effects/whoosh.ogg', 25, TRUE) //credit to Robinhood76 of Freesound.org for this.
 	else
-		new /obj/effect/temp_visual/shockwave(T)
+		new /obj/effect/temp_visual/shockwave_old(T)
 		playsound(T, 'sound/effects/bang.ogg', 25, TRUE)
 	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
 		if(iseffect(X))
@@ -104,7 +104,7 @@
 		new /obj/effect/temp_visual/implosion(T)
 		playsound(T, 'sound/effects/whoosh.ogg', 25, TRUE) //credit to Robinhood76 of Freesound.org for this.
 	else
-		new /obj/effect/temp_visual/shockwave(T)
+		new /obj/effect/temp_visual/shockwave_old(T)
 		playsound(T, 'sound/effects/bang.ogg', 25, TRUE)
 	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
 		if(iseffect(X))

@@ -227,14 +227,6 @@
 	desc = "Одноразовая маска, изготовленная из стерильного материала. \
 			Обеспечивает защиту от биологического загрязнения и воздушно-капельных инфекций. \
 			Обладает высокой степенью проницаемости газов и практически не пропускает вредные вещества."
-	ru_names = list(
-		NOMINATIVE = "стерильная маска",
-		GENITIVE = "стерильной маски",
-		DATIVE = "стерильной маске",
-		ACCUSATIVE = "стерильную маску",
-		INSTRUMENTAL = "стерильной маской",
-		PREPOSITIONAL = "стерильной маске"
-	)
 	icon_state = "sterile"
 	item_state = "sterile"
 	w_class = WEIGHT_CLASS_TINY
@@ -242,7 +234,7 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
 	can_toggle = TRUE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 25, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 25, RAD = 0, FIRE = 0, ACID = 0)
 	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
@@ -263,6 +255,15 @@
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
 		)
 
+/obj/item/clothing/mask/surgical/get_ru_names()
+	return list(
+		NOMINATIVE = "стерильная маска",
+		GENITIVE = "стерильной маски",
+		DATIVE = "стерильной маске",
+		ACCUSATIVE = "стерильную маску",
+		INSTRUMENTAL = "стерильной маской",
+		PREPOSITIONAL = "стерильной маске"
+	)
 
 /obj/item/clothing/mask/surgical/attack_self(mob/user)
 	adjustmask(user)
@@ -494,14 +495,6 @@
 	desc = "Брутальная маска клоуна. Она до сих пор пахнет цирком. И керосином."
 	icon_state = "sweettooth_mask"
 	item_state = "sweettooth_mask"
-	ru_names = list(
-		NOMINATIVE = "Маска Сладкоежки",
-		GENITIVE = "Маски Сладкоежки",
-		DATIVE = "Маске Сладкоежки",
-		ACCUSATIVE = "Маску Сладкоежки",
-		INSTRUMENTAL = "Маской Сладкоежки",
-		PREPOSITIONAL = "Маске Сладкоежки"
-	)
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/mask.dmi',
@@ -512,6 +505,16 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/mask.dmi',
 		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/mask.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+	)
+
+/obj/item/clothing/mask/gas/clown_hat/sweettooth/get_ru_names()
+	return list(
+		NOMINATIVE = "Маска Сладкоежки",
+		GENITIVE = "Маски Сладкоежки",
+		DATIVE = "Маске Сладкоежки",
+		ACCUSATIVE = "Маску Сладкоежки",
+		INSTRUMENTAL = "Маской Сладкоежки",
+		PREPOSITIONAL = "Маске Сладкоежки"
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/rockso
@@ -715,7 +718,7 @@
 	can_toggle = TRUE
 	strip_delay = 20
 	put_on_delay = 20
-	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.90
 	actions_types = list(/datum/action/item_action/adjust)

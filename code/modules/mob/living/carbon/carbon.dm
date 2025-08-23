@@ -156,7 +156,7 @@
 		M.forceMove(drop_loc)
 		visible_message(span_danger("[M] вырыва[pluralize_ru(M.gender, "ет", "ют")]ся из нутра [name]!"))
 
-
+/// Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
 /mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	. = ..()
 	if(!.)
@@ -201,7 +201,7 @@
 	return shock_damage
 
 
-///Called slightly after electrocute act to apply a secondary stun.
+/// Called slightly after electrocute act to apply a secondary stun.
 /mob/living/carbon/proc/secondary_shock(knockdown, stun_duration)
 	if(knockdown)
 		Knockdown(stun_duration)
@@ -433,13 +433,13 @@
 		return .
 
 	var/alien_trait = HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALIEN)
-	if(alien_trait && length(get_equipped_items(include_hands = TRUE)))
+	if(alien_trait && length(get_equipped_items(INCLUDE_HELD)))
 		if(provide_feedback)
 			balloon_alert(src, "ваши руки заняты!")
 		return FALSE
 
 	if(!alien_trait && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ITEM_BASED) && HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && \
-		!HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS) && length(get_equipped_items(include_pockets = TRUE, include_hands = TRUE)))
+		!HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS) && length(get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD)))
 		if(provide_feedback)
 			balloon_alert(src, "ваши предметы мешают!")
 		return FALSE
@@ -910,16 +910,20 @@ so that different stomachs can handle things in different ways VB*/
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
 		add_sight(cyber_eyes.vision_flags)
+
 		if(cyber_eyes.see_in_dark)
 			nightvision = max(nightvision, cyber_eyes.see_in_dark)
+
 		if(cyber_eyes.see_invisible)
 			set_invis_see(min(see_invisible, cyber_eyes.see_invisible))
+
 		if(!isnull(cyber_eyes.lighting_alpha))
 			lighting_alpha = min(lighting_alpha, cyber_eyes.lighting_alpha)
 
-	if(client.eye != src)
-		var/atom/A = client.eye
-		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+	if(client.eye && client.eye != src)
+		var/atom/atom = client.eye
+
+		if(atom.update_remote_sight(src)) // returns TRUE if we override all other sight updates.
 			return
 
 	if(HAS_TRAIT(src, TRAIT_XRAY))

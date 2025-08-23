@@ -288,12 +288,16 @@
 			Jitter(effect * blocked)
 		if(KNOCKDOWN)
 			Knockdown(effect * blocked)
+		if(CONFUSED)
+			Confused(effect * blocked)
+
+
 	updatehealth("apply effect")
 	return TRUE
 
 
 /// Applies multiple status effects at once via [apply_effect][/mob/living/proc/apply_effect]
-/mob/living/proc/apply_effects(blocked = 0, stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0,stutter = 0, eyeblur = 0, drowsy = 0, stamina = 0, jitter = 0, knockdown = 0)
+/mob/living/proc/apply_effects(blocked = 0, stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0,stutter = 0, eyeblur = 0, drowsy = 0, stamina = 0, jitter = 0, knockdown = 0, confused = 0)
 	if(blocked >= 100)
 		return FALSE
 	if(stun)
@@ -318,6 +322,8 @@
 		apply_effect(jitter, JITTER, blocked)
 	if(knockdown)
 		apply_effect(knockdown, KNOCKDOWN, blocked)
+	if(confused)
+		apply_effect(confused, CONFUSED, blocked)
 	return TRUE
 
 
@@ -794,6 +800,20 @@
 		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stam_regen_start_modifier)
 	if(updating_health)
 		updatehealth("setStaminaLoss")
+
+
+/// Returns the maximum stamina of the mob with bonuses affecting it
+/mob/living/proc/get_max_stamina()
+	return max_stamina
+
+
+/// Max stamina MUST be lower than MAX_STAMINA_LOSS otherwise everything will explode
+/mob/living/proc/set_max_stamina(amount)
+	if(amount > MAX_STAMINA_LOSS)
+		max_stamina = MAX_STAMINA_LOSS
+		return
+
+	max_stamina = max(0, amount)
 
 
 /// Maxhealth var getter

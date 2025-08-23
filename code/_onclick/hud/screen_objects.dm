@@ -17,6 +17,7 @@
 	VAR_PRIVATE/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
 	interaction_flags_click = BYPASS_ADJACENCY
+	flags = NO_SCREENTIPS
 	/**
 	 * Map name assigned to this object.
 	 * Automatically set by /client/proc/add_obj_to_map.
@@ -335,6 +336,7 @@
 
 
 /atom/movable/screen/zone_sel/MouseEntered(location, control, params)
+	. = ..()
 	MouseMove(location, control, params)
 
 
@@ -368,6 +370,7 @@
 	if(!isobserver(usr) && hovering)
 		cut_overlay(hover_overlays_cache[hovering])
 		hovering = null
+	return ..()
 
 
 /atom/movable/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
@@ -493,7 +496,7 @@
 	var/image/object_overlay
 
 /atom/movable/screen/inventory/MouseEntered(location, control, params)
-	..()
+	. = ..()
 	add_overlays()
 
 /atom/movable/screen/inventory/MouseExited(location, control, params)
@@ -738,6 +741,12 @@
 	name = "stamina"
 	icon_state = "stamina0"
 	screen_loc = ui_stamina
+
+/atom/movable/screen/nutrition_bar
+	name = "nutrition"
+	icon = 'icons/hud/screen_hunger.dmi'
+	icon_state = "default_full"
+	screen_loc = ui_nutrition
 
 /atom/movable/screen/healths/alien
 	icon = 'icons/mob/screen_alien.dmi'

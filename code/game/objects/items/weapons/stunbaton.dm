@@ -11,18 +11,18 @@
 	throwforce = 7
 	origin_tech = "combat=2"
 	attack_verb = list("огрел", "ударил")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	active = FALSE
 	allows_stun_in_harm = TRUE
 	force_say_chance = 50
-	stamina_damage = 55
+	stamina_damage = 45
 	knockdown_time = 5 SECONDS
 	clumsy_knockdown_time = 15 SECONDS
 	cooldown = 2.5 SECONDS
 	on_stun_sound = 'sound/weapons/egloves.ogg'
 	on_stun_volume = 50
 	/// Time passed between a hit and knockdown effect.
-	var/knockdown_delay_time = 2 SECONDS
+	var/knockdown_delay_time = 4 SECONDS
 	/// Chance for the baton to stun when thrown at someone.
 	var/throw_stun_chance = 50
 	/// Cell to use, can be a path, to start loaded.

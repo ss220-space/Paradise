@@ -508,10 +508,13 @@ SUBSYSTEM_DEF(jobs)
 
 		if(!mark_spawn) // No spawn, then spawn on latejoin mark
 			log_runtime(EXCEPTION("No landmark start for [rank]."))
-			mark_spawn = pick(GLOB.latejoin)
+			if(rank == JOB_TITLE_PRISONER)
+				mark_spawn = pick(GLOB.latejoin_prisoner)
+			else
+				mark_spawn = pick(GLOB.latejoin)
 
 		if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
-			if(job.title == JOB_TITLE_PRISONER)
+			if(rank == JOB_TITLE_PRISONER)
 				mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
 			else
 				mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station)

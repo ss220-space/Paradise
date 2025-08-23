@@ -81,6 +81,9 @@
 #define ORGANIC 1
 #define SYNTHETIC 2
 
+// Reagent tag flags, define reagent behaviour (now use only for anti-stun reagents)
+#define REAGENT_TAG_ANTI_STUN (1<<0)
+
 // Appearance change flags
 #define APPEARANCE_UPDATE_DNA (1<<0)
 #define APPEARANCE_RACE	(1<<1|APPEARANCE_UPDATE_DNA)
@@ -109,18 +112,18 @@
 #define SLIME_EVOLUTION_THRESHOLD_EVOLVE 50
 #define SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN 100
 
-#define SLIME_BABY 		"baby"
-#define SLIME_ADULT 	"adult"
-#define SLIME_OLD 		"old"
-#define SLIME_ELDER 	"elder"
-#define SLIME_SLIMEMAN 	"slimeman"
+#define SLIME_BABY		"baby"
+#define SLIME_ADULT	"adult"
+#define SLIME_OLD		"old"
+#define SLIME_ELDER	"elder"
+#define SLIME_SLIMEMAN	"slimeman"
 
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
 
 //Slime commands defines
-#define SLIME_FRIENDSHIP_FOLLOW 			3 //Min friendship to order it to follow
-#define SLIME_FRIENDSHIP_STOPEAT 			5 //Min friendship to order it to stop eating someone
+#define SLIME_FRIENDSHIP_FOLLOW			3 //Min friendship to order it to follow
+#define SLIME_FRIENDSHIP_STOPEAT			5 //Min friendship to order it to stop eating someone
 #define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //Min friendship to order it to stop eating someone without it losing friendship
 #define SLIME_FRIENDSHIP_STOPCHASE			4 //Min friendship to order it to stop chasing someone (their target)
 #define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
@@ -303,16 +306,16 @@
 #define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
-#define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
+#define ishostile(A)	(istype(A, /mob/living/simple_animal/hostile))
 #define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
 #define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
-#define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
+#define isdemon(A)			(istype((A), /mob/living/simple_animal/demon))
 #define ismorph(A)		(istype((A), /mob/living/simple_animal/hostile/morph))
 #define isborer(A)		(istype((A), /mob/living/simple_animal/borer))
 #define isairmob(A)		(istype(A, /mob/living/simple_animal/hostile/airmob))
 #define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 #define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
-#define ismarauder(A) 	(istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
+#define ismarauder(A)	(istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
 
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
@@ -349,7 +352,7 @@
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
-#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user)
+#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
 
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \
@@ -432,7 +435,7 @@
 
 #define PULL_LYING_MOB_SLOWDOWN 1.3
 #define PUSH_STANDING_MOB_SLOWDOWN 1.3
-#define HUMAN_CARRY_SLOWDOWN 0.6
+#define HUMAN_CARRY_SLOWDOWN 1.18  // PULL_LYING_MOB_SLOWDOWN / 1.1 = 1.18(18) ~ 1.18
 
 #define ACTIVE_HAND_RIGHT 0
 #define ACTIVE_HAND_LEFT 1
@@ -447,14 +450,14 @@
 #define DEVOUR_TIME_ANIMAL (3 SECONDS)
 
 
-//Flags used by the flags parameter of electrocute act.
-///Makes it so that the shock doesn't take gloves into account.
+// Flags used by the flags parameter of electrocute act.
+/// Makes it so that the shock doesn't take gloves into account.
 #define SHOCK_NOGLOVES (1<<0)
-///Used when the shock is from a tesla bolt.
+/// Used when the shock is from a tesla bolt.
 #define SHOCK_TESLA (1<<1)
-///Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
+/// Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
 #define SHOCK_ILLUSION (1<<2)
-///The shock doesn't stun.
+/// The shock doesn't stun.
 #define SHOCK_NOSTUN (1<<3)
 /// No default message is sent from the shock
 #define SHOCK_SUPPRESS_MESSAGE (1<<4)
@@ -465,6 +468,18 @@
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
 
+// tesla_zap
+#define ZAP_MACHINE_EXPLOSIVE (1<<0)
+#define ZAP_ALLOW_DUPLICATES (1<<1)
+#define ZAP_OBJ_DAMAGE (1<<2)
+#define ZAP_MOB_DAMAGE (1<<3)
+#define ZAP_MOB_STUN (1<<4)
+#define ZAP_GENERATES_POWER (1<<5)
+
+#define ZAP_DEFAULT_FLAGS ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+#define ZAP_TESLA_FLAGS ZAP_DEFAULT_FLAGS | ZAP_MACHINE_EXPLOSIVE
+#define ZAP_FUSION_FLAGS ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN
+#define ZAP_SUPERMATTER_FLAGS ZAP_GENERATES_POWER
 
 /// Vomit defines
 #define VOMIT_NUTRITION_LOSS	10
@@ -484,7 +499,7 @@
 /// Eyes examine time mod
 #define EXAMINE_INSTANT	0 // 0 seconds
 
-//Incapacitated ignore flags for [/proc/incapacitated()].
+// Incapacitated ignore flags for [/proc/incapacitated()].
 // They also used at interaction_flags_c var.
 /// If the incapacitated will ignore a mob in restraints
 #define INC_IGNORE_RESTRAINED (1<<0)

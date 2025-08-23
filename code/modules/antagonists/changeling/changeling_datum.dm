@@ -1,3 +1,6 @@
+/// Helper to format the text that gets thrown onto the chem hud element.
+#define FORMAT_CHEM_CHARGES_TEXT(charges) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(charges)]</font></div>")
+
 /// Time before changeling can revive himself.
 #define LING_FAKEDEATH_TIME					60 SECONDS
 /// The lowest value of genetic_damage [/datum/antagonist/changeling/process()] can take it to while dead.
@@ -155,6 +158,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	RegisterSignal(user, COMSIG_MOB_ALTCLICKON, PROC_REF(on_click_sting))
 	//COMSIG_MOB_MIDDLECLICKON not yet implemented, please remove all MiddleClick fuckery after adding here.
 
+	ADD_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
+
 	var/mob/living/carbon/carbon_user = user
 	if(!istype(carbon_user))
 		return
@@ -187,7 +192,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	remove_changeling_mutations(user)
 	remove_unnatural_languages(user)
-	UnregisterSignal(user, COMSIG_MOB_DEATH)
+	UnregisterSignal(user, list(COMSIG_MOB_DEATH, COMSIG_MOB_ALTCLICKON))
+	REMOVE_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
 
 	// If there's a mob_override, this is a body transfer, and therefore we should only remove their powers from the old body.
 	if(mob_override)
@@ -254,7 +260,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/mob/living/carbon/human/h_owner = owner.current
 	if(h_owner.hud_used?.lingchemdisplay)
 		h_owner.hud_used.lingchemdisplay.invisibility = 0
-		h_owner.hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(chem_charges)]</font></div>"
+		h_owner.hud_used.lingchemdisplay.maptext = FORMAT_CHEM_CHARGES_TEXT(chem_charges)
 
 	if(h_owner.stat == DEAD)
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage * 0.5)
@@ -651,3 +657,5 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/changeling)
 
+
+#undef FORMAT_CHEM_CHARGES_TEXT
