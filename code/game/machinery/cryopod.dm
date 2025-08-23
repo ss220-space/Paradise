@@ -41,8 +41,8 @@
 	var/storage_name = "Cryogenic Oversight Control"
 	var/allow_items = 1
 
-/obj/machinery/computer/cryopod/New()
-	..()
+/obj/machinery/computer/cryopod/Initialize(mapload)
+	. = ..()
 	for(var/T in GLOB.potential_theft_objectives + GLOB.potential_theft_objectives_hard + GLOB.potential_theft_objectives_medium /*+ GLOB.potential_theft_objectives_collect*/)
 		theft_cache += new T
 
@@ -284,7 +284,7 @@
 	announce = new /obj/item/radio/intercom(src)
 	announce.follow_target = src
 	icon_state = base_icon_state
-	set_light(1, 1, COLOR_LIGHT_GREEN)
+	set_light(1, 1, COLOR_GREEN)
 	find_control_computer()
 
 

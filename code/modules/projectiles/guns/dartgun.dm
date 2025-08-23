@@ -47,7 +47,7 @@
 		icon_state = "dartgun-[cartridge.darts]"
 
 
-/obj/item/gun/dartgun/Initialize()
+/obj/item/gun/dartgun/Initialize(mapload)
 	. = ..()
 
 	if(starting_chems)

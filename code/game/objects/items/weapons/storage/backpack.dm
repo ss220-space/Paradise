@@ -121,8 +121,8 @@
 	item_state = "holdingsat"
 
 /obj/item/storage/backpack/holding/singularity_act(current_size)
-	var/dist = max((current_size - 2),1)
-	explosion(src.loc,(dist),(dist*2),(dist*4), cause = "into singularity")
+	var/dist = max((current_size - 2), 1)
+	explosion(loc, devastation_range = (dist), heavy_impact_range = (dist*2), light_impact_range = (dist*4), cause = "into singularity")
 
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
@@ -639,7 +639,7 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/gun/projectile/automatic/c20r(src)
-	new /obj/item/suppressor/specialoffer(src)
+	new /obj/item/gun_module/muzzle/suppressor(src)
 
 /obj/item/storage/backpack/duffel/syndie/bulldogbundle
 	desc = "A large duffel bag containing a Bulldog, some drums, and a pair of thermal imaging glasses."

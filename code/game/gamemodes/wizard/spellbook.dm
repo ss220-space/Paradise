@@ -1057,7 +1057,7 @@
 	ru_names[INSTRUMENTAL] += spellname_ru
 	ru_names[PREPOSITIONAL] += spellname_ru
 
-/obj/item/spellbook/oneuse/initialize() //No need to init
+/obj/item/spellbook/oneuse/initialize(mapload) //No need to init
 	return
 
 /obj/item/spellbook/oneuse/attack_self(mob/user)
@@ -1095,7 +1095,7 @@
 
 /obj/item/spellbook/oneuse/fireball/recoil(mob/user as mob)
 	..()
-	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, cause = "Recoiled fireball book")
+	explosion(user.loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flash_range = 3, adminlog = FALSE, flame_range = 2, cause = "Recoiled fireball book")
 	qdel(src)
 
 /obj/item/spellbook/oneuse/smoke
@@ -1301,7 +1301,7 @@
 /obj/item/spellbook/oneuse/random
 	icon_state = "random_book"
 
-/obj/item/spellbook/oneuse/random/Initialize()
+/obj/item/spellbook/oneuse/random/Initialize(mapload)
 	. = ..()
 	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/spellbook/oneuse/fake_gib, /obj/item/spellbook/oneuse/emp/used)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)

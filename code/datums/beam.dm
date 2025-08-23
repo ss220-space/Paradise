@@ -212,7 +212,7 @@
 /obj/effect/ebeam/singularity_act()
 	return
 
-/obj/effect/ebeam/ex_act(severity)
+/obj/effect/ebeam/ex_act(severity, target)
 	return
 
 /// A beam subtype used for advanced beams, to react to atoms entering the beam

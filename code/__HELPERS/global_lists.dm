@@ -212,6 +212,9 @@
 	//Init BSA fire modes list
 	init_datum_subtypes(/datum/bluespace_cannon_fire_mode, GLOB.BSA_modes_list, null, "name")
 
+	// Init list of all nutrition levels
+	init_datum_subtypes(/datum/nutrition_level, GLOB.nutrition_levels, null, "type")
+
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.
 /proc/init_subtypes(prototype, list/L)

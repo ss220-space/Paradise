@@ -230,11 +230,11 @@
 	if(location)
 		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
-			explosion(get_step(T, aim_dir),0,0,3, cause = "Dir. X4")
+			explosion(get_step(T, aim_dir), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, cause = "Dir. X4")
 			explosion(T,0,2,0, cause = src)
 			location.ex_act(2, target)
 		else
-			explosion(location, 0, 2, 3, cause = src)
+			explosion(location, devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, cause = src)
 			location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target
@@ -263,10 +263,10 @@
 	if(location)
 		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
-			explosion(get_step(T, aim_dir),0,0,3, cause = src)
+			explosion(get_step(T, aim_dir), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, cause = src)
 			location.ex_act(2, target)
 		else
-			explosion(location, 0, 0, 3, cause = src)
+			explosion(location, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, cause = src)
 			location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target

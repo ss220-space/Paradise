@@ -36,6 +36,7 @@
 #define EYE_BLUR	"eye_blur"
 #define DROWSY		"drowsy"
 #define JITTER		"jitter"
+#define CONFUSED	"confused"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS (1<<0)
@@ -55,6 +56,11 @@
 #define PASSEMOTES (1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define IGNORESLOWDOWN (1<<7)
 #define IGNORE_SPEED_CHANGES (1<<8)
+/// If set, this mob can be knocked unconscious via status effect.
+/// NOTE, does not mean immune to sleep. Unconscious and sleep are two different things.
+/// NOTE, does not relate to the unconscious stat either. Only the status effect.
+#define CANUNCONSCIOUS (1<<9)
+
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -62,6 +68,8 @@
 
 /// Maximum amount of staminaloss, living mob can have.
 #define MAX_STAMINA_LOSS 120
+/// Base amount of max stamina living mob can have
+#define BASE_MAX_STAMINA 100
 
 //Grab levels
 #define GRAB_PASSIVE 0
@@ -167,10 +175,8 @@
 #define WEAPON_MEDIUM 2
 #define WEAPON_HEAVY 3
 
-#define EXPLODE_NONE 0				//Don't even ask me why we need this.
-#define EXPLODE_DEVASTATE 1
-#define EXPLODE_HEAVY 2
-#define EXPLODE_LIGHT 3
+/// ex_act() with EXPLODE_DEVASTATE severity will gib mobs with less than this much bomb armor
+#define EXPLODE_GIB_THRESHOLD 50
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2

@@ -266,7 +266,7 @@
 		/obj/item/clothing/under/syndicate = 1,
 		/obj/item/clothing/under/syndicate/tacticool = 1,
 		/obj/item/clothing/mask/gas/syndicate = 1,
-		/obj/item/suppressor = 1,
+		/obj/item/gun_module/muzzle/suppressor = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
 		/obj/item/storage/box/syndie_kit/cutouts = 1)
 

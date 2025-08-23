@@ -61,6 +61,37 @@
 			else
 				H.remove_hud_from(user)
 
+// Allows you to toggle HUDType on glasses.
+/obj/item/clothing/glasses/hud/proc/multiHUD_toggling(mob/living/carbon/human/user)
+	if(!HUDType || !user)
+		return
+
+	var/datum/atom_hud/oldHUD = GLOB.huds[HUDType]
+	var/hudMode = null
+
+	// DATA_HUD_MEDICAL_ADVANCED ->  DATA_HUD_SECURITY_BASIC -> DATA_HUD_SECURITY_ADVANCED
+	switch(HUDType) 
+		if(DATA_HUD_MEDICAL_ADVANCED)
+			HUDType = DATA_HUD_SECURITY_BASIC
+			examine_extensions = EXAMINE_HUD_SKILLS
+			hudMode = "навыков"
+		if(DATA_HUD_SECURITY_BASIC)
+			HUDType = DATA_HUD_SECURITY_ADVANCED
+			examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
+			hudMode = "охраны"
+		if(DATA_HUD_SECURITY_ADVANCED)
+			HUDType = DATA_HUD_MEDICAL_ADVANCED
+			examine_extensions = EXAMINE_HUD_MEDICAL
+			hudMode = "здоровья"
+
+	if(user.glasses == src)
+		oldHUD.remove_hud_from(user)
+		var/datum/atom_hud/newHUD = GLOB.huds[HUDType]
+		newHUD.add_hud_to(user)
+
+	balloon_alert(user, "режим ИЛС [hudMode]")
+	playsound(user, 'sound/items/buttonclick.ogg', 50, TRUE)
+
 /*
 MEDICAL
 */
@@ -658,23 +689,7 @@ SKILLS
 	)
 
 /obj/item/clothing/glasses/hud/blueshield/attack_self(mob/user)
-	if(HUDType)
-		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.remove_hud_from(user)
-	switch(HUDType)
-		if(DATA_HUD_MEDICAL_ADVANCED)
-			HUDType = DATA_HUD_SECURITY_BASIC
-			examine_extensions = EXAMINE_HUD_SKILLS
-		if(DATA_HUD_SECURITY_ADVANCED)
-			HUDType = DATA_HUD_MEDICAL_ADVANCED
-			examine_extensions = EXAMINE_HUD_MEDICAL
-		else
-			HUDType = DATA_HUD_SECURITY_ADVANCED
-			examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
-	var/datum/atom_hud/newH = GLOB.huds[HUDType]
-	newH.add_hud_to(user)
-	balloon_alert(user, "режим переключён")
-	return
+	multiHUD_toggling(user)
 
 /obj/item/clothing/glasses/hud/skills/visor
 	name = "Skill Optical Visor"

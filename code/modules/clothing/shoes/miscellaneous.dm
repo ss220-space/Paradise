@@ -650,3 +650,20 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
 		)
+
+/obj/item/clothing/shoes/chad
+	name = "Chad shoes"
+	desc = "Сапоги с сильной аурой."
+	icon_state = "chadboots"
+	item_state = "chadboots"
+	species_restricted = list(SPECIES_HUMAN)
+
+/obj/item/clothing/shoes/chad/get_ru_names()
+	return list(
+		NOMINATIVE = "сапоги Гигачада",
+		GENITIVE = "сапога Гигачада",
+		DATIVE = "сапогу Гигачада",
+		ACCUSATIVE = "сапоги Гигачада",
+		INSTRUMENTAL = "сапогами Гигачада",
+		PREPOSITIONAL = "сапогах Гигачада"
+	)

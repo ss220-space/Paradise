@@ -354,8 +354,9 @@
 	if(usr)
 		var/turf/item_turf = get_turf(W)
 		var/turf/storage_turf = get_turf(src)
+		var/turf/user_turf = get_turf(usr)
 		// Its ok to move items to/from nullspace, since its not a player action
-		if(item_turf && storage_turf && !in_range(item_turf, storage_turf))
+		if(item_turf && storage_turf && (!in_range(storage_turf, user_turf) || !in_range(item_turf, user_turf)))
 			if(!stop_messages)
 				usr.balloon_alert(usr, "слишком далеко!")
 			return FALSE
@@ -749,11 +750,11 @@
 /obj/item/storage/AllowDrop()
 	return TRUE
 
-/obj/item/storage/ex_act(severity)
+/obj/item/storage/ex_act(severity, target)
 	for(var/atom/A in contents)
-		A.ex_act(severity)
+		A.ex_act(severity, target)
 		CHECK_TICK
-	..()
+	return ..()
 
 /obj/item/storage/proc/can_items_stack(obj/item/item_1, obj/item/item_2)
 	if(!item_1 || !item_2)
