@@ -175,10 +175,8 @@
 #define WEAPON_MEDIUM 2
 #define WEAPON_HEAVY 3
 
-#define EXPLODE_NONE 0				//Don't even ask me why we need this.
-#define EXPLODE_DEVASTATE 1
-#define EXPLODE_HEAVY 2
-#define EXPLODE_LIGHT 3
+/// ex_act() with EXPLODE_DEVASTATE severity will gib mobs with less than this much bomb armor
+#define EXPLODE_GIB_THRESHOLD 50
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2

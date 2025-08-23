@@ -10,7 +10,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/active = FALSE
 
 
-/obj/machinery/gateway/Initialize()
+/obj/machinery/gateway/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	update_density_from_dir()
@@ -37,14 +37,11 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
 
-/obj/machinery/gateway/centerstation/New()
-	..()
+/obj/machinery/gateway/centerstation/Initialize(mapload)
+	. = ..()
 	if(!GLOB.the_gateway)
 		GLOB.the_gateway = src
 
-
-/obj/machinery/gateway/centerstation/Initialize(mapload)
-	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	wait = world.time + CONFIG_GET(number/gateway_delay)
 	return INITIALIZE_HINT_LATELOAD
@@ -181,7 +178,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/obj/machinery/gateway/centeraway/stationgate = null
 
 
-/obj/machinery/gateway/centeraway/Initialize()
+/obj/machinery/gateway/centeraway/Initialize(mapload)
 	. = ..()
 	update_icon()
 	stationgate = locate(/obj/machinery/gateway/centerstation) in SSmachines.get_by_type(/obj/machinery/gateway)

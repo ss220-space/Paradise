@@ -169,9 +169,9 @@
 	weaken = 6 SECONDS
 	breakthings = TRUE
 
-/obj/projectile/bullet/sniper/explosive/on_hit(var/atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/explosive/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target, /mob/living) && breakthings))
-		explosion(target, -1, 1, 3, 5, cause = "[type] fired by [key_name(firer)]")
+		explosion(target, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 5, cause = "[type] fired by [key_name(firer)]")
 
 	return ..()
 

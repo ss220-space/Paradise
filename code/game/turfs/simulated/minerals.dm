@@ -204,20 +204,20 @@
 /turf/simulated/mineral/acid_melt()
 	ChangeTurf(baseturf)
 
-/turf/simulated/mineral/ex_act(severity)
-	..()
+/turf/simulated/mineral/ex_act(severity, target)
+	. = ..()
 	switch(severity)
-		if(3)
+		if(EXPLODE_LIGHT)
 			if (prob(75))
 				attempt_drill(null,TRUE,2)
 			else if(prob(90))
 				attempt_drill(null,TRUE,1)
-		if(2)
+		if(EXPLODE_HEAVY)
 			if (prob(90))
 				attempt_drill(null,TRUE,2)
 			else
 				attempt_drill(null,TRUE,1)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			attempt_drill(null,TRUE,3)
 
 /turf/simulated/mineral/blob_consume()
@@ -264,15 +264,16 @@
 /turf/simulated/mineral/ancient/acid_act(acidpwr, acid_volume)
 	return
 
-/turf/simulated/mineral/ancient/ex_act(severity)
+/turf/simulated/mineral/ancient/ex_act(severity, target)
 	switch(severity)
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(75))
 				gets_drilled(null, 1)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			gets_drilled(null, 1)
+
 	return TRUE
 
 /turf/simulated/mineral/ancient/outer
@@ -305,7 +306,7 @@
 	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER]
 
 
-/turf/simulated/mineral/ancient/outer/ex_act(severity)
+/turf/simulated/mineral/ancient/outer/ex_act(severity, target)
 	return
 
 /turf/simulated/mineral/random
@@ -1027,12 +1028,6 @@
 		PREPOSITIONAL = "закалённом вулканическом базальте"
 	)
 
-//gibtonite state defines
-#define GIBTONITE_UNSTRUCK 0
-#define GIBTONITE_ACTIVE 1
-#define GIBTONITE_STABLE 2
-#define GIBTONITE_DETONATE 3
-
 // Gibtonite
 /turf/simulated/mineral/gibtonite
 	mineralAmt = 1
@@ -1079,9 +1074,9 @@
 		visible_message(span_danger("There was gibtonite inside! It's going to explode!"))
 		var/turf/bombturf = get_turf(src)
 
-		var/notify_admins = 0
+		var/notify_admins = FALSE
 		if(!is_mining_level(z))
-			notify_admins = 1
+			notify_admins = TRUE
 			if(!triggered_by_explosion)
 				message_admins("[key_name_admin(user)] has triggered a gibtonite deposit reaction at [ADMIN_VERBOSEJMP(bombturf)].")
 			else
@@ -1094,7 +1089,7 @@
 
 		countdown(notify_admins)
 
-/turf/simulated/mineral/gibtonite/proc/countdown(notify_admins = 0)
+/turf/simulated/mineral/gibtonite/proc/countdown(notify_admins = FALSE)
 	set waitfor = 0
 	while(istype(src, /turf/simulated/mineral/gibtonite) && stage == GIBTONITE_ACTIVE && det_time > 0 && mineralAmt >= 1)
 		det_time--
@@ -1104,7 +1099,7 @@
 			var/turf/bombturf = get_turf(src)
 			mineralAmt = 0
 			stage = GIBTONITE_DETONATE
-			explosion(bombturf, 1, 3, 5, adminlog = notify_admins, cause = src)
+			explosion(bombturf, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 5, adminlog = notify_admins, cause = src)
 
 /turf/simulated/mineral/gibtonite/proc/defuse()
 	if(stage == GIBTONITE_ACTIVE)
@@ -1126,7 +1121,7 @@
 		var/turf/bombturf = get_turf(src)
 		mineralAmt = 0
 		stage = GIBTONITE_DETONATE
-		explosion(bombturf,1,2,5, adminlog = 0)
+		explosion(bombturf, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 5, adminlog = TRUE, cause = src)
 	if(stage == GIBTONITE_STABLE) //Gibtonite deposit is now benign and extractable. Depending on how close you were to it blowing up before defusing, you get better quality ore.
 		var/obj/item/twohanded/required/gibtonite/gibtonite = new(src)
 		if(det_time <= 0)

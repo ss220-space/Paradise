@@ -123,7 +123,7 @@
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 	target.visible_message(span_danger("Молния ударяет в [target.declent_ru(ACCUSATIVE)]!"))
-	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
+	explosion(target, devastation_range = -1, heavy_impact_range = -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
 
 
 /obj/effect/temp_visual/thunderbolt_targeting
@@ -163,6 +163,6 @@
 		shake_camera(to_shake, 10, 1)
 
 	if(!harmless)
-		explosion(src, -1, -1, light_impact_range = 1, flame_range =  2, silent = TRUE)
+		explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flame_range =  2, silent = TRUE)
 	. = ..()
 	do_sparks(15, TRUE, src)

@@ -227,7 +227,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		walk_in_direction(dir)
 
 
-/obj/effect/immovablerod/ex_act(severity)
+/obj/effect/immovablerod/ex_act(severity, target)
 	return
 
 

@@ -19,7 +19,7 @@
 	var/airlock_wire = null
 
 
-/obj/item/assembly/signaler/Initialize()
+/obj/item/assembly/signaler/Initialize(mapload)
 	. = ..()
 	if(SSradio)
 		set_frequency(frequency)

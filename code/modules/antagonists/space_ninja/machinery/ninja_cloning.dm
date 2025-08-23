@@ -28,7 +28,7 @@
 	light_color = LIGHT_COLOR_BLUE
 	light_range = 5
 
-/obj/machinery/ninja_clonepod/Initialize()
+/obj/machinery/ninja_clonepod/Initialize(mapload)
 	. = ..()
 	records = list()
 	suits_data = list()
