@@ -98,8 +98,11 @@
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "eF" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	icon_state = "green"
+	},
 /area/template_noop)
 "eQ" = (
 /obj/structure/sign/botany,
@@ -117,8 +120,15 @@
 	},
 /area/maintenance/garden)
 "fL" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/machinery/power/apc{
+	pixel_y = -26
+	},
+/obj/structure/table/wood,
 /obj/effect/mapping_helpers/table_flip,
-/turf/template_noop,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "fO" = (
 /obj/item/plant_analyzer{
@@ -280,9 +290,15 @@
 	},
 /area/maintenance/garden)
 "nf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
 /obj/structure/table/wood,
 /obj/effect/mapping_helpers/table_flip,
-/turf/template_noop,
+/turf/simulated/floor/plating,
 /area/template_noop)
 "nk" = (
 /obj/effect/spawner/random_spawners/rodent,
@@ -507,15 +523,27 @@
 	icon_state = "yellowcorner"
 	},
 /area/maintenance/garden)
+"yg" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/grown/grapes,
+/obj/item/reagent_containers/food/snacks/grown/holymelon,
+/obj/item/reagent_containers/food/snacks/grown/cocoapod,
+/obj/item/reagent_containers/food/snacks/grown/chili,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "green"
+	},
+/area/template_noop)
 "yX" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "construction access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/barricade/wooden{
-	layer = 3.5
-	},
+/obj/structure/barricade/wooden/crude,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "zG" = (
@@ -651,6 +679,10 @@
 	tag = "icon-whitehall (WEST)"
 	},
 /area/maintenance/garden)
+"GU" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall,
+/area/template_noop)
 "Hd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/walllocker{
@@ -753,6 +785,17 @@
 /area/template_noop)
 "Lq" = (
 /turf/simulated/wall,
+/area/template_noop)
+"Lt" = (
+/obj/structure/grille/broken,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/barricade/wooden{
+	layer = 3.5
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
 /area/template_noop)
 "LV" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -863,6 +906,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
+"TV" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "Ul" = (
 /obj/structure/flora/ausbushes/ywflowers/hell,
 /turf/simulated/floor/grass,
@@ -1496,7 +1551,7 @@ qr
 qr
 qr
 qr
-qr
+hy
 qr
 qr
 qr
@@ -1527,13 +1582,13 @@ rB
 qr
 qr
 qr
-qr
-hy
-qr
+Qs
 qr
 qr
 qr
 qr
+qr
+KF
 qr
 "}
 (19,1,1) = {"
@@ -1559,13 +1614,13 @@ nM
 qr
 qr
 qr
-Qs
 qr
 qr
 qr
 qr
 qr
-KF
+qr
+iZ
 qr
 "}
 (20,1,1) = {"
@@ -1596,8 +1651,8 @@ qr
 qr
 qr
 qr
-qr
 eF
+PG
 qr
 "}
 (21,1,1) = {"
@@ -1724,7 +1779,7 @@ qr
 qr
 qr
 qr
-nf
+TV
 Lq
 qr
 "}
@@ -1756,8 +1811,8 @@ qr
 qr
 qr
 qr
-qr
-PG
+yg
+GU
 qr
 "}
 (26,1,1) = {"
@@ -1788,8 +1843,8 @@ qr
 qr
 qr
 qr
-qr
-PG
+eF
+Lt
 qr
 "}
 (27,1,1) = {"
@@ -1815,14 +1870,14 @@ nM
 qr
 qr
 qr
-Qs
+qr
 qr
 qr
 qr
 qr
 qr
 iZ
-Ze
+qr
 "}
 (28,1,1) = {"
 qr
@@ -1847,14 +1902,14 @@ nM
 Ze
 qr
 qr
-qr
-hS
-qr
+Qs
 qr
 qr
 qr
-hS
 qr
+qr
+iZ
+Ze
 "}
 (29,1,1) = {"
 qr
@@ -1880,12 +1935,12 @@ qr
 qr
 qr
 qr
+hS
 qr
 qr
 qr
 qr
-qr
-qr
+hS
 qr
 "}
 (30,1,1) = {"
