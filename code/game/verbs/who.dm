@@ -1,3 +1,4 @@
+#define DEFAULT_WHO_CELLS_PER_ROW 4
 
 /client/verb/who()
 	set name = "Список игроков"
@@ -7,34 +8,36 @@
 
 
 	var/list/Lines = list()
+	var/columns_per_row = DEFAULT_WHO_CELLS_PER_ROW
 
 	if(check_rights(R_ADMIN,0))
-		for(var/client/C in GLOB.clients)
-			if(C.holder && C.holder.big_brother && !check_rights(R_PERMISSIONS, 0)) // need PERMISSIONS to see BB
+		columns_per_row = 1
+		for(var/client/client in GLOB.clients)
+			if(client.holder && client.holder.big_brother && !check_rights(R_PERMISSIONS, 0)) // need PERMISSIONS to see BB
 				continue
 
-			var/entry = "\t[C.key]"
-			if(C.holder && C.holder.fakekey)
-				entry += " <i>(как [C.holder.fakekey])</i>"
-			entry += " - Играет за [C.mob.real_name]"
-			switch(C.mob.stat)
+			var/entry = "\t[client.key]"
+			if(client.holder && client.holder.fakekey)
+				entry += " <i>(как [client.holder.fakekey])</i>"
+			entry += " – Играет за [client.mob.real_name]"
+			switch(client.mob.stat)
 				if(UNCONSCIOUS)
-					entry += " - <font color='darkgray'><b>Без сознания</b></font>"
+					entry += " – <font color='darkgray'><b>Без сознания</b></font>"
 				if(DEAD)
-					if(isobserver(C.mob))
-						var/mob/dead/observer/O = C.mob
+					if(isobserver(client.mob))
+						var/mob/dead/observer/O = client.mob
 						if(O.started_as_observer)
-							entry += " - <font color='gray'>Наблюдает</font>"
+							entry += " – <font color='gray'>Наблюдает</font>"
 						else
-							entry += " - <font color='black'><b>МЕРТВ</b></font>"
-					else if(isnewplayer(C.mob))
-						entry += " - <font color='green'>Новый Игрок</font>"
+							entry += " – <font color='black'><b>МЕРТВ</b></font>"
+					else if(isnewplayer(client.mob))
+						entry += " – <font color='green'>Новый Игрок</font>"
 					else
-						entry += " - <font color='black'><b>МЕРТВ</b></font>"
+						entry += " – <font color='black'><b>МЕРТВ</b></font>"
 
 			var/age
-			if(isnum(C.player_age))
-				age = C.player_age
+			if(isnum(client.player_age))
+				age = client.player_age
 			else
 				age = 0
 
@@ -43,25 +46,33 @@
 			else if(age < 10)
 				age = "<font color='#ff8c00'><b>[age]</b></font>"
 
-			entry += " - [age]"
+			entry += " – [age]"
 
-			if(is_special_character(C.mob))
-				entry += " - <b><font color='red'>Антагонист</font></b>"
-			entry += " ([ADMIN_QUE(C.mob,"?")])"
-			entry += " ([round(C.avgping, 1)]ms)"
+			if(is_special_character(client.mob))
+				entry += " – <b><font color='red'>Антагонист</font></b>"
+			entry += " ([ADMIN_QUE(client.mob,"?")])"
+			entry += " ([round(client.avgping, 1)]ms)"
 			Lines += entry
 	else
-		for(var/client/C in GLOB.clients)
-			if(C.holder && C.holder.big_brother) // BB doesn't show up at all
+		for(var/client/client in GLOB.clients)
+			if(client.holder && client.holder.big_brother) // BB doesn't show up at all
 				continue
 
-			if(C.holder && C.holder.fakekey)
-				Lines += "[C.holder.fakekey] ([round(C.avgping, 1)]ms)"
+			if(client.holder && client.holder.fakekey)
+				Lines += "[client.holder.fakekey] ([round(client.avgping, 1)]ms)"
 			else
-				Lines += "[C.key] ([round(C.avgping, 1)]ms)"
+				Lines += "[client.key] ([round(client.avgping, 1)]ms)"
 
+	var/num_lines = 0
+	msg += "<table style='width: 100%; table-layout: fixed'><tr>"
 	for(var/line in sortList(Lines))
-		msg += "[line]<br>"
+		msg += "<td>[line]</td>"
+
+		num_lines += 1
+		if (num_lines == columns_per_row)
+			num_lines = 0
+			msg += "</tr><tr>"
+	msg += "</tr></table>"
 
 	msg += "<b>Всего Игроков: [length(Lines)]</b>"
 	to_chat(src, msg)
@@ -75,56 +86,56 @@
 	var/num_mods_online = 0
 	var/num_admins_online = 0
 	if(holder)
-		for(var/client/C in GLOB.admins)
-			if(check_rights(R_ADMIN, FALSE, C.mob))
+		for(var/client/client in GLOB.admins)
+			if(check_rights(R_ADMIN, FALSE, client.mob))
 
-				if(C?.holder?.fakekey && !check_rights(R_ADMIN, 0)) // Only admins can see stealthmins
+				if(client?.holder?.fakekey && !check_rights(R_ADMIN, 0)) // Only admins can see stealthmins
 					continue
 
-				if(C?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // Normal admins can't see Big Brother
+				if(client?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // Normal admins can't see Big Brother
 					continue
 
-				msg += "\[[C.holder.rank]\]  [C]"
+				msg += "\[[client.holder.rank]\]  [client]"
 
-				if(C.holder.fakekey)
-					msg += " <i>(как [C.holder.fakekey])</i>"
+				if(client.holder.fakekey)
+					msg += " <i>(как [client.holder.fakekey])</i>"
 
-				if(isobserver(C.mob))
+				if(isobserver(client.mob))
 					msg += " – Наблюдает"
-				else if(isnewplayer(C.mob))
+				else if(isnewplayer(client.mob))
 					msg += " – В Лобби"
 				else
 					msg += " – Играет"
 
-				if(C.is_afk())
+				if(client.is_afk())
 					msg += " (Отошёл)"
 				msg += "<br>"
 
 				num_admins_online++
 
-			else if(check_rights(R_MENTOR|R_MOD, 0, C.mob))
-				modmsg += "\[[C.holder.rank]\]  [C]"
+			else if(check_rights(R_MENTOR|R_MOD, 0, client.mob))
+				modmsg += "\[[client.holder.rank]\]  [client]"
 
-				if(isobserver(C.mob))
+				if(isobserver(client.mob))
 					modmsg += " – Наблюдает"
-				else if(isnewplayer(C.mob))
+				else if(isnewplayer(client.mob))
 					modmsg += " – В Лобби"
 				else
 					modmsg += " – Играет"
 
-				if(C.is_afk())
+				if(client.is_afk())
 					modmsg += " (Отошёл)"
 				modmsg += "<br>"
 				num_mods_online++
 	else
-		for(var/client/C in GLOB.admins)
+		for(var/client/client in GLOB.admins)
 
-			if(check_rights(R_ADMIN, 0, C.mob))
-				if(!C.holder.fakekey)
-					msg += "\[[C.holder.rank]\]  [C]<br>"
+			if(check_rights(R_ADMIN, 0, client.mob))
+				if(!client.holder.fakekey)
+					msg += "\[[client.holder.rank]\]  [client]<br>"
 					num_admins_online++
-			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
-				modmsg += "\[[C.holder.rank]\]  [C]<br>"
+			else if(check_rights(R_MOD|R_MENTOR, 0, client.mob) && !check_rights(R_ADMIN, 0, client.mob))
+				modmsg += "\[[client.holder.rank]\]  [client]<br>"
 				num_mods_online++
 
 	var/noadmins_info = span_notice(span_small("<br>Даже если никого из менторов и администраторов нет в сети, вы всё равно можете оставить запрос на помощь. Все обращения к менторам и администраторам будут перенаправлены в наш Discord-сервер!"))
@@ -140,3 +151,5 @@
 	msg = replacetext(msg, "\[Контрибьютор\]",	"\[<font color='#2ecc71'>Контрибьютор</font>\]")
 	msg = replacetext(msg, "\[Ведущий Разработчик\]",	"\[<font color='#2ecc71'>Ведущий Разработчик</font>\]")
 	to_chat(src, msg)
+
+#undef DEFAULT_WHO_CELLS_PER_ROW
