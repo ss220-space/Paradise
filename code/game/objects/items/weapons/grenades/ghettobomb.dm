@@ -2,7 +2,8 @@
 
 /obj/item/grenade/iedcasing
 	name = "improvised firebomb"
-	desc = "A weak, improvised incendiary device."
+	desc = "Самопальное взрывное устройство малой мощности."
+	gender = FEMALE
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "improvised_grenade"
@@ -15,6 +16,16 @@
 	det_time = 5 SECONDS
 	display_timer = 0
 	var/list/times
+
+/obj/item/grenade/iedcasing/get_ru_names()
+	return list(
+		NOMINATIVE = "самодельная взрывчатка",
+		GENITIVE = "самодельной взрывчатки",
+		DATIVE = "самодельной взрывчатке",
+		ACCUSATIVE = "самодельную взрывчатку",
+		INSTRUMENTAL = "самодельной взрывчаткой",
+		PREPOSITIONAL = "самодельной взрывчатке"
+	)
 
 /obj/item/grenade/iedcasing/New()
 	..()
