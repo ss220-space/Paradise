@@ -750,11 +750,11 @@
 /obj/item/storage/AllowDrop()
 	return TRUE
 
-/obj/item/storage/ex_act(severity)
+/obj/item/storage/ex_act(severity, target)
 	for(var/atom/A in contents)
-		A.ex_act(severity)
+		A.ex_act(severity, target)
 		CHECK_TICK
-	..()
+	return ..()
 
 /obj/item/storage/proc/can_items_stack(obj/item/item_1, obj/item/item_2)
 	if(!item_1 || !item_2)

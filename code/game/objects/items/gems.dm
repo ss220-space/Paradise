@@ -28,7 +28,7 @@
 	///Can you make simple jewelry with it?
 	var/simple = FALSE
 
-/obj/item/gem/Initialize()
+/obj/item/gem/Initialize(mapload)
 	. = ..()
 	shine_overlay = image(icon = 'icons/obj/lavaland/gems.dmi',icon_state = "shine")
 	add_overlay(shine_overlay)
@@ -226,7 +226,7 @@
 		INSTRUMENTAL = "морозным бриллиантом",
 		PREPOSITIONAL = "морозном бриллианте"
 	)
-	
+
 
 /obj/item/gem/fdiamond/examine(mob/user)
 	. = ..()
@@ -275,7 +275,7 @@
 		ACCUSATIVE = "стабилизированный бароксильдиум",
 		INSTRUMENTAL = "стабилизированным бароксильдиумом",
 		PREPOSITIONAL = "стабилизированном бароксильдиуме"
-	) 
+	)
 
 //hierophant gem
 /obj/item/gem/purple
@@ -302,7 +302,7 @@
 		PREPOSITIONAL = "уплотненном дилитиуме"
 	)
 
-/obj/item/gem/purple/Initialize()
+/obj/item/gem/purple/Initialize(mapload)
 	. = ..()
 	internal = new /obj/item/gps/internal/purple(src)
 

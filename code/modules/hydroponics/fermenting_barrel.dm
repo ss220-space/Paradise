@@ -22,8 +22,8 @@
 	)
 
 /obj/structure/fermenting_barrel/Initialize(mapload)
-	create_reagents(300) //Bluespace beakers, but without the portability or efficiency in circuits.
 	. = ..()
+	create_reagents(300) //Bluespace beakers, but without the portability or efficiency in circuits.
 
 /obj/structure/fermenting_barrel/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)

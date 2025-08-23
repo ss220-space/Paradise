@@ -160,8 +160,8 @@
 		return
 	visible_message(span_warning("[moving_atom] triggered the [bicon(src)] [src]!"))
 	triggered = TRUE
-	do_sparks(3, 1, src)
-	explosion(src, 1, 0, 0, 0)
+	do_sparks(3, TRUE, src)
+	explosion(src, devastation_range = 1, heavy_impact_range = 0, light_impact_range = 0, flash_range = 0)
 	qdel(src)
 
 

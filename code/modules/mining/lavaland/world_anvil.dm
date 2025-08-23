@@ -28,7 +28,7 @@
 	desc = "An ancient anvil rests at this location."
 	invisibility = 100
 
-/obj/structure/world_anvil/Initialize()
+/obj/structure/world_anvil/Initialize(mapload)
 	. = ..()
 	internal = new /obj/item/gps/internal/world_anvil(src)
 

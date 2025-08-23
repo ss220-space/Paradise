@@ -330,12 +330,13 @@
 	var/consumption_delay = 3 SECONDS
 	var/list/victim_targets = list()
 
-/obj/machinery/gibber/autogibber/New()
-	..()
-	spawn(5)
-		var/turf/T = get_step(src, acceptdir)
-		if(istype(T))
-			lturf = T
+/obj/machinery/gibber/autogibber/Initialize(mapload)
+	. = ..()
+
+	var/turf/turf = get_step(src, acceptdir)
+	if(istype(turf))
+		lturf = turf
+
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/gibber(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

@@ -19,8 +19,8 @@
 		PREPOSITIONAL = "сигнальной ракете контрактника"
 	)
 
-/obj/effect/contractor_flare/New()
-	..()
+/obj/effect/contractor_flare/Initialize(mapload)
+	. = ..()
 	playsound(loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
 	set_light(8, l_color = "#FFD165")
 
@@ -58,6 +58,12 @@
 	. = ..()
 	if(!GLOB.prisoner_belongings)
 		GLOB.prisoner_belongings = src
+
+
+/obj/structure/closet/secure_closet/contractor/Destroy()
+	if(GLOB.prisoner_belongings == src)
+		GLOB.prisoner_belongings = null
+	return ..()
 
 /obj/structure/closet/secure_closet/contractor/allowed(mob/M)
 	return FALSE
