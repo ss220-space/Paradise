@@ -123,199 +123,32 @@
 
 
 // MARK: Crafting mechanic
-// TODO обещаю отрефакторить попозже c:
 
 /obj/item/craft_blueprints/proc/try_craft_item(mob/user)
 	var/list/surroundings = get_surroundings(user)
-	if(!check_tools(user, surroundings))
+	var/list/empty = list()
+	if(!check_tools(user, tools, surroundings))
 		balloon_alert(user, "не хватает инструментов")
 		return
-	if(!check_contents(surroundings))
+	if(!check_contents(components, empty, empty, surroundings))
 		balloon_alert(user, "не хватает компонентов")
 		return
 	to_chat(user, span_notice("Вы начинаете крафт предмета \"[crafting_name]\"..."))
 	if(!do_after(user, craft_duration, src))
 		return
 	surroundings = get_surroundings(user)
-	if(!check_tools(user, surroundings))
+	if(!check_tools(user, tools, surroundings))
 		balloon_alert(user, "не хватает инструментов")
 		return
-	if(!check_contents(surroundings))
+	if(!check_contents(components, empty, empty, surroundings))
 		balloon_alert(user, "не хватает компонентов")
 		return
-	requirements_deletion(user)
+	requirements_deletion(components, empty, empty, user)
 	var/item = new crafting_item(loc)
 	to_chat(user, span_notice("Вы заканчиваете крафт предмета \"[crafting_name]\"..."))
 	var/mob/living/human = user
 	if(istype(human))
 		human.put_in_any_hand_if_possible(item, drop_on_fail = TRUE)
-
-
-/obj/item/craft_blueprints/proc/check_contents(list/contents)
-	contents = contents["other"]
-	main_loop:
-		for(var/A in components)
-			var/needed_amount = components[A]
-			for(var/B in contents)
-				if(ispath(B, A))
-					if(contents[B] >= components[A])
-						continue main_loop
-					else
-						needed_amount -= contents[B]
-						if(needed_amount <= 0)
-							continue main_loop
-						else
-							continue
-			return 0
-	return 1
-
-/obj/item/craft_blueprints/proc/get_environment(mob/user)
-	. = list()
-	. += user.r_hand
-	. += user.l_hand
-	if(!isturf(user.loc))
-		return
-	var/list/L = block(get_step(user, SOUTHWEST), get_step(user, NORTHEAST))
-	for(var/A in L)
-		var/turf/T = A
-		if(T.Adjacent(user))
-			for(var/B in T)
-				var/atom/movable/AM = B
-				if(AM.flags & HOLOGRAM)
-					continue
-				. += AM
-	for(var/slot in list(ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKET_LEFT))
-		. += user.get_item_by_slot(slot)
-
-
-/obj/item/craft_blueprints/proc/get_surroundings(mob/user)
-	. = list()
-	.["other"] = list() //paths go in here
-	.["toolsother"] = list() // items go in here
-	for(var/obj/item/I in get_environment(user))
-		if(I.flags & HOLOGRAM)
-			continue
-		if(isstack(I))
-			var/obj/item/stack/S = I
-			.["other"][I.type] += S.amount
-		else
-			if(istype(I, /obj/item/reagent_containers))
-				var/obj/item/reagent_containers/RC = I
-				if(RC.is_drainable())
-					for(var/datum/reagent/A in RC.reagents.reagent_list)
-						.["other"][A.type] += A.volume
-			.["other"][I.type] += 1
-		.["toolsother"][I] += 1
-
-/obj/item/craft_blueprints/proc/check_tools(mob/user, list/contents)
-	if(!tools.len) //does not run if no tools are needed
-		return TRUE
-	var/list/possible_tools = list()
-	var/list/tools_used = list()
-	for(var/obj/item/I in user.contents) //searchs the inventory of the mob
-		if(isstorage(I))
-			for(var/obj/item/SI in I.contents)
-				if(SI.tool_behaviour) //filters for tool behaviours
-					possible_tools += SI
-		if(I.tool_behaviour)
-			possible_tools += I
-
-	possible_tools |= contents["toolsother"] // this add contents to possible_tools
-	main_loop: // checks if all tools found are usable with the recipe
-		for(var/A in tools)
-			for(var/obj/item/I in possible_tools)
-				if(A == I.tool_behaviour)
-					tools_used += I
-					continue main_loop
-			return FALSE
-	for(var/obj/item/T in tools_used)
-		if(!T.tool_start_check(null, user, 0)) //Check if all our tools are valid for their use
-			return FALSE
-	return TRUE
-
-
-/obj/item/craft_blueprints/proc/requirements_deletion(mob/user)
-	var/list/surroundings = get_environment(user)
-	var/list/parts_used = list()
-	var/list/reagent_containers_for_deletion = list()
-	var/list/item_stacks_for_deletion = list()
-	for(var/thing in components)
-		var/needed_amount = components[thing]
-		if(ispath(thing, /datum/reagent))
-			var/datum/reagent/part_reagent = locate(thing) in parts_used
-			if(!part_reagent)
-				part_reagent = new thing()
-				parts_used += part_reagent
-
-			for(var/obj/item/reagent_containers/container in surroundings)
-				var/datum/reagent/contained_reagent = container.reagents.get_reagent(thing)
-				if(!contained_reagent)
-					continue
-
-				var/extracted_amount = min(contained_reagent.volume, needed_amount)
-				if(reagent_containers_for_deletion[container] == null)
-					reagent_containers_for_deletion[container] = list()
-
-				reagent_containers_for_deletion[container][contained_reagent] = extracted_amount
-
-				part_reagent.volume += extracted_amount
-				part_reagent.data += contained_reagent.data
-				needed_amount -= extracted_amount
-				if(needed_amount <= 0)
-					break
-
-			if(needed_amount > 0)
-				stack_trace("While crafting [crafting_name] with blueprint [name], some of [thing] went missing (still need [needed_amount])!")
-				continue // ignore the error, and continue crafting for player's benefit
-
-		else if(ispath(thing, /obj/item/stack))
-			var/obj/item/stack/part_stack = locate(thing) in parts_used
-			if(!part_stack)
-				part_stack = new thing()
-				part_stack.amount = 0
-				parts_used += part_stack
-
-			for(var/obj/item/stack/item_stack in (surroundings - item_stacks_for_deletion))
-				if(!istype(item_stack, thing))
-					continue
-
-				var/extracted_amount = min(item_stack.amount, needed_amount)
-				item_stacks_for_deletion[item_stack] = extracted_amount
-				part_stack.amount += extracted_amount
-				needed_amount -= extracted_amount
-				if(needed_amount <= 0)
-					break
-
-			if(needed_amount > 0)
-				stack_trace("While crafting [crafting_name] with blueprint [name], some of [thing] went missing (still need [needed_amount])!")
-				continue
-
-		else
-			for(var/i in 1 to needed_amount)
-				var/atom/movable/part_atom = locate(thing) in (surroundings - parts_used)
-				if(!part_atom)
-					stack_trace("While crafting [crafting_name] with blueprint [name], the [thing] went missing!")
-					continue
-				parts_used += part_atom
-
-	for(var/obj/item/reagent_containers/container_to_clear as anything in reagent_containers_for_deletion)
-		for(var/datum/reagent/reagent_to_delete as anything in reagent_containers_for_deletion[container_to_clear])
-			var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][reagent_to_delete]
-
-			if(amount_to_delete < reagent_to_delete.volume)
-				reagent_to_delete.volume -= amount_to_delete
-			else
-				container_to_clear.reagents.reagent_list -= reagent_to_delete
-			container_to_clear.reagents.conditional_update(container_to_clear)
-			container_to_clear.update_icon()
-
-	for(var/obj/item/stack/stack_to_delete as anything in item_stacks_for_deletion)
-		var/amount_to_delete = item_stacks_for_deletion[stack_to_delete]
-		stack_to_delete.use(amount_to_delete)
-
-	// Sort out the used parts into the ones we need to return (denoted by components),
-	// and the ones we need to delete (the rest of components)
-	QDEL_LIST(parts_used)
 
 
 // MARK: Specific blueprints
