@@ -232,6 +232,8 @@ SUBSYSTEM_DEF(title)
 /datum/title_screen/proc/update_lateinfo(client/viewer)
 	UNTIL(viewer.prefs)
 
+	if(viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU)
+		viewer << output("", "title_browser:set_pixelated")
 	viewer.prefs.update_preview_icon()
 	viewer << browse_rsc(viewer.prefs.preview_icon_front, "previewicon.png")
 
@@ -401,6 +403,11 @@ SUBSYSTEM_DEF(title)
 				}
 			}
 
+			function set_pixelated() {
+				document.body.classList.add('pixelated');
+				document.documentElement.classList.add('pixelated');
+			}
+
 			const charPreview = document.getElementById("preview");
 
 			function update_preview() {
@@ -423,8 +430,6 @@ SUBSYSTEM_DEF(title)
 
 					servers.push(server);
 				}
-
-				console.log(servers)
 
 				const lobbyBox = document.querySelector('.lobby-flex-box');
 				lobbyBox.innerHTML = '';
@@ -483,7 +488,9 @@ SUBSYSTEM_DEF(title)
 				}
 			}
 
+			let pixel_check;
 			function set_theme(which) {
+				pixel_check = document.body.className.indexOf("pixelated") != -1
 				if (which == 'light') {
 					document.body.className = '';
 					document.documentElement.className = 'light';
@@ -500,6 +507,7 @@ SUBSYSTEM_DEF(title)
 					document.body.className = 'syndicate';
 					document.documentElement.className = 'syndicate';
 				}
+				if (pixel_check) set_pixelated();
 			}
 
 			/* Return focus to Byond after click */
