@@ -3,7 +3,7 @@
 "cR" = (/obj/effect/spawner/random_spawners/fungus_70,/turf/simulated/wall,/area/template_noop)
 "dM" = (/turf/simulated/floor/plating,/area/template_noop)
 "dQ" = (/obj/structure/grille/broken,/obj/effect/spawner/lootdrop/maintenance,/obj/effect/landmark/tiles/burnturf,/turf/simulated/floor/plating/airless,/area/template_noop)
-"ee" = (/obj/effect/spawner/window,/obj/structure/barricade/wooden/crude,/turf/simulated/floor/plating,/area/template_noop)
+"ee" = (/obj/effect/spawner/window,/obj/structure/barricade/wooden/crude{layer = 4},/turf/simulated/floor/plating,/area/template_noop)
 "gF" = (/obj/structure/holosign/barrier/atmos,/turf/simulated/floor/plating,/area/template_noop)
 "iM" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 4},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 6},/turf/template_noop,/area/template_noop)
 "iT" = (/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 1},/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{dir = 8},/turf/simulated/wall/rust,/area/template_noop)
