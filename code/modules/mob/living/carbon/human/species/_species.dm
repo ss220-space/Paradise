@@ -710,7 +710,7 @@
 
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
 	if(!moved) //they got pushed into a dense object
-		if(prob(10)) // Chance to knockdown on wall hit
+		if(prob(75)) // Chance to knockdown on wall hit
 			add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
 			target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] толкает [target.declent_ru(ACCUSATIVE)]"), \
 									span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
@@ -722,7 +722,7 @@
 				target.Stun(0.5 SECONDS)
 	else
 		var/obj/item/I = target.get_active_hand()
-		if(I && prob(10)) // Chance to disarm target item
+		if(I && prob(40)) // Chance to disarm target item
 			target.drop_from_active_hand()
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		else
