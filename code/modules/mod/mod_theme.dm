@@ -621,3 +621,893 @@
 /obj/item/mod/armor/mod_theme_research
 	armor = list(MELEE = 40, BULLET = 40, LASER = 15, ENERGY = 15, BOMB = 100, BIO = 80, RAD = 75, FIRE = 75, ACID = 100)
 
+/datum/mod_theme/security
+	name = "security"
+	desc = "A Shellguard Munitions security suit, offering quicker speed at the cost of carrying capacity."
+	extended_desc = "A Shellguard Munitions classic, this model of MODsuit has been designed for quick response to \
+		hostile situations. These suits have been layered with plating worthy enough for fires or corrosive environments, \
+		and come with composite cushioning and an advanced honeycomb structure underneath the hull to ensure protection \
+		against broken bones or possible avulsions. The suit's legs have been given more rugged actuators, \
+		allowing the suit to do more work in carrying the weight. However, the systems used in these suits are more than \
+		a few years out of date, leading to an overall lower capacity for modules."
+	default_skin = "security"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_security
+	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
+	slowdown_inactive = 1
+	slowdown_active = 0.45
+	ui_theme = "security"
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee/baton,
+		/obj/item/gun,
+	)
+	skins = list(
+		"security" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
+				UNSEALED_COVER = HEADCOVERSMOUTH,
+				SEALED_COVER = HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_security
+	armor = list(MELEE = 25, BULLET = 20, LASER = 25, ENERGY = 5, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
+
+/datum/mod_theme/safeguard_mk_one
+	name = "safeguard mk1"
+	desc = "A Shellguard Munitions old security suit, offering greater speed and fire protection than the standard security model."
+	extended_desc = "A Shellguard Munitions advanced security suit, and their old popular model. This variant has \
+		ditched the presence of a reinforced glass visor entirely, replacing it with a 'blast visor' utilizing a \
+		small camera on the left side to display the outside to the user. The plating on the suit has been \
+		dramatically increased, especially in the pauldrons, giving the wearer an imposing silhouette. \
+		Heatsinks line the sides of the suit, and greater technology has been used in insulating it against \
+		both corrosive environments and sudden impacts to the user's joints."
+	default_skin = "safeguard-ward"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_safeguard_one
+	resistance_flags = FIRE_PROOF
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	slowdown_inactive = 0.9
+	slowdown_active = 0.3
+	ui_theme = "security"
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee/baton,
+		/obj/item/gun,
+	)
+	skins = list(
+		"safeguard-ward" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES,
+				SEALED_INVISIBILITY = HIDEHAIR,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_safeguard_one
+	armor = list(MELEE = 25, BULLET = 25, LASER = 30, ENERGY = 25, BOMB = 20, BIO = 100, RAD = 20, FIRE = 100, ACID = 100)
+
+/datum/mod_theme/safeguard_mk_two
+	name = "safeguard mk2"
+	desc = "A Shellguard Munitions advanced security suit, offering greater speed and fire protection than the standard security model."
+	extended_desc = "A Shellguard Munitions advanced security suit, and their latest model. This variant has \
+		ditched the presence of a reinforced glass visor entirely, replacing it with a 'blast visor' utilizing a \
+		small camera on the left side to display the outside to the user. The plating on the suit has been \
+		dramatically increased, especially in the pauldrons, giving the wearer an imposing silhouette. \
+		Heatsinks line the sides of the suit, and greater technology has been used in insulating it against \
+		both corrosive environments and sudden impacts to the user's joints."
+	default_skin = "safeguard"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_safeguard_two
+	resistance_flags = FIRE_PROOF
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	slowdown_inactive = 0.75
+	slowdown_active = 0.25
+	ui_theme = "security"
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee/baton,
+		/obj/item/gun,
+	)
+	skins = list(
+		"safeguard" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES,
+				SEALED_INVISIBILITY = HIDEHAIR,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_safeguard_two
+	armor = list(MELEE = 35, BULLET = 30, LASER = 35, ENERGY = 20, BOMB = 40, BIO = 100, RAD = 25, FIRE = 100, ACID = 100)
+
+/datum/mod_theme/security_medical
+	name = "security medical"
+	desc = "The heavy suit of the joint project of DeForest Medical Corporation and Shellguard Munitions makes it easier for you to save people even on the battlefield."
+	extended_desc = "The heavy suit of the joint project of DeForest Medical Corporation and Shellguard Munitions makes it easier for you to save people even on the battlefield."
+	default_skin = "security-med"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_secmed
+	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
+	slowdown_inactive = 0.75
+	slowdown_active = 0.4
+	ui_theme = "security"
+	allowed_suit_storage = list(
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/flash,
+		/obj/item/healthanalyzer,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/stack/medical,
+		/obj/item/sensor_device,
+		/obj/item/storage/pill_bottle,
+		/obj/item/storage/bag/chemistry,
+		/obj/item/storage/bag/bio,
+	)
+	skins = list(
+		"security-med" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES,
+				SEALED_INVISIBILITY = HIDEHAIR,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_secmed
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
+
+
+/datum/mod_theme/magnate
+	name = "magnate"
+	desc = "A fancy, very protective suit for Nanotrasen's captains. Shock, fire and acid-proof while also having a large capacity and high speed."
+	extended_desc = "They say it costs four hundred thousand credits to run this MODsuit... for twelve seconds. \
+		The Magnate suit is designed for protection, comfort, and luxury for Nanotrasen Captains. \
+		The onboard air filters have been preprogrammed with an additional five hundred different fragrances that can \
+		be pumped into the helmet, all of highly-endangered flowers. A bespoke Tralex mechanical clock has been placed \
+		in the wrist, and the Magnate package comes with carbon-fibre cufflinks to wear underneath. \
+		My God, it even has a granite trim. The double-classified paint that's been painstakingly applied to the hull \
+		provides protection against shock, fire, and the strongest acids. Onboard systems employ meta-positronic learning \
+		and bluespace processing to allow for a wide array of onboard modules to be supported, and only the best actuators \
+		have been employed for speed. The resemblance to a Gorlex Marauder helmet is *purely* coincidental."
+	default_skin = "magnate"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_magnate
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|ACID_PROOF // Theft targets should be hard to destroy
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
+	slowdown_inactive = 0.75
+	slowdown_active = 0.25
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee,
+		/obj/item/gun,
+	)
+	skins = list(
+		"magnate" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_magnate
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 15, BIO = 100, RAD = 50, FIRE = 100, ACID = 100) //On one hand this is quite strong, on the other hand energy hole / antagonists need to steal, and thus by extention use this.
+
+/datum/mod_theme/praetorian
+	name = "praetorian"
+	desc = "A prototype of the Magnate-class suit issued to station Blueshields, still boasting exceptional protection worthy of an honor guard."
+	extended_desc = "A prototype of the Magnate-class suit issued for use with the station Blueshields, \
+		it boasts most of the exceptional protection of it's successor, while sacrificing some of the module capacity.\
+		Most of the protection of the Magnate, with none of the comfort! The visor uses blue-light to obscure \
+		the face of it's wearer, adding to it's imposing figure. Compared to the sleek and luxurious design \
+		that came after it, this suit does nothing to hide it's purpose, the reinforced plating layered \
+		over the insulated inner armor granting it protection against corrosive liquids, explosive blasts, \
+		fires, electrical shocks, and contempt from the rest of the crew."
+	default_skin = "praetorian"
+	armor_type_1 = /obj/item/mod/armor/praetorian
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
+	slowdown_inactive = 0.6
+	slowdown_active = 0.25
+	allowed_suit_storage = list(
+		/obj/item/gun,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/melee/baton,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flashlight,
+		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/kitchen/knife/combat
+	)
+	skins = list(
+		"praetorian" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/praetorian
+	armor = list(MELEE = 25, BULLET = 25, LASER = 25, ENERGY = 15, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 100) //Equivalent armor to Security MODsuits
+
+/datum/mod_theme/cosmohonk
+	name = "cosmohonk"
+	desc = "A suit by Honk Ltd. Protects against low humor environments. Most of the tech went to lower the power cost."
+	extended_desc = "The Cosmohonk MODsuit was originally designed for interstellar comedy in low-humor environments. \
+		It utilizes tungsten electro-ceramic casing and chromium bipolars, coated in zirconium-boron paint underneath \
+		a dermatiraelian subspace alloy. Despite the glaringly obvious optronic vacuum drive pedals, \
+		this particular model does not employ manganese bipolar capacitor cleaners, thank the Honkmother. \
+		All you know is that this suit is mysteriously power-efficient, and far too colorful for the Mime to steal."
+	default_skin = "cosmohonk"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_cosmohonk
+	charge_drain = DEFAULT_CHARGE_DRAIN * 0.25
+	slowdown_inactive = 1.75
+	slowdown_active = 1.25
+	allowed_suit_storage = list(
+		/obj/item/bikehorn,
+		/obj/item/grown/bananapeel,
+		/obj/item/reagent_containers/spray/waterflower,
+		/obj/item/instrument,
+	)
+	skins = list(
+		"cosmohonk" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+
+				SEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES|HIDEHAIR,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_cosmohonk
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, BIO = 100, RAD = 0, FIRE = 75, ACID = 50)
+
+/datum/mod_theme/syndicate
+	name = "syndicate"
+	desc = "A suit designed by Gorlex Marauders, offering armor ruled illegal in most of Spinward Stellar."
+	extended_desc = "An advanced combat suit adorned in a sinister crimson red color scheme, produced and manufactured \
+		for special mercenary operations. The build is a streamlined layering consisting of shaped Plasteel, \
+		and composite ceramic, while the under suit is lined with a lightweight Kevlar and durathread hybrid weave \
+		to provide ample protection to the user where the plating doesn't, with an illegal onboard electric powered \
+		ablative shield module to provide resistance against conventional energy firearms. \
+		A small tag hangs off of it reading; 'Property of the Gorlex Marauders, with assistance from Cybersun Industries. \
+		All rights reserved, tampering with suit will void warranty."
+	default_skin = "syndicate"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_syndicate
+
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	slowdown_inactive = 1
+	slowdown_active = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
+	ui_theme = "syndicate"
+	inbuilt_modules = list(/obj/item/mod/module/armor_booster)
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee/baton,
+		/obj/item/melee/energy/sword,
+		/obj/item/shield/energy,
+		/obj/item/gun,
+	)
+	skins = list(
+		"syndicate" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+		"honkerative" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_syndicate
+	armor = list(MELEE = 20, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 100)
+	//melee = 45 with booster
+	//bullet = 50
+	//laser = 20 with booster
+	//energy = //20 with booster, energy has always been an armor hole.
+/datum/mod_theme/elite
+	name = "elite"
+	desc = "An elite suit upgraded by Cybersun Industries, offering upgraded armor values."
+	extended_desc = "An evolution of the syndicate suit, featuring a bulkier build and a matte black color scheme, \
+		this suit is only produced for high ranking Syndicate officers and elite strike teams. \
+		It comes built with a secondary layering of ceramic and Kevlar into the plating providing it with \
+		exceptionally better protection along with fire and acid proofing. A small tag hangs off of it reading; \
+		'Property of the Gorlex Marauders, with assistance from Cybersun Industries. \
+		All rights reserved, tampering with suit will void life expectancy.'"
+	default_skin = "elite"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_elite
+	resistance_flags = FIRE_PROOF|ACID_PROOF
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	slowdown_inactive = 1
+	slowdown_active = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
+	ui_theme = "syndicate"
+	inbuilt_modules = list(/obj/item/mod/module/armor_booster)
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee/baton,
+		/obj/item/melee/energy/sword,
+		/obj/item/shield/energy,
+		/obj/item/gun,
+	)
+	skins = list(
+		"elite" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_elite
+	armor = list(MELEE = 50, BULLET = 45, LASER = 40, ENERGY = 10, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	//melee = 50 // 75 with booster
+	//bullet = 45 // 75 same as
+	//laser = 40 //55 same as
+	//energy = 15 // 25
+
+/datum/mod_theme/prototype
+	name = "prototype"
+	desc = "A prototype modular suit powered by locomotives. While it is comfortable and has a big capacity, it remains very bulky and power-inefficient."
+	extended_desc = "This is a prototype powered exoskeleton, a design not seen in hundreds of years, the first \
+		post-void war era modular suit to ever be safely utilized by an operator. This ancient clunker is still functional, \
+		though it's missing several modern-day luxuries from updated Cybersun Industries designs. \
+		Primarily, the suit's myoelectric suit layer is entirely non-existant, and the servos do very little to \
+		help distribute the weight evenly across the wearer's body, making it slow and bulky to move in. \
+		The internal heads-up display is rendered in nearly unreadable cyan, as the visor suggests, \
+		leaving the user unable to see long distances. However, the way the helmet retracts is pretty cool."
+	default_skin = "prototype"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_prototype
+	resistance_flags = FIRE_PROOF
+	siemens_coefficient = 0
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
+	charge_drain = DEFAULT_CHARGE_DRAIN * 2
+	slowdown_inactive = 2
+	slowdown_active = 0.95
+	ui_theme = "hackerman"
+	inbuilt_modules = list(/obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype)
+	allowed_suit_storage = list(
+		/obj/item/analyzer,
+		/obj/item/t_scanner,
+		/obj/item/rpd,
+		/obj/item/rcd,
+	)
+	skins = list(
+		"prototype" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES,
+				SEALED_INVISIBILITY = HIDEHAIR,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_prototype
+	armor = list(MELEE = 20, BULLET = 5, LASER = 10, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+
+/datum/mod_theme/responsory
+	name = "responsory"
+	desc = "A high-speed rescue suit by Nanotrasen, intended for its' emergency response teams."
+	extended_desc = "A streamlined suit of Nanotrasen design, these sleek black suits are only worn by \
+		elite emergency response personnel to help save the day. While the slim and nimble design of the suit \
+		cuts the ceramics and ablatives in it down, dropping the protection, \
+		it keeps the wearer safe from the harsh void of space while sacrificing no speed whatsoever. \
+		While wearing it you feel an extreme deference to darkness. "
+	default_skin = "responsory"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_responsory
+
+	resistance_flags = FIRE_PROOF
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	slowdown_inactive = 0.5
+	slowdown_active = 0
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee/baton,
+		/obj/item/gun,
+	)
+	skins = list(
+		"responsory" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+		"inquisitory" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES,
+				SEALED_INVISIBILITY = HIDEHAIR,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_responsory //This has no slowdown active, and no variation between levels. I am ASSUMING this will be gamma only.
+	armor = list(MELEE = 40, BULLET = 25, LASER = 30, ENERGY = 20, BOMB = 25, BIO = 100, RAD = 100, FIRE = 200, ACID = 200)
+
+/datum/mod_theme/apocryphal
+	name = "apocryphal"
+	desc = "A high-tech, only technically legal, armored suit created by a collaboration effort between Nanotrasen and Shellguard Munitions."
+	extended_desc = "A bulky and only legal by technicality suit, this ominous black and red MODsuit is only worn by \
+		Nanotrasen Black Ops teams. If you can see this suit, you fucked up. A collaborative joint effort between \
+		Shellguard and Nanotrasen, the construction and modules gives the user robust protection against \
+		anything that can be thrown at it, along with acute combat awareness tools for it's wearer. \
+		Whether the wearer uses it or not is up to them. \
+		There seems to be a little inscription on the wrist that reads; \'squiddie', d'aww."
+	default_skin = "apocryphal"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_apocryphal
+	resistance_flags = FIRE_PROOF|ACID_PROOF
+	ui_theme = "malfunction"
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 10
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee/baton,
+		/obj/item/melee/energy/sword,
+		/obj/item/shield/energy,
+		/obj/item/gun,
+	)
+	skins = list(
+		"apocryphal" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+
+				SEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES|HIDEHAIR,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_apocryphal
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+
+/datum/mod_theme/corporate
+	name = "corporate"
+	desc = "A fancy, high-tech suit for Nanotrasen's high ranking officers."
+	extended_desc = "An even more costly version of the Magnate model, the corporate suit is a thermally insulated, \
+		anti-corrosion coated suit for high-ranking CentCom Officers, deploying pristine protective armor and \
+		advanced actuators, feeling practically weightless when turned on. Scraping the paint of this suit is \
+		counted as a war-crime and reason for immediate execution in over fifty Nanotrasen space stations. \
+		The resemblance to a Gorlex Marauder helmet is *purely* coincidental."
+	default_skin = "corporate"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_corporate
+	resistance_flags = FIRE_PROOF|ACID_PROOF
+
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	slowdown_inactive = 0.5
+	slowdown_active = 0
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee/baton,
+		/obj/item/gun,
+	)
+	skins = list(
+		"corporate" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_corporate
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+
+/datum/mod_theme/debug
+	name = "debug"
+	desc = "Strangely nostalgic."
+	extended_desc = "An advanced suit that has dual ion engines powerful enough to grant a humanoid flight. \
+		Contains an internal self-recharging high-current capacitor for short, powerful bo- \
+		Oh wait, this is not actually a flight suit. Fuck."
+	default_skin = "debug"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_debug
+	resistance_flags = FIRE_PROOF|ACID_PROOF
+
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	complexity_max = 50
+	siemens_coefficient = 0
+	slowdown_inactive = 0.5
+	slowdown_active = 0
+	allowed_suit_storage = list(
+		/obj/item/gun,
+	)
+	skins = list(
+		"debug" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME,
+				UNSEALED_COVER = HEADCOVERSMOUTH,
+				SEALED_COVER = HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_debug
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+
+
+/datum/mod_theme/administrative
+	name = "administrative"
+	desc = "A suit made of adminium. Who comes up with these stupid mineral names?"
+	extended_desc = "Yeah, okay, I guess you can call that an event. What I consider an event is something actually \
+		fun and engaging for the players- instead, most were sitting out, dead or gibbed, while the lucky few got to \
+		have all the fun. If this continues to be a pattern for your \"events\" (Admin Abuse) \
+		there will be an admin complaint. You have been warned."
+	default_skin = "debug"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_administrative
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
+
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	complexity_max = 1000
+	charge_drain = DEFAULT_CHARGE_DRAIN * 0
+	siemens_coefficient = 0
+	slowdown_inactive = 0
+	slowdown_active = 0
+	allowed_suit_storage = list(
+		/obj/item/gun,
+	)
+	skins = list(
+		"debug" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_administrative //considering this should not be used, it's getting just DS armor, not infinity in everything.
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
