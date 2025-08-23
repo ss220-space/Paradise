@@ -314,7 +314,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(MARKINGS_LAYER)
 	var/body_marking = m_styles["body"]
 	var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
-	if(body_marking_style.visible_over_uniform || body_marking_style.name != "None")
+	if(body_marking_style.visible_over_uniform && istype(w_uniform, /obj/item/clothing/under))
 		update_inv_w_uniform()
 
 
