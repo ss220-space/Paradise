@@ -72,6 +72,5 @@
 	max_integrity = 700
 	explosion_block = 100
 
-/obj/structure/alien/resin/wall/empress_cocon/ex_act(severity)
+/obj/structure/alien/resin/wall/empress_cocon/ex_act(severity, target)
 	return
-

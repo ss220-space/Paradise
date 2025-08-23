@@ -231,13 +231,13 @@
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 
-/obj/structure/morgue/ex_act(severity)
+/obj/structure/morgue/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			ex_act_effect(severity)
-		if(2)
+		if(EXPLODE_HEAVY)
 			ex_act_effect(severity, 50)
-		if(3)
+		if(EXPLODE_LIGHT)
 			ex_act_effect(severity, 5)
 
 
@@ -665,13 +665,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		new /obj/effect/decal/cleanable/ash(drop_loc)
 
 
-/obj/machinery/crematorium/ex_act(severity)
+/obj/machinery/crematorium/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			ex_act_effect(severity)
-		if(2)
+		if(EXPLODE_HEAVY)
 			ex_act_effect(severity, 50)
-		if(3)
+		if(EXPLODE_LIGHT)
 			ex_act_effect(severity, 5)
 
 

@@ -536,7 +536,7 @@
 	/// The color of the wrapper overlay.
 	var/wrapper_color = null
 	/// The icon state of the wrapper overlay.
-	var/wrapper_state = "pillbottle_wrap"
+	var/wrapper_state = "pill_bottle_wrap"
 
 /obj/item/storage/pill_bottle/get_ru_names()
 	return list(
