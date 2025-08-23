@@ -2407,13 +2407,12 @@
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
-		var/mob/M = locateUID(href_list["adminmoreinfo"])
-
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
+		var/mob/subject = locateUID(href_list["adminmoreinfo"])
+		if(!ismob(subject))
+			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
-		admin_mob_info(M)
+		admin_mob_info(subject)
 
 	else if(href_list["adminspawncookie"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
