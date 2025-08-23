@@ -116,6 +116,10 @@
 	icon_state = "yellow"
 	},
 /area/maintenance/garden)
+"fL" = (
+/obj/effect/mapping_helpers/table_flip,
+/turf/template_noop,
+/area/template_noop)
 "fO" = (
 /obj/item/plant_analyzer{
 	pixel_x = 7;
@@ -1619,7 +1623,7 @@ qr
 qr
 qr
 qr
-nf
+fL
 Lq
 qr
 "}
