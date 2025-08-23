@@ -99,7 +99,7 @@
 
 	ru_names = list(
 		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name] модели",
-		GENITIVE = ru_names[GENITIVE] + " [control.theme.name] модели"",
+		GENITIVE = ru_names[GENITIVE] + " [control.theme.name] модели",
 		DATIVE = ru_names[DATIVE] + " [control.theme.name] модели",
 		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name] модели",
 		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name] модели",

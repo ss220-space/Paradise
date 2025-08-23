@@ -75,7 +75,7 @@
 		И сейчас этот кристалл, внешне похожий на человечское сердце, будет использован для питания модульного костюма. "
 	icon_state = "mod-core-standard"
 	/// Installed cell.
-	var/obj/item/stock_parts/power_store/cell
+	var/obj/item/stock_parts/cell/cell
 
 /obj/item/mod/core/standard/get_ru_names()
 	return list(
