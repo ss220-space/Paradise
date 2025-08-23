@@ -1389,3 +1389,137 @@
 	new suit(loc)
 	qdel(src)
 
+
+/obj/item/clothing/under/tchaikowsky
+	species_restricted = list(SPECIES_HUMAN)
+
+/obj/item/clothing/under/tchaikowsky/sechighwaist
+	name = "security high waist female uniform"
+	desc = "Женская униформа Службы Безопасности с завышенной талией."
+	icon_state = "high_waist_sec"
+	item_state = "high_waist_sec"
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
+	can_adjust = TRUE
+
+/obj/item/clothing/under/tchaikowsky/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа с завышенной талией",
+		GENITIVE = "униформы с завышенной талией",
+		DATIVE = "униформе с завышенной талией",
+		ACCUSATIVE = "униформу с завышенной талией",
+		INSTRUMENTAL = "униформой с завышенной талией",
+		PREPOSITIONAL = "униформе с завышенной талией"
+	)
+
+/obj/item/clothing/under/tchaikowsky/dress
+	name = "formal blue dress"
+	desc = "Синее платье, которое обычно носят секретарши важных представителей корпораций."
+	icon_state = "formal_dress_blue"
+	item_state = "formal_dress_blue"
+	can_adjust = TRUE
+
+/obj/item/clothing/under/tchaikowsky/dress/get_ru_names()
+	return list(
+		NOMINATIVE = "синее платье",
+		GENITIVE = "синего платья",
+		DATIVE = "синему платью",
+		ACCUSATIVE = "синее платье",
+		INSTRUMENTAL = "синим платьем",
+		PREPOSITIONAL = "синем платье"
+	)
+
+/obj/item/clothing/under/tchaikowsky/dress/black
+	name = "formal black dress"
+	desc = "Чёрное платье, которое обычно носят секретарши важных представителей корпораций."
+	icon_state = "formal_dress_black"
+	item_state = "formal_dress_black"
+	can_adjust = TRUE
+
+/obj/item/clothing/under/tchaikowsky/dress/black/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрное платье",
+		GENITIVE = "чёрного платья",
+		DATIVE = "чёрному платью",
+		ACCUSATIVE = "чёрное платье",
+		INSTRUMENTAL = "чёрным платьем",
+		PREPOSITIONAL = "чёрном платье"
+	)
+
+/obj/item/clothing/under/tchaikowsky/highwaistpants
+	name = "hight waist pants"
+	desc = "Женские штаны с завышенной талией. Идут в комплекте с чёрной рубашкой!"
+	icon_state = "high_waist_pants"
+	item_state = "high_waist_pants"
+
+/obj/item/clothing/under/tchaikowsky/high_waist_pants/get_ru_names()
+	return list(
+		NOMINATIVE = "штаны с завышенной талией",
+		GENITIVE = "штанов с завышенной талией",
+		DATIVE = "штанам с завышенной талией",
+		ACCUSATIVE = "штаны с завышенной талией	",
+		INSTRUMENTAL = "штанами с завышенной талией",
+		PREPOSITIONAL = "штанах с завышенной талией"
+	)
+
+/obj/item/clothing/under/tchaikowsky/evening_dress
+	name = "evening dress (black)"
+	desc = "Платье для официальных мероприятий."
+	icon_state = "evening_dress_black"
+	item_state = "evening_dress_black"
+
+/obj/item/clothing/under/tchaikowsky/evening_dress/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрное платье",
+		GENITIVE = "чёрного платья",
+		DATIVE = "чёрному платью",
+		ACCUSATIVE = "чёрное платье",
+		INSTRUMENTAL = "чёрным платьем",
+		PREPOSITIONAL = "чёрном платье"
+	)
+
+/obj/item/clothing/under/tchaikowsky/evening_dress/cyan
+	name = "evening dress (cyan)"
+	icon_state = "evening_dress_cyan"
+	item_state = "evening_dress_cyan"
+
+/obj/item/clothing/under/tchaikowsky/evening_dress/cyan/get_ru_names()
+	return list(
+		NOMINATIVE = "сине-зелёное платье",
+		GENITIVE = "сине-зелёного платья",
+		DATIVE = "сине-зелёному платью",
+		ACCUSATIVE = "сине-зелёное платье",
+		INSTRUMENTAL = "сине-зелёным платьем",
+		PREPOSITIONAL = "сине-зелёном платье"
+	)
+
+/obj/item/clothing/under/tchaikowsky/baseball
+	name = "baseball uniform (blue)"
+	desc = "Бейсбольная униформа синего цвета. Мерч бейсбольной команды \"НаноТрейзен Лейкерс\"."
+	icon_state = "baseball_uniform_blue"
+	item_state = "baseball_uniform_blue"
+
+/obj/item/clothing/under/tchaikowsky/baseball/get_ru_names()
+	return list(
+		NOMINATIVE = "синяя бейсбольная униформа",
+		GENITIVE = "синей бейсбольной униформы",
+		DATIVE = "синей бейсбольной униформе",
+		ACCUSATIVE = "синюю бейсбольную униформу",
+		INSTRUMENTAL = "синей бейсбольной униформой",
+		PREPOSITIONAL = "синей бейсбольной униформе"
+	)
+
+/obj/item/clothing/under/tchaikowsky/baseball/brown
+	name = "baseball uniform (brown)"
+	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды \"Киберсан Инд\"."
+	icon_state = "baseball_uniform_brown"
+	item_state = "baseball_uniform_brown"
+
+/obj/item/clothing/under/tchaikowsky/baseball/brown/get_ru_names()
+	return list(
+		NOMINATIVE = "коричневая бейсбольная униформа",
+		GENITIVE = "коричневой бейсбольной униформы",
+		DATIVE = "коричневой бейсбольной униформе",
+		ACCUSATIVE = "коричневую бейсбольную униформу",
+		INSTRUMENTAL = "коричневой бейсбольной униформой",
+		PREPOSITIONAL = "коричневой бейсбольной униформе"
+	)
