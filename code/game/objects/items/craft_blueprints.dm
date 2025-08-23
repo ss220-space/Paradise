@@ -72,10 +72,13 @@
 	icon_state = place_icon
 	pixel_x = 0
 	pixel_y = 0
+	layer = LOW_ITEM_LAYER
+
 
 /obj/item/craft_blueprints/update_icon(updates)
 	. = ..()
 	icon_state = placed_on_table ? place_icon : initial(icon_state)
+
 
 /obj/item/craft_blueprints/attack_hand(mob/user, pickupfireoverride)
 	if(placed_on_table)
@@ -83,6 +86,39 @@
 		// TODO use logic here
 		return FALSE
 	. = ..()
+
+
+/obj/item/craft_blueprints/attackby(obj/item/item, mob/user, params)
+	if(!placed_on_table)
+		return ..()
+	if(user.a_intent == INTENT_HARM || (item.item_flags & ABSTRACT) || item.is_robot_module())
+		return ..()
+	if(!user.transfer_item_to_loc(item, loc))
+		return ..()
+	. = ATTACK_CHAIN_BLOCKED_ALL
+	add_fingerprint(user)
+	var/list/click_params = params2list(params)
+	if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+		return .
+	//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
+	item.pixel_x = clamp(text2num(click_params["icon-x"]) - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
+	item.pixel_y = clamp(text2num(click_params["icon-y"]) - (ICON_SIZE_Y / 2), - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
+
+
+/obj/item/craft_blueprints/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(over_object != usr || !ishuman(usr) || !usr.Adjacent(src))
+		return ..()
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		to_chat(usr, span_warning("Вы не можете этого сделать сейчас!"))
+		return FALSE
+	var/mob/living/human = usr
+	to_chat(usr, span_notice("Вы сворачиваете [declent_ru(NOMINATIVE)] со стола."))
+	placed_on_table = FALSE
+	layer = initial(layer)
+	update_icon()
+	human.put_in_any_hand_if_possible(src, drop_on_fail = TRUE)
+	return FALSE
+
 
 
 
