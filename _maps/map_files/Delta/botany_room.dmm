@@ -164,6 +164,7 @@
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "hy" = (
@@ -334,6 +335,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/biogenerator,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/wood,
 /area/maintenance/garden)
 "qr" = (
@@ -609,6 +611,7 @@
 /obj/structure/closet/crate/engineering,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "Ek" = (
@@ -633,6 +636,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5";
 	tag = "icon-wood-broken5"
