@@ -20,7 +20,8 @@ GLOBAL_VAR(current_date_string)
 	/// Next time a print can be made
 	var/next_print = 0
 
-/obj/machinery/computer/account_database/New()
+/obj/machinery/computer/account_database/Initialize(mapload)
+	. = ..()
 	// Why the fuck are these not in a subsystem? They are global variables for fucks sake
 	// If someone ever makes a map without one of these consoles, the entire eco AND date system breaks
 	// This upsets me a lot
@@ -30,7 +31,6 @@ GLOBAL_VAR(current_date_string)
 		GLOB.current_date_string = "[time2text(world.timeofday, "DD Month")], [GLOB.game_year]"
 
 	machine_id = "[station_name()] Acc. DB #[GLOB.num_financial_terminals++]"
-	..()
 
 /obj/machinery/computer/account_database/proc/accounting_letterhead(report_name)
 	var/datum/ui_login/L = ui_login_get()

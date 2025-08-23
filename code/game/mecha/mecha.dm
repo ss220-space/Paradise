@@ -131,7 +131,7 @@
 
 	var/ratvarized = FALSE
 
-/obj/mecha/Initialize()
+/obj/mecha/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_WEATHER_IMMUNE, INNATE_TRAIT)
 	icon_state += "-open"
@@ -768,7 +768,7 @@
 	if(prob(deflect_chance))
 		severity++
 		log_message("Armor saved, changing severity to [severity]")
-	..()
+	. = ..()
 	severity++
 	for(var/X in equipment)
 		var/obj/item/mecha_parts/mecha_equipment/ME = X

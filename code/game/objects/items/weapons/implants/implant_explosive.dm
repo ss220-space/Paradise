@@ -47,7 +47,7 @@
 	if(QDELETED(imp_in))
 		return
 
-	explosion(src, heavy, medium, weak, weak, flame_range = weak, cause = src)
+	explosion(src, devastation_range = heavy, heavy_impact_range = medium, light_impact_range = weak, flame_range = weak, cause = src)
 
 	// In case something happens to the implantee between now and the self-destruct
 	var/current_location = get_turf(imp_in)

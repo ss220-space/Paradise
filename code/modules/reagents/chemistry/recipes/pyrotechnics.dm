@@ -180,7 +180,7 @@
 	var/ex_heavy = round(created_volume / 42)
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
-	explosion(T, ex_severe, ex_heavy,ex_light, ex_flash, 1, cause = src)
+	explosion(T, devastation_range = ex_severe, heavy_impact_range = ex_heavy, light_impact_range = ex_light, flash_range = ex_flash, adminlog = TRUE, cause = src)
 	// If this black powder is in a decal, remove the decal, because it just exploded
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
 		qdel(holder.my_atom)
@@ -364,7 +364,7 @@
 
 /datum/chemical_reaction/azide/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location, 0, 1, 4, cause = src)
+	explosion(location, devastation_range = 0, heavy_impact_range = 1, light_impact_range = 4, cause = src)
 
 /datum/chemical_reaction/firefighting_foam
 	name = "firefighting_foam"
@@ -386,7 +386,7 @@
 
 /datum/chemical_reaction/clf3_firefighting/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location, -1, 0, 2, cause = src)
+	explosion(location, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 
 /datum/chemical_reaction/shock_explosion
 	name = "shock_explosion"

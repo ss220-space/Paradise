@@ -2421,6 +2421,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/melee/energy/sword,
 					/obj/item/melee/energy/sword,											
 					/obj/item/melee/energy/sword,
+					/obj/item/storage/belt/military/traitor,
+					/obj/item/storage/toolbox/syndisuper,
 					)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate

@@ -649,7 +649,7 @@
 /atom/proc/relaymove()
 	return
 
-/atom/proc/ex_act()
+/atom/proc/ex_act(severity, target)
 	return
 
 /**
