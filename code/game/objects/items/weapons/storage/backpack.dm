@@ -121,8 +121,8 @@
 	item_state = "holdingsat"
 
 /obj/item/storage/backpack/holding/singularity_act(current_size)
-	var/dist = max((current_size - 2),1)
-	explosion(src.loc,(dist),(dist*2),(dist*4), cause = "into singularity")
+	var/dist = max((current_size - 2), 1)
+	explosion(loc, devastation_range = (dist), heavy_impact_range = (dist*2), light_impact_range = (dist*4), cause = "into singularity")
 
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"

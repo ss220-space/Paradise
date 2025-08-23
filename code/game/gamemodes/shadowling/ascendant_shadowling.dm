@@ -51,7 +51,7 @@
 /mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE //copypasta from carp code
 
-/mob/living/simple_animal/ascendant_shadowling/ex_act(severity)
+/mob/living/simple_animal/ascendant_shadowling/ex_act(severity, target)
 	return //You think an ascendant can be hurt by bombs? HA
 
 /mob/living/simple_animal/ascendant_shadowling/singularity_act()

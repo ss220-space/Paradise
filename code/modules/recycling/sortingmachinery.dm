@@ -34,11 +34,11 @@
 		disposal_holder.destinationTag = sortTag
 
 
-/obj/structure/bigDelivery/ex_act(severity)
+/obj/structure/bigDelivery/ex_act(severity, target)
 	for(var/atom/movable/thing as anything in contents)
 		thing.ex_act()
 		CHECK_TICK
-	..()
+	return ..()
 
 
 /obj/structure/bigDelivery/examine(mob/user)
@@ -167,11 +167,11 @@
 		disposal_holder.destinationTag = sortTag
 
 
-/obj/item/smallDelivery/ex_act(severity)
+/obj/item/smallDelivery/ex_act(severity, target)
 	for(var/atom/movable/thing as anything in contents)
 		thing.ex_act()
 		CHECK_TICK
-	..()
+	return ..()
 
 
 /obj/item/smallDelivery/emp_act(severity)

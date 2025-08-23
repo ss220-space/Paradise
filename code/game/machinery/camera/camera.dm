@@ -102,10 +102,10 @@
 
 	cancelCameraAlarm()
 
-/obj/machinery/camera/ex_act(severity)
+/obj/machinery/camera/ex_act(severity, target)
 	if(invuln)
 		return
-	..()
+	return ..()
 
 /obj/machinery/camera/proc/setViewRange(num = 7)
 	view_range = num
@@ -485,7 +485,7 @@
 	use_power = NO_POWER_USE
 	interact_offline = TRUE
 
-/obj/machinery/camera/mortar/Initialize()
+/obj/machinery/camera/mortar/Initialize(mapload)
 	c_tag = "Para-Cam ([x]):([y])"
 	. = ..()
 	QDEL_IN(src, 3 MINUTES)

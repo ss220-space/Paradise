@@ -5,19 +5,20 @@
 // will always spawn at the items location.
 /////////////////////////////////////////////
 
-/proc/do_sparks(n, c, source)
-	// n - number of sparks
-	// c - cardinals, bool, do the sparks only move in cardinal directions?
-	// source - source of the sparks.
-
+/**
+ * Arguments:
+ * - number: number of sparks.
+ * - cardinal_only: cardinals, bool, do the sparks only move in cardinal directions?
+ * - source: source of the sparks.
+ */
+/proc/do_sparks(number, cardinal_only, source)
 	var/datum/effect_system/spark_spread/sparks = new
-	sparks.set_up(n, c, source)
+	sparks.set_up(number, cardinal_only, source)
 	sparks.autocleanup = TRUE
 	INVOKE_ASYNC(sparks, TYPE_PROC_REF(/datum/effect_system, start))
 
 /obj/effect/particle_effect/sparks
 	name = "sparks"
-	desc = "it's a spark what do you need to know?"
 	icon_state = "sparks"
 	anchored = TRUE
 	var/hotspottemp = 1000

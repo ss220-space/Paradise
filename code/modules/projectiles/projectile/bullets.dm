@@ -260,11 +260,11 @@
 
 /obj/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, 0, 0, 2, cause = src)
+	explosion(target, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 
 /obj/projectile/bullet/pellet/overload/on_range()
-	explosion(src, 0, 0, 2, cause = src)
-	do_sparks(3, 3, src)
+	explosion(src, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
+	do_sparks(3, TRUE, src)
 	..()
 
 /obj/projectile/bullet/midbullet

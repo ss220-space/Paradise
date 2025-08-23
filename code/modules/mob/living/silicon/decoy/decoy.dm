@@ -45,5 +45,5 @@
 		raise_alert()
 	. = ..()
 
-/mob/living/silicon/decoy/syndicate/depot/ex_act(severity)
+/mob/living/silicon/decoy/syndicate/depot/ex_act(severity, target)
 	adjustBruteLoss(250)
