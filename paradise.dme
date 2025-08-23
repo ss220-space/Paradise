@@ -78,7 +78,6 @@
 #include "code\__DEFINES\flamer_fire.dm"
 #include "code\__DEFINES\fonts.dm"
 #include "code\__DEFINES\footstep.dm"
-#include "code\__DEFINES\game.dm"
 #include "code\__DEFINES\gamemode.dm"
 #include "code\__DEFINES\genetics.dm"
 #include "code\__DEFINES\gravity.dm"

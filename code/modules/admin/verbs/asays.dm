@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(devsays)
 	set desc = "View Devsays from the current round."
 	set category = STATPANEL_ADMIN_ADMIN
 
-	if(!check_rights(R_VIEWRUNTIMES | R_ADMIN))
+	if(!check_rights(R_VIEWRUNTIMES | R_ADMIN | R_DEV_TEAM))
 		return
 
 	display_says(GLOB.devsays, "devsay")

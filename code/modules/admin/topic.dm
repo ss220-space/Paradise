@@ -1624,7 +1624,7 @@
 		usr.client.view_msays()
 
 	else if(href_list["devsays"])
-		if(!check_rights(R_ADMIN | R_VIEWRUNTIMES))
+		if(!check_rights(R_VIEWRUNTIMES | R_ADMIN | R_DEV_TEAM))
 			return
 
 		usr.client.view_devsays()

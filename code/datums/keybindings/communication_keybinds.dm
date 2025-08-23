@@ -77,4 +77,4 @@
 /datum/keybinding/client/communication/devsay
 	name = DEV_CHANNEL
 	keys = list("F2")
-	required_rights = R_VIEWRUNTIMES | R_ADMIN
+	required_rights = R_VIEWRUNTIMES | R_ADMIN | R_DEV_TEAM
