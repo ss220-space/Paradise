@@ -331,9 +331,9 @@
 			if(suppressed)
 				status += " перевязан[genderize_ru(bodypart.gender, "", "а", "о", "ы")] чем-то окровавленным"
 			else if(high_bleeding)
-				status += " обильно кровоточ[pluralize_ru(gender, "ит", "ат")]"
+				status += " обильно кровоточ[pluralize_ru(bodypart.gender, "ит", "ат")]"
 			else
-				status += " кровоточ[pluralize_ru(gender, "ит", "ат")]"
+				status += " кровоточ[pluralize_ru(bodypart.gender, "ит", "ат")]"
 		else
 			if(bodypart.bleedsuppress)
 				if(brutedamage > 0 && burndamage > 0)

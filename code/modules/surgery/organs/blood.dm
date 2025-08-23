@@ -82,11 +82,6 @@
 	switch(blood_volume)
 		if(BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE)
 			apply_damage(BLOOD_OKAY_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
-			if(prob(5))
-				var/symptom = pick("слабость",
-					"лёгкое головокружение",
-					"небольшую тошноту")
-				to_chat(src, span_warning("Вы чувствуете [symptom]."))
 
 		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE)
 			apply_damage(BLOOD_OKAY_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)

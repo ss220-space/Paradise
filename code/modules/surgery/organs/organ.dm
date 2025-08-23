@@ -184,8 +184,6 @@
 		rejuvenate()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	//TODO остановление кровотечения с помощью бинтов
-
 	return ..()
 
 
