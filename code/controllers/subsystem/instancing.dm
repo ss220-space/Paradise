@@ -151,7 +151,7 @@ SUBSYSTEM_DEF(instancing)
 	kvp_map["playercount"] = length(GLOB.clients) // Server client count (used for status info)
 	kvp_map["playerlist"] = json_encode(list()) // Server client list. Used for dupe login checks. This gets filled in later
 	kvp_map["heartbeat"] = SQLtime() // SQL timestamp for heartbeat purposes. Any server without a heartbeat in the last 60 seconds can be considered dead
-	kvp_map["round_time"] = worldtime2text() // Server time for lobby display
+	kvp_map["round_time"] = "00:00:00" // Server time for lobby display
 	// Also note for above. You may say "But AA you dont need to JSON encode it, just use "\[]"."
 	// Well to that I say, no. This is meant to be JSON regardless, and it should represent that. This proc is ran once during world/New()
 	// An extra nanosecond of load will make zero difference.
