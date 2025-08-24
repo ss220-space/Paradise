@@ -289,7 +289,3 @@ GLOBAL_LIST_EMPTY(preferences_info)
 
 /datum/preference_info/modsuit_activation_method/get_preference_toggle()
 	return GLOB.preference_toggles[/datum/preference_toggle/modsuit_activation_method]
-
-/datum/preference_info/modsuit_activation_method/activate(mob/target)
-
-/datum/preference_info/modsuit_activation_method/deactivate(mob/target)
