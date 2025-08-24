@@ -47,9 +47,9 @@
 			clicked_turf = clicked_turf.ChangeTurf(objholder)
 			clicked_turf.setDir(BM.build_dir)
 		else if(!isnull(objholder))
-			var/obj/object = new objholder (get_turf(object))
-			object.setDir(BM.build_dir)
-			log_admin("Build Mode: [key_name(user)] modified [object]'s [COORD(object)] dir to [BM.build_dir]")
+			var/obj/clicked_object = new objholder (get_turf(object))
+			clicked_object.setDir(BM.build_dir)
+			log_admin("Build Mode: [key_name(user)] modified [clicked_object]'s [COORD(clicked_object)] dir to [BM.build_dir]")
 		else
 			to_chat(user, span_warning("Select object type first."))
 	else if(right_click)

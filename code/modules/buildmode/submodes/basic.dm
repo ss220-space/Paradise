@@ -47,7 +47,7 @@
 	else if(istype(object, /turf) && ctrl_click && left_click)
 		var/obj/structure/window/reinforced/window
 		if(BM.build_dir in GLOB.diagonals)
-			window = new /obj/structure/window/reinforced/fulltile(get_turf(object))
+			window = new /obj/structure/window/full/reinforced(get_turf(object))
 		else
 			window = new /obj/structure/window/reinforced(get_turf(object))
 			window.setDir(BM.build_dir)
