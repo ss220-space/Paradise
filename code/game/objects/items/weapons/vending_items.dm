@@ -164,6 +164,11 @@
 /obj/item/vending_refill/security
 	icon_state = "refill_sec"
 
+/obj/item/vending_refill/gun_mods
+	machine_name = "ModTech"
+	icon_state = "refill_mods"
+	item_state = "refill_mods"
+
 /obj/item/vending_refill/sovietsoda
 	machine_name = "BODA"
 	icon_state = "refill_cola"
@@ -207,7 +212,7 @@
 	var/list/datum/money_account/accounts_weights = list()
 	var/sum_of_weigths = 0
 
-/obj/item/vending_refill/custom/Initialize()
+/obj/item/vending_refill/custom/Initialize(mapload)
 	linked_accounts = list(GLOB.station_account)
 	accounts_weights = list(100)
 	sum_of_weigths = 100

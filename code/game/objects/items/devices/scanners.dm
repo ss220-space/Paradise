@@ -162,7 +162,7 @@ BODY SCANNERS
 	origin_tech = "combat=3;magnets=5;biotech=5"
 
 
-/obj/item/t_scanner/security/Initialize()
+/obj/item/t_scanner/security/Initialize(mapload)
 	. = ..()
 	//Sets up a spark system
 	spark_system = new /datum/effect_system/spark_spread
@@ -268,14 +268,6 @@ BODY SCANNERS
 /obj/item/healthanalyzer
 	name = "health analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
-	ru_names = list(
-		NOMINATIVE = "анализатор здоровья",
-		GENITIVE = "анализатора здоровья",
-		DATIVE = "анализатору здоровья",
-		ACCUSATIVE = "анализатор здоровья",
-		INSTRUMENTAL = "анализатором здоровья",
-		PREPOSITIONAL = "анализаторе здоровья"
-	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
@@ -304,6 +296,16 @@ BODY SCANNERS
 	var/datum/money_account/connected_acc = null
 
 	var/mob/scanned = null
+
+/obj/item/healthanalyzer/get_ru_names()
+	return list(
+		NOMINATIVE = "анализатор здоровья",
+		GENITIVE = "анализатора здоровья",
+		DATIVE = "анализатору здоровья",
+		ACCUSATIVE = "анализатор здоровья",
+		INSTRUMENTAL = "анализатором здоровья",
+		PREPOSITIONAL = "анализаторе здоровья"
+	)
 
 /obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	add_fingerprint(user)
@@ -811,10 +813,10 @@ BODY SCANNERS
 
 	var/mob/living/carbon/human/H = M
 	var/fake_oxy = max(rand(1,40), H.getOxyLoss(), (300 - (H.getToxLoss() + H.getFireLoss() + H.getBruteLoss())))
-	var/OX = H.getOxyLoss() > 50 	? 	"<b>[H.getOxyLoss()]</b>" 		: H.getOxyLoss()
-	var/TX = H.getToxLoss() > 50 	? 	"<b>[H.getToxLoss()]</b>" 		: H.getToxLoss()
-	var/BU = H.getFireLoss() > 50 	? 	"<b>[H.getFireLoss()]</b>" 		: H.getFireLoss()
-	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
+	var/OX = H.getOxyLoss() > 50	?	"<b>[H.getOxyLoss()]</b>"		: H.getOxyLoss()
+	var/TX = H.getToxLoss() > 50	?	"<b>[H.getToxLoss()]</b>"		: H.getToxLoss()
+	var/BU = H.getFireLoss() > 50	?	"<b>[H.getFireLoss()]</b>"		: H.getFireLoss()
+	var/BR = H.getBruteLoss() > 50	?	"<b>[H.getBruteLoss()]</b>"	: H.getBruteLoss()
 	var/DNR = !H.ghost_can_reenter()
 	if(H.stat == DEAD)
 		if(DNR)
@@ -823,7 +825,7 @@ BODY SCANNERS
 			scan_data += "Состояние: [span_danger("Смерть")]"
 	else //Если живой или отключка
 		if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
-			OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
+			OX = fake_oxy > 50			?	"<b>[fake_oxy]</b>"			: fake_oxy
 			scan_data += "Состояние: [span_danger("Смерть")]"
 		else
 			scan_data += "Состояние: [H.stat > 1 ? span_danger("Смерть") : (H.health > 0 ? "[H.health]%" : span_danger("[H.health]%"))]"
@@ -1045,7 +1047,14 @@ BODY SCANNERS
 /obj/item/healthupgrade
 	name = "health analyzer upgrade"
 	desc = "Модуль, устанавливаемый на анализатор здоровья для расширения его функционала."
-	ru_names = list(
+	icon = 'icons/obj/device.dmi'
+	icon_state = "healthupgrade"
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "magnets=2;biotech=2"
+	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/item/healthupgrade/get_ru_names()
+	return list(
 		NOMINATIVE = "модуль улучшения анализатора здоровья",
 		GENITIVE = "модуля улучшения анализатора здоровья",
 		DATIVE = "модулю улучшения анализатора здоровья",
@@ -1053,16 +1062,17 @@ BODY SCANNERS
 		INSTRUMENTAL = "модулем улучшения анализатора здоровья",
 		PREPOSITIONAL = "модуле улучшения анализатора здоровья"
 	)
-	icon = 'icons/obj/device.dmi'
-	icon_state = "healthupgrade"
-	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "magnets=2;biotech=2"
-	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/healthanalyzer/gem_analyzer
 	name = "eye of health"
 	desc = "Необычный самоцвет в форме сердца. Позволяет пользователю ощущать раны и болезни других существ на метафизическом уровне. Магия, не иначе."
-	ru_names = list(
+	icon = 'icons/obj/device.dmi'
+	icon_state = "gem_analyzer"
+	item_state = "gem_analyzer"
+	origin_tech = null
+
+/obj/item/healthanalyzer/gem_analyzer/get_ru_names()
+	return list(
 		NOMINATIVE = "глаз здоровья",
 		GENITIVE = "глаза здоровья",
 		DATIVE = "глазу здоровья",
@@ -1070,10 +1080,6 @@ BODY SCANNERS
 		INSTRUMENTAL = "глазом здоровья",
 		PREPOSITIONAL = "глазе здоровья"
 	)
-	icon = 'icons/obj/device.dmi'
-	icon_state = "gem_analyzer"
-	item_state = "gem_analyzer"
-	origin_tech = null
 
 /obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL

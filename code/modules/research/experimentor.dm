@@ -91,8 +91,8 @@
 				critical_items += I
 
 
-/obj/machinery/r_n_d/experimentor/New()
-	..()
+/obj/machinery/r_n_d/experimentor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/experimentor(src)
 	component_parts += new /obj/item/stock_parts/scanning_module(src)
@@ -100,11 +100,16 @@
 	component_parts += new /obj/item/stock_parts/manipulator(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
-	spawn(1)
-		trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
-		trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
 	SetTypeReactions()
 	RefreshParts()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/r_n_d/experimentor/LateInitialize(mapload)
+	. = ..()
+	// GLOB.mob_living_list gets populated in /mob/Initialize()
+	// so we need to delay searching for those until after the Initialize()
+	trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
+	trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
 
 /obj/machinery/r_n_d/experimentor/RefreshParts()
 	badThingCoeff = initial(badThingCoeff)
@@ -463,7 +468,7 @@
 				FB.fire()
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message(span_danger("[src] malfunctions, melting [exp_on] and releasing a burst of flame!"))
-			explosion(src.loc, -1, 0, 0, 0, 0, flame_range = 2, cause = "Experimentor Fire")
+			explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 0, adminlog = FALSE, ignorecap = FALSE, flame_range = 2, cause = "Experimentor Fire")
 			investigate_log("Experimentor started a fire.", INVESTIGATE_EXPERIMENTOR)
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))

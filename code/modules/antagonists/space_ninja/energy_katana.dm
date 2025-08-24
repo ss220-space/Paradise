@@ -44,6 +44,15 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
+/obj/item/melee/energy_katana/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 1.75, \
+		afterswing_slowdown = 0, \
+		swing_sound = "blade_scifi_swing" \
+	)
+
 /obj/item/melee/energy_katana/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(user && user.a_intent == INTENT_DISARM && !target.density)

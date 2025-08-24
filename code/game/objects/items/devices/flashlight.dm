@@ -24,7 +24,7 @@
 	light_power = 1
 	light_on = FALSE
 
-/obj/item/flashlight/Initialize()
+/obj/item/flashlight/Initialize(mapload)
 	. = ..()
 	if(icon_state == "[initial(icon_state)]-on")
 		on = TRUE
@@ -126,7 +126,15 @@
 /obj/item/flashlight/seclite
 	name = "seclite"
 	desc = "Надежный фонарик, используемый службой безопасности."
-	ru_names = list(
+	icon_state = "seclite"
+	item_state = "seclite"
+	belt_icon = "seclite"
+	force = 9 // Not as good as a stun baton.
+	light_range = 5 // A little better than the standard flashlight.
+	hitsound = 'sound/weapons/genhit1.ogg'
+
+/obj/item/flashlight/seclite/get_ru_names()
+	return list(
 		NOMINATIVE = "фонарик",
 		GENITIVE = "фонарика",
 		DATIVE = "фонарику",
@@ -134,12 +142,6 @@
 		INSTRUMENTAL = "фонариком",
 		PREPOSITIONAL = "фонарике"
 	)
-	icon_state = "seclite"
-	item_state = "seclite"
-	belt_icon = "seclite"
-	force = 9 // Not as good as a stun baton.
-	light_range = 5 // A little better than the standard flashlight.
-	hitsound = 'sound/weapons/genhit1.ogg'
 
 /obj/item/flashlight/sectaclight
 	name = "security tactical flashlight"
@@ -204,7 +206,7 @@
 	var/fuel_upp = 1000
 
 
-/obj/item/flashlight/flare/Initialize()
+/obj/item/flashlight/flare/Initialize(mapload)
 	fuel = rand(fuel_lower, fuel_upp)
 	. = ..()
 
@@ -269,7 +271,7 @@
 			damtype = BURN
 		START_PROCESSING(SSobj, src)
 
-/obj/item/flashlight/flare/on/Initialize()
+/obj/item/flashlight/flare/on/Initialize(mapload)
 	. = ..()
 	turn_on()
 
@@ -282,7 +284,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	light_range = 7
 
-/obj/item/flashlight/flare/on/illumination/Initialize()
+/obj/item/flashlight/flare/on/illumination/Initialize(mapload)
 	. = ..()
 	fuel = rand(5.0 MINUTES, 6.0 MINUTES) // Approximately half the effective duration of a flare, but justified since it's invincible
 
@@ -293,7 +295,7 @@
 	..()
 	qdel(src)
 
-/obj/item/flashlight/flare/on/illumination/ex_act(severity)
+/obj/item/flashlight/flare/on/illumination/ex_act(severity, target)
 	return //Nope
 
 
@@ -315,7 +317,7 @@
 	var/chemglow_sprite_type = "green"
 
 
-/obj/item/flashlight/flare/glowstick/Initialize()
+/obj/item/flashlight/flare/glowstick/Initialize(mapload)
 	light_color = color
 	. = ..()
 
@@ -335,7 +337,7 @@
 
 /obj/item/flashlight/flare/glowstick/red
 	name = "red glowstick"
-	color = LIGHT_COLOR_RED
+	color = COLOR_SOFT_RED
 	chemglow_sprite_type = "red"
 
 /obj/item/flashlight/flare/glowstick/green
@@ -353,7 +355,7 @@
 
 /obj/item/flashlight/flare/glowstick/yellow
 	name = "yellow glowstick"
-	color = LIGHT_COLOR_YELLOW
+	color = LIGHT_COLOR_DIM_YELLOW
 	chemglow_sprite_type = "yellow"
 
 /obj/item/flashlight/flare/glowstick/pink
@@ -374,7 +376,7 @@
 	icon_state = "random_glowstick"
 	color = null
 
-/obj/item/flashlight/flare/glowstick/random/Initialize()
+/obj/item/flashlight/flare/glowstick/random/Initialize(mapload)
 	. = ..()
 	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
 	new T(loc)
@@ -391,14 +393,6 @@
 /obj/item/flashlight/flare/torch
 	name = "torch"
 	desc = "Простейший факел, сделанный из листьев, намотанных на древесину."
-	ru_names = list(
-		NOMINATIVE = "факел",
-		GENITIVE = "факела",
-		DATIVE = "факелу",
-		ACCUSATIVE = "факел",
-		INSTRUMENTAL = "факелом",
-		PREPOSITIONAL = "факеле",
-	)
 	w_class = WEIGHT_CLASS_BULKY
 	light_range = 6
 	icon_state = "torch"
@@ -407,6 +401,16 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
+
+/obj/item/flashlight/flare/torch/get_ru_names()
+	return list(
+		NOMINATIVE = "факел",
+		GENITIVE = "факела",
+		DATIVE = "факелу",
+		ACCUSATIVE = "факел",
+		INSTRUMENTAL = "факелом",
+		PREPOSITIONAL = "факеле",
+	)
 
 /obj/item/flashlight/slime
 	gender = PLURAL
@@ -445,7 +449,7 @@
 	var/charge_tick = 0
 
 
-/obj/item/flashlight/emp/Initialize()
+/obj/item/flashlight/emp/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 

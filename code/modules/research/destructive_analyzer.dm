@@ -12,8 +12,8 @@ Note: Must be placed within 3 tiles of the R&D Console
 	base_icon_state = "d_analyzer"
 	var/decon_mod = 0
 
-/obj/machinery/r_n_d/destructive_analyzer/New()
-	..()
+/obj/machinery/r_n_d/destructive_analyzer/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -24,8 +24,8 @@ Note: Must be placed within 3 tiles of the R&D Console
 		icon_state = "syndie_d_analyzer"
 		base_icon_state = "syndie_d_analyzer"
 
-/obj/machinery/r_n_d/destructive_analyzer/upgraded/New()
-	..()
+/obj/machinery/r_n_d/destructive_analyzer/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)

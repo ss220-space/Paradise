@@ -267,7 +267,7 @@
 
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
-/obj/effect/mob_spawn/human/Initialize()
+/obj/effect/mob_spawn/human/Initialize(mapload)
 	if(ispath(outfit))
 		outfit = new outfit()
 	if(!outfit)
@@ -450,7 +450,7 @@
 /obj/effect/mob_spawn/mouse
 	name = "sleeper"
 	mob_name = "space mouse"
-	mob_type = 	/mob/living/simple_animal/mouse
+	mob_type =	/mob/living/simple_animal/mouse
 	death = FALSE
 	roundstart = FALSE
 	icon = 'icons/obj/machines/cryogenic2.dmi'
@@ -460,7 +460,7 @@
 /obj/effect/mob_spawn/cow
 	name = "sleeper"
 	mob_name = "space cow"
-	mob_type = 	/mob/living/simple_animal/cow
+	mob_type =	/mob/living/simple_animal/cow
 	death = FALSE
 	roundstart = FALSE
 	mob_gender = FEMALE
@@ -557,7 +557,7 @@
 	id_job = "Clown"
 	outfit = /datum/outfit/job/clown
 
-/obj/effect/mob_spawn/human/clown/Initialize()
+/obj/effect/mob_spawn/human/clown/Initialize(mapload)
 	mob_name = pick(GLOB.clown_names)
 	return ..()
 
@@ -565,7 +565,7 @@
 	name = "Clown Soldier"
 	outfit = /datum/outfit/clownsoldier
 
-/obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
+/obj/effect/mob_spawn/human/corpse/clownmili/Initialize(mapload)
 	mob_name = "Officer [pick(GLOB.clown_names)]"
 	return ..()
 
@@ -573,7 +573,7 @@
 	name = "Clown Officer"
 	outfit = /datum/outfit/clownofficer
 
-/obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
+/obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
 	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
 	return ..()
 
@@ -606,7 +606,7 @@
 	id_job = "Mime"
 	outfit = /datum/outfit/job/mime
 
-/obj/effect/mob_spawn/human/mime/Initialize()
+/obj/effect/mob_spawn/human/mime/Initialize(mapload)
 	mob_name = pick(GLOB.mime_names)
 	return ..()
 
@@ -808,7 +808,7 @@
 	assignedrole = "Space Bar Patron"
 
 /obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user)
-	var/despawn = tgui_alert("Вернуться в криосон? (Внимание, ваш персонаж будет удалён!)", "Выход", list("Да", "Нет"))
+	var/despawn = tgui_alert(usr, "Вернуться в криосон? (Внимание, ваш персонаж будет удалён!)", "Выход", list("Да", "Нет"))
 	if(despawn == "Нет" || !loc || !Adjacent(user))
 		return
 	user.visible_message(span_notice("[user.name] возвращается в криокамеру..."))
@@ -867,7 +867,7 @@
 	l_ear = /obj/item/radio/headset
 	gloves = /obj/item/clothing/gloves/color/black
 
-/obj/effect/mob_spawn/human/corpse/tacticool/Initialize()
+/obj/effect/mob_spawn/human/corpse/tacticool/Initialize(mapload)
 	brute_damage = rand(0, 400)
 	burn_damage = rand(0, 400)
 	return ..()
@@ -889,7 +889,7 @@
 	mask = /obj/item/clothing/mask/balaclava
 	suit = /obj/item/clothing/suit/armor/vest/combat
 
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader/Initialize()
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader/Initialize(mapload)
 	brute_damage = rand(150, 500)
 	burn_damage = rand(100, 300)
 	return ..()

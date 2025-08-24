@@ -5,8 +5,8 @@
 // In case you need to start the capture as soon as the server boots, uncomment the following lines and recompile:
 
 // /world/New()
-// 	prof_init()
-// 	. = ..()
+//	prof_init()
+//	. = ..()
 
 #ifndef PROF
 // Default automatic PROF detection.

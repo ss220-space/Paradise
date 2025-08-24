@@ -144,8 +144,9 @@
 				deplete_spell()
 				return
 			living.Knockdown(3 SECONDS)
-			living.apply_damage(30, STAMINA)
-			living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+			living.apply_damage(55, STAMINA)
+			if(!ismindshielded(living))
+				living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 			living.flash_eyes(1, TRUE)
 			if(isrobot(living))
 				var/mob/living/silicon/robot/robot = living
@@ -387,6 +388,19 @@
 	. = ..()
 	enchants = GLOB.hammer_spells
 
+/obj/item/twohanded/clock_hammer/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
+
 /obj/item/twohanded/clock_hammer/update_icon_state()
 	icon_state = "clock_hammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
@@ -487,6 +501,15 @@
 /obj/item/melee/clock_sword/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.sword_spells
+
+/obj/item/melee/clock_sword/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		afterswing_slowdown = 0, \
+		swing_sound = "blade_swing_light" \
+	)
 
 /obj/item/melee/clock_sword/update_overlays()
 	. = ..()
@@ -1187,7 +1210,7 @@
 	icon_state = "gear"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/clockwork/integration_cog/Initialize()
+/obj/item/clockwork/integration_cog/Initialize(mapload)
 	. = ..()
 	transform *= 0.5 //little cog!
 

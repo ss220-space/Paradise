@@ -203,7 +203,7 @@
 	var/static/list/not_falsey_edits = list(NAMEOF_STATIC(src, bound_width) = TRUE, NAMEOF_STATIC(src, bound_height) = TRUE)
 	if(banned_edits[var_name])
 		return FALSE //PLEASE no.
-	if(careful_edits[var_name] && (var_value % world.icon_size) != 0)
+	if(careful_edits[var_name] && (var_value % ICON_SIZE_ALL) != 0)
 		return FALSE
 	if(not_falsey_edits[var_name] && !var_value)
 		return FALSE
@@ -505,8 +505,8 @@
 			newloc.x,
 			newloc.y,
 			newloc.z,
-			min(world.maxx, newloc.x + (CEILING(bound_width / world.icon_size, 1) - 1)),
-			min(world.maxy, newloc.y + (CEILING(bound_height / world.icon_size, 1) - 1)),
+			min(world.maxx, newloc.x + (CEILING(bound_width / ICON_SIZE_X, 1) - 1)),
+			min(world.maxy, newloc.y + (CEILING(bound_height / ICON_SIZE_Y, 1) - 1)),
 			newloc.z
 		)	// If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
 		for(var/atom/entering_loc as anything in new_locs)
@@ -850,8 +850,8 @@
 					destination.x,
 					destination.y,
 					destination.z,
-					min(world.maxx, destination.x + (CEILING(bound_width / world.icon_size, 1) - 1)),
-					min(world.maxy, destination.y + (CEILING(bound_height / world.icon_size, 1) - 1)),
+					min(world.maxx, destination.x + (CEILING(bound_width / ICON_SIZE_X, 1) - 1)),
+					min(world.maxy, destination.y + (CEILING(bound_height / ICON_SIZE_Y, 1) - 1)),
 					destination.z
 				)
 				if(old_area && old_area != destarea)

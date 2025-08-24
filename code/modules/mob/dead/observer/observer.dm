@@ -494,14 +494,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(orbiting && orbiting == target)
 			return
 
-		var/icon/I = icon(target.icon,target.icon_state,target.dir)
-
-		var/orbitsize = (I.Width()+I.Height())*0.5
+		var/orbitsize = (target.get_cached_width() + target.get_cached_height()) * 0.5
 
 		if(orbitsize == 0)
 			orbitsize = 40
 
-		orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+		orbitsize -= (orbitsize / ICON_SIZE_ALL) * (ICON_SIZE_ALL * 0.25)
 
 		var/rot_seg
 

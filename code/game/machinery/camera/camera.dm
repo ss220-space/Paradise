@@ -102,10 +102,10 @@
 
 	cancelCameraAlarm()
 
-/obj/machinery/camera/ex_act(severity)
+/obj/machinery/camera/ex_act(severity, target)
 	if(invuln)
 		return
-	..()
+	return ..()
 
 /obj/machinery/camera/proc/setViewRange(num = 7)
 	view_range = num
@@ -378,7 +378,7 @@
 /atom/proc/auto_turn()
 	//Automatically turns based on nearby walls.
 	var/turf/simulated/wall/T = null
-	for(var/i = 1, i <= 8; i += i)
+	for(var/i = 1, i <= 8, i += i)
 		T = get_ranged_target_turf(src, i, 1)
 		if(istype(T))
 			//If someone knows a better way to do this, let me know. -Giacom
@@ -485,7 +485,7 @@
 	use_power = NO_POWER_USE
 	interact_offline = TRUE
 
-/obj/machinery/camera/mortar/Initialize()
+/obj/machinery/camera/mortar/Initialize(mapload)
 	c_tag = "Para-Cam ([x]):([y])"
 	. = ..()
 	QDEL_IN(src, 3 MINUTES)

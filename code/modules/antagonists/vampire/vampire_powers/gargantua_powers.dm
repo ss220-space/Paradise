@@ -98,12 +98,14 @@
 	if(!HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
 		to_chat(user, span_userdanger("ВЫ ЧУВСТВУЕТЕ СЕБЯ СИЛЬНЕЕ!"))
 		ADD_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+		ADD_TRAIT(user, TRAIT_DEFLECT_BOLAS, VAMPIRE_TRAIT)
 		user.status_flags &= ~CANPUSH
 		user.move_resist = MOVE_FORCE_STRONG
 
 	else
 		to_chat(user, span_warning("Вы чувствуете себя слабее..."))
 		REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+		REMOVE_TRAIT(user, TRAIT_DEFLECT_BOLAS, VAMPIRE_TRAIT)
 		user.move_resist = MOVE_FORCE_DEFAULT
 		user.status_flags |= CANPUSH
 
@@ -161,7 +163,12 @@
 
 /obj/projectile/magic/demonic_grasp
 	name = "demonic grasp"
-	ru_names = list(
+	// parry this you filthy casual
+	reflectability = REFLECTABILITY_NEVER
+	icon_state = null
+
+/obj/projectile/magic/demonic_grasp/get_ru_names()
+	return list(
             NOMINATIVE = "демоническая хватка",
             GENITIVE = "демонической хватки",
             DATIVE = "демонической хватке",
@@ -169,10 +176,6 @@
             INSTRUMENTAL = "демонической хваткой",
             PREPOSITIONAL = "демонической хватке"
         )
-	// parry this you filthy casual
-	reflectability = REFLECTABILITY_NEVER
-	icon_state = null
-
 
 /obj/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
 	. = ..()
