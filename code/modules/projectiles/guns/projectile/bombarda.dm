@@ -18,7 +18,7 @@
 
 
 /obj/item/gun/projectile/bombarda/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/ammo_box) || istype(item, /obj/item/ammo_casing))
+	if(istype(item, /obj/item/ammo_casing))
 		add_fingerprint(user)
 		if(!opened)
 			balloon_alert(user, "необходимо открыть")
