@@ -37,10 +37,11 @@
 
 /obj/item/gun/projectile/bombarda/update_icon_state()
 	icon_state = initial(icon_state) + (opened ?  "_open" : "")
+	item_state = initial(item_state) + (opened ?  "_open" : "")
 
 
 /obj/item/gun/projectile/bombarda/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
-	..(FALSE, FALSE)
+	..(FALSE, empty_chamber)
 
 
 /obj/item/gun/projectile/bombarda/chamber_round()
@@ -70,17 +71,37 @@
 	if(opened)
 		return FALSE
 	opened = TRUE
-	if(chambered)
-		chambered.forceMove(drop_location())
-		chambered.SpinAnimation(5, 1)
-		chambered.pixel_x = rand(-10, 10)
-		chambered.pixel_y = rand(-10, 10)
-		chambered.setDir(pick(GLOB.alldirs))
-		playsound(chambered.loc, chambered.casing_drop_sound, 60, TRUE)
-		chambered = null
+	chambered = null
+	var/atom/drop_loc = drop_location()
+	while(get_ammo() > 0)
+		var/obj/item/ammo_casing/casing
+		casing = magazine.get_round(FALSE)
+		if(!casing)
+			continue
+		casing.forceMove(drop_loc)
+		casing.pixel_x = rand(-10, 10)
+		casing.pixel_y = rand(-10, 10)
+		casing.setDir(pick(GLOB.alldirs))
+		casing.update_appearance()
+		casing.SpinAnimation(10, 1)
+		playsound(drop_loc, casing.casing_drop_sound, 60, TRUE)
 	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
 	update_icon()
 	return TRUE
+
+/obj/item/gun/projectile/bombarda/chamber_round(spin = TRUE)
+	if(!magazine)
+		return
+	if(spin)
+		chambered = magazine.get_round(TRUE)
+		return
+	if(!length(magazine.stored_ammo))
+		return
+	chambered = magazine.stored_ammo[1]
+
+/obj/item/gun/projectile/bombarda/secgl/x4/shoot_with_empty_chamber(mob/living/user)
+	..()
+	chamber_round(TRUE)
 
 
 /obj/item/gun/projectile/bombarda/proc/close_pump(mob/user)
@@ -88,7 +109,7 @@
 		return FALSE
 	opened = FALSE
 	if(!chambered)
-		chambered = magazine.get_round()
+		chambered = magazine.get_round(TRUE)
 	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
 	update_icon()
 	return TRUE
@@ -115,6 +136,26 @@
 	recoil = GUN_RECOIL_HIGH
 
 
+/obj/item/gun/projectile/bombarda/secgl/x4
+	name = "grenade launcher GL-08-4"
+	desc = "Четырехзарядный ручной гранатомёт, разработанный специально для сотрудников службы безопасности. Примеяется для подавления беспорядков с помощью нелетальных боеприпасов. Может запускать 40 мм гранаты."
+	ru_names = list(
+		NOMINATIVE = "ручной гранатомет GL-08-4",
+		GENITIVE = "ручного гранатомета GL-08-4",
+		DATIVE = "ручному гранатомету GL-08-4",
+		ACCUSATIVE = "ручной гранатомет GL-08-4",
+		INSTRUMENTAL = "ручным гранатометом GL-08-4",
+		PREPOSITIONAL = "ручном гранатомете GL-08-4"
+	)
+	icon_state = "secgl_4"
+	item_state = "secgl_4"
+	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/secgl/x4
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_HIGH
+
+
 // MARK: M79
 /obj/item/gun/projectile/bombarda/secgl/m79
 	name = "grenade launcher M79"
@@ -131,6 +172,24 @@
 	item_state = "m79"
 
 
+// MARK: Bombplet
+
+/obj/item/gun/projectile/bombarda/bombplet
+	name = "bombplet"
+	desc = "Двуствольная самодельная бомбарда. Использует 40 мм гранаты."
+	ru_names = list(
+		NOMINATIVE = "самодельный двуствольный гранатомет",
+		GENITIVE = "самодельного двуствольного гранатомета",
+		DATIVE = "самодельному двуствольному гранатомету",
+		ACCUSATIVE = "самодельный двуствольный гранатомет",
+		INSTRUMENTAL = "самодельным двуствольным гранатометом",
+		PREPOSITIONAL = "самодельном двуствольном гранатомете"
+	)
+	icon_state = "bombplet"
+	item_state = "bombplet"
+	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/x2
+
+
 // MARK: Bombarda ammo
 /obj/item/ammo_box/magazine/internal/bombarda
 	name = "bombarda internal magazine"
@@ -142,6 +201,8 @@
 	load_sound = 'sound/weapons/bombarda/load.ogg'
 	start_empty = TRUE
 
+/obj/item/ammo_box/magazine/internal/bombarda/x2
+	max_ammo = 2
 
 /obj/item/ammo_box/magazine/internal/bombarda/ammo_count(countempties = TRUE)
 	. = 0
@@ -297,6 +358,9 @@
 	remove_sound = 'sound/weapons/bombarda/open.ogg'
 	load_sound = 'sound/weapons/bombarda/load.ogg'
 	start_empty = TRUE
+
+/obj/item/ammo_box/magazine/internal/bombarda/secgl/x4
+	max_ammo = 4
 
 /obj/item/ammo_casing/grenade/a40mm/secgl
 	name = "40mm grenade"
