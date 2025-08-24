@@ -154,7 +154,12 @@
 	weapon_weight = WEAPON_HEAVY
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
+	var/high_risk = TRUE
 
+/obj/item/gun/projectile/bombarda/secgl/x4/Initialize(mapload, ...)
+	. = ..()
+	if(high_risk)
+		AddElement(/datum/element/high_value_item)
 
 // MARK: M79
 /obj/item/gun/projectile/bombarda/secgl/m79
@@ -286,23 +291,19 @@
 	subcategory = CAT_WEAPON
 	always_availible = FALSE
 
-/datum/crafting_recipe/bombplet
-	name = "Bombplet"
-	result = /obj/item/gun/projectile/bombarda/bombplet
-	reqs = list(/obj/item/restraints/handcuffs/cable = 2,
-				/obj/item/stack/tape_roll = 10,
-				/obj/item/gun/projectile/bombarda = 2)
-	time = 6 SECONDS
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-	always_availible = FALSE
+// No fun allowed: https://github.com/ss220-space/Paradise/pull/7473#issuecomment-3217889330
+// /datum/crafting_recipe/bombplet
+// 	name = "Bombplet"
+// 	result = /obj/item/gun/projectile/bombarda/bombplet
+// 	reqs = list(/obj/item/restraints/handcuffs/cable = 2,
+// 				/obj/item/stack/tape_roll = 10,
+// 				/obj/item/gun/projectile/bombarda = 2)
+// 	time = 6 SECONDS
+// 	category = CAT_WEAPONRY
+// 	subcategory = CAT_WEAPON
+// 	always_availible = FALSE
 
 /datum/crafting_recipe/bombarda/New()
-	. = ..()
-	if(CONFIG_GET(flag/enable_bombarda_craft))
-		always_availible = TRUE
-
-/datum/crafting_recipe/bombplet/New()
 	. = ..()
 	if(CONFIG_GET(flag/enable_bombarda_craft))
 		always_availible = TRUE
