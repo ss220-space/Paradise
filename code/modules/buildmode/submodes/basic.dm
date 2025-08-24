@@ -19,32 +19,36 @@
 	var/alt_click = LAZYACCESS(modifiers, ALT_CLICK)
 	var/ctrl_click = LAZYACCESS(modifiers, CTRL_CLICK)
 
-	if(istype(object,/turf) && left_click && !alt_click && !ctrl_click)
-		var/turf/T = object
-		if(isspaceturf(object) || istype(object,/turf/simulated/openspace))
-			T.ChangeTurf(/turf/simulated/floor/plasteel)
+	if(istype(object, /turf) && left_click && !alt_click && !ctrl_click)
+		var/turf/clicked_turf = object
+		if(isspaceturf(object) || istype(object, /turf/simulated/openspace))
+			clicked_turf.ChangeTurf(/turf/simulated/floor/plasteel)
 		else if(isfloorturf(object))
-			T.ChangeTurf(/turf/simulated/wall)
+			clicked_turf.ChangeTurf(/turf/simulated/wall)
 		else if(iswallturf(object))
-			T.ChangeTurf(/turf/simulated/wall/r_wall)
-		log_admin("Build Mode: [key_name(user)] built [T] at [AREACOORD(T)]")
+			clicked_turf.ChangeTurf(/turf/simulated/wall/r_wall)
+		log_admin("Build Mode: [key_name(user)] built [clicked_turf] at [AREACOORD(clicked_turf)]")
 	else if(right_click)
 		log_admin("Build Mode: [key_name(user)] deleted [object] at [AREACOORD(object)]")
 		if(iswallturf(object))
-			var/turf/T = object
-			T.ChangeTurf(/turf/simulated/floor/plasteel)
+			var/turf/clicked_turf = object
+			clicked_turf.ChangeTurf(/turf/simulated/floor/plasteel)
 		else if(isfloorturf(object))
-			var/turf/T = object
-			T.ChangeTurf(T.baseturf)
+			var/turf/clicked_turf = object
+			clicked_turf.ChangeTurf(clicked_turf.baseturf)
 		else if(isreinforcedwallturf(object))
-			var/turf/T = object
-			T.ChangeTurf(/turf/simulated/wall)
+			var/turf/clicked_turf = object
+			clicked_turf.ChangeTurf(/turf/simulated/wall)
 		else if(isobj(object))
 			qdel(object)
-	else if(istype(object,/turf) && alt_click && left_click)
+	else if(istype(object, /turf) && alt_click && left_click)
 		log_admin("Build Mode: [key_name(user)] built an airlock at [AREACOORD(object)]")
 		new/obj/machinery/door/airlock(get_turf(object))
-	else if(istype(object,/turf) && ctrl_click && left_click)
-		var/obj/structure/window/reinforced/WIN = new/obj/structure/window/reinforced(get_turf(object))
-		WIN.setDir(BM.build_dir)
+	else if(istype(object, /turf) && ctrl_click && left_click)
+		var/obj/structure/window/reinforced/window
+		if(BM.build_dir in GLOB.diagonals)
+			window = new /obj/structure/window/reinforced/fulltile(get_turf(object))
+		else
+			window = new /obj/structure/window/reinforced(get_turf(object))
+			window.setDir(BM.build_dir)
 		log_admin("Build Mode: [key_name(user)] built a window at [AREACOORD(object)]")
