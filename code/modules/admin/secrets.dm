@@ -103,23 +103,6 @@
 					<b>Thunderdome</b><br>
 					<a href='byond://?src=[UID()];secretsfun=tdomestart'>Start a Thunderdome match</a>&nbsp;&nbsp;
 					<a href='byond://?src=[UID()];secretsfun=tdomereset'>Reset Thunderdome to default state</a><br><br>"}
-					/*	У нас не используется
-				dat+= {"<b>ERT Armory</b><br>
-					<a href='byond://?src=[UID()];secretsfun=armotyreset'>Reset Armory to default state</a><br><br>
-					<a href='byond://?src=[UID()];secretsfun=armotyreset1'>Set Armory to 1 option</a><br><br>
-					<a href='byond://?src=[UID()];secretsfun=armotyreset2'>Set Armory to 2 option</a><br><br>
-					<a href='byond://?src=[UID()];secretsfun=armotyreset3'>Set Armory to 3 option</a><br><br>
-					<b>Clothing</b><br>"}
-					*/
-			if(check_rights(R_SKINS, FALSE))
-				dat += {"
-					<center>
-					<b>Borg Skin Permision</b><br>
-					<br>
-					<a href='byond://?src=[UID()];secretsfun=borg_skins'>Toggle global borg skin permision(now [GLOB.all_robot_skins_permited? "ON":"OFF"])</a><br>
-					<br>
-					</center>
-					"}
 				dat+={"<b>Clothes</b><br>
 					<a href='byond://?src=[UID()];secretsfun=sec_clothes'>Remove 'internal' clothing</a>&nbsp;&nbsp;
 					<a href='byond://?src=[UID()];secretsfun=sec_all_clothes'>Remove ALL clothing</a><br>
@@ -139,6 +122,7 @@
 					<a href='byond://?src=[UID()];secretsfun=customportal'>Spawn a custom portal storm</a><br>
 					<a href='byond://?src=[UID()];secretsfun=mass_mindswap'>Mass mindswap</a><br>
 					<b>Misc</b><br>
+					<a href='byond://?src=[UID()];secretsfun=borg_skins'>Toggle global borg skin permision(now [GLOB.all_robot_skins_permited? "ON":"OFF"])</a><br>
 					<a href='byond://?src=[UID()];secretsfun=sec_classic1'>Remove firesuits, grilles, and pods</a>&nbsp;&nbsp;
 					<a href='byond://?src=[UID()];secretsfun=tripleAI'>Triple AI mode (needs to be used in the lobby)</a><br>
 					<a href='byond://?src=[UID()];secretsfun=flicklights'>Ghost Mode</a>&nbsp;&nbsp;
