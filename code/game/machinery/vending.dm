@@ -855,7 +855,7 @@
 	. = ..()
 	if(.)
 		return
-	if(issilicon(usr))
+	if(issilicon(usr) && !isrobot(usr))
 		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается взаимодействовать с вами, поскольку вы не входите в его целевую аудиторию!"))
 		return
 	switch(action)
@@ -923,6 +923,12 @@
 				// Skip all payment logic.
 				vend(R, usr)
 				add_fingerprint(usr)
+				vend_ready = TRUE
+				. = TRUE
+				return
+
+			if(issilicon(usr))
+				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается продавать вам товар, поскольку вы не входите в его целевую аудиторию!"))
 				vend_ready = TRUE
 				. = TRUE
 				return
