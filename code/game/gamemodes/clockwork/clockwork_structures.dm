@@ -180,6 +180,7 @@
 				L.AdjustBlood(1)
 
 
+
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
 	STOP_PROCESSING(SSobj, src)

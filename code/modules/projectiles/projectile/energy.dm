@@ -408,3 +408,6 @@
 	if(issilicon(target))
 		target.emp_act(EMP_HEAVY)
 	. = ..()
+
+/obj/projectile/beam/laser/light/rat
+	icon_state = "brasslaser"

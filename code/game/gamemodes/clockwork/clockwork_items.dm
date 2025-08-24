@@ -692,7 +692,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
 	can_charge = FALSE
 	pb_knockback = 2
-	cell_type = /obj/item/stock_parts/cell/rat_shotgun
+	cell_type = /obj/item/stock_parts/cell/clock/shotgun
 	var/charge_rate = 4
 	var/charge_speed = 5 SECONDS
 	var/haveKnockback = TRUE
@@ -805,7 +805,7 @@
 	can_charge = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
-	cell_type = /obj/item/stock_parts/cell/rat_sniper
+	cell_type = /obj/item/stock_parts/cell/clock/sniper
 	charge_rate = 1
 	recoil = 2
 	charge_speed = 10 SECONDS
@@ -827,6 +827,70 @@
 		INSTRUMENTAL = "латунной снайперской винтовкой",
 		PREPOSITIONAL = "латунной снайперской винтовке",
 	)
+
+/obj/item/gun/energy/gun/minigun/clockwork
+	name = "brass minigun"
+	desc = "Устройство из множества шестеренок и латунных запчастей. Выглядит устрашающе."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clockgun"
+	item_state = "clockgun"
+	burst_size = 1
+	selfcharge = FALSE
+	cell_type = /obj/item/stock_parts/cell/clock/minigun
+	isclockwork = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/light/rat)
+	var/datum/component/automatic_fire/autofire
+	var/overheat = FALSE
+	var/last_fire = 0
+	var/delay_no_beacon = 50
+	var/gun_charge_delay = 20
+	var/last_charge = 0
+	recoil = new /datum/gun_recoil/high()
+
+/obj/item/gun/energy/gun/minigun/clockwork/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSprocessing, src)
+
+/obj/item/gun/energy/gun/minigun/clockwork/process()
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+	var/obj/structure/clockwork/functional/beacon/beacon_near = locate() in range(5, src.loc)
+	if(last_fire == 0)
+		return
+	if(!(world.time >= last_fire + delay_no_beacon) && isnull(beacon_near))
+		return
+	if(!(world.time >= last_charge + gun_charge_delay))
+		return
+	cell.charge = min(cell.charge + 50, cell.maxcharge)
+	last_charge = world.time
+
+/obj/item/gun/energy/gun/minigun/clockwork/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.1 SECONDS \
+		 )
+	autofire = src.GetComponent(/datum/component/automatic_fire)
+
+/obj/item/gun/energy/gun/minigun/clockwork/update_overlays()
+	if(overheat)
+		. += "overheat"
+
+/obj/item/gun/energy/gun/minigun/clockwork/update_icon_state()
+	if(autofire.autofire_stat == AUTOFIRE_STAT_FIRING)
+		icon_state = "clockgun_firing"
+	else
+		icon_state = "clockgun"
+
+/obj/item/gun/energy/gun/minigun/clockwork/pickup(mob/user)
+	if(isclocker(user))
+		return ..()
+	user.drop_item_ground(src, TRUE)
+	var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
+
+/obj/item/gun/energy/gun/minigun/clockwork/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	. = ..()
+	last_fire = world.time
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe

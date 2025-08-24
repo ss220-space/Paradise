@@ -575,3 +575,7 @@
 /obj/item/ammo_casing/energy/rat/snipe/stun
 	projectile_type = /obj/projectile/energy/rat/snipe/stun
 	fire_sound =  'sound/weapons/gunshots/gunshot_mg.ogg'
+
+/obj/item/ammo_casing/energy/laser/light/rat
+	projectile_type = /obj/projectile/beam/laser/light/rat
+	e_cost = 1

@@ -28,22 +28,12 @@
 	// For custom overlays.
 	var/overlay_charged = "cell-o2"
 
-/obj/item/stock_parts/cell/rat_shotgun
+/obj/item/stock_parts/cell/clock
 	name = "brass power cell"
-	ru_names = list(
-		NOMINATIVE = "латунная батарейка",
-		GENITIVE = "латунной батарейки",
-		DATIVE = "латунной батарейке",
-		ACCUSATIVE = "латунную батарейку",
-		INSTRUMENTAL = "латунной батарейкой",
-		PREPOSITIONAL = "латунной батарейке"
-	)
-	maxcharge = 10
 	desc = "Элемент, вырабатывающий энергию для оружия культистов Ратвара, однако бесполезен в других целях. Предназначен для дробовика."
 
-/obj/item/stock_parts/cell/rat_sniper
-	name = "brass power cell"
-	ru_names = list(
+/obj/item/stock_parts/cell/clock/get_ru_names()
+	return list(
 		NOMINATIVE = "латунная батарейка",
 		GENITIVE = "латунной батарейки",
 		DATIVE = "латунной батарейке",
@@ -51,8 +41,15 @@
 		INSTRUMENTAL = "латунной батарейкой",
 		PREPOSITIONAL = "латунной батарейке"
 	)
+
+/obj/item/stock_parts/cell/clock/shotgun
+	maxcharge = 10
+
+/obj/item/stock_parts/cell/clock/sniper
 	maxcharge = 5
-	desc = "Элемент, вырабатывающий энергию для оружия культистов Ратвара, однако бесполезен в других целях. Предназначен для снайперской винтовки."
+
+/obj/item/stock_parts/cell/clock/minigun
+	maxcharge = 250
 
 /obj/item/stock_parts/cell/laser
 	maxcharge = 1500
