@@ -112,7 +112,6 @@
 			if(client.is_afk())
 				line += " (AFK)"
 
-		line += "<br>"
 		if(check_rights(R_ADMIN, FALSE, client.mob)) // Is this client an admin?
 			if(client?.holder?.fakekey && !check_rights(R_ADMIN, FALSE)) // Only admins can see stealthmins
 				continue
@@ -137,19 +136,19 @@
 
 	var/list/final_message = list()
 	if(num_admins_online)
-		final_message += "<b>Админов онлайн ([num_admins_online]):</b><br>"
+		final_message += "<b>Админов онлайн ([num_admins_online]):</b>"
 		final_message += adminmsg
 		final_message += "<br>"
 	if(num_moderator_online)
-		final_message += "<b>Модераторов онлайн ([num_moderator_online]):</b><br>"
+		final_message += "<b>Модераторов онлайн ([num_moderator_online]):</b>"
 		final_message += moderatormsg
 		final_message += "<br>"
 	if(num_mentors_online)
-		final_message += "<b>Менторов онлайн ([num_mentors_online]):</b><br>"
+		final_message += "<b>Менторов онлайн ([num_mentors_online]):</b>"
 		final_message += mentormsg
 		final_message += "<br>"
 	if(num_devs_online)
-		final_message += "<b>Разработчиков онлайн ([num_devs_online]):</b><br>"
+		final_message += "<b>Разработчиков онлайн ([num_devs_online]):</b>"
 		final_message += devmsg
 		final_message += "<br>"
 	if(!num_admins_online || !num_moderator_online || !num_mentors_online)
