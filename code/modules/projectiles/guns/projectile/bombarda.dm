@@ -286,7 +286,23 @@
 	subcategory = CAT_WEAPON
 	always_availible = FALSE
 
+/datum/crafting_recipe/bombplet
+	name = "Bombplet"
+	result = /obj/item/gun/projectile/bombarda/bombplet
+	reqs = list(/obj/item/restraints/handcuffs/cable = 2,
+				/obj/item/stack/tape_roll = 10,
+				/obj/item/gun/projectile/bombarda = 2)
+	time = 6 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_availible = FALSE
+
 /datum/crafting_recipe/bombarda/New()
+	. = ..()
+	if(CONFIG_GET(flag/enable_bombarda_craft))
+		always_availible = TRUE
+
+/datum/crafting_recipe/bombplet/New()
 	. = ..()
 	if(CONFIG_GET(flag/enable_bombarda_craft))
 		always_availible = TRUE
