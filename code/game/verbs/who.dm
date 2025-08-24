@@ -121,19 +121,19 @@
 				continue
 
 			num_admins_online++
-			adminmsg += jointext(line, "\n")
+			adminmsg += jointext(line, "")
 
 		else if(check_rights(R_MOD, FALSE, client.mob)) // Is this client a moderator?
 			num_moderator_online++
-			moderatormsg += jointext(line, "\n")
+			moderatormsg += jointext(line, "")
 
 		else if(check_rights(R_MENTOR, FALSE, client.mob)) // Is this client a mentor?
 			num_mentors_online++
-			mentormsg += jointext(line, "\n")
+			mentormsg += jointext(line, "")
 
 		else if(check_rights(R_DEV_TEAM, FALSE, client.mob)) // Is this client a developer?
 			num_devs_online++
-			devmsg += jointext(line, "\n")
+			devmsg += jointext(line, "")
 
 	var/list/final_message = list()
 	if(num_admins_online)
