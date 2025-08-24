@@ -585,3 +585,9 @@
 	cost = 1
 	index_name = "blue kunoichi clothes"
 	path = /obj/item/clothing/under/martialsuit/bluekunoichi
+
+/datum/gear/donor/meta_banhammer
+	donator_tier = 4
+	cost = 1
+	index_name = "banhammer"
+	path = /obj/item/clothing/under/martialsuit/bluekunoichi
