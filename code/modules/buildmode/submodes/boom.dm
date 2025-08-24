@@ -17,8 +17,8 @@
 
 /datum/buildmode_mode/boom/show_help(mob/builder)
 	to_chat(builder, span_purple(chat_box_examine(
-		"[span_bold("Set explosion destructiveness")] -> Right Mouse Button on buildmode button\n\
-		[span_bold("Kaboom")] -> ЛКМ на obj\n\n\
+		"[span_bold("Установить силу взрыва")] -> ПКМ по кнопке buildmode\n\
+		[span_bold("KABOOM")] -> ЛКМ на obj\n\n\
 		[span_warning("ПРИМЕЧАНИЕ:")] Использование кнопки \"Event/Launch Supplypod\" позволит вам сделать это в IC поле (т. е. заставить крылатую ракету упасть с неба и взорваться там, где вы щелкнете!)"))
 	)
 

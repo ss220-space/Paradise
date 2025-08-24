@@ -4,12 +4,12 @@
 
 /datum/buildmode_mode/advanced/show_help(mob/builder)
 	to_chat(builder, span_purple(chat_box_examine(
-		"[span_bold("Set object type")] -> Right Mouse Button on buildmode button\n\
-		[span_bold("Copy object type")] -> Left Mouse Button + Alt on turf/obj\n\
-		[span_bold("Place objects")] -> Left Mouse Button on turf/obj\n\
-		[span_bold("Delete objects")] -> Right Mouse Button\n\
+		"[span_bold("Установите тип объекта")] -> ПКМ по кнопке buildmode\n\
+		[span_bold("Копировать тип объекта")] -> Alt на turf/obj + ЛКМ\n\
+		[span_bold("Разместить объект")] -> ЛКМ на turf/obj\n\
+		[span_bold("Удалить объект")] -> ПКМ\n\
 		\n\
-		Use the button in the upper left corner to change the direction of built objects."))
+		Чтобы изменить направление созданных объектов, нажмите на кнопку в верхнем левом углу экрана."))
 	)
 
 /datum/buildmode_mode/advanced/change_settings(mob/user)
@@ -28,6 +28,7 @@
 
 /datum/buildmode_mode/advanced/handle_click(user, params, obj/object)
 	var/list/modifiers = params2list(params)
+
 	var/left_click = LAZYACCESS(modifiers, LEFT_CLICK)
 	var/right_click = LAZYACCESS(modifiers, RIGHT_CLICK)
 	var/alt_click = LAZYACCESS(modifiers, ALT_CLICK)

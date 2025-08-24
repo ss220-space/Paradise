@@ -8,8 +8,8 @@
 
 /datum/buildmode_mode/copy/show_help(mob/builder)
 	to_chat(builder, span_purple(chat_box_examine(
-		"[span_bold("Spawn a copy of selected target")] -> Left Mouse Button on obj/turf/mob\n\
-		[span_bold("Select target to copy")] -> Right Mouse Button on obj/mob"))
+		"[span_bold("Создать копию выбранной цели")] -> ЛКМ на obj/turf/mob\n\
+		[span_bold("Выбрать цель для копирования")] -> ПКМ на obj/mob"))
 	)
 
 /datum/buildmode_mode/copy/handle_click(user, params, obj/object)

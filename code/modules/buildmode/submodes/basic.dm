@@ -3,12 +3,12 @@
 
 /datum/buildmode_mode/basic/show_help(mob/builder)
 	to_chat(builder, span_purple(chat_box_examine(
-		"[span_bold("Construct / Upgrade")] -> Left Mouse Button\n\
-		[span_bold("Deconstruct / Delete / Downgrade")] -> Right Mouse Button\n\
-		[span_bold("R-Window")] -> Left Mouse Button + Ctrl\n\
-		[span_bold("Airlock")] -> Left Mouse Button + Alt \n\
+		"[span_bold("Строительство / Улучшение")] -> ЛКМ\n\
+		[span_bold("Разобрать / Удалить / Ухудшение")] -> ПКМ\n\
+		[span_bold("Укреплённое окно")] -> ЛКМ + Ctrl\n\
+		[span_bold("Шлюз")] -> ЛКМ + Alt \n\
 		\n\
-		Use the button in the upper left corner to change the direction of built objects."))
+		Используйте кнопку в левом верхнем углу, чтобы изменить направление построенных объектов."))
 	)
 
 /datum/buildmode_mode/basic/handle_click(user, params, obj/object)
