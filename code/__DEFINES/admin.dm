@@ -45,11 +45,10 @@
 #define R_MENTOR (1<<14)
 #define R_PROCCALL (1<<15)
 #define R_VIEWRUNTIMES (1<<16)
-#define R_DEV_TEAM (1<<17) // Only for display in adminwho() and devsay
-#define R_SKINS (1<<18) // To access sex skins for robots
+#define R_SKINS (1<<17) // To access sex skins for robots
 
 /// This holds the maximum value for a permission. It is used in iteration, so keep it updated.
-#define R_MAXPERMISSION (1<<18)
+#define R_MAXPERMISSION (1<<17)
 
 /// Sum of all permissions to allow easy setting.
 #define R_HOST (~0)

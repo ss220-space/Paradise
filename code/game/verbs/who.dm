@@ -131,7 +131,7 @@
 			num_mentors_online++
 			mentormsg += jointext(line, "")
 
-		else if(check_rights(R_DEV_TEAM, FALSE, client.mob)) // Is this client a developer?
+		else if(check_rights(R_VIEWRUNTIMES, FALSE, client.mob)) // Is this client a developer?
 			num_devs_online++
 			devmsg += jointext(line, "")
 

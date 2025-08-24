@@ -270,7 +270,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
-#define is_developer(user) (check_rights(R_DEV_TEAM, FALSE, user))
+#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
 
 // Locations
 #define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))

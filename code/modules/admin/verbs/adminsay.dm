@@ -104,7 +104,7 @@
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Msay")
 
 /client/proc/get_dev_team_say()
-	if(check_rights(R_VIEWRUNTIMES | R_ADMIN | R_DEV_TEAM))
+	if(check_rights(R_VIEWRUNTIMES | R_ADMIN))
 		var/msg = tgui_input_text(src, null, "devsay \"text\"", encode = FALSE)
 		cmd_dev_say(msg)
 
@@ -112,7 +112,7 @@
 	set name = "Devsay"
 	set hidden = TRUE
 
-	if(!check_rights(R_VIEWRUNTIMES | R_ADMIN | R_DEV_TEAM)) // Catch any non-admins trying to use this proc
+	if(!check_rights(R_VIEWRUNTIMES | R_ADMIN)) // Catch any non-admins trying to use this proc
 		return
 
 	msg = handleDiscordEmojis(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
@@ -126,7 +126,7 @@
 	mob.create_log(OOC_LOG, "DEVSAY: [msg]")
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_VIEWRUNTIMES | R_ADMIN | R_DEV_TEAM, FALSE, C.mob))
+		if(check_rights(R_VIEWRUNTIMES | R_ADMIN, FALSE, C.mob))
 			var/display_name = key
 			if(holder.fakekey)
 				if(C.holder && C.holder.rights & R_ADMIN)
