@@ -96,7 +96,7 @@
 	switch_state = BM_SWITCHSTATE_NONE
 	holder.screen -= dirswitch_buttons
 
-/datum/buildmode/proc/preview_selected_item(atom/typepath)
+/datum/click_intercept/buildmode/proc/preview_selected_item(atom/typepath)
 	close_preview()
 	preview = new /atom/movable/screen/buildmode/preview_item(src)
 	preview.name = initial(typepath.name)
@@ -110,7 +110,7 @@
 
 	holder.screen += preview
 
-/datum/buildmode/proc/close_preview()
+/datum/click_intercept/buildmode/proc/close_preview()
 	if(isnull(preview))
 		return
 	holder.screen -= preview
