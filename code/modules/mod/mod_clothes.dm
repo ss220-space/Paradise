@@ -34,6 +34,7 @@
 	icon_state = "[control.skin]-[base_icon_state][not_sealed ? "" : "-sealed"]"
 
 /obj/item/clothing/head/mod/update_name(updates = ALL)
+	. = ..()
 	if(!control)
 		return
 	if(!ru_names)
@@ -144,6 +145,8 @@
 	icon_state = "[control.skin]-[base_icon_state][not_sealed ? "" : "-sealed"]"
 
 /obj/item/clothing/gloves/mod/update_name(updates = ALL)
+	. = ..()
+
 	if(!control)
 		return
 	if(!ru_names)
@@ -195,6 +198,8 @@
 	icon_state = "[control.skin]-[base_icon_state][not_sealed ? "" : "-sealed"]"
 
 /obj/item/clothing/shoes/mod/update_name(updates = ALL)
+	. = ..()
+
 	if(!control)
 		return
 	if(!ru_names)
